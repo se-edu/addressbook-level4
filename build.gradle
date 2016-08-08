@@ -5,11 +5,6 @@
  * user guide available at http://gradle.org/docs/2.2.1/userguide/tutorial_java_projects.html
  */
 
-plugins {
-    id "com.github.kt3k.coveralls" version "2.4.0"
-    id 'com.github.johnrengelman.shadow' version '1.2.3'
-}
-
 allprojects {
     version = 'V1.6.1ea'
 
@@ -25,7 +20,6 @@ allprojects {
     findbugs {
         excludeFilter = file("${projectDir}/config/findbugs/excludeFilter.xml")
     }
-    apply plugin: 'jacoco'
 
     sourceCompatibility = JavaVersion.VERSION_1_8
     targetCompatibility = JavaVersion.VERSION_1_8
@@ -51,88 +45,25 @@ allprojects {
         testFxVersion = '3.1.0'
         monocleVersion = '1.8.0_20'
         slf4jSimpleVersion = '1.6.4'
-        commonsIoVersion = '2.4'
 
-        // Commons and Updater versions to be updated here on release
-        commonsArchiveName = 'commons-0.0.2.jar'
-
-        mainAppArchiveName = 'resource-' + project.version + '.jar'
-        mainAppMainClass = 'address.MainApp'
-
-        installerArchiveName = 'installer-' + project.version + '.jar'
-        installerMainClass = 'installer.Installer'
-
-        launcherArchiveName = 'addressbook-' + project.version + '.jar'
-        launcherMainClass = 'launcher.Launcher'
-
-        generateVersionDataMainClass = 'address.util.VersionDataGenerator'
         libDir = 'lib'
     }
 
-    jacocoTestReport {
-        reports {
-            xml.enabled false
-            csv.enabled false
-            html.destination "${buildDir}/jacocoHtml"
-        }
-    }
-
-    sourceSets {
-        main {
-            java {
-                srcDir 'src/main/java'
-                include('address/**/*')
-                include('hubturbo/**/*')
-                include('commons/**/*')
-            }
-            resources {
-                srcDir 'src/main/resources'
-            }
-        }
-        commons {
-            java {
-                srcDir 'src/main/java'
-                include('commons/**/*')
-            }
-        }
-        installer {
-            java {
-                srcDir 'src/main/java/'
-                include('installer/**/*')
-                include('commons/**/*')
-            }
-            resources {
-                srcDir "."
-                include("$libDir/*")
-                include("$launcherArchiveName")
-                include('VersionData.json')
-            }
-        }
-        launcher {
-            java {
-                srcDir 'src/main/java'
-                include('launcher/**/*')
-            }
-        }
-        generateVersionData {
-            java {
-                srcDir 'src/main/java/'
-            }
-        }
-    }
 
     dependencies {
         compile "org.apache.logging.log4j:log4j-api:$log4jVersion"
         compile "org.apache.logging.log4j:log4j-core:$log4jVersion"
         compile "org.slf4j:slf4j-simple:$slf4jSimpleVersion" // Required to suppress warning, for jkeymaster, see http://www.slf4j.org/codes.html#StaticLoggerBinder
-        compile "commons-io:commons-io:$commonsIoVersion"
         compile "org.controlsfx:controlsfx:$controlsFxVersion"
         compile "com.fasterxml.jackson.core:jackson-databind:$jacksonVersion"
         compile "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:$jacksonDataTypeVersion"
         compile "com.google.guava:guava:$guavaVersion"
         compile "org.controlsfx:controlsfx:$controlsFxVersion"
         compile "com.github.tulskiy:jkeymaster:$jKeyMasterVersion"
-        compile files("$libDir/$commonsArchiveName")
+        compile "com.fasterxml.jackson.core:jackson-databind:$jacksonVersion"
+        compile "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:$jacksonDataTypeVersion"
+        compile "org.apache.logging.log4j:log4j-api:$log4jVersion"
+        compile "org.apache.logging.log4j:log4j-core:$log4jVersion"
 
         testCompile "junit:junit:$junitVersion"
         testCompile "org.testfx:testfx-core:4.0.+"
@@ -140,53 +71,7 @@ allprojects {
         testCompile "org.testfx:testfx-legacy:4.0.+", {
             exclude group: "junit", module: "junit"
         }
-
         testCompile "org.testfx:openjfx-monocle:$monocleVersion"
-
-        installerCompile "com.fasterxml.jackson.core:jackson-databind:$jacksonVersion"
-        installerCompile "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:$jacksonDataTypeVersion"
-        installerCompile "org.apache.logging.log4j:log4j-api:$log4jVersion"
-        installerCompile "org.apache.logging.log4j:log4j-core:$log4jVersion"
-
-        commonsCompile "com.fasterxml.jackson.core:jackson-databind:$jacksonVersion"
-        commonsCompile "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:$jacksonDataTypeVersion"
-        commonsCompile "org.apache.logging.log4j:log4j-api:$log4jVersion"
-        commonsCompile "org.apache.logging.log4j:log4j-core:$log4jVersion"
-    }
-
-    configurations {
-        generateVersionDataCompile {
-            extendsFrom compile
-        }
-    }
-
-    // Remove any old custom dependencies
-    task deleteOldCustomDependenciesFromLibrary(type: Delete) {
-        delete fileTree(dir: ".", include: 'addressbook-V*.*.*.jar')
-        delete fileTree(dir: "$libDir", includes: ['commons-*.*.*.jar', 'resource-V*.*.*.jar'])
-    }
-
-    // Copy downloaded dependencies from Gradle's cache into the library directory
-    task copyAllDependenciesToLibrary(type: Copy) {
-        from(configurations.compile) {
-        }
-        into "$libDir/"
-    }
-    copyAllDependenciesToLibrary.dependsOn deleteOldCustomDependenciesFromLibrary
-    copyAllDependenciesToLibrary.dependsOn clean
-
-    // Commons jar
-    task createCommonsJar(type: Jar) {
-        archiveName = "$commonsArchiveName"
-
-        from sourceSets.commons.output
-        destinationDir = file("$libDir/")
-    }
-    createCommonsJar.dependsOn copyAllDependenciesToLibrary
-    compileCommonsJava.mustRunAfter copyAllDependenciesToLibrary
-
-    jacoco {
-        toolVersion = "0.7.5.201505241946"
     }
 }
 
@@ -199,31 +84,6 @@ tasks.withType(FindBugs) {
         xml.enabled = false
         html.enabled = true
     }
-}
-
-task coverage(type: JacocoReport) {
-    sourceDirectories = files(allprojects.sourceSets.main.allSource.srcDirs)
-    classDirectories =  files(allprojects.sourceSets.main.output)
-    executionData = files(allprojects.jacocoTestReport.executionData)
-    afterEvaluate {
-        classDirectories = files(classDirectories.files.collect {
-            fileTree(dir: it, exclude: ['**/*.jar'])
-        })
-    }
-    reports {
-        html.enabled = true
-        xml.enabled = true
-    }
-}
-
-coveralls {
-    sourceDirs = allprojects.sourceSets.main.allSource.srcDirs.flatten()
-    jacocoReportPath = "${buildDir}/reports/jacoco/coverage/coverage.xml"
-}
-
-tasks.coveralls {
-    dependsOn coverage
-    onlyIf { System.env.'CI' }
 }
 
 task checkStyle { // A dummy task to run a set of tasks
@@ -246,60 +106,19 @@ class AddressBookTest extends Test {
 
 task guiTests(type: AddressBookTest) {
     include 'guitests/**'
-    jacoco {
-        destinationFile = new File("${buildDir}/jacoco/test.exec")
-    }
 }
 
 task guiUnitTests(type: AddressBookTest) {
     include 'guiunittests/**'
-    jacoco {
-        destinationFile = new File("${buildDir}/jacoco/test.exec")
-    }
 }
 
 task unitTests(type: AddressBookTest) {
     include 'address/**'
-    include 'commons/**'
-
-    jacoco {
-        destinationFile = new File("${buildDir}/jacoco/test.exec")
-    }
 }
-
-// Task to run specified test classes in headful mode
-task headfulTests(type: AddressBookTest) {
-    // Have to separate by test classes instead of test methods since we cannot define methods to be excluded using TestFilter (for allTests)
-    // See https://docs.gradle.org/current/javadoc/org/gradle/api/tasks/testing/TestFilter.html for the list of its functionalities
-    // include 'guitests/FullSystemTest.class'
-    jacoco {
-        destinationFile = new File("${buildDir}/jacoco/test.exec")
-    }
-}
-headfulTests.onlyIf {
-    headfulTests.includes.size() > 0
-}
-
-// Task to run specified test classes in headless mode
-task headlessTests(type: AddressBookTest) {
-    // include ''
-    jacoco {
-        destinationFile = new File("${buildDir}/jacoco/test.exec")
-    }
-}
-headlessTests.onlyIf {
-    headlessTests.includes.size() > 0
-}
-headlessTests.setHeadless()
 
 // Task to run all tests asides from those specified in headfulTests and headlessTests
 // Test mode depends on whether headless task has been run
 task allTests(type: AddressBookTest) {
-    exclude headfulTests.includes
-    exclude headlessTests.includes
-    jacoco {
-        destinationFile = new File("${buildDir}/jacoco/test.exec")
-    }
 }
 
 task headless << {
@@ -310,36 +129,7 @@ task headless << {
     allTests.setHeadless()
 }
 
-task headlessForMac << {
-    println "Setting headless mode properties."
-    guiTests.setHeadless()
-    guiUnitTests.setHeadless()
-    unitTests.setHeadless()
-    allTests.setHeadless()
 
-    String osName = System.getProperty("os.name");
-    if (osName.contains("Mac OS")) {
-        println "Mac OS detected, removing disruptive headless tests"
-
-        List<String> disruptiveHeadlessUnitTestsOnMac = new ArrayList<String>()
-        disruptiveHeadlessUnitTestsOnMac.add('address/keybindings/BindingsTest.class')
-        disruptiveHeadlessUnitTestsOnMac.add('address/keybindings/GlobalHotkeyProviderTest.class')
-        disruptiveHeadlessUnitTestsOnMac.add('address/keybindings/GlobalHotkeyTest.class')
-        disruptiveHeadlessUnitTestsOnMac.add('address/keybindings/KeyBindingsManagerApiTest.class')
-        disruptiveHeadlessUnitTestsOnMac.add('address/keybindings/KeyBindingsManagerTest.class')
-
-        List<String> disruptiveHeadlessGuiUnitTestsOnMac = new ArrayList<String>()
-        List<String> disruptiveHeadlessGuiTestsOnMac = new ArrayList<String>()
-
-        unitTests.excludes.addAll(disruptiveHeadlessUnitTestsOnMac)
-        guiUnitTests.excludes.addAll(disruptiveHeadlessGuiUnitTestsOnMac)
-        guiTests.excludes.addAll(disruptiveHeadlessGuiTestsOnMac)
-        allTests.excludes.addAll(disruptiveHeadlessUnitTestsOnMac)
-        allTests.excludes.addAll(disruptiveHeadlessGuiUnitTestsOnMac)
-        allTests.excludes.addAll(disruptiveHeadlessGuiTestsOnMac)
-
-    }
-}
 
 // Makes sure that headless properties are set before running tests
 unitTests.mustRunAfter headless
@@ -356,4 +146,4 @@ allTests.shouldRunAfter checkStyle
 checkStyle.shouldRunAfter clean
 checkStyle.dependsOn checkstyleMain, checkstyleTest, findbugsMain, findbugsTest, pmdMain, pmdTest
 
-defaultTasks 'clean', 'headless', 'allTests', 'coverage'
+defaultTasks 'clean', 'headless', 'allTests'

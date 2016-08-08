@@ -1,6 +1,6 @@
 package guitests.guihandles;
 
-import address.controller.MainController;
+import seedu.address.controller.MainController;
 import guitests.GuiRobot;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;

@@ -1,9 +1,9 @@
 package guitests.guihandles;
 
-import address.TestApp;
-import address.model.datatypes.person.Person;
-import address.util.AppLogger;
-import address.util.LoggerManager;
+import seedu.address.TestApp;
+import seedu.address.model.datatypes.person.Person;
+import seedu.address.util.AppLogger;
+import seedu.address.util.LoggerManager;
 import guitests.GuiRobot;
 import javafx.scene.Node;
 import javafx.scene.control.Label;

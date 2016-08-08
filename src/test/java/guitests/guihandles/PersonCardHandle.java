@@ -1,9 +1,9 @@
 package guitests.guihandles;
 
-import address.controller.PersonCardController;
-import address.model.datatypes.person.Person;
-import address.model.datatypes.tag.Tag;
-import address.testutil.PersonBuilder;
+import seedu.address.controller.PersonCardController;
+import seedu.address.model.datatypes.person.Person;
+import seedu.address.model.datatypes.tag.Tag;
+import seedu.address.testutil.PersonBuilder;
 import guitests.GuiRobot;
 import javafx.scene.Node;
 import javafx.stage.Stage;

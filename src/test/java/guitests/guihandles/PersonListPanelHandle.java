@@ -1,10 +1,10 @@
 package guitests.guihandles;
 
 
-import address.TestApp;
-import address.model.datatypes.person.Person;
-import address.model.datatypes.person.ReadOnlyPerson;
-import address.testutil.TestUtil;
+import seedu.address.TestApp;
+import seedu.address.model.datatypes.person.Person;
+import seedu.address.model.datatypes.person.ReadOnlyPerson;
+import seedu.address.testutil.TestUtil;
 import guitests.GuiRobot;
 import javafx.collections.ObservableList;
 import javafx.event.Event;

@@ -1,6 +1,6 @@
 package guitests;
 
-import address.testutil.TestUtil;
+import seedu.address.testutil.TestUtil;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.MouseButton;

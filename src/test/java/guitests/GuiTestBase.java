@@ -1,13 +1,13 @@
 package guitests;
 
-import address.TestApp;
-import address.events.EventManager;
-import address.model.datatypes.AddressBook;
-import address.model.datatypes.person.Person;
-import address.testutil.ScreenShotRule;
-import address.testutil.TestUtil;
-import address.testutil.TypicalTestData;
-import address.util.Config;
+import seedu.address.TestApp;
+import seedu.address.events.EventManager;
+import seedu.address.model.datatypes.AddressBook;
+import seedu.address.model.datatypes.person.Person;
+import seedu.address.testutil.ScreenShotRule;
+import seedu.address.testutil.TestUtil;
+import seedu.address.testutil.TypicalTestData;
+import seedu.address.util.Config;
 import guitests.guihandles.*;
 import javafx.stage.Stage;
 import org.junit.After;

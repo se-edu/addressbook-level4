@@ -1,11 +1,11 @@
 package guitests;
 
-import address.model.datatypes.AddressBook;
-import address.model.datatypes.person.Person;
-import address.model.datatypes.person.ReadOnlyPerson;
-import address.model.datatypes.tag.Tag;
-import address.testutil.PersonBuilder;
-import commons.StringUtil;
+import seedu.address.model.datatypes.AddressBook;
+import seedu.address.model.datatypes.person.Person;
+import seedu.address.model.datatypes.person.ReadOnlyPerson;
+import seedu.address.model.datatypes.tag.Tag;
+import seedu.address.testutil.PersonBuilder;
+import seedu.address.commons.StringUtil;
 import org.junit.Test;
 
 import java.util.ArrayList;

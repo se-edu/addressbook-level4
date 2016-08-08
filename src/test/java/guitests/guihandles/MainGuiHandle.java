@@ -1,8 +1,8 @@
 package guitests.guihandles;
 
-import address.TestApp;
-import address.model.ModelManager;
-import commons.OsDetector;
+import seedu.address.TestApp;
+import seedu.address.model.ModelManager;
+import seedu.address.commons.OsDetector;
 import guitests.GuiRobot;
 import javafx.stage.Stage;
 import org.testfx.api.FxRobot;
