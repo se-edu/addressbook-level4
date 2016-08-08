@@ -1,0 +1,16 @@
+build/
+/cloud/
+.gradle/
+.idea/
+lib/*
+addressbook-V*.*.*.jar
+!lib/licence.jar
+*.iml
+*.log
+*.csv
+config.json
+/*.xml
+/update/
+src/main/resources/updater/updater*.jar
+src/test/data/sandbox/
+preferences.json

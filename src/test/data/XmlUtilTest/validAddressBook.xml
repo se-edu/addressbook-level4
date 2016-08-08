@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addressbook>
+    <persons>
+        <id>1</id>
+        <city></city>
+        <firstName>Cornelia</firstName>
+        <githubUserName></githubUserName>
+        <lastName>Meier</lastName>
+        <postalCode></postalCode>
+        <street></street>
+    </persons>
+    <persons>
+        <id>2</id>
+        <city></city>
+        <firstName>Werner</firstName>
+        <githubUserName>damithc</githubUserName>
+        <lastName>Meyer</lastName>
+        <postalCode></postalCode>
+        <street></street>
+    </persons>
+    <tags>
+        <name>Friends</name>
+    </tags>
+</addressbook>
