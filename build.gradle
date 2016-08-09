@@ -17,6 +17,7 @@ allprojects {
     }
     apply plugin: 'pmd'
     apply plugin: 'findbugs'
+    apply plugin: 'jacoco'
     findbugs {
         excludeFilter = file("${projectDir}/config/findbugs/excludeFilter.xml")
     }
@@ -41,7 +42,6 @@ allprojects {
         jKeyMasterVersion = '1.2'
         junitVersion = '4.12'
         log4jVersion = '2.6'
-        mockServerVersion = '3.10.1'
         testFxVersion = '3.1.0'
         monocleVersion = '1.8.0_20'
         slf4jSimpleVersion = '1.6.4'
@@ -49,6 +49,13 @@ allprojects {
         libDir = 'lib'
     }
 
+    jacocoTestReport {
+        reports {
+            xml.enabled false
+            csv.enabled false
+            html.destination "${buildDir}/jacocoHtml"
+        }
+    }
 
     dependencies {
         compile "org.apache.logging.log4j:log4j-api:$log4jVersion"
@@ -58,12 +65,6 @@ allprojects {
         compile "com.fasterxml.jackson.core:jackson-databind:$jacksonVersion"
         compile "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:$jacksonDataTypeVersion"
         compile "com.google.guava:guava:$guavaVersion"
-        compile "org.controlsfx:controlsfx:$controlsFxVersion"
-        compile "com.github.tulskiy:jkeymaster:$jKeyMasterVersion"
-        compile "com.fasterxml.jackson.core:jackson-databind:$jacksonVersion"
-        compile "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:$jacksonDataTypeVersion"
-        compile "org.apache.logging.log4j:log4j-api:$log4jVersion"
-        compile "org.apache.logging.log4j:log4j-core:$log4jVersion"
 
         testCompile "junit:junit:$junitVersion"
         testCompile "org.testfx:testfx-core:4.0.+"
@@ -77,6 +78,21 @@ allprojects {
 
 task wrapper(type: Wrapper) {
     gradleVersion = '2.12'
+}
+
+task coverage(type: JacocoReport) {
+    sourceDirectories = files(allprojects.sourceSets.main.allSource.srcDirs)
+    classDirectories =  files(allprojects.sourceSets.main.output)
+    executionData = files(allprojects.jacocoTestReport.executionData)
+    afterEvaluate {
+        classDirectories = files(classDirectories.files.collect {
+            fileTree(dir: it, exclude: ['**/*.jar'])
+        })
+    }
+    reports {
+        html.enabled = true
+        xml.enabled = true
+    }
 }
 
 tasks.withType(FindBugs) {
@@ -106,19 +122,33 @@ class AddressBookTest extends Test {
 
 task guiTests(type: AddressBookTest) {
     include 'guitests/**'
+
+    jacoco {
+        destinationFile = new File("${buildDir}/jacoco/test.exec")
+    }
 }
 
 task guiUnitTests(type: AddressBookTest) {
     include 'guiunittests/**'
+
+    jacoco {
+        destinationFile = new File("${buildDir}/jacoco/test.exec")
+    }
 }
 
 task unitTests(type: AddressBookTest) {
     include 'address/**'
+
+    jacoco {
+        destinationFile = new File("${buildDir}/jacoco/test.exec")
+    }
 }
 
-// Task to run all tests asides from those specified in headfulTests and headlessTests
 // Test mode depends on whether headless task has been run
 task allTests(type: AddressBookTest) {
+    jacoco {
+        destinationFile = new File("${buildDir}/jacoco/test.exec")
+    }
 }
 
 task headless << {
@@ -146,4 +176,4 @@ allTests.shouldRunAfter checkStyle
 checkStyle.shouldRunAfter clean
 checkStyle.dependsOn checkstyleMain, checkstyleTest, findbugsMain, findbugsTest, pmdMain, pmdTest
 
-defaultTasks 'clean', 'headless', 'allTests'
+defaultTasks 'clean', 'headless', 'allTests', 'coverage'
