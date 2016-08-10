@@ -4,16 +4,12 @@ package seedu.address.parser;
  *
  */
 public class CommandParser {
-
-
-
-    public static boolean isCommandInput(String input) {
+    public boolean isCommandInput(String input) {
         String firstWord = input.split(" ")[0].toLowerCase();
         return firstWord.equals("add") || firstWord.equals("delete") || firstWord.equals("edit");
     }
 
-    public static Command parse(String input) {
-
+    public Command parse(String input) {
         if (!isCommandInput(input)) {
             throw new IllegalArgumentException("Invalid command input");
         }

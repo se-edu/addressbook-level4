@@ -1,14 +1,9 @@
 package seedu.address.controller;
 
 import seedu.address.MainApp;
-import seedu.address.events.parser.FilterCommittedEvent;
 import seedu.address.model.ModelManager;
 import seedu.address.parser.Command;
 import seedu.address.parser.CommandParser;
-import seedu.address.parser.ParseException;
-import seedu.address.parser.Parser;
-import seedu.address.parser.expr.Expr;
-import seedu.address.parser.expr.PredExpr;
 import seedu.address.util.AppLogger;
 import seedu.address.util.LoggerManager;
 import javafx.fxml.FXML;
@@ -29,7 +24,7 @@ public class RootLayoutController extends UiController {
     private ModelManager modelManager;
     private MainApp mainApp;
 
-    private Parser parser;
+    private CommandParser parser;
 
     @FXML
     private MenuItem helpMenuItem;
@@ -39,7 +34,7 @@ public class RootLayoutController extends UiController {
 
     public RootLayoutController() {
         super();
-        parser = new Parser();
+        parser = new CommandParser();
     }
 
     public void setConnections(MainApp mainApp, MainController mainController, ModelManager modelManager) {
@@ -54,24 +49,14 @@ public class RootLayoutController extends UiController {
 
     @FXML
     private void handleFilterChanged() {
-
-        if (CommandParser.isCommandInput(filterField.getText())) {
-            Command cmd = CommandParser.parse(filterField.getText());
+        if (parser.isCommandInput(filterField.getText())) {
+            if (filterField.getStyleClass().contains("error")) filterField.getStyleClass().remove("error");
+            Command cmd = parser.parse(filterField.getText());
             cmd.execute(modelManager);
             return;
         }
-
-        Expr filterExpression;
-        try {
-            filterExpression = parser.parse(filterField.getText());
-            if (filterField.getStyleClass().contains("error")) filterField.getStyleClass().remove("error");
-        } catch (ParseException e) {
-            logger.debug("Invalid filter found: {}", e);
-            filterExpression = PredExpr.TRUE;
-            if (!filterField.getStyleClass().contains("error")) filterField.getStyleClass().add("error");
-        }
-
-        raise(new FilterCommittedEvent(filterExpression));
+        logger.debug("Invalid command: {}", filterField.getText());
+        if (!filterField.getStyleClass().contains("error")) filterField.getStyleClass().add("error");
     }
 
     @FXML

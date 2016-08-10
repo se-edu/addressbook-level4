@@ -1,15 +1,11 @@
 package seedu.address.controller;
 
 import seedu.address.events.controller.JumpToListRequestEvent;
-import seedu.address.events.parser.FilterCommittedEvent;
 import seedu.address.model.ModelManager;
 import seedu.address.model.datatypes.person.ReadOnlyPerson;
-import seedu.address.parser.expr.PredExpr;
-import seedu.address.parser.qualifier.TrueQualifier;
 import seedu.address.ui.PersonListViewCell;
 import seedu.address.util.AppLogger;
 import seedu.address.util.LoggerManager;
-import seedu.address.util.collections.FilteredList;
 import com.google.common.eventbus.Subscribe;
 import javafx.application.Platform;
 import javafx.collections.ListChangeListener;
@@ -35,8 +31,6 @@ public class PersonListPanelController extends UiController {
 
     private MainController mainController;
     private ModelManager modelManager;
-    private FilteredList<ReadOnlyPerson> filteredPersonList;
-
 
     public PersonListPanelController() {
         super();
@@ -46,9 +40,7 @@ public class PersonListPanelController extends UiController {
                                ObservableList<ReadOnlyPerson> personList) {
         this.mainController = mainController;
         this.modelManager = modelManager;
-        filteredPersonList = new FilteredList<>(personList, new PredExpr(new TrueQualifier())::satisfies);
-
-        personListView.setItems(filteredPersonList);
+        personListView.setItems(personList);
         personListView.setCellFactory(listView -> new PersonListViewCell());
         loadGithubProfilePageWhenPersonIsSelected(mainController);
         setupListviewSelectionModelSettings();
@@ -66,11 +58,6 @@ public class PersonListPanelController extends UiController {
                 }
             }
         });
-    }
-    
-    @Subscribe
-    private void handleFilterCommittedEvent(FilterCommittedEvent fce) {
-        filteredPersonList.setPredicate(fce.filterExpression::satisfies);
     }
 
     private void loadGithubProfilePageWhenPersonIsSelected(MainController mainController) {
