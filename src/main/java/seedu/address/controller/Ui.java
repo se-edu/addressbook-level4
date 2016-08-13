@@ -3,9 +3,6 @@ package seedu.address.controller;
 import seedu.address.MainApp;
 import seedu.address.browser.BrowserManager;
 import seedu.address.events.EventManager;
-import seedu.address.events.controller.MinimizeAppRequestEvent;
-import seedu.address.events.controller.ResizeAppRequestEvent;
-import seedu.address.events.hotkey.KeyBindingEvent;
 import seedu.address.events.storage.FileOpeningExceptionEvent;
 import seedu.address.events.storage.FileSavingExceptionEvent;
 import seedu.address.model.ModelManager;
@@ -14,10 +11,10 @@ import seedu.address.model.datatypes.person.ReadOnlyPerson;
 import seedu.address.model.datatypes.tag.Tag;
 import seedu.address.util.AppLogger;
 import seedu.address.util.Config;
+import seedu.address.util.GuiSettings;
 import seedu.address.util.LoggerManager;
 import seedu.address.util.collections.UnmodifiableObservableList;
 import com.google.common.eventbus.Subscribe;
-import seedu.address.commons.FxViewUtil;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.event.EventType;
@@ -26,11 +23,8 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.SplitPane;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -53,9 +47,7 @@ public class Ui {
     private static final int MIN_HEIGHT = 600;
     private static final int MIN_WIDTH = 450;
 
-    private static final String PERSON_LIST_PANEL_FIELD_ID = "#personListPanel";
-    private static final String HEADER_STATUSBAR_PLACEHOLDER_FIELD_ID = "#headerStatusbarPlaceholder";
-    private static final String FOOTER_STATUSBAR_PLACEHOLDER_FIELD_ID = "#footerStatusbarPlaceholder";
+
     private static final String PERSON_WEBPAGE_PLACE_HOLDER_FIELD_ID = "#personWebpage";
 
 
@@ -70,10 +62,6 @@ public class Ui {
 
     //Main Window of the app
     private MainWindow mainWindow;
-
-    //TODO: move these inside MainWindowUiPart (similar to PersonListPanel)
-    private StatusBarHeaderController statusBarHeaderController;
-    private StatusBarFooterController statusBarFooterController;
 
     //TODO: See if these can be pushed down to respective UI parts
     private UnmodifiableObservableList<ReadOnlyPerson> personList;
@@ -113,8 +101,6 @@ public class Ui {
             mainWindow.fillInnerParts();
 
             //TODO: move the code below inside mainWindow.fillInnerParts()
-            showFooterStatusBar();
-            showHeaderStatusBar();
             this.browserManager.start();
             showPersonWebPage();
 
@@ -124,27 +110,10 @@ public class Ui {
         }
     }
 
-    private void showHeaderStatusBar() {
-        statusBarHeaderController = new StatusBarHeaderController(this);
-        AnchorPane sbPlaceHolder = mainWindow.getAnchorPane("#headerStatusbarPlaceholder");
-
-        assert sbPlaceHolder != null : "headerStatusbarPlaceHolder node not found in mainWindow";
-
-        FxViewUtil.applyAnchorBoundaryParameters(statusBarHeaderController.getHeaderStatusBarView(), 0.0, 0.0, 0.0, 0.0);
-        sbPlaceHolder.getChildren().add(statusBarHeaderController.getHeaderStatusBarView());
-    }
-
-    private void showFooterStatusBar() {
-        logger.debug("Loading footer status bar.");
-        final String fxmlResourcePath = FXML_STATUS_BAR_FOOTER;
-        FXMLLoader loader = loadFxml(fxmlResourcePath);
-        GridPane gridPane = (GridPane) loadLoader(loader, "Error Loading footer status bar");
-        gridPane.getStyleClass().add("grid-pane");
-        statusBarFooterController = loader.getController();
-        statusBarFooterController.init(config.getAddressBookName());
-        AnchorPane placeHolder = mainWindow.getAnchorPane("#footerStatusbarPlaceholder");
-        FxViewUtil.applyAnchorBoundaryParameters(gridPane, 0.0, 0.0, 0.0, 0.0);
-        placeHolder.getChildren().add(gridPane);
+    public void stop() {
+        prefs.updateLastUsedGuiSetting(mainWindow.getCurrentGuiSetting());
+        mainWindow.hide();
+        releaseResourcesForAppTermination();
     }
 
     public void showPersonWebPage() {
@@ -276,12 +245,6 @@ public class Ui {
 
     private void disableKeyboardShortcutOnNode(Node pane) {
         pane.addEventHandler(EventType.ROOT, event -> event.consume());
-    }
-
-
-    public void stop() {
-        getPrimaryStage().hide();
-        releaseResourcesForAppTermination();
     }
 
     private void showFatalErrorDialogAndShutdown(String title, String headerText, String contentText, String errorLocation) {

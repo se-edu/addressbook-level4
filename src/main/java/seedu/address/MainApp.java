@@ -1,9 +1,9 @@
 package seedu.address;
 
+import seedu.address.controller.Ui;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.storage.StorageManager;
-import seedu.address.ui.Ui;
 import seedu.address.util.AppLogger;
 import seedu.address.util.Config;
 import seedu.address.util.DependencyChecker;

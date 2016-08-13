@@ -1,7 +1,7 @@
 package guitests.guihandles;
 
 import seedu.address.TestApp;
-import seedu.address.controller.StatusBarHeaderController;
+import seedu.address.controller.StatusBarHeader;
 import guitests.GuiRobot;
 import javafx.stage.Stage;
 import org.controlsfx.control.StatusBar;
@@ -20,6 +20,6 @@ public class HeaderStatusBarHandle extends GuiHandle {
     }
 
     private StatusBar getStatusBar() {
-        return (StatusBar) getNode("#" + StatusBarHeaderController.HEADER_STATUS_BAR_ID);
+        return (StatusBar) getNode("#" + StatusBarHeader.HEADER_STATUS_BAR_ID);
     }
 }

@@ -37,8 +37,8 @@ public class MainWindow extends BaseUiPart {
     public static final int MIN_HEIGHT = 600;
     public static final int MIN_WIDTH = 450;
     public static final String PERSON_LIST_PANEL_PLACEHOLDER_ID = "#personListPanel";
-
-
+    private static final String HEADER_STATUSBAR_PLACEHOLDER_FIELD_ID = "#headerStatusbarPlaceholder";
+    private static final String FOOTER_STATUSBAR_PLACEHOLDER_FIELD_ID = "#footerStatusbarPlaceholder";
 
     private MainApp mainApp; //TODO: remove this dependency as per TODOs given in methods below
     private Ui ui; //TODO: remove this dependency as per TODOs given in methods below
@@ -51,10 +51,14 @@ public class MainWindow extends BaseUiPart {
 
     //Independent Ui parts residing in this Ui container
     private PersonListPanel personListPanel;
+    private StatusBarHeader statusBarHeader;
+    private StatusBarFooter statusBarFooter;
 
     //Handles to elements of this Ui container
     private VBox rootLayout;
     private Scene scene;
+
+    private String addressBookName;
 
     @FXML
     private AnchorPane personListPanelPlaceholder;
@@ -83,17 +87,18 @@ public class MainWindow extends BaseUiPart {
     public static MainWindow load(Stage primaryStage, Config config, UserPrefs prefs, MainApp mainApp, Ui ui, ModelManager modelManager) {
         logger.debug("Initializing main window.");
         MainWindow mainWindow = UiPartLoader.loadUiPart(primaryStage, new MainWindow());
-        mainWindow.configure(config.getAppTitle(), prefs, mainApp, ui, modelManager);
+        mainWindow.configure(config.getAppTitle(), config.getAddressBookName(), prefs, mainApp, ui, modelManager);
         mainWindow.setKeyEventHandler();
         mainWindow.setAccelerators();
         return mainWindow;
     }
 
-    private void configure(String appTitle, UserPrefs prefs, MainApp mainApp, Ui ui, ModelManager modelManager) {
+    private void configure(String appTitle, String addressBookName, UserPrefs prefs, MainApp mainApp, Ui ui, ModelManager modelManager) {
         //Set connections
         this.mainApp = mainApp;
         this.ui = ui;
         this.modelManager = modelManager;
+        this.addressBookName = addressBookName;
 
         //Configure the UI
         setTitle(appTitle);
@@ -122,7 +127,16 @@ public class MainWindow extends BaseUiPart {
 
     public void fillInnerParts() {
         personListPanel = PersonListPanel.load(primaryStage, getPersonListPlaceholder(), ui, modelManager);
-        //TODO: more to be added here (i.e. headerStatusBar, footerStatusBar etc.)
+        statusBarHeader = StatusBarHeader.load(primaryStage, getHeaderStatusbarPlaceholder());
+        statusBarFooter = StatusBarFooter.load(primaryStage, getFooterStatusbarPlaceholder(), addressBookName);
+    }
+
+    private AnchorPane getFooterStatusbarPlaceholder() {
+        return this.getAnchorPane(FOOTER_STATUSBAR_PLACEHOLDER_FIELD_ID);
+    }
+
+    private AnchorPane getHeaderStatusbarPlaceholder() {
+        return this.getAnchorPane(HEADER_STATUSBAR_PLACEHOLDER_FIELD_ID);
     }
 
     /**
