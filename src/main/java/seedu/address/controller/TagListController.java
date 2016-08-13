@@ -15,11 +15,11 @@ import javafx.stage.Stage;
 /**
  * Dialog to show the list of available tags
  *
- * Stage, tags, mainController and modelManager should be set before showing stage
+ * Stage, tags, ui and modelManager should be set before showing stage
  */
-public class TagListController extends UiController {
+public class TagListController {
     Stage stage;
-    MainController mainController;
+    Ui ui;
     ModelManager modelManager;
 
     @FXML
@@ -38,18 +38,18 @@ public class TagListController extends UiController {
     }
 
     public void setTags(ObservableList<Tag> tagList) {
-        tagListScrollPane.setContent(getTagsVBox(tagList, mainController));
+        tagListScrollPane.setContent(getTagsVBox(tagList, ui));
     }
 
-    public void setMainController(MainController mainController) {
-        this.mainController = mainController;
+    public void setUi(Ui ui) {
+        this.ui = ui;
     }
 
     public void setModelManager(ModelManager modelManager) {
         this.modelManager = modelManager;
     }
 
-    public VBox getTagsVBox(ObservableList<Tag> tagList, MainController mainController) {
+    public VBox getTagsVBox(ObservableList<Tag> tagList, Ui ui) {
         VBox vBox = new VBox();
         vBox.setAlignment(Pos.CENTER_LEFT);
 
@@ -58,7 +58,7 @@ public class TagListController extends UiController {
             return vBox;
         }
         tagList.forEach(tag -> {
-            TagCardController tagCardController = new TagCardController(tag, mainController, this);
+            TagCardController tagCardController = new TagCardController(tag, ui, this);
             vBox.getChildren().add(tagCardController.getLayout());
         });
         return vBox;

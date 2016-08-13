@@ -2,6 +2,7 @@ package seedu.address.controller;
 
 import seedu.address.MainApp;
 import seedu.address.browser.BrowserManager;
+import seedu.address.events.EventManager;
 import seedu.address.events.controller.MinimizeAppRequestEvent;
 import seedu.address.events.controller.ResizeAppRequestEvent;
 import seedu.address.events.hotkey.KeyBindingEvent;
@@ -39,14 +40,14 @@ import java.io.IOException;
 /**
  * The controller that creates the other controllers
  */
-public class MainController extends UiController{
+public class Ui {
     public static final String DIALOG_TITLE_TAG_LIST = "List of Tags";
-    private static final AppLogger logger = LoggerManager.getLogger(MainController.class);
+    private static final AppLogger logger = LoggerManager.getLogger(Ui.class);
     private static final String FXML_HELP = "/view/Help.fxml";
     private static final String FXML_STATUS_BAR_FOOTER = "/view/StatusBarFooter.fxml";
     private static final String FXML_PERSON_LIST_PANEL = "/view/PersonListPanel.fxml";
     private static final String FXML_TAG_LIST = "/view/TagList.fxml";
-    private static final String FXML_ROOT_LAYOUT = "/view/RootLayout.fxml";
+    private static final String FXML_ROOT_LAYOUT = "/view/MainWindow.fxml";
     private static final String ICON_APPLICATION = "/images/address_book_32.png";
     private static final String ICON_HELP = "/images/help_icon.png";
     private static final int MIN_HEIGHT = 600;
@@ -57,28 +58,34 @@ public class MainController extends UiController{
     private static final String FOOTER_STATUSBAR_PLACEHOLDER_FIELD_ID = "#footerStatusbarPlaceholder";
     private static final String PERSON_WEBPAGE_PLACE_HOLDER_FIELD_ID = "#personWebpage";
 
-    private Stage primaryStage;
-    private VBox rootLayout;
 
     private ModelManager modelManager;
+
     private BrowserManager browserManager;
-    private MainApp mainApp;
+
+    private MainApp mainApp; //TODO: remove this back link to higher level class
+
     private Config config;
     private UserPrefs prefs;
 
+    //Main Window of the app
+    private MainWindow mainWindow;
+
+    //TODO: move these inside MainWindowUiPart (similar to PersonListPanel)
     private StatusBarHeaderController statusBarHeaderController;
     private StatusBarFooterController statusBarFooterController;
 
+    //TODO: See if these can be pushed down to respective UI parts
     private UnmodifiableObservableList<ReadOnlyPerson> personList;
 
     /**
-     * Constructor for mainController
+     * Constructor for ui
      *
      * @param mainApp
      * @param modelManager
      * @param config should have appTitle and updateInterval set
      */
-    public MainController(MainApp mainApp, ModelManager modelManager, Config config, UserPrefs prefs) {
+    public Ui(MainApp mainApp, ModelManager modelManager, Config config, UserPrefs prefs) {
         super();
         this.mainApp = mainApp;
         this.modelManager = modelManager;
@@ -86,80 +93,44 @@ public class MainController extends UiController{
         this.prefs = prefs;
         this.personList = modelManager.getPersonsAsReadOnlyObservableList();
         this.browserManager = new BrowserManager();
+        EventManager.getInstance().registerHandler(this);
     }
 
     public void start(Stage primaryStage) {
         logger.info("Starting main controller.");
-        this.primaryStage = primaryStage;
         this.browserManager.start();
         primaryStage.setTitle(config.getAppTitle());
 
         // Set the application icon.
-        this.primaryStage.getIcons().add(getImage(ICON_APPLICATION));
+        primaryStage.getIcons().add(getImage(ICON_APPLICATION));
 
-        initRootLayout();
-        showPersonListPanel();
-        showPersonWebPage();
-        showFooterStatusBar();
-        showHeaderStatusBar();
-    }
+        try {
+            logger.info("Starting main UI.");
 
-    /**
-     * Initializes the root layout and tries to load the last opened
-     * person file.
-     */
-    public void initRootLayout() {
-        logger.debug("Initializing root layout.");
-        final String fxmlResourcePath = FXML_ROOT_LAYOUT;
-        // Load root layout from fxml file.
-        FXMLLoader loader = loadFxml(fxmlResourcePath);
-        rootLayout = (VBox) loadLoader(loader, "Error initializing root layout");
+            mainWindow = MainWindow.load(primaryStage, config, prefs, mainApp, this, modelManager);
+            mainWindow.show(); //This should be called before creating other UI parts
 
-        // Show the scene containing the root layout.
-        Scene scene = new Scene(rootLayout);
-        scene.setOnKeyPressed(event -> raisePotentialEvent(new KeyBindingEvent(event)));
-        primaryStage.setScene(scene);
-        setMinSize();
-        setDefaultSize();
+            mainWindow.fillInnerParts();
 
-        // Give the rootController access to the main controller and modelManager
-        RootLayoutController rootController = loader.getController();
-        rootController.setConnections(mainApp, this, modelManager);
-        rootController.setAccelerators();
+            //TODO: move the code below inside mainWindow.fillInnerParts()
+            showFooterStatusBar();
+            showHeaderStatusBar();
+            this.browserManager.start();
+            showPersonWebPage();
 
-        primaryStage.show();
-    }
-
-    public StatusBarHeaderController getStatusBarHeaderController() {
-        return statusBarHeaderController;
-    }
-
-    /**
-     * Shows the person list panel inside the root layout.
-     */
-    public void showPersonListPanel() {
-        logger.debug("Loading person list panel.");
-        final String fxmlResourcePath = FXML_PERSON_LIST_PANEL;
-        // Load person overview.
-        FXMLLoader loader = loadFxml(fxmlResourcePath);
-        VBox personListPanel = (VBox) loadLoader(loader, "Error loading person list panel");
-        AnchorPane pane = (AnchorPane) rootLayout.lookup(PERSON_LIST_PANEL_FIELD_ID);
-        SplitPane.setResizableWithParent(pane, false);
-        // Give the personListPanelController access to the main app and modelManager.
-        PersonListPanelController personListPanelController = loader.getController();
-        personListPanelController.setConnections(this, modelManager, personList);
-
-        pane.getChildren().add(personListPanel);
+        } catch (Throwable e) {
+            e.printStackTrace();
+            showFatalErrorDialogAndShutdown("Fatal error during initializing", e);
+        }
     }
 
     private void showHeaderStatusBar() {
         statusBarHeaderController = new StatusBarHeaderController(this);
-        AnchorPane sbPlaceHolder = (AnchorPane) rootLayout.lookup(HEADER_STATUSBAR_PLACEHOLDER_FIELD_ID);
+        AnchorPane sbPlaceHolder = mainWindow.getAnchorPane("#headerStatusbarPlaceholder");
 
-        assert sbPlaceHolder != null : "headerStatusbarPlaceHolder node not found in rootLayout";
+        assert sbPlaceHolder != null : "headerStatusbarPlaceHolder node not found in mainWindow";
 
-        FxViewUtil.applyAnchorBoundaryParameters(statusBarHeaderController.getHeaderStatusBarView(),
-                                                 0.0, 0.0, 0.0, 0.0);
+        FxViewUtil.applyAnchorBoundaryParameters(statusBarHeaderController.getHeaderStatusBarView(), 0.0, 0.0, 0.0, 0.0);
         sbPlaceHolder.getChildren().add(statusBarHeaderController.getHeaderStatusBarView());
     }
 
@@ -171,13 +142,13 @@ public class MainController extends UiController{
         gridPane.getStyleClass().add("grid-pane");
         statusBarFooterController = loader.getController();
         statusBarFooterController.init(config.getAddressBookName());
-        AnchorPane placeHolder = (AnchorPane) rootLayout.lookup(FOOTER_STATUSBAR_PLACEHOLDER_FIELD_ID);
+        AnchorPane placeHolder = mainWindow.getAnchorPane("#footerStatusbarPlaceholder");
         FxViewUtil.applyAnchorBoundaryParameters(gridPane, 0.0, 0.0, 0.0, 0.0);
         placeHolder.getChildren().add(gridPane);
     }
 
     public void showPersonWebPage() {
-        AnchorPane pane = (AnchorPane) rootLayout.lookup(PERSON_WEBPAGE_PLACE_HOLDER_FIELD_ID);
+        AnchorPane pane = mainWindow.getAnchorPane("#personWebpage");
         disableKeyboardShortcutOnNode(pane);
         pane.getChildren().add(browserManager.getBrowserView());
     }
@@ -216,11 +187,11 @@ public class MainController extends UiController{
         AnchorPane page = (AnchorPane) loadLoader(loader, "Error loading tag list view");
 
         Scene scene = new Scene(page);
-        Stage dialogStage = loadDialogStage(DIALOG_TITLE_TAG_LIST, primaryStage, scene);
+        Stage dialogStage = loadDialogStage(DIALOG_TITLE_TAG_LIST, mainWindow.primaryStage, scene);
 
         // Set the tag into the controller.
         TagListController tagListController = loader.getController();
-        tagListController.setMainController(this);
+        tagListController.setUi(this);
         tagListController.setModelManager(modelManager);
         tagListController.setTags(tags);
         tagListController.setStage(dialogStage);
@@ -252,7 +223,7 @@ public class MainController extends UiController{
      * @return
      */
     public Stage getPrimaryStage() {
-        return primaryStage;
+        return mainWindow.primaryStage;
     }
 
     @Subscribe
@@ -276,8 +247,8 @@ public class MainController extends UiController{
         return new Image(MainApp.class.getResourceAsStream(imagePath));
     }
 
-    public void showAlertDialogAndWait(AlertType type, String title, String headerText, String contentText) {
-        showAlertDialogAndWait(primaryStage, type, title, headerText, contentText);
+    public void showAlertDialogAndWait(Alert.AlertType type, String title, String headerText, String contentText) {
+        showAlertDialogAndWait(mainWindow.getPrimaryStage(), type, title, headerText, contentText);
     }
 
     public static void showAlertDialogAndWait(Stage owner, AlertType type, String title, String headerText,
@@ -307,78 +278,22 @@ public class MainController extends UiController{
         pane.addEventHandler(EventType.ROOT, event -> event.consume());
     }
 
-    @Subscribe
-    private void handleResizeAppRequestEvent(ResizeAppRequestEvent event){
-        logger.debug("Handling the resize app window request");
-        Platform.runLater(this::handleResizeRequest);
-    }
-
-    @Subscribe
-    private void handleMinimizeAppRequestEvent(MinimizeAppRequestEvent event){
-        logger.debug("Handling the minimize app window request");
-        Platform.runLater(this::minimizeWindow);
-    }
-
-    protected void setDefaultSize() {
-        primaryStage.setHeight(prefs.getGuiSettings().getWindowHeight());
-        primaryStage.setWidth(prefs.getGuiSettings().getWindowWidth());
-        if (prefs.getGuiSettings().getWindowCoordinates() != null) {
-            primaryStage.setX(prefs.getGuiSettings().getWindowCoordinates().getX());
-            primaryStage.setY(prefs.getGuiSettings().getWindowCoordinates().getY());
-        }
-    }
-
-    private void setMinSize() {
-        primaryStage.setMinHeight(MIN_HEIGHT);
-        primaryStage.setMinWidth(MIN_WIDTH);
-    }
-
-    private void minimizeWindow() {
-        logger.info("Minimizing App");
-        logger.debug("PrimaryStage title: " + primaryStage.getTitle());
-        primaryStage.setIconified(true);
-        primaryStage.setMaximized(false);
-    }
-
-    private void handleResizeRequest() {
-        logger.info("Handling resize request.");
-        if (primaryStage.isIconified()) {
-            logger.debug("Cannot resize as window is iconified, attempting to show window instead.");
-            primaryStage.setIconified(false);
-        } else {
-            resizeWindow();
-        }
-    }
-
-    private void resizeWindow() {
-        logger.info("Resizing window");
-        // specially handle since stage operations on Mac seem to not be working as intended
-        if (seedu.address.commons.OsDetector.isOnMac()) {
-            // refresh stage so that resizing effects (apart from the first resize after iconify-ing) are applied
-            // however, this will cause minor flinching in window visibility
-            primaryStage.hide(); // hide has to be called before setMaximized,
-                                 // or first resize attempt after iconify-ing will resize twice
-            primaryStage.show();
-
-            // on Mac, setMaximized seems to work like "setResize"
-            // isMaximized also does not seem to return the correct value
-            primaryStage.setMaximized(true);
-        } else {
-            primaryStage.setMaximized(!primaryStage.isMaximized());
-        }
-
-        logger.debug("After: Stage width: " + primaryStage.getWidth() + " Stage Height: " + primaryStage.getHeight());
-    }
 
     public void stop() {
         getPrimaryStage().hide();
         releaseResourcesForAppTermination();
     }
 
-    private void showFatalErrorDialogAndShutdown(String title, String headerText, String contentText,
-                                                 String errorLocation) {
-        showAlertDialogAndWait(AlertType.ERROR, title, headerText,
-                contentText + errorLocation);
+    private void showFatalErrorDialogAndShutdown(String title, String headerText, String contentText, String errorLocation) {
+        showAlertDialogAndWait(Alert.AlertType.ERROR, title, headerText, contentText + errorLocation);
+        Platform.exit();
+        System.exit(1);
+    }
+
+    public void showFatalErrorDialogAndShutdown(String title, Throwable e) {
+        //TODO: Do a more detailed error reporting e.g. stack trace
+        logger.fatal(title + " " + e.getMessage());
+        showAlertDialogAndWait(Alert.AlertType.ERROR, title, e.getMessage(), e.toString());
         Platform.exit();
         System.exit(1);
     }

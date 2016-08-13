@@ -5,13 +5,13 @@ import org.controlsfx.control.StatusBar;
 /**
  * A controller for the status bar that is displayed at the header of the application.
  */
-public class StatusBarHeaderController extends UiController{
+public class StatusBarHeaderController {
 
     public static final String HEADER_STATUS_BAR_ID = "headerStatusBar";
     private static final String STATUS_BAR_STYLE_SHEET = "status-bar-with-border";
     private StatusBar headerStatusBar;
 
-    public StatusBarHeaderController(MainController mainController) {
+    public StatusBarHeaderController(Ui ui) {
         headerStatusBar = new StatusBar();
         headerStatusBar.setId(HEADER_STATUS_BAR_ID);
         headerStatusBar.getStyleClass().removeAll();

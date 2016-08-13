@@ -9,7 +9,7 @@ import org.controlsfx.control.StatusBar;
 /**
  * A controller for the status bar that is displayed at the footer of the application.
  */
-public class StatusBarFooterController extends UiController {
+public class StatusBarFooterController {
 
     private static StatusBar syncStatusBar;
     private static StatusBar saveLocStatusBar;
