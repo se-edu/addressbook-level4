@@ -2,8 +2,10 @@ package seedu.address.util;
 
 import javafx.scene.image.Image;
 import seedu.address.MainApp;
+import seedu.address.model.datatypes.person.ReadOnlyPerson;
 
 import java.net.URL;
+import java.util.List;
 
 /**
  * A container for App specific utility functions

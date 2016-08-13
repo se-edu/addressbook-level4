@@ -57,4 +57,8 @@ public class StatusBarHeader extends BaseUiPart{
     public String getFxmlPath() {
         return FXML;
     }
+
+    public void postMessage(String message) {
+        headerStatusBar.setText(message);
+    }
 }

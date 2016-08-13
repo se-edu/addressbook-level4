@@ -14,8 +14,12 @@ import seedu.address.events.controller.ResizeAppRequestEvent;
 import seedu.address.events.hotkey.KeyBindingEvent;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.datatypes.person.Person;
+import seedu.address.model.datatypes.person.ReadOnlyPerson;
+import seedu.address.parser.AddCommand;
 import seedu.address.parser.Command;
 import seedu.address.parser.CommandParser;
+import seedu.address.parser.DeleteCommand;
 import seedu.address.util.AppLogger;
 import seedu.address.util.Config;
 import seedu.address.util.GuiSettings;
@@ -25,6 +29,9 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCombination;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -190,6 +197,13 @@ public class MainWindow extends BaseUiPart {
             if (filterField.getStyleClass().contains("error")) filterField.getStyleClass().remove("error");
             Command cmd = parser.parse(filterField.getText());
             cmd.execute(modelManager);
+
+            if (cmd instanceof AddCommand) {
+                statusBarHeader.postMessage(cmd.getTargetName() + " added");
+            } else if (cmd instanceof DeleteCommand) {
+                statusBarHeader.postMessage(cmd.getTargetName() + " deleted");
+            }
+
             return;
         }
         logger.debug("Invalid command: {}", filterField.getText());

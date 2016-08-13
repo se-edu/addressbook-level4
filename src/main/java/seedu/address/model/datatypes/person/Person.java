@@ -334,4 +334,10 @@ public class Person extends UniqueData implements ReadOnlyPerson {
         return copy;
     }
 
+    public static String collateNames(List<ReadOnlyPerson> list) {
+        StringBuilder sb = new StringBuilder();
+        list.stream().forEach(p -> sb.append(p.fullName() + ", "));
+        return sb.toString().substring(0, sb.toString().length() - 2);
+    }
+
 }

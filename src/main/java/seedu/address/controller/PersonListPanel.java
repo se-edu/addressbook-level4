@@ -20,6 +20,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SelectionMode;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -123,9 +124,7 @@ public class PersonListPanel extends BaseUiPart {
 
     }
 
-    private String collateNames(List<ReadOnlyPerson> list) {
-        StringBuilder sb = new StringBuilder();
-        list.stream().forEach(p -> sb.append(p.fullName() + ", "));
-        return sb.toString().substring(0, sb.toString().length() - 2);
+    public List<ReadOnlyPerson> getSelectedPersons() {
+        return new ArrayList<>(personListView.getSelectionModel().getSelectedItems());
     }
 }
