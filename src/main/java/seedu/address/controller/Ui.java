@@ -7,17 +7,13 @@ import seedu.address.events.storage.FileOpeningExceptionEvent;
 import seedu.address.events.storage.FileSavingExceptionEvent;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.datatypes.person.ReadOnlyPerson;
 import seedu.address.model.datatypes.tag.Tag;
 import seedu.address.util.AppLogger;
 import seedu.address.util.Config;
-import seedu.address.util.GuiSettings;
 import seedu.address.util.LoggerManager;
-import seedu.address.util.collections.UnmodifiableObservableList;
 import com.google.common.eventbus.Subscribe;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
-import javafx.event.EventType;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -37,7 +33,7 @@ import java.io.IOException;
 public class Ui {
     public static final String DIALOG_TITLE_TAG_LIST = "List of Tags";
     private static final AppLogger logger = LoggerManager.getLogger(Ui.class);
-    private static final String FXML_HELP = "/view/Help.fxml";
+    private static final String FXML_HELP = "/view/HelpWindow.fxml";
     private static final String FXML_STATUS_BAR_FOOTER = "/view/StatusBarFooter.fxml";
     private static final String FXML_PERSON_LIST_PANEL = "/view/PersonListPanel.fxml";
     private static final String FXML_TAG_LIST = "/view/TagList.fxml";
@@ -47,15 +43,11 @@ public class Ui {
     private static final int MIN_HEIGHT = 600;
     private static final int MIN_WIDTH = 450;
 
-
     private static final String PERSON_WEBPAGE_PLACE_HOLDER_FIELD_ID = "#personWebpage";
-
 
     private ModelManager modelManager;
 
     private BrowserManager browserManager;
-
-    private MainApp mainApp; //TODO: remove this back link to higher level class
 
     private Config config;
     private UserPrefs prefs;
@@ -63,28 +55,22 @@ public class Ui {
     //Main Window of the app
     private MainWindow mainWindow;
 
-    //TODO: See if these can be pushed down to respective UI parts
-    private UnmodifiableObservableList<ReadOnlyPerson> personList;
-
     /**
      * Constructor for ui
      *
-     * @param mainApp
      * @param modelManager
      * @param config should have appTitle and updateInterval set
      */
-    public Ui(MainApp mainApp, ModelManager modelManager, Config config, UserPrefs prefs) {
+    public Ui(ModelManager modelManager, Config config, UserPrefs prefs) {
         super();
-        this.mainApp = mainApp;
         this.modelManager = modelManager;
         this.config = config;
         this.prefs = prefs;
-        this.personList = modelManager.getPersonsAsReadOnlyObservableList();
         this.browserManager = new BrowserManager();
         EventManager.getInstance().registerHandler(this);
     }
 
-    public void start(Stage primaryStage) {
+    public void start(Stage primaryStage, MainApp mainApp) {
         logger.info("Starting main controller.");
         this.browserManager.start();
         primaryStage.setTitle(config.getAppTitle());
@@ -95,14 +81,13 @@ public class Ui {
         try {
             logger.info("Starting main UI.");
 
-            mainWindow = MainWindow.load(primaryStage, config, prefs, mainApp, this, modelManager);
+            mainWindow = MainWindow.load(primaryStage, config, prefs, mainApp, this, modelManager, browserManager);
             mainWindow.show(); //This should be called before creating other UI parts
 
             mainWindow.fillInnerParts();
 
             //TODO: move the code below inside mainWindow.fillInnerParts()
             this.browserManager.start();
-            showPersonWebPage();
 
         } catch (Throwable e) {
             e.printStackTrace();
@@ -114,12 +99,6 @@ public class Ui {
         prefs.updateLastUsedGuiSetting(mainWindow.getCurrentGuiSetting());
         mainWindow.hide();
         releaseResourcesForAppTermination();
-    }
-
-    public void showPersonWebPage() {
-        AnchorPane pane = mainWindow.getAnchorPane("#personWebpage");
-        disableKeyboardShortcutOnNode(pane);
-        pane.getChildren().add(browserManager.getBrowserView());
     }
 
     private Node loadLoader(FXMLLoader loader, String errorMsg) {
@@ -237,14 +216,6 @@ public class Ui {
      */
     public void releaseResourcesForAppTermination(){
         browserManager.freeBrowserResources();
-    }
-
-    public void loadGithubProfilePage(ReadOnlyPerson person){
-        browserManager.loadProfilePage(person);
-    }
-
-    private void disableKeyboardShortcutOnNode(Node pane) {
-        pane.addEventHandler(EventType.ROOT, event -> event.consume());
     }
 
     private void showFatalErrorDialogAndShutdown(String title, String headerText, String contentText, String errorLocation) {

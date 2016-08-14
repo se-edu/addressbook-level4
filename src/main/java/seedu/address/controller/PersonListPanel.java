@@ -5,6 +5,7 @@ import javafx.scene.control.SplitPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import seedu.address.browser.BrowserManager;
 import seedu.address.events.controller.JumpToListRequestEvent;
 import seedu.address.model.ModelManager;
 import seedu.address.model.datatypes.person.ReadOnlyPerson;
@@ -38,7 +39,6 @@ public class PersonListPanel extends BaseUiPart {
     @FXML
     private ListView<ReadOnlyPerson> personListView;
 
-    private Ui ui;
     private ModelManager modelManager;
 
     public PersonListPanel() {
@@ -46,11 +46,12 @@ public class PersonListPanel extends BaseUiPart {
     }
 
     public static PersonListPanel load(Stage primaryStage, AnchorPane personListPlaceholder,
-                                       Ui ui, ModelManager modelManager) {
+                                       ModelManager modelManager, BrowserManager browserManager) {
         logger.debug("Loading person list panel.");
         PersonListPanel personListPanel =
                 UiPartLoader.loadUiPart(primaryStage, personListPlaceholder, new PersonListPanel());
-        personListPanel.configure(ui, modelManager, modelManager.getPersonsAsReadOnlyObservableList());
+        personListPanel.configure(modelManager, browserManager,
+                                  modelManager.getPersonsAsReadOnlyObservableList());
         return personListPanel;
     }
 
@@ -59,8 +60,9 @@ public class PersonListPanel extends BaseUiPart {
         placeHolderPane.getChildren().add(panel);
     }
 
-    private void configure(Ui ui, ModelManager modelManager, ObservableList<ReadOnlyPerson> personList){
-        setConnections(ui, modelManager, personList);
+    private void configure(ModelManager modelManager, BrowserManager browserManager,
+                           ObservableList<ReadOnlyPerson> personList){
+        setConnections(modelManager, browserManager, personList);
         addToPlaceholder();
     }
 
@@ -79,13 +81,12 @@ public class PersonListPanel extends BaseUiPart {
         this.placeHolderPane = pane;
     }
 
-    public void setConnections(Ui ui, ModelManager modelManager,
+    public void setConnections(ModelManager modelManager, BrowserManager browserManager,
                                ObservableList<ReadOnlyPerson> personList) {
-        this.ui = ui;
         this.modelManager = modelManager;
         personListView.setItems(personList);
         personListView.setCellFactory(listView -> new PersonListViewCell());
-        loadGithubProfilePageWhenPersonIsSelected(ui);
+        loadGithubProfilePageWhenPersonIsSelected(browserManager);
         setupListviewSelectionModelSettings();
     }
 
@@ -105,11 +106,11 @@ public class PersonListPanel extends BaseUiPart {
         });
     }
 
-    private void loadGithubProfilePageWhenPersonIsSelected(Ui ui) {
+    private void loadGithubProfilePageWhenPersonIsSelected(BrowserManager browserManager) {
         personListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 logger.debug("Person in list view clicked. Loading GitHub profile page: '{}'", newValue);
-                ui.loadGithubProfilePage(newValue);
+                browserManager.loadProfilePage(newValue);
             }
         });
     }

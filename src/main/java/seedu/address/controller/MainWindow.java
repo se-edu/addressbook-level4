@@ -6,8 +6,10 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import seedu.address.MainApp;
+import seedu.address.browser.BrowserManager;
 import seedu.address.commons.OsDetector;
 import seedu.address.events.controller.MinimizeAppRequestEvent;
 import seedu.address.events.controller.ResizeAppRequestEvent;
@@ -43,7 +45,7 @@ public class MainWindow extends BaseUiPart {
     private static final String FXML = "MainWindow.fxml";
     public static final int MIN_HEIGHT = 600;
     public static final int MIN_WIDTH = 450;
-    public static final String PERSON_LIST_PANEL_PLACEHOLDER_ID = "#personListPanel";
+    private static final String PERSON_LIST_PANEL_PLACEHOLDER_ID = "#personListPanel";
     private static final String HEADER_STATUSBAR_PLACEHOLDER_FIELD_ID = "#headerStatusbarPlaceholder";
     private static final String FOOTER_STATUSBAR_PLACEHOLDER_FIELD_ID = "#footerStatusbarPlaceholder";
 
@@ -53,6 +55,8 @@ public class MainWindow extends BaseUiPart {
     //Link to the model
     private ModelManager modelManager;
 
+    private BrowserManager browserManager;
+
     //Independent Ui parts residing in this Ui container
     private CommandParser parser;
 
@@ -60,6 +64,7 @@ public class MainWindow extends BaseUiPart {
     private PersonListPanel personListPanel;
     private StatusBarHeader statusBarHeader;
     private StatusBarFooter statusBarFooter;
+    private WebView browser;
 
     //Handles to elements of this Ui container
     private VBox rootLayout;
@@ -91,22 +96,25 @@ public class MainWindow extends BaseUiPart {
         return FXML;
     }
 
-    public static MainWindow load(Stage primaryStage, Config config, UserPrefs prefs, MainApp mainApp, Ui ui, ModelManager modelManager) {
+    public static MainWindow load(Stage primaryStage, Config config, UserPrefs prefs, MainApp mainApp, Ui ui,
+                                  ModelManager modelManager, BrowserManager browserManager) {
         logger.debug("Initializing main window.");
         MainWindow mainWindow = UiPartLoader.loadUiPart(primaryStage, new MainWindow());
-        mainWindow.configure(config.getAppTitle(), config.getAddressBookName(), prefs, mainApp, ui, modelManager);
+        mainWindow.configure(config.getAppTitle(), config.getAddressBookName(), prefs, mainApp, ui, modelManager,
+                             browserManager);
         mainWindow.setKeyEventHandler();
         mainWindow.setAccelerators();
         return mainWindow;
     }
 
-    private void configure(String appTitle, String addressBookName, UserPrefs prefs, MainApp mainApp, Ui ui, ModelManager modelManager) {
+    private void configure(String appTitle, String addressBookName, UserPrefs prefs, MainApp mainApp, Ui ui,
+                           ModelManager modelManager, BrowserManager browserManager) {
         //Set connections
         this.mainApp = mainApp;
         this.ui = ui;
         this.modelManager = modelManager;
         this.addressBookName = addressBookName;
-
+        this.browserManager = browserManager;
         //Configure the UI
         setTitle(appTitle);
         setIcon(ICON);
@@ -126,16 +134,17 @@ public class MainWindow extends BaseUiPart {
         scene.setOnKeyPressed((e) -> raisePotentialEvent(new KeyBindingEvent(e)));
     }
 
-    public void setConnections(MainApp mainApp, Ui ui, ModelManager modelManager) {
-        this.ui = ui;
-        this.modelManager = modelManager;
-        this.mainApp = mainApp;
-    }
-
     public void fillInnerParts() {
-        personListPanel = PersonListPanel.load(primaryStage, getPersonListPlaceholder(), ui, modelManager);
+        personListPanel = PersonListPanel.load(primaryStage, getPersonListPlaceholder(), modelManager, browserManager);
         statusBarHeader = StatusBarHeader.load(primaryStage, getHeaderStatusbarPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getFooterStatusbarPlaceholder(), addressBookName);
+        browser = loadBrowser();
+    }
+
+    private WebView loadBrowser() {
+        AnchorPane pane = this.getAnchorPane("#personWebpage");
+        pane.getChildren().add(browserManager.getBrowserView());
+        return (WebView) browserManager.getBrowserView();
     }
 
     private AnchorPane getFooterStatusbarPlaceholder() {
@@ -212,8 +221,8 @@ public class MainWindow extends BaseUiPart {
 
     @FXML
     private void handleHelp() {
-        logger.debug("Showing help page about the application.");
-        ui.showHelpPage();
+        HelpWindow helpWindow = HelpWindow.load(primaryStage);
+        helpWindow.show();
     }
 
     public void show() {
@@ -224,7 +233,7 @@ public class MainWindow extends BaseUiPart {
      * Opens an about dialog.
      */
     @FXML
-    private void handleAbout() {
+    private void handleAbout() {//TODO: refactor to be similar to handleHelp and remove the dependency to ui
         logger.debug("Showing information about the application.");
         ui.showAlertDialogAndWait(AlertType.INFORMATION, "AddressApp", "About",
                 "Version " + MainApp.VERSION.toString() + "\nSome code adapted from http://code.makery.ch");
@@ -235,11 +244,12 @@ public class MainWindow extends BaseUiPart {
      */
     @FXML
     private void handleExit() {
+        //TODO: remove dependency on mainApp by using an event
         mainApp.stop();
     }
 
     @FXML
-    private void handleShowTags() {
+    private void handleShowTags() {//TODO: refactor to be similar to handleHelp and remove the dependency to ui
         logger.debug("Attempting to show tag list.");
         ui.showTagList(modelManager.getTagsAsReadOnlyObservableList());
     }
