@@ -34,9 +34,6 @@
                     </children>
                 </VBox>
             </children>
-         <rowConstraints>
-            <RowConstraints />
-         </rowConstraints>
         </GridPane>
     </children>
 </HBox>

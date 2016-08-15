@@ -122,27 +122,6 @@ public class Ui {
         return dialogStage;
     }
 
-    public void showTagList(ObservableList<Tag> tags) {
-        logger.debug("Loading tag list.");
-        final String fxmlResourcePath = FXML_TAG_LIST;
-        // Load the fxml file and create a new stage for the popup dialog.
-        FXMLLoader loader = loadFxml(fxmlResourcePath);
-        AnchorPane page = (AnchorPane) loadLoader(loader, "Error loading tag list view");
-
-        Scene scene = new Scene(page);
-        Stage dialogStage = loadDialogStage(DIALOG_TITLE_TAG_LIST, mainWindow.primaryStage, scene);
-
-        // Set the tag into the controller.
-        TagListController tagListController = loader.getController();
-        tagListController.setUi(this);
-        tagListController.setModelManager(modelManager);
-        tagListController.setTags(tags);
-        tagListController.setStage(dialogStage);
-
-        // Show the dialog and wait until the user closes it
-        dialogStage.showAndWait();
-    }
-
     /**
      * Opens a dialog to show the help page
      */

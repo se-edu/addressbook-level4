@@ -4,6 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import java.net.URL?>
 <?import org.controlsfx.control.StatusBar?>
+<?import javafx.geometry.Insets?>
 <VBox maxHeight="Infinity" maxWidth="Infinity" minHeight="-Infinity" minWidth="-Infinity" stylesheets="@Theme.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.address.controller.MainWindow">
    <stylesheets>
       <URL value="@Theme.css" />
@@ -28,13 +29,20 @@
       <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.4" VBox.vgrow="ALWAYS">
          <items>
             <VBox fx:id="personList" minWidth="340" prefWidth="340">
+                <padding>
+                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                </padding>
                <children>
                   <TextField fx:id="filterField" onAction="#handleFilterChanged"/>
                   <StatusBar fx:id="statusField"/>
                   <AnchorPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
                </children>
             </VBox>
-            <AnchorPane fx:id="personWebpage" prefWidth="340" />
+            <AnchorPane fx:id="personWebpage" prefWidth="340" >
+                <padding>
+                    <Insets top="10" bottom="10" left="10" right="10"/>
+                </padding>
+            </AnchorPane>
          </items>
       </SplitPane>
    </children>

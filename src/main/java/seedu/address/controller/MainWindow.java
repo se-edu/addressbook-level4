@@ -235,12 +235,6 @@ public class MainWindow extends BaseUiPart {
         mainApp.stop();
     }
 
-    @FXML
-    private void handleShowTags() {//TODO: refactor to be similar to handleHelp and remove the dependency to ui
-        logger.debug("Attempting to show tag list.");
-        ui.showTagList(modelManager.getTagsAsReadOnlyObservableList());
-    }
-
     @Subscribe
     private void handleResizeAppRequestEvent(ResizeAppRequestEvent event){
         logger.debug("Handling the resize app window request");

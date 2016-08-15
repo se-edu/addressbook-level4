@@ -5,7 +5,7 @@
 .label {
     -fx-font-size: 11pt;
     -fx-font-family: "Segoe UI Semibold";
-    -fx-text-fill: #555555;
+    -fx-text-fill: #333333;
     -fx-opacity: 0.9;
 }
 
@@ -32,7 +32,7 @@
     -fx-padding: 0 0 0 1;
 }
 
-.tab-pane .tab-header-area{
+.tab-pane .tab-header-area {
     -fx-padding: 0 0 0 0;
     -fx-min-height: 0;
     -fx-max-height: 0;
@@ -76,8 +76,14 @@
 }
 
 .split-pane:horizontal .split-pane-divider {
-    -fx-border-color: transparent #bdcee2 transparent #bdcee2;
-    -fx-background-color: transparent, derive(#bdcee2,65%);
+    -fx-background-color: #9CB5D4;
+}
+
+.split-pane {
+    -fx-border-color: #8294ac;
+    -fx-border-radius: 1;
+    -fx-border-width: 1;
+    -fx-background-color: #bdcee2;
 }
 
 .list-cell {
@@ -88,6 +94,18 @@
 
 .list-cell .label {
     -fx-text-fill: #010504;
+}
+
+.scroll-bar:vertical .thumb {
+    -fx-background-color: #8294AC;
+    -fx-background-insets: 0, 0, 0;
+    -fx-background-radius: 0em;
+}
+
+.list-view {
+    -fx-background-color: #8294AC;
+    -fx-background-radius: 3;
+    -fx-background-insets: 0;
 }
 
 .cell_big_label {
@@ -211,11 +229,11 @@
     -fx-background-color: derive(-fx-focus-color,30%);
 }
 
-.dialog-pane{
+.dialog-pane {
     -fx-background-color: #bdcee2;
 }
 
-.dialog-pane > *.button-bar > *.container{
+.dialog-pane > *.button-bar > *.container {
     -fx-background-color: #bdcee2;
 }
 
@@ -225,11 +243,11 @@
     -fx-text-fill: white;
 }
 
-.dialog-pane:header *.header-panel{
+.dialog-pane:header *.header-panel {
     -fx-background-color: derive(#bdcee2,25%);
 }
 
-.dialog-pane:header *.header-panel *.label{
+.dialog-pane:header *.header-panel *.label {
     -fx-font-size: 18px;
     -fx-font-style: italic;
     -fx-fill: white;
@@ -239,7 +257,6 @@
 #cardPane {
     -fx-background-color: transparent;
     -fx-border-color: #d6d6d6;
-    -fx-border-width: 1 1 1 8;
 }
 
 #commandTypeLabel {
@@ -247,26 +264,10 @@
     -fx-text-fill: #F70D1A;
 }
 
-#remoteRequestOngoingIndicator {
-    -fx-font-size: 11px;
-    -fx-text-fill: #F70D1A;
+#filterField, #personWebpage {
+    -fx-effect: innershadow(gaussian, black, 10, 0, 0, 0);
 }
 
-#commandStateDisplayRootNode {
-    -fx-background-radius: 5;
-    -fx-background-color: white;
-    -fx-padding-background-color: transparent;
-    -fx-padding: 0 5 0 5;
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
+#personListPanel {
+    -fx-effect: innershadow(gaussian, black, 10, 0, 0, 0);
 }
-
-#activityLabel {
-    -fx-font-size: 12px;
-}
-
-#activityHistoryCardMainpane {
-    -fx-border-width: 0 0 1 0;
-    -fx-border-color: lightgrey;
-    -fx-padding: 2 4 2 4;
-}
-
