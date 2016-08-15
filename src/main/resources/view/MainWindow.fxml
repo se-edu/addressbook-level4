@@ -3,6 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import java.net.URL?>
+<?import org.controlsfx.control.StatusBar?>
 <VBox maxHeight="Infinity" maxWidth="Infinity" minHeight="-Infinity" minWidth="-Infinity" stylesheets="@Theme.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.address.controller.MainWindow">
    <stylesheets>
       <URL value="@Theme.css" />
@@ -26,13 +27,14 @@
       </MenuBar>
       <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.4" VBox.vgrow="ALWAYS">
          <items>
-            <VBox fx:id="commandAndPersonList" minWidth="340">
+            <VBox fx:id="personList" minWidth="340" prefWidth="340">
                <children>
-                  <TextField fx:id="filterField" onAction="#handleFilterChanged" />
+                  <TextField fx:id="filterField" onAction="#handleFilterChanged"/>
+                  <StatusBar fx:id="statusField"/>
                   <AnchorPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
                </children>
             </VBox>
-            <AnchorPane fx:id="personWebpage" />
+            <AnchorPane fx:id="personWebpage" prefWidth="340" />
          </items>
       </SplitPane>
    </children>
