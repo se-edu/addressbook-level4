@@ -26,10 +26,6 @@ public class MainGuiHandle extends GuiHandle {
         return new MainMenuHandle(guiRobot, primaryStage);
     }
 
-    public HeaderStatusBarHandle getStatusBar() {
-        return new HeaderStatusBarHandle(guiRobot, primaryStage);
-    }
-
     public boolean isMinimized() {
         return primaryStage.isIconified() && !primaryStage.isMaximized();
     }

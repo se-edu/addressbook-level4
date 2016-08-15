@@ -45,9 +45,6 @@ public class MainWindow extends BaseUiPart {
     private static final String FXML = "MainWindow.fxml";
     public static final int MIN_HEIGHT = 600;
     public static final int MIN_WIDTH = 450;
-    private static final String PERSON_LIST_PANEL_PLACEHOLDER_ID = "#personListPanel";
-    private static final String HEADER_STATUSBAR_PLACEHOLDER_FIELD_ID = "#headerStatusbarPlaceholder";
-    private static final String FOOTER_STATUSBAR_PLACEHOLDER_FIELD_ID = "#footerStatusbarPlaceholder";
 
     private MainApp mainApp; //TODO: remove this dependency as per TODOs given in methods below
     private Ui ui; //TODO: remove this dependency as per TODOs given in methods below
@@ -136,8 +133,6 @@ public class MainWindow extends BaseUiPart {
 
     public void fillInnerParts() {
         personListPanel = PersonListPanel.load(primaryStage, getPersonListPlaceholder(), modelManager, browserManager);
-        statusBarHeader = StatusBarHeader.load(primaryStage, getHeaderStatusbarPlaceholder());
-        statusBarFooter = StatusBarFooter.load(primaryStage, getFooterStatusbarPlaceholder(), addressBookName);
         browser = loadBrowser();
     }
 
@@ -145,14 +140,6 @@ public class MainWindow extends BaseUiPart {
         AnchorPane pane = this.getAnchorPane("#personWebpage");
         pane.getChildren().add(browserManager.getBrowserView());
         return (WebView) browserManager.getBrowserView();
-    }
-
-    private AnchorPane getFooterStatusbarPlaceholder() {
-        return this.getAnchorPane(FOOTER_STATUSBAR_PLACEHOLDER_FIELD_ID);
-    }
-
-    private AnchorPane getHeaderStatusbarPlaceholder() {
-        return this.getAnchorPane(HEADER_STATUSBAR_PLACEHOLDER_FIELD_ID);
     }
 
     /**

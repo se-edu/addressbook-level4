@@ -7,7 +7,7 @@
         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
     </padding>
     <stylesheets>
-        <URL value="@DarkTheme.css" />
+        <URL value="@Theme.css" />
         <URL value="@Extensions.css" />
     </stylesheets>
     <children>

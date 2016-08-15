@@ -34,7 +34,6 @@ public class Ui {
     public static final String DIALOG_TITLE_TAG_LIST = "List of Tags";
     private static final AppLogger logger = LoggerManager.getLogger(Ui.class);
     private static final String FXML_HELP = "/view/HelpWindow.fxml";
-    private static final String FXML_STATUS_BAR_FOOTER = "/view/StatusBarFooter.fxml";
     private static final String FXML_PERSON_LIST_PANEL = "/view/PersonListPanel.fxml";
     private static final String FXML_TAG_LIST = "/view/TagList.fxml";
     private static final String FXML_ROOT_LAYOUT = "/view/MainWindow.fxml";
@@ -198,7 +197,7 @@ public class Ui {
     public static void showAlertDialogAndWait(Stage owner, AlertType type, String title, String headerText,
                                               String contentText) {
         final Alert alert = new Alert(type);
-        alert.getDialogPane().getStylesheets().add("view/DarkTheme.css");
+        alert.getDialogPane().getStylesheets().add("view/Theme.css");
         alert.initOwner(owner);
         alert.setTitle(title);
         alert.setHeaderText(headerText);
