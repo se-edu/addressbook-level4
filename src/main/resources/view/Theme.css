@@ -247,6 +247,15 @@
     -fx-background-color: derive(#1d1d1d, 50%);
 }
 
+.scroll-bar .increment-button, .scroll-bar .decrement-button {
+    -fx-background-color: transparent;
+    -fx-padding: 0 0 0 0;
+}
+
+.scroll-bar .increment-arrow, .scroll-bar .decrement-arrow {
+    -fx-padding: 0 8 0 8;
+}
+
 #cardPane {
     -fx-background-color: transparent;
     -fx-border-color: #d6d6d6;
