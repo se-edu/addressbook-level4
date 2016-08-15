@@ -245,6 +245,7 @@
 
 .scroll-bar .thumb {
     -fx-background-color: derive(#1d1d1d, 50%);
+    -fx-background-insets: 3;
 }
 
 .scroll-bar .increment-button, .scroll-bar .decrement-button {
@@ -253,7 +254,8 @@
 }
 
 .scroll-bar .increment-arrow, .scroll-bar .decrement-arrow {
-    -fx-padding: 0 8 0 8;
+    -fx-shape: " ";
+    -fx-padding: 1 8 1 8;
 }
 
 #cardPane {
