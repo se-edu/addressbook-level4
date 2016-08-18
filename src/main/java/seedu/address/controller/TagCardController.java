@@ -12,7 +12,7 @@ import java.io.IOException;
 /**
  * A controller for TagList's card
  */
-public class TagCardController extends UiController{
+public class TagCardController {
 
     private static final String VIEW_TAG_LIST_CARD_FXML = "/view/TagListCard.fxml";
 
@@ -22,11 +22,11 @@ public class TagCardController extends UiController{
     private Label tagName;
 
     private Tag tag;
-    private MainController mainController;
+    private Ui ui;
     private TagListController tagListController;
 
-    public TagCardController(Tag tag, MainController mainController, TagListController tagListController) {
-        this.mainController = mainController;
+    public TagCardController(Tag tag, Ui ui, TagListController tagListController) {
+        this.ui = ui;
         this.tag = tag;
         this.tagListController = tagListController;
 

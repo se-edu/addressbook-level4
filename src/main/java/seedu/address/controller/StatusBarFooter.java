@@ -1,5 +1,8 @@
 package seedu.address.controller;
 
+import javafx.scene.Node;
+import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
 import seedu.address.commons.FxViewUtil;
 import javafx.fxml.FXML;
 import javafx.scene.control.Tooltip;
@@ -9,18 +12,47 @@ import org.controlsfx.control.StatusBar;
 /**
  * A controller for the status bar that is displayed at the footer of the application.
  */
-public class StatusBarFooterController extends UiController {
+public class StatusBarFooter extends BaseUiPart{
 
     private static StatusBar syncStatusBar;
     private static StatusBar saveLocStatusBar;
+
+    private GridPane mainPane;
 
     @FXML
     private AnchorPane saveLocStatusBarPane;
     @FXML
     private AnchorPane syncStatusBarPane;
 
-    public StatusBarFooterController() {
-        super();
+    private AnchorPane placeHolder;
+
+    private static final String FXML = "StatusBarFooter.fxml";
+
+    public static StatusBarFooter load(Stage stage, AnchorPane placeHolder, String addressBookName) {
+        StatusBarFooter statusBarFooter = UiPartLoader.loadUiPart(stage, placeHolder, new StatusBarFooter());
+        statusBarFooter.configure(addressBookName);
+        return statusBarFooter;
+    }
+
+    public void configure(String addressBookName) {
+        this.init(addressBookName);
+        FxViewUtil.applyAnchorBoundaryParameters(mainPane, 0.0, 0.0, 0.0, 0.0);
+        placeHolder.getChildren().add(mainPane);
+    }
+
+    @Override
+    public void setNode(Node node) {
+        mainPane = (GridPane) node;
+    }
+
+    @Override
+    public void setPlaceholder(AnchorPane placeholder) {
+        this.placeHolder = placeholder;
+    }
+
+    @Override
+    public String getFxmlPath() {
+        return FXML;
     }
 
     /**

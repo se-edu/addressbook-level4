@@ -1,6 +1,6 @@
 package guitests.guihandles;
 
-import seedu.address.controller.MainController;
+import seedu.address.controller.Ui;
 import guitests.GuiRobot;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
@@ -23,7 +23,7 @@ public class ManageTagsDialogHandle extends GuiHandle {
     public static final String TAG_NAME_FIELD_ID = "#tagName";
 
     public ManageTagsDialogHandle(GuiRobot guiRobot, Stage primaryStage) {
-        super(guiRobot, primaryStage, MainController.DIALOG_TITLE_TAG_LIST);
+        super(guiRobot, primaryStage, Ui.DIALOG_TITLE_TAG_LIST);
     }
 
     private ScrollPane getScrollPane() {

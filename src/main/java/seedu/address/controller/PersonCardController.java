@@ -12,7 +12,7 @@ import javafx.scene.layout.HBox;
 
 import java.io.IOException;
 
-public class PersonCardController extends UiController {
+public class PersonCardController {
 
     @FXML
     private HBox cardPane;

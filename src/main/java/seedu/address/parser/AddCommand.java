@@ -14,4 +14,9 @@ public class AddCommand implements Command{
     public void execute(ModelManager modelManager) {
         modelManager.createPersonThroughUI(Optional.of(new Person("John", "Smith", -1)));
     }
+
+    @Override
+    public String getTargetName() {
+        return "John Smith";
+    }
 }

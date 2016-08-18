@@ -1,9 +1,9 @@
 package seedu.address;
 
+import seedu.address.controller.Ui;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.storage.StorageManager;
-import seedu.address.ui.Ui;
 import seedu.address.util.AppLogger;
 import seedu.address.util.Config;
 import seedu.address.util.DependencyChecker;
@@ -72,7 +72,7 @@ public class MainApp extends Application {
     }
 
     protected Ui initUi(Config config, ModelManager modelManager) {
-        return new Ui(this, modelManager, config, userPrefs);
+        return new Ui(modelManager, config, userPrefs);
     }
 
     protected StorageManager initStorageManager(ModelManager modelManager, Config config, UserPrefs userPrefs) {
@@ -86,7 +86,7 @@ public class MainApp extends Application {
     @Override
     public void start(Stage primaryStage) {
         logger.info("Starting application: {}", MainApp.VERSION);
-        ui.start(primaryStage);
+        ui.start(primaryStage, this);
         storageManager.start();
     }
 
