@@ -85,10 +85,6 @@ public class Ui {
             mainWindow.show(); //This should be called before creating other UI parts
 
             mainWindow.fillInnerParts();
-
-            //TODO: move the code below inside mainWindow.fillInnerParts()
-            this.browserManager.start();
-
         } catch (Throwable e) {
             e.printStackTrace();
             showFatalErrorDialogAndShutdown("Fatal error during initializing", e);
