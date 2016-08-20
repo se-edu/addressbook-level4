@@ -1,8 +1,8 @@
 package seedu.address.ui;
 
-import seedu.address.controller.PersonCardController;
-import seedu.address.model.datatypes.person.ReadOnlyPerson;
 import javafx.scene.control.ListCell;
+import seedu.address.controller.PersonCardController;
+import seedu.address.model.person.ReadOnlyPerson;
 
 public class PersonListViewCell extends ListCell<ReadOnlyPerson> {
 

@@ -1,6 +1,6 @@
 package seedu.address.browser;
 
-import seedu.address.model.datatypes.person.ReadOnlyPerson;
+import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.util.AppLogger;
 import seedu.address.util.LoggerManager;
 import seedu.address.commons.FxViewUtil;
@@ -65,6 +65,7 @@ public class BrowserManager {
      */
     public synchronized void loadProfilePage(ReadOnlyPerson person) {
 
+        /*
         selectedPersonUsername.removeListener(listener);
 
         browser.getEngine().load(person.profilePageUrl().toExternalForm());
@@ -72,6 +73,7 @@ public class BrowserManager {
         selectedPersonUsername.unbind();
         selectedPersonUsername.bind(person.githubUsernameProperty());
         selectedPersonUsername.addListener(listener);
+        */
     }
 
     /**

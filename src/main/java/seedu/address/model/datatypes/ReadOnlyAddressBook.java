@@ -1,7 +1,8 @@
 package seedu.address.model.datatypes;
 
-import seedu.address.model.datatypes.person.ReadOnlyPerson;
-import seedu.address.model.datatypes.tag.Tag;
+
+import seedu.address.model.Tag;
+import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.util.collections.UnmodifiableObservableList;
 
 import java.util.List;

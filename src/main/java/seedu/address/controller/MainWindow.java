@@ -1,7 +1,5 @@
 package seedu.address.controller;
 
-import com.google.common.eventbus.Subscribe;
-import javafx.application.Platform;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
@@ -10,14 +8,10 @@ import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import seedu.address.MainApp;
 import seedu.address.browser.BrowserManager;
-import seedu.address.commons.OsDetector;
 import seedu.address.events.hotkey.KeyBindingEvent;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.parser.AddCommand;
-import seedu.address.parser.Command;
-import seedu.address.parser.CommandParser;
-import seedu.address.parser.DeleteCommand;
+import seedu.address.parser.Parser;
 import seedu.address.util.AppLogger;
 import seedu.address.util.Config;
 import seedu.address.util.GuiSettings;
@@ -48,7 +42,7 @@ public class MainWindow extends BaseUiPart {
     private BrowserManager browserManager;
 
     //Independent Ui parts residing in this Ui container
-    private CommandParser parser;
+    private Parser parser;
 
     //Independent Ui parts residing in this Ui container
     private PersonListPanel personListPanel;
@@ -73,7 +67,7 @@ public class MainWindow extends BaseUiPart {
 
     public MainWindow() {
         super();
-        parser = new CommandParser();
+        parser = new Parser();
     }
 
     @Override
@@ -182,6 +176,7 @@ public class MainWindow extends BaseUiPart {
 
     @FXML
     private void handleFilterChanged() {
+        /*
         if (parser.isCommandInput(filterField.getText())) {
             if (filterField.getStyleClass().contains("error")) filterField.getStyleClass().remove("error");
             Command cmd = parser.parse(filterField.getText());
@@ -195,6 +190,7 @@ public class MainWindow extends BaseUiPart {
 
             return;
         }
+        */
         logger.debug("Invalid command: {}", filterField.getText());
         if (!filterField.getStyleClass().contains("error")) filterField.getStyleClass().add("error");
     }

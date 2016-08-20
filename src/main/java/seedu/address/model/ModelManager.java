@@ -5,9 +5,9 @@ import seedu.address.exceptions.DuplicateTagException;
 import seedu.address.main.ComponentManager;
 import seedu.address.model.datatypes.AddressBook;
 import seedu.address.model.datatypes.ReadOnlyAddressBook;
-import seedu.address.model.datatypes.person.Person;
-import seedu.address.model.datatypes.person.ReadOnlyPerson;
-import seedu.address.model.datatypes.tag.Tag;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.ReadOnlyPerson;
+import seedu.address.model.person.UniquePersonList;
 import seedu.address.util.AppLogger;
 import seedu.address.util.Config;
 import seedu.address.util.LoggerManager;
@@ -97,39 +97,15 @@ public class ModelManager extends ComponentManager implements ReadOnlyAddressBoo
      */
     public synchronized void createPersonThroughUI(Optional<ReadOnlyPerson> person) {
         Person toAdd;
-        do { // make sure no id clashes.
-            toAdd = new Person(Math.abs(UUID.randomUUID().hashCode()));
-        } while (backingModel.getPersonList().contains(toAdd));
-        toAdd.update(person.get());
+        toAdd = new Person(person.get().getName(), person.get().getPhone(), person.get().getEmail(),
+                               person.get().getAddress(), person.get().getTags());
         backingModel.addPerson(toAdd);
         updateBackingStorage();
     }
 
-    /**
-     * Request to update a person. Simulates the change optimistically until remote confirmation, and provides a grace
-     * period for cancellation, editing, or deleting. TODO listen on Person properties and not manually raise events
-     * @param target The Person to be changed.
-     */
-    public synchronized void editPersonThroughUI(ReadOnlyPerson target,
-                                                 Optional<ReadOnlyPerson> editedTarget) {
-        backingModel.findPerson(target).get().update(editedTarget.get());
-        updateBackingStorage();
-    }
 
     public void updateBackingStorage() {
         raise(new LocalModelChangedEvent(backingModel));
-    }
-
-    /**
-     * Request to set the tags for a group of Persons. Simulates change optimistically until remote confirmation,
-     * and provides a grace period for cancellation, editing, or deleting.
-     * @param targets Persons to be retagged
-     */
-    public void retagPersonsThroughUI(Collection<? extends ReadOnlyPerson> targets,
-                                      Optional<? extends Collection<Tag>> newTags) {
-
-        targets.stream().forEach(p -> backingModel.findPerson(p).get().setTags(newTags.get()));
-        updateBackingStorage();
     }
 
     /**
@@ -146,7 +122,13 @@ public class ModelManager extends ComponentManager implements ReadOnlyAddressBoo
     }
 
     public synchronized void deletePersonsThroughUI(List<ReadOnlyPerson> targets) {
-        targets.forEach(backingModel::removePerson);
+        targets.forEach(p -> {
+            try {
+                backingModel.removePerson(p);
+            } catch (UniquePersonList.PersonNotFoundException e) {
+                e.printStackTrace(); //TODO: handle exception
+            }
+        });
         updateBackingStorage();
     }
 
@@ -162,23 +144,6 @@ public class ModelManager extends ComponentManager implements ReadOnlyAddressBoo
             throw new DuplicateTagException(tagToAdd);
         }
         backingTagList().add(tagToAdd);
-    }
-
-//// UPDATE
-
-    /**
-     * Updates the details of a Tag object. Updates to Tag objects should be
-     * done through this method to ensure the proper events are raised to indicate
-     * a change to the model. TODO listen on Tag properties and not manually raise events here.
-     *
-     * @param original The Tag object to be changed.
-     * @param updated The temporary Tag object containing new values.
-     */
-    public synchronized void updateTag(Tag original, Tag updated) throws DuplicateTagException {
-        if (!original.equals(updated) && backingTagList().contains(updated)) {
-            throw new DuplicateTagException(updated);
-        }
-        original.update(updated);
     }
 
 //// DELETE

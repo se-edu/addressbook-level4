@@ -1,8 +1,9 @@
 package seedu.address.model.datatypes;
 
-import seedu.address.model.datatypes.person.Person;
-import seedu.address.model.datatypes.person.ReadOnlyPerson;
-import seedu.address.model.datatypes.tag.Tag;
+import seedu.address.model.Tag;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.ReadOnlyPerson;
+import seedu.address.model.person.UniquePersonList;
 import seedu.address.util.collections.UnmodifiableObservableList;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -10,7 +11,6 @@ import javafx.collections.ObservableList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -61,7 +61,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         this.tags.setAll(tags);
     }
 
-    public void clearData() {
+    public void clear() {
         persons.clear();
         tags.clear();
     }
@@ -78,31 +78,19 @@ public class AddressBook implements ReadOnlyAddressBook {
 //// person-level operations
 
     public boolean containsPerson(ReadOnlyPerson key) {
-        return ReadOnlyPerson.containsById(persons, key);
-    }
-
-    public boolean containsPerson(int id) {
-        return ReadOnlyPerson.containsById(persons, id);
-    }
-
-    public Optional<Person> findPerson(ReadOnlyPerson key) {
-        return ReadOnlyPerson.findById(persons, key);
-    }
-
-    public Optional<Person> findPerson(int id) {
-        return ReadOnlyPerson.findById(persons, id);
+        return persons.contains(key);
     }
 
     public void addPerson(Person p){
         persons.add(p);
     }
 
-    public boolean removePerson(ReadOnlyPerson key) {
-        return ReadOnlyPerson.removeOneById(persons, key);
-    }
-
-    public boolean removePerson(int id) {
-        return ReadOnlyPerson.removeOneById(persons, id);
+    public boolean removePerson(ReadOnlyPerson key) throws UniquePersonList.PersonNotFoundException {
+        if (persons.remove(key)) {
+            return true;
+        } else {
+            throw new UniquePersonList.PersonNotFoundException();
+        }
     }
 
 //// tag-level operations
@@ -116,11 +104,6 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
 //// util methods
-
-    // Deprecated (to be removed when no-dupe property is properly enforced
-    public boolean containsDuplicates() {
-        return !UniqueData.itemsAreUnique(persons) || !UniqueData.itemsAreUnique(tags);
-    }
 
     @Override
     public String toString() {
