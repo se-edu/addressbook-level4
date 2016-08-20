@@ -1,5 +1,5 @@
 .background {
-    -fx-background-color: #1d1d1d;
+    -fx-background-color: derive(#1d1d1d, 20%);
 }
 
 .label {
@@ -32,7 +32,7 @@
     -fx-padding: 0 0 0 1;
 }
 
-.tab-pane .tab-header-area{
+.tab-pane .tab-header-area {
     -fx-padding: 0 0 0 0;
     -fx-min-height: 0;
     -fx-max-height: 0;
@@ -77,7 +77,13 @@
 
 .split-pane:horizontal .split-pane-divider {
     -fx-border-color: transparent #1d1d1d transparent #1d1d1d;
-    -fx-background-color: transparent, derive(#1d1d1d,20%);
+    -fx-background-color: transparent, derive(#1d1d1d, 10%);
+}
+
+.split-pane {
+    -fx-border-radius: 1;
+    -fx-border-width: 1;
+    -fx-background-color: derive(#1d1d1d, 20%);
 }
 
 .list-cell {
@@ -101,17 +107,17 @@
 }
 
 .anchor-pane {
-     -fx-background-color: derive(#1d1d1d,20%);
+     -fx-background-color: derive(#1d1d1d, 20%);
 }
 
 .anchor-pane-with-border {
-     -fx-background-color: derive(#1d1d1d,20%);
-     -fx-border-color: derive(#1d1d1d,10%);
+     -fx-background-color: derive(#1d1d1d, 20%);
+     -fx-border-color: derive(#1d1d1d, 10%);
      -fx-border-top-width: 1px;
 }
 
 .status-bar {
-    -fx-background-color: derive(#1d1d1d,10%);
+    -fx-background-color: derive(#1d1d1d, 20%);
     -fx-text-fill: white;
 }
 
@@ -120,8 +126,8 @@
 }
 
 .status-bar-with-border {
-    -fx-background-color: derive(#1d1d1d,30%);
-    -fx-border-color: derive(#1d1d1d,25%);
+    -fx-background-color: derive(#1d1d1d, 30%);
+    -fx-border-color: derive(#1d1d1d, 25%);
     -fx-border-width: 1px;
 }
 
@@ -130,17 +136,17 @@
 }
 
 .grid-pane {
-    -fx-background-color: derive(#1d1d1d,30%);
-    -fx-border-color: derive(#1d1d1d,30%);
+    -fx-background-color: derive(#1d1d1d, 30%);
+    -fx-border-color: derive(#1d1d1d, 30%);
     -fx-border-width: 1px;
 }
 
 .grid-pane .anchor-pane {
-    -fx-background-color: derive(#1d1d1d,30%);
+    -fx-background-color: derive(#1d1d1d, 30%);
 }
 
 .context-menu {
-    -fx-background-color: derive(#1d1d1d,50%);
+    -fx-background-color: derive(#1d1d1d, 50%);
 }
 
 .context-menu .label {
@@ -148,7 +154,7 @@
 }
 
 .menu-bar {
-    -fx-background-color: derive(#1d1d1d,20%);
+    -fx-background-color: derive(#1d1d1d, 20%);
 }
 
 .menu-bar .label {
@@ -208,38 +214,60 @@
 }
 
 .button:default:hover {
-    -fx-background-color: derive(-fx-focus-color,30%);
+    -fx-background-color: derive(-fx-focus-color, 30%);
 }
 
-.dialog-pane{
+.dialog-pane {
     -fx-background-color: #1d1d1d;
 }
 
-.dialog-pane > *.button-bar > *.container{
+.dialog-pane > *.button-bar > *.container {
     -fx-background-color: #1d1d1d;
 }
 
-.dialog-pane > *.label.content{
+.dialog-pane > *.label.content {
     -fx-font-size: 14px;
     -fx-font-weight: bold;
     -fx-text-fill: white;
 }
 
-.dialog-pane:header *.header-panel{
-    -fx-background-color: derive(#1d1d1d,25%);
+.dialog-pane:header *.header-panel {
+    -fx-background-color: derive(#1d1d1d, 25%);
 }
 
-.dialog-pane:header *.header-panel *.label{
+.dialog-pane:header *.header-panel *.label {
     -fx-font-size: 18px;
     -fx-font-style: italic;
     -fx-fill: white;
     -fx-text-fill: white;
 }
 
+.scroll-bar .thumb {
+    -fx-background-color: derive(#1d1d1d, 50%);
+    -fx-background-insets: 3;
+}
+
+.scroll-bar .increment-button, .scroll-bar .decrement-button {
+    -fx-background-color: transparent;
+    -fx-padding: 0 0 0 0;
+}
+
+.scroll-bar .increment-arrow, .scroll-bar .decrement-arrow {
+    -fx-shape: " ";
+}
+
+.scroll-bar:vertical .increment-arrow, .scroll-bar:vertical .decrement-arrow {
+    -fx-padding: 1 8 1 8;
+}
+
+.scroll-bar:horizontal .increment-arrow, .scroll-bar:horizontal .decrement-arrow {
+    -fx-padding: 8 1 8 1;
+}
+
 #cardPane {
     -fx-background-color: transparent;
     -fx-border-color: #d6d6d6;
-    -fx-border-width: 1 1 1 8;
+    -fx-border-width: 1 1 1 1;
 }
 
 #commandTypeLabel {
@@ -247,26 +275,6 @@
     -fx-text-fill: #F70D1A;
 }
 
-#remoteRequestOngoingIndicator {
-    -fx-font-size: 11px;
-    -fx-text-fill: #F70D1A;
+#filterField, #personListPanel, #personWebpage {
+    -fx-effect: innershadow(gaussian, black, 10, 0, 0, 0);
 }
-
-#commandStateDisplayRootNode {
-    -fx-background-radius: 5;
-    -fx-background-color: white;
-    -fx-padding-background-color: transparent;
-    -fx-padding: 0 5 0 5;
-    -fx-effect: dropshadow(three-pass-box, rgba(0,0,0,0.8), 10, 0, 0, 0);
-}
-
-#activityLabel {
-    -fx-font-size: 12px;
-}
-
-#activityHistoryCardMainpane {
-    -fx-border-width: 0 0 1 0;
-    -fx-border-color: lightgrey;
-    -fx-padding: 2 4 2 4;
-}
-

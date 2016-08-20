@@ -1,7 +1,0 @@
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.layout.*?>
-<AnchorPane maxHeight="300" prefWidth="280" fx:id="tagListMainPane" stylesheets="@DarkTheme.css" xmlns:fx="http://javafx.com/fxml" fx:controller="seedu.address.controller.TagListController">
-    <children>
-        <ScrollPane fx:id="tagListScrollPane" AnchorPane.topAnchor="5.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0"/>
-    </children>
-</AnchorPane>

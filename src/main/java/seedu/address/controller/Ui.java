@@ -7,13 +7,11 @@ import seedu.address.events.storage.FileOpeningExceptionEvent;
 import seedu.address.events.storage.FileSavingExceptionEvent;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.datatypes.tag.Tag;
 import seedu.address.util.AppLogger;
 import seedu.address.util.Config;
 import seedu.address.util.LoggerManager;
 import com.google.common.eventbus.Subscribe;
 import javafx.application.Platform;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -34,7 +32,6 @@ public class Ui {
     public static final String DIALOG_TITLE_TAG_LIST = "List of Tags";
     private static final AppLogger logger = LoggerManager.getLogger(Ui.class);
     private static final String FXML_HELP = "/view/HelpWindow.fxml";
-    private static final String FXML_STATUS_BAR_FOOTER = "/view/StatusBarFooter.fxml";
     private static final String FXML_PERSON_LIST_PANEL = "/view/PersonListPanel.fxml";
     private static final String FXML_TAG_LIST = "/view/TagList.fxml";
     private static final String FXML_ROOT_LAYOUT = "/view/MainWindow.fxml";
@@ -121,27 +118,6 @@ public class Ui {
         dialogStage.initOwner(primaryStage);
         dialogStage.setScene(scene);
         return dialogStage;
-    }
-
-    public void showTagList(ObservableList<Tag> tags) {
-        logger.debug("Loading tag list.");
-        final String fxmlResourcePath = FXML_TAG_LIST;
-        // Load the fxml file and create a new stage for the popup dialog.
-        FXMLLoader loader = loadFxml(fxmlResourcePath);
-        AnchorPane page = (AnchorPane) loadLoader(loader, "Error loading tag list view");
-
-        Scene scene = new Scene(page);
-        Stage dialogStage = loadDialogStage(DIALOG_TITLE_TAG_LIST, mainWindow.primaryStage, scene);
-
-        // Set the tag into the controller.
-        TagListController tagListController = loader.getController();
-        tagListController.setUi(this);
-        tagListController.setModelManager(modelManager);
-        tagListController.setTags(tags);
-        tagListController.setStage(dialogStage);
-
-        // Show the dialog and wait until the user closes it
-        dialogStage.showAndWait();
     }
 
     /**

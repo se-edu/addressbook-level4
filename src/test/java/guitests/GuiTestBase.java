@@ -40,7 +40,6 @@ public class GuiTestBase {
     protected MainGuiHandle mainGui;
     protected MainMenuHandle mainMenu;
     protected PersonListPanelHandle personListPanel;
-    protected HeaderStatusBarHandle statusBar;
     protected TypicalTestData td = new TypicalTestData();
     private Stage stage;
 
@@ -61,7 +60,6 @@ public class GuiTestBase {
             mainGui = new MainGuiHandle(new GuiRobot(), stage);
             mainMenu = mainGui.getMainMenu();
             personListPanel = mainGui.getPersonListPanel();
-            statusBar = mainGui.getStatusBar();
             this.stage = stage;
         });
         EventManager.clearSubscribers();
