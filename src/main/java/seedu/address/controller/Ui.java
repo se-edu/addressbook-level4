@@ -32,15 +32,8 @@ public class Ui {
     public static final String DIALOG_TITLE_TAG_LIST = "List of Tags";
     private static final AppLogger logger = LoggerManager.getLogger(Ui.class);
     private static final String FXML_HELP = "/view/HelpWindow.fxml";
-    private static final String FXML_PERSON_LIST_PANEL = "/view/PersonListPanel.fxml";
-    private static final String FXML_TAG_LIST = "/view/TagList.fxml";
-    private static final String FXML_ROOT_LAYOUT = "/view/MainWindow.fxml";
     private static final String ICON_APPLICATION = "/images/address_book_32.png";
     private static final String ICON_HELP = "/images/help_icon.png";
-    private static final int MIN_HEIGHT = 600;
-    private static final int MIN_WIDTH = 450;
-
-    private static final String PERSON_WEBPAGE_PLACE_HOLDER_FIELD_ID = "#personWebpage";
 
     private ModelManager modelManager;
 

@@ -11,13 +11,9 @@ import javafx.stage.Stage;
 import seedu.address.MainApp;
 import seedu.address.browser.BrowserManager;
 import seedu.address.commons.OsDetector;
-import seedu.address.events.controller.MinimizeAppRequestEvent;
-import seedu.address.events.controller.ResizeAppRequestEvent;
 import seedu.address.events.hotkey.KeyBindingEvent;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.datatypes.person.Person;
-import seedu.address.model.datatypes.person.ReadOnlyPerson;
 import seedu.address.parser.AddCommand;
 import seedu.address.parser.Command;
 import seedu.address.parser.CommandParser;
@@ -31,9 +27,6 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCombination;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -233,54 +226,5 @@ public class MainWindow extends BaseUiPart {
     private void handleExit() {
         //TODO: remove dependency on mainApp by using an event
         mainApp.stop();
-    }
-
-    @Subscribe
-    private void handleResizeAppRequestEvent(ResizeAppRequestEvent event){
-        logger.debug("Handling the resize app window request");
-        Platform.runLater(this::handleResizeRequest);
-    }
-
-    @Subscribe
-    private void handleMinimizeAppRequestEvent(MinimizeAppRequestEvent event){
-        logger.debug("Handling the minimize app window request");
-        Platform.runLater(this::minimizeWindow);
-    }
-
-
-    public void minimizeWindow() {
-        primaryStage.setIconified(true);
-        primaryStage.setMaximized(false);
-    }
-
-    public void handleResizeRequest() {
-        logger.info("Handling resize request.");
-        if (primaryStage.isIconified()) {
-            logger.debug("Cannot resize as window is iconified, attempting to show window instead.");
-            primaryStage.setIconified(false);
-        } else {
-            resizeWindow();
-        }
-    }
-
-    public void resizeWindow() {
-        logger.info("Resizing window");
-        // specially handle since stage operations on Mac seem to not be working as intended
-        if (OsDetector.isOnMac()) {
-            // refresh stage so that resizing effects (apart from the first resize after iconify-ing) are applied
-            // however, this will cause minor flinching in window visibility
-            primaryStage.hide(); // hide has to be called before setMaximized,
-            // or first resize attempt after iconify-ing will resize twice
-            primaryStage.show();
-
-            // on Mac, setMaximized seems to work like "setResize"
-            // isMaximized also does not seem to return the correct value
-            primaryStage.setMaximized(true);
-        } else {
-            primaryStage.setMaximized(!primaryStage.isMaximized());
-        }
-
-        logger.debug("Stage width: {}", primaryStage.getWidth());
-        logger.debug("Stage height: {}", primaryStage.getHeight());
     }
 }

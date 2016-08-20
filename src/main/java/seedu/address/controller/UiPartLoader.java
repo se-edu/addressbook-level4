@@ -20,6 +20,7 @@ public class UiPartLoader {
 
     /**
      * Returns the controller class for a specific UI Part.
+     *
      * @param primaryStage The primary stage for the view.
      * @param placeholder The placeholder where the loaded Ui Part is added.
      * @param sampleUiPart The sample of the expected UiPart class.
