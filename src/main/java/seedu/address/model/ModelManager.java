@@ -148,6 +148,7 @@ public class ModelManager extends ComponentManager implements ReadOnlyAddressBoo
 
     public synchronized void addPerson(Person person) {
         backingModel.addPerson(person);
+        updateBackingStorage();
     }
 
 //// DELETE

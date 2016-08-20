@@ -24,13 +24,13 @@
                     <children>
                         <HBox spacing="5" alignment="CENTER_LEFT">
                             <children>
-                                <Label fx:id="firstName" text="\$first" styleClass="cell_big_label"/>
-                                <Label fx:id="lastName" text="\$last" styleClass="cell_big_label"/>
+                                <Label fx:id="name" text="\$first" styleClass="cell_big_label"/>
                                 <Label fx:id="tags" styleClass="cell_small_label" text="\$tags" />
                             </children>
                         </HBox>
+                        <Label fx:id="phone" styleClass="cell_small_label" text="\$phone" />
                         <Label fx:id="address" styleClass="cell_small_label" text="\$address" />
-                        <Label fx:id="birthday" styleClass="cell_small_label" text="\$birthday" />
+                        <Label fx:id="email" styleClass="cell_small_label" text="\$email" />
                     </children>
                 </VBox>
             </children>

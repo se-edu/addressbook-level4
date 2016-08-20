@@ -17,18 +17,17 @@ public class PersonCardController {
     @FXML
     private HBox cardPane;
     @FXML
-    private Label firstName;
+    private Label name;
     @FXML
-    private Label lastName;
+    private Label phone;
     @FXML
     private Label address;
     @FXML
-    private Label birthday;
+    private Label email;
     @FXML
     private Label tags;
 
     private ReadOnlyPerson person;
-    private StringProperty idTooltipString = new SimpleStringProperty("");
 
     public PersonCardController(ReadOnlyPerson person) {
         this.person = person;
@@ -44,8 +43,10 @@ public class PersonCardController {
 
     @FXML
     public void initialize() {
-        firstName.setText(person.getName().fullName);
+        name.setText(person.getName().fullName);
+        phone.setText(person.getPhone().value);
         address.setText(person.getAddress().value);
+        email.setText(person.getEmail().value);
     }
 
     public HBox getLayout() {
