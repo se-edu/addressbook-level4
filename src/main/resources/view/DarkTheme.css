@@ -80,7 +80,6 @@
     -fx-background-color: transparent, derive(#1d1d1d, 10%);
 }
 
-
 .split-pane {
     -fx-border-radius: 1;
     -fx-border-width: 1;
@@ -218,7 +217,7 @@
     -fx-background-color: derive(-fx-focus-color, 30%);
 }
 
-.dialog-pane{
+.dialog-pane {
     -fx-background-color: #1d1d1d;
 }
 

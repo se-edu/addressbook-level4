@@ -14,7 +14,7 @@
             <children>
                 <VBox alignment="CENTER_LEFT" maxHeight="150.0" minHeight="105.0" prefHeight="115.0" GridPane.columnIndex="0">
                     <stylesheets>
-                        <URL value="@Theme.css" />
+                        <URL value="@DarkTheme.css" />
                         <URL value="@Extensions.css" />
                     </stylesheets>
                     <padding>

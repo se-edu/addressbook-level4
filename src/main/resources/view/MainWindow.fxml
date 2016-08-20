@@ -5,9 +5,9 @@
 <?import java.net.URL?>
 <?import org.controlsfx.control.StatusBar?>
 <?import javafx.geometry.Insets?>
-<VBox maxHeight="Infinity" maxWidth="Infinity" minHeight="-Infinity" minWidth="-Infinity" stylesheets="@Theme.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.address.controller.MainWindow">
+<VBox maxHeight="Infinity" maxWidth="Infinity" minHeight="-Infinity" minWidth="-Infinity" stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.address.controller.MainWindow">
    <stylesheets>
-      <URL value="@Theme.css" />
+      <URL value="@DarkTheme.css" />
       <URL value="@Extensions.css" />
    </stylesheets>
    <children>
