@@ -32,7 +32,7 @@ public class UniqueTagList implements Iterable<Tag> {
      */
     public static class TagNotFoundException extends Exception {}
 
-    private final ObservableList<Tag> internalList = FXCollections.emptyObservableList();
+    private final List<Tag> internalList = new ArrayList<>();
 
     /**
      * Constructs empty TagList.

@@ -8,6 +8,8 @@ import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import seedu.address.MainApp;
 import seedu.address.browser.BrowserManager;
+import seedu.address.commands.Command;
+import seedu.address.commands.CommandResult;
 import seedu.address.events.hotkey.KeyBindingEvent;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -176,23 +178,16 @@ public class MainWindow extends BaseUiPart {
 
     @FXML
     private void handleFilterChanged() {
-        /*
-        if (parser.isCommandInput(filterField.getText())) {
-            if (filterField.getStyleClass().contains("error")) filterField.getStyleClass().remove("error");
-            Command cmd = parser.parse(filterField.getText());
-            cmd.execute(modelManager);
 
-            if (cmd instanceof AddCommand) {
-                statusBarHeader.postMessage(cmd.getTargetName() + " added");
-            } else if (cmd instanceof DeleteCommand) {
-                statusBarHeader.postMessage(cmd.getTargetName() + " deleted");
-            }
+        if (filterField.getStyleClass().contains("error")) filterField.getStyleClass().remove("error");
 
-            return;
-        }
-        */
+        Command command = parser.parseCommand(filterField.getText());
+        command.setData(modelManager);
+        CommandResult result = command.execute();
+
+        logger.info("Result: " + result.feedbackToUser);
         logger.debug("Invalid command: {}", filterField.getText());
-        if (!filterField.getStyleClass().contains("error")) filterField.getStyleClass().add("error");
+        //if (!filterField.getStyleClass().contains("error")) filterField.getStyleClass().add("error");
     }
 
     @FXML

@@ -18,8 +18,8 @@ public class ClearAddressBookCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        Utils.assertNotNull(addressBook);
-        addressBook.clear();
+        Utils.assertNotNull(modelManager);
+        modelManager.resetData(modelManager.getDefaultAddressBook());
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

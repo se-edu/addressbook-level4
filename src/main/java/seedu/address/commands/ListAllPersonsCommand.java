@@ -22,7 +22,7 @@ public class ListAllPersonsCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        List<ReadOnlyPerson> allPersons = addressBook.getPersonList();
+        List<ReadOnlyPerson> allPersons = modelManager.getPersonList();
         return new CommandResult(getMessageForPersonListShownSummary(allPersons), allPersons);
     }
 }

@@ -1,6 +1,7 @@
 package seedu.address.commands;
 
 import seedu.address.commons.Messages;
+import seedu.address.model.ModelManager;
 import seedu.address.model.datatypes.AddressBook;
 import seedu.address.model.person.ReadOnlyPerson;
 
@@ -10,8 +11,7 @@ import java.util.List;
  * Represents a command with hidden internal logic and the ability to be executed.
  */
 public abstract class Command {
-    protected AddressBook addressBook;
-    protected List<? extends ReadOnlyPerson> relevantPersons;
+    protected ModelManager modelManager;
 
     /**
      * Constructs a feedback message to summarise an operation that displayed a listing of persons.
@@ -35,8 +35,7 @@ public abstract class Command {
      * Commands making use of any of these should override this method to gain
      * access to the dependencies.
      */
-    public void setData(AddressBook addressBook, List<? extends ReadOnlyPerson> relevantPersons) {
-        this.addressBook = addressBook;
-        this.relevantPersons = relevantPersons;
+    public void setData(ModelManager modelManager) {
+        this.modelManager = modelManager;
     }
 }

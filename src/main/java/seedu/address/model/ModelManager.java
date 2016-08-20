@@ -146,6 +146,10 @@ public class ModelManager extends ComponentManager implements ReadOnlyAddressBoo
         backingTagList().add(tagToAdd);
     }
 
+    public synchronized void addPerson(Person person) {
+        backingModel.addPerson(person);
+    }
+
 //// DELETE
 
     /**
