@@ -1,19 +1,12 @@
 package seedu.address.exceptions;
 
-public class DuplicateDataException extends Exception {
+import seedu.address.exceptions.IllegalValueException;
 
-    private final String cause;
-
-    public DuplicateDataException(String cause) {
-        this.cause = cause;
-    }
-
-    protected DuplicateDataException() {
-        cause = "Unspecified cause";
-    }
-
-    @Override
-    public String toString() {
-        return "This action would result in duplicate data items: " + cause;
+/**
+ * Signals an error caused by duplicate data where there should be none.
+ */
+public abstract class DuplicateDataException extends IllegalValueException {
+    public DuplicateDataException(String message) {
+        super(message);
     }
 }

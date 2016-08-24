@@ -1,8 +1,9 @@
 package seedu.address.storage;
 
+import seedu.address.exceptions.IllegalValueException;
+import seedu.address.model.Tag;
 import seedu.address.model.datatypes.ReadOnlyAddressBook;
-import seedu.address.model.datatypes.person.ReadOnlyPerson;
-import seedu.address.model.datatypes.tag.Tag;
+import seedu.address.model.person.ReadOnlyPerson;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -18,7 +19,7 @@ import java.util.stream.Collectors;
 public class StorageAddressBook implements ReadOnlyAddressBook {
 
     @XmlElement
-    private List<StoragePerson> persons;
+    private List<AdaptedPerson> persons;
     @XmlElement
     private List<Tag> tags;
 
@@ -36,13 +37,20 @@ public class StorageAddressBook implements ReadOnlyAddressBook {
      * Conversion
      */
     public StorageAddressBook(ReadOnlyAddressBook src) {
-        persons.addAll(src.getPersonList().stream().map(StoragePerson::new).collect(Collectors.toList()));
+        persons.addAll(src.getPersonList().stream().map(AdaptedPerson::new).collect(Collectors.toList()));
         tags = src.getTagList();
     }
 
     @Override
     public List<ReadOnlyPerson> getPersonList() {
-        return Collections.unmodifiableList(persons);
+        return persons.stream().map(p -> {
+            try {
+                return p.toModelType();
+            } catch (IllegalValueException e) {
+                e.printStackTrace();
+                return null;
+            }
+        }).collect(Collectors.toCollection(ArrayList::new));
     }
 
     @Override

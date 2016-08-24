@@ -1,6 +1,5 @@
 package seedu.address.controller;
 
-import seedu.address.model.datatypes.person.ReadOnlyPerson;
 import javafx.beans.binding.StringBinding;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
@@ -9,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.HBox;
+import seedu.address.model.person.ReadOnlyPerson;
 
 import java.io.IOException;
 
@@ -17,18 +17,17 @@ public class PersonCardController {
     @FXML
     private HBox cardPane;
     @FXML
-    private Label firstName;
+    private Label name;
     @FXML
-    private Label lastName;
+    private Label phone;
     @FXML
     private Label address;
     @FXML
-    private Label birthday;
+    private Label email;
     @FXML
     private Label tags;
 
     private ReadOnlyPerson person;
-    private StringProperty idTooltipString = new SimpleStringProperty("");
 
     public PersonCardController(ReadOnlyPerson person) {
         this.person = person;
@@ -44,53 +43,10 @@ public class PersonCardController {
 
     @FXML
     public void initialize() {
-        bindDisplayedPersonData();
-        initIdTooltip();
-    }
-
-    private void bindDisplayedPersonData() {
-
-        firstName.textProperty().bind(person.firstNameProperty());
-        lastName.textProperty().bind(person.lastNameProperty());
-
-        address.textProperty().bind(new StringBinding() {
-            {
-                bind(person.streetProperty());
-                bind(person.postalCodeProperty());
-                bind(person.cityProperty());
-            }
-            @Override
-            protected String computeValue() {
-                return getAddressString(person.getStreet(), person.getCity(), person.getPostalCode());
-            }
-        });
-        birthday.textProperty().bind(new StringBinding() {
-            {
-                bind(person.birthdayProperty()); //Bind property at instance initializer
-            }
-            @Override
-            protected String computeValue() {
-                return person.birthdayString().length() > 0 ? "DOB: " + person.birthdayString() : "";
-            }
-        });
-        tags.textProperty().bind(new StringBinding() {
-            {
-                bind(person.getObservableTagList()); //Bind property at instance initializer
-            }
-            @Override
-            protected String computeValue() {
-                return person.tagsString().equals("") ? "" : " [ " + person.tagsString() + " ]";
-            }
-        });
-
-    }
-
-    private void initIdTooltip() {
-        Tooltip tp = new Tooltip();
-        tp.textProperty().bind(idTooltipString);
-        firstName.setTooltip(tp);
-        lastName.setTooltip(tp);
-        idTooltipString.set(person.idString());
+        name.setText(person.getName().fullName);
+        phone.setText(person.getPhone().value);
+        address.setText(person.getAddress().value);
+        email.setText(person.getEmail().value);
     }
 
     public HBox getLayout() {
