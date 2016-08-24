@@ -47,6 +47,8 @@ public class PersonCardController {
         phone.setText(person.getPhone().value);
         address.setText(person.getAddress().value);
         email.setText(person.getEmail().value);
+        tags.setText(person.tagsString());
+
     }
 
     public HBox getLayout() {
