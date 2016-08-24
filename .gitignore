@@ -14,3 +14,4 @@ config.json
 src/main/resources/updater/updater*.jar
 src/test/data/sandbox/
 preferences.json
+.DS_Store
