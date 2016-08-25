@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import seedu.address.events.model.LocalModelChangedEvent;
 import seedu.address.exceptions.DuplicateTagException;
 import seedu.address.main.ComponentManager;
@@ -26,6 +27,7 @@ public class ModelManager extends ComponentManager implements ReadOnlyAddressBoo
     private static final AppLogger logger = LoggerManager.getLogger(ModelManager.class);
 
     private final AddressBook backingModel;
+    private final FilteredList<Person> filteredPersons;
 
     public static final int GRACE_PERIOD_DURATION = 3;
 
@@ -42,6 +44,7 @@ public class ModelManager extends ComponentManager implements ReadOnlyAddressBoo
         logger.debug("Initializing with address book: {}", src);
 
         backingModel = new AddressBook(src);
+        filteredPersons = new FilteredList<>(backingModel.getPersons());
     }
 
     public ModelManager(Config config) {
@@ -73,8 +76,9 @@ public class ModelManager extends ComponentManager implements ReadOnlyAddressBoo
 
     @Override
     public UnmodifiableObservableList<ReadOnlyPerson> getPersonsAsReadOnlyObservableList() {
-        return backingModel.getPersonsAsReadOnlyObservableList();
+        return new UnmodifiableObservableList<>(filteredPersons);
     }
+
 
     @Override
     public UnmodifiableObservableList<Tag> getTagsAsReadOnlyObservableList() {
