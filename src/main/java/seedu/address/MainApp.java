@@ -1,6 +1,9 @@
 package seedu.address;
 
+import com.google.common.eventbus.Subscribe;
 import seedu.address.controller.Ui;
+import seedu.address.events.EventManager;
+import seedu.address.events.controller.ExitAppRequestEvent;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.storage.StorageManager;
@@ -53,6 +56,7 @@ public class MainApp extends Application {
         config = initConfig(applicationParameters.get("config"));
         userPrefs = initPrefs(config);
         initComponents(config, userPrefs);
+        EventManager.getInstance().registerHandler(this);
     }
 
     protected Config initConfig(String configFilePath) {
@@ -101,6 +105,11 @@ public class MainApp extends Application {
     private void quit() {
         Platform.exit();
         System.exit(0);
+    }
+
+    @Subscribe
+    public void handleExitAppRequestEvent(ExitAppRequestEvent event) {
+        this.stop();
     }
 
     public static void main(String[] args) {

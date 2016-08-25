@@ -11,6 +11,8 @@ import seedu.address.browser.BrowserManager;
 import seedu.address.commands.Command;
 import seedu.address.commands.CommandResult;
 import seedu.address.commands.IncorrectCommand;
+import seedu.address.events.EventManager;
+import seedu.address.events.controller.ExitAppRequestEvent;
 import seedu.address.events.hotkey.KeyBindingEvent;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -38,7 +40,6 @@ public class MainWindow extends BaseUiPart {
     public static final int MIN_HEIGHT = 600;
     public static final int MIN_WIDTH = 450;
 
-    private MainApp mainApp; //TODO: remove this dependency as per TODOs given in methods below
     private Ui ui; //TODO: remove this dependency as per TODOs given in methods below
 
     //Link to the model
@@ -84,21 +85,20 @@ public class MainWindow extends BaseUiPart {
         return FXML;
     }
 
-    public static MainWindow load(Stage primaryStage, Config config, UserPrefs prefs, MainApp mainApp, Ui ui,
+    public static MainWindow load(Stage primaryStage, Config config, UserPrefs prefs, Ui ui,
                                   ModelManager modelManager, BrowserManager browserManager) {
         logger.debug("Initializing main window.");
         MainWindow mainWindow = UiPartLoader.loadUiPart(primaryStage, new MainWindow());
-        mainWindow.configure(config.getAppTitle(), config.getAddressBookName(), prefs, mainApp, ui, modelManager,
+        mainWindow.configure(config.getAppTitle(), config.getAddressBookName(), prefs, ui, modelManager,
                              browserManager);
         mainWindow.setKeyEventHandler();
         mainWindow.setAccelerators();
         return mainWindow;
     }
 
-    private void configure(String appTitle, String addressBookName, UserPrefs prefs, MainApp mainApp, Ui ui,
+    private void configure(String appTitle, String addressBookName, UserPrefs prefs, Ui ui,
                            ModelManager modelManager, BrowserManager browserManager) {
         //Set connections
-        this.mainApp = mainApp;
         this.ui = ui;
         this.modelManager = modelManager;
         this.addressBookName = addressBookName;
@@ -236,8 +236,7 @@ public class MainWindow extends BaseUiPart {
      */
     @FXML
     private void handleExit() {
-        //TODO: remove dependency on mainApp by using an event
-        mainApp.stop();
+        raise(new ExitAppRequestEvent());
     }
 
     public PersonListPanel getPersonListPanel() {

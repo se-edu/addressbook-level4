@@ -73,7 +73,7 @@ public class Ui {
         try {
             logger.info("Starting main UI.");
 
-            mainWindow = MainWindow.load(primaryStage, config, prefs, mainApp, this, modelManager, browserManager);
+            mainWindow = MainWindow.load(primaryStage, config, prefs, this, modelManager, browserManager);
             mainWindow.show(); //This should be called before creating other UI parts
 
             mainWindow.fillInnerParts();

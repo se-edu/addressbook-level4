@@ -1,5 +1,8 @@
 package seedu.address.commands;
 
+import seedu.address.events.EventManager;
+import seedu.address.events.controller.ExitAppRequestEvent;
+
 /**
  * Terminates the program.
  */
@@ -15,6 +18,7 @@ public class ExitCommand extends Command {
 
     @Override
     public CommandResult execute() {
+        EventManager.getInstance().post(new ExitAppRequestEvent());
         return new CommandResult(MESSAGE_EXIT_ACKNOWEDGEMENT);
     }
 
