@@ -11,6 +11,7 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.person.UniquePersonList.PersonNotFoundException;
+import seedu.address.parser.expr.Expr;
 import seedu.address.util.AppLogger;
 import seedu.address.util.Config;
 import seedu.address.util.LoggerManager;
@@ -159,5 +160,9 @@ public class ModelManager extends ComponentManager implements ReadOnlyAddressBoo
      */
     public synchronized boolean deleteTag(Tag tagToDelete) {
         return backingTagList().remove(tagToDelete);
+    }
+
+    public void filterList(Expr expr) {
+        
     }
 }
