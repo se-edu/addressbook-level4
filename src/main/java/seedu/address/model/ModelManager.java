@@ -95,19 +95,6 @@ public class ModelManager extends ComponentManager implements ReadOnlyAddressBoo
 
 //// UI COMMANDS
 
-    /**
-     * Request to create a person. Simulates the change optimistically until remote confirmation, and provides a grace
-     * period for cancellation, editing, or deleting.
-     */
-    public synchronized void createPersonThroughUI(Optional<ReadOnlyPerson> person) {
-        Person toAdd;
-        toAdd = new Person(person.get().getName(), person.get().getPhone(), person.get().getEmail(),
-                               person.get().getAddress(), person.get().getTags());
-        backingModel.addPerson(toAdd);
-        updateBackingStorage();
-    }
-
-
     public void updateBackingStorage() {
         raise(new LocalModelChangedEvent(backingModel));
     }
@@ -146,9 +133,14 @@ public class ModelManager extends ComponentManager implements ReadOnlyAddressBoo
         backingTagList().add(tagToAdd);
     }
 
-    public synchronized void addPerson(Person person) {
+    public synchronized void addPerson(Person person) throws UniquePersonList.DuplicatePersonException {
         backingModel.addPerson(person);
+        clearListFilter();
         updateBackingStorage();
+    }
+
+    private void clearListFilter() {
+        filteredPersons.setPredicate(null);
     }
 
 //// DELETE

@@ -32,7 +32,7 @@ public class UniqueTagList implements Iterable<Tag> {
      */
     public static class TagNotFoundException extends Exception {}
 
-    private final List<Tag> internalList = new ArrayList<>();
+    private final ObservableList<Tag> internalList = FXCollections.observableArrayList();
 
     /**
      * Constructs empty TagList.
@@ -118,12 +118,13 @@ public class UniqueTagList implements Iterable<Tag> {
      *
      * @throws TagNotFoundException if no such Tag could be found in the list.
      */
-    public void remove(Tag toRemove) throws TagNotFoundException {
+    public boolean remove(Tag toRemove) throws TagNotFoundException {
         Utils.assertNotNull(toRemove);
-        final boolean TagFoundAndDeleted = internalList.remove(toRemove);
-        if (!TagFoundAndDeleted) {
+        final boolean tagFoundAndDeleted = internalList.remove(toRemove);
+        if (!tagFoundAndDeleted) {
             throw new TagNotFoundException();
         }
+        return tagFoundAndDeleted;
     }
 
     /**
@@ -136,6 +137,10 @@ public class UniqueTagList implements Iterable<Tag> {
     @Override
     public Iterator<Tag> iterator() {
         return internalList.iterator();
+    }
+
+    public ObservableList<Tag> getInternalList() {
+        return internalList;
     }
 
 }

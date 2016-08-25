@@ -192,8 +192,6 @@ public class MainWindow extends BaseUiPart {
             filterField.getStyleClass().add("");
         }
 
-        statusBarHeader.postMessage(result.feedbackToUser);
-
         logger.info("Result: " + result.feedbackToUser);
         logger.debug("Invalid command: {}", filterField.getText());
     }

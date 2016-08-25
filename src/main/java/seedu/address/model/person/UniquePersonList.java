@@ -32,7 +32,7 @@ public class UniquePersonList implements Iterable<Person> {
      */
     public static class PersonNotFoundException extends Exception {}
 
-    private final ObservableList<Person> internalList = FXCollections.emptyObservableList();
+    private final ObservableList<Person> internalList = FXCollections.observableArrayList();
 
     /**
      * Constructs empty PersonList.
@@ -119,12 +119,13 @@ public class UniquePersonList implements Iterable<Person> {
      *
      * @throws PersonNotFoundException if no such person could be found in the list.
      */
-    public void remove(ReadOnlyPerson toRemove) throws PersonNotFoundException {
+    public boolean remove(ReadOnlyPerson toRemove) throws PersonNotFoundException {
         Utils.assertNotNull(toRemove);
         final boolean personFoundAndDeleted = internalList.remove(toRemove);
         if (!personFoundAndDeleted) {
             throw new PersonNotFoundException();
         }
+        return personFoundAndDeleted;
     }
 
     /**
@@ -137,6 +138,10 @@ public class UniquePersonList implements Iterable<Person> {
     @Override
     public Iterator<Person> iterator() {
         return internalList.iterator();
+    }
+
+    public ObservableList<Person> getInternalList() {
+        return internalList;
     }
 
 }
