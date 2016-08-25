@@ -1,12 +1,8 @@
 package seedu.address.controller;
 
-import javafx.beans.binding.StringBinding;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
-import javafx.scene.control.Tooltip;
 import javafx.scene.layout.HBox;
 import seedu.address.model.person.ReadOnlyPerson;
 
@@ -28,9 +24,11 @@ public class PersonCardController {
     private Label tags;
 
     private ReadOnlyPerson person;
+    private int displayedIndex;
 
-    public PersonCardController(ReadOnlyPerson person) {
+    public PersonCardController(ReadOnlyPerson person, int displayedIndex) {
         this.person = person;
+        this.displayedIndex = displayedIndex;
 
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/PersonListCard.fxml"));
         fxmlLoader.setController(this);
@@ -43,7 +41,7 @@ public class PersonCardController {
 
     @FXML
     public void initialize() {
-        name.setText(person.getName().fullName);
+        name.setText(displayedIndex + ". " + person.getName().fullName);
         phone.setText(person.getPhone().value);
         address.setText(person.getAddress().value);
         email.setText(person.getEmail().value);

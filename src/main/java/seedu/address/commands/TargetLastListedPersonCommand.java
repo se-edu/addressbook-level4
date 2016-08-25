@@ -12,14 +12,14 @@ public abstract class TargetLastListedPersonCommand extends Command {
 
     public static final Pattern ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
 
-    public final int targetIndex;
+    public final ReadOnlyPerson targetPerson;
 
 
     /**
-     * @param targetIndex last visible listing index of the target person
+     * @param targetPerson last visible listing index of the target person
      */
-    protected TargetLastListedPersonCommand(int targetIndex) {
-        this.targetIndex = targetIndex;
+    protected TargetLastListedPersonCommand(ReadOnlyPerson targetPerson) {
+        this.targetPerson = targetPerson;
     }
 
 

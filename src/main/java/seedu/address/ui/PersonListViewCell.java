@@ -7,7 +7,6 @@ import seedu.address.model.person.ReadOnlyPerson;
 public class PersonListViewCell extends ListCell<ReadOnlyPerson> {
 
     public PersonListViewCell() {
-
     }
 
     @Override
@@ -18,7 +17,7 @@ public class PersonListViewCell extends ListCell<ReadOnlyPerson> {
             setGraphic(null);
             setText(null);
         } else {
-            setGraphic(new PersonCardController(person).getLayout());
+            setGraphic(new PersonCardController(person, getIndex() + 1).getLayout());
         }
     }
 }

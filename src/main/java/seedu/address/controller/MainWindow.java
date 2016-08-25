@@ -43,7 +43,6 @@ public class MainWindow extends BaseUiPart {
 
     private BrowserManager browserManager;
 
-    //Independent Ui parts residing in this Ui container
     private Parser parser;
 
     //Independent Ui parts residing in this Ui container
@@ -101,6 +100,7 @@ public class MainWindow extends BaseUiPart {
         this.modelManager = modelManager;
         this.addressBookName = addressBookName;
         this.browserManager = browserManager;
+        this.parser.configure(ui);
         //Configure the UI
         setTitle(appTitle);
         setIcon(ICON);
@@ -217,5 +217,9 @@ public class MainWindow extends BaseUiPart {
     private void handleExit() {
         //TODO: remove dependency on mainApp by using an event
         mainApp.stop();
+    }
+
+    public PersonListPanel getPersonListPanel() {
+        return this.personListPanel;
     }
 }

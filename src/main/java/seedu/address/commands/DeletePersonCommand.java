@@ -19,26 +19,20 @@ public class DeletePersonCommand extends TargetLastListedPersonCommand {
     public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Person: %1$s";
 
 
-    public DeletePersonCommand(int targetVisibleIndex) {
-        super(targetVisibleIndex);
+    public DeletePersonCommand(ReadOnlyPerson targetPerson) {
+        super(targetPerson);
     }
 
 
     @Override
     public CommandResult execute() {
-        /*
         try {
-            final ReadOnlyPerson target = getTargetFromView();
-            addressBook.removePerson(target);
-            return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, target));
-
+            modelManager.deletePersonThroughUI(targetPerson);
+            return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, targetPerson));
         } catch (IndexOutOfBoundsException ie) {
             return new CommandResult(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         } catch (PersonNotFoundException pnfe) {
             return new CommandResult(Messages.MESSAGE_PERSON_NOT_IN_ADDRESSBOOK);
         }
-        */
-        return null;
     }
-
 }

@@ -1,6 +1,11 @@
 package seedu.address.controller;
 
+import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.ListView;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.SplitPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
@@ -11,18 +16,9 @@ import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.ui.PersonListViewCell;
 import seedu.address.util.AppLogger;
 import seedu.address.util.LoggerManager;
-import com.google.common.eventbus.Subscribe;
-import javafx.application.Platform;
-import javafx.collections.ListChangeListener;
-import javafx.collections.ObservableList;
-import javafx.fxml.FXML;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.ListView;
-import javafx.scene.control.SelectionMode;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * Dialog to view the list of persons and their details
@@ -126,5 +122,9 @@ public class PersonListPanel extends BaseUiPart {
 
     public List<ReadOnlyPerson> getSelectedPersons() {
         return new ArrayList<>(personListView.getSelectionModel().getSelectedItems());
+    }
+
+    public List<ReadOnlyPerson> getDisplayedPersons() {
+        return this.personListView.getItems();
     }
 }

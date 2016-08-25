@@ -1,6 +1,7 @@
 package seedu.address.parser;
 
 import seedu.address.commands.*;
+import seedu.address.controller.Ui;
 import seedu.address.exceptions.IllegalValueException;
 import seedu.address.model.Tag;
 import seedu.address.model.UniqueTagList;
@@ -20,7 +21,6 @@ import static seedu.address.commons.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_IN
  * Parses user input.
  */
 public class Parser {
-
     /**
      * Signals that the user input could not be parsed.
      */
@@ -35,7 +35,17 @@ public class Parser {
      */
     public static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
+    private Ui ui;
+
     public Parser() {}
+
+    /**
+     * Configures the parser with additional dependencies such as Ui
+     * @param ui
+     */
+    public void configure(Ui ui) {
+        this.ui = ui;
+    }
 
     /**
      * Parses user input into command for execution.
@@ -144,10 +154,13 @@ public class Parser {
     private Command prepareDelete(String args) {
         try {
             final int targetIndex = parseArgsAsDisplayedIndex(args);
-            return new DeletePersonCommand(targetIndex);
+            return new DeletePersonCommand(this.ui.getDisplayedPersons().get(targetIndex - 1));
         } catch (ParseException pe) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeletePersonCommand.MESSAGE_USAGE));
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                                        DeletePersonCommand.MESSAGE_USAGE));
         } catch (NumberFormatException nfe) {
+            return new IncorrectCommand(MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        } catch (IndexOutOfBoundsException e) {
             return new IncorrectCommand(MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
     }
