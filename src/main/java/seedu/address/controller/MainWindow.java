@@ -33,6 +33,8 @@ public class MainWindow extends BaseUiPart {
     private static AppLogger logger = LoggerManager.getLogger(MainWindow.class);
     private static final String ICON = "/images/address_book_32.png";
     private static final String FXML = "MainWindow.fxml";
+    private static final String HEADER_STATUSBAR_PLACEHOLDER_FIELD_ID = "#headerStatusbarPlaceholder";
+    private static final String FOOTER_STATUSBAR_PLACEHOLDER_FIELD_ID = "#footerStatusbarPlaceholder";
     public static final int MIN_HEIGHT = 600;
     public static final int MIN_WIDTH = 450;
 
@@ -123,8 +125,19 @@ public class MainWindow extends BaseUiPart {
 
     public void fillInnerParts() {
         personListPanel = PersonListPanel.load(primaryStage, getPersonListPlaceholder(), modelManager, browserManager);
+        statusBarHeader = StatusBarHeader.load(primaryStage, getHeaderStatusbarPlaceholder());
+        statusBarFooter = StatusBarFooter.load(primaryStage, getFooterStatusbarPlaceholder(), addressBookName);
         browser = loadBrowser();
     }
+
+    private AnchorPane getFooterStatusbarPlaceholder() {
+        return this.getAnchorPane(FOOTER_STATUSBAR_PLACEHOLDER_FIELD_ID);
+    }
+
+    private AnchorPane getHeaderStatusbarPlaceholder() {
+        return this.getAnchorPane(HEADER_STATUSBAR_PLACEHOLDER_FIELD_ID);
+    }
+
 
     private WebView loadBrowser() {
         AnchorPane pane = this.getAnchorPane("#personWebpage");
@@ -191,6 +204,8 @@ public class MainWindow extends BaseUiPart {
         } else {
             filterField.getStyleClass().add("");
         }
+
+        statusBarHeader.postMessage(result.feedbackToUser);
 
         logger.info("Result: " + result.feedbackToUser);
         logger.debug("Invalid command: {}", filterField.getText());

@@ -26,6 +26,7 @@
             </Menu>
          </menus>
       </MenuBar>
+      <AnchorPane fx:id="headerStatusbarPlaceholder" styleClass="anchor-pane-with-border"></AnchorPane>
       <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.4" VBox.vgrow="ALWAYS">
          <items>
             <VBox fx:id="personList" minWidth="340" prefWidth="340">
@@ -45,5 +46,6 @@
             </AnchorPane>
          </items>
       </SplitPane>
+      <AnchorPane fx:id="footerStatusbarPlaceholder" VBox.vgrow="NEVER" />
    </children>
 </VBox>
