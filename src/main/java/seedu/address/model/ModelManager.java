@@ -163,6 +163,7 @@ public class ModelManager extends ComponentManager implements ReadOnlyAddressBoo
     }
 
     public void filterList(Expr expr) {
-        
+        filteredPersons.setPredicate(expr::satisfies);
     }
+
 }

@@ -10,6 +10,7 @@ import seedu.address.MainApp;
 import seedu.address.browser.BrowserManager;
 import seedu.address.commands.Command;
 import seedu.address.commands.CommandResult;
+import seedu.address.commands.IncorrectCommand;
 import seedu.address.events.hotkey.KeyBindingEvent;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -185,9 +186,16 @@ public class MainWindow extends BaseUiPart {
         command.setData(modelManager);
         CommandResult result = command.execute();
 
+        if (command instanceof IncorrectCommand) {
+            filterField.getStyleClass().add("error");
+        } else {
+            filterField.getStyleClass().add("");
+        }
+
+        statusBarHeader.postMessage(result.feedbackToUser);
+
         logger.info("Result: " + result.feedbackToUser);
         logger.debug("Invalid command: {}", filterField.getText());
-        //if (!filterField.getStyleClass().contains("error")) filterField.getStyleClass().add("error");
     }
 
     @FXML
