@@ -139,7 +139,7 @@ public class ModelManager extends ComponentManager implements ReadOnlyAddressBoo
         updateBackingStorage();
     }
 
-    private void clearListFilter() {
+    public void clearListFilter() {
         filteredPersons.setPredicate(null);
     }
 
