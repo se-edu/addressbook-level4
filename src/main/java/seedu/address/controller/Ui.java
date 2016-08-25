@@ -1,15 +1,5 @@
 package seedu.address.controller;
 
-import seedu.address.MainApp;
-import seedu.address.browser.BrowserManager;
-import seedu.address.events.EventManager;
-import seedu.address.events.storage.FileOpeningExceptionEvent;
-import seedu.address.events.storage.FileSavingExceptionEvent;
-import seedu.address.model.ModelManager;
-import seedu.address.model.UserPrefs;
-import seedu.address.util.AppLogger;
-import seedu.address.util.Config;
-import seedu.address.util.LoggerManager;
 import com.google.common.eventbus.Subscribe;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -21,9 +11,21 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import seedu.address.MainApp;
+import seedu.address.browser.BrowserManager;
+import seedu.address.events.EventManager;
+import seedu.address.events.storage.FileOpeningExceptionEvent;
+import seedu.address.events.storage.FileSavingExceptionEvent;
+import seedu.address.model.ModelManager;
+import seedu.address.model.UserPrefs;
+import seedu.address.model.person.ReadOnlyPerson;
+import seedu.address.util.AppLogger;
+import seedu.address.util.Config;
+import seedu.address.util.LoggerManager;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 /**
  * The controller that creates the other controllers
@@ -195,5 +197,9 @@ public class Ui {
         showAlertDialogAndWait(Alert.AlertType.ERROR, title, e.getMessage(), e.toString());
         Platform.exit();
         System.exit(1);
+    }
+
+    public List<ReadOnlyPerson> getDisplayedPersons() {
+        return this.mainWindow.getPersonListPanel().getDisplayedPersons();
     }
 }

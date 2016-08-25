@@ -1,5 +1,6 @@
 package seedu.address.model;
 
+import javafx.collections.ObservableList;
 import seedu.address.events.model.LocalModelChangedEvent;
 import seedu.address.exceptions.DuplicateTagException;
 import seedu.address.main.ComponentManager;
@@ -8,16 +9,14 @@ import seedu.address.model.datatypes.ReadOnlyAddressBook;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.person.UniquePersonList.PersonNotFoundException;
 import seedu.address.util.AppLogger;
 import seedu.address.util.Config;
 import seedu.address.util.LoggerManager;
 import seedu.address.util.collections.UnmodifiableObservableList;
-import javafx.collections.ObservableList;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -109,16 +108,12 @@ public class ModelManager extends ComponentManager implements ReadOnlyAddressBoo
     }
 
     /**
-     * Request to delete a person. Simulates the change optimistically until remote confirmation, and provides a grace
-     * period for cancellation, editing, or deleting.
+     * Deletes a person. Simulates the change optimistically until remote confirmation,
+     * and provides a grace * period for cancellation, editing, or deleting.
      */
-    public synchronized void deletePersonThroughUI(ReadOnlyPerson target) {
-        try {
-            backingModel.removePerson(target);
-            updateBackingStorage();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public synchronized void deletePersonThroughUI(ReadOnlyPerson target) throws PersonNotFoundException {
+        backingModel.removePerson(target);
+        updateBackingStorage();
     }
 
     public synchronized void deletePersonsThroughUI(List<ReadOnlyPerson> targets) {
