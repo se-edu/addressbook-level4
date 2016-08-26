@@ -1,14 +1,6 @@
 package seedu.address.testutil;
 
-import seedu.address.TestApp;
-import seedu.address.model.datatypes.AddressBook;
-import seedu.address.model.datatypes.person.Person;
-import seedu.address.model.datatypes.tag.Tag;
-import seedu.address.storage.StorageAddressBook;
 import com.google.common.io.Files;
-import seedu.address.commons.FileUtil;
-import seedu.address.commons.OsDetector;
-import seedu.address.commons.XmlUtil;
 import guitests.guihandles.PersonCardHandle;
 import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
@@ -21,6 +13,14 @@ import javafx.scene.input.KeyEvent;
 import junit.framework.AssertionFailedError;
 import org.loadui.testfx.GuiTest;
 import org.testfx.api.FxToolkit;
+import seedu.address.TestApp;
+import seedu.address.commons.FileUtil;
+import seedu.address.commons.OsDetector;
+import seedu.address.commons.XmlUtil;
+import seedu.address.model.datatypes.AddressBook;
+import seedu.address.model.datatypes.person.Person;
+import seedu.address.model.datatypes.tag.Tag;
+import seedu.address.storage.StorageAddressBook;
 
 import java.io.File;
 import java.io.IOException;

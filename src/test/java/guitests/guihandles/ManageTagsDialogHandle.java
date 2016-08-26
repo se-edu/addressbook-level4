@@ -1,6 +1,5 @@
 package guitests.guihandles;
 
-import seedu.address.controller.Ui;
 import guitests.GuiRobot;
 import javafx.collections.ObservableList;
 import javafx.scene.Node;
@@ -8,6 +7,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import seedu.address.controller.Ui;
 
 import java.util.ArrayList;
 import java.util.List;

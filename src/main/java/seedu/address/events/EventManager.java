@@ -1,8 +1,8 @@
 package seedu.address.events;
 
+import com.google.common.eventbus.EventBus;
 import seedu.address.util.AppLogger;
 import seedu.address.util.LoggerManager;
-import com.google.common.eventbus.EventBus;
 
 /**
  * Manages the event dispatching of the app.

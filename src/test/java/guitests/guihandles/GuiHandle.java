@@ -1,9 +1,5 @@
 package guitests.guihandles;
 
-import seedu.address.TestApp;
-import seedu.address.model.datatypes.person.Person;
-import seedu.address.util.AppLogger;
-import seedu.address.util.LoggerManager;
 import guitests.GuiRobot;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
@@ -11,6 +7,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+import seedu.address.TestApp;
+import seedu.address.model.datatypes.person.Person;
+import seedu.address.util.AppLogger;
+import seedu.address.util.LoggerManager;
 
 import java.lang.reflect.Constructor;
 

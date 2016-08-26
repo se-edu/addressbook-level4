@@ -1,8 +1,8 @@
 package seedu.address.testutil;
 
+import seedu.address.commons.DateTimeUtil;
 import seedu.address.model.datatypes.person.Person;
 import seedu.address.model.datatypes.tag.Tag;
-import seedu.address.commons.DateTimeUtil;
 
 import java.util.Arrays;
 

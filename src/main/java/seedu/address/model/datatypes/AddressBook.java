@@ -1,14 +1,12 @@
 package seedu.address.model.datatypes;
 
-import javafx.collections.transformation.FilteredList;
+import javafx.collections.ObservableList;
 import seedu.address.model.Tag;
 import seedu.address.model.UniqueTagList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.util.collections.UnmodifiableObservableList;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -21,14 +19,10 @@ import java.util.stream.Collectors;
  */
 public class AddressBook implements ReadOnlyAddressBook {
 
-    //private final ObservableList<Person> persons;
-    //private final ObservableList<Tag> tags;
     private final UniquePersonList persons;
     private final UniqueTagList tags;
 
     {
-        //persons = FXCollections.observableArrayList();
-        //tags = FXCollections.observableArrayList();
         persons = new UniquePersonList();
         tags = new UniqueTagList();
     }

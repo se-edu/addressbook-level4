@@ -1,10 +1,10 @@
 package guitests.guihandles;
 
-import seedu.address.TestApp;
-import seedu.address.controller.StatusBarHeader;
 import guitests.GuiRobot;
 import javafx.stage.Stage;
 import org.controlsfx.control.StatusBar;
+import seedu.address.TestApp;
+import seedu.address.controller.StatusBarHeader;
 
 /**
  * A handler for the HeaderStatusBar of the UI

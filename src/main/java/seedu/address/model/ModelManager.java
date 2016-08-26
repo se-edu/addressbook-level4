@@ -18,7 +18,6 @@ import seedu.address.util.LoggerManager;
 import seedu.address.util.collections.UnmodifiableObservableList;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -100,22 +99,10 @@ public class ModelManager extends ComponentManager implements ReadOnlyAddressBoo
     }
 
     /**
-     * Deletes a person. Simulates the change optimistically until remote confirmation,
-     * and provides a grace * period for cancellation, editing, or deleting.
+     * Deletes a person.
      */
-    public synchronized void deletePersonThroughUI(ReadOnlyPerson target) throws PersonNotFoundException {
+    public synchronized void deletePerson(ReadOnlyPerson target) throws PersonNotFoundException {
         backingModel.removePerson(target);
-        updateBackingStorage();
-    }
-
-    public synchronized void deletePersonsThroughUI(List<ReadOnlyPerson> targets) {
-        targets.forEach(p -> {
-            try {
-                backingModel.removePerson(p);
-            } catch (UniquePersonList.PersonNotFoundException e) {
-                e.printStackTrace(); //TODO: handle exception
-            }
-        });
         updateBackingStorage();
     }
 

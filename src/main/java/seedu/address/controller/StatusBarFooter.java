@@ -1,13 +1,13 @@
 package seedu.address.controller;
 
-import javafx.scene.Node;
-import javafx.scene.layout.GridPane;
-import javafx.stage.Stage;
-import seedu.address.commons.FxViewUtil;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
+import javafx.stage.Stage;
 import org.controlsfx.control.StatusBar;
+import seedu.address.commons.FxViewUtil;
 
 /**
  * A controller for the status bar that is displayed at the footer of the application.

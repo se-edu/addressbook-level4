@@ -1,6 +1,9 @@
 package seedu.address;
 
 import com.google.common.eventbus.Subscribe;
+import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.stage.Stage;
 import seedu.address.controller.Ui;
 import seedu.address.events.EventManager;
 import seedu.address.events.controller.ExitAppRequestEvent;
@@ -9,11 +12,7 @@ import seedu.address.model.UserPrefs;
 import seedu.address.storage.StorageManager;
 import seedu.address.util.AppLogger;
 import seedu.address.util.Config;
-import seedu.address.util.DependencyChecker;
 import seedu.address.util.LoggerManager;
-import javafx.application.Application;
-import javafx.application.Platform;
-import javafx.stage.Stage;
 
 import java.util.Map;
 
@@ -51,7 +50,6 @@ public class MainApp extends Application {
     public void init() throws Exception {
         logger.info("Initializing app ...");
         super.init();
-        new DependencyChecker(REQUIRED_JAVA_VERSION, this::quit).verify();
         Map<String, String> applicationParameters = getParameters().getNamed();
         config = initConfig(applicationParameters.get("config"));
         userPrefs = initPrefs(config);

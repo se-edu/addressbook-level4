@@ -3,10 +3,7 @@ package seedu.address.commons;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URISyntaxException;
-import java.nio.file.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.nio.file.Files;
 
 /**
  * Writes and reads file

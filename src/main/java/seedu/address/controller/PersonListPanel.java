@@ -34,8 +34,6 @@ public class PersonListPanel extends BaseUiPart {
     @FXML
     private ListView<ReadOnlyPerson> personListView;
 
-    private ModelManager modelManager;
-
     public PersonListPanel() {
         super();
     }
@@ -57,7 +55,7 @@ public class PersonListPanel extends BaseUiPart {
 
     private void configure(ModelManager modelManager, BrowserManager browserManager,
                            ObservableList<ReadOnlyPerson> personList){
-        setConnections(modelManager, browserManager, personList);
+        setConnections(browserManager, personList);
         addToPlaceholder();
     }
 
@@ -76,16 +74,13 @@ public class PersonListPanel extends BaseUiPart {
         this.placeHolderPane = pane;
     }
 
-    public void setConnections(ModelManager modelManager, BrowserManager browserManager,
+    public void setConnections(BrowserManager browserManager,
                                ObservableList<ReadOnlyPerson> personList) {
-        this.modelManager = modelManager;
         personListView.setItems(personList);
         personListView.setCellFactory(listView -> new PersonListViewCell());
         loadGithubProfilePageWhenPersonIsSelected(browserManager);
         setupListviewSelectionModelSettings();
     }
-
-
 
     private void setupListviewSelectionModelSettings() {
         personListView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
@@ -105,7 +100,7 @@ public class PersonListPanel extends BaseUiPart {
         personListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 logger.debug("Person in list view clicked. Loading GitHub profile page: '{}'", newValue);
-                browserManager.loadProfilePage(newValue);
+                browserManager.loadPersonPage(newValue);
             }
         });
     }

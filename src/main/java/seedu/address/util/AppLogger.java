@@ -1,8 +1,8 @@
 package seedu.address.util;
 
-import seedu.address.events.BaseEvent;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.Logger;
+import seedu.address.events.BaseEvent;
 
 public class AppLogger {
     private Logger logger;

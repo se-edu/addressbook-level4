@@ -1,10 +1,6 @@
 package guitests.guihandles;
 
 
-import seedu.address.TestApp;
-import seedu.address.model.datatypes.person.Person;
-import seedu.address.model.datatypes.person.ReadOnlyPerson;
-import seedu.address.testutil.TestUtil;
 import guitests.GuiRobot;
 import javafx.collections.ObservableList;
 import javafx.event.Event;
@@ -16,6 +12,10 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.PickResult;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+import seedu.address.TestApp;
+import seedu.address.model.datatypes.person.Person;
+import seedu.address.model.datatypes.person.ReadOnlyPerson;
+import seedu.address.testutil.TestUtil;
 
 import java.util.*;
 import java.util.stream.Collectors;

@@ -1,13 +1,13 @@
 package seedu.address;
 
+import javafx.stage.Screen;
+import javafx.stage.Stage;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.datatypes.ReadOnlyAddressBook;
 import seedu.address.storage.StorageAddressBook;
 import seedu.address.testutil.TestUtil;
 import seedu.address.util.Config;
 import seedu.address.util.GuiSettings;
-import javafx.stage.Screen;
-import javafx.stage.Stage;
 
 import java.io.File;
 import java.util.function.Supplier;

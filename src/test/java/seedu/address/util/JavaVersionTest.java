@@ -1,7 +1,7 @@
 package seedu.address.util;
 
-import seedu.address.MainApp;
 import org.junit.Test;
+import seedu.address.MainApp;
 
 import static org.junit.Assert.*;
 

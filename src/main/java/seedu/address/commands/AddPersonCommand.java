@@ -7,7 +7,6 @@ import seedu.address.model.person.UniquePersonList;
 
 import java.util.regex.Pattern;
 
-
 /**
  * Adds a person to the address book.
  */

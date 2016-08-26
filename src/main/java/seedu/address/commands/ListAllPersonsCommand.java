@@ -1,9 +1,6 @@
 package seedu.address.commands;
 
-import seedu.address.model.person.ReadOnlyPerson;
-
 import java.util.Collections;
-import java.util.List;
 
 
 /**
