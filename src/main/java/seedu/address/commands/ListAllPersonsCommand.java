@@ -1,8 +1,6 @@
 package seedu.address.commands;
 
-import seedu.address.model.person.ReadOnlyPerson;
-
-import java.util.List;
+import java.util.Collections;
 
 
 /**
@@ -22,7 +20,7 @@ public class ListAllPersonsCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        List<ReadOnlyPerson> allPersons = modelManager.getPersonList();
-        return new CommandResult(getMessageForPersonListShownSummary(allPersons), allPersons);
+        modelManager.clearListFilter();
+        return new CommandResult("Listed all persons", Collections.emptyList());
     }
 }

@@ -1,9 +1,9 @@
 package seedu.address.util;
 
-import seedu.address.commons.Version;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+import seedu.address.commons.Version;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;

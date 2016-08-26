@@ -1,12 +1,12 @@
 package seedu.address.model.datatypes;
 
+import javafx.collections.ObservableList;
 import seedu.address.model.Tag;
+import seedu.address.model.UniqueTagList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.util.collections.UnmodifiableObservableList;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -19,12 +19,12 @@ import java.util.stream.Collectors;
  */
 public class AddressBook implements ReadOnlyAddressBook {
 
-    private final ObservableList<Person> persons;
-    private final ObservableList<Tag> tags;
+    private final UniquePersonList persons;
+    private final UniqueTagList tags;
 
     {
-        persons = FXCollections.observableArrayList();
-        tags = FXCollections.observableArrayList();
+        persons = new UniquePersonList();
+        tags = new UniqueTagList();
     }
 
     public AddressBook() {}
@@ -46,19 +46,19 @@ public class AddressBook implements ReadOnlyAddressBook {
 //// list overwrite operations
 
     public ObservableList<Person> getPersons() {
-        return persons;
+        return persons.getInternalList();
     }
 
     public ObservableList<Tag> getTags() {
-        return tags;
+        return tags.getInternalList();
     }
 
     public void setPersons(List<Person> persons) {
-        this.persons.setAll(persons);
+        this.persons.getInternalList().setAll(persons);
     }
 
     public void setTags(Collection<Tag> tags) {
-        this.tags.setAll(tags);
+        this.tags.getInternalList().setAll(tags);
     }
 
     public void clear() {
@@ -81,7 +81,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         return persons.contains(key);
     }
 
-    public void addPerson(Person p){
+    public void addPerson(Person p) throws UniquePersonList.DuplicatePersonException {
         persons.add(p);
     }
 
@@ -95,11 +95,11 @@ public class AddressBook implements ReadOnlyAddressBook {
 
 //// tag-level operations
 
-    public void addTag(Tag t){
+    public void addTag(Tag t) throws UniqueTagList.DuplicateTagException {
         tags.add(t);
     }
 
-    public boolean removeTag(Tag t) {
+    public boolean removeTag(Tag t) throws UniqueTagList.TagNotFoundException {
         return tags.remove(t);
     }
 
@@ -107,28 +107,28 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     @Override
     public String toString() {
-        return persons.size() + " persons, " + tags.size() +  " tags";
+        return persons.getInternalList().size() + " persons, " + tags.getInternalList().size() +  " tags";
         // TODO: refine later
     }
 
     @Override
     public List<ReadOnlyPerson> getPersonList() {
-        return Collections.unmodifiableList(persons);
+        return Collections.unmodifiableList(persons.getInternalList());
     }
 
     @Override
     public List<Tag> getTagList() {
-        return Collections.unmodifiableList(tags);
+        return Collections.unmodifiableList(tags.getInternalList());
     }
 
     @Override
     public UnmodifiableObservableList<ReadOnlyPerson> getPersonsAsReadOnlyObservableList() {
-        return new UnmodifiableObservableList<>(persons);
+        return new UnmodifiableObservableList<>(persons.getInternalList());
     }
 
     @Override
     public UnmodifiableObservableList<Tag> getTagsAsReadOnlyObservableList() {
-        return new UnmodifiableObservableList<>(tags);
+        return new UnmodifiableObservableList<>(tags.getInternalList());
     }
 
 }

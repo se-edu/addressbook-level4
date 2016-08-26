@@ -1,5 +1,7 @@
 package seedu.address.storage;
 
+import com.google.common.eventbus.Subscribe;
+import seedu.address.commons.FileUtil;
 import seedu.address.events.model.LocalModelChangedEvent;
 import seedu.address.events.storage.*;
 import seedu.address.exceptions.DataConversionException;
@@ -9,8 +11,6 @@ import seedu.address.model.datatypes.ReadOnlyAddressBook;
 import seedu.address.util.AppLogger;
 import seedu.address.util.Config;
 import seedu.address.util.LoggerManager;
-import com.google.common.eventbus.Subscribe;
-import seedu.address.commons.FileUtil;
 
 import java.io.File;
 import java.io.FileNotFoundException;

@@ -1,12 +1,12 @@
 package seedu.address.commons;
 
+import org.junit.Test;
 import seedu.address.model.datatypes.AddressBook;
 import seedu.address.model.datatypes.ReadOnlyAddressBook;
 import seedu.address.model.datatypes.person.Person;
 import seedu.address.model.datatypes.person.ReadOnlyPerson;
 import seedu.address.model.datatypes.tag.Tag;
 import seedu.address.storage.StorageAddressBook;
-import org.junit.Test;
 
 import java.io.IOException;
 import java.time.LocalDate;

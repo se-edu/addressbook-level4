@@ -3,9 +3,9 @@ package seedu.address.commands;
 import seedu.address.commons.Utils;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.ReadOnlyPerson;
+import seedu.address.model.person.UniquePersonList;
 
 import java.util.regex.Pattern;
-
 
 /**
  * Adds a person to the address book.
@@ -43,8 +43,13 @@ public class AddPersonCommand extends Command {
     @Override
     public CommandResult execute() {
         Utils.assertNotNull(modelManager);
-        modelManager.addPerson(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        try {
+            modelManager.addPerson(toAdd);
+            return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        } catch (UniquePersonList.DuplicatePersonException e) {
+            return new CommandResult(String.format(MESSAGE_DUPLICATE_PERSON, toAdd));
+        }
+
     }
 
 }

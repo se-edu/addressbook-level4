@@ -1,13 +1,13 @@
 package seedu.address.controller;
 
+import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import seedu.address.MainApp;
 import seedu.address.commons.FxViewUtil;
-import javafx.fxml.FXML;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.web.WebView;
 import seedu.address.util.AppLogger;
 import seedu.address.util.LoggerManager;
 

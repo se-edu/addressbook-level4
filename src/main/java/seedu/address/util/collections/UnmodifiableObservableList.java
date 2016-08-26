@@ -22,14 +22,12 @@ public class UnmodifiableObservableList<E> implements ObservableList<E> {
 
     private final ObservableList<? extends E> backingList;
 
-
     public UnmodifiableObservableList(ObservableList<? extends E> backingList) {
         if (backingList == null) {
             throw new NullPointerException();
         }
         this.backingList = backingList;
     }
-
     
     @Override
     public final void addListener(ListChangeListener<? super E> listener) {
@@ -51,7 +49,6 @@ public class UnmodifiableObservableList<E> implements ObservableList<E> {
         backingList.removeListener(listener);
     }
 
-    
     @Override
     public final boolean addAll(Object... elements) {
         throw new UnsupportedOperationException(MUTATION_OP_EXCEPTION_MESSAGE);
@@ -103,7 +100,6 @@ public class UnmodifiableObservableList<E> implements ObservableList<E> {
         }));
     }
 
-    
     @Override
     public final int size() {
         return backingList.size();
@@ -151,7 +147,6 @@ public class UnmodifiableObservableList<E> implements ObservableList<E> {
         return backingList.toArray(a);
     }
 
-    
     @Override
     public final boolean add(E o) {
         throw new UnsupportedOperationException(MUTATION_OP_EXCEPTION_MESSAGE);

@@ -14,7 +14,6 @@ public abstract class TargetLastListedPersonCommand extends Command {
 
     public final ReadOnlyPerson targetPerson;
 
-
     /**
      * @param targetPerson last visible listing index of the target person
      */

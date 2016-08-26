@@ -1,7 +1,7 @@
 package seedu.address.events.hotkey;
 
-import seedu.address.events.BaseEvent;
 import javafx.scene.input.KeyCombination;
+import seedu.address.events.BaseEvent;
 
 /**
  * Represents a global hotkey event.

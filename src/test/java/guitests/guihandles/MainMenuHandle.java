@@ -1,8 +1,8 @@
 package guitests.guihandles;
 
-import seedu.address.TestApp;
 import guitests.GuiRobot;
 import javafx.stage.Stage;
+import seedu.address.TestApp;
 
 import java.util.Arrays;
 

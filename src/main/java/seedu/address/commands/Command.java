@@ -2,7 +2,6 @@ package seedu.address.commands;
 
 import seedu.address.commons.Messages;
 import seedu.address.model.ModelManager;
-import seedu.address.model.datatypes.AddressBook;
 import seedu.address.model.person.ReadOnlyPerson;
 
 import java.util.List;

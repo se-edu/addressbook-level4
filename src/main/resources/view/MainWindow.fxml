@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import java.net.URL?>
 <?import org.controlsfx.control.StatusBar?>
-<?import javafx.geometry.Insets?>
+<?import java.net.URL?>
 <VBox maxHeight="Infinity" maxWidth="Infinity" minHeight="-Infinity" minWidth="-Infinity" stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.address.controller.MainWindow">
    <stylesheets>
       <URL value="@DarkTheme.css" />
@@ -26,6 +26,7 @@
             </Menu>
          </menus>
       </MenuBar>
+      <AnchorPane fx:id="headerStatusbarPlaceholder" styleClass="anchor-pane-with-border"></AnchorPane>
       <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.4" VBox.vgrow="ALWAYS">
          <items>
             <VBox fx:id="personList" minWidth="340" prefWidth="340">
@@ -45,5 +46,6 @@
             </AnchorPane>
          </items>
       </SplitPane>
+      <AnchorPane fx:id="footerStatusbarPlaceholder" VBox.vgrow="NEVER" />
    </children>
 </VBox>

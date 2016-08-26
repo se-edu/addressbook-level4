@@ -27,7 +27,7 @@ public class DeletePersonCommand extends TargetLastListedPersonCommand {
     @Override
     public CommandResult execute() {
         try {
-            modelManager.deletePersonThroughUI(targetPerson);
+            modelManager.deletePerson(targetPerson);
             return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, targetPerson));
         } catch (IndexOutOfBoundsException ie) {
             return new CommandResult(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);

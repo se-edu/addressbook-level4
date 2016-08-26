@@ -1,7 +1,12 @@
 package seedu.address.controller;
 
+import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.web.WebView;
@@ -10,6 +15,8 @@ import seedu.address.MainApp;
 import seedu.address.browser.BrowserManager;
 import seedu.address.commands.Command;
 import seedu.address.commands.CommandResult;
+import seedu.address.commands.IncorrectCommand;
+import seedu.address.events.controller.ExitAppRequestEvent;
 import seedu.address.events.hotkey.KeyBindingEvent;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -18,11 +25,6 @@ import seedu.address.util.AppLogger;
 import seedu.address.util.Config;
 import seedu.address.util.GuiSettings;
 import seedu.address.util.LoggerManager;
-import javafx.fxml.FXML;
-import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.TextField;
-import javafx.scene.input.KeyCombination;
 
 /**
  * The Main Window. Provides the basic application layout containing
@@ -32,10 +34,12 @@ public class MainWindow extends BaseUiPart {
     private static AppLogger logger = LoggerManager.getLogger(MainWindow.class);
     private static final String ICON = "/images/address_book_32.png";
     private static final String FXML = "MainWindow.fxml";
+    private static final String HEADER_STATUSBAR_PLACEHOLDER_FIELD_ID = "#headerStatusbarPlaceholder";
+    private static final String FOOTER_STATUSBAR_PLACEHOLDER_FIELD_ID = "#footerStatusbarPlaceholder";
+    private static final String BROWSER_PLACEHOLDER = "#personWebpage";
     public static final int MIN_HEIGHT = 600;
     public static final int MIN_WIDTH = 450;
 
-    private MainApp mainApp; //TODO: remove this dependency as per TODOs given in methods below
     private Ui ui; //TODO: remove this dependency as per TODOs given in methods below
 
     //Link to the model
@@ -81,21 +85,20 @@ public class MainWindow extends BaseUiPart {
         return FXML;
     }
 
-    public static MainWindow load(Stage primaryStage, Config config, UserPrefs prefs, MainApp mainApp, Ui ui,
+    public static MainWindow load(Stage primaryStage, Config config, UserPrefs prefs, Ui ui,
                                   ModelManager modelManager, BrowserManager browserManager) {
         logger.debug("Initializing main window.");
         MainWindow mainWindow = UiPartLoader.loadUiPart(primaryStage, new MainWindow());
-        mainWindow.configure(config.getAppTitle(), config.getAddressBookName(), prefs, mainApp, ui, modelManager,
+        mainWindow.configure(config.getAppTitle(), config.getAddressBookName(), prefs, ui, modelManager,
                              browserManager);
         mainWindow.setKeyEventHandler();
         mainWindow.setAccelerators();
         return mainWindow;
     }
 
-    private void configure(String appTitle, String addressBookName, UserPrefs prefs, MainApp mainApp, Ui ui,
+    private void configure(String appTitle, String addressBookName, UserPrefs prefs, Ui ui,
                            ModelManager modelManager, BrowserManager browserManager) {
         //Set connections
-        this.mainApp = mainApp;
         this.ui = ui;
         this.modelManager = modelManager;
         this.addressBookName = addressBookName;
@@ -122,11 +125,22 @@ public class MainWindow extends BaseUiPart {
 
     public void fillInnerParts() {
         personListPanel = PersonListPanel.load(primaryStage, getPersonListPlaceholder(), modelManager, browserManager);
+        statusBarHeader = StatusBarHeader.load(primaryStage, getHeaderStatusbarPlaceholder());
+        statusBarFooter = StatusBarFooter.load(primaryStage, getFooterStatusbarPlaceholder(), addressBookName);
         browser = loadBrowser();
     }
 
+    private AnchorPane getFooterStatusbarPlaceholder() {
+        return this.getAnchorPane(FOOTER_STATUSBAR_PLACEHOLDER_FIELD_ID);
+    }
+
+    private AnchorPane getHeaderStatusbarPlaceholder() {
+        return this.getAnchorPane(HEADER_STATUSBAR_PLACEHOLDER_FIELD_ID);
+    }
+
+
     private WebView loadBrowser() {
-        AnchorPane pane = this.getAnchorPane("#personWebpage");
+        AnchorPane pane = this.getAnchorPane(BROWSER_PLACEHOLDER);
         pane.getChildren().add(browserManager.getBrowserView());
         return (WebView) browserManager.getBrowserView();
     }
@@ -185,9 +199,17 @@ public class MainWindow extends BaseUiPart {
         command.setData(modelManager);
         CommandResult result = command.execute();
 
+        if (command instanceof IncorrectCommand) {
+            filterField.getStyleClass().add("error");
+        } else {
+            filterField.getStyleClass().add("");
+        }
+
+        statusBarHeader.postMessage(result.feedbackToUser);
+
+        logger.info("Result: " + command.getClass().getSimpleName());
         logger.info("Result: " + result.feedbackToUser);
         logger.debug("Invalid command: {}", filterField.getText());
-        //if (!filterField.getStyleClass().contains("error")) filterField.getStyleClass().add("error");
     }
 
     @FXML
@@ -215,8 +237,7 @@ public class MainWindow extends BaseUiPart {
      */
     @FXML
     private void handleExit() {
-        //TODO: remove dependency on mainApp by using an event
-        mainApp.stop();
+        raise(new ExitAppRequestEvent());
     }
 
     public PersonListPanel getPersonListPanel() {

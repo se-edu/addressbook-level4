@@ -1,12 +1,12 @@
 package seedu.address.commons;
 
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.rules.ExpectedException;
 import seedu.address.model.datatypes.AddressBook;
 import seedu.address.storage.StorageAddressBook;
 import seedu.address.testutil.AddressBookBuilder;
 import seedu.address.testutil.TestUtil;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
 import javax.xml.bind.JAXBException;
 import java.io.File;

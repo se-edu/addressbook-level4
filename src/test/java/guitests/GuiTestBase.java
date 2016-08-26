@@ -1,14 +1,9 @@
 package guitests;
 
-import seedu.address.TestApp;
-import seedu.address.events.EventManager;
-import seedu.address.model.datatypes.AddressBook;
-import seedu.address.model.datatypes.person.Person;
-import seedu.address.testutil.ScreenShotRule;
-import seedu.address.testutil.TestUtil;
-import seedu.address.testutil.TypicalTestData;
-import seedu.address.util.Config;
-import guitests.guihandles.*;
+import guitests.guihandles.MainGuiHandle;
+import guitests.guihandles.MainMenuHandle;
+import guitests.guihandles.PersonCardHandle;
+import guitests.guihandles.PersonListPanelHandle;
 import javafx.stage.Stage;
 import org.junit.After;
 import org.junit.Before;
@@ -17,6 +12,14 @@ import org.junit.Rule;
 import org.junit.rules.TestName;
 import org.loadui.testfx.GuiTest;
 import org.testfx.api.FxToolkit;
+import seedu.address.TestApp;
+import seedu.address.events.EventManager;
+import seedu.address.model.datatypes.AddressBook;
+import seedu.address.model.datatypes.person.Person;
+import seedu.address.testutil.ScreenShotRule;
+import seedu.address.testutil.TestUtil;
+import seedu.address.testutil.TypicalTestData;
+import seedu.address.util.Config;
 
 import java.io.File;
 import java.util.concurrent.TimeUnit;

@@ -1,6 +1,8 @@
 package seedu.address.commands;
 
 import seedu.address.model.person.ReadOnlyPerson;
+import seedu.address.parser.expr.PredExpr;
+import seedu.address.parser.qualifier.NameQualifier;
 
 import java.util.*;
 import java.util.regex.Pattern;
@@ -36,6 +38,7 @@ public class FindPersonsByWordsInNameCommand extends Command {
 
     @Override
     public CommandResult execute() {
+        modelManager.filterList(new PredExpr(new NameQualifier(keywords)));
         final List<ReadOnlyPerson> personsFound = getPersonsWithNameContainingAnyKeyword(keywords);
         return new CommandResult(getMessageForPersonListShownSummary(personsFound), personsFound);
     }

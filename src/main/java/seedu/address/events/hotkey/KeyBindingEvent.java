@@ -1,8 +1,8 @@
 package seedu.address.events.hotkey;
 
-import seedu.address.events.BaseEvent;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
+import seedu.address.events.BaseEvent;
 
 import java.util.Optional;
 

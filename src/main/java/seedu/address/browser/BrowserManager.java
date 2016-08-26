@@ -1,18 +1,11 @@
 package seedu.address.browser;
 
+import javafx.scene.Node;
+import javafx.scene.web.WebView;
+import seedu.address.commons.FxViewUtil;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.util.AppLogger;
 import seedu.address.util.LoggerManager;
-import seedu.address.commons.FxViewUtil;
-import seedu.address.commons.UrlUtil;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.scene.Node;
-import javafx.scene.web.WebView;
-
-import java.net.MalformedURLException;
-import java.net.URL;
 
 /**
  * Manages the AddressBook browser.
@@ -24,31 +17,9 @@ public class BrowserManager {
     private static final String INVALID_GITHUB_USERNAME_MESSAGE = "Unparsable GitHub Username.";
     private static AppLogger logger = LoggerManager.getLogger(BrowserManager.class);
     private WebView browser;
-    private StringProperty selectedPersonUsername;
-    private ChangeListener<String> listener;
 
     public BrowserManager() {
-        this.selectedPersonUsername = new SimpleStringProperty();
-        initListener();
-    }
 
-    /**
-     * Initializes the listener for changes in selected person GitHub username.
-     */
-    private void initListener() {
-        listener = (observable,  oldValue,  newValue) -> {
-            try {
-                URL url = new URL(GITHUB_ROOT_URL + newValue);
-                if (!UrlUtil.compareBaseUrls(new URL(browser.getEngine().getLocation()), url)) {
-                    browser.getEngine().load(url.toExternalForm());
-                }
-            } catch (MalformedURLException e) {
-                logger.warn("Malformed URL obtained, not attempting to load.");
-                if (!newValue.equals("")) {
-                    browser.getEngine().loadContent(INVALID_GITHUB_USERNAME_MESSAGE);
-                }
-            }
-        };
     }
 
     /**
@@ -60,20 +31,8 @@ public class BrowserManager {
         browser = new WebView(); //Webview need to be initialize after FX runtime is initialized
     }
 
-    /**
-     * Loads the person's profile page to the browser.
-     */
-    public synchronized void loadProfilePage(ReadOnlyPerson person) {
-
-        /*
-        selectedPersonUsername.removeListener(listener);
-
-        browser.getEngine().load(person.profilePageUrl().toExternalForm());
-
-        selectedPersonUsername.unbind();
-        selectedPersonUsername.bind(person.githubUsernameProperty());
-        selectedPersonUsername.addListener(listener);
-        */
+    public void loadPersonPage(ReadOnlyPerson person) {
+        browser.getEngine().load("https://www.google.com.sg/#safe=off&q=" + person.getName().fullName.replaceAll(" ", "+"));
     }
 
     /**

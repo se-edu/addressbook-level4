@@ -1,12 +1,12 @@
 package guitests.guihandles;
 
+import guitests.GuiRobot;
+import javafx.scene.Node;
+import javafx.stage.Stage;
 import seedu.address.controller.PersonCardController;
 import seedu.address.model.datatypes.person.Person;
 import seedu.address.model.datatypes.tag.Tag;
 import seedu.address.testutil.PersonBuilder;
-import guitests.GuiRobot;
-import javafx.scene.Node;
-import javafx.stage.Stage;
 
 import java.util.Arrays;
 import java.util.List;
