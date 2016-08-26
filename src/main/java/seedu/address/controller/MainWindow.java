@@ -137,10 +137,10 @@ public class MainWindow extends BaseUiPart {
     private AnchorPane getHeaderStatusbarPlaceholder() {
         return this.getAnchorPane(HEADER_STATUSBAR_PLACEHOLDER_FIELD_ID);
     }
-
-
+    
     private WebView loadBrowser() {
         AnchorPane pane = this.getAnchorPane(BROWSER_PLACEHOLDER);
+        pane.setOnKeyPressed(e -> e.consume()); //Stops triggering of keybinding event.
         pane.getChildren().add(browserManager.getBrowserView());
         return (WebView) browserManager.getBrowserView();
     }
