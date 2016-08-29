@@ -3,7 +3,7 @@
 ## Background
 [Gradle](https://gradle.org/) is an integration technology that addressbook uses for:
 - [handling project dependencies](./Managing Dependencies.md)
-- building the application JAR
+- [building the application JAR](./Building the Application.md)
 - [testing](./Testing.md) 
     - checking for bugs & code style violations
     - determining coverage of test cases
