@@ -43,3 +43,5 @@ Go to the repository and see the pushed commit. There should be an icon which wi
 
 As the build is run on a provided remote machine, we can only examine the logs it produces:
 ![Travis build](../../images/travis_build.png)
+
+7. If the build is successful, you should be able to check the coverage details of the tests at [Coveralls](http://coveralls.io/)!

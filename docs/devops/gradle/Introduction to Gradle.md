@@ -3,9 +3,10 @@
 ## Background
 [Gradle](https://gradle.org/) is an integration technology that addressbook uses for:
 - [handling project dependencies](./Managing Dependencies.md)
-- checking for bugs & code style violations
 - building the application JAR
-- [testing](./Testing.md) (including coverage of test cases)
+- [testing](./Testing.md) 
+    - checking for bugs & code style violations
+    - determining coverage of test cases
 
 We have wrapped our project in a [Gradle Wrapper](https://docs.gradle.org/current/userguide/gradle_wrapper.html), so that anyone who has cloned the repository can perform the same gradle tasks to manage dependencies or perform automated testing.
 The gradle details are defined in `build.gradle`, which is a Groovy script. You can start learning them from [Build Scripts Basics](https://docs.gradle.org/current/userguide/tutorial_using_tasks.html).

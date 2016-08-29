@@ -34,23 +34,13 @@ Tests' settings are mostly contained in `build.gradle` and `.travis.yml`.
 ### Available Gradle Tasks
 There are a few key gradle tasks defined that we can play around with:  
 #### Testing
-###### Flexible test mode
 - `allTests` to run all tests
-  - except those in `headlessTests` and `headfulTests`
 - `guiTests` to run tests in the `guitests` package
 - `guiUnitTests` to run tests in the `guiunittests` package
 - `unitTests` to run tests in the `address` package
 
-###### Fixed test mode
-- `headlessTests` to run specified tests in headless mode
-- `headfulTests` to run specified tests in headful mode
-
-
 #### Test mode
 - `headless` to indicate headless mode
-  - applies only to tests with flexible test mode
-- `headlessForMac`
-  - In addition to the default `headless` task, this also avoids running some tests that disrupt the user's workflow on Mac
 
 #### Others
 - `checkStyle` to run code style checks
