@@ -18,20 +18,24 @@ See [Travis CI Documentation](https://docs.travis-ci.com/) for more details.
 4. Activate the travis CI switch.  
 ![Activate the switch](../../images/flick_repository_switch.png)
 5. Create the following `travis.yml` file in the main folder
-```
-language: java
-matrix:
-  include:
-    - jdk: oraclejdk8
-script: ./gradlew clean headless allTests coverage coveralls -i
-before_install:
-          - "export DISPLAY=:99.0"
-          - "sh -e /etc/init.d/xvfb start"
+    ```
+    language: java
+    matrix:
+      include:
+        - jdk: oraclejdk8
+    script: ./gradlew clean headless allTests coverage coveralls -i
+    before_install:
+              - "export DISPLAY=:99.0"
+              - "sh -e /etc/init.d/xvfb start"
+    
+    addons:
+      apt:
+        packages:
+          - oracle-java8-installer
+    ```
+6. To see the CI in action, push a commit to the master branch!  
+Go to the repository and see the pushed commit. There should be an icon which will link you to the Travis build.
+![Commit build](../../images/build_pending.png)
 
-addons:
-  apt:
-    packages:
-      - oracle-java8-installer
-```
-
-To see the CI in action, push a commit to the master branch!
+As the build is run on a provided remote machine, we can only examine the logs it produces:
+![Travis build](../../images/travis_build.png)
