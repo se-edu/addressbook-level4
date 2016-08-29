@@ -7,6 +7,7 @@
  
 plugins {
     id "com.github.kt3k.coveralls" version "2.4.0"
+    id 'com.github.johnrengelman.shadow' version '1.2.3'
 }
 
 allprojects {
@@ -77,6 +78,27 @@ allprojects {
             exclude group: "junit", module: "junit"
         }
         testCompile "org.testfx:openjfx-monocle:$monocleVersion"
+    }
+    
+    sourceSets {
+        main {
+            java {
+                srcDir 'src/main/java'
+            }
+            resources {
+                srcDir 'src/main/resources'
+            }
+        }
+    }
+    
+    shadowJar {
+        archiveName = "addressbook.jar"
+
+        manifest {
+            attributes "Main-Class": "seedu.address.MainApp"
+        }
+
+        destinationDir = file("${buildDir}/jar/")
     }
 }
 

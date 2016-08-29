@@ -4,6 +4,7 @@ import com.google.common.eventbus.Subscribe;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
+import seedu.address.commons.Version;
 import seedu.address.controller.Ui;
 import seedu.address.events.EventManager;
 import seedu.address.events.controller.ExitAppRequestEvent;
@@ -27,7 +28,7 @@ public class MainApp extends Application {
     private static final int VERSION_PATCH = 1;
     private static final boolean VERSION_EARLY_ACCESS = true;
 
-    public static final seedu.address.commons.Version VERSION = new seedu.address.commons.Version(
+    public static final Version VERSION = new Version(
             VERSION_MAJOR, VERSION_MINOR, VERSION_PATCH, VERSION_EARLY_ACCESS);
 
     /**
