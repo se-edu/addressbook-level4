@@ -11,5 +11,8 @@ We have wrapped our project in a [Gradle Wrapper](https://docs.gradle.org/curren
 The gradle details are defined in `build.gradle`, which is a Groovy script. You can start learning them from [Build Scripts Basics](https://docs.gradle.org/current/userguide/tutorial_using_tasks.html).
 
 ## Gradle Tasks
+Gradle tasks are run using `gradlew <task1> <task2> ...` on Windows and `./gradlew <task1> ...` on Mac/Linux.
+
 There are default gradle tasks provided for each plugin (e.g. `java`, `checkstyle`) used in the gradle script. In addition, we are able to define custom gradle tasks if required. (See [Testing.md](./Testing.md))
+
 See Gradle's [Java Plugin](https://docs.gradle.org/current/userguide/java_plugin.html)'s `Figure 45.1` to see the hierarchical overview of common gradle tasks.
