@@ -2,7 +2,6 @@
 
 ## Background
 We are using [Gradle](https://docs.gradle.org/)'s [wrapper](https://docs.gradle.org/current/userguide/gradle_wrapper.html) to setup testing configurations and run tests.
-Gradle tasks are run using `gradlew <task1> <task2> ...` on Windows and `./gradlew <task1> ...` on Mac/Linux.
 
 We work towards enabling **headless testing** (using [TestFX](https://github.com/TestFX/TestFX)) so that the test results will be more consistent between different machines. In addition, it will reduce disruption for the tester - the tester can continue to do his or her own work on the machine!
 
@@ -35,32 +34,22 @@ Tests' settings are mostly contained in `build.gradle` and `.travis.yml`.
 ### Available Gradle Tasks
 There are a few key gradle tasks defined that we can play around with:  
 #### Testing
-###### Flexible test mode
 - `allTests` to run all tests
-  - except those in `headlessTests` and `headfulTests`
 - `guiTests` to run tests in the `guitests` package
 - `guiUnitTests` to run tests in the `guiunittests` package
-- `unitTests` to run tests in the `address` package
-
-###### Fixed test mode
-- `headlessTests` to run specified tests in headless mode
-- `headfulTests` to run specified tests in headful mode
-
+- `unitTests` to run tests in the `seedu.address` package
 
 #### Test mode
 - `headless` to indicate headless mode
-  - applies only to tests with flexible test mode
-- `headlessForMac`
-  - In addition to the default `headless` task, this also avoids running some tests that disrupt the user's workflow on Mac
 
 #### Others
 - `checkStyle` to run code style checks
-  - `PMD`, `FindBugs` and `Checkstyle`
+  - [PMD](https://docs.gradle.org/current/userguide/pmd_plugin.html), [FindBugs](https://docs.gradle.org/current/userguide/findbugs_plugin.html) and [Checkstyle](https://docs.gradle.org/current/userguide/checkstyle_plugin.html)
 - `clean` to remove previously built files
-    - Running tasks repeatedly may not work unless the build files are `clean`ed first.
+    - Running tasks repeatedly may not work unless previous build files are `clean`ed first.
 - `coverage` to generate coverage information after tests have been run
   - Generated coverage reports can be found at `./build/reports/jacoco/coverage/coverage.xml`
-- `coveralls` to upload data from CI services to coveralls.io (no reason to run this locally)
+- `coveralls` to upload data from CI services to coveralls.io (no reason to run this locally, we can check the raw xml reports)
 
 ### Local Testing
 #### How to do some common testing-related tasks
@@ -96,7 +85,4 @@ There are a few key gradle tasks defined that we can play around with:
 
 ### CI Testing
 - We run our CI builds on [Travis CI](https://travis-ci.org/HubTurbo/addressbook)
-- The current Travis CI set up (also found in `.travis.yml`):
-  - runs the `./gradlew clean headless allTests headfulTests headlessTests coverage coveralls -i` command.
-  - At the moment, we do not check the code style. It is up to the contributor to verify his or her coding style locally by running `./gradlew checkStyle`.
-  - Automatically retries up to 3 times if a task fails
+- See [Configuring Travis CI](../integration/Configuring Travis CI.md) for more details

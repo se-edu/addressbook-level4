@@ -4,6 +4,11 @@
  * For more details take a look at the Java Quickstart chapter in the Gradle
  * user guide available at http://gradle.org/docs/2.2.1/userguide/tutorial_java_projects.html
  */
+ 
+plugins {
+    id "com.github.kt3k.coveralls" version "2.4.0"
+    id 'com.github.johnrengelman.shadow' version '1.2.3'
+}
 
 allprojects {
     version = 'V1.6.1ea'
@@ -74,6 +79,27 @@ allprojects {
         }
         testCompile "org.testfx:openjfx-monocle:$monocleVersion"
     }
+    
+    sourceSets {
+        main {
+            java {
+                srcDir 'src/main/java'
+            }
+            resources {
+                srcDir 'src/main/resources'
+            }
+        }
+    }
+    
+    shadowJar {
+        archiveName = "addressbook.jar"
+
+        manifest {
+            attributes "Main-Class": "seedu.address.MainApp"
+        }
+
+        destinationDir = file("${buildDir}/jar/")
+    }
 }
 
 task wrapper(type: Wrapper) {
@@ -93,6 +119,16 @@ task coverage(type: JacocoReport) {
         html.enabled = true
         xml.enabled = true
     }
+}
+
+coveralls {
+    sourceDirs = allprojects.sourceSets.main.allSource.srcDirs.flatten()
+    jacocoReportPath = "${buildDir}/reports/jacoco/coverage/coverage.xml"
+}
+
+tasks.coveralls {
+    dependsOn coverage
+    onlyIf { System.env.'CI' }
 }
 
 tasks.withType(FindBugs) {
