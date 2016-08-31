@@ -37,19 +37,19 @@ There are a few key gradle tasks defined that we can play around with:
 - `allTests` to run all tests
 - `guiTests` to run tests in the `guitests` package
 - `guiUnitTests` to run tests in the `guiunittests` package
-- `unitTests` to run tests in the `address` package
+- `unitTests` to run tests in the `seedu.address` package
 
 #### Test mode
 - `headless` to indicate headless mode
 
 #### Others
 - `checkStyle` to run code style checks
-  - `PMD`, `FindBugs` and `Checkstyle`
+  - [PMD](https://docs.gradle.org/current/userguide/pmd_plugin.html), [FindBugs](https://docs.gradle.org/current/userguide/findbugs_plugin.html) and [Checkstyle](https://docs.gradle.org/current/userguide/checkstyle_plugin.html)
 - `clean` to remove previously built files
-    - Running tasks repeatedly may not work unless the build files are `clean`ed first.
+    - Running tasks repeatedly may not work unless previous build files are `clean`ed first.
 - `coverage` to generate coverage information after tests have been run
   - Generated coverage reports can be found at `./build/reports/jacoco/coverage/coverage.xml`
-- `coveralls` to upload data from CI services to coveralls.io (no reason to run this locally)
+- `coveralls` to upload data from CI services to coveralls.io (no reason to run this locally, we can check the raw xml reports)
 
 ### Local Testing
 #### How to do some common testing-related tasks

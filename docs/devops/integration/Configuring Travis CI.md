@@ -7,7 +7,7 @@ We are able to setup Travis CI such that it is able to run the projects' tests a
 
 The current Travis CI set up:
   - runs the `./gradlew clean headless allTests coverage coveralls -i` command.
-  - automatically retries up to 3 times if a task fails
+  - automatically retries the build up to 3 times if a task fails
 
 If you would like to customise your travis build, do read the [Travis CI Documentation](https://docs.travis-ci.com/).
 
@@ -21,7 +21,7 @@ If you would like to customise your travis build, do read the [Travis CI Documen
     - If repository cannot be found, click `Sync account`
 4. Activate the switch.  
 ![Activate the switch](../../images/flick_repository_switch.png)
-5. Create the following `travis.yml` file in the main folder
+5. Create the following `.travis.yml` file in the main folder
     ```
     language: java
     matrix:

@@ -10,7 +10,7 @@ The following tasks are related to ensuring that the required dependencies are d
 
 #### `compileJava`
 `assemble`, `build`, `jar` are **examples** of tasks that will call `compileJava`.
-This will check whether the project has the required dependencies to run the main program, and download any missing dependencies before compiling the classes.
+This will check whether the project has the required dependencies to compile and run the main program, and download any missing dependencies before compiling the classes.
 
 See `build.gradle` -> `allprojects` -> `dependencies` -> `compile` for the list of dependencies required.
 

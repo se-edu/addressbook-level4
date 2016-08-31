@@ -14,6 +14,6 @@ The gradle details are defined in `build.gradle`, which is a Groovy script. You 
 ## Gradle Tasks
 Gradle tasks are run using `gradlew <task1> <task2> ...` on Windows and `./gradlew <task1> ...` on Mac/Linux.
 
-There are default gradle tasks provided for each plugin (e.g. `java`, `checkstyle`) used in the gradle script. In addition, we are able to define custom gradle tasks if required. (See [Testing.md](./Testing.md))
+There are default gradle tasks provided for each gradle plugin (e.g. `java`, `checkstyle`) used in the script. In addition, we are able to define custom gradle tasks if required. (See [Testing.md](./Testing.md) for examples)
 
-See Gradle's [Java Plugin](https://docs.gradle.org/current/userguide/java_plugin.html)'s `Figure 45.1` to see the hierarchical overview of common gradle tasks.
+See `Figure 45.1` in Gradle's [Java Plugin](https://docs.gradle.org/current/userguide/java_plugin.html) to see the hierarchical overview of common gradle tasks.
