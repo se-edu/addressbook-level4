@@ -16,6 +16,7 @@ import seedu.address.browser.BrowserManager;
 import seedu.address.events.EventManager;
 import seedu.address.events.storage.FileOpeningExceptionEvent;
 import seedu.address.events.storage.FileSavingExceptionEvent;
+import seedu.address.events.ui.ShowHelpEvent;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.ReadOnlyPerson;
@@ -150,6 +151,11 @@ public class Ui {
     @Subscribe
     private void handleFileSavingExceptionEvent(FileSavingExceptionEvent fsee) {
         showFileOperationAlertAndWait("Could not save data", "Could not save data to file", fsee.file, fsee.exception);
+    }
+
+    @Subscribe
+    private void handleShowHelpEvent(ShowHelpEvent event) {
+        mainWindow.handleHelp();
     }
 
     private void showFileOperationAlertAndWait(String description, String details, File file, Throwable cause) {
