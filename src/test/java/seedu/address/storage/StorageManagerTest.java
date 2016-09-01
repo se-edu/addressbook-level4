@@ -14,6 +14,7 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.datatypes.AddressBook;
 import seedu.address.model.datatypes.ReadOnlyAddressBook;
+import seedu.address.model.person.UniquePersonList;
 import seedu.address.testutil.AddressBookBuilder;
 import seedu.address.testutil.SerializableTestClass;
 import seedu.address.testutil.TestUtil;
@@ -108,9 +109,9 @@ public class StorageManagerTest {
     }
 
     @Test
-    public void saveDataToFile() throws FileNotFoundException, DataConversionException {
+    public void saveDataToFile() throws FileNotFoundException, DataConversionException, UniquePersonList.DuplicatePersonException {
         ReadOnlyAddressBook oldAb = new AddressBook(storageManager.getData());
-        AddressBook editedAb = new AddressBookBuilder(new AddressBook(storageManager.getData())).withPerson("second", "person").build();
+        AddressBook editedAb = new AddressBookBuilder(new AddressBook(storageManager.getData())).withPerson(TestUtil.generateSamplePersonData().get(1)).build();
         assertNotEquals(editedAb, oldAb);
 
         storageManager.saveDataToFile(TEMP_SAVE_FILE, editedAb);
@@ -128,9 +129,9 @@ public class StorageManagerTest {
     }
 
     @Test
-    public void testHandleLocalModelChangedEvent() throws DuplicateTagException, InterruptedException, FileNotFoundException, DataConversionException {
+    public void testHandleLocalModelChangedEvent() throws DuplicateTagException, InterruptedException, FileNotFoundException, DataConversionException, UniquePersonList.DuplicatePersonException {
         ReadOnlyAddressBook oldAb = new AddressBook(storageManager.getData());
-        AddressBook editedAb = new AddressBookBuilder(new AddressBook(storageManager.getData())).withPerson("second", "person").build();
+        AddressBook editedAb = new AddressBookBuilder(new AddressBook(storageManager.getData())).withPerson(TestUtil.generateSamplePersonData().get(0)).build();
         assertNotEquals(editedAb, oldAb);
 
         storageManager.handleLocalModelChangedEvent(new LocalModelChangedEvent(editedAb));

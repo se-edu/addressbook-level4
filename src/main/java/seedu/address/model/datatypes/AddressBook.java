@@ -33,14 +33,14 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Persons and Tags are copied into this addressbook
      */
     public AddressBook(ReadOnlyAddressBook toBeCopied) {
-        this(toBeCopied.getPersonList(), toBeCopied.getTagList());
+        this(toBeCopied.getUniquePersonList(), toBeCopied.getUniqueTagList());
     }
 
     /**
      * Persons and Tags are copied into this addressbook
      */
-    public AddressBook(List<? extends ReadOnlyPerson> persons, List<Tag> tags) {
-        resetData(persons, tags);
+    public AddressBook(UniquePersonList persons, UniqueTagList tags) {
+        resetData(persons.getInternalList(), tags.getInternalList());
     }
 
 //// list overwrite operations
@@ -129,6 +129,16 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public UnmodifiableObservableList<Tag> getTagsAsReadOnlyObservableList() {
         return new UnmodifiableObservableList<>(tags.getInternalList());
+    }
+
+    @Override
+    public UniquePersonList getUniquePersonList() {
+        return this.persons;
+    }
+
+    @Override
+    public UniqueTagList getUniqueTagList() {
+        return this.tags;
     }
 
 }

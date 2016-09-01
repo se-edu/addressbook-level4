@@ -15,10 +15,9 @@ import org.testfx.api.FxToolkit;
 import seedu.address.TestApp;
 import seedu.address.events.EventManager;
 import seedu.address.model.datatypes.AddressBook;
-import seedu.address.model.datatypes.person.Person;
+import seedu.address.model.person.Person;
 import seedu.address.testutil.ScreenShotRule;
 import seedu.address.testutil.TestUtil;
-import seedu.address.testutil.TypicalTestData;
 import seedu.address.util.Config;
 
 import java.io.File;
@@ -43,7 +42,6 @@ public class GuiTestBase {
     protected MainGuiHandle mainGui;
     protected MainMenuHandle mainMenu;
     protected PersonListPanelHandle personListPanel;
-    protected TypicalTestData td = new TypicalTestData();
     private Stage stage;
 
 

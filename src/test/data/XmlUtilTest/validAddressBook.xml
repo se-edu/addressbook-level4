@@ -1,24 +1,57 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addressbook>
     <persons>
-        <id>1</id>
-        <city></city>
-        <firstName>Cornelia</firstName>
-        <githubUserName></githubUserName>
-        <lastName>Meier</lastName>
-        <postalCode></postalCode>
-        <street></street>
+        <name>Hans Muster</name>
+        <phone isPrivate="false">9482424</phone>
+        <email isPrivate="false">hans@google.com</email>
+        <address isPrivate="false">4th street</address>
     </persons>
     <persons>
-        <id>2</id>
-        <city></city>
-        <firstName>Werner</firstName>
-        <githubUserName>damithc</githubUserName>
-        <lastName>Meyer</lastName>
-        <postalCode></postalCode>
-        <street></street>
+        <name>Ruth Mueller</name>
+        <phone isPrivate="false">87249245</phone>
+        <email isPrivate="false">ruth@google.com</email>
+        <address isPrivate="false">81th street</address>
     </persons>
-    <tags>
-        <name>Friends</name>
-    </tags>
+    <persons>
+        <name>Heinz Kurz</name>
+        <phone isPrivate="false">95352563</phone>
+        <email isPrivate="false">heinz@yahoo.com</email>
+        <address isPrivate="false">wall street</address>
+    </persons>
+    <persons>
+        <name>Cornelia Meier</name>
+        <phone isPrivate="false">87652533</phone>
+        <email isPrivate="false">cornelia@google.com</email>
+        <address isPrivate="false">10th street</address>
+    </persons>
+    <persons>
+        <name>Werner Meyer</name>
+        <phone isPrivate="false">9482224</phone>
+        <email isPrivate="false">werner@gmail.com</email>
+        <address isPrivate="false">michegan ave</address>
+    </persons>
+    <persons>
+        <name>Lydia Kunz</name>
+        <phone isPrivate="false">9482427</phone>
+        <email isPrivate="false">lydia@gmail.com</email>
+        <address isPrivate="false">little tokyo</address>
+    </persons>
+    <persons>
+        <name>Anna Best</name>
+        <phone isPrivate="false">9482442</phone>
+        <email isPrivate="false">anna@google.com</email>
+        <address isPrivate="false">4th street</address>
+    </persons>
+    <persons>
+        <name>Stefan Meier</name>
+        <phone isPrivate="false">8482424</phone>
+        <email isPrivate="false">stefan@mail.com</email>
+        <address isPrivate="false">little india</address>
+    </persons>
+    <persons>
+        <name>Martin Mueller</name>
+        <phone isPrivate="false">8482131</phone>
+        <email isPrivate="false">hans@google.com</email>
+        <address isPrivate="false">chicago ave</address>
+    </persons>
 </addressbook>

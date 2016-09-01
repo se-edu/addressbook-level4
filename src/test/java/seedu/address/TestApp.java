@@ -63,7 +63,7 @@ public class TestApp extends MainApp {
 
     @Override
     public void start(Stage primaryStage) {
-        ui.start(primaryStage);
+        ui.start(primaryStage, this);
         storageManager.start();
     }
 
