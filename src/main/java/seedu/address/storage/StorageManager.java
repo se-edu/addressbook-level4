@@ -8,7 +8,6 @@ import seedu.address.exceptions.DataConversionException;
 import seedu.address.main.ComponentManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.datatypes.ReadOnlyAddressBook;
-import seedu.address.util.AppLogger;
 import seedu.address.util.Config;
 import seedu.address.util.LoggerManager;
 
@@ -17,6 +16,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
+import java.util.logging.Logger;
 
 /**
  * Manages storage of addressbook data in local disk.
@@ -24,7 +24,7 @@ import java.util.function.Supplier;
  */
 public class StorageManager extends ComponentManager {
 
-    private static final AppLogger logger = LoggerManager.getLogger(StorageManager.class);
+    private static final Logger logger = LoggerManager.getLogger(StorageManager.class);
     private static final String DEFAULT_CONFIG_FILE = "config.json";
     private final Consumer<ReadOnlyAddressBook> loadedDataCallback;
     private final Supplier<ReadOnlyAddressBook> defaultDataSupplier;
@@ -53,10 +53,10 @@ public class StorageManager extends ComponentManager {
 
         Config config;
         if (configFile.exists()) {
-            logger.info("Config file {} found, attempting to read.", configFile);
+            logger.info("Config file "  + configFile + " found, attempting to read.");
             config = readFromConfigFile(configFile);
         } else {
-            logger.info("Config file {} not found, using default config.", configFile);
+            logger.info("Config file "  + configFile + " not found, using default config.");
             config = new Config();
         }
         // Recreate the file so that any missing fields will be restored
@@ -73,7 +73,7 @@ public class StorageManager extends ComponentManager {
         try {
             FileUtil.serializeObjectToJsonFile(configFile, config);
         } catch (IOException e) {
-            logger.warn("Error writing to config file {}.", configFile);
+            logger.warning("Error writing to config file " + configFile);
         }
     }
 
@@ -90,7 +90,7 @@ public class StorageManager extends ComponentManager {
             FileUtil.deleteFile(configFile);
             return true;
         } catch (IOException e) {
-            logger.warn("Error removing previous config file {}.", configFile);
+            logger.warning("Error removing previous config file " + configFile);
             return false;
         }
     }
@@ -105,7 +105,7 @@ public class StorageManager extends ComponentManager {
         try {
             return FileUtil.deserializeObjectFromJsonFile(configFile, Config.class);
         } catch (IOException e) {
-            logger.warn("Error reading from config file {}: {}", configFile, e);
+            logger.warning("Error reading from config file " + configFile + ": " + e);
             return new Config();
         }
     }
@@ -117,7 +117,7 @@ public class StorageManager extends ComponentManager {
     @Subscribe
     public void handleLoadDataRequestEvent(LoadDataRequestEvent ldre) {
         File dataFile = ldre.file;
-        logger.info("Handling load data request received: {}", dataFile);
+        logger.info("Handling load data request received: " + dataFile);
         loadDataFile(dataFile);
     }
 
@@ -135,7 +135,7 @@ public class StorageManager extends ComponentManager {
      */
     @Subscribe
     public void handleSaveDataRequestEvent(SaveDataRequestEvent sdre) {
-        logger.info("Save data request received: {}", sdre.data);
+        logger.info("Save data request received: " + sdre.data);
         saveDataToFile(sdre.file, sdre.data);
     }
 
@@ -166,7 +166,7 @@ public class StorageManager extends ComponentManager {
      */
     @Subscribe
     public void handleSavePrefsRequestEvent(SavePrefsRequestEvent spre) {
-        logger.info("Save prefs request received: {}", spre.prefs);
+        logger.info("Save prefs request received: " + spre.prefs);
         savePrefsToFile(spre.prefs);
     }
 
@@ -189,10 +189,10 @@ public class StorageManager extends ComponentManager {
         }
 
         try {
-            logger.debug("Attempting to load prefs from file: {}", prefsFile);
+            logger.fine("Attempting to load prefs from file: " + prefsFile);
             prefs = FileUtil.deserializeObjectFromJsonFile(prefsFile, UserPrefs.class);
         } catch (IOException e) {
-            logger.debug("Error loading prefs from file: {}", e);
+            logger.fine("Error loading prefs from file: " + e);
         }
 
         return prefs;
@@ -210,11 +210,11 @@ public class StorageManager extends ComponentManager {
         try {
             loadDataFromFile(dataFile);
         } catch (FileNotFoundException e) {
-            logger.debug("File {} not found, attempting to create file with default data", dataFile);
+            logger.fine("File " + dataFile + " not found, attempting to create file with default data");
             try {
                 saveAddressBook(saveFile, defaultDataSupplier.get());
             } catch (DataConversionException | IOException e1) {
-                logger.fatal("Unable to initialize local data file with default data.");
+                logger.severe("Unable to initialize local data file with default data.");
                 assert false : "Unable to initialize local data file with default data.";
             }
         }
@@ -224,23 +224,23 @@ public class StorageManager extends ComponentManager {
         try {
             loadDataFromFile(dataFile);
         } catch (FileNotFoundException e) {
-            logger.debug("File not found: {}", dataFile);
+            logger.fine("File not found: " + dataFile);
             raise(new FileOpeningExceptionEvent(e, dataFile));
         }
     }
 
     protected void loadDataFromFile(File dataFile) throws FileNotFoundException {
         try {
-            logger.debug("Attempting to load data from file: {}", dataFile);
+            logger.fine("Attempting to load data from file: " + dataFile);
             loadedDataCallback.accept(getData());
         } catch (DataConversionException e) {
-            logger.debug("Error loading data from file: {}", e);
+            logger.fine("Error loading data from file: " + e);
             raise(new FileOpeningExceptionEvent(e, dataFile));
         }
     }
 
     public ReadOnlyAddressBook getData() throws FileNotFoundException, DataConversionException {
-        logger.debug("Attempting to read data from file: {}", saveFile);
+        logger.fine("Attempting to read data from file: " + saveFile);
         return XmlFileStorage.loadDataFromSaveFile(saveFile);
     }
 }

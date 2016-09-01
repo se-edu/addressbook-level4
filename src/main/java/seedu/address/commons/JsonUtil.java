@@ -11,11 +11,11 @@ import com.fasterxml.jackson.databind.deser.std.FromStringDeserializer;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import com.fasterxml.jackson.databind.type.TypeFactory;
-import org.apache.logging.log4j.Level;
 
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
+import java.util.logging.Level;
 
 /**
  * Converts a Java object instance to JSON and vice versa
@@ -41,12 +41,7 @@ public class JsonUtil {
          * @return
          */
         private Level getLoggingLevel(String loggingLevelString) {
-            for (Level level : Level.values()) {
-                if (level.toString().equals(loggingLevelString)) {
-                    return level;
-                }
-            }
-            return null;
+            return Level.parse(loggingLevelString);
         }
 
         @Override

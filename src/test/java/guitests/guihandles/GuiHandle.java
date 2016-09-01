@@ -9,10 +9,10 @@ import javafx.stage.Stage;
 import javafx.stage.Window;
 import seedu.address.TestApp;
 import seedu.address.model.person.Person;
-import seedu.address.util.AppLogger;
 import seedu.address.util.LoggerManager;
 
 import java.lang.reflect.Constructor;
+import java.util.logging.Logger;
 
 /**
  * Base class for all GUI Handles used in testing.
@@ -22,7 +22,7 @@ public class GuiHandle {
     protected final Stage primaryStage;
     protected final String stageTitle;
 
-    private final AppLogger logger = LoggerManager.getLogger(this.getClass());
+    private final Logger logger = LoggerManager.getLogger(this.getClass());
 
     public GuiHandle(GuiRobot guiRobot, Stage primaryStage, String stageTitle) {
         this.guiRobot = guiRobot;
@@ -49,19 +49,19 @@ public class GuiHandle {
     }
 
     public void focusOnWindow(String stageTitle) {
-        logger.info("Focusing {}", stageTitle);
+        logger.info("Focusing " + stageTitle);
         java.util.Optional<Window> window = guiRobot.listTargetWindows()
                 .stream()
                 .filter(w -> w instanceof Stage && ((Stage) w).getTitle().equals(stageTitle)).findAny();
 
         if (!window.isPresent()) {
-            logger.warn("Can't find stage {}, Therefore, aborting focusing", stageTitle);
+            logger.warning("Can't find stage " + stageTitle + ", Therefore, aborting focusing");
             return;
         }
 
         guiRobot.targetWindow(window.get());
         guiRobot.interact(() -> window.get().requestFocus());
-        logger.info("Finishing focus {}", stageTitle);
+        logger.info("Finishing focus " + stageTitle);
     }
 
     protected Node getNode(String query) {

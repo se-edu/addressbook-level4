@@ -12,19 +12,19 @@ import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.person.UniquePersonList.PersonNotFoundException;
 import seedu.address.parser.expr.Expr;
-import seedu.address.util.AppLogger;
 import seedu.address.util.Config;
 import seedu.address.util.LoggerManager;
 import seedu.address.util.collections.UnmodifiableObservableList;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 /**
  * Represents the in-memory model of the address book data.
  * All changes to any model should be synchronized.
  */
 public class ModelManager extends ComponentManager implements ReadOnlyAddressBook {
-    private static final AppLogger logger = LoggerManager.getLogger(ModelManager.class);
+    private static final Logger logger = LoggerManager.getLogger(ModelManager.class);
 
     private final AddressBook backingModel;
     private final FilteredList<Person> filteredPersons;
@@ -38,10 +38,10 @@ public class ModelManager extends ComponentManager implements ReadOnlyAddressBoo
     public ModelManager(AddressBook src, Config config) {
         super();
         if (src == null) {
-            logger.fatal("Attempted to initialize with a null AddressBook");
+            logger.severe("Attempted to initialize with a null AddressBook");
             assert false;
         }
-        logger.debug("Initializing with address book: {}", src);
+        logger.fine("Initializing with address book: " + src);
 
         backingModel = new AddressBook(src);
         filteredPersons = new FilteredList<>(backingModel.getPersons());

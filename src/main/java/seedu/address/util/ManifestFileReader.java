@@ -10,12 +10,13 @@ import java.util.List;
 import java.util.Optional;
 import java.util.jar.Attributes;
 import java.util.jar.Manifest;
+import java.util.logging.Logger;
 
 /**
  * Reads values in manifest file
  */
 public class ManifestFileReader {
-    private static final AppLogger logger = LoggerManager.getLogger(ManifestFileReader.class);
+    private static final Logger logger = LoggerManager.getLogger(ManifestFileReader.class);
 
     private static String getResourcePath() {
         Class mainAppClass = MainApp.class;
@@ -47,7 +48,7 @@ public class ManifestFileReader {
         try {
             manifest = new Manifest(new URL(manifestPath).openStream());
         } catch (IOException e) {
-            logger.debug("Manifest can't be read, most probably not run from JAR", e);
+            logger.fine("Manifest can't be read, most probably not run from JAR: " + e);
             return Optional.empty();
         }
 
@@ -61,7 +62,7 @@ public class ManifestFileReader {
         Optional<Manifest> manifest = getManifest();
 
         if (!manifest.isPresent()) {
-            logger.debug("Manifest is not present");
+            logger.fine("Manifest is not present");
 
             return Optional.of(new ArrayList<>());
         }

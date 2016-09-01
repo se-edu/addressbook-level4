@@ -11,17 +11,17 @@ import seedu.address.events.controller.ExitAppRequestEvent;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.storage.StorageManager;
-import seedu.address.util.AppLogger;
 import seedu.address.util.Config;
 import seedu.address.util.LoggerManager;
 
 import java.util.Map;
+import java.util.logging.Logger;
 
 /**
  * The main entry point to the application.
  */
 public class MainApp extends Application {
-    private static final AppLogger logger = LoggerManager.getLogger(MainApp.class);
+    private static final Logger logger = LoggerManager.getLogger(MainApp.class);
 
     private static final int VERSION_MAJOR = 1;
     private static final int VERSION_MINOR = 6;
@@ -88,7 +88,7 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        logger.info("Starting application: {}", MainApp.VERSION);
+        logger.info("Starting application: " + MainApp.VERSION);
         ui.start(primaryStage, this);
         storageManager.start();
     }

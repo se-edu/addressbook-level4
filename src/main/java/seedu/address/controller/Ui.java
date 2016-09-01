@@ -20,20 +20,20 @@ import seedu.address.events.ui.ShowHelpEvent;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.ReadOnlyPerson;
-import seedu.address.util.AppLogger;
 import seedu.address.util.Config;
 import seedu.address.util.LoggerManager;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.logging.Logger;
 
 /**
  * The controller that creates the other controllers
  */
 public class Ui {
     public static final String DIALOG_TITLE_TAG_LIST = "List of Tags";
-    private static final AppLogger logger = LoggerManager.getLogger(Ui.class);
+    private static final Logger logger = LoggerManager.getLogger(Ui.class);
     private static final String FXML_HELP = "/view/HelpWindow.fxml";
     private static final String ICON_APPLICATION = "/images/address_book_32.png";
     private static final String ICON_HELP = "/images/help_icon.png";
@@ -94,7 +94,7 @@ public class Ui {
         try {
             return loader.load();
         } catch (IOException e) {
-            logger.fatal(errorMsg + ": {}", e);
+            logger.severe(errorMsg + ": " + e);
             showFatalErrorDialogAndShutdown("FXML Load Error", errorMsg,
                     "IOException when trying to load ", loader.getLocation().toExternalForm());
             return null;
@@ -120,7 +120,7 @@ public class Ui {
      * Opens a dialog to show the help page
      */
     public void showHelpPage() {
-        logger.debug("Loading help page.");
+        logger.fine("Loading help page.");
         final String fxmlResourcePath = FXML_HELP;
         // Load the fxml file and create a new stage for the popup dialog.
         FXMLLoader loader = loadFxml(fxmlResourcePath);
@@ -199,7 +199,7 @@ public class Ui {
 
     public void showFatalErrorDialogAndShutdown(String title, Throwable e) {
         //TODO: Do a more detailed error reporting e.g. stack trace
-        logger.fatal(title + " " + e.getMessage());
+        logger.severe(title + " " + e.getMessage());
         showAlertDialogAndWait(Alert.AlertType.ERROR, title, e.getMessage(), e.toString());
         Platform.exit();
         System.exit(1);

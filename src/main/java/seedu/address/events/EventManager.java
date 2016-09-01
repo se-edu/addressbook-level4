@@ -1,14 +1,15 @@
 package seedu.address.events;
 
 import com.google.common.eventbus.EventBus;
-import seedu.address.util.AppLogger;
 import seedu.address.util.LoggerManager;
+
+import java.util.logging.Logger;
 
 /**
  * Manages the event dispatching of the app.
  */
 public class EventManager {
-    private static final AppLogger logger = LoggerManager.getLogger(EventManager.class);
+    private static final Logger logger = LoggerManager.getLogger(EventManager.class);
     private final EventBus eventBus;
     private static EventManager instance;
 
@@ -39,7 +40,7 @@ public class EventManager {
      * @return
      */
     public <E extends BaseEvent> EventManager post(E event) {
-        logger.infoEvent(event);
+        logger.info(event.getClass().getName() + ": " + event.toString());
         return postEvent(event);
     }
 
@@ -49,14 +50,14 @@ public class EventManager {
     }
 
     /**
-     * Similar to {@link #post} event, but logs at debug level.
+     * Similar to {@link #post} event, but logs at fine level.
      * To be used for less important events.
      * @param event
      * @param <E>
      * @return
      */
     public <E extends BaseEvent> EventManager postPotentialEvent(E event) {
-        logger.debugEvent(event);
+        logger.fine(event.getClass().getName() + ": " + event.toString());
         return postEvent(event);
     }
 
