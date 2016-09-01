@@ -8,6 +8,7 @@ public class LoggerManager {
     private static final Logger logger = LoggerManager.getLogger(LoggerManager.class);
     private static final String LOG_FILE = "addressbook.log";
     private static FileHandler fileHandler;
+    private static ConsoleHandler consoleHandler;
 
     public static void init(Config config) {
         currentLogLevel = config.getCurrentLogLevel();
@@ -25,21 +26,29 @@ public class LoggerManager {
     }
 
     private static void addConsoleHandler(Logger logger) {
-        ConsoleHandler consoleHandler = new ConsoleHandler();
-        consoleHandler.setLevel(currentLogLevel);
+        if (consoleHandler == null) consoleHandler = createConsoleHandler();
         logger.addHandler(consoleHandler);
     }
 
     private static void addFileHandler(Logger logger) {
         try {
-            if (fileHandler == null) {
-                fileHandler = new FileHandler(LOG_FILE);
-                fileHandler.setFormatter(new SimpleFormatter());
-            }
+            if (fileHandler == null) fileHandler = createFileHandler();
             logger.addHandler(fileHandler);
         } catch (IOException e) {
             logger.warning("Error adding file handler for logger.");
         }
+    }
+
+    private static FileHandler createFileHandler() throws IOException {
+        FileHandler fileHandler = new FileHandler(LOG_FILE);
+        fileHandler.setFormatter(new SimpleFormatter());
+        return fileHandler;
+    }
+
+    private static ConsoleHandler createConsoleHandler() {
+        ConsoleHandler consoleHandler = new ConsoleHandler();
+        consoleHandler.setLevel(currentLogLevel);
+        return consoleHandler;
     }
 
     public static <T> Logger getLogger(Class<T> clazz) {
