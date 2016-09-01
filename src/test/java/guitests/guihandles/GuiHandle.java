@@ -8,7 +8,7 @@ import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import seedu.address.TestApp;
-import seedu.address.model.datatypes.person.Person;
+import seedu.address.model.person.Person;
 import seedu.address.util.AppLogger;
 import seedu.address.util.LoggerManager;
 
@@ -73,7 +73,7 @@ public class GuiHandle {
     }
 
     public void moveCursor(Person person) {
-        guiRobot.moveTo(person.getFirstName());
+        guiRobot.moveTo(person.getName().fullName);
     }
 
     /**

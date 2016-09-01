@@ -65,6 +65,16 @@ public class ModelManager extends ComponentManager implements ReadOnlyAddressBoo
 //// EXPOSING MODEL
 
     @Override
+    public UniqueTagList getUniqueTagList() {
+        return backingModel.getUniqueTagList();
+    }
+
+    @Override
+    public UniquePersonList getUniquePersonList() {
+        return backingModel.getUniquePersonList();
+    }
+
+    @Override
     public List<ReadOnlyPerson> getPersonList() {
         return backingModel.getPersonList();
     }

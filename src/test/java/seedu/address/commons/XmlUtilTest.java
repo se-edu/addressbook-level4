@@ -52,8 +52,8 @@ public class XmlUtilTest {
     @Test
     public void getDataFromFile_validFile_validResult() throws Exception {
         StorageAddressBook dataFromFile = XmlUtil.getDataFromFile(VALID_FILE, StorageAddressBook.class);
-        assertEquals(2, dataFromFile.getPersonList().size());
-        assertEquals(1, dataFromFile.getTagList().size());
+        assertEquals(9, dataFromFile.getPersonList().size());
+        assertEquals(0, dataFromFile.getTagList().size());
     }
 
     @Test
@@ -84,7 +84,7 @@ public class XmlUtilTest {
         //TODO: use equality instead of string comparisons
 
         AddressBookBuilder builder = new AddressBookBuilder(new AddressBook());
-        dataToWrite = new StorageAddressBook(builder.withPerson("John", "Doe").withTag("Friends").build());
+        dataToWrite = new StorageAddressBook(builder.withPerson(TestUtil.generateSamplePersonData().get(0)).withTag("Friends").build());
 
         XmlUtil.saveDataToFile(TEMP_FILE, dataToWrite);
         dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE, StorageAddressBook.class);

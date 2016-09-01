@@ -2,8 +2,11 @@ package seedu.address.storage;
 
 import seedu.address.exceptions.IllegalValueException;
 import seedu.address.model.Tag;
+import seedu.address.model.UniqueTagList;
 import seedu.address.model.datatypes.ReadOnlyAddressBook;
+import seedu.address.model.person.Person;
 import seedu.address.model.person.ReadOnlyPerson;
+import seedu.address.model.person.UniquePersonList;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -39,6 +42,29 @@ public class StorageAddressBook implements ReadOnlyAddressBook {
     public StorageAddressBook(ReadOnlyAddressBook src) {
         persons.addAll(src.getPersonList().stream().map(AdaptedPerson::new).collect(Collectors.toList()));
         tags = src.getTagList();
+    }
+
+    @Override
+    public UniqueTagList getUniqueTagList() {
+        try {
+            return new UniqueTagList(tags);
+        } catch (UniqueTagList.DuplicateTagException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    @Override
+    public UniquePersonList getUniquePersonList() {
+        UniquePersonList lists = new UniquePersonList();
+        for (AdaptedPerson p : persons) {
+            try {
+                lists.add(p.toModelType());
+            } catch (IllegalValueException e) {
+
+            }
+        }
+        return lists;
     }
 
     @Override

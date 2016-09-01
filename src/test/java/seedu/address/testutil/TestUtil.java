@@ -17,9 +17,11 @@ import seedu.address.TestApp;
 import seedu.address.commons.FileUtil;
 import seedu.address.commons.OsDetector;
 import seedu.address.commons.XmlUtil;
+import seedu.address.exceptions.IllegalValueException;
+import seedu.address.model.Tag;
+import seedu.address.model.UniqueTagList;
 import seedu.address.model.datatypes.AddressBook;
-import seedu.address.model.datatypes.person.Person;
-import seedu.address.model.datatypes.tag.Tag;
+import seedu.address.model.person.*;
 import seedu.address.storage.StorageAddressBook;
 
 import java.io.File;
@@ -59,32 +61,41 @@ public class TestUtil {
      */
     public static String SANDBOX_FOLDER = FileUtil.getPath("./src/test/data/sandbox/");
 
-    public static final Person[] samplePersonData = {
-            new Person("Hans", "Muster", 1),
-            new Person("Ruth", "Mueller", 2),
-            new Person("Heinz", "Kurz", 3),
-            new Person("Cornelia", "Meier", 4),
-            new Person("Werner", "Meyer", 5),
-            new Person("Lydia", "Kunz", 6),
-            new Person("Anna", "Best", 7),
-            new Person("Stefan", "Meier", 8),
-            new Person("Martin", "Mueller", 9)
-    };
+    public static final Person[] samplePersonData = getSamplePersonData();
 
-    public static final Tag[] sampleTagData = {
-            new Tag("relatives"),
-            new Tag("friends")
-    };
+    private static Person[] getSamplePersonData() {
+        try {
+            return new Person[]{
+                    new Person(new Name("Hans Muster"), new Phone("9482424", false), new Email("hans@google.com", false), new Address("4th street", false), new UniqueTagList()),
+                    new Person(new Name("Ruth Mueller"), new Phone("87249245", false), new Email("ruth@google.com", false), new Address("81th street", false), new UniqueTagList()),
+                    new Person(new Name("Heinz Kurz"), new Phone("95352563", false), new Email("heinz@yahoo.com", false), new Address("wall street", false), new UniqueTagList()),
+                    new Person(new Name("Cornelia Meier"), new Phone("87652533", false), new Email("cornelia@google.com", false), new Address("10th street", false), new UniqueTagList()),
+                    new Person(new Name("Werner Meyer"), new Phone("9482224", false), new Email("werner@gmail.com", false), new Address("michegan ave", false), new UniqueTagList()),
+                    new Person(new Name("Lydia Kunz"), new Phone("9482427", false), new Email("lydia@gmail.com", false), new Address("little tokyo", false), new UniqueTagList()),
+                    new Person(new Name("Anna Best"), new Phone("9482442", false), new Email("anna@google.com", false), new Address("4th street", false), new UniqueTagList()),
+                    new Person(new Name("Stefan Meier"), new Phone("8482424", false), new Email("stefan@mail.com", false), new Address("little india", false), new UniqueTagList()),
+                    new Person(new Name("Martin Mueller"), new Phone("8482131", false), new Email("hans@google.com", false), new Address("chicago ave", false), new UniqueTagList())
+            };
+        } catch (IllegalValueException e) {
+            assert false;
+            //not possible
+            return null;
+        }
+    }
 
-    public static Person generateSamplePersonWithAllData(int customId) {
-        final Person p = new Person("first", "last", customId);
-        p.setStreet("some street");
-        p.setPostalCode("1234");
-        p.setCity("some city");
-        p.setGithubUsername("SomeName");
-        p.setBirthday(LocalDate.now());
-        p.setTags(Arrays.asList(new Tag("A"), new Tag("B")));
-        return p;
+    public static final Tag[] sampleTagData = getSampleTagData();
+
+    private static Tag[] getSampleTagData() {
+        try {
+            return new Tag[]{
+                    new Tag("relatives"),
+                    new Tag("friends")
+            };
+        } catch (IllegalValueException e) {
+            assert false;
+            return null;
+            //not possible
+        }
     }
 
     public static List<Person> generateSamplePersonData() {
@@ -119,7 +130,13 @@ public class TestUtil {
     }
 
     public static AddressBook generateSampleAddressBook() {
-        return new AddressBook(Arrays.asList(samplePersonData), Arrays.asList(sampleTagData));
+        try {
+            return new AddressBook(new UniquePersonList(Arrays.asList(samplePersonData)), new UniqueTagList());
+        } catch (UniquePersonList.DuplicatePersonException e) {
+            e.printStackTrace();
+            assert false;
+        }
+        return null;
     }
 
     public static StorageAddressBook generateSampleStorageAddressBook() {
@@ -331,8 +348,8 @@ public class TestUtil {
     }
 
     public static boolean compareCardAndPerson(PersonCardHandle card, Person person) {
-        return card.getFirstName().equals(person.getFirstName()) && card.getLastName().equals(person.getLastName());
-                //TODO: compare birthday, tag list and address.
+        //TODO: implement after personcardhandle is done
+        return false; // stub
     }
 
     public static Tag[] getTagList(String tags) {
@@ -343,7 +360,15 @@ public class TestUtil {
 
         final String[] split = tags.split(", ");
 
-        final List<Tag> collect = Arrays.asList(split).stream().map(e -> new Tag(e.replaceFirst("Tag: ", ""))).collect(Collectors.toList());
+        final List<Tag> collect = Arrays.asList(split).stream().map(e -> {
+            try {
+                return new Tag(e.replaceFirst("Tag: ", ""));
+            } catch (IllegalValueException e1) {
+                //not possible
+                assert false;
+                return null;
+            }
+        }).collect(Collectors.toList());
 
         return collect.toArray(new Tag[split.length]);
     }
