@@ -1,9 +1,6 @@
 package guitests;
 
-import guitests.guihandles.MainGuiHandle;
-import guitests.guihandles.MainMenuHandle;
-import guitests.guihandles.PersonCardHandle;
-import guitests.guihandles.PersonListPanelHandle;
+import guitests.guihandles.*;
 import javafx.stage.Stage;
 import org.junit.After;
 import org.junit.Before;
@@ -14,10 +11,13 @@ import org.loadui.testfx.GuiTest;
 import org.testfx.api.FxToolkit;
 import seedu.address.TestApp;
 import seedu.address.events.EventManager;
+import seedu.address.exceptions.IllegalValueException;
 import seedu.address.model.datatypes.AddressBook;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.testutil.ScreenShotRule;
 import seedu.address.testutil.TestUtil;
+import seedu.address.testutil.TypicalTestData;
 import seedu.address.util.Config;
 
 import java.io.File;
@@ -36,14 +36,16 @@ public class GuiTestBase {
 
     TestApp testApp;
 
+    protected TypicalTestData td = new TypicalTestData();
+
     /* Handles to GUI elements present at the start up are created in advance
      *   for easy access from child classes.
      */
     protected MainGuiHandle mainGui;
     protected MainMenuHandle mainMenu;
     protected PersonListPanelHandle personListPanel;
+    protected HeaderStatusBarHandle headerStatusBar;
     private Stage stage;
-
 
     @BeforeClass
     public static void setupSpec() {
@@ -61,6 +63,7 @@ public class GuiTestBase {
             mainGui = new MainGuiHandle(new GuiRobot(), stage);
             mainMenu = mainGui.getMainMenu();
             personListPanel = mainGui.getPersonListPanel();
+            headerStatusBar = mainGui.getHeaderStatusBar();
             this.stage = stage;
         });
         EventManager.clearSubscribers();
@@ -110,7 +113,7 @@ public class GuiTestBase {
         //sleep(getTestingConfig().getUpdateInterval(), TimeUnit.MILLISECONDS);
     }
 
-    public void assertMatching(PersonCardHandle card, Person person) {
+    public void assertMatching(ReadOnlyPerson person, PersonCardHandle card) {
         assertTrue(TestUtil.compareCardAndPerson(card, person));
     }
 

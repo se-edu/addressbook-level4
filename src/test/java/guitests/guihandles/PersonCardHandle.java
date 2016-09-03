@@ -7,6 +7,7 @@ import seedu.address.controller.PersonCardController;
 import seedu.address.exceptions.IllegalValueException;
 import seedu.address.model.Tag;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.ReadOnlyPerson;
 
 import java.util.Arrays;
 import java.util.List;
@@ -46,13 +47,21 @@ public class PersonCardHandle extends GuiHandle {
         return getTextFromLabel(ADDRESS_FIELD_ID);
     }
 
+    public String getPhone() {
+        return getTextFromLabel(PHONE_FIELD_ID);
+    }
+
+    public String getEmail() {
+        return getTextFromLabel(EMAIL_FIELD_ID);
+    }
+
     public String getTags() {
         return getTextFromLabel(TAGS_FIELD_ID);
     }
 
-    public boolean isSamePerson(Person person){
-        return getFullName().equals(person.getName().fullName)
-                && getAddress().equals(person.getAddress().value);
+    public boolean isSamePerson(ReadOnlyPerson person){
+        return getFullName().equals(person.getName().fullName) && getPhone().equals(person.getPhone().value)
+                && getEmail().equals(person.getEmail().value) && getAddress().equals(person.getAddress().value);
     }
 
     public Tag[] getTagList() {
