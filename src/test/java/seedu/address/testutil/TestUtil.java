@@ -41,6 +41,8 @@ import java.util.stream.Collectors;
  */
 public class TestUtil {
 
+    public static String LS = System.lineSeparator();
+
     public static void assertThrows(Class<? extends Throwable> expected, Runnable executable) {
         try {
             executable.run();
@@ -347,9 +349,9 @@ public class TestUtil {
         return list;
     }
 
-    public static boolean compareCardAndPerson(PersonCardHandle card, Person person) {
+    public static boolean compareCardAndPerson(PersonCardHandle card, ReadOnlyPerson person) {
         //TODO: implement after personcardhandle is done
-        return false; // stub
+        return card.isSamePerson(person);
     }
 
     public static Tag[] getTagList(String tags) {

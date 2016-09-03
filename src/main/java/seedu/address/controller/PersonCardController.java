@@ -15,6 +15,8 @@ public class PersonCardController {
     @FXML
     private Label name;
     @FXML
+    private Label id;
+    @FXML
     private Label phone;
     @FXML
     private Label address;
@@ -41,7 +43,8 @@ public class PersonCardController {
 
     @FXML
     public void initialize() {
-        name.setText(displayedIndex + ". " + person.getName().fullName);
+        name.setText(person.getName().fullName);
+        id.setText(displayedIndex + ". ");
         phone.setText(person.getPhone().value);
         address.setText(person.getAddress().value);
         email.setText(person.getEmail().value);

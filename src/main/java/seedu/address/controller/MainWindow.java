@@ -68,7 +68,7 @@ public class MainWindow extends BaseUiPart {
     private MenuItem helpMenuItem;
 
     @FXML
-    private TextField filterField;
+    private TextField commandInput;
 
     public MainWindow() {
         super();
@@ -191,25 +191,25 @@ public class MainWindow extends BaseUiPart {
     }
 
     @FXML
-    private void handleFilterChanged() {
+    private void handleCommandInputChanged() {
 
-        if (filterField.getStyleClass().contains("error")) filterField.getStyleClass().remove("error");
+        if (commandInput.getStyleClass().contains("error")) commandInput.getStyleClass().remove("error");
 
-        Command command = parser.parseCommand(filterField.getText());
+        Command command = parser.parseCommand(commandInput.getText());
         command.setData(modelManager);
         CommandResult result = command.execute();
 
         if (command instanceof IncorrectCommand) {
-            filterField.getStyleClass().add("error");
+            commandInput.getStyleClass().add("error");
         } else {
-            filterField.getStyleClass().add("");
+            commandInput.getStyleClass().add("");
         }
 
         statusBarHeader.postMessage(result.feedbackToUser);
 
         logger.info("Result: " + command.getClass().getSimpleName());
         logger.info("Result: " + result.feedbackToUser);
-        logger.debug("Invalid command: {}", filterField.getText());
+        logger.debug("Invalid command: {}", commandInput.getText());
     }
 
     @FXML

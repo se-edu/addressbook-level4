@@ -29,7 +29,8 @@ public class PersonListPanelHandle extends GuiHandle {
 
     public static final int NOT_FOUND = -1;
     public static final String CARD_PANE_ID = "#cardPane";
-    private static final String FILTER_FIELD_ID = "#filterField";
+    private static final String COMMAND_INPUT_FIELD_ID = "#commandInput";
+
     private static final String PERSON_LIST_VIEW_ID = "#personListView";
 
     public static final String DELETE_CONTEXT_MENU_ITEM_FIELD_ID = "#deleteMenuItem";
@@ -73,11 +74,21 @@ public class PersonListPanelHandle extends GuiHandle {
         guiRobot.interact(() -> Event.fireEvent(getListView(), event));
     }
 
+    public PersonCardHandle navigateToPerson(String name) {
+        ObservableList<ReadOnlyPerson> items = getListView().getItems();
+        final Optional<ReadOnlyPerson> person = getListView().getItems().stream().filter(p -> p.getName().fullName.equals(name)).findAny();
+        if (!person.isPresent()) {
+            throw new IllegalStateException("Name not found: " + name);
+        }
+
+        return navigateToPerson(person.get());
+    }
+
     /**
      * Navigate the listview to display and select the person.
      * @param person
      */
-    public PersonCardHandle navigateToPerson(Person person) {
+    public PersonCardHandle navigateToPerson(ReadOnlyPerson person) {
         int index = getPersonIndex(person);
 
         guiRobot.interact(() -> {
@@ -95,19 +106,6 @@ public class PersonListPanelHandle extends GuiHandle {
 
     public void navigateDown() {
         guiRobot.push(KeyCode.DOWN);
-    }
-
-    /**
-     * Checks if the error dialog window for no selected person is shown
-     * @return
-     */
-    public boolean isNoSelectedPersonDialogShown() {
-        try{
-            Window window = guiRobot.window("Invalid Selection");
-            return window != null && window.isShowing();
-        } catch (NoSuchElementException e) {
-            return false;
-        }
     }
 
     public void clickOnPerson(Person person) {
@@ -147,13 +145,13 @@ public class PersonListPanelHandle extends GuiHandle {
         guiRobot.clickOn(personName);
     }
 
-    public void enterFilterAndApply(String filterText) {
-        typeTextField(FILTER_FIELD_ID, filterText);
+    public void enterCommandAndApply(String command) {
+        typeTextField(COMMAND_INPUT_FIELD_ID, command);
         pressEnter();
     }
 
-    public String getFilterText() {
-        return getTextFieldText(FILTER_FIELD_ID);
+    public String getCommandInput() {
+        return getTextFieldText(COMMAND_INPUT_FIELD_ID);
     }
 
     private void clickOnMultipleNames(List<String> listOfNames) {
@@ -181,7 +179,7 @@ public class PersonListPanelHandle extends GuiHandle {
     /**
      * Returns the position of the person given, {@code NOT_FOUND} if not found in the list.
      */
-    public int getPersonIndex(Person targetPerson) {
+    public int getPersonIndex(ReadOnlyPerson targetPerson) {
         List<ReadOnlyPerson> personsInList = getListView().getItems();
         for (int i = 0; i < personsInList.size(); i++) {
             if(personsInList.get(i).getName().equals(targetPerson.getName())){
@@ -195,7 +193,7 @@ public class PersonListPanelHandle extends GuiHandle {
         return getPersonCardHandle(new Person(getListView().getItems().get(index)));
     }
 
-    public PersonCardHandle getPersonCardHandle(Person person) {
+    public PersonCardHandle getPersonCardHandle(ReadOnlyPerson person) {
         Set<Node> nodes = getAllCardNodes();
         Optional<Node> personCardNode = nodes.stream()
                 .filter(n -> new PersonCardHandle(guiRobot, primaryStage, n).isSamePerson(person))

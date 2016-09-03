@@ -24,7 +24,10 @@
                     <children>
                         <HBox spacing="5" alignment="CENTER_LEFT">
                             <children>
-                                <Label fx:id="name" text="\$first" styleClass="cell_big_label"/>
+                                <HBox>
+                                    <Label fx:id="id" styleClass="cell_big_label"></Label>
+                                    <Label fx:id="name" text="\$first" styleClass="cell_big_label"/>
+                                </HBox>
                                 <Label fx:id="tags" styleClass="cell_small_label" text="\$tags" />
                             </children>
                         </HBox>
