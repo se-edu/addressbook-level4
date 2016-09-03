@@ -4,7 +4,7 @@ import seedu.address.model.UniqueTagList;
 import seedu.address.model.person.*;
 
 /**
- * Created by youlianglim on 3/9/16.
+ *
  */
 public class TestPerson implements ReadOnlyPerson {
 
