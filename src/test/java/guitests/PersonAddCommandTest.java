@@ -10,21 +10,21 @@ import static org.junit.Assert.assertEquals;
 public class PersonAddCommandTest extends GuiTestBase {
 
     @Test
-    public void testAddPerson_singlePerson_successful() throws IllegalValueException {
+    public void addPerson_singlePerson_successful() throws IllegalValueException {
         personListPanel.enterCommandAndApply(td.benson.getCommandString());
         PersonCardHandle johnCard = personListPanel.navigateToPerson(td.benson.getName().fullName);
         assertMatching(td.benson, johnCard);
     }
 
     @Test
-    public void testAddPerson_duplicatePerson_showFeedback() throws IllegalValueException {
+    public void addPerson_duplicatePerson_showFeedback() throws IllegalValueException {
         personListPanel.enterCommandAndApply(td.benson.getCommandString());
         personListPanel.enterCommandAndApply(td.benson.getCommandString());
         assertEquals(AddPersonCommand.MESSAGE_DUPLICATE_PERSON, headerStatusBar.getText());
     }
 
     @Test
-    public void testAddPerson_multiplePerson_success() throws IllegalValueException {
+    public void addPerson_multiplePerson_success() throws IllegalValueException {
         personListPanel.enterCommandAndApply(td.alice.getCommandString());
         personListPanel.enterCommandAndApply(td.benson.getCommandString());
 
@@ -36,7 +36,7 @@ public class PersonAddCommandTest extends GuiTestBase {
     }
 
     @Test
-    public void testAddPerson_invalidCommand_fail() {
+    public void addPerson_invalidCommand_fail() {
         personListPanel.enterCommandAndApply("adds Johnny");
 
         assertEquals("Invalid command", headerStatusBar.getText());
