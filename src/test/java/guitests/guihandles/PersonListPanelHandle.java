@@ -11,13 +11,15 @@ import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.PickResult;
 import javafx.stage.Stage;
-import javafx.stage.Window;
 import seedu.address.TestApp;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.testutil.TestUtil;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import static org.junit.Assert.assertTrue;
@@ -189,6 +191,14 @@ public class PersonListPanelHandle extends GuiHandle {
         return NOT_FOUND;
     }
 
+    /**
+     * Gets a person from the list by index
+     * @param index
+     */
+    public ReadOnlyPerson getPerson(int index) {
+        return getListView().getItems().get(index);
+    }
+
     public PersonCardHandle getPersonCardHandle(int index) {
         return getPersonCardHandle(new Person(getListView().getItems().get(index)));
     }
@@ -245,4 +255,7 @@ public class PersonListPanelHandle extends GuiHandle {
         return getListView().getSelectionModel().getSelectedItems().size();
     }
 
+    public int getNumberOfPeople() {
+        return getListView().getItems().size();
+    }
 }
