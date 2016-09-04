@@ -11,7 +11,7 @@ import static org.junit.Assert.assertTrue;
 public class PersonDeleteCommandTest extends GuiTestBase {
 
     @Test
-    public void testDeletePerson_firstPerson_successful() throws IllegalValueException {
+    public void deletePerson_firstPerson_successful() throws IllegalValueException {
         int numberOfPeopleBefore = personListPanel.getNumberOfPeople();
         ReadOnlyPerson secondPersonBefore = personListPanel.getPerson(1);
         ReadOnlyPerson targetPerson = personListPanel.getPerson(0);
@@ -26,7 +26,7 @@ public class PersonDeleteCommandTest extends GuiTestBase {
     }
 
     @Test
-    public void testDeletePerson_lastPerson_successful() throws IllegalValueException {
+    public void deletePerson_lastPerson_successful() throws IllegalValueException {
         int numberOfPeopleBefore = personListPanel.getNumberOfPeople();
         ReadOnlyPerson secondLastPersonBefore = personListPanel.getPerson(numberOfPeopleBefore - 2);
         ReadOnlyPerson targetPerson = personListPanel.getPerson(numberOfPeopleBefore - 1);
@@ -41,7 +41,7 @@ public class PersonDeleteCommandTest extends GuiTestBase {
     }
 
     @Test
-    public void testDeletePerson_middlePerson_successful() throws IllegalValueException {
+    public void deletePerson_middlePerson_successful() throws IllegalValueException {
         int numberOfPeopleBefore = personListPanel.getNumberOfPeople();
         ReadOnlyPerson secondPersonBefore = personListPanel.getPerson(1);
         ReadOnlyPerson fourthPersonBefore = personListPanel.getPerson(3);
@@ -59,8 +59,20 @@ public class PersonDeleteCommandTest extends GuiTestBase {
     }
 
     @Test
-    public void testDeletePerson_invalidIndex_fail() {
+    public void deletePerson_outOfBoundIndex_fail() {
         personListPanel.enterCommandAndApply("delete " + (personListPanel.getNumberOfPeople() + 1));
+        assertEquals("The person index provided is invalid", headerStatusBar.getText());
+    }
+
+    @Test
+    public void deletePerson_zeroIndex_fail() {
+        personListPanel.enterCommandAndApply("delete 0");
+        assertEquals("The person index provided is invalid", headerStatusBar.getText());
+    }
+
+    @Test
+    public void deletePerson_negativeIndex_fail() {
+        personListPanel.enterCommandAndApply("delete -1");
         assertEquals("The person index provided is invalid", headerStatusBar.getText());
     }
 }
