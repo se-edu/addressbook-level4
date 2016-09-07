@@ -1,6 +1,9 @@
 package seedu.address.commands;
 
 
+import seedu.address.events.EventManager;
+import seedu.address.events.ui.ShowHelpEvent;
+
 /**
  * Format full help instructions for every command for display.
  */
@@ -11,18 +14,13 @@ public class HelpCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Shows program usage instructions.\n"
             + "Example: " + COMMAND_WORD;
 
+    public static final String SHOWING_HELP_MESSAGE = "Opened help window.";
+
     public HelpCommand() {}
 
     @Override
     public CommandResult execute() {
-        return new CommandResult(
-                AddPersonCommand.MESSAGE_USAGE
-                + "\n" + DeletePersonCommand.MESSAGE_USAGE
-                + "\n" + ClearAddressBookCommand.MESSAGE_USAGE
-                + "\n" + FindPersonsByWordsInNameCommand.MESSAGE_USAGE
-                + "\n" + ListAllPersonsCommand.MESSAGE_USAGE
-                + "\n" + HelpCommand.MESSAGE_USAGE
-                + "\n" + ExitCommand.MESSAGE_USAGE
-        );
+        EventManager.getInstance().post(new ShowHelpEvent());
+        return new CommandResult(SHOWING_HELP_MESSAGE);
     }
 }

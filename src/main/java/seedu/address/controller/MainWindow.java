@@ -213,7 +213,7 @@ public class MainWindow extends BaseUiPart {
     }
 
     @FXML
-    private void handleHelp() {
+    public void handleHelp() {
         HelpWindow helpWindow = HelpWindow.load(primaryStage);
         helpWindow.show();
     }
