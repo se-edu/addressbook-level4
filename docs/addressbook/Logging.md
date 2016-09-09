@@ -45,3 +45,16 @@ We are using `java.util.logging.Logger` as our logger, and `LoggerManager` is us
 - [Apache Commons Logging guide](http://commons.apache.org/proper/commons-logging/guide.html#Message_PrioritiesLevels)
 - [10 Tips for Proper Application Logging](https://www.javacodegeeks.com/2011/01/10-tips-proper-application-logging.html)
 - [Base 22 Java Logging Standards and Guidelines](https://wiki.base22.com/display/btg/Java+Logging+Standards+and+Guidelines)
+
+# Technical Information
+`Logger`s create the log records, and `Handler`s publish these log records to some output destination
+- We can specify the log level for both the `Logger`s and the `Handler`s
+- By default, `java.util.logging.Logger` has a root logger of level `INFO` which has a `ConsoleHandler` of level `INFO` attached.
+
+## LoggerManager
+  - Named `Logger`s can be obtained from this class
+    - These loggers will output messages to the console and a `.log` file by default, at the `INFO` level
+  - Can be initialized with a `Config` object which contains a custom logging level
+    - Loggers obtained *AFTER* this initialization will have their logging level changed
+    - Logging levels for existing loggers will only be updated if the logger with the same name is requested again from `LoggerManager`
+ 
