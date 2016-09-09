@@ -10,7 +10,6 @@ import seedu.address.commons.FxViewUtil;
  * A controller for the status bar that is displayed at the header of the application.
  */
 public class StatusBarHeader extends BaseUiPart {
-
     public static final String HEADER_STATUS_BAR_ID = "headerStatusBar";
     private static final String STATUS_BAR_STYLE_SHEET = "status-bar-with-border";
     private StatusBar headerStatusBar;

@@ -17,8 +17,8 @@ import seedu.address.util.LoggerManager;
 import java.util.logging.Logger;
 
 public class CommandBox extends BaseUiPart {
-    private static Logger logger = LoggerManager.getLogger(CommandBox.class);
-    public static final String FXML = "CommandBox.fxml";
+    private final Logger logger = LoggerManager.getLogger(CommandBox.class);
+    private static final String FXML = "CommandBox.fxml";
 
     private AnchorPane placeHolderPane;
     private AnchorPane commandPane;
@@ -27,15 +27,10 @@ public class CommandBox extends BaseUiPart {
     private Parser parser;
 
     @FXML
-    TextField commandInput;
-
-    public CommandBox() {
-        super();
-    }
+    private TextField commandTextField;
 
     public static CommandBox load(Stage primaryStage, AnchorPane commandBoxPlaceholder, Parser parser,
                                   StatusBarHeader statusBarHeader, ModelManager modelManager) {
-        logger.fine("Loading command box.");
         CommandBox commandBox = UiPartLoader.loadUiPart(primaryStage, commandBoxPlaceholder, new CommandBox());
         commandBox.configure(parser, statusBarHeader, modelManager);
         return commandBox;
@@ -50,9 +45,9 @@ public class CommandBox extends BaseUiPart {
 
     private void addToPlaceholder() {
         SplitPane.setResizableWithParent(placeHolderPane, false);
-        placeHolderPane.getChildren().add(commandInput);
+        placeHolderPane.getChildren().add(commandTextField);
         FxViewUtil.applyAnchorBoundaryParameters(commandPane, 0.0, 0.0, 0.0, 0.0);
-        FxViewUtil.applyAnchorBoundaryParameters(commandInput, 0.0, 0.0, 0.0, 0.0);
+        FxViewUtil.applyAnchorBoundaryParameters(commandTextField, 0.0, 0.0, 0.0, 0.0);
     }
 
     @Override
@@ -72,22 +67,17 @@ public class CommandBox extends BaseUiPart {
 
     @FXML
     private void handleCommandInputChanged() {
-        if (commandInput.getStyleClass().contains("error")) commandInput.getStyleClass().remove("error");
+        if (commandTextField.getStyleClass().contains("error")) commandTextField.getStyleClass().remove("error");
 
-        Command command = parser.parseCommand(commandInput.getText());
+        Command command = parser.parseCommand(commandTextField.getText());
         command.setData(modelManager);
         CommandResult result = command.execute();
 
-        if (command instanceof IncorrectCommand) {
-            commandInput.getStyleClass().add("error");
-        } else {
-            commandInput.getStyleClass().add("");
-        }
+        if (command instanceof IncorrectCommand) commandTextField.getStyleClass().add("error");
 
         statusBarHeader.postMessage(result.feedbackToUser);
 
-        logger.info("Result: " + command.getClass().getSimpleName());
         logger.info("Result: " + result.feedbackToUser);
-        logger.fine("Invalid command: " + commandInput.getText());
+        logger.fine("Invalid command: " + commandTextField.getText());
     }
 }
