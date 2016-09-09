@@ -8,15 +8,16 @@ import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import seedu.address.MainApp;
 import seedu.address.commons.FxViewUtil;
-import seedu.address.util.AppLogger;
 import seedu.address.util.LoggerManager;
+
+import java.util.logging.Logger;
 
 /**
  * Controller for a help page
  */
 public class HelpWindow extends BaseUiPart {
 
-    private static final AppLogger logger = LoggerManager.getLogger(HelpWindow.class);
+    private static final Logger logger = LoggerManager.getLogger(HelpWindow.class);
     private static final String ICON = "/images/help_icon.png";
     public static final String FXML = "HelpWindow.fxml";
     public static final String TITLE = "Help";
@@ -26,7 +27,7 @@ public class HelpWindow extends BaseUiPart {
     private Stage dialogStage;
 
     public static HelpWindow load(Stage primaryStage) {
-        logger.debug("Showing help page about the application.");
+        logger.fine("Showing help page about the application.");
         HelpWindow helpWindow = UiPartLoader.loadUiPart(primaryStage, new HelpWindow());
         helpWindow.configure();
         return helpWindow;

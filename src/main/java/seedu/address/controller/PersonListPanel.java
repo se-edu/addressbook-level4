@@ -14,11 +14,11 @@ import seedu.address.browser.BrowserManager;
 import seedu.address.model.ModelManager;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.ui.PersonListViewCell;
-import seedu.address.util.AppLogger;
 import seedu.address.util.LoggerManager;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 /**
  * Dialog to view the list of persons and their details
@@ -26,7 +26,7 @@ import java.util.List;
  * setConnections should be set before showing stage
  */
 public class PersonListPanel extends BaseUiPart {
-    private static AppLogger logger = LoggerManager.getLogger(PersonListPanel.class);
+    private static Logger logger = LoggerManager.getLogger(PersonListPanel.class);
     public static final String FXML = "PersonListPanel.fxml";
     private VBox panel;
     private AnchorPane placeHolderPane;
@@ -40,7 +40,7 @@ public class PersonListPanel extends BaseUiPart {
 
     public static PersonListPanel load(Stage primaryStage, AnchorPane personListPlaceholder,
                                        ModelManager modelManager, BrowserManager browserManager) {
-        logger.debug("Loading person list panel.");
+        logger.fine("Loading person list panel.");
         PersonListPanel personListPanel =
                 UiPartLoader.loadUiPart(primaryStage, personListPlaceholder, new PersonListPanel());
         personListPanel.configure(modelManager, browserManager,
@@ -99,7 +99,7 @@ public class PersonListPanel extends BaseUiPart {
     private void loadGithubProfilePageWhenPersonIsSelected(BrowserManager browserManager) {
         personListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
-                logger.debug("Person in list view clicked. Loading GitHub profile page: '{}'", newValue);
+                logger.fine("Person in list view clicked. Loading GitHub profile page: '" + newValue + "'");
                 browserManager.loadPersonPage(newValue);
             }
         });

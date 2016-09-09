@@ -4,8 +4,9 @@ import javafx.scene.Node;
 import javafx.scene.web.WebView;
 import seedu.address.commons.FxViewUtil;
 import seedu.address.model.person.ReadOnlyPerson;
-import seedu.address.util.AppLogger;
 import seedu.address.util.LoggerManager;
+
+import java.util.logging.Logger;
 
 /**
  * Manages the AddressBook browser.
@@ -15,7 +16,7 @@ public class BrowserManager {
 
     private static final String GITHUB_ROOT_URL = "https://github.com/";
     private static final String INVALID_GITHUB_USERNAME_MESSAGE = "Unparsable GitHub Username.";
-    private static AppLogger logger = LoggerManager.getLogger(BrowserManager.class);
+    private static Logger logger = LoggerManager.getLogger(BrowserManager.class);
     private WebView browser;
 
     public BrowserManager() {

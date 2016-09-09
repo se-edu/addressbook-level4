@@ -21,17 +21,18 @@ import seedu.address.events.hotkey.KeyBindingEvent;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.parser.Parser;
-import seedu.address.util.AppLogger;
 import seedu.address.util.Config;
 import seedu.address.util.GuiSettings;
 import seedu.address.util.LoggerManager;
+
+import java.util.logging.Logger;
 
 /**
  * The Main Window. Provides the basic application layout containing
  * a menu bar and space where other JavaFX elements can be placed.
  */
 public class MainWindow extends BaseUiPart {
-    private static AppLogger logger = LoggerManager.getLogger(MainWindow.class);
+    private static Logger logger = LoggerManager.getLogger(MainWindow.class);
     private static final String ICON = "/images/address_book_32.png";
     private static final String FXML = "MainWindow.fxml";
     private static final String HEADER_STATUSBAR_PLACEHOLDER_FIELD_ID = "#headerStatusbarPlaceholder";
@@ -87,7 +88,7 @@ public class MainWindow extends BaseUiPart {
 
     public static MainWindow load(Stage primaryStage, Config config, UserPrefs prefs, Ui ui,
                                   ModelManager modelManager, BrowserManager browserManager) {
-        logger.debug("Initializing main window.");
+        logger.fine("Initializing main window.");
         MainWindow mainWindow = UiPartLoader.loadUiPart(primaryStage, new MainWindow());
         mainWindow.configure(config.getAppTitle(), config.getAddressBookName(), prefs, ui, modelManager,
                              browserManager);
@@ -209,7 +210,7 @@ public class MainWindow extends BaseUiPart {
 
         logger.info("Result: " + command.getClass().getSimpleName());
         logger.info("Result: " + result.feedbackToUser);
-        logger.debug("Invalid command: {}", commandInput.getText());
+        logger.fine("Invalid command: " + commandInput.getText());
     }
 
     @FXML
@@ -227,7 +228,7 @@ public class MainWindow extends BaseUiPart {
      */
     @FXML
     private void handleAbout() {//TODO: refactor to be similar to handleHelp and remove the dependency to ui
-        logger.debug("Showing information about the application.");
+        logger.fine("Showing information about the application.");
         ui.showAlertDialogAndWait(AlertType.INFORMATION, "AddressApp", "About",
                 "Version " + MainApp.VERSION.toString() + "\nSome code adapted from http://code.makery.ch");
     }
