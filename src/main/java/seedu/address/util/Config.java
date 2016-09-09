@@ -1,7 +1,6 @@
 package seedu.address.util;
 
 import java.io.File;
-import java.util.HashMap;
 import java.util.logging.Level;
 
 /**

@@ -3,6 +3,9 @@ package seedu.address.util;
 import java.io.IOException;
 import java.util.logging.*;
 
+/**
+ * Configures and manages loggers and handlers, including their logging level
+ */
 public class LoggerManager {
     private static Level currentLogLevel = Level.INFO;
     private static final Logger logger = LoggerManager.getLogger(LoggerManager.class);
