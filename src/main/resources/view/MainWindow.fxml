@@ -34,8 +34,7 @@
                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
                 </padding>
                <children>
-                  <TextField fx:id="commandInput" onAction="#handleCommandInputChanged"/>
-                  <StatusBar fx:id="statusField"/>
+                  <TextField fx:id="commandInput" onAction="#handleCommandInputChanged" promptText="Enter command here..."/>
                   <AnchorPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
                </children>
             </VBox>
