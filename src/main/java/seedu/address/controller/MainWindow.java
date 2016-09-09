@@ -37,6 +37,7 @@ public class MainWindow extends BaseUiPart {
     private static final String FXML = "MainWindow.fxml";
     private static final String HEADER_STATUSBAR_PLACEHOLDER_FIELD_ID = "#headerStatusbarPlaceholder";
     private static final String FOOTER_STATUSBAR_PLACEHOLDER_FIELD_ID = "#footerStatusbarPlaceholder";
+    private static final String COMMAND_BOX_PLACEHOLDER_FIELD_ID = "#commandBoxPlaceholder";
     private static final String BROWSER_PLACEHOLDER = "#personWebpage";
     public static final int MIN_HEIGHT = 600;
     public static final int MIN_WIDTH = 450;
@@ -54,6 +55,7 @@ public class MainWindow extends BaseUiPart {
     private PersonListPanel personListPanel;
     private StatusBarHeader statusBarHeader;
     private StatusBarFooter statusBarFooter;
+    private CommandBox commandBox;
     private WebView browser;
 
     //Handles to elements of this Ui container
@@ -67,9 +69,6 @@ public class MainWindow extends BaseUiPart {
 
     @FXML
     private MenuItem helpMenuItem;
-
-    @FXML
-    private TextField commandInput;
 
     public MainWindow() {
         super();
@@ -128,7 +127,12 @@ public class MainWindow extends BaseUiPart {
         personListPanel = PersonListPanel.load(primaryStage, getPersonListPlaceholder(), modelManager, browserManager);
         statusBarHeader = StatusBarHeader.load(primaryStage, getHeaderStatusbarPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getFooterStatusbarPlaceholder(), addressBookName);
+        commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), parser, statusBarHeader, modelManager);
         browser = loadBrowser();
+    }
+
+    private AnchorPane getCommandBoxPlaceholder() {
+        return this.getAnchorPane(COMMAND_BOX_PLACEHOLDER_FIELD_ID);
     }
 
     private AnchorPane getFooterStatusbarPlaceholder() {
@@ -191,27 +195,6 @@ public class MainWindow extends BaseUiPart {
         helpMenuItem.setAccelerator(KeyCombination.valueOf("F1"));
     }
 
-    @FXML
-    private void handleCommandInputChanged() {
-
-        if (commandInput.getStyleClass().contains("error")) commandInput.getStyleClass().remove("error");
-
-        Command command = parser.parseCommand(commandInput.getText());
-        command.setData(modelManager);
-        CommandResult result = command.execute();
-
-        if (command instanceof IncorrectCommand) {
-            commandInput.getStyleClass().add("error");
-        } else {
-            commandInput.getStyleClass().add("");
-        }
-
-        statusBarHeader.postMessage(result.feedbackToUser);
-
-        logger.info("Result: " + command.getClass().getSimpleName());
-        logger.info("Result: " + result.feedbackToUser);
-        logger.fine("Invalid command: " + commandInput.getText());
-    }
 
     @FXML
     public void handleHelp() {
