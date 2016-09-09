@@ -45,6 +45,7 @@ public class LoggerManager {
     private static FileHandler createFileHandler() throws IOException {
         FileHandler fileHandler = new FileHandler(LOG_FILE);
         fileHandler.setFormatter(new SimpleFormatter());
+        fileHandler.setLevel(currentLogLevel);
         return fileHandler;
     }
 
