@@ -11,13 +11,11 @@ import org.loadui.testfx.GuiTest;
 import org.testfx.api.FxToolkit;
 import seedu.address.TestApp;
 import seedu.address.events.EventManager;
-import seedu.address.exceptions.IllegalValueException;
 import seedu.address.model.datatypes.AddressBook;
-import seedu.address.model.person.Person;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.testutil.ScreenShotRule;
 import seedu.address.testutil.TestUtil;
-import seedu.address.testutil.TypicalTestData;
+import seedu.address.testutil.TypicalTestPersons;
 import seedu.address.util.Config;
 
 import java.io.File;
@@ -36,7 +34,7 @@ public class GuiTestBase {
 
     TestApp testApp;
 
-    protected TypicalTestData td = new TypicalTestData();
+    protected TypicalTestPersons td = new TypicalTestPersons();
 
     /* Handles to GUI elements present at the start up are created in advance
      *   for easy access from child classes.
@@ -78,7 +76,9 @@ public class GuiTestBase {
      * Return null to use the data in the file specified in {@link #getDataFileLocation()}
      */
     protected AddressBook getInitialData() {
-        return TestUtil.generateSampleAddressBook();
+        AddressBook ab = TestUtil.generateEmptyAddressBook();
+        TypicalTestPersons.loadAddressBookWithSampleData(ab);
+        return ab;
     }
 
     /**
