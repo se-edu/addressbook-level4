@@ -3,7 +3,6 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import org.controlsfx.control.StatusBar?>
 <?import java.net.URL?>
 <VBox maxHeight="Infinity" maxWidth="Infinity" minHeight="-Infinity" minWidth="-Infinity" stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.address.controller.MainWindow">
    <stylesheets>
@@ -26,7 +25,7 @@
             </Menu>
          </menus>
       </MenuBar>
-      <AnchorPane fx:id="headerStatusbarPlaceholder" styleClass="anchor-pane-with-border"></AnchorPane>
+      <AnchorPane fx:id="headerStatusbarPlaceholder" styleClass="anchor-pane-with-border" prefHeight="240"/>
       <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.4" VBox.vgrow="ALWAYS">
          <items>
             <VBox fx:id="personList" minWidth="340" prefWidth="340">
