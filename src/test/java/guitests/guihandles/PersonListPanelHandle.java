@@ -76,6 +76,70 @@ public class PersonListPanelHandle extends GuiHandle {
         guiRobot.interact(() -> Event.fireEvent(getListView(), event));
     }
 
+    /**
+     * Checks if the list is showing the person details correctly and in correct order.
+     * @param persons A list of person in the correct order.
+     * @return
+     */
+    public boolean isListMatching(ReadOnlyPerson... persons) {
+        return this.isListMatching(0, persons);
+    }
+
+    /**
+     * Returns true if the {@code persons} appear as a sub list (in that order) in the panel.
+     */
+    public boolean containsInOrder(ReadOnlyPerson... persons) {
+        assert persons.length >= 2;
+        int indexOfFirstPerson = getPersonIndex(persons[0]);
+        if (indexOfFirstPerson == NOT_FOUND) return false;
+        return containsInOrder(indexOfFirstPerson, persons);
+    }
+
+    /**
+     * Returns true if the {@code persons} appear as the sub list (in that order) at position {@code startPosition}.
+     */
+    public boolean containsInOrder(int startPosition, ReadOnlyPerson... persons) {
+        List<ReadOnlyPerson> personsInList = getListView().getItems();
+
+        // Return false if the list in panel is too short to contain the given list
+        if (startPosition + persons.length > personsInList.size()){
+            return false;
+        }
+
+        // Return false if any of the persons doesn't match
+        for (int i = 0; i < persons.length; i++) {
+            if (!personsInList.get(startPosition + i).getName().fullName.equals(persons[i].getName().fullName)){
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * Checks if the list is showing the person details correctly and in correct order.
+     * @param startPosition The starting position of the sub list.
+     * @param persons A list of person in the correct order.
+     * @return
+     */
+    public boolean isListMatching(int startPosition, ReadOnlyPerson... persons) throws IllegalArgumentException {
+        if (persons.length + startPosition != getListView().getItems().size()) {
+            throw new IllegalArgumentException("List size not matching\n" +
+                    "Expect " + (getListView().getItems().size() - 1) + "persons");
+        }
+        assertTrue(this.containsInOrder(startPosition, persons));
+        for (int i = 0; i < persons.length; i++) {
+            final int scrollTo = i + startPosition;
+            guiRobot.interact(() -> getListView().scrollTo(scrollTo));
+            guiRobot.sleep(200);
+            if (!TestUtil.compareCardAndPerson(getPersonCardHandle(startPosition + i), persons[i])) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+
     public PersonCardHandle navigateToPerson(String name) {
         ObservableList<ReadOnlyPerson> items = getListView().getItems();
         final Optional<ReadOnlyPerson> person = getListView().getItems().stream().filter(p -> p.getName().fullName.equals(name)).findAny();

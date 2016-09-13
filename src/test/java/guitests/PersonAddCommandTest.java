@@ -11,28 +11,28 @@ public class PersonAddCommandTest extends GuiTestBase {
 
     @Test
     public void addPerson_singlePerson_successful() throws IllegalValueException {
-        personListPanel.enterCommandAndApply(td.benson.getCommandString());
-        PersonCardHandle johnCard = personListPanel.navigateToPerson(td.benson.getName().fullName);
-        assertMatching(td.benson, johnCard);
+        personListPanel.enterCommandAndApply(td.hoon.getCommandString());
+        PersonCardHandle johnCard = personListPanel.navigateToPerson(td.hoon.getName().fullName);
+        assertMatching(td.hoon, johnCard);
     }
 
     @Test
     public void addPerson_duplicatePerson_showFeedback() throws IllegalValueException {
-        personListPanel.enterCommandAndApply(td.benson.getCommandString());
-        personListPanel.enterCommandAndApply(td.benson.getCommandString());
+        personListPanel.enterCommandAndApply(td.hoon.getCommandString());
+        personListPanel.enterCommandAndApply(td.hoon.getCommandString());
         assertEquals(AddPersonCommand.MESSAGE_DUPLICATE_PERSON, headerStatusBar.getText());
     }
 
     @Test
     public void addPerson_multiplePerson_success() throws IllegalValueException {
-        personListPanel.enterCommandAndApply(td.alice.getCommandString());
-        personListPanel.enterCommandAndApply(td.benson.getCommandString());
+        personListPanel.enterCommandAndApply(td.hoon.getCommandString());
+        personListPanel.enterCommandAndApply(td.ida.getCommandString());
 
-        final PersonCardHandle aliceCard = personListPanel.navigateToPerson(td.alice);
-        assertMatching(td.alice, aliceCard);
+        final PersonCardHandle aliceCard = personListPanel.navigateToPerson(td.hoon);
+        assertMatching(td.hoon, aliceCard);
 
-        final PersonCardHandle bensonCard = personListPanel.navigateToPerson(td.benson);
-        assertMatching(td.benson, bensonCard);
+        final PersonCardHandle bensonCard = personListPanel.navigateToPerson(td.ida);
+        assertMatching(td.ida, bensonCard);
     }
 
     @Test

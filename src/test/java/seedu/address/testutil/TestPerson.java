@@ -4,7 +4,7 @@ import seedu.address.model.UniqueTagList;
 import seedu.address.model.person.*;
 
 /**
- *
+ * A mutable person object. For testing only.
  */
 public class TestPerson implements ReadOnlyPerson {
 

@@ -29,7 +29,6 @@ import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -68,15 +67,15 @@ public class TestUtil {
     private static Person[] getSamplePersonData() {
         try {
             return new Person[]{
-                    new Person(new Name("Hans Muster"), new Phone("9482424", false), new Email("hans@google.com", false), new Address("4th street", false), new UniqueTagList()),
-                    new Person(new Name("Ruth Mueller"), new Phone("87249245", false), new Email("ruth@google.com", false), new Address("81th street", false), new UniqueTagList()),
-                    new Person(new Name("Heinz Kurz"), new Phone("95352563", false), new Email("heinz@yahoo.com", false), new Address("wall street", false), new UniqueTagList()),
-                    new Person(new Name("Cornelia Meier"), new Phone("87652533", false), new Email("cornelia@google.com", false), new Address("10th street", false), new UniqueTagList()),
-                    new Person(new Name("Werner Meyer"), new Phone("9482224", false), new Email("werner@gmail.com", false), new Address("michegan ave", false), new UniqueTagList()),
-                    new Person(new Name("Lydia Kunz"), new Phone("9482427", false), new Email("lydia@gmail.com", false), new Address("little tokyo", false), new UniqueTagList()),
-                    new Person(new Name("Anna Best"), new Phone("9482442", false), new Email("anna@google.com", false), new Address("4th street", false), new UniqueTagList()),
-                    new Person(new Name("Stefan Meier"), new Phone("8482424", false), new Email("stefan@mail.com", false), new Address("little india", false), new UniqueTagList()),
-                    new Person(new Name("Martin Mueller"), new Phone("8482131", false), new Email("hans@google.com", false), new Address("chicago ave", false), new UniqueTagList())
+                    new Person(new Name("Ali Muster"), new Phone("9482424", false), new Email("hans@google.com", false), new Address("4th street", false), new UniqueTagList()),
+                    new Person(new Name("Boris Mueller"), new Phone("87249245", false), new Email("ruth@google.com", false), new Address("81th street", false), new UniqueTagList()),
+                    new Person(new Name("Carl Kurz"), new Phone("95352563", false), new Email("heinz@yahoo.com", false), new Address("wall street", false), new UniqueTagList()),
+                    new Person(new Name("Daniel Meier"), new Phone("87652533", false), new Email("cornelia@google.com", false), new Address("10th street", false), new UniqueTagList()),
+                    new Person(new Name("Elle Meyer"), new Phone("9482224", false), new Email("werner@gmail.com", false), new Address("michegan ave", false), new UniqueTagList()),
+                    new Person(new Name("Fiona Kunz"), new Phone("9482427", false), new Email("lydia@gmail.com", false), new Address("little tokyo", false), new UniqueTagList()),
+                    new Person(new Name("George Best"), new Phone("9482442", false), new Email("anna@google.com", false), new Address("4th street", false), new UniqueTagList()),
+                    new Person(new Name("Hoon Meier"), new Phone("8482424", false), new Email("stefan@mail.com", false), new Address("little india", false), new UniqueTagList()),
+                    new Person(new Name("Ida Mueller"), new Phone("8482131", false), new Email("hans@google.com", false), new Address("chicago ave", false), new UniqueTagList())
             };
         } catch (IllegalValueException e) {
             assert false;
@@ -131,18 +130,12 @@ public class TestUtil {
         createDataFileWithSampleData(TestApp.SAVE_LOCATION_FOR_TESTING);
     }
 
-    public static AddressBook generateSampleAddressBook() {
-        try {
-            return new AddressBook(new UniquePersonList(Arrays.asList(samplePersonData)), new UniqueTagList());
-        } catch (UniquePersonList.DuplicatePersonException e) {
-            e.printStackTrace();
-            assert false;
-        }
-        return null;
+    public static AddressBook generateEmptyAddressBook() {
+        return new AddressBook(new UniquePersonList(), new UniqueTagList());
     }
 
     public static StorageAddressBook generateSampleStorageAddressBook() {
-        return new StorageAddressBook(generateSampleAddressBook());
+        return new StorageAddressBook(generateEmptyAddressBook());
     }
 
     /**
@@ -350,7 +343,6 @@ public class TestUtil {
     }
 
     public static boolean compareCardAndPerson(PersonCardHandle card, ReadOnlyPerson person) {
-        //TODO: implement after personcardhandle is done
         return card.isSamePerson(person);
     }
 
