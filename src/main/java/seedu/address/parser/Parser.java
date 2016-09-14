@@ -66,6 +66,9 @@ public class Parser {
             case AddPersonCommand.COMMAND_WORD:
                 return prepareAdd(arguments);
 
+            case SelectPersonCommand.COMMAND_WORD:
+                return prepareSelect(arguments);
+
             case DeletePersonCommand.COMMAND_WORD:
                 return prepareDelete(arguments);
 
@@ -83,6 +86,7 @@ public class Parser {
 
             case HelpCommand.COMMAND_WORD:
                 return new HelpCommand();
+
             default:
                 return new IncorrectCommand("Invalid command");
         }
@@ -144,7 +148,6 @@ public class Parser {
         return new UniqueTagList(tags);
     }
 
-
     /**
      * Parses arguments in the context of the delete person command.
      *
@@ -159,6 +162,29 @@ public class Parser {
         } catch (ParseException pe) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                                         DeletePersonCommand.MESSAGE_USAGE));
+        } catch (NumberFormatException nfe) {
+            return new IncorrectCommand(MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        } catch (IndexOutOfBoundsException e) {
+            return new IncorrectCommand(MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        }
+    }
+
+    /**
+     * Parses arguments in the context of the select person command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     * @throws ParseException containing a message with relevant info if the args could no be parsed
+     */
+    private Command prepareSelect(String args) {
+        try {
+            final int targetIndex = parseArgsAsDisplayedIndex(args);
+            // this check is required to catch any invalid indexes
+            this.ui.getDisplayedPersons().get(targetIndex - 1);
+            return new SelectPersonCommand(targetIndex);
+        } catch (ParseException pe) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                                        SelectPersonCommand.MESSAGE_USAGE));
         } catch (NumberFormatException nfe) {
             return new IncorrectCommand(MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         } catch (IndexOutOfBoundsException e) {

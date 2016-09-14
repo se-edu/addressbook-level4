@@ -7,7 +7,7 @@ import seedu.address.events.BaseEvent;
  */
 public class JumpToListRequestEvent extends BaseEvent {
 
-    public int targetIndex;
+    public final int targetIndex;
 
     public JumpToListRequestEvent(int targetIndex) {
         this.targetIndex = targetIndex;
