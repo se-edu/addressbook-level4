@@ -25,8 +25,8 @@
             </Menu>
          </menus>
       </MenuBar>
-      <AnchorPane fx:id="headerStatusbarPlaceholder" styleClass="anchor-pane-with-border" prefHeight="240"/>
-      <AnchorPane fx:id="commandBoxPlaceholder" styleClass="anchor-pane-with-border"/>
+      <AnchorPane VBox.vgrow="NEVER" fx:id="headerStatusbarPlaceholder" styleClass="anchor-pane-with-border" minHeight="80" prefHeight="80" maxHeight="80"/>
+      <AnchorPane VBox.vgrow="NEVER" fx:id="commandBoxPlaceholder" styleClass="anchor-pane-with-border"/>
       <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.4" VBox.vgrow="ALWAYS">
          <items>
             <VBox fx:id="personList" minWidth="340" prefWidth="340">
