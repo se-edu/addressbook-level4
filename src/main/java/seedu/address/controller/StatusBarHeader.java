@@ -11,7 +11,7 @@ import seedu.address.commons.FxViewUtil;
  */
 public class StatusBarHeader extends BaseUiPart {
     public static final String HEADER_STATUS_BAR_ID = "headerStatusBar";
-    private static final String STATUS_BAR_STYLE_SHEET = "status-bar-with-border";
+    private static final String STATUS_BAR_STYLE_SHEET = "status-bar-header";
     private StatusBar headerStatusBar;
 
     private static final String FXML = "StatusBarHeader.fxml";
