@@ -6,7 +6,6 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
@@ -14,9 +13,6 @@ import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import seedu.address.MainApp;
 import seedu.address.browser.BrowserManager;
-import seedu.address.commands.Command;
-import seedu.address.commands.CommandResult;
-import seedu.address.commands.IncorrectCommand;
 import seedu.address.events.controller.ExitAppRequestEvent;
 import seedu.address.events.hotkey.KeyBindingEvent;
 import seedu.address.model.ModelManager;
@@ -36,7 +32,7 @@ public class MainWindow extends BaseUiPart {
     private final Logger logger = LoggerManager.getLogger(MainWindow.class);
     private static final String ICON = "/images/address_book_32.png";
     private static final String FXML = "MainWindow.fxml";
-    private static final String HEADER_STATUSBAR_PLACEHOLDER_FIELD_ID = "#headerStatusbarPlaceholder";
+    private static final String RESULT_DISPLAY_PLACEHOLDER_FIELD_ID = "#resultDisplayPlaceholder";
     private static final String FOOTER_STATUSBAR_PLACEHOLDER_FIELD_ID = "#footerStatusbarPlaceholder";
     private static final String COMMAND_BOX_PLACEHOLDER_FIELD_ID = "#commandBoxPlaceholder";
     private static final String BROWSER_PLACEHOLDER = "#personWebpage";
@@ -54,7 +50,7 @@ public class MainWindow extends BaseUiPart {
 
     // Independent Ui parts residing in this Ui container
     private PersonListPanel personListPanel;
-    private StatusBarHeader statusBarHeader;
+    private ResultDisplay resultDisplay;
     private StatusBarFooter statusBarFooter;
     private CommandBox commandBox;
     private WebView browser;
@@ -124,9 +120,9 @@ public class MainWindow extends BaseUiPart {
 
     public void fillInnerParts() {
         personListPanel = PersonListPanel.load(primaryStage, getPersonListPlaceholder(), modelManager, browserManager);
-        statusBarHeader = StatusBarHeader.load(primaryStage, getHeaderStatusbarPlaceholder());
+        resultDisplay = ResultDisplay.load(primaryStage, getHeaderStatusbarPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getFooterStatusbarPlaceholder(), addressBookName);
-        commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), parser, statusBarHeader, modelManager);
+        commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), parser, resultDisplay, modelManager);
         browser = loadBrowser();
     }
 
@@ -139,7 +135,7 @@ public class MainWindow extends BaseUiPart {
     }
 
     private AnchorPane getHeaderStatusbarPlaceholder() {
-        return this.getAnchorPane(HEADER_STATUSBAR_PLACEHOLDER_FIELD_ID);
+        return this.getAnchorPane(RESULT_DISPLAY_PLACEHOLDER_FIELD_ID);
     }
     
     private WebView loadBrowser() {

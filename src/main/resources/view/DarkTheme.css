@@ -121,11 +121,11 @@
     -fx-text-fill: black;
 }
 
-.status-bar-header {
+.result-display {
     -fx-background-color: #ffffff;
 }
 
-.status-bar-header .label {
+.result-display .label {
     -fx-text-fill: black !important;
 }
 

@@ -9,19 +9,19 @@ import seedu.address.commons.FxViewUtil;
 /**
  * A controller for the status bar that is displayed at the header of the application.
  */
-public class StatusBarHeader extends BaseUiPart {
-    public static final String HEADER_STATUS_BAR_ID = "headerStatusBar";
-    private static final String STATUS_BAR_STYLE_SHEET = "status-bar-header";
+public class ResultDisplay extends BaseUiPart {
+    public static final String HEADER_STATUS_BAR_ID = "resultDisplay";
+    private static final String STATUS_BAR_STYLE_SHEET = "result-display";
     private StatusBar headerStatusBar;
 
-    private static final String FXML = "StatusBarHeader.fxml";
+    private static final String FXML = "ResultDisplay.fxml";
 
     private AnchorPane placeHolder;
 
     private AnchorPane mainPane;
 
-    public static StatusBarHeader load(Stage primaryStage, AnchorPane placeHolder) {
-        StatusBarHeader statusBar = UiPartLoader.loadUiPart(primaryStage, placeHolder, new StatusBarHeader());
+    public static ResultDisplay load(Stage primaryStage, AnchorPane placeHolder) {
+        ResultDisplay statusBar = UiPartLoader.loadUiPart(primaryStage, placeHolder, new ResultDisplay());
         statusBar.configure();
         return statusBar;
     }
