@@ -31,7 +31,7 @@ public class PersonListPanelHandle extends GuiHandle {
 
     public static final int NOT_FOUND = -1;
     public static final String CARD_PANE_ID = "#cardPane";
-    private static final String COMMAND_INPUT_FIELD_ID = "#commandInput";
+    private static final String COMMAND_INPUT_FIELD_ID = "#commandTextField";
 
     private static final String PERSON_LIST_VIEW_ID = "#personListView";
 
