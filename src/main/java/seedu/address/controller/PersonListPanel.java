@@ -26,8 +26,8 @@ import java.util.logging.Logger;
  * setConnections should be set before showing stage
  */
 public class PersonListPanel extends BaseUiPart {
-    private static Logger logger = LoggerManager.getLogger(PersonListPanel.class);
-    public static final String FXML = "PersonListPanel.fxml";
+    private final Logger logger = LoggerManager.getLogger(PersonListPanel.class);
+    private static final String FXML = "PersonListPanel.fxml";
     private VBox panel;
     private AnchorPane placeHolderPane;
 
@@ -40,11 +40,9 @@ public class PersonListPanel extends BaseUiPart {
 
     public static PersonListPanel load(Stage primaryStage, AnchorPane personListPlaceholder,
                                        ModelManager modelManager, BrowserManager browserManager) {
-        logger.fine("Loading person list panel.");
         PersonListPanel personListPanel =
                 UiPartLoader.loadUiPart(primaryStage, personListPlaceholder, new PersonListPanel());
-        personListPanel.configure(modelManager, browserManager,
-                                  modelManager.getPersonsAsReadOnlyObservableList());
+        personListPanel.configure(browserManager, modelManager.getPersonsAsReadOnlyObservableList());
         return personListPanel;
     }
 
@@ -53,8 +51,7 @@ public class PersonListPanel extends BaseUiPart {
         placeHolderPane.getChildren().add(panel);
     }
 
-    private void configure(ModelManager modelManager, BrowserManager browserManager,
-                           ObservableList<ReadOnlyPerson> personList){
+    private void configure(BrowserManager browserManager, ObservableList<ReadOnlyPerson> personList) {
         setConnections(browserManager, personList);
         addToPlaceholder();
     }
@@ -74,8 +71,7 @@ public class PersonListPanel extends BaseUiPart {
         this.placeHolderPane = pane;
     }
 
-    public void setConnections(BrowserManager browserManager,
-                               ObservableList<ReadOnlyPerson> personList) {
+    public void setConnections(BrowserManager browserManager, ObservableList<ReadOnlyPerson> personList) {
         personListView.setItems(personList);
         personListView.setCellFactory(listView -> new PersonListViewCell());
         loadGithubProfilePageWhenPersonIsSelected(browserManager);
@@ -85,7 +81,7 @@ public class PersonListPanel extends BaseUiPart {
     private void setupListviewSelectionModelSettings() {
         personListView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         personListView.getItems().addListener((ListChangeListener<ReadOnlyPerson>) c -> {
-            while(c.next()) {
+            while (c.next()) {
                 if (c.wasRemoved()) {
                     ObservableList<Integer> currentIndices = personListView.getSelectionModel().getSelectedIndices();
                     if (currentIndices.size() > 1) {

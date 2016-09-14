@@ -25,7 +25,8 @@
             </Menu>
          </menus>
       </MenuBar>
-      <AnchorPane fx:id="headerStatusbarPlaceholder" styleClass="anchor-pane-with-border" prefHeight="240"/>
+      <AnchorPane VBox.vgrow="NEVER" fx:id="headerStatusbarPlaceholder" styleClass="anchor-pane-with-border" minHeight="80" prefHeight="80" maxHeight="80"/>
+      <AnchorPane VBox.vgrow="NEVER" fx:id="commandBoxPlaceholder" styleClass="anchor-pane-with-border"/>
       <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.4" VBox.vgrow="ALWAYS">
          <items>
             <VBox fx:id="personList" minWidth="340" prefWidth="340">
@@ -33,7 +34,6 @@
                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
                 </padding>
                <children>
-                  <TextField fx:id="commandInput" onAction="#handleCommandInputChanged" promptText="Enter command here..."/>
                   <AnchorPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
                </children>
             </VBox>

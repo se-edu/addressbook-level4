@@ -1,5 +1,6 @@
 package seedu.address.controller;
 
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -32,31 +33,33 @@ import java.util.logging.Logger;
  * a menu bar and space where other JavaFX elements can be placed.
  */
 public class MainWindow extends BaseUiPart {
-    private static Logger logger = LoggerManager.getLogger(MainWindow.class);
+    private final Logger logger = LoggerManager.getLogger(MainWindow.class);
     private static final String ICON = "/images/address_book_32.png";
     private static final String FXML = "MainWindow.fxml";
     private static final String HEADER_STATUSBAR_PLACEHOLDER_FIELD_ID = "#headerStatusbarPlaceholder";
     private static final String FOOTER_STATUSBAR_PLACEHOLDER_FIELD_ID = "#footerStatusbarPlaceholder";
+    private static final String COMMAND_BOX_PLACEHOLDER_FIELD_ID = "#commandBoxPlaceholder";
     private static final String BROWSER_PLACEHOLDER = "#personWebpage";
     public static final int MIN_HEIGHT = 600;
     public static final int MIN_WIDTH = 450;
 
     private Ui ui; //TODO: remove this dependency as per TODOs given in methods below
 
-    //Link to the model
+    // Link to the model
     private ModelManager modelManager;
 
     private BrowserManager browserManager;
 
     private Parser parser;
 
-    //Independent Ui parts residing in this Ui container
+    // Independent Ui parts residing in this Ui container
     private PersonListPanel personListPanel;
     private StatusBarHeader statusBarHeader;
     private StatusBarFooter statusBarFooter;
+    private CommandBox commandBox;
     private WebView browser;
 
-    //Handles to elements of this Ui container
+    // Handles to elements of this Ui container
     private VBox rootLayout;
     private Scene scene;
 
@@ -67,9 +70,6 @@ public class MainWindow extends BaseUiPart {
 
     @FXML
     private MenuItem helpMenuItem;
-
-    @FXML
-    private TextField commandInput;
 
     public MainWindow() {
         super();
@@ -88,7 +88,6 @@ public class MainWindow extends BaseUiPart {
 
     public static MainWindow load(Stage primaryStage, Config config, UserPrefs prefs, Ui ui,
                                   ModelManager modelManager, BrowserManager browserManager) {
-        logger.fine("Initializing main window.");
         MainWindow mainWindow = UiPartLoader.loadUiPart(primaryStage, new MainWindow());
         mainWindow.configure(config.getAppTitle(), config.getAddressBookName(), prefs, ui, modelManager,
                              browserManager);
@@ -99,13 +98,13 @@ public class MainWindow extends BaseUiPart {
 
     private void configure(String appTitle, String addressBookName, UserPrefs prefs, Ui ui,
                            ModelManager modelManager, BrowserManager browserManager) {
-        //Set connections
+        // Set connections
         this.ui = ui;
         this.modelManager = modelManager;
         this.addressBookName = addressBookName;
         this.browserManager = browserManager;
         this.parser.configure(ui);
-        //Configure the UI
+        // Configure the UI
         setTitle(appTitle);
         setIcon(ICON);
         setWindowMinSize();
@@ -119,16 +118,20 @@ public class MainWindow extends BaseUiPart {
         return (AnchorPane) rootLayout.lookup(anchorPaneId);
     }
 
-
-    private void setKeyEventHandler(){
-        scene.setOnKeyPressed((e) -> raisePotentialEvent(new KeyBindingEvent(e)));
+    private void setKeyEventHandler() {
+        scene.setOnKeyPressed(e -> raisePotentialEvent(new KeyBindingEvent(e)));
     }
 
     public void fillInnerParts() {
         personListPanel = PersonListPanel.load(primaryStage, getPersonListPlaceholder(), modelManager, browserManager);
         statusBarHeader = StatusBarHeader.load(primaryStage, getHeaderStatusbarPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getFooterStatusbarPlaceholder(), addressBookName);
+        commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), parser, statusBarHeader, modelManager);
         browser = loadBrowser();
+    }
+
+    private AnchorPane getCommandBoxPlaceholder() {
+        return this.getAnchorPane(COMMAND_BOX_PLACEHOLDER_FIELD_ID);
     }
 
     private AnchorPane getFooterStatusbarPlaceholder() {
@@ -141,7 +144,7 @@ public class MainWindow extends BaseUiPart {
     
     private WebView loadBrowser() {
         AnchorPane pane = this.getAnchorPane(BROWSER_PLACEHOLDER);
-        pane.setOnKeyPressed(e -> e.consume()); //Stops triggering of keybinding event.
+        pane.setOnKeyPressed(Event::consume); // Stops triggering of keybinding event.
         pane.getChildren().add(browserManager.getBrowserView());
         return (WebView) browserManager.getBrowserView();
     }
@@ -191,27 +194,6 @@ public class MainWindow extends BaseUiPart {
         helpMenuItem.setAccelerator(KeyCombination.valueOf("F1"));
     }
 
-    @FXML
-    private void handleCommandInputChanged() {
-
-        if (commandInput.getStyleClass().contains("error")) commandInput.getStyleClass().remove("error");
-
-        Command command = parser.parseCommand(commandInput.getText());
-        command.setData(modelManager);
-        CommandResult result = command.execute();
-
-        if (command instanceof IncorrectCommand) {
-            commandInput.getStyleClass().add("error");
-        } else {
-            commandInput.getStyleClass().add("");
-        }
-
-        statusBarHeader.postMessage(result.feedbackToUser);
-
-        logger.info("Result: " + command.getClass().getSimpleName());
-        logger.info("Result: " + result.feedbackToUser);
-        logger.fine("Invalid command: " + commandInput.getText());
-    }
 
     @FXML
     public void handleHelp() {

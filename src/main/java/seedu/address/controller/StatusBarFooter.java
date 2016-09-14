@@ -12,8 +12,7 @@ import seedu.address.commons.FxViewUtil;
 /**
  * A controller for the status bar that is displayed at the footer of the application.
  */
-public class StatusBarFooter extends BaseUiPart{
-
+public class StatusBarFooter extends BaseUiPart {
     private static StatusBar syncStatusBar;
     private static StatusBar saveLocStatusBar;
 
