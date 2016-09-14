@@ -216,6 +216,10 @@ public class PersonListPanelHandle extends GuiHandle {
         pressEnter();
     }
 
+    public void enterCommand(String command) {
+        typeTextField(COMMAND_INPUT_FIELD_ID, command);
+    }
+
     public String getCommandInput() {
         return getTextFieldText(COMMAND_INPUT_FIELD_ID);
     }
