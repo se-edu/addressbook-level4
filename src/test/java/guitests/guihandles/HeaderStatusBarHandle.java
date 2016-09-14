@@ -4,7 +4,7 @@ import guitests.GuiRobot;
 import javafx.stage.Stage;
 import org.controlsfx.control.StatusBar;
 import seedu.address.TestApp;
-import seedu.address.controller.StatusBarHeader;
+import seedu.address.controller.ResultDisplay;
 
 /**
  * A handler for the HeaderStatusBar of the UI
@@ -20,6 +20,6 @@ public class HeaderStatusBarHandle extends GuiHandle {
     }
 
     private StatusBar getStatusBar() {
-        return (StatusBar) getNode("#" + StatusBarHeader.HEADER_STATUS_BAR_ID);
+        return (StatusBar) getNode("#" + ResultDisplay.HEADER_STATUS_BAR_ID);
     }
 }

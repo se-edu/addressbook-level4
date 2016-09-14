@@ -118,7 +118,15 @@
 
 .status-bar {
     -fx-background-color: derive(#1d1d1d, 20%);
-    -fx-text-fill: white;
+    -fx-text-fill: black;
+}
+
+.result-display {
+    -fx-background-color: #ffffff;
+}
+
+.result-display .label {
+    -fx-text-fill: black !important;
 }
 
 .status-bar .label {

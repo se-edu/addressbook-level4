@@ -22,7 +22,7 @@ public class CommandBox extends BaseUiPart {
 
     private AnchorPane placeHolderPane;
     private AnchorPane commandPane;
-    private StatusBarHeader statusBarHeader;
+    private ResultDisplay resultDisplay;
     private ModelManager modelManager;
     private Parser parser;
 
@@ -30,15 +30,15 @@ public class CommandBox extends BaseUiPart {
     private TextField commandTextField;
 
     public static CommandBox load(Stage primaryStage, AnchorPane commandBoxPlaceholder, Parser parser,
-                                  StatusBarHeader statusBarHeader, ModelManager modelManager) {
+                                  ResultDisplay resultDisplay, ModelManager modelManager) {
         CommandBox commandBox = UiPartLoader.loadUiPart(primaryStage, commandBoxPlaceholder, new CommandBox());
-        commandBox.configure(parser, statusBarHeader, modelManager);
+        commandBox.configure(parser, resultDisplay, modelManager);
         return commandBox;
     }
 
-    private void configure(Parser parser, StatusBarHeader statusBarHeader, ModelManager modelManager) {
+    private void configure(Parser parser, ResultDisplay resultDisplay, ModelManager modelManager) {
         this.parser = parser;
-        this.statusBarHeader = statusBarHeader;
+        this.resultDisplay = resultDisplay;
         this.modelManager = modelManager;
         addToPlaceholder();
     }
@@ -79,7 +79,7 @@ public class CommandBox extends BaseUiPart {
             commandTextField.setText("");
         }
 
-        statusBarHeader.postMessage(result.feedbackToUser);
+        resultDisplay.postMessage(result.feedbackToUser);
 
         logger.info("Result: " + result.feedbackToUser);
         logger.fine("Invalid command: " + commandTextField.getText());

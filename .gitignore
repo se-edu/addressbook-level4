@@ -4,6 +4,7 @@ build/
 lib/*
 *.iml
 *.log
+*.log.*
 *.csv
 config.json
 *.xml
