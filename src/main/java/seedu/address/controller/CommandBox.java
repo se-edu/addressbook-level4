@@ -73,7 +73,11 @@ public class CommandBox extends BaseUiPart {
         command.setData(modelManager);
         CommandResult result = command.execute();
 
-        if (command instanceof IncorrectCommand) commandTextField.getStyleClass().add("error");
+        if (command instanceof IncorrectCommand) {
+            commandTextField.getStyleClass().add("error");
+        } else {
+            commandTextField.setText("");
+        }
 
         statusBarHeader.postMessage(result.feedbackToUser);
 
