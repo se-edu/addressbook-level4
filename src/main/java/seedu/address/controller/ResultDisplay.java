@@ -1,9 +1,9 @@
 package seedu.address.controller;
 
 import javafx.scene.Node;
+import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import org.controlsfx.control.StatusBar;
 import seedu.address.commons.FxViewUtil;
 
 /**
@@ -12,7 +12,7 @@ import seedu.address.commons.FxViewUtil;
 public class ResultDisplay extends BaseUiPart {
     public static final String HEADER_STATUS_BAR_ID = "resultDisplay";
     private static final String STATUS_BAR_STYLE_SHEET = "result-display";
-    private StatusBar headerStatusBar;
+    private TextArea resultDisplayArea;
 
     private static final String FXML = "ResultDisplay.fxml";
 
@@ -27,19 +27,20 @@ public class ResultDisplay extends BaseUiPart {
     }
 
     public void configure() {
-        headerStatusBar = new StatusBar();
-        headerStatusBar.setId(HEADER_STATUS_BAR_ID);
-        headerStatusBar.getStyleClass().removeAll();
-        headerStatusBar.getStyleClass().add(STATUS_BAR_STYLE_SHEET);
-        headerStatusBar.setText("");
-        FxViewUtil.applyAnchorBoundaryParameters(headerStatusBar, 0.0, 0.0, 0.0, 0.0);
-        mainPane.getChildren().add(headerStatusBar);
+        resultDisplayArea = new TextArea();
+        resultDisplayArea.setEditable(false);
+        resultDisplayArea.setId(HEADER_STATUS_BAR_ID);
+        resultDisplayArea.getStyleClass().removeAll();
+        resultDisplayArea.getStyleClass().add(STATUS_BAR_STYLE_SHEET);
+        resultDisplayArea.setText("");
+        FxViewUtil.applyAnchorBoundaryParameters(resultDisplayArea, 0.0, 0.0, 0.0, 0.0);
+        mainPane.getChildren().add(resultDisplayArea);
         FxViewUtil.applyAnchorBoundaryParameters(mainPane, 0.0, 0.0, 0.0, 0.0);
         placeHolder.getChildren().add(mainPane);
     }
 
-    public StatusBar getHeaderStatusBarView() {
-        return headerStatusBar;
+    public TextArea getHeaderStatusBarView() {
+        return resultDisplayArea;
     }
 
     @Override
@@ -58,6 +59,6 @@ public class ResultDisplay extends BaseUiPart {
     }
 
     public void postMessage(String message) {
-        headerStatusBar.setText(message);
+        resultDisplayArea.setText(message);
     }
 }
