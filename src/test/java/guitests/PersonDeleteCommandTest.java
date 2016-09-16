@@ -61,18 +61,18 @@ public class PersonDeleteCommandTest extends GuiTestBase {
     @Test
     public void deletePerson_outOfBoundIndex_fail() {
         personListPanel.enterCommandAndApply("delete " + (personListPanel.getNumberOfPeople() + 1));
-        assertEquals("The person index provided is invalid", headerStatusBar.getText());
+        assertEquals("The person index provided is invalid", resultDisplay.getText());
     }
 
     @Test
     public void deletePerson_zeroIndex_fail() {
         personListPanel.enterCommandAndApply("delete 0");
-        assertEquals("The person index provided is invalid", headerStatusBar.getText());
+        assertEquals("The person index provided is invalid", resultDisplay.getText());
     }
 
     @Test
     public void deletePerson_negativeIndex_fail() {
         personListPanel.enterCommandAndApply("delete -1");
-        assertEquals("The person index provided is invalid", headerStatusBar.getText());
+        assertEquals("The person index provided is invalid", resultDisplay.getText());
     }
 }

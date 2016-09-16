@@ -22,8 +22,8 @@ public class MainGuiHandle extends GuiHandle {
         return new PersonListPanelHandle(guiRobot, primaryStage);
     }
 
-    public HeaderStatusBarHandle getHeaderStatusBar() {
-        return new HeaderStatusBarHandle(guiRobot, primaryStage);
+    public ResultDisplayHandle getHeaderStatusBar() {
+        return new ResultDisplayHandle(guiRobot, primaryStage);
     }
 
     public MainMenuHandle getMainMenu() {

@@ -42,7 +42,7 @@ public class GuiTestBase {
     protected MainGuiHandle mainGui;
     protected MainMenuHandle mainMenu;
     protected PersonListPanelHandle personListPanel;
-    protected HeaderStatusBarHandle headerStatusBar;
+    protected ResultDisplayHandle resultDisplay;
     private Stage stage;
 
     @BeforeClass
@@ -61,7 +61,7 @@ public class GuiTestBase {
             mainGui = new MainGuiHandle(new GuiRobot(), stage);
             mainMenu = mainGui.getMainMenu();
             personListPanel = mainGui.getPersonListPanel();
-            headerStatusBar = mainGui.getHeaderStatusBar();
+            resultDisplay = mainGui.getHeaderStatusBar();
             this.stage = stage;
         });
         EventManager.clearSubscribers();

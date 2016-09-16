@@ -20,7 +20,7 @@ public class PersonAddCommandTest extends GuiTestBase {
     public void addPerson_duplicatePerson_showFeedback() throws IllegalValueException {
         personListPanel.enterCommandAndApply(td.hoon.getCommandString());
         personListPanel.enterCommandAndApply(td.hoon.getCommandString());
-        assertEquals(AddPersonCommand.MESSAGE_DUPLICATE_PERSON, headerStatusBar.getText());
+        assertEquals(AddPersonCommand.MESSAGE_DUPLICATE_PERSON, resultDisplay.getText());
     }
 
     @Test
@@ -39,6 +39,6 @@ public class PersonAddCommandTest extends GuiTestBase {
     public void addPerson_invalidCommand_fail() {
         personListPanel.enterCommandAndApply("adds Johnny");
 
-        assertEquals("Invalid command", headerStatusBar.getText());
+        assertEquals("Invalid command", resultDisplay.getText());
     }
 }
