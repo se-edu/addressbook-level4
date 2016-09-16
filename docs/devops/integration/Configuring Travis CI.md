@@ -18,6 +18,15 @@ If you would like to customise your travis build, do read the [Travis CI Documen
 ![Signing into Travis CI](../../images/signing_in.png)
 
 3. Head to the [Accounts](https://travis-ci.org/profile) page, and find the switch for the forked repository.
+    - If the organization is not shown, click `Review and add` as shown
+    ![Review and add](../../images/review_and_add.png)
+    This should bring you to a GitHub page that manages the access of third-party applications.
+    Depending on whether you are the owner of the repository, you can either grant access
+    ![Grant Access](../../images/grant_access.png)
+    or request access
+    ![Request Access](../../images/request_access.png)
+    to Travis CI so that it can access your commits and build your code.
+    
     - If repository cannot be found, click `Sync account`
 4. Activate the switch.  
 ![Activate the switch](../../images/flick_repository_switch.png)
@@ -38,10 +47,10 @@ If you would like to customise your travis build, do read the [Travis CI Documen
           - oracle-java8-installer
     ```
 6. To see the CI in action, push a commit to the master branch!  
-Go to the repository and see the pushed commit. There should be an icon which will link you to the Travis build.
+    * Go to the repository and see the pushed commit. There should be an icon which will link you to the Travis build.
 ![Commit build](../../images/build_pending.png)
 
-As the build is run on a provided remote machine, we can only examine the logs it produces:
+    * As the build is run on a provided remote machine, we can only examine the logs it produces:
 ![Travis build](../../images/travis_build.png)
 
 7. If the build is successful, you should be able to check the coverage details of the tests at [Coveralls](http://coveralls.io/)!

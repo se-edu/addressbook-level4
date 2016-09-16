@@ -36,13 +36,14 @@ public class GuiTestBase {
 
     protected TypicalTestPersons td = new TypicalTestPersons();
 
-    /* Handles to GUI elements present at the start up are created in advance
+    /*
+     *   Handles to GUI elements present at the start up are created in advance
      *   for easy access from child classes.
      */
     protected MainGuiHandle mainGui;
     protected MainMenuHandle mainMenu;
     protected PersonListPanelHandle personListPanel;
-    protected HeaderStatusBarHandle headerStatusBar;
+    protected ResultDisplayHandle resultDisplay;
     private Stage stage;
 
     @BeforeClass
@@ -61,13 +62,13 @@ public class GuiTestBase {
             mainGui = new MainGuiHandle(new GuiRobot(), stage);
             mainMenu = mainGui.getMainMenu();
             personListPanel = mainGui.getPersonListPanel();
-            headerStatusBar = mainGui.getHeaderStatusBar();
+            resultDisplay = mainGui.getResultDisplay();
             this.stage = stage;
         });
         EventManager.clearSubscribers();
         testApp = (TestApp) FxToolkit.setupApplication(() -> new TestApp(this::getInitialData, getDataFileLocation()));
         FxToolkit.showStage();
-        while(!stage.isShowing());
+        while (!stage.isShowing());
         mainGui.focusOnMainApp();
     }
 
@@ -102,15 +103,6 @@ public class GuiTestBase {
 
     public void sleep(long duration, TimeUnit timeunit) {
         mainGui.sleep(duration, timeunit);
-    }
-
-    public void sleepForGracePeriod() {
-        mainGui.sleepForGracePeriod();
-    }
-
-    public void sleepUntilNextSync() {
-        //TODO: actively check for sync status rather than sleep for a fixed time
-        //sleep(getTestingConfig().getUpdateInterval(), TimeUnit.MILLISECONDS);
     }
 
     public void assertMatching(ReadOnlyPerson person, PersonCardHandle card) {
