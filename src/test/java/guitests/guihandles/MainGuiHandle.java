@@ -22,7 +22,7 @@ public class MainGuiHandle extends GuiHandle {
         return new PersonListPanelHandle(guiRobot, primaryStage);
     }
 
-    public ResultDisplayHandle getHeaderStatusBar() {
+    public ResultDisplayHandle getResultDisplay() {
         return new ResultDisplayHandle(guiRobot, primaryStage);
     }
 

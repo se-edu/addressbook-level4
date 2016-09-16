@@ -7,7 +7,7 @@ import seedu.address.TestApp;
 import seedu.address.controller.ResultDisplay;
 
 /**
- * A handler for the HeaderStatusBar of the UI
+ * A handler for the ResultDisplay of the UI
  */
 public class ResultDisplayHandle extends GuiHandle {
 
@@ -20,6 +20,6 @@ public class ResultDisplayHandle extends GuiHandle {
     }
 
     private TextArea getResultDisplay() {
-        return (TextArea) getNode("#" + ResultDisplay.HEADER_STATUS_BAR_ID);
+        return (TextArea) getNode("#" + ResultDisplay.RESULT_DISPLAY_ID);
     }
 }

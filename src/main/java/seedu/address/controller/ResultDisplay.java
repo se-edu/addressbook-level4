@@ -10,7 +10,7 @@ import seedu.address.commons.FxViewUtil;
  * A controller for the status bar that is displayed at the header of the application.
  */
 public class ResultDisplay extends BaseUiPart {
-    public static final String HEADER_STATUS_BAR_ID = "resultDisplay";
+    public static final String RESULT_DISPLAY_ID = "resultDisplay";
     private static final String STATUS_BAR_STYLE_SHEET = "result-display";
     private TextArea resultDisplayArea;
 
@@ -29,7 +29,7 @@ public class ResultDisplay extends BaseUiPart {
     public void configure() {
         resultDisplayArea = new TextArea();
         resultDisplayArea.setEditable(false);
-        resultDisplayArea.setId(HEADER_STATUS_BAR_ID);
+        resultDisplayArea.setId(RESULT_DISPLAY_ID);
         resultDisplayArea.getStyleClass().removeAll();
         resultDisplayArea.getStyleClass().add(STATUS_BAR_STYLE_SHEET);
         resultDisplayArea.setText("");
