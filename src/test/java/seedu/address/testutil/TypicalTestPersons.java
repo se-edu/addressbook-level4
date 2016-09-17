@@ -49,4 +49,8 @@ public class TypicalTestPersons {
             assert false : "not possible";
         }
     }
+
+    public TestPerson[] getTypicalPersons() {
+        return new TestPerson[]{alice, benson, carl, daniel, elle, fiona, george};
+    }
 }

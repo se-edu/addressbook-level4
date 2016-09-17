@@ -317,21 +317,40 @@ public class TestUtil {
         return list.get(list.size() - 1);
     }
 
-    public static Person[] removePersonsFromList(Person[] persons, Person... personsToRemove) {
-        List<Person> listOfPersons = asList(persons);
+    /**
+     * Removes a subset from the list of persons.
+     * @param persons The list of persons
+     * @param personsToRemove The subset of persons.
+     * @return The modified persons after removal of the subset from persons.
+     */
+    public static TestPerson[] removePersonsFromList(TestPerson[] persons, TestPerson... personsToRemove) {
+        List<TestPerson> listOfPersons = asList(persons);
         listOfPersons.removeAll(asList(personsToRemove));
-        return listOfPersons.toArray(new Person[listOfPersons.size()]);
+        return listOfPersons.toArray(new TestPerson[listOfPersons.size()]);
     }
 
-    public static Person[] replacePersonFromList(Person[] persons, Person person, int index) {
+    /**
+     * Replaces persons[i] with a person.
+     * @param persons The array of persons.
+     * @param person The replacement person
+     * @param index The index of the person to be replaced.
+     * @return
+     */
+    public static TestPerson[] replacePersonFromList(TestPerson[] persons, TestPerson person, int index) {
         persons[index] = person;
         return persons;
     }
 
-    public static Person[] addPersonsToList(Person[] persons, Person... personsToAdd) {
-        List<Person> listOfPersons = asList(persons);
+    /**
+     * Appends persons to the array of persons.
+     * @param persons A array of persons.
+     * @param personsToAdd The persons that are to be appended behind the original array.
+     * @return The modified array of persons.
+     */
+    public static TestPerson[] addPersonsToList(TestPerson[] persons, TestPerson... personsToAdd) {
+        List<TestPerson> listOfPersons = asList(persons);
         listOfPersons.addAll(asList(personsToAdd));
-        return listOfPersons.toArray(new Person[listOfPersons.size()]);
+        return listOfPersons.toArray(new TestPerson[listOfPersons.size()]);
     }
 
     private static <T> List<T> asList(T[] objs) {
