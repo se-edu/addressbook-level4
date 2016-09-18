@@ -93,8 +93,8 @@ public class GuiHandle {
      */
     protected void typeTextField(String textFieldId, String newText) {
         guiRobot.clickOn(textFieldId);
-        guiRobot.push(KeyCode.SHORTCUT, KeyCode.A).eraseText(1)
-                .write(newText);
+        ((TextField)guiRobot.lookup(textFieldId).tryQuery().get()).setText(newText);
+        guiRobot.sleep(500); // so that the texts stays visible on the GUI for a short period
     }
 
     public void pressEnter() {
