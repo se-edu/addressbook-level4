@@ -43,3 +43,5 @@ from [Travis CI Documentation](https://docs.travis-ci.com/).
 
 7. If the build is successful, you should be able to check the coverage details of the tests
    at [Coveralls](http://coveralls.io/)
+8. Update the link to the 'build status' badge at the top of the `README.md` to point to the build status of your
+   own repo.
