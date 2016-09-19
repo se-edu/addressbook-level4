@@ -8,4 +8,11 @@
         <tagged>owesMoney</tagged>
         <tagged>friends</tagged>
     </persons>
+    <persons>
+        <name>Jane Doe</name>
+        <phone isPrivate="false">98765432</phone>
+        <email isPrivate="false">jane@gmail.com</email>
+        <address isPrivate="false">232, Bukit Batok Ave 2, #34-40</address>
+        <tagged>buddies</tagged>
+    </persons>
 </addressbook>
