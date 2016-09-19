@@ -1,5 +1,6 @@
 package seedu.address.controller;
 
+import javafx.application.Platform;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -118,4 +119,12 @@ public class PersonListPanel extends BaseUiPart {
     public List<ReadOnlyPerson> getDisplayedPersons() {
         return this.personListView.getItems();
     }
+
+    public void scrollTo(int index) {
+        Platform.runLater(() -> {
+            personListView.scrollTo(index);
+            personListView.getSelectionModel().clearAndSelect(index);
+        });
+    }
+
 }

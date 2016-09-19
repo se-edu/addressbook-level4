@@ -14,6 +14,7 @@ import javafx.stage.Stage;
 import seedu.address.MainApp;
 import seedu.address.browser.BrowserManager;
 import seedu.address.events.EventManager;
+import seedu.address.events.controller.JumpToListRequestEvent;
 import seedu.address.events.storage.FileOpeningExceptionEvent;
 import seedu.address.events.storage.FileSavingExceptionEvent;
 import seedu.address.events.ui.ShowHelpEvent;
@@ -156,6 +157,11 @@ public class Ui {
     @Subscribe
     private void handleShowHelpEvent(ShowHelpEvent event) {
         mainWindow.handleHelp();
+    }
+
+    @Subscribe
+    private void handleJumpToListRequestEvent(JumpToListRequestEvent event) {
+        mainWindow.getPersonListPanel().scrollTo(event.targetIndex);
     }
 
     private void showFileOperationAlertAndWait(String description, String details, File file, Throwable cause) {
