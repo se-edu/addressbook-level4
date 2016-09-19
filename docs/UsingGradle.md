@@ -58,7 +58,7 @@ If we package only our own class files into the JAR file, it will not work prope
   Runs all (non-GUI) unit tests in the `seedu.address` package
   
 * **`headless`**<br>
-  Sets the test mode as _headless_. In the headless mode, GUI tests do not show up on the screen.
+  Sets the test mode as _headless_. 
   The mode is effective for that Gradle run only so it should be combined with other test tasks.
   
 Here are some examples:

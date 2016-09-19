@@ -3,15 +3,14 @@
 * [Setting Up](#setting-up)
 * [Design](#design)
 * [Testing](#testing)
+* [Continuous Integration](#continuous-integration)
+* [Making a Release](#making-a-release)
+* [Managing Dependencies](#managing-dependencies)
 * [Appendix A: User Stories](#appendix-a--user-stories)
 * [Appendix B: Use Cases](#appendix-b--use-cases)
 * [Appendix C: Non Functional Requirements](#appendix-c--non-functional-requirements)
 * [Appendix D: Gloassary](#appendix-d--glossary)
 
-- [Gradle](devops/gradle/Introduction to Gradle.md)
-- [Configuration](addressbook/Configuration.md)
-- [Logging](addressbook/Logging.md)
-- [Setting up Travis CI](devops/integration/Configuring Travis CI.md)
 
 ## Setting up
 
@@ -51,62 +50,48 @@ etc.
   to run as a JUnit test.
   
 **Using Gradle**:
-* Open a command window in the project folder and type `g`
+* See [UsingGradle.md](UsingGradle.md) for how to run tests using Gradle. 
 
+Tests can be found in the `./src/test/java` folder. We have three types<sup>[[1](#footnote1)]</sup> of tests.
 
-Tests can be found in the `./src/test/java` folder. We have grouped and packaged the tests into the following types.
-
-1. Unit Tests - `address` and `commons` package
-  - Logic Testing
-
-2. GUI Unit Tests - `guiunittests` package
-    - Tests the UI interaction within a single component, and ensure its behaviour holds.
-
-3. System Tests - `guitests` package
-  - Tests the UI interaction with the user as well as the interaction between various components (e.g. passing of data)
+1. **Large Tests** - These are _System Tests_ test the entire App by simulating user actions on the GUI. 
+   These are in the `guitests` package.
   
-  We work towards enabling **headless testing** (using [TestFX](https://github.com/TestFX/TestFX)) so that the test results will be more consistent between different machines. In addition, it will reduce disruption for the tester - the tester can continue to do his or her own work on the machine!
-- Running specific test classes in a specific order
-  - When troubleshooting test failures,
-  you might want to run some specific tests in a specific order.  
-    - Create a test suite (to specify the test order):
-     ```java
-     package address;
+2. **Medium Tests** - These target higher-level code (i.e. code that depend on other code). 
+   e.g. `seedu.address.logic.LogicTest`
+   For simplicity, we assume the dependent code is working correctly (as such, these tests are 
+   a mix between _Unit Tests_ and _Integration Tests_)
+   A better alternative is to use _Dependency Injection_ and/or _Mocks/Stubs_
+   to isolate from dependent code. 
 
-     import org.junit.runner.RunWith;
-     import org.junit.runners.Suite;
+3. **Small Tests** - These are the _Unit Tests_ targeting the lowest level methods/classes. <br>
+   e.g. `seedu.address.commons.UrlUtilTest`<br>
+   Tests that target higher level code (i.e. code that depend on other code) are not pure unit tests
+   because we don't use mocking/stubbing to isolate the SUT. Such tests are recognized under the 
+   'Medium Tests' category above.
+  
+**Headless GUI Testing** :
+Thanks to the ([TestFX](https://github.com/TestFX/TestFX)) library we use,
+ our GUI tests can be run in the _headless_ mode. 
+ In the headless mode, GUI tests do not show up on the screen.
+ That means the developer can do other things on the Computer while the rests are running.<br>
+ See [UsingGradle.md](UsingGradle.md#running-tests) to learn how to run tests in headless mode.
+  
+## Continuous Integration
 
-     @RunWith(Suite.class)
-     @Suite.SuiteClasses({
-             /*The tests to run, in the order they should run*/
-             address.browser.BrowserManagerTest.class,
-             guitests.PersonOverviewTest.class
-     })
+We use [Travis CI](https://travis-ci.org/) to perform _Continuous Integration_ on our projects.
+See [UsingTravis.md](UsingTravis.md) for more details.
 
-     public class TestsInOrder {
-         // the class remains empty,
-         // used only as a holder for the above annotations
-     }
-     ```
-    - Run the test suite using the gradle command <br>
-   `./gradlew clean headless allTests --tests address.TestsInOrder`
+## Making a Release
+
+Here are the steps to create a new release.
+ 
+ 1. Generate a JAR file [using Gradle](UsingGradle.md#creating-the-jar-file).
+ 2. Tag the repo with the version number. e.g. `v0.1`
+ 2. [Crete a new release using GitHub](https://help.github.com/articles/creating-releases/) 
+    and upload the JAR file your created.
    
-   
-
-
- - [Travis CI Documentation](https://docs.travis-ci.com/)
-
-
-## Running Tests
-
-As mentioned, we do our testing by running gradle tasks.
-Tests' settings are mostly contained in `build.gradle` and `.travis.yml`.
-
-
-
-### CI Testing
-- We run our CI builds on [Travis CI](https://travis-ci.org/HubTurbo/addressbook)
-- See [Configuring Travis CI](../integration/Configuring Travis CI.md) for more details
+## Managing Dependencies
 
 What are dependencies and A project often depends on third party libraries. For example, Address Book depends on the 
 [Jackson library](http://wiki.fasterxml.com/JacksonHome) for XML parsing. Managing these _dependencies_
@@ -171,3 +156,9 @@ Use case ends.
 ##### Private contact detail
 
 > A contact detail that is not meant to be shared with others
+
+----
+**Footnotes**
+
+<a name="footnote1"/>[1]</a> This test categorization was inspired 
+   by [this Google Test Blog Post](https://testing.googleblog.com/2010/12/test-sizes.html)
