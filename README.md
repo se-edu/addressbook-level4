@@ -2,7 +2,7 @@
 
 # Address Book (Level 4)
 
-<img src="docs/images/Ui.png">
+{TODO: add screenshot here}
 
 * This is a desktop Address Book application. It has a GUI but most of the user interactions happen using 
   a CLI (Command Line Interface).

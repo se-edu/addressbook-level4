@@ -1,4 +1,4 @@
-# Developer Guide [Outdated]
+# Developer Guide [Work in progress]
 
 * [Setting Up](#setting-up)
 * [Design](#design)
