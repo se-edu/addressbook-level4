@@ -49,14 +49,10 @@ public class PersonSearchCommandTest extends GuiTestBase {
     }
 
     @Test
-    public void searchPerson_withSameSubsetOfCharacters_foundMultiple() throws IllegalValueException {
-        /* TODO: include this when ISSUE #41 is fixed.
+    public void searchPerson_withSameSubsetOfCharacters_foundNone() throws IllegalValueException {
         personListPanel.enterCommandAndApply("find on");
-        sleep(1, TimeUnit.SECONDS);
-        assertEquals(2, personListPanel.getNumberOfPeople());
-        assertEquals("2 persons listed!", resultDisplay.getText());
-        assertTrue(personListPanel.isListMatching(td.benson, td.fiona));
-        */
+        assertEquals(0, personListPanel.getNumberOfPeople());
+        assertEquals("0 persons listed!", resultDisplay.getText());
     }
 
     @Test
