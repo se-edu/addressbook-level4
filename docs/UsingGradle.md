@@ -10,7 +10,10 @@ The gradle configuration for this project is defined in the _build script_  [`bu
 refer [Build Scripts Basics](https://docs.gradle.org/current/userguide/tutorial_using_tasks.html) to learn
 more about build scripts.
 
-The command to run Gradle tasks look like this:
+## Running Gradle Commands
+
+To run a Gradle command, open a command window on the project folder and enter the Gradle command.
+Gradle commands look like this:
 * On Windows :`./gradlew <task1> <task2> ...` e.g. `./gradlew clean allTests`
 * On Mac/Linux: `./gradlew <task1> ...`  e.g. `./gradlew clean allTests`
 
