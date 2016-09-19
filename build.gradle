@@ -11,21 +11,9 @@ plugins {
 }
 
 allprojects {
-    version = 'V1.6.1ea'
-
     apply plugin: 'idea'
     apply plugin: 'java'
-    apply plugin: 'checkstyle'
-    checkstyle {
-        toolVersion = '6.19'
-        sourceSets = [project.sourceSets.main]
-    }
-    apply plugin: 'pmd'
-    apply plugin: 'findbugs'
     apply plugin: 'jacoco'
-    findbugs {
-        excludeFilter = file("${projectDir}/config/findbugs/excludeFilter.xml")
-    }
 
     sourceCompatibility = JavaVersion.VERSION_1_8
     targetCompatibility = JavaVersion.VERSION_1_8
@@ -45,7 +33,7 @@ allprojects {
         jacksonVersion = '2.7.0'
         jacksonDataTypeVersion = '2.7.4'
         junitVersion = '4.12'
-        testFxVersion = '3.1.0'
+        testFxVersion = '4.0.+'
         monocleVersion = '1.8.0_20'
 
         libDir = 'lib'
@@ -66,9 +54,9 @@ allprojects {
         compile "com.google.guava:guava:$guavaVersion"
 
         testCompile "junit:junit:$junitVersion"
-        testCompile "org.testfx:testfx-core:4.0.+"
-        testCompile "org.testfx:testfx-junit:4.0.+"
-        testCompile "org.testfx:testfx-legacy:4.0.+", {
+        testCompile "org.testfx:testfx-core:$testFxVersion"
+        testCompile "org.testfx:testfx-junit:$testFxVersion"
+        testCompile "org.testfx:testfx-legacy:$testFxVersion", {
             exclude group: "junit", module: "junit"
         }
         testCompile "org.testfx:openjfx-monocle:$monocleVersion"
@@ -125,16 +113,6 @@ tasks.coveralls {
     onlyIf { System.env.'CI' }
 }
 
-tasks.withType(FindBugs) {
-    reports {
-        xml.enabled = false
-        html.enabled = true
-    }
-}
-
-task checkStyle { // A dummy task to run a set of tasks
-}
-
 class AddressBookTest extends Test {
     public AddressBookTest() {
     	  forkEvery = 1
@@ -189,21 +167,10 @@ task headless << {
     allTests.setHeadless()
 }
 
-
-
 // Makes sure that headless properties are set before running tests
 unitTests.mustRunAfter headless
 guiUnitTests.mustRunAfter headless
 guiTests.mustRunAfter headless
 allTests.mustRunAfter headless
-
-headless.shouldRunAfter checkStyle
-unitTests.shouldRunAfter checkStyle
-guiUnitTests.shouldRunAfter checkStyle
-guiTests.shouldRunAfter checkStyle
-allTests.shouldRunAfter checkStyle
-
-checkStyle.shouldRunAfter clean
-checkStyle.dependsOn checkstyleMain, checkstyleTest, findbugsMain, findbugsTest, pmdMain, pmdTest
 
 defaultTasks 'clean', 'headless', 'allTests', 'coverage'
