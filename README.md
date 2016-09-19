@@ -2,7 +2,7 @@
 
 # Address Book (Level 4)
 
-<img src="doc/images/Ui.png">
+<img src="docs/images/Ui.png">
 
 * This is a desktop Address Book application. It has a GUI but most of the user interactions happen using 
   a CLI (Command Line Interface).
@@ -17,11 +17,11 @@
 
   
 #### Site Map
-* [User Guide](doc/UserGuide.md) 
-* [Developer Guide](doc/DeveloperGuide.md) 
-* [Learning Outcomes](doc/LearningOutcomes.md) 
-* [About Us](doc/AboutUs.md)
-* [Contact Us](doc/ContactUs.md)
+* [User Guide](docs/UserGuide.md) 
+* [Developer Guide](docs/DeveloperGuide.md) 
+* [Learning Outcomes](docs/LearningOutcomes.md) 
+* [About Us](docs/AboutUs.md)
+* [Contact Us](docs/ContactUs.md)
 
 
 #### Acknowledgements
