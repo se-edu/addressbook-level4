@@ -1,19 +1,21 @@
 # Travis CI
 
-## Background
-[Travis CI](https://travis-ci.org/) is a continuous integration platform for GitHub projects.
+[Travis CI](https://travis-ci.org/) is a _Continuous Integration_ platform for GitHub projects.
 
-We are able to setup Travis CI such that it is able to run the projects' tests automatically whenever there is a new update. This is to ensure that existing functionality and features have not been broken with the new commits.
+Travis CI can run the projects' tests automatically whenever new code is pushed to the repo.
+This ensures that existing functionality and features have not been broken by the changes.
 
-The current Travis CI set up:
-  - runs the `./gradlew clean headless allTests coverage coveralls -i` command.
-  - automatically retries the build up to 3 times if a task fails
+The current Travis CI set up performs the following things whenever someone push code to the repo:
+  - Runs the `./gradlew clean headless allTests coverage coveralls -i` command
+    (see [UsingGradle.md](UsingGradle.md) for more details on what this command means).
+  - Automatically retries the build up to 3 times if a task fails.
 
-If you would like to customise your travis build, do read the [Travis CI Documentation](https://docs.travis-ci.com/).
+If you would like to customise your travis build further, you can learn more about Travis
+from [Travis CI Documentation](https://docs.travis-ci.com/).
 
 ## Setting up Travis CI
 
-1. Fork the repository to your own organization.
+1. Fork the repo to your own organization.
 2. Go to https://travis-ci.org/ and click `Sign in with GitHub`, then enter your GitHub account details if needed.
 ![Signing into Travis CI](../../images/signing_in.png)
 
@@ -30,27 +32,13 @@ If you would like to customise your travis build, do read the [Travis CI Documen
     - If repository cannot be found, click `Sync account`
 4. Activate the switch.  
 ![Activate the switch](../../images/flick_repository_switch.png)
-5. Create the following `.travis.yml` file in the main folder
-    ```
-    language: java
-    matrix:
-      include:
-        - jdk: oraclejdk8
-    script: travis_retry ./gradlew clean headless allTests coverage coveralls -i
-    before_install:
-              - "export DISPLAY=:99.0"
-              - "sh -e /etc/init.d/xvfb start"
-    
-    addons:
-      apt:
-        packages:
-          - oracle-java8-installer
-    ```
+5. This repo comes with a [`.travis.yml`](.travis.yml).
 6. To see the CI in action, push a commit to the master branch!  
     * Go to the repository and see the pushed commit. There should be an icon which will link you to the Travis build.
-![Commit build](../../images/build_pending.png)
+      ![Commit build](../../images/build_pending.png)
 
     * As the build is run on a provided remote machine, we can only examine the logs it produces:
-![Travis build](../../images/travis_build.png)
+      ![Travis build](../../images/travis_build.png)
 
-7. If the build is successful, you should be able to check the coverage details of the tests at [Coveralls](http://coveralls.io/)!
+7. If the build is successful, you should be able to check the coverage details of the tests
+   at [Coveralls](http://coveralls.io/)
