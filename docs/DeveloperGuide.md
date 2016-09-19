@@ -33,11 +33,87 @@
 5. Click `Finish`
 
 ## Design
-<img src="images/mainClassDiagram.png"/>
+
+Architecture overview
+
+UI
+
+Logic
+
+etc.
 
 ## Testing
 
-* In Eclipse, right-click on the `test/java` folder and choose `Run as` > `JUnit Test`
+**In Eclipse**: 
+* To run all tests, right-click on the `src/test/java` folder and choose 
+  `Run as` > `JUnit Test`
+* To run a subset of tests, you can right-click on a test package, test class, or a test and choose 
+  to run as a JUnit test.
+  
+**Using Gradle**:
+* Open a command window in the project folder and type `g`
+
+
+Tests can be found in the `./src/test/java` folder. We have grouped and packaged the tests into the following types.
+
+1. Unit Tests - `address` and `commons` package
+  - Logic Testing
+
+2. GUI Unit Tests - `guiunittests` package
+    - Tests the UI interaction within a single component, and ensure its behaviour holds.
+
+3. System Tests - `guitests` package
+  - Tests the UI interaction with the user as well as the interaction between various components (e.g. passing of data)
+  
+  We work towards enabling **headless testing** (using [TestFX](https://github.com/TestFX/TestFX)) so that the test results will be more consistent between different machines. In addition, it will reduce disruption for the tester - the tester can continue to do his or her own work on the machine!
+- Running specific test classes in a specific order
+  - When troubleshooting test failures,
+  you might want to run some specific tests in a specific order.  
+    - Create a test suite (to specify the test order):
+     ```java
+     package address;
+
+     import org.junit.runner.RunWith;
+     import org.junit.runners.Suite;
+
+     @RunWith(Suite.class)
+     @Suite.SuiteClasses({
+             /*The tests to run, in the order they should run*/
+             address.browser.BrowserManagerTest.class,
+             guitests.PersonOverviewTest.class
+     })
+
+     public class TestsInOrder {
+         // the class remains empty,
+         // used only as a holder for the above annotations
+     }
+     ```
+    - Run the test suite using the gradle command <br>
+   `./gradlew clean headless allTests --tests address.TestsInOrder`
+   
+   
+
+
+ - [Travis CI Documentation](https://docs.travis-ci.com/)
+
+
+## Running Tests
+
+As mentioned, we do our testing by running gradle tasks.
+Tests' settings are mostly contained in `build.gradle` and `.travis.yml`.
+
+
+
+### CI Testing
+- We run our CI builds on [Travis CI](https://travis-ci.org/HubTurbo/addressbook)
+- See [Configuring Travis CI](../integration/Configuring Travis CI.md) for more details
+
+What are dependencies and A project often depends on third party libraries. For example, Address Book depends on the 
+[Jackson library](http://wiki.fasterxml.com/JacksonHome) for XML parsing. Managing these _dependencies_
+can be automated using Gradle. For example, Gradle can download the dependencies automatically, which
+is better than these alternatives.<br>
+a. Include those libraries in the repo (this bloats the repo size)<br>
+b. Require developers to download those libraries manually (this creates extra work for developers)<br>
 
 ## Appendix A : User Stories
 
