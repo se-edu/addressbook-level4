@@ -1,13 +1,12 @@
 package guitests;
 
 import org.junit.Test;
-import seedu.address.exceptions.IllegalValueException;
 import seedu.address.testutil.TestUtil;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-public class ClearCommandTest extends GuiTestBase {
+public class ClearCommandTest extends AddressBookGuiTest {
 
     @Test
     public void clear_clearWithoutAnyPreOrPostCommand_addressBookCleared() {

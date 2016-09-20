@@ -7,7 +7,7 @@ import seedu.address.exceptions.IllegalValueException;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
-public class ClearCommandBoxTest extends GuiTestBase {
+public class ClearCommandBoxTest extends AddressBookGuiTest {
 
     @Test
     public void clearCommandBox_successful() throws IllegalValueException {

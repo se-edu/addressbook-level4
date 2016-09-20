@@ -6,7 +6,7 @@ import seedu.address.model.person.ReadOnlyPerson;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-public class PersonSelectCommandTest extends GuiTestBase {
+public class PersonSelectCommandTest extends AddressBookGuiTest {
 
     @Test
     public void selectPerson_firstPerson_successful() {

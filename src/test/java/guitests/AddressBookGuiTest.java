@@ -19,8 +19,12 @@ import java.util.concurrent.TimeoutException;
 
 import static org.junit.Assert.assertTrue;
 
-public class GuiTestBase {
+/**
+ * A GUI Test class for AddressBook.
+ */
+public abstract class AddressBookGuiTest {
 
+    /* The TestName Rule makes the current test name available inside test methods */
     @Rule
     public TestName name = new TestName();
 

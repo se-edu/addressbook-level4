@@ -1,13 +1,12 @@
 package guitests;
 
 import org.junit.Test;
-import seedu.address.exceptions.IllegalValueException;
 import seedu.address.testutil.TestUtil;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-public class ListAllPersonsCommandTest extends GuiTestBase {
+public class ListAllPersonsCommandTest extends AddressBookGuiTest {
 
     @Test
     public void listAllPerson_afterNoResultSearch_showAllPersons() {

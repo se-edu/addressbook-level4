@@ -7,7 +7,7 @@ import seedu.address.exceptions.IllegalValueException;
 
 import static org.junit.Assert.assertEquals;
 
-public class PersonAddCommandTest extends GuiTestBase {
+public class PersonAddCommandTest extends AddressBookGuiTest {
 
     @Test
     public void addPerson_singlePerson_successful() throws IllegalValueException {
