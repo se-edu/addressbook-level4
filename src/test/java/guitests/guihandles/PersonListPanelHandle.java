@@ -40,9 +40,8 @@ public class PersonListPanelHandle extends GuiHandle {
     }
 
     /**
-     * Checks if the list is showing the person details correctly and in correct order.
+     * Returns true if the list is showing the person details correctly and in correct order.
      * @param persons A list of person in the correct order.
-     * @return
      */
     public boolean isListMatching(ReadOnlyPerson... persons) {
         return this.isListMatching(0, persons);
@@ -70,10 +69,9 @@ public class PersonListPanelHandle extends GuiHandle {
     }
 
     /**
-     * Checks if the list is showing the person details correctly and in correct order.
+     * Returns true if the list is showing the person details correctly and in correct order.
      * @param startPosition The starting position of the sub list.
      * @param persons A list of person in the correct order.
-     * @return
      */
     public boolean isListMatching(int startPosition, ReadOnlyPerson... persons) throws IllegalArgumentException {
         if (persons.length + startPosition != getListView().getItems().size()) {
@@ -103,8 +101,7 @@ public class PersonListPanelHandle extends GuiHandle {
     }
 
     /**
-     * Navigate the listview to display and select the person.
-     * @param person
+     * Navigates the listview to display and select the person.
      */
     public PersonCardHandle navigateToPerson(ReadOnlyPerson person) {
         int index = getPersonIndex(person);
@@ -134,7 +131,6 @@ public class PersonListPanelHandle extends GuiHandle {
 
     /**
      * Gets a person from the list by index
-     * @param index
      */
     public ReadOnlyPerson getPerson(int index) {
         return getListView().getItems().get(index);
