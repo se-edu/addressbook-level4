@@ -17,6 +17,7 @@ import seedu.address.testutil.TypicalTestPersons;
 
 import java.util.concurrent.TimeoutException;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -99,5 +100,10 @@ public abstract class AddressBookGuiTest {
 
     protected void runCommand(String command) {
         commandBox.enterCommandAndApply(command);
+    }
+
+    protected void assertListSize(int size) {
+        int numberOfPeople = personListPanel.getNumberOfPeople();
+        assertEquals(size, numberOfPeople);
     }
 }
