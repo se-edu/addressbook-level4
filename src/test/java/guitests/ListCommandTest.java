@@ -6,7 +6,7 @@ import seedu.address.testutil.TestUtil;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-public class ListAllPersonsCommandTest extends AddressBookGuiTest {
+public class ListCommandTest extends AddressBookGuiTest {
 
     @Test
     public void listAllPerson_afterNoResultSearch_showAllPersons() {
