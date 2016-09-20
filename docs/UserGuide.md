@@ -74,20 +74,20 @@ Examples:
   `delete 1`<br>
   Deletes the 1st person in the results of the `find` command.
 
-#### View details of a person : `view`
-Displays the non-private details of the specified person.<br>
-Format: `view INDEX`
+#### Select a person : `select`
+Selects the person identified by the index number used in the last person listing.<br>
+Format: `select INDEX`
 
-> Loads the Google search page the person at the specified `INDEX`. 
+> Selects the person and loads the Google search page the person at the specified `INDEX`. 
   The index refers to the index number shown in the most recent listing.
 
 Examples: 
 * `list`<br>
-  `view 2`<br>
-  Views the 2nd person in the address book.
+  `select 2`<br>
+  Selects the 2nd person in the address book.
 * `find Betsy` <br> 
-  `view 1`<br>
-  Views the 1st person in the results of the `find` command.
+  `select 1`<br>
+  Selects the 1st person in the results of the `find` command.
 
 #### Clearing all entries : `clear`
 Clears all entries from the address book.<br>
@@ -100,13 +100,6 @@ Format: `exit`
 #### Saving the data 
 Address book data are saved in the hard disk automatically after any command that changes the data.<br>
 There is no need to save manually.
-
-#### Changing the save location
-Address book data are saved in a file called `addressbook.txt` in the project root folder.
-You can change the location by specifying the file path as a program argument.<br>
-
-> The file name must end in `.txt` for it to be acceptable to the program.
-
 
 ## FAQ
 
@@ -124,4 +117,4 @@ Delete | `delete INDEX`
 Find | `find KEYWORD [MORE_KEYWORDS]`
 List | `list`
 Help | `help`
-View | `view INDEX`
+Select | `select INDEX`
