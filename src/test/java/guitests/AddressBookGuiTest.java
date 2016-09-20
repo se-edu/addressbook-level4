@@ -40,6 +40,7 @@ public abstract class AddressBookGuiTest {
     protected MainMenuHandle mainMenu;
     protected PersonListPanelHandle personListPanel;
     protected ResultDisplayHandle resultDisplay;
+    protected CommandBoxHandle commandBox;
     private Stage stage;
 
     @BeforeClass
@@ -59,6 +60,7 @@ public abstract class AddressBookGuiTest {
             mainMenu = mainGui.getMainMenu();
             personListPanel = mainGui.getPersonListPanel();
             resultDisplay = mainGui.getResultDisplay();
+            commandBox = mainGui.getCommandBox();
             this.stage = stage;
         });
         EventManager.clearSubscribers();
@@ -95,4 +97,7 @@ public abstract class AddressBookGuiTest {
         assertTrue(TestUtil.compareCardAndPerson(card, person));
     }
 
+    protected void runCommand(String command) {
+        commandBox.enterCommandAndApply(command);
+    }
 }

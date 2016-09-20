@@ -29,7 +29,7 @@ public class SelectCommandTest extends AddressBookGuiTest {
 
     @Test
     public void selectPerson_emptyList(){
-        personListPanel.enterCommandAndApply("clear");
+        runCommand("clear");
         assertListSize(0);
         assertSelectionInvalid(1); //invalid index
     }
@@ -40,12 +40,12 @@ public class SelectCommandTest extends AddressBookGuiTest {
     }
 
     private void assertSelectionInvalid(int index) {
-        personListPanel.enterCommandAndApply("select " + index);
+        runCommand("select " + index);
         assertEquals("The person index provided is invalid", resultDisplay.getText());
     }
 
     private void assertSelectionSuccess(int index) {
-        personListPanel.enterCommandAndApply("select " + index);
+        runCommand("select " + index);
         assertEquals("Selected Person: "+index, resultDisplay.getText());
         assertPersonSelected(index);
     }

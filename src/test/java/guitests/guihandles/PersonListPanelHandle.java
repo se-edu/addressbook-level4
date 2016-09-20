@@ -31,7 +31,6 @@ public class PersonListPanelHandle extends GuiHandle {
 
     public static final int NOT_FOUND = -1;
     public static final String CARD_PANE_ID = "#cardPane";
-    private static final String COMMAND_INPUT_FIELD_ID = "#commandTextField";
 
     private static final String PERSON_LIST_VIEW_ID = "#personListView";
 
@@ -211,18 +210,7 @@ public class PersonListPanelHandle extends GuiHandle {
         guiRobot.clickOn(personName);
     }
 
-    public void enterCommandAndApply(String command) {
-        typeTextField(COMMAND_INPUT_FIELD_ID, command);
-        pressEnter();
-    }
 
-    public void enterCommand(String command) {
-        typeTextField(COMMAND_INPUT_FIELD_ID, command);
-    }
-
-    public String getCommandInput() {
-        return getTextFieldText(COMMAND_INPUT_FIELD_ID);
-    }
 
     private void clickOnMultipleNames(List<String> listOfNames) {
         guiRobot.press(KeyCode.SHORTCUT);

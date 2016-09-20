@@ -11,7 +11,7 @@ public class ClearCommandTest extends AddressBookGuiTest {
     @Test
     public void clear_clearWithoutAnyPreOrPostCommand_addressBookCleared() {
         assertTrue(personListPanel.isListMatching(td.getTypicalPersons()));
-        personListPanel.enterCommandAndApply("clear");
+        runCommand("clear");
         assertEquals(0, personListPanel.getNumberOfPeople());
         assertEquals("Address book has been cleared!", resultDisplay.getText());
     }
@@ -19,21 +19,21 @@ public class ClearCommandTest extends AddressBookGuiTest {
     @Test
     public void clear_createAfterClear_addressBookCleared() {
         assertTrue(personListPanel.isListMatching(td.getTypicalPersons()));
-        personListPanel.enterCommandAndApply("clear");
+        runCommand("clear");
         assertEquals(0, personListPanel.getNumberOfPeople());
         assertEquals("Address book has been cleared!", resultDisplay.getText());
 
-        personListPanel.enterCommandAndApply(td.hoon.getCommandString());
+        runCommand(td.hoon.getCommandString());
         assertTrue(personListPanel.isListMatching(td.hoon));
     }
 
     @Test
     public void clear_deleteBeforeClear_addressBookCleared() {
         assertTrue(personListPanel.isListMatching(td.getTypicalPersons()));
-        personListPanel.enterCommandAndApply("delete 2");
+        runCommand("delete 2");
         assertTrue(personListPanel.isListMatching(TestUtil.removePersonsFromList(td.getTypicalPersons(), td.benson)));
 
-        personListPanel.enterCommandAndApply("clear");
+        runCommand("clear");
         assertEquals(0, personListPanel.getNumberOfPeople());
         assertEquals("Address book has been cleared!", resultDisplay.getText());
     }

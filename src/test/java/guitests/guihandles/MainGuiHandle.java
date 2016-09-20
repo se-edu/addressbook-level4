@@ -26,6 +26,10 @@ public class MainGuiHandle extends GuiHandle {
         return new ResultDisplayHandle(guiRobot, primaryStage);
     }
 
+    public CommandBoxHandle getCommandBox() {
+        return new CommandBoxHandle(guiRobot, primaryStage, TestApp.APP_TITLE);
+    }
+
     public MainMenuHandle getMainMenu() {
         return new MainMenuHandle(guiRobot, primaryStage);
     }
