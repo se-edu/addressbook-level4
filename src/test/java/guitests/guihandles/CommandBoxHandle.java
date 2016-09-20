@@ -14,11 +14,6 @@ public class CommandBoxHandle extends GuiHandle{
         super(guiRobot, primaryStage, stageTitle);
     }
 
-    public void enterCommandAndApply(String command) {
-        setTextField(COMMAND_INPUT_FIELD_ID, command);
-        pressEnter();
-    }
-
     public void enterCommand(String command) {
         setTextField(COMMAND_INPUT_FIELD_ID, command);
     }
@@ -31,6 +26,7 @@ public class CommandBoxHandle extends GuiHandle{
      * Enters the given command in the Command Box and press enter.
      */
     public void runCommand(String command) {
-        enterCommandAndApply(command);
+        enterCommand(command);
+        pressEnter();
     }
 }
