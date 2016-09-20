@@ -4,41 +4,50 @@ import guitests.guihandles.PersonCardHandle;
 import org.junit.Test;
 import seedu.address.commands.AddPersonCommand;
 import seedu.address.exceptions.IllegalValueException;
+import seedu.address.testutil.TestPerson;
+import seedu.address.testutil.TestUtil;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class PersonAddCommandTest extends AddressBookGuiTest {
 
     @Test
     public void addPerson_singlePerson_successful() throws IllegalValueException {
-        runCommand(td.hoon.getAddCommand());
-        PersonCardHandle johnCard = personListPanel.navigateToPerson(td.hoon.getName().fullName);
-        assertMatching(td.hoon, johnCard);
-    }
+        //add one person
+        TestPerson[] currentList = td.getTypicalPersons();
+        TestPerson personToAdd = td.hoon;
+        assertAddSuccess(personToAdd, currentList);
+        currentList = TestUtil.addPersonsToList(currentList, personToAdd);
 
-    @Test
-    public void addPerson_duplicatePerson_showFeedback() throws IllegalValueException {
-        runCommand(td.hoon.getAddCommand());
+        //add another person
+        personToAdd = td.ida;
+        assertAddSuccess(personToAdd, currentList);
+        currentList = TestUtil.addPersonsToList(currentList, personToAdd);
+
+        //add duplicate person
         runCommand(td.hoon.getAddCommand());
         assertResultMessage(AddPersonCommand.MESSAGE_DUPLICATE_PERSON);
-    }
+        assertTrue(personListPanel.isListMatching(currentList));
 
-    @Test
-    public void addPerson_multiplePerson_success() throws IllegalValueException {
-        runCommand(td.hoon.getAddCommand());
-        runCommand(td.ida.getAddCommand());
+        //add to empty list
+        runCommand("clear");
+        assertAddSuccess(td.alice);
 
-        final PersonCardHandle aliceCard = personListPanel.navigateToPerson(td.hoon);
-        assertMatching(td.hoon, aliceCard);
-
-        final PersonCardHandle bensonCard = personListPanel.navigateToPerson(td.ida);
-        assertMatching(td.ida, bensonCard);
-    }
-
-    @Test
-    public void addPerson_invalidCommand_fail() {
+        //invalid command
         runCommand("adds Johnny");
-
         assertResultMessage("Invalid command");
     }
+
+    private void assertAddSuccess(TestPerson personToAdd, TestPerson... currentList) {
+        runCommand(personToAdd.getAddCommand());
+
+        //confirm the new card contains the right data
+        PersonCardHandle addedCard = personListPanel.navigateToPerson(personToAdd.getName().fullName);
+        assertMatching(personToAdd, addedCard);
+
+        //confirm the list now contains all previous persons plus the new person
+        TestPerson[] expectedList = TestUtil.addPersonsToList(currentList, personToAdd);
+        assertTrue(personListPanel.isListMatching(expectedList));
+    }
+
 }
