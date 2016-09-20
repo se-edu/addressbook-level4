@@ -94,19 +94,32 @@ public abstract class AddressBookGuiTest {
         FxToolkit.cleanupStages();
     }
 
+    /**
+     * Asserts the person shown in the card is same as the given person
+     */
     public void assertMatching(ReadOnlyPerson person, PersonCardHandle card) {
         assertTrue(TestUtil.compareCardAndPerson(card, person));
     }
 
+    /**
+     * Enters the given command in the Command Box and press enter.
+     */
     protected void runCommand(String command) {
         commandBox.enterCommandAndApply(command);
     }
 
+    /**
+     * Asserts the size of the person list is equal to the given number.
+     */
     protected void assertListSize(int size) {
         int numberOfPeople = personListPanel.getNumberOfPeople();
         assertEquals(size, numberOfPeople);
     }
 
+    /**
+     * Asserts the message shown in the Result Display area is same as the given string.
+     * @param expected
+     */
     protected void assertResultMessage(String expected) {
         assertEquals(expected, resultDisplay.getText());
     }
