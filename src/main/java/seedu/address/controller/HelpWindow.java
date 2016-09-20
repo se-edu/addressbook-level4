@@ -19,8 +19,10 @@ public class HelpWindow extends BaseUiPart {
 
     private static final Logger logger = LoggerManager.getLogger(HelpWindow.class);
     private static final String ICON = "/images/help_icon.png";
-    public static final String FXML = "HelpWindow.fxml";
-    public static final String TITLE = "Help";
+    private static final String FXML = "HelpWindow.fxml";
+    private static final String TITLE = "Help";
+    private static final String USERGUIDE_URL =
+            "https://github.com/se-edu/addressbook-level4/blob/master/docs/UserGuide.md";
 
     private AnchorPane mainPane;
 
@@ -56,7 +58,7 @@ public class HelpWindow extends BaseUiPart {
         setIcon(dialogStage, ICON);
 
         WebView browser = new WebView();
-        browser.getEngine().load(MainApp.class.getResource("/help_html/index.html").toExternalForm());
+        browser.getEngine().load(USERGUIDE_URL);
         FxViewUtil.applyAnchorBoundaryParameters(browser, 0.0, 0.0, 0.0, 0.0);
         mainPane.getChildren().add(browser);
     }
