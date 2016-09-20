@@ -8,7 +8,7 @@ import seedu.address.model.person.ReadOnlyPerson;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-public class PersonDeleteCommandTest extends AddressBookGuiTest {
+public class DeleteCommandTest extends AddressBookGuiTest {
 
     @Test
     public void deletePerson_firstPerson_successful() throws IllegalValueException {
