@@ -12,7 +12,7 @@ import static org.junit.Assert.assertTrue;
 public class AddCommandTest extends AddressBookGuiTest {
 
     @Test
-    public void addPerson_singlePerson_successful() throws IllegalValueException {
+    public void add() {
         //add one person
         TestPerson[] currentList = td.getTypicalPersons();
         TestPerson personToAdd = td.hoon;
