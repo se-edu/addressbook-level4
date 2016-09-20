@@ -68,6 +68,11 @@ public class TestPerson implements ReadOnlyPerson {
         return tags;
     }
 
+    @Override
+    public String toString() {
+        return getAsTextShowAll();
+    }
+
     public String getCommandString() {
         StringBuilder sb = new StringBuilder();
         sb.append("add " + this.getName().fullName + " ");
