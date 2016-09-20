@@ -13,33 +13,33 @@ public class ListCommandTest extends AddressBookGuiTest {
         assertListSuccess(td.getTypicalPersons());
 
         //list after showing empty sub list
-        runCommand("find Mark");
+        commandBox.runCommand("find Mark");
         assertListSize(0);
         assertListSuccess(td.getTypicalPersons());
 
         //list after showing non-empty sub list
-        runCommand("find Meier");
+        commandBox.runCommand("find Meier");
         assertListSize(2);
         assertListSuccess(td.getTypicalPersons());
 
         //list after deleting person
-        runCommand("delete 1");
+        commandBox.runCommand("delete 1");
         TestPerson[] expectedList = TestUtil.removePersonsFromList(td.getTypicalPersons(), td.alice);
         assertListSuccess(expectedList);
 
         //list after adding person
-        runCommand(td.alice.getAddCommand());
+        commandBox.runCommand(td.alice.getAddCommand());
         assertListSuccess(TestUtil.addPersonsToList(expectedList, td.alice));
 
         //list when address book is empty
-        runCommand("clear");
+        commandBox.runCommand("clear");
         assertListSuccess();
 
     }
 
 
     private void assertListSuccess(TestPerson... expectedList) {
-        runCommand("list");
+        commandBox.runCommand("list");
         assertTrue(personListPanel.isListMatching(expectedList));
         assertResultMessage("Listed all persons");
     }

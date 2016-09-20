@@ -26,4 +26,11 @@ public class CommandBoxHandle extends GuiHandle{
     public String getCommandInput() {
         return getTextFieldText(COMMAND_INPUT_FIELD_ID);
     }
+
+    /**
+     * Enters the given command in the Command Box and press enter.
+     */
+    public void runCommand(String command) {
+        enterCommandAndApply(command);
+    }
 }

@@ -102,13 +102,6 @@ public abstract class AddressBookGuiTest {
     }
 
     /**
-     * Enters the given command in the Command Box and press enter.
-     */
-    protected void runCommand(String command) {
-        commandBox.enterCommandAndApply(command);
-    }
-
-    /**
      * Asserts the size of the person list is equal to the given number.
      */
     protected void assertListSize(int size) {

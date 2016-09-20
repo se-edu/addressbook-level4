@@ -21,7 +21,7 @@ public class ClearCommandBoxTest extends AddressBookGuiTest {
 
     @Test
     public void clearCommandBox_fail() throws IllegalValueException {
-        runCommand("invalid command");
+        commandBox.runCommand("invalid command");
         assertEquals(commandBox.getCommandInput(), "invalid command");
         mainGui.pressEnter();
         assertEquals(commandBox.getCommandInput(), "invalid command");

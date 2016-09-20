@@ -13,24 +13,24 @@ public class FindCommandTest extends AddressBookGuiTest {
         assertFindResult("find Meier", td.benson, td.daniel); //multiple results
 
         //find after deleting one result
-        runCommand("delete 1");
+        commandBox.runCommand("delete 1");
         assertFindResult("find Meier",td.daniel);
     }
 
     @Test
     public void find_emptyList(){
-        runCommand("clear");
+        commandBox.runCommand("clear");
         assertFindResult("find Jean"); //no results
     }
 
     @Test
     public void find_invalidCommand_fail() {
-        runCommand("findgeorge");
+        commandBox.runCommand("findgeorge");
         assertResultMessage("Invalid command");
     }
 
     private void assertFindResult(String command, TestPerson... expectedHits ) {
-        runCommand(command);
+        commandBox.runCommand(command);
         assertListSize(expectedHits.length);
         assertResultMessage(expectedHits.length + " persons listed!");
         assertTrue(personListPanel.isListMatching(expectedHits));
