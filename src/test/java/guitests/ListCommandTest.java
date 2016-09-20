@@ -9,52 +9,38 @@ import static org.junit.Assert.assertTrue;
 public class ListCommandTest extends AddressBookGuiTest {
 
     @Test
-    public void listAllPerson_afterNoResultSearch_showAllPersons() {
+    public void list() {
+        assertListSuccess(td.getTypicalPersons());
+
+        //list after showing empty sub list
         runCommand("find Mark");
         assertListSize(0);
-        assertResultMessage("0 persons listed!");
-
         assertListSuccess(td.getTypicalPersons());
-    }
 
-    @Test
-    public void listAllPerson_afterPositiveSearch_showAllPersons() {
+        //list after showing non-empty sub list
         runCommand("find Meier");
         assertListSize(2);
-        assertResultMessage("2 persons listed!");
-        assertTrue(personListPanel.isListMatching(td.benson, td.daniel));
-
         assertListSuccess(td.getTypicalPersons());
-    }
 
-    @Test
-    public void listAllPerson_noSearch_showAllPersons() {
-        assertTrue(personListPanel.isListMatching(td.getTypicalPersons()));
-        assertListSuccess(td.getTypicalPersons());
-    }
-
-    @Test
-    public void listAllPerson_afterDelete_showCorrectPersonsAfterDeletion() {
-        assertTrue(personListPanel.isListMatching(td.getTypicalPersons()));
+        //list after deleting person
         runCommand("delete 1");
-        assertTrue(personListPanel.isListMatching(TestUtil.removePersonsFromList(td.getTypicalPersons(), td.alice)));
+        TestPerson[] expectedList = TestUtil.removePersonsFromList(td.getTypicalPersons(), td.alice);
+        assertListSuccess(expectedList);
 
-        assertListSuccess(TestUtil.removePersonsFromList(td.getTypicalPersons(), td.alice));
+        //list after adding person
+        runCommand(td.alice.getCommandString());
+        assertListSuccess(TestUtil.addPersonsToList(expectedList, td.alice));
+
+        //list when address book is empty
+        runCommand("clear");
+        assertListSuccess();
+
     }
 
-    @Test
-    public void listAllPerson_afterCreate_showCorrectPersonsAfterCreation() {
-        assertTrue(personListPanel.isListMatching(td.getTypicalPersons()));
-        runCommand(td.hoon.getCommandString());
-        assertTrue(personListPanel.isListMatching(TestUtil.addPersonsToList(td.getTypicalPersons(), td.hoon)));
 
-        assertListSuccess(TestUtil.addPersonsToList(td.getTypicalPersons(), td.hoon));
-    }
-
-
-    private void assertListSuccess(TestPerson[] exepctedHits) {
+    private void assertListSuccess(TestPerson... expectedList) {
         runCommand("list");
-        assertTrue(personListPanel.isListMatching(exepctedHits));
+        assertTrue(personListPanel.isListMatching(expectedList));
         assertResultMessage("Listed all persons");
     }
 
