@@ -9,7 +9,7 @@ import seedu.address.testutil.TestUtil;
 
 import static org.junit.Assert.assertTrue;
 
-public class PersonAddCommandTest extends AddressBookGuiTest {
+public class AddCommandTest extends AddressBookGuiTest {
 
     @Test
     public void addPerson_singlePerson_successful() throws IllegalValueException {
