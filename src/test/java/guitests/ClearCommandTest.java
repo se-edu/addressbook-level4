@@ -1,40 +1,31 @@
 package guitests;
 
 import org.junit.Test;
-import seedu.address.testutil.TestUtil;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 public class ClearCommandTest extends AddressBookGuiTest {
 
     @Test
-    public void clear_clearWithoutAnyPreOrPostCommand_addressBookCleared() {
-        assertTrue(personListPanel.isListMatching(td.getTypicalPersons()));
-        runCommand("clear");
-        assertEquals(0, personListPanel.getNumberOfPeople());
-        assertResultMessage("Address book has been cleared!");
-    }
+    public void clear() {
 
-    @Test
-    public void clear_createAfterClear_addressBookCleared() {
+        //verify a non-empty list can be cleared
         assertTrue(personListPanel.isListMatching(td.getTypicalPersons()));
-        runCommand("clear");
-        assertEquals(0, personListPanel.getNumberOfPeople());
-        assertResultMessage("Address book has been cleared!");
+        assertClearCommandSuccess();
 
+        //verify other commands can work after a clear command
         runCommand(td.hoon.getCommandString());
         assertTrue(personListPanel.isListMatching(td.hoon));
+        runCommand("delete 1");
+        assertListSize(0);
+
+        //verify clear command works when the list is empty
+        assertClearCommandSuccess();
     }
 
-    @Test
-    public void clear_deleteBeforeClear_addressBookCleared() {
-        assertTrue(personListPanel.isListMatching(td.getTypicalPersons()));
-        runCommand("delete 2");
-        assertTrue(personListPanel.isListMatching(TestUtil.removePersonsFromList(td.getTypicalPersons(), td.benson)));
-
+    private void assertClearCommandSuccess() {
         runCommand("clear");
-        assertEquals(0, personListPanel.getNumberOfPeople());
+        assertListSize(0);
         assertResultMessage("Address book has been cleared!");
     }
 }
