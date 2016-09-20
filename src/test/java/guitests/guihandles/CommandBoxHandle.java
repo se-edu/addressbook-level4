@@ -15,12 +15,12 @@ public class CommandBoxHandle extends GuiHandle{
     }
 
     public void enterCommandAndApply(String command) {
-        typeTextField(COMMAND_INPUT_FIELD_ID, command);
+        setTextField(COMMAND_INPUT_FIELD_ID, command);
         pressEnter();
     }
 
     public void enterCommand(String command) {
-        typeTextField(COMMAND_INPUT_FIELD_ID, command);
+        setTextField(COMMAND_INPUT_FIELD_ID, command);
     }
 
     public String getCommandInput() {

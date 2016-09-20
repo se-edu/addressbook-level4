@@ -30,7 +30,6 @@ public class PersonListPanelHandle extends GuiHandle {
         super(guiRobot, primaryStage, TestApp.APP_TITLE);
     }
 
-
     public List<ReadOnlyPerson> getSelectedPersons() {
         ListView<ReadOnlyPerson> personList = getListView();
         return personList.getSelectionModel().getSelectedItems();
