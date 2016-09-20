@@ -6,7 +6,7 @@ import seedu.address.exceptions.IllegalValueException;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-public class PersonSearchCommandTest extends AddressBookGuiTest {
+public class FindCommandTest extends AddressBookGuiTest {
 
     @Test
     public void searchPerson_searchInvalidPerson_noResult() throws IllegalValueException {
