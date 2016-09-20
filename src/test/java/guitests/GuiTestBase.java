@@ -90,19 +90,11 @@ public class GuiTestBase {
         return TestApp.SAVE_LOCATION_FOR_TESTING;
     }
 
-    public Config getTestingConfig() {
-        return testApp.getTestingConfig();
-    }
-
     @After
     public void cleanup() throws TimeoutException {
         File file = GuiTest.captureScreenshot();
         TestUtil.renameFile(file, this.getClass().getName() + name.getMethodName() + ".png");
         FxToolkit.cleanupStages();
-    }
-
-    public void sleep(long duration, TimeUnit timeunit) {
-        mainGui.sleep(duration, timeunit);
     }
 
     public void assertMatching(ReadOnlyPerson person, PersonCardHandle card) {
