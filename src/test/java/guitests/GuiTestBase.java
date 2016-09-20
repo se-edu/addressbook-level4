@@ -7,27 +7,19 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.rules.TestName;
-import org.loadui.testfx.GuiTest;
 import org.testfx.api.FxToolkit;
 import seedu.address.TestApp;
 import seedu.address.events.EventManager;
 import seedu.address.model.datatypes.AddressBook;
 import seedu.address.model.person.ReadOnlyPerson;
-import seedu.address.testutil.ScreenShotRule;
 import seedu.address.testutil.TestUtil;
 import seedu.address.testutil.TypicalTestPersons;
-import seedu.address.util.Config;
 
-import java.io.File;
-import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
 import static org.junit.Assert.assertTrue;
 
 public class GuiTestBase {
-
-    @Rule
-    public ScreenShotRule screenShotRule = new ScreenShotRule();
 
     @Rule
     public TestName name = new TestName();
@@ -92,8 +84,6 @@ public class GuiTestBase {
 
     @After
     public void cleanup() throws TimeoutException {
-        File file = GuiTest.captureScreenshot();
-        TestUtil.renameFile(file, this.getClass().getName() + name.getMethodName() + ".png");
         FxToolkit.cleanupStages();
     }
 
