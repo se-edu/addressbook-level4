@@ -10,15 +10,14 @@ public class SelectCommandTest extends AddressBookGuiTest {
 
     @Test
     public void selectPerson_nonEmptyList() {
-        int personCount = td.getTypicalPersons().length;
-        int middleIndex = personCount / 2;
-        assertListSize(personCount);
 
         assertSelectionInvalid(0); //invalid index
         assertNoPersonSelected();
 
         assertSelectionSuccess(1); //first person in the list
+        int personCount = td.getTypicalPersons().length;
         assertSelectionSuccess(personCount); //last person in the list
+        int middleIndex = personCount / 2;
         assertSelectionSuccess(middleIndex); //a person in the middle of the list
 
         assertSelectionInvalid(personCount + 1); //invalid index

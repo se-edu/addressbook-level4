@@ -23,7 +23,7 @@ public class CommandBoxHandle extends GuiHandle{
     }
 
     /**
-     * Enters the given command in the Command Box and press enter.
+     * Enters the given command in the Command Box and presses enter.
      */
     public void runCommand(String command) {
         enterCommand(command);
