@@ -20,7 +20,7 @@ public class PersonAddCommandTest extends AddressBookGuiTest {
     public void addPerson_duplicatePerson_showFeedback() throws IllegalValueException {
         runCommand(td.hoon.getCommandString());
         runCommand(td.hoon.getCommandString());
-        assertEquals(AddPersonCommand.MESSAGE_DUPLICATE_PERSON, resultDisplay.getText());
+        assertResultMessage(AddPersonCommand.MESSAGE_DUPLICATE_PERSON);
     }
 
     @Test
@@ -39,6 +39,6 @@ public class PersonAddCommandTest extends AddressBookGuiTest {
     public void addPerson_invalidCommand_fail() {
         runCommand("adds Johnny");
 
-        assertEquals("Invalid command", resultDisplay.getText());
+        assertResultMessage("Invalid command");
     }
 }

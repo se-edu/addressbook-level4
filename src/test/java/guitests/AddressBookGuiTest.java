@@ -106,4 +106,8 @@ public abstract class AddressBookGuiTest {
         int numberOfPeople = personListPanel.getNumberOfPeople();
         assertEquals(size, numberOfPeople);
     }
+
+    protected void assertResultMessage(String expected) {
+        assertEquals(expected, resultDisplay.getText());
+    }
 }

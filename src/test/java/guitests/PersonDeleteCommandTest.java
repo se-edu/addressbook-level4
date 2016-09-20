@@ -61,18 +61,18 @@ public class PersonDeleteCommandTest extends AddressBookGuiTest {
     @Test
     public void deletePerson_outOfBoundIndex_fail() {
         runCommand("delete " + (personListPanel.getNumberOfPeople() + 1));
-        assertEquals("The person index provided is invalid", resultDisplay.getText());
+        assertResultMessage("The person index provided is invalid");
     }
 
     @Test
     public void deletePerson_zeroIndex_fail() {
         runCommand("delete 0");
-        assertEquals("The person index provided is invalid", resultDisplay.getText());
+        assertResultMessage("The person index provided is invalid");
     }
 
     @Test
     public void deletePerson_negativeIndex_fail() {
         runCommand("delete -1");
-        assertEquals("The person index provided is invalid", resultDisplay.getText());
+        assertResultMessage("The person index provided is invalid");
     }
 }

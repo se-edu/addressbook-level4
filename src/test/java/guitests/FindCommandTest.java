@@ -12,14 +12,15 @@ public class FindCommandTest extends AddressBookGuiTest {
     public void searchPerson_searchInvalidPerson_noResult() throws IllegalValueException {
         runCommand("find Mark");
         assertListSize(0);
-        assertEquals("0 persons listed!", resultDisplay.getText());
+        String expected = "0 persons listed!";
+        assertResultMessage(expected);
     }
 
     @Test
     public void searchPerson_withSameLastName_foundMultiple() throws IllegalValueException {
         runCommand("find Meier");
         assertListSize(2);
-        assertEquals("2 persons listed!", resultDisplay.getText());
+        assertResultMessage("2 persons listed!");
         assertTrue(personListPanel.isListMatching(td.benson, td.daniel));
     }
 
@@ -27,7 +28,7 @@ public class FindCommandTest extends AddressBookGuiTest {
     public void searchPerson_withUniqueLastName_foundSingle() throws IllegalValueException {
         runCommand("find Pauline");
         assertListSize(1);
-        assertEquals("1 persons listed!", resultDisplay.getText());
+        assertResultMessage("1 persons listed!");
         assertTrue(personListPanel.isListMatching(td.alice));
     }
 
@@ -36,7 +37,7 @@ public class FindCommandTest extends AddressBookGuiTest {
     public void searchPerson_withUniqueFirstName_foundSingle() throws IllegalValueException {
         runCommand("find George");
         assertListSize(1);
-        assertEquals("1 persons listed!", resultDisplay.getText());
+        assertResultMessage("1 persons listed!");
         assertTrue(personListPanel.isListMatching(td.george));
     }
 
@@ -44,7 +45,7 @@ public class FindCommandTest extends AddressBookGuiTest {
     public void searchPerson_withFullName_foundSingle() throws IllegalValueException {
         runCommand("find Elle Meyer");
         assertListSize(1);
-        assertEquals("1 persons listed!", resultDisplay.getText());
+        assertResultMessage("1 persons listed!");
         assertTrue(personListPanel.isListMatching(td.elle));
     }
 
@@ -52,12 +53,12 @@ public class FindCommandTest extends AddressBookGuiTest {
     public void searchPerson_withSameSubsetOfCharacters_foundNone() throws IllegalValueException {
         runCommand("find on");
         assertListSize(0);
-        assertEquals("0 persons listed!", resultDisplay.getText());
+        assertResultMessage("0 persons listed!");
     }
 
     @Test
     public void searchPerson_invalidCommand_fail() {
         runCommand("findgeorge");
-        assertEquals("Invalid command", resultDisplay.getText());
+        assertResultMessage("Invalid command");
     }
 }

@@ -13,7 +13,7 @@ public class ClearCommandTest extends AddressBookGuiTest {
         assertTrue(personListPanel.isListMatching(td.getTypicalPersons()));
         runCommand("clear");
         assertEquals(0, personListPanel.getNumberOfPeople());
-        assertEquals("Address book has been cleared!", resultDisplay.getText());
+        assertResultMessage("Address book has been cleared!");
     }
 
     @Test
@@ -21,7 +21,7 @@ public class ClearCommandTest extends AddressBookGuiTest {
         assertTrue(personListPanel.isListMatching(td.getTypicalPersons()));
         runCommand("clear");
         assertEquals(0, personListPanel.getNumberOfPeople());
-        assertEquals("Address book has been cleared!", resultDisplay.getText());
+        assertResultMessage("Address book has been cleared!");
 
         runCommand(td.hoon.getCommandString());
         assertTrue(personListPanel.isListMatching(td.hoon));
@@ -35,6 +35,6 @@ public class ClearCommandTest extends AddressBookGuiTest {
 
         runCommand("clear");
         assertEquals(0, personListPanel.getNumberOfPeople());
-        assertEquals("Address book has been cleared!", resultDisplay.getText());
+        assertResultMessage("Address book has been cleared!");
     }
 }

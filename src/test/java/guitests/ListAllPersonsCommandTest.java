@@ -12,23 +12,23 @@ public class ListAllPersonsCommandTest extends AddressBookGuiTest {
     public void listAllPerson_afterNoResultSearch_showAllPersons() {
         runCommand("find Mark");
         assertEquals(0, personListPanel.getNumberOfPeople());
-        assertEquals("0 persons listed!", resultDisplay.getText());
+        assertResultMessage("0 persons listed!");
 
         runCommand("list");
         assertTrue(personListPanel.isListMatching(td.getTypicalPersons()));
-        assertEquals("Listed all persons", resultDisplay.getText());
+        assertResultMessage("Listed all persons");
     }
 
     @Test
     public void listAllPerson_afterPositiveSearch_showAllPersons() {
         runCommand("find Meier");
         assertEquals(2, personListPanel.getNumberOfPeople());
-        assertEquals("2 persons listed!", resultDisplay.getText());
+        assertResultMessage("2 persons listed!");
         assertTrue(personListPanel.isListMatching(td.benson, td.daniel));
 
         runCommand("list");
         assertTrue(personListPanel.isListMatching(td.getTypicalPersons()));
-        assertEquals("Listed all persons", resultDisplay.getText());
+        assertResultMessage("Listed all persons");
     }
 
     @Test
@@ -36,7 +36,7 @@ public class ListAllPersonsCommandTest extends AddressBookGuiTest {
         assertTrue(personListPanel.isListMatching(td.getTypicalPersons()));
         runCommand("list");
         assertTrue(personListPanel.isListMatching(td.getTypicalPersons()));
-        assertEquals("Listed all persons", resultDisplay.getText());
+        assertResultMessage("Listed all persons");
     }
 
     @Test
@@ -46,7 +46,7 @@ public class ListAllPersonsCommandTest extends AddressBookGuiTest {
         assertTrue(personListPanel.isListMatching(TestUtil.removePersonsFromList(td.getTypicalPersons(), td.alice)));
         runCommand("list");
         assertTrue(personListPanel.isListMatching(TestUtil.removePersonsFromList(td.getTypicalPersons(), td.alice)));
-        assertEquals("Listed all persons", resultDisplay.getText());
+        assertResultMessage("Listed all persons");
     }
 
     @Test
@@ -56,7 +56,7 @@ public class ListAllPersonsCommandTest extends AddressBookGuiTest {
         assertTrue(personListPanel.isListMatching(TestUtil.addPersonsToList(td.getTypicalPersons(), td.hoon)));
         runCommand("list");
         assertTrue(personListPanel.isListMatching(TestUtil.addPersonsToList(td.getTypicalPersons(), td.hoon)));
-        assertEquals("Listed all persons", resultDisplay.getText());
+        assertResultMessage("Listed all persons");
     }
 
 }

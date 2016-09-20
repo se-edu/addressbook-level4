@@ -36,12 +36,12 @@ public class SelectCommandTest extends AddressBookGuiTest {
 
     private void assertSelectionInvalid(int index) {
         runCommand("select " + index);
-        assertEquals("The person index provided is invalid", resultDisplay.getText());
+        assertResultMessage("The person index provided is invalid");
     }
 
     private void assertSelectionSuccess(int index) {
         runCommand("select " + index);
-        assertEquals("Selected Person: "+index, resultDisplay.getText());
+        assertResultMessage("Selected Person: "+index);
         assertPersonSelected(index);
     }
 
