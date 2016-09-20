@@ -144,7 +144,7 @@ public class MainWindow extends BaseUiPart {
         AnchorPane pane = this.getAnchorPane(BROWSER_PLACEHOLDER);
         pane.setOnKeyPressed(Event::consume); // Stops triggering of keybinding event.
         pane.getChildren().add(browserManager.getBrowserView());
-        return (WebView) browserManager.getBrowserView();
+        return browserManager.getBrowserView();
     }
 
     /**
