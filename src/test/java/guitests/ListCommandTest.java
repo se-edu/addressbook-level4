@@ -28,7 +28,7 @@ public class ListCommandTest extends AddressBookGuiTest {
         assertListSuccess(expectedList);
 
         //list after adding person
-        runCommand(td.alice.getCommandString());
+        runCommand(td.alice.getAddCommand());
         assertListSuccess(TestUtil.addPersonsToList(expectedList, td.alice));
 
         //list when address book is empty

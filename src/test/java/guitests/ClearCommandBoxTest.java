@@ -11,7 +11,7 @@ public class ClearCommandBoxTest extends AddressBookGuiTest {
 
     @Test
     public void clearCommandBox_successful() throws IllegalValueException {
-        commandBox.enterCommand(td.benson.getCommandString());
+        commandBox.enterCommand(td.benson.getAddCommand());
         assertNotEquals(commandBox.getCommandInput(), "");
         mainGui.pressEnter();
         PersonCardHandle johnCard = personListPanel.navigateToPerson(td.benson.getName().fullName);

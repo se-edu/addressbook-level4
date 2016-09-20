@@ -11,22 +11,22 @@ public class PersonAddCommandTest extends AddressBookGuiTest {
 
     @Test
     public void addPerson_singlePerson_successful() throws IllegalValueException {
-        runCommand(td.hoon.getCommandString());
+        runCommand(td.hoon.getAddCommand());
         PersonCardHandle johnCard = personListPanel.navigateToPerson(td.hoon.getName().fullName);
         assertMatching(td.hoon, johnCard);
     }
 
     @Test
     public void addPerson_duplicatePerson_showFeedback() throws IllegalValueException {
-        runCommand(td.hoon.getCommandString());
-        runCommand(td.hoon.getCommandString());
+        runCommand(td.hoon.getAddCommand());
+        runCommand(td.hoon.getAddCommand());
         assertResultMessage(AddPersonCommand.MESSAGE_DUPLICATE_PERSON);
     }
 
     @Test
     public void addPerson_multiplePerson_success() throws IllegalValueException {
-        runCommand(td.hoon.getCommandString());
-        runCommand(td.ida.getCommandString());
+        runCommand(td.hoon.getAddCommand());
+        runCommand(td.ida.getAddCommand());
 
         final PersonCardHandle aliceCard = personListPanel.navigateToPerson(td.hoon);
         assertMatching(td.hoon, aliceCard);

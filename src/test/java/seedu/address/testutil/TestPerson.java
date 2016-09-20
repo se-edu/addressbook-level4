@@ -73,7 +73,7 @@ public class TestPerson implements ReadOnlyPerson {
         return getAsTextShowAll();
     }
 
-    public String getCommandString() {
+    public String getAddCommand() {
         StringBuilder sb = new StringBuilder();
         sb.append("add " + this.getName().fullName + " ");
         sb.append("p/" + this.getPhone().value + " ");
