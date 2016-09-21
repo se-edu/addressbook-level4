@@ -4,17 +4,16 @@ import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SplitPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import seedu.address.browser.BrowserManager;
 import seedu.address.events.EventManager;
 import seedu.address.events.controller.PersonPanelSelectionChangedEvent;
 import seedu.address.model.ModelManager;
 import seedu.address.model.person.ReadOnlyPerson;
-import seedu.address.ui.PersonListViewCell;
 import seedu.address.util.LoggerManager;
 
 import java.util.logging.Logger;
@@ -92,6 +91,24 @@ public class PersonListPanel extends UiPart {
             personListView.scrollTo(index);
             personListView.getSelectionModel().clearAndSelect(index);
         });
+    }
+
+    class PersonListViewCell extends ListCell<ReadOnlyPerson> {
+
+        public PersonListViewCell() {
+        }
+
+        @Override
+        protected void updateItem(ReadOnlyPerson person, boolean empty) {
+            super.updateItem(person, empty);
+
+            if (empty || person == null) {
+                setGraphic(null);
+                setText(null);
+            } else {
+                setGraphic(PersonCard.load(person, getIndex() + 1).getLayout());
+            }
+        }
     }
 
 }
