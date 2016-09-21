@@ -124,11 +124,73 @@ public class CommandBoxTest {
     @Test
     public void execute_clear() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        model.addPerson(helper.generatePerson(1, true));
-        model.addPerson(helper.generatePerson(2, true));
-        model.addPerson(helper.generatePerson(3, true));
+        model.addPerson(helper.generatePerson(1));
+        model.addPerson(helper.generatePerson(2));
+        model.addPerson(helper.generatePerson(3));
 
         assertCommandBehavior("clear", ClearCommand.MESSAGE_SUCCESS, new AddressBook(), Collections.emptyList());
+    }
+
+    @Test
+    public void execute_add_invalidArgsFormat() throws Exception {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
+        assertCommandBehavior(
+                "add wrong args wrong args", expectedMessage);
+        assertCommandBehavior(
+                "add Valid Name 12345 e/valid@email.butNoPhonePrefix a/valid, address", expectedMessage);
+        assertCommandBehavior(
+                "add Valid Name p/12345 valid@email.butNoPrefix a/valid, address", expectedMessage);
+        assertCommandBehavior(
+                "add Valid Name p/12345 e/valid@email.butNoAddressPrefix valid, address", expectedMessage);
+    }
+
+    @Test
+    public void execute_add_invalidPersonData() throws Exception {
+        assertCommandBehavior(
+                "add []\\[;] p/12345 e/valid@e.mail a/valid, address", Name.MESSAGE_NAME_CONSTRAINTS);
+        assertCommandBehavior(
+                "add Valid Name p/not_numbers e/valid@e.mail a/valid, address", Phone.MESSAGE_PHONE_CONSTRAINTS);
+        assertCommandBehavior(
+                "add Valid Name p/12345 e/notAnEmail a/valid, address", Email.MESSAGE_EMAIL_CONSTRAINTS);
+        assertCommandBehavior(
+                "add Valid Name p/12345 e/valid@e.mail a/valid, address t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
+
+    }
+
+    @Test
+    public void execute_add_successful() throws Exception {
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        Person toBeAdded = helper.adam();
+        AddressBook expectedAB = new AddressBook();
+        expectedAB.addPerson(toBeAdded);
+
+        // execute command and verify result
+        assertCommandBehavior(helper.generateAddCommand(toBeAdded),
+                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
+                expectedAB,
+                Collections.emptyList());
+
+    }
+
+    @Test
+    public void execute_addDuplicate_notAllowed() throws Exception {
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        Person toBeAdded = helper.adam();
+        AddressBook expectedAB = new AddressBook();
+        expectedAB.addPerson(toBeAdded);
+
+        // setup starting state
+        model.addPerson(toBeAdded); // person already in internal address book
+
+        // execute command and verify result
+        assertCommandBehavior(
+                helper.generateAddCommand(toBeAdded),
+                AddCommand.MESSAGE_DUPLICATE_PERSON,
+                expectedAB,
+                Collections.emptyList());
+
     }
 
     /**
@@ -138,9 +200,9 @@ public class CommandBoxTest {
 
         Person adam() throws Exception {
             Name name = new Name("Adam Brown");
-            Phone privatePhone = new Phone("111111", true);
-            Email email = new Email("adam@gmail.com", false);
-            Address privateAddress = new Address("111, alpha street", true);
+            Phone privatePhone = new Phone("111111");
+            Email email = new Email("adam@gmail.com");
+            Address privateAddress = new Address("111, alpha street");
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
@@ -153,32 +215,31 @@ public class CommandBoxTest {
          * Each unique seed will generate a unique Person object.
          *
          * @param seed used to generate the person data field values
-         * @param isAllFieldsPrivate determines if private-able fields (phone, email, address) will be private
          */
-        Person generatePerson(int seed, boolean isAllFieldsPrivate) throws Exception {
+        Person generatePerson(int seed) throws Exception {
             return new Person(
                     new Name("Person " + seed),
-                    new Phone("" + Math.abs(seed), isAllFieldsPrivate),
-                    new Email(seed + "@email", isAllFieldsPrivate),
-                    new Address("House of " + seed, isAllFieldsPrivate),
+                    new Phone("" + Math.abs(seed)),
+                    new Email(seed + "@email"),
+                    new Address("House of " + seed),
                     new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
             );
         }
 
         /** Generates the correct add command based on the person given */
         String generateAddCommand(Person p) {
-            StringBuffer cmd = new StringBuffer(" ");
+            StringBuffer cmd = new StringBuffer();
 
-            cmd.append("add");
+            cmd.append("add ");
 
             cmd.append(p.getName().toString());
-            cmd.append((p.getPhone().isPrivate() ? "pp/" : "p/") + p.getPhone());
-            cmd.append((p.getEmail().isPrivate() ? "pe/" : "e/") + p.getEmail());
-            cmd.append((p.getAddress().isPrivate() ? "pa/" : "a/") + p.getAddress());
+            cmd.append("p/").append(p.getPhone());
+            cmd.append("e/").append(p.getEmail());
+            cmd.append("a/").append(p.getAddress());
 
             UniqueTagList tags = p.getTags();
             for(Tag t: tags){
-                cmd.append("t/" + t.tagName);
+                cmd.append("t/").append(t.tagName);
             }
 
             return cmd.toString();
@@ -186,12 +247,10 @@ public class CommandBoxTest {
 
         /**
          * Generates an AddressBook with auto-generated persons.
-         * @param isPrivateStatuses flags to indicate if all contact details of respective persons should be set to
-         *                          private.
          */
-        AddressBook generateAddressBook(Boolean... isPrivateStatuses) throws Exception{
+        AddressBook generateAddressBook(int numGenerated) throws Exception{
             AddressBook addressBook = new AddressBook();
-            addToAddressBook(addressBook, isPrivateStatuses);
+            addToAddressBook(addressBook, numGenerated);
             return addressBook;
         }
 
@@ -207,11 +266,9 @@ public class CommandBoxTest {
         /**
          * Adds auto-generated Person objects to the given AddressBook
          * @param addressBook The AddressBook to which the Persons will be added
-         * @param isPrivateStatuses flags to indicate if all contact details of generated persons should be set to
-         *                          private.
          */
-        void addToAddressBook(AddressBook addressBook, Boolean... isPrivateStatuses) throws Exception{
-            addToAddressBook(addressBook, generatePersonList(isPrivateStatuses));
+        void addToAddressBook(AddressBook addressBook, int numGenerated) throws Exception{
+            addToAddressBook(addressBook, generatePersonList(numGenerated));
         }
 
         /**
@@ -224,26 +281,12 @@ public class CommandBoxTest {
         }
 
         /**
-         * Creates a list of Persons based on the give Person objects.
-         */
-        List<Person> generatePersonList(Person... persons) throws Exception{
-            List<Person> personList = new ArrayList<>();
-            for(Person p: persons){
-                personList.add(p);
-            }
-            return personList;
-        }
-
-        /**
          * Generates a list of Persons based on the flags.
-         * @param isPrivateStatuses flags to indicate if all contact details of respective persons should be set to
-         *                          private.
          */
-        List<Person> generatePersonList(Boolean... isPrivateStatuses) throws Exception{
+        List<Person> generatePersonList(int numGenerated) throws Exception{
             List<Person> persons = new ArrayList<>();
-            int i = 1;
-            for(Boolean p: isPrivateStatuses){
-                persons.add(generatePerson(i++, p));
+            for(int i = 1; i <= numGenerated; i++){
+                persons.add(generatePerson(i));
             }
             return persons;
         }
@@ -254,9 +297,9 @@ public class CommandBoxTest {
         Person generatePersonWithName(String name) throws Exception {
             return new Person(
                     new Name(name),
-                    new Phone("1", false),
-                    new Email("1@email", false),
-                    new Address("House of 1", false),
+                    new Phone("1"),
+                    new Email("1@email"),
+                    new Address("House of 1"),
                     new UniqueTagList(new Tag("tag"))
             );
         }

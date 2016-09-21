@@ -2,17 +2,22 @@
 <addressbook>
     <persons>
         <name>John Doe</name>
-        <phone isPrivate="false">98765432</phone>
-        <email isPrivate="false">johnd@gmail.com</email>
-        <address isPrivate="false">311, Clementi Ave 2, #02-25</address>
+        <phone>98765432</phone>
+        <email>johnd@gmail.com</email>
+        <address>311, Clementi Ave 2, #02-25</address>
         <tagged>owesMoney</tagged>
         <tagged>friends</tagged>
     </persons>
     <persons>
         <name>Jane Doe</name>
-        <phone isPrivate="false">98765432</phone>
-        <email isPrivate="false">jane@gmail.com</email>
-        <address isPrivate="false">232, Bukit Batok Ave 2, #34-40</address>
+        <phone>98765432</phone>
+        <email>jane@gmail.com</email>
+        <address>232, Bukit Batok Ave 2, #34-40</address>
         <tagged>buddies</tagged>
     </persons>
+    <tags>
+        <tagName>owesMoney</tagName>
+        <tagName>buddies</tagName>
+        <tagName>friends</tagName>
+    </tags>
 </addressbook>
