@@ -1,7 +1,7 @@
 package seedu.address.model.tag;
 
 
-import seedu.address.commons.Utils;
+import seedu.address.commons.CollectionUtil;
 import seedu.address.exceptions.IllegalValueException;
 
 /**
@@ -24,7 +24,7 @@ public class Tag {
      * @throws IllegalValueException if the given tag name string is invalid.
      */
     public Tag(String name) throws IllegalValueException {
-        Utils.assertNotNull(name);
+        CollectionUtil.assertNotNull(name);
         name = name.trim();
         if (!isValidTagName(name)) {
             throw new IllegalValueException(MESSAGE_TAG_CONSTRAINTS);

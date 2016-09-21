@@ -1,6 +1,6 @@
 package seedu.address.storage;
 
-import seedu.address.commons.Utils;
+import seedu.address.commons.CollectionUtil;
 import seedu.address.exceptions.IllegalValueException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
@@ -63,7 +63,7 @@ public class AdaptedPerson {
                 return true;
             }
         }
-        return Utils.isAnyNull(name, phone, email, address);
+        return CollectionUtil.isAnyNull(name, phone, email, address);
     }
 
     /**

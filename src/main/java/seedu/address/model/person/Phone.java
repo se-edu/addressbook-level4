@@ -1,6 +1,6 @@
 package seedu.address.model.person;
 
-import seedu.address.commons.Utils;
+import seedu.address.commons.CollectionUtil;
 import seedu.address.exceptions.IllegalValueException;
 
 /**
@@ -21,7 +21,7 @@ public class Phone {
      * @throws IllegalValueException if given phone string is invalid.
      */
     public Phone(String phone) throws IllegalValueException {
-        Utils.assertNotNull(phone);
+        CollectionUtil.assertNotNull(phone);
         phone = phone.trim();
         if (!isValidPhone(phone)) {
             throw new IllegalValueException(MESSAGE_PHONE_CONSTRAINTS);
