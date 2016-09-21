@@ -33,7 +33,7 @@ public class MainWindow extends UiPart {
     private static final String ICON = "/images/address_book_32.png";
     private static final String FXML = "MainWindow.fxml";
     private static final String RESULT_DISPLAY_PLACEHOLDER_FIELD_ID = "#resultDisplayPlaceholder";
-    private static final String FOOTER_STATUSBAR_PLACEHOLDER_FIELD_ID = "#footerStatusbarPlaceholder";
+    private static final String STATUSBAR_PLACEHOLDER_FIELD_ID = "#footerStatusbarPlaceholder";
     private static final String COMMAND_BOX_PLACEHOLDER_FIELD_ID = "#commandBoxPlaceholder";
     private static final String BROWSER_PLACEHOLDER = "#personWebpage";
     public static final int MIN_HEIGHT = 600;
@@ -114,23 +114,18 @@ public class MainWindow extends UiPart {
         setAccelerators();
     }
 
-    //TODO: to be removed with more specific method e.g. getListPanelSlot
-    public AnchorPane getAnchorPane(String anchorPaneId) {
-        return (AnchorPane) rootLayout.lookup(anchorPaneId);
-    }
-
     private void setKeyEventHandler() {
         scene.setOnKeyPressed(e -> raisePotentialEvent(new KeyBindingEvent(e)));
     }
 
-    public void setAccelerators() {
+    private void setAccelerators() {
         helpMenuItem.setAccelerator(KeyCombination.valueOf("F1"));
     }
 
-    public void fillInnerParts() {
+    void fillInnerParts() {
         personListPanel = PersonListPanel.load(primaryStage, getPersonListPlaceholder(), modelManager, browserManager);
-        resultDisplay = ResultDisplay.load(primaryStage, getHeaderStatusbarPlaceholder());
-        statusBarFooter = StatusBarFooter.load(primaryStage, getFooterStatusbarPlaceholder(), addressBookName);
+        resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
+        statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), addressBookName);
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), parser, resultDisplay, modelManager);
         browser = loadBrowser();
     }
@@ -139,24 +134,25 @@ public class MainWindow extends UiPart {
         return this.getAnchorPane(COMMAND_BOX_PLACEHOLDER_FIELD_ID);
     }
 
-    private AnchorPane getFooterStatusbarPlaceholder() {
-        return this.getAnchorPane(FOOTER_STATUSBAR_PLACEHOLDER_FIELD_ID);
+    private AnchorPane getAnchorPane(String anchorPaneId) {
+        return (AnchorPane) rootLayout.lookup(anchorPaneId);
     }
 
-    private AnchorPane getHeaderStatusbarPlaceholder() {
+    private AnchorPane getStatusbarPlaceholder() {
+        return this.getAnchorPane(STATUSBAR_PLACEHOLDER_FIELD_ID);
+    }
+
+    private AnchorPane getResultDisplayPlaceholder() {
         return this.getAnchorPane(RESULT_DISPLAY_PLACEHOLDER_FIELD_ID);
     }
     
     private WebView loadBrowser() {
         AnchorPane pane = this.getAnchorPane(BROWSER_PLACEHOLDER);
-        pane.setOnKeyPressed(Event::consume); // Stops triggering of keybinding event.
+        pane.setOnKeyPressed(Event::consume); // To prevent triggering events for typing inside the loaded Web page.
         pane.getChildren().add(browserManager.getBrowserView());
         return browserManager.getBrowserView();
     }
 
-    /**
-     * Returns the AnchorPane where the PersonListPanel is to added.
-     */
     public AnchorPane getPersonListPlaceholder() {
         return personListPanelPlaceholder;
     }
