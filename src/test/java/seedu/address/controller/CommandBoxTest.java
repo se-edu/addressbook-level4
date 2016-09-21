@@ -51,7 +51,9 @@ public class CommandBoxTest {
         model = new ModelManager(null); // ignore config
         resultDisplay = new ResultDisplay();
         inputBox = new CommandBox();
-        inputBox.configure(new Parser(), resultDisplay, model);
+        Parser parser = new Parser();
+        parser.configure(model.getFilteredPersonList());
+        inputBox.configure(parser, resultDisplay, model);
         EventManager.getInstance().registerHandler(this);
 
         latestSavedAddressBook = new AddressBook(model.getAddressBook()); // last saved assumed to be up to date before.
@@ -88,7 +90,7 @@ public class CommandBoxTest {
      */
     private void assertCommandBehavior(String inputCommand,
                                        String expectedMessage,
-                                       AddressBook expectedAddressBook,
+                                       ReadOnlyAddressBook expectedAddressBook,
                                        List<? extends ReadOnlyPerson> shownList) throws Exception {
 
         //Execute the command
@@ -130,6 +132,7 @@ public class CommandBoxTest {
 
         assertCommandBehavior("clear", ClearCommand.MESSAGE_SUCCESS, new AddressBook(), Collections.emptyList());
     }
+
 
     @Test
     public void execute_add_invalidArgsFormat() throws Exception {
@@ -191,6 +194,73 @@ public class CommandBoxTest {
                 expectedAB,
                 expectedAB.getPersonList());
 
+    }
+
+
+    @Test
+    public void execute_list_showsAllPersons() throws Exception {
+        // prepare expectations
+        TestDataHelper helper = new TestDataHelper();
+        AddressBook expectedAB = helper.generateAddressBook(2);
+        List<? extends ReadOnlyPerson> expectedList = expectedAB.getPersonList();
+
+        // prepare address book state
+        helper.addToModel(model, 2);
+
+        assertCommandBehavior("list",
+                ListCommand.MESSAGE_SUCCESS,
+                expectedAB,
+                expectedList);
+    }
+
+
+    @Test
+    public void execute_delete_invalidArgsFormat() throws Exception {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE);
+        assertCommandBehavior("delete ", expectedMessage);
+        assertCommandBehavior("delete arg not number", MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+    }
+
+    @Test
+    public void execute_delete_invalidIndex() throws Exception {
+        assertInvalidIndexBehaviorForCommand("delete");
+    }
+
+    /**
+     * Confirms the 'invalid argument index number behaviour' for the given command
+     * targeting a single person in the shown list, using visible index.
+     * @param commandWord to test assuming it targets a single person in the last shown list based on visible index.
+     */
+    private void assertInvalidIndexBehaviorForCommand(String commandWord) throws Exception {
+        String expectedMessage = MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
+        TestDataHelper helper = new TestDataHelper();
+        List<Person> personList = helper.generatePersonList(2);
+
+        // set AB state to 2 persons
+        model.resetData(new AddressBook());
+        for (Person p : personList) {
+            model.addPerson(p);
+        }
+
+        assertCommandBehavior(commandWord + " -1", expectedMessage, model.getAddressBook(), personList);
+        assertCommandBehavior(commandWord + " 0", expectedMessage, model.getAddressBook(), personList);
+        assertCommandBehavior(commandWord + " 3", expectedMessage, model.getAddressBook(), personList);
+
+    }
+
+    @Test
+    public void execute_delete_removesCorrectPerson() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        List<Person> threePersons = helper.generatePersonList(3);
+
+        AddressBook expectedAB = helper.generateAddressBook(threePersons);
+        expectedAB.removePerson(threePersons.get(1));
+        helper.addToModel(model, threePersons);
+
+        assertCommandBehavior("delete 2",
+                String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, threePersons.get(1)),
+                expectedAB,
+                expectedAB.getPersonList());
     }
 
     /**
@@ -277,6 +347,23 @@ public class CommandBoxTest {
         void addToAddressBook(AddressBook addressBook, List<Person> personsToAdd) throws Exception{
             for(Person p: personsToAdd){
                 addressBook.addPerson(p);
+            }
+        }
+
+        /**
+         * Adds auto-generated Person objects to the given model
+         * @param modelManager The model to which the Persons will be added
+         */
+        void addToModel(ModelManager modelManager, int numGenerated) throws Exception{
+            addToModel(modelManager, generatePersonList(numGenerated));
+        }
+
+        /**
+         * Adds the given list of Persons to the given model
+         */
+        void addToModel(ModelManager modelManager, List<Person> personsToAdd) throws Exception{
+            for(Person p: personsToAdd){
+                modelManager.addPerson(p);
             }
         }
 
