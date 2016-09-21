@@ -8,7 +8,7 @@ import java.util.List;
  */
 public class StringUtil {
     public static boolean containsIgnoreCase(String source, String query) {
-        String[] split = source.toLowerCase().split(" ");
+        String[] split = source.toLowerCase().split("\\s+");
         List<String> strings = Arrays.asList(split);
         return strings.stream().filter(s -> s.equals(query.toLowerCase())).count() > 0;
     }

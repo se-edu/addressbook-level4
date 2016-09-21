@@ -14,6 +14,7 @@ import seedu.address.model.tag.*;
 import seedu.address.parser.Parser;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
@@ -75,7 +76,7 @@ public class CommandBoxTest {
     /**
      * Executes the command and confirms that the result message is correct.
      * Both the 'address book' and the 'last shown list' are expected to be empty.
-     * @see #assertCommandBehavior(String, String, AddressBook, List)
+     * @see #assertCommandBehavior(String, String, ReadOnlyAddressBook, List)
      */
     private void assertCommandBehavior(String inputCommand, String expectedMessage) throws Exception {
         assertCommandBehavior(inputCommand, expectedMessage, new AddressBook(), Collections.emptyList());
@@ -88,17 +89,17 @@ public class CommandBoxTest {
      *      - the backing list shown by UI matches the {@code shownList} <br>
      *      - {@code expectedAddressBook} was saved to the storage file. <br>
      */
-    private void assertCommandBehavior(String inputCommand,
-                                       String expectedMessage,
+    private void assertCommandBehavior(String inputCommand, String expectedMessage,
                                        ReadOnlyAddressBook expectedAddressBook,
-                                       List<? extends ReadOnlyPerson> shownList) throws Exception {
+                                       List<? extends ReadOnlyPerson> expectedShownList) throws Exception {
 
         //Execute the command
         inputBox.processCommandInput(inputCommand);
 
         //Confirm the ui display elements should contain the right data
         assertEquals(expectedMessage, resultDisplay.getDisplayed());
-        assertEquals(shownList, model.getFilteredPersonList());
+        System.out.println(expectedShownList.equals(model.getFilteredPersonList()));
+        assertEquals(expectedShownList, model.getFilteredPersonList());
 
         //Confirm the state of data (saved and in-memory) is as expected
         assertEquals(expectedAddressBook, model.getAddressBook());
@@ -214,18 +215,6 @@ public class CommandBoxTest {
     }
 
 
-    @Test
-    public void execute_delete_invalidArgsFormat() throws Exception {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE);
-        assertCommandBehavior("delete ", expectedMessage);
-        assertCommandBehavior("delete arg not number", MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
-    }
-
-    @Test
-    public void execute_delete_invalidIndex() throws Exception {
-        assertInvalidIndexBehaviorForCommand("delete");
-    }
-
     /**
      * Confirms the 'invalid argument index number behaviour' for the given command
      * targeting a single person in the shown list, using visible index.
@@ -249,6 +238,18 @@ public class CommandBoxTest {
     }
 
     @Test
+    public void execute_delete_invalidArgsFormat() throws Exception {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE);
+        assertCommandBehavior("delete ", expectedMessage);
+        assertCommandBehavior("delete arg not number", MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+    }
+
+    @Test
+    public void execute_delete_invalidIndex() throws Exception {
+        assertInvalidIndexBehaviorForCommand("delete");
+    }
+
+    @Test
     public void execute_delete_removesCorrectPerson() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         List<Person> threePersons = helper.generatePersonList(3);
@@ -261,6 +262,70 @@ public class CommandBoxTest {
                 String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, threePersons.get(1)),
                 expectedAB,
                 expectedAB.getPersonList());
+    }
+
+
+    @Test
+    public void execute_find_invalidArgsFormat() throws Exception {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE);
+        assertCommandBehavior("find ", expectedMessage);
+    }
+
+    @Test
+    public void execute_find_onlyMatchesFullWordsInNames() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Person pTarget1 = helper.generatePersonWithName("bla bla KEY bla");
+        Person pTarget2 = helper.generatePersonWithName("bla KEY bla bceofeia");
+        Person p1 = helper.generatePersonWithName("KE Y");
+        Person p2 = helper.generatePersonWithName("KEYKEYKEY sduauo");
+
+        List<Person> fourPersons = helper.generatePersonList(p1, pTarget1, p2, pTarget2);
+        AddressBook expectedAB = helper.generateAddressBook(fourPersons);
+        List<Person> expectedList = helper.generatePersonList(pTarget1, pTarget2);
+        helper.addToModel(model, fourPersons);
+
+        assertCommandBehavior("find KEY",
+                Command.getMessageForPersonListShownSummary(expectedList.size()),
+                expectedAB,
+                expectedList);
+    }
+
+    @Test
+    public void execute_find_isNotCaseSensitive() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Person p1 = helper.generatePersonWithName("bla bla KEY bla");
+        Person p2 = helper.generatePersonWithName("bla KEY bla bceofeia");
+        Person p3 = helper.generatePersonWithName("key key");
+        Person p4 = helper.generatePersonWithName("KEy sduauo");
+
+        List<Person> fourPersons = helper.generatePersonList(p3, p1, p4, p2);
+        AddressBook expectedAB = helper.generateAddressBook(fourPersons);
+        List<Person> expectedList = fourPersons;
+        helper.addToModel(model, fourPersons);
+
+        assertCommandBehavior("find KEY",
+                Command.getMessageForPersonListShownSummary(expectedList.size()),
+                expectedAB,
+                expectedList);
+    }
+
+    @Test
+    public void execute_find_matchesIfAnyKeywordPresent() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Person pTarget1 = helper.generatePersonWithName("bla bla KEY bla");
+        Person pTarget2 = helper.generatePersonWithName("bla rAnDoM bla bceofeia");
+        Person pTarget3 = helper.generatePersonWithName("key key");
+        Person p1 = helper.generatePersonWithName("sduauo");
+
+        List<Person> fourPersons = helper.generatePersonList(pTarget1, p1, pTarget2, pTarget3);
+        AddressBook expectedAB = helper.generateAddressBook(fourPersons);
+        List<Person> expectedList = helper.generatePersonList(pTarget1, pTarget2, pTarget3);
+        helper.addToModel(model, fourPersons);
+
+        assertCommandBehavior("find key rAnDoM",
+                Command.getMessageForPersonListShownSummary(expectedList.size()),
+                expectedAB,
+                expectedList);
     }
 
     /**
@@ -376,6 +441,10 @@ public class CommandBoxTest {
                 persons.add(generatePerson(i));
             }
             return persons;
+        }
+
+        List<Person> generatePersonList(Person... persons) {
+            return Arrays.asList(persons);
         }
 
         /**
