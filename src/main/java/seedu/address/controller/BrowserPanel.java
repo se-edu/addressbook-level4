@@ -1,11 +1,10 @@
-package seedu.address.browser;
+package seedu.address.controller;
 
 import javafx.event.Event;
 import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.web.WebView;
 import seedu.address.commons.FxViewUtil;
-import seedu.address.controller.UiPart;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.util.LoggerManager;
 
@@ -47,12 +46,12 @@ public class BrowserPanel extends UiPart{
     }
 
     /**
-     * Starts the browser manager.
+     * Starts the browser.
      * Precondition: FX runtime is initialized and in FX application thread.
      */
     public void start() {
         logger.info("Initializing browser");
-        browser = new WebView(); //WebView need to be initialize after FX runtime is initialized
+        browser = new WebView();
     }
 
     public void loadPersonPage(ReadOnlyPerson person) {
