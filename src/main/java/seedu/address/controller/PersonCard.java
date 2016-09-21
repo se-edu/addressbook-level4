@@ -8,7 +8,7 @@ import seedu.address.model.person.ReadOnlyPerson;
 
 import java.io.IOException;
 
-public class PersonCardController {
+public class PersonCard {
 
     @FXML
     private HBox cardPane;
@@ -28,7 +28,7 @@ public class PersonCardController {
     private ReadOnlyPerson person;
     private int displayedIndex;
 
-    public PersonCardController(ReadOnlyPerson person, int displayedIndex) {
+    public PersonCard(ReadOnlyPerson person, int displayedIndex) {
         this.person = person;
         this.displayedIndex = displayedIndex;
 

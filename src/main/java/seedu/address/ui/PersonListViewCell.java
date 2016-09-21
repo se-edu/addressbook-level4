@@ -1,7 +1,7 @@
 package seedu.address.ui;
 
 import javafx.scene.control.ListCell;
-import seedu.address.controller.PersonCardController;
+import seedu.address.controller.PersonCard;
 import seedu.address.model.person.ReadOnlyPerson;
 
 public class PersonListViewCell extends ListCell<ReadOnlyPerson> {
@@ -17,7 +17,7 @@ public class PersonListViewCell extends ListCell<ReadOnlyPerson> {
             setGraphic(null);
             setText(null);
         } else {
-            setGraphic(new PersonCardController(person, getIndex() + 1).getLayout());
+            setGraphic(new PersonCard(person, getIndex() + 1).getLayout());
         }
     }
 }
