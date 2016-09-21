@@ -3,7 +3,7 @@ package seedu.address;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.datatypes.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.storage.StorageAddressBook;
 import seedu.address.testutil.TestUtil;
 import seedu.address.util.Config;

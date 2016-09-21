@@ -18,9 +18,9 @@ import seedu.address.commons.FileUtil;
 import seedu.address.commons.OsDetector;
 import seedu.address.commons.XmlUtil;
 import seedu.address.exceptions.IllegalValueException;
-import seedu.address.model.Tag;
-import seedu.address.model.UniqueTagList;
-import seedu.address.model.datatypes.AddressBook;
+import seedu.address.model.tag.Tag;
+import seedu.address.model.tag.UniqueTagList;
+import seedu.address.model.AddressBook;
 import seedu.address.model.person.*;
 import seedu.address.storage.StorageAddressBook;
 

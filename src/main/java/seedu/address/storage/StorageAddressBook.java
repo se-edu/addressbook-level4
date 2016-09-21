@@ -1,10 +1,9 @@
 package seedu.address.storage;
 
 import seedu.address.exceptions.IllegalValueException;
-import seedu.address.model.Tag;
-import seedu.address.model.UniqueTagList;
-import seedu.address.model.datatypes.ReadOnlyAddressBook;
-import seedu.address.model.person.Person;
+import seedu.address.model.tag.Tag;
+import seedu.address.model.tag.UniqueTagList;
+import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.UniquePersonList;
 

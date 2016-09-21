@@ -2,8 +2,8 @@ package seedu.address.storage;
 
 import seedu.address.commons.Utils;
 import seedu.address.exceptions.IllegalValueException;
-import seedu.address.model.Tag;
-import seedu.address.model.UniqueTagList;
+import seedu.address.model.tag.Tag;
+import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.person.*;
 
 import javax.xml.bind.annotation.XmlAttribute;

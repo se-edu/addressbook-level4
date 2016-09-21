@@ -1,11 +1,11 @@
-package seedu.address.model.datatypes;
+package seedu.address.model;
 
 import javafx.collections.ObservableList;
-import seedu.address.model.Tag;
-import seedu.address.model.UniqueTagList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.tag.Tag;
+import seedu.address.model.tag.UniqueTagList;
 import seedu.address.util.collections.UnmodifiableObservableList;
 
 import java.util.*;

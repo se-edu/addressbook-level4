@@ -10,7 +10,7 @@ import org.junit.rules.TestName;
 import org.testfx.api.FxToolkit;
 import seedu.address.TestApp;
 import seedu.address.events.EventManager;
-import seedu.address.model.datatypes.AddressBook;
+import seedu.address.model.AddressBook;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.testutil.TestUtil;
 import seedu.address.testutil.TypicalTestPersons;

@@ -1,8 +1,7 @@
 package seedu.address.testutil;
 
 import seedu.address.exceptions.IllegalValueException;
-import seedu.address.model.UniqueTagList;
-import seedu.address.model.datatypes.AddressBook;
+import seedu.address.model.AddressBook;
 import seedu.address.model.person.*;
 
 /**

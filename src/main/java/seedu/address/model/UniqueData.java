@@ -1,4 +1,4 @@
-package seedu.address.model.datatypes;
+package seedu.address.model;
 
 import java.util.Collection;
 import java.util.HashSet;

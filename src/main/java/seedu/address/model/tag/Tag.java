@@ -1,4 +1,4 @@
-package seedu.address.model;
+package seedu.address.model.tag;
 
 
 import seedu.address.commons.Utils;

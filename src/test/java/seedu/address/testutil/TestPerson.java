@@ -1,6 +1,6 @@
 package seedu.address.testutil;
 
-import seedu.address.model.UniqueTagList;
+import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.person.*;
 
 /**

@@ -6,10 +6,10 @@ import org.junit.rules.TemporaryFolder;
 
 import seedu.address.events.EventManager;
 import seedu.address.events.model.LocalModelChangedEvent;
-import seedu.address.model.*;
-import seedu.address.model.datatypes.*;
 import seedu.address.commands.*;
-import seedu.address.model.person.ReadOnlyPerson;
+import seedu.address.model.*;
+import seedu.address.model.person.*;
+import seedu.address.model.tag.*;
 import seedu.address.parser.Parser;
 
 import java.util.Collections;
@@ -91,5 +91,6 @@ public class CommandBoxTest {
         assertEquals(expectedAddressBook, model.getAddressBook());
         assertEquals(expectedAddressBook, latestSavedAddressBook);
     }
+
 
 }

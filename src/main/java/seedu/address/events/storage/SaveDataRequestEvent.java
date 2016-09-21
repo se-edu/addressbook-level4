@@ -1,7 +1,7 @@
 package seedu.address.events.storage;
 
 import seedu.address.events.BaseEvent;
-import seedu.address.model.datatypes.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyAddressBook;
 
 import java.io.File;
 
