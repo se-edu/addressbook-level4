@@ -6,7 +6,7 @@ import seedu.address.events.controller.JumpToListRequestEvent;
 /**
  * Selects a person identified using it's last displayed index from the address book.
  */
-public class SelectPersonCommand extends Command {
+public class SelectCommand extends Command {
 
     public final int targetIndex;
 
@@ -19,7 +19,7 @@ public class SelectPersonCommand extends Command {
 
     public static final String MESSAGE_SELECT_PERSON_SUCCESS = "Selected Person: %1$s";
 
-    public SelectPersonCommand(int targetIndex) {
+    public SelectCommand(int targetIndex) {
         this.targetIndex = targetIndex;
     }
 

@@ -2,6 +2,7 @@ package seedu.address.controller;
 
 import com.google.common.eventbus.Subscribe;
 import javafx.application.Platform;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -211,7 +212,7 @@ public class Ui {
         System.exit(1);
     }
 
-    public List<ReadOnlyPerson> getDisplayedPersons() {
-        return this.mainWindow.getPersonListPanel().getDisplayedPersons();
+    public ObservableList<ReadOnlyPerson> getDisplayedPersonsView() {
+        return this.mainWindow.getPersonListPanel().getDisplayedPersonsView();
     }
 }

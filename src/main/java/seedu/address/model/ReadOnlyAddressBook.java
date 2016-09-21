@@ -1,8 +1,8 @@
-package seedu.address.model.datatypes;
+package seedu.address.model;
 
 
-import seedu.address.model.Tag;
-import seedu.address.model.UniqueTagList;
+import seedu.address.model.tag.Tag;
+import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.util.collections.UnmodifiableObservableList;

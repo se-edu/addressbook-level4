@@ -1,4 +1,4 @@
-package seedu.address.model;
+package seedu.address.model.tag;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -93,6 +93,26 @@ public class UniqueTagList implements Iterable<Tag> {
     }
 
     /**
+     * Replaces the Tags in this list with those in the argument tag list.
+     */
+    public void setTags(UniqueTagList replacement) {
+        this.internalList.clear();
+        this.internalList.addAll(replacement.internalList);
+    }
+
+    /**
+     * Adds every tag from the argument list that does not yet exist in this list.
+     */
+    public void mergeFrom(UniqueTagList tags) {
+        final Set<Tag> alreadyInside = this.toSet();
+        for (Tag tag : tags) {
+            if (!alreadyInside.contains(tag)) {
+                internalList.add(tag);
+            }
+        }
+    }
+
+    /**
      * Checks if the list contains an equivalent Tag as the given argument.
      */
     public boolean contains(Tag toCheck) {
@@ -143,4 +163,16 @@ public class UniqueTagList implements Iterable<Tag> {
         return internalList;
     }
 
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof UniqueTagList // instanceof handles nulls
+                && this.internalList.equals(
+                ((UniqueTagList) other).internalList));
+    }
+
+    @Override
+    public int hashCode() {
+        return internalList.hashCode();
+    }
 }

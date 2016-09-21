@@ -85,22 +85,24 @@ public class MainWindow extends BaseUiPart {
     public static MainWindow load(Stage primaryStage, Config config, UserPrefs prefs, Ui ui,
                                   ModelManager modelManager, BrowserManager browserManager) {
         MainWindow mainWindow = UiPartLoader.loadUiPart(primaryStage, new MainWindow());
-        mainWindow.configure(config.getAppTitle(), config.getAddressBookName(), prefs, ui, modelManager,
-                             browserManager);
+        mainWindow.configureDependencies(config.getAddressBookName(), ui, modelManager, browserManager);
+        mainWindow.configureUi(config.getAppTitle(), prefs);
         mainWindow.setKeyEventHandler();
         mainWindow.setAccelerators();
         return mainWindow;
     }
 
-    private void configure(String appTitle, String addressBookName, UserPrefs prefs, Ui ui,
-                           ModelManager modelManager, BrowserManager browserManager) {
+    public void configureDependencies(String addressBookName, Ui ui, ModelManager modelManager,
+                                      BrowserManager browserManager) {
         // Set connections
         this.ui = ui;
         this.modelManager = modelManager;
         this.addressBookName = addressBookName;
         this.browserManager = browserManager;
-        this.parser.configure(ui);
-        // Configure the UI
+        this.parser.configure(modelManager.getFilteredPersonList());
+    }
+
+    private void configureUi(String appTitle, UserPrefs prefs) {
         setTitle(appTitle);
         setIcon(ICON);
         setWindowMinSize();
@@ -142,7 +144,7 @@ public class MainWindow extends BaseUiPart {
         AnchorPane pane = this.getAnchorPane(BROWSER_PLACEHOLDER);
         pane.setOnKeyPressed(Event::consume); // Stops triggering of keybinding event.
         pane.getChildren().add(browserManager.getBrowserView());
-        return (WebView) browserManager.getBrowserView();
+        return browserManager.getBrowserView();
     }
 
     /**

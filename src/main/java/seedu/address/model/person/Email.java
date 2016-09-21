@@ -8,7 +8,7 @@ import seedu.address.exceptions.IllegalValueException;
  * Represents a Person's phone number in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidEmail(String)}
  */
-public class Email extends ContactDetail {
+public class Email {
 
     public static final String EXAMPLE = "valid@e.mail";
     public static final String MESSAGE_EMAIL_CONSTRAINTS =
@@ -22,8 +22,7 @@ public class Email extends ContactDetail {
      *
      * @throws IllegalValueException if given email address string is invalid.
      */
-    public Email(String email, boolean isPrivate) throws IllegalValueException {
-        super(isPrivate);
+    public Email(String email) throws IllegalValueException {
         Utils.assertNotNull(email);
         email = email.trim();
         if (!isValidEmail(email)) {

@@ -1,7 +1,7 @@
 package seedu.address.testutil;
 
 import seedu.address.exceptions.IllegalValueException;
-import seedu.address.model.Tag;
+import seedu.address.model.tag.Tag;
 import seedu.address.model.person.*;
 
 /**
@@ -27,18 +27,18 @@ public class PersonBuilder {
         return this;
     }
 
-    public PersonBuilder withAddress(String address, boolean visible) throws IllegalValueException {
-        this.person.setAddress(new Address(address, visible));
+    public PersonBuilder withAddress(String address) throws IllegalValueException {
+        this.person.setAddress(new Address(address));
         return this;
     }
 
-    public PersonBuilder withPhone(String phone, boolean visible) throws IllegalValueException {
-        this.person.setPhone(new Phone(phone, visible));
+    public PersonBuilder withPhone(String phone) throws IllegalValueException {
+        this.person.setPhone(new Phone(phone));
         return this;
     }
 
-    public PersonBuilder withEmail(String email, boolean visible) throws IllegalValueException {
-        this.person.setEmail(new Email(email, visible));
+    public PersonBuilder withEmail(String email) throws IllegalValueException {
+        this.person.setEmail(new Email(email));
         return this;
     }
 

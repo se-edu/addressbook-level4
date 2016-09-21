@@ -2,13 +2,11 @@ package seedu.address.storage;
 
 import seedu.address.commons.Utils;
 import seedu.address.exceptions.IllegalValueException;
-import seedu.address.model.Tag;
-import seedu.address.model.UniqueTagList;
+import seedu.address.model.tag.Tag;
+import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.person.*;
 
-import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlValue;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,21 +15,14 @@ import java.util.List;
  */
 public class AdaptedPerson {
 
-    private static class AdaptedContactDetail {
-        @XmlValue
-        public String value;
-        @XmlAttribute(required = true)
-        public boolean isPrivate;
-    }
-
     @XmlElement(required = true)
     private String name;
     @XmlElement(required = true)
-    private AdaptedContactDetail phone;
+    private String phone;
     @XmlElement(required = true)
-    private AdaptedContactDetail email;
+    private String email;
     @XmlElement(required = true)
-    private AdaptedContactDetail address;
+    private String address;
 
     @XmlElement
     private List<AdaptedTag> tagged = new ArrayList<>();
@@ -49,19 +40,9 @@ public class AdaptedPerson {
      */
     public AdaptedPerson(ReadOnlyPerson source) {
         name = source.getName().fullName;
-
-        phone = new AdaptedContactDetail();
-        phone.isPrivate = source.getPhone().isPrivate();
-        phone.value = source.getPhone().value;
-
-        email = new AdaptedContactDetail();
-        email.isPrivate = source.getEmail().isPrivate();
-        email.value = source.getEmail().value;
-
-        address = new AdaptedContactDetail();
-        address.isPrivate = source.getAddress().isPrivate();
-        address.value = source.getAddress().value;
-
+        phone = source.getPhone().value;
+        email = source.getEmail().value;
+        address = source.getAddress().value;
         tagged = new ArrayList<>();
         for (Tag tag : source.getTags()) {
             tagged.add(new AdaptedTag(tag));
@@ -82,9 +63,7 @@ public class AdaptedPerson {
                 return true;
             }
         }
-        // second call only happens if phone/email/address are all not null
-        return Utils.isAnyNull(name, phone, email, address)
-                || Utils.isAnyNull(phone.value, email.value, address.value);
+        return Utils.isAnyNull(name, phone, email, address);
     }
 
     /**
@@ -98,9 +77,9 @@ public class AdaptedPerson {
             personTags.add(tag.toModelType());
         }
         final Name name = new Name(this.name);
-        final Phone phone = new Phone(this.phone.value, this.phone.isPrivate);
-        final Email email = new Email(this.email.value, this.email.isPrivate);
-        final Address address = new Address(this.address.value, this.address.isPrivate);
+        final Phone phone = new Phone(this.phone);
+        final Email email = new Email(this.email);
+        final Address address = new Address(this.address);
         final UniqueTagList tags = new UniqueTagList(personTags);
         return new Person(name, phone, email, address, tags);
     }

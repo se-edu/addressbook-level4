@@ -7,7 +7,7 @@ import seedu.address.events.storage.*;
 import seedu.address.exceptions.DataConversionException;
 import seedu.address.main.ComponentManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.datatypes.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.util.Config;
 import seedu.address.util.LoggerManager;
 

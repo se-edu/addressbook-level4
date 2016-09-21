@@ -12,8 +12,8 @@ import seedu.address.exceptions.DataConversionException;
 import seedu.address.exceptions.DuplicateTagException;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.datatypes.AddressBook;
-import seedu.address.model.datatypes.ReadOnlyAddressBook;
+import seedu.address.model.AddressBook;
+import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.testutil.AddressBookBuilder;
 import seedu.address.testutil.SerializableTestClass;
@@ -48,7 +48,7 @@ public class StorageManagerTest {
         config.setLocalDataFilePath(TESTING_DATA_FILE_PATH);
         prefs = StorageManager.getUserPrefs(new File(DEFAULT_PREF_FILE));
         modelManager = new ModelManager(config);
-        storageManager = new StorageManager(modelManager::resetData, modelManager::getDefaultAddressBook,
+        storageManager = new StorageManager(modelManager::resetData, ModelManager::getDefaultAddressBook,
                 config, prefs);
     }
 

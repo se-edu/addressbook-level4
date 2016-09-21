@@ -1,7 +1,7 @@
 package seedu.address.model.person;
 
 import seedu.address.commons.Utils;
-import seedu.address.model.UniqueTagList;
+import seedu.address.model.tag.UniqueTagList;
 
 import java.util.Objects;
 
@@ -62,6 +62,13 @@ public class Person implements ReadOnlyPerson {
         return new UniqueTagList(tags);
     }
 
+    /**
+     * Replaces this person's tags with the tags in the argument tag list.
+     */
+    public void setTags(UniqueTagList replacement) {
+        tags.setTags(replacement);
+    }
+
     @Override
     public void update(ReadOnlyPerson person) {
         this.name = person.getName();
@@ -86,7 +93,7 @@ public class Person implements ReadOnlyPerson {
 
     @Override
     public String toString() {
-        return getAsTextShowAll();
+        return getAsText();
     }
 
 }

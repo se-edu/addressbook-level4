@@ -1,16 +1,14 @@
-package seedu.address.model.datatypes;
+package seedu.address.model;
 
 import javafx.collections.ObservableList;
-import seedu.address.model.Tag;
-import seedu.address.model.UniqueTagList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.tag.Tag;
+import seedu.address.model.tag.UniqueTagList;
 import seedu.address.util.collections.UnmodifiableObservableList;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -81,8 +79,39 @@ public class AddressBook implements ReadOnlyAddressBook {
         return persons.contains(key);
     }
 
+    /**
+     * Adds a person to the address book.
+     * Also checks the new person's tags and updates {@link #tags} with any new tags found,
+     * and updates the Tag objects in the person to point to those in {@link #tags}.
+     *
+     * @throws UniquePersonList.DuplicatePersonException if an equivalent person already exists.
+     */
     public void addPerson(Person p) throws UniquePersonList.DuplicatePersonException {
+        syncTagsWithMasterList(p);
         persons.add(p);
+    }
+
+    /**
+     * Ensures that every tag in this person:
+     *  - exists in the master list {@link #tags}
+     *  - points to a Tag object in the master list
+     */
+    private void syncTagsWithMasterList(Person person) {
+        final UniqueTagList personTags = person.getTags();
+        tags.mergeFrom(personTags);
+
+        // Create map with values = tag object references in the master list
+        final Map<Tag, Tag> masterTagObjects = new HashMap<>();
+        for (Tag tag : tags) {
+            masterTagObjects.put(tag, tag);
+        }
+
+        // Rebuild the list of person tags using references from the master list
+        final Set<Tag> commonTagReferences = new HashSet<>();
+        for (Tag tag : personTags) {
+            commonTagReferences.add(masterTagObjects.get(tag));
+        }
+        person.setTags(new UniqueTagList(commonTagReferences));
     }
 
     public boolean removePerson(ReadOnlyPerson key) throws UniquePersonList.PersonNotFoundException {
@@ -141,4 +170,18 @@ public class AddressBook implements ReadOnlyAddressBook {
         return this.tags;
     }
 
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof AddressBook // instanceof handles nulls
+                && this.persons.equals(((AddressBook) other).persons)
+                && this.tags.equals(((AddressBook) other).tags));
+    }
+
+    @Override
+    public int hashCode() {
+        // use this method for custom fields hashing instead of implementing your own
+        return Objects.hash(persons, tags);
+    }
 }

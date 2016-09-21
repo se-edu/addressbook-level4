@@ -1,7 +1,7 @@
 package seedu.address.model.person;
 
-import seedu.address.model.Tag;
-import seedu.address.model.UniqueTagList;
+import seedu.address.model.tag.Tag;
+import seedu.address.model.tag.UniqueTagList;
 
 /**
  * A read-only immutable interface for a Person in the addressbook.
@@ -36,51 +36,19 @@ public interface ReadOnlyPerson {
     /**
      * Formats the person as text, showing all contact details.
      */
-    default String getAsTextShowAll() {
+    default String getAsText() {
         final StringBuilder builder = new StringBuilder();
         final String detailIsPrivate = "(private) ";
         builder.append(getName())
-                .append(" Phone: ");
-        if (getPhone().isPrivate()) {
-            builder.append(detailIsPrivate);
-        }
-        builder.append(getPhone())
-                .append(" Email: ");
-        if (getEmail().isPrivate()) {
-            builder.append(detailIsPrivate);
-        }
-        builder.append(getEmail())
-                .append(" Address: ");
-        if (getAddress().isPrivate()) {
-            builder.append(detailIsPrivate);
-        }
-        builder.append(getAddress())
+                .append(" Phone: ")
+                .append(getPhone())
+                .append(" Email: ")
+                .append(getEmail())
+                .append(" Address: ")
+                .append(detailIsPrivate)
+                .append(getAddress())
                 .append(" Tags: ");
-        for (Tag tag : getTags()) {
-            builder.append(tag);
-        }
-        return builder.toString();
-    }
-
-    /**
-     * Formats a person as text, showing only non-private contact details.
-     */
-    default String getAsTextHidePrivate() {
-        final StringBuilder builder = new StringBuilder();
-        builder.append(getName());
-        if (getPhone().isVisible()) {
-            builder.append(" Phone: ").append(getPhone());
-        }
-        if (getEmail().isVisible()) {
-            builder.append(" Email: ").append(getEmail());
-        }
-        if (getAddress().isVisible()) {
-            builder.append(" Address: ").append(getAddress());
-        }
-        builder.append(" Tags: ");
-        for (Tag tag : getTags()) {
-            builder.append(tag);
-        }
+        getTags().forEach(builder::append);
         return builder.toString();
     }
 

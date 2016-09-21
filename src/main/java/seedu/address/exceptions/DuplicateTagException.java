@@ -1,6 +1,6 @@
 package seedu.address.exceptions;
 
-import seedu.address.model.Tag;
+import seedu.address.model.tag.Tag;
 
 public class DuplicateTagException extends DuplicateDataException {
 

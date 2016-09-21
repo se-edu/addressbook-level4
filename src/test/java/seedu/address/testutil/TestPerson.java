@@ -1,6 +1,6 @@
 package seedu.address.testutil;
 
-import seedu.address.model.UniqueTagList;
+import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.person.*;
 
 /**
@@ -70,7 +70,7 @@ public class TestPerson implements ReadOnlyPerson {
 
     @Override
     public String toString() {
-        return getAsTextShowAll();
+        return getAsText();
     }
 
     public String getAddCommand() {

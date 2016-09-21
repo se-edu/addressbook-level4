@@ -43,7 +43,7 @@ public class BrowserManager {
         browser = null;
     }
 
-    public Node getBrowserView() {
+    public WebView getBrowserView() {
         FxViewUtil.applyAnchorBoundaryParameters(browser, 0.0, 0.0, 0.0, 0.0);
         return browser;
     }
