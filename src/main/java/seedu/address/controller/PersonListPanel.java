@@ -10,11 +10,10 @@ import javafx.scene.control.SplitPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import seedu.address.events.EventManager;
 import seedu.address.events.controller.PersonPanelSelectionChangedEvent;
 import seedu.address.model.ModelManager;
 import seedu.address.model.person.ReadOnlyPerson;
-import seedu.address.util.LoggerManager;
+import seedu.address.commons.LoggerManager;
 
 import java.util.logging.Logger;
 

@@ -10,8 +10,7 @@ import seedu.address.commands.*;
 import seedu.address.commons.FxViewUtil;
 import seedu.address.logic.Logic;
 import seedu.address.model.ModelManager;
-import seedu.address.parser.Parser;
-import seedu.address.util.LoggerManager;
+import seedu.address.commons.LoggerManager;
 
 import java.util.logging.Logger;
 

@@ -6,7 +6,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.web.WebView;
 import seedu.address.commons.FxViewUtil;
 import seedu.address.model.person.ReadOnlyPerson;
-import seedu.address.util.LoggerManager;
+import seedu.address.commons.LoggerManager;
 
 import java.util.logging.Logger;
 

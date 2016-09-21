@@ -8,8 +8,8 @@ import seedu.address.exceptions.DataConversionException;
 import seedu.address.main.ComponentManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.util.Config;
-import seedu.address.util.LoggerManager;
+import seedu.address.commons.Config;
+import seedu.address.commons.LoggerManager;
 
 import java.io.File;
 import java.io.FileNotFoundException;
