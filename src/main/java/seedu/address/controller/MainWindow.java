@@ -206,16 +206,6 @@ public class MainWindow extends UiPart {
     }
 
     /**
-     * Opens an about dialog.
-     */
-    @FXML
-    private void handleAbout() {//TODO: refactor to be similar to handleHelp and remove the dependency to ui
-        logger.fine("Showing information about the application.");
-        ui.showAlertDialogAndWait(AlertType.INFORMATION, "AddressApp", "About",
-                "Version " + MainApp.VERSION.toString() + "\nSome code adapted from http://code.makery.ch");
-    }
-
-    /**
      * Closes the application.
      */
     @FXML
