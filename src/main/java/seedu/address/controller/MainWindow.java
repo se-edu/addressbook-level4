@@ -4,17 +4,14 @@ import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.MenuItem;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
-import seedu.address.MainApp;
 import seedu.address.browser.BrowserManager;
 import seedu.address.events.controller.ExitAppRequestEvent;
-import seedu.address.events.hotkey.KeyBindingEvent;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.ReadOnlyPerson;
@@ -118,13 +115,7 @@ public class MainWindow extends UiPart {
         scene = new Scene(rootLayout);
         primaryStage.setScene(scene);
 
-        //Configure event handlers
-        setKeyEventHandler();
         setAccelerators();
-    }
-
-    private void setKeyEventHandler() {
-        scene.setOnKeyPressed(e -> raisePotentialEvent(new KeyBindingEvent(e)));
     }
 
     private void setAccelerators() {
