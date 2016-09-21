@@ -47,6 +47,8 @@ public class MainWindow extends UiPart {
     private StatusBarFooter statusBarFooter;
     private CommandBox commandBox;
     private WebView browser;
+    private Config config;
+    private UserPrefs userPrefs;
 
     // Handles to elements of this Ui container
     private VBox rootLayout;
@@ -92,12 +94,11 @@ public class MainWindow extends UiPart {
                                   ModelManager modelManager, BrowserManager browserManager) {
 
         MainWindow mainWindow = UiPartLoader.loadUiPart(primaryStage, new MainWindow());
-
-        mainWindow.configure(config.getAppTitle(), config.getAddressBookName(), prefs, ui, modelManager, browserManager);
+        mainWindow.configure(config.getAppTitle(), config.getAddressBookName(), config, prefs, ui, modelManager, browserManager);
         return mainWindow;
     }
 
-    private void configure(String appTitle, String addressBookName, UserPrefs prefs, Ui ui,
+    private void configure(String appTitle, String addressBookName, Config config, UserPrefs prefs, Ui ui,
                            ModelManager modelManager, BrowserManager browserManager) {
 
         // Set dependencies
@@ -105,6 +106,8 @@ public class MainWindow extends UiPart {
         this.addressBookName = addressBookName;
         this.browserManager = browserManager;
         this.parser.configure(modelManager.getFilteredPersonList());
+        this.config = config;
+        this.userPrefs = prefs;
 
         // Configure the UI
         setTitle(appTitle);
@@ -130,7 +133,7 @@ public class MainWindow extends UiPart {
     void fillInnerParts() {
         personListPanel = PersonListPanel.load(primaryStage, getPersonListPlaceholder(), modelManager, browserManager);
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
-        statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), addressBookName);
+        statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getLocalDataFilePath());
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), parser, resultDisplay, modelManager);
         browser = loadBrowser();
     }
