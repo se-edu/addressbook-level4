@@ -32,10 +32,6 @@ public class MainWindow extends UiPart {
     private final Logger logger = LoggerManager.getLogger(MainWindow.class);
     private static final String ICON = "/images/address_book_32.png";
     private static final String FXML = "MainWindow.fxml";
-    private static final String RESULT_DISPLAY_PLACEHOLDER_FIELD_ID = "#resultDisplayPlaceholder";
-    private static final String STATUSBAR_PLACEHOLDER_FIELD_ID = "#footerStatusbarPlaceholder";
-    private static final String COMMAND_BOX_PLACEHOLDER_FIELD_ID = "#commandBoxPlaceholder";
-    private static final String BROWSER_PLACEHOLDER = "#personWebpage";
     public static final int MIN_HEIGHT = 600;
     public static final int MIN_WIDTH = 450;
 
@@ -62,10 +58,23 @@ public class MainWindow extends UiPart {
     private String addressBookName;
 
     @FXML
-    private AnchorPane personListPanelPlaceholder;
+    private AnchorPane browserPlaceholder;
+
+    @FXML
+    private AnchorPane commandBoxPlaceholder;
 
     @FXML
     private MenuItem helpMenuItem;
+
+    @FXML
+    private AnchorPane personListPanelPlaceholder;
+
+    @FXML
+    private AnchorPane resultDisplayPlaceholder;
+
+    @FXML
+    private AnchorPane statusbarPlaceholder;
+
 
     public MainWindow() {
         super();
@@ -131,30 +140,25 @@ public class MainWindow extends UiPart {
     }
 
     private AnchorPane getCommandBoxPlaceholder() {
-        return this.getAnchorPane(COMMAND_BOX_PLACEHOLDER_FIELD_ID);
-    }
-
-    private AnchorPane getAnchorPane(String anchorPaneId) {
-        return (AnchorPane) rootLayout.lookup(anchorPaneId);
+        return commandBoxPlaceholder;
     }
 
     private AnchorPane getStatusbarPlaceholder() {
-        return this.getAnchorPane(STATUSBAR_PLACEHOLDER_FIELD_ID);
+        return statusbarPlaceholder;
     }
 
     private AnchorPane getResultDisplayPlaceholder() {
-        return this.getAnchorPane(RESULT_DISPLAY_PLACEHOLDER_FIELD_ID);
-    }
-    
-    private WebView loadBrowser() {
-        AnchorPane pane = this.getAnchorPane(BROWSER_PLACEHOLDER);
-        pane.setOnKeyPressed(Event::consume); // To prevent triggering events for typing inside the loaded Web page.
-        pane.getChildren().add(browserManager.getBrowserView());
-        return browserManager.getBrowserView();
+        return resultDisplayPlaceholder;
     }
 
     public AnchorPane getPersonListPlaceholder() {
         return personListPanelPlaceholder;
+    }
+
+    private WebView loadBrowser() {
+        browserPlaceholder.setOnKeyPressed(Event::consume); // To prevent triggering events for typing inside the loaded Web page.
+        browserPlaceholder.getChildren().add(browserManager.getBrowserView());
+        return browserManager.getBrowserView();
     }
 
     public void hide() {
