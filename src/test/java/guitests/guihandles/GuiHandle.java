@@ -83,7 +83,6 @@ public class GuiHandle {
                 .filter(w -> w instanceof Stage && ((Stage) w).getTitle().equals(stageTitle)).findAny();
 
         if (!window.isPresent()) {
-            logger.warning("Can't find stage " + stageTitle + ", Therefore, aborting focusing");
             return;
         }
 
