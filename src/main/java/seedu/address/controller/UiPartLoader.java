@@ -30,7 +30,7 @@ public class UiPartLoader {
     public static <T extends UiPart> T loadUiPart(Stage primaryStage, AnchorPane placeholder, T sampleUiPart) {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(MainApp.class.getResource(FXML_FILE_FOLDER + sampleUiPart.getFxmlPath()));
-        Node mainNode = loadLoader(loader, "Error loading " + sampleUiPart.getFxmlPath());
+        Node mainNode = loadLoader(loader, sampleUiPart.getFxmlPath());
         UiPart controller = loader.getController();
         controller.setStage(primaryStage);
         controller.setPlaceholder(placeholder);
@@ -39,11 +39,11 @@ public class UiPartLoader {
     }
 
 
-    private static Node loadLoader(FXMLLoader loader, String errorMsg) {
+    private static Node loadLoader(FXMLLoader loader, String fxmlFileName) {
         try {
             return loader.load();
         } catch (IOException e) {
-            String errorMessage = "FXML Load Error " + errorMsg + " IOException when trying to load "
+            String errorMessage = "FXML Load Error for " + fxmlFileName + " IOException when trying to load "
                                   + loader.getLocation().toExternalForm();
             throw new RuntimeException(errorMessage, e);
         }
