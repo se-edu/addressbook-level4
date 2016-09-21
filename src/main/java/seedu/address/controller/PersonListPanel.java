@@ -71,26 +71,11 @@ public class PersonListPanel extends UiPart {
         personListView.setItems(personList);
         personListView.setCellFactory(listView -> new PersonListViewCell());
         loadGithubProfilePageWhenPersonIsSelected(browserManager);
-        setupListviewSelectionModelSettings();
     }
 
     private void addToPlaceholder() {
         SplitPane.setResizableWithParent(placeHolderPane, false);
         placeHolderPane.getChildren().add(panel);
-    }
-
-    private void setupListviewSelectionModelSettings() {
-        personListView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-        personListView.getItems().addListener((ListChangeListener<ReadOnlyPerson>) c -> {
-            while (c.next()) {
-                if (c.wasRemoved()) {
-                    ObservableList<Integer> currentIndices = personListView.getSelectionModel().getSelectedIndices();
-                    if (currentIndices.size() > 1) {
-                        personListView.getSelectionModel().clearAndSelect(currentIndices.get(0));
-                    }
-                }
-            }
-        });
     }
 
     private void loadGithubProfilePageWhenPersonIsSelected(BrowserManager browserManager) {
