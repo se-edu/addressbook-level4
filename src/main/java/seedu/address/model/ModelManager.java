@@ -51,7 +51,7 @@ public class ModelManager extends ComponentManager implements ReadOnlyAddressBoo
         this(new AddressBook(), config);
     }
 
-    public ReadOnlyAddressBook getDefaultAddressBook() {
+    public static ReadOnlyAddressBook getDefaultAddressBook() {
         return new AddressBook();
     }
 
