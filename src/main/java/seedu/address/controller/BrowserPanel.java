@@ -4,22 +4,23 @@ import javafx.event.Event;
 import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.web.WebView;
-import seedu.address.commons.FxViewUtil;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.util.LoggerManager;
 
 import java.util.logging.Logger;
 
 /**
- * Manages the AddressBook browser.
- * To begin using this class: call start().
+ * The Browser Panel of the App.
  */
 public class BrowserPanel extends UiPart{
 
     private static Logger logger = LoggerManager.getLogger(BrowserPanel.class);
     private WebView browser;
 
-    public BrowserPanel() {
+    /**
+     * Constructor is kept private as {@link #load(AnchorPane)} is the only way to create a BrowserPanel.
+     */
+    private BrowserPanel() {
 
     }
 
@@ -33,29 +34,26 @@ public class BrowserPanel extends UiPart{
         return null; //not applicable
     }
 
+    /**
+     * Factory method for creating a Browser Panel.
+     * This method should be called after the FX runtime is initialized and in FX application thread.
+     * @param placeholder The AnchorPane where the BrowserPanel must be inserted
+     */
     public static BrowserPanel load(AnchorPane placeholder){
+        logger.info("Initializing browser");
         BrowserPanel browserPanel = new BrowserPanel();
-        browserPanel.start();
-        browserPanel.configure(placeholder);
+        browserPanel.browser = new WebView();
+        placeholder.setOnKeyPressed(Event::consume); // To prevent triggering events for typing inside the loaded Web page.
+        placeholder.getChildren().add(browserPanel.browser);
         return browserPanel;
     }
 
-    private void configure(AnchorPane placeholder){
-        placeholder.setOnKeyPressed(Event::consume); // To prevent triggering events for typing inside the loaded Web page.
-        placeholder.getChildren().add(browser);
-    }
-
-    /**
-     * Starts the browser.
-     * Precondition: FX runtime is initialized and in FX application thread.
-     */
-    public void start() {
-        logger.info("Initializing browser");
-        browser = new WebView();
-    }
-
     public void loadPersonPage(ReadOnlyPerson person) {
-        browser.getEngine().load("https://www.google.com.sg/#safe=off&q=" + person.getName().fullName.replaceAll(" ", "+"));
+        loadPage("https://www.google.com.sg/#safe=off&q=" + person.getName().fullName.replaceAll(" ", "+"));
+    }
+
+    public void loadPage(String url){
+        browser.getEngine().load(url);
     }
 
     /**
@@ -65,8 +63,4 @@ public class BrowserPanel extends UiPart{
         browser = null;
     }
 
-    public WebView getBrowserView() {
-        FxViewUtil.applyAnchorBoundaryParameters(browser, 0.0, 0.0, 0.0, 0.0);
-        return browser;
-    }
 }
