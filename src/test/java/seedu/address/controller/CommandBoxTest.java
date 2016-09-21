@@ -61,7 +61,7 @@ public class CommandBoxTest {
         inputBox = new CommandBox();
         Parser parser = new Parser();
         parser.configure(model.getFilteredPersonList());
-        inputBox.configure(parser, resultDisplay, model);
+        inputBox.configure(resultDisplay, model);
         EventManager.getInstance().registerHandler(this);
 
         latestSavedAddressBook = new AddressBook(model.getAddressBook()); // last saved assumed to be up to date before.

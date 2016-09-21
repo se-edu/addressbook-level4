@@ -29,17 +29,17 @@ public class CommandBox extends UiPart {
     private TextField commandTextField;
     private CommandResult mostRecentResult;
 
-    public static CommandBox load(Stage primaryStage, AnchorPane commandBoxPlaceholder, Parser parser,
+    public static CommandBox load(Stage primaryStage, AnchorPane commandBoxPlaceholder,
                                   ResultDisplay resultDisplay, ModelManager modelManager) {
         CommandBox commandBox = UiPartLoader.loadUiPart(primaryStage, commandBoxPlaceholder, new CommandBox());
-        commandBox.configure(parser, resultDisplay, modelManager);
+        commandBox.configure(resultDisplay, modelManager);
         commandBox.addToPlaceholder();
         return commandBox;
     }
 
-    public void configure(Parser parser, ResultDisplay resultDisplay, ModelManager modelManager) {
+    public void configure(ResultDisplay resultDisplay, ModelManager modelManager) {
         this.resultDisplay = resultDisplay;
-        this.logic = new Logic(modelManager, parser);
+        this.logic = new Logic(modelManager);
     }
 
     private void addToPlaceholder() {

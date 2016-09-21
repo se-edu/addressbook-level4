@@ -12,9 +12,10 @@ public class Logic {
     private final ModelManager modelManager;
     private final Parser parser;
 
-    public Logic(ModelManager modelManager, Parser parser) {
+    public Logic(ModelManager modelManager) {
         this.modelManager = modelManager;
-        this.parser = parser;
+        this.parser = new Parser();
+        parser.configure(modelManager.getFilteredPersonList());
     }
 
     public CommandResult execute(String commandText) {
