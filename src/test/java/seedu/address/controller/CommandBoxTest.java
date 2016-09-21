@@ -7,6 +7,7 @@ import org.junit.rules.TemporaryFolder;
 import seedu.address.events.EventManager;
 import seedu.address.events.model.LocalModelChangedEvent;
 import seedu.address.commands.*;
+import seedu.address.events.ui.ShowHelpEvent;
 import seedu.address.model.*;
 import seedu.address.model.person.*;
 import seedu.address.model.tag.*;
@@ -31,11 +32,18 @@ public class CommandBoxTest {
     private ResultDisplay resultDisplay;
     private CommandBox inputBox;
 
+    // check for correct context in events raised
     private ReadOnlyAddressBook latestSavedAddressBook;
+    private boolean helpShown;
 
     @Subscribe
     private void handleLocalModelChangedEvent(LocalModelChangedEvent lmce) {
         latestSavedAddressBook = new AddressBook(lmce.data);
+    }
+
+    @Subscribe
+    private void handleShowHelpEvent(ShowHelpEvent she) {
+        helpShown = true;
     }
 
     @Before
@@ -45,7 +53,9 @@ public class CommandBoxTest {
         inputBox = new CommandBox();
         inputBox.configure(new Parser(), resultDisplay, model);
         EventManager.getInstance().registerHandler(this);
+
         latestSavedAddressBook = new AddressBook(model.getAddressBook()); // last saved assumed to be up to date before.
+        helpShown = false;
     }
 
     @After
@@ -93,6 +103,33 @@ public class CommandBoxTest {
         assertEquals(expectedAddressBook, latestSavedAddressBook);
     }
 
+
+    @Test
+    public void execute_unknownCommandWord() throws Exception {
+        String unknownCommand = "uicfhmowqewca";
+        assertCommandBehavior(unknownCommand, MESSAGE_UNKNOWN_COMMAND);
+    }
+
+    @Test
+    public void execute_help() throws Exception {
+        assertCommandBehavior("help", HelpCommand.SHOWING_HELP_MESSAGE);
+        assertTrue(helpShown);
+    }
+
+    @Test
+    public void execute_exit() throws Exception {
+        assertCommandBehavior("exit", ExitCommand.MESSAGE_EXIT_ACKNOWEDGEMENT);
+    }
+
+    @Test
+    public void execute_clear() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        model.addPerson(helper.generatePerson(1, true));
+        model.addPerson(helper.generatePerson(2, true));
+        model.addPerson(helper.generatePerson(3, true));
+
+        assertCommandBehavior("clear", ClearCommand.MESSAGE_SUCCESS, new AddressBook(), Collections.emptyList());
+    }
 
     /**
      * A utility class to generate test data.

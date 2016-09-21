@@ -10,6 +10,7 @@ import java.util.regex.Pattern;
 
 import static seedu.address.commons.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
+import static seedu.address.commons.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 /**
  * Parses user input.
@@ -95,7 +96,7 @@ public class Parser {
                 return new HelpCommand();
 
             default:
-                return new IncorrectCommand("Invalid command");
+                return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
         }
     }
 
