@@ -33,14 +33,14 @@ public class CommandBox extends BaseUiPart {
                                   ResultDisplay resultDisplay, ModelManager modelManager) {
         CommandBox commandBox = UiPartLoader.loadUiPart(primaryStage, commandBoxPlaceholder, new CommandBox());
         commandBox.configure(parser, resultDisplay, modelManager);
+        commandBox.addToPlaceholder();
         return commandBox;
     }
 
-    private void configure(Parser parser, ResultDisplay resultDisplay, ModelManager modelManager) {
+    public void configure(Parser parser, ResultDisplay resultDisplay, ModelManager modelManager) {
         this.parser = parser;
         this.resultDisplay = resultDisplay;
         this.modelManager = modelManager;
-        addToPlaceholder();
     }
 
     private void addToPlaceholder() {
@@ -65,11 +65,8 @@ public class CommandBox extends BaseUiPart {
         this.placeHolderPane = pane;
     }
 
-    @FXML
-    private void handleCommandInputChanged() {
-        if (commandTextField.getStyleClass().contains("error")) commandTextField.getStyleClass().remove("error");
-
-        Command command = parser.parseCommand(commandTextField.getText());
+    public void processCommandInput(String commandText) {
+        Command command = parser.parseCommand(commandText);
         command.setData(modelManager);
         CommandResult result = command.execute();
 
@@ -83,5 +80,11 @@ public class CommandBox extends BaseUiPart {
 
         logger.info("Result: " + result.feedbackToUser);
         logger.fine("Invalid command: " + commandTextField.getText());
+    }
+
+    @FXML
+    private void handleCommandInputChanged() {
+        if (commandTextField.getStyleClass().contains("error")) commandTextField.getStyleClass().remove("error");
+        processCommandInput(commandTextField.getText());
     }
 }
