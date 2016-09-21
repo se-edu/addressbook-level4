@@ -99,7 +99,7 @@ public class MainWindow extends BaseUiPart {
         this.modelManager = modelManager;
         this.addressBookName = addressBookName;
         this.browserManager = browserManager;
-        this.parser.configure(ui);
+        this.parser.configure(modelManager.getFilteredPersonList());
     }
 
     private void configureUi(String appTitle, UserPrefs prefs) {

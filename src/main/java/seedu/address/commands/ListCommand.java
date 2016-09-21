@@ -14,6 +14,7 @@ public class ListCommand extends Command {
             + ": Displays all persons in the address book as a list with index numbers.\n"
             + "Example: " + COMMAND_WORD;
 
+    public static final String MESSAGE_SUCCESS = "Listed all persons";
 
     public ListCommand() {}
 
@@ -21,6 +22,6 @@ public class ListCommand extends Command {
     @Override
     public CommandResult execute() {
         modelManager.clearListFilter();
-        return new CommandResult("Listed all persons", Collections.emptyList());
+        return new CommandResult(MESSAGE_SUCCESS, Collections.emptyList());
     }
 }

@@ -1,8 +1,10 @@
 package seedu.address.parser;
 
+import javafx.collections.ObservableList;
 import seedu.address.commands.*;
 import seedu.address.controller.Ui;
 import seedu.address.exceptions.IllegalValueException;
+import seedu.address.model.person.ReadOnlyPerson;
 
 import java.util.*;
 import java.util.regex.Matcher;
@@ -43,16 +45,15 @@ public class Parser {
                     + " (?<isAddressPrivate>p?)a/(?<address>[^/]+)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
 
-    private Ui ui;
+    private ObservableList<? extends ReadOnlyPerson> displayedPersons;
 
     public Parser() {}
 
     /**
      * Configures the parser with additional dependencies such as Ui
-     * @param ui
      */
-    public void configure(Ui ui) {
-        this.ui = ui;
+    public void configure(ObservableList<? extends ReadOnlyPerson> displayedPersons) {
+        this.displayedPersons = displayedPersons;
     }
 
     /**
@@ -149,7 +150,7 @@ public class Parser {
     private Command prepareDelete(String args) {
         try {
             final int targetIndex = parseArgsAsDisplayedIndex(args);
-            return new DeleteCommand(this.ui.getDisplayedPersons().get(targetIndex - 1));
+            return new DeleteCommand(displayedPersons.get(targetIndex - 1));
         } catch (ParseException pe) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                                         DeleteCommand.MESSAGE_USAGE));
@@ -171,7 +172,7 @@ public class Parser {
         try {
             final int targetIndex = parseArgsAsDisplayedIndex(args);
             // this check is required to catch any invalid indexes
-            this.ui.getDisplayedPersons().get(targetIndex - 1);
+            this.displayedPersons.get(targetIndex - 1);
             return new SelectCommand(targetIndex);
         } catch (ParseException pe) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,

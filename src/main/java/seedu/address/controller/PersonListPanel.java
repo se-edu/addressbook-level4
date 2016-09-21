@@ -116,7 +116,7 @@ public class PersonListPanel extends BaseUiPart {
         return new ArrayList<>(personListView.getSelectionModel().getSelectedItems());
     }
 
-    public List<ReadOnlyPerson> getDisplayedPersons() {
+    public ObservableList<ReadOnlyPerson> getDisplayedPersonsView() {
         return this.personListView.getItems();
     }
 
