@@ -26,7 +26,7 @@ import java.util.logging.Logger;
  *
  * setConnections should be set before showing stage
  */
-public class PersonListPanel extends BaseUiPart {
+public class PersonListPanel extends UiPart {
     private final Logger logger = LoggerManager.getLogger(PersonListPanel.class);
     private static final String FXML = "PersonListPanel.fxml";
     private VBox panel;

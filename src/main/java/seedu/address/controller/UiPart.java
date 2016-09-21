@@ -11,16 +11,16 @@ import seedu.address.util.AppUtil;
 
 /**
  * Base class for UI parts.
- * A 'UI part' represents a distinct par of the UI. e.g. Windows, dialogs, panels, status bars, etc.
+ * A 'UI part' represents a distinct part of the UI. e.g. Windows, dialogs, panels, status bars, etc.
  */
-public abstract class BaseUiPart {
+public abstract class UiPart {
 
     /**
      * The primary stage for the UI Part.
      */
     Stage primaryStage;
 
-    public BaseUiPart(){
+    public UiPart(){
         EventManager.getInstance().registerHandler(this);
     }
 

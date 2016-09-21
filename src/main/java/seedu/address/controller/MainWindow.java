@@ -28,7 +28,7 @@ import java.util.logging.Logger;
  * The Main Window. Provides the basic application layout containing
  * a menu bar and space where other JavaFX elements can be placed.
  */
-public class MainWindow extends BaseUiPart {
+public class MainWindow extends UiPart {
     private final Logger logger = LoggerManager.getLogger(MainWindow.class);
     private static final String ICON = "/images/address_book_32.png";
     private static final String FXML = "MainWindow.fxml";

@@ -14,7 +14,7 @@ import java.io.IOException;
 public class UiPartLoader {
     private final static String FXML_FILE_FOLDER = "/view/";
 
-    public static <T extends BaseUiPart> T loadUiPart(Stage primaryStage, T controllerSeed) {
+    public static <T extends UiPart> T loadUiPart(Stage primaryStage, T controllerSeed) {
         return loadUiPart(primaryStage, null, controllerSeed);
     }
 
@@ -27,11 +27,11 @@ public class UiPartLoader {
      * @param <T> The type of the UiPart
      * @return
      */
-    public static <T extends BaseUiPart> T loadUiPart(Stage primaryStage, AnchorPane placeholder, T sampleUiPart) {
+    public static <T extends UiPart> T loadUiPart(Stage primaryStage, AnchorPane placeholder, T sampleUiPart) {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(MainApp.class.getResource(FXML_FILE_FOLDER + sampleUiPart.getFxmlPath()));
         Node mainNode = loadLoader(loader, "Error loading " + sampleUiPart.getFxmlPath());
-        BaseUiPart controller = loader.getController();
+        UiPart controller = loader.getController();
         controller.setStage(primaryStage);
         controller.setPlaceholder(placeholder);
         controller.setNode(mainNode);
