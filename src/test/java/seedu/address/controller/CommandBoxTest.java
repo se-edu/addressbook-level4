@@ -169,7 +169,7 @@ public class CommandBoxTest {
         assertCommandBehavior(helper.generateAddCommand(toBeAdded),
                 String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
                 expectedAB,
-                Collections.emptyList());
+                expectedAB.getPersonList());
 
     }
 
@@ -189,7 +189,7 @@ public class CommandBoxTest {
                 helper.generateAddCommand(toBeAdded),
                 AddCommand.MESSAGE_DUPLICATE_PERSON,
                 expectedAB,
-                Collections.emptyList());
+                expectedAB.getPersonList());
 
     }
 
@@ -233,13 +233,13 @@ public class CommandBoxTest {
             cmd.append("add ");
 
             cmd.append(p.getName().toString());
-            cmd.append("p/").append(p.getPhone());
-            cmd.append("e/").append(p.getEmail());
-            cmd.append("a/").append(p.getAddress());
+            cmd.append(" p/").append(p.getPhone());
+            cmd.append(" e/").append(p.getEmail());
+            cmd.append(" a/").append(p.getAddress());
 
             UniqueTagList tags = p.getTags();
             for(Tag t: tags){
-                cmd.append("t/").append(t.tagName);
+                cmd.append(" t/").append(t.tagName);
             }
 
             return cmd.toString();
