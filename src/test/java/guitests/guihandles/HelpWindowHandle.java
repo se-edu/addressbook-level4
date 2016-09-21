@@ -16,6 +16,7 @@ public class HelpWindowHandle extends GuiHandle {
 
     public HelpWindowHandle(GuiRobot guiRobot, Stage primaryStage) {
         super(guiRobot, primaryStage, HELP_WINDOW_TITLE);
+        guiRobot.sleep(1000);
     }
 
     public boolean isWindowOpen() {
