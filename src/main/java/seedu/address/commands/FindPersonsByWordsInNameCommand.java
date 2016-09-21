@@ -39,7 +39,7 @@ public class FindPersonsByWordsInNameCommand extends Command {
     @Override
     public CommandResult execute() {
         modelManager.filterList(new PredExpr(new NameQualifier(keywords)));
-        return new CommandResult(getMessageForPersonListShownSummary(modelManager.getPersonsAsReadOnlyObservableList().size()));
+        return new CommandResult(getMessageForPersonListShownSummary(modelManager.getFilteredPersonList().size()));
     }
 
     /**

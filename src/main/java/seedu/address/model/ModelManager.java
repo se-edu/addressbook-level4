@@ -26,7 +26,7 @@ import java.util.logging.Logger;
 public class ModelManager extends ComponentManager implements ReadOnlyAddressBook {
     private static final Logger logger = LoggerManager.getLogger(ModelManager.class);
 
-    private final AddressBook backingModel;
+    private final AddressBook addressBook;
     private final FilteredList<Person> filteredPersons;
 
     public static final int GRACE_PERIOD_DURATION = 3;
@@ -43,8 +43,8 @@ public class ModelManager extends ComponentManager implements ReadOnlyAddressBoo
         }
         logger.fine("Initializing with address book: " + src);
 
-        backingModel = new AddressBook(src);
-        filteredPersons = new FilteredList<>(backingModel.getPersons());
+        addressBook = new AddressBook(src);
+        filteredPersons = new FilteredList<>(addressBook.getPersons());
     }
 
     public ModelManager(Config config) {
@@ -59,61 +59,64 @@ public class ModelManager extends ComponentManager implements ReadOnlyAddressBoo
      * Clears existing backing model and replaces with the provided new data.
      */
     public void resetData(ReadOnlyAddressBook newData) {
-        backingModel.resetData(newData);
+        addressBook.resetData(newData);
     }
 
 //// EXPOSING MODEL
 
     @Override
     public UniqueTagList getUniqueTagList() {
-        return backingModel.getUniqueTagList();
+        return addressBook.getUniqueTagList();
     }
 
     @Override
     public UniquePersonList getUniquePersonList() {
-        return backingModel.getUniquePersonList();
+        return addressBook.getUniquePersonList();
     }
 
     @Override
     public List<ReadOnlyPerson> getPersonList() {
-        return backingModel.getPersonList();
+        return addressBook.getPersonList();
     }
 
     @Override
     public List<Tag> getTagList() {
-        return backingModel.getTagList();
+        return addressBook.getTagList();
     }
 
     @Override
     public UnmodifiableObservableList<ReadOnlyPerson> getPersonsAsReadOnlyObservableList() {
+        return addressBook.getPersonsAsReadOnlyObservableList();
+    }
+
+    public UnmodifiableObservableList<ReadOnlyPerson> getFilteredPersonList() {
         return new UnmodifiableObservableList<>(filteredPersons);
     }
 
-
     @Override
     public UnmodifiableObservableList<Tag> getTagsAsReadOnlyObservableList() {
-        return backingModel.getTagsAsReadOnlyObservableList();
+        return addressBook.getTagsAsReadOnlyObservableList();
     }
 
     /**
      * @return reference to the tags list inside backing model
      */
     private ObservableList<Tag> backingTagList() {
-        return backingModel.getTags();
+        return addressBook.getTags();
     }
 
 //// UI COMMANDS
 
-    public void updateBackingStorage() {
-        raise(new LocalModelChangedEvent(backingModel));
+    public void updateStorage() {
+        raise(new LocalModelChangedEvent(addressBook));
     }
 
     /**
      * Deletes a person.
      */
     public synchronized void deletePerson(ReadOnlyPerson target) throws PersonNotFoundException {
-        backingModel.removePerson(target);
-        updateBackingStorage();
+        addressBook.removePerson(target);
+        updateStorage();
     }
 
 //// CREATE
@@ -131,9 +134,9 @@ public class ModelManager extends ComponentManager implements ReadOnlyAddressBoo
     }
 
     public synchronized void addPerson(Person person) throws UniquePersonList.DuplicatePersonException {
-        backingModel.addPerson(person);
+        addressBook.addPerson(person);
         clearListFilter();
-        updateBackingStorage();
+        updateStorage();
     }
 
     public void clearListFilter() {

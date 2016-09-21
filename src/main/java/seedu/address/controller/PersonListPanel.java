@@ -43,7 +43,7 @@ public class PersonListPanel extends BaseUiPart {
                                        ModelManager modelManager, BrowserManager browserManager) {
         PersonListPanel personListPanel =
                 UiPartLoader.loadUiPart(primaryStage, personListPlaceholder, new PersonListPanel());
-        personListPanel.configure(browserManager, modelManager.getPersonsAsReadOnlyObservableList());
+        personListPanel.configure(browserManager, modelManager.getFilteredPersonList());
         return personListPanel;
     }
 

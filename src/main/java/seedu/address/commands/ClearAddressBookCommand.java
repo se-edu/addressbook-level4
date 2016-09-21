@@ -20,7 +20,7 @@ public class ClearAddressBookCommand extends Command {
     public CommandResult execute() {
         Utils.assertNotNull(modelManager);
         modelManager.resetData(modelManager.getDefaultAddressBook());
-        modelManager.updateBackingStorage();
+        modelManager.updateStorage();
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }
