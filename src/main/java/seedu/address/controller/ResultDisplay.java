@@ -1,5 +1,9 @@
 package seedu.address.controller;
 
+import javafx.beans.InvalidationListener;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+import javafx.beans.value.ChangeListener;
 import javafx.scene.Node;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
@@ -13,6 +17,7 @@ public class ResultDisplay extends BaseUiPart {
     public static final String RESULT_DISPLAY_ID = "resultDisplay";
     private static final String STATUS_BAR_STYLE_SHEET = "result-display";
     private TextArea resultDisplayArea;
+    private final StringProperty displayed = new SimpleStringProperty("");
 
     private static final String FXML = "ResultDisplay.fxml";
 
@@ -33,6 +38,7 @@ public class ResultDisplay extends BaseUiPart {
         resultDisplayArea.getStyleClass().removeAll();
         resultDisplayArea.getStyleClass().add(STATUS_BAR_STYLE_SHEET);
         resultDisplayArea.setText("");
+        resultDisplayArea.textProperty().bind(displayed);
         FxViewUtil.applyAnchorBoundaryParameters(resultDisplayArea, 0.0, 0.0, 0.0, 0.0);
         mainPane.getChildren().add(resultDisplayArea);
         FxViewUtil.applyAnchorBoundaryParameters(mainPane, 0.0, 0.0, 0.0, 0.0);
@@ -59,6 +65,10 @@ public class ResultDisplay extends BaseUiPart {
     }
 
     public void postMessage(String message) {
-        resultDisplayArea.setText(message);
+        displayed.setValue(message);
+    }
+
+    public String getDisplayed() {
+        return displayed.getValue();
     }
 }
