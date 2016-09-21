@@ -25,6 +25,7 @@ public class CommandBox extends BaseUiPart {
     private ResultDisplay resultDisplay;
     private ModelManager modelManager;
     private Parser parser;
+    private Command latestCommand;
 
     @FXML
     private TextField commandTextField;
@@ -68,23 +69,24 @@ public class CommandBox extends BaseUiPart {
     public void processCommandInput(String commandText) {
         Command command = parser.parseCommand(commandText);
         command.setData(modelManager);
+        latestCommand = command;
         CommandResult result = command.execute();
-
-        if (command instanceof IncorrectCommand) {
-            commandTextField.getStyleClass().add("error");
-        } else {
-            commandTextField.setText("");
-        }
 
         resultDisplay.postMessage(result.feedbackToUser);
 
         logger.info("Result: " + result.feedbackToUser);
-        logger.fine("Invalid command: " + commandTextField.getText());
     }
 
     @FXML
     private void handleCommandInputChanged() {
         if (commandTextField.getStyleClass().contains("error")) commandTextField.getStyleClass().remove("error");
         processCommandInput(commandTextField.getText());
+
+        if (latestCommand instanceof IncorrectCommand) {
+            commandTextField.getStyleClass().add("error");
+        } else {
+            commandTextField.setText("");
+        }
+        logger.fine("Invalid command: " + commandTextField.getText());
     }
 }

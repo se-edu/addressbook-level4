@@ -64,6 +64,10 @@ public class ModelManager extends ComponentManager implements ReadOnlyAddressBoo
 
 //// EXPOSING MODEL
 
+    public ReadOnlyAddressBook getAddressBook() {
+        return addressBook;
+    }
+
     @Override
     public UniqueTagList getUniqueTagList() {
         return addressBook.getUniqueTagList();

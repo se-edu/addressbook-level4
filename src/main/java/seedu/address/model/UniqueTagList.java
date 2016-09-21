@@ -163,4 +163,16 @@ public class UniqueTagList implements Iterable<Tag> {
         return internalList;
     }
 
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof UniqueTagList // instanceof handles nulls
+                && this.internalList.equals(
+                ((UniqueTagList) other).internalList));
+    }
+
+    @Override
+    public int hashCode() {
+        return internalList.hashCode();
+    }
 }
