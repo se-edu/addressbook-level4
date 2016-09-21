@@ -77,7 +77,7 @@ public class PersonListPanel extends UiPart {
         personListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 logger.fine("Selection in person list panel changed to : '" + newValue + "'");
-                EventManager.getInstance().post(new PersonPanelSelectionChangedEvent(newValue));
+                raise(new PersonPanelSelectionChangedEvent(newValue));
             }
         });
     }
