@@ -101,7 +101,7 @@ public class MainWindow extends UiPart {
     private void configure(String appTitle, String addressBookName, Config config, UserPrefs prefs, Ui ui,
                            ModelManager modelManager, BrowserManager browserManager) {
 
-        // Set dependencies
+        //Set dependencies
         this.modelManager = modelManager;
         this.addressBookName = addressBookName;
         this.browserManager = browserManager;
@@ -109,7 +109,7 @@ public class MainWindow extends UiPart {
         this.config = config;
         this.userPrefs = prefs;
 
-        // Configure the UI
+        //Configure the UI
         setTitle(appTitle);
         setIcon(ICON);
         setWindowMinSize();
@@ -117,7 +117,7 @@ public class MainWindow extends UiPart {
         scene = new Scene(rootLayout);
         primaryStage.setScene(scene);
 
-        // Configure event handlers
+        //Configure event handlers
         setKeyEventHandler();
         setAccelerators();
     }
@@ -187,7 +187,6 @@ public class MainWindow extends UiPart {
 
     /**
      * Returns the current size and the position of the main Window.
-     * @return
      */
     public GuiSettings getCurrentGuiSetting() {
         return new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
