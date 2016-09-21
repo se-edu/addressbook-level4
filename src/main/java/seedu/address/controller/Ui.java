@@ -89,27 +89,6 @@ public class Ui {
         return mainWindow.primaryStage;
     }
 
-    @Subscribe
-    private void handleFileOpeningExceptionEvent(FileOpeningExceptionEvent foee) {
-        showFileOperationAlertAndWait("Could not load data", "Could not load data from file", foee.file,
-                                      foee.exception);
-    }
-
-    @Subscribe
-    private void handleFileSavingExceptionEvent(FileSavingExceptionEvent fsee) {
-        showFileOperationAlertAndWait("Could not save data", "Could not save data to file", fsee.file, fsee.exception);
-    }
-
-    @Subscribe
-    private void handleShowHelpEvent(ShowHelpEvent event) {
-        mainWindow.handleHelp();
-    }
-
-    @Subscribe
-    private void handleJumpToListRequestEvent(JumpToListRequestEvent event) {
-        mainWindow.getPersonListPanel().scrollTo(event.targetIndex);
-    }
-
     private void showFileOperationAlertAndWait(String description, String details, File file, Throwable cause) {
         final String content = details + ":\n" + (file == null ? "none" : file.getPath()) + "\n\nDetails:\n======\n"
                                 + cause.toString();
@@ -153,4 +132,28 @@ public class Ui {
     public ObservableList<ReadOnlyPerson> getDisplayedPersonsView() {
         return this.mainWindow.getPersonListPanel().getDisplayedPersonsView();
     }
+
+    //==================== Event Handling Code =================================================================
+
+    @Subscribe
+    private void handleFileOpeningExceptionEvent(FileOpeningExceptionEvent foee) {
+        showFileOperationAlertAndWait("Could not load data", "Could not load data from file", foee.file,
+                foee.exception);
+    }
+
+    @Subscribe
+    private void handleFileSavingExceptionEvent(FileSavingExceptionEvent fsee) {
+        showFileOperationAlertAndWait("Could not save data", "Could not save data to file", fsee.file, fsee.exception);
+    }
+
+    @Subscribe
+    private void handleShowHelpEvent(ShowHelpEvent event) {
+        mainWindow.handleHelp();
+    }
+
+    @Subscribe
+    private void handleJumpToListRequestEvent(JumpToListRequestEvent event) {
+        mainWindow.getPersonListPanel().scrollTo(event.targetIndex);
+    }
+
 }
