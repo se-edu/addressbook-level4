@@ -4,6 +4,7 @@ import javafx.event.Event;
 import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.web.WebView;
+import seedu.address.commons.FxViewUtil;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.util.LoggerManager;
 
@@ -44,6 +45,7 @@ public class BrowserPanel extends UiPart{
         BrowserPanel browserPanel = new BrowserPanel();
         browserPanel.browser = new WebView();
         placeholder.setOnKeyPressed(Event::consume); // To prevent triggering events for typing inside the loaded Web page.
+        FxViewUtil.applyAnchorBoundaryParameters(browserPanel.browser, 0.0, 0.0, 0.0, 0.0);
         placeholder.getChildren().add(browserPanel.browser);
         return browserPanel;
     }
