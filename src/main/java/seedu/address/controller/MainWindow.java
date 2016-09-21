@@ -84,31 +84,34 @@ public class MainWindow extends UiPart {
 
     public static MainWindow load(Stage primaryStage, Config config, UserPrefs prefs, Ui ui,
                                   ModelManager modelManager, BrowserManager browserManager) {
+
         MainWindow mainWindow = UiPartLoader.loadUiPart(primaryStage, new MainWindow());
-        mainWindow.configureDependencies(config.getAddressBookName(), ui, modelManager, browserManager);
-        mainWindow.configureUi(config.getAppTitle(), prefs);
-        mainWindow.setKeyEventHandler();
-        mainWindow.setAccelerators();
+
+        mainWindow.configure(config.getAppTitle(), config.getAddressBookName(), prefs, ui, modelManager, browserManager);
         return mainWindow;
     }
 
-    public void configureDependencies(String addressBookName, Ui ui, ModelManager modelManager,
-                                      BrowserManager browserManager) {
-        // Set connections
+    private void configure(String appTitle, String addressBookName, UserPrefs prefs, Ui ui,
+                           ModelManager modelManager, BrowserManager browserManager) {
+
+        // Set dependencies
         this.ui = ui;
         this.modelManager = modelManager;
         this.addressBookName = addressBookName;
         this.browserManager = browserManager;
         this.parser.configure(modelManager.getFilteredPersonList());
-    }
 
-    private void configureUi(String appTitle, UserPrefs prefs) {
+        // Configure the UI
         setTitle(appTitle);
         setIcon(ICON);
         setWindowMinSize();
         setWindowDefaultSize(prefs);
         scene = new Scene(rootLayout);
         primaryStage.setScene(scene);
+
+        // Configure event handlers
+        setKeyEventHandler();
+        setAccelerators();
     }
 
     //TODO: to be removed with more specific method e.g. getListPanelSlot
@@ -118,6 +121,10 @@ public class MainWindow extends UiPart {
 
     private void setKeyEventHandler() {
         scene.setOnKeyPressed(e -> raisePotentialEvent(new KeyBindingEvent(e)));
+    }
+
+    public void setAccelerators() {
+        helpMenuItem.setAccelerator(KeyCombination.valueOf("F1"));
     }
 
     public void fillInnerParts() {
@@ -187,11 +194,6 @@ public class MainWindow extends UiPart {
         return new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
                 (int) primaryStage.getX(), (int) primaryStage.getY());
     }
-
-    public void setAccelerators() {
-        helpMenuItem.setAccelerator(KeyCombination.valueOf("F1"));
-    }
-
 
     @FXML
     public void handleHelp() {
