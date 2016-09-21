@@ -4,19 +4,17 @@ import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.MenuItem;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
-import seedu.address.MainApp;
 import seedu.address.browser.BrowserManager;
 import seedu.address.events.controller.ExitAppRequestEvent;
-import seedu.address.events.hotkey.KeyBindingEvent;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.parser.Parser;
 import seedu.address.util.Config;
 import seedu.address.util.GuiSettings;
@@ -101,7 +99,7 @@ public class MainWindow extends UiPart {
     private void configure(String appTitle, String addressBookName, Config config, UserPrefs prefs, Ui ui,
                            ModelManager modelManager, BrowserManager browserManager) {
 
-        // Set dependencies
+        //Set dependencies
         this.modelManager = modelManager;
         this.addressBookName = addressBookName;
         this.browserManager = browserManager;
@@ -109,7 +107,7 @@ public class MainWindow extends UiPart {
         this.config = config;
         this.userPrefs = prefs;
 
-        // Configure the UI
+        //Configure the UI
         setTitle(appTitle);
         setIcon(ICON);
         setWindowMinSize();
@@ -117,13 +115,7 @@ public class MainWindow extends UiPart {
         scene = new Scene(rootLayout);
         primaryStage.setScene(scene);
 
-        // Configure event handlers
-        setKeyEventHandler();
         setAccelerators();
-    }
-
-    private void setKeyEventHandler() {
-        scene.setOnKeyPressed(e -> raisePotentialEvent(new KeyBindingEvent(e)));
     }
 
     private void setAccelerators() {
@@ -131,7 +123,7 @@ public class MainWindow extends UiPart {
     }
 
     void fillInnerParts() {
-        personListPanel = PersonListPanel.load(primaryStage, getPersonListPlaceholder(), modelManager, browserManager);
+        personListPanel = PersonListPanel.load(primaryStage, getPersonListPlaceholder(), modelManager);
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getLocalDataFilePath());
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), parser, resultDisplay, modelManager);
@@ -187,7 +179,6 @@ public class MainWindow extends UiPart {
 
     /**
      * Returns the current size and the position of the main Window.
-     * @return
      */
     public GuiSettings getCurrentGuiSetting() {
         return new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
@@ -214,5 +205,9 @@ public class MainWindow extends UiPart {
 
     public PersonListPanel getPersonListPanel() {
         return this.personListPanel;
+    }
+
+    public void loadPersonPage(ReadOnlyPerson person) {
+        browserManager.loadPersonPage(person);
     }
 }

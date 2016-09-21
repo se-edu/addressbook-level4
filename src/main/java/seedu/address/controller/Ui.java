@@ -12,9 +12,10 @@ import seedu.address.browser.BrowserManager;
 import seedu.address.commons.StringUtil;
 import seedu.address.events.EventManager;
 import seedu.address.events.controller.JumpToListRequestEvent;
+import seedu.address.events.controller.PersonPanelSelectionChangedEvent;
 import seedu.address.events.storage.FileOpeningExceptionEvent;
 import seedu.address.events.storage.FileSavingExceptionEvent;
-import seedu.address.events.ui.ShowHelpEvent;
+import seedu.address.events.controller.ShowHelpEvent;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.ReadOnlyPerson;
@@ -22,7 +23,6 @@ import seedu.address.util.Config;
 import seedu.address.util.LoggerManager;
 
 import java.io.File;
-import java.util.List;
 import java.util.logging.Logger;
 
 /**
@@ -154,6 +154,11 @@ public class Ui {
     @Subscribe
     private void handleJumpToListRequestEvent(JumpToListRequestEvent event) {
         mainWindow.getPersonListPanel().scrollTo(event.targetIndex);
+    }
+
+    @Subscribe
+    private void handlePersonPanelSelectionChangedEvent(PersonPanelSelectionChangedEvent ppsce){
+        mainWindow.loadPersonPage(ppsce.getNewSelection());
     }
 
 }

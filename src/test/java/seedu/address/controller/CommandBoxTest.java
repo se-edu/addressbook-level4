@@ -8,7 +8,7 @@ import seedu.address.events.EventManager;
 import seedu.address.events.controller.JumpToListRequestEvent;
 import seedu.address.events.model.LocalModelChangedEvent;
 import seedu.address.commands.*;
-import seedu.address.events.ui.ShowHelpEvent;
+import seedu.address.events.controller.ShowHelpEvent;
 import seedu.address.model.*;
 import seedu.address.model.person.*;
 import seedu.address.model.tag.*;
