@@ -48,8 +48,7 @@ public class PersonListPanelHandle extends GuiHandle {
     public boolean isListMatching(ReadOnlyPerson... persons) {
         return this.isListMatching(0, persons);
     }
-
-
+    
     /**
      * Clicks on the ListView.
      */
