@@ -1,28 +1,35 @@
-package seedu.address.controller;
+package seedu.address.logic;
 
 import com.google.common.eventbus.Subscribe;
-import org.junit.*;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
-
+import seedu.address.commands.*;
+import seedu.address.controller.CommandBox;
+import seedu.address.controller.ResultDisplay;
 import seedu.address.events.EventManager;
 import seedu.address.events.controller.JumpToListRequestEvent;
-import seedu.address.events.model.LocalModelChangedEvent;
-import seedu.address.commands.*;
 import seedu.address.events.controller.ShowHelpEvent;
-import seedu.address.model.*;
+import seedu.address.events.model.LocalModelChangedEvent;
+import seedu.address.model.AddressBook;
+import seedu.address.model.ModelManager;
+import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.person.*;
-import seedu.address.model.tag.*;
-import seedu.address.parser.Parser;
+import seedu.address.model.tag.Tag;
+import seedu.address.model.tag.UniqueTagList;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.Messages.*;
-import static org.junit.Assert.*;
 
-public class CommandBoxTest {
+public class LogicTest {
 
     /**
      * See https://github.com/junit-team/junit4/wiki/rules#temporaryfolder-rule
@@ -31,10 +38,9 @@ public class CommandBoxTest {
     public TemporaryFolder saveFolder = new TemporaryFolder();
 
     private ModelManager model;
-    private ResultDisplay resultDisplay;
-    private CommandBox inputBox;
+    private Logic logic;
 
-    // check for correct context in events raised
+    //These are for checking the correctness of the events raised
     private ReadOnlyAddressBook latestSavedAddressBook;
     private boolean helpShown;
     private int targetedJumpIndex;
@@ -57,11 +63,7 @@ public class CommandBoxTest {
     @Before
     public void setup() {
         model = new ModelManager(null); // ignore config
-        resultDisplay = new ResultDisplay();
-        inputBox = new CommandBox();
-        Parser parser = new Parser();
-        parser.configure(model.getFilteredPersonList());
-        inputBox.configure(resultDisplay, model);
+        logic = new Logic(model);
         EventManager.getInstance().registerHandler(this);
 
         latestSavedAddressBook = new AddressBook(model.getAddressBook()); // last saved assumed to be up to date before.
@@ -102,10 +104,10 @@ public class CommandBoxTest {
                                        List<? extends ReadOnlyPerson> expectedShownList) throws Exception {
 
         //Execute the command
-        inputBox.processCommandInput(inputCommand);
+        CommandResult result = logic.execute(inputCommand);
 
         //Confirm the ui display elements should contain the right data
-        assertEquals(expectedMessage, resultDisplay.getDisplayed());
+        assertEquals(expectedMessage, result.feedbackToUser);
         assertEquals(expectedShownList, model.getFilteredPersonList());
 
         //Confirm the state of data (saved and in-memory) is as expected
