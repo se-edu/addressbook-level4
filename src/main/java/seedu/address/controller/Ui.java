@@ -9,6 +9,7 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import seedu.address.MainApp;
 import seedu.address.browser.BrowserManager;
+import seedu.address.commons.StringUtil;
 import seedu.address.events.EventManager;
 import seedu.address.events.controller.JumpToListRequestEvent;
 import seedu.address.events.storage.FileOpeningExceptionEvent;
@@ -70,7 +71,7 @@ public class Ui {
             mainWindow.fillInnerParts();
 
         } catch (Throwable e) {
-            e.printStackTrace();
+            logger.severe(StringUtil.getDetails(e));
             showFatalErrorDialogAndShutdown("Fatal error during initializing", e);
         }
     }
@@ -143,8 +144,7 @@ public class Ui {
     }
 
     private void showFatalErrorDialogAndShutdown(String title, Throwable e) {
-        //TODO: Do a more detailed error reporting e.g. stack trace
-        logger.severe(title + " " + e.getMessage() );
+        logger.severe(title + " " + e.getMessage() + StringUtil.getDetails(e));
         showAlertDialogAndWait(Alert.AlertType.ERROR, title, e.getMessage(), e.toString());
         Platform.exit();
         System.exit(1);

@@ -5,6 +5,7 @@ import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import seedu.address.MainApp;
+import seedu.address.commons.StringUtil;
 
 import java.io.IOException;
 
@@ -42,9 +43,8 @@ public class UiPartLoader {
     private static Node loadLoader(FXMLLoader loader, String fxmlFileName) {
         try {
             return loader.load();
-        } catch (IOException e) {
-            String errorMessage = "FXML Load Error for " + fxmlFileName + " IOException when trying to load "
-                                  + loader.getLocation().toExternalForm();
+        } catch (Exception e) {
+            String errorMessage = "FXML Load Error for " + fxmlFileName;
             throw new RuntimeException(errorMessage, e);
         }
     }
