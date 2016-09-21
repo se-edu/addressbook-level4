@@ -1,12 +1,10 @@
 package seedu.address.controller;
 
 import javafx.application.Platform;
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.ListView;
-import javafx.scene.control.SelectionMode;
 import javafx.scene.control.SplitPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
@@ -70,7 +68,7 @@ public class PersonListPanel extends UiPart {
     public void setConnections(BrowserManager browserManager, ObservableList<ReadOnlyPerson> personList) {
         personListView.setItems(personList);
         personListView.setCellFactory(listView -> new PersonListViewCell());
-        loadGithubProfilePageWhenPersonIsSelected(browserManager);
+        setBrowserToHandleSelectionChangeEvent(browserManager);
     }
 
     private void addToPlaceholder() {
@@ -78,27 +76,13 @@ public class PersonListPanel extends UiPart {
         placeHolderPane.getChildren().add(panel);
     }
 
-    private void loadGithubProfilePageWhenPersonIsSelected(BrowserManager browserManager) {
+    private void setBrowserToHandleSelectionChangeEvent(BrowserManager browserManager) {
         personListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 logger.fine("Person in list view clicked. Loading GitHub profile page: '" + newValue + "'");
-                browserManager.loadPersonPage(newValue);
+                browserManager.loadPersonPage(newValue); //TODO: Use events to handle this instead
             }
         });
-    }
-
-
-    /**
-     * Initializes the controller class. This method is automatically called
-     * after the fxml file has been loaded.
-     */
-    @FXML
-    private void initialize() {
-
-    }
-
-    public List<ReadOnlyPerson> getSelectedPersons() {
-        return new ArrayList<>(personListView.getSelectionModel().getSelectedItems());
     }
 
     public ObservableList<ReadOnlyPerson> getDisplayedPersonsView() {
