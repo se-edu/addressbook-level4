@@ -6,7 +6,7 @@ import java.util.Collections;
 /**
  * Lists all persons in the address book to the user.
  */
-public class ListAllPersonsCommand extends Command {
+public class ListCommand extends Command {
 
     public static final String COMMAND_WORD = "list";
 
@@ -15,7 +15,7 @@ public class ListAllPersonsCommand extends Command {
             + "Example: " + COMMAND_WORD;
 
 
-    public ListAllPersonsCommand() {}
+    public ListCommand() {}
 
 
     @Override

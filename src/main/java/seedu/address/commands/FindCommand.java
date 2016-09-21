@@ -5,13 +5,12 @@ import seedu.address.parser.expr.PredExpr;
 import seedu.address.parser.qualifier.NameQualifier;
 
 import java.util.*;
-import java.util.regex.Pattern;
 
 /**
  * Finds and lists all persons in address book whose name contains any of the argument keywords.
  * Keyword matching is case sensitive.
  */
-public class FindPersonsByWordsInNameCommand extends Command {
+public class FindCommand extends Command {
 
     public static final String COMMAND_WORD = "find";
 
@@ -20,12 +19,9 @@ public class FindPersonsByWordsInNameCommand extends Command {
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
             + "Example: " + COMMAND_WORD + " alice bob charlie";
 
-    public static final Pattern ARGS_FORMAT =
-            Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
-
     private final Set<String> keywords;
 
-    public FindPersonsByWordsInNameCommand(Set<String> keywords) {
+    public FindCommand(Set<String> keywords) {
         this.keywords = keywords;
     }
 

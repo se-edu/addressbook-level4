@@ -7,7 +7,7 @@ import seedu.address.model.person.UniquePersonList.PersonNotFoundException;
 /**
  * Deletes a person identified using it's last displayed index from the address book.
  */
-public class DeletePersonCommand extends TargetLastListedPersonCommand {
+public class DeleteCommand extends Command {
 
     public static final String COMMAND_WORD = "delete";
 
@@ -18,9 +18,10 @@ public class DeletePersonCommand extends TargetLastListedPersonCommand {
 
     public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Person: %1$s";
 
+    public final ReadOnlyPerson targetPerson;
 
-    public DeletePersonCommand(ReadOnlyPerson targetPerson) {
-        super(targetPerson);
+    public DeleteCommand(ReadOnlyPerson targetPerson) {
+        this.targetPerson = targetPerson;
     }
 
 
