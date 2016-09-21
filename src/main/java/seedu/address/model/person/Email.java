@@ -1,7 +1,7 @@
 package seedu.address.model.person;
 
 
-import seedu.address.commons.Utils;
+import seedu.address.commons.CollectionUtil;
 import seedu.address.exceptions.IllegalValueException;
 
 /**
@@ -23,7 +23,7 @@ public class Email {
      * @throws IllegalValueException if given email address string is invalid.
      */
     public Email(String email) throws IllegalValueException {
-        Utils.assertNotNull(email);
+        CollectionUtil.assertNotNull(email);
         email = email.trim();
         if (!isValidEmail(email)) {
             throw new IllegalValueException(MESSAGE_EMAIL_CONSTRAINTS);

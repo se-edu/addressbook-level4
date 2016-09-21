@@ -1,6 +1,6 @@
 package seedu.address.model.person;
 
-import seedu.address.commons.Utils;
+import seedu.address.commons.CollectionUtil;
 import seedu.address.exceptions.IllegalValueException;
 
 import java.util.Arrays;
@@ -24,7 +24,7 @@ public class Name {
      * @throws IllegalValueException if given name string is invalid.
      */
     public Name(String name) throws IllegalValueException {
-        Utils.assertNotNull(name);
+        CollectionUtil.assertNotNull(name);
         name = name.trim();
         if (!isValidName(name)) {
             throw new IllegalValueException(MESSAGE_NAME_CONSTRAINTS);

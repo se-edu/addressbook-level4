@@ -18,8 +18,8 @@ import seedu.address.events.controller.ShowHelpEvent;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.ReadOnlyPerson;
-import seedu.address.util.Config;
-import seedu.address.util.LoggerManager;
+import seedu.address.commons.Config;
+import seedu.address.commons.LoggerManager;
 
 import java.io.File;
 import java.util.logging.Logger;

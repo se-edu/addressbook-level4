@@ -1,6 +1,6 @@
 package seedu.address.storage;
 
-import seedu.address.commons.Utils;
+import seedu.address.commons.CollectionUtil;
 import seedu.address.exceptions.IllegalValueException;
 import seedu.address.model.tag.Tag;
 
@@ -37,7 +37,7 @@ public class AdaptedTag {
      * so we check for that.
      */
     public boolean isAnyRequiredFieldMissing() {
-        return Utils.isAnyNull(tagName);
+        return CollectionUtil.isAnyNull(tagName);
     }
 
     /**

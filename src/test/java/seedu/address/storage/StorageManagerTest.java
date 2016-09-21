@@ -18,7 +18,7 @@ import seedu.address.model.person.UniquePersonList;
 import seedu.address.testutil.AddressBookBuilder;
 import seedu.address.testutil.SerializableTestClass;
 import seedu.address.testutil.TestUtil;
-import seedu.address.util.Config;
+import seedu.address.commons.Config;
 
 import java.io.File;
 import java.io.FileNotFoundException;

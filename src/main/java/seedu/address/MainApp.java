@@ -11,8 +11,8 @@ import seedu.address.events.controller.ExitAppRequestEvent;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.storage.StorageManager;
-import seedu.address.util.Config;
-import seedu.address.util.LoggerManager;
+import seedu.address.commons.Config;
+import seedu.address.commons.LoggerManager;
 
 import java.util.Map;
 import java.util.logging.Logger;

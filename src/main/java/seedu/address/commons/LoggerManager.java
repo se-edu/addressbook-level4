@@ -1,4 +1,4 @@
-package seedu.address.util;
+package seedu.address.commons;
 
 import java.io.IOException;
 import java.util.logging.*;

@@ -1,7 +1,7 @@
 package seedu.address.model.person;
 
 
-import seedu.address.commons.Utils;
+import seedu.address.commons.CollectionUtil;
 import seedu.address.exceptions.IllegalValueException;
 
 /**
@@ -22,7 +22,7 @@ public class Address {
      * @throws IllegalValueException if given address string is invalid.
      */
     public Address(String address) throws IllegalValueException {
-        Utils.assertNotNull(address);
+        CollectionUtil.assertNotNull(address);
         if (!isValidAddress(address)) {
             throw new IllegalValueException(MESSAGE_ADDRESS_CONSTRAINTS);
         }

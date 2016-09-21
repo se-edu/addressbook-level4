@@ -1,6 +1,6 @@
 package seedu.address.commands;
 
-import seedu.address.commons.Utils;
+import seedu.address.commons.CollectionUtil;
 import seedu.address.model.person.ReadOnlyPerson;
 
 import java.util.List;
@@ -14,13 +14,13 @@ public class CommandResult {
     private final List<? extends ReadOnlyPerson> relevantPersons;
 
     public CommandResult(String feedbackToUser) {
-        Utils.assertNotNull(feedbackToUser);
+        CollectionUtil.assertNotNull(feedbackToUser);
         this.feedbackToUser = feedbackToUser;
         relevantPersons = null;
     }
 
     public CommandResult(String feedbackToUser, List<? extends ReadOnlyPerson> relevantPersons) {
-        Utils.assertNotNull(feedbackToUser, relevantPersons);
+        CollectionUtil.assertNotNull(feedbackToUser, relevantPersons);
         this.feedbackToUser = feedbackToUser;
         this.relevantPersons = relevantPersons;
     }

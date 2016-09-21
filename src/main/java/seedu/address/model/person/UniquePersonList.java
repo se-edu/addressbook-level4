@@ -2,7 +2,7 @@ package seedu.address.model.person;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.commons.Utils;
+import seedu.address.commons.CollectionUtil;
 import seedu.address.exceptions.DuplicateDataException;
 
 import java.util.*;
@@ -13,7 +13,7 @@ import java.util.*;
  * Supports minimal set of list operations needed for the app's features.
  *
  * @see Person#equals(Object)
- * @see Utils#elementsAreUnique(Collection)
+ * @see CollectionUtil#elementsAreUnique(Collection)
  */
 public class UniquePersonList implements Iterable<Person> {
 
@@ -43,9 +43,9 @@ public class UniquePersonList implements Iterable<Person> {
      * Varargs/array constructor, enforces no nulls or duplicates.
      */
     public UniquePersonList(Person... persons) throws DuplicatePersonException {
-        Utils.assertNotNull(persons);
+        CollectionUtil.assertNotNull(persons);
         final List<Person> initialPersons = Arrays.asList(persons);
-        if (!Utils.elementsAreUnique(initialPersons)) {
+        if (!CollectionUtil.elementsAreUnique(initialPersons)) {
             throw new DuplicatePersonException();
         }
         internalList.addAll(initialPersons);
@@ -55,8 +55,8 @@ public class UniquePersonList implements Iterable<Person> {
      * java collections constructor, enforces no null or duplicate elements.
      */
     public UniquePersonList(Collection<Person> persons) throws DuplicatePersonException {
-        Utils.assertNoNullElements(persons);
-        if (!Utils.elementsAreUnique(persons)) {
+        CollectionUtil.assertNoNullElements(persons);
+        if (!CollectionUtil.elementsAreUnique(persons)) {
             throw new DuplicatePersonException();
         }
         internalList.addAll(persons);
@@ -66,7 +66,7 @@ public class UniquePersonList implements Iterable<Person> {
      * java set constructor, enforces no nulls.
      */
     public UniquePersonList(Set<Person> persons) {
-        Utils.assertNoNullElements(persons);
+        CollectionUtil.assertNoNullElements(persons);
         internalList.addAll(persons);
     }
 
@@ -97,7 +97,7 @@ public class UniquePersonList implements Iterable<Person> {
      * Checks if the list contains an equivalent person as the given argument.
      */
     public boolean contains(ReadOnlyPerson toCheck) {
-        Utils.assertNotNull(toCheck);
+        CollectionUtil.assertNotNull(toCheck);
         return internalList.contains(toCheck);
     }
 
@@ -107,7 +107,7 @@ public class UniquePersonList implements Iterable<Person> {
      * @throws DuplicatePersonException if the person to add is a duplicate of an existing person in the list.
      */
     public void add(Person toAdd) throws DuplicatePersonException {
-        Utils.assertNotNull(toAdd);
+        CollectionUtil.assertNotNull(toAdd);
         if (contains(toAdd)) {
             throw new DuplicatePersonException();
         }
@@ -120,7 +120,7 @@ public class UniquePersonList implements Iterable<Person> {
      * @throws PersonNotFoundException if no such person could be found in the list.
      */
     public boolean remove(ReadOnlyPerson toRemove) throws PersonNotFoundException {
-        Utils.assertNotNull(toRemove);
+        CollectionUtil.assertNotNull(toRemove);
         final boolean personFoundAndDeleted = internalList.remove(toRemove);
         if (!personFoundAndDeleted) {
             throw new PersonNotFoundException();

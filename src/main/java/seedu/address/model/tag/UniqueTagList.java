@@ -2,7 +2,7 @@ package seedu.address.model.tag;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.commons.Utils;
+import seedu.address.commons.CollectionUtil;
 import seedu.address.exceptions.DuplicateDataException;
 
 import java.util.*;
@@ -13,7 +13,7 @@ import java.util.*;
  * Supports minimal set of list operations for the app's features.
  *
  * @see Tag#equals(Object)
- * @see Utils#elementsAreUnique(Collection)
+ * @see CollectionUtil#elementsAreUnique(Collection)
  */
 public class UniqueTagList implements Iterable<Tag> {
 
@@ -43,9 +43,9 @@ public class UniqueTagList implements Iterable<Tag> {
      * Varargs/array constructor, enforces no nulls or duplicates.
      */
     public UniqueTagList(Tag... tags) throws DuplicateTagException {
-        Utils.assertNotNull(tags);
+        CollectionUtil.assertNotNull(tags);
         final List<Tag> initialTags = Arrays.asList(tags);
-        if (!Utils.elementsAreUnique(initialTags)) {
+        if (!CollectionUtil.elementsAreUnique(initialTags)) {
             throw new DuplicateTagException();
         }
         internalList.addAll(initialTags);
@@ -55,8 +55,8 @@ public class UniqueTagList implements Iterable<Tag> {
      * java collections constructor, enforces no null or duplicate elements.
      */
     public UniqueTagList(Collection<Tag> tags) throws DuplicateTagException {
-        Utils.assertNoNullElements(tags);
-        if (!Utils.elementsAreUnique(tags)) {
+        CollectionUtil.assertNoNullElements(tags);
+        if (!CollectionUtil.elementsAreUnique(tags)) {
             throw new DuplicateTagException();
         }
         internalList.addAll(tags);
@@ -66,7 +66,7 @@ public class UniqueTagList implements Iterable<Tag> {
      * java set constructor, enforces no nulls.
      */
     public UniqueTagList(Set<Tag> tags) {
-        Utils.assertNoNullElements(tags);
+        CollectionUtil.assertNoNullElements(tags);
         internalList.addAll(tags);
     }
 
@@ -116,7 +116,7 @@ public class UniqueTagList implements Iterable<Tag> {
      * Checks if the list contains an equivalent Tag as the given argument.
      */
     public boolean contains(Tag toCheck) {
-        Utils.assertNotNull(toCheck);
+        CollectionUtil.assertNotNull(toCheck);
         return internalList.contains(toCheck);
     }
 
@@ -126,7 +126,7 @@ public class UniqueTagList implements Iterable<Tag> {
      * @throws DuplicateTagException if the Tag to add is a duplicate of an existing Tag in the list.
      */
     public void add(Tag toAdd) throws DuplicateTagException {
-        Utils.assertNotNull(toAdd);
+        CollectionUtil.assertNotNull(toAdd);
         if (contains(toAdd)) {
             throw new DuplicateTagException();
         }
@@ -139,7 +139,7 @@ public class UniqueTagList implements Iterable<Tag> {
      * @throws TagNotFoundException if no such Tag could be found in the list.
      */
     public boolean remove(Tag toRemove) throws TagNotFoundException {
-        Utils.assertNotNull(toRemove);
+        CollectionUtil.assertNotNull(toRemove);
         final boolean tagFoundAndDeleted = internalList.remove(toRemove);
         if (!tagFoundAndDeleted) {
             throw new TagNotFoundException();

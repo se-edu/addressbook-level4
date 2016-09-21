@@ -1,4 +1,4 @@
-package seedu.address.util;
+package seedu.address.commons;
 
 import java.io.File;
 import java.util.logging.Level;

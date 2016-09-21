@@ -1,6 +1,6 @@
 package seedu.address.commands;
 
-import seedu.address.commons.Utils;
+import seedu.address.commons.CollectionUtil;
 
 /**
  * Clears the address book.
@@ -18,7 +18,7 @@ public class ClearCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        Utils.assertNotNull(modelManager);
+        CollectionUtil.assertNotNull(modelManager);
         modelManager.resetData(modelManager.getDefaultAddressBook());
         modelManager.updateStorage();
         return new CommandResult(MESSAGE_SUCCESS);

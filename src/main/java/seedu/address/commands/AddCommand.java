@@ -1,6 +1,6 @@
 package seedu.address.commands;
 
-import seedu.address.commons.Utils;
+import seedu.address.commons.CollectionUtil;
 import seedu.address.exceptions.IllegalValueException;
 import seedu.address.model.person.*;
 import seedu.address.model.tag.*;
@@ -56,7 +56,7 @@ public class AddCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        Utils.assertNotNull(modelManager);
+        CollectionUtil.assertNotNull(modelManager);
         try {
             modelManager.addPerson(toAdd);
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));

@@ -8,10 +8,10 @@ import java.util.Set;
 /**
  * Utility methods
  */
-public class Utils {
+public class CollectionUtil {
 
     /**
-     * Checks whether any of the given items are null.
+     * Returns true if any of the given items are null.
      */
     public static boolean isAnyNull(Object... items) {
         for (Object item : items) {
@@ -48,7 +48,7 @@ public class Utils {
     }
 
     /**
-     * Checks if every element in a collection are unique by {@link Object#equals(Object)}.
+     * Returns true if every element in a collection are unique by {@link Object#equals(Object)}.
      */
     public static boolean elementsAreUnique(Collection<?> items) {
         final Set<Object> testSet = new HashSet<>();

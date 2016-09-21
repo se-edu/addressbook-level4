@@ -12,9 +12,8 @@ import seedu.address.model.person.UniquePersonList.PersonNotFoundException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.parser.expr.Expr;
-import seedu.address.util.Config;
-import seedu.address.util.LoggerManager;
-import seedu.address.util.collections.UnmodifiableObservableList;
+import seedu.address.commons.Config;
+import seedu.address.commons.LoggerManager;
 
 import java.util.List;
 import java.util.logging.Logger;
