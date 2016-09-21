@@ -1,4 +1,4 @@
-package seedu.address.events.ui;
+package seedu.address.events.controller;
 
 import seedu.address.events.BaseEvent;
 

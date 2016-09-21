@@ -2,7 +2,7 @@ package seedu.address.commands;
 
 
 import seedu.address.events.EventManager;
-import seedu.address.events.ui.ShowHelpEvent;
+import seedu.address.events.controller.ShowHelpEvent;
 
 /**
  * Format full help instructions for every command for display.
