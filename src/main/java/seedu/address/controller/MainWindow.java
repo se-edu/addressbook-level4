@@ -35,9 +35,6 @@ public class MainWindow extends UiPart {
     public static final int MIN_HEIGHT = 600;
     public static final int MIN_WIDTH = 450;
 
-    private Ui ui; //TODO: remove this dependency as per TODOs given in methods below
-
-    // Link to the model
     private ModelManager modelManager;
 
     private BrowserManager browserManager;
@@ -104,7 +101,6 @@ public class MainWindow extends UiPart {
                            ModelManager modelManager, BrowserManager browserManager) {
 
         // Set dependencies
-        this.ui = ui;
         this.modelManager = modelManager;
         this.addressBookName = addressBookName;
         this.browserManager = browserManager;
