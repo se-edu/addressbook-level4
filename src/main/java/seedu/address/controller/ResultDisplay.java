@@ -1,9 +1,7 @@
 package seedu.address.controller;
 
-import javafx.beans.InvalidationListener;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javafx.beans.value.ChangeListener;
 import javafx.scene.Node;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
@@ -43,10 +41,6 @@ public class ResultDisplay extends UiPart {
         mainPane.getChildren().add(resultDisplayArea);
         FxViewUtil.applyAnchorBoundaryParameters(mainPane, 0.0, 0.0, 0.0, 0.0);
         placeHolder.getChildren().add(mainPane);
-    }
-
-    public TextArea getHeaderStatusBarView() {
-        return resultDisplayArea;
     }
 
     @Override
