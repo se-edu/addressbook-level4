@@ -88,5 +88,6 @@ public class GuiHandle {
 
         guiRobot.targetWindow(window.get());
         guiRobot.interact(() -> ((Stage)window.get()).close());
+        focusOnMainApp();
     }
 }

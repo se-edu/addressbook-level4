@@ -49,6 +49,15 @@ public class PersonListPanelHandle extends GuiHandle {
         return this.isListMatching(0, persons);
     }
 
+
+    /**
+     * Clicks on the ListView.
+     */
+    public void clickOnListView() {
+        Point2D point= TestUtil.getScreenMidPoint(getListView());
+        guiRobot.clickOn(point.getX(), point.getY());
+    }
+
     /**
      * Returns true if the {@code persons} appear as the sub list (in that order) at position {@code startPosition}.
      */
