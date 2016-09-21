@@ -2,7 +2,8 @@ package guitests;
 
 import guitests.guihandles.PersonCardHandle;
 import org.junit.Test;
-import seedu.address.commands.AddPersonCommand;
+import seedu.address.commands.AddCommand;
+import seedu.address.commons.Messages;
 import seedu.address.exceptions.IllegalValueException;
 import seedu.address.testutil.TestPerson;
 import seedu.address.testutil.TestUtil;
@@ -26,7 +27,7 @@ public class AddCommandTest extends AddressBookGuiTest {
 
         //add duplicate person
         commandBox.runCommand(td.hoon.getAddCommand());
-        assertResultMessage(AddPersonCommand.MESSAGE_DUPLICATE_PERSON);
+        assertResultMessage(AddCommand.MESSAGE_DUPLICATE_PERSON);
         assertTrue(personListPanel.isListMatching(currentList));
 
         //add to empty list
@@ -35,7 +36,7 @@ public class AddCommandTest extends AddressBookGuiTest {
 
         //invalid command
         commandBox.runCommand("adds Johnny");
-        assertResultMessage("Invalid command");
+        assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
     }
 
     private void assertAddSuccess(TestPerson personToAdd, TestPerson... currentList) {

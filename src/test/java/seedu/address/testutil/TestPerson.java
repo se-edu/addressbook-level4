@@ -70,7 +70,7 @@ public class TestPerson implements ReadOnlyPerson {
 
     @Override
     public String toString() {
-        return getAsTextShowAll();
+        return getAsText();
     }
 
     public String getAddCommand() {
