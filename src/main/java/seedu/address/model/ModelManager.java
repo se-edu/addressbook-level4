@@ -14,7 +14,6 @@ import seedu.address.model.tag.UniqueTagList;
 import seedu.address.parser.expr.Expr;
 import seedu.address.util.Config;
 import seedu.address.util.LoggerManager;
-import seedu.address.util.collections.UnmodifiableObservableList;
 
 import java.util.List;
 import java.util.logging.Logger;
