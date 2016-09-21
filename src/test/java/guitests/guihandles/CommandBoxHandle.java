@@ -29,4 +29,10 @@ public class CommandBoxHandle extends GuiHandle{
         enterCommand(command);
         pressEnter();
     }
+
+    public HelpWindowHandle runHelpCommand() {
+        enterCommand("help");
+        pressEnter();
+        return new HelpWindowHandle(guiRobot, primaryStage);
+    }
 }

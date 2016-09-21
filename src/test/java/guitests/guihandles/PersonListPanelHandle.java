@@ -2,6 +2,7 @@ package guitests.guihandles;
 
 
 import guitests.GuiRobot;
+import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
@@ -66,6 +67,15 @@ public class PersonListPanelHandle extends GuiHandle {
         }
 
         return true;
+    }
+
+    /**
+     * Clicks on the ListView.
+     * @return
+     */
+    public void clickOnListView() {
+        Point2D point= TestUtil.getScreenMidPoint(getListView());
+        guiRobot.clickOn(point.getX(), point.getY());
     }
 
     /**
