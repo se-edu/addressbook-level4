@@ -33,8 +33,6 @@ public class MainWindow extends UiPart {
     private ModelManager modelManager;
 
 
-    private Parser parser;
-
     // Independent Ui parts residing in this Ui container
     private BrowserPanel browserPanel;
     private PersonListPanel personListPanel;
@@ -71,7 +69,6 @@ public class MainWindow extends UiPart {
 
     public MainWindow() {
         super();
-        parser = new Parser();
     }
 
     @Override
@@ -88,17 +85,16 @@ public class MainWindow extends UiPart {
                                   ModelManager modelManager) {
 
         MainWindow mainWindow = UiPartLoader.loadUiPart(primaryStage, new MainWindow());
-        mainWindow.configure(config.getAppTitle(), config.getAddressBookName(), config, prefs, ui, modelManager);
+        mainWindow.configure(config.getAppTitle(), config.getAddressBookName(), config, prefs, modelManager);
         return mainWindow;
     }
 
-    private void configure(String appTitle, String addressBookName, Config config, UserPrefs prefs, Ui ui,
+    private void configure(String appTitle, String addressBookName, Config config, UserPrefs prefs,
                            ModelManager modelManager) {
 
         //Set dependencies
         this.modelManager = modelManager;
         this.addressBookName = addressBookName;
-        this.parser.configure(modelManager.getFilteredPersonList());
         this.config = config;
         this.userPrefs = prefs;
 
@@ -122,7 +118,7 @@ public class MainWindow extends UiPart {
         personListPanel = PersonListPanel.load(primaryStage, getPersonListPlaceholder(), modelManager);
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getLocalDataFilePath());
-        commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), parser, resultDisplay, modelManager);
+        commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, modelManager);
     }
 
     private AnchorPane getCommandBoxPlaceholder() {

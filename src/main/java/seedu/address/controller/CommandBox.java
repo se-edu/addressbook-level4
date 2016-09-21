@@ -6,10 +6,9 @@ import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import seedu.address.commands.Command;
-import seedu.address.commands.CommandResult;
-import seedu.address.commands.IncorrectCommand;
+import seedu.address.commands.*;
 import seedu.address.commons.FxViewUtil;
+import seedu.address.logic.Logic;
 import seedu.address.model.ModelManager;
 import seedu.address.parser.Parser;
 import seedu.address.util.LoggerManager;
@@ -23,25 +22,24 @@ public class CommandBox extends UiPart {
     private AnchorPane placeHolderPane;
     private AnchorPane commandPane;
     private ResultDisplay resultDisplay;
-    private ModelManager modelManager;
-    private Parser parser;
-    private Command latestCommand;
+
+    private Logic logic;
 
     @FXML
     private TextField commandTextField;
+    private CommandResult mostRecentResult;
 
-    public static CommandBox load(Stage primaryStage, AnchorPane commandBoxPlaceholder, Parser parser,
+    public static CommandBox load(Stage primaryStage, AnchorPane commandBoxPlaceholder,
                                   ResultDisplay resultDisplay, ModelManager modelManager) {
         CommandBox commandBox = UiPartLoader.loadUiPart(primaryStage, commandBoxPlaceholder, new CommandBox());
-        commandBox.configure(parser, resultDisplay, modelManager);
+        commandBox.configure(resultDisplay, modelManager);
         commandBox.addToPlaceholder();
         return commandBox;
     }
 
-    public void configure(Parser parser, ResultDisplay resultDisplay, ModelManager modelManager) {
-        this.parser = parser;
+    public void configure(ResultDisplay resultDisplay, ModelManager modelManager) {
         this.resultDisplay = resultDisplay;
-        this.modelManager = modelManager;
+        this.logic = new Logic(modelManager);
     }
 
     private void addToPlaceholder() {
@@ -67,26 +65,23 @@ public class CommandBox extends UiPart {
     }
 
     public void processCommandInput(String commandText) {
-        Command command = parser.parseCommand(commandText);
-        command.setData(modelManager);
-        latestCommand = command;
-        CommandResult result = command.execute();
-
-        resultDisplay.postMessage(result.feedbackToUser);
-
-        logger.info("Result: " + result.feedbackToUser);
+        mostRecentResult = logic.execute(commandText);
+        resultDisplay.postMessage(mostRecentResult.feedbackToUser);
+        logger.info("Result: " + mostRecentResult.feedbackToUser);
     }
 
     @FXML
     private void handleCommandInputChanged() {
         if (commandTextField.getStyleClass().contains("error")) commandTextField.getStyleClass().remove("error");
+
         processCommandInput(commandTextField.getText());
 
-        if (latestCommand instanceof IncorrectCommand) {
+        if (mostRecentResult instanceof IncorrectCommandResult) {
             commandTextField.getStyleClass().add("error");
+            logger.fine("Invalid command: " + commandTextField.getText());
         } else {
             commandTextField.setText("");
         }
-        logger.fine("Invalid command: " + commandTextField.getText());
     }
+
 }
