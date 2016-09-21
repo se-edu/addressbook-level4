@@ -1,41 +1,31 @@
 package guitests;
 
 import org.junit.Test;
-import seedu.address.exceptions.IllegalValueException;
-import seedu.address.testutil.TestUtil;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-public class ClearCommandTest extends GuiTestBase {
+public class ClearCommandTest extends AddressBookGuiTest {
 
     @Test
-    public void clear_clearWithoutAnyPreOrPostCommand_addressBookCleared() {
-        assertTrue(personListPanel.isListMatching(td.getTypicalPersons()));
-        personListPanel.enterCommandAndApply("clear");
-        assertEquals(0, personListPanel.getNumberOfPeople());
-        assertEquals("Address book has been cleared!", resultDisplay.getText());
-    }
+    public void clear() {
 
-    @Test
-    public void clear_createAfterClear_addressBookCleared() {
+        //verify a non-empty list can be cleared
         assertTrue(personListPanel.isListMatching(td.getTypicalPersons()));
-        personListPanel.enterCommandAndApply("clear");
-        assertEquals(0, personListPanel.getNumberOfPeople());
-        assertEquals("Address book has been cleared!", resultDisplay.getText());
+        assertClearCommandSuccess();
 
-        personListPanel.enterCommandAndApply(td.hoon.getCommandString());
+        //verify other commands can work after a clear command
+        commandBox.runCommand(td.hoon.getAddCommand());
         assertTrue(personListPanel.isListMatching(td.hoon));
+        commandBox.runCommand("delete 1");
+        assertListSize(0);
+
+        //verify clear command works when the list is empty
+        assertClearCommandSuccess();
     }
 
-    @Test
-    public void clear_deleteBeforeClear_addressBookCleared() {
-        assertTrue(personListPanel.isListMatching(td.getTypicalPersons()));
-        personListPanel.enterCommandAndApply("delete 2");
-        assertTrue(personListPanel.isListMatching(TestUtil.removePersonsFromList(td.getTypicalPersons(), td.benson)));
-
-        personListPanel.enterCommandAndApply("clear");
-        assertEquals(0, personListPanel.getNumberOfPeople());
-        assertEquals("Address book has been cleared!", resultDisplay.getText());
+    private void assertClearCommandSuccess() {
+        commandBox.runCommand("clear");
+        assertListSize(0);
+        assertResultMessage("Address book has been cleared!");
     }
 }

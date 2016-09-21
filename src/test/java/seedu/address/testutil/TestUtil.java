@@ -323,10 +323,20 @@ public class TestUtil {
      * @param personsToRemove The subset of persons.
      * @return The modified persons after removal of the subset from persons.
      */
-    public static TestPerson[] removePersonsFromList(TestPerson[] persons, TestPerson... personsToRemove) {
+    public static TestPerson[] removePersonsFromList(final TestPerson[] persons, TestPerson... personsToRemove) {
         List<TestPerson> listOfPersons = asList(persons);
         listOfPersons.removeAll(asList(personsToRemove));
         return listOfPersons.toArray(new TestPerson[listOfPersons.size()]);
+    }
+
+
+    /**
+     * Returns a copy of the list with the person at specified index removed.
+     * @param list original list to copy from
+     * @param targetIndexInOneIndexedFormat e.g. if the first element to be removed, 1 should be given as index.
+     */
+    public static TestPerson[] removePersonFromList(final TestPerson[] list, int targetIndexInOneIndexedFormat) {
+        return removePersonsFromList(list, list[targetIndexInOneIndexedFormat-1]);
     }
 
     /**
@@ -347,7 +357,7 @@ public class TestUtil {
      * @param personsToAdd The persons that are to be appended behind the original array.
      * @return The modified array of persons.
      */
-    public static TestPerson[] addPersonsToList(TestPerson[] persons, TestPerson... personsToAdd) {
+    public static TestPerson[] addPersonsToList(final TestPerson[] persons, TestPerson... personsToAdd) {
         List<TestPerson> listOfPersons = asList(persons);
         listOfPersons.addAll(asList(personsToAdd));
         return listOfPersons.toArray(new TestPerson[listOfPersons.size()]);
@@ -385,4 +395,5 @@ public class TestUtil {
 
         return collect.toArray(new Tag[split.length]);
     }
+
 }

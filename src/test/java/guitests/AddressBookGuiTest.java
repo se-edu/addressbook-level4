@@ -7,28 +7,25 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.rules.TestName;
-import org.loadui.testfx.GuiTest;
 import org.testfx.api.FxToolkit;
 import seedu.address.TestApp;
 import seedu.address.events.EventManager;
 import seedu.address.model.datatypes.AddressBook;
 import seedu.address.model.person.ReadOnlyPerson;
-import seedu.address.testutil.ScreenShotRule;
 import seedu.address.testutil.TestUtil;
 import seedu.address.testutil.TypicalTestPersons;
-import seedu.address.util.Config;
 
-import java.io.File;
-import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-public class GuiTestBase {
+/**
+ * A GUI Test class for AddressBook.
+ */
+public abstract class AddressBookGuiTest {
 
-    @Rule
-    public ScreenShotRule screenShotRule = new ScreenShotRule();
-
+    /* The TestName Rule makes the current test name available inside test methods */
     @Rule
     public TestName name = new TestName();
 
@@ -44,6 +41,7 @@ public class GuiTestBase {
     protected MainMenuHandle mainMenu;
     protected PersonListPanelHandle personListPanel;
     protected ResultDisplayHandle resultDisplay;
+    protected CommandBoxHandle commandBox;
     private Stage stage;
 
     @BeforeClass
@@ -63,6 +61,7 @@ public class GuiTestBase {
             mainMenu = mainGui.getMainMenu();
             personListPanel = mainGui.getPersonListPanel();
             resultDisplay = mainGui.getResultDisplay();
+            commandBox = mainGui.getCommandBox();
             this.stage = stage;
         });
         EventManager.clearSubscribers();
@@ -90,23 +89,31 @@ public class GuiTestBase {
         return TestApp.SAVE_LOCATION_FOR_TESTING;
     }
 
-    public Config getTestingConfig() {
-        return testApp.getTestingConfig();
-    }
-
     @After
     public void cleanup() throws TimeoutException {
-        File file = GuiTest.captureScreenshot();
-        TestUtil.renameFile(file, this.getClass().getName() + name.getMethodName() + ".png");
         FxToolkit.cleanupStages();
     }
 
-    public void sleep(long duration, TimeUnit timeunit) {
-        mainGui.sleep(duration, timeunit);
-    }
-
+    /**
+     * Asserts the person shown in the card is same as the given person
+     */
     public void assertMatching(ReadOnlyPerson person, PersonCardHandle card) {
         assertTrue(TestUtil.compareCardAndPerson(card, person));
     }
 
+    /**
+     * Asserts the size of the person list is equal to the given number.
+     */
+    protected void assertListSize(int size) {
+        int numberOfPeople = personListPanel.getNumberOfPeople();
+        assertEquals(size, numberOfPeople);
+    }
+
+    /**
+     * Asserts the message shown in the Result Display area is same as the given string.
+     * @param expected
+     */
+    protected void assertResultMessage(String expected) {
+        assertEquals(expected, resultDisplay.getText());
+    }
 }
