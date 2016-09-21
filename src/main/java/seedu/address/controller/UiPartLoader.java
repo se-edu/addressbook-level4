@@ -5,9 +5,6 @@ import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import seedu.address.MainApp;
-import seedu.address.commons.StringUtil;
-
-import java.io.IOException;
 
 /**
  * A utility class to load UiParts from FXML files.
@@ -26,7 +23,6 @@ public class UiPartLoader {
      * @param placeholder The placeholder where the loaded Ui Part is added.
      * @param sampleUiPart The sample of the expected UiPart class.
      * @param <T> The type of the UiPart
-     * @return
      */
     public static <T extends UiPart> T loadUiPart(Stage primaryStage, AnchorPane placeholder, T sampleUiPart) {
         FXMLLoader loader = new FXMLLoader();
@@ -39,12 +35,19 @@ public class UiPartLoader {
         return (T)controller;
     }
 
-    public static <T extends UiPart> T loadUiPart(T sampleUiPart) {
+    /**
+     * Returns the controller class for a specific UI Part.
+     *
+     * @param seedUiPart The UiPart object to be used as the controller.
+     * @param <T> The type of the UiPart
+     */
+
+    public static <T extends UiPart> T loadUiPart(T seedUiPart) {
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(MainApp.class.getResource(FXML_FILE_FOLDER + sampleUiPart.getFxmlPath()));
-        loader.setController(sampleUiPart);
-        loadLoader(loader, sampleUiPart.getFxmlPath());
-        return sampleUiPart;
+        loader.setLocation(MainApp.class.getResource(FXML_FILE_FOLDER + seedUiPart.getFxmlPath()));
+        loader.setController(seedUiPart);
+        loadLoader(loader, seedUiPart.getFxmlPath());
+        return seedUiPart;
     }
 
 
