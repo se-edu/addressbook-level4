@@ -71,7 +71,6 @@ public class PersonListPanelHandle extends GuiHandle {
 
     /**
      * Clicks on the ListView.
-     * @return
      */
     public void clickOnListView() {
         Point2D point= TestUtil.getScreenMidPoint(getListView());
