@@ -12,6 +12,7 @@ import seedu.address.model.person.*;
 import seedu.address.model.tag.*;
 import seedu.address.parser.Parser;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -93,4 +94,134 @@ public class CommandBoxTest {
     }
 
 
+    /**
+     * A utility class to generate test data.
+     */
+    class TestDataHelper{
+
+        Person adam() throws Exception {
+            Name name = new Name("Adam Brown");
+            Phone privatePhone = new Phone("111111", true);
+            Email email = new Email("adam@gmail.com", false);
+            Address privateAddress = new Address("111, alpha street", true);
+            Tag tag1 = new Tag("tag1");
+            Tag tag2 = new Tag("tag2");
+            UniqueTagList tags = new UniqueTagList(tag1, tag2);
+            return new Person(name, privatePhone, email, privateAddress, tags);
+        }
+
+        /**
+         * Generates a valid person using the given seed.
+         * Running this function with the same parameter values guarantees the returned person will have the same state.
+         * Each unique seed will generate a unique Person object.
+         *
+         * @param seed used to generate the person data field values
+         * @param isAllFieldsPrivate determines if private-able fields (phone, email, address) will be private
+         */
+        Person generatePerson(int seed, boolean isAllFieldsPrivate) throws Exception {
+            return new Person(
+                    new Name("Person " + seed),
+                    new Phone("" + Math.abs(seed), isAllFieldsPrivate),
+                    new Email(seed + "@email", isAllFieldsPrivate),
+                    new Address("House of " + seed, isAllFieldsPrivate),
+                    new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
+            );
+        }
+
+        /** Generates the correct add command based on the person given */
+        String generateAddCommand(Person p) {
+            StringBuffer cmd = new StringBuffer(" ");
+
+            cmd.append("add");
+
+            cmd.append(p.getName().toString());
+            cmd.append((p.getPhone().isPrivate() ? "pp/" : "p/") + p.getPhone());
+            cmd.append((p.getEmail().isPrivate() ? "pe/" : "e/") + p.getEmail());
+            cmd.append((p.getAddress().isPrivate() ? "pa/" : "a/") + p.getAddress());
+
+            UniqueTagList tags = p.getTags();
+            for(Tag t: tags){
+                cmd.append("t/" + t.tagName);
+            }
+
+            return cmd.toString();
+        }
+
+        /**
+         * Generates an AddressBook with auto-generated persons.
+         * @param isPrivateStatuses flags to indicate if all contact details of respective persons should be set to
+         *                          private.
+         */
+        AddressBook generateAddressBook(Boolean... isPrivateStatuses) throws Exception{
+            AddressBook addressBook = new AddressBook();
+            addToAddressBook(addressBook, isPrivateStatuses);
+            return addressBook;
+        }
+
+        /**
+         * Generates an AddressBook based on the list of Persons given.
+         */
+        AddressBook generateAddressBook(List<Person> persons) throws Exception{
+            AddressBook addressBook = new AddressBook();
+            addToAddressBook(addressBook, persons);
+            return addressBook;
+        }
+
+        /**
+         * Adds auto-generated Person objects to the given AddressBook
+         * @param addressBook The AddressBook to which the Persons will be added
+         * @param isPrivateStatuses flags to indicate if all contact details of generated persons should be set to
+         *                          private.
+         */
+        void addToAddressBook(AddressBook addressBook, Boolean... isPrivateStatuses) throws Exception{
+            addToAddressBook(addressBook, generatePersonList(isPrivateStatuses));
+        }
+
+        /**
+         * Adds the given list of Persons to the given AddressBook
+         */
+        void addToAddressBook(AddressBook addressBook, List<Person> personsToAdd) throws Exception{
+            for(Person p: personsToAdd){
+                addressBook.addPerson(p);
+            }
+        }
+
+        /**
+         * Creates a list of Persons based on the give Person objects.
+         */
+        List<Person> generatePersonList(Person... persons) throws Exception{
+            List<Person> personList = new ArrayList<>();
+            for(Person p: persons){
+                personList.add(p);
+            }
+            return personList;
+        }
+
+        /**
+         * Generates a list of Persons based on the flags.
+         * @param isPrivateStatuses flags to indicate if all contact details of respective persons should be set to
+         *                          private.
+         */
+        List<Person> generatePersonList(Boolean... isPrivateStatuses) throws Exception{
+            List<Person> persons = new ArrayList<>();
+            int i = 1;
+            for(Boolean p: isPrivateStatuses){
+                persons.add(generatePerson(i++, p));
+            }
+            return persons;
+        }
+
+        /**
+         * Generates a Person object with given name. Other fields will have some dummy values.
+         */
+        Person generatePersonWithName(String name) throws Exception {
+            return new Person(
+                    new Name(name),
+                    new Phone("1", false),
+                    new Email("1@email", false),
+                    new Address("House of 1", false),
+                    new UniqueTagList(new Tag("tag"))
+            );
+        }
+    }
 }
