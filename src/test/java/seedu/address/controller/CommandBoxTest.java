@@ -5,6 +5,7 @@ import org.junit.*;
 import org.junit.rules.TemporaryFolder;
 
 import seedu.address.events.EventManager;
+import seedu.address.events.controller.JumpToListRequestEvent;
 import seedu.address.events.model.LocalModelChangedEvent;
 import seedu.address.commands.*;
 import seedu.address.events.ui.ShowHelpEvent;
@@ -36,6 +37,7 @@ public class CommandBoxTest {
     // check for correct context in events raised
     private ReadOnlyAddressBook latestSavedAddressBook;
     private boolean helpShown;
+    private int targetedJumpIndex;
 
     @Subscribe
     private void handleLocalModelChangedEvent(LocalModelChangedEvent lmce) {
@@ -45,6 +47,11 @@ public class CommandBoxTest {
     @Subscribe
     private void handleShowHelpEvent(ShowHelpEvent she) {
         helpShown = true;
+    }
+
+    @Subscribe
+    private void handleJumpToListRequestEvent(JumpToListRequestEvent je) {
+        targetedJumpIndex = je.targetIndex;
     }
 
     @Before
@@ -59,6 +66,7 @@ public class CommandBoxTest {
 
         latestSavedAddressBook = new AddressBook(model.getAddressBook()); // last saved assumed to be up to date before.
         helpShown = false;
+        targetedJumpIndex = -1; // non yet
     }
 
     @After
@@ -98,7 +106,6 @@ public class CommandBoxTest {
 
         //Confirm the ui display elements should contain the right data
         assertEquals(expectedMessage, resultDisplay.getDisplayed());
-        System.out.println(expectedShownList.equals(model.getFilteredPersonList()));
         assertEquals(expectedShownList, model.getFilteredPersonList());
 
         //Confirm the state of data (saved and in-memory) is as expected
@@ -238,15 +245,44 @@ public class CommandBoxTest {
     }
 
     @Test
+    public void execute_select_invalidArgsFormat() throws Exception {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE);
+        assertCommandBehavior("select ", expectedMessage);
+    }
+
+    @Test
+    public void execute_select_invalidIndex() throws Exception {
+        assertInvalidIndexBehaviorForCommand("select arg not number");
+        assertInvalidIndexBehaviorForCommand("select");
+    }
+
+    @Test
+    public void execute_select_jumpsToCorrectPerson() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        List<Person> threePersons = helper.generatePersonList(3);
+
+        AddressBook expectedAB = helper.generateAddressBook(threePersons);
+        helper.addToModel(model, threePersons);
+
+        assertCommandBehavior("select 2",
+                String.format(SelectCommand.MESSAGE_SELECT_PERSON_SUCCESS, 2),
+                expectedAB,
+                expectedAB.getPersonList());
+        assertEquals(1, targetedJumpIndex);
+        assertEquals(model.getFilteredPersonList().get(1), threePersons.get(1));
+    }
+
+
+    @Test
     public void execute_delete_invalidArgsFormat() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE);
         assertCommandBehavior("delete ", expectedMessage);
-        assertCommandBehavior("delete arg not number", MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
     @Test
     public void execute_delete_invalidIndex() throws Exception {
         assertInvalidIndexBehaviorForCommand("delete");
+        assertInvalidIndexBehaviorForCommand("delete arg not number");
     }
 
     @Test
@@ -327,6 +363,7 @@ public class CommandBoxTest {
                 expectedAB,
                 expectedList);
     }
+
 
     /**
      * A utility class to generate test data.
