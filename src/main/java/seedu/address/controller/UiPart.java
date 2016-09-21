@@ -25,7 +25,7 @@ public abstract class UiPart {
     }
 
     /**
-     * Raises the even via {@link EventManager#post(BaseEvent)}
+     * Raises the event via {@link EventManager#post(BaseEvent)}
      * @param event
      */
     protected void raise(BaseEvent event){
@@ -92,7 +92,6 @@ public abstract class UiPart {
 
     /**
      * Sets the placeholder for UI parts that reside inside another UI part.
-     * This method will be called by the {@link UiPartLoader} during the loading process.
      * @param placeholder
      */
     public void setPlaceholder(AnchorPane placeholder) {
