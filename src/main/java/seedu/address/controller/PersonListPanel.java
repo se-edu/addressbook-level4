@@ -10,19 +10,17 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.address.browser.BrowserManager;
+import seedu.address.events.EventManager;
+import seedu.address.events.controller.PersonPanelSelectionChangedEvent;
 import seedu.address.model.ModelManager;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.ui.PersonListViewCell;
 import seedu.address.util.LoggerManager;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Logger;
 
 /**
- * Dialog to view the list of persons and their details
- *
- * setConnections should be set before showing stage
+ * Panel containing the list of persons.
  */
 public class PersonListPanel extends UiPart {
     private final Logger logger = LoggerManager.getLogger(PersonListPanel.class);
@@ -53,22 +51,22 @@ public class PersonListPanel extends UiPart {
     }
 
     public static PersonListPanel load(Stage primaryStage, AnchorPane personListPlaceholder,
-                                       ModelManager modelManager, BrowserManager browserManager) {
+                                       ModelManager modelManager) {
         PersonListPanel personListPanel =
                 UiPartLoader.loadUiPart(primaryStage, personListPlaceholder, new PersonListPanel());
-        personListPanel.configure(browserManager, modelManager.getFilteredPersonList());
+        personListPanel.configure(modelManager.getFilteredPersonList());
         return personListPanel;
     }
 
-    private void configure(BrowserManager browserManager, ObservableList<ReadOnlyPerson> personList) {
-        setConnections(browserManager, personList);
+    private void configure(ObservableList<ReadOnlyPerson> personList) {
+        setConnections(personList);
         addToPlaceholder();
     }
 
-    public void setConnections(BrowserManager browserManager, ObservableList<ReadOnlyPerson> personList) {
+    private void setConnections(ObservableList<ReadOnlyPerson> personList) {
         personListView.setItems(personList);
         personListView.setCellFactory(listView -> new PersonListViewCell());
-        setBrowserToHandleSelectionChangeEvent(browserManager);
+        setEventHandlerForSelectionChangeEvent();
     }
 
     private void addToPlaceholder() {
@@ -76,11 +74,11 @@ public class PersonListPanel extends UiPart {
         placeHolderPane.getChildren().add(panel);
     }
 
-    private void setBrowserToHandleSelectionChangeEvent(BrowserManager browserManager) {
+    private void setEventHandlerForSelectionChangeEvent() {
         personListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
-                logger.fine("Person in list view clicked. Loading GitHub profile page: '" + newValue + "'");
-                browserManager.loadPersonPage(newValue); //TODO: Use events to handle this instead
+                logger.fine("Selection in person list panel changed to : '" + newValue + "'");
+                EventManager.getInstance().post(new PersonPanelSelectionChangedEvent(newValue));
             }
         });
     }

@@ -12,6 +12,7 @@ import seedu.address.browser.BrowserManager;
 import seedu.address.commons.StringUtil;
 import seedu.address.events.EventManager;
 import seedu.address.events.controller.JumpToListRequestEvent;
+import seedu.address.events.controller.PersonPanelSelectionChangedEvent;
 import seedu.address.events.storage.FileOpeningExceptionEvent;
 import seedu.address.events.storage.FileSavingExceptionEvent;
 import seedu.address.events.ui.ShowHelpEvent;
@@ -154,6 +155,11 @@ public class Ui {
     @Subscribe
     private void handleJumpToListRequestEvent(JumpToListRequestEvent event) {
         mainWindow.getPersonListPanel().scrollTo(event.targetIndex);
+    }
+
+    @Subscribe
+    private void handlePersonPanelSelectionChangedEvent(PersonPanelSelectionChangedEvent ppsce){
+        mainWindow.loadPersonPage(ppsce.getNewSelection());
     }
 
 }

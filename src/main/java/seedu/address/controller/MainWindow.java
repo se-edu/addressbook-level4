@@ -17,6 +17,7 @@ import seedu.address.events.controller.ExitAppRequestEvent;
 import seedu.address.events.hotkey.KeyBindingEvent;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.parser.Parser;
 import seedu.address.util.Config;
 import seedu.address.util.GuiSettings;
@@ -131,7 +132,7 @@ public class MainWindow extends UiPart {
     }
 
     void fillInnerParts() {
-        personListPanel = PersonListPanel.load(primaryStage, getPersonListPlaceholder(), modelManager, browserManager);
+        personListPanel = PersonListPanel.load(primaryStage, getPersonListPlaceholder(), modelManager);
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getLocalDataFilePath());
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), parser, resultDisplay, modelManager);
@@ -213,5 +214,9 @@ public class MainWindow extends UiPart {
 
     public PersonListPanel getPersonListPanel() {
         return this.personListPanel;
+    }
+
+    public void loadPersonPage(ReadOnlyPerson person) {
+        browserManager.loadPersonPage(person);
     }
 }
