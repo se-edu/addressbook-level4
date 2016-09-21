@@ -39,6 +39,14 @@ public class UiPartLoader {
         return (T)controller;
     }
 
+    public static <T extends UiPart> T loadUiPart(T sampleUiPart) {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(MainApp.class.getResource(FXML_FILE_FOLDER + sampleUiPart.getFxmlPath()));
+        loader.setController(sampleUiPart);
+        loadLoader(loader, sampleUiPart.getFxmlPath());
+        return sampleUiPart;
+    }
+
 
     private static Node loadLoader(FXMLLoader loader, String fxmlFileName) {
         try {

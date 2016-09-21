@@ -17,7 +17,7 @@ public class PersonListViewCell extends ListCell<ReadOnlyPerson> {
             setGraphic(null);
             setText(null);
         } else {
-            setGraphic(new PersonCard(person, getIndex() + 1).getLayout());
+            setGraphic(PersonCard.load(person, getIndex() + 1).getLayout());
         }
     }
 }

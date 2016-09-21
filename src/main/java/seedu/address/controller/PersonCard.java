@@ -1,14 +1,14 @@
 package seedu.address.controller;
 
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import seedu.address.model.person.ReadOnlyPerson;
 
-import java.io.IOException;
+public class PersonCard extends UiPart{
 
-public class PersonCard {
+    private static final String FXML = "PersonListCard.fxml";
 
     @FXML
     private HBox cardPane;
@@ -28,17 +28,15 @@ public class PersonCard {
     private ReadOnlyPerson person;
     private int displayedIndex;
 
-    public PersonCard(ReadOnlyPerson person, int displayedIndex) {
-        this.person = person;
-        this.displayedIndex = displayedIndex;
+    public PersonCard(){
 
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/PersonListCard.fxml"));
-        fxmlLoader.setController(this);
-        try {
-            fxmlLoader.load();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+    }
+
+    public static PersonCard load(ReadOnlyPerson person, int displayedIndex){
+        PersonCard card = new PersonCard();
+        card.person = person;
+        card.displayedIndex = displayedIndex;
+        return UiPartLoader.loadUiPart(card);
     }
 
     @FXML
@@ -55,4 +53,13 @@ public class PersonCard {
         return cardPane;
     }
 
+    @Override
+    public void setNode(Node node) {
+        cardPane = (HBox)node;
+    }
+
+    @Override
+    public String getFxmlPath() {
+        return FXML;
+    }
 }
