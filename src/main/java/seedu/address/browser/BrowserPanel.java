@@ -1,8 +1,11 @@
 package seedu.address.browser;
 
+import javafx.event.Event;
 import javafx.scene.Node;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.web.WebView;
 import seedu.address.commons.FxViewUtil;
+import seedu.address.controller.UiPart;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.util.LoggerManager;
 
@@ -12,15 +15,35 @@ import java.util.logging.Logger;
  * Manages the AddressBook browser.
  * To begin using this class: call start().
  */
-public class BrowserManager {
+public class BrowserPanel extends UiPart{
 
-    private static final String GITHUB_ROOT_URL = "https://github.com/";
-    private static final String INVALID_GITHUB_USERNAME_MESSAGE = "Unparsable GitHub Username.";
-    private static Logger logger = LoggerManager.getLogger(BrowserManager.class);
+    private static Logger logger = LoggerManager.getLogger(BrowserPanel.class);
     private WebView browser;
 
-    public BrowserManager() {
+    public BrowserPanel() {
 
+    }
+
+    @Override
+    public void setNode(Node node) {
+        //not applicable
+    }
+
+    @Override
+    public String getFxmlPath() {
+        return null; //not applicable
+    }
+
+    public static BrowserPanel load(AnchorPane placeholder){
+        BrowserPanel browserPanel = new BrowserPanel();
+        browserPanel.start();
+        browserPanel.configure(placeholder);
+        return browserPanel;
+    }
+
+    private void configure(AnchorPane placeholder){
+        placeholder.setOnKeyPressed(Event::consume); // To prevent triggering events for typing inside the loaded Web page.
+        placeholder.getChildren().add(browser);
     }
 
     /**
@@ -29,7 +52,7 @@ public class BrowserManager {
      */
     public void start() {
         logger.info("Initializing browser");
-        browser = new WebView(); //Webview need to be initialize after FX runtime is initialized
+        browser = new WebView(); //WebView need to be initialize after FX runtime is initialized
     }
 
     public void loadPersonPage(ReadOnlyPerson person) {
@@ -39,7 +62,7 @@ public class BrowserManager {
     /**
      * Frees resources allocated to the browser.
      */
-    public void freeBrowserResources() {
+    public void freeResources() {
         browser = null;
     }
 

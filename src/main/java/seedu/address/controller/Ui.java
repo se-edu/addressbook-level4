@@ -8,7 +8,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import seedu.address.MainApp;
-import seedu.address.browser.BrowserManager;
+import seedu.address.browser.BrowserPanel;
 import seedu.address.commons.StringUtil;
 import seedu.address.events.EventManager;
 import seedu.address.events.controller.JumpToListRequestEvent;
@@ -34,7 +34,6 @@ public class Ui {
 
     private ModelManager modelManager;
 
-    private BrowserManager browserManager;
 
     private Config config;
     private UserPrefs prefs;
@@ -53,20 +52,18 @@ public class Ui {
         this.modelManager = modelManager;
         this.config = config;
         this.prefs = prefs;
-        this.browserManager = new BrowserManager();
         EventManager.getInstance().registerHandler(this);
     }
 
     public void start(Stage primaryStage, MainApp mainApp) {
         logger.info("Starting UI...");
-        this.browserManager.start();
         primaryStage.setTitle(config.getAppTitle());
 
         //Set the application icon.
         primaryStage.getIcons().add(getImage(ICON_APPLICATION));
 
         try {
-            mainWindow = MainWindow.load(primaryStage, config, prefs, this, modelManager, browserManager);
+            mainWindow = MainWindow.load(primaryStage, config, prefs, this, modelManager);
             mainWindow.show(); //This should be called before creating other UI parts
             mainWindow.fillInnerParts();
 
@@ -79,7 +76,7 @@ public class Ui {
     public void stop() {
         prefs.updateLastUsedGuiSetting(mainWindow.getCurrentGuiSetting());
         mainWindow.hide();
-        releaseResourcesForAppTermination();
+        mainWindow.releaseResources();
     }
 
     /**
@@ -115,12 +112,6 @@ public class Ui {
         alert.showAndWait();
     }
 
-    /**
-     *  Releases resources to ensure successful application termination.
-     */
-    private void releaseResourcesForAppTermination(){
-        browserManager.freeBrowserResources();
-    }
 
     private void showFatalErrorDialogAndShutdown(String title, Throwable e) {
         logger.severe(title + " " + e.getMessage() + StringUtil.getDetails(e));

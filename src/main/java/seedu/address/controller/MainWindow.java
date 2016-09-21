@@ -10,7 +10,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
-import seedu.address.browser.BrowserManager;
+import seedu.address.browser.BrowserPanel;
 import seedu.address.events.controller.ExitAppRequestEvent;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -35,16 +35,15 @@ public class MainWindow extends UiPart {
 
     private ModelManager modelManager;
 
-    private BrowserManager browserManager;
 
     private Parser parser;
 
     // Independent Ui parts residing in this Ui container
+    private BrowserPanel browserPanel;
     private PersonListPanel personListPanel;
     private ResultDisplay resultDisplay;
     private StatusBarFooter statusBarFooter;
     private CommandBox commandBox;
-    private WebView browser;
     private Config config;
     private UserPrefs userPrefs;
 
@@ -89,20 +88,19 @@ public class MainWindow extends UiPart {
     }
 
     public static MainWindow load(Stage primaryStage, Config config, UserPrefs prefs, Ui ui,
-                                  ModelManager modelManager, BrowserManager browserManager) {
+                                  ModelManager modelManager) {
 
         MainWindow mainWindow = UiPartLoader.loadUiPart(primaryStage, new MainWindow());
-        mainWindow.configure(config.getAppTitle(), config.getAddressBookName(), config, prefs, ui, modelManager, browserManager);
+        mainWindow.configure(config.getAppTitle(), config.getAddressBookName(), config, prefs, ui, modelManager);
         return mainWindow;
     }
 
     private void configure(String appTitle, String addressBookName, Config config, UserPrefs prefs, Ui ui,
-                           ModelManager modelManager, BrowserManager browserManager) {
+                           ModelManager modelManager) {
 
         //Set dependencies
         this.modelManager = modelManager;
         this.addressBookName = addressBookName;
-        this.browserManager = browserManager;
         this.parser.configure(modelManager.getFilteredPersonList());
         this.config = config;
         this.userPrefs = prefs;
@@ -127,7 +125,7 @@ public class MainWindow extends UiPart {
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getLocalDataFilePath());
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), parser, resultDisplay, modelManager);
-        browser = loadBrowser();
+        browserPanel = BrowserPanel.load(browserPlaceholder);
     }
 
     private AnchorPane getCommandBoxPlaceholder() {
@@ -144,12 +142,6 @@ public class MainWindow extends UiPart {
 
     public AnchorPane getPersonListPlaceholder() {
         return personListPanelPlaceholder;
-    }
-
-    private WebView loadBrowser() {
-        browserPlaceholder.setOnKeyPressed(Event::consume); // To prevent triggering events for typing inside the loaded Web page.
-        browserPlaceholder.getChildren().add(browserManager.getBrowserView());
-        return browserManager.getBrowserView();
     }
 
     public void hide() {
@@ -208,6 +200,10 @@ public class MainWindow extends UiPart {
     }
 
     public void loadPersonPage(ReadOnlyPerson person) {
-        browserManager.loadPersonPage(person);
+        browserPanel.loadPersonPage(person);
+    }
+
+    public void releaseResources() {
+        browserPanel.freeResources();
     }
 }
