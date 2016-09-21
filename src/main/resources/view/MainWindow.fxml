@@ -20,7 +20,6 @@
             <Menu mnemonicParsing="false" text="Help">
                <items>
                   <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
-                  <MenuItem mnemonicParsing="false" onAction="#handleAbout" text="About" />
                </items>
             </Menu>
          </menus>
@@ -45,13 +44,13 @@
                   <AnchorPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
                </children>
             </VBox>
-            <AnchorPane fx:id="personWebpage" prefWidth="340" >
+            <AnchorPane fx:id="browserPlaceholder" prefWidth="340" >
                 <padding>
                     <Insets top="10" bottom="10" left="10" right="10"/>
                 </padding>
             </AnchorPane>
          </items>
       </SplitPane>
-      <AnchorPane fx:id="footerStatusbarPlaceholder" VBox.vgrow="NEVER" />
+      <AnchorPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
    </children>
 </VBox>

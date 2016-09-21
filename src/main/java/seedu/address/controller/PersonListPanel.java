@@ -1,12 +1,10 @@
 package seedu.address.controller;
 
 import javafx.application.Platform;
-import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.ListView;
-import javafx.scene.control.SelectionMode;
 import javafx.scene.control.SplitPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
@@ -26,7 +24,7 @@ import java.util.logging.Logger;
  *
  * setConnections should be set before showing stage
  */
-public class PersonListPanel extends BaseUiPart {
+public class PersonListPanel extends UiPart {
     private final Logger logger = LoggerManager.getLogger(PersonListPanel.class);
     private static final String FXML = "PersonListPanel.fxml";
     private VBox panel;
@@ -37,24 +35,6 @@ public class PersonListPanel extends BaseUiPart {
 
     public PersonListPanel() {
         super();
-    }
-
-    public static PersonListPanel load(Stage primaryStage, AnchorPane personListPlaceholder,
-                                       ModelManager modelManager, BrowserManager browserManager) {
-        PersonListPanel personListPanel =
-                UiPartLoader.loadUiPart(primaryStage, personListPlaceholder, new PersonListPanel());
-        personListPanel.configure(browserManager, modelManager.getFilteredPersonList());
-        return personListPanel;
-    }
-
-    private void addToPlaceholder() {
-        SplitPane.setResizableWithParent(placeHolderPane, false);
-        placeHolderPane.getChildren().add(panel);
-    }
-
-    private void configure(BrowserManager browserManager, ObservableList<ReadOnlyPerson> personList) {
-        setConnections(browserManager, personList);
-        addToPlaceholder();
     }
 
     @Override
@@ -72,48 +52,37 @@ public class PersonListPanel extends BaseUiPart {
         this.placeHolderPane = pane;
     }
 
+    public static PersonListPanel load(Stage primaryStage, AnchorPane personListPlaceholder,
+                                       ModelManager modelManager, BrowserManager browserManager) {
+        PersonListPanel personListPanel =
+                UiPartLoader.loadUiPart(primaryStage, personListPlaceholder, new PersonListPanel());
+        personListPanel.configure(browserManager, modelManager.getFilteredPersonList());
+        return personListPanel;
+    }
+
+    private void configure(BrowserManager browserManager, ObservableList<ReadOnlyPerson> personList) {
+        setConnections(browserManager, personList);
+        addToPlaceholder();
+    }
+
     public void setConnections(BrowserManager browserManager, ObservableList<ReadOnlyPerson> personList) {
         personListView.setItems(personList);
         personListView.setCellFactory(listView -> new PersonListViewCell());
-        loadGithubProfilePageWhenPersonIsSelected(browserManager);
-        setupListviewSelectionModelSettings();
+        setBrowserToHandleSelectionChangeEvent(browserManager);
     }
 
-    private void setupListviewSelectionModelSettings() {
-        personListView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-        personListView.getItems().addListener((ListChangeListener<ReadOnlyPerson>) c -> {
-            while (c.next()) {
-                if (c.wasRemoved()) {
-                    ObservableList<Integer> currentIndices = personListView.getSelectionModel().getSelectedIndices();
-                    if (currentIndices.size() > 1) {
-                        personListView.getSelectionModel().clearAndSelect(currentIndices.get(0));
-                    }
-                }
-            }
-        });
+    private void addToPlaceholder() {
+        SplitPane.setResizableWithParent(placeHolderPane, false);
+        placeHolderPane.getChildren().add(panel);
     }
 
-    private void loadGithubProfilePageWhenPersonIsSelected(BrowserManager browserManager) {
+    private void setBrowserToHandleSelectionChangeEvent(BrowserManager browserManager) {
         personListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 logger.fine("Person in list view clicked. Loading GitHub profile page: '" + newValue + "'");
-                browserManager.loadPersonPage(newValue);
+                browserManager.loadPersonPage(newValue); //TODO: Use events to handle this instead
             }
         });
-    }
-
-
-    /**
-     * Initializes the controller class. This method is automatically called
-     * after the fxml file has been loaded.
-     */
-    @FXML
-    private void initialize() {
-
-    }
-
-    public List<ReadOnlyPerson> getSelectedPersons() {
-        return new ArrayList<>(personListView.getSelectionModel().getSelectedItems());
     }
 
     public ObservableList<ReadOnlyPerson> getDisplayedPersonsView() {

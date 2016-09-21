@@ -28,20 +28,13 @@ import java.util.logging.Logger;
  * The Main Window. Provides the basic application layout containing
  * a menu bar and space where other JavaFX elements can be placed.
  */
-public class MainWindow extends BaseUiPart {
+public class MainWindow extends UiPart {
     private final Logger logger = LoggerManager.getLogger(MainWindow.class);
     private static final String ICON = "/images/address_book_32.png";
     private static final String FXML = "MainWindow.fxml";
-    private static final String RESULT_DISPLAY_PLACEHOLDER_FIELD_ID = "#resultDisplayPlaceholder";
-    private static final String FOOTER_STATUSBAR_PLACEHOLDER_FIELD_ID = "#footerStatusbarPlaceholder";
-    private static final String COMMAND_BOX_PLACEHOLDER_FIELD_ID = "#commandBoxPlaceholder";
-    private static final String BROWSER_PLACEHOLDER = "#personWebpage";
     public static final int MIN_HEIGHT = 600;
     public static final int MIN_WIDTH = 450;
 
-    private Ui ui; //TODO: remove this dependency as per TODOs given in methods below
-
-    // Link to the model
     private ModelManager modelManager;
 
     private BrowserManager browserManager;
@@ -54,6 +47,8 @@ public class MainWindow extends BaseUiPart {
     private StatusBarFooter statusBarFooter;
     private CommandBox commandBox;
     private WebView browser;
+    private Config config;
+    private UserPrefs userPrefs;
 
     // Handles to elements of this Ui container
     private VBox rootLayout;
@@ -62,10 +57,23 @@ public class MainWindow extends BaseUiPart {
     private String addressBookName;
 
     @FXML
-    private AnchorPane personListPanelPlaceholder;
+    private AnchorPane browserPlaceholder;
+
+    @FXML
+    private AnchorPane commandBoxPlaceholder;
 
     @FXML
     private MenuItem helpMenuItem;
+
+    @FXML
+    private AnchorPane personListPanelPlaceholder;
+
+    @FXML
+    private AnchorPane resultDisplayPlaceholder;
+
+    @FXML
+    private AnchorPane statusbarPlaceholder;
+
 
     public MainWindow() {
         super();
@@ -84,74 +92,72 @@ public class MainWindow extends BaseUiPart {
 
     public static MainWindow load(Stage primaryStage, Config config, UserPrefs prefs, Ui ui,
                                   ModelManager modelManager, BrowserManager browserManager) {
+
         MainWindow mainWindow = UiPartLoader.loadUiPart(primaryStage, new MainWindow());
-        mainWindow.configureDependencies(config.getAddressBookName(), ui, modelManager, browserManager);
-        mainWindow.configureUi(config.getAppTitle(), prefs);
-        mainWindow.setKeyEventHandler();
-        mainWindow.setAccelerators();
+        mainWindow.configure(config.getAppTitle(), config.getAddressBookName(), config, prefs, ui, modelManager, browserManager);
         return mainWindow;
     }
 
-    public void configureDependencies(String addressBookName, Ui ui, ModelManager modelManager,
-                                      BrowserManager browserManager) {
-        // Set connections
-        this.ui = ui;
+    private void configure(String appTitle, String addressBookName, Config config, UserPrefs prefs, Ui ui,
+                           ModelManager modelManager, BrowserManager browserManager) {
+
+        // Set dependencies
         this.modelManager = modelManager;
         this.addressBookName = addressBookName;
         this.browserManager = browserManager;
         this.parser.configure(modelManager.getFilteredPersonList());
-    }
+        this.config = config;
+        this.userPrefs = prefs;
 
-    private void configureUi(String appTitle, UserPrefs prefs) {
+        // Configure the UI
         setTitle(appTitle);
         setIcon(ICON);
         setWindowMinSize();
         setWindowDefaultSize(prefs);
         scene = new Scene(rootLayout);
         primaryStage.setScene(scene);
-    }
 
-    //TODO: to be removed with more specific method e.g. getListPanelSlot
-    public AnchorPane getAnchorPane(String anchorPaneId) {
-        return (AnchorPane) rootLayout.lookup(anchorPaneId);
+        // Configure event handlers
+        setKeyEventHandler();
+        setAccelerators();
     }
 
     private void setKeyEventHandler() {
         scene.setOnKeyPressed(e -> raisePotentialEvent(new KeyBindingEvent(e)));
     }
 
-    public void fillInnerParts() {
+    private void setAccelerators() {
+        helpMenuItem.setAccelerator(KeyCombination.valueOf("F1"));
+    }
+
+    void fillInnerParts() {
         personListPanel = PersonListPanel.load(primaryStage, getPersonListPlaceholder(), modelManager, browserManager);
-        resultDisplay = ResultDisplay.load(primaryStage, getHeaderStatusbarPlaceholder());
-        statusBarFooter = StatusBarFooter.load(primaryStage, getFooterStatusbarPlaceholder(), addressBookName);
+        resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
+        statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getLocalDataFilePath());
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), parser, resultDisplay, modelManager);
         browser = loadBrowser();
     }
 
     private AnchorPane getCommandBoxPlaceholder() {
-        return this.getAnchorPane(COMMAND_BOX_PLACEHOLDER_FIELD_ID);
+        return commandBoxPlaceholder;
     }
 
-    private AnchorPane getFooterStatusbarPlaceholder() {
-        return this.getAnchorPane(FOOTER_STATUSBAR_PLACEHOLDER_FIELD_ID);
+    private AnchorPane getStatusbarPlaceholder() {
+        return statusbarPlaceholder;
     }
 
-    private AnchorPane getHeaderStatusbarPlaceholder() {
-        return this.getAnchorPane(RESULT_DISPLAY_PLACEHOLDER_FIELD_ID);
-    }
-    
-    private WebView loadBrowser() {
-        AnchorPane pane = this.getAnchorPane(BROWSER_PLACEHOLDER);
-        pane.setOnKeyPressed(Event::consume); // Stops triggering of keybinding event.
-        pane.getChildren().add(browserManager.getBrowserView());
-        return browserManager.getBrowserView();
+    private AnchorPane getResultDisplayPlaceholder() {
+        return resultDisplayPlaceholder;
     }
 
-    /**
-     * Returns the AnchorPane where the PersonListPanel is to added.
-     */
     public AnchorPane getPersonListPlaceholder() {
         return personListPanelPlaceholder;
+    }
+
+    private WebView loadBrowser() {
+        browserPlaceholder.setOnKeyPressed(Event::consume); // To prevent triggering events for typing inside the loaded Web page.
+        browserPlaceholder.getChildren().add(browserManager.getBrowserView());
+        return browserManager.getBrowserView();
     }
 
     public void hide() {
@@ -188,11 +194,6 @@ public class MainWindow extends BaseUiPart {
                 (int) primaryStage.getX(), (int) primaryStage.getY());
     }
 
-    public void setAccelerators() {
-        helpMenuItem.setAccelerator(KeyCombination.valueOf("F1"));
-    }
-
-
     @FXML
     public void handleHelp() {
         HelpWindow helpWindow = HelpWindow.load(primaryStage);
@@ -201,16 +202,6 @@ public class MainWindow extends BaseUiPart {
 
     public void show() {
         primaryStage.show();
-    }
-
-    /**
-     * Opens an about dialog.
-     */
-    @FXML
-    private void handleAbout() {//TODO: refactor to be similar to handleHelp and remove the dependency to ui
-        logger.fine("Showing information about the application.");
-        ui.showAlertDialogAndWait(AlertType.INFORMATION, "AddressApp", "About",
-                "Version " + MainApp.VERSION.toString() + "\nSome code adapted from http://code.makery.ch");
     }
 
     /**

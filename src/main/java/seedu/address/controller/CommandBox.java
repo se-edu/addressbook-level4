@@ -16,7 +16,7 @@ import seedu.address.util.LoggerManager;
 
 import java.util.logging.Logger;
 
-public class CommandBox extends BaseUiPart {
+public class CommandBox extends UiPart {
     private final Logger logger = LoggerManager.getLogger(CommandBox.class);
     private static final String FXML = "CommandBox.fxml";
 

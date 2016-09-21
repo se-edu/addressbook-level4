@@ -11,21 +11,21 @@ import seedu.address.util.AppUtil;
 
 /**
  * Base class for UI parts.
- * A 'UI part' represents a distinct par of the UI. e.g. Windows, dialogs, panels, status bars, etc.
+ * A 'UI part' represents a distinct part of the UI. e.g. Windows, dialogs, panels, status bars, etc.
  */
-public abstract class BaseUiPart {
+public abstract class UiPart {
 
     /**
      * The primary stage for the UI Part.
      */
     Stage primaryStage;
 
-    public BaseUiPart(){
+    public UiPart(){
         EventManager.getInstance().registerHandler(this);
     }
 
     /**
-     * Raises the even via {@link EventManager#post(BaseEvent)}
+     * Raises the event via {@link EventManager#post(BaseEvent)}
      * @param event
      */
     protected void raise(BaseEvent event){
@@ -92,7 +92,6 @@ public abstract class BaseUiPart {
 
     /**
      * Sets the placeholder for UI parts that reside inside another UI part.
-     * This method will be called by the {@link UiPartLoader} during the loading process.
      * @param placeholder
      */
     public void setPlaceholder(AnchorPane placeholder) {
