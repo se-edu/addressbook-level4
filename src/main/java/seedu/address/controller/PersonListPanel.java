@@ -39,24 +39,6 @@ public class PersonListPanel extends UiPart {
         super();
     }
 
-    public static PersonListPanel load(Stage primaryStage, AnchorPane personListPlaceholder,
-                                       ModelManager modelManager, BrowserManager browserManager) {
-        PersonListPanel personListPanel =
-                UiPartLoader.loadUiPart(primaryStage, personListPlaceholder, new PersonListPanel());
-        personListPanel.configure(browserManager, modelManager.getFilteredPersonList());
-        return personListPanel;
-    }
-
-    private void addToPlaceholder() {
-        SplitPane.setResizableWithParent(placeHolderPane, false);
-        placeHolderPane.getChildren().add(panel);
-    }
-
-    private void configure(BrowserManager browserManager, ObservableList<ReadOnlyPerson> personList) {
-        setConnections(browserManager, personList);
-        addToPlaceholder();
-    }
-
     @Override
     public void setNode(Node node) {
         panel = (VBox) node;
@@ -72,11 +54,29 @@ public class PersonListPanel extends UiPart {
         this.placeHolderPane = pane;
     }
 
+    public static PersonListPanel load(Stage primaryStage, AnchorPane personListPlaceholder,
+                                       ModelManager modelManager, BrowserManager browserManager) {
+        PersonListPanel personListPanel =
+                UiPartLoader.loadUiPart(primaryStage, personListPlaceholder, new PersonListPanel());
+        personListPanel.configure(browserManager, modelManager.getFilteredPersonList());
+        return personListPanel;
+    }
+
+    private void configure(BrowserManager browserManager, ObservableList<ReadOnlyPerson> personList) {
+        setConnections(browserManager, personList);
+        addToPlaceholder();
+    }
+
     public void setConnections(BrowserManager browserManager, ObservableList<ReadOnlyPerson> personList) {
         personListView.setItems(personList);
         personListView.setCellFactory(listView -> new PersonListViewCell());
         loadGithubProfilePageWhenPersonIsSelected(browserManager);
         setupListviewSelectionModelSettings();
+    }
+
+    private void addToPlaceholder() {
+        SplitPane.setResizableWithParent(placeHolderPane, false);
+        placeHolderPane.getChildren().add(panel);
     }
 
     private void setupListviewSelectionModelSettings() {
