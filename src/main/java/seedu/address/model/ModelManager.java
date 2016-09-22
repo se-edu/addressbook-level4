@@ -43,10 +43,6 @@ public class ModelManager extends ComponentManager {
         this(new AddressBook());
     }
 
-    public static ReadOnlyAddressBook getDefaultAddressBook() {
-        return new AddressBook();
-    }
-
     /** Clears existing backing model and replaces with the provided new data. */
     public void resetData(ReadOnlyAddressBook newData) {
         addressBook.resetData(newData);
