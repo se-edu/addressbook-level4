@@ -2,6 +2,9 @@ package seedu.address.model;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import seedu.address.commons.Config;
+import seedu.address.commons.LoggerManager;
+import seedu.address.commons.StringUtil;
 import seedu.address.events.model.LocalModelChangedEvent;
 import seedu.address.exceptions.DuplicateTagException;
 import seedu.address.main.ComponentManager;
@@ -11,11 +14,9 @@ import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.person.UniquePersonList.PersonNotFoundException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
-import seedu.address.parser.expr.Expr;
-import seedu.address.commons.Config;
-import seedu.address.commons.LoggerManager;
 
 import java.util.List;
+import java.util.Set;
 import java.util.logging.Logger;
 
 /**
@@ -146,19 +147,66 @@ public class ModelManager extends ComponentManager implements ReadOnlyAddressBoo
         filteredPersons.setPredicate(null);
     }
 
-//// DELETE
 
-    /**
-     * Deletes the tag from the model.
-     * @param tagToDelete
-     * @return true if there was a successful removal
-     */
-    public synchronized boolean deleteTag(Tag tagToDelete) {
-        return backingTagList().remove(tagToDelete);
-    }
+//// FILTER
+
 
     public void filterList(Expr expr) {
         filteredPersons.setPredicate(expr::satisfies);
+    }
+
+    public void filterList(Set<String> keywords){
+        filterList(new PredExpr(new NameQualifier(keywords)));
+    }
+
+    interface Expr {
+        boolean satisfies(ReadOnlyPerson person);
+        String toString();
+    }
+
+    class PredExpr implements Expr {
+
+        private final Qualifier qualifier;
+
+        public PredExpr(Qualifier qualifier) {
+            this.qualifier = qualifier;
+        }
+
+        @Override
+        public boolean satisfies(ReadOnlyPerson person) {
+            return qualifier.run(person);
+        }
+
+        @Override
+        public String toString() {
+            return qualifier.toString();
+        }
+    }
+
+    interface Qualifier {
+        boolean run(ReadOnlyPerson person);
+        String toString();
+    }
+
+    class NameQualifier implements Qualifier {
+        private Set<String> nameKeyWords;
+
+        public NameQualifier(Set<String> nameKeyWords) {
+            this.nameKeyWords = nameKeyWords;
+        }
+
+        @Override
+        public boolean run(ReadOnlyPerson person) {
+            return nameKeyWords.stream()
+                    .filter(keyword -> StringUtil.containsIgnoreCase(person.getName().fullName, keyword))
+                    .findAny()
+                    .isPresent();
+        }
+
+        @Override
+        public String toString() {
+            return "name=" + String.join(", ", nameKeyWords);
+        }
     }
 
 }

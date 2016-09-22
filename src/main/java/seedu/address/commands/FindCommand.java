@@ -1,10 +1,6 @@
 package seedu.address.commands;
 
-import seedu.address.model.person.ReadOnlyPerson;
-import seedu.address.parser.expr.PredExpr;
-import seedu.address.parser.qualifier.NameQualifier;
-
-import java.util.*;
+import java.util.Set;
 
 /**
  * Finds and lists all persons in address book whose name contains any of the argument keywords.
@@ -25,34 +21,10 @@ public class FindCommand extends Command {
         this.keywords = keywords;
     }
 
-    /**
-     * Returns copy of keywords in this command.
-     */
-    public Set<String> getKeywords() {
-        return new HashSet<>(keywords);
-    }
-
     @Override
     public CommandResult execute() {
-        modelManager.filterList(new PredExpr(new NameQualifier(keywords)));
+        modelManager.filterList(keywords);
         return new CommandResult(getMessageForPersonListShownSummary(modelManager.getFilteredPersonList().size()));
-    }
-
-    /**
-     * Retrieve all persons in the address book whose names contain some of the specified keywords.
-     *
-     * @param keywords for searching
-     * @return list of persons found
-     */
-    private List<ReadOnlyPerson> getPersonsWithNameContainingAnyKeyword(Set<String> keywords) {
-        final List<ReadOnlyPerson> matchedPersons = new ArrayList<>();
-        for (ReadOnlyPerson person : modelManager.getPersonList()) {
-            final Set<String> wordsInName = new HashSet<>(person.getName().getWordsInName());
-            if (!Collections.disjoint(wordsInName, keywords)) {
-                matchedPersons.add(person);
-            }
-        }
-        return matchedPersons;
     }
 
 }
