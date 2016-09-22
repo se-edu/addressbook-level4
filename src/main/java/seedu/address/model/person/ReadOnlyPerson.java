@@ -1,6 +1,5 @@
 package seedu.address.model.person;
 
-import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 
 /**
@@ -22,7 +21,7 @@ public interface ReadOnlyPerson {
     UniqueTagList getTags();
 
     /**
-     * Convenience method for comparing equality via state. (interfaces cannot override .equals)
+     * Returns true if both have the same state. (interfaces cannot override .equals)
      */
     default boolean isSameStateAs(ReadOnlyPerson other) {
         return other == this // short circuit if same object
@@ -53,7 +52,7 @@ public interface ReadOnlyPerson {
     }
 
     /**
-     * @return string representation of this Person's tags
+     * Returns a string representation of this Person's tags
      */
     default String tagsString() {
         final StringBuffer buffer = new StringBuffer();

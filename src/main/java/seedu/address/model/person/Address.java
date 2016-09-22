@@ -30,7 +30,7 @@ public class Address {
     }
 
     /**
-     * Checks if a given string is a valid person email.
+     * Returns true if a given string is a valid person email.
      */
     public static boolean isValidAddress(String test) {
         return test.matches(ADDRESS_VALIDATION_REGEX);
