@@ -1,4 +1,4 @@
-package seedu.address.main;
+package seedu.address.commons.core;
 
 import seedu.address.events.BaseEvent;
 import seedu.address.events.EventManager;
@@ -21,14 +21,6 @@ public abstract class ComponentManager {
     public ComponentManager(EventManager eventManager) {
         this.eventManager = eventManager;
         eventManager.registerHandler(this);
-    }
-
-    /**
-     * Injects the {@link EventManager} dependency
-     * @param eventManager
-     */
-    public void setEventManager(EventManager eventManager) {
-        this.eventManager = eventManager;
     }
 
     protected void raise(BaseEvent event){

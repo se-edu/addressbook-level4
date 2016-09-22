@@ -5,7 +5,7 @@ import seedu.address.commons.util.FileUtil;
 import seedu.address.events.model.LocalModelChangedEvent;
 import seedu.address.events.storage.*;
 import seedu.address.exceptions.DataConversionException;
-import seedu.address.main.ComponentManager;
+import seedu.address.commons.core.ComponentManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.commons.core.Config;
