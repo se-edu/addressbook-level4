@@ -25,14 +25,4 @@ public class CommandResult {
         this.relevantPersons = relevantPersons;
     }
 
-    /**
-     * Get any relevant persons identified by the command. Returns empty optional if the idea of
-     * relevant persons makes no sense in the command's context..
-     *
-     * @return empty optional if relevant persons is N/A, optional containing persons otherwise
-     */
-    public Optional<List<? extends ReadOnlyPerson>> getRelevantPersons() {
-        return Optional.ofNullable(relevantPersons);
-    }
-
 }
