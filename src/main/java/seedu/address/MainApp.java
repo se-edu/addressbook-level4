@@ -6,7 +6,7 @@ import javafx.application.Platform;
 import javafx.stage.Stage;
 import seedu.address.commons.core.Version;
 import seedu.address.model.AddressBook;
-import seedu.address.ui.Ui;
+import seedu.address.ui.UiManager;
 import seedu.address.events.EventManager;
 import seedu.address.events.controller.ExitAppRequestEvent;
 import seedu.address.model.ModelManager;
@@ -42,7 +42,7 @@ public class MainApp extends Application {
     protected StorageManager storageManager;
     protected ModelManager modelManager;
 
-    protected Ui ui;
+    protected UiManager uiManager;
     protected Config config;
     protected UserPrefs userPrefs;
 
@@ -72,11 +72,11 @@ public class MainApp extends Application {
 
         modelManager = new ModelManager();
         storageManager = initStorageManager(modelManager, config, userPrefs);
-        ui = initUi(config, modelManager);
+        uiManager = initUi(config, modelManager);
     }
 
-    protected Ui initUi(Config config, ModelManager modelManager) {
-        return new Ui(modelManager, config, userPrefs);
+    protected UiManager initUi(Config config, ModelManager modelManager) {
+        return new UiManager(modelManager, config, userPrefs);
     }
 
     protected StorageManager initStorageManager(ModelManager modelManager, Config config, UserPrefs userPrefs) {
@@ -86,14 +86,14 @@ public class MainApp extends Application {
     @Override
     public void start(Stage primaryStage) {
         logger.info("Starting application: " + MainApp.VERSION);
-        ui.start(primaryStage, this);
+        uiManager.start(primaryStage, this);
         storageManager.start();
     }
 
     @Override
     public void stop() {
         logger.info("Stopping application.");
-        ui.stop();
+        uiManager.stop();
         storageManager.savePrefsToFile(userPrefs);
         quit();
     }

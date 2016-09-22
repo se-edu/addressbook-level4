@@ -80,7 +80,7 @@ public class MainWindow extends UiPart {
         return FXML;
     }
 
-    public static MainWindow load(Stage primaryStage, Config config, UserPrefs prefs, Ui ui,
+    public static MainWindow load(Stage primaryStage, Config config, UserPrefs prefs, UiManager uiManager,
                                   ModelManager modelManager) {
 
         MainWindow mainWindow = UiPartLoader.loadUiPart(primaryStage, new MainWindow());

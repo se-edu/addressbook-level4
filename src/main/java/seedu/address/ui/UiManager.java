@@ -27,8 +27,8 @@ import java.util.logging.Logger;
 /**
  * The controller that creates the other controllers
  */
-public class Ui extends ComponentManager{
-    private static final Logger logger = LoggerManager.getLogger(Ui.class);
+public class UiManager extends ComponentManager{
+    private static final Logger logger = LoggerManager.getLogger(UiManager.class);
     private static final String ICON_APPLICATION = "/images/address_book_32.png";
 
     private ModelManager modelManager;
@@ -41,12 +41,12 @@ public class Ui extends ComponentManager{
     private MainWindow mainWindow;
 
     /**
-     * Constructor for ui
+     * Constructor for uiManager
      *
      * @param modelManager
      * @param config should have appTitle and updateInterval set
      */
-    public Ui(ModelManager modelManager, Config config, UserPrefs prefs) {
+    public UiManager(ModelManager modelManager, Config config, UserPrefs prefs) {
         super();
         this.modelManager = modelManager;
         this.config = config;
