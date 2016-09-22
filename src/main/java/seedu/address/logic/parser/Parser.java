@@ -2,7 +2,7 @@ package seedu.address.logic.parser;
 
 import seedu.address.logic.commands.*;
 import seedu.address.commons.util.StringUtil;
-import seedu.address.exceptions.IllegalValueException;
+import seedu.address.commons.exceptions.IllegalValueException;
 
 import java.util.*;
 import java.util.regex.Matcher;

@@ -1,4 +1,4 @@
-package seedu.address.exceptions;
+package seedu.address.commons.exceptions;
 
 /**
  * Signals an error caused by duplicate data where there should be none.

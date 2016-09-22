@@ -1,4 +1,4 @@
-package seedu.address.exceptions;
+package seedu.address.commons.exceptions;
 
 import seedu.address.model.tag.Tag;
 
