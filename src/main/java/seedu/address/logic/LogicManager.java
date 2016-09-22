@@ -1,5 +1,6 @@
 package seedu.address.logic;
 
+import seedu.address.commons.core.ComponentManager;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.ModelManager;
@@ -8,7 +9,7 @@ import seedu.address.logic.parser.Parser;
 /**
  * The main LogicManager of the app.
  */
-public class LogicManager {
+public class LogicManager extends ComponentManager{
     private final ModelManager modelManager;
     private final Parser parser;
 

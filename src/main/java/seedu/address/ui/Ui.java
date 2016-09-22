@@ -8,18 +8,18 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import seedu.address.MainApp;
+import seedu.address.commons.core.ComponentManager;
+import seedu.address.commons.core.Config;
+import seedu.address.commons.core.LoggerManager;
 import seedu.address.commons.util.StringUtil;
-import seedu.address.events.EventManager;
 import seedu.address.events.controller.JumpToListRequestEvent;
 import seedu.address.events.controller.PersonPanelSelectionChangedEvent;
+import seedu.address.events.controller.ShowHelpEvent;
 import seedu.address.events.storage.FileOpeningExceptionEvent;
 import seedu.address.events.storage.FileSavingExceptionEvent;
-import seedu.address.events.controller.ShowHelpEvent;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.ReadOnlyPerson;
-import seedu.address.commons.core.Config;
-import seedu.address.commons.core.LoggerManager;
 
 import java.io.File;
 import java.util.logging.Logger;
@@ -27,7 +27,7 @@ import java.util.logging.Logger;
 /**
  * The controller that creates the other controllers
  */
-public class Ui {
+public class Ui extends ComponentManager{
     private static final Logger logger = LoggerManager.getLogger(Ui.class);
     private static final String ICON_APPLICATION = "/images/address_book_32.png";
 
@@ -51,7 +51,6 @@ public class Ui {
         this.modelManager = modelManager;
         this.config = config;
         this.prefs = prefs;
-        EventManager.getInstance().registerHandler(this);
     }
 
     public void start(Stage primaryStage, MainApp mainApp) {
