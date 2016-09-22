@@ -2,12 +2,14 @@ package guitests.guihandles;
 
 
 import guitests.GuiRobot;
+import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 import seedu.address.TestApp;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.ReadOnlyPerson;
+import seedu.address.testutil.TestPerson;
 import seedu.address.testutil.TestUtil;
 
 import java.util.List;
@@ -45,6 +47,14 @@ public class PersonListPanelHandle extends GuiHandle {
      */
     public boolean isListMatching(ReadOnlyPerson... persons) {
         return this.isListMatching(0, persons);
+    }
+    
+    /**
+     * Clicks on the ListView.
+     */
+    public void clickOnListView() {
+        Point2D point= TestUtil.getScreenMidPoint(getListView());
+        guiRobot.clickOn(point.getX(), point.getY());
     }
 
     /**

@@ -76,4 +76,18 @@ public class GuiHandle {
     public void focusOnMainApp() {
         this.focusOnWindow(TestApp.APP_TITLE);
     }
+
+    public void closeWindow() {
+        java.util.Optional<Window> window = guiRobot.listTargetWindows()
+                .stream()
+                .filter(w -> w instanceof Stage && ((Stage) w).getTitle().equals(stageTitle)).findAny();
+
+        if (!window.isPresent()) {
+            return;
+        }
+
+        guiRobot.targetWindow(window.get());
+        guiRobot.interact(() -> ((Stage)window.get()).close());
+        focusOnMainApp();
+    }
 }
