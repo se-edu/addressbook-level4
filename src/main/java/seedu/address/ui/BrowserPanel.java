@@ -1,4 +1,4 @@
-package seedu.address.controller;
+package seedu.address.ui;
 
 import javafx.event.Event;
 import javafx.scene.Node;

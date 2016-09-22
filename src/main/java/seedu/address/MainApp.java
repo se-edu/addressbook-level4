@@ -5,7 +5,7 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
 import seedu.address.commons.Version;
-import seedu.address.controller.Ui;
+import seedu.address.ui.Ui;
 import seedu.address.events.EventManager;
 import seedu.address.events.controller.ExitAppRequestEvent;
 import seedu.address.model.ModelManager;

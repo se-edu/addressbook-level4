@@ -7,8 +7,6 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 import seedu.address.commands.*;
-import seedu.address.controller.CommandBox;
-import seedu.address.controller.ResultDisplay;
 import seedu.address.events.EventManager;
 import seedu.address.events.controller.JumpToListRequestEvent;
 import seedu.address.events.controller.ShowHelpEvent;

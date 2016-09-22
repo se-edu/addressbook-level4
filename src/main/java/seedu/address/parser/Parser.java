@@ -2,7 +2,6 @@ package seedu.address.parser;
 
 import javafx.collections.ObservableList;
 import seedu.address.commands.*;
-import seedu.address.controller.Ui;
 import seedu.address.exceptions.IllegalValueException;
 import seedu.address.model.person.ReadOnlyPerson;
 

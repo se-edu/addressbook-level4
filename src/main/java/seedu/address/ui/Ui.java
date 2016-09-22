@@ -1,4 +1,4 @@
-package seedu.address.controller;
+package seedu.address.ui;
 
 import com.google.common.eventbus.Subscribe;
 import javafx.application.Platform;

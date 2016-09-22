@@ -1,4 +1,4 @@
-package seedu.address.controller;
+package seedu.address.ui;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
