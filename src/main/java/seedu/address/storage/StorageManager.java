@@ -9,7 +9,7 @@ import seedu.address.commons.core.ComponentManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.commons.core.Config;
-import seedu.address.commons.core.LoggerManager;
+import seedu.address.commons.core.LogsCenter;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -24,7 +24,7 @@ import java.util.logging.Logger;
  */
 public class StorageManager extends ComponentManager {
 
-    private static final Logger logger = LoggerManager.getLogger(StorageManager.class);
+    private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
     private static final String DEFAULT_CONFIG_FILE = "config.json";
     private final Consumer<ReadOnlyAddressBook> loadedDataCallback;
     private final Supplier<ReadOnlyAddressBook> defaultDataSupplier;

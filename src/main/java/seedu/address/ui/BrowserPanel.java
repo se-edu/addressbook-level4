@@ -6,7 +6,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.web.WebView;
 import seedu.address.commons.util.FxViewUtil;
 import seedu.address.model.person.ReadOnlyPerson;
-import seedu.address.commons.core.LoggerManager;
+import seedu.address.commons.core.LogsCenter;
 
 import java.util.logging.Logger;
 
@@ -15,7 +15,7 @@ import java.util.logging.Logger;
  */
 public class BrowserPanel extends UiPart{
 
-    private static Logger logger = LoggerManager.getLogger(BrowserPanel.class);
+    private static Logger logger = LogsCenter.getLogger(BrowserPanel.class);
     private WebView browser;
 
     /**

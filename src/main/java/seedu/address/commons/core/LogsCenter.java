@@ -6,9 +6,9 @@ import java.util.logging.*;
 /**
  * Configures and manages loggers and handlers, including their logging level
  */
-public class LoggerManager {
+public class LogsCenter {
     private static Level currentLogLevel = Level.INFO;
-    private static final Logger logger = LoggerManager.getLogger(LoggerManager.class);
+    private static final Logger logger = LogsCenter.getLogger(LogsCenter.class);
     private static final String LOG_FILE = "addressbook.log";
     private static FileHandler fileHandler;
     private static ConsoleHandler consoleHandler;

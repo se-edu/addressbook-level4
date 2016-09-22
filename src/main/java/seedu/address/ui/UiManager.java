@@ -10,7 +10,7 @@ import javafx.stage.Stage;
 import seedu.address.MainApp;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.Config;
-import seedu.address.commons.core.LoggerManager;
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.commons.events.controller.JumpToListRequestEvent;
 import seedu.address.commons.events.controller.PersonPanelSelectionChangedEvent;
@@ -28,7 +28,7 @@ import java.util.logging.Logger;
  * The controller that creates the other controllers
  */
 public class UiManager extends ComponentManager{
-    private static final Logger logger = LoggerManager.getLogger(UiManager.class);
+    private static final Logger logger = LogsCenter.getLogger(UiManager.class);
     private static final String ICON_APPLICATION = "/images/address_book_32.png";
 
     private ModelManager modelManager;

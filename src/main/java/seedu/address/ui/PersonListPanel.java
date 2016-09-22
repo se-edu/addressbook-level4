@@ -13,7 +13,7 @@ import javafx.stage.Stage;
 import seedu.address.commons.events.controller.PersonPanelSelectionChangedEvent;
 import seedu.address.model.ModelManager;
 import seedu.address.model.person.ReadOnlyPerson;
-import seedu.address.commons.core.LoggerManager;
+import seedu.address.commons.core.LogsCenter;
 
 import java.util.logging.Logger;
 
@@ -21,7 +21,7 @@ import java.util.logging.Logger;
  * Panel containing the list of persons.
  */
 public class PersonListPanel extends UiPart {
-    private final Logger logger = LoggerManager.getLogger(PersonListPanel.class);
+    private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
     private static final String FXML = "PersonListPanel.fxml";
     private VBox panel;
     private AnchorPane placeHolderPane;

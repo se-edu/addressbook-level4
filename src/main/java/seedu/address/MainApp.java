@@ -13,7 +13,7 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.storage.StorageManager;
 import seedu.address.commons.core.Config;
-import seedu.address.commons.core.LoggerManager;
+import seedu.address.commons.core.LogsCenter;
 
 import java.util.Map;
 import java.util.logging.Logger;
@@ -22,7 +22,7 @@ import java.util.logging.Logger;
  * The main entry point to the application.
  */
 public class MainApp extends Application {
-    private static final Logger logger = LoggerManager.getLogger(MainApp.class);
+    private static final Logger logger = LogsCenter.getLogger(MainApp.class);
 
     private static final int VERSION_MAJOR = 1;
     private static final int VERSION_MINOR = 6;
@@ -68,7 +68,7 @@ public class MainApp extends Application {
     }
 
     private void initComponents(Config config, UserPrefs userPrefs) {
-        LoggerManager.init(config);
+        LogsCenter.init(config);
 
         modelManager = new ModelManager();
         storageManager = initStorageManager(modelManager, config, userPrefs);

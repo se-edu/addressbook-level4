@@ -14,7 +14,7 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.GuiSettings;
-import seedu.address.commons.core.LoggerManager;
+import seedu.address.commons.core.LogsCenter;
 
 import java.util.logging.Logger;
 
@@ -23,7 +23,7 @@ import java.util.logging.Logger;
  * a menu bar and space where other JavaFX elements can be placed.
  */
 public class MainWindow extends UiPart {
-    private final Logger logger = LoggerManager.getLogger(MainWindow.class);
+    private final Logger logger = LogsCenter.getLogger(MainWindow.class);
     private static final String ICON = "/images/address_book_32.png";
     private static final String FXML = "MainWindow.fxml";
     public static final int MIN_HEIGHT = 600;
