@@ -227,7 +227,20 @@ public class LogicTest {
      * targeting a single person in the shown list, using visible index.
      * @param commandWord to test assuming it targets a single person in the last shown list based on visible index.
      */
-    private void assertInvalidIndexBehaviorForCommand(String commandWord) throws Exception {
+    private void assertIncorrectIndexFormatBehaviorForCommand(String commandWord, String expectedMessage) throws Exception {
+        assertCommandBehavior(commandWord , expectedMessage); //index missing
+        assertCommandBehavior(commandWord + " +1", expectedMessage); //index should be unsigned
+        assertCommandBehavior(commandWord + " -1", expectedMessage); //index should be unsigned
+        assertCommandBehavior(commandWord + " 0", expectedMessage); //index cannot be 0
+        assertCommandBehavior(commandWord + " not_a_number", expectedMessage);
+    }
+
+    /**
+     * Confirms the 'invalid argument index number behaviour' for the given command
+     * targeting a single person in the shown list, using visible index.
+     * @param commandWord to test assuming it targets a single person in the last shown list based on visible index.
+     */
+    private void assertIndexNotFoundBehaviorForCommand(String commandWord) throws Exception {
         String expectedMessage = MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
         TestDataHelper helper = new TestDataHelper();
         List<Person> personList = helper.generatePersonList(2);
@@ -238,22 +251,18 @@ public class LogicTest {
             model.addPerson(p);
         }
 
-        assertCommandBehavior(commandWord + " -1", expectedMessage, model.getAddressBook(), personList);
-        assertCommandBehavior(commandWord + " 0", expectedMessage, model.getAddressBook(), personList);
         assertCommandBehavior(commandWord + " 3", expectedMessage, model.getAddressBook(), personList);
-
     }
 
     @Test
-    public void execute_select_invalidArgsFormat() throws Exception {
+    public void execute_selectInvalidArgsFormat_errorMessageShown() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE);
-        assertCommandBehavior("select ", expectedMessage);
+        assertIncorrectIndexFormatBehaviorForCommand("select", expectedMessage);
     }
 
     @Test
-    public void execute_select_invalidIndex() throws Exception {
-        assertInvalidIndexBehaviorForCommand("select arg not number");
-        assertInvalidIndexBehaviorForCommand("select");
+    public void execute_selectIndexNotFound_errorMessageShown() throws Exception {
+        assertIndexNotFoundBehaviorForCommand("select");
     }
 
     @Test
@@ -274,15 +283,14 @@ public class LogicTest {
 
 
     @Test
-    public void execute_delete_invalidArgsFormat() throws Exception {
+    public void execute_deleteInvalidArgsFormat_errorMessageShown() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE);
-        assertCommandBehavior("delete ", expectedMessage);
+        assertIncorrectIndexFormatBehaviorForCommand("delete", expectedMessage);
     }
 
     @Test
-    public void execute_delete_invalidIndex() throws Exception {
-        assertInvalidIndexBehaviorForCommand("delete");
-        assertInvalidIndexBehaviorForCommand("delete arg not number");
+    public void execute_deleteIndexNotFound_errorMessageShown() throws Exception {
+        assertIndexNotFoundBehaviorForCommand("delete");
     }
 
     @Test

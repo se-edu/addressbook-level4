@@ -11,7 +11,7 @@ public class SelectCommandTest extends AddressBookGuiTest {
     @Test
     public void selectPerson_nonEmptyList() {
 
-        assertSelectionInvalid(0); //invalid index
+        assertSelectionInvalid(10); //invalid index
         assertNoPersonSelected();
 
         assertSelectionSuccess(1); //first person in the list

@@ -15,7 +15,6 @@ public class Logic {
     public Logic(ModelManager modelManager) {
         this.modelManager = modelManager;
         this.parser = new Parser();
-        parser.configure(modelManager.getFilteredPersonList());
     }
 
     public CommandResult execute(String commandText) {
