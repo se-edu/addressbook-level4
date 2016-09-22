@@ -2,9 +2,8 @@ package guitests;
 
 import guitests.guihandles.PersonCardHandle;
 import org.junit.Test;
-import seedu.address.commands.AddCommand;
+import seedu.address.logic.commands.AddCommand;
 import seedu.address.commons.Messages;
-import seedu.address.exceptions.IllegalValueException;
 import seedu.address.testutil.TestPerson;
 import seedu.address.testutil.TestUtil;
 

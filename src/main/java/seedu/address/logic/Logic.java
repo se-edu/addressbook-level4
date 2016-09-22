@@ -1,9 +1,9 @@
 package seedu.address.logic;
 
-import seedu.address.commands.Command;
-import seedu.address.commands.CommandResult;
+import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.ModelManager;
-import seedu.address.parser.Parser;
+import seedu.address.logic.parser.Parser;
 
 /**
  * The command executor of the app.

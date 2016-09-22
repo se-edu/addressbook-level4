@@ -6,7 +6,7 @@ import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import seedu.address.commands.*;
+import seedu.address.logic.commands.*;
 import seedu.address.commons.FxViewUtil;
 import seedu.address.logic.Logic;
 import seedu.address.model.ModelManager;

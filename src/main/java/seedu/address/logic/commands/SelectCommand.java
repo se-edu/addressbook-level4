@@ -1,11 +1,10 @@
-package seedu.address.commands;
+package seedu.address.logic.commands;
 
 import seedu.address.commons.Messages;
 import seedu.address.events.EventManager;
 import seedu.address.events.controller.JumpToListRequestEvent;
 import seedu.address.model.UnmodifiableObservableList;
 import seedu.address.model.person.ReadOnlyPerson;
-import seedu.address.model.person.UniquePersonList;
 
 /**
  * Selects a person identified using it's last displayed index from the address book.

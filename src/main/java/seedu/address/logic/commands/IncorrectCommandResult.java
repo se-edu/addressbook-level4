@@ -1,4 +1,4 @@
-package seedu.address.commands;
+package seedu.address.logic.commands;
 
 /**
  * Represents a result of an incorrect command.

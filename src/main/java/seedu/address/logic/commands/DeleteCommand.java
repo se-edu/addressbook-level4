@@ -1,4 +1,4 @@
-package seedu.address.commands;
+package seedu.address.logic.commands;
 
 import seedu.address.commons.Messages;
 import seedu.address.model.UnmodifiableObservableList;

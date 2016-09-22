@@ -1,6 +1,6 @@
-package seedu.address.parser;
+package seedu.address.logic.parser;
 
-import seedu.address.commands.*;
+import seedu.address.logic.commands.*;
 import seedu.address.commons.StringUtil;
 import seedu.address.exceptions.IllegalValueException;
 
