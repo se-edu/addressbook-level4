@@ -14,7 +14,7 @@ public class ListCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        modelManager.clearListFilter();
+        modelManager.updateFilteredListToShowAll();
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

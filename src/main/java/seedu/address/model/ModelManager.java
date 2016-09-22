@@ -1,21 +1,15 @@
 package seedu.address.model;
 
-import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
-import seedu.address.commons.Config;
 import seedu.address.commons.LoggerManager;
 import seedu.address.commons.StringUtil;
 import seedu.address.events.model.LocalModelChangedEvent;
-import seedu.address.exceptions.DuplicateTagException;
 import seedu.address.main.ComponentManager;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.person.UniquePersonList.PersonNotFoundException;
-import seedu.address.model.tag.Tag;
-import seedu.address.model.tag.UniqueTagList;
 
-import java.util.List;
 import java.util.Set;
 import java.util.logging.Logger;
 
@@ -23,19 +17,17 @@ import java.util.logging.Logger;
  * Represents the in-memory model of the address book data.
  * All changes to any model should be synchronized.
  */
-public class ModelManager extends ComponentManager implements ReadOnlyAddressBook {
+public class ModelManager extends ComponentManager {
     private static final Logger logger = LoggerManager.getLogger(ModelManager.class);
 
     private final AddressBook addressBook;
     private final FilteredList<Person> filteredPersons;
 
-    public static final int GRACE_PERIOD_DURATION = 3;
-
     /**
      * Initializes a ModelManager with the given AddressBook
      * AddressBook and its variables should not be null
      */
-    public ModelManager(AddressBook src, Config config) {
+    public ModelManager(AddressBook src) {
         super();
         if (src == null) {
             logger.severe("Attempted to initialize with a null AddressBook");
@@ -47,128 +39,72 @@ public class ModelManager extends ComponentManager implements ReadOnlyAddressBoo
         filteredPersons = new FilteredList<>(addressBook.getPersons());
     }
 
-    public ModelManager(Config config) {
-        this(new AddressBook(), config);
+    public ModelManager() {
+        this(new AddressBook());
     }
 
-    public static ReadOnlyAddressBook getDefaultAddressBook() {
-        return new AddressBook();
-    }
-
-    /**
-     * Clears existing backing model and replaces with the provided new data.
-     */
+    /** Clears existing backing model and replaces with the provided new data. */
     public void resetData(ReadOnlyAddressBook newData) {
         addressBook.resetData(newData);
+        indicateModelChanged();
     }
 
-//// EXPOSING MODEL
-
+    /** Returns the AddressBook */
     public ReadOnlyAddressBook getAddressBook() {
         return addressBook;
     }
 
-    @Override
-    public UniqueTagList getUniqueTagList() {
-        return addressBook.getUniqueTagList();
+    /** Raises an event to indicate the model has changed */
+    private void indicateModelChanged() {
+        raise(new LocalModelChangedEvent(addressBook));
     }
 
-    @Override
-    public UniquePersonList getUniquePersonList() {
-        return addressBook.getUniquePersonList();
+    /** Deletes the given person. */
+    public synchronized void deletePerson(ReadOnlyPerson target) throws PersonNotFoundException {
+        addressBook.removePerson(target);
+        indicateModelChanged();
     }
 
-    @Override
-    public List<ReadOnlyPerson> getPersonList() {
-        return addressBook.getPersonList();
+    /** Adds the given person */
+    public synchronized void addPerson(Person person) throws UniquePersonList.DuplicatePersonException {
+        addressBook.addPerson(person);
+        updateFilteredListToShowAll();
+        indicateModelChanged();
     }
 
-    @Override
-    public List<Tag> getTagList() {
-        return addressBook.getTagList();
-    }
+    //=========== Filtered Person List Accessors ===============================================================
 
-    @Override
-    public UnmodifiableObservableList<ReadOnlyPerson> getPersonsAsReadOnlyObservableList() {
-        return addressBook.getPersonsAsReadOnlyObservableList();
-    }
-
+    /** Returns the filtered person list as an {@code UnmodifiableObservableList<ReadOnlyPerson>} */
     public UnmodifiableObservableList<ReadOnlyPerson> getFilteredPersonList() {
         return new UnmodifiableObservableList<>(filteredPersons);
     }
 
-    @Override
-    public UnmodifiableObservableList<Tag> getTagsAsReadOnlyObservableList() {
-        return addressBook.getTagsAsReadOnlyObservableList();
-    }
-
-    /**
-     * @return reference to the tags list inside backing model
-     */
-    private ObservableList<Tag> backingTagList() {
-        return addressBook.getTags();
-    }
-
-//// UI COMMANDS
-
-    public void updateStorage() {
-        raise(new LocalModelChangedEvent(addressBook));
-    }
-
-    /**
-     * Deletes a person.
-     */
-    public synchronized void deletePerson(ReadOnlyPerson target) throws PersonNotFoundException {
-        addressBook.removePerson(target);
-        updateStorage();
-    }
-
-//// CREATE
-
-    /**
-     * Adds a tag to the model
-     * @param tagToAdd
-     * @throws DuplicateTagException when this operation would cause duplicates
-     */
-    public synchronized void addTagToBackingModel(Tag tagToAdd) throws DuplicateTagException {
-        if (backingTagList().contains(tagToAdd)) {
-            throw new DuplicateTagException(tagToAdd);
-        }
-        backingTagList().add(tagToAdd);
-    }
-
-    public synchronized void addPerson(Person person) throws UniquePersonList.DuplicatePersonException {
-        addressBook.addPerson(person);
-        clearListFilter();
-        updateStorage();
-    }
-
-    public void clearListFilter() {
+    /** Updates the filter of the filtered person list to show all persons */
+    public void updateFilteredListToShowAll() {
         filteredPersons.setPredicate(null);
     }
 
-
-//// FILTER
-
-
-    public void filterList(Expr expr) {
-        filteredPersons.setPredicate(expr::satisfies);
+    /** Updates the filter of the filtered person list to filter by the given keywords*/
+    public void updateFilteredPersonList(Set<String> keywords){
+        updateFilteredPersonList(new PredicateExpression(new NameQualifier(keywords)));
     }
 
-    public void filterList(Set<String> keywords){
-        filterList(new PredExpr(new NameQualifier(keywords)));
+    private void updateFilteredPersonList(Expression expression) {
+        filteredPersons.setPredicate(expression::satisfies);
     }
 
-    interface Expr {
+    //========== Inner classes/interfaces used for filtering ==================================================
+
+    interface Expression {
         boolean satisfies(ReadOnlyPerson person);
         String toString();
     }
 
-    class PredExpr implements Expr {
+    private class PredicateExpression implements Expression {
 
         private final Qualifier qualifier;
 
-        public PredExpr(Qualifier qualifier) {
+        PredicateExpression(Qualifier qualifier) {
             this.qualifier = qualifier;
         }
 
@@ -188,10 +124,10 @@ public class ModelManager extends ComponentManager implements ReadOnlyAddressBoo
         String toString();
     }
 
-    class NameQualifier implements Qualifier {
+    private class NameQualifier implements Qualifier {
         private Set<String> nameKeyWords;
 
-        public NameQualifier(Set<String> nameKeyWords) {
+        NameQualifier(Set<String> nameKeyWords) {
             this.nameKeyWords = nameKeyWords;
         }
 

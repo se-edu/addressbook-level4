@@ -40,6 +40,10 @@ public class AddressBook implements ReadOnlyAddressBook {
         resetData(persons.getInternalList(), tags.getInternalList());
     }
 
+    public static ReadOnlyAddressBook getEmptyAddressBook() {
+        return new AddressBook();
+    }
+
 //// list overwrite operations
 
     public ObservableList<Person> getPersons() {

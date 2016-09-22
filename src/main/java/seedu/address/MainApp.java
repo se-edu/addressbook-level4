@@ -5,6 +5,7 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
 import seedu.address.commons.Version;
+import seedu.address.model.AddressBook;
 import seedu.address.ui.Ui;
 import seedu.address.events.EventManager;
 import seedu.address.events.controller.ExitAppRequestEvent;
@@ -69,7 +70,7 @@ public class MainApp extends Application {
     private void initComponents(Config config, UserPrefs userPrefs) {
         LoggerManager.init(config);
 
-        modelManager = initModelManager(config);
+        modelManager = new ModelManager();
         storageManager = initStorageManager(modelManager, config, userPrefs);
         ui = initUi(config, modelManager);
     }
@@ -79,11 +80,7 @@ public class MainApp extends Application {
     }
 
     protected StorageManager initStorageManager(ModelManager modelManager, Config config, UserPrefs userPrefs) {
-        return new StorageManager(modelManager::resetData, ModelManager::getDefaultAddressBook, config, userPrefs);
-    }
-
-    protected ModelManager initModelManager(Config config) {
-        return new ModelManager(config);
+        return new StorageManager(modelManager::resetData, AddressBook::getEmptyAddressBook, config, userPrefs);
     }
 
     @Override

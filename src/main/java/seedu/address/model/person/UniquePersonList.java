@@ -8,9 +8,9 @@ import seedu.address.exceptions.DuplicateDataException;
 import java.util.*;
 
 /**
- * A list of persons that enforces no nulls and uniqueness between its elements.
+ * A list of persons that enforces uniqueness between its elements and does not allow nulls.
  *
- * Supports minimal set of list operations needed for the app's features.
+ * Supports a minimal set of list operations.
  *
  * @see Person#equals(Object)
  * @see CollectionUtil#elementsAreUnique(Collection)
@@ -52,7 +52,7 @@ public class UniquePersonList implements Iterable<Person> {
     }
 
     /**
-     * java collections constructor, enforces no null or duplicate elements.
+     * Java collections constructor, enforces no null or duplicate elements.
      */
     public UniquePersonList(Collection<Person> persons) throws DuplicatePersonException {
         CollectionUtil.assertNoNullElements(persons);
@@ -63,7 +63,7 @@ public class UniquePersonList implements Iterable<Person> {
     }
 
     /**
-     * java set constructor, enforces no nulls.
+     * Java set constructor, enforces no nulls.
      */
     public UniquePersonList(Set<Person> persons) {
         CollectionUtil.assertNoNullElements(persons);
@@ -87,14 +87,14 @@ public class UniquePersonList implements Iterable<Person> {
     }
 
     /**
-     * All persons in this list as a Set. This set is mutable and change-insulated against the internal list.
+     * Returns all persons in this list as a Set. This set is mutable and change-insulated against the internal list.
      */
     public Set<Person> toSet() {
         return new HashSet<>(internalList);
     }
 
     /**
-     * Checks if the list contains an equivalent person as the given argument.
+     * Returns true if the list contains an equivalent person as the given argument.
      */
     public boolean contains(ReadOnlyPerson toCheck) {
         CollectionUtil.assertNotNull(toCheck);
@@ -135,13 +135,13 @@ public class UniquePersonList implements Iterable<Person> {
         internalList.clear();
     }
 
+    public ObservableList<Person> getInternalList() {
+        return internalList;
+    }
+
     @Override
     public Iterator<Person> iterator() {
         return internalList.iterator();
-    }
-
-    public ObservableList<Person> getInternalList() {
-        return internalList;
     }
 
     @Override

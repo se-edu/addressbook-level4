@@ -33,7 +33,7 @@ public class Tag {
     }
 
     /**
-     * Checks if a given string is a valid tag name.
+     * Returns true if a given string is a valid tag name.
      */
     public static boolean isValidTagName(String test) {
         return test.matches(TAG_VALIDATION_REGEX);

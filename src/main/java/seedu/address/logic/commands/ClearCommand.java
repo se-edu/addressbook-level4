@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import seedu.address.commons.CollectionUtil;
+import seedu.address.model.AddressBook;
 
 /**
  * Clears the address book.
@@ -19,8 +20,7 @@ public class ClearCommand extends Command {
     @Override
     public CommandResult execute() {
         CollectionUtil.assertNotNull(modelManager);
-        modelManager.resetData(modelManager.getDefaultAddressBook());
-        modelManager.updateStorage();
+        modelManager.resetData(AddressBook.getEmptyAddressBook());
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }
