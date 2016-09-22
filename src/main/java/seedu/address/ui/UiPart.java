@@ -5,8 +5,8 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.events.BaseEvent;
-import seedu.address.commons.core.EventManager;
 import seedu.address.commons.util.AppUtil;
 
 /**
@@ -21,23 +21,23 @@ public abstract class UiPart {
     Stage primaryStage;
 
     public UiPart(){
-        EventManager.getInstance().registerHandler(this);
+        EventsCenter.getInstance().registerHandler(this);
     }
 
     /**
-     * Raises the event via {@link EventManager#post(BaseEvent)}
+     * Raises the event via {@link EventsCenter#post(BaseEvent)}
      * @param event
      */
     protected void raise(BaseEvent event){
-        EventManager.getInstance().post(event);
+        EventsCenter.getInstance().post(event);
     }
 
     /**
-     * Raises an event via {@link EventManager#postPotentialEvent(BaseEvent)}
+     * Raises an event via {@link EventsCenter#postPotentialEvent(BaseEvent)}
      * @param event
      */
     protected void raisePotentialEvent(BaseEvent event) {
-        EventManager.getInstance().postPotentialEvent(event);
+        EventsCenter.getInstance().postPotentialEvent(event);
     }
 
     /**

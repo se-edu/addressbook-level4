@@ -8,14 +8,14 @@ import java.util.logging.Logger;
 /**
  * Manages the event dispatching of the app.
  */
-public class EventManager {
-    private static final Logger logger = LoggerManager.getLogger(EventManager.class);
+public class EventsCenter {
+    private static final Logger logger = LoggerManager.getLogger(EventsCenter.class);
     private final EventBus eventBus;
-    private static EventManager instance;
+    private static EventsCenter instance;
 
-    public static EventManager getInstance() {
+    public static EventsCenter getInstance() {
         if (instance == null) {
-            instance = new EventManager();
+            instance = new EventsCenter();
         }
         return instance;
     }
@@ -24,11 +24,11 @@ public class EventManager {
         instance = null;
     }
 
-    private EventManager() {
+    private EventsCenter() {
         eventBus = new EventBus();
     }
 
-    public EventManager registerHandler(Object handler) {
+    public EventsCenter registerHandler(Object handler) {
         eventBus.register(handler);
         return this;
     }
@@ -39,12 +39,12 @@ public class EventManager {
      * @param <E>
      * @return
      */
-    public <E extends BaseEvent> EventManager post(E event) {
+    public <E extends BaseEvent> EventsCenter post(E event) {
         logger.info(event.getClass().getName() + ": " + event.toString());
         return postEvent(event);
     }
 
-    private <E extends BaseEvent> EventManager postEvent(E event) {
+    private <E extends BaseEvent> EventsCenter postEvent(E event) {
         eventBus.post(event);
         return this;
     }
@@ -56,7 +56,7 @@ public class EventManager {
      * @param <E>
      * @return
      */
-    public <E extends BaseEvent> EventManager postPotentialEvent(E event) {
+    public <E extends BaseEvent> EventsCenter postPotentialEvent(E event) {
         logger.fine(event.getClass().getName() + ": " + event.toString());
         return postEvent(event);
     }

@@ -7,7 +7,7 @@ import javafx.stage.Stage;
 import seedu.address.commons.core.Version;
 import seedu.address.model.AddressBook;
 import seedu.address.ui.UiManager;
-import seedu.address.commons.core.EventManager;
+import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.events.controller.ExitAppRequestEvent;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -56,7 +56,7 @@ public class MainApp extends Application {
         config = initConfig(applicationParameters.get("config"));
         userPrefs = initPrefs(config);
         initComponents(config, userPrefs);
-        EventManager.getInstance().registerHandler(this);
+        EventsCenter.getInstance().registerHandler(this);
     }
 
     protected Config initConfig(String configFilePath) {

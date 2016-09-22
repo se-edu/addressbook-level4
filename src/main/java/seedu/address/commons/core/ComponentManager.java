@@ -5,24 +5,24 @@ import seedu.address.commons.events.BaseEvent;
 /**
  * Base class for *Manager classes
  *
- * Registers the class' event handlers in eventManager
+ * Registers the class' event handlers in eventsCenter
  */
 public abstract class ComponentManager {
-    protected EventManager eventManager;
+    protected EventsCenter eventsCenter;
 
     /**
-     * Uses default {@link EventManager}
+     * Uses default {@link EventsCenter}
      */
     public ComponentManager(){
-        this(EventManager.getInstance());
+        this(EventsCenter.getInstance());
     }
 
-    public ComponentManager(EventManager eventManager) {
-        this.eventManager = eventManager;
-        eventManager.registerHandler(this);
+    public ComponentManager(EventsCenter eventsCenter) {
+        this.eventsCenter = eventsCenter;
+        eventsCenter.registerHandler(this);
     }
 
     protected void raise(BaseEvent event){
-        eventManager.post(event);
+        eventsCenter.post(event);
     }
 }

@@ -1,6 +1,6 @@
 package seedu.address.logic.commands;
 
-import seedu.address.commons.core.EventManager;
+import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.events.controller.ExitAppRequestEvent;
 
 /**
@@ -16,7 +16,7 @@ public class ExitCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        EventManager.getInstance().post(new ExitAppRequestEvent());
+        EventsCenter.getInstance().post(new ExitAppRequestEvent());
         return new CommandResult(MESSAGE_EXIT_ACKNOWLEDGEMENT);
     }
 
