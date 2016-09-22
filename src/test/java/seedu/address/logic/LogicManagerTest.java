@@ -27,7 +27,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.Messages.*;
 
-public class LogicTest {
+public class LogicManagerTest {
 
     /**
      * See https://github.com/junit-team/junit4/wiki/rules#temporaryfolder-rule
@@ -36,7 +36,7 @@ public class LogicTest {
     public TemporaryFolder saveFolder = new TemporaryFolder();
 
     private ModelManager model;
-    private Logic logic;
+    private LogicManager logicManager;
 
     //These are for checking the correctness of the events raised
     private ReadOnlyAddressBook latestSavedAddressBook;
@@ -61,7 +61,7 @@ public class LogicTest {
     @Before
     public void setup() {
         model = new ModelManager(null); // ignore config
-        logic = new Logic(model);
+        logicManager = new LogicManager(model);
         EventManager.getInstance().registerHandler(this);
 
         latestSavedAddressBook = new AddressBook(model.getAddressBook()); // last saved assumed to be up to date before.
@@ -92,7 +92,7 @@ public class LogicTest {
 
     /**
      * Executes the command and confirms that the result message is correct and
-     * also confirms that the following three parts of the Logic object's state are as expected:<br>
+     * also confirms that the following three parts of the LogicManager object's state are as expected:<br>
      *      - the internal address book data are same as those in the {@code expectedAddressBook} <br>
      *      - the backing list shown by UI matches the {@code shownList} <br>
      *      - {@code expectedAddressBook} was saved to the storage file. <br>
@@ -102,7 +102,7 @@ public class LogicTest {
                                        List<? extends ReadOnlyPerson> expectedShownList) throws Exception {
 
         //Execute the command
-        CommandResult result = logic.execute(inputCommand);
+        CommandResult result = logicManager.execute(inputCommand);
 
         //Confirm the ui display elements should contain the right data
         assertEquals(expectedMessage, result.feedbackToUser);

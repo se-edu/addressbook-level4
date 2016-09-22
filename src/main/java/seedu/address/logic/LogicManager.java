@@ -6,17 +6,20 @@ import seedu.address.model.ModelManager;
 import seedu.address.logic.parser.Parser;
 
 /**
- * The command executor of the app.
+ * The main LogicManager of the app.
  */
-public class Logic {
+public class LogicManager {
     private final ModelManager modelManager;
     private final Parser parser;
 
-    public Logic(ModelManager modelManager) {
+    public LogicManager(ModelManager modelManager) {
         this.modelManager = modelManager;
         this.parser = new Parser();
     }
 
+    /**
+     * Executes the command and returns the result.
+     */
     public CommandResult execute(String commandText) {
         Command command = parser.parseCommand(commandText);
         command.setData(modelManager);
