@@ -2,7 +2,6 @@ package seedu.address.model;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
-import seedu.address.commons.Config;
 import seedu.address.commons.LoggerManager;
 import seedu.address.commons.StringUtil;
 import seedu.address.events.model.LocalModelChangedEvent;
@@ -13,9 +12,7 @@ import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.person.UniquePersonList.PersonNotFoundException;
 import seedu.address.model.tag.Tag;
-import seedu.address.model.tag.UniqueTagList;
 
-import java.util.List;
 import java.util.Set;
 import java.util.logging.Logger;
 
@@ -23,7 +20,7 @@ import java.util.logging.Logger;
  * Represents the in-memory model of the address book data.
  * All changes to any model should be synchronized.
  */
-public class ModelManager extends ComponentManager implements ReadOnlyAddressBook {
+public class ModelManager extends ComponentManager {
     private static final Logger logger = LoggerManager.getLogger(ModelManager.class);
 
     private final AddressBook addressBook;
@@ -66,39 +63,11 @@ public class ModelManager extends ComponentManager implements ReadOnlyAddressBoo
         return addressBook;
     }
 
-    @Override
-    public UniqueTagList getUniqueTagList() {
-        return addressBook.getUniqueTagList();
-    }
-
-    @Override
-    public UniquePersonList getUniquePersonList() {
-        return addressBook.getUniquePersonList();
-    }
-
-    @Override
-    public List<ReadOnlyPerson> getPersonList() {
-        return addressBook.getPersonList();
-    }
-
-    @Override
-    public List<Tag> getTagList() {
-        return addressBook.getTagList();
-    }
-
-    @Override
-    public UnmodifiableObservableList<ReadOnlyPerson> getPersonsAsReadOnlyObservableList() {
-        return addressBook.getPersonsAsReadOnlyObservableList();
-    }
 
     public UnmodifiableObservableList<ReadOnlyPerson> getFilteredPersonList() {
         return new UnmodifiableObservableList<>(filteredPersons);
     }
 
-    @Override
-    public UnmodifiableObservableList<Tag> getTagsAsReadOnlyObservableList() {
-        return addressBook.getTagsAsReadOnlyObservableList();
-    }
 
     /**
      * @return reference to the tags list inside backing model
