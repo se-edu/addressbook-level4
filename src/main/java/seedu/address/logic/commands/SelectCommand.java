@@ -1,8 +1,8 @@
 package seedu.address.logic.commands;
 
 import seedu.address.commons.core.Messages;
-import seedu.address.events.EventManager;
-import seedu.address.events.controller.JumpToListRequestEvent;
+import seedu.address.commons.core.EventManager;
+import seedu.address.commons.events.controller.JumpToListRequestEvent;
 import seedu.address.model.UnmodifiableObservableList;
 import seedu.address.model.person.ReadOnlyPerson;
 

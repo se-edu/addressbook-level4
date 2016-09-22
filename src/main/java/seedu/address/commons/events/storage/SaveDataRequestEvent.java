@@ -1,6 +1,6 @@
-package seedu.address.events.storage;
+package seedu.address.commons.events.storage;
 
-import seedu.address.events.BaseEvent;
+import seedu.address.commons.events.BaseEvent;
 import seedu.address.model.ReadOnlyAddressBook;
 
 import java.io.File;

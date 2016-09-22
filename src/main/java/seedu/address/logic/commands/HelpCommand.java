@@ -1,8 +1,8 @@
 package seedu.address.logic.commands;
 
 
-import seedu.address.events.EventManager;
-import seedu.address.events.controller.ShowHelpEvent;
+import seedu.address.commons.core.EventManager;
+import seedu.address.commons.events.controller.ShowHelpEvent;
 
 /**
  * Format full help instructions for every command for display.

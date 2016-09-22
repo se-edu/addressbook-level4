@@ -1,6 +1,6 @@
-package seedu.address.events.controller;
+package seedu.address.commons.events.controller;
 
-import seedu.address.events.BaseEvent;
+import seedu.address.commons.events.BaseEvent;
 import seedu.address.model.person.ReadOnlyPerson;
 
 /**

@@ -1,7 +1,7 @@
-package seedu.address.events;
+package seedu.address.commons.core;
 
 import com.google.common.eventbus.EventBus;
-import seedu.address.commons.core.LoggerManager;
+import seedu.address.commons.events.BaseEvent;
 
 import java.util.logging.Logger;
 

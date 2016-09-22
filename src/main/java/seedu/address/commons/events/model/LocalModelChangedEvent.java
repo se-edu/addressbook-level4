@@ -1,6 +1,6 @@
-package seedu.address.events.model;
+package seedu.address.commons.events.model;
 
-import seedu.address.events.BaseEvent;
+import seedu.address.commons.events.BaseEvent;
 import seedu.address.model.ReadOnlyAddressBook;
 
 /** Indicates data in the model has changed*/

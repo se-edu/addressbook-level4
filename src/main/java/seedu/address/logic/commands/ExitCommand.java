@@ -1,7 +1,7 @@
 package seedu.address.logic.commands;
 
-import seedu.address.events.EventManager;
-import seedu.address.events.controller.ExitAppRequestEvent;
+import seedu.address.commons.core.EventManager;
+import seedu.address.commons.events.controller.ExitAppRequestEvent;
 
 /**
  * Terminates the program.

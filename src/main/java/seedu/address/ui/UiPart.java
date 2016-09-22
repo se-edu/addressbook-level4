@@ -5,8 +5,8 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import seedu.address.events.BaseEvent;
-import seedu.address.events.EventManager;
+import seedu.address.commons.events.BaseEvent;
+import seedu.address.commons.core.EventManager;
 import seedu.address.commons.util.AppUtil;
 
 /**

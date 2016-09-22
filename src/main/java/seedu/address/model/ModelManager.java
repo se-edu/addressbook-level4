@@ -3,7 +3,7 @@ package seedu.address.model;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.LoggerManager;
 import seedu.address.commons.util.StringUtil;
-import seedu.address.events.model.LocalModelChangedEvent;
+import seedu.address.commons.events.model.LocalModelChangedEvent;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.ReadOnlyPerson;

@@ -1,6 +1,6 @@
-package seedu.address.events.controller;
+package seedu.address.commons.events.controller;
 
-import seedu.address.events.BaseEvent;
+import seedu.address.commons.events.BaseEvent;
 
 /**
  * Indicates a request to jump to the list of persons
