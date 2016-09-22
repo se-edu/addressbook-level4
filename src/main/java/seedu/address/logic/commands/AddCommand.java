@@ -1,4 +1,4 @@
-package seedu.address.commands;
+package seedu.address.logic.commands;
 
 import seedu.address.commons.CollectionUtil;
 import seedu.address.exceptions.IllegalValueException;

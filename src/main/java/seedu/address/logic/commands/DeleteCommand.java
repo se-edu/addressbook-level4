@@ -1,6 +1,7 @@
-package seedu.address.commands;
+package seedu.address.logic.commands;
 
 import seedu.address.commons.Messages;
+import seedu.address.model.UnmodifiableObservableList;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.UniquePersonList.PersonNotFoundException;
 
@@ -18,22 +19,30 @@ public class DeleteCommand extends Command {
 
     public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Person: %1$s";
 
-    public final ReadOnlyPerson targetPerson;
+    public final int targetIndex;
 
-    public DeleteCommand(ReadOnlyPerson targetPerson) {
-        this.targetPerson = targetPerson;
+    public DeleteCommand(int targetIndex) {
+        this.targetIndex = targetIndex;
     }
 
 
     @Override
     public CommandResult execute() {
-        try {
-            modelManager.deletePerson(targetPerson);
-            return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, targetPerson));
-        } catch (IndexOutOfBoundsException ie) {
-            return new CommandResult(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
-        } catch (PersonNotFoundException pnfe) {
-            return new CommandResult(Messages.MESSAGE_PERSON_NOT_IN_ADDRESSBOOK);
+
+        UnmodifiableObservableList<ReadOnlyPerson> lastShownList = modelManager.getFilteredPersonList();
+
+        if (lastShownList.size() < targetIndex) {
+            return new IncorrectCommandResult(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
+
+        ReadOnlyPerson personToDelete = lastShownList.get(targetIndex - 1);
+
+        try {
+            modelManager.deletePerson(personToDelete);
+        } catch (PersonNotFoundException pnfe) {
+            assert false : "The target person cannot be missing";
+        }
+
+        return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, personToDelete));
     }
 }

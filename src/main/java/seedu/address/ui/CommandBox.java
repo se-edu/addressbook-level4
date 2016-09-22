@@ -6,9 +6,9 @@ import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import seedu.address.commands.*;
+import seedu.address.logic.commands.*;
 import seedu.address.commons.FxViewUtil;
-import seedu.address.logic.Logic;
+import seedu.address.logic.LogicManager;
 import seedu.address.model.ModelManager;
 import seedu.address.commons.LoggerManager;
 
@@ -22,7 +22,7 @@ public class CommandBox extends UiPart {
     private AnchorPane commandPane;
     private ResultDisplay resultDisplay;
 
-    private Logic logic;
+    private LogicManager logicManager;
 
     @FXML
     private TextField commandTextField;
@@ -38,7 +38,7 @@ public class CommandBox extends UiPart {
 
     public void configure(ResultDisplay resultDisplay, ModelManager modelManager) {
         this.resultDisplay = resultDisplay;
-        this.logic = new Logic(modelManager);
+        this.logicManager = new LogicManager(modelManager);
     }
 
     private void addToPlaceholder() {
@@ -64,7 +64,7 @@ public class CommandBox extends UiPart {
     }
 
     public void processCommandInput(String commandText) {
-        mostRecentResult = logic.execute(commandText);
+        mostRecentResult = logicManager.execute(commandText);
         resultDisplay.postMessage(mostRecentResult.feedbackToUser);
         logger.info("Result: " + mostRecentResult.feedbackToUser);
     }

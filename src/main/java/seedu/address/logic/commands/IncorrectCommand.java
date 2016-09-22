@@ -1,4 +1,4 @@
-package seedu.address.commands;
+package seedu.address.logic.commands;
 
 
 /**

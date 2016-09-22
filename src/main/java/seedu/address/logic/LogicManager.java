@@ -1,23 +1,25 @@
 package seedu.address.logic;
 
-import seedu.address.commands.Command;
-import seedu.address.commands.CommandResult;
+import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.ModelManager;
-import seedu.address.parser.Parser;
+import seedu.address.logic.parser.Parser;
 
 /**
- * The command executor of the app.
+ * The main LogicManager of the app.
  */
-public class Logic {
+public class LogicManager {
     private final ModelManager modelManager;
     private final Parser parser;
 
-    public Logic(ModelManager modelManager) {
+    public LogicManager(ModelManager modelManager) {
         this.modelManager = modelManager;
         this.parser = new Parser();
-        parser.configure(modelManager.getFilteredPersonList());
     }
 
+    /**
+     * Executes the command and returns the result.
+     */
     public CommandResult execute(String commandText) {
         Command command = parser.parseCommand(commandText);
         command.setData(modelManager);

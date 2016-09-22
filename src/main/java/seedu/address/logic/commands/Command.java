@@ -1,10 +1,7 @@
-package seedu.address.commands;
+package seedu.address.logic.commands;
 
 import seedu.address.commons.Messages;
 import seedu.address.model.ModelManager;
-import seedu.address.model.person.ReadOnlyPerson;
-
-import java.util.List;
 
 /**
  * Represents a command with hidden internal logic and the ability to be executed.

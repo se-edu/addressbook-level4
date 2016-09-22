@@ -1,4 +1,4 @@
-package seedu.address.commands;
+package seedu.address.logic.commands;
 
 import seedu.address.commons.CollectionUtil;
 import seedu.address.model.person.ReadOnlyPerson;
@@ -23,16 +23,6 @@ public class CommandResult {
         CollectionUtil.assertNotNull(feedbackToUser, relevantPersons);
         this.feedbackToUser = feedbackToUser;
         this.relevantPersons = relevantPersons;
-    }
-
-    /**
-     * Get any relevant persons identified by the command. Returns empty optional if the idea of
-     * relevant persons makes no sense in the command's context..
-     *
-     * @return empty optional if relevant persons is N/A, optional containing persons otherwise
-     */
-    public Optional<List<? extends ReadOnlyPerson>> getRelevantPersons() {
-        return Optional.ofNullable(relevantPersons);
     }
 
 }

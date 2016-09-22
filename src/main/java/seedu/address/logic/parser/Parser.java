@@ -1,16 +1,14 @@
-package seedu.address.parser;
+package seedu.address.logic.parser;
 
-import javafx.collections.ObservableList;
-import seedu.address.commands.*;
+import seedu.address.logic.commands.*;
+import seedu.address.commons.StringUtil;
 import seedu.address.exceptions.IllegalValueException;
-import seedu.address.model.person.ReadOnlyPerson;
 
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static seedu.address.commons.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.commons.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
 import static seedu.address.commons.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 /**
@@ -19,41 +17,23 @@ import static seedu.address.commons.Messages.MESSAGE_UNKNOWN_COMMAND;
 public class Parser {
 
     /**
-     * Signals that the user input could not be parsed.
-     */
-    public static class ParseException extends Exception {
-        public ParseException(String message) {
-            super(message);
-        }
-    }
-
-    /**
      * Used for initial separation of command word and args.
      */
-    public static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
+    private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
-    public static final Pattern PERSON_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
+    private static final Pattern PERSON_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
 
-    public static final Pattern KEYWORDS_ARGS_FORMAT =
+    private static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
 
-    public static final Pattern PERSON_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
+    private static final Pattern PERSON_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<name>[^/]+)"
                     + " (?<isPhonePrivate>p?)p/(?<phone>[^/]+)"
                     + " (?<isEmailPrivate>p?)e/(?<email>[^/]+)"
                     + " (?<isAddressPrivate>p?)a/(?<address>[^/]+)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
 
-    private ObservableList<? extends ReadOnlyPerson> displayedPersons;
-
     public Parser() {}
-
-    /**
-     * Configures the parser with additional dependencies such as Ui
-     */
-    public void configure(ObservableList<? extends ReadOnlyPerson> displayedPersons) {
-        this.displayedPersons = displayedPersons;
-    }
 
     /**
      * Parses user input into command for execution.
@@ -144,20 +124,16 @@ public class Parser {
      *
      * @param args full command args string
      * @return the prepared command
-     * @throws ParseException containing a message with relevant info if the args could no be parsed
      */
     private Command prepareDelete(String args) {
-        try {
-            final int targetIndex = parseArgsAsDisplayedIndex(args);
-            return new DeleteCommand(displayedPersons.get(targetIndex - 1));
-        } catch (ParseException pe) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                                        DeleteCommand.MESSAGE_USAGE));
-        } catch (NumberFormatException nfe) {
-            return new IncorrectCommand(MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
-        } catch (IndexOutOfBoundsException e) {
-            return new IncorrectCommand(MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+
+        Optional<Integer> index = parseIndex(args);
+        if(!index.isPresent()){
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
         }
+
+        return new DeleteCommand(index.get());
     }
 
     /**
@@ -165,47 +141,40 @@ public class Parser {
      *
      * @param args full command args string
      * @return the prepared command
-     * @throws ParseException containing a message with relevant info if the args could no be parsed
      */
     private Command prepareSelect(String args) {
-        try {
-            final int targetIndex = parseArgsAsDisplayedIndex(args);
-            // this check is required to catch any invalid indexes
-            this.displayedPersons.get(targetIndex - 1);
-            return new SelectCommand(targetIndex);
-        } catch (ParseException pe) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                                        SelectCommand.MESSAGE_USAGE));
-        } catch (NumberFormatException nfe) {
-            return new IncorrectCommand(MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
-        } catch (IndexOutOfBoundsException e) {
-            return new IncorrectCommand(MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        Optional<Integer> index = parseIndex(args);
+        if(!index.isPresent()){
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE));
         }
+
+        return new SelectCommand(index.get());
     }
 
     /**
-     * Parses the given arguments string as a single index number.
-     *
-     * @param args arguments string to parse as index number
-     * @return the parsed index number
-     * @throws ParseException if no region of the args string could be found for the index
-     * @throws NumberFormatException the args string region is not a valid number
+     * Returns the specified index in the {@code command} IF a positive unsigned integer is given as the index.
+     *   Returns an {@code Optional.empty()} otherwise.
      */
-    private int parseArgsAsDisplayedIndex(String args) throws ParseException, NumberFormatException {
-        final Matcher matcher = PERSON_INDEX_ARGS_FORMAT.matcher(args.trim());
+    private Optional<Integer> parseIndex(String command) {
+        final Matcher matcher = PERSON_INDEX_ARGS_FORMAT.matcher(command.trim());
         if (!matcher.matches()) {
-            throw new ParseException("Could not find index number to parse");
+            return Optional.empty();
         }
-        return Integer.parseInt(matcher.group("targetIndex"));
-    }
 
+        String index = matcher.group("targetIndex");
+        if(!StringUtil.isUnsignedInteger(index)){
+            return Optional.empty();
+        }
+        return Optional.of(Integer.parseInt(index));
+
+    }
 
     /**
      * Parses arguments in the context of the find person command.
      *
      * @param args full command args string
      * @return the prepared command
-     * @throws ParseException containing a message with relevant info if the args could no be parsed
      */
     private Command prepareFind(String args) {
         final Matcher matcher = KEYWORDS_ARGS_FORMAT.matcher(args.trim());

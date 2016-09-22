@@ -58,7 +58,7 @@ Tests can be found in the `./src/test/java` folder. We have three types<sup>[[1]
    These are in the `guitests` package.
   
 2. **Medium Tests** - These target higher-level code (i.e. code that depend on other code). 
-   e.g. `seedu.address.logic.LogicTest`
+   e.g. `seedu.address.logic.LogicManagerTest`
    For simplicity, we assume the dependent code is working correctly (as such, these tests are 
    a mix between _Unit Tests_ and _Integration Tests_)
    A better alternative is to use _Dependency Injection_ and/or _Mocks/Stubs_

@@ -6,7 +6,7 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
-import seedu.address.commands.*;
+import seedu.address.logic.commands.*;
 import seedu.address.events.EventManager;
 import seedu.address.events.controller.JumpToListRequestEvent;
 import seedu.address.events.controller.ShowHelpEvent;
@@ -27,7 +27,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.Messages.*;
 
-public class LogicTest {
+public class LogicManagerTest {
 
     /**
      * See https://github.com/junit-team/junit4/wiki/rules#temporaryfolder-rule
@@ -36,7 +36,7 @@ public class LogicTest {
     public TemporaryFolder saveFolder = new TemporaryFolder();
 
     private ModelManager model;
-    private Logic logic;
+    private LogicManager logicManager;
 
     //These are for checking the correctness of the events raised
     private ReadOnlyAddressBook latestSavedAddressBook;
@@ -61,7 +61,7 @@ public class LogicTest {
     @Before
     public void setup() {
         model = new ModelManager(null); // ignore config
-        logic = new Logic(model);
+        logicManager = new LogicManager(model);
         EventManager.getInstance().registerHandler(this);
 
         latestSavedAddressBook = new AddressBook(model.getAddressBook()); // last saved assumed to be up to date before.
@@ -92,7 +92,7 @@ public class LogicTest {
 
     /**
      * Executes the command and confirms that the result message is correct and
-     * also confirms that the following three parts of the Logic object's state are as expected:<br>
+     * also confirms that the following three parts of the LogicManager object's state are as expected:<br>
      *      - the internal address book data are same as those in the {@code expectedAddressBook} <br>
      *      - the backing list shown by UI matches the {@code shownList} <br>
      *      - {@code expectedAddressBook} was saved to the storage file. <br>
@@ -102,7 +102,7 @@ public class LogicTest {
                                        List<? extends ReadOnlyPerson> expectedShownList) throws Exception {
 
         //Execute the command
-        CommandResult result = logic.execute(inputCommand);
+        CommandResult result = logicManager.execute(inputCommand);
 
         //Confirm the ui display elements should contain the right data
         assertEquals(expectedMessage, result.feedbackToUser);
@@ -128,7 +128,7 @@ public class LogicTest {
 
     @Test
     public void execute_exit() throws Exception {
-        assertCommandBehavior("exit", ExitCommand.MESSAGE_EXIT_ACKNOWEDGEMENT);
+        assertCommandBehavior("exit", ExitCommand.MESSAGE_EXIT_ACKNOWLEDGEMENT);
     }
 
     @Test
@@ -227,7 +227,20 @@ public class LogicTest {
      * targeting a single person in the shown list, using visible index.
      * @param commandWord to test assuming it targets a single person in the last shown list based on visible index.
      */
-    private void assertInvalidIndexBehaviorForCommand(String commandWord) throws Exception {
+    private void assertIncorrectIndexFormatBehaviorForCommand(String commandWord, String expectedMessage) throws Exception {
+        assertCommandBehavior(commandWord , expectedMessage); //index missing
+        assertCommandBehavior(commandWord + " +1", expectedMessage); //index should be unsigned
+        assertCommandBehavior(commandWord + " -1", expectedMessage); //index should be unsigned
+        assertCommandBehavior(commandWord + " 0", expectedMessage); //index cannot be 0
+        assertCommandBehavior(commandWord + " not_a_number", expectedMessage);
+    }
+
+    /**
+     * Confirms the 'invalid argument index number behaviour' for the given command
+     * targeting a single person in the shown list, using visible index.
+     * @param commandWord to test assuming it targets a single person in the last shown list based on visible index.
+     */
+    private void assertIndexNotFoundBehaviorForCommand(String commandWord) throws Exception {
         String expectedMessage = MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
         TestDataHelper helper = new TestDataHelper();
         List<Person> personList = helper.generatePersonList(2);
@@ -238,22 +251,18 @@ public class LogicTest {
             model.addPerson(p);
         }
 
-        assertCommandBehavior(commandWord + " -1", expectedMessage, model.getAddressBook(), personList);
-        assertCommandBehavior(commandWord + " 0", expectedMessage, model.getAddressBook(), personList);
         assertCommandBehavior(commandWord + " 3", expectedMessage, model.getAddressBook(), personList);
-
     }
 
     @Test
-    public void execute_select_invalidArgsFormat() throws Exception {
+    public void execute_selectInvalidArgsFormat_errorMessageShown() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE);
-        assertCommandBehavior("select ", expectedMessage);
+        assertIncorrectIndexFormatBehaviorForCommand("select", expectedMessage);
     }
 
     @Test
-    public void execute_select_invalidIndex() throws Exception {
-        assertInvalidIndexBehaviorForCommand("select arg not number");
-        assertInvalidIndexBehaviorForCommand("select");
+    public void execute_selectIndexNotFound_errorMessageShown() throws Exception {
+        assertIndexNotFoundBehaviorForCommand("select");
     }
 
     @Test
@@ -274,15 +283,14 @@ public class LogicTest {
 
 
     @Test
-    public void execute_delete_invalidArgsFormat() throws Exception {
+    public void execute_deleteInvalidArgsFormat_errorMessageShown() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE);
-        assertCommandBehavior("delete ", expectedMessage);
+        assertIncorrectIndexFormatBehaviorForCommand("delete", expectedMessage);
     }
 
     @Test
-    public void execute_delete_invalidIndex() throws Exception {
-        assertInvalidIndexBehaviorForCommand("delete");
-        assertInvalidIndexBehaviorForCommand("delete arg not number");
+    public void execute_deleteIndexNotFound_errorMessageShown() throws Exception {
+        assertIndexNotFoundBehaviorForCommand("delete");
     }
 
     @Test
