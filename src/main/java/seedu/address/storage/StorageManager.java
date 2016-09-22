@@ -1,15 +1,15 @@
 package seedu.address.storage;
 
 import com.google.common.eventbus.Subscribe;
-import seedu.address.commons.FileUtil;
-import seedu.address.events.model.LocalModelChangedEvent;
-import seedu.address.events.storage.*;
-import seedu.address.exceptions.DataConversionException;
-import seedu.address.main.ComponentManager;
+import seedu.address.commons.util.FileUtil;
+import seedu.address.commons.events.model.LocalModelChangedEvent;
+import seedu.address.commons.events.storage.*;
+import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.commons.core.ComponentManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.commons.Config;
-import seedu.address.commons.LoggerManager;
+import seedu.address.commons.core.Config;
+import seedu.address.commons.core.LogsCenter;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -24,7 +24,7 @@ import java.util.logging.Logger;
  */
 public class StorageManager extends ComponentManager {
 
-    private static final Logger logger = LoggerManager.getLogger(StorageManager.class);
+    private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
     private static final String DEFAULT_CONFIG_FILE = "config.json";
     private final Consumer<ReadOnlyAddressBook> loadedDataCallback;
     private final Supplier<ReadOnlyAddressBook> defaultDataSupplier;

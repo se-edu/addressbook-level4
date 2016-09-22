@@ -7,15 +7,15 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import seedu.address.logic.commands.*;
-import seedu.address.commons.FxViewUtil;
+import seedu.address.commons.util.FxViewUtil;
 import seedu.address.logic.LogicManager;
 import seedu.address.model.ModelManager;
-import seedu.address.commons.LoggerManager;
+import seedu.address.commons.core.LogsCenter;
 
 import java.util.logging.Logger;
 
 public class CommandBox extends UiPart {
-    private final Logger logger = LoggerManager.getLogger(CommandBox.class);
+    private final Logger logger = LogsCenter.getLogger(CommandBox.class);
     private static final String FXML = "CommandBox.fxml";
 
     private AnchorPane placeHolderPane;

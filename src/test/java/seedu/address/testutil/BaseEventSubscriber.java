@@ -1,6 +1,6 @@
 package seedu.address.testutil;
 
-import seedu.address.events.BaseEvent;
+import seedu.address.commons.events.BaseEvent;
 
 /**
  *

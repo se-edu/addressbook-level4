@@ -8,7 +8,7 @@ import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import seedu.address.TestApp;
-import seedu.address.commons.LoggerManager;
+import seedu.address.commons.core.LogsCenter;
 
 import java.util.logging.Logger;
 
@@ -20,7 +20,7 @@ public class GuiHandle {
     protected final Stage primaryStage;
     protected final String stageTitle;
 
-    private final Logger logger = LoggerManager.getLogger(this.getClass());
+    private final Logger logger = LogsCenter.getLogger(this.getClass());
 
     public GuiHandle(GuiRobot guiRobot, Stage primaryStage, String stageTitle) {
         this.guiRobot = guiRobot;

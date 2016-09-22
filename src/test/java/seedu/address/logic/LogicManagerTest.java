@@ -6,11 +6,11 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
+import seedu.address.commons.core.EventsCenter;
 import seedu.address.logic.commands.*;
-import seedu.address.events.EventManager;
-import seedu.address.events.controller.JumpToListRequestEvent;
-import seedu.address.events.controller.ShowHelpEvent;
-import seedu.address.events.model.LocalModelChangedEvent;
+import seedu.address.commons.events.controller.JumpToListRequestEvent;
+import seedu.address.commons.events.controller.ShowHelpEvent;
+import seedu.address.commons.events.model.LocalModelChangedEvent;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
@@ -25,7 +25,7 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.commons.Messages.*;
+import static seedu.address.commons.core.Messages.*;
 
 public class LogicManagerTest {
 
@@ -62,7 +62,7 @@ public class LogicManagerTest {
     public void setup() {
         model = new ModelManager(); 
         logicManager = new LogicManager(model);
-        EventManager.getInstance().registerHandler(this);
+        EventsCenter.getInstance().registerHandler(this);
 
         latestSavedAddressBook = new AddressBook(model.getAddressBook()); // last saved assumed to be up to date before.
         helpShown = false;
@@ -71,7 +71,7 @@ public class LogicManagerTest {
 
     @After
     public void teardown() {
-        EventManager.clearSubscribers();
+        EventsCenter.clearSubscribers();
     }
 
     @Test

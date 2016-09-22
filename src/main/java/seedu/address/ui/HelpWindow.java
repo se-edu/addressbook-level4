@@ -5,8 +5,8 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
-import seedu.address.commons.FxViewUtil;
-import seedu.address.commons.LoggerManager;
+import seedu.address.commons.util.FxViewUtil;
+import seedu.address.commons.core.LogsCenter;
 
 import java.util.logging.Logger;
 
@@ -15,7 +15,7 @@ import java.util.logging.Logger;
  */
 public class HelpWindow extends UiPart {
 
-    private static final Logger logger = LoggerManager.getLogger(HelpWindow.class);
+    private static final Logger logger = LogsCenter.getLogger(HelpWindow.class);
     private static final String ICON = "/images/help_icon.png";
     private static final String FXML = "HelpWindow.fxml";
     private static final String TITLE = "Help";

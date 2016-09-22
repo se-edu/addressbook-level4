@@ -1,10 +1,10 @@
 package seedu.address.model;
 
 import javafx.collections.transformation.FilteredList;
-import seedu.address.commons.LoggerManager;
-import seedu.address.commons.StringUtil;
-import seedu.address.events.model.LocalModelChangedEvent;
-import seedu.address.main.ComponentManager;
+import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.util.StringUtil;
+import seedu.address.commons.events.model.LocalModelChangedEvent;
+import seedu.address.commons.core.ComponentManager;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.UniquePersonList;
@@ -18,7 +18,7 @@ import java.util.logging.Logger;
  * All changes to any model should be synchronized.
  */
 public class ModelManager extends ComponentManager {
-    private static final Logger logger = LoggerManager.getLogger(ModelManager.class);
+    private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final AddressBook addressBook;
     private final FilteredList<Person> filteredPersons;

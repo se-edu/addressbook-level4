@@ -1,8 +1,8 @@
 package seedu.address.logic.commands;
 
-import seedu.address.commons.Messages;
-import seedu.address.events.EventManager;
-import seedu.address.events.controller.JumpToListRequestEvent;
+import seedu.address.commons.core.EventsCenter;
+import seedu.address.commons.core.Messages;
+import seedu.address.commons.events.controller.JumpToListRequestEvent;
 import seedu.address.model.UnmodifiableObservableList;
 import seedu.address.model.person.ReadOnlyPerson;
 
@@ -35,7 +35,7 @@ public class SelectCommand extends Command {
             return new IncorrectCommandResult(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
-        EventManager.getInstance().post(new JumpToListRequestEvent(targetIndex - 1));
+        EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex - 1));
         return new CommandResult(String.format(MESSAGE_SELECT_PERSON_SUCCESS, targetIndex));
 
     }

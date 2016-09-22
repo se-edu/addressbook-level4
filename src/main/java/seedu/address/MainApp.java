@@ -4,16 +4,16 @@ import com.google.common.eventbus.Subscribe;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
-import seedu.address.commons.Version;
+import seedu.address.commons.core.Version;
 import seedu.address.model.AddressBook;
-import seedu.address.ui.Ui;
-import seedu.address.events.EventManager;
-import seedu.address.events.controller.ExitAppRequestEvent;
+import seedu.address.ui.UiManager;
+import seedu.address.commons.core.EventsCenter;
+import seedu.address.commons.events.controller.ExitAppRequestEvent;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.storage.StorageManager;
-import seedu.address.commons.Config;
-import seedu.address.commons.LoggerManager;
+import seedu.address.commons.core.Config;
+import seedu.address.commons.core.LogsCenter;
 
 import java.util.Map;
 import java.util.logging.Logger;
@@ -22,7 +22,7 @@ import java.util.logging.Logger;
  * The main entry point to the application.
  */
 public class MainApp extends Application {
-    private static final Logger logger = LoggerManager.getLogger(MainApp.class);
+    private static final Logger logger = LogsCenter.getLogger(MainApp.class);
 
     private static final int VERSION_MAJOR = 1;
     private static final int VERSION_MINOR = 6;
@@ -42,7 +42,7 @@ public class MainApp extends Application {
     protected StorageManager storageManager;
     protected ModelManager modelManager;
 
-    protected Ui ui;
+    protected UiManager uiManager;
     protected Config config;
     protected UserPrefs userPrefs;
 
@@ -56,7 +56,7 @@ public class MainApp extends Application {
         config = initConfig(applicationParameters.get("config"));
         userPrefs = initPrefs(config);
         initComponents(config, userPrefs);
-        EventManager.getInstance().registerHandler(this);
+        EventsCenter.getInstance().registerHandler(this);
     }
 
     protected Config initConfig(String configFilePath) {
@@ -68,15 +68,15 @@ public class MainApp extends Application {
     }
 
     private void initComponents(Config config, UserPrefs userPrefs) {
-        LoggerManager.init(config);
+        LogsCenter.init(config);
 
         modelManager = new ModelManager();
         storageManager = initStorageManager(modelManager, config, userPrefs);
-        ui = initUi(config, modelManager);
+        uiManager = initUi(config, modelManager);
     }
 
-    protected Ui initUi(Config config, ModelManager modelManager) {
-        return new Ui(modelManager, config, userPrefs);
+    protected UiManager initUi(Config config, ModelManager modelManager) {
+        return new UiManager(modelManager, config, userPrefs);
     }
 
     protected StorageManager initStorageManager(ModelManager modelManager, Config config, UserPrefs userPrefs) {
@@ -86,14 +86,14 @@ public class MainApp extends Application {
     @Override
     public void start(Stage primaryStage) {
         logger.info("Starting application: " + MainApp.VERSION);
-        ui.start(primaryStage, this);
+        uiManager.start(primaryStage, this);
         storageManager.start();
     }
 
     @Override
     public void stop() {
         logger.info("Stopping application.");
-        ui.stop();
+        uiManager.stop();
         storageManager.savePrefsToFile(userPrefs);
         quit();
     }
