@@ -1,17 +1,14 @@
 package seedu.address.model;
 
-import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.LoggerManager;
 import seedu.address.commons.StringUtil;
 import seedu.address.events.model.LocalModelChangedEvent;
-import seedu.address.exceptions.DuplicateTagException;
 import seedu.address.main.ComponentManager;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.person.UniquePersonList.PersonNotFoundException;
-import seedu.address.model.tag.Tag;
 
 import java.util.Set;
 import java.util.logging.Logger;
@@ -69,14 +66,7 @@ public class ModelManager extends ComponentManager {
     }
 
 
-    /**
-     * @return reference to the tags list inside backing model
-     */
-    private ObservableList<Tag> backingTagList() {
-        return addressBook.getTags();
-    }
-
-//// UI COMMANDS
+    //// UI COMMANDS
 
     public void updateStorage() {
         raise(new LocalModelChangedEvent(addressBook));
@@ -91,18 +81,6 @@ public class ModelManager extends ComponentManager {
     }
 
 //// CREATE
-
-    /**
-     * Adds a tag to the model
-     * @param tagToAdd
-     * @throws DuplicateTagException when this operation would cause duplicates
-     */
-    public synchronized void addTagToBackingModel(Tag tagToAdd) throws DuplicateTagException {
-        if (backingTagList().contains(tagToAdd)) {
-            throw new DuplicateTagException(tagToAdd);
-        }
-        backingTagList().add(tagToAdd);
-    }
 
     public synchronized void addPerson(Person person) throws UniquePersonList.DuplicatePersonException {
         addressBook.addPerson(person);
