@@ -47,14 +47,12 @@ public class ModelManager extends ComponentManager {
         return new AddressBook();
     }
 
-    /**
-     * Clears existing backing model and replaces with the provided new data.
-     */
+    /** Clears existing backing model and replaces with the provided new data. */
     public void resetData(ReadOnlyAddressBook newData) {
         addressBook.resetData(newData);
     }
 
-
+    /** Returns the AddressBook */
     public ReadOnlyAddressBook getAddressBook() {
         return addressBook;
     }
@@ -69,27 +67,23 @@ public class ModelManager extends ComponentManager {
         raise(new LocalModelChangedEvent(addressBook));
     }
 
-    /**
-     * Deletes a person.
-     */
+    /** Deletes the given person. */
     public synchronized void deletePerson(ReadOnlyPerson target) throws PersonNotFoundException {
         addressBook.removePerson(target);
         updateStorage();
     }
 
-
+    /** Adds the given person */
     public synchronized void addPerson(Person person) throws UniquePersonList.DuplicatePersonException {
         addressBook.addPerson(person);
         clearListFilter();
         updateStorage();
     }
 
+
     public void clearListFilter() {
         filteredPersons.setPredicate(null);
     }
-
-
-
 
     public void filterList(Expr expr) {
         filteredPersons.setPredicate(expr::satisfies);
