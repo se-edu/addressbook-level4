@@ -54,7 +54,7 @@ public class ModelManager extends ComponentManager {
         return addressBook;
     }
 
-
+    /** Raises an event to indicate the model has changed */
     private void indicateModelChanged() {
         raise(new LocalModelChangedEvent(addressBook));
     }
@@ -68,37 +68,43 @@ public class ModelManager extends ComponentManager {
     /** Adds the given person */
     public synchronized void addPerson(Person person) throws UniquePersonList.DuplicatePersonException {
         addressBook.addPerson(person);
-        clearListFilter();
+        updateFilteredListToShowAll();
         indicateModelChanged();
     }
 
+    //=========== Filtered Person List Accessors ===============================================================
 
+    /** Returns the filtered person list as an {@code UnmodifiableObservableList<ReadOnlyPerson>} */
     public UnmodifiableObservableList<ReadOnlyPerson> getFilteredPersonList() {
         return new UnmodifiableObservableList<>(filteredPersons);
     }
 
-    public void clearListFilter() {
+    /** Updates the filter of the filtered person list to show all persons */
+    public void updateFilteredListToShowAll() {
         filteredPersons.setPredicate(null);
     }
 
-    public void filterList(Expr expr) {
-        filteredPersons.setPredicate(expr::satisfies);
+    /** Updates the filter of the filtered person list to filter by the given keywords*/
+    public void updateFilteredPersonList(Set<String> keywords){
+        updateFilteredPersonList(new PredicateExpression(new NameQualifier(keywords)));
     }
 
-    public void filterList(Set<String> keywords){
-        filterList(new PredExpr(new NameQualifier(keywords)));
+    private void updateFilteredPersonList(Expression expression) {
+        filteredPersons.setPredicate(expression::satisfies);
     }
 
-    interface Expr {
+    //========== Inner classes/interfaces used for filtering ==================================================
+
+    interface Expression {
         boolean satisfies(ReadOnlyPerson person);
         String toString();
     }
 
-    class PredExpr implements Expr {
+    private class PredicateExpression implements Expression {
 
         private final Qualifier qualifier;
 
-        public PredExpr(Qualifier qualifier) {
+        PredicateExpression(Qualifier qualifier) {
             this.qualifier = qualifier;
         }
 
@@ -118,10 +124,10 @@ public class ModelManager extends ComponentManager {
         String toString();
     }
 
-    class NameQualifier implements Qualifier {
+    private class NameQualifier implements Qualifier {
         private Set<String> nameKeyWords;
 
-        public NameQualifier(Set<String> nameKeyWords) {
+        NameQualifier(Set<String> nameKeyWords) {
             this.nameKeyWords = nameKeyWords;
         }
 
