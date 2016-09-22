@@ -20,7 +20,6 @@ public class ClearCommand extends Command {
     public CommandResult execute() {
         CollectionUtil.assertNotNull(modelManager);
         modelManager.resetData(modelManager.getDefaultAddressBook());
-        modelManager.updateStorage();
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

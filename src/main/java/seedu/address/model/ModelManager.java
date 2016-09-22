@@ -50,6 +50,7 @@ public class ModelManager extends ComponentManager {
     /** Clears existing backing model and replaces with the provided new data. */
     public void resetData(ReadOnlyAddressBook newData) {
         addressBook.resetData(newData);
+        indicateModelChanged();
     }
 
     /** Returns the AddressBook */
@@ -58,28 +59,27 @@ public class ModelManager extends ComponentManager {
     }
 
 
-    public UnmodifiableObservableList<ReadOnlyPerson> getFilteredPersonList() {
-        return new UnmodifiableObservableList<>(filteredPersons);
-    }
-
-
-    public void updateStorage() {
+    private void indicateModelChanged() {
         raise(new LocalModelChangedEvent(addressBook));
     }
 
     /** Deletes the given person. */
     public synchronized void deletePerson(ReadOnlyPerson target) throws PersonNotFoundException {
         addressBook.removePerson(target);
-        updateStorage();
+        indicateModelChanged();
     }
 
     /** Adds the given person */
     public synchronized void addPerson(Person person) throws UniquePersonList.DuplicatePersonException {
         addressBook.addPerson(person);
         clearListFilter();
-        updateStorage();
+        indicateModelChanged();
     }
 
+
+    public UnmodifiableObservableList<ReadOnlyPerson> getFilteredPersonList() {
+        return new UnmodifiableObservableList<>(filteredPersons);
+    }
 
     public void clearListFilter() {
         filteredPersons.setPredicate(null);
