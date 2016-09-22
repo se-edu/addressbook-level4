@@ -29,13 +29,11 @@ public class ModelManager extends ComponentManager implements ReadOnlyAddressBoo
     private final AddressBook addressBook;
     private final FilteredList<Person> filteredPersons;
 
-    public static final int GRACE_PERIOD_DURATION = 3;
-
     /**
      * Initializes a ModelManager with the given AddressBook
      * AddressBook and its variables should not be null
      */
-    public ModelManager(AddressBook src, Config config) {
+    public ModelManager(AddressBook src) {
         super();
         if (src == null) {
             logger.severe("Attempted to initialize with a null AddressBook");
@@ -47,8 +45,8 @@ public class ModelManager extends ComponentManager implements ReadOnlyAddressBoo
         filteredPersons = new FilteredList<>(addressBook.getPersons());
     }
 
-    public ModelManager(Config config) {
-        this(new AddressBook(), config);
+    public ModelManager() {
+        this(new AddressBook());
     }
 
     public static ReadOnlyAddressBook getDefaultAddressBook() {

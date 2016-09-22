@@ -60,7 +60,7 @@ public class LogicManagerTest {
 
     @Before
     public void setup() {
-        model = new ModelManager(null); // ignore config
+        model = new ModelManager(); 
         logicManager = new LogicManager(model);
         EventManager.getInstance().registerHandler(this);
 

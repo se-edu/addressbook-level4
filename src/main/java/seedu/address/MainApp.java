@@ -69,7 +69,7 @@ public class MainApp extends Application {
     private void initComponents(Config config, UserPrefs userPrefs) {
         LoggerManager.init(config);
 
-        modelManager = initModelManager(config);
+        modelManager = new ModelManager();
         storageManager = initStorageManager(modelManager, config, userPrefs);
         ui = initUi(config, modelManager);
     }
@@ -80,10 +80,6 @@ public class MainApp extends Application {
 
     protected StorageManager initStorageManager(ModelManager modelManager, Config config, UserPrefs userPrefs) {
         return new StorageManager(modelManager::resetData, ModelManager::getDefaultAddressBook, config, userPrefs);
-    }
-
-    protected ModelManager initModelManager(Config config) {
-        return new ModelManager(config);
     }
 
     @Override
