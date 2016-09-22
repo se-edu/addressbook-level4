@@ -54,7 +54,6 @@ public class ModelManager extends ComponentManager {
         addressBook.resetData(newData);
     }
 
-//// EXPOSING MODEL
 
     public ReadOnlyAddressBook getAddressBook() {
         return addressBook;
@@ -65,8 +64,6 @@ public class ModelManager extends ComponentManager {
         return new UnmodifiableObservableList<>(filteredPersons);
     }
 
-
-    //// UI COMMANDS
 
     public void updateStorage() {
         raise(new LocalModelChangedEvent(addressBook));
@@ -80,7 +77,6 @@ public class ModelManager extends ComponentManager {
         updateStorage();
     }
 
-//// CREATE
 
     public synchronized void addPerson(Person person) throws UniquePersonList.DuplicatePersonException {
         addressBook.addPerson(person);
@@ -93,7 +89,6 @@ public class ModelManager extends ComponentManager {
     }
 
 
-//// FILTER
 
 
     public void filterList(Expr expr) {
