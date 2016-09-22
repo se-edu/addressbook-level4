@@ -30,14 +30,14 @@ public class Parser {
     /**
      * Used for initial separation of command word and args.
      */
-    public static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
+    private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
-    public static final Pattern PERSON_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
+    private static final Pattern PERSON_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
 
-    public static final Pattern KEYWORDS_ARGS_FORMAT =
+    private static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
 
-    public static final Pattern PERSON_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
+    private static final Pattern PERSON_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<name>[^/]+)"
                     + " (?<isPhonePrivate>p?)p/(?<phone>[^/]+)"
                     + " (?<isEmailPrivate>p?)e/(?<email>[^/]+)"
@@ -49,7 +49,7 @@ public class Parser {
     public Parser() {}
 
     /**
-     * Configures the parser with additional dependencies such as Ui
+     * Configures the parser with additional dependencies
      */
     public void configure(ObservableList<? extends ReadOnlyPerson> displayedPersons) {
         this.displayedPersons = displayedPersons;
@@ -144,7 +144,6 @@ public class Parser {
      *
      * @param args full command args string
      * @return the prepared command
-     * @throws ParseException containing a message with relevant info if the args could no be parsed
      */
     private Command prepareDelete(String args) {
         try {
@@ -165,7 +164,6 @@ public class Parser {
      *
      * @param args full command args string
      * @return the prepared command
-     * @throws ParseException containing a message with relevant info if the args could no be parsed
      */
     private Command prepareSelect(String args) {
         try {
@@ -205,7 +203,6 @@ public class Parser {
      *
      * @param args full command args string
      * @return the prepared command
-     * @throws ParseException containing a message with relevant info if the args could no be parsed
      */
     private Command prepareFind(String args) {
         final Matcher matcher = KEYWORDS_ARGS_FORMAT.matcher(args.trim());
