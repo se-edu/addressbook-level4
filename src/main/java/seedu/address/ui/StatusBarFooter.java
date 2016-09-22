@@ -6,7 +6,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import org.controlsfx.control.StatusBar;
-import seedu.address.commons.FxViewUtil;
+import seedu.address.commons.util.FxViewUtil;
 
 /**
  * A controller for the status bar that is displayed at the footer of the application.

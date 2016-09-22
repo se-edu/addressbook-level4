@@ -1,4 +1,4 @@
-package seedu.address.commons;
+package seedu.address.commons.util;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;

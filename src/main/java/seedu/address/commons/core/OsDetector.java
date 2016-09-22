@@ -1,4 +1,4 @@
-package seedu.address.commons;
+package seedu.address.commons.core;
 
 import java.io.BufferedReader;
 import java.io.IOException;

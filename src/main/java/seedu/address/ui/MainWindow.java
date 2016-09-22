@@ -12,9 +12,9 @@ import seedu.address.events.controller.ExitAppRequestEvent;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.ReadOnlyPerson;
-import seedu.address.commons.Config;
-import seedu.address.commons.GuiSettings;
-import seedu.address.commons.LoggerManager;
+import seedu.address.commons.core.Config;
+import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.core.LoggerManager;
 
 import java.util.logging.Logger;
 

@@ -7,7 +7,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import seedu.address.events.BaseEvent;
 import seedu.address.events.EventManager;
-import seedu.address.commons.AppUtil;
+import seedu.address.commons.util.AppUtil;
 
 /**
  * Base class for UI parts.

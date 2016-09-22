@@ -1,4 +1,6 @@
-package seedu.address.commons;
+package seedu.address.commons.util;
+
+import seedu.address.commons.util.FileUtil;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;

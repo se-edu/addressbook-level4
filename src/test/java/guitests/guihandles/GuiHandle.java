@@ -8,7 +8,7 @@ import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import seedu.address.TestApp;
-import seedu.address.commons.LoggerManager;
+import seedu.address.commons.core.LoggerManager;
 
 import java.util.logging.Logger;
 

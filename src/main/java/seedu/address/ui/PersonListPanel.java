@@ -13,7 +13,7 @@ import javafx.stage.Stage;
 import seedu.address.events.controller.PersonPanelSelectionChangedEvent;
 import seedu.address.model.ModelManager;
 import seedu.address.model.person.ReadOnlyPerson;
-import seedu.address.commons.LoggerManager;
+import seedu.address.commons.core.LoggerManager;
 
 import java.util.logging.Logger;
 

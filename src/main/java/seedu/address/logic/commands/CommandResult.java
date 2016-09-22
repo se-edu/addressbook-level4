@@ -1,10 +1,9 @@
 package seedu.address.logic.commands;
 
-import seedu.address.commons.CollectionUtil;
+import seedu.address.commons.util.CollectionUtil;
 import seedu.address.model.person.ReadOnlyPerson;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Represents the result of a command execution.

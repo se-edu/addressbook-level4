@@ -5,7 +5,7 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import seedu.address.commons.FileUtil;
+import seedu.address.commons.util.FileUtil;
 import seedu.address.events.model.LocalModelChangedEvent;
 import seedu.address.events.storage.SaveDataRequestEvent;
 import seedu.address.exceptions.DataConversionException;
@@ -18,7 +18,7 @@ import seedu.address.model.person.UniquePersonList;
 import seedu.address.testutil.AddressBookBuilder;
 import seedu.address.testutil.SerializableTestClass;
 import seedu.address.testutil.TestUtil;
-import seedu.address.commons.Config;
+import seedu.address.commons.core.Config;
 
 import java.io.File;
 import java.io.FileNotFoundException;

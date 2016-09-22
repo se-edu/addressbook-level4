@@ -1,4 +1,4 @@
-package seedu.address.commons;
+package seedu.address.commons.util;
 
 import javafx.scene.image.Image;
 import seedu.address.MainApp;

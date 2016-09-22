@@ -1,6 +1,6 @@
 package seedu.address.logic.commands;
 
-import seedu.address.commons.Messages;
+import seedu.address.commons.core.Messages;
 import seedu.address.model.UnmodifiableObservableList;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.UniquePersonList.PersonNotFoundException;

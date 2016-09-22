@@ -1,6 +1,6 @@
 package seedu.address.storage;
 
-import seedu.address.commons.CollectionUtil;
+import seedu.address.commons.util.CollectionUtil;
 import seedu.address.exceptions.IllegalValueException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;

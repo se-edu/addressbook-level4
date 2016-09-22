@@ -1,4 +1,4 @@
-package seedu.address.commons;
+package seedu.address.commons.util;
 
 import java.net.URL;
 

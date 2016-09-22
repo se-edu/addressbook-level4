@@ -1,6 +1,6 @@
 package seedu.address.logic.commands;
 
-import seedu.address.commons.CollectionUtil;
+import seedu.address.commons.util.CollectionUtil;
 import seedu.address.exceptions.IllegalValueException;
 import seedu.address.model.person.*;
 import seedu.address.model.tag.*;

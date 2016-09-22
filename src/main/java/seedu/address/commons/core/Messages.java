@@ -1,4 +1,4 @@
-package seedu.address.commons;
+package seedu.address.commons.core;
 
 /**
  * Container for user visible messages.

@@ -1,6 +1,6 @@
 package seedu.address.model.person;
 
-import seedu.address.commons.CollectionUtil;
+import seedu.address.commons.util.CollectionUtil;
 import seedu.address.exceptions.IllegalValueException;
 
 import java.util.Arrays;

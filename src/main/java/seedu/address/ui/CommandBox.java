@@ -7,10 +7,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import seedu.address.logic.commands.*;
-import seedu.address.commons.FxViewUtil;
+import seedu.address.commons.util.FxViewUtil;
 import seedu.address.logic.LogicManager;
 import seedu.address.model.ModelManager;
-import seedu.address.commons.LoggerManager;
+import seedu.address.commons.core.LoggerManager;
 
 import java.util.logging.Logger;
 

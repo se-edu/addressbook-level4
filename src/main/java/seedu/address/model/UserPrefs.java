@@ -1,6 +1,6 @@
 package seedu.address.model;
 
-import seedu.address.commons.GuiSettings;
+import seedu.address.commons.core.GuiSettings;
 
 /**
  * Represents User's preferences.
