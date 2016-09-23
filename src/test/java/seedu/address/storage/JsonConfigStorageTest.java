@@ -85,7 +85,7 @@ public class JsonConfigStorageTest {
 
     private Optional<Config> read(String configFileInTestDataFolder) throws DataConversionException {
         String configFilePath = addToTestDataPathIfNotNull(configFileInTestDataFolder);
-        return new JsonConfigStorage().read(configFilePath);
+        return new JsonConfigStorage().readConfig(configFilePath);
     }
 
     @Test
@@ -108,21 +108,21 @@ public class JsonConfigStorageTest {
         JsonConfigStorage configStorage = new JsonConfigStorage();
 
         //Try writing when the file doesn't exist
-        configStorage.save(original, configFilePath);
-        Config readBack = configStorage.read(configFilePath).get();
+        configStorage.saveConfig(original, configFilePath);
+        Config readBack = configStorage.readConfig(configFilePath).get();
         assertEquals(original, readBack);
 
         //Try saving when the file exists
         original.setAppTitle("Updated Title");
         original.setCurrentLogLevel(Level.FINE);
-        configStorage.save(original, configFilePath);
-        readBack = configStorage.read(configFilePath).get();
+        configStorage.saveConfig(original, configFilePath);
+        readBack = configStorage.readConfig(configFilePath).get();
         assertEquals(original, readBack);
     }
 
     private void save(Config config, String configFileInTestDataFolder) throws IOException {
         String configFilePath = addToTestDataPathIfNotNull(configFileInTestDataFolder);
-        new JsonConfigStorage().save(config, configFilePath);
+        new JsonConfigStorage().saveConfig(config, configFilePath);
     }
 
     private String addToTestDataPathIfNotNull(String configFileInTestDataFolder) {

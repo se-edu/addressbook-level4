@@ -23,7 +23,7 @@ public class JsonConfigStorage {
      * @param configFilePath cannot be null.
      * @throws DataConversionException if the file format is not as expected.
      */
-    public Optional<Config> read(String configFilePath) throws DataConversionException {
+    public Optional<Config> readConfig(String configFilePath) throws DataConversionException {
 
         assert configFilePath != null;
 
@@ -53,7 +53,7 @@ public class JsonConfigStorage {
      * @param configFilePath cannot be null
      * @throws IOException if there was an error during writing to the file
      */
-    public void save(Config config, String configFilePath) throws IOException {
+    public void saveConfig(Config config, String configFilePath) throws IOException {
         assert config != null;
         assert configFilePath != null;
 
