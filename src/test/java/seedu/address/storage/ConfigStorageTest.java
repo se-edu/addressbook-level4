@@ -4,11 +4,13 @@ package seedu.address.storage;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+import org.junit.rules.TemporaryFolder;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.testutil.TestUtil;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.Optional;
 import java.util.logging.Level;
 
@@ -20,10 +22,13 @@ public class ConfigStorageTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
+    @Rule
+    public TemporaryFolder testFolder = new TemporaryFolder();
+
     @Test
     public void readConfig_null_assertionFailure() throws DataConversionException {
         thrown.expect(AssertionError.class);
-        new ConfigStorage().readConfig(null);
+        readConfig(null);
     }
 
     @Test
@@ -57,8 +62,57 @@ public class ConfigStorageTest {
     }
 
     private Optional<Config> readConfig(String configFileInSandbox) throws DataConversionException {
-        String configFilePath = TestUtil.appendToSandboxPath(configFileInSandbox);
+        String configFilePath = addToSandboxPathIfNotNull(configFileInSandbox);
         return new ConfigStorage().readConfig(configFilePath);
     }
+
+    @Test
+    public void save_nullConfig_assertionFailure() throws IOException {
+        thrown.expect(AssertionError.class);
+        save(null, "some-file.json");
+    }
+
+    @Test
+    public void save_nullFile_assertionFailure() throws IOException {
+        thrown.expect(AssertionError.class);
+        save(new Config(), null);
+    }
+
+    @Test
+    public void saveConfig_allInOrder_success() throws DataConversionException, IOException {
+        Config original = new Config();
+        original.setAppTitle("Typical App Title");
+        original.setCurrentLogLevel(Level.INFO);
+        original.setPrefsFileLocation(new File("C:\\preferences.json"));
+        original.setLocalDataFilePath("addressbook.xml");
+        original.setAddressBookName("TypicalAddressBookName");
+
+        String configFilePath = testFolder.getRoot() + File.separator + "temp-config.json";
+        ConfigStorage configStorage = new ConfigStorage();
+
+        //Try writing when the file doesn't exist
+        configStorage.save(original, configFilePath);
+        Config readBack = configStorage.readConfig(configFilePath).get();
+        assertEquals(original, readBack);
+
+        //Try saving when the file exists
+        original.setAppTitle("Updated Title");
+        original.setCurrentLogLevel(Level.FINE);
+        configStorage.save(original, configFilePath);
+        readBack = configStorage.readConfig(configFilePath).get();
+        assertEquals(original, readBack);
+    }
+
+    private void save(Config config, String configFileInSandbox) throws IOException {
+        String configFilePath = addToSandboxPathIfNotNull(configFileInSandbox);
+        new ConfigStorage().save(config, configFilePath);
+    }
+
+    private String addToSandboxPathIfNotNull(String configFileInSandbox) {
+        return configFileInSandbox != null
+                                  ? TestUtil.appendToSandboxPath(configFileInSandbox)
+                                  : null;
+    }
+
 
 }

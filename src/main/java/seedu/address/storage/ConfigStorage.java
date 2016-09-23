@@ -44,4 +44,19 @@ public class ConfigStorage {
 
         return Optional.of(config);
     }
+
+    /**
+     * Saves the Config object to the specified file.
+     *   Overwrites existing file if it exists, creates a new file if it doesn't.
+     * @param config cannot be null
+     * @param configFilePath cannot be null
+     * @throws IOException if there was an error during writing to the file
+     */
+    public void save(Config config, String configFilePath) throws IOException {
+        assert config != null;
+        assert configFilePath != null;
+
+        FileUtil.serializeObjectToJsonFile(new File(configFilePath), config);
+    }
+
 }
