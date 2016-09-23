@@ -90,5 +90,15 @@ public class Config {
         return Objects.hash(appTitle, currentLogLevel, prefsFileLocation, localDataFilePath, addressBookName);
     }
 
+    @Override
+    public String toString(){
+        StringBuilder sb = new StringBuilder();
+        sb.append("App title : " + appTitle);
+        sb.append("\nCurrent log level : " + currentLogLevel);
+        sb.append("\nPreference file Location : " + prefsFileLocation);
+        sb.append("\nLocal data file location : " + localDataFilePath);
+        sb.append("\nAddressBook name : " + addressBookName);
+        return sb.toString();
+    }
 
 }
