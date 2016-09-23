@@ -1,6 +1,7 @@
 package seedu.address.commons.core;
 
 import java.io.File;
+import java.util.Objects;
 import java.util.logging.Level;
 
 /**
@@ -62,6 +63,30 @@ public class Config {
 
     public void setAddressBookName(String addressBookName) {
         this.addressBookName = addressBookName;
+    }
+
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this){
+            return true;
+        }
+        if (!(other instanceof Config)){ //this handles null as well.
+            return false;
+        }
+
+        Config o = (Config)other;
+
+        return Objects.equals(appTitle, o.appTitle)
+                && Objects.equals(currentLogLevel, o.currentLogLevel)
+                && Objects.equals(prefsFileLocation, o.prefsFileLocation)
+                && Objects.equals(localDataFilePath, o.localDataFilePath)
+                && Objects.equals(addressBookName, o.addressBookName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(appTitle, currentLogLevel, prefsFileLocation, localDataFilePath, addressBookName);
     }
 
 

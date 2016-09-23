@@ -1,10 +1,8 @@
 package seedu.address.storage;
 
 
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.*;
+import org.junit.rules.ExpectedException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.events.model.LocalModelChangedEvent;
 import seedu.address.commons.events.storage.SaveDataRequestEvent;
@@ -23,10 +21,11 @@ import seedu.address.commons.core.Config;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Optional;
+import java.util.logging.Level;
 
 import static junit.framework.TestCase.assertNotNull;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.*;
 
 public class StorageManagerTest {
     private static final File SERIALIZATION_FILE = new File(TestUtil.appendToSandboxPath("serialize.json"));
@@ -40,6 +39,10 @@ public class StorageManagerTest {
     private ModelManager modelManager;
     private Config config;
     private UserPrefs prefs;
+
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
+
 
     @Before
     public void before() throws IOException, DataConversionException {
@@ -146,6 +149,42 @@ public class StorageManagerTest {
         StorageAddressBook storageAddressBook = XmlFileStorage.loadDataFromSaveFile(TEMP_SAVE_FILE);
         Assert.assertEquals(storageAddressBook.getPersonList(), storageManager.getData().getPersonList());
         Assert.assertEquals(storageAddressBook.getTagList(), storageManager.getData().getTagList());
+    }
+
+    @Test
+    public void readConfig_missingFile_emptyResult() throws DataConversionException {
+        assertFalse(readConfig("non-existent-file.json").isPresent());
+    }
+
+    @Test
+    public void readConfig_corruptedFile_exceptionThrown() throws DataConversionException {
+
+        thrown.expect(DataConversionException.class);
+        readConfig("corrupted-config.json");
+
+        /* IMPORTANT: Any code below an exception-throwing line (like the one above) will be ignored.
+         * That means you should not have more than one exception test in one method
+         */
+    }
+
+
+    @Test
+    public void readConfig_fileInOrder_successfullyRead() throws DataConversionException {
+
+        Config expected = new Config();
+        expected.setAppTitle("Typical App Title");
+        expected.setCurrentLogLevel(Level.INFO);
+        expected.setPrefsFileLocation(new File("C:\\preferences.json"));
+        expected.setLocalDataFilePath("addressbook.xml");
+        expected.setAddressBookName("TypicalAddressBookName");
+
+        Config actual = readConfig("typical-config.json").get();
+        assertEquals(expected, actual);
+    }
+
+    private Optional<Config> readConfig(String configFileInSandbox) throws DataConversionException {
+        String configFilePath = TestUtil.appendToSandboxPath(configFileInSandbox);
+        return new StorageManager().readConfig(configFilePath);
     }
 
     //TODO: finish the rest of the public methods in StorageManager

@@ -14,6 +14,7 @@ import seedu.address.commons.core.LogsCenter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Optional;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 import java.util.logging.Logger;
@@ -26,8 +27,8 @@ public class StorageManager extends ComponentManager {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
     private static final String DEFAULT_CONFIG_FILE = "config.json";
-    private final Consumer<ReadOnlyAddressBook> loadedDataCallback;
-    private final Supplier<ReadOnlyAddressBook> defaultDataSupplier;
+    private Consumer<ReadOnlyAddressBook> loadedDataCallback;
+    private Supplier<ReadOnlyAddressBook> defaultDataSupplier;
     private File saveFile;
     private File userPrefsFile;
 
@@ -39,6 +40,10 @@ public class StorageManager extends ComponentManager {
         this.defaultDataSupplier = defaultDataSupplier;
         this.saveFile = new File(config.getLocalDataFilePath());
         this.userPrefsFile = config.getPrefsFileLocation();
+    }
+
+    public StorageManager() {
+
     }
 
     public static Config getConfig(String configFilePath) {
@@ -55,6 +60,30 @@ public class StorageManager extends ComponentManager {
         // Recreate the file so that any missing fields will be restored
         recreateFile(configFile, config);
         return config;
+    }
+
+    /**
+     * Returns the Config object from the given file or an empty object if the file is not found.
+     * @throws DataConversionException if the file format is not as expected.
+     */
+    public Optional<Config> readConfig(String configFilePath) throws DataConversionException {
+        File configFile = getConfigFile(configFilePath);
+
+        if (!configFile.exists()) {
+            logger.info("Config file "  + configFile + " not found");
+            return Optional.empty();
+        }
+
+        Config config;
+
+        try {
+            config = FileUtil.deserializeObjectFromJsonFile(configFile, Config.class);
+        } catch (IOException e) {
+            logger.warning("Error reading from config file " + configFile + ": " + e);
+            throw new DataConversionException(e);
+        }
+
+        return Optional.of(config);
     }
 
     private static File getConfigFile(String configFilePath) {
