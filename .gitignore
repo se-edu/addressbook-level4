@@ -7,7 +7,6 @@ lib/*
 *.log.*
 *.csv
 config.json
-*.xml
 src/test/data/sandbox/
 preferences.json
 .DS_Store
