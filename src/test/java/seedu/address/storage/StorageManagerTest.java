@@ -47,7 +47,7 @@ public class StorageManagerTest {
     @Before
     public void before() throws IOException, DataConversionException {
         StorageManager.saveAddressBook(TESTING_DATA_FILE, new AddressBook());
-        config = StorageManager.getConfig(DEFAULT_CONFIG_FILE);
+        config = StorageManager.readConfig(DEFAULT_CONFIG_FILE).get();
         config.setLocalDataFilePath(TESTING_DATA_FILE_PATH);
         prefs = StorageManager.getUserPrefs(new File(DEFAULT_PREF_FILE));
         modelManager = new ModelManager();
@@ -125,8 +125,8 @@ public class StorageManagerTest {
     }
 
     @Test
-    public void testConfig_openConfigFile_exist() {
-        Config config = StorageManager.getConfig(DEFAULT_CONFIG_FILE);
+    public void testConfig_openConfigFile_exist() throws DataConversionException {
+        Config config = StorageManager.readConfig(DEFAULT_CONFIG_FILE).get();
         assertNotNull(config);
     }
 

@@ -5,6 +5,8 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
 import seedu.address.commons.core.Version;
+import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.commons.util.StringUtil;
 import seedu.address.model.AddressBook;
 import seedu.address.ui.UiManager;
 import seedu.address.commons.core.EventsCenter;
@@ -15,7 +17,9 @@ import seedu.address.storage.StorageManager;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.LogsCenter;
 
+import java.io.IOException;
 import java.util.Map;
+import java.util.Optional;
 import java.util.logging.Logger;
 
 /**
@@ -60,7 +64,34 @@ public class MainApp extends Application {
     }
 
     protected Config initConfig(String configFilePath) {
-        return StorageManager.getConfig(configFilePath);
+        Config initializedConfig;
+        String configFilePathUsed;
+
+        configFilePathUsed = Config.DEFAULT_CONFIG_FILE;
+
+        if(configFilePath != null) {
+            logger.info("Custom Config file specified " + configFilePath);
+            configFilePathUsed = configFilePath;
+        }
+
+        logger.info("Using config file : " + configFilePathUsed);
+
+        try {
+            Optional<Config> configOptional = StorageManager.readConfig(configFilePathUsed);
+            initializedConfig = configOptional.orElse(new Config());
+        } catch (DataConversionException e) {
+            logger.warning("Config file at " + configFilePathUsed + " is not in the correct format. " +
+                    "Using default config properties");
+            initializedConfig = new Config();
+        }
+
+        //Update config file in case it was missing to begin with or there are new/unused fields
+        try {
+            StorageManager.saveConfig(initializedConfig, configFilePathUsed);
+        } catch (IOException e) {
+            logger.warning("Failed to save config file : " + StringUtil.getDetails(e));
+        }
+        return initializedConfig;
     }
 
     protected UserPrefs initPrefs(Config config) {

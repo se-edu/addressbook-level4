@@ -12,6 +12,7 @@ public class Config {
     private static final Level DEFAULT_LOGGING_LEVEL = Level.INFO;
     private static final String DEFAULT_LOCAL_DATA_FILE_PATH = "data/addressbook.xml";
     private static final String DEFAULT_ADDRESS_BOOK_NAME = "MyAddressBook";
+    public static final String DEFAULT_CONFIG_FILE = "config.json";
 
     // Config values
     private String appTitle = "Address App";
