@@ -15,7 +15,7 @@ import java.util.logging.Logger;
  */
 public class ConfigStorage {
 
-    private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
+    private static final Logger logger = LogsCenter.getLogger(ConfigStorage.class);
 
     /**
      * Returns the Config object from the given file or {@code Optional.empty()} object if the file is not found.

@@ -82,8 +82,8 @@ public class ConfigStorageTest {
         assertEquals(expected, actual);
     }
 
-    private Optional<Config> read(String configFileInSandbox) throws DataConversionException {
-        String configFilePath = addToTestDataPathIfNotNull(configFileInSandbox);
+    private Optional<Config> read(String configFileInTestDataFolder) throws DataConversionException {
+        String configFilePath = addToTestDataPathIfNotNull(configFileInTestDataFolder);
         return new ConfigStorage().read(configFilePath);
     }
 
@@ -124,14 +124,14 @@ public class ConfigStorageTest {
         assertEquals(original, readBack);
     }
 
-    private void save(Config config, String configFileInSandbox) throws IOException {
-        String configFilePath = addToTestDataPathIfNotNull(configFileInSandbox);
+    private void save(Config config, String configFileInTestDataFolder) throws IOException {
+        String configFilePath = addToTestDataPathIfNotNull(configFileInTestDataFolder);
         new ConfigStorage().save(config, configFilePath);
     }
 
-    private String addToTestDataPathIfNotNull(String configFileInSandbox) {
-        return configFileInSandbox != null
-                                  ? TEST_DATA_FOLDER + configFileInSandbox
+    private String addToTestDataPathIfNotNull(String configFileInTestDataFolder) {
+        return configFileInTestDataFolder != null
+                                  ? TEST_DATA_FOLDER + configFileInTestDataFolder
                                   : null;
     }
 
