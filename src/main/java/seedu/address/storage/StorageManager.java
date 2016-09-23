@@ -42,10 +42,6 @@ public class StorageManager extends ComponentManager {
         this.userPrefsFile = config.getPrefsFileLocation();
     }
 
-    public StorageManager() {
-
-    }
-
     public static Config getConfig(String configFilePath) {
         File configFile = getConfigFile(configFilePath);
 
