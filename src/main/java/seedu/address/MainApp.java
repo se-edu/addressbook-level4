@@ -80,7 +80,7 @@ public class MainApp extends Application {
     }
 
     protected StorageManager initStorageManager(ModelManager modelManager, Config config, UserPrefs userPrefs) {
-        return new StorageManager(modelManager::resetData, AddressBook::getEmptyAddressBook, config, userPrefs);
+        return new StorageManager(modelManager::resetData, AddressBook::getEmptyAddressBook, config);
     }
 
     @Override

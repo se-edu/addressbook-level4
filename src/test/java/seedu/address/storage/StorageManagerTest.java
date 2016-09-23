@@ -48,8 +48,7 @@ public class StorageManagerTest {
         config.setLocalDataFilePath(TESTING_DATA_FILE_PATH);
         prefs = StorageManager.getUserPrefs(new File(DEFAULT_PREF_FILE));
         modelManager = new ModelManager();
-        storageManager = new StorageManager(modelManager::resetData, AddressBook::getEmptyAddressBook,
-                config, prefs);
+        storageManager = new StorageManager(modelManager::resetData, AddressBook::getEmptyAddressBook, config);
     }
 
     @After

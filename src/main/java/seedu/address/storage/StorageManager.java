@@ -28,24 +28,17 @@ public class StorageManager extends ComponentManager {
     private static final String DEFAULT_CONFIG_FILE = "config.json";
     private final Consumer<ReadOnlyAddressBook> loadedDataCallback;
     private final Supplier<ReadOnlyAddressBook> defaultDataSupplier;
-    private UserPrefs userPrefs;
     private File saveFile;
     private File userPrefsFile;
 
 
     public StorageManager(Consumer<ReadOnlyAddressBook> loadedDataCallback,
-                          Supplier<ReadOnlyAddressBook> defaultDataSupplier, Config config, UserPrefs userPrefs) {
+                          Supplier<ReadOnlyAddressBook> defaultDataSupplier, Config config) {
         super();
         this.loadedDataCallback = loadedDataCallback;
         this.defaultDataSupplier = defaultDataSupplier;
         this.saveFile = new File(config.getLocalDataFilePath());
         this.userPrefsFile = config.getPrefsFileLocation();
-        this.userPrefs = userPrefs;
-    }
-
-    private static File getConfigFile(String configFilePath) {
-        if (configFilePath == null) return new File(DEFAULT_CONFIG_FILE);
-        return new File(configFilePath);
     }
 
     public static Config getConfig(String configFilePath) {
@@ -62,6 +55,11 @@ public class StorageManager extends ComponentManager {
         // Recreate the file so that any missing fields will be restored
         recreateFile(configFile, config);
         return config;
+    }
+
+    private static File getConfigFile(String configFilePath) {
+        if (configFilePath == null) return new File(DEFAULT_CONFIG_FILE);
+        return new File(configFilePath);
     }
 
     private static void recreateFile(File configFile, Config config) {
