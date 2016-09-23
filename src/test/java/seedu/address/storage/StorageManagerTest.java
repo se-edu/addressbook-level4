@@ -21,8 +21,6 @@ import seedu.address.commons.core.Config;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.Optional;
-import java.util.logging.Level;
 
 import static junit.framework.TestCase.assertNotNull;
 import static org.junit.Assert.*;
@@ -104,9 +102,9 @@ public class StorageManagerTest {
 
     @Test
     public void readConfig() throws DataConversionException {
-        Config config = StorageManager.readConfig(ConfigStorageTest.TYPICAL_CONFIG_FILE).get();
+        Config config = StorageManager.readConfig(JsonConfigStorageTest.TYPICAL_CONFIG_FILE).get();
         assertNotNull(config);
-        //More extensive testing of this method is done in ConfigStorageTest
+        //More extensive testing of this method is done in JsonConfigStorageTest
     }
 
     @Test

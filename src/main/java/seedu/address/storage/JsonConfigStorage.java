@@ -13,9 +13,9 @@ import java.util.logging.Logger;
 /**
  * A class for accessing the Config File.
  */
-public class ConfigStorage {
+public class JsonConfigStorage {
 
-    private static final Logger logger = LogsCenter.getLogger(ConfigStorage.class);
+    private static final Logger logger = LogsCenter.getLogger(JsonConfigStorage.class);
 
     /**
      * Returns the Config object from the given file or {@code Optional.empty()} object if the file is not found.

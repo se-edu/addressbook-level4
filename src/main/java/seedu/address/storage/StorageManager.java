@@ -43,12 +43,12 @@ public class StorageManager extends ComponentManager {
 
     //TODO: add comment
     public static Optional<Config> readConfig(String configFilePath) throws DataConversionException {
-        return new ConfigStorage().read(configFilePath);
+        return new JsonConfigStorage().read(configFilePath);
     }
 
     //TODO: add comment
     public static void saveConfig(Config config, String configFilePath) throws IOException{
-        new ConfigStorage().save(config, configFilePath);
+        new JsonConfigStorage().save(config, configFilePath);
     }
 
     /**

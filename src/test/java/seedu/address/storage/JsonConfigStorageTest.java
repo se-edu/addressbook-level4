@@ -17,9 +17,9 @@ import java.util.logging.Level;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
-public class ConfigStorageTest {
+public class JsonConfigStorageTest {
 
-    private static String TEST_DATA_FOLDER = FileUtil.getPath("./src/test/data/ConfigStorageTest/");
+    private static String TEST_DATA_FOLDER = FileUtil.getPath("./src/test/data/JsonConfigStorageTest/");
     public static String TYPICAL_CONFIG_FILE = TEST_DATA_FOLDER + "TypicalConfig.json";
 
     @Rule
@@ -85,7 +85,7 @@ public class ConfigStorageTest {
 
     private Optional<Config> read(String configFileInTestDataFolder) throws DataConversionException {
         String configFilePath = addToTestDataPathIfNotNull(configFileInTestDataFolder);
-        return new ConfigStorage().read(configFilePath);
+        return new JsonConfigStorage().read(configFilePath);
     }
 
     @Test
@@ -105,7 +105,7 @@ public class ConfigStorageTest {
         Config original = getTypicalConfig();
 
         String configFilePath = testFolder.getRoot() + File.separator + "TempConfig.json";
-        ConfigStorage configStorage = new ConfigStorage();
+        JsonConfigStorage configStorage = new JsonConfigStorage();
 
         //Try writing when the file doesn't exist
         configStorage.save(original, configFilePath);
@@ -122,7 +122,7 @@ public class ConfigStorageTest {
 
     private void save(Config config, String configFileInTestDataFolder) throws IOException {
         String configFilePath = addToTestDataPathIfNotNull(configFileInTestDataFolder);
-        new ConfigStorage().save(config, configFilePath);
+        new JsonConfigStorage().save(config, configFilePath);
     }
 
     private String addToTestDataPathIfNotNull(String configFileInTestDataFolder) {
