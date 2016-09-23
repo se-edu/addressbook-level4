@@ -23,7 +23,7 @@ public class ConfigStorage {
      * @param configFilePath cannot be null.
      * @throws DataConversionException if the file format is not as expected.
      */
-    public Optional<Config> readConfig(String configFilePath) throws DataConversionException {
+    public Optional<Config> read(String configFilePath) throws DataConversionException {
 
         assert configFilePath != null;
 

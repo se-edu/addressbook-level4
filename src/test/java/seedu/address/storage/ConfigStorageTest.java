@@ -28,21 +28,21 @@ public class ConfigStorageTest {
     public TemporaryFolder testFolder = new TemporaryFolder();
 
     @Test
-    public void readConfig_null_assertionFailure() throws DataConversionException {
+    public void read_null_assertionFailure() throws DataConversionException {
         thrown.expect(AssertionError.class);
-        readConfig(null);
+        read(null);
     }
 
     @Test
-    public void readConfig_missingFile_emptyResult() throws DataConversionException {
-        assertFalse(readConfig("NonExistentFile.json").isPresent());
+    public void read_missingFile_emptyResult() throws DataConversionException {
+        assertFalse(read("NonExistentFile.json").isPresent());
     }
 
     @Test
-    public void readConfig_notJasonFormat_exceptionThrown() throws DataConversionException {
+    public void read_notJasonFormat_exceptionThrown() throws DataConversionException {
 
         thrown.expect(DataConversionException.class);
-        readConfig("NotJasonFormatConfig.json");
+        read("NotJasonFormatConfig.json");
 
         /* IMPORTANT: Any code below an exception-throwing line (like the one above) will be ignored.
          * That means you should not have more than one exception test in one method
@@ -50,7 +50,7 @@ public class ConfigStorageTest {
     }
 
     @Test
-    public void readConfig_fileInOrder_successfullyRead() throws DataConversionException {
+    public void read_fileInOrder_successfullyRead() throws DataConversionException {
 
         Config expected = new Config();
         expected.setAppTitle("Typical App Title");
@@ -59,32 +59,32 @@ public class ConfigStorageTest {
         expected.setLocalDataFilePath("addressbook.xml");
         expected.setAddressBookName("TypicalAddressBookName");
 
-        Config actual = readConfig("TypicanConfig.json").get();
+        Config actual = read("TypicanConfig.json").get();
         assertEquals(expected, actual);
     }
 
     @Test
-    public void readConfig_valuesMissingFromFile_defaultValuesUsed() throws DataConversionException {
-        Config actual = readConfig("EmptyConfig.json").get();
+    public void read_valuesMissingFromFile_defaultValuesUsed() throws DataConversionException {
+        Config actual = read("EmptyConfig.json").get();
         assertEquals(new Config(), actual);
     }
 
     @Test
-    public void readConfig_extraValuesInFile_extraValuesIgnored() throws DataConversionException {
+    public void read_extraValuesInFile_extraValuesIgnored() throws DataConversionException {
         Config expected = new Config();
         expected.setAppTitle("Typical App Title");
         expected.setCurrentLogLevel(Level.INFO);
         expected.setPrefsFileLocation(new File("C:\\preferences.json"));
         expected.setLocalDataFilePath("addressbook.xml");
         expected.setAddressBookName("TypicalAddressBookName");
-        Config actual = readConfig("ExtraValuesConfig.json").get();
+        Config actual = read("ExtraValuesConfig.json").get();
 
         assertEquals(expected, actual);
     }
 
-    private Optional<Config> readConfig(String configFileInSandbox) throws DataConversionException {
+    private Optional<Config> read(String configFileInSandbox) throws DataConversionException {
         String configFilePath = addToTestDataPathIfNotNull(configFileInSandbox);
-        return new ConfigStorage().readConfig(configFilePath);
+        return new ConfigStorage().read(configFilePath);
     }
 
     @Test
@@ -113,14 +113,14 @@ public class ConfigStorageTest {
 
         //Try writing when the file doesn't exist
         configStorage.save(original, configFilePath);
-        Config readBack = configStorage.readConfig(configFilePath).get();
+        Config readBack = configStorage.read(configFilePath).get();
         assertEquals(original, readBack);
 
         //Try saving when the file exists
         original.setAppTitle("Updated Title");
         original.setCurrentLogLevel(Level.FINE);
         configStorage.save(original, configFilePath);
-        readBack = configStorage.readConfig(configFilePath).get();
+        readBack = configStorage.read(configFilePath).get();
         assertEquals(original, readBack);
     }
 

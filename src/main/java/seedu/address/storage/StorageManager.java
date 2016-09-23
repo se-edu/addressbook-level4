@@ -67,7 +67,7 @@ public class StorageManager extends ComponentManager {
      * @throws DataConversionException if the file format is not as expected.
      */
     public Optional<Config> readConfig(String configFilePath) throws DataConversionException {
-        return new ConfigStorage().readConfig(configFilePath);
+        return new ConfigStorage().read(configFilePath);
     }
 
     private static File getConfigFile(String configFilePath) {
