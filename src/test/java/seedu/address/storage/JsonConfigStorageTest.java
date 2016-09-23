@@ -77,7 +77,7 @@ public class JsonConfigStorageTest {
         Config expected = new Config();
         expected.setAppTitle("Typical App Title");
         expected.setCurrentLogLevel(Level.INFO);
-        expected.setPrefsFileLocation(new File("C:\\preferences.json"));
+        expected.setPrefsFileLocation("C:\\preferences.json");
         expected.setLocalDataFilePath("addressbook.xml");
         expected.setAddressBookName("TypicalAddressBookName");
         return expected;

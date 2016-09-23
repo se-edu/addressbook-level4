@@ -97,7 +97,7 @@ public class MainApp extends Application {
     protected UserPrefs initPrefs(Config config) {
         assert config != null;
 
-        String prefsFilePath = config.getPrefsFileLocation().getPath();
+        String prefsFilePath = config.getPrefsFileLocation();
         logger.info("Using prefs file : " + prefsFilePath);
 
         UserPrefs initializedPrefs;

@@ -18,7 +18,7 @@ public class Config {
     private String appTitle = "Address App";
     // Customizable through config file
     private Level currentLogLevel = DEFAULT_LOGGING_LEVEL;
-    private File prefsFileLocation = new File("preferences.json"); //Default user preferences file
+    private String prefsFileLocation = "preferences.json"; //Default user preferences file
     private String localDataFilePath = DEFAULT_LOCAL_DATA_FILE_PATH;
     private String addressBookName = DEFAULT_ADDRESS_BOOK_NAME;
 
@@ -42,11 +42,11 @@ public class Config {
         this.currentLogLevel = currentLogLevel;
     }
 
-    public File getPrefsFileLocation() {
+    public String getPrefsFileLocation() {
         return prefsFileLocation;
     }
 
-    public void setPrefsFileLocation(File prefsFileLocation) {
+    public void setPrefsFileLocation(String prefsFileLocation) {
         this.prefsFileLocation = prefsFileLocation;
     }
 

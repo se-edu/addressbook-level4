@@ -38,7 +38,7 @@ public class StorageManager extends ComponentManager {
         this.loadedDataCallback = loadedDataCallback;
         this.defaultDataSupplier = defaultDataSupplier;
         this.saveFile = new File(config.getLocalDataFilePath());
-        this.userPrefsFile = config.getPrefsFileLocation();
+        this.userPrefsFile = new File(config.getPrefsFileLocation());
     }
 
     //TODO: add comment

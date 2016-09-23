@@ -46,7 +46,7 @@ public class TestApp extends MainApp {
         Config config = super.initConfig(configFilePath);
         config.setAppTitle(APP_TITLE);
         config.setLocalDataFilePath(saveFileLocation);
-        config.setPrefsFileLocation(new File(DEFAULT_PREF_FILE_LOCATION_FOR_TESTING));
+        config.setPrefsFileLocation(DEFAULT_PREF_FILE_LOCATION_FOR_TESTING);
         config.setAddressBookName(ADDRESS_BOOK_NAME);
         return config;
     }
