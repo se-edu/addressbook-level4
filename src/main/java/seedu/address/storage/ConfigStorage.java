@@ -18,7 +18,8 @@ public class ConfigStorage {
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
 
     /**
-     * Returns the Config object from the given file or an empty object if the file is not found.
+     * Returns the Config object from the given file or {@code Optional.empty()} object if the file is not found.
+     *   If any values are missing from the file, default values will be used, as long as the file is a valid json file.
      * @param configFilePath cannot be null.
      * @throws DataConversionException if the file format is not as expected.
      */

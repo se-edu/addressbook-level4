@@ -35,14 +35,14 @@ public class ConfigStorageTest {
 
     @Test
     public void readConfig_missingFile_emptyResult() throws DataConversionException {
-        assertFalse(readConfig("non-existent-file.json").isPresent());
+        assertFalse(readConfig("NonExistentFile.json").isPresent());
     }
 
     @Test
-    public void readConfig_corruptedFile_exceptionThrown() throws DataConversionException {
+    public void readConfig_notJasonFormat_exceptionThrown() throws DataConversionException {
 
         thrown.expect(DataConversionException.class);
-        readConfig("corrupted-config.json");
+        readConfig("NotJasonFormatConfig.json");
 
         /* IMPORTANT: Any code below an exception-throwing line (like the one above) will be ignored.
          * That means you should not have more than one exception test in one method
@@ -59,7 +59,26 @@ public class ConfigStorageTest {
         expected.setLocalDataFilePath("addressbook.xml");
         expected.setAddressBookName("TypicalAddressBookName");
 
-        Config actual = readConfig("typical-config.json").get();
+        Config actual = readConfig("TypicanConfig.json").get();
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void readConfig_valuesMissingFromFile_defaultValuesUsed() throws DataConversionException {
+        Config actual = readConfig("EmptyConfig.json").get();
+        assertEquals(new Config(), actual);
+    }
+
+    @Test
+    public void readConfig_extraValuesInFile_extraValuesIgnored() throws DataConversionException {
+        Config expected = new Config();
+        expected.setAppTitle("Typical App Title");
+        expected.setCurrentLogLevel(Level.INFO);
+        expected.setPrefsFileLocation(new File("C:\\preferences.json"));
+        expected.setLocalDataFilePath("addressbook.xml");
+        expected.setAddressBookName("TypicalAddressBookName");
+        Config actual = readConfig("ExtraValuesConfig.json").get();
+
         assertEquals(expected, actual);
     }
 
@@ -71,7 +90,7 @@ public class ConfigStorageTest {
     @Test
     public void save_nullConfig_assertionFailure() throws IOException {
         thrown.expect(AssertionError.class);
-        save(null, "some-file.json");
+        save(null, "SomeFile.json");
     }
 
     @Test
@@ -89,7 +108,7 @@ public class ConfigStorageTest {
         original.setLocalDataFilePath("addressbook.xml");
         original.setAddressBookName("TypicalAddressBookName");
 
-        String configFilePath = testFolder.getRoot() + File.separator + "temp-config.json";
+        String configFilePath = testFolder.getRoot() + File.separator + "TempConfig.json";
         ConfigStorage configStorage = new ConfigStorage();
 
         //Try writing when the file doesn't exist
