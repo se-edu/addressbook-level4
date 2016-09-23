@@ -52,14 +52,9 @@ public class ConfigStorageTest {
     @Test
     public void read_fileInOrder_successfullyRead() throws DataConversionException {
 
-        Config expected = new Config();
-        expected.setAppTitle("Typical App Title");
-        expected.setCurrentLogLevel(Level.INFO);
-        expected.setPrefsFileLocation(new File("C:\\preferences.json"));
-        expected.setLocalDataFilePath("addressbook.xml");
-        expected.setAddressBookName("TypicalAddressBookName");
+        Config expected = getTypicalConfig();
 
-        Config actual = read("TypicanConfig.json").get();
+        Config actual = read("TypicalConfig.json").get();
         assertEquals(expected, actual);
     }
 
@@ -71,15 +66,20 @@ public class ConfigStorageTest {
 
     @Test
     public void read_extraValuesInFile_extraValuesIgnored() throws DataConversionException {
+        Config expected = getTypicalConfig();
+        Config actual = read("ExtraValuesConfig.json").get();
+
+        assertEquals(expected, actual);
+    }
+
+    private Config getTypicalConfig() {
         Config expected = new Config();
         expected.setAppTitle("Typical App Title");
         expected.setCurrentLogLevel(Level.INFO);
         expected.setPrefsFileLocation(new File("C:\\preferences.json"));
         expected.setLocalDataFilePath("addressbook.xml");
         expected.setAddressBookName("TypicalAddressBookName");
-        Config actual = read("ExtraValuesConfig.json").get();
-
-        assertEquals(expected, actual);
+        return expected;
     }
 
     private Optional<Config> read(String configFileInTestDataFolder) throws DataConversionException {
@@ -101,12 +101,7 @@ public class ConfigStorageTest {
 
     @Test
     public void saveConfig_allInOrder_success() throws DataConversionException, IOException {
-        Config original = new Config();
-        original.setAppTitle("Typical App Title");
-        original.setCurrentLogLevel(Level.INFO);
-        original.setPrefsFileLocation(new File("C:\\preferences.json"));
-        original.setLocalDataFilePath("addressbook.xml");
-        original.setAddressBookName("TypicalAddressBookName");
+        Config original = getTypicalConfig();
 
         String configFilePath = testFolder.getRoot() + File.separator + "TempConfig.json";
         ConfigStorage configStorage = new ConfigStorage();

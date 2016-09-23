@@ -1,0 +1,12 @@
+{
+  "guiSettings" : {
+    "windowWidth" : 1000.0,
+    "windowHeight" : 500.0,
+    "extra" : "some value ",
+    "windowCoordinates" : {
+      "x" : 300,
+      "y" : 100,
+      "z" : 99
+    }
+  }
+}
