@@ -147,7 +147,7 @@ public class MainApp extends Application {
     public void stop() {
         logger.info("Stopping application.");
         uiManager.stop();
-        storageManager.savePrefsToFile(userPrefs);
+        storageManager.savePrefs(userPrefs);
         quit();
     }
 

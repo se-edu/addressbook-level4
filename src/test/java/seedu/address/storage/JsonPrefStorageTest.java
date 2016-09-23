@@ -19,6 +19,7 @@ import static org.junit.Assert.assertFalse;
 public class JsonPrefStorageTest {
 
     private static String TEST_DATA_FOLDER = FileUtil.getPath("./src/test/data/JsonPrefStorageTest/");
+    public static String TYPICAL_PREFS_FILE = TEST_DATA_FOLDER + "TypicalUserPref.json";
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();

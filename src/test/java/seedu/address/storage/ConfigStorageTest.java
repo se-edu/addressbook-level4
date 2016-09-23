@@ -20,6 +20,7 @@ import static org.junit.Assert.assertFalse;
 public class ConfigStorageTest {
 
     private static String TEST_DATA_FOLDER = FileUtil.getPath("./src/test/data/ConfigStorageTest/");
+    public static String TYPICAL_CONFIG_FILE = TEST_DATA_FOLDER + "TypicalConfig.json";
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();

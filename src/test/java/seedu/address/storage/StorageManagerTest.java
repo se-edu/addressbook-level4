@@ -30,7 +30,6 @@ import static org.junit.Assert.*;
 public class StorageManagerTest {
     private static final File SERIALIZATION_FILE = new File(TestUtil.appendToSandboxPath("serialize.json"));
     private static final String DEFAULT_CONFIG_FILE = TestUtil.appendToSandboxPath("config.json");
-    private static final String DEFAULT_PREF_FILE = TestUtil.appendToSandboxPath("preferences.json");
     private static final String TESTING_DATA_FILE_PATH = TestUtil.appendToSandboxPath("dummyAddressBook.xml");
     private static final File TESTING_DATA_FILE = new File(TESTING_DATA_FILE_PATH);
     private static final String TEMP_SAVE_FILE_PATH = TestUtil.appendToSandboxPath("tempAddressBook.xml");
@@ -38,7 +37,6 @@ public class StorageManagerTest {
     private StorageManager storageManager;
     private ModelManager modelManager;
     private Config config;
-    private UserPrefs prefs;
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -49,7 +47,6 @@ public class StorageManagerTest {
         StorageManager.saveAddressBook(TESTING_DATA_FILE, new AddressBook());
         config = StorageManager.readConfig(DEFAULT_CONFIG_FILE).get();
         config.setLocalDataFilePath(TESTING_DATA_FILE_PATH);
-        prefs = StorageManager.getUserPrefs(new File(DEFAULT_PREF_FILE));
         modelManager = new ModelManager();
         storageManager = new StorageManager(modelManager::resetData, AddressBook::getEmptyAddressBook, config);
     }
@@ -59,21 +56,6 @@ public class StorageManagerTest {
         TESTING_DATA_FILE.delete();
     }
 
-    @Test
-    public void recreateFile() {} // This is not implemented as it requires reflection
-    @Test
-    public void createAndWriteToConfigFile() {} // This is not implemented as it requires reflection
-    @Test
-    public void deleteConfigFileIfExists() {} // This is not implemented as it requires reflection
-    @Test
-    public void readFromConfigFile() {} // This is not implemented as it requires reflection
-
-    /**
-     * This is not implemented due to the need to mock static methods of StorageManager which will prevent some
-     * real methods to be called, hence leaving other unrelated methods untested
-     */
-    @Test
-    public void savePrefsToFile_correspondingMethodCalled() {}
 
     @Test
     public void loadDataFromFile() {} // This is not implemented as it requires reflection
@@ -83,10 +65,6 @@ public class StorageManagerTest {
         //Not tested, can't figure out a proper way to load new data and check if the model is updated.
     }
 
-    @Test
-    public void testGetConfig() {
-        //This is called in the before() method. Already tested indirectly.
-    }
 
     @Test
     public void serializeObjectToJsonFile_noExceptionThrown() throws IOException {
@@ -125,9 +103,27 @@ public class StorageManagerTest {
     }
 
     @Test
-    public void testConfig_openConfigFile_exist() throws DataConversionException {
-        Config config = StorageManager.readConfig(DEFAULT_CONFIG_FILE).get();
+    public void readConfig() throws DataConversionException {
+        Config config = StorageManager.readConfig(ConfigStorageTest.TYPICAL_CONFIG_FILE).get();
         assertNotNull(config);
+        //More extensive testing of this method is done in ConfigStorageTest
+    }
+
+    @Test
+    public void saveConfig(){
+        //TODO
+    }
+
+    @Test
+    public void readPrefs() throws DataConversionException {
+        UserPrefs prefs = StorageManager.readPrefs(JsonPrefStorageTest.TYPICAL_PREFS_FILE).get();
+        assertNotNull(prefs);
+        //More extensive testing of this method is done in JsonPrefStorageTest
+    }
+
+    @Test
+    public void savePrefs(){
+        //TODO
     }
 
     @Test

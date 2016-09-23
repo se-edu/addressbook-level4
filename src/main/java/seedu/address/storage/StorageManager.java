@@ -108,35 +108,18 @@ public class StorageManager extends ComponentManager {
     @Subscribe
     public void handleSavePrefsRequestEvent(SavePrefsRequestEvent spre) {
         logger.info("Save prefs request received: " + spre.prefs);
-        savePrefsToFile(spre.prefs);
+        savePrefs(spre.prefs);
     }
 
     /**
      * Raises FileSavingExceptionEvent if there was an error during saving or data conversion.
      */
-    public void savePrefsToFile(UserPrefs prefs) {
+    public void savePrefs(UserPrefs prefs) {
         try {
-            FileUtil.serializeObjectToJsonFile(userPrefsFile, prefs);
+            savePrefs(prefs, userPrefsFile.getPath());
         } catch (IOException e) {
             raise(new FileSavingExceptionEvent(e, userPrefsFile));
         }
-    }
-
-    public static UserPrefs getUserPrefs(File prefsFile) {
-        UserPrefs prefs = new UserPrefs();
-
-        if (!FileUtil.isFileExists(prefsFile)) {
-            return prefs;
-        }
-
-        try {
-            logger.fine("Attempting to load prefs from file: " + prefsFile);
-            prefs = FileUtil.deserializeObjectFromJsonFile(prefsFile, UserPrefs.class);
-        } catch (IOException e) {
-            logger.fine("Error loading prefs from file: " + e);
-        }
-
-        return prefs;
     }
 
     //TODO: add comment
