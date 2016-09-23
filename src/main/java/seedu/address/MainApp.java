@@ -95,7 +95,29 @@ public class MainApp extends Application {
     }
 
     protected UserPrefs initPrefs(Config config) {
-        return StorageManager.getUserPrefs(config.getPrefsFileLocation());
+        assert config != null;
+
+        String prefsFilePath = config.getPrefsFileLocation().getPath();
+        logger.info("Using prefs file : " + prefsFilePath);
+
+        UserPrefs initializedPrefs;
+        try {
+            Optional<UserPrefs> prefsOptional = StorageManager.readPrefs(prefsFilePath);
+            initializedPrefs = prefsOptional.orElse(new UserPrefs());
+        } catch (DataConversionException e) {
+            logger.warning("UserPrefs file at " + prefsFilePath + " is not in the correct format. " +
+                    "Using default user prefs");
+            initializedPrefs = new UserPrefs();
+        }
+
+        //Update prefs file in case it was missing to begin with or there are new/unused fields
+        try {
+            StorageManager.savePrefs(initializedPrefs, prefsFilePath);
+        } catch (IOException e) {
+            logger.warning("Failed to save config file : " + StringUtil.getDetails(e));
+        }
+
+        return initializedPrefs;
     }
 
     private void initComponents(Config config, UserPrefs userPrefs) {

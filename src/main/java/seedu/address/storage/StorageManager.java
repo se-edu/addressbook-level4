@@ -139,6 +139,16 @@ public class StorageManager extends ComponentManager {
         return prefs;
     }
 
+    //TODO: add comment
+    public static Optional<UserPrefs> readPrefs(String prefsFilePath) throws DataConversionException {
+        return new JsonPrefStorage().readPrefs(prefsFilePath);
+    }
+
+    //TODO: add comment
+    public static void savePrefs(UserPrefs prefs, String prefsFilePath) throws IOException{
+        new JsonPrefStorage().savePrefs(prefs, prefsFilePath);
+    }
+
     /**
      * Loads the data from the local data file (based on user preferences).
      */
