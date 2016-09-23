@@ -43,7 +43,7 @@ public class StorageManagerTest {
     @Before
     public void before() throws IOException, DataConversionException {
         StorageManager.saveAddressBook(TESTING_DATA_FILE, new AddressBook());
-        config = StorageManager.readConfig(DEFAULT_CONFIG_FILE).get();
+        config = new Config();
         config.setLocalDataFilePath(TESTING_DATA_FILE_PATH);
         modelManager = new ModelManager();
         storageManager = new StorageManager(modelManager::resetData, AddressBook::getEmptyAddressBook, config);
