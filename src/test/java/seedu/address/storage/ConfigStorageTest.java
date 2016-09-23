@@ -7,7 +7,7 @@ import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.testutil.TestUtil;
+import seedu.address.commons.util.FileUtil;
 
 import java.io.File;
 import java.io.IOException;
@@ -18,6 +18,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
 public class ConfigStorageTest {
+
+    private static String TEST_DATA_FOLDER = FileUtil.getPath("./src/test/data/ConfigStorageTest/");
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -62,7 +64,7 @@ public class ConfigStorageTest {
     }
 
     private Optional<Config> readConfig(String configFileInSandbox) throws DataConversionException {
-        String configFilePath = addToSandboxPathIfNotNull(configFileInSandbox);
+        String configFilePath = addToTestDataPathIfNotNull(configFileInSandbox);
         return new ConfigStorage().readConfig(configFilePath);
     }
 
@@ -104,13 +106,13 @@ public class ConfigStorageTest {
     }
 
     private void save(Config config, String configFileInSandbox) throws IOException {
-        String configFilePath = addToSandboxPathIfNotNull(configFileInSandbox);
+        String configFilePath = addToTestDataPathIfNotNull(configFileInSandbox);
         new ConfigStorage().save(config, configFilePath);
     }
 
-    private String addToSandboxPathIfNotNull(String configFileInSandbox) {
+    private String addToTestDataPathIfNotNull(String configFileInSandbox) {
         return configFileInSandbox != null
-                                  ? TestUtil.appendToSandboxPath(configFileInSandbox)
+                                  ? TEST_DATA_FOLDER + configFileInSandbox
                                   : null;
     }
 

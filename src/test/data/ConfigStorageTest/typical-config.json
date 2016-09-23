@@ -1,0 +1,7 @@
+{
+  "appTitle" : "Typical App Title",
+  "currentLogLevel" : "INFO",
+  "prefsFileLocation" : "C:\\preferences.json",
+  "localDataFilePath" : "addressbook.xml",
+  "addressBookName" : "TypicalAddressBookName"
+}
