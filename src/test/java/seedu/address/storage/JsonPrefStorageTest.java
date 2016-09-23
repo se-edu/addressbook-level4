@@ -5,11 +5,12 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
-import seedu.address.commons.core.Config;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.model.UserPrefs;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
@@ -79,6 +80,43 @@ public class JsonPrefStorageTest {
         UserPrefs actual = readPrefs("ExtraValuesPref.json").get();
 
         assertEquals(expected, actual);
+    }
+
+    @Test
+    public void save_nullPrefs_assertionFailure() throws IOException {
+        thrown.expect(AssertionError.class);
+        savePrefs(null, "SomeFile.json");
+    }
+
+    @Test
+    public void save_nullFilePath_assertionFailure() throws IOException {
+        thrown.expect(AssertionError.class);
+        savePrefs(new UserPrefs(), null);
+    }
+
+    private void savePrefs(UserPrefs userPrefs, String prefsFileInTestDataFolder) throws IOException {
+        new JsonPrefStorage().savePrefs(userPrefs, addToTestDataPathIfNotNull(prefsFileInTestDataFolder));
+    }
+
+    @Test
+    public void saveConfig_allInOrder_success() throws DataConversionException, IOException {
+
+        UserPrefs original = new UserPrefs();
+        original.setGuiSettings(1200, 200, 0, 2);
+
+        String pefsFilePath = testFolder.getRoot() + File.separator + "TempPrefs.json";
+        JsonPrefStorage jsonPrefStorage = new JsonPrefStorage();
+
+        //Try writing when the file doesn't exist
+        jsonPrefStorage.savePrefs(original, pefsFilePath);
+        UserPrefs readBack = jsonPrefStorage.readPrefs(pefsFilePath).get();
+        assertEquals(original, readBack);
+
+        //Try saving when the file exists
+        original.setGuiSettings(5, 5, 5, 5);
+        jsonPrefStorage.savePrefs(original, pefsFilePath);
+        readBack = jsonPrefStorage.readPrefs(pefsFilePath).get();
+        assertEquals(original, readBack);
     }
 
 }
