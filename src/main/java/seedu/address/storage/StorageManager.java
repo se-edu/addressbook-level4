@@ -67,23 +67,7 @@ public class StorageManager extends ComponentManager {
      * @throws DataConversionException if the file format is not as expected.
      */
     public Optional<Config> readConfig(String configFilePath) throws DataConversionException {
-        File configFile = getConfigFile(configFilePath);
-
-        if (!configFile.exists()) {
-            logger.info("Config file "  + configFile + " not found");
-            return Optional.empty();
-        }
-
-        Config config;
-
-        try {
-            config = FileUtil.deserializeObjectFromJsonFile(configFile, Config.class);
-        } catch (IOException e) {
-            logger.warning("Error reading from config file " + configFile + ": " + e);
-            throw new DataConversionException(e);
-        }
-
-        return Optional.of(config);
+        return new ConfigStorage().readConfig(configFilePath);
     }
 
     private static File getConfigFile(String configFilePath) {

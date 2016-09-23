@@ -151,41 +151,5 @@ public class StorageManagerTest {
         Assert.assertEquals(storageAddressBook.getTagList(), storageManager.getData().getTagList());
     }
 
-    @Test
-    public void readConfig_missingFile_emptyResult() throws DataConversionException {
-        assertFalse(readConfig("non-existent-file.json").isPresent());
-    }
-
-    @Test
-    public void readConfig_corruptedFile_exceptionThrown() throws DataConversionException {
-
-        thrown.expect(DataConversionException.class);
-        readConfig("corrupted-config.json");
-
-        /* IMPORTANT: Any code below an exception-throwing line (like the one above) will be ignored.
-         * That means you should not have more than one exception test in one method
-         */
-    }
-
-
-    @Test
-    public void readConfig_fileInOrder_successfullyRead() throws DataConversionException {
-
-        Config expected = new Config();
-        expected.setAppTitle("Typical App Title");
-        expected.setCurrentLogLevel(Level.INFO);
-        expected.setPrefsFileLocation(new File("C:\\preferences.json"));
-        expected.setLocalDataFilePath("addressbook.xml");
-        expected.setAddressBookName("TypicalAddressBookName");
-
-        Config actual = readConfig("typical-config.json").get();
-        assertEquals(expected, actual);
-    }
-
-    private Optional<Config> readConfig(String configFileInSandbox) throws DataConversionException {
-        String configFilePath = TestUtil.appendToSandboxPath(configFileInSandbox);
-        return new StorageManager().readConfig(configFilePath);
-    }
-
     //TODO: finish the rest of the public methods in StorageManager
 }
