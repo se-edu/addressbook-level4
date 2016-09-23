@@ -19,9 +19,12 @@ public class ConfigStorage {
 
     /**
      * Returns the Config object from the given file or an empty object if the file is not found.
+     * @param configFilePath cannot be null.
      * @throws DataConversionException if the file format is not as expected.
      */
     public Optional<Config> readConfig(String configFilePath) throws DataConversionException {
+
+        assert configFilePath != null;
 
         File configFile = new File(configFilePath);
 

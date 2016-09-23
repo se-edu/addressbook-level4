@@ -1,20 +1,14 @@
 package seedu.address.storage;
 
 
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.AddressBook;
-import seedu.address.model.ModelManager;
-import seedu.address.model.UserPrefs;
 import seedu.address.testutil.TestUtil;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.Optional;
 import java.util.logging.Level;
 
@@ -26,6 +20,11 @@ public class ConfigStorageTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
+    @Test
+    public void readConfig_null_assertionFailure() throws DataConversionException {
+        thrown.expect(AssertionError.class);
+        new ConfigStorage().readConfig(null);
+    }
 
     @Test
     public void readConfig_missingFile_emptyResult() throws DataConversionException {
@@ -59,7 +58,7 @@ public class ConfigStorageTest {
 
     private Optional<Config> readConfig(String configFileInSandbox) throws DataConversionException {
         String configFilePath = TestUtil.appendToSandboxPath(configFileInSandbox);
-        return new StorageManager().readConfig(configFilePath);
+        return new ConfigStorage().readConfig(configFilePath);
     }
 
 }
