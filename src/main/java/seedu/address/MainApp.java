@@ -46,13 +46,46 @@ public class MainApp extends Application {
         logger.info("Initializing app ...");
         super.init();
 
-        Map<String, String> applicationParameters = getParameters().getNamed();
-        config = initConfig(applicationParameters.get("config"));
+        config = initConfig(getApplicationParameter("config"));
         userPrefs = initPrefs(config);
 
-        initComponents(config, userPrefs);
+        initLogging(config);
+
+        storageManager = new StorageManager(config);
+
+        modelManager = initModelManager(storageManager);
+
+        logicManager = new LogicManager(modelManager, storageManager);
+
+        uiManager = new UiManager(logicManager, config, userPrefs);
 
         EventsCenter.getInstance().registerHandler(this);
+    }
+
+    private String getApplicationParameter(String parameterName){
+        Map<String, String> applicationParameters = getParameters().getNamed();
+        return applicationParameters.get(parameterName);
+    }
+
+    private ModelManager initModelManager(StorageManager storageManager) {
+        Optional<ReadOnlyAddressBook> addressBookOptional;
+        ReadOnlyAddressBook initialData;
+        try {
+            addressBookOptional = storageManager.getData();
+            if(!addressBookOptional.isPresent()){
+                logger.info("Data file not found. Will be starting with an empty AddressBook");
+            }
+            initialData = addressBookOptional.orElse(new AddressBook());
+        } catch (DataConversionException e) {
+            logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
+            initialData = new AddressBook();
+        }
+
+        return new ModelManager(initialData);
+    }
+
+    private void initLogging(Config config) {
+        LogsCenter.init(config);
     }
 
     protected Config initConfig(String configFilePath) {
@@ -112,32 +145,6 @@ public class MainApp extends Application {
         return initializedPrefs;
     }
 
-    private void initComponents(Config config, UserPrefs userPrefs) {
-
-        LogsCenter.init(config);
-
-        StorageManager storageManager = new StorageManager(config);
-
-        Optional<ReadOnlyAddressBook> addressBookOptional;
-        ReadOnlyAddressBook initialData;
-        try {
-            addressBookOptional = storageManager.getData();
-            if(!addressBookOptional.isPresent()){
-                logger.info("Data file not found. Will be starting with an empty AddressBook");
-            }
-            initialData = addressBookOptional.orElse(new AddressBook());
-        } catch (DataConversionException e) {
-            logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
-            initialData = new AddressBook();
-        }
-
-        modelManager = new ModelManager(initialData);
-
-        logicManager = new LogicManager(modelManager, storageManager);
-
-        uiManager = new UiManager(logicManager, config, userPrefs);
-    }
-
 
     @Override
     public void start(Stage primaryStage) {
@@ -154,10 +161,6 @@ public class MainApp extends Application {
         } catch (IOException e) {
             logger.severe("Failed to save preferences " + StringUtil.getDetails(e));
         }
-        quit();
-    }
-
-    private void quit() {
         Platform.exit();
         System.exit(0);
     }
