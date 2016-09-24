@@ -41,6 +41,17 @@ public class StorageManager extends ComponentManager {
         this.userPrefsFile = new File(config.getPrefsFileLocation());
     }
 
+    /**
+     * Loads the data from the local data file (based on user preferences).
+     */
+    public void start() {
+        logger.info("Starting storage manager.");
+        initializeDataFile(saveFile);
+    }
+    
+
+    //=================== Config methods ========================
+
     //TODO: add comment
     public static Optional<Config> readConfig(String configFilePath) throws DataConversionException {
         return new JsonConfigStorage().readConfig(configFilePath);
@@ -49,6 +60,101 @@ public class StorageManager extends ComponentManager {
     //TODO: add comment
     public static void saveConfig(Config config, String configFilePath) throws IOException{
         new JsonConfigStorage().saveConfig(config, configFilePath);
+    }
+
+
+    // ================ Prefs methods ==============================
+
+    //TODO: add comment
+    public static Optional<UserPrefs> readPrefs(String prefsFilePath) throws DataConversionException {
+        return new JsonPrefStorage().readPrefs(prefsFilePath);
+    }
+
+    //TODO: add comment
+    public static void savePrefs(UserPrefs prefs, String prefsFilePath) throws IOException{
+        new JsonPrefStorage().savePrefs(prefs, prefsFilePath);
+    }
+
+    /**
+     * Raises FileSavingExceptionEvent if there was an error during saving or data conversion.
+     */
+    public void savePrefs(UserPrefs prefs) {
+        try {
+            savePrefs(prefs, userPrefsFile.getPath());
+        } catch (IOException e) {
+            raise(new FileSavingExceptionEvent(e, userPrefsFile));
+        }
+    }
+
+    /**
+     * Raises FileSavingExceptionEvent
+     */
+    @Subscribe
+    public void handleSavePrefsRequestEvent(SavePrefsRequestEvent spre) {
+        logger.info("Save prefs request received: " + spre.prefs);
+        savePrefs(spre.prefs);
+    }
+
+
+    // ============== AddressBook method ============================
+
+    public ReadOnlyAddressBook getData() throws FileNotFoundException, DataConversionException {
+        logger.fine("Attempting to read data from file: " + saveFile);
+        return XmlFileStorage.loadDataFromSaveFile(saveFile);
+    }
+
+    private void initializeDataFile(File dataFile) {
+        try {
+            loadDataFromFile(dataFile);
+        } catch (FileNotFoundException e) {
+            logger.fine("File " + dataFile + " not found, attempting to create file with default data");
+            try {
+                saveAddressBook(saveFile, defaultDataSupplier.get());
+            } catch (IOException e1) {
+                logger.severe("Unable to initialize local data file with default data.");
+                assert false : "Unable to initialize local data file with default data.";
+            }
+        }
+    }
+
+    private void loadDataFile(File dataFile) {
+        try {
+            loadDataFromFile(dataFile);
+        } catch (FileNotFoundException e) {
+            logger.fine("File not found: " + dataFile);
+            raise(new FileOpeningExceptionEvent(e, dataFile));
+        }
+    }
+
+    private void loadDataFromFile(File dataFile) throws FileNotFoundException {
+        try {
+            logger.fine("Attempting to load data from file: " + dataFile);
+            loadedDataCallback.accept(getData());
+        } catch (DataConversionException e) {
+            logger.fine("Error loading data from file: " + e);
+            raise(new FileOpeningExceptionEvent(e, dataFile));
+        }
+    }
+
+    /**
+     * Creates the file if it is missing before saving.
+     * Raises FileSavingExceptionEvent if the file is not found or if there was an error during
+     * saving or data conversion.
+     */
+    public void saveDataToFile(File file, ReadOnlyAddressBook data) {
+        try {
+            saveAddressBook(file, data);
+        } catch (IOException e) {
+            raise(new FileSavingExceptionEvent(e, file));
+        }
+    }
+
+    /**
+     * Saves the address book data in the file specified.
+     */
+    public static void saveAddressBook(File file, ReadOnlyAddressBook data) throws IOException {
+        FileUtil.createIfMissing(file);
+        XmlFileStorage.saveDataToFile(file, new StorageAddressBook(data));
     }
 
     /**
@@ -80,100 +186,5 @@ public class StorageManager extends ComponentManager {
         saveDataToFile(sdre.file, sdre.data);
     }
 
-    /**
-     * Creates the file if it is missing before saving.
-     * Raises FileSavingExceptionEvent if the file is not found or if there was an error during
-     * saving or data conversion.
-     */
-    public void saveDataToFile(File file, ReadOnlyAddressBook data) {
-        try {
-            saveAddressBook(file, data);
-        } catch (IOException e) {
-            raise(new FileSavingExceptionEvent(e, file));
-        }
-    }
 
-    /**
-     * Saves the address book data in the file specified.
-     */
-    public static void saveAddressBook(File file, ReadOnlyAddressBook data) throws IOException {
-        FileUtil.createIfMissing(file);
-        XmlFileStorage.saveDataToFile(file, new StorageAddressBook(data));
-    }
-
-    /**
-     * Raises FileSavingExceptionEvent
-     */
-    @Subscribe
-    public void handleSavePrefsRequestEvent(SavePrefsRequestEvent spre) {
-        logger.info("Save prefs request received: " + spre.prefs);
-        savePrefs(spre.prefs);
-    }
-
-    /**
-     * Raises FileSavingExceptionEvent if there was an error during saving or data conversion.
-     */
-    public void savePrefs(UserPrefs prefs) {
-        try {
-            savePrefs(prefs, userPrefsFile.getPath());
-        } catch (IOException e) {
-            raise(new FileSavingExceptionEvent(e, userPrefsFile));
-        }
-    }
-
-    //TODO: add comment
-    public static Optional<UserPrefs> readPrefs(String prefsFilePath) throws DataConversionException {
-        return new JsonPrefStorage().readPrefs(prefsFilePath);
-    }
-
-    //TODO: add comment
-    public static void savePrefs(UserPrefs prefs, String prefsFilePath) throws IOException{
-        new JsonPrefStorage().savePrefs(prefs, prefsFilePath);
-    }
-
-    /**
-     * Loads the data from the local data file (based on user preferences).
-     */
-    public void start() {
-        logger.info("Starting storage manager.");
-        initializeDataFile(saveFile);
-    }
-
-    protected void initializeDataFile(File dataFile) {
-        try {
-            loadDataFromFile(dataFile);
-        } catch (FileNotFoundException e) {
-            logger.fine("File " + dataFile + " not found, attempting to create file with default data");
-            try {
-                saveAddressBook(saveFile, defaultDataSupplier.get());
-            } catch (IOException e1) {
-                logger.severe("Unable to initialize local data file with default data.");
-                assert false : "Unable to initialize local data file with default data.";
-            }
-        }
-    }
-
-    protected void loadDataFile(File dataFile) {
-        try {
-            loadDataFromFile(dataFile);
-        } catch (FileNotFoundException e) {
-            logger.fine("File not found: " + dataFile);
-            raise(new FileOpeningExceptionEvent(e, dataFile));
-        }
-    }
-
-    protected void loadDataFromFile(File dataFile) throws FileNotFoundException {
-        try {
-            logger.fine("Attempting to load data from file: " + dataFile);
-            loadedDataCallback.accept(getData());
-        } catch (DataConversionException e) {
-            logger.fine("Error loading data from file: " + e);
-            raise(new FileOpeningExceptionEvent(e, dataFile));
-        }
-    }
-
-    public ReadOnlyAddressBook getData() throws FileNotFoundException, DataConversionException {
-        logger.fine("Attempting to read data from file: " + saveFile);
-        return XmlFileStorage.loadDataFromSaveFile(saveFile);
-    }
 }
