@@ -8,7 +8,16 @@ import org.junit.rules.TemporaryFolder;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.model.AddressBook;
+import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.ReadOnlyPerson;
+import seedu.address.model.person.UniquePersonList;
+import seedu.address.testutil.TypicalTestPersons;
 
+import java.io.IOException;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 
 public class XmlAddressBookStorageTest {
@@ -24,12 +33,71 @@ public class XmlAddressBookStorageTest {
     @Test
     public void readAddressBook_nullFilePath_assertionFailure() throws DataConversionException {
         thrown.expect(AssertionError.class);
-        new XmlAddressBookStorage().readAddressBook(null);
+        readAddressBook(null);
+    }
+
+    private java.util.Optional<ReadOnlyAddressBook> readAddressBook(String filePath) throws DataConversionException {
+        return new XmlAddressBookStorage().readAddressBook(addToTestDataPathIfNotNull(filePath));
+    }
+
+    private String addToTestDataPathIfNotNull(String prefsFileInTestDataFolder) {
+        return prefsFileInTestDataFolder != null
+                ? TEST_DATA_FOLDER + prefsFileInTestDataFolder
+                : null;
     }
 
     @Test
-    public void readAddressBook_allInOrder_success() throws DataConversionException {
-        //AddressBook addressBook = new XmlAddressBookStorage().readAddressBook(TYPICAL_DATA_FILE).get();
-        //assertNotNull(addressBook);
+    public void read_missingFile_emptyResult() throws DataConversionException {
+        assertFalse(readAddressBook("NonExistentFile.xml").isPresent());
     }
+
+    @Test
+    public void read_notXmlFormat_exceptionThrown() throws DataConversionException {
+
+        thrown.expect(DataConversionException.class);
+        readAddressBook("NotXmlFormatAddressBook.xml");
+
+        /* IMPORTANT: Any code below an exception-throwing line (like the one above) will be ignored.
+         * That means you should not have more than one exception test in one method
+         */
+    }
+
+    @Test
+    public void readAndSaveAddressBook_allInOrder_success() throws Exception {
+        String filePath = testFolder.getRoot().getPath() + "TempAddressBook.xml";
+        TypicalTestPersons td = new TypicalTestPersons();
+        AddressBook original = td.getTypicalAddressBook();
+        XmlAddressBookStorage xmlAddressBookStorage = new XmlAddressBookStorage();
+
+        //Save in new file and read back
+        xmlAddressBookStorage.saveAddressBook(original, filePath);
+        ReadOnlyAddressBook readBack = xmlAddressBookStorage.readAddressBook(filePath).get();
+        assertEquals(original, new AddressBook(readBack));
+
+        //Modify data, overwrite exiting file, and read back
+        original.addPerson(new Person(TypicalTestPersons.hoon));
+        original.removePerson(new Person(TypicalTestPersons.alice));
+        xmlAddressBookStorage.saveAddressBook(original, filePath);
+        readBack = xmlAddressBookStorage.readAddressBook(filePath).get();
+        assertEquals(original, new AddressBook(readBack));
+
+    }
+
+    @Test
+    public void saveAddressBook_nullAddressBook_assertionFailure() throws IOException {
+        thrown.expect(AssertionError.class);
+        saveAddressBook(null, "SomeFile.xml");
+    }
+
+    private void saveAddressBook(ReadOnlyAddressBook addressBook, String filePath) throws IOException {
+        new XmlAddressBookStorage().saveAddressBook(addressBook, addToTestDataPathIfNotNull(filePath));
+    }
+
+    @Test
+    public void saveAddressBook_nullFilePath_assertionFailure() throws IOException {
+        thrown.expect(AssertionError.class);
+        saveAddressBook(new AddressBook(), null);
+    }
+
+
 }

@@ -88,7 +88,7 @@ public class StorageManager extends ComponentManager {
     public void saveDataToFile(File file, ReadOnlyAddressBook data) {
         try {
             saveAddressBook(file, data);
-        } catch (IOException | DataConversionException e) {
+        } catch (IOException e) {
             raise(new FileSavingExceptionEvent(e, file));
         }
     }
@@ -96,8 +96,7 @@ public class StorageManager extends ComponentManager {
     /**
      * Saves the address book data in the file specified.
      */
-    public static void saveAddressBook(File file, ReadOnlyAddressBook data) throws IOException,
-                                                                                   DataConversionException {
+    public static void saveAddressBook(File file, ReadOnlyAddressBook data) throws IOException {
         FileUtil.createIfMissing(file);
         XmlFileStorage.saveDataToFile(file, new StorageAddressBook(data));
     }
@@ -147,7 +146,7 @@ public class StorageManager extends ComponentManager {
             logger.fine("File " + dataFile + " not found, attempting to create file with default data");
             try {
                 saveAddressBook(saveFile, defaultDataSupplier.get());
-            } catch (DataConversionException | IOException e1) {
+            } catch (IOException e1) {
                 logger.severe("Unable to initialize local data file with default data.");
                 assert false : "Unable to initialize local data file with default data.";
             }
