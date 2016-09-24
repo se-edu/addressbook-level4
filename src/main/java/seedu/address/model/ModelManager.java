@@ -43,6 +43,11 @@ public class ModelManager extends ComponentManager {
         this(new AddressBook());
     }
 
+    public ModelManager(ReadOnlyAddressBook initialData) {
+        addressBook = new AddressBook(initialData);
+        filteredPersons = new FilteredList<>(addressBook.getPersons());
+    }
+
     /** Clears existing backing model and replaces with the provided new data. */
     public void resetData(ReadOnlyAddressBook newData) {
         addressBook.resetData(newData);

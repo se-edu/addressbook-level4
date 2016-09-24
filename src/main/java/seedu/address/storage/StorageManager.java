@@ -1,22 +1,20 @@
 package seedu.address.storage;
 
 import com.google.common.eventbus.Subscribe;
-import seedu.address.commons.util.FileUtil;
+import seedu.address.commons.core.ComponentManager;
+import seedu.address.commons.core.Config;
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.LocalModelChangedEvent;
 import seedu.address.commons.events.storage.*;
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.commons.core.ComponentManager;
-import seedu.address.model.UserPrefs;
+import seedu.address.commons.util.FileUtil;
 import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.commons.core.Config;
-import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.UserPrefs;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Optional;
-import java.util.function.Consumer;
-import java.util.function.Supplier;
 import java.util.logging.Logger;
 
 /**
@@ -26,29 +24,29 @@ import java.util.logging.Logger;
 public class StorageManager extends ComponentManager {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
-    private Consumer<ReadOnlyAddressBook> loadedDataCallback;
-    private Supplier<ReadOnlyAddressBook> defaultDataSupplier;
+    //private Consumer<ReadOnlyAddressBook> loadedDataCallback;
+    //private Supplier<ReadOnlyAddressBook> defaultDataSupplier;
     private File saveFile;
     private File userPrefsFile;
 
 
-    public StorageManager(Consumer<ReadOnlyAddressBook> loadedDataCallback,
-                          Supplier<ReadOnlyAddressBook> defaultDataSupplier, Config config) {
+    public StorageManager(Config config) {
         super();
-        this.loadedDataCallback = loadedDataCallback;
-        this.defaultDataSupplier = defaultDataSupplier;
+        //this.loadedDataCallback = loadedDataCallback;
+        //this.defaultDataSupplier = defaultDataSupplier;
         this.saveFile = new File(config.getLocalDataFilePath());
         this.userPrefsFile = new File(config.getPrefsFileLocation());
     }
+
+
 
     /**
      * Loads the data from the local data file (based on user preferences).
      */
     public void start() {
         logger.info("Starting storage manager.");
-        initializeDataFile(saveFile);
     }
-    
+
 
     //=================== Config methods ========================
 
@@ -98,42 +96,16 @@ public class StorageManager extends ComponentManager {
 
     // ============== AddressBook method ============================
 
-    public ReadOnlyAddressBook getData() throws FileNotFoundException, DataConversionException {
+    //TODO: add comment
+    public Optional<ReadOnlyAddressBook> getData() throws DataConversionException {
         logger.fine("Attempting to read data from file: " + saveFile);
-        return XmlFileStorage.loadDataFromSaveFile(saveFile);
+
+        return new XmlAddressBookStorage().readAddressBook(saveFile.getPath());
     }
 
-    private void initializeDataFile(File dataFile) {
-        try {
-            loadDataFromFile(dataFile);
-        } catch (FileNotFoundException e) {
-            logger.fine("File " + dataFile + " not found, attempting to create file with default data");
-            try {
-                saveAddressBook(saveFile, defaultDataSupplier.get());
-            } catch (IOException e1) {
-                logger.severe("Unable to initialize local data file with default data.");
-                assert false : "Unable to initialize local data file with default data.";
-            }
-        }
-    }
-
-    private void loadDataFile(File dataFile) {
-        try {
-            loadDataFromFile(dataFile);
-        } catch (FileNotFoundException e) {
-            logger.fine("File not found: " + dataFile);
-            raise(new FileOpeningExceptionEvent(e, dataFile));
-        }
-    }
-
-    private void loadDataFromFile(File dataFile) throws FileNotFoundException {
-        try {
-            logger.fine("Attempting to load data from file: " + dataFile);
-            loadedDataCallback.accept(getData());
-        } catch (DataConversionException e) {
-            logger.fine("Error loading data from file: " + e);
-            raise(new FileOpeningExceptionEvent(e, dataFile));
-        }
+    //TODO: add comment
+    public void saveData(ReadOnlyAddressBook addressBook) throws IOException {
+        new XmlAddressBookStorage().saveAddressBook(addressBook, saveFile.getPath());
     }
 
     /**
@@ -157,16 +129,6 @@ public class StorageManager extends ComponentManager {
         XmlFileStorage.saveDataToFile(file, new StorageAddressBook(data));
     }
 
-    /**
-     *  Raises a {@link FileOpeningExceptionEvent} if there was any problem in reading data from the file
-     *  or if the file is not in the correct format.
-     */
-    @Subscribe
-    public void handleLoadDataRequestEvent(LoadDataRequestEvent ldre) {
-        File dataFile = ldre.file;
-        logger.info("Handling load data request received: " + dataFile);
-        loadDataFile(dataFile);
-    }
 
     /**
      * Raises FileSavingExceptionEvent (similar to {@link #saveDataToFile(File, ReadOnlyAddressBook)})
@@ -185,6 +147,5 @@ public class StorageManager extends ComponentManager {
         logger.info("Save data request received: " + sdre.data);
         saveDataToFile(sdre.file, sdre.data);
     }
-
 
 }

@@ -46,7 +46,7 @@ public class StorageManagerTest {
         config = new Config();
         config.setLocalDataFilePath(TESTING_DATA_FILE_PATH);
         modelManager = new ModelManager();
-        storageManager = new StorageManager(modelManager::resetData, AddressBook::getEmptyAddressBook, config);
+        storageManager = new StorageManager(config);
     }
 
     @After
@@ -88,8 +88,8 @@ public class StorageManagerTest {
 
     @Test
     public void saveDataToFile() throws FileNotFoundException, DataConversionException, UniquePersonList.DuplicatePersonException {
-        ReadOnlyAddressBook oldAb = new AddressBook(storageManager.getData());
-        AddressBook editedAb = new AddressBookBuilder(new AddressBook(storageManager.getData())).withPerson(TestUtil.generateSamplePersonData().get(1)).build();
+        ReadOnlyAddressBook oldAb = new AddressBook(storageManager.getData().get());
+        AddressBook editedAb = new AddressBookBuilder(new AddressBook(storageManager.getData().get())).withPerson(TestUtil.generateSamplePersonData().get(1)).build();
         assertNotEquals(editedAb, oldAb);
 
         storageManager.saveDataToFile(TEMP_SAVE_FILE, editedAb);
@@ -126,12 +126,12 @@ public class StorageManagerTest {
 
     @Test
     public void testHandleLocalModelChangedEvent() throws DuplicateTagException, InterruptedException, FileNotFoundException, DataConversionException, UniquePersonList.DuplicatePersonException {
-        ReadOnlyAddressBook oldAb = new AddressBook(storageManager.getData());
-        AddressBook editedAb = new AddressBookBuilder(new AddressBook(storageManager.getData())).withPerson(TestUtil.generateSamplePersonData().get(0)).build();
+        ReadOnlyAddressBook oldAb = new AddressBook(storageManager.getData().get());
+        AddressBook editedAb = new AddressBookBuilder(new AddressBook(storageManager.getData().get())).withPerson(TestUtil.generateSamplePersonData().get(0)).build();
         assertNotEquals(editedAb, oldAb);
 
         storageManager.handleLocalModelChangedEvent(new LocalModelChangedEvent(editedAb));
-        AddressBook newAb = new AddressBook(storageManager.getData());
+        AddressBook newAb = new AddressBook(storageManager.getData().get());
 
         assertEquals(editedAb.getPersonList(), newAb.getPersonList());
         assertEquals(editedAb.getTagList(), newAb.getTagList());
@@ -139,10 +139,10 @@ public class StorageManagerTest {
 
     @Test
     public void testHandleSaveDataRequestEvent() throws FileNotFoundException, DataConversionException {
-        storageManager.handleSaveDataRequestEvent(new SaveDataRequestEvent(TEMP_SAVE_FILE, storageManager.getData()));
+        storageManager.handleSaveDataRequestEvent(new SaveDataRequestEvent(TEMP_SAVE_FILE, storageManager.getData().get()));
         StorageAddressBook storageAddressBook = XmlFileStorage.loadDataFromSaveFile(TEMP_SAVE_FILE);
-        Assert.assertEquals(storageAddressBook.getPersonList(), storageManager.getData().getPersonList());
-        Assert.assertEquals(storageAddressBook.getTagList(), storageManager.getData().getTagList());
+        Assert.assertEquals(storageAddressBook.getPersonList(), storageManager.getData().get().getPersonList());
+        Assert.assertEquals(storageAddressBook.getTagList(), storageManager.getData().get().getTagList());
     }
 
     //TODO: finish the rest of the public methods in StorageManager

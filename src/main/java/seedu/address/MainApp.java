@@ -4,18 +4,19 @@ import com.google.common.eventbus.Subscribe;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
+import seedu.address.commons.core.Config;
+import seedu.address.commons.core.EventsCenter;
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.Version;
+import seedu.address.commons.events.controller.ExitAppRequestEvent;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.model.AddressBook;
-import seedu.address.ui.UiManager;
-import seedu.address.commons.core.EventsCenter;
-import seedu.address.commons.events.controller.ExitAppRequestEvent;
 import seedu.address.model.ModelManager;
+import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.UserPrefs;
 import seedu.address.storage.StorageManager;
-import seedu.address.commons.core.Config;
-import seedu.address.commons.core.LogsCenter;
+import seedu.address.ui.UiManager;
 
 import java.io.IOException;
 import java.util.Map;
@@ -121,20 +122,29 @@ public class MainApp extends Application {
     }
 
     private void initComponents(Config config, UserPrefs userPrefs) {
+
         LogsCenter.init(config);
 
-        modelManager = new ModelManager();
-        storageManager = initStorageManager(modelManager, config, userPrefs);
-        uiManager = initUi(config, modelManager);
+        storageManager = new StorageManager(config);
+
+        Optional<ReadOnlyAddressBook> addressBookOptional;
+        ReadOnlyAddressBook initialData;
+        try {
+            addressBookOptional = storageManager.getData();
+            if(!addressBookOptional.isPresent()){
+                logger.info("Data file not found. Will be starting with an empty AddressBook");
+            }
+            initialData = addressBookOptional.orElse(new AddressBook());
+        } catch (DataConversionException e) {
+            logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
+            initialData = new AddressBook();
+        }
+
+        modelManager = new ModelManager(initialData);
+
+        uiManager = new UiManager(modelManager, config, userPrefs);
     }
 
-    protected UiManager initUi(Config config, ModelManager modelManager) {
-        return new UiManager(modelManager, config, userPrefs);
-    }
-
-    protected StorageManager initStorageManager(ModelManager modelManager, Config config, UserPrefs userPrefs) {
-        return new StorageManager(modelManager::resetData, AddressBook::getEmptyAddressBook, config);
-    }
 
     @Override
     public void start(Stage primaryStage) {
