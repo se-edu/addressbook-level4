@@ -7,12 +7,12 @@ import java.io.File;
 /**
  * Indicates an exception during a file opening
  */
-public class FileOpeningExceptionEvent extends BaseEvent {
+public class DataReadingExceptionEvent extends BaseEvent {
 
     public Exception exception;
     public File file;
 
-    public FileOpeningExceptionEvent(Exception exception, File file){
+    public DataReadingExceptionEvent(Exception exception, File file){
         this.exception = exception;
         this.file = file;
     }

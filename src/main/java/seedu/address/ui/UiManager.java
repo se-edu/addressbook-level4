@@ -11,12 +11,12 @@ import seedu.address.MainApp;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.commons.events.controller.JumpToListRequestEvent;
 import seedu.address.commons.events.controller.PersonPanelSelectionChangedEvent;
 import seedu.address.commons.events.controller.ShowHelpEvent;
-import seedu.address.commons.events.storage.FileOpeningExceptionEvent;
-import seedu.address.commons.events.storage.FileSavingExceptionEvent;
+import seedu.address.commons.events.storage.DataReadingExceptionEvent;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.ReadOnlyPerson;
@@ -125,13 +125,13 @@ public class UiManager extends ComponentManager{
     //==================== Event Handling Code =================================================================
 
     @Subscribe
-    private void handleFileOpeningExceptionEvent(FileOpeningExceptionEvent foee) {
-        showFileOperationAlertAndWait("Could not load data", "Could not load data from file", foee.file,
-                foee.exception);
+    private void handleDataReadingExceptionEvent(DataReadingExceptionEvent foee) {
+        showFileOperationAlertAndWait("Could not load data", "Could not load data from file",
+                                      foee.file, foee.exception);
     }
 
     @Subscribe
-    private void handleFileSavingExceptionEvent(FileSavingExceptionEvent fsee) {
+    private void handleDataSavingExceptionEvent(DataSavingExceptionEvent fsee) {
         showFileOperationAlertAndWait("Could not save data", "Could not save data to file", fsee.file, fsee.exception);
     }
 
