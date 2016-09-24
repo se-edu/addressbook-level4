@@ -4,7 +4,7 @@ import com.google.common.eventbus.Subscribe;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.events.model.LocalModelChangedEvent;
+import seedu.address.commons.events.model.ModelChangedEvent;
 import seedu.address.commons.events.storage.FileSavingExceptionEvent;
 import seedu.address.commons.events.storage.SavePrefsRequestEvent;
 import seedu.address.commons.exceptions.DataConversionException;
@@ -109,10 +109,10 @@ public class StorageManager extends ComponentManager {
      * Raises {@link FileSavingExceptionEvent} if there was an error during saving
      */
     @Subscribe
-    public void handleLocalModelChangedEvent(LocalModelChangedEvent lmce) {
+    public void handleModelChangedEvent(ModelChangedEvent mce) {
         logger.info("Local data changed, saving to primary data file");
         try {
-            saveData(lmce.data);
+            saveData(mce.data);
         } catch (IOException e) {
             raise(new FileSavingExceptionEvent(e, saveFile));
         }

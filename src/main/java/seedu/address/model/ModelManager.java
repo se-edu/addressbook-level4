@@ -3,7 +3,7 @@ package seedu.address.model;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.util.StringUtil;
-import seedu.address.commons.events.model.LocalModelChangedEvent;
+import seedu.address.commons.events.model.ModelChangedEvent;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.ReadOnlyPerson;
@@ -61,7 +61,7 @@ public class ModelManager extends ComponentManager {
 
     /** Raises an event to indicate the model has changed */
     private void indicateModelChanged() {
-        raise(new LocalModelChangedEvent(addressBook));
+        raise(new ModelChangedEvent(addressBook));
     }
 
     /** Deletes the given person. */
