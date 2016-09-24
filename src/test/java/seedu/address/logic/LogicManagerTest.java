@@ -63,9 +63,9 @@ public class LogicManagerTest {
     @Before
     public void setup() {
         model = new ModelManager();
-        Config testConfig = new Config();
-        testConfig.setLocalDataFilePath(saveFolder.getRoot().getPath() + "TempAddressBook.xml");
-        logicManager = new LogicManager(model, new StorageManager(testConfig));
+        String tempAddressBookFile = saveFolder.getRoot().getPath() + "TempAddressBook.xml";
+        String tempPreferencesFile = saveFolder.getRoot().getPath() + "TempPreferences.json";
+        logicManager = new LogicManager(model, new StorageManager(tempAddressBookFile, tempPreferencesFile));
         EventsCenter.getInstance().registerHandler(this);
 
         latestSavedAddressBook = new AddressBook(model.getAddressBook()); // last saved assumed to be up to date before.

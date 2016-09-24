@@ -51,7 +51,7 @@ public class MainApp extends Application {
 
         initLogging(config);
 
-        storageManager = new StorageManager(config);
+        storageManager = new StorageManager(config.getLocalDataFilePath(), config.getPrefsFileLocation());
 
         modelManager = initModelManager(storageManager);
 

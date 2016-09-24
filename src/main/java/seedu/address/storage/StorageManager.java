@@ -23,10 +23,10 @@ public class StorageManager extends ComponentManager {
     private File userPrefsFile;
 
 
-    public StorageManager(Config config) {
+    public StorageManager(String addressBookFilePath, String preferencesFilePath) {
         super();
-        this.saveFile = new File(config.getLocalDataFilePath());
-        this.userPrefsFile = new File(config.getPrefsFileLocation());
+        this.saveFile = new File(addressBookFilePath);
+        this.userPrefsFile = new File(preferencesFilePath);
     }
 
 
