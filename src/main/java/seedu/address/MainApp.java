@@ -47,11 +47,11 @@ public class MainApp extends Application {
         super.init();
 
         config = initConfig(getApplicationParameter("config"));
+        storageManager = new StorageManager(config.getLocalDataFilePath(), config.getPrefsFileLocation());
+
         userPrefs = initPrefs(config);
 
         initLogging(config);
-
-        storageManager = new StorageManager(config.getLocalDataFilePath(), config.getPrefsFileLocation());
 
         modelManager = initModelManager(storageManager);
 
@@ -127,7 +127,7 @@ public class MainApp extends Application {
 
         UserPrefs initializedPrefs;
         try {
-            Optional<UserPrefs> prefsOptional = StorageManager.readPrefs(prefsFilePath);
+            Optional<UserPrefs> prefsOptional = storageManager.readPrefs();
             initializedPrefs = prefsOptional.orElse(new UserPrefs());
         } catch (DataConversionException e) {
             logger.warning("UserPrefs file at " + prefsFilePath + " is not in the correct format. " +
@@ -137,7 +137,7 @@ public class MainApp extends Application {
 
         //Update prefs file in case it was missing to begin with or there are new/unused fields
         try {
-            StorageManager.savePrefs(initializedPrefs, prefsFilePath);
+            storageManager.savePrefs(initializedPrefs);
         } catch (IOException e) {
             logger.warning("Failed to save config file : " + StringUtil.getDetails(e));
         }

@@ -19,13 +19,13 @@ public class StorageManager extends ComponentManager {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
     private String addressBookFilePath;
-    private String preferencesFilePath;
+    private String prefsFilePath;
 
 
     public StorageManager(String addressBookFilePath, String preferencesFilePath) {
         super();
         this.addressBookFilePath = addressBookFilePath;
-        this.preferencesFilePath = preferencesFilePath;
+        this.prefsFilePath = preferencesFilePath;
     }
 
 
@@ -45,22 +45,13 @@ public class StorageManager extends ComponentManager {
     // ================ Prefs methods ==============================
 
     //TODO: add comment
-    public static Optional<UserPrefs> readPrefs(String prefsFilePath) throws DataConversionException {
-        return new JsonPrefStorage().readPrefs(prefsFilePath);
-    }
-
     public Optional<UserPrefs> readPrefs() throws DataConversionException {
-        return readPrefs(preferencesFilePath);
-    }
-
-    //TODO: add comment
-    public static void savePrefs(UserPrefs prefs, String prefsFilePath) throws IOException{
-        new JsonPrefStorage().savePrefs(prefs, prefsFilePath);
+        return new JsonPrefStorage().readPrefs(prefsFilePath);
     }
 
     //TODO: add comment
     public void savePrefs(UserPrefs prefs) throws IOException {
-        savePrefs(prefs, preferencesFilePath);
+        new JsonPrefStorage().savePrefs(prefs, prefsFilePath);
     }
 
     // ============== AddressBook method ============================

@@ -44,9 +44,8 @@ public class StorageManagerTest {
     public void prefsReadSave() throws Exception {
         UserPrefs original = new UserPrefs();
         original.setGuiSettings(300, 600, 4, 6);
-        String tempFilePath = getTempFilePath("TempPrefs.json");
-        storageManager.savePrefs(original, tempFilePath);
-        UserPrefs retrieved = storageManager.readPrefs(tempFilePath).get();
+        storageManager.savePrefs(original);
+        UserPrefs retrieved = storageManager.readPrefs().get();
         assertEquals(original, retrieved);
         //More extensive testing of UserPref saving/reading is done in JsonPrefStorageTest
     }
@@ -59,7 +58,6 @@ public class StorageManagerTest {
         assertEquals(original, new AddressBook(retrieved));
         //More extensive testing of AddressBook saving/reading is done in XmlAddressBookStorageTest
     }
-
 
 
 }
