@@ -6,17 +6,19 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
+import seedu.address.commons.core.Config;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.logic.commands.*;
 import seedu.address.commons.events.controller.JumpToListRequestEvent;
 import seedu.address.commons.events.controller.ShowHelpEvent;
-import seedu.address.commons.events.model.LocalModelChangedEvent;
+import seedu.address.commons.events.model.ModelChangedEvent;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.person.*;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
+import seedu.address.storage.StorageManager;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -44,7 +46,7 @@ public class LogicManagerTest {
     private int targetedJumpIndex;
 
     @Subscribe
-    private void handleLocalModelChangedEvent(LocalModelChangedEvent lmce) {
+    private void handleLocalModelChangedEvent(ModelChangedEvent lmce) {
         latestSavedAddressBook = new AddressBook(lmce.data);
     }
 
@@ -60,8 +62,10 @@ public class LogicManagerTest {
 
     @Before
     public void setup() {
-        model = new ModelManager(); 
-        logicManager = new LogicManager(model);
+        model = new ModelManager();
+        String tempAddressBookFile = saveFolder.getRoot().getPath() + "TempAddressBook.xml";
+        String tempPreferencesFile = saveFolder.getRoot().getPath() + "TempPreferences.json";
+        logicManager = new LogicManager(model, new StorageManager(tempAddressBookFile, tempPreferencesFile));
         EventsCenter.getInstance().registerHandler(this);
 
         latestSavedAddressBook = new AddressBook(model.getAddressBook()); // last saved assumed to be up to date before.

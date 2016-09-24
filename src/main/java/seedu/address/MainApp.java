@@ -4,18 +4,26 @@ import com.google.common.eventbus.Subscribe;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
-import seedu.address.commons.core.Version;
-import seedu.address.model.AddressBook;
-import seedu.address.ui.UiManager;
-import seedu.address.commons.core.EventsCenter;
-import seedu.address.commons.events.controller.ExitAppRequestEvent;
-import seedu.address.model.ModelManager;
-import seedu.address.model.UserPrefs;
-import seedu.address.storage.StorageManager;
 import seedu.address.commons.core.Config;
+import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.core.Version;
+import seedu.address.commons.events.controller.ExitAppRequestEvent;
+import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.commons.util.StringUtil;
+import seedu.address.logic.LogicManager;
+import seedu.address.model.AddressBook;
+import seedu.address.model.ModelManager;
+import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.UserPrefs;
+import seedu.address.commons.util.ConfigUtil;
+import seedu.address.storage.StorageManager;
+import seedu.address.ui.UiManager;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Map;
+import java.util.Optional;
 import java.util.logging.Logger;
 
 /**
@@ -24,25 +32,12 @@ import java.util.logging.Logger;
 public class MainApp extends Application {
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
 
-    private static final int VERSION_MAJOR = 1;
-    private static final int VERSION_MINOR = 6;
-    private static final int VERSION_PATCH = 1;
-    private static final boolean VERSION_EARLY_ACCESS = true;
-
-    public static final Version VERSION = new Version(
-            VERSION_MAJOR, VERSION_MINOR, VERSION_PATCH, VERSION_EARLY_ACCESS);
-
-    /**
-     * Minimum Java Version Required
-     *
-     * Due to usage of ControlsFX 8.40.10, requires minimum Java version of 1.8.0_60.
-     */
-    public static final String REQUIRED_JAVA_VERSION = "1.8.0_60"; // update docs if this is changed
-
-    protected StorageManager storageManager;
-    protected ModelManager modelManager;
+    public static final Version VERSION = new Version(1, 0, 0, true);
 
     protected UiManager uiManager;
+    protected LogicManager logicManager;
+    protected StorageManager storageManager;
+    protected ModelManager modelManager;
     protected Config config;
     protected UserPrefs userPrefs;
 
@@ -52,53 +47,128 @@ public class MainApp extends Application {
     public void init() throws Exception {
         logger.info("Initializing app ...");
         super.init();
-        Map<String, String> applicationParameters = getParameters().getNamed();
-        config = initConfig(applicationParameters.get("config"));
+
+        config = initConfig(getApplicationParameter("config"));
+        storageManager = new StorageManager(config.getLocalDataFilePath(), config.getPrefsFileLocation());
+
         userPrefs = initPrefs(config);
-        initComponents(config, userPrefs);
+
+        initLogging(config);
+
+        modelManager = initModelManager(storageManager);
+
+        logicManager = new LogicManager(modelManager, storageManager);
+
+        uiManager = new UiManager(logicManager, config, userPrefs);
+
         EventsCenter.getInstance().registerHandler(this);
     }
 
+    private String getApplicationParameter(String parameterName){
+        Map<String, String> applicationParameters = getParameters().getNamed();
+        return applicationParameters.get(parameterName);
+    }
+
+    private ModelManager initModelManager(StorageManager storageManager) {
+        Optional<ReadOnlyAddressBook> addressBookOptional;
+        ReadOnlyAddressBook initialData;
+        try {
+            addressBookOptional = storageManager.readAddressBook();
+            if(!addressBookOptional.isPresent()){
+                logger.info("Data file not found. Will be starting with an empty AddressBook");
+            }
+            initialData = addressBookOptional.orElse(new AddressBook());
+        } catch (DataConversionException e) {
+            logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
+            initialData = new AddressBook();
+        } catch (FileNotFoundException e) {
+            logger.warning("Problem while reading from the file. . Will be starting with an empty AddressBook");
+            initialData = new AddressBook();
+        }
+
+        return new ModelManager(initialData);
+    }
+
+    private void initLogging(Config config) {
+        LogsCenter.init(config);
+    }
+
     protected Config initConfig(String configFilePath) {
-        return StorageManager.getConfig(configFilePath);
+        Config initializedConfig;
+        String configFilePathUsed;
+
+        configFilePathUsed = Config.DEFAULT_CONFIG_FILE;
+
+        if(configFilePath != null) {
+            logger.info("Custom Config file specified " + configFilePath);
+            configFilePathUsed = configFilePath;
+        }
+
+        logger.info("Using config file : " + configFilePathUsed);
+
+        try {
+            Optional<Config> configOptional = ConfigUtil.readConfig(configFilePathUsed);
+            initializedConfig = configOptional.orElse(new Config());
+        } catch (DataConversionException e) {
+            logger.warning("Config file at " + configFilePathUsed + " is not in the correct format. " +
+                    "Using default config properties");
+            initializedConfig = new Config();
+        }
+
+        //Update config file in case it was missing to begin with or there are new/unused fields
+        try {
+            ConfigUtil.saveConfig(initializedConfig, configFilePathUsed);
+        } catch (IOException e) {
+            logger.warning("Failed to save config file : " + StringUtil.getDetails(e));
+        }
+        return initializedConfig;
     }
 
     protected UserPrefs initPrefs(Config config) {
-        return StorageManager.getUserPrefs(config.getPrefsFileLocation());
+        assert config != null;
+
+        String prefsFilePath = config.getPrefsFileLocation();
+        logger.info("Using prefs file : " + prefsFilePath);
+
+        UserPrefs initializedPrefs;
+        try {
+            Optional<UserPrefs> prefsOptional = storageManager.readUserPrefs();
+            initializedPrefs = prefsOptional.orElse(new UserPrefs());
+        } catch (DataConversionException e) {
+            logger.warning("UserPrefs file at " + prefsFilePath + " is not in the correct format. " +
+                    "Using default user prefs");
+            initializedPrefs = new UserPrefs();
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the file. . Will be starting with an empty AddressBook");
+            initializedPrefs = new UserPrefs();
+        }
+
+        //Update prefs file in case it was missing to begin with or there are new/unused fields
+        try {
+            storageManager.saveUserPrefs(initializedPrefs);
+        } catch (IOException e) {
+            logger.warning("Failed to save config file : " + StringUtil.getDetails(e));
+        }
+
+        return initializedPrefs;
     }
 
-    private void initComponents(Config config, UserPrefs userPrefs) {
-        LogsCenter.init(config);
-
-        modelManager = new ModelManager();
-        storageManager = initStorageManager(modelManager, config, userPrefs);
-        uiManager = initUi(config, modelManager);
-    }
-
-    protected UiManager initUi(Config config, ModelManager modelManager) {
-        return new UiManager(modelManager, config, userPrefs);
-    }
-
-    protected StorageManager initStorageManager(ModelManager modelManager, Config config, UserPrefs userPrefs) {
-        return new StorageManager(modelManager::resetData, AddressBook::getEmptyAddressBook, config, userPrefs);
-    }
 
     @Override
     public void start(Stage primaryStage) {
         logger.info("Starting application: " + MainApp.VERSION);
         uiManager.start(primaryStage, this);
-        storageManager.start();
     }
 
     @Override
     public void stop() {
         logger.info("Stopping application.");
         uiManager.stop();
-        storageManager.savePrefsToFile(userPrefs);
-        quit();
-    }
-
-    private void quit() {
+        try {
+            storageManager.saveUserPrefs(userPrefs);
+        } catch (IOException e) {
+            logger.severe("Failed to save preferences " + StringUtil.getDetails(e));
+        }
         Platform.exit();
         System.exit(0);
     }

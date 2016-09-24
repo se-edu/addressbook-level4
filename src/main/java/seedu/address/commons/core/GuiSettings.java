@@ -2,6 +2,7 @@ package seedu.address.commons.core;
 
 import java.awt.*;
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * A Serializable class that contains the GUI settings.
@@ -37,5 +38,36 @@ public class GuiSettings implements Serializable {
 
     public Point getWindowCoordinates() {
         return windowCoordinates;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this){
+            return true;
+        }
+        if (!(other instanceof GuiSettings)){ //this handles null as well.
+            return false;
+        }
+
+        GuiSettings o = (GuiSettings)other;
+
+        return Objects.equals(windowWidth, o.windowWidth)
+                && Objects.equals(windowHeight, o.windowHeight)
+                && Objects.equals(windowCoordinates.x, o.windowCoordinates.x)
+                && Objects.equals(windowCoordinates.y, o.windowCoordinates.y);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(windowWidth, windowHeight, windowCoordinates);
+    }
+
+    @Override
+    public String toString(){
+        StringBuilder sb = new StringBuilder();
+        sb.append("Width : " + windowWidth + "\n");
+        sb.append("Height : " + windowHeight + "\n");
+        sb.append("Position : " + windowCoordinates);
+        return sb.toString();
     }
 }

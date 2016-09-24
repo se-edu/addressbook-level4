@@ -49,10 +49,10 @@ public class PersonListPanel extends UiPart {
     }
 
     public static PersonListPanel load(Stage primaryStage, AnchorPane personListPlaceholder,
-                                       ModelManager modelManager) {
+                                       ObservableList<ReadOnlyPerson> personList) {
         PersonListPanel personListPanel =
                 UiPartLoader.loadUiPart(primaryStage, personListPlaceholder, new PersonListPanel());
-        personListPanel.configure(modelManager.getFilteredPersonList());
+        personListPanel.configure(personList);
         return personListPanel;
     }
 

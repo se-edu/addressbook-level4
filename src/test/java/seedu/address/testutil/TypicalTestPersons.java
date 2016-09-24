@@ -52,4 +52,10 @@ public class TypicalTestPersons {
     public TestPerson[] getTypicalPersons() {
         return new TestPerson[]{alice, benson, carl, daniel, elle, fiona, george};
     }
+
+    public AddressBook getTypicalAddressBook(){
+        AddressBook ab = new AddressBook();
+        loadAddressBookWithSampleData(ab);
+        return ab;
+    }
 }

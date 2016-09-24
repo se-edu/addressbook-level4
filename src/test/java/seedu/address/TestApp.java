@@ -2,14 +2,13 @@ package seedu.address;
 
 import javafx.stage.Screen;
 import javafx.stage.Stage;
-import seedu.address.model.UserPrefs;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.storage.StorageAddressBook;
-import seedu.address.testutil.TestUtil;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.UserPrefs;
+import seedu.address.storage.StorageAddressBook;
+import seedu.address.testutil.TestUtil;
 
-import java.io.File;
 import java.util.function.Supplier;
 
 /**
@@ -46,7 +45,7 @@ public class TestApp extends MainApp {
         Config config = super.initConfig(configFilePath);
         config.setAppTitle(APP_TITLE);
         config.setLocalDataFilePath(saveFileLocation);
-        config.setPrefsFileLocation(new File(DEFAULT_PREF_FILE_LOCATION_FOR_TESTING));
+        config.setPrefsFileLocation(DEFAULT_PREF_FILE_LOCATION_FOR_TESTING);
         config.setAddressBookName(ADDRESS_BOOK_NAME);
         return config;
     }
@@ -64,7 +63,6 @@ public class TestApp extends MainApp {
     @Override
     public void start(Stage primaryStage) {
         uiManager.start(primaryStage, this);
-        storageManager.start();
     }
 
     public Config getTestingConfig() {

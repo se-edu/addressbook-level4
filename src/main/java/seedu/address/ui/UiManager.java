@@ -11,12 +11,13 @@ import seedu.address.MainApp;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.commons.events.controller.JumpToListRequestEvent;
 import seedu.address.commons.events.controller.PersonPanelSelectionChangedEvent;
 import seedu.address.commons.events.controller.ShowHelpEvent;
-import seedu.address.commons.events.storage.FileOpeningExceptionEvent;
-import seedu.address.commons.events.storage.FileSavingExceptionEvent;
+import seedu.address.commons.events.storage.DataReadingExceptionEvent;
+import seedu.address.logic.LogicManager;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.ReadOnlyPerson;
@@ -31,7 +32,7 @@ public class UiManager extends ComponentManager{
     private static final Logger logger = LogsCenter.getLogger(UiManager.class);
     private static final String ICON_APPLICATION = "/images/address_book_32.png";
 
-    private ModelManager modelManager;
+    private LogicManager logicManager;
 
 
     private Config config;
@@ -42,13 +43,10 @@ public class UiManager extends ComponentManager{
 
     /**
      * Constructor for uiManager
-     *
-     * @param modelManager
-     * @param config should have appTitle and updateInterval set
      */
-    public UiManager(ModelManager modelManager, Config config, UserPrefs prefs) {
+    public UiManager(LogicManager logicManager, Config config, UserPrefs prefs) {
         super();
-        this.modelManager = modelManager;
+        this.logicManager = logicManager;
         this.config = config;
         this.prefs = prefs;
     }
@@ -61,7 +59,7 @@ public class UiManager extends ComponentManager{
         primaryStage.getIcons().add(getImage(ICON_APPLICATION));
 
         try {
-            mainWindow = MainWindow.load(primaryStage, config, prefs, this, modelManager);
+            mainWindow = MainWindow.load(primaryStage, config, prefs, logicManager);
             mainWindow.show(); //This should be called before creating other UI parts
             mainWindow.fillInnerParts();
 
@@ -84,9 +82,8 @@ public class UiManager extends ComponentManager{
         return mainWindow.primaryStage;
     }
 
-    private void showFileOperationAlertAndWait(String description, String details, File file, Throwable cause) {
-        final String content = details + ":\n" + (file == null ? "none" : file.getPath()) + "\n\nDetails:\n======\n"
-                                + cause.toString();
+    private void showFileOperationAlertAndWait(String description, String details, Throwable cause) {
+        final String content = details + ":\n" + cause.toString();
         showAlertDialogAndWait(AlertType.ERROR, "File Op Error", description, content);
     }
 
@@ -125,14 +122,14 @@ public class UiManager extends ComponentManager{
     //==================== Event Handling Code =================================================================
 
     @Subscribe
-    private void handleFileOpeningExceptionEvent(FileOpeningExceptionEvent foee) {
-        showFileOperationAlertAndWait("Could not load data", "Could not load data from file", foee.file,
-                foee.exception);
+    private void handleDataReadingExceptionEvent(DataReadingExceptionEvent foee) {
+        showFileOperationAlertAndWait("Could not load data", "Could not load data from file",
+                                      foee.exception);
     }
 
     @Subscribe
-    private void handleFileSavingExceptionEvent(FileSavingExceptionEvent fsee) {
-        showFileOperationAlertAndWait("Could not save data", "Could not save data to file", fsee.file, fsee.exception);
+    private void handleDataSavingExceptionEvent(DataSavingExceptionEvent fsee) {
+        showFileOperationAlertAndWait("Could not save data", "Could not save data to file", fsee.exception);
     }
 
     @Subscribe

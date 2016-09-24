@@ -15,11 +15,11 @@ public class XmlFileStorage {
      * Saves the given addressbook data to the specified file.
      */
     public static void saveDataToFile(File file, StorageAddressBook addressBook)
-            throws DataConversionException, FileNotFoundException {
+            throws FileNotFoundException {
         try {
             XmlUtil.saveDataToFile(file, addressBook);
         } catch (JAXBException e) {
-            throw new DataConversionException(e);
+            assert false : "Unexpected exception " + e.getMessage();
         }
     }
 

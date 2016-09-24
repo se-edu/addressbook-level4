@@ -11,6 +11,7 @@ import seedu.address.commons.util.FxViewUtil;
 import seedu.address.logic.LogicManager;
 import seedu.address.model.ModelManager;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.storage.StorageManager;
 
 import java.util.logging.Logger;
 
@@ -29,16 +30,16 @@ public class CommandBox extends UiPart {
     private CommandResult mostRecentResult;
 
     public static CommandBox load(Stage primaryStage, AnchorPane commandBoxPlaceholder,
-                                  ResultDisplay resultDisplay, ModelManager modelManager) {
+            ResultDisplay resultDisplay, LogicManager logicManager) {
         CommandBox commandBox = UiPartLoader.loadUiPart(primaryStage, commandBoxPlaceholder, new CommandBox());
-        commandBox.configure(resultDisplay, modelManager);
+        commandBox.configure(resultDisplay, logicManager);
         commandBox.addToPlaceholder();
         return commandBox;
     }
 
-    public void configure(ResultDisplay resultDisplay, ModelManager modelManager) {
+    public void configure(ResultDisplay resultDisplay, LogicManager logicManager) {
         this.resultDisplay = resultDisplay;
-        this.logicManager = new LogicManager(modelManager);
+        this.logicManager = logicManager;
     }
 
     private void addToPlaceholder() {
