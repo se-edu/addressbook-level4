@@ -6,7 +6,6 @@ import seedu.address.commons.core.Config;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.ModelChangedEvent;
 import seedu.address.commons.events.storage.FileSavingExceptionEvent;
-import seedu.address.commons.events.storage.SavePrefsRequestEvent;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.UserPrefs;
@@ -78,16 +77,6 @@ public class StorageManager extends ComponentManager {
             raise(new FileSavingExceptionEvent(e, userPrefsFile));
         }
     }
-
-    /**
-     * Raises FileSavingExceptionEvent
-     */
-    @Subscribe
-    public void handleSavePrefsRequestEvent(SavePrefsRequestEvent spre) {
-        logger.info("Save prefs request received: " + spre.prefs);
-        savePrefs(spre.prefs);
-    }
-
 
     // ============== AddressBook method ============================
 
