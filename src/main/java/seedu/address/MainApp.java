@@ -61,7 +61,7 @@ public class MainApp extends Application {
 
         ui = new UiManager(logic, config, userPrefs);
 
-        EventsCenter.getInstance().registerHandler(this);
+        initEventsCenter();
     }
 
     private String getApplicationParameter(String parameterName){
@@ -153,6 +153,9 @@ public class MainApp extends Application {
         return initializedPrefs;
     }
 
+    private void initEventsCenter() {
+        EventsCenter.getInstance().registerHandler(this);
+    }
 
     @Override
     public void start(Stage primaryStage) {
