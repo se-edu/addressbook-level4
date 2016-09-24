@@ -13,8 +13,7 @@ import java.util.Optional;
 import java.util.logging.Logger;
 
 /**
- * Manages storage of addressbook data in local disk.
- * Handles storage related events.
+ * Manages storage of AddressBook data in local storage.
  */
 public class StorageManager extends ComponentManager implements AddressBookStorage, UserPrefsStorage {
 
@@ -32,12 +31,16 @@ public class StorageManager extends ComponentManager implements AddressBookStora
 
     //=================== Config methods ========================
 
-    //TODO: add comment
+    /**
+     * @see JsonConfigStorage#readConfig
+     */
     public static Optional<Config> readConfig(String configFilePath) throws DataConversionException {
         return new JsonConfigStorage().readConfig(configFilePath);
     }
 
-    //TODO: add comment
+    /**
+     * @see JsonConfigStorage#saveConfig
+     */
     public static void saveConfig(Config config, String configFilePath) throws IOException{
         new JsonConfigStorage().saveConfig(config, configFilePath);
     }
@@ -45,7 +48,7 @@ public class StorageManager extends ComponentManager implements AddressBookStora
 
     // ================ UserPrefs methods ==============================
 
-    @Override
+   @Override
     public String getUserPrefsFilePath() {
         return userPrefStorage.getUserPrefsFilePath();
     }
