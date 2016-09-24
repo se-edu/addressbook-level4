@@ -1,9 +1,8 @@
-package seedu.address.storage;
+package seedu.address.commons.util;
 
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.commons.util.FileUtil;
 
 import java.io.File;
 import java.io.IOException;
@@ -13,9 +12,9 @@ import java.util.logging.Logger;
 /**
  * A class for accessing the Config File.
  */
-public class JsonConfigStorage {
+public class ConfigUtil {
 
-    private static final Logger logger = LogsCenter.getLogger(JsonConfigStorage.class);
+    private static final Logger logger = LogsCenter.getLogger(ConfigUtil.class);
 
     /**
      * Returns the Config object from the given file or {@code Optional.empty()} object if the file is not found.
@@ -23,7 +22,7 @@ public class JsonConfigStorage {
      * @param configFilePath cannot be null.
      * @throws DataConversionException if the file format is not as expected.
      */
-    public Optional<Config> readConfig(String configFilePath) throws DataConversionException {
+    public static Optional<Config> readConfig(String configFilePath) throws DataConversionException {
 
         assert configFilePath != null;
 
@@ -53,7 +52,7 @@ public class JsonConfigStorage {
      * @param configFilePath cannot be null
      * @throws IOException if there was an error during writing to the file
      */
-    public void saveConfig(Config config, String configFilePath) throws IOException {
+    public static void saveConfig(Config config, String configFilePath) throws IOException {
         assert config != null;
         assert configFilePath != null;
 

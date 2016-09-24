@@ -28,24 +28,6 @@ public class StorageManager extends ComponentManager implements AddressBookStora
         this.userPrefStorage = new JsonUserPrefStorage(userPrefsFilePath);
     }
 
-
-    //=================== Config methods ========================
-
-    /**
-     * @see JsonConfigStorage#readConfig
-     */
-    public static Optional<Config> readConfig(String configFilePath) throws DataConversionException {
-        return new JsonConfigStorage().readConfig(configFilePath);
-    }
-
-    /**
-     * @see JsonConfigStorage#saveConfig
-     */
-    public static void saveConfig(Config config, String configFilePath) throws IOException{
-        new JsonConfigStorage().saveConfig(config, configFilePath);
-    }
-
-
     // ================ UserPrefs methods ==============================
 
    @Override

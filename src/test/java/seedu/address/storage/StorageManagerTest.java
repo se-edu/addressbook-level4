@@ -5,7 +5,6 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
-import seedu.address.commons.core.Config;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.UserPrefs;
@@ -25,16 +24,6 @@ public class StorageManagerTest {
         storageManager = new StorageManager(getTempFilePath("ab"), getTempFilePath("prefs"));
     }
 
-    @Test
-    public void configReadSave() throws Exception {
-        Config original = new Config();
-        original.setAppTitle("Some App Title");
-        String tempFilePath = getTempFilePath("TempConfig.json");
-        storageManager.saveConfig(original, tempFilePath);
-        Config retrieved = storageManager.readConfig(tempFilePath).get();
-        assertEquals(original, retrieved);
-        //More extensive testing of Config saving/reading is done in JsonConfigStorageTest
-    }
 
     private String getTempFilePath(String fileName) {
         return testFolder.getRoot().getPath() + fileName;

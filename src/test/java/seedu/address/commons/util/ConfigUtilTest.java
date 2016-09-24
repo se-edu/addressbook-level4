@@ -1,4 +1,4 @@
-package seedu.address.storage;
+package seedu.address.commons.util;
 
 
 import org.junit.Rule;
@@ -7,7 +7,6 @@ import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.commons.util.FileUtil;
 
 import java.io.File;
 import java.io.IOException;
@@ -17,10 +16,9 @@ import java.util.logging.Level;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
-public class JsonConfigStorageTest {
+public class ConfigUtilTest {
 
-    private static String TEST_DATA_FOLDER = FileUtil.getPath("./src/test/data/JsonConfigStorageTest/");
-    public static String TYPICAL_CONFIG_FILE = TEST_DATA_FOLDER + "TypicalConfig.json";
+    private static String TEST_DATA_FOLDER = FileUtil.getPath("./src/test/data/ConfigUtilTest/");
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -85,7 +83,7 @@ public class JsonConfigStorageTest {
 
     private Optional<Config> read(String configFileInTestDataFolder) throws DataConversionException {
         String configFilePath = addToTestDataPathIfNotNull(configFileInTestDataFolder);
-        return new JsonConfigStorage().readConfig(configFilePath);
+        return new ConfigUtil().readConfig(configFilePath);
     }
 
     @Test
@@ -105,7 +103,7 @@ public class JsonConfigStorageTest {
         Config original = getTypicalConfig();
 
         String configFilePath = testFolder.getRoot() + File.separator + "TempConfig.json";
-        JsonConfigStorage configStorage = new JsonConfigStorage();
+        ConfigUtil configStorage = new ConfigUtil();
 
         //Try writing when the file doesn't exist
         configStorage.saveConfig(original, configFilePath);
@@ -122,7 +120,7 @@ public class JsonConfigStorageTest {
 
     private void save(Config config, String configFileInTestDataFolder) throws IOException {
         String configFilePath = addToTestDataPathIfNotNull(configFileInTestDataFolder);
-        new JsonConfigStorage().saveConfig(config, configFilePath);
+        new ConfigUtil().saveConfig(config, configFilePath);
     }
 
     private String addToTestDataPathIfNotNull(String configFileInTestDataFolder) {
