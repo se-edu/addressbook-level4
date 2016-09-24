@@ -1,11 +1,8 @@
 package seedu.address.storage;
 
-import com.google.common.eventbus.Subscribe;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.events.model.ModelChangedEvent;
-import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.UserPrefs;
@@ -30,15 +27,6 @@ public class StorageManager extends ComponentManager {
         super();
         this.saveFile = new File(config.getLocalDataFilePath());
         this.userPrefsFile = new File(config.getPrefsFileLocation());
-    }
-
-
-
-    /**
-     * Loads the data from the local data file (based on user preferences).
-     */
-    public void start() {
-        logger.info("Starting storage manager.");
     }
 
 
@@ -67,15 +55,9 @@ public class StorageManager extends ComponentManager {
         new JsonPrefStorage().savePrefs(prefs, prefsFilePath);
     }
 
-    /**
-     * Raises DataSavingExceptionEvent if there was an error during saving or data conversion.
-     */
-    public void savePrefs(UserPrefs prefs) {
-        try {
-            savePrefs(prefs, userPrefsFile.getPath());
-        } catch (IOException e) {
-            raise(new DataSavingExceptionEvent(e, userPrefsFile));
-        }
+    //TODO: add comment
+    public void savePrefs(UserPrefs prefs) throws IOException {
+        savePrefs(prefs, userPrefsFile.getPath());
     }
 
     // ============== AddressBook method ============================
@@ -93,19 +75,7 @@ public class StorageManager extends ComponentManager {
     }
 
 
-    /**
-     * Creates the file if it is missing before saving.
-     * Raises {@link DataSavingExceptionEvent} if there was an error during saving
-     */
-    @Subscribe
-    public void handleModelChangedEvent(ModelChangedEvent mce) {
-        logger.info("Local data changed, saving to primary data file");
-        try {
-            saveData(mce.data);
-        } catch (IOException e) {
-            raise(new DataSavingExceptionEvent(e, saveFile));
-        }
-    }
+
 
 
 }

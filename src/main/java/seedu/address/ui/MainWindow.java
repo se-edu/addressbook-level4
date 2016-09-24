@@ -9,12 +9,14 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.address.commons.events.controller.ExitAppRequestEvent;
+import seedu.address.logic.LogicManager;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.storage.StorageManager;
 
 import java.util.logging.Logger;
 
@@ -29,8 +31,7 @@ public class MainWindow extends UiPart {
     public static final int MIN_HEIGHT = 600;
     public static final int MIN_WIDTH = 450;
 
-    private ModelManager modelManager;
-
+    private LogicManager logicManager;
 
     // Independent Ui parts residing in this Ui container
     private BrowserPanel browserPanel;
@@ -80,19 +81,18 @@ public class MainWindow extends UiPart {
         return FXML;
     }
 
-    public static MainWindow load(Stage primaryStage, Config config, UserPrefs prefs, UiManager uiManager,
-                                  ModelManager modelManager) {
+    public static MainWindow load(Stage primaryStage, Config config, UserPrefs prefs, LogicManager logicManager) {
 
         MainWindow mainWindow = UiPartLoader.loadUiPart(primaryStage, new MainWindow());
-        mainWindow.configure(config.getAppTitle(), config.getAddressBookName(), config, prefs, modelManager);
+        mainWindow.configure(config.getAppTitle(), config.getAddressBookName(), config, prefs, logicManager);
         return mainWindow;
     }
 
     private void configure(String appTitle, String addressBookName, Config config, UserPrefs prefs,
-                           ModelManager modelManager) {
+                           LogicManager logicManager) {
 
         //Set dependencies
-        this.modelManager = modelManager;
+        this.logicManager = logicManager;
         this.addressBookName = addressBookName;
         this.config = config;
         this.userPrefs = prefs;
@@ -114,10 +114,10 @@ public class MainWindow extends UiPart {
 
     void fillInnerParts() {
         browserPanel = BrowserPanel.load(browserPlaceholder);
-        personListPanel = PersonListPanel.load(primaryStage, getPersonListPlaceholder(), modelManager);
+        personListPanel = PersonListPanel.load(primaryStage, getPersonListPlaceholder(), logicManager.getFilteredPersonList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getLocalDataFilePath());
-        commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, modelManager);
+        commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logicManager);
     }
 
     private AnchorPane getCommandBoxPlaceholder() {

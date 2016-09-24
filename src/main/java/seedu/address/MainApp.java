@@ -11,6 +11,7 @@ import seedu.address.commons.core.Version;
 import seedu.address.commons.events.controller.ExitAppRequestEvent;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.util.StringUtil;
+import seedu.address.logic.LogicManager;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
@@ -29,25 +30,12 @@ import java.util.logging.Logger;
 public class MainApp extends Application {
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
 
-    private static final int VERSION_MAJOR = 1;
-    private static final int VERSION_MINOR = 6;
-    private static final int VERSION_PATCH = 1;
-    private static final boolean VERSION_EARLY_ACCESS = true;
-
-    public static final Version VERSION = new Version(
-            VERSION_MAJOR, VERSION_MINOR, VERSION_PATCH, VERSION_EARLY_ACCESS);
-
-    /**
-     * Minimum Java Version Required
-     *
-     * Due to usage of ControlsFX 8.40.10, requires minimum Java version of 1.8.0_60.
-     */
-    public static final String REQUIRED_JAVA_VERSION = "1.8.0_60"; // update docs if this is changed
-
-    protected StorageManager storageManager;
-    protected ModelManager modelManager;
+    public static final Version VERSION = new Version(1, 0, 0, true);
 
     protected UiManager uiManager;
+    protected LogicManager logicManager;
+    protected StorageManager storageManager;
+    protected ModelManager modelManager;
     protected Config config;
     protected UserPrefs userPrefs;
 
@@ -57,10 +45,13 @@ public class MainApp extends Application {
     public void init() throws Exception {
         logger.info("Initializing app ...");
         super.init();
+
         Map<String, String> applicationParameters = getParameters().getNamed();
         config = initConfig(applicationParameters.get("config"));
         userPrefs = initPrefs(config);
+
         initComponents(config, userPrefs);
+
         EventsCenter.getInstance().registerHandler(this);
     }
 
@@ -125,7 +116,7 @@ public class MainApp extends Application {
 
         LogsCenter.init(config);
 
-        storageManager = new StorageManager(config);
+        StorageManager storageManager = new StorageManager(config);
 
         Optional<ReadOnlyAddressBook> addressBookOptional;
         ReadOnlyAddressBook initialData;
@@ -142,7 +133,9 @@ public class MainApp extends Application {
 
         modelManager = new ModelManager(initialData);
 
-        uiManager = new UiManager(modelManager, config, userPrefs);
+        logicManager = new LogicManager(modelManager, storageManager);
+
+        uiManager = new UiManager(logicManager, config, userPrefs);
     }
 
 
@@ -150,14 +143,17 @@ public class MainApp extends Application {
     public void start(Stage primaryStage) {
         logger.info("Starting application: " + MainApp.VERSION);
         uiManager.start(primaryStage, this);
-        storageManager.start();
     }
 
     @Override
     public void stop() {
         logger.info("Stopping application.");
         uiManager.stop();
-        storageManager.savePrefs(userPrefs);
+        try {
+            storageManager.savePrefs(userPrefs);
+        } catch (IOException e) {
+            logger.severe("Failed to save preferences " + StringUtil.getDetails(e));
+        }
         quit();
     }
 

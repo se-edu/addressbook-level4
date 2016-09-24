@@ -10,11 +10,9 @@ import java.io.File;
 public class DataSavingExceptionEvent extends BaseEvent {
 
     public Exception exception;
-    public File file;
 
-    public DataSavingExceptionEvent(Exception exception, File file) {
+    public DataSavingExceptionEvent(Exception exception) {
         this.exception = exception;
-        this.file = file;
     }
 
     @Override

@@ -6,6 +6,7 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
+import seedu.address.commons.core.Config;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.logic.commands.*;
 import seedu.address.commons.events.controller.JumpToListRequestEvent;
@@ -17,6 +18,7 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.person.*;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
+import seedu.address.storage.StorageManager;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -60,8 +62,10 @@ public class LogicManagerTest {
 
     @Before
     public void setup() {
-        model = new ModelManager(); 
-        logicManager = new LogicManager(model);
+        model = new ModelManager();
+        Config testConfig = new Config();
+        testConfig.setLocalDataFilePath(saveFolder.getRoot().getPath() + "TempAddressBook.xml");
+        logicManager = new LogicManager(model, new StorageManager(testConfig));
         EventsCenter.getInstance().registerHandler(this);
 
         latestSavedAddressBook = new AddressBook(model.getAddressBook()); // last saved assumed to be up to date before.
