@@ -19,6 +19,7 @@ import seedu.address.model.UserPrefs;
 import seedu.address.storage.StorageManager;
 import seedu.address.ui.UiManager;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Map;
 import java.util.Optional;
@@ -78,6 +79,9 @@ public class MainApp extends Application {
             initialData = addressBookOptional.orElse(new AddressBook());
         } catch (DataConversionException e) {
             logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
+            initialData = new AddressBook();
+        } catch (FileNotFoundException e) {
+            logger.severe("Problem while reading from the file. . Will be starting with an empty AddressBook");
             initialData = new AddressBook();
         }
 

@@ -7,6 +7,7 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.UserPrefs;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Optional;
 import java.util.logging.Logger;
@@ -15,7 +16,7 @@ import java.util.logging.Logger;
  * Manages storage of addressbook data in local disk.
  * Handles storage related events.
  */
-public class StorageManager extends ComponentManager {
+public class StorageManager extends ComponentManager implements AddressBookStore{
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
     private String addressBookFilePath;
@@ -54,16 +55,14 @@ public class StorageManager extends ComponentManager {
         new JsonPrefStorage().savePrefs(prefs, prefsFilePath);
     }
 
-    // ============== AddressBook method ============================
-
-    //TODO: add comment
-    public Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException {
+    @Override
+    public Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException, FileNotFoundException {
         logger.fine("Attempting to read data from file: " + addressBookFilePath);
 
         return new XmlAddressBookStorage().readAddressBook(addressBookFilePath);
     }
 
-    //TODO: add comment
+    @Override
     public void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException {
         new XmlAddressBookStorage().saveAddressBook(addressBook, addressBookFilePath);
     }

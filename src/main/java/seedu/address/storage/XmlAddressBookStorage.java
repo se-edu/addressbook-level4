@@ -26,7 +26,7 @@ public class XmlAddressBookStorage {
      * @param filePath cannot be null
      * @throws DataConversionException if the file is not in the correct format.
      */
-    public Optional<ReadOnlyAddressBook> readAddressBook(String filePath) throws DataConversionException {
+    public Optional<ReadOnlyAddressBook> readAddressBook(String filePath) throws DataConversionException, FileNotFoundException {
         assert filePath != null;
 
         File addressBookFile = new File(filePath);
@@ -36,16 +36,9 @@ public class XmlAddressBookStorage {
             return Optional.empty();
         }
 
-        ReadOnlyAddressBook addressBook;
+        ReadOnlyAddressBook addressBookOptional = XmlFileStorage.loadDataFromSaveFile(new File(filePath));
 
-        try {
-            addressBook = XmlFileStorage.loadDataFromSaveFile(new File(filePath));
-        } catch (IOException e) {
-            logger.warning("Error reading from AddressBook data file " + filePath + ": " + e);
-            throw new DataConversionException(e);
-        }
-
-        return Optional.of(addressBook);
+        return Optional.of(addressBookOptional);
     }
 
     /**

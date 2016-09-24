@@ -14,6 +14,7 @@ import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.testutil.TypicalTestPersons;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import static org.junit.Assert.assertEquals;
@@ -31,12 +32,12 @@ public class XmlAddressBookStorageTest {
     public TemporaryFolder testFolder = new TemporaryFolder();
 
     @Test
-    public void readAddressBook_nullFilePath_assertionFailure() throws DataConversionException {
+    public void readAddressBook_nullFilePath_assertionFailure() throws Exception {
         thrown.expect(AssertionError.class);
         readAddressBook(null);
     }
 
-    private java.util.Optional<ReadOnlyAddressBook> readAddressBook(String filePath) throws DataConversionException {
+    private java.util.Optional<ReadOnlyAddressBook> readAddressBook(String filePath) throws Exception {
         return new XmlAddressBookStorage().readAddressBook(addToTestDataPathIfNotNull(filePath));
     }
 
@@ -47,12 +48,12 @@ public class XmlAddressBookStorageTest {
     }
 
     @Test
-    public void read_missingFile_emptyResult() throws DataConversionException {
+    public void read_missingFile_emptyResult() throws Exception {
         assertFalse(readAddressBook("NonExistentFile.xml").isPresent());
     }
 
     @Test
-    public void read_notXmlFormat_exceptionThrown() throws DataConversionException {
+    public void read_notXmlFormat_exceptionThrown() throws Exception {
 
         thrown.expect(DataConversionException.class);
         readAddressBook("NotXmlFormatAddressBook.xml");
