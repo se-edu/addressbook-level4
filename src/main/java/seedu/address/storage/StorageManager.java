@@ -16,17 +16,17 @@ import java.util.logging.Logger;
  * Manages storage of addressbook data in local disk.
  * Handles storage related events.
  */
-public class StorageManager extends ComponentManager implements AddressBookStorage {
+public class StorageManager extends ComponentManager implements AddressBookStorage, UserPrefsStorage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
     private XmlAddressBookStorage addressBookStorage;
-    private String prefsFilePath;
+    private JsonUserPrefStorage userPrefStorage;
 
 
-    public StorageManager(String addressBookFilePath, String preferencesFilePath) {
+    public StorageManager(String addressBookFilePath, String userPrefsFilePath) {
         super();
         this.addressBookStorage = new XmlAddressBookStorage(addressBookFilePath);
-        this.prefsFilePath = preferencesFilePath;
+        this.userPrefStorage = new JsonUserPrefStorage(userPrefsFilePath);
     }
 
 
@@ -43,18 +43,30 @@ public class StorageManager extends ComponentManager implements AddressBookStora
     }
 
 
-    // ================ Prefs methods ==============================
+    // ================ UserPrefs methods ==============================
 
-    //TODO: add comment
-    public Optional<UserPrefs> readPrefs() throws DataConversionException {
-        return new JsonPrefStorage().readPrefs(prefsFilePath);
+    @Override
+    public String getUserPrefsFilePath() {
+        return userPrefStorage.getUserPrefsFilePath();
     }
 
-    //TODO: add comment
-    public void savePrefs(UserPrefs prefs) throws IOException {
-        new JsonPrefStorage().savePrefs(prefs, prefsFilePath);
+    @Override
+    public Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException {
+        return userPrefStorage.readUserPrefs();
     }
 
+    @Override
+    public void saveUserPrefs(UserPrefs userPrefs) throws IOException {
+        userPrefStorage.saveUserPrefs(userPrefs);
+    }
+
+
+    // ================ AddressBook methods ==============================
+
+    @Override
+    public String getAddressBookFilePath() {
+        return addressBookStorage.getAddressBookFilePath();
+    }
 
     @Override
     public Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException, FileNotFoundException {
@@ -66,12 +78,6 @@ public class StorageManager extends ComponentManager implements AddressBookStora
     @Override
     public void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException {
         addressBookStorage.saveAddressBook(addressBook, addressBookStorage.getAddressBookFilePath());
-    }
-
-
-    @Override
-    public String getAddressBookFilePath() {
-        return addressBookStorage.getAddressBookFilePath();
     }
 
 }

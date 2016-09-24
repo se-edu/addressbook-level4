@@ -81,7 +81,7 @@ public class MainApp extends Application {
             logger.warning("Data file not in the correct format. Will be starting with an empty AddressBook");
             initialData = new AddressBook();
         } catch (FileNotFoundException e) {
-            logger.severe("Problem while reading from the file. . Will be starting with an empty AddressBook");
+            logger.warning("Problem while reading from the file. . Will be starting with an empty AddressBook");
             initialData = new AddressBook();
         }
 
@@ -131,17 +131,20 @@ public class MainApp extends Application {
 
         UserPrefs initializedPrefs;
         try {
-            Optional<UserPrefs> prefsOptional = storageManager.readPrefs();
+            Optional<UserPrefs> prefsOptional = storageManager.readUserPrefs();
             initializedPrefs = prefsOptional.orElse(new UserPrefs());
         } catch (DataConversionException e) {
             logger.warning("UserPrefs file at " + prefsFilePath + " is not in the correct format. " +
                     "Using default user prefs");
             initializedPrefs = new UserPrefs();
+        } catch (IOException e) {
+            logger.warning("Problem while reading from the file. . Will be starting with an empty AddressBook");
+            initializedPrefs = new UserPrefs();
         }
 
         //Update prefs file in case it was missing to begin with or there are new/unused fields
         try {
-            storageManager.savePrefs(initializedPrefs);
+            storageManager.saveUserPrefs(initializedPrefs);
         } catch (IOException e) {
             logger.warning("Failed to save config file : " + StringUtil.getDetails(e));
         }
@@ -161,7 +164,7 @@ public class MainApp extends Application {
         logger.info("Stopping application.");
         uiManager.stop();
         try {
-            storageManager.savePrefs(userPrefs);
+            storageManager.saveUserPrefs(userPrefs);
         } catch (IOException e) {
             logger.severe("Failed to save preferences " + StringUtil.getDetails(e));
         }

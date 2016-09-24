@@ -3,6 +3,7 @@ package seedu.address.storage;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.util.FileUtil;
+import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.UserPrefs;
 
 import java.io.File;
@@ -13,17 +14,36 @@ import java.util.logging.Logger;
 /**
  * A class to access UserPrefs stored in the hard disk as a json file
  */
-public class JsonPrefStorage {
+public class JsonUserPrefStorage implements UserPrefsStorage{
 
-    private static final Logger logger = LogsCenter.getLogger(JsonPrefStorage.class);
+    private static final Logger logger = LogsCenter.getLogger(JsonUserPrefStorage.class);
+
+    private String filePath;
+
+    public JsonUserPrefStorage(String filePath){
+        this.filePath = filePath;
+    }
+
+    public String getUserPrefsFilePath(){
+        return filePath;
+    }
+
+    @Override
+    public Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException {
+        return readUserPrefs(filePath);
+    }
+
+    @Override
+    public void saveUserPrefs(UserPrefs userPrefs) throws IOException {
+        saveUserPrefs(userPrefs, filePath);
+    }
 
     /**
-     * Returns the UserPrefs object from the given file or {@code Optional.empty()} object if the file is not found.
-     *   If any values are missing from the file, default values will be used, as long as the file is a valid json file.
-     * @param prefsFilePath cannot be null.
+     * Similar to {@link #readUserPrefs()}
+     * @param prefsFilePath location of the data. Cannot be null.
      * @throws DataConversionException if the file format is not as expected.
      */
-    public Optional<UserPrefs> readPrefs(String prefsFilePath) throws DataConversionException {
+    public Optional<UserPrefs> readUserPrefs(String prefsFilePath) throws DataConversionException {
         assert prefsFilePath != null;
 
         File prefsFile = new File(prefsFilePath);
@@ -46,13 +66,10 @@ public class JsonPrefStorage {
     }
 
     /**
-     * Saves the UserPrefs object to the specified file.
-     *   Overwrites existing file if it exists, creates a new file if it doesn't.
-     * @param userPrefs cannot be null
-     * @param prefsFilePath cannot be null
-     * @throws IOException if there was an error during writing to the file
+     * Similar to {@link #saveUserPrefs(UserPrefs)}
+     * @param prefsFilePath location of the data. Cannot be null.
      */
-    public void savePrefs(UserPrefs userPrefs, String prefsFilePath) throws IOException {
+    public void saveUserPrefs(UserPrefs userPrefs, String prefsFilePath) throws IOException {
         assert userPrefs != null;
         assert prefsFilePath != null;
 

@@ -44,10 +44,10 @@ public class StorageManagerTest {
     public void prefsReadSave() throws Exception {
         UserPrefs original = new UserPrefs();
         original.setGuiSettings(300, 600, 4, 6);
-        storageManager.savePrefs(original);
-        UserPrefs retrieved = storageManager.readPrefs().get();
+        storageManager.saveUserPrefs(original);
+        UserPrefs retrieved = storageManager.readUserPrefs().get();
         assertEquals(original, retrieved);
-        //More extensive testing of UserPref saving/reading is done in JsonPrefStorageTest
+        //More extensive testing of UserPref saving/reading is done in JsonUserPrefStorageTest
     }
 
     @Test
