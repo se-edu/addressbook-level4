@@ -7,36 +7,23 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import seedu.address.commons.core.Config;
-import seedu.address.commons.events.model.LocalModelChangedEvent;
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.commons.exceptions.DuplicateTagException;
 import seedu.address.commons.util.FileUtil;
-import seedu.address.model.AddressBook;
 import seedu.address.model.ModelManager;
-import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.person.UniquePersonList;
-import seedu.address.testutil.AddressBookBuilder;
 import seedu.address.testutil.SerializableTestClass;
 import seedu.address.testutil.TestUtil;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import static junit.framework.TestCase.assertNotNull;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
 
 public class StorageManagerTest {
     private static final File SERIALIZATION_FILE = new File(TestUtil.appendToSandboxPath("serialize.json"));
-    private static final String DEFAULT_CONFIG_FILE = TestUtil.appendToSandboxPath("config.json");
     private static final String TESTING_DATA_FILE_PATH = TestUtil.appendToSandboxPath("dummyAddressBook.xml");
     private static final File TESTING_DATA_FILE = new File(TESTING_DATA_FILE_PATH);
-    private static final String TEMP_SAVE_FILE_PATH = TestUtil.appendToSandboxPath("tempAddressBook.xml");
-    private static final File TEMP_SAVE_FILE = new File(TEMP_SAVE_FILE_PATH);
-    private StorageManager storageManager;
-    private ModelManager modelManager;
     private Config config;
 
     @Rule
@@ -45,11 +32,8 @@ public class StorageManagerTest {
 
     @Before
     public void before() throws IOException, DataConversionException {
-        StorageManager.saveAddressBook(TESTING_DATA_FILE, new AddressBook());
         config = new Config();
         config.setLocalDataFilePath(TESTING_DATA_FILE_PATH);
-        modelManager = new ModelManager();
-        storageManager = new StorageManager(config);
     }
 
     @After
@@ -89,19 +73,6 @@ public class StorageManagerTest {
         assertEquals(serializableTestClass.getMapOfIntegerToString(), SerializableTestClass.getHashMapTestValues());
     }
 
-    @Test
-    public void saveDataToFile() throws FileNotFoundException, DataConversionException, UniquePersonList.DuplicatePersonException {
-        ReadOnlyAddressBook oldAb = new AddressBook(storageManager.getData().get());
-        AddressBook editedAb = new AddressBookBuilder(new AddressBook(storageManager.getData().get())).withPerson(TestUtil.generateSamplePersonData().get(1)).build();
-        assertNotEquals(editedAb, oldAb);
-
-        storageManager.saveDataToFile(TEMP_SAVE_FILE, editedAb);
-
-        ReadOnlyAddressBook savedAddressbook = new AddressBook(XmlFileStorage.loadDataFromSaveFile(TEMP_SAVE_FILE));
-
-        assertEquals(editedAb.getPersonList(), savedAddressbook.getPersonList());
-        assertEquals(editedAb.getTagList(), savedAddressbook.getTagList());
-    }
 
     @Test
     public void readConfig() throws DataConversionException {
@@ -127,18 +98,7 @@ public class StorageManagerTest {
         //TODO
     }
 
-    @Test
-    public void testHandleLocalModelChangedEvent() throws DuplicateTagException, InterruptedException, FileNotFoundException, DataConversionException, UniquePersonList.DuplicatePersonException {
-        ReadOnlyAddressBook oldAb = new AddressBook(storageManager.getData().get());
-        AddressBook editedAb = new AddressBookBuilder(new AddressBook(storageManager.getData().get())).withPerson(TestUtil.generateSamplePersonData().get(0)).build();
-        assertNotEquals(editedAb, oldAb);
 
-        storageManager.handleLocalModelChangedEvent(new LocalModelChangedEvent(editedAb));
-        AddressBook newAb = new AddressBook(storageManager.getData().get());
-
-        assertEquals(editedAb.getPersonList(), newAb.getPersonList());
-        assertEquals(editedAb.getTagList(), newAb.getTagList());
-    }
 
 
     //TODO: finish the rest of the public methods in StorageManager

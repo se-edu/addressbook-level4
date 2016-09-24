@@ -5,14 +5,13 @@ import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.LocalModelChangedEvent;
-import seedu.address.commons.events.storage.*;
+import seedu.address.commons.events.storage.FileSavingExceptionEvent;
+import seedu.address.commons.events.storage.SavePrefsRequestEvent;
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.commons.util.FileUtil;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.UserPrefs;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Optional;
 import java.util.logging.Logger;
@@ -24,16 +23,12 @@ import java.util.logging.Logger;
 public class StorageManager extends ComponentManager {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
-    //private Consumer<ReadOnlyAddressBook> loadedDataCallback;
-    //private Supplier<ReadOnlyAddressBook> defaultDataSupplier;
     private File saveFile;
     private File userPrefsFile;
 
 
     public StorageManager(Config config) {
         super();
-        //this.loadedDataCallback = loadedDataCallback;
-        //this.defaultDataSupplier = defaultDataSupplier;
         this.saveFile = new File(config.getLocalDataFilePath());
         this.userPrefsFile = new File(config.getPrefsFileLocation());
     }
@@ -108,35 +103,19 @@ public class StorageManager extends ComponentManager {
         new XmlAddressBookStorage().saveAddressBook(addressBook, saveFile.getPath());
     }
 
+
     /**
      * Creates the file if it is missing before saving.
-     * Raises FileSavingExceptionEvent if the file is not found or if there was an error during
-     * saving or data conversion.
-     */
-    public void saveDataToFile(File file, ReadOnlyAddressBook data) {
-        try {
-            saveAddressBook(file, data);
-        } catch (IOException e) {
-            raise(new FileSavingExceptionEvent(e, file));
-        }
-    }
-
-    /**
-     * Saves the address book data in the file specified.
-     */
-    public static void saveAddressBook(File file, ReadOnlyAddressBook data) throws IOException {
-        FileUtil.createIfMissing(file);
-        XmlFileStorage.saveDataToFile(file, new StorageAddressBook(data));
-    }
-
-
-    /**
-     * Raises FileSavingExceptionEvent (similar to {@link #saveDataToFile(File, ReadOnlyAddressBook)})
+     * Raises {@link FileSavingExceptionEvent} if there was an error during saving
      */
     @Subscribe
     public void handleLocalModelChangedEvent(LocalModelChangedEvent lmce) {
         logger.info("Local data changed, saving to primary data file");
-        saveDataToFile(saveFile, lmce.data);
+        try {
+            saveData(lmce.data);
+        } catch (IOException e) {
+            raise(new FileSavingExceptionEvent(e, saveFile));
+        }
     }
 
 
