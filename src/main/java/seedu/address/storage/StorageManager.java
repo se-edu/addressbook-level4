@@ -7,7 +7,6 @@ import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.UserPrefs;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.Optional;
 import java.util.logging.Logger;
@@ -19,14 +18,14 @@ import java.util.logging.Logger;
 public class StorageManager extends ComponentManager {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
-    private File saveFile;
-    private File userPrefsFile;
+    private String addressBookFilePath;
+    private String preferencesFilePath;
 
 
     public StorageManager(String addressBookFilePath, String preferencesFilePath) {
         super();
-        this.saveFile = new File(addressBookFilePath);
-        this.userPrefsFile = new File(preferencesFilePath);
+        this.addressBookFilePath = addressBookFilePath;
+        this.preferencesFilePath = preferencesFilePath;
     }
 
 
@@ -50,6 +49,10 @@ public class StorageManager extends ComponentManager {
         return new JsonPrefStorage().readPrefs(prefsFilePath);
     }
 
+    public Optional<UserPrefs> readPrefs() throws DataConversionException {
+        return readPrefs(preferencesFilePath);
+    }
+
     //TODO: add comment
     public static void savePrefs(UserPrefs prefs, String prefsFilePath) throws IOException{
         new JsonPrefStorage().savePrefs(prefs, prefsFilePath);
@@ -57,25 +60,21 @@ public class StorageManager extends ComponentManager {
 
     //TODO: add comment
     public void savePrefs(UserPrefs prefs) throws IOException {
-        savePrefs(prefs, userPrefsFile.getPath());
+        savePrefs(prefs, preferencesFilePath);
     }
 
     // ============== AddressBook method ============================
 
     //TODO: add comment
-    public Optional<ReadOnlyAddressBook> getData() throws DataConversionException {
-        logger.fine("Attempting to read data from file: " + saveFile);
+    public Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException {
+        logger.fine("Attempting to read data from file: " + addressBookFilePath);
 
-        return new XmlAddressBookStorage().readAddressBook(saveFile.getPath());
+        return new XmlAddressBookStorage().readAddressBook(addressBookFilePath);
     }
 
     //TODO: add comment
-    public void saveData(ReadOnlyAddressBook addressBook) throws IOException {
-        new XmlAddressBookStorage().saveAddressBook(addressBook, saveFile.getPath());
+    public void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException {
+        new XmlAddressBookStorage().saveAddressBook(addressBook, addressBookFilePath);
     }
-
-
-
-
 
 }

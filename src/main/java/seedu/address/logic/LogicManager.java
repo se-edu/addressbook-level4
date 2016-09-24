@@ -48,7 +48,7 @@ public class LogicManager extends ComponentManager{
     public void handleModelChangedEvent(ModelChangedEvent mce) {
         logger.info("Local data changed, saving to primary data file");
         try {
-            storageManager.saveData(mce.data);
+            storageManager.saveAddressBook(mce.data);
         } catch (IOException e) {
             raise(new DataSavingExceptionEvent(e));
         }
