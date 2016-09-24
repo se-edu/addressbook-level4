@@ -9,7 +9,12 @@ import java.util.Optional;
 /**
  * Represents a storage for {@link seedu.address.model.AddressBook}.
  */
-public interface AddressBookStore {
+public interface AddressBookStorage {
+
+    /**
+     * Returns the file path of the data file.
+     */
+    public String getAddressBookFilePath();
 
     /**
      * Returns AddressBook data as a {@link ReadOnlyAddressBook}.

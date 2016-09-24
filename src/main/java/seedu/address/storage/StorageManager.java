@@ -16,16 +16,16 @@ import java.util.logging.Logger;
  * Manages storage of addressbook data in local disk.
  * Handles storage related events.
  */
-public class StorageManager extends ComponentManager implements AddressBookStore{
+public class StorageManager extends ComponentManager implements AddressBookStorage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
-    private String addressBookFilePath;
+    private XmlAddressBookStorage addressBookStorage;
     private String prefsFilePath;
 
 
     public StorageManager(String addressBookFilePath, String preferencesFilePath) {
         super();
-        this.addressBookFilePath = addressBookFilePath;
+        this.addressBookStorage = new XmlAddressBookStorage(addressBookFilePath);
         this.prefsFilePath = preferencesFilePath;
     }
 
@@ -55,16 +55,23 @@ public class StorageManager extends ComponentManager implements AddressBookStore
         new JsonPrefStorage().savePrefs(prefs, prefsFilePath);
     }
 
+
     @Override
     public Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException, FileNotFoundException {
-        logger.fine("Attempting to read data from file: " + addressBookFilePath);
+        logger.fine("Attempting to read data from file: " + addressBookStorage.getAddressBookFilePath());
 
-        return new XmlAddressBookStorage().readAddressBook(addressBookFilePath);
+        return addressBookStorage.readAddressBook(addressBookStorage.getAddressBookFilePath());
     }
 
     @Override
     public void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException {
-        new XmlAddressBookStorage().saveAddressBook(addressBook, addressBookFilePath);
+        addressBookStorage.saveAddressBook(addressBook, addressBookStorage.getAddressBookFilePath());
+    }
+
+
+    @Override
+    public String getAddressBookFilePath() {
+        return addressBookStorage.getAddressBookFilePath();
     }
 
 }
