@@ -1,29 +1,32 @@
 package seedu.address.storage;
 
 
-import org.junit.*;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
 import org.junit.rules.ExpectedException;
-import seedu.address.commons.util.FileUtil;
+import seedu.address.commons.core.Config;
 import seedu.address.commons.events.model.LocalModelChangedEvent;
-import seedu.address.commons.events.storage.SaveDataRequestEvent;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.exceptions.DuplicateTagException;
-import seedu.address.model.ModelManager;
-import seedu.address.model.UserPrefs;
+import seedu.address.commons.util.FileUtil;
 import seedu.address.model.AddressBook;
+import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.UserPrefs;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.testutil.AddressBookBuilder;
 import seedu.address.testutil.SerializableTestClass;
 import seedu.address.testutil.TestUtil;
-import seedu.address.commons.core.Config;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import static junit.framework.TestCase.assertNotNull;
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 public class StorageManagerTest {
     private static final File SERIALIZATION_FILE = new File(TestUtil.appendToSandboxPath("serialize.json"));
@@ -137,13 +140,6 @@ public class StorageManagerTest {
         assertEquals(editedAb.getTagList(), newAb.getTagList());
     }
 
-    @Test
-    public void testHandleSaveDataRequestEvent() throws FileNotFoundException, DataConversionException {
-        storageManager.handleSaveDataRequestEvent(new SaveDataRequestEvent(TEMP_SAVE_FILE, storageManager.getData().get()));
-        StorageAddressBook storageAddressBook = XmlFileStorage.loadDataFromSaveFile(TEMP_SAVE_FILE);
-        Assert.assertEquals(storageAddressBook.getPersonList(), storageManager.getData().get().getPersonList());
-        Assert.assertEquals(storageAddressBook.getTagList(), storageManager.getData().get().getTagList());
-    }
 
     //TODO: finish the rest of the public methods in StorageManager
 }

@@ -139,13 +139,5 @@ public class StorageManager extends ComponentManager {
         saveDataToFile(saveFile, lmce.data);
     }
 
-    /**
-     * Raises FileSavingExceptionEvent (similar to {@link #saveDataToFile(File, ReadOnlyAddressBook)})
-     */
-    @Subscribe
-    public void handleSaveDataRequestEvent(SaveDataRequestEvent sdre) {
-        logger.info("Save data request received: " + sdre.data);
-        saveDataToFile(sdre.file, sdre.data);
-    }
 
 }
