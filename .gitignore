@@ -13,3 +13,4 @@ preferences.json
 ./screenshot*.png
 classes/
 data/
+/bin/

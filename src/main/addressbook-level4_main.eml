@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component LANGUAGE_LEVEL="JDK_1_8" inheritJdk="true">
+	<exclude-output/>
+	<contentEntry url="file://$MODULE_DIR$/../../src/main"/>
+	<levels>
+		<level name="Gradle: org.controlsfx:controlsfx:8.40.11" value="project"/>
+		<level name="Gradle: com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.7.4" value="project"/>
+		<level name="Gradle: com.google.guava:guava:19.0" value="project"/>
+		<level name="Gradle: com.fasterxml.jackson.core:jackson-annotations:2.7.0" value="project"/>
+		<level name="Gradle: com.fasterxml.jackson.core:jackson-core:2.7.4" value="project"/>
+		<level name="Gradle: com.fasterxml.jackson.core:jackson-databind:2.7.4" value="project"/>
+	</levels>
+</component>
