@@ -15,6 +15,7 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
 import seedu.address.model.*;
 import seedu.address.commons.util.ConfigUtil;
+import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
 import seedu.address.ui.UiManager;
 
@@ -34,7 +35,7 @@ public class MainApp extends Application {
 
     protected UiManager uiManager;
     protected Logic logic;
-    protected StorageManager storageManager;
+    protected Storage storage;
     protected Model model;
     protected Config config;
     protected UserPrefs userPrefs;
@@ -47,15 +48,15 @@ public class MainApp extends Application {
         super.init();
 
         config = initConfig(getApplicationParameter("config"));
-        storageManager = new StorageManager(config.getAddressBookFilePath(), config.getUserPrefsFilePath());
+        storage = new StorageManager(config.getAddressBookFilePath(), config.getUserPrefsFilePath());
 
         userPrefs = initPrefs(config);
 
         initLogging(config);
 
-        model = initModelManager(storageManager);
+        model = initModelManager(storage);
 
-        logic = new LogicManager(model, storageManager);
+        logic = new LogicManager(model, storage);
 
         uiManager = new UiManager(logic, config, userPrefs);
 
@@ -67,11 +68,11 @@ public class MainApp extends Application {
         return applicationParameters.get(parameterName);
     }
 
-    private Model initModelManager(StorageManager storageManager) {
+    private Model initModelManager(Storage storage) {
         Optional<ReadOnlyAddressBook> addressBookOptional;
         ReadOnlyAddressBook initialData;
         try {
-            addressBookOptional = storageManager.readAddressBook();
+            addressBookOptional = storage.readAddressBook();
             if(!addressBookOptional.isPresent()){
                 logger.info("Data file not found. Will be starting with an empty AddressBook");
             }
@@ -130,7 +131,7 @@ public class MainApp extends Application {
 
         UserPrefs initializedPrefs;
         try {
-            Optional<UserPrefs> prefsOptional = storageManager.readUserPrefs();
+            Optional<UserPrefs> prefsOptional = storage.readUserPrefs();
             initializedPrefs = prefsOptional.orElse(new UserPrefs());
         } catch (DataConversionException e) {
             logger.warning("UserPrefs file at " + prefsFilePath + " is not in the correct format. " +
@@ -143,7 +144,7 @@ public class MainApp extends Application {
 
         //Update prefs file in case it was missing to begin with or there are new/unused fields
         try {
-            storageManager.saveUserPrefs(initializedPrefs);
+            storage.saveUserPrefs(initializedPrefs);
         } catch (IOException e) {
             logger.warning("Failed to save config file : " + StringUtil.getDetails(e));
         }
@@ -163,7 +164,7 @@ public class MainApp extends Application {
         logger.info("Stopping application.");
         uiManager.stop();
         try {
-            storageManager.saveUserPrefs(userPrefs);
+            storage.saveUserPrefs(userPrefs);
         } catch (IOException e) {
             logger.severe("Failed to save preferences " + StringUtil.getDetails(e));
         }

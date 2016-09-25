@@ -11,7 +11,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.parser.Parser;
 import seedu.address.model.Model;
 import seedu.address.model.person.ReadOnlyPerson;
-import seedu.address.storage.StorageManager;
+import seedu.address.storage.Storage;
 
 import java.io.IOException;
 import java.util.logging.Logger;
@@ -22,12 +22,12 @@ import java.util.logging.Logger;
 public class LogicManager extends ComponentManager implements Logic {
     private static final Logger logger = LogsCenter.getLogger(LogicManager.class);
     private final Model model;
-    private final StorageManager storageManager;
+    private final Storage storage;
     private final Parser parser;
 
-    public LogicManager(Model model, StorageManager storageManager) {
+    public LogicManager(Model model, Storage storage) {
         this.model = model;
-        this.storageManager = storageManager;
+        this.storage = storage;
         this.parser = new Parser();
     }
 
@@ -46,7 +46,7 @@ public class LogicManager extends ComponentManager implements Logic {
     public void handleModelChangedEvent(ModelChangedEvent mce) {
         logger.info("Local data changed, saving to primary data file");
         try {
-            storageManager.saveAddressBook(mce.data);
+            storage.saveAddressBook(mce.data);
         } catch (IOException e) {
             raise(new DataSavingExceptionEvent(e));
         }
