@@ -7,9 +7,9 @@ import seedu.address.model.tag.Tag;
 import javax.xml.bind.annotation.XmlValue;
 
 /**
- * JAXB-friendly adapted tag data holder class.
+ * JAXB-friendly adapted version of the Tag.
  */
-public class AdaptedTag {
+public class XmlAdaptedTag {
 
     @XmlValue
     public String tagName;
@@ -17,14 +17,14 @@ public class AdaptedTag {
     /**
      * No-arg constructor for JAXB use.
      */
-    public AdaptedTag() {}
+    public XmlAdaptedTag() {}
 
     /**
      * Converts a given Tag into this class for JAXB use.
      *
-     * @param source future changes to this will not affect the created AdaptedTag
+     * @param source future changes to this will not affect the created
      */
-    public AdaptedTag(Tag source) {
+    public XmlAdaptedTag(Tag source) {
         tagName = source.tagName;
     }
 

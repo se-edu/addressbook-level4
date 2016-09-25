@@ -15,13 +15,13 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * Serialisable immutable address book class for local storage
+ * An Immutable AddressBook that is serializable to XML format
  */
 @XmlRootElement(name = "addressbook")
-public class StorageAddressBook implements ReadOnlyAddressBook {
+public class XmlSerializableAddressBook implements ReadOnlyAddressBook {
 
     @XmlElement
-    private List<AdaptedPerson> persons;
+    private List<XmlAdaptedPerson> persons;
     @XmlElement
     private List<Tag> tags;
 
@@ -31,15 +31,15 @@ public class StorageAddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * for marshalling 
+     * Empty constructor required for marshalling
      */
-    public StorageAddressBook() {}
+    public XmlSerializableAddressBook() {}
 
     /**
      * Conversion
      */
-    public StorageAddressBook(ReadOnlyAddressBook src) {
-        persons.addAll(src.getPersonList().stream().map(AdaptedPerson::new).collect(Collectors.toList()));
+    public XmlSerializableAddressBook(ReadOnlyAddressBook src) {
+        persons.addAll(src.getPersonList().stream().map(XmlAdaptedPerson::new).collect(Collectors.toList()));
         tags = src.getTagList();
     }
 
@@ -56,7 +56,7 @@ public class StorageAddressBook implements ReadOnlyAddressBook {
     @Override
     public UniquePersonList getUniquePersonList() {
         UniquePersonList lists = new UniquePersonList();
-        for (AdaptedPerson p : persons) {
+        for (XmlAdaptedPerson p : persons) {
             try {
                 lists.add(p.toModelType());
             } catch (IllegalValueException e) {
