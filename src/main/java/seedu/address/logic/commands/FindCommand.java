@@ -23,8 +23,8 @@ public class FindCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        modelManager.updateFilteredPersonList(keywords);
-        return new CommandResult(getMessageForPersonListShownSummary(modelManager.getFilteredPersonList().size()));
+        model.updateFilteredPersonList(keywords);
+        return new CommandResult(getMessageForPersonListShownSummary(model.getFilteredPersonList().size()));
     }
 
 }

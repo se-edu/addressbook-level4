@@ -17,7 +17,7 @@ import java.util.logging.Logger;
  * Represents the in-memory model of the address book data.
  * All changes to any model should be synchronized.
  */
-public class ModelManager extends ComponentManager {
+public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final AddressBook addressBook;
@@ -48,13 +48,13 @@ public class ModelManager extends ComponentManager {
         filteredPersons = new FilteredList<>(addressBook.getPersons());
     }
 
-    /** Clears existing backing model and replaces with the provided new data. */
+    @Override
     public void resetData(ReadOnlyAddressBook newData) {
         addressBook.resetData(newData);
         indicateModelChanged();
     }
 
-    /** Returns the AddressBook */
+    @Override
     public ReadOnlyAddressBook getAddressBook() {
         return addressBook;
     }
@@ -64,13 +64,13 @@ public class ModelManager extends ComponentManager {
         raise(new ModelChangedEvent(addressBook));
     }
 
-    /** Deletes the given person. */
+    @Override
     public synchronized void deletePerson(ReadOnlyPerson target) throws PersonNotFoundException {
         addressBook.removePerson(target);
         indicateModelChanged();
     }
 
-    /** Adds the given person */
+    @Override
     public synchronized void addPerson(Person person) throws UniquePersonList.DuplicatePersonException {
         addressBook.addPerson(person);
         updateFilteredListToShowAll();
@@ -79,17 +79,17 @@ public class ModelManager extends ComponentManager {
 
     //=========== Filtered Person List Accessors ===============================================================
 
-    /** Returns the filtered person list as an {@code UnmodifiableObservableList<ReadOnlyPerson>} */
+    @Override
     public UnmodifiableObservableList<ReadOnlyPerson> getFilteredPersonList() {
         return new UnmodifiableObservableList<>(filteredPersons);
     }
 
-    /** Updates the filter of the filtered person list to show all persons */
+    @Override
     public void updateFilteredListToShowAll() {
         filteredPersons.setPredicate(null);
     }
 
-    /** Updates the filter of the filtered person list to filter by the given keywords*/
+    @Override
     public void updateFilteredPersonList(Set<String> keywords){
         updateFilteredPersonList(new PredicateExpression(new NameQualifier(keywords)));
     }

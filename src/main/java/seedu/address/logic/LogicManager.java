@@ -9,7 +9,7 @@ import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.parser.Parser;
-import seedu.address.model.ModelManager;
+import seedu.address.model.Model;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.storage.StorageManager;
 
@@ -21,12 +21,12 @@ import java.util.logging.Logger;
  */
 public class LogicManager extends ComponentManager{
     private static final Logger logger = LogsCenter.getLogger(LogicManager.class);
-    private final ModelManager modelManager;
+    private final Model model;
     private final StorageManager storageManager;
     private final Parser parser;
 
-    public LogicManager(ModelManager modelManager, StorageManager storageManager) {
-        this.modelManager = modelManager;
+    public LogicManager(Model model, StorageManager storageManager) {
+        this.model = model;
         this.storageManager = storageManager;
         this.parser = new Parser();
     }
@@ -36,7 +36,7 @@ public class LogicManager extends ComponentManager{
      */
     public CommandResult execute(String commandText) {
         Command command = parser.parseCommand(commandText);
-        command.setData(modelManager);
+        command.setData(model);
         return command.execute();
     }
 
@@ -55,6 +55,6 @@ public class LogicManager extends ComponentManager{
     }
 
     public ObservableList<ReadOnlyPerson> getFilteredPersonList() {
-        return modelManager.getFilteredPersonList();
+        return model.getFilteredPersonList();
     }
 }

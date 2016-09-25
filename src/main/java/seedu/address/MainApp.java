@@ -12,10 +12,7 @@ import seedu.address.commons.events.controller.ExitAppRequestEvent;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.LogicManager;
-import seedu.address.model.AddressBook;
-import seedu.address.model.ModelManager;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.UserPrefs;
+import seedu.address.model.*;
 import seedu.address.commons.util.ConfigUtil;
 import seedu.address.storage.StorageManager;
 import seedu.address.ui.UiManager;
@@ -37,7 +34,7 @@ public class MainApp extends Application {
     protected UiManager uiManager;
     protected LogicManager logicManager;
     protected StorageManager storageManager;
-    protected ModelManager modelManager;
+    protected Model model;
     protected Config config;
     protected UserPrefs userPrefs;
 
@@ -55,9 +52,9 @@ public class MainApp extends Application {
 
         initLogging(config);
 
-        modelManager = initModelManager(storageManager);
+        model = initModelManager(storageManager);
 
-        logicManager = new LogicManager(modelManager, storageManager);
+        logicManager = new LogicManager(model, storageManager);
 
         uiManager = new UiManager(logicManager, config, userPrefs);
 
@@ -69,7 +66,7 @@ public class MainApp extends Application {
         return applicationParameters.get(parameterName);
     }
 
-    private ModelManager initModelManager(StorageManager storageManager) {
+    private Model initModelManager(StorageManager storageManager) {
         Optional<ReadOnlyAddressBook> addressBookOptional;
         ReadOnlyAddressBook initialData;
         try {

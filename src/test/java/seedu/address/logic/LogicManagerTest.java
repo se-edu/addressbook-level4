@@ -6,13 +6,13 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
-import seedu.address.commons.core.Config;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.logic.commands.*;
 import seedu.address.commons.events.controller.JumpToListRequestEvent;
 import seedu.address.commons.events.controller.ShowHelpEvent;
 import seedu.address.commons.events.model.ModelChangedEvent;
 import seedu.address.model.AddressBook;
+import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.person.*;
@@ -37,7 +37,7 @@ public class LogicManagerTest {
     @Rule
     public TemporaryFolder saveFolder = new TemporaryFolder();
 
-    private ModelManager model;
+    private Model model;
     private LogicManager logicManager;
 
     //These are for checking the correctness of the events raised
@@ -466,18 +466,18 @@ public class LogicManagerTest {
 
         /**
          * Adds auto-generated Person objects to the given model
-         * @param modelManager The model to which the Persons will be added
+         * @param model The model to which the Persons will be added
          */
-        void addToModel(ModelManager modelManager, int numGenerated) throws Exception{
-            addToModel(modelManager, generatePersonList(numGenerated));
+        void addToModel(Model model, int numGenerated) throws Exception{
+            addToModel(model, generatePersonList(numGenerated));
         }
 
         /**
          * Adds the given list of Persons to the given model
          */
-        void addToModel(ModelManager modelManager, List<Person> personsToAdd) throws Exception{
+        void addToModel(Model model, List<Person> personsToAdd) throws Exception{
             for(Person p: personsToAdd){
-                modelManager.addPerson(p);
+                model.addPerson(p);
             }
         }
 
