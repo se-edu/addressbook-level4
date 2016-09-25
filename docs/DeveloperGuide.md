@@ -83,6 +83,8 @@ The `UI` component,
 
 <img src="images/LogicClassDiagram.png" width="800"><br>
 
+**API** : [`Logic.java`](../src/main/java/seedu/address/logic/Logic.java)
+
 1. `Logic` uses the `Parser` class to parse the user command.
 2. This results in a `Command` object which is executed by the `LogicManager`.
 3. The command execution can affect the `Model` (e.g. adding a person) and/or raise events.
@@ -92,9 +94,24 @@ The `UI` component,
 
 <img src="images/ModelClassDiagram.png" width="800"><br>
 
+**API** : [`Model.java`](../src/main/java/seedu/address/model/Model.java)
+
+The `Model`,
+* Stores a `UserPref` object that represents the user's preferences
+* Stores the Address Book data
+* Exposes a `UnmodifiableObservableList<ReadOnlyPerson` that can be 'observed' e.g. the UI can be bound to this list
+  so that the UI automatically updates when the data in the list change.
+* Does not depend on any of the other three components.
+
 ### Storage component
 
 <img src="images/StorageClassDiagram.png" width="800"><br>
+
+**API** : [`Storage.java`](../src/main/java/seedu/address/storage/Storage.java)
+
+The `Storage` component,
+* can save `UserPref` objects in json format and read it back.
+* can save the Address Book data in xml format and read it back.
 
 ### Common classes
 
