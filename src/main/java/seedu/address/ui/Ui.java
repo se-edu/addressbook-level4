@@ -4,15 +4,16 @@ import javafx.stage.Stage;
 import seedu.address.MainApp;
 
 /**
- * Created by dcsdcr on 25/9/2016.
+ * API of UI component
  */
 public interface Ui {
+
+    /** Starts the UI (and the App).  */
     void start(Stage primaryStage, MainApp mainApp);
 
+    /** Stops the UI. */
     void stop();
 
-    /**
-     * Returns the main stage.
-     */
+    /** Returns the main stage. */
     Stage getPrimaryStage();
 }
