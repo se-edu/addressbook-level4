@@ -58,7 +58,16 @@ The sections below give more details of each component.
 
 <img src="images/UiClassDiagram.png" width="800">
 
-The API of this component is given in the interface defined in [`Ui.java`](../src/main/java/seedu/address/ui/Ui.java)
+**API** : given in the [`Ui.java`](../src/main/java/seedu/address/ui/Ui.java)
+
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`,
+`StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow` inherits from the abstract `UiPart` class
+and they can be loaded using the `UiPartLoader`.
+
+The UI component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files
+ that are in the `src/main/resources/view` folder.<br>
+ For example, the layout of the [`MainWindow`](../src/main/java/seedu/address/ui/MainWindow.java) is specified in
+ [`MainWindow.fxml`](../src/main/resources/view/MainWindow.fxml)
 
 ### Logic Component
 
