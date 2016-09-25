@@ -16,7 +16,11 @@
 
 #### Prerequisites
 
-1. **JDK 8** or later
+1. **JDK `1.8.0_60`**  or later<br>
+
+    > Having any Java 8 version is not enough. <br>
+    This app will not work with earlier versions of Java 8.
+    
 2. **Eclipse** IDE
 3. **e(fx)clipse** plugin for Eclipse (Do the steps 2 onwards given in
    [this page](http://www.eclipse.org/efxclipse/install.html#for-the-ambitious))
@@ -39,19 +43,19 @@
 
 ### UI Component
 
-<img src="images/UiClassDiagram.png" width="600">
+<img src="images/UiClassDiagram.png" width="800">
 
 ### Logic Component
 
-<img src="images/LogicClassDiagram.png" width="600">
+<img src="images/LogicClassDiagram.png" width="800">
 
 ### Model Component
 
-<img src="images/ModelClassDiagram.png" width="600">
+<img src="images/ModelClassDiagram.png" width="800">
 
 ### Storage Component
 
-<img src="images/StorageClassDiagram.png" width="600">
+<img src="images/StorageClassDiagram.png" width="800">
 
 ### Commons Component
 
