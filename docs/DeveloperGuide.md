@@ -40,48 +40,63 @@
 <img src="images/Architecture.png" width="600"><br>
 The **_Architecture Diagram_** given above explains the high-level design of the App.
 Given below is a quick overview of each component.
-* [**`Main`**](#main-component) : Responsible for launching and shutting down of the App.
-* [**`UI`**](#ui-component) : The UI of tha App.
-* [**`Logic`**](#logic-component) : The command executor.
-* [**`Model`**](#model-component) : Holds the data of the App in-memory.
-* [**`Storage`**](#storage-component) : Reads data from, and writes data to, the hard disk.
-* [**`Commons`**](#commons-component) : Holds classes used by multiple other components.
-The sections below give more details of each component.
-
-### Main Component
 
 `Main` has only one class called [`MainApp`](../src/main/java/seedu/address/MainApp.java). It is responsible for,
 * At app launch: Initializes the components in the correct sequence, and connect them up with each other.
 * At shut down: Shuts down the components and invoke clean up method where necessary.
 
-### UI Component
+[**`Commons`**](#common-classes) represents a collection of classes used by multiple other components.
 
-<img src="images/UiClassDiagram.png" width="800">
+The rest of the App consists four components.
+* [**`UI`**](#ui-component) : The UI of tha App.
+* [**`Logic`**](#logic-component) : The command executor.
+* [**`Model`**](#model-component) : Holds the data of the App in-memory.
+* [**`Storage`**](#storage-component) : Reads data from, and writes data to, the hard disk.
 
-**API** : given in the [`Ui.java`](../src/main/java/seedu/address/ui/Ui.java)
+Each of the four components
+* Defines its _API_ an interface with the same name as the Component. `Logic.java`
+* Exposes its functionality using a `{Component Name}Manager` class e.g. `LogicManager.java`
+
+The sections below give more details of each component.
+
+### UI component
+
+<img src="images/UiClassDiagram.png" width="800"><br>
+
+**API** : [`Ui.java`](../src/main/java/seedu/address/ui/Ui.java)
 
 The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`,
 `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow` inherits from the abstract `UiPart` class
 and they can be loaded using the `UiPartLoader`.
 
-The UI component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files
+The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files
  that are in the `src/main/resources/view` folder.<br>
  For example, the layout of the [`MainWindow`](../src/main/java/seedu/address/ui/MainWindow.java) is specified in
  [`MainWindow.fxml`](../src/main/resources/view/MainWindow.fxml)
 
-### Logic Component
+The `UI` component,
+* Executes user commands using the `Logic` component.
+* Binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` change.
+* Responds to events raises from various parts of the App and updates the UI accordingly.
 
-<img src="images/LogicClassDiagram.png" width="800">
+### Logic component
 
-### Model Component
+<img src="images/LogicClassDiagram.png" width="800"><br>
 
-<img src="images/ModelClassDiagram.png" width="800">
+1. `Logic` uses the `Parser` class to parse the user command.
+2. This results in a `Command` object which is executed by the `LogicManager`.
+3. The command execution can affect the `Model` (e.g. adding a person) and/or raise events.
+4. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`
 
-### Storage Component
+### Model component
 
-<img src="images/StorageClassDiagram.png" width="800">
+<img src="images/ModelClassDiagram.png" width="800"><br>
 
-### Commons Component
+### Storage component
+
+<img src="images/StorageClassDiagram.png" width="800"><br>
+
+### Common classes
 
 ## Testing
 
