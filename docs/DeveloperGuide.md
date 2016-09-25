@@ -46,6 +46,10 @@ Given below is a quick overview of each component.
 * At shut down: Shuts down the components and invoke clean up method where necessary.
 
 [**`Commons`**](#common-classes) represents a collection of classes used by multiple other components.
+Two of those classes play an important role at the architecture level.
+* `EventsCentre` : This class (written using [Google's Event Bus library](https://github.com/google/guava/wiki/EventBusExplained)
+  is used to communicate between components using events (i.e. a form of _Event Driven_ design)
+* `LogsCenter` : Used by many classes to get log information to the App's log files.
 
 The rest of the App consists four components.
 * [**`UI`**](#ui-component) : The UI of tha App.
@@ -56,6 +60,18 @@ The rest of the App consists four components.
 Each of the four components
 * Defines its _API_ an interface with the same name as the Component. `Logic.java`
 * Exposes its functionality using a `{Component Name}Manager` class e.g. `LogicManager.java`
+
+The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
+command `delete 3`. Note how the `Model` simply raises a `ModelChangedEvent` when the model is changed,
+instead of asking the `Storage` to save the updates to the hard disk.
+
+<img src="images\SDforDeletePerson.png" width="800"><br>
+
+The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates
+being saved to the hard disk. As the event was propagated through the `EventsCenter`, `Model` did not need
+to be coupled to the `Storage`. This is an example of how this Event Driven approach helps us reduce coupling
+between components. <br>
+<img src="images\SDforDeletePersonEventHandling.png" width="600"><br>
 
 The sections below give more details of each component.
 
@@ -188,6 +204,7 @@ Priority | As a ... | I want to ... | So that I can...
 `* *` | user | hide [private contact details](#private-contact-detail) by default | minimize chance of someone else seeing them by accident
 `*` | user with many persons in the address book | sort persons by name | locate a person easily
 
+{More to be added}
 
 ## Appendix B : Use Cases
 
@@ -214,12 +231,16 @@ Use case ends.
 > 3a1. AddressBook shows an error message <br>
   Use case resumes at step 2
 
+{More to be added}
+
 ## Appendix C : Non Functional Requirements
 
-1. Should work on any [mainstream OS](#mainstream-os) as long as it has Java 8 or higher installed.
+1. Should work on any [mainstream OS](#mainstream-os) as long as it has Java `1.8.0_60` or higher installed.
 2. Should be able to hold up to 1000 persons.
 3. Should come with automated unit tests and open source code.
 4. Should favor DOS style commands over Unix-style commands.
+
+{More to be added}
 
 ## Appendix D : Glossary
 
