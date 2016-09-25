@@ -13,7 +13,7 @@ public class Config {
     // Config values customizable through config file
     private String appTitle = "Address App";
     private Level logLevel = Level.INFO;
-    private String prefsFilePath = "preferences.json";
+    private String userPrefsFilePath = "preferences.json";
     private String addressBookFilePath = "data/addressbook.xml";
     private String addressBookName = "MyAddressBook";
 
@@ -37,12 +37,12 @@ public class Config {
         this.logLevel = logLevel;
     }
 
-    public String getPrefsFilePath() {
-        return prefsFilePath;
+    public String getUserPrefsFilePath() {
+        return userPrefsFilePath;
     }
 
-    public void setPrefsFilePath(String prefsFilePath) {
-        this.prefsFilePath = prefsFilePath;
+    public void setUserPrefsFilePath(String userPrefsFilePath) {
+        this.userPrefsFilePath = userPrefsFilePath;
     }
 
     public String getAddressBookFilePath() {
@@ -75,14 +75,14 @@ public class Config {
 
         return Objects.equals(appTitle, o.appTitle)
                 && Objects.equals(logLevel, o.logLevel)
-                && Objects.equals(prefsFilePath, o.prefsFilePath)
+                && Objects.equals(userPrefsFilePath, o.userPrefsFilePath)
                 && Objects.equals(addressBookFilePath, o.addressBookFilePath)
                 && Objects.equals(addressBookName, o.addressBookName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(appTitle, logLevel, prefsFilePath, addressBookFilePath, addressBookName);
+        return Objects.hash(appTitle, logLevel, userPrefsFilePath, addressBookFilePath, addressBookName);
     }
 
     @Override
@@ -90,7 +90,7 @@ public class Config {
         StringBuilder sb = new StringBuilder();
         sb.append("App title : " + appTitle);
         sb.append("\nCurrent log level : " + logLevel);
-        sb.append("\nPreference file Location : " + prefsFilePath);
+        sb.append("\nPreference file Location : " + userPrefsFilePath);
         sb.append("\nLocal data file location : " + addressBookFilePath);
         sb.append("\nAddressBook name : " + addressBookName);
         return sb.toString();

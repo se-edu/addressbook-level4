@@ -49,7 +49,7 @@ public class MainApp extends Application {
         super.init();
 
         config = initConfig(getApplicationParameter("config"));
-        storageManager = new StorageManager(config.getAddressBookFilePath(), config.getPrefsFilePath());
+        storageManager = new StorageManager(config.getAddressBookFilePath(), config.getUserPrefsFilePath());
 
         userPrefs = initPrefs(config);
 
@@ -127,7 +127,7 @@ public class MainApp extends Application {
     protected UserPrefs initPrefs(Config config) {
         assert config != null;
 
-        String prefsFilePath = config.getPrefsFilePath();
+        String prefsFilePath = config.getUserPrefsFilePath();
         logger.info("Using prefs file : " + prefsFilePath);
 
         UserPrefs initializedPrefs;
