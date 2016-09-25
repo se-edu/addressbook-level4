@@ -62,16 +62,20 @@ Each of the four components
 * Exposes its functionality using a `{Component Name}Manager` class e.g. `LogicManager.java`
 
 The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
-command `delete 3`. Note how the `Model` simply raises a `ModelChangedEvent` when the model is changed,
-instead of asking the `Storage` to save the updates to the hard disk.
+command `delete 3`.
 
-<img src="images\SDforDeletePerson.png" width="800"><br>
+<img src="images\SDforDeletePerson.png" width="800">
+
+>Note how the `Model` simply raises a `ModelChangedEvent` when the model is changed,
+ instead of asking the `Storage` to save the updates to the hard disk.
 
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates
-being saved to the hard disk. As the event was propagated through the `EventsCenter`, `Model` did not need
-to be coupled to the `Storage`. This is an example of how this Event Driven approach helps us reduce coupling
-between components. <br>
-<img src="images\SDforDeletePersonEventHandling.png" width="600"><br>
+being saved to the hard disk. <br>
+<img src="images\SDforDeletePersonEventHandling.png" width="600">
+
+> Note how the event is propagated through the `EventsCenter` to the `Storage` without `Model` having
+  to be coupled to the `Storage`. This is an example of how this Event Driven approach helps us reduce coupling
+  between components.
 
 The sections below give more details of each component.
 
