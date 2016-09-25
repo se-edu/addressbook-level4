@@ -9,7 +9,7 @@
 * [Appendix A: User Stories](#appendix-a--user-stories)
 * [Appendix B: Use Cases](#appendix-b--use-cases)
 * [Appendix C: Non Functional Requirements](#appendix-c--non-functional-requirements)
-* [Appendix D: Gloassary](#appendix-d--glossary)
+* [Appendix D: Glossary](#appendix-d--glossary)
 
 
 ## Setting up
@@ -33,13 +33,27 @@
 
 ## Design
 
-Architecture overview
+<img src="images/Architecture.png" width="600">
 
-UI
+### Main
 
-Logic
+### UI Component
 
-etc.
+<img src="images/UiClassDiagram.png" width="600">
+
+### Logic Component
+
+<img src="images/LogicClassDiagram.png" width="600">
+
+### Model Component
+
+<img src="images/ModelClassDiagram.png" width="600">
+
+### Storage Component
+
+<img src="images/StorageClassDiagram.png" width="600">
+
+### Commons Component
 
 ## Testing
 
