@@ -1,4 +1,4 @@
-package seedu.address.model;
+package seedu.address.commons.core;
 
 import javafx.beans.InvalidationListener;
 import javafx.collections.ListChangeListener;

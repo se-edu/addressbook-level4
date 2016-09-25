@@ -1,5 +1,6 @@
 package seedu.address.model;
 
+import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.UniquePersonList;
