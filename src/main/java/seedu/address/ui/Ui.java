@@ -9,7 +9,7 @@ import seedu.address.MainApp;
 public interface Ui {
 
     /** Starts the UI (and the App).  */
-    void start(Stage primaryStage, MainApp mainApp);
+    void start(Stage primaryStage);
 
     /** Stops the UI. */
     void stop();
