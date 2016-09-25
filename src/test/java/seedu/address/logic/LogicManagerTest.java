@@ -38,7 +38,7 @@ public class LogicManagerTest {
     public TemporaryFolder saveFolder = new TemporaryFolder();
 
     private Model model;
-    private LogicManager logicManager;
+    private Logic logic;
 
     //These are for checking the correctness of the events raised
     private ReadOnlyAddressBook latestSavedAddressBook;
@@ -65,7 +65,7 @@ public class LogicManagerTest {
         model = new ModelManager();
         String tempAddressBookFile = saveFolder.getRoot().getPath() + "TempAddressBook.xml";
         String tempPreferencesFile = saveFolder.getRoot().getPath() + "TempPreferences.json";
-        logicManager = new LogicManager(model, new StorageManager(tempAddressBookFile, tempPreferencesFile));
+        logic = new LogicManager(model, new StorageManager(tempAddressBookFile, tempPreferencesFile));
         EventsCenter.getInstance().registerHandler(this);
 
         latestSavedAddressBook = new AddressBook(model.getAddressBook()); // last saved assumed to be up to date before.
@@ -106,7 +106,7 @@ public class LogicManagerTest {
                                        List<? extends ReadOnlyPerson> expectedShownList) throws Exception {
 
         //Execute the command
-        CommandResult result = logicManager.execute(inputCommand);
+        CommandResult result = logic.execute(inputCommand);
 
         //Confirm the ui display elements should contain the right data
         assertEquals(expectedMessage, result.feedbackToUser);

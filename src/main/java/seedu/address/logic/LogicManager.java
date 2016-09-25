@@ -19,7 +19,7 @@ import java.util.logging.Logger;
 /**
  * The main LogicManager of the app.
  */
-public class LogicManager extends ComponentManager{
+public class LogicManager extends ComponentManager implements Logic {
     private static final Logger logger = LogsCenter.getLogger(LogicManager.class);
     private final Model model;
     private final StorageManager storageManager;
@@ -31,9 +31,7 @@ public class LogicManager extends ComponentManager{
         this.parser = new Parser();
     }
 
-    /**
-     * Executes the command and returns the result.
-     */
+    @Override
     public CommandResult execute(String commandText) {
         Command command = parser.parseCommand(commandText);
         command.setData(model);
@@ -54,6 +52,7 @@ public class LogicManager extends ComponentManager{
         }
     }
 
+    @Override
     public ObservableList<ReadOnlyPerson> getFilteredPersonList() {
         return model.getFilteredPersonList();
     }

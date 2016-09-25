@@ -9,7 +9,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.address.commons.events.controller.ExitAppRequestEvent;
-import seedu.address.logic.LogicManager;
+import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.commons.core.Config;
@@ -29,7 +29,7 @@ public class MainWindow extends UiPart {
     public static final int MIN_HEIGHT = 600;
     public static final int MIN_WIDTH = 450;
 
-    private LogicManager logicManager;
+    private Logic logic;
 
     // Independent Ui parts residing in this Ui container
     private BrowserPanel browserPanel;
@@ -79,18 +79,18 @@ public class MainWindow extends UiPart {
         return FXML;
     }
 
-    public static MainWindow load(Stage primaryStage, Config config, UserPrefs prefs, LogicManager logicManager) {
+    public static MainWindow load(Stage primaryStage, Config config, UserPrefs prefs, Logic logic) {
 
         MainWindow mainWindow = UiPartLoader.loadUiPart(primaryStage, new MainWindow());
-        mainWindow.configure(config.getAppTitle(), config.getAddressBookName(), config, prefs, logicManager);
+        mainWindow.configure(config.getAppTitle(), config.getAddressBookName(), config, prefs, logic);
         return mainWindow;
     }
 
     private void configure(String appTitle, String addressBookName, Config config, UserPrefs prefs,
-                           LogicManager logicManager) {
+                           Logic logic) {
 
         //Set dependencies
-        this.logicManager = logicManager;
+        this.logic = logic;
         this.addressBookName = addressBookName;
         this.config = config;
         this.userPrefs = prefs;
@@ -112,10 +112,10 @@ public class MainWindow extends UiPart {
 
     void fillInnerParts() {
         browserPanel = BrowserPanel.load(browserPlaceholder);
-        personListPanel = PersonListPanel.load(primaryStage, getPersonListPlaceholder(), logicManager.getFilteredPersonList());
+        personListPanel = PersonListPanel.load(primaryStage, getPersonListPlaceholder(), logic.getFilteredPersonList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getAddressBookFilePath());
-        commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logicManager);
+        commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
     }
 
     private AnchorPane getCommandBoxPlaceholder() {

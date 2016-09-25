@@ -16,7 +16,7 @@ import seedu.address.commons.events.controller.ShowHelpEvent;
 import seedu.address.commons.events.storage.DataReadingExceptionEvent;
 import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.commons.util.StringUtil;
-import seedu.address.logic.LogicManager;
+import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
 
 import java.util.logging.Logger;
@@ -28,14 +28,14 @@ public class UiManager extends ComponentManager{
     private static final Logger logger = LogsCenter.getLogger(UiManager.class);
     private static final String ICON_APPLICATION = "/images/address_book_32.png";
 
-    private LogicManager logicManager;
+    private Logic logic;
     private Config config;
     private UserPrefs prefs;
     private MainWindow mainWindow;
 
-    public UiManager(LogicManager logicManager, Config config, UserPrefs prefs) {
+    public UiManager(Logic logic, Config config, UserPrefs prefs) {
         super();
-        this.logicManager = logicManager;
+        this.logic = logic;
         this.config = config;
         this.prefs = prefs;
     }
@@ -48,7 +48,7 @@ public class UiManager extends ComponentManager{
         primaryStage.getIcons().add(getImage(ICON_APPLICATION));
 
         try {
-            mainWindow = MainWindow.load(primaryStage, config, prefs, logicManager);
+            mainWindow = MainWindow.load(primaryStage, config, prefs, logic);
             mainWindow.show(); //This should be called before creating other UI parts
             mainWindow.fillInnerParts();
 

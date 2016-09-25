@@ -11,6 +11,7 @@ import seedu.address.commons.core.Version;
 import seedu.address.commons.events.controller.ExitAppRequestEvent;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.util.StringUtil;
+import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
 import seedu.address.model.*;
 import seedu.address.commons.util.ConfigUtil;
@@ -32,7 +33,7 @@ public class MainApp extends Application {
     public static final Version VERSION = new Version(1, 0, 0, true);
 
     protected UiManager uiManager;
-    protected LogicManager logicManager;
+    protected Logic logic;
     protected StorageManager storageManager;
     protected Model model;
     protected Config config;
@@ -54,9 +55,9 @@ public class MainApp extends Application {
 
         model = initModelManager(storageManager);
 
-        logicManager = new LogicManager(model, storageManager);
+        logic = new LogicManager(model, storageManager);
 
-        uiManager = new UiManager(logicManager, config, userPrefs);
+        uiManager = new UiManager(logic, config, userPrefs);
 
         EventsCenter.getInstance().registerHandler(this);
     }
