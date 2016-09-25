@@ -37,13 +37,28 @@
 
 ## Design
 
-<img src="images/Architecture.png" width="600">
+<img src="images/Architecture.png" width="600"><br>
+The **_Architecture Diagram_** given above explains the high-level design of the App.
+Given below is a quick overview of each component.
+* [**`Main`**](#main-component) : Responsible for launching and shutting down of the App.
+* [**`UI`**](#ui-component) : The UI of tha App.
+* [**`Logic`**](#logic-component) : The command executor.
+* [**`Model`**](#model-component) : Holds the data of the App in-memory.
+* [**`Storage`**](#storage-component) : Reads data from, and writes data to, the hard disk.
+* [**`Commons`**](#commons-component) : Holds classes used by multiple other components.
+The sections below give more details of each component.
 
-### Main
+### Main Component
+
+`Main` has only one class called [`MainApp`](../src/main/java/seedu/address/MainApp.java). It is responsible for,
+* At app launch: Initializes the components in the correct sequence, and connect them up with each other.
+* At shut down: Shuts down the components and invoke clean up method where necessary.
 
 ### UI Component
 
 <img src="images/UiClassDiagram.png" width="800">
+
+The API of this component is given in the interface defined in [`Ui.java`](../src/main/java/seedu/address/ui/Ui.java)
 
 ### Logic Component
 
