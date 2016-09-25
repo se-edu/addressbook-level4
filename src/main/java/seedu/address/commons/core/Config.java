@@ -1,6 +1,5 @@
 package seedu.address.commons.core;
 
-import java.io.File;
 import java.util.Objects;
 import java.util.logging.Level;
 
@@ -8,19 +7,16 @@ import java.util.logging.Level;
  * Config values used by the app
  */
 public class Config {
-    // Default values
-    private static final Level DEFAULT_LOGGING_LEVEL = Level.INFO;
-    private static final String DEFAULT_LOCAL_DATA_FILE_PATH = "data/addressbook.xml";
-    private static final String DEFAULT_ADDRESS_BOOK_NAME = "MyAddressBook";
+
+    
     public static final String DEFAULT_CONFIG_FILE = "config.json";
 
-    // Config values
+    // Config values customizable through config file
     private String appTitle = "Address App";
-    // Customizable through config file
-    private Level currentLogLevel = DEFAULT_LOGGING_LEVEL;
-    private String prefsFileLocation = "preferences.json"; //Default user preferences file
-    private String localDataFilePath = DEFAULT_LOCAL_DATA_FILE_PATH;
-    private String addressBookName = DEFAULT_ADDRESS_BOOK_NAME;
+    private Level logLevel = Level.INFO;
+    private String prefsFileLocation = "preferences.json";
+    private String addressBookFileLocation = "data/addressbook.xml";
+    private String addressBookName = "MyAddressBook";
 
 
     public Config() {
@@ -34,12 +30,12 @@ public class Config {
         this.appTitle = appTitle;
     }
 
-    public Level getCurrentLogLevel() {
-        return currentLogLevel;
+    public Level getLogLevel() {
+        return logLevel;
     }
 
-    public void setCurrentLogLevel(Level currentLogLevel) {
-        this.currentLogLevel = currentLogLevel;
+    public void setLogLevel(Level logLevel) {
+        this.logLevel = logLevel;
     }
 
     public String getPrefsFileLocation() {
@@ -50,12 +46,12 @@ public class Config {
         this.prefsFileLocation = prefsFileLocation;
     }
 
-    public String getLocalDataFilePath() {
-        return localDataFilePath;
+    public String getAddressBookFileLocation() {
+        return addressBookFileLocation;
     }
 
-    public void setLocalDataFilePath(String localDataFilePath) {
-        this.localDataFilePath = localDataFilePath;
+    public void setAddressBookFileLocation(String addressBookFileLocation) {
+        this.addressBookFileLocation = addressBookFileLocation;
     }
 
     public String getAddressBookName() {
@@ -79,24 +75,24 @@ public class Config {
         Config o = (Config)other;
 
         return Objects.equals(appTitle, o.appTitle)
-                && Objects.equals(currentLogLevel, o.currentLogLevel)
+                && Objects.equals(logLevel, o.logLevel)
                 && Objects.equals(prefsFileLocation, o.prefsFileLocation)
-                && Objects.equals(localDataFilePath, o.localDataFilePath)
+                && Objects.equals(addressBookFileLocation, o.addressBookFileLocation)
                 && Objects.equals(addressBookName, o.addressBookName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(appTitle, currentLogLevel, prefsFileLocation, localDataFilePath, addressBookName);
+        return Objects.hash(appTitle, logLevel, prefsFileLocation, addressBookFileLocation, addressBookName);
     }
 
     @Override
     public String toString(){
         StringBuilder sb = new StringBuilder();
         sb.append("App title : " + appTitle);
-        sb.append("\nCurrent log level : " + currentLogLevel);
+        sb.append("\nCurrent log level : " + logLevel);
         sb.append("\nPreference file Location : " + prefsFileLocation);
-        sb.append("\nLocal data file location : " + localDataFilePath);
+        sb.append("\nLocal data file location : " + addressBookFileLocation);
         sb.append("\nAddressBook name : " + addressBookName);
         return sb.toString();
     }

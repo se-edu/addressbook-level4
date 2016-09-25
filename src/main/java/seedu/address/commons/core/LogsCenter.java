@@ -14,7 +14,7 @@ public class LogsCenter {
     private static ConsoleHandler consoleHandler;
 
     public static void init(Config config) {
-        currentLogLevel = config.getCurrentLogLevel();
+        currentLogLevel = config.getLogLevel();
         logger.info("currentLogLevel: " + currentLogLevel);
     }
 
