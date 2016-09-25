@@ -9,9 +9,9 @@ import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.parser.Parser;
-import seedu.address.model.ModelManager;
+import seedu.address.model.Model;
 import seedu.address.model.person.ReadOnlyPerson;
-import seedu.address.storage.StorageManager;
+import seedu.address.storage.Storage;
 
 import java.io.IOException;
 import java.util.logging.Logger;
@@ -19,24 +19,22 @@ import java.util.logging.Logger;
 /**
  * The main LogicManager of the app.
  */
-public class LogicManager extends ComponentManager{
+public class LogicManager extends ComponentManager implements Logic {
     private static final Logger logger = LogsCenter.getLogger(LogicManager.class);
-    private final ModelManager modelManager;
-    private final StorageManager storageManager;
+    private final Model model;
+    private final Storage storage;
     private final Parser parser;
 
-    public LogicManager(ModelManager modelManager, StorageManager storageManager) {
-        this.modelManager = modelManager;
-        this.storageManager = storageManager;
+    public LogicManager(Model model, Storage storage) {
+        this.model = model;
+        this.storage = storage;
         this.parser = new Parser();
     }
 
-    /**
-     * Executes the command and returns the result.
-     */
+    @Override
     public CommandResult execute(String commandText) {
         Command command = parser.parseCommand(commandText);
-        command.setData(modelManager);
+        command.setData(model);
         return command.execute();
     }
 
@@ -48,13 +46,14 @@ public class LogicManager extends ComponentManager{
     public void handleModelChangedEvent(ModelChangedEvent mce) {
         logger.info("Local data changed, saving to primary data file");
         try {
-            storageManager.saveAddressBook(mce.data);
+            storage.saveAddressBook(mce.data);
         } catch (IOException e) {
             raise(new DataSavingExceptionEvent(e));
         }
     }
 
+    @Override
     public ObservableList<ReadOnlyPerson> getFilteredPersonList() {
-        return modelManager.getFilteredPersonList();
+        return model.getFilteredPersonList();
     }
 }

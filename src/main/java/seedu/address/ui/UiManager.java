@@ -2,7 +2,6 @@ package seedu.address.ui;
 
 import com.google.common.eventbus.Subscribe;
 import javafx.application.Platform;
-import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
@@ -11,47 +10,38 @@ import seedu.address.MainApp;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.events.storage.DataSavingExceptionEvent;
-import seedu.address.commons.util.StringUtil;
 import seedu.address.commons.events.controller.JumpToListRequestEvent;
 import seedu.address.commons.events.controller.PersonPanelSelectionChangedEvent;
 import seedu.address.commons.events.controller.ShowHelpEvent;
 import seedu.address.commons.events.storage.DataReadingExceptionEvent;
-import seedu.address.logic.LogicManager;
-import seedu.address.model.ModelManager;
+import seedu.address.commons.events.storage.DataSavingExceptionEvent;
+import seedu.address.commons.util.StringUtil;
+import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.person.ReadOnlyPerson;
 
-import java.io.File;
 import java.util.logging.Logger;
 
 /**
- * The controller that creates the other controllers
+ * The manager of the UI component.
  */
-public class UiManager extends ComponentManager{
+public class UiManager extends ComponentManager implements Ui {
     private static final Logger logger = LogsCenter.getLogger(UiManager.class);
     private static final String ICON_APPLICATION = "/images/address_book_32.png";
 
-    private LogicManager logicManager;
-
-
+    private Logic logic;
     private Config config;
     private UserPrefs prefs;
-
-    /** Main Window of the app */
     private MainWindow mainWindow;
 
-    /**
-     * Constructor for uiManager
-     */
-    public UiManager(LogicManager logicManager, Config config, UserPrefs prefs) {
+    public UiManager(Logic logic, Config config, UserPrefs prefs) {
         super();
-        this.logicManager = logicManager;
+        this.logic = logic;
         this.config = config;
         this.prefs = prefs;
     }
 
-    public void start(Stage primaryStage, MainApp mainApp) {
+    @Override
+    public void start(Stage primaryStage) {
         logger.info("Starting UI...");
         primaryStage.setTitle(config.getAppTitle());
 
@@ -59,7 +49,7 @@ public class UiManager extends ComponentManager{
         primaryStage.getIcons().add(getImage(ICON_APPLICATION));
 
         try {
-            mainWindow = MainWindow.load(primaryStage, config, prefs, logicManager);
+            mainWindow = MainWindow.load(primaryStage, config, prefs, logic);
             mainWindow.show(); //This should be called before creating other UI parts
             mainWindow.fillInnerParts();
 
@@ -69,15 +59,14 @@ public class UiManager extends ComponentManager{
         }
     }
 
+    @Override
     public void stop() {
         prefs.updateLastUsedGuiSetting(mainWindow.getCurrentGuiSetting());
         mainWindow.hide();
         mainWindow.releaseResources();
     }
 
-    /**
-     * Returns the main stage.
-     */
+    @Override
     public Stage getPrimaryStage() {
         return mainWindow.primaryStage;
     }
@@ -107,16 +96,11 @@ public class UiManager extends ComponentManager{
         alert.showAndWait();
     }
 
-
     private void showFatalErrorDialogAndShutdown(String title, Throwable e) {
         logger.severe(title + " " + e.getMessage() + StringUtil.getDetails(e));
         showAlertDialogAndWait(Alert.AlertType.ERROR, title, e.getMessage(), e.toString());
         Platform.exit();
         System.exit(1);
-    }
-
-    public ObservableList<ReadOnlyPerson> getDisplayedPersonsView() {
-        return this.mainWindow.getPersonListPanel().getDisplayedPersonsView();
     }
 
     //==================== Event Handling Code =================================================================

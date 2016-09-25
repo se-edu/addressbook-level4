@@ -13,7 +13,7 @@ import seedu.address.testutil.TypicalTestPersons;
 import static org.junit.Assert.assertEquals;
 
 public class StorageManagerTest {
-    private StorageManager storageManager;
+    private Storage storage;
 
     @Rule
     public TemporaryFolder testFolder = new TemporaryFolder();
@@ -21,7 +21,7 @@ public class StorageManagerTest {
 
     @Before
     public void setup() {
-        storageManager = new StorageManager(getTempFilePath("ab"), getTempFilePath("prefs"));
+        storage = new StorageManager(getTempFilePath("ab"), getTempFilePath("prefs"));
     }
 
 
@@ -33,8 +33,8 @@ public class StorageManagerTest {
     public void prefsReadSave() throws Exception {
         UserPrefs original = new UserPrefs();
         original.setGuiSettings(300, 600, 4, 6);
-        storageManager.saveUserPrefs(original);
-        UserPrefs retrieved = storageManager.readUserPrefs().get();
+        storage.saveUserPrefs(original);
+        UserPrefs retrieved = storage.readUserPrefs().get();
         assertEquals(original, retrieved);
         //More extensive testing of UserPref saving/reading is done in JsonUserPrefStorageTest
     }
@@ -42,8 +42,8 @@ public class StorageManagerTest {
     @Test
     public void addressBookReadSave() throws Exception {
         AddressBook original = new TypicalTestPersons().getTypicalAddressBook();
-        storageManager.saveAddressBook(original);
-        ReadOnlyAddressBook retrieved = storageManager.readAddressBook().get();
+        storage.saveAddressBook(original);
+        ReadOnlyAddressBook retrieved = storage.readAddressBook().get();
         assertEquals(original, new AddressBook(retrieved));
         //More extensive testing of AddressBook saving/reading is done in XmlAddressBookStorageTest
     }

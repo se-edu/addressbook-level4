@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.commons.events.model.ModelChangedEvent;
 import seedu.address.commons.core.ComponentManager;
@@ -17,44 +18,46 @@ import java.util.logging.Logger;
  * Represents the in-memory model of the address book data.
  * All changes to any model should be synchronized.
  */
-public class ModelManager extends ComponentManager {
+public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final AddressBook addressBook;
     private final FilteredList<Person> filteredPersons;
+    private UserPrefs userPrefs;
 
     /**
      * Initializes a ModelManager with the given AddressBook
      * AddressBook and its variables should not be null
      */
-    public ModelManager(AddressBook src) {
+    public ModelManager(AddressBook src, UserPrefs userPrefs) {
         super();
-        if (src == null) {
-            logger.severe("Attempted to initialize with a null AddressBook");
-            assert false;
-        }
-        logger.fine("Initializing with address book: " + src);
+        assert src != null;
+        assert userPrefs != null;
+
+        logger.fine("Initializing with address book: " + src + " and user prefs " + userPrefs);
 
         addressBook = new AddressBook(src);
         filteredPersons = new FilteredList<>(addressBook.getPersons());
+        this.userPrefs = userPrefs;
     }
 
     public ModelManager() {
-        this(new AddressBook());
+        this(new AddressBook(), new UserPrefs());
     }
 
-    public ModelManager(ReadOnlyAddressBook initialData) {
+    public ModelManager(ReadOnlyAddressBook initialData, UserPrefs userPrefs) {
         addressBook = new AddressBook(initialData);
         filteredPersons = new FilteredList<>(addressBook.getPersons());
+        this.userPrefs = userPrefs;
     }
 
-    /** Clears existing backing model and replaces with the provided new data. */
+    @Override
     public void resetData(ReadOnlyAddressBook newData) {
         addressBook.resetData(newData);
         indicateModelChanged();
     }
 
-    /** Returns the AddressBook */
+    @Override
     public ReadOnlyAddressBook getAddressBook() {
         return addressBook;
     }
@@ -64,32 +67,37 @@ public class ModelManager extends ComponentManager {
         raise(new ModelChangedEvent(addressBook));
     }
 
-    /** Deletes the given person. */
+    @Override
     public synchronized void deletePerson(ReadOnlyPerson target) throws PersonNotFoundException {
         addressBook.removePerson(target);
         indicateModelChanged();
     }
 
-    /** Adds the given person */
+    @Override
     public synchronized void addPerson(Person person) throws UniquePersonList.DuplicatePersonException {
         addressBook.addPerson(person);
         updateFilteredListToShowAll();
         indicateModelChanged();
     }
 
+    @Override
+    public void updateUserPrefs(UserPrefs userPrefs) {
+        this.userPrefs = userPrefs;
+    }
+
     //=========== Filtered Person List Accessors ===============================================================
 
-    /** Returns the filtered person list as an {@code UnmodifiableObservableList<ReadOnlyPerson>} */
+    @Override
     public UnmodifiableObservableList<ReadOnlyPerson> getFilteredPersonList() {
         return new UnmodifiableObservableList<>(filteredPersons);
     }
 
-    /** Updates the filter of the filtered person list to show all persons */
+    @Override
     public void updateFilteredListToShowAll() {
         filteredPersons.setPredicate(null);
     }
 
-    /** Updates the filter of the filtered person list to filter by the given keywords*/
+    @Override
     public void updateFilteredPersonList(Set<String> keywords){
         updateFilteredPersonList(new PredicateExpression(new NameQualifier(keywords)));
     }

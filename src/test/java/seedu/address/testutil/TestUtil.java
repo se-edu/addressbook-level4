@@ -22,7 +22,7 @@ import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.AddressBook;
 import seedu.address.model.person.*;
-import seedu.address.storage.StorageAddressBook;
+import seedu.address.storage.XmlSerializableAddressBook;
 
 import java.io.File;
 import java.io.IOException;
@@ -134,8 +134,8 @@ public class TestUtil {
         return new AddressBook(new UniquePersonList(), new UniqueTagList());
     }
 
-    public static StorageAddressBook generateSampleStorageAddressBook() {
-        return new StorageAddressBook(generateEmptyAddressBook());
+    public static XmlSerializableAddressBook generateSampleStorageAddressBook() {
+        return new XmlSerializableAddressBook(generateEmptyAddressBook());
     }
 
     /**

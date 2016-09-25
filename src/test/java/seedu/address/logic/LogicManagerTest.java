@@ -6,13 +6,13 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
-import seedu.address.commons.core.Config;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.logic.commands.*;
 import seedu.address.commons.events.controller.JumpToListRequestEvent;
 import seedu.address.commons.events.controller.ShowHelpEvent;
 import seedu.address.commons.events.model.ModelChangedEvent;
 import seedu.address.model.AddressBook;
+import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.person.*;
@@ -37,8 +37,8 @@ public class LogicManagerTest {
     @Rule
     public TemporaryFolder saveFolder = new TemporaryFolder();
 
-    private ModelManager model;
-    private LogicManager logicManager;
+    private Model model;
+    private Logic logic;
 
     //These are for checking the correctness of the events raised
     private ReadOnlyAddressBook latestSavedAddressBook;
@@ -65,7 +65,7 @@ public class LogicManagerTest {
         model = new ModelManager();
         String tempAddressBookFile = saveFolder.getRoot().getPath() + "TempAddressBook.xml";
         String tempPreferencesFile = saveFolder.getRoot().getPath() + "TempPreferences.json";
-        logicManager = new LogicManager(model, new StorageManager(tempAddressBookFile, tempPreferencesFile));
+        logic = new LogicManager(model, new StorageManager(tempAddressBookFile, tempPreferencesFile));
         EventsCenter.getInstance().registerHandler(this);
 
         latestSavedAddressBook = new AddressBook(model.getAddressBook()); // last saved assumed to be up to date before.
@@ -106,7 +106,7 @@ public class LogicManagerTest {
                                        List<? extends ReadOnlyPerson> expectedShownList) throws Exception {
 
         //Execute the command
-        CommandResult result = logicManager.execute(inputCommand);
+        CommandResult result = logic.execute(inputCommand);
 
         //Confirm the ui display elements should contain the right data
         assertEquals(expectedMessage, result.feedbackToUser);
@@ -466,18 +466,18 @@ public class LogicManagerTest {
 
         /**
          * Adds auto-generated Person objects to the given model
-         * @param modelManager The model to which the Persons will be added
+         * @param model The model to which the Persons will be added
          */
-        void addToModel(ModelManager modelManager, int numGenerated) throws Exception{
-            addToModel(modelManager, generatePersonList(numGenerated));
+        void addToModel(Model model, int numGenerated) throws Exception{
+            addToModel(model, generatePersonList(numGenerated));
         }
 
         /**
          * Adds the given list of Persons to the given model
          */
-        void addToModel(ModelManager modelManager, List<Person> personsToAdd) throws Exception{
+        void addToModel(Model model, List<Person> personsToAdd) throws Exception{
             for(Person p: personsToAdd){
-                modelManager.addPerson(p);
+                model.addPerson(p);
             }
         }
 

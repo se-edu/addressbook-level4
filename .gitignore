@@ -12,3 +12,4 @@ preferences.json
 .DS_Store
 ./screenshot*.png
 classes/
+data/

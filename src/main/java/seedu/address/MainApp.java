@@ -11,13 +11,13 @@ import seedu.address.commons.core.Version;
 import seedu.address.commons.events.controller.ExitAppRequestEvent;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.util.StringUtil;
+import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
-import seedu.address.model.AddressBook;
-import seedu.address.model.ModelManager;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.UserPrefs;
+import seedu.address.model.*;
 import seedu.address.commons.util.ConfigUtil;
+import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
+import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
 
 import java.io.FileNotFoundException;
@@ -34,10 +34,10 @@ public class MainApp extends Application {
 
     public static final Version VERSION = new Version(1, 0, 0, true);
 
-    protected UiManager uiManager;
-    protected LogicManager logicManager;
-    protected StorageManager storageManager;
-    protected ModelManager modelManager;
+    protected Ui ui;
+    protected Logic logic;
+    protected Storage storage;
+    protected Model model;
     protected Config config;
     protected UserPrefs userPrefs;
 
@@ -49,17 +49,17 @@ public class MainApp extends Application {
         super.init();
 
         config = initConfig(getApplicationParameter("config"));
-        storageManager = new StorageManager(config.getLocalDataFilePath(), config.getPrefsFileLocation());
+        storage = new StorageManager(config.getAddressBookFilePath(), config.getUserPrefsFilePath());
 
         userPrefs = initPrefs(config);
 
         initLogging(config);
 
-        modelManager = initModelManager(storageManager);
+        model = initModelManager(storage, userPrefs);
 
-        logicManager = new LogicManager(modelManager, storageManager);
+        logic = new LogicManager(model, storage);
 
-        uiManager = new UiManager(logicManager, config, userPrefs);
+        ui = new UiManager(logic, config, userPrefs);
 
         EventsCenter.getInstance().registerHandler(this);
     }
@@ -69,11 +69,11 @@ public class MainApp extends Application {
         return applicationParameters.get(parameterName);
     }
 
-    private ModelManager initModelManager(StorageManager storageManager) {
+    private Model initModelManager(Storage storage, UserPrefs userPrefs) {
         Optional<ReadOnlyAddressBook> addressBookOptional;
         ReadOnlyAddressBook initialData;
         try {
-            addressBookOptional = storageManager.readAddressBook();
+            addressBookOptional = storage.readAddressBook();
             if(!addressBookOptional.isPresent()){
                 logger.info("Data file not found. Will be starting with an empty AddressBook");
             }
@@ -86,7 +86,7 @@ public class MainApp extends Application {
             initialData = new AddressBook();
         }
 
-        return new ModelManager(initialData);
+        return new ModelManager(initialData, userPrefs);
     }
 
     private void initLogging(Config config) {
@@ -127,12 +127,12 @@ public class MainApp extends Application {
     protected UserPrefs initPrefs(Config config) {
         assert config != null;
 
-        String prefsFilePath = config.getPrefsFileLocation();
+        String prefsFilePath = config.getUserPrefsFilePath();
         logger.info("Using prefs file : " + prefsFilePath);
 
         UserPrefs initializedPrefs;
         try {
-            Optional<UserPrefs> prefsOptional = storageManager.readUserPrefs();
+            Optional<UserPrefs> prefsOptional = storage.readUserPrefs();
             initializedPrefs = prefsOptional.orElse(new UserPrefs());
         } catch (DataConversionException e) {
             logger.warning("UserPrefs file at " + prefsFilePath + " is not in the correct format. " +
@@ -145,7 +145,7 @@ public class MainApp extends Application {
 
         //Update prefs file in case it was missing to begin with or there are new/unused fields
         try {
-            storageManager.saveUserPrefs(initializedPrefs);
+            storage.saveUserPrefs(initializedPrefs);
         } catch (IOException e) {
             logger.warning("Failed to save config file : " + StringUtil.getDetails(e));
         }
@@ -157,15 +157,15 @@ public class MainApp extends Application {
     @Override
     public void start(Stage primaryStage) {
         logger.info("Starting application: " + MainApp.VERSION);
-        uiManager.start(primaryStage, this);
+        ui.start(primaryStage);
     }
 
     @Override
     public void stop() {
         logger.info("Stopping application.");
-        uiManager.stop();
+        ui.stop();
         try {
-            storageManager.saveUserPrefs(userPrefs);
+            storage.saveUserPrefs(userPrefs);
         } catch (IOException e) {
             logger.severe("Failed to save preferences " + StringUtil.getDetails(e));
         }

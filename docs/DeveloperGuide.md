@@ -9,14 +9,18 @@
 * [Appendix A: User Stories](#appendix-a--user-stories)
 * [Appendix B: Use Cases](#appendix-b--use-cases)
 * [Appendix C: Non Functional Requirements](#appendix-c--non-functional-requirements)
-* [Appendix D: Gloassary](#appendix-d--glossary)
+* [Appendix D: Glossary](#appendix-d--glossary)
 
 
 ## Setting up
 
 #### Prerequisites
 
-1. **JDK 8** or later
+1. **JDK `1.8.0_60`**  or later<br>
+
+    > Having any Java 8 version is not enough. <br>
+    This app will not work with earlier versions of Java 8.
+    
 2. **Eclipse** IDE
 3. **e(fx)clipse** plugin for Eclipse (Do the steps 2 onwards given in
    [this page](http://www.eclipse.org/efxclipse/install.html#for-the-ambitious))
@@ -33,13 +37,27 @@
 
 ## Design
 
-Architecture overview
+<img src="images/Architecture.png" width="600">
 
-UI
+### Main
 
-Logic
+### UI Component
 
-etc.
+<img src="images/UiClassDiagram.png" width="800">
+
+### Logic Component
+
+<img src="images/LogicClassDiagram.png" width="800">
+
+### Model Component
+
+<img src="images/ModelClassDiagram.png" width="800">
+
+### Storage Component
+
+<img src="images/StorageClassDiagram.png" width="800">
+
+### Commons Component
 
 ## Testing
 

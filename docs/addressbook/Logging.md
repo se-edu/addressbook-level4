@@ -3,7 +3,7 @@
 We are using `java.util.logging.Logger` as our logger, and `LoggerManager` is used to manage the logging levels of loggers and handlers (for output of log messages)
 
 **Note to developers**
-- The logging level can be controlled using the `currentLogLevel` setting in the configuration file (See [Configuration](../docs/Configuration.md)).
+- The logging level can be controlled using the `logLevel` setting in the configuration file (See [Configuration](../docs/Configuration.md)).
 - The `Logger` for a class can be obtained using `LoggerManager.getLogger(Class)` which will log messages according to the specified logging level
 - Currently log messages are output through: `Console` and `.log`
 

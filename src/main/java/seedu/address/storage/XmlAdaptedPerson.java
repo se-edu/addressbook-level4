@@ -11,9 +11,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * JAXB-friendly adapted person data holder class.
+ * JAXB-friendly version of the Person.
  */
-public class AdaptedPerson {
+public class XmlAdaptedPerson {
 
     @XmlElement(required = true)
     private String name;
@@ -25,27 +25,27 @@ public class AdaptedPerson {
     private String address;
 
     @XmlElement
-    private List<AdaptedTag> tagged = new ArrayList<>();
+    private List<XmlAdaptedTag> tagged = new ArrayList<>();
 
     /**
      * No-arg constructor for JAXB use.
      */
-    public AdaptedPerson() {}
+    public XmlAdaptedPerson() {}
 
 
     /**
      * Converts a given Person into this class for JAXB use.
      *
-     * @param source future changes to this will not affect the created AdaptedPerson
+     * @param source future changes to this will not affect the created XmlAdaptedPerson
      */
-    public AdaptedPerson(ReadOnlyPerson source) {
+    public XmlAdaptedPerson(ReadOnlyPerson source) {
         name = source.getName().fullName;
         phone = source.getPhone().value;
         email = source.getEmail().value;
         address = source.getAddress().value;
         tagged = new ArrayList<>();
         for (Tag tag : source.getTags()) {
-            tagged.add(new AdaptedTag(tag));
+            tagged.add(new XmlAdaptedTag(tag));
         }
     }
 
@@ -58,7 +58,7 @@ public class AdaptedPerson {
      * so we check for that.
      */
     public boolean isAnyRequiredFieldMissing() {
-        for (AdaptedTag tag : tagged) {
+        for (XmlAdaptedTag tag : tagged) {
             if (tag.isAnyRequiredFieldMissing()) {
                 return true;
             }
@@ -73,7 +73,7 @@ public class AdaptedPerson {
      */
     public Person toModelType() throws IllegalValueException {
         final List<Tag> personTags = new ArrayList<>();
-        for (AdaptedTag tag : tagged) {
+        for (XmlAdaptedTag tag : tagged) {
             personTags.add(tag.toModelType());
         }
         final Name name = new Name(this.name);

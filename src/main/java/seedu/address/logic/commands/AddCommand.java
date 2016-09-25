@@ -56,9 +56,9 @@ public class AddCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        CollectionUtil.assertNotNull(modelManager);
+        CollectionUtil.assertNotNull(model);
         try {
-            modelManager.addPerson(toAdd);
+            model.addPerson(toAdd);
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (UniquePersonList.DuplicatePersonException e) {
             return new CommandResult(MESSAGE_DUPLICATE_PERSON);
