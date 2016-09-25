@@ -24,7 +24,7 @@ import java.util.logging.Logger;
 /**
  * The manager of the UI component.
  */
-public class UiManager extends ComponentManager{
+public class UiManager extends ComponentManager implements Ui {
     private static final Logger logger = LogsCenter.getLogger(UiManager.class);
     private static final String ICON_APPLICATION = "/images/address_book_32.png";
 
@@ -40,6 +40,7 @@ public class UiManager extends ComponentManager{
         this.prefs = prefs;
     }
 
+    @Override
     public void start(Stage primaryStage, MainApp mainApp) {
         logger.info("Starting UI...");
         primaryStage.setTitle(config.getAppTitle());
@@ -58,15 +59,14 @@ public class UiManager extends ComponentManager{
         }
     }
 
+    @Override
     public void stop() {
         prefs.updateLastUsedGuiSetting(mainWindow.getCurrentGuiSetting());
         mainWindow.hide();
         mainWindow.releaseResources();
     }
 
-    /**
-     * Returns the main stage.
-     */
+    @Override
     public Stage getPrimaryStage() {
         return mainWindow.primaryStage;
     }

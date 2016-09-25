@@ -17,6 +17,7 @@ import seedu.address.model.*;
 import seedu.address.commons.util.ConfigUtil;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
+import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
 
 import java.io.FileNotFoundException;
@@ -33,7 +34,7 @@ public class MainApp extends Application {
 
     public static final Version VERSION = new Version(1, 0, 0, true);
 
-    protected UiManager uiManager;
+    protected Ui ui;
     protected Logic logic;
     protected Storage storage;
     protected Model model;
@@ -58,7 +59,7 @@ public class MainApp extends Application {
 
         logic = new LogicManager(model, storage);
 
-        uiManager = new UiManager(logic, config, userPrefs);
+        ui = new UiManager(logic, config, userPrefs);
 
         EventsCenter.getInstance().registerHandler(this);
     }
@@ -156,13 +157,13 @@ public class MainApp extends Application {
     @Override
     public void start(Stage primaryStage) {
         logger.info("Starting application: " + MainApp.VERSION);
-        uiManager.start(primaryStage, this);
+        ui.start(primaryStage, this);
     }
 
     @Override
     public void stop() {
         logger.info("Stopping application.");
-        uiManager.stop();
+        ui.stop();
         try {
             storage.saveUserPrefs(userPrefs);
         } catch (IOException e) {

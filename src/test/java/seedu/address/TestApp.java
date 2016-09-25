@@ -62,7 +62,7 @@ public class TestApp extends MainApp {
 
     @Override
     public void start(Stage primaryStage) {
-        uiManager.start(primaryStage, this);
+        ui.start(primaryStage, this);
     }
 
     public Config getTestingConfig() {
