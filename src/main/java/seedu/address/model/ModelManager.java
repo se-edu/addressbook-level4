@@ -23,30 +23,32 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final AddressBook addressBook;
     private final FilteredList<Person> filteredPersons;
+    private UserPrefs userPrefs;
 
     /**
      * Initializes a ModelManager with the given AddressBook
      * AddressBook and its variables should not be null
      */
-    public ModelManager(AddressBook src) {
+    public ModelManager(AddressBook src, UserPrefs userPrefs) {
         super();
-        if (src == null) {
-            logger.severe("Attempted to initialize with a null AddressBook");
-            assert false;
-        }
-        logger.fine("Initializing with address book: " + src);
+        assert src != null;
+        assert userPrefs != null;
+
+        logger.fine("Initializing with address book: " + src + " and user prefs " + userPrefs);
 
         addressBook = new AddressBook(src);
         filteredPersons = new FilteredList<>(addressBook.getPersons());
+        this.userPrefs = userPrefs;
     }
 
     public ModelManager() {
-        this(new AddressBook());
+        this(new AddressBook(), new UserPrefs());
     }
 
-    public ModelManager(ReadOnlyAddressBook initialData) {
+    public ModelManager(ReadOnlyAddressBook initialData, UserPrefs userPrefs) {
         addressBook = new AddressBook(initialData);
         filteredPersons = new FilteredList<>(addressBook.getPersons());
+        this.userPrefs = userPrefs;
     }
 
     @Override
@@ -76,6 +78,11 @@ public class ModelManager extends ComponentManager implements Model {
         addressBook.addPerson(person);
         updateFilteredListToShowAll();
         indicateModelChanged();
+    }
+
+    @Override
+    public void updateUserPrefs(UserPrefs userPrefs) {
+        this.userPrefs = userPrefs;
     }
 
     //=========== Filtered Person List Accessors ===============================================================

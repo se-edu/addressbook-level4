@@ -31,4 +31,7 @@ public interface Model {
 
     /** Updates the filter of the filtered person list to filter by the given keywords*/
     void updateFilteredPersonList(Set<String> keywords);
+
+    /** Update UserPrefs */
+    void updateUserPrefs(UserPrefs userPrefs);
 }
