@@ -72,13 +72,13 @@ public class ConfigUtilTest {
     }
 
     private Config getTypicalConfig() {
-        Config expected = new Config();
-        expected.setAppTitle("Typical App Title");
-        expected.setLogLevel(Level.INFO);
-        expected.setPrefsFileLocation("C:\\preferences.json");
-        expected.setAddressBookFileLocation("addressbook.xml");
-        expected.setAddressBookName("TypicalAddressBookName");
-        return expected;
+        Config config = new Config();
+        config.setAppTitle("Typical App Title");
+        config.setLogLevel(Level.INFO);
+        config.setPrefsFilePath("C:\\preferences.json");
+        config.setAddressBookFilePath("addressbook.xml");
+        config.setAddressBookName("TypicalAddressBookName");
+        return config;
     }
 
     private Optional<Config> read(String configFileInTestDataFolder) throws DataConversionException {

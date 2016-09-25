@@ -8,14 +8,13 @@ import java.util.logging.Level;
  */
 public class Config {
 
-    
     public static final String DEFAULT_CONFIG_FILE = "config.json";
 
     // Config values customizable through config file
     private String appTitle = "Address App";
     private Level logLevel = Level.INFO;
-    private String prefsFileLocation = "preferences.json";
-    private String addressBookFileLocation = "data/addressbook.xml";
+    private String prefsFilePath = "preferences.json";
+    private String addressBookFilePath = "data/addressbook.xml";
     private String addressBookName = "MyAddressBook";
 
 
@@ -38,20 +37,20 @@ public class Config {
         this.logLevel = logLevel;
     }
 
-    public String getPrefsFileLocation() {
-        return prefsFileLocation;
+    public String getPrefsFilePath() {
+        return prefsFilePath;
     }
 
-    public void setPrefsFileLocation(String prefsFileLocation) {
-        this.prefsFileLocation = prefsFileLocation;
+    public void setPrefsFilePath(String prefsFilePath) {
+        this.prefsFilePath = prefsFilePath;
     }
 
-    public String getAddressBookFileLocation() {
-        return addressBookFileLocation;
+    public String getAddressBookFilePath() {
+        return addressBookFilePath;
     }
 
-    public void setAddressBookFileLocation(String addressBookFileLocation) {
-        this.addressBookFileLocation = addressBookFileLocation;
+    public void setAddressBookFilePath(String addressBookFilePath) {
+        this.addressBookFilePath = addressBookFilePath;
     }
 
     public String getAddressBookName() {
@@ -76,14 +75,14 @@ public class Config {
 
         return Objects.equals(appTitle, o.appTitle)
                 && Objects.equals(logLevel, o.logLevel)
-                && Objects.equals(prefsFileLocation, o.prefsFileLocation)
-                && Objects.equals(addressBookFileLocation, o.addressBookFileLocation)
+                && Objects.equals(prefsFilePath, o.prefsFilePath)
+                && Objects.equals(addressBookFilePath, o.addressBookFilePath)
                 && Objects.equals(addressBookName, o.addressBookName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(appTitle, logLevel, prefsFileLocation, addressBookFileLocation, addressBookName);
+        return Objects.hash(appTitle, logLevel, prefsFilePath, addressBookFilePath, addressBookName);
     }
 
     @Override
@@ -91,8 +90,8 @@ public class Config {
         StringBuilder sb = new StringBuilder();
         sb.append("App title : " + appTitle);
         sb.append("\nCurrent log level : " + logLevel);
-        sb.append("\nPreference file Location : " + prefsFileLocation);
-        sb.append("\nLocal data file location : " + addressBookFileLocation);
+        sb.append("\nPreference file Location : " + prefsFilePath);
+        sb.append("\nLocal data file location : " + addressBookFilePath);
         sb.append("\nAddressBook name : " + addressBookName);
         return sb.toString();
     }
