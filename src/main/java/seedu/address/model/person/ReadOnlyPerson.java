@@ -37,14 +37,12 @@ public interface ReadOnlyPerson {
      */
     default String getAsText() {
         final StringBuilder builder = new StringBuilder();
-        final String detailIsPrivate = "(private) ";
         builder.append(getName())
                 .append(" Phone: ")
                 .append(getPhone())
                 .append(" Email: ")
                 .append(getEmail())
                 .append(" Address: ")
-                .append(detailIsPrivate)
                 .append(getAddress())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
