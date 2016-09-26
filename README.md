@@ -10,7 +10,7 @@
 * It is a Java sample application intended for students learning Software Engineering while using Java as 
   the main programming language. 
 * It is **written in OOP fashion**. It provides a **reasonably well-written** code example that is 
-  **significantly bigger** (around 10 KLoC)than what students usually write in beginner-level SE modules. 
+  **significantly bigger** (around 6 KLoC)than what students usually write in beginner-level SE modules. 
 * What's different from [level 3](https://github.com/se-edu/addressbook-level3):
     * A more sophisticated GUI that includes a list panel and an in-built Browser.
     * More test cases, including automated GUI testing.
