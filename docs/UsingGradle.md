@@ -14,7 +14,7 @@ more about build scripts.
 
 To run a Gradle command, open a command window on the project folder and enter the Gradle command.
 Gradle commands look like this:
-* On Windows :`./gradlew <task1> <task2> ...` e.g. `./gradlew clean allTests`
+* On Windows :`gradlew <task1> <task2> ...` e.g. `gradlew clean allTests`
 * On Mac/Linux: `./gradlew <task1> ...`  e.g. `./gradlew clean allTests`
 
 ## Cleaning the Project
