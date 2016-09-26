@@ -48,9 +48,9 @@ Given below is a quick overview of each component.
 
 [**`Commons`**](#common-classes) represents a collection of classes used by multiple other components.
 Two of those classes play an important role at the architecture level.
-* `EventsCentre` : This class (written using [Google's Event Bus library](https://github.com/google/guava/wiki/EventBusExplained)
-  is used to communicate between components using events (i.e. a form of _Event Driven_ design)
-* `LogsCenter` : Used by many classes to get log information to the App's log files.
+* `EventsCentre` : This class (written using [Google's Event Bus library](https://github.com/google/guava/wiki/EventBusExplained))
+  is used to by componnents to communicate with other components using events (i.e. a form of _Event Driven_ design)
+* `LogsCenter` : Used by many classes to write log messages to the App's log files.
 
 The rest of the App consists four components.
 * [**`UI`**](#ui-component) : The UI of tha App.
