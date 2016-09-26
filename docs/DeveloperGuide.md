@@ -169,7 +169,7 @@ Tests can be found in the `./src/test/java` folder. We have three types<sup>[[1]
 Thanks to the ([TestFX](https://github.com/TestFX/TestFX)) library we use,
  our GUI tests can be run in the _headless_ mode. 
  In the headless mode, GUI tests do not show up on the screen.
- That means the developer can do other things on the Computer while the rests are running.<br>
+ That means the developer can do other things on the Computer while the tests are running.<br>
  See [UsingGradle.md](UsingGradle.md#running-tests) to learn how to run tests in headless mode.
   
 ## Continuous Integration
