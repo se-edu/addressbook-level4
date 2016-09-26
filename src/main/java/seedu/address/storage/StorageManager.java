@@ -1,8 +1,10 @@
 package seedu.address.storage;
 
+import com.google.common.eventbus.Subscribe;
 import seedu.address.commons.core.ComponentManager;
-import seedu.address.commons.core.Config;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.UserPrefs;
@@ -63,6 +65,18 @@ public class StorageManager extends ComponentManager implements Storage {
     @Override
     public void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException {
         addressBookStorage.saveAddressBook(addressBook, addressBookStorage.getAddressBookFilePath());
+    }
+
+
+    @Override
+    @Subscribe
+    public void handleAddressBookChangedEvent(AddressBookChangedEvent mce) {
+        logger.info("Local data changed, saving to primary data file");
+        try {
+            saveAddressBook(mce.data);
+        } catch (IOException e) {
+            raise(new DataSavingExceptionEvent(e));
+        }
     }
 
 }

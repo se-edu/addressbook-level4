@@ -17,4 +17,5 @@ public interface Logic {
 
     /** Returns the filtered list of persons */
     ObservableList<ReadOnlyPerson> getFilteredPersonList();
+
 }

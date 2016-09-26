@@ -10,7 +10,7 @@ import seedu.address.commons.core.EventsCenter;
 import seedu.address.logic.commands.*;
 import seedu.address.commons.events.controller.JumpToListRequestEvent;
 import seedu.address.commons.events.controller.ShowHelpEvent;
-import seedu.address.commons.events.model.ModelChangedEvent;
+import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -46,7 +46,7 @@ public class LogicManagerTest {
     private int targetedJumpIndex;
 
     @Subscribe
-    private void handleLocalModelChangedEvent(ModelChangedEvent lmce) {
+    private void handleLocalModelChangedEvent(AddressBookChangedEvent lmce) {
         latestSavedAddressBook = new AddressBook(lmce.data);
     }
 
