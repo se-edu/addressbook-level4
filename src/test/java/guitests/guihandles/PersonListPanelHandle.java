@@ -102,6 +102,7 @@ public class PersonListPanelHandle extends GuiHandle {
 
 
     public PersonCardHandle navigateToPerson(String name) {
+        guiRobot.sleep(500); //Allow a bit of time for the list to be updated
         final Optional<ReadOnlyPerson> person = getListView().getItems().stream().filter(p -> p.getName().fullName.equals(name)).findAny();
         if (!person.isPresent()) {
             throw new IllegalStateException("Name not found: " + name);
