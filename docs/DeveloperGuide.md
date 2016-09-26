@@ -169,7 +169,7 @@ Tests can be found in the `./src/test/java` folder. We have three types<sup>[[1]
 Thanks to the ([TestFX](https://github.com/TestFX/TestFX)) library we use,
  our GUI tests can be run in the _headless_ mode. 
  In the headless mode, GUI tests do not show up on the screen.
- That means the developer can do other things on the Computer while the rests are running.<br>
+ That means the developer can do other things on the Computer while the tests are running.<br>
  See [UsingGradle.md](UsingGradle.md#running-tests) to learn how to run tests in headless mode.
   
 ## Continuous Integration
@@ -188,7 +188,7 @@ Here are the steps to create a new release.
    
 ## Managing Dependencies
 
-What are dependencies and A project often depends on third party libraries. For example, Address Book depends on the 
+A project often depends on third party libraries. For example, Address Book depends on the 
 [Jackson library](http://wiki.fasterxml.com/JacksonHome) for XML parsing. Managing these _dependencies_
 can be automated using Gradle. For example, Gradle can download the dependencies automatically, which
 is better than these alternatives.<br>

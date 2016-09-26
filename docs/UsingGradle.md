@@ -28,7 +28,7 @@ Gradle commands look like this:
   If Gradle determines that the output of the task will be same as the previous time, it will not run
   the task. For example, it will not build the JAR file again if the relevant source files have not changed
   since the last time the JAR file was built. If we want to force Gradle to run a task, we can combine
-  that task with `clean`. Once the build files have been `clean`ed, Gradle have no way to determine if
+  that task with `clean`. Once the build files have been `clean`ed, Gradle has no way to determine if
   the output will be same as before, so it will be forced to execute the task.
   
 ## Creating the JAR file
@@ -37,7 +37,7 @@ Gradle commands look like this:
   Creates the `addressbook.jar` file in the `build/jar` folder, _if the current file is outdated_.<br>
   e.g. `./gradlew shadowJar`
 
-  > To force Gradle to create the JAR file even if the current one is up-to-date, you can 'clean' first. <br>
+  > To force Gradle to create the JAR file even if the current one is up-to-date, you can '`clean`' first. <br>
     e.g. `./gradlew clean shadowJar` 
 
 **Note: Why do we create a fat JAR?**
