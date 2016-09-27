@@ -54,7 +54,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void resetData(ReadOnlyAddressBook newData) {
         addressBook.resetData(newData);
-        indicateModelChanged();
+        indicateAddressBookChanged();
     }
 
     @Override
@@ -63,21 +63,22 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     /** Raises an event to indicate the model has changed */
-    private void indicateModelChanged() {
+    private void indicateAddressBookChanged() {
+        logger.info("Raising AddressBookChangedEvent");
         raise(new AddressBookChangedEvent(addressBook));
     }
 
     @Override
     public synchronized void deletePerson(ReadOnlyPerson target) throws PersonNotFoundException {
         addressBook.removePerson(target);
-        indicateModelChanged();
+        indicateAddressBookChanged();
     }
 
     @Override
     public synchronized void addPerson(Person person) throws UniquePersonList.DuplicatePersonException {
         addressBook.addPerson(person);
         updateFilteredListToShowAll();
-        indicateModelChanged();
+        indicateAddressBookChanged();
     }
 
     @Override
