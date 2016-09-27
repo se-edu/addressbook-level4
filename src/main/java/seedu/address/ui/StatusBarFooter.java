@@ -5,7 +5,14 @@ import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+
+import java.util.Date;
+
 import org.controlsfx.control.StatusBar;
+
+import com.google.common.eventbus.Subscribe;
+
+import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.util.FxViewUtil;
 
 /**
@@ -36,7 +43,7 @@ public class StatusBarFooter extends UiPart {
     public void configure(String saveLocation) {
         addMainPane();
         addSyncStatus();
-        setSyncStatus("Last updated: [not implemented yet]");
+        setSyncStatus("Not updated yet in this session");
         addSaveLocation();
         setSaveLocation("./" + saveLocation);
     }
@@ -81,4 +88,8 @@ public class StatusBarFooter extends UiPart {
         return FXML;
     }
 
+    @Subscribe
+    public void handleAddressBookChangedEvent(AddressBookChangedEvent abce) {
+        setSyncStatus("Last Updated: " + (new Date()).toString());
+    }
 }
