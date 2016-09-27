@@ -21,7 +21,7 @@ public class Phone {
      * @throws IllegalValueException if given phone string is invalid.
      */
     public Phone(String phone) throws IllegalValueException {
-        CollectionUtil.assertNotNull(phone);
+        assert phone != null;
         phone = phone.trim();
         if (!isValidPhone(phone)) {
             throw new IllegalValueException(MESSAGE_PHONE_CONSTRAINTS);

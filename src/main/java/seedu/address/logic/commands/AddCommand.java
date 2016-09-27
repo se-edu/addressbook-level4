@@ -55,7 +55,7 @@ public class AddCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        CollectionUtil.assertNotNull(model);
+        assert model != null;
         try {
             model.addPerson(toAdd);
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));

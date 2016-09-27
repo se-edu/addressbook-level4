@@ -43,7 +43,7 @@ public class UniquePersonList implements Iterable<Person> {
      * Varargs/array constructor, enforces no nulls or duplicates.
      */
     public UniquePersonList(Person... persons) throws DuplicatePersonException {
-        CollectionUtil.assertNotNull(persons);
+        assert ! CollectionUtil.isAnyNull((Object[]) persons);
         final List<Person> initialPersons = Arrays.asList(persons);
         if (!CollectionUtil.elementsAreUnique(initialPersons)) {
             throw new DuplicatePersonException();
@@ -97,7 +97,7 @@ public class UniquePersonList implements Iterable<Person> {
      * Returns true if the list contains an equivalent person as the given argument.
      */
     public boolean contains(ReadOnlyPerson toCheck) {
-        CollectionUtil.assertNotNull(toCheck);
+        assert toCheck != null;
         return internalList.contains(toCheck);
     }
 
@@ -107,7 +107,7 @@ public class UniquePersonList implements Iterable<Person> {
      * @throws DuplicatePersonException if the person to add is a duplicate of an existing person in the list.
      */
     public void add(Person toAdd) throws DuplicatePersonException {
-        CollectionUtil.assertNotNull(toAdd);
+        assert toAdd != null;
         if (contains(toAdd)) {
             throw new DuplicatePersonException();
         }
@@ -120,7 +120,7 @@ public class UniquePersonList implements Iterable<Person> {
      * @throws PersonNotFoundException if no such person could be found in the list.
      */
     public boolean remove(ReadOnlyPerson toRemove) throws PersonNotFoundException {
-        CollectionUtil.assertNotNull(toRemove);
+        assert toRemove != null;
         final boolean personFoundAndDeleted = internalList.remove(toRemove);
         if (!personFoundAndDeleted) {
             throw new PersonNotFoundException();
