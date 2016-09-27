@@ -7,11 +7,14 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 import java.util.Date;
+import java.util.logging.Logger;
 
 import org.controlsfx.control.StatusBar;
 
 import com.google.common.eventbus.Subscribe;
 
+import seedu.address.commons.core.EventsCenter;
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.util.FxViewUtil;
 
@@ -19,6 +22,7 @@ import seedu.address.commons.util.FxViewUtil;
  * A controller for the status bar that is displayed at the footer of the application.
  */
 public class StatusBarFooter extends UiPart {
+    private static final Logger logger = LogsCenter.getLogger(StatusBarFooter.class);
     private StatusBar syncStatus;
     private StatusBar saveLocationStatus;
 
@@ -46,6 +50,7 @@ public class StatusBarFooter extends UiPart {
         setSyncStatus("Not updated yet in this session");
         addSaveLocation();
         setSaveLocation("./" + saveLocation);
+        EventsCenter.getInstance().registerHandler(this);
     }
 
     private void addMainPane() {

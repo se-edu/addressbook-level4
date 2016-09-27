@@ -21,7 +21,7 @@ public abstract class UiPart {
     Stage primaryStage;
 
     public UiPart(){
-        EventsCenter.getInstance().registerHandler(this);
+
     }
 
     /**
