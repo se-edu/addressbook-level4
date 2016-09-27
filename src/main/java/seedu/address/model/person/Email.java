@@ -23,7 +23,7 @@ public class Email {
      * @throws IllegalValueException if given email address string is invalid.
      */
     public Email(String email) throws IllegalValueException {
-        CollectionUtil.assertNotNull(email);
+        assert email != null;
         email = email.trim();
         if (!isValidEmail(email)) {
             throw new IllegalValueException(MESSAGE_EMAIL_CONSTRAINTS);

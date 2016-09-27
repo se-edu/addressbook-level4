@@ -13,13 +13,14 @@ public class CommandResult {
     private final List<? extends ReadOnlyPerson> relevantPersons;
 
     public CommandResult(String feedbackToUser) {
-        CollectionUtil.assertNotNull(feedbackToUser);
+        assert feedbackToUser != null;
         this.feedbackToUser = feedbackToUser;
         relevantPersons = null;
     }
 
     public CommandResult(String feedbackToUser, List<? extends ReadOnlyPerson> relevantPersons) {
-        CollectionUtil.assertNotNull(feedbackToUser, relevantPersons);
+        assert feedbackToUser != null;
+        assert relevantPersons != null;
         this.feedbackToUser = feedbackToUser;
         this.relevantPersons = relevantPersons;
     }

@@ -19,7 +19,7 @@ public class ClearCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        CollectionUtil.assertNotNull(model);
+        assert model != null;
         model.resetData(AddressBook.getEmptyAddressBook());
         return new CommandResult(MESSAGE_SUCCESS);
     }
