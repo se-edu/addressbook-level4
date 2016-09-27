@@ -89,7 +89,7 @@ public class StatusBarFooter extends UiPart {
     }
 
     @Subscribe
-    public void handleAddressBookChangedEvent(AddressBookChangedEvent mce) {
+    public void handleAddressBookChangedEvent(AddressBookChangedEvent abce) {
         setSyncStatus("Last Updated: " + (new Date()).toString());
     }
 }
