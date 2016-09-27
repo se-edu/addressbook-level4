@@ -5,7 +5,14 @@ import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+
+import java.util.Date;
+
 import org.controlsfx.control.StatusBar;
+
+import com.google.common.eventbus.Subscribe;
+
+import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.util.FxViewUtil;
 
 /**
@@ -81,4 +88,8 @@ public class StatusBarFooter extends UiPart {
         return FXML;
     }
 
+    @Subscribe
+    public void handleAddressBookChangedEvent(AddressBookChangedEvent mce) {
+        setSyncStatus("Last Updated: " + (new Date()).toString());
+    }
 }
