@@ -46,8 +46,8 @@ public class LogicManagerTest {
     private int targetedJumpIndex;
 
     @Subscribe
-    private void handleLocalModelChangedEvent(AddressBookChangedEvent lmce) {
-        latestSavedAddressBook = new AddressBook(lmce.data);
+    private void handleLocalModelChangedEvent(AddressBookChangedEvent abce) {
+        latestSavedAddressBook = new AddressBook(abce.data);
     }
 
     @Subscribe
