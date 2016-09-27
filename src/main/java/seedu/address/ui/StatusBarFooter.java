@@ -43,7 +43,7 @@ public class StatusBarFooter extends UiPart {
     public void configure(String saveLocation) {
         addMainPane();
         addSyncStatus();
-        setSyncStatus("Last updated: [not implemented yet]");
+        setSyncStatus("Ready");
         addSaveLocation();
         setSaveLocation("./" + saveLocation);
     }
