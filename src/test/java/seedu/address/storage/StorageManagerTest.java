@@ -13,7 +13,8 @@ import seedu.address.testutil.TypicalTestPersons;
 import static org.junit.Assert.assertEquals;
 
 public class StorageManagerTest {
-    private Storage storage;
+
+    private StorageManager storageManager;
 
     @Rule
     public TemporaryFolder testFolder = new TemporaryFolder();
@@ -21,7 +22,7 @@ public class StorageManagerTest {
 
     @Before
     public void setup() {
-        storage = new StorageManager(getTempFilePath("ab"), getTempFilePath("prefs"));
+        storageManager = new StorageManager(getTempFilePath("ab"), getTempFilePath("prefs"));
     }
 
 
@@ -29,21 +30,27 @@ public class StorageManagerTest {
         return testFolder.getRoot().getPath() + fileName;
     }
 
+
+    /*
+     * Note: This is an integration test that verifies the StorageManager is properly wired to the
+     * {@link JsonUserPrefStorage} class.
+     * More extensive testing of UserPref saving/reading is done in {@link JsonUserPrefStorageTest} class.
+     */
+
     @Test
     public void prefsReadSave() throws Exception {
         UserPrefs original = new UserPrefs();
         original.setGuiSettings(300, 600, 4, 6);
-        storage.saveUserPrefs(original);
-        UserPrefs retrieved = storage.readUserPrefs().get();
+        storageManager.saveUserPrefs(original);
+        UserPrefs retrieved = storageManager.readUserPrefs().get();
         assertEquals(original, retrieved);
-        //More extensive testing of UserPref saving/reading is done in JsonUserPrefStorageTest
     }
 
     @Test
     public void addressBookReadSave() throws Exception {
         AddressBook original = new TypicalTestPersons().getTypicalAddressBook();
-        storage.saveAddressBook(original);
-        ReadOnlyAddressBook retrieved = storage.readAddressBook().get();
+        storageManager.saveAddressBook(original);
+        ReadOnlyAddressBook retrieved = storageManager.readAddressBook().get();
         assertEquals(original, new AddressBook(retrieved));
         //More extensive testing of AddressBook saving/reading is done in XmlAddressBookStorageTest
     }

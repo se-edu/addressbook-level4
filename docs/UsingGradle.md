@@ -54,8 +54,8 @@ If we package only our own class files into the JAR file, it will not work prope
 * **`guiTests`**<br>
   Runs all tests in the `guitests` package
   
-* **`unitTests`**<br>
-  Runs all (non-GUI) unit tests in the `seedu.address` package
+* **`nonGuiTests`**<br>
+  Runs all non-GUI tests in the `seedu.address` package
   
 * **`headless`**<br>
   Sets the test mode as _headless_. 
@@ -64,7 +64,7 @@ If we package only our own class files into the JAR file, it will not work prope
 Here are some examples:
 
 * `./gradlew headless allTests` -- Runs all tests in headless mode
-* `./gradlew clean unitTests` -- Cleans the project and runs unit tests
+* `./gradlew clean nonGuiTests` -- Cleans the project and runs non-GUI tests
 
 
 ## Updating Dependencies
