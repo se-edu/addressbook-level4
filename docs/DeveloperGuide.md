@@ -10,6 +10,7 @@
 * [Appendix B: Use Cases](#appendix-b--use-cases)
 * [Appendix C: Non Functional Requirements](#appendix-c--non-functional-requirements)
 * [Appendix D: Glossary](#appendix-d--glossary)
+* [Appendix E : Product Survey](#appendix-e-product-survey)
 
 
 ## Setting up
@@ -256,6 +257,10 @@ Use case ends.
 ##### Private contact detail
 
 > A contact detail that is not meant to be shared with others
+
+## Appendix E : Product Survey
+
+{TODO: Add a summary of competing products}
 
 ----
 **Footnotes**
