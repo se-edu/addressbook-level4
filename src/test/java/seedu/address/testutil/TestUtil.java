@@ -104,11 +104,17 @@ public class TestUtil {
     }
 
     /**
-     * Appends the file name to the sandbox folder path
+     * Appends the file name to the sandbox folder path.
+     * Creates the sandbox folder if it doesn't exist.
      * @param fileName
      * @return
      */
-    public static String appendToSandboxPath(String fileName) {
+    public static String getFilePathInSandboxFolder(String fileName) {
+        try {
+            FileUtil.createDirs(new File(SANDBOX_FOLDER));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         return SANDBOX_FOLDER + fileName;
     }
 
