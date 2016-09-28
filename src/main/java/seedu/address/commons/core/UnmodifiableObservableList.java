@@ -89,7 +89,8 @@ public class UnmodifiableObservableList<E> implements ObservableList<E> {
     public final SortedList<E> sorted(Comparator<E> comparator) {
         return new SortedList<>(this, comparator);
     }
-    
+
+    @SuppressWarnings("unchecked")
     @Override
     public final SortedList<E> sorted() {
         return sorted(Comparator.nullsFirst((o1, o2) -> {
@@ -136,7 +137,7 @@ public class UnmodifiableObservableList<E> implements ObservableList<E> {
             }
         };
     }
-    
+
     @Override
     public final Object[] toArray() {
         return backingList.toArray();
@@ -214,6 +215,7 @@ public class UnmodifiableObservableList<E> implements ObservableList<E> {
         return backingList.get(index);
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public final Object set(int index, Object element) {
         throw new UnsupportedOperationException(MUTATION_OP_EXCEPTION_MESSAGE);
@@ -290,12 +292,6 @@ public class UnmodifiableObservableList<E> implements ObservableList<E> {
         return Collections.unmodifiableList(backingList.subList(fromIndex, toIndex));
     }
 
-    @SuppressWarnings("unchecked")
-    @Override
-    public final Spliterator<E> spliterator() {
-        return (Spliterator<E>) backingList.spliterator();
-    }
-
     @Override
     public final boolean removeIf(Predicate<? super E> filter) {
         throw new UnsupportedOperationException(MUTATION_OP_EXCEPTION_MESSAGE);
@@ -306,15 +302,10 @@ public class UnmodifiableObservableList<E> implements ObservableList<E> {
     public final Stream<E> stream() {
         return (Stream<E>) backingList.stream();
     }
-
-    @SuppressWarnings("unchecked")
-    @Override
-    public final Stream<E> parallelStream() {
-        return (Stream<E>) backingList.parallelStream();
-    }
     
     @Override
     public final void forEach(Consumer<? super E> action) {
         backingList.forEach(action);
     }
+
 }

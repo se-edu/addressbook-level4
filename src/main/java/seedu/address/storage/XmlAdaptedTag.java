@@ -29,18 +29,6 @@ public class XmlAdaptedTag {
     }
 
     /**
-     * Checks whether any required element is missing.
-     *
-     * JAXB does not enforce (required = true) without a given XML schema.
-     * Since we do most of our validation using the model class constructors, the only extra logic we need
-     * is to ensure that every xml element in the document is present. JAXB sets missing elements as null,
-     * so we check for that.
-     */
-    public boolean isAnyRequiredFieldMissing() {
-        return CollectionUtil.isAnyNull(tagName);
-    }
-
-    /**
      * Converts this jaxb-friendly adapted tag object into the model's Tag object.
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted person
@@ -48,4 +36,5 @@ public class XmlAdaptedTag {
     public Tag toModelType() throws IllegalValueException {
         return new Tag(tagName);
     }
+
 }

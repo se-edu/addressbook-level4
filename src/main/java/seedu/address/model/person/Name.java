@@ -1,10 +1,6 @@
 package seedu.address.model.person;
 
-import seedu.address.commons.util.CollectionUtil;
 import seedu.address.commons.exceptions.IllegalValueException;
-
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * Represents a Person's name in the address book.
@@ -12,7 +8,6 @@ import java.util.List;
  */
 public class Name {
 
-    public static final String EXAMPLE = "John Doe";
     public static final String MESSAGE_NAME_CONSTRAINTS = "Person names should be spaces or alphanumeric characters";
     public static final String NAME_VALIDATION_REGEX = "[\\p{Alnum} ]+";
 
@@ -39,12 +34,6 @@ public class Name {
         return test.matches(NAME_VALIDATION_REGEX);
     }
 
-    /**
-     * Retrieves a listing of every word in the name, in order.
-     */
-    public List<String> getWordsInName() {
-        return Arrays.asList(fullName.split("\\s+"));
-    }
 
     @Override
     public String toString() {

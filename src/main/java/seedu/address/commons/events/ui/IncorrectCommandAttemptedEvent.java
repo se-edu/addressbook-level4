@@ -8,24 +8,11 @@ import seedu.address.logic.commands.Command;
  */
 public class IncorrectCommandAttemptedEvent extends BaseEvent {
 
-    private final Command command;
-
-    public IncorrectCommandAttemptedEvent(Command command) {
-        this.command = command;
-    }
+    public IncorrectCommandAttemptedEvent(Command command) {}
 
     @Override
     public String toString() {
         return this.getClass().getSimpleName();
     }
 
-    /**
-     * Returns true if both events intended the selection to jump to the same item in the list.
-     */
-    @Override
-    public boolean hasSameIntentionAs(BaseEvent other){
-        return (other != null)
-            && (other instanceof IncorrectCommandAttemptedEvent)
-            && (((IncorrectCommandAttemptedEvent) other).command.equals(this.command));
-    }
 }

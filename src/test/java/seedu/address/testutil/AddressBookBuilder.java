@@ -14,11 +14,6 @@ import seedu.address.model.person.UniquePersonList;
 public class AddressBookBuilder {
 
     private AddressBook addressBook;
-    private int idCounter = 1;
-
-    public AddressBookBuilder(){
-        addressBook = new AddressBook();
-    }
 
     public AddressBookBuilder(AddressBook addressBook){
         this.addressBook = addressBook;

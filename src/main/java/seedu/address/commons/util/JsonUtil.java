@@ -3,7 +3,6 @@ package seedu.address.commons.util;
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -11,11 +10,8 @@ import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.databind.deser.std.FromStringDeserializer;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
-import com.fasterxml.jackson.databind.type.TypeFactory;
 
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
 import java.util.logging.Level;
 
 /**
@@ -79,18 +75,4 @@ public class JsonUtil {
         return objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(instance);
     }
 
-    public static <V> List<V> fromJsonStringToList(String json, Class<V> referenceClass) throws IOException {
-        TypeFactory typeFactory = objectMapper.getTypeFactory();
-        return objectMapper.readValue(json, typeFactory.constructCollectionType(List.class, referenceClass));
-    }
-
-    public static <K, V> HashMap<K, V> fromJsonStringToHashMap(String json, Class<K> keyClass, Class<V> valueClass)
-            throws IOException {
-        TypeFactory typeFactory = objectMapper.getTypeFactory();
-        return objectMapper.readValue(json, typeFactory.constructMapType(HashMap.class, keyClass, valueClass));
-    }
-
-    public static <T> T fromJsonStringToGivenType(String json, TypeReference<T> typeReference) throws IOException {
-        return objectMapper.readValue(json, typeReference);
-    }
 }

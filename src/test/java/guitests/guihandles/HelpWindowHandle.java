@@ -2,9 +2,6 @@ package guitests.guihandles;
 
 import guitests.GuiRobot;
 import javafx.stage.Stage;
-import seedu.address.TestApp;
-
-import java.util.Arrays;
 
 /**
  * Provides a handle to the help window of the app.

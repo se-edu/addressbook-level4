@@ -33,14 +33,6 @@ public abstract class UiPart {
     }
 
     /**
-     * Raises an event via {@link EventsCenter#postPotentialEvent(BaseEvent)}
-     * @param event
-     */
-    protected void raisePotentialEvent(BaseEvent event) {
-        EventsCenter.getInstance().postPotentialEvent(event);
-    }
-
-    /**
      * Registers the object as an event handler at the {@link EventsCenter}
      * @param handler usually {@code this}
      */

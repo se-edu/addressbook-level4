@@ -2,7 +2,6 @@ package seedu.address.commons.util;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.nio.file.Files;
 
 /**
@@ -13,10 +12,6 @@ public class FileUtil {
 
     public static boolean isFileExists(File file) {
         return file.exists() && file.isFile();
-    }
-
-    public static boolean isFileExists(String filepath) {
-        return isFileExists(new File(filepath));
     }
 
     public static void createIfMissing(File file) throws IOException {
@@ -38,10 +33,6 @@ public class FileUtil {
         createParentDirsOfFile(file);
 
         return file.createNewFile();
-    }
-
-    public static void deleteFile(File file) throws IOException {
-        Files.delete(file.toPath());
     }
 
     /**
@@ -80,11 +71,6 @@ public class FileUtil {
      */
     public static void writeToFile(File file, String content) throws IOException {
         Files.write(file.toPath(), content.getBytes(CHARSET));
-    }
-
-    public static String readFromInputStream(InputStream inputStream) {
-        java.util.Scanner s = new java.util.Scanner(inputStream).useDelimiter("\\A");
-        return s.hasNext() ? s.next() : "";
     }
 
     /**

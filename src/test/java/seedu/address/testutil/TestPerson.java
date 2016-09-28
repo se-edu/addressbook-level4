@@ -34,10 +34,6 @@ public class TestPerson implements ReadOnlyPerson {
         this.phone = phone;
     }
 
-    public void setTags(UniqueTagList tags) {
-        this.tags = tags;
-    }
-
     @Override
     public Name getName() {
         return name;
@@ -56,11 +52,6 @@ public class TestPerson implements ReadOnlyPerson {
     @Override
     public Address getAddress() {
         return address;
-    }
-
-    @Override
-    public void update(ReadOnlyPerson person) {
-        throw new UnsupportedOperationException("Use setters method to update");
     }
 
     @Override

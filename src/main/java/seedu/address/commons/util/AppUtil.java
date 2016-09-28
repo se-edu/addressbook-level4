@@ -3,8 +3,6 @@ package seedu.address.commons.util;
 import javafx.scene.image.Image;
 import seedu.address.MainApp;
 
-import java.net.URL;
-
 /**
  * A container for App specific utility functions
  */

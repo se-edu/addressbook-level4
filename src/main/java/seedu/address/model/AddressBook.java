@@ -1,7 +1,6 @@
 package seedu.address.model;
 
 import javafx.collections.ObservableList;
-import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.UniquePersonList;
@@ -51,21 +50,12 @@ public class AddressBook implements ReadOnlyAddressBook {
         return persons.getInternalList();
     }
 
-    public ObservableList<Tag> getTags() {
-        return tags.getInternalList();
-    }
-
     public void setPersons(List<Person> persons) {
         this.persons.getInternalList().setAll(persons);
     }
 
     public void setTags(Collection<Tag> tags) {
         this.tags.getInternalList().setAll(tags);
-    }
-
-    public void clear() {
-        persons.clear();
-        tags.clear();
     }
 
     public void resetData(Collection<? extends ReadOnlyPerson> newPersons, Collection<Tag> newTags) {
@@ -78,10 +68,6 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
 //// person-level operations
-
-    public boolean containsPerson(ReadOnlyPerson key) {
-        return persons.contains(key);
-    }
 
     /**
      * Adds a person to the address book.
@@ -132,10 +118,6 @@ public class AddressBook implements ReadOnlyAddressBook {
         tags.add(t);
     }
 
-    public boolean removeTag(Tag t) throws UniqueTagList.TagNotFoundException {
-        return tags.remove(t);
-    }
-
 //// util methods
 
     @Override
@@ -152,16 +134,6 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public List<Tag> getTagList() {
         return Collections.unmodifiableList(tags.getInternalList());
-    }
-
-    @Override
-    public UnmodifiableObservableList<ReadOnlyPerson> getPersonsAsReadOnlyObservableList() {
-        return new UnmodifiableObservableList<>(persons.getInternalList());
-    }
-
-    @Override
-    public UnmodifiableObservableList<Tag> getTagsAsReadOnlyObservableList() {
-        return new UnmodifiableObservableList<>(tags.getInternalList());
     }
 
     @Override

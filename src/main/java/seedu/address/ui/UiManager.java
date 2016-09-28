@@ -10,11 +10,10 @@ import seedu.address.MainApp;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
 import seedu.address.commons.events.ui.ShowHelpEvent;
-import seedu.address.commons.events.storage.DataReadingExceptionEvent;
-import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
@@ -66,11 +65,6 @@ public class UiManager extends ComponentManager implements Ui {
         mainWindow.releaseResources();
     }
 
-    @Override
-    public Stage getPrimaryStage() {
-        return mainWindow.primaryStage;
-    }
-
     private void showFileOperationAlertAndWait(String description, String details, Throwable cause) {
         final String content = details + ":\n" + cause.toString();
         showAlertDialogAndWait(AlertType.ERROR, "File Op Error", description, content);
@@ -104,12 +98,6 @@ public class UiManager extends ComponentManager implements Ui {
     }
 
     //==================== Event Handling Code =================================================================
-
-    @Subscribe
-    private void handleDataReadingExceptionEvent(DataReadingExceptionEvent foee) {
-        showFileOperationAlertAndWait("Could not load data", "Could not load data from file",
-                                      foee.exception);
-    }
 
     @Subscribe
     private void handleDataSavingExceptionEvent(DataSavingExceptionEvent fsee) {

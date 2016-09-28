@@ -14,8 +14,6 @@ import java.util.Optional;
  * API of the Storage component
  */
 public interface Storage extends AddressBookStorage, UserPrefsStorage {
-    @Override
-    String getUserPrefsFilePath();
 
     @Override
     Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
@@ -37,5 +35,5 @@ public interface Storage extends AddressBookStorage, UserPrefsStorage {
      *   Creates the data file if it is missing.
      * Raises {@link DataSavingExceptionEvent} if there was an error during saving.
      */
-    public void handleAddressBookChangedEvent(AddressBookChangedEvent abce);
+    void handleAddressBookChangedEvent(AddressBookChangedEvent abce);
 }
