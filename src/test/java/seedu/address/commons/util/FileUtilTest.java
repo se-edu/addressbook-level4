@@ -13,7 +13,7 @@ import java.io.IOException;
 import static org.junit.Assert.assertEquals;
 
 public class FileUtilTest {
-    private static final File SERIALIZATION_FILE = new File(TestUtil.appendToSandboxPath("serialize.json"));
+    private static final File SERIALIZATION_FILE = new File(TestUtil.getFilePathInSandboxFolder("serialize.json"));
 
 
     @Rule
