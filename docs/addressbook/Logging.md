@@ -1,10 +1,10 @@
 # Logging
 
-We are using `java.util.logging.Logger` as our logger, and `LoggerManager` is used to manage the logging levels of loggers and handlers (for output of log messages)
+We are using `java.util.logging.Logger` as our logger, and `LogsCenter` is used to manage the logging levels of loggers and handlers (for output of log messages)
 
 **Note to developers**
-- The logging level can be controlled using the `logLevel` setting in the configuration file (See [Configuration](../docs/Configuration.md)).
-- The `Logger` for a class can be obtained using `LoggerManager.getLogger(Class)` which will log messages according to the specified logging level
+- The logging level can be controlled using the `logLevel` setting in the configuration file (See [Configuration](../docs/Configuration.md))
+- The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to the specified logging level
 - Currently log messages are output through: `Console` and `.log`
 
 # Guidelines
@@ -51,10 +51,11 @@ We are using `java.util.logging.Logger` as our logger, and `LoggerManager` is us
 - We can specify the log level for both the `Logger`s and the `Handler`s
 - By default, `java.util.logging.Logger` has a root logger of level `INFO` which has a `ConsoleHandler` of level `INFO` attached.
 
-## LoggerManager
+## LogsCenter
   - Named `Logger`s can be obtained from this class
-    - These loggers will output messages to the console and a `.log` file by default, at the `INFO` level
+    - These loggers have been configured to output messages to the console and a `.log` file by default, at the `INFO` level
+    - A new `.log` file with a new numbering will be created after the log file reaches 5MB big, up to a maximum of 5 files.
   - Can be initialized with a `Config` object which contains a custom logging level
     - Loggers obtained *AFTER* this initialization will have their logging level changed
-    - Logging levels for existing loggers will only be updated if the logger with the same name is requested again from `LoggerManager`
+    - Logging levels for existing loggers will only be updated if the logger with the same name is requested again from `LogsCenter`
  
