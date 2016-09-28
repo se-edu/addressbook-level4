@@ -7,9 +7,11 @@ import java.util.logging.*;
  * Configures and manages loggers and handlers, including their logging level
  */
 public class LogsCenter {
+    private static final int MAX_FILE_COUNT = 5;
+    private static final int MAX_FILE_SIZE_IN_BYTES = (int) (Math.pow(2, 20) * 5); // 5MB
+    private static final String LOG_FILE = "addressbook.log";
     private static Level currentLogLevel = Level.INFO;
     private static final Logger logger = LogsCenter.getLogger(LogsCenter.class);
-    private static final String LOG_FILE = "addressbook.log";
     private static FileHandler fileHandler;
     private static ConsoleHandler consoleHandler;
 
@@ -18,19 +20,27 @@ public class LogsCenter {
         logger.info("currentLogLevel: " + currentLogLevel);
     }
 
-    public static Logger getLogger(String className) {
-        Logger logger = Logger.getLogger(className);
+    public static Logger getLogger(String name) {
+        Logger logger = Logger.getLogger(name);
         logger.setUseParentHandlers(false);
 
+        removeHandlers(logger);
         addConsoleHandler(logger);
         addFileHandler(logger);
 
-        return Logger.getLogger(className);
+        return Logger.getLogger(name);
     }
 
     private static void addConsoleHandler(Logger logger) {
         if (consoleHandler == null) consoleHandler = createConsoleHandler();
         logger.addHandler(consoleHandler);
+    }
+
+    private static void removeHandlers(Logger logger) {
+        Handler[] handlers = logger.getHandlers();
+        for (Handler handler : handlers) {
+            logger.removeHandler(handler);
+        }
     }
 
     private static void addFileHandler(Logger logger) {
@@ -43,7 +53,7 @@ public class LogsCenter {
     }
 
     private static FileHandler createFileHandler() throws IOException {
-        FileHandler fileHandler = new FileHandler(LOG_FILE);
+        FileHandler fileHandler = new FileHandler(LOG_FILE, MAX_FILE_SIZE_IN_BYTES, MAX_FILE_COUNT);
         fileHandler.setFormatter(new SimpleFormatter());
         fileHandler.setLevel(currentLogLevel);
         return fileHandler;
