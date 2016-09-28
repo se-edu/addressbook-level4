@@ -137,7 +137,7 @@ task guiTests(type: AddressBookTest) {
 }
 
 
-task unitTests(type: AddressBookTest) {
+task nonGuiTests(type: AddressBookTest) {
     include 'seedu/address/**'
 
     jacoco {
@@ -155,12 +155,12 @@ task allTests(type: AddressBookTest) {
 task headless << {
     println "Setting headless mode properties."
     guiTests.setHeadless()
-    unitTests.setHeadless()
+    nonGuiTests.setHeadless()
     allTests.setHeadless()
 }
 
 // Makes sure that headless properties are set before running tests
-unitTests.mustRunAfter headless
+nonGuiTests.mustRunAfter headless
 guiTests.mustRunAfter headless
 allTests.mustRunAfter headless
 

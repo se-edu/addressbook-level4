@@ -148,23 +148,20 @@ The `Storage` component,
 **Using Gradle**:
 * See [UsingGradle.md](UsingGradle.md) for how to run tests using Gradle. 
 
-Tests can be found in the `./src/test/java` folder. We have three types<sup>[[1](#footnote1)]</sup> of tests.
+Tests can be found in the `./src/test/java` folder.
 
-1. **Large Tests** - These are _System Tests_ test the entire App by simulating user actions on the GUI. 
+1. **GUI Tests** - These are _System Tests_ that test the entire App by simulating user actions on the GUI. 
    These are in the `guitests` package.
   
-2. **Medium Tests** - These target higher-level code (i.e. code that depend on other code). 
-   e.g. `seedu.address.logic.LogicManagerTest`
-   For simplicity, we assume the dependent code is working correctly (as such, these tests are 
-   a mix between _Unit Tests_ and _Integration Tests_)
-   A better alternative is to use _Dependency Injection_ and/or _Mocks/Stubs_
-   to isolate from dependent code. 
-
-3. **Small Tests** - These are the _Unit Tests_ targeting the lowest level methods/classes. <br>
-   e.g. `seedu.address.commons.UrlUtilTest`<br>
-   Tests that target higher level code (i.e. code that depend on other code) are not pure unit tests
-   because we don't use mocking/stubbing to isolate the SUT. Such tests are recognized under the 
-   'Medium Tests' category above.
+2. **Non-GUI Tests** - These are tests not involving the GUI. They include,
+   1. _Unit tests_ targeting the lowest level methods/classes. <br>
+      e.g. `seedu.address.commons.UrlUtilTest`
+   2. _Integration tests_ that are checking the integration of multiple code units 
+     (those code units are assumed to be working).<br>
+      e.g. `seedu.address.storage.StorageManagerTest`
+   3. Hybrids of unit and integration tests. These test are checking multiple code units as well as 
+      how the are connected together.<br>
+      e.g. `seedu.address.logic.LogicManagerTest`
   
 **Headless GUI Testing** :
 Thanks to the ([TestFX](https://github.com/TestFX/TestFX)) library we use,
@@ -262,8 +259,3 @@ Use case ends.
 
 {TODO: Add a summary of competing products}
 
-----
-**Footnotes**
-
-<a name="footnote1"/>[1]</a> This test categorization was inspired 
-   by [this Google Test Blog Post](https://testing.googleblog.com/2010/12/test-sizes.html)

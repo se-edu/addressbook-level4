@@ -7,6 +7,9 @@ import java.net.URL;
  */
 public class UrlUtil {
 
+    /**
+     * Returns true if both URLs have the same base URL
+     */
     public static boolean compareBaseUrls(URL url1, URL url2) {
 
         if (url1 == null || url2 == null) {
