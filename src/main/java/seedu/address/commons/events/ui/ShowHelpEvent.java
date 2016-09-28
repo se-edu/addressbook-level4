@@ -1,14 +1,15 @@
-package seedu.address.commons.events.controller;
+package seedu.address.commons.events.ui;
 
 import seedu.address.commons.events.BaseEvent;
 
 /**
- *
+ * An event requesting to view the help page.
  */
-public class ExitAppRequestEvent extends BaseEvent {
+public class ShowHelpEvent extends BaseEvent {
 
     @Override
     public String toString() {
         return this.getClass().getSimpleName();
     }
+
 }

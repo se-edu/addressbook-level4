@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 import seedu.address.commons.util.FxViewUtil;
 
 /**
- * A controller for the status bar that is displayed at the header of the application.
+ * A ui for the status bar that is displayed at the header of the application.
  */
 public class ResultDisplay extends UiPart {
     public static final String RESULT_DISPLAY_ID = "resultDisplay";

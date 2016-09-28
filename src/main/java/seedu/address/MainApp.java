@@ -8,7 +8,7 @@ import seedu.address.commons.core.Config;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.Version;
-import seedu.address.commons.events.controller.ExitAppRequestEvent;
+import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
