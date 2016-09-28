@@ -53,7 +53,7 @@ public class LogsCenter {
     }
 
     private static FileHandler createFileHandler() throws IOException {
-        FileHandler fileHandler = new FileHandler(LOG_FILE, MAX_FILE_SIZE_IN_BYTES, MAX_FILE_COUNT);
+        FileHandler fileHandler = new FileHandler(LOG_FILE, MAX_FILE_SIZE_IN_BYTES, MAX_FILE_COUNT, true);
         fileHandler.setFormatter(new SimpleFormatter());
         fileHandler.setLevel(currentLogLevel);
         return fileHandler;
