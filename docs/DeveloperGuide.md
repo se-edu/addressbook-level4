@@ -37,6 +37,8 @@
 4. Click `Browse`, then locate the project's directory
 5. Click `Finish`
 
+  > If you are asked whether to 'keep' or 'overwrite' config files, choose to 'keep'.
+
 ## Design
 
 <img src="images/Architecture.png" width="600"><br>
@@ -140,6 +142,9 @@ The `Storage` component,
 ## Testing
 
 **In Eclipse**: 
+> If you are not using a recent Eclipse version (i.e. _Neon_ or later), enable assertions in JUnit tests
+  as described [here](http://stackoverflow.com/questions/2522897/eclipse-junit-ea-vm-option).
+
 * To run all tests, right-click on the `src/test/java` folder and choose 
   `Run as` > `JUnit Test`
 * To run a subset of tests, you can right-click on a test package, test class, or a test and choose 
