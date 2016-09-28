@@ -1,6 +1,8 @@
 package seedu.address.logic.commands;
 
+import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
+import seedu.address.commons.events.ui.IncorrectCommandAttemptedEvent;
 import seedu.address.model.Model;
 
 /**
@@ -33,5 +35,12 @@ public abstract class Command {
      */
     public void setData(Model model) {
         this.model = model;
+    }
+
+    /**
+     * Raises an event to indicate an attempt to execute an incorrect command
+     */
+    protected void indicateAttemptToExecuteIncorrectCommand() {
+        EventsCenter.getInstance().post(new IncorrectCommandAttemptedEvent(this));
     }
 }

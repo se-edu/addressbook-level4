@@ -32,7 +32,8 @@ public class SelectCommand extends Command {
         UnmodifiableObservableList<ReadOnlyPerson> lastShownList = model.getFilteredPersonList();
 
         if (lastShownList.size() < targetIndex) {
-            return new IncorrectCommandResult(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            indicateAttemptToExecuteIncorrectCommand();
+            return new CommandResult(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
         EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex - 1));

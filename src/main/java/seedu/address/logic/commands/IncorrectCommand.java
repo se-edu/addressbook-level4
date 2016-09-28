@@ -14,7 +14,8 @@ public class IncorrectCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        return new IncorrectCommandResult(feedbackToUser);
+        indicateAttemptToExecuteIncorrectCommand();
+        return new CommandResult(feedbackToUser);
     }
 
 }

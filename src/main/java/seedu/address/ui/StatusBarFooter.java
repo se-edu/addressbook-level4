@@ -50,7 +50,7 @@ public class StatusBarFooter extends UiPart {
         setSyncStatus("Not updated yet in this session");
         addSaveLocation();
         setSaveLocation("./" + saveLocation);
-        EventsCenter.getInstance().registerHandler(this);
+        registerAsAnEventHandler(this);
     }
 
     private void addMainPane() {

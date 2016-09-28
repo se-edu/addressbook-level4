@@ -41,6 +41,14 @@ public abstract class UiPart {
     }
 
     /**
+     * Registers the object as an event handler at the {@link EventsCenter}
+     * @param handler usually {@code this}
+     */
+    protected void registerAsAnEventHandler(Object handler) {
+        EventsCenter.getInstance().registerHandler(handler);
+    }
+
+    /**
      * Override this method to receive the main Node generated while loading the view from the .fxml file.
      * @param node
      */
