@@ -1,4 +1,4 @@
-# Developer Guide [Work in progress]
+# Developer Guide 
 
 * [Setting Up](#setting-up)
 * [Design](#design)
@@ -75,7 +75,7 @@ command `delete 3`.
 
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates
 being saved to the hard disk. <br>
-<img src="images\SDforDeletePersonEventHandling.png" width="600">
+<img src="images\SDforDeletePersonEventHandling.png" width="800">
 
 > Note how the event is propagated through the `EventsCenter` to the `Storage` without `Model` having
   to be coupled to the `Storage`. This is an example of how this Event Driven approach helps us reduce coupling
