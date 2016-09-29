@@ -1,5 +1,5 @@
-[![Build Status](https://travis-ci.org/se-edu/addressbook-level4.svg?branch=master)](https://travis-ci.org/se-edu/addressbook-level4.svg?branch=master)
-[![Coverage Status](https://coveralls.io/repos/github/se-edu/addressbook-level4/badge.svg)](https://coveralls.io/github/se-edu/addressbook-level4)
+[![Build Status](https://travis-ci.org/se-edu/addressbook-level4.svg?branch=master)](https://travis-ci.org/se-edu/addressbook-level4)
+[![Coverage Status](https://coveralls.io/repos/github/se-edu/addressbook-level4/badge.svg?branch=master)](https://coveralls.io/github/se-edu/addressbook-level4?branch=master)
 
 # Address Book (Level 4)
 
