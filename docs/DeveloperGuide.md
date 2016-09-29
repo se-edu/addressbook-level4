@@ -39,7 +39,9 @@
 4. Click `Browse`, then locate the project's directory
 5. Click `Finish`
 
-  > If you are asked whether to 'keep' or 'overwrite' config files, choose to 'keep'.
+  > * If you are asked whether to 'keep' or 'overwrite' config files, choose to 'keep'.
+  > * Depending on your connection speed and server load, it can even take up to 30 minutes for the set up to finish
+      (This is because Gradle downloads library files from servers during the project set up process)
 
 ## Design
 
