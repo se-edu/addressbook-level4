@@ -69,7 +69,8 @@ Deletes the specified person from the address book. Irreversible.<br>
 Format: `delete INDEX`
 
 > Deletes the person at the specified `INDEX`. 
-  The index refers to the index number shown in the most recent listing.
+  The index refers to the index number shown in the most recent listing.<br>
+  The index **must be a positive integer** 1, 2, 3, ...
 
 Examples: 
 * `list`<br>
@@ -84,7 +85,8 @@ Selects the person identified by the index number used in the last person listin
 Format: `select INDEX`
 
 > Selects the person and loads the Google search page the person at the specified `INDEX`. 
-  The index refers to the index number shown in the most recent listing.
+  The index refers to the index number shown in the most recent listing.<br>
+  The index **must be a positive integer** 1, 2, 3, ...
 
 Examples: 
 * `list`<br>
