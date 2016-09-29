@@ -66,7 +66,7 @@ public class StorageManager extends ComponentManager implements Storage {
     @Override
     @Subscribe
     public void handleAddressBookChangedEvent(AddressBookChangedEvent abce) {
-        logger.info("Local data changed, saving to primary data file");
+        logger.info("Local data changed, saving to file");
         try {
             saveAddressBook(abce.data);
         } catch (IOException e) {
