@@ -49,16 +49,4 @@ public class EventsCenter {
         return this;
     }
 
-    /**
-     * Similar to {@link #post} event, but logs at fine level.
-     * To be used for less important events.
-     * @param event
-     * @param <E>
-     * @return
-     */
-    public <E extends BaseEvent> EventsCenter postPotentialEvent(E event) {
-        logger.fine(event.getClass().getName() + ": " + event.toString());
-        return postEvent(event);
-    }
-
 }

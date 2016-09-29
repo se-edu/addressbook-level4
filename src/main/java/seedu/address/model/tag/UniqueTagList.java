@@ -26,12 +26,6 @@ public class UniqueTagList implements Iterable<Tag> {
         }
     }
 
-    /**
-     * Signals that an operation targeting a specified Tag in the list would fail because
-     * there is no such matching Tag in the list.
-     */
-    public static class TagNotFoundException extends Exception {}
-
     private final ObservableList<Tag> internalList = FXCollections.observableArrayList();
 
     /**
@@ -75,14 +69,6 @@ public class UniqueTagList implements Iterable<Tag> {
      */
     public UniqueTagList(UniqueTagList source) {
         internalList.addAll(source.internalList); // insulate internal list from changes in argument
-    }
-
-    /**
-     * Unmodifiable java List view. For use with other methods/libraries.
-     * Any changes to the internal list/elements are immediately visible in the returned list.
-     */
-    public List<Tag> immutableListView() {
-        return Collections.unmodifiableList(internalList);
     }
 
     /**
@@ -131,27 +117,6 @@ public class UniqueTagList implements Iterable<Tag> {
             throw new DuplicateTagException();
         }
         internalList.add(toAdd);
-    }
-
-    /**
-     * Removes the equivalent Tag from the list.
-     *
-     * @throws TagNotFoundException if no such Tag could be found in the list.
-     */
-    public boolean remove(Tag toRemove) throws TagNotFoundException {
-        assert toRemove != null;
-        final boolean tagFoundAndDeleted = internalList.remove(toRemove);
-        if (!tagFoundAndDeleted) {
-            throw new TagNotFoundException();
-        }
-        return tagFoundAndDeleted;
-    }
-
-    /**
-     * Clears all tags in list.
-     */
-    public void clear() {
-        internalList.clear();
     }
 
     @Override

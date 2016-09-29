@@ -1,22 +1,18 @@
 package seedu.address.ui;
 
+import com.google.common.eventbus.Subscribe;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
-
-import java.util.Date;
-import java.util.logging.Logger;
-
 import org.controlsfx.control.StatusBar;
-
-import com.google.common.eventbus.Subscribe;
-
-import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.util.FxViewUtil;
+
+import java.util.Date;
+import java.util.logging.Logger;
 
 /**
  * A ui for the status bar that is displayed at the footer of the application.

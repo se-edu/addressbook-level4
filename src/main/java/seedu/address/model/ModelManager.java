@@ -23,7 +23,6 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final AddressBook addressBook;
     private final FilteredList<Person> filteredPersons;
-    private UserPrefs userPrefs;
 
     /**
      * Initializes a ModelManager with the given AddressBook
@@ -38,7 +37,6 @@ public class ModelManager extends ComponentManager implements Model {
 
         addressBook = new AddressBook(src);
         filteredPersons = new FilteredList<>(addressBook.getPersons());
-        this.userPrefs = userPrefs;
     }
 
     public ModelManager() {
@@ -48,7 +46,6 @@ public class ModelManager extends ComponentManager implements Model {
     public ModelManager(ReadOnlyAddressBook initialData, UserPrefs userPrefs) {
         addressBook = new AddressBook(initialData);
         filteredPersons = new FilteredList<>(addressBook.getPersons());
-        this.userPrefs = userPrefs;
     }
 
     @Override
@@ -79,11 +76,6 @@ public class ModelManager extends ComponentManager implements Model {
         addressBook.addPerson(person);
         updateFilteredListToShowAll();
         indicateAddressBookChanged();
-    }
-
-    @Override
-    public void updateUserPrefs(UserPrefs userPrefs) {
-        this.userPrefs = userPrefs;
     }
 
     //=========== Filtered Person List Accessors ===============================================================

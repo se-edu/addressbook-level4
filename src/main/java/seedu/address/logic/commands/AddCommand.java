@@ -1,9 +1,9 @@
 package seedu.address.logic.commands;
 
-import seedu.address.commons.util.CollectionUtil;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.person.*;
-import seedu.address.model.tag.*;
+import seedu.address.model.tag.Tag;
+import seedu.address.model.tag.UniqueTagList;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -43,14 +43,6 @@ public class AddCommand extends Command {
                 new Address(address),
                 new UniqueTagList(tagSet)
         );
-    }
-
-    public AddCommand(Person toAdd) {
-        this.toAdd = toAdd;
-    }
-
-    public ReadOnlyPerson getPerson() {
-        return toAdd;
     }
 
     @Override

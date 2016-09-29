@@ -62,7 +62,4 @@ public class ResultDisplay extends UiPart {
         displayed.setValue(message);
     }
 
-    public String getDisplayed() {
-        return displayed.getValue();
-    }
 }

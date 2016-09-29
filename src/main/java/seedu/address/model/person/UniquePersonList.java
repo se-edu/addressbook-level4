@@ -40,60 +40,6 @@ public class UniquePersonList implements Iterable<Person> {
     public UniquePersonList() {}
 
     /**
-     * Varargs/array constructor, enforces no nulls or duplicates.
-     */
-    public UniquePersonList(Person... persons) throws DuplicatePersonException {
-        assert ! CollectionUtil.isAnyNull((Object[]) persons);
-        final List<Person> initialPersons = Arrays.asList(persons);
-        if (!CollectionUtil.elementsAreUnique(initialPersons)) {
-            throw new DuplicatePersonException();
-        }
-        internalList.addAll(initialPersons);
-    }
-
-    /**
-     * Java collections constructor, enforces no null or duplicate elements.
-     */
-    public UniquePersonList(Collection<Person> persons) throws DuplicatePersonException {
-        CollectionUtil.assertNoNullElements(persons);
-        if (!CollectionUtil.elementsAreUnique(persons)) {
-            throw new DuplicatePersonException();
-        }
-        internalList.addAll(persons);
-    }
-
-    /**
-     * Java set constructor, enforces no nulls.
-     */
-    public UniquePersonList(Set<Person> persons) {
-        CollectionUtil.assertNoNullElements(persons);
-        internalList.addAll(persons);
-    }
-
-    /**
-     * Copy constructor, insulates from changes in source.
-     */
-    public UniquePersonList(UniquePersonList source) {
-        internalList.addAll(source.internalList); // insulate internal list from changes in argument
-    }
-
-    /**
-     * Unmodifiable java List view with elements cast as immutable {@link ReadOnlyPerson}s.
-     * For use with other methods/libraries.
-     * Any changes to the internal list/elements are immediately visible in the returned list.
-     */
-    public List<ReadOnlyPerson> immutableListView() {
-        return Collections.unmodifiableList(internalList);
-    }
-
-    /**
-     * Returns all persons in this list as a Set. This set is mutable and change-insulated against the internal list.
-     */
-    public Set<Person> toSet() {
-        return new HashSet<>(internalList);
-    }
-
-    /**
      * Returns true if the list contains an equivalent person as the given argument.
      */
     public boolean contains(ReadOnlyPerson toCheck) {
@@ -126,13 +72,6 @@ public class UniquePersonList implements Iterable<Person> {
             throw new PersonNotFoundException();
         }
         return personFoundAndDeleted;
-    }
-
-    /**
-     * Clears all persons in list.
-     */
-    public void clear() {
-        internalList.clear();
     }
 
     public ObservableList<Person> getInternalList() {

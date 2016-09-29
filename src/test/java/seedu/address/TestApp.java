@@ -65,10 +65,6 @@ public class TestApp extends MainApp {
         ui.start(primaryStage);
     }
 
-    public Config getTestingConfig() {
-        return this.config;
-    }
-
     public static void main(String[] args) {
         launch(args);
     }

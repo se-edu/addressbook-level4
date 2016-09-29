@@ -80,10 +80,6 @@ public class PersonListPanel extends UiPart {
         });
     }
 
-    public ObservableList<ReadOnlyPerson> getDisplayedPersonsView() {
-        return this.personListView.getItems();
-    }
-
     public void scrollTo(int index) {
         Platform.runLater(() -> {
             personListView.scrollTo(index);

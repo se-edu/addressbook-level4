@@ -3,7 +3,6 @@ package seedu.address.storage;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.util.FileUtil;
-import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.UserPrefs;
 
 import java.io.File;
@@ -22,10 +21,6 @@ public class JsonUserPrefStorage implements UserPrefsStorage{
 
     public JsonUserPrefStorage(String filePath){
         this.filePath = filePath;
-    }
-
-    public String getUserPrefsFilePath(){
-        return filePath;
     }
 
     @Override

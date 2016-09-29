@@ -1,6 +1,5 @@
 package seedu.address.model.person;
 
-import seedu.address.commons.util.CollectionUtil;
 import seedu.address.commons.exceptions.IllegalValueException;
 
 /**
@@ -9,7 +8,6 @@ import seedu.address.commons.exceptions.IllegalValueException;
  */
 public class Phone {
 
-    public static final String EXAMPLE = "123456789";
     public static final String MESSAGE_PHONE_CONSTRAINTS = "Person phone numbers should only contain numbers";
     public static final String PHONE_VALIDATION_REGEX = "\\d+";
 

@@ -70,15 +70,6 @@ public class Person implements ReadOnlyPerson {
     }
 
     @Override
-    public void update(ReadOnlyPerson person) {
-        this.name = person.getName();
-        this.phone = person.getPhone();
-        this.email = person.getEmail();
-        this.address = person.getAddress();
-        this.tags = person.getTags();
-    }
-
-    @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof ReadOnlyPerson // instanceof handles nulls

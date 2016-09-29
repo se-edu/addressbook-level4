@@ -1,6 +1,5 @@
 package seedu.address.model;
 
-import seedu.address.commons.core.Config;
 import seedu.address.commons.core.GuiSettings;
 
 import java.util.Objects;

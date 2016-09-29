@@ -9,19 +9,17 @@ import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
-import javafx.scene.input.KeyEvent;
 import junit.framework.AssertionFailedError;
 import org.loadui.testfx.GuiTest;
 import org.testfx.api.FxToolkit;
 import seedu.address.TestApp;
-import seedu.address.commons.util.FileUtil;
-import seedu.address.commons.core.OsDetector;
-import seedu.address.commons.util.XmlUtil;
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.tag.Tag;
-import seedu.address.model.tag.UniqueTagList;
+import seedu.address.commons.util.FileUtil;
+import seedu.address.commons.util.XmlUtil;
 import seedu.address.model.AddressBook;
 import seedu.address.model.person.*;
+import seedu.address.model.tag.Tag;
+import seedu.address.model.tag.UniqueTagList;
 import seedu.address.storage.XmlSerializableAddressBook;
 
 import java.io.File;
@@ -162,10 +160,6 @@ public class TestUtil {
         if (keyCodeCombination.getControl() == KeyCombination.ModifierValue.DOWN) {
             keys.add(KeyCode.CONTROL);
         }
-        if (keyCodeCombination.getShortcut() == KeyCombination.ModifierValue.DOWN) {
-            keys.add(getPlatformSpecificShortcutKey());
-
-        }
         keys.add(keyCodeCombination.getCode());
         return keys.toArray(new KeyCode[]{});
     }
@@ -173,28 +167,6 @@ public class TestUtil {
     public static boolean isHeadlessEnvironment() {
         String headlessProperty = System.getProperty("testfx.headless");
         return headlessProperty != null && headlessProperty.equals("true");
-    }
-
-    /**
-     * Returns {@code KeyCode.COMMAND or KeyCode.META} if on a Mac depending on headful/headless mode,
-     * {@code KeyCode.CONTROL} otherwise.
-     */
-    private static KeyCode getPlatformSpecificShortcutKey() {
-        KeyCode macShortcut = isHeadlessEnvironment() ? KeyCode.COMMAND : KeyCode.META;
-        return OsDetector.isOnMac() ? macShortcut : KeyCode.CONTROL;
-    }
-
-    /**
-     * Replaces any {@code KeyCode.SHORTCUT or KeyCode.META} with {@code KeyCode.META or KeyCode.COMMAND} on Macs
-     * depending on headful/headless mode, and {@code KeyCode.CONTROL} on other platforms.
-     */
-    public static KeyCode[] scrub(KeyCode[] keyCodes) {
-        for (int i = 0; i < keyCodes.length; i++) {
-            if (keyCodes[i] == KeyCode.META || keyCodes[i] == KeyCode.SHORTCUT) {
-                keyCodes[i] = getPlatformSpecificShortcutKey();
-            }
-        }
-        return keyCodes;
     }
 
     public static void captureScreenShot(String fileName) {
@@ -211,22 +183,6 @@ public class TestUtil {
                 + Arrays.asList(comparedObjects).stream()
                 .map(Object::toString)
                 .collect(Collectors.joining("\n"));
-    }
-
-    /**
-     * Generates a minimal {@link KeyEvent} object that matches the {@code keyCombination}
-     */
-    public static KeyEvent getKeyEvent(String keyCombination) {
-        String[] keys = keyCombination.split(" ");
-
-        String key = keys[keys.length - 1];
-        boolean shiftDown = keyCombination.toLowerCase().contains("shift");
-        boolean metaDown = keyCombination.toLowerCase().contains("meta")
-                || (keyCombination.toLowerCase().contains("shortcut") && OsDetector.isOnMac());
-        boolean altDown = keyCombination.toLowerCase().contains("alt");
-        boolean ctrlDown = keyCombination.toLowerCase().contains("ctrl")
-                || keyCombination.toLowerCase().contains("shortcut") && !OsDetector.isOnMac();
-        return new KeyEvent(null, null, null, KeyCode.valueOf(key), shiftDown, ctrlDown, altDown, metaDown);
     }
 
     public static void setFinalStatic(Field field, Object newValue) throws NoSuchFieldException, IllegalAccessException{
@@ -310,13 +266,6 @@ public class TestUtil {
 
     public static double getSceneMaxY(Scene scene) {
         return scene.getX() + scene.getHeight();
-    }
-
-    public static String getOsDependentKeyCombinationString(String keyCombinationString) {
-        if (!OsDetector.isOnMac()) return keyCombinationString;
-        return keyCombinationString.replaceAll("Alt\\+", "⌥")
-                .replaceAll("Meta\\+", "⌘")
-                .replaceAll("Shift\\+", "⇧");
     }
 
     public static Object getLastElement(List<?> list) {

@@ -9,7 +9,6 @@ import javafx.stage.Stage;
 import seedu.address.TestApp;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.ReadOnlyPerson;
-import seedu.address.testutil.TestPerson;
 import seedu.address.testutil.TestUtil;
 
 import java.util.List;

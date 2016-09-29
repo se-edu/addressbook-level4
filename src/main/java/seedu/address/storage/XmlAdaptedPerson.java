@@ -1,10 +1,9 @@
 package seedu.address.storage;
 
-import seedu.address.commons.util.CollectionUtil;
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.person.*;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
-import seedu.address.model.person.*;
 
 import javax.xml.bind.annotation.XmlElement;
 import java.util.ArrayList;
@@ -47,23 +46,6 @@ public class XmlAdaptedPerson {
         for (Tag tag : source.getTags()) {
             tagged.add(new XmlAdaptedTag(tag));
         }
-    }
-
-    /**
-     * Checks whether any required element is missing.
-     *
-     * JAXB does not enforce (required = true) without a given XML schema.
-     * Since we do most of our validation using the model class constructors, the only extra logic we need
-     * is to ensure that every xml element in the document is present. JAXB sets missing elements as null,
-     * so we check for that.
-     */
-    public boolean isAnyRequiredFieldMissing() {
-        for (XmlAdaptedTag tag : tagged) {
-            if (tag.isAnyRequiredFieldMissing()) {
-                return true;
-            }
-        }
-        return CollectionUtil.isAnyNull(name, phone, email, address);
     }
 
     /**
