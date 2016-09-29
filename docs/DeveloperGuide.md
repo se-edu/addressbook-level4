@@ -2,6 +2,7 @@
 
 * [Setting Up](#setting-up)
 * [Design](#design)
+* [Implementation](#implementation)
 * [Testing](#testing)
 * [Continuous Integration](#continuous-integration)
 * [Making a Release](#making-a-release)
@@ -31,7 +32,8 @@
 #### Importing the project into Eclipse
 
 0. Fork this repo, and clone the fork to your computer
-1. Open Eclipse (Note: Ensure you have installed the **e(fx)clipse** and **buildship** plugins as given in the prerequisites above)
+1. Open Eclipse (Note: Ensure you have installed the **e(fx)clipse** and **buildship** plugins as given 
+   in the prerequisites above)
 2. Click `File` > `Import`
 3. Click `Gradle` > `Gradle Project` > `Next` > `Next`
 4. Click `Browse`, then locate the project's directory
@@ -138,6 +140,46 @@ The `Storage` component,
 * can save the Address Book data in xml format and read it back.
 
 ### Common classes
+
+Classes used by multiple components are in the `seedu.addressbook.commans` package. 
+
+## Implementation
+
+### Logging
+
+We are using `java.util.logging.Logger` as our logger, and `LogsCenter` is used to manage the logging levels 
+of loggers and handlers (for output of log messages)
+
+- The logging level can be controlled using the `logLevel` setting in the configuration file 
+  (See [Configuration](#configuration))
+- The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to 
+  the specified logging level
+
+- Currently log messages are output through: `Console` and `.log`
+
+**Logging Levels**
+
+- SEVERE
+  - Critical use case affected, which may possibly cause the termination of the application
+
+- WARNING
+  - Can continue, but with caution
+
+- INFO
+  - Information important for the application's purpose
+    - e.g. update to local model/request sent to cloud
+  - Information that the layman user can understand
+
+- FINE
+  - Used for superficial debugging purposes to pinpoint components that the fault/bug is likely to arise from
+  - Should include more detailed information as compared to `INFO` i.e. log useful information!
+    - e.g. print the actual list instead of just its size
+
+### Configuration
+
+Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file 
+(default: `config.json`):
+
 
 ## Testing
 

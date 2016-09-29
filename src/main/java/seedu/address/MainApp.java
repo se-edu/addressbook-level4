@@ -45,7 +45,7 @@ public class MainApp extends Application {
 
     @Override
     public void init() throws Exception {
-        logger.info("Initializing app ...");
+        logger.info("=============================[ Initializing AddressBook ]===========================");
         super.init();
 
         config = initConfig(getApplicationParameter("config"));
@@ -159,13 +159,13 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        logger.info("Starting application: " + MainApp.VERSION);
+        logger.info("Starting AddressBook " + MainApp.VERSION);
         ui.start(primaryStage);
     }
 
     @Override
     public void stop() {
-        logger.info("Stopping application.");
+        logger.info("============================ [ Stopping Address Book ] =============================");
         ui.stop();
         try {
             storage.saveUserPrefs(userPrefs);
@@ -178,6 +178,7 @@ public class MainApp extends Application {
 
     @Subscribe
     public void handleExitAppRequestEvent(ExitAppRequestEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
         this.stop();
     }
 

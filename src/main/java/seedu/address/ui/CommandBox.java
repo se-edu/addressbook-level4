@@ -76,7 +76,6 @@ public class CommandBox extends UiPart {
          * in the event handling code {@link #handleIncorrectCommandAttempted}
          */
         setStyleToIndicateCorrectCommand();
-
         mostRecentResult = logic.execute(previousCommandTest);
         resultDisplay.postMessage(mostRecentResult.feedbackToUser);
         logger.info("Result: " + mostRecentResult.feedbackToUser);
@@ -92,8 +91,8 @@ public class CommandBox extends UiPart {
     }
 
     @Subscribe
-    private void handleIncorrectCommandAttempted(IncorrectCommandAttemptedEvent icae){
-        logger.fine("Invalid command: " + previousCommandTest);
+    private void handleIncorrectCommandAttempted(IncorrectCommandAttemptedEvent event){
+        logger.info(LogsCenter.getEventHandlingLogMessage(event,"Invalid command: " + previousCommandTest));
         setStyleToIndicateIncorrectCommand();
         restoreCommandText();
     }
