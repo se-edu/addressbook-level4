@@ -5,20 +5,20 @@ We are a team based in the [School of Computing, National University of Singapor
 ## Project Team
 
 #### [Damith C. Rajapakse](http://www.comp.nus.edu.sg/~damithch) <br>
-<img src="images/DamithRajapakse.png" width="50"><br>
+<img src="images/DamithRajapakse.jpg" width="50"><br>
 **Role**: Project Advisor
 
 -----
 
 #### [Joshua Lee](http://github.com/lejolly)
-<img src="images/JoshuaLee.png" width="50"><br>
+<img src="images/JoshuaLee.jpg" width="50"><br>
 Role: Developer <br>  
 Responsibilities: UI
 
 -----
 
 #### [Leow Yijin](http://github.com/yijinl) 
-<img src="images/LeowYijin.png" width="50"><br>
+<img src="images/LeowYijin.jpg" width="50"><br>
 Role: Developer <br>  
 Responsibilities: Data
 
@@ -37,7 +37,7 @@ Responsibilities: Dev Ops
  -----
 
 #### [You Liang](http://github.com/yl-coder) 
-<img src="images/YouLiang.png" width="50"><br>
+<img src="images/YouLiang.jpg" width="50"><br>
  Role: Developer <br>  
  Responsibilities: UI
  
