@@ -100,23 +100,27 @@ public class UiManager extends ComponentManager implements Ui {
     //==================== Event Handling Code =================================================================
 
     @Subscribe
-    private void handleDataSavingExceptionEvent(DataSavingExceptionEvent fsee) {
-        showFileOperationAlertAndWait("Could not save data", "Could not save data to file", fsee.exception);
+    private void handleDataSavingExceptionEvent(DataSavingExceptionEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        showFileOperationAlertAndWait("Could not save data", "Could not save data to file", event.exception);
     }
 
     @Subscribe
     private void handleShowHelpEvent(ShowHelpEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
         mainWindow.handleHelp();
     }
 
     @Subscribe
     private void handleJumpToListRequestEvent(JumpToListRequestEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
         mainWindow.getPersonListPanel().scrollTo(event.targetIndex);
     }
 
     @Subscribe
-    private void handlePersonPanelSelectionChangedEvent(PersonPanelSelectionChangedEvent ppsce){
-        mainWindow.loadPersonPage(ppsce.getNewSelection());
+    private void handlePersonPanelSelectionChangedEvent(PersonPanelSelectionChangedEvent event){
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        mainWindow.loadPersonPage(event.getNewSelection());
     }
 
 }

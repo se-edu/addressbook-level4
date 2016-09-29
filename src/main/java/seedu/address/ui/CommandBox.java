@@ -91,8 +91,8 @@ public class CommandBox extends UiPart {
     }
 
     @Subscribe
-    private void handleIncorrectCommandAttempted(IncorrectCommandAttemptedEvent icae){
-        logger.fine("Invalid command: " + previousCommandTest);
+    private void handleIncorrectCommandAttempted(IncorrectCommandAttemptedEvent event){
+        logger.info(LogsCenter.getEventHandlingLogMessage(event,"Invalid command: " + previousCommandTest));
         setStyleToIndicateIncorrectCommand();
         restoreCommandText();
     }

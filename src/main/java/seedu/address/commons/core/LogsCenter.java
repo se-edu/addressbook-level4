@@ -1,5 +1,7 @@
 package seedu.address.commons.core;
 
+import seedu.address.commons.events.BaseEvent;
+
 import java.io.IOException;
 import java.util.logging.*;
 
@@ -68,5 +70,13 @@ public class LogsCenter {
     public static <T> Logger getLogger(Class<T> clazz) {
         if (clazz == null) return Logger.getLogger("");
         return getLogger(clazz.getSimpleName());
+    }
+
+    public static String getEventHandlingLogMessage(BaseEvent e, String message) {
+        return "---[Event handled][" + e + "]" + message;
+    }
+
+    public static String getEventHandlingLogMessage(BaseEvent e) {
+        return getEventHandlingLogMessage(e,"");
     }
 }
