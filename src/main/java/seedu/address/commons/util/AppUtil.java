@@ -9,6 +9,7 @@ import seedu.address.MainApp;
 public class AppUtil {
 
     public static Image getImage(String imagePath) {
+        assert imagePath != null;
         return new Image(MainApp.class.getResourceAsStream(imagePath));
     }
 

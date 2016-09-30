@@ -19,6 +19,7 @@ public class StringUtil {
      * Returns a detailed message of the t, including the stack trace.
      */
     public static String getDetails(Throwable t){
+        assert t != null;
         StringWriter sw = new StringWriter();
         t.printStackTrace(new PrintWriter(sw));
         return t.getMessage() + "\n" + sw.toString();
