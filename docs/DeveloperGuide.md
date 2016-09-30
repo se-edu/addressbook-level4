@@ -46,7 +46,7 @@
 
 ## Design
 
-## Architecture
+### Architecture
 
 <img src="images/Architecture.png" width="600"><br>
 The **_Architecture Diagram_** given above explains the high-level design of the App.
