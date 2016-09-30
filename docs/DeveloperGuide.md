@@ -4,9 +4,7 @@
 * [Design](#design)
 * [Implementation](#implementation)
 * [Testing](#testing)
-* [Continuous Integration](#continuous-integration)
-* [Making a Release](#making-a-release)
-* [Managing Dependencies](#managing-dependencies)
+* [Dev Ops](#dev-ops)
 * [Appendix A: User Stories](#appendix-a--user-stories)
 * [Appendix B: Use Cases](#appendix-b--use-cases)
 * [Appendix C: Non Functional Requirements](#appendix-c--non-functional-requirements)
@@ -216,12 +214,14 @@ Thanks to the [TestFX](https://github.com/TestFX/TestFX) library we use,
  That means the developer can do other things on the Computer while the tests are running.<br>
  See [UsingGradle.md](UsingGradle.md#running-tests) to learn how to run tests in headless mode.
   
-## Continuous Integration
+## Dev Ops
+
+### Continuous Integration
 
 We use [Travis CI](https://travis-ci.org/) to perform _Continuous Integration_ on our projects.
 See [UsingTravis.md](UsingTravis.md) for more details.
 
-## Making a Release
+### Making a Release
 
 Here are the steps to create a new release.
  
@@ -230,7 +230,7 @@ Here are the steps to create a new release.
  2. [Crete a new release using GitHub](https://help.github.com/articles/creating-releases/) 
     and upload the JAR file your created.
    
-## Managing Dependencies
+### Managing Dependencies
 
 A project often depends on third-party libraries. For example, Address Book depends on the
 [Jackson library](http://wiki.fasterxml.com/JacksonHome) for XML parsing. Managing these _dependencies_
