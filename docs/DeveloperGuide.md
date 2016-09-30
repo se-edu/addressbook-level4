@@ -69,6 +69,7 @@ The rest of the App consists four components.
 Each of the four components
 * Defines its _API_ in an `interface` with the same name as the Component.
 * Exposes its functionality using a `{Component Name}Manager` class.
+
 For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java`
 interface and exposes its functionality using the `LogicManager.java` class.<br>
 <img src="images/LogicClassDiagram.png" width="800"><br>
