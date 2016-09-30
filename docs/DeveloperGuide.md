@@ -216,6 +216,10 @@ Thanks to the [TestFX](https://github.com/TestFX/TestFX) library we use,
   
 ## Dev Ops
 
+### Build Automation
+
+See [UsingGradle.md](UsingGradle.md) to learn how to use Gradle for build automation.
+
 ### Continuous Integration
 
 We use [Travis CI](https://travis-ci.org/) to perform _Continuous Integration_ on our projects.
