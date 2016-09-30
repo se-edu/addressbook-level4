@@ -46,19 +46,21 @@
 
 ## Design
 
+## Architecture
+
 <img src="images/Architecture.png" width="600"><br>
 The **_Architecture Diagram_** given above explains the high-level design of the App.
 Given below is a quick overview of each component.
 
 `Main` has only one class called [`MainApp`](../src/main/java/seedu/address/MainApp.java). It is responsible for,
 * At app launch: Initializes the components in the correct sequence, and connect them up with each other.
-* At shut down: Shuts down the components and invoke clean up method where necessary.
+* At shut down: Shuts down the components and invoke cleanup method where necessary.
 
 [**`Commons`**](#common-classes) represents a collection of classes used by multiple other components.
-Two of those classes play an important role at the architecture level.
+Two of those classes play important roles at the architecture level.
 * `EventsCentre` : This class (written using [Google's Event Bus library](https://github.com/google/guava/wiki/EventBusExplained))
-  is used to by componnents to communicate with other components using events (i.e. a form of _Event Driven_ design)
-* `LogsCenter` : Used by many classes to write log messages to the App's log files.
+  is used by components to communicate with other components using events (i.e. a form of _Event Driven_ design)
+* `LogsCenter` : Used by many classes to write log messages to the App's log file.
 
 The rest of the App consists four components.
 * [**`UI`**](#ui-component) : The UI of tha App.
@@ -67,15 +69,18 @@ The rest of the App consists four components.
 * [**`Storage`**](#storage-component) : Reads data from, and writes data to, the hard disk.
 
 Each of the four components
-* Defines its _API_ an interface with the same name as the Component. `Logic.java`
-* Exposes its functionality using a `{Component Name}Manager` class e.g. `LogicManager.java`
+* Defines its _API_ in an `interface` with the same name as the Component.
+* Exposes its functionality using a `{Component Name}Manager` class.
+For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java`
+interface and exposes its functionality using the `LogicManager.java` class.<br>
+<img src="images/LogicClassDiagram.png" width="800"><br>
 
 The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
 command `delete 3`.
 
 <img src="images\SDforDeletePerson.png" width="800">
 
->Note how the `Model` simply raises a `ModelChangedEvent` when the model is changed,
+>Note how the `Model` simply raises a `AddressBookChangedEvent` when the Address Book data are changed,
  instead of asking the `Storage` to save the updates to the hard disk.
 
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates
@@ -95,7 +100,7 @@ The sections below give more details of each component.
 **API** : [`Ui.java`](../src/main/java/seedu/address/ui/Ui.java)
 
 The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`,
-`StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow` inherits from the abstract `UiPart` class
+`StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class
 and they can be loaded using the `UiPartLoader`.
 
 The `UI` component uses JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files
@@ -106,7 +111,7 @@ The `UI` component uses JavaFx UI framework. The layout of these UI parts are de
 The `UI` component,
 * Executes user commands using the `Logic` component.
 * Binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` change.
-* Responds to events raises from various parts of the App and updates the UI accordingly.
+* Responds to events raised from various parts of the App and updates the UI accordingly.
 
 ### Logic component
 
@@ -117,7 +122,7 @@ The `UI` component,
 1. `Logic` uses the `Parser` class to parse the user command.
 2. This results in a `Command` object which is executed by the `LogicManager`.
 3. The command execution can affect the `Model` (e.g. adding a person) and/or raise events.
-4. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`
+4. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 
 ### Model component
 
@@ -126,11 +131,11 @@ The `UI` component,
 **API** : [`Model.java`](../src/main/java/seedu/address/model/Model.java)
 
 The `Model`,
-* Stores a `UserPref` object that represents the user's preferences
-* Stores the Address Book data
-* Exposes a `UnmodifiableObservableList<ReadOnlyPerson` that can be 'observed' e.g. the UI can be bound to this list
+* stores a `UserPref` object that represents the user's preferences.
+* stores the Address Book data.
+* exposes a `UnmodifiableObservableList<ReadOnlyPerson>` that can be 'observed' e.g. the UI can be bound to this list
   so that the UI automatically updates when the data in the list change.
-* Does not depend on any of the other three components.
+* does not depend on any of the other three components.
 
 ### Storage component
 
@@ -144,39 +149,28 @@ The `Storage` component,
 
 ### Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commans` package. 
+Classes used by multiple components are in the `seedu.addressbook.commons` package.
 
 ## Implementation
 
 ### Logging
 
-We are using `java.util.logging.Logger` as our logger, and `LogsCenter` is used to manage the logging levels 
-of loggers and handlers (for output of log messages)
+We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels
+and logging destinations.
 
-- The logging level can be controlled using the `logLevel` setting in the configuration file 
+* The logging level can be controlled using the `logLevel` setting in the configuration file
   (See [Configuration](#configuration))
-- The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to 
+* The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to
   the specified logging level
-
-- Currently log messages are output through: `Console` and `.log`
+* Currently log messages are output through: `Console` and to a `.log` file.
 
 **Logging Levels**
 
-- SEVERE
-  - Critical use case affected, which may possibly cause the termination of the application
-
-- WARNING
-  - Can continue, but with caution
-
-- INFO
-  - Information important for the application's purpose
-    - e.g. update to local model/request sent to cloud
-  - Information that the layman user can understand
-
-- FINE
-  - Used for superficial debugging purposes to pinpoint components that the fault/bug is likely to arise from
-  - Should include more detailed information as compared to `INFO` i.e. log useful information!
-    - e.g. print the actual list instead of just its size
+* `SEVERE` : Critical problem detected which may possibly cause the termination of the application
+* `WARNING` : Can continue, but with caution
+* `INFO` : Information showing the noteworthy actions by the App
+* `FINE` : Details that is not usually noteworthy but may be useful in debugging
+  e.g. print the actual list instead of just its size
 
 ### Configuration
 
@@ -186,19 +180,21 @@ Certain properties of the application can be controlled (e.g App name, logging l
 
 ## Testing
 
-**In Eclipse**: 
+Tests can be found in the `./src/test/java` folder.
+
+**In Eclipse**:
 > If you are not using a recent Eclipse version (i.e. _Neon_ or later), enable assertions in JUnit tests
   as described [here](http://stackoverflow.com/questions/2522897/eclipse-junit-ea-vm-option).
 
-* To run all tests, right-click on the `src/test/java` folder and choose 
+* To run all tests, right-click on the `src/test/java` folder and choose
   `Run as` > `JUnit Test`
-* To run a subset of tests, you can right-click on a test package, test class, or a test and choose 
+* To run a subset of tests, you can right-click on a test package, test class, or a test and choose
   to run as a JUnit test.
-  
-**Using Gradle**:
-* See [UsingGradle.md](UsingGradle.md) for how to run tests using Gradle. 
 
-Tests can be found in the `./src/test/java` folder.
+**Using Gradle**:
+* See [UsingGradle.md](UsingGradle.md) for how to run tests using Gradle.
+
+We have two types of tests:
 
 1. **GUI Tests** - These are _System Tests_ that test the entire App by simulating user actions on the GUI. 
    These are in the `guitests` package.
@@ -214,7 +210,7 @@ Tests can be found in the `./src/test/java` folder.
       e.g. `seedu.address.logic.LogicManagerTest`
   
 **Headless GUI Testing** :
-Thanks to the ([TestFX](https://github.com/TestFX/TestFX)) library we use,
+Thanks to the [TestFX](https://github.com/TestFX/TestFX) library we use,
  our GUI tests can be run in the _headless_ mode. 
  In the headless mode, GUI tests do not show up on the screen.
  That means the developer can do other things on the Computer while the tests are running.<br>
@@ -236,7 +232,7 @@ Here are the steps to create a new release.
    
 ## Managing Dependencies
 
-A project often depends on third party libraries. For example, Address Book depends on the 
+A project often depends on third-party libraries. For example, Address Book depends on the
 [Jackson library](http://wiki.fasterxml.com/JacksonHome) for XML parsing. Managing these _dependencies_
 can be automated using Gradle. For example, Gradle can download the dependencies automatically, which
 is better than these alternatives.<br>
