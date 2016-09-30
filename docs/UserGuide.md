@@ -29,6 +29,12 @@
 
 ## Features
 
+> **Command Format**
+> * Words in `UPPER_CASE` are the parameters.
+> * Items in `SQUARE_BRACKETS` are optional.
+> * Items with `...` after them can have multiple instances.
+> * The order of parameters is fixed.
+
 #### Viewing help : `help`
 Format: `help`
 
@@ -37,11 +43,7 @@ Format: `help`
 #### Adding a person: `add`
 Adds a person to the address book<br>
 Format: `add NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` 
- 
-> Words in `UPPER_CASE` are the parameters, items in `SQUARE_BRACKETS` are optional, 
-> items with `...` after them can have multiple instances.
-> The order of parameters is fixed.
-> 
+
 > Persons can have any number of tags (including 0)
 
 Examples: 
