@@ -5,7 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Utility methods
+ * Utility methods related to Collections
  */
 public class CollectionUtil {
 

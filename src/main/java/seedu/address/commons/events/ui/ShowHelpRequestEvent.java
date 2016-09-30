@@ -5,7 +5,7 @@ import seedu.address.commons.events.BaseEvent;
 /**
  * An event requesting to view the help page.
  */
-public class ShowHelpEvent extends BaseEvent {
+public class ShowHelpRequestEvent extends BaseEvent {
 
     @Override
     public String toString() {
