@@ -123,6 +123,10 @@ The `UI` component,
 3. The command execution can affect the `Model` (e.g. adding a person) and/or raise events.
 4. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 
+Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")`
+ API call.<br>
+<img src="images/DeletePersonSdForLogic.png" width="800"><br>
+
 ### Model component
 
 <img src="images/ModelClassDiagram.png" width="800"><br>
