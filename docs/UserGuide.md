@@ -39,7 +39,8 @@ Adds a person to the address book<br>
 Format: `add NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` 
  
 > Words in `UPPER_CASE` are the parameters, items in `SQUARE_BRACKETS` are optional, 
-> items with `...` after them can have multiple instances. Order of parameters are fixed. 
+> items with `...` after them can have multiple instances.
+> The order of parameters is fixed.
 > 
 > Persons can have any number of tags (including 0)
 
@@ -55,8 +56,12 @@ Format: `list`
 Finds persons whose names contain any of the given keywords.<br>
 Format: `find KEYWORD [MORE_KEYWORDS]`
 
-> The search is case sensitive, the order of the keywords does not matter, only the name is searched, 
-and persons matching at least one keyword will be returned (i.e. `OR` search).
+> * The search is case sensitive. e.g `hans` will not match `Hans`
+> * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
+> * Only the name is searched.
+> * Only full words will be matched e.g. `Han` will not match `Hans`
+> * Persons matching at least one keyword will be returned (i.e. `OR` search).
+    e.g. `Hans` will match `Hans Bo`
 
 Examples: 
 * `find John`<br>
@@ -112,7 +117,7 @@ There is no need to save manually.
 
 **Q**: How do I transfer my data to another Computer?<br>
 **A**: Install the app in the other computer and overwrite the empty data file it creates with 
-       the file that contains the data of your preious Address Book.
+       the file that contains the data of your previous Address Book folder.
        
 ## Command Summary
 
