@@ -3,7 +3,7 @@ package seedu.address.commons.util;
 import java.net.URL;
 
 /**
- * An utility class for URL
+ * A utility class for URL
  */
 public class UrlUtil {
 
