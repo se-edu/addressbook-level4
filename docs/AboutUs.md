@@ -25,6 +25,7 @@ Responsibilities: Data
 -----
 
 #### [Martin Choo](http://github.com/m133225)
+<img src="images/MartinChoo.jpg" width="150"><br>
 Role: Developer <br>  
 Responsibilities: Dev Ops
 
