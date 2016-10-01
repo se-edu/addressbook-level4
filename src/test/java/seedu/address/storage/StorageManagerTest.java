@@ -15,6 +15,7 @@ import seedu.address.testutil.EventsCollector;
 
 import java.io.IOException;
 
+import static junit.framework.TestCase.assertNotNull;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -59,6 +60,11 @@ public class StorageManagerTest {
         ReadOnlyAddressBook retrieved = storageManager.readAddressBook().get();
         assertEquals(original, new AddressBook(retrieved));
         //More extensive testing of AddressBook saving/reading is done in XmlAddressBookStorageTest
+    }
+
+    @Test
+    public void getAddressBookFilePath(){
+        assertNotNull(storageManager.getAddressBookFilePath());
     }
 
     @Test

@@ -48,6 +48,7 @@ public class XmlSerializableAddressBook implements ReadOnlyAddressBook {
         try {
             return new UniqueTagList(tags);
         } catch (UniqueTagList.DuplicateTagException e) {
+            //TODO: better error handling
             e.printStackTrace();
             return null;
         }
@@ -60,7 +61,7 @@ public class XmlSerializableAddressBook implements ReadOnlyAddressBook {
             try {
                 lists.add(p.toModelType());
             } catch (IllegalValueException e) {
-
+                //TODO: better error handling
             }
         }
         return lists;
@@ -73,6 +74,7 @@ public class XmlSerializableAddressBook implements ReadOnlyAddressBook {
                 return p.toModelType();
             } catch (IllegalValueException e) {
                 e.printStackTrace();
+                //TODO: better error handling
                 return null;
             }
         }).collect(Collectors.toCollection(ArrayList::new));
