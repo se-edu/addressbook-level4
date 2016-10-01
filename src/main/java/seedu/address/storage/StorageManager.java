@@ -20,26 +20,30 @@ import java.util.logging.Logger;
 public class StorageManager extends ComponentManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
-    private XmlAddressBookStorage addressBookStorage;
-    private JsonUserPrefStorage userPrefStorage;
+    private AddressBookStorage addressBookStorage;
+    private UserPrefsStorage userPrefsStorage;
 
+
+    public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage) {
+        super();
+        this.addressBookStorage = addressBookStorage;
+        this.userPrefsStorage = userPrefsStorage;
+    }
 
     public StorageManager(String addressBookFilePath, String userPrefsFilePath) {
-        super();
-        this.addressBookStorage = new XmlAddressBookStorage(addressBookFilePath);
-        this.userPrefStorage = new JsonUserPrefStorage(userPrefsFilePath);
+        this(new XmlAddressBookStorage(addressBookFilePath), new JsonUserPrefsStorage(userPrefsFilePath));
     }
 
     // ================ UserPrefs methods ==============================
 
     @Override
     public Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException {
-        return userPrefStorage.readUserPrefs();
+        return userPrefsStorage.readUserPrefs();
     }
 
     @Override
     public void saveUserPrefs(UserPrefs userPrefs) throws IOException {
-        userPrefStorage.saveUserPrefs(userPrefs);
+        userPrefsStorage.saveUserPrefs(userPrefs);
     }
 
 
@@ -51,15 +55,25 @@ public class StorageManager extends ComponentManager implements Storage {
     }
 
     @Override
-    public Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException, FileNotFoundException {
-        logger.fine("Attempting to read data from file: " + addressBookStorage.getAddressBookFilePath());
+    public Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException, IOException {
+        return readAddressBook(addressBookStorage.getAddressBookFilePath());
+    }
 
-        return addressBookStorage.readAddressBook(addressBookStorage.getAddressBookFilePath());
+    @Override
+    public Optional<ReadOnlyAddressBook> readAddressBook(String filePath) throws DataConversionException, IOException {
+        logger.fine("Attempting to read data from file: " + filePath);
+        return addressBookStorage.readAddressBook(filePath);
     }
 
     @Override
     public void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException {
-        addressBookStorage.saveAddressBook(addressBook, addressBookStorage.getAddressBookFilePath());
+        saveAddressBook(addressBook, addressBookStorage.getAddressBookFilePath());
+    }
+
+    @Override
+    public void saveAddressBook(ReadOnlyAddressBook addressBook, String filePath) throws IOException {
+        logger.fine("Attempting to write to data file: " + filePath);
+        addressBookStorage.saveAddressBook(addressBook, filePath);
     }
 
 

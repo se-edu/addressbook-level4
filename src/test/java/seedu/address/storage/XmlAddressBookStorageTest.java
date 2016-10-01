@@ -77,6 +77,12 @@ public class XmlAddressBookStorageTest {
         readBack = xmlAddressBookStorage.readAddressBook(filePath).get();
         assertEquals(original, new AddressBook(readBack));
 
+        //Save and read without specifying file path
+        original.addPerson(new Person(TypicalTestPersons.ida));
+        xmlAddressBookStorage.saveAddressBook(original); //file path not specified
+        readBack = xmlAddressBookStorage.readAddressBook().get(); //file path not specified
+        assertEquals(original, new AddressBook(readBack));
+
     }
 
     @Test
