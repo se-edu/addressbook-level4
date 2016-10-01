@@ -21,25 +21,25 @@ public class StorageManager extends ComponentManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
     private XmlAddressBookStorage addressBookStorage;
-    private JsonUserPrefStorage userPrefStorage;
+    private UserPrefsStorage userPrefsStorage;
 
 
     public StorageManager(String addressBookFilePath, String userPrefsFilePath) {
         super();
         this.addressBookStorage = new XmlAddressBookStorage(addressBookFilePath);
-        this.userPrefStorage = new JsonUserPrefStorage(userPrefsFilePath);
+        this.userPrefsStorage = new JsonUserPrefsStorage(userPrefsFilePath);
     }
 
     // ================ UserPrefs methods ==============================
 
     @Override
     public Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException {
-        return userPrefStorage.readUserPrefs();
+        return userPrefsStorage.readUserPrefs();
     }
 
     @Override
     public void saveUserPrefs(UserPrefs userPrefs) throws IOException {
-        userPrefStorage.saveUserPrefs(userPrefs);
+        userPrefsStorage.saveUserPrefs(userPrefs);
     }
 
 
