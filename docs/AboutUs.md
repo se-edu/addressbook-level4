@@ -4,49 +4,29 @@ We are a team based in the [School of Computing, National University of Singapor
 
 ## Project Team
 
-#### [Damith C. Rajapakse](http://www.comp.nus.edu.sg/~damithch) <br>
-<img src="images/DamithRajapakse.jpg" width="150"><br>
-**Role**: Project Advisor
+#### [Kenneth Tan Xin You](https://github.com/kennethtxytqw)<br>
+<img src="https://avatars0.githubusercontent.com/u/16360559?v=3&s=466" width="150"><br>
+**Responsibility**: Team Lead, Integration
 
 -----
 
-#### [Joshua Lee](http://github.com/lejolly)
-<img src="images/JoshuaLee.jpg" width="150"><br>
-Role: Developer <br>  
-Responsibilities: UI
+#### [Filbert Cheong](https://github.com/mitigator)
+<img src="https://avatars2.githubusercontent.com/u/17725170?v=3&s=466" width="150"><br>
+**Responsibility**: Testing, Storage Component
 
 -----
 
-#### [Leow Yijin](http://github.com/yijinl) 
-<img src="images/LeowYijin.jpg" width="150"><br>
-Role: Developer <br>  
-Responsibilities: Data
+#### [Matthew Chan](https://github.com/MCHowl) 
+<img src="https://avatars0.githubusercontent.com/u/15246571?v=3&s=466" width="150"><br>
+**Responsibility**: Code quality, UIUX design
 
 -----
 
-#### [Martin Choo](http://github.com/m133225)
-<img src="images/MartinChoo.jpg" width="150"><br>
-Role: Developer <br>  
-Responsibilities: Dev Ops
+#### [Moon Byunghun](https://github.com/orgs/CS2103AUG2016-W10-C3/people/MoonByunghun)
+<img src="https://avatars0.githubusercontent.com/u/21344254?v=3&s=466" width="150"><br>
+**Responsibility**: Documentation, Scheduling and tracking
 
 -----
 
-#### [Thien Nguyen](https://github.com/ndt93)
- Role: Developer <br>  
- Responsibilities: Threading
- 
- -----
 
-#### [You Liang](http://github.com/yl-coder) 
-<img src="images/YouLiang.jpg" width="150"><br>
- Role: Developer <br>  
- Responsibilities: UI
- 
- -----
-
-# Contributors
-
-We welcome contributions. See [Contact Us](ContactUs.md) page for more info.
-
-* [Akshay Narayan](https://github.com/se-edu/addressbook-level4/pulls?q=is%3Apr+author%3Aokkhoy)
-* [Sam Yong](https://github.com/se-edu/addressbook-level4/pulls?q=is%3Apr+author%3Amauris)
+[Fork Source](https://github.com/nus-cs2103-AY1617S1/addressbook-level4)
