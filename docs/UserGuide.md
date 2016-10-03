@@ -55,6 +55,7 @@ Deletes the task at the specified INDEX. The index refers to the index number sh
 The index must be a positive integer 1, 2, 3, ...
 
 Examples:
+
 - `view 11/10/2016`
 - `delete 2`
 - Deletes the 2nd task of 11/10/2016.
@@ -95,14 +96,15 @@ Edits the task at the specified INDEX. The index refers to the index number show
 The index must be a positive integer 1, 2, 3, ...
 
 Examples:
+
 - `view 11/10/2016`
 - `edit 2 time 1400`
 - Edits the 2nd task of 11/10/2016. Changes its deadline to 1400 .
 
 
 - `find homework`
-- `delete 1`
-- Deletes the 1st task in the results of the find command.
+- `edit 1 time 1400`
+- Edits the 1st task in the results of the find command. Chanes its deadlin to 1400.
 
 ### 3.6. **Mark completed tasks:**
 Marks the task at the specified INDEX as complete. The index refers to the index number shown in the VisualBox.
