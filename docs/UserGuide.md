@@ -1,4 +1,4 @@
-# User Guide
+﻿# User Guide
 
 ## Table of Contents
 <!-- MarkdownTOC -->
@@ -20,10 +20,11 @@
  
 4. &nbsp; &nbsp; [Smart Features](#4-smart-features)
 
-  1. [FlexiCommand](#41-flexicommand)
-  2. [Saving the data](#42-saving-the-data)
+  1. &nbsp; &nbsp; [FlexiCommand](#41-flexicommand)
+  2. &nbsp; &nbsp; [Saving the data](#42-saving-the-data)
 
 <!-- /MarkdownTOC -->
+
 ## 1. Introduction
 SmartyDo is a to-do-list application. It is simple, non-intrusive and extremely easy to use. If you don't like to remember your tasks or have some trouble remembering them, but doesn't want an application thats too bulky or that doesn't integrate naturally to your desktop, SmartyDo is the application for you!
 
@@ -42,8 +43,24 @@ Items with `...` after them can have multiple instances.<br>
 The order of parameters is flexible<br>
 
 ### 3.1. **Add Tasks:**
+Adds a Task to SmartyDo which requires a description of the task `TASK_NAME`.<br> 
+You can specify the `[priority]` of the task which enables you to `view` tasks by their importance level for the day.<br> 
+If the starting time and/or the deadline of the task is known , you can include it by specifying `[StartTime]` and `[EndTime]` <br>
+Since tasks may be of recurring nature, `[Recur]` frequency can be indicated by entering the frequency.  
+
+Summary of the parameters and their usage
+
+| Parameter     |     Usage     |  	    |
+| ------------- |:-------------:| -----:|
+| `TASK_NAME`   |    _**/d**_   |       |
+| `[Priority]`  |    _**/p**_   |       |
+| `[StartTime]` |    _**/st**_  |       |
+| `[EndTime]`   |  _**/et**_    |		|
+| `[Recur]`     | _**/freq X**_ | daily = 1, weekly = 2 , fortnightly = 3, monthly = 4| 
+
 Examples:
-- `add TASK_NAME [Priority][Tag][StartTime][EndTime]`
+- `add TASK_NAME [Priority][Tag][StartTime][EndTime][Recur]`
+<img src="images/AddBasicCmd.png" width="500"><br>
 
 ### 3.2. **Delete Tasks:**
 Deletes the specified Task from the SmartyDo.
