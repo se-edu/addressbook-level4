@@ -83,7 +83,6 @@ public abstract class AddressBookGuiTest {
 
     /**
      * Override this in child classes to set the data file location.
-     * @return
      */
     protected String getDataFileLocation() {
         return TestApp.SAVE_LOCATION_FOR_TESTING;
@@ -111,7 +110,6 @@ public abstract class AddressBookGuiTest {
 
     /**
      * Asserts the message shown in the Result Display area is same as the given string.
-     * @param expected
      */
     protected void assertResultMessage(String expected) {
         assertEquals(expected, resultDisplay.getText());
