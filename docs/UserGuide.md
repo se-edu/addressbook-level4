@@ -1,134 +1,146 @@
 # User Guide
 
-* [Quick Start](#quick-start)
-* [Features](#features)
-* [FAQ](#faq)
-* [Command Summary](#command-summary)
+## Table of Contents
+<!-- MarkdownTOC -->
 
-## Quick Start
+1. &nbsp; &nbsp; [Introduction](#1-introduction)
+2. &nbsp; &nbsp; [Quick Start](#2-quick-start)
+3. &nbsp; &nbsp; [Getting Started](#3-getting-started)
 
-0. Ensure you have Java version `1.8.0_60` or later installed in your Computer.<br>
-   > Having any Java 8 version is not enough. <br>
-   This app will not work with earlier versions of Java 8.
-   
-1. Download the latest `addressbook.jar` from the [releases](../../../releases) tab.
-2. Copy the file to the folder you want to use as the home folder for your Address Book.
-3. Double-click the file to start the app. The GUI should appear in a few seconds. 
-   > <img src="images/Ui.png" width="600">
-
-4. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
-   e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
-5. Some example commands you can try:
-   * **`list`** : lists all contacts
-   * **`add`**` John Doe p/98765432 e/johnd@gmail.com a/John street, block 123, #01-01` : 
-     adds a contact named `John Doe` to the Address Book.
-   * **`delete`**` 3` : deletes the 3rd contact shown in the current list
-   * **`exit`** : exits the app
-6. Refer to the [Features](#features) section below for details of each command.<br>
-
-
-## Features
-
-> **Command Format**
-> * Words in `UPPER_CASE` are the parameters.
-> * Items in `SQUARE_BRACKETS` are optional.
-> * Items with `...` after them can have multiple instances.
-> * The order of parameters is fixed.
-
-#### Viewing help : `help`
-Format: `help`
-
-> Help is also shown if you enter an incorrect command e.g. `abcd`
+  1. &nbsp; &nbsp; [Add Tasks](#31-add-tasks)
+  2. &nbsp; &nbsp; [Delete Tasks](#32-delete-tasks)
+  3. &nbsp; &nbsp; [Undo and Redo](#33-undo-and-redo)
+  4. &nbsp; &nbsp; [View](#34-view)
+  5. &nbsp; &nbsp; [Edit Tasks](#35-edit-tasks)
+  6. &nbsp; &nbsp; [Mark completed tasks](#36-mark-completed-tasks)
+  7. &nbsp; &nbsp; [Suggest available timeslots](#37-suggest-available-timeslots)
+  8. &nbsp; &nbsp; [Find](#38-find)
+  9. &nbsp; &nbsp; [Exit](#39-exit)
+  10. &nbsp; &nbsp; [Help](#310-help)
  
-#### Adding a person: `add`
-Adds a person to the address book<br>
-Format: `add NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` 
+4. &nbsp; &nbsp; [Smart Features](#4-smart-features)
 
-> Persons can have any number of tags (including 0)
+  1. [FlexiCommand](#41-flexicommand)
+  2. [Saving the data](#42-saving-the-data)
 
-Examples: 
-* `add John Doe p/98765432 e/johnd@gmail.com a/John street, block 123, #01-01`
-* `add Betsy Crowe p/1234567 e/betsycrowe@gmail.com a/Newgate Prison t/criminal t/friend`
+<!-- /MarkdownTOC -->
+## 1. Introduction
+SmartyDo is a to-do-list application. It is simple, non-intrusive and extremely easy to use. If you don't like to remember your tasks or have some trouble remembering them, but doesn't want an application thats too bulky or that doesn't integrate naturally to your desktop, SmartyDo is the application for you!
 
-#### Listing all persons : `list`
-Shows a list of all persons in the address book.<br>
-Format: `list`
+## 2. Quick Start
+1. **Launch SmartyDo** Simply double-click on the `SmartyDo.jar` file to start SmartyDo. You will be greeted with a simple interface that has four parts a CalendarBox, a VisualBox, a MessageBox and a command bar. This command bar is where you enter short commands to tell SmartyDowhat to do. <br>
+![gui LandingPage](images/LandingPage.gif)
 
-#### Finding all persons containing any keyword in their name: `find`
-Finds persons whose names contain any of the given keywords.<br>
-Format: `find KEYWORD [MORE_KEYWORDS]`
+2. **Letting SmartyDo do the remembering for you** You can simply type the commands you want SmartyDo to execute for you in the command bar. Type “help” or “help [command]” for more information.
 
-> * The search is case sensitive. e.g `hans` will not match `Hans`
-> * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-> * Only the name is searched.
-> * Only full words will be matched e.g. `Han` will not match `Hans`
-> * Persons matching at least one keyword will be returned (i.e. `OR` search).
-    e.g. `Hans` will match `Hans Bo`
+3. **Let’s get started**
 
-Examples: 
-* `find John`<br>
-  Returns `John Doe` but not `john`
-* `find Betsy Tim John`<br>
-  Returns Any person having names `Betsy`, `Tim`, or `John`
+## 3. Getting Started
+**Command Format**<br>
+Words in `UPPER_CASE` are the parameters.<br>
+Items in `SQUARE_BRACKETS` are optional.<br>
+Items with `...` after them can have multiple instances.<br>
+The order of parameters is flexible<br>
 
-#### Deleting a person : `delete`
-Deletes the specified person from the address book. Irreversible.<br>
+### 3.1. **Add Tasks:**
+Examples:
+- `add TASK_NAME [Priority][Tag][StartTime][EndTime]`
+
+### 3.2. **Delete Tasks:**
+Deletes the specified Task from the SmartyDo.
+
 Format: `delete INDEX`
 
-> Deletes the person at the specified `INDEX`. 
-  The index refers to the index number shown in the most recent listing.<br>
-  The index **must be a positive integer** 1, 2, 3, ...
+Deletes the task at the specified INDEX. The index refers to the index number shown in the VisualBox.
 
-Examples: 
-* `list`<br>
-  `delete 2`<br>
-  Deletes the 2nd person in the address book.
-* `find Betsy`<br> 
-  `delete 1`<br>
-  Deletes the 1st person in the results of the `find` command.
+The index must be a positive integer 1, 2, 3, ...
 
-#### Select a person : `select`
-Selects the person identified by the index number used in the last person listing.<br>
-Format: `select INDEX`
+Examples:
+- `view 11/10/2016`
+- `delete 2`
+- Deletes the 2nd task of 11/10/2016.
 
-> Selects the person and loads the Google search page the person at the specified `INDEX`. 
-  The index refers to the index number shown in the most recent listing.<br>
-  The index **must be a positive integer** 1, 2, 3, ...
 
-Examples: 
-* `list`<br>
-  `select 2`<br>
-  Selects the 2nd person in the address book.
-* `find Betsy` <br> 
-  `select 1`<br>
-  Selects the 1st person in the results of the `find` command.
+- `find homework`
+- `delete 1`
+- Deletes the 1st task in the results of the find command.
 
-#### Clearing all entries : `clear`
-Clears all entries from the address book.<br>
-Format: `clear`  
+### 3.3. **Undo and Redo:**
+Current intention, allows only 1 Undo/Redo.
 
-#### Exiting the program : `exit`
-Exits the program.<br>
-Format: `exit`  
+Example:
+- `Add CS2103`
+- `Undo`
+ 
+Returns to previous state without task CS2103
 
-#### Saving the data 
-Address book data are saved in the hard disk automatically after any command that changes the data.<br>
+
+### 3.4. **View:**
+View the task/day/month/year/list identified by the parameter.
+
+Format: `view PARAM`
+
+Examples:
+- `view 11/10/2016`
+- `view year 2016`
+- `view month 10`
+- `view incomplete tasks`
+
+### 3.5. **Edit Tasks:**
+Edit the specified Task from the SmartyDo.
+
+Format: `edit INDEX FIELD NEW_VALUE`
+
+Edits the task at the specified INDEX. The index refers to the index number shown in the VisualBox.
+
+The index must be a positive integer 1, 2, 3, ...
+
+Examples:
+- `view 11/10/2016`
+- `edit 2 time 1400`
+- Edits the 2nd task of 11/10/2016. Changes its deadline to 1400 .
+
+
+- `find homework`
+- `delete 1`
+- Deletes the 1st task in the results of the find command.
+
+### 3.6. **Mark completed tasks:**
+Marks the task at the specified INDEX as complete. The index refers to the index number shown in the VisualBox.
+
+Format: Done INDEX
+
+### 3.7. **Suggest available timeslots:**
+Recommends the list of time blocks for a specified task based on task duration and space availability.
+
+Format: suggest [date][duration]
+
+### 3.8. **Find:**
+Finds tasks whose names contain any of the given keywords.
+
+Format: `find KEYWORD [MORE\_KEYWORDS]`
+- The search is case sensitive. e.g cs will not match CS
+- The order of the keywords does not matter. e.g. project cs2103  will match cs2103 project
+- Only the task's name is searched.
+- Only full words will be matched e.g. Math will not match Mathematics
+- Tasks matching at least one keyword will be returned (i.e. OR search). e.g. Homework will match CS3230 Homework
+
+
+### 3.9. **Exit:**
+Exits the program.
+
+Format: `exit`
+
+### 3.10. **Help:**
+Format: `help`
+
+Help is also shown if you enter an incorrect command e.g. abcd
+
+## 4. Smart Features
+
+### 4.1. **FlexiCommand**
+It is okay if you cannot remember the syntax entirely! As long as you remember the keyword some reshuffling of the parameters entered is fine. Our program will ask you for confirmation if we are unsure what you want.
+
+### 4.2. **Saving the data**
+Address book data are saved in the hard disk automatically after any command that changes the data.
 There is no need to save manually.
-
-## FAQ
-
-**Q**: How do I transfer my data to another Computer?<br>
-**A**: Install the app in the other computer and overwrite the empty data file it creates with 
-       the file that contains the data of your previous Address Book folder.
-       
-## Command Summary
-
-Command | Format  
--------- | :-------- 
-Add | `add NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
-Clear | `clear`
-Delete | `delete INDEX`
-Find | `find KEYWORD [MORE_KEYWORDS]`
-List | `list`
-Help | `help`
-Select | `select INDEX`
