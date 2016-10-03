@@ -11,10 +11,10 @@ import seedu.address.logic.commands.*;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
-import seedu.address.model.AddressBook;
+import seedu.address.model.ToDo;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyToDo;
 import seedu.address.model.person.*;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
@@ -41,13 +41,13 @@ public class LogicManagerTest {
     private Logic logic;
 
     //These are for checking the correctness of the events raised
-    private ReadOnlyAddressBook latestSavedAddressBook;
+    private ReadOnlyToDo latestSavedAddressBook;
     private boolean helpShown;
     private int targetedJumpIndex;
 
     @Subscribe
     private void handleLocalModelChangedEvent(AddressBookChangedEvent abce) {
-        latestSavedAddressBook = new AddressBook(abce.data);
+        latestSavedAddressBook = new ToDo(abce.data);
     }
 
     @Subscribe
@@ -68,7 +68,7 @@ public class LogicManagerTest {
         logic = new LogicManager(model, new StorageManager(tempAddressBookFile, tempPreferencesFile));
         EventsCenter.getInstance().registerHandler(this);
 
-        latestSavedAddressBook = new AddressBook(model.getAddressBook()); // last saved assumed to be up to date before.
+        latestSavedAddressBook = new ToDo(model.getToDo()); // last saved assumed to be up to date before.
         helpShown = false;
         targetedJumpIndex = -1; // non yet
     }
@@ -88,10 +88,10 @@ public class LogicManagerTest {
     /**
      * Executes the command and confirms that the result message is correct.
      * Both the 'address book' and the 'last shown list' are expected to be empty.
-     * @see #assertCommandBehavior(String, String, ReadOnlyAddressBook, List)
+     * @see #assertCommandBehavior(String, String, ReadOnlyToDo, List)
      */
     private void assertCommandBehavior(String inputCommand, String expectedMessage) throws Exception {
-        assertCommandBehavior(inputCommand, expectedMessage, new AddressBook(), Collections.emptyList());
+        assertCommandBehavior(inputCommand, expectedMessage, new ToDo(), Collections.emptyList());
     }
 
     /**
@@ -102,7 +102,7 @@ public class LogicManagerTest {
      *      - {@code expectedAddressBook} was saved to the storage file. <br>
      */
     private void assertCommandBehavior(String inputCommand, String expectedMessage,
-                                       ReadOnlyAddressBook expectedAddressBook,
+                                       ReadOnlyToDo expectedAddressBook,
                                        List<? extends ReadOnlyPerson> expectedShownList) throws Exception {
 
         //Execute the command
@@ -113,7 +113,7 @@ public class LogicManagerTest {
         assertEquals(expectedShownList, model.getFilteredPersonList());
 
         //Confirm the state of data (saved and in-memory) is as expected
-        assertEquals(expectedAddressBook, model.getAddressBook());
+        assertEquals(expectedAddressBook, model.getToDo());
         assertEquals(expectedAddressBook, latestSavedAddressBook);
     }
 
@@ -142,7 +142,7 @@ public class LogicManagerTest {
         model.addPerson(helper.generatePerson(2));
         model.addPerson(helper.generatePerson(3));
 
-        assertCommandBehavior("clear", ClearCommand.MESSAGE_SUCCESS, new AddressBook(), Collections.emptyList());
+        assertCommandBehavior("clear", ClearCommand.MESSAGE_SUCCESS, new ToDo(), Collections.emptyList());
     }
 
 
@@ -177,7 +177,7 @@ public class LogicManagerTest {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         Person toBeAdded = helper.adam();
-        AddressBook expectedAB = new AddressBook();
+        ToDo expectedAB = new ToDo();
         expectedAB.addPerson(toBeAdded);
 
         // execute command and verify result
@@ -193,7 +193,7 @@ public class LogicManagerTest {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         Person toBeAdded = helper.adam();
-        AddressBook expectedAB = new AddressBook();
+        ToDo expectedAB = new ToDo();
         expectedAB.addPerson(toBeAdded);
 
         // setup starting state
@@ -213,7 +213,7 @@ public class LogicManagerTest {
     public void execute_list_showsAllPersons() throws Exception {
         // prepare expectations
         TestDataHelper helper = new TestDataHelper();
-        AddressBook expectedAB = helper.generateAddressBook(2);
+        ToDo expectedAB = helper.generateToDo(2);
         List<? extends ReadOnlyPerson> expectedList = expectedAB.getPersonList();
 
         // prepare address book state
@@ -250,12 +250,12 @@ public class LogicManagerTest {
         List<Person> personList = helper.generatePersonList(2);
 
         // set AB state to 2 persons
-        model.resetData(new AddressBook());
+        model.resetData(new ToDo());
         for (Person p : personList) {
             model.addPerson(p);
         }
 
-        assertCommandBehavior(commandWord + " 3", expectedMessage, model.getAddressBook(), personList);
+        assertCommandBehavior(commandWord + " 3", expectedMessage, model.getToDo(), personList);
     }
 
     @Test
@@ -274,7 +274,7 @@ public class LogicManagerTest {
         TestDataHelper helper = new TestDataHelper();
         List<Person> threePersons = helper.generatePersonList(3);
 
-        AddressBook expectedAB = helper.generateAddressBook(threePersons);
+        ToDo expectedAB = helper.generateToDo(threePersons);
         helper.addToModel(model, threePersons);
 
         assertCommandBehavior("select 2",
@@ -302,7 +302,7 @@ public class LogicManagerTest {
         TestDataHelper helper = new TestDataHelper();
         List<Person> threePersons = helper.generatePersonList(3);
 
-        AddressBook expectedAB = helper.generateAddressBook(threePersons);
+        ToDo expectedAB = helper.generateToDo(threePersons);
         expectedAB.removePerson(threePersons.get(1));
         helper.addToModel(model, threePersons);
 
@@ -328,7 +328,7 @@ public class LogicManagerTest {
         Person p2 = helper.generatePersonWithName("KEYKEYKEY sduauo");
 
         List<Person> fourPersons = helper.generatePersonList(p1, pTarget1, p2, pTarget2);
-        AddressBook expectedAB = helper.generateAddressBook(fourPersons);
+        ToDo expectedAB = helper.generateToDo(fourPersons);
         List<Person> expectedList = helper.generatePersonList(pTarget1, pTarget2);
         helper.addToModel(model, fourPersons);
 
@@ -347,7 +347,7 @@ public class LogicManagerTest {
         Person p4 = helper.generatePersonWithName("KEy sduauo");
 
         List<Person> fourPersons = helper.generatePersonList(p3, p1, p4, p2);
-        AddressBook expectedAB = helper.generateAddressBook(fourPersons);
+        ToDo expectedAB = helper.generateToDo(fourPersons);
         List<Person> expectedList = fourPersons;
         helper.addToModel(model, fourPersons);
 
@@ -366,7 +366,7 @@ public class LogicManagerTest {
         Person p1 = helper.generatePersonWithName("sduauo");
 
         List<Person> fourPersons = helper.generatePersonList(pTarget1, p1, pTarget2, pTarget3);
-        AddressBook expectedAB = helper.generateAddressBook(fourPersons);
+        ToDo expectedAB = helper.generateToDo(fourPersons);
         List<Person> expectedList = helper.generatePersonList(pTarget1, pTarget2, pTarget3);
         helper.addToModel(model, fourPersons);
 
@@ -430,37 +430,37 @@ public class LogicManagerTest {
         }
 
         /**
-         * Generates an AddressBook with auto-generated persons.
+         * Generates an ToDo with auto-generated persons.
          */
-        AddressBook generateAddressBook(int numGenerated) throws Exception{
-            AddressBook addressBook = new AddressBook();
-            addToAddressBook(addressBook, numGenerated);
-            return addressBook;
+        ToDo generateToDo(int numGenerated) throws Exception{
+            ToDo toDo = new ToDo();
+            addToToDo(toDo, numGenerated);
+            return toDo;
         }
 
         /**
-         * Generates an AddressBook based on the list of Persons given.
+         * Generates an ToDo based on the list of Persons given.
          */
-        AddressBook generateAddressBook(List<Person> persons) throws Exception{
-            AddressBook addressBook = new AddressBook();
-            addToAddressBook(addressBook, persons);
-            return addressBook;
+        ToDo generateToDo(List<Person> persons) throws Exception{
+            ToDo toDo = new ToDo();
+            addToToDo(toDo, persons);
+            return toDo;
         }
 
         /**
-         * Adds auto-generated Person objects to the given AddressBook
-         * @param addressBook The AddressBook to which the Persons will be added
+         * Adds auto-generated Person objects to the given ToDo
+         * @param toDo The ToDo to which the Persons will be added
          */
-        void addToAddressBook(AddressBook addressBook, int numGenerated) throws Exception{
-            addToAddressBook(addressBook, generatePersonList(numGenerated));
+        void addToToDo(ToDo toDo, int numGenerated) throws Exception{
+            addToToDo(toDo, generatePersonList(numGenerated));
         }
 
         /**
-         * Adds the given list of Persons to the given AddressBook
+         * Adds the given list of Persons to the given ToDo
          */
-        void addToAddressBook(AddressBook addressBook, List<Person> personsToAdd) throws Exception{
+        void addToToDo(ToDo toDo, List<Person> personsToAdd) throws Exception{
             for(Person p: personsToAdd){
-                addressBook.addPerson(p);
+                toDo.addPerson(p);
             }
         }
 

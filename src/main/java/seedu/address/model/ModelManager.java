@@ -21,58 +21,58 @@ import java.util.logging.Logger;
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final AddressBook addressBook;
+    private final ToDo toDo;
     private final FilteredList<Person> filteredPersons;
 
     /**
-     * Initializes a ModelManager with the given AddressBook
-     * AddressBook and its variables should not be null
+     * Initializes a ModelManager with the given ToDo
+     * ToDo and its variables should not be null
      */
-    public ModelManager(AddressBook src, UserPrefs userPrefs) {
+    public ModelManager(ToDo src, UserPrefs userPrefs) {
         super();
         assert src != null;
         assert userPrefs != null;
 
         logger.fine("Initializing with address book: " + src + " and user prefs " + userPrefs);
 
-        addressBook = new AddressBook(src);
-        filteredPersons = new FilteredList<>(addressBook.getPersons());
+        toDo = new ToDo(src);
+        filteredPersons = new FilteredList<>(toDo.getPersons());
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new ToDo(), new UserPrefs());
     }
 
-    public ModelManager(ReadOnlyAddressBook initialData, UserPrefs userPrefs) {
-        addressBook = new AddressBook(initialData);
-        filteredPersons = new FilteredList<>(addressBook.getPersons());
+    public ModelManager(ReadOnlyToDo initialData, UserPrefs userPrefs) {
+        toDo = new ToDo(initialData);
+        filteredPersons = new FilteredList<>(toDo.getPersons());
     }
 
     @Override
-    public void resetData(ReadOnlyAddressBook newData) {
-        addressBook.resetData(newData);
+    public void resetData(ReadOnlyToDo newData) {
+        toDo.resetData(newData);
         indicateAddressBookChanged();
     }
 
     @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return addressBook;
+    public ReadOnlyToDo getToDo() {
+        return toDo;
     }
 
     /** Raises an event to indicate the model has changed */
     private void indicateAddressBookChanged() {
-        raise(new AddressBookChangedEvent(addressBook));
+        raise(new AddressBookChangedEvent(toDo));
     }
 
     @Override
     public synchronized void deletePerson(ReadOnlyPerson target) throws PersonNotFoundException {
-        addressBook.removePerson(target);
+        toDo.removePerson(target);
         indicateAddressBookChanged();
     }
 
     @Override
     public synchronized void addPerson(Person person) throws UniquePersonList.DuplicatePersonException {
-        addressBook.addPerson(person);
+        toDo.addPerson(person);
         updateFilteredListToShowAll();
         indicateAddressBookChanged();
     }

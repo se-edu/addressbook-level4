@@ -3,7 +3,7 @@ package seedu.address.storage;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyToDo;
 import seedu.address.model.UserPrefs;
 
 import java.io.FileNotFoundException;
@@ -13,7 +13,7 @@ import java.util.Optional;
 /**
  * API of the Storage component
  */
-public interface Storage extends AddressBookStorage, UserPrefsStorage {
+public interface Storage extends ToDoStorage, UserPrefsStorage {
 
     @Override
     Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
@@ -25,10 +25,10 @@ public interface Storage extends AddressBookStorage, UserPrefsStorage {
     String getAddressBookFilePath();
 
     @Override
-    Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException, IOException;
+    Optional<ReadOnlyToDo> readAddressBook() throws DataConversionException, IOException;
 
     @Override
-    void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException;
+    void saveAddressBook(ReadOnlyToDo addressBook) throws IOException;
 
     /**
      * Saves the current version of the Address Book to the hard disk.
