@@ -28,8 +28,7 @@
 SmartyDo is a to-do-list application. It is simple, non-intrusive and extremely easy to use. If you don't like to remember your tasks or have some trouble remembering them, but doesn't want an application thats too bulky or that doesn't integrate naturally to your desktop, SmartyDo is the application for you!
 
 ## 2. Quick Start
-1. **Launch SmartyDo** Simply double-click on the `SmartyDo.jar` file to start SmartyDo. You will be greeted with a simple interface that has four parts a CalendarBox, a VisualBox, a MessageBox and a command bar. This command bar is where you enter short commands to tell SmartyDowhat to do. <br>
-![gui LandingPage](images/LandingPage.gif)
+1. **Launch SmartyDo** Simply double-click on the `SmartyDo.jar` file to start SmartyDo. You will be greeted with a simple interface that has four parts a CalendarBox, a VisualBox, a MessageBox and a command bar. This command bar is where you enter short commands to tell SmartyDo what to do. 
 
 2. **Letting SmartyDo do the remembering for you** You can simply type the commands you want SmartyDo to execute for you in the command bar. Type “help” or “help [command]” for more information.
 
