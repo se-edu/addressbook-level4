@@ -58,6 +58,9 @@ Summary of the parameters and their usage
 | `[EndTime]`   |  _**/et**_    |		|
 | `[Recur]`     | _**/freq X**_ | daily = 1, weekly = 2 , fortnightly = 3, monthly = 4| 
 
+> The application **does not support adding** new `Tasks` which **conflicts** with your current schedule. 
+However, with priority system you may wish to reschedule the lower priority task to a free time slot.
+
 Examples:
 - `add TASK_NAME [Priority][Tag][StartTime][EndTime][Recur]`
 <img src="images/AddBasicCmd.png" width="500"><br>
