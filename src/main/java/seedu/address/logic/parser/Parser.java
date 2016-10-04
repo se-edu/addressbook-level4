@@ -28,10 +28,10 @@ public class Parser {
 
     private static final Pattern PERSON_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<name>[^/]+)"
-                    + " (?<isPhonePrivate>p?)t/(?<phone>[^/]+)"
-                    + " (?<isEmailPrivate>p?)d/(?<email>[^/]+)"
-                    + " (?<isAddressPrivate>p?)a/(?<address>[^/]+)"
-                    + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
+            		+ "(( (?<isPhonePrivate>p?)t/(?<phone>[^/]+))?)"
+            		+ "(( (?<isEmailPrivate>p?)d/(?<email>[^/]+))?)"
+            		+ "(( (?<isAddressPrivate>p?)a/(?<address>[^/]+))?)"
+            		+ "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
 
     public Parser() {}
 
@@ -95,9 +95,9 @@ public class Parser {
         try {
             return new AddCommand(
                     matcher.group("name"),
-                    matcher.group("phone"),
-                    matcher.group("email"),
-                    matcher.group("address"),
+                    matcher.group("phone")==null?" ":matcher.group("phone"),
+                    matcher.group("email")==null?" ":matcher.group("email"),
+                    matcher.group("address")==null?" ":matcher.group("address"),
                     getTagsFromArgs(matcher.group("tagArguments"))
             );
         } catch (IllegalValueException ive) {

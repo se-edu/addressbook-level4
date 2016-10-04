@@ -21,7 +21,7 @@ public class Time {
     public Time(String phone) throws IllegalValueException {
         assert phone != null;
         phone = phone.trim();
-        if (!isValidPhone(phone)) {
+        if (!phone.isEmpty()&&!isValidPhone(phone)) {
             throw new IllegalValueException(MESSAGE_PHONE_CONSTRAINTS);
         }
         this.value = phone;

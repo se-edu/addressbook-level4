@@ -21,7 +21,7 @@ public class Address {
      */
     public Address(String address) throws IllegalValueException {
         assert address != null;
-        if (!isValidAddress(address)) {
+        if (!address.isEmpty()&&!isValidAddress(address)) {
             throw new IllegalValueException(MESSAGE_ADDRESS_CONSTRAINTS);
         }
         this.value = address;

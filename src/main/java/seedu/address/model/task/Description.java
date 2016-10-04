@@ -23,7 +23,7 @@ public class Description {
     public Description(String email) throws IllegalValueException {
         assert email != null;
         email = email.trim();
-        if (!isValidEmail(email)) {
+        if (!email.isEmpty()&&!isValidEmail(email)) {
             throw new IllegalValueException(MESSAGE_EMAIL_CONSTRAINTS);
         }
         this.value = email;
