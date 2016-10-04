@@ -58,12 +58,14 @@ Summary of the parameters and their usage
 | `[EndTime]`   |  _**/et**_    |		|
 | `[Recur]`     | _**/freq X**_ | daily = 1, weekly = 2 , fortnightly = 3, monthly = 4| 
 
-> The application **does not support adding** new `Tasks` which **conflicts** with your current schedule. 
-However, with priority system you may wish to reschedule the lower priority task to a free time slot.
-
 Examples:
-- `add TASK_NAME [Priority][Tag][StartTime][EndTime][Recur]`
+
 <img src="images/AddBasicCmd.png" width="500"><br>
+
+- `add TASK_NAME [Priority][Tag][StartTime][EndTime][Recur]`
+
+> The application **does not support adding** new `Tasks` which **conflicts** with your current schedule. 
+> However, with priority system you may wish to reschedule the lower priority task to a free time slot.
 
 ### 3.2. **Delete Tasks:**
 Deletes the specified Task from the SmartyDo.
@@ -76,9 +78,10 @@ The index must be a positive integer 1, 2, 3, ...
 
 Examples:
 
+<img src="images/Delete1.png" width="500"><br>
 - `view 11/10/2016`
-- `delete 2`
-- Deletes the 2nd task of 11/10/2016.
+- `delete 1`
+- Deletes the 1st task of 11/10/2016.
 
 
 - `find homework`
@@ -86,13 +89,31 @@ Examples:
 - Deletes the 1st task in the results of the find command.
 
 ### 3.3. **Undo and Redo:**
-Current intention, allows only 1 Undo/Redo.
+
+With `undo`, you are allowed to reverse your previous changes sequentially while `redo` allows you to remove the change done by `undo`.
 
 Example:
-- `Add CS2103`
-- `Undo`
+- `add Add /d Archery  Introduction /st 0900 /loc Multipurpose Field `
+- `delete 1`
+- `undo`
  
-Returns to previous state without task CS2103
+SmartyDo updates your schedule where it was before you executed an undoable action. If you enter `redo`, the most recent `undo` change is reverted.  
+
+<img src="images/Delete1.png" width="500"><br>
+
+- `redo`
+> If you enter any undoable command after entering `redo` or `undo`, your history of actions would be _**removed**_. <br>
+> You need to have recently asked **SmartyDo** to perform **at least one undoable command** to execute `undo`. <br>
+> As for `redo`, it requires the application to have executed at least one `undo` action recently  
+
+| Undoable Commands |
+| ------------- 	|
+| `add`	   			|
+| `delete`			|
+| `edit`			|
+| `mark`			|
+
+
 
 
 ### 3.4. **View:**
@@ -161,6 +182,10 @@ Help is also shown if you enter an incorrect command e.g. abcd
 
 ### 4.1. **FlexiCommand**
 It is okay if you cannot remember the syntax entirely! As long as you remember the keyword some reshuffling of the parameters entered is fine. Our program will ask you for confirmation if we are unsure what you want.
+
+### 4.2. **Saving the data**
+Address book data are saved in the hard disk automatically after any command that changes the data.
+There is no need to save manually.It is okay if you cannot remember the syntax entirely! As long as you remember the keyword some reshuffling of the parameters entered is fine. Our program will ask you for confirmation if we are unsure what you want.
 
 ### 4.2. **Saving the data**
 Address book data are saved in the hard disk automatically after any command that changes the data.
