@@ -3,8 +3,12 @@ After studying this code and completing the corresponding exercises, you should 
 
 1. [Use High-Level Designs `[LO-HighLevelDesign]`](#use-high-level-designs-lo-highleveldesign)
 1. [Use Event-Driven Programming `[LO-EventDriven]`](#use-event-driven-programming-lo-eventdriven`)
-
-{more to be added}
+1. [Use API Design `[LO-ApiDesign]`](#use-api-design-lo-apidesign)
+1. [Use Assertions `[LO-Assertions]`](#use-assertions-lo-assertions)
+1. [Use Logging `[LO-Logging]`](#use-logging-lo-logging)
+1. [Use Defensive Coding `[LO-DefensiveCoding]`](#use-defensive-coding-lo-defensivedoding)
+1. [Use Build Automation `[LO-BuildAutomation]`](#use-build-automation-lo-buildautomation)
+1. [Use Continuous Integration `[LO-ContinuousIntegration]`](#use-continuous-integration-lo-continuousintegration)
 
 ------------------------------------------------------------------------------------------------------
 
@@ -69,9 +73,10 @@ Note [how the AddressBook app uses Java's `java.util.log` package to do logging]
 #### Exercise: Add more logging
  Add more logging to AddressBook as you see fit.
  
- ------------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------------
  
  ## Use Defensive Coding `[LO-DefensiveCoding]`
+ 
  Note how AddressBook uses the `ReadOnly*` interfaces to prevent objects being modified by clients who are not 
  supposed to modify them.
  
