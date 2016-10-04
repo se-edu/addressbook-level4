@@ -99,7 +99,7 @@ Example:
  
 SmartyDo updates your schedule where it was before you executed an undoable action. If you enter `redo`, the most recent `undo` change is reverted.  
 
-<img src="images/Delete1.png" width="500"><br>
+<img src="images/Redo.png" width="500"><br>
 
 - `redo`
 > If you enter any undoable command after entering `redo` or `undo`, your history of actions would be _**removed**_. <br>
@@ -107,11 +107,11 @@ SmartyDo updates your schedule where it was before you executed an undoable acti
 > As for `redo`, it requires the application to have executed at least one `undo` action recently  
 
 | Undoable Commands |
-| ------------- 	|
-| `add`	   			|
-| `delete`			|
-| `edit`			|
-| `mark`			|
+| ----------------- |
+| `add`	   	    |
+| `delete`	    |
+| `edit`	    |  
+| `mark`	    |
 
 
 
