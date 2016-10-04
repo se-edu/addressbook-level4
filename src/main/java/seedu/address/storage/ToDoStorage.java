@@ -14,7 +14,7 @@ public interface ToDoStorage {
     /**
      * Returns the file path of the data file.
      */
-    String getAddressBookFilePath();
+    String getToDoFilePath();
 
     /**
      * Returns ToDo data as a {@link ReadOnlyToDo}.
@@ -22,23 +22,23 @@ public interface ToDoStorage {
      * @throws DataConversionException if the data in storage is not in the expected format.
      * @throws IOException if there was any problem when reading from the storage.
      */
-    Optional<ReadOnlyToDo> readAddressBook() throws DataConversionException, IOException;
+    Optional<ReadOnlyToDo> readToDo() throws DataConversionException, IOException;
 
     /**
-     * @see #getAddressBookFilePath()
+     * @see #getToDoFilePath()
      */
-    Optional<ReadOnlyToDo> readAddressBook(String filePath) throws DataConversionException, IOException;
+    Optional<ReadOnlyToDo> readToDo(String filePath) throws DataConversionException, IOException;
 
     /**
      * Saves the given {@link ReadOnlyToDo} to the storage.
      * @param addressBook cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
-    void saveAddressBook(ReadOnlyToDo addressBook) throws IOException;
+    void saveToDo(ReadOnlyToDo addressBook) throws IOException;
 
     /**
-     * @see #saveAddressBook(ReadOnlyToDo)
+     * @see #saveToDo(ReadOnlyToDo)
      */
-    void saveAddressBook(ReadOnlyToDo addressBook, String filePath) throws IOException;
+    void saveToDo(ReadOnlyToDo addressBook, String filePath) throws IOException;
 
 }

@@ -5,7 +5,7 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
-import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.commons.events.model.ToDoChangedEvent;
 import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.model.ToDo;
 import seedu.address.model.ReadOnlyToDo;
@@ -56,15 +56,15 @@ public class StorageManagerTest {
     @Test
     public void addressBookReadSave() throws Exception {
         ToDo original = new TypicalTestPersons().getTypicalToDo();
-        storageManager.saveAddressBook(original);
-        ReadOnlyToDo retrieved = storageManager.readAddressBook().get();
+        storageManager.saveToDo(original);
+        ReadOnlyToDo retrieved = storageManager.readToDo().get();
         assertEquals(original, new ToDo(retrieved));
         //More extensive testing of ToDo saving/reading is done in XmlAddressBookStorageTest
     }
 
     @Test
     public void getAddressBookFilePath(){
-        assertNotNull(storageManager.getAddressBookFilePath());
+        assertNotNull(storageManager.getToDoFilePath());
     }
 
     @Test
@@ -72,7 +72,7 @@ public class StorageManagerTest {
         //Create a StorageManager while injecting a stub that throws an exception when the save method is called
         Storage storage = new StorageManager(new XmlAddressBookStorageExceptionThrowingStub("dummy"), new JsonUserPrefsStorage("dummy"));
         EventsCollector eventCollector = new EventsCollector();
-        storage.handleAddressBookChangedEvent(new AddressBookChangedEvent(new ToDo()));
+        storage.handleToDoChangedEvent(new ToDoChangedEvent(new ToDo()));
         assertTrue(eventCollector.get(0) instanceof DataSavingExceptionEvent);
     }
 
@@ -87,7 +87,7 @@ public class StorageManagerTest {
         }
 
         @Override
-        public void saveAddressBook(ReadOnlyToDo addressBook, String filePath) throws IOException {
+        public void saveToDo(ReadOnlyToDo addressBook, String filePath) throws IOException {
             throw new IOException("dummy exception");
         }
     }

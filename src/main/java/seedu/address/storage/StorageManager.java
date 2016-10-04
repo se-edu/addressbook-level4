@@ -3,7 +3,7 @@ package seedu.address.storage;
 import com.google.common.eventbus.Subscribe;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.commons.events.model.ToDoChangedEvent;
 import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyToDo;
@@ -30,8 +30,8 @@ public class StorageManager extends ComponentManager implements Storage {
         this.userPrefsStorage = userPrefsStorage;
     }
 
-    public StorageManager(String addressBookFilePath, String userPrefsFilePath) {
-        this(new XmlAddressBookStorage(addressBookFilePath), new JsonUserPrefsStorage(userPrefsFilePath));
+    public StorageManager(String toDoFilePath, String userPrefsFilePath) {
+        this(new XmlAddressBookStorage(toDoFilePath), new JsonUserPrefsStorage(userPrefsFilePath));
     }
 
     // ================ UserPrefs methods ==============================
@@ -50,39 +50,39 @@ public class StorageManager extends ComponentManager implements Storage {
     // ================ ToDo methods ==============================
 
     @Override
-    public String getAddressBookFilePath() {
-        return toDoStorage.getAddressBookFilePath();
+    public String getToDoFilePath() {
+        return toDoStorage.getToDoFilePath();
     }
 
     @Override
-    public Optional<ReadOnlyToDo> readAddressBook() throws DataConversionException, IOException {
-        return readAddressBook(toDoStorage.getAddressBookFilePath());
+    public Optional<ReadOnlyToDo> readToDo() throws DataConversionException, IOException {
+        return readToDo(toDoStorage.getToDoFilePath());
     }
 
     @Override
-    public Optional<ReadOnlyToDo> readAddressBook(String filePath) throws DataConversionException, IOException {
+    public Optional<ReadOnlyToDo> readToDo(String filePath) throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
-        return toDoStorage.readAddressBook(filePath);
+        return toDoStorage.readToDo(filePath);
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyToDo addressBook) throws IOException {
-        saveAddressBook(addressBook, toDoStorage.getAddressBookFilePath());
+    public void saveToDo(ReadOnlyToDo toDo) throws IOException {
+        saveToDo(toDo, toDoStorage.getToDoFilePath());
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyToDo addressBook, String filePath) throws IOException {
+    public void saveToDo(ReadOnlyToDo toDo, String filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        toDoStorage.saveAddressBook(addressBook, filePath);
+        toDoStorage.saveToDo(toDo, filePath);
     }
 
 
     @Override
     @Subscribe
-    public void handleAddressBookChangedEvent(AddressBookChangedEvent event) {
+    public void handleToDoChangedEvent(ToDoChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local data changed, saving to file"));
         try {
-            saveAddressBook(event.data);
+            saveToDo(event.data);
         } catch (IOException e) {
             raise(new DataSavingExceptionEvent(e));
         }
