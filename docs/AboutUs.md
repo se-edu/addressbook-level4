@@ -4,6 +4,12 @@ We are a team based in the [School of Computing, National University of Singapor
 
 ## Project Team
 
+### [Damith C.Rajapakse](http://www.comp.nus.edu.sg/~damithch) <br>
+<img src="images/DamithRajapakse.jpg" width="150"><br>
+**Role**: Project Mentor
+
+-----
+
 #### [Kenneth Tan Xin You](https://github.com/kennethtxytqw)<br>
 <img src="https://avatars0.githubusercontent.com/u/16360559?v=3&s=466" width="150"><br>
 **Responsibility**: Team Lead, Integration
