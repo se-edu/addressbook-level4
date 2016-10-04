@@ -24,16 +24,16 @@ public class XmlAddressBookStorage implements ToDoStorage {
         this.filePath = filePath;
     }
 
-    public String getAddressBookFilePath(){
+    public String getToDoFilePath(){
         return filePath;
     }
 
     /**
-     * Similar to {@link #readAddressBook()}
+     * Similar to {@link #readToDo()}
      * @param filePath location of the data. Cannot be null
      * @throws DataConversionException if the file is not in the correct format.
      */
-    public Optional<ReadOnlyToDo> readAddressBook(String filePath) throws DataConversionException, FileNotFoundException {
+    public Optional<ReadOnlyToDo> readToDo(String filePath) throws DataConversionException, FileNotFoundException {
         assert filePath != null;
 
         File addressBookFile = new File(filePath);
@@ -49,10 +49,10 @@ public class XmlAddressBookStorage implements ToDoStorage {
     }
 
     /**
-     * Similar to {@link #saveAddressBook(ReadOnlyToDo)}
+     * Similar to {@link #saveToDo(ReadOnlyToDo)}
      * @param filePath location of the data. Cannot be null
      */
-    public void saveAddressBook(ReadOnlyToDo addressBook, String filePath) throws IOException {
+    public void saveToDo(ReadOnlyToDo addressBook, String filePath) throws IOException {
         assert addressBook != null;
         assert filePath != null;
 
@@ -62,12 +62,12 @@ public class XmlAddressBookStorage implements ToDoStorage {
     }
 
     @Override
-    public Optional<ReadOnlyToDo> readAddressBook() throws DataConversionException, IOException {
-        return readAddressBook(filePath);
+    public Optional<ReadOnlyToDo> readToDo() throws DataConversionException, IOException {
+        return readToDo(filePath);
     }
 
     @Override
-    public void saveAddressBook(ReadOnlyToDo addressBook) throws IOException {
-        saveAddressBook(addressBook, filePath);
+    public void saveToDo(ReadOnlyToDo addressBook) throws IOException {
+        saveToDo(addressBook, filePath);
     }
 }

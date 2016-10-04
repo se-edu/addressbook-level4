@@ -49,7 +49,7 @@ public class MainApp extends Application {
         super.init();
 
         config = initConfig(getApplicationParameter("config"));
-        storage = new StorageManager(config.getAddressBookFilePath(), config.getUserPrefsFilePath());
+        storage = new StorageManager(config.getToDoFilePath(), config.getUserPrefsFilePath());
 
         userPrefs = initPrefs(config);
 
@@ -73,7 +73,7 @@ public class MainApp extends Application {
         Optional<ReadOnlyToDo> addressBookOptional;
         ReadOnlyToDo initialData;
         try {
-            addressBookOptional = storage.readAddressBook();
+            addressBookOptional = storage.readToDo();
             if(!addressBookOptional.isPresent()){
                 logger.info("Data file not found. Will be starting with an empty ToDo");
             }

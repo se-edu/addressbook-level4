@@ -1,6 +1,6 @@
 package seedu.address.storage;
 
-import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.commons.events.model.ToDoChangedEvent;
 import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyToDo;
@@ -22,18 +22,18 @@ public interface Storage extends ToDoStorage, UserPrefsStorage {
     void saveUserPrefs(UserPrefs userPrefs) throws IOException;
 
     @Override
-    String getAddressBookFilePath();
+    String getToDoFilePath();
 
     @Override
-    Optional<ReadOnlyToDo> readAddressBook() throws DataConversionException, IOException;
+    Optional<ReadOnlyToDo> readToDo() throws DataConversionException, IOException;
 
     @Override
-    void saveAddressBook(ReadOnlyToDo addressBook) throws IOException;
+    void saveToDo(ReadOnlyToDo toDo) throws IOException;
 
     /**
      * Saves the current version of the Address Book to the hard disk.
      *   Creates the data file if it is missing.
      * Raises {@link DataSavingExceptionEvent} if there was an error during saving.
      */
-    void handleAddressBookChangedEvent(AddressBookChangedEvent abce);
+    void handleToDoChangedEvent(ToDoChangedEvent abce);
 }
