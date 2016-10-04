@@ -152,8 +152,8 @@ Marks the task at the specified INDEX as complete. The index refers to the index
 
 Example:
 
-- 'view 11/10/2016'
-- 'Done 2'
+- `view 11/10/2016`
+- `Done 2`
 - Marks the 2nd task of 11/10/2016 as completed task.
 
 Format: Done INDEX
