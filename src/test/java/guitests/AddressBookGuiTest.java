@@ -13,7 +13,7 @@ import seedu.address.commons.core.EventsCenter;
 import seedu.address.model.ToDo;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.testutil.TestUtil;
-import seedu.address.testutil.TypicalTestPersons;
+import seedu.address.testutil.TypicalTestTasks;
 
 import java.util.concurrent.TimeoutException;
 
@@ -31,7 +31,7 @@ public abstract class AddressBookGuiTest {
 
     TestApp testApp;
 
-    protected TypicalTestPersons td = new TypicalTestPersons();
+    protected TypicalTestTasks td = new TypicalTestTasks();
 
     /*
      *   Handles to GUI elements present at the start up are created in advance
@@ -77,7 +77,7 @@ public abstract class AddressBookGuiTest {
      */
     protected ToDo getInitialData() {
         ToDo ab = TestUtil.generateEmptyToDo();
-        TypicalTestPersons.loadToDoWithSampleData(ab);
+        TypicalTestTasks.loadToDoWithSampleData(ab);
         return ab;
     }
 

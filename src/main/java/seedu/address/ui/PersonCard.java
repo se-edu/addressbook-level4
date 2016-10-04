@@ -45,7 +45,7 @@ public class PersonCard extends UiPart{
         id.setText(displayedIndex + ". ");
         phone.setText(task.getPhone().value);
         address.setText(task.getAddress().value);
-        email.setText(task.getEmail().value);
+        email.setText(task.getDescription().value);
         tags.setText(task.tagsString());
     }
 
