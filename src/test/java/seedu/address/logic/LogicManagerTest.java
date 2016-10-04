@@ -382,7 +382,7 @@ public class LogicManagerTest {
 
         Task adam() throws Exception {
             Name name = new Name("Adam Brown");
-            Time privateTime = new Time("111111");
+            Time privateTime = new Time("1111");
             Description description = new Description("adam's description");
             Address privateAddress = new Address("111, alpha street");
             Tag tag1 = new Tag("tag1");
@@ -401,7 +401,7 @@ public class LogicManagerTest {
         Task generateTask(int seed) throws Exception {
             return new Task(
                     new Name("Task " + seed),
-                    new Time("" + Math.abs(seed)),
+                    new Time("" + (Math.abs(seed)*9876%10000)),
                     new Description(seed + "@email"),
                     new Address("House of " + seed),
                     new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
