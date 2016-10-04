@@ -7,8 +7,8 @@
 
 * This is a desktop time scheduler application. It has a GUI but most of the user interactions happen using 
   a CLI (Command Line Interface).
-
-
+ 
+ 
   
 #### Site Map
 * [User Guide](docs/UserGuide.md) 
