@@ -90,7 +90,7 @@ Examples:
 
 ### 3.3. **Undo and Redo:**
 
-With `undo`, you are allowed to reverse your previous changes sequentially while `redo` allows you to remove the change done by `undo`.
+With `undo`, you are allowed to reverse your previous changes sequentially while `redo` allows you to reverse the change done by `undo`.
 
 Example:
 - `add Add /d Archery  Introduction /st 0900 /loc Multipurpose Field `
@@ -113,8 +113,8 @@ SmartyDo updates your schedule where it was before you executed an undoable acti
 | `edit`	    |  
 | `mark`	    |
 
-
-
+> SmartyDo **does not store** history of actions in your computer.
+> The history of actions are initialized to empty stack when SmartyDo is opened.
 
 ### 3.4. **View:**
 View the task/day/month/year/list identified by the parameter.
@@ -145,10 +145,16 @@ Examples:
 
 - `find homework`
 - `edit 1 time 1400`
-- Edits the 1st task in the results of the find command. Chanes its deadlin to 1400.
+- Edits the 1st task in the results of the find command. Chanes its deadline to 1400.
 
 ### 3.6. **Mark completed tasks:**
 Marks the task at the specified INDEX as complete. The index refers to the index number shown in the VisualBox.
+
+Example:
+
+- 'view 11/10/2016'
+- 'Done 2'
+- Marks the 2nd task of 11/10/2016 as completed task.
 
 Format: Done INDEX
 
@@ -184,9 +190,5 @@ Help is also shown if you enter an incorrect command e.g. abcd
 It is okay if you cannot remember the syntax entirely! As long as you remember the keyword some reshuffling of the parameters entered is fine. Our program will ask you for confirmation if we are unsure what you want.
 
 ### 4.2. **Saving the data**
-Address book data are saved in the hard disk automatically after any command that changes the data.
-There is no need to save manually.It is okay if you cannot remember the syntax entirely! As long as you remember the keyword some reshuffling of the parameters entered is fine. Our program will ask you for confirmation if we are unsure what you want.
-
-### 4.2. **Saving the data**
-Address book data are saved in the hard disk automatically after any command that changes the data.
+SmartyDo data are saved in the hard disk automatically after any command that changes the data.
 There is no need to save manually.
