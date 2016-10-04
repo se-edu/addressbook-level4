@@ -102,6 +102,7 @@ SmartyDo updates your schedule where it was before you executed an undoable acti
 <img src="images/Redo.png" width="500"><br>
 
 - `redo`
+
 > If you enter any undoable command after entering `redo` or `undo`, your history of actions would be _**removed**_. <br>
 > You need to have recently asked **SmartyDo** to perform **at least one undoable command** to execute `undo`. <br>
 > As for `redo`, it requires the application to have executed at least one `undo` action recently  
