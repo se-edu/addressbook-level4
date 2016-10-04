@@ -3,7 +3,7 @@ package seedu.address.model.task;
 import seedu.address.commons.exceptions.IllegalValueException;
 
 /**
- * Represents a Task's phone number in the address book.
+ * Represents a Task's phone number in the SmartyDo.
  * Guarantees: immutable; is valid as declared in {@link #isValidPhone(String)}
  */
 public class Phone {

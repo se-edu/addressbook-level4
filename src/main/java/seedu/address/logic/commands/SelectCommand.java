@@ -7,7 +7,7 @@ import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.commons.core.UnmodifiableObservableList;
 
 /**
- * Selects a task identified using it's last displayed index from the address book.
+ * Selects a task identified using it's last displayed index from the SmartyDo.
  */
 public class SelectCommand extends Command {
 
