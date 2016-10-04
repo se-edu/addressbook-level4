@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * Unmodifiable view of an address book
  */
-public interface ReadOnlyAddressBook {
+public interface ReadOnlyToDo {
 
     UniqueTagList getUniqueTagList();
 

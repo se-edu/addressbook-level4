@@ -10,7 +10,7 @@ import org.junit.rules.TestName;
 import org.testfx.api.FxToolkit;
 import seedu.address.TestApp;
 import seedu.address.commons.core.EventsCenter;
-import seedu.address.model.AddressBook;
+import seedu.address.model.ToDo;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.testutil.TestUtil;
 import seedu.address.testutil.TypicalTestPersons;
@@ -21,7 +21,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 /**
- * A GUI Test class for AddressBook.
+ * A GUI Test class for ToDo.
  */
 public abstract class AddressBookGuiTest {
 
@@ -75,15 +75,14 @@ public abstract class AddressBookGuiTest {
      * Override this in child classes to set the initial local data.
      * Return null to use the data in the file specified in {@link #getDataFileLocation()}
      */
-    protected AddressBook getInitialData() {
-        AddressBook ab = TestUtil.generateEmptyAddressBook();
-        TypicalTestPersons.loadAddressBookWithSampleData(ab);
+    protected ToDo getInitialData() {
+        ToDo ab = TestUtil.generateEmptyToDo();
+        TypicalTestPersons.loadToDoWithSampleData(ab);
         return ab;
     }
 
     /**
      * Override this in child classes to set the data file location.
-     * @return
      */
     protected String getDataFileLocation() {
         return TestApp.SAVE_LOCATION_FOR_TESTING;
@@ -111,7 +110,6 @@ public abstract class AddressBookGuiTest {
 
     /**
      * Asserts the message shown in the Result Display area is same as the given string.
-     * @param expected
      */
     protected void assertResultMessage(String expected) {
         assertEquals(expected, resultDisplay.getText());

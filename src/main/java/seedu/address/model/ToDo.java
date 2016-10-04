@@ -11,10 +11,10 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**
- * Wraps all data at the address-book level
+ * Wraps all data at the to-do level
  * Duplicates are not allowed (by .equals comparison)
  */
-public class AddressBook implements ReadOnlyAddressBook {
+public class ToDo implements ReadOnlyToDo {
 
     private final UniquePersonList persons;
     private final UniqueTagList tags;
@@ -24,24 +24,24 @@ public class AddressBook implements ReadOnlyAddressBook {
         tags = new UniqueTagList();
     }
 
-    public AddressBook() {}
+    public ToDo() {}
 
     /**
-     * Persons and Tags are copied into this addressbook
+     * Persons and Tags are copied into this todo
      */
-    public AddressBook(ReadOnlyAddressBook toBeCopied) {
+    public ToDo(ReadOnlyToDo toBeCopied) {
         this(toBeCopied.getUniquePersonList(), toBeCopied.getUniqueTagList());
     }
 
     /**
-     * Persons and Tags are copied into this addressbook
+     * Persons and Tags are copied into this todo
      */
-    public AddressBook(UniquePersonList persons, UniqueTagList tags) {
+    public ToDo(UniquePersonList persons, UniqueTagList tags) {
         resetData(persons.getInternalList(), tags.getInternalList());
     }
 
-    public static ReadOnlyAddressBook getEmptyAddressBook() {
-        return new AddressBook();
+    public static ReadOnlyToDo getEmptyAddressBook() {
+        return new ToDo();
     }
 
 //// list overwrite operations
@@ -63,7 +63,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         setTags(newTags);
     }
 
-    public void resetData(ReadOnlyAddressBook newData) {
+    public void resetData(ReadOnlyToDo newData) {
         resetData(newData.getPersonList(), newData.getTagList());
     }
 
@@ -150,9 +150,9 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddressBook // instanceof handles nulls
-                && this.persons.equals(((AddressBook) other).persons)
-                && this.tags.equals(((AddressBook) other).tags));
+                || (other instanceof ToDo // instanceof handles nulls
+                && this.persons.equals(((ToDo) other).persons)
+                && this.tags.equals(((ToDo) other).tags));
     }
 
     @Override
