@@ -25,28 +25,28 @@ public class PersonCard extends UiPart{
     @FXML
     private Label tags;
 
-    private ReadOnlyTask person;
+    private ReadOnlyTask task;
     private int displayedIndex;
 
     public PersonCard(){
 
     }
 
-    public static PersonCard load(ReadOnlyTask person, int displayedIndex){
+    public static PersonCard load(ReadOnlyTask task, int displayedIndex){
         PersonCard card = new PersonCard();
-        card.person = person;
+        card.task = task;
         card.displayedIndex = displayedIndex;
         return UiPartLoader.loadUiPart(card);
     }
 
     @FXML
     public void initialize() {
-        name.setText(person.getName().fullName);
+        name.setText(task.getName().fullName);
         id.setText(displayedIndex + ". ");
-        phone.setText(person.getPhone().value);
-        address.setText(person.getAddress().value);
-        email.setText(person.getEmail().value);
-        tags.setText(person.tagsString());
+        phone.setText(task.getPhone().value);
+        address.setText(task.getAddress().value);
+        email.setText(task.getEmail().value);
+        tags.setText(task.tagsString());
     }
 
     public HBox getLayout() {

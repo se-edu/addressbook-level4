@@ -5,7 +5,7 @@ import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.ReadOnlyTask;
-import seedu.address.model.task.UniquePersonList;
+import seedu.address.model.task.UniqueTaskList;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -16,28 +16,28 @@ import java.util.stream.Collectors;
  */
 public class ToDo implements ReadOnlyToDo {
 
-    private final UniquePersonList persons;
+    private final UniqueTaskList tasks;
     private final UniqueTagList tags;
 
     {
-        persons = new UniquePersonList();
+        tasks = new UniqueTaskList();
         tags = new UniqueTagList();
     }
 
     public ToDo() {}
 
     /**
-     * Persons and Tags are copied into this todo
+     * tasks and Tags are copied into this todo
      */
     public ToDo(ReadOnlyToDo toBeCopied) {
-        this(toBeCopied.getUniquePersonList(), toBeCopied.getUniqueTagList());
+        this(toBeCopied.getUniqueTaskList(), toBeCopied.getUniqueTagList());
     }
 
     /**
-     * Persons and Tags are copied into this todo
+     * tasks and Tags are copied into this todo
      */
-    public ToDo(UniquePersonList persons, UniqueTagList tags) {
-        resetData(persons.getInternalList(), tags.getInternalList());
+    public ToDo(UniqueTaskList tasks, UniqueTagList tags) {
+        resetData(tasks.getInternalList(), tags.getInternalList());
     }
 
     public static ReadOnlyToDo getEmptyAddressBook() {
@@ -47,11 +47,11 @@ public class ToDo implements ReadOnlyToDo {
 //// list overwrite operations
 
     public ObservableList<Task> getTasks() {
-        return persons.getInternalList();
+        return tasks.getInternalList();
     }
 
     public void setTasks(List<Task> tasks) {
-        this.persons.getInternalList().setAll(tasks);
+        this.tasks.getInternalList().setAll(tasks);
     }
 
     public void setTags(Collection<Tag> tags) {
@@ -64,25 +64,25 @@ public class ToDo implements ReadOnlyToDo {
     }
 
     public void resetData(ReadOnlyToDo newData) {
-        resetData(newData.getPersonList(), newData.getTagList());
+        resetData(newData.getTaskList(), newData.getTagList());
     }
 
-//// person-level operations
+//// task-level operations
 
     /**
-     * Adds a person to the address book.
-     * Also checks the new person's tags and updates {@link #tags} with any new tags found,
-     * and updates the Tag objects in the person to point to those in {@link #tags}.
+     * Adds a task to the address book.
+     * Also checks the new task's tags and updates {@link #tags} with any new tags found,
+     * and updates the Tag objects in the task to point to those in {@link #tags}.
      *
-     * @throws UniquePersonList.DuplicatePersonException if an equivalent person already exists.
+     * @throws UniqueTaskList.DuplicatePersonException if an equivalent task already exists.
      */
-    public void addTask(Task p) throws UniquePersonList.DuplicatePersonException {
+    public void addTask(Task p) throws UniqueTaskList.DuplicatePersonException {
         syncTagsWithMasterList(p);
-        persons.add(p);
+        tasks.add(p);
     }
 
     /**
-     * Ensures that every tag in this person:
+     * Ensures that every tag in this task:
      *  - exists in the master list {@link #tags}
      *  - points to a Tag object in the master list
      */
@@ -96,7 +96,7 @@ public class ToDo implements ReadOnlyToDo {
             masterTagObjects.put(tag, tag);
         }
 
-        // Rebuild the list of person tags using references from the master list
+        // Rebuild the list of task tags using references from the master list
         final Set<Tag> commonTagReferences = new HashSet<>();
         for (Tag tag : personTags) {
             commonTagReferences.add(masterTagObjects.get(tag));
@@ -104,11 +104,11 @@ public class ToDo implements ReadOnlyToDo {
         task.setTags(new UniqueTagList(commonTagReferences));
     }
 
-    public boolean removePerson(ReadOnlyTask key) throws UniquePersonList.PersonNotFoundException {
-        if (persons.remove(key)) {
+    public boolean removePerson(ReadOnlyTask key) throws UniqueTaskList.PersonNotFoundException {
+        if (tasks.remove(key)) {
             return true;
         } else {
-            throw new UniquePersonList.PersonNotFoundException();
+            throw new UniqueTaskList.PersonNotFoundException();
         }
     }
 
@@ -122,13 +122,13 @@ public class ToDo implements ReadOnlyToDo {
 
     @Override
     public String toString() {
-        return persons.getInternalList().size() + " persons, " + tags.getInternalList().size() +  " tags";
+        return tasks.getInternalList().size() + " tasks, " + tags.getInternalList().size() +  " tags";
         // TODO: refine later
     }
 
     @Override
-    public List<ReadOnlyTask> getPersonList() {
-        return Collections.unmodifiableList(persons.getInternalList());
+    public List<ReadOnlyTask> getTaskList() {
+        return Collections.unmodifiableList(tasks.getInternalList());
     }
 
     @Override
@@ -137,8 +137,8 @@ public class ToDo implements ReadOnlyToDo {
     }
 
     @Override
-    public UniquePersonList getUniquePersonList() {
-        return this.persons;
+    public UniqueTaskList getUniqueTaskList() {
+        return this.tasks;
     }
 
     @Override
@@ -151,13 +151,13 @@ public class ToDo implements ReadOnlyToDo {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof ToDo // instanceof handles nulls
-                && this.persons.equals(((ToDo) other).persons)
+                && this.tasks.equals(((ToDo) other).tasks)
                 && this.tags.equals(((ToDo) other).tags));
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(persons, tags);
+        return Objects.hash(tasks, tags);
     }
 }

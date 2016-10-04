@@ -17,7 +17,7 @@ import seedu.address.commons.core.LogsCenter;
 import java.util.logging.Logger;
 
 /**
- * Panel containing the list of persons.
+ * Panel containing the list of tasks.
  */
 public class PersonListPanel extends UiPart {
     private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
@@ -74,7 +74,7 @@ public class PersonListPanel extends UiPart {
     private void setEventHandlerForSelectionChangeEvent() {
         personListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
-                logger.fine("Selection in person list panel changed to : '" + newValue + "'");
+                logger.fine("Selection in task list panel changed to : '" + newValue + "'");
                 raise(new PersonPanelSelectionChangedEvent(newValue));
             }
         });
@@ -93,14 +93,14 @@ public class PersonListPanel extends UiPart {
         }
 
         @Override
-        protected void updateItem(ReadOnlyTask person, boolean empty) {
-            super.updateItem(person, empty);
+        protected void updateItem(ReadOnlyTask task, boolean empty) {
+            super.updateItem(task, empty);
 
-            if (empty || person == null) {
+            if (empty || task == null) {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(PersonCard.load(person, getIndex() + 1).getLayout());
+                setGraphic(PersonCard.load(task, getIndex() + 1).getLayout());
             }
         }
     }

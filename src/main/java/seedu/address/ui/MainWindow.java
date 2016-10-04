@@ -186,8 +186,8 @@ public class MainWindow extends UiPart {
         return this.personListPanel;
     }
 
-    public void loadPersonPage(ReadOnlyTask person) {
-        browserPanel.loadPersonPage(person);
+    public void loadPersonPage(ReadOnlyTask task) {
+        browserPanel.loadPersonPage(task);
     }
 
     public void releaseResources() {

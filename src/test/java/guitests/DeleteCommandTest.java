@@ -1,7 +1,7 @@
 package guitests;
 
 import org.junit.Test;
-import seedu.address.testutil.TestPerson;
+import seedu.address.testutil.TestTask;
 import seedu.address.testutil.TestUtil;
 
 import static org.junit.Assert.assertTrue;
@@ -13,7 +13,7 @@ public class DeleteCommandTest extends AddressBookGuiTest {
     public void delete() {
 
         //delete the first in the list
-        TestPerson[] currentList = td.getTypicalPersons();
+        TestTask[] currentList = td.getTypicalPersons();
         int targetIndex = 1;
         assertDeleteSuccess(targetIndex, currentList);
 
@@ -34,17 +34,17 @@ public class DeleteCommandTest extends AddressBookGuiTest {
     }
 
     /**
-     * Runs the delete command to delete the person at specified index and confirms the result is correct.
-     * @param targetIndexOneIndexed e.g. to delete the first person in the list, 1 should be given as the target index.
-     * @param currentList A copy of the current list of persons (before deletion).
+     * Runs the delete command to delete the task at specified index and confirms the result is correct.
+     * @param targetIndexOneIndexed e.g. to delete the first task in the list, 1 should be given as the target index.
+     * @param currentList A copy of the current list of tasks (before deletion).
      */
-    private void assertDeleteSuccess(int targetIndexOneIndexed, final TestPerson[] currentList) {
-        TestPerson personToDelete = currentList[targetIndexOneIndexed-1]; //-1 because array uses zero indexing
-        TestPerson[] expectedRemainder = TestUtil.removePersonFromList(currentList, targetIndexOneIndexed);
+    private void assertDeleteSuccess(int targetIndexOneIndexed, final TestTask[] currentList) {
+        TestTask personToDelete = currentList[targetIndexOneIndexed-1]; //-1 because array uses zero indexing
+        TestTask[] expectedRemainder = TestUtil.removePersonFromList(currentList, targetIndexOneIndexed);
 
         commandBox.runCommand("delete " + targetIndexOneIndexed);
 
-        //confirm the list now contains all previous persons except the deleted person
+        //confirm the list now contains all previous tasks except the deleted task
         assertTrue(personListPanel.isListMatching(expectedRemainder));
 
         //confirm the result message is correct
