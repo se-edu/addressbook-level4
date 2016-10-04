@@ -1,7 +1,8 @@
 package guitests;
 
 import org.junit.Test;
-import seedu.address.model.person.ReadOnlyPerson;
+
+import seedu.address.model.task.ReadOnlyTask;
 
 import static org.junit.Assert.assertEquals;
 
@@ -14,11 +15,11 @@ public class SelectCommandTest extends AddressBookGuiTest {
         assertSelectionInvalid(10); //invalid index
         assertNoPersonSelected();
 
-        assertSelectionSuccess(1); //first person in the list
+        assertSelectionSuccess(1); //first task in the list
         int personCount = td.getTypicalPersons().length;
-        assertSelectionSuccess(personCount); //last person in the list
+        assertSelectionSuccess(personCount); //last task in the list
         int middleIndex = personCount / 2;
-        assertSelectionSuccess(middleIndex); //a person in the middle of the list
+        assertSelectionSuccess(middleIndex); //a task in the middle of the list
 
         assertSelectionInvalid(personCount + 1); //invalid index
         assertPersonSelected(middleIndex); //assert previous selection remains
@@ -35,18 +36,18 @@ public class SelectCommandTest extends AddressBookGuiTest {
 
     private void assertSelectionInvalid(int index) {
         commandBox.runCommand("select " + index);
-        assertResultMessage("The person index provided is invalid");
+        assertResultMessage("The task index provided is invalid");
     }
 
     private void assertSelectionSuccess(int index) {
         commandBox.runCommand("select " + index);
-        assertResultMessage("Selected Person: "+index);
+        assertResultMessage("Selected Task: "+index);
         assertPersonSelected(index);
     }
 
     private void assertPersonSelected(int index) {
         assertEquals(personListPanel.getSelectedPersons().size(), 1);
-        ReadOnlyPerson selectedPerson = personListPanel.getSelectedPersons().get(0);
+        ReadOnlyTask selectedPerson = personListPanel.getSelectedPersons().get(0);
         assertEquals(personListPanel.getPerson(index-1), selectedPerson);
         //TODO: confirm the correct page is loaded in the Browser Panel
     }

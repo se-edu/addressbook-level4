@@ -3,7 +3,7 @@ package seedu.address.logic.commands;
 import seedu.address.model.ToDo;
 
 /**
- * Clears the address book.
+ * Clears the SmartyDo.
  */
 public class ClearCommand extends Command {
 
