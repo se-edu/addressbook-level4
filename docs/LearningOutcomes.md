@@ -75,12 +75,12 @@ Note [how the AddressBook app uses Java's `java.util.log` package to do logging]
  
 ------------------------------------------------------------------------------------------------------
  
- ## Use Defensive Coding `[LO-DefensiveCoding]`
+## Use Defensive Coding `[LO-DefensiveCoding]`
  
  Note how AddressBook uses the `ReadOnly*` interfaces to prevent objects being modified by clients who are not 
  supposed to modify them.
  
- #### Exercise: identify more places for defensive coding
+#### Exercise: identify more places for defensive coding
   Analyze the AddressBook code/design to identify,
    * where defensive coding is used
    * where the code can be more defensive
