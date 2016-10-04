@@ -9,7 +9,7 @@ import java.util.Objects;
  * Represents a Task in the address book.
  * Guarantees: details are present and not null, field values are validated.
  */
-public class Task implements ReadOnlyPerson {
+public class Task implements ReadOnlyTask {
 
     private Name name;
     private Phone phone;
@@ -33,7 +33,7 @@ public class Task implements ReadOnlyPerson {
     /**
      * Copy constructor.
      */
-    public Task(ReadOnlyPerson source) {
+    public Task(ReadOnlyTask source) {
         this(source.getName(), source.getPhone(), source.getEmail(), source.getAddress(), source.getTags());
     }
 
@@ -72,8 +72,8 @@ public class Task implements ReadOnlyPerson {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof ReadOnlyPerson // instanceof handles nulls
-                && this.isSameStateAs((ReadOnlyPerson) other));
+                || (other instanceof ReadOnlyTask // instanceof handles nulls
+                && this.isSameStateAs((ReadOnlyTask) other));
     }
 
     @Override
