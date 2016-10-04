@@ -18,7 +18,7 @@ public class AddCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the SmartyDo. "
             + "Parameters: NAME p/PHONE d/EMAIL a/ADDRESS  [t/TAG]...\n"
             + "Example: " + COMMAND_WORD
-            + " John Doe p/98765432 d/johnd's description a/311, Clementi Ave 2, #02-25 t/friends t/owesMoney";
+            + " John Doe p/9876 d/johnd's description a/311, Clementi Ave 2, #02-25 t/friends t/owesMoney";
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This task already exists in the SmartyDo";
@@ -38,7 +38,7 @@ public class AddCommand extends Command {
         }
         this.toAdd = new Task(
                 new Name(name),
-                new Phone(phone),
+                new Time(phone),
                 new Description(email),
                 new Address(address),
                 new UniqueTagList(tagSet)
