@@ -3,7 +3,7 @@ package seedu.address.logic.commands;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.UnmodifiableObservableList;
-import seedu.address.model.person.ReadOnlyPerson;
+import seedu.address.model.person.ReadOnlyTask;
 import seedu.todoList.commons.events.ui.JumpToListRequestEvent;
 
 /**
@@ -29,7 +29,7 @@ public class SelectCommand extends Command {
     @Override
     public CommandResult execute() {
 
-        UnmodifiableObservableList<ReadOnlyPerson> lastShownList = model.getFilteredPersonList();
+        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredPersonList();
 
         if (lastShownList.size() < targetIndex) {
             indicateAttemptToExecuteIncorrectCommand();

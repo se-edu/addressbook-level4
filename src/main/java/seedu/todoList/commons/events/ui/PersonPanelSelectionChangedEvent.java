@@ -1,6 +1,6 @@
 package seedu.todoList.commons.events.ui;
 
-import seedu.address.model.person.ReadOnlyPerson;
+import seedu.todoList.model.task.ReadOnlyTask;
 import seedu.todoList.commons.events.BaseEvent;
 
 /**
@@ -9,9 +9,9 @@ import seedu.todoList.commons.events.BaseEvent;
 public class PersonPanelSelectionChangedEvent extends BaseEvent {
 
 
-    private final ReadOnlyPerson newSelection;
+    private final ReadOnlyTask newSelection;
 
-    public PersonPanelSelectionChangedEvent(ReadOnlyPerson newSelection){
+    public PersonPanelSelectionChangedEvent(ReadOnlyTask newSelection){
         this.newSelection = newSelection;
     }
 
@@ -20,7 +20,7 @@ public class PersonPanelSelectionChangedEvent extends BaseEvent {
         return this.getClass().getSimpleName();
     }
 
-    public ReadOnlyPerson getNewSelection() {
+    public ReadOnlyTask getNewSelection() {
         return newSelection;
     }
 }
