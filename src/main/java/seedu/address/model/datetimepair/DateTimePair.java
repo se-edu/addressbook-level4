@@ -3,6 +3,7 @@ package seedu.address.model.datetimepair;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.joda.time.format.DateTimeFormatter;
+import seedu.address.commons.util.CollectionUtil;
 import seedu.address.model.tag.UniqueTagList;
 
 import java.util.Objects;
@@ -34,11 +35,14 @@ public class DateTimePair implements ReadOnlyDateTimePair {
      * @param nameArg   name of object
      * @param floatArg  flag to determine if floating
      */
-    public DateTimePair(String openArg, String closeArg, String nameArg, boolean floatArg) {
+    public DateTimePair(String openArg, String closeArg, String nameArg, boolean floatArg, UniqueTagList tags)
+    throws IllegalArgumentException {
+        assert !CollectionUtil.isAnyNull(openArg, closeArg, nameArg, floatArg, tags);
         this.open = longDTFormat.parseDateTime(openArg);
         this.close = longDTFormat.parseDateTime(closeArg);
         this.name = nameArg;
         this.flt = floatArg;
+        this.tags = new UniqueTagList(tags);
     }
 
     /**
@@ -50,7 +54,8 @@ public class DateTimePair implements ReadOnlyDateTimePair {
                 longDTFormat.print(source.getOpen()),
                 longDTFormat.print(source.getClose()),
                 source.getName(),
-                source.getFloat());
+                source.getFloat(),
+                source.getTags());
     }
 
 
