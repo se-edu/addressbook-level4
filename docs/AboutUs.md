@@ -19,7 +19,7 @@ Responsibilities:
 -----
 
 #### [OH HAN GYEOL](https://github.com/Leook0209)
-<img src="images/Han.jpg" width="150"><br>
+<img src="images/han.jpg" width="150"><br>
 Role: Developer <br>  
 Responsibilities:
 
