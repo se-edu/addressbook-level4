@@ -1,8 +1,10 @@
-package seedu.address.commons.util;
+package seedu.Todo.commons.util;
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+
+import seedu.todoList.commons.util.StringUtil;
 
 import java.io.FileNotFoundException;
 
