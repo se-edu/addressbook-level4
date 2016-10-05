@@ -77,31 +77,7 @@ public class TodoList implements ReadOnlyTodoList {
      * @throws UniqueTaskList.DuplicatetaskException if an equivalent task already exists.
      */
     public void addTask(Task p) throws UniqueTaskList.DuplicatetaskException {
-        syncTagsWithMasterList(p);
         tasks.add(p);
-    }
-
-    /**
-     * Ensures that every tag in this task:
-     *  - exists in the master list {@link #tags}
-     *  - points to a Tag object in the master list
-     */
-    private void syncTagsWithMasterList(Task task) {
-        final UniqueTagList taskTags = task.getTags();
-        tags.mergeFrom(taskTags);
-
-        // Create map with values = tag object references in the master list
-        final Map<Tag, Tag> masterTagObjects = new HashMap<>();
-        for (Tag tag : tags) {
-            masterTagObjects.put(tag, tag);
-        }
-
-        // Rebuild the list of task tags using references from the master list
-        final Set<Tag> commonTagReferences = new HashSet<>();
-        for (Tag tag : taskTags) {
-            commonTagReferences.add(masterTagObjects.get(tag));
-        }
-        task.setTags(new UniqueTagList(commonTagReferences));
     }
 
     public boolean removeTask(ReadOnlyTask key) throws UniqueTaskList.taskNotFoundException {
