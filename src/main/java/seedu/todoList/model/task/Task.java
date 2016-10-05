@@ -19,20 +19,18 @@ public class Task implements ReadOnlyTask {
     /**
      * Every field must be present and not null.
      */
-    public Task(Name name, Phone phone, Email email, Todo Todo, UniqueTagList tags) {
+    public Task(Name name, StartTime startTime, EndTime endTime) {
         assert !CollectionUtil.isAnyNull(name, phone, email, Todo, tags);
         this.name = name;
-        this.phone = phone;
-        this.email = email;
-        this.Todo = Todo;
-        this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
+        this.startTime = startTime;
+        this.startTime = endTime;
     }
 
     /**
      * Copy constructor.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getName(), source.getPhone(), source.getEmail(), source.getTodo(), source.getTags());
+        this(source.getName(), source.getStartTime(), source.getEndTime());
     }
 
     @Override
@@ -41,30 +39,13 @@ public class Task implements ReadOnlyTask {
     }
 
     @Override
-    public Phone getPhone() {
-        return phone;
+    public StartTime getStartTime() {
+        return startTime;
     }
 
     @Override
-    public Email getEmail() {
-        return email;
-    }
-
-    @Override
-    public Todo getTodo() {
-        return Todo;
-    }
-
-    @Override
-    public UniqueTagList getTags() {
-        return new UniqueTagList(tags);
-    }
-
-    /**
-     * Replaces this task's tags with the tags in the argument tag list.
-     */
-    public void setTags(UniqueTagList replacement) {
-        tags.setTags(replacement);
+    public EndTime getEndTime() {
+        return endTime;
     }
 
     @Override

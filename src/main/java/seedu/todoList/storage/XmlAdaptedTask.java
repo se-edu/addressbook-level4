@@ -64,6 +64,6 @@ public class XmlAdaptedTask {
         final Email email = new Email(this.email);
         final Todo Todo = new Todo(this.Todo);
         final UniqueTagList tags = new UniqueTagList(taskTags);
-        return new Task(name, phone, email, Todo, tags);
+        return new Task(name, startTime, endTime);
     }
 }

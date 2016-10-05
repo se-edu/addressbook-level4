@@ -4,8 +4,6 @@ import seedu.todoList.commons.events.ui.IncorrectCommandAttemptedEvent;
 import seedu.todoList.model.Model;
 import seedu.todoList.commons.core.EventsCenter;
 import seedu.todoList.commons.core.Messages;
-
-
 /**
  * Represents a command with hidden internal logic and the ability to be executed.
  */
