@@ -189,6 +189,21 @@ public class LogicManagerTest {
     }
 
     @Test
+    public void execute_add_differentCharactersInName_successful() throws Exception{
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        Person toBeAdded = helper.borg();
+        AddressBook expectedAB  = new AddressBook();
+        expectedAB.addPerson(toBeAdded);
+        
+        // execute command and verify the result
+        assertCommandBehavior(helper.generateAddCommand(toBeAdded),
+                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
+                expectedAB,
+                expectedAB.getPersonList());
+    }
+    
+    @Test
     public void execute_addDuplicate_notAllowed() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
