@@ -38,24 +38,32 @@ Format: `help`
 
 > Help is also shown if you enter an incorrect command e.g. `abcd`
  
-#### Adding a todo task:
+#### Adding a keep in view:
+Adds a floating task to the KeyboardWarrior<br>
+Format: `TASK`
+
+Examples: 
+* `Buy Chocolate`
+* `Download Github`
+* `Download Eclipse`
+
+#### Adding a Deadline:
 Adds a floating task to the KeyboardWarrior<br>
 Format: `TASK by [DATE] [TIME]`
 
 Examples: 
-* `Buy Chocolate`
-* `Download Github by Tuesday`
-* `Download Eclipse by 020314 2030`
+* `Do CS2103 Tutorial by Thursday`
+* `Submit Lab report by 020314 2030`
 
 #### Adding a calendar task: `add`
 Adds a specific task to the KeyboardWarrior that will be able to show any combinations of the following parameters:<br>
 
-Format: `add DATE TIME to TIME TASK @[VENUE]`
+Format: `add DATE TIME to [TIME] TASK @ [VENUE]`
 
 Examples: 
-* `add 010116 1810 to 1900 Go to the mall`
+* `add 010116 1810 Go to the mall`
 * `add Sunday 0210 to 0300 Group Meeting @I3 MR9`
-* `add Fri 1410 to 1600 Basketball Tryouts @MPSH`
+* `add Fri 1410 to 1600 Basketball Tryouts @13 Computing Dr 117417`
 
 #### search all task: `find`
 Search all task to the KeyboardWarrior<br>
@@ -67,62 +75,60 @@ Examples:
 * `find basketball`
 * `find @I3`
 
-#### Listing all persons : `list`
-Shows a list of todo task in the KeyboardWarrior.<br>
-Format: `list`
-
-#### Finding all persons containing any keyword in their name: `find`
-Finds persons whose names contain any of the given keywords.<br>
-Format: `find KEYWORD [MORE_KEYWORDS]`
-
-> * The search is case sensitive. e.g `hans` will not match `Hans`
-> * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-> * Only the name is searched.
-> * Only full words will be matched e.g. `Han` will not match `Hans`
-> * Persons matching at least one keyword will be returned (i.e. `OR` search).
-    e.g. `Hans` will match `Hans Bo`
+#### Show Calendar : `show`
+Shows a calendar in the KeyboardWarrior.<br>
+Format: `show [TIMEFRAME]`
 
 Examples: 
-* `find John`<br>
-  Returns `John Doe` but not `john`
-* `find Betsy Tim John`<br>
-  Returns Any person having names `Betsy`, `Tim`, or `John`
+* `show week`
+* `show month`
+* `show Saturday`
+* `show 0405`
+* `show Feb`
 
-#### Deleting a person : `delete`
-Deletes the specified person from the address book. Irreversible.<br>
+#### Complete a Keep in View or Deadline : `complete`
+Mark a todo as complete and delete it from the KeyboardWarrior. Irreversible.<br>
+Format: `complete INDEX`
+
+> Complete and delete the todo at the specified `INDEX`. 
+   The index refers to the index alphabet shown on the Keep in View.<br>
+  The index **must be a alphabet** a, b, c, ...
+  The index refers to the index number shown on the Deadline.<br>
+  The index **must be a positive integer for Deadline** 1, 2, 3, ...
+
+Example: 
+* `complete b`<br>
+   Mark the item b as complete and delete it from the keep in view.
+* `complete 2`<br>
+   Mark the 2nd item as complete and delete it from the todo.
+
+#### Deleting a Keep in View or Deadline : `delete`
+Deletes the specified keep in view or deadline from the KeyboardWarrior. Irreversible.<br>
 Format: `delete INDEX`
 
-> Deletes the person at the specified `INDEX`. 
-  The index refers to the index number shown in the most recent listing.<br>
+> Complete and delete the todo at the specified `INDEX`. 
+   The index refers to the index alphabet shown on the Keep in View.<br>
+  The index **must be a alphabet** a, b, c, ...
+  The index refers to the index number shown on the Deadline.<br>
+  The index **must be a positive integer for Deadline** 1, 2, 3, ...
+
+Example: 
+* `delete b`<br>
+  Deletes item b in the keep in view.
+* `delete 2`<br>
+  Deletes the 2nd item in the deadline.
+
+#### Remove a task from the calendar : `remove`
+Remove a specified calendar task from the KeyboardWarrior. Irreversible.<br>
+Format: `remove INDEX`
+
+> Deletes the calendar task at the specified `INDEX`
+  The index refers to the index number shown on the calendar<br>
   The index **must be a positive integer** 1, 2, 3, ...
 
-Examples: 
-* `list`<br>
-  `delete 2`<br>
-  Deletes the 2nd person in the address book.
-* `find Betsy`<br> 
-  `delete 1`<br>
-  Deletes the 1st person in the results of the `find` command.
-
-#### Select a person : `select`
-Selects the person identified by the index number used in the last person listing.<br>
-Format: `select INDEX`
-
-> Selects the person and loads the Google search page the person at the specified `INDEX`. 
-  The index refers to the index number shown in the most recent listing.<br>
-  The index **must be a positive integer** 1, 2, 3, ...
-
-Examples: 
-* `list`<br>
-  `select 2`<br>
-  Selects the 2nd person in the address book.
-* `find Betsy` <br> 
-  `select 1`<br>
-  Selects the 1st person in the results of the `find` command.
-
-#### Clearing all entries : `clear`
-Clears all entries from the address book.<br>
-Format: `clear`  
+Example: 
+* `remove 2`<br>
+  Deletes the 2nd item in the calendar.
 
 #### Exiting the program : `exit`
 Exits the program.<br>
@@ -136,16 +142,19 @@ There is no need to save manually.
 
 **Q**: How do I transfer my data to another Computer?<br>
 **A**: Install the app in the other computer and overwrite the empty data file it creates with 
-       the file that contains the data of your previous Address Book folder.
+       the file that contains the data of your previous KeyboardWarrior folder.
        
 ## Command Summary
 
 Command | Format  
 -------- | :-------- 
-Add | `add NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
-Clear | `clear`
-Delete | `delete INDEX`
-Find | `find KEYWORD [MORE_KEYWORDS]`
-List | `list`
 Help | `help`
-Select | `select INDEX`
+(Keep in View)| `TASK`
+(Deadline)| `TASK by [DATE] [TIME]`
+Add | `add DATE TIME to [TIME] TASK @ [VENUE]`
+Complete | `complete INDEX`
+Remove | `remove INDEX`
+Delete | `delete INDEX`
+Find | `find [DATE] [TIME] [KEYWORD] @[VENUE]`
+Show | `show`
+Exit | `exit`
