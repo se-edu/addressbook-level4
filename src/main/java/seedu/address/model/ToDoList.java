@@ -1,4 +1,4 @@
-package seedu.address.model;
+package seedu.ToDoList.model;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.person.Person;
@@ -112,12 +112,6 @@ public class ToDoList implements ReadOnlyToDoList {
         }
     }
 
-//// tag-level operations
-
-    public void addTag(Tag t) throws UniqueTagList.DuplicateTagException {
-        tags.add(t);
-    }
-
 //// util methods
 
     @Override
@@ -132,20 +126,9 @@ public class ToDoList implements ReadOnlyToDoList {
     }
 
     @Override
-    public List<Tag> getTagList() {
-        return Collections.unmodifiableList(tags.getInternalList());
-    }
-
-    @Override
     public UniquePersonList getUniquePersonList() {
         return this.persons;
     }
-
-    @Override
-    public UniqueTagList getUniqueTagList() {
-        return this.tags;
-    }
-
 
     @Override
     public boolean equals(Object other) {

@@ -1,6 +1,6 @@
 package seedu.todoList.commons.events.model;
 
-import seedu.address.model.ReadOnlyToDoList;
+import seedu.todoList.model.ReadOnlyToDoList;
 import seedu.todoList.commons.events.BaseEvent;
 
 /** Indicates the to-do-list in the model has changed*/
