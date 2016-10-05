@@ -91,7 +91,7 @@ public class LogicManagerTest {
 
     /**
      * Executes the command and confirms that the result message is correct.
-     * Both the 'Todo book' and the 'last shown list' are expected to be empty.
+     * Both the 'TodoList' and the 'last shown list' are expected to be empty.
      * @see #assertCommandBehavior(String, String, ReadOnlyTodoList, List)
      */
     private void assertCommandBehavior(String inputCommand, String expectedMessage) throws Exception {
@@ -101,7 +101,7 @@ public class LogicManagerTest {
     /**
      * Executes the command and confirms that the result message is correct and
      * also confirms that the following three parts of the LogicManager object's state are as expected:<br>
-     *      - the internal Todo book data are same as those in the {@code expectedTodoList} <br>
+     *      - the internal TodoList data are same as those in the {@code expectedTodoList} <br>
      *      - the backing list shown by UI matches the {@code shownList} <br>
      *      - {@code expectedTodoList} was saved to the storage file. <br>
      */
@@ -114,7 +114,7 @@ public class LogicManagerTest {
 
         //Confirm the ui display elements should contain the right data
         assertEquals(expectedMessage, result.feedbackToUser);
-        assertEquals(expectedShownList, model.getFilteredtaskList());
+        assertEquals(expectedShownList, model.getFilteredTaskList());
 
         //Confirm the state of data (saved and in-memory) is as expected
         assertEquals(expectedTodoList, model.getTodoList());
@@ -142,9 +142,9 @@ public class LogicManagerTest {
     @Test
     public void execute_clear() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        model.addtask(helper.generatetask(1));
-        model.addtask(helper.generatetask(2));
-        model.addtask(helper.generatetask(3));
+        model.addTask(helper.generatetask(1));
+        model.addTask(helper.generatetask(2));
+        model.addTask(helper.generatetask(3));
 
         assertCommandBehavior("clear", ClearCommand.MESSAGE_SUCCESS, new TodoList(), Collections.emptyList());
     }
@@ -182,7 +182,7 @@ public class LogicManagerTest {
         TestDataHelper helper = new TestDataHelper();
         Task toBeAdded = helper.adam();
         TodoList expectedAB = new TodoList();
-        expectedAB.addtask(toBeAdded);
+        expectedAB.addTask(toBeAdded);
 
         // execute command and verify result
         assertCommandBehavior(helper.generateAddCommand(toBeAdded),
@@ -198,15 +198,15 @@ public class LogicManagerTest {
         TestDataHelper helper = new TestDataHelper();
         Task toBeAdded = helper.adam();
         TodoList expectedAB = new TodoList();
-        expectedAB.addtask(toBeAdded);
+        expectedAB.addTask(toBeAdded);
 
         // setup starting state
-        model.addtask(toBeAdded); // task already in internal Todo book
+        model.addTask(toBeAdded); // task already in internal TodoList
 
         // execute command and verify result
         assertCommandBehavior(
                 helper.generateAddCommand(toBeAdded),
-                AddCommand.MESSAGE_DUPLICATE_task,
+                AddCommand.MESSAGE_DUPLICATE_TASK,
                 expectedAB,
                 expectedAB.gettaskList());
 
@@ -220,7 +220,7 @@ public class LogicManagerTest {
         TodoList expectedAB = helper.generateTodoList(2);
         List<? extends ReadOnlyTask> expectedList = expectedAB.gettaskList();
 
-        // prepare Todo book state
+        // prepare TodoList state
         helper.addToModel(model, 2);
 
         assertCommandBehavior("list",
@@ -256,7 +256,7 @@ public class LogicManagerTest {
         // set AB state to 2 tasks
         model.resetData(new TodoList());
         for (Task p : taskList) {
-            model.addtask(p);
+            model.addTask(p);
         }
 
         assertCommandBehavior(commandWord + " 3", expectedMessage, model.getTodoList(), taskList);
@@ -286,7 +286,7 @@ public class LogicManagerTest {
                 expectedAB,
                 expectedAB.gettaskList());
         assertEquals(1, targetedJumpIndex);
-        assertEquals(model.getFilteredtaskList().get(1), threetasks.get(1));
+        assertEquals(model.getFilteredTaskList().get(1), threetasks.get(1));
     }
 
 
@@ -307,7 +307,7 @@ public class LogicManagerTest {
         List<Task> threetasks = helper.generatetaskList(3);
 
         TodoList expectedAB = helper.generateTodoList(threetasks);
-        expectedAB.removetask(threetasks.get(1));
+        expectedAB.removeTask(threetasks.get(1));
         helper.addToModel(model, threetasks);
 
         assertCommandBehavior("delete 2",
@@ -464,7 +464,7 @@ public class LogicManagerTest {
          */
         void addToTodoList(TodoList TodoList, List<Task> tasksToAdd) throws Exception{
             for(Task p: tasksToAdd){
-                TodoList.addtask(p);
+                TodoList.addTask(p);
             }
         }
 
@@ -481,7 +481,7 @@ public class LogicManagerTest {
          */
         void addToModel(Model model, List<Task> tasksToAdd) throws Exception{
             for(Task p: tasksToAdd){
-                model.addtask(p);
+                model.addTask(p);
             }
         }
 

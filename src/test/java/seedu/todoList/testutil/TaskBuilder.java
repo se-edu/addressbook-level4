@@ -6,42 +6,42 @@ import seedu.todoList.model.task.*;
 /**
  *
  */
-public class taskBuilder {
+public class TaskBuilder {
 
-    private Testtask task;
+    private TestTask task;
 
-    public taskBuilder() {
-        this.task = new Testtask();
+    public TaskBuilder() {
+        this.task = new TestTask();
     }
 
-    public taskBuilder withName(String name) throws IllegalValueException {
+    public TaskBuilder withName(String name) throws IllegalValueException {
         this.task.setName(new Name(name));
         return this;
     }
 
-    public taskBuilder withTags(String ... tags) throws IllegalValueException {
+    public TaskBuilder withTags(String ... tags) throws IllegalValueException {
         for (String tag: tags) {
             task.getTags().add(new Tag(tag));
         }
         return this;
     }
 
-    public taskBuilder withTodo(String Todo) throws IllegalValueException {
+    public TaskBuilder withTodo(String Todo) throws IllegalValueException {
         this.task.setTodo(new Todo(Todo));
         return this;
     }
 
-    public taskBuilder withPhone(String phone) throws IllegalValueException {
+    public TaskBuilder withPhone(String phone) throws IllegalValueException {
         this.task.setPhone(new Phone(phone));
         return this;
     }
 
-    public taskBuilder withEmail(String email) throws IllegalValueException {
+    public TaskBuilder withEmail(String email) throws IllegalValueException {
         this.task.setEmail(new Email(email));
         return this;
     }
 
-    public Testtask build() {
+    public TestTask build() {
         return this.task;
     }
 

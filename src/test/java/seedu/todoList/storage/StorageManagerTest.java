@@ -16,7 +16,7 @@ import seedu.todoList.storage.Storage;
 import seedu.todoList.storage.StorageManager;
 import seedu.todoList.storage.XmlTodoListStorage;
 import seedu.todoList.testutil.EventsCollector;
-import seedu.todoList.testutil.TypicalTesttasks;
+import seedu.todoList.testutil.TypicalTestTask;
 
 import java.io.IOException;
 
@@ -60,7 +60,7 @@ public class StorageManagerTest {
 
     @Test
     public void TodoListReadSave() throws Exception {
-        TodoList original = new TypicalTesttasks().getTypicalTodoList();
+        TodoList original = new TypicalTestTask().getTypicalTodoList();
         storageManager.saveTodoList(original);
         ReadOnlyTodoList retrieved = storageManager.readTodoList().get();
         assertEquals(original, new TodoList(retrieved));

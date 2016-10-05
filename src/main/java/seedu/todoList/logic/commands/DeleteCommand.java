@@ -6,7 +6,7 @@ import seedu.todoList.model.task.ReadOnlyTask;
 import seedu.todoList.model.task.UniqueTaskList.taskNotFoundException;
 
 /**
- * Deletes a task identified using it's last displayed index from the Todo book.
+ * Deletes a task identified using it's last displayed index from the TodoList.
  */
 public class DeleteCommand extends Command {
 

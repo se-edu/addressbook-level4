@@ -4,7 +4,7 @@ package seedu.todoList.model.task;
 import seedu.todoList.commons.exceptions.IllegalValueException;
 
 /**
- * Represents a task's Todo in the Todo book.
+ * Represents a task's Todo in the TodoList.
  * Guarantees: immutable; is valid as declared in {@link #isValidTodo(String)}
  */
 public class Todo {

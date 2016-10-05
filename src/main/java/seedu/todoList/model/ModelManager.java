@@ -15,7 +15,7 @@ import java.util.Set;
 import java.util.logging.Logger;
 
 /**
- * Represents the in-memory model of the Todo book data.
+ * Represents the in-memory model of the TodoList data.
  * All changes to any model should be synchronized.
  */
 public class ModelManager extends ComponentManager implements Model {
@@ -33,7 +33,7 @@ public class ModelManager extends ComponentManager implements Model {
         assert src != null;
         assert userPrefs != null;
 
-        logger.fine("Initializing with Todo book: " + src + " and user prefs " + userPrefs);
+        logger.fine("Initializing with TodoList: " + src + " and user prefs " + userPrefs);
 
         todoList = new TodoList(src);
         filteredtasks = new FilteredList<>(todoList.gettasks());
@@ -91,7 +91,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void updateFilteredTaskList(Set<String> keywords){
-        updateFilteredtaskList(new PredicateExpression(new NameQualifier(keywords)));
+        updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywords)));
     }
 
     private void updateFilteredTaskList(Expression expression) {

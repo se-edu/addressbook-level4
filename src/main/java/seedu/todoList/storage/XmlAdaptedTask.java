@@ -30,7 +30,7 @@ public class XmlAdaptedTask {
     /**
      * No-arg constructor for JAXB use.
      */
-    public XmlAdaptedTaks () {}
+    public XmlAdaptedTask () {}
 
 
     /**
@@ -38,7 +38,7 @@ public class XmlAdaptedTask {
      *
      * @param source future changes to this will not affect the created XmlAdaptedtask
      */
-    public XmlAdaptedtask(ReadOnlyTask source) {
+    public XmlAdaptedTask(ReadOnlyTask source) {
         name = source.getName().fullName;
         phone = source.getPhone().value;
         email = source.getEmail().value;

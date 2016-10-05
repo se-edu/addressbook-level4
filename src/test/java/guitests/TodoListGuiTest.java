@@ -7,7 +7,7 @@ import seedu.todoList.commons.core.EventsCenter;
 import seedu.todoList.model.TodoList;
 import seedu.todoList.model.task.ReadOnlyTask;
 import seedu.todoList.testutil.TestUtil;
-import seedu.todoList.testutil.TypicalTesttasks;
+import seedu.todoList.testutil.TypicalTestTask;
 
 import org.junit.After;
 import org.junit.Before;
@@ -32,7 +32,7 @@ public abstract class TodoListGuiTest {
 
     TestApp testApp;
 
-    protected TypicalTesttasks td = new TypicalTesttasks();
+    protected TypicalTestTask td = new TypicalTestTask();
 
     /*
      *   Handles to GUI elements present at the start up are created in advance
@@ -40,7 +40,7 @@ public abstract class TodoListGuiTest {
      */
     protected MainGuiHandle mainGui;
     protected MainMenuHandle mainMenu;
-    protected taskListPanelHandle taskListPanel;
+    protected TaskListPanelHandle taskListPanel;
     protected ResultDisplayHandle resultDisplay;
     protected CommandBoxHandle commandBox;
     private Stage stage;
@@ -78,7 +78,7 @@ public abstract class TodoListGuiTest {
      */
     protected TodoList getInitialData() {
         TodoList ab = TestUtil.generateEmptyTodoList();
-        TypicalTesttasks.loadTodoListWithSampleData(ab);
+        TypicalTestTask.loadTodoListWithSampleData(ab);
         return ab;
     }
 
@@ -98,8 +98,8 @@ public abstract class TodoListGuiTest {
     /**
      * Asserts the task shown in the card is same as the given task
      */
-    public void assertMatching(ReadOnlyTask task, taskCardHandle card) {
-        assertTrue(TestUtil.compareCardAndtask(card, task));
+    public void assertMatching(ReadOnlyTask task, TaskCardHandle card) {
+        assertTrue(TestUtil.compareCardAndTask(card, task));
     }
 
     /**

@@ -7,9 +7,9 @@ import seedu.todoList.model.task.Task;
 import seedu.todoList.model.task.UniqueTaskList;
 
 /**
- * A utility class to help with building Todobook objects.
+ * A utility class to help with building TodoList  objects.
  * Example usage: <br>
- *     {@code TodoList ab = new TodoListBuilder().withtask("John", "Doe").withTag("Friend").build();}
+ *     {@code TodoList ab = new TodoListBuilder().withTask("John", "Doe").withTag("Friend").build();}
  */
 public class TodoListBuilder {
 
@@ -19,8 +19,8 @@ public class TodoListBuilder {
         this.TodoList = TodoList;
     }
 
-    public TodoListBuilder withtask(Task task) throws UniqueTaskList.DuplicatetaskException {
-        TodoList.addtask(task);
+    public TodoListBuilder withTask(Task task) throws UniqueTaskList.DuplicatetaskException {
+        TodoList.addTask(task);
         return this;
     }
 

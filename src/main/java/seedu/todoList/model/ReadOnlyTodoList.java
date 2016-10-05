@@ -9,7 +9,7 @@ import seedu.todoList.model.task.ReadOnlyTask;
 import seedu.todoList.model.task.UniqueTaskList;
 
 /**
- * Unmodifiable view of an Todo book
+ * Unmodifiable view of an TodoList
  */
 public interface ReadOnlyTodoList {
 

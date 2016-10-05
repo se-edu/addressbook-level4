@@ -1,7 +1,7 @@
 package seedu.todoList.testutil;
 
 import com.google.common.io.Files;
-import guitests.guihandles.taskCardHandle;
+import guitests.guihandles.TaskCardHandle;
 import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
@@ -279,10 +279,10 @@ public class TestUtil {
      * @param tasksToRemove The subset of tasks.
      * @return The modified tasks after removal of the subset from tasks.
      */
-    public static Testtask[] removetasksFromList(final Testtask[] tasks, Testtask... tasksToRemove) {
-        List<Testtask> listOftasks = asList(tasks);
+    public static TestTask[] removetasksFromList(final TestTask[] tasks, TestTask... tasksToRemove) {
+        List<TestTask> listOftasks = asList(tasks);
         listOftasks.removeAll(asList(tasksToRemove));
-        return listOftasks.toArray(new Testtask[listOftasks.size()]);
+        return listOftasks.toArray(new TestTask[listOftasks.size()]);
     }
 
 
@@ -291,7 +291,7 @@ public class TestUtil {
      * @param list original list to copy from
      * @param targetIndexInOneIndexedFormat e.g. if the first element to be removed, 1 should be given as index.
      */
-    public static Testtask[] removetaskFromList(final Testtask[] list, int targetIndexInOneIndexedFormat) {
+    public static TestTask[] removetaskFromList(final TestTask[] list, int targetIndexInOneIndexedFormat) {
         return removetasksFromList(list, list[targetIndexInOneIndexedFormat-1]);
     }
 
@@ -302,7 +302,7 @@ public class TestUtil {
      * @param index The index of the task to be replaced.
      * @return
      */
-    public static Testtask[] replacetaskFromList(Testtask[] tasks, Testtask task, int index) {
+    public static TestTask[] replacetaskFromList(TestTask[] tasks, TestTask task, int index) {
         tasks[index] = task;
         return tasks;
     }
@@ -313,10 +313,10 @@ public class TestUtil {
      * @param tasksToAdd The tasks that are to be appended behind the original array.
      * @return The modified array of tasks.
      */
-    public static Testtask[] addtasksToList(final Testtask[] tasks, Testtask... tasksToAdd) {
-        List<Testtask> listOftasks = asList(tasks);
+    public static TestTask[] addTasksToList(final TestTask[] tasks, TestTask... tasksToAdd) {
+        List<TestTask> listOftasks = asList(tasks);
         listOftasks.addAll(asList(tasksToAdd));
-        return listOftasks.toArray(new Testtask[listOftasks.size()]);
+        return listOftasks.toArray(new TestTask[listOftasks.size()]);
     }
 
     private static <T> List<T> asList(T[] objs) {
@@ -327,7 +327,7 @@ public class TestUtil {
         return list;
     }
 
-    public static boolean compareCardAndtask(taskCardHandle card, ReadOnlyTask task) {
+    public static boolean compareCardAndTask(TaskCardHandle card, ReadOnlyTask task) {
         return card.isSametask(task);
     }
 

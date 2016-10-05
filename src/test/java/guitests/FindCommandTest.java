@@ -32,7 +32,7 @@ public class FindCommandTest extends TodoListGuiTest {
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
     }
 
-    private void assertFindResult(String command, Testtask... expectedHits ) {
+    private void assertFindResult(String command, TestTask... expectedHits ) {
         commandBox.runCommand(command);
         assertListSize(expectedHits.length);
         assertResultMessage(expectedHits.length + " tasks listed!");

@@ -26,6 +26,6 @@ public class ClearCommandTest extends TodoListGuiTest {
     private void assertClearCommandSuccess() {
         commandBox.runCommand("clear");
         assertListSize(0);
-        assertResultMessage("Todo book has been cleared!");
+        assertResultMessage("TodoList has been cleared!");
     }
 }

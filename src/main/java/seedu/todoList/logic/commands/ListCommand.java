@@ -2,7 +2,7 @@ package seedu.todoList.logic.commands;
 
 
 /**
- * Lists all tasks in the Todo book to the user.
+ * Lists all tasks in the TodoList to the user.
  */
 public class ListCommand extends Command {
 

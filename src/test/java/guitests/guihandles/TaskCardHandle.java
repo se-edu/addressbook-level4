@@ -8,7 +8,7 @@ import seedu.todoList.model.task.ReadOnlyTask;
 /**
  * Provides a handle to a task card in the task list panel.
  */
-public class taskCardHandle extends GuiHandle {
+public class TaskCardHandle extends GuiHandle {
     private static final String NAME_FIELD_ID = "#name";
     private static final String Todo_FIELD_ID = "#Todo";
     private static final String PHONE_FIELD_ID = "#phone";
@@ -16,7 +16,7 @@ public class taskCardHandle extends GuiHandle {
 
     private Node node;
 
-    public taskCardHandle(GuiRobot guiRobot, Stage primaryStage, Node node){
+    public TaskCardHandle(GuiRobot guiRobot, Stage primaryStage, Node node){
         super(guiRobot, primaryStage, null);
         this.node = node;
     }
@@ -48,8 +48,8 @@ public class taskCardHandle extends GuiHandle {
 
     @Override
     public boolean equals(Object obj) {
-        if(obj instanceof taskCardHandle) {
-            taskCardHandle handle = (taskCardHandle) obj;
+        if(obj instanceof TaskCardHandle) {
+            TaskCardHandle handle = (TaskCardHandle) obj;
             return getFullName().equals(handle.getFullName())
                     && getTodo().equals(handle.getTodo()); //TODO: compare the rest
         }

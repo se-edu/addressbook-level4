@@ -20,14 +20,14 @@ import static org.junit.Assert.assertTrue;
 /**
  * Provides a handle for the panel containing the task list.
  */
-public class taskListPanelHandle extends GuiHandle {
+public class TaskListPanelHandle extends GuiHandle {
 
     public static final int NOT_FOUND = -1;
     public static final String CARD_PANE_ID = "#cardPane";
 
     private static final String task_LIST_VIEW_ID = "#taskListView";
 
-    public taskListPanelHandle(GuiRobot guiRobot, Stage primaryStage) {
+    public TaskListPanelHandle(GuiRobot guiRobot, Stage primaryStage) {
         super(guiRobot, primaryStage, TestApp.APP_TITLE);
     }
 
@@ -92,7 +92,7 @@ public class taskListPanelHandle extends GuiHandle {
             final int scrollTo = i + startPosition;
             guiRobot.interact(() -> getListView().scrollTo(scrollTo));
             guiRobot.sleep(200);
-            if (!TestUtil.compareCardAndtask(gettaskCardHandle(startPosition + i), tasks[i])) {
+            if (!TestUtil.compareCardAndTask(getTaskCardHandle(startPosition + i), tasks[i])) {
                 return false;
             }
         }
@@ -100,7 +100,7 @@ public class taskListPanelHandle extends GuiHandle {
     }
 
 
-    public taskCardHandle navigateTotask(String name) {
+    public TaskCardHandle navigateTotask(String name) {
         guiRobot.sleep(500); //Allow a bit of time for the list to be updated
         final Optional<ReadOnlyTask> task = getListView().getItems().stream().filter(p -> p.getName().fullName.equals(name)).findAny();
         if (!task.isPresent()) {
@@ -113,7 +113,7 @@ public class taskListPanelHandle extends GuiHandle {
     /**
      * Navigates the listview to display and select the task.
      */
-    public taskCardHandle navigateTotask(ReadOnlyTask task) {
+    public TaskCardHandle navigateTotask(ReadOnlyTask task) {
         int index = gettaskIndex(task);
 
         guiRobot.interact(() -> {
@@ -122,7 +122,7 @@ public class taskListPanelHandle extends GuiHandle {
             getListView().getSelectionModel().select(index);
         });
         guiRobot.sleep(100);
-        return gettaskCardHandle(task);
+        return getTaskCardHandle(task);
     }
 
 
@@ -146,17 +146,17 @@ public class taskListPanelHandle extends GuiHandle {
         return getListView().getItems().get(index);
     }
 
-    public taskCardHandle gettaskCardHandle(int index) {
-        return gettaskCardHandle(new Task(getListView().getItems().get(index)));
+    public TaskCardHandle getTaskCardHandle(int index) {
+        return getTaskCardHandle(new Task(getListView().getItems().get(index)));
     }
 
-    public taskCardHandle gettaskCardHandle(ReadOnlyTask task) {
+    public TaskCardHandle getTaskCardHandle(ReadOnlyTask task) {
         Set<Node> nodes = getAllCardNodes();
         Optional<Node> taskCardNode = nodes.stream()
-                .filter(n -> new taskCardHandle(guiRobot, primaryStage, n).isSametask(task))
+                .filter(n -> new TaskCardHandle(guiRobot, primaryStage, n).isSametask(task))
                 .findFirst();
         if (taskCardNode.isPresent()) {
-            return new taskCardHandle(guiRobot, primaryStage, taskCardNode.get());
+            return new TaskCardHandle(guiRobot, primaryStage, taskCardNode.get());
         } else {
             return null;
         }

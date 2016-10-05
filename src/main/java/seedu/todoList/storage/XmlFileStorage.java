@@ -9,11 +9,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 
 /**
- * Stores Todobook data in an XML file
+ * Stores TodoList  data in an XML file
  */
 public class XmlFileStorage {
     /**
-     * Saves the given Todobook data to the specified file.
+     * Saves the given TodoList  data to the specified file.
      */
     public static void saveDataToFile(File file, XmlSerializableTodoList TodoList)
             throws FileNotFoundException {
@@ -25,7 +25,7 @@ public class XmlFileStorage {
     }
 
     /**
-     * Returns Todo book in the file or an empty Todo book
+     * Returns TodoList in the file or an empty TodoList
      */
     public static XmlSerializableTodoList loadDataFromSaveFile(File file) throws DataConversionException,
                                                                             FileNotFoundException {

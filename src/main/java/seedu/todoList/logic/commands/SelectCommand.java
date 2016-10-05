@@ -7,7 +7,7 @@ import seedu.todoList.commons.events.ui.JumpToListRequestEvent;
 import seedu.todoList.model.task.ReadOnlyTask;
 
 /**
- * Selects a task identified using it's last displayed index from the Todo book.
+ * Selects a task identified using it's last displayed index from the TodoList.
  */
 public class SelectCommand extends Command {
 

@@ -4,7 +4,7 @@ package seedu.todoList.model.tag;
 import seedu.todoList.commons.exceptions.IllegalValueException;
 
 /**
- * Represents a Tag in the Todo book.
+ * Represents a Tag in the TodoList.
  * Guarantees: immutable; name is valid as declared in {@link #isValidTagName(String)}
  */
 public class Tag {

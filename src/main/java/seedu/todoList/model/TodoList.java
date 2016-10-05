@@ -11,7 +11,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**
- * Wraps all data at the Todo-book level
+ * Wraps all data at the TodoList  level
  * Duplicates are not allowed (by .equals comparison)
  */
 public class TodoList implements ReadOnlyTodoList {
@@ -27,14 +27,14 @@ public class TodoList implements ReadOnlyTodoList {
     public TodoList() {}
 
     /**
-     * tasks and Tags are copied into this Todobook
+     * tasks and Tags are copied into this TodoList 
      */
     public TodoList(ReadOnlyTodoList toBeCopied) {
         this(toBeCopied.getUniqueTaskList(), toBeCopied.getUniqueTagList());
     }
 
     /**
-     * tasks and Tags are copied into this Todobook
+     * tasks and Tags are copied into this TodoList 
      */
     public TodoList(UniqueTaskList tasks, UniqueTagList tags) {
         resetData(tasks.getInternalList(), tags.getInternalList());
@@ -59,7 +59,7 @@ public class TodoList implements ReadOnlyTodoList {
     }
 
     public void resetData(Collection<? extends ReadOnlyTask> newtasks, Collection<Tag> newTags) {
-        settasks(newtasks.stream().map(Task::new).collect(Collectors.toList()));
+        setTasks(newtasks.stream().map(Task::new).collect(Collectors.toList()));
         setTags(newTags);
     }
 
@@ -70,7 +70,7 @@ public class TodoList implements ReadOnlyTodoList {
 //// task-level operations
 
     /**
-     * Adds a task to the Todo book.
+     * Adds a task to the TodoList.
      * Also checks the new task's tags and updates {@link #tags} with any new tags found,
      * and updates the Tag objects in the task to point to those in {@link #tags}.
      *

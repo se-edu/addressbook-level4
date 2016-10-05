@@ -12,7 +12,7 @@ import seedu.todoList.model.ReadOnlyTodoList;
 import seedu.todoList.model.TodoList;
 import seedu.todoList.model.task.Task;
 import seedu.todoList.storage.XmlTodoListStorage;
-import seedu.todoList.testutil.TypicalTesttasks;
+import seedu.todoList.testutil.TypicalTestTask;
 
 import java.io.IOException;
 
@@ -63,7 +63,7 @@ public class XmlTodoListStorageTest {
     @Test
     public void readAndSaveTodoList_allInOrder_success() throws Exception {
         String filePath = testFolder.getRoot().getPath() + "TempTodoList.xml";
-        TypicalTesttasks td = new TypicalTesttasks();
+        TypicalTestTask td = new TypicalTestTask();
         TodoList original = td.getTypicalTodoList();
         XmlTodoListStorage xmlTodoListStorage = new XmlTodoListStorage(filePath);
 
@@ -73,14 +73,14 @@ public class XmlTodoListStorageTest {
         assertEquals(original, new TodoList(readBack));
 
         //Modify data, overwrite exiting file, and read back
-        original.addtask(new Task(TypicalTesttasks.hoon));
-        original.removetask(new Task(TypicalTesttasks.alice));
+        original.addTask(new Task(TypicalTestTask.hoon));
+        original.removeTask(new Task(TypicalTestTask.alice));
         xmlTodoListStorage.saveTodoList(original, filePath);
         readBack = xmlTodoListStorage.readTodoList(filePath).get();
         assertEquals(original, new TodoList(readBack));
 
         //Save and read without specifying file path
-        original.addtask(new Task(TypicalTesttasks.ida));
+        original.addTask(new Task(TypicalTestTask.ida));
         xmlTodoListStorage.saveTodoList(original); //file path not specified
         readBack = xmlTodoListStorage.readTodoList().get(); //file path not specified
         assertEquals(original, new TodoList(readBack));

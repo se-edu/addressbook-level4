@@ -6,7 +6,7 @@ import seedu.todoList.model.task.*;
 /**
  * A mutable task object. For testing only.
  */
-public class Testtask implements ReadOnlyTask {
+public class TestTask implements ReadOnlyTask {
 
     private Name name;
     private Todo Todo;
@@ -14,7 +14,7 @@ public class Testtask implements ReadOnlyTask {
     private Phone phone;
     private UniqueTagList tags;
 
-    public Testtask() {
+    public TestTask() {
         tags = new UniqueTagList();
     }
 

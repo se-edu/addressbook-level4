@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 /**
  * An Immutable TodoList that is serializable to XML format
  */
-@XmlRootElement(name = "Todobook")
+@XmlRootElement(name = "TodoList ")
 public class XmlSerializableTodoList implements ReadOnlyTodoList {
 
     @XmlElement
@@ -40,7 +40,7 @@ public class XmlSerializableTodoList implements ReadOnlyTodoList {
      * Conversion
      */
     public XmlSerializableTodoList(ReadOnlyTodoList src) {
-        tasks.addAll(src.gettaskList().stream().map(XmlAdaptedtask::new).collect(Collectors.toList()));
+        tasks.addAll(src.gettaskList().stream().map(XmlAdaptedTask::new).collect(Collectors.toList()));
         tags = src.getTagList();
     }
 

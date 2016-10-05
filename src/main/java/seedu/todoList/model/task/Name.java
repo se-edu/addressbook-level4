@@ -3,7 +3,7 @@ package seedu.todoList.model.task;
 import seedu.todoList.commons.exceptions.IllegalValueException;
 
 /**
- * Represents a task's name in the Todo book.
+ * Represents a task's name in the TodoList.
  * Guarantees: immutable; is valid as declared in {@link #isValidName(String)}
  */
 public class Name {

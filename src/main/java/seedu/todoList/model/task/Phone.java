@@ -3,7 +3,7 @@ package seedu.todoList.model.task;
 import seedu.todoList.commons.exceptions.IllegalValueException;
 
 /**
- * Represents a task's phone number in the Todo book.
+ * Represents a task's phone number in the TodoList.
  * Guarantees: immutable; is valid as declared in {@link #isValidPhone(String)}
  */
 public class Phone {

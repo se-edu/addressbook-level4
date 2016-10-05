@@ -3,7 +3,7 @@ package seedu.todoList.logic.commands;
 import java.util.Set;
 
 /**
- * Finds and lists all tasks in Todo book whose name contains any of the argument keywords.
+ * Finds and lists all tasks in TodoList whose name contains any of the argument keywords.
  * Keyword matching is case sensitive.
  */
 public class FindCommand extends Command {

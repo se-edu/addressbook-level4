@@ -14,7 +14,7 @@ public class Config {
     private String appTitle = "Todo App";
     private Level logLevel = Level.INFO;
     private String userPrefsFilePath = "preferences.json";
-    private String TodoListFilePath = "data/Todobook.xml";
+    private String TodoListFilePath = "data/TodoList .xml";
     private String TodoListName = "MyTodoList";
 
 

@@ -3,7 +3,7 @@ package guitests;
 import org.junit.Test;
 
 import seedu.todoList.testutil.TestUtil;
-import seedu.todoList.testutil.Testtask;
+import seedu.todoList.testutil.TestTask;
 
 import static org.junit.Assert.assertTrue;
 import static seedu.todoList.logic.commands.DeleteCommand.MESSAGE_DELETE_task_SUCCESS;
@@ -14,7 +14,7 @@ public class DeleteCommandTest extends TodoListGuiTest {
     public void delete() {
 
         //delete the first in the list
-        Testtask[] currentList = td.getTypicaltasks();
+        TestTask[] currentList = td.getTypicaltasks();
         int targetIndex = 1;
         assertDeleteSuccess(targetIndex, currentList);
 
@@ -39,9 +39,9 @@ public class DeleteCommandTest extends TodoListGuiTest {
      * @param targetIndexOneIndexed e.g. to delete the first task in the list, 1 should be given as the target index.
      * @param currentList A copy of the current list of tasks (before deletion).
      */
-    private void assertDeleteSuccess(int targetIndexOneIndexed, final Testtask[] currentList) {
-        Testtask taskToDelete = currentList[targetIndexOneIndexed-1]; //-1 because array uses zero indexing
-        Testtask[] expectedRemainder = TestUtil.removetaskFromList(currentList, targetIndexOneIndexed);
+    private void assertDeleteSuccess(int targetIndexOneIndexed, final TestTask[] currentList) {
+        TestTask taskToDelete = currentList[targetIndexOneIndexed-1]; //-1 because array uses zero indexing
+        TestTask[] expectedRemainder = TestUtil.removetaskFromList(currentList, targetIndexOneIndexed);
 
         commandBox.runCommand("delete " + targetIndexOneIndexed);
 
