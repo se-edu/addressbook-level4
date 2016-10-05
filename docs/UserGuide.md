@@ -1,5 +1,13 @@
 # User Guide
 
+* [Description](#description)
+* [Quick Start](#starting-the-program)
+* [Features](#features)
+* [Command Summary](#command-summary)
+
+##Description
+(Project Name) is a Command Line Interface Task Management Application that helps you manage your workflow. There are two main parts in the app: Todo List in which you can plan what tasks are to be done for the day, and Calendar that you indicate deadlines of the tasks or events to attend weekly/monthly. Data in Todo List and Calendar are synchronized. For instance, if a task is done before a deadline, it will be indicated as `done` in Calendar as well. At each starting time of tasks in Todo List, the app will give a notification that you should start working.
+
 ## Starting the program
 
 0. Ensure you have Java version `1.8.0_60` or later installed in your Computer.<br>
@@ -21,27 +29,34 @@ Format: `help`
 
 > Help is also shown if you enter an incorrect command e.g. `abcd`
 
-#### Adding a task: `add`
+#### Adding a task: `add_task`
 Adds a task to the todo-list.<br>
-Format: `add TASK_NAME s/START_TIME e/END_TIME`
-Example: `add Assignment 3 s/1400 e/1600`
+Format: `add_task TASK_NAME p/PRIORITY s/START_TIME e/END_TIME`
+Example: `add_task Assignment 3 p/1 s/1400 e/1600`
 
-> Persons can have any number of tags (including 0)
+> Tasks will be rearranged in the Todo-List based on their priority
 
-#### Editing a task: `edit`
-Edit a task info of a chosen index number.<br>
-Format: `edit INDEX_NUMBER n/TASK_NAME s/START_TIME e/END_TIME`
-Example: `edit 1 n/Assignment 2 s/1200 e/1400`
+#### Deleting a task : `delete_task`
+Delete a task with given index number.<br>
+Format: `delete_task INDEX_NUMBER`
+Example: `delete_task 1`
 
 #### Marking a completed task : `done`
 Mark a task with given index number as done.<br>
 Format: `done INDEX_NUMBER`
 Example: `done 1`
 
-#### Deleting a task : `delete`
-Delete a task with given index number.<br>
-Format: `delete INDEX_NUMBER`
-Example: `delete 1`
+
+#### Adding an event: `add_event`
+Adds an event/deadline to the todo-list.<br>
+Format: `add_task EVENT_NAME d/DATE s/START_TIME e/END_TIME`
+Example(event): `add_event Tim`s birthday party d/25-12-2016 s/1400 e/1600`
+Example(deadline): `add_event Assignment 3 deadline d/25-12-2016 s/1600 e/1600`
+
+#### Deleting an event : `delete_event`
+Delete an event starting with given name.<br>
+Format: `delete_event NAME`
+Example: `delete_event Tim`s birthday party`
 
 #### Exiting the program : `exit`
 Exits the program.<br>
@@ -54,11 +69,12 @@ Todo-list data are saved in the hard disk automatically after any command that c
 ## Command Summary
 
 Command | Format  
---------- | :-------- 
-Add	| `add TASK_NAME s/START_TIME e/END_TIME`
-Edit	| `edit INDEX_NUMBER n/TASK_NAME s/START_TIME e/END_TIME`
-Delete	| `delete INDEX_NUMBER`
-Done	| `done INDEX_NUMBER`
-Help	| `help`
-Exit	| `exit`
+------------------ | :-------- 
+Add Task	| `add_task TASK_NAME p/PRIORITY s/START_TIME e/END_TIME`
+Delete Task	| `delete_task INDEX_NUMBER`
+Done Task	| `done INDEX_NUMBER`
+Add Event	| `add_event Tim`s birthday party d/25-12-2016 s/1400 e/1600`
+Delete Event	| `delete_event NAME`
+Help		| `help`
+Exit		| `exit`
 
