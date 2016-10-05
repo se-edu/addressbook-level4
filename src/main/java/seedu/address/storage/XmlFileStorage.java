@@ -24,7 +24,7 @@ public class XmlFileStorage {
     }
 
     /**
-     * Returns address book in the file or an empty address book
+     * Returns SmartyDo in the file or an empty SmartyDo
      */
     public static XmlSerializableAddressBook loadDataFromSaveFile(File file) throws DataConversionException,
                                                                             FileNotFoundException {

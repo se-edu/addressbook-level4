@@ -1,17 +1,17 @@
-package seedu.address.model.person;
+package seedu.address.model.task;
 
 
 import seedu.address.commons.exceptions.IllegalValueException;
 
 /**
- * Represents a Person's phone number in the address book.
+ * Represents a Task's phone number in the SmartyDo.
  * Guarantees: immutable; is valid as declared in {@link #isValidEmail(String)}
  */
-public class Email {
+public class Description {
 
     public static final String MESSAGE_EMAIL_CONSTRAINTS =
-            "Person emails should be 2 alphanumeric/period strings separated by '@'";
-    public static final String EMAIL_VALIDATION_REGEX = "[\\w\\.]+@[\\w\\.]+";
+            "Task description doesn't have any constraints";
+    public static final String EMAIL_VALIDATION_REGEX = ".+";
 
     public final String value;
 
@@ -20,17 +20,17 @@ public class Email {
      *
      * @throws IllegalValueException if given email address string is invalid.
      */
-    public Email(String email) throws IllegalValueException {
+    public Description(String email) throws IllegalValueException {
         assert email != null;
         email = email.trim();
-        if (!isValidEmail(email)) {
+        if (!email.isEmpty()&&!isValidEmail(email)) {
             throw new IllegalValueException(MESSAGE_EMAIL_CONSTRAINTS);
         }
         this.value = email;
     }
 
     /**
-     * Returns if a given string is a valid person email.
+     * Returns if a given string is a valid task email.
      */
     public static boolean isValidEmail(String test) {
         return test.matches(EMAIL_VALIDATION_REGEX);
@@ -44,8 +44,8 @@ public class Email {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Email // instanceof handles nulls
-                && this.value.equals(((Email) other).value)); // state check
+                || (other instanceof Description // instanceof handles nulls
+                && this.value.equals(((Description) other).value)); // state check
     }
 
     @Override

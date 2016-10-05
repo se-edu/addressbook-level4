@@ -4,7 +4,7 @@ package seedu.address.model.tag;
 import seedu.address.commons.exceptions.IllegalValueException;
 
 /**
- * Represents a Tag in the address book.
+ * Represents a Tag in the SmartyDo.
  * Guarantees: immutable; name is valid as declared in {@link #isValidTagName(String)}
  */
 public class Tag {

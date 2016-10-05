@@ -1,15 +1,15 @@
-package seedu.address.model.person;
+package seedu.address.model.task;
 
 
 import seedu.address.commons.exceptions.IllegalValueException;
 
 /**
- * Represents a Person's address in the address book.
+ * Represents a Task's address in the SmartyDo.
  * Guarantees: immutable; is valid as declared in {@link #isValidAddress(String)}
  */
 public class Address {
     
-    public static final String MESSAGE_ADDRESS_CONSTRAINTS = "Person addresses can be in any format";
+    public static final String MESSAGE_ADDRESS_CONSTRAINTS = "Task addresses can be in any format";
     public static final String ADDRESS_VALIDATION_REGEX = ".+";
 
     public final String value;
@@ -21,14 +21,14 @@ public class Address {
      */
     public Address(String address) throws IllegalValueException {
         assert address != null;
-        if (!isValidAddress(address)) {
+        if (!address.isEmpty()&&!isValidAddress(address)) {
             throw new IllegalValueException(MESSAGE_ADDRESS_CONSTRAINTS);
         }
         this.value = address;
     }
 
     /**
-     * Returns true if a given string is a valid person email.
+     * Returns true if a given string is a valid task email.
      */
     public static boolean isValidAddress(String test) {
         return test.matches(ADDRESS_VALIDATION_REGEX);

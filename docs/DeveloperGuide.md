@@ -9,7 +9,7 @@
 * [Appendix B: Use Cases](#appendix-b--use-cases)
 * [Appendix C: Non Functional Requirements](#appendix-c--non-functional-requirements)
 * [Appendix D: Glossary](#appendix-d--glossary)
-* [Appendix E : Product Survey](#appendix-e-product-survey)
+* [Appendix E : Product Survey](#appendix-e--product-survey)
 
 
 ## Setting up
@@ -91,7 +91,7 @@ command `delete 3`.
 
 <img src="images\SDforDeletePerson.png" width="800">
 
->Note how the `Model` simply raises a `AddressBookChangedEvent` when the Address Book data are changed,
+>Note how the `Model` simply raises a `ToDoChangedEvent` when the To-Do data are changed,
  instead of asking the `Storage` to save the updates to the hard disk.
 
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates
@@ -110,7 +110,7 @@ The sections below give more details of each component.
 
 **API** : [`Ui.java`](../src/main/java/seedu/address/ui/Ui.java)
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`,
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `TaskListPanel`,
 `StatusBarFooter`, `BrowserPanel` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class
 and they can be loaded using the `UiPartLoader`.
 
@@ -132,7 +132,7 @@ The `UI` component,
 
 1. `Logic` uses the `Parser` class to parse the user command.
 2. This results in a `Command` object which is executed by the `LogicManager`.
-3. The command execution can affect the `Model` (e.g. adding a person) and/or raise events.
+3. The command execution can affect the `Model` (e.g. adding a task) and/or raise events.
 4. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")`
@@ -147,8 +147,8 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 
 The `Model`,
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
-* exposes a `UnmodifiableObservableList<ReadOnlyPerson>` that can be 'observed' e.g. the UI can be bound to this list
+* stores the To-Do data.
+* exposes a `UnmodifiableObservableList<ReadOnlyTask>` that can be 'observed' e.g. the UI can be bound to this list
   so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
@@ -160,7 +160,7 @@ The `Model`,
 
 The `Storage` component,
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in xml format and read it back.
+* can save the SmartyDo data in xml format and read it back.
 
 ### Common classes
 
@@ -258,7 +258,7 @@ Here are the steps to create a new release.
    
 ### Managing Dependencies
 
-A project often depends on third-party libraries. For example, Address Book depends on the
+A project often depends on third-party libraries. For example, SmartyDo depends on the
 [Jackson library](http://wiki.fasterxml.com/JacksonHome) for XML parsing. Managing these _dependencies_
 can be automated using Gradle. For example, Gradle can download the dependencies automatically, which
 is better than these alternatives.<br>
@@ -273,26 +273,28 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
 Priority | As a ... | I want to ... | So that I can...
 -------- | :-------- | :--------- | :-----------
 `* * *` | new user | see usage instructions | refer to instructions when I forget how to use the App
-`* * *` | user | add a new person |
-`* * *` | user | delete a person | remove entries that I no longer need
-`* * *` | user | find a person by name | locate details of persons without having to go through the entire list
-`* *` | user | hide [private contact details](#private-contact-detail) by default | minimize chance of someone else seeing them by accident
-`*` | user with many persons in the address book | sort persons by name | locate a person easily
-
-{More to be added}
+`* * *` | user | add a task by specifying a task description only | record tasks that need to be done  
+`* * *` | user | delete a task | remove entries that I no longer need
+`* * *` | user | find a task by name | locate details of tasks without having to go through the entire list
+`* * *` | user |view list of completed and pending tasks | keep track of what needs to be done
+`* *` | user with many tasks at a time | sort my tasks by different criteria | view tasks easily
+`* *` | user with large projects/ tasks | add subtasks to main task | break down larger task into smaller tasks 
+`* *` | user with many uncofirmed events | allocate timeslots for tentative meetings/tasks | avoid having plans that might conflict with unconfirmed plans
+`* *` | user | undo  1 previous operation | remove commands executed by accident   
+`* *` | user | specify a target folder as the data storage location | synchronise file with other applications
 
 ## Appendix B : Use Cases
 
-(For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is the `SmartyDo` and the **Actor** is the `user`, unless specified otherwise)
 
-#### Use case: Delete person
+#### Use case: Delete task
 
 **MSS**
 
-1. User requests to list persons
-2. AddressBook shows a list of persons
-3. User requests to delete a specific person in the list
-4. AddressBook deletes the person <br>
+1. User requests to view upcoming tasks
+2. SmartDo shows a list of upcoming tasks
+3. User requests to delete a specific task in the list
+4. SmartyDo deletes the task <br>
 Use case ends.
 
 **Extensions**
@@ -303,7 +305,7 @@ Use case ends.
 
 3a. The given index is invalid
 
-> 3a1. AddressBook shows an error message <br>
+> 3a1. SmartyDo shows an error message <br>
   Use case resumes at step 2
 
 {More to be added}
@@ -311,7 +313,7 @@ Use case ends.
 ## Appendix C : Non Functional Requirements
 
 1. Should work on any [mainstream OS](#mainstream-os) as long as it has Java `1.8.0_60` or higher installed.
-2. Should be able to hold up to 1000 persons.
+2. Should be able to hold up to 2 years of entries estimated to be 8000 entries.
 3. Should come with automated unit tests and open source code.
 4. Should favor DOS style commands over Unix-style commands.
 
@@ -329,5 +331,9 @@ Use case ends.
 
 ## Appendix E : Product Survey
 
-{TODO: Add a summary of competing products}
+| Existing Product | Pros | Cons |
+| :---: | :---: | :---: |
+| Google Calendar | Allows creation of task and events and reside them in the same view. Free to use. Synchronises with gmail account. Allows conversion of email invites into events | Does not have blockout slots |
+| Sticky Notes | Free on Windows Store. Always open. Easy to bring up. Shows all items, always. Easy addition/editing/removal of tasks.  Can store notes/weblinks. Can store handwritten notes. Supports basic text formatting. |  No backup mechanism. Unable to change font. Manual sorting. Resets to default settings on restart. No “calendar view”. Takes up desktop space. Unable to minimise. Can be quite cluttered and messy|
+| Todo.txt | Does not rely on network access to operate. Able to synchronise with cloud storage. Allows priority scheduling. Breaks difficult objectives into small steps to reach the goal. Records date of completion for tasks. Simple GUI and lightweight Application | No support for recurring tasks. No reminder for upcoming due dates |
 

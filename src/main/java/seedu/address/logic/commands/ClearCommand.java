@@ -1,9 +1,9 @@
 package seedu.address.logic.commands;
 
-import seedu.address.model.AddressBook;
+import seedu.address.model.ToDo;
 
 /**
- * Clears the address book.
+ * Clears the SmartyDo.
  */
 public class ClearCommand extends Command {
 
@@ -16,7 +16,16 @@ public class ClearCommand extends Command {
     @Override
     public CommandResult execute() {
         assert model != null;
-        model.resetData(AddressBook.getEmptyAddressBook());
+        model.resetData(ToDo.getEmptyAddressBook());
+        undoRedoManager.resetData();
         return new CommandResult(MESSAGE_SUCCESS);
+    }
+
+    /**
+     *  non-undoable command, will not be executed 
+     */
+    @Override
+    public CommandResult unexecute() {
+        return null;
     }
 }
