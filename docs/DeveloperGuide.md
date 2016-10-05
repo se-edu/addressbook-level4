@@ -42,7 +42,7 @@
       (This is because Gradle downloads library files from servers during the project set up process)
   > * If Eclipse auto-changed any settings files during the import process, you can discard those changes.
   
-#### Troubleshooting
+#### Troubleshooting project setup
 
 **Problem: Eclipse reports compile errors after new commits are pulled from Git**
 * Reason: Eclipse fails to recognize new files that appeared due to the Git pull. 
@@ -198,9 +198,6 @@ Certain properties of the application can be controlled (e.g App name, logging l
 Tests can be found in the `./src/test/java` folder.
 
 **In Eclipse**:
-> If you are not using a recent Eclipse version (i.e. _Neon_ or later), enable assertions in JUnit tests
-  as described [here](http://stackoverflow.com/questions/2522897/eclipse-junit-ea-vm-option).
-
 * To run all tests, right-click on the `src/test/java` folder and choose
   `Run as` > `JUnit Test`
 * To run a subset of tests, you can right-click on a test package, test class, or a test and choose
@@ -230,6 +227,14 @@ Thanks to the [TestFX](https://github.com/TestFX/TestFX) library we use,
  In the headless mode, GUI tests do not show up on the screen.
  That means the developer can do other things on the Computer while the tests are running.<br>
  See [UsingGradle.md](UsingGradle.md#running-tests) to learn how to run tests in headless mode.
+ 
+#### Troubleshooting tests
+ **Problem: Tests fail because NullPointException when AssertionError is expected**
+ * Reason: Assertions are not enabled for JUnit tests. 
+   This can happen if you are not using a recent Eclipse version (i.e. _Neon_ or later)
+ * Solution: Enable assertions in JUnit tests as described 
+   [here](http://stackoverflow.com/questions/2522897/eclipse-junit-ea-vm-option). <br>
+   Delete run configurations created when you ran tests earlier.
   
 ## Dev Ops
 
