@@ -6,7 +6,7 @@ We are a team based in the [School of Computing, National University of Singapor
 
 #### [CHIA WENBAO, JERICH](https://github.com/JerichChia) <br>
 <img src="images/jerich.jpg" width="150"><br>
-Role: Developer
+Role: Developer <br>  
 Responsibilities:
 
 -----
