@@ -6,11 +6,9 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
+
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.logic.commands.*;
-import seedu.address.commons.events.ui.JumpToListRequestEvent;
-import seedu.address.commons.events.ui.ShowHelpRequestEvent;
-import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -19,6 +17,9 @@ import seedu.address.model.person.*;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.storage.StorageManager;
+import seedu.todo.commons.events.model.AddressBookChangedEvent;
+import seedu.todo.commons.events.ui.JumpToListRequestEvent;
+import seedu.todo.commons.events.ui.ShowHelpRequestEvent;
 
 import java.util.ArrayList;
 import java.util.Arrays;

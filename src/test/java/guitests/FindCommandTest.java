@@ -1,6 +1,7 @@
 package guitests;
 
 import org.junit.Test;
+
 import seedu.address.commons.core.Messages;
 import seedu.address.testutil.TestPerson;
 
