@@ -12,6 +12,8 @@ public interface ReadOnlyTask {
     Phone getPhone();
     Email getEmail();
     Todo getTodo();
+    StartTime getStartTime();
+    EndTime getEndTime();
 
     /**
      * The returned TagList is a deep copy of the internal TagList,
