@@ -252,19 +252,23 @@ b. Require developers to download those libraries manually (this creates extra w
 
 Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (unlikely to have) - `*`
 
-
 Priority | As a ... | I want to ... | So that I can...
 -------- | :-------- | :--------- | :-----------
 `* * *` | new user | see usage instructions | refer to instructions when I forget how to use the App
 `* * *` | user | add a new task |
 `* * *` | user | delete a task | remove tasks that I no longer need
 `* * *` | user | edit a task | edit task that I enter wrongly
-`* * *` | user | list all tasks | list all the tasks that have created
+`* * *` | user | list all tasks | list all the tasks that are created
 `* * *` | user | find a task by name or tag | locate details of the tasks without having to go through the entire list
-`* * *` | user | complete a task| complete the task and remove from the application
-`* * *` | user | undo a command| undo the previous command
-`* * ` | user | view a task| able to view the complete details of the task
-`* * ` | user | redo a undo command| able to redo a undo command
+`* * *` | user | complete a task | complete the task and stored in the completed list in the application
+`* * *` | user | undo | undo the previous command
+`* * *` | user | exit | save and quit the application
+`* * *` | advanced user | add alias to command | enter the command quickly
+`* * ` | user | view a task | view the complete details of the task
+`* * ` | user | remove a tag | remove a tag on an exisiting task
+`* * ` | user | uncomplete a task | uncomplete the task that was previously completed
+`* * ` | user | redo | redo a undo command
+`* * ` | user | remove alias | remove alias that is tagged to the command
 `*` | user with many tasks in the application | sort task by name/start date/end date/deadline | locate a task easily
 `*` | user | change theme of the application | change to the user's favourite theme
 
@@ -301,6 +305,7 @@ Use case ends.
 2. Should be able to hold up to 1000 persons.
 3. Should come with automated unit tests and open source code.
 4. Should favor DOS style commands over Unix-style commands.
+5. User-friendly interface
 
 {More to be added}
 
