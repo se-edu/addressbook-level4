@@ -1,4 +1,4 @@
-package seedu.Todo.storage;
+package seedu.todoList.storage;
 
 
 import org.junit.Rule;

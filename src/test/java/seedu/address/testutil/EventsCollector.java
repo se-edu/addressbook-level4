@@ -1,9 +1,9 @@
-package seedu.Todo.testutil;
+package seedu.todoList.testutil;
 
 import com.google.common.eventbus.Subscribe;
 
-import seedu.todoList.commons.core.EventsCenter;
 import seedu.todoList.commons.events.BaseEvent;
+import seedu.todoList.commons.core.EventsCenter;
 
 import java.util.ArrayList;
 import java.util.List;

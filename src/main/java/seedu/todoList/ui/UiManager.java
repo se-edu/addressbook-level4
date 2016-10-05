@@ -6,14 +6,16 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+
 import seedu.todoList.MainApp;
 import seedu.todoList.commons.core.ComponentManager;
 import seedu.todoList.commons.core.Config;
 import seedu.todoList.commons.core.LogsCenter;
+
 import seedu.todoList.commons.events.storage.DataSavingExceptionEvent;
 import seedu.todoList.commons.events.ui.JumpToListRequestEvent;
 import seedu.todoList.commons.events.ui.ShowHelpRequestEvent;
-import seedu.todoList.commons.events.ui.taskPanelSelectionChangedEvent;
+import seedu.todoList.commons.events.ui.TaskPanelSelectionChangedEvent;
 import seedu.todoList.commons.util.StringUtil;
 import seedu.todoList.logic.Logic;
 import seedu.todoList.model.UserPrefs;
@@ -118,7 +120,7 @@ public class UiManager extends ComponentManager implements Ui {
     }
 
     @Subscribe
-    private void handletaskPanelSelectionChangedEvent(taskPanelSelectionChangedEvent event){
+    private void handletaskPanelSelectionChangedEvent(TaskPanelSelectionChangedEvent event){
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         mainWindow.loadtaskPage(event.getNewSelection());
     }

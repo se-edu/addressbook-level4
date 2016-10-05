@@ -5,6 +5,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+
 import seedu.todoList.commons.core.EventsCenter;
 import seedu.todoList.commons.events.BaseEvent;
 import seedu.todoList.commons.util.AppUtil;

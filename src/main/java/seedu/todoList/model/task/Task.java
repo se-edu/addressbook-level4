@@ -1,9 +1,10 @@
 package seedu.todoList.model.task;
 
+import seedu.todoList.model.tag.UniqueTagList;
+import seedu.todoList.commons.util.CollectionUtil;
+
 import java.util.Objects;
 
-import seedu.todoList.commons.util.CollectionUtil;
-import seedu.todoList.model.tag.UniqueTagList;
 
 /**
  * Represents a task in the Todo book.

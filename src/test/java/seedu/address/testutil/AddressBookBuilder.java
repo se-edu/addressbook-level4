@@ -1,10 +1,10 @@
-package seedu.Todo.testutil;
+package seedu.todoList.testutil;
 
+import seedu.todoList.model.tag.Tag;
 import seedu.todoList.commons.exceptions.IllegalValueException;
 import seedu.todoList.model.TodoList;
-import seedu.todoList.model.tag.Tag;
 import seedu.todoList.model.task.Task;
-import seedu.todoList.model.task.UniquetaskList;
+import seedu.todoList.model.task.UniqueTaskList;
 
 /**
  * A utility class to help with building Todobook objects.
@@ -19,7 +19,7 @@ public class TodoListBuilder {
         this.TodoList = TodoList;
     }
 
-    public TodoListBuilder withtask(Task task) throws UniquetaskList.DuplicatetaskException {
+    public TodoListBuilder withtask(Task task) throws UniqueTaskList.DuplicatetaskException {
         TodoList.addtask(task);
         return this;
     }

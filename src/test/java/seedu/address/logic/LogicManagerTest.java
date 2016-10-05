@@ -1,4 +1,4 @@
-package seedu.Todo.logic;
+package seedu.todoList.logic;
 
 import com.google.common.eventbus.Subscribe;
 

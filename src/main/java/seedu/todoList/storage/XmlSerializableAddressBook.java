@@ -8,7 +8,7 @@ import seedu.todoList.model.ReadOnlyTodoList;
 import seedu.todoList.model.tag.Tag;
 import seedu.todoList.model.tag.UniqueTagList;
 import seedu.todoList.model.task.ReadOnlyTask;
-import seedu.todoList.model.task.UniquetaskList;
+import seedu.todoList.model.task.UniqueTaskList;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 public class XmlSerializableTodoList implements ReadOnlyTodoList {
 
     @XmlElement
-    private List<XmlAdaptedtask> tasks;
+    private List<XmlAdaptedTask> tasks;
     @XmlElement
     private List<Tag> tags;
 
@@ -56,9 +56,9 @@ public class XmlSerializableTodoList implements ReadOnlyTodoList {
     }
 
     @Override
-    public UniquetaskList getUniquetaskList() {
-        UniquetaskList lists = new UniquetaskList();
-        for (XmlAdaptedtask p : tasks) {
+    public UniqueTaskList getUniqueTaskList() {
+        UniqueTaskList lists = new UniqueTaskList();
+        for (XmlAdaptedTask p : tasks) {
             try {
                 lists.add(p.toModelType());
             } catch (IllegalValueException e) {

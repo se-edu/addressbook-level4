@@ -8,8 +8,8 @@ import seedu.todoList.commons.events.model.TodoListChangedEvent;
 import seedu.todoList.commons.util.StringUtil;
 import seedu.todoList.model.task.ReadOnlyTask;
 import seedu.todoList.model.task.Task;
-import seedu.todoList.model.task.UniquetaskList;
-import seedu.todoList.model.task.UniquetaskList.taskNotFoundException;
+import seedu.todoList.model.task.UniqueTaskList;
+import seedu.todoList.model.task.UniqueTaskList.taskNotFoundException;
 
 import java.util.Set;
 import java.util.logging.Logger;
@@ -21,7 +21,7 @@ import java.util.logging.Logger;
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final TodoList TodoList;
+    private final TodoList todoList;
     private final FilteredList<Task> filteredtasks;
 
     /**
@@ -35,8 +35,8 @@ public class ModelManager extends ComponentManager implements Model {
 
         logger.fine("Initializing with Todo book: " + src + " and user prefs " + userPrefs);
 
-        TodoList = new TodoList(src);
-        filteredtasks = new FilteredList<>(TodoList.gettasks());
+        todoList = new TodoList(src);
+        filteredtasks = new FilteredList<>(todoList.gettasks());
     }
 
     public ModelManager() {
@@ -44,35 +44,35 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     public ModelManager(ReadOnlyTodoList initialData, UserPrefs userPrefs) {
-        TodoList = new TodoList(initialData);
-        filteredtasks = new FilteredList<>(TodoList.gettasks());
+        todoList = new TodoList(initialData);
+        filteredtasks = new FilteredList<>(todoList.gettasks());
     }
 
     @Override
     public void resetData(ReadOnlyTodoList newData) {
-        TodoList.resetData(newData);
+        todoList.resetData(newData);
         indicateTodoListChanged();
     }
 
     @Override
     public ReadOnlyTodoList getTodoList() {
-        return TodoList;
+        return todoList;
     }
 
     /** Raises an event to indicate the model has changed */
     private void indicateTodoListChanged() {
-        raise(new TodoListChangedEvent(TodoList));
+        raise(new TodoListChangedEvent(todoList));
     }
 
     @Override
-    public synchronized void deletetask(ReadOnlyTask target) throws taskNotFoundException {
-        TodoList.removetask(target);
+    public synchronized void deleteTask(ReadOnlyTask target) throws taskNotFoundException {
+        todoList.removeTask(target);
         indicateTodoListChanged();
     }
 
     @Override
-    public synchronized void addtask(Task task) throws UniquetaskList.DuplicatetaskException {
-        TodoList.addtask(task);
+    public synchronized void addTask(Task task) throws UniqueTaskList.DuplicatetaskException {
+        todoList.addTask(task);
         updateFilteredListToShowAll();
         indicateTodoListChanged();
     }
@@ -80,7 +80,7 @@ public class ModelManager extends ComponentManager implements Model {
     //=========== Filtered task List Accessors ===============================================================
 
     @Override
-    public UnmodifiableObservableList<ReadOnlyTask> getFilteredtaskList() {
+    public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
         return new UnmodifiableObservableList<>(filteredtasks);
     }
 
@@ -90,11 +90,11 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void updateFilteredtaskList(Set<String> keywords){
+    public void updateFilteredTaskList(Set<String> keywords){
         updateFilteredtaskList(new PredicateExpression(new NameQualifier(keywords)));
     }
 
-    private void updateFilteredtaskList(Expression expression) {
+    private void updateFilteredTaskList(Expression expression) {
         filteredtasks.setPredicate(expression::satisfies);
     }
 

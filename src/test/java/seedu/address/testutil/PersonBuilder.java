@@ -1,9 +1,8 @@
-package seedu.Todo.testutil;
+package seedu.todoList.testutil;
 
-import seedu.todoList.commons.exceptions.IllegalValueException;
 import seedu.todoList.model.tag.Tag;
+import seedu.todoList.commons.exceptions.IllegalValueException;
 import seedu.todoList.model.task.*;
-
 /**
  *
  */

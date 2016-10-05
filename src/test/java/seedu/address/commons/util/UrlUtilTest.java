@@ -1,4 +1,4 @@
-package seedu.Todo.commons.util;
+package seedu.todoList.commons.util;
 
 import org.junit.Test;
 

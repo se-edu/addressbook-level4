@@ -37,7 +37,7 @@ public class UniqueTaskList implements Iterable<Task> {
     /**
      * Constructs empty taskList.
      */
-    public UniquetaskList() {}
+    public UniqueTaskList() {}
 
     /**
      * Returns true if the list contains an equivalent task as the given argument.
@@ -86,9 +86,9 @@ public class UniqueTaskList implements Iterable<Task> {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof UniquetaskList // instanceof handles nulls
+                || (other instanceof UniqueTaskList // instanceof handles nulls
                 && this.internalList.equals(
-                ((UniquetaskList) other).internalList));
+                ((UniqueTaskList) other).internalList));
     }
 
     @Override

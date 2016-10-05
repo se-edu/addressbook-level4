@@ -1,15 +1,15 @@
 package seedu.todoList.logic.parser;
 
+import seedu.todoList.logic.commands.*;
+import seedu.todoList.commons.exceptions.IllegalValueException;
+import seedu.todoList.commons.util.StringUtil;
+
 import static seedu.todoList.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.todoList.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import seedu.todoList.commons.exceptions.IllegalValueException;
-import seedu.todoList.commons.util.StringUtil;
-import seedu.todoList.logic.commands.*;
 
 /**
  * Parses user input.

@@ -1,4 +1,4 @@
-package seedu.Todo.testutil;
+package seedu.todoList.testutil;
 
 import com.google.common.io.Files;
 import guitests.guihandles.taskCardHandle;
@@ -136,7 +136,7 @@ public class TestUtil {
     }
 
     public static TodoList generateEmptyTodoList() {
-        return new TodoList(new UniquetaskList(), new UniqueTagList());
+        return new TodoList(new UniqueTaskList(), new UniqueTagList());
     }
 
     public static XmlSerializableTodoList generateSampleStorageTodoList() {

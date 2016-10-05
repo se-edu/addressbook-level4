@@ -1,11 +1,11 @@
 package seedu.todoList.storage;
 
-import javax.xml.bind.annotation.XmlElement;
-
-import seedu.todoList.commons.exceptions.IllegalValueException;
+import seedu.todoList.model.task.*;
 import seedu.todoList.model.tag.Tag;
 import seedu.todoList.model.tag.UniqueTagList;
-import seedu.todoList.model.task.*;
+import seedu.todoList.commons.exceptions.IllegalValueException;
+
+import javax.xml.bind.annotation.XmlElement;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * JAXB-friendly version of the task.
  */
-public class XmlAdaptedtask {
+public class XmlAdaptedTask {
 
     @XmlElement(required = true)
     private String name;
@@ -30,7 +30,7 @@ public class XmlAdaptedtask {
     /**
      * No-arg constructor for JAXB use.
      */
-    public XmlAdaptedtask() {}
+    public XmlAdaptedTaks () {}
 
 
     /**

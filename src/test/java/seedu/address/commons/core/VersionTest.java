@@ -1,4 +1,4 @@
-package seedu.Todo.commons.core;
+package seedu.todoList.commons.core;
 
 import org.junit.Rule;
 import org.junit.Test;

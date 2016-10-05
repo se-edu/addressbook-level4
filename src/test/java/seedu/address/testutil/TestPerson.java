@@ -1,4 +1,4 @@
-package seedu.Todo.testutil;
+package seedu.todoList.testutil;
 
 import seedu.todoList.model.tag.UniqueTagList;
 import seedu.todoList.model.task.*;

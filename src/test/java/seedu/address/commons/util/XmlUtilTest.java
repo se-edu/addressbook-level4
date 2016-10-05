@@ -1,15 +1,15 @@
-package seedu.Todo.commons.util;
+package seedu.todoList.commons.util;
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import seedu.todoList.commons.util.FileUtil;
-import seedu.todoList.commons.util.XmlUtil;
 import seedu.todoList.model.TodoList;
 import seedu.todoList.storage.XmlSerializableTodoList;
-import seedu.todoList.testutil.TestUtil;
 import seedu.todoList.testutil.TodoListBuilder;
+import seedu.todoList.testutil.TestUtil;
+import seedu.todoList.commons.util.FileUtil;
+import seedu.todoList.commons.util.XmlUtil;
 
 import javax.xml.bind.JAXBException;
 import java.io.File;

@@ -1,10 +1,10 @@
 package seedu.todoList.storage;
 
-import javax.xml.bind.annotation.XmlValue;
-
+import seedu.todoList.model.tag.Tag;
 import seedu.todoList.commons.exceptions.IllegalValueException;
 import seedu.todoList.commons.util.CollectionUtil;
-import seedu.todoList.model.tag.Tag;
+
+import javax.xml.bind.annotation.XmlValue;
 
 /**
  * JAXB-friendly adapted version of the Tag.

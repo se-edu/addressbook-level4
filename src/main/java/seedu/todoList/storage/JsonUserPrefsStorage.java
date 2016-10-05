@@ -1,14 +1,15 @@
 package seedu.todoList.storage;
 
+import seedu.todoList.model.UserPrefs;
+import seedu.todoList.commons.core.LogsCenter;
+import seedu.todoList.commons.exceptions.DataConversionException;
+import seedu.todoList.commons.util.FileUtil;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.Optional;
 import java.util.logging.Logger;
 
-import seedu.todoList.commons.core.LogsCenter;
-import seedu.todoList.commons.exceptions.DataConversionException;
-import seedu.todoList.commons.util.FileUtil;
-import seedu.todoList.model.UserPrefs;
 
 /**
  * A class to access UserPrefs stored in the hard disk as a json file

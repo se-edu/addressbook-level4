@@ -5,7 +5,7 @@ import seedu.todoList.model.tag.Tag;
 import seedu.todoList.model.tag.UniqueTagList;
 import seedu.todoList.model.task.ReadOnlyTask;
 import seedu.todoList.model.task.Task;
-import seedu.todoList.model.task.UniquetaskList;
+import seedu.todoList.model.task.UniqueTaskList;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -16,11 +16,11 @@ import java.util.stream.Collectors;
  */
 public class TodoList implements ReadOnlyTodoList {
 
-    private final UniquetaskList tasks;
+    private final UniqueTaskList tasks;
     private final UniqueTagList tags;
 
     {
-        tasks = new UniquetaskList();
+        tasks = new UniqueTaskList();
         tags = new UniqueTagList();
     }
 
@@ -30,13 +30,13 @@ public class TodoList implements ReadOnlyTodoList {
      * tasks and Tags are copied into this Todobook
      */
     public TodoList(ReadOnlyTodoList toBeCopied) {
-        this(toBeCopied.getUniquetaskList(), toBeCopied.getUniqueTagList());
+        this(toBeCopied.getUniqueTaskList(), toBeCopied.getUniqueTagList());
     }
 
     /**
      * tasks and Tags are copied into this Todobook
      */
-    public TodoList(UniquetaskList tasks, UniqueTagList tags) {
+    public TodoList(UniqueTaskList tasks, UniqueTagList tags) {
         resetData(tasks.getInternalList(), tags.getInternalList());
     }
 
@@ -50,7 +50,7 @@ public class TodoList implements ReadOnlyTodoList {
         return tasks.getInternalList();
     }
 
-    public void settasks(List<Task> tasks) {
+    public void setTasks(List<Task> tasks) {
         this.tasks.getInternalList().setAll(tasks);
     }
 
@@ -74,9 +74,9 @@ public class TodoList implements ReadOnlyTodoList {
      * Also checks the new task's tags and updates {@link #tags} with any new tags found,
      * and updates the Tag objects in the task to point to those in {@link #tags}.
      *
-     * @throws UniquetaskList.DuplicatetaskException if an equivalent task already exists.
+     * @throws UniqueTaskList.DuplicatetaskException if an equivalent task already exists.
      */
-    public void addtask(Task p) throws UniquetaskList.DuplicatetaskException {
+    public void addTask(Task p) throws UniqueTaskList.DuplicatetaskException {
         syncTagsWithMasterList(p);
         tasks.add(p);
     }
@@ -104,11 +104,11 @@ public class TodoList implements ReadOnlyTodoList {
         task.setTags(new UniqueTagList(commonTagReferences));
     }
 
-    public boolean removetask(ReadOnlyTask key) throws UniquetaskList.taskNotFoundException {
+    public boolean removeTask(ReadOnlyTask key) throws UniqueTaskList.taskNotFoundException {
         if (tasks.remove(key)) {
             return true;
         } else {
-            throw new UniquetaskList.taskNotFoundException();
+            throw new UniqueTaskList.taskNotFoundException();
         }
     }
 
@@ -137,7 +137,7 @@ public class TodoList implements ReadOnlyTodoList {
     }
 
     @Override
-    public UniquetaskList getUniquetaskList() {
+    public UniqueTaskList getUniqueTaskList() {
         return this.tasks;
     }
 

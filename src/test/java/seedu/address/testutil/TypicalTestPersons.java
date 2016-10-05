@@ -1,8 +1,8 @@
-package seedu.Todo.testutil;
+package seedu.todoList.testutil;
 
-import seedu.todoList.commons.exceptions.IllegalValueException;
 import seedu.todoList.model.TodoList;
 import seedu.todoList.model.task.*;
+import seedu.todoList.commons.exceptions.IllegalValueException;
 
 /**
  *
@@ -44,7 +44,7 @@ public class TypicalTesttasks {
             ab.addtask(new Task(elle));
             ab.addtask(new Task(fiona));
             ab.addtask(new Task(george));
-        } catch (UniquetaskList.DuplicatetaskException e) {
+        } catch (UniqueTaskList.DuplicatetaskException e) {
             assert false : "not possible";
         }
     }

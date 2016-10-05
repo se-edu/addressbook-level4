@@ -1,10 +1,11 @@
 package seedu.todoList.storage;
 
+import seedu.todoList.model.UserPrefs;
+import seedu.todoList.commons.exceptions.DataConversionException;
+
 import java.io.IOException;
 import java.util.Optional;
 
-import seedu.todoList.commons.exceptions.DataConversionException;
-import seedu.todoList.model.UserPrefs;
 
 /**
  * Represents a storage for {@link seedu.TodoList.model.UserPrefs}.

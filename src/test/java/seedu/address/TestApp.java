@@ -1,7 +1,8 @@
-package seedu.Todo;
+package seedu.todoList;
 
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+
 import seedu.todoList.MainApp;
 import seedu.todoList.commons.core.Config;
 import seedu.todoList.commons.core.GuiSettings;

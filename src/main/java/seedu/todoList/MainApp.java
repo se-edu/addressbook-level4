@@ -4,14 +4,18 @@ import com.google.common.eventbus.Subscribe;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
+
+
 import seedu.todoList.commons.core.Config;
 import seedu.todoList.commons.core.EventsCenter;
 import seedu.todoList.commons.core.LogsCenter;
 import seedu.todoList.commons.core.Version;
-import seedu.todoList.commons.events.ui.ExitAppRequestEvent;
+
 import seedu.todoList.commons.exceptions.DataConversionException;
 import seedu.todoList.commons.util.ConfigUtil;
 import seedu.todoList.commons.util.StringUtil;
+
+import seedu.todoList.commons.events.ui.ExitAppRequestEvent;
 import seedu.todoList.logic.Logic;
 import seedu.todoList.logic.LogicManager;
 import seedu.todoList.model.*;
@@ -19,6 +23,7 @@ import seedu.todoList.storage.Storage;
 import seedu.todoList.storage.StorageManager;
 import seedu.todoList.ui.Ui;
 import seedu.todoList.ui.UiManager;
+
 
 import java.io.FileNotFoundException;
 import java.io.IOException;

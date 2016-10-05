@@ -8,12 +8,13 @@ import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import seedu.todoList.commons.core.Config;
-import seedu.todoList.commons.core.GuiSettings;
+
 import seedu.todoList.commons.events.ui.ExitAppRequestEvent;
 import seedu.todoList.logic.Logic;
 import seedu.todoList.model.UserPrefs;
 import seedu.todoList.model.task.ReadOnlyTask;
+import seedu.todoList.commons.core.Config;
+import seedu.todoList.commons.core.GuiSettings;
 
 /**
  * The Main Window. Provides the basic application layout containing

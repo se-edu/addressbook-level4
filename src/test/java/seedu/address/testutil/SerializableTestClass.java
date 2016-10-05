@@ -1,4 +1,4 @@
-package seedu.Todo.testutil;
+package seedu.todoList.testutil;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

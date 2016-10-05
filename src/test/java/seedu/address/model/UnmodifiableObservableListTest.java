@@ -1,4 +1,4 @@
-package seedu.Todo.model;
+package seedu.todoList.model;
 
 import javafx.collections.FXCollections;
 import seedu.todoList.commons.core.UnmodifiableObservableList;
