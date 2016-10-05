@@ -1,14 +1,14 @@
 package seedu.todoList.commons.events.model;
 
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyToDoList;
 import seedu.todoList.commons.events.BaseEvent;
 
 /** Indicates the to-do-list in the model has changed*/
 public class ToDoListChangedEvent extends BaseEvent {
 
-    public final ReadOnlyAddressBook data;
+    public final ReadOnlyToDoList data;
 
-    public ToDoListChangedEvent(ReadOnlyAddressBook data){
+    public ToDoListChangedEvent(ReadOnlyToDoList data){
         this.data = data;
     }
 
