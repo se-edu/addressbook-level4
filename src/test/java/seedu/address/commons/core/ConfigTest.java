@@ -14,11 +14,11 @@ public class ConfigTest {
 
     @Test
     public void toString_defaultObject_stringReturned() {
-        String defaultConfigAsString = "App title : Address App\n" +
+        String defaultConfigAsString = "App title : SmartyDo\n" +
                 "Current log level : INFO\n" +
                 "Preference file Location : preferences.json\n" +
                 "Local data file location : data/addressbook.xml\n" +
-                "AddressBook name : MyAddressBook";
+                "ToDo name : MySmartyDo";
 
         assertEquals(defaultConfigAsString, new Config().toString());
     }
