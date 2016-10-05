@@ -10,3 +10,6 @@
 * [Non-Functional Requirements](docs/NonFunctionals.md)
 * [About Us](docs/AboutUs.md)
 * [Contact Us](docs/ContactUs.md)
+
+#### Acknnowledgements
+* The original code for this project is created by SE-EDU initiative at https://github.com/se-edu/.
