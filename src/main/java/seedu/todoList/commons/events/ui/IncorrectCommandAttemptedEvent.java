@@ -1,7 +1,7 @@
-package seedu.todo.commons.events.ui;
+package seedu.todoList.commons.events.ui;
 
 import seedu.address.logic.commands.Command;
-import seedu.todo.commons.events.BaseEvent;
+import seedu.todoList.commons.events.BaseEvent;
 
 /**
  * Indicates an attempt to execute an incorrect command

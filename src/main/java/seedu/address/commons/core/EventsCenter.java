@@ -2,7 +2,7 @@ package seedu.address.commons.core;
 
 import com.google.common.eventbus.EventBus;
 
-import seedu.todo.commons.events.BaseEvent;
+import seedu.todoList.commons.events.BaseEvent;
 
 import java.util.logging.Logger;
 

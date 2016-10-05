@@ -1,6 +1,6 @@
-package seedu.todo.commons.events.ui;
+package seedu.todoList.commons.events.ui;
 
-import seedu.todo.commons.events.BaseEvent;
+import seedu.todoList.commons.events.BaseEvent;
 
 /**
  * An event requesting to view the help page.

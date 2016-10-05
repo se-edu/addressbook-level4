@@ -1,7 +1,7 @@
 package seedu.address.logic.commands;
 
 import seedu.address.commons.core.EventsCenter;
-import seedu.todo.commons.events.ui.ExitAppRequestEvent;
+import seedu.todoList.commons.events.ui.ExitAppRequestEvent;
 
 /**
  * Terminates the program.

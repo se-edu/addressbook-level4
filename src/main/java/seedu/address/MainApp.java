@@ -18,7 +18,7 @@ import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
-import seedu.todo.commons.events.ui.ExitAppRequestEvent;
+import seedu.todoList.commons.events.ui.ExitAppRequestEvent;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;

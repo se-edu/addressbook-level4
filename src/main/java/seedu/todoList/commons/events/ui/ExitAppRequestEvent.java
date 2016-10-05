@@ -1,6 +1,6 @@
-package seedu.todo.commons.events.ui;
+package seedu.todoList.commons.events.ui;
 
-import seedu.todo.commons.events.BaseEvent;
+import seedu.todoList.commons.events.BaseEvent;
 
 /**
  * Indicates a request for App termination

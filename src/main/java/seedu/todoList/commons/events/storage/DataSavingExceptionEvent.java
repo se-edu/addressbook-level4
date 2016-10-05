@@ -1,6 +1,6 @@
-package seedu.todo.commons.events.storage;
+package seedu.todoList.commons.events.storage;
 
-import seedu.todo.commons.events.BaseEvent;
+import seedu.todoList.commons.events.BaseEvent;
 
 /**
  * Indicates an exception during a file saving

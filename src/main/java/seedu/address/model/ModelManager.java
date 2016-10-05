@@ -9,7 +9,7 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.person.UniquePersonList.PersonNotFoundException;
-import seedu.todo.commons.events.model.AddressBookChangedEvent;
+import seedu.todoList.commons.events.model.AddressBookChangedEvent;
 
 import java.util.Set;
 import java.util.logging.Logger;

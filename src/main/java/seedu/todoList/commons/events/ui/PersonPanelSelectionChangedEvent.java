@@ -1,7 +1,7 @@
-package seedu.todo.commons.events.ui;
+package seedu.todoList.commons.events.ui;
 
 import seedu.address.model.person.ReadOnlyPerson;
-import seedu.todo.commons.events.BaseEvent;
+import seedu.todoList.commons.events.BaseEvent;
 
 /**
  * Represents a selection change in the Person List Panel

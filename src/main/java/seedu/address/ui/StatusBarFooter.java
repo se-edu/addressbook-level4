@@ -10,7 +10,7 @@ import org.controlsfx.control.StatusBar;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.util.FxViewUtil;
-import seedu.todo.commons.events.model.AddressBookChangedEvent;
+import seedu.todoList.commons.events.model.AddressBookChangedEvent;
 
 import java.util.Date;
 import java.util.logging.Logger;

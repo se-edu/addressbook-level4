@@ -17,9 +17,9 @@ import seedu.address.model.person.*;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.storage.StorageManager;
-import seedu.todo.commons.events.model.AddressBookChangedEvent;
-import seedu.todo.commons.events.ui.JumpToListRequestEvent;
-import seedu.todo.commons.events.ui.ShowHelpRequestEvent;
+import seedu.todoList.commons.events.model.AddressBookChangedEvent;
+import seedu.todoList.commons.events.ui.JumpToListRequestEvent;
+import seedu.todoList.commons.events.ui.ShowHelpRequestEvent;
 
 import java.util.ArrayList;
 import java.util.Arrays;

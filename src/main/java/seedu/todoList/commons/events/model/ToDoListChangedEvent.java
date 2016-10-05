@@ -1,7 +1,7 @@
-package seedu.todo.commons.events.model;
+package seedu.todoList.commons.events.model;
 
 import seedu.address.model.ReadOnlyAddressBook;
-import seedu.todo.commons.events.BaseEvent;
+import seedu.todoList.commons.events.BaseEvent;
 
 /** Indicates the to-do-list in the model has changed*/
 public class ToDoListChangedEvent extends BaseEvent {

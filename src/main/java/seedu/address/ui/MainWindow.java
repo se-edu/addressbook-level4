@@ -13,7 +13,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.ReadOnlyPerson;
-import seedu.todo.commons.events.ui.ExitAppRequestEvent;
+import seedu.todoList.commons.events.ui.ExitAppRequestEvent;
 
 /**
  * The Main Window. Provides the basic application layout containing

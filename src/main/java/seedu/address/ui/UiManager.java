@@ -13,10 +13,10 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
-import seedu.todo.commons.events.storage.DataSavingExceptionEvent;
-import seedu.todo.commons.events.ui.JumpToListRequestEvent;
-import seedu.todo.commons.events.ui.PersonPanelSelectionChangedEvent;
-import seedu.todo.commons.events.ui.ShowHelpRequestEvent;
+import seedu.todoList.commons.events.storage.DataSavingExceptionEvent;
+import seedu.todoList.commons.events.ui.JumpToListRequestEvent;
+import seedu.todoList.commons.events.ui.PersonPanelSelectionChangedEvent;
+import seedu.todoList.commons.events.ui.ShowHelpRequestEvent;
 
 import java.util.logging.Logger;
 

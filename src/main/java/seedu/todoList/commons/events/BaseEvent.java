@@ -1,4 +1,4 @@
-package seedu.todo.commons.events;
+package seedu.todoList.commons.events;
 
 public abstract class BaseEvent {
 

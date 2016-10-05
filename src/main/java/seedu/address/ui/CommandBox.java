@@ -9,7 +9,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.*;
-import seedu.todo.commons.events.ui.IncorrectCommandAttemptedEvent;
+import seedu.todoList.commons.events.ui.IncorrectCommandAttemptedEvent;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.util.FxViewUtil;
 

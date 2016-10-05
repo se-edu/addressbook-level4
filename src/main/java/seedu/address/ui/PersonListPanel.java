@@ -12,7 +12,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.ReadOnlyPerson;
-import seedu.todo.commons.events.ui.PersonPanelSelectionChangedEvent;
+import seedu.todoList.commons.events.ui.PersonPanelSelectionChangedEvent;
 
 import java.util.logging.Logger;
 
