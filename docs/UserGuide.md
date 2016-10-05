@@ -11,18 +11,16 @@
    > Having any Java 8 version is not enough. <br>
    This app will not work with earlier versions of Java 8.
    
-1. Download the latest `addressbook.jar` from the [releases](../../../releases) tab.
-2. Copy the file to the folder you want to use as the home folder for your Address Book.
+1. Download the latest `KeyboardWarrior.jar` from the [releases](../../../releases) tab.
+2. Copy the file to the folder you want to use as the home folder for your KeyboardWarrior.
 3. Double-click the file to start the app. The GUI should appear in a few seconds. 
-   > <img src="images/Ui.png" width="600">
-
 4. Type the command in the command box and press <kbd>Enter</kbd> to execute it. <br>
    e.g. typing **`help`** and pressing <kbd>Enter</kbd> will open the help window. 
 5. Some example commands you can try:
-   * **`list`** : lists all contacts
-   * **`add`**` John Doe p/98765432 e/johnd@gmail.com a/John street, block 123, #01-01` : 
-     adds a contact named `John Doe` to the Address Book.
-   * **`delete`**` 3` : deletes the 3rd contact shown in the current list
+   * **`list`** : lists all task
+   * **`add`**` Do CS2103 Tutorial` : 
+     adds a task `Do CS2103 Tutorial` KeyboardWarrior.
+   * **`delete`**` 3` : deletes the 3rd task shown in the current list
    * **`exit`** : exits the app
 6. Refer to the [Features](#features) section below for details of each command.<br>
 
@@ -40,18 +38,37 @@ Format: `help`
 
 > Help is also shown if you enter an incorrect command e.g. `abcd`
  
-#### Adding a person: `add`
-Adds a person to the address book<br>
-Format: `add NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` 
-
-> Persons can have any number of tags (including 0)
+#### Adding a todo task:
+Adds a floating task to the KeyboardWarrior<br>
+Format: `TASK by [DATE] [TIME]`
 
 Examples: 
-* `add John Doe p/98765432 e/johnd@gmail.com a/John street, block 123, #01-01`
-* `add Betsy Crowe p/1234567 e/betsycrowe@gmail.com a/Newgate Prison t/criminal t/friend`
+* `Buy Chocolate`
+* `Download Github by Tuesday`
+* `Download Eclipse by 020314 2030`
+
+#### Adding a calendar task: `add`
+Adds a specific task to the KeyboardWarrior that will be able to show any combinations of the following parameters:<br>
+
+Format: `add DATE TIME to TIME TASK @[VENUE]`
+
+Examples: 
+* `add 010116 1810 to 1900 Go to the mall`
+* `add Sunday 0210 to 0300 Group Meeting @I3 MR9`
+* `add Fri 1410 to 1600 Basketball Tryouts @MPSH`
+
+#### search all task: `find`
+Search all task to the KeyboardWarrior<br>
+Format: `find [DATE] [TIME] [KEYWORD] @[VENUE]`
+
+Examples: 
+* `find 010215`
+* `find 030216 2345`
+* `find basketball`
+* `find @I3`
 
 #### Listing all persons : `list`
-Shows a list of all persons in the address book.<br>
+Shows a list of todo task in the KeyboardWarrior.<br>
 Format: `list`
 
 #### Finding all persons containing any keyword in their name: `find`
