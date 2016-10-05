@@ -42,6 +42,11 @@ We are a team based in the [School of Computing, National University of Singapor
 * *Deliverables and deadlines* -- Ensure project deliverables are done on time and in the right format.
 * *Eclipse expert* -- Helps everyone when Eclipse crashes / builds the wrong thing / 110-character line goes poof.
 
+## Project Mentor
+
+#### [Chuan Wei Candiie](http://github.com/Candiie)
+<img src="https://avatars3.githubusercontent.com/u/22343403" width="150"><br>
+
 -----
 
 ## Zarro boogs found?
