@@ -1,49 +1,48 @@
-package seedu.address.testutil;
+package seedu.todoList.testutil;
 
-import seedu.address.model.tag.Tag;
+import seedu.todoList.model.tag.Tag;
 import seedu.todoList.commons.exceptions.IllegalValueException;
-import seedu.address.model.person.*;
-
+import seedu.todoList.model.task.*;
 /**
  *
  */
-public class PersonBuilder {
+public class taskBuilder {
 
-    private TestPerson person;
+    private Testtask task;
 
-    public PersonBuilder() {
-        this.person = new TestPerson();
+    public taskBuilder() {
+        this.task = new Testtask();
     }
 
-    public PersonBuilder withName(String name) throws IllegalValueException {
-        this.person.setName(new Name(name));
+    public taskBuilder withName(String name) throws IllegalValueException {
+        this.task.setName(new Name(name));
         return this;
     }
 
-    public PersonBuilder withTags(String ... tags) throws IllegalValueException {
+    public taskBuilder withTags(String ... tags) throws IllegalValueException {
         for (String tag: tags) {
-            person.getTags().add(new Tag(tag));
+            task.getTags().add(new Tag(tag));
         }
         return this;
     }
 
-    public PersonBuilder withAddress(String address) throws IllegalValueException {
-        this.person.setAddress(new Address(address));
+    public taskBuilder withTodo(String Todo) throws IllegalValueException {
+        this.task.setTodo(new Todo(Todo));
         return this;
     }
 
-    public PersonBuilder withPhone(String phone) throws IllegalValueException {
-        this.person.setPhone(new Phone(phone));
+    public taskBuilder withPhone(String phone) throws IllegalValueException {
+        this.task.setPhone(new Phone(phone));
         return this;
     }
 
-    public PersonBuilder withEmail(String email) throws IllegalValueException {
-        this.person.setEmail(new Email(email));
+    public taskBuilder withEmail(String email) throws IllegalValueException {
+        this.task.setEmail(new Email(email));
         return this;
     }
 
-    public TestPerson build() {
-        return this.person;
+    public Testtask build() {
+        return this.task;
     }
 
 }

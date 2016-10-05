@@ -1,9 +1,9 @@
 package seedu.todoList.commons.core;
 
-import seedu.todoList.commons.events.BaseEvent;
-
 import java.io.IOException;
 import java.util.logging.*;
+
+import seedu.todoList.commons.events.BaseEvent;
 
 /**
  * Configures and manages loggers and handlers, including their logging level
@@ -15,7 +15,7 @@ import java.util.logging.*;
 public class LogsCenter {
     private static final int MAX_FILE_COUNT = 5;
     private static final int MAX_FILE_SIZE_IN_BYTES = (int) (Math.pow(2, 20) * 5); // 5MB
-    private static final String LOG_FILE = "addressbook.log";
+    private static final String LOG_FILE = "Todobook.log";
     private static Level currentLogLevel = Level.INFO;
     private static final Logger logger = LogsCenter.getLogger(LogsCenter.class);
     private static FileHandler fileHandler;

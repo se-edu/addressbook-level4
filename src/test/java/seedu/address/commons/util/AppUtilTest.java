@@ -1,4 +1,4 @@
-package seedu.address.commons.util;
+package seedu.todoList.commons.util;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -17,7 +17,7 @@ public class AppUtilTest {
 
     @Test
     public void getImage_exitingImage(){
-        assertNotNull(AppUtil.getImage("/images/address_book_32.png"));
+        assertNotNull(AppUtil.getImage("/images/Todo_book_32.png"));
     }
 
 

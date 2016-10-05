@@ -1,35 +1,35 @@
-package seedu.address.testutil;
+package seedu.todoList.testutil;
 
-import seedu.address.model.tag.Tag;
+import seedu.todoList.model.tag.Tag;
 import seedu.todoList.commons.exceptions.IllegalValueException;
-import seedu.address.model.AddressBook;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.UniquePersonList;
+import seedu.todoList.model.TodoList;
+import seedu.todoList.model.task.Task;
+import seedu.todoList.model.task.UniqueTaskList;
 
 /**
- * A utility class to help with building Addressbook objects.
+ * A utility class to help with building Todobook objects.
  * Example usage: <br>
- *     {@code AddressBook ab = new AddressBookBuilder().withPerson("John", "Doe").withTag("Friend").build();}
+ *     {@code TodoList ab = new TodoListBuilder().withtask("John", "Doe").withTag("Friend").build();}
  */
-public class AddressBookBuilder {
+public class TodoListBuilder {
 
-    private AddressBook addressBook;
+    private TodoList TodoList;
 
-    public AddressBookBuilder(AddressBook addressBook){
-        this.addressBook = addressBook;
+    public TodoListBuilder(TodoList TodoList){
+        this.TodoList = TodoList;
     }
 
-    public AddressBookBuilder withPerson(Person person) throws UniquePersonList.DuplicatePersonException {
-        addressBook.addPerson(person);
+    public TodoListBuilder withtask(Task task) throws UniqueTaskList.DuplicatetaskException {
+        TodoList.addtask(task);
         return this;
     }
 
-    public AddressBookBuilder withTag(String tagName) throws IllegalValueException {
-        addressBook.addTag(new Tag(tagName));
+    public TodoListBuilder withTag(String tagName) throws IllegalValueException {
+        TodoList.addTag(new Tag(tagName));
         return this;
     }
 
-    public AddressBook build(){
-        return addressBook;
+    public TodoList build(){
+        return TodoList;
     }
 }

@@ -1,6 +1,7 @@
 package seedu.todoList.commons.core;
 
 import com.google.common.eventbus.EventBus;
+
 import seedu.todoList.commons.events.BaseEvent;
 
 import java.util.logging.Logger;

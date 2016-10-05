@@ -1,13 +1,13 @@
 package seedu.todoList.commons.util;
 
-import seedu.todoList.commons.core.Config;
-import seedu.todoList.commons.core.LogsCenter;
-import seedu.todoList.commons.exceptions.DataConversionException;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.Optional;
 import java.util.logging.Logger;
+
+import seedu.todoList.commons.core.Config;
+import seedu.todoList.commons.core.LogsCenter;
+import seedu.todoList.commons.exceptions.DataConversionException;
 
 /**
  * A class for accessing the Config File.

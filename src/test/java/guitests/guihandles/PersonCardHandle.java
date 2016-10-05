@@ -3,20 +3,20 @@ package guitests.guihandles;
 import guitests.GuiRobot;
 import javafx.scene.Node;
 import javafx.stage.Stage;
-import seedu.address.model.person.ReadOnlyPerson;
+import seedu.todoList.model.task.ReadOnlyTask;
 
 /**
- * Provides a handle to a person card in the person list panel.
+ * Provides a handle to a task card in the task list panel.
  */
-public class PersonCardHandle extends GuiHandle {
+public class taskCardHandle extends GuiHandle {
     private static final String NAME_FIELD_ID = "#name";
-    private static final String ADDRESS_FIELD_ID = "#address";
+    private static final String Todo_FIELD_ID = "#Todo";
     private static final String PHONE_FIELD_ID = "#phone";
     private static final String EMAIL_FIELD_ID = "#email";
 
     private Node node;
 
-    public PersonCardHandle(GuiRobot guiRobot, Stage primaryStage, Node node){
+    public taskCardHandle(GuiRobot guiRobot, Stage primaryStage, Node node){
         super(guiRobot, primaryStage, null);
         this.node = node;
     }
@@ -29,8 +29,8 @@ public class PersonCardHandle extends GuiHandle {
         return getTextFromLabel(NAME_FIELD_ID);
     }
 
-    public String getAddress() {
-        return getTextFromLabel(ADDRESS_FIELD_ID);
+    public String getTodo() {
+        return getTextFromLabel(Todo_FIELD_ID);
     }
 
     public String getPhone() {
@@ -41,23 +41,23 @@ public class PersonCardHandle extends GuiHandle {
         return getTextFromLabel(EMAIL_FIELD_ID);
     }
 
-    public boolean isSamePerson(ReadOnlyPerson person){
-        return getFullName().equals(person.getName().fullName) && getPhone().equals(person.getPhone().value)
-                && getEmail().equals(person.getEmail().value) && getAddress().equals(person.getAddress().value);
+    public boolean isSametask(ReadOnlyTask task){
+        return getFullName().equals(task.getName().fullName) && getPhone().equals(task.getPhone().value)
+                && getEmail().equals(task.getEmail().value) && getTodo().equals(task.getTodo().value);
     }
 
     @Override
     public boolean equals(Object obj) {
-        if(obj instanceof PersonCardHandle) {
-            PersonCardHandle handle = (PersonCardHandle) obj;
+        if(obj instanceof taskCardHandle) {
+            taskCardHandle handle = (taskCardHandle) obj;
             return getFullName().equals(handle.getFullName())
-                    && getAddress().equals(handle.getAddress()); //TODO: compare the rest
+                    && getTodo().equals(handle.getTodo()); //TODO: compare the rest
         }
         return super.equals(obj);
     }
 
     @Override
     public String toString() {
-        return getFullName() + " " + getAddress();
+        return getFullName() + " " + getTodo();
     }
 }

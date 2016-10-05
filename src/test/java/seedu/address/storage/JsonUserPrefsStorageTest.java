@@ -1,4 +1,4 @@
-package seedu.address.storage;
+package seedu.todoList.storage;
 
 
 import org.junit.Rule;
@@ -6,7 +6,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
 
-import seedu.address.model.UserPrefs;
+import seedu.todoList.model.UserPrefs;
 import seedu.todoList.commons.exceptions.DataConversionException;
 import seedu.todoList.commons.util.FileUtil;
 
