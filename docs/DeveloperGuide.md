@@ -41,6 +41,18 @@
   > * Depending on your connection speed and server load, it can even take up to 30 minutes for the set up to finish
       (This is because Gradle downloads library files from servers during the project set up process)
   > * If Eclipse auto-changed any settings files during the import process, you can discard those changes.
+  
+#### Troubleshooting
+
+**Problem: Eclipse reports compile errors after new commits are pulled from Git**
+* Reason: Eclipse fails to recognize new files that appeared due to the Git pull. 
+* Solution: Refresh the project in Eclipse:<br> 
+  Right click on the project (in Eclipse package explorer), choose `Gradle` -> `Refresh Gradle Project`.
+  
+**Problem: Eclipse reports some required libraries missing**
+* Reason: Required libraries may not have been downloaded during the project import. 
+* Solution: [Run tests using Gardle](UsingGradle.md) once (to refresh the libraries).
+ 
 
 ## Design
 

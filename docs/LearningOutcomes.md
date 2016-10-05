@@ -128,5 +128,8 @@ Note [how the AddressBook app uses Travis to perform Continuous Integration](Usi
 * Test input combination
 * GUI test automation
 * Design patterns
+* Static analysis
+* Code reviews
+* Code coverage
 
 
