@@ -11,7 +11,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.todoList.commons.core.LogsCenter;
-import seedu.todoList.commons.events.ui.taskPanelSelectionChangedEvent;
+import seedu.todoList.commons.events.ui.TaskPanelSelectionChangedEvent;
 import seedu.todoList.model.task.ReadOnlyTask;
 
 import java.util.logging.Logger;
@@ -19,16 +19,16 @@ import java.util.logging.Logger;
 /**
  * Panel containing the list of tasks.
  */
-public class taskListPanel extends UiPart {
-    private final Logger logger = LogsCenter.getLogger(taskListPanel.class);
-    private static final String FXML = "taskListPanel.fxml";
+public class TaskListPanel extends UiPart {
+    private final Logger logger = LogsCenter.getLogger(TaskListPanel.class);
+    private static final String FXML = "TaskListPanel.fxml";
     private VBox panel;
     private AnchorPane placeHolderPane;
 
     @FXML
     private ListView<ReadOnlyTask> taskListView;
 
-    public taskListPanel() {
+    public TaskListPanel() {
         super();
     }
 
@@ -47,12 +47,12 @@ public class taskListPanel extends UiPart {
         this.placeHolderPane = pane;
     }
 
-    public static taskListPanel load(Stage primaryStage, AnchorPane taskListPlaceholder,
+    public static TaskListPanel load(Stage primaryStage, AnchorPane taskListPlaceholder,
                                        ObservableList<ReadOnlyTask> taskList) {
-        taskListPanel taskListPanel =
-                UiPartLoader.loadUiPart(primaryStage, taskListPlaceholder, new taskListPanel());
-        taskListPanel.configure(taskList);
-        return taskListPanel;
+        TaskListPanel TaskListPanel =
+                UiPartLoader.loadUiPart(primaryStage, taskListPlaceholder, new TaskListPanel());
+        TaskListPanel.configure(taskList);
+        return TaskListPanel;
     }
 
     private void configure(ObservableList<ReadOnlyTask> taskList) {
@@ -75,7 +75,7 @@ public class taskListPanel extends UiPart {
         taskListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 logger.fine("Selection in task list panel changed to : '" + newValue + "'");
-                raise(new taskPanelSelectionChangedEvent(newValue));
+                raise(new TaskPanelSelectionChangedEvent(newValue));
             }
         });
     }
@@ -100,7 +100,7 @@ public class taskListPanel extends UiPart {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(taskCard.load(task, getIndex() + 1).getLayout());
+                setGraphic(TaskCard.load(task, getIndex() + 1).getLayout());
             }
         }
     }
