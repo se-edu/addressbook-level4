@@ -1,4 +1,4 @@
-package seedu.address.commons.core;
+package seedu.todoList.commons.core;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;

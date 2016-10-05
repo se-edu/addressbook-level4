@@ -2,8 +2,8 @@ package seedu.address.model.tag;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.commons.util.CollectionUtil;
-import seedu.address.commons.exceptions.DuplicateDataException;
+import seedu.todoList.commons.exceptions.DuplicateDataException;
+import seedu.todoList.commons.util.CollectionUtil;
 
 import java.util.*;
 

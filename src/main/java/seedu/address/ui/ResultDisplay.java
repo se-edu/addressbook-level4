@@ -6,7 +6,7 @@ import javafx.scene.Node;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import seedu.address.commons.util.FxViewUtil;
+import seedu.todoList.commons.util.FxViewUtil;
 
 /**
  * A ui for the status bar that is displayed at the header of the application.

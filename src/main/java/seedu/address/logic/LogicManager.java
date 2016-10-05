@@ -1,14 +1,14 @@
 package seedu.address.logic;
 
 import javafx.collections.ObservableList;
-import seedu.address.commons.core.ComponentManager;
-import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.parser.Parser;
 import seedu.address.model.Model;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.storage.Storage;
+import seedu.todoList.commons.core.ComponentManager;
+import seedu.todoList.commons.core.LogsCenter;
 
 import java.util.logging.Logger;
 

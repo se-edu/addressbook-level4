@@ -1,9 +1,9 @@
 package seedu.address.logic.commands;
 
-import seedu.address.commons.core.EventsCenter;
-import seedu.address.commons.core.Messages;
 import seedu.address.commons.events.ui.IncorrectCommandAttemptedEvent;
 import seedu.address.model.Model;
+import seedu.todoList.commons.core.EventsCenter;
+import seedu.todoList.commons.core.Messages;
 
 /**
  * Represents a command with hidden internal logic and the ability to be executed.

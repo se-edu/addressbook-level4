@@ -4,6 +4,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import seedu.todoList.commons.util.AppUtil;
+
 import static org.junit.Assert.assertNotNull;
 
 public class AppUtilTest {

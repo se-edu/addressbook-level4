@@ -1,15 +1,15 @@
 package seedu.address.model;
 
 import javafx.collections.transformation.FilteredList;
-import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.core.UnmodifiableObservableList;
-import seedu.address.commons.util.StringUtil;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
-import seedu.address.commons.core.ComponentManager;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.person.UniquePersonList.PersonNotFoundException;
+import seedu.todoList.commons.core.ComponentManager;
+import seedu.todoList.commons.core.LogsCenter;
+import seedu.todoList.commons.core.UnmodifiableObservableList;
+import seedu.todoList.commons.util.StringUtil;
 
 import java.util.Set;
 import java.util.logging.Logger;

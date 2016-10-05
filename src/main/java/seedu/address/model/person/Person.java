@@ -1,7 +1,7 @@
 package seedu.address.model.person;
 
-import seedu.address.commons.util.CollectionUtil;
 import seedu.address.model.tag.UniqueTagList;
+import seedu.todoList.commons.util.CollectionUtil;
 
 import java.util.Objects;
 

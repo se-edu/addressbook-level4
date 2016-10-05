@@ -4,7 +4,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import seedu.address.MainApp;
+import seedu.todoList.MainApp;
 
 /**
  * A utility class to load UiParts from FXML files.

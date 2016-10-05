@@ -1,4 +1,4 @@
-package seedu.address.commons.util;
+package seedu.todoList.commons.util;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;

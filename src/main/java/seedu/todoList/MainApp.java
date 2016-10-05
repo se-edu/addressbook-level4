@@ -1,24 +1,24 @@
-package seedu.address;
+package seedu.todoList;
 
 import com.google.common.eventbus.Subscribe;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.stage.Stage;
-import seedu.address.commons.core.Config;
-import seedu.address.commons.core.EventsCenter;
-import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.core.Version;
-import seedu.address.commons.events.ui.ExitAppRequestEvent;
-import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
 import seedu.address.model.*;
-import seedu.address.commons.util.ConfigUtil;
+import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
+import seedu.todoList.commons.core.Config;
+import seedu.todoList.commons.core.EventsCenter;
+import seedu.todoList.commons.core.LogsCenter;
+import seedu.todoList.commons.core.Version;
+import seedu.todoList.commons.exceptions.DataConversionException;
+import seedu.todoList.commons.util.ConfigUtil;
+import seedu.todoList.commons.util.StringUtil;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
