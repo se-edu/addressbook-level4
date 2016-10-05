@@ -23,7 +23,7 @@ public class Task implements ReadOnlyTask {
         assert !CollectionUtil.isAnyNull(name, phone, email, Todo, tags);
         this.name = name;
         this.startTime = startTime;
-        this.startTime = endTime;
+        this.endTime = endTime;
     }
 
     /**
@@ -65,5 +65,10 @@ public class Task implements ReadOnlyTask {
     public String toString() {
         return getAsText();
     }
+
+	public void setTags(UniqueTagList uniqueTagList) {
+		// TODO Auto-generated method stub
+		
+	}
 
 }
