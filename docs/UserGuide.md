@@ -1,7 +1,7 @@
 # User Guide
 
 * [Description](#description)
-* [Quick Start](#starting-the-program)
+* [String the program](#starting-the-program)
 * [Features](#features)
 * [Command Summary](#command-summary)
 
@@ -31,31 +31,34 @@ Format: `help`
 
 #### Adding a task: `add_task`
 Adds a task to the todo-list.<br>
-Format: `add_task TASK_NAME p/PRIORITY s/START_TIME e/END_TIME`
+Format: `add_task TASK_NAME p/PRIORITY s/START_TIME e/END_TIME`<br>
 Example: `add_task Assignment 3 p/1 s/1400 e/1600`
 
 > Tasks will be rearranged in the Todo-List based on their priority
 
 #### Deleting a task : `delete_task`
 Delete a task with given index number.<br>
-Format: `delete_task INDEX_NUMBER`
+Format: `delete_task INDEX_NUMBER`<br>
 Example: `delete_task 1`
 
 #### Marking a completed task : `done`
 Mark a task with given index number as done.<br>
-Format: `done INDEX_NUMBER`
+Format: `done INDEX_NUMBER`<br>
 Example: `done 1`
 
 
 #### Adding an event: `add_event`
 Adds an event/deadline to the todo-list.<br>
-Format: `add_task EVENT_NAME d/DATE s/START_TIME e/END_TIME`
-Example(event): `add_event Tim`s birthday party d/25-12-2016 s/1400 e/1600`
+Format: `add_task EVENT_NAME d/DATE s/START_TIME e/END_TIME`<br>
+Example(event): `add_event Tim`s birthday party d/25-12-2016 s/1400 e/1600`<br>
 Example(deadline): `add_event Assignment 3 deadline d/25-12-2016 s/1600 e/1600`
+
+> Deadline has the same starting and ending time
+> DATE format is DD-MM-YYYY
 
 #### Deleting an event : `delete_event`
 Delete an event starting with given name.<br>
-Format: `delete_event NAME`
+Format: `delete_event NAME`<br>
 Example: `delete_event Tim`s birthday party`
 
 #### Exiting the program : `exit`
@@ -77,4 +80,5 @@ Add Event	| `add_event Tim`s birthday party d/25-12-2016 s/1400 e/1600`
 Delete Event	| `delete_event NAME`
 Help		| `help`
 Exit		| `exit`
+
 
