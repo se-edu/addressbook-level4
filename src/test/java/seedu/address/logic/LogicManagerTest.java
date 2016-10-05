@@ -392,6 +392,17 @@ public class LogicManagerTest {
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
             return new Person(name, privatePhone, email, privateAddress, tags);
         }
+        
+        Person borg() throws Exception {
+            Name name = new Name("Björn o'Borg José John-Doe Jr.");
+            Phone privatePhone = new Phone("98761234");
+            Email email = new Email("borg@jose.com");
+            Address privateAddress = new Address("12, heere at the wall");
+            Tag tag1 = new Tag("unicodeName");
+            Tag tag2 = new Tag("HyphenDotQuote");
+            UniqueTagList tags = new UniqueTagList(tag1, tag2);
+            return new Person(name, privatePhone, email, privateAddress, tags);
+        }
 
         /**
          * Generates a valid person using the given seed.
