@@ -20,7 +20,7 @@ public class Task implements ReadOnlyTask {
      * Every field must be present and not null.
      */
     public Task(Name name, StartTime startTime, EndTime endTime) {
-        assert !CollectionUtil.isAnyNull(name, phone, email, Todo, tags);
+        assert !CollectionUtil.isAnyNull(name, startTime, endTime);
         this.name = name;
         this.startTime = startTime;
         this.endTime = endTime;
@@ -56,12 +56,6 @@ public class Task implements ReadOnlyTask {
     }
 
     @Override
-    public int hashCode() {
-        // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, Todo, tags);
-    }
-
-    @Override
     public String toString() {
         return getAsText();
     }
@@ -69,6 +63,12 @@ public class Task implements ReadOnlyTask {
 	public void setTags(UniqueTagList uniqueTagList) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public Todo getTodo() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
