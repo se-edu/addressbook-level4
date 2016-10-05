@@ -1,12 +1,15 @@
 package seedu.address.logic.commands;
 
+import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.*;
+import seedu.address.model.task.UniqueTaskList.PersonNotFoundException;
 
 import java.util.HashSet;
 import java.util.Set;
+
 
 /**
  * Adds a task to the SmartyDo.
@@ -24,7 +27,7 @@ public class AddCommand extends Command {
     public static final String MESSAGE_DUPLICATE_PERSON = "This task already exists in the SmartyDo";
 
     private final Task toAdd;
-
+    
     /**
      * Convenience constructor using raw values.
      *
@@ -48,13 +51,33 @@ public class AddCommand extends Command {
     @Override
     public CommandResult execute() {
         assert model != null;
+        assert undoRedoManager != null;
+        
         try {
             model.addTask(toAdd);
+            undoRedoManager.addToUndo(this);
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (UniqueTaskList.DuplicatePersonException e) {
             return new CommandResult(MESSAGE_DUPLICATE_PERSON);
         }
 
+    }
+    
+    @Override
+    public CommandResult unexecute() {
+        int toRemove;
+        
+        toRemove = model.getToDo().getTaskList().indexOf(toAdd);
+        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredPersonList();
+        ReadOnlyTask personToDelete = lastShownList.get(toRemove);
+        
+        try {
+            model.deletePerson(personToDelete);
+        } catch (PersonNotFoundException pnfe) {
+            assert false : "The target person cannot be missing";
+        }
+        
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));        
     }
 
 }
