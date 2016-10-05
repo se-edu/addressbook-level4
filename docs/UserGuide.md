@@ -50,7 +50,7 @@ Example: `done 1`
 #### Adding an event: `add_event`
 Adds an event/deadline to the todo-list.<br>
 Format: `add_task EVENT_NAME d/DATE s/START_TIME e/END_TIME`<br>
-Example(event): `add_event Tim`s birthday party d/25-12-2016 s/1400 e/1600`<br>
+Example(event): `add_event Tim's birthday party d/25-12-2016 s/1400 e/1600`<br>
 Example(deadline): `add_event Assignment 3 deadline d/25-12-2016 s/1600 e/1600`
 
 > Deadline has the same starting and ending time
