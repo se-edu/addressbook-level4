@@ -19,9 +19,9 @@ public class XmlAdaptedTask {
     @XmlElement(required = true)
     private String name;
     @XmlElement(required = false)
-    private String openTime;
+    private DateTime openTime;
     @XmlElement(required = false)
-    private String closeTime;
+    private DateTime closeTime;
     @XmlElement(required = false)
     private boolean isImportant;
 
@@ -41,8 +41,8 @@ public class XmlAdaptedTask {
      */
     public XmlAdaptedTask(ReadOnlyTask source) {
         name = source.getName().taskName;
-        openTime = source.getOpenTime().value.toString();
-        closeTime = source.getCloseTime().value.toString();
+        openTime = source.getOpenTime();
+        closeTime = source.getCloseTime();
         isImportant = source.getImportance();
         tagged = new ArrayList<>();
         for (Tag tag : source.getTags()) {
