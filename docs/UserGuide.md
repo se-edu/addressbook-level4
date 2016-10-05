@@ -58,7 +58,7 @@ Examples:
 * `add CS2103 Project d/7 Nov t/CS2103 t/NUS Projects`
 * `add CS2103 Workshop s/Saturday 9am e/3pm`
 
-#### Listing all persons : `list`
+#### Listing all tasks : `list`
 Shows a list of all tasks in the **the application**. Able to filter by type of task (task/event/floating).  
 Format: `list [TYPE]`
 
@@ -227,8 +227,7 @@ Views the 2nd task in the the application
 Undo commands in **the application**.  
 Format: `undo [COUNT]`
 
-**edit this part for undo-ing once**
-> Undo the task repeatedly based on the specified `COUNT`. 
+> Performs undo repeatedly based on the specified `COUNT`. 
   
 Examples: 
 
@@ -238,15 +237,11 @@ Examples:
 * `undo 2`  
   Undo twice to the state of **the application**.
 
-> Words in `UPPER_CASE` are the parameters, items in `SQUARE_BRACKETS` are optional, 
-
 #### Redo tasks : `redo`
-redo commands of undo in **the application**.  
+Redo commands in **the application**.  
 Format: `redo [COUNT]`
 
-**Have to check the stack if the count of undo is more or equal than the given redo's count before redo-ing**
-**edit this part of redo-ing once**
-> redo the undo's task repeatedly based on the specified `COUNT`. 
+> Performs redos based on the specified `COUNT`. 
   
 Examples: 
 
@@ -280,7 +275,7 @@ Changes to the 2nd theme provided in the **the application**.
 Exits the program.  
 Format: `exit`  
 
-#### Saving the data (TBU)
+#### Saving of data
 The application data are saved in the hard disk automatically after any command that changes the data.  
 There is no need to save manually.
 
