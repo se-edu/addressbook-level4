@@ -1,52 +1,43 @@
 # About Us
 
-We are a team based in the [School of Computing, National University of Singapore](http://www.comp.nus.edu.sg).
+We are a team of four Computer Engineering students based in the [School of Computing, National University of Singapore](http://www.comp.nus.edu.sg). 
 
 ## Project Team
 
-#### [Damith C. Rajapakse](http://www.comp.nus.edu.sg/~damithch) <br>
-<img src="images/DamithRajapakse.jpg" width="150"><br>
-**Role**: Project Advisor
+#### [**Low Yong Cheng**](https://github.com/yongchenglow)
+**Role**: Team Leader
+Team Leader: responsible for overall project coordination.
+Documentation: ensure quality of various project documents.
 
 -----
 
-#### [Joshua Lee](http://github.com/lejolly)
-<img src="images/JoshuaLee.jpg" width="150"><br>
-Role: Developer <br>  
-Responsibilities: UI
+### [**Liu Yuheng**](https://github.com/E0003705)
+**Role**:  Group member
+Debugger: responsible for checking for bugs in all codes.
+Tools expert: advance knowledge on tools used and helps with tools related problems.
 
 -----
 
-#### [Leow Yijin](http://github.com/yijinl) 
-<img src="images/LeowYijin.jpg" width="150"><br>
-Role: Developer <br>  
-Responsibilities: Data
+### [**Marcus Yatim**](https://github.com/a0124453)
+**Role**: Group member 
+Integration: integrate various parts of the software to create a whole.
+Scheduling: in charge of assigning and tracking project tasks.
 
 -----
 
-#### [Martin Choo](http://github.com/m133225)
-<img src="images/MartinChoo.jpg" width="150"><br>
-Role: Developer <br>  
-Responsibilities: Dev Ops
+### [**Raphael Quek**](https://github.com/raphaelquek)
+**Role**: Group member
+Testing: ensures the testing of the project is done properly and on time.
+Code quality: looks after the code quality, ensures adherence to code standards.
 
 -----
 
-#### [Thien Nguyen](https://github.com/ndt93)
- Role: Developer <br>  
- Responsibilities: Threading
+#Project Mentor
+#### [**Sam Yong**](https://github.com/mauris)
+ <img src="images/SamYong.jpg" width="150"><br>
  
- -----
+------
 
-#### [You Liang](http://github.com/yl-coder) 
-<img src="images/YouLiang.jpg" width="150"><br>
- Role: Developer <br>  
- Responsibilities: UI
- 
- -----
-
-# Contributors
+## Contribute
 
 We welcome contributions. See [Contact Us](ContactUs.md) page for more info.
-
-* [Akshay Narayan](https://github.com/se-edu/addressbook-level4/pulls?q=is%3Apr+author%3Aokkhoy)
-* [Sam Yong](https://github.com/se-edu/addressbook-level4/pulls?q=is%3Apr+author%3Amauris)
