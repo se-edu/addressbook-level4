@@ -59,15 +59,19 @@ Examples:
 * `add CS2103 Workshop s/Saturday 9am e/3pm`
 
 #### Listing all tasks : `list`
-Shows a list of all tasks in the **the application**. Able to filter by type of task (task/event/floating).  
+Shows a list of all tasks in the **the application**. Able to filter by type of task (task/event), or based on completed or not.  
 Format: `list [TYPE]`
 
-> Valid task types: `events`, `tasks`, `floating`
+> Valid parameters: 
+> * `events` / `event` (has start/end date)
+> * `tasks` / `task` (has optional deadline)
+> * `complete` / `completed`
+> * `incomplete`
 
 Examples:
 
 * `list`  
-  Lists all tasks, floating tasks and events.
+  Lists all tasks and events.
 * `list events`  
   Lists all events.
 
@@ -280,13 +284,12 @@ The application data are saved in the hard disk automatically after any command 
 There is no need to save manually.
 
 #### Changing the save location (TBU)
-The application data are saved in a file called `addressbook.txt` in the project root folder.
+The application data are saved in a file called `addressbook.json` in the project root folder.
 You can change the location by specifying the file path as a program argument.<br>
 
-> The file name must end in `.txt` for it to be acceptable to the program.
+> The file name must end in `.json` for it to be acceptable to the program.
 >
-> When running the program inside Eclipse, you can 
-  [set command line parameters before running the program](http://stackoverflow.com/questions/7574543/how-to-pass-console-arguments-to-application-in-eclipse).
+> When running the program inside Eclipse, you can [set command line parameters before running the program](http://stackoverflow.com/questions/7574543/how-to-pass-console-arguments-to-application-in-eclipse).
 
 ## FAQ
 
