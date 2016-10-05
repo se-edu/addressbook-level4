@@ -23,6 +23,7 @@ allprojects {
         mavenCentral()
         maven { url "https://repo.eclipse.org/content/repositories/egit-releases/" }
         maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+        maven { url "https://mvnrepository.com/artifact/joda-time/joda-time"}
     }
 
     // This part is similar to global variables
@@ -48,6 +49,7 @@ allprojects {
     }
 
     dependencies {
+        compile 'joda-time:joda-time:2.9.4'
         compile "org.controlsfx:controlsfx:$controlsFxVersion"
         compile "com.fasterxml.jackson.core:jackson-databind:$jacksonVersion"
         compile "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:$jacksonDataTypeVersion"

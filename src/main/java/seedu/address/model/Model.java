@@ -1,9 +1,10 @@
 package seedu.address.model;
 
 import seedu.address.commons.core.UnmodifiableObservableList;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.ReadOnlyPerson;
-import seedu.address.model.person.UniquePersonList;
+
+import seedu.address.model.task.Task;
+import seedu.address.model.task.ReadOnlyTask;
+import seedu.address.model.task.UniqueTaskList;
 
 import java.util.Set;
 
@@ -14,22 +15,22 @@ public interface Model {
     /** Clears existing backing model and replaces with the provided new data. */
     void resetData(ReadOnlyAddressBook newData);
 
-    /** Returns the AddressBook */
+    /** Returns the Task List */
     ReadOnlyAddressBook getAddressBook();
 
-    /** Deletes the given person. */
-    void deletePerson(ReadOnlyPerson target) throws UniquePersonList.PersonNotFoundException;
+    /** Deletes the given task. */
+    void deleteTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
 
-    /** Adds the given person */
-    void addPerson(Person person) throws UniquePersonList.DuplicatePersonException;
+    /** Adds the given task */
+    void addTask(Task task) throws UniqueTaskList.DuplicateTaskException;
 
-    /** Returns the filtered person list as an {@code UnmodifiableObservableList<ReadOnlyPerson>} */
-    UnmodifiableObservableList<ReadOnlyPerson> getFilteredPersonList();
+    /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
+    UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
 
-    /** Updates the filter of the filtered person list to show all persons */
+    /** Updates the filter of the filtered task list to show all tasks */
     void updateFilteredListToShowAll();
 
-    /** Updates the filter of the filtered person list to filter by the given keywords*/
-    void updateFilteredPersonList(Set<String> keywords);
+    /** Updates the filter of the filtered task list to filter by the given keywords*/
+    void updateFilteredTaskList(Set<String> keywords);
 
 }
