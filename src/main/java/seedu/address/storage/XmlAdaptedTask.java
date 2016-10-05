@@ -18,12 +18,12 @@ public class XmlAdaptedTask {
 
     @XmlElement(required = true)
     private String name;
-    @XmlElement(required = false)
-    private DateTime openTime;
-    @XmlElement(required = false)
-    private DateTime closeTime;
-    @XmlElement(required = false)
-    private boolean isImportant;
+//    @XmlElement(required = false)
+//    private DateTime openTime;
+//    @XmlElement(required = false)
+//    private DateTime closeTime;
+//    @XmlElement(required = false)
+//    private boolean isImportant;
 
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
@@ -41,9 +41,9 @@ public class XmlAdaptedTask {
      */
     public XmlAdaptedTask(ReadOnlyTask source) {
         name = source.getName().taskName;
-        openTime = source.getOpenTime();
-        closeTime = source.getCloseTime();
-        isImportant = source.getImportance();
+//        openTime = source.getOpenTime();
+//        closeTime = source.getCloseTime();
+//        isImportant = source.getImportance();
         tagged = new ArrayList<>();
         for (Tag tag : source.getTags()) {
             tagged.add(new XmlAdaptedTag(tag));
@@ -61,10 +61,10 @@ public class XmlAdaptedTask {
             taskTags.add(tag.toModelType());
         }
         final Name name = new Name(this.name);
-        final DateTime openTime = new DateTime(this.openTime);
-        final DateTime closeTime = new DateTime(this.closeTime);
-        final boolean isImportant = this.isImportant;
+//        final DateTime openTime = new DateTime(this.openTime);
+//        final DateTime closeTime = new DateTime(this.closeTime);
+//        final boolean isImportant = this.isImportant;
         final UniqueTagList tags = new UniqueTagList(taskTags);
-        return new Task(name, openTime, closeTime, isImportant, tags);
+        return new Task(name, tags); //(name, openTime, closeTime, isImportant, tags)
     }
 }

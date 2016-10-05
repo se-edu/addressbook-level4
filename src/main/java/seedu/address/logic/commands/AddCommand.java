@@ -16,10 +16,10 @@ public class AddCommand extends Command {
     public static final String COMMAND_WORD = "add";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the address book. "
-            + "Parameters: NAME o/OPENTIME c/CLOSETIME i/IMPORTANCE  [t/TAG]...\n"
+            + "Parameters: NAME [t/TAG]...\n"
             + "Example: " + COMMAND_WORD
-            + " Finish 2103";
-
+            + " Finish CS2103";
+    //TODO: o/OPENTIME c/CLOSETIME i/IMPORTANCE  
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the address book";
 
@@ -30,7 +30,7 @@ public class AddCommand extends Command {
      *
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public AddCommand(String name, String openTime, String closeTime, String importance, Set<String> tags)
+    public AddCommand(String name, Set<String> tags) //String openTime, String closeTime, String importance, )
             throws IllegalValueException {
         final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tags) {
@@ -38,9 +38,9 @@ public class AddCommand extends Command {
         }
         this.toAdd = new Task(
                 new Name(name),
-                new DateTime(openTime),
-                new DateTime(closeTime),
-                new Boolean(importance),
+                //new DateTime(openTime),
+                //new DateTime(closeTime),
+                //new Boolean(importance),
                 new UniqueTagList(tagSet)
         );
     }

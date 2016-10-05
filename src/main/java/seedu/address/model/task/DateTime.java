@@ -1,13 +1,14 @@
+/**
 package seedu.address.model.task;
-
 import java.time.LocalDateTime;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-
+**/
 /**
  * Represents a Date and Time in the task list
  * Guarantees: immutable; is valid as declared in {@link #isValidDateTime(String)}
  */
+/**
 public class DateTime {
 
     public static final String MESSAGE_DATETIME_CONSTRAINTS = "Person date numbers should only contain numbers";
@@ -21,6 +22,7 @@ public class DateTime {
      *
      * @throws IllegalValueException if given phone string is invalid.
      */
+    /**
     public DateTime(String dateTime) throws IllegalValueException {
         assert dateTime != null;
         dateTime = dateTime.trim();
@@ -34,6 +36,7 @@ public class DateTime {
     /**
      * Returns true if a given string is a valid datetime in required format
      */
+    /**
     public static boolean isValidDateTime(String test) {
         return test.matches(DATETIME_VALIDATION_REGEX);
     }
@@ -56,3 +59,4 @@ public class DateTime {
     }
 
 }
+**/
