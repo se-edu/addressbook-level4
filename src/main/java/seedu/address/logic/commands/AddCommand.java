@@ -20,8 +20,8 @@ public class AddCommand extends Command {
             + "Example: " + COMMAND_WORD
             + " Finish 2103";
 
-    public static final String MESSAGE_SUCCESS = "New person added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";
+    public static final String MESSAGE_SUCCESS = "New task added: %1$s";
+    public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the address book";
 
     private final Task toAdd;
 
@@ -52,7 +52,7 @@ public class AddCommand extends Command {
             model.addTask(toAdd);
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (UniqueTaskList.DuplicateTaskException e) {
-            return new CommandResult(MESSAGE_DUPLICATE_PERSON);
+            return new CommandResult(MESSAGE_DUPLICATE_TASK);
         }
 
     }
