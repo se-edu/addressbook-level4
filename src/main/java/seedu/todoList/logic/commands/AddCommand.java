@@ -30,28 +30,45 @@ public class AddCommand extends Command {
     public static final String MESSAGE_DUPLICATE_EVENT = "This event already exists in the Todo list";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the Todo list";
 
-    private final Task toAdd;
-
+    private Task toAddTask;
+    private Task toAddEvent;
+    private int indicator = 0;
     /**
      * Convenience constructor using raw values.
      *
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public AddCommand(String name, String startTime, String endTime)
-            throws IllegalValueException {
-        this.toAdd = new Task(
-                new Name(name),
-                new StartTime(startTime),
-                new EndTime(endTime)
-        );
+    public AddCommand(String name, String startTime, String endTime) throws IllegalValueException {
+        if(endTime.isEmpty()){
+            endTime = "-";
+            this.toAddTask = new Task(
+                    new Name(name),
+                    new StartTime(startTime),
+                    new EndTime(endTime)
+            );
+            indicator = 1;
+        }else{
+            this.toAddEvent = new Task(
+                    new Name(name),
+                    new StartTime(startTime),
+                    new EndTime(endTime)
+            );
+            indicator = 2;
+        }
     }
 
     @Override
     public CommandResult execute() {
         assert model != null;
         try {
-            model.addTask(toAdd);
-            return new CommandResult(String.format(MESSAGE_TASK_SUCCESS, toAdd));
+            //Add event if indicator is 2, else add task as usual
+            if(indicator == 2){
+                model.addTask(toAddEvent);
+                return new CommandResult(String.format(MESSAGE_TASK_SUCCESS, toAddEvent));
+            }else{
+                model.addTask(toAddTask);
+                return new CommandResult(String.format(MESSAGE_EVENT_SUCCESS, toAddTask));
+            }
         } catch (UniqueTaskList.DuplicatetaskException e) {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
         }
