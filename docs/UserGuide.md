@@ -76,7 +76,7 @@ Command | Format
 Add Task	| `add_task TASK_NAME p/PRIORITY s/START_TIME e/END_TIME`
 Delete Task	| `delete_task INDEX_NUMBER`
 Done Task	| `done INDEX_NUMBER`
-Add Event	| `add_event Tim`s birthday party d/25-12-2016 s/1400 e/1600`
+Add Event	| `add_event Tim's birthday party d/25-12-2016 s/1400 e/1600`
 Delete Event	| `delete_event NAME`
 Help		| `help`
 Exit		| `exit`

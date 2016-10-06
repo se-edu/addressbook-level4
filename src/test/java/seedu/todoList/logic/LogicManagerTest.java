@@ -406,11 +406,10 @@ public class LogicManagerTest {
          */
         Task generatetask(int seed) throws Exception {
             return new Task(
-                    new Name("task " + seed),
+                    new Name("Task " + seed),
                     new Phone("" + Math.abs(seed)),
                     new Email(seed + "@email"),
-                    new Todo("House of " + seed),
-                    new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
+                    new Todo("House of " + seed)
             );
         }
 

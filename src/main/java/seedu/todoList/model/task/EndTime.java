@@ -1,9 +1,11 @@
 package seedu.todoList.model.task;
 
 public class EndTime {
+	
+	public String value;
 
 	public EndTime(String endTime) {
-		// TODO Auto-generated constructor stub
+		value = "16:00";
 	}
 
 }
