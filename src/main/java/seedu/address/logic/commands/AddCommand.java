@@ -14,7 +14,7 @@ import java.util.Set;
 /**
  * Adds a task to the SmartyDo.
  */
-public class AddCommand extends Command {
+public class AddCommand extends Command implements Undoable {
 
     public static final String COMMAND_WORD = "add";
 
@@ -24,10 +24,11 @@ public class AddCommand extends Command {
             + " John Doe t/9876 d/johnd's description a/311, Clementi Ave 2, #02-25 t/friends t/owesMoney";
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This task already exists in the SmartyDo";
+    public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the SmartyDo";
 
     private final Task toAdd;
-    
+    private boolean isExecutedBefore;
+
     /**
      * Convenience constructor using raw values.
      *
@@ -46,38 +47,49 @@ public class AddCommand extends Command {
                 new Address(address),
                 new UniqueTagList(tagSet)
         );
+        isExecutedBefore = false;
     }
 
     @Override
     public CommandResult execute() {
         assert model != null;
         assert undoRedoManager != null;
-        
+
         try {
             model.addTask(toAdd);
-            undoRedoManager.addToUndo(this);
+            isExecutedBefore = pushCmdToUndo(isExecutedBefore);
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (UniqueTaskList.DuplicatePersonException e) {
-            return new CommandResult(MESSAGE_DUPLICATE_PERSON);
+            return new CommandResult(MESSAGE_DUPLICATE_TASK);
         }
 
     }
-    
+
     @Override
     public CommandResult unexecute() {
         int toRemove;
-        
+
+        assert model != null;
+        assert undoRedoManager != null;
+
         toRemove = model.getToDo().getTaskList().indexOf(toAdd);
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredPersonList();
         ReadOnlyTask personToDelete = lastShownList.get(toRemove);
-        
+
         try {
             model.deletePerson(personToDelete);
         } catch (PersonNotFoundException pnfe) {
-            assert false : "The target person cannot be missing";
+            assert false : "The target task cannot be missing";
         }
-        
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));        
+
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 
+	@Override
+	public boolean pushCmdToUndo(boolean isExecuted) {
+        if (!isExecuted){
+        	undoRedoManager.addToUndo(this);
+        }
+		return true;
+	}
 }

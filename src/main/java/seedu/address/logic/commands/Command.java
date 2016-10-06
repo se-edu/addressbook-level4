@@ -46,11 +46,4 @@ public abstract class Command {
     protected void indicateAttemptToExecuteIncorrectCommand() {
         EventsCenter.getInstance().post(new IncorrectCommandAttemptedEvent(this));
     }
-    
-    /**
-     * Execute the command and returns the result message.
-     * Intended for non-undoable commands to do nothing
-     * @return feedback message of the operation result for display
-     */
-    public abstract CommandResult unexecute();
 }

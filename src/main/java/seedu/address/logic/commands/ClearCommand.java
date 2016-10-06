@@ -20,12 +20,4 @@ public class ClearCommand extends Command {
         undoRedoManager.resetData();
         return new CommandResult(MESSAGE_SUCCESS);
     }
-
-    /**
-     *  non-undoable command, will not be executed 
-     */
-    @Override
-    public CommandResult unexecute() {
-        return null;
-    }
 }

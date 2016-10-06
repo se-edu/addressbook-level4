@@ -17,13 +17,5 @@ public class IncorrectCommand extends Command {
         indicateAttemptToExecuteIncorrectCommand();
         return new CommandResult(feedbackToUser);
     }
-    
-    /**
-     *  non-undoable command, will not be executed 
-     */
-    @Override
-    public CommandResult unexecute() {
-        return null;
-    }
 }
 

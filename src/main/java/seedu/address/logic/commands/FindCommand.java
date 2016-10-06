@@ -26,12 +26,4 @@ public class FindCommand extends Command {
         model.updateFilteredPersonList(keywords);
         return new CommandResult(getMessageForPersonListShownSummary(model.getFilteredPersonList().size()));
     }
-    
-    /**
-     *  non-undoable command, will not be executed 
-     */
-    @Override
-    public CommandResult unexecute() {
-        return null;
-    }
 }
