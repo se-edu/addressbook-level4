@@ -9,7 +9,7 @@
 * [Appendix B: Use Cases](#appendix-b--use-cases)
 * [Appendix C: Non Functional Requirements](#appendix-c--non-functional-requirements)
 * [Appendix D: Glossary](#appendix-d--glossary)
-* [Appendix E : Product Survey](#appendix-e-product-survey)
+* [Appendix E: Product Survey](#appendix-e-product-survey)
 
 
 ## Setting up
@@ -269,44 +269,291 @@ b. Require developers to download those libraries manually (this creates extra w
 
 Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (unlikely to have) - `*`
 
-
 Priority | As a ... | I want to ... | So that I can...
 -------- | :-------- | :--------- | :-----------
 `* * *` | new user | see usage instructions | refer to instructions when I forget how to use the App
-`* * *` | user | add a new person |
-`* * *` | user | delete a person | remove entries that I no longer need
-`* * *` | user | find a person by name | locate details of persons without having to go through the entire list
-`* *` | user | hide [private contact details](#private-contact-detail) by default | minimize chance of someone else seeing them by accident
-`*` | user with many persons in the address book | sort persons by name | locate a person easily
-
-{More to be added}
+`* * *` | user | add a new task |
+`* * *` | user | delete a task | remove tasks that I no longer need
+`* * *` | user | edit a task | edit task that I enter wrongly
+`* * *` | user | list all tasks | list all the tasks that are created
+`* * *` | user | find a task by name or tag | locate details of the tasks without having to go through the entire list
+`* * *` | user | complete a task | complete the task and stored in the completed list in the application
+`* * *` | user | undo | undo the previous command
+`* * *` | user | exit | save and quit the application
+`* * *` | advanced user | add alias to command | enter the command quickly
+`* * ` | user | view a task | view the complete details of the task
+`* * ` | user | remove a tag | remove a tag on an exisiting task
+`* * ` | user | uncomplete a task | uncomplete the task that was previously completed
+`* * ` | user | redo | redo a undo command
+`* * ` | user | remove alias | remove alias that is tagged to the command
+`*` | user with many tasks in the application | sort task by name/start date/end date/deadline | locate a task easily
+`*` | user | change theme of the application | change to the user's favourite theme
 
 ## Appendix B : Use Cases
 
-(For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is the `Application` and the **Actor** is the `user`, unless specified otherwise)
 
-#### Use case: Delete person
+#### Use case: Usage Instructions
+**MSS**
+
+1. User want to view all the available commands in the application.
+2. Application show a list of available commands and instructions for all commands.
+    Use Case ends
+
+#### Use case : Add task
 
 **MSS**
 
-1. User requests to list persons
-2. AddressBook shows a list of persons
-3. User requests to delete a specific person in the list
-4. AddressBook deletes the person <br>
+1. User request to add new tasks with its details.
+2. Application add the task with specified details.  
+3. Application display successful message.
+Use case ends.  
+
+**Extensions**  
+1a. User specify with start date and end date.
+
+> 1a1. User specify invalid date format.
+  Application shows an error message.
+  Use case ends.
+  
+1b. User specify with deadline.  
+
+> 1b1. User specify invalid date deadline format.
+   Application shows an error message.
+   Use case ends.
+
+#### Use case : Find tasks with specific keyword
+
+**MSS**
+
+1. User request to find task with specific keyword.
+2. Application show the list of task that its names & tag contain the keyword.
+Use case ends.  
+
+**Extensions**  
+2a. The list is empty.
+
+> 2a1. Application show an error message.
+   Use case ends.
+
+#### Use case : List all task
+
+**MSS**
+
+1. User request to list all the tasks.
+2. Application show the list of task with respective details.  
+Use case ends.  
+
+**Extensions**  
+2a. The list is empty.
+
+> 2a1. Application show error message.
+   Use case ends.
+   
+#### Use case: Delete task
+
+**MSS**
+
+1. User requests a list of tasks or find task with keyword.
+2. Application shows a list of tasks.
+3. User requests to delete a specific task in the list.
+4. Application request confirmation from the user.
+5. User confirm the confirmation.
+4. Application deletes the task. <br>
+Use case ends.  
+
+**Extensions**  
+
+2a. The list is empty.
+
+> Use case ends.
+
+3a. The given index is invalid.
+
+> 3a1. Application shows an error message.  
+  Use case ends.
+
+#### Use case: edit task
+
+**MSS**
+
+1. User requests a list of tasks or find task with keyword.
+2. Application shows a list of tasks.
+3. User requests to edit a specific task in the list.
+4. Application edit the task. <br>
+Use case ends.  
+
+**Extensions**  
+
+2a. The list is empty.
+
+> Use case ends.
+
+3a. The given index is invalid.
+
+> 3a1. Application shows an error message.  
+  Use case ends.
+
+#### Use case : Undo command
+
+**MSS**
+1. User request to undo command by a specific number.
+2. Application request confirmation from the user.
+3. User confirm the confirmation.
+2. Application undo the command repeatedly based on the given number.
+Use case ends.
+
+**Extensions**
+1a. The given number exceed the total number of tasks.
+> Application will show an error message.
+Use case ends.
+
+#### Use case : Redo command
+
+**MSS**
+1. User request to redo command by a specific number.
+2. Application request confirmation from the user.
+3. User confirm the confirmation.
+4. Application redo the command repeatedly based on the given number.
+Use case ends.
+
+**Extensions**
+1a. The given number exceed the total number of undo commands.
+> Application will show an error message.
+Use case ends.
+
+#### Use case: Complete task
+
+**MSS**
+
+1. User requests a list of tasks or find task with keyword.
+2. Application shows a list of tasks.
+3. User requests to complete a task.
+4. Application complete the task and remove it from the current task list and add into the completed task list.<br>
+Use case ends.  
+
+**Extensions**  
+
+2a. The list is empty.
+
+> Use case ends.
+
+3a. The given index is invalid.
+
+> 3a1. Application shows an error message.  
+  Use case ends.
+  
+#### Use case: Uncomplete task
+
+**MSS**
+
+1. User requests a list of completed tasks or find compelted task with keyword.
+2. Application shows a list of completed tasks.
+3.  User requests to uncomplete a task.
+4. Application request confirmation from the user.
+5. User confirm the confirmation.
+6. Application uncomplete the task and remove it from the completed task list and add it back to the current task list. <br>
+Use case ends.  
+
+**Extensions**  
+
+2a. The list is empty.
+
+> Use case ends.
+
+3a. The given index is invalid.
+
+> 3a1. Application shows an error message.
+  Use case ends.
+
+#### Use case: Remove tag from a task
+
+**MSS**
+
+1. User requests a list of tasks or find task with keyword.
+2. Application shows a list of tasks.
+3. User requests to remove the tag of a specific task in the list.
+4. Application request confirmation from the user.
+5. User confirm the confirmation.
+6. Application deletes the tag that is associated to the task. <br>
+Use case ends.  
+
+**Extensions**  
+
+2a. The list is empty.
+
+> Use case ends
+
+3a. The given index is invalid.
+
+> 3a1. Application shows an error message  
+  Use case ends.
+
+#### Use case: Sorting of tasks
+
+**MSS**
+
+1. User request to sort the list of tasks based on either start date, end date, deadline or alphabetical order.
+2. Application sort the tasks according to the user preference. <br>
+Use case ends.
+
+#### Use case : Alias
+
+**MSS**
+
+1. User request to set alias for specific command.
+2. Application set the Alias for the command.<br>
 Use case ends.
 
 **Extensions**
 
-2a. The list is empty
+1a. The given alias is already set.
+> 1a1. Application will show an error message.
+Use case ends.
 
-> Use case ends
+1b. The given command is invalid.
+>1b1. Application will show an error message.
+Use case ends.
 
-3a. The given index is invalid
+#### Use Case: Remove Alias
 
-> 3a1. AddressBook shows an error message <br>
-  Use case resumes at step 2
+**MSS**
 
-{More to be added}
+1. User request for a list of alias that is currently set.
+2. Application show a list of alias and its respective command.
+3. User request to remove alias from the specific command.
+4. Application remove the alias of the specific command.<br>
+Use case ends.
+
+**Extensions**
+1a. The list is empty.
+> Use case ends.
+
+3a. The given index of the alias is invalid.
+> 3a1. Application will show an error message.
+Use case ends.
+
+3b. The given command is invalid.
+> 3b1. Application will show an error message.
+Use case ends.
+
+#### Use case: Change theme of the Application
+
+**MSS**
+
+1. User requests to change the theme of the application.
+2. Application shows a list of available themes.
+3. User request the specific theme in the list.
+4. Application change the theme. <br>
+Use case ends.  
+
+**Extensions**  
+
+3a. The given index is invalid.
+
+> 3a1. Application shows an error message.  
+  Use case ends.
+
 
 ## Appendix C : Non Functional Requirements
 
@@ -314,6 +561,7 @@ Use case ends.
 2. Should be able to hold up to 1000 persons.
 3. Should come with automated unit tests and open source code.
 4. Should favor DOS style commands over Unix-style commands.
+5. User-friendly interface
 
 {More to be added}
 
@@ -323,11 +571,10 @@ Use case ends.
 
 > Windows, Linux, Unix, OS-X
 
-##### Private contact detail
+**##### Private contact detail**
 
 > A contact detail that is not meant to be shared with others
 
 ## Appendix E : Product Survey
 
-{TODO: Add a summary of competing products}
-
+**{TODO: Add a summary of competing products}**
