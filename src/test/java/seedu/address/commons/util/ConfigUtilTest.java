@@ -7,6 +7,8 @@ import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.commons.util.ConfigUtil;
+import seedu.address.commons.util.FileUtil;
 
 import java.io.File;
 import java.io.IOException;
@@ -38,10 +40,10 @@ public class ConfigUtilTest {
     }
 
     @Test
-    public void read_notJasonFormat_exceptionThrown() throws DataConversionException {
+    public void read_notJsonFormat_exceptionThrown() throws DataConversionException {
 
         thrown.expect(DataConversionException.class);
-        read("NotJasonFormatConfig.json");
+        read("NotJsonFormatConfig.json");
 
         /* IMPORTANT: Any code below an exception-throwing line (like the one above) will be ignored.
          * That means you should not have more than one exception test in one method
@@ -103,18 +105,18 @@ public class ConfigUtilTest {
         Config original = getTypicalConfig();
 
         String configFilePath = testFolder.getRoot() + File.separator + "TempConfig.json";
-        ConfigUtil configStorage = new ConfigUtil();
+        ConfigUtil configUtil = new ConfigUtil();
 
         //Try writing when the file doesn't exist
-        configStorage.saveConfig(original, configFilePath);
-        Config readBack = configStorage.readConfig(configFilePath).get();
+        configUtil.saveConfig(original, configFilePath);
+        Config readBack = configUtil.readConfig(configFilePath).get();
         assertEquals(original, readBack);
 
         //Try saving when the file exists
         original.setAppTitle("Updated Title");
         original.setLogLevel(Level.FINE);
-        configStorage.saveConfig(original, configFilePath);
-        readBack = configStorage.readConfig(configFilePath).get();
+        configUtil.saveConfig(original, configFilePath);
+        readBack = configUtil.readConfig(configFilePath).get();
         assertEquals(original, readBack);
     }
 
