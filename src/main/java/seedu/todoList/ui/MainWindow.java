@@ -22,7 +22,7 @@ import seedu.todoList.commons.core.GuiSettings;
  */
 public class MainWindow extends UiPart {
 
-    private static final String ICON = "/images/address_book_32.png";
+    private static final String ICON = "/images/Todo_book_32.png";
     private static final String FXML = "MainWindow.fxml";
     public static final int MIN_HEIGHT = 600;
     public static final int MIN_WIDTH = 450;
@@ -42,7 +42,7 @@ public class MainWindow extends UiPart {
     private VBox rootLayout;
     private Scene scene;
 
-    private String todoListName;
+    private String TodoListName;
 
     @FXML
     private AnchorPane browserPlaceholder;
@@ -84,12 +84,12 @@ public class MainWindow extends UiPart {
         return mainWindow;
     }
 
-    private void configure(String appTitle, String todoListName, Config config, UserPrefs prefs,
+    private void configure(String appTitle, String TodoListName, Config config, UserPrefs prefs,
                            Logic logic) {
 
         //Set dependencies
         this.logic = logic;
-        this.todoListName = todoListName;
+        this.TodoListName = TodoListName;
         this.config = config;
         this.userPrefs = prefs;
 
@@ -110,7 +110,7 @@ public class MainWindow extends UiPart {
 
     void fillInnerParts() {
         browserPanel = BrowserPanel.load(browserPlaceholder);
-        taskListPanel = TaskListPanel.load(primaryStage, gettaskListPlaceholder(), logic.getFilteredtaskList());
+        taskListPanel = taskListPanel.load(primaryStage, gettaskListPlaceholder(), logic.getFilteredtaskList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getTodoListFilePath());
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);

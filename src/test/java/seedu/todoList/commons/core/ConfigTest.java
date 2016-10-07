@@ -19,7 +19,7 @@ public class ConfigTest {
         String defaultConfigAsString = "App title : Todo App\n" +
                 "Current log level : INFO\n" +
                 "Preference file Location : preferences.json\n" +
-                "Local data file location : data/TodoList.xml\n" +
+                "Local data file location : data/TodoList .xml\n" +
                 "TodoList name : MyTodoList";
 
         assertEquals(defaultConfigAsString, new Config().toString());

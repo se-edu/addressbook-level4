@@ -17,9 +17,13 @@ public class TaskCard extends UiPart{
     @FXML
     private Label id;
     @FXML
-    private Label startTime;
+    private Label phone;
     @FXML
-    private Label endTime;
+    private Label Todo;
+    @FXML
+    private Label email;
+    @FXML
+    private Label tags;
 
     private ReadOnlyTask task;
     private int displayedIndex;
@@ -39,8 +43,10 @@ public class TaskCard extends UiPart{
     public void initialize() {
         name.setText(task.getName().fullName);
         id.setText(displayedIndex + ". ");
-        startTime.setText(task.getStartTime().value);
-        endTime.setText(task.getEndTime().value);
+        phone.setText(task.getPhone().value);
+        Todo.setText(task.getTodo().value);
+        email.setText(task.getEmail().value);
+        tags.setText(task.tagsString());
     }
 
     public HBox getLayout() {
