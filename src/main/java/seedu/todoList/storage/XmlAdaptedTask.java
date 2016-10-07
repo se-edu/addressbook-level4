@@ -14,7 +14,10 @@ import java.util.List;
  * JAXB-friendly version of the task.
  */
 public class XmlAdaptedTask {
-
+    
+    StartTime startTime;
+    EndTime endTime;
+    
     @XmlElement(required = true)
     private String name;
     @XmlElement(required = true)
@@ -40,13 +43,13 @@ public class XmlAdaptedTask {
      */
     public XmlAdaptedTask(ReadOnlyTask source) {
         name = source.getName().fullName;
-        phone = source.getPhone().value;
-        email = source.getEmail().value;
+        //phone = source.getPhone().value;
+        //email = source.getEmail().value;
         Todo = source.getTodo().value;
         tagged = new ArrayList<>();
-        for (Tag tag : source.getTags()) {
-            tagged.add(new XmlAdaptedTag(tag));
-        }
+//        for (Tag tag : source.getTags()) {
+//            tagged.add(new XmlAdaptedTag(tag));
+//        }
     }
 
     /**

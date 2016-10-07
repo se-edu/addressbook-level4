@@ -43,10 +43,9 @@ public class TaskCard extends UiPart{
     public void initialize() {
         name.setText(task.getName().fullName);
         id.setText(displayedIndex + ". ");
-        phone.setText(task.getPhone().value);
+        //phone.setText(task.getPhone().value);
         Todo.setText(task.getTodo().value);
-        email.setText(task.getEmail().value);
-        tags.setText(task.tagsString());
+        //email.setText(task.getEmail().value);
     }
 
     public HBox getLayout() {
