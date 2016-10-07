@@ -22,7 +22,7 @@ import seedu.todoList.commons.core.GuiSettings;
  */
 public class MainWindow extends UiPart {
 
-    private static final String ICON = "/images/Todo_book_32.png";
+    private static final String ICON = "/images/address_book_32.png";
     private static final String FXML = "MainWindow.fxml";
     public static final int MIN_HEIGHT = 600;
     public static final int MIN_WIDTH = 450;
