@@ -21,18 +21,18 @@ import java.util.logging.Logger;
 public class StorageManager extends ComponentManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
-    private TodoListStorage todoListStorage;
+    private TodoListStorage TodoListStorage;
     private UserPrefsStorage userPrefsStorage;
 
 
-    public StorageManager(TodoListStorage todoListStorage, UserPrefsStorage userPrefsStorage) {
+    public StorageManager(TodoListStorage TodoListStorage, UserPrefsStorage userPrefsStorage) {
         super();
-        this.todoListStorage = todoListStorage;
+        this.TodoListStorage = TodoListStorage;
         this.userPrefsStorage = userPrefsStorage;
     }
 
-    public StorageManager(String todoListFilePath, String userPrefsFilePath) {
-        this(new XmlTodoListStorage(todoListFilePath), new JsonUserPrefsStorage(userPrefsFilePath));
+    public StorageManager(String TodoListFilePath, String userPrefsFilePath) {
+        this(new XmlTodoListStorage(TodoListFilePath), new JsonUserPrefsStorage(userPrefsFilePath));
     }
 
     // ================ UserPrefs methods ==============================
@@ -52,29 +52,29 @@ public class StorageManager extends ComponentManager implements Storage {
 
     @Override
     public String getTodoListFilePath() {
-        return todoListStorage.getTodoListFilePath();
+        return TodoListStorage.getTodoListFilePath();
     }
 
     @Override
     public Optional<ReadOnlyTodoList> readTodoList() throws DataConversionException, IOException {
-        return readTodoList(todoListStorage.getTodoListFilePath());
+        return readTodoList(TodoListStorage.getTodoListFilePath());
     }
 
     @Override
     public Optional<ReadOnlyTodoList> readTodoList(String filePath) throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
-        return todoListStorage.readTodoList(filePath);
+        return TodoListStorage.readTodoList(filePath);
     }
 
     @Override
     public void saveTodoList(ReadOnlyTodoList TodoList) throws IOException {
-        saveTodoList(TodoList, todoListStorage.getTodoListFilePath());
+        saveTodoList(TodoList, TodoListStorage.getTodoListFilePath());
     }
 
     @Override
     public void saveTodoList(ReadOnlyTodoList TodoList, String filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        todoListStorage.saveTodoList(TodoList, filePath);
+        TodoListStorage.saveTodoList(TodoList, filePath);
     }
 
 
