@@ -5,9 +5,10 @@ import java.io.IOException;
 import java.nio.file.Files;
 
 /**
- * Writes and reads file
+ * Writes and reads files
  */
 public class FileUtil {
+
     private static final String CHARSET = "UTF-8";
 
     public static boolean isFileExists(File file) {
@@ -84,12 +85,4 @@ public class FileUtil {
         return pathWithForwardSlash.replace("/", File.separator);
     }
 
-    public static <T> void serializeObjectToJsonFile(File jsonFile, T objectToSerialize) throws IOException {
-        FileUtil.writeToFile(jsonFile, JsonUtil.toJsonString(objectToSerialize));
-    }
-
-    public static <T> T deserializeObjectFromJsonFile(File jsonFile, Class<T> classOfObjectToDeserialize)
-            throws IOException {
-        return JsonUtil.fromJsonString(FileUtil.readFromFile(jsonFile), classOfObjectToDeserialize);
-    }
 }

@@ -43,7 +43,7 @@ public class JsonUserPrefsStorageTest {
     }
 
     @Test
-    public void readUserPrefs_notJasonFormat_exceptionThrown() throws DataConversionException {
+    public void readUserPrefs_notJsonFormat_exceptionThrown() throws DataConversionException {
 
         thrown.expect(DataConversionException.class);
         readUserPrefs("NotJsonFormatUserPrefs.json");
