@@ -28,10 +28,9 @@ public class Parser {
 
     private static final Pattern task_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<name>[^/]+)"
-                    + " (?<isPhonePrivate>p?)p/(?<phone>[^/]+)"
-                    + " (?<isEmailPrivate>p?)e/(?<email>[^/]+)"
-                    + " (?<isTodoPrivate>p?)a/(?<Todo>[^/]+)"
-                    + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
+                    + " (?<isPriorityPrivate>p?)p/(?<priority>[^/]+)"
+                    + " (?<isStartTimePrivate>p?)s/(?<startTime>[^/]+)"
+                    + " (?<isEndTimePrivate>p?)e/(?<endTime>[^/]+)");
 
     public Parser() {}
 
@@ -95,6 +94,7 @@ public class Parser {
         try {
             return new AddCommand(
                     matcher.group("name"),
+                    matcher.group("priority"),
                     matcher.group("startTime"),
                     matcher.group("endTime")
             );

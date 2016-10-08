@@ -13,13 +13,14 @@ import java.util.Objects;
 public class Task implements ReadOnlyTask {
 
     private Name name;
+    private Priority priority;
     private StartTime startTime;
     private EndTime endTime;
 
     /**
      * Every field must be present and not null.
      */
-    public Task(Name name, StartTime startTime, EndTime endTime) {
+    public Task(Name name, Priority priority, StartTime startTime, EndTime endTime) {
         assert !CollectionUtil.isAnyNull(name, startTime, endTime);
         this.name = name;
         this.startTime = startTime;
@@ -30,7 +31,7 @@ public class Task implements ReadOnlyTask {
      * Copy constructor.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getName(), source.getStartTime(), source.getEndTime());
+        this(source.getName(), source.getPriority(), source.getStartTime(), source.getEndTime());
     }
 
     @Override
@@ -38,6 +39,11 @@ public class Task implements ReadOnlyTask {
         return name;
     }
 
+    @Override
+    public Priority getPriority() {
+        return priority;
+    }
+    
     @Override
     public StartTime getStartTime() {
         return startTime;

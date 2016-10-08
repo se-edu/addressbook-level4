@@ -10,6 +10,7 @@ public interface ReadOnlyTask {
 
     Name getName();
     Todo getTodo();
+    Priority getPriority();
     StartTime getStartTime();
     EndTime getEndTime();
 
@@ -33,5 +34,6 @@ public interface ReadOnlyTask {
                 .append(getTodo());
         return builder.toString();
     }
+	
 
 }
