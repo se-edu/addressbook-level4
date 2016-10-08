@@ -4,31 +4,31 @@ We are a team based in the [School of Computing, National University of Singapor
 
 ## Project Team
 
+#### [OH HAN GYEOL](https://github.com/Leook0209)
+<img src="images/han.jpg" width="150"><br>
+Role: Developer <br>
+Responsibilities: Documentation & Front-end (UI and Integration to JavaFX) wizard
+
+-----
+
 #### [CHIA WENBAO, JERICH](https://github.com/JerichChia) <br>
 <img src="images/jerich.jpg" width="150"><br>
-Role: Developer <br>  
-Responsibilities:
+Role: Developer <br>
+Responsibilities: Testing (jUnit) wizard
 
 -----
 
 #### [CHEN JUNSHENG](https://github.com/jsfr0st)
 <img src="images/junsheng.jpg" width="150"><br>
-Role: Developer <br>  
-Responsibilities:
-
------
-
-#### [OH HAN GYEOL](https://github.com/Leook0209)
-<img src="images/han.jpg" width="150"><br>
-Role: Developer <br>  
-Responsibilities:
+Role: Developer <br>
+Responsibilities: Back-end wizard
 
 -----
 
 #### [HAZMEI BIN ABDUL RAHMAN](https://github.com/hazmei)
 <img src="images/hazmei.jpg" width="150"><br>
-Role: Developer <br>  
-Responsibilities:
+Role: Developer <br>
+Responsibilities: Back-end wizard
 
 -----
 
