@@ -25,15 +25,13 @@
                         <HBox spacing="5" alignment="CENTER_LEFT">
                             <children>
                                 <HBox>
-                                    <Label fx:id="id" styleClass="cell_big_label"></Label>
-                                    <Label fx:id="name" text="\$first" styleClass="cell_big_label"/>
+                                    <Label fx:id="Todo" text="\$todo" styleClass="cell_big_label"/>
                                 </HBox>
-                                <Label fx:id="tags" styleClass="cell_small_label" text="\$tags" />
                             </children>
                         </HBox>
-                        <Label fx:id="phone" styleClass="cell_small_label" text="\$phone" />
-                        <Label fx:id="address" styleClass="cell_small_label" text="\$address" />
-                        <Label fx:id="email" styleClass="cell_small_label" text="\$email" />
+                        <Label fx:id="Priority" styleClass="cell_small_label" text="\$priority" />
+                        <Label fx:id="StartTime" styleClass="cell_small_label" text="\$startTime" />
+                        <Label fx:id="EndTime" styleClass="cell_small_label" text="\$endTime" />
                     </children>
                 </VBox>
             </children>

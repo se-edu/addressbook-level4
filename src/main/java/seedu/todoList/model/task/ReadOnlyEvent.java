@@ -6,36 +6,31 @@ import seedu.todoList.model.tag.UniqueTagList;
  * A read-only immutable interface for a task in the TodoList .
  * Implementations should guarantee: details are present and not null, field values are validated.
  */
-public interface ReadOnlyTask {
+public interface ReadOnlyEvent {
 
     Todo getTodo();
-    Priority getPriority();
+    Date getDate();
     StartTime getStartTime();
     EndTime getEndTime();
 
     /**
      * Returns true if both have the same state. (interfaces cannot override .equals)
      */
-    default boolean isSameStateAs(ReadOnlyTask other) {
+    default boolean isSameStateAs(ReadOnlyEvent other) {
         return other == this // short circuit if same object
                 || (other != null // this is first to avoid NPE below
-                && other.getTodo().equals(this.getTodo())  // state checks here onwards
-                && other.getPriority().equals(this.getPriority())
-                && other.getStartTime().equals(this.getStartTime())
-                && other.getEndTime().equals(this.getEndTime()));
+                && other.getTodo().equals(this.getTodo())); // state checks here onwards
     }
 
     /**
      * Formats the task as text, showing all contact details.
      */
-    default String getAsText_Task() {
+    default String getAsText_Event() {
         final StringBuilder builder = new StringBuilder();
         builder.append(" Todo: ")
-                .append(getTodo())
-                .append(getPriority())
-                .append(getStartTime())
-                .append(getEndTime());
+                .append(getTodo());
         return builder.toString();
     }
-	
+    
+
 }

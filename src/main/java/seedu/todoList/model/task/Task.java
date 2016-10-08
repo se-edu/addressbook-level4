@@ -10,19 +10,21 @@ import java.util.Objects;
  * Represents a task in the TodoList.
  * Guarantees: details are present and not null, field values are validated.
  */
-public class Task implements ReadOnlyTask {
+public class Task implements ReadOnlyTask,ReadOnlyEvent {
 
-    private Name name;
+    private Todo todo;
     private Priority priority;
+    private Date date;
     private StartTime startTime;
     private EndTime endTime;
 
     /**
      * Every field must be present and not null.
      */
-    public Task(Name name, Priority priority, StartTime startTime, EndTime endTime) {
-        assert !CollectionUtil.isAnyNull(name, startTime, endTime);
-        this.name = name;
+    public Task(Todo todo, Priority priority, StartTime startTime, EndTime endTime) {
+        assert !CollectionUtil.isAnyNull(todo, startTime, endTime);
+        this.todo = todo;
+        this.priority = priority;
         this.startTime = startTime;
         this.endTime = endTime;
     }
@@ -31,17 +33,22 @@ public class Task implements ReadOnlyTask {
      * Copy constructor.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getName(), source.getPriority(), source.getStartTime(), source.getEndTime());
+        this(source.getTodo(), source.getPriority(), source.getStartTime(), source.getEndTime());
     }
 
     @Override
-    public Name getName() {
-        return name;
+    public Todo getTodo() {
+        return todo;
     }
 
     @Override
     public Priority getPriority() {
         return priority;
+    }
+    
+    @Override
+    public Date getDate() {
+        return date;
     }
     
     @Override
@@ -54,27 +61,25 @@ public class Task implements ReadOnlyTask {
         return endTime;
     }
 
-    @Override
-    public boolean equals(Object other) {
+
+    public boolean equals_Task(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof ReadOnlyTask // instanceof handles nulls
                 && this.isSameStateAs((ReadOnlyTask) other));
     }
-
-    @Override
-    public String toString() {
-        return getAsText();
+    
+    public boolean equals_Event(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof ReadOnlyEvent // instanceof handles nulls
+                && this.isSameStateAs((ReadOnlyEvent) other));
     }
 
-	public void setTags(UniqueTagList uniqueTagList) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public Todo getTodo() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    public String toString_Task() {
+        return getAsText_Task();
+    }
+    
+    public String toString_Event() {
+        return getAsText_Event();
+    }
 
 }
