@@ -1,7 +1,7 @@
 [![Build Status](https://travis-ci.org/se-edu/addressbook-level4.svg?branch=master)](https://travis-ci.org/se-edu/addressbook-level4)
 [![Coverage Status](https://coveralls.io/repos/github/se-edu/addressbook-level4/badge.svg?branch=master)](https://coveralls.io/github/se-edu/addressbook-level4?branch=master)
 
-# Address Book (Level 4)
+# Tdoo
 
 <img src="docs/images/Ui.png" width="600"><br>
 
@@ -27,7 +27,7 @@
 
 #### Acknowledgements
 
-* Some parts of this sample application were inspired by the excellent 
+* Some parts of this sample application were inspired by the excellent
   [Java FX tutorial](http://code.makery.ch/library/javafx-8-tutorial/) by *Marco Jakob*.
 * The sample project created by SE-EDU initiative at https://github.com/se-edu/
 
