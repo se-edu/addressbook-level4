@@ -79,7 +79,7 @@ public class StatusBarFooter extends UiPart {
     public void setNode(Node node) {
         mainPane = (GridPane) node;
     }
-
+    
     @Override
     public void setPlaceholder(AnchorPane placeholder) {
         this.placeHolder = placeholder;

@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
 <?import java.net.URL?>
-<HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<HBox id="cardPane" fx:id="cardPane" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
     <children>
-        <GridPane HBox.hgrow="ALWAYS" >
+        <GridPane HBox.hgrow="ALWAYS">
             <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="150.0" />
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="10.0" prefWidth="100.0" />
@@ -22,21 +27,23 @@
                     </padding>
 
                     <children>
-                        <HBox spacing="5" alignment="CENTER_LEFT">
+                        <HBox alignment="CENTER_LEFT" spacing="5">
                             <children>
                                 <HBox>
-                                    <Label fx:id="id" styleClass="cell_big_label"></Label>
-                                    <Label fx:id="name" text="\$first" styleClass="cell_big_label"/>
+                                    <Label fx:id="id" styleClass="cell_big_label" />
+                                    <Label fx:id="name" styleClass="cell_big_label" text="\$first" />
                                 </HBox>
-                                <Label fx:id="tags" styleClass="cell_small_label" text="\$tags" />
                             </children>
                         </HBox>
-                        <Label fx:id="phone" styleClass="cell_small_label" text="\$phone" />
-                        <Label fx:id="address" styleClass="cell_small_label" text="\$address" />
-                        <Label fx:id="email" styleClass="cell_small_label" text="\$email" />
+                        <Label fx:id="priority" styleClass="cell_small_label" text="\\$priority" />
+                        <Label fx:id="startTime" styleClass="cell_small_label" text="\$startTime" />
+                        <Label fx:id="endTime" styleClass="cell_small_label" text="\$endTime" />
                     </children>
                 </VBox>
             </children>
+         <rowConstraints>
+            <RowConstraints />
+         </rowConstraints>
         </GridPane>
     </children>
 </HBox>

@@ -14,8 +14,8 @@ public class Config {
     private String appTitle = "Todo App";
     private Level logLevel = Level.INFO;
     private String userPrefsFilePath = "preferences.json";
-    private String TodoListFilePath = "data/TodoList .xml";
-    private String TodoListName = "MyTodoList";
+    private String todoListFilePath = "data/TodoList.xml";
+    private String todoListName = "MyTodoList";
 
 
     public Config() {
@@ -46,19 +46,19 @@ public class Config {
     }
 
     public String getTodoListFilePath() {
-        return TodoListFilePath;
+        return todoListFilePath;
     }
 
     public void setTodoListFilePath(String TodoListFilePath) {
-        this.TodoListFilePath = TodoListFilePath;
+        this.todoListFilePath = TodoListFilePath;
     }
 
     public String getTodoListName() {
-        return TodoListName;
+        return todoListName;
     }
 
     public void setTodoListName(String TodoListName) {
-        this.TodoListName = TodoListName;
+        this.todoListName = TodoListName;
     }
 
 
@@ -76,13 +76,13 @@ public class Config {
         return Objects.equals(appTitle, o.appTitle)
                 && Objects.equals(logLevel, o.logLevel)
                 && Objects.equals(userPrefsFilePath, o.userPrefsFilePath)
-                && Objects.equals(TodoListFilePath, o.TodoListFilePath)
-                && Objects.equals(TodoListName, o.TodoListName);
+                && Objects.equals(todoListFilePath, o.todoListFilePath)
+                && Objects.equals(todoListName, o.todoListName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(appTitle, logLevel, userPrefsFilePath, TodoListFilePath, TodoListName);
+        return Objects.hash(appTitle, logLevel, userPrefsFilePath, todoListFilePath, todoListName);
     }
 
     @Override
@@ -91,8 +91,8 @@ public class Config {
         sb.append("App title : " + appTitle);
         sb.append("\nCurrent log level : " + logLevel);
         sb.append("\nPreference file Location : " + userPrefsFilePath);
-        sb.append("\nLocal data file location : " + TodoListFilePath);
-        sb.append("\nTodoList name : " + TodoListName);
+        sb.append("\nLocal data file location : " + todoListFilePath);
+        sb.append("\nTodoList name : " + todoListName);
         return sb.toString();
     }
 

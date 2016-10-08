@@ -22,7 +22,7 @@ import seedu.todoList.commons.core.GuiSettings;
  */
 public class MainWindow extends UiPart {
 
-    private static final String ICON = "/images/address_book_32.png";
+    private static final String ICON = "/images/Tdoo_icon.png";
     private static final String FXML = "MainWindow.fxml";
     public static final int MIN_HEIGHT = 600;
     public static final int MIN_WIDTH = 450;
@@ -42,7 +42,7 @@ public class MainWindow extends UiPart {
     private VBox rootLayout;
     private Scene scene;
 
-    private String TodoListName;
+    private String todoListName;
 
     @FXML
     private AnchorPane browserPlaceholder;
@@ -89,7 +89,7 @@ public class MainWindow extends UiPart {
 
         //Set dependencies
         this.logic = logic;
-        this.TodoListName = TodoListName;
+        this.todoListName = TodoListName;
         this.config = config;
         this.userPrefs = prefs;
 
@@ -110,7 +110,7 @@ public class MainWindow extends UiPart {
 
     void fillInnerParts() {
         browserPanel = BrowserPanel.load(browserPlaceholder);
-        taskListPanel = taskListPanel.load(primaryStage, gettaskListPlaceholder(), logic.getFilteredtaskList());
+        taskListPanel = TaskListPanel.load(primaryStage, gettaskListPlaceholder(), logic.getFilteredtaskList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getTodoListFilePath());
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
