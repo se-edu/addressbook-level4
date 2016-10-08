@@ -14,17 +14,21 @@ import seedu.todoList.model.task.*;
 public class AddCommand extends Command {
 
     public static final String COMMAND_WORD = "add";
-
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a person to the address book. "
+            + "Parameters: NAME p/PHONE e/EMAIL a/ADDRESS  [t/TAG]...\n"
+            + "Example: " + COMMAND_WORD
+            + " John Doe p/98765432 e/johnd@gmail.com a/311, Clementi Ave 2, #02-25 t/friends t/owesMoney";
     public static final String MESSAGE_ADD_EVENT = COMMAND_WORD + ": Adds an event to the TodoList. "
             + "Parameters: EVENT_NAME d/DATE e/START_TIME e/END_TIME \n"
             + "Example: " + COMMAND_WORD
-            + " Tim’s birthday party d/25-12-2016 s/1400 e/1600";
+            + " Timï¿½s birthday party d/25-12-2016 s/1400 e/1600";
     
     public static final String MESSAGE_ADD_TASK = COMMAND_WORD + ": Adds a task to the TodoList. "
             + "Parameters: EVENT_NAME d/DATE \n"
             + "Example: " + COMMAND_WORD
-            + " Tim’s birthday party d/25-12-2016";
+            + " Timï¿½s birthday party d/25-12-2016";
 
+    
     public static final String MESSAGE_EVENT_SUCCESS = "New event added: %1$s";
     public static final String MESSAGE_TASK_SUCCESS = "New task added: %1$s";
     public static final String MESSAGE_DUPLICATE_EVENT = "This event already exists in the Todo list";
