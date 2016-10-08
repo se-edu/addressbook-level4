@@ -15,15 +15,12 @@ import java.util.List;
  */
 public class XmlAdaptedTask {
     
+	Priority priority;
     StartTime startTime;
     EndTime endTime;
     
     @XmlElement(required = true)
     private String name;
-    @XmlElement(required = true)
-    private String phone;
-    @XmlElement(required = true)
-    private String email;
     @XmlElement(required = true)
     private String Todo;
 
@@ -63,10 +60,8 @@ public class XmlAdaptedTask {
             taskTags.add(tag.toModelType());
         }
         final Name name = new Name(this.name);
-        final Phone phone = new Phone(this.phone);
-        final Email email = new Email(this.email);
         final Todo Todo = new Todo(this.Todo);
         final UniqueTagList tags = new UniqueTagList(taskTags);
-        return new Task(name, startTime, endTime);
+        return new Task(name, priority, startTime, endTime);
     }
 }
