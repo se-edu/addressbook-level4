@@ -28,12 +28,17 @@ public interface ReadOnlyTask {
     /**
      * Formats the task as text, showing all contact details.
      */
-    default String getAsText_Task() {
+    default String getAsText() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(" Todo: ")
-                .append(getTodo())
+        builder.append(getTodo())
+                .append( "\n")
+                .append(" Priority: ")  
                 .append(getPriority())
+                .append( "\n")
+                .append(" Start Time: ")
                 .append(getStartTime())
+                .append( "\n")
+                .append(" End Time: ")
                 .append(getEndTime());
         return builder.toString();
     }

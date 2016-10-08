@@ -61,21 +61,18 @@ public class Task implements ReadOnlyTask,ReadOnlyEvent {
         return endTime;
     }
 
-
-    public boolean equals_Task(Object other) {
+    @Override
+    public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof ReadOnlyTask // instanceof handles nulls
-                && this.isSameStateAs((ReadOnlyTask) other));
-    }
-    
-    public boolean equals_Event(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof ReadOnlyEvent // instanceof handles nulls
+                || ((other instanceof ReadOnlyTask // instanceof handles nulls
+                && this.isSameStateAs((ReadOnlyTask) other)))
+                || ((other instanceof ReadOnlyEvent) 
                 && this.isSameStateAs((ReadOnlyEvent) other));
     }
-
-    public String toString_Task() {
-        return getAsText_Task();
+    
+    @Override
+    public String toString() {
+        return getAsText();
     }
     
     public String toString_Event() {
