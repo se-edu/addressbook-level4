@@ -1,8 +1,9 @@
 package seedu.address.logic.parser;
 
-import seedu.address.logic.commands.*;
-import seedu.address.commons.util.StringUtil;
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.commons.util.StringUtil;
+import seedu.address.logic.commands.*;
+import seedu.address.logic.parser.CommandTokenizer.*;
 
 import java.util.*;
 import java.util.regex.Matcher;
@@ -26,12 +27,13 @@ public class Parser {
     private static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
 
-    private static final Pattern PERSON_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
-            Pattern.compile("(?<name>[^/]+)"
-                    + " (?<isPhonePrivate>p?)p/(?<phone>[^/]+)"
-                    + " (?<isEmailPrivate>p?)e/(?<email>[^/]+)"
-                    + " (?<isAddressPrivate>p?)a/(?<address>[^/]+)"
-                    + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
+    public static final NonPrefixedArgument nameArg = new NonPrefixedArgument("name");
+    public static final NonRepeatableArgument phoneNumberArg = new NonRepeatableArgument("phoneNumber", "p/");
+    public static final NonRepeatableArgument emailArg = new NonRepeatableArgument("email", "e/");
+    public static final NonRepeatableArgument addressArg = new NonRepeatableArgument("address", "a/");
+    public static final RepeatableArgument tagArgs = new RepeatableArgument("tags", "t/");
+    public static final List<Argument> addCmdArgs = Arrays.asList(
+            nameArg, phoneNumberArg, emailArg, addressArg, tagArgs);
 
     public Parser() {}
 
@@ -87,36 +89,27 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareAdd(String args){
-        final Matcher matcher = PERSON_DATA_ARGS_FORMAT.matcher(args.trim());
-        // Validate arg string format
-        if (!matcher.matches()) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
-        }
+        CommandTokenizer argsParser = new CommandTokenizer(Parser.addCmdArgs);
+        ParsedArguments parsedArguments = argsParser.parse(args.trim());
+
         try {
             return new AddCommand(
-                    matcher.group("name"),
-                    matcher.group("phone"),
-                    matcher.group("email"),
-                    matcher.group("address"),
-                    getTagsFromArgs(matcher.group("tagArguments"))
+                    parsedArguments.getArgumentValue(nameArg).get(),
+                    parsedArguments.getArgumentValue(phoneNumberArg).get(),
+                    parsedArguments.getArgumentValue(emailArg).get(),
+                    parsedArguments.getArgumentValue(addressArg).get(),
+                    toSet(parsedArguments.getArgumentValue(tagArgs))
             );
+        } catch (NoSuchElementException nsee) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }
     }
 
-    /**
-     * Extracts the new person's tags from the add command's tag arguments string.
-     * Merges duplicate tag strings.
-     */
-    private static Set<String> getTagsFromArgs(String tagArguments) throws IllegalValueException {
-        // no tags
-        if (tagArguments.isEmpty()) {
-            return Collections.emptySet();
-        }
-        // replace first delimiter prefix, then split
-        final Collection<String> tagStrings = Arrays.asList(tagArguments.replaceFirst(" t/", "").split(" t/"));
-        return new HashSet<>(tagStrings);
+    private Set<String> toSet(Optional<List<String>> tagsOptional) {
+        List<String> tags = tagsOptional.orElse(Collections.emptyList());
+        return new HashSet<>(tags);
     }
 
     /**
