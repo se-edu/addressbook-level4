@@ -107,7 +107,7 @@ public class Parser {
     }
     
     /**
-     * Parses arguments in the context of the add task command.
+     * Parses arguments in the context of the add event command.
      *
      * @param args full command args string
      * @return the prepared command

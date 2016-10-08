@@ -25,9 +25,9 @@ public class AddTaskCommand extends Command {
      *
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public AddTaskCommand(String name, String priority, String startTime, String endTime) throws IllegalValueException {
+    public AddTaskCommand(String todo, String priority, String startTime, String endTime) throws IllegalValueException {
         this.toAdd = new Task(
-                new Name(name),
+                new Todo(todo),
                 new Priority(priority),
                 new StartTime(startTime),
                 new EndTime(endTime)
