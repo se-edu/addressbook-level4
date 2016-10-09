@@ -24,8 +24,8 @@ public class LogsCenter {
     /**
      * Initializes with a custom log level (specified in the {@code config} object)
      * Loggers obtained *AFTER* this initialization will have their logging level changed<br>
-     * Logging levels for existing loggers will only be updated if the logger with the same name is requested again
-     * from the LogsCenter.
+     * Logging levels for existing loggers will only be updated if the logger with the same name
+     * is requested again from the LogsCenter.
      */
     public static void init(Config config) {
         currentLogLevel = config.getLogLevel();
@@ -99,6 +99,6 @@ public class LogsCenter {
      * @see #getEventHandlingLogMessage(BaseEvent, String)
      */
     public static String getEventHandlingLogMessage(BaseEvent e) {
-        return getEventHandlingLogMessage(e,"");
+        return getEventHandlingLogMessage(e, "");
     }
 }

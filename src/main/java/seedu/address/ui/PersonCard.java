@@ -28,11 +28,11 @@ public class PersonCard extends UiPart{
     private ReadOnlyPerson person;
     private int displayedIndex;
 
-    public PersonCard(){
+    public PersonCard() {
 
     }
 
-    public static PersonCard load(ReadOnlyPerson person, int displayedIndex){
+    public static PersonCard load(ReadOnlyPerson person, int displayedIndex) {
         PersonCard card = new PersonCard();
         card.person = person;
         card.displayedIndex = displayedIndex;
@@ -55,7 +55,7 @@ public class PersonCard extends UiPart{
 
     @Override
     public void setNode(Node node) {
-        cardPane = (HBox)node;
+        cardPane = (HBox) node;
     }
 
     @Override

@@ -29,14 +29,14 @@ public class UserPrefs {
 
     @Override
     public boolean equals(Object other) {
-        if (other == this){
+        if (other == this) {
             return true;
         }
-        if (!(other instanceof UserPrefs)){ //this handles null as well.
+        if (!(other instanceof UserPrefs)) { //this handles null as well.
             return false;
         }
 
-        UserPrefs o = (UserPrefs)other;
+        UserPrefs o = (UserPrefs) other;
 
         return Objects.equals(guiSettings, o.guiSettings);
     }

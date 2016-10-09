@@ -8,7 +8,8 @@ import javafx.scene.layout.AnchorPane;
  */
 public class FxViewUtil {
 
-    public static void applyAnchorBoundaryParameters(Node node, double left, double right, double top, double bottom) {
+    public static void applyAnchorBoundaryParameters(Node node, double left, double right, double top,
+                                                     double bottom) {
         AnchorPane.setBottomAnchor(node, bottom);
         AnchorPane.setLeftAnchor(node, left);
         AnchorPane.setRightAnchor(node, right);
