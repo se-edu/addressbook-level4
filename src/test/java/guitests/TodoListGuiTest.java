@@ -4,7 +4,7 @@ import guitests.guihandles.*;
 import javafx.stage.Stage;
 import seedu.todoList.TestApp;
 import seedu.todoList.commons.core.EventsCenter;
-import seedu.todoList.model.TodoList;
+import seedu.todoList.model.TaskList;
 import seedu.todoList.model.task.ReadOnlyTask;
 import seedu.todoList.testutil.TestUtil;
 import seedu.todoList.testutil.TypicalTestTask;
@@ -76,8 +76,8 @@ public abstract class TodoListGuiTest {
      * Override this in child classes to set the initial local data.
      * Return null to use the data in the file specified in {@link #getDataFileLocation()}
      */
-    protected TodoList getInitialData() {
-        TodoList ab = TestUtil.generateEmptyTodoList();
+    protected TaskList getInitialData() {
+        TaskList ab = TestUtil.generateEmptyTodoList();
         TypicalTestTask.loadTodoListWithSampleData(ab);
         return ab;
     }

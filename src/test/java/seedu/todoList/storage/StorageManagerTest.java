@@ -9,7 +9,7 @@ import org.junit.rules.TemporaryFolder;
 import seedu.todoList.commons.events.model.TodoListChangedEvent;
 import seedu.todoList.commons.events.storage.DataSavingExceptionEvent;
 import seedu.todoList.model.ReadOnlyTodoList;
-import seedu.todoList.model.TodoList;
+import seedu.todoList.model.TaskList;
 import seedu.todoList.model.UserPrefs;
 import seedu.todoList.storage.JsonUserPrefsStorage;
 import seedu.todoList.storage.Storage;
@@ -60,10 +60,10 @@ public class StorageManagerTest {
 
     @Test
     public void TodoListReadSave() throws Exception {
-        TodoList original = new TypicalTestTask().getTypicalTodoList();
+        TaskList original = new TypicalTestTask().getTypicalTodoList();
         storageManager.saveTodoList(original);
         ReadOnlyTodoList retrieved = storageManager.readTodoList().get();
-        assertEquals(original, new TodoList(retrieved));
+        assertEquals(original, new TaskList(retrieved));
         //More extensive testing of TodoList saving/reading is done in XmlTodoListStorageTest
     }
 
@@ -77,7 +77,7 @@ public class StorageManagerTest {
         //Create a StorageManager while injecting a stub that throws an exception when the save method is called
         Storage storage = new StorageManager(new XmlTodoListStorageExceptionThrowingStub("dummy"), new JsonUserPrefsStorage("dummy"));
         EventsCollector eventCollector = new EventsCollector();
-        storage.handleTodoListChangedEvent(new TodoListChangedEvent(new TodoList()));
+        storage.handleTodoListChangedEvent(new TodoListChangedEvent(new TaskList()));
         assertTrue(eventCollector.get(0) instanceof DataSavingExceptionEvent);
     }
 

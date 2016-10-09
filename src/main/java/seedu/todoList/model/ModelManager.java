@@ -21,30 +21,30 @@ import java.util.logging.Logger;
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final TodoList todoList;
+    private final TaskList todoList;
     private final FilteredList<Task> filteredTasks;
 
     /**
      * Initializes a ModelManager with the given TodoList
      * TodoList and its variables should not be null
      */
-    public ModelManager(TodoList src, UserPrefs userPrefs) {
+    public ModelManager(TaskList src, UserPrefs userPrefs) {
         super();
         assert src != null;
         assert userPrefs != null;
 
         logger.fine("Initializing with TodoList: " + src + " and user prefs " + userPrefs);
 
-        todoList = new TodoList(src);
+        todoList = new TaskList(src);
         filteredTasks = new FilteredList<>(todoList.gettasks());
     }
 
     public ModelManager() {
-        this(new TodoList(), new UserPrefs());
+        this(new TaskList(), new UserPrefs());
     }
 
     public ModelManager(ReadOnlyTodoList initialData, UserPrefs userPrefs) {
-        todoList = new TodoList(initialData);
+        todoList = new TaskList(initialData);
         filteredTasks = new FilteredList<>(todoList.gettasks());
     }
 

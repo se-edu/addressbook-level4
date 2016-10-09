@@ -1,6 +1,6 @@
 package seedu.todoList.testutil;
 
-import seedu.todoList.model.TodoList;
+import seedu.todoList.model.TaskList;
 import seedu.todoList.model.task.*;
 import seedu.todoList.commons.exceptions.IllegalValueException;
 
@@ -34,7 +34,7 @@ public class TypicalTestTask {
         }
     }
 
-    public static void loadTodoListWithSampleData(TodoList ab) {
+    public static void loadTodoListWithSampleData(TaskList ab) {
 
         try {
             ab.addTask(new Task(alice));
@@ -53,8 +53,8 @@ public class TypicalTestTask {
         return new TestTask[]{alice, benson, carl, daniel, elle, fiona, george};
     }
 
-    public TodoList getTypicalTodoList(){
-        TodoList ab = new TodoList();
+    public TaskList getTypicalTodoList(){
+        TaskList ab = new TaskList();
         loadTodoListWithSampleData(ab);
         return ab;
     }

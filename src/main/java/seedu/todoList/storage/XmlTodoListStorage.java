@@ -58,7 +58,7 @@ public class XmlTodoListStorage implements TodoListStorage {
 
         File file = new File(filePath);
         FileUtil.createIfMissing(file);
-        XmlFileStorage.saveDataToFile(file, new XmlSerializableTodoList(TodoList));
+        XmlFileStorage.saveDataToFile(file, new XmlSerializableTaskList(TodoList));
     }
 
     @Override

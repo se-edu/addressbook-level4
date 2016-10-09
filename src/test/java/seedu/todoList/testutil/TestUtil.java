@@ -14,11 +14,11 @@ import seedu.todoList.TestApp;
 import seedu.todoList.commons.exceptions.IllegalValueException;
 import seedu.todoList.commons.util.FileUtil;
 import seedu.todoList.commons.util.XmlUtil;
-import seedu.todoList.model.TodoList;
+import seedu.todoList.model.TaskList;
 import seedu.todoList.model.tag.Tag;
 import seedu.todoList.model.tag.UniqueTagList;
 import seedu.todoList.model.task.*;
-import seedu.todoList.storage.XmlSerializableTodoList;
+import seedu.todoList.storage.XmlSerializableTaskList;
 
 import org.loadui.testfx.GuiTest;
 import org.testfx.api.FxToolkit;
@@ -135,12 +135,12 @@ public class TestUtil {
         createDataFileWithSampleData(TestApp.SAVE_LOCATION_FOR_TESTING);
     }
 
-    public static TodoList generateEmptyTodoList() {
-        return new TodoList(new UniqueTaskList(), new UniqueTagList());
+    public static TaskList generateEmptyTodoList() {
+        return new TaskList(new UniqueTaskList(), new UniqueTagList());
     }
 
-    public static XmlSerializableTodoList generateSampleStorageTodoList() {
-        return new XmlSerializableTodoList(generateEmptyTodoList());
+    public static XmlSerializableTaskList generateSampleStorageTodoList() {
+        return new XmlSerializableTaskList(generateEmptyTodoList());
     }
 
     /**
