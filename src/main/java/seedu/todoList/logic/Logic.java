@@ -16,6 +16,6 @@ public interface Logic {
     CommandResult execute(String commandText);
 
     /** Returns the filtered list of tasks */
-    ObservableList<ReadOnlyTask> getFilteredtaskList();
+    ObservableList<ReadOnlyTask> getFilteredTaskList();
 
 }
