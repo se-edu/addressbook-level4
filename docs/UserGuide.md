@@ -7,17 +7,17 @@
 2. &nbsp; &nbsp; [Quick Start](#2-quick-start)
 3. &nbsp; &nbsp; [Getting Started](#3-getting-started)
 
-  1. &nbsp; &nbsp; [Add Tasks](#31-add-tasks)
-  2. &nbsp; &nbsp; [Delete Tasks](#32-delete-tasks)
-  3. &nbsp; &nbsp; [Undo and Redo](#33-undo-and-redo)
-  4. &nbsp; &nbsp; [View](#34-view)
-  5. &nbsp; &nbsp; [Edit Tasks](#35-edit-tasks)
-  6. &nbsp; &nbsp; [Mark completed tasks](#36-mark-completed-tasks)
-  7. &nbsp; &nbsp; [Suggest available timeslots](#37-suggest-available-timeslots)
-  8. &nbsp; &nbsp; [Find](#38-find)
-  9. &nbsp; &nbsp; [Exit](#39-exit)
-  10. &nbsp; &nbsp; [Help](#310-help)
- 
+  1. &nbsp; &nbsp; [Help](#31-help)
+  2. &nbsp; &nbsp; [Add Tasks](#32-add-tasks)
+  3. &nbsp; &nbsp; [View](#33-view)
+  4. &nbsp; &nbsp; [Edit Tasks](#34-edit-tasks)
+  5. &nbsp; &nbsp; [Undo and Redo](#35-undo-and-redo)
+  6. &nbsp; &nbsp; [Suggest available timeslots](#36-suggest-available-timeslots)
+  7. &nbsp; &nbsp; [Find](#37-find)
+  8. &nbsp; &nbsp; [Mark completed tasks](#38-mark-completed-tasks)
+  9. &nbsp; &nbsp; [Delete Tasks](#39-delete-tasks)
+  10. &nbsp; &nbsp; [Exit](#310-exit)
+
 4. &nbsp; &nbsp; [Smart Features](#4-smart-features)
 
   1. &nbsp; &nbsp; [FlexiCommand](#41-flexicommand)
@@ -26,10 +26,12 @@
 <!-- /MarkdownTOC -->
 
 ## 1. Introduction
-SmartyDo is a to-do-list application. It is simple, non-intrusive and extremely easy to use. If you don't like to remember your tasks or have some trouble remembering them, but doesn't want an application thats too bulky or that doesn't integrate naturally to your desktop, SmartyDo is the application for you!
+SmartyDo is a **to-do-list** application. With SmartyDo, forgetting upcoming deadlines and sleepless nights over incomplete tasks are a thing of the past. SmartyDo **increases your efficiency** by showing the lists of tasks that can be completed simultaneously. Treat SmartyDo like your personal assistant and just focus on **completing your tasks**!
 
 ## 2. Quick Start
-1. **Launch SmartyDo** Simply double-click on the `SmartyDo.jar` file to start SmartyDo. You will be greeted with a simple interface that has four parts a CalendarBox, a VisualBox, a MessageBox and a command bar. This command bar is where you enter short commands to tell SmartyDo what to do. 
+1. **Launch SmartyDo** Simply double-click on the `SmartyDo.jar` file to start SmartyDo. You will be greeted with a simple interface that has four parts a CalendarBox, a VisualBox, a MessageBox and a command bar. This command bar is where you enter short commands to tell SmartyDo what to do.
+
+<img src="images/WelcomeScreen.png" width="500"><br>
 
 2. **Letting SmartyDo do the remembering for you** You can simply type the commands you want SmartyDo to execute for you in the command bar. Type “help” or “help [command]” for more information.
 
@@ -42,61 +44,84 @@ Items in `SQUARE_BRACKETS` are optional.<br>
 Items with `...` after them can have multiple instances.<br>
 The order of parameters is flexible<br>
 
-### 3.1. **Add Tasks:**
-Adds a Task to SmartyDo which requires a description of the task `TASK_NAME`.<br> 
-You can specify the `[priority]` of the task which enables you to `view` tasks by their importance level for the day.<br> 
+### 3.1. **Help:**
+Format: `help`
+
+Help is also shown if you enter an incorrect command e.g. abcd
+
+### 3.2. **Add Tasks:**
+Adds a Task to SmartyDo which requires a description of the task `TASK_NAME`.<br>
+You can specify the `[priority]` of the task which enables you to `view` tasks by their importance level for the day.<br>
 If the starting time and/or the deadline of the task is known , you can include it by specifying `[StartTime]` and `[EndTime]` <br>
-Since tasks may be of recurring nature, `[Recur]` frequency can be indicated by entering the frequency.  
+Since tasks may be of recurring nature, `[Recur]` frequency can be indicated by entering the frequency. <br>
+By entering the `[Location]`, we will remind you where to go to complete the task. <br>
+Lastly, don't forget to key in the `date`!
 
 Summary of the parameters and their usage
 
-| Parameter     |     Usage     |  	    |
+| Parameter     |     Usage     |  	Format Requirements    |
 | ------------- |:-------------:| -----:|
-| `TASK_NAME`   |    _**/d**_   |       |
-| `[Priority]`  |    _**/p**_   |       |
+| `TASK_NAME`   |    _**/n**_   |       |
+| `[Priority]`  |    _**/p**_   | numbers, 1 = highest      |
 | `[StartTime]` |    _**/st**_  |       |
-| `[EndTime]`   |  _**/et**_    |		|
-| `[Recur]`     | _**/freq X**_ | daily = 1, weekly = 2 , fortnightly = 3, monthly = 4| 
+| `[EndTime]`   |  _**/et**_    |		    |
+| `[Recur]`     | _**/freq X**_ | daily = 1, weekly = 2 , fortnightly = 3, monthly = 4|
+| `[Tag]`         | _**#**_ | alphanumeric |
+| `[Location]` | _**/loc**_ |  alphanumeric          |
+| `Date` | /d | DDMMYY |
 
 Examples:
 
 <img src="images/AddBasicCmd.png" width="500"><br>
 
-- `add TASK_NAME [Priority][Tag][StartTime][EndTime][Recur]`
+- `add TASK_NAME Date [Priority][Tag][StartTime][EndTime][Recur][location]`
 
-> The application **does not support adding** new `Tasks` which **conflicts** with your current schedule. 
-> However, with priority system you may wish to reschedule the lower priority task to a free time slot.
+### 3.3. **View:**
+View the task/day/month/year/list identified by the parameter. A full detailed description will appear in a pop up window.
 
-### 3.2. **Delete Tasks:**
-Deletes the specified Task from the SmartyDo.
+Format: `view PARAM`
 
-Format: `delete INDEX`
+<img src="images/view.png" width="500"><br>
 
-Deletes the task at the specified INDEX. The index refers to the index number shown in the VisualBox.
+Examples:
+- `view 121016` , date format in DDMMYY
+- `view year 2016`
+- `view month 10`
+- `view incomplete tasks`
+
+### 3.4. **Edit Tasks:**
+Edit the specified Task from the SmartyDo.
+
+Format: `edit INDEX FIELD NEW_VALUE`
+
+You should first find the task that you wish to edit by using the `view` or `find` command to avoid editing the wrong task entry. <br>
+Edits the task at the specified INDEX. The index refers to the index number shown in the VisualBox.<br>
+
 
 The index must be a positive integer 1, 2, 3, ...
 
 Examples:
 
-<img src="images/Delete1.png" width="500"><br>
-- `view 11/10/2016`
-- `delete 1`
-- Deletes the 1st task of 11/10/2016.
+<img src="images/edit.png" width="500"><br>
+
+- `edit 1 time 1400`
+- Edits the 1st task of the current list. Changes its deadline to 1400 .
 
 
 - `find homework`
-- `delete 1`
-- Deletes the 1st task in the results of the find command.
+- `edit 1 time 1400`
+- Edits the 1st task in the results of the find command. Chanes its deadline to 1400.
 
-### 3.3. **Undo and Redo:**
+### 3.5. **Undo and Redo:**
 
 With `undo`, you are allowed to reverse your previous changes sequentially while `redo` allows you to reverse the change done by `undo`.
 
 Example:
-- `add Add /d Archery  Introduction /st 0900 /loc Multipurpose Field `
-- `delete 1`
+
+<img src="images/Undo.png" width="500"><br>
+- `edit 1 time 1400`
 - `undo`
- 
+
 SmartyDo updates your schedule where it was before you executed an undoable action. If you enter `redo`, the most recent `undo` change is reverted.  
 
 <img src="images/Redo.png" width="500"><br>
@@ -115,56 +140,52 @@ SmartyDo updates your schedule where it was before you executed an undoable acti
 | `mark`	    |
 
 > SmartyDo **does not store** history of actions in your computer.
-> The history of actions are initialized to empty stack when SmartyDo is opened.
+> Your history of actions resets when SmartyDo is launched.
 
-### 3.4. **View:**
-View the task/day/month/year/list identified by the parameter.
 
-Format: `view PARAM`
+### 3.6. **Delete Tasks:**
+Deletes the specified Task from the SmartyDo.
 
-Examples:
-- `view 11/10/2016`
-- `view year 2016`
-- `view month 10`
-- `view incomplete tasks`
+Format: `delete INDEX`
 
-### 3.5. **Edit Tasks:**
-Edit the specified Task from the SmartyDo.
-
-Format: `edit INDEX FIELD NEW_VALUE`
-
-Edits the task at the specified INDEX. The index refers to the index number shown in the VisualBox.
+Deletes the task at the specified INDEX. The index refers to the index number shown in the VisualBox.
 
 The index must be a positive integer 1, 2, 3, ...
 
 Examples:
 
-- `view 11/10/2016`
-- `edit 2 time 1400`
-- Edits the 2nd task of 11/10/2016. Changes its deadline to 1400 .
+<img src="images/Delete1.png" width="500"><br>
+- `view 12/10/2016`
+- `delete 1`
+- Deletes the 1st task of 11/10/2016.
 
 
 - `find homework`
-- `edit 1 time 1400`
-- Edits the 1st task in the results of the find command. Chanes its deadline to 1400.
+- `delete 1`
+- Deletes the 1st task in the results of the find command.
 
-### 3.6. **Mark completed tasks:**
+### 3.7. **Mark completed tasks:**
 Marks the task at the specified INDEX as complete. The index refers to the index number shown in the VisualBox.
 
 Example:
+<!---
+To link to previous "delete" command in final user guide, insert undo command : purpose for making a story
+-->
 
-- `view 11/10/2016`
-- `Done 2`
-- Marks the 2nd task of 11/10/2016 as completed task.
+<img src="images/complete.png" width="500"><br>
+
+- `view 12/10/2016`
+- `Done 1`
+- Marks the 1st task of 11/10/2016 as completed task.
 
 Format: Done INDEX
 
-### 3.7. **Suggest available timeslots:**
+### 3.8. **Suggest available timeslots:**
 Recommends the list of time blocks for a specified task based on task duration and space availability.
 
 Format: suggest [date][duration]
 
-### 3.8. **Find:**
+### 3.9. **Find:**
 Finds tasks whose names contain any of the given keywords.
 
 Format: `find KEYWORD [MORE\_KEYWORDS]`
@@ -175,15 +196,10 @@ Format: `find KEYWORD [MORE\_KEYWORDS]`
 - Tasks matching at least one keyword will be returned (i.e. OR search). e.g. Homework will match CS3230 Homework
 
 
-### 3.9. **Exit:**
+### 3.10. **Exit:**
 Exits the program.
 
 Format: `exit`
-
-### 3.10. **Help:**
-Format: `help`
-
-Help is also shown if you enter an incorrect command e.g. abcd
 
 ## 4. Smart Features
 
