@@ -24,7 +24,7 @@ public class DeleteCommandTest extends AddressBookGuiTest {
 
         //delete from the middle of the list
         currentList = TestUtil.removePersonFromList(currentList, targetIndex);
-        targetIndex = currentList.length/2;
+        targetIndex = currentList.length / 2;
         assertDeleteSuccess(targetIndex, currentList);
 
         //invalid index
@@ -35,11 +35,11 @@ public class DeleteCommandTest extends AddressBookGuiTest {
 
     /**
      * Runs the delete command to delete the person at specified index and confirms the result is correct.
-     * @param targetIndexOneIndexed e.g. to delete the first person in the list, 1 should be given as the target index.
+     * @param targetIndexOneIndexed e.g. index 1 to delete the first person in the list,
      * @param currentList A copy of the current list of persons (before deletion).
      */
     private void assertDeleteSuccess(int targetIndexOneIndexed, final TestPerson[] currentList) {
-        TestPerson personToDelete = currentList[targetIndexOneIndexed-1]; //-1 because array uses zero indexing
+        TestPerson personToDelete = currentList[targetIndexOneIndexed - 1]; // -1 as array uses zero indexing
         TestPerson[] expectedRemainder = TestUtil.removePersonFromList(currentList, targetIndexOneIndexed);
 
         commandBox.runCommand("delete " + targetIndexOneIndexed);

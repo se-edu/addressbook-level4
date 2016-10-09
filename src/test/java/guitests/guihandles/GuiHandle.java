@@ -60,7 +60,7 @@ public class GuiHandle {
 
     protected void setTextField(String textFieldId, String newText) {
         guiRobot.clickOn(textFieldId);
-        ((TextField)guiRobot.lookup(textFieldId).tryQuery().get()).setText(newText);
+        ((TextField) guiRobot.lookup(textFieldId).tryQuery().get()).setText(newText);
         guiRobot.sleep(500); // so that the texts stays visible on the GUI for a short period
     }
 
@@ -96,7 +96,7 @@ public class GuiHandle {
         }
 
         guiRobot.targetWindow(window.get());
-        guiRobot.interact(() -> ((Stage)window.get()).close());
+        guiRobot.interact(() -> ((Stage) window.get()).close());
         focusOnMainApp();
     }
 }

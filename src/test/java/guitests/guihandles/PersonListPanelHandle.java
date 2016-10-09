@@ -52,12 +52,13 @@ public class PersonListPanelHandle extends GuiHandle {
      * Clicks on the ListView.
      */
     public void clickOnListView() {
-        Point2D point= TestUtil.getScreenMidPoint(getListView());
+        Point2D point = TestUtil.getScreenMidPoint(getListView());
         guiRobot.clickOn(point.getX(), point.getY());
     }
 
     /**
-     * Returns true if the {@code persons} appear as the sub list (in that order) at position {@code startPosition}.
+     * Returns true if the {@code persons} appear as the sub list (in that order)
+     * at position {@code startPosition}.
      */
     public boolean containsInOrder(int startPosition, ReadOnlyPerson... persons) {
         List<ReadOnlyPerson> personsInList = getListView().getItems();
@@ -69,7 +70,8 @@ public class PersonListPanelHandle extends GuiHandle {
 
         // Return false if any of the persons doesn't match
         for (int i = 0; i < persons.length; i++) {
-            if (!personsInList.get(startPosition + i).getName().fullName.equals(persons[i].getName().fullName)){
+            if (!personsInList.get(startPosition + i).getName().fullName
+                    .equals(persons[i].getName().fullName)) {
                 return false;
             }
         }
@@ -82,7 +84,8 @@ public class PersonListPanelHandle extends GuiHandle {
      * @param startPosition The starting position of the sub list.
      * @param persons A list of person in the correct order.
      */
-    public boolean isListMatching(int startPosition, ReadOnlyPerson... persons) throws IllegalArgumentException {
+    public boolean isListMatching(int startPosition, ReadOnlyPerson... persons)
+            throws IllegalArgumentException {
         if (persons.length + startPosition != getListView().getItems().size()) {
             throw new IllegalArgumentException("List size mismatched\n" +
                     "Expected " + (getListView().getItems().size() - 1) + " persons");
@@ -102,7 +105,8 @@ public class PersonListPanelHandle extends GuiHandle {
 
     public PersonCardHandle navigateToPerson(String name) {
         guiRobot.sleep(500); //Allow a bit of time for the list to be updated
-        final Optional<ReadOnlyPerson> person = getListView().getItems().stream().filter(p -> p.getName().fullName.equals(name)).findAny();
+        final Optional<ReadOnlyPerson> person = getListView().getItems().stream()
+                .filter(p -> p.getName().fullName.equals(name)).findAny();
         if (!person.isPresent()) {
             throw new IllegalStateException("Name not found: " + name);
         }
@@ -132,7 +136,7 @@ public class PersonListPanelHandle extends GuiHandle {
     public int getPersonIndex(ReadOnlyPerson targetPerson) {
         List<ReadOnlyPerson> personsInList = getListView().getItems();
         for (int i = 0; i < personsInList.size(); i++) {
-            if(personsInList.get(i).getName().equals(targetPerson.getName())){
+            if (personsInList.get(i).getName().equals(targetPerson.getName())) {
                 return i;
             }
         }

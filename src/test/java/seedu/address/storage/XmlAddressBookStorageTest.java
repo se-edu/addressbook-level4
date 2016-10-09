@@ -18,7 +18,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
 public class XmlAddressBookStorageTest {
-    private static String TEST_DATA_FOLDER = FileUtil.getPath("./src/test/data/XmlAddressBookStorageTest/");
+    private static final String TEST_DATA_FOLDER =
+            FileUtil.getPath("./src/test/data/XmlAddressBookStorageTest/");
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -92,7 +93,8 @@ public class XmlAddressBookStorageTest {
     }
 
     private void saveAddressBook(ReadOnlyAddressBook addressBook, String filePath) throws IOException {
-        new XmlAddressBookStorage(filePath).saveAddressBook(addressBook, addToTestDataPathIfNotNull(filePath));
+        new XmlAddressBookStorage(filePath)
+                .saveAddressBook(addressBook, addToTestDataPathIfNotNull(filePath));
     }
 
     @Test

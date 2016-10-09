@@ -14,7 +14,8 @@ import static org.junit.Assert.assertEquals;
  */
 public class JsonUtilTest {
 
-    private static final File SERIALIZATION_FILE = new File(TestUtil.getFilePathInSandboxFolder("serialize.json"));
+    private static final File SERIALIZATION_FILE = new File(
+            TestUtil.getFilePathInSandboxFolder("serialize.json"));
 
     @Test
     public void serializeObjectToJsonFile_noExceptionThrown() throws IOException {
@@ -23,7 +24,8 @@ public class JsonUtilTest {
 
         JsonUtil.serializeObjectToJsonFile(SERIALIZATION_FILE, serializableTestClass);
 
-        assertEquals(FileUtil.readFromFile(SERIALIZATION_FILE), SerializableTestClass.JSON_STRING_REPRESENTATION);
+        assertEquals(FileUtil.readFromFile(SERIALIZATION_FILE),
+                     SerializableTestClass.JSON_STRING_REPRESENTATION);
     }
 
     @Test
@@ -34,12 +36,13 @@ public class JsonUtilTest {
                 .deserializeObjectFromJsonFile(SERIALIZATION_FILE, SerializableTestClass.class);
 
         assertEquals(serializableTestClass.getName(), SerializableTestClass.getNameTestValue());
-        assertEquals(serializableTestClass.getListOfLocalDateTimes(), SerializableTestClass.getListTestValues());
-        assertEquals(serializableTestClass.getMapOfIntegerToString(), SerializableTestClass.getHashMapTestValues());
+        assertEquals(serializableTestClass.getListOfLocalDateTimes(),
+                     SerializableTestClass.getListTestValues());
+        assertEquals(serializableTestClass.getMapOfIntegerToString(),
+                     SerializableTestClass.getHashMapTestValues());
     }
 
     //TODO: @Test jsonUtil_readJsonStringToObjectInstance_correctObject()
 
     //TODO: @Test jsonUtil_writeThenReadObjectToJson_correctObject()
-
 }
