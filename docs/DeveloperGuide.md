@@ -158,12 +158,12 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 ### Logging
 
-We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels
+We are using `java.util.logging` package for logging. You can use `LogsCenter` class to manage the logging levels
 and logging destinations.
 
-* The logging level can be controlled using the `logLevel` setting in the configuration file
+* You can controll the logging level by using the `logLevel` setting in the configuration file
   (See [Configuration](#configuration))
-* The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to
+* You can obtain the `Logger` for a class by using `LogsCenter.getLogger(Class)` which will log messages according to
   the specified logging level
 * Currently log messages are output through: `Console` and to a `.log` file.
 
@@ -177,25 +177,25 @@ and logging destinations.
 
 ### Configuration
 
-Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file 
+You can controll certain properties of the application (e.g App name, logging level) through the configuration file 
 (default: `config.json`):
 
 
 ## Testing
 
-Tests can be found in the `./src/test/java` folder.
+You can find tests in the `./src/test/java` folder.
 
 **In Eclipse**:
-> If you are not using a recent Eclipse version (i.e. _Neon_ or later), enable assertions in JUnit tests
+> If you are not using a recent Eclipse version (i.e. _Neon_ or later), you will need to enable assertions in JUnit tests
   as described [here](http://stackoverflow.com/questions/2522897/eclipse-junit-ea-vm-option).
 
-* To run all tests, right-click on the `src/test/java` folder and choose
+* You can run all tests by right-clicking on the `src/test/java` folder and choose
   `Run as` > `JUnit Test`
-* To run a subset of tests, you can right-click on a test package, test class, or a test and choose
+* You can also run a subset of tests by right-clicking on a test package, test class, or a test and choose
   to run as a JUnit test.
 
 **Using Gradle**:
-* See [UsingGradle.md](UsingGradle.md) for how to run tests using Gradle.
+* You may refer to [UsingGradle.md](UsingGradle.md) to see how to run tests using Gradle.
 
 We have two types of tests:
 
@@ -223,12 +223,12 @@ Thanks to the [TestFX](https://github.com/TestFX/TestFX) library we use,
 
 ### Build Automation
 
-See [UsingGradle.md](UsingGradle.md) to learn how to use Gradle for build automation.
+You may read [UsingGradle.md](UsingGradle.md) to learn how to use Gradle for build automation.
 
 ### Continuous Integration
 
 We use [Travis CI](https://travis-ci.org/) to perform _Continuous Integration_ on our projects.
-See [UsingTravis.md](UsingTravis.md) for more details.
+You may read [UsingTravis.md](UsingTravis.md) for more details.
 
 ### Making a Release
 
@@ -270,12 +270,105 @@ Priority | As a ... | I want to ... | So that I can...
 
 (For all use cases below, the **System** is the `SmartyDo` and the **Actor** is the `user`, unless specified otherwise)
 
+#### Use case: Add task
+
+**MSS**
+
+1. User requests to add new task
+2. SmartyDo shows list of upcoming tasks with new task added <br>
+Use case ends.
+
+**Extensions**
+
+1a. The given index is invalid
+
+> Use case ends
+
+#### Use case: Edit task
+
+**MSS**
+
+1. User requests to view upcoming tasks
+2. SmartyDo shows a list of upcoming tasks
+3. User requests to edit a specific task in the list
+4. SmartyDo edits the task <br>
+Use case ends.
+
+**Extensions**
+
+2a. The list is empty
+
+> Use case ends
+
+3a. The given index is invalid
+
+> 3a1. SmartyDo shows an error message <br>
+  Use case resumes at step 2
+
+#### Use case: Undo task
+
+**MSS**
+
+1. User requests to undo the previous command
+2. SmartyDo performs undo and shows updated list of upcoming tasks <br>
+Use case ends.
+
+**Extensions**
+
+1a. There is no previous command
+
+> Use case ends
+
+#### Use case: Redo task
+
+**MSS**
+
+1. User requests to redo the command reversed by the undo command
+2. SmartyDo performs redo and shows updated list of upcoming tasks <br>
+Use case ends.
+
+**Extensions**
+
+1a. There is no previous undo command
+
+> Use case ends
+
+#### Use case: View task
+
+**MSS**
+
+1. User requests <br>
+Use case ends.
+
+**Extensions**
+
+#### Use case: Mark task
+
+**MSS**
+
+1. User requests to view upcoming tasks
+2. SmartyDo shows a list of upcoming tasks
+3. User requests to mark a specific task in the list
+4. SmartyDo marks the task <br>
+Use case ends.
+
+**Extensions**
+
+2a. The list is empty
+
+> Use case ends
+
+3a. The given index is invalid
+
+> 3a1. SmartyDo shows an error message <br>
+  Use case resumes at step 2
+
 #### Use case: Delete task
 
 **MSS**
 
 1. User requests to view upcoming tasks
-2. SmartDo shows a list of upcoming tasks
+2. SmartyDo shows a list of upcoming tasks
 3. User requests to delete a specific task in the list
 4. SmartyDo deletes the task <br>
 Use case ends.
