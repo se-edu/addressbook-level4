@@ -42,7 +42,6 @@ public class XmlAdaptedTask {
      */
     public XmlAdaptedTask(ReadOnlyTask source) {
         Todo = source.getTodo().todo;
-        //Date = source.getDate().date;
         Priority = source.getPriority().priority;
         StartTime = source.getStartTime().startTime;
         EndTime = source.getEndTime().endTime;
