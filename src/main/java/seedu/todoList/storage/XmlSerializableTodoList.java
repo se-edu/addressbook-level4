@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
 /**
  * An Immutable TodoList that is serializable to XML format
  */
-@XmlRootElement(name = "TodoList ")
+@XmlRootElement(name = "TodoList")
 public class XmlSerializableTodoList implements ReadOnlyTodoList {
 
     @XmlElement
