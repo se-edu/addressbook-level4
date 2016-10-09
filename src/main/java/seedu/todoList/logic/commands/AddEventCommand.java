@@ -18,17 +18,17 @@ public class AddEventCommand extends Command {
     public static final String MESSAGE_SUCCESS = "New event added: %1$s";
     public static final String MESSAGE_DUPLICATE_EVENT = "This event already exists in the to-do-list";
 
-    private final Task toAdd;
+    private final Event toAdd;
     
     /**
      * Convenience constructor using raw values.
      *
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public AddEventCommand(String todo, String priority, String startTime, String endTime) throws IllegalValueException {
-        this.toAdd = new Task(
+    public AddEventCommand(String todo, String date, String startTime, String endTime) throws IllegalValueException {
+        this.toAdd = new Event(
                 new Todo(todo),
-                new Priority(priority),
+                new Date(date),
                 new StartTime(startTime),
                 new EndTime(endTime)
         );
@@ -38,7 +38,7 @@ public class AddEventCommand extends Command {
     public CommandResult execute() {
         assert model != null;
         try {
-            model.addTask(toAdd);
+            model.addEvent(toAdd);
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (UniqueTaskList.DuplicatetaskException e) {
             return new CommandResult(MESSAGE_DUPLICATE_EVENT);

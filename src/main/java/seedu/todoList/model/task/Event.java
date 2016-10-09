@@ -10,20 +10,20 @@ import java.util.Objects;
  * Represents a task in the TodoList.
  * Guarantees: details are present and not null, field values are validated.
  */
-public class Task implements ReadOnlyTask {
+public class Event implements ReadOnlyEvent {
 
     private Todo todo;
-    private Priority priority;
+    private Date date;
     private StartTime startTime;
     private EndTime endTime;
 
     /**
      * Every field must be present and not null.
      */
-    public Task(Todo todo, Priority priority, StartTime startTime, EndTime endTime) {
+    public Event(Todo todo, Date date, StartTime startTime, EndTime endTime) {
         assert !CollectionUtil.isAnyNull(todo, startTime, endTime);
         this.todo = todo;
-        this.priority = priority;
+        this.date = date;
         this.startTime = startTime;
         this.endTime = endTime;
     }
@@ -31,20 +31,20 @@ public class Task implements ReadOnlyTask {
     /**
      * Copy constructor.
      */
-    public Task(ReadOnlyTask source) {
-        this(source.getTodo(), source.getPriority(), source.getStartTime(), source.getEndTime());
+    public Event(ReadOnlyEvent source) {
+        this(source.getTodo(), source.getDate(), source.getStartTime(), source.getEndTime());
     }
 
     @Override
     public Todo getTodo() {
         return todo;
     }
-
+    
     @Override
-    public Priority getPriority() {
-        return priority;
+    public Date getDate() {
+        return date;
     }
-
+    
     @Override
     public StartTime getStartTime() {
         return startTime;
@@ -58,13 +58,13 @@ public class Task implements ReadOnlyTask {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || ((other instanceof ReadOnlyTask // instanceof handles nulls
-                && this.isSameStateAs((ReadOnlyTask) other)));
+                || ((other instanceof ReadOnlyEvent)  // instanceof handles nulls
+                && this.isSameStateAs((ReadOnlyEvent) other));
     }
     
     @Override
     public String toString() {
         return getAsText();
     }
-    
+
 }

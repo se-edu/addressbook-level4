@@ -6,9 +6,11 @@ import seedu.todoList.commons.core.LogsCenter;
 import seedu.todoList.commons.core.UnmodifiableObservableList;
 import seedu.todoList.commons.events.model.TodoListChangedEvent;
 import seedu.todoList.commons.util.StringUtil;
+import seedu.todoList.model.task.Event;
 import seedu.todoList.model.task.ReadOnlyTask;
 import seedu.todoList.model.task.Task;
 import seedu.todoList.model.task.UniqueTaskList;
+import seedu.todoList.model.task.UniqueTaskList.DuplicatetaskException;
 import seedu.todoList.model.task.UniqueTaskList.taskNotFoundException;
 
 import java.util.Set;
@@ -76,6 +78,15 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredListToShowAll();
         indicateTodoListChanged();
     }
+    
+
+    @Override
+    public synchronized void addEvent(Event event) throws DuplicatetaskException {
+        todoList.addEvent(event);
+        updateFilteredListToShowAll();
+        indicateTodoListChanged();     
+    }
+
 
     //=========== Filtered task List Accessors ===============================================================
 
@@ -139,7 +150,7 @@ public class ModelManager extends ComponentManager implements Model {
         @Override
         public boolean run(ReadOnlyTask task) {
             return nameKeyWords.stream()
-                    .filter(keyword -> StringUtil.containsIgnoreCase(task.getName().fullName, keyword))
+                    .filter(keyword -> StringUtil.containsIgnoreCase(task.getTodo().todo, keyword))
                     .findAny()
                     .isPresent();
         }
