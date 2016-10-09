@@ -26,5 +26,4 @@ public class FindCommand extends Command {
         model.updateFilteredPersonList(keywords);
         return new CommandResult(getMessageForPersonListShownSummary(model.getFilteredPersonList().size()));
     }
-
 }
