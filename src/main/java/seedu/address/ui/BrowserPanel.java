@@ -65,4 +65,9 @@ public class BrowserPanel extends UiPart{
         browser = null;
     }
 
+	public void loadTaskCard(ReadOnlyTask task) {
+		browser.getEngine().loadContent(task.getAsText());
+		
+	}
+
 }

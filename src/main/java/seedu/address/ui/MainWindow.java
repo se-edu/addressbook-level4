@@ -193,4 +193,9 @@ public class MainWindow extends UiPart {
     public void releaseResources() {
         browserPanel.freeResources();
     }
+
+	public void loadTaskCard(ReadOnlyTask task) {
+		browserPanel.loadTaskCard(task);
+		
+	}
 }

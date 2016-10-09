@@ -1,5 +1,6 @@
-# Developer Guide 
+﻿# Developer Guide 
 
+* [Introduction](#introduction)
 * [Setting Up](#setting-up)
 * [Design](#design)
 * [Implementation](#implementation)
@@ -10,6 +11,9 @@
 * [Appendix C: Non Functional Requirements](#appendix-c--non-functional-requirements)
 * [Appendix D: Glossary](#appendix-d--glossary)
 * [Appendix E : Product Survey](#appendix-e--product-survey)
+
+## Introduction
+
 
 
 ## Setting up
