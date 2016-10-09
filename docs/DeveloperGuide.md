@@ -270,7 +270,7 @@ Priority | As a ... | I want to ... | So that I can...
 
 (For all use cases below, the **System** is the `SmartyDo` and the **Actor** is the `user`, unless specified otherwise)
 
-#### Use case: Add task
+### Use case: Add task
 
 **MSS**
 
@@ -284,7 +284,7 @@ Use case ends.
 
 > Use case ends
 
-#### Use case: Edit task
+### Use case: Edit task
 
 **MSS**
 
@@ -305,7 +305,7 @@ Use case ends.
 > 3a1. SmartyDo shows an error message <br>
   Use case resumes at step 2
 
-#### Use case: Undo task
+### Use case: Undo task
 
 **MSS**
 
@@ -319,7 +319,7 @@ Use case ends.
 
 > Use case ends
 
-#### Use case: Redo task
+### Use case: Redo task
 
 **MSS**
 
@@ -333,16 +333,15 @@ Use case ends.
 
 > Use case ends
 
-#### Use case: View task
+### Use case: View task
 
 **MSS**
 
-1. User requests <br>
+1. User requests to view upcoming tasks that matches specific `string`
+2. SmartyDo shows a list of upcoming tasks <br>
 Use case ends.
 
-**Extensions**
-
-#### Use case: Mark task
+### Use case: Mark task
 
 **MSS**
 
@@ -363,7 +362,7 @@ Use case ends.
 > 3a1. SmartyDo shows an error message <br>
   Use case resumes at step 2
 
-#### Use case: Delete task
+### Use case: Delete task
 
 **MSS**
 
