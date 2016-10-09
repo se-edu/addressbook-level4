@@ -41,18 +41,6 @@ public class XmlSerializableTodoList implements ReadOnlyTodoList {
      */
     public XmlSerializableTodoList(ReadOnlyTodoList src) {
         tasks.addAll(src.gettaskList().stream().map(XmlAdaptedTask::new).collect(Collectors.toList()));
-        tags = src.getTagList();
-    }
-
-    @Override
-    public UniqueTagList getUniqueTagList() {
-        try {
-            return new UniqueTagList(tags);
-        } catch (UniqueTagList.DuplicateTagException e) {
-            //TODO: better error handling
-            e.printStackTrace();
-            return null;
-        }
     }
 
     @Override
@@ -80,10 +68,4 @@ public class XmlSerializableTodoList implements ReadOnlyTodoList {
             }
         }).collect(Collectors.toCollection(ArrayList::new));
     }
-
-    @Override
-    public List<Tag> getTagList() {
-        return Collections.unmodifiableList(tags);
-    }
-
 }
