@@ -275,12 +275,12 @@ public class TestUtil {
     /**
      * Removes a subset from the list of tasks.
      * @param tasks The list of tasks
-     * @param personsToRemove The subset of tasks.
+     * @param tasksToRemove The subset of tasks.
      * @return The modified tasks after removal of the subset from tasks.
      */
-    public static TestTask[] removeTasksFromList(final TestTask[] tasks, TestTask... personsToRemove) {
+    public static TestTask[] removeTasksFromList(final TestTask[] tasks, TestTask... tasksToRemove) {
         List<TestTask> listOfTasks = asList(tasks);
-        listOfTasks.removeAll(asList(personsToRemove));
+        listOfTasks.removeAll(asList(tasksToRemove));
         return listOfTasks.toArray(new TestTask[listOfTasks.size()]);
     }
 
@@ -309,12 +309,12 @@ public class TestUtil {
     /**
      * Appends tasks to the array of tasks.
      * @param tasks A array of tasks.
-     * @param personsToAdd The tasks that are to be appended behind the original array.
+     * @param tasksToAdd The tasks that are to be appended behind the original array.
      * @return The modified array of tasks.
      */
-    public static TestTask[] addTasksToList(final TestTask[] tasks, TestTask... personsToAdd) {
+    public static TestTask[] addTasksToList(final TestTask[] tasks, TestTask... tasksToAdd) {
         List<TestTask> listOfTasks = asList(tasks);
-        listOfTasks.addAll(asList(personsToAdd));
+        listOfTasks.addAll(asList(tasksToAdd));
         return listOfTasks.toArray(new TestTask[listOfTasks.size()]);
     }
 

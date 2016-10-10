@@ -25,7 +25,7 @@ public class UndoCommandTest extends AddressBookGuiTest{
 	@Test
     public void undo() {
 
-		//add and undo one person
+		//add and undo one task
 		TestTask[] currentList = td.getTypicalTask();
 		commandBox.runCommand(td.hoon.getAddCommand());
 		assertUndoSuccess(currentList);
