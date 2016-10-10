@@ -9,36 +9,36 @@ import seedu.todoList.model.ReadOnlyTodoList;
 /**
  * Represents a storage for {@link seedu.TaskList.model.TodoList}.
  */
-public interface TodoListStorage {
+public interface TaskListStorage {
 
     /**
      * Returns the file path of the data file.
      */
-    String getTodoListFilePath();
+    String getTaskListFilePath();
 
     /**
-     * Returns TodoList data as a {@link ReadOnlyTodoList}.
+     * Returns TodoList data as a {@link ReadOnlyTaskList}.
      *   Returns {@code Optional.empty()} if storage file is not found.
      * @throws DataConversionException if the data in storage is not in the expected format.
      * @throws IOException if there was any problem when reading from the storage.
      */
-    Optional<ReadOnlyTodoList> readTodoList() throws DataConversionException, IOException;
+    Optional<ReadOnlyTodoList> readTaskList() throws DataConversionException, IOException;
 
     /**
-     * @see #getTodoListFilePath()
+     * @see #getTaskListFilePath()
      */
-    Optional<ReadOnlyTodoList> readTodoList(String filePath) throws DataConversionException, IOException;
+    Optional<ReadOnlyTodoList> readTaskList(String filePath) throws DataConversionException, IOException;
 
     /**
-     * Saves the given {@link ReadOnlyTodoList} to the storage.
-     * @param TodoList cannot be null.
+     * Saves the given {@link ReadOnlyTaskList} to the storage.
+     * @param TaskList cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
-    void saveTodoList(ReadOnlyTodoList TodoList) throws IOException;
+    void saveTaskList(ReadOnlyTaskList TaskList) throws IOException;
 
     /**
-     * @see #saveTodoList(ReadOnlyTodoList)
+     * @see #saveTodoList(ReadOnlyTaskList)
      */
-    void saveTodoList(ReadOnlyTodoList TodoList, String filePath) throws IOException;
+    void saveTaskList(ReadOnlyTaskList TaskList, String filePath) throws IOException;
 
 }

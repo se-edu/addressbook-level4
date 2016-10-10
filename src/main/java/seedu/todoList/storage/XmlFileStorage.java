@@ -9,7 +9,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 
 /**
- * Stores TodoList  data in an XML file
+ * Stores TaskList data in an XML file
  */
 public class XmlFileStorage {
     /**
