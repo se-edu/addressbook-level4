@@ -1,5 +1,6 @@
-# Developer Guide 
+﻿# Developer Guide 
 
+* [Introduction](#introduction)
 * [Setting Up](#setting-up)
 * [Design](#design)
 * [Implementation](#implementation)
@@ -11,23 +12,27 @@
 * [Appendix D: Glossary](#appendix-d--glossary)
 * [Appendix E : Product Survey](#appendix-e--product-survey)
 
+## Introduction
+Welcome to the developer guide for SmartyDo. This guide is meant to enable budding developers like yourself to better understand the implementation of our program. Through this guide, we hope that you will be able to learn not only about how SmartyDo is implemented, but about different parts of the application that you are able to improve yourself.
 
 ## Setting up
 
 #### Prerequisites
+To ensure that you are able to run SmartyDo smoothly, do ensure that you have met the following prerequisites:
 
-1. **JDK `1.8.0_60`**  or later<br>
+1. Installed **JDK `1.8.0_60`**  or later<br>
 
     > Having any Java 8 version is not enough. <br>
     This app will not work with earlier versions of Java 8.
     
-2. **Eclipse** IDE
-3. **e(fx)clipse** plugin for Eclipse (Do the steps 2 onwards given in
+2. Installed **Eclipse** IDE
+3. Installed **e(fx)clipse** plugin for Eclipse (Do the steps 2 onwards given in
    [this page](http://www.eclipse.org/efxclipse/install.html#for-the-ambitious))
-4. **Buildship Gradle Integration** plugin from the Eclipse Marketplace
+4. Installed **Buildship Gradle Integration** plugin from the Eclipse Marketplace
 
 
 #### Importing the project into Eclipse
+To import the lastest version of this project into Eclipse, follow the instructions as given below:
 
 0. Fork this repo, and clone the fork to your computer
 1. Open Eclipse (Note: Ensure you have installed the **e(fx)clipse** and **buildship** plugins as given 
@@ -47,12 +52,12 @@
 ### Architecture
 
 <img src="images/Architecture.png" width="600"><br>
-The **_Architecture Diagram_** given above explains the high-level design of the App.
-Given below is a quick overview of each component.
+The **_Architecture Diagram_** given above will explain to you the high-level design of the App.
+Below, we will give you a quick overview of each component.
 
 `Main` has only one class called [`MainApp`](../src/main/java/seedu/address/MainApp.java). It is responsible for,
-* At app launch: Initializes the components in the correct sequence, and connect them up with each other.
-* At shut down: Shuts down the components and invoke cleanup method where necessary.
+* At app launch: `Main` will initialize the components in the correct sequence, and connect them up with each other.
+* At shut down: `Main` will Shut down the components and invoke cleanup method where necessary.
 
 [**`Commons`**](#common-classes) represents a collection of classes used by multiple other components.
 Two of those classes play important roles at the architecture level.
@@ -66,15 +71,15 @@ The rest of the App consists four components.
 * [**`Model`**](#model-component) : Holds the data of the App in-memory.
 * [**`Storage`**](#storage-component) : Reads data from, and writes data to, the hard disk.
 
-Each of the four components
-* Defines its _API_ in an `interface` with the same name as the Component.
-* Exposes its functionality using a `{Component Name}Manager` class.
+Each of the four components will
+* Define its _API_ in an `interface` with the same name as the Component.
+* Expose its functionality using a `{Component Name}Manager` class.
 
 For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java`
 interface and exposes its functionality using the `LogicManager.java` class.<br>
 <img src="images/LogicClassDiagram.png" width="800"><br>
 
-The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
+The _Sequence Diagram_ below will show you how the components interact for the scenario where the user issues the
 command `delete 3`.
 
 <img src="images\SDforDeletePerson.png" width="800">
@@ -82,7 +87,7 @@ command `delete 3`.
 >Note how the `Model` simply raises a `ToDoChangedEvent` when the To-Do data are changed,
  instead of asking the `Storage` to save the updates to the hard disk.
 
-The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates
+The diagram below will show you how the `EventsCenter` reacts to that event, which eventually results in the updates
 being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time. <br>
 <img src="images\SDforDeletePersonEventHandling.png" width="800">
 
@@ -90,7 +95,7 @@ being saved to the hard disk and the status bar of the UI being updated to refle
   to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct 
   coupling between components.
 
-The sections below give more details of each component.
+The sections below will give you more details of each component.
 
 ### UI component
 
@@ -107,10 +112,10 @@ The `UI` component uses JavaFx UI framework. The layout of these UI parts are de
  For example, the layout of the [`MainWindow`](../src/main/java/seedu/address/ui/MainWindow.java) is specified in
  [`MainWindow.fxml`](../src/main/resources/view/MainWindow.fxml)
 
-The `UI` component,
-* Executes user commands using the `Logic` component.
-* Binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` change.
-* Responds to events raised from various parts of the App and updates the UI accordingly.
+The `UI` component will
+* Execute user commands using the `Logic` component.
+* Bind itself to some data in the `Model` so that the UI can auto-update when data in the `Model` change.
+* Respond to events raised from various parts of the App and updates the UI accordingly.
 
 ### Logic component
 
@@ -123,7 +128,7 @@ The `UI` component,
 3. The command execution can affect the `Model` (e.g. adding a task) and/or raise events.
 4. The result of the command execution is encapsulated as a `CommandResult` object which is passed back to the `Ui`.
 
-Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")`
+Below, you will find the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")`
  API call.<br>
 <img src="images/DeletePersonSdForLogic.png" width="800"><br>
 
@@ -152,7 +157,7 @@ The `Storage` component,
 
 ### Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+You may find classes used by multiple components are in the `seedu.addressbook.commons` package.
 
 ## Implementation
 
