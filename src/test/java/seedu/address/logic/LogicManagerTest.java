@@ -152,11 +152,11 @@ public class LogicManagerTest {
         assertCommandBehavior(
                 "add wrong args wrong args", expectedMessage);
         assertCommandBehavior(
-                "add Valid Name 12345 d/valid@email.butNoTimePrefix a/valid, address", expectedMessage);
+                "add Valid Name 12345 d/valid@description.butNoTimePrefix a/valid, address", expectedMessage);
         assertCommandBehavior(
-                "add Valid Name t/1234 valid@email.butNoPrefix a/valid, address", expectedMessage);
+                "add Valid Name t/1234 valid@description.butNoPrefix a/valid, address", expectedMessage);
         assertCommandBehavior(
-                "add Valid Name t/1234 d/valid@email.butNoAddressPrefix valid, address", expectedMessage);
+                "add Valid Name t/1234 d/valid@description.butNoAddressPrefix valid, address", expectedMessage);
     }
 
     @Test
@@ -402,7 +402,7 @@ public class LogicManagerTest {
             return new Task(
                     new Name("Task " + seed),
                     new Time("" + (Math.abs(seed)*9876%10000)),
-                    new Description(seed + "@email"),
+                    new Description(seed + "@description"),
                     new Location("House of " + seed),
                     new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
             );
@@ -501,7 +501,7 @@ public class LogicManagerTest {
             return new Task(
                     new Name(name),
                     new Time("1111"),
-                    new Description("1@email"),
+                    new Description("1@description"),
                     new Location("House of 1"),
                     new UniqueTagList(new Tag("tag"))
             );
