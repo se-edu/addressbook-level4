@@ -164,7 +164,7 @@ public class LogicManagerTest {
         assertCommandBehavior(
                 "add []\\[;] t/1234 d/valid@e.mail a/valid, address", Name.MESSAGE_NAME_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name t/not_numbers d/valid@e.mail a/valid, address", Time.MESSAGE_PHONE_CONSTRAINTS);
+                "add Valid Name t/not_numbers d/valid@e.mail a/valid, address", Time.MESSAGE_TIME_CONSTRAINTS);
         assertCommandBehavior(
                 "add Valid Name t/1234 d/valid@e.mail a/valid, address t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
 
@@ -417,7 +417,7 @@ public class LogicManagerTest {
             cmd.append(p.getName().toString());
             cmd.append(" t/").append(p.getTime());
             cmd.append(" d/").append(p.getDescription());
-            cmd.append(" a/").append(p.getAddress());
+            cmd.append(" a/").append(p.getLocation());
 
             UniqueTagList tags = p.getTags();
             for(Tag t: tags){
