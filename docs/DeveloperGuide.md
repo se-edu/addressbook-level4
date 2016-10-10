@@ -1,23 +1,24 @@
 ﻿# Developer Guide 
 
-* [Introduction](#introduction)
-* [Setting Up](#setting-up)
-* [Design](#design)
-* [Implementation](#implementation)
-* [Testing](#testing)
-* [Dev Ops](#dev-ops)
-* [Appendix A: User Stories](#appendix-a--user-stories)
-* [Appendix B: Use Cases](#appendix-b--use-cases)
-* [Appendix C: Non Functional Requirements](#appendix-c--non-functional-requirements)
-* [Appendix D: Glossary](#appendix-d--glossary)
-* [Appendix E : Product Survey](#appendix-e--product-survey)
+1. [Introduction](##1.-introduction)
+2. [Setting Up](#setting-up)
+3. [Design](#design)
+4. [Implementation](#implementation)
+5. [Testing](#testing)
+6. [Dev Ops](#dev-ops)
+7. [Appendix](#appendix) 
+  * [Appendix A: User Stories](#appendix-a--user-stories)
+  * [Appendix B: Use Cases](#appendix-b--use-cases)
+  * [Appendix C: Non Functional Requirements](#appendix-c--non-functional-requirements)
+  * [Appendix D: Glossary](#appendix-d--glossary)
+  * [Appendix E : Product Survey](#appendix-e--product-survey)
 
-## Introduction
+## 1. Introduction
 Welcome to the developer guide for SmartyDo. This guide is meant to enable budding developers like yourself to better understand the implementation of our program. Through this guide, we hope that you will be able to learn not only about how SmartyDo is implemented, but about different parts of the application that you are able to improve yourself.
 
-## Setting up
+## 2. Setting up
 
-#### Prerequisites
+#### 2.1 Prerequisites
 To ensure that you are able to run SmartyDo smoothly, do ensure that you have met the following prerequisites:
 
 1. Installed **JDK `1.8.0_60`**  or later<br>
@@ -31,7 +32,7 @@ To ensure that you are able to run SmartyDo smoothly, do ensure that you have me
 4. Installed **Buildship Gradle Integration** plugin from the Eclipse Marketplace
 
 
-#### Importing the project into Eclipse
+#### 2.2 Importing the project into Eclipse
 To import the lastest version of this project into Eclipse, follow the instructions as given below:
 
 0. Fork this repo, and clone the fork to your computer
@@ -47,9 +48,9 @@ To import the lastest version of this project into Eclipse, follow the instructi
       (This is because Gradle downloads library files from servers during the project set up process)
   > * If Eclipse auto-changed any settings files during the import process, you can discard those changes.
 
-## Design
+## 3. Design
 
-### Architecture
+### 3.1 Architecture
 
 <img src="images/Architecture.png" width="600"><br>
 The **_Architecture Diagram_** given above will explain to you the high-level design of the App.
@@ -97,7 +98,7 @@ being saved to the hard disk and the status bar of the UI being updated to refle
 
 The sections below will give you more details of each component.
 
-### UI component
+### 3.2 UI component
 
 <img src="images/UiClassDiagram.png" width="800"><br>
 
@@ -117,7 +118,7 @@ The `UI` component will
 * Bind itself to some data in the `Model` so that the UI can auto-update when data in the `Model` change.
 * Respond to events raised from various parts of the App and updates the UI accordingly.
 
-### Logic component
+### 3.3 Logic component
 
 <img src="images/LogicClassDiagram.png" width="800"><br>
 
@@ -132,7 +133,7 @@ Below, you will find the Sequence Diagram for interactions within the `Logic` co
  API call.<br>
 <img src="images/DeletePersonSdForLogic.png" width="800"><br>
 
-### Model component
+### 3.4 Model component
 
 <img src="images/ModelClassDiagram.png" width="800"><br>
 
@@ -145,7 +146,7 @@ The `Model`,
   so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
-### Storage component
+### 3.5 Storage component
 
 <img src="images/StorageClassDiagram.png" width="800"><br>
 
@@ -155,13 +156,13 @@ The `Storage` component,
 * can save `UserPref` objects in json format and read it back.
 * can save the SmartyDo data in xml format and read it back.
 
-### Common classes
+### 3.6 Common classes
 
 You may find classes used by multiple components are in the `seedu.addressbook.commons` package.
 
-## Implementation
+## 4. Implementation
 
-### Logging
+### 4.1 Logging
 
 We are using `java.util.logging` package for logging. You can use `LogsCenter` class to manage the logging levels
 and logging destinations.
@@ -180,13 +181,13 @@ and logging destinations.
 * `FINE` : Details that is not usually noteworthy but may be useful in debugging
   e.g. print the actual list instead of just its size
 
-### Configuration
+### 4.2 Configuration
 
 You can controll certain properties of the application (e.g App name, logging level) through the configuration file 
 (default: `config.json`):
 
 
-## Testing
+## 5. Testing
 
 You can find tests in the `./src/test/java` folder.
 
@@ -224,18 +225,18 @@ Thanks to the [TestFX](https://github.com/TestFX/TestFX) library we use,
  That means the developer can do other things on the Computer while the tests are running.<br>
  See [UsingGradle.md](UsingGradle.md#running-tests) to learn how to run tests in headless mode.
   
-## Dev Ops
+## 6. Dev Ops
 
-### Build Automation
+### 6.1 Build Automation
 
 You may read [UsingGradle.md](UsingGradle.md) to learn how to use Gradle for build automation.
 
-### Continuous Integration
+### 6.2 Continuous Integration
 
 We use [Travis CI](https://travis-ci.org/) to perform _Continuous Integration_ on our projects.
 You may read [UsingTravis.md](UsingTravis.md) for more details.
 
-### Making a Release
+### 6.3 Making a Release
 
 Here are the steps to create a new release.
  
@@ -243,8 +244,8 @@ Here are the steps to create a new release.
  2. Tag the repo with the version number. e.g. `v0.1`
  2. [Crete a new release using GitHub](https://help.github.com/articles/creating-releases/) 
     and upload the JAR file your created.
-   
-### Managing Dependencies
+ 
+### 6.4 Managing Dependencies
 
 A project often depends on third-party libraries. For example, SmartyDo depends on the
 [Jackson library](http://wiki.fasterxml.com/JacksonHome) for XML parsing. Managing these _dependencies_
@@ -252,6 +253,9 @@ can be automated using Gradle. For example, Gradle can download the dependencies
 is better than these alternatives.<br>
 a. Include those libraries in the repo (this bloats the repo size)<br>
 b. Require developers to download those libraries manually (this creates extra work for developers)<br>
+
+  
+## 7. Appendix
 
 ## Appendix A : User Stories
 
