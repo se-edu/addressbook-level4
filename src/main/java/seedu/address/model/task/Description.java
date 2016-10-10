@@ -4,7 +4,7 @@ package seedu.address.model.task;
 import seedu.address.commons.exceptions.IllegalValueException;
 
 /**
- * Represents a Task's phone number in the SmartyDo.
+ * Represents a Task's time in the SmartyDo.
  * Guarantees: immutable; is valid as declared in {@link #isValidDescription(String)}
  */
 public class Description {

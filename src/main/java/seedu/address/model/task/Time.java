@@ -4,7 +4,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 
 /**
  * Represents a Task's time number in the SmartyDo.
- * Guarantees: immutable; is valid as declared in {@link #isValidPhone(String)}
+ * Guarantees: immutable; is valid as declared in {@link #isValidTime(String)}
  */
 public class Time {
 
@@ -21,7 +21,7 @@ public class Time {
     public Time(String time) throws IllegalValueException {
         assert time != null;
         time = time.trim();
-        if (!time.isEmpty()&&!isValidPhone(time)) {
+        if (!time.isEmpty()&&!isValidTime(time)) {
             throw new IllegalValueException(MESSAGE_TIME_CONSTRAINTS);
         }
         this.value = time;
@@ -30,7 +30,7 @@ public class Time {
     /**
      * Returns true if a given string is a valid task time.
      */
-    public static boolean isValidPhone(String test) {
+    public static boolean isValidTime(String test) {
         return test.matches(TIME_VALIDATION_REGEX);
     }
 

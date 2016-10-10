@@ -152,7 +152,7 @@ public class LogicManagerTest {
         assertCommandBehavior(
                 "add wrong args wrong args", expectedMessage);
         assertCommandBehavior(
-                "add Valid Name 12345 d/valid@email.butNoPhonePrefix a/valid, address", expectedMessage);
+                "add Valid Name 12345 d/valid@email.butNoTimePrefix a/valid, address", expectedMessage);
         assertCommandBehavior(
                 "add Valid Name t/1234 valid@email.butNoPrefix a/valid, address", expectedMessage);
         assertCommandBehavior(
