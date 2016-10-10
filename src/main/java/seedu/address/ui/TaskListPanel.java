@@ -19,16 +19,16 @@ import java.util.logging.Logger;
 /**
  * Panel containing the list of tasks.
  */
-public class PersonListPanel extends UiPart {
-    private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
-    private static final String FXML = "PersonListPanel.fxml";
+public class TaskListPanel extends UiPart {
+    private final Logger logger = LogsCenter.getLogger(TaskListPanel.class);
+    private static final String FXML = "TaskListPanel.fxml";
     private VBox panel;
     private AnchorPane placeHolderPane;
 
     @FXML
     private ListView<ReadOnlyTask> personListView;
 
-    public PersonListPanel() {
+    public TaskListPanel() {
         super();
     }
 
@@ -47,10 +47,10 @@ public class PersonListPanel extends UiPart {
         this.placeHolderPane = pane;
     }
 
-    public static PersonListPanel load(Stage primaryStage, AnchorPane personListPlaceholder,
+    public static TaskListPanel load(Stage primaryStage, AnchorPane personListPlaceholder,
                                        ObservableList<ReadOnlyTask> personList) {
-        PersonListPanel personListPanel =
-                UiPartLoader.loadUiPart(primaryStage, personListPlaceholder, new PersonListPanel());
+        TaskListPanel personListPanel =
+                UiPartLoader.loadUiPart(primaryStage, personListPlaceholder, new TaskListPanel());
         personListPanel.configure(personList);
         return personListPanel;
     }
@@ -100,7 +100,7 @@ public class PersonListPanel extends UiPart {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(PersonCard.load(task, getIndex() + 1).getLayout());
+                setGraphic(TaskCard.load(task, getIndex() + 1).getLayout());
             }
         }
     }
