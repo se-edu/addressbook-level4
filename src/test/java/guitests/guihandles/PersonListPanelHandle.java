@@ -69,7 +69,7 @@ public class PersonListPanelHandle extends GuiHandle {
 
         // Return false if any of the tasks doesn't match
         for (int i = 0; i < tasks.length; i++) {
-            if (!personsInList.get(startPosition + i).getName().fullName.equals(tasks[i].getName().fullName)){
+            if (!personsInList.get(startPosition + i).getName().taskName.equals(tasks[i].getName().taskName)){
                 return false;
             }
         }
@@ -102,7 +102,7 @@ public class PersonListPanelHandle extends GuiHandle {
 
     public PersonCardHandle navigateToPerson(String name) {
         guiRobot.sleep(500); //Allow a bit of time for the list to be updated
-        final Optional<ReadOnlyTask> task = getListView().getItems().stream().filter(p -> p.getName().fullName.equals(name)).findAny();
+        final Optional<ReadOnlyTask> task = getListView().getItems().stream().filter(p -> p.getName().taskName.equals(name)).findAny();
         if (!task.isPresent()) {
             throw new IllegalStateException("Name not found: " + name);
         }
