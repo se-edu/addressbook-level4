@@ -19,7 +19,7 @@ public class AddCommand extends Command implements Undoable {
     public static final String COMMAND_WORD = "add";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the SmartyDo. "
-            + "Parameters: NAME t/PHONE d/EMAIL a/ADDRESS  [t/TAG]...\n"
+            + "Parameters: NAME t/TIME d/EMAIL a/ADDRESS  [t/TAG]...\n"
             + "Example: " + COMMAND_WORD
             + " John Doe t/9876 d/johnd's description a/311, Clementi Ave 2, #02-25 t/friends t/owesMoney";
 
@@ -34,7 +34,7 @@ public class AddCommand extends Command implements Undoable {
      *
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public AddCommand(String name, String phone, String email, String address, Set<String> tags)
+    public AddCommand(String name, String time, String email, String address, Set<String> tags)
             throws IllegalValueException {
         final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tags) {
@@ -42,7 +42,7 @@ public class AddCommand extends Command implements Undoable {
         }
         this.toAdd = new Task(
                 new Name(name),
-                new Time(phone),
+                new Time(time),
                 new Description(email),
                 new Location(address),
                 new UniqueTagList(tagSet)
