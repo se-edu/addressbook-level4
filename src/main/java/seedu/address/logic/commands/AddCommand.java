@@ -74,10 +74,10 @@ public class AddCommand extends Command implements Undoable {
 
         toRemove = model.getToDo().getTaskList().indexOf(toAdd);
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
-        ReadOnlyTask personToDelete = lastShownList.get(toRemove);
+        ReadOnlyTask taskToDelete = lastShownList.get(toRemove);
 
         try {
-            model.deleteTask(personToDelete);
+            model.deleteTask(taskToDelete);
         } catch (TaskNotFoundException pnfe) {
             assert false : "The target task cannot be missing";
         }

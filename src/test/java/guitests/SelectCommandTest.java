@@ -16,12 +16,12 @@ public class SelectCommandTest extends AddressBookGuiTest {
         assertNoTaskSelected();
 
         assertSelectionSuccess(1); //first task in the list
-        int personCount = td.getTypicalTask().length;
-        assertSelectionSuccess(personCount); //last task in the list
-        int middleIndex = personCount / 2;
+        int taskCount = td.getTypicalTask().length;
+        assertSelectionSuccess(taskCount); //last task in the list
+        int middleIndex = taskCount / 2;
         assertSelectionSuccess(middleIndex); //a task in the middle of the list
 
-        assertSelectionInvalid(personCount + 1); //invalid index
+        assertSelectionInvalid(taskCount + 1); //invalid index
         assertTaskSelected(middleIndex); //assert previous selection remains
 
         /* Testing other invalid indexes such as -1 should be done when testing the SelectCommand */
