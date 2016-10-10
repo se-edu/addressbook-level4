@@ -28,7 +28,7 @@ public class TaskBuilder {
     }
 
     public TaskBuilder withAddress(String address) throws IllegalValueException {
-        this.task.setAddress(new Address(address));
+        this.task.setAddress(new Location(address));
         return this;
     }
 

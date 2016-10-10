@@ -384,7 +384,7 @@ public class LogicManagerTest {
             Name name = new Name("Adam Brown");
             Time privateTime = new Time("1111");
             Description description = new Description("adam's description");
-            Address privateAddress = new Address("111, alpha street");
+            Location privateAddress = new Location("111, alpha street");
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
@@ -403,7 +403,7 @@ public class LogicManagerTest {
                     new Name("Task " + seed),
                     new Time("" + (Math.abs(seed)*9876%10000)),
                     new Description(seed + "@email"),
-                    new Address("House of " + seed),
+                    new Location("House of " + seed),
                     new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
             );
         }
@@ -502,7 +502,7 @@ public class LogicManagerTest {
                     new Name(name),
                     new Time("1111"),
                     new Description("1@email"),
-                    new Address("House of 1"),
+                    new Location("House of 1"),
                     new UniqueTagList(new Tag("tag"))
             );
         }

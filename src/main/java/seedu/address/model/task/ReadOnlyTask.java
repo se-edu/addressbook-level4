@@ -11,7 +11,7 @@ public interface ReadOnlyTask {
     Name getName();
     Time getTime();
     Description getDescription();
-    Address getAddress();
+    Location getAddress();
 
     /**
      * The returned TagList is a deep copy of the internal TagList,

@@ -9,7 +9,7 @@ import seedu.address.model.task.*;
 public class TestTask implements ReadOnlyTask {
 
     private Name name;
-    private Address address;
+    private Location address;
     private Description description;
     private Time time;
     private UniqueTagList tags;
@@ -22,7 +22,7 @@ public class TestTask implements ReadOnlyTask {
         this.name = name;
     }
 
-    public void setAddress(Address address) {
+    public void setAddress(Location address) {
         this.address = address;
     }
 
@@ -50,7 +50,7 @@ public class TestTask implements ReadOnlyTask {
     }
 
     @Override
-    public Address getAddress() {
+    public Location getAddress() {
         return address;
     }
 

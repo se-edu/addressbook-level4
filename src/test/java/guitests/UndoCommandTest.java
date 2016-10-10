@@ -9,7 +9,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.IncorrectCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.undoredomanager.UndoRedoManager;
-import seedu.address.model.task.Address;
+import seedu.address.model.task.Location;
 import seedu.address.model.task.Description;
 import seedu.address.model.task.Name;
 import seedu.address.model.task.Time;

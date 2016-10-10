@@ -44,7 +44,7 @@ public class AddCommand extends Command implements Undoable {
                 new Name(name),
                 new Time(phone),
                 new Description(email),
-                new Address(address),
+                new Location(address),
                 new UniqueTagList(tagSet)
         );
         isExecutedBefore = false;
