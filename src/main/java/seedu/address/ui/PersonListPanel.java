@@ -87,6 +87,7 @@ public class PersonListPanel extends UiPart {
         });
     }
 
+
     class PersonListViewCell extends ListCell<ReadOnlyTask> {
 
         public PersonListViewCell() {

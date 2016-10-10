@@ -6,9 +6,11 @@ import seedu.address.model.task.ReadOnlyTask;
 public class ViewItemRequestEvent extends BaseEvent{
 	
     public final ReadOnlyTask newSelection;
+    public final int targetIndex;
 
-    public ViewItemRequestEvent(ReadOnlyTask newSelection) {
+    public ViewItemRequestEvent(ReadOnlyTask newSelection, int targetIndex) {
         this.newSelection = newSelection;
+        this.targetIndex = targetIndex;
     }
 
     @Override

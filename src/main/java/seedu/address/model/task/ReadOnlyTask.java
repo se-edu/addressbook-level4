@@ -47,6 +47,25 @@ public interface ReadOnlyTask {
         getTags().forEach(builder::append);
         return builder.toString();
     }
+    
+    /**
+     * Formats the task for display in browser, showing all contact details.
+     */
+    default String getAsHTML() {
+        final StringBuilder builder = new StringBuilder();
+        builder.append("<html> <body>")
+                .append("<h1>" + getName() + "</h1>")
+                .append("<br> Time: ")
+                .append(getTime())
+                .append("<br> Description: ")
+                .append(getDescription())
+                .append("<br> Location: ")
+                .append(getAddress())
+                .append("<br> Tags: ");
+        getTags().forEach(builder::append);
+        builder.append("</body> </html>");
+        return builder.toString();
+    }
 
     /**
      * Returns a string representation of this Task's tags

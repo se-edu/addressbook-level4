@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.UnmodifiableObservableList;
+import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.commons.events.ui.ViewItemRequestEvent;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.UniqueTaskList.PersonNotFoundException;
@@ -40,7 +41,7 @@ public class ViewCommand extends Command {
         
         ReadOnlyTask taskToShow = lastShownList.get(targetIndex - 1);
 
-        EventsCenter.getInstance().post(new ViewItemRequestEvent(taskToShow));
+        EventsCenter.getInstance().post(new ViewItemRequestEvent(taskToShow, targetIndex -1));
         return new CommandResult(String.format(MESSAGE_SUCCESS, targetIndex));
         
     }
