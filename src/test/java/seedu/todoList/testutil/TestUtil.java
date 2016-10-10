@@ -18,7 +18,7 @@ import seedu.todoList.model.TodoList;
 import seedu.todoList.model.tag.Tag;
 import seedu.todoList.model.tag.UniqueTagList;
 import seedu.todoList.model.task.*;
-import seedu.todoList.storage.XmlSerializableTodoList;
+import seedu.todoList.storage.XmlSerializableTaskList;
 
 import org.loadui.testfx.GuiTest;
 import org.testfx.api.FxToolkit;
@@ -139,8 +139,8 @@ public class TestUtil {
         return new TodoList(new UniqueTaskList(), new UniqueTagList());
     }
 
-    public static XmlSerializableTodoList generateSampleStorageTodoList() {
-        return new XmlSerializableTodoList(generateEmptyTodoList());
+    public static XmlSerializableTaskList generateSampleStorageTodoList() {
+        return new XmlSerializableTaskList(generateEmptyTodoList());
     }
 
     /**
