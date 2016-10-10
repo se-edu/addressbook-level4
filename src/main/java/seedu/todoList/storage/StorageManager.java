@@ -7,7 +7,7 @@ import seedu.todoList.commons.core.LogsCenter;
 import seedu.todoList.commons.events.model.TodoListChangedEvent;
 import seedu.todoList.commons.events.storage.DataSavingExceptionEvent;
 import seedu.todoList.commons.exceptions.DataConversionException;
-import seedu.todoList.model.ReadOnlyTodoList;
+import seedu.todoList.model.ReadOnlyTaskList;
 import seedu.todoList.model.UserPrefs;
 
 import java.io.FileNotFoundException;
@@ -21,18 +21,25 @@ import java.util.logging.Logger;
 public class StorageManager extends ComponentManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
-    private TodoListStorage TodoListStorage;
+    private TaskListStorage todoListStorage;
+    private TaskListStorage eventListStorage;
+    private TaskListStorage deadlineListStorage;
     private UserPrefsStorage userPrefsStorage;
 
 
-    public StorageManager(TodoListStorage TodoListStorage, UserPrefsStorage userPrefsStorage) {
+    public StorageManager(TaskListStorage todoListStorage, TaskListStorage eventListStorage,
+    						TaskListStorage deadlineListStorage, UserPrefsStorage userPrefsStorage) {
         super();
-        this.TodoListStorage = TodoListStorage;
+        this.todoListStorage = todoListStorage;
+        this.eventListStorage = eventListStorage;
+        this.deadlineListStorage = deadlineListStorage;
         this.userPrefsStorage = userPrefsStorage;
     }
 
-    public StorageManager(String TodoListFilePath, String userPrefsFilePath) {
-        this(new XmlTodoListStorage(TodoListFilePath), new JsonUserPrefsStorage(userPrefsFilePath));
+    public StorageManager(String todoListFilePath, String eventListFilePath,
+    						String deadlineListFilePath, String userPrefsFilePath) {
+        this(new XmlTaskListStorage(todoListFilePath), new XmlTaskListStorage(eventListFilePath),
+        		new XmlTaskListStorage(deadlineListFilePath), new JsonUserPrefsStorage(userPrefsFilePath));
     }
 
     // ================ UserPrefs methods ==============================
@@ -52,29 +59,29 @@ public class StorageManager extends ComponentManager implements Storage {
 
     @Override
     public String getTodoListFilePath() {
-        return TodoListStorage.getTodoListFilePath();
+        return todoListStorage.getTaskListFilePath();
     }
 
     @Override
-    public Optional<ReadOnlyTodoList> readTodoList() throws DataConversionException, IOException {
-        return readTodoList(TodoListStorage.getTodoListFilePath());
+    public Optional<ReadOnlyTaskList> readTodoList() throws DataConversionException, IOException {
+        return readTodoList(todoListStorage.getTaskListFilePath());
     }
 
     @Override
-    public Optional<ReadOnlyTodoList> readTodoList(String filePath) throws DataConversionException, IOException {
+    public Optional<ReadOnlyTaskList> readTodoList(String filePath) throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
-        return TodoListStorage.readTodoList(filePath);
+        return todoListStorage.readTaskList(filePath);
     }
 
     @Override
-    public void saveTodoList(ReadOnlyTodoList TodoList) throws IOException {
-        saveTodoList(TodoList, TodoListStorage.getTodoListFilePath());
+    public void saveTodoList(ReadOnlyTaskList TodoList) throws IOException {
+        saveTodoList(TodoList, todoListStorage.getTaskListFilePath());
     }
 
     @Override
-    public void saveTodoList(ReadOnlyTodoList TodoList, String filePath) throws IOException {
+    public void saveTodoList(ReadOnlyTaskList TodoList, String filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        TodoListStorage.saveTodoList(TodoList, filePath);
+        todoListStorage.saveTodoList(TodoList, filePath);
     }
 
 
@@ -88,5 +95,86 @@ public class StorageManager extends ComponentManager implements Storage {
             raise(new DataSavingExceptionEvent(e));
         }
     }
+    
+ // ================ EventList methods ==============================
 
+    @Override
+    public String getEventListFilePath() {
+        return eventListStorage.getEventListFilePath();
+    }
+
+    @Override
+    public Optional<ReadOnlyTaskList> readEventList() throws DataConversionException, IOException {
+        return readEventList(eventListStorage.getEventListFilePath());
+    }
+
+    @Override
+    public Optional<ReadOnlyTaskList> readEventList(String filePath) throws DataConversionException, IOException {
+        logger.fine("Attempting to read data from file: " + filePath);
+        return eventListStorage.readTaskList(filePath);
+    }
+
+    @Override
+    public void saveEventList(ReadOnlyTaskList eventList) throws IOException {
+        saveEventList(eventList, todoListStorage.getTaskListFilePath());
+    }
+
+    @Override
+    public void saveTodoList(ReadOnlyTaskList eventList, String filePath) throws IOException {
+        logger.fine("Attempting to write to data file: " + filePath);
+        eventListStorage.saveTaskList(eventList, filePath);
+    }
+
+
+    @Override
+    @Subscribe
+    public void handleEventListChangedEvent(EventListChangedEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local data changed, saving to file"));
+        try {
+            saveEventList(event.data);
+        } catch (IOException e) {
+            raise(new DataSavingExceptionEvent(e));
+        }
+    }
+    
+ // ================ DeadlineList methods ==============================
+
+    @Override
+    public String getDeadlineListFilePath() {
+        return deadlineListStorage.getTodoListFilePath();
+    }
+
+    @Override
+    public Optional<ReadOnlyTaskList> readDeadlineList() throws DataConversionException, IOException {
+        return readTodoList(deadlineListStorage.getTaskListFilePath());
+    }
+
+    @Override
+    public Optional<ReadOnlyTaskList> readDeadlineList(String filePath) throws DataConversionException, IOException {
+        logger.fine("Attempting to read data from file: " + filePath);
+        return deadlineListStorage.readTaskList(filePath);
+    }
+
+    @Override
+    public void saveDeadlineList(ReadOnlyTaskList taskList) throws IOException {
+        saveTodoList(taskList, deadlineListStorage.getTaskListFilePath());
+    }
+
+    @Override
+    public void saveDeadlineList(ReadOnlyTaskList taskList, String filePath) throws IOException {
+        logger.fine("Attempting to write to data file: " + filePath);
+        deadlineListStorage.saveTaskList(taskList, filePath);
+    }
+
+
+    @Override
+    @Subscribe
+    public void handleDeadlineListChangedEvent(DeadlineListChangedEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local data changed, saving to file"));
+        try {
+            saveDeadlineList(event.data);
+        } catch (IOException e) {
+            raise(new DataSavingExceptionEvent(e));
+        }
+    }
 }

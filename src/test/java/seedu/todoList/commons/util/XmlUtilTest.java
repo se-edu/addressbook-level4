@@ -5,7 +5,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.todoList.model.TodoList;
-import seedu.todoList.storage.XmlSerializableTodoList;
+import seedu.todoList.storage.XmlSerializableTaskList;
 import seedu.todoList.testutil.TodoListBuilder;
 import seedu.todoList.testutil.TestUtil;
 import seedu.todoList.commons.util.FileUtil;
@@ -54,7 +54,7 @@ public class XmlUtilTest {
 
     @Test
     public void getDataFromFile_validFile_validResult() throws Exception {
-        XmlSerializableTodoList dataFromFile = XmlUtil.getDataFromFile(VALID_FILE, XmlSerializableTodoList.class);
+        XmlSerializableTaskList dataFromFile = XmlUtil.getDataFromFile(VALID_FILE, XmlSerializableTaskList.class);
         assertEquals(9, dataFromFile.gettaskList().size());
         assertEquals(0, dataFromFile.getTagList().size());
     }
@@ -80,17 +80,17 @@ public class XmlUtilTest {
     @Test
     public void saveDataToFile_validFile_dataSaved() throws Exception {
         TEMP_FILE.createNewFile();
-        XmlSerializableTodoList dataToWrite = new XmlSerializableTodoList(new TodoList());
+        XmlSerializableTaskList dataToWrite = new XmlSerializableTaskList(new TodoList());
         XmlUtil.saveDataToFile(TEMP_FILE, dataToWrite);
-        XmlSerializableTodoList dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE, XmlSerializableTodoList.class);
+        XmlSerializableTaskList dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE, XmlSerializableTaskList.class);
         assertEquals((new TodoList(dataToWrite)).toString(),(new TodoList(dataFromFile)).toString());
         //TODO: use equality instead of string comparisons
 
         TodoListBuilder builder = new TodoListBuilder(new TodoList());
-        dataToWrite = new XmlSerializableTodoList(builder.withTask(TestUtil.generateSampletaskData().get(0)).withTag("Friends").build());
+        dataToWrite = new XmlSerializableTaskList(builder.withTask(TestUtil.generateSampletaskData().get(0)).withTag("Friends").build());
 
         XmlUtil.saveDataToFile(TEMP_FILE, dataToWrite);
-        dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE, XmlSerializableTodoList.class);
+        dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE, XmlSerializableTaskList.class);
         assertEquals((new TodoList(dataToWrite)).toString(),(new TodoList(dataFromFile)).toString());
     }
 }
