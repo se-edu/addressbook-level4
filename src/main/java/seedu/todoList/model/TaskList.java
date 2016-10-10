@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
  * Wraps all data at the TodoList  level
  * Duplicates are not allowed (by .equals comparison)
  */
-public class TodoList implements ReadOnlyTodoList {
+public class TaskList implements ReadOnlyTodoList {
 
     private final UniqueTaskList tasks;
     private final UniqueTagList tags;
@@ -24,24 +24,24 @@ public class TodoList implements ReadOnlyTodoList {
         tags = new UniqueTagList();
     }
 
-    public TodoList() {}
+    public TaskList() {}
 
     /**
      * tasks and Tags are copied into this TodoList 
      */
-    public TodoList(ReadOnlyTodoList toBeCopied) {
+    public TaskList(ReadOnlyTodoList toBeCopied) {
         this(toBeCopied.getUniqueTaskList(), toBeCopied.getUniqueTagList());
     }
 
     /**
      * tasks and Tags are copied into this TodoList 
      */
-    public TodoList(UniqueTaskList tasks, UniqueTagList tags) {
+    public TaskList(UniqueTaskList tasks, UniqueTagList tags) {
         resetData(tasks.getInternalList(), tags.getInternalList());
     }
 
     public static ReadOnlyTodoList getEmptyTodoList() {
-        return new TodoList();
+        return new TaskList();
     }
 
 //// list overwrite operations
@@ -126,9 +126,9 @@ public class TodoList implements ReadOnlyTodoList {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof TodoList // instanceof handles nulls
-                && this.tasks.equals(((TodoList) other).tasks)
-                && this.tags.equals(((TodoList) other).tags));
+                || (other instanceof TaskList // instanceof handles nulls
+                && this.tasks.equals(((TaskList) other).tasks)
+                && this.tags.equals(((TaskList) other).tags));
     }
 
     @Override

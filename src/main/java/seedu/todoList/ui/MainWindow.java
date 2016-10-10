@@ -30,8 +30,9 @@ public class MainWindow extends UiPart {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private BrowserPanel browserPanel;
-    private TaskListPanel taskListPanel;
+    private TaskListPanel todoListPanel;
+    private EventListPanel eventListPanel;
+    private DeadlineListPanel deadlineListPanel;
     private ResultDisplay resultDisplay;
     private StatusBarFooter statusBarFooter;
     private CommandBox commandBox;
@@ -55,6 +56,12 @@ public class MainWindow extends UiPart {
 
     @FXML
     private AnchorPane taskListPanelPlaceholder;
+    
+    @FXML
+    private AnchorPane eventListPanelPlaceholder;
+    
+    @FXML
+    private AnchorPane deadlineListPanelPlaceholder;
 
     @FXML
     private AnchorPane resultDisplayPlaceholder;
@@ -84,12 +91,12 @@ public class MainWindow extends UiPart {
         return mainWindow;
     }
 
-    private void configure(String appTitle, String TodoListName, Config config, UserPrefs prefs,
+    private void configure(String appTitle, String todoListName, Config config, UserPrefs prefs,
                            Logic logic) {
 
         //Set dependencies
         this.logic = logic;
-        this.todoListName = TodoListName;
+        this.todoListName = todoListName;
         this.config = config;
         this.userPrefs = prefs;
 
@@ -109,8 +116,9 @@ public class MainWindow extends UiPart {
     }
 
     void fillInnerParts() {
-        browserPanel = BrowserPanel.load(browserPlaceholder);
-        taskListPanel = TaskListPanel.load(primaryStage, gettaskListPlaceholder(), logic.getFilteredtaskList());
+        todoListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredTodoList());
+        eventListPanel = EventListPanel.load(primaryStage, getEventListPlaceholder(), logic.getFilteredEventList());
+        deadlineListPanel = DeadlineListPanel.load(primaryStage, getDeadlineListPlaceholder(), logic.getFilteredDeadlineList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getTodoListFilePath());
         commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), resultDisplay, logic);
@@ -128,8 +136,16 @@ public class MainWindow extends UiPart {
         return resultDisplayPlaceholder;
     }
 
-    public AnchorPane gettaskListPlaceholder() {
+    public AnchorPane getTaskListPlaceholder() {
         return taskListPanelPlaceholder;
+    }
+    
+    public AnchorPane getEventListPlaceholder() {
+        return eventListPanelPlaceholder;
+    }
+    
+    public AnchorPane getDeadlineListPlaceholder() {
+        return deadlineListPanelPlaceholder;
     }
 
     public void hide() {
@@ -184,14 +200,6 @@ public class MainWindow extends UiPart {
     }
 
     public TaskListPanel getTaskListPanel() {
-        return this.taskListPanel;
-    }
-
-    public void loadTaskPage(ReadOnlyTask task) {
-        browserPanel.loadTaskPage(task);
-    }
-
-    public void releaseResources() {
-        browserPanel.freeResources();
+        return this.todoListPanel;
     }
 }

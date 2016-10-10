@@ -1,6 +1,6 @@
 package seedu.todoList.logic.commands;
 
-import seedu.todoList.model.TodoList;
+import seedu.todoList.model.TaskList;
 
 /**
  * Clears the TodoList.
@@ -16,7 +16,7 @@ public class ClearCommand extends Command {
     @Override
     public CommandResult execute() {
         assert model != null;
-        model.resetData(TodoList.getEmptyTodoList());
+        model.resetData(TaskList.getEmptyTodoList());
         return new CommandResult(MESSAGE_SUCCESS);
     }
 }

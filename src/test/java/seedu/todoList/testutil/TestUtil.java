@@ -14,7 +14,7 @@ import seedu.todoList.TestApp;
 import seedu.todoList.commons.exceptions.IllegalValueException;
 import seedu.todoList.commons.util.FileUtil;
 import seedu.todoList.commons.util.XmlUtil;
-import seedu.todoList.model.TodoList;
+import seedu.todoList.model.TaskList;
 import seedu.todoList.model.tag.Tag;
 import seedu.todoList.model.tag.UniqueTagList;
 import seedu.todoList.model.task.*;
@@ -135,8 +135,8 @@ public class TestUtil {
         createDataFileWithSampleData(TestApp.SAVE_LOCATION_FOR_TESTING);
     }
 
-    public static TodoList generateEmptyTodoList() {
-        return new TodoList(new UniqueTaskList(), new UniqueTagList());
+    public static TaskList generateEmptyTodoList() {
+        return new TaskList(new UniqueTaskList(), new UniqueTagList());
     }
 
     public static XmlSerializableTaskList generateSampleStorageTodoList() {

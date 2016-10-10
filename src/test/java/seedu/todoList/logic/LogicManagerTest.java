@@ -12,7 +12,7 @@ import seedu.todoList.logic.commands.*;
 import seedu.todoList.model.Model;
 import seedu.todoList.model.ModelManager;
 import seedu.todoList.model.ReadOnlyTodoList;
-import seedu.todoList.model.TodoList;
+import seedu.todoList.model.TaskList;
 import seedu.todoList.model.tag.Tag;
 import seedu.todoList.model.tag.UniqueTagList;
 import seedu.todoList.model.task.*;
@@ -51,7 +51,7 @@ public class LogicManagerTest {
 
     @Subscribe
     private void handleLocalModelChangedEvent(TodoListChangedEvent abce) {
-        latestSavedTodoList = new TodoList(abce.data);
+        latestSavedTodoList = new TaskList(abce.data);
     }
 
     @Subscribe
@@ -72,7 +72,7 @@ public class LogicManagerTest {
         logic = new LogicManager(model, new StorageManager(tempTodoListFile, tempPreferencesFile));
         EventsCenter.getInstance().registerHandler(this);
 
-        latestSavedTodoList = new TodoList(model.getTodoList()); // last saved assumed to be up to date before.
+        latestSavedTodoList = new TaskList(model.getTodoList()); // last saved assumed to be up to date before.
         helpShown = false;
         targetedJumpIndex = -1; // non yet
     }
@@ -95,7 +95,7 @@ public class LogicManagerTest {
      * @see #assertCommandBehavior(String, String, ReadOnlyTodoList, List)
      */
     private void assertCommandBehavior(String inputCommand, String expectedMessage) throws Exception {
-        assertCommandBehavior(inputCommand, expectedMessage, new TodoList(), Collections.emptyList());
+        assertCommandBehavior(inputCommand, expectedMessage, new TaskList(), Collections.emptyList());
     }
 
     /**
@@ -146,7 +146,7 @@ public class LogicManagerTest {
         model.addTask(helper.generatetask(2));
         model.addTask(helper.generatetask(3));
 
-        assertCommandBehavior("clear", ClearCommand.MESSAGE_SUCCESS, new TodoList(), Collections.emptyList());
+        assertCommandBehavior("clear", ClearCommand.MESSAGE_SUCCESS, new TaskList(), Collections.emptyList());
     }
 
 
@@ -181,7 +181,7 @@ public class LogicManagerTest {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         Task toBeAdded = helper.adam();
-        TodoList expectedAB = new TodoList();
+        TaskList expectedAB = new TaskList();
         expectedAB.addTask(toBeAdded);
 
         // execute command and verify result
@@ -197,7 +197,7 @@ public class LogicManagerTest {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         Task toBeAdded = helper.adam();
-        TodoList expectedAB = new TodoList();
+        TaskList expectedAB = new TaskList();
         expectedAB.addTask(toBeAdded);
 
         // setup starting state
@@ -217,7 +217,7 @@ public class LogicManagerTest {
     public void execute_list_showsAlltasks() throws Exception {
         // prepare expectations
         TestDataHelper helper = new TestDataHelper();
-        TodoList expectedAB = helper.generateTodoList(2);
+        TaskList expectedAB = helper.generateTodoList(2);
         List<? extends ReadOnlyTask> expectedList = expectedAB.gettaskList();
 
         // prepare TodoList state
@@ -254,7 +254,7 @@ public class LogicManagerTest {
         List<Task> taskList = helper.generatetaskList(2);
 
         // set AB state to 2 tasks
-        model.resetData(new TodoList());
+        model.resetData(new TaskList());
         for (Task p : taskList) {
             model.addTask(p);
         }
@@ -278,7 +278,7 @@ public class LogicManagerTest {
         TestDataHelper helper = new TestDataHelper();
         List<Task> threetasks = helper.generatetaskList(3);
 
-        TodoList expectedAB = helper.generateTodoList(threetasks);
+        TaskList expectedAB = helper.generateTodoList(threetasks);
         helper.addToModel(model, threetasks);
 
         assertCommandBehavior("select 2",
@@ -306,7 +306,7 @@ public class LogicManagerTest {
         TestDataHelper helper = new TestDataHelper();
         List<Task> threetasks = helper.generatetaskList(3);
 
-        TodoList expectedAB = helper.generateTodoList(threetasks);
+        TaskList expectedAB = helper.generateTodoList(threetasks);
         expectedAB.removeTask(threetasks.get(1));
         helper.addToModel(model, threetasks);
 
@@ -332,7 +332,7 @@ public class LogicManagerTest {
         Task p2 = helper.generatetaskWithName("KEYKEYKEY sduauo");
 
         List<Task> fourtasks = helper.generatetaskList(p1, pTarget1, p2, pTarget2);
-        TodoList expectedAB = helper.generateTodoList(fourtasks);
+        TaskList expectedAB = helper.generateTodoList(fourtasks);
         List<Task> expectedList = helper.generatetaskList(pTarget1, pTarget2);
         helper.addToModel(model, fourtasks);
 
@@ -351,7 +351,7 @@ public class LogicManagerTest {
         Task p4 = helper.generatetaskWithName("KEy sduauo");
 
         List<Task> fourtasks = helper.generatetaskList(p3, p1, p4, p2);
-        TodoList expectedAB = helper.generateTodoList(fourtasks);
+        TaskList expectedAB = helper.generateTodoList(fourtasks);
         List<Task> expectedList = fourtasks;
         helper.addToModel(model, fourtasks);
 
@@ -370,7 +370,7 @@ public class LogicManagerTest {
         Task p1 = helper.generatetaskWithName("sduauo");
 
         List<Task> fourtasks = helper.generatetaskList(pTarget1, p1, pTarget2, pTarget3);
-        TodoList expectedAB = helper.generateTodoList(fourtasks);
+        TaskList expectedAB = helper.generateTodoList(fourtasks);
         List<Task> expectedList = helper.generatetaskList(pTarget1, pTarget2, pTarget3);
         helper.addToModel(model, fourtasks);
 
@@ -436,8 +436,8 @@ public class LogicManagerTest {
         /**
          * Generates an TodoList with auto-generated tasks.
          */
-        TodoList generateTodoList(int numGenerated) throws Exception{
-            TodoList TodoList = new TodoList();
+        TaskList generateTodoList(int numGenerated) throws Exception{
+            TaskList TodoList = new TaskList();
             addToTodoList(TodoList, numGenerated);
             return TodoList;
         }
@@ -445,8 +445,8 @@ public class LogicManagerTest {
         /**
          * Generates an TodoList based on the list of tasks given.
          */
-        TodoList generateTodoList(List<Task> tasks) throws Exception{
-            TodoList TodoList = new TodoList();
+        TaskList generateTodoList(List<Task> tasks) throws Exception{
+            TaskList TodoList = new TaskList();
             addToTodoList(TodoList, tasks);
             return TodoList;
         }
@@ -455,14 +455,14 @@ public class LogicManagerTest {
          * Adds auto-generated task objects to the given TodoList
          * @param TodoList The TodoList to which the tasks will be added
          */
-        void addToTodoList(TodoList TodoList, int numGenerated) throws Exception{
+        void addToTodoList(TaskList TodoList, int numGenerated) throws Exception{
             addToTodoList(TodoList, generatetaskList(numGenerated));
         }
 
         /**
          * Adds the given list of tasks to the given TodoList
          */
-        void addToTodoList(TodoList TodoList, List<Task> tasksToAdd) throws Exception{
+        void addToTodoList(TaskList TodoList, List<Task> tasksToAdd) throws Exception{
             for(Task p: tasksToAdd){
                 TodoList.addTask(p);
             }

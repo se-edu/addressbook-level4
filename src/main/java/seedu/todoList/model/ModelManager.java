@@ -9,7 +9,7 @@ import seedu.todoList.commons.util.StringUtil;
 import seedu.todoList.model.task.ReadOnlyTask;
 import seedu.todoList.model.task.Task;
 import seedu.todoList.model.task.UniqueTaskList;
-import seedu.todoList.model.task.UniqueTaskList.taskNotFoundException;
+import seedu.todoList.model.task.UniqueTaskList.TaskNotFoundException;
 
 import java.util.Set;
 import java.util.logging.Logger;
@@ -21,31 +21,31 @@ import java.util.logging.Logger;
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final TodoList todoList;
-    private final FilteredList<Task> filteredtasks;
+    private final TaskList todoList;
+    private final FilteredList<Task> filteredTasks;
 
     /**
      * Initializes a ModelManager with the given TodoList
      * TodoList and its variables should not be null
      */
-    public ModelManager(TodoList src, UserPrefs userPrefs) {
+    public ModelManager(TaskList src, UserPrefs userPrefs) {
         super();
         assert src != null;
         assert userPrefs != null;
 
         logger.fine("Initializing with TodoList: " + src + " and user prefs " + userPrefs);
 
-        todoList = new TodoList(src);
-        filteredtasks = new FilteredList<>(todoList.gettasks());
+        todoList = new TaskList(src);
+        filteredTasks = new FilteredList<>(todoList.gettasks());
     }
 
     public ModelManager() {
-        this(new TodoList(), new UserPrefs());
+        this(new TaskList(), new UserPrefs());
     }
 
     public ModelManager(ReadOnlyTodoList initialData, UserPrefs userPrefs) {
-        todoList = new TodoList(initialData);
-        filteredtasks = new FilteredList<>(todoList.gettasks());
+        todoList = new TaskList(initialData);
+        filteredTasks = new FilteredList<>(todoList.gettasks());
     }
 
     @Override
@@ -65,7 +65,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public synchronized void deleteTask(ReadOnlyTask target) throws taskNotFoundException {
+    public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
         todoList.removeTask(target);
         indicateTodoListChanged();
     }
@@ -81,12 +81,12 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
-        return new UnmodifiableObservableList<>(filteredtasks);
+        return new UnmodifiableObservableList<>(filteredTasks);
     }
 
     @Override
     public void updateFilteredListToShowAll() {
-        filteredtasks.setPredicate(null);
+        filteredTasks.setPredicate(null);
     }
 
     @Override
@@ -95,7 +95,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     private void updateFilteredTaskList(Expression expression) {
-        filteredtasks.setPredicate(expression::satisfies);
+        filteredTasks.setPredicate(expression::satisfies);
     }
 
     //========== Inner classes/interfaces used for filtering ==================================================

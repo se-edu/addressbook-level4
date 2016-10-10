@@ -7,7 +7,7 @@ import seedu.todoList.commons.exceptions.DataConversionException;
 import seedu.todoList.model.ReadOnlyTodoList;
 
 /**
- * Represents a storage for {@link seedu.TodoList.model.TodoList}.
+ * Represents a storage for {@link seedu.TaskList.model.TodoList}.
  */
 public interface TaskListStorage {
 
