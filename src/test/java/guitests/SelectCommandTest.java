@@ -10,25 +10,25 @@ public class SelectCommandTest extends AddressBookGuiTest {
 
 
     @Test
-    public void selectPerson_nonEmptyList() {
+    public void selectTask_nonEmptyList() {
 
         assertSelectionInvalid(10); //invalid index
-        assertNoPersonSelected();
+        assertNoTaskSelected();
 
         assertSelectionSuccess(1); //first task in the list
-        int personCount = td.getTypicalPersons().length;
+        int personCount = td.getTypicalTask().length;
         assertSelectionSuccess(personCount); //last task in the list
         int middleIndex = personCount / 2;
         assertSelectionSuccess(middleIndex); //a task in the middle of the list
 
         assertSelectionInvalid(personCount + 1); //invalid index
-        assertPersonSelected(middleIndex); //assert previous selection remains
+        assertTaskSelected(middleIndex); //assert previous selection remains
 
         /* Testing other invalid indexes such as -1 should be done when testing the SelectCommand */
     }
 
     @Test
-    public void selectPerson_emptyList(){
+    public void selectTask_emptyList(){
         commandBox.runCommand("clear");
         assertListSize(0);
         assertSelectionInvalid(1); //invalid index
@@ -42,18 +42,18 @@ public class SelectCommandTest extends AddressBookGuiTest {
     private void assertSelectionSuccess(int index) {
         commandBox.runCommand("select " + index);
         assertResultMessage("Selected Task: "+index);
-        assertPersonSelected(index);
+        assertTaskSelected(index);
     }
 
-    private void assertPersonSelected(int index) {
-        assertEquals(personListPanel.getSelectedPersons().size(), 1);
-        ReadOnlyTask selectedPerson = personListPanel.getSelectedPersons().get(0);
-        assertEquals(personListPanel.getPerson(index-1), selectedPerson);
+    private void assertTaskSelected(int index) {
+        assertEquals(taskListPanel.getSelectedTask().size(), 1);
+        ReadOnlyTask selectedTask = taskListPanel.getSelectedTask().get(0);
+        assertEquals(taskListPanel.getTask(index-1), selectedTask);
         //TODO: confirm the correct page is loaded in the Browser Panel
     }
 
-    private void assertNoPersonSelected() {
-        assertEquals(personListPanel.getSelectedPersons().size(), 0);
+    private void assertNoTaskSelected() {
+        assertEquals(taskListPanel.getSelectedTask().size(), 0);
     }
 
 }

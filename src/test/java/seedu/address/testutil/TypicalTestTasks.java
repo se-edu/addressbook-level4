@@ -44,12 +44,12 @@ public class TypicalTestTasks {
             ab.addTask(new Task(elle));
             ab.addTask(new Task(fiona));
             ab.addTask(new Task(george));
-        } catch (UniqueTaskList.DuplicatePersonException e) {
+        } catch (UniqueTaskList.DuplicateTaskException e) {
             assert false : "not possible";
         }
     }
 
-    public TestTask[] getTypicalPersons() {
+    public TestTask[] getTypicalTask() {
         return new TestTask[]{alice, benson, carl, daniel, elle, fiona, george};
     }
 

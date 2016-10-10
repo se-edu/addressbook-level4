@@ -5,7 +5,7 @@ import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.UniqueTaskList;
-import seedu.address.model.task.UniqueTaskList.PersonNotFoundException;
+import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
  * Deletes a task identified using it's last displayed index from the SmartyDo.
@@ -37,7 +37,7 @@ public class DeleteCommand extends Command implements Undoable{
     @Override
     public CommandResult execute() {
 
-        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredPersonList();
+        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
 
         if (lastShownList.size() < targetIndex) {
             indicateAttemptToExecuteIncorrectCommand();
@@ -47,9 +47,9 @@ public class DeleteCommand extends Command implements Undoable{
         personToDelete = lastShownList.get(targetIndex - 1);
 
         try {
-            model.deletePerson(personToDelete);
+            model.deleteTask(personToDelete);
 
-        } catch (PersonNotFoundException pnfe) {
+        } catch (TaskNotFoundException pnfe) {
             assert false : "The target task cannot be missing";
         }
 
@@ -66,7 +66,7 @@ public class DeleteCommand extends Command implements Undoable{
              model.addTask((Task) personToDelete);
              isExecutedBefore = pushCmdToUndo(isExecutedBefore);
              return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, personToDelete));
-         } catch (UniqueTaskList.DuplicatePersonException e) {
+         } catch (UniqueTaskList.DuplicateTaskException e) {
              return new CommandResult(MESSAGE_DUPLICATE_TASK);
          }
     }
