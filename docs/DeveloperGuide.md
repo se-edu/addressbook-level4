@@ -1,6 +1,5 @@
 ﻿# Developer Guide 
 
-* [Introduction](#introduction)
 * [Setting Up](#setting-up)
 * [Design](#design)
 * [Implementation](#implementation)
@@ -12,27 +11,23 @@
 * [Appendix D: Glossary](#appendix-d--glossary)
 * [Appendix E : Product Survey](#appendix-e--product-survey)
 
-## Introduction
-Welcome to the developer guide for SmartyDo. This guide is meant to enable budding developers like yourself to better understand the implementation of our program. Through this guide, we hope that you will be able to learn not only about how SmartyDo is implemented, but about different parts of the application that you are able to improve yourself.
 
 ## Setting up
 
 #### Prerequisites
-To ensure that you are able to run SmartyDo smoothly, do ensure that you have met the following prerequisites:
 
-1. Installed **JDK `1.8.0_60`**  or later<br>
+1. **JDK `1.8.0_60`**  or later<br>
 
     > Having any Java 8 version is not enough. <br>
     This app will not work with earlier versions of Java 8.
     
-2. Installed **Eclipse** IDE
-3. Installed **e(fx)clipse** plugin for Eclipse (Do the steps 2 onwards given in
+2. **Eclipse** IDE
+3. **e(fx)clipse** plugin for Eclipse (Do the steps 2 onwards given in
    [this page](http://www.eclipse.org/efxclipse/install.html#for-the-ambitious))
-4. Installed **Buildship Gradle Integration** plugin from the Eclipse Marketplace
+4. **Buildship Gradle Integration** plugin from the Eclipse Marketplace
 
 
 #### Importing the project into Eclipse
-To import the lastest version of this project into Eclipse, follow the instructions as given below:
 
 0. Fork this repo, and clone the fork to your computer
 1. Open Eclipse (Note: Ensure you have installed the **e(fx)clipse** and **buildship** plugins as given 
@@ -52,8 +47,8 @@ To import the lastest version of this project into Eclipse, follow the instructi
 ### Architecture
 
 <img src="images/Architecture.png" width="600"><br>
-The **_Architecture Diagram_** given above will explain to you the high-level design of the App.
-Below, we will give you a quick overview of each component.
+The **_Architecture Diagram_** given above explains the high-level design of the App.
+Given below is a quick overview of each component.
 
 `Main` has only one class called [`MainApp`](../src/main/java/seedu/address/MainApp.java). It is responsible for,
 * At app launch: Initializes the components in the correct sequence, and connect them up with each other.
