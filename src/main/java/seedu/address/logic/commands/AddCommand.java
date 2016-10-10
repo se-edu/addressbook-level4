@@ -19,7 +19,7 @@ public class AddCommand extends Command implements Undoable {
     public static final String COMMAND_WORD = "add";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the SmartyDo. "
-            + "Parameters: NAME t/TIME d/DESCRIPTION a/ADDRESS  [t/TAG]...\n"
+            + "Parameters: NAME t/TIME d/DESCRIPTION a/LOCATION  [t/TAG]...\n"
             + "Example: " + COMMAND_WORD
             + " John Doe t/9876 d/johnd's description a/311, Clementi Ave 2, #02-25 t/friends t/owesMoney";
 
