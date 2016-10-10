@@ -35,9 +35,7 @@
                                 </HBox>
                             </children>
                         </HBox>
-                        <Label fx:id="priority" styleClass="cell_small_label" text="\\$priority" />
-                        <Label fx:id="startTime" styleClass="cell_small_label" text="\$startTime" />
-                        <Label fx:id="endTime" styleClass="cell_small_label" text="\$endTime" />
+                        <Label fx:id="priority" styleClass="cell_small_label" text="\$priority" />
                     </children>
                 </VBox>
             </children>

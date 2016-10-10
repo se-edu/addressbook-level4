@@ -30,7 +30,7 @@ public class MainWindow extends UiPart {
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private TaskListPanel todoListPanel;
+    private TodoListPanel todoListPanel;
     private EventListPanel eventListPanel;
     private DeadlineListPanel deadlineListPanel;
     private ResultDisplay resultDisplay;
@@ -116,7 +116,7 @@ public class MainWindow extends UiPart {
     }
 
     void fillInnerParts() {
-        todoListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredTodoList());
+        todoListPanel = TodoListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredTodoList());
         eventListPanel = EventListPanel.load(primaryStage, getEventListPlaceholder(), logic.getFilteredEventList());
         deadlineListPanel = DeadlineListPanel.load(primaryStage, getDeadlineListPlaceholder(), logic.getFilteredDeadlineList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
@@ -199,7 +199,7 @@ public class MainWindow extends UiPart {
         raise(new ExitAppRequestEvent());
     }
 
-    public TaskListPanel getTaskListPanel() {
+    public TodoListPanel getTaskListPanel() {
         return this.todoListPanel;
     }
 }

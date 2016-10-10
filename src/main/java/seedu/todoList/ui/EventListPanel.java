@@ -26,7 +26,7 @@ public class EventListPanel extends UiPart {
     private AnchorPane placeHolderPane;
 
     @FXML
-    private ListView<ReadOnlyTask> taskListView;
+    private ListView<ReadOnlyTask> eventListView;
 
     public EventListPanel() {
         super();
@@ -47,22 +47,22 @@ public class EventListPanel extends UiPart {
         this.placeHolderPane = pane;
     }
 
-    public static EventListPanel load(Stage primaryStage, AnchorPane taskListPlaceholder,
-                                       ObservableList<ReadOnlyTask> taskList) {
-        EventListPanel EventListPanel =
-                UiPartLoader.loadUiPart(primaryStage, taskListPlaceholder, new EventListPanel());
-        EventListPanel.configure(taskList);
-        return EventListPanel;
+    public static EventListPanel load(Stage primaryStage, AnchorPane eventListPlaceholder,
+                                       ObservableList<ReadOnlyTask> eventList) {
+        EventListPanel eventListPanel =
+                UiPartLoader.loadUiPart(primaryStage, eventListPlaceholder, new EventListPanel());
+        eventListPanel.configure(eventList);
+        return eventListPanel;
     }
 
-    private void configure(ObservableList<ReadOnlyTask> taskList) {
-        setConnections(taskList);
+    private void configure(ObservableList<ReadOnlyTask> eventList) {
+        setConnections(eventList);
         addToPlaceholder();
     }
 
-    private void setConnections(ObservableList<ReadOnlyTask> taskList) {
-        taskListView.setItems(taskList);
-        taskListView.setCellFactory(listView -> new taskListViewCell());
+    private void setConnections(ObservableList<ReadOnlyTask> eventList) {
+        eventListView.setItems(eventList);
+        eventListView.setCellFactory(listView -> new EventListViewCell());
         setEventHandlerForSelectionChangeEvent();
     }
 
@@ -72,7 +72,7 @@ public class EventListPanel extends UiPart {
     }
 
     private void setEventHandlerForSelectionChangeEvent() {
-        taskListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+        eventListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 logger.fine("Selection in task list panel changed to : '" + newValue + "'");
                 raise(new TaskPanelSelectionChangedEvent(newValue));
@@ -82,14 +82,14 @@ public class EventListPanel extends UiPart {
 
     public void scrollTo(int index) {
         Platform.runLater(() -> {
-            taskListView.scrollTo(index);
-            taskListView.getSelectionModel().clearAndSelect(index);
+            eventListView.scrollTo(index);
+            eventListView.getSelectionModel().clearAndSelect(index);
         });
     }
 
-    class taskListViewCell extends ListCell<ReadOnlyTask> {
+    class EventListViewCell extends ListCell<ReadOnlyTask> {
 
-        public taskListViewCell() {
+        public EventListViewCell() {
         }
 
         @Override
@@ -100,7 +100,7 @@ public class EventListPanel extends UiPart {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(TaskCard.load(task, getIndex() + 1).getLayout());
+                setGraphic(EventCard.load(task, getIndex() + 1).getLayout());
             }
         }
     }

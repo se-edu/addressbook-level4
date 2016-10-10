@@ -26,7 +26,7 @@ public class DeadlineListPanel extends UiPart {
     private AnchorPane placeHolderPane;
 
     @FXML
-    private ListView<ReadOnlyTask> taskListView;
+    private ListView<ReadOnlyTask> deadlineListView;
 
     public DeadlineListPanel() {
         super();
@@ -47,22 +47,22 @@ public class DeadlineListPanel extends UiPart {
         this.placeHolderPane = pane;
     }
 
-    public static DeadlineListPanel load(Stage primaryStage, AnchorPane taskListPlaceholder,
-                                       ObservableList<ReadOnlyTask> taskList) {
-        DeadlineListPanel DeadlineListPanel =
-                UiPartLoader.loadUiPart(primaryStage, taskListPlaceholder, new DeadlineListPanel());
-        DeadlineListPanel.configure(taskList);
-        return DeadlineListPanel;
+    public static DeadlineListPanel load(Stage primaryStage, AnchorPane deadlineListPlaceholder,
+                                       ObservableList<ReadOnlyTask> deadlineList) {
+        DeadlineListPanel deadlineListPanel =
+                UiPartLoader.loadUiPart(primaryStage, deadlineListPlaceholder, new DeadlineListPanel());
+        deadlineListPanel.configure(deadlineList);
+        return deadlineListPanel;
     }
 
-    private void configure(ObservableList<ReadOnlyTask> taskList) {
-        setConnections(taskList);
+    private void configure(ObservableList<ReadOnlyTask> deadlineList) {
+        setConnections(deadlineList);
         addToPlaceholder();
     }
 
-    private void setConnections(ObservableList<ReadOnlyTask> taskList) {
-        taskListView.setItems(taskList);
-        taskListView.setCellFactory(listView -> new taskListViewCell());
+    private void setConnections(ObservableList<ReadOnlyTask> deadlineList) {
+        deadlineListView.setItems(deadlineList);
+        deadlineListView.setCellFactory(listView -> new DeadlineListViewCell());
         setEventHandlerForSelectionChangeEvent();
     }
 
@@ -72,7 +72,7 @@ public class DeadlineListPanel extends UiPart {
     }
 
     private void setEventHandlerForSelectionChangeEvent() {
-        taskListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+        deadlineListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 logger.fine("Selection in task list panel changed to : '" + newValue + "'");
                 raise(new TaskPanelSelectionChangedEvent(newValue));
@@ -82,14 +82,14 @@ public class DeadlineListPanel extends UiPart {
 
     public void scrollTo(int index) {
         Platform.runLater(() -> {
-            taskListView.scrollTo(index);
-            taskListView.getSelectionModel().clearAndSelect(index);
+            deadlineListView.scrollTo(index);
+            deadlineListView.getSelectionModel().clearAndSelect(index);
         });
     }
 
-    class taskListViewCell extends ListCell<ReadOnlyTask> {
+    class DeadlineListViewCell extends ListCell<ReadOnlyTask> {
 
-        public taskListViewCell() {
+        public DeadlineListViewCell() {
         }
 
         @Override
@@ -100,7 +100,7 @@ public class DeadlineListPanel extends UiPart {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(TaskCard.load(task, getIndex() + 1).getLayout());
+                setGraphic(DeadlineCard.load(task, getIndex() + 1).getLayout());
             }
         }
     }
