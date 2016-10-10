@@ -61,7 +61,7 @@ public class XmlAdaptedPerson {
         final Name name = new Name(this.name);
         final Time time = new Time(this.phone);
         final Description description = new Description(this.email);
-        final Address address = new Address(this.address);
+        final Location address = new Location(this.address);
         final UniqueTagList tags = new UniqueTagList(personTags);
         return new Task(name, time, description, address, tags);
     }

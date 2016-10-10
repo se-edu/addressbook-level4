@@ -14,14 +14,14 @@ public class Task implements ReadOnlyTask {
     private Name name;
     private Time time;
     private Description description;
-    private Address address;
+    private Location address;
 
     private UniqueTagList tags;
 
     /**
      * Every field must be present and not null.
      */
-    public Task(Name name, Time time, Description description, Address address, UniqueTagList tags) {
+    public Task(Name name, Time time, Description description, Location address, UniqueTagList tags) {
         assert !CollectionUtil.isAnyNull(name, time, description, address, tags);
         this.name = name;
         this.time = time;
@@ -53,7 +53,7 @@ public class Task implements ReadOnlyTask {
     }
 
     @Override
-    public Address getAddress() {
+    public Location getAddress() {
         return address;
     }
 
