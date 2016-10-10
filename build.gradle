@@ -4,7 +4,6 @@
  * For more details take a look at the Java Quickstart chapter in the Gradle
  * user guide available at http://gradle.org/docs/2.2.1/userguide/tutorial_java_projects.html
  */
- 
 plugins {
     id "com.github.kt3k.coveralls" version "2.4.0"
     id "com.github.johnrengelman.shadow" version '1.2.3'
@@ -27,6 +26,7 @@ allprojects {
 
     // This part is similar to global variables
     // Access them by using double-quoted strings (GStrings) and referencing by $ e.g. "Variable contains $Variable"
+    // Natty is used for Natural Language Date Parsing
     project.ext {
         controlsFxVersion = '8.40.11'
         guavaVersion = '19.0'
@@ -35,6 +35,7 @@ allprojects {
         junitVersion = '4.12'
         testFxVersion = '4.0.+'
         monocleVersion = '1.8.0_20'
+	    nattyVersion = '0.11'
 
         libDir = 'lib'
     }
@@ -52,6 +53,7 @@ allprojects {
         compile "com.fasterxml.jackson.core:jackson-databind:$jacksonVersion"
         compile "com.fasterxml.jackson.datatype:jackson-datatype-jsr310:$jacksonDataTypeVersion"
         compile "com.google.guava:guava:$guavaVersion"
+        compile "com.joestelmach:natty:$nattyVersion"
 
         testCompile "junit:junit:$junitVersion"
         testCompile "org.testfx:testfx-core:$testFxVersion"
@@ -61,7 +63,7 @@ allprojects {
         }
         testCompile "org.testfx:openjfx-monocle:$monocleVersion"
     }
-    
+
     sourceSets {
         main {
             java {
@@ -72,7 +74,7 @@ allprojects {
             }
         }
     }
-    
+
     shadowJar {
         archiveName = "addressbook.jar"
 

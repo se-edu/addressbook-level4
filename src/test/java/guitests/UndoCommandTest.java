@@ -72,12 +72,12 @@ public class UndoCommandTest extends AddressBookGuiTest{
 
     private void undo_max(TestTask[] currentList, TestTask[] expectedList) {
         TestTask generatedName = new TestTask();
-        for(int i = 66; i< 66+STACK_SIZE; i++){ //start from letter B
+        for (int i = 66; i < 66 + STACK_SIZE; i++) { //start from letter B
             generatedName = generateTasks(generatedName,i);
             commandBox.runCommand(generatedName.getAddCommand());
             currentList = TestUtil.addPersonsToList(currentList,generatedName);
         }
-        for(int j = 0; j< STACK_SIZE; j++){
+        for (int j = 0; j < STACK_SIZE; j++) {
             commandBox.runCommand("undo");
         }
         assertTrue(personListPanel.isListMatching(expectedList));
@@ -88,18 +88,18 @@ public class UndoCommandTest extends AddressBookGuiTest{
         int seq2 = 3;
         int undos = 1;
         TestTask generatedName = new TestTask();
-        for(int i = 66; i < 66+seq1; i++){ //start from letter B
+        for (int i = 66; i < 66 + seq1; i++) { //start from letter B
             generatedName = generateTasks(generatedName,i);
             commandBox.runCommand(generatedName.getAddCommand());
             currentList = TestUtil.addPersonsToList(currentList,generatedName);
         }
         commandBox.runCommand("undo");
-        for(int j = 66+seq1; j < 66+seq1+seq2; j++){
+        for (int j = 66 + seq1; j < 66 + seq1 + seq2; j++) {
             generatedName = generateTasks(generatedName,j);
             commandBox.runCommand(generatedName.getAddCommand());
             currentList = TestUtil.addPersonsToList(currentList,generatedName);
         }
-        for(int k = 0; k < seq1+seq2-undos; k++){
+        for (int k = 0; k < seq1 + seq2 - undos; k++) {
             commandBox.runCommand("undo");
         }
         assertTrue(personListPanel.isListMatching(expectedList));
