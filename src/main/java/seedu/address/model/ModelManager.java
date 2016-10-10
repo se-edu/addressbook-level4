@@ -139,7 +139,7 @@ public class ModelManager extends ComponentManager implements Model {
         @Override
         public boolean run(ReadOnlyTask task) {   
             return nameKeyWords.stream()
-                    .filter(keyword -> StringUtil.containsSubstringIgnoreCase(task.getName().fullName, keyword)
+                    .filter(keyword -> StringUtil.containsSubstringIgnoreCase(task.getName().taskName, keyword)
                     		        || StringUtil.containsSubstringIgnoreCase(task.tagsString(), keyword) )
                     .findAny()
                     .isPresent();

@@ -38,7 +38,7 @@ public class XmlAdaptedPerson {
      * @param source future changes to this will not affect the created XmlAdaptedPerson
      */
     public XmlAdaptedPerson(ReadOnlyTask source) {
-        name = source.getName().fullName;
+        name = source.getName().taskName;
         phone = source.getTime().value;
         email = source.getDescription().value;
         address = source.getAddress().value;

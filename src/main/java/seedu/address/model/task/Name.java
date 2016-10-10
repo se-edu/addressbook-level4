@@ -11,7 +11,7 @@ public class Name {
     public static final String MESSAGE_NAME_CONSTRAINTS = "Task names should be spaces or alphanumeric characters";
     public static final String NAME_VALIDATION_REGEX = "[\\p{Alnum} ]+";
 
-    public final String fullName;
+    public final String taskName;
 
     /**
      * Validates given name.
@@ -24,7 +24,7 @@ public class Name {
         if (!isValidName(name)) {
             throw new IllegalValueException(MESSAGE_NAME_CONSTRAINTS);
         }
-        this.fullName = name;
+        this.taskName = name;
     }
 
     /**
@@ -37,19 +37,19 @@ public class Name {
 
     @Override
     public String toString() {
-        return fullName;
+        return taskName;
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Name // instanceof handles nulls
-                && this.fullName.equals(((Name) other).fullName)); // state check
+                && this.taskName.equals(((Name) other).taskName)); // state check
     }
 
     @Override
     public int hashCode() {
-        return fullName.hashCode();
+        return taskName.hashCode();
     }
 
 }
