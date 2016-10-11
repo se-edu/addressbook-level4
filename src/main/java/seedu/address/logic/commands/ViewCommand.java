@@ -3,10 +3,8 @@ package seedu.address.logic.commands;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.UnmodifiableObservableList;
-import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.commons.events.ui.ViewItemRequestEvent;
 import seedu.address.model.task.ReadOnlyTask;
-import seedu.address.model.task.UniqueTaskList.PersonNotFoundException;
 
 /**
  * Lists all tasks in the SmartyDo to the user.
@@ -15,7 +13,7 @@ public class ViewCommand extends Command {
 
     public static final String COMMAND_WORD = "view";
     
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Shows details of a specified task. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Shows details of a specified task.\n"
             + "Parameters: INDEX \n"
             + "Example: " + COMMAND_WORD + " 1";
 
@@ -30,7 +28,7 @@ public class ViewCommand extends Command {
     @Override
     public CommandResult execute() {
 
-        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredPersonList();
+        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
 
         if (lastShownList.size() < targetIndex) {
             indicateAttemptToExecuteIncorrectCommand();

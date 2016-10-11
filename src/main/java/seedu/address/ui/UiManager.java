@@ -127,7 +127,7 @@ public class UiManager extends ComponentManager implements Ui {
     @Subscribe
     private void handleViewItemRequestEvent(ViewItemRequestEvent event) {
     	logger.info(LogsCenter.getEventHandlingLogMessage(event));
-    	mainWindow.getPersonListPanel().scrollDeselect(event.targetIndex);
+    	mainWindow.getTaskListPanel().scrollDeselect(event.targetIndex);
     	mainWindow.loadTaskCard(event.getNewSelection());
     }
 

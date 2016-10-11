@@ -60,7 +60,7 @@ public interface ReadOnlyTask {
                 .append("<br> Description: ")
                 .append(getDescription())
                 .append("<br> Location: ")
-                .append(getAddress())
+                .append(getLocation())
                 .append("<br> Tags: ");
         getTags().forEach(builder::append);
         builder.append("</body> </html>");

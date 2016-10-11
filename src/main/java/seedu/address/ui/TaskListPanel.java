@@ -89,8 +89,8 @@ public class TaskListPanel extends UiPart {
     
     public void scrollDeselect(int index) {
         Platform.runLater(() -> {
-            personListView.scrollTo(index);
-            personListView.getSelectionModel().clearSelection();
+            taskListView.scrollTo(index);
+            taskListView.getSelectionModel().clearSelection();
         });
     }
 

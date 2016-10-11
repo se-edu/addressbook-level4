@@ -14,7 +14,7 @@ public class ViewCommandTest extends AddressBookGuiTest{
 	        assertNoPersonSelected();
 
 	        assertViewSuccess(1); //first task in the list
-	        int personCount = td.getTypicalPersons().length;
+	        int personCount = td.getTypicalTask().length;
 	        assertViewSuccess(personCount); //last task in the list
 	        int middleIndex = personCount / 2;
 	        assertViewSuccess(middleIndex); //a task in the middle of the list
@@ -42,6 +42,6 @@ public class ViewCommandTest extends AddressBookGuiTest{
 	    }
 
 	    private void assertNoPersonSelected() {
-	        assertEquals(personListPanel.getSelectedPersons().size(), 0);
+	        assertEquals(taskListPanel.getSelectedTask().size(), 0);
 	    }
 }
