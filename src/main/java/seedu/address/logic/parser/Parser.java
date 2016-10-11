@@ -32,6 +32,15 @@ public class Parser {
             		+ "(( (?<isDescriptionPrivate>p?)d/(?<description>[^/]+))?)"
             		+ "(( (?<isAddressPrivate>p?)a/(?<address>[^/]+))?)"
             		+ "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
+    
+    private static final Pattern PERSON_EDIT_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
+            Pattern.compile("(?<targetIndex>\\d)"
+                    + "(( (?<name>(?:[^/]+)))?)"
+                    + "(( (?<isPhonePrivate>p?)t/(?<phone>[^/]+))?)"
+                    + "(( (?<isEmailPrivate>p?)d/(?<email>[^/]+))?)"
+                    + "(( (?<isAddressPrivate>p?)a/(?<address>[^/]+))?)"
+                    + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
+
 
     public Parser() {}
 
@@ -83,6 +92,9 @@ public class Parser {
 
         case RedoCommand.COMMAND_WORD:
         	return new RedoCommand();
+        	
+        case EditCommand.COMMAND_WORD:
+            return prepareEdit(arguments);
 
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
@@ -213,6 +225,37 @@ public class Parser {
         final String[] keywords = matcher.group("keywords").split("\\s+");
         final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
         return new FindCommand(keywordSet);
+    }
+    
+    /**
+     * Parses arguments in the context of the add task command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareEdit(String args){
+        final Matcher matcher = PERSON_EDIT_DATA_ARGS_FORMAT.matcher(args.trim());
+        // Validate arg string format
+        if (!matcher.matches()) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+        }
+        try {
+            final Optional<Integer> targetIndex = parseIndex(matcher.group("targetIndex"));
+            if(!targetIndex.isPresent()){
+                return new IncorrectCommand(
+                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE));
+            }
+            return new EditCommand(
+                    targetIndex.get(),
+                    matcher.group("name")==null?" ":matcher.group("name"),
+                    matcher.group("phone")==null?" ":matcher.group("phone"),
+                    matcher.group("email")==null?" ":matcher.group("email"),
+                    matcher.group("address")==null?" ":matcher.group("address"),
+                    getTagsFromArgs(matcher.group("tagArguments"))
+            );
+        } catch (IllegalValueException ive) {
+            return new IncorrectCommand(ive.getMessage());
+        }
     }
 
 }
