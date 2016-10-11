@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.StringJoiner;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -161,14 +162,14 @@ public class LogicManagerTest {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         Task toBeAdded = helper.adam();
-        ToDo expectedAB = new ToDo();
-        expectedAB.addTask(toBeAdded);
+        ToDo expectedTD = new ToDo();
+        expectedTD.addTask(toBeAdded);
 
         // execute command and verify result
         assertCommandBehavior(helper.generateAddCommand(toBeAdded),
                 String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
-                expectedAB,
-                expectedAB.getTaskList());
+                expectedTD,
+                expectedTD.getTaskList());
 
     }
 
@@ -423,6 +424,39 @@ public class LogicManagerTest {
 
             return cmd.toString();
         }
+        
+        /** Generates the correct edit command based on the index given */
+        String generateEditCommand(int i, Task p) {
+            StringJoiner cmd = new StringJoiner(" ");
+
+            cmd.add("edit");
+
+            cmd.add(Integer.toString(i));
+            cmd.add(p.getName().toString());
+            cmd.add("t/" + p.getTime());
+            cmd.add("d/" + p.getDescription());
+            cmd.add("a/" + p.getAddress());
+
+            UniqueTagList tags = p.getTags();
+            for(Tag t: tags){
+                cmd.add("t/" + t.tagName);
+            }
+
+            return cmd.toString();
+        }
+        
+        /** Generates the correct partial edit command based on the index given */
+        String generatePartialEditCommand(int i, Task p) {
+            StringJoiner cmd = new StringJoiner(" ");
+
+            cmd.add("edit");
+
+            cmd.add(Integer.toString(i));
+            cmd.add("d/" + p.getDescription());
+            cmd.add("a/" + p.getAddress());
+
+            return cmd.toString();
+        }
 
         /**
          * Generates an ToDo with auto-generated tasks.
@@ -504,4 +538,51 @@ public class LogicManagerTest {
             );
         }
     }
+    
+    @Test
+    public void execute_edit_fullDetail() throws Exception{
+        TestDataHelper helper = new TestDataHelper();
+        Task adam = helper.adam();
+
+        Task editedAdam = helper.generateTaskWithName("Adam Brown");
+        
+        List<Task> adamList = helper.generateTaskList(adam);
+        List<Task> expectedList = helper.generateTaskList(editedAdam);
+        ToDo expectedAB = helper.generateToDo(adamList);
+        expectedAB.removePerson(adam);
+        expectedAB.addTask(editedAdam);
+        helper.addToModel(model, adamList);
+        
+        assertCommandBehavior(helper.generateEditCommand(1,editedAdam),
+                String.format(EditCommand.MESSAGE_SUCCESS, editedAdam),
+                expectedAB,
+                expectedList);
+    }
+    
+    @Test
+    public void execute_edit_partialDetail() throws Exception{
+        TestDataHelper helper = new TestDataHelper();
+        Task adam = new Task(
+                new Name("Adam Brown"),
+                new Time("1111"),
+                new Description("1234@email"),
+                new Address("House of 1234"),
+                new UniqueTagList(new Tag("tag"))
+        );
+                
+        Task editedAdam = helper.generateTaskWithName("Adam Brown");
+        
+        List<Task> adamList = helper.generateTaskList(adam);
+        List<Task> expectedList = helper.generateTaskList(editedAdam);
+        ToDo expectedAB = helper.generateToDo(adamList);
+        expectedAB.removePerson(adam);
+        expectedAB.addTask(editedAdam);
+        helper.addToModel(model, adamList);
+        
+        assertCommandBehavior(helper.generatePartialEditCommand(1,editedAdam),
+                String.format(EditCommand.MESSAGE_SUCCESS, editedAdam),
+                expectedAB,
+                expectedList);
+    }
+    
 }
