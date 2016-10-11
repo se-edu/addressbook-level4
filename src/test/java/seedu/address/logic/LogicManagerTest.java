@@ -435,7 +435,7 @@ public class LogicManagerTest {
             cmd.add(p.getName().toString());
             cmd.add("t/" + p.getTime());
             cmd.add("d/" + p.getDescription());
-            cmd.add("a/" + p.getAddress());
+            cmd.add("a/" + p.getLocation());
 
             UniqueTagList tags = p.getTags();
             for(Tag t: tags){
@@ -453,7 +453,7 @@ public class LogicManagerTest {
 
             cmd.add(Integer.toString(i));
             cmd.add("d/" + p.getDescription());
-            cmd.add("a/" + p.getAddress());
+            cmd.add("a/" + p.getLocation());
 
             return cmd.toString();
         }
@@ -549,7 +549,7 @@ public class LogicManagerTest {
         List<Task> adamList = helper.generateTaskList(adam);
         List<Task> expectedList = helper.generateTaskList(editedAdam);
         ToDo expectedAB = helper.generateToDo(adamList);
-        expectedAB.removePerson(adam);
+        expectedAB.removeTask(adam);
         expectedAB.addTask(editedAdam);
         helper.addToModel(model, adamList);
         
@@ -566,7 +566,7 @@ public class LogicManagerTest {
                 new Name("Adam Brown"),
                 new Time("1111"),
                 new Description("1234@email"),
-                new Address("House of 1234"),
+                new Location("House of 1234"),
                 new UniqueTagList(new Tag("tag"))
         );
                 
@@ -575,7 +575,7 @@ public class LogicManagerTest {
         List<Task> adamList = helper.generateTaskList(adam);
         List<Task> expectedList = helper.generateTaskList(editedAdam);
         ToDo expectedAB = helper.generateToDo(adamList);
-        expectedAB.removePerson(adam);
+        expectedAB.removeTask(adam);
         expectedAB.addTask(editedAdam);
         helper.addToModel(model, adamList);
         

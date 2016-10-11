@@ -6,7 +6,8 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.*;
-import seedu.address.model.task.UniqueTaskList.PersonNotFoundException;
+import seedu.address.model.task.UniqueTaskList.DuplicateTaskException;
+import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -61,7 +62,7 @@ public class EditCommand extends Command {
         assert model != null;
         assert undoRedoManager != null;
         
-        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredPersonList();
+        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
 
         if (lastShownList.size() < targetIndex) {
             indicateAttemptToExecuteIncorrectCommand();
@@ -93,24 +94,24 @@ public class EditCommand extends Command {
                 description = descriptionToDelete.toString();
             }
             if (location == " "){
-                Address locationToDelete = taskToDelete.getAddress();
+                Location locationToDelete = taskToDelete.getLocation();
                 location = locationToDelete.toString();
             }
             toAdd = new Task(
                     new Name(name),
                     new Time(time),
                     new Description(description),
-                    new Address(location),
+                    new Location(location),
                     new UniqueTagList(tagSet)
             );
             model.addTask(toAdd);
-            model.deletePerson(taskToDelete);
+            model.deleteTask(taskToDelete);
             
-        } catch (UniqueTaskList.DuplicatePersonException e) {
+        } catch (DuplicateTaskException e) {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
         } catch (IllegalValueException e) {
             assert false : "The target task already possesses null values";
-        } catch (PersonNotFoundException e) {
+        } catch (TaskNotFoundException e) {
             assert false : "The target task cannot be missing";
         } 
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
