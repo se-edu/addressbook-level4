@@ -9,7 +9,7 @@ import seedu.address.model.ToDo;
 /**
  * A utility class to help with building Addressbook objects.
  * Example usage: <br>
- *     {@code ToDo ab = new AddressBookBuilder().withPerson("John", "Doe").withTag("Friend").build();}
+ *     {@code ToDo ab = new AddressBookBuilder().withTask("John", "Doe").withTag("Friend").build();}
  */
 public class AddressBookBuilder {
 
@@ -19,7 +19,7 @@ public class AddressBookBuilder {
         this.toDo = toDo;
     }
 
-    public AddressBookBuilder withTask(Task task) throws UniqueTaskList.DuplicatePersonException {
+    public AddressBookBuilder withTask(Task task) throws UniqueTaskList.DuplicateTaskException {
         toDo.addTask(task);
         return this;
     }

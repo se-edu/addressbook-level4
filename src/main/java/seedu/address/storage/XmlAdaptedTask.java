@@ -12,14 +12,14 @@ import java.util.List;
 /**
  * JAXB-friendly version of the Task.
  */
-public class XmlAdaptedPerson {
+public class XmlAdaptedTask {
 
     @XmlElement(required = true)
     private String name;
     @XmlElement(required = true)
-    private String phone;
+    private String time;
     @XmlElement(required = true)
-    private String email;
+    private String description;
     @XmlElement(required = true)
     private String address;
 
@@ -29,19 +29,19 @@ public class XmlAdaptedPerson {
     /**
      * No-arg constructor for JAXB use.
      */
-    public XmlAdaptedPerson() {}
+    public XmlAdaptedTask() {}
 
 
     /**
      * Converts a given Task into this class for JAXB use.
      *
-     * @param source future changes to this will not affect the created XmlAdaptedPerson
+     * @param source future changes to this will not affect the created XmlAdaptedTask
      */
-    public XmlAdaptedPerson(ReadOnlyTask source) {
-        name = source.getName().fullName;
-        phone = source.getTime().value;
-        email = source.getDescription().value;
-        address = source.getAddress().value;
+    public XmlAdaptedTask(ReadOnlyTask source) {
+        name = source.getName().taskName;
+        time = source.getTime().value;
+        description = source.getDescription().value;
+        address = source.getLocation().value;
         tagged = new ArrayList<>();
         for (Tag tag : source.getTags()) {
             tagged.add(new XmlAdaptedTag(tag));
@@ -54,15 +54,15 @@ public class XmlAdaptedPerson {
      * @throws IllegalValueException if there were any data constraints violated in the adapted task
      */
     public Task toModelType() throws IllegalValueException {
-        final List<Tag> personTags = new ArrayList<>();
+        final List<Tag> taskTags = new ArrayList<>();
         for (XmlAdaptedTag tag : tagged) {
-            personTags.add(tag.toModelType());
+            taskTags.add(tag.toModelType());
         }
         final Name name = new Name(this.name);
-        final Time time = new Time(this.phone);
-        final Description description = new Description(this.email);
-        final Address address = new Address(this.address);
-        final UniqueTagList tags = new UniqueTagList(personTags);
+        final Time time = new Time(this.time);
+        final Description description = new Description(this.description);
+        final Location address = new Location(this.address);
+        final UniqueTagList tags = new UniqueTagList(taskTags);
         return new Task(name, time, description, address, tags);
     }
 }

@@ -9,7 +9,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.IncorrectCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.undoredomanager.UndoRedoManager;
-import seedu.address.model.task.Address;
+import seedu.address.model.task.Location;
 import seedu.address.model.task.Description;
 import seedu.address.model.task.Name;
 import seedu.address.model.task.Time;
@@ -25,8 +25,8 @@ public class UndoCommandTest extends AddressBookGuiTest{
 	@Test
     public void undo() {
 
-		//add and undo one person
-		TestTask[] currentList = td.getTypicalPersons();
+		//add and undo one task
+		TestTask[] currentList = td.getTypicalTask();
 		commandBox.runCommand(td.hoon.getAddCommand());
 		assertUndoSuccess(currentList);
 
@@ -34,7 +34,7 @@ public class UndoCommandTest extends AddressBookGuiTest{
         TestTask generatedName = new TestTask();
         generatedName = generateTasks(generatedName,65); //generate letter A as Task
         commandBox.runCommand(generatedName.getAddCommand());
-        currentList = TestUtil.addPersonsToList(currentList,generatedName);
+        currentList = TestUtil.addTasksToList(currentList,generatedName);
         TestTask[] expectedList = currentList;
         undo_max(currentList, expectedList);
 
@@ -75,12 +75,12 @@ public class UndoCommandTest extends AddressBookGuiTest{
         for(int i = 66; i< 66+STACK_SIZE; i++){ //start from letter B
             generatedName = generateTasks(generatedName,i);
             commandBox.runCommand(generatedName.getAddCommand());
-            currentList = TestUtil.addPersonsToList(currentList,generatedName);
+            currentList = TestUtil.addTasksToList(currentList,generatedName);
         }
         for(int j = 0; j< STACK_SIZE; j++){
             commandBox.runCommand("undo");
         }
-        assertTrue(personListPanel.isListMatching(expectedList));
+        assertTrue(taskListPanel.isListMatching(expectedList));
 	}
 
     private void undo_sequence(TestTask[] currentList, TestTask[] expectedList){
@@ -91,18 +91,18 @@ public class UndoCommandTest extends AddressBookGuiTest{
         for(int i = 66; i < 66+seq1; i++){ //start from letter B
             generatedName = generateTasks(generatedName,i);
             commandBox.runCommand(generatedName.getAddCommand());
-            currentList = TestUtil.addPersonsToList(currentList,generatedName);
+            currentList = TestUtil.addTasksToList(currentList,generatedName);
         }
         commandBox.runCommand("undo");
         for(int j = 66+seq1; j < 66+seq1+seq2; j++){
             generatedName = generateTasks(generatedName,j);
             commandBox.runCommand(generatedName.getAddCommand());
-            currentList = TestUtil.addPersonsToList(currentList,generatedName);
+            currentList = TestUtil.addTasksToList(currentList,generatedName);
         }
         for(int k = 0; k < seq1+seq2-undos; k++){
             commandBox.runCommand("undo");
         }
-        assertTrue(personListPanel.isListMatching(expectedList));
+        assertTrue(taskListPanel.isListMatching(expectedList));
         commandBox.runCommand("undo");
         assertResultMessage(UndoCommand.MESSAGE_NO_UNDOABLE_COMMAND);
     }
@@ -111,7 +111,7 @@ public class UndoCommandTest extends AddressBookGuiTest{
 		try {
             generatedName = new TaskBuilder().withName(Character.toString((char)i))
                     .withAddress("311, Clementi Ave 2, #02-25")
-                    .withEmail("johnd's description").withPhone("9876")
+                    .withDescription("johnd's description").withTime("9876")
                     .withTags("owesMoney", "friends").build();
 		} catch (IllegalValueException e) {
 			assert false : "impossible";
@@ -121,6 +121,6 @@ public class UndoCommandTest extends AddressBookGuiTest{
 
     private void assertUndoSuccess(TestTask[] currentList) {
         commandBox.runCommand("undo");
-        assertTrue(personListPanel.isListMatching(currentList));
+        assertTrue(taskListPanel.isListMatching(currentList));
     }
 }

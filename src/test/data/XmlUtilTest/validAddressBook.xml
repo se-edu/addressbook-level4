@@ -2,55 +2,55 @@
 <addressbook>
     <tasks>
         <name>Hans Muster</name>
-        <phone isPrivate="false">9482424</phone>
+        <time isPrivate="false">9482424</time>
         <description isPrivate="false">hans description</description>
         <address isPrivate="false">4th street</address>
     </tasks>
     <tasks>
         <name>Ruth Mueller</name>
-        <phone isPrivate="false">87249245</phone>
+        <time isPrivate="false">87249245</time>
         <description isPrivate="false">ruth description</description>
         <address isPrivate="false">81th street</address>
     </tasks>
     <tasks>
         <name>Heinz Kurz</name>
-        <phone isPrivate="false">95352563</phone>
+        <time isPrivate="false">95352563</time>
         <description isPrivate="false">heinz description</description>
         <address isPrivate="false">wall street</address>
     </tasks>
     <tasks>
         <name>Cornelia Meier</name>
-        <phone isPrivate="false">87652533</phone>
+        <time isPrivate="false">87652533</time>
         <description isPrivate="false">cornelia description</description>
         <address isPrivate="false">10th street</address>
     </tasks>
     <tasks>
         <name>Werner Meyer</name>
-        <phone isPrivate="false">9482224</phone>
+        <time isPrivate="false">9482224</time>
         <description isPrivate="false">werner description</description>
         <address isPrivate="false">michegan ave</address>
     </tasks>
     <tasks>
         <name>Lydia Kunz</name>
-        <phone isPrivate="false">9482427</phone>
+        <time isPrivate="false">9482427</time>
         <description isPrivate="false">lydia description</description>
         <address isPrivate="false">little tokyo</address>
     </tasks>
     <tasks>
         <name>Anna Best</name>
-        <phone isPrivate="false">9482442</phone>
+        <time isPrivate="false">9482442</time>
         <description isPrivate="false">anna description</description>
         <address isPrivate="false">4th street</address>
     </tasks>
     <tasks>
         <name>Stefan Meier</name>
-        <phone isPrivate="false">8482424</phone>
+        <time isPrivate="false">8482424</time>
         <description isPrivate="false">stefan description</description>
         <address isPrivate="false">little india</address>
     </tasks>
     <tasks>
         <name>Martin Mueller</name>
-        <phone isPrivate="false">8482131</phone>
+        <time isPrivate="false">8482131</time>
         <description isPrivate="false">hans description</description>
         <address isPrivate="false">chicago ave</address>
     </tasks>

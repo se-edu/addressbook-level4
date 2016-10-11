@@ -5,7 +5,7 @@ import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.UniqueTaskList;
-import seedu.address.model.task.UniqueTaskList.PersonNotFoundException;
+import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 
 /**
  * Deletes a task identified using it's last displayed index from the SmartyDo.
@@ -24,12 +24,12 @@ public class DeleteCommand extends Command implements Undoable{
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the SmartyDo";
 
     public final int targetIndex;
-    private ReadOnlyTask personToDelete;
+    private ReadOnlyTask taskToDelete;
     private boolean isExecutedBefore;
 
     public DeleteCommand(int targetIndex) {
         this.targetIndex = targetIndex;
-        personToDelete = null;
+        taskToDelete = null;
         isExecutedBefore = false;
     }
 
@@ -37,36 +37,36 @@ public class DeleteCommand extends Command implements Undoable{
     @Override
     public CommandResult execute() {
 
-        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredPersonList();
+        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
 
         if (lastShownList.size() < targetIndex) {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
         }
 
-        personToDelete = lastShownList.get(targetIndex - 1);
+        taskToDelete = lastShownList.get(targetIndex - 1);
 
         try {
-            model.deletePerson(personToDelete);
+            model.deleteTask(taskToDelete);
 
-        } catch (PersonNotFoundException pnfe) {
+        } catch (TaskNotFoundException pnfe) {
             assert false : "The target task cannot be missing";
         }
 
-        return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, personToDelete));
+        return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, taskToDelete));
     }
 
     @Override
     public CommandResult unexecute() {
     	 assert model != null;
          assert undoRedoManager != null;
-         assert personToDelete != null;
+         assert taskToDelete != null;
 
          try {
-             model.addTask((Task) personToDelete);
+             model.addTask((Task) taskToDelete);
              isExecutedBefore = pushCmdToUndo(isExecutedBefore);
-             return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, personToDelete));
-         } catch (UniqueTaskList.DuplicatePersonException e) {
+             return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, taskToDelete));
+         } catch (UniqueTaskList.DuplicateTaskException e) {
              return new CommandResult(MESSAGE_DUPLICATE_TASK);
          }
     }

@@ -4,36 +4,36 @@ package seedu.address.model.task;
 import seedu.address.commons.exceptions.IllegalValueException;
 
 /**
- * Represents a Task's phone number in the SmartyDo.
- * Guarantees: immutable; is valid as declared in {@link #isValidEmail(String)}
+ * Represents a Task's time in the SmartyDo.
+ * Guarantees: immutable; is valid as declared in {@link #isValidDescription(String)}
  */
 public class Description {
 
-    public static final String MESSAGE_EMAIL_CONSTRAINTS =
+    public static final String MESSAGE_DESCRIPTION_CONSTRAINTS =
             "Task description doesn't have any constraints";
-    public static final String EMAIL_VALIDATION_REGEX = ".+";
+    public static final String DESCRIPTION_VALIDATION_REGEX = ".+";
 
     public final String value;
 
     /**
-     * Validates given email.
+     * Validates given description.
      *
-     * @throws IllegalValueException if given email address string is invalid.
+     * @throws IllegalValueException if given description address string is invalid.
      */
-    public Description(String email) throws IllegalValueException {
-        assert email != null;
-        email = email.trim();
-        if (!email.isEmpty()&&!isValidEmail(email)) {
-            throw new IllegalValueException(MESSAGE_EMAIL_CONSTRAINTS);
+    public Description(String description) throws IllegalValueException {
+        assert description != null;
+        description = description.trim();
+        if (!description.isEmpty()&&!isValidDescription(description)) {
+            throw new IllegalValueException(MESSAGE_DESCRIPTION_CONSTRAINTS);
         }
-        this.value = email;
+        this.value = description;
     }
 
     /**
-     * Returns if a given string is a valid task email.
+     * Returns if a given string is a valid task description.
      */
-    public static boolean isValidEmail(String test) {
-        return test.matches(EMAIL_VALIDATION_REGEX);
+    public static boolean isValidDescription(String test) {
+        return test.matches(DESCRIPTION_VALIDATION_REGEX);
     }
 
     @Override

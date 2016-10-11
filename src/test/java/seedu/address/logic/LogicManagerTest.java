@@ -110,7 +110,7 @@ public class LogicManagerTest {
 
         //Confirm the ui display elements should contain the right data
         assertEquals(expectedMessage, result.feedbackToUser);
-        assertEquals(expectedShownList, model.getFilteredPersonList());
+        assertEquals(expectedShownList, model.getFilteredTaskList());
 
         //Confirm the state of data (saved and in-memory) is as expected
         assertEquals(expectedAddressBook, model.getToDo());
@@ -145,26 +145,12 @@ public class LogicManagerTest {
         assertCommandBehavior("clear", ClearCommand.MESSAGE_SUCCESS, new ToDo(), Collections.emptyList());
     }
 
-
     @Test
-    public void execute_add_invalidArgsFormat() throws Exception {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
-        assertCommandBehavior(
-                "add wrong args wrong args", expectedMessage);
-        assertCommandBehavior(
-                "add Valid Name 12345 d/valid@email.butNoPhonePrefix a/valid, address", expectedMessage);
-        assertCommandBehavior(
-                "add Valid Name t/1234 valid@email.butNoPrefix a/valid, address", expectedMessage);
-        assertCommandBehavior(
-                "add Valid Name t/1234 d/valid@email.butNoAddressPrefix valid, address", expectedMessage);
-    }
-
-    @Test
-    public void execute_add_invalidPersonData() throws Exception {
+    public void execute_add_invalidTaskData() throws Exception {
         assertCommandBehavior(
                 "add []\\[;] t/1234 d/valid@e.mail a/valid, address", Name.MESSAGE_NAME_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name t/not_numbers d/valid@e.mail a/valid, address", Time.MESSAGE_PHONE_CONSTRAINTS);
+                "add Valid Name t/not_numbers d/valid@e.mail a/valid, address", Time.MESSAGE_TIME_CONSTRAINTS);
         assertCommandBehavior(
                 "add Valid Name t/1234 d/valid@e.mail a/valid, address t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
 
@@ -208,7 +194,7 @@ public class LogicManagerTest {
 
 
     @Test
-    public void execute_list_showsAllPersons() throws Exception {
+    public void execute_list_showsAllTask() throws Exception {
         // prepare expectations
         TestDataHelper helper = new TestDataHelper();
         ToDo expectedAB = helper.generateToDo(2);
@@ -268,7 +254,7 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void execute_select_jumpsToCorrectPerson() throws Exception {
+    public void execute_select_jumpsToCorrectTask() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         List<Task> threeTasks = helper.generateTaskList(3);
 
@@ -276,11 +262,11 @@ public class LogicManagerTest {
         helper.addToModel(model, threeTasks);
 
         assertCommandBehavior("select 2",
-                String.format(SelectCommand.MESSAGE_SELECT_PERSON_SUCCESS, 2),
+                String.format(SelectCommand.MESSAGE_SELECT_TASK_SUCCESS, 2),
                 expectedAB,
                 expectedAB.getTaskList());
         assertEquals(1, targetedJumpIndex);
-        assertEquals(model.getFilteredPersonList().get(1), threeTasks.get(1));
+        assertEquals(model.getFilteredTaskList().get(1), threeTasks.get(1));
     }
 
 
@@ -296,12 +282,12 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void execute_delete_removesCorrectPerson() throws Exception {
+    public void execute_delete_removesCorrectTask() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         List<Task> threeTasks = helper.generateTaskList(3);
 
         ToDo expectedAB = helper.generateToDo(threeTasks);
-        expectedAB.removePerson(threeTasks.get(1));
+        expectedAB.removeTask(threeTasks.get(1));
         helper.addToModel(model, threeTasks);
 
         assertCommandBehavior("delete 2",
@@ -331,7 +317,7 @@ public class LogicManagerTest {
         helper.addToModel(model, fourTasks);
 
         assertCommandBehavior("find KEY",
-                Command.getMessageForPersonListShownSummary(expectedList.size()),
+                Command.getMessageForTaskListShownSummary(expectedList.size()),
                 expectedAB,
                 expectedList);
     }
@@ -350,7 +336,7 @@ public class LogicManagerTest {
         helper.addToModel(model, fourTasks);
 
         assertCommandBehavior("find KEY",
-                Command.getMessageForPersonListShownSummary(expectedList.size()),
+                Command.getMessageForTaskListShownSummary(expectedList.size()),
                 expectedAB,
                 expectedList);
     }
@@ -369,14 +355,14 @@ public class LogicManagerTest {
         helper.addToModel(model, fourTasks);
 
         assertCommandBehavior("find key rAnDoM",
-                Command.getMessageForPersonListShownSummary(expectedList.size()),
+                Command.getMessageForTaskListShownSummary(expectedList.size()),
                 expectedAB,
                 expectedList);
     }
     
     @Test
     public void execute_viewInvalidArgsFormat_errorMessageShown() throws Exception {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE);
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, ViewCommand.MESSAGE_USAGE);
         assertIncorrectIndexFormatBehaviorForCommand("view", expectedMessage);
     }
 
@@ -395,7 +381,7 @@ public class LogicManagerTest {
             Name name = new Name("Adam Brown");
             Time privateTime = new Time("1111");
             Description description = new Description("adam's description");
-            Address privateAddress = new Address("111, alpha street");
+            Location privateAddress = new Location("111, alpha street");
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
@@ -413,8 +399,8 @@ public class LogicManagerTest {
             return new Task(
                     new Name("Task " + seed),
                     new Time("" + (Math.abs(seed)*9876%10000)),
-                    new Description(seed + "@email"),
-                    new Address("House of " + seed),
+                    new Description(seed + "@description"),
+                    new Location("House of " + seed),
                     new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
             );
         }
@@ -428,7 +414,7 @@ public class LogicManagerTest {
             cmd.append(p.getName().toString());
             cmd.append(" t/").append(p.getTime());
             cmd.append(" d/").append(p.getDescription());
-            cmd.append(" a/").append(p.getAddress());
+            cmd.append(" a/").append(p.getLocation());
 
             UniqueTagList tags = p.getTags();
             for(Tag t: tags){
@@ -512,8 +498,8 @@ public class LogicManagerTest {
             return new Task(
                     new Name(name),
                     new Time("1111"),
-                    new Description("1@email"),
-                    new Address("House of 1"),
+                    new Description("1@description"),
+                    new Location("House of 1"),
                     new UniqueTagList(new Tag("tag"))
             );
         }

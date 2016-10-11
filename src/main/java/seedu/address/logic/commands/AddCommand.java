@@ -5,7 +5,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.*;
-import seedu.address.model.task.UniqueTaskList.PersonNotFoundException;
+import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -19,7 +19,7 @@ public class AddCommand extends Command implements Undoable {
     public static final String COMMAND_WORD = "add";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the SmartyDo. "
-            + "Parameters: NAME t/PHONE d/EMAIL a/ADDRESS  [t/TAG]...\n"
+            + "Parameters: NAME t/TIME d/DESCRIPTION a/LOCATION  [t/TAG]...\n"
             + "Example: " + COMMAND_WORD
             + " John Doe t/9876 d/johnd's description a/311, Clementi Ave 2, #02-25 t/friends t/owesMoney";
 
@@ -34,7 +34,7 @@ public class AddCommand extends Command implements Undoable {
      *
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public AddCommand(String name, String phone, String email, String address, Set<String> tags)
+    public AddCommand(String name, String time, String description, String address, Set<String> tags)
             throws IllegalValueException {
         final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tags) {
@@ -42,9 +42,9 @@ public class AddCommand extends Command implements Undoable {
         }
         this.toAdd = new Task(
                 new Name(name),
-                new Time(phone),
-                new Description(email),
-                new Address(address),
+                new Time(time),
+                new Description(description),
+                new Location(address),
                 new UniqueTagList(tagSet)
         );
         isExecutedBefore = false;
@@ -59,7 +59,7 @@ public class AddCommand extends Command implements Undoable {
             model.addTask(toAdd);
             isExecutedBefore = pushCmdToUndo(isExecutedBefore);
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
-        } catch (UniqueTaskList.DuplicatePersonException e) {
+        } catch (UniqueTaskList.DuplicateTaskException e) {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
         }
 
@@ -73,12 +73,12 @@ public class AddCommand extends Command implements Undoable {
         assert undoRedoManager != null;
 
         toRemove = model.getToDo().getTaskList().indexOf(toAdd);
-        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredPersonList();
-        ReadOnlyTask personToDelete = lastShownList.get(toRemove);
+        UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
+        ReadOnlyTask taskToDelete = lastShownList.get(toRemove);
 
         try {
-            model.deletePerson(personToDelete);
-        } catch (PersonNotFoundException pnfe) {
+            model.deleteTask(taskToDelete);
+        } catch (TaskNotFoundException pnfe) {
             assert false : "The target task cannot be missing";
         }
 
