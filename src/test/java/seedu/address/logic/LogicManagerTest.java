@@ -162,11 +162,11 @@ public class LogicManagerTest {
     @Test
     public void execute_add_invalidPersonData() throws Exception {
         assertCommandBehavior(
-                "add []\\[;] t/1234 d/valid@e.mail a/valid, address", Name.MESSAGE_NAME_CONSTRAINTS);
+                "add []\\[;] t/10-12-2016 d;valid@e.mail a/valid, address", Name.MESSAGE_NAME_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name t/not_numbers d/valid@e.mail a/valid, address", Time.MESSAGE_PHONE_CONSTRAINTS);
+                "add Valid Name t;not_date format d;valid@e.mail a/valid, address", Time.MESSAGE_DATE_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name t/1234 d/valid@e.mail a/valid, address t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
+                "add Valid Name t;10-12-2016 d;valid@e.mail a/valid, address t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
 
     }
 
@@ -382,7 +382,7 @@ public class LogicManagerTest {
 
         Task adam() throws Exception {
             Name name = new Name("Adam Brown");
-            Time privateTime = new Time("1111");
+            Time privateTime = new Time("15-12-2016");
             Description description = new Description("adam's description");
             Address privateAddress = new Address("111, alpha street");
             Tag tag1 = new Tag("tag1");
@@ -401,7 +401,7 @@ public class LogicManagerTest {
         Task generateTask(int seed) throws Exception {
             return new Task(
                     new Name("Task " + seed),
-                    new Time("" + (Math.abs(seed)*9876%10000)),
+                    new Time("" + (Math.abs(seed)*9876%30+"-12-2016")),
                     new Description(seed + "@email"),
                     new Address("House of " + seed),
                     new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
@@ -415,8 +415,8 @@ public class LogicManagerTest {
             cmd.append("add ");
 
             cmd.append(p.getName().toString());
-            cmd.append(" t/").append(p.getTime());
-            cmd.append(" d/").append(p.getDescription());
+            cmd.append(" t;").append(p.getTime());
+            cmd.append(" d;").append(p.getDescription());
             cmd.append(" a/").append(p.getAddress());
 
             UniqueTagList tags = p.getTags();
@@ -500,7 +500,7 @@ public class LogicManagerTest {
         Task generateTaskWithName(String name) throws Exception {
             return new Task(
                     new Name(name),
-                    new Time("1111"),
+                    new Time("10-12-2016"),
                     new Description("1@email"),
                     new Address("House of 1"),
                     new UniqueTagList(new Tag("tag"))
