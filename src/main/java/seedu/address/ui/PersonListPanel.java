@@ -86,6 +86,14 @@ public class PersonListPanel extends UiPart {
             personListView.getSelectionModel().clearAndSelect(index);
         });
     }
+    
+    public void scrollDeselect(int index) {
+        Platform.runLater(() -> {
+            personListView.scrollTo(index);
+            personListView.getSelectionModel().clearSelection();
+        });
+    }
+
 
     class PersonListViewCell extends ListCell<ReadOnlyTask> {
 

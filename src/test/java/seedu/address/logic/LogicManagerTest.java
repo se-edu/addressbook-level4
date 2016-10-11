@@ -373,6 +373,17 @@ public class LogicManagerTest {
                 expectedAB,
                 expectedList);
     }
+    
+    @Test
+    public void execute_viewInvalidArgsFormat_errorMessageShown() throws Exception {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE);
+        assertIncorrectIndexFormatBehaviorForCommand("view", expectedMessage);
+    }
+
+    @Test
+    public void execute_viewIndexNotFound_errorMessageShown() throws Exception {
+        assertIndexNotFoundBehaviorForCommand("view");
+    }
 
 
     /**
