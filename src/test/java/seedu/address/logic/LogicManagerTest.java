@@ -152,17 +152,17 @@ public class LogicManagerTest {
         assertCommandBehavior(
                 "add wrong args wrong args", expectedMessage);
         assertCommandBehavior(
-                "add Valid Name 12345 d/valid@email.butNoPhonePrefix a/valid, address", expectedMessage);
+                "add Valid Name rembertofixthis;10-12-2016 d/valid@email.butNoPhonePrefix a/valid, address", expectedMessage);
         assertCommandBehavior(
-                "add Valid Name t/1234 valid@email.butNoPrefix a/valid, address", expectedMessage);
+                "add Valid Name t10-12-2016 valid@email.butNoPrefix a/valid, address", expectedMessage);
         assertCommandBehavior(
-                "add Valid Name t/1234 d/valid@email.butNoAddressPrefix valid, address", expectedMessage);
+                "add Valid Name t10-12-2016 d/valid@email.butNoAddressPrefix valid, address", expectedMessage);
     }
 
     @Test
     public void execute_add_invalidPersonData() throws Exception {
         assertCommandBehavior(
-                "add []\\[;] t/10-12-2016 d;valid@e.mail a/valid, address", Name.MESSAGE_NAME_CONSTRAINTS);
+                "add []\\[?] t;10-12-2016 et;1000 d;valid@e.mail a/valid, address", Name.MESSAGE_NAME_CONSTRAINTS);
         assertCommandBehavior(
                 "add Valid Name t;not_date format d;valid@e.mail a/valid, address", Time.MESSAGE_DATE_CONSTRAINTS);
         assertCommandBehavior(
@@ -402,7 +402,7 @@ public class LogicManagerTest {
         Task generateTask(int seed) throws Exception {
             return new Task(
                     new Name("Task " + seed),
-                    new Time("" + (Math.abs(seed)*9876%30+"-12-2016")),
+                    new Time("1" + String.valueOf((Math.abs(seed)%10)) + "-12-201" + String.valueOf((Math.abs(seed)%10))),
                     new Period("10:00AM"),
                     new Description(seed + "@email"),
                     new Address("House of " + seed),

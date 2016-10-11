@@ -76,7 +76,7 @@ public class Time {
 
     @Override
     public String toString() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("E d MMM uuuu");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d-MMM-uuuu");
         String text = date.format(formatter);
         return text;
     }

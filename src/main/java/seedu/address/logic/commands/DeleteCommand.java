@@ -1,9 +1,18 @@
 package seedu.address.logic.commands;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.UnmodifiableObservableList;
+import seedu.address.model.tag.Tag;
+import seedu.address.model.tag.UniqueTagList;
+import seedu.address.model.task.Address;
+import seedu.address.model.task.Description;
+import seedu.address.model.task.Name;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.Task;
+import seedu.address.model.task.Time;
 import seedu.address.model.task.UniqueTaskList;
 import seedu.address.model.task.UniqueTaskList.PersonNotFoundException;
 
@@ -26,6 +35,7 @@ public class DeleteCommand extends Command implements Undoable{
     public final int targetIndex;
     private ReadOnlyTask personToDelete;
     private boolean isExecutedBefore;
+    private Task toRestore;
 
     public DeleteCommand(int targetIndex) {
         this.targetIndex = targetIndex;
@@ -45,10 +55,11 @@ public class DeleteCommand extends Command implements Undoable{
         }
 
         personToDelete = lastShownList.get(targetIndex - 1);
+        toRestore = (Task) personToDelete;
 
         try {
             model.deletePerson(personToDelete);
-
+            isExecutedBefore = pushCmdToUndo(isExecutedBefore);
         } catch (PersonNotFoundException pnfe) {
             assert false : "The target task cannot be missing";
         }
@@ -63,10 +74,10 @@ public class DeleteCommand extends Command implements Undoable{
          assert personToDelete != null;
 
          try {
-             model.addTask((Task) personToDelete);
-             isExecutedBefore = pushCmdToUndo(isExecutedBefore);
+             model.addTask(toRestore);
              return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, personToDelete));
          } catch (UniqueTaskList.DuplicatePersonException e) {
+             assert false: "impossible for person to be missing";
              return new CommandResult(MESSAGE_DUPLICATE_TASK);
          }
     }
