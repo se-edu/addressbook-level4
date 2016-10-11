@@ -29,9 +29,7 @@ public class ViewCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        //model.updateFilteredListToShowAll();
-        //return new CommandResult(MESSAGE_SUCCESS);
-        
+
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredPersonList();
 
         if (lastShownList.size() < targetIndex) {
