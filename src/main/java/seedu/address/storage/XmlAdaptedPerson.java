@@ -19,6 +19,8 @@ public class XmlAdaptedPerson {
     @XmlElement(required = true)
     private String phone;
     @XmlElement(required = true)
+    private String period;
+    @XmlElement(required = true)
     private String email;
     @XmlElement(required = true)
     private String address;
@@ -40,6 +42,7 @@ public class XmlAdaptedPerson {
     public XmlAdaptedPerson(ReadOnlyTask source) {
         name = source.getName().fullName;
         phone = source.getTime().value;
+        period = source.getPeriod().value;
         email = source.getDescription().value;
         address = source.getAddress().value;
         tagged = new ArrayList<>();
@@ -60,9 +63,10 @@ public class XmlAdaptedPerson {
         }
         final Name name = new Name(this.name);
         final Time time = new Time(this.phone);
+        final Period period = new Period(this.period);
         final Description description = new Description(this.email);
         final Address address = new Address(this.address);
         final UniqueTagList tags = new UniqueTagList(personTags);
-        return new Task(name, time, description, address, tags);
+        return new Task(name, time, period, description, address, tags);
     }
 }

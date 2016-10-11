@@ -13,28 +13,32 @@ public class Task implements ReadOnlyTask {
 
     private Name name;
     private Time time;
+    private Period period;
     private Description description;
     private Address address;
+    private boolean isCompleted;
 
     private UniqueTagList tags;
 
     /**
      * Every field must be present and not null.
      */
-    public Task(Name name, Time time, Description description, Address address, UniqueTagList tags) {
+    public Task(Name name, Time time, Period period, Description description, Address address, UniqueTagList tags) {
         assert !CollectionUtil.isAnyNull(name, time, description, address, tags);
         this.name = name;
         this.time = time;
+        this.period = period;
         this.description = description;
         this.address = address;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
+        this.isCompleted = false;
     }
 
     /**
      * Copy constructor.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getName(), source.getTime(), source.getDescription(), source.getAddress(), source.getTags());
+        this(source.getName(), source.getTime(), source.getPeriod(), source.getDescription(), source.getAddress(), source.getTags());
     }
 
     @Override
@@ -45,6 +49,11 @@ public class Task implements ReadOnlyTask {
     @Override
     public Time getTime() {
         return time;
+    }
+
+    @Override
+    public Period getPeriod() {
+        return period;
     }
 
     @Override

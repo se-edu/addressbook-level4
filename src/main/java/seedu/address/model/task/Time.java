@@ -64,7 +64,7 @@ public class Time {
 
   //Store date as UK-format string
     private String timeToUkFormat() {
-        return date.format(DateTimeFormatter.ofPattern("d-MM-uuuu"));
+        return date.format(DateTimeFormatter.ofPattern("dd-MMM-uuuu"));
     }
 
     /**

@@ -34,7 +34,7 @@ public class AddCommand extends Command implements Undoable {
      *
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public AddCommand(String name, String phone, String email, String address, Set<String> tags)
+    public AddCommand(String name, String phone, String period, String email, String address, Set<String> tags)
             throws IllegalValueException {
         final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tags) {
@@ -43,6 +43,7 @@ public class AddCommand extends Command implements Undoable {
         this.toAdd = new Task(
                 new Name(name),
                 new Time(phone),
+                new Period(period),
                 new Description(email),
                 new Address(address),
                 new UniqueTagList(tagSet)

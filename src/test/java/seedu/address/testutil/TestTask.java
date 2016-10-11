@@ -12,6 +12,7 @@ public class TestTask implements ReadOnlyTask {
     private Address address;
     private Description description;
     private Time time;
+    private Period period;
     private UniqueTagList tags;
 
     public TestTask() {
@@ -32,6 +33,10 @@ public class TestTask implements ReadOnlyTask {
 
     public void setTime(Time time) {
         this.time = time;
+    }
+
+    public void setPeriod(Period period) {
+        this.period = period;
     }
 
     @Override
@@ -60,6 +65,11 @@ public class TestTask implements ReadOnlyTask {
     }
 
     @Override
+    public Period getPeriod() {
+        return period;
+    }
+
+    @Override
     public String toString() {
         return getAsText();
     }
@@ -68,6 +78,7 @@ public class TestTask implements ReadOnlyTask {
         StringBuilder sb = new StringBuilder();
         sb.append("add " + this.getName().fullName + " ");
         sb.append("t;" + this.getTime().value + " ");
+        sb.append("et;" + this.getPeriod().value + " ");
         sb.append("d;" + this.getDescription().value + " ");
         sb.append("a/" + this.getAddress().value + " ");
         this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
