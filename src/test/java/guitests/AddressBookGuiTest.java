@@ -1,6 +1,7 @@
 package guitests;
 
 import guitests.guihandles.*;
+import javafx.application.Platform;
 import javafx.stage.Stage;
 import org.junit.After;
 import org.junit.Before;
@@ -10,6 +11,7 @@ import org.junit.rules.TestName;
 import org.testfx.api.FxToolkit;
 import seedu.address.TestApp;
 import seedu.address.commons.core.EventsCenter;
+import seedu.address.commons.events.BaseEvent;
 import seedu.address.model.AddressBook;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.testutil.TestUtil;
@@ -113,5 +115,9 @@ public abstract class AddressBookGuiTest {
      */
     protected void assertResultMessage(String expected) {
         assertEquals(expected, resultDisplay.getText());
+    }
+
+    public void raise(BaseEvent e) {
+        Platform.runLater(() -> EventsCenter.getInstance().post(e));
     }
 }
