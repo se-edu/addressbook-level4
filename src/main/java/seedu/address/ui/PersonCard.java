@@ -17,6 +17,8 @@ public class PersonCard extends UiPart{
     @FXML
     private Label id;
     @FXML
+    private Label period;
+    @FXML
     private Label phone;
     @FXML
     private Label address;
@@ -44,6 +46,7 @@ public class PersonCard extends UiPart{
         name.setText(task.getName().fullName);
         id.setText(displayedIndex + ". ");
         phone.setText(task.getTime().value);
+        period.setText(task.getPeriod().value);
         address.setText(task.getAddress().value);
         email.setText(task.getDescription().value);
         tags.setText(task.tagsString());
