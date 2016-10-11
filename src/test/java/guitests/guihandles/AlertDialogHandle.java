@@ -6,7 +6,7 @@ import javafx.stage.Stage;
 import seedu.address.ui.UiManager;
 
 /**
- * A handler for the ResultDisplay of the UI
+ * A handler for the AlertDialog of the UI
  */
 public class AlertDialogHandle extends GuiHandle {
 
