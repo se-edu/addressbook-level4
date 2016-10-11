@@ -111,8 +111,8 @@ public class UndoCommandTest extends AddressBookGuiTest{
 		try {
             generatedName = new TaskBuilder().withName(Character.toString((char)i))
                     .withAddress("311, Clementi Ave 2, #02-25")
-                    .withEmail("johnd's description").withPhone("9876")
-                    .withTags("owesMoney", "friends").build();
+                    .withEmail("johnd's description").withPhone("11-10-2016")
+                    .withTags("owesMoney", "friends").withPeriod("10:00AM").build();
 		} catch (IllegalValueException e) {
 			assert false : "impossible";
 		}
