@@ -1,12 +1,27 @@
 ﻿# Developer Guide 
 
-1. [Introduction](##1.-introduction)
-2. [Setting Up](#setting-up)
-3. [Design](#design)
-4. [Implementation](#implementation)
-5. [Testing](#testing)
-6. [Dev Ops](#dev-ops)
-7. [Appendix](#appendix) 
+## Table of Content
+1. [Introduction](#1-introduction)
+2. [Setting Up](#2-setting-up)
+    1. [Prerequisites](#21-prerequisites)
+    2. [Importing the project into Eclipse](22-Importing-the-project-into-Eclipse)
+3. [Design](#3-design)
+    1. [Architecture](31-Architecture)
+    2. [UI component](32-UI-component)
+    3. [Logic component](33-Logic-component)
+    4. [Model component](34-Model-component)
+    5. [Storage component](35-Storage-component)
+    6. [Common classes](36-common-classes)
+4. [Implementation](#4-implementation)
+    1. [Logging](41-Logging)
+    2. [Configuration](42-Configuration)
+5. [Testing](#5-testing)
+6. [Dev Ops](#6-dev-ops)
+    1. [Build Automation](61-build-automation)
+    2. [Continuous Integration](62-continuous-integration)
+    3. [Making a Release](63-making-a-release)
+    4. [Managing Depedencies](64-managing-depedencies)
+7. [Appendix](#7-appendix) 
   * [Appendix A: User Stories](#appendix-a--user-stories)
   * [Appendix B: Use Cases](#appendix-b--use-cases)
   * [Appendix C: Non Functional Requirements](#appendix-c--non-functional-requirements)
@@ -60,17 +75,17 @@ Below, we will give you a quick overview of each component.
 * At app launch: `Main` will initialize the components in the correct sequence, and connect them up with each other.
 * At shut down: `Main` will Shut down the components and invoke cleanup method where necessary.
 
-[**`Commons`**](#common-classes) represents a collection of classes used by multiple other components.
+[**`Commons`**](#36-common-classes) represents a collection of classes used by multiple other components.
 Two of those classes play important roles at the architecture level.
 * `EventsCentre` : This class (written using [Google's Event Bus library](https://github.com/google/guava/wiki/EventBusExplained))
   is used by components to communicate with other components using events (i.e. a form of _Event Driven_ design)
 * `LogsCenter` : Used by many classes to write log messages to the App's log file.
 
 The rest of the App consists four components.
-* [**`UI`**](#ui-component) : The UI of tha App.
-* [**`Logic`**](#logic-component) : The command executor.
-* [**`Model`**](#model-component) : Holds the data of the App in-memory.
-* [**`Storage`**](#storage-component) : Reads data from, and writes data to, the hard disk.
+* [**`UI`**](#32-ui-component) : The UI of tha App.
+* [**`Logic`**](#33-logic-component) : The command executor.
+* [**`Model`**](#34-model-component) : Holds the data of the App in-memory.
+* [**`Storage`**](#35-storage-component) : Reads data from, and writes data to, the hard disk.
 
 Each of the four components will
 * Define its _API_ in an `interface` with the same name as the Component.
