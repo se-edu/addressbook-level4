@@ -31,6 +31,6 @@ public class MainGuiHandle extends GuiHandle {
 
     public AlertDialogHandle getAlertDialog(String title) {
         guiRobot.sleep(1000);
-        return new AlertDialogHandle(guiRobot, primaryStage, title) ;
+        return new AlertDialogHandle(guiRobot, primaryStage, title);
     }
 }
