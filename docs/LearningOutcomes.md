@@ -9,6 +9,7 @@ After studying this code and completing the corresponding exercises, you should 
 1. [Use Defensive Coding `[LO-DefensiveCoding]`](#use-defensive-coding-lo-defensivecoding)
 1. [Use Build Automation `[LO-BuildAutomation]`](#use-build-automation-lo-buildautomation)
 1. [Use Continuous Integration `[LO-ContinuousIntegration]`](#use-continuous-integration-lo-continuousintegration)
+1. [Use Code Coverage `[LO-CodeCoverage]`](#use-code-coverage-lo-codecoverage)
 
 ------------------------------------------------------------------------------------------------------
 
@@ -109,6 +110,7 @@ Note [how the AddressBook app uses Gradle to automate build tasks](UsingGradle.m
 ## Use Continuous Integration `[LO-ContinuousIntegration]`
 
 Note [how the AddressBook app uses Travis to perform Continuous Integration](UsingTravis.md).
+([![Build Status](https://travis-ci.org/se-edu/addressbook-level4.svg?branch=master)](https://travis-ci.org/se-edu/addressbook-level4))
 
 **Resources**
  * Tutorials
@@ -116,6 +118,18 @@ Note [how the AddressBook app uses Travis to perform Continuous Integration](Usi
  
 #### Exercise: Use Travis in your own project
  * Set up Travis to perform CI on your own project.
+ 
+------------------------------------------------------------------------------------------------------
+
+## Use Code Coverage `[LO-CodeCoverage]`
+
+Note how our CI server [Travis uses Coveralls to report code coverage](UsingTravis.md).
+([![Coverage Status](https://coveralls.io/repos/github/se-edu/addressbook-level4/badge.svg?branch=master)](https://coveralls.io/github/se-edu/addressbook-level4?branch=master))
+
+ 
+#### Exercise: Use EclEmma to measure coverage locally
+ * Install the [EclEmma Eclipse Plugin](http://www.eclemma.org/) in your computer and use that to find code that 
+   is not covered by the tests.
  
 ------------------------------------------------------------------------------------------------------
 
@@ -130,6 +144,5 @@ Note [how the AddressBook app uses Travis to perform Continuous Integration](Usi
 * Design patterns
 * Static analysis
 * Code reviews
-* Code coverage
 
 
