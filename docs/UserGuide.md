@@ -66,8 +66,8 @@ Todos will be rearranged in the Todo-List based on their priority.<br>
 #### Deleting a task : `delete`
 Delete a task with given type and index number.<br>
 > Format: `delete TASK_TYPE INDEX_NUMBER`<br>
-> Example(Todo): `delete todo 1`
-> Example(Event): `delete event 1`
+> Example(Todo): `delete todo 1` <br>
+> Example(Event): `delete event 1` <br>
 > Example(Deadline): `delete deadline 1`
 
 #### Marking a completed task : `done`
@@ -77,19 +77,19 @@ Mark a Todo-task with given index number as done.<br>
 
 #### Listing all tasks : `list`
 Shows a list of all persons in the task-list.<br>
-> Format: `list TASK_TYPE`
-> Example(Todo): `list todo`
-> Example(Event): `list event`
+> Format: `list TASK_TYPE` <br>
+> Example(Todo): `list todo` <br>
+> Example(Event): `list event` <br>
 > Example(Deadline): `list deadline`
 
 #### Finding all tasks containing any keyword in their name: `find`
 Finds tasks whose names contain any of the given keywords.<br>
 The search is case sensitive, the order of the keywords does not matter, only the name is searched, 
 and persons matching at least one keyword will be returned (i.e. `OR` search).<br>
-> Format: `find TASK_TYPE KEYWORD [MORE_KEYWORDS]`
-> Example(all): `find all School`
-> Example(Todo): `find todo Study`
-> Example(Event): `find event Party`
+> Format: `find TASK_TYPE KEYWORD [MORE_KEYWORDS]` <br>
+> Example(all): `find all School` <br>
+> Example(Todo): `find todo Study` <br>
+> Example(Event): `find event Party` <br>
 > Example(Deadline): `find deadline Assignment`
 
 #### Undo the previous command: 'undo'
