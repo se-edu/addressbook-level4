@@ -22,11 +22,11 @@
     3. [Making a Release](63-making-a-release)
     4. [Managing Depedencies](64-managing-depedencies)
 7. [Appendix](#7-appendix) 
-  * [Appendix A: User Stories](#appendix-a--user-stories)
-  * [Appendix B: Use Cases](#appendix-b--use-cases)
-  * [Appendix C: Non Functional Requirements](#appendix-c--non-functional-requirements)
-  * [Appendix D: Glossary](#appendix-d--glossary)
-  * [Appendix E : Product Survey](#appendix-e--product-survey)
+    1. [Appendix A: User Stories](#71-appendix-a--user-stories)
+    2. [Appendix B: Use Cases](#72-appendix-b--use-cases)
+    3. [Appendix C: Non Functional Requirements](#73-appendix-c--non-functional-requirements)
+    4. [Appendix D: Glossary](#74-appendix-d--glossary)
+    5. [Appendix E : Product Survey](#75-appendix-e--product-survey)
 
 ## 1. Introduction
 Welcome to the developer guide for SmartyDo. This guide is meant to enable budding developers like yourself to better understand the implementation of our program. Through this guide, we hope that you will be able to learn not only about how SmartyDo is implemented, but about different parts of the application that you are able to improve yourself.
@@ -272,7 +272,7 @@ b. Require developers to download those libraries manually (this creates extra w
   
 ## 7. Appendix
 
-## Appendix A : User Stories
+## 7.1 Appendix A : User Stories
 
 Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (unlikely to have) - `*`
 
@@ -290,7 +290,7 @@ Priority | As a ... | I want to ... | So that I can...
 `* *` | user | undo  1 previous operation | remove commands executed by accident   
 `* *` | user | specify a target folder as the data storage location | synchronise file with other applications
 
-## Appendix B : Use Cases
+## 7.2 Appendix B : Use Cases
 
 (For all use cases below, the **System** is the `SmartyDo` and the **Actor** is the `user`, unless specified otherwise)
 
@@ -409,7 +409,7 @@ Use case ends.
 
 {More to be added}
 
-## Appendix C : Non Functional Requirements
+## 7.3 Appendix C : Non Functional Requirements
 
 1. Should work on any [mainstream OS](#mainstream-os) as long as it has Java `1.8.0_60` or higher installed.
 2. Should be able to hold up to 2 years of entries estimated to be 8000 entries.
@@ -418,7 +418,7 @@ Use case ends.
 
 {More to be added}
 
-## Appendix D : Glossary
+## 7.4 Appendix D : Glossary
 
 ##### Mainstream OS
 
@@ -428,7 +428,7 @@ Use case ends.
 
 > A contact detail that is not meant to be shared with others
 
-## Appendix E : Product Survey
+## 7.5 Appendix E : Product Survey
 
 | Existing Product | Pros | Cons |
 | :---: | :---: | :---: |
