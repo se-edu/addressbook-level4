@@ -22,6 +22,8 @@
     <property name="message" value='TODO is preferred to FIXME."' />
   </module>
 
+
+  <!-- Required to allow exceptions in code style -->
   <module name="SuppressionCommentFilter">
     <property name="offCommentFormat" value="CHECKSTYLE.OFF\: ([\w\|]+)"/>
     <property name="onCommentFormat" value="CHECKSTYLE.ON\: ([\w\|]+)"/>
@@ -31,6 +33,7 @@
   <!-- All Java AST specific tests live under TreeWalker module. -->
   <module name="TreeWalker">
 
+    <!-- Required for SuppressionCommentFilter to work -->
     <module name="FileContentsHolder"/>
 
     <!--
@@ -168,7 +171,7 @@
       <!--
       if (true) return 1; // Allowed
 
-      if (true) { return 1; } // Not allowed, waiting for Checkstyle 6.9
+      if (true) { return 1; } // Not allowed
 
       else if {
         return 1; // else if should always be multi line
@@ -178,6 +181,7 @@
         return 1; // Not allowed
       -->
       <property name="allowEmptyLoopBody" value="true"/>
+      <property name="allowSingleLineStatement" value="true"/>
     </module>
 
     <module name="UpperEll">
