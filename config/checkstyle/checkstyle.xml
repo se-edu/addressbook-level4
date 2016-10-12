@@ -22,8 +22,16 @@
     <property name="message" value='TODO is preferred to FIXME."' />
   </module>
 
+  <module name="SuppressionCommentFilter">
+    <property name="offCommentFormat" value="CHECKSTYLE.OFF\: ([\w\|]+)"/>
+    <property name="onCommentFormat" value="CHECKSTYLE.ON\: ([\w\|]+)"/>
+    <property name="checkFormat" value="$1"/>
+  </module>
+
   <!-- All Java AST specific tests live under TreeWalker module. -->
   <module name="TreeWalker">
+
+    <module name="FileContentsHolder"/>
 
     <!--
     IMPORT CHECKS
@@ -169,6 +177,7 @@
       if (true)
         return 1; // Not allowed
       -->
+      <property name="allowEmptyLoopBody" value="true"/>
     </module>
 
     <module name="UpperEll">
