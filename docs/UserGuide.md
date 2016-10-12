@@ -106,14 +106,14 @@ Task-list data are saved in the hard disk automatically after any command that c
 
 ## Command Summary
 
-Command | Format  
+Command 	| Format  
 --------------- | :-------- 
 Add	Todo	| `add TASK_NAME p/PRIORITY`
-	Event	| `add TASK_NAME d/DATE s/START_TIME e/END_TIME`
-	Deadline| `add TASK_NAME d/DATE e/END_TIME`
+Add	Event	| `add TASK_NAME d/DATE s/START_TIME e/END_TIME`
+Add	Deadline| `add TASK_NAME d/DATE e/END_TIME`
 Edit	Todo	| `edit TASK_TYPE INDEX_NUMBER n/TASK_NAME p/PRIORITY`
-	Event	| `edit TASK_TYPE INDEX_NUMBER n/TASK_NAME d/DATE s/START_TIME e/END_TIME`
-	Deadline| `edit TASK_TYPE INDEX_NUMBER n/TASK_NAME d/DATE e/END_TIME`
+Edit	Event	| `edit TASK_TYPE INDEX_NUMBER n/TASK_NAME d/DATE s/START_TIME e/END_TIME`
+Edit	Deadline| `edit TASK_TYPE INDEX_NUMBER n/TASK_NAME d/DATE e/END_TIME`
 Delete		| `delete TASK_TYPE INDEX_NUMBER`
 Done		| `done INDEX_NUMBER`
 List		| `list TASK_TYPE`
