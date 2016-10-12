@@ -6,7 +6,7 @@ After studying this code and completing the corresponding exercises, you should 
 1. [Use API Design `[LO-ApiDesign]`](#use-api-design-lo-apidesign)
 1. [Use Assertions `[LO-Assertions]`](#use-assertions-lo-assertions)
 1. [Use Logging `[LO-Logging]`](#use-logging-lo-logging)
-1. [Use Defensive Coding `[LO-DefensiveCoding]`](#use-defensive-coding-lo-defensivedoding)
+1. [Use Defensive Coding `[LO-DefensiveCoding]`](#use-defensive-coding-lo-defensivecoding)
 1. [Use Build Automation `[LO-BuildAutomation]`](#use-build-automation-lo-buildautomation)
 1. [Use Continuous Integration `[LO-ContinuousIntegration]`](#use-continuous-integration-lo-continuousintegration)
 
