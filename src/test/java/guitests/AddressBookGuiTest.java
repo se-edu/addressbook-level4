@@ -118,6 +118,7 @@ public abstract class AddressBookGuiTest {
     }
 
     public void raise(BaseEvent e) {
+        //JUnit doesn't run its test cases on the UI thread. Platform.runLater is used to post event on the UI thread.
         Platform.runLater(() -> EventsCenter.getInstance().post(e));
     }
 }

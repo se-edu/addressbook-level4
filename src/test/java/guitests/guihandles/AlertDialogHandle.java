@@ -6,7 +6,7 @@ import javafx.stage.Stage;
 import seedu.address.ui.UiManager;
 
 /**
- * A handler for the AlertDialog of the UI
+ * A handle for the AlertDialog of the UI
  */
 public class AlertDialogHandle extends GuiHandle {
 
@@ -15,10 +15,10 @@ public class AlertDialogHandle extends GuiHandle {
         super(guiRobot, primaryStage, dialogTitle);
     }
 
-    public boolean isAlertDialogValid(String headerMessage, String contentMessage) {
+    public boolean isMatching(String headerMessage, String contentMessage) {
         assert intermediateStage.isPresent() : "Alert dialog is not present";
         DialogPane dialogPane = (DialogPane) getNode("#" + UiManager.ALERT_DIALOG_PANE_FIELD_ID);
-        boolean isValid = dialogPane.getHeaderText().equals(headerMessage) && dialogPane.getContentText().equals(contentMessage);
-        return isValid;
+        boolean isMatching = dialogPane.getHeaderText().equals(headerMessage) && dialogPane.getContentText().equals(contentMessage);
+        return isMatching;
     }
 }
