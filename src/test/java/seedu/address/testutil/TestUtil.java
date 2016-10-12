@@ -44,7 +44,7 @@ public class TestUtil {
         try {
             executable.run();
         } catch (Throwable actualException) {
-            if (actualException.getClass().isAssignableFrom(expected)) return;
+            if (actualException.getClass().isAssignableFrom(expected)) { return; }
             String message = String.format("Expected thrown: %s, actual: %s", expected.getName(),
                     actualException.getClass().getName());
             throw new AssertionFailedError(message);
@@ -69,9 +69,8 @@ public class TestUtil {
                            new Address("81th street"), new UniqueTagList()),
                 new Person(new Name("Carl Kurz"), new Phone("95352563"), new Email("heinz@yahoo.com"),
                            new Address("wall street"), new UniqueTagList()),
-                new Person(new Name("Daniel Meier"), new Phone("87652533"),
-                           new Email("cornelia@google.com"), new Address("10th street"),
-                           new UniqueTagList()),
+                new Person(new Name("Daniel Meier"), new Phone("87652533"), new Email("cornelia@google.com"),
+                           new Address("10th street"), new UniqueTagList()),
                 new Person(new Name("Elle Meyer"), new Phone("9482224"), new Email("werner@gmail.com"),
                            new Address("michegan ave"), new UniqueTagList()),
                 new Person(new Name("Fiona Kunz"), new Phone("9482427"), new Email("lydia@gmail.com"),
