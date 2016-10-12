@@ -1,27 +1,22 @@
 ﻿# User Guide
 
 ## Table of Contents
-<!-- MarkdownTOC -->
-
-1. &nbsp; &nbsp; [Introduction](#1-introduction)
-2. &nbsp; &nbsp; [Quick Start](#2-quick-start)
-3. &nbsp; &nbsp; [Getting Started](#3-getting-started)
-
-  1. &nbsp; &nbsp; [Help](#31-help)
-  2. &nbsp; &nbsp; [Add Tasks](#32-add-tasks)
-  3. &nbsp; &nbsp; [View](#33-view)
-  4. &nbsp; &nbsp; [Edit Tasks](#34-edit-tasks)
-  5. &nbsp; &nbsp; [Undo and Redo](#35-undo-and-redo)
-  6. &nbsp; &nbsp; [Suggest available timeslots](#36-suggest-available-timeslots)
-  7. &nbsp; &nbsp; [Find](#37-find)
-  8. &nbsp; &nbsp; [Mark completed tasks](#38-mark-completed-tasks)
-  9. &nbsp; &nbsp; [Delete Tasks](#39-delete-tasks)
-  10. &nbsp; &nbsp; [Exit](#310-exit)
-
-4. &nbsp; &nbsp; [Smart Features](#4-smart-features)
-
-  1. &nbsp; &nbsp; [FlexiCommand](#41-flexicommand)
-  2. &nbsp; &nbsp; [Saving the data](#42-saving-the-data)
+1. [Introduction](#1-introduction)
+2. [Quick Start](#2-quick-start)
+3. [Getting Started](#3-getting-started)
+  1. [Help](#31-help)
+  2. [Add Tasks](#32-add-tasks)
+  3. [View](#33-view)
+  4. [Edit Tasks](#34-edit-tasks)
+  5. [Undo and Redo](#35-undo-and-redo)
+  6. [Delete Tasks](#36-delete-tasks)
+  7. [Mark completed tasks](#37-mark-completed-tasks)
+  8. [Suggest available timeslots](#38-suggest-available-timeslots)
+  9. [Find](#39-find)
+  10. [Exit](#310-exit)
+4. [Smart Features](#4-smart-features)
+  1. [FlexiCommand](#41-flexicommand)
+  2. [Saving the data](#42-saving-the-data)
 
 <!-- /MarkdownTOC -->
 
