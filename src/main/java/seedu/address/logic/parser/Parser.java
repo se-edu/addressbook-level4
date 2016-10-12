@@ -19,13 +19,12 @@ public class Parser {
     /**
      * Used for initial separation of command word and args.
      */
-    private static final Pattern BASIC_COMMAND_FORMAT =
-            Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
+    private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
     private static final Pattern PERSON_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
 
     private static final Pattern KEYWORDS_ARGS_FORMAT =
-            Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // >1 keywords separated by whitespace
+            Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
 
     private static final Pattern PERSON_DATA_ARGS_FORMAT =
             Pattern.compile("(?<name>[^/]+)" // '/' forward slashes are reserved for delimiter prefixes
@@ -45,8 +44,7 @@ public class Parser {
     public Command parseCommand(String userInput) {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
-            return new IncorrectCommand(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
         }
 
         final String commandWord = matcher.group("commandWord");
@@ -88,12 +86,11 @@ public class Parser {
      * @param args full command args string
      * @return the prepared command
      */
-    private Command prepareAdd(String args){
+    private Command prepareAdd(String args) {
         final Matcher matcher = PERSON_DATA_ARGS_FORMAT.matcher(args.trim());
         // Validate arg string format
         if (!matcher.matches()) {
-            return new IncorrectCommand(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
         try {
             return new AddCommand(
@@ -118,8 +115,7 @@ public class Parser {
             return Collections.emptySet();
         }
         // replace first delimiter prefix, then split
-        final Collection<String> tagStrings =
-                Arrays.asList(tagArguments.replaceFirst(" t/", "").split(" t/"));
+        final Collection<String> tagStrings = Arrays.asList(tagArguments.replaceFirst(" t/", "").split(" t/"));
         return new HashSet<>(tagStrings);
     }
 

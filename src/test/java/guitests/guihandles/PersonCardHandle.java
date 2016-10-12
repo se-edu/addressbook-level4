@@ -41,7 +41,7 @@ public class PersonCardHandle extends GuiHandle {
         return getTextFromLabel(EMAIL_FIELD_ID);
     }
 
-    public boolean isSamePerson(ReadOnlyPerson person){
+    public boolean isSamePerson(ReadOnlyPerson person) {
         return getFullName().equals(person.getName().fullName) && getPhone().equals(person.getPhone().value)
                 && getEmail().equals(person.getEmail().value)
                 && getAddress().equals(person.getAddress().value);

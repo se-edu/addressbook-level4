@@ -18,8 +18,7 @@ import static org.junit.Assert.assertFalse;
 
 public class JsonUserPrefsStorageTest {
 
-    private static final String TEST_DATA_FOLDER =
-            FileUtil.getPath("./src/test/data/JsonUserPrefsStorageTest/");
+    private static final String TEST_DATA_FOLDER = FileUtil.getPath("./src/test/data/JsonUserPrefsStorageTest/");
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -33,8 +32,7 @@ public class JsonUserPrefsStorageTest {
         readUserPrefs(null);
     }
 
-    private Optional<UserPrefs> readUserPrefs(String userPrefsFileInTestDataFolder)
-            throws DataConversionException {
+    private Optional<UserPrefs> readUserPrefs(String userPrefsFileInTestDataFolder) throws DataConversionException {
         String prefsFilePath = addToTestDataPathIfNotNull(userPrefsFileInTestDataFolder);
         return new JsonUserPrefsStorage(prefsFilePath).readUserPrefs(prefsFilePath);
     }
@@ -46,7 +44,6 @@ public class JsonUserPrefsStorageTest {
 
     @Test
     public void readUserPrefs_notJsonFormat_exceptionThrown() throws DataConversionException {
-
         thrown.expect(DataConversionException.class);
         readUserPrefs("NotJsonFormatUserPrefs.json");
 

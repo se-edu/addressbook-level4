@@ -13,7 +13,7 @@ public class TypicalTestPersons {
 
     public TypicalTestPersons() {
         try {
-            alice =  new PersonBuilder().withName("Alice Pauline")
+            alice = new PersonBuilder().withName("Alice Pauline")
                     .withAddress("123, Jurong West Ave 6, #08-111").withEmail("alice@gmail.com")
                     .withPhone("85355255")
                     .withTags("friends").build();

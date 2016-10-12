@@ -6,7 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import seedu.address.model.person.ReadOnlyPerson;
 
-public class PersonCard extends UiPart{
+public class PersonCard extends UiPart {
 
     private static final String FXML = "PersonListCard.fxml";
 

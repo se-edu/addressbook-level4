@@ -188,7 +188,7 @@ public class TestUtil {
     }
 
     public static void setFinalStatic(Field field, Object newValue) throws NoSuchFieldException,
-                                                                           IllegalAccessException{
+                                                                           IllegalAccessException {
         field.setAccessible(true);
         // remove final modifier from field
         Field modifiersField = Field.class.getDeclaredField("modifiers");
@@ -281,8 +281,7 @@ public class TestUtil {
      * @param personsToRemove The subset of persons.
      * @return The modified persons after removal of the subset from persons.
      */
-    public static TestPerson[] removePersonsFromList(final TestPerson[] persons,
-                                                     TestPerson... personsToRemove) {
+    public static TestPerson[] removePersonsFromList(final TestPerson[] persons, TestPerson... personsToRemove) {
         List<TestPerson> listOfPersons = asList(persons);
         listOfPersons.removeAll(asList(personsToRemove));
         return listOfPersons.toArray(new TestPerson[listOfPersons.size()]);
@@ -294,8 +293,7 @@ public class TestUtil {
      * @param list original list to copy from
      * @param targetIndexInOneIndexedFormat e.g. index 1 if the first element is to be removed
      */
-    public static TestPerson[] removePersonFromList(final TestPerson[] list,
-                                                    int targetIndexInOneIndexedFormat) {
+    public static TestPerson[] removePersonFromList(final TestPerson[] list, int targetIndexInOneIndexedFormat) {
         return removePersonsFromList(list, list[targetIndexInOneIndexedFormat - 1]);
     }
 

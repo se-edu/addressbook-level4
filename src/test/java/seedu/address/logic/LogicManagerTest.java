@@ -68,8 +68,7 @@ public class LogicManagerTest {
         logic = new LogicManager(model, new StorageManager(tempAddressBookFile, tempPreferencesFile));
         EventsCenter.getInstance().registerHandler(this);
 
-        latestSavedAddressBook = new AddressBook(model.getAddressBook()); // last saved assumed to
-                                                                          // be up to date before.
+        latestSavedAddressBook = new AddressBook(model.getAddressBook()); // last saved assumed to be up to date
         helpShown = false;
         targetedJumpIndex = -1; // non yet
     }
@@ -143,32 +142,25 @@ public class LogicManagerTest {
         model.addPerson(helper.generatePerson(2));
         model.addPerson(helper.generatePerson(3));
 
-        assertCommandBehavior("clear", ClearCommand.MESSAGE_SUCCESS, new AddressBook(),
-                              Collections.emptyList());
+        assertCommandBehavior("clear", ClearCommand.MESSAGE_SUCCESS, new AddressBook(), Collections.emptyList());
     }
 
 
     @Test
     public void execute_add_invalidArgsFormat() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
-        assertCommandBehavior(
-                "add wrong args wrong args", expectedMessage);
-        assertCommandBehavior(
-                "add Valid Name 12345 e/valid@email.butNoPhonePrefix a/valid, address", expectedMessage);
-        assertCommandBehavior(
-                "add Valid Name p/12345 valid@email.butNoPrefix a/valid, address", expectedMessage);
-        assertCommandBehavior(
-                "add Valid Name p/12345 e/valid@email.butNoAddressPrefix valid, address", expectedMessage);
+        assertCommandBehavior("add wrong args wrong args", expectedMessage);
+        assertCommandBehavior("add Valid Name 12345 e/valid@email.butNoPhonePrefix a/valid, address", expectedMessage);
+        assertCommandBehavior("add Valid Name p/12345 valid@email.butNoPrefix a/valid, address", expectedMessage);
+        assertCommandBehavior("add Valid Name p/12345 e/valid@email.butNoAddressPrefix valid, address", expectedMessage);
     }
 
     @Test
     public void execute_add_invalidPersonData() throws Exception {
-        assertCommandBehavior("add []\\[;] p/12345 e/valid@e.mail a/valid, address",
-                              Name.MESSAGE_NAME_CONSTRAINTS);
+        assertCommandBehavior("add []\\[;] p/12345 e/valid@e.mail a/valid, address", Name.MESSAGE_NAME_CONSTRAINTS);
         assertCommandBehavior("add Valid Name p/not_numbers e/valid@e.mail a/valid, address",
-                               Phone.MESSAGE_PHONE_CONSTRAINTS);
-        assertCommandBehavior("add Valid Name p/12345 e/notAnEmail a/valid, address",
-                              Email.MESSAGE_EMAIL_CONSTRAINTS);
+                              Phone.MESSAGE_PHONE_CONSTRAINTS);
+        assertCommandBehavior("add Valid Name p/12345 e/notAnEmail a/valid, address", Email.MESSAGE_EMAIL_CONSTRAINTS);
         assertCommandBehavior("add Valid Name p/12345 e/valid@e.mail a/valid, address t/invalid_-[.tag",
                               Tag.MESSAGE_TAG_CONSTRAINTS);
 
@@ -400,8 +392,7 @@ public class LogicManagerTest {
 
         /**
          * Generates a valid person using the given seed.
-         * Running this function with the same parameter values guarantees the returned person will
-         * have the same state.
+         * Running this function with the same parameter values guarantees the returned person will have the same state.
          * Each unique seed will generate a unique Person object.
          *
          * @param seed used to generate the person data field values
