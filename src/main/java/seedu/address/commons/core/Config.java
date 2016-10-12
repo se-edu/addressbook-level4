@@ -71,7 +71,7 @@ public class Config {
             return false;
         }
 
-        Config o = (Config)other;
+        Config o = (Config) other;
 
         return Objects.equals(appTitle, o.appTitle)
                 && Objects.equals(logLevel, o.logLevel)

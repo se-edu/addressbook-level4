@@ -1,14 +1,11 @@
 package seedu.address.commons.util;
 
-
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.commons.util.ConfigUtil;
-import seedu.address.commons.util.FileUtil;
 
 import java.io.File;
 import java.io.IOException;
@@ -20,7 +17,7 @@ import static org.junit.Assert.assertFalse;
 
 public class ConfigUtilTest {
 
-    private static String TEST_DATA_FOLDER = FileUtil.getPath("./src/test/data/ConfigUtilTest/");
+    private static final String TEST_DATA_FOLDER = FileUtil.getPath("./src/test/data/ConfigUtilTest/");
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
