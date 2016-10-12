@@ -6,7 +6,7 @@
 * [Command Summary](#command-summary)
 
 ##Description
-(Project Name) is a Command Line Interface Task Management Application that helps you manage your workflow. There are two main parts in the app: Todo List in which you can plan what tasks are to be done for the day, and Calendar that you indicate deadlines of the tasks or events to attend weekly/monthly. Data in Todo List and Calendar are synchronized. For instance, if a task is done before a deadline, it will be indicated as `done` in Calendar as well. At each starting time of tasks in Todo List, the app will give a notification that you should start working.
+Tdoo Schedule Manager is a Command Line Interface Task Management Application that helps you manage your workflow. There are two main parts in the app: Todo List in which you can plan what tasks are to be done for the day, and Calendar that you indicate deadlines of the tasks or events to attend weekly/monthly. Data in Todo List and Calendar are synchronized. For instance, if a task is done before a deadline, it will be indicated as `done` in Calendar as well. At each starting time of tasks in Todo List, the app will give a notification that you should start working.
 
 ## Starting the program
 
@@ -29,56 +29,97 @@ Format: `help`
 
 > Help is also shown if you enter an incorrect command e.g. `abcd`
 
-#### Adding a task: `add_task`
-Adds a task to the todo-list.<br>
-Format: `add_task TASK_NAME p/PRIORITY s/START_TIME e/END_TIME`<br>
-Example: `add_task Assignment 3 p/1 s/1400 e/1600`
+#### Adding a task: `add`
+Adds a task to the task-list.<br>
+Different Types of tasks (Todo/Event/Deadline) have different command format.<br>
 
-> Tasks will be rearranged in the Todo-List based on their priority
+###### Adding a Todo:
+Todos will be rearranged in the Todo-List based on their priority.<br>
+> Format: `add TASK_NAME p/PRIORITY`<br>
+> Example: `add Assignment 3 p/1`
 
-#### Deleting a task : `delete_task`
-Delete a task with given index number.<br>
-Format: `delete_task INDEX_NUMBER`<br>
-Example: `delete_task 1`
+###### Adding an Event:
+> Format: `add TASK_NAME d/DATE s/START_TIME e/END_TIME`<br>
+> Example: `add Time's birthday party d/25-12-2016 s/1400 e/1600`
+
+###### Adding a Deadline:
+> Format: `add TASK_NAME d/DATE e/END_TIME`<br>
+> Example: `add CS2103 v0.2 d/25-12-2016 e/1600`
+
+#### Editing a task: `edit`
+Edits information of the task in the task-list.<br>
+Different Types of tasks (Todo/Event/Deadline) have different command format.<br>
+
+###### Editing a Todo:
+Todos will be rearranged in the Todo-List based on their priority.<br>
+> Format: `edit TASK_TYPE INDEX_NUMBER n/TASK_NAME p/PRIORITY`<br>
+> Example: `edit todo 1 n/Assignment 1 p/2`
+
+###### Editing an Event:
+> Format: `edit TASK_TYPE INDEX_NUMBER n/TASK_NAME d/DATE s/START_TIME e/END_TIME`<br>
+> Example: `edit event 1 n/Time's birthday party d/25-12-2016 s/1200 e/1600`
+
+###### Editing a Deadline:
+> Format: `edit TASK_TYPE INDEX_NUMBER n/TASK_NAME d/DATE e/END_TIME`<br>
+> Example: `edit deadline 1 n/CS2103 v0.2 d/25-12-2016 e/1400`
+
+#### Deleting a task : `delete`
+Delete a task with given type and index number.<br>
+> Format: `delete TASK_TYPE INDEX_NUMBER`<br>
+> Example(Todo): `delete todo 1`
+> Example(Event): `delete event 1`
+> Example(Deadline): `delete deadline 1`
 
 #### Marking a completed task : `done`
-Mark a task with given index number as done.<br>
-Format: `done INDEX_NUMBER`<br>
-Example: `done 1`
+Mark a Todo-task with given index number as done.<br>
+> Format: `done INDEX_NUMBER`<br>
+> Example: `done 1`
 
+#### Listing all tasks : `list`
+Shows a list of all persons in the task-list.<br>
+> Format: `list TASK_TYPE`
+> Example(Todo): `list todo`
+> Example(Event): `list event`
+> Example(Deadline): `list deadline`
 
-#### Adding an event: `add_event`
-Adds an event/deadline to the todo-list.<br>
-Format: `add_task EVENT_NAME d/DATE s/START_TIME e/END_TIME`<br>
-Example(event): `add_event Tim's birthday party d/25-12-2016 s/1400 e/1600`<br>
-Example(deadline): `add_event Assignment 3 deadline d/25-12-2016 s/1600 e/1600`
+#### Finding all tasks containing any keyword in their name: `find`
+Finds tasks whose names contain any of the given keywords.<br>
+The search is case sensitive, the order of the keywords does not matter, only the name is searched, 
+and persons matching at least one keyword will be returned (i.e. `OR` search).<br>
+> Format: `find TASK_TYPE KEYWORD [MORE_KEYWORDS]`
+> Example(all): `find all School`
+> Example(Todo): `find todo Study`
+> Example(Event): `find event Party`
+> Example(Deadline): `find deadline Assignment`
 
-> Deadline has the same starting and ending time
-> DATE format is DD-MM-YYYY
-
-#### Deleting an event : `delete_event`
-Delete an event starting with given name.<br>
-Format: `delete_event NAME`<br>
-Example: `delete_event Tim`s birthday party`
+#### Undo the previous command: 'undo'
+Undo the latest command. If there is no previous command, nothing will happen.<br>
+> Format: `undo`
 
 #### Exiting the program : `exit`
 Exits the program.<br>
-Format: `exit`  
+> Format: `exit`  
 
 #### Saving the data
-Todo-list data are saved in the hard disk automatically after any command that changes the data.<br>
+Task-list data are saved in the hard disk automatically after any command that changes the data.<br>
 
 
 ## Command Summary
 
 Command | Format  
------------------- | :-------- 
-Add Task	| `add_task TASK_NAME p/PRIORITY s/START_TIME e/END_TIME`
-Delete Task	| `delete_task INDEX_NUMBER`
-Done Task	| `done INDEX_NUMBER`
-Add Event	| `add_event Tim`s birthday party d/25-12-2016 s/1400 e/1600`
-Delete Event	| `delete_event NAME`
+--------------- | :-------- 
+Add	Todo	| `add TASK_NAME p/PRIORITY`
+	Event	| `add TASK_NAME d/DATE s/START_TIME e/END_TIME`
+	Deadline| `add TASK_NAME d/DATE e/END_TIME`
+Edit	Todo	| `edit TASK_TYPE INDEX_NUMBER n/TASK_NAME p/PRIORITY`
+	Event	| `edit TASK_TYPE INDEX_NUMBER n/TASK_NAME d/DATE s/START_TIME e/END_TIME`
+	Deadline| `edit TASK_TYPE INDEX_NUMBER n/TASK_NAME d/DATE e/END_TIME`
+Delete		| `delete TASK_TYPE INDEX_NUMBER`
+Done		| `done INDEX_NUMBER`
+List		| `list TASK_TYPE`
+Find		| `find TASK_TYPE KEYWORD [MORE_KEYWORDS]`
 Help		| `help`
+Undo		| `undo`
 Exit		| `exit`
 
 
