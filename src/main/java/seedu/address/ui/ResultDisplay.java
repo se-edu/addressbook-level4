@@ -1,20 +1,26 @@
 package seedu.address.ui;
 
+import com.google.common.eventbus.Subscribe;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.scene.Node;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.events.ui.NewResultAvailableEvent;
 import seedu.address.commons.util.FxViewUtil;
+
+import java.util.logging.Logger;
 
 /**
  * A ui for the status bar that is displayed at the header of the application.
  */
 public class ResultDisplay extends UiPart {
-    public static final String RESULT_DISPLAY_ID = "resultDisplay";
+
+    private static final Logger logger = LogsCenter.getLogger(ResultDisplay.class);
+    private static final String RESULT_DISPLAY_ID = "resultDisplay";
     private static final String STATUS_BAR_STYLE_SHEET = "result-display";
-    private TextArea resultDisplayArea;
     private final StringProperty displayed = new SimpleStringProperty("");
 
     private static final String FXML = "ResultDisplay.fxml";
@@ -29,8 +35,8 @@ public class ResultDisplay extends UiPart {
         return statusBar;
     }
 
-    public void configure() {
-        resultDisplayArea = new TextArea();
+    private void configure() {
+        TextArea resultDisplayArea = new TextArea();
         resultDisplayArea.setEditable(false);
         resultDisplayArea.setId(RESULT_DISPLAY_ID);
         resultDisplayArea.getStyleClass().removeAll();
@@ -41,6 +47,7 @@ public class ResultDisplay extends UiPart {
         mainPane.getChildren().add(resultDisplayArea);
         FxViewUtil.applyAnchorBoundaryParameters(mainPane, 0.0, 0.0, 0.0, 0.0);
         placeHolder.getChildren().add(mainPane);
+        registerAsAnEventHandler(this);
     }
 
     @Override
@@ -58,8 +65,10 @@ public class ResultDisplay extends UiPart {
         return FXML;
     }
 
-    public void postMessage(String message) {
-        displayed.setValue(message);
+    @Subscribe
+    private void handleNewResultAvailableEvent(NewResultAvailableEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        displayed.setValue(event.message);
     }
 
 }
