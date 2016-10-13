@@ -87,6 +87,34 @@ public class ArgumentTokenizer {
     }
 
     /**
+     * Returns last value of given prefix.
+     */
+    public Optional<String> getValue(Prefix prefix) {
+        return getValues(prefix).flatMap((values) -> Optional.of(values.get(values.size() - 1)));
+    }
+
+    /**
+     * Returns all values of given prefix
+     */
+    public Optional<List<String>> getValues(Prefix prefix) {
+        if (!this.tokenizedArguments.containsKey(prefix)) {
+            return Optional.empty();
+        }
+        List<String> values = new ArrayList<>(this.tokenizedArguments.get(prefix));
+        return Optional.of(values);
+    }
+
+    /**
+     * Returns the text before the first valid prefix, if any
+     */
+    public Optional<String> getPreamble() {
+        if (this.preamble.isEmpty()) {
+            return Optional.empty();
+        }
+        return Optional.of(this.preamble);
+    }
+
+    /**
      * Extracts parsing data for a prefixed argument specific to an arguments string
      */
     private List<PrefixExtended> findPrefixPositions(String argumentsString, Prefix prefix) {
@@ -103,63 +131,74 @@ public class ArgumentTokenizer {
     }
 
     /**
-     * Extracts the values of each argument and store them in `parsedArguments`.
-     * This method requires `parsingData` to be fully reflects all prefixes in the
-     * `argumentsString` and sorted according to each argument starting position.
+     * Extracts the values of each argument and store them in `tokenizedArguments`.
+     * This method requires `extendedPrefixes` to fully reflects all prefixes in the
+     * `argsString` and sorted according to each prefix's starting position.
      */
-    private ParsedArguments extractArgumentValues(String argumentsString,
-                                                  List<PrefixParsingData> prefixParsingDatas) {
-        ParsedArguments parsedArguments = new ParsedArguments();
+    private void extractArgumentValues(String argsString, List<PrefixExtended> extendedPrefixes) {
+        extractPreamble(argsString, extendedPrefixes);
 
-        extractNonPrefixedArgumentValue(argumentsString, prefixParsingDatas, parsedArguments);
-
-        for (int i = 0; i < prefixParsingDatas.size() - 1; i++) {
-            extractMiddleArgumentValue(argumentsString, prefixParsingDatas, i, parsedArguments);
+        for (int i = 0; i < extendedPrefixes.size() - 1; i++) {
+            extractMiddleArguments(argsString, extendedPrefixes, i);
         }
 
-        extractLastArgumentValue(argumentsString, prefixParsingDatas, parsedArguments);
-
-        return parsedArguments;
+        extractLastArgument(argsString, extendedPrefixes);
     }
 
-    private void extractNonPrefixedArgumentValue(String argumentsString,
-                                                 List<PrefixParsingData> prefixParsingDatas,
-                                                 ParsedArguments parsedArguments) {
-        if (prefixParsingDatas.isEmpty()) {
-            parsedArguments.addArgument(this.nonPrefixedArgument, argumentsString.trim());
+    /**
+     * Extracts and stores the preamble part of the `argsString`
+     */
+    private void extractPreamble(String argsString, List<PrefixExtended> extendedPrefixes) {
+        if (extendedPrefixes.isEmpty()) {
+            this.preamble = argsString.trim();
             return;
         }
 
         String value = "";
-        PrefixParsingData firstArg = prefixParsingDatas.get(0);
-        if (firstArg.getStartPos() > 0) {
-            value = argumentsString.substring(0, firstArg.getStartPos()).trim();
+        PrefixExtended firstPrefix = extendedPrefixes.get(0);
+        if (firstPrefix.getStartPos() > 0) {
+            value = argsString.substring(0, firstPrefix.getStartPos()).trim();
         }
-        parsedArguments.addArgument(this.nonPrefixedArgument, value);
+
+        this.preamble = value;
     }
 
-    private void extractMiddleArgumentValue(String argumentsString,
-                                            List<PrefixParsingData> prefixParsingDatas,
-                                            int prefixIndex,
-                                            ParsedArguments parsedArguments) {
-        PrefixParsingData currentArg = prefixParsingDatas.get(prefixIndex);
-        PrefixParsingData nextArg = prefixParsingDatas.get(prefixIndex + 1);
-        int valueStartPos = currentArg.getStartPos() + currentArg.getPrefix().length();
-        String value = argumentsString.substring(valueStartPos, nextArg.getStartPos());
+    /**
+     * Extracts and stores the value of an argument with specified prefix in the arguments string
+     * @param argsString: The arguments string
+     * @param extendedPrefixes: the list of all prefixes in the string
+     * @param prefixIndex: the index of the argument's prefix in `extendedPrefixes` list
+     */
+    private void extractMiddleArguments(String argsString, List<PrefixExtended> extendedPrefixes, int prefixIndex) {
+        PrefixExtended targetPrefix = extendedPrefixes.get(prefixIndex);
+        PrefixExtended nextPrefix = extendedPrefixes.get(prefixIndex + 1);
 
-        parsedArguments.addArgument(currentArg.getArgument(), value.trim());
+        int valueStartPos = targetPrefix.getStartPos() + targetPrefix.getPrefix().length();
+        String value = argsString.substring(valueStartPos, nextPrefix.getStartPos());
+
+        addPrefixValue(targetPrefix, value.trim());
     }
 
-    private void extractLastArgumentValue(String argumentsString,
-                                          List<PrefixParsingData> prefixParsingDatas,
-                                          ParsedArguments parsedArguments) {
-        if (prefixParsingDatas.isEmpty()) {
+    private void extractLastArgument(String argumentsString, List<PrefixExtended> extendedPrefixes) {
+        if (extendedPrefixes.isEmpty()) {
             return;
         }
-        PrefixParsingData lastArg = prefixParsingDatas.get(prefixParsingDatas.size() - 1);
-        int valueStartPos = lastArg.getStartPos() + lastArg.getPrefix().length();
+
+        PrefixExtended lastPrefix = extendedPrefixes.get(extendedPrefixes.size() - 1);
+        int valueStartPos = lastPrefix.getStartPos() + lastPrefix.getPrefix().length();
         String value = argumentsString.substring(valueStartPos);
 
-        parsedArguments.addArgument(lastArg.getArgument(), value.trim());
+        addPrefixValue(lastPrefix, value.trim());
+    }
+
+    private void addPrefixValue(Prefix prefix, String value) {
+        if (this.tokenizedArguments.containsKey(prefix)) {
+            this.tokenizedArguments.get(prefix).add(value);
+            return;
+        }
+
+        List<String> values = new ArrayList<>();
+        values.add(value);
+        this.tokenizedArguments.put(prefix, values);
     }
 }
