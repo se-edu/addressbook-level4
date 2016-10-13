@@ -2,6 +2,9 @@ package seedu.todoList.logic.commands;
 
 import seedu.todoList.commons.exceptions.IllegalValueException;
 import seedu.todoList.model.task.*;
+import seedu.todoList.model.task.attributes.Date;
+import seedu.todoList.model.task.attributes.EndTime;
+import seedu.todoList.model.task.attributes.StartTime;
 
 /**
  * Adds a task to the TodoList.

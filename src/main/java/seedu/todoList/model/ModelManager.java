@@ -7,7 +7,6 @@ import seedu.todoList.commons.core.UnmodifiableObservableList;
 import seedu.todoList.commons.events.model.*;
 import seedu.todoList.commons.util.StringUtil;
 import seedu.todoList.model.task.*;
-import seedu.todoList.model.task.UniqueTaskList;
 import seedu.todoList.model.task.UniqueTaskList.TaskNotFoundException;
 import seedu.todoList.commons.exceptions.*;
 

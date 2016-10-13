@@ -2,6 +2,7 @@ package seedu.todoList.storage;
 
 import seedu.todoList.model.task.*;
 import seedu.todoList.model.task.attributes.*;
+import seedu.todoList.model.task.attributes.StartTime;
 import seedu.todoList.commons.exceptions.IllegalValueException;
 
 import javax.xml.bind.annotation.XmlElement;

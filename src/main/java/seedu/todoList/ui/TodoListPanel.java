@@ -26,7 +26,7 @@ public class TodoListPanel extends UiPart {
     private AnchorPane placeHolderPane;
 
     @FXML
-    private ListView<ReadOnlyTask> todoListView;
+    ListView<ReadOnlyTask> todoListView;
 
     public TodoListPanel() {
         super();

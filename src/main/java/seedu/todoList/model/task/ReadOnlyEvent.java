@@ -1,5 +1,9 @@
 package seedu.todoList.model.task;
 
+import seedu.todoList.model.task.attributes.Date;
+import seedu.todoList.model.task.attributes.EndTime;
+import seedu.todoList.model.task.attributes.StartTime;
+
 /**
  * A read-only immutable interface for a task in the TodoList .
  * Implementations should guarantee: details are present and not null, field values are validated.

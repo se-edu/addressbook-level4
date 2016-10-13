@@ -46,16 +46,13 @@ public class MainWindow extends UiPart {
     private String todoListName;
 
     @FXML
-    private AnchorPane browserPlaceholder;
-
-    @FXML
     private AnchorPane commandBoxPlaceholder;
 
     @FXML
     private MenuItem helpMenuItem;
 
     @FXML
-    private AnchorPane taskListPanelPlaceholder;
+    private AnchorPane todoListPanelPlaceholder;
     
     @FXML
     private AnchorPane eventListPanelPlaceholder;
@@ -116,7 +113,10 @@ public class MainWindow extends UiPart {
     }
 
     void fillInnerParts() {
-        todoListPanel = TodoListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredTodoList());
+    	assert primaryStage != null;
+    	assert getTodoListPlaceholder() != null;
+    	assert logic.getFilteredTodoList() != null;
+        todoListPanel = TodoListPanel.load(primaryStage, getTodoListPlaceholder(), logic.getFilteredTodoList());
         eventListPanel = EventListPanel.load(primaryStage, getEventListPlaceholder(), logic.getFilteredEventList());
         deadlineListPanel = DeadlineListPanel.load(primaryStage, getDeadlineListPlaceholder(), logic.getFilteredDeadlineList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
@@ -136,8 +136,8 @@ public class MainWindow extends UiPart {
         return resultDisplayPlaceholder;
     }
 
-    public AnchorPane getTaskListPlaceholder() {
-        return taskListPanelPlaceholder;
+    public AnchorPane getTodoListPlaceholder() {
+        return todoListPanelPlaceholder;
     }
     
     public AnchorPane getEventListPlaceholder() {

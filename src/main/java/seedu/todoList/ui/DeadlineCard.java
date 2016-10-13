@@ -4,7 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
-import seedu.todoList.model.task.ReadOnlyTask;
+import seedu.todoList.model.task.*;
 
 public class DeadlineCard extends UiPart{
 
@@ -21,7 +21,7 @@ public class DeadlineCard extends UiPart{
     @FXML
     private Label endTime;
 
-    private ReadOnlyTask task;
+    private Deadline task;
     private int displayedIndex;
 
     public DeadlineCard(){
@@ -30,14 +30,14 @@ public class DeadlineCard extends UiPart{
 
     public static DeadlineCard load(ReadOnlyTask task, int displayedIndex){
         DeadlineCard card = new DeadlineCard();
-        card.task = task;
+        card.task = (Deadline) task;
         card.displayedIndex = displayedIndex;
         return UiPartLoader.loadUiPart(card);
     }
 
     @FXML
     public void initialize() {
-        name.setText(task.getName().fullName);
+        name.setText(task.getName().value);
         id.setText(displayedIndex + ". ");
         date.setText(task.getDate().value);
         endTime.setText(task.getEndTime().value);

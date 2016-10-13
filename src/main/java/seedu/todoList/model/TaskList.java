@@ -1,9 +1,7 @@
 package seedu.todoList.model;
 
 import javafx.collections.ObservableList;
-import seedu.todoList.model.task.ReadOnlyTask;
 import seedu.todoList.model.task.*;
-import seedu.todoList.model.task.UniqueTaskList;
 
 import java.util.*;
 import java.util.stream.Collectors;

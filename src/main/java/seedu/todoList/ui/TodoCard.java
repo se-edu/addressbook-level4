@@ -4,7 +4,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
-import seedu.todoList.model.task.ReadOnlyTask;
+import seedu.todoList.model.task.*;
 
 public class TodoCard extends UiPart{
 
@@ -19,7 +19,7 @@ public class TodoCard extends UiPart{
     @FXML
     private Label priority;
 
-    private ReadOnlyTask task;
+    private Todo task;
     private int displayedIndex;
 
     public TodoCard(){
@@ -28,16 +28,16 @@ public class TodoCard extends UiPart{
 
     public static TodoCard load(ReadOnlyTask task, int displayedIndex){
         TodoCard card = new TodoCard();
-        card.task = task;
+        card.task = (Todo) task;
         card.displayedIndex = displayedIndex;
         return UiPartLoader.loadUiPart(card);
     }
 
     @FXML
     public void initialize() {
-        name.setText(task.getName().fullName);
+        name.setText(task.getName().value);
         id.setText(displayedIndex + ". ");
-        priority.setText(task.getPriority().value);
+        priority.setText(task.getPriority().toString());
     }
 
     public HBox getLayout() {
