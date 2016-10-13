@@ -7,8 +7,6 @@ import seedu.todoList.model.task.attributes.Name;
  * Implementations should guarantee: details are present and not null, field values are validated.
  */
 public interface ReadOnlyTask {
-	
-	protected final Name name;
 
     public Name getName();
 

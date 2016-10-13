@@ -4,11 +4,11 @@ import seedu.todoList.commons.events.BaseEvent;
 import seedu.todoList.model.ReadOnlyTaskList;
 
 /** Indicates the TodoList in the model has changed*/
-public class TodoListChangedEvent extends BaseEvent {
+public class DeadlineListChangedEvent extends BaseEvent {
 
     public final ReadOnlyTaskList data;
 
-    public TodoListChangedEvent(ReadOnlyTaskList data){
+    public DeadlineListChangedEvent(ReadOnlyTaskList data){
         this.data = data;
     }
 

@@ -15,7 +15,10 @@ public interface Logic {
      */
     CommandResult execute(String commandText);
 
-    /** Returns the filtered list of tasks */
-    ObservableList<ReadOnlyTask> getFilteredTaskList();
-
+    /** Returns the filtered list of todos */
+    ObservableList<ReadOnlyTask> getFilteredTodoList();
+    /** Returns the filtered list of events */
+    ObservableList<ReadOnlyTask> getFilteredEventList();
+    /** Returns the filtered list of deadlines */
+    ObservableList<ReadOnlyTask> getFilteredDeadlineList();
 }

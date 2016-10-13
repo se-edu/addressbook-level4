@@ -52,7 +52,8 @@ public class MainApp extends Application {
         super.init();
 
         config = initConfig(getApplicationParameter("config"));
-        storage = new StorageManager(config.getTodoListFilePath(), config.getUserPrefsFilePath());
+        storage = new StorageManager(config.getTodoListFilePath(), config.getEventListFilePath(),
+        								config.getDeadlineListFilePath(), config.getUserPrefsFilePath());
 
         userPrefs = initPrefs(config);
 
@@ -73,8 +74,8 @@ public class MainApp extends Application {
     }
 
     private Model initModelManager(Storage storage, UserPrefs userPrefs) {
-        Optional<ReadOnlyTodoList> TodoListOptional;
-        ReadOnlyTodoList initialData;
+        Optional<ReadOnlyTaskList> TodoListOptional;
+        ReadOnlyTaskList initialData;
         try {
             TodoListOptional = storage.readTodoList();
             if(!TodoListOptional.isPresent()){

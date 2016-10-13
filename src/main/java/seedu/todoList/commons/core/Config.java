@@ -14,13 +14,13 @@ public class Config {
     private String appTitle = "Todo App";
     private Level logLevel = Level.INFO;
     private String userPrefsFilePath = "preferences.json";
-<<<<<<< HEAD
+    
     private String todoListFilePath = "data/TodoList.xml";
     private String todoListName = "MyTodoList";
-=======
-    private String TodoListFilePath = "data/TodoList.xml";
-    private String TodoListName = "MyTodoList";
->>>>>>> e60184ee291f8238357c383073cb787221a2d62e
+    private String eventListFilePath = "data/EventList.xml";
+    private String eventListName = "MyEventList";
+    private String deadlineListFilePath = "data/DeadlineList.xml";
+    private String deadlineListName = "MyDeadlineList";
 
 
     public Config() {
@@ -50,21 +50,59 @@ public class Config {
         this.userPrefsFilePath = userPrefsFilePath;
     }
 
+    
+  //=========== TodoListFile Accessors ===============================================================
     public String getTodoListFilePath() {
         return todoListFilePath;
     }
 
-    public void setTodoListFilePath(String TodoListFilePath) {
-        this.todoListFilePath = TodoListFilePath;
+    public void setTodoListFilePath(String todoListFilePath) {
+        this.todoListFilePath = todoListFilePath;
     }
 
     public String getTodoListName() {
         return todoListName;
     }
 
-    public void setTodoListName(String TodoListName) {
-        this.todoListName = TodoListName;
+    public void setTodoListName(String todoListName) {
+        this.todoListName = todoListName;
     }
+    
+  //=========== EventListFile Accessors ===============================================================
+    public String getEventListFilePath() {
+        return eventListFilePath;
+    }
+
+    public void setEventListFilePath(String eventListFilePath) {
+        this.eventListFilePath = eventListFilePath;
+    }
+
+    public String getEventListName() {
+        return eventListName;
+    }
+
+    public void setEventListName(String eventListName) {
+        this.eventListName = eventListName;
+    }
+    
+  //=========== TodoListFile Accessors ===============================================================
+    public String getDeadlineListFilePath() {
+        return deadlineListFilePath;
+    }
+
+    public void setDeadlineListFilePath(String deadlineListFilePath) {
+        this.deadlineListFilePath = deadlineListFilePath;
+    }
+
+    public String getDeadlineListName() {
+        return deadlineListName;
+    }
+
+    public void setDeadlineListName(String deadlineListName) {
+        this.deadlineListName = deadlineListName;
+    }
+    
+    
 
 
     @Override

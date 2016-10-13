@@ -33,7 +33,7 @@ public class Priority {
 	@Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof Phone // instanceof handles nulls
+                || (other instanceof Priority // instanceof handles nulls
                 && this.priority.equals(((Priority) other).priority)); // state check
     }
 

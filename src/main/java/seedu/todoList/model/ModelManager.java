@@ -4,14 +4,9 @@ import javafx.collections.transformation.FilteredList;
 import seedu.todoList.commons.core.ComponentManager;
 import seedu.todoList.commons.core.LogsCenter;
 import seedu.todoList.commons.core.UnmodifiableObservableList;
-import seedu.todoList.commons.events.model.TodoListChangedEvent;
+import seedu.todoList.commons.events.model.*;
 import seedu.todoList.commons.util.StringUtil;
-import seedu.todoList.model.task.Event;
-import seedu.todoList.model.task.ReadOnlyTask;
-import seedu.todoList.model.task.Task;
-import seedu.todoList.model.task.Todo;
-import seedu.todoList.model.task.Event;
-import seedu.todoList.model.task.Deadline;
+import seedu.todoList.model.task.*;
 import seedu.todoList.model.task.UniqueTaskList;
 import seedu.todoList.model.task.UniqueTaskList.TaskNotFoundException;
 import seedu.todoList.commons.exceptions.*;
@@ -149,14 +144,6 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public UnmodifiableObservableList<ReadOnlyTask> getFilteredTodoList() {
         return new UnmodifiableObservableList<>(filteredTodos);
-    }
-    
-
-    @Override
-    public synchronized void addEvent(Event event) throws DuplicatetaskException {
-        todoList.addEvent(event);
-        updateFilteredListToShowAll();
-        indicateTodoListChanged();     
     }
 
 

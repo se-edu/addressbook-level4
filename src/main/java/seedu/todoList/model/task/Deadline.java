@@ -19,7 +19,7 @@ public class Deadline extends Task implements ReadOnlyTask {
      */
     public Deadline(Name name, Date date, EndTime endTime) {
         assert !CollectionUtil.isAnyNull(name, date, endTime);
-        this.name = name;
+        super.name = name;
         this.date = date;
         this.endTime = endTime;
     }
