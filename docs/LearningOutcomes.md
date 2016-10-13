@@ -6,9 +6,11 @@ After studying this code and completing the corresponding exercises, you should 
 1. [Use API Design `[LO-ApiDesign]`](#use-api-design-lo-apidesign)
 1. [Use Assertions `[LO-Assertions]`](#use-assertions-lo-assertions)
 1. [Use Logging `[LO-Logging]`](#use-logging-lo-logging)
-1. [Use Defensive Coding `[LO-DefensiveCoding]`](#use-defensive-coding-lo-defensivedoding)
+1. [Use Defensive Coding `[LO-DefensiveCoding]`](#use-defensive-coding-lo-defensivecoding)
 1. [Use Build Automation `[LO-BuildAutomation]`](#use-build-automation-lo-buildautomation)
 1. [Use Continuous Integration `[LO-ContinuousIntegration]`](#use-continuous-integration-lo-continuousintegration)
+1. [Use Code Coverage `[LO-CodeCoverage]`](#use-code-coverage-lo-codecoverage)
+1. [Apply Test Case Design Heuristics `[LO-TestCaseDesignHeuristics]`](#apply-test-case-design-heuristics-lo-testcasedesignheuristics)
 
 ------------------------------------------------------------------------------------------------------
 
@@ -109,6 +111,7 @@ Note [how the AddressBook app uses Gradle to automate build tasks](UsingGradle.m
 ## Use Continuous Integration `[LO-ContinuousIntegration]`
 
 Note [how the AddressBook app uses Travis to perform Continuous Integration](UsingTravis.md).
+([![Build Status](https://travis-ci.org/se-edu/addressbook-level4.svg?branch=master)](https://travis-ci.org/se-edu/addressbook-level4))
 
 **Resources**
  * Tutorials
@@ -119,17 +122,38 @@ Note [how the AddressBook app uses Travis to perform Continuous Integration](Usi
  
 ------------------------------------------------------------------------------------------------------
 
+## Use Code Coverage `[LO-CodeCoverage]`
+
+Note how our CI server [Travis uses Coveralls to report code coverage](UsingTravis.md).
+([![Coverage Status](https://coveralls.io/repos/github/se-edu/addressbook-level4/badge.svg?branch=master)](https://coveralls.io/github/se-edu/addressbook-level4?branch=master))
+
+ 
+#### Exercise: Use EclEmma to measure coverage locally
+ * Install the [EclEmma Eclipse Plugin](http://www.eclemma.org/) in your computer and use that to find code that 
+   is not covered by the tests.
+ 
+------------------------------------------------------------------------------------------------------
+
+## Apply Test Case Design Heuristics `[LO-TestCaseDesignHeuristics]`
+
+The [`StringUtilTest.java`](../src/test/java/seedu/address/commons/util/StringUtilTest.java) class gives some examples
+of how to use _Equivalence Classes_, _Boundary Value Analysis_, and _Test Input Combination Heuristics_ to improve
+the efficiency and effectiveness of test cases testing the 
+[`StringUtil.java`](../src/main/java/seedu/address/commons/util/StringUtil.java) class.
+
+ 
+#### Exercise: Apply Test Case Design Heuristics to other places 
+ * Use the test case design heuristics mentioned above to improve test cases in other places.
+ 
+------------------------------------------------------------------------------------------------------
+
 {More to be added}
 * Integration testing
 * System testing
 * Acceptance testing (+dogfooding)
-* Equivalence classes
-* Boundary value analysis
-* Test input combination
 * GUI test automation
 * Design patterns
 * Static analysis
 * Code reviews
-* Code coverage
 
 

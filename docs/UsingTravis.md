@@ -32,7 +32,7 @@ from [Travis CI Documentation](https://docs.travis-ci.com/).
     * If repository cannot be found, click `Sync account`
 4. Activate the switch.<br>
    ![Activate the switch](images/flick_repository_switch.png)
-5. This repo comes with a [`.travis.yml`](.travis.yml) that tells Travis what to do.
+5. This repo comes with a [`.travis.yml`](../.travis.yml) that tells Travis what to do.
    So there is no need for you to create one yourself.
 6. To see the CI in action, push a commit to the master branch!  
     * Go to the repository and see the pushed commit. There should be an icon which will link you to the Travis build.<br>

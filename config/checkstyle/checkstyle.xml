@@ -4,53 +4,40 @@
     "http://www.puppycrawl.com/dtds/configuration_1_3.dtd">
 
 <!--
-
-    This configuration file enforces rules for a modified version of
-    Google's Java style guide.
-
-    Here are the main changes:
-
-    - Certain conventions are inapplicable: Google copyright notices,
-      named TODOs. These have been removed.
-    - Import order requirements have been changed to match Eclipse's default
-      (no priority given to Google-specific package names).
-    - Method names such as __METHOD_NAME__ are allowed, to serve as markers in
-      an IDE.
-    - Max line length is 120, instead of 100.
-    - `if` and `else` blocks do not need to have braces. This is useful for
-      guard clauses and automatically-generated `equals` methods.
-    - There are no javadoc checks. There doesn't seem to be a way to have
-      optional javadocs, yet have those which are present be checked. Hopefully
-      this can be rectified in future.
-
-    For explanations of what the rules do, see
-    http://checkstyle.sourceforge.net/config.html.
-
+    This configuration file enforces rules for a modified version of the module's code standard at
+    https://oss-generic.github.io/process/codingstandards/coding-standards-java.html
 -->
 
 <module name="Checker">
 
   <module name="FileTabCharacter">
-    <!-- Checks that there are no tab characters in the file.
-    -->
+    <!-- Checks that there are no tab characters in the file. -->
   </module>
 
   <module name="NewlineAtEndOfFile"/>
 
   <module name="RegexpSingleline">
-    <!-- Checks that FIXME is not used in comments.  TODO is preferred.
-    -->
+    <!-- Checks that FIXME is not used in comments.  TODO is preferred. -->
     <property name="format" value="((//.*)|(\*.*))FIXME" />
-    <property name="message" value='TODO is preferred to FIXME.  e.g. "TODO(johndoe): Refactor when v2 is released."' />
+    <property name="message" value='TODO is preferred to FIXME."' />
+  </module>
+
+
+  <!-- Required to allow exceptions in code style -->
+  <module name="SuppressionCommentFilter">
+    <property name="offCommentFormat" value="CHECKSTYLE.OFF\: ([\w\|]+)"/>
+    <property name="onCommentFormat" value="CHECKSTYLE.ON\: ([\w\|]+)"/>
+    <property name="checkFormat" value="$1"/>
   </module>
 
   <!-- All Java AST specific tests live under TreeWalker module. -->
   <module name="TreeWalker">
 
+    <!-- Required for SuppressionCommentFilter to work -->
+    <module name="FileContentsHolder"/>
+
     <!--
-
     IMPORT CHECKS
-
     -->
 
     <module name="RedundantImport">
@@ -58,67 +45,36 @@
       <property name="severity" value="error"/>
     </module>
 
-    <!--<module name="ImportOrder">-->
-      <!-- Checks for out of order import statements. -->
-
-      <!--<property name="severity" value="warning"/>
-      <property name="groups" value="junit,net,java,javax,org,com"/>-->
-      <!-- This ensures that static imports go first. -->
-      <!--<property name="option" value="top"/>
-      <property name="tokens" value="STATIC_IMPORT, IMPORT"/>
-    </module>-->
-
     <!--
-
-    JAVADOC CHECKS
-
-    -->
-    <!-- See http://checkstyle.sf.net/config_javadoc.html -->
-
-    <!-- There are no rules enforced at the moment. -->
-
-    <!--
-
     NAMING CHECKS
-
     -->
-
-    <!-- Item 38 - Adhere to generally accepted naming conventions -->
 
     <module name="PackageName">
-      <!-- Validates identifiers for package names against the
-        supplied expression. -->
-      <!-- Here the default checkstyle rule restricts package name parts to
-        seven characters, this is not in line with common practice at Google.
-      -->
+      <!-- Validates identifiers for package names against the supplied expression. -->
       <property name="format" value="^[a-z]+(\.[a-z][a-z0-9]{1,})*$"/>
       <property name="severity" value="warning"/>
     </module>
 
     <module name="TypeNameCheck">
-      <!-- Validates static, final fields against the
-      expression "^[A-Z][a-zA-Z0-9]*$". -->
+      <!-- Validates static, final fields against the expression "^[A-Z][a-zA-Z0-9]*$". -->
       <metadata name="altname" value="TypeName"/>
       <property name="severity" value="warning"/>
     </module>
 
     <module name="ConstantNameCheck">
-      <!-- Validates non-private, static, final fields against the supplied
-      public/package final fields "^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$". -->
+      <!-- Validates non-private, static, final fields against the expression "^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$". -->
       <metadata name="altname" value="ConstantName"/>
       <property name="applyToPublic" value="true"/>
       <property name="applyToProtected" value="true"/>
       <property name="applyToPackage" value="true"/>
       <property name="applyToPrivate" value="false"/>
-      <property name="format" value="^([A-Z][A-Z0-9]*(_[A-Z0-9]+)*|FLAG_.*)$"/>
       <message key="name.invalidPattern"
                value="Variable ''{0}'' should be in ALL_CAPS (if it is a constant) or be private (otherwise)."/>
       <property name="severity" value="warning"/>
     </module>
 
     <module name="StaticVariableNameCheck">
-      <!-- Validates static, non-final fields against the supplied
-      expression "^[a-z][a-zA-Z0-9]*_?$". -->
+      <!-- Validates static, non-final fields against the supplied expression. -->
       <metadata name="altname" value="StaticVariableName"/>
       <property name="applyToPublic" value="true"/>
       <property name="applyToProtected" value="true"/>
@@ -140,35 +96,30 @@
     </module>
 
     <module name="MethodNameCheck">
-      <!-- Validates identifiers for method names. -->
+      <!-- Validates identifiers for method names against the supplied expression. -->
       <metadata name="altname" value="MethodName"/>
       <property name="format" value="^[a-z][a-zA-Z0-9]*(_[a-zA-Z0-9]+)*|_+[A-Z]+(_[A-Z]+)*_+$"/>
       <property name="severity" value="warning"/>
     </module>
 
     <module name="ParameterName">
-      <!-- Validates identifiers for method parameters against the
-        expression "^[a-z][a-zA-Z0-9]*$". -->
+      <!-- Validates identifiers for method parameters against the expression "^[a-z][a-zA-Z0-9]*$". -->
       <property name="severity" value="warning"/>
     </module>
 
     <module name="LocalFinalVariableName">
-      <!-- Validates identifiers for local final variables against the
-        expression "^[a-z][a-zA-Z0-9]*$". -->
+      <!-- Validates identifiers for local final variables against the expression "^[a-z][a-zA-Z0-9]*$". -->
       <property name="severity" value="warning"/>
     </module>
 
     <module name="LocalVariableName">
-      <!-- Validates identifiers for local variables against the
-        expression "^[a-z][a-zA-Z0-9]*$". -->
+      <!-- Validates identifiers for local variables against the expression "^[a-z][a-zA-Z0-9]*$". -->
       <property name="severity" value="warning"/>
     </module>
 
 
     <!--
-
     LENGTH and CODING CHECKS
-
     -->
 
     <module name="LineLength">
@@ -220,7 +171,7 @@
       <!--
       if (true) return 1; // Allowed
 
-      if (true) { return 1; } // Not allowed, waiting for Checkstyle 6.9
+      if (true) { return 1; } // Not allowed
 
       else if {
         return 1; // else if should always be multi line
@@ -229,6 +180,7 @@
       if (true)
         return 1; // Not allowed
       -->
+      <property name="allowEmptyLoopBody" value="true"/>
       <property name="allowSingleLineStatement" value="true"/>
     </module>
 
@@ -250,9 +202,7 @@
 
 
     <!--
-
     MODIFIERS CHECKS
-
     -->
 
     <module name="ModifierOrder">
@@ -265,9 +215,7 @@
 
 
     <!--
-
     WHITESPACE CHECKS
-
     -->
 
     <module name="WhitespaceAround">
@@ -286,16 +234,12 @@
     </module>
 
     <module name="WhitespaceAfter">
-      <!-- Checks that commas, semicolons and typecasts are followed by
-           whitespace.
-      -->
+      <!-- Checks that commas, semicolons and typecasts are followed by whitespace. -->
       <property name="tokens" value="COMMA, SEMI, TYPECAST"/>
     </module>
 
     <module name="NoWhitespaceAfter">
-      <!-- Checks that there is no whitespace after various unary operators.
-           Linebreaks are allowed.
-      -->
+      <!-- Checks that there is no whitespace after various unary operators. Linebreaks are allowed. -->
       <property name="tokens" value="BNOT, DEC, DOT, INC, LNOT, UNARY_MINUS,
         UNARY_PLUS"/>
       <property name="allowLineBreaks" value="true"/>
@@ -307,18 +251,14 @@
     </module>
 
     <module name="NoWhitespaceBefore">
-      <!-- Checks that there is no whitespace before various unary operators.
-           Linebreaks are allowed.
-      -->
+      <!-- Checks that there is no whitespace before various unary operators. Linebreaks are allowed. -->
       <property name="tokens" value="SEMI, DOT, POST_DEC, POST_INC"/>
       <property name="allowLineBreaks" value="true"/>
       <property name="severity" value="error"/>
     </module>
 
     <module name="ParenPad">
-      <!-- Checks that there is no whitespace before close parens or after
-           open parens.
-      -->
+      <!-- Checks that there is no whitespace before close parenthesis or after open parenthesis. -->
       <property name="severity" value="warning"/>
     </module>
 

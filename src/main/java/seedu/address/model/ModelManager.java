@@ -77,7 +77,7 @@ public class ModelManager extends ComponentManager implements Model {
         indicateAddressBookChanged();
     }
 
-    //=========== Filtered Person List Accessors ===============================================================
+    //=========== Filtered Person List Accessors =============================================================
 
     @Override
     public UnmodifiableObservableList<ReadOnlyPerson> getFilteredPersonList() {
@@ -98,7 +98,7 @@ public class ModelManager extends ComponentManager implements Model {
         filteredPersons.setPredicate(expression::satisfies);
     }
 
-    //========== Inner classes/interfaces used for filtering ==================================================
+    //========== Inner classes/interfaces used for filtering =================================================
 
     interface Expression {
         boolean satisfies(ReadOnlyPerson person);
@@ -139,7 +139,7 @@ public class ModelManager extends ComponentManager implements Model {
         @Override
         public boolean run(ReadOnlyPerson person) {
             return nameKeyWords.stream()
-                    .filter(keyword -> StringUtil.containsIgnoreCase(person.getName().fullName, keyword))
+                    .filter(keyword -> StringUtil.containsWordIgnoreCase(person.getName().fullName, keyword))
                     .findAny()
                     .isPresent();
         }

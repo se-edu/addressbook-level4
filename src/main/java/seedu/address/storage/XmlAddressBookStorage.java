@@ -33,7 +33,8 @@ public class XmlAddressBookStorage implements AddressBookStorage {
      * @param filePath location of the data. Cannot be null
      * @throws DataConversionException if the file is not in the correct format.
      */
-    public Optional<ReadOnlyAddressBook> readAddressBook(String filePath) throws DataConversionException, FileNotFoundException {
+    public Optional<ReadOnlyAddressBook> readAddressBook(String filePath) throws DataConversionException,
+                                                                                 FileNotFoundException {
         assert filePath != null;
 
         File addressBookFile = new File(filePath);

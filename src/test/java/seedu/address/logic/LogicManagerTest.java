@@ -68,7 +68,7 @@ public class LogicManagerTest {
         logic = new LogicManager(model, new StorageManager(tempAddressBookFile, tempPreferencesFile));
         EventsCenter.getInstance().registerHandler(this);
 
-        latestSavedAddressBook = new AddressBook(model.getAddressBook()); // last saved assumed to be up to date before.
+        latestSavedAddressBook = new AddressBook(model.getAddressBook()); // last saved assumed to be up to date
         helpShown = false;
         targetedJumpIndex = -1; // non yet
     }
@@ -149,26 +149,21 @@ public class LogicManagerTest {
     @Test
     public void execute_add_invalidArgsFormat() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
-        assertCommandBehavior(
-                "add wrong args wrong args", expectedMessage);
-        assertCommandBehavior(
-                "add Valid Name 12345 e/valid@email.butNoPhonePrefix a/valid, address", expectedMessage);
-        assertCommandBehavior(
-                "add Valid Name p/12345 valid@email.butNoPrefix a/valid, address", expectedMessage);
-        assertCommandBehavior(
-                "add Valid Name p/12345 e/valid@email.butNoAddressPrefix valid, address", expectedMessage);
+        assertCommandBehavior("add wrong args wrong args", expectedMessage);
+        assertCommandBehavior("add Valid Name 12345 e/valid@email.butNoPhonePrefix a/valid, address", expectedMessage);
+        assertCommandBehavior("add Valid Name p/12345 valid@email.butNoPrefix a/valid, address", expectedMessage);
+        assertCommandBehavior("add Valid Name p/12345 e/valid@email.butNoAddressPrefix valid, address",
+                              expectedMessage);
     }
 
     @Test
     public void execute_add_invalidPersonData() throws Exception {
-        assertCommandBehavior(
-                "add []\\[;] p/12345 e/valid@e.mail a/valid, address", Name.MESSAGE_NAME_CONSTRAINTS);
-        assertCommandBehavior(
-                "add Valid Name p/not_numbers e/valid@e.mail a/valid, address", Phone.MESSAGE_PHONE_CONSTRAINTS);
-        assertCommandBehavior(
-                "add Valid Name p/12345 e/notAnEmail a/valid, address", Email.MESSAGE_EMAIL_CONSTRAINTS);
-        assertCommandBehavior(
-                "add Valid Name p/12345 e/valid@e.mail a/valid, address t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
+        assertCommandBehavior("add []\\[;] p/12345 e/valid@e.mail a/valid, address", Name.MESSAGE_NAME_CONSTRAINTS);
+        assertCommandBehavior("add Valid Name p/not_numbers e/valid@e.mail a/valid, address",
+                              Phone.MESSAGE_PHONE_CONSTRAINTS);
+        assertCommandBehavior("add Valid Name p/12345 e/notAnEmail a/valid, address", Email.MESSAGE_EMAIL_CONSTRAINTS);
+        assertCommandBehavior("add Valid Name p/12345 e/valid@e.mail a/valid, address t/invalid_-[.tag",
+                              Tag.MESSAGE_TAG_CONSTRAINTS);
 
     }
 
@@ -229,9 +224,11 @@ public class LogicManagerTest {
     /**
      * Confirms the 'invalid argument index number behaviour' for the given command
      * targeting a single person in the shown list, using visible index.
-     * @param commandWord to test assuming it targets a single person in the last shown list based on visible index.
+     * @param commandWord to test assuming it targets a single person in the last shown list
+     *                    based on visible index.
      */
-    private void assertIncorrectIndexFormatBehaviorForCommand(String commandWord, String expectedMessage) throws Exception {
+    private void assertIncorrectIndexFormatBehaviorForCommand(String commandWord, String expectedMessage)
+            throws Exception {
         assertCommandBehavior(commandWord , expectedMessage); //index missing
         assertCommandBehavior(commandWord + " +1", expectedMessage); //index should be unsigned
         assertCommandBehavior(commandWord + " -1", expectedMessage); //index should be unsigned
@@ -242,7 +239,8 @@ public class LogicManagerTest {
     /**
      * Confirms the 'invalid argument index number behaviour' for the given command
      * targeting a single person in the shown list, using visible index.
-     * @param commandWord to test assuming it targets a single person in the last shown list based on visible index.
+     * @param commandWord to test assuming it targets a single person in the last shown list
+     *                    based on visible index.
      */
     private void assertIndexNotFoundBehaviorForCommand(String commandWord) throws Exception {
         String expectedMessage = MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
@@ -422,7 +420,7 @@ public class LogicManagerTest {
             cmd.append(" a/").append(p.getAddress());
 
             UniqueTagList tags = p.getTags();
-            for(Tag t: tags){
+            for (Tag t: tags) {
                 cmd.append(" t/").append(t.tagName);
             }
 
@@ -451,15 +449,15 @@ public class LogicManagerTest {
          * Adds auto-generated Person objects to the given AddressBook
          * @param addressBook The AddressBook to which the Persons will be added
          */
-        void addToAddressBook(AddressBook addressBook, int numGenerated) throws Exception{
+        void addToAddressBook(AddressBook addressBook, int numGenerated) throws Exception {
             addToAddressBook(addressBook, generatePersonList(numGenerated));
         }
 
         /**
          * Adds the given list of Persons to the given AddressBook
          */
-        void addToAddressBook(AddressBook addressBook, List<Person> personsToAdd) throws Exception{
-            for(Person p: personsToAdd){
+        void addToAddressBook(AddressBook addressBook, List<Person> personsToAdd) throws Exception {
+            for (Person p: personsToAdd) {
                 addressBook.addPerson(p);
             }
         }
@@ -476,7 +474,7 @@ public class LogicManagerTest {
          * Adds the given list of Persons to the given model
          */
         void addToModel(Model model, List<Person> personsToAdd) throws Exception{
-            for(Person p: personsToAdd){
+            for (Person p: personsToAdd) {
                 model.addPerson(p);
             }
         }
@@ -486,7 +484,7 @@ public class LogicManagerTest {
          */
         List<Person> generatePersonList(int numGenerated) throws Exception{
             List<Person> persons = new ArrayList<>();
-            for(int i = 1; i <= numGenerated; i++){
+            for (int i = 1; i <= numGenerated; i++) {
                 persons.add(generatePerson(i));
             }
             return persons;

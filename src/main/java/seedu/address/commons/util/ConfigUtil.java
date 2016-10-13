@@ -2,7 +2,6 @@ package seedu.address.commons.util;
 
 import seedu.address.commons.core.Config;
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.commons.util.JsonUtil;
 
 import java.io.IOException;
 import java.util.Optional;

@@ -52,7 +52,7 @@ public class PersonListPanelHandle extends GuiHandle {
      * Clicks on the ListView.
      */
     public void clickOnListView() {
-        Point2D point= TestUtil.getScreenMidPoint(getListView());
+        Point2D point = TestUtil.getScreenMidPoint(getListView());
         guiRobot.clickOn(point.getX(), point.getY());
     }
 
@@ -69,7 +69,7 @@ public class PersonListPanelHandle extends GuiHandle {
 
         // Return false if any of the persons doesn't match
         for (int i = 0; i < persons.length; i++) {
-            if (!personsInList.get(startPosition + i).getName().fullName.equals(persons[i].getName().fullName)){
+            if (!personsInList.get(startPosition + i).getName().fullName.equals(persons[i].getName().fullName)) {
                 return false;
             }
         }
@@ -102,7 +102,9 @@ public class PersonListPanelHandle extends GuiHandle {
 
     public PersonCardHandle navigateToPerson(String name) {
         guiRobot.sleep(500); //Allow a bit of time for the list to be updated
-        final Optional<ReadOnlyPerson> person = getListView().getItems().stream().filter(p -> p.getName().fullName.equals(name)).findAny();
+        final Optional<ReadOnlyPerson> person = getListView().getItems().stream()
+                                                    .filter(p -> p.getName().fullName.equals(name))
+                                                    .findAny();
         if (!person.isPresent()) {
             throw new IllegalStateException("Name not found: " + name);
         }
@@ -132,7 +134,7 @@ public class PersonListPanelHandle extends GuiHandle {
     public int getPersonIndex(ReadOnlyPerson targetPerson) {
         List<ReadOnlyPerson> personsInList = getListView().getItems();
         for (int i = 0; i < personsInList.size(); i++) {
-            if(personsInList.get(i).getName().equals(targetPerson.getName())){
+            if (personsInList.get(i).getName().equals(targetPerson.getName())) {
                 return i;
             }
         }

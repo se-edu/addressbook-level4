@@ -80,14 +80,15 @@ public class XmlUtilTest {
         XmlSerializableAddressBook dataToWrite = new XmlSerializableAddressBook(new AddressBook());
         XmlUtil.saveDataToFile(TEMP_FILE, dataToWrite);
         XmlSerializableAddressBook dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE, XmlSerializableAddressBook.class);
-        assertEquals((new AddressBook(dataToWrite)).toString(),(new AddressBook(dataFromFile)).toString());
+        assertEquals((new AddressBook(dataToWrite)).toString(), (new AddressBook(dataFromFile)).toString());
         //TODO: use equality instead of string comparisons
 
         AddressBookBuilder builder = new AddressBookBuilder(new AddressBook());
-        dataToWrite = new XmlSerializableAddressBook(builder.withPerson(TestUtil.generateSamplePersonData().get(0)).withTag("Friends").build());
+        dataToWrite = new XmlSerializableAddressBook(
+                builder.withPerson(TestUtil.generateSamplePersonData().get(0)).withTag("Friends").build());
 
         XmlUtil.saveDataToFile(TEMP_FILE, dataToWrite);
         dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE, XmlSerializableAddressBook.class);
-        assertEquals((new AddressBook(dataToWrite)).toString(),(new AddressBook(dataFromFile)).toString());
+        assertEquals((new AddressBook(dataToWrite)).toString(), (new AddressBook(dataFromFile)).toString());
     }
 }

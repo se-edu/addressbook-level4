@@ -49,7 +49,7 @@ public class GuiSettings implements Serializable {
             return false;
         }
 
-        GuiSettings o = (GuiSettings)other;
+        GuiSettings o = (GuiSettings) other;
 
         return Objects.equals(windowWidth, o.windowWidth)
                 && Objects.equals(windowHeight, o.windowHeight)

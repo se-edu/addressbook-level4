@@ -72,12 +72,13 @@ public class PersonListPanel extends UiPart {
     }
 
     private void setEventHandlerForSelectionChangeEvent() {
-        personListView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue != null) {
-                logger.fine("Selection in person list panel changed to : '" + newValue + "'");
-                raise(new PersonPanelSelectionChangedEvent(newValue));
-            }
-        });
+        personListView.getSelectionModel().selectedItemProperty()
+                .addListener((observable, oldValue, newValue) -> {
+                    if (newValue != null) {
+                        logger.fine("Selection in person list panel changed to : '" + newValue + "'");
+                        raise(new PersonPanelSelectionChangedEvent(newValue));
+                    }
+                });
     }
 
     public void scrollTo(int index) {
