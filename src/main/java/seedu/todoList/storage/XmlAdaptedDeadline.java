@@ -1,8 +1,7 @@
 package seedu.todoList.storage;
 
 import seedu.todoList.model.task.*;
-import seedu.todoList.model.tag.Tag;
-import seedu.todoList.model.tag.UniqueTagList;
+import seedu.todoList.model.task.attributes.*;
 import seedu.todoList.commons.exceptions.IllegalValueException;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -16,9 +15,9 @@ import java.util.List;
 public class XmlAdaptedDeadline extends XmlAdaptedTask {
     
 	@XmlElement(required = true)
-	Date date;
+	private String date;
 	@XmlElement(required = true)
-    EndTime endTime;
+    private String endTime;
 
     /**
      * No-arg constructor for JAXB use.
@@ -31,17 +30,20 @@ public class XmlAdaptedDeadline extends XmlAdaptedTask {
      *
      * @param source future changes to this will not affect the created XmlAdaptedtask
      */
+    public XmlAdaptedDeadline(Deadline source) {
+    	date = source.getDate().value;
+        endTime = source.getEndTime().value;
+    }
+    
     public XmlAdaptedDeadline(ReadOnlyTask source) {
-    	date = source.getDate();
-        endTime = source.getEndTime();
+    	this((Deadline) source);
     }
 
-    @Override
     public Task toModelType() throws IllegalValueException {
         final Name name = new Name(super.name);
         final Date date = new Date(this.date);
         final EndTime endTime = new EndTime(this.endTime);
-        return new Task(name, date, endTime);
+        return new Deadline(name, date, endTime);
     }
 }
 

@@ -4,9 +4,8 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import seedu.todoList.commons.exceptions.IllegalValueException;
-import seedu.todoList.model.ReadOnlyTodoList;
-import seedu.todoList.model.task.ReadOnlyTask;
-import seedu.todoList.model.task.UniqueTaskList;
+import seedu.todoList.model.ReadOnlyTaskList;
+import seedu.todoList.model.task.*;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -16,13 +15,8 @@ import java.util.stream.Collectors;
 /**
  * An Immutable TaskList that is serializable to XML format
  */
-<<<<<<< HEAD:src/main/java/seedu/todoList/storage/XmlSerializableTaskList.java
 @XmlRootElement(name = "TaskList")
-public class XmlSerializableTaskList implements ReadOnlyTodoList {
-=======
-@XmlRootElement(name = "TodoList")
-public class XmlSerializableTodoList implements ReadOnlyTodoList {
->>>>>>> e60184ee291f8238357c383073cb787221a2d62e:src/main/java/seedu/todoList/storage/XmlSerializableTodoList.java
+public class XmlSerializableTaskList implements ReadOnlyTaskList {
 
     @XmlElement
     private List<XmlAdaptedTask> tasks;
@@ -39,8 +33,17 @@ public class XmlSerializableTodoList implements ReadOnlyTodoList {
     /**
      * Conversion
      */
-    public XmlSerializableTaskList(ReadOnlyTodoList src) {
-        tasks.addAll(src.gettaskList().stream().map(XmlAdaptedTask::new).collect(Collectors.toList()));
+    public XmlSerializableTaskList(ReadOnlyTaskList src) {
+    	Object[] typeCheck = src.getTaskList().toArray();
+    	if(typeCheck[0] instanceof Todo) {
+    		tasks.addAll(src.getTaskList().stream().map(XmlAdaptedTodo::new).collect(Collectors.toList()));
+    	}
+    	else if(typeCheck[0] instanceof Event) {
+    		tasks.addAll(src.getTaskList().stream().map(XmlAdaptedTodo::new).collect(Collectors.toList()));
+    	}
+    	else if(typeCheck[0] instanceof Deadline) {
+    		tasks.addAll(src.getTaskList().stream().map(XmlAdaptedTodo::new).collect(Collectors.toList()));
+    	}
     }
 
     @Override
@@ -57,7 +60,7 @@ public class XmlSerializableTodoList implements ReadOnlyTodoList {
     }
 
     @Override
-    public List<ReadOnlyTask> gettaskList() {
+    public List<ReadOnlyTask> getTaskList() {
         return tasks.stream().map(p -> {
             try {
                 return p.toModelType();

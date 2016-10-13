@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.Optional;
 
 import seedu.todoList.commons.exceptions.DataConversionException;
-import seedu.todoList.model.ReadOnlyTodoList;
+import seedu.todoList.model.ReadOnlyTaskList;
 
 /**
  * Represents a storage for {@link seedu.TaskList.model.TodoList}.
@@ -22,12 +22,12 @@ public interface TaskListStorage {
      * @throws DataConversionException if the data in storage is not in the expected format.
      * @throws IOException if there was any problem when reading from the storage.
      */
-    Optional<ReadOnlyTodoList> readTaskList() throws DataConversionException, IOException;
+    Optional<ReadOnlyTaskList> readTaskList() throws DataConversionException, IOException;
 
     /**
      * @see #getTaskListFilePath()
      */
-    Optional<ReadOnlyTodoList> readTaskList(String filePath) throws DataConversionException, IOException;
+    Optional<ReadOnlyTaskList> readTaskList(String filePath) throws DataConversionException, IOException;
 
     /**
      * Saves the given {@link ReadOnlyTaskList} to the storage.

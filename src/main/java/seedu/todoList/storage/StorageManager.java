@@ -4,7 +4,7 @@ import com.google.common.eventbus.Subscribe;
 
 import seedu.todoList.commons.core.ComponentManager;
 import seedu.todoList.commons.core.LogsCenter;
-import seedu.todoList.commons.events.model.TodoListChangedEvent;
+import seedu.todoList.commons.events.model.*;
 import seedu.todoList.commons.events.storage.DataSavingExceptionEvent;
 import seedu.todoList.commons.exceptions.DataConversionException;
 import seedu.todoList.model.ReadOnlyTaskList;
@@ -81,7 +81,7 @@ public class StorageManager extends ComponentManager implements Storage {
     @Override
     public void saveTodoList(ReadOnlyTaskList TodoList, String filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        todoListStorage.saveTodoList(TodoList, filePath);
+        todoListStorage.saveTaskList(TodoList, filePath);
     }
 
 
@@ -100,12 +100,12 @@ public class StorageManager extends ComponentManager implements Storage {
 
     @Override
     public String getEventListFilePath() {
-        return eventListStorage.getEventListFilePath();
+        return eventListStorage.getTaskListFilePath();
     }
 
     @Override
     public Optional<ReadOnlyTaskList> readEventList() throws DataConversionException, IOException {
-        return readEventList(eventListStorage.getEventListFilePath());
+        return readEventList(eventListStorage.getTaskListFilePath());
     }
 
     @Override
@@ -120,7 +120,7 @@ public class StorageManager extends ComponentManager implements Storage {
     }
 
     @Override
-    public void saveTodoList(ReadOnlyTaskList eventList, String filePath) throws IOException {
+    public void saveEventList(ReadOnlyTaskList eventList, String filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
         eventListStorage.saveTaskList(eventList, filePath);
     }
@@ -141,7 +141,7 @@ public class StorageManager extends ComponentManager implements Storage {
 
     @Override
     public String getDeadlineListFilePath() {
-        return deadlineListStorage.getTodoListFilePath();
+        return deadlineListStorage.getTaskListFilePath();
     }
 
     @Override

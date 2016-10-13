@@ -1,8 +1,7 @@
 package seedu.todoList.storage;
 
 import seedu.todoList.model.task.*;
-import seedu.todoList.model.tag.Tag;
-import seedu.todoList.model.tag.UniqueTagList;
+import seedu.todoList.model.task.attributes.*;
 import seedu.todoList.commons.exceptions.IllegalValueException;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -15,8 +14,8 @@ import java.util.List;
  */
 public class XmlAdaptedTodo extends XmlAdaptedTask {
     
-    @XmlElement(required = true)
-    private String priority;
+	@XmlElement(required = true)
+	private String priority;
 
     /**
      * No-arg constructor for JAXB use.
@@ -29,16 +28,19 @@ public class XmlAdaptedTodo extends XmlAdaptedTask {
      *
      * @param source future changes to this will not affect the created XmlAdaptedtask
      */
+    public XmlAdaptedTodo(Todo source) {
+    	super.name = source.getName().value;
+    	this.priority = source.getPriority().toString();
+    }
+    
     public XmlAdaptedTodo(ReadOnlyTask source) {
-        startTime = source.getStartTime();
-        endTime = source.getEndTime();
+    	this((Todo) source);
     }
 
-    @Override
     public Task toModelType() throws IllegalValueException {
         final Name name = new Name(super.name);
         final Priority priority = new Priority(this.priority);
-        return new Task(name, startTime, endTime);
+        return new Todo(name, priority);
     }
 }
 
