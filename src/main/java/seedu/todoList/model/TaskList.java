@@ -1,10 +1,8 @@
 package seedu.todoList.model;
 
 import javafx.collections.ObservableList;
-import seedu.todoList.model.tag.Tag;
-import seedu.todoList.model.tag.UniqueTagList;
 import seedu.todoList.model.task.ReadOnlyTask;
-import seedu.todoList.model.task.Task;
+import seedu.todoList.model.task.*;
 import seedu.todoList.model.task.UniqueTaskList;
 
 import java.util.*;
@@ -14,14 +12,12 @@ import java.util.stream.Collectors;
  * Wraps all data at the TodoList  level
  * Duplicates are not allowed (by .equals comparison)
  */
-public class TaskList implements ReadOnlyTodoList {
+public class TaskList implements ReadOnlyTaskList {
 
-    private final UniqueTaskList tasks;
-    private final UniqueTagList tags;
+    private UniqueTaskList tasks;
 
     {
         tasks = new UniqueTaskList();
-        tags = new UniqueTagList();
     }
 
     public TaskList() {}
@@ -29,43 +25,56 @@ public class TaskList implements ReadOnlyTodoList {
     /**
      * tasks and Tags are copied into this TodoList 
      */
-    public TaskList(ReadOnlyTodoList toBeCopied) {
-        this(toBeCopied.getUniqueTaskList(), toBeCopied.getUniqueTagList());
+    public TaskList(ReadOnlyTaskList toBeCopied) {
+        this(toBeCopied.getUniqueTaskList());
     }
 
     /**
      * tasks and Tags are copied into this TodoList 
      */
-    public TaskList(UniqueTaskList tasks, UniqueTagList tags) {
-        resetData(tasks.getInternalList(), tags.getInternalList());
+    public TaskList(UniqueTaskList tasks) {
+        resetData(tasks.getInternalList());
     }
 
-    public static ReadOnlyTodoList getEmptyTodoList() {
+    public static ReadOnlyTaskList getEmptyTaskList() {
         return new TaskList();
     }
 
 //// list overwrite operations
 
-    public ObservableList<Task> gettasks() {
+    public ObservableList<Task> getTasks() {
         return tasks.getInternalList();
     }
 
     public void setTasks(List<Task> tasks) {
-        this.tasks.getInternalList().setAll(tasks);
+    	this.tasks.getInternalList().setAll(tasks);
     }
 
-    public void setTags(Collection<Tag> tags) {
-        this.tags.getInternalList().setAll(tags);
-    }
 
-    public void resetData(Collection<? extends ReadOnlyTask> newtasks, Collection<Tag> newTags) {
-        setTasks(newtasks.stream().map(Task::new).collect(Collectors.toList()));
-        setTags(newTags);
+//    public void resetData(Collection<? extends ReadOnlyTask> newTasks) {
+//        setTasks(newTasks.stream().map(Task::new).collect(Collectors.toList()));
+//    }
+    
+    public void resetData(Collection<? extends ReadOnlyTask> newTasks) {
+    	Object[] typeCheck = newTasks.toArray();
+    	if(typeCheck.length == 0) {
+    		tasks = new UniqueTaskList();
+    	}
+    	else if(typeCheck[0] instanceof Todo) {
+    		setTasks(newTasks.stream().map(Todo::new).collect(Collectors.toList()));
+    	}
+    	else if(typeCheck[0] instanceof Event) {
+    		setTasks(newTasks.stream().map(Event::new).collect(Collectors.toList()));
+    	}
+    	else if(typeCheck[0] instanceof Deadline) {
+    		setTasks(newTasks.stream().map(Deadline::new).collect(Collectors.toList()));
+    	}
     }
-
-    public void resetData(ReadOnlyTodoList newData) {
-        resetData(newData.gettaskList(), newData.getTagList());
+    
+    public void resetData(ReadOnlyTaskList newData) {
+        resetData(newData.getTaskList());
     }
+    
 
 //// task-level operations
 
@@ -80,36 +89,25 @@ public class TaskList implements ReadOnlyTodoList {
         tasks.add(p);
     }
 
-    public boolean removeTask(ReadOnlyTask key) throws UniqueTaskList.taskNotFoundException {
+    public boolean removeTask(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
         if (tasks.remove(key)) {
             return true;
         } else {
-            throw new UniqueTaskList.taskNotFoundException();
+            throw new UniqueTaskList.TaskNotFoundException();
         }
-    }
-
-//// tag-level operations
-
-    public void addTag(Tag t) throws UniqueTagList.DuplicateTagException {
-        tags.add(t);
     }
 
 //// util methods
 
     @Override
     public String toString() {
-        return tasks.getInternalList().size() + " tasks, " + tags.getInternalList().size() +  " tags";
+        return tasks.getInternalList().size() + " tasks";
         // TODO: refine later
     }
 
     @Override
-    public List<ReadOnlyTask> gettaskList() {
+    public List<ReadOnlyTask> getTaskList() {
         return Collections.unmodifiableList(tasks.getInternalList());
-    }
-
-    @Override
-    public List<Tag> getTagList() {
-        return Collections.unmodifiableList(tags.getInternalList());
     }
 
     @Override
@@ -118,22 +116,9 @@ public class TaskList implements ReadOnlyTodoList {
     }
 
     @Override
-    public UniqueTagList getUniqueTagList() {
-        return this.tags;
-    }
-
-
-    @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof TaskList // instanceof handles nulls
-                && this.tasks.equals(((TaskList) other).tasks)
-                && this.tags.equals(((TaskList) other).tags));
-    }
-
-    @Override
-    public int hashCode() {
-        // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(tasks, tags);
+                && this.tasks.equals(((TaskList) other).tasks));
     }
 }

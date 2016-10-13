@@ -8,8 +8,12 @@ import seedu.todoList.commons.events.model.TodoListChangedEvent;
 import seedu.todoList.commons.util.StringUtil;
 import seedu.todoList.model.task.ReadOnlyTask;
 import seedu.todoList.model.task.Task;
+import seedu.todoList.model.task.Todo;
+import seedu.todoList.model.task.Event;
+import seedu.todoList.model.task.Deadline;
 import seedu.todoList.model.task.UniqueTaskList;
 import seedu.todoList.model.task.UniqueTaskList.TaskNotFoundException;
+import seedu.todoList.commons.exceptions.*;
 
 import java.util.Set;
 import java.util.logging.Logger;
@@ -22,7 +26,11 @@ public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final TaskList todoList;
-    private final FilteredList<Task> filteredTasks;
+    private final TaskList eventList;
+    private final TaskList deadlineList;
+    private final FilteredList<Task> filteredTodos;
+    private final FilteredList<Task> filteredEvents;
+    private final FilteredList<Task> filteredDeadlines;
 
     /**
      * Initializes a ModelManager with the given TodoList
@@ -33,69 +41,169 @@ public class ModelManager extends ComponentManager implements Model {
         assert src != null;
         assert userPrefs != null;
 
-        logger.fine("Initializing with TodoList: " + src + " and user prefs " + userPrefs);
+        logger.fine("Initializing with TaskLists: " + src + " and user prefs " + userPrefs);
 
         todoList = new TaskList(src);
-        filteredTasks = new FilteredList<>(todoList.gettasks());
+        eventList = new TaskList(src);
+        deadlineList = new TaskList(src);
+        filteredTodos = new FilteredList<>(todoList.getTasks());
+        filteredEvents = new FilteredList<>(eventList.getTasks());
+        filteredDeadlines = new FilteredList<>(deadlineList.getTasks());
     }
 
     public ModelManager() {
         this(new TaskList(), new UserPrefs());
     }
 
-    public ModelManager(ReadOnlyTodoList initialData, UserPrefs userPrefs) {
-        todoList = new TaskList(initialData);
-        filteredTasks = new FilteredList<>(todoList.gettasks());
+    public ModelManager(ReadOnlyTaskList initialData, UserPrefs userPrefs) {
+    	todoList = new TaskList(initialData);
+        eventList = new TaskList(initialData);
+        deadlineList = new TaskList(initialData);
+        filteredTodos = new FilteredList<>(todoList.getTasks());
+        filteredEvents = new FilteredList<>(eventList.getTasks());
+        filteredDeadlines = new FilteredList<>(deadlineList.getTasks());
     }
 
     @Override
-    public void resetData(ReadOnlyTodoList newData) {
+    public void resetTodoListData(ReadOnlyTaskList newData) {
         todoList.resetData(newData);
+        indicateTodoListChanged();
+    } 
+    @Override
+    public void resetEventListData(ReadOnlyTaskList newData) {
+        eventList.resetData(newData);
+        indicateTodoListChanged();
+    } 
+    @Override
+    public void resetDeadlineListData(ReadOnlyTaskList newData) {
+        deadlineList.resetData(newData);
         indicateTodoListChanged();
     }
 
     @Override
-    public ReadOnlyTodoList getTodoList() {
+    public ReadOnlyTaskList getTodoList() {
         return todoList;
+    }
+    @Override
+    public ReadOnlyTaskList getEventList() {
+        return eventList;
+    }
+    @Override
+    public ReadOnlyTaskList getDeadlineList() {
+        return deadlineList;
     }
 
     /** Raises an event to indicate the model has changed */
     private void indicateTodoListChanged() {
         raise(new TodoListChangedEvent(todoList));
     }
-
-    @Override
-    public synchronized void deleteTask(ReadOnlyTask target) throws TaskNotFoundException {
-        todoList.removeTask(target);
-        indicateTodoListChanged();
+    /** Raises an event to indicate the model has changed */
+    private void indicateEventListChanged() {
+        raise(new TodoListChangedEvent(eventList));
+    }
+    /** Raises an event to indicate the model has changed */
+    private void indicateDeadlineListChanged() {
+        raise(new TodoListChangedEvent(deadlineList));
     }
 
     @Override
-    public synchronized void addTask(Task task) throws UniqueTaskList.DuplicatetaskException {
-        todoList.addTask(task);
-        updateFilteredListToShowAll();
-        indicateTodoListChanged();
-    }
-
-    //=========== Filtered task List Accessors ===============================================================
-
-    @Override
-    public UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList() {
-        return new UnmodifiableObservableList<>(filteredTasks);
-    }
-
-    @Override
-    public void updateFilteredListToShowAll() {
-        filteredTasks.setPredicate(null);
+    public synchronized void deleteTask(ReadOnlyTask target, String dataType) throws TaskNotFoundException {
+    	switch(dataType) {
+    		case "todo":
+    			todoList.removeTask(target);
+    			indicateTodoListChanged();
+    		case "event":
+    			eventList.removeTask(target);
+    			indicateTodoListChanged();
+    		case "deadline":
+    			deadlineList.removeTask(target);
+    			indicateTodoListChanged();
+    	}
     }
 
     @Override
-    public void updateFilteredTaskList(Set<String> keywords){
-        updateFilteredTaskList(new PredicateExpression(new NameQualifier(keywords)));
+    public synchronized void addTask(Task task) throws IllegalValueException, UniqueTaskList.DuplicatetaskException {
+    	if(task instanceof Todo) {
+    		todoList.addTask(task);
+    		updateFilteredTodoListToShowAll();
+    		indicateTodoListChanged();
+    	}
+    	else if(task instanceof Event) {
+    		eventList.addTask(task);
+    		updateFilteredEventListToShowAll();
+    		indicateEventListChanged();
+    	}
+    	else if(task instanceof Deadline) {
+    		deadlineList.addTask(task);
+    		updateFilteredDeadlineListToShowAll();
+    		indicateDeadlineListChanged();
+    	}
+    	else {
+    		throw new IllegalValueException("Invalid data type for add");
+    	}
     }
 
-    private void updateFilteredTaskList(Expression expression) {
-        filteredTasks.setPredicate(expression::satisfies);
+    //=========== Filtered TodoList Accessors ===============================================================
+
+    @Override
+    public UnmodifiableObservableList<ReadOnlyTask> getFilteredTodoList() {
+        return new UnmodifiableObservableList<>(filteredTodos);
+    }
+
+    @Override
+    public void updateFilteredTodoListToShowAll() {
+        filteredTodos.setPredicate(null);
+    }
+
+    @Override
+    public void updateFilteredTodoList(Set<String> keywords){
+        updateFilteredTodoList(new PredicateExpression(new NameQualifier(keywords)));
+    }
+
+    private void updateFilteredTodoList(Expression expression) {
+        filteredTodos.setPredicate(expression::satisfies);
+    }
+    
+    //=========== Filtered EventList Accessors ===============================================================
+
+    @Override
+    public UnmodifiableObservableList<ReadOnlyTask> getFilteredEventList() {
+        return new UnmodifiableObservableList<>(filteredEvents);
+    }
+
+    @Override
+    public void updateFilteredEventListToShowAll() {
+        filteredEvents.setPredicate(null);
+    }
+
+    @Override
+    public void updateFilteredEventList(Set<String> keywords){
+        updateFilteredEventList(new PredicateExpression(new NameQualifier(keywords)));
+    }
+
+    private void updateFilteredEventList(Expression expression) {
+        filteredEvents.setPredicate(expression::satisfies);
+    }
+    
+    //=========== Filtered DeadlineList Accessors ===============================================================
+
+    @Override
+    public UnmodifiableObservableList<ReadOnlyTask> getFilteredDeadlineList() {
+        return new UnmodifiableObservableList<>(filteredDeadlines);
+    }
+
+    @Override
+    public void updateFilteredDeadlineListToShowAll() {
+        filteredDeadlines.setPredicate(null);
+    }
+
+    @Override
+    public void updateFilteredDeadlineList(Set<String> keywords){
+        updateFilteredDeadlineList(new PredicateExpression(new NameQualifier(keywords)));
+    }
+
+    private void updateFilteredDeadlineList(Expression expression) {
+        filteredDeadlines.setPredicate(expression::satisfies);
     }
 
     //========== Inner classes/interfaces used for filtering ==================================================
@@ -139,7 +247,7 @@ public class ModelManager extends ComponentManager implements Model {
         @Override
         public boolean run(ReadOnlyTask task) {
             return nameKeyWords.stream()
-                    .filter(keyword -> StringUtil.containsIgnoreCase(task.getName().fullName, keyword))
+                    .filter(keyword -> StringUtil.containsIgnoreCase(task.getName().value, keyword))
                     .findAny()
                     .isPresent();
         }

@@ -1,54 +1,61 @@
 package seedu.todoList.model.task;
 
-
-import seedu.todoList.commons.exceptions.IllegalValueException;
+import seedu.todoList.commons.util.CollectionUtil;
+import seedu.todoList.model.task.attributes.Name;
+import seedu.todoList.model.task.attributes.Priority;
 
 /**
- * Represents a task's Todo in the TodoList.
- * Guarantees: immutable; is valid as declared in {@link #isValidTodo(String)}
+ * Represents a task in the TodoList.
+ * Guarantees: details are present and not null, field values are validated.
  */
-public class Todo {
+public class Todo extends Task implements ReadOnlyTask {
+
+    private Priority priority;
+
+    /**
+     * Every field must be present and not null.
+     */
+    public Todo(Name name, Priority priority) {
+        assert !CollectionUtil.isAnyNull(name, priority);
+        super.name = name;
+        this.priority = priority;
+    }
+
+    /**
+     * Copy constructor.
+     */
+    public Todo(Todo source) {
+        this(source.getName(), source.getPriority());
+    }
+
+    public Priority getPriority() {
+        return priority;
+    }
     
-    public static final String MESSAGE_Todo_CONSTRAINTS = "task Todoes can be in any format";
-    public static final String Todo_VALIDATION_REGEX = ".+";
-
-    public final String value;
-
-    /**
-     * Validates given Todo.
-     *
-     * @throws IllegalValueException if given Todo string is invalid.
-     */
-    public Todo(String Todo) throws IllegalValueException {
-        assert Todo != null;
-        if (!isValidTodo(Todo)) {
-            throw new IllegalValueException(MESSAGE_Todo_CONSTRAINTS);
-        }
-        this.value = Todo;
-    }
-
-    /**
-     * Returns true if a given string is a valid task email.
-     */
-    public static boolean isValidTodo(String test) {
-        return test.matches(Todo_VALIDATION_REGEX);
-    }
-
-    @Override
-    public String toString() {
-        return value;
-    }
+    public Todo(ReadOnlyTask source) {
+    	this((Todo) source);
+    };
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Todo // instanceof handles nulls
-                && this.value.equals(((Todo) other).value)); // state check
+                && super.name.equals(((Todo) other).getName()))
+                && this.priority.equals(((Todo) other).getPriority());
     }
 
     @Override
-    public int hashCode() {
-        return value.hashCode();
+    public String toString() {
+    	final StringBuilder builder = new StringBuilder();
+        builder.append(getName())
+                .append(" Priority: ")
+                .append(getPriority());
+        return builder.toString();
     }
+
+	public Todo getTodo() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }
