@@ -16,8 +16,13 @@ import java.util.stream.Collectors;
 /**
  * An Immutable TaskList that is serializable to XML format
  */
+<<<<<<< HEAD:src/main/java/seedu/todoList/storage/XmlSerializableTaskList.java
 @XmlRootElement(name = "TaskList")
 public class XmlSerializableTaskList implements ReadOnlyTodoList {
+=======
+@XmlRootElement(name = "TodoList")
+public class XmlSerializableTodoList implements ReadOnlyTodoList {
+>>>>>>> e60184ee291f8238357c383073cb787221a2d62e:src/main/java/seedu/todoList/storage/XmlSerializableTodoList.java
 
     @XmlElement
     private List<XmlAdaptedTask> tasks;
