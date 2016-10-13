@@ -25,7 +25,7 @@ public class StringUtilTest {
         assertFalse(StringUtil.isUnsignedInteger(null));
 
         // EP: empty strings
-        assertFalse(StringUtil.isUnsignedInteger("")); //boundary value
+        assertFalse(StringUtil.isUnsignedInteger("")); // Boundary value
         assertFalse(StringUtil.isUnsignedInteger("  "));
 
         // EP: not a number
@@ -40,12 +40,11 @@ public class StringUtilTest {
         assertFalse(StringUtil.isUnsignedInteger("+1"));
 
         // EP: numbers with white space
-        assertFalse(StringUtil.isUnsignedInteger(" 10"));
-        assertFalse(StringUtil.isUnsignedInteger("10 "));
-        assertFalse(StringUtil.isUnsignedInteger("1 0"));
+        assertFalse(StringUtil.isUnsignedInteger(" 10 ")); // Leading/trailing spaces
+        assertFalse(StringUtil.isUnsignedInteger("1 0"));  // Spaces in the middle
 
         // EP: valid numbers, should return true
-        assertTrue(StringUtil.isUnsignedInteger("1")); //boundary value
+        assertTrue(StringUtil.isUnsignedInteger("1")); // Boundary value
         assertTrue(StringUtil.isUnsignedInteger("10"));
     }
 
@@ -113,7 +112,7 @@ public class StringUtilTest {
     public void containsWordIgnoreCase_validInputs_correctResult(){
 
         // Empty sentence
-        assertFalse(StringUtil.containsWordIgnoreCase("","abc")); //boundary case
+        assertFalse(StringUtil.containsWordIgnoreCase("","abc")); // Boundary case
         assertFalse(StringUtil.containsWordIgnoreCase("    ","123"));
 
         // Matches a partial word only
@@ -132,6 +131,10 @@ public class StringUtilTest {
     }
 
     //---------------- Tests for getDetails --------------------------------------
+
+    /*
+     * Equivalence Partitions: null, valid throwable object
+     */
 
     @Test
     public void getDetails_exceptionGiven(){

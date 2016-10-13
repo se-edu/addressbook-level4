@@ -23,15 +23,15 @@ public class StringUtil {
         assert word != null : "Word parameter cannot be null";
         assert sentence != null : "Sentence parameter cannot be null";
 
-        String preppedWord = word.trim().toLowerCase();
+        String preppedWord = word.trim();
         assert !preppedWord.isEmpty() : "Word parameter cannot be empty";
         assert preppedWord.split("\\s+").length == 1 : "Word parameter should be a single word";
 
-        String preppedSentence = sentence.toLowerCase();
+        String preppedSentence = sentence;
         String[] wordsInPreppedSentence = preppedSentence.split("\\s+");
 
         for(String wordInSentence: wordsInPreppedSentence){
-            if (wordInSentence.equals(preppedWord)) return true;
+            if (wordInSentence.equalsIgnoreCase(preppedWord)) return true;
         }
         return false;
     }
