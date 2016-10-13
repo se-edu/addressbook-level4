@@ -4,23 +4,23 @@ package seedu.todoList.model.task;
  * A read-only immutable interface for a task in the TodoList .
  * Implementations should guarantee: details are present and not null, field values are validated.
  */
-public interface ReadOnlyTask {
+public interface ReadOnlyEvent {
 
     Todo getTodo();
-    Priority getPriority();
+    Date getDate();
     StartTime getStartTime();
     EndTime getEndTime();
 
     /**
      * Returns true if both have the same state. (interfaces cannot override .equals)
      */
-    default boolean isSameStateAs(ReadOnlyTask other) {
+    default boolean isSameStateAs(ReadOnlyEvent other) {
         return other == this // short circuit if same object
                 || (other != null // this is first to avoid NPE below
-                && other.getTodo().equals(this.getTodo())  // state checks here onwards
-                && other.getPriority().equals(this.getPriority())
+                && other.getTodo().equals(this.getTodo()) // state checks here onwards
+                && other.getDate().equals(this.getDate())
                 && other.getStartTime().equals(this.getStartTime())
-                && other.getEndTime().equals(this.getEndTime()));
+                && other.getEndTime().equals(this.getEndTime())); 
     }
 
     /**
@@ -29,13 +29,17 @@ public interface ReadOnlyTask {
     default String getAsText() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getTodo())
-                .append("\nPriority: ")  
-                .append(getPriority())
-                .append("\nStart Time: ")
+                .append( "\n")
+                .append(" Date: ")  
+                .append(getDate())
+                .append( "\n")
+                .append(" Start Time: ")
                 .append(getStartTime())
-                .append("\nEnd Time: ")
+                .append( "\n")
+                .append(" End Time: ")
                 .append(getEndTime());
         return builder.toString();
     }
-	
+    
+
 }

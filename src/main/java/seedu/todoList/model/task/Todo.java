@@ -12,7 +12,7 @@ public class Todo {
     public static final String MESSAGE_Todo_CONSTRAINTS = "task Todoes can be in any format";
     public static final String Todo_VALIDATION_REGEX = ".+";
 
-    public final String value;
+    public final String todo;
 
     /**
      * Validates given Todo.
@@ -24,7 +24,7 @@ public class Todo {
         if (!isValidTodo(Todo)) {
             throw new IllegalValueException(MESSAGE_Todo_CONSTRAINTS);
         }
-        this.value = Todo;
+        this.todo = Todo;
     }
 
     /**
@@ -36,19 +36,19 @@ public class Todo {
 
     @Override
     public String toString() {
-        return value;
+        return todo;
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Todo // instanceof handles nulls
-                && this.value.equals(((Todo) other).value)); // state check
+                && this.todo.equals(((Todo) other).todo)); // state check
     }
 
     @Override
     public int hashCode() {
-        return value.hashCode();
+        return todo.hashCode();
     }
 
 }

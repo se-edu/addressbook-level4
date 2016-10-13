@@ -5,6 +5,7 @@ import java.util.Set;
 import seedu.todoList.commons.core.UnmodifiableObservableList;
 import seedu.todoList.model.task.ReadOnlyTask;
 import seedu.todoList.model.task.Task;
+import seedu.todoList.model.task.Event;
 import seedu.todoList.model.task.UniqueTaskList;
 
 /**
@@ -22,6 +23,9 @@ public interface Model {
 
     /** Adds the given task */
     void addTask(Task task) throws UniqueTaskList.DuplicatetaskException;
+    
+    /** Adds the given event */
+    void addEvent(Event event) throws UniqueTaskList.DuplicatetaskException;
 
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
