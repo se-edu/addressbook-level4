@@ -96,6 +96,16 @@ public class ArgumentTokenizerTest {
     }
 
     @Test
+    public void tokenize_onePrefix() {
+        Prefix prefix = new Prefix("p/");
+        ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(prefix);
+        argsTokenizer.tokenize("Micky Mouse p/12345");
+
+        assertEquals("Micky Mouse", argsTokenizer.getPreamble().get());
+        assertEquals("12345", argsTokenizer.getValue(prefix).get());
+    }
+
+    @Test
     public void tokenize_duplicatedRepeatedPrefix() {
         Prefix aArg = new Prefix("<a>");
         Prefix bArg = new Prefix("<b>");
@@ -108,5 +118,23 @@ public class ArgumentTokenizerTest {
         assertEquals("aaa", argsTokenizer.getValue(aArg).get());
         assertEquals("bbb", argsTokenizer.getValue(bArg).get());
         assertEquals(cVals, argsTokenizer.getValues(cArgs).get());
+    }
+
+    @Test
+    public void tokenize_reuseTokenizer() {
+        ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(phoneNumberPrefix, emailPrefix,
+                                                                addressPrefix, tagsPrefix);
+        argsTokenizer.tokenize("John Doe p/98765432 e/johnd@gmail.com a/John street, block 123, #01-01");
+        argsTokenizer.tokenize("Betsy Crowe p/1234567 e/betsycrowe@gmail.com a/Newgate Prison t/criminal t/friend");
+
+        List<String> tags = new ArrayList<>();
+        tags.add("criminal");
+        tags.add("friend");
+
+        assertEquals("Betsy Crowe", argsTokenizer.getPreamble().get());
+        assertEquals("1234567", argsTokenizer.getValue(phoneNumberPrefix).get());
+        assertEquals("betsycrowe@gmail.com", argsTokenizer.getValue(Parser.emailPrefix).get());
+        assertEquals("Newgate Prison", argsTokenizer.getValue(addressPrefix).get());
+        assertEquals(tags, argsTokenizer.getValues(tagsPrefix).get());
     }
 }
