@@ -2,7 +2,6 @@ package seedu.address.logic.parser;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
-import seedu.address.logic.parser.CommandTokenizer.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -11,7 +10,7 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 import static seedu.address.logic.parser.Parser.*;
 
-public class CommandTokenizerTest {
+public class ArgumentTokenizerTest {
     /**
      * Makes sure that static members of Parser are initialized
      */
@@ -22,8 +21,8 @@ public class CommandTokenizerTest {
 
     @Test
     public void parse_validAddCmdArgsNoTags() {
-        CommandTokenizer argsParser = new CommandTokenizer(addCmdArgs);
-        ParsedArguments result = argsParser.parse(
+        ArgumentTokenizer argsParser = new ArgumentTokenizer(addCmdArgs);
+        ParsedArguments result = argsParser.tokenize(
                 "John Doe p/98765432 e/johnd@gmail.com a/John street, block 123, #01-01");
 
         assertEquals("John Doe", result.getArgumentValue(nameArg).get());
@@ -34,8 +33,8 @@ public class CommandTokenizerTest {
 
     @Test
     public void parse_validAddCmdArgsWithTags() {
-        CommandTokenizer argsParser = new CommandTokenizer(addCmdArgs);
-        CommandTokenizer.ParsedArguments result = argsParser.parse(
+        ArgumentTokenizer argsParser = new ArgumentTokenizer(addCmdArgs);
+        ArgumentTokenizer.ParsedArguments result = argsParser.tokenize(
                 "Betsy Crowe p/1234567 e/betsycrowe@gmail.com a/Newgate Prison t/criminal t/friend");
         List<String> tags = new ArrayList<>();
         tags.add("criminal");
@@ -50,8 +49,8 @@ public class CommandTokenizerTest {
 
     @Test
     public void parse_validAddCmdArgsChangeOrder() {
-        CommandTokenizer argsParser = new CommandTokenizer(addCmdArgs);
-        ParsedArguments result = argsParser.parse(
+        ArgumentTokenizer argsParser = new ArgumentTokenizer(addCmdArgs);
+        ParsedArguments result = argsParser.tokenize(
                 "John Doe e/johnd@gmail.com a/John street, block 123, #01-01 p/98765432");
 
         assertEquals("John Doe", result.getArgumentValue(nameArg).get());
@@ -66,8 +65,8 @@ public class CommandTokenizerTest {
         NonRepeatableArgument bArg = new NonRepeatableArgument("b", "b:");
         List<Argument> args = Arrays.asList(aArg, bArg);
 
-        CommandTokenizer argsParser = new CommandTokenizer(args);
-        ParsedArguments result = argsParser.parse("a: aaa b: bbb a: AAA");
+        ArgumentTokenizer argsParser = new ArgumentTokenizer(args);
+        ParsedArguments result = argsParser.tokenize("a: aaa b: bbb a: AAA");
 
         assertEquals("AAA", result.getArgumentValue(aArg).get());
         assertEquals("bbb", result.getArgumentValue(bArg).get());
@@ -81,8 +80,8 @@ public class CommandTokenizerTest {
         List<Argument> args = Arrays.asList(aArg, bArg, cArgs);
         List<String> cVals = Arrays.asList("c1", "c2");
 
-        CommandTokenizer argsParser = new CommandTokenizer(args);
-        ParsedArguments result = argsParser.parse("a\\ aaa c\\ c1 b\\ bbb c\\ c2");
+        ArgumentTokenizer argsParser = new ArgumentTokenizer(args);
+        ParsedArguments result = argsParser.tokenize("a\\ aaa c\\ c1 b\\ bbb c\\ c2");
 
         assertEquals("aaa", result.getArgumentValue(aArg).get());
         assertEquals("bbb", result.getArgumentValue(bArg).get());
@@ -94,8 +93,8 @@ public class CommandTokenizerTest {
         NonPrefixedArgument aArg = new NonPrefixedArgument("a");
         List<Argument> args = Arrays.asList(aArg);
 
-        CommandTokenizer argsParser = new CommandTokenizer(args);
-        ParsedArguments result = argsParser.parse("Micky Mouse p/12345");
+        ArgumentTokenizer argsParser = new ArgumentTokenizer(args);
+        ParsedArguments result = argsParser.tokenize("Micky Mouse p/12345");
 
         assertEquals("Micky Mouse p/12345", result.getArgumentValue(aArg).get());
     }
@@ -108,8 +107,8 @@ public class CommandTokenizerTest {
         List<Argument> args = Arrays.asList(aArg, bArg, cArgs);
         List<String> cVals = Arrays.asList("c1", "c2", "c1");
 
-        CommandTokenizer argsParser = new CommandTokenizer(args);
-        ParsedArguments result = argsParser.parse("<a>aaa<c>c1<b>bbb<c>c2<c>c1");
+        ArgumentTokenizer argsParser = new ArgumentTokenizer(args);
+        ParsedArguments result = argsParser.tokenize("<a>aaa<c>c1<b>bbb<c>c2<c>c1");
 
         assertEquals("aaa", result.getArgumentValue(aArg).get());
         assertEquals("bbb", result.getArgumentValue(bArg).get());
