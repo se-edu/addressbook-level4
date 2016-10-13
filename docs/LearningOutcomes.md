@@ -10,6 +10,7 @@ After studying this code and completing the corresponding exercises, you should 
 1. [Use Build Automation `[LO-BuildAutomation]`](#use-build-automation-lo-buildautomation)
 1. [Use Continuous Integration `[LO-ContinuousIntegration]`](#use-continuous-integration-lo-continuousintegration)
 1. [Use Code Coverage `[LO-CodeCoverage]`](#use-code-coverage-lo-codecoverage)
+1. [Apply Test Case Design Heuristics `[LO-TestCaseDesignHeuristics]`](#apply-test-case-design-heuristics-lo-testcasedesignheuristics)
 
 ------------------------------------------------------------------------------------------------------
 
@@ -133,13 +134,22 @@ Note how our CI server [Travis uses Coveralls to report code coverage](UsingTrav
  
 ------------------------------------------------------------------------------------------------------
 
+## Apply Test Case Design Heuristics `[LO-TestCaseDesignHeuristics]`
+
+The [`StringUtilTest.java`](..\src\test\java\seedu\address\commons\util\StringUtilTest.java) class gives some examples
+of how to use _Equivalence Classes_, _Boundary Value Analysis_, and _Test Input Combination Heuristics_ to improve
+the efficiency and effectiveness of test cases.
+
+ 
+#### Exercise: Apply Test Case Design Heuristics to other places 
+ * Use the test case design heuristics mentioned above to improve test cases in other places.
+ 
+------------------------------------------------------------------------------------------------------
+
 {More to be added}
 * Integration testing
 * System testing
 * Acceptance testing (+dogfooding)
-* Equivalence classes
-* Boundary value analysis
-* Test input combination
 * GUI test automation
 * Design patterns
 * Static analysis
