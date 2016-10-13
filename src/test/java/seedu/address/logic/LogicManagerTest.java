@@ -418,7 +418,7 @@ public class LogicManagerTest {
             cmd.append(" t;").append(p.getTime());
             cmd.append(" et;").append(p.getPeriod());
             cmd.append(" d;").append(p.getDescription());
-            cmd.append(" a/").append(p.getLocation());
+            cmd.append(" a;").append(p.getLocation());
 
             UniqueTagList tags = p.getTags();
             for(Tag t: tags){
@@ -438,8 +438,8 @@ public class LogicManagerTest {
             cmd.add(p.getName().toString());
             cmd.add("t;" + p.getTime());
             cmd.add("et;" + p.getPeriod());
-            cmd.add("d/" + p.getDescription());
-            cmd.add("a/" + p.getLocation());
+            cmd.add("d;" + p.getDescription());
+            cmd.add("a;" + p.getLocation());
 
             UniqueTagList tags = p.getTags();
             for(Tag t: tags){
@@ -450,14 +450,16 @@ public class LogicManagerTest {
         }
 
         /** Generates the correct partial edit command based on the index given */
+        // TODO: Note from Filbert, Always Ensure this command is in sync.
         String generatePartialEditCommand(int i, Task p) {
             StringJoiner cmd = new StringJoiner(" ");
 
             cmd.add("edit");
 
             cmd.add(Integer.toString(i));
-            cmd.add("d/" + p.getDescription());
-            cmd.add("a/" + p.getLocation());
+            
+            cmd.add("d;" + p.getDescription());
+            cmd.add("a;" + p.getLocation());
 
             return cmd.toString();
         }

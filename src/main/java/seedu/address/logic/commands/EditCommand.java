@@ -91,6 +91,10 @@ public class EditCommand extends Command {
                 Time timeToDelete = taskToDelete.getTime();
                 time = timeToDelete.toString();
             }
+            if (period == " "){
+                Period periodToDelete = taskToDelete.getPeriod();
+                time = periodToDelete.toString();
+            }
             if (description == " "){
                 Description descriptionToDelete = taskToDelete.getDescription();
                 description = descriptionToDelete.toString();

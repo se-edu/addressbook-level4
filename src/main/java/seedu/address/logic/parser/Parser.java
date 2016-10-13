@@ -32,25 +32,16 @@ public class Parser {
                     + "(( et;(?<period>[^;]+))?)"
             		+ "(( (?<isDescriptionPrivate>p?)d;(?<description>[^;]+))?)"
             		+ "(( (?<isAddressPrivate>p?)a;(?<address>[^/]+))?)"
-            		+ "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
-    
-/*    Pattern.compile("(?<name>[^/]+)"
-            + "(( (?<isTimePrivate>p?)t/(?<time>[^/]+))?)"
-            + "(( (?<isDescriptionPrivate>p?)d/(?<description>[^/]+))?)"
-            + "(( (?<isAddressPrivate>p?)a/(?<address>[^/]+))?)"
-            + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
-*/    
-    
+            		+ "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags    
 
     private static final Pattern PERSON_EDIT_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<targetIndex>\\d)"
-                    + "(( (?<name>(?:[^;]+)))?)"
-                    + "(( (?<isPhonePrivate>p?)t;(?<phone>[^;]+)))"
+                    + "(( (?<name>(?:[^;]+))))"
+                    + "(( (?<isPhonePrivate>p?)t;(?<phone>[^;]+))?)"
                     + "(( et;(?<period>[^;]+))?)"
-                    + "(( (?<isDescriptionPrivate>p?)d;(?<description>[^;]+))?)"
+                    + "(( (?<isEmailPrivate>p?)d;(?<email>[^;]+))?)"
                     + "(( (?<isAddressPrivate>p?)a;(?<address>[^/]+))?)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
-
 
     public Parser() {}
 
@@ -259,9 +250,9 @@ public class Parser {
             return new EditCommand(
                     targetIndex.get(),
                     matcher.group("name")==null?" ":matcher.group("name"),
-                    matcher.group("time")==null?"20-12-2012":matcher.group("time"),
-                    matcher.group("period")==null?"2359":matcher.group("period"),
-                    matcher.group("description")==null?" ":matcher.group("description"),
+                    matcher.group("phone")==null?" ":matcher.group("phone"),
+                    matcher.group("period")==null?" ":matcher.group("period"),
+                    matcher.group("email")==null?" ":matcher.group("email"),
                     matcher.group("address")==null?" ":matcher.group("address"),
                     getTagsFromArgs(matcher.group("tagArguments"))
             );
