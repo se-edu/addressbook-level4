@@ -28,15 +28,16 @@ public class EditCommand extends Command {
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the SmartyDo";
 
-    
+
     private boolean isExecutedBefore;
     private Task toAdd;
     public final int targetIndex;
     private ReadOnlyTask taskToDelete;
     private String name;
     private String time;
+    private String period;
     private String description;
-    private String location; 
+    private String location;
     private Set<String> tags;
 
     /**
@@ -44,24 +45,25 @@ public class EditCommand extends Command {
      *
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public EditCommand(int targetIndex, String name, String time, String description, String location, Set<String> tags)
+    public EditCommand(int targetIndex, String name, String time, String period, String description, String location, Set<String> tags)
             throws IllegalValueException {
     	this.targetIndex = targetIndex;
     	this.name = name;
     	this.time = time;
+    	this.period = period;
     	this.description = description;
     	this.location = location;
     	this.tags = tags;
-        
+
         isExecutedBefore = false;
     }
 
     @Override
     public CommandResult execute() {
-    	
+
         assert model != null;
         assert undoRedoManager != null;
-        
+
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
 
         if (lastShownList.size() < targetIndex) {
@@ -70,7 +72,7 @@ public class EditCommand extends Command {
         }
 
         taskToDelete = lastShownList.get(targetIndex - 1);
-       
+
         try {
             Set<Tag> tagSet = new HashSet<>();
             if(!tags.isEmpty()){
@@ -100,20 +102,21 @@ public class EditCommand extends Command {
             toAdd = new Task(
                     new Name(name),
                     new Time(time),
+                    new Period(period),
                     new Description(description),
                     new Location(location),
                     new UniqueTagList(tagSet)
             );
             model.addTask(toAdd);
             model.deleteTask(taskToDelete);
-            
+
         } catch (DuplicateTaskException e) {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
         } catch (IllegalValueException e) {
             assert false : "The target task already possesses null values";
         } catch (TaskNotFoundException e) {
             assert false : "The target task cannot be missing";
-        } 
+        }
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 

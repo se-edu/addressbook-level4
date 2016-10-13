@@ -27,18 +27,28 @@ public class Parser {
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
 
     private static final Pattern TASK_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
-            Pattern.compile("(?<name>[^/]+)"
-            		+ "(( (?<isTimePrivate>p?)t/(?<time>[^/]+))?)"
-            		+ "(( (?<isDescriptionPrivate>p?)d/(?<description>[^/]+))?)"
-            		+ "(( (?<isAddressPrivate>p?)a/(?<address>[^/]+))?)"
+            Pattern.compile("(?<name>[^;]+)"
+            		+ "(( (?<isTimePrivate>p?)t;(?<time>[^;]+)))"
+                    + "(( et;(?<period>[^;]+))?)"
+            		+ "(( (?<isDescriptionPrivate>p?)d;(?<description>[^;]+))?)"
+            		+ "(( (?<isAddressPrivate>p?)a;(?<address>[^/]+))?)"
             		+ "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
     
+/*    Pattern.compile("(?<name>[^/]+)"
+            + "(( (?<isTimePrivate>p?)t/(?<time>[^/]+))?)"
+            + "(( (?<isDescriptionPrivate>p?)d/(?<description>[^/]+))?)"
+            + "(( (?<isAddressPrivate>p?)a/(?<address>[^/]+))?)"
+            + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
+*/    
+    
+
     private static final Pattern PERSON_EDIT_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<targetIndex>\\d)"
-                    + "(( (?<name>(?:[^/]+)))?)"
-                    + "(( (?<isPhonePrivate>p?)t/(?<phone>[^/]+))?)"
-                    + "(( (?<isEmailPrivate>p?)d/(?<email>[^/]+))?)"
-                    + "(( (?<isAddressPrivate>p?)a/(?<address>[^/]+))?)"
+                    + "(( (?<name>(?:[^;]+)))?)"
+                    + "(( (?<isPhonePrivate>p?)t;(?<phone>[^;]+)))"
+                    + "(( et;(?<period>[^;]+))?)"
+                    + "(( (?<isDescriptionPrivate>p?)d;(?<description>[^;]+))?)"
+                    + "(( (?<isAddressPrivate>p?)a;(?<address>[^/]+))?)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
 
 
@@ -83,7 +93,7 @@ public class Parser {
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
-            
+
         case ViewCommand.COMMAND_WORD:
         	return prepareView(arguments);
 
@@ -92,7 +102,7 @@ public class Parser {
 
         case RedoCommand.COMMAND_WORD:
         	return new RedoCommand();
-        	
+
         case EditCommand.COMMAND_WORD:
             return prepareEdit(arguments);
 
@@ -117,6 +127,7 @@ public class Parser {
             return new AddCommand(
                     matcher.group("name"),
                     matcher.group("time")==null?" ":matcher.group("time"),
+                    matcher.group("period")==null?"23:59":matcher.group("period"),
                     matcher.group("description")==null?" ":matcher.group("description"),
                     matcher.group("address")==null?" ":matcher.group("address"),
                     getTagsFromArgs(matcher.group("tagArguments"))
@@ -156,7 +167,7 @@ public class Parser {
 
         return new DeleteCommand(index.get());
     }
-    
+
     /**
      * Parses arguments in the context of the delete task command.
      *
@@ -226,7 +237,7 @@ public class Parser {
         final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
         return new FindCommand(keywordSet);
     }
-    
+
     /**
      * Parses arguments in the context of the add task command.
      *
@@ -248,8 +259,9 @@ public class Parser {
             return new EditCommand(
                     targetIndex.get(),
                     matcher.group("name")==null?" ":matcher.group("name"),
-                    matcher.group("phone")==null?" ":matcher.group("phone"),
-                    matcher.group("email")==null?" ":matcher.group("email"),
+                    matcher.group("time")==null?"20-12-2012":matcher.group("time"),
+                    matcher.group("period")==null?"2359":matcher.group("period"),
+                    matcher.group("description")==null?" ":matcher.group("description"),
                     matcher.group("address")==null?" ":matcher.group("address"),
                     getTagsFromArgs(matcher.group("tagArguments"))
             );

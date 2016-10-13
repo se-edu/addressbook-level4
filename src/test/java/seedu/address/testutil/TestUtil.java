@@ -65,15 +65,15 @@ public class TestUtil {
     private static Task[] getSampleTaskData() {
         try {
             return new Task[]{
-                    new Task(new Name("Ali Muster"), new Time("9482"), new Description("hans's description"), new Location("4th street"), new UniqueTagList()),
-                    new Task(new Name("Boris Mueller"), new Time("8724"), new Description("ruth's description"), new Location("81th street"), new UniqueTagList()),
-                    new Task(new Name("Carl Kurz"), new Time("9535"), new Description("heinz's description"), new Location("wall street"), new UniqueTagList()),
-                    new Task(new Name("Daniel Meier"), new Time("8765"), new Description("cornelia's description"), new Location("10th street"), new UniqueTagList()),
-                    new Task(new Name("Elle Meyer"), new Time("9482"), new Description("werner's description"), new Location("michegan ave"), new UniqueTagList()),
-                    new Task(new Name("Fiona Kunz"), new Time("9482"), new Description("lydia's description"), new Location("little tokyo"), new UniqueTagList()),
-                    new Task(new Name("George Best"), new Time("9482"), new Description("anna's description"), new Location("4th street"), new UniqueTagList()),
-                    new Task(new Name("Hoon Meier"), new Time("8482"), new Description("stefan's description"), new Location("little india"), new UniqueTagList()),
-                    new Task(new Name("Ida Mueller"), new Time("8482"), new Description("hans's description"), new Location("chicago ave"), new UniqueTagList())
+                    new Task(new Name("Ali Muster"), new Time("12-10-2016"), new Period("10:00AM"), new Description("hans's description"), new Location("4th street"), new UniqueTagList()),
+                    new Task(new Name("Boris Mueller"), new Time("12-10-2016"), new Period("10:00AM"), new Description("ruth's description"), new Location("81th street"), new UniqueTagList()),
+                    new Task(new Name("Carl Kurz"), new Time("12-10-2016"), new Period("10:00AM"), new Description("heinz's description"), new Location("wall street"), new UniqueTagList()),
+                    new Task(new Name("Daniel Meier"), new Time("12-10-2016"), new Period("10:00AM"), new Description("cornelia's description"), new Location("10th street"), new UniqueTagList()),
+                    new Task(new Name("Elle Meyer"), new Time("12-10-2016"), new Period("10:00AM"), new Description("werner's description"), new Location("michegan ave"), new UniqueTagList()),
+                    new Task(new Name("Fiona Kunz"), new Time("12-10-2016"), new Period("10:00AM"), new Description("lydia's description"), new Location("little tokyo"), new UniqueTagList()),
+                    new Task(new Name("George Best"), new Time("12-10-2016"), new Period("10:00AM"), new Description("anna's description"), new Location("4th street"), new UniqueTagList()),
+                    new Task(new Name("Hoon Meier"), new Time("12-10-2016"), new Period("10:00AM"), new Description("stefan's description"), new Location("little india"), new UniqueTagList()),
+                    new Task(new Name("Ida Mueller"), new Time("12-10-2016"), new Period("10:00AM"), new Description("hans's description"), new Location("chicago ave"), new UniqueTagList())
             };
         } catch (IllegalValueException e) {
             assert false;
