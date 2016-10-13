@@ -136,7 +136,7 @@ Note how our CI server [Travis uses Coveralls to report code coverage](UsingTrav
 
 ## Apply Test Case Design Heuristics `[LO-TestCaseDesignHeuristics]`
 
-The [`StringUtilTest.java`](..\src\test\java\seedu\address\commons\util\StringUtilTest.java) class gives some examples
+The [`StringUtilTest.java`](../src/test/java/seedu/address/commons/util/StringUtilTest.java) class gives some examples
 of how to use _Equivalence Classes_, _Boundary Value Analysis_, and _Test Input Combination Heuristics_ to improve
 the efficiency and effectiveness of test cases.
 
