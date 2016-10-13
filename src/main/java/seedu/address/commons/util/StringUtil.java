@@ -30,7 +30,7 @@ public class StringUtil {
         String preppedSentence = sentence;
         String[] wordsInPreppedSentence = preppedSentence.split("\\s+");
 
-        for(String wordInSentence: wordsInPreppedSentence){
+        for (String wordInSentence: wordsInPreppedSentence){
             if (wordInSentence.equalsIgnoreCase(preppedWord)) return true;
         }
         return false;
