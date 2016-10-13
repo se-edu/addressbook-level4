@@ -3,6 +3,7 @@ package seedu.address.logic.parser;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.commands.*;
+import seedu.address.logic.parser.ArgumentTokenizer.*;
 
 import java.util.*;
 import java.util.regex.Matcher;
@@ -26,13 +27,10 @@ public class Parser {
     private static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
 
-    public static final NonPrefixedArgument nameArg = new NonPrefixedArgument("name");
-    public static final NonRepeatableArgument phoneNumberArg = new NonRepeatableArgument("phoneNumber", "p/");
-    public static final NonRepeatableArgument emailArg = new NonRepeatableArgument("email", "e/");
-    public static final NonRepeatableArgument addressArg = new NonRepeatableArgument("address", "a/");
-    public static final RepeatableArgument tagArgs = new RepeatableArgument("tags", "t/");
-    public static final List<Argument> addCmdArgs = Arrays.asList(
-            nameArg, phoneNumberArg, emailArg, addressArg, tagArgs);
+    public static final Prefix phoneNumberPrefix = new Prefix("p/");
+    public static final Prefix emailPrefix = new Prefix("e/");
+    public static final Prefix addressPrefix = new Prefix("a/");
+    public static final Prefix tagsPrefix = new Prefix("t/");
 
     public Parser() {}
 
@@ -88,16 +86,16 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareAdd(String args){
-        ArgumentTokenizer argsParser = new ArgumentTokenizer(Parser.addCmdArgs);
-        ParsedArguments parsedArguments = argsParser.tokenize(args.trim());
-
+        ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(phoneNumberPrefix, emailPrefix,
+                                                                addressPrefix, tagsPrefix);
+        argsTokenizer.tokenize(args);
         try {
             return new AddCommand(
-                    parsedArguments.getArgumentValue(nameArg).get(),
-                    parsedArguments.getArgumentValue(phoneNumberArg).get(),
-                    parsedArguments.getArgumentValue(emailArg).get(),
-                    parsedArguments.getArgumentValue(addressArg).get(),
-                    toSet(parsedArguments.getArgumentValue(tagArgs))
+                    argsTokenizer.getPreamble().get(),
+                    argsTokenizer.getValue(phoneNumberPrefix).get(),
+                    argsTokenizer.getValue(emailPrefix).get(),
+                    argsTokenizer.getValue(addressPrefix).get(),
+                    toSet(argsTokenizer.getValues(tagsPrefix))
             );
         } catch (NoSuchElementException nsee) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
