@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
+import java.time.temporal.ChronoUnit;
 import java.util.Locale;
 import java.util.Optional;
 
@@ -32,14 +33,14 @@ public class Time {
             + "(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep))|(?:1[0-2]|(?:Oct|Nov|Dec)))"
             + "\\4(?:(?:1[6-9]|[2-9]\\d)?\\d{2})$";
 
-    public static final String TIME_PARSE_FORMAT_CHOICE_12HR = "[h:mma]" + "[h.mma]" + "[hmma]]";
-    public static final String TIME_PARSE_FORMAT_CHOICE_24HR = "[k:mm]" + "[k.mm]" + "[kkmm]]";
+    public static final String TIME_PARSE_FORMAT_CHOICE_12HR = "[h:mma]" + "[h.mma]" + "[hmma]";
+    public static final String TIME_PARSE_FORMAT_CHOICE_24HR = "[k:mm]" + "[k.mm]" + "[kkmm]";
 
-    public static final String[] DATE_PARSE_FORMAT_UNTIMED_CHOICE = {"[dd-MM-uuuu]","[dd-MMM-uuuu]",
-            "[dd.MM.uuuu]","[dd.MMM.uuuu]", "[dd/MM/uuuu]","[dd/MMM/uuuu]"};
-
-    public static final String[] DATE_PARSE_FORMAT_TIMERANGE_CHOICE = {"[dd-MM-uuuu]","[dd-MMM-uuuu]",
-            "[dd.MM.uuuu]","[dd.MMM.uuuu]", "[dd/MM/uuuu]","[dd/MMM/uuuu]"};
+    public static final String[] DATE_PARSE_FORMAT_UNTIMED_CHOICE = {"[dd-M-uuuu]","[dd-MMM-uuuu]",
+            "[dd.M.uuuu]","[dd.MMM.uuuu]", "[dd/M/uuuu]","[dd/MMM/uuuu]","[uuuu-M-dd"};
+    
+    public static final String DATE_TIME_PRINT_FORMAT = "dd-MMM-uuuu h:mma";
+    public static final String XML_DATE_TIME_OPTIONAL_FORMAT = "uuuu-MM-dd HH:mm";
 
     public final String value; //value to store date in UK format
     public final LocalDateTime startDate; //US format by java YYYY-MM-DD
@@ -56,14 +57,12 @@ public class Time {
 
     public Time(String date) throws IllegalValueException {
         assert date != null;
-        if (!date.isEmpty()&&!isValidDate(date)) {
-            throw new IllegalValueException(MESSAGE_DATE_CONSTRAINTS);
-        }
+
         endDate = Optional.empty();
         isUntimed = true;
         DateTimeFormatter formatter = setDateFormatter();
-        this.startDate = LocalDateTime.parse(date, formatter);
-        System.out.println(this.startDate.toString()); //TO REMOVE
+        this.startDate = LocalDate.parse(date, formatter).atTime(LocalTime.now().truncatedTo(ChronoUnit.MINUTES));
+        System.out.println(this.startDate.toString()); //TODO: REMOVE
         value = timeToUkFormat();
     }
 
@@ -77,9 +76,7 @@ public class Time {
     public Time(String startDate, String startTime) throws IllegalValueException {
         assert startDate != null;
         assert startTime != null;
-        if (!startDate.isEmpty()&&!isValidDate(startDate)) {
-            throw new IllegalValueException(MESSAGE_DATE_CONSTRAINTS);
-        }
+        startTime = startTime.toUpperCase();
         endDate = Optional.empty();
         isUntimed = false;
         DateTimeFormatter dateFormatter = setDateFormatter();
@@ -96,17 +93,55 @@ public class Time {
         assert startDate != null;
         assert startTime != null;
         assert endTime != null;
-        if (!startDate.isEmpty()&&!isValidDate(startDate)) {
+/*        if (!startDate.isEmpty()&&!isValidDate(startDate)) {
             throw new IllegalValueException(MESSAGE_DATE_CONSTRAINTS);
-        }
+        }*/
         isUntimed = false;
+        startTime = startTime.toUpperCase();
+        endTime = endTime.toUpperCase();
         DateTimeFormatter formatter = setDateFormatter();
-        this.startDate = LocalDateTime.parse(startDate, formatter);
+        DateTimeFormatter timeFormatter = setTimeFormatter();
+        LocalDate localDate = LocalDate.parse(startDate, formatter);
+        LocalTime localstartTime = LocalTime.parse(startTime, timeFormatter);
+        LocalTime localendTime = LocalTime.parse(endTime, timeFormatter);
+        this.startDate = localDate.atTime(localstartTime);
+        this.endDate = Optional.ofNullable(localDate.atTime(localendTime));
+        
         System.out.println(this.startDate.toString()); //TO REMOVE
         System.out.println(this.endDate.toString()); // TO REMOVE
         value = timeToUkFormat();
     }
+    
+    /*
+     * @param, from XmlAdaptedTask
+     */
+    public Time (String startDate, boolean isUntimed) {
+        assert startDate != null;
 
+        System.out.println(startDate+"..!..");
+        this.startDate = LocalDateTime.parse(startDate, DateTimeFormatter.ofPattern(DATE_TIME_PRINT_FORMAT));
+        endDate = Optional.empty();
+        this.isUntimed = isUntimed;
+        value = startDate.toString();
+    }
+    
+    /*
+     * @param, from xmlAdapted Task
+     */
+    public Time (String startDate, String endDate, boolean isUntimed) {
+        endDate = fixStoredDataXml(endDate);
+        this.startDate = LocalDateTime.parse(startDate, DateTimeFormatter.ofPattern(DATE_TIME_PRINT_FORMAT));
+        this.endDate = Optional.of(LocalDateTime.parse(endDate, DateTimeFormatter.ofPattern(XML_DATE_TIME_OPTIONAL_FORMAT)));
+        this.isUntimed = isUntimed;
+        value = startDate.toString();
+    }
+
+
+    private String fixStoredDataXml(String endDate) {
+        endDate = endDate.replaceAll("[^\\d-:]", " ");
+        endDate = endDate.trim();
+        return endDate;
+    }
 
     /*
      * Initialize the date formatter for parsing different types of date formats.
@@ -129,12 +164,14 @@ public class Time {
         return formatter;
     }
 
-  //Store date as UK-format string
-    private String timeToUkFormat() {
-        return startDate.format(DateTimeFormatter.ofPattern("dd-MMM-uuuu"));
-
+   //Store date as UK-format string
+    public String timeToUkFormat() {
+        if(isUntimed)
+            return startDate.format(DateTimeFormatter.ofPattern("dd-MMM-uuuu"));
+        else 
+            return startDate.format(DateTimeFormatter.ofPattern("dd-MMM-uuuu h:mma"));
     }
-
+        
     /**
      * Returns true if a given string is a valid task time.
      */
@@ -160,6 +197,10 @@ public class Time {
     @Override
     public int hashCode() {
         return value.hashCode();
+    }
+    
+    public Optional<LocalDateTime> getEndDate() {
+        return endDate;
     }
 
 }
