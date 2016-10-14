@@ -52,6 +52,46 @@ public class AddCommand extends Command implements Undoable {
         isExecutedBefore = false;
     }
 
+    /*
+     * Task with time only
+     */
+    public AddCommand(String name, String date, String startTime, String period, String description, String address, Set<String> tags)
+            throws IllegalValueException {
+        final Set<Tag> tagSet = new HashSet<>();
+        for (String tagName : tags) {
+            tagSet.add(new Tag(tagName));
+        }
+        this.toAdd = new Task(
+                new Name(name),
+                new Time(date, startTime),
+                new Period(period),
+                new Description(description),
+                new Location(address),
+                new UniqueTagList(tagSet)
+        );
+        isExecutedBefore = false;
+    }
+
+    /*
+     * rangeTask
+     */
+    public AddCommand(String name, String date, String startTime, String endTime, String period, String description, String address, Set<String> tags)
+            throws IllegalValueException {
+        final Set<Tag> tagSet = new HashSet<>();
+        for (String tagName : tags) {
+            tagSet.add(new Tag(tagName));
+        }
+        this.toAdd = new Task(
+                new Name(name),
+                new Time(date, startTime, endTime),
+                new Period(period),
+                new Description(description),
+                new Location(address),
+                new UniqueTagList(tagSet)
+        );
+        isExecutedBefore = false;
+    }
+
     @Override
     public CommandResult execute() {
         assert model != null;

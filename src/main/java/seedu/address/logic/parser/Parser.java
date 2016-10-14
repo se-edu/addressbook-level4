@@ -32,7 +32,7 @@ public class Parser {
                     + "(( et;(?<period>[^;]+))?)"
             		+ "(( (?<isDescriptionPrivate>p?)d;(?<description>[^;]+))?)"
             		+ "(( (?<isAddressPrivate>p?)a;(?<address>[^/]+))?)"
-            		+ "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags    
+            		+ "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
 
     private static final Pattern PERSON_EDIT_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<targetIndex>\\d)"
@@ -42,6 +42,27 @@ public class Parser {
                     + "(( (?<isEmailPrivate>p?)d;(?<email>[^;]+))?)"
                     + "(( (?<isAddressPrivate>p?)a;(?<address>[^/]+))?)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
+
+    public static final String TIME_VALIDATION_REGEX = "((1[012]|0?[1-9])[:.]?[0-5][0-9]([aApP][mM]))|"
+            + "(([01]\\d|2[0-3])[:.]?([0-5]\\d))";
+
+    public static final String DATE_VALIDATION_REGEX = "(?:(?:31(\\/|-|\\.)(?:0?[13578]|1[02]|"
+            + "(?:Jan|Mar|May|Jul|Aug|Oct|Dec)))\\1|(?:(?:29|30)(\\/|-|\\.)(?:0?[1,3-9]|1[0-2]|"
+            + "(?:Jan|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec))\\2))(?:(?:1[6-9]|[2-9]\\d)?\\d{2})$|^"
+            + "(?:29(\\/|-|\\.)(?:0?2|(?:Feb))\\3(?:(?:(?:1[6-9]|[2-9]\\d)?(?:0[48]|[2468][048]|[13579][26])|"
+            + "(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\\d|2[0-8])(\\/|-|\\.)(?:(?:0?[1-9]|"
+            + "(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep))|(?:1[0-2]|(?:Oct|Nov|Dec)))"
+            + "\\4(?:(?:1[6-9]|[2-9]\\d)?\\d{2})";
+
+    public static final String DATE_TIME_VALIDATION_REGEX = DATE_VALIDATION_REGEX
+            +"(\\s("+TIME_VALIDATION_REGEX+")(\\s("+TIME_VALIDATION_REGEX+"))?)?";
+
+    public static final String MESSAGE_DATE_TIME_CONSTRAINTS = "Task Dates and Time should be in valid UK-format "
+            + "Date [Optional]Time [Optional]Time"
+            + "DD/MMM/YYYY or DD/MM/YYYY or DD.MM.YYYY or DD.MMM.YYY or DD-MM-YYYY or DD-MMM-YYYY"
+            + "12Hour format with AM/PM required or 24Hour format without AM/PM"
+            + "eg: 10-12-2012 09:00AM 23:59PM";
+    enum TaskType { UNTIMED, DEADLINE, TIMERANGE }
 
     public Parser() {}
 
@@ -109,23 +130,60 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareAdd(String args){
+        String[] dateTimeArgs;
         final Matcher matcher = TASK_DATA_ARGS_FORMAT.matcher(args.trim());
         // Validate arg string format
         if (!matcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
         try {
-            return new AddCommand(
-                    matcher.group("name"),
-                    matcher.group("time")==null?" ":matcher.group("time"),
-                    matcher.group("period")==null?"23:59":matcher.group("period"),
-                    matcher.group("description")==null?" ":matcher.group("description"),
-                    matcher.group("address")==null?" ":matcher.group("address"),
-                    getTagsFromArgs(matcher.group("tagArguments"))
-            );
+            String validateDateTimeArgs = matcher.group("time");
+            if(!validateDateTimeArgs.matches(DATE_TIME_VALIDATION_REGEX)){
+                throw new IllegalValueException(MESSAGE_DATE_TIME_CONSTRAINTS);
+            }
+            dateTimeArgs = prepareAddTimeArgs(validateDateTimeArgs);
+            TaskType taskType = TaskType.values()[(dateTimeArgs.length-1)];
+            switch (taskType) {
+                case UNTIMED:
+                    return new AddCommand(
+                            matcher.group("name"),
+                            matcher.group("time")==null?" ":matcher.group("time"),
+                            matcher.group("period")==null?"2359":matcher.group("period"),
+                            matcher.group("description")==null?" ":matcher.group("description"),
+                            matcher.group("address")==null?" ":matcher.group("address"),
+                            getTagsFromArgs(matcher.group("tagArguments"))
+                    );
+                case DEADLINE:
+                    return new AddCommand(
+                            matcher.group("name"),
+                            dateTimeArgs[0], dateTimeArgs[1],
+                            matcher.group("period")==null?"2359":matcher.group("period"),
+                            matcher.group("description")==null?" ":matcher.group("description"),
+                            matcher.group("address")==null?" ":matcher.group("address"),
+                            getTagsFromArgs(matcher.group("tagArguments"))
+                    );
+                case TIMERANGE:
+                    return new AddCommand(
+                            matcher.group("name"),
+                            dateTimeArgs[0], dateTimeArgs[1], dateTimeArgs[2],
+                            matcher.group("period")==null?"2359":matcher.group("period"),
+                            matcher.group("description")==null?" ":matcher.group("description"),
+                            matcher.group("address")==null?" ":matcher.group("address"),
+                            getTagsFromArgs(matcher.group("tagArguments"))
+                    );
+                default:
+                    assert false: "Not suppose to happen.";
+                    return null;
+            }
+
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }
+    }
+
+    private String[] prepareAddTimeArgs(String dateTimeInput) {
+        String[] dateTimeSplitted = dateTimeInput.split(" ");
+        return dateTimeSplitted;
     }
 
     /**
