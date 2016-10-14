@@ -12,13 +12,13 @@ public class ArgumentTokenizer {
      * A valid prefix that may appear in the arguments string
      */
     public static class Prefix {
-        protected final String prefix;
+        final String prefix;
 
-        public Prefix(String prefix) {
+        Prefix(String prefix) {
             this.prefix = prefix;
         }
 
-        public String getPrefix() {
+        String getPrefix() {
             return this.prefix;
         }
 
@@ -48,16 +48,16 @@ public class ArgumentTokenizer {
         private int startPos;
         private final Prefix prefix;
 
-        public PrefixPosition(Prefix prefix, int startPos) {
+        PrefixPosition(Prefix prefix, int startPos) {
             this.prefix = prefix;
             this.startPos = startPos;
         }
 
-        public int getStartPos() {
+        int getStartPosition() {
             return this.startPos;
         }
 
-        public Prefix getPrefix() {
+        Prefix getPrefix() {
             return this.prefix;
         }
     }
@@ -79,7 +79,6 @@ public class ArgumentTokenizer {
     public void tokenize(String argsString) {
         resetTokenizerState();
         List<PrefixPosition> positions = findAllPrefixPositions(argsString);
-        positions.sort((prefix1, prefix2) -> prefix1.getStartPos() - prefix2.getStartPos());
         extractArguments(argsString, positions);
     }
 
@@ -146,11 +145,14 @@ public class ArgumentTokenizer {
     }
 
     /**
-     * Extracts the values of each argument and store them in `tokenizedArguments`.
-     * This method requires `prefixPositions` to fully reflects all prefixes in the
-     * `argsString` and sorted according to each prefix's starting position.
+     * Extracts the values of each argument and store them in {@link #tokenizedArguments}.
+     * This method requires {@code prefixPositions} to contain all prefixes in the {@code argsString}
      */
     private void extractArguments(String argsString, List<PrefixPosition> prefixPositions) {
+
+        // Sort by start position
+        prefixPositions.sort((prefix1, prefix2) -> prefix1.getStartPosition() - prefix2.getStartPosition());
+
         this.preamble = extractPreamble(argsString, prefixPositions);
 
         for (int i = 0; i < prefixPositions.size() - 1; i++) {
@@ -177,8 +179,8 @@ public class ArgumentTokenizer {
 
         String value = "";
         PrefixPosition firstPrefixPosition = prefixPositions.get(0);
-        if (firstPrefixPosition.getStartPos() > 0) {
-            value = argsString.substring(0, firstPrefixPosition.getStartPos()).trim();
+        if (firstPrefixPosition.getStartPosition() > 0) {
+            value = argsString.substring(0, firstPrefixPosition.getStartPosition()).trim();
         }
 
         return value;
@@ -189,8 +191,8 @@ public class ArgumentTokenizer {
                                          PrefixPosition nextPrefixPosition) {
         Prefix prefix = currentPrefixPosition.getPrefix();
 
-        int valueStartPos = currentPrefixPosition.getStartPos() + prefix.getPrefix().length();
-        String value = argsString.substring(valueStartPos, nextPrefixPosition.getStartPos());
+        int valueStartPos = currentPrefixPosition.getStartPosition() + prefix.getPrefix().length();
+        String value = argsString.substring(valueStartPos, nextPrefixPosition.getStartPosition());
 
         return value.trim();
     }
@@ -198,7 +200,7 @@ public class ArgumentTokenizer {
     private String extractLastArgument(String argsString, PrefixPosition lastPrefixPosition) {
         Prefix prefix = lastPrefixPosition.getPrefix();
 
-        int valueStartPos = lastPrefixPosition.getStartPos() + prefix.getPrefix().length();
+        int valueStartPos = lastPrefixPosition.getStartPosition() + prefix.getPrefix().length();
         String value = argsString.substring(valueStartPos);
 
         return value.trim();
