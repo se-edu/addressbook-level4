@@ -9,7 +9,8 @@ import java.util.*;
  */
 public class ArgumentTokenizer {
     /**
-     * A valid prefix that may appear in the arguments string
+     * A prefix that marks the beginning of an argument
+     * e.g. '/t' in 'add James /t friend'
      */
     public static class Prefix {
         final String prefix;
@@ -145,15 +146,21 @@ public class ArgumentTokenizer {
     }
 
     /**
-     * Extracts the values of each argument and store them in {@link #tokenizedArguments}.
-     * This method requires {@code prefixPositions} to contain all prefixes in the {@code argsString}
+     * Extracts the preamble/arguments and stores them in local variables.
+     * @param prefixPositions must contain all prefixes in the {@code argsString}
      */
     private void extractArguments(String argsString, List<PrefixPosition> prefixPositions) {
+
+        // If no prefixes, the whole string is taken as preamble
+        if (prefixPositions.isEmpty()){
+            this.preamble = argsString.trim();
+            return;
+        }
 
         // Sort by start position
         prefixPositions.sort((prefix1, prefix2) -> prefix1.getStartPosition() - prefix2.getStartPosition());
 
-        this.preamble = extractPreamble(argsString, prefixPositions);
+        this.preamble = extractPreamble(argsString, prefixPositions.get(0));
 
         for (int i = 0; i < prefixPositions.size() - 1; i++) {
             PrefixPosition currentPrefixPosition = prefixPositions.get(i);
@@ -162,28 +169,16 @@ public class ArgumentTokenizer {
             saveArgument(currentPrefixPosition.getPrefix(), argValue);
         }
 
-        if (!prefixPositions.isEmpty()) {
-            PrefixPosition lastPrefixPosition = prefixPositions.get(prefixPositions.size() - 1);
-            String argValue = extractLastArgument(argsString, lastPrefixPosition);
-            saveArgument(lastPrefixPosition.getPrefix(), argValue);
-        }
+        PrefixPosition lastPrefixPosition = prefixPositions.get(prefixPositions.size() - 1);
+        String argValue = extractLastArgument(argsString, lastPrefixPosition);
+        saveArgument(lastPrefixPosition.getPrefix(), argValue);
     }
 
     /**
-     * Extracts and stores the preamble part of the `argsString`
+     * Returns the preamble part of the {@code argsString}
      */
-    private String extractPreamble(String argsString, List<PrefixPosition> prefixPositions) {
-        if (prefixPositions.isEmpty()) {
-            return argsString.trim();
-        }
-
-        String value = "";
-        PrefixPosition firstPrefixPosition = prefixPositions.get(0);
-        if (firstPrefixPosition.getStartPosition() > 0) {
-            value = argsString.substring(0, firstPrefixPosition.getStartPosition()).trim();
-        }
-
-        return value;
+    private String extractPreamble(String argsString, PrefixPosition firstPrefixPosition) {
+        return argsString.substring(0, firstPrefixPosition.getStartPosition()).trim();
     }
 
     private String extractMiddleArgument(String argsString,
