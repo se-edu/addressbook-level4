@@ -93,7 +93,7 @@ public class EditCommand extends Command {
             }
             if (period == " "){
                 Period periodToDelete = taskToDelete.getPeriod();
-                time = periodToDelete.toString();
+                period = periodToDelete.toString();
             }
             if (description == " "){
                 Description descriptionToDelete = taskToDelete.getDescription();
