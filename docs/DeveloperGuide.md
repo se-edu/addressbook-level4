@@ -25,6 +25,7 @@
 3. **e(fx)clipse** plugin for Eclipse (Do the steps 2 onwards given in
    [this page](http://www.eclipse.org/efxclipse/install.html#for-the-ambitious))
 4. **Buildship Gradle Integration** plugin from the Eclipse Marketplace
+5. **Checkstyle Plug-in** plugin from the Eclipse Marketplace
 
 
 #### Importing the project into Eclipse
