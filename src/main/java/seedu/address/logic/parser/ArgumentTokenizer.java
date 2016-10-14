@@ -130,7 +130,7 @@ public class ArgumentTokenizer {
     }
 
     /**
-     * Finds all positions in an arguments string at which a given `prefix` appears
+     * Finds all positions in an arguments string at which a given {@code prefix} appears
      */
     private List<PrefixPosition> findPrefixPositions(String argsString, Prefix prefix) {
         List<PrefixPosition> positions = new ArrayList<>();
@@ -151,52 +151,34 @@ public class ArgumentTokenizer {
      */
     private void extractArguments(String argsString, List<PrefixPosition> prefixPositions) {
 
-        // If no prefixes, the whole string is taken as preamble
-        if (prefixPositions.isEmpty()){
-            this.preamble = argsString.trim();
-            return;
-        }
-
         // Sort by start position
         prefixPositions.sort((prefix1, prefix2) -> prefix1.getStartPosition() - prefix2.getStartPosition());
 
-        this.preamble = extractPreamble(argsString, prefixPositions.get(0));
+        // Insert a dummy PrefixPosition to represent the beginning of the string
+        PrefixPosition startPositionMarker = new PrefixPosition(new Prefix(""), 0);
+        prefixPositions.add(0, startPositionMarker);
 
-        for (int i = 0; i < prefixPositions.size() - 1; i++) {
-            PrefixPosition currentPrefixPosition = prefixPositions.get(i);
-            PrefixPosition nextPrefixPosition = prefixPositions.get(i + 1);
-            String argValue = extractMiddleArgument(argsString, currentPrefixPosition, nextPrefixPosition);
-            saveArgument(currentPrefixPosition.getPrefix(), argValue);
+        // Add a dummy PrefixPosition to the end to represent the end of the string
+        PrefixPosition endPositionMarker = new PrefixPosition(new Prefix(""), argsString.length());
+        prefixPositions.add(endPositionMarker);
+
+        this.preamble = extractArgumentValue(argsString, prefixPositions.get(0), prefixPositions.get(1));
+
+        // Extract the prefixed arguments, starting with index 1 (as index 0 is used by the preamble)
+        for (int i = 1; i < prefixPositions.size() - 1; i++) {
+            String argValue = extractArgumentValue(argsString, prefixPositions.get(i), prefixPositions.get(i + 1));
+            saveArgument(prefixPositions.get(i).getPrefix(), argValue);
         }
 
-        PrefixPosition lastPrefixPosition = prefixPositions.get(prefixPositions.size() - 1);
-        String argValue = extractLastArgument(argsString, lastPrefixPosition);
-        saveArgument(lastPrefixPosition.getPrefix(), argValue);
     }
 
-    /**
-     * Returns the preamble part of the {@code argsString}
-     */
-    private String extractPreamble(String argsString, PrefixPosition firstPrefixPosition) {
-        return argsString.substring(0, firstPrefixPosition.getStartPosition()).trim();
-    }
-
-    private String extractMiddleArgument(String argsString,
-                                         PrefixPosition currentPrefixPosition,
-                                         PrefixPosition nextPrefixPosition) {
+    private String extractArgumentValue(String argsString,
+                                        PrefixPosition currentPrefixPosition,
+                                        PrefixPosition nextPrefixPosition) {
         Prefix prefix = currentPrefixPosition.getPrefix();
 
         int valueStartPos = currentPrefixPosition.getStartPosition() + prefix.getPrefix().length();
         String value = argsString.substring(valueStartPos, nextPrefixPosition.getStartPosition());
-
-        return value.trim();
-    }
-
-    private String extractLastArgument(String argsString, PrefixPosition lastPrefixPosition) {
-        Prefix prefix = lastPrefixPosition.getPrefix();
-
-        int valueStartPos = lastPrefixPosition.getStartPosition() + prefix.getPrefix().length();
-        String value = argsString.substring(valueStartPos);
 
         return value.trim();
     }
