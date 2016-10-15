@@ -389,7 +389,7 @@ public class LogicManagerTest {
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
-            return new Task(name, Optional.ofNullable(privateTime), period, description, privateAddress, tags);
+            return new Task(name, Optional.of(privateTime), period, description, privateAddress, tags);
         }
 
         /**
@@ -417,7 +417,7 @@ public class LogicManagerTest {
             cmd.append("add ");
 
             cmd.append(p.getName().toString());
-            cmd.append(" t;").append(p.getTime());
+            cmd.append(" t;").append(p.getTime().get().getStartDateString());
             cmd.append(" et;").append(p.getPeriod());
             cmd.append(" d;").append(p.getDescription());
             cmd.append(" a;").append(p.getLocation());

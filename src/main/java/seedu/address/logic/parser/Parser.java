@@ -140,7 +140,7 @@ public class Parser {
         try {
             String validateDateTimeArgs = matcher.group("time");
             if(validateDateTimeArgs !=null) {
-                validateDateTimeArgs = validateDateTimeArgs.trim().toUpperCase();
+                validateDateTimeArgs = validateDateTimeArgs.trim();
                 if(!validateDateTimeArgs.matches(DATE_TIME_VALIDATION_REGEX)){
                     throw new IllegalValueException(MESSAGE_DATE_TIME_CONSTRAINTS);
                 }

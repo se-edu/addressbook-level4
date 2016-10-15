@@ -89,9 +89,8 @@ public class EditCommand extends Command {
                 name = nameToDelete.toString();
             }
             if (time == " "){
-                Time timeToDelete = taskToDelete.getTime().get(); //TODO: temporary fix
-                time = timeToDelete.toString();
-            }
+                time = taskToDelete.getTime().get().getStartDateString(); //TODO: temporary fix
+            } 
             if (period == " "){
                 Period periodToDelete = taskToDelete.getPeriod();
                 period = periodToDelete.toString();

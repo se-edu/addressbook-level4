@@ -40,6 +40,7 @@ public class Time {
             "[dd.M.uuuu]","[dd.MMM.uuuu]", "[dd/M/uuuu]","[dd/MMM/uuuu]","[uuuu-M-dd"};
     
     public static final String DATE_TIME_PRINT_FORMAT = "dd-MMM-uuuu h:mma";
+    public static final String DATE_PRINT_FORMAT = "dd-MMM-uuuu";
     public static final String XML_DATE_TIME_OPTIONAL_FORMAT = "uuuu-MM-dd HH:mm";
 
     public final String value; //value to store date in UK format
@@ -50,19 +51,32 @@ public class Time {
     /**
      * Validates given date.
      *
-     * @param a string consisting of only the date
+     * @param a string consisting of only the date i.e dd-MMM-YYYY no time
      * @return an untimed date for untimed task
      * @throws IllegalValueException if given time string is invalid.
      */
 
     public Time(String date) throws IllegalValueException {
         assert date != null;
-
+        date = fixStoredDataForTest(date);
+        assert (isValidDate(date)); // if this fails, you have used the wrong constructor        
         endDate = Optional.empty();
         isUntimed = true;
         DateTimeFormatter formatter = setDateFormatter();
         this.startDate = LocalDate.parse(date, formatter).atTime(LocalTime.now().truncatedTo(ChronoUnit.MINUTES));
         value = timeToUkFormat();
+    }
+    
+    /*
+     * For formatting to date when receiving for LogicTest Manager
+     * 
+     * @param date format given by LogictestManager
+     */
+    private String fixStoredDataForTest(String date) {
+        date = date.replaceAll("(Optional\\[)", " ");
+        date = date.replaceAll("\\]", " "); 
+        date = date.trim();
+        return date;
     }
 
     /**
@@ -99,6 +113,7 @@ public class Time {
 /*        if (!startDate.isEmpty()&&!isValidDate(startDate)) {
             throw new IllegalValueException(MESSAGE_DATE_CONSTRAINTS);
         }*/
+        
         isUntimed = false;
         startTime = startTime.toUpperCase();
         endTime = endTime.toUpperCase();
@@ -140,7 +155,12 @@ public class Time {
         value = timeToUkFormat();
     }
 
-
+    /*
+     * To remove the delimiters java uses to store a Optional date time
+     * 
+     * @param a string which bypass parser validation due to receiving from system containing [Optional]date time
+     * @return a formatted date time
+     */
     private String fixStoredDataXml(String endDate) {
         endDate = endDate.replaceAll("[^\\d-:]", " ");
         endDate = endDate.trim();
@@ -177,9 +197,9 @@ public class Time {
    //Store date as UK-format string
     public String timeToUkFormat() {
         if(isUntimed)
-            return startDate.format(DateTimeFormatter.ofPattern("dd-MMM-uuuu"));
+            return startDate.format(DateTimeFormatter.ofPattern(DATE_PRINT_FORMAT));
         else 
-            return startDate.format(DateTimeFormatter.ofPattern("dd-MMM-uuuu h:mma"));
+            return startDate.format(DateTimeFormatter.ofPattern(DATE_TIME_PRINT_FORMAT));
     }
         
     /**
@@ -194,7 +214,7 @@ public class Time {
 
     @Override
     public String toString() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d-MMM-uuuu");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_PRINT_FORMAT);
         String text = startDate.format(formatter);
         return text;
     }
@@ -213,6 +233,15 @@ public class Time {
     
     public Optional<LocalDateTime> getEndDate() {
         return endDate;
+    }
+
+    public String getStartDateString() {
+        if (isUntimed) {
+            return startDate.toLocalDate().format(DateTimeFormatter.ofPattern(DATE_PRINT_FORMAT));
+        } else {
+            return startDate.format(DateTimeFormatter.ofPattern(DATE_TIME_PRINT_FORMAT));
+        }
+            
     }
 
 }
