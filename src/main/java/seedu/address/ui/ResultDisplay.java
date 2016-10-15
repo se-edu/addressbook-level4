@@ -30,9 +30,9 @@ public class ResultDisplay extends UiPart {
     private AnchorPane mainPane;
 
     public static ResultDisplay load(Stage primaryStage, AnchorPane placeHolder) {
-        ResultDisplay statusBar = UiPartLoader.loadUiPart(primaryStage, placeHolder, new ResultDisplay());
-        statusBar.configure();
-        return statusBar;
+        ResultDisplay resultDisplay = UiPartLoader.loadUiPart(primaryStage, placeHolder, new ResultDisplay());
+        resultDisplay.configure();
+        return resultDisplay;
     }
 
     private void configure() {
