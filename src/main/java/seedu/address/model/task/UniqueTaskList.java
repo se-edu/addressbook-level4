@@ -3,6 +3,7 @@ package seedu.address.model.task;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.CollectionUtil;
+import seedu.address.commons.core.SortedObservableArrayList;
 import seedu.address.commons.exceptions.DuplicateDataException;
 
 import java.util.*;
@@ -32,8 +33,7 @@ public class UniqueTaskList implements Iterable<Task> {
      */
     public static class TaskNotFoundException extends Exception {}
 
-    private final ObservableList<Task> internalList = FXCollections.observableArrayList();
-
+    private final ObservableList<Task> internalList = new SortedObservableArrayList<Task>();
     /**
      * Constructs empty TaskList.
      */
