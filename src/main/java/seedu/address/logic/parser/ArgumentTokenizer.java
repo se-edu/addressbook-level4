@@ -3,13 +3,16 @@ package seedu.address.logic.parser;
 import java.util.*;
 
 /**
- * Tokenizes arguments string of the form: preamble <prefix>value <prefix>value ...
- * An argument's value is assumed to not contain its prefix and any leading or trailing
- * whitespaces will be discarded. An argument may be repeated and all its values will be accumulated.
+ * Tokenizes arguments string of the form: {@code preamble <prefix>value <prefix>value ...}<br>
+ *     e.g. {@code some preamble text /t 11.00/dToday /t 12.00 /k /m July}  where prefixes are {@code /t /d /k /m}.<br>
+ * 1. An argument's value can be an empty string e.g. the value of {@code /k} in the above example.<br>
+ * 2. Leading and trailing whitespaces of an argument value will be discarded.<br>
+ * 3. A prefix need not have leading and trailing spaces e.g. the {@code /d in 11.00/dToday} in the above example<br>
+ * 4. An argument may be repeated and all its values will be accumulated e.g. the value of {@code /t} in the above example.<br>
  */
 public class ArgumentTokenizer {
     /**
-     * A prefix that marks the beginning of an argument
+     * A prefix that marks the beginning of an argument.
      * e.g. '/t' in 'add James /t friend'
      */
     public static class Prefix {
@@ -43,19 +46,19 @@ public class ArgumentTokenizer {
     }
 
     /**
-     * Contains a prefix's position in an arguments string and corresponding prefix
+     * Represents a prefix's position in an arguments string
      */
     private class PrefixPosition {
-        private int startPos;
+        private int startPosition;
         private final Prefix prefix;
 
-        PrefixPosition(Prefix prefix, int startPos) {
+        PrefixPosition(Prefix prefix, int startPosition) {
             this.prefix = prefix;
-            this.startPos = startPos;
+            this.startPosition = startPosition;
         }
 
         int getStartPosition() {
-            return this.startPos;
+            return this.startPosition;
         }
 
         Prefix getPrefix() {
@@ -63,8 +66,10 @@ public class ArgumentTokenizer {
         }
     }
 
+    /** Given prefixes **/
     private final List<Prefix> prefixes;
-    private String preamble = "";
+
+    /** Arguments found after tokenizing **/
     private final Map<Prefix, List<String>> tokenizedArguments = new HashMap<>();
 
     /**
@@ -75,7 +80,7 @@ public class ArgumentTokenizer {
     }
 
     /**
-     * @param argsString arguments string of the form: preamble <prefix>data <prefix>data ...
+     * @param argsString arguments string of the form: preamble <prefix>value <prefix>value ...
      */
     public void tokenize(String argsString) {
         resetTokenizerState();
@@ -87,13 +92,13 @@ public class ArgumentTokenizer {
      * Returns last value of given prefix.
      */
     public Optional<String> getValue(Prefix prefix) {
-        return getValues(prefix).flatMap((values) -> Optional.of(values.get(values.size() - 1)));
+        return getAllValues(prefix).flatMap((values) -> Optional.of(values.get(values.size() - 1)));
     }
 
     /**
-     * Returns all values of given prefix
+     * Returns all values of given prefix.
      */
-    public Optional<List<String>> getValues(Prefix prefix) {
+    public Optional<List<String>> getAllValues(Prefix prefix) {
         if (!this.tokenizedArguments.containsKey(prefix)) {
             return Optional.empty();
         }
@@ -102,17 +107,22 @@ public class ArgumentTokenizer {
     }
 
     /**
-     * Returns the text before the first valid prefix, if any
+     * Returns the preamble (text before the first valid prefix), if any. Leading/trailing spaces will be trimmed.
+     *     If the string before the first prefix is empty, Optional.empty() will be returned.
      */
     public Optional<String> getPreamble() {
-        if (this.preamble.isEmpty()) {
+
+        Optional<String> storedPreamble = getValue(new Prefix(""));
+
+        /* An empty preamble is considered 'no preamble present' */
+        if ( storedPreamble.isPresent() && !storedPreamble.get().isEmpty()) {
+            return storedPreamble;
+        } else {
             return Optional.empty();
         }
-        return Optional.of(this.preamble);
     }
 
     private void resetTokenizerState() {
-        this.preamble = "";
         this.tokenizedArguments.clear();
     }
 
@@ -154,18 +164,16 @@ public class ArgumentTokenizer {
         // Sort by start position
         prefixPositions.sort((prefix1, prefix2) -> prefix1.getStartPosition() - prefix2.getStartPosition());
 
-        // Insert a dummy PrefixPosition to represent the beginning of the string
-        PrefixPosition startPositionMarker = new PrefixPosition(new Prefix(""), 0);
-        prefixPositions.add(0, startPositionMarker);
+        // Insert a PrefixPosition to represent the preamble
+        PrefixPosition preambleMarker = new PrefixPosition(new Prefix(""), 0);
+        prefixPositions.add(0, preambleMarker);
 
-        // Add a dummy PrefixPosition to the end to represent the end of the string
+        // Add a dummy PrefixPosition to represent the end of the string
         PrefixPosition endPositionMarker = new PrefixPosition(new Prefix(""), argsString.length());
         prefixPositions.add(endPositionMarker);
 
-        this.preamble = extractArgumentValue(argsString, prefixPositions.get(0), prefixPositions.get(1));
-
-        // Extract the prefixed arguments, starting with index 1 (as index 0 is used by the preamble)
-        for (int i = 1; i < prefixPositions.size() - 1; i++) {
+        // Extract the prefixed arguments
+        for (int i = 0; i < prefixPositions.size() - 1; i++) {
             String argValue = extractArgumentValue(argsString, prefixPositions.get(i), prefixPositions.get(i + 1));
             saveArgument(prefixPositions.get(i).getPrefix(), argValue);
         }

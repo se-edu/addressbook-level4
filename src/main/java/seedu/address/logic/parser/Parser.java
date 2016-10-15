@@ -94,7 +94,7 @@ public class Parser {
                     argsTokenizer.getValue(phoneNumberPrefix).get(),
                     argsTokenizer.getValue(emailPrefix).get(),
                     argsTokenizer.getValue(addressPrefix).get(),
-                    toSet(argsTokenizer.getValues(tagsPrefix))
+                    toSet(argsTokenizer.getAllValues(tagsPrefix))
             );
         } catch (NoSuchElementException nsee) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
