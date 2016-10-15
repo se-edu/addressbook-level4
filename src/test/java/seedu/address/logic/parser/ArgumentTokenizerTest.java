@@ -1,140 +1,130 @@
 package seedu.address.logic.parser;
 
-import org.junit.BeforeClass;
 import org.junit.Test;
 import seedu.address.logic.parser.ArgumentTokenizer.Prefix;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import static org.junit.Assert.assertEquals;
-import static seedu.address.logic.parser.Parser.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
 
 public class ArgumentTokenizerTest {
-    /**
-     * Makes sure that static members of Parser are initialized
-     */
-    @BeforeClass
-    public static void initParser() {
-        Parser parser = new Parser();
+
+    private final Prefix unknownPrefix = new Prefix("--u");
+    private final Prefix slashP = new Prefix("/p");
+    private final Prefix dashT = new Prefix("-t");
+    private final Prefix hatQ = new Prefix("^Q");
+
+
+    @Test
+    public void tokenize_emptyArgsString_noValues() {
+        ArgumentTokenizer tokenizer = new ArgumentTokenizer(slashP);
+        String argsString = "  ";
+        tokenizer.tokenize(argsString);
+
+        assertPreambleAbsent(tokenizer);
+        assertArgumentAbsent(tokenizer, slashP);
+    }
+
+    private void assertPreamblePresent(ArgumentTokenizer argsTokenizer, String expectedPreamble) {
+        assertEquals(expectedPreamble, argsTokenizer.getPreamble().get());
+    }
+
+    private void assertPreambleAbsent(ArgumentTokenizer argsTokenizer) {
+        assertFalse(argsTokenizer.getPreamble().isPresent());
+    }
+
+    private void assertArgumentPresent(ArgumentTokenizer argsTokenizer, Prefix prefix, String... expectedValues) {
+
+        // Verify the last value is returned
+        assertEquals(expectedValues[expectedValues.length - 1], argsTokenizer.getValue(prefix).get());
+
+        // Verify the number of values returned is as expected
+        assertEquals(expectedValues.length, argsTokenizer.getValues(prefix).get().size());
+
+        // Verify all values returned are as expected and in order
+        for (int i = 0; i < expectedValues.length; i++) {
+            assertEquals(expectedValues[i], argsTokenizer.getValues(prefix).get().get(i));
+        }
+    }
+
+    private void assertArgumentAbsent(ArgumentTokenizer argsTokenizer, Prefix prefix) {
+        assertFalse(argsTokenizer.getValue(prefix).isPresent());
     }
 
     @Test
-    public void tokenize_validAddCmdArgsNoTags() {
-        ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(phoneNumberPrefix, emailPrefix,
-                                                                addressPrefix, tagsPrefix);
-        argsTokenizer.tokenize("John Doe p/98765432 e/johnd@gmail.com a/John street, block 123, #01-01");
+    public void tokenize_noPrefixes_allTakenAsPreamble() {
+        ArgumentTokenizer tokenizer = new ArgumentTokenizer();
+        String argsString = "  some random string /t tag with leading and trailing spaces ";
+        tokenizer.tokenize(argsString);
 
-        assertEquals("John Doe", argsTokenizer.getPreamble().get());
-        assertEquals("98765432", argsTokenizer.getValue(phoneNumberPrefix).get());
-        assertEquals("johnd@gmail.com", argsTokenizer.getValue(Parser.emailPrefix).get());
-        assertEquals("John street, block 123, #01-01", argsTokenizer.getValue(addressPrefix).get());
+        // Same string expected as preamble, but leading/trailing spaces should be trimmed
+        assertPreamblePresent(tokenizer, argsString.trim());
+
+        // Prefixes not previously given to the tokenizer should not return any values
+        assertArgumentAbsent(tokenizer, unknownPrefix);
+
     }
 
     @Test
-    public void tokenize_validAddCmdArgsWithTags() {
-        ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(phoneNumberPrefix, emailPrefix,
-                                                                addressPrefix, tagsPrefix);
-        argsTokenizer.tokenize("Betsy Crowe p/1234567 e/betsycrowe@gmail.com a/Newgate Prison t/criminal t/friend");
-        List<String> tags = new ArrayList<>();
-        tags.add("criminal");
-        tags.add("friend");
+    public void tokenize_oneArgument() {
+        ArgumentTokenizer tokenizer = new ArgumentTokenizer(slashP);
 
-        assertEquals("Betsy Crowe", argsTokenizer.getPreamble().get());
-        assertEquals("1234567", argsTokenizer.getValue(phoneNumberPrefix).get());
-        assertEquals("betsycrowe@gmail.com", argsTokenizer.getValue(Parser.emailPrefix).get());
-        assertEquals("Newgate Prison", argsTokenizer.getValue(addressPrefix).get());
-        assertEquals(tags, argsTokenizer.getValues(tagsPrefix).get());
+        // Preamble present
+        tokenizer.tokenize("  Some preamble string /p Argument value ");
+        assertPreamblePresent(tokenizer, "Some preamble string");
+        assertArgumentPresent(tokenizer, slashP, "Argument value");
+
+        // No preamble
+        tokenizer.tokenize(" /p   Argument value ");
+        assertPreambleAbsent(tokenizer);
+        assertArgumentPresent(tokenizer, slashP, "Argument value");
+
     }
 
     @Test
-    public void tokenize_validAddCmdArgsChangeOrder() {
-        ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(phoneNumberPrefix, emailPrefix,
-                                                                addressPrefix, tagsPrefix);
-        argsTokenizer.tokenize("John Doe e/johnd@gmail.com a/John street, block 123, #01-01 p/98765432");
+    public void tokenize_multipleArguments() {
+        ArgumentTokenizer tokenizer = new ArgumentTokenizer(slashP, dashT, hatQ);
 
-        assertEquals("John Doe", argsTokenizer.getPreamble().get());
-        assertEquals("98765432", argsTokenizer.getValue(phoneNumberPrefix).get());
-        assertEquals("johnd@gmail.com", argsTokenizer.getValue(Parser.emailPrefix).get());
-        assertEquals("John street, block 123, #01-01", argsTokenizer.getValue(addressPrefix).get());
+        // Only two arguments are present
+        tokenizer.tokenize("SomePreambleString -t dashT-Value/pslashP value");
+        assertPreamblePresent(tokenizer, "SomePreambleString");
+        assertArgumentPresent(tokenizer, slashP, "slashP value");
+        assertArgumentPresent(tokenizer, dashT, "dashT-Value");
+        assertArgumentAbsent(tokenizer, hatQ);
+
+        /* Also covers: Cases where the prefix doesn't have a space before/after it */
+
+        // All three arguments are present, no spaces before the prefixes
+        tokenizer.tokenize("Different Preamble String^Q 111-t dashT-Value/p slashP value");
+        assertPreamblePresent(tokenizer, "Different Preamble String");
+        assertArgumentPresent(tokenizer, slashP, "slashP value");
+        assertArgumentPresent(tokenizer, dashT, "dashT-Value");
+        assertArgumentPresent(tokenizer, hatQ, "111");
+
+        /* Also covers: Reusing of the tokenizer multiple times */
+
     }
 
     @Test
-    public void tokenize_repeatedPrefixes() {
-        Prefix aArg = new Prefix("a:");
-        Prefix bArg = new Prefix("b:");
+    public void tokenize_multipleArgumentsWithRepeats() {
+        ArgumentTokenizer tokenizer = new ArgumentTokenizer(slashP, dashT, hatQ);
 
-        ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(aArg, bArg);
-        argsTokenizer.tokenize("a: aaa b: bbb a: AAA");
-
-        assertEquals("AAA", argsTokenizer.getValue(aArg).get());
-        assertEquals("bbb", argsTokenizer.getValue(bArg).get());
+        // Two arguments repeated, some have empty values
+        tokenizer.tokenize("SomePreambleString -t dashT-Value ^Q ^Q-t another dashT value /p slashP value -t");
+        assertPreamblePresent(tokenizer, "SomePreambleString");
+        assertArgumentPresent(tokenizer, slashP, "slashP value");
+        assertArgumentPresent(tokenizer, dashT, "dashT-Value", "another dashT value", "");
+        assertArgumentPresent(tokenizer, hatQ, "", "");
     }
 
     @Test
-    public void tokenize_interleavingRepeatedPrefixes() {
-        Prefix aArg = new Prefix("a\\");
-        Prefix bArg = new Prefix("b\\");
-        Prefix cArgs = new Prefix("c\\");
-        List<String> cVals = Arrays.asList("c1", "c2");
+    public void equalsMethod() {
+        Prefix aaa = new Prefix("aaa");
 
-        ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(aArg, bArg, cArgs);
-        argsTokenizer.tokenize("a\\ aaa c\\ c1 b\\ bbb c\\ c2");
+        assertEquals(aaa, aaa);
+        assertEquals(aaa, new Prefix("aaa"));
 
-        assertEquals("aaa", argsTokenizer.getValue(aArg).get());
-        assertEquals("bbb", argsTokenizer.getValue(bArg).get());
-        assertEquals(cVals, argsTokenizer.getValues(cArgs).get());
+        assertNotEquals(aaa, "aaa");
     }
 
-    @Test
-    public void tokenize_noPrefix() {
-        ArgumentTokenizer argsTokenizer = new ArgumentTokenizer();
-        argsTokenizer.tokenize("Micky Mouse p/12345");
-
-        assertEquals("Micky Mouse p/12345", argsTokenizer.getPreamble().get());
-    }
-
-    @Test
-    public void tokenize_onePrefix() {
-        Prefix prefix = new Prefix("p/");
-        ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(prefix);
-        argsTokenizer.tokenize("Micky Mouse p/12345");
-
-        assertEquals("Micky Mouse", argsTokenizer.getPreamble().get());
-        assertEquals("12345", argsTokenizer.getValue(prefix).get());
-    }
-
-    @Test
-    public void tokenize_duplicatedRepeatedPrefix() {
-        Prefix aArg = new Prefix("<a>");
-        Prefix bArg = new Prefix("<b>");
-        Prefix cArgs = new Prefix("<c>");
-        List<String> cVals = Arrays.asList("c1", "c2", "c1");
-
-        ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(aArg, bArg, cArgs);
-        argsTokenizer.tokenize("<a>aaa<c>c1<b>bbb<c>c2<c>c1");
-
-        assertEquals("aaa", argsTokenizer.getValue(aArg).get());
-        assertEquals("bbb", argsTokenizer.getValue(bArg).get());
-        assertEquals(cVals, argsTokenizer.getValues(cArgs).get());
-    }
-
-    @Test
-    public void tokenize_reuseTokenizer() {
-        ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(phoneNumberPrefix, emailPrefix,
-                                                                addressPrefix, tagsPrefix);
-        argsTokenizer.tokenize("John Doe p/98765432 e/johnd@gmail.com a/John street, block 123, #01-01");
-        argsTokenizer.tokenize("Betsy Crowe p/1234567 e/betsycrowe@gmail.com a/Newgate Prison t/criminal t/friend");
-
-        List<String> tags = new ArrayList<>();
-        tags.add("criminal");
-        tags.add("friend");
-
-        assertEquals("Betsy Crowe", argsTokenizer.getPreamble().get());
-        assertEquals("1234567", argsTokenizer.getValue(phoneNumberPrefix).get());
-        assertEquals("betsycrowe@gmail.com", argsTokenizer.getValue(Parser.emailPrefix).get());
-        assertEquals("Newgate Prison", argsTokenizer.getValue(addressPrefix).get());
-        assertEquals(tags, argsTokenizer.getValues(tagsPrefix).get());
-    }
 }
