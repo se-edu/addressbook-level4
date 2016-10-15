@@ -8,7 +8,8 @@ import java.util.*;
  * 1. An argument's value can be an empty string e.g. the value of {@code /k} in the above example.<br>
  * 2. Leading and trailing whitespaces of an argument value will be discarded.<br>
  * 3. A prefix need not have leading and trailing spaces e.g. the {@code /d in 11.00/dToday} in the above example<br>
- * 4. An argument may be repeated and all its values will be accumulated e.g. the value of {@code /t} in the above example.<br>
+ * 4. An argument may be repeated and all its values will be accumulated e.g. the value of {@code /t}
+ *    in the above example.<br>
  */
 public class ArgumentTokenizer {
     /**
@@ -115,7 +116,7 @@ public class ArgumentTokenizer {
         Optional<String> storedPreamble = getValue(new Prefix(""));
 
         /* An empty preamble is considered 'no preamble present' */
-        if ( storedPreamble.isPresent() && !storedPreamble.get().isEmpty()) {
+        if (storedPreamble.isPresent() && !storedPreamble.get().isEmpty()) {
             return storedPreamble;
         } else {
             return Optional.empty();
