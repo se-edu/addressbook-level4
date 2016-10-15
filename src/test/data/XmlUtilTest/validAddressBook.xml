@@ -2,55 +2,64 @@
 <addressbook>
     <tasks>
         <name>Hans Muster</name>
-        <time isPrivate="false">9482424</time>
+        <startTime isPrivate="false">10-Jan-2012 09:00AM</startTime>
+        <period>13:59</period>
         <description isPrivate="false">hans description</description>
         <address isPrivate="false">4th street</address>
     </tasks>
     <tasks>
         <name>Ruth Mueller</name>
-        <time isPrivate="false">87249245</time>
+        <startTime isPrivate="false">10-Jan-2012 09:00AM</startTime>
+        <period>13:59</period>
         <description isPrivate="false">ruth description</description>
         <address isPrivate="false">81th street</address>
     </tasks>
     <tasks>
         <name>Heinz Kurz</name>
-        <time isPrivate="false">95352563</time>
+        <startTime isPrivate="false">10-Dec-2012 09:00AM</startTime>
+        <period>13:59</period>
         <description isPrivate="false">heinz description</description>
         <address isPrivate="false">wall street</address>
     </tasks>
     <tasks>
         <name>Cornelia Meier</name>
-        <time isPrivate="false">87652533</time>
+        <startTime isPrivate="false">10-Feb-2012 09:00AM</startTime>
+        <period>13:59</period>
         <description isPrivate="false">cornelia description</description>
         <address isPrivate="false">10th street</address>
     </tasks>
     <tasks>
         <name>Werner Meyer</name>
-        <time isPrivate="false">9482224</time>
+        <startTime isPrivate="false">10-Jan-2012 09:00AM</startTime>
+        <period>13:59</period>
         <description isPrivate="false">werner description</description>
         <address isPrivate="false">michegan ave</address>
     </tasks>
     <tasks>
         <name>Lydia Kunz</name>
-        <time isPrivate="false">9482427</time>
+        <startTime isPrivate="false">10-Jan-2012 09:00AM</startTime>
+        <period>13:59</period>
         <description isPrivate="false">lydia description</description>
         <address isPrivate="false">little tokyo</address>
     </tasks>
     <tasks>
         <name>Anna Best</name>
-        <time isPrivate="false">9482442</time>
+        <startTime isPrivate="false">10-Jan-2012 09:00AM</startTime>
+        <period>13:59</period>
         <description isPrivate="false">anna description</description>
         <address isPrivate="false">4th street</address>
     </tasks>
     <tasks>
         <name>Stefan Meier</name>
-        <time isPrivate="false">8482424</time>
+        <startTime isPrivate="false">10-Jan-2012 09:00AM</startTime>
+        <period>13:59</period>
         <description isPrivate="false">stefan description</description>
         <address isPrivate="false">little india</address>
     </tasks>
     <tasks>
         <name>Martin Mueller</name>
-        <time isPrivate="false">8482131</time>
+        <startTime isPrivate="false">10-Jan-2012 09:00AM</startTime>
+        <period>13:59</period>
         <description isPrivate="false">hans description</description>
         <address isPrivate="false">chicago ave</address>
     </tasks>

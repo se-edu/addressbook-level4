@@ -10,6 +10,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -57,11 +58,10 @@ public class XmlAdaptedTask {
     public XmlAdaptedTask(ReadOnlyTask source) {
         
         name = source.getName().taskName;
-        time = source.getTime().value;
+        time = source.getTime().value;        
         startTime = source.getTime().startDate.format(DateTimeFormatter.ofPattern(Time.DATE_TIME_PRINT_FORMAT));
         if (source.getTime().getEndDate().isPresent()) {
             endTime = source.getTime().getEndDate().toString();
-            System.out.println("Yo Fist me bro:" + endTime);
         }else
             endTime = null;
                 
@@ -90,6 +90,7 @@ public class XmlAdaptedTask {
         if(endTime!=null) {
             time = new Time(this.startTime,this.endTime,isUntimed);
         }else {
+            assert startTime!= null;
             time = new Time(this.startTime,isUntimed);                
         }
         final Name name = new Name(this.name);

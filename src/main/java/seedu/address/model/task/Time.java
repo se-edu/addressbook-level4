@@ -62,7 +62,6 @@ public class Time {
         isUntimed = true;
         DateTimeFormatter formatter = setDateFormatter();
         this.startDate = LocalDate.parse(date, formatter).atTime(LocalTime.now().truncatedTo(ChronoUnit.MINUTES));
-        System.out.println(this.startDate.toString()); //TODO: REMOVE
         value = timeToUkFormat();
     }
 
@@ -84,8 +83,6 @@ public class Time {
         LocalDate localDate = LocalDate.parse(startDate, dateFormatter);
         LocalTime localTime = LocalTime.parse(startTime, timeFormatter);
         this.startDate = localDate.atTime(localTime);
-
-        System.out.println(this.startDate.toString()); //TO REMOVE
         value = timeToUkFormat();
     }
 
@@ -106,34 +103,35 @@ public class Time {
         LocalTime localendTime = LocalTime.parse(endTime, timeFormatter);
         this.startDate = localDate.atTime(localstartTime);
         this.endDate = Optional.ofNullable(localDate.atTime(localendTime));
-        
-        System.out.println(this.startDate.toString()); //TO REMOVE
-        System.out.println(this.endDate.toString()); // TO REMOVE
         value = timeToUkFormat();
     }
     
     /*
-     * @param, from XmlAdaptedTask
+     * To retrieve information of Untimed and Deadline Task from previous session
+     * 
+     * @param, from XmlAdaptedTask storage of Untimed and Deadline Tasks
+     * @returns imported formatted details of Untimed and Deadline Task  
      */
     public Time (String startDate, boolean isUntimed) {
         assert startDate != null;
-
-        System.out.println(startDate+"..!..");
         this.startDate = LocalDateTime.parse(startDate, DateTimeFormatter.ofPattern(DATE_TIME_PRINT_FORMAT));
         endDate = Optional.empty();
         this.isUntimed = isUntimed;
-        value = startDate.toString();
+        value = timeToUkFormat();
     }
     
     /*
-     * @param, from xmlAdapted Task
+     * To retrieve information of TimeRange Task from previous session
+     * 
+     * @param, from xmlAdapted Task of TimeRange Type task.
+     * @returns, imported formatted details of TimeRange Task
      */
     public Time (String startDate, String endDate, boolean isUntimed) {
         endDate = fixStoredDataXml(endDate);
         this.startDate = LocalDateTime.parse(startDate, DateTimeFormatter.ofPattern(DATE_TIME_PRINT_FORMAT));
         this.endDate = Optional.of(LocalDateTime.parse(endDate, DateTimeFormatter.ofPattern(XML_DATE_TIME_OPTIONAL_FORMAT)));
         this.isUntimed = isUntimed;
-        value = startDate.toString();
+        value = timeToUkFormat();
     }
 
 
@@ -145,6 +143,7 @@ public class Time {
 
     /*
      * Initialize the date formatter for parsing different types of date formats.
+     * @returns formatter for LocalDate
      */
     private DateTimeFormatter setDateFormatter() {
 
@@ -155,7 +154,12 @@ public class Time {
         DateTimeFormatter formatter = formatterBuilder.toFormatter(Locale.UK);
         return formatter;
     }
+    
 
+    /*
+     * Initialize the date formatter for parsing different types of date formats.
+     * @returns a formatter for LocalTime.
+     */
     private DateTimeFormatter setTimeFormatter() {
         DateTimeFormatterBuilder formatterBuilder = new DateTimeFormatterBuilder();
         formatterBuilder.append(DateTimeFormatter.ofPattern(TIME_PARSE_FORMAT_CHOICE_12HR));
@@ -173,6 +177,8 @@ public class Time {
     }
         
     /**
+     * TODO: Change validation to comparing valid time Range
+     *       Parsing of valid date arguments is in parser.
      * Returns true if a given string is a valid task time.
      */
     public static boolean isValidDate(String test) {
