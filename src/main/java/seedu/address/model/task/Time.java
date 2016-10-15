@@ -85,7 +85,13 @@ public class Time {
         this.startDate = localDate.atTime(localTime);
         value = timeToUkFormat();
     }
-
+    /**
+     * Validates given date and TimeRange.
+     *
+     * @param a string consisting of only the date and a start and end time
+     * @return a task with Time Range.
+     * @throws IllegalValueException if given time string is invalid.
+     */
     public Time(String startDate, String startTime, String endTime) throws IllegalValueException {
         assert startDate != null;
         assert startTime != null;
