@@ -19,6 +19,8 @@ public class TaskCard extends UiPart{
     @FXML
     private Label time;
     @FXML
+    private Label period;
+    @FXML
     private Label address;
     @FXML
     private Label description;
@@ -44,6 +46,7 @@ public class TaskCard extends UiPart{
         name.setText(task.getName().taskName);
         id.setText(displayedIndex + ". ");
         time.setText(task.getTime().value);
+        period.setText(task.getPeriod().value);
         address.setText(task.getLocation().value);
         description.setText(task.getDescription().value);
         tags.setText(task.tagsString());
