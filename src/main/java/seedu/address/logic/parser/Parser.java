@@ -28,7 +28,7 @@ public class Parser {
 
     private static final Pattern TASK_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<name>[^;]+)"
-            		+ "(( (?<isTimePrivate>p?)t;(?<time>[^;]+)))"
+            		+ "(( (?<isTimePrivate>p?)t;(?<time>[^;]+))?)"
                     + "(( et;(?<period>[^;]+))?)"
             		+ "(( (?<isDescriptionPrivate>p?)d;(?<description>[^;]+))?)"
             		+ "(( (?<isAddressPrivate>p?)a;(?<address>[^/]+))?)"
@@ -130,7 +130,8 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareAdd(String args){
-        String[] dateTimeArgs;
+        String[] dateTimeArgs = null;
+        TaskType taskType;
         final Matcher matcher = TASK_DATA_ARGS_FORMAT.matcher(args.trim());
         // Validate arg string format
         if (!matcher.matches()) {
@@ -138,22 +139,29 @@ public class Parser {
         }
         try {
             String validateDateTimeArgs = matcher.group("time");
-            if(!validateDateTimeArgs.matches(DATE_TIME_VALIDATION_REGEX)){
-                throw new IllegalValueException(MESSAGE_DATE_TIME_CONSTRAINTS);
+            if(validateDateTimeArgs !=null) {
+                validateDateTimeArgs = validateDateTimeArgs.trim().toUpperCase();
+                if(!validateDateTimeArgs.matches(DATE_TIME_VALIDATION_REGEX)){
+                    throw new IllegalValueException(MESSAGE_DATE_TIME_CONSTRAINTS);
+                }
+                dateTimeArgs = prepareAddTimeArgs(validateDateTimeArgs);
+                taskType = TaskType.values()[(dateTimeArgs.length-1)];
+            }else {
+                taskType = TaskType.values()[0];
             }
-            dateTimeArgs = prepareAddTimeArgs(validateDateTimeArgs);
-            TaskType taskType = TaskType.values()[(dateTimeArgs.length-1)];
+                
             switch (taskType) {
                 case UNTIMED:
                     return new AddCommand(
                             matcher.group("name"),
-                            matcher.group("time")==null?" ":matcher.group("time"),
+                            matcher.group("time")==null?null:matcher.group("time"),
                             matcher.group("period")==null?"2359":matcher.group("period"),
                             matcher.group("description")==null?" ":matcher.group("description"),
                             matcher.group("address")==null?" ":matcher.group("address"),
                             getTagsFromArgs(matcher.group("tagArguments"))
                     );
                 case DEADLINE:
+                    assert dateTimeArgs != null;
                     return new AddCommand(
                             matcher.group("name"),
                             dateTimeArgs[0], dateTimeArgs[1],
@@ -163,6 +171,7 @@ public class Parser {
                             getTagsFromArgs(matcher.group("tagArguments"))
                     );
                 case TIMERANGE:
+                    assert dateTimeArgs != null;
                     return new AddCommand(
                             matcher.group("name"),
                             dateTimeArgs[0], dateTimeArgs[1], dateTimeArgs[2],

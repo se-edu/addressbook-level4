@@ -26,11 +26,11 @@ public class XmlAdaptedTask {
     
     @XmlElement(required = true)
     private String name;
-    @XmlElement(required = true)
+    @XmlElement(required = false)
     private String time;
-    @XmlElement(required = true)
+    @XmlElement(required = false)
     private String startTime;
-    @XmlElement(required = true)
+    @XmlElement(required = false)
     private String endTime;
     @XmlElement(required = true)
     private String period;
@@ -38,7 +38,7 @@ public class XmlAdaptedTask {
     private String description;
     @XmlElement(required = true)
     private String address;
-    @XmlElement(required = true)
+    @XmlElement(required = false)
     private boolean isUntimed;
 
     @XmlElement
@@ -58,14 +58,19 @@ public class XmlAdaptedTask {
     public XmlAdaptedTask(ReadOnlyTask source) {
         
         name = source.getName().taskName;
-        time = source.getTime().value;        
-        startTime = source.getTime().startDate.format(DateTimeFormatter.ofPattern(Time.DATE_TIME_PRINT_FORMAT));
-        if (source.getTime().getEndDate().isPresent()) {
-            endTime = source.getTime().getEndDate().toString();
-        }else
+        if (source.getTime().isPresent()) {
+            time = source.getTime().get().value; 
+            startTime = source.getTime().get().startDate.format(DateTimeFormatter.ofPattern(Time.DATE_TIME_PRINT_FORMAT));
+            if (source.getTime().get().getEndDate().isPresent()) {
+                endTime = source.getTime().get().getEndDate().toString();
+            }   
+            isUntimed = source.getTime().get().isUntimed;
+        }else {
+            time = null;
             endTime = null;
-                
-        isUntimed = source.getTime().isUntimed;
+            isUntimed = true;
+        }
+        
         period = source.getPeriod().value;
         description = source.getDescription().value;
         address = source.getLocation().value;
@@ -89,16 +94,16 @@ public class XmlAdaptedTask {
         Time time;
         if(endTime!=null) {
             time = new Time(this.startTime,this.endTime,isUntimed);
-        }else {
-            assert startTime!= null;
+        }else if(startTime!= null) {
             time = new Time(this.startTime,isUntimed);                
-        }
+        }else
+            time = null;
         final Name name = new Name(this.name);
         final Period period = new Period(this.period);
         final Description description = new Description(this.description);
         final Location address = new Location(this.address);
         final UniqueTagList tags = new UniqueTagList(taskTags);
-        return new Task(name, time, period, description, address, tags);
+        return new Task(name, Optional.ofNullable(time), period, description, address, tags);
 
     }
 }

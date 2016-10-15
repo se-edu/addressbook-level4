@@ -30,6 +30,7 @@ import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.TimeoutException;
 import java.util.stream.Collectors;
 
@@ -65,15 +66,15 @@ public class TestUtil {
     private static Task[] getSampleTaskData() {
         try {
             return new Task[]{
-                    new Task(new Name("Ali Muster"), new Time("13-10-2016"), new Period("10:00AM"), new Description("hans's description"), new Location("4th street"), new UniqueTagList()),
-                    new Task(new Name("Boris Mueller"), new Time("14-10-2016"), new Period("10:00AM"), new Description("ruth's description"), new Location("81th street"), new UniqueTagList()),
-                    new Task(new Name("Carl Kurz"), new Time("12-10-2016"), new Period("10:00AM"), new Description("heinz's description"), new Location("wall street"), new UniqueTagList()),
-                    new Task(new Name("Daniel Meier"), new Time("12-10-2016"), new Period("10:00AM"), new Description("cornelia's description"), new Location("10th street"), new UniqueTagList()),
-                    new Task(new Name("Elle Meyer"), new Time("12-10-2016"), new Period("10:00AM"), new Description("werner's description"), new Location("michegan ave"), new UniqueTagList()),
-                    new Task(new Name("Fiona Kunz"), new Time("12-10-2016"), new Period("10:00AM"), new Description("lydia's description"), new Location("little tokyo"), new UniqueTagList()),
-                    new Task(new Name("George Best"), new Time("12-10-2016"), new Period("10:00AM"), new Description("anna's description"), new Location("4th street"), new UniqueTagList()),
-                    new Task(new Name("Hoon Meier"), new Time("12-10-2016"), new Period("10:00AM"), new Description("stefan's description"), new Location("little india"), new UniqueTagList()),
-                    new Task(new Name("Ida Mueller"), new Time("12-10-2016"), new Period("10:00AM"), new Description("hans's description"), new Location("chicago ave"), new UniqueTagList())
+                    new Task(new Name("Ali Muster"), Optional.of(new Time("13-10-2016")), new Period("10:00AM"), new Description("hans's description"), new Location("4th street"), new UniqueTagList()),
+                    new Task(new Name("Boris Mueller"), Optional.of(new Time("14-10-2016")), new Period("10:00AM"), new Description("ruth's description"), new Location("81th street"), new UniqueTagList()),
+                    new Task(new Name("Carl Kurz"), Optional.of(new Time("12-10-2016")), new Period("10:00AM"), new Description("heinz's description"), new Location("wall street"), new UniqueTagList()),
+                    new Task(new Name("Daniel Meier"), Optional.of(new Time("12-10-2016")), new Period("10:00AM"), new Description("cornelia's description"), new Location("10th street"), new UniqueTagList()),
+                    new Task(new Name("Elle Meyer"), Optional.of(new Time("12-10-2016")), new Period("10:00AM"), new Description("werner's description"), new Location("michegan ave"), new UniqueTagList()),
+                    new Task(new Name("Fiona Kunz"), Optional.of(new Time("12-10-2016")), new Period("10:00AM"), new Description("lydia's description"), new Location("little tokyo"), new UniqueTagList()),
+                    new Task(new Name("George Best"), Optional.of(new Time("12-10-2016")), new Period("10:00AM"), new Description("anna's description"), new Location("4th street"), new UniqueTagList()),
+                    new Task(new Name("Hoon Meier"), Optional.of(new Time("12-10-2016")), new Period("10:00AM"), new Description("stefan's description"), new Location("little india"), new UniqueTagList()),
+                    new Task(new Name("Ida Mueller"), Optional.of(new Time("12-10-2016")), new Period("10:00AM"), new Description("hans's description"), new Location("chicago ave"), new UniqueTagList())
             };
         } catch (IllegalValueException e) {
             assert false;

@@ -45,7 +45,11 @@ public class TaskCard extends UiPart{
     public void initialize() {
         name.setText(task.getName().taskName);
         id.setText(displayedIndex + ". ");
-        time.setText(task.getTime().value);
+        if(task.getTime().isPresent()) {
+            time.setText(task.getTime().get().value);
+        } else {
+            time.setText(" ");
+        }
         period.setText(task.getPeriod().value);
         address.setText(task.getLocation().value);
         description.setText(task.getDescription().value);
