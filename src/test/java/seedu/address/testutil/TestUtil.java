@@ -29,6 +29,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.concurrent.TimeoutException;
@@ -315,7 +316,11 @@ public class TestUtil {
      */
     public static TestTask[] addTasksToList(final TestTask[] tasks, TestTask... tasksToAdd) {
         List<TestTask> listOfTasks = asList(tasks);
-        listOfTasks.addAll(asList(tasksToAdd));
+        for(TestTask task: tasksToAdd){
+            int index = Collections.binarySearch(listOfTasks, task);
+            if (index < 0) index = ~index;
+            listOfTasks.add(index, task);
+        }
         return listOfTasks.toArray(new TestTask[listOfTasks.size()]);
     }
 
