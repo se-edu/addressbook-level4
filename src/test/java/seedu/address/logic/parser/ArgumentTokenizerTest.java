@@ -66,9 +66,6 @@ public class ArgumentTokenizerTest {
         // Same string expected as preamble, but leading/trailing spaces should be trimmed
         assertPreamblePresent(tokenizer, argsString.trim());
 
-        // Prefixes not previously given to the tokenizer should not return any values
-        assertArgumentAbsent(tokenizer, unknownPrefix);
-
     }
 
     @Test
@@ -109,6 +106,19 @@ public class ArgumentTokenizerTest {
 
         /* Also covers: Reusing of the tokenizer multiple times */
 
+        // Reuse tokenizer on an empty string to ensure state is correctly reset
+        //   (i.e. no stale values from the previous tokenizing remain in the state)
+        tokenizer.tokenize("");
+        assertPreambleAbsent(tokenizer);
+        assertArgumentAbsent(tokenizer, slashP);
+
+        /** Also covers: testing for prefixes not specified as a prefix **/
+
+        // Prefixes not previously given to the tokenizer should not return any values
+        String stringWithUnknownPrefix = unknownPrefix.getPrefix() + "some value";
+        tokenizer.tokenize(stringWithUnknownPrefix);
+        assertArgumentAbsent(tokenizer, unknownPrefix);
+        assertPreamblePresent(tokenizer, stringWithUnknownPrefix); // Unknown prefix is taken as part of preamble
     }
 
     @Test
@@ -131,6 +141,7 @@ public class ArgumentTokenizerTest {
         assertEquals(aaa, new Prefix("aaa"));
 
         assertNotEquals(aaa, "aaa");
+        assertNotEquals(aaa, new Prefix("aab"));
     }
 
 }
