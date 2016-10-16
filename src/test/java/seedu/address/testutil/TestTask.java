@@ -1,5 +1,7 @@
 package seedu.address.testutil;
 
+import java.util.Optional;
+
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.*;
 
@@ -11,7 +13,7 @@ public class TestTask implements ReadOnlyTask {
     private Name name;
     private Location address;
     private Description description;
-    private Time time;
+    private Optional<Time> time;
     private Period period;
     private UniqueTagList tags;
 
@@ -31,7 +33,7 @@ public class TestTask implements ReadOnlyTask {
         this.description = description;
     }
 
-    public void setTime(Time time) {
+    public void setTime(Optional<Time> time) {
         this.time = time;
     }
 
@@ -45,7 +47,7 @@ public class TestTask implements ReadOnlyTask {
     }
 
     @Override
-    public Time getTime() {
+    public Optional<Time> getTime() {
         return time;
     }
 
@@ -77,7 +79,7 @@ public class TestTask implements ReadOnlyTask {
     public String getAddCommand() {
         StringBuilder sb = new StringBuilder();
         sb.append("add " + this.getName().taskName + " ");
-        sb.append("t;" + this.getTime().value + " ");
+        sb.append("t;" + this.getTime().get().value + " ");
         sb.append("et;" + this.getPeriod().value + " ");
         sb.append("d;" + this.getDescription().value + " ");
         sb.append("a;" + this.getLocation().value + " ");

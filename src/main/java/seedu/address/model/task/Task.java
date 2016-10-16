@@ -4,6 +4,7 @@ import seedu.address.commons.util.CollectionUtil;
 import seedu.address.model.tag.UniqueTagList;
 
 import java.util.Objects;
+import java.util.Optional;
 
 /**
  * Represents a Task in the SmartyDo.
@@ -12,7 +13,7 @@ import java.util.Objects;
 public class Task implements ReadOnlyTask {
 
     private Name name;
-    private Time time;
+    private Optional<Time> time;
     private Period period;
     private Description description;
     private Location location;
@@ -23,7 +24,7 @@ public class Task implements ReadOnlyTask {
     /**
      * Every field must be present and not null.
      */
-    public Task(Name name, Time time, Period period, Description description, Location location, UniqueTagList tags) {
+    public Task(Name name, Optional<Time> time, Period period, Description description, Location location, UniqueTagList tags) {
         assert !CollectionUtil.isAnyNull(name, time, period, description, location, tags);
 
         this.name = name;
@@ -49,7 +50,7 @@ public class Task implements ReadOnlyTask {
     }
 
     @Override
-    public Time getTime() {
+    public Optional<Time> getTime() {
         return time;
     }
 

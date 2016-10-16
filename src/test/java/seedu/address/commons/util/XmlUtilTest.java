@@ -50,6 +50,7 @@ public class XmlUtilTest {
     }
 
     @Test
+    //TODO: WARNING HARDCODED USELESS TESTCASE ALWAYS NEED TO ENSURE YOU CHANGE THE DETAILS IN THE VALID FILE
     public void getDataFromFile_validFile_validResult() throws Exception {
         XmlSerializableAddressBook dataFromFile = XmlUtil.getDataFromFile(VALID_FILE, XmlSerializableAddressBook.class);
         assertEquals(9, dataFromFile.getTaskList().size());

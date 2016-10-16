@@ -8,6 +8,7 @@ import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.logic.commands.*;
+import seedu.address.logic.parser.Parser;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.commons.events.model.ToDoChangedEvent;
@@ -24,6 +25,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.StringJoiner;
 
 import static org.junit.Assert.assertEquals;
@@ -151,7 +153,7 @@ public class LogicManagerTest {
         assertCommandBehavior(
                 "add []\\[?] t;10-12-2016 et;1000 d;valid@e.mail a;valid, address", Name.MESSAGE_NAME_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name t;not_numbers et;1000 d;valid@e.mail a;valid, address", Time.MESSAGE_DATE_CONSTRAINTS);
+                "add Valid Name t;not_numbers et;1000 d;valid@e.mail a;valid, address", Parser.MESSAGE_DATE_TIME_CONSTRAINTS);
         assertCommandBehavior(
                 "add Valid Name t;10-12-2016 et;1000 d;valid@e.mail a;valid, address t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
 
@@ -387,7 +389,7 @@ public class LogicManagerTest {
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
-            return new Task(name, privateTime, period, description, privateAddress, tags);
+            return new Task(name, Optional.of(privateTime), period, description, privateAddress, tags);
         }
 
         /**
@@ -400,7 +402,7 @@ public class LogicManagerTest {
         Task generateTask(int seed) throws Exception {
             return new Task(
                     new Name("Task " + seed),
-                    new Time("1" + String.valueOf((Math.abs(seed)%10)) + "-12-201" + String.valueOf((Math.abs(seed)%10))),
+                    Optional.ofNullable(new Time("1" + String.valueOf((Math.abs(seed)%10)) + "-12-201" + String.valueOf((Math.abs(seed)%10)))),
                     new Period("10:00AM"),
                     new Description(seed + "@email"),
                     new Location("House of " + seed),
@@ -415,7 +417,7 @@ public class LogicManagerTest {
             cmd.append("add ");
 
             cmd.append(p.getName().toString());
-            cmd.append(" t;").append(p.getTime());
+            cmd.append(" t;").append(p.getTime().get().getStartDateString());
             cmd.append(" et;").append(p.getPeriod());
             cmd.append(" d;").append(p.getDescription());
             cmd.append(" a;").append(p.getLocation());
@@ -537,7 +539,7 @@ public class LogicManagerTest {
         Task generateTaskWithName(String name) throws Exception {
             return new Task(
                     new Name(name),
-                    new Time("10-12-2016"),
+                    Optional.of(new Time("10-12-2016")),
                     new Period("10:00AM"),
                     new Description("1@email"),
                     new Location("House of 1"),
@@ -571,7 +573,7 @@ public class LogicManagerTest {
         TestDataHelper helper = new TestDataHelper();
         Task adam = new Task(
                 new Name("Adam Brown"),
-                new Time("10-12-2016"),
+                Optional.of(new Time("10-12-2016")),
                 new Period("10:00"),
                 new Description("1234@email"),
                 new Location("House of 1234"),

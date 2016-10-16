@@ -2,12 +2,14 @@ package seedu.address.logic.commands;
 
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.commons.util.CollectionUtil;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.*;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 
@@ -37,13 +39,65 @@ public class AddCommand extends Command implements Undoable {
 
     public AddCommand(String name, String time, String period, String description, String address, Set<String> tags)
             throws IllegalValueException {
+        Time addTime;
         final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tags) {
             tagSet.add(new Tag(tagName));
         }
+        
+        if (time!=null)
+            addTime = new Time(time);
+        else
+            addTime = null;
+        
         this.toAdd = new Task(
                 new Name(name),
-                new Time(time),
+                Optional.ofNullable(addTime),
+                new Period(period),
+                new Description(description),
+                new Location(address),
+                new UniqueTagList(tagSet)
+        );
+        isExecutedBefore = false;
+    }
+
+    /*
+     * Task with time only
+     */
+    public AddCommand(String name, String date, String startTime, String period, String description, String address, Set<String> tags)
+            throws IllegalValueException {
+        assert !CollectionUtil.isAnyNull(date, startTime);
+        final Set<Tag> tagSet = new HashSet<>();
+        for (String tagName : tags) {
+            tagSet.add(new Tag(tagName));
+        }
+        
+        Time addTime = new Time(date, startTime);
+        this.toAdd = new Task(
+                new Name(name),
+                Optional.of(addTime),
+                new Period(period),
+                new Description(description),
+                new Location(address),
+                new UniqueTagList(tagSet)
+        );
+        isExecutedBefore = false;
+    }
+
+    /*
+     * rangeTask
+     */
+    public AddCommand(String name, String date, String startTime, String endTime, String period, String description, String address, Set<String> tags)
+            throws IllegalValueException {
+        final Set<Tag> tagSet = new HashSet<>();
+        assert !CollectionUtil.isAnyNull(date, startTime, endTime);
+        for (String tagName : tags) {
+            tagSet.add(new Tag(tagName));
+        }
+        Time addTime = new Time(date, startTime, endTime);
+        this.toAdd = new Task(
+                new Name(name),
+                Optional.of(addTime),
                 new Period(period),
                 new Description(description),
                 new Location(address),

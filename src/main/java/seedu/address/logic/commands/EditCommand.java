@@ -10,6 +10,7 @@ import seedu.address.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 
@@ -88,9 +89,8 @@ public class EditCommand extends Command {
                 name = nameToDelete.toString();
             }
             if (time == " "){
-                Time timeToDelete = taskToDelete.getTime();
-                time = timeToDelete.toString();
-            }
+                time = taskToDelete.getTime().get().getStartDateString(); //TODO: temporary fix
+            } 
             if (period == " "){
                 Period periodToDelete = taskToDelete.getPeriod();
                 period = periodToDelete.toString();
@@ -105,7 +105,7 @@ public class EditCommand extends Command {
             }
             toAdd = new Task(
                     new Name(name),
-                    new Time(time),
+                    Optional.of(new Time(time)),
                     new Period(period),
                     new Description(description),
                     new Location(location),

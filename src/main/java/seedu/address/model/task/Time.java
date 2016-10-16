@@ -1,9 +1,13 @@
 package seedu.address.model.task;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
+import java.time.temporal.ChronoUnit;
 import java.util.Locale;
+import java.util.Optional;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 
@@ -28,48 +32,179 @@ public class Time {
             + "(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\\d|2[0-8])(\\/|-|\\.)(?:(?:0?[1-9]|"
             + "(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep))|(?:1[0-2]|(?:Oct|Nov|Dec)))"
             + "\\4(?:(?:1[6-9]|[2-9]\\d)?\\d{2})$";
-    public static final String[] DATE_PARSE_FORMAT_CHOICE = {"[dd-MM-uuuu]","[dd-MMM-uuuu]",
-            "[dd.MM.uuuu]","[dd.MMM.uuuu]", "[dd/MM/uuuu]","[dd/MMM/uuuu]"};
+
+    public static final String TIME_PARSE_FORMAT_CHOICE_12HR = "[h:mma]" + "[h.mma]" + "[hmma]";
+    public static final String TIME_PARSE_FORMAT_CHOICE_24HR = "[k:mm]" + "[k.mm]" + "[kkmm]";
+
+    public static final String[] DATE_PARSE_FORMAT_UNTIMED_CHOICE = {"[dd-M-uuuu]","[dd-MMM-uuuu]",
+            "[dd.M.uuuu]","[dd.MMM.uuuu]", "[dd/M/uuuu]","[dd/MMM/uuuu]","[uuuu-M-dd"};
+    
+    public static final String DATE_TIME_PRINT_FORMAT = "dd-MMM-uuuu h:mma";
+    public static final String DATE_PRINT_FORMAT = "dd-MMM-uuuu";
+    public static final String XML_DATE_TIME_OPTIONAL_FORMAT = "uuuu-MM-dd HH:mm";
 
     public final String value; //value to store date in UK format
-    public final LocalDate date; //US format by java YYYY-MM-DD
+    public final LocalDateTime startDate; //US format by java YYYY-MM-DD
+    public Optional<LocalDateTime> endDate;
+    public boolean isUntimed;
 
     /**
-     * Validates given time number.
+     * Validates given date.
      *
+     * @param a string consisting of only the date i.e dd-MMM-YYYY no time
+     * @return an untimed date for untimed task
      * @throws IllegalValueException if given time string is invalid.
      */
 
     public Time(String date) throws IllegalValueException {
         assert date != null;
+        date = fixStoredDataForTest(date);
+        assert (isValidDate(date)); // if this fails, you have used the wrong constructor        
+        endDate = Optional.empty();
+        isUntimed = true;
+        DateTimeFormatter formatter = setDateFormatter();
+        this.startDate = LocalDate.parse(date, formatter).atTime(LocalTime.now().truncatedTo(ChronoUnit.MINUTES));
+        value = timeToUkFormat();
+    }
+    
+    /*
+     * For formatting to date when receiving for LogicTest Manager
+     * 
+     * @param date format given by LogictestManager
+     */
+    private String fixStoredDataForTest(String date) {
+        date = date.replaceAll("(Optional\\[)", " ");
+        date = date.replaceAll("\\]", " "); 
         date = date.trim();
-        if (!date.isEmpty()&&!isValidDate(date)) {
+        return date;
+    }
+
+    /**
+     * Validates given date and deadline.
+     *
+     * @param a string consisting of only the date and a single time
+     * @return a deadline for timed task
+     * @throws IllegalValueException if given time string is invalid.
+     */
+    public Time(String startDate, String startTime) throws IllegalValueException {
+        assert startDate != null;
+        assert startTime != null;
+        startTime = startTime.toUpperCase();
+        endDate = Optional.empty();
+        isUntimed = false;
+        DateTimeFormatter dateFormatter = setDateFormatter();
+        DateTimeFormatter timeFormatter = setTimeFormatter();
+        LocalDate localDate = LocalDate.parse(startDate, dateFormatter);
+        LocalTime localTime = LocalTime.parse(startTime, timeFormatter);
+        this.startDate = localDate.atTime(localTime);
+        value = timeToUkFormat();
+    }
+    /**
+     * Validates given date and TimeRange.
+     *
+     * @param a string consisting of only the date and a start and end time
+     * @return a task with Time Range.
+     * @throws IllegalValueException if given time string is invalid.
+     */
+    public Time(String startDate, String startTime, String endTime) throws IllegalValueException {
+        assert startDate != null;
+        assert startTime != null;
+        assert endTime != null;
+/*        if (!startDate.isEmpty()&&!isValidDate(startDate)) {
             throw new IllegalValueException(MESSAGE_DATE_CONSTRAINTS);
-        }
-        DateTimeFormatter formatter = setFormatter();
-        this.date = LocalDate.parse(date, formatter);
+        }*/
+        
+        isUntimed = false;
+        startTime = startTime.toUpperCase();
+        endTime = endTime.toUpperCase();
+        DateTimeFormatter formatter = setDateFormatter();
+        DateTimeFormatter timeFormatter = setTimeFormatter();
+        LocalDate localDate = LocalDate.parse(startDate, formatter);
+        LocalTime localstartTime = LocalTime.parse(startTime, timeFormatter);
+        LocalTime localendTime = LocalTime.parse(endTime, timeFormatter);
+        this.startDate = localDate.atTime(localstartTime);
+        this.endDate = Optional.ofNullable(localDate.atTime(localendTime));
+        value = timeToUkFormat();
+    }
+    
+    /*
+     * To retrieve information of Untimed and Deadline Task from previous session
+     * 
+     * @param, from XmlAdaptedTask storage of Untimed and Deadline Tasks
+     * @returns imported formatted details of Untimed and Deadline Task  
+     */
+    public Time (String startDate, boolean isUntimed) {
+        assert startDate != null;
+        this.startDate = LocalDateTime.parse(startDate, DateTimeFormatter.ofPattern(DATE_TIME_PRINT_FORMAT));
+        endDate = Optional.empty();
+        this.isUntimed = isUntimed;
+        value = timeToUkFormat();
+    }
+    
+    /*
+     * To retrieve information of TimeRange Task from previous session
+     * 
+     * @param, from xmlAdapted Task of TimeRange Type task.
+     * @returns, imported formatted details of TimeRange Task
+     */
+    public Time (String startDate, String endDate, boolean isUntimed) {
+        endDate = fixStoredDataXml(endDate);
+        this.startDate = LocalDateTime.parse(startDate, DateTimeFormatter.ofPattern(DATE_TIME_PRINT_FORMAT));
+        this.endDate = Optional.of(LocalDateTime.parse(endDate, DateTimeFormatter.ofPattern(XML_DATE_TIME_OPTIONAL_FORMAT)));
+        this.isUntimed = isUntimed;
         value = timeToUkFormat();
     }
 
     /*
-     * Initialize the date formatter for parsing different types of date formats.
+     * To remove the delimiters java uses to store a Optional date time
+     * 
+     * @param a string which bypass parser validation due to receiving from system containing [Optional]date time
+     * @return a formatted date time
      */
-    private DateTimeFormatter setFormatter() {
+    private String fixStoredDataXml(String endDate) {
+        endDate = endDate.replaceAll("[^\\d-:]", " ");
+        endDate = endDate.trim();
+        return endDate;
+    }
+
+    /*
+     * Initialize the date formatter for parsing different types of date formats.
+     * @returns formatter for LocalDate
+     */
+    private DateTimeFormatter setDateFormatter() {
+
         DateTimeFormatterBuilder formatterBuilder = new DateTimeFormatterBuilder();
         formatterBuilder.append(DateTimeFormatter.ofPattern(""));
-        for(String format : DATE_PARSE_FORMAT_CHOICE)
+        for(String format : DATE_PARSE_FORMAT_UNTIMED_CHOICE)
             formatterBuilder.append(DateTimeFormatter.ofPattern(format));
         DateTimeFormatter formatter = formatterBuilder.toFormatter(Locale.UK);
         return formatter;
     }
+    
 
-  //Store date as UK-format string
-    private String timeToUkFormat() {
-        return date.format(DateTimeFormatter.ofPattern("dd-MMM-uuuu"));
-
+    /*
+     * Initialize the date formatter for parsing different types of date formats.
+     * @returns a formatter for LocalTime.
+     */
+    private DateTimeFormatter setTimeFormatter() {
+        DateTimeFormatterBuilder formatterBuilder = new DateTimeFormatterBuilder();
+        formatterBuilder.append(DateTimeFormatter.ofPattern(TIME_PARSE_FORMAT_CHOICE_12HR));
+        formatterBuilder.append(DateTimeFormatter.ofPattern(TIME_PARSE_FORMAT_CHOICE_24HR));
+        DateTimeFormatter formatter = formatterBuilder.toFormatter();
+        return formatter;
     }
 
+   //Store date as UK-format string
+    public String timeToUkFormat() {
+        if(isUntimed)
+            return startDate.format(DateTimeFormatter.ofPattern(DATE_PRINT_FORMAT));
+        else 
+            return startDate.format(DateTimeFormatter.ofPattern(DATE_TIME_PRINT_FORMAT));
+    }
+        
     /**
+     * TODO: Change validation to comparing valid time Range
+     *       Parsing of valid date arguments is in parser.
      * Returns true if a given string is a valid task time.
      */
     public static boolean isValidDate(String test) {
@@ -79,8 +214,8 @@ public class Time {
 
     @Override
     public String toString() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d-MMM-uuuu");
-        String text = date.format(formatter);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_PRINT_FORMAT);
+        String text = startDate.format(formatter);
         return text;
     }
 
@@ -94,6 +229,19 @@ public class Time {
     @Override
     public int hashCode() {
         return value.hashCode();
+    }
+    
+    public Optional<LocalDateTime> getEndDate() {
+        return endDate;
+    }
+
+    public String getStartDateString() {
+        if (isUntimed) {
+            return startDate.toLocalDate().format(DateTimeFormatter.ofPattern(DATE_PRINT_FORMAT));
+        } else {
+            return startDate.format(DateTimeFormatter.ofPattern(DATE_TIME_PRINT_FORMAT));
+        }
+            
     }
 
 }
