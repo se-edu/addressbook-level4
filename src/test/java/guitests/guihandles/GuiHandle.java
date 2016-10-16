@@ -87,7 +87,7 @@ public class GuiHandle {
     }
 
     public void closeWindow() {
-        java.util.Optional<Window> window = guiRobot.listTargetWindows()
+        Optional<Window> window = guiRobot.listTargetWindows()
                 .stream()
                 .filter(w -> w instanceof Stage && ((Stage) w).getTitle().equals(stageTitle)).findAny();
 

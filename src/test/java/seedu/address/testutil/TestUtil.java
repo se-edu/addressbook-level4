@@ -40,6 +40,15 @@ public class TestUtil {
 
     public static final String LS = System.lineSeparator();
 
+    /**
+     * Folder used for temp files created during testing. Ignored by Git.
+     */
+    public static final String SANDBOX_FOLDER = FileUtil.getPath("./src/test/data/sandbox/");
+
+    public static final Person[] SAMPLE_PERSON_DATA = getSamplePersonData();
+
+    public static final Tag[] SAMPLE_TAG_DATA = getSampleTagData();
+
     public static void assertThrows(Class<? extends Throwable> expected, Runnable executable) {
         try {
             executable.run();
@@ -54,13 +63,6 @@ public class TestUtil {
         throw new AssertionFailedError(
                 String.format("Expected %s to be thrown, but nothing was thrown.", expected.getName()));
     }
-
-    /**
-     * Folder used for temp files created during testing. Ignored by Git.
-     */
-    public static final String SANDBOX_FOLDER = FileUtil.getPath("./src/test/data/sandbox/");
-
-    public static final Person[] SAMPLE_PERSON_DATA = getSamplePersonData();
 
     private static Person[] getSamplePersonData() {
         try {
@@ -84,7 +86,6 @@ public class TestUtil {
         }
     }
 
-    public static final Tag[] SAMPLE_TAG_DATA = getSampleTagData();
 
     private static Tag[] getSampleTagData() {
         try {
