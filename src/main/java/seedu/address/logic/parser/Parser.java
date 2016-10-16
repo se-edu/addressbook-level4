@@ -26,10 +26,10 @@ public class Parser {
 
     private static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
-    public static final Prefix phoneNumberPrefix = new Prefix("p/");
-    public static final Prefix emailPrefix = new Prefix("e/");
-    public static final Prefix addressPrefix = new Prefix("a/");
-    public static final Prefix tagsPrefix = new Prefix("t/");
+    private static final Prefix phoneNumberPrefix = new Prefix("p/");
+    private static final Prefix emailPrefix = new Prefix("e/");
+    private static final Prefix addressPrefix = new Prefix("a/");
+    private static final Prefix tagsPrefix = new Prefix("t/");
 
     public Parser() {}
 
