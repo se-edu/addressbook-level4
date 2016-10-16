@@ -11,6 +11,7 @@ After studying this code and completing the corresponding exercises, you should 
 1. [Use Continuous Integration `[LO-ContinuousIntegration]`](#use-continuous-integration-lo-continuousintegration)
 1. [Use Code Coverage `[LO-CodeCoverage]`](#use-code-coverage-lo-codecoverage)
 1. [Apply Test Case Design Heuristics `[LO-TestCaseDesignHeuristics]`](#apply-test-case-design-heuristics-lo-testcasedesignheuristics)
+1. [Write Integration Tests `[LO-IntegrationTests]`](#write-integration-tests-lo-integrationtests)
 
 ------------------------------------------------------------------------------------------------------
 
@@ -147,8 +148,38 @@ the efficiency and effectiveness of test cases testing the
  
 ------------------------------------------------------------------------------------------------------
 
+## Write Integration Tests `[LO-IntegrationTests]`
+
+Consider the [`StorageManagerTest.java`](../src/test/java/seedu/address/storage/StorageTest.java) class.
+* Test methods `prefsReadSave()` and `addressBookReadSave()` are integration tests. Note how they simply test if
+  The `StorageManager` class is correctly wired to its dependencies.
+
+* Test method `handleAddressBookChangedEvent_exceptionThrown_eventRaised()` is a unit test because it uses
+  _dependency injection_ to isolate the SUT `StorageManger::handleAddressBookChangedEvent(...)` from its 
+  dependencies.
+
+Compare the above with [`LogicManagerTest`](../src/test/java/seedu/address/logic/LogicManagerTest.java). 
+Many of the tests in that class (e.g. `execute_add_*` methods) tests are neither integration nor unit tests. 
+They are a _integration + unit_ tests because they not only checks if the LogicManager is correctly wired to its
+dependencies, but also checks the working of its dependencies. For example, the following two lines test the 
+the `LogicManager` but also the `Parser`.
+```java
+@Test
+public void execute_add_invalidArgsFormat() throws Exception {
+    ...
+    assertCommandBehavior("add Valid Name 12345 e/valid@email.butNoPhonePrefix a/valid, address", expectedMessage);
+    assertCommandBehavior("add Valid Name p/12345 valid@email.butNoPrefix a/valid, address", expectedMessage);
+    ...
+}
+```
+ 
+#### Exercise: Write unit and integration tests for the same method. 
+ * Write a unit test for a a high-level methods somewhere in the code base.
+ * Write an integration test for the same method.
+ 
+------------------------------------------------------------------------------------------------------
+
 {More to be added}
-* Integration testing
 * System testing
 * Acceptance testing (+dogfooding)
 * GUI test automation
