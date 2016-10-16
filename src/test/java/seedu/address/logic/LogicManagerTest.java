@@ -8,6 +8,7 @@ import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.logic.commands.*;
+import seedu.address.logic.parser.Parser;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.commons.events.model.ToDoChangedEvent;
@@ -24,6 +25,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 import java.util.StringJoiner;
 
 import static org.junit.Assert.assertEquals;
@@ -149,11 +151,11 @@ public class LogicManagerTest {
     @Test
     public void execute_add_invalidTaskData() throws Exception {
         assertCommandBehavior(
-                "add []\\[;] t/1234 d/valid@e.mail a/valid, address", Name.MESSAGE_NAME_CONSTRAINTS);
+                "add []\\[?] t;10-12-2016 et;1000 d;valid@e.mail a;valid, address", Name.MESSAGE_NAME_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name t/not_numbers d/valid@e.mail a/valid, address", Time.MESSAGE_TIME_CONSTRAINTS);
+                "add Valid Name t;not_numbers et;1000 d;valid@e.mail a;valid, address", Parser.MESSAGE_DATE_TIME_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name t/1234 d/valid@e.mail a/valid, address t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
+                "add Valid Name t;10-12-2016 et;1000 d;valid@e.mail a;valid, address t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
 
     }
 
@@ -360,7 +362,7 @@ public class LogicManagerTest {
                 expectedAB,
                 expectedList);
     }
-    
+
     @Test
     public void execute_viewInvalidArgsFormat_errorMessageShown() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, ViewCommand.MESSAGE_USAGE);
@@ -380,13 +382,14 @@ public class LogicManagerTest {
 
         Task adam() throws Exception {
             Name name = new Name("Adam Brown");
-            Time privateTime = new Time("1111");
+            Time privateTime = new Time("15-12-2016");
+            Period period = new Period("10:00AM");
             Description description = new Description("adam's description");
             Location privateAddress = new Location("111, alpha street");
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("tag2");
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
-            return new Task(name, privateTime, description, privateAddress, tags);
+            return new Task(name, Optional.of(privateTime), period, description, privateAddress, tags);
         }
 
         /**
@@ -399,8 +402,9 @@ public class LogicManagerTest {
         Task generateTask(int seed) throws Exception {
             return new Task(
                     new Name("Task " + seed),
-                    new Time("" + (Math.abs(seed)*9876%10000)),
-                    new Description(seed + "@description"),
+                    Optional.ofNullable(new Time("1" + String.valueOf((Math.abs(seed)%10)) + "-12-201" + String.valueOf((Math.abs(seed)%10)))),
+                    new Period("10:00AM"),
+                    new Description(seed + "@email"),
                     new Location("House of " + seed),
                     new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
             );
@@ -413,9 +417,10 @@ public class LogicManagerTest {
             cmd.append("add ");
 
             cmd.append(p.getName().toString());
-            cmd.append(" t/").append(p.getTime());
-            cmd.append(" d/").append(p.getDescription());
-            cmd.append(" a/").append(p.getLocation());
+            cmd.append(" t;").append(p.getTime().get().getStartDateString());
+            cmd.append(" et;").append(p.getPeriod());
+            cmd.append(" d;").append(p.getDescription());
+            cmd.append(" a;").append(p.getLocation());
 
             UniqueTagList tags = p.getTags();
             for(Tag t: tags){
@@ -424,7 +429,7 @@ public class LogicManagerTest {
 
             return cmd.toString();
         }
-        
+
         /** Generates the correct edit command based on the index given */
         String generateEditCommand(int i, Task p) {
             StringJoiner cmd = new StringJoiner(" ");
@@ -433,9 +438,10 @@ public class LogicManagerTest {
 
             cmd.add(Integer.toString(i));
             cmd.add(p.getName().toString());
-            cmd.add("t/" + p.getTime());
-            cmd.add("d/" + p.getDescription());
-            cmd.add("a/" + p.getLocation());
+            cmd.add("t;" + p.getTime());
+            cmd.add("et;" + p.getPeriod());
+            cmd.add("d;" + p.getDescription());
+            cmd.add("a;" + p.getLocation());
 
             UniqueTagList tags = p.getTags();
             for(Tag t: tags){
@@ -444,16 +450,30 @@ public class LogicManagerTest {
 
             return cmd.toString();
         }
-        
+
         /** Generates the correct partial edit command based on the index given */
+        // TODO: Note from Filbert, Always Ensure this command is in sync.
         String generatePartialEditCommand(int i, Task p) {
             StringJoiner cmd = new StringJoiner(" ");
 
             cmd.add("edit");
 
             cmd.add(Integer.toString(i));
-            cmd.add("d/" + p.getDescription());
-            cmd.add("a/" + p.getLocation());
+            
+            cmd.add("d;" + p.getDescription());
+            cmd.add("a;" + p.getLocation());
+
+            return cmd.toString();
+        }
+        
+        String generateEditNameCommand(int i, String name) {
+            StringJoiner cmd = new StringJoiner(" ");
+
+            cmd.add("edit");
+
+            cmd.add(Integer.toString(i));
+            
+            cmd.add(name);
 
             return cmd.toString();
         }
@@ -531,58 +551,94 @@ public class LogicManagerTest {
         Task generateTaskWithName(String name) throws Exception {
             return new Task(
                     new Name(name),
-                    new Time("1111"),
-                    new Description("1@description"),
+                    Optional.of(new Time("10-12-2016")),
+                    new Period("10:00AM"),
+                    new Description("1@email"),
                     new Location("House of 1"),
                     new UniqueTagList(new Tag("tag"))
             );
         }
+        
+        /**
+         * Generates a Task object with given name. Other fields will have some dummy values.
+         */
+        Task generateTaskWithNameOnly(String name) throws Exception {
+            return new Task(
+                    new Name(name),
+                    Optional.ofNullable(null),
+                    new Period("2359"),
+                    new Description(" "),
+                    new Location(" "),
+                    new UniqueTagList(Collections.emptySet())
+            );
+        }
     }
-    
+
     @Test
     public void execute_edit_fullDetail() throws Exception{
         TestDataHelper helper = new TestDataHelper();
         Task adam = helper.adam();
 
         Task editedAdam = helper.generateTaskWithName("Adam Brown");
-        
+
         List<Task> adamList = helper.generateTaskList(adam);
         List<Task> expectedList = helper.generateTaskList(editedAdam);
         ToDo expectedAB = helper.generateToDo(adamList);
         expectedAB.removeTask(adam);
         expectedAB.addTask(editedAdam);
         helper.addToModel(model, adamList);
-        
+
         assertCommandBehavior(helper.generateEditCommand(1,editedAdam),
                 String.format(EditCommand.MESSAGE_SUCCESS, editedAdam),
                 expectedAB,
                 expectedList);
     }
-    
+
     @Test
     public void execute_edit_partialDetail() throws Exception{
         TestDataHelper helper = new TestDataHelper();
         Task adam = new Task(
                 new Name("Adam Brown"),
-                new Time("1111"),
+                Optional.of(new Time("10-12-2016")),
+                new Period("10:00"),
                 new Description("1234@email"),
                 new Location("House of 1234"),
                 new UniqueTagList(new Tag("tag"))
         );
-                
+
         Task editedAdam = helper.generateTaskWithName("Adam Brown");
-        
+
         List<Task> adamList = helper.generateTaskList(adam);
         List<Task> expectedList = helper.generateTaskList(editedAdam);
         ToDo expectedAB = helper.generateToDo(adamList);
         expectedAB.removeTask(adam);
         expectedAB.addTask(editedAdam);
         helper.addToModel(model, adamList);
-        
+
         assertCommandBehavior(helper.generatePartialEditCommand(1,editedAdam),
                 String.format(EditCommand.MESSAGE_SUCCESS, editedAdam),
                 expectedAB,
                 expectedList);
     }
     
+    @Test
+    public void execute_edit_nameOnly() throws Exception{
+        TestDataHelper helper = new TestDataHelper();
+        Task adam = helper.generateTaskWithNameOnly("Dirty Adam");
+
+        Task editedAdam = helper.generateTaskWithNameOnly("Adam Brown");
+
+        List<Task> adamList = helper.generateTaskList(adam);
+        List<Task> expectedList = helper.generateTaskList(editedAdam);
+        ToDo expectedAB = helper.generateToDo(adamList);
+        expectedAB.removeTask(adam);
+        expectedAB.addTask(editedAdam);
+        helper.addToModel(model, adamList);
+
+        assertCommandBehavior(helper.generateEditNameCommand(1,"Adam Brown"),
+                String.format(EditCommand.MESSAGE_SUCCESS, editedAdam),
+                expectedAB,
+                expectedList);
+    }
+
 }

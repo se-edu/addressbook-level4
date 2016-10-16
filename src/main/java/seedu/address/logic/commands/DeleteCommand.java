@@ -1,9 +1,18 @@
 package seedu.address.logic.commands;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.UnmodifiableObservableList;
+import seedu.address.model.tag.Tag;
+import seedu.address.model.tag.UniqueTagList;
+import seedu.address.model.task.Location;
+import seedu.address.model.task.Description;
+import seedu.address.model.task.Name;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.Task;
+import seedu.address.model.task.Time;
 import seedu.address.model.task.UniqueTaskList;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 
@@ -48,7 +57,7 @@ public class DeleteCommand extends Command implements Undoable{
 
         try {
             model.deleteTask(taskToDelete);
-
+            isExecutedBefore = pushCmdToUndo(isExecutedBefore);
         } catch (TaskNotFoundException pnfe) {
             assert false : "The target task cannot be missing";
         }
@@ -64,13 +73,12 @@ public class DeleteCommand extends Command implements Undoable{
 
          try {
              model.addTask((Task) taskToDelete);
-             isExecutedBefore = pushCmdToUndo(isExecutedBefore);
              return new CommandResult(String.format(MESSAGE_DELETE_TASK_SUCCESS, taskToDelete));
          } catch (UniqueTaskList.DuplicateTaskException e) {
+             assert false: "impossible for person to be missing";
              return new CommandResult(MESSAGE_DUPLICATE_TASK);
          }
     }
-
 
 	@Override
 	public boolean pushCmdToUndo(boolean isExecuted) {

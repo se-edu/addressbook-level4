@@ -10,6 +10,7 @@ import seedu.address.model.task.UniqueTaskList.DuplicateTaskException;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 
@@ -28,15 +29,16 @@ public class EditCommand extends Command {
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the SmartyDo";
 
-    
+
     private boolean isExecutedBefore;
     private Task toAdd;
     public final int targetIndex;
     private ReadOnlyTask taskToDelete;
     private String name;
     private String time;
+    private String period;
     private String description;
-    private String location; 
+    private String location;
     private Set<String> tags;
 
     /**
@@ -44,24 +46,25 @@ public class EditCommand extends Command {
      *
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public EditCommand(int targetIndex, String name, String time, String description, String location, Set<String> tags)
+    public EditCommand(int targetIndex, String name, String time, String period, String description, String location, Set<String> tags)
             throws IllegalValueException {
     	this.targetIndex = targetIndex;
     	this.name = name;
     	this.time = time;
+    	this.period = period;
     	this.description = description;
     	this.location = location;
     	this.tags = tags;
-        
+
         isExecutedBefore = false;
     }
 
     @Override
     public CommandResult execute() {
-    	
+
         assert model != null;
         assert undoRedoManager != null;
-        
+
         UnmodifiableObservableList<ReadOnlyTask> lastShownList = model.getFilteredTaskList();
 
         if (lastShownList.size() < targetIndex) {
@@ -70,8 +73,9 @@ public class EditCommand extends Command {
         }
 
         taskToDelete = lastShownList.get(targetIndex - 1);
-       
+
         try {
+            Time timeObject;
             Set<Tag> tagSet = new HashSet<>();
             if(!tags.isEmpty()){
                 for (String tagName : tags) {
@@ -86,8 +90,17 @@ public class EditCommand extends Command {
                 name = nameToDelete.toString();
             }
             if (time == " "){
-                Time timeToDelete = taskToDelete.getTime();
-                time = timeToDelete.toString();
+                if(taskToDelete.getTime().isPresent()){
+                    timeObject = new Time(taskToDelete.getTime().get().getStartDateString()); //TODO: temporary fix
+                }else{
+                    timeObject = null;    //TODO: A temporary fix added onto Filbert's by Kenneth. May the odd ever be in our favor and let these not resurface again
+                }
+            } else {
+                timeObject = new Time(time);
+            }
+            if (period == " "){
+                Period periodToDelete = taskToDelete.getPeriod();
+                period = periodToDelete.toString();
             }
             if (description == " "){
                 Description descriptionToDelete = taskToDelete.getDescription();
@@ -99,21 +112,22 @@ public class EditCommand extends Command {
             }
             toAdd = new Task(
                     new Name(name),
-                    new Time(time),
+                    Optional.ofNullable(timeObject),
+                    new Period(period),
                     new Description(description),
                     new Location(location),
                     new UniqueTagList(tagSet)
             );
             model.addTask(toAdd);
             model.deleteTask(taskToDelete);
-            
+
         } catch (DuplicateTaskException e) {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
         } catch (IllegalValueException e) {
             assert false : "The target task already possesses null values";
         } catch (TaskNotFoundException e) {
             assert false : "The target task cannot be missing";
-        } 
+        }
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 

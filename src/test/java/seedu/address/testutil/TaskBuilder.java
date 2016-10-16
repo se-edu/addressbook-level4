@@ -1,5 +1,7 @@
 package seedu.address.testutil;
 
+import java.util.Optional;
+
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.task.*;
@@ -33,12 +35,17 @@ public class TaskBuilder {
     }
 
     public TaskBuilder withTime(String time) throws IllegalValueException {
-        this.task.setTime(new Time(time));
+        this.task.setTime(Optional.ofNullable(new Time(time)));
         return this;
     }
 
     public TaskBuilder withDescription(String description) throws IllegalValueException {
         this.task.setDescription(new Description(description));
+        return this;
+    }
+    
+    public TaskBuilder withPeriod(String period) throws IllegalValueException {
+        this.task.setPeriod(new Period(period));
         return this;
     }
 

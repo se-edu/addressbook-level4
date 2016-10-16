@@ -4,6 +4,7 @@ import seedu.address.commons.util.CollectionUtil;
 import seedu.address.model.tag.UniqueTagList;
 
 import java.util.Objects;
+import java.util.Optional;
 
 /**
  * Represents a Task in the SmartyDo.
@@ -12,29 +13,35 @@ import java.util.Objects;
 public class Task implements ReadOnlyTask {
 
     private Name name;
-    private Time time;
+    private Optional<Time> time;
+    private Period period;
     private Description description;
     private Location location;
+    private boolean isCompleted;
 
     private UniqueTagList tags;
 
     /**
      * Every field must be present and not null.
      */
-    public Task(Name name, Time time, Description description, Location location, UniqueTagList tags) {
-        assert !CollectionUtil.isAnyNull(name, time, description, location, tags);
+    public Task(Name name, Optional<Time> time, Period period, Description description, Location location, UniqueTagList tags) {
+        assert !CollectionUtil.isAnyNull(name, time, period, description, location, tags);
+
         this.name = name;
         this.time = time;
+        this.period = period;
         this.description = description;
         this.location = location;
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
+        this.isCompleted = false;
     }
 
     /**
      * Copy constructor.
      */
     public Task(ReadOnlyTask source) {
-        this(source.getName(), source.getTime(), source.getDescription(), source.getLocation(), source.getTags());
+        this(source.getName(), source.getTime(), source.getPeriod(), source.getDescription(),
+             source.getLocation(), source.getTags());
     }
 
     @Override
@@ -43,8 +50,13 @@ public class Task implements ReadOnlyTask {
     }
 
     @Override
-    public Time getTime() {
+    public Optional<Time> getTime() {
         return time;
+    }
+
+    @Override
+    public Period getPeriod() {
+        return period;
     }
 
     @Override

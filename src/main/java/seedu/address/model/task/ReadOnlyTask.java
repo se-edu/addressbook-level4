@@ -1,5 +1,7 @@
 package seedu.address.model.task;
 
+import java.util.Optional;
+
 import seedu.address.model.tag.UniqueTagList;
 
 /**
@@ -9,7 +11,8 @@ import seedu.address.model.tag.UniqueTagList;
 public interface ReadOnlyTask {
 
     Name getName();
-    Time getTime();
+    Optional<Time> getTime();
+    Period getPeriod();
     Description getDescription();
     Location getLocation();
 
@@ -27,6 +30,7 @@ public interface ReadOnlyTask {
                 || (other != null // this is first to avoid NPE below
                 && other.getName().equals(this.getName()) // state checks here onwards
                 && other.getTime().equals(this.getTime())
+                && other.getPeriod().equals(this.getPeriod())
                 && other.getDescription().equals(this.getDescription())
                 && other.getLocation().equals(this.getLocation()));
     }
@@ -37,8 +41,10 @@ public interface ReadOnlyTask {
     default String getAsText() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
+                .append(" Date: ")
+                .append(getTime()) //to be refactored to Date
                 .append(" Time: ")
-                .append(getTime())
+                .append(getPeriod())
                 .append(" Description: ")
                 .append(getDescription())
                 .append(" Location: ")
