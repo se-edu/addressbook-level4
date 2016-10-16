@@ -10,7 +10,7 @@ import java.util.Optional;
  * Represents a Task in the SmartyDo.
  * Guarantees: details are present and not null, field values are validated.
  */
-public class Task implements ReadOnlyTask {
+public class Task implements ReadOnlyTask, Comparable<Task>{
 
     private Name name;
     private Optional<Time> time;
@@ -97,6 +97,17 @@ public class Task implements ReadOnlyTask {
     @Override
     public String toString() {
         return getAsText();
+    }
+
+    @Override
+    public int compareTo(Task o) {
+        if(!this.getTime().isPresent()){
+            return -1;
+        }else if(!o.getTime().isPresent()){
+            return 1;
+        }else{
+            return this.getTime().get().compareTo(o.getTime().get());
+        }
     }
 
 }
