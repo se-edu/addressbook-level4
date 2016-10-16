@@ -16,7 +16,7 @@ import java.util.stream.Stream;
 /**
  * Unmodifiable view of an observable list
  */
-public class UnmodifiableObservableList<E> implements ObservableList<E> {
+public class UnmodifiableObservableList<E extends Comparable<E>>extends SortedObservableArrayList<E> {
 
     public static final String MUTATION_OP_EXCEPTION_MESSAGE = "Attempted to modify an unmodifiable view";
 
@@ -50,12 +50,11 @@ public class UnmodifiableObservableList<E> implements ObservableList<E> {
     }
 
     @Override
-    public final boolean addAll(Object... elements) {
+    public final boolean addAll(E... elements) {
         throw new UnsupportedOperationException(MUTATION_OP_EXCEPTION_MESSAGE);
     }
 
-    @Override
-    public final boolean setAll(Object... elements) {
+    public final boolean setAll(List<? super E> list) {
         throw new UnsupportedOperationException(MUTATION_OP_EXCEPTION_MESSAGE);
     }
 
@@ -65,12 +64,12 @@ public class UnmodifiableObservableList<E> implements ObservableList<E> {
     }
     
     @Override
-    public final boolean removeAll(Object... elements) {
+    public final boolean removeAll(E... elements) {
         throw new UnsupportedOperationException(MUTATION_OP_EXCEPTION_MESSAGE);
     }
     
     @Override
-    public final boolean retainAll(Object... elements) {
+    public final boolean retainAll(E... elements) {
         throw new UnsupportedOperationException(MUTATION_OP_EXCEPTION_MESSAGE);
     }
 
@@ -217,12 +216,12 @@ public class UnmodifiableObservableList<E> implements ObservableList<E> {
 
     @SuppressWarnings("unchecked")
     @Override
-    public final Object set(int index, Object element) {
+    public final E set(int index, E element) {
         throw new UnsupportedOperationException(MUTATION_OP_EXCEPTION_MESSAGE);
     }
 
     @Override
-    public final void add(int index, Object element) {
+    public final void add(int index, E element) {
         throw new UnsupportedOperationException(MUTATION_OP_EXCEPTION_MESSAGE);
     }
 

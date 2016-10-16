@@ -15,7 +15,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
  * Represents a Task's Date in the SmartyDo.
  * Guarantees: immutable; is valid as declared in {@link #isValidDate(String)}
  */
-public class Time {
+public class Time implements Comparable<Time> {
 
     public static final String MESSAGE_DATE_CONSTRAINTS = "Task Dates should be in valid UK-format "
             + "DD/MMM/YYYY or DD/MM/YYYY or DD.MM.YYYY or DD.MMM.YYY or DD-MM-YYYY or DD-MMM-YYYY";
@@ -242,6 +242,48 @@ public class Time {
             return startDate.format(DateTimeFormatter.ofPattern(DATE_TIME_PRINT_FORMAT));
         }
             
+    }
+
+
+    @Override
+    public int compareTo(Time other) {
+        
+        LocalDateTime thisStartDateTime = this.startDate;
+        LocalDateTime otherStartDateTime = other.startDate;
+        LocalDate thisStartDate = thisStartDateTime.toLocalDate();
+        LocalDate otherStartDate = otherStartDateTime.toLocalDate();
+        
+        // Compare Date first. Unable to compare DateTime directly as some might be untimed
+        int cmp = thisStartDate.compareTo(otherStartDate);
+        if(cmp!=0){
+            return cmp; 
+        }
+        // If it is on the same date but "this" is untimed it will go before the other
+        if(this.isUntimed){      
+            return -1;          
+        }else if(other.isUntimed){ 
+            // If it is on the same date but other is untimed "this" will go after other
+            return 1;
+        }
+        
+        LocalTime thisStartTime = thisStartDateTime.toLocalTime();
+        LocalTime otherStartTime = otherStartDateTime.toLocalTime();
+        cmp = thisStartTime.compareTo(otherStartTime);
+        if(cmp!=0){
+            return cmp;
+        }
+     
+        if(!this.getEndDate().isPresent()){
+            return -1;
+        }else if(!other.getEndDate().isPresent()){
+            return 1;
+        }
+        
+        LocalDateTime thisEndDateTime = this.getEndDate().get();
+        LocalDateTime otherEndDateTime = other.getEndDate().get();
+        
+        cmp = thisEndDateTime.compareTo(otherEndDateTime);
+        return cmp;
     }
 
 }
