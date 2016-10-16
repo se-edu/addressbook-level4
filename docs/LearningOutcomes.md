@@ -12,6 +12,7 @@ After studying this code and completing the corresponding exercises, you should 
 1. [Use Code Coverage `[LO-CodeCoverage]`](#use-code-coverage-lo-codecoverage)
 1. [Apply Test Case Design Heuristics `[LO-TestCaseDesignHeuristics]`](#apply-test-case-design-heuristics-lo-testcasedesignheuristics)
 1. [Write Integration Tests `[LO-IntegrationTests]`](#write-integration-tests-lo-integrationtests)
+1. [Perform System Testing `[LO-SystemTesting]`](#perform-system-testing-lo-systemtesting)
 
 ------------------------------------------------------------------------------------------------------
 
@@ -179,8 +180,17 @@ public void execute_add_invalidArgsFormat() throws Exception {
  
 ------------------------------------------------------------------------------------------------------
 
+## Perform System Testing `[LO-SystemTesting]`
+
+Note how tests below `rc/test/java/guitests` package 
+(e.g [AddCommandTest.java](../src/test/java/guitests/AddCommandTest.java))are system tests because they test 
+the entire system end-to-end.
+ 
+#### Exercise: Write more system tests 
+ * Add some more system tests to the existing system tests.
+ 
+------------------------------------------------------------------------------------------------------
 {More to be added}
-* System testing
 * Acceptance testing (+dogfooding)
 * GUI test automation
 * Design patterns
