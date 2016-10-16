@@ -12,11 +12,16 @@ import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 
-public class SortedObservableArrayList<E extends Comparable<E>> implements ObservableList<E> {
+public class SortedObservableArrayList<E extends Comparable<? super E>> implements ObservableList<E> {
 
     private ObservableList<E> backingList;
     public SortedObservableArrayList(){
         backingList = FXCollections.observableArrayList();
+    }
+    
+    public SortedObservableArrayList(ObservableList<? extends E> backingList){
+        this.backingList = FXCollections.observableArrayList();
+        addAll(backingList);
     }
     @Override
     public int size() {
@@ -196,6 +201,16 @@ public class SortedObservableArrayList<E extends Comparable<E>> implements Obser
     @Override
     public void remove(int from, int to) {
         backingList.remove(from, to);
+    }
+    
+    @Override
+    public boolean equals(Object o){
+        if(o instanceof SortedObservableArrayList){
+            SortedObservableArrayList other = (SortedObservableArrayList) o;
+            return containsAll(other);
+        }else{
+            return false;
+        }
     }
 
 }

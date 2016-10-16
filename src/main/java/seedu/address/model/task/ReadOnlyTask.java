@@ -8,7 +8,7 @@ import seedu.address.model.tag.UniqueTagList;
  * A read-only immutable interface for a Task in the todo.
  * Implementations should guarantee: details are present and not null, field values are validated.
  */
-public interface ReadOnlyTask {
+public interface ReadOnlyTask extends Comparable<ReadOnlyTask>{
 
     Name getName();
     Optional<Time> getTime();
@@ -84,6 +84,17 @@ public interface ReadOnlyTask {
             return "";
         } else {
             return buffer.substring(0, buffer.length() - separator.length());
+        }
+    }
+    
+    @Override
+    public default int compareTo(ReadOnlyTask o) {
+        if(!this.getTime().isPresent()){
+            return -1;
+        }else if(!o.getTime().isPresent()){
+            return 1;
+        }else{
+            return this.getTime().get().compareTo(o.getTime().get());
         }
     }
 
