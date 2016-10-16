@@ -31,8 +31,6 @@ public class Parser {
     private static final Prefix addressPrefix = new Prefix("a/");
     private static final Prefix tagsPrefix = new Prefix("t/");
 
-    public Parser() {}
-
     /**
      * Parses user input into command for execution.
      *

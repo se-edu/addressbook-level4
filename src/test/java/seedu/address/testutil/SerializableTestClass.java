@@ -28,8 +28,6 @@ public class SerializableTestClass {
     private List<LocalDateTime> listOfLocalDateTimes;
     private HashMap<Integer, String> mapOfIntegerToString;
 
-    public SerializableTestClass() {}
-
     public static String getNameTestValue() {
         return NAME_TEST_VALUE;
     }

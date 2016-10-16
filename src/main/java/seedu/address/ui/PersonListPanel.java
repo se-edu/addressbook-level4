@@ -28,10 +28,6 @@ public class PersonListPanel extends UiPart {
     @FXML
     private ListView<ReadOnlyPerson> personListView;
 
-    public PersonListPanel() {
-        super();
-    }
-
     @Override
     public void setNode(Node node) {
         panel = (VBox) node;
@@ -89,9 +85,6 @@ public class PersonListPanel extends UiPart {
     }
 
     class PersonListViewCell extends ListCell<ReadOnlyPerson> {
-
-        public PersonListViewCell() {
-        }
 
         @Override
         protected void updateItem(ReadOnlyPerson person, boolean empty) {

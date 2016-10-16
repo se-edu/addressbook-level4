@@ -60,10 +60,6 @@ public class MainWindow extends UiPart {
     @FXML
     private AnchorPane statusbarPlaceholder;
 
-    public MainWindow() {
-        super();
-    }
-
     @Override
     public void setNode(Node node) {
         rootLayout = (VBox) node;

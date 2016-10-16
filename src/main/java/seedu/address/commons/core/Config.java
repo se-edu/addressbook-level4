@@ -18,9 +18,6 @@ public class Config {
     private String addressBookName = "MyAddressBook";
 
 
-    public Config() {
-    }
-
     public String getAppTitle() {
         return appTitle;
     }
