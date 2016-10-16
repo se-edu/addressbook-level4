@@ -86,6 +86,8 @@ For example, the `Logic` component (see the class diagram given below) defines i
 interface and exposes its functionality using the `LogicManager.java` class.<br>
 <img src="images/LogicClassDiagram.png" width="800"><br>
 
+##### Events-Driven nature of the design 
+
 The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
 command `delete 3`.
 

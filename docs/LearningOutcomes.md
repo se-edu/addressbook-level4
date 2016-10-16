@@ -184,7 +184,7 @@ public void execute_add_invalidArgsFormat() throws Exception {
 ## Perform System Testing `[LO-SystemTesting]`
 
 Note how tests below `src/test/java/guitests` package 
-(e.g [AddCommandTest.java](../src/test/java/guitests/AddCommandTest.java)) are system tests because they test 
+(e.g [`AddCommandTest.java`](../src/test/java/guitests/AddCommandTest.java)) are system tests because they test 
 the entire system end-to-end.
  
 #### Exercise: Write more system tests 
@@ -202,8 +202,42 @@ Note how this project uses TextFX library to automate GUI testing, including
  
 ------------------------------------------------------------------------------------------------------
 
+## Apply Design Patterns `[LO-DesignPatterns]`
+
+Here are some example design patterns used in the code base.
+* **Singleton Pattern** : [`EventsCenter.java`](../src/main/java/seedu/address/commons/core/EventsCenter.java) is 
+  Singleton class. Its single instance can be accessed using the `EventsCenter.getInsance()` method.
+* **Facade Pattern** : [`StorageManager.java`](../src/main/java/seedu/address/storage/StorageManager.java) is 
+  not only shielding the internals of the Storage component from outsiders, it is mostly redirecting methods calls 
+  to its internal components (i.e. minimal logic in the class itself). Therefore, `StorageManager` can be considered a 
+  Facade class.
+* **Command Pattern** : The [`Command.java`](../src/main/java/seedu/address/logic/Command.java) and its sub classes
+  implement the Command Pattern.
+* **Observer Pattern** : The [event driven mechanism](DeveloperGuide.md#events-driven-nature-of-the-design) used by 
+  this code base employs the Observer pattern.<br>
+  For example, objects that are interested in events need to have the `@Subscribe` annotation in the class (this is
+  similar to implementing an `<<Observer>>` interface) and register with the `EventsCenter`. When something noteworthy
+  happens, an event is raised and the `EventsCenter` notifies all relevant subscribers. Unlike in the
+  Observer pattern in which the `<<Observerable>>` class is notifying all `<<Observer>>` objects, here the 
+  `<<Observable>>` classes simply raises an event and the `EventsCenter` takes care of the notifications.
+* **MVC Pattern** : 
+  * The 'View' part of the application is mostly in the `.fxml` files in the `src/main/resources/view`
+  folder. 
+  * `Model` component contains the 'Model'.
+  * Sub classes of [`UiPart`](../src/main/java/seedu/address/ui/UiPart.java) (e.g. `PersonListPanel` ) 
+  act as 'Controllers', each controlling some part of the UI and communicating with the 'Model' via a `Logic` 
+  component which sits between the 'Controller' and the 'Model'. 
+* **Abstraction Occurence Pattern** : Not currently used in the app.
+
+ 
+#### Exercise: Discover other possible applications of the patterns  
+ * Find other possible applications of the patterns to improve the current design.
+   e.g. where else in the design can you apply the Singleton pattern?
+ * Discuss pros and cons of applying the pattern in each of the situations you found in the previous step.
+ 
+------------------------------------------------------------------------------------------------------
+
 {More to be added}
-* Design patterns
 * Static analysis
 * Code reviews
 
