@@ -17,8 +17,8 @@ public class UnmodifiableObservableListTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-    List<Integer> backing;
-    UnmodifiableObservableList<Integer> list;
+    private List<Integer> backing;
+    private UnmodifiableObservableList<Integer> list;
 
     @Before
     public void setup() {
