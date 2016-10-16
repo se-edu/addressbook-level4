@@ -16,15 +16,14 @@ import java.util.stream.Collectors;
  */
 public class AddressBook implements ReadOnlyAddressBook {
 
-    private final UniquePersonList persons;
-    private final UniqueTagList tags;
+    private UniquePersonList persons;
+    private UniqueTagList tags;
 
-    {
+
+    public AddressBook() {
         persons = new UniquePersonList();
         tags = new UniqueTagList();
     }
-
-    public AddressBook() {}
 
     /**
      * Persons and Tags are copied into this addressbook
@@ -37,6 +36,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Persons and Tags are copied into this addressbook
      */
     public AddressBook(UniquePersonList persons, UniqueTagList tags) {
+        this();
         resetData(persons.getInternalList(), tags.getInternalList());
     }
 
