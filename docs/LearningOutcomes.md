@@ -14,6 +14,7 @@ After studying this code and completing the corresponding exercises, you should 
 1. [Write Integration Tests `[LO-IntegrationTests]`](#write-integration-tests-lo-integrationtests)
 1. [Perform System Testing `[LO-SystemTesting]`](#perform-system-testing-lo-systemtesting)
 1. [Automate GUI Testing `[LO-AutomateGuiTesting]`](#automate-gui-testing-lo-automateguitesting)
+1. [Use Static Analysis `[LO-StaticAnalysis]`](#use-static-analysis-lo-staticanalysis)
 
 ------------------------------------------------------------------------------------------------------
 
@@ -211,8 +212,8 @@ Here are some example design patterns used in the code base.
   not only shielding the internals of the Storage component from outsiders, it is mostly redirecting methods calls 
   to its internal components (i.e. minimal logic in the class itself). Therefore, `StorageManager` can be considered a 
   Facade class.
-* **Command Pattern** : The [`Command.java`](../src/main/java/seedu/address/logic/Command.java) and its sub classes
-  implement the Command Pattern.
+* **Command Pattern** : The [`Command.java`](../src/main/java/seedu/address/logic/commands/Command.java) and its 
+  sub classes implement the Command Pattern.
 * **Observer Pattern** : The [event driven mechanism](DeveloperGuide.md#events-driven-nature-of-the-design) used by 
   this code base employs the Observer pattern.<br>
   For example, objects that are interested in events need to have the `@Subscribe` annotation in the class (this is
@@ -227,7 +228,7 @@ Here are some example design patterns used in the code base.
   * Sub classes of [`UiPart`](../src/main/java/seedu/address/ui/UiPart.java) (e.g. `PersonListPanel` ) 
   act as 'Controllers', each controlling some part of the UI and communicating with the 'Model' via a `Logic` 
   component which sits between the 'Controller' and the 'Model'. 
-* **Abstraction Occurence Pattern** : Not currently used in the app.
+* **Abstraction Occurrence Pattern** : Not currently used in the app.
 
  
 #### Exercise: Discover other possible applications of the patterns  
@@ -235,10 +236,25 @@ Here are some example design patterns used in the code base.
    e.g. where else in the design can you apply the Singleton pattern?
  * Discuss pros and cons of applying the pattern in each of the situations you found in the previous step.
  
+#### Exercise: Find more applicable patterns 
+ * Learn other _Gang of Four_ Design patterns to see if they are applicable to the app.
+
+------------------------------------------------------------------------------------------------------
+ 
+## Use Static Analysis `[LO-StaticAnalysis]`
+ 
+ Note how this project uses the [CheckStyle](http://checkstyle.sourceforge.net/) static analysis tool to confirm 
+ compliance with the coding standard.
+ 
+ Other popular Java static analysis tools:
+ * [Find Bugs](http://findbugs.sourceforge.net/)
+ * [PMD](https://pmd.github.io/)
+  
+#### Exercise: Use the CheckStyle Eclipse plugin
+  * Install the [CheckStyle Eclipse plugin](http://eclipse-cs.sourceforge.net/#!/) and use it to detect 
+    coding standard violations.
+    
 ------------------------------------------------------------------------------------------------------
 
-{More to be added}
-* Static analysis
-* Code reviews
 
 
