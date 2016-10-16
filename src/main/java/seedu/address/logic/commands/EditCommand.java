@@ -75,6 +75,7 @@ public class EditCommand extends Command {
         taskToDelete = lastShownList.get(targetIndex - 1);
 
         try {
+            Time timeObject;
             Set<Tag> tagSet = new HashSet<>();
             if(!tags.isEmpty()){
                 for (String tagName : tags) {
@@ -89,8 +90,14 @@ public class EditCommand extends Command {
                 name = nameToDelete.toString();
             }
             if (time == " "){
-                time = taskToDelete.getTime().get().getStartDateString(); //TODO: temporary fix
-            } 
+                if(taskToDelete.getTime().isPresent()){
+                    timeObject = new Time(taskToDelete.getTime().get().getStartDateString()); //TODO: temporary fix
+                }else{
+                    timeObject = null;    //TODO: A temporary fix added onto Filbert's by Kenneth. May the odd ever be in our favor and let these not resurface again
+                }
+            } else {
+                timeObject = new Time(time);
+            }
             if (period == " "){
                 Period periodToDelete = taskToDelete.getPeriod();
                 period = periodToDelete.toString();
@@ -105,7 +112,7 @@ public class EditCommand extends Command {
             }
             toAdd = new Task(
                     new Name(name),
-                    Optional.of(new Time(time)),
+                    Optional.ofNullable(timeObject),
                     new Period(period),
                     new Description(description),
                     new Location(location),
