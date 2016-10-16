@@ -1,6 +1,6 @@
 ﻿# Developer Guide 
 
-1. [Introduction](##1.-introduction)
+1. [Introduction](##1.--introduction)
 2. [Setting Up](#setting-up)
 3. [Design](#design)
 4. [Implementation](#implementation)
@@ -23,11 +23,11 @@ To ensure that you are able to run SmartyDo smoothly, do ensure that you have me
 
 1. Installed **JDK `1.8.0_60`**  or later<br>
 
-    > Having any Java 8 version is not enough. <br>
-    This app will not work with earlier versions of Java 8.
+    > This app may not work as intended with earlier versions of Java 8. <br>
+    This app will not work with earlier versions of Java.
     
 2. Installed **Eclipse** IDE
-3. Installed **e(fx)clipse** plugin for Eclipse (Do the steps 2 onwards given in
+3. Installed **e(fx)clipse** plugin for Eclipse (Follow the instructions given on
    [this page](http://www.eclipse.org/efxclipse/install.html#for-the-ambitious))
 4. Installed **Buildship Gradle Integration** plugin from the Eclipse Marketplace
 
@@ -58,19 +58,19 @@ Below, we will give you a quick overview of each component.
 
 `Main` has only one class called [`MainApp`](../src/main/java/seedu/address/MainApp.java). It is responsible for,
 * At app launch: `Main` will initialize the components in the correct sequence, and connect them up with each other.
-* At shut down: `Main` will Shut down the components and invoke cleanup method where necessary.
+* At shut down: `Main` will shut down the components and invoke cleanup method where necessary.
 
 [**`Commons`**](#common-classes) represents a collection of classes used by multiple other components.
 Two of those classes play important roles at the architecture level.
-* `EventsCentre` : This class (written using [Google's Event Bus library](https://github.com/google/guava/wiki/EventBusExplained))
+* `EventsCentre`: This class (written using [Google's Event Bus library](https://github.com/google/guava/wiki/EventBusExplained))
   is used by components to communicate with other components using events (i.e. a form of _Event Driven_ design)
-* `LogsCenter` : Used by many classes to write log messages to the App's log file.
+* `LogsCenter`: Used by many classes to write log messages to the App's log file.
 
 The rest of the App consists four components.
-* [**`UI`**](#ui-component) : The UI of tha App.
-* [**`Logic`**](#logic-component) : The command executor.
-* [**`Model`**](#model-component) : Holds the data of the App in-memory.
-* [**`Storage`**](#storage-component) : Reads data from, and writes data to, the hard disk.
+* [**`UI`**](#ui-component): The UI of the App.
+* [**`Logic`**](#logic-component): Executes commands given by the user.
+* [**`Model`**](#model-component): Holds the data of the App in-memory.
+* [**`Storage`**](#storage-component): Reads data from, and writes data to the hard disk.
 
 Each of the four components will
 * Define its _API_ in an `interface` with the same name as the Component.
@@ -167,23 +167,23 @@ You may find classes used by multiple components are in the `seedu.addressbook.c
 We are using `java.util.logging` package for logging. You can use `LogsCenter` class to manage the logging levels
 and logging destinations.
 
-* You can controll the logging level by using the `logLevel` setting in the configuration file
+* You can control the logging level by using the `logLevel` setting in the configuration file
   (See [Configuration](#configuration))
 * You can obtain the `Logger` for a class by using `LogsCenter.getLogger(Class)` which will log messages according to
   the specified logging level
 * Currently log messages are output through: `Console` and to a `.log` file.
 
 **Logging Levels**
-
-* `SEVERE` : Critical problem detected which may possibly cause the termination of the application
-* `WARNING` : Can continue, but with caution
-* `INFO` : Information showing the noteworthy actions by the App
-* `FINE` : Details that is not usually noteworthy but may be useful in debugging
-  e.g. print the actual list instead of just its size
+|Level|Details|
+|---|---|
+| `SEVERE` | Critical problem detected which may possibly cause the termination of the application.
+| `WARNING` | Can continue, but with caution.
+| `INFO` | Information showing the noteworthy actions by the App.
+| `FINE` | Details that are not usually noteworthy but may be useful in debugging e.g. printout of the actual list instead of just its size
 
 ### 4.2 Configuration
 
-You can controll certain properties of the application (e.g App name, logging level) through the configuration file 
+You can control certain properties of the application (e.g App name, logging level) through the configuration file 
 (default: `config.json`):
 
 
@@ -214,8 +214,8 @@ We have two types of tests:
    2. _Integration tests_ that are checking the integration of multiple code units 
      (those code units are assumed to be working).<br>
       e.g. `seedu.address.storage.StorageManagerTest`
-   3. Hybrids of unit and integration tests. These test are checking multiple code units as well as 
-      how the are connected together.<br>
+   3. _Hybrids of unit and integration tests._ These test are checking multiple code units as well as 
+      how they are connected together.<br>
       e.g. `seedu.address.logic.LogicManagerTest`
   
 **Headless GUI Testing** :
@@ -242,7 +242,7 @@ Here are the steps to create a new release.
  
  1. Generate a JAR file [using Gradle](UsingGradle.md#creating-the-jar-file).
  2. Tag the repo with the version number. e.g. `v0.1`
- 2. [Crete a new release using GitHub](https://help.github.com/articles/creating-releases/) 
+ 2. [Create a new release using GitHub](https://help.github.com/articles/creating-releases/) 
     and upload the JAR file your created.
  
 ### 6.4 Managing Dependencies
@@ -392,8 +392,6 @@ Use case ends.
 > 3a1. SmartyDo shows an error message <br>
   Use case resumes at step 2
 
-{More to be added}
-
 ## Appendix C : Non Functional Requirements
 
 1. Should work on any [mainstream OS](#mainstream-os) as long as it has Java `1.8.0_60` or higher installed.
@@ -401,17 +399,12 @@ Use case ends.
 3. Should come with automated unit tests and open source code.
 4. Should favor DOS style commands over Unix-style commands.
 
-{More to be added}
-
 ## Appendix D : Glossary
 
 ##### Mainstream OS
 
 > Windows, Linux, Unix, OS-X
 
-##### Private contact detail
-
-> A contact detail that is not meant to be shared with others
 
 ## Appendix E : Product Survey
 
