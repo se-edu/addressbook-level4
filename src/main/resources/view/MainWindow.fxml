@@ -43,7 +43,7 @@
          <items>
             <VBox fx:id="tasktList" prefHeight="200.0" prefWidth="400.0">
                <children>
-                  <AnchorPane fx:id="taskListPanelPlaceholder" minWidth="400.0" prefHeight="200.0" prefWidth="400.0" />
+                  <AnchorPane fx:id="todoListPanelPlaceholder" minWidth="400.0" prefHeight="200.0" prefWidth="400.0" />
                </children>
             </VBox>
             <VBox fx:id="eventList" minWidth="400.0" prefHeight="200.0" prefWidth="400.0">

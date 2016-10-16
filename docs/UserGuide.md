@@ -14,7 +14,7 @@ Tdoo Schedule Manager is a Command Line Interface Task Management Application th
    > Having any Java 8 version is not enough. <br>
    This app will not work with earlier versions of Java 8.
    
-1. Download the latest `todoList.jar` from the [releases](../../../releases) tab.
+1. Download the latest `Tdoo.jar` from the [releases](../../../releases) tab.
 2. Copy the file to the folder you want to use as the home folder for your TodoList.
 3. Double-click the file to start the app. The GUI should appear in a few seconds. 
 4. Type the command in the command box and press <kbd>Enter</kbd> to execute it.<br>
@@ -76,7 +76,7 @@ Mark a Todo-task with given index number as done.<br>
 > Example: `done 1`
 
 #### Listing all tasks : `list`
-Shows a list of all persons in the task-list.<br>
+Shows a list of all tasks in the task-list.<br>
 > Format: `list TASK_TYPE` <br>
 > Example(Todo): `list todo` <br>
 > Example(Event): `list event` <br>
@@ -84,8 +84,7 @@ Shows a list of all persons in the task-list.<br>
 
 #### Finding all tasks containing any keyword in their name: `find`
 Finds tasks whose names contain any of the given keywords.<br>
-The search is case sensitive, the order of the keywords does not matter, only the name is searched, 
-and persons matching at least one keyword will be returned (i.e. `OR` search).<br>
+The order of the keywords does not matter, only the name is searched, and tasks matching at least one keyword will be returned (i.e. `OR` search).<br>
 > Format: `find TASK_TYPE KEYWORD [MORE_KEYWORDS]` <br>
 > Example(all): `find all School` <br>
 > Example(Todo): `find todo Study` <br>

@@ -202,4 +202,12 @@ public class MainWindow extends UiPart {
     public TodoListPanel getTaskListPanel() {
         return this.todoListPanel;
     }
+    
+    public EventListPanel getEventListPanel() {
+        return this.eventListPanel;
+    }
+    
+    public DeadlineListPanel getDeadlineListPanel() {
+        return this.deadlineListPanel;
+    }
 }

@@ -255,13 +255,21 @@ Priorities: High (must have) - `* * *`, Medium (nice to have)  - `* *`,  Low (un
 
 Priority | As a ... | I want to ... | So that I can...
 -------- | :-------- | :--------- | :-----------
-`* * *` | new user | see usage instructions | refer to instructions when I forget how to use the App
-`* * *` | user | add a new person |
-`* * *` | user | delete a person | remove entries that I no longer need
-`* * *` | user | find a person by name | locate details of persons without having to go through the entire list
-`* *` | user | hide [private contact details](#private-contact-detail) by default | minimize chance of someone else seeing them by accident
-`*` | user with many persons in the address book | sort persons by name | locate a person easily
-
+ `* * *` | user	| add a task into the task-list |
+ `* * *` | user	| edit a task info when change is needed |
+ `* * *` | user	| mark a task ‘done’ when it is completed |
+ `* * *` | user	| delete a task from a todo-list / calendar when it cannot be completed |
+ `* * *` | user	| undo the latest command | revert my mistake
+ `* * *` | user	| find a task with given name | locate that task in the list easily
+ `* * *` | user	| get help window | know what to give as input
+ `* * *` | user	| clear todo-list | delete all the tasks in the list easily
+ `* * *` | user	| list all the tasks in the todo-list | see what are the tasks in the list
+  `* *`  | user	| get a notification / alarm of approaching deadline | have a reminder
+  `* *`  | user	| set priority / difficulty of a task | strategy which task to do first
+  `* *`  | user	| put a task in a free area in calendar | complete the task whenever possible
+  `* *`  | user	| launch the app with keyboard shortcut | save time/clicks opening the app
+   `*`   | user	| make connections between tasks | relationship between tasks can be seen
+   `*`   | user	| know what task has to be done right now | have a focus of what to do now
 {More to be added}
 
 ## Appendix B : Use Cases

@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.net.URL?>
 <?import javafx.scene.control.ListView?>
-<?import javafx.scene.layout.VBox?>
-
-<VBox xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.todoList.ui.TodoListPanel">
-   <stylesheets>
-      <URL value="@../../../../../addressbook-level4/src/main/resources/view/DarkTheme.css" />
-      <URL value="@../../../../../addressbook-level4/src/main/resources/view/Extensions.css" />
-   </stylesheets>
-   <children>
-      <ListView fx:id="todoListView" VBox.vgrow="ALWAYS" />
-   </children>
+<?import javafx.scene.layout.*?>
+<?import java.net.URL?>
+<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.todoList.ui.TodoListPanel" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+    <stylesheets>
+        <URL value="@DarkTheme.css" />
+        <URL value="@Extensions.css" />
+    </stylesheets>
+    <children>
+        <ListView fx:id="todoListView" VBox.vgrow="ALWAYS" />
+    </children>
 </VBox>
