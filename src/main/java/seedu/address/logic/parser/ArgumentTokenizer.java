@@ -173,7 +173,7 @@ public class ArgumentTokenizer {
         PrefixPosition endPositionMarker = new PrefixPosition(new Prefix(""), argsString.length());
         prefixPositions.add(endPositionMarker);
 
-        // Extract the prefixed arguments
+        // Extract the prefixed arguments and preamble (if any)
         for (int i = 0; i < prefixPositions.size() - 1; i++) {
             String argValue = extractArgumentValue(argsString, prefixPositions.get(i), prefixPositions.get(i + 1));
             saveArgument(prefixPositions.get(i).getPrefix(), argValue);
@@ -181,6 +181,10 @@ public class ArgumentTokenizer {
 
     }
 
+    /**
+     * Returns the trimmed value of the argument specified by {@code currentPrefixPosition}.
+     *    The end position of the value is determined by {@code nextPrefixPosition}
+     */
     private String extractArgumentValue(String argsString,
                                         PrefixPosition currentPrefixPosition,
                                         PrefixPosition nextPrefixPosition) {
