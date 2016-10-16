@@ -13,6 +13,7 @@ After studying this code and completing the corresponding exercises, you should 
 1. [Apply Test Case Design Heuristics `[LO-TestCaseDesignHeuristics]`](#apply-test-case-design-heuristics-lo-testcasedesignheuristics)
 1. [Write Integration Tests `[LO-IntegrationTests]`](#write-integration-tests-lo-integrationtests)
 1. [Perform System Testing `[LO-SystemTesting]`](#perform-system-testing-lo-systemtesting)
+1. [Automate GUI Testing `[LO-AutomateGuiTesting]`](#automate-gui-testing-lo-automateguitesting)
 
 ------------------------------------------------------------------------------------------------------
 
@@ -151,7 +152,7 @@ the efficiency and effectiveness of test cases testing the
 
 ## Write Integration Tests `[LO-IntegrationTests]`
 
-Consider the [`StorageManagerTest.java`](../src/test/java/seedu/address/storage/StorageTest.java) class.
+Consider the [`StorageManagerTest.java`](../src/test/java/seedu/address/storage/StorageManagerTest.java) class.
 * Test methods `prefsReadSave()` and `addressBookReadSave()` are integration tests. Note how they simply test if
   The `StorageManager` class is correctly wired to its dependencies.
 
@@ -182,17 +183,26 @@ public void execute_add_invalidArgsFormat() throws Exception {
 
 ## Perform System Testing `[LO-SystemTesting]`
 
-Note how tests below `rc/test/java/guitests` package 
-(e.g [AddCommandTest.java](../src/test/java/guitests/AddCommandTest.java))are system tests because they test 
+Note how tests below `src/test/java/guitests` package 
+(e.g [AddCommandTest.java](../src/test/java/guitests/AddCommandTest.java)) are system tests because they test 
 the entire system end-to-end.
  
 #### Exercise: Write more system tests 
  * Add some more system tests to the existing system tests.
  
 ------------------------------------------------------------------------------------------------------
+
+## Automate GUI Testing `[LO-AutomateGuiTesting]`
+
+Note how this project uses TextFX library to automate GUI testing, including 
+[_headless_ GUI testing](DeveloperGuide.md#headless-gui-testing).
+ 
+#### Exercise: Write more automated GUI tests 
+ * Add some more automated GUI tests.
+ 
+------------------------------------------------------------------------------------------------------
+
 {More to be added}
-* Acceptance testing (+dogfooding)
-* GUI test automation
 * Design patterns
 * Static analysis
 * Code reviews
