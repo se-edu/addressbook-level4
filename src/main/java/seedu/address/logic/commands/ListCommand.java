@@ -10,7 +10,6 @@ public class ListCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Listed all persons";
 
-    public ListCommand() {}
 
     @Override
     public CommandResult execute() {

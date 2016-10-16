@@ -28,9 +28,6 @@ public class PersonCard extends UiPart {
     private ReadOnlyPerson person;
     private int displayedIndex;
 
-    public PersonCard() {
-
-    }
 
     public static PersonCard load(ReadOnlyPerson person, int displayedIndex) {
         PersonCard card = new PersonCard();
