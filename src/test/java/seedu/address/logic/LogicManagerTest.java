@@ -558,6 +558,20 @@ public class LogicManagerTest {
                     new UniqueTagList(new Tag("tag"))
             );
         }
+        
+        /**
+         * Generates a Task object with given name. Other fields will have some dummy values.
+         */
+        Task generateTaskWithNameOnly(String name) throws Exception {
+            return new Task(
+                    new Name(name),
+                    Optional.ofNullable(null),
+                    new Period("2359"),
+                    new Description(" "),
+                    new Location(" "),
+                    new UniqueTagList(Collections.emptySet())
+            );
+        }
     }
 
     @Test
@@ -610,9 +624,9 @@ public class LogicManagerTest {
     @Test
     public void execute_edit_nameOnly() throws Exception{
         TestDataHelper helper = new TestDataHelper();
-        Task adam = helper.generateTaskWithName("Dirty Adam");
+        Task adam = helper.generateTaskWithNameOnly("Dirty Adam");
 
-        Task editedAdam = helper.generateTaskWithName("Adam Brown");
+        Task editedAdam = helper.generateTaskWithNameOnly("Adam Brown");
 
         List<Task> adamList = helper.generateTaskList(adam);
         List<Task> expectedList = helper.generateTaskList(editedAdam);
