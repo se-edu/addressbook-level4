@@ -1,20 +1,58 @@
 package seedu.address.logic.commands;
 
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+
+import seedu.address.commons.core.Messages;
+import seedu.address.commons.util.StringUtil;
+
 
 /**
  * Lists all tasks in the SmartyDo to the user.
  */
 public class ListCommand extends Command {
+	
+	private final String keyword;
+	private final String ARGUMENT_ALL = "all";
+	private final String ARGUMENT_OVERDUE = "overdue";
+	private final String ARGUMENT_UPCOMING = "upcoming";
+	private final String ARGUMENT_COMPLETED = "completed";
 
     public static final String COMMAND_WORD = "list";
 
-    public static final String MESSAGE_SUCCESS = "Listed all tasks";
+    public static final String MESSAGE_SUCCESS = "Listed %1$s tasks";
 
-    public ListCommand() {}
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Shows a list of all tasks with a filter.\n"
+            + "Parameters: [ALL/COMPLETED/UPCOMING/OVERDUE]\n"
+            + "Example: " + COMMAND_WORD + " all";
+
+    public ListCommand(Set<String> keywords) {
+    	this.keyword = keywords.toArray(new String[keywords.size()])[0].toLowerCase();
+    }
 
     @Override
     public CommandResult execute() {
-        model.updateFilteredListToShowAll();
-        return new CommandResult(MESSAGE_SUCCESS);
+    	
+    	switch(keyword) {
+    	case ARGUMENT_ALL:
+    		model.updateFilteredListToShowAll();
+    		break;
+    	case ARGUMENT_OVERDUE:
+    		model.updateFilteredListToShowAll();
+    		break;
+    	case ARGUMENT_UPCOMING:
+    		model.updateFilteredListToShowAll();
+    		break;
+    	case ARGUMENT_COMPLETED:
+    		model.updateFilteredListToShowAll();
+    		break;
+    	default:
+        	indicateAttemptToExecuteIncorrectCommand();
+            return new CommandResult(Messages.MESSAGE_INVALID_ARGUMENT);
+    	}
+
+        return new CommandResult(String.format(MESSAGE_SUCCESS, keyword));
     }
 }
