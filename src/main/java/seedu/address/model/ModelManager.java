@@ -98,6 +98,11 @@ public class ModelManager extends ComponentManager implements Model {
     private void updateFilteredTaskList(Expression expression) {
         filteredTasks.setPredicate(expression::satisfies);
     }
+    
+    @Override
+    public void updateFilteredListToShowCompleted(boolean done) {
+    	updateFilteredTaskList(new PredicateExpression(new CompleteQualifier(done)));
+    }
 
     //========== Inner classes/interfaces used for filtering ==================================================
 
@@ -149,6 +154,24 @@ public class ModelManager extends ComponentManager implements Model {
         @Override
         public String toString() {
             return "name=" + String.join(", ", nameKeyWords);
+        }
+    }
+    
+    private class CompleteQualifier implements Qualifier {
+        private boolean done;
+
+        CompleteQualifier(boolean done) {
+            this.done = done;
+        }
+
+        @Override
+        public boolean run(ReadOnlyTask task) {   
+            return (task.getCompleted() == done);
+        }
+
+        @Override
+        public String toString() {
+            return "complete=" + done;
         }
     }
 

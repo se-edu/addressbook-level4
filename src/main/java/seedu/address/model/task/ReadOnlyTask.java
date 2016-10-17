@@ -15,6 +15,7 @@ public interface ReadOnlyTask extends Comparable<ReadOnlyTask>{
     Period getPeriod();
     Description getDescription();
     Location getLocation();
+    boolean getCompleted();
 
     /**
      * The returned TagList is a deep copy of the internal TagList,

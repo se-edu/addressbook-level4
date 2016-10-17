@@ -46,7 +46,7 @@ public class ListCommand extends Command {
     		model.updateFilteredListToShowAll();
     		break;
     	case ARGUMENT_COMPLETED:
-    		model.updateFilteredListToShowAll();
+    		model.updateFilteredListToShowCompleted(true);
     		break;
     	default:
         	indicateAttemptToExecuteIncorrectCommand();
