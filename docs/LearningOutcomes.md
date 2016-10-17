@@ -141,12 +141,16 @@ Note how our CI server [Travis uses Coveralls to report code coverage](UsingTrav
 ## Apply Test Case Design Heuristics `[LO-TestCaseDesignHeuristics]`
 
 The [`StringUtilTest.java`](../src/test/java/seedu/address/commons/util/StringUtilTest.java) class gives some examples
-of how to use _Equivalence Classes_, _Boundary Value Analysis_, and _Test Input Combination Heuristics_ to improve
+of how to use _Equivalence Partitions_, _Boundary Value Analysis_, and _Test Input Combination Heuristics_ to improve
 the efficiency and effectiveness of test cases testing the 
 [`StringUtil.java`](../src/main/java/seedu/address/commons/util/StringUtil.java) class.
 
  
 #### Exercise: Apply Test Case Design Heuristics to other places 
+ * Find answers to these questions:
+   * What is an Equivalence Partition? How does it help to improve E&E of testing?
+   * What is Boundary Value Analysis? How does it help to improve E&E of testing?
+   * What are the heuristics that can be used when combining multiple test inputs? 
  * Use the test case design heuristics mentioned above to improve test cases in other places.
  
 ------------------------------------------------------------------------------------------------------
