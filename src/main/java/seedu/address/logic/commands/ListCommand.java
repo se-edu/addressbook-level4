@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import seedu.address.commons.core.Messages;
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.StringUtil;
 
 
@@ -40,10 +41,10 @@ public class ListCommand extends Command {
     		model.updateFilteredListToShowAll();
     		break;
     	case ARGUMENT_OVERDUE:
-    		model.updateFilteredListToShowAll();
+    		model.updateFilteredListToShowOverdue();
     		break;
     	case ARGUMENT_UPCOMING:
-    		model.updateFilteredListToShowAll();
+    		model.updateFilteredListToShowUpcoming();
     		break;
     	case ARGUMENT_COMPLETED:
     		model.updateFilteredListToShowCompleted(true);

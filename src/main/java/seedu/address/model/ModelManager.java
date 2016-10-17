@@ -6,12 +6,16 @@ import seedu.address.commons.core.SortedObservableArrayList;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.model.task.Task;
+import seedu.address.model.task.Time;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.UniqueTaskList;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 import seedu.address.commons.events.model.ToDoChangedEvent;
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.core.ComponentManager;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Set;
 import java.util.logging.Logger;
 
@@ -103,6 +107,16 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredListToShowCompleted(boolean done) {
     	updateFilteredTaskList(new PredicateExpression(new CompleteQualifier(done)));
     }
+    
+    @Override
+    public void updateFilteredListToShowUpcoming() {
+    	updateFilteredTaskList(new PredicateExpression(new TimeQualifier()));
+    }
+    
+    @Override
+    public void updateFilteredListToShowOverdue() {
+    	updateFilteredTaskList(new PredicateExpression(new OverdueQualifier()));
+    }
 
     //========== Inner classes/interfaces used for filtering ==================================================
 
@@ -174,5 +188,53 @@ public class ModelManager extends ComponentManager implements Model {
             return "complete=" + done;
         }
     }
+    
+    private class TimeQualifier implements Qualifier {
+    	Time currentTime;
 
+        TimeQualifier() {
+        	try {
+				currentTime = new Time(new SimpleDateFormat("dd-MMM-yyyy").format(Calendar.getInstance().getTime()));
+			} catch (IllegalValueException e) {
+				e.printStackTrace();
+			}
+        }
+
+        @Override
+        public boolean run(ReadOnlyTask task) {
+        	if (task.getTime().isPresent()) {
+        		int result = task.getTime().get().compareTo(currentTime);
+        		
+        		if (result >= 0) {
+        			return true;
+        		}
+        	}
+
+            return false;
+        }
+
+        @Override
+        public String toString() {
+            return "time=" + currentTime.toString();
+        }
+    }
+    private class OverdueQualifier implements Qualifier {
+    	TimeQualifier timeQualifier;
+    	CompleteQualifier completeQualifier;
+
+        OverdueQualifier() {
+        	timeQualifier = new TimeQualifier();
+        	completeQualifier = new CompleteQualifier(false);
+        }
+
+        @Override
+        public boolean run(ReadOnlyTask task) {
+        	return ((!timeQualifier.run(task)) && completeQualifier.run(task));
+        }
+
+        @Override
+        public String toString() {
+            return "overdue= true";
+        }
+    }
 }

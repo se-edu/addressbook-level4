@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import seedu.address.commons.core.UnmodifiableObservableList;
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.task.Task;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.UniqueTaskList;
@@ -32,7 +33,13 @@ public interface Model {
     /** Updates the filter of the filtered task list to filter by the given keywords*/
     void updateFilteredTaskList(Set<String> keywords);
     
-    /** Updates the filter of the filtered task list to filter by the given keywords*/
+    /** Updates the filter of the filtered task list to filter by completion*/
     void updateFilteredListToShowCompleted(boolean done);
+    
+    /** Updates the filter of the filtered task list to filter by upcoming*/
+    void updateFilteredListToShowUpcoming();
+    
+    /** Updates the filter of the filtered task list to filter by overdue*/
+    void updateFilteredListToShowOverdue();
 
 }
