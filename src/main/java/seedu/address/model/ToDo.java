@@ -115,6 +115,7 @@ public class ToDo implements ReadOnlyToDo {
 
     public boolean toggleTaskStatus(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
         if (tasks.contains(key)) {
+            System.out.println("Hey i'm in 118 of ToDo.java");
             tasks.mark(key);
             return true;
         } else {

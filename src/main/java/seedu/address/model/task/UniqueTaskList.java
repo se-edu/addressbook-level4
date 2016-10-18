@@ -82,9 +82,12 @@ public class UniqueTaskList implements Iterable<Task> {
     public void mark(ReadOnlyTask toMark) throws TaskNotFoundException {
         assert toMark != null;
         int idToMark = internalList.indexOf(toMark);
+        System.out.println("Hey im in Unique task list 85:" + idToMark);
+        System.out.println("Unique list 89: " + internalList.get(idToMark).getCompleted());
         if (idToMark == -1)
             throw new TaskNotFoundException();
         internalList.get(idToMark).toggleTaskStatus();
+        System.out.println("Unique list 89: " + internalList.get(idToMark).getCompleted());
     }
 
     public ObservableList<Task> getInternalList() {

@@ -82,7 +82,7 @@ public class DeleteCommand extends Command implements Undoable{
 
 	@Override
 	public boolean pushCmdToUndo(boolean isExecuted) {
-        if (!isExecuted){
+        if (!isExecuted) {
         	undoRedoManager.addToUndo(this);
         }
 		return true;

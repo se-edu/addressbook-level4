@@ -85,6 +85,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void markTask(ReadOnlyTask target) throws TaskNotFoundException {
         toDo.toggleTaskStatus(target);
+        System.out.println("I'm inside Model Manager 88");
         indicateAddressBookChanged();
     }
 

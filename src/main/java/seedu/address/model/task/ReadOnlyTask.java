@@ -33,7 +33,8 @@ public interface ReadOnlyTask extends Comparable<ReadOnlyTask>{
                 && other.getTime().equals(this.getTime())
                 && other.getPeriod().equals(this.getPeriod())
                 && other.getDescription().equals(this.getDescription())
-                && other.getLocation().equals(this.getLocation()));
+                && other.getLocation().equals(this.getLocation())
+                && other.getCompleted() == (this.getCompleted()));
     }
 
     /**

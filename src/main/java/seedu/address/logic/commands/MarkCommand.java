@@ -18,7 +18,7 @@ public class MarkCommand extends Command implements Undoable {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_MARK_TASK_SUCCESS = "Task %1$s status has been changed to %1$s.";
+    public static final String MESSAGE_MARK_TASK_SUCCESS = "Task %1s status has been changed to %1s.";
 
     public final int targetIndex;
     private boolean isExecutedBefore;
@@ -44,7 +44,8 @@ public class MarkCommand extends Command implements Undoable {
             assert false : "The target cannot be missing.";
         }
         isExecutedBefore = pushCmdToUndo(isExecutedBefore);
-        return new CommandResult(String.format(MESSAGE_MARK_TASK_SUCCESS, taskToMark, taskToMark.getCompleted()));
+        return new CommandResult(String.format(MESSAGE_MARK_TASK_SUCCESS, taskToMark.getName(), 
+                taskToMark.getCompleted() ? "Completed" : "Incomplete"));
     }
 
     @Override

@@ -63,7 +63,7 @@ public class Parser {
             + "12Hour format with AM/PM required or 24Hour format without AM/PM"
             + "eg: 10-12-2012 09:00AM 23:59PM";
 
-    enum TaskType { UNTIMED, DEADLINE, TIMERANGE }
+    enum TaskType {UNTIMED, DEADLINE, TIMERANGE}
 
     public Parser() {}
 
