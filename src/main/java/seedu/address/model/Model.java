@@ -21,25 +21,27 @@ public interface Model {
     /** Deletes the given task. */
     void deleteTask(ReadOnlyTask target) throws UniqueTaskList.TaskNotFoundException;
 
+    /** Marks the given task. */
+    void markTask(ReadOnlyTask taskToMark) throws UniqueTaskList.TaskNotFoundException;
+
     /** Adds the given task */
     void addTask(Task task) throws UniqueTaskList.DuplicateTaskException;
 
     /** Returns the filtered task list as an {@code UnmodifiableObservableList<ReadOnlyTask>} */
     UnmodifiableObservableList<ReadOnlyTask> getFilteredTaskList();
-
+    
     /** Updates the filter of the filtered task list to show all tasks */
     void updateFilteredListToShowAll();
 
     /** Updates the filter of the filtered task list to filter by the given keywords*/
     void updateFilteredTaskList(Set<String> keywords);
-    
+
     /** Updates the filter of the filtered task list to filter by completion*/
     void updateFilteredListToShowCompleted(boolean done);
-    
+
     /** Updates the filter of the filtered task list to filter by upcoming*/
     void updateFilteredListToShowUpcoming();
-    
+
     /** Updates the filter of the filtered task list to filter by overdue*/
     void updateFilteredListToShowOverdue();
-
 }

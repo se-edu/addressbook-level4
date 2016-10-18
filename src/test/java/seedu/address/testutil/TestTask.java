@@ -5,6 +5,7 @@ import java.util.Optional;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.*;
 
+
 /**
  * A mutable task object. For testing only.
  */
@@ -41,6 +42,10 @@ public class TestTask implements ReadOnlyTask {
     public void setPeriod(Period period) {
         this.period = period;
     }
+    
+    public void setComplete(boolean isComplete) {
+        this.isCompleted = isComplete;
+    }
 
     @Override
     public Name getName() {
@@ -71,7 +76,7 @@ public class TestTask implements ReadOnlyTask {
     public Period getPeriod() {
         return period;
     }
-    
+
 	@Override
 	public boolean getCompleted() {
 		return isCompleted;
@@ -92,5 +97,20 @@ public class TestTask implements ReadOnlyTask {
 
         this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();
+    }
+
+    @Override
+    public TaskType getTaskType() {
+        if (time.isPresent()) {
+            if (time.get().getUntimedStatus()){
+                return TaskType.UNTIMED;
+            } else if (!time.get().getEndDate().isPresent()) {
+                return TaskType.DEADLINE;
+            } else {
+                return TaskType.TIMERANGE;
+            }
+        } else {
+            return TaskType.FLOATING;
+        }
     }
 }

@@ -21,9 +21,9 @@ import java.util.Optional;
  * JAXB-friendly version of the Task.
  */
 public class XmlAdaptedTask {
-    
-    
-    
+
+
+
     @XmlElement(required = true)
     private String name;
     @XmlElement(required = false)
@@ -40,6 +40,8 @@ public class XmlAdaptedTask {
     private String address;
     @XmlElement(required = false)
     private boolean isUntimed;
+    @XmlElement(required = true)
+    private boolean isCompleted;
 
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
@@ -56,24 +58,25 @@ public class XmlAdaptedTask {
      * @param source future changes to this will not affect the created XmlAdaptedTask
      */
     public XmlAdaptedTask(ReadOnlyTask source) {
-        
+
         name = source.getName().taskName;
         if (source.getTime().isPresent()) {
-            time = source.getTime().get().value; 
-            startTime = source.getTime().get().startDate.format(DateTimeFormatter.ofPattern(Time.DATE_TIME_PRINT_FORMAT));
+            time = source.getTime().get().value;
+            startTime = source.getTime().get().getStartDate().format(DateTimeFormatter.ofPattern(Time.DATE_TIME_PRINT_FORMAT));
             if (source.getTime().get().getEndDate().isPresent()) {
                 endTime = source.getTime().get().getEndDate().toString();
-            }   
-            isUntimed = source.getTime().get().isUntimed;
+            }
+            isUntimed = source.getTime().get().getUntimedStatus();
         }else {
             time = null;
             endTime = null;
             isUntimed = true;
         }
-        
+
         period = source.getPeriod().value;
         description = source.getDescription().value;
         address = source.getLocation().value;
+        isCompleted = source.getCompleted();
         tagged = new ArrayList<>();
         for (Tag tag : source.getTags()) {
             tagged.add(new XmlAdaptedTag(tag));
@@ -90,12 +93,12 @@ public class XmlAdaptedTask {
         final List<Tag> taskTags = new ArrayList<>();
         for (XmlAdaptedTag tag : tagged) {
             taskTags.add(tag.toModelType());
-        }  
+        }
         Time time;
         if(endTime!=null) {
             time = new Time(this.startTime,this.endTime,isUntimed);
         }else if(startTime!= null) {
-            time = new Time(this.startTime,isUntimed);                
+            time = new Time(this.startTime,isUntimed);
         }else
             time = null;
         final Name name = new Name(this.name);
@@ -103,7 +106,7 @@ public class XmlAdaptedTask {
         final Description description = new Description(this.description);
         final Location address = new Location(this.address);
         final UniqueTagList tags = new UniqueTagList(taskTags);
-        return new Task(name, Optional.ofNullable(time), period, description, address, tags);
+        return new Task(name, Optional.ofNullable(time), period, description, address, tags, this.isCompleted);
 
     }
 }

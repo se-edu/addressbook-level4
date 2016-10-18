@@ -10,12 +10,15 @@ import seedu.address.model.tag.UniqueTagList;
  */
 public interface ReadOnlyTask extends Comparable<ReadOnlyTask>{
 
+    enum TaskType {FLOATING, UNTIMED, DEADLINE, TIMERANGE }
+
     Name getName();
     Optional<Time> getTime();
     Period getPeriod();
     Description getDescription();
     Location getLocation();
     boolean getCompleted();
+    TaskType getTaskType();
 
     /**
      * The returned TagList is a deep copy of the internal TagList,
@@ -33,7 +36,8 @@ public interface ReadOnlyTask extends Comparable<ReadOnlyTask>{
                 && other.getTime().equals(this.getTime())
                 && other.getPeriod().equals(this.getPeriod())
                 && other.getDescription().equals(this.getDescription())
-                && other.getLocation().equals(this.getLocation()));
+                && other.getLocation().equals(this.getLocation())
+                && other.getCompleted() == (this.getCompleted()));
     }
 
     /**
@@ -54,7 +58,7 @@ public interface ReadOnlyTask extends Comparable<ReadOnlyTask>{
         getTags().forEach(builder::append);
         return builder.toString();
     }
-    
+
     /**
      * Formats the task for display in browser, showing all contact details.
      */
@@ -87,7 +91,7 @@ public interface ReadOnlyTask extends Comparable<ReadOnlyTask>{
             return buffer.substring(0, buffer.length() - separator.length());
         }
     }
-    
+
     @Override
     public default int compareTo(ReadOnlyTask o) {
         if(!this.getTime().isPresent()){

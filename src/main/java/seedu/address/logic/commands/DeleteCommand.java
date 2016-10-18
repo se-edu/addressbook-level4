@@ -58,7 +58,7 @@ public class DeleteCommand extends Command implements Undoable{
         try {
             model.deleteTask(taskToDelete);
             isExecutedBefore = pushCmdToUndo(isExecutedBefore);
-        } catch (TaskNotFoundException pnfe) {
+        } catch (TaskNotFoundException tnfe) {
             assert false : "The target task cannot be missing";
         }
 
@@ -82,7 +82,7 @@ public class DeleteCommand extends Command implements Undoable{
 
 	@Override
 	public boolean pushCmdToUndo(boolean isExecuted) {
-        if (!isExecuted){
+        if (!isExecuted) {
         	undoRedoManager.addToUndo(this);
         }
 		return true;

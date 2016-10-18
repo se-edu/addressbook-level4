@@ -25,7 +25,7 @@ public class Task implements ReadOnlyTask {
      * Every field must be present and not null.
      */
     public Task(Name name, Optional<Time> time, Period period, Description description, Location location, UniqueTagList tags) {
-        assert !CollectionUtil.isAnyNull(name, time, period, description, location, tags);
+        assert !CollectionUtil.isAnyNull(name, period, description, location, tags);
 
         this.name = name;
         this.time = time;
@@ -42,6 +42,20 @@ public class Task implements ReadOnlyTask {
     public Task(ReadOnlyTask source) {
         this(source.getName(), source.getTime(), source.getPeriod(), source.getDescription(),
              source.getLocation(), source.getTags());
+    }
+
+    /**
+     * Load from xml
+     */
+    public Task(Name name, Optional<Time> time, Period period, Description description, Location location,
+            UniqueTagList tags, boolean isCompleted) {
+        this.name = name;
+        this.time = time;
+        this.period = period;
+        this.description = description;
+        this.location = location;
+        this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
+        this.isCompleted = isCompleted;
     }
 
     @Override
@@ -73,10 +87,14 @@ public class Task implements ReadOnlyTask {
     public UniqueTagList getTags() {
         return new UniqueTagList(tags);
     }
-    
+
     @Override
     public boolean getCompleted() {
     	return isCompleted;
+    }
+
+    public void toggleTaskStatus() {
+        this.isCompleted = !this.isCompleted;
     }
 
     /**
@@ -104,6 +122,18 @@ public class Task implements ReadOnlyTask {
         return getAsText();
     }
 
-    
-
+    @Override
+    public TaskType getTaskType() {
+        if (time.isPresent()) {
+            if (time.get().getUntimedStatus()){
+                return TaskType.UNTIMED;
+            } else if (!time.get().getEndDate().isPresent()) {
+                return TaskType.DEADLINE;
+            } else {
+                return TaskType.TIMERANGE;
+            }
+        } else {
+            return TaskType.FLOATING;
+        }
+    }
 }
