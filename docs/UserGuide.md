@@ -5,14 +5,14 @@
 2. [Quick Start](#2-quick-start)
 3. [Getting Started](#3-getting-started)
   1. [Requesting Help From SmartyDo](#31-requesting-help-from-smartydo)
-  2. [Adding Task Into SmartyDo](#32-adding-tasks-into-smartydo)
+  2. [Adding Task Into SmartyDo](#32-adding-task-into-smartydo)
   3. [Viewing Details Of Specific Task](#33-viewng-details-of-specific-task)
   4. [Finding Specific Tasks](#34-finding-specific-tasks)
   5. [Editing Task Details](#35-editing-task-details)
   6. [Undoing And Redoing Commands](#36-undoing-and-redoing-commands)
   7. [Deleting Tasks](#37-deleting-tasks)
   8. [Marking Completed Tasks](#38-marking-completed-tasks)
-  9. [Exiting SmartyDo](#39-exiting-smarty-do)
+  9. [Exiting SmartyDo](#39-exiting-smartydo)
 4. [Smart Features](#4-smart-features)
   1. [FlexiCommand](#41-flexicommand)
   2. [Saving The Data](#42-saving-the-data)
@@ -82,7 +82,7 @@ Lets say you want to add task named "User Guide" which is due 12 October 2016 wi
 
 After entering the command, MessageBox will show you task is successfully added into SmartyDo and you will see the updated list of task in the VisualBox.
 
-### 3.3. **View Details Of Specific Task**
+### 3.3. **Viewing Details Of Specific Task**
 
 View the task/day/month/year/list identified by the parameter. A full detailed description will appear in a pop up window.
 
