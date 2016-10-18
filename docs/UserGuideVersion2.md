@@ -75,7 +75,7 @@ Format : `add /n TASK_NAME /d DATE #TAG /loc LOCATION /st START_TIME /et END_TIM
 > You don't have to enter the optional parameters when you don't need them. The order of the parameters are not fixed. You can enter the parameters in any order. For example, `add /st START_TIME #TAG /n TASK_NAME /d DATE` is also correct format.
 
 **Example:**<br>
-Lets say you want to add task named "User Guide" which is due 12 October 2016 with tag "CS2103". All you need to do is entering `add #CS2103 /n User Guide /d 121016` into command bar.
+Let's say you want to add task named "User Guide" which is due 12 October 2016 with tag "CS2103". All you need to do is entering `add #CS2103 /n User Guide /d 121016` into command bar.
 
 <img src="images/AddBasicCmd.png" width="500"><br>
 
@@ -88,7 +88,7 @@ View the task/day/month/year/list identified by the parameter. A full detailed d
 Format: `view PARAM`
 
 **Example:**<br>
-Lets say you want to know detailed information about tasks in 12 October 2016. All you need to do is enter `view 121016` into command box.
+Let's say you want to know detailed information about tasks in 12 October 2016. All you need to do is enter `view 121016` into command box.
 
 <img src="images/view.png" width="500"><br>
 
@@ -113,7 +113,7 @@ PARAMETER_TYPE the type of the parameter we want to change and NEW_VALUE is the 
 If the task you want to edit is not shown in the VisualBox, you can use `view` or `find` command to find the required task. <br>
 
 **Example:**<br>
-Lets say you want to add deadline time for task named "User Guide". Then, you must first check the INDEX of that task.
+Let's say you want to add deadline time for task named "User Guide". Then, you must first check the INDEX of that task.
 
 <img src="images/edit.png" width="500"><br>
 
@@ -140,7 +140,7 @@ With `undo`, you are allowed to reverse your previous changes sequentially while
 Format: `undo`, `redo`
 
 **Example:**<br>
-Lets say you have edited the task details by entering `edit 1 /et 1400`. Then, your friend tells you that there is no deadline for that task. In this case, you can reverse back the previous command by using `undo` command.
+Let's say you have edited the task details by entering `edit 1 /et 1400`. Then, your friend tells you that there is no deadline for that task. In this case, you can reverse back the previous command by using `undo` command.
 
 <img src="images/Undo.png" width="500"><br>
 
@@ -161,7 +161,7 @@ Format: `delete INDEX`
 Similar to `edit` command, `delete` command also uses INDEX. INDEX can be found in VisualBox by using `view` command and `find` command.
 
 **Example:**<br>
-If you want to delete specficic task, find the INDEX of that task. Lets say the INDEX is 1. Then, enter `delete 1` in the command bar.
+If you want to delete specficic task, find the INDEX of that task. Let's say the INDEX is 1. Then, enter `delete 1` in the command bar.
 
 <img src="images/Delete1.png" width="500"><br>
 
