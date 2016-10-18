@@ -6,7 +6,7 @@
 3. [Getting Started](#3-getting-started)
   1. [Requesting Help From SmartyDo](#31-requesting-help-from-smartydo)
   2. [Adding Task Into SmartyDo](#32-adding-task-into-smartydo)
-  3. [Viewing Details Of Specific Task](#33-viewng-details-of-specific-task)
+  3. [Viewing Details Of Specific Task](#33-viewing-details-of-specific-task)
   4. [Finding Specific Tasks](#34-finding-specific-tasks)
   5. [Editing Task Details](#35-editing-task-details)
   6. [Undoing And Redoing Commands](#36-undoing-and-redoing-commands)
