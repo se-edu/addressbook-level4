@@ -38,8 +38,7 @@ SmartyDo is a **to-do-list** application. With SmartyDo, forgetting upcoming dea
 Words in `lower case` are the command.<br>
 Words in `upper case` are the parameters.<br>
 Items in `square brackets` are optional.<br>
-Items with `...` after them can have multiple instances.<br>
-The order of parameters is flexible<br>
+The order of parameters is flexible. <br>
 
 ### 3.1. **Requesting Help From SmartyDo**
 
