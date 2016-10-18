@@ -16,6 +16,7 @@ public class TestTask implements ReadOnlyTask {
     private Optional<Time> time;
     private Period period;
     private UniqueTagList tags;
+    private boolean isCompleted;
 
     public TestTask() {
         tags = new UniqueTagList();
@@ -70,6 +71,11 @@ public class TestTask implements ReadOnlyTask {
     public Period getPeriod() {
         return period;
     }
+    
+	@Override
+	public boolean getCompleted() {
+		return isCompleted;
+	}
 
     @Override
     public String toString() {
