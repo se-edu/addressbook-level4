@@ -44,8 +44,6 @@ public class Time implements Comparable<Time> {
     public static final String XML_DATE_TIME_OPTIONAL_FORMAT = "uuuu-MM-dd HH:mm";
     public static final String TIME_PRINT_FORMAT = "h:mma";
 
-    enum TaskType {UNTIMED, DEADLINE, TIMERANGE}
-
     public final String value; //value to store date in UK format
     private LocalDateTime startDate; //US format by java YYYY-MM-DD
     private Optional<LocalDateTime> endDate;
@@ -262,15 +260,6 @@ public class Time implements Comparable<Time> {
      *
      * @return type of task
      */
-    public TaskType getTaskType() {
-        if (isUntimed){
-            return TaskType.UNTIMED;
-        } else if (!endDate.isPresent()) {
-            return TaskType.DEADLINE;
-        } else {
-            return TaskType.TIMERANGE;
-        }
-    }
 
     @Override
     public int compareTo(Time other) {

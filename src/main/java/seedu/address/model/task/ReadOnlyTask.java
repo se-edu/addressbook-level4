@@ -10,12 +10,15 @@ import seedu.address.model.tag.UniqueTagList;
  */
 public interface ReadOnlyTask extends Comparable<ReadOnlyTask>{
 
+    enum TaskType {FLOATING, UNTIMED, DEADLINE, TIMERANGE }
+
     Name getName();
     Optional<Time> getTime();
     Period getPeriod();
     Description getDescription();
     Location getLocation();
     boolean getCompleted();
+    TaskType getTaskType();
 
     /**
      * The returned TagList is a deep copy of the internal TagList,

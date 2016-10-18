@@ -16,6 +16,7 @@ public class TypicalTestTasks {
             alice =  new TaskBuilder().withName("Alice Pauline").withAddress("123, Jurong West Ave 6, #08-111")
                     .withDescription("alice's description").withTime("12-10-2016")
                     .withTags("friends").withPeriod("10:00AM").build();
+            
             benson = new TaskBuilder().withName("Benson Meier").withAddress("311, Clementi Ave 2, #02-25")
                     .withDescription("johnd's description").withTime("12-10-2016")
                     .withTags("owesMoney", "friends").withPeriod("10:00AM").build();

@@ -47,7 +47,7 @@ public class TaskListPanelHandle extends GuiHandle {
     public boolean isListMatching(ReadOnlyTask... tasks) {
         return this.isListMatching(0, tasks);
     }
-    
+
     /**
      * Clicks on the ListView.
      */
@@ -69,7 +69,6 @@ public class TaskListPanelHandle extends GuiHandle {
 
         // Return false if any of the tasks doesn't match
         for (int i = 0; i < tasks.length; i++) {
-            System.out.println(tasksInList.get(startPosition + i).getName().taskName +" "+tasks[i].getName().taskName);
             if (!tasksInList.get(startPosition + i).getName().taskName.equals(tasks[i].getName().taskName)){
                 return false;
             }

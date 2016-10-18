@@ -55,11 +55,7 @@ public class TaskCard extends UiPart{
         name.setText(task.getName().taskName);
         id.setText(displayedIndex + ". ");
         setDateTimeText();
-           // address.setText(task.getLocation().value);
-        if (task.getCompleted()) 
-            address.setText("true");
-        else 
-            address.setText("false");
+        address.setText(task.getLocation().value);
         description.setText(task.getDescription().value);
         tags.setText(task.tagsString());
         completeStatus.setSelected(task.getCompleted());
@@ -92,14 +88,13 @@ public class TaskCard extends UiPart{
 
     @FXML
     private void setDesign() {
-        System.out.println(task.getCompleted());
-//        boolean isCompleted = task.getCompleted();
-//        //completeStatus.setSelected(isCompleted);
-//        if (isCompleted) {
-//            completeStatus.setSelected(true);
-//        } else {
-//            completeStatus.setSelected(false);
-//        }
+        boolean isCompleted = task.getCompleted();
+
+        if (isCompleted) {
+            completeStatus.setSelected(true);
+        } else {
+            completeStatus.setSelected(false);
+        }
     }
 
     public HBox getLayout() {

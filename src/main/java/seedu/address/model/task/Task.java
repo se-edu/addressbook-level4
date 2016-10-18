@@ -94,10 +94,7 @@ public class Task implements ReadOnlyTask {
     }
 
     public void toggleTaskStatus() {
-        System.out.println("Before: task.java line 97 " +isCompleted);
         this.isCompleted = !this.isCompleted;
-        System.out.println("After: " +isCompleted);
-        System.out.println("I'm inside task.java line 84");
     }
 
     /**
@@ -123,5 +120,20 @@ public class Task implements ReadOnlyTask {
     @Override
     public String toString() {
         return getAsText();
+    }
+
+    @Override
+    public TaskType getTaskType() {
+        if (time.isPresent()) {
+            if (time.get().getUntimedStatus()){
+                return TaskType.UNTIMED;
+            } else if (!time.get().getEndDate().isPresent()) {
+                return TaskType.DEADLINE;
+            } else {
+                return TaskType.TIMERANGE;
+            }
+        } else {
+            return TaskType.FLOATING;
+        }
     }
 }
