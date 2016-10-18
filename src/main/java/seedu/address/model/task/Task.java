@@ -73,6 +73,11 @@ public class Task implements ReadOnlyTask {
     public UniqueTagList getTags() {
         return new UniqueTagList(tags);
     }
+    
+    @Override
+    public boolean getCompleted() {
+    	return isCompleted;
+    }
 
     /**
      * Replaces this task's tags with the tags in the argument tag list.
