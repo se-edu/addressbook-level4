@@ -4,19 +4,19 @@
 1. [Introduction](#1-introduction)
 2. [Quick Start](#2-quick-start)
 3. [Getting Started](#3-getting-started)
-  1. [Help](#31-help)
-  2. [Add Tasks](#32-add-tasks)
-  3. [View](#33-view)
-  4. [Edit Tasks](#34-edit-tasks)
-  5. [Undo and Redo](#35-undo-and-redo)
-  6. [Delete Tasks](#36-delete-tasks)
-  7. [Mark completed tasks](#37-mark-completed-tasks)
-  8. [Suggest available timeslots](#38-suggest-available-timeslots)
-  9. [Find](#39-find)
-  10. [Exit](#310-exit)
+  1. [Requesting Help From SmartyDo](#31-requesting-help-from-smartydo)
+  2. [Adding Task Into SmartyDo](#32-adding-tasks-into-smartydo)
+  3. [Viewing Details Of Specific Task](#33-viewng-details-of-specific-task)
+  4. [Finding Specific Tasks](#34-finding-specific-tasks)
+  5. [Editing Task Details](#35-editing-task-details)
+  6. [Undoing And Redoing Commands](#36-undoing-and-redoing-commands)
+  7. [Deleting Tasks](#37-deleting-tasks)
+  8. [Marking Completed Tasks](#38-marking-completed-tasks)
+  9. [Exiting SmartyDo](#39-exiting-smarty-do)
 4. [Smart Features](#4-smart-features)
   1. [FlexiCommand](#41-flexicommand)
-  2. [Saving the data](#42-saving-the-data)
+  2. [Saving The Data](#42-saving-the-data)
+5. [Command Summary](#5-command-summary)
 
 <!-- /MarkdownTOC -->
 
@@ -196,6 +196,20 @@ By entering `exit` command in the command box, SmartyDo will quit and save the d
 ### 4.1. **FlexiCommand**
 It is okay if you cannot remember the syntax entirely! As long as you remember the keyword some reshuffling of the parameters entered is fine. Our program will ask you for confirmation if we are unsure what you want.
 
-### 4.2. **Saving the data**
+### 4.2. **Saving The Data**
 SmartyDo data are saved in the hard disk automatically after any command that changes the data.
 There is no need to save manually.
+
+## 5. **Command Summary**
+|**Command**|**Parameters**|**Format**|
+|:---------:|:--------:|-------|
+|Help   || `help`|
+|Add      |TASK_NAME, DATE, [TAG], [LOCATION], [START_TIME], [END_TIME]|`add /n TASK_NAME /d DATE #TAG /loc LOCATION /st START_TIME /et END_TIME`|
+|View     |PARAM|`view PARAM`|
+|Find     |KEYWORD, [MORE_KEYWORD]|`find KEYWORD [MORE_KEYWORD]`|
+|Edit     |INDEX|`edit INDEX`|
+|Undo     ||`undo`|
+|Redo     ||`redo`|
+|Done     |INDEX|`done INDEX`|
+|Exit     ||`exit`|
+
