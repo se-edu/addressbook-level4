@@ -14,6 +14,7 @@ After studying this code and completing the corresponding exercises, you should 
 1. [Write Integration Tests `[LO-IntegrationTests]`](#write-integration-tests-lo-integrationtests)
 1. [Perform System Testing `[LO-SystemTesting]`](#perform-system-testing-lo-systemtesting)
 1. [Automate GUI Testing `[LO-AutomateGuiTesting]`](#automate-gui-testing-lo-automateguitesting)
+1. [Apply Design Patterns `[LO-DesignPatterns]`](#apply-design-patterns-lo-designpatterns)
 1. [Use Static Analysis `[LO-StaticAnalysis]`](#use-static-analysis-lo-staticanalysis)
 
 ------------------------------------------------------------------------------------------------------
