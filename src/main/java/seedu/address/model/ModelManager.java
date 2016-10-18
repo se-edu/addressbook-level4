@@ -82,6 +82,12 @@ public class ModelManager extends ComponentManager implements Model {
         indicateAddressBookChanged();
     }
 
+    @Override
+    public synchronized void markTask(ReadOnlyTask target) throws TaskNotFoundException {
+        toDo.toggleTaskStatus(target);
+        indicateAddressBookChanged();
+    }
+
     //=========== Filtered Task List Accessors ===============================================================
 
     @Override
@@ -102,17 +108,17 @@ public class ModelManager extends ComponentManager implements Model {
     private void updateFilteredTaskList(Expression expression) {
         filteredTasks.setPredicate(expression::satisfies);
     }
-    
+
     @Override
     public void updateFilteredListToShowCompleted(boolean done) {
     	updateFilteredTaskList(new PredicateExpression(new CompleteQualifier(done)));
     }
-    
+
     @Override
     public void updateFilteredListToShowUpcoming() {
     	updateFilteredTaskList(new PredicateExpression(new TimeQualifier()));
     }
-    
+
     @Override
     public void updateFilteredListToShowOverdue() {
     	updateFilteredTaskList(new PredicateExpression(new OverdueQualifier()));
@@ -157,7 +163,7 @@ public class ModelManager extends ComponentManager implements Model {
         }
 
         @Override
-        public boolean run(ReadOnlyTask task) {   
+        public boolean run(ReadOnlyTask task) {
             return nameKeyWords.stream()
                     .filter(keyword -> StringUtil.containsSubstringIgnoreCase(task.getName().taskName, keyword)
                     		        || StringUtil.containsSubstringIgnoreCase(task.tagsString(), keyword) )
@@ -170,7 +176,7 @@ public class ModelManager extends ComponentManager implements Model {
             return "name=" + String.join(", ", nameKeyWords);
         }
     }
-    
+
     private class CompleteQualifier implements Qualifier {
         private boolean done;
 
@@ -179,7 +185,7 @@ public class ModelManager extends ComponentManager implements Model {
         }
 
         @Override
-        public boolean run(ReadOnlyTask task) {   
+        public boolean run(ReadOnlyTask task) {
             return (task.getCompleted() == done);
         }
 
@@ -188,7 +194,7 @@ public class ModelManager extends ComponentManager implements Model {
             return "complete=" + done;
         }
     }
-    
+
     private class TimeQualifier implements Qualifier {
     	Time currentTime;
 
@@ -204,7 +210,7 @@ public class ModelManager extends ComponentManager implements Model {
         public boolean run(ReadOnlyTask task) {
         	if (task.getTime().isPresent()) {
         		int result = task.getTime().get().compareTo(currentTime);
-        		
+
         		if (result >= 0) {
         			return true;
         		}
@@ -237,4 +243,5 @@ public class ModelManager extends ComponentManager implements Model {
             return "overdue= true";
         }
     }
+
 }

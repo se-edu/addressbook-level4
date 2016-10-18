@@ -54,7 +54,7 @@ public interface ReadOnlyTask extends Comparable<ReadOnlyTask>{
         getTags().forEach(builder::append);
         return builder.toString();
     }
-    
+
     /**
      * Formats the task for display in browser, showing all contact details.
      */
@@ -87,7 +87,7 @@ public interface ReadOnlyTask extends Comparable<ReadOnlyTask>{
             return buffer.substring(0, buffer.length() - separator.length());
         }
     }
-    
+
     @Override
     public default int compareTo(ReadOnlyTask o) {
         if(!this.getTime().isPresent()){

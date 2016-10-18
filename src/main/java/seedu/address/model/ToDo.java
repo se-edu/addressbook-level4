@@ -113,6 +113,15 @@ public class ToDo implements ReadOnlyToDo {
         }
     }
 
+    public boolean toggleTaskStatus(ReadOnlyTask key) throws UniqueTaskList.TaskNotFoundException {
+        if (tasks.contains(key)) {
+            tasks.mark(key);
+            return true;
+        } else {
+            throw new UniqueTaskList.TaskNotFoundException();
+        }
+    }
+
 //// tag-level operations
 
     public void addTag(Tag t) throws UniqueTagList.DuplicateTagException {

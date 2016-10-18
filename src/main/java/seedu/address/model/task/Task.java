@@ -73,10 +73,14 @@ public class Task implements ReadOnlyTask {
     public UniqueTagList getTags() {
         return new UniqueTagList(tags);
     }
-    
+
     @Override
     public boolean getCompleted() {
     	return isCompleted;
+    }
+
+    public void toggleTaskStatus() {
+        this.isCompleted = !this.isCompleted;
     }
 
     /**
@@ -103,7 +107,4 @@ public class Task implements ReadOnlyTask {
     public String toString() {
         return getAsText();
     }
-
-    
-
 }

@@ -43,10 +43,10 @@ public class Parser {
                     + "(( (?<isAddressPrivate>p?)a;(?<address>[^/]+))?)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
 
-    public static final String TIME_VALIDATION_REGEX = "((1[012]|0?[1-9])[:.]?[0-5][0-9]([aApP][mM]))|"
+    public static final String TIME_VALIDATION_FORMAT = "((1[012]|0?[1-9])[:.]?[0-5][0-9]([aApP][mM]))|"
             + "(([01]\\d|2[0-3])[:.]?([0-5]\\d))";
 
-    public static final String DATE_VALIDATION_REGEX = "(?:(?:31(\\/|-|\\.)(?:0?[13578]|1[02]|"
+    public static final String DATE_VALIDATION_FORMAT = "(?:(?:31(\\/|-|\\.)(?:0?[13578]|1[02]|"
             + "(?:Jan|Mar|May|Jul|Aug|Oct|Dec)))\\1|(?:(?:29|30)(\\/|-|\\.)(?:0?[1,3-9]|1[0-2]|"
             + "(?:Jan|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec))\\2))(?:(?:1[6-9]|[2-9]\\d)?\\d{2})$|^"
             + "(?:29(\\/|-|\\.)(?:0?2|(?:Feb))\\3(?:(?:(?:1[6-9]|[2-9]\\d)?(?:0[48]|[2468][048]|[13579][26])|"
@@ -54,14 +54,15 @@ public class Parser {
             + "(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep))|(?:1[0-2]|(?:Oct|Nov|Dec)))"
             + "\\4(?:(?:1[6-9]|[2-9]\\d)?\\d{2})";
 
-    public static final String DATE_TIME_VALIDATION_REGEX = DATE_VALIDATION_REGEX
-            +"(\\s("+TIME_VALIDATION_REGEX+")(\\s("+TIME_VALIDATION_REGEX+"))?)?";
+    public static final String DATE_TIME_VALIDATION_FORMAT = DATE_VALIDATION_FORMAT
+            +"(\\s("+TIME_VALIDATION_FORMAT+")(\\s("+TIME_VALIDATION_FORMAT+"))?)?";
 
     public static final String MESSAGE_DATE_TIME_CONSTRAINTS = "Task Dates and Time should be in valid UK-format "
             + "Date [Optional]Time [Optional]Time"
             + "DD/MMM/YYYY or DD/MM/YYYY or DD.MM.YYYY or DD.MMM.YYY or DD-MM-YYYY or DD-MMM-YYYY"
             + "12Hour format with AM/PM required or 24Hour format without AM/PM"
             + "eg: 10-12-2012 09:00AM 23:59PM";
+
     enum TaskType { UNTIMED, DEADLINE, TIMERANGE }
 
     public Parser() {}
@@ -118,13 +119,37 @@ public class Parser {
         case EditCommand.COMMAND_WORD:
             return prepareEdit(arguments);
 
+        case MarkCommand.COMMAND_WORD:
+            return prepareMark(arguments);
+
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
         }
     }
 
     /**
+     * Parses arguments in the context of the add mark command.
+     *
+     * @param arguments
+     * @return
+     */
+    private Command prepareMark(String args) {
+        Optional<Integer> index = parseIndex(args);
+        if(!index.isPresent()){
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, MarkCommand.MESSAGE_USAGE));
+        }
+
+        return new MarkCommand(index.get());
+    }
+
+    /**
      * Parses arguments in the context of the add task command.
+     *
+     * case 0: no date and time , i.e no args for time found
+     * case 1: date only
+     * case 2: date and startTime
+     * case 3: date and startTime endTime
      *
      * @param args full command args string
      * @return the prepared command
@@ -141,7 +166,7 @@ public class Parser {
             String validateDateTimeArgs = matcher.group("time");
             if(validateDateTimeArgs !=null) {
                 validateDateTimeArgs = validateDateTimeArgs.trim();
-                if(!validateDateTimeArgs.matches(DATE_TIME_VALIDATION_REGEX)){
+                if(!validateDateTimeArgs.matches(DATE_TIME_VALIDATION_FORMAT)){
                     throw new IllegalValueException(MESSAGE_DATE_TIME_CONSTRAINTS);
                 }
                 dateTimeArgs = prepareAddTimeArgs(validateDateTimeArgs);
@@ -149,7 +174,7 @@ public class Parser {
             }else {
                 taskType = TaskType.values()[0];
             }
-                
+
             switch (taskType) {
                 case UNTIMED:
                     return new AddCommand(
@@ -295,7 +320,7 @@ public class Parser {
         final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
         return new FindCommand(keywordSet);
     }
-    
+
     private Command prepareList(String args) {
         final Matcher matcher = KEYWORDS_ARGS_FORMAT.matcher(args.trim());
         if (!matcher.matches()) {
