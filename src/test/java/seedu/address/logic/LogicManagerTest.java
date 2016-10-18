@@ -206,8 +206,8 @@ public class LogicManagerTest {
         // prepare SmartyDo state
         helper.addToModel(model, 2);
 
-        assertCommandBehavior("list",
-                ListCommand.MESSAGE_SUCCESS,
+        assertCommandBehavior("list all",
+                String.format(ListCommand.MESSAGE_SUCCESS, "all"),
                 expectedAB,
                 expectedList);
     }

@@ -33,7 +33,7 @@ public class ViewCommandTest extends AddressBookGuiTest{
 
 	    private void assertViewInvalid(int index) {
 	        commandBox.runCommand("view " + index);
-	        assertResultMessage("The task index provided is invalid");
+	        assertResultMessage("The task index provided is invalid.");
 	    }
 
 	    private void assertViewSuccess(int index) {
