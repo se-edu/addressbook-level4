@@ -14,10 +14,6 @@ public class Tag {
 
     public final String tagName;
 
-    public Tag(Tag copyFrom) {
-        tagName = copyFrom.tagName;
-    }
-
     /**
      * Validates given tag name.
      *

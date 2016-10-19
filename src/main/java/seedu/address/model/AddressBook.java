@@ -49,32 +49,18 @@ public class AddressBook implements ReadOnlyAddressBook {
         return new UnmodifiableObservableList<>(persons.asObservableList());
     }
 
-    public void setPersons(Collection<Person> persons) throws UniquePersonList.DuplicatePersonException {
-        UniquePersonList constraintsChecked = new UniquePersonList(persons);
-        setPersons(constraintsChecked);
-    }
-
     public void setPersons(UniquePersonList persons) {
         this.persons.setPersons(persons);
-    }
-
-    public void setTags(Collection<Tag> tags) throws UniqueTagList.DuplicateTagException {
-        UniqueTagList constraintsChecked = new UniqueTagList(tags);
-        setTags(constraintsChecked);
     }
 
     public void setTags(UniqueTagList tags) {
         this.tags.setTags(tags);
     }
 
-    public void resetData(Collection<Person> newPersons, Collection<Tag> newTags)
-            throws UniqueTagList.DuplicateTagException, UniquePersonList.DuplicatePersonException {
-        resetData(new UniquePersonList(newPersons), new UniqueTagList(newTags));
-    }
-
     public void resetData(UniquePersonList newPersons, UniqueTagList newTags) {
         setPersons(newPersons);
         setTags(newTags);
+        syncMasterTagListWith(persons);
     }
 
     public void resetData(ReadOnlyAddressBook newData) {
