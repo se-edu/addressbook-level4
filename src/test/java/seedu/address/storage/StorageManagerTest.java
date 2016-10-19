@@ -28,7 +28,7 @@ public class StorageManagerTest {
 
 
     @Before
-    public void setup() {
+    public void setUp() {
         storageManager = new StorageManager(getTempFilePath("ab"), getTempFilePath("prefs"));
     }
 
