@@ -12,9 +12,10 @@ public class Tag {
     public static final String MESSAGE_TAG_CONSTRAINTS = "Tags names should be alphanumeric";
     public static final String TAG_VALIDATION_REGEX = "\\p{Alnum}+";
 
-    public String tagName;
+    public final String tagName;
 
-    public Tag() {
+    public Tag(Tag copyFrom) {
+        tagName = copyFrom.tagName;
     }
 
     /**

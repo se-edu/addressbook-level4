@@ -37,6 +37,50 @@ public class UniquePersonList implements Iterable<Person> {
 
 
     /**
+     * Constructs empty PersonList.
+     */
+    public UniquePersonList() {}
+
+    /**
+     * Varargs/array constructor, enforces no nulls or duplicates.
+     */
+    public UniquePersonList(Person... persons) throws DuplicatePersonException {
+        assert !CollectionUtil.isAnyNull((Object[]) persons);
+        final List<Person> initialPersons = Arrays.asList(persons);
+        if (!CollectionUtil.elementsAreUnique(initialPersons)) {
+            throw new DuplicatePersonException();
+        }
+        internalList.addAll(initialPersons);
+    }
+
+    /**
+     * java collections constructor, enforces no null or duplicate elements.
+     */
+    public UniquePersonList(Collection<Person> persons) throws DuplicatePersonException {
+        CollectionUtil.assertNoNullElements(persons);
+        if (!CollectionUtil.elementsAreUnique(persons)) {
+            throw new DuplicatePersonException();
+        }
+        internalList.addAll(persons);
+    }
+
+    /**
+     * java set constructor, enforces no nulls.
+     */
+    public UniquePersonList(Set<Person> persons) {
+        CollectionUtil.assertNoNullElements(persons);
+        internalList.addAll(persons);
+    }
+
+    /**
+     * Copy constructor, insulates from changes in source.
+     */
+    public UniquePersonList(UniquePersonList source) {
+        internalList.addAll(source.internalList); // insulate internal list from changes in argument
+    }
+
+
+    /**
      * Returns true if the list contains an equivalent person as the given argument.
      */
     public boolean contains(ReadOnlyPerson toCheck) {
@@ -69,6 +113,10 @@ public class UniquePersonList implements Iterable<Person> {
             throw new PersonNotFoundException();
         }
         return personFoundAndDeleted;
+    }
+
+    public void setPersons(UniquePersonList replacement) {
+        this.internalList.setAll(replacement.internalList);
     }
 
     public UnmodifiableObservableList<Person> asObservableList() {

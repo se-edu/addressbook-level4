@@ -83,20 +83,17 @@ public class UniqueTagList implements Iterable<Tag> {
      * Replaces the Tags in this list with those in the argument tag list.
      */
     public void setTags(UniqueTagList replacement) {
-        this.internalList.clear();
-        this.internalList.addAll(replacement.internalList);
+        this.internalList.setAll(replacement.internalList);
     }
 
     /**
-     * Adds every tag from the argument list that does not yet exist in this list.
+     * Ensures every tag in the argument list exists in this object.
      */
-    public void mergeFrom(UniqueTagList tags) {
+    public void mergeFrom(UniqueTagList from) {
         final Set<Tag> alreadyInside = this.toSet();
-        for (Tag tag : tags) {
-            if (!alreadyInside.contains(tag)) {
-                internalList.add(tag);
-            }
-        }
+        from.internalList.stream()
+                .filter(tag -> !alreadyInside.contains(tag))
+                .forEach(internalList::add);
     }
 
     /**
@@ -125,7 +122,7 @@ public class UniqueTagList implements Iterable<Tag> {
         return internalList.iterator();
     }
 
-    public UnmodifiableObservableList<Tag> getInternalList() {
+    public UnmodifiableObservableList<Tag> asObservableList() {
         return new UnmodifiableObservableList<>(internalList);
     }
 

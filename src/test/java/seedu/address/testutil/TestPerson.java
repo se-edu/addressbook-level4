@@ -70,7 +70,7 @@ public class TestPerson implements ReadOnlyPerson {
         sb.append("a/" + this.getAddress().value + " ");
         sb.append("p/" + this.getPhone().value + " ");
         sb.append("e/" + this.getEmail().value + " ");
-        this.getTags().getInternalList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
+        this.getTags().asObservableList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
         return sb.toString();
     }
 }
