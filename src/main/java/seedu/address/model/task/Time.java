@@ -10,6 +10,7 @@ import java.util.Locale;
 import java.util.Optional;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.logic.parser.Parser;
 
 /**
  * Represents a Task's Date in the SmartyDo.
@@ -37,7 +38,7 @@ public class Time implements Comparable<Time> {
     public static final String TIME_PARSE_FORMAT_CHOICE_24HR = "[k:mm]" + "[k.mm]" + "[kkmm]";
 
     public static final String[] DATE_PARSE_FORMAT_UNTIMED_CHOICE = {"[dd-M-uuuu]","[dd-MMM-uuuu]",
-            "[dd.M.uuuu]","[dd.MMM.uuuu]", "[dd/M/uuuu]","[dd/MMM/uuuu]","[uuuu-M-dd"};
+            "[dd.M.uuuu]","[dd.MMM.uuuu]", "[dd/M/uuuu]","[dd/MMM/uuuu]","[uuuu-M-dd]","[d-M-yy]"};
 
     public static final String DATE_TIME_PRINT_FORMAT = "dd-MMM-uuuu h:mma";
     public static final String DATE_PRINT_FORMAT = "dd-MMM-uuuu";
@@ -60,12 +61,36 @@ public class Time implements Comparable<Time> {
     public Time(String date) throws IllegalValueException {
         assert date != null;
         date = fixStoredDataForTest(date);
+        date = date.toUpperCase(); // fix for strings that bypass parser from other components..
         assert (isValidDate(date)); // if this fails, you have used the wrong constructor
         endDate = Optional.empty();
         isUntimed = true;
         DateTimeFormatter formatter = setDateFormatter();
+        date = fixMonthForJavaFormat(date);
         this.startDate = LocalDate.parse(date, formatter).atTime(LocalTime.now().truncatedTo(ChronoUnit.MINUTES));
         value = timeToUkFormat();
+    }
+    /**
+     * Java only accepts camel case dates, this method converts text month into camel case
+     *
+     * @param date
+     * @return date with month in camel case
+     */
+
+    private String fixMonthForJavaFormat(String date) {
+        int capsMonth = -1;
+        date = date.toLowerCase();
+        if (Character.isAlphabetic(date.charAt(3))) { //for 1st character in date with 2 digits 1 delimiter,
+            capsMonth = 3;
+        } else if (Character.isAlphabetic(date.charAt(2))) { // 1st character in date with 1 digit 1 delimiter
+            capsMonth = 2;
+        }
+        if (capsMonth != -1){
+            String fixedMonth = date.substring(0,capsMonth) + Character.toString(date.charAt(capsMonth)).toUpperCase()+date.substring(capsMonth + 1);
+            return fixedMonth;
+        } else {
+            return date;
+        }
     }
 
     /*
@@ -93,6 +118,8 @@ public class Time implements Comparable<Time> {
         startTime = startTime.toUpperCase();
         endDate = Optional.empty();
         isUntimed = false;
+        startDate = startDate.toUpperCase(); // fix for strings that bypass parser from other components.
+        startDate = fixMonthForJavaFormat(startDate);
         DateTimeFormatter dateFormatter = setDateFormatter();
         DateTimeFormatter timeFormatter = setTimeFormatter();
         LocalDate localDate = LocalDate.parse(startDate, dateFormatter);
@@ -116,6 +143,8 @@ public class Time implements Comparable<Time> {
         }*/
 
         isUntimed = false;
+        startDate = startDate.toUpperCase(); // fix for strings that bypass parser from other components.
+        startDate = fixMonthForJavaFormat(startDate);
         startTime = startTime.toUpperCase();
         endTime = endTime.toUpperCase();
         DateTimeFormatter formatter = setDateFormatter();
@@ -211,7 +240,7 @@ public class Time implements Comparable<Time> {
      * Returns true if a given string is a valid task time.
      */
     public static boolean isValidDate(String test) {
-        return test.matches(DATE_VALIDATION_REGEX);
+        return test.matches(Parser.DATE_VALIDATION_FORMAT);
 
     }
 

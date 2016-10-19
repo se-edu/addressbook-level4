@@ -47,21 +47,21 @@ public class Parser {
             + "(([01]\\d|2[0-3])[:.]?([0-5]\\d))";
 
     public static final String DATE_VALIDATION_FORMAT = "(?:(?:31(\\/|-|\\.)(?:0?[13578]|1[02]|"
-            + "(?:Jan|Mar|May|Jul|Aug|Oct|Dec)))\\1|(?:(?:29|30)(\\/|-|\\.)(?:0?[1,3-9]|1[0-2]|"
-            + "(?:Jan|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec))\\2))(?:(?:1[6-9]|[2-9]\\d)?\\d{2})$|^"
+            + "(?:JAN|MAR|MAY|JUL|AUG|OCT|DEC)))\\1|(?:(?:29|30)(\\/|-|\\.)(?:0?[1,3-9]|1[0-2]|"
+            + "(?:JAN|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC))\\2))(?:(?:1[6-9]|[2-9]\\d)?\\d{2})$|^"
             + "(?:29(\\/|-|\\.)(?:0?2|(?:Feb))\\3(?:(?:(?:1[6-9]|[2-9]\\d)?(?:0[48]|[2468][048]|[13579][26])|"
             + "(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\\d|2[0-8])(\\/|-|\\.)(?:(?:0?[1-9]|"
-            + "(?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep))|(?:1[0-2]|(?:Oct|Nov|Dec)))"
+            + "(?:JAN|FEB|MAR|APR|MAY|JUN|JUL|AUG|SEP))|(?:1[0-2]|(?:OCT|NOV|DEC)))"
             + "\\4(?:(?:1[6-9]|[2-9]\\d)?\\d{2})";
 
     public static final String DATE_TIME_VALIDATION_FORMAT = DATE_VALIDATION_FORMAT
             +"(\\s("+TIME_VALIDATION_FORMAT+")(\\s("+TIME_VALIDATION_FORMAT+"))?)?";
 
     public static final String MESSAGE_DATE_TIME_CONSTRAINTS = "Task Dates and Time should be in valid UK-format "
-            + "Date [Optional]Time [Optional]Time"
-            + "DD/MMM/YYYY or DD/MM/YYYY or DD.MM.YYYY or DD.MMM.YYY or DD-MM-YYYY or DD-MMM-YYYY"
-            + "12Hour format with AM/PM required or 24Hour format without AM/PM"
-            + "eg: 10-12-2012 09:00AM 23:59PM";
+            + "Date [Optional]Time [Optional]Time \n" 
+            + "DD/MMM/YYYY or DD/MM/YYYY or DD.MM.YYYY or DD.MMM.YYY or DD-MM-YYYY or DD-MMM-YYYY \n"
+            + "12Hour format with AM/PM required or 24Hour format without AM/PM \n"
+            + "eg: 10-12-2012 09:00AM 11:59PM";
 
     enum TaskType {UNTIMED, DEADLINE, TIMERANGE}
 
@@ -165,7 +165,7 @@ public class Parser {
         try {
             String validateDateTimeArgs = matcher.group("time");
             if(validateDateTimeArgs !=null) {
-                validateDateTimeArgs = validateDateTimeArgs.trim();
+                validateDateTimeArgs = validateDateTimeArgs.trim().toUpperCase();
                 if(!validateDateTimeArgs.matches(DATE_TIME_VALIDATION_FORMAT)){
                     throw new IllegalValueException(MESSAGE_DATE_TIME_CONSTRAINTS);
                 }
@@ -179,7 +179,7 @@ public class Parser {
                 case UNTIMED:
                     return new AddCommand(
                             matcher.group("name"),
-                            matcher.group("time")==null?null:matcher.group("time"),
+                            matcher.group("time")==null?null:validateDateTimeArgs,
                             matcher.group("period")==null?"2359":matcher.group("period"),
                             matcher.group("description")==null?" ":matcher.group("description"),
                             matcher.group("address")==null?" ":matcher.group("address"),

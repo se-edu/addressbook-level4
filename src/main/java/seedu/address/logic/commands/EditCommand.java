@@ -91,6 +91,7 @@ public class EditCommand extends Command {
             }
             if (time == " "){
                 if(taskToDelete.getTime().isPresent()){
+                    System.out.println("@ edit line 94:" + taskToDelete.getTime().get().getStartDateString());
                     timeObject = new Time(taskToDelete.getTime().get().getStartDateString()); //TODO: temporary fix
                 }else{
                     timeObject = null;    //TODO: A temporary fix added onto Filbert's by Kenneth. May the odd ever be in our favor and let these not resurface again
