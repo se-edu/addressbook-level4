@@ -264,20 +264,30 @@ Here are some example design patterns used in the code base.
 
 ## Do Code Reviews `[LO-CodeReview]`
 
-Note how some PRs in this project have been reviewed by other developers. 
-Here is an [example](https://github.com/se-edu/addressbook-level4/pull/147)
- 
-#### Exercise: Review a PR
+* Note how some PRs in this project have been reviewed by other developers. 
+  Here is an [example](https://github.com/se-edu/addressbook-level4/pull/147).
+* Also not how we have used [Codacy](https://www.codacy.com) to do automate some part of the code review workload
+  ([![Codacy Badge](https://api.codacy.com/project/badge/Grade/fc0b7775cf7f4fdeaf08776f3d8e364a)](https://www.codacy.com/app/damith/addressbook-level4?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=se-edu/addressbook-level4&amp;utm_campaign=Badge_Grade))
 
-Review a GitHub PR created by a team member. Here are some things you can comment on:
-
+Here are some things you can comment on when reviewing code:
 * Read the code from the perspective of a new developer.
   Identify parts that are harder to understand and suggest improvements.
 * Point out any coding standard violations.
 * Suggest better names for methods/variables/classes.
+* Point out unnecessary code duplications.
 * Check if the comments, docs, tests have been updated to match the code change.
 * Check for violation of relevant principles such as the SOLID principles.
 * Point out where SLAP can be improved. e.g. methods that are too long or has too deep nesting.
 * Suggest any other code quality improvements.
+
+**Resources**
+
+* [Code Review Best Practices](https://www.kevinlondon.com/2015/05/05/code-review-best-practices.html) - 
+  Blog post by Kevin London
+* [Why Code Reviews Matter](https://www.atlassian.com/agile/code-reviews) - An article by Atlassian
+ 
+#### Exercise: Review a PR
+
+* Review a GitHub PR created by a team member. 
 
 
