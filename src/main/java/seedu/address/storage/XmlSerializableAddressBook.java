@@ -23,7 +23,7 @@ public class XmlSerializableAddressBook implements ReadOnlyAddressBook {
     @XmlElement
     private List<XmlAdaptedPerson> persons;
     @XmlElement
-    private List<Tag> tags;
+    private List<XmlAdaptedTag> tags;
 
     {
         persons = new ArrayList<>();
@@ -40,18 +40,20 @@ public class XmlSerializableAddressBook implements ReadOnlyAddressBook {
      */
     public XmlSerializableAddressBook(ReadOnlyAddressBook src) {
         persons.addAll(src.getPersonList().stream().map(XmlAdaptedPerson::new).collect(Collectors.toList()));
-        tags = src.getTagList();
+        tags.addAll(src.getTagList().stream().map(XmlAdaptedTag::new).collect(Collectors.toList()));
     }
 
     @Override
     public UniqueTagList getUniqueTagList() {
-        try {
-            return new UniqueTagList(tags);
-        } catch (UniqueTagList.DuplicateTagException e) {
-            //TODO: better error handling
-            e.printStackTrace();
-            return null;
+        UniqueTagList lists = new UniqueTagList();
+        for (XmlAdaptedTag t : tags) {
+            try {
+                lists.add(t.toModelType());
+            } catch (IllegalValueException e) {
+                //TODO: better error handling
+            }
         }
+        return lists;
     }
 
     @Override
@@ -82,7 +84,15 @@ public class XmlSerializableAddressBook implements ReadOnlyAddressBook {
 
     @Override
     public List<Tag> getTagList() {
-        return Collections.unmodifiableList(tags);
+        return tags.stream().map(t -> {
+            try {
+                return t.toModelType();
+            } catch (IllegalValueException e) {
+                e.printStackTrace();
+                //TODO: better error handling
+                return null;
+            }
+        }).collect(Collectors.toCollection(ArrayList::new));
     }
 
 }

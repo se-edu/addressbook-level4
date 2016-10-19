@@ -2,6 +2,7 @@ package seedu.address.model.tag;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.commons.exceptions.DuplicateDataException;
 
@@ -16,15 +17,6 @@ import java.util.*;
  * @see CollectionUtil#elementsAreUnique(Collection)
  */
 public class UniqueTagList implements Iterable<Tag> {
-
-    /**
-     * Signals that an operation would have violated the 'no duplicates' property of the list.
-     */
-    public static class DuplicateTagException extends DuplicateDataException {
-        protected DuplicateTagException() {
-            super("Operation would result in duplicate tags");
-        }
-    }
 
     private final ObservableList<Tag> internalList = FXCollections.observableArrayList();
 
@@ -82,20 +74,17 @@ public class UniqueTagList implements Iterable<Tag> {
      * Replaces the Tags in this list with those in the argument tag list.
      */
     public void setTags(UniqueTagList replacement) {
-        this.internalList.clear();
-        this.internalList.addAll(replacement.internalList);
+        this.internalList.setAll(replacement.internalList);
     }
 
     /**
-     * Adds every tag from the argument list that does not yet exist in this list.
+     * Ensures every tag in the argument list exists in this object.
      */
-    public void mergeFrom(UniqueTagList tags) {
+    public void mergeFrom(UniqueTagList from) {
         final Set<Tag> alreadyInside = this.toSet();
-        for (Tag tag : tags) {
-            if (!alreadyInside.contains(tag)) {
-                internalList.add(tag);
-            }
-        }
+        from.internalList.stream()
+                .filter(tag -> !alreadyInside.contains(tag))
+                .forEach(internalList::add);
     }
 
     /**
@@ -124,8 +113,8 @@ public class UniqueTagList implements Iterable<Tag> {
         return internalList.iterator();
     }
 
-    public ObservableList<Tag> getInternalList() {
-        return internalList;
+    public UnmodifiableObservableList<Tag> asObservableList() {
+        return new UnmodifiableObservableList<>(internalList);
     }
 
     @Override
@@ -140,4 +129,14 @@ public class UniqueTagList implements Iterable<Tag> {
     public int hashCode() {
         return internalList.hashCode();
     }
+
+    /**
+     * Signals that an operation would have violated the 'no duplicates' property of the list.
+     */
+    public static class DuplicateTagException extends DuplicateDataException {
+        protected DuplicateTagException() {
+            super("Operation would result in duplicate tags");
+        }
+    }
+
 }
