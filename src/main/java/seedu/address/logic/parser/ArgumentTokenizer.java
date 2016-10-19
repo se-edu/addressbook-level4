@@ -12,60 +12,6 @@ import java.util.*;
  *    in the above example.<br>
  */
 public class ArgumentTokenizer {
-    /**
-     * A prefix that marks the beginning of an argument.
-     * e.g. '/t' in 'add James /t friend'
-     */
-    public static class Prefix {
-        final String prefix;
-
-        Prefix(String prefix) {
-            this.prefix = prefix;
-        }
-
-        String getPrefix() {
-            return this.prefix;
-        }
-
-        @Override
-        public int hashCode() {
-            return this.prefix == null ? 0 : this.prefix.hashCode();
-        }
-
-        @Override
-        public boolean equals(Object obj) {
-            if (!(obj instanceof Prefix)) {
-                return false;
-            }
-            if (obj == this) {
-                return true;
-            }
-
-            Prefix otherPrefix = (Prefix) obj;
-            return otherPrefix.getPrefix().equals(getPrefix());
-        }
-    }
-
-    /**
-     * Represents a prefix's position in an arguments string
-     */
-    private class PrefixPosition {
-        private int startPosition;
-        private final Prefix prefix;
-
-        PrefixPosition(Prefix prefix, int startPosition) {
-            this.prefix = prefix;
-            this.startPosition = startPosition;
-        }
-
-        int getStartPosition() {
-            return this.startPosition;
-        }
-
-        Prefix getPrefix() {
-            return this.prefix;
-        }
-    }
 
     /** Given prefixes **/
     private final List<Prefix> prefixes;
@@ -209,4 +155,60 @@ public class ArgumentTokenizer {
         values.add(value);
         this.tokenizedArguments.put(prefix, values);
     }
+
+    /**
+     * A prefix that marks the beginning of an argument.
+     * e.g. '/t' in 'add James /t friend'
+     */
+    public static class Prefix {
+        final String prefix;
+
+        Prefix(String prefix) {
+            this.prefix = prefix;
+        }
+
+        String getPrefix() {
+            return this.prefix;
+        }
+
+        @Override
+        public int hashCode() {
+            return this.prefix == null ? 0 : this.prefix.hashCode();
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (!(obj instanceof Prefix)) {
+                return false;
+            }
+            if (obj == this) {
+                return true;
+            }
+
+            Prefix otherPrefix = (Prefix) obj;
+            return otherPrefix.getPrefix().equals(getPrefix());
+        }
+    }
+
+    /**
+     * Represents a prefix's position in an arguments string
+     */
+    private class PrefixPosition {
+        private int startPosition;
+        private final Prefix prefix;
+
+        PrefixPosition(Prefix prefix, int startPosition) {
+            this.prefix = prefix;
+            this.startPosition = startPosition;
+        }
+
+        int getStartPosition() {
+            return this.startPosition;
+        }
+
+        Prefix getPrefix() {
+            return this.prefix;
+        }
+    }
+
 }
