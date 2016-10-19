@@ -43,6 +43,14 @@
       (This is because Gradle downloads library files from servers during the project set up process)
   > * If Eclipse auto-changed any settings files during the import process, you can discard those changes.
   
+#### Configuring Checkstyle
+1. Click `Project` -> `Properties` -> `Checkstyle` -> `Local Check Configurations` -> `New...` 
+2. Choose `External Configuration File` under `Type`
+3. Enter an arbitrary configuration name e.g. addressbook
+4. Import checkstyle configuration file found at `config/checkstyle/checkstyle.xml`
+5. Click OK once, go to the `Main` tab, use the newly imported check configuration.
+6. Tick and select `files from packages`, click `Change...`, and select the `resources` package
+7. Click OK twice. Rebuild project if prompted#
 #### Troubleshooting project setup
 
 **Problem: Eclipse reports compile errors after new commits are pulled from Git**
