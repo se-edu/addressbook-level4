@@ -16,14 +16,22 @@ import java.util.stream.Collectors;
  */
 public class AddressBook implements ReadOnlyAddressBook {
 
-    private UniquePersonList persons;
-    private UniqueTagList tags;
+    private final UniquePersonList persons;
+    private final UniqueTagList tags;
 
-
-    public AddressBook() {
+    /*
+     * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
+     * between constructors. See https://docs.oracle.com/javase/tutorial/java/javaOO/initial.html
+     *
+     * Note that non-static init blocks are not recommended to use. There are other ways to avoid duplication
+     *   among constructors.
+     */
+    {
         persons = new UniquePersonList();
         tags = new UniqueTagList();
     }
+
+    public AddressBook() {}
 
     /**
      * Persons and Tags are copied into this addressbook
@@ -36,7 +44,6 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Persons and Tags are copied into this addressbook
      */
     public AddressBook(UniquePersonList persons, UniqueTagList tags) {
-        this();
         resetData(persons.getInternalList(), tags.getInternalList());
     }
 
