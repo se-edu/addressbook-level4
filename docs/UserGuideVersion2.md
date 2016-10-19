@@ -58,8 +58,7 @@ Here is the summary of the parameters and their usage:
 | Parameter     |     Usage     |   Format Requirements    |
 | ------------- |:-------------:| -----:|
 | `TASK_NAME`   |   /n    |        /n required if `TASK_NAME` is not the first parameter |
-| `[DATE_TIME]` |    **t;**  |
- [Date] [StartTime] [End Tiime] , delimited by spaces    |
+| `[DATE_TIME]` |    **t;**  | [Date] [StartTime] [End Tiime] , delimited by spaces    |
 | `[TAG]`         | _**#**_ | alphanumeric |
 | `[LOCATION]` | _**a;**_ |  alphanumeric          |
 | `DATE` | **/d** | DD-MM-YY etc. |
