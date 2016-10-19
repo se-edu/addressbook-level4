@@ -16,6 +16,7 @@ After studying this code and completing the corresponding exercises, you should 
 1. [Automate GUI Testing `[LO-AutomateGuiTesting]`](#automate-gui-testing-lo-automateguitesting)
 1. [Apply Design Patterns `[LO-DesignPatterns]`](#apply-design-patterns-lo-designpatterns)
 1. [Use Static Analysis `[LO-StaticAnalysis]`](#use-static-analysis-lo-staticanalysis)
+1. [Do Code Reviews `[LO-CodeReview]`](#do-code-reviews-lo-codereview)
 
 ------------------------------------------------------------------------------------------------------
 
@@ -261,5 +262,22 @@ Here are some example design patterns used in the code base.
     
 ------------------------------------------------------------------------------------------------------
 
+## Do Code Reviews `[LO-CodeReview]`
+
+Note how some PRs in this project have been reviewed by other developers. 
+Here is an [example](https://github.com/se-edu/addressbook-level4/pull/147)
+ 
+#### Exercise: Review a PR
+
+Review a GitHub PR created by a team member. Here are some things you can comment on:
+
+* Read the code from the perspective of a new developer.
+  Identify parts that are harder to understand and suggest improvements.
+* Point out any coding standard violations.
+* Suggest better names for methods/variables/classes.
+* Check if the comments, docs, tests have been updated to match the code change.
+* Check for violation of relevant principles such as the SOLID principles.
+* Point out where SLAP can be improved. e.g. methods that are too long or has too deep nesting.
+* Suggest any other code quality improvements.
 
 
