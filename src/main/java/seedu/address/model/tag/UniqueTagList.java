@@ -2,6 +2,7 @@ package seedu.address.model.tag;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.commons.exceptions.DuplicateDataException;
 
@@ -124,8 +125,8 @@ public class UniqueTagList implements Iterable<Tag> {
         return internalList.iterator();
     }
 
-    public ObservableList<Tag> getInternalList() {
-        return internalList;
+    public UnmodifiableObservableList<Tag> getInternalList() {
+        return new UnmodifiableObservableList<>(internalList);
     }
 
     @Override

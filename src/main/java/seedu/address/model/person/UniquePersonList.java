@@ -2,6 +2,7 @@ package seedu.address.model.person;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.commons.exceptions.DuplicateDataException;
 
@@ -70,8 +71,8 @@ public class UniquePersonList implements Iterable<Person> {
         return personFoundAndDeleted;
     }
 
-    public ObservableList<Person> getInternalList() {
-        return internalList;
+    public UnmodifiableObservableList<Person> asObservableList() {
+        return new UnmodifiableObservableList<>(internalList);
     }
 
     @Override

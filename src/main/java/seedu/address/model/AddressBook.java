@@ -37,7 +37,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Persons and Tags are copied into this addressbook
      */
     public AddressBook(UniquePersonList persons, UniqueTagList tags) {
-        resetData(persons.getInternalList(), tags.getInternalList());
+        resetData(persons.asObservableList(), tags.getInternalList());
     }
 
     public static ReadOnlyAddressBook getEmptyAddressBook() {
@@ -47,11 +47,11 @@ public class AddressBook implements ReadOnlyAddressBook {
 //// list overwrite operations
 
     public ObservableList<Person> getPersons() {
-        return persons.getInternalList();
+        return persons.asObservableList();
     }
 
     public void setPersons(List<Person> persons) {
-        this.persons.getInternalList().setAll(persons);
+        this.persons.asObservableList().setAll(persons);
     }
 
     public void setTags(Collection<Tag> tags) {
@@ -122,13 +122,13 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     @Override
     public String toString() {
-        return persons.getInternalList().size() + " persons, " + tags.getInternalList().size() +  " tags";
+        return persons.asObservableList().size() + " persons, " + tags.getInternalList().size() +  " tags";
         // TODO: refine later
     }
 
     @Override
     public List<ReadOnlyPerson> getPersonList() {
-        return Collections.unmodifiableList(persons.getInternalList());
+        return Collections.unmodifiableList(persons.asObservableList());
     }
 
     @Override
