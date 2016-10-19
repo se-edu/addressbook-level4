@@ -5,26 +5,26 @@ import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.UniqueTaskList.TaskNotFoundException;
 
-/*
+/**
  * Toggles the Task status from incomplete to complete and vice-versa
  *
  */
-public class MarkCommand extends Command implements Undoable {
+public class DoneCommand extends Command implements Undoable {
 
-    public static final String COMMAND_WORD = "mark";
+    public static final String COMMAND_WORD = "done";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Changes the status of the selected task between completed and incomplete.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_MARK_TASK_SUCCESS = "Task %1s status has been changed to %1s.";
+    public static final String MESSAGE_DONE_TASK_SUCCESS = "Task %1s status has been changed to %1s.";
 
     public final int targetIndex;
     private boolean isExecutedBefore;
     private ReadOnlyTask taskToMark;
 
-    public MarkCommand(int targetIndex) {
+    public DoneCommand(int targetIndex) {
         this.targetIndex = targetIndex;
         isExecutedBefore = false;
     }
@@ -44,7 +44,7 @@ public class MarkCommand extends Command implements Undoable {
             assert false : "The target cannot be missing.";
         }
         isExecutedBefore = pushCmdToUndo(isExecutedBefore);
-        return new CommandResult(String.format(MESSAGE_MARK_TASK_SUCCESS, taskToMark.getName(), 
+        return new CommandResult(String.format(MESSAGE_DONE_TASK_SUCCESS, taskToMark.getName(),
                 taskToMark.getCompleted() ? "Completed" : "Incomplete"));
     }
 
@@ -58,7 +58,8 @@ public class MarkCommand extends Command implements Undoable {
         } catch (TaskNotFoundException tnfe) {
             assert false : "The target cannot be missing.";
         }
-        return new CommandResult(String.format(MESSAGE_MARK_TASK_SUCCESS, taskToMark, taskToMark.getCompleted()));
+        return new CommandResult(String.format(MESSAGE_DONE_TASK_SUCCESS, taskToMark.getName(),
+                taskToMark.getCompleted() ? "Completed" : "Incomplete"));
     }
 
     @Override

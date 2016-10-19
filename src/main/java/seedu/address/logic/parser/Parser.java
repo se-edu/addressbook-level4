@@ -119,7 +119,7 @@ public class Parser {
         case EditCommand.COMMAND_WORD:
             return prepareEdit(arguments);
 
-        case MarkCommand.COMMAND_WORD:
+        case DoneCommand.COMMAND_WORD:
             return prepareMark(arguments);
 
         default:
@@ -137,10 +137,10 @@ public class Parser {
         Optional<Integer> index = parseIndex(args);
         if(!index.isPresent()){
             return new IncorrectCommand(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, MarkCommand.MESSAGE_USAGE));
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DoneCommand.MESSAGE_USAGE));
         }
 
-        return new MarkCommand(index.get());
+        return new DoneCommand(index.get());
     }
 
     /**

@@ -53,29 +53,30 @@ Format: `help`
 
 To add a task into SmartyDo, you need to use `add` command. There are number of paramaters you can enter with `add` command.<br>
 
-Here is the summary of the parameters and their usage: 
+Here is the summary of the parameters and their usage:
 
 | Parameter     |     Usage     |   Format Requirements    |
 | ------------- |:-------------:| -----:|
-| `TASK_NAME`   |    _**/n**_   |       |
-| `[START_TIME]` |    _**/st**_  |       |
-| `[END_TIME]`   |  _**/et**_    |        |
+| `TASK_NAME`   |   /n    |        /n required if `TASK_NAME` is not the first parameter |
+| `[DATE_TIME]` |    **t;**  |
+ [Date] [StartTime] [End Tiime] , delimited by spaces    |
 | `[TAG]`         | _**#**_ | alphanumeric |
-| `[LOCATION]` | _**/loc**_ |  alphanumeric          |
-| `DATE` | **/d** | DDMMYY |
+| `[LOCATION]` | _**a;**_ |  alphanumeric          |
+| `DATE` | **/d** | DD-MM-YY etc. |
 
 - `TASK_NAME` is the name of the task and this parameter is compulsary.
-- `[START_TIME]` and `[END_TIME]` is the starting time and ending time of the task respectively. You may consider to use these parameters when starting time and/or deadline is known.
+- `[START_TIME]` and `[END_TIME]` is the starting time and ending time of the task respectively. You may consider to use these parameters when starting time and/or deadline is known. You may omit the details of 'DATE_TIME' which will result in a task that has no time frame.
 - `[TAG]` is the characteristic you can add to the task. Such tags can be "Urgent", "HighPriority" and etc.
 - `[LOCATION]` is the place of task being done. You can use this parameter to remind you where to go to complete the task.
-- `DATE` is the date of the task and this parameter is compulsary.
+- `DATE` is the date of the task supports date format of
+dd/mmm/yyy eg:20-Jan-2017 and dd/mm/yyy with `/` interchangleable with `.` and `-` eg: 20-01-2017.
 
-Format : `add /n TASK_NAME /d DATE #TAG /loc LOCATION /st START_TIME /et END_TIME`
+Format : `add TASK_NAME t; DATE START_TIME /et END_TIME d;LOCATION t/TAG`
 
-> You don't have to enter the optional parameters when you don't need them. The order of the parameters are not fixed. You can enter the parameters in any order. For example, `add /st START_TIME #TAG /n TASK_NAME /d DATE` is also correct format.
+> You don't have to enter the optional parameters when you don't need them. The order of the parameters are not fixed. You can enter the parameters in any order. For example, `add t/[TAG] t; DATE START_TIME ` is also correct format.
 
 **Example:**<br>
-Let's say you want to add task named "User Guide" which is due 12 October 2016 with tag "CS2103". All you need to do is entering `add #CS2103 /n User Guide /d 121016` into command bar.
+Let's say you want to add task named "User Guide" which is due 12 October 2016 with tag "CS2103". All you need to do is entering `add t/CS2103 /n User Guide /d 12.10.16` into command bar.
 
 <img src="images/AddBasicCmd.png" width="500"><br>
 
@@ -88,7 +89,7 @@ View the task/day/month/year/list identified by the parameter. A full detailed d
 Format: `view PARAM`
 
 **Example:**<br>
-Let's say you want to know detailed information about tasks in 12 October 2016. All you need to do is enter `view 121016` into command box.
+Let's say you want to know detailed information about tasks in 12 October 2016. All you need to do is enter `view 12-10-16` into command box.
 
 <img src="images/view.png" width="500"><br>
 
@@ -144,7 +145,7 @@ Let's say you have edited the task details by entering `edit 1 /et 1400`. Then, 
 
 <img src="images/Undo.png" width="500"><br>
 
-By entering `undo` command, SmartyDo updates your schedule where it was before you executed an undoable action. From the screenshot above, you can see that task named "User Guide" does not have deadline time anymore. 
+By entering `undo` command, SmartyDo updates your schedule where it was before you executed an undoable action. From the screenshot above, you can see that task named "User Guide" does not have deadline time anymore.
 
 However, you realized that your friend was wrong and you want to add the deadline time again. In this case, you do not need to use edit command again. Instead you can simply use `redo` command.
 
@@ -203,7 +204,7 @@ There is no need to save manually.
 |**Command**|**Parameters**|**Format**|
 |:---------:|:--------:|-------|
 |Help   || `help`|
-|Add      |TASK_NAME, DATE, [TAG], [LOCATION], [START_TIME], [END_TIME]|`add /n TASK_NAME /d DATE #TAG /loc LOCATION /st START_TIME /et END_TIME`|
+|Add      |TASK_NAME, DATE_TIME,[LOCATION], [TAG] |`add /n TASK_NAME d; DATE START_TIME END_TIME t/ TAG a; LOCATION `|
 |View     |PARAM|`view PARAM`|
 |Find     |KEYWORD, [MORE_KEYWORD]|`find KEYWORD [MORE_KEYWORD]`|
 |Edit     |INDEX|`edit INDEX`|
@@ -211,4 +212,3 @@ There is no need to save manually.
 |Redo     ||`redo`|
 |Done     |INDEX|`done INDEX`|
 |Exit     ||`exit`|
-
