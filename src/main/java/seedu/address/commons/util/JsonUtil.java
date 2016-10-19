@@ -89,34 +89,6 @@ public class JsonUtil {
         serializeObjectToJsonFile(new File(filePath), jsonFile);
     }
 
-    private static class LevelDeserializer extends FromStringDeserializer<Level> {
-
-        protected LevelDeserializer(Class<?> vc) {
-            super(vc);
-        }
-
-        @Override
-        protected Level _deserialize(String value, DeserializationContext ctxt) throws IOException {
-            return getLoggingLevel(value);
-        }
-
-        /**
-         * Gets the logging level that matches loggingLevelString
-         * <p>
-         * Returns null if there are no matches
-         *
-         * @param loggingLevelString
-         * @return
-         */
-        private Level getLoggingLevel(String loggingLevelString) {
-            return Level.parse(loggingLevelString);
-        }
-
-        @Override
-        public Class<Level> handledType() {
-            return Level.class;
-        }
-    }
 
     /**
      * Converts a given string representation of a JSON data to instance of a class
@@ -135,6 +107,34 @@ public class JsonUtil {
      */
     public static <T> String toJsonString(T instance) throws JsonProcessingException {
         return objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(instance);
+    }
+
+
+    private static class LevelDeserializer extends FromStringDeserializer<Level> {
+
+        protected LevelDeserializer(Class<?> vc) {
+            super(vc);
+        }
+
+        @Override
+        protected Level _deserialize(String value, DeserializationContext ctxt) throws IOException {
+            return getLoggingLevel(value);
+        }
+
+        /**
+         * Gets the logging level that matches loggingLevelString
+         * <p>
+         * Returns null if there are no matches
+         *
+         */
+        private Level getLoggingLevel(String loggingLevelString) {
+            return Level.parse(loggingLevelString);
+        }
+
+        @Override
+        public Class<Level> handledType() {
+            return Level.class;
+        }
     }
 
 }
