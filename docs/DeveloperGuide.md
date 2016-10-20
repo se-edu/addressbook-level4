@@ -20,7 +20,7 @@
     1. [Build Automation](#61-build-automation)
     2. [Continuous Integration](#62-continuous-integration)
     3. [Making a Release](#63-making-a-release)
-    4. [Managing Depedencies](#64-managing-depedencies)
+    4. [Managing Depedencies](#64-managing-dependencies)
 7. [Appendix](#7-appendix) 
     1. [Appendix A: User Stories](#71-appendix-a--user-stories)
     2. [Appendix B: Use Cases](#72-appendix-b--use-cases)
@@ -67,7 +67,8 @@ To import the lastest version of this project into Eclipse, follow the instructi
 
 ### 3.1 Architecture
 
-<img src="images/Architecture.png" width="600"><br>
+<img src="images/Architecture.png" width="600"><br>Figure 3.1.1. Overview of underlying architecture<br>
+
 The **_Architecture Diagram_** given above will explain to you the high-level design of the App.
 Below, we will give you a quick overview of each component.
 
@@ -94,19 +95,19 @@ Each of the four components will
 
 For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java`
 interface and exposes its functionality using the `LogicManager.java` class.<br>
-<img src="images/LogicClassDiagram.png" width="800"><br>
+<img src="images/LogicClassDiagram.png" width="800"><br>Figure 3.1.2. Overview of Logic<br>
 
 The _Sequence Diagram_ below will show you how the components interact for the scenario where the user issues the
 command `delete 3`.
 
-<img src="images\SDforDeletePerson.png" width="800">
+<img src="images\SDforDeletePerson.png" width="800"><br>Figure 3.1.3. Sequence Diagram for delete<br>
 
 >Note how the `Model` simply raises a `ToDoChangedEvent` when the To-Do data are changed,
  instead of asking the `Storage` to save the updates to the hard disk.
 
 The diagram below will show you how the `EventsCenter` reacts to that event, which eventually results in the updates
 being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time. <br>
-<img src="images\SDforDeletePersonEventHandling.png" width="800">
+<img src="images\SDforDeletePersonEventHandling.png" width="800"><br>Figure 3.1.4. Sequence Diagram for delete event handling<br>
 
 > Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having
   to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct 
@@ -116,7 +117,7 @@ The sections below will give you more details of each component.
 
 ### 3.2 UI component
 
-<img src="images/UiClassDiagram.png" width="800"><br>
+<img src="images/UiClassDiagram.png" width="800"><br>Figure 3.2. Overview of UI<br>
 
 **API** : [`Ui.java`](../src/main/java/seedu/address/ui/Ui.java)
 
@@ -136,7 +137,7 @@ The `UI` component will
 
 ### 3.3 Logic component
 
-<img src="images/LogicClassDiagram.png" width="800"><br>
+<img src="images/LogicClassDiagram.png" width="800"><br>Figure 3.3.1. Overview of Logic (same as Figure 3.1.2)<br>
 
 **API** : [`Logic.java`](../src/main/java/seedu/address/logic/Logic.java)
 
@@ -147,11 +148,11 @@ The `UI` component will
 
 Below, you will find the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")`
  API call.<br>
-<img src="images/DeletePersonSdForLogic.png" width="800"><br>
+<img src="images/DeletePersonSdForLogic.png" width="800"><br>Figure 3.3.2. Sequence Diagram for delete within logic<br>
 
 ### 3.4 Model component
 
-<img src="images/ModelClassDiagram.png" width="800"><br>
+<img src="images/ModelClassDiagram.png" width="800"><br>Figure 3.4. Overview of Model<br>
 
 **API** : [`Model.java`](../src/main/java/seedu/address/model/Model.java)
 
@@ -164,7 +165,7 @@ The `Model`,
 
 ### 3.5 Storage component
 
-<img src="images/StorageClassDiagram.png" width="800"><br>
+<img src="images/StorageClassDiagram.png" width="800"><br>Figure 3.5. Overview of Storage<br>
 
 **API** : [`Storage.java`](../src/main/java/seedu/address/storage/Storage.java)
 
