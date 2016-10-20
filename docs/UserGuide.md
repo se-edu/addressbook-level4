@@ -123,12 +123,24 @@ There is no need to save manually.
        
 ## Command Summary
 
-Command | Format  
--------- | :-------- 
-Add | `add NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
-Clear | `clear`
-Delete | `delete INDEX`
-Find | `find KEYWORD [MORE_KEYWORDS]`
-List | `list`
-Help | `help`
-Select | `select INDEX`
+* **Add**  `add NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` <br>
+  e.g. `add James Ho p/22224444 e/jamesho@gmail.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
+
+* **Clear** : `clear`
+  
+* **Delete** : `delete INDEX` <br> 
+   e.g. `delete 3`
+  
+* **Find** : `find KEYWORD [MORE_KEYWORDS]` <br>
+  e.g. `find James Jake`
+  
+* **List** : `list` <br>
+  e.g.
+  
+* **Help** : `help` <br>
+  e.g.
+  
+* **Select** : `select INDEX` <br>
+  e.g.`select 2`
+  
+
