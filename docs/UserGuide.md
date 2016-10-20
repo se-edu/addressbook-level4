@@ -65,6 +65,7 @@ Here is the summary of the parameters and their usage:
 | `TAG`         | _**t/**_ | alphanumeric | Yes |
 | `LOCATION` | _**a;**_ |  alphanumeric  | Yes |
 | `DESCRIPTION` | _**d;**_ | alphanumeric | Yes |
+Table 3.2. Parameters Guide
 
 - `TASK_NAME` is the name of the task and this parameter is compulsary.
 - `Date` is the date of the task supports date format of
@@ -142,12 +143,7 @@ With `undo`, you are allowed to reverse your previous changes sequentially while
 - `undo` command requires the application to have executed atleast one undoable command after launching.
 - `redo` command requires the application to have executed atleast one succussful `undo` command after launching.
 
-| Undoable Commands |
-| ----------------- |
-| `add`         |
-| `delete`      |
-| `edit`      |  
-| `mark`      |
+Undoable Commands:`add`, `delete`, `edit`, `mark`
 
 > SmartyDo **does not store** history of actions in your computer.
 > Your history of actions resets when SmartyDo is launched.
@@ -227,3 +223,4 @@ There is no need to save manually.
 |Redo     ||`redo`|
 |Done     |INDEX|`done INDEX`|
 |Exit     ||`exit`|
+Table 5. Command Summary
