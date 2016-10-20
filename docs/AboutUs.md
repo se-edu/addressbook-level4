@@ -23,7 +23,7 @@ We are a team based in the [School of Computing, National University of Singapor
 -----
 
 #### [Matthew Chan](https://github.com/MCHowl) 
-<img src="https://avatars0.githubusercontent.com/u/15246571?v=3&s=466" width="150"><br>
+<img src="images/Matthew.jpg" width="150"><br>
 **Responsibility**: Code quality, UIUX design
 
 -----
