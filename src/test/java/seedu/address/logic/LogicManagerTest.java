@@ -398,7 +398,7 @@ public class LogicManagerTest {
     class TestDataHelper{
 
         Person adam() throws Exception {
-            Name name = new Name("Adam Brown");
+            Name name = new Name("Adam Brown o'\u00E9-\u00F6");
             Phone privatePhone = new Phone("111111");
             Email email = new Email("adam@gmail.com");
             Address privateAddress = new Address("111, alpha street");
