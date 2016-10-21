@@ -89,7 +89,7 @@ interface and exposes its functionality using the `LogicManager.java` class.<br>
 ##### Events-Driven nature of the design 
 
 The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
-command `delete 3`.
+command `delete 1`.
 
 <img src="images\SDforDeletePerson.png" width="800">
 
