@@ -409,12 +409,14 @@ public class LogicManagerTest {
         }
         
         Person borg() throws Exception {
-            Name name = new Name("Björn o'Borg José John-Doe Jr.");
+            Name name = new Name("Bj\u00F6rn o'Borg Jos\u00E9 John-Doe Jr.");
+            // names given in unicode format based on the thread: 
+            // http://stackoverflow.com/questions/4237581/comparing-unicode-characters-in-junit
             Phone privatePhone = new Phone("98761234");
             Email email = new Email("borg@jose.com");
             Address privateAddress = new Address("12, heere at the wall");
-            Tag tag1 = new Tag("unicodeName");
-            Tag tag2 = new Tag("HyphenDotQuote");
+            Tag tag1 = new Tag("HyphenDotQuote");
+            Tag tag2 = new Tag("unicodeName");
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
             return new Person(name, privatePhone, email, privateAddress, tags);
         }
