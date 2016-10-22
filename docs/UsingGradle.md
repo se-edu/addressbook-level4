@@ -47,6 +47,17 @@ If we package only our own class files into the JAR file, it will not work prope
   Therefore, we package all dependencies into a single JAR files, creating what is also known as a _fat_ JAR file. 
   To create a fat JAR fil, we use the Gradle plugin [shadow jar](https://github.com/johnrengelman/shadow).
 
+## Running code style checks
+
+* **`checkstyleMain`**<br>
+  Runs the code style check for the main code base
+  
+* **`checkstyleTest`**<br>
+  Runs the code style check for the test code base
+
+The set of code style rules implemented can be found in `config/checkstyle/checkstyle.xml`.
+To enable _exceptions_ to code styles, add in the comment `//CODESTYLE.OFF: RuleName` at the start of the section and  `//CODESTYLE.ON: RuleName` at the end of the section.
+
 ## Running Tests
 
 * **`allTests`**<br>
