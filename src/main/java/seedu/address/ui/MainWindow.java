@@ -188,6 +188,10 @@ public class MainWindow extends UiPart {
 
     public void loadTaskPage(ReadOnlyTask task) {
         browserPanel.loadTaskPage(task);
+        
+        //TaskWindow taskWindow = TaskWindow.load(primaryStage, task);
+        //taskWindow.loadTaskPage(task);
+        //taskWindow.show();
     }
 
     public void releaseResources() {
@@ -197,5 +201,8 @@ public class MainWindow extends UiPart {
 	public void loadTaskCard(ReadOnlyTask task) {
 		browserPanel.loadTaskCard(task);
 		
+        //TaskWindow taskWindow = TaskWindow.load(primaryStage, task);
+        //taskWindow.loadTaskCard(task);
+        //taskWindow.show();
 	}
 }

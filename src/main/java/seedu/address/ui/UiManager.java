@@ -32,6 +32,7 @@ public class UiManager extends ComponentManager implements Ui {
     private Config config;
     private UserPrefs prefs;
     private MainWindow mainWindow;
+    private TaskWindow taskWindow;
 
     public UiManager(Logic logic, Config config, UserPrefs prefs) {
         super();
@@ -52,6 +53,8 @@ public class UiManager extends ComponentManager implements Ui {
             mainWindow = MainWindow.load(primaryStage, config, prefs, logic);
             mainWindow.show(); //This should be called before creating other UI parts
             mainWindow.fillInnerParts();
+            
+            taskWindow = TaskWindow.load(primaryStage);
 
         } catch (Throwable e) {
             logger.severe(StringUtil.getDetails(e));
@@ -121,14 +124,16 @@ public class UiManager extends ComponentManager implements Ui {
     @Subscribe
     private void handleTaskPanelSelectionChangedEvent(TaskPanelSelectionChangedEvent event){
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        mainWindow.loadTaskPage(event.getNewSelection());
+        taskWindow.loadTaskPage(event.getNewSelection());
+        taskWindow.show();
     }
     
     @Subscribe
     private void handleViewItemRequestEvent(ViewItemRequestEvent event) {
     	logger.info(LogsCenter.getEventHandlingLogMessage(event));
     	mainWindow.getTaskListPanel().scrollDeselect(event.targetIndex);
-    	mainWindow.loadTaskCard(event.getNewSelection());
+    	taskWindow.loadTaskCard(event.getNewSelection());
+    	taskWindow.show();
     }
 
 }

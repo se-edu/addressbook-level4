@@ -6,6 +6,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import seedu.address.commons.util.FxViewUtil;
+import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.commons.core.LogsCenter;
 
 import java.util.logging.Logger;
@@ -13,24 +14,26 @@ import java.util.logging.Logger;
 /**
  * Controller for a help page
  */
-public class HelpWindow extends UiPart {
+public class TaskWindow extends UiPart {
 
     private static final Logger logger = LogsCenter.getLogger(HelpWindow.class);
     private static final String ICON = "/images/help_icon.png";
-    private static final String FXML = "HelpWindow.fxml";
-    private static final String TITLE = "Help";
-    private static final String USERGUIDE_URL =
-            "https://github.com/CS2103AUG2016-W10-C3/main/blob/master/docs/UserGuide.md";
+    private static final String FXML = "TaskWindow.fxml";
+    private static final String TITLE = "Task";
+    
+    //private static String url;
 
     private AnchorPane mainPane;
 
     private Stage dialogStage;
+    
+    private WebView browser;
 
-    public static HelpWindow load(Stage primaryStage) {
+    public static TaskWindow load(Stage primaryStage) {
         logger.fine("Showing help page about the application.");
-        HelpWindow helpWindow = UiPartLoader.loadUiPart(primaryStage, new HelpWindow());
-        helpWindow.configure();
-        return helpWindow;
+        TaskWindow taskWindow = UiPartLoader.loadUiPart(primaryStage, new TaskWindow());
+        taskWindow.configure();
+        return taskWindow;
     }
 
     @Override
@@ -50,13 +53,22 @@ public class HelpWindow extends UiPart {
         dialogStage.setMaximized(true); //TODO: set a more appropriate initial size
         setIcon(dialogStage, ICON);
 
-        WebView browser = new WebView();
-        browser.getEngine().load(USERGUIDE_URL);
+        browser = new WebView();
+        
         FxViewUtil.applyAnchorBoundaryParameters(browser, 0.0, 0.0, 0.0, 0.0);
         mainPane.getChildren().add(browser);
     }
+    
+    public void loadTaskPage(ReadOnlyTask task) {
+        browser.getEngine().load("https://www.google.com.sg/#safe=off&q=" + task.getName().taskName.replaceAll(" ", "+"));
+    }
+    
+    public void loadTaskCard(ReadOnlyTask task) {
+        browser.getEngine().loadContent(task.getAsHTML());
+    }
 
     public void show() {
-        dialogStage.showAndWait();
+        //dialogStage.showAndWait();
+    	dialogStage.show();
     }
 }
