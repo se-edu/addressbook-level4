@@ -125,6 +125,10 @@ public class UniqueTagList implements Iterable<Tag> {
                 ((UniqueTagList) other).internalList));
     }
 
+    public boolean equalsOrderInsensitive(UniqueTagList other) {
+        return this == other || new HashSet<>(this.internalList).equals(new HashSet<>(other.internalList));
+    }
+
     @Override
     public int hashCode() {
         return internalList.hashCode();
