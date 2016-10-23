@@ -3,9 +3,12 @@ package seedu.address.ui;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import seedu.address.commons.util.FxViewUtil;
+import seedu.address.model.UserPrefs;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.commons.core.LogsCenter;
 
@@ -29,10 +32,10 @@ public class TaskWindow extends UiPart {
     
     private WebView browser;
 
-    public static TaskWindow load(Stage primaryStage) {
+    public static TaskWindow load(Stage primaryStage, UserPrefs prefs) {
         logger.fine("Showing help page about the application.");
         TaskWindow taskWindow = UiPartLoader.loadUiPart(primaryStage, new TaskWindow());
-        taskWindow.configure();
+        taskWindow.configure(prefs);
         return taskWindow;
     }
 
@@ -46,17 +49,30 @@ public class TaskWindow extends UiPart {
         return FXML;
     }
 
-    private void configure(){
+    private void configure(UserPrefs prefs){
         Scene scene = new Scene(mainPane);
+        
         //Null passed as the parent stage to make it non-modal.
         dialogStage = createDialogStage(TITLE, null, scene);
-        dialogStage.setMaximized(true); //TODO: set a more appropriate initial size
+        dialogStage.initStyle(StageStyle.TRANSPARENT);
+        
         setIcon(dialogStage, ICON);
+        setWindowDefaultSize(prefs);
 
         browser = new WebView();
         
         FxViewUtil.applyAnchorBoundaryParameters(browser, 0.0, 0.0, 0.0, 0.0);
         mainPane.getChildren().add(browser);
+    }
+    
+    protected void setWindowDefaultSize(UserPrefs prefs) {
+        dialogStage.setHeight(300);
+        dialogStage.setWidth(300);
+        
+        if (prefs.getGuiSettings().getWindowCoordinates() != null) {
+        	dialogStage.setX(prefs.getGuiSettings().getWindowCoordinates().getX() - 300);
+        	dialogStage.setY(prefs.getGuiSettings().getWindowCoordinates().getY());
+        }
     }
     
     public void loadTaskPage(ReadOnlyTask task) {
@@ -68,7 +84,10 @@ public class TaskWindow extends UiPart {
     }
 
     public void show() {
-        //dialogStage.showAndWait();
     	dialogStage.show();
+    }
+    
+    public void hide() {
+    	dialogStage.hide();;
     }
 }
