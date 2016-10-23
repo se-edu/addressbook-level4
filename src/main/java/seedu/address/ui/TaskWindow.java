@@ -1,5 +1,6 @@
 package seedu.address.ui;
 
+import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
@@ -26,11 +27,14 @@ public class TaskWindow extends UiPart {
     
     //private static String url;
 
-    private AnchorPane mainPane;
+    private VBox mainPane;
 
     private Stage dialogStage;
     
-    private WebView browser;
+    private BrowserPanel browserPanel;
+    
+    @FXML
+    private AnchorPane browserPlaceholder;
 
     public static TaskWindow load(Stage primaryStage, UserPrefs prefs) {
         logger.fine("Showing help page about the application.");
@@ -41,7 +45,7 @@ public class TaskWindow extends UiPart {
 
     @Override
     public void setNode(Node node) {
-        mainPane = (AnchorPane) node;
+        mainPane = (VBox) node;
     }
 
     @Override
@@ -59,10 +63,11 @@ public class TaskWindow extends UiPart {
         setIcon(dialogStage, ICON);
         setWindowDefaultSize(prefs);
 
-        browser = new WebView();
+        browserPanel = BrowserPanel.load(browserPlaceholder);
         
-        FxViewUtil.applyAnchorBoundaryParameters(browser, 0.0, 0.0, 0.0, 0.0);
-        mainPane.getChildren().add(browser);
+        //browser = new WebView();
+        //FxViewUtil.applyAnchorBoundaryParameters(browser, 0.0, 0.0, 0.0, 0.0);
+        //mainPane.getChildren().add(browser);
     }
     
     protected void setWindowDefaultSize(UserPrefs prefs) {
@@ -76,11 +81,13 @@ public class TaskWindow extends UiPart {
     }
     
     public void loadTaskPage(ReadOnlyTask task) {
-        browser.getEngine().load("https://www.google.com.sg/#safe=off&q=" + task.getName().taskName.replaceAll(" ", "+"));
+    	browserPanel.loadTaskPage(task);
+        //browser.getEngine().load("https://www.google.com.sg/#safe=off&q=" + task.getName().taskName.replaceAll(" ", "+"));
     }
     
     public void loadTaskCard(ReadOnlyTask task) {
-        browser.getEngine().loadContent(task.getAsHTML());
+    	browserPanel.loadTaskCard(task);
+        //browser.getEngine().loadContent(task.getAsHTML());
     }
 
     public void show() {
