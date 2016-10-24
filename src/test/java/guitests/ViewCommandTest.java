@@ -26,7 +26,7 @@ public class ViewCommandTest extends AddressBookGuiTest{
 
 	    @Test
 	    public void viewPerson_emptyList(){
-	        commandBox.runCommand("clear");
+	        commandBox.runCommandAndConfirm("clear");
 	        assertListSize(0);
 	        assertViewInvalid(1); //invalid index
 	    }
