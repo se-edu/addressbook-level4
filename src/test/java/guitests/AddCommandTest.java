@@ -1,6 +1,6 @@
 package guitests;
 
-import guitests.guihandles.TaskCardHandle;
+import guitests.guihandles.TitleCardHandle;
 import org.junit.Test;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.commons.core.Messages;
@@ -42,7 +42,7 @@ public class AddCommandTest extends AddressBookGuiTest {
         commandBox.runCommand(taskToAdd.getAddCommand());
 
         //confirm the new card contains the right data
-        TaskCardHandle addedCard = taskListPanel.navigateToTask(taskToAdd.getName().taskName);
+        TitleCardHandle addedCard = taskListPanel.navigateToTask(taskToAdd.getName().taskName);
         assertMatching(taskToAdd, addedCard);
 
         //confirm the list now contains all previous tasks plus the new task
