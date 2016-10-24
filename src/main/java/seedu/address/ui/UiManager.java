@@ -6,6 +6,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import seedu.address.MainApp;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.Config;
@@ -48,6 +49,9 @@ public class UiManager extends ComponentManager implements Ui {
 
         //Set the application icon.
         primaryStage.getIcons().add(getImage(ICON_APPLICATION));
+        
+        //Set stage to Transparent
+        primaryStage.initStyle(StageStyle.TRANSPARENT);
 
         try {
             mainWindow = MainWindow.load(primaryStage, config, prefs, logic);

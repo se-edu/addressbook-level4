@@ -101,8 +101,7 @@ public class MainWindow extends UiPart {
         
         scene = new Scene(rootLayout);
         primaryStage.setScene(scene);
-        primaryStage.initStyle(StageStyle.TRANSPARENT);
-
+        
         setAccelerators();
     }
 
