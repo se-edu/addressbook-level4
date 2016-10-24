@@ -2,8 +2,12 @@ package seedu.address.logic.commands;
 
 public class ConfirmCommand extends Command {
     public static Command AWAITINGCONFIRMATION = null;
-    public static String MESSAGE = "Yes?";
-    public static String COMMAND_WORD = "yes";
+    public static final  String MESSAGE = "Yes?";
+    public static final String COMMAND_WORD = "yes";
+    
+    public ConfirmCommand(){
+        
+    }
     
     @Override
     public CommandResult execute() {

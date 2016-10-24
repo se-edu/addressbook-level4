@@ -39,7 +39,7 @@ public class LogicManager extends ComponentManager implements Logic {
         if(command instanceof RequiresConfirm){
             return ((RequiresConfirm) command).prompt();
         }else if(!(command instanceof ConfirmCommand)){
-            ConfirmCommand.awaitingConfirmation = null;
+            ConfirmCommand.AWAITINGCONFIRMATION = null;
         }
         return command.execute();
     }
