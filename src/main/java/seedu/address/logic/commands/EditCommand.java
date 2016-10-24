@@ -30,7 +30,6 @@ public class EditCommand extends Command {
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the SmartyDo";
 
 
-    private boolean isExecutedBefore;
     private Task toAdd;
     public final int targetIndex;
     private ReadOnlyTask taskToDelete;
@@ -56,7 +55,6 @@ public class EditCommand extends Command {
     	this.location = location;
     	this.tags = tags;
 
-        isExecutedBefore = false;
     }
 
     @Override
@@ -119,13 +117,13 @@ public class EditCommand extends Command {
                     new Location(location),
                     new UniqueTagList(tagSet)
             );
-            model.addTask(toAdd);
             model.deleteTask(taskToDelete);
+            model.addTask(toAdd);
 
         } catch (DuplicateTaskException e) {
             return new CommandResult(MESSAGE_DUPLICATE_TASK);
         } catch (IllegalValueException e) {
-            assert false : "The target task already possesses null values";
+            return new CommandResult(e.getMessage());
         } catch (TaskNotFoundException e) {
             assert false : "The target task cannot be missing";
         }
