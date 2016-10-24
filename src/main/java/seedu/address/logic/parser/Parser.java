@@ -27,7 +27,7 @@ public class Parser {
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
 
     private static final Pattern TASK_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
-            Pattern.compile("(?<name>[^;]+)"
+            Pattern.compile("(?<name>[^;/]+)"
             		+ "(( (?<isTimePrivate>p?)t;(?<time>[^;]+))?)"
                     + "(( et;(?<period>[^;]+))?)"
             		+ "(( (?<isDescriptionPrivate>p?)d;(?<description>[^;]+))?)"
@@ -36,7 +36,7 @@ public class Parser {
 
     private static final Pattern PERSON_EDIT_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<targetIndex>\\d)"
-                    + "(( (?<name>(?:[^;]+)))?)"
+                    + "(( (?<name>(?:[^;/]+)))?)"
                     + "(( (?<isPhonePrivate>p?)t;(?<phone>[^;]+))?)"
                     + "(( et;(?<period>[^;]+))?)"
                     + "(( (?<isEmailPrivate>p?)d;(?<email>[^;]+))?)"
