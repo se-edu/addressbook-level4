@@ -132,20 +132,24 @@ public class LogicManagerTest {
         assertCommandBehavior("help", HelpCommand.SHOWING_HELP_MESSAGE);
         assertTrue(helpShown);
     }
-
+    
     @Test
     public void execute_exit() throws Exception {
-        assertCommandBehavior("exit", ExitCommand.MESSAGE_EXIT_ACKNOWLEDGEMENT);
+        assertCommandBehavior("exit", String.format(RequiresConfirm.PROMPT_MESSAGE, "exit"));
+        assertCommandBehavior("YES", ExitCommand.MESSAGE_EXIT_ACKNOWLEDGEMENT);
     }
-
+    
     @Test
     public void execute_clear() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        model.addTask(helper.generateTask(1));
-        model.addTask(helper.generateTask(2));
-        model.addTask(helper.generateTask(3));
-
-        assertCommandBehavior("clear", ClearCommand.MESSAGE_SUCCESS, new ToDo(), Collections.emptyList());
+        ToDo expectedAB = new ToDo();
+        for(int i=0; i<3; i++){
+            model.addTask(helper.generateTask(i));
+            expectedAB.addTask(helper.generateTask(i));
+        }
+        
+        assertCommandBehavior("clear", String.format(RequiresConfirm.PROMPT_MESSAGE, "clear"), expectedAB, expectedAB.getTaskList());
+        assertCommandBehavior("YeS", ClearCommand.MESSAGE_SUCCESS, new ToDo(), Collections.emptyList());
     }
 
     @Test

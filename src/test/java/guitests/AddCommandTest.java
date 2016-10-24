@@ -30,7 +30,7 @@ public class AddCommandTest extends AddressBookGuiTest {
         assertTrue(taskListPanel.isListMatching(currentList));
 
         //add to empty list
-        commandBox.runCommand("clear");
+        commandBox.runCommandAndConfirm("clear");
         assertAddSuccess(td.alice);
 
         //invalid command
