@@ -39,7 +39,8 @@ public class Time implements Comparable<Time> {
     public static final String TIME_PARSE_FORMAT_CHOICE_24HR = "[k:mm]" + "[k.mm]" + "[kkmm]";
 
     public static final String[] DATE_PARSE_FORMAT_UNTIMED_CHOICE = {"[d-M-uuuu]","[d-MMM-uuuu]",
-            "[d.M.uuuu]","[d.MMM.uuuu]", "[d/M/uuuu]","[d/MMM/uuuu]","[uuuu-M-dd]","[d-M-yy]"};
+            "[d.M.uuuu]","[d.MMM.uuuu]", "[d/M/uuuu]","[d/MMM/uuuu]","[uuuu-M-dd]","[d-M-yy]",
+            "[d-M-yy]", "[d-MMM-yy]", "[d.M.yy]", "[d.MMM.yy]", "[d/MMM/yy]", "[d/M/yy]"};
 
     public static final String DATE_TIME_PRINT_FORMAT = "dd-MMM-uuuu h:mma";
     public static final String DATE_PRINT_FORMAT = "dd-MMM-uuuu";
@@ -80,11 +81,11 @@ public class Time implements Comparable<Time> {
 
     private String fixMonthForJavaFormat(String date) {
         int capsMonth = -1;
-        date = date.toLowerCase();
-        if (Character.isAlphabetic(date.charAt(3))) { //for 1st character in date with 2 digits 1 delimiter,
-            capsMonth = 3;
-        } else if (Character.isAlphabetic(date.charAt(2))) { // 1st character in date with 1 digit 1 delimiter
+        date = date.toLowerCase().trim();
+        if (Character.isAlphabetic(date.charAt(2))) { //for 1st character in date with 2 digits 1 delimiter,
             capsMonth = 2;
+        } else if (Character.isAlphabetic(date.charAt(3))) { // 1st character in date with 1 digit 1 delimiter
+            capsMonth = 3;
         }
         if (capsMonth != -1){
             String fixedMonth = date.substring(0,capsMonth) + Character.toString(date.charAt(capsMonth)).toUpperCase()+date.substring(capsMonth + 1);
