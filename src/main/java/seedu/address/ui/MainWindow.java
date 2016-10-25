@@ -147,6 +147,10 @@ public class MainWindow extends UiPart {
         primaryStage.setHeight(prefs.getGuiSettings().getWindowHeight());
         primaryStage.setWidth(prefs.getGuiSettings().getWindowWidth());
         
+        //Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+        //primaryStage.setX(primaryScreenBounds.getMaxX() - prefs.getGuiSettings().getWindowHeight());
+        //primaryStage.setY(0.0);
+        
         if (prefs.getGuiSettings().getWindowCoordinates() != null) {
             primaryStage.setX(prefs.getGuiSettings().getWindowCoordinates().getX());
             primaryStage.setY(prefs.getGuiSettings().getWindowCoordinates().getY());
