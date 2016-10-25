@@ -41,7 +41,7 @@ public class Task implements ReadOnlyTask {
      */
     public Task(ReadOnlyTask source) {
         this(source.getName(), source.getTime(), source.getPeriod(), source.getDescription(),
-             source.getLocation(), source.getTags(), source.getCompleted());
+             source.getLocation(), source.getTags());
     }
 
     /**
