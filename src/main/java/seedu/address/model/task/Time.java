@@ -38,8 +38,8 @@ public class Time implements Comparable<Time> {
     public static final String TIME_PARSE_FORMAT_CHOICE_12HR = "[h:mma]" + "[h.mma]" + "[hmma]";
     public static final String TIME_PARSE_FORMAT_CHOICE_24HR = "[k:mm]" + "[k.mm]" + "[kkmm]";
 
-    public static final String[] DATE_PARSE_FORMAT_UNTIMED_CHOICE = {"[d-M-uu]","[d-MMM-uu]",
-            "[d.M.uu]","[d.MMM.uu]", "[d/M/uu]","[d/MMM/uu]","[uuuu-M-dd]","[d-M-yy]"};
+    public static final String[] DATE_PARSE_FORMAT_UNTIMED_CHOICE = {"[d-M-uuuu]","[d-MMM-uuuu]",
+            "[d.M.uuuu]","[d.MMM.uuuu]", "[d/M/uuuu]","[d/MMM/uuuu]","[uuuu-M-dd]","[d-M-yy]"};
 
     public static final String DATE_TIME_PRINT_FORMAT = "dd-MMM-uuuu h:mma";
     public static final String DATE_PRINT_FORMAT = "dd-MMM-uuuu";
