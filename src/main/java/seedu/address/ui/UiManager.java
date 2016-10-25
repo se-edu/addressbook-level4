@@ -15,7 +15,6 @@ import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.commons.events.ui.TaskPanelSelectionChangedEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
-import seedu.address.commons.events.ui.TaskCardMarkChangedEvent;
 import seedu.address.commons.events.ui.ViewItemRequestEvent;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
@@ -144,12 +143,6 @@ public class UiManager extends ComponentManager implements Ui {
     	mainWindow.getTaskListPanel().scrollDeselect(event.targetIndex);
     	taskWindow.loadTaskCard(event.getNewSelection());
     	taskWindow.show();
-    }
-    
-    @Subscribe
-    private void handleTaskCardMarkChangedEvent(TaskCardMarkChangedEvent event){
-        logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        mainWindow.markTaskCard(event.getDisplayedIndex());
     }
 
 }

@@ -1,20 +1,17 @@
 package seedu.address.ui;
 
 import java.time.format.DateTimeFormatter;
-import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
-import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.events.ui.TaskCardMarkChangedEvent;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.Time;
 
 public class TitleCard extends UiPart{
-    private final Logger logger = LogsCenter.getLogger(TaskListPanel.class);
+
     private static final String FXML = "TitleListCard.fxml";
     public static final String BLANK = " ";
 
@@ -46,7 +43,6 @@ public class TitleCard extends UiPart{
         name.setText(task.getName().taskName);
         id.setText(displayedIndex + ". ");
         completeStatus.setSelected(task.getCompleted());
-        setEventHandlerForMarkChangedEvent();
         setDesign();
     }
     
@@ -100,14 +96,5 @@ public class TitleCard extends UiPart{
     @Override
     public String getFxmlPath() {
         return FXML;
-    }
-    
-    private void setEventHandlerForMarkChangedEvent(){
-        completeStatus.selectedProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue != null) {
-                logger.fine("Selection in task list panel changed to : '" + newValue + "'");
-                raise(new TaskCardMarkChangedEvent(displayedIndex));
-            }
-        });
     }
 }
