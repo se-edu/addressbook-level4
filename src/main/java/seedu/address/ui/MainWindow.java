@@ -15,6 +15,7 @@ import seedu.address.commons.core.Config;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.logic.Logic;
+import seedu.address.logic.commands.DoneCommand;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.task.ReadOnlyTask;
 
@@ -233,4 +234,8 @@ public class MainWindow extends UiPart {
     	
     }
 
+	
+	public void markTaskCard(int i){
+	    logic.execute(String.format("%1$s %2$d", DoneCommand.COMMAND_WORD, i));
+	}
 }
