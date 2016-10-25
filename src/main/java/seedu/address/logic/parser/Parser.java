@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import seedu.address.logic.commands.*;
+import seedu.address.logic.parser.ArgumentTokenizer.Prefix;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.commons.exceptions.IllegalValueException;
 
@@ -29,16 +30,16 @@ public class Parser {
     private static final Pattern TASK_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<name>[^;/]+)"
             		+ "(( (?<isTimePrivate>p?)t;(?<time>[^;]+))?)"
-                    + "(( et;(?<period>[^;]+))?)"
+                    + "(( s;(?<period>[^;]+))?)"
             		+ "(( (?<isDescriptionPrivate>p?)d;(?<description>[^;]+))?)"
             		+ "(( (?<isAddressPrivate>p?)a;(?<address>[^/]+))?)"
             		+ "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
 
     private static final Pattern PERSON_EDIT_DATA_ARGS_FORMAT = // '/' forward slashes are reserved for delimiter prefixes
             Pattern.compile("(?<targetIndex>\\d)"
-                    + "(( (?<name>(?:[^;/]+)))?)"
+                    + "(( (?<name>(?:[^;]+)))?)"
                     + "(( (?<isPhonePrivate>p?)t;(?<phone>[^;]+))?)"
-                    + "(( et;(?<period>[^;]+))?)"
+                    + "(( s;(?<period>[^;]+))?)"
                     + "(( (?<isEmailPrivate>p?)d;(?<email>[^;]+))?)"
                     + "(( (?<isAddressPrivate>p?)a;(?<address>[^/]+))?)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
@@ -58,12 +59,20 @@ public class Parser {
             +"(\\s("+TIME_VALIDATION_FORMAT+")(\\s("+TIME_VALIDATION_FORMAT+"))?)?";
 
     public static final String MESSAGE_DATE_TIME_CONSTRAINTS = "Task Dates and Time should be in valid UK-format "
-            + "Date [Optional]Time [Optional]Time \n" 
+            + "Date [Optional]Time [Optional]Time \n"
             + "DD/MMM/YYYY or DD/MM/YYYY or DD.MM.YYYY or DD.MMM.YYY or DD-MM-YYYY or DD-MMM-YYYY \n"
             + "12Hour format with AM/PM required or 24Hour format without AM/PM \n"
             + "eg: 10-12-2012 09:00AM 11:59PM";
 
     enum TaskType {UNTIMED, DEADLINE, TIMERANGE}
+
+    private static final Prefix namePrefix = new Prefix("n;");
+    private static final Prefix datePrefix = new Prefix("t;");
+    private static final Prefix periodPrefix = new Prefix("s;");
+    private static final Prefix descriptionPrefix = new Prefix("d;");
+    private static final Prefix locationPrefix = new Prefix("a;");
+    private static final Prefix tagsPrefix = new Prefix("t/");
+    private static final String BLANK = "";
 
     public Parser() {}
 
@@ -121,10 +130,10 @@ public class Parser {
 
         case DoneCommand.COMMAND_WORD:
             return prepareMark(arguments);
-            
+
         case ConfirmCommand.COMMAND_WORD:
             return new ConfirmCommand();
-            
+
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
         }
@@ -160,19 +169,24 @@ public class Parser {
     private Command prepareAdd(String args){
         String[] dateTimeArgs = null;
         TaskType taskType;
-        final Matcher matcher = TASK_DATA_ARGS_FORMAT.matcher(args.trim());
-        // Validate arg string format
-        if (!matcher.matches()) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
-        }
+ //       final Matcher matcher = TASK_DATA_ARGS_FORMAT.matcher(args.trim());
+
+        ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(namePrefix, datePrefix, periodPrefix, descriptionPrefix,
+                locationPrefix, tagsPrefix);
+        argsTokenizer.tokenize(args);
+
         try {
-            String validateDateTimeArgs = matcher.group("time");
-            if(validateDateTimeArgs !=null) {
-                validateDateTimeArgs = validateDateTimeArgs.trim().toUpperCase();
-                if(!validateDateTimeArgs.matches(DATE_TIME_VALIDATION_FORMAT)){
+            Optional<String> taskName = getTaskNameFromArgs(argsTokenizer);
+            if (!taskName.isPresent()) {
+                return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+            }
+            Optional<String> validateDateTimeArgs = argsTokenizer.getValue(datePrefix);
+            if(validateDateTimeArgs.isPresent()) {
+                validateDateTimeArgs = Optional.of(validateDateTimeArgs.get().toUpperCase());
+                if(!validateDateTimeArgs.get().matches(DATE_TIME_VALIDATION_FORMAT)){
                     throw new IllegalValueException(MESSAGE_DATE_TIME_CONSTRAINTS);
                 }
-                dateTimeArgs = prepareAddTimeArgs(validateDateTimeArgs);
+                dateTimeArgs = prepareAddTimeArgs(validateDateTimeArgs.get());
                 taskType = TaskType.values()[(dateTimeArgs.length-1)];
             }else {
                 taskType = TaskType.values()[0];
@@ -181,32 +195,32 @@ public class Parser {
             switch (taskType) {
                 case UNTIMED:
                     return new AddCommand(
-                            matcher.group("name"),
-                            matcher.group("time")==null?null:validateDateTimeArgs,
-                            matcher.group("period")==null?"2359":matcher.group("period"),
-                            matcher.group("description")==null?" ":matcher.group("description"),
-                            matcher.group("address")==null?" ":matcher.group("address"),
-                            getTagsFromArgs(matcher.group("tagArguments"))
+                            taskName.get(),
+                            validateDateTimeArgs.isPresent() ? dateTimeArgs[0] : null,
+                            getPrefixValueElseBlank(argsTokenizer,periodPrefix), // stub
+                            getPrefixValueElseBlank(argsTokenizer,descriptionPrefix),
+                            getPrefixValueElseBlank(argsTokenizer,locationPrefix),
+                            toSet(argsTokenizer.getAllValues(tagsPrefix))
                     );
                 case DEADLINE:
                     assert dateTimeArgs != null;
                     return new AddCommand(
-                            matcher.group("name"),
+                            taskName.get(),
                             dateTimeArgs[0], dateTimeArgs[1],
-                            matcher.group("period")==null?"2359":matcher.group("period"),
-                            matcher.group("description")==null?" ":matcher.group("description"),
-                            matcher.group("address")==null?" ":matcher.group("address"),
-                            getTagsFromArgs(matcher.group("tagArguments"))
+                            getPrefixValueElseBlank(argsTokenizer,periodPrefix), // stub
+                            getPrefixValueElseBlank(argsTokenizer,descriptionPrefix),
+                            getPrefixValueElseBlank(argsTokenizer,locationPrefix),
+                            toSet(argsTokenizer.getAllValues(tagsPrefix))
                     );
                 case TIMERANGE:
                     assert dateTimeArgs != null;
                     return new AddCommand(
-                            matcher.group("name"),
+                            taskName.get(),
                             dateTimeArgs[0], dateTimeArgs[1], dateTimeArgs[2],
-                            matcher.group("period")==null?"2359":matcher.group("period"),
-                            matcher.group("description")==null?" ":matcher.group("description"),
-                            matcher.group("address")==null?" ":matcher.group("address"),
-                            getTagsFromArgs(matcher.group("tagArguments"))
+                            getPrefixValueElseBlank(argsTokenizer,periodPrefix), // stub
+                            getPrefixValueElseBlank(argsTokenizer,descriptionPrefix),
+                            getPrefixValueElseBlank(argsTokenizer,locationPrefix),
+                            toSet(argsTokenizer.getAllValues(tagsPrefix))
                     );
                 default:
                     assert false: "Not suppose to happen.";
@@ -218,9 +232,40 @@ public class Parser {
         }
     }
 
+    /**
+     * Takes the text before first valid prefix as task name if input does not contain namePrefix.
+     *
+     * @param argsTokenizer
+     * @return Task Name
+     * @throws IllegalValueException
+     */
+
+    private Optional<String> getTaskNameFromArgs(ArgumentTokenizer argsTokenizer) throws IllegalValueException {
+        if (argsTokenizer.hasDuplicated(namePrefix)) {
+            throw new IllegalValueException("There can only be 1 Task name");
+        }
+        String taskName = argsTokenizer.getValue(namePrefix).isPresent() ?
+                argsTokenizer.getValue(namePrefix).get() :
+                    argsTokenizer.getPreamble().isPresent() ? argsTokenizer.getPreamble().get(): "";
+
+        return taskName.isEmpty() ? Optional.empty() : Optional.of(taskName.trim());
+    }
+
+    private String getPrefixValueElseBlank(ArgumentTokenizer argsTokenizer, Prefix prefix) {
+        if (prefix.equals(periodPrefix)) { //stub to be remove
+            return argsTokenizer.getValue(prefix).isPresent() ? argsTokenizer.getValue(prefix).get() : "2359";
+        }
+        return argsTokenizer.getValue(prefix).isPresent() ? argsTokenizer.getValue(prefix).get() : BLANK;
+    }
+
     private String[] prepareAddTimeArgs(String dateTimeInput) {
         String[] dateTimeSplitted = dateTimeInput.split(" ");
         return dateTimeSplitted;
+    }
+
+    private Set<String> toSet(Optional<List<String>> tagsOptional) {
+        List<String> tags = tagsOptional.orElse(Collections.emptyList());
+        return new HashSet<>(tags);
     }
 
     /**

@@ -155,11 +155,11 @@ public class LogicManagerTest {
     @Test
     public void execute_add_invalidTaskData() throws Exception {
         assertCommandBehavior(
-                "add []\\[?] t;10-12-2016 et;1000 d;valid@e.mail a;valid, address", Name.MESSAGE_NAME_CONSTRAINTS);
+                "add []\\[?] t;10-12-2016 s;1000 d;valid@e.mail a;valid, address", Name.MESSAGE_NAME_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name t;not_numbers et;1000 d;valid@e.mail a;valid, address", Parser.MESSAGE_DATE_TIME_CONSTRAINTS);
+                "add Valid Name t;not_numbers s;1000 d;valid@e.mail a;valid, address", Parser.MESSAGE_DATE_TIME_CONSTRAINTS);
         assertCommandBehavior(
-                "add Valid Name t;10-12-2016 et;1000 d;valid@e.mail a;valid, address t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
+                "add Valid Name t;10-12-2016 s;1000 d;valid@e.mail a;valid, address t/invalid_-[.tag", Tag.MESSAGE_TAG_CONSTRAINTS);
 
     }
 
@@ -422,7 +422,7 @@ public class LogicManagerTest {
 
             cmd.append(p.getName().toString());
             cmd.append(" t;").append(p.getTime().get().getStartDateString());
-            cmd.append(" et;").append(p.getPeriod());
+            cmd.append(" s;").append(p.getPeriod());
             cmd.append(" d;").append(p.getDescription());
             cmd.append(" a;").append(p.getLocation());
 
@@ -443,7 +443,7 @@ public class LogicManagerTest {
             cmd.add(Integer.toString(i));
             cmd.add(p.getName().toString());
             cmd.add("t;" + p.getTime());
-            cmd.add("et;" + p.getPeriod());
+            cmd.add("s;" + p.getPeriod());
             cmd.add("d;" + p.getDescription());
             cmd.add("a;" + p.getLocation());
 
