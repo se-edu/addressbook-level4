@@ -19,7 +19,7 @@
                         <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
                     </items>
                 </Menu>
-                <Menu mnemonicParsing="false" text="View">
+                <Menu mnemonicParsing="false" text="List">
                     <items>
                         <MenuItem fx:id="listAllItem" mnemonicParsing="false" onAction="#handleListAll" text="All" />
                         <MenuItem fx:id="listOverdueItem" mnemonicParsing="false" onAction="#handleListOverdue" text="Overdue" />
