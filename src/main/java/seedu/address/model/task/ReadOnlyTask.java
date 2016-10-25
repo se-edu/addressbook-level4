@@ -99,12 +99,10 @@ public interface ReadOnlyTask extends Comparable<ReadOnlyTask>{
                     .append(getTime().get().getEndDate().get().toLocalTime());
         }
         builder.append("</h3>")
-                .append("<h3> Description: ")
-                .append(getDescription())
-                .append("</h3>")
-                .append("<h3> Location: ")
-                .append(getLocation())
-                .append("</h3>")
+                .append("<h3> Description: </h3>")
+                .append("<p>" + getDescription()+ "</p>")
+                .append("<h3> Location: </h3>")
+                .append("<p>" + getLocation()+ "</p>")
                 .append("<h3> Tags: ");
         getTags().forEach(builder::append);
         builder.append("</h3>")
