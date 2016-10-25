@@ -44,9 +44,18 @@ public class Parser {
                     + "(( (?<isAddressPrivate>p?)a;(?<address>[^/]+))?)"
                     + "(?<tagArguments>(?: t/[^/]+)*)"); // variable number of tags
 
+    //@@author A0121261Y
+    /**
+     * Regex validation for time format duplicated from Time class.
+     *
+     */
     public static final String TIME_VALIDATION_FORMAT = "((1[012]|0?[1-9])[:.]?[0-5][0-9]([aApP][mM]))|"
             + "(([01]\\d|2[0-3])[:.]?([0-5]\\d))";
 
+    /**
+     * Regex  validation for date format duplicated from Time class.
+     *
+     */
     public static final String DATE_VALIDATION_FORMAT = "(?:(?:31(\\/|-|\\.)(?:0?[13578]|1[02]|"
             + "(?:JAN|MAR|MAY|JUL|AUG|OCT|DEC)))\\1|(?:(?:29|30)(\\/|-|\\.)(?:0?[1,3-9]|1[0-2]|"
             + "(?:JAN|MAR|APR|MAY|JUN|JUL|AUG|SEP|OCT|NOV|DEC))\\2))(?:(?:1[6-9]|[2-9]\\d)?\\d{2})$|^"
@@ -155,6 +164,7 @@ public class Parser {
         return new DoneCommand(index.get());
     }
 
+    //@@author A0121261Y
     /**
      * Parses arguments in the context of the add task command.
      *

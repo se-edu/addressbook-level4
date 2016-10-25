@@ -12,6 +12,7 @@ import java.util.Optional;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.parser.Parser;
 
+//@@author A0121261Y
 /**
  * Represents a Task's Date in the SmartyDo.
  * Guarantees: immutable; is valid as declared in {@link #isValidDate(String)}
@@ -283,7 +284,7 @@ public class Time implements Comparable<Time> {
         }
 
     }
-    
+
     public String getEndTimeString() {
         if (!endDate.isPresent()) {
             return null;
