@@ -7,6 +7,7 @@ import java.util.Objects;
 import javafx.geometry.Rectangle2D;
 import javafx.stage.Screen;
 
+//@@author A0135767U
 /**
  * Represents User's preferences.
  */

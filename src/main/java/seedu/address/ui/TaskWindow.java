@@ -21,8 +21,9 @@ import seedu.address.commons.core.LogsCenter;
 
 import java.util.logging.Logger;
 
+//@@author A0135767U
 /**
- * Controller for a help page
+ * Controller for a browser panel extension
  */
 public class TaskWindow extends UiPart {
 

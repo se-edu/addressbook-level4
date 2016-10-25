@@ -22,6 +22,7 @@ import seedu.address.model.UserPrefs;
 
 import java.util.logging.Logger;
 
+//@@author A0135767U
 /**
  * The manager of the UI component.
  */
