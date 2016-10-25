@@ -8,7 +8,7 @@ import seedu.address.model.task.ReadOnlyTask;
 /**
  * Provides a handle to a task card in the task list panel.
  */
-public class TaskCardHandle extends GuiHandle {
+public class TitleCardHandle extends GuiHandle {
     private static final String NAME_FIELD_ID = "#name";
     private static final String ADDRESS_FIELD_ID = "#address";
     private static final String TIME_FIELD_ID = "#time";
@@ -16,7 +16,7 @@ public class TaskCardHandle extends GuiHandle {
 
     private Node node;
 
-    public TaskCardHandle(GuiRobot guiRobot, Stage primaryStage, Node node){
+    public TitleCardHandle(GuiRobot guiRobot, Stage primaryStage, Node node){
         super(guiRobot, primaryStage, null);
         this.node = node;
     }
@@ -29,35 +29,21 @@ public class TaskCardHandle extends GuiHandle {
         return getTextFromLabel(NAME_FIELD_ID);
     }
 
-    public String getAddress() {
-        return getTextFromLabel(ADDRESS_FIELD_ID);
-    }
-
-    public String getTime() {
-        return getTextFromLabel(TIME_FIELD_ID);
-    }
-
-    public String getDescription() {
-        return getTextFromLabel(DESCRIPTION_FIELD_ID);
-    }
-
     public boolean isSameTask(ReadOnlyTask task){
-        return getFullName().equals(task.getName().taskName) && getTime().equals(task.getTime().isPresent()? task.getTime().get().value : null)
-                && getDescription().equals(task.getDescription().value) && getAddress().equals(task.getLocation().value);
+        return getFullName().equals(task.getName().taskName);
     }
 
     @Override
     public boolean equals(Object obj) {
-        if(obj instanceof TaskCardHandle) {
-            TaskCardHandle handle = (TaskCardHandle) obj;
-            return getFullName().equals(handle.getFullName())
-                    && getAddress().equals(handle.getAddress()); //TODO: compare the rest
+        if(obj instanceof TitleCardHandle) {
+            TitleCardHandle handle = (TitleCardHandle) obj;
+            return getFullName().equals(handle.getFullName());
         }
         return super.equals(obj);
     }
 
     @Override
     public String toString() {
-        return getFullName() + " " + getAddress();
+        return getFullName();
     }
 }
