@@ -46,19 +46,25 @@ public class MainWindow extends UiPart {
 
     private String addressBookName;
 
-
-    @FXML
-    private AnchorPane commandBoxPlaceholder;
-
     @FXML
     private MenuItem helpMenuItem;
-
+    @FXML
+    private MenuItem listAllItem;
+    @FXML
+    private MenuItem listOverdueItem;    
+    @FXML
+    private MenuItem listUpcomingItem;
+    @FXML
+    private MenuItem listCompletedItem;
+    @FXML
+    private MenuItem listIncompleteItem;
+    
+    @FXML
+    private AnchorPane commandBoxPlaceholder;
     @FXML
     private AnchorPane taskListPanelPlaceholder;
-
     @FXML
     private AnchorPane resultDisplayPlaceholder;
-
     @FXML
     private AnchorPane statusbarPlaceholder;
 
@@ -107,6 +113,11 @@ public class MainWindow extends UiPart {
 
     private void setAccelerators() {
         helpMenuItem.setAccelerator(KeyCombination.valueOf("F1"));
+        listAllItem.setAccelerator(KeyCombination.valueOf("Ctrl+1"));
+        listOverdueItem.setAccelerator(KeyCombination.valueOf("Ctrl+2"));
+        listUpcomingItem.setAccelerator(KeyCombination.valueOf("Ctrl+3"));
+        listCompletedItem.setAccelerator(KeyCombination.valueOf("Ctrl+4"));
+        listIncompleteItem.setAccelerator(KeyCombination.valueOf("Ctrl+5"));
     }
 
     void fillInnerParts() {
@@ -179,6 +190,31 @@ public class MainWindow extends UiPart {
     public void show() {
         primaryStage.show();
     }
+    
+    @FXML
+    private void handleListAll() {
+        logic.execute("list all");
+    }
+    
+    @FXML
+    private void handleListOverdue() {
+        logic.execute("list overdue");
+    } 
+    
+    @FXML
+    private void handleListUpcoming() {
+        logic.execute("list upcoming");
+    } 
+    
+    @FXML
+    private void handleListCompleted() {
+        logic.execute("list completed");
+    } 
+    
+    @FXML
+    private void handleListIncomplete() {
+        logic.execute("list incomplete");
+    } 
 
     /**
      * Closes the application.

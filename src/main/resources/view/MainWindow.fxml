@@ -17,6 +17,15 @@
                         <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
                     </items>
                 </Menu>
+                <Menu mnemonicParsing="false" text="View">
+                    <items>
+                        <MenuItem fx:id="listAllItem" mnemonicParsing="false" onAction="#handleListAll" text="All" />
+                        <MenuItem fx:id="listOverdueItem" mnemonicParsing="false" onAction="#handleListOverdue" text="Overdue" />
+                        <MenuItem fx:id="listUpcomingItem" mnemonicParsing="false" onAction="#handleListUpcoming" text="Upcoming" />
+                        <MenuItem fx:id="listCompletedItem" mnemonicParsing="false" onAction="#handleListCompleted" text="Completed" />
+                        <MenuItem fx:id="listIncompleteItem" mnemonicParsing="false" onAction="#handleListIncomplete" text="Incomplete" />
+                    </items>
+                </Menu>
                 <Menu mnemonicParsing="false" text="Help">
                     <items>
                         <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />

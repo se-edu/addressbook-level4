@@ -19,6 +19,7 @@ public class ListCommand extends Command {
 	private final String ARGUMENT_OVERDUE = "overdue";
 	private final String ARGUMENT_UPCOMING = "upcoming";
 	private final String ARGUMENT_COMPLETED = "completed";
+	private final String ARGUMENT_INCOMPLETE = "incomplete";
 
     public static final String COMMAND_WORD = "list";
 
@@ -48,6 +49,9 @@ public class ListCommand extends Command {
     		break;
     	case ARGUMENT_COMPLETED:
     		model.updateFilteredListToShowCompleted(true);
+    		break;
+    	case ARGUMENT_INCOMPLETE:
+    		model.updateFilteredListToShowCompleted(false);
     		break;
     	default:
         	indicateAttemptToExecuteIncorrectCommand();
