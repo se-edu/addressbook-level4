@@ -283,6 +283,13 @@ public class Time implements Comparable<Time> {
         }
 
     }
+    
+    public String getEndTimeString() {
+        if (!endDate.isPresent()) {
+            return null;
+        }
+        return endDate.get().toLocalTime().format(DateTimeFormatter.ofPattern(TIME_PRINT_FORMAT));
+    }
 
     /**
      * Based on the Task's current attributes, returns the classification of the task
