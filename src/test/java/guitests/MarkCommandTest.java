@@ -12,7 +12,7 @@ public class MarkCommandTest extends AddressBookGuiTest {
 
         //mark the first in the list
         TestTask[] currentList = td.getTypicalTask();
-        commandBox.runCommand("clear");
+        commandBox.runCommandAndConfirm("clear");
         commandBox.runCommand(td.hoon.getAddCommand());
         int targetIndex = 1;
         commandBox.runCommand("done " + targetIndex);

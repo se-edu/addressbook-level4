@@ -24,7 +24,7 @@ public class ClearCommandTest extends AddressBookGuiTest {
     }
 
     private void assertClearCommandSuccess() {
-        commandBox.runCommand("clear");
+        commandBox.runCommandAndConfirm("clear");
         assertListSize(0);
         assertResultMessage("Address book has been cleared!");
     }

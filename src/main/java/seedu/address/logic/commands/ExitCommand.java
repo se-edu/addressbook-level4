@@ -6,7 +6,7 @@ import seedu.address.commons.events.ui.ExitAppRequestEvent;
 /**
  * Terminates the program.
  */
-public class ExitCommand extends Command {
+public class ExitCommand extends Command implements RequiresConfirm {
 
     public static final String COMMAND_WORD = "exit";
 
@@ -18,5 +18,11 @@ public class ExitCommand extends Command {
     public CommandResult execute() {
         EventsCenter.getInstance().post(new ExitAppRequestEvent());
         return new CommandResult(MESSAGE_EXIT_ACKNOWLEDGEMENT);
+    }
+
+    @Override
+    public CommandResult prompt() {
+        ConfirmCommand.AWAITINGCONFIRMATION = this;
+        return prompt(COMMAND_WORD);
     }
 }
