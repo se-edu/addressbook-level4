@@ -1,5 +1,6 @@
 package seedu.address.model.task;
 
+import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
 import seedu.address.model.tag.UniqueTagList;
@@ -81,17 +82,33 @@ public interface ReadOnlyTask extends Comparable<ReadOnlyTask>{
      */
     default String getAsHTML() {
         final StringBuilder builder = new StringBuilder();
-        builder.append("<html> <body>")
+        builder.append("<html>")
+                .append("<body>")
                 .append("<h1>" + getName() + "</h1>")
-                .append("<br> Time: ")
-                .append(getTime())
-                .append("<br> Description: ")
+                .append("<h3> Date: ");
+        if(getTime().isPresent()){
+        builder.append(getTime().get().getStartDate().toLocalDate().format(DateTimeFormatter.ofPattern("d MMM uuuu")));
+        }
+        builder.append("</h3>")
+                .append("<h3> Time: ");
+        if(getTaskType()==TaskType.DEADLINE){
+            builder.append(getTime().get().getStartDate().toLocalTime());
+        }else if(getTaskType()==TaskType.TIMERANGE){
+            builder.append(getTime().get().getStartDate().toLocalTime())
+                    .append(" ~ ")
+                    .append(getTime().get().getEndDate().get().toLocalTime());
+        }
+        builder.append("</h3>")
+                .append("<h3> Description: ")
                 .append(getDescription())
-                .append("<br> Location: ")
+                .append("</h3>")
+                .append("<h3> Location: ")
                 .append(getLocation())
-                .append("<br> Tags: ");
+                .append("</h3>")
+                .append("<h3> Tags: ");
         getTags().forEach(builder::append);
-        builder.append("</body> </html>");
+        builder.append("</h3>")
+                .append("</body> </html>");
         return builder.toString();
     }
 
