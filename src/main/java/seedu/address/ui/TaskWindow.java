@@ -1,7 +1,6 @@
 package seedu.address.ui;
 
 import javafx.animation.FadeTransition;
-import javafx.animation.Status;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.Scene;

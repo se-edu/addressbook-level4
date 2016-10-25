@@ -50,8 +50,12 @@ public class UiManager extends ComponentManager implements Ui {
         //Set the application icon.
         primaryStage.getIcons().add(getImage(ICON_APPLICATION));
         
-        //Set stage to Transparent
-        //primaryStage.initStyle(StageStyle.TRANSPARENT);
+        try {
+            //Set stage to Transparent
+            primaryStage.initStyle(StageStyle.TRANSPARENT);
+        } catch (IllegalStateException e) {
+        	logger.warning(e.getMessage());
+        }
 
         try {
             mainWindow = MainWindow.load(primaryStage, config, prefs, logic);
