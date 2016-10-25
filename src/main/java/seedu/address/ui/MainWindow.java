@@ -1,13 +1,16 @@
 package seedu.address.ui;
 
 import javafx.fxml.FXML;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
@@ -15,6 +18,7 @@ import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.task.ReadOnlyTask;
 
+//@@author A0135767U
 /**
  * The Main Window. Provides the basic application layout containing
  * a menu bar and space where other JavaFX elements can be placed.
@@ -26,10 +30,10 @@ public class MainWindow extends UiPart {
     public static final int MIN_HEIGHT = 600;
     public static final int MIN_WIDTH = 450;
 
+
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
-    private BrowserPanel browserPanel;
     private TaskListPanel taskListPanel;
     private ResultDisplay resultDisplay;
     private StatusBarFooter statusBarFooter;
@@ -44,20 +48,24 @@ public class MainWindow extends UiPart {
     private String addressBookName;
 
     @FXML
-    private AnchorPane browserPlaceholder;
-
+    private MenuItem helpMenuItem;
+    @FXML
+    private MenuItem listAllItem;
+    @FXML
+    private MenuItem listOverdueItem;    
+    @FXML
+    private MenuItem listUpcomingItem;
+    @FXML
+    private MenuItem listCompletedItem;
+    @FXML
+    private MenuItem listIncompleteItem;
+    
     @FXML
     private AnchorPane commandBoxPlaceholder;
-
-    @FXML
-    private MenuItem helpMenuItem;
-
     @FXML
     private AnchorPane taskListPanelPlaceholder;
-
     @FXML
     private AnchorPane resultDisplayPlaceholder;
-
     @FXML
     private AnchorPane statusbarPlaceholder;
 
@@ -97,18 +105,23 @@ public class MainWindow extends UiPart {
         setIcon(ICON);
         setWindowMinSize();
         setWindowDefaultSize(prefs);
+        
         scene = new Scene(rootLayout);
         primaryStage.setScene(scene);
-
+        
         setAccelerators();
     }
 
     private void setAccelerators() {
         helpMenuItem.setAccelerator(KeyCombination.valueOf("F1"));
+        listAllItem.setAccelerator(KeyCombination.valueOf("Ctrl+1"));
+        listOverdueItem.setAccelerator(KeyCombination.valueOf("Ctrl+2"));
+        listUpcomingItem.setAccelerator(KeyCombination.valueOf("Ctrl+3"));
+        listCompletedItem.setAccelerator(KeyCombination.valueOf("Ctrl+4"));
+        listIncompleteItem.setAccelerator(KeyCombination.valueOf("Ctrl+5"));
     }
 
     void fillInnerParts() {
-        browserPanel = BrowserPanel.load(browserPlaceholder);
         taskListPanel = TaskListPanel.load(primaryStage, getTaskListPlaceholder(), logic.getFilteredTaskList());
         resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(), config.getToDoFilePath());
@@ -145,6 +158,11 @@ public class MainWindow extends UiPart {
     protected void setWindowDefaultSize(UserPrefs prefs) {
         primaryStage.setHeight(prefs.getGuiSettings().getWindowHeight());
         primaryStage.setWidth(prefs.getGuiSettings().getWindowWidth());
+        
+        //Rectangle2D primaryScreenBounds = Screen.getPrimary().getVisualBounds();
+        //primaryStage.setX(primaryScreenBounds.getMaxX() - prefs.getGuiSettings().getWindowHeight());
+        //primaryStage.setY(0.0);
+        
         if (prefs.getGuiSettings().getWindowCoordinates() != null) {
             primaryStage.setX(prefs.getGuiSettings().getWindowCoordinates().getX());
             primaryStage.setY(prefs.getGuiSettings().getWindowCoordinates().getY());
@@ -173,6 +191,31 @@ public class MainWindow extends UiPart {
     public void show() {
         primaryStage.show();
     }
+    
+    @FXML
+    private void handleListAll() {
+        logic.execute("list all");
+    }
+    
+    @FXML
+    private void handleListOverdue() {
+        logic.execute("list overdue");
+    } 
+    
+    @FXML
+    private void handleListUpcoming() {
+        logic.execute("list upcoming");
+    } 
+    
+    @FXML
+    private void handleListCompleted() {
+        logic.execute("list completed");
+    } 
+    
+    @FXML
+    private void handleListIncomplete() {
+        logic.execute("list incomplete");
+    } 
 
     /**
      * Closes the application.
@@ -186,16 +229,8 @@ public class MainWindow extends UiPart {
         return this.taskListPanel;
     }
 
-    public void loadTaskPage(ReadOnlyTask task) {
-        browserPanel.loadTaskPage(task);
-    }
-
     public void releaseResources() {
-        browserPanel.freeResources();
+    	
     }
 
-	public void loadTaskCard(ReadOnlyTask task) {
-		browserPanel.loadTaskCard(task);
-		
-	}
 }

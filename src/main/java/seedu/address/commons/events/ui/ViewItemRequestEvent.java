@@ -3,6 +3,7 @@ package seedu.address.commons.events.ui;
 import seedu.address.commons.events.BaseEvent;
 import seedu.address.model.task.ReadOnlyTask;
 
+//@@author A0135767U
 public class ViewItemRequestEvent extends BaseEvent{
 	
     public final ReadOnlyTask newSelection;
