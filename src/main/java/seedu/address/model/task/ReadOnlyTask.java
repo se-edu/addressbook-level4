@@ -9,7 +9,8 @@ import seedu.address.model.tag.UniqueTagList;
  * Implementations should guarantee: details are present and not null, field values are validated.
  */
 public interface ReadOnlyTask extends Comparable<ReadOnlyTask>{
-
+    
+    public static final String BLANK = "";
     enum TaskType {FLOATING, UNTIMED, DEADLINE, TIMERANGE }
 
     Name getName();
@@ -45,11 +46,27 @@ public interface ReadOnlyTask extends Comparable<ReadOnlyTask>{
      */
     default String getAsText() {
         final StringBuilder builder = new StringBuilder();
+        TaskType taskType = getTaskType();
+        String time;
+        switch(taskType) {
+            case FLOATING: 
+                time = BLANK;
+                break;
+            case UNTIMED: 
+            case DEADLINE: 
+                time = getTime().get().getStartDateString();
+                break;
+            case TIMERANGE:
+                time = getTime().get().getStartDateString() + " - " + getTime().get().getEndTimeString();
+                break;
+            default:
+                time = null;
+                assert false: "not possible for task to be uncategorised.";
+        }
+        
         builder.append(getName())
                 .append(" Date: ")
-                .append(getTime()) //to be refactored to Date
-                .append(" Time: ")
-                .append(getPeriod())
+                .append(time) 
                 .append(" Description: ")
                 .append(getDescription())
                 .append(" Location: ")

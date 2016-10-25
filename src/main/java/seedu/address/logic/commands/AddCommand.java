@@ -23,7 +23,7 @@ public class AddCommand extends Command implements Undoable {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a task to the SmartyDo. "
             + "Parameters: NAME t;DATE et;TIME d;DESCRIPTION a;LOCATION  [tag;TAG]...\n"
             + "Example: " + COMMAND_WORD
-            + " John Doe t;10-12-2016 et;10:00AM d;description a;311, Clementi Ave 2, #02-25 t/friends t/owesMoney";
+            + " CS2103 t;10-12-2016 10:00AM 11:00AM d;description a;Nus Computing t/sadLife";
 
     public static final String MESSAGE_SUCCESS = "New task added: %1$s";
     public static final String MESSAGE_DUPLICATE_TASK = "This task already exists in the SmartyDo";
@@ -44,12 +44,12 @@ public class AddCommand extends Command implements Undoable {
         for (String tagName : tags) {
             tagSet.add(new Tag(tagName));
         }
-        
+
         if (time!=null)
             addTime = new Time(time);
         else
             addTime = null;
-        
+
         this.toAdd = new Task(
                 new Name(name),
                 Optional.ofNullable(addTime),
@@ -71,7 +71,7 @@ public class AddCommand extends Command implements Undoable {
         for (String tagName : tags) {
             tagSet.add(new Tag(tagName));
         }
-        
+
         Time addTime = new Time(date, startTime);
         this.toAdd = new Task(
                 new Name(name),
