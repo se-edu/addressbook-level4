@@ -193,9 +193,10 @@ public class Parser {
             Optional<String> validateDateTimeArgs = argsTokenizer.getValue(datePrefix);
             if(validateDateTimeArgs.isPresent()) {
                 validateDateTimeArgs = Optional.of(validateDateTimeArgs.get().toUpperCase());
-                if(!validateDateTimeArgs.get().matches(DATE_TIME_VALIDATION_FORMAT)){
-                    throw new IllegalValueException(MESSAGE_DATE_TIME_CONSTRAINTS);
-                }
+//                if(!validateDateTimeArgs.get().matches(DATE_TIME_VALIDATION_FORMAT)){
+//                TODO: FIX System.out.println("line 197 parser: " + farthestPoint(Pattern.compile(DATE_TIME_VALIDATION_FORMAT), validateDateTimeArgs.get()));;
+//                    throw new IllegalValueException(MESSAGE_DATE_TIME_CONSTRAINTS);
+//                }
                 dateTimeArgs = prepareAddTimeArgs(validateDateTimeArgs.get());
                 taskType = TaskType.values()[(dateTimeArgs.length-1)];
             }else {
@@ -424,6 +425,16 @@ public class Parser {
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }
+    }
+
+    int farthestPoint(Pattern pattern, String input) {
+        for (int i = input.length() - 1; i > 0; i--) {
+            Matcher matcher = pattern.matcher(input.substring(0, i));
+            if (!matcher.matches() && matcher.hitEnd()) {
+                return i;
+            }
+        }
+        return 0;
     }
 
 }
