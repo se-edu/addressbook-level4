@@ -42,14 +42,10 @@ public class TitleCard extends UiPart{
     public void initialize() {
         name.setText(task.getName().taskName);
         id.setText(displayedIndex + ". ");
-        setDateTimeText();
         completeStatus.setSelected(task.getCompleted());
         setDesign();
     }
 
-    public void setDateTimeText(){
-        
-    }
 
     @FXML
     private void setDesign() {
