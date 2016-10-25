@@ -10,12 +10,13 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.TaskCardMarkChangedEvent;
+import seedu.address.commons.events.ui.TaskPanelSelectionChangedEvent;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.Time;
 
-public class TitleCard extends UiPart{
+public class TaskCard extends UiPart{
     private final Logger logger = LogsCenter.getLogger(TaskListPanel.class);
-    private static final String FXML = "TitleListCard.fxml";
+    private static final String FXML = "TaskListCard.fxml";
     public static final String BLANK = " ";
 
     @FXML
@@ -25,17 +26,29 @@ public class TitleCard extends UiPart{
     @FXML
     private Label id;
     @FXML
+    private Label time;
+    @FXML
+    private Label startTime;
+    @FXML
+    private Label endTime;
+    @FXML
+    private Label address;
+    @FXML
+    private Label description;
+    @FXML
+    private Label tags;
+    @FXML
     private CheckBox completeStatus;
 
     private ReadOnlyTask task;
     private int displayedIndex;
 
-    public TitleCard(){
+    public TaskCard(){
 
     }
 
-    public static TitleCard load(ReadOnlyTask task, int displayedIndex){
-        TitleCard card = new TitleCard();
+    public static TaskCard load(ReadOnlyTask task, int displayedIndex){
+        TaskCard card = new TaskCard();
         card.task = task;
         card.displayedIndex = displayedIndex;
         return UiPartLoader.loadUiPart(card);
@@ -45,37 +58,38 @@ public class TitleCard extends UiPart{
     public void initialize() {
         name.setText(task.getName().taskName);
         id.setText(displayedIndex + ". ");
+        setDateTimeText();
+        address.setText(task.getLocation().value);
+        description.setText(task.getDescription().value);
+        tags.setText(task.tagsString());
         completeStatus.setSelected(task.getCompleted());
         setEventHandlerForMarkChangedEvent();
         setDesign();
     }
-    
-    //@@author A0121261Y-unused
-    /*public void setDateTimeText(){
+
+    public void setDateTimeText(){
         if (task.getTime().isPresent()) {
             time.setText(task.getTime().get().getStartDateString());
-           if (task.getTime().get().getUntimedStatus()) {
-               startTime.setText(BLANK);
-               endTime.setText(BLANK);
-           } else if (task.getTime().get().getEndDate().isPresent()) {
-               startTime.setText("Starts at: " + task.getTime().get().getStartDate().toLocalTime()
-                       .format(DateTimeFormatter.ofPattern(Time.TIME_PRINT_FORMAT)));
-               endTime.setText("Ends at: " + task.getTime().get().getEndDate().get().toLocalTime()
-                       .format(DateTimeFormatter.ofPattern(Time.TIME_PRINT_FORMAT)));
-           } else {
-               startTime.setText("Starts at: " + task.getTime().get().getStartDate().toLocalTime()
-                       .format(DateTimeFormatter.ofPattern(Time.TIME_PRINT_FORMAT)));
-               endTime.setText(BLANK);
-           }
-       } else {
-           time.setText(BLANK);
-           startTime.setText(BLANK);
-           endTime.setText(BLANK);
-       }
+            if (task.getTime().get().getUntimedStatus()) {
+                startTime.setText(BLANK);
+                endTime.setText(BLANK);
+            } else if (task.getTime().get().getEndDate().isPresent()) {
+                startTime.setText("Starts at: " + task.getTime().get().getStartDate().toLocalTime()
+                        .format(DateTimeFormatter.ofPattern(Time.TIME_PRINT_FORMAT)));
+                endTime.setText("Ends at: " + task.getTime().get().getEndDate().get().toLocalTime()
+                        .format(DateTimeFormatter.ofPattern(Time.TIME_PRINT_FORMAT)));
+            } else {
+                startTime.setText("Starts at: " + task.getTime().get().getStartDate().toLocalTime()
+                        .format(DateTimeFormatter.ofPattern(Time.TIME_PRINT_FORMAT)));
+                endTime.setText(BLANK);
+            }
+        } else {
+            time.setText(BLANK);
+            startTime.setText(BLANK);
+            endTime.setText(BLANK);
+        }
 
-    }*/
-    //@@author
-
+    }
 
     @FXML
     private void setDesign() {
