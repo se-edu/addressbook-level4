@@ -78,6 +78,14 @@ allprojects {
                 srcDir 'src/main/resources'
             }
         }
+        test {
+            java {
+                srcDir 'src/test/java'
+            }
+            resources {
+                srcDir 'src/test/resources'
+            }
+        }
     }
 
     shadowJar {
@@ -96,8 +104,8 @@ task wrapper(type: Wrapper) {
 }
 
 task coverage(type: JacocoReport) {
-    sourceDirectories = files(allprojects.sourceSets.main.allSource.srcDirs)
-    classDirectories =  files(allprojects.sourceSets.main.output)
+    sourceDirectories = files(allprojects.sourceSets.main.allSource.srcDirs,allprojects.sourceSets.test.allSource.srcDirs)
+    classDirectories =  files(allprojects.sourceSets.main.output,allprojects.sourceSets.test.output)
     executionData = files(allprojects.jacocoTestReport.executionData)
     afterEvaluate {
         classDirectories = files(classDirectories.files.collect {
