@@ -104,8 +104,8 @@ task wrapper(type: Wrapper) {
 }
 
 task coverage(type: JacocoReport) {
-    sourceDirectories = files(allprojects.sourceSets.main.allSource.srcDirs,allprojects.sourceSets.test.allSource.srcDirs)
-    classDirectories =  files(allprojects.sourceSets.main.output,allprojects.sourceSets.test.output)
+    sourceDirectories = files(allprojects.sourceSets.main.allSource.srcDirs, allprojects.sourceSets.test.allSource.srcDirs)
+    classDirectories =  files(allprojects.sourceSets.main.output, allprojects.sourceSets.test.output)
     executionData = files(allprojects.jacocoTestReport.executionData)
     afterEvaluate {
         classDirectories = files(classDirectories.files.collect {
@@ -119,7 +119,7 @@ task coverage(type: JacocoReport) {
 }
 
 coveralls {
-    sourceDirs = allprojects.sourceSets.main.allSource.srcDirs.flatten()
+    sourceDirs = files(allprojects.sourceSets.main.allSource.srcDirs, allprojects.sourceSets.test.allSource.srcDirs).flatten()
     jacocoReportPath = "${buildDir}/reports/jacoco/coverage/coverage.xml"
 }
 
