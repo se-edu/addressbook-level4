@@ -12,7 +12,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.TaskCardMarkChangedEvent;
 import seedu.address.model.task.ReadOnlyTask;
 import seedu.address.model.task.Time;
-
+//@@author A0126649W
 public class TitleCard extends UiPart{
     private final Logger logger = LogsCenter.getLogger(TaskListPanel.class);
     private static final String FXML = "TitleListCard.fxml";
