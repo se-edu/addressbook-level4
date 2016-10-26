@@ -16,7 +16,7 @@ import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.commons.events.ui.TaskPanelSelectionChangedEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.commons.events.ui.TaskCardMarkChangedEvent;
-import seedu.address.commons.events.ui.ViewItemRequestEvent;
+import seedu.address.commons.events.ui.LocateItemRequestEvent;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
@@ -134,15 +134,15 @@ public class UiManager extends ComponentManager implements Ui {
     @Subscribe
     private void handleTaskPanelSelectionChangedEvent(TaskPanelSelectionChangedEvent event){
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        taskWindow.loadTaskPage(event.getNewSelection());
+        taskWindow.loadTaskCard(event.getNewSelection());
         taskWindow.show();
     }
     
     @Subscribe
-    private void handleViewItemRequestEvent(ViewItemRequestEvent event) {
+    private void handleLocateItemRequestEvent(LocateItemRequestEvent event) {
     	logger.info(LogsCenter.getEventHandlingLogMessage(event));
     	mainWindow.getTaskListPanel().scrollDeselect(event.targetIndex);
-    	taskWindow.loadTaskCard(event.getNewSelection());
+    	taskWindow.loadTaskPage(event.getNewSelection());
     	taskWindow.show();
     }
     

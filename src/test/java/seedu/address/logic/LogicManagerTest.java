@@ -201,7 +201,7 @@ public class LogicManagerTest {
 
 
     @Test
-    public void execute_list_showsAllTask() throws Exception {
+    public void execute_view_showsAllTask() throws Exception {
         // prepare expectations
         TestDataHelper helper = new TestDataHelper();
         ToDo expectedAB = helper.generateToDo(2);
@@ -210,8 +210,8 @@ public class LogicManagerTest {
         // prepare SmartyDo state
         helper.addToModel(model, 2);
 
-        assertCommandBehavior("list all",
-                String.format(ListCommand.MESSAGE_SUCCESS, "all"),
+        assertCommandBehavior("view all",
+                String.format(ViewCommand.MESSAGE_SUCCESS, "all"),
                 expectedAB,
                 expectedList);
     }
@@ -269,7 +269,7 @@ public class LogicManagerTest {
         helper.addToModel(model, threeTasks);
 
         assertCommandBehavior("select 2",
-                String.format(SelectCommand.MESSAGE_SELECT_TASK_SUCCESS, 2),
+                String.format(SelectCommand.MESSAGE_SUCCESS, 2),
                 expectedAB,
                 expectedAB.getTaskList());
         assertEquals(1, targetedJumpIndex);
@@ -368,14 +368,14 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void execute_viewInvalidArgsFormat_errorMessageShown() throws Exception {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, ViewCommand.MESSAGE_USAGE);
-        assertIncorrectIndexFormatBehaviorForCommand("view", expectedMessage);
+    public void execute_locateInvalidArgsFormat_errorMessageShown() throws Exception {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, LocateCommand.MESSAGE_USAGE);
+        assertIncorrectIndexFormatBehaviorForCommand("locate", expectedMessage);
     }
 
     @Test
-    public void execute_viewIndexNotFound_errorMessageShown() throws Exception {
-        assertIndexNotFoundBehaviorForCommand("view");
+    public void execute_locateIndexNotFound_errorMessageShown() throws Exception {
+        assertIndexNotFoundBehaviorForCommand("locate");
     }
 
 
