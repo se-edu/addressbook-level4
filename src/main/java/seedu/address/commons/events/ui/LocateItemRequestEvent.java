@@ -4,12 +4,12 @@ import seedu.address.commons.events.BaseEvent;
 import seedu.address.model.task.ReadOnlyTask;
 
 //@@author A0135767U
-public class ViewItemRequestEvent extends BaseEvent{
+public class LocateItemRequestEvent extends BaseEvent{
 	
     public final ReadOnlyTask newSelection;
     public final int targetIndex;
 
-    public ViewItemRequestEvent(ReadOnlyTask newSelection, int targetIndex) {
+    public LocateItemRequestEvent(ReadOnlyTask newSelection, int targetIndex) {
         this.newSelection = newSelection;
         this.targetIndex = targetIndex;
     }

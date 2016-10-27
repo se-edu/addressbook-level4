@@ -104,8 +104,8 @@ public class Parser {
         case AddCommand.COMMAND_WORD:
             return prepareAdd(arguments);
 
-        case SelectCommand.COMMAND_WORD:
-            return prepareSelect(arguments);
+        case LocateCommand.COMMAND_WORD:
+            return prepareLocate(arguments);
 
         case DeleteCommand.COMMAND_WORD:
             return prepareDelete(arguments);
@@ -116,8 +116,8 @@ public class Parser {
         case FindCommand.COMMAND_WORD:
             return prepareFind(arguments);
 
-        case ListCommand.COMMAND_WORD:
-            return prepareList(arguments);
+        case ViewCommand.COMMAND_WORD:
+            return prepareView(arguments);
 
         case ExitCommand.COMMAND_WORD:
             return new ExitCommand();
@@ -125,8 +125,8 @@ public class Parser {
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
 
-        case ViewCommand.COMMAND_WORD:
-        	return prepareView(arguments);
+        case SelectCommand.COMMAND_WORD:
+        	return prepareSelect(arguments);
 
         case UndoCommand.COMMAND_WORD:
             return new UndoCommand();
@@ -311,29 +311,13 @@ public class Parser {
     }
 
     /**
-     * Parses arguments in the context of the delete task command.
-     *
-     * @param args full command args string
-     * @return the prepared command
-     */
-    private Command prepareView(String args) {
-
-        Optional<Integer> index = parseIndex(args);
-        if(!index.isPresent()){
-            return new IncorrectCommand(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, ViewCommand.MESSAGE_USAGE));
-        }
-
-        return new ViewCommand(index.get());
-    }
-
-    /**
      * Parses arguments in the context of the select task command.
      *
      * @param args full command args string
      * @return the prepared command
      */
     private Command prepareSelect(String args) {
+
         Optional<Integer> index = parseIndex(args);
         if(!index.isPresent()){
             return new IncorrectCommand(
@@ -341,6 +325,22 @@ public class Parser {
         }
 
         return new SelectCommand(index.get());
+    }
+
+    /**
+     * Parses arguments in the context of the locate task command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareLocate(String args) {
+        Optional<Integer> index = parseIndex(args);
+        if(!index.isPresent()){
+            return new IncorrectCommand(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, LocateCommand.MESSAGE_USAGE));
+        }
+
+        return new LocateCommand(index.get());
     }
 
     /**
@@ -381,17 +381,23 @@ public class Parser {
     }
 
     //@@author A0135767U
-    private Command prepareList(String args) {
+    /**
+     * Parses arguments in the context of the view task command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareView(String args) {
         final Matcher matcher = KEYWORDS_ARGS_FORMAT.matcher(args.trim());
         if (!matcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    ListCommand.MESSAGE_USAGE));
+                    ViewCommand.MESSAGE_USAGE));
         }
 
         // keywords delimited by whitespace
         final String[] keywords = matcher.group("keywords").split("\\s+");
         final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
-        return new ListCommand(keywordSet);
+        return new ViewCommand(keywordSet);
     }
     //@@author
 
@@ -411,7 +417,7 @@ public class Parser {
             final Optional<Integer> targetIndex = parseIndex(matcher.group("targetIndex"));
             if(!targetIndex.isPresent()){
                 return new IncorrectCommand(
-                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE));
+                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, LocateCommand.MESSAGE_USAGE));
             }
             return new EditCommand(
                     targetIndex.get(),

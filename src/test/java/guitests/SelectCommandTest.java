@@ -41,7 +41,7 @@ public class SelectCommandTest extends AddressBookGuiTest {
 
     private void assertSelectionSuccess(int index) {
         commandBox.runCommand("select " + index);
-        assertResultMessage("Selected Task: "+index);
+        assertResultMessage("Selected Task #"+index);
         assertTaskSelected(index);
     }
 

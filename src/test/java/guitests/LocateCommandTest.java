@@ -6,7 +6,7 @@ import org.junit.Test;
 
 import seedu.address.model.task.ReadOnlyTask;
 
-public class ViewCommandTest extends AddressBookGuiTest{
+public class LocateCommandTest extends AddressBookGuiTest{
 	  @Test
 	    public void viewPerson_nonEmptyList() {
 
@@ -32,13 +32,13 @@ public class ViewCommandTest extends AddressBookGuiTest{
 	    }
 
 	    private void assertViewInvalid(int index) {
-	        commandBox.runCommand("view " + index);
+	        commandBox.runCommand("locate " + index);
 	        assertResultMessage("The task index provided is invalid.");
 	    }
 
 	    private void assertViewSuccess(int index) {
-	        commandBox.runCommand("view " + index);
-	        assertResultMessage("Viewing Task #"+index);
+	        commandBox.runCommand("locate " + index);
+	        assertResultMessage("Searching For Task: "+index);
 	    }
 
 	    private void assertNoPersonSelected() {
