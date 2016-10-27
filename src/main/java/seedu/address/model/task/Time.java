@@ -293,12 +293,12 @@ public class Time implements Comparable<Time> {
         return endDate.get().toLocalTime().format(DateTimeFormatter.ofPattern(TIME_PRINT_FORMAT));
     }
 
+    //@@author A0135812L
     /**
-     * Based on the Task's current attributes, returns the classification of the task
+     * This determines the natural ordering of the task.
      *
      * @return type of task
      */
-
     @Override
     public int compareTo(Time other) {
 
@@ -339,5 +339,6 @@ public class Time implements Comparable<Time> {
         cmp = thisEndDateTime.compareTo(otherEndDateTime);
         return cmp;
     }
+    //@@author
 
 }

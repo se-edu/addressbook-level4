@@ -1,5 +1,10 @@
 package seedu.address.logic.commands;
-
+//@@author A0135812L
+/**
+ * Confirms the RequiresConfirm implemented Command
+ * @author A0135812L
+ *
+ */
 public class ConfirmCommand extends Command {
     public static Command AWAITINGCONFIRMATION = null;
     public static final  String MESSAGE = "Yes?";

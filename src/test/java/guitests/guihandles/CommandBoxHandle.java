@@ -31,6 +31,7 @@ public class CommandBoxHandle extends GuiHandle{
         guiRobot.sleep(200); //Give time for the command to take effect
     }
     
+    //@@author A0135812L
     /**
      * Enters the given command in the Command Box and presses enter.
      * After which enters "YES" and presses enter to confirm command.

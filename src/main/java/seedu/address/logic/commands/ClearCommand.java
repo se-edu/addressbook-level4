@@ -22,6 +22,7 @@ public class ClearCommand extends Command implements RequiresConfirm{
     }
 
 
+    //@@author A0135812L
     @Override
     public CommandResult prompt() {
         ConfirmCommand.AWAITINGCONFIRMATION = this;

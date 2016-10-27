@@ -116,6 +116,7 @@ public class TaskCard extends UiPart{
         return FXML;
     }
     
+    //@@author A0135812L
     private void setEventHandlerForMarkChangedEvent(){
         completeStatus.selectedProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {

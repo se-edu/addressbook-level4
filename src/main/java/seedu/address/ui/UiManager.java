@@ -146,6 +146,7 @@ public class UiManager extends ComponentManager implements Ui {
     	taskWindow.show();
     }
     
+    //@@author A0135812L
     @Subscribe
     private void handleTaskCardMarkChangedEvent(TaskCardMarkChangedEvent event){
         logger.info(LogsCenter.getEventHandlingLogMessage(event));

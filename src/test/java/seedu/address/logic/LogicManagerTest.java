@@ -133,6 +133,7 @@ public class LogicManagerTest {
         assertTrue(helpShown);
     }
     
+    //@@author A0135812L
     @Test
     public void execute_exit() throws Exception {
         assertCommandBehavior("exit", String.format(RequiresConfirm.PROMPT_MESSAGE, "exit"));
@@ -433,7 +434,8 @@ public class LogicManagerTest {
 
             return cmd.toString();
         }
-
+        
+        //@@author A0135812L
         /** Generates the correct edit command based on the index given */
         String generateEditCommand(int i, Task p) {
             StringJoiner cmd = new StringJoiner(" ");
@@ -481,6 +483,7 @@ public class LogicManagerTest {
 
             return cmd.toString();
         }
+        //@@author
 
         /**
          * Generates an ToDo with auto-generated tasks.
@@ -577,7 +580,8 @@ public class LogicManagerTest {
             );
         }
     }
-
+    
+    //@@author A0135812L
     @Test
     public void execute_edit_fullDetail() throws Exception{
         TestDataHelper helper = new TestDataHelper();
@@ -644,5 +648,6 @@ public class LogicManagerTest {
                 expectedAB,
                 expectedList);
     }
+    //@@author
 
 }

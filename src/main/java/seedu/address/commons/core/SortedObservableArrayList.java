@@ -12,6 +12,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 
+//@@author A0135812L
+/**
+* Maintains a sorted database for the tasks
+*/
 public class SortedObservableArrayList<E extends Comparable<? super E>> implements ObservableList<E> {
 
     private ObservableList<E> backingList;
