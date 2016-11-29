@@ -71,14 +71,6 @@ public abstract class UiPart {
     }
 
     /**
-     * Sets the given image as the icon for the primary stage of this UI Part.
-     * @param iconSource e.g. {@code "/images/help_icon.png"}
-     */
-    protected void setIcon(String iconSource) {
-        primaryStage.getIcons().add(AppUtil.getImage(iconSource));
-    }
-
-    /**
      * Sets the given image as the icon for the given stage.
      * @param stage
      * @param iconSource e.g. {@code "/images/help_icon.png"}
