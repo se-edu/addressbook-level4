@@ -215,11 +215,21 @@
       -->
       <property name="tokens" value="ASSIGN, BAND, BAND_ASSIGN, BOR,
         BOR_ASSIGN, BSR, BSR_ASSIGN, BXOR, BXOR_ASSIGN, COLON, DIV, DIV_ASSIGN,
-        EQUAL, GE, GT, LAND, LE, LITERAL_CATCH, LITERAL_DO, LITERAL_ELSE,
+        EQUAL, GE, GT, LAND, LCURLY, LE, LITERAL_CATCH, LITERAL_DO, LITERAL_ELSE,
         LITERAL_FINALLY, LITERAL_FOR, LITERAL_IF, LITERAL_RETURN,
         LITERAL_SYNCHRONIZED, LITERAL_TRY, LITERAL_WHILE, LOR, LT, MINUS,
         MINUS_ASSIGN, MOD, MOD_ASSIGN, NOT_EQUAL, PLUS, PLUS_ASSIGN, QUESTION,
-        SL, SL_ASSIGN, SR_ASSIGN, STAR, STAR_ASSIGN"/>
+        RCURLY, SL, SLIST, SL_ASSIGN, SR_ASSIGN, STAR, STAR_ASSIGN"/>
+      <!-- Allow empty constructors e.g. MyClass() {} -->
+      <property name="allowEmptyConstructors" value="true" />
+      <!-- Allow empty methods e.g. void func() {} -->
+      <property name="allowEmptyMethods" value="true" />
+      <!-- Allow empty types e.g. class Foo {}, enum Foo {} -->
+      <property name="allowEmptyTypes" value="true" />
+      <!-- Allow empty loops e.g. for (int i = 1; i > 1; i++) {} -->
+      <property name="allowEmptyLoops" value="true" />
+      <!-- Allow empty lambdas e.g. () -> {} -->
+      <property name="allowEmptyLambdas" value="true" />
       <property name="severity" value="error"/>
     </module>
 
