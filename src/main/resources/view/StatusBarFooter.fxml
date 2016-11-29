@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.layout.*?>
+<?import org.controlsfx.control.StatusBar?>
 <GridPane styleClass="grid-pane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.address.ui.StatusBarFooter" stylesheets="@DarkTheme.css">
 <columnConstraints>
   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
 </columnConstraints>
  <children>
-      <AnchorPane styleClass="anchor-pane" id="syncStatusBarPane" fx:id="syncStatusBarPane" minWidth="0.0" />
-      <AnchorPane styleClass="anchor-pane" id="saveLocStatusBarPane" fx:id="saveLocStatusBarPane" minWidth="0.0" GridPane.columnIndex="1" />
+      <StatusBar styleClass="anchor-pane" fx:id="syncStatus" minWidth="0.0"/>
+      <StatusBar styleClass="anchor-pane" fx:id="saveLocationStatus" minWidth="0.0" GridPane.columnIndex="1"/>
  </children>
 </GridPane>
