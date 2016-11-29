@@ -27,6 +27,7 @@ public class MainWindow extends UiPart {
     private static final int MIN_HEIGHT = 600;
     private static final int MIN_WIDTH = 450;
 
+    private Stage primaryStage;
     private Logic logic;
 
     // Independent Ui parts residing in this Ui container
@@ -71,16 +72,21 @@ public class MainWindow extends UiPart {
         return FXML;
     }
 
+    public Stage getPrimaryStage() {
+        return primaryStage;
+    }
+
     public static MainWindow load(Stage primaryStage, Config config, UserPrefs prefs, Logic logic) {
-        MainWindow mainWindow = UiPartLoader.loadUiPart(primaryStage, new MainWindow());
-        mainWindow.configure(config.getAppTitle(), config.getAddressBookName(), config, prefs, logic);
+        MainWindow mainWindow = UiPartLoader.loadUiPart(new MainWindow());
+        mainWindow.configure(primaryStage, config.getAppTitle(), config.getAddressBookName(), config, prefs, logic);
         return mainWindow;
     }
 
-    private void configure(String appTitle, String addressBookName, Config config, UserPrefs prefs,
-                           Logic logic) {
+    private void configure(Stage primaryStage, String appTitle, String addressBookName, Config config,
+                           UserPrefs prefs, Logic logic) {
 
         // Set dependencies
+        this.primaryStage = primaryStage;
         this.logic = logic;
         this.addressBookName = addressBookName;
         this.config = config;
@@ -103,11 +109,10 @@ public class MainWindow extends UiPart {
 
     void fillInnerParts() {
         browserPanel = BrowserPanel.load(browserPlaceholder);
-        personListPanel = PersonListPanel.load(primaryStage, getPersonListPlaceholder(), logic.getFilteredPersonList());
-        resultDisplay = ResultDisplay.load(primaryStage, getResultDisplayPlaceholder());
-        statusBarFooter = StatusBarFooter.load(primaryStage, getStatusbarPlaceholder(),
-                                               config.getAddressBookFilePath());
-        commandBox = CommandBox.load(primaryStage, getCommandBoxPlaceholder(), logic);
+        personListPanel = PersonListPanel.load(getPersonListPlaceholder(), logic.getFilteredPersonList());
+        resultDisplay = ResultDisplay.load(getResultDisplayPlaceholder());
+        statusBarFooter = StatusBarFooter.load(getStatusbarPlaceholder(), config.getAddressBookFilePath());
+        commandBox = CommandBox.load(getCommandBoxPlaceholder(), logic);
     }
 
     private AnchorPane getCommandBoxPlaceholder() {
@@ -169,7 +174,7 @@ public class MainWindow extends UiPart {
 
     @FXML
     public void handleHelp() {
-        HelpWindow helpWindow = HelpWindow.load(primaryStage);
+        HelpWindow helpWindow = HelpWindow.load();
         helpWindow.show();
     }
 

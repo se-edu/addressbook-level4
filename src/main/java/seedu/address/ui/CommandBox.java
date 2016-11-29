@@ -6,7 +6,6 @@ import javafx.scene.Node;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.IncorrectCommandAttemptedEvent;
 import seedu.address.commons.events.ui.NewResultAvailableEvent;
@@ -29,8 +28,8 @@ public class CommandBox extends UiPart {
     @FXML
     private TextField commandTextField;
 
-    public static CommandBox load(Stage primaryStage, AnchorPane commandBoxPlaceholder, Logic logic) {
-        CommandBox commandBox = UiPartLoader.loadUiPart(primaryStage, commandBoxPlaceholder, new CommandBox());
+    public static CommandBox load(AnchorPane commandBoxPlaceholder, Logic logic) {
+        CommandBox commandBox = UiPartLoader.loadUiPart(commandBoxPlaceholder, new CommandBox());
         commandBox.configure(logic);
         commandBox.addToPlaceholder();
         return commandBox;

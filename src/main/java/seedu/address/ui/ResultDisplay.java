@@ -7,7 +7,6 @@ import javafx.beans.property.StringProperty;
 import javafx.scene.Node;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.NewResultAvailableEvent;
 import seedu.address.commons.util.FxViewUtil;
@@ -33,8 +32,8 @@ public class ResultDisplay extends UiPart {
     @FXML
     private TextArea resultDisplay;
 
-    public static ResultDisplay load(Stage primaryStage, AnchorPane placeHolder) {
-        ResultDisplay resultDisplay = UiPartLoader.loadUiPart(primaryStage, placeHolder, new ResultDisplay());
+    public static ResultDisplay load(AnchorPane placeHolder) {
+        ResultDisplay resultDisplay = UiPartLoader.loadUiPart(placeHolder, new ResultDisplay());
         resultDisplay.configure();
         return resultDisplay;
     }

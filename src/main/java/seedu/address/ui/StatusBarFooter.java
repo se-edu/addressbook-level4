@@ -5,7 +5,6 @@ import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
-import javafx.stage.Stage;
 import org.controlsfx.control.StatusBar;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
@@ -34,8 +33,8 @@ public class StatusBarFooter extends UiPart {
 
     private static final String FXML = "StatusBarFooter.fxml";
 
-    public static StatusBarFooter load(Stage stage, AnchorPane placeHolder, String saveLocation) {
-        StatusBarFooter statusBarFooter = UiPartLoader.loadUiPart(stage, placeHolder, new StatusBarFooter());
+    public static StatusBarFooter load(AnchorPane placeHolder, String saveLocation) {
+        StatusBarFooter statusBarFooter = UiPartLoader.loadUiPart(placeHolder, new StatusBarFooter());
         statusBarFooter.configure(saveLocation);
         return statusBarFooter;
     }

@@ -15,12 +15,6 @@ import seedu.address.commons.events.BaseEvent;
 public abstract class UiPart {
 
     /**
-     * The primary stage for the UI Part.
-     */
-    Stage primaryStage;
-
-
-    /**
      * Raises the event via {@link EventsCenter#post(BaseEvent)}
      * @param event
      */
@@ -48,11 +42,6 @@ public abstract class UiPart {
      */
     public abstract String getFxmlPath();
 
-    public void setStage(Stage primaryStage) {
-        this.primaryStage = primaryStage;
-    }
-
-
     /**
      * Creates a modal dialog.
      * @param title Title of the dialog.
@@ -77,7 +66,4 @@ public abstract class UiPart {
         //Do nothing by default.
     }
 
-    public Stage getPrimaryStage() {
-        return primaryStage;
-    }
 }

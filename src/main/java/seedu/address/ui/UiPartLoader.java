@@ -3,7 +3,6 @@ package seedu.address.ui;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
 import seedu.address.MainApp;
 
 /**
@@ -27,21 +26,15 @@ public class UiPartLoader {
         return controller;
     }
 
-    public static <T extends UiPart> T loadUiPart(Stage primaryStage, T controllerSeed) {
-        return loadUiPart(primaryStage, null, controllerSeed);
-    }
-
     /**
      * Returns the ui class for a specific UI Part.
      *
-     * @param primaryStage The primary stage for the view.
      * @param placeholder The placeholder where the loaded Ui Part is added.
      * @param sampleUiPart The sample of the expected UiPart class.
      * @param <T> The type of the UiPart
      */
-    public static <T extends UiPart> T loadUiPart(Stage primaryStage, AnchorPane placeholder, T sampleUiPart) {
+    public static <T extends UiPart> T loadUiPart(AnchorPane placeholder, T sampleUiPart) {
         T controller = loadUiPart(sampleUiPart);
-        controller.setStage(primaryStage);
         controller.setPlaceholder(placeholder);
         return controller;
     }

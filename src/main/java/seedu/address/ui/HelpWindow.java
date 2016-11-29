@@ -26,9 +26,9 @@ public class HelpWindow extends UiPart {
 
     private Stage dialogStage;
 
-    public static HelpWindow load(Stage primaryStage) {
+    public static HelpWindow load() {
         logger.fine("Showing help page about the application.");
-        HelpWindow helpWindow = UiPartLoader.loadUiPart(primaryStage, new HelpWindow());
+        HelpWindow helpWindow = UiPartLoader.loadUiPart(new HelpWindow());
         helpWindow.configure();
         return helpWindow;
     }
