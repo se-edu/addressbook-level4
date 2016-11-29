@@ -30,7 +30,7 @@ public class StringUtil {
         String preppedSentence = sentence;
         String[] wordsInPreppedSentence = preppedSentence.split("\\s+");
 
-        for (String wordInSentence: wordsInPreppedSentence){
+        for (String wordInSentence: wordsInPreppedSentence) {
             if (wordInSentence.equalsIgnoreCase(preppedWord)) return true;
         }
         return false;
@@ -39,7 +39,7 @@ public class StringUtil {
     /**
      * Returns a detailed message of the t, including the stack trace.
      */
-    public static String getDetails(Throwable t){
+    public static String getDetails(Throwable t) {
         assert t != null;
         StringWriter sw = new StringWriter();
         t.printStackTrace(new PrintWriter(sw));
@@ -52,7 +52,7 @@ public class StringUtil {
      * null, empty string, "-1", "0", "+1", and " 2 " (untrimmed) "3 0" (contains whitespace).
      * @param s Should be trimmed.
      */
-    public static boolean isUnsignedInteger(String s){
+    public static boolean isUnsignedInteger(String s) {
         return s != null && s.matches("^0*[1-9]\\d*$");
     }
 }

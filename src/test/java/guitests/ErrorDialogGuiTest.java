@@ -8,7 +8,7 @@ import java.io.IOException;
 
 import static junit.framework.TestCase.assertTrue;
 
-public class ErrorDialogGuiTest extends AddressBookGuiTest{
+public class ErrorDialogGuiTest extends AddressBookGuiTest {
 
     @Test
     public void showErrorDialogs() throws InterruptedException {

@@ -15,7 +15,7 @@ public class FileUtilTest {
     public ExpectedException thrown = ExpectedException.none();
 
     @Test
-    public void getPath(){
+    public void getPath() {
 
         // valid case
         assertEquals("folder" + File.separator + "sub-folder", FileUtil.getPath("folder/sub-folder"));

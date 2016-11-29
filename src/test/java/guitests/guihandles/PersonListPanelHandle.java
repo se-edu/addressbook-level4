@@ -47,7 +47,7 @@ public class PersonListPanelHandle extends GuiHandle {
     public boolean isListMatching(ReadOnlyPerson... persons) {
         return this.isListMatching(0, persons);
     }
-    
+
     /**
      * Clicks on the ListView.
      */
@@ -63,7 +63,7 @@ public class PersonListPanelHandle extends GuiHandle {
         List<ReadOnlyPerson> personsInList = getListView().getItems();
 
         // Return false if the list in panel is too short to contain the given list
-        if (startPosition + persons.length > personsInList.size()){
+        if (startPosition + persons.length > personsInList.size()) {
             return false;
         }
 

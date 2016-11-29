@@ -378,7 +378,7 @@ public class LogicManagerTest {
     /**
      * A utility class to generate test data.
      */
-    class TestDataHelper{
+    class TestDataHelper {
 
         Person adam() throws Exception {
             Name name = new Name("Adam Brown");
@@ -430,7 +430,7 @@ public class LogicManagerTest {
         /**
          * Generates an AddressBook with auto-generated persons.
          */
-        AddressBook generateAddressBook(int numGenerated) throws Exception{
+        AddressBook generateAddressBook(int numGenerated) throws Exception {
             AddressBook addressBook = new AddressBook();
             addToAddressBook(addressBook, numGenerated);
             return addressBook;
@@ -439,7 +439,7 @@ public class LogicManagerTest {
         /**
          * Generates an AddressBook based on the list of Persons given.
          */
-        AddressBook generateAddressBook(List<Person> persons) throws Exception{
+        AddressBook generateAddressBook(List<Person> persons) throws Exception {
             AddressBook addressBook = new AddressBook();
             addToAddressBook(addressBook, persons);
             return addressBook;
@@ -466,14 +466,14 @@ public class LogicManagerTest {
          * Adds auto-generated Person objects to the given model
          * @param model The model to which the Persons will be added
          */
-        void addToModel(Model model, int numGenerated) throws Exception{
+        void addToModel(Model model, int numGenerated) throws Exception {
             addToModel(model, generatePersonList(numGenerated));
         }
 
         /**
          * Adds the given list of Persons to the given model
          */
-        void addToModel(Model model, List<Person> personsToAdd) throws Exception{
+        void addToModel(Model model, List<Person> personsToAdd) throws Exception {
             for (Person p: personsToAdd) {
                 model.addPerson(p);
             }
@@ -482,7 +482,7 @@ public class LogicManagerTest {
         /**
          * Generates a list of Persons based on the flags.
          */
-        List<Person> generatePersonList(int numGenerated) throws Exception{
+        List<Person> generatePersonList(int numGenerated) throws Exception {
             List<Person> persons = new ArrayList<>();
             for (int i = 1; i <= numGenerated; i++) {
                 persons.add(generatePerson(i));
