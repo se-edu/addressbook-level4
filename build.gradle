@@ -8,7 +8,11 @@
 plugins {
     id "com.github.kt3k.coveralls" version "2.4.0"
     id "com.github.johnrengelman.shadow" version '1.2.3'
+    id 'application'
 }
+
+// Specifies the entry point of the application
+mainClassName = 'seedu.address.MainApp'
 
 allprojects {
     apply plugin: 'idea'
@@ -82,10 +86,6 @@ allprojects {
 
     shadowJar {
         archiveName = "addressbook.jar"
-
-        manifest {
-            attributes "Main-Class": "seedu.address.MainApp"
-        }
 
         destinationDir = file("${buildDir}/jar/")
     }
