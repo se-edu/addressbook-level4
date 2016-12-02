@@ -26,9 +26,9 @@ public class HelpWindow extends UiPart {
 
     private Stage dialogStage;
 
-    public static HelpWindow load(Stage primaryStage) {
+    public static HelpWindow load() {
         logger.fine("Showing help page about the application.");
-        HelpWindow helpWindow = UiPartLoader.loadUiPart(primaryStage, new HelpWindow());
+        HelpWindow helpWindow = UiPartLoader.loadUiPart(new HelpWindow());
         helpWindow.configure();
         return helpWindow;
     }
@@ -48,7 +48,7 @@ public class HelpWindow extends UiPart {
         //Null passed as the parent stage to make it non-modal.
         dialogStage = createDialogStage(TITLE, null, scene);
         dialogStage.setMaximized(true); //TODO: set a more appropriate initial size
-        setIcon(dialogStage, ICON);
+        FxViewUtil.setStageIcon(dialogStage, ICON);
 
         WebView browser = new WebView();
         browser.getEngine().load(USERGUIDE_URL);

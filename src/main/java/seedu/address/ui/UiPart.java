@@ -7,19 +7,12 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.events.BaseEvent;
-import seedu.address.commons.util.AppUtil;
 
 /**
  * Base class for UI parts.
  * A 'UI part' represents a distinct part of the UI. e.g. Windows, dialogs, panels, status bars, etc.
  */
 public abstract class UiPart {
-
-    /**
-     * The primary stage for the UI Part.
-     */
-    Stage primaryStage;
-
 
     /**
      * Raises the event via {@link EventsCenter#post(BaseEvent)}
@@ -49,11 +42,6 @@ public abstract class UiPart {
      */
     public abstract String getFxmlPath();
 
-    public void setStage(Stage primaryStage) {
-        this.primaryStage = primaryStage;
-    }
-
-
     /**
      * Creates a modal dialog.
      * @param title Title of the dialog.
@@ -71,23 +59,6 @@ public abstract class UiPart {
     }
 
     /**
-     * Sets the given image as the icon for the primary stage of this UI Part.
-     * @param iconSource e.g. {@code "/images/help_icon.png"}
-     */
-    protected void setIcon(String iconSource) {
-        primaryStage.getIcons().add(AppUtil.getImage(iconSource));
-    }
-
-    /**
-     * Sets the given image as the icon for the given stage.
-     * @param stage
-     * @param iconSource e.g. {@code "/images/help_icon.png"}
-     */
-    protected void setIcon(Stage stage, String iconSource) {
-        stage.getIcons().add(AppUtil.getImage(iconSource));
-    }
-
-    /**
      * Sets the placeholder for UI parts that reside inside another UI part.
      * @param placeholder
      */
@@ -95,7 +66,4 @@ public abstract class UiPart {
         //Do nothing by default.
     }
 
-    public Stage getPrimaryStage() {
-        return primaryStage;
-    }
 }

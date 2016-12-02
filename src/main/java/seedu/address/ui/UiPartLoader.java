@@ -3,7 +3,6 @@ package seedu.address.ui;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
 import seedu.address.MainApp;
 
 /**
@@ -12,37 +11,41 @@ import seedu.address.MainApp;
 public class UiPartLoader {
     private static final String FXML_FILE_FOLDER = "/view/";
 
-    public static <T extends UiPart> T loadUiPart(Stage primaryStage, T controllerSeed) {
-        return loadUiPart(primaryStage, null, controllerSeed);
+    /**
+     * Returns the ui class for a specific UI Part.
+     *
+     * @param sampleUiPart The sample of the expected UiPart class.
+     * @param <T> The type of the UiPart
+     */
+    public static <T extends UiPart> T loadUiPart(T sampleUiPart) {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(MainApp.class.getResource(FXML_FILE_FOLDER + sampleUiPart.getFxmlPath()));
+        Node mainNode = loadLoader(loader, sampleUiPart.getFxmlPath());
+        T controller = loader.getController();
+        controller.setNode(mainNode);
+        return controller;
     }
 
     /**
      * Returns the ui class for a specific UI Part.
      *
-     * @param primaryStage The primary stage for the view.
      * @param placeholder The placeholder where the loaded Ui Part is added.
      * @param sampleUiPart The sample of the expected UiPart class.
      * @param <T> The type of the UiPart
      */
-    public static <T extends UiPart> T loadUiPart(Stage primaryStage, AnchorPane placeholder, T sampleUiPart) {
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(MainApp.class.getResource(FXML_FILE_FOLDER + sampleUiPart.getFxmlPath()));
-        Node mainNode = loadLoader(loader, sampleUiPart.getFxmlPath());
-        UiPart controller = loader.getController();
-        controller.setStage(primaryStage);
+    public static <T extends UiPart> T loadUiPart(AnchorPane placeholder, T sampleUiPart) {
+        T controller = loadUiPart(sampleUiPart);
         controller.setPlaceholder(placeholder);
-        controller.setNode(mainNode);
-        return (T) controller;
+        return controller;
     }
 
     /**
-     * Returns the ui class for a specific UI Part.
+     * Initialize the FXML scene graph of the provided UI Part.
      *
      * @param seedUiPart The UiPart object to be used as the ui.
      * @param <T> The type of the UiPart
      */
-
-    public static <T extends UiPart> T loadUiPart(T seedUiPart) {
+    public static <T extends UiPart> T initUiPart(T seedUiPart) {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(MainApp.class.getResource(FXML_FILE_FOLDER + seedUiPart.getFxmlPath()));
         loader.setController(seedUiPart);
