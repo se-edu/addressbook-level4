@@ -36,13 +36,12 @@ public class UiPartLoader {
     }
 
     /**
-     * Returns the ui class for a specific UI Part.
+     * Initialize the FXML scene graph of the provided UI Part.
      *
      * @param seedUiPart The UiPart object to be used as the ui.
      * @param <T> The type of the UiPart
      */
-
-    public static <T extends UiPart> T loadUiPart(T seedUiPart) {
+    public static <T extends UiPart> T initUiPart(T seedUiPart) {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(MainApp.class.getResource(FXML_FILE_FOLDER + seedUiPart.getFxmlPath()));
         loader.setController(seedUiPart);

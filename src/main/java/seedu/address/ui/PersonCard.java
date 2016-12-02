@@ -33,7 +33,7 @@ public class PersonCard extends UiPart {
         PersonCard card = new PersonCard();
         card.person = person;
         card.displayedIndex = displayedIndex;
-        return UiPartLoader.loadUiPart(card);
+        return UiPartLoader.initUiPart(card);
     }
 
     @FXML
