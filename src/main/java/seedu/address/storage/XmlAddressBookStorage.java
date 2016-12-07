@@ -20,11 +20,11 @@ public class XmlAddressBookStorage implements AddressBookStorage {
 
     private String filePath;
 
-    public XmlAddressBookStorage(String filePath){
+    public XmlAddressBookStorage(String filePath) {
         this.filePath = filePath;
     }
 
-    public String getAddressBookFilePath(){
+    public String getAddressBookFilePath() {
         return filePath;
     }
 

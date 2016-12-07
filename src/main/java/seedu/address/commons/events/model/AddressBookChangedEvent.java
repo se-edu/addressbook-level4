@@ -8,7 +8,7 @@ public class AddressBookChangedEvent extends BaseEvent {
 
     public final ReadOnlyAddressBook data;
 
-    public AddressBookChangedEvent(ReadOnlyAddressBook data){
+    public AddressBookChangedEvent(ReadOnlyAddressBook data) {
         this.data = data;
     }
 

@@ -14,7 +14,7 @@ public class JsonUserPrefsStorage implements UserPrefsStorage {
 
     private String filePath;
 
-    public JsonUserPrefsStorage(String filePath){
+    public JsonUserPrefsStorage(String filePath) {
         this.filePath = filePath;
     }
 

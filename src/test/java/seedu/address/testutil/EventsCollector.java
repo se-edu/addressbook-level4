@@ -13,7 +13,7 @@ import java.util.List;
 public class EventsCollector{
     private List<BaseEvent> events = new ArrayList<BaseEvent>();
 
-    public EventsCollector(){
+    public EventsCollector() {
         EventsCenter.getInstance().registerHandler(this);
     }
 
@@ -21,21 +21,21 @@ public class EventsCollector{
      * Collects any event raised by any class
      */
     @Subscribe
-    public void collectEvent(BaseEvent event){
+    public void collectEvent(BaseEvent event) {
         events.add(event);
     }
 
     /**
      * Removes collected events from the collected list
      */
-    public void reset(){
+    public void reset() {
         events.clear();
     }
 
     /**
      * Returns the event at the specified index
      */
-    public BaseEvent get(int index){
+    public BaseEvent get(int index) {
         return events.get(index);
     }
 }
