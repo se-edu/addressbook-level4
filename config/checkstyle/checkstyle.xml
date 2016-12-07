@@ -14,7 +14,10 @@
     <!-- Checks that there are no tab characters in the file. -->
   </module>
 
-  <module name="NewlineAtEndOfFile"/>
+  <module name="NewlineAtEndOfFile">
+    <!-- Accept LF, CR or CRLF to accomodate devs who prefer different line endings -->
+    <property name="lineSeparator" value="lf_cr_crlf"/>
+  </module>
 
   <module name="RegexpSingleline">
     <!-- Checks that FIXME is not used in comments.  TODO is preferred. -->
