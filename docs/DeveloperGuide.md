@@ -260,8 +260,8 @@ See [UsingGradle.md](UsingGradle.md) to learn how to use Gradle for build automa
 
 ### Continuous Integration
 
-We use [Travis CI](https://travis-ci.org/) to perform _Continuous Integration_ on our projects.
-See [UsingTravis.md](UsingTravis.md) for more details.
+We use [Travis CI](https://travis-ci.org/) and [AppVeyor](https://www.appveyor.com/) to perform _Continuous Integration_ on our projects.
+See [UsingTravis.md](UsingTravis.md) and [UsingAppVeyor.md](UsingAppVeyor.md) for more details.
 
 ### Making a Release
 
