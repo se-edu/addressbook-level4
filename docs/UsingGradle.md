@@ -47,6 +47,14 @@ If we package only our own class files into the JAR file, it will not work prope
   Therefore, we package all dependencies into a single JAR files, creating what is also known as a _fat_ JAR file. 
   To create a fat JAR fil, we use the Gradle plugin [shadow jar](https://github.com/johnrengelman/shadow).
 
+## Running the application
+
+* **`run`** <br>
+  Builds and runs the application.
+
+* **`runShadow`** <br>
+  Builds the application as a fat JAR, and then runs it.
+
 ## Running code style checks
 
 * **`checkstyleMain`**<br>
