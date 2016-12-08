@@ -10,7 +10,7 @@ import seedu.address.logic.commands.*;
  */
 public class CommandAliases {
     
-    public static final HashMap<String, String> MAPPING;
+    private static final HashMap<String, String> MAPPING;
     static {
         String[] addAliases = {"a"};
         String[] clearAliases = {"c", "clr", "reset"};
@@ -47,7 +47,6 @@ public class CommandAliases {
      * @return translated alias, i.e. command
      */
     public static String translate(String alias) {
-        System.out.println(alias);
         return MAPPING.getOrDefault(alias, alias);
     }
 
