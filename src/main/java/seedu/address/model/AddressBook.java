@@ -46,10 +46,6 @@ public class AddressBook implements ReadOnlyAddressBook {
         resetData(persons, tags);
     }
 
-    public static ReadOnlyAddressBook getEmptyAddressBook() {
-        return new AddressBook();
-    }
-
 //// list overwrite operations
 
     public UnmodifiableObservableList<Person> getPersons() {

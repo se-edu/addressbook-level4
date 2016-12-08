@@ -80,7 +80,7 @@ public abstract class AddressBookGuiTest {
      * Return null to use the data in the file specified in {@link #getDataFileLocation()}
      */
     protected AddressBook getInitialData() {
-        AddressBook ab = TestUtil.generateEmptyAddressBook();
+        AddressBook ab = new AddressBook();
         TypicalTestPersons.loadAddressBookWithSampleData(ab);
         return ab;
     }
