@@ -36,14 +36,8 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Creates an AddressBook using the Persons and Tags in the {@code toBeCopied}
      */
     public AddressBook(ReadOnlyAddressBook toBeCopied) {
-        this(toBeCopied.getUniquePersonList(), toBeCopied.getUniqueTagList());
-    }
-
-    /**
-     * Creates an AddressBook by copying the Persons and Tags in the given lists
-     */
-    public AddressBook(UniquePersonList persons, UniqueTagList tags) {
-        resetData(persons, tags);
+        this();
+        resetData(toBeCopied);
     }
 
 //// list overwrite operations
@@ -52,22 +46,28 @@ public class AddressBook implements ReadOnlyAddressBook {
         return new UnmodifiableObservableList<>(persons.asObservableList());
     }
 
-    public void setPersons(UniquePersonList persons) {
+    public void setPersons(List<? extends ReadOnlyPerson> persons)
+            throws UniquePersonList.DuplicatePersonException {
         this.persons.setPersons(persons);
     }
 
-    public void setTags(UniqueTagList tags) {
+    public void setTags(Collection<Tag> tags) throws UniqueTagList.DuplicateTagException {
         this.tags.setTags(tags);
     }
 
-    public void resetData(UniquePersonList newPersons, UniqueTagList newTags) {
-        setPersons(newPersons);
-        setTags(newTags);
-        syncMasterTagListWith(persons);
-    }
-
     public void resetData(ReadOnlyAddressBook newData) {
-        resetData(newData.getUniquePersonList(), newData.getUniqueTagList());
+        assert newData != null;
+        try {
+            setPersons(newData.getPersonList());
+        } catch (UniquePersonList.DuplicatePersonException e) {
+            assert false : "AddressBooks should not have duplicate persons";
+        }
+        try {
+            setTags(newData.getTagList());
+        } catch (UniqueTagList.DuplicateTagException e) {
+            assert false : "AddressBooks should not have duplicate tags";
+        }
+        syncMasterTagListWith(persons);
     }
 
 //// person-level operations
@@ -145,17 +145,6 @@ public class AddressBook implements ReadOnlyAddressBook {
     public List<Tag> getTagList() {
         return Collections.unmodifiableList(tags.asObservableList());
     }
-
-    @Override
-    public UniquePersonList getUniquePersonList() {
-        return this.persons;
-    }
-
-    @Override
-    public UniqueTagList getUniqueTagList() {
-        return this.tags;
-    }
-
 
     @Override
     public boolean equals(Object other) {

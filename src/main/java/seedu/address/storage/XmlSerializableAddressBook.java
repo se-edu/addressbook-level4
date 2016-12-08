@@ -2,11 +2,8 @@ package seedu.address.storage;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.tag.Tag;
-import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.person.ReadOnlyPerson;
-import seedu.address.model.person.UniquePersonList;
-
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import java.util.ArrayList;
@@ -40,32 +37,6 @@ public class XmlSerializableAddressBook implements ReadOnlyAddressBook {
         this();
         persons.addAll(src.getPersonList().stream().map(XmlAdaptedPerson::new).collect(Collectors.toList()));
         tags.addAll(src.getTagList().stream().map(XmlAdaptedTag::new).collect(Collectors.toList()));
-    }
-
-    @Override
-    public UniqueTagList getUniqueTagList() {
-        UniqueTagList lists = new UniqueTagList();
-        for (XmlAdaptedTag t : tags) {
-            try {
-                lists.add(t.toModelType());
-            } catch (IllegalValueException e) {
-                //TODO: better error handling
-            }
-        }
-        return lists;
-    }
-
-    @Override
-    public UniquePersonList getUniquePersonList() {
-        UniquePersonList lists = new UniquePersonList();
-        for (XmlAdaptedPerson p : persons) {
-            try {
-                lists.add(p.toModelType());
-            } catch (IllegalValueException e) {
-                //TODO: better error handling
-            }
-        }
-        return lists;
     }
 
     @Override

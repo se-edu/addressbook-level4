@@ -2,10 +2,7 @@ package seedu.address.model;
 
 
 import seedu.address.model.person.ReadOnlyPerson;
-import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.tag.Tag;
-import seedu.address.model.tag.UniqueTagList;
-
 import java.util.List;
 
 /**
@@ -13,17 +10,15 @@ import java.util.List;
  */
 public interface ReadOnlyAddressBook {
 
-    UniqueTagList getUniqueTagList();
-
-    UniquePersonList getUniquePersonList();
-
     /**
-     * Returns an unmodifiable view of persons list
+     * Returns an unmodifiable view of the persons list.
+     * This list will not contain any duplicate persons.
      */
     List<ReadOnlyPerson> getPersonList();
 
     /**
-     * Returns an unmodifiable view of tags list
+     * Returns an unmodifiable view of the tags list.
+     * This list will not contain any duplicate tags.
      */
     List<Tag> getTagList();
 

@@ -43,11 +43,8 @@ public class UniqueTagList implements Iterable<Tag> {
      * Enforces no null or duplicate elements.
      */
     public UniqueTagList(Collection<Tag> tags) throws DuplicateTagException {
-        CollectionUtil.assertNoNullElements(tags);
-        if (!CollectionUtil.elementsAreUnique(tags)) {
-            throw new DuplicateTagException();
-        }
-        internalList.addAll(tags);
+        this();
+        setTags(tags);
     }
 
     /**
@@ -80,6 +77,14 @@ public class UniqueTagList implements Iterable<Tag> {
      */
     public void setTags(UniqueTagList replacement) {
         this.internalList.setAll(replacement.internalList);
+    }
+
+    public void setTags(Collection<Tag> tags) throws DuplicateTagException {
+        CollectionUtil.assertNoNullElements(tags);
+        if (!CollectionUtil.elementsAreUnique(tags)) {
+            throw new DuplicateTagException();
+        }
+        internalList.setAll(tags);
     }
 
     /**
