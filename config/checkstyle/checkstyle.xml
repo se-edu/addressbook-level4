@@ -236,6 +236,13 @@
       <property name="severity" value="error"/>
     </module>
 
+    <!-- No trailing whitespace -->
+    <module name="Regexp">
+      <property name="format" value="[ \t]+$"/>
+      <property name="illegalPattern" value="true"/>
+      <property name="message" value="Trailing whitespace"/>
+    </module>
+
     <module name="Indentation">
       <property name="caseIndent" value="0" />
     </module>
