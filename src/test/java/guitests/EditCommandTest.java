@@ -107,7 +107,7 @@ public class EditCommandTest extends AddressBookGuiTest {
                 .withAddress(address).withTags(tagNames);
     }
 
-    private void assertEditSuccess(String detailsToEdit, TestPerson editedPerson, int index, 
+    private void assertEditSuccess(String detailsToEdit, TestPerson editedPerson, int index,
             TestPerson... currentList) {
         commandBox.runCommand("edit " + index + " " + detailsToEdit);
 
