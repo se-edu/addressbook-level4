@@ -59,10 +59,10 @@ Format: `edit INDEX [NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS ] [t/TAG]...`
 > Edits the person at the specified `INDEX`.
   The index refers to the index number shown in the most recent listing.<br>
   The index **must be a positive integer** 1, 2, 3, ...
-
+> You can reset the person's tags by entering "t\". 
 Examples: 
 * `edit 1 p/91234567 e/johndoe@yahoo.com`
-* `edit 2 Betsy Crower t/noLongerCriminal`
+* `edit 2 Betsy Crower t/`
 
 #### Listing all persons : `list`
 Shows a list of all persons in the address book.<br>
