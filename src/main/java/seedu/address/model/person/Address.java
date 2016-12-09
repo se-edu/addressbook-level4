@@ -11,6 +11,7 @@ public class Address {
     
     public static final String MESSAGE_ADDRESS_CONSTRAINTS = "Person addresses can be in any format";
     public static final String ADDRESS_VALIDATION_REGEX = ".+";
+    public static final String KEY = "address";
 
     public final String value;
 
