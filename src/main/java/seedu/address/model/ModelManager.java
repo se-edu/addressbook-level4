@@ -9,8 +9,10 @@ import seedu.address.commons.core.ComponentManager;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.person.UniquePersonList.DuplicatePersonException;
 import seedu.address.model.person.UniquePersonList.PersonNotFoundException;
 
+import java.util.HashMap;
 import java.util.Set;
 import java.util.logging.Logger;
 
@@ -73,6 +75,14 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void addPerson(Person person) throws UniquePersonList.DuplicatePersonException {
         addressBook.addPerson(person);
+        updateFilteredListToShowAll();
+        indicateAddressBookChanged();
+    }
+    
+
+    @Override
+    public void editPerson(ReadOnlyPerson target, HashMap<String, Object> detailsToEdit) throws DuplicatePersonException, PersonNotFoundException {
+        addressBook.editPerson(target, detailsToEdit);
         updateFilteredListToShowAll();
         indicateAddressBookChanged();
     }
