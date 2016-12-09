@@ -73,11 +73,14 @@ Examples:
 
 #### Deleting a person : `delete`
 Deletes the specified person from the address book. Irreversible.<br>
-Format: `delete INDEX`
+Format: `delete INDEX [INDEX]...`
 
-> Deletes the person at the specified `INDEX`. 
+> Deletes the person at the specified `INDEX`.<br>
+  You may also specify multiple persons to delete.<br>
   The index refers to the index number shown in the most recent listing.<br>
-  The index **must be a positive integer** 1, 2, 3, ...
+  `INDEX` must either be:<br>
+  - a **positive integer** e.g. 1, 2, 3, ...
+  - or **positive integers** surrounding a range indicator, `-` e.g. 1-5, 2-4, ...
 
 Examples: 
 * `list`<br>
@@ -86,7 +89,28 @@ Examples:
 * `find Betsy`<br> 
   `delete 1`<br>
   Deletes the 1st person in the results of the `find` command.
+* `list`<br>
+  `delete 2-5`<br>
+  Deletes the 2nd to 5th person in the address book.
+* `list`<br>
+  `delete 3-1`<br>
+  Deletes the 1st to 3rd person in the address book.<br>
+  > Ranges can be in descending order too.
 
+* `list`<br>
+  `delete 9 3-4 1 8` <br>
+  Deletes the 1st, 3rd, 4th, 8th and 9th person in the address book.
+* `find Bob`<br>
+  `delete 1 1 1`<br>
+  Deletes the 1st person in the results of the `find` command.<br>
+  > Duplicate indices are ignored.
+
+* `list`<br>
+  `delete 1-3 2-5 1-10`<br>
+  Deletes the 1st to 10th person in the address book.<br>
+  > Overlapping ranges are allowed.
+
+  
 #### Select a person : `select`
 Selects the person identified by the index number used in the last person listing.<br>
 Format: `select INDEX`
@@ -128,8 +152,8 @@ There is no need to save manually.
 
 * **Clear** : `clear`
   
-* **Delete** : `delete INDEX` <br> 
-   e.g. `delete 3`
+* **Delete** : `delete INDEX [INDEX]...` <br> 
+   e.g. `delete 3 5 6 1-2`
   
 * **Find** : `find KEYWORD [MORE_KEYWORDS]` <br>
   e.g. `find James Jake`
