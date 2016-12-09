@@ -97,12 +97,8 @@ public class EditCommandTest extends AddressBookGuiTest {
         String address = personToEdit.getAddress().value;
 
         Set<Tag> tagSet = personToEdit.getTags().toSet();
-        String[] tagNames = new String[tagSet.size()];
-        Tag[] tags = new Tag[tagSet.size()];
-        tags = tagSet.toArray(tags);
-        for (int i = 0; i < tags.length; i++) {
-            tagNames[i] = tags[i].tagName;
-        }
+        String[] tagNames = tagSet.stream().map(tag -> tag.tagName).toArray(size -> new String[size]);
+
         return new PersonBuilder().withName(name).withPhone(phone).withEmail(email)
                 .withAddress(address).withTags(tagNames);
     }
