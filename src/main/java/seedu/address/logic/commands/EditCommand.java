@@ -13,7 +13,7 @@ import java.util.Optional;
 import java.util.Set;
 
 /**
- * Edits an existing person in the address book.
+ * Edits the details of an existing person in the address book.
  */
 public class EditCommand extends Command {
 

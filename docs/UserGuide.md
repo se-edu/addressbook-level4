@@ -50,6 +50,20 @@ Examples:
 * `add John Doe p/98765432 e/johnd@gmail.com a/John street, block 123, #01-01`
 * `add Betsy Crowe t/friend e/betsycrowe@gmail.com a/Newgate Prison p/1234567 t/criminal`
 
+#### Editing a person: `edit`
+Edits an existing person in the address book.<br>
+Format: `edit INDEX [NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS ] [t/TAG]...`
+
+> At least one of the person's details **must** be changed.
+> Existing values will be updated by the input values.
+> Edits the person at the specified `INDEX`.
+  The index refers to the index number shown in the most recent listing.<br>
+  The index **must be a positive integer** 1, 2, 3, ...
+
+Examples: 
+* `edit 1 p/91234567 e/johndoe@yahoo.com`
+* `edit 2 Betsy Crower t/noLongerCriminal`
+
 #### Listing all persons : `list`
 Shows a list of all persons in the address book.<br>
 Format: `list`
