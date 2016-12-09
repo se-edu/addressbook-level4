@@ -23,9 +23,10 @@ public interface Model {
 
     /** Adds the given person */
     void addPerson(Person person) throws UniquePersonList.DuplicatePersonException;
-    
+
     /** Edits the given person */
-    void editPerson(ReadOnlyPerson target, HashMap<String, Object> detailsToEdit) throws UniquePersonList.DuplicatePersonException, UniquePersonList.PersonNotFoundException;
+    void editPerson(ReadOnlyPerson target, HashMap<String, Object> detailsToEdit)
+            throws UniquePersonList.DuplicatePersonException, UniquePersonList.PersonNotFoundException;
 
     /** Returns the filtered person list as an {@code UnmodifiableObservableList<ReadOnlyPerson>} */
     UnmodifiableObservableList<ReadOnlyPerson> getFilteredPersonList();

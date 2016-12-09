@@ -38,41 +38,27 @@ public class EditCommand extends Command {
      *
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public EditCommand(int targetIndex, Optional<String> name, Optional<String> phone, 
-            Optional<String> email, Optional<String> address, Set<String> tags) 
+    public EditCommand(int targetIndex, Optional<String> name, Optional<String> phone,
+            Optional<String> email, Optional<String> address, Set<String> tags)
                     throws IllegalValueException, NoArgumentException {
         this.targetIndex = targetIndex;
-        setDetailsOfPersonToEdit(name, phone, email, address, tags);
         
-        if (detailsToEdit.isEmpty()) {
-            throw new NoArgumentException(MESSAGE_NO_ARGUMENT);
-        }
-    }
-
-    /**
-     * Sets the input parameters into {@code detailsToEdit} if parameters are present. 
-     * 
-     * @throws IllegalValueException if any of the raw values are invalid
-     */
-    private void setDetailsOfPersonToEdit(Optional<String> name, Optional<String> phone, 
-            Optional<String> email, Optional<String> address, Set<String> tags) 
-                    throws IllegalValueException {
         if (name.isPresent()) {
             detailsToEdit.put(Name.KEY, new Name(name.get()));
-        } 
-        
+        }
+
         if (phone.isPresent()) {
             detailsToEdit.put(Phone.KEY, new Phone(phone.get()));
         }
-        
+
         if (email.isPresent()) {
             detailsToEdit.put(Email.KEY, new Email(email.get()));
         }
-        
+
         if (address.isPresent()) {
             detailsToEdit.put(Address.KEY, new Address(address.get()));
         }
-        
+
         if (!tags.isEmpty()) {
             if (isRemoveTags(tags)) {
                 detailsToEdit.put(Tag.RESET_KEY, Boolean.TRUE);
@@ -84,11 +70,15 @@ public class EditCommand extends Command {
                 detailsToEdit.put(Tag.KEY, tagSet);
             }
         }
+
+        if (detailsToEdit.isEmpty()) {
+            throw new NoArgumentException(MESSAGE_NO_ARGUMENT);
+        }
     }
 
     /**
      * Returns true if user input fulfills the case of removing existing tags of user.
-     * 
+     *
      * @param tags  Set of tags
      * @return  True if tags consists of only 1 element, and the element is an empty string.
      *          i.e user entered "t/ " or variants of it with differing number of whitespace as input.

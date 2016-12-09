@@ -78,10 +78,10 @@ public class ModelManager extends ComponentManager implements Model {
         updateFilteredListToShowAll();
         indicateAddressBookChanged();
     }
-    
 
     @Override
-    public void editPerson(ReadOnlyPerson target, HashMap<String, Object> detailsToEdit) throws DuplicatePersonException, PersonNotFoundException {
+    public void editPerson(ReadOnlyPerson target, HashMap<String, Object> detailsToEdit)
+            throws DuplicatePersonException, PersonNotFoundException {
         addressBook.editPerson(target, detailsToEdit);
         updateFilteredListToShowAll();
         indicateAddressBookChanged();

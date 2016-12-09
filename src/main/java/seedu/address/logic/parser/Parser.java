@@ -52,7 +52,7 @@ public class Parser {
 
         case AddCommand.COMMAND_WORD:
             return prepareAdd(arguments);
-            
+
         case EditCommand.COMMAND_WORD:
             return prepareEdit(arguments);
 
@@ -111,7 +111,7 @@ public class Parser {
         List<String> tags = tagsOptional.orElse(Collections.emptyList());
         return new HashSet<>(tags);
     }
-    
+
     /**
      * Parses arguments in the context of the edit person command.
      *
@@ -125,7 +125,7 @@ public class Parser {
             argsTokenizer.tokenize(args);
             argsTokenizer.tokenizePreamble();
             Optional<Integer> index = indexOfPersonToEdit(argsTokenizer);
-            
+
             return new EditCommand(
                     index.get(),
                     argsTokenizer.getTokenizedPreambleValue(Name.KEY),
@@ -143,9 +143,10 @@ public class Parser {
 
     /**
      * Returns the index of person to edit.
-     * 
+     *
      * @return  Optional value of the index of the person to edit. If no value is given, returns Optional.empty().
-     * @throws NoSuchElementException   If no index is provided, or if the index provided is not a positive unsigned integer.
+     * @throws NoSuchElementException   If no index is provided, or if the index provided
+     *                                  is not a positive unsigned integer.
      */
     private Optional<Integer> indexOfPersonToEdit(ArgumentTokenizer argsTokenizer) throws NoSuchElementException {
         String stringValueOfIndex = argsTokenizer.getTokenizedPreambleValue(Person.INDEX_KEY).get();
@@ -154,7 +155,7 @@ public class Parser {
             throw new NoSuchElementException();
         }
         return index;
-    } 
+    }
 
     /**
      * Parses arguments in the context of the delete person command.

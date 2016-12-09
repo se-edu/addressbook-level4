@@ -17,7 +17,7 @@ public class Person implements ReadOnlyPerson {
     private Address address;
 
     private UniqueTagList tags;
-    
+
     public static final String INDEX_KEY = "index";
 
     /**
@@ -38,23 +38,23 @@ public class Person implements ReadOnlyPerson {
     public Person(ReadOnlyPerson source) {
         this(source.getName(), source.getPhone(), source.getEmail(), source.getAddress(), source.getTags());
     }
-    
+
     public void setName(Name name) {
         this.name = name;
     }
-    
+
     public void setPhone(Phone phone) {
         this.phone = phone;
     }
-    
+
     public void setEmail(Email email) {
         this.email = email;
     }
-    
+
     public void setAddress(Address address) {
         this.address = address;
     }
-    
+
     @Override
     public Name getName() {
         return name;
