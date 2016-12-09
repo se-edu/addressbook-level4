@@ -9,8 +9,6 @@ import seedu.address.model.tag.UniqueTagList;
 
 import java.util.*;
 
-import javafx.collections.ObservableList;
-
 /**
  * Wraps all data at the address-book level
  * Duplicates are not allowed (by .equals comparison)
