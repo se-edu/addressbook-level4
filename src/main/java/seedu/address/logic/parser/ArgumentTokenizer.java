@@ -1,6 +1,11 @@
 package seedu.address.logic.parser;
 
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import seedu.address.model.person.Name;
+import seedu.address.model.person.Person;
 
 /**
  * Tokenizes arguments string of the form: {@code preamble <prefix>value <prefix>value ...}<br>
@@ -18,6 +23,7 @@ public class ArgumentTokenizer {
 
     /** Arguments found after tokenizing **/
     private final Map<Prefix, List<String>> tokenizedArguments = new HashMap<>();
+    private final Map<String, String> tokenizedPreamble = new HashMap<>();
 
     /**
      * Creates an ArgumentTokenizer that can tokenize arguments string as described by prefixes
@@ -33,6 +39,33 @@ public class ArgumentTokenizer {
         resetTokenizerState();
         List<PrefixPosition> positions = findAllPrefixPositions(argsString);
         extractArguments(argsString, positions);
+    }
+
+    /**
+     * Tokenizes preamble for {@code EditCommand}. Example: This string "3 Bob Han" will be split
+     * into "3" (index) and "Bob Han" (name).
+     */
+    public void tokenizePreamble() {
+        Optional<String> storedPreamble = getPreamble();
+        Matcher matcher = generateMatcherForTokenizingPreamble(storedPreamble);
+        if (matcher.matches()) {
+            tokenizedPreamble.put(Person.INDEX_KEY, matcher.group(Person.INDEX_KEY));
+            if (matcher.group(Name.KEY) != null) {
+                tokenizedPreamble.put(Name.KEY, matcher.group(Name.KEY).trim());
+            } 
+        } 
+    }
+
+    /**
+     * Generates and returns the {@code Matcher} that matches with {@code storedPreamble}.
+     * @param storedPreamble    The string to be matched against the regex
+     * @return                  {@code Matcher} that matches {@code storedPreamble} against the regex.
+     */
+    private Matcher generateMatcherForTokenizingPreamble(Optional<String> storedPreamble) {
+        String regex = "(?<index>\\d+)(?<name>.+)?";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(storedPreamble.get());
+        return matcher;
     }
 
     /**
@@ -68,9 +101,23 @@ public class ArgumentTokenizer {
             return Optional.empty();
         }
     }
+    
+    /**
+     * Returns the value of {@code tokenizedPreamble} as mapped by {@code key}, if any. 
+     * @return      The value of {@code tokenizedPreamble} as stored in the {@code key}.
+     *              If there is no mapping for {@code key}, Optional.empty() will be returned.
+     */
+    public Optional<String> getTokenizedPreambleValue(String key) {
+        if (tokenizedPreamble.get(key) != null) {
+            return Optional.of(tokenizedPreamble.get(key));          
+        } else {
+            return Optional.empty();
+        }
+    }
 
     private void resetTokenizerState() {
         this.tokenizedArguments.clear();
+        this.tokenizedPreamble.clear();
     }
 
     /**

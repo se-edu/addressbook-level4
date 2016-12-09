@@ -1,9 +1,12 @@
 package seedu.address.logic.parser;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.commons.exceptions.NoArgumentException;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.commands.*;
 import seedu.address.logic.parser.ArgumentTokenizer.*;
+import seedu.address.model.person.Name;
+import seedu.address.model.person.Person;
 
 import java.util.*;
 import java.util.regex.Matcher;
@@ -49,6 +52,9 @@ public class Parser {
 
         case AddCommand.COMMAND_WORD:
             return prepareAdd(arguments);
+            
+        case EditCommand.COMMAND_WORD:
+            return prepareEdit(arguments);
 
         case SelectCommand.COMMAND_WORD:
             return prepareSelect(arguments);
@@ -105,6 +111,50 @@ public class Parser {
         List<String> tags = tagsOptional.orElse(Collections.emptyList());
         return new HashSet<>(tags);
     }
+    
+    /**
+     * Parses arguments in the context of the edit person command.
+     *
+     * @param args full command args string
+     * @return the prepared command
+     */
+    private Command prepareEdit(String args) {
+        ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(phoneNumberPrefix, emailPrefix,
+                                                                addressPrefix, tagsPrefix);
+        try {
+            argsTokenizer.tokenize(args);
+            argsTokenizer.tokenizePreamble();
+            Optional<Integer> index = indexOfPersonToEdit(argsTokenizer);
+            
+            return new EditCommand(
+                    index.get(),
+                    argsTokenizer.getTokenizedPreambleValue(Name.KEY),
+                    argsTokenizer.getValue(phoneNumberPrefix),
+                    argsTokenizer.getValue(emailPrefix),
+                    argsTokenizer.getValue(addressPrefix),
+                    toSet(argsTokenizer.getAllValues(tagsPrefix))
+            );
+        } catch (NoSuchElementException nsee) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+        } catch (IllegalValueException | NoArgumentException e) {
+            return new IncorrectCommand(e.getMessage());
+        }
+    }
+
+    /**
+     * Returns the index of person to edit.
+     * 
+     * @return  Optional value of the index of the person to edit. If no value is given, returns Optional.empty().
+     * @throws NoSuchElementException   If no index is provided, or if the index provided is not a positive unsigned integer.
+     */
+    private Optional<Integer> indexOfPersonToEdit(ArgumentTokenizer argsTokenizer) throws NoSuchElementException {
+        String stringValueOfIndex = argsTokenizer.getTokenizedPreambleValue(Person.INDEX_KEY).get();
+        Optional<Integer> index = parseIndex(stringValueOfIndex);
+        if (!index.isPresent()) {
+            throw new NoSuchElementException();
+        }
+        return index;
+    } 
 
     /**
      * Parses arguments in the context of the delete person command.
