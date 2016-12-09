@@ -2,6 +2,9 @@ package seedu.address.commons.util;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 /**
  * Helper functions for handling strings.
@@ -54,5 +57,17 @@ public class StringUtil {
      */
     public static boolean isUnsignedInteger(String s) {
         return s != null && s.matches("^0*[1-9]\\d*$");
+    }
+
+    /**
+     * Returns a string that has all items in {@code items} on its own indexed new line.
+     * @param items items to be indexed.
+     * @return a string that has all items on an indexed new line.
+     */
+    public static <T> String toIndexedListString(List<T> items) {
+        CollectionUtil.assertNoNullElements(items);
+        return IntStream.range(0, items.size())
+                .mapToObj(i -> (i + 1) + ". " + items.get(i).toString())
+                .collect(Collectors.joining("\n"));
     }
 }
