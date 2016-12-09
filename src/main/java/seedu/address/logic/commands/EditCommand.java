@@ -42,7 +42,7 @@ public class EditCommand extends Command {
             Optional<String> email, Optional<String> address, Set<String> tags)
                     throws IllegalValueException, NoArgumentException {
         this.targetIndex = targetIndex;
-        
+
         if (name.isPresent()) {
             detailsToEdit.put(Name.KEY, new Name(name.get()));
         }

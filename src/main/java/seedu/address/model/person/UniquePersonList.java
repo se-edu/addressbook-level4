@@ -77,7 +77,7 @@ public class UniquePersonList implements Iterable<Person> {
         Person copy = new Person(toEdit);
         editDetails(copy, detailsToEdit);
 
-        // using short-circuit functionality: only check for duplicate person if 
+        // using short-circuit functionality: only check for duplicate person if
         // user is not editing only tags. This is because isSameState method in Person
         // considers two Person objects as equal even though they have different tags.
         return !editingOnlyTags(detailsToEdit) && contains(copy);

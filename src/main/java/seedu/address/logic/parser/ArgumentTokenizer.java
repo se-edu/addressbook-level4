@@ -52,8 +52,8 @@ public class ArgumentTokenizer {
             tokenizedPreamble.put(Person.INDEX_KEY, matcher.group(Person.INDEX_KEY));
             if (matcher.group(Name.KEY) != null) {
                 tokenizedPreamble.put(Name.KEY, matcher.group(Name.KEY).trim());
-            } 
-        } 
+            }
+        }
     }
 
     /**
@@ -101,15 +101,15 @@ public class ArgumentTokenizer {
             return Optional.empty();
         }
     }
-    
+
     /**
-     * Returns the value of {@code tokenizedPreamble} as mapped by {@code key}, if any. 
+     * Returns the value of {@code tokenizedPreamble} as mapped by {@code key}, if any.
      * @return      The value of {@code tokenizedPreamble} as stored in the {@code key}.
      *              If there is no mapping for {@code key}, Optional.empty() will be returned.
      */
     public Optional<String> getTokenizedPreambleValue(String key) {
         if (tokenizedPreamble.get(key) != null) {
-            return Optional.of(tokenizedPreamble.get(key));          
+            return Optional.of(tokenizedPreamble.get(key));
         } else {
             return Optional.empty();
         }
