@@ -38,8 +38,9 @@ public class EditCommand extends Command {
      *
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    public EditCommand(int targetIndex, Optional<String> name, Optional<String> phone, Optional<String> email, 
-            Optional<String> address, Set<String> tags) throws IllegalValueException, NoArgumentException {
+    public EditCommand(int targetIndex, Optional<String> name, Optional<String> phone, 
+            Optional<String> email, Optional<String> address, Set<String> tags) 
+                    throws IllegalValueException, NoArgumentException {
         this.targetIndex = targetIndex;
         setDetailsOfPersonToEdit(name, phone, email, address, tags);
         
@@ -53,8 +54,9 @@ public class EditCommand extends Command {
      * 
      * @throws IllegalValueException if any of the raw values are invalid
      */
-    private void setDetailsOfPersonToEdit(Optional<String> name, Optional<String> phone, Optional<String> email,
-            Optional<String> address, Set<String> tags) throws IllegalValueException {
+    private void setDetailsOfPersonToEdit(Optional<String> name, Optional<String> phone, 
+            Optional<String> email, Optional<String> address, Set<String> tags) 
+                    throws IllegalValueException {
         if (name.isPresent()) {
             detailsToEdit.put(Name.KEY, new Name(name.get()));
         } 
@@ -73,7 +75,7 @@ public class EditCommand extends Command {
         
         if (!tags.isEmpty()) {
             if (isRemoveTags(tags)) {
-                detailsToEdit.put(Tag.RESET_KEY, new Boolean(true));
+                detailsToEdit.put(Tag.RESET_KEY, Boolean.TRUE);
             } else {
                 final Set<Tag> tagSet = new HashSet<>();
                 for (String tagName : tags) {

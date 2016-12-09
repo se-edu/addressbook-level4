@@ -77,10 +77,8 @@ public class UniquePersonList implements Iterable<Person> {
         Person copy = new Person(toEdit);
         editDetails(copy, detailsToEdit);
         
-        if (!editingOnlyTags(detailsToEdit)) {
-            if (contains(copy)) {
-                return true;
-            }
+        if (!editingOnlyTags(detailsToEdit) && contains(copy)) {
+            return true;
         }
         return false;
     }
