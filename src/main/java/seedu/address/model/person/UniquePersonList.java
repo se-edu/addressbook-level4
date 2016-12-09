@@ -74,6 +74,8 @@ public class UniquePersonList implements Iterable<Person> {
      *                      be equivalent to another existing person in the list.
      */
     private boolean isDuplicatePerson(Person toEdit, HashMap<String, Object> detailsToEdit) {
+        assert toEdit != null && detailsToEdit != null;
+        
         Person copy = new Person(toEdit);
         editDetails(copy, detailsToEdit);
 
@@ -90,6 +92,8 @@ public class UniquePersonList implements Iterable<Person> {
      * @return              True if editing only tags.
      */
     private boolean editingOnlyTags(HashMap<String, Object> detailsToEdit) {
+        assert detailsToEdit != null;
+        
         return detailsToEdit.size() == 1
                 && (detailsToEdit.containsKey(Tag.KEY) || detailsToEdit.containsKey(Tag.RESET_KEY));
     }
@@ -102,6 +106,8 @@ public class UniquePersonList implements Iterable<Person> {
      */
     @SuppressWarnings("unchecked")
     private void editDetails(Person toEdit, HashMap<String, Object> detailsToEdit) {
+        assert toEdit != null && detailsToEdit != null;
+        
         Set<String> keySet = detailsToEdit.keySet();
         if (keySet.contains(Name.KEY)) {
             toEdit.setName((Name) detailsToEdit.get(Name.KEY));
@@ -134,6 +140,8 @@ public class UniquePersonList implements Iterable<Person> {
      * @throws PersonNotFoundException if no such person could be found in the list.
      */
     public Person findPersonToEdit(ReadOnlyPerson readOnlyPersonToEdit) throws PersonNotFoundException {
+        assert readOnlyPersonToEdit != null;
+        
         int indexOfPerson = internalList.indexOf(readOnlyPersonToEdit);
         if (indexOfPerson != PERSON_NOT_FOUND) {
             return internalList.get(indexOfPerson);

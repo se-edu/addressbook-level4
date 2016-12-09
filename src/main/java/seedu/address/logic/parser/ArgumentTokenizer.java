@@ -62,6 +62,8 @@ public class ArgumentTokenizer {
      * @return                  {@code Matcher} that matches {@code storedPreamble} against the regex.
      */
     private Matcher generateMatcherForTokenizingPreamble(Optional<String> storedPreamble) {
+        assert storedPreamble != null;
+
         String regex = "(?<index>\\d+)(?<name>.+)?";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(storedPreamble.get());
@@ -108,6 +110,8 @@ public class ArgumentTokenizer {
      *              If there is no mapping for {@code key}, Optional.empty() will be returned.
      */
     public Optional<String> getTokenizedPreambleValue(String key) {
+        assert key != null;
+
         if (tokenizedPreamble.get(key) != null) {
             return Optional.of(tokenizedPreamble.get(key));
         } else {

@@ -98,6 +98,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void editPerson(ReadOnlyPerson readOnlyPersonToEdit, HashMap<String, Object> detailsToEdit)
             throws UniquePersonList.DuplicatePersonException, UniquePersonList.PersonNotFoundException {
+        assert readOnlyPersonToEdit != null && detailsToEdit != null;
 
         Person personToEdit = persons.findPersonToEdit(readOnlyPersonToEdit);
         persons.edit(personToEdit, detailsToEdit);

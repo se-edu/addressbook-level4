@@ -40,18 +40,22 @@ public class Person implements ReadOnlyPerson {
     }
 
     public void setName(Name name) {
+        assert name != null;
         this.name = name;
     }
 
     public void setPhone(Phone phone) {
+        assert phone != null;
         this.phone = phone;
     }
 
     public void setEmail(Email email) {
+        assert email != null;
         this.email = email;
     }
 
     public void setAddress(Address address) {
+        assert address != null;
         this.address = address;
     }
 

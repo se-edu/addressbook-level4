@@ -84,6 +84,7 @@ public class EditCommand extends Command {
      *          i.e user entered "t/ " or variants of it with differing number of whitespace as input.
      */
     private boolean isRemoveTags(Set<String> tags) {
+        assert tags != null;
         return tags.size() == 1 && tags.contains("");
     }
 

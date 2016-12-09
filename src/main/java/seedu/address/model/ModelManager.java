@@ -82,6 +82,8 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void editPerson(ReadOnlyPerson target, HashMap<String, Object> detailsToEdit)
             throws DuplicatePersonException, PersonNotFoundException {
+        assert target != null && detailsToEdit != null;
+
         addressBook.editPerson(target, detailsToEdit);
         updateFilteredListToShowAll();
         indicateAddressBookChanged();

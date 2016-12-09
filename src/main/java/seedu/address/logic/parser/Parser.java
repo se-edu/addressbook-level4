@@ -119,6 +119,8 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareEdit(String args) {
+        assert args != null;
+
         ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(phoneNumberPrefix, emailPrefix,
                                                                 addressPrefix, tagsPrefix);
         try {
@@ -149,6 +151,8 @@ public class Parser {
      *                                  is not a positive unsigned integer.
      */
     private Optional<Integer> indexOfPersonToEdit(ArgumentTokenizer argsTokenizer) throws NoSuchElementException {
+        assert argsTokenizer != null;
+
         String stringValueOfIndex = argsTokenizer.getTokenizedPreambleValue(Person.INDEX_KEY).get();
         Optional<Integer> index = parseIndex(stringValueOfIndex);
         if (!index.isPresent()) {
