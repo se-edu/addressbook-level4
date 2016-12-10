@@ -14,7 +14,7 @@ public class DataSavingExceptionEvent extends BaseEvent {
     }
 
     @Override
-    public String toString(){
+    public String toString() {
         return exception.toString();
     }
 

@@ -15,7 +15,7 @@ public class AddressBookBuilder {
 
     private AddressBook addressBook;
 
-    public AddressBookBuilder(AddressBook addressBook){
+    public AddressBookBuilder(AddressBook addressBook) {
         this.addressBook = addressBook;
     }
 
@@ -29,7 +29,7 @@ public class AddressBookBuilder {
         return this;
     }
 
-    public AddressBook build(){
+    public AddressBook build() {
         return addressBook;
     }
 }

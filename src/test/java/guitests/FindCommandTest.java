@@ -19,7 +19,7 @@ public class FindCommandTest extends AddressBookGuiTest {
     }
 
     @Test
-    public void find_emptyList(){
+    public void find_emptyList() {
         commandBox.runCommand("clear");
         assertFindResult("find Jean"); // no results
     }

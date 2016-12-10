@@ -11,7 +11,7 @@ public class PersonPanelSelectionChangedEvent extends BaseEvent {
 
     private final ReadOnlyPerson newSelection;
 
-    public PersonPanelSelectionChangedEvent(ReadOnlyPerson newSelection){
+    public PersonPanelSelectionChangedEvent(ReadOnlyPerson newSelection) {
         this.newSelection = newSelection;
     }
 

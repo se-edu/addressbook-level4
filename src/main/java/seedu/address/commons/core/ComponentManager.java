@@ -13,7 +13,7 @@ public abstract class ComponentManager {
     /**
      * Uses default {@link EventsCenter}
      */
-    public ComponentManager(){
+    public ComponentManager() {
         this(EventsCenter.getInstance());
     }
 
@@ -22,7 +22,7 @@ public abstract class ComponentManager {
         eventsCenter.registerHandler(this);
     }
 
-    protected void raise(BaseEvent event){
+    protected void raise(BaseEvent event) {
         eventsCenter.post(event);
     }
 }
