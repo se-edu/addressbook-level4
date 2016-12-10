@@ -9,7 +9,7 @@ import seedu.address.logic.commands.*;
  * and translation from non-alias inputs.
  */
 public class CommandAliases {
-    
+
     private static final HashMap<String, String> MAPPING;
     static {
         String[] addAliases = {"a"};
@@ -20,19 +20,21 @@ public class CommandAliases {
         String[] helpAliases = {"h", "sos"};
         String[] listAliases = {"l"};
         String[] selectAliases = {"s", "sel"};
-        
+
         String[] commandOrder = {
-                AddCommand.COMMAND_WORD, ClearCommand.COMMAND_WORD, DeleteCommand.COMMAND_WORD, ExitCommand.COMMAND_WORD,
-                FindCommand.COMMAND_WORD, HelpCommand.COMMAND_WORD, ListCommand.COMMAND_WORD, SelectCommand.COMMAND_WORD
-                };
+            AddCommand.COMMAND_WORD, ClearCommand.COMMAND_WORD,
+            DeleteCommand.COMMAND_WORD, ExitCommand.COMMAND_WORD,
+            FindCommand.COMMAND_WORD, HelpCommand.COMMAND_WORD,
+            ListCommand.COMMAND_WORD, SelectCommand.COMMAND_WORD
+        };
         String[][] aliasOrder = {
-                addAliases, clearAliases, deleteAliases, exitAliases,
-                findAliases, helpAliases, listAliases, selectAliases
-                };
-        
+            addAliases, clearAliases, deleteAliases, exitAliases,
+            findAliases, helpAliases, listAliases, selectAliases
+        };
+
         MAPPING = new HashMap<>();
         for (int i = 0; i < commandOrder.length; i++) {
-            String command = commandOrder[i]; 
+            String command = commandOrder[i];
             for (String alias : aliasOrder[i]) {
                 MAPPING.put(alias, command);
             }
