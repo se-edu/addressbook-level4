@@ -18,16 +18,13 @@ import java.util.logging.Logger;
  */
 public class StatusBarFooter extends UiPart {
     private static final Logger logger = LogsCenter.getLogger(StatusBarFooter.class);
+
+    @FXML
     private StatusBar syncStatus;
+    @FXML
     private StatusBar saveLocationStatus;
 
     private GridPane mainPane;
-
-    @FXML
-    private AnchorPane saveLocStatusBarPane;
-
-    @FXML
-    private AnchorPane syncStatusBarPane;
 
     private AnchorPane placeHolder;
 
@@ -41,9 +38,7 @@ public class StatusBarFooter extends UiPart {
 
     public void configure(String saveLocation) {
         addMainPane();
-        addSyncStatus();
         setSyncStatus("Not updated yet in this session");
-        addSaveLocation();
         setSaveLocation("./" + saveLocation);
         registerAsAnEventHandler(this);
     }
@@ -57,20 +52,8 @@ public class StatusBarFooter extends UiPart {
         this.saveLocationStatus.setText(location);
     }
 
-    private void addSaveLocation() {
-        this.saveLocationStatus = new StatusBar();
-        FxViewUtil.applyAnchorBoundaryParameters(saveLocationStatus, 0.0, 0.0, 0.0, 0.0);
-        saveLocStatusBarPane.getChildren().add(saveLocationStatus);
-    }
-
     private void setSyncStatus(String status) {
         this.syncStatus.setText(status);
-    }
-
-    private void addSyncStatus() {
-        this.syncStatus = new StatusBar();
-        FxViewUtil.applyAnchorBoundaryParameters(syncStatus, 0.0, 0.0, 0.0, 0.0);
-        syncStatusBarPane.getChildren().add(syncStatus);
     }
 
     @Override
