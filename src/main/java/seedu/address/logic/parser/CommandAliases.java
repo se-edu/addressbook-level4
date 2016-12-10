@@ -44,7 +44,6 @@ public class CommandAliases {
     /**
      * Returns the actual command word from the alias, if there is a mapping between the input alias and a command word.
      * For input aliases with no corresponding translation, the method returns the input alias parameter.
-     * 
      * @param alias
      * @return translated alias, i.e. command
      */
