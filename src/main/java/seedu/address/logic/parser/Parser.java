@@ -146,9 +146,9 @@ public class Parser {
     /**
      * Returns the index of person to edit.
      *
-     * @return  Optional value of the index of the person to edit. If no value is given, returns Optional.empty().
-     * @throws NoSuchElementException   If no index is provided, or if the index provided
-     *                                  is not a positive unsigned integer.
+     * @return optional value of the index of the person to edit. If no value is given, returns Optional.empty().
+     * @throws NoSuchElementException if no index is provided, or if the index provided
+     *      is not a positive unsigned integer.
      */
     private Optional<Integer> indexOfPersonToEdit(ArgumentTokenizer argsTokenizer) throws NoSuchElementException {
         assert argsTokenizer != null;

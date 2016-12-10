@@ -47,10 +47,10 @@ public class UniquePersonList implements Iterable<Person> {
     /**
      * Edits the details of an existing person in the list.
      *
-     * @param toEdit        The person whose details are to be edited
-     * @param detailsToEdit The map containing values of details to be edited.
-     * @throws DuplicatePersonException If editing the person's details causes the person to
-     *                                  be equivalent to another existing person in the list.
+     * @param toEdit the person whose details are to be edited
+     * @param detailsToEdit the map containing values of details to be edited.
+     * @throws DuplicatePersonException if editing the person's details causes the person to
+     *      be equivalent to another existing person in the list.
      */
     public void edit(Person toEdit, HashMap<String, Object> detailsToEdit) throws DuplicatePersonException {
         assert toEdit != null && detailsToEdit != null;
@@ -68,10 +68,10 @@ public class UniquePersonList implements Iterable<Person> {
      * Verifies if editing the person's details causes the person to
      * be equivalent to another existing person in the list.
      *
-     * @param toEdit        The person whose details are to be edited
-     * @param detailsToEdit The map containing values of details to be edited.
-     * @return              True if editing the person's details causes the person to
-     *                      be equivalent to another existing person in the list.
+     * @param toEdit the person whose details are to be edited
+     * @param detailsToEdit the map containing values of details to be edited.
+     * @return true if editing the person's details causes the person to
+     *      be equivalent to another existing person in the list.
      */
     private boolean isDuplicatePerson(Person toEdit, HashMap<String, Object> detailsToEdit) {
         assert toEdit != null && detailsToEdit != null;
@@ -88,8 +88,8 @@ public class UniquePersonList implements Iterable<Person> {
     /**
      * Verifies if only the person's tags are being edited.
      *
-     * @param detailsToEdit The map containing values of details to be edited.
-     * @return              True if editing only tags.
+     * @param detailsToEdit the map containing values of details to be edited.
+     * @return true if editing only tags.
      */
     private boolean editingOnlyTags(HashMap<String, Object> detailsToEdit) {
         assert detailsToEdit != null;
@@ -101,8 +101,8 @@ public class UniquePersonList implements Iterable<Person> {
     /**
      * Updates the values of the person {@code toEdit}.
      *
-     * @param toEdit        The person whose details are to be edited
-     * @param detailsToEdit The map containing values of details to be edited.
+     * @param toEdit the person whose details are to be edited
+     * @param detailsToEdit the map containing values of details to be edited.
      */
     @SuppressWarnings("unchecked")
     private void editDetails(Person toEdit, HashMap<String, Object> detailsToEdit) {
@@ -135,8 +135,8 @@ public class UniquePersonList implements Iterable<Person> {
     /**
      * Returns the Person object equivalent to {@code readOnlyPersonToEdit}.
      *
-     * @param readOnlyPersonToEdit  The person whose details are to be edited, as a {@code ReadOnlyPerson} object.
-     * @return                      The person whose details are to be edited, as a {@code Person} object.
+     * @param readOnlyPersonToEdit the person whose details are to be edited, as a {@code ReadOnlyPerson} object.
+     * @return the person whose details are to be edited, as a {@code Person} object.
      * @throws PersonNotFoundException if no such person could be found in the list.
      */
     public Person findPersonToEdit(ReadOnlyPerson readOnlyPersonToEdit) throws PersonNotFoundException {

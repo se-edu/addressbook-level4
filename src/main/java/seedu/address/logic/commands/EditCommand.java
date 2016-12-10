@@ -79,8 +79,8 @@ public class EditCommand extends Command {
     /**
      * Returns true if user input fulfills the case of removing existing tags of user.
      *
-     * @param tags  Set of tags
-     * @return  True if tags consists of only 1 element, and the element is an empty string.
+     * @param tags set of tags
+     * @return true if tags consists of only 1 element, and the element is an empty string.
      *          i.e user entered "t/ " or variants of it with differing number of whitespace as input.
      */
     private boolean isRemoveTags(Set<String> tags) {

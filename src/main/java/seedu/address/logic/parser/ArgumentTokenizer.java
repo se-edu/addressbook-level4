@@ -57,9 +57,10 @@ public class ArgumentTokenizer {
     }
 
     /**
-     * Generates and returns the {@code Matcher} that matches with {@code storedPreamble}.
-     * @param storedPreamble    The string to be matched against the regex
-     * @return                  {@code Matcher} that matches {@code storedPreamble} against the regex.
+     * Generates and returns the matcher that matches with {@code storedPreamble}.
+     *
+     * @param storedPreamble the string to be matched against the regex
+     * @return matcher that matches {@code storedPreamble} against the regex.
      */
     private Matcher generateMatcherForTokenizingPreamble(Optional<String> storedPreamble) {
         assert storedPreamble != null;
@@ -106,8 +107,9 @@ public class ArgumentTokenizer {
 
     /**
      * Returns the value of {@code tokenizedPreamble} as mapped by {@code key}, if any.
-     * @return      The value of {@code tokenizedPreamble} as stored in the {@code key}.
-     *              If there is no mapping for {@code key}, Optional.empty() will be returned.
+     *
+     * @return the value of {@code tokenizedPreamble} as stored in the {@code key}.
+     *      If there is no mapping for {@code key}, Optional.empty() will be returned.
      */
     public Optional<String> getTokenizedPreambleValue(String key) {
         assert key != null;

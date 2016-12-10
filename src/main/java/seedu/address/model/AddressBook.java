@@ -93,8 +93,8 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Also checks the existing person's tags and updates {@link #tags} with any new tags found,
      * and updates the Tag objects in the person to point to those in {@link #tags}.
      *
-     * @throws UniquePersonList.DuplicatePersonException    If editing the person's details causes the person to
-     *                                                      be equivalent to another existing person in the list.
+     * @throws UniquePersonList.DuplicatePersonException if editing the person's details causes the person to
+     *      be equivalent to another existing person in the list.
      */
     public void editPerson(ReadOnlyPerson readOnlyPersonToEdit, HashMap<String, Object> detailsToEdit)
             throws UniquePersonList.DuplicatePersonException, UniquePersonList.PersonNotFoundException {
