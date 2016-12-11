@@ -15,12 +15,26 @@ public class PersonBuilder {
         this.person = new TestPerson();
     }
 
+    /**
+     * Copy constructor.
+     */
+    public PersonBuilder(TestPerson personToEdit) throws IllegalValueException {
+        this();
+
+        this.person.setName(personToEdit.getName());
+        this.person.setPhone(personToEdit.getPhone());
+        this.person.setEmail(personToEdit.getEmail());
+        this.person.setAddress(personToEdit.getAddress());
+        this.person.setTags(personToEdit.getTags());
+    }
+
     public PersonBuilder withName(String name) throws IllegalValueException {
         this.person.setName(new Name(name));
         return this;
     }
 
     public PersonBuilder withTags(String ... tags) throws IllegalValueException {
+        person.resetTags();
         for (String tag: tags) {
             person.getTags().add(new Tag(tag));
         }

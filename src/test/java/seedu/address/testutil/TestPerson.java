@@ -34,6 +34,14 @@ public class TestPerson implements ReadOnlyPerson {
         this.phone = phone;
     }
 
+    public void setTags(UniqueTagList tags) {
+        this.tags = tags;
+    }
+
+    public void resetTags() {
+        this.tags = new UniqueTagList();
+    }
+
     @Override
     public Name getName() {
         return name;
