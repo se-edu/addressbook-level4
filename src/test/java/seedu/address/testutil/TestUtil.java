@@ -277,7 +277,7 @@ public class TestUtil {
     }
 
     /**
-     * Removes a subset from the list of persons.
+     * Returns a new copy of the list without {@code personsToRemove}.
      * @param persons The list of persons
      * @param personsToRemove The subset of persons.
      * @return The modified persons after removal of the subset from persons.
