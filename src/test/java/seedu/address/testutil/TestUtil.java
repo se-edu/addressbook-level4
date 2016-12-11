@@ -295,15 +295,16 @@ public class TestUtil {
     }
 
     /**
-     * Replaces persons[i] with a person.
+     * Replaces persons[i] with a person. Does not mutate {@code persons}.
      * @param persons The array of persons.
      * @param person The replacement person
      * @param index The index of the person to be replaced.
      * @return
      */
     public static TestPerson[] replacePersonFromList(TestPerson[] persons, TestPerson person, int index) {
-        persons[index] = person;
-        return persons;
+        TestPerson[] copy = persons.clone();
+        copy[index] = person;
+        return copy;
     }
 
     /**
