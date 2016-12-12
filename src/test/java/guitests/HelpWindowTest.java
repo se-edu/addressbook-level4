@@ -10,8 +10,13 @@ public class HelpWindowTest extends AddressBookGuiTest {
     @Test
     public void openHelpWindow() {
 
-        personListPanel.clickOnListView();
+        commandBox.clickOnTextField();
+        assertHelpWindowOpen(mainMenu.openHelpWindowUsingAccelerator());
 
+        resultDisplay.clickOnTextArea();
+        assertHelpWindowOpen(mainMenu.openHelpWindowUsingAccelerator());
+
+        personListPanel.clickOnListView();
         assertHelpWindowOpen(mainMenu.openHelpWindowUsingAccelerator());
 
         assertHelpWindowOpen(mainMenu.openHelpWindowUsingMenu());
