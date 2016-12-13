@@ -71,6 +71,16 @@ public class ModelManager extends ComponentManager implements Model {
         indicateAddressBookChanged();
     }
 
+    @Override
+    public void updatePerson(int targetIndexInLastShownList, ReadOnlyPerson editedPerson)
+            throws UniquePersonList.DuplicatePersonException, IndexOutOfBoundsException {
+        assert editedPerson != null;
+
+        int unfilteredListTargetIndex = filteredPersons.getSourceIndex(targetIndexInLastShownList);
+        addressBook.updatePerson(unfilteredListTargetIndex, editedPerson);
+        indicateAddressBookChanged();
+    }
+
     //=========== Filtered Person List Accessors =============================================================
 
     @Override
