@@ -2,7 +2,9 @@ package seedu.address.commons.util;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Stream;
 
 /**
  * Utility methods related to Collections
@@ -21,7 +23,12 @@ public class CollectionUtil {
         return false;
     }
 
-
+    /**
+     * Returns true is any of the given items are present.
+     */
+    public static boolean isAnyPresent(Optional<?>... items) {
+        return Stream.of(items).anyMatch(Optional::isPresent);
+    }
 
     /**
      * Throws an assertion error if the collection or any item in it is null.
