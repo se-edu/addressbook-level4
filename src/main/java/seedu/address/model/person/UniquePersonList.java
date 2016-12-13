@@ -42,6 +42,48 @@ public class UniquePersonList implements Iterable<Person> {
     }
 
     /**
+     * Updates the person in the list at position {@code index} with {@code updatedPerson}.
+     *
+     * @throws DuplicatePersonException if editing the person's details causes the person to
+     *      be equivalent to another existing person in the list.
+     */
+    public void updatePerson(int index, ReadOnlyPerson updatedPerson)
+            throws DuplicatePersonException {
+        assert index >= 0;
+        assert updatedPerson != null;
+
+        Person personToUpdate = internalList.get(index);
+        if (!personToUpdate.equals(updatedPerson)
+                && internalList.contains(updatedPerson)) {
+            throw new DuplicatePersonException();
+        }
+
+        personToUpdate.updateDetailsWith(updatedPerson);
+        // set item in list so that observers of the list are notified of the change
+        internalList.set(index, personToUpdate);
+    }
+
+    /**
+     * Updates the person {@code personToUpdate} with {@code updatedPerson}.
+     *
+     * @throws DuplicatePersonException if editing the person's details causes the person to
+     *      be equivalent to another existing person in the list.
+     * @throws PersonNotFoundException if no such person could be found in the list.
+     */
+    public void updatePerson(ReadOnlyPerson personToUpdate, ReadOnlyPerson updatedPerson)
+            throws DuplicatePersonException, PersonNotFoundException {
+        assert personToUpdate != null;
+        assert updatedPerson != null;
+
+        int index = internalList.indexOf(personToUpdate);
+        if (index < 0) {
+            throw new PersonNotFoundException();
+        }
+
+        updatePerson(index, updatedPerson);
+    }
+
+    /**
      * Removes the equivalent person from the list.
      *
      * @throws PersonNotFoundException if no such person could be found in the list.
