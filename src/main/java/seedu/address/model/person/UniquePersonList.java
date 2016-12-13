@@ -42,6 +42,29 @@ public class UniquePersonList implements Iterable<Person> {
     }
 
     /**
+     * Updates the person in the list at position {@code index} with {@code editedPerson}.
+     *
+     * @throws DuplicatePersonException if editing the person's details causes the person to
+     *      be equivalent to another existing person in the list.
+     * @throws IndexOutOfBoundsException
+     */
+    public void updatePerson(int index, ReadOnlyPerson editedPerson)
+            throws DuplicatePersonException, IndexOutOfBoundsException {
+        assert editedPerson != null;
+
+        Person personToUpdate = internalList.get(index);
+        if (!personToUpdate.equals(editedPerson) && internalList.contains(editedPerson)) {
+            throw new DuplicatePersonException();
+        }
+
+        personToUpdate.resetData(editedPerson);
+        /*TODO: This is just a workaround - implement observable properties in the Person class
+                PersonCard should then bind its text labels to those observable properties.*/
+        // set item in list so that observers of the list are notified of the change
+        internalList.set(index, personToUpdate);
+    }
+
+    /**
      * Removes the equivalent person from the list.
      *
      * @throws PersonNotFoundException if no such person could be found in the list.
