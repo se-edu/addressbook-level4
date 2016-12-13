@@ -71,6 +71,17 @@ public class ModelManager extends ComponentManager implements Model {
         indicateAddressBookChanged();
     }
 
+    @Override
+    public void updatePerson(ReadOnlyPerson dst, ReadOnlyPerson src)
+            throws UniquePersonList.DuplicatePersonException, UniquePersonList.PersonNotFoundException {
+        assert dst != null;
+        assert src != null;
+
+        addressBook.updatePerson(dst, src);
+        updateFilteredListToShowAll();
+        indicateAddressBookChanged();
+    }
+
     //=========== Filtered Person List Accessors =============================================================
 
     @Override
