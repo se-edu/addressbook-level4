@@ -4,6 +4,7 @@ import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.person.UniquePersonList.DuplicatePersonException;
 
 import java.util.Set;
 
@@ -22,6 +23,17 @@ public interface Model {
 
     /** Adds the given person */
     void addPerson(Person person) throws UniquePersonList.DuplicatePersonException;
+
+    /**
+     * Updates the person located at {@code targetIndexInLastShownList} with {@code editedPerson}.
+     *
+     * @throws DuplicatePersonException if updating the person's details causes the person to be equivalent to
+     *      another existing person in the list.
+     * @throws IndexOutOfBoundsException if {@code targetIndexInLastShownList} < 0
+     *      or >= the size of the last shown list.
+     */
+    void updatePerson(int targetIndexInLastShownList, ReadOnlyPerson editedPerson)
+            throws UniquePersonList.DuplicatePersonException, IndexOutOfBoundsException;
 
     /** Returns the filtered person list as an {@code UnmodifiableObservableList<ReadOnlyPerson>} */
     UnmodifiableObservableList<ReadOnlyPerson> getFilteredPersonList();
