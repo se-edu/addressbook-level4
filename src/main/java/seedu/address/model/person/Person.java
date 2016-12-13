@@ -37,9 +37,19 @@ public class Person implements ReadOnlyPerson {
         this(source.getName(), source.getPhone(), source.getEmail(), source.getAddress(), source.getTags());
     }
 
+    public void setName(Name name) {
+        assert name != null;
+        this.name = name;
+    }
+
     @Override
     public Name getName() {
         return name;
+    }
+
+    public void setPhone(Phone phone) {
+        assert phone != null;
+        this.phone = phone;
     }
 
     @Override
@@ -47,9 +57,19 @@ public class Person implements ReadOnlyPerson {
         return phone;
     }
 
+    public void setEmail(Email email) {
+        assert email != null;
+        this.email = email;
+    }
+
     @Override
     public Email getEmail() {
         return email;
+    }
+
+    public void setAddress(Address address) {
+        assert address != null;
+        this.address = address;
     }
 
     @Override
