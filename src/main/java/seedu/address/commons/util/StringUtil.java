@@ -65,7 +65,7 @@ public class StringUtil {
      * @return a string that has all items on an indexed new line.
      */
     public static <T> String toIndexedListString(List<T> items) {
-        CollectionUtil.assertNoNullElements(items);
+        assert !CollectionUtil.isAnyNull(items);
         return IntStream.range(0, items.size())
                 .mapToObj(i -> (i + 1) + ". " + items.get(i).toString())
                 .collect(Collectors.joining("\n"));
