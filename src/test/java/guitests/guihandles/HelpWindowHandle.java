@@ -17,7 +17,7 @@ public class HelpWindowHandle extends GuiHandle {
     }
 
     public boolean isWindowOpen() {
-        return getNode(HELP_WINDOW_ROOT_FIELD_ID) != null;
+        return guiRobot.lookup(HELP_WINDOW_ROOT_FIELD_ID).tryQuery().isPresent();
     }
 
     public void closeWindow() {
