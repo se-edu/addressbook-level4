@@ -3,6 +3,7 @@ package seedu.address.ui;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import seedu.address.model.person.ReadOnlyPerson;
 
@@ -23,7 +24,7 @@ public class PersonCard extends UiPart {
     @FXML
     private Label email;
     @FXML
-    private Label tags;
+    private FlowPane tags;
 
     private ReadOnlyPerson person;
     private int displayedIndex;
@@ -43,7 +44,7 @@ public class PersonCard extends UiPart {
         phone.setText(person.getPhone().value);
         address.setText(person.getAddress().value);
         email.setText(person.getEmail().value);
-        tags.setText(person.tagsString());
+        initTags();
     }
 
     public HBox getLayout() {
@@ -58,5 +59,9 @@ public class PersonCard extends UiPart {
     @Override
     public String getFxmlPath() {
         return FXML;
+    }
+
+    private void initTags() {
+        person.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
 }
