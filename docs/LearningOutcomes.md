@@ -132,11 +132,14 @@ Note [how the AddressBook app uses Travis to perform Continuous Integration](Usi
 
 Note how our CI server [Travis uses Coveralls to report code coverage](UsingTravis.md).
 ([![Coverage Status](https://coveralls.io/repos/github/se-edu/addressbook-level4/badge.svg?branch=master)](https://coveralls.io/github/se-edu/addressbook-level4?branch=master))
+After setting up Coveralls for your project, you can visit Coveralls website to find details about the
+coverage of code pushed to your repo. [Here](https://coveralls.io/github/se-edu/addressbook-level4?branch=master) is an example.
 
  
 #### Exercise: Use EclEmma to measure coverage locally
  * Install the [EclEmma Eclipse Plugin](http://www.eclemma.org/) in your computer and use that to find code that 
-   is not covered by the tests.
+   is not covered by the tests. This plugin can help you to find coverage details even before you push code 
+   to the remote repo.
  
 ------------------------------------------------------------------------------------------------------
 
