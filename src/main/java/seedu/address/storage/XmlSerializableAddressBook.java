@@ -60,8 +60,8 @@ public class XmlSerializableAddressBook implements ReadOnlyAddressBook {
     }
 
     @Override
-    public List<Tag> getTagList() {
-        return tags.stream().map(t -> {
+    public ObservableList<Tag> getTagList() {
+        final ObservableList<Tag> tags = this.tags.stream().map(t -> {
             try {
                 return t.toModelType();
             } catch (IllegalValueException e) {
@@ -69,7 +69,8 @@ public class XmlSerializableAddressBook implements ReadOnlyAddressBook {
                 //TODO: better error handling
                 return null;
             }
-        }).collect(Collectors.toCollection(ArrayList::new));
+        }).collect(Collectors.toCollection(FXCollections::observableArrayList));
+        return new UnmodifiableObservableList<>(tags);
     }
 
 }
