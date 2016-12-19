@@ -5,6 +5,8 @@ import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.tag.Tag;
 import java.util.List;
 
+import javafx.collections.ObservableList;
+
 /**
  * Unmodifiable view of an address book
  */
@@ -14,7 +16,7 @@ public interface ReadOnlyAddressBook {
      * Returns an unmodifiable view of the persons list.
      * This list will not contain any duplicate persons.
      */
-    List<ReadOnlyPerson> getPersonList();
+    ObservableList<ReadOnlyPerson> getPersonList();
 
     /**
      * Returns an unmodifiable view of the tags list.

@@ -9,6 +9,8 @@ import seedu.address.model.tag.UniqueTagList;
 
 import java.util.*;
 
+import javafx.collections.ObservableList;
+
 /**
  * Wraps all data at the address-book level
  * Duplicates are not allowed (by .equals comparison)
@@ -41,10 +43,6 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
 //// list overwrite operations
-
-    public UnmodifiableObservableList<Person> getPersons() {
-        return new UnmodifiableObservableList<>(persons.asObservableList());
-    }
 
     public void setPersons(List<? extends ReadOnlyPerson> persons)
             throws UniquePersonList.DuplicatePersonException {
@@ -137,8 +135,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     @Override
-    public List<ReadOnlyPerson> getPersonList() {
-        return Collections.unmodifiableList(persons.asObservableList());
+    public ObservableList<ReadOnlyPerson> getPersonList() {
+        return new UnmodifiableObservableList<>(persons.asObservableList());
     }
 
     @Override
