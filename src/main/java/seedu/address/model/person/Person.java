@@ -18,6 +18,8 @@ public class Person implements ReadOnlyPerson {
 
     private UniqueTagList tags;
 
+    public static final String INDEX_KEY = "index";
+
     /**
      * Every field must be present and not null.
      */
@@ -35,6 +37,26 @@ public class Person implements ReadOnlyPerson {
      */
     public Person(ReadOnlyPerson source) {
         this(source.getName(), source.getPhone(), source.getEmail(), source.getAddress(), source.getTags());
+    }
+
+    public void setName(Name name) {
+        assert name != null;
+        this.name = name;
+    }
+
+    public void setPhone(Phone phone) {
+        assert phone != null;
+        this.phone = phone;
+    }
+
+    public void setEmail(Email email) {
+        assert email != null;
+        this.email = email;
+    }
+
+    public void setAddress(Address address) {
+        assert address != null;
+        this.address = address;
     }
 
     @Override

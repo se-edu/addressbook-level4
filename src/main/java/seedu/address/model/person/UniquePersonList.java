@@ -4,6 +4,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.util.CollectionUtil;
+import seedu.address.model.tag.Tag;
+import seedu.address.model.tag.UniqueTagList;
 import seedu.address.commons.exceptions.DuplicateDataException;
 
 import java.util.*;
@@ -18,6 +20,7 @@ import java.util.*;
  */
 public class UniquePersonList implements Iterable<Person> {
 
+    private static final int PERSON_NOT_FOUND = -1;
     private final ObservableList<Person> internalList = FXCollections.observableArrayList();
 
     /**
@@ -39,6 +42,112 @@ public class UniquePersonList implements Iterable<Person> {
             throw new DuplicatePersonException();
         }
         internalList.add(toAdd);
+    }
+
+    /**
+     * Edits the details of an existing person in the list.
+     *
+     * @param toEdit the person whose details are to be edited
+     * @param detailsToEdit the map containing values of details to be edited.
+     * @throws DuplicatePersonException if editing the person's details causes the person to
+     *      be equivalent to another existing person in the list.
+     */
+    public void edit(Person toEdit, HashMap<String, Object> detailsToEdit) throws DuplicatePersonException {
+        assert toEdit != null && detailsToEdit != null;
+
+        if (isDuplicatePerson(toEdit, detailsToEdit)) {
+            throw new DuplicatePersonException();
+        }
+
+        int index = internalList.indexOf(toEdit);
+        editDetails(toEdit, detailsToEdit);
+        internalList.set(index, toEdit);
+    }
+
+    /**
+     * Verifies if editing the person's details causes the person to
+     * be equivalent to another existing person in the list.
+     *
+     * @param toEdit the person whose details are to be edited
+     * @param detailsToEdit the map containing values of details to be edited.
+     * @return true if editing the person's details causes the person to
+     *      be equivalent to another existing person in the list.
+     */
+    private boolean isDuplicatePerson(Person toEdit, HashMap<String, Object> detailsToEdit) {
+        assert toEdit != null && detailsToEdit != null;
+
+        Person copy = new Person(toEdit);
+        editDetails(copy, detailsToEdit);
+
+        // using short-circuit functionality: only check for duplicate person if
+        // user is not editing only tags. This is because isSameState method in Person
+        // considers two Person objects as equal even though they have different tags.
+        return !editingOnlyTags(detailsToEdit) && contains(copy);
+    }
+
+    /**
+     * Verifies if only the person's tags are being edited.
+     *
+     * @param detailsToEdit the map containing values of details to be edited.
+     * @return true if editing only tags.
+     */
+    private boolean editingOnlyTags(HashMap<String, Object> detailsToEdit) {
+        assert detailsToEdit != null;
+
+        return detailsToEdit.size() == 1
+                && (detailsToEdit.containsKey(Tag.KEY) || detailsToEdit.containsKey(Tag.RESET_KEY));
+    }
+
+    /**
+     * Updates the values of the person {@code toEdit}.
+     *
+     * @param toEdit the person whose details are to be edited
+     * @param detailsToEdit the map containing values of details to be edited.
+     */
+    @SuppressWarnings("unchecked")
+    private void editDetails(Person toEdit, HashMap<String, Object> detailsToEdit) {
+        assert toEdit != null && detailsToEdit != null;
+
+        Set<String> keySet = detailsToEdit.keySet();
+        if (keySet.contains(Name.KEY)) {
+            toEdit.setName((Name) detailsToEdit.get(Name.KEY));
+        }
+
+        if (keySet.contains(Phone.KEY)) {
+            toEdit.setPhone((Phone) detailsToEdit.get(Phone.KEY));
+        }
+
+        if (keySet.contains(Email.KEY)) {
+            toEdit.setEmail((Email) detailsToEdit.get(Email.KEY));
+        }
+
+        if (keySet.contains(Address.KEY)) {
+            toEdit.setAddress((Address) detailsToEdit.get(Address.KEY));
+        }
+
+        if (keySet.contains(Tag.KEY)) {
+            toEdit.setTags(new UniqueTagList((Set<Tag>) detailsToEdit.get(Tag.KEY)));
+        } else if (keySet.contains(Tag.RESET_KEY)) {
+            toEdit.setTags(new UniqueTagList());
+        }
+    }
+
+    /**
+     * Returns the Person object equivalent to {@code readOnlyPersonToEdit}.
+     *
+     * @param readOnlyPersonToEdit the person whose details are to be edited, as a {@code ReadOnlyPerson} object.
+     * @return the person whose details are to be edited, as a {@code Person} object.
+     * @throws PersonNotFoundException if no such person could be found in the list.
+     */
+    public Person findPersonToEdit(ReadOnlyPerson readOnlyPersonToEdit) throws PersonNotFoundException {
+        assert readOnlyPersonToEdit != null;
+
+        int indexOfPerson = internalList.indexOf(readOnlyPersonToEdit);
+        if (indexOfPerson != PERSON_NOT_FOUND) {
+            return internalList.get(indexOfPerson);
+        } else {
+            throw new UniquePersonList.PersonNotFoundException();
+        }
     }
 
     /**
