@@ -19,13 +19,13 @@ public class TypicalTestPersons {
                     .withTags("friends").build();
             benson = new PersonBuilder().withName("Benson Meier").withAddress("311, Clementi Ave 2, #02-25")
                     .withEmail("johnd@gmail.com").withPhone("98765432")
-                    .withTags("owesMoney", "friends").build();
+                    .withTags("colleagues", "friends").build();
             carl = new PersonBuilder().withName("Carl Kurz").withPhone("95352563")
-                    .withEmail("heinz@yahoo.com").withAddress("wall street").build();
+                    .withEmail("heinz@yahoo.com").withAddress("36, Toa Payoh Street 3, #04-13").build();
             daniel = new PersonBuilder().withName("Daniel Meier").withPhone("87652533")
-                    .withEmail("cornelia@google.com").withAddress("10th street").build();
+                    .withEmail("cornelia@google.com").withAddress("448, Bukit Merah Street 1, #03-01").build();
             elle = new PersonBuilder().withName("Elle Meyer").withPhone("9482224")
-                    .withEmail("werner@gmail.com").withAddress("michegan ave").build();
+                    .withEmail("werner@gmail.com").withAddress("332, Jurong West Street 14, #11-39").build();
             fiona = new PersonBuilder().withName("Fiona Kunz").withPhone("9482427")
                     .withEmail("lydia@gmail.com").withAddress("little tokyo").build();
             george = new PersonBuilder().withName("George Best").withPhone("9482442")
