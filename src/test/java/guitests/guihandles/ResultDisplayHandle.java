@@ -28,6 +28,6 @@ public class ResultDisplayHandle extends GuiHandle {
     }
 
     private TextArea getResultDisplay() {
-        return (TextArea) getNode(RESULT_DISPLAY_ID);
+        return getNode(RESULT_DISPLAY_ID);
     }
 }
