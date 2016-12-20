@@ -50,7 +50,6 @@ public class GuiHandle {
         logger.info("Finishing focus " + stageTitle);
     }
 
-    @SuppressWarnings("unchecked")
     protected <T extends Node> T getNode(String query) {
         return guiRobot.lookup(query).query();
     }
@@ -73,11 +72,6 @@ public class GuiHandle {
 
     protected String getTextFromLabel(String fieldId, Node parentNode) {
         return ((Label) guiRobot.from(parentNode).lookup(fieldId).tryQuery().get()).getText();
-    }
-
-    protected String getTextFromLabel(String fieldId) {
-        Label label = getNode(fieldId);
-        return label.getText();
     }
 
     public void focusOnSelf() {
