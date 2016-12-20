@@ -56,12 +56,14 @@ public class GuiHandle {
     }
 
     protected String getTextFieldText(String filedName) {
-        return ((TextField) getNode(filedName)).getText();
+        TextField textField = getNode(filedName);
+        return textField.getText();
     }
 
     protected void setTextField(String textFieldId, String newText) {
         guiRobot.clickOn(textFieldId);
-        ((TextField) guiRobot.lookup(textFieldId).tryQuery().get()).setText(newText);
+        TextField textField = getNode(textFieldId);
+        textField.setText(newText);
         guiRobot.sleep(500); // so that the texts stays visible on the GUI for a short period
     }
 
@@ -74,7 +76,8 @@ public class GuiHandle {
     }
 
     protected String getTextFromLabel(String fieldId) {
-        return ((Label) guiRobot.lookup(fieldId).tryQuery().get()).getText();
+        Label label = getNode(fieldId);
+        return label.getText();
     }
 
     public void focusOnSelf() {
