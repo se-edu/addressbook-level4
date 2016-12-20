@@ -17,7 +17,7 @@ public class AlertDialogHandle extends GuiHandle {
 
     public boolean isMatching(String headerMessage, String contentMessage) {
         assert intermediateStage.isPresent() : "Alert dialog is not present";
-        DialogPane dialogPane = (DialogPane) getNode("#" + UiManager.ALERT_DIALOG_PANE_FIELD_ID);
+        DialogPane dialogPane = getNode("#" + UiManager.ALERT_DIALOG_PANE_FIELD_ID);
         boolean isMatching = dialogPane.getHeaderText().equals(headerMessage)
                 && dialogPane.getContentText().equals(contentMessage);
         return isMatching;

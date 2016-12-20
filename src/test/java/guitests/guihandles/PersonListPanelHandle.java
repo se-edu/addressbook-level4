@@ -37,7 +37,7 @@ public class PersonListPanelHandle extends GuiHandle {
     }
 
     public ListView<ReadOnlyPerson> getListView() {
-        return (ListView<ReadOnlyPerson>) getNode(PERSON_LIST_VIEW_ID);
+        return getNode(PERSON_LIST_VIEW_ID);
     }
 
     /**

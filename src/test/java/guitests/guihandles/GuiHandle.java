@@ -50,8 +50,9 @@ public class GuiHandle {
         logger.info("Finishing focus " + stageTitle);
     }
 
-    protected Node getNode(String query) {
-        return guiRobot.lookup(query).tryQuery().get();
+    @SuppressWarnings("unchecked")
+    protected <T extends Node> T getNode(String query) {
+        return (T) guiRobot.lookup(query).tryQuery().get();
     }
 
     protected String getTextFieldText(String filedName) {
