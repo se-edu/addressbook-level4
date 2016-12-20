@@ -52,7 +52,7 @@ public class GuiHandle {
 
     @SuppressWarnings("unchecked")
     protected <T extends Node> T getNode(String query) {
-        return (T) guiRobot.lookup(query).tryQuery().get();
+        return (T) guiRobot.lookup(query).query();
     }
 
     protected String getTextFieldText(String filedName) {
