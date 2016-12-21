@@ -17,6 +17,7 @@ public class UiPartLoader {
      * @param sampleUiPart The sample of the expected UiPart class.
      * @param <T> The type of the UiPart
      */
+    @Deprecated
     public static <T extends UiPart> T loadUiPart(T sampleUiPart) {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(MainApp.class.getResource(FXML_FILE_FOLDER + sampleUiPart.getFxmlPath()));
@@ -33,6 +34,7 @@ public class UiPartLoader {
      * @param sampleUiPart The sample of the expected UiPart class.
      * @param <T> The type of the UiPart
      */
+    @Deprecated
     public static <T extends UiPart> T loadUiPart(AnchorPane placeholder, T sampleUiPart) {
         T controller = loadUiPart(sampleUiPart);
         controller.setPlaceholder(placeholder);
@@ -45,6 +47,7 @@ public class UiPartLoader {
      * @param seedUiPart The UiPart object to be used as the ui.
      * @param <T> The type of the UiPart
      */
+    @Deprecated
     public static <T extends UiPart> T initUiPart(T seedUiPart) {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(MainApp.class.getResource(FXML_FILE_FOLDER + seedUiPart.getFxmlPath()));
