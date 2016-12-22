@@ -1,11 +1,11 @@
 # User Guide
 
-* [Quick Start](#quick-start)
-* [Features](#features)
-* [FAQ](#faq)
-* [Command Summary](#command-summary)
+1. [Quick Start](#quick-start)
+2. [Features](#features)
+3. [FAQ](#faq)
+4. [Command Summary](#command-summary)
 
-## Quick Start
+## 1. Quick Start
 
 0. Ensure you have Java version `1.8.0_60` or later installed in your Computer.<br>
    > Having any Java 8 version is not enough. <br>
@@ -27,7 +27,7 @@
 6. Refer to the [Features](#features) section below for details of each command.<br>
 
 
-## Features
+## 2. Features
 
 > **Command Format**
 > * Words in `UPPER_CASE` are the parameters.
@@ -35,12 +35,12 @@
 > * Items with `...` after them can have multiple instances.
 > * Parameters can be in any order.
 
-#### Viewing help : `help`
+### 2.1. Viewing help : `help`
 Format: `help`
 
 > Help is also shown if you enter an incorrect command e.g. `abcd`
  
-#### Adding a person: `add`
+### 2.2. Adding a person: `add`
 Adds a person to the address book<br>
 Format: `add NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` 
 
@@ -50,11 +50,11 @@ Examples:
 * `add John Doe p/98765432 e/johnd@gmail.com a/John street, block 123, #01-01`
 * `add Betsy Crowe t/friend e/betsycrowe@gmail.com a/Newgate Prison p/1234567 t/criminal`
 
-#### Listing all persons : `list`
+### 2.3. Listing all persons : `list`
 Shows a list of all persons in the address book.<br>
 Format: `list`
 
-#### Finding all persons containing any keyword in their name: `find`
+### 2.4. Finding all persons containing any keyword in their name: `find`
 Finds persons whose names contain any of the given keywords.<br>
 Format: `find KEYWORD [MORE_KEYWORDS]`
 
@@ -71,7 +71,7 @@ Examples:
 * `find Betsy Tim John`<br>
   Returns Any person having names `Betsy`, `Tim`, or `John`
 
-#### Deleting a person : `delete`
+### 2.5. Deleting a person : `delete`
 Deletes the specified person from the address book. Irreversible.<br>
 Format: `delete INDEX`
 
@@ -87,7 +87,7 @@ Examples:
   `delete 1`<br>
   Deletes the 1st person in the results of the `find` command.
 
-#### Select a person : `select`
+### 2.6. Select a person : `select`
 Selects the person identified by the index number used in the last person listing.<br>
 Format: `select INDEX`
 
@@ -103,25 +103,25 @@ Examples:
   `select 1`<br>
   Selects the 1st person in the results of the `find` command.
 
-#### Clearing all entries : `clear`
+### 2.7. Clearing all entries : `clear`
 Clears all entries from the address book.<br>
 Format: `clear`  
 
-#### Exiting the program : `exit`
+### 2.8. Exiting the program : `exit`
 Exits the program.<br>
 Format: `exit`  
 
-#### Saving the data 
+### 2.9. Saving the data 
 Address book data are saved in the hard disk automatically after any command that changes the data.<br>
 There is no need to save manually.
 
-## FAQ
+## 3. FAQ
 
 **Q**: How do I transfer my data to another Computer?<br>
 **A**: Install the app in the other computer and overwrite the empty data file it creates with 
        the file that contains the data of your previous Address Book folder.
        
-## Command Summary
+## 4. Command Summary
 
 * **Add**  `add NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` <br>
   e.g. `add James Ho p/22224444 e/jamesho@gmail.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
