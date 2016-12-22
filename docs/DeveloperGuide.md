@@ -1,4 +1,8 @@
-# Developer Guide 
+# AddressBook Level 4 - Developer Guide 
+
+By : `Team SE-EDU`  &nbsp;&nbsp;&nbsp;&nbsp; Since: `Jun 2016`  &nbsp;&nbsp;&nbsp;&nbsp; Licence: `MIT`
+
+---
 
 1. [Setting Up](#setting-up)
 2. [Design](#design)
@@ -58,11 +62,13 @@
 ### 1.4. Troubleshooting project setup
 
 **Problem: Eclipse reports compile errors after new commits are pulled from Git**
+
 * Reason: Eclipse fails to recognize new files that appeared due to the Git pull. 
 * Solution: Refresh the project in Eclipse:<br> 
   Right click on the project (in Eclipse package explorer), choose `Gradle` -> `Refresh Gradle Project`.
   
 **Problem: Eclipse reports some required libraries missing**
+
 * Reason: Required libraries may not have been downloaded during the project import. 
 * Solution: [Run tests using Gradle](UsingGradle.md) once (to refresh the libraries).
  
@@ -80,22 +86,26 @@ Given below is a quick overview of each component.
 > Tip: The `.pptx` files used to create diagrams in this document can be found in the [diagrams](diagrams/) folder.
 
 `Main` has only one class called [`MainApp`](../src/main/java/seedu/address/MainApp.java). It is responsible for,
+
 * At app launch: Initializes the components in the correct sequence, and connects them up with each other.
 * At shut down: Shuts down the components and invokes cleanup method where necessary.
 
 [**`Commons`**](#common-classes) represents a collection of classes used by multiple other components.
 Two of those classes play important roles at the architecture level.
+
 * `EventsCenter` : This class (written using [Google's Event Bus library](https://github.com/google/guava/wiki/EventBusExplained))
   is used by components to communicate with other components using events (i.e. a form of _Event Driven_ design)
 * `LogsCenter` : Used by many classes to write log messages to the App's log file.
 
 The rest of the App consists of four components.
+
 * [**`UI`**](#ui-component) : The UI of the App.
 * [**`Logic`**](#logic-component) : The command executor.
 * [**`Model`**](#model-component) : Holds the data of the App in-memory.
 * [**`Storage`**](#storage-component) : Reads data from, and writes data to, the hard disk.
 
 Each of the four components
+
 * Defines its _API_ in an `interface` with the same name as the Component.
 * Exposes its functionality using a `{Component Name}Manager` class.
 
@@ -104,7 +114,7 @@ interface and exposes its functionality using the `LogicManager.java` class.<br>
 <img src="images/LogicClassDiagram.png" width="800"><br>
 _Figure 2.1.2 : Class Diagram of the Logic Component_
 
-##### Events-Driven nature of the design 
+#### Events-Driven nature of the design 
 
 The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
 command `delete 1`.
@@ -145,6 +155,7 @@ The `UI` component uses JavaFx UI framework. The layout of these UI parts are de
  [`MainWindow.fxml`](../src/main/resources/view/MainWindow.fxml)
 
 The `UI` component,
+
 * Executes user commands using the `Logic` component.
 * Binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` change.
 * Responds to events raised from various parts of the App and updates the UI accordingly.
@@ -178,6 +189,7 @@ _Figure 2.4.1 : Structure of the Model Component_
 **API** : [`Model.java`](../src/main/java/seedu/address/model/Model.java)
 
 The `Model`,
+
 * stores a `UserPref` object that represents the user's preferences.
 * stores the Address Book data.
 * exposes a `UnmodifiableObservableList<ReadOnlyPerson>` that can be 'observed' e.g. the UI can be bound to this list
@@ -194,6 +206,7 @@ _Figure 2.5.1 : Structure of the Storage Component_
 **API** : [`Storage.java`](../src/main/java/seedu/address/storage/Storage.java)
 
 The `Storage` component,
+
 * can save `UserPref` objects in json format and read it back.
 * can save the Address Book data in xml format and read it back.
 
@@ -233,6 +246,7 @@ Certain properties of the application can be controlled (e.g App name, logging l
 Tests can be found in the `./src/test/java` folder.
 
 **In Eclipse**:
+
 * To run all tests, right-click on the `src/test/java` folder and choose
   `Run as` > `JUnit Test`
 * To run a subset of tests, you can right-click on a test package, test class, or a test and choose
@@ -264,7 +278,9 @@ Thanks to the [TestFX](https://github.com/TestFX/TestFX) library we use,
  See [UsingGradle.md](UsingGradle.md#running-tests) to learn how to run tests in headless mode.
  
 ### 4.1. Troubleshooting tests
+
  **Problem: Tests fail because NullPointException when AssertionError is expected**
+ 
  * Reason: Assertions are not enabled for JUnit tests. 
    This can happen if you are not using a recent Eclipse version (i.e. _Neon_ or later)
  * Solution: Enable assertions in JUnit tests as described 
