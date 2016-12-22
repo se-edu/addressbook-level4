@@ -26,7 +26,7 @@ public class AddCommand extends Command {
     private final Person toAdd;
 
     /**
-     * Convenience constructor using raw values.
+     * Creates an AddCommand using raw values.
      *
      * @throws IllegalValueException if any of the raw values are invalid
      */

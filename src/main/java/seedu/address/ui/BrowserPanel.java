@@ -33,7 +33,8 @@ public class BrowserPanel extends UiPart {
     }
 
     /**
-     * Factory method for creating a Browser Panel.
+     * Creates a BrowserPanel.
+     * This is the factory method for creating a Browser Panel.
      * This method should be called after the FX runtime is initialized and in FX application thread.
      * @param placeholder The AnchorPane where the BrowserPanel must be inserted
      */

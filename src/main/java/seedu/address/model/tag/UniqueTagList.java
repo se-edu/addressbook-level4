@@ -26,7 +26,8 @@ public class UniqueTagList implements Iterable<Tag> {
     public UniqueTagList() {}
 
     /**
-     * Varargs/array constructor, enforces no nulls or duplicates.
+     * Creates a UniqueTagList using given tags.
+     * Enforces no nulls or duplicates.
      */
     public UniqueTagList(Tag... tags) throws DuplicateTagException {
         assert !CollectionUtil.isAnyNull((Object[]) tags);
@@ -38,7 +39,8 @@ public class UniqueTagList implements Iterable<Tag> {
     }
 
     /**
-     * java collections constructor, enforces no null or duplicate elements.
+     * Creates a UniqueTagList using given tags.
+     * Enforces no null or duplicate elements.
      */
     public UniqueTagList(Collection<Tag> tags) throws DuplicateTagException {
         CollectionUtil.assertNoNullElements(tags);
@@ -49,7 +51,8 @@ public class UniqueTagList implements Iterable<Tag> {
     }
 
     /**
-     * java set constructor, enforces no nulls.
+     * Creates a UniqueTagList using given tags.
+     * Enforces no nulls.
      */
     public UniqueTagList(Set<Tag> tags) {
         CollectionUtil.assertNoNullElements(tags);
@@ -57,14 +60,16 @@ public class UniqueTagList implements Iterable<Tag> {
     }
 
     /**
-     * Copy constructor, insulates from changes in source.
+     * Creates a copy of the given list.
+     * Insulates from changes in source.
      */
     public UniqueTagList(UniqueTagList source) {
         internalList.addAll(source.internalList); // insulate internal list from changes in argument
     }
 
     /**
-     * All tags in this list as a Set. This set is mutable and change-insulated against the internal list.
+     * Returns all tags in this list as a Set.
+     * This set is mutable and change-insulated against the internal list.
      */
     public Set<Tag> toSet() {
         return new HashSet<>(internalList);

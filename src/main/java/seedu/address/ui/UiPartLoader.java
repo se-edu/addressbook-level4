@@ -40,7 +40,7 @@ public class UiPartLoader {
     }
 
     /**
-     * Initialize the FXML scene graph of the provided UI Part.
+     * Initializes the FXML scene graph of the provided UI Part.
      *
      * @param seedUiPart The UiPart object to be used as the ui.
      * @param <T> The type of the UiPart

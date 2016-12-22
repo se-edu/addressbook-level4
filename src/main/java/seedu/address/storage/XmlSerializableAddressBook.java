@@ -25,7 +25,8 @@ public class XmlSerializableAddressBook implements ReadOnlyAddressBook {
     private List<XmlAdaptedTag> tags;
 
     /**
-     * Empty constructor required for marshalling
+     * Creates an empty XmlSerializableAddressBook.
+     * This empty constructor is required for marshalling.
      */
     public XmlSerializableAddressBook() {
         persons = new ArrayList<>();

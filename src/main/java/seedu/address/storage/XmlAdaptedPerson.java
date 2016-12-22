@@ -27,7 +27,8 @@ public class XmlAdaptedPerson {
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
 
     /**
-     * No-arg constructor for JAXB use.
+     * Constructs an XmlAdaptedPerson.
+     * This is the no-arg constructor that is required by JAXB.
      */
     public XmlAdaptedPerson() {}
 
