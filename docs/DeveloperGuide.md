@@ -72,6 +72,8 @@
 ### 2.1. Architecture
 
 <img src="images/Architecture.png" width="600"><br>
+_Figure 2.1.1 : Architecture Diagram_
+
 The **_Architecture Diagram_** given above explains the high-level design of the App.
 Given below is a quick overview of each component.
 
@@ -100,20 +102,23 @@ Each of the four components
 For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java`
 interface and exposes its functionality using the `LogicManager.java` class.<br>
 <img src="images/LogicClassDiagram.png" width="800"><br>
+_Figure 2.1.2 : Class Diagram of the Logic Component_
 
 ##### Events-Driven nature of the design 
 
 The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
 command `delete 1`.
 
-<img src="images\SDforDeletePerson.png" width="800">
+<img src="images\SDforDeletePerson.png" width="800"><br>
+_Figure 2.1.3a : Component interactions for `delete 1` command (part 1)_
 
 >Note how the `Model` simply raises a `AddressBookChangedEvent` when the Address Book data are changed,
  instead of asking the `Storage` to save the updates to the hard disk.
 
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates
 being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time. <br>
-<img src="images\SDforDeletePersonEventHandling.png" width="800">
+<img src="images\SDforDeletePersonEventHandling.png" width="800"><br>
+_Figure 2.1.3b : Component interactions for `delete 1` command (part 2)_
 
 > Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having
   to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct 
@@ -124,6 +129,7 @@ The sections below give more details of each component.
 ### 2.2. UI component
 
 <img src="images/UiClassDiagram.png" width="800"><br>
+_Figure 2.2.1 : Structure of the UI Component_
 
 **API** : [`Ui.java`](../src/main/java/seedu/address/ui/Ui.java)
 
@@ -144,6 +150,7 @@ The `UI` component,
 ### 2.3. Logic component
 
 <img src="images/LogicClassDiagram.png" width="800"><br>
+_Figure 2.3.1 : Structure of the Logic Component_
 
 **API** : [`Logic.java`](../src/main/java/seedu/address/logic/Logic.java)
 
@@ -155,10 +162,12 @@ The `UI` component,
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")`
  API call.<br>
 <img src="images/DeletePersonSdForLogic.png" width="800"><br>
+_Figure 2.3.1 : Interactions Inside the Logic Component for the `delete 1` Command_
 
 ### 2.4. Model component
 
 <img src="images/ModelClassDiagram.png" width="800"><br>
+_Figure 2.4.1 : Structure of the Model Component_
 
 **API** : [`Model.java`](../src/main/java/seedu/address/model/Model.java)
 
@@ -172,6 +181,7 @@ The `Model`,
 ### 2.5. Storage component
 
 <img src="images/StorageClassDiagram.png" width="800"><br>
+_Figure 2.5.1 : Structure of the Storage Component_
 
 **API** : [`Storage.java`](../src/main/java/seedu/address/storage/Storage.java)
 
