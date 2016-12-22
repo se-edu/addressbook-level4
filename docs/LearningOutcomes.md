@@ -42,6 +42,7 @@ is given in the [`Logic.java`](../src/main/java/seedu/address/logic/Logic.java)
 <img src="images/LogicClassDiagram.png" width="800"><br>
 
 **Resources**
+
 * [A three-minutes video](https://www.youtube.com/watch?v=Un80XoRT1ME) of designing architecture of and 
   discovering component APIs for a Game of Tic-Tac-Toe. 
 
@@ -52,11 +53,13 @@ is given in the [`Logic.java`](../src/main/java/seedu/address/logic/Logic.java)
 Note how the AddressBook app uses Java `assert`s to verify assumptions.
 
 **Resources**
+
  * [Programming With Assertions](http://docs.oracle.com/javase/6/docs/technotes/guides/language/assert.html) - a 
      guide from Oracle. 
  * [How to enable assertions in Eclipse](http://stackoverflow.com/questions/5509082/eclipse-enable-assertions)
  
 #### Exercise: Add more assertions
+
  * Make sure assertions are enabled in Eclipse by forcing an assertion failure (e.g. add `assert false;` somewhere in 
  the code and run the code to ensure the runtime reports an assertion failure).
  
@@ -69,6 +72,7 @@ Note how the AddressBook app uses Java `assert`s to verify assumptions.
 Note [how the AddressBook app uses Java's `java.util.log` package to do logging](DeveloperGuide.md#logging).
 
 **Resources**
+
  * Tutorials
    * [Logging using java.util.logging](http://tutorials.jenkov.com/java-logging/index.html) - a tutorial by Jakob Jenkov
    * [Logging tutorial](http://docs.oracle.com/javase/7/docs/technotes/guides/logging/overview.html) - a more detailed 
@@ -79,6 +83,7 @@ Note [how the AddressBook app uses Java's `java.util.log` package to do logging]
    * [Base 22 Java Logging Standards and Guidelines](https://wiki.base22.com/display/btg/Java+Logging+Standards+and+Guidelines)
 
 #### Exercise: Add more logging
+
  Add more logging to AddressBook as you see fit.
  
 ------------------------------------------------------------------------------------------------------
@@ -89,9 +94,11 @@ Note [how the AddressBook app uses Java's `java.util.log` package to do logging]
  supposed to modify them.
  
 #### Exercise: identify more places for defensive coding
-  Analyze the AddressBook code/design to identify,
-   * where defensive coding is used
-   * where the code can be more defensive
+
+Analyze the AddressBook code/design to identify,
+  
+* where defensive coding is used
+* where the code can be more defensive
 
 ------------------------------------------------------------------------------------------------------
 
@@ -100,15 +107,18 @@ Note [how the AddressBook app uses Java's `java.util.log` package to do logging]
 Note [how the AddressBook app uses Gradle to automate build tasks](UsingGradle.md).
 
 **Resources**
+
  * Tutorials
    * [Getting started with Gradle (Java)](https://gradle.org/getting-started-gradle-java/) - a tutorial from the Gradle team
    * [Another tutorial](http://www.tutorialspoint.com/gradle/) - from TutorialPoint 
  
 #### Exercise: Use gradle to run tasks
+
  * Use gradle to do these tasks (instructions are [here](UsingGradle.md)) 
    : Run all tests in headless mode, build the jar file.
    
 #### Exercise: Use gradle to manage dependencies
+
  * Note how the build script `build.gradle` file manages third party dependencies such as ControlsFx. <br>
    Update that file to manage a third-party library dependency.
 
@@ -120,10 +130,12 @@ Note [how the AddressBook app uses Travis to perform Continuous Integration](Usi
 ([![Build Status](https://travis-ci.org/se-edu/addressbook-level4.svg?branch=master)](https://travis-ci.org/se-edu/addressbook-level4))
 
 **Resources**
+
  * Tutorials
    * [Getting started with Travis](https://docs.travis-ci.com/user/getting-started/) - a tutorial from the Travis team
  
 #### Exercise: Use Travis in your own project
+
  * Set up Travis to perform CI on your own project.
  
 ------------------------------------------------------------------------------------------------------
@@ -137,6 +149,7 @@ coverage of code pushed to your repo. [Here](https://coveralls.io/github/se-edu/
 
  
 #### Exercise: Use EclEmma to measure coverage locally
+
  * Install the [EclEmma Eclipse Plugin](http://www.eclemma.org/) in your computer and use that to find code that 
    is not covered by the tests. This plugin can help you to find coverage details even before you push code 
    to the remote repo.
@@ -151,7 +164,8 @@ the efficiency and effectiveness of test cases testing the
 [`StringUtil.java`](../src/main/java/seedu/address/commons/util/StringUtil.java) class.
 
  
-#### Exercise: Apply Test Case Design Heuristics to other places 
+#### Exercise: Apply Test Case Design Heuristics to other places
+
  * Find answers to these questions:
    * What is an Equivalence Partition? How does it help to improve E&E of testing?
    * What is Boundary Value Analysis? How does it help to improve E&E of testing?
@@ -163,6 +177,7 @@ the efficiency and effectiveness of test cases testing the
 ## Write Integration Tests `[LO-IntegrationTests]`
 
 Consider the [`StorageManagerTest.java`](../src/test/java/seedu/address/storage/StorageManagerTest.java) class.
+
 * Test methods `prefsReadSave()` and `addressBookReadSave()` are integration tests. Note how they simply test if
   The `StorageManager` class is correctly wired to its dependencies.
 
@@ -175,6 +190,7 @@ Many of the tests in that class (e.g. `execute_add_*` methods) tests are neither
 They are a _integration + unit_ tests because they not only checks if the LogicManager is correctly wired to its
 dependencies, but also checks the working of its dependencies. For example, the following two lines test the 
 the `LogicManager` but also the `Parser`.
+
 ```java
 @Test
 public void execute_add_invalidArgsFormat() throws Exception {
@@ -185,7 +201,8 @@ public void execute_add_invalidArgsFormat() throws Exception {
 }
 ```
  
-#### Exercise: Write unit and integration tests for the same method. 
+#### Exercise: Write unit and integration tests for the same method.
+
  * Write a unit test for a a high-level methods somewhere in the code base.
  * Write an integration test for the same method.
  
@@ -198,6 +215,7 @@ Note how tests below `src/test/java/guitests` package
 the entire system end-to-end.
  
 #### Exercise: Write more system tests 
+
  * Add some more system tests to the existing system tests.
  
 ------------------------------------------------------------------------------------------------------
@@ -215,6 +233,7 @@ Note how this project uses TextFX library to automate GUI testing, including
 ## Apply Design Patterns `[LO-DesignPatterns]`
 
 Here are some example design patterns used in the code base.
+
 * **Singleton Pattern** : [`EventsCenter.java`](../src/main/java/seedu/address/commons/core/EventsCenter.java) is 
   Singleton class. Its single instance can be accessed using the `EventsCenter.getInsance()` method.
 * **Facade Pattern** : [`StorageManager.java`](../src/main/java/seedu/address/storage/StorageManager.java) is 
@@ -240,12 +259,14 @@ Here are some example design patterns used in the code base.
 * **Abstraction Occurrence Pattern** : Not currently used in the app.
 
  
-#### Exercise: Discover other possible applications of the patterns  
+#### Exercise: Discover other possible applications of the patterns
+
  * Find other possible applications of the patterns to improve the current design.
    e.g. where else in the design can you apply the Singleton pattern?
  * Discuss pros and cons of applying the pattern in each of the situations you found in the previous step.
  
 #### Exercise: Find more applicable patterns 
+
  * Learn other _Gang of Four_ Design patterns to see if they are applicable to the app.
 
 ------------------------------------------------------------------------------------------------------
@@ -256,10 +277,12 @@ Here are some example design patterns used in the code base.
  compliance with the coding standard.
  
  Other popular Java static analysis tools:
+ 
  * [Find Bugs](http://findbugs.sourceforge.net/)
  * [PMD](https://pmd.github.io/)
   
 #### Exercise: Use the CheckStyle Eclipse plugin
+
   * Install the [CheckStyle Eclipse plugin](http://eclipse-cs.sourceforge.net/#!/) and use it to detect 
     coding standard violations.
     
@@ -273,6 +296,7 @@ Here are some example design patterns used in the code base.
   ([![Codacy Badge](https://api.codacy.com/project/badge/Grade/fc0b7775cf7f4fdeaf08776f3d8e364a)](https://www.codacy.com/app/damith/addressbook-level4?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=se-edu/addressbook-level4&amp;utm_campaign=Badge_Grade))
 
 Here are some things you can comment on when reviewing code:
+
 * Read the code from the perspective of a new developer.
   Identify parts that are harder to understand and suggest improvements.
 * Point out any coding standard violations.
