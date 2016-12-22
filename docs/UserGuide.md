@@ -1,4 +1,8 @@
-# User Guide
+# AddressBook Level 4 - User Guide
+
+By : `Team SE-EDU`  &nbsp;&nbsp;&nbsp;&nbsp; Since: `Jun 2016`  &nbsp;&nbsp;&nbsp;&nbsp; Licence: `MIT`
+
+---
 
 1. [Quick Start](#quick-start)
 2. [Features](#features)
@@ -8,8 +12,9 @@
 ## 1. Quick Start
 
 0. Ensure you have Java version `1.8.0_60` or later installed in your Computer.<br>
+   
    > Having any Java 8 version is not enough. <br>
-   This app will not work with earlier versions of Java 8.
+   > This app will not work with earlier versions of Java 8.
    
 1. Download the latest `addressbook.jar` from the [releases](../../../releases) tab.
 2. Copy the file to the folder you want to use as the home folder for your Address Book.
@@ -30,31 +35,37 @@
 ## 2. Features
 
 > **Command Format**
+>
 > * Words in `UPPER_CASE` are the parameters.
 > * Items in `SQUARE_BRACKETS` are optional.
 > * Items with `...` after them can have multiple instances.
 > * Parameters can be in any order.
 
 ### 2.1. Viewing help : `help`
+
 Format: `help`
 
 > Help is also shown if you enter an incorrect command e.g. `abcd`
  
 ### 2.2. Adding a person: `add`
+
 Adds a person to the address book<br>
 Format: `add NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` 
 
 > Persons can have any number of tags (including 0)
 
 Examples: 
+
 * `add John Doe p/98765432 e/johnd@gmail.com a/John street, block 123, #01-01`
 * `add Betsy Crowe t/friend e/betsycrowe@gmail.com a/Newgate Prison p/1234567 t/criminal`
 
 ### 2.3. Listing all persons : `list`
+
 Shows a list of all persons in the address book.<br>
 Format: `list`
 
 ### 2.4. Finding all persons containing any keyword in their name: `find`
+
 Finds persons whose names contain any of the given keywords.<br>
 Format: `find KEYWORD [MORE_KEYWORDS]`
 
@@ -66,20 +77,23 @@ Format: `find KEYWORD [MORE_KEYWORDS]`
     e.g. `Hans` will match `Hans Bo`
 
 Examples: 
+
 * `find John`<br>
   Returns `John Doe` but not `john`
 * `find Betsy Tim John`<br>
   Returns Any person having names `Betsy`, `Tim`, or `John`
 
 ### 2.5. Deleting a person : `delete`
+
 Deletes the specified person from the address book. Irreversible.<br>
 Format: `delete INDEX`
 
-> Deletes the person at the specified `INDEX`. 
-  The index refers to the index number shown in the most recent listing.<br>
-  The index **must be a positive integer** 1, 2, 3, ...
+> Deletes the person at the specified `INDEX`. <br>
+> The index refers to the index number shown in the most recent listing.<br>
+> The index **must be a positive integer** 1, 2, 3, ...
 
 Examples: 
+
 * `list`<br>
   `delete 2`<br>
   Deletes the 2nd person in the address book.
@@ -88,14 +102,16 @@ Examples:
   Deletes the 1st person in the results of the `find` command.
 
 ### 2.6. Select a person : `select`
+
 Selects the person identified by the index number used in the last person listing.<br>
 Format: `select INDEX`
 
-> Selects the person and loads the Google search page the person at the specified `INDEX`. 
-  The index refers to the index number shown in the most recent listing.<br>
-  The index **must be a positive integer** 1, 2, 3, ...
+> Selects the person and loads the Google search page the person at the specified `INDEX`.<br> 
+> The index refers to the index number shown in the most recent listing.<br>
+> The index **must be a positive integer** 1, 2, 3, ...
 
 Examples: 
+
 * `list`<br>
   `select 2`<br>
   Selects the 2nd person in the address book.
@@ -104,14 +120,17 @@ Examples:
   Selects the 1st person in the results of the `find` command.
 
 ### 2.7. Clearing all entries : `clear`
+
 Clears all entries from the address book.<br>
 Format: `clear`  
 
 ### 2.8. Exiting the program : `exit`
+
 Exits the program.<br>
 Format: `exit`  
 
 ### 2.9. Saving the data 
+
 Address book data are saved in the hard disk automatically after any command that changes the data.<br>
 There is no need to save manually.
 
