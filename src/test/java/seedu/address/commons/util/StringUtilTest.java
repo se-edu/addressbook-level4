@@ -8,6 +8,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.junit.Rule;
@@ -169,30 +170,28 @@ public class StringUtilTest {
 
     @Test
     public void toIndexedListString_listContainsNull_assertionError() {
-        thrown.expect(AssertionError.class);
         List<Object> containingNull = new ArrayList<>();
         containingNull.add(null);
+        thrown.expect(AssertionError.class);
         StringUtil.toIndexedListString(containingNull);
     }
 
     @Test
-    public void toIndexListString_validList_correctResult() {
+    public void toIndexedListString_validList_correctResult() {
         List<Object> items = new ArrayList<>();
         // testing different object types
         items.add("bob bob bob bobbobob");
         items.add(new Integer(1));
         items.add(new int[] {1, 2});
-        assertEquals(StringUtil.toIndexedListString(items),
-                "1. " + items.get(0).toString() + "\n"
+        String expectedString = "1. " + items.get(0).toString() + "\n"
                 + "2. " + items.get(1).toString() + "\n"
-                + "3. " + items.get(2).toString());
+                + "3. " + items.get(2).toString();
+        assertEquals(expectedString, StringUtil.toIndexedListString(items));
     }
 
     @Test
-    public void toIndexListString_emptyList_emptyResult() {
-        List<Object> emptyList = new ArrayList<>();
-        String emptyString = "";
-        assertEquals(StringUtil.toIndexedListString(emptyList), emptyString);
+    public void toIndexedListString_emptyList_emptyResult() {
+        assertEquals("", StringUtil.toIndexedListString(Collections.emptyList()));
     }
 
 }
