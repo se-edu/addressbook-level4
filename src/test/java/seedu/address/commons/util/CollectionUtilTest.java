@@ -13,31 +13,34 @@ import org.junit.Test;
 
 public class CollectionUtilTest {
     @Test
-    public void isAnyNull() {
-        // empty list
+    public void isAnyNull_Varargs() {
+        // null array reference
+        assertTrue(CollectionUtil.isAnyNull((Object[]) null));
+
+        // empty argument
         assertFalse(CollectionUtil.isAnyNull());
 
-        // Any non-empty list
+        // Any non-empty argument
         assertFalse(CollectionUtil.isAnyNull(new Object(), new Object()));
         assertFalse(CollectionUtil.isAnyNull("test"));
         assertFalse(CollectionUtil.isAnyNull(""));
 
-        // non empty list with just one null at the beginning
+        // non empty arguments with just one null at the beginning
         assertTrue(CollectionUtil.isAnyNull((Object) null));
         assertTrue(CollectionUtil.isAnyNull(null, "", new Object()));
         assertTrue(CollectionUtil.isAnyNull(null, new Object(), new Object()));
 
-        // non empty list with nulls in the middle
+        // non empty arguments with nulls in the middle
         assertTrue(CollectionUtil.isAnyNull(new Object(), null, null, "test"));
         assertTrue(CollectionUtil.isAnyNull("", null, new Object()));
 
-        // non empty list with one null as the last element
+        // non empty arguments with one null as the last argument
         assertTrue(CollectionUtil.isAnyNull("", new Object(), null));
         assertTrue(CollectionUtil.isAnyNull(new Object(), new Object(), null));
 
         // confirms nulls inside the list are not considered
-        List<Object> nullList = Arrays.asList((Object) null);
-        assertFalse(CollectionUtil.isAnyNull(nullList));
+        List<Object> containingNull = Arrays.asList((Object) null);
+        assertFalse(CollectionUtil.isAnyNull(containingNull, new Object()));
     }
 
     @Test
@@ -110,4 +113,5 @@ public class CollectionUtilTest {
     private void assertNotUnique(Object... objects) {
         assertFalse(CollectionUtil.elementsAreUnique(Arrays.asList(objects)));
     }
+
 }
