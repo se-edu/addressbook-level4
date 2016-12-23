@@ -3,7 +3,10 @@ package seedu.address.commons.util;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import org.junit.Test;
@@ -35,6 +38,44 @@ public class CollectionUtilTest {
         // confirms nulls inside the list are not considered
         List<Object> nullList = Arrays.asList((Object) null);
         assertFalse(CollectionUtil.isAnyNull(nullList));
+    }
+
+    @Test
+    public void isAnyNull_Collection() {
+        // null reference
+        Collection<Object> nullList = null;
+        assertTrue(CollectionUtil.isAnyNull(nullList));
+
+        // list containing null at the front
+        Collection<Object> frontNull = new ArrayList<>();
+        frontNull.add(null);
+        frontNull.add(new Object());
+        frontNull.add("");
+        assertTrue(CollectionUtil.isAnyNull(frontNull));
+
+        // list containing null in the middle
+        Collection<Object> middleNull = new ArrayList<>();
+        middleNull.add("asd");
+        middleNull.add(null);
+        middleNull.add(new Object());
+        assertTrue(CollectionUtil.isAnyNull(middleNull));
+
+        // list containing null at the end
+        Collection<Object> endNull = new ArrayList<>();
+        endNull.add("xbcbxc");
+        endNull.add(new Object());
+        endNull.add(null);
+        assertTrue(CollectionUtil.isAnyNull(endNull));
+
+        // empty list
+        assertFalse(CollectionUtil.isAnyNull(Collections.emptyList()));
+
+        // valid non-empty list
+        Collection<Object> validList = new ArrayList<>();
+        validList.add(new Object());
+        validList.add("asdadasd");
+        validList.add(new Integer(1));
+        assertFalse(CollectionUtil.isAnyNull(validList));
     }
 
     @Test
