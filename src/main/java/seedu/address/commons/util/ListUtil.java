@@ -23,7 +23,7 @@ public class ListUtil {
     public static <T> List<T> sublistFromIndices(List<T> list, int offset, Integer... indices) {
         assert list != null;
         assert !CollectionUtil.isAnyNull((Object[]) indices);
-        assert areValidIndicesOf(list, offset, Arrays.asList(indices));
+        assert areIndicesWithinBounds(list, Arrays.asList(indices));
         return Stream.of(indices)
                 .distinct()
                 .sorted()
@@ -43,7 +43,7 @@ public class ListUtil {
     public static <T> List<T> sublistFromIndices(List<T> list, int offset, List<Integer> indices) {
         assert list != null;
         assert !CollectionUtil.isAnyNull(indices);
-        assert areValidIndicesOf(list, offset, indices);
+        assert areIndicesWithinBounds(list, indices);
         return indices.stream()
                 .distinct()
                 .sorted()
@@ -51,8 +51,10 @@ public class ListUtil {
                 .collect(Collectors.toList());
     }
 
-    /** Returns true if every index in {@code indices} is within bounds of {@list} after applying the {@code offset} */
-    private static <T> boolean areValidIndicesOf(List<T> list, int offset, List<Integer> indices) {
-        return Collections.min(indices) + offset >= 0 && Collections.max(indices) + offset < list.size();
+    /** Returns true if every index in {@code indices} is within bounds of {@code list}. */
+    public static boolean areIndicesWithinBounds(List<?> list, Collection<Integer> indices) {
+        assert list != null;
+        assert !CollectionUtil.isAnyNull(indices);
+        return Collections.min(indices) >= 0 && Collections.max(indices) < list.size();
     }
 }
