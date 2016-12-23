@@ -15,29 +15,24 @@ import seedu.address.testutil.TestUtil;
 
 public class DeleteCommandTest extends AddressBookGuiTest {
 
-    public static final int PERSON_LIST_INDEX_OFFSET = -1;
-
     @Test
     public void delete_nonRangedIndices() {
         TestPerson[] currentList = td.getTypicalPersons();
 
         // deleting from front
-        List<TestPerson> expectedPersonsDeleted =
-                ListUtil.sublistFromIndices(Arrays.asList(currentList), PERSON_LIST_INDEX_OFFSET, 1);
+        List<TestPerson> expectedPersonsDeleted = ListUtil.subList(Arrays.asList(currentList), 0);
         TestPerson[] expectedRemainder = getDeletedRemainder(currentList, expectedPersonsDeleted);
         assertDeleteSuccess("1", expectedRemainder, expectedPersonsDeleted);
         currentList = expectedRemainder;
 
         // deleting from rear
-        expectedPersonsDeleted =
-                ListUtil.sublistFromIndices(Arrays.asList(currentList), PERSON_LIST_INDEX_OFFSET, currentList.length);
+        expectedPersonsDeleted = ListUtil.subList(Arrays.asList(currentList), currentList.length - 1);
         expectedRemainder = getDeletedRemainder(currentList, expectedPersonsDeleted);
         assertDeleteSuccess("" + currentList.length, expectedRemainder, expectedPersonsDeleted);
         currentList = expectedRemainder;
 
         // deleting from middle
-        expectedPersonsDeleted = ListUtil.sublistFromIndices(Arrays.asList(currentList), PERSON_LIST_INDEX_OFFSET,
-                currentList.length / 2);
+        expectedPersonsDeleted = ListUtil.subList(Arrays.asList(currentList), currentList.length / 2 - 1);
         expectedRemainder = getDeletedRemainder(currentList, expectedPersonsDeleted);
         assertDeleteSuccess("" + currentList.length / 2, expectedRemainder, expectedPersonsDeleted);
     }
@@ -47,15 +42,13 @@ public class DeleteCommandTest extends AddressBookGuiTest {
         TestPerson[] currentList = td.getTypicalPersons();
 
         // deleting ascending range
-        List<TestPerson> expectedPersonsDeleted =
-                ListUtil.sublistFromIndices(Arrays.asList(currentList), PERSON_LIST_INDEX_OFFSET, 1, 2, 3);
+        List<TestPerson> expectedPersonsDeleted = ListUtil.subList(Arrays.asList(currentList), 0, 1, 2);
         TestPerson[] expectedRemainder = getDeletedRemainder(currentList, expectedPersonsDeleted);
         assertDeleteSuccess("1-3", expectedRemainder, expectedPersonsDeleted);
         currentList = expectedRemainder;
 
         // deleting descending range
-        expectedPersonsDeleted =
-                ListUtil.sublistFromIndices(Arrays.asList(currentList), PERSON_LIST_INDEX_OFFSET, 2, 3, 4);
+        expectedPersonsDeleted = ListUtil.subList(Arrays.asList(currentList), 1, 2, 3);
         expectedRemainder = getDeletedRemainder(currentList, expectedPersonsDeleted);
         assertDeleteSuccess("4-2", expectedRemainder, expectedPersonsDeleted);
     }
@@ -63,8 +56,7 @@ public class DeleteCommandTest extends AddressBookGuiTest {
     @Test
     public void delete_multipleIndicesOrdered() {
         TestPerson[] currentList = td.getTypicalPersons();
-        List<TestPerson> expectedPersonsDeleted =
-                ListUtil.sublistFromIndices(Arrays.asList(currentList), PERSON_LIST_INDEX_OFFSET, 1, 2, 3, 5, 7);
+        List<TestPerson> expectedPersonsDeleted = ListUtil.subList(Arrays.asList(currentList), 0, 1, 2, 4, 6);
         TestPerson[] expectedRemainder = getDeletedRemainder(currentList, expectedPersonsDeleted);
         assertDeleteSuccess("1-3 5 7", expectedRemainder, expectedPersonsDeleted);
     }
@@ -72,17 +64,15 @@ public class DeleteCommandTest extends AddressBookGuiTest {
     @Test
     public void delete_multipleIndicesUnordered() {
         TestPerson[] currentList = td.getTypicalPersons();
-        List<TestPerson> expectedPersonsDeleted =
-                ListUtil.sublistFromIndices(Arrays.asList(currentList), PERSON_LIST_INDEX_OFFSET, 1, 2, 3, 5, 7);
+        List<TestPerson> expectedPersonsDeleted = ListUtil.subList(Arrays.asList(currentList), 0, 1, 2, 4, 6);
         TestPerson[] expectedRemainder = getDeletedRemainder(currentList, expectedPersonsDeleted);
         assertDeleteSuccess("5 1-3 7", expectedRemainder, expectedPersonsDeleted);
     }
 
     @Test
-    public void delete_ignoresDuplicates() {
+    public void delete_duplicateIndices_duplicatesIgnored() {
         TestPerson[] currentList = td.getTypicalPersons();
-        List<TestPerson> expectedPersonsDeleted =
-                ListUtil.sublistFromIndices(Arrays.asList(currentList), PERSON_LIST_INDEX_OFFSET, 1);
+        List<TestPerson> expectedPersonsDeleted = ListUtil.subList(Arrays.asList(currentList), 0);
         TestPerson[] expectedRemainder = getDeletedRemainder(currentList, expectedPersonsDeleted);
         assertDeleteSuccess("1 1 1 1 1", expectedRemainder, expectedPersonsDeleted);
     }
@@ -90,8 +80,7 @@ public class DeleteCommandTest extends AddressBookGuiTest {
     @Test
     public void delete_overlappingRanges() {
         TestPerson[] currentList = td.getTypicalPersons();
-        List<TestPerson> expectedPersonsDeleted =
-                ListUtil.sublistFromIndices(Arrays.asList(currentList), PERSON_LIST_INDEX_OFFSET, 4, 5, 6);
+        List<TestPerson> expectedPersonsDeleted = ListUtil.subList(Arrays.asList(currentList), 3, 4, 5);
         TestPerson[] expectedRemainder = getDeletedRemainder(currentList, expectedPersonsDeleted);
         assertDeleteSuccess("4-5 4-6 5-6 4-4 5-5 6-6", expectedRemainder, expectedPersonsDeleted);
     }
@@ -99,8 +88,7 @@ public class DeleteCommandTest extends AddressBookGuiTest {
     @Test
     public void delete_excessiveWhitespaces() {
         TestPerson[] currentList = td.getTypicalPersons();
-        List<TestPerson> expectedPersonsDeleted =
-                ListUtil.sublistFromIndices(Arrays.asList(currentList), PERSON_LIST_INDEX_OFFSET, 2, 3);
+        List<TestPerson> expectedPersonsDeleted = ListUtil.subList(Arrays.asList(currentList), 1, 2);
         TestPerson[] expectedRemainder = getDeletedRemainder(currentList, expectedPersonsDeleted);
         assertDeleteSuccess("         2      3      ", expectedRemainder, expectedPersonsDeleted);
     }

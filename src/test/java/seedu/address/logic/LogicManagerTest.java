@@ -335,14 +335,14 @@ public class LogicManagerTest {
         helper.addToModel(model, testPersons);
 
         // deleting subsets in consecutive order
-        String expectedFeedback = deleteHelper.deleteAtIndices(expectedAB, testPersons, 1, 2, 5, 7, 9, 10, 11, 12);
+        String expectedFeedback = deleteHelper.deleteAtIndices(expectedAB, testPersons, 0, 1, 4, 6, 8, 9, 10, 11);
         assertCommandBehavior("delete 1 2 5 7 9-12",
                 expectedFeedback,
                 expectedAB,
                 expectedAB.getPersonList());
 
         // deleting from unordered subsets
-        expectedFeedback = deleteHelper.deleteAtIndices(expectedAB, testPersons, 1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 12, 13);
+        expectedFeedback = deleteHelper.deleteAtIndices(expectedAB, testPersons, 0, 1, 2, 3, 4, 5, 6, 7, 8, 10, 11, 12);
         assertCommandBehavior("delete 7-9 1 5-6 4 2 3 11-13",
                 expectedFeedback,
                 expectedAB,
@@ -358,7 +358,7 @@ public class LogicManagerTest {
         AddressBook expectedAB = helper.generateAddressBook(testPersons);
         helper.addToModel(model, testPersons);
 
-        String expectedFeedback = deleteHelper.deleteAtIndices(expectedAB, testPersons, 5);
+        String expectedFeedback = deleteHelper.deleteAtIndices(expectedAB, testPersons, 4);
         assertCommandBehavior("delete 5 5 5 5 5 5 5",
                 expectedFeedback,
                 expectedAB,
@@ -374,7 +374,7 @@ public class LogicManagerTest {
         AddressBook expectedAB = helper.generateAddressBook(testPersons);
         helper.addToModel(model, testPersons);
 
-        String expectedFeedback = deleteHelper.deleteAtIndices(expectedAB, testPersons, 3, 4, 5);
+        String expectedFeedback = deleteHelper.deleteAtIndices(expectedAB, testPersons, 2, 3, 4);
         assertCommandBehavior("delete       3          4      5    ",
                 expectedFeedback,
                 expectedAB,
@@ -591,14 +591,14 @@ public class LogicManagerTest {
         String deleteAtIndices(AddressBook expectedAB, List<Person> testPersons, Integer... targetIndices)
                 throws Exception {
 
-            List<Person> toDelete = ListUtil.sublistFromIndices(testPersons, -1, targetIndices);
+            List<Person> toDelete = ListUtil.subList(testPersons, targetIndices);
 
             for (Person p : toDelete) {
                 testPersons.remove(p);
                 expectedAB.removePerson(p);
             }
 
-            return String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, targetIndices.length,
+            return String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, toDelete.size(),
                     StringUtil.toIndexedListString(toDelete));
         }
     }

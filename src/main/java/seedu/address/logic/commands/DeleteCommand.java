@@ -1,11 +1,13 @@
 package seedu.address.logic.commands;
 
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.util.CollectionUtil;
+import seedu.address.commons.util.IntegerUtil;
 import seedu.address.commons.util.ListUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.model.person.ReadOnlyPerson;
@@ -29,12 +31,11 @@ public class DeleteCommand extends Command {
             "Deleted %1$s Person(s):\n"
             + "%2$s";
 
-    public final List<Integer> targetIndices;
+    public final Collection<Integer> targetIndices;
 
-    public DeleteCommand(List<Integer> targetIndices) {
-        // At this point, targetIndices should not contain any indices below 1.
+    public DeleteCommand(Collection<Integer> targetIndices) {
         assert !CollectionUtil.isAnyNull(targetIndices);
-        assert Collections.min(targetIndices) >= 1;
+        assert Collections.min(targetIndices) >= 1 : "DeleteCommand: targetIndices not verified to be > 0 by caller";
         this.targetIndices = targetIndices;
     }
 
@@ -42,26 +43,24 @@ public class DeleteCommand extends Command {
     public CommandResult execute() {
         UnmodifiableObservableList<ReadOnlyPerson> lastShownList = model.getFilteredPersonList();
 
-        if (!hasValidIndicesFor(lastShownList)) {
+        IntegerUtil.applyOffset(targetIndices, -1);
+
+        if (!ListUtil.areIndicesWithinBounds(lastShownList, targetIndices)) {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
-        List<ReadOnlyPerson> deletedPersons = deletePersonsFrom(lastShownList);
+        List<ReadOnlyPerson> deletedPersons = deletePersonsFrom(lastShownList, targetIndices);
 
         return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, deletedPersons.size(),
                 StringUtil.toIndexedListString(deletedPersons)));
     }
 
-    /*
-     * =========================================================================
-     *                             Helper Methods
-     * =========================================================================
-     */
-
     /** Deletes persons from {@code targetList} then returns the list of deleted persons. */
-    private List<ReadOnlyPerson> deletePersonsFrom(UnmodifiableObservableList<ReadOnlyPerson> targetList) {
-        List<ReadOnlyPerson> personsToDelete = ListUtil.sublistFromIndices(targetList, -1, targetIndices);
+    private List<ReadOnlyPerson> deletePersonsFrom(List<ReadOnlyPerson> targetList,
+            Collection<Integer> indicesToDelete) {
+
+        List<ReadOnlyPerson> personsToDelete = ListUtil.subList(targetList, indicesToDelete);
         try {
             for (ReadOnlyPerson person : personsToDelete) {
                 model.deletePerson(person);
@@ -70,12 +69,6 @@ public class DeleteCommand extends Command {
             assert false : "The target person cannot be missing";
         }
         return personsToDelete;
-    }
-
-    /** Returns true if all indices are valid, that is, they are within bounds of {@code targetList}. */
-    private boolean hasValidIndicesFor(List<? extends ReadOnlyPerson> targetList) {
-        assert targetList != null;
-        return Collections.max(targetIndices) <= targetList.size();
     }
 
 }
