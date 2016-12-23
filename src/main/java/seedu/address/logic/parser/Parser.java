@@ -5,16 +5,15 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import seedu.address.commons.exceptions.IllegalValueException;
@@ -137,7 +136,7 @@ public class Parser {
      */
     private Command prepareDelete(String args) {
         final List<String> tokenized = Arrays.asList(args.trim().split("\\s+"));
-        final Optional<List<Integer>> indices = parseMixedIndices(tokenized);
+        final Optional<Collection<Integer>> indices = parseIndices(tokenized);
         if (!indices.isPresent()) {
             return new IncorrectCommand(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
@@ -188,36 +187,29 @@ public class Parser {
      */
 
     /**
-     * Returns a list of indices extracted from {@code tokens}.<br>
-     *
-     * These tokens must also contain either: <br>
+     * Returns a {@code Collection} of indices extracted from {@code tokens} if each token contains either:<br>
      * <ul>
      *   <li> a positive unsigned integer i.e. a non-ranged index </li>
      *   <li> or positive unsigned integers surrounding a {@code PERSON_INDEX_RANGE_INDICATOR}
      *          i.e. a ranged index</li>
      * </ul>
      *
-     * Hence 'mixed' as {@code tokens} may contain both ranged and non-ranged indices. <br>
-     * The returned indices may be unordered and have duplicates.
      * Returns an {@code Optional.empty()} otherwise.
      */
-    private Optional<List<Integer>> parseMixedIndices(List<String> tokens) {
-
-        // Partitioning tokens into ranged indices and non-ranged indices.
-        final Map<Boolean, List<String>> areRangedTokens = tokens.stream()
-                .collect(Collectors.partitioningBy(token -> token.contains(PERSON_INDEX_RANGE_INDICATOR)));
-
-        // Extracting indices from tokens.
-        final Optional<List<Integer>> indicesFromRangedTokens = parseRangedIndices(areRangedTokens.get(true));
-        final Optional<List<Integer>> indicesFromNonRangedTokens = parseIndices(areRangedTokens.get(false));
-        if (!indicesFromRangedTokens.isPresent() || !indicesFromNonRangedTokens.isPresent()) {
-            return Optional.empty();
+    private Optional<Collection<Integer>> parseIndices(Collection<String> tokens) {
+        final Collection<Integer> indices = new ArrayList<>();
+        for (String token : tokens) {
+            String toParse = token;
+            if (!token.contains(PERSON_INDEX_RANGE_INDICATOR)) {
+                toParse = toRangedIndex(token); // Emulating a ranged index even if it's not.
+            }
+            final Optional<IndexRange> indexRange = parseRangedIndex(toParse);
+            if (!indexRange.isPresent()) {
+                return Optional.empty();
+            }
+            // Adding every index from start to end (inclusive) to 'indices'.
+            IntStream.rangeClosed(indexRange.get().start, indexRange.get().end).forEach(indices::add);
         }
-
-        final List<Integer> indices = new ArrayList<>();
-        indices.addAll(indicesFromRangedTokens.get());
-        indices.addAll(indicesFromNonRangedTokens.get());
-
         return Optional.of(indices);
     }
 
@@ -243,27 +235,6 @@ public class Parser {
     }
 
     /**
-     * Returns a list of indices extracted from {@code tokens} if each token contains positive
-     * unsigned integers surrounding a {@code PERSON_INDEX_RANGE_INDICATOR}.
-     *
-     * Returns an {@code Optional.empty()} otherwise.
-     */
-    private Optional<List<Integer>> parseRangedIndices(List<String> tokens) {
-        final List<Integer> indices = new ArrayList<>();
-        for (final String token : tokens) {
-            final Optional<IndexRange> indexRange = parseRangedIndex(token);
-            if (!indexRange.isPresent()) {
-                return Optional.empty();
-            }
-
-            // Adding every index from start to end (inclusive) to 'indices'.
-            IntStream.rangeClosed(indexRange.get().start, indexRange.get().end).forEach(indices::add);
-        }
-
-        return Optional.of(indices);
-    }
-
-    /**
      * Returns a single specified index in {@code token} if it is a positive unsigned integer.
      *
      * Returns an {@code Optional.empty()} otherwise.
@@ -282,33 +253,21 @@ public class Parser {
         return Optional.of(Integer.parseInt(index));
     }
 
-    /**
-     * Returns a list of indices extracted from {@code tokens} if each token contains a positive unsigned integer.
-     *
-     * Returns an {@code Optional.empty()} otherwise.
-     */
-    private Optional<List<Integer>> parseIndices(List<String> tokens) {
-        final List<Integer> indices = new ArrayList<>();
-        for (final String token : tokens) {
-            final Optional<Integer> index = parseIndex(token);
-            if (!index.isPresent()) {
-                return Optional.empty();
-            }
-            indices.add(index.get());
-        }
-
-        return Optional.of(indices);
-    }
-
     private Set<String> toSet(Optional<List<String>> tagsOptional) {
         List<String> tags = tagsOptional.orElse(Collections.emptyList());
         return new HashSet<>(tags);
     }
 
+    private String toRangedIndex(String toConvert) {
+        assert toConvert != null;
+        final String trimmed = toConvert.trim();
+        return trimmed + PERSON_INDEX_RANGE_INDICATOR + trimmed;
+    }
+
     /**
      * Represents an ascending index range.
      */
-    private class IndexRange {
+    private static class IndexRange {
         public final int start;
         public final int end;
 
