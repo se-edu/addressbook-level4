@@ -2,9 +2,7 @@ package seedu.address.commons.util;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
+import java.util.Collection;
 
 /**
  * Helper functions for handling strings.
@@ -60,14 +58,19 @@ public class StringUtil {
     }
 
     /**
-     * Returns a string that has all items in {@code items} on its own indexed new line.
-     * @param items items to be indexed.
-     * @return a string that has all items on an indexed new line.
+     * Returns a string that has each item in {@code items} on its own 'one-indexed' new line.
      */
-    public static <T> String toIndexedListString(List<T> items) {
+    public static String toIndexedListString(Collection<?> items) {
         assert !CollectionUtil.isAnyNull(items);
-        return IntStream.range(0, items.size())
-                .mapToObj(i -> (i + 1) + ". " + items.get(i).toString())
-                .collect(Collectors.joining("\n"));
+        StringBuilder sb = new StringBuilder();
+        int index = 1;
+        for (Object item : items) {
+            sb.append(index).append(". ").append(item.toString());
+            if (index < items.size()) {
+                sb.append("\n");
+            }
+            index++;
+        }
+        return sb.toString();
     }
 }
