@@ -326,72 +326,6 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void execute_deleteNonRanged_removesCorrectly() throws Exception {
-        TestDataHelper helper = new TestDataHelper();
-        DeleteHelper deleteHelper = new DeleteHelper();
-
-        List<Person> testPersons = helper.generatePersonList(10);
-        AddressBook expectedAB = helper.generateAddressBook(testPersons);
-        helper.addToModel(model, testPersons);
-
-        // deleting first person
-        String expectedFeedback = deleteHelper.deleteAtIndices(expectedAB, testPersons, 1);
-        assertCommandBehavior("delete 1",
-                expectedFeedback,
-                expectedAB,
-                expectedAB.getPersonList());
-
-        // deleting last person
-        int lastIdx = testPersons.size();
-        expectedFeedback = deleteHelper.deleteAtIndices(expectedAB, testPersons, lastIdx);
-        assertCommandBehavior("delete " + lastIdx,
-                expectedFeedback,
-                expectedAB,
-                expectedAB.getPersonList());
-
-        // deleting multiple persons
-        expectedFeedback = deleteHelper.deleteAtIndices(expectedAB, testPersons, 1, 4, 5);
-        assertCommandBehavior("delete 1 5 4",
-                expectedFeedback,
-                expectedAB,
-                expectedAB.getPersonList());
-
-    }
-
-    @Test
-    public void execute_deleteRanged_removesCorrectly() throws Exception {
-        TestDataHelper helper = new TestDataHelper();
-        DeleteHelper deleteHelper = new DeleteHelper();
-
-        List<Person> testPersons = helper.generatePersonList(20);
-        AddressBook expectedAB = helper.generateAddressBook(testPersons);
-        helper.addToModel(model, testPersons);
-
-        // deleting range in ascending order
-        String expectedFeedback = deleteHelper.deleteAtIndices(expectedAB, testPersons, 1, 2, 3);
-        assertCommandBehavior("delete 1-3",
-                expectedFeedback,
-                expectedAB,
-                expectedAB.getPersonList());
-
-        // deleting range in descending order
-        expectedFeedback = deleteHelper.deleteAtIndices(expectedAB, testPersons, 2, 3, 4);
-        assertCommandBehavior("delete 4-2",
-                expectedFeedback,
-                expectedAB,
-                expectedAB.getPersonList());
-
-        // deleting multiple ranges
-        int lastIdx = testPersons.size();
-        int secondLastIdx = lastIdx - 1;
-        expectedFeedback = deleteHelper.deleteAtIndices(expectedAB, testPersons, 1, 2, 3, 4, secondLastIdx, lastIdx);
-        assertCommandBehavior("delete 1-2 3-4 " + secondLastIdx + "-" + lastIdx,
-                expectedFeedback,
-                expectedAB,
-                expectedAB.getPersonList());
-    }
-
-    @Test
     public void execute_deleteRangedAndNonRanged_removesCorrectly() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         DeleteHelper deleteHelper = new DeleteHelper();
@@ -432,23 +366,7 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void execute_deleteOverlappingRanges_removesCorrectly() throws Exception {
-        TestDataHelper helper = new TestDataHelper();
-        DeleteHelper deleteHelper = new DeleteHelper();
-
-        List<Person> testPersons = helper.generatePersonList(5);
-        AddressBook expectedAB = helper.generateAddressBook(testPersons);
-        helper.addToModel(model, testPersons);
-
-        String expectedFeedback = deleteHelper.deleteAtIndices(expectedAB, testPersons, 1, 2, 3);
-        assertCommandBehavior("delete 1-3 2-3 1-1 2-2 3-3",
-                expectedFeedback,
-                expectedAB,
-                expectedAB.getPersonList());
-    }
-
-    @Test
-    public void execute_deleteExcessiveWhiteSpace_removesCorrectly() throws Exception {
+    public void execute_deleteExcessiveWhiteSpaces_removesCorrectly() throws Exception {
         TestDataHelper helper = new TestDataHelper();
         DeleteHelper deleteHelper = new DeleteHelper();
 
