@@ -16,11 +16,18 @@ public class ResultDisplayHandle extends GuiHandle {
         super(guiRobot, primaryStage, TestApp.APP_TITLE);
     }
 
+    /**
+     * Clicks on the TextArea.
+     */
+    public void clickOnTextArea() {
+        guiRobot.clickOn(RESULT_DISPLAY_ID);
+    }
+
     public String getText() {
         return getResultDisplay().getText();
     }
 
     private TextArea getResultDisplay() {
-        return (TextArea) getNode(RESULT_DISPLAY_ID);
+        return getNode(RESULT_DISPLAY_ID);
     }
 }

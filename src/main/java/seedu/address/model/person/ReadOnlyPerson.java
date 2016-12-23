@@ -48,18 +48,4 @@ public interface ReadOnlyPerson {
         return builder.toString();
     }
 
-    /**
-     * Returns a string representation of this Person's tags
-     */
-    default String tagsString() {
-        final StringBuffer buffer = new StringBuffer();
-        final String separator = ", ";
-        getTags().forEach(tag -> buffer.append(tag).append(separator));
-        if (buffer.length() == 0) {
-            return "";
-        } else {
-            return buffer.substring(0, buffer.length() - separator.length());
-        }
-    }
-
 }

@@ -14,6 +14,13 @@ public class CommandBoxHandle extends GuiHandle {
         super(guiRobot, primaryStage, stageTitle);
     }
 
+    /**
+     * Clicks on the TextField.
+     */
+    public void clickOnTextField() {
+        guiRobot.clickOn(COMMAND_INPUT_FIELD_ID);
+    }
+
     public void enterCommand(String command) {
         setTextField(COMMAND_INPUT_FIELD_ID, command);
     }

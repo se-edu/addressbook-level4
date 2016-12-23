@@ -31,14 +31,15 @@ public abstract class UiPart {
     }
 
     /**
+     * Sets the main node of the UiPart.
      * Override this method to receive the main Node generated while loading the view from the .fxml file.
      * @param node
      */
     public abstract void setNode(Node node);
 
     /**
+     * Returns the path to the fxml file.
      * Override this method to return the name of the fxml file. e.g. {@code "MainWindow.fxml"}
-     * @return
      */
     public abstract String getFxmlPath();
 

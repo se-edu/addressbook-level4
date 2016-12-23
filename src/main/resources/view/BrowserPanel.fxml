@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.web.WebView?>
+
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.address.ui.BrowserPanel">
+    <WebView fx:id="browser"/>
+</AnchorPane>

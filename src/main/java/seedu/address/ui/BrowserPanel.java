@@ -1,6 +1,7 @@
 package seedu.address.ui;
 
 import javafx.event.Event;
+import javafx.fxml.FXML;
 import javafx.scene.Node;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.web.WebView;
@@ -16,14 +17,10 @@ import java.util.logging.Logger;
 public class BrowserPanel extends UiPart {
 
     private static Logger logger = LogsCenter.getLogger(BrowserPanel.class);
+    private static final String FXML = "BrowserPanel.fxml";
+
+    @FXML
     private WebView browser;
-
-    /**
-     * Constructor is kept private as {@link #load(AnchorPane)} is the only way to create a BrowserPanel.
-     */
-    private BrowserPanel() {
-
-    }
 
     @Override
     public void setNode(Node node) {
@@ -32,18 +29,18 @@ public class BrowserPanel extends UiPart {
 
     @Override
     public String getFxmlPath() {
-        return null; //not applicable
+        return FXML;
     }
 
     /**
-     * Factory method for creating a Browser Panel.
+     * Creates a BrowserPanel.
+     * This is the factory method for creating a Browser Panel.
      * This method should be called after the FX runtime is initialized and in FX application thread.
      * @param placeholder The AnchorPane where the BrowserPanel must be inserted
      */
     public static BrowserPanel load(AnchorPane placeholder) {
         logger.info("Initializing browser");
-        BrowserPanel browserPanel = new BrowserPanel();
-        browserPanel.browser = new WebView();
+        BrowserPanel browserPanel = UiPartLoader.loadUiPart(placeholder, new BrowserPanel());
         placeholder.setOnKeyPressed(Event::consume); // To prevent triggering events for typing inside the
                                                      // loaded Web page.
         FxViewUtil.applyAnchorBoundaryParameters(browserPanel.browser, 0.0, 0.0, 0.0, 0.0);

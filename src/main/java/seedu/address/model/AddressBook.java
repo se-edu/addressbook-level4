@@ -33,14 +33,14 @@ public class AddressBook implements ReadOnlyAddressBook {
     public AddressBook() {}
 
     /**
-     * Persons and Tags are copied into this addressbook
+     * Creates an AddressBook using the Persons and Tags in the {@code toBeCopied}
      */
     public AddressBook(ReadOnlyAddressBook toBeCopied) {
         this(toBeCopied.getUniquePersonList(), toBeCopied.getUniqueTagList());
     }
 
     /**
-     * Persons and Tags are copied into this addressbook
+     * Creates an AddressBook by copying the Persons and Tags in the given lists
      */
     public AddressBook(UniquePersonList persons, UniqueTagList tags) {
         resetData(persons, tags);
