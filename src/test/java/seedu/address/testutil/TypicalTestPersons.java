@@ -9,7 +9,7 @@ import seedu.address.model.person.*;
  */
 public class TypicalTestPersons {
 
-    public static TestPerson alice, benson, carl, daniel, elle, fiona, george, hoon, ida;
+    public TestPerson alice, benson, carl, daniel, elle, fiona, george, hoon, ida;
 
     public TypicalTestPersons() {
         try {
@@ -43,16 +43,12 @@ public class TypicalTestPersons {
     }
 
     public static void loadAddressBookWithSampleData(AddressBook ab) {
-        try {
-            ab.addPerson(new Person(alice));
-            ab.addPerson(new Person(benson));
-            ab.addPerson(new Person(carl));
-            ab.addPerson(new Person(daniel));
-            ab.addPerson(new Person(elle));
-            ab.addPerson(new Person(fiona));
-            ab.addPerson(new Person(george));
-        } catch (UniquePersonList.DuplicatePersonException e) {
-            assert false : "not possible";
+        for (TestPerson person : new TypicalTestPersons().getTypicalPersons()) {
+            try {
+                ab.addPerson(new Person(person));
+            } catch (UniquePersonList.DuplicatePersonException e) {
+                assert false : "not possible";
+            }
         }
     }
 
