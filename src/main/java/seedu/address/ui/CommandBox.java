@@ -2,10 +2,10 @@ package seedu.address.ui;
 
 import com.google.common.eventbus.Subscribe;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.IncorrectCommandAttemptedEvent;
 import seedu.address.commons.events.ui.NewResultAvailableEvent;
@@ -15,53 +15,30 @@ import seedu.address.logic.commands.CommandResult;
 
 import java.util.logging.Logger;
 
-public class CommandBox extends UiPart {
+public class CommandBox extends UiPart<Region> {
     private final Logger logger = LogsCenter.getLogger(CommandBox.class);
     private static final String FXML = "CommandBox.fxml";
 
-    private AnchorPane placeHolderPane;
-    private AnchorPane commandPane;
     private String previousCommandText;
 
-    private Logic logic;
+    private final Logic logic;
 
     @FXML
     private TextField commandTextField;
 
-    public static CommandBox load(AnchorPane commandBoxPlaceholder, Logic logic) {
-        CommandBox commandBox = UiPartLoader.loadUiPart(commandBoxPlaceholder, new CommandBox());
-        commandBox.configure(logic);
-        commandBox.addToPlaceholder();
-        return commandBox;
-    }
-
-    public void configure(Logic logic) {
+    public CommandBox(AnchorPane commandBoxPlaceholder, Logic logic) {
+        super(FXML);
         this.logic = logic;
         registerAsAnEventHandler(this);
+        addToPlaceholder(commandBoxPlaceholder);
     }
 
-    private void addToPlaceholder() {
+    private void addToPlaceholder(AnchorPane placeHolderPane) {
         SplitPane.setResizableWithParent(placeHolderPane, false);
         placeHolderPane.getChildren().add(commandTextField);
-        FxViewUtil.applyAnchorBoundaryParameters(commandPane, 0.0, 0.0, 0.0, 0.0);
+        FxViewUtil.applyAnchorBoundaryParameters(getRoot(), 0.0, 0.0, 0.0, 0.0);
         FxViewUtil.applyAnchorBoundaryParameters(commandTextField, 0.0, 0.0, 0.0, 0.0);
     }
-
-    @Override
-    public void setNode(Node node) {
-        commandPane = (AnchorPane) node;
-    }
-
-    @Override
-    public String getFxmlPath() {
-        return FXML;
-    }
-
-    @Override
-    public void setPlaceholder(AnchorPane pane) {
-        this.placeHolderPane = pane;
-    }
-
 
     @FXML
     private void handleCommandInputChanged() {
