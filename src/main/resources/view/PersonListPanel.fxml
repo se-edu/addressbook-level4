@@ -3,7 +3,7 @@
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.layout.*?>
 <?import java.net.URL?>
-<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.address.ui.PersonListPanel" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
     <stylesheets>
         <URL value="@DarkTheme.css" />
         <URL value="@Extensions.css" />
