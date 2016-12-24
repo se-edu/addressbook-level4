@@ -1,13 +1,13 @@
 package seedu.address.ui;
 
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Region;
 import seedu.address.model.person.ReadOnlyPerson;
 
-public class PersonCard extends UiPart {
+public class PersonCard extends UiPart<Region> {
 
     private static final String FXML = "PersonListCard.fxml";
 
@@ -26,42 +26,17 @@ public class PersonCard extends UiPart {
     @FXML
     private FlowPane tags;
 
-    private ReadOnlyPerson person;
-    private int displayedIndex;
-
-
-    public static PersonCard load(ReadOnlyPerson person, int displayedIndex) {
-        PersonCard card = new PersonCard();
-        card.person = person;
-        card.displayedIndex = displayedIndex;
-        return UiPartLoader.initUiPart(card);
-    }
-
-    @FXML
-    public void initialize() {
+    public PersonCard(ReadOnlyPerson person, int displayedIndex) {
+        super(FXML);
         name.setText(person.getName().fullName);
         id.setText(displayedIndex + ". ");
         phone.setText(person.getPhone().value);
         address.setText(person.getAddress().value);
         email.setText(person.getEmail().value);
-        initTags();
+        initTags(person);
     }
 
-    public HBox getLayout() {
-        return cardPane;
-    }
-
-    @Override
-    public void setNode(Node node) {
-        cardPane = (HBox) node;
-    }
-
-    @Override
-    public String getFxmlPath() {
-        return FXML;
-    }
-
-    private void initTags() {
+    private void initTags(ReadOnlyPerson person) {
         person.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
 }
