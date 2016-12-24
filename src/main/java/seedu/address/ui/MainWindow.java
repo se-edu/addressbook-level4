@@ -2,14 +2,13 @@ package seedu.address.ui;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.GuiSettings;
@@ -23,7 +22,7 @@ import seedu.address.model.person.ReadOnlyPerson;
  * The Main Window. Provides the basic application layout containing
  * a menu bar and space where other JavaFX elements can be placed.
  */
-public class MainWindow extends UiPart {
+public class MainWindow extends UiPart<Region> {
 
     private static final String ICON = "/images/address_book_32.png";
     private static final String FXML = "MainWindow.fxml";
@@ -41,9 +40,6 @@ public class MainWindow extends UiPart {
     private CommandBox commandBox;
     private Config config;
     private UserPrefs userPrefs;
-
-    // Handles to elements of this Ui container
-    private VBox rootLayout;
 
     private String addressBookName;
 
@@ -65,45 +61,29 @@ public class MainWindow extends UiPart {
     @FXML
     private AnchorPane statusbarPlaceholder;
 
-    @Override
-    public void setNode(Node node) {
-        rootLayout = (VBox) node;
-    }
-
-    @Override
-    public String getFxmlPath() {
-        return FXML;
-    }
-
-    public Stage getPrimaryStage() {
-        return primaryStage;
-    }
-
-    public static MainWindow load(Stage primaryStage, Config config, UserPrefs prefs, Logic logic) {
-        MainWindow mainWindow = UiPartLoader.loadUiPart(new MainWindow());
-        mainWindow.configure(primaryStage, config.getAppTitle(), config.getAddressBookName(), config, prefs, logic);
-        return mainWindow;
-    }
-
-    private void configure(Stage primaryStage, String appTitle, String addressBookName, Config config,
-                           UserPrefs prefs, Logic logic) {
+    public MainWindow(Stage primaryStage, Config config, UserPrefs prefs, Logic logic) {
+        super(FXML);
 
         // Set dependencies
         this.primaryStage = primaryStage;
         this.logic = logic;
-        this.addressBookName = addressBookName;
+        this.addressBookName = config.getAddressBookName();
         this.config = config;
         this.userPrefs = prefs;
 
         // Configure the UI
-        setTitle(appTitle);
+        setTitle(config.getAppTitle());
         setIcon(ICON);
         setWindowMinSize();
         setWindowDefaultSize(prefs);
-        Scene scene = new Scene(rootLayout);
+        Scene scene = new Scene(getRoot());
         primaryStage.setScene(scene);
 
         setAccelerators();
+    }
+
+    public Stage getPrimaryStage() {
+        return primaryStage;
     }
 
     private void setAccelerators() {
@@ -132,7 +112,7 @@ public class MainWindow extends UiPart {
          * help window purposely so to support accelerators even when focus is
          * in CommandBox or ResultDisplay.
          */
-        rootLayout.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+        getRoot().addEventFilter(KeyEvent.KEY_PRESSED, event -> {
             if (event.getTarget() instanceof TextInputControl && keyCombination.match(event)) {
                 menuItem.getOnAction().handle(new ActionEvent());
                 event.consume();
