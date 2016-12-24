@@ -137,7 +137,7 @@ public class MainWindow extends UiPart {
         browserPanel = new BrowserPanel(browserPlaceholder);
         personListPanel = new PersonListPanel(getPersonListPlaceholder(), logic.getFilteredPersonList());
         new ResultDisplay(getResultDisplayPlaceholder());
-        StatusBarFooter.load(getStatusbarPlaceholder(), config.getAddressBookFilePath());
+        new StatusBarFooter(getStatusbarPlaceholder(), config.getAddressBookFilePath());
         CommandBox.load(getCommandBoxPlaceholder(), logic);
     }
 
