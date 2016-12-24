@@ -4,9 +4,7 @@ import java.io.IOException;
 import java.net.URL;
 
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import seedu.address.MainApp;
@@ -24,11 +22,6 @@ public class UiPart<T> {
     public static final String FXML_FILE_FOLDER = "/view/";
 
     private FXMLLoader fxmlLoader;
-
-    @Deprecated
-    public UiPart() {
-        // TODO: Remove this constructor once all UiParts have migrated to use UiPart(URL) or UiPart(String)
-    }
 
     /**
      * Constructs a UiPart with the specified FXML file URL.
@@ -77,27 +70,6 @@ public class UiPart<T> {
     }
 
     /**
-     * Sets the main node of the UiPart.
-     * Override this method to receive the main Node generated while loading the view from the .fxml file.
-     * @param node
-     */
-    @Deprecated
-    public void setNode(Node node) {
-        // TODO: Remove this method once all UiParts have migrated to use UiPart(URL) or UiPart(String)
-        throw new UnsupportedOperationException("not implemented yet");
-    }
-
-    /**
-     * Returns the path to the fxml file.
-     * Override this method to return the name of the fxml file. e.g. {@code "MainWindow.fxml"}
-     */
-    @Deprecated
-    public String getFxmlPath() {
-        // TODO: Remove this method once all UiParts have migrated to use UiPart(URL) or UiPart(String)
-        throw new UnsupportedOperationException("not implemented yet");
-    }
-
-    /**
      * Creates a modal dialog.
      * @param title Title of the dialog.
      * @param parentStage The owner stage of the dialog.
@@ -111,16 +83,6 @@ public class UiPart<T> {
         dialogStage.initOwner(parentStage);
         dialogStage.setScene(scene);
         return dialogStage;
-    }
-
-    /**
-     * Sets the placeholder for UI parts that reside inside another UI part.
-     * @param placeholder
-     */
-    @Deprecated
-    public void setPlaceholder(AnchorPane placeholder) {
-        // TODO: Remove this method once all UiParts have migrated to use UiPart(URL) or UiPart(String)
-        //Do nothing by default.
     }
 
 }
