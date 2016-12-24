@@ -61,8 +61,8 @@ public class AddressBookTest {
     public void resetData_withDuplicateTags_throwsAssertionError() {
         AddressBook typicalAddressBook = new TypicalTestPersons().getTypicalAddressBook();
         List<ReadOnlyPerson> newPersons = typicalAddressBook.getPersonList();
-        // Repeat the first tag twice
         List<Tag> newTags = new ArrayList<>(typicalAddressBook.getTagList());
+        // Repeat the first tag twice
         newTags.add(newTags.get(0));
         AddressBookStub newData = new AddressBookStub(newPersons, newTags);
 
