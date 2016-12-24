@@ -70,6 +70,9 @@ public class AddressBookTest {
         addressBook.resetData(newData);
     }
 
+    /**
+     * A stub ReadOnlyAddressBook whose persons and tags lists can violate interface constraints.
+     */
     private static class AddressBookStub implements ReadOnlyAddressBook {
         private final ObservableList<ReadOnlyPerson> persons = FXCollections.observableArrayList();
         private final ObservableList<Tag> tags = FXCollections.observableArrayList();
