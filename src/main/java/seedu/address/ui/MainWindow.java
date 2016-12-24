@@ -135,10 +135,10 @@ public class MainWindow extends UiPart {
 
     void fillInnerParts() {
         browserPanel = new BrowserPanel(browserPlaceholder);
-        personListPanel = PersonListPanel.load(getPersonListPlaceholder(), logic.getFilteredPersonList());
-        ResultDisplay.load(getResultDisplayPlaceholder());
-        StatusBarFooter.load(getStatusbarPlaceholder(), config.getAddressBookFilePath());
-        CommandBox.load(getCommandBoxPlaceholder(), logic);
+        personListPanel = new PersonListPanel(getPersonListPlaceholder(), logic.getFilteredPersonList());
+        resultDisplay = ResultDisplay.load(getResultDisplayPlaceholder());
+        statusBarFooter = StatusBarFooter.load(getStatusbarPlaceholder(), config.getAddressBookFilePath());
+        commandBox = CommandBox.load(getCommandBoxPlaceholder(), logic);
     }
 
     private AnchorPane getCommandBoxPlaceholder() {
