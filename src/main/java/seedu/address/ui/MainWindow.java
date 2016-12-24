@@ -207,7 +207,7 @@ public class MainWindow extends UiPart {
 
     @FXML
     public void handleHelp() {
-        HelpWindow helpWindow = HelpWindow.load();
+        HelpWindow helpWindow = new HelpWindow();
         helpWindow.show();
     }
 
