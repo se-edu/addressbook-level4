@@ -141,7 +141,7 @@ public class MainWindow extends UiPart {
     }
 
     void fillInnerParts() {
-        browserPanel = BrowserPanel.load(browserPlaceholder);
+        browserPanel = new BrowserPanel(browserPlaceholder);
         personListPanel = PersonListPanel.load(getPersonListPlaceholder(), logic.getFilteredPersonList());
         resultDisplay = ResultDisplay.load(getResultDisplayPlaceholder());
         statusBarFooter = StatusBarFooter.load(getStatusbarPlaceholder(), config.getAddressBookFilePath());

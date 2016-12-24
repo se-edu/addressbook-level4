@@ -3,6 +3,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.web.WebView?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.address.ui.BrowserPanel">
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1">
     <WebView fx:id="browser"/>
 </AnchorPane>
