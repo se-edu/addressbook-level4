@@ -59,6 +59,14 @@ public class UniquePersonList implements Iterable<Person> {
         this.internalList.setAll(replacement.internalList);
     }
 
+    public void setPersons(List<? extends ReadOnlyPerson> persons) throws DuplicatePersonException {
+        final UniquePersonList replacement = new UniquePersonList();
+        for (final ReadOnlyPerson person : persons) {
+            replacement.add(new Person(person));
+        }
+        setPersons(replacement);
+    }
+
     public UnmodifiableObservableList<Person> asObservableList() {
         return new UnmodifiableObservableList<>(internalList);
     }
