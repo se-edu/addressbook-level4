@@ -42,8 +42,7 @@ public class EditCommand extends Command {
         assert targetIndex > 0;
         assert editPersonDescriptor != null;
 
-        // converts targetIndex from one-based to zero-based.
-        this.targetIndex = targetIndex - 1;
+        this.targetIndex = targetIndex - 1; // converts targetIndex from one-based to zero-based.
         this.editPersonDescriptor = new EditPersonDescriptor(editPersonDescriptor);
     }
 
@@ -59,10 +58,6 @@ public class EditCommand extends Command {
         ReadOnlyPerson personToEdit = lastShownList.get(targetIndex);
         Person editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
 
-        if (personToEdit.equals(editedPerson) && personToEdit.getTags().equals(editedPerson.getTags())) {
-            return new CommandResult(MESSAGE_DUPLICATE_PERSON);
-        }
-
         try {
             model.updatePerson(targetIndex, editedPerson);
         } catch (UniquePersonList.DuplicatePersonException dpe) {
@@ -76,7 +71,7 @@ public class EditCommand extends Command {
      * Creates and returns a {@code Person} with the updated details.
      */
     private static Person createEditedPerson(ReadOnlyPerson personToEdit,
-                                            EditPersonDescriptor editPersonDescriptor) {
+                                             EditPersonDescriptor editPersonDescriptor) {
         assert personToEdit != null;
 
         Name updatedName = editPersonDescriptor.getName().orElseGet(personToEdit::getName);

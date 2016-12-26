@@ -28,8 +28,7 @@ public interface Model {
      * Updates the person located at {@code targetIndexInLastShownList} with {@code editedPerson}.
      *
      * @throws DuplicatePersonException if updating the person's details causes the person to be equivalent to
-     *      another existing person in the list, or if the person is being updated with the person's existing values
-     *      i.e person located at {@code targetIndexInLastShownList} is equivalent to {@code editedPerson}.
+     *      another existing person in the list.
      * @throws IndexOutOfBoundsException if {@code targetIndexInLastShownList} < 0
      *      or >= the size of the last shown list.
      */

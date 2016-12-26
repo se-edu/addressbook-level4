@@ -110,13 +110,6 @@ public class EditCommandTest extends AddressBookGuiTest {
         assertResultMessage(EditCommand.MESSAGE_DUPLICATE_PERSON);
     }
 
-    @Test
-    public void edit_sameValuesAsExistingValues_failure() {
-        commandBox.runCommand("edit 1 Alice Pauline p/85355255 e/alice@gmail.com "
-                                + "a/123, Jurong West Ave 6, #08-111 t/friends");
-        assertResultMessage(EditCommand.MESSAGE_DUPLICATE_PERSON);
-    }
-
     /**
      * Checks whether the edited person has the correct updated details.
      *

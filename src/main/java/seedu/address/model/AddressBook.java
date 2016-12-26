@@ -89,8 +89,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * @see #syncMasterTagListWith(Person)
      *
      * @throws DuplicatePersonException if updating the person's details causes the person to be equivalent to
-     *      another existing person in the list, or if the person is being updated with the person's existing values
-     *      i.e person located at {@code index} is equivalent to {@code editedPerson}.
+     *      another existing person in the list.
      * @throws IndexOutOfBoundsException if {@code index} < 0 or >= the size of the list.
      */
     public void updatePerson(int index, ReadOnlyPerson editedReadOnlyPerson)
@@ -99,7 +98,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
         Person editedPerson = new Person(editedReadOnlyPerson);
         syncMasterTagListWith(editedPerson);
-        // Minor flaw: the tags master list will be updated even though the below line fails.
+        // TODO: the tags master list will be updated even though the below line fails.
         // This can cause the tags master list to have additional tags that are not tagged to any person
         // in the person list.
         persons.updatePerson(index, editedPerson);

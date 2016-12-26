@@ -87,8 +87,7 @@ public class ModelManager extends ComponentManager implements Model {
      */
     private int findIndexOfPersonInUnfilteredList(int targetIndexInLastShownList)
             throws IndexOutOfBoundsException {
-        ReadOnlyPerson personToUpdate = filteredPersons.get(targetIndexInLastShownList);
-        return addressBook.getPersonList().indexOf(personToUpdate);
+        return filteredPersons.getSourceIndex(targetIndexInLastShownList);
     }
 
     //=========== Filtered Person List Accessors =============================================================
