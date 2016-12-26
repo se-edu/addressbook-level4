@@ -60,11 +60,31 @@ Examples:
 * `add Betsy Crowe t/friend e/betsycrowe@gmail.com a/Newgate Prison p/1234567 t/criminal`
 
 ### 2.3. Listing all persons : `list`
-
 Shows a list of all persons in the address book.<br>
 Format: `list`
 
-### 2.4. Finding all persons containing any keyword in their name: `find`
+### 2.4. Editing a person : `edit`
+
+Edits an existing person in the address book.<br>
+Format: `edit INDEX [NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS ] [t/TAG]...`
+
+> * Edits the person at the specified `INDEX`.
+    The index refers to the index number shown in the most recent listing.<br>
+    The index **must be a positive integer** 1, 2, 3, ...
+> * Existing values will be updated to the input values.
+> * When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
+> * At least one of the person's details **must** be changed.
+> * You can remove all the person's tags by typing `t/` without specifying any tags after it. 
+
+Examples:
+
+* `edit 1 p/91234567 e/johndoe@yahoo.com` 
+`(Edits the phone number and email address of the 1st person to be 91234567 and johndoe@yahoo.com respectively)`
+
+* `edit 2 Betsy Crower t/`
+`(Edits the name of the 2nd person to be Betsy Crower and clears all existing tags)`
+
+### 2.5. Finding all persons containing any keyword in their name: `find`
 
 Finds persons whose names contain any of the given keywords.<br>
 Format: `find KEYWORD [MORE_KEYWORDS]`
@@ -83,7 +103,7 @@ Examples:
 * `find Betsy Tim John`<br>
   Returns Any person having names `Betsy`, `Tim`, or `John`
 
-### 2.5. Deleting a person : `delete`
+### 2.6. Deleting a person : `delete`
 
 Deletes the specified person from the address book. Irreversible.<br>
 Format: `delete INDEX`
@@ -101,7 +121,7 @@ Examples:
   `delete 1`<br>
   Deletes the 1st person in the results of the `find` command.
 
-### 2.6. Select a person : `select`
+### 2.7. Select a person : `select`
 
 Selects the person identified by the index number used in the last person listing.<br>
 Format: `select INDEX`
@@ -119,17 +139,17 @@ Examples:
   `select 1`<br>
   Selects the 1st person in the results of the `find` command.
 
-### 2.7. Clearing all entries : `clear`
+### 2.8. Clearing all entries : `clear`
 
 Clears all entries from the address book.<br>
 Format: `clear`
 
-### 2.8. Exiting the program : `exit`
+### 2.9. Exiting the program : `exit`
 
 Exits the program.<br>
 Format: `exit`
 
-### 2.9. Saving the data
+### 2.10. Saving the data 
 
 Address book data are saved in the hard disk automatically after any command that changes the data.<br>
 There is no need to save manually.
