@@ -2,6 +2,7 @@ package seedu.address.testutil;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.person.*;
 
 /**
@@ -16,16 +17,10 @@ public class PersonBuilder {
     }
 
     /**
-     * Copy constructor.
+     * Creates a copy of {@code personToCopy}.
      */
-    public PersonBuilder(TestPerson personToEdit) throws IllegalValueException {
-        this();
-
-        this.person.setName(personToEdit.getName());
-        this.person.setPhone(personToEdit.getPhone());
-        this.person.setEmail(personToEdit.getEmail());
-        this.person.setAddress(personToEdit.getAddress());
-        this.person.setTags(personToEdit.getTags());
+    public PersonBuilder(TestPerson personToCopy) {
+        this.person = new TestPerson(personToCopy);
     }
 
     public PersonBuilder withName(String name) throws IllegalValueException {
@@ -34,7 +29,7 @@ public class PersonBuilder {
     }
 
     public PersonBuilder withTags(String ... tags) throws IllegalValueException {
-        person.resetTags();
+        person.setTags(new UniqueTagList());
         for (String tag: tags) {
             person.getTags().add(new Tag(tag));
         }

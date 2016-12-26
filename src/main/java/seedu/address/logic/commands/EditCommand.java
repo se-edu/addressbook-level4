@@ -42,7 +42,8 @@ public class EditCommand extends Command {
         assert targetIndex > 0;
         assert editPersonDescriptor != null;
 
-        this.targetIndex = targetIndex;
+        // converts targetIndex from one-based to zero-based.
+        this.targetIndex = targetIndex - 1;
         this.editPersonDescriptor = new EditPersonDescriptor(editPersonDescriptor);
     }
 
@@ -50,28 +51,32 @@ public class EditCommand extends Command {
     public CommandResult execute() {
         List<ReadOnlyPerson> lastShownList = model.getFilteredPersonList();
 
-        if (targetIndex > lastShownList.size()) {
+        if (targetIndex >= lastShownList.size()) {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
-        ReadOnlyPerson personToUpdate = lastShownList.get(targetIndex - 1);
-        Person editedPerson = createEditedPerson(personToUpdate, editPersonDescriptor);
+        ReadOnlyPerson personToEdit = lastShownList.get(targetIndex);
+        Person editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
+
+        if (personToEdit.equals(editedPerson) && personToEdit.getTags().equals(editedPerson.getTags())) {
+            return new CommandResult(MESSAGE_DUPLICATE_PERSON);
+        }
 
         try {
-            model.updatePerson(targetIndex - 1, editedPerson);
+            model.updatePerson(targetIndex, editedPerson);
         } catch (UniquePersonList.DuplicatePersonException dpe) {
             return new CommandResult(MESSAGE_DUPLICATE_PERSON);
         }
         model.updateFilteredListToShowAll();
-        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, personToUpdate));
+        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, personToEdit));
     }
 
     /**
      * Creates and returns a {@code Person} with the updated details.
      */
     private static Person createEditedPerson(ReadOnlyPerson personToEdit,
-            EditPersonDescriptor editPersonDescriptor) {
+                                            EditPersonDescriptor editPersonDescriptor) {
         assert personToEdit != null;
 
         Name updatedName = editPersonDescriptor.getName().orElseGet(personToEdit::getName);

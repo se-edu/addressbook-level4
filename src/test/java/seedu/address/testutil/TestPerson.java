@@ -18,6 +18,17 @@ public class TestPerson implements ReadOnlyPerson {
         tags = new UniqueTagList();
     }
 
+    /**
+     * Creates a copy of {@code personToCopy}.
+     */
+    public TestPerson(TestPerson personToCopy) {
+        this.name = personToCopy.getName();
+        this.phone = personToCopy.getPhone();
+        this.email = personToCopy.getEmail();
+        this.address = personToCopy.getAddress();
+        this.tags = personToCopy.getTags();
+    }
+
     public void setName(Name name) {
         this.name = name;
     }
@@ -36,10 +47,6 @@ public class TestPerson implements ReadOnlyPerson {
 
     public void setTags(UniqueTagList tags) {
         this.tags = tags;
-    }
-
-    public void resetTags() {
-        this.tags = new UniqueTagList();
     }
 
     @Override

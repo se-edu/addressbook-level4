@@ -78,8 +78,11 @@ Format: `edit INDEX [NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS ] [t/TAG]...`
 
 Examples:
 
-* `edit 1 p/91234567 e/johndoe@yahoo.com`
+* `edit 1 p/91234567 e/johndoe@yahoo.com` 
+`(Edits the phone number and email address of the 1st person to be 91234567 and johndoe@yahoo.com respectively)`
+
 * `edit 2 Betsy Crower t/`
+`(Edits the name of the 2nd person to be Betsy Crower and clears all existing tags)`
 
 ### 2.5. Finding all persons containing any keyword in their name: `find`
 
