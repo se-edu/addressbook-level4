@@ -68,12 +68,13 @@ Format: `list`
 Edits an existing person in the address book.<br>
 Format: `edit INDEX [NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS ] [t/TAG]...`
 
-> At least one of the person's details **must** be changed.
-> Existing values will be updated by the input values.
-> Edits the person at the specified `INDEX`.
-  The index refers to the index number shown in the most recent listing.<br>
-  The index **must be a positive integer** 1, 2, 3, ...
-> You can reset the person's tags by typing "t/" without specifying any tags after it. 
+> * Edits the person at the specified `INDEX`.
+    The index refers to the index number shown in the most recent listing.<br>
+    The index **must be a positive integer** 1, 2, 3, ...
+> * Existing values will be updated to the input values.
+> * When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
+> * At least one of the person's details **must** be changed.
+> * You can remove all the person's tags by typing `t/` without specifying any tags after it. 
 
 Examples:
 

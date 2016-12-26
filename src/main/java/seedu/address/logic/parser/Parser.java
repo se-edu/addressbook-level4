@@ -149,14 +149,10 @@ public class Parser {
         EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
         try {
             editPersonDescriptor.setName(parseName(preambleFields.get(1)));
-            editPersonDescriptor.setPhone(
-                    parsePhone(argsTokenizer.getValue(phoneNumberPrefix)));
-            editPersonDescriptor.setEmail(
-                    parseEmail(argsTokenizer.getValue(emailPrefix)));
-            editPersonDescriptor.setAddress(
-                    parseAddress(argsTokenizer.getValue(addressPrefix)));
-            editPersonDescriptor.setTags(
-                    parseTagsForEdit(toSet(argsTokenizer.getAllValues(tagsPrefix))));
+            editPersonDescriptor.setPhone(parsePhone(argsTokenizer.getValue(phoneNumberPrefix)));
+            editPersonDescriptor.setEmail(parseEmail(argsTokenizer.getValue(emailPrefix)));
+            editPersonDescriptor.setAddress(parseAddress(argsTokenizer.getValue(addressPrefix)));
+            editPersonDescriptor.setTags(parseTagsForEdit(toSet(argsTokenizer.getAllValues(tagsPrefix))));
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }
@@ -169,7 +165,7 @@ public class Parser {
     }
 
     /**
-     * Parses an {@code Optional<String> name} into a {@code Optional<Name>} if {@code name} is present.
+     * Parses a {@code Optional<String> name} into an {@code Optional<Name>} if {@code name} is present.
      */
     private Optional<Name> parseName(Optional<String> name) throws IllegalValueException {
         assert name != null;
@@ -177,7 +173,7 @@ public class Parser {
     }
 
     /**
-     * Parses an {@code Optional<String> phone} into a {@code Optional<Phone>} if {@code phone} is present.
+     * Parses a {@code Optional<String> phone} into an {@code Optional<Phone>} if {@code phone} is present.
      */
     private Optional<Phone> parsePhone(Optional<String> phone) throws IllegalValueException {
         assert phone != null;
@@ -185,7 +181,7 @@ public class Parser {
     }
 
     /**
-     * Parses an {@code Optional<String> address} into a {@code Optional<Address>} if {@code address} is present.
+     * Parses a {@code Optional<String> address} into an {@code Optional<Address>} if {@code address} is present.
      */
     private Optional<Address> parseAddress(Optional<String> address) throws IllegalValueException {
         assert address != null;
@@ -193,7 +189,7 @@ public class Parser {
     }
 
     /**
-     * Parses an {@code Optional<String> email} into a {@code Optional<Email>} if {@code email} is present.
+     * Parses a {@code Optional<String> email} into an {@code Optional<Email>} if {@code email} is present.
      */
     private Optional<Email> parseEmail(Optional<String> email) throws IllegalValueException {
         assert email != null;
@@ -201,7 +197,7 @@ public class Parser {
     }
 
     /**
-     * Parses {@code Collection<String> tags} into a {@code Optional<UniqueTagList>} if {@code tags} is non-empty.
+     * Parses {@code Collection<String> tags} into an {@code Optional<UniqueTagList>} if {@code tags} is non-empty.
      * If {@code tags} contain only one element which is an empty string, it will be parsed into a
      * {@code Optional<UniqueTagList>} containing zero tags.
      */
@@ -216,7 +212,7 @@ public class Parser {
     }
 
     /**
-     * Parses {@code Collection<String> tags} into a {@code UniqueTagList}.
+     * Parses {@code Collection<String> tags} into an {@code UniqueTagList}.
      */
     private UniqueTagList parseTags(Collection<String> tags) throws IllegalValueException {
         assert tags != null;

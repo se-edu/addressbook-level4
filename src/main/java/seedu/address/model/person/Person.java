@@ -92,7 +92,7 @@ public class Person implements ReadOnlyPerson {
     /**
      * Updates this person with the details of {@code replacement}.
      */
-    public void updateDetailsWith(ReadOnlyPerson replacement) {
+    public void resetData(ReadOnlyPerson replacement) {
         assert replacement != null;
 
         this.setName(replacement.getName());

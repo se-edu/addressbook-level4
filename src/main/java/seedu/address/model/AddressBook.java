@@ -83,22 +83,20 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Updates the person {@code personToUpdate} with {@code updatedReadOnlyPerson}.
-     * Also checks the existing person's tags and updates {@link #tags} with any new tags found,
-     * and updates the Tag objects in the person to point to those in {@link #tags}.
+     * Updates the person in the list at position {@code index} with {@code editedReadOnlyPerson}.
+     * {@code AddressBook}'s tag list will be updated with the tags of {@code editedReadOnlyPerson}.
+     * @see syncMasterTagListWith
      *
      * @throws UniquePersonList.DuplicatePersonException if editing the person's details causes the person to
      *      be equivalent to another existing person in the list.
-     * @throws UniquePersonList.PersonNotFoundException if no such person could be found in the list.
      */
-    public void updatePerson(ReadOnlyPerson personToUpdate, ReadOnlyPerson updatedReadOnlyPerson)
-            throws UniquePersonList.DuplicatePersonException, UniquePersonList.PersonNotFoundException {
-        assert personToUpdate != null;
-        assert updatedReadOnlyPerson != null;
+    public void updatePerson(int index, ReadOnlyPerson editedReadOnlyPerson)
+            throws UniquePersonList.DuplicatePersonException {
+        assert editedReadOnlyPerson != null;
 
-        Person updatedPerson = new Person(updatedReadOnlyPerson);
-        syncMasterTagListWith(updatedPerson);
-        persons.updatePerson(personToUpdate, updatedPerson);
+        Person editedPerson = new Person(editedReadOnlyPerson);
+        syncMasterTagListWith(editedPerson);
+        persons.updatePerson(index, editedPerson);
     }
 
     /**

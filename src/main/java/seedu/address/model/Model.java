@@ -24,14 +24,13 @@ public interface Model {
     void addPerson(Person person) throws UniquePersonList.DuplicatePersonException;
 
     /**
-     * Updates the person {@code personToUpdate} with {@code updatedPerson}.
+     * Updates the person located at {@code index} with {@code editedPerson}.
      *
      * @throws UniquePersonList.DuplicatePersonException if editing the person's details causes the person to
      *      be equivalent to another existing person in the list.
-     * @throws UniquePersonList.PersonNotFoundException if no such person could be found in the list.
      */
-    void updatePerson(ReadOnlyPerson personToUpdate, ReadOnlyPerson updatedPerson)
-            throws UniquePersonList.DuplicatePersonException, UniquePersonList.PersonNotFoundException;
+    void updatePerson(int index, ReadOnlyPerson editedPerson)
+            throws UniquePersonList.DuplicatePersonException;
 
     /** Returns the filtered person list as an {@code UnmodifiableObservableList<ReadOnlyPerson>} */
     UnmodifiableObservableList<ReadOnlyPerson> getFilteredPersonList();

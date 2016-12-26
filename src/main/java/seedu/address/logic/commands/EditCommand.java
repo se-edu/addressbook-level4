@@ -55,24 +55,22 @@ public class EditCommand extends Command {
             return new CommandResult(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
-        ReadOnlyPerson personToEdit = lastShownList.get(targetIndex - 1);
-        Person editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
+        ReadOnlyPerson personToUpdate = lastShownList.get(targetIndex - 1);
+        Person editedPerson = createEditedPerson(personToUpdate, editPersonDescriptor);
 
         try {
-            model.updatePerson(personToEdit, editedPerson);
-        } catch (UniquePersonList.PersonNotFoundException pnfe) {
-            assert false : "The target person cannot be missing";
+            model.updatePerson(targetIndex - 1, editedPerson);
         } catch (UniquePersonList.DuplicatePersonException dpe) {
             return new CommandResult(MESSAGE_DUPLICATE_PERSON);
         }
-
-        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, personToEdit));
+        model.updateFilteredListToShowAll();
+        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, personToUpdate));
     }
 
     /**
      * Creates and returns a {@code Person} with the updated details.
      */
-    public static Person createEditedPerson(ReadOnlyPerson personToEdit,
+    private static Person createEditedPerson(ReadOnlyPerson personToEdit,
             EditPersonDescriptor editPersonDescriptor) {
         assert personToEdit != null;
 
@@ -89,19 +87,13 @@ public class EditCommand extends Command {
      * Stores the details of person to edit.
      */
     public static class EditPersonDescriptor {
-        private Optional<Name> name;
-        private Optional<Phone> phone;
-        private Optional<Email> email;
-        private Optional<Address> address;
-        private Optional<UniqueTagList> tags;
+        private Optional<Name> name = Optional.empty();
+        private Optional<Phone> phone = Optional.empty();
+        private Optional<Email> email = Optional.empty();
+        private Optional<Address> address = Optional.empty();
+        private Optional<UniqueTagList> tags = Optional.empty();
 
-        public EditPersonDescriptor() {
-            name = Optional.empty();
-            phone = Optional.empty();
-            email = Optional.empty();
-            address = Optional.empty();
-            tags = Optional.empty();
-        }
+        public EditPersonDescriptor() {}
 
         public EditPersonDescriptor(EditPersonDescriptor toCopy) {
             this.name = toCopy.getName();

@@ -42,45 +42,26 @@ public class UniquePersonList implements Iterable<Person> {
     }
 
     /**
-     * Updates the person in the list at position {@code index} with {@code updatedPerson}.
+     * Updates the person in the list at position {@code index} with {@code editedPerson}.
      *
      * @throws DuplicatePersonException if editing the person's details causes the person to
      *      be equivalent to another existing person in the list.
+     * @throws IndexOutOfBoundsException
      */
-    public void updatePerson(int index, ReadOnlyPerson updatedPerson)
-            throws DuplicatePersonException {
-        assert index >= 0;
-        assert updatedPerson != null;
+    public void updatePerson(int index, ReadOnlyPerson editedPerson)
+            throws DuplicatePersonException, IndexOutOfBoundsException {
+        assert editedPerson != null;
 
         Person personToUpdate = internalList.get(index);
-        if (!personToUpdate.equals(updatedPerson)
-                && internalList.contains(updatedPerson)) {
+        if (!personToUpdate.equals(editedPerson) && internalList.contains(editedPerson)) {
             throw new DuplicatePersonException();
         }
 
-        personToUpdate.updateDetailsWith(updatedPerson);
+        personToUpdate.resetData(editedPerson);
+        /*TODO: This is just a workaround - implement observable properties in the Person class
+                PersonCard should then bind its text labels to those observable properties.*/
         // set item in list so that observers of the list are notified of the change
         internalList.set(index, personToUpdate);
-    }
-
-    /**
-     * Updates the person {@code personToUpdate} with {@code updatedPerson}.
-     *
-     * @throws DuplicatePersonException if editing the person's details causes the person to
-     *      be equivalent to another existing person in the list.
-     * @throws PersonNotFoundException if no such person could be found in the list.
-     */
-    public void updatePerson(ReadOnlyPerson personToUpdate, ReadOnlyPerson updatedPerson)
-            throws DuplicatePersonException, PersonNotFoundException {
-        assert personToUpdate != null;
-        assert updatedPerson != null;
-
-        int index = internalList.indexOf(personToUpdate);
-        if (index < 0) {
-            throw new PersonNotFoundException();
-        }
-
-        updatePerson(index, updatedPerson);
     }
 
     /**
