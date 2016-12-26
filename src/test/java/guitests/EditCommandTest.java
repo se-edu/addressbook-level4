@@ -18,7 +18,8 @@ import seedu.address.testutil.TestPerson;
 
 public class EditCommandTest extends AddressBookGuiTest {
 
-    // list is mutated with every successful call to assertEditSuccess().
+    // The list of persons in the person list panel is expected to match this list.
+    // This list is updated with every successful call to assertEditSuccess().
     TestPerson[] expectedPersonsList = td.getTypicalPersons();
 
     @Test
@@ -59,13 +60,13 @@ public class EditCommandTest extends AddressBookGuiTest {
         commandBox.runCommand("find Elle");
 
         String detailsToEdit = "Belle";
-        int targetIndexInFilteredList = 1;
-        int targetIndexInUnfilteredList = 5;
+        int filteredPersonListIndex = 1;
+        int addressBookIndex = 5;
 
-        TestPerson personToEdit = expectedPersonsList[targetIndexInUnfilteredList - 1];
+        TestPerson personToEdit = expectedPersonsList[addressBookIndex - 1];
         TestPerson editedPerson = new PersonBuilder(personToEdit).withName("Belle").build();
 
-        assertEditSuccess(targetIndexInFilteredList, targetIndexInUnfilteredList, detailsToEdit, editedPerson);
+        assertEditSuccess(filteredPersonListIndex, addressBookIndex, detailsToEdit, editedPerson);
     }
 
     @Test
@@ -114,21 +115,21 @@ public class EditCommandTest extends AddressBookGuiTest {
     /**
      * Checks whether the edited person has the correct updated details.
      *
-     * @param targetIndexInFilteredList index of person to edit in filtered list e.g after a {@code FindCommand}
-     * @param targetIndexInUnfilteredList index of person to edit in unfiltered list
+     * @param filteredPersonListIndex index of person to edit in filtered list i.e the current view that user is seeing.
+     * @param addressBookIndex index of person to edit in the entire address book i.e when the list is unfiltered.
      * @param detailsToEdit details of the person to edit as input to the edit command
      * @param editedPerson the expected person after editing the person's details
      */
-    private void assertEditSuccess(int targetIndexInFilteredList, int targetIndexInUnfilteredList,
+    private void assertEditSuccess(int filteredPersonListIndex, int addressBookIndex,
                                     String detailsToEdit, TestPerson editedPerson) {
-        commandBox.runCommand("edit " + targetIndexInFilteredList + " " + detailsToEdit);
+        commandBox.runCommand("edit " + filteredPersonListIndex + " " + detailsToEdit);
 
         // confirm the new card contains the right data
         PersonCardHandle editedCard = personListPanel.navigateToPerson(editedPerson.getName().fullName);
         assertMatching(editedPerson, editedCard);
 
         // confirm the list now contains all previous persons plus the person with updated details
-        expectedPersonsList[targetIndexInUnfilteredList - 1] = editedPerson;
+        expectedPersonsList[addressBookIndex - 1] = editedPerson;
         assertTrue(personListPanel.isListMatching(expectedPersonsList));
         assertResultMessage(String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson));
     }

@@ -67,23 +67,23 @@ Format: `list`
 ### 2.4. Editing a person : `edit`
 
 Edits an existing person in the address book.<br>
-Format: `edit INDEX [NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS ] [t/TAG]...`
+Format: `edit INDEX [NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
 
 > * Edits the person at the specified `INDEX`.
     The index refers to the index number shown in the most recent listing.<br>
     The index **must be a positive integer** 1, 2, 3, ...
+> * At least one of the optional fields must be provided.
 > * Existing values will be updated to the input values.
 > * When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-> * At least one of the person's details **must** be changed.
 > * You can remove all the person's tags by typing `t/` without specifying any tags after it. 
 
 Examples:
 
 * `edit 1 p/91234567 e/johndoe@yahoo.com`<br>
-  Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@yahoo.com` respectively
+  Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@yahoo.com` respectively.
 
-* `edit 2 Betsy Crower t/`
-  Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags)
+* `edit 2 Betsy Crower t/`<br>
+  Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
 
 ### 2.5. Finding all persons containing any keyword in their name: `find`
 
@@ -150,7 +150,7 @@ Format: `clear`
 Exits the program.<br>
 Format: `exit`
 
-### 2.10. Saving the data 
+### 2.10. Saving the data
 
 Address book data are saved in the hard disk automatically after any command that changes the data.<br>
 There is no need to save manually.

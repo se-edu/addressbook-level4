@@ -48,8 +48,7 @@ public class UniquePersonList implements Iterable<Person> {
      *      another existing person in the list.
      * @throws IndexOutOfBoundsException if {@code index} < 0 or >= the size of the list.
      */
-    public void updatePerson(int index, ReadOnlyPerson editedPerson)
-            throws DuplicatePersonException, IndexOutOfBoundsException {
+    public void updatePerson(int index, ReadOnlyPerson editedPerson) throws DuplicatePersonException {
         assert editedPerson != null;
 
         Person personToUpdate = internalList.get(index);

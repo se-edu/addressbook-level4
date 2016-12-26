@@ -93,7 +93,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * @throws IndexOutOfBoundsException if {@code index} < 0 or >= the size of the list.
      */
     public void updatePerson(int index, ReadOnlyPerson editedReadOnlyPerson)
-            throws UniquePersonList.DuplicatePersonException, IndexOutOfBoundsException {
+            throws UniquePersonList.DuplicatePersonException {
         assert editedReadOnlyPerson != null;
 
         Person editedPerson = new Person(editedReadOnlyPerson);
