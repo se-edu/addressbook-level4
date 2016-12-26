@@ -18,7 +18,8 @@ import seedu.address.testutil.TestPerson;
 
 public class EditCommandTest extends AddressBookGuiTest {
 
-    TestPerson[] currentList = td.getTypicalPersons();
+    // list is mutated with every successful call to assertEditSuccess().
+    TestPerson[] expectedPersonsList = td.getTypicalPersons();
 
     @Test
     public void edit_allFieldsSpecified_success() throws Exception {
@@ -36,7 +37,7 @@ public class EditCommandTest extends AddressBookGuiTest {
         String detailsToEdit = "t/sweetie t/bestie";
         int targetIndex = 2;
 
-        TestPerson personToEdit = currentList[targetIndex - 1];
+        TestPerson personToEdit = expectedPersonsList[targetIndex - 1];
         TestPerson editedPerson = new PersonBuilder(personToEdit).withTags("sweetie", "bestie").build();
 
         assertEditSuccess(targetIndex, targetIndex, detailsToEdit, editedPerson);
@@ -47,7 +48,7 @@ public class EditCommandTest extends AddressBookGuiTest {
         String detailsToEdit = "t/";
         int targetIndex = 2;
 
-        TestPerson personToEdit = currentList[targetIndex - 1];
+        TestPerson personToEdit = expectedPersonsList[targetIndex - 1];
         TestPerson editedPerson = new PersonBuilder(personToEdit).withTags().build();
 
         assertEditSuccess(targetIndex, targetIndex, detailsToEdit, editedPerson);
@@ -61,7 +62,7 @@ public class EditCommandTest extends AddressBookGuiTest {
         int targetIndexInFilteredList = 1;
         int targetIndexInUnfilteredList = 5;
 
-        TestPerson personToEdit = currentList[targetIndexInUnfilteredList - 1];
+        TestPerson personToEdit = expectedPersonsList[targetIndexInUnfilteredList - 1];
         TestPerson editedPerson = new PersonBuilder(personToEdit).withName("Belle").build();
 
         assertEditSuccess(targetIndexInFilteredList, targetIndexInUnfilteredList, detailsToEdit, editedPerson);
@@ -87,6 +88,9 @@ public class EditCommandTest extends AddressBookGuiTest {
 
     @Test
     public void edit_invalidValues_failure() {
+        commandBox.runCommand("edit 1 *&");
+        assertResultMessage(Name.MESSAGE_NAME_CONSTRAINTS);
+
         commandBox.runCommand("edit 1 p/abcd");
         assertResultMessage(Phone.MESSAGE_PHONE_CONSTRAINTS);
 
@@ -95,9 +99,6 @@ public class EditCommandTest extends AddressBookGuiTest {
 
         commandBox.runCommand("edit 1 a/");
         assertResultMessage(Address.MESSAGE_ADDRESS_CONSTRAINTS);
-
-        commandBox.runCommand("edit 1 *&");
-        assertResultMessage(Name.MESSAGE_NAME_CONSTRAINTS);
 
         commandBox.runCommand("edit 1 t/*&");
         assertResultMessage(Tag.MESSAGE_TAG_CONSTRAINTS);
@@ -115,7 +116,7 @@ public class EditCommandTest extends AddressBookGuiTest {
      *
      * @param targetIndexInFilteredList index of person to edit in filtered list e.g after a {@code FindCommand}
      * @param targetIndexInUnfilteredList index of person to edit in unfiltered list
-     * @param detailsToEdit details of the person to edit as an input to enter into the command box
+     * @param detailsToEdit details of the person to edit as input to the edit command
      * @param editedPerson the expected person after editing the person's details
      */
     private void assertEditSuccess(int targetIndexInFilteredList, int targetIndexInUnfilteredList,
@@ -127,8 +128,8 @@ public class EditCommandTest extends AddressBookGuiTest {
         assertMatching(editedPerson, editedCard);
 
         // confirm the list now contains all previous persons plus the person with updated details
-        currentList[targetIndexInUnfilteredList - 1] = editedPerson;
-        assertTrue(personListPanel.isListMatching(currentList));
+        expectedPersonsList[targetIndexInUnfilteredList - 1] = editedPerson;
+        assertTrue(personListPanel.isListMatching(expectedPersonsList));
         assertResultMessage(String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson));
     }
 }

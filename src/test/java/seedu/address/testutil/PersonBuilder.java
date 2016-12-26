@@ -17,7 +17,7 @@ public class PersonBuilder {
     }
 
     /**
-     * Creates a copy of {@code personToCopy}.
+     * Initializes the PersonBuilder with the data of {@code personToCopy}.
      */
     public PersonBuilder(TestPerson personToCopy) {
         this.person = new TestPerson(personToCopy);
