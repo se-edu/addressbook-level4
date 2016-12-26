@@ -1,8 +1,10 @@
 package seedu.address.logic.commands;
 
 import java.util.List;
+import java.util.Optional;
 
 import seedu.address.commons.core.Messages;
+import seedu.address.commons.util.CollectionUtil;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -21,13 +23,12 @@ public class EditCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the person identified "
             + "by the index number used in the last person listing. "
-            + "Existing values will be overwritten by the input values. "
+            + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) [NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS ] [t/TAG]...\n"
-            + "Example: " + COMMAND_WORD
-            + " 1 p/91234567 e/johndoe@yahoo.com";
+            + "Example: " + COMMAND_WORD + " 1 p/91234567 e/johndoe@yahoo.com";
 
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
-    public static final String MESSAGE_NO_ARGUMENT = "At least one of the fields should be edited";
+    public static final String MESSAGE_NOT_EDITED = "At least one of the fields should be edited";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";
 
     private final int targetIndex;
@@ -38,27 +39,27 @@ public class EditCommand extends Command {
      * @param editPersonDescriptor details of person to be edited
      */
     public EditCommand(int targetIndex, EditPersonDescriptor editPersonDescriptor) {
-        assert targetIndex >= 0;
+        assert targetIndex > 0;
         assert editPersonDescriptor != null;
 
         this.targetIndex = targetIndex;
-        this.editPersonDescriptor = editPersonDescriptor;
+        this.editPersonDescriptor = new EditPersonDescriptor(editPersonDescriptor);
     }
 
     @Override
     public CommandResult execute() {
         List<ReadOnlyPerson> lastShownList = model.getFilteredPersonList();
 
-        if (lastShownList.size() < targetIndex) {
+        if (targetIndex > lastShownList.size()) {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
         ReadOnlyPerson personToEdit = lastShownList.get(targetIndex - 1);
-        Person updatedPerson = createUpdatedPerson(personToEdit);
+        Person editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
 
         try {
-            model.updatePerson(personToEdit, updatedPerson);
+            model.updatePerson(personToEdit, editedPerson);
         } catch (UniquePersonList.PersonNotFoundException pnfe) {
             assert false : "The target person cannot be missing";
         } catch (UniquePersonList.DuplicatePersonException dpe) {
@@ -71,7 +72,8 @@ public class EditCommand extends Command {
     /**
      * Creates and returns a {@code Person} with the updated details.
      */
-    private Person createUpdatedPerson(ReadOnlyPerson personToEdit) {
+    public static Person createEditedPerson(ReadOnlyPerson personToEdit,
+            EditPersonDescriptor editPersonDescriptor) {
         assert personToEdit != null;
 
         Name updatedName = editPersonDescriptor.getName().orElseGet(personToEdit::getName);
@@ -83,4 +85,82 @@ public class EditCommand extends Command {
         return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
     }
 
+    /**
+     * Stores the details of person to edit.
+     */
+    public static class EditPersonDescriptor {
+        private Optional<Name> name;
+        private Optional<Phone> phone;
+        private Optional<Email> email;
+        private Optional<Address> address;
+        private Optional<UniqueTagList> tags;
+
+        public EditPersonDescriptor() {
+            name = Optional.empty();
+            phone = Optional.empty();
+            email = Optional.empty();
+            address = Optional.empty();
+            tags = Optional.empty();
+        }
+
+        public EditPersonDescriptor(EditPersonDescriptor toCopy) {
+            this.name = toCopy.getName();
+            this.phone = toCopy.getPhone();
+            this.email = toCopy.getEmail();
+            this.address = toCopy.getAddress();
+            this.tags = toCopy.getTags();
+        }
+
+        /**
+         * Returns true if at least one field is edited.
+         */
+        public boolean isAnyFieldEdited() {
+            return CollectionUtil.isAnyPresent(this.name, this.phone, this.email, this.address, this.tags);
+        }
+
+        public void setName(Optional<Name> name) {
+            assert name != null;
+            this.name = name;
+        }
+
+        public Optional<Name> getName() {
+            return name;
+        }
+
+        public void setPhone(Optional<Phone> phone) {
+            assert phone != null;
+            this.phone = phone;
+        }
+
+        public Optional<Phone> getPhone() {
+            return phone;
+        }
+
+        public void setEmail(Optional<Email> email) {
+            assert email != null;
+            this.email = email;
+        }
+
+        public Optional<Email> getEmail() {
+            return email;
+        }
+
+        public void setAddress(Optional<Address> address) {
+            assert address != null;
+            this.address = address;
+        }
+
+        public Optional<Address> getAddress() {
+            return address;
+        }
+
+        public void setTags(Optional<UniqueTagList> tags) {
+            assert tags != null;
+            this.tags = tags;
+        }
+
+        public Optional<UniqueTagList> getTags() {
+            return tags;
+        }
+    }
 }

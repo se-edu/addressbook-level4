@@ -42,81 +42,45 @@ public class UniquePersonList implements Iterable<Person> {
     }
 
     /**
-     * Edits the details of an existing person in the list.
+     * Updates the person in the list at position {@code index} with {@code updatedPerson}.
      *
-     * @param dst person to edit
-     * @param src person with updated details
+     * @throws DuplicatePersonException if editing the person's details causes the person to
+     *      be equivalent to another existing person in the list.
+     */
+    public void updatePerson(int index, ReadOnlyPerson updatedPerson)
+            throws DuplicatePersonException {
+        assert index >= 0;
+        assert updatedPerson != null;
+
+        Person personToUpdate = internalList.get(index);
+        if (!personToUpdate.equals(updatedPerson)
+                && internalList.contains(updatedPerson)) {
+            throw new DuplicatePersonException();
+        }
+
+        personToUpdate.updateDetailsWith(updatedPerson);
+        // set item in list so that observers of the list are notified of the change
+        internalList.set(index, personToUpdate);
+    }
+
+    /**
+     * Updates the person {@code personToUpdate} with {@code updatedPerson}.
+     *
      * @throws DuplicatePersonException if editing the person's details causes the person to
      *      be equivalent to another existing person in the list.
      * @throws PersonNotFoundException if no such person could be found in the list.
      */
-    public void updatePerson(Person dst, ReadOnlyPerson src)
+    public void updatePerson(ReadOnlyPerson personToUpdate, ReadOnlyPerson updatedPerson)
             throws DuplicatePersonException, PersonNotFoundException {
-        assert dst != null;
-        assert src != null;
+        assert personToUpdate != null;
+        assert updatedPerson != null;
 
-        if (isDuplicatePerson(dst, src)) {
-            throw new DuplicatePersonException();
-        }
-
-        int index = internalList.indexOf(dst);
+        int index = internalList.indexOf(personToUpdate);
         if (index < 0) {
             throw new PersonNotFoundException();
         }
 
-        editDetails(dst, src);
-        internalList.set(index, dst);
-    }
-
-    /**
-     * Verifies if editing the person's details causes the person to
-     * be equivalent to another existing person in the list.
-     *
-     * @return true if editing the person's details causes the person to
-     *      be equivalent to another existing person in the list.
-     */
-    private boolean isDuplicatePerson(Person dst, ReadOnlyPerson src) {
-        assert dst != null;
-        assert src != null;
-
-        List<Person> listCopy = new ArrayList<>(internalList);
-        listCopy.remove(dst);
-
-        return listCopy.contains(src);
-    }
-
-    /**
-     * Updates the values of the person {@code dst}.
-     *
-     * @param dst person to edit
-     * @param src person with updated details
-     */
-    private void editDetails(Person dst, ReadOnlyPerson src) {
-        assert dst != null;
-        assert src != null;
-
-        dst.setName(src.getName());
-        dst.setPhone(src.getPhone());
-        dst.setEmail(src.getEmail());
-        dst.setAddress(src.getAddress());
-        dst.setTags(src.getTags());
-    }
-
-    /**
-     * Returns the {@code Person} object equivalent to {@code ReadOnlyPerson readOnlyPerson}.
-     *
-     * @throws PersonNotFoundException if no such person could be found in the list.
-     */
-    public Person findPersonInList(ReadOnlyPerson readOnlyPerson) throws PersonNotFoundException {
-        assert readOnlyPerson != null;
-
-        int indexOfPerson = internalList.indexOf(readOnlyPerson);
-
-        if (indexOfPerson < 0) {
-            throw new PersonNotFoundException();
-        }
-
-        return internalList.get(indexOfPerson);
+        updatePerson(index, updatedPerson);
     }
 
     /**

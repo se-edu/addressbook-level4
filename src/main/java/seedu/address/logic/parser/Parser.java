@@ -3,6 +3,7 @@ package seedu.address.logic.parser;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.commands.*;
+import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.logic.parser.ArgumentTokenizer.*;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
@@ -123,8 +124,8 @@ public class Parser {
     */
     private List<Optional<String>> splitPreamble(String preamble, int numFields) {
         return Arrays.stream(Arrays.copyOf(preamble.split("\\s+", numFields), numFields))
-            .map(Optional::ofNullable)
-            .collect(Collectors.toList());
+                .map(Optional::ofNullable)
+                .collect(Collectors.toList());
     }
 
     /**
@@ -147,8 +148,7 @@ public class Parser {
 
         EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
         try {
-            editPersonDescriptor.setName(
-                    parseName(preambleFields.get(1)));
+            editPersonDescriptor.setName(parseName(preambleFields.get(1)));
             editPersonDescriptor.setPhone(
                     parsePhone(argsTokenizer.getValue(phoneNumberPrefix)));
             editPersonDescriptor.setEmail(
@@ -161,18 +161,15 @@ public class Parser {
             return new IncorrectCommand(ive.getMessage());
         }
 
-        if (!editPersonDescriptor.isFieldsEdited()) {
-            return new IncorrectCommand(EditCommand.MESSAGE_NO_ARGUMENT);
+        if (!editPersonDescriptor.isAnyFieldEdited()) {
+            return new IncorrectCommand(EditCommand.MESSAGE_NOT_EDITED);
         }
 
         return new EditCommand(index.get(), editPersonDescriptor);
     }
 
     /**
-     * Converts {@code Optional<String> name} to {@code Optional<Name>} if it is a valid name string.
-     *
-     * @return {@code Optional<Name>} if {@code name} is a valid name string.
-     *          Returns {@code Optional.empty()} if {@code name} is {@code Optional.empty()}.
+     * Parses an {@code Optional<String> name} into a {@code Optional<Name>} if {@code name} is present.
      */
     private Optional<Name> parseName(Optional<String> name) throws IllegalValueException {
         assert name != null;
@@ -180,10 +177,7 @@ public class Parser {
     }
 
     /**
-     * Converts {@code Optional<String> phone} to {@code Optional<Phone>} if it is a valid phone string.
-     *
-     * @return {@code Optional<Phone>} if {@code phone} is a valid phone string.
-     *          Returns {@code Optional.empty()} if {@code phone} is {@code Optional.empty()}.
+     * Parses an {@code Optional<String> phone} into a {@code Optional<Phone>} if {@code phone} is present.
      */
     private Optional<Phone> parsePhone(Optional<String> phone) throws IllegalValueException {
         assert phone != null;
@@ -191,10 +185,7 @@ public class Parser {
     }
 
     /**
-     * Converts {@code Optional<String> address} to {@code Optional<Address>} if it is a valid address string.
-     *
-     * @return {@code Optional<Address>} if {@code address} is a valid address string.
-     *          Returns {@code Optional.empty()} if {@code address} is {@code Optional.empty()}.
+     * Parses an {@code Optional<String> address} into a {@code Optional<Address>} if {@code address} is present.
      */
     private Optional<Address> parseAddress(Optional<String> address) throws IllegalValueException {
         assert address != null;
@@ -202,10 +193,7 @@ public class Parser {
     }
 
     /**
-     * Converts {@code Optional<String> email} to {@code Optional<Email>} if it is a valid email string.
-     *
-     * @return {@code Optional<Email>} if {@code email} is a valid email string.
-     *          Returns {@code Optional.empty()} if {@code email} is {@code Optional.empty()}.
+     * Parses an {@code Optional<String> email} into a {@code Optional<Email>} if {@code email} is present.
      */
     private Optional<Email> parseEmail(Optional<String> email) throws IllegalValueException {
         assert email != null;
@@ -213,10 +201,9 @@ public class Parser {
     }
 
     /**
-     * Converts {@code Collection<String> tags} to {@code Optional<UniqueTagList>}.
-     *
-     * @return {@code Optional<UniqueTagList>} containing the tags.
-     *          Returns {@code Optional.empty()} if {@code tags} is an empty set.
+     * Parses {@code Collection<String> tags} into a {@code Optional<UniqueTagList>} if {@code tags} is non-empty.
+     * If {@code tags} contain only one element which is an empty string, it will be parsed into a
+     * {@code Optional<UniqueTagList>} containing zero tags.
      */
     private Optional<UniqueTagList> parseTagsForEdit(Collection<String> tags) throws IllegalValueException {
         assert tags != null;
@@ -225,19 +212,19 @@ public class Parser {
             return Optional.empty();
         }
         Collection<String> tagSet = tags.size() == 1 && tags.contains("") ? Collections.emptySet() : tags;
-        return parseTags(tagSet);
+        return Optional.of(parseTags(tagSet));
     }
 
     /**
-     * Converts {@code Collection<String> tags} to {@code Optional<UniqueTagList>}.
+     * Parses {@code Collection<String> tags} into a {@code UniqueTagList}.
      */
-    private Optional<UniqueTagList> parseTags(Collection<String> tags) throws IllegalValueException {
+    private UniqueTagList parseTags(Collection<String> tags) throws IllegalValueException {
         assert tags != null;
         final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tags) {
             tagSet.add(new Tag(tagName));
         }
-        return Optional.of(new UniqueTagList(tagSet));
+        return new UniqueTagList(tagSet);
     }
 
     /**

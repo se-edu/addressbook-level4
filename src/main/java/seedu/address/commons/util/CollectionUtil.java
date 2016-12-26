@@ -24,9 +24,9 @@ public class CollectionUtil {
     }
 
     /**
-     * Returns true is any of the given items are non-null.
+     * Returns true is any of the given items are present.
      */
-    public static boolean isAnyNonEmpty(Optional<?>... items) {
+    public static boolean isAnyPresent(Optional<?>... items) {
         return Stream.of(items).anyMatch(Optional::isPresent);
     }
 

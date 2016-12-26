@@ -72,12 +72,12 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void updatePerson(ReadOnlyPerson dst, ReadOnlyPerson src)
+    public void updatePerson(ReadOnlyPerson personToUpdate, ReadOnlyPerson updatedPerson)
             throws UniquePersonList.DuplicatePersonException, UniquePersonList.PersonNotFoundException {
-        assert dst != null;
-        assert src != null;
+        assert personToUpdate != null;
+        assert updatedPerson != null;
 
-        addressBook.updatePerson(dst, src);
+        addressBook.updatePerson(personToUpdate, updatedPerson);
         updateFilteredListToShowAll();
         indicateAddressBookChanged();
     }
