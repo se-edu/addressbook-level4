@@ -16,6 +16,7 @@ import seedu.address.model.tag.Tag;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.TestPerson;
 
+// TODO: reduce GUI tests by transferring some tests to be covered by lower level tests.
 public class EditCommandTest extends AddressBookGuiTest {
 
     // The list of persons in the person list panel is expected to match this list.
@@ -25,34 +26,34 @@ public class EditCommandTest extends AddressBookGuiTest {
     @Test
     public void edit_allFieldsSpecified_success() throws Exception {
         String detailsToEdit = "Bobby p/91234567 e/bobby@gmail.com a/Block 123, Bobby Street 3 t/husband";
-        int targetIndex = 1;
+        int addressBookIndex = 1;
 
         TestPerson editedPerson = new PersonBuilder().withName("Bobby").withPhone("91234567")
                 .withEmail("bobby@gmail.com").withAddress("Block 123, Bobby Street 3").withTags("husband").build();
 
-        assertEditSuccess(targetIndex, targetIndex, detailsToEdit, editedPerson);
+        assertEditSuccess(addressBookIndex, addressBookIndex, detailsToEdit, editedPerson);
     }
 
     @Test
     public void edit_notAllFieldsSpecified_success() throws Exception {
         String detailsToEdit = "t/sweetie t/bestie";
-        int targetIndex = 2;
+        int addressBookIndex = 2;
 
-        TestPerson personToEdit = expectedPersonsList[targetIndex - 1];
+        TestPerson personToEdit = expectedPersonsList[addressBookIndex - 1];
         TestPerson editedPerson = new PersonBuilder(personToEdit).withTags("sweetie", "bestie").build();
 
-        assertEditSuccess(targetIndex, targetIndex, detailsToEdit, editedPerson);
+        assertEditSuccess(addressBookIndex, addressBookIndex, detailsToEdit, editedPerson);
     }
 
     @Test
     public void edit_clearTags_success() throws Exception {
         String detailsToEdit = "t/";
-        int targetIndex = 2;
+        int addressBookIndex = 2;
 
-        TestPerson personToEdit = expectedPersonsList[targetIndex - 1];
+        TestPerson personToEdit = expectedPersonsList[addressBookIndex - 1];
         TestPerson editedPerson = new PersonBuilder(personToEdit).withTags().build();
 
-        assertEditSuccess(targetIndex, targetIndex, detailsToEdit, editedPerson);
+        assertEditSuccess(addressBookIndex, addressBookIndex, detailsToEdit, editedPerson);
     }
 
     @Test

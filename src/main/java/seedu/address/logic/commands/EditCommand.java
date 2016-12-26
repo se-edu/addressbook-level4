@@ -35,15 +35,16 @@ public class EditCommand extends Command {
     private final EditPersonDescriptor editPersonDescriptor;
 
     /**
-     * @param filteredPersonListIndex the index of the person to edit based on current list
+     * @param filteredPersonListIndex the index of the person in the filtered person list to edit
      * @param editPersonDescriptor details to edit the person with
      */
     public EditCommand(int filteredPersonListIndex, EditPersonDescriptor editPersonDescriptor) {
         assert filteredPersonListIndex > 0;
         assert editPersonDescriptor != null;
 
-        // converts targetIndex from one-based to zero-based.
+        // converts filteredPersonListIndex from one-based to zero-based.
         this.filteredPersonListIndex = filteredPersonListIndex - 1;
+
         this.editPersonDescriptor = new EditPersonDescriptor(editPersonDescriptor);
     }
 
@@ -62,6 +63,7 @@ public class EditCommand extends Command {
         try {
             model.updatePerson(filteredPersonListIndex, editedPerson);
         } catch (UniquePersonList.DuplicatePersonException dpe) {
+            indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(MESSAGE_DUPLICATE_PERSON);
         }
         model.updateFilteredListToShowAll();
@@ -69,7 +71,8 @@ public class EditCommand extends Command {
     }
 
     /**
-     * Creates and returns a {@code Person} with the updated details.
+     * Creates and returns a {@code Person} with the details of {@code personToEdit}
+     * edited with {@code editPersonDescriptor}.
      */
     private static Person createEditedPerson(ReadOnlyPerson personToEdit,
                                              EditPersonDescriptor editPersonDescriptor) {
