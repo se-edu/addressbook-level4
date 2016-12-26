@@ -70,7 +70,7 @@ Edits an existing person in the address book.<br>
 Format: `edit INDEX [NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
 
 > * Edits the person at the specified `INDEX`.
-    The index refers to the index number shown in the most recent listing.<br>
+    The index refers to the index number shown in the last person listing.<br>
     The index **must be a positive integer** 1, 2, 3, ...
 > * At least one of the optional fields must be provided.
 > * Existing values will be updated to the input values.

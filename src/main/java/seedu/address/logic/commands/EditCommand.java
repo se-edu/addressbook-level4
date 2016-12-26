@@ -28,21 +28,22 @@ public class EditCommand extends Command {
             + "Example: " + COMMAND_WORD + " 1 p/91234567 e/johndoe@yahoo.com";
 
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
-    public static final String MESSAGE_NOT_EDITED = "At least one field must be provided.";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";
+    public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
+    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
 
-    private final int targetIndex;
+    private final int filteredPersonListIndex;
     private final EditPersonDescriptor editPersonDescriptor;
 
     /**
-     * @param targetIndex the index of the person to edit based on current list
-     * @param editPersonDescriptor details of person to be edited
+     * @param filteredPersonListIndex the index of the person to edit based on current list
+     * @param editPersonDescriptor details to edit the person with
      */
-    public EditCommand(int targetIndex, EditPersonDescriptor editPersonDescriptor) {
-        assert targetIndex > 0;
+    public EditCommand(int filteredPersonListIndex, EditPersonDescriptor editPersonDescriptor) {
+        assert filteredPersonListIndex > 0;
         assert editPersonDescriptor != null;
 
-        this.targetIndex = targetIndex - 1; // converts targetIndex from one-based to zero-based.
+        // converts targetIndex from one-based to zero-based.
+        this.filteredPersonListIndex = filteredPersonListIndex - 1;
         this.editPersonDescriptor = new EditPersonDescriptor(editPersonDescriptor);
     }
 
@@ -50,16 +51,16 @@ public class EditCommand extends Command {
     public CommandResult execute() {
         List<ReadOnlyPerson> lastShownList = model.getFilteredPersonList();
 
-        if (targetIndex >= lastShownList.size()) {
+        if (filteredPersonListIndex >= lastShownList.size()) {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
-        ReadOnlyPerson personToEdit = lastShownList.get(targetIndex);
+        ReadOnlyPerson personToEdit = lastShownList.get(filteredPersonListIndex);
         Person editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
 
         try {
-            model.updatePerson(targetIndex, editedPerson);
+            model.updatePerson(filteredPersonListIndex, editedPerson);
         } catch (UniquePersonList.DuplicatePersonException dpe) {
             return new CommandResult(MESSAGE_DUPLICATE_PERSON);
         }
@@ -84,7 +85,8 @@ public class EditCommand extends Command {
     }
 
     /**
-     * Stores the details of person to edit.
+     * Stores the details to edit the person with. Each non-empty field value will replace the
+     * corresponding field value of the person.
      */
     public static class EditPersonDescriptor {
         private Optional<Name> name = Optional.empty();

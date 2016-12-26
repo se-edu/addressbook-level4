@@ -115,9 +115,10 @@ public class EditCommandTest extends AddressBookGuiTest {
     /**
      * Checks whether the edited person has the correct updated details.
      *
-     * @param filteredPersonListIndex index of person to edit in filtered list i.e the current view that user is seeing.
-     * @param addressBookIndex index of person to edit in the entire address book i.e when the list is unfiltered.
-     * @param detailsToEdit details of the person to edit as input to the edit command
+     * @param filteredPersonListIndex index of person to edit in filtered list
+     * @param addressBookIndex index of person to edit in the address book.
+     *      Must refer to the same person as {@code filteredPersonListIndex}
+     * @param detailsToEdit details to edit the person with as input to the edit command
      * @param editedPerson the expected person after editing the person's details
      */
     private void assertEditSuccess(int filteredPersonListIndex, int addressBookIndex,
