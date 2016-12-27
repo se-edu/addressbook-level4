@@ -259,7 +259,6 @@ public class Parser {
     }
 
     private String toRangedIndex(String toConvert) {
-        assert toConvert != null;
         final String trimmed = toConvert.trim();
         return trimmed + PERSON_INDEX_RANGE_INDICATOR + trimmed;
     }

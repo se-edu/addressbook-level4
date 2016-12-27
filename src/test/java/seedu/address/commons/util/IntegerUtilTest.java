@@ -19,16 +19,16 @@ public class IntegerUtilTest {
     public ExpectedException thrown = ExpectedException.none();
 
     @Test
-    public void applyOffset_nullReference_assertionError() throws Exception {
-        thrown.expect(AssertionError.class);
+    public void applyOffset_nullReference_throwsNullPointerException() throws Exception {
+        thrown.expect(NullPointerException.class);
         IntegerUtil.applyOffset(null, 1);
     }
 
     @Test
-    public void applyOffset_containingNull_assertionError() throws Exception {
+    public void applyOffset_containingNull_throwsNullPointerException() throws Exception {
         Collection<Integer> containingNull = new ArrayList<>();
         containingNull.add(null);
-        thrown.expect(AssertionError.class);
+        thrown.expect(NullPointerException.class);
         IntegerUtil.applyOffset(containingNull, 1);
     }
 

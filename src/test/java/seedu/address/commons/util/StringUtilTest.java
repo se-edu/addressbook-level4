@@ -163,16 +163,16 @@ public class StringUtilTest {
      */
 
     @Test
-    public void toIndexedListString_nullGiven_assertionError() {
-        thrown.expect(AssertionError.class);
+    public void toIndexedListString_nullGiven_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
         StringUtil.toIndexedListString(null);
     }
 
     @Test
-    public void toIndexedListString_listContainsNull_assertionError() {
+    public void toIndexedListString_listContainsNull_throwsNullPointerException() {
         List<Object> containingNull = new ArrayList<>();
         containingNull.add(null);
-        thrown.expect(AssertionError.class);
+        thrown.expect(NullPointerException.class);
         StringUtil.toIndexedListString(containingNull);
     }
 

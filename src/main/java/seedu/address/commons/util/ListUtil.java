@@ -20,8 +20,6 @@ public class ListUtil {
      * </ul>
      */
     public static <T> List<T> subList(List<T> list, Integer... indices) {
-        assert list != null;
-        assert !CollectionUtil.isAnyNull(Arrays.asList(indices));
         assert areIndicesWithinBounds(list, Arrays.asList(indices));
         return Stream.of(indices)
                 .distinct()
@@ -38,8 +36,6 @@ public class ListUtil {
      * </ul>
      */
     public static <T> List<T> subList(List<T> list, Collection<Integer> indices) {
-        assert list != null;
-        assert !CollectionUtil.isAnyNull(indices);
         assert areIndicesWithinBounds(list, indices);
         return indices.stream()
                 .distinct()
@@ -50,8 +46,6 @@ public class ListUtil {
 
     /** Returns true if every index in {@code indices} is within bounds of {@code list}. */
     public static boolean areIndicesWithinBounds(List<?> list, Collection<Integer> indices) {
-        assert list != null;
-        assert !CollectionUtil.isAnyNull(indices);
         return Collections.min(indices) >= 0 && Collections.max(indices) < list.size();
     }
 }

@@ -10,7 +10,6 @@ public class IntegerUtil {
 
     /** Applies an integer {@code offset} to each integer element of {@code source}. */
     public static void applyOffset(Collection<Integer> source, int offset) {
-        assert !CollectionUtil.isAnyNull(source);
         Collection<Integer> offsetted = source.stream().map(i -> i + offset).collect(Collectors.toList());
         source.clear();
         source.addAll(offsetted);

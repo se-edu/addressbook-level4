@@ -61,7 +61,6 @@ public class StringUtil {
      * Returns a string that has each item in {@code items} on its own 'one-indexed' new line.
      */
     public static String toIndexedListString(Collection<?> items) {
-        assert !CollectionUtil.isAnyNull(items);
         StringBuilder sb = new StringBuilder();
         int index = 1;
         for (Object item : items) {
