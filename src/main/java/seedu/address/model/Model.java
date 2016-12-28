@@ -5,6 +5,8 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.UniquePersonList;
 
+import java.util.Collection;
+import java.util.Optional;
 import java.util.Set;
 
 /**
@@ -19,6 +21,9 @@ public interface Model {
 
     /** Deletes the given person. */
     void deletePerson(ReadOnlyPerson target) throws UniquePersonList.PersonNotFoundException;
+
+    /** Deletes the given persons. */
+    Optional<Collection<ReadOnlyPerson>> deletePersons(Collection<ReadOnlyPerson> personsToDelete);
 
     /** Adds the given person */
     void addPerson(Person person) throws UniquePersonList.DuplicatePersonException;

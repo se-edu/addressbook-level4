@@ -120,6 +120,11 @@ public class AddressBook implements ReadOnlyAddressBook {
         }
     }
 
+    /** Removes all persons specified by {@code keys} from this {@code AddressBook}'s {@code UniquePersonList}. */
+    public Optional<Collection<ReadOnlyPerson>> removePersons(Collection<ReadOnlyPerson> keys) {
+        return persons.removeAll(keys);
+    }
+
 //// tag-level operations
 
     public void addTag(Tag t) throws UniqueTagList.DuplicateTagException {

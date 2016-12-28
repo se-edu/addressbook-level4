@@ -7,6 +7,7 @@ import seedu.address.commons.util.CollectionUtil;
 import seedu.address.commons.exceptions.DuplicateDataException;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * A list of persons that enforces uniqueness between its elements and does not allow nulls.
@@ -53,6 +54,28 @@ public class UniquePersonList implements Iterable<Person> {
             throw new PersonNotFoundException();
         }
         return personFoundAndDeleted;
+    }
+
+    /**
+     * Removes all persons specified by {@code personsToRemove} from this list.<br>
+     *
+     * Returns an {@code Optional.empty()} if all persons in {@code personsToRemove} exist in this list.<br>
+     *
+     * Otherwise, returns an {@code Optional} of persons that do not exist in this list.
+     */
+    public Optional<Collection<ReadOnlyPerson>> removeAll(Collection<ReadOnlyPerson> personsToRemove) {
+        assert !CollectionUtil.isAnyNull(personsToRemove);
+
+        final Collection<ReadOnlyPerson> missingPersons =
+                personsToRemove.stream().filter(p -> !internalList.contains(p)).collect(Collectors.toList());
+
+        internalList.removeAll(personsToRemove);
+
+        if (!missingPersons.isEmpty()) {
+            return Optional.of(missingPersons); // missing persons found
+        }
+
+        return Optional.empty();
     }
 
     public void setPersons(UniquePersonList replacement) {
