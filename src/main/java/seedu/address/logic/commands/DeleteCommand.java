@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.UnmodifiableObservableList;
@@ -11,7 +12,6 @@ import seedu.address.commons.util.IntegerUtil;
 import seedu.address.commons.util.ListUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.model.person.ReadOnlyPerson;
-import seedu.address.model.person.UniquePersonList.PersonNotFoundException;
 
 /**
  * Deletes a person identified using it's last displayed index from the address book.
@@ -50,25 +50,15 @@ public class DeleteCommand extends Command {
             return new CommandResult(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
-        List<ReadOnlyPerson> deletedPersons = deletePersonsFrom(lastShownList, targetIndices);
+        List<ReadOnlyPerson> personsToDelete = ListUtil.subList(lastShownList, targetIndices);
 
-        return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, deletedPersons.size(),
-                StringUtil.toIndexedListString(deletedPersons)));
-    }
-
-    /** Deletes persons from {@code targetList} then returns the list of deleted persons. */
-    private List<ReadOnlyPerson> deletePersonsFrom(List<ReadOnlyPerson> targetList,
-            Collection<Integer> indicesToDelete) {
-
-        List<ReadOnlyPerson> personsToDelete = ListUtil.subList(targetList, indicesToDelete);
-        try {
-            for (ReadOnlyPerson person : personsToDelete) {
-                model.deletePerson(person);
-            }
-        } catch (PersonNotFoundException pnfe) {
-            assert false : "The target person cannot be missing";
+        Optional<Collection<ReadOnlyPerson>> missingPersons = model.deletePersons(personsToDelete);
+        if (missingPersons.isPresent()) {
+            assert false : "Tried to delete " + missingPersons.get().size() + " person(s) not found in the list";
         }
-        return personsToDelete;
+
+        return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, personsToDelete.size(),
+                StringUtil.toIndexedListString(personsToDelete)));
     }
 
 }
