@@ -83,17 +83,15 @@ Examples:
 * `find Betsy Tim John`<br>
   Returns Any person having names `Betsy`, `Tim`, or `John`
 
-### 2.5. Deleting a person : `delete`
+### 2.5. Deleting persons: `delete`
 
-Deletes the specified person from the address book. Irreversible.<br>
-Format: `delete INDEX [INDEX]...`
+Deletes the specified persons from the address book. Irreversible.<br>
+Format: `delete INDICES [INDICES]...`
 
-> Deletes the person at the specified `INDEX`.<br>
-  You may also specify multiple persons to delete.<br>
-  The index refers to the index number shown in the most recent listing.<br>
-  `INDEX` must either be:<br>
-  - a **positive integer** e.g. 1, 2, 3, ...
-  - or **positive integers** surrounding a range indicator, `-` e.g. 1-5, 2-4, ...
+> * Deletes the persons at the specified `INDICES`.<br>
+> * `INDICES` can only be integers or integer ranges separated by spaces.<br>
+> * Integer ranges are specified using `-`. <br>
+> * Only positive integers are accepted.<br>
 
 Examples: 
 
@@ -170,7 +168,7 @@ There is no need to save manually.
 
 * **Clear** : `clear`
   
-* **Delete** : `delete INDEX [INDEX]...` <br> 
+* **Delete** : `delete INDICES [INDICES]...` <br> 
    e.g. `delete 3 5 6 1-2`
   
 * **Find** : `find KEYWORD [MORE_KEYWORDS]` <br>
