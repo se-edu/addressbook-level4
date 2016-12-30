@@ -71,11 +71,7 @@ public class UniquePersonList implements Iterable<Person> {
 
         internalList.removeAll(personsToRemove);
 
-        if (!missingPersons.isEmpty()) {
-            return Optional.of(missingPersons); // missing persons found
-        }
-
-        return Optional.empty();
+        return Optional.of(missingPersons).filter(c -> !c.isEmpty());
     }
 
     public void setPersons(UniquePersonList replacement) {
