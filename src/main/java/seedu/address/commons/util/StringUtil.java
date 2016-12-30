@@ -3,6 +3,9 @@ package seedu.address.commons.util;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.Collection;
+import java.util.Iterator;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 /**
  * Helper functions for handling strings.
@@ -61,15 +64,9 @@ public class StringUtil {
      * Returns a string that has each item in {@code items} on its own 'one-indexed' new line.
      */
     public static String toIndexedListString(Collection<?> items) {
-        StringBuilder sb = new StringBuilder();
-        int index = 1;
-        for (Object item : items) {
-            sb.append(index).append(". ").append(item.toString());
-            if (index < items.size()) {
-                sb.append("\n");
-            }
-            index++;
-        }
-        return sb.toString();
+        final Iterator<?> itr = items.iterator();
+        return IntStream.rangeClosed(1, items.size())
+                .mapToObj(index -> index + ". " + itr.next().toString())
+                .collect(Collectors.joining("\n"));
     }
 }
