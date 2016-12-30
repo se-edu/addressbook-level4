@@ -5,7 +5,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * Utility methods related to Lists
@@ -19,11 +18,7 @@ public class ListUtil {
      */
     public static <T> List<T> subList(List<T> list, Integer... indices) {
         assert areIndicesWithinBounds(list, Arrays.asList(indices));
-        return Stream.of(indices)
-                .distinct()
-                .sorted()
-                .map(list::get)
-                .collect(Collectors.toList());
+        return subList(list, Arrays.asList(indices));
     }
 
     /**
