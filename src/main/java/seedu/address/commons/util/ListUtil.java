@@ -14,10 +14,8 @@ public class ListUtil {
 
     /**
      * Returns a sublist of items from {@code list} specified by {@code indices}.<br>
-     * <ul>
-     *   <li>Original list order is maintained in the extracted list.</li>
-     *   <li>Duplicate indices are ignored.</li>
-     * </ul>
+     * - Original list order is maintained in the extracted list.<br>
+     * - Duplicate indices are ignored.<br>
      */
     public static <T> List<T> subList(List<T> list, Integer... indices) {
         assert areIndicesWithinBounds(list, Arrays.asList(indices));
@@ -30,10 +28,8 @@ public class ListUtil {
 
     /**
      * Returns a sublist of items from {@code list} specified by {@code indices}.<br>
-     * <ul>
-     *   <li>Original list order is maintained in the extracted list.</li>
-     *   <li>Duplicate indices are ignored.</li>
-     * </ul>
+     * - Original list order is maintained in the extracted list.<br>
+     * - Duplicate indices are ignored.<br>
      */
     public static <T> List<T> subList(List<T> list, Collection<Integer> indices) {
         assert areIndicesWithinBounds(list, indices);

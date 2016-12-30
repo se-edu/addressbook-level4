@@ -120,7 +120,13 @@ public class AddressBook implements ReadOnlyAddressBook {
         }
     }
 
-    /** Removes all persons specified by {@code keys} from this {@code AddressBook}'s {@code UniquePersonList}. */
+    /**
+     * Removes all persons specified by {@code keys} from this {@code AddressBook}'s {@code UniquePersonList}.<br>
+     *
+     * Returns an {@code Optional.empty()} if all persons in {@code keys} exist in this list.<br>
+     *
+     * Otherwise, returns an {@code Optional} of persons that do not exist in this list.
+     */
     public Optional<Collection<ReadOnlyPerson>> removePersons(Collection<ReadOnlyPerson> keys) {
         return persons.removeAll(keys);
     }

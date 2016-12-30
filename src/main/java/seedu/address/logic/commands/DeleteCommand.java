@@ -43,7 +43,7 @@ public class DeleteCommand extends Command {
     public CommandResult execute() {
         UnmodifiableObservableList<ReadOnlyPerson> lastShownList = model.getFilteredPersonList();
 
-        IntegerUtil.applyOffset(targetIndices, -1);
+        IntegerUtil.applyOffset(targetIndices, -1); // converting to zero-indexed indices
 
         if (!ListUtil.areIndicesWithinBounds(lastShownList, targetIndices)) {
             indicateAttemptToExecuteIncorrectCommand();
