@@ -64,9 +64,39 @@ public class DeleteCommandTest extends AddressBookGuiTest {
 
     @Test
     public void delete_invalidIndex() {
-        TestPerson[] currentList = td.getTypicalPersons();
-        commandBox.runCommand("delete " + currentList.length + 1);
-        assertResultMessage("The person index provided is invalid");
+        String expectedFeedback = Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
+        // single index exceeding upper bound of list size
+        assertDeleteCommandResult("" + size + 1, expectedFeedback);
+
+        // ascending ranged index exceeding upper bound of list size
+        assertDeleteCommandResult(size + "-" + size + 1, expectedFeedback);
+
+        // descending ranged index exceeding upper bound of list size
+        assertDeleteCommandResult(size + 1 + "-" + size, expectedFeedback);
+    }
+
+    @Test
+    public void delete_invalidArgsFormat() {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE);
+        // no indices around range indicator
+        assertDeleteCommandResult("-", expectedMessage);
+
+        // range indicator only partially surrounded
+        assertDeleteCommandResult("5-", expectedMessage);
+        assertDeleteCommandResult("-5", expectedMessage);
+
+        // excessive range indicators
+        assertDeleteCommandResult("- -- --- -", expectedMessage);
+
+        // index '0'
+        assertDeleteCommandResult("0", expectedMessage);
+
+        // '+' signed integer
+        assertDeleteCommandResult("+1", expectedMessage);
+
+        // not integers
+        assertDeleteCommandResult("asd", expectedMessage);
+        assertDeleteCommandResult("asd-asd", expectedMessage);
     }
 
     /*
