@@ -1,4 +1,4 @@
-# AddressBook Level 4 - Developer Guide 
+# AddressBook Level 4 - Developer Guide
 
 By : `Team SE-EDU`  &nbsp;&nbsp;&nbsp;&nbsp; Since: `Jun 2016`  &nbsp;&nbsp;&nbsp;&nbsp; Licence: `MIT`
 
@@ -25,7 +25,7 @@ By : `Team SE-EDU`  &nbsp;&nbsp;&nbsp;&nbsp; Since: `Jun 2016`  &nbsp;&nbsp;&nbs
 
     > Having any Java 8 version is not enough. <br>
     This app will not work with earlier versions of Java 8.
-    
+
 2. **Eclipse** IDE
 3. **e(fx)clipse** plugin for Eclipse (Do the steps 2 onwards given in
    [this page](http://www.eclipse.org/efxclipse/install.html#for-the-ambitious))
@@ -36,7 +36,7 @@ By : `Team SE-EDU`  &nbsp;&nbsp;&nbsp;&nbsp; Since: `Jun 2016`  &nbsp;&nbsp;&nbs
 ### 1.2. Importing the project into Eclipse
 
 0. Fork this repo, and clone the fork to your computer
-1. Open Eclipse (Note: Ensure you have installed the **e(fx)clipse** and **buildship** plugins as given 
+1. Open Eclipse (Note: Ensure you have installed the **e(fx)clipse** and **buildship** plugins as given
    in the prerequisites above)
 2. Click `File` > `Import`
 3. Click `Gradle` > `Gradle Project` > `Next` > `Next`
@@ -47,9 +47,9 @@ By : `Team SE-EDU`  &nbsp;&nbsp;&nbsp;&nbsp; Since: `Jun 2016`  &nbsp;&nbsp;&nbs
   > * Depending on your connection speed and server load, it can even take up to 30 minutes for the set up to finish
       (This is because Gradle downloads library files from servers during the project set up process)
   > * If Eclipse auto-changed any settings files during the import process, you can discard those changes.
-  
+
 ### 1.3. Configuring Checkstyle
-1. Click `Project` -> `Properties` -> `Checkstyle` -> `Local Check Configurations` -> `New...` 
+1. Click `Project` -> `Properties` -> `Checkstyle` -> `Local Check Configurations` -> `New...`
 2. Choose `External Configuration File` under `Type`
 3. Enter an arbitrary configuration name e.g. addressbook
 4. Import checkstyle configuration file found at `config/checkstyle/checkstyle.xml`
@@ -57,21 +57,21 @@ By : `Team SE-EDU`  &nbsp;&nbsp;&nbsp;&nbsp; Since: `Jun 2016`  &nbsp;&nbsp;&nbs
 6. Tick and select `files from packages`, click `Change...`, and select the `resources` package
 7. Click OK twice. Rebuild project if prompted
 
-> Note to click on the `files from packages` text after ticking in order to enable the `Change...` button  
+> Note to click on the `files from packages` text after ticking in order to enable the `Change...` button
 
 ### 1.4. Troubleshooting project setup
 
 **Problem: Eclipse reports compile errors after new commits are pulled from Git**
 
-* Reason: Eclipse fails to recognize new files that appeared due to the Git pull. 
-* Solution: Refresh the project in Eclipse:<br> 
+* Reason: Eclipse fails to recognize new files that appeared due to the Git pull.
+* Solution: Refresh the project in Eclipse:<br>
   Right click on the project (in Eclipse package explorer), choose `Gradle` -> `Refresh Gradle Project`.
-  
+
 **Problem: Eclipse reports some required libraries missing**
 
-* Reason: Required libraries may not have been downloaded during the project import. 
+* Reason: Required libraries may not have been downloaded during the project import.
 * Solution: [Run tests using Gradle](UsingGradle.md) once (to refresh the libraries).
- 
+
 
 ## 2. Design
 
@@ -114,7 +114,7 @@ interface and exposes its functionality using the `LogicManager.java` class.<br>
 <img src="images/LogicClassDiagram.png" width="800"><br>
 _Figure 2.1.2 : Class Diagram of the Logic Component_
 
-#### Events-Driven nature of the design 
+#### Events-Driven nature of the design
 
 The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the
 command `delete 1`.
@@ -131,7 +131,7 @@ being saved to the hard disk and the status bar of the UI being updated to refle
 _Figure 2.1.3b : Component interactions for `delete 1` command (part 2)_
 
 > Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having
-  to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct 
+  to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct
   coupling between components.
 
 The sections below give more details of each component.
@@ -237,7 +237,7 @@ and logging destinations.
 
 ### 3.2. Configuration
 
-Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file 
+Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file
 (default: `config.json`):
 
 
@@ -257,36 +257,36 @@ Tests can be found in the `./src/test/java` folder.
 
 We have two types of tests:
 
-1. **GUI Tests** - These are _System Tests_ that test the entire App by simulating user actions on the GUI. 
+1. **GUI Tests** - These are _System Tests_ that test the entire App by simulating user actions on the GUI.
    These are in the `guitests` package.
-  
+
 2. **Non-GUI Tests** - These are tests not involving the GUI. They include,
    1. _Unit tests_ targeting the lowest level methods/classes. <br>
       e.g. `seedu.address.commons.UrlUtilTest`
-   2. _Integration tests_ that are checking the integration of multiple code units 
+   2. _Integration tests_ that are checking the integration of multiple code units
      (those code units are assumed to be working).<br>
       e.g. `seedu.address.storage.StorageManagerTest`
-   3. Hybrids of unit and integration tests. These test are checking multiple code units as well as 
+   3. Hybrids of unit and integration tests. These test are checking multiple code units as well as
       how the are connected together.<br>
       e.g. `seedu.address.logic.LogicManagerTest`
-  
+
 ##### Headless GUI Testing
 Thanks to the [TestFX](https://github.com/TestFX/TestFX) library we use,
- our GUI tests can be run in the _headless_ mode. 
+ our GUI tests can be run in the _headless_ mode.
  In the headless mode, GUI tests do not show up on the screen.
  That means the developer can do other things on the Computer while the tests are running.<br>
  See [UsingGradle.md](UsingGradle.md#running-tests) to learn how to run tests in headless mode.
- 
+
 ### 4.1. Troubleshooting tests
 
  **Problem: Tests fail because NullPointException when AssertionError is expected**
- 
- * Reason: Assertions are not enabled for JUnit tests. 
+
+ * Reason: Assertions are not enabled for JUnit tests.
    This can happen if you are not using a recent Eclipse version (i.e. _Neon_ or later)
- * Solution: Enable assertions in JUnit tests as described 
+ * Solution: Enable assertions in JUnit tests as described
    [here](http://stackoverflow.com/questions/2522897/eclipse-junit-ea-vm-option). <br>
    Delete run configurations created when you ran tests earlier.
-  
+
 ## 5. Dev Ops
 
 ### 5.1. Build Automation
@@ -301,12 +301,12 @@ See [UsingTravis.md](UsingTravis.md) and [UsingAppVeyor.md](UsingAppVeyor.md) fo
 ### 5.3. Making a Release
 
 Here are the steps to create a new release.
- 
+
  1. Generate a JAR file [using Gradle](UsingGradle.md#creating-the-jar-file).
  2. Tag the repo with the version number. e.g. `v0.1`
- 2. [Create a new release using GitHub](https://help.github.com/articles/creating-releases/) 
+ 2. [Create a new release using GitHub](https://help.github.com/articles/creating-releases/)
     and upload the JAR file you created.
-   
+
 ### 5.4. Managing Dependencies
 
 A project often depends on third-party libraries. For example, Address Book depends on the
@@ -363,7 +363,7 @@ Use case ends.
 
 1. Should work on any [mainstream OS](#mainstream-os) as long as it has Java `1.8.0_60` or higher installed.
 2. Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-3. A user with above average typing speed for regular English text (i.e. not code, not system admin commands) 
+3. A user with above average typing speed for regular English text (i.e. not code, not system admin commands)
    should be able to accomplish most of the tasks faster using commands than using the mouse.
 
 {More to be added}
