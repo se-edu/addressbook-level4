@@ -86,12 +86,13 @@ Examples:
 ### 2.5. Deleting persons: `delete`
 
 Deletes the specified persons from the address book. Irreversible.<br>
-Format: `delete INDICES [INDICES]...`
+Format: `delete INDICES`
 
 > * Deletes the persons at the specified `INDICES`.<br>
 > * `INDICES` can only be integers or integer ranges separated by spaces.<br>
 > * Integer ranges are specified using `-`. <br>
 > * Only positive integers are accepted.<br>
+> * If any of the above is not satisfied, the command will not execute at all.
 
 Examples:
 
@@ -168,7 +169,7 @@ There is no need to save manually.
 
 * **Clear** : `clear`
 
-* **Delete** : `delete INDICES [INDICES]...` <br>
+* **Delete** : `delete INDICES` <br>
    e.g. `delete 3 5 6 1-2`
 
 * **Find** : `find KEYWORD [MORE_KEYWORDS]` <br>
