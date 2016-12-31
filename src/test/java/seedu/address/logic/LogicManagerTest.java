@@ -550,7 +550,7 @@ public class LogicManagerTest {
             }
 
             return String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, toDelete.size(),
-                    StringUtil.toIndexedListString(toDelete));
+                                 StringUtil.toIndexedListString(toDelete));
         }
     }
 }

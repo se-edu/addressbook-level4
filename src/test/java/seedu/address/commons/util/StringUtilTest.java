@@ -185,8 +185,8 @@ public class StringUtilTest {
         items.add(new Integer(1));
         items.add(Arrays.asList(5, 6, 7));
         String expectedString = "1. bob bob bob bobbobob\n"
-                + "2. 1\n"
-                + "3. [5, 6, 7]";
+                              + "2. 1\n"
+                              + "3. [5, 6, 7]";
         assertEquals(expectedString, StringUtil.toIndexedListString(items));
     }
 

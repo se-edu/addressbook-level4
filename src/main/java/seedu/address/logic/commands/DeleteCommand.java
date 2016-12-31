@@ -58,7 +58,7 @@ public class DeleteCommand extends Command {
         }
 
         return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, personsToDelete.size(),
-                StringUtil.toIndexedListString(personsToDelete)));
+                                               StringUtil.toIndexedListString(personsToDelete)));
     }
 
 }
