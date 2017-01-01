@@ -21,10 +21,9 @@ public class DeleteCommand extends Command {
     public static final String COMMAND_WORD = "delete";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes person(s) identified by the index number used in the last person listing.\n"
-            + "You can also specify a range of persons to delete.\n"
-            + "Parameters: INDEX [INDEX]... "
-            + "('INDEX' has to be a positive integer or positive integers surrounding '-')\n"
+            + ": Deletes the persons at the specified INDICES\n"
+            + "Parameters: INDICES\n"
+            + "INDICES can only be positive integers or integer ranges separated by spaces.\n"
             + "Example: " + COMMAND_WORD + " 1 4-6 3 13-9";
 
     public static final String MESSAGE_DELETE_PERSON_SUCCESS =
