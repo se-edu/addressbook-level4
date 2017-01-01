@@ -17,7 +17,6 @@ public class ListUtil {
      * - Duplicate indices are ignored.<br>
      */
     public static <T> List<T> subList(List<T> list, Integer... indices) {
-        assert areIndicesWithinBounds(list, Arrays.asList(indices));
         return subList(list, Arrays.asList(indices));
     }
 
