@@ -1,7 +1,6 @@
 package guitests;
 
 import static org.junit.Assert.assertTrue;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS;
 
 import java.util.Arrays;
@@ -12,7 +11,6 @@ import org.junit.Test;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.util.ListUtil;
 import seedu.address.commons.util.StringUtil;
-import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.testutil.TestPerson;
 import seedu.address.testutil.TestUtil;
 
