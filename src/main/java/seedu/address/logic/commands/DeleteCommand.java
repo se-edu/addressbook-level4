@@ -12,6 +12,7 @@ import seedu.address.commons.util.IntegerUtil;
 import seedu.address.commons.util.ListUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.model.person.ReadOnlyPerson;
+import seedu.address.model.person.UniquePersonList.PersonNotFoundException;
 
 /**
  * Deletes a person identified using it's last displayed index from the address book.
@@ -50,10 +51,10 @@ public class DeleteCommand extends Command {
         }
 
         List<ReadOnlyPerson> personsToDelete = ListUtil.subList(lastShownList, targetIndices);
-
-        Optional<Collection<ReadOnlyPerson>> missingPersons = model.deletePersons(personsToDelete);
-        if (missingPersons.isPresent()) {
-            assert false : "Tried to delete " + missingPersons.get().size() + " person(s) not found in the list";
+        try {
+            model.deletePersons(personsToDelete);
+        } catch (PersonNotFoundException pnfe) {
+            assert false : "DeleteCommand: " + pnfe.getMessage();
         }
 
         return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, personsToDelete.size(),

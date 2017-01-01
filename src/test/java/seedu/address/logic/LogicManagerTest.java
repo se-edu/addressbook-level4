@@ -681,7 +681,7 @@ public class LogicManagerTest {
 
             for (Person p : toDelete) {
                 testPersons.remove(p);
-                expectedAB.removePerson(p);
+                expectedAB.removePersons(p);
             }
 
             return String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, toDelete.size(),
