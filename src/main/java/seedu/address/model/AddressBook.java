@@ -114,11 +114,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Removes all persons specified by {@code keys} from this {@code AddressBook}'s {@code UniquePersonList}.<br>
-     *
-     * Returns an {@code Optional.empty()} if all persons in {@code keys} exist in this list.<br>
-     *
-     * Otherwise, returns an {@code Optional} of persons that do not exist in this list.
+     * Removes all persons specified by {@code keys} from this list.<br>
+     * @throws PersonNotFoundException if any person can't be found in the list.
      */
     public void removePersons(ReadOnlyPerson... keys) throws PersonNotFoundException {
         removePersons(Arrays.asList(keys));

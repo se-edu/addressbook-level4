@@ -61,7 +61,11 @@ public class StringUtil {
     }
 
     /**
-     * Returns a string that has each item in {@code items} on its own 'one-indexed' new line.
+     * Returns a string that has each item in {@code items} on its own 'one-indexed' new line.<br>
+     * E.g. [apple, bob, foo] becomes:<br>
+     *   1. apple\n<br>
+     *   2. bob\n<br>
+     *   3. foo
      */
     public static String toIndexedListString(Collection<?> items) {
         final Iterator<?> itr = items.iterator();

@@ -188,11 +188,9 @@ public class Parser {
 
     /**
      * Returns a {@code Collection} of indices extracted from {@code tokens} if each token contains either:<br>
-     * <ul>
-     *   <li> a positive unsigned integer i.e. a non-ranged index </li>
-     *   <li> or positive unsigned integers surrounding a {@code PERSON_INDEX_RANGE_INDICATOR}
-     *          i.e. a ranged index</li>
-     * </ul>
+     * - a positive unsigned integer i.e. a non-ranged index<br>
+     * - or positive unsigned integers surrounding a {@code PERSON_INDEX_RANGE_INDICATOR}
+     *          i.e. a ranged index<br>
      *
      * Returns an {@code Optional.empty()} otherwise.
      */
@@ -258,6 +256,11 @@ public class Parser {
         return new HashSet<>(tags);
     }
 
+    /**
+     * Converts {@code toConvert} to a string representation of an index range.<br>
+     * More specifically, this surrounds a {@code PERSON_INDEX_RANGE_INDICATOR} with {@code toConvert}.<br>
+     * E.g. {@code toConvert} = "5" becomes "5-5"
+     */
     private String toRangedIndex(String toConvert) {
         final String trimmed = toConvert.trim();
         return trimmed + PERSON_INDEX_RANGE_INDICATOR + trimmed;
