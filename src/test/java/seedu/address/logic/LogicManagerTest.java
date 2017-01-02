@@ -258,7 +258,7 @@ public class LogicManagerTest {
 
     /**
      * Confirms the 'invalid argument index number behaviour' for the given {@code commandArgs}
-     * targeting persons in the shown list, using visible index.
+     * targeting persons in the shown list of size {@code listSize}, using visible index.
      * @param commandArgs to test assuming it targets persons in the last shown list
      *                    based on visible index.
      * @param listSize last shown list size

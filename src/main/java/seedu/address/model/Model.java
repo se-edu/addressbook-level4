@@ -19,7 +19,10 @@ public interface Model {
     /** Returns the AddressBook */
     ReadOnlyAddressBook getAddressBook();
 
-    /** Deletes the given persons. */
+    /**
+     * Deletes the given persons. If any person in {@code persons} is missing from the internal list, the
+     * operation is aborted with a {@code PersonNotFoundException}.
+     */
     void deletePersons(Collection<ReadOnlyPerson> persons) throws PersonNotFoundException;
 
     /** Adds the given person */

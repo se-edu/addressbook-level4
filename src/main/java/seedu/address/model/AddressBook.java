@@ -113,17 +113,14 @@ public class AddressBook implements ReadOnlyAddressBook {
         persons.forEach(this::syncMasterTagListWith);
     }
 
-    /**
-     * Removes all persons specified by {@code keys} from this list.<br>
-     * @throws PersonNotFoundException if any person can't be found in the list.
-     */
+    /** @see #removePersons(Collection) */
     public void removePersons(ReadOnlyPerson... keys) throws PersonNotFoundException {
         removePersons(Arrays.asList(keys));
     }
 
     /**
-     * Removes all persons specified by {@code keys} from this list.<br>
-     * @throws PersonNotFoundException if any person can't be found in the list.
+     * Removes {@code keys} from this {@code AddressBook}'s {@code UniquePersonList}. If any person in {@code keys}
+     * is missing from the list, removal will be aborted with a {@code PersonNotFoundException}.
      */
     public void removePersons(Collection<ReadOnlyPerson> keys) throws PersonNotFoundException {
         persons.removeAll(keys);
