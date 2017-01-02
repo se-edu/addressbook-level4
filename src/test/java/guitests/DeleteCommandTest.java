@@ -18,99 +18,28 @@ import seedu.address.testutil.TestUtil;
 
 public class DeleteCommandTest extends AddressBookGuiTest {
 
-    public final int size = td.getTypicalPersons().length;
-
     @Test
-    public void delete_nonRangedIndices() {
-        Integer[] expectedTargetIndices = { 0, size / 2 - 1, size - 1 };
-        // deleting first, middle and last item
-        assertDeleteSuccess("1 " + (size / 2) + " " + size, expectedTargetIndices);
+    public void delete() {
+        TestPerson[] currentList = td.getTypicalPersons();
+        // unsuccessful deleting
+        assertDeleteCommandResult(
+                "" + currentList.length + 1, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+
+        // successful deleting
+        assertDeleteSuccess("1", currentList, 0);
+        currentList = TestUtil.removePersonFromList(currentList, 1);
+
+        assertDeleteSuccess("2", currentList, 1);
+        currentList = TestUtil.removePersonFromList(currentList, 2);
+
+        assertDeleteSuccess("1-3", currentList, 0, 1, 2);
     }
-
-    @Test
-    public void delete_rangedIndicesAscending() {
-        assertDeleteSuccess("1-3", 0, 1, 2);
-    }
-
-    @Test
-    public void delete_rangedIndicesDescending() {
-        assertDeleteSuccess("4-2", 1, 2, 3);
-    }
-
-    @Test
-    public void delete_multipleIndicesOrdered() {
-        assertDeleteSuccess("1-3 5 7", 0, 1, 2, 4, 6);
-    }
-
-    @Test
-    public void delete_multipleIndicesUnordered() {
-        assertDeleteSuccess("5 1-3 7", 0, 1, 2, 4, 6);
-    }
-
-    @Test
-    public void delete_duplicateIndices_duplicatesIgnored() {
-        assertDeleteSuccess("1 1 1 1 1", 0);
-    }
-
-    @Test
-    public void delete_overlappingRanges() {
-        assertDeleteSuccess("4-5 4-6 5-6 4-4 5-5 6-6", 3, 4, 5);
-    }
-
-    @Test
-    public void delete_excessiveWhitespaces() {
-        assertDeleteSuccess("         2      3      ", 1, 2);
-    }
-
-    @Test
-    public void delete_invalidIndex() {
-        String expectedFeedback = Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
-        // single index exceeding upper bound of list size
-        assertDeleteCommandResult("" + size + 1, expectedFeedback);
-
-        // ascending ranged index exceeding upper bound of list size
-        assertDeleteCommandResult(size + "-" + size + 1, expectedFeedback);
-
-        // descending ranged index exceeding upper bound of list size
-        assertDeleteCommandResult(size + 1 + "-" + size, expectedFeedback);
-    }
-
-    @Test
-    public void delete_invalidArgsFormat() {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE);
-        // no indices around range indicator
-        assertDeleteCommandResult("-", expectedMessage);
-
-        // range indicator only partially surrounded
-        assertDeleteCommandResult("5-", expectedMessage);
-        assertDeleteCommandResult("-5", expectedMessage);
-
-        // excessive range indicators
-        assertDeleteCommandResult("- -- --- -", expectedMessage);
-
-        // index '0'
-        assertDeleteCommandResult("0", expectedMessage);
-
-        // '+' signed integer
-        assertDeleteCommandResult("+1", expectedMessage);
-
-        // not integers
-        assertDeleteCommandResult("asd", expectedMessage);
-        assertDeleteCommandResult("asd-asd", expectedMessage);
-    }
-
-    /*
-     * =========================================================================
-     *                             Helper Methods
-     * =========================================================================
-     */
 
     /**
      * Runs the delete command to delete persons specified by {@code deleteArgs} and confirms the result
-     * is correct i.e. list deleted persons specified by {@code expectedTargetIndices}.
+     * is correct i.e. {@currentList} deleted persons specified by {@code expectedTargetIndices}.
      */
-    private void assertDeleteSuccess(String deleteArgs, Integer... expectedTargetIndices) {
-        TestPerson[] currentList = td.getTypicalPersons();
+    private void assertDeleteSuccess(String deleteArgs, TestPerson[] currentList, Integer... expectedTargetIndices) {
         List<TestPerson> expectedPersonsDeleted = ListUtil.subList(Arrays.asList(currentList), expectedTargetIndices);
         TestPerson[] expectedRemainder = getRemainder(currentList, expectedPersonsDeleted);
 
