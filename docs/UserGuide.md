@@ -91,8 +91,8 @@ Format: `delete INDICES`
 > * Deletes the persons at the specified `INDICES`.<br>
 > * `INDICES` can only be integers or integer ranges separated by spaces.<br>
 > * Integer ranges are specified using `-`. <br>
-> * Only positive integers are accepted.<br>
-> * If any of the above is not satisfied, the command will not execute at all.
+> * Only positive integers matching those on the last shown list are accepted.<br>
+> * If any of the above is not satisfied, the command will abort without deleting any persons.
 
 Examples:
 
