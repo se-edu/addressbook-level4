@@ -9,7 +9,6 @@ import java.util.List;
 import org.junit.Test;
 
 import seedu.address.commons.core.Messages;
-import seedu.address.commons.util.ListUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.testutil.TestPerson;
 import seedu.address.testutil.TestUtil;
@@ -38,9 +37,9 @@ public class DeleteCommandTest extends AddressBookGuiTest {
      * is correct i.e. {@currentList} deleted persons specified by {@code expectedTargetIndices}.
      */
     private void assertDeleteSuccess(String deleteArgs, TestPerson[] currentList, Integer... expectedTargetIndices) {
-        List<TestPerson> expectedPersonsDeleted = ListUtil.subList(Arrays.asList(currentList), expectedTargetIndices);
+        List<TestPerson> expectedPersonsDeleted =
+                TestUtil.mapIndexToObj(expectedTargetIndices, Arrays.asList(currentList));
         TestPerson[] expectedRemainder = getRemainder(currentList, expectedPersonsDeleted);
-
         String expectedMessage = String.format(MESSAGE_DELETE_PERSON_SUCCESS, expectedPersonsDeleted.size(),
                                                StringUtil.toIndexedListString(expectedPersonsDeleted));
 
