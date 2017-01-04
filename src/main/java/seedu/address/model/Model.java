@@ -20,8 +20,9 @@ public interface Model {
     ReadOnlyAddressBook getAddressBook();
 
     /**
-     * Deletes the given persons. If any person in {@code persons} is missing from the internal list, the
-     * operation is aborted with a {@code PersonNotFoundException}.
+     * Deletes the given {@code persons}.
+     * @throws PersonNotFoundException without deleting any persons if any of the {@code persons}
+     * can't be found in this list.
      */
     void deletePersons(Collection<ReadOnlyPerson> persons) throws PersonNotFoundException;
 

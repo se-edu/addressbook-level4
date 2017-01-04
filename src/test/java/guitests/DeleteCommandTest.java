@@ -34,7 +34,8 @@ public class DeleteCommandTest extends AddressBookGuiTest {
 
     /**
      * Runs the delete command to delete persons specified by {@code deleteArgs} and confirms the result
-     * is correct i.e. {@currentList} deleted persons specified by {@code expectedTargetIndices}.
+     * is correct i.e. {@currentList} deleted persons specified by {@code expectedTargetIndices}.<br>
+     * {@code expectedTargetIndices} are zero-indexed i.e. index 0 refers to the first element.
      */
     private void assertDeleteSuccess(String deleteArgs, TestPerson[] currentList, Integer... expectedTargetIndices) {
         List<TestPerson> expectedPersonsDeleted =

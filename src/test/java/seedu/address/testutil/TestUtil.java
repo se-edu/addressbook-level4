@@ -351,7 +351,7 @@ public class TestUtil {
         return collect.toArray(new Tag[split.length]);
     }
 
-    /** Maps {@code indices} to it's corresponding item in {@code items}. */
+    /** Maps {@code indices} to its corresponding item in {@code items}. */
     public static <T> List<T> mapIndexToObj(Integer[] indices, List<T> items) {
         return Stream.of(indices).map(items::get).collect(Collectors.toList());
     }

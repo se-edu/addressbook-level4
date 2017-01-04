@@ -45,7 +45,8 @@ public class UniquePersonList implements Iterable<Person> {
 
     /**
      * Removes all persons specified by {@code personsToRemove} from this list.<br>
-     * @throws PersonNotFoundException if any person can't be found in this list.
+     * @throws PersonNotFoundException without deleting any persons if any of the {@code personsToRemove}
+     * can't be found in this list.
      */
     public void removeAll(Collection<ReadOnlyPerson> personsToRemove) throws PersonNotFoundException {
         assert !CollectionUtil.isAnyNull(Arrays.asList(personsToRemove));

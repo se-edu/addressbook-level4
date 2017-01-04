@@ -323,8 +323,11 @@ public class LogicManagerTest {
 
     @Test
     public void execute_deleteIndexNotFound_errorMessageShown() throws Exception {
+        // singular index exceeding list size
         assertIndexNotFoundBehaviorForCommand("delete 5", 3);
+        // ascending range exceeding list size
         assertIndexNotFoundBehaviorForCommand("delete 3-5", 4);
+        // descending range exceeding list size
         assertIndexNotFoundBehaviorForCommand("delete 5-3", 4);
     }
 
@@ -621,8 +624,9 @@ public class LogicManagerTest {
         }
 
         /**
-         * Executes the delete command with the given {@code deleteArgs} and expects {@code expectedIndicesDeleted}.
-         * {@code expectedIndicesDeleted} have to be unique indices in ascending order.
+         * Executes the delete command with the given {@code deleteArgs} and expects {@code expectedIndicesDeleted}.<br>
+         * - {@code expectedIndicesDeleted} have to be unique indices in ascending order. <br>
+         * - {@code expectedIndicesDeleted} are zero-indexed i.e. index 0 refers to the first element.
          * @see LogicManagerTest#assertCommandBehavior(String, String, ReadOnlyAddressBook, List)
          */
         private void assertDeleteSuccess(String deleteArgs, Integer... expectedIndicesDeleted) throws Exception {
