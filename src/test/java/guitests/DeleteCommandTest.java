@@ -20,14 +20,14 @@ public class DeleteCommandTest extends AddressBookGuiTest {
         TestPerson[] currentList = td.getTypicalPersons();
         // unsuccessful deleting
         assertDeleteCommandResult(
-                "" + currentList.length + 1, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+                "" + (currentList.length + 1), Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
 
         // successful deleting
         assertDeleteSuccess("1", currentList, 0);
         currentList = TestUtil.removePersonFromList(currentList, 1);
 
-        assertDeleteSuccess("2", currentList, 1);
-        currentList = TestUtil.removePersonFromList(currentList, 2);
+        assertDeleteSuccess("" + currentList.length, currentList, currentList.length - 1);
+        currentList = TestUtil.removePersonFromList(currentList, currentList.length);
 
         assertDeleteSuccess("1-3", currentList, 0, 1, 2);
     }
