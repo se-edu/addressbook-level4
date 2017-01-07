@@ -12,11 +12,10 @@ import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.events.BaseEvent;
 
 /**
- * Represents a distinct part of the UI.
- * e.g. Windows, dialogs, panels, status bars, etc.
+ * Represents a distinct part of the UI. e.g. Windows, dialogs, panels, status bars, etc.
  * It contains a scene graph with a root node of type {@code T}.
  */
-public class UiPart<T> {
+public abstract class UiPart<T> {
 
     /** Resource folder where FXML files are stored. */
     public static final String FXML_FILE_FOLDER = "/view/";
