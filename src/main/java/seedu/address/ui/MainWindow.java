@@ -36,16 +36,11 @@ public class MainWindow extends UiPart {
     // Independent Ui parts residing in this Ui container
     private BrowserPanel browserPanel;
     private PersonListPanel personListPanel;
-    private ResultDisplay resultDisplay;
-    private StatusBarFooter statusBarFooter;
-    private CommandBox commandBox;
     private Config config;
-    private UserPrefs userPrefs;
 
     // Handles to elements of this Ui container
     private VBox rootLayout;
 
-    private String addressBookName;
 
     @FXML
     private AnchorPane browserPlaceholder;
@@ -91,9 +86,7 @@ public class MainWindow extends UiPart {
         // Set dependencies
         this.primaryStage = primaryStage;
         this.logic = logic;
-        this.addressBookName = addressBookName;
         this.config = config;
-        this.userPrefs = prefs;
 
         // Configure the UI
         setTitle(appTitle);
@@ -143,9 +136,9 @@ public class MainWindow extends UiPart {
     void fillInnerParts() {
         browserPanel = BrowserPanel.load(browserPlaceholder);
         personListPanel = PersonListPanel.load(getPersonListPlaceholder(), logic.getFilteredPersonList());
-        resultDisplay = ResultDisplay.load(getResultDisplayPlaceholder());
-        statusBarFooter = StatusBarFooter.load(getStatusbarPlaceholder(), config.getAddressBookFilePath());
-        commandBox = CommandBox.load(getCommandBoxPlaceholder(), logic);
+        ResultDisplay.load(getResultDisplayPlaceholder());
+        StatusBarFooter.load(getStatusbarPlaceholder(), config.getAddressBookFilePath());
+        CommandBox.load(getCommandBoxPlaceholder(), logic);
     }
 
     private AnchorPane getCommandBoxPlaceholder() {

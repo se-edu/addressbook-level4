@@ -93,7 +93,7 @@ public class UnmodifiableObservableList<E> implements ObservableList<E> {
     public final SortedList<E> sorted() {
         return sorted(Comparator.nullsFirst((o1, o2) -> {
             if (o1 instanceof Comparable) {
-                return ((Comparable) o1).compareTo(o2);
+                return ((Comparable<E>) o1).compareTo(o2);
             }
             return Collator.getInstance().compare(o1.toString(), o2.toString());
         }));
