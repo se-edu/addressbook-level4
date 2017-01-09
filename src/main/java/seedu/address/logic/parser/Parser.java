@@ -5,7 +5,6 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
@@ -14,6 +13,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import seedu.address.commons.exceptions.IllegalValueException;
@@ -43,12 +43,6 @@ public class Parser {
     private static final Pattern PERSON_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
 
     private static final String PERSON_INDEX_RANGE_INDICATOR = "-";
-
-    private static final Pattern PERSON_INDEX_RANGE_ARGS_FORMAT =
-            Pattern.compile(
-                    "(?<rangeStart>[^" + PERSON_INDEX_RANGE_INDICATOR + "\\s]+)"
-                    + PERSON_INDEX_RANGE_INDICATOR
-                    + "(?<rangeEnd>[^" + PERSON_INDEX_RANGE_INDICATOR + "\\s]+)");
 
     private static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
@@ -136,13 +130,12 @@ public class Parser {
      */
     private Command prepareDelete(String args) {
         final List<String> tokenized = Arrays.asList(args.trim().split("\\s+"));
-        final Optional<Collection<Integer>> indices = parseIndices(tokenized);
-        if (!indices.isPresent()) {
+        final Optional<List<IndexRange>> indexRanges = parseRangedIndices(tokenized);
+        if (!indexRanges.isPresent()) {
             return new IncorrectCommand(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
         }
-
-        return new DeleteCommand(indices.get());
+        return new DeleteCommand(IndexRange.getAllValues(indexRanges.get()));
     }
 
     /**
@@ -181,48 +174,41 @@ public class Parser {
     }
 
     /**
-     * Returns a {@code Collection} of indices extracted from {@code tokens} if each token contains either:<br>
-     * - a positive unsigned integer i.e. a non-ranged index<br>
-     * - or positive unsigned integers surrounding a {@code PERSON_INDEX_RANGE_INDICATOR}
-     *          i.e. a ranged index<br>
+     * Returns a {@code List} of {@code IndexRanges} extracted from {@code tokens}.
      *
      * Returns an {@code Optional.empty()} otherwise.
+     * @see #parseRangedIndex(String)
      */
-    private Optional<Collection<Integer>> parseIndices(Collection<String> tokens) {
-        final Collection<Integer> indices = new ArrayList<>();
+    private Optional<List<IndexRange>> parseRangedIndices(List<String> tokens) {
+        final List<IndexRange> indexRanges = new ArrayList<>();
         for (String token : tokens) {
-            String toParse = token;
-            if (!token.contains(PERSON_INDEX_RANGE_INDICATOR)) {
-                toParse = toRangedIndex(token); // Emulating a ranged index even if it's not.
-            }
-            final Optional<IndexRange> indexRange = parseRangedIndex(toParse);
+            final Optional<IndexRange> indexRange = parseRangedIndex(token);
             if (!indexRange.isPresent()) {
                 return Optional.empty();
             }
-            // Adding every index from start to end (inclusive) to 'indices'.
-            IntStream.rangeClosed(indexRange.get().start, indexRange.get().end).forEach(indices::add);
+
+            indexRanges.add(indexRange.get());
         }
-        return Optional.of(indices);
+        return Optional.of(indexRanges);
     }
 
     /**
-     * Returns an {@code IndexRange} extracted from {@code token} if it contains positive
-     * unsigned integers surrounding a {@code PERSON_INDEX_RANGE_INDICATOR}.
+     * Returns an {@code IndexRange} extracted from {@code token} if it contains either positive
+     * unsigned integers surrounding a {@code PERSON_INDEX_RANGE_INDICATOR}, or positive
+     * unsigned integers, i.e. 1-2 or 10.
+     *
+     * If the latter is encountered, an {@code IndexRange} with the same start and end will be used
+     * to represent it. e.g. 5 -> 5-5.
      *
      * Returns an {@code Optional.empty()} otherwise.
      */
     private Optional<IndexRange> parseRangedIndex(String token) {
-        final Matcher matcher = PERSON_INDEX_RANGE_ARGS_FORMAT.matcher(token.trim());
-        if (!matcher.matches()) {
+        final String[] components = token.split(PERSON_INDEX_RANGE_INDICATOR, -1);
+        final Optional<Integer> startIndex = parseIndex(components[0]);
+        final Optional<Integer> endIndex = components.length > 1 ? parseIndex(components[1]) : startIndex;
+        if (components.length > 2 || !startIndex.isPresent() || !endIndex.isPresent()) {
             return Optional.empty();
         }
-
-        final Optional<Integer> startIndex = parseIndex(matcher.group("rangeStart"));
-        final Optional<Integer> endIndex = parseIndex(matcher.group("rangeEnd"));
-        if (!startIndex.isPresent() || !endIndex.isPresent()) {
-            return Optional.empty();
-        }
-
         return Optional.of(new IndexRange(startIndex.get(), endIndex.get()));
     }
 
@@ -248,16 +234,6 @@ public class Parser {
     private Set<String> toSet(Optional<List<String>> tagsOptional) {
         List<String> tags = tagsOptional.orElse(Collections.emptyList());
         return new HashSet<>(tags);
-    }
-
-    /**
-     * Converts {@code toConvert} to a string representation of an index range.<br>
-     * More specifically, this surrounds a {@code PERSON_INDEX_RANGE_INDICATOR} with {@code toConvert}.<br>
-     * E.g. {@code toConvert} = "5" becomes "5-5"
-     */
-    private String toRangedIndex(String toConvert) {
-        final String trimmed = toConvert.trim();
-        return trimmed + PERSON_INDEX_RANGE_INDICATOR + trimmed;
     }
 
     /**
