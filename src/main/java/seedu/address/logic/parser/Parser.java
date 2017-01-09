@@ -273,6 +273,28 @@ public class Parser {
             this.start = Math.min(start, end);
             this.end = Math.max(start, end);
         }
+
+        /**
+         * Returns all intermediate values of this index range's start and end (inclusive) in a {@code List}.<br>
+         * E.g. for an {@code IndexRange}, {@code [2, 6]}.<br>
+         * This method returns an {@code Integer} list: {@code [2, 3, 4, 5, 6]}.
+         */
+        private List<Integer> getAllValues() {
+            return IntStream.rangeClosed(start, end).boxed().collect(Collectors.toList());
+        }
+
+        /**
+         * Returns all intermediate values of every {@code IndexRange}'s start and end (inclusive) of {@code ranges}
+         * in a {@code List}. The original order of indices is maintained from {@code ranges}. <br>
+         * Essentially, this method calls {@link #getAllValues()} of each {@code IndexRange} in {@code ranges}
+         * and flattens the resulting lists into a single list.<br>
+         * E.g. {@code ranges} contains the following index ranges: {@code [[1, 5], [3, 7], [2, 3]]}. <br>
+         * This method returns an {@code Integer} list: {@code [1, 2, 3, 4, 5, 3, 4, 5, 6, 7, 2, 3]}.
+         * @see #getAllValues()
+         */
+        private static List<Integer> getAllValues(List<IndexRange> ranges) {
+            return ranges.stream().flatMap(range -> range.getAllValues().stream()).collect(Collectors.toList());
+        }
     }
 
 }
