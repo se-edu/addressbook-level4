@@ -180,12 +180,6 @@ public class Parser {
         return new FindCommand(keywordSet);
     }
 
-    /*
-     * =========================================================================
-     *                             Helper Methods
-     * =========================================================================
-     */
-
     /**
      * Returns a {@code Collection} of indices extracted from {@code tokens} if each token contains either:<br>
      * - a positive unsigned integer i.e. a non-ranged index<br>
