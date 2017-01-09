@@ -264,8 +264,8 @@ public class Parser {
      * Represents an ascending index range.
      */
     private static class IndexRange {
-        public final int start;
-        public final int end;
+        private final int start;
+        private final int end;
 
         private IndexRange(int start, int end) {
             assert start > 0 && end > 0;
