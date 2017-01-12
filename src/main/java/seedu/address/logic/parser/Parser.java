@@ -193,16 +193,18 @@ public class Parser {
     }
 
     /**
-     * Returns an {@code IndexRange} extracted from {@code token} if it contains either positive
-     * unsigned integers surrounding a {@code PERSON_INDEX_RANGE_INDICATOR}, or positive
-     * unsigned integers, i.e. 1-2 or 10.
+     * Returns an {@code IndexRange} extracted from {@code token} if it contains either
+     * unsigned integers surrounding a {@code PERSON_INDEX_RANGE_INDICATOR}, or just
+     * unsigned integers alone, e.g. 1-2 or 10.<br>
      *
      * If the latter is encountered, an {@code IndexRange} with the same start and end will be used
-     * to represent it. e.g. 5 -> 5-5.
+     * to represent it. e.g. 5 -> 5-5.<br>
      *
      * Returns an {@code Optional.empty()} otherwise.
      */
     private Optional<IndexRange> parseRangedIndex(String token) {
+        // splitting with a negative limit to keep trailing empty strings when indices surrounding the
+        // PERSON_INDEX_RANGE_INDICATOR are missing e.g. "5-" splits into ["5", ""].
         final String[] components = token.split(PERSON_INDEX_RANGE_INDICATOR, -1);
         final Optional<Integer> startIndex = parseIndex(components[0]);
         final Optional<Integer> endIndex = components.length > 1 ? parseIndex(components[1]) : startIndex;
@@ -213,7 +215,7 @@ public class Parser {
     }
 
     /**
-     * Returns a single specified index in {@code token} if it is a positive unsigned integer.
+     * Returns a single specified index in {@code token} if it is an unsigned integer.
      *
      * Returns an {@code Optional.empty()} otherwise.
      */
@@ -252,7 +254,7 @@ public class Parser {
 
         /**
          * Returns all intermediate values of this index range's start and end (inclusive) in a {@code List}.<br>
-         * E.g. for an {@code IndexRange}, {@code [2, 6]}.<br>
+         * E.g. for an {@code IndexRange} with start 2 and end 6.<br>
          * This method returns an {@code Integer} list: {@code [2, 3, 4, 5, 6]}.
          */
         private List<Integer> getAllValues() {
@@ -264,7 +266,7 @@ public class Parser {
          * in a {@code List}. The original order of indices is maintained from {@code ranges}. <br>
          * Essentially, this method calls {@link #getAllValues()} of each {@code IndexRange} in {@code ranges}
          * and flattens the resulting lists into a single list.<br>
-         * E.g. {@code ranges} contains the following index ranges: {@code [[1, 5], [3, 7], [2, 3]]}. <br>
+         * E.g. {@code ranges} containing the following index ranges (start, end): {@code [(1, 5), (3, 7), (2, 3)]}.<br>
          * This method returns an {@code Integer} list: {@code [1, 2, 3, 4, 5, 3, 4, 5, 6, 7, 2, 3]}.
          * @see #getAllValues()
          */
