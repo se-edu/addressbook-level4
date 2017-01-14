@@ -42,15 +42,15 @@ public class Parser {
 
     private void registerCommandParsers() {
         commandParserRegistry
-            .registerCommand(AddCommandParser.class, AddCommand.COMMAND_WORD)
-            .registerCommand(FindCommandParser.class, FindCommand.COMMAND_WORD)
-            .registerCommand(DeleteCommandParser.class, DeleteCommand.COMMAND_WORD)
-            .registerCommand(SelectCommandParser.class, SelectCommand.COMMAND_WORD)
-            .registerCommand(EditCommandParser.class, EditCommand.COMMAND_WORD)
-            .registerCommand(ListCommandParser.class, ListCommand.COMMAND_WORD)
-            .registerCommand(ClearCommandParser.class, ClearCommand.COMMAND_WORD)
-            .registerCommand(HelpCommandParser.class, HelpCommand.COMMAND_WORD)
-            .registerCommand(ExitCommandParser.class, ExitCommand.COMMAND_WORD);
+            .registerCommand(AddCommand.COMMAND_WORD, AddCommandParser.class)
+            .registerCommand(FindCommand.COMMAND_WORD, FindCommandParser.class)
+            .registerCommand(DeleteCommand.COMMAND_WORD, DeleteCommandParser.class)
+            .registerCommand(SelectCommand.COMMAND_WORD, SelectCommandParser.class)
+            .registerCommand(EditCommand.COMMAND_WORD, EditCommandParser.class)
+            .registerCommand(ListCommand.COMMAND_WORD, ListCommandParser.class)
+            .registerCommand(ClearCommand.COMMAND_WORD, ClearCommandParser.class)
+            .registerCommand(HelpCommand.COMMAND_WORD, HelpCommandParser.class)
+            .registerCommand(ExitCommand.COMMAND_WORD, ExitCommandParser.class);
     }
 
     /**

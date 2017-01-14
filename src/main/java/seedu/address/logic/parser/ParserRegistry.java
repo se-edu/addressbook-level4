@@ -17,16 +17,14 @@ public class ParserRegistry {
     }
 
     /**
-     * Registers all command words string with the provided
+     * Registers the given command word string with the provided
      * command parser class. One command parser can be associated with
      * multiple command words. However one command word can only be associated with one command parser.
      *
      * @return this ParserRegistry object for daisy chain
      */
-    public ParserRegistry registerCommand(Class<? extends CommandParser> parser, String... commandWords) {
-        for (String commandWord : commandWords) {
-            commandRegistry.put(commandWord, parser);
-        }
+    public ParserRegistry registerCommand(String commandWord, Class<? extends CommandParser> parser) {
+        commandRegistry.put(commandWord, parser);
 
         return this;
     }
