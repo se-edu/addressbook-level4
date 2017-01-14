@@ -18,7 +18,7 @@ public class CollectionUtilTest {
     public ExpectedException thrown = ExpectedException.none();
 
     @Test
-    public void isAnyNull_Varargs() {
+    public void isAnyNullVarargs() {
         // empty argument
         assertFalse(CollectionUtil.isAnyNull());
 
@@ -46,13 +46,13 @@ public class CollectionUtilTest {
     }
 
     @Test
-    public void isAnyNull_VarargsNullReference_throwsNullPointerException() {
+    public void isAnyNullVarargs_nullReference_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         CollectionUtil.isAnyNull((Object[]) null);
     }
 
     @Test
-    public void isAnyNull_Collection() {
+    public void isAnyNullCollection() {
         // list containing null at the front
         Collection<Object> frontNull = new ArrayList<>();
         frontNull.add(null);
@@ -86,7 +86,7 @@ public class CollectionUtilTest {
     }
 
     @Test
-    public void isAnyNull_CollectionNullReference_throwsNullPointerException() {
+    public void isAnyNullCollection_nullReference_throwsNullPointerException() {
         Collection<Object> nullList = null;
         thrown.expect(NullPointerException.class);
         CollectionUtil.isAnyNull(nullList);
