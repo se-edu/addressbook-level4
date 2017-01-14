@@ -39,7 +39,7 @@ public class DeleteCommand extends Command {
         ReadOnlyPerson personToDelete = lastShownList.get(targetIndex - 1);
 
         try {
-            model.deletePerson(personToDelete);
+            model.deletePersons(personToDelete);
         } catch (PersonNotFoundException pnfe) {
             assert false : "The target person cannot be missing";
         }
