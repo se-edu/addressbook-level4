@@ -12,6 +12,8 @@ import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.person.UniquePersonList.PersonNotFoundException;
 
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.Set;
 import java.util.logging.Logger;
 
@@ -59,8 +61,13 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public synchronized void deletePerson(ReadOnlyPerson target) throws PersonNotFoundException {
-        addressBook.removePerson(target);
+    public synchronized void deletePersons(ReadOnlyPerson... persons) throws PersonNotFoundException {
+        deletePersons(Arrays.asList(persons));
+    }
+
+    @Override
+    public synchronized void deletePersons(Collection<ReadOnlyPerson> persons) throws PersonNotFoundException {
+        addressBook.removePersons(persons);
         indicateAddressBookChanged();
     }
 
