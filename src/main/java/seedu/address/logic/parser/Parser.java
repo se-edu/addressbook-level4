@@ -39,6 +39,25 @@ public class Parser {
     private static final Prefix addressPrefix = new Prefix("a/");
     private static final Prefix tagsPrefix = new Prefix("t/");
 
+    private ParserRegistry commandParserRegistry;
+
+    public Parser() {
+        commandParserRegistry = new ParserRegistry();
+        registerCommandParsers();
+    }
+
+    private void registerCommandParsers() {
+        commandParserRegistry
+            .registerCommand(AddCommandParser.class, AddCommand.COMMAND_WORD)
+            .registerCommand(FindCommandParser.class, FindCommand.COMMAND_WORD)
+            .registerCommand(DeleteCommandParser.class, DeleteCommand.COMMAND_WORD)
+            .registerCommand(SelectCommandParser.class, SelectCommand.COMMAND_WORD)
+            .registerCommand(GenericCommandParser.class, ListCommand.COMMAND_WORD)
+            .registerCommand(GenericCommandParser.class, ClearCommand.COMMAND_WORD)
+            .registerCommand(GenericCommandParser.class, HelpCommand.COMMAND_WORD)
+            .registerCommand(GenericCommandParser.class, ExitCommand.COMMAND_WORD);
+    }
+
     /**
      * Parses user input into command for execution.
      *
