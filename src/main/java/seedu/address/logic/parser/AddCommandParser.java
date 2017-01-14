@@ -10,7 +10,7 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.IncorrectCommand;
 
 /**
- * Parses input arguments in the context of the Add command
+ * Parses input arguments and creates a new AddCommand object
  */
 public class AddCommandParser extends CommandParser {
 
@@ -25,7 +25,7 @@ public class AddCommandParser extends CommandParser {
                     argsTokenizer.getValue(Parser.PREFIX_PHONE).get(),
                     argsTokenizer.getValue(Parser.PREFIX_EMAIL).get(),
                     argsTokenizer.getValue(Parser.PREFIX_ADDRESS).get(),
-                    toSet(argsTokenizer.getAllValues(Parser.PREFIX_TAG))
+                    Parser.toSet(argsTokenizer.getAllValues(Parser.PREFIX_TAG))
                     );
         } catch (NoSuchElementException nsee) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));

@@ -4,7 +4,7 @@ import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 
 /**
- * Parses input arguments in the context of the Clear command
+ * Creates a new ClearCommand object
  */
 public class ClearCommandParser extends CommandParser {
 

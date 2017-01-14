@@ -4,7 +4,7 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.HelpCommand;
 
 /**
- * Parses input arguments in the context of the Help command
+ * Creates a new HelpCommand object
  */
 public class HelpCommandParser extends CommandParser {
 

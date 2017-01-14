@@ -24,7 +24,7 @@ import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 
 /**
- * Parses input arguments in the context of the Edit command
+ * Parses input arguments and creates a new EditCommand object
  */
 public class EditCommandParser extends CommandParser {
 
@@ -36,7 +36,7 @@ public class EditCommandParser extends CommandParser {
         argsTokenizer.tokenize(args);
         List<Optional<String>> preambleFields = splitPreamble(argsTokenizer.getPreamble().orElse(""), 2);
 
-        Optional<Integer> index = preambleFields.get(0).flatMap(this::parseIndex);
+        Optional<Integer> index = preambleFields.get(0).flatMap(Parser::parseIndex);
         if (!index.isPresent()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         }
@@ -47,7 +47,7 @@ public class EditCommandParser extends CommandParser {
             editPersonDescriptor.setPhone(parsePhone(argsTokenizer.getValue(Parser.PREFIX_PHONE)));
             editPersonDescriptor.setEmail(parseEmail(argsTokenizer.getValue(Parser.PREFIX_EMAIL)));
             editPersonDescriptor.setAddress(parseAddress(argsTokenizer.getValue(Parser.PREFIX_ADDRESS)));
-            editPersonDescriptor.setTags(parseTagsForEdit(toSet(argsTokenizer.getAllValues(Parser.PREFIX_TAG))));
+            editPersonDescriptor.setTags(parseTagsForEdit(Parser.toSet(argsTokenizer.getAllValues(Parser.PREFIX_TAG))));
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }

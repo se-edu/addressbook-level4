@@ -2,9 +2,15 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
@@ -31,9 +37,39 @@ public class Parser {
     /**
      * Used for initial separation of command word and args.
      */
-    private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
+    public static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
+    public static final Pattern KEYWORDS_ARGS_FORMAT =
+            Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
+    public static final Pattern INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
 
     private ParserRegistry commandParserRegistry;
+
+    /**
+     * Returns the specified index in the {@code command} if it is a positive unsigned integer
+     * Returns an {@code Optional.empty()} otherwise.
+     */
+    public static Optional<Integer> parseIndex(String command) {
+        final Matcher matcher = INDEX_ARGS_FORMAT.matcher(command.trim());
+        if (!matcher.matches()) {
+            return Optional.empty();
+        }
+
+        String index = matcher.group("targetIndex");
+        if (!StringUtil.isUnsignedInteger(index)) {
+            return Optional.empty();
+        }
+        return Optional.of(Integer.parseInt(index));
+
+    }
+
+    /**
+     * Returns a new Set populated by all elements in the given list of String
+     * Returns an empty list if the provided list is empty
+     */
+    public static Set<String> toSet(Optional<List<String>> tagsOptional) {
+        List<String> tags = tagsOptional.orElse(Collections.emptyList());
+        return new HashSet<>(tags);
+    }
 
     public Parser() {
         commandParserRegistry = new ParserRegistry();

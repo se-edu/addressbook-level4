@@ -21,7 +21,7 @@ public class ParserRegistry {
      * command parser class. One command parser can be associated with
      * multiple command words. However one command word can only be associated with one command parser.
      *
-     * @return this ParserRegistry object for daisy chain
+     * @return this ParserRegistry object for method chaining
      */
     public ParserRegistry registerCommand(String commandWord, Class<? extends CommandParser> parser) {
         commandRegistry.put(commandWord, parser);
@@ -44,8 +44,8 @@ public class ParserRegistry {
         try {
             return parser.newInstance();
 
-        } catch (Exception e) {
-            return new IncorrectCommandParser();
+        } catch (InstantiationException | IllegalAccessException e) {
+            throw new AssertionError("Command Parser class should have an empty constructor!");
         }
     }
 }

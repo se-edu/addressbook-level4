@@ -9,13 +9,13 @@ import seedu.address.logic.commands.IncorrectCommand;
 import seedu.address.logic.commands.SelectCommand;
 
 /**
- * Parses input arguments in the context of the Select command
+ * Parses input arguments and creates a new SelectCommand object
  */
 public class SelectCommandParser extends CommandParser {
 
     @Override
     public Command prepareCommand(String args) {
-        Optional<Integer> index = parseIndex(args);
+        Optional<Integer> index = Parser.parseIndex(args);
         if (!index.isPresent()) {
             return new IncorrectCommand(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE));

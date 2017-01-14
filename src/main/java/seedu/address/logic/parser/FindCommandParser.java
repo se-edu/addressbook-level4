@@ -12,13 +12,13 @@ import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.IncorrectCommand;
 
 /**
- * Parses input arguments in the context of the Find command
+ * Parses input arguments and creates a new FindCommand object
  */
 public class FindCommandParser extends CommandParser {
 
     @Override
     public Command prepareCommand(String args) {
-        final Matcher matcher = KEYWORDS_ARGS_FORMAT.matcher(args.trim());
+        final Matcher matcher = Parser.KEYWORDS_ARGS_FORMAT.matcher(args.trim());
         if (!matcher.matches()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     FindCommand.MESSAGE_USAGE));

@@ -9,13 +9,13 @@ import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.IncorrectCommand;
 
 /**
- * Parses input arguments in the context of the Delete command
+ * Parses input arguments and creates a new DeleteCommand object
  */
 public class DeleteCommandParser extends CommandParser {
 
     @Override
     public Command prepareCommand(String args) {
-        Optional<Integer> index = parseIndex(args);
+        Optional<Integer> index = Parser.parseIndex(args);
         if (!index.isPresent()) {
             return new IncorrectCommand(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));

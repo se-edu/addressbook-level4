@@ -4,7 +4,7 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.ExitCommand;
 
 /**
- * Parses input arguments in the context of the Exit command
+ * Creates a new ExitCommand object
  */
 public class ExitCommandParser extends CommandParser {
 

@@ -3,7 +3,9 @@ package seedu.address.logic.parser;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 import com.google.common.collect.Maps;
 
@@ -11,6 +13,9 @@ import seedu.address.logic.commands.Command;
 import seedu.address.testutil.TestParserRegistry;
 
 public class ParserRegistryTest {
+
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
 
     private TestParserRegistry registry;
 
@@ -44,7 +49,10 @@ public class ParserRegistryTest {
 
     @Test
     public void parserRegistry_cannotInitialize_incorrectCommand() {
-        assertParserWithCommand("invalid", registry, IncorrectCommandParser.class);
+        thrown.expect(AssertionError.class);
+
+        // Should not happen under normal cases.
+        registry.getParserFromCommandWord("invalid");
     }
 
     @Test
