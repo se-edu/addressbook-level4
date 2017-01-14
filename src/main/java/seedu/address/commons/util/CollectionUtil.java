@@ -12,19 +12,9 @@ import java.util.stream.Stream;
  */
 public class CollectionUtil {
 
-    /**
-     * Returns true if any element of {@code items} is null.
-     * @throws NullPointerException if {@code items} itself is null.
-     */
+    /** @see #isAnyNull(Collection) */
     public static boolean isAnyNull(Object... items) {
         return Stream.of(items).anyMatch(Objects::isNull);
-    }
-
-    /**
-     * Returns true is any of the given items are present.
-     */
-    public static boolean isAnyPresent(Optional<?>... items) {
-        return Stream.of(items).anyMatch(Optional::isPresent);
     }
 
     /**
@@ -33,6 +23,13 @@ public class CollectionUtil {
      */
     public static boolean isAnyNull(Collection<?> items) {
         return items.stream().anyMatch(Objects::isNull);
+    }
+
+    /**
+     * Returns true is any of the given items are present.
+     */
+    public static boolean isAnyPresent(Optional<?>... items) {
+        return Stream.of(items).anyMatch(Optional::isPresent);
     }
 
     /**
