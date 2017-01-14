@@ -5,9 +5,14 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -148,5 +153,66 @@ public class StringUtilTest {
         StringUtil.getDetails(null);
     }
 
+    //---------------- Tests for toIndexedListString -------------------------------
+
+    /*
+     * Equivalence Partitions:
+     *     - null
+     *     - list containing null
+     *     - list of valid printable objects
+     *     - empty list
+     */
+
+    @Test
+    public void toIndexedListString_nullGiven_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        StringUtil.toIndexedListString(null);
+    }
+
+    @Test
+    public void toIndexedListString_listContainsNull_throwsNullPointerException() {
+        Collection<Object> containingNull = new ArrayList<>();
+        containingNull.add(null);
+        thrown.expect(NullPointerException.class);
+        StringUtil.toIndexedListString(containingNull);
+    }
+
+    @Test
+    public void toIndexedListString_validList_correctResult() {
+        Collection<Object> items = new ArrayList<>();
+        // testing different object types
+        items.add("bob bob bob bobbobob");
+        items.add(new Integer(1));
+        items.add(Arrays.asList(5, 6, 7));
+        String expectedString = "1. bob bob bob bobbobob\n"
+                              + "2. 1\n"
+                              + "3. [5, 6, 7]";
+        assertEquals(expectedString, StringUtil.toIndexedListString(items));
+
+        // items with additional newlines in its string representation
+        items.clear();
+        items.add("asd \n zxc \n");
+        items.add("123 \n \n 456");
+        expectedString = "1. asd \n"
+                       + " zxc \n"
+                       + "\n"
+                       + "2. 123 \n"
+                       + " \n"
+                       + " 456";
+        assertEquals(expectedString, StringUtil.toIndexedListString(items));
+
+        // items with trailing white spaces in its string representation
+        items.clear();
+        items.add("qwerty       ");
+        items.add("        asdfgh");
+        expectedString = "1. qwerty       \n"
+                       + "2.         asdfgh";
+        assertEquals(expectedString, StringUtil.toIndexedListString(items));
+    }
+
+    @Test
+    public void toIndexedListString_emptyList_emptyResult() {
+        assertEquals("", StringUtil.toIndexedListString(Collections.emptyList()));
+    }
 
 }
