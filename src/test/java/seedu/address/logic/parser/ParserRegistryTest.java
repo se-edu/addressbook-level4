@@ -1,8 +1,8 @@
 package seedu.address.logic.parser;
 
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import com.google.common.collect.Maps;
@@ -12,52 +12,67 @@ import seedu.address.testutil.TestParserRegistry;
 
 public class ParserRegistryTest {
 
+    private TestParserRegistry registry;
+
+    @Before
+    public void setUp() {
+        registry = new TestParserRegistry();
+        registerTestParsers(registry);
+    }
+
     @Test
     public void parserRegistry_emptyRegistry_incorrectCommand() {
-        TestParserRegistry registry = new TestParserRegistry();
         registry.setCommandRegistry(Maps.newHashMap());
 
-        CommandParser parser = registry.getParserFromCommandWord("add");
-
-        assertTrue(parser instanceof IncorrectCommandParser);
+        assertParserWithCommand("add", registry, IncorrectCommandParser.class);
     }
 
     @Test
     public void parserRegistry_commandNotRegistered_incorrectCommand() {
-        TestParserRegistry registry = new TestParserRegistry();
-
-        CommandParser parser = registry.getParserFromCommandWord("nonExistantCommandWord");
-
-        assertTrue(parser instanceof IncorrectCommandParser);
+        assertParserWithCommand("nonExistantCommandWord", registry, IncorrectCommandParser.class);
     }
 
     @Test
     public void parserRegistry_nullValue_incorrectCommand() {
-        TestParserRegistry registry = new TestParserRegistry();
-
-        CommandParser parser = registry.getParserFromCommandWord(null);
-
-        assertTrue(parser instanceof IncorrectCommandParser);
+        assertParserWithCommand(null, registry, IncorrectCommandParser.class);
     }
 
     @Test
     public void parserRegistry_emptyString_incorrectCommand() {
-        TestParserRegistry registry = new TestParserRegistry();
+        assertParserWithCommand("", registry, IncorrectCommandParser.class);
+    }
 
-        CommandParser parser = registry.getParserFromCommandWord("");
-
-        assertTrue(parser instanceof IncorrectCommandParser);
+    @Test
+    public void parserRegistry_cannotInitialize_incorrectCommand() {
+        assertParserWithCommand("invalid", registry, IncorrectCommandParser.class);
     }
 
     @Test
     public void parserRegistry_validCommandWord_returnsCommandParser() {
-        TestParserRegistry registry = new TestParserRegistry();
         registry.registerCommand("newCommand", TestCommandParser.class);
 
-        CommandParser parser = registry.getParserFromCommandWord("newCommand");
+        assertParserWithCommand("newCommand", registry, TestCommandParser.class);
+    }
 
-        assertNotNull(registry.getCommandRegistry().get("newCommand"));
-        assertTrue(parser instanceof TestCommandParser);
+    /** Helper methods and classes */
+
+    /**
+     * Populate the given registry with some test parsers.
+     */
+    private void registerTestParsers(ParserRegistry registry) {
+        registry
+            .registerCommand("add", AddCommandParser.class)
+            .registerCommand("find", FindCommandParser.class)
+            .registerCommand("edit", EditCommandParser.class)
+            .registerCommand("delete", DeleteCommandParser.class)
+            .registerCommand("invalid", CommandParser.class);
+    }
+
+    private void assertParserWithCommand(String commandWord, ParserRegistry registry,
+            Class<?> parser) {
+        CommandParser parserInRegistry = registry.getParserFromCommandWord(commandWord);
+
+        assertTrue(parser.isInstance(parserInRegistry));
     }
 
     /**
