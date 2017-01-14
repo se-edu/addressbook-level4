@@ -37,6 +37,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.TimeoutException;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * A utility class for test cases.
@@ -353,6 +354,11 @@ public class TestUtil {
         }).collect(Collectors.toList());
 
         return collect.toArray(new Tag[split.length]);
+    }
+
+    /** Maps {@code indices} to its corresponding item in {@code items}. */
+    public static <T> List<T> mapIndexToObj(Integer[] indices, List<T> items) {
+        return Stream.of(indices).map(items::get).collect(Collectors.toList());
     }
 
 }
