@@ -2,7 +2,9 @@ package seedu.address.commons.util;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Stream;
 
 /**
  * Utility methods related to Collections
@@ -10,25 +12,17 @@ import java.util.Set;
 public class CollectionUtil {
 
     /**
-     * Returns true if any of the given items are null.
+     * Returns true if {@code items} itself or any element of {@code items} is null.
      */
     public static boolean isAnyNull(Object... items) {
-        for (Object item : items) {
-            if (item == null) {
-                return true;
-            }
-        }
-        return false;
+        return items == null || Stream.of(items).anyMatch(Objects::isNull);
     }
 
-
-
     /**
-     * Throws an assertion error if the collection or any item in it is null.
+     * Returns true if {@code items} itself or any element of {@code items} is null.
      */
-    public static void assertNoNullElements(Collection<?> items) {
-        assert items != null;
-        assert !isAnyNull(items);
+    public static boolean isAnyNull(Collection<?> items) {
+        return items == null || items.stream().anyMatch(Objects::isNull);
     }
 
     /**
