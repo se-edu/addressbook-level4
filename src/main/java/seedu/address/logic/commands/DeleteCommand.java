@@ -3,7 +3,7 @@ package seedu.address.logic.commands;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.model.person.ReadOnlyPerson;
-import seedu.address.model.person.UniquePersonList.PersonNotFoundException;
+import seedu.address.model.person.UniquePersonList.PersonsNotFoundException;
 
 /**
  * Deletes a person identified using it's last displayed index from the address book.
@@ -39,9 +39,9 @@ public class DeleteCommand extends Command {
         ReadOnlyPerson personToDelete = lastShownList.get(targetIndex - 1);
 
         try {
-            model.deletePerson(personToDelete);
-        } catch (PersonNotFoundException pnfe) {
-            assert false : "The target person cannot be missing";
+            model.deletePersons(personToDelete);
+        } catch (PersonsNotFoundException pnfe) {
+            assert false : "DeleteCommand: " + pnfe.getMessage();
         }
 
         return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, personToDelete));

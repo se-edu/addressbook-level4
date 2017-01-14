@@ -6,8 +6,15 @@ import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.UnmodifiableObservableList;
-import seedu.address.commons.exceptions.DuplicateDataException;
 import seedu.address.commons.util.CollectionUtil;
+import seedu.address.commons.util.StringUtil;
+import seedu.address.commons.exceptions.DuplicateDataException;
+
+import java.util.List;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.stream.Collectors;
 
 /**
  * A list of persons that enforces uniqueness between its elements and does not allow nulls.
@@ -65,17 +72,28 @@ public class UniquePersonList implements Iterable<Person> {
     }
 
     /**
-     * Removes the equivalent person from the list.
-     *
-     * @throws PersonNotFoundException if no such person could be found in the list.
+     * Removes the equivalent persons from the list.<br>
+     * @see #removeAll(Collection)
      */
-    public boolean remove(ReadOnlyPerson toRemove) throws PersonNotFoundException {
-        assert toRemove != null;
-        final boolean personFoundAndDeleted = internalList.remove(toRemove);
-        if (!personFoundAndDeleted) {
-            throw new PersonNotFoundException();
+    public void removeAll(ReadOnlyPerson... personsToRemove) throws PersonsNotFoundException {
+        removeAll(Arrays.asList(personsToRemove));
+    }
+
+    /**
+     * Removes all persons specified by {@code personsToRemove} from this list.<br>
+     * @throws PersonsNotFoundException without deleting any persons if any of the {@code personsToRemove}
+     *     can't be found in this list.
+     */
+    public void removeAll(Collection<ReadOnlyPerson> personsToRemove) throws PersonsNotFoundException {
+        assert personsToRemove != null;
+
+        final Collection<ReadOnlyPerson> missingPersons =
+                personsToRemove.stream().filter(p -> !contains(p)).collect(Collectors.toList());
+        if (!missingPersons.isEmpty()) {
+            throw new PersonsNotFoundException(missingPersons);
         }
-        return personFoundAndDeleted;
+
+        internalList.removeAll(personsToRemove);
     }
 
     public void setPersons(UniquePersonList replacement) {
@@ -122,9 +140,13 @@ public class UniquePersonList implements Iterable<Person> {
     }
 
     /**
-     * Signals that an operation targeting a specified person in the list would fail because
-     * there is no such matching person in the list.
+     * Signals that an operation targeting specified persons in the list would fail because
+     * there is no such matching persons in the list.
      */
-    public static class PersonNotFoundException extends Exception {}
+    public static class PersonsNotFoundException extends Exception {
+        public PersonsNotFoundException(Collection<? extends ReadOnlyPerson> missingPersons) {
+            super("Person(s) not found in list:\n" + StringUtil.toIndexedListString(missingPersons));
+        }
+    }
 
 }

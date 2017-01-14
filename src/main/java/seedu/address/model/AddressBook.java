@@ -17,6 +17,17 @@ import seedu.address.model.person.UniquePersonList.DuplicatePersonException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 
+import java.util.Objects;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Set;
+import java.util.HashSet;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javafx.collections.ObservableList;
+
 /**
  * Wraps all data at the address-book level
  * Duplicates are not allowed (by .equals comparison)
@@ -139,12 +150,18 @@ public class AddressBook implements ReadOnlyAddressBook {
         persons.forEach(this::syncMasterTagListWith);
     }
 
-    public boolean removePerson(ReadOnlyPerson key) throws UniquePersonList.PersonNotFoundException {
-        if (persons.remove(key)) {
-            return true;
-        } else {
-            throw new UniquePersonList.PersonNotFoundException();
-        }
+    /** @see #removePersons(Collection) */
+    public void removePersons(ReadOnlyPerson... keys) throws UniquePersonList.PersonsNotFoundException {
+        removePersons(Arrays.asList(keys));
+    }
+
+    /**
+     * Removes {@code keys} from this {@code AddressBook}'s {@code UniquePersonList}.
+     * @throws UniquePersonList.PersonsNotFoundException if any person in {@code keys} is missing from the list
+     *     and operation is aborted without deleting anyone.
+     */
+    public void removePersons(Collection<ReadOnlyPerson> keys) throws UniquePersonList.PersonsNotFoundException {
+        persons.removeAll(keys);
     }
 
 //// tag-level operations
