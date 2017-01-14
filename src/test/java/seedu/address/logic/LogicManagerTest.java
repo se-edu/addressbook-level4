@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.address.testutil.TestUtil.asIntegerSet;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -23,6 +24,8 @@ import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
+import seedu.address.commons.util.ListUtil;
+import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
@@ -33,11 +36,6 @@ import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.SelectCommand;
-import seedu.address.commons.events.ui.JumpToListRequestEvent;
-import seedu.address.commons.events.ui.ShowHelpRequestEvent;
-import seedu.address.commons.util.ListUtil;
-import seedu.address.commons.util.StringUtil;
-import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -51,18 +49,6 @@ import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.storage.StorageManager;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
-import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 public class LogicManagerTest {
 
@@ -120,7 +106,7 @@ public class LogicManagerTest {
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
     }
 
-    private int getLastShownListSize() {
+    private int getFilteredPersonListSize() {
         return model.getFilteredPersonList().size();
     }
 
@@ -161,12 +147,12 @@ public class LogicManagerTest {
      * @see #assertCommandBehavior(String, String, ReadOnlyAddressBook, List)
      */
     private void assertDeleteSuccess(String deleteArgs, Integer... expectedIndicesDeleted) throws Exception {
-        List<ReadOnlyPerson> lastShownList = model.getFilteredPersonList();
+        List<ReadOnlyPerson> filteredPersonList = model.getFilteredPersonList();
         List<ReadOnlyPerson> expectedPersonsDeleted =
-                ListUtil.subList(lastShownList, new HashSet<>(Arrays.asList(expectedIndicesDeleted)));
+                ListUtil.subList(filteredPersonList, asIntegerSet(expectedIndicesDeleted));
 
         // setting up expected shown list
-        List<ReadOnlyPerson> expectedShownPersons = new ArrayList<>(lastShownList);
+        List<ReadOnlyPerson> expectedShownPersons = new ArrayList<>(filteredPersonList);
         expectedShownPersons.removeAll(expectedPersonsDeleted);
 
         // setting up expected internal list
@@ -381,21 +367,21 @@ public class LogicManagerTest {
     @Test
     public void execute_deleteNonRanged_removesCorrectly() throws Exception {
         TestDataHelper tdh = new TestDataHelper();
-        tdh.addToModel(model, tdh.generatePersonList(10));
+        tdh.addToModel(model, 10);
 
         // deleting from front
         assertDeleteSuccess("delete 1", 0);
 
         // deleting from middle
-        int middle = getLastShownListSize() / 2;
+        int middle = getFilteredPersonListSize() / 2;
         assertDeleteSuccess("delete " + middle, middle - 1);
 
         // deleting from rear
-        int size = getLastShownListSize();
+        int size = getFilteredPersonListSize();
         assertDeleteSuccess("delete " + size, size - 1);
 
         // deleting multiple non-ranged indices - front, middle, rear
-        size = getLastShownListSize();
+        size = getFilteredPersonListSize();
         middle = size / 2;
         assertDeleteSuccess("delete 1 " + middle + " " + size, 0, middle - 1, size - 1);
     }
@@ -420,7 +406,7 @@ public class LogicManagerTest {
     @Test
     public void execute_deleteRanged_removesCorrectly() throws Exception {
         TestDataHelper tdh = new TestDataHelper();
-        tdh.addToModel(model, tdh.generatePersonList(20));
+        tdh.addToModel(model, 20);
 
         // deleting range in ascending order
         assertDeleteSuccess("delete 1-3", 0, 1, 2);
@@ -429,11 +415,11 @@ public class LogicManagerTest {
         assertDeleteSuccess("delete 4-2", 1, 2, 3);
 
         // deleting range with same start and end
-        int size = getLastShownListSize();
+        int size = getFilteredPersonListSize();
         assertDeleteSuccess("delete " + size + "-" + size, size - 1);
 
         // deleting multiple ranges - front, middle, rear
-        size = getLastShownListSize();
+        size = getFilteredPersonListSize();
         int middle = size / 2;
         assertDeleteSuccess(
                 "delete 1-2 " + (middle - 1) + "-" + middle + " " + (size - 1) + "-" + size,
@@ -443,7 +429,7 @@ public class LogicManagerTest {
     @Test
     public void execute_deleteRangedAndNonRanged_removesCorrectly() throws Exception {
         TestDataHelper tdh = new TestDataHelper();
-        tdh.addToModel(model, tdh.generatePersonList(30));
+        tdh.addToModel(model, 30);
 
         // deleting subsets in consecutive order
         assertDeleteSuccess("delete 1 2 5 7 9-12", 0, 1, 4, 6, 8, 9, 10, 11);
@@ -455,7 +441,7 @@ public class LogicManagerTest {
     @Test
     public void execute_deleteDuplicates_removesCorrectly() throws Exception {
         TestDataHelper tdh = new TestDataHelper();
-        tdh.addToModel(model, tdh.generatePersonList(10));
+        tdh.addToModel(model, 10);
 
         // duplicate single indices
         assertDeleteSuccess("delete 5 5 5 5 5 5 5", 4);
@@ -470,7 +456,7 @@ public class LogicManagerTest {
     @Test
     public void execute_deleteExcessiveWhiteSpace_removesCorrectly() throws Exception {
         TestDataHelper tdh = new TestDataHelper();
-        tdh.addToModel(model, tdh.generatePersonList(5));
+        tdh.addToModel(model, 5);
         assertDeleteSuccess("delete       3          4      5    ", 2, 3, 4);
     }
 
@@ -670,5 +656,4 @@ public class LogicManagerTest {
             );
         }
     }
-
 }

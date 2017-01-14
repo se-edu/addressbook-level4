@@ -2,6 +2,10 @@ package guitests;
 
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS;
+import static seedu.address.testutil.TestUtil.asIntegerSet;
+
+import java.util.Arrays;
+import java.util.List;
 
 import org.junit.Test;
 
@@ -10,13 +14,6 @@ import seedu.address.commons.util.ListUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.testutil.TestPerson;
 import seedu.address.testutil.TestUtil;
-
-import static org.junit.Assert.assertTrue;
-import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS;
-
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
 
 public class DeleteCommandTest extends AddressBookGuiTest {
 
@@ -46,7 +43,7 @@ public class DeleteCommandTest extends AddressBookGuiTest {
      */
     private void assertDeleteSuccess(String deleteArgs, TestPerson[] currentList, Integer... expectedTargetIndices) {
         List<TestPerson> expectedPersonsDeleted =
-                ListUtil.subList(Arrays.asList(currentList), new HashSet<>(Arrays.asList(expectedTargetIndices)));
+                ListUtil.subList(Arrays.asList(currentList), asIntegerSet(expectedTargetIndices));
         TestPerson[] expectedRemainder = TestUtil.removePersonsFromList(currentList, expectedPersonsDeleted);
         String expectedMessage = String.format(MESSAGE_DELETE_PERSON_SUCCESS, expectedPersonsDeleted.size(),
                                                StringUtil.toIndexedListString(expectedPersonsDeleted));

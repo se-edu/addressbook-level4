@@ -1,10 +1,12 @@
 package seedu.address.commons.util;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static seedu.address.testutil.TestUtil.asIntegerSet;
 
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.Set;
 
 import org.junit.Rule;
@@ -33,22 +35,20 @@ public class IndexUtilTest {
 
     @Test
     public void oneToZeroIndexSet_containingNull_throwsNullPointerException() throws Exception {
-        Set<Integer> containingNull = new HashSet<>();
-        containingNull.add(null);
         thrown.expect(NullPointerException.class);
-        IndexUtil.oneToZeroIndex(containingNull);
+        IndexUtil.oneToZeroIndex(asIntegerSet((Integer) null));
     }
 
     @Test
-    public void oneToZeroIndexSet_negativeElements_assertionError() throws Exception {
+    public void oneToZeroIndexSet_negativeIndices_assertionError() throws Exception {
         thrown.expect(AssertionError.class);
-        IndexUtil.oneToZeroIndex(new HashSet<>(Arrays.asList(-10, -5, -2)));
+        IndexUtil.oneToZeroIndex(asIntegerSet(-10, -5, -2));
     }
 
     @Test
-    public void oneToZeroIndexSet_zeroElements_assertionError() throws Exception {
+    public void oneToZeroIndexSet_zeroValuedIndices_assertionError() throws Exception {
         thrown.expect(AssertionError.class);
-        IndexUtil.oneToZeroIndex(new HashSet<>(Arrays.asList(0, 0, 0)));
+        IndexUtil.oneToZeroIndex(asIntegerSet(0, 0, 0));
     }
 
     @Test
@@ -57,11 +57,10 @@ public class IndexUtilTest {
     }
 
     @Test
-    public void oneToZeroIndexSet_validElements_correctResult() throws Exception {
-        // one based indices i.e. indices > 0
-        assertOneToZeroIndexSetSuccess(new HashSet<>(Arrays.asList(1, 5, 6)), new HashSet<>(Arrays.asList(0, 4, 5)));
-        assertOneToZeroIndexSetSuccess(new HashSet<>(Arrays.asList(10, 4, 3)), new HashSet<>(Arrays.asList(9, 3, 2)));
-        assertOneToZeroIndexSetSuccess(new HashSet<>(Arrays.asList(1, 1, 1)), new HashSet<>(Arrays.asList(0, 0, 0)));
+    public void oneToZeroIndexSet_validIndices_correctResult() throws Exception {
+        assertOneToZeroIndexSetSuccess(asIntegerSet(1, 5, 6), asIntegerSet(0, 4, 5));
+        assertOneToZeroIndexSetSuccess(asIntegerSet(10, 4, 3), asIntegerSet(9, 3, 2));
+        assertOneToZeroIndexSetSuccess(asIntegerSet(1, 1, 1), asIntegerSet(0, 0, 0));
     }
 
     @Test
@@ -71,16 +70,63 @@ public class IndexUtilTest {
     }
 
     @Test
-    public void oneToZeroIndexInt_zeroIndex_assertionError() throws Exception {
+    public void oneToZeroIndexInt_zeroValuedIndex_assertionError() throws Exception {
         thrown.expect(AssertionError.class);
         IndexUtil.oneToZeroIndex(0);
     }
 
     @Test
     public void oneToZeroIndexInt_validIndex_correctResult() throws Exception {
-        // one based indices i.e. indices > 0
         assertOneToZeroIndexIntSuccess(1, 0);
         assertOneToZeroIndexIntSuccess(5, 4);
         assertOneToZeroIndexIntSuccess(10, 9);
+    }
+
+    @Test
+    public void areIndicesWithinBoundsStartEndRange_nullIndicesReference_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        IndexUtil.areIndicesWithinBounds(null, 0, 1);
+    }
+
+    @Test
+    public void areIndicesWithinBoundsStartEndRange_nullIndicesElements_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        IndexUtil.areIndicesWithinBounds(Arrays.asList(null, null, null), 0, 1);
+    }
+
+    @Test
+    public void areIndicesWithinBoundsStartEndRange_negativeStart_assertionError() {
+        thrown.expect(AssertionError.class);
+        IndexUtil.areIndicesWithinBounds(Arrays.asList(0), -1, 2);
+    }
+
+    @Test
+    public void areIndicesWithinBoundsStartEndRange_startMoreThanEnd_assertionError() {
+        thrown.expect(AssertionError.class);
+        IndexUtil.areIndicesWithinBounds(Arrays.asList(2), 3, 2);
+    }
+
+    @Test
+    public void areIndicesWithinBoundsStartEndRange_emptyIndicesCollection_correctResult() {
+        assertTrue(IndexUtil.areIndicesWithinBounds(Collections.emptyList(), 0, 1));
+    }
+
+    @Test
+    public void areIndicesWithinBoundsStartEndRange_startEqualsEnd_correctResult() {
+        assertFalse(IndexUtil.areIndicesWithinBounds(Arrays.asList(0), 0, 0));
+        assertFalse(IndexUtil.areIndicesWithinBounds(Arrays.asList(1), 0, 0));
+    }
+
+    @Test
+    public void areIndicesWithinBoundsStartEndRange_validInputs_correctResult() {
+        // invalid indices at the front, middle and rear
+        assertFalse(IndexUtil.areIndicesWithinBounds(Arrays.asList(1, 3, 5), 2, 6));
+        assertFalse(IndexUtil.areIndicesWithinBounds(Arrays.asList(3, 6, 5), 2, 6));
+        assertFalse(IndexUtil.areIndicesWithinBounds(Arrays.asList(2, 3, 1), 2, 6));
+
+        // all indices within bounds
+        assertTrue(IndexUtil.areIndicesWithinBounds(Arrays.asList(1, 2, 3, 4), 1, 5));
+        assertTrue(IndexUtil.areIndicesWithinBounds(Arrays.asList(1, 1, 1, 1), 1, 5));
+        assertTrue(IndexUtil.areIndicesWithinBounds(Arrays.asList(4), 1, 5));
     }
 }

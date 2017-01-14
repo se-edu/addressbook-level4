@@ -29,23 +29,23 @@ public class DeleteCommand extends Command {
             "Deleted %1$s Person(s):\n"
             + "%2$s";
 
-    public final Set<Integer> targetIndices;
+    public final Set<Integer> zeroBasedTargetIndices;
 
-    public DeleteCommand(Set<Integer> targetIndices) {
-        assert !CollectionUtil.isAnyNull(targetIndices);
-        this.targetIndices = IndexUtil.oneToZeroIndex(targetIndices);
+    public DeleteCommand(Set<Integer> oneBasedTargetIndices) {
+        assert !CollectionUtil.isAnyNull(oneBasedTargetIndices);
+        this.zeroBasedTargetIndices = IndexUtil.oneToZeroIndex(oneBasedTargetIndices);
     }
 
     @Override
     public CommandResult execute() {
-        UnmodifiableObservableList<ReadOnlyPerson> lastShownList = model.getFilteredPersonList();
+        UnmodifiableObservableList<ReadOnlyPerson> filteredPersonList = model.getFilteredPersonList();
 
-        if (!ListUtil.areIndicesWithinBounds(lastShownList, targetIndices)) {
+        if (!IndexUtil.areIndicesWithinBounds(zeroBasedTargetIndices, filteredPersonList)) {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
-        List<ReadOnlyPerson> personsToDelete = ListUtil.subList(lastShownList, targetIndices);
+        List<ReadOnlyPerson> personsToDelete = ListUtil.subList(filteredPersonList, zeroBasedTargetIndices);
         try {
             model.deletePersons(personsToDelete);
         } catch (PersonsNotFoundException pnfe) {

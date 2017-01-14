@@ -1,5 +1,7 @@
 package seedu.address.model;
 
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.Set;
 
 import seedu.address.commons.core.UnmodifiableObservableList;
@@ -7,10 +9,7 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.person.UniquePersonList.DuplicatePersonException;
-
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Set;
+import seedu.address.model.person.UniquePersonList.PersonsNotFoundException;
 
 /**
  * The API of the Model component.

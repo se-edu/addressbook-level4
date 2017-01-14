@@ -1,5 +1,6 @@
 package seedu.address.model;
 
+import java.util.Collection;
 import java.util.Set;
 import java.util.logging.Logger;
 
@@ -14,10 +15,6 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.person.UniquePersonList.PersonsNotFoundException;
-
-import java.util.Collection;
-import java.util.Set;
-import java.util.logging.Logger;
 
 /**
  * Represents the in-memory model of the address book data.

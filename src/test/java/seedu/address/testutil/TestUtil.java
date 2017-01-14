@@ -7,7 +7,10 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.TimeoutException;
 import java.util.stream.Collectors;
 
@@ -39,18 +42,6 @@ import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.storage.XmlSerializableAddressBook;
-
-import java.io.File;
-import java.io.IOException;
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.List;
-import java.util.concurrent.TimeoutException;
-import java.util.stream.Collectors;
 
 /**
  * A utility class for test cases.
@@ -374,6 +365,11 @@ public class TestUtil {
         }).collect(Collectors.toList());
 
         return collect.toArray(new Tag[split.length]);
+    }
+
+    /** Converts {@code items} to an {@code Integer Set}. */
+    public static Set<Integer> asIntegerSet(Integer... items) {
+        return new HashSet<>(Arrays.asList(items));
     }
 
 }

@@ -3,7 +3,6 @@ package seedu.address.commons.util;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -18,78 +17,69 @@ public class CollectionUtilTest {
     public ExpectedException thrown = ExpectedException.none();
 
     @Test
-    public void isAnyNull_Varargs() {
-        // empty argument
+    public void isAnyNullVarargs() {
+        // no arguments
         assertFalse(CollectionUtil.isAnyNull());
 
-        // Any non-empty argument
+        // any non-empty argument list
         assertFalse(CollectionUtil.isAnyNull(new Object(), new Object()));
         assertFalse(CollectionUtil.isAnyNull("test"));
         assertFalse(CollectionUtil.isAnyNull(""));
 
-        // non empty arguments with just one null at the beginning
+        // argument lists with just one null at the beginning
         assertTrue(CollectionUtil.isAnyNull((Object) null));
         assertTrue(CollectionUtil.isAnyNull(null, "", new Object()));
         assertTrue(CollectionUtil.isAnyNull(null, new Object(), new Object()));
 
-        // non empty arguments with nulls in the middle
+        // argument lists with nulls in the middle
         assertTrue(CollectionUtil.isAnyNull(new Object(), null, null, "test"));
         assertTrue(CollectionUtil.isAnyNull("", null, new Object()));
 
-        // non empty arguments with one null as the last argument
+        // argument lists with one null as the last argument
         assertTrue(CollectionUtil.isAnyNull("", new Object(), null));
         assertTrue(CollectionUtil.isAnyNull(new Object(), new Object(), null));
 
-        // confirms nulls inside the list are not considered
+        // confirms nulls inside lists in the argument list are not considered
         List<Object> containingNull = Arrays.asList((Object) null);
         assertFalse(CollectionUtil.isAnyNull(containingNull, new Object()));
     }
 
     @Test
-    public void isAnyNull_VarargsNullReference_throwsNullPointerException() {
+    public void isAnyNullVarargs_nullReference_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         CollectionUtil.isAnyNull((Object[]) null);
     }
 
     @Test
-    public void isAnyNull_Collection() {
-        // list containing null at the front
-        Collection<Object> frontNull = new ArrayList<>();
-        frontNull.add(null);
-        frontNull.add(new Object());
-        frontNull.add("");
-        assertTrue(CollectionUtil.isAnyNull(frontNull));
+    public void isAnyNullCollection() {
+        // lists containing nulls in the front
+        assertTrue(CollectionUtil.isAnyNull(Arrays.asList((Object) null)));
+        assertTrue(CollectionUtil.isAnyNull(Arrays.asList(null, new Object(), "")));
 
-        // list containing null in the middle
-        Collection<Object> middleNull = new ArrayList<>();
-        middleNull.add("asd");
-        middleNull.add(null);
-        middleNull.add(new Object());
-        assertTrue(CollectionUtil.isAnyNull(middleNull));
+        // lists containing nulls in the middle
+        assertTrue(CollectionUtil.isAnyNull(Arrays.asList("spam", null, new Object())));
+        assertTrue(CollectionUtil.isAnyNull(Arrays.asList("spam", null, "eggs", null, new Object())));
 
-        // list containing null at the end
-        Collection<Object> endNull = new ArrayList<>();
-        endNull.add("xbcbxc");
-        endNull.add(new Object());
-        endNull.add(null);
-        assertTrue(CollectionUtil.isAnyNull(endNull));
+        // lists containing nulls at the end
+        assertTrue(CollectionUtil.isAnyNull(Arrays.asList("spam", new Object(), null)));
+        assertTrue(CollectionUtil.isAnyNull(Arrays.asList(new Object(), null)));
 
         // empty list
         assertFalse(CollectionUtil.isAnyNull(Collections.emptyList()));
 
-        // valid non-empty list
-        Collection<Object> validList = new ArrayList<>();
-        validList.add(new Object());
-        validList.add("asdadasd");
-        validList.add(new Integer(1));
-        assertFalse(CollectionUtil.isAnyNull(validList));
+        // list with all non-null elements
+        assertFalse(CollectionUtil.isAnyNull(Arrays.asList(new Object(), "ham", new Integer(1))));
+        assertFalse(CollectionUtil.isAnyNull(Arrays.asList(new Object())));
+
+        // confirms nulls inside nested lists are not considered
+        List<Object> containingNull = Arrays.asList((Object) null);
+        assertFalse(CollectionUtil.isAnyNull(Arrays.asList(containingNull, new Object())));
     }
 
     @Test
-    public void isAnyNull_CollectionNullReference_throwsNullPointerException() {
-        Collection<Object> nullList = null;
+    public void isAnyNullCollection_nullReference_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        CollectionUtil.isAnyNull(nullList);
+        CollectionUtil.isAnyNull((Collection<Object>) null);
     }
 
     @Test
