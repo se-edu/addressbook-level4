@@ -5,6 +5,7 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.UniquePersonList;
 
+import java.util.Collection;
 import java.util.Set;
 
 /**
@@ -17,8 +18,18 @@ public interface Model {
     /** Returns the AddressBook */
     ReadOnlyAddressBook getAddressBook();
 
-    /** Deletes the given person. */
-    void deletePerson(ReadOnlyPerson target) throws UniquePersonList.PersonNotFoundException;
+    /**
+     * Deletes the given person.
+     * @see #deletePersons(Collection)
+     */
+    void deletePersons(ReadOnlyPerson... persons) throws UniquePersonList.PersonNotFoundException;
+
+    /**
+     * Deletes the given {@code persons}.
+     * @throws PersonNotFoundException without deleting any persons if any of the {@code persons}
+     * can't be found in this list.
+     */
+    void deletePersons(Collection<ReadOnlyPerson> persons) throws UniquePersonList.PersonNotFoundException;
 
     /** Adds the given person */
     void addPerson(Person person) throws UniquePersonList.DuplicatePersonException;
