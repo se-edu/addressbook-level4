@@ -1,8 +1,8 @@
 package seedu.address.commons.util;
 
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -12,22 +12,11 @@ public class ListUtil {
 
     /**
      * Returns a sublist of items from {@code list} specified by {@code indices}.<br>
-     * - Original list order is maintained in the extracted list.<br>
-     * - Duplicate indices are ignored.<br>
+     * Original list order is maintained in the extracted list.<br>
      */
-    public static <T> List<T> subList(List<T> list, Integer... indices) {
-        return subList(list, Arrays.asList(indices));
-    }
-
-    /**
-     * Returns a sublist of items from {@code list} specified by {@code indices}.<br>
-     * - Original list order is maintained in the extracted list.<br>
-     * - Duplicate indices are ignored.<br>
-     */
-    public static <T> List<T> subList(List<T> list, Collection<Integer> indices) {
+    public static <T> List<T> subList(List<T> list, Set<Integer> indices) {
         assert areIndicesWithinBounds(list, indices);
         return indices.stream()
-                .distinct()
                 .sorted()
                 .map(list::get)
                 .collect(Collectors.toList());

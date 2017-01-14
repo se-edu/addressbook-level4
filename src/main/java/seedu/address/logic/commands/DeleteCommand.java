@@ -1,8 +1,7 @@
 package seedu.address.logic.commands;
 
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.UnmodifiableObservableList;
@@ -30,11 +29,10 @@ public class DeleteCommand extends Command {
             "Deleted %1$s Person(s):\n"
             + "%2$s";
 
-    public final Collection<Integer> targetIndices;
+    public final Set<Integer> targetIndices;
 
-    public DeleteCommand(Collection<Integer> targetIndices) {
+    public DeleteCommand(Set<Integer> targetIndices) {
         assert !CollectionUtil.isAnyNull(targetIndices);
-        assert Collections.min(targetIndices) >= 1 : "DeleteCommand: targetIndices not verified to be > 0 by caller";
         this.targetIndices = IndexUtil.oneToZeroIndex(targetIndices);
     }
 
@@ -51,7 +49,7 @@ public class DeleteCommand extends Command {
         try {
             model.deletePersons(personsToDelete);
         } catch (PersonsNotFoundException pnfe) {
-            assert false : "DeleteCommand: " + pnfe.getMessage();
+            throw new AssertionError(pnfe);
         }
 
         return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, personsToDelete.size(),

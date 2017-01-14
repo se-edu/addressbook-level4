@@ -2,9 +2,10 @@ package seedu.address.commons.util;
 
 import static org.junit.Assert.assertEquals;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -15,40 +16,71 @@ public class IndexUtilTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
+    private void assertOneToZeroIndexSetSuccess(Set<Integer> testIntegers,
+                                                Set<Integer> expectedIntegers) {
+        assertEquals(expectedIntegers, IndexUtil.oneToZeroIndex(testIntegers));
+    }
+
+    private void assertOneToZeroIndexIntSuccess(int testInteger, int expectedInteger) {
+        assertEquals(expectedInteger, IndexUtil.oneToZeroIndex(testInteger));
+    }
+
     @Test
-    public void oneToZeroIndex_nullReference_throwsNullPointerException() throws Exception {
+    public void oneToZeroIndexSet_nullReference_throwsNullPointerException() throws Exception {
         thrown.expect(NullPointerException.class);
         IndexUtil.oneToZeroIndex(null);
     }
 
     @Test
-    public void oneIndexToZeroIndex_containingNull_throwsNullPointerException() throws Exception {
-        Collection<Integer> containingNull = new ArrayList<>();
+    public void oneToZeroIndexSet_containingNull_throwsNullPointerException() throws Exception {
+        Set<Integer> containingNull = new HashSet<>();
         containingNull.add(null);
         thrown.expect(NullPointerException.class);
         IndexUtil.oneToZeroIndex(containingNull);
     }
 
     @Test
-    public void oneToZeroIndex_emptyCollection_emptyResult() throws Exception {
-        assertOneToZeroIndexSuccess(new Integer[0], new Integer[0]);
+    public void oneToZeroIndexSet_negativeElements_assertionError() throws Exception {
+        thrown.expect(AssertionError.class);
+        IndexUtil.oneToZeroIndex(new HashSet<>(Arrays.asList(-10, -5, -2)));
     }
 
     @Test
-    public void oneToZeroIndex_validElements_correctResult() throws Exception {
-        // positive elements
-        assertOneToZeroIndexSuccess(new Integer[] { 1, 5, 6 }, new Integer[] { 0, 4, 5 });
-        assertOneToZeroIndexSuccess(new Integer[] { 10, 4, 3 }, new Integer[] { 9, 3, 2 });
-
-        // negative elements
-        assertOneToZeroIndexSuccess(new Integer[] { -10, -5, -2 }, new Integer[] { -11, -6, -3 });
-        assertOneToZeroIndexSuccess(new Integer[] { -3, -8, -1 }, new Integer[] { -4, -9, -2 });
-
-        // 0 elements
-        assertOneToZeroIndexSuccess(new Integer[] { 0, 0, 0 }, new Integer[] { -1, -1, -1 });
+    public void oneToZeroIndexSet_zeroElements_assertionError() throws Exception {
+        thrown.expect(AssertionError.class);
+        IndexUtil.oneToZeroIndex(new HashSet<>(Arrays.asList(0, 0, 0)));
     }
 
-    private void assertOneToZeroIndexSuccess(Integer[] testIntegers, Integer[] expectedIntegers) {
-        assertEquals(Arrays.asList(expectedIntegers), IndexUtil.oneToZeroIndex(Arrays.asList(testIntegers)));
+    @Test
+    public void oneToZeroIndexSet_emptySet_emptyResult() throws Exception {
+        assertOneToZeroIndexSetSuccess(Collections.emptySet(), Collections.emptySet());
+    }
+
+    @Test
+    public void oneToZeroIndexSet_validElements_correctResult() throws Exception {
+        // one based indices i.e. indices > 0
+        assertOneToZeroIndexSetSuccess(new HashSet<>(Arrays.asList(1, 5, 6)), new HashSet<>(Arrays.asList(0, 4, 5)));
+        assertOneToZeroIndexSetSuccess(new HashSet<>(Arrays.asList(10, 4, 3)), new HashSet<>(Arrays.asList(9, 3, 2)));
+        assertOneToZeroIndexSetSuccess(new HashSet<>(Arrays.asList(1, 1, 1)), new HashSet<>(Arrays.asList(0, 0, 0)));
+    }
+
+    @Test
+    public void oneToZeroIndexInt_negativeIndex_assertionError() throws Exception {
+        thrown.expect(AssertionError.class);
+        IndexUtil.oneToZeroIndex(-1);
+    }
+
+    @Test
+    public void oneToZeroIndexInt_zeroIndex_assertionError() throws Exception {
+        thrown.expect(AssertionError.class);
+        IndexUtil.oneToZeroIndex(0);
+    }
+
+    @Test
+    public void oneToZeroIndexInt_validIndex_correctResult() throws Exception {
+        // one based indices i.e. indices > 0
+        assertOneToZeroIndexIntSuccess(1, 0);
+        assertOneToZeroIndexIntSuccess(5, 4);
+        assertOneToZeroIndexIntSuccess(10, 9);
     }
 }

@@ -258,7 +258,8 @@ public class Parser {
             return new IncorrectCommand(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
         }
-        return new DeleteCommand(IndexRange.getAllValues(indexRanges.get()));
+        // wrapping in a set removes duplicate indices
+        return new DeleteCommand(new HashSet<>(IndexRange.getAllValues(indexRanges.get())));
     }
 
     /**

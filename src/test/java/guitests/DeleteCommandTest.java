@@ -12,6 +12,7 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS;
 
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 
 public class DeleteCommandTest extends AddressBookGuiTest {
@@ -41,7 +42,8 @@ public class DeleteCommandTest extends AddressBookGuiTest {
      * {@code expectedTargetIndices} are zero-indexed i.e. index 0 refers to the first element.
      */
     private void assertDeleteSuccess(String deleteArgs, TestPerson[] currentList, Integer... expectedTargetIndices) {
-        List<TestPerson> expectedPersonsDeleted = ListUtil.subList(Arrays.asList(currentList), expectedTargetIndices);
+        List<TestPerson> expectedPersonsDeleted =
+                ListUtil.subList(Arrays.asList(currentList), new HashSet<>(Arrays.asList(expectedTargetIndices)));
         TestPerson[] expectedRemainder = TestUtil.removePersonsFromList(currentList, expectedPersonsDeleted);
         String expectedMessage = String.format(MESSAGE_DELETE_PERSON_SUCCESS, expectedPersonsDeleted.size(),
                                                StringUtil.toIndexedListString(expectedPersonsDeleted));
