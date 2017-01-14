@@ -83,16 +83,16 @@ Examples:
 * `find Betsy Tim John`<br>
   Returns Any person having names `Betsy`, `Tim`, or `John`
 
-### 2.5. Deleting a person : `delete`
+### 2.5. Deleting persons: `delete`
 
-Deletes the specified person from the address book. Irreversible.<br>
-Format: `delete INDEX`
+Deletes the specified persons from the address book. Irreversible.<br>
+Format: `delete INDICES`
 
-> Deletes the person at the specified `INDEX`. <br>
-> The index refers to the index number shown in the most recent listing.<br>
-> The index **must be a positive integer** 1, 2, 3, ...
-
-Examples:
+> * Deletes the persons at the specified `INDICES`.<br>
+> * `INDICES` can only be integers or integer ranges separated by spaces.<br>
+> * Integer ranges are specified using `-`. <br>
+> * Only positive integers matching those on the last shown list are accepted.<br>
+> * If any of the above is not satisfied, the command will abort without deleting any persons.
 
 * `list`<br>
   `delete 2`<br>
@@ -100,6 +100,26 @@ Examples:
 * `find Betsy`<br>
   `delete 1`<br>
   Deletes the 1st person in the results of the `find` command.
+* `list`<br>
+  `delete 2-5`<br>
+  Deletes the 2nd to 5th person in the address book.
+* `list`<br>
+  `delete 3-1`<br>
+  Deletes the 1st to 3rd person in the address book.<br>
+  > Ranges can be in descending order too.
+
+* `list`<br>
+  `delete 9 3-4 1 8` <br>
+  Deletes the 1st, 3rd, 4th, 8th and 9th person in the address book.
+* `find Bob`<br>
+  `delete 1 1 1`<br>
+  Deletes the 1st person in the results of the `find` command.<br>
+  > Duplicate indices are ignored.
+
+* `list`<br>
+  `delete 1-3 2-5 1-10`<br>
+  Deletes the 1st to 10th person in the address book.<br>
+  > Overlapping ranges are allowed.
 
 ### 2.6. Select a person : `select`
 
@@ -147,9 +167,9 @@ There is no need to save manually.
 
 * **Clear** : `clear`
 
-* **Delete** : `delete INDEX` <br>
-   e.g. `delete 3`
-
+* **Delete** : `delete INDICES` <br>
+   e.g. `delete 3 5 6 1-2`
+  
 * **Find** : `find KEYWORD [MORE_KEYWORDS]` <br>
   e.g. `find James Jake`
 
