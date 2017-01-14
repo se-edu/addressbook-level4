@@ -5,8 +5,7 @@ import java.util.Map;
 import com.google.common.collect.Maps;
 
 /**
- * A container to store all registered command parser classes that are
- * responsible for parsing command strings provided by the user
+ * A container to store all registered {@code CommandParser} classes
  */
 public class ParserRegistry {
 
@@ -20,6 +19,9 @@ public class ParserRegistry {
      * Registers the given command word string with the provided
      * command parser class. One command parser can be associated with
      * multiple command words. However one command word can only be associated with one command parser.
+     * <p>
+     * If the specified command word was previously registered, then this registration entry will
+     * replace the current entry in the registry.
      *
      * @return this ParserRegistry object for method chaining
      */
@@ -33,7 +35,7 @@ public class ParserRegistry {
      * Returns a CommandParser registered with the given command word. If no such CommandParser
      * exists, an IncorrectCommandParser is returned instead.
      */
-    public CommandParser getParserFromCommandWord(String commandWord) {
+    public CommandParser getCommandParserForCommandWord(String commandWord) {
 
         if (!commandRegistry.containsKey(commandWord)) {
             return new IncorrectCommandParser();

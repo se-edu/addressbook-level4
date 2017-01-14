@@ -5,8 +5,9 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.IncorrectCommand;
 
 /**
- * Returns IncorrectCommand with an Unknown command message.
- * Does not parse any input
+ * Returns an IncorrectCommand object with a message stating
+ * that the command entered does not match any known command.
+ * This class does not parse any input
  */
 public class IncorrectCommandParser extends CommandParser {
 

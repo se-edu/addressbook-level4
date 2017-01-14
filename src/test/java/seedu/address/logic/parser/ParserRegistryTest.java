@@ -7,59 +7,56 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import com.google.common.collect.Maps;
-
 import seedu.address.logic.commands.Command;
-import seedu.address.testutil.TestParserRegistry;
 
 public class ParserRegistryTest {
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-    private TestParserRegistry registry;
+    private ParserRegistry registry;
 
     @Before
     public void setUp() {
-        registry = new TestParserRegistry();
+        registry = new ParserRegistry();
         registerTestParsers(registry);
     }
 
     @Test
     public void parserRegistry_emptyRegistry_incorrectCommand() {
-        registry.setCommandRegistry(Maps.newHashMap());
+        registry = new ParserRegistry();
 
-        assertParserWithCommand("add", registry, IncorrectCommandParser.class);
+        assertRegisteredCommandParser("add", registry, IncorrectCommandParser.class);
     }
 
     @Test
     public void parserRegistry_commandNotRegistered_incorrectCommand() {
-        assertParserWithCommand("nonExistantCommandWord", registry, IncorrectCommandParser.class);
+        assertRegisteredCommandParser("nonExistantCommandWord", registry, IncorrectCommandParser.class);
     }
 
     @Test
     public void parserRegistry_nullValue_incorrectCommand() {
-        assertParserWithCommand(null, registry, IncorrectCommandParser.class);
+        assertRegisteredCommandParser(null, registry, IncorrectCommandParser.class);
     }
 
     @Test
     public void parserRegistry_emptyString_incorrectCommand() {
-        assertParserWithCommand("", registry, IncorrectCommandParser.class);
+        assertRegisteredCommandParser("", registry, IncorrectCommandParser.class);
     }
 
     @Test
-    public void parserRegistry_cannotInitialize_incorrectCommand() {
+    public void parserRegistry_cannotInitialize_throwsAssertionError() {
         thrown.expect(AssertionError.class);
 
         // Should not happen under normal cases.
-        registry.getParserFromCommandWord("invalid");
+        registry.getCommandParserForCommandWord("invalid");
     }
 
     @Test
     public void parserRegistry_validCommandWord_returnsCommandParser() {
         registry.registerCommand("newCommand", TestCommandParser.class);
 
-        assertParserWithCommand("newCommand", registry, TestCommandParser.class);
+        assertRegisteredCommandParser("newCommand", registry, TestCommandParser.class);
     }
 
     /** Helper methods and classes */
@@ -76,11 +73,16 @@ public class ParserRegistryTest {
             .registerCommand("invalid", CommandParser.class);
     }
 
-    private void assertParserWithCommand(String commandWord, ParserRegistry registry,
-            Class<?> parser) {
-        CommandParser parserInRegistry = registry.getParserFromCommandWord(commandWord);
+    /**
+     * Verifies that the returned {@code CommandParser} class from the given
+     * {@code ParserRegistry} for the specified command word is indeed an instance of
+     * the specified command parser class
+     */
+    private void assertRegisteredCommandParser(String commandWord, ParserRegistry registry,
+            Class<?> commandParserClass) {
+        CommandParser parserInRegistry = registry.getCommandParserForCommandWord(commandWord);
 
-        assertTrue(parser.isInstance(parserInRegistry));
+        assertTrue(commandParserClass.isInstance(parserInRegistry));
     }
 
     /**

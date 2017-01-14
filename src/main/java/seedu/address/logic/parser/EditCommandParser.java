@@ -1,6 +1,10 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -12,6 +16,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.commons.util.ParserUtil;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
@@ -31,12 +36,12 @@ public class EditCommandParser extends CommandParser {
     @Override
     public Command prepareCommand(String args) {
         assert args != null;
-        ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(Parser.PREFIX_PHONE, Parser.PREFIX_EMAIL,
-                Parser.PREFIX_ADDRESS, Parser.PREFIX_TAG);
+        ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(PREFIX_PHONE, PREFIX_EMAIL,
+                PREFIX_ADDRESS, PREFIX_TAG);
         argsTokenizer.tokenize(args);
         List<Optional<String>> preambleFields = splitPreamble(argsTokenizer.getPreamble().orElse(""), 2);
 
-        Optional<Integer> index = preambleFields.get(0).flatMap(Parser::parseIndex);
+        Optional<Integer> index = preambleFields.get(0).flatMap(ParserUtil::parseIndex);
         if (!index.isPresent()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         }
@@ -44,10 +49,10 @@ public class EditCommandParser extends CommandParser {
         EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
         try {
             editPersonDescriptor.setName(parseName(preambleFields.get(1)));
-            editPersonDescriptor.setPhone(parsePhone(argsTokenizer.getValue(Parser.PREFIX_PHONE)));
-            editPersonDescriptor.setEmail(parseEmail(argsTokenizer.getValue(Parser.PREFIX_EMAIL)));
-            editPersonDescriptor.setAddress(parseAddress(argsTokenizer.getValue(Parser.PREFIX_ADDRESS)));
-            editPersonDescriptor.setTags(parseTagsForEdit(Parser.toSet(argsTokenizer.getAllValues(Parser.PREFIX_TAG))));
+            editPersonDescriptor.setPhone(parsePhone(argsTokenizer.getValue(PREFIX_PHONE)));
+            editPersonDescriptor.setEmail(parseEmail(argsTokenizer.getValue(PREFIX_EMAIL)));
+            editPersonDescriptor.setAddress(parseAddress(argsTokenizer.getValue(PREFIX_ADDRESS)));
+            editPersonDescriptor.setTags(parseTagsForEdit(ParserUtil.toSet(argsTokenizer.getAllValues(PREFIX_TAG))));
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }
