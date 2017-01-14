@@ -4,23 +4,29 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.stream.Collectors;
 
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.IncorrectCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.SelectCommand;
+import seedu.address.logic.parser.ArgumentTokenizer.Prefix;
 
 /**
  * Parses user input.
  */
 public class Parser {
+
+    public static final Prefix PREFIX_PHONE = new Prefix("p/");
+    public static final Prefix PREFIX_EMAIL = new Prefix("e/");
+    public static final Prefix PREFIX_ADDRESS = new Prefix("a/");
+    public static final Prefix PREFIX_TAG = new Prefix("t/");
 
     /**
      * Used for initial separation of command word and args.
@@ -40,10 +46,11 @@ public class Parser {
             .registerCommand(FindCommandParser.class, FindCommand.COMMAND_WORD)
             .registerCommand(DeleteCommandParser.class, DeleteCommand.COMMAND_WORD)
             .registerCommand(SelectCommandParser.class, SelectCommand.COMMAND_WORD)
-            .registerCommand(GenericCommandParser.class, ListCommand.COMMAND_WORD)
-            .registerCommand(GenericCommandParser.class, ClearCommand.COMMAND_WORD)
-            .registerCommand(GenericCommandParser.class, HelpCommand.COMMAND_WORD)
-            .registerCommand(GenericCommandParser.class, ExitCommand.COMMAND_WORD);
+            .registerCommand(EditCommandParser.class, EditCommand.COMMAND_WORD)
+            .registerCommand(ListCommandParser.class, ListCommand.COMMAND_WORD)
+            .registerCommand(ClearCommandParser.class, ClearCommand.COMMAND_WORD)
+            .registerCommand(HelpCommandParser.class, HelpCommand.COMMAND_WORD)
+            .registerCommand(ExitCommandParser.class, ExitCommand.COMMAND_WORD);
     }
 
     /**

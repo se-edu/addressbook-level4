@@ -1,7 +1,6 @@
 package seedu.address.testutil;
 
 import java.util.Map;
-import java.util.Map.Entry;
 
 import seedu.address.logic.parser.CommandParser;
 import seedu.address.logic.parser.ParserRegistry;

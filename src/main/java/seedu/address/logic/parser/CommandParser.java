@@ -1,36 +1,25 @@
 package seedu.address.logic.parser;
 
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.commands.Command;
-import seedu.address.logic.parser.ArgumentTokenizer.Prefix;
 
 /**
  * Parses user input arguments in the context of the respective command classes
  */
 public abstract class CommandParser {
 
-    public static final Prefix PREFIX_PHONE = new Prefix("p/");
-    public static final Prefix PREFIX_EMAIL = new Prefix("e/");
-    public static final Prefix PREFIX_ADDRESS = new Prefix("a/");
-    public static final Prefix PREFIX_TAG = new Prefix("t/");
-
     protected static final Pattern PERSON_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
     protected static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
     protected static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
-
-    /*
-     * Sets the command word for this parser to the given command word.
-     * This is mainly used for parsers that parses more than
-     * one command.
-     */
-    public void setCommandWord(String commandWord) {
-        // NO-OP
-    }
 
     /**
      * Returns the specified index in the {@code command} if it is a positive unsigned integer
@@ -48,6 +37,11 @@ public abstract class CommandParser {
         }
         return Optional.of(Integer.parseInt(index));
 
+    }
+
+    protected Set<String> toSet(Optional<List<String>> tagsOptional) {
+        List<String> tags = tagsOptional.orElse(Collections.emptyList());
+        return new HashSet<>(tags);
     }
 
     public abstract Command prepareCommand(String args);
