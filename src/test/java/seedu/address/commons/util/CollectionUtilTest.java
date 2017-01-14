@@ -39,7 +39,7 @@ public class CollectionUtilTest {
         assertTrue(CollectionUtil.isAnyNull("", new Object(), null));
         assertTrue(CollectionUtil.isAnyNull(new Object(), new Object(), null));
 
-        // confirms nulls inside lists of the argument list are not considered
+        // confirms nulls inside lists in the argument list are not considered
         List<Object> containingNull = Arrays.asList((Object) null);
         assertFalse(CollectionUtil.isAnyNull(containingNull, new Object()));
     }
@@ -71,7 +71,7 @@ public class CollectionUtilTest {
         assertFalse(CollectionUtil.isAnyNull(Arrays.asList(new Object(), "ham", new Integer(1))));
         assertFalse(CollectionUtil.isAnyNull(Arrays.asList(new Object())));
 
-        // confirms nulls inside lists of the argument list are not considered
+        // confirms nulls inside nested lists are not considered
         List<Object> containingNull = Arrays.asList((Object) null);
         assertFalse(CollectionUtil.isAnyNull(Arrays.asList(containingNull, new Object())));
     }
