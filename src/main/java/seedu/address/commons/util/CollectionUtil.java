@@ -4,6 +4,7 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -12,7 +13,10 @@ import java.util.stream.Stream;
  */
 public class CollectionUtil {
 
-    /** @see #isAnyNull(Collection) */
+    /**
+     * Returns true if any element of {@code items} is null.
+     * @throws NullPointerException if {@code items} itself is null.
+     */
     public static boolean isAnyNull(Object... items) {
         return Stream.of(items).anyMatch(Objects::isNull);
     }
@@ -26,10 +30,11 @@ public class CollectionUtil {
     }
 
     /**
-     * Returns true is any of the given items are present.
+     * Returns true if any element of {@code items} is null.
+     * @throws NullPointerException if {@code items} itself is null.
      */
-    public static boolean isAnyPresent(Optional<?>... items) {
-        return Stream.of(items).anyMatch(Optional::isPresent);
+    public static boolean isAnyNull(Collection<?> items) {
+        return items.stream().anyMatch(Objects::isNull);
     }
 
     /**
