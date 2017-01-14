@@ -104,31 +104,6 @@ public class Parser {
         }
     }
 
-    /**
-     * Parses arguments in the context of the add person command.
-     *
-     * @param args full command args string
-     * @return the prepared command
-     */
-    private Command prepareAdd(String args) {
-        ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(phoneNumberPrefix, emailPrefix,
-                                                                addressPrefix, tagsPrefix);
-        argsTokenizer.tokenize(args);
-        try {
-            return new AddCommand(
-                    argsTokenizer.getPreamble().get(),
-                    argsTokenizer.getValue(phoneNumberPrefix).get(),
-                    argsTokenizer.getValue(emailPrefix).get(),
-                    argsTokenizer.getValue(addressPrefix).get(),
-                    toSet(argsTokenizer.getAllValues(tagsPrefix))
-            );
-        } catch (NoSuchElementException nsee) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
-        } catch (IllegalValueException ive) {
-            return new IncorrectCommand(ive.getMessage());
-        }
-    }
-
     private Set<String> toSet(Optional<List<String>> tagsOptional) {
         List<String> tags = tagsOptional.orElse(Collections.emptyList());
         return new HashSet<>(tags);
