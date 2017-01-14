@@ -7,6 +7,7 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -282,17 +283,24 @@ public class TestUtil {
     }
 
     /**
-     * Removes a subset from the list of persons.
-     * @param persons The list of persons
-     * @param personsToRemove The subset of persons.
-     * @return The modified persons after removal of the subset from persons.
+     * Returns a copy of {@code persons} but without {@code personsToRemove}.
+     * @see #removePersonsFromList(TestPerson[], Collection)
      */
     public static TestPerson[] removePersonsFromList(final TestPerson[] persons, TestPerson... personsToRemove) {
-        List<TestPerson> listOfPersons = asList(persons);
-        listOfPersons.removeAll(asList(personsToRemove));
-        return listOfPersons.toArray(new TestPerson[listOfPersons.size()]);
+        return removePersonsFromList(persons, Arrays.asList(personsToRemove));
     }
 
+    /**
+     * Returns a copy of {@code persons} but without {@code personsToRemove}.
+     * @param persons The list of persons
+     * @param personsToRemove The subset of persons.
+     */
+    public static TestPerson[] removePersonsFromList(final TestPerson[] persons,
+                                                     Collection<TestPerson> personsToRemove) {
+        List<TestPerson> listOfPersons = asList(persons);
+        listOfPersons.removeAll(personsToRemove);
+        return listOfPersons.toArray(new TestPerson[listOfPersons.size()]);
+    }
 
     /**
      * Returns a copy of the list with the person at specified index removed.
