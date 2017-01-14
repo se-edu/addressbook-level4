@@ -3,7 +3,7 @@ package seedu.address.commons.util;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.testutil.TestUtil.asIntegerSet;
+import static seedu.address.testutil.TestUtil.toSet;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -18,14 +18,7 @@ public class IndexUtilTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-    private void assertOneToZeroIndexSetSuccess(Set<Integer> testIntegers,
-                                                Set<Integer> expectedIntegers) {
-        assertEquals(expectedIntegers, IndexUtil.oneToZeroIndex(testIntegers));
-    }
 
-    private void assertOneToZeroIndexIntSuccess(int testInteger, int expectedInteger) {
-        assertEquals(expectedInteger, IndexUtil.oneToZeroIndex(testInteger));
-    }
 
     @Test
     public void oneToZeroIndexSet_nullReference_throwsNullPointerException() throws Exception {
@@ -36,19 +29,19 @@ public class IndexUtilTest {
     @Test
     public void oneToZeroIndexSet_containingNull_throwsNullPointerException() throws Exception {
         thrown.expect(NullPointerException.class);
-        IndexUtil.oneToZeroIndex(asIntegerSet((Integer) null));
+        IndexUtil.oneToZeroIndex(toSet((Integer) null));
     }
 
     @Test
     public void oneToZeroIndexSet_negativeIndices_assertionError() throws Exception {
         thrown.expect(AssertionError.class);
-        IndexUtil.oneToZeroIndex(asIntegerSet(-10, -5, -2));
+        IndexUtil.oneToZeroIndex(toSet(-1));
     }
 
     @Test
     public void oneToZeroIndexSet_zeroValuedIndices_assertionError() throws Exception {
         thrown.expect(AssertionError.class);
-        IndexUtil.oneToZeroIndex(asIntegerSet(0, 0, 0));
+        IndexUtil.oneToZeroIndex(toSet(0));
     }
 
     @Test
@@ -58,9 +51,12 @@ public class IndexUtilTest {
 
     @Test
     public void oneToZeroIndexSet_validIndices_correctResult() throws Exception {
-        assertOneToZeroIndexSetSuccess(asIntegerSet(1, 5, 6), asIntegerSet(0, 4, 5));
-        assertOneToZeroIndexSetSuccess(asIntegerSet(10, 4, 3), asIntegerSet(9, 3, 2));
-        assertOneToZeroIndexSetSuccess(asIntegerSet(1, 1, 1), asIntegerSet(0, 0, 0));
+        assertOneToZeroIndexSetSuccess(toSet(1, 5, 6), toSet(0, 4, 5));
+        assertOneToZeroIndexSetSuccess(toSet(1, 1, 1), toSet(0, 0, 0)); // duplicate indices
+    }
+
+    private void assertOneToZeroIndexSetSuccess(Set<Integer> testIntegers, Set<Integer> expectedIntegers) {
+        assertEquals(expectedIntegers, IndexUtil.oneToZeroIndex(testIntegers));
     }
 
     @Test
@@ -80,6 +76,10 @@ public class IndexUtilTest {
         assertOneToZeroIndexIntSuccess(1, 0);
         assertOneToZeroIndexIntSuccess(5, 4);
         assertOneToZeroIndexIntSuccess(10, 9);
+    }
+
+    private void assertOneToZeroIndexIntSuccess(int testInteger, int expectedInteger) {
+        assertEquals(expectedInteger, IndexUtil.oneToZeroIndex(testInteger));
     }
 
     @Test
@@ -126,7 +126,7 @@ public class IndexUtilTest {
 
         // all indices within bounds
         assertTrue(IndexUtil.areIndicesWithinBounds(Arrays.asList(1, 2, 3, 4), 1, 5));
-        assertTrue(IndexUtil.areIndicesWithinBounds(Arrays.asList(1, 1, 1, 1), 1, 5));
-        assertTrue(IndexUtil.areIndicesWithinBounds(Arrays.asList(4), 1, 5));
+        assertTrue(IndexUtil.areIndicesWithinBounds(Arrays.asList(1, 1, 1, 1), 1, 5)); // duplicate indices
+        assertTrue(IndexUtil.areIndicesWithinBounds(Arrays.asList(4), 1, 5)); // list containing just a single index
     }
 }

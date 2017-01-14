@@ -2,7 +2,7 @@ package guitests;
 
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS;
-import static seedu.address.testutil.TestUtil.asIntegerSet;
+import static seedu.address.testutil.TestUtil.toSet;
 
 import java.util.Arrays;
 import java.util.List;
@@ -43,7 +43,7 @@ public class DeleteCommandTest extends AddressBookGuiTest {
      */
     private void assertDeleteSuccess(String deleteArgs, TestPerson[] currentList, Integer... expectedTargetIndices) {
         List<TestPerson> expectedPersonsDeleted =
-                ListUtil.subList(Arrays.asList(currentList), asIntegerSet(expectedTargetIndices));
+                ListUtil.subList(Arrays.asList(currentList), toSet(expectedTargetIndices));
         TestPerson[] expectedRemainder = TestUtil.removePersonsFromList(currentList, expectedPersonsDeleted);
         String expectedMessage = String.format(MESSAGE_DELETE_PERSON_SUCCESS, expectedPersonsDeleted.size(),
                                                StringUtil.toIndexedListString(expectedPersonsDeleted));

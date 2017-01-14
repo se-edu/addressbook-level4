@@ -1,9 +1,8 @@
 package seedu.address.commons.util;
 
 import static org.junit.Assert.assertEquals;
-import static seedu.address.testutil.TestUtil.asIntegerSet;
+import static seedu.address.testutil.TestUtil.toSet;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -21,7 +20,7 @@ public class ListUtilTest {
     @Test
     public void subList_nullListReference_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        ListUtil.subList(null, asIntegerSet(0));
+        ListUtil.subList(null, toSet(0));
     }
 
     @Test
@@ -33,20 +32,20 @@ public class ListUtilTest {
     @Test
     public void subList_nullIndicesSetElements_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        ListUtil.subList(Arrays.asList("eggs"), asIntegerSet((Integer) null));
+        ListUtil.subList(Arrays.asList("eggs"), toSet((Integer) null));
     }
 
     @Test
     public void subList_nonEmptyListOutOfBoundsIndices_assertionError() {
-        List<Object> list = Arrays.asList("spam", 6, new ArrayList<>());
+        List<Object> list = Arrays.asList("spam", 6, new Object());
         thrown.expect(AssertionError.class);
-        ListUtil.subList(list, asIntegerSet(list.size()));
+        ListUtil.subList(list, toSet(list.size()));
     }
 
     @Test
     public void subList_emptyListOutOfBoundsIndices_assertionError() {
         thrown.expect(AssertionError.class);
-        ListUtil.subList(Collections.emptyList(), asIntegerSet(0, 3, 6));
+        ListUtil.subList(Collections.emptyList(), toSet(0, 3, 6));
     }
 
     @Test
@@ -59,20 +58,24 @@ public class ListUtilTest {
         // list containing nulls
         List<Object> list = Arrays.asList(null, "spam", 5);
         List<Object> expectedSubList = Arrays.asList((Object) null);
-        assertEquals(expectedSubList, ListUtil.subList(list, asIntegerSet(0)));
+        assertEquals(expectedSubList, ListUtil.subList(list, toSet(0)));
 
-        list = Arrays.asList("spam", 5, "eggs", "ham", new ArrayList<>());
-        expectedSubList = Arrays.asList("spam", "eggs", new ArrayList<>());
+        final int max = list.size() - 1;
+        final int mid = max / 2;
+        final int min = 0;
+
+        list = Arrays.asList("spam", 5, "eggs", "ham", new Object());
+        expectedSubList = Arrays.asList(list.get(min), list.get(mid), list.get(max));
 
         // indices in sorted order
-        assertEquals(expectedSubList, ListUtil.subList(list, asIntegerSet(0, 2, list.size() - 1)));
+        assertEquals(expectedSubList, ListUtil.subList(list, toSet(min, mid, max)));
 
         // indices unsorted but original list order maintained
-        assertEquals(expectedSubList, ListUtil.subList(list, asIntegerSet(list.size() - 1, 2, 0)));
-        assertEquals(expectedSubList, ListUtil.subList(list, asIntegerSet(list.size() - 1, 0, 2)));
-        assertEquals(expectedSubList, ListUtil.subList(list, asIntegerSet(2, list.size() - 1, 0)));
-        assertEquals(expectedSubList, ListUtil.subList(list, asIntegerSet(2, 0, list.size() - 1)));
-        assertEquals(expectedSubList, ListUtil.subList(list, asIntegerSet(0, list.size() - 1, 2)));
+        assertEquals(expectedSubList, ListUtil.subList(list, toSet(max, mid, min)));
+        assertEquals(expectedSubList, ListUtil.subList(list, toSet(max, min, mid)));
+        assertEquals(expectedSubList, ListUtil.subList(list, toSet(mid, max, min)));
+        assertEquals(expectedSubList, ListUtil.subList(list, toSet(mid, min, max)));
+        assertEquals(expectedSubList, ListUtil.subList(list, toSet(min, max, mid)));
     }
 
 }

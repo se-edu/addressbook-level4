@@ -171,10 +171,8 @@ public class StringUtilTest {
 
     @Test
     public void toIndexedListString_listContainsNull_throwsNullPointerException() {
-        Collection<Object> containingNull = new ArrayList<>();
-        containingNull.add(null);
         thrown.expect(NullPointerException.class);
-        StringUtil.toIndexedListString(containingNull);
+        StringUtil.toIndexedListString(Arrays.asList((Object) null));
     }
 
     @Test

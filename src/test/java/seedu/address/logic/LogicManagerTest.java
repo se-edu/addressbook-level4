@@ -6,7 +6,7 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.testutil.TestUtil.asIntegerSet;
+import static seedu.address.testutil.TestUtil.toSet;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -165,12 +165,12 @@ public class LogicManagerTest {
 
     /**
      * Executes the delete command with the given {@code deleteArgs} and expects {@code expectedIndicesDeleted}.<br>
-     * @see #assertCommandBehavior(String, String, ReadOnlyAddressBook, List)
+     * @see #assertCommandSuccess(String, String, ReadOnlyAddressBook, List)
      */
     private void assertDeleteSuccess(String deleteArgs, Integer... expectedIndicesDeleted) throws Exception {
         List<ReadOnlyPerson> filteredPersonList = model.getFilteredPersonList();
         List<ReadOnlyPerson> expectedPersonsDeleted =
-                ListUtil.subList(filteredPersonList, asIntegerSet(expectedIndicesDeleted));
+                ListUtil.subList(filteredPersonList, toSet(expectedIndicesDeleted));
 
         // setting up expected shown list
         List<ReadOnlyPerson> expectedShownPersons = new ArrayList<>(filteredPersonList);
@@ -188,7 +188,7 @@ public class LogicManagerTest {
                 String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, expectedPersonsDeleted.size(),
                               StringUtil.toIndexedListString(expectedPersonsDeleted));
 
-        assertCommandBehavior(deleteArgs, expectedFeedback, expectedAB, expectedShownPersons);
+        assertCommandSuccess(deleteArgs, expectedFeedback, expectedAB, expectedShownPersons);
     }
 
 
@@ -324,7 +324,7 @@ public class LogicManagerTest {
             model.addPerson(p);
         }
 
-        assertCommandBehavior(commandArgs, expectedMessage, model.getAddressBook(), personList);
+        assertCommandFailure(commandArgs, expectedMessage);
     }
 
     @Test
@@ -361,14 +361,14 @@ public class LogicManagerTest {
         assertIncorrectIndexFormatBehaviorForCommand("delete", expectedMessage);
 
         // no indices around range indicator
-        assertCommandBehavior("delete -", expectedMessage);
+        assertCommandFailure("delete -", expectedMessage);
 
         // range indicator only partially surrounded
-        assertCommandBehavior("delete 5-", expectedMessage);
-        assertCommandBehavior("delete -5", expectedMessage);
+        assertCommandFailure("delete 5-", expectedMessage);
+        assertCommandFailure("delete -5", expectedMessage);
 
         // excessive range indicators
-        assertCommandBehavior("delete - - --- -", expectedMessage);
+        assertCommandFailure("delete - - --- -", expectedMessage);
     }
 
     @Test

@@ -9,6 +9,7 @@ import seedu.address.commons.util.CollectionUtil;
 import seedu.address.commons.util.IndexUtil;
 import seedu.address.commons.util.ListUtil;
 import seedu.address.commons.util.StringUtil;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.UniquePersonList.PersonsNotFoundException;
 
@@ -37,12 +38,11 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public CommandResult execute() {
+    public CommandResult execute() throws CommandException {
         UnmodifiableObservableList<ReadOnlyPerson> filteredPersonList = model.getFilteredPersonList();
 
         if (!IndexUtil.areIndicesWithinBounds(zeroBasedTargetIndices, filteredPersonList)) {
-            indicateAttemptToExecuteIncorrectCommand();
-            return new CommandResult(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
         List<ReadOnlyPerson> personsToDelete = ListUtil.subList(filteredPersonList, zeroBasedTargetIndices);

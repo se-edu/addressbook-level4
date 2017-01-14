@@ -368,7 +368,7 @@ public class TestUtil {
     }
 
     /** Converts {@code items} to an {@code Integer Set}. */
-    public static Set<Integer> asIntegerSet(Integer... items) {
+    public static Set<Integer> toSet(Integer... items) {
         return new HashSet<>(Arrays.asList(items));
     }
 
