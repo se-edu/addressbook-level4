@@ -7,7 +7,6 @@ import com.google.common.collect.Maps;
 /**
  * A container to store all registered command parser classes that are
  * responsible for parsing command strings provided by the user
- *
  */
 public class ParserRegistry {
 
@@ -18,7 +17,6 @@ public class ParserRegistry {
     }
 
     /**
-     *
      * Registers all command words string with the provided
      * command parser class. One command parser can be associated with
      * multiple command words. However one command word can only be associated with one command parser.
@@ -34,10 +32,8 @@ public class ParserRegistry {
     }
 
     /**
-     *
      * Returns a CommandParser registered with the given command word. If no such CommandParser
      * exists, an IncorrectCommandParser is returned instead.
-     *
      */
     public CommandParser getParserFromCommandWord(String commandWord) {
 

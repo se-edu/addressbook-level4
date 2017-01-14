@@ -16,7 +16,7 @@ import seedu.address.logic.commands.Command;
  */
 public abstract class CommandParser {
 
-    protected static final Pattern PERSON_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
+    protected static final Pattern INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
     protected static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
     protected static final Pattern KEYWORDS_ARGS_FORMAT =
             Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
@@ -26,7 +26,7 @@ public abstract class CommandParser {
      * Returns an {@code Optional.empty()} otherwise.
      */
     protected Optional<Integer> parseIndex(String command) {
-        final Matcher matcher = PERSON_INDEX_ARGS_FORMAT.matcher(command.trim());
+        final Matcher matcher = INDEX_ARGS_FORMAT.matcher(command.trim());
         if (!matcher.matches()) {
             return Optional.empty();
         }
@@ -44,5 +44,9 @@ public abstract class CommandParser {
         return new HashSet<>(tags);
     }
 
+    /**
+     * Parses the given {@code String} of arguments in the context of a {@code Command}
+     * and returns the respective {@code Command} class for execution.
+     */
     public abstract Command prepareCommand(String args);
 }
