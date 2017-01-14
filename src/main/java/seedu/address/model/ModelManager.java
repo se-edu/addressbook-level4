@@ -10,9 +10,8 @@ import seedu.address.commons.core.ComponentManager;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.UniquePersonList;
-import seedu.address.model.person.UniquePersonList.PersonNotFoundException;
+import seedu.address.model.person.UniquePersonList.PersonsNotFoundException;
 
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.Set;
 import java.util.logging.Logger;
@@ -61,14 +60,11 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public synchronized void deletePersons(ReadOnlyPerson... persons) throws PersonNotFoundException {
-        deletePersons(Arrays.asList(persons));
-    }
-
-    @Override
-    public synchronized void deletePersons(Collection<ReadOnlyPerson> persons) throws PersonNotFoundException {
+    public synchronized void deletePersons(Collection<ReadOnlyPerson> persons) throws PersonsNotFoundException {
         addressBook.removePersons(persons);
-        indicateAddressBookChanged();
+        if (!persons.isEmpty()) {
+            indicateAddressBookChanged();
+        }
     }
 
     @Override

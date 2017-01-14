@@ -188,6 +188,26 @@ public class StringUtilTest {
                               + "2. 1\n"
                               + "3. [5, 6, 7]";
         assertEquals(expectedString, StringUtil.toIndexedListString(items));
+
+        // items with additional newlines in its string representation
+        items.clear();
+        items.add("asd \n zxc \n");
+        items.add("123 \n \n 456");
+        expectedString = "1. asd \n"
+                       + " zxc \n"
+                       + "\n"
+                       + "2. 123 \n"
+                       + " \n"
+                       + " 456";
+        assertEquals(expectedString, StringUtil.toIndexedListString(items));
+
+        // items with trailing white spaces in its string representation
+        items.clear();
+        items.add("qwerty       ");
+        items.add("        asdfgh");
+        expectedString = "1. qwerty       \n"
+                       + "2.         asdfgh";
+        assertEquals(expectedString, StringUtil.toIndexedListString(items));
     }
 
     @Test

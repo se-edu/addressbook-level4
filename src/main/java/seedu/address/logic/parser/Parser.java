@@ -22,6 +22,7 @@ import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -277,8 +278,7 @@ public class Parser {
     }
 
     /**
-     * Returns a {@code List} of {@code IndexRanges} extracted from {@code tokens}.
-     *
+     * Returns a {@code List} of {@code IndexRanges} extracted from {@code tokens}.<br>
      * Returns an {@code Optional.empty()} otherwise.
      * @see #parseRangedIndex(String)
      */
@@ -298,10 +298,10 @@ public class Parser {
     /**
      * Returns an {@code IndexRange} extracted from {@code token} if it contains either
      * unsigned integers surrounding a {@code PERSON_INDEX_RANGE_INDICATOR}, or just
-     * unsigned integers alone, e.g. 1-2 or 10.<br>
+     * unsigned integers alone, e.g. {@code 1-2} or {@code 10}.<br>
      *
      * If the latter is encountered, an {@code IndexRange} with the same start and end will be used
-     * to represent it. e.g. 5 -> 5-5.<br>
+     * to represent it. e.g. {@code 5} -> {@code 5-5}.<br>
      *
      * Returns an {@code Optional.empty()} otherwise.
      */
@@ -318,8 +318,7 @@ public class Parser {
     }
 
     /**
-     * Returns the specified index in the {@code command} if it is an unsigned integer
-     *
+     * Returns the specified index in the {@code command} if it is an unsigned integer.<br>
      * Returns an {@code Optional.empty()} otherwise.
      */
     private Optional<Integer> parseIndex(String command) {
@@ -357,6 +356,7 @@ public class Parser {
 
     /**
      * Represents an ascending index range with a start and end (inclusive).
+     * Start and end are both one-indexed.
      */
     private static class IndexRange {
         private final int start;

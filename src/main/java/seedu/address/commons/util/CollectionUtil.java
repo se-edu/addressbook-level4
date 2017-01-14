@@ -2,6 +2,7 @@ package seedu.address.commons.util;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Stream;
@@ -12,17 +13,26 @@ import java.util.stream.Stream;
 public class CollectionUtil {
 
     /**
-     * Returns true if {@code items} itself or any element of {@code items} is null.
+     * Returns true if any element of {@code items} is null.
+     * @throws NullPointerException if {@code items} itself is null.
      */
     public static boolean isAnyNull(Object... items) {
-        return items == null || Stream.of(items).anyMatch(Objects::isNull);
+        return Stream.of(items).anyMatch(Objects::isNull);
     }
 
     /**
-     * Returns true if {@code items} itself or any element of {@code items} is null.
+     * Returns true is any of the given items are present.
+     */
+    public static boolean isAnyPresent(Optional<?>... items) {
+        return Stream.of(items).anyMatch(Optional::isPresent);
+    }
+
+    /**
+     * Returns true if any element of {@code items} is null.
+     * @throws NullPointerException if {@code items} itself is null.
      */
     public static boolean isAnyNull(Collection<?> items) {
-        return items == null || items.stream().anyMatch(Objects::isNull);
+        return items.stream().anyMatch(Objects::isNull);
     }
 
     /**

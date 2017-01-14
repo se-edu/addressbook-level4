@@ -3,6 +3,7 @@ package guitests;
 import org.junit.Test;
 
 import seedu.address.commons.core.Messages;
+import seedu.address.commons.util.ListUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.testutil.TestPerson;
 import seedu.address.testutil.TestUtil;
@@ -22,13 +23,15 @@ public class DeleteCommandTest extends AddressBookGuiTest {
         assertDeleteCommandResult(
                 "" + (currentList.length + 1), Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
 
-        // successful deleting
+        // successful deletion of first person
         assertDeleteSuccess("1", currentList, 0);
         currentList = TestUtil.removePersonFromList(currentList, 1);
 
+        // successful deletion of last person
         assertDeleteSuccess("" + currentList.length, currentList, currentList.length - 1);
         currentList = TestUtil.removePersonFromList(currentList, currentList.length);
 
+        // successful deletion of a range of persons
         assertDeleteSuccess("1-3", currentList, 0, 1, 2);
     }
 
@@ -38,9 +41,8 @@ public class DeleteCommandTest extends AddressBookGuiTest {
      * {@code expectedTargetIndices} are zero-indexed i.e. index 0 refers to the first element.
      */
     private void assertDeleteSuccess(String deleteArgs, TestPerson[] currentList, Integer... expectedTargetIndices) {
-        List<TestPerson> expectedPersonsDeleted =
-                TestUtil.mapIndexToObj(expectedTargetIndices, Arrays.asList(currentList));
-        TestPerson[] expectedRemainder = getRemainder(currentList, expectedPersonsDeleted);
+        List<TestPerson> expectedPersonsDeleted = ListUtil.subList(Arrays.asList(currentList), expectedTargetIndices);
+        TestPerson[] expectedRemainder = TestUtil.removePersonsFromList(currentList, expectedPersonsDeleted);
         String expectedMessage = String.format(MESSAGE_DELETE_PERSON_SUCCESS, expectedPersonsDeleted.size(),
                                                StringUtil.toIndexedListString(expectedPersonsDeleted));
 
@@ -54,11 +56,5 @@ public class DeleteCommandTest extends AddressBookGuiTest {
     private void assertDeleteCommandResult(String deleteArgs, String expectedMessage) {
         commandBox.runCommand("delete " + deleteArgs);
         assertResultMessage(expectedMessage);
-    }
-
-    /** Returns a copy of {@code currentList} but without {@code personsToDelete}. */
-    private TestPerson[] getRemainder(TestPerson[] currentList, List<TestPerson> personsToDelete) {
-        return TestUtil.removePersonsFromList(
-                currentList, personsToDelete.toArray(new TestPerson[personsToDelete.size()]));
     }
 }

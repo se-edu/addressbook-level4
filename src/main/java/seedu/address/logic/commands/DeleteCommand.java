@@ -3,17 +3,18 @@ package seedu.address.logic.commands;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.util.CollectionUtil;
-import seedu.address.commons.util.IntegerUtil;
+import seedu.address.commons.util.IndexUtil;
 import seedu.address.commons.util.ListUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.model.person.ReadOnlyPerson;
-import seedu.address.model.person.UniquePersonList.PersonNotFoundException;
+import seedu.address.model.person.UniquePersonList.PersonsNotFoundException;
 
 /**
- * Deletes a person identified using it's last displayed index from the address book.
+ * Deletes persons identified using their last displayed indices from the address book.
  */
 public class DeleteCommand extends Command {
 
@@ -34,14 +35,12 @@ public class DeleteCommand extends Command {
     public DeleteCommand(Collection<Integer> targetIndices) {
         assert !CollectionUtil.isAnyNull(targetIndices);
         assert Collections.min(targetIndices) >= 1 : "DeleteCommand: targetIndices not verified to be > 0 by caller";
-        this.targetIndices = targetIndices;
+        this.targetIndices = IndexUtil.oneToZeroIndex(targetIndices);
     }
 
     @Override
     public CommandResult execute() {
         UnmodifiableObservableList<ReadOnlyPerson> lastShownList = model.getFilteredPersonList();
-
-        IntegerUtil.applyOffset(targetIndices, -1); // converting to zero-indexed indices
 
         if (!ListUtil.areIndicesWithinBounds(lastShownList, targetIndices)) {
             indicateAttemptToExecuteIncorrectCommand();
@@ -51,7 +50,7 @@ public class DeleteCommand extends Command {
         List<ReadOnlyPerson> personsToDelete = ListUtil.subList(lastShownList, targetIndices);
         try {
             model.deletePersons(personsToDelete);
-        } catch (PersonNotFoundException pnfe) {
+        } catch (PersonsNotFoundException pnfe) {
             assert false : "DeleteCommand: " + pnfe.getMessage();
         }
 

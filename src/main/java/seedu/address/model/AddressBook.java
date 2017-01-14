@@ -9,6 +9,7 @@ import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 
 import java.util.Objects;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Set;
 import java.util.HashSet;
@@ -141,15 +142,16 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /** @see #removePersons(Collection) */
-    public void removePersons(ReadOnlyPerson... keys) throws UniquePersonList.PersonNotFoundException {
+    public void removePersons(ReadOnlyPerson... keys) throws UniquePersonList.PersonsNotFoundException {
         removePersons(Arrays.asList(keys));
     }
 
     /**
-     * Removes {@code keys} from this {@code AddressBook}'s {@code UniquePersonList}. If any person in {@code keys}
-     * is missing from the list, removal will be aborted with a {@code PersonNotFoundException}.
+     * Removes {@code keys} from this {@code AddressBook}'s {@code UniquePersonList}.
+     * @throws UniquePersonList.PersonsNotFoundException if any person in {@code keys} is missing from the list
+     *     and operation is aborted without deleting anyone.
      */
-    public void removePersons(Collection<ReadOnlyPerson> keys) throws UniquePersonList.PersonNotFoundException {
+    public void removePersons(Collection<ReadOnlyPerson> keys) throws UniquePersonList.PersonsNotFoundException {
         persons.removeAll(keys);
     }
 

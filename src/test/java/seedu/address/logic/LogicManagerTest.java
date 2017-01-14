@@ -19,6 +19,7 @@ import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
+import seedu.address.commons.util.ListUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.model.AddressBook;
@@ -34,7 +35,6 @@ import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.storage.StorageManager;
-import seedu.address.testutil.TestUtil;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -628,8 +628,7 @@ public class LogicManagerTest {
          * @see LogicManagerTest#assertCommandBehavior(String, String, ReadOnlyAddressBook, List)
          */
         private void assertDeleteSuccess(String deleteArgs, Integer... expectedIndicesDeleted) throws Exception {
-            List<ReadOnlyPerson> expectedDeleted =
-                    TestUtil.mapIndexToObj(expectedIndicesDeleted, expectedAB.getPersonList());
+            List<ReadOnlyPerson> expectedDeleted = ListUtil.subList(expectedAB.getPersonList(), expectedIndicesDeleted);
 
             // making a copy of this address book's internal list and manually deleting
             List<ReadOnlyPerson> expectedRemainder = new ArrayList<>(expectedAB.getPersonList());

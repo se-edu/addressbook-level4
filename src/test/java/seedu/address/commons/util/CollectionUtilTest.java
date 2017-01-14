@@ -9,14 +9,16 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 public class CollectionUtilTest {
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
+
     @Test
     public void isAnyNull_Varargs() {
-        // null array reference
-        assertTrue(CollectionUtil.isAnyNull((Object[]) null));
-
         // empty argument
         assertFalse(CollectionUtil.isAnyNull());
 
@@ -44,11 +46,13 @@ public class CollectionUtilTest {
     }
 
     @Test
-    public void isAnyNull_Collection() {
-        // null reference
-        Collection<Object> nullList = null;
-        assertTrue(CollectionUtil.isAnyNull(nullList));
+    public void isAnyNull_VarargsNullReference_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        CollectionUtil.isAnyNull((Object[]) null);
+    }
 
+    @Test
+    public void isAnyNull_Collection() {
         // list containing null at the front
         Collection<Object> frontNull = new ArrayList<>();
         frontNull.add(null);
@@ -79,6 +83,13 @@ public class CollectionUtilTest {
         validList.add("asdadasd");
         validList.add(new Integer(1));
         assertFalse(CollectionUtil.isAnyNull(validList));
+    }
+
+    @Test
+    public void isAnyNull_CollectionNullReference_throwsNullPointerException() {
+        Collection<Object> nullList = null;
+        thrown.expect(NullPointerException.class);
+        CollectionUtil.isAnyNull(nullList);
     }
 
     @Test
@@ -113,5 +124,4 @@ public class CollectionUtilTest {
     private void assertNotUnique(Object... objects) {
         assertFalse(CollectionUtil.elementsAreUnique(Arrays.asList(objects)));
     }
-
 }

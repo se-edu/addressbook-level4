@@ -104,7 +104,7 @@ Examples:
 * `find Betsy Tim John`<br>
   Returns Any person having names `Betsy`, `Tim`, or `John`
 
-### 2.5. Deleting persons: `delete`
+### 2.6. Deleting persons: `delete`
 
 Deletes the specified persons from the address book. Irreversible.<br>
 Format: `delete INDICES`
@@ -190,7 +190,7 @@ There is no need to save manually.
 
 * **Delete** : `delete INDICES` <br>
    e.g. `delete 3 5 6 1-2`
-  
+
 * **Find** : `find KEYWORD [MORE_KEYWORDS]` <br>
   e.g. `find James Jake`
 

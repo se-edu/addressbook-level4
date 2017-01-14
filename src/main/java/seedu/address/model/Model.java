@@ -6,6 +6,7 @@ import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.person.UniquePersonList.DuplicatePersonException;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Set;
 
@@ -23,14 +24,16 @@ public interface Model {
      * Deletes the given person.
      * @see #deletePersons(Collection)
      */
-    void deletePersons(ReadOnlyPerson... persons) throws UniquePersonList.PersonNotFoundException;
+    default void deletePersons(ReadOnlyPerson... persons) throws UniquePersonList.PersonsNotFoundException {
+        deletePersons(Arrays.asList(persons));
+    }
 
     /**
      * Deletes the given {@code persons}.
-     * @throws PersonNotFoundException without deleting any persons if any of the {@code persons}
-     * can't be found in this list.
+     * @throws PersonsNotFoundException without deleting any persons if any of the {@code persons}
+     *     can't be found in this list.
      */
-    void deletePersons(Collection<ReadOnlyPerson> persons) throws UniquePersonList.PersonNotFoundException;
+    void deletePersons(Collection<ReadOnlyPerson> persons) throws UniquePersonList.PersonsNotFoundException;
 
     /** Adds the given person */
     void addPerson(Person person) throws UniquePersonList.DuplicatePersonException;
