@@ -5,6 +5,7 @@ import javafx.collections.ObservableList;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.commons.exceptions.DuplicateDataException;
+import seedu.address.commons.exceptions.IllegalValueException;
 
 import java.util.*;
 
@@ -24,6 +25,18 @@ public class UniqueTagList implements Iterable<Tag> {
      * Constructs empty TagList.
      */
     public UniqueTagList() {}
+
+    /**
+     * Creates a UniqueTagList using given String tags.
+     * Enforces no nulls or duplicates.
+     */
+    public UniqueTagList(String... tags) throws DuplicateTagException, IllegalValueException {
+        final List<Tag> tagList = new ArrayList<Tag>();
+        for (String tag : tags) {
+            tagList.add(new Tag(tag));
+        }
+        setTags(tagList);
+    }
 
     /**
      * Creates a UniqueTagList using given tags.
