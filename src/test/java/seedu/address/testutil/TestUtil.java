@@ -32,6 +32,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.TimeoutException;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * A utility class for test cases.
@@ -273,7 +274,7 @@ public class TestUtil {
     }
 
     /**
-     * Removes a subset from the list of persons.
+     * Returns a new copy of the list without {@code personsToRemove}.
      * @param persons The list of persons
      * @param personsToRemove The subset of persons.
      * @return The modified persons after removal of the subset from persons.
@@ -348,6 +349,11 @@ public class TestUtil {
         }).collect(Collectors.toList());
 
         return collect.toArray(new Tag[split.length]);
+    }
+
+    /** Maps {@code indices} to its corresponding item in {@code items}. */
+    public static <T> List<T> mapIndexToObj(Integer[] indices, List<T> items) {
+        return Stream.of(indices).map(items::get).collect(Collectors.toList());
     }
 
 }

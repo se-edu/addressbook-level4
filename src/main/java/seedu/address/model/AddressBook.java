@@ -4,6 +4,7 @@ import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.person.UniquePersonList.PersonNotFoundException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 
@@ -112,12 +113,17 @@ public class AddressBook implements ReadOnlyAddressBook {
         persons.forEach(this::syncMasterTagListWith);
     }
 
-    public boolean removePerson(ReadOnlyPerson key) throws UniquePersonList.PersonNotFoundException {
-        if (persons.remove(key)) {
-            return true;
-        } else {
-            throw new UniquePersonList.PersonNotFoundException();
-        }
+    /** @see #removePersons(Collection) */
+    public void removePersons(ReadOnlyPerson... keys) throws PersonNotFoundException {
+        removePersons(Arrays.asList(keys));
+    }
+
+    /**
+     * Removes {@code keys} from this {@code AddressBook}'s {@code UniquePersonList}. If any person in {@code keys}
+     * is missing from the list, removal will be aborted with a {@code PersonNotFoundException}.
+     */
+    public void removePersons(Collection<ReadOnlyPerson> keys) throws PersonNotFoundException {
+        persons.removeAll(keys);
     }
 
 //// tag-level operations

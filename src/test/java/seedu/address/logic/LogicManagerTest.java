@@ -1,33 +1,53 @@
 package seedu.address.logic;
 
-import com.google.common.eventbus.Subscribe;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.TemporaryFolder;
-import seedu.address.commons.core.EventsCenter;
-import seedu.address.logic.commands.*;
-import seedu.address.commons.events.ui.JumpToListRequestEvent;
-import seedu.address.commons.events.ui.ShowHelpRequestEvent;
-import seedu.address.commons.events.model.AddressBookChangedEvent;
-import seedu.address.model.AddressBook;
-import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.person.*;
-import seedu.address.model.tag.Tag;
-import seedu.address.model.tag.UniqueTagList;
-import seedu.address.storage.StorageManager;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
+import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static seedu.address.commons.core.Messages.*;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Rule;
+import org.junit.Test;
+import org.junit.rules.TemporaryFolder;
+
+import com.google.common.eventbus.Subscribe;
+
+import seedu.address.commons.core.EventsCenter;
+import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.commons.events.ui.JumpToListRequestEvent;
+import seedu.address.commons.events.ui.ShowHelpRequestEvent;
+import seedu.address.commons.util.StringUtil;
+import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.ClearCommand;
+import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.ExitCommand;
+import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.SelectCommand;
+import seedu.address.model.AddressBook;
+import seedu.address.model.Model;
+import seedu.address.model.ModelManager;
+import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.person.Address;
+import seedu.address.model.person.Email;
+import seedu.address.model.person.Name;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.Phone;
+import seedu.address.model.person.ReadOnlyPerson;
+import seedu.address.model.tag.Tag;
+import seedu.address.model.tag.UniqueTagList;
+import seedu.address.storage.StorageManager;
+import seedu.address.testutil.TestUtil;
 
 public class LogicManagerTest {
 
@@ -237,23 +257,24 @@ public class LogicManagerTest {
     }
 
     /**
-     * Confirms the 'invalid argument index number behaviour' for the given command
-     * targeting a single person in the shown list, using visible index.
-     * @param commandWord to test assuming it targets a single person in the last shown list
+     * Confirms the 'invalid argument index number behaviour' for the given {@code commandArgs}
+     * targeting persons in the shown list of size {@code listSize}, using visible index.
+     * @param commandArgs to test assuming it targets persons in the last shown list
      *                    based on visible index.
+     * @param listSize last shown list size
      */
-    private void assertIndexNotFoundBehaviorForCommand(String commandWord) throws Exception {
+    private void assertIndexNotFoundBehaviorForCommand(String commandArgs, int listSize) throws Exception {
         String expectedMessage = MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
         TestDataHelper helper = new TestDataHelper();
-        List<Person> personList = helper.generatePersonList(2);
+        List<Person> personList = helper.generatePersonList(listSize);
 
-        // set AB state to 2 persons
+        // set AB state to 'listSize' persons
         model.resetData(new AddressBook());
         for (Person p : personList) {
             model.addPerson(p);
         }
 
-        assertCommandBehavior(commandWord + " 3", expectedMessage, model.getAddressBook(), personList);
+        assertCommandBehavior(commandArgs, expectedMessage, model.getAddressBook(), personList);
     }
 
     @Test
@@ -264,7 +285,7 @@ public class LogicManagerTest {
 
     @Test
     public void execute_selectIndexNotFound_errorMessageShown() throws Exception {
-        assertIndexNotFoundBehaviorForCommand("select");
+        assertIndexNotFoundBehaviorForCommand("select 3", 2);
     }
 
     @Test
@@ -288,28 +309,111 @@ public class LogicManagerTest {
     public void execute_deleteInvalidArgsFormat_errorMessageShown() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE);
         assertIncorrectIndexFormatBehaviorForCommand("delete", expectedMessage);
+
+        // no indices around range indicator
+        assertCommandBehavior("delete -", expectedMessage);
+
+        // range indicator only partially surrounded
+        assertCommandBehavior("delete 5-", expectedMessage);
+        assertCommandBehavior("delete -5", expectedMessage);
+
+        // excessive range indicators
+        assertCommandBehavior("delete - - --- -", expectedMessage);
     }
 
     @Test
     public void execute_deleteIndexNotFound_errorMessageShown() throws Exception {
-        assertIndexNotFoundBehaviorForCommand("delete");
+        // singular index exceeding list size
+        assertIndexNotFoundBehaviorForCommand("delete 5", 3);
+        // ascending range exceeding list size
+        assertIndexNotFoundBehaviorForCommand("delete 3-5", 4);
+        // descending range exceeding list size
+        assertIndexNotFoundBehaviorForCommand("delete 5-3", 4);
     }
 
     @Test
-    public void execute_delete_removesCorrectPerson() throws Exception {
-        TestDataHelper helper = new TestDataHelper();
-        List<Person> threePersons = helper.generatePersonList(3);
+    public void execute_deleteNonRanged_removesCorrectly() throws Exception {
+        TestDataHelper tdh = new TestDataHelper();
+        tdh.addToModel(model, tdh.generatePersonList(10));
+        DeleteHelper dh = new DeleteHelper(tdh.generateAddressBook(10));
 
-        AddressBook expectedAB = helper.generateAddressBook(threePersons);
-        expectedAB.removePerson(threePersons.get(1));
-        helper.addToModel(model, threePersons);
+        // deleting from front
+        dh.assertDeleteSuccess("delete 1", 0);
 
-        assertCommandBehavior("delete 2",
-                String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, threePersons.get(1)),
-                expectedAB,
-                expectedAB.getPersonList());
+        // deleting from middle
+        int middle = dh.getLastShownListSize() / 2;
+        dh.assertDeleteSuccess("delete " + middle, middle - 1);
+
+        // deleting from rear
+        int size = dh.getLastShownListSize();
+        dh.assertDeleteSuccess("delete " + size, size - 1);
+
+        // deleting multiple non-ranged indices - front, middle, rear
+        size = dh.getLastShownListSize();
+        middle = size / 2;
+        dh.assertDeleteSuccess("delete 1 " + middle + " " + size, 0, middle - 1, size - 1);
     }
 
+    @Test
+    public void execute_deleteRanged_removesCorrectly() throws Exception {
+        TestDataHelper tdh = new TestDataHelper();
+        tdh.addToModel(model, tdh.generatePersonList(20));
+        DeleteHelper dh = new DeleteHelper(tdh.generateAddressBook(20));
+
+        // deleting range in ascending order
+        dh.assertDeleteSuccess("delete 1-3", 0, 1, 2);
+
+        // deleting range in descending order
+        dh.assertDeleteSuccess("delete 4-2", 1, 2, 3);
+
+        // deleting range with same start and end
+        int size = dh.getLastShownListSize();
+        dh.assertDeleteSuccess("delete " + size + "-" + size, size - 1);
+
+        // deleting multiple ranges - front, middle, rear
+        size = dh.getLastShownListSize();
+        int middle = size / 2;
+        dh.assertDeleteSuccess(
+                "delete 1-2 " + (middle - 1) + "-" + middle + " " + (size - 1) + "-" + size,
+                0, 1, middle - 2, middle - 1, size - 2, size - 1);
+    }
+
+    @Test
+    public void execute_deleteRangedAndNonRanged_removesCorrectly() throws Exception {
+        TestDataHelper tdh = new TestDataHelper();
+        tdh.addToModel(model, tdh.generatePersonList(30));
+        DeleteHelper dh = new DeleteHelper(tdh.generateAddressBook(30));
+
+        // deleting subsets in consecutive order
+        dh.assertDeleteSuccess("delete 1 2 5 7 9-12", 0, 1, 4, 6, 8, 9, 10, 11);
+
+        // deleting from unordered subsets
+        dh.assertDeleteSuccess("delete 7-9 1 5-6 4 2 11-13", 0, 1, 3, 4, 5, 6, 7, 8, 10, 11, 12);
+    }
+
+    @Test
+    public void execute_deleteDuplicates_removesCorrectly() throws Exception {
+        TestDataHelper tdh = new TestDataHelper();
+        tdh.addToModel(model, tdh.generatePersonList(10));
+        DeleteHelper dh = new DeleteHelper(tdh.generateAddressBook(10));
+
+        // duplicate single indices
+        dh.assertDeleteSuccess("delete 5 5 5 5 5 5 5", 4);
+
+        // duplicate ranges
+        dh.assertDeleteSuccess("delete 3-5 3-5 3-5", 2, 3, 4);
+
+        // overlapping ranges
+        dh.assertDeleteSuccess("delete 1-3 1-2 2-3", 0, 1, 2);
+    }
+
+    @Test
+    public void execute_deleteExcessiveWhiteSpace_removesCorrectly() throws Exception {
+        TestDataHelper tdh = new TestDataHelper();
+        tdh.addToModel(model, tdh.generatePersonList(5));
+        DeleteHelper dh = new DeleteHelper(tdh.generateAddressBook(5));
+        dh.assertDeleteSuccess("delete       3          4      5    ", 2, 3, 4);
+    }
 
     @Test
     public void execute_find_invalidArgsFormat() throws Exception {
@@ -505,6 +609,46 @@ public class LogicManagerTest {
                     new Address("House of 1"),
                     new UniqueTagList(new Tag("tag"))
             );
+        }
+    }
+
+    /**
+     * Utility class for deleting
+     */
+    private class DeleteHelper {
+
+        final AddressBook expectedAB;
+
+        private DeleteHelper(AddressBook source) throws Exception {
+            this.expectedAB = source;
+        }
+
+        /**
+         * Executes the delete command with the given {@code deleteArgs} and expects {@code expectedIndicesDeleted}.<br>
+         * - {@code expectedIndicesDeleted} have to be unique indices in ascending order. <br>
+         * - {@code expectedIndicesDeleted} are zero-indexed i.e. index 0 refers to the first element.
+         * @see LogicManagerTest#assertCommandBehavior(String, String, ReadOnlyAddressBook, List)
+         */
+        private void assertDeleteSuccess(String deleteArgs, Integer... expectedIndicesDeleted) throws Exception {
+            List<ReadOnlyPerson> expectedDeleted =
+                    TestUtil.mapIndexToObj(expectedIndicesDeleted, expectedAB.getPersonList());
+
+            // making a copy of this address book's internal list and manually deleting
+            List<ReadOnlyPerson> expectedRemainder = new ArrayList<>(expectedAB.getPersonList());
+            expectedRemainder.removeAll(expectedDeleted);
+
+            String expectedFeedback =
+                    String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, expectedDeleted.size(),
+                                  StringUtil.toIndexedListString(expectedDeleted));
+
+            // set expectation of remainder after deleting
+            expectedAB.setPersons(expectedRemainder);
+
+            assertCommandBehavior(deleteArgs, expectedFeedback, expectedAB, expectedRemainder);
+        }
+
+        private int getLastShownListSize() {
+            return expectedAB.getPersonList().size();
         }
     }
 }
