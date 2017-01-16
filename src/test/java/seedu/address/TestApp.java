@@ -11,6 +11,9 @@ import seedu.address.model.UserPrefs;
 import seedu.address.storage.XmlSerializableAddressBook;
 import seedu.address.testutil.TestUtil;
 
+import java.time.Clock;
+import java.util.function.Supplier;
+
 /**
  * This class is meant to override some properties of MainApp so that it will be suited for
  * testing
@@ -23,14 +26,16 @@ public class TestApp extends MainApp {
     public static final String APP_TITLE = "Test App";
     protected static final String ADDRESS_BOOK_NAME = "Test";
     protected Supplier<ReadOnlyAddressBook> initialDataSupplier = () -> null;
+    protected Clock clock;
     protected String saveFileLocation = SAVE_LOCATION_FOR_TESTING;
 
     public TestApp() {
     }
 
-    public TestApp(Supplier<ReadOnlyAddressBook> initialDataSupplier, String saveFileLocation) {
+    public TestApp(Supplier<ReadOnlyAddressBook> initialDataSupplier, Clock clock, String saveFileLocation) {
         super();
         this.initialDataSupplier = initialDataSupplier;
+        this.clock = clock;
         this.saveFileLocation = saveFileLocation;
 
         // If some initial local data has been provided, write those to the file
@@ -60,6 +65,10 @@ public class TestApp extends MainApp {
         return userPrefs;
     }
 
+    @Override
+    protected Clock initClock() {
+        return clock;
+    }
 
     @Override
     public void start(Stage primaryStage) {

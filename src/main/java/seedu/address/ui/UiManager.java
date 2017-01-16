@@ -21,6 +21,9 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
 
+import java.time.Clock;
+import java.util.logging.Logger;
+
 /**
  * The manager of the UI component.
  */
@@ -32,13 +35,15 @@ public class UiManager extends ComponentManager implements Ui {
     private Logic logic;
     private Config config;
     private UserPrefs prefs;
+    private Clock clock;
     private MainWindow mainWindow;
 
-    public UiManager(Logic logic, Config config, UserPrefs prefs) {
+    public UiManager(Logic logic, Config config, UserPrefs prefs, Clock clock) {
         super();
         this.logic = logic;
         this.config = config;
         this.prefs = prefs;
+        this.clock = clock;
     }
 
     @Override
@@ -50,7 +55,7 @@ public class UiManager extends ComponentManager implements Ui {
         primaryStage.getIcons().add(getImage(ICON_APPLICATION));
 
         try {
-            mainWindow = new MainWindow(primaryStage, config, prefs, logic);
+            mainWindow = MainWindow.load(primaryStage, logic, config, prefs, clock);
             mainWindow.show(); //This should be called before creating other UI parts
             mainWindow.fillInnerParts();
 

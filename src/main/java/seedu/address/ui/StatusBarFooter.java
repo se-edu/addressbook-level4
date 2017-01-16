@@ -14,6 +14,10 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.util.FxViewUtil;
 
+import java.time.Clock;
+import java.util.Date;
+import java.util.logging.Logger;
+
 /**
  * A ui for the status bar that is displayed at the footer of the application.
  */
@@ -25,11 +29,23 @@ public class StatusBarFooter extends UiPart<Region> {
     @FXML
     private StatusBar saveLocationStatus;
 
+    private GridPane mainPane;
+
+    private AnchorPane placeHolder;
+
+    private Clock clock;
+
     private static final String FXML = "StatusBarFooter.fxml";
 
-    public StatusBarFooter(AnchorPane placeHolder, String saveLocation) {
-        super(FXML);
-        addToPlaceholder(placeHolder);
+    public static StatusBarFooter load(AnchorPane placeHolder, Clock clock, String saveLocation) {
+        StatusBarFooter statusBarFooter = UiPartLoader.loadUiPart(placeHolder, new StatusBarFooter());
+        statusBarFooter.configure(clock, saveLocation);
+        return statusBarFooter;
+    }
+
+    public void configure(Clock clock, String saveLocation) {
+        addMainPane();
+        setClock(clock);
         setSyncStatus("Not updated yet in this session");
         setSaveLocation("./" + saveLocation);
         registerAsAnEventHandler(this);
@@ -38,6 +54,10 @@ public class StatusBarFooter extends UiPart<Region> {
     private void addToPlaceholder(AnchorPane placeHolder) {
         FxViewUtil.applyAnchorBoundaryParameters(getRoot(), 0.0, 0.0, 0.0, 0.0);
         placeHolder.getChildren().add(getRoot());
+    }
+
+    private void setClock(Clock clock) {
+        this.clock = clock;
     }
 
     private void setSaveLocation(String location) {
@@ -50,7 +70,7 @@ public class StatusBarFooter extends UiPart<Region> {
 
     @Subscribe
     public void handleAddressBookChangedEvent(AddressBookChangedEvent abce) {
-        String lastUpdated = (new Date()).toString();
+        String lastUpdated = new Date(clock.millis()).toString();
         logger.info(LogsCenter.getEventHandlingLogMessage(abce, "Setting last updated status to " + lastUpdated));
         setSyncStatus("Last Updated: " + lastUpdated);
     }

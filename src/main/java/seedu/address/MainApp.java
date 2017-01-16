@@ -31,6 +31,12 @@ import seedu.address.storage.StorageManager;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
 
+import java.io.IOException;
+import java.time.Clock;
+import java.util.Map;
+import java.util.Optional;
+import java.util.logging.Logger;
+
 /**
  * The main entry point to the application.
  */
@@ -63,7 +69,7 @@ public class MainApp extends Application {
 
         logic = new LogicManager(model, storage);
 
-        ui = new UiManager(logic, config, userPrefs);
+        ui = new UiManager(logic, config, userPrefs, initClock());
 
         initEventsCenter();
     }
@@ -155,6 +161,10 @@ public class MainApp extends Application {
         }
 
         return initializedPrefs;
+    }
+
+    protected Clock initClock() {
+        return Clock.systemDefaultZone();
     }
 
     private void initEventsCenter() {
