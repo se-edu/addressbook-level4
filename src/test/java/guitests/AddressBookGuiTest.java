@@ -46,6 +46,7 @@ public abstract class AddressBookGuiTest {
     protected ResultDisplayHandle resultDisplay;
     protected CommandBoxHandle commandBox;
     protected BrowserPanelHandle browserPanel;
+    protected StatusBarFooterHandle statusBarFooter;
     private Stage stage;
 
     @BeforeClass
@@ -67,6 +68,7 @@ public abstract class AddressBookGuiTest {
             resultDisplay = mainGui.getResultDisplay();
             commandBox = mainGui.getCommandBox();
             browserPanel = mainGui.getBrowserPanel();
+            statusBarFooter = mainGui.getStatusBarFooter();
             this.stage = stage;
         });
         EventsCenter.clearSubscribers();
