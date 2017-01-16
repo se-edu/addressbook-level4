@@ -19,6 +19,8 @@ import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.ReadOnlyPerson;
 
+import java.time.Clock;
+
 /**
  * The Main Window. Provides the basic application layout containing
  * a menu bar and space where other JavaFX elements can be placed.
@@ -37,6 +39,7 @@ public class MainWindow extends UiPart {
     private BrowserPanel browserPanel;
     private PersonListPanel personListPanel;
     private Config config;
+    private Clock clock;
 
     // Handles to elements of this Ui container
     private VBox rootLayout;
@@ -74,19 +77,21 @@ public class MainWindow extends UiPart {
         return primaryStage;
     }
 
-    public static MainWindow load(Stage primaryStage, Config config, UserPrefs prefs, Logic logic) {
+    public static MainWindow load(Stage primaryStage, Logic logic, Config config, UserPrefs prefs, Clock clock) {
         MainWindow mainWindow = UiPartLoader.loadUiPart(new MainWindow());
-        mainWindow.configure(primaryStage, config.getAppTitle(), config.getAddressBookName(), config, prefs, logic);
+        mainWindow.configure(primaryStage, config.getAppTitle(), config.getAddressBookName(),
+            logic, config, prefs, clock);
         return mainWindow;
     }
 
-    private void configure(Stage primaryStage, String appTitle, String addressBookName, Config config,
-                           UserPrefs prefs, Logic logic) {
+    private void configure(Stage primaryStage, String appTitle, String addressBookName, Logic logic, Config config,
+                           UserPrefs prefs, Clock clock) {
 
         // Set dependencies
         this.primaryStage = primaryStage;
         this.logic = logic;
         this.config = config;
+        this.clock = clock;
 
         // Configure the UI
         setTitle(appTitle);
@@ -137,7 +142,7 @@ public class MainWindow extends UiPart {
         browserPanel = BrowserPanel.load(browserPlaceholder);
         personListPanel = PersonListPanel.load(getPersonListPlaceholder(), logic.getFilteredPersonList());
         ResultDisplay.load(getResultDisplayPlaceholder());
-        StatusBarFooter.load(getStatusbarPlaceholder(), config.getAddressBookFilePath());
+        StatusBarFooter.load(getStatusbarPlaceholder(), clock, config.getAddressBookFilePath());
         CommandBox.load(getCommandBoxPlaceholder(), logic);
     }
 

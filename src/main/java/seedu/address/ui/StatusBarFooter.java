@@ -10,6 +10,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.util.FxViewUtil;
 
+import java.time.Clock;
 import java.util.Date;
 import java.util.logging.Logger;
 
@@ -28,16 +29,19 @@ public class StatusBarFooter extends UiPart {
 
     private AnchorPane placeHolder;
 
+    private Clock clock;
+
     private static final String FXML = "StatusBarFooter.fxml";
 
-    public static StatusBarFooter load(AnchorPane placeHolder, String saveLocation) {
+    public static StatusBarFooter load(AnchorPane placeHolder, Clock clock, String saveLocation) {
         StatusBarFooter statusBarFooter = UiPartLoader.loadUiPart(placeHolder, new StatusBarFooter());
-        statusBarFooter.configure(saveLocation);
+        statusBarFooter.configure(clock, saveLocation);
         return statusBarFooter;
     }
 
-    public void configure(String saveLocation) {
+    public void configure(Clock clock, String saveLocation) {
         addMainPane();
+        setClock(clock);
         setSyncStatus("Not updated yet in this session");
         setSaveLocation("./" + saveLocation);
         registerAsAnEventHandler(this);
@@ -46,6 +50,10 @@ public class StatusBarFooter extends UiPart {
     private void addMainPane() {
         FxViewUtil.applyAnchorBoundaryParameters(mainPane, 0.0, 0.0, 0.0, 0.0);
         placeHolder.getChildren().add(mainPane);
+    }
+
+    private void setClock(Clock clock) {
+        this.clock = clock;
     }
 
     private void setSaveLocation(String location) {
@@ -73,7 +81,7 @@ public class StatusBarFooter extends UiPart {
 
     @Subscribe
     public void handleAddressBookChangedEvent(AddressBookChangedEvent abce) {
-        String lastUpdated = (new Date()).toString();
+        String lastUpdated = new Date(clock.millis()).toString();
         logger.info(LogsCenter.getEventHandlingLogMessage(abce, "Setting last updated status to " + lastUpdated));
         setSyncStatus("Last Updated: " + lastUpdated);
     }
