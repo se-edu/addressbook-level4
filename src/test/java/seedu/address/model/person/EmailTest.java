@@ -9,38 +9,25 @@ public class EmailTest {
 
     @Test
     public void isValidEmail_emptyString_returnsFalse() {
-        assertFalse(Email.isValidEmail(""));
+        assertFalse(Email.isValidEmail(""));    // empty string
+        assertFalse(Email.isValidEmail(" "));   // spaces only
     }
 
     @Test
-    public void isValidEmail_spacesOnly_returnsFalse() {
-        assertFalse(Email.isValidEmail(" "));
+    public void isValidEmail_missingParts_returnsFalse() {
+        assertFalse(Email.isValidEmail("@webmail.com"));            // missing local part
+        assertFalse(Email.isValidEmail("peterjackwebmail.com"));    // missing at symbol
+        assertFalse(Email.isValidEmail("peterjack@"));              // missing domain part
     }
 
     @Test
-    public void isValidEmail_missingLocalPart_returnsFalse() {
-        assertFalse(Email.isValidEmail("@webmail.com"));
-    }
-
-    @Test
-    public void isValidEmail_missingAtSymbol_returnsFalse() {
-        assertFalse(Email.isValidEmail("peterjackwebmail.com"));
-    }
-
-    @Test
-    public void isValidEmail_missingDomain_returnsFalse() {
-        assertFalse(Email.isValidEmail("peterjack@"));
-    }
-
-    @Test
-    public void isValidEmail_invalidLocalPart_returnsFalse() {
+    public void isValidEmail_invalidParts_returnsFalse() {
+        // invalid characters
         assertFalse(Email.isValidEmail("-@webmail.com"));
-        assertFalse(Email.isValidEmail("peter jack@webmail.com"));
-    }
-
-    @Test
-    public void isValidEmail_invalidDomain_returnsFalse() {
         assertFalse(Email.isValidEmail("peterjack@-"));
+
+        // spaces
+        assertFalse(Email.isValidEmail("peter jack@webmail.com"));
         assertFalse(Email.isValidEmail("peterjack@web mail.com"));
     }
 

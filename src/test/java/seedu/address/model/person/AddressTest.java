@@ -8,22 +8,13 @@ import org.junit.Test;
 public class AddressTest {
 
     @Test
-    public void isValidAddress_emptyString_returnsFalse() {
-        assertFalse(Address.isValidAddress(""));
-    }
+    public void isValidAddress() {
+        // invalid addresses
+        assertFalse(Address.isValidAddress(""));    // empty string
+        assertFalse(Address.isValidAddress(" "));   // spaces only
 
-    @Test
-    public void isValidAddress_spacesOnly_returnsFalse() {
-        assertFalse(Address.isValidAddress(" "));
-    }
-
-    @Test
-    public void isValidAddress_singleCharacterString_returnsTrue() {
-        assertTrue(Address.isValidAddress("-"));
-    }
-
-    @Test
-    public void isValidAddress_multipleCharacterString_returnsTrue() {
-        assertTrue(Address.isValidAddress("Blk 456, Den Road, #01-355"));
+        // valid addresses
+        assertTrue(Address.isValidAddress("-"));    // one character
+        assertTrue(Address.isValidAddress("Blk 456, Den Road, #01-355"));   // normal address
     }
 }

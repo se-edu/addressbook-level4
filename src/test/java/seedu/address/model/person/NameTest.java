@@ -9,12 +9,8 @@ public class NameTest {
 
     @Test
     public void isValidName_emptyString_returnsFalse() {
-        assertFalse(Name.isValidName(""));
-    }
-
-    @Test
-    public void isValidName_spacesOnly_returnsFalse() {
-        assertFalse(Name.isValidName(" "));
+        assertFalse(Name.isValidName(""));  // empty string
+        assertFalse(Name.isValidName(" ")); // spaces only
     }
 
     @Test

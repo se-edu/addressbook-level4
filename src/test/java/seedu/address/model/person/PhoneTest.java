@@ -9,12 +9,12 @@ public class PhoneTest {
 
     @Test
     public void isValidPhone_emptyString_returnsFalse() {
-        assertFalse(Phone.isValidPhone(""));
+        assertFalse(Phone.isValidPhone(""));    // empty string
+        assertFalse(Phone.isValidPhone(" "));   // spaces only
     }
 
     @Test
     public void isValidPhone_containsNonDigits_returnsFalse() {
-        assertFalse(Phone.isValidPhone(" "));
         assertFalse(Phone.isValidPhone("phone"));
         assertFalse(Phone.isValidPhone("9011p041"));
         assertFalse(Phone.isValidPhone("9312 1534"));
