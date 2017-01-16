@@ -1,6 +1,7 @@
 package seedu.address.model.person;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
@@ -22,15 +23,12 @@ public class PhoneTest {
     }
 
     @Test
-    public void isValidPhone_spaces_returnsFalse() {
+    public void isValidPhone_spacesInPhoneNumbers_returnsFalse() {
         assertFalse(Phone.isValidPhone("3912 1234"));
     }
 
     @Test
-    public void isValidPhone_numeric_returnsTrue() {
+    public void isValidPhone_validPhoneNumber_returnsTrue() {
         assertTrue(Phone.isValidPhone("39121234"));
     }
-
-
-
 }

@@ -18,13 +18,12 @@ public class AddressTest {
     }
 
     @Test
-    public void isValidAddress_nonEmptyString_returnsTrue() {
-        assertTrue(Address.isValidAddress("Block 335"));
-    }
-
-    @Test
     public void isValidAddress_singleCharacterString_returnsTrue() {
         assertTrue(Address.isValidAddress("-"));
     }
 
+    @Test
+    public void isValidAddress_validAddress_returnsTrue() {
+        assertTrue(Address.isValidAddress("Blk 456, Den Road, #01-355"));
+    }
 }

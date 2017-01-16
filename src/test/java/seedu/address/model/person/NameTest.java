@@ -18,16 +18,15 @@ public class NameTest {
     }
 
     @Test
-    public void isValidName_nonAlphaNumericCharacters_returnFalse() {
+    public void isValidName_containsNonAlphanumericCharacters_returnsFalse() {
         assertFalse(Name.isValidName("^"));
-        assertFalse(Name.isValidName("-"));
         assertFalse(Name.isValidName("peter*"));
     }
 
     @Test
-    public void isValidName_alphanumericCharacters_returnTrue() {
+    public void isValidName_onlyAlphanumericCharacters_returnsTrue() {
         assertTrue(Name.isValidName("peter jack"));
         assertTrue(Name.isValidName("12345"));
+        assertTrue(Name.isValidName("peter the 2nd"));
     }
-
 }
