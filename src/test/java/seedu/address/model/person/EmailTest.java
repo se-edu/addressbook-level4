@@ -28,13 +28,12 @@ public class EmailTest {
         assertFalse(Email.isValidEmail("peterjack@webmail@com")); // '@' symbol in domain name
 
         // valid email
+        assertTrue(Email.isValidEmail("PeterJack_1190@WEB.Mail.com"));
         assertTrue(Email.isValidEmail("a@b"));  // minimal
         assertTrue(Email.isValidEmail("test@localhost"));   // alphabets only
-        assertTrue(Email.isValidEmail("123@145.com"));  // numeric local part and domain name
+        assertTrue(Email.isValidEmail("123@145"));  // numeric local part and domain name
         assertTrue(Email.isValidEmail("a1@sg50.org"));  // mixture of alphanumeric and dot characters
-        assertTrue(Email.isValidEmail("_user@_domain.com"));    // underscores
-        assertTrue(Email.isValidEmail("peter.jack@webmail.com"));
-        assertTrue(Email.isValidEmail("PeterJack_1190@WEB.Mail.com"));
+        assertTrue(Email.isValidEmail("_user_@_do_main_.com_"));    // underscores
         assertTrue(Email.isValidEmail("peter_jack@a_very_long_domain_AVLD.com"));   // long domain name
         assertTrue(Email.isValidEmail("if.you.dream.it_you.can.do.it@youth_email.com"));    // long local part
     }
