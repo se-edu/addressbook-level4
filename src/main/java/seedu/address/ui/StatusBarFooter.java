@@ -41,7 +41,7 @@ public class StatusBarFooter extends UiPart {
 
     public void configure(Clock clock, String saveLocation) {
         addMainPane();
-        this.clock = clock;
+        setClock(clock);
         setSyncStatus("Not updated yet in this session");
         setSaveLocation("./" + saveLocation);
         registerAsAnEventHandler(this);
@@ -50,6 +50,10 @@ public class StatusBarFooter extends UiPart {
     private void addMainPane() {
         FxViewUtil.applyAnchorBoundaryParameters(mainPane, 0.0, 0.0, 0.0, 0.0);
         placeHolder.getChildren().add(mainPane);
+    }
+
+    private void setClock(Clock clock) {
+        this.clock = clock;
     }
 
     private void setSaveLocation(String location) {

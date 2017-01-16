@@ -25,14 +25,14 @@ public class StatusBarFooterTest extends AddressBookGuiTest {
     }
 
     @Test
-    public void statusBar_commandSucceeds_textUpdated() {
+    public void statusBar_commandSucceeds_statusUpdated() {
         Date expectedTime = new Date(clock.millis());
         commandBox.runCommand(td.hoon.getAddCommand());
         assertEquals("Last Updated: " + expectedTime.toString(), statusBarFooter.getSyncStatus());
     }
 
     @Test
-    public void commandBox_commandFails_textStays() {
+    public void statusBar_commandFails_statusRemainsUnchanged() {
         commandBox.runCommand("invalid command");
         assertEquals(lastSyncStatus, statusBarFooter.getSyncStatus());
     }
