@@ -8,20 +8,16 @@ import org.junit.Test;
 public class PhoneTest {
 
     @Test
-    public void isValidPhone_emptyString_returnsFalse() {
-        assertFalse(Phone.isValidPhone(""));    // empty string
-        assertFalse(Phone.isValidPhone(" "));   // spaces only
-    }
+    public void isValidPhone() {
+        // invalid phone numbers
+        assertFalse(Phone.isValidPhone("")); // empty string
+        assertFalse(Phone.isValidPhone(" ")); // spaces only
+        assertFalse(Phone.isValidPhone("phone")); // non-numeric
+        assertFalse(Phone.isValidPhone("9011p041")); // alphabets within digits
+        assertFalse(Phone.isValidPhone("9312 1534")); // spaces within digits
 
-    @Test
-    public void isValidPhone_containsNonDigits_returnsFalse() {
-        assertFalse(Phone.isValidPhone("phone"));
-        assertFalse(Phone.isValidPhone("9011p041"));
-        assertFalse(Phone.isValidPhone("9312 1534"));
-    }
-
-    @Test
-    public void isValidPhone_digitsOnly_returnsTrue() {
+        // valid phone numbers
         assertTrue(Phone.isValidPhone("93121534"));
+        assertTrue(Phone.isValidPhone("911")); // short phone numbers
     }
 }
