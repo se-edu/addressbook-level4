@@ -16,19 +16,17 @@ public class EmailTest {
     @Test
     public void isValidEmail_missingParts_returnsFalse() {
         assertFalse(Email.isValidEmail("@webmail.com"));            // missing local part
-        assertFalse(Email.isValidEmail("peterjackwebmail.com"));    // missing at symbol
+        assertFalse(Email.isValidEmail("peterjackwebmail.com"));    // missing '@' symbol
         assertFalse(Email.isValidEmail("peterjack@"));              // missing domain part
     }
 
     @Test
     public void isValidEmail_invalidParts_returnsFalse() {
-        // invalid characters
         assertFalse(Email.isValidEmail("-@webmail.com"));
         assertFalse(Email.isValidEmail("peterjack@-"));
-
-        // spaces
         assertFalse(Email.isValidEmail("peter jack@webmail.com"));
         assertFalse(Email.isValidEmail("peterjack@web mail.com"));
+        assertFalse(Email.isValidEmail("peterjack@@webmail.com"));  // double '@' symbol
     }
 
     @Test

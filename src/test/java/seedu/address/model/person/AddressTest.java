@@ -15,6 +15,6 @@ public class AddressTest {
 
         // valid addresses
         assertTrue(Address.isValidAddress("-"));    // one character
-        assertTrue(Address.isValidAddress("Blk 456, Den Road, #01-355"));   // normal address
+        assertTrue(Address.isValidAddress("Blk 456, Den Road, #01-355"));
     }
 }

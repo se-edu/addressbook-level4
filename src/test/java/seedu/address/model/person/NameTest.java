@@ -8,21 +8,17 @@ import org.junit.Test;
 public class NameTest {
 
     @Test
-    public void isValidName_emptyString_returnsFalse() {
+    public void isValidName() {
+        // invalid name
         assertFalse(Name.isValidName(""));  // empty string
         assertFalse(Name.isValidName(" ")); // spaces only
-    }
+        assertFalse(Name.isValidName("^"));         // only non-alphanumeric characters
+        assertFalse(Name.isValidName("peter*"));    // contains non-alphanumeric characters
 
-    @Test
-    public void isValidName_containsNonAlphanumericCharacters_returnsFalse() {
-        assertFalse(Name.isValidName("^"));
-        assertFalse(Name.isValidName("peter*"));
-    }
-
-    @Test
-    public void isValidName_onlyAlphanumericAndSpaceCharacters_returnsTrue() {
+        // valid name
         assertTrue(Name.isValidName("peter jack"));
         assertTrue(Name.isValidName("12345"));
         assertTrue(Name.isValidName("peter the 2nd"));
+        assertTrue(Name.isValidName("Capital Tan"));
     }
 }
