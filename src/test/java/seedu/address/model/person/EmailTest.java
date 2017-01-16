@@ -45,7 +45,7 @@ public class EmailTest {
     }
 
     @Test
-    public void isValidEmail_validEmailAddress_returnsTrue() {
+    public void isValidEmail_validEmail_returnsTrue() {
         assertTrue(Email.isValidEmail("peter.jack@webmail.com"));
     }
 }

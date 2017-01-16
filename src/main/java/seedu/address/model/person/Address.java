@@ -9,7 +9,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
  */
 public class Address {
 
-    public static final String MESSAGE_ADDRESS_CONSTRAINTS = "Person addresses can be in any format";
+    public static final String MESSAGE_ADDRESS_CONSTRAINTS = "Person addresses can be in any format, but not blank";
     public static final String ADDRESS_VALIDATION_REGEX = "[^\\s].*";
 
     public final String value;

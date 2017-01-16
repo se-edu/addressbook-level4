@@ -23,7 +23,7 @@ public class AddressTest {
     }
 
     @Test
-    public void isValidAddress_validAddress_returnsTrue() {
+    public void isValidAddress_multipleCharacterString_returnsTrue() {
         assertTrue(Address.isValidAddress("Blk 456, Den Road, #01-355"));
     }
 }

@@ -24,7 +24,7 @@ public class NameTest {
     }
 
     @Test
-    public void isValidName_onlyAlphanumericCharacters_returnsTrue() {
+    public void isValidName_onlyAlphanumericAndSpaceCharacters_returnsTrue() {
         assertTrue(Name.isValidName("peter jack"));
         assertTrue(Name.isValidName("12345"));
         assertTrue(Name.isValidName("peter the 2nd"));

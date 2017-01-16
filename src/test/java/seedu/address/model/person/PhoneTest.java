@@ -13,22 +13,19 @@ public class PhoneTest {
     }
 
     @Test
-    public void isValidPhone_spacesOnly_returnsFalse() {
+    public void isValidPhone_containsSpaces_returnsFalse() {
         assertFalse(Phone.isValidPhone(" "));
+        assertFalse(Phone.isValidPhone("9312 1534"));
     }
 
     @Test
-    public void isValidPhone_nonNumeric_returnsFalse() {
+    public void isValidPhone_containsNonDigits_returnsFalse() {
         assertFalse(Phone.isValidPhone("phone"));
+        assertFalse(Phone.isValidPhone("9011p041"));
     }
 
     @Test
-    public void isValidPhone_spacesInPhoneNumbers_returnsFalse() {
-        assertFalse(Phone.isValidPhone("3912 1234"));
-    }
-
-    @Test
-    public void isValidPhone_validPhoneNumber_returnsTrue() {
-        assertTrue(Phone.isValidPhone("39121234"));
+    public void isValidPhone_digitsOnly_returnsTrue() {
+        assertTrue(Phone.isValidPhone("93121534"));
     }
 }
