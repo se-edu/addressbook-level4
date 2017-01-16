@@ -28,6 +28,11 @@ public class XmlAddressBookStorage implements AddressBookStorage {
         return filePath;
     }
 
+    @Override
+    public Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException, IOException {
+        return readAddressBook(filePath);
+    }
+
     /**
      * Similar to {@link #readAddressBook()}
      * @param filePath location of the data. Cannot be null
@@ -49,6 +54,11 @@ public class XmlAddressBookStorage implements AddressBookStorage {
         return Optional.of(addressBookOptional);
     }
 
+    @Override
+    public void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException {
+        saveAddressBook(addressBook, filePath);
+    }
+
     /**
      * Similar to {@link #saveAddressBook(ReadOnlyAddressBook)}
      * @param filePath location of the data. Cannot be null
@@ -62,13 +72,4 @@ public class XmlAddressBookStorage implements AddressBookStorage {
         XmlFileStorage.saveDataToFile(file, new XmlSerializableAddressBook(addressBook));
     }
 
-    @Override
-    public Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException, IOException {
-        return readAddressBook(filePath);
-    }
-
-    @Override
-    public void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException {
-        saveAddressBook(addressBook, filePath);
-    }
 }
