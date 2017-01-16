@@ -209,7 +209,7 @@
 
 
     <!--
-    MODIFIERS CHECKS
+    ORDER CHECKS
     -->
 
     <module name="ModifierOrder">
@@ -220,6 +220,7 @@
         -->
     </module>
 
+    <module name="OverloadMethodsDeclarationOrder"/>
 
     <!--
     WHITESPACE CHECKS
