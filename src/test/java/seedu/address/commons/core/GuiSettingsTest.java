@@ -18,11 +18,11 @@ public class ConfigTest {
 
         assertEquals(defaultGuiSettingsAsString, new GuiSettings().toString());
         
-        String defaultGuiSettingsAsStringForConstructor = "Width : 600\n" +
+        String guiSettingsAsString = "Width : 600\n" +
                 "Height : 740\n" +
                 "Position : (0,0)";
         
-        assertEquals(defaultGuiSettingsAsStringForConstructor, new GuiSettings(600, 740, 0, 0).toString());
+        assertEquals(guiSettingsAsString, new GuiSettings(600, 740, 0, 0).toString());
     }
 
     @Test
