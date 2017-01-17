@@ -184,6 +184,21 @@ public class LogicManagerTest {
     }
 
     @Test
+    public void execute_add_differentCharactersInName_successful() throws Exception{
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        Person toBeAdded = helper.borg();
+        AddressBook expectedAB  = new AddressBook();
+        expectedAB.addPerson(toBeAdded);
+        
+        // execute command and verify the result
+        assertCommandBehavior(helper.generateAddCommand(toBeAdded),
+                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
+                expectedAB,
+                expectedAB.getPersonList());
+    }
+    
+    @Test
     public void execute_addDuplicate_notAllowed() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
@@ -381,12 +396,25 @@ public class LogicManagerTest {
     class TestDataHelper {
 
         Person adam() throws Exception {
-            Name name = new Name("Adam Brown");
+            Name name = new Name("Adam Brown o'\u00E9-\u00F6");
             Phone privatePhone = new Phone("111111");
             Email email = new Email("adam@gmail.com");
             Address privateAddress = new Address("111, alpha street");
             Tag tag1 = new Tag("tag1");
             Tag tag2 = new Tag("longertag2");
+            UniqueTagList tags = new UniqueTagList(tag1, tag2);
+            return new Person(name, privatePhone, email, privateAddress, tags);
+        }
+        
+        Person borg() throws Exception {
+            Name name = new Name("Bj\u00F6rn o'Borg Jos\u00E9 John-Doe Jr.");
+            // names given in unicode format based on the thread: 
+            // http://stackoverflow.com/questions/4237581/comparing-unicode-characters-in-junit
+            Phone privatePhone = new Phone("98761234");
+            Email email = new Email("borg@jose.com");
+            Address privateAddress = new Address("12, heere at the wall");
+            Tag tag1 = new Tag("HyphenDotQuote");
+            Tag tag2 = new Tag("unicodeName");
             UniqueTagList tags = new UniqueTagList(tag1, tag2);
             return new Person(name, privatePhone, email, privateAddress, tags);
         }
