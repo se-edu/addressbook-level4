@@ -8,7 +8,13 @@ import seedu.address.model.person.UniquePersonList.DuplicatePersonException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 
-import java.util.*;
+import java.util.Objects;
+import java.util.Collection;
+import java.util.Set;
+import java.util.HashSet;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javafx.collections.ObservableList;
 

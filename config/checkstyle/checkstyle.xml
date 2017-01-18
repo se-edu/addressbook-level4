@@ -48,6 +48,11 @@
       <property name="severity" value="error"/>
     </module>
 
+    <module name="AvoidStarImport">
+      <property name="allowClassImports" value="false"/>
+      <property name="allowStaticMemberImports" value="false"/>
+    </module>
+
     <!--
     NAMING CHECKS
     -->

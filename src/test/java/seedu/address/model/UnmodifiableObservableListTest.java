@@ -7,7 +7,11 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import seedu.address.commons.core.UnmodifiableObservableList;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
 
 import static org.junit.Assert.assertSame;
 import static seedu.address.testutil.TestUtil.assertThrows;
