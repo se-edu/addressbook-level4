@@ -28,13 +28,13 @@ public class StatusBarFooter extends UiPart<Region> {
 
     public StatusBarFooter(AnchorPane placeHolder, String saveLocation) {
         super(FXML);
-        addMainPane(placeHolder);
+        addToPlaceholder(placeHolder);
         setSyncStatus("Not updated yet in this session");
         setSaveLocation("./" + saveLocation);
         registerAsAnEventHandler(this);
     }
 
-    private void addMainPane(AnchorPane placeHolder) {
+    private void addToPlaceholder(AnchorPane placeHolder) {
         FxViewUtil.applyAnchorBoundaryParameters(getRoot(), 0.0, 0.0, 0.0, 0.0);
         placeHolder.getChildren().add(getRoot());
     }
