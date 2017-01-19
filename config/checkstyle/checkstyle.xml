@@ -43,6 +43,21 @@
     IMPORT CHECKS
     -->
 
+    <!-- Checks the import statements follow Eclipse default standard.
+    In this standard, import statements should be sorted with the most fundamental packages first,
+    and grouped with associated packages together and one blank line between groups.
+    Configuration below is taken from:
+    http://checkstyle.sourceforge.net/config_imports.html#CustomImportOrder_Example (tested on Mars release)
+    -->
+    <module name="CustomImportOrder">
+        <property name="customImportOrderRules"
+            value="STATIC###STANDARD_JAVA_PACKAGE###SPECIAL_IMPORTS###THIRD_PARTY_PACKAGE"/>
+        <property name="specialImportsRegExp" value="^org\."/>
+        <property name="thirdPartyPackageRegExp" value="^com\."/>
+        <property name="sortImportsInGroupAlphabetically" value="true"/>
+        <property name="separateLineBetweenGroups" value="true"/>
+    </module>
+
     <module name="RedundantImport">
       <!-- Checks for redundant import statements. -->
       <property name="severity" value="error"/>
