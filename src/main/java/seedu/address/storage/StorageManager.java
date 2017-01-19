@@ -1,6 +1,11 @@
 package seedu.address.storage;
 
+import java.io.IOException;
+import java.util.Optional;
+import java.util.logging.Logger;
+
 import com.google.common.eventbus.Subscribe;
+
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
@@ -8,10 +13,6 @@ import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.UserPrefs;
-
-import java.io.IOException;
-import java.util.Optional;
-import java.util.logging.Logger;
 
 /**
  * Manages storage of AddressBook data in local storage.

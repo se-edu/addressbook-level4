@@ -1,6 +1,9 @@
 package seedu.address.ui;
 
+import java.util.logging.Logger;
+
 import com.google.common.eventbus.Subscribe;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextField;
@@ -12,8 +15,6 @@ import seedu.address.commons.events.ui.NewResultAvailableEvent;
 import seedu.address.commons.util.FxViewUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
-
-import java.util.logging.Logger;
 
 public class CommandBox extends UiPart<Region> {
     private final Logger logger = LogsCenter.getLogger(CommandBox.class);
