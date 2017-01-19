@@ -1,12 +1,13 @@
 package guitests;
 
-import guitests.guihandles.AlertDialogHandle;
-import org.junit.Test;
-import seedu.address.commons.events.storage.DataSavingExceptionEvent;
+import static junit.framework.TestCase.assertTrue;
 
 import java.io.IOException;
 
-import static junit.framework.TestCase.assertTrue;
+import org.junit.Test;
+
+import guitests.guihandles.AlertDialogHandle;
+import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 
 public class ErrorDialogGuiTest extends AddressBookGuiTest {
 
