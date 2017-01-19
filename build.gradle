@@ -124,6 +124,12 @@ class AddressBookTest extends Test {
     public AddressBookTest() {
     	  forkEvery = 1
         systemProperty 'testfx.setup.timeout', '60000'
+
+        if (System.env.'CI') {
+            beforeTest { descriptor ->
+                logger.lifecycle('Running test: ' + descriptor)
+            }
+        }
     }
 
     public void setHeadless() {
