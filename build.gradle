@@ -125,15 +125,10 @@ class AddressBookTest extends Test {
     	  forkEvery = 1
         systemProperty 'testfx.setup.timeout', '60000'
 
-        /**
-         * The following code prints the current running test's name in the
-         * CI's log.
-         *
-         * The default behaviour of Gradle does not print out the name of
-         * the test being executed. This makes it hard to determine if
-         * the tests are running, or are actually being skipped and happens
-         * to be reported as fine. It is also hard to figure out which test
-         * borked the CI, which may happen occasionally.
+        /*
+         * Prints the currently running test's name in the CI's build log,
+         * so that we can check if tests are being silently skipped or
+         * stalling the build.
          */
         if (System.env.'CI') {
             beforeTest { descriptor ->
