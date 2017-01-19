@@ -2,7 +2,7 @@
 
 <?import javafx.scene.layout.*?>
 <?import org.controlsfx.control.StatusBar?>
-<GridPane styleClass="grid-pane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seedu.address.ui.StatusBarFooter" stylesheets="@DarkTheme.css">
+<GridPane styleClass="grid-pane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" stylesheets="@DarkTheme.css">
 <columnConstraints>
   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />

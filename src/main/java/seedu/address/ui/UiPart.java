@@ -1,18 +1,56 @@
 package seedu.address.ui;
 
-import javafx.scene.Node;
+import java.io.IOException;
+import java.net.URL;
+
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import seedu.address.MainApp;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.events.BaseEvent;
 
 /**
- * Base class for UI parts.
- * A 'UI part' represents a distinct part of the UI. e.g. Windows, dialogs, panels, status bars, etc.
+ * Represents a distinct part of the UI. e.g. Windows, dialogs, panels, status bars, etc.
+ * It contains a scene graph with a root node of type {@code T}.
  */
-public abstract class UiPart {
+public abstract class UiPart<T> {
+
+    /** Resource folder where FXML files are stored. */
+    public static final String FXML_FILE_FOLDER = "/view/";
+
+    private FXMLLoader fxmlLoader;
+
+    /**
+     * Constructs a UiPart with the specified FXML file URL.
+     * The FXML file must not specify the {@code fx:controller} attribute.
+     */
+    public UiPart(URL fxmlFileUrl) {
+        assert fxmlFileUrl != null;
+        fxmlLoader = new FXMLLoader(fxmlFileUrl);
+        fxmlLoader.setController(this);
+        try {
+            fxmlLoader.load();
+        } catch (IOException e) {
+            throw new AssertionError(e);
+        }
+    }
+
+    /**
+     * Constructs a UiPart using the specified FXML file within {@link #FXML_FILE_FOLDER}.
+     * @see #UiPart(URL)
+     */
+    public UiPart(String fxmlFileName) {
+        this(fxmlFileName != null ? MainApp.class.getResource(FXML_FILE_FOLDER + fxmlFileName) : null);
+    }
+
+    /**
+     * Returns the root object of the scene graph of this UiPart.
+     */
+    public T getRoot() {
+        return fxmlLoader.getRoot();
+    }
 
     /**
      * Raises the event via {@link EventsCenter#post(BaseEvent)}
@@ -31,19 +69,6 @@ public abstract class UiPart {
     }
 
     /**
-     * Sets the main node of the UiPart.
-     * Override this method to receive the main Node generated while loading the view from the .fxml file.
-     * @param node
-     */
-    public abstract void setNode(Node node);
-
-    /**
-     * Returns the path to the fxml file.
-     * Override this method to return the name of the fxml file. e.g. {@code "MainWindow.fxml"}
-     */
-    public abstract String getFxmlPath();
-
-    /**
      * Creates a modal dialog.
      * @param title Title of the dialog.
      * @param parentStage The owner stage of the dialog.
@@ -57,14 +82,6 @@ public abstract class UiPart {
         dialogStage.initOwner(parentStage);
         dialogStage.setScene(scene);
         return dialogStage;
-    }
-
-    /**
-     * Sets the placeholder for UI parts that reside inside another UI part.
-     * @param placeholder
-     */
-    public void setPlaceholder(AnchorPane placeholder) {
-        //Do nothing by default.
     }
 
 }

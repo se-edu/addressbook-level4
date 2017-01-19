@@ -3,13 +3,13 @@ package seedu.address.ui;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SplitPane;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.Region;
 import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
+import seedu.address.commons.util.FxViewUtil;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.commons.core.LogsCenter;
 
@@ -18,40 +18,17 @@ import java.util.logging.Logger;
 /**
  * Panel containing the list of persons.
  */
-public class PersonListPanel extends UiPart {
+public class PersonListPanel extends UiPart<Region> {
     private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
     private static final String FXML = "PersonListPanel.fxml";
-    private VBox panel;
-    private AnchorPane placeHolderPane;
 
     @FXML
     private ListView<ReadOnlyPerson> personListView;
 
-    @Override
-    public void setNode(Node node) {
-        panel = (VBox) node;
-    }
-
-    @Override
-    public String getFxmlPath() {
-        return FXML;
-    }
-
-    @Override
-    public void setPlaceholder(AnchorPane pane) {
-        this.placeHolderPane = pane;
-    }
-
-    public static PersonListPanel load(AnchorPane personListPlaceholder,
-                                       ObservableList<ReadOnlyPerson> personList) {
-        PersonListPanel personListPanel = UiPartLoader.loadUiPart(personListPlaceholder, new PersonListPanel());
-        personListPanel.configure(personList);
-        return personListPanel;
-    }
-
-    private void configure(ObservableList<ReadOnlyPerson> personList) {
+    public PersonListPanel(AnchorPane personListPlaceholder, ObservableList<ReadOnlyPerson> personList) {
+        super(FXML);
         setConnections(personList);
-        addToPlaceholder();
+        addToPlaceholder(personListPlaceholder);
     }
 
     private void setConnections(ObservableList<ReadOnlyPerson> personList) {
@@ -60,9 +37,10 @@ public class PersonListPanel extends UiPart {
         setEventHandlerForSelectionChangeEvent();
     }
 
-    private void addToPlaceholder() {
+    private void addToPlaceholder(AnchorPane placeHolderPane) {
         SplitPane.setResizableWithParent(placeHolderPane, false);
-        placeHolderPane.getChildren().add(panel);
+        FxViewUtil.applyAnchorBoundaryParameters(getRoot(), 0.0, 0.0, 0.0, 0.0);
+        placeHolderPane.getChildren().add(getRoot());
     }
 
     private void setEventHandlerForSelectionChangeEvent() {
@@ -92,7 +70,7 @@ public class PersonListPanel extends UiPart {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(PersonCard.load(person, getIndex() + 1).getLayout());
+                setGraphic(new PersonCard(person, getIndex() + 1).getRoot());
             }
         }
     }

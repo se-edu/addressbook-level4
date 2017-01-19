@@ -3,7 +3,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.control.TextField?>
 <AnchorPane styleClass="anchor-pane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="seedu.address.ui.CommandBox" stylesheets="@DarkTheme.css">
+            stylesheets="@DarkTheme.css">
    <TextField fx:id="commandTextField" onAction="#handleCommandInputChanged" promptText="Enter command here..."/>
 </AnchorPane>
 
