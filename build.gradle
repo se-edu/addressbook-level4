@@ -8,6 +8,7 @@
 plugins {
     id "com.github.kt3k.coveralls" version "2.4.0"
     id "com.github.johnrengelman.shadow" version '1.2.3'
+    id 'org.asciidoctor.convert' version '1.5.3'
     id 'application'
 }
 
@@ -44,6 +45,8 @@ allprojects {
         checkstyleVersion = '7.1.2'
 
         libDir = 'lib'
+        docsDir = 'docs'
+        generatedDocsDir = "${buildDir}/docs"
     }
 
     checkstyle {
@@ -182,4 +185,31 @@ nonGuiTests.mustRunAfter headless
 guiTests.mustRunAfter headless
 allTests.mustRunAfter headless
 
-defaultTasks 'clean', 'headless', 'allTests', 'coverage'
+asciidoctor {
+    backends 'html5'
+    sourceDir = file("${docsDir}")
+    outputDir = file("${generatedDocsDir}")
+
+    attributes linkcss: true,
+               stylesdir: 'stylesheets',
+               stylesheet: 'gh-pages.css',
+               'source-highlighter': 'coderay',
+               icons: 'font',
+               experimental: true,
+               numbered: true,
+               sectlinks: true,
+               idprefix: ''  // for compatibility with GitHub preview
+}
+
+/**
+ * Copies stylesheets into the directory containing generated HTML files as
+ * Asciidoctor does not copy linked CSS files to the output directory when rendering.
+ * This is needed for linked stylesheets and embedded stylesheets which import other files.
+ */
+task copyStylesheets(type: Copy) {
+    from "${docsDir}/stylesheets"
+    into "${generatedDocsDir}/html5/stylesheets"
+}
+asciidoctor.dependsOn copyStylesheets
+
+defaultTasks 'clean', 'headless', 'allTests', 'coverage', 'asciidoctor'
