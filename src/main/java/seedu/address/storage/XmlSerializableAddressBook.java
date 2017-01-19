@@ -1,20 +1,20 @@
 package seedu.address.storage;
 
-import seedu.address.commons.core.UnmodifiableObservableList;
-import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.tag.Tag;
-import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.ReadOnlyPerson;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
+import seedu.address.commons.core.UnmodifiableObservableList;
+import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.ReadOnlyPerson;
+import seedu.address.model.tag.Tag;
 
 /**
  * An Immutable AddressBook that is serializable to XML format

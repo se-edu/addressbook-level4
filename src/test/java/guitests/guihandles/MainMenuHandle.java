@@ -1,11 +1,11 @@
 package guitests.guihandles;
 
+import java.util.Arrays;
+
 import guitests.GuiRobot;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import seedu.address.TestApp;
-
-import java.util.Arrays;
 
 /**
  * Provides a handle to the main menu of the app.
