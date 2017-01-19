@@ -1,0 +1,19 @@
+@import url(https://fonts.googleapis.com/css?family=Montserrat|Open+Sans);
+@import "asciidoctor.css"; /* Default asciidoc style framework - important */
+
+/* Custom block: details */
+
+.sidebarblock.details > .content {
+    border-left: .25rem solid rgba(0, 0, 0, 0.1);
+}
+
+.sidebarblock.details > .content {
+    padding-left: .5rem
+}
+
+.sidebarblock.details {
+    background-color: transparent;
+    border: none;
+    padding-bottom: 0;
+    padding-top: 0;
+}
