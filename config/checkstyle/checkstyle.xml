@@ -43,11 +43,7 @@
     IMPORT CHECKS
     -->
 
-    <!-- Checks the import statements follow Eclipse default standard.
-    In this standard, import statements should be sorted with the most fundamental packages first,
-    and grouped with associated packages together and one blank line between groups.
-    Configuration below is taken from:
-    http://checkstyle.sourceforge.net/config_imports.html#CustomImportOrder_Example (tested on Mars release)
+    <!-- Checks the ordering of import statements follow the rules that the default Eclipse formatter uses.
     -->
     <module name="CustomImportOrder">
         <property name="customImportOrderRules"
@@ -57,7 +53,7 @@
         <property name="sortImportsInGroupAlphabetically" value="true"/>
         <property name="separateLineBetweenGroups" value="true"/>
     </module>
-    
+
     <!-- Checks for redundant import statements.
     An import statement is redundant if:
       * It is a duplicate of another import. This is, when a class is imported more than once.

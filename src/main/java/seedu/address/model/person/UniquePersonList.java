@@ -1,6 +1,5 @@
 package seedu.address.model.person;
 
-import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
