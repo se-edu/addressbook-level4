@@ -44,7 +44,20 @@
     -->
 
     <module name="RedundantImport">
-      <!-- Checks for redundant import statements. -->
+      <!-- Checks for redundant import statements.
+      An import statement is redundant if:
+        * It is a duplicate of another import. This is, when a class is imported more than once.
+        * The class non-statically imported is from the java.lang package, e.g. importing java.lang.String.
+        * The class non-statically imported is from the same package as the current package.
+      -->
+      <property name="severity" value="error"/>
+    </module>
+
+    <module name="UnusedImports">
+      <!-- Checks for unused import statements.
+      An import statement is unused if:
+        It's not referenced in the file.
+      -->
       <property name="severity" value="error"/>
     </module>
 
