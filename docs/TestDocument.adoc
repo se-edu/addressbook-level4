@@ -1,12 +1,7 @@
 = Test Document
 :toc:
 :toc-placement: preamble
-:numbered:
-:sectlinks:
-:linkcss:
-:stylesheet: gh-pages.css
-:imagesdir: images
-:icons: font
+:imagesDir: images
 
 This is a test asciidoc document to check the setup for asciidoc documentation.
 
@@ -57,7 +52,7 @@ This should be on a new line.
 
 http://google.com[This] is a link to an external site.
 
-<<_subheading, This>> is a link to the previous section.
+<<subheading, This>> is a link to the previous section.
 
 image::Architecture.png[title="Architecture diagram", width="400"]
 ____
