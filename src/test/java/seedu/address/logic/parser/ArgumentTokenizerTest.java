@@ -1,11 +1,12 @@
 package seedu.address.logic.parser;
 
-import org.junit.Test;
-import seedu.address.logic.parser.ArgumentTokenizer.Prefix;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
+
+import org.junit.Test;
+
+import seedu.address.logic.parser.ArgumentTokenizer.Prefix;
 
 public class ArgumentTokenizerTest {
 

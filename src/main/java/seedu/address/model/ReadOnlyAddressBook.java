@@ -1,9 +1,9 @@
 package seedu.address.model;
 
 
+import javafx.collections.ObservableList;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.tag.Tag;
-import javafx.collections.ObservableList;
 
 /**
  * Unmodifiable view of an address book
