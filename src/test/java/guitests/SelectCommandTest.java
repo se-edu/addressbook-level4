@@ -1,9 +1,10 @@
 package guitests;
 
-import org.junit.Test;
-import seedu.address.model.person.ReadOnlyPerson;
-
 import static org.junit.Assert.assertEquals;
+
+import org.junit.Test;
+
+import seedu.address.model.person.ReadOnlyPerson;
 
 public class SelectCommandTest extends AddressBookGuiTest {
 
