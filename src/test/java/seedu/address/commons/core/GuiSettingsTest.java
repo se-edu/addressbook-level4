@@ -17,11 +17,9 @@ public class ConfigTest {
                 "Position : null";
 
         assertEquals(defaultGuiSettingsAsString, new GuiSettings().toString());
-        
         String guiSettingsAsString = "Width : 600\n" +
                 "Height : 740\n" +
-                "Position : (0,0)";
-        
+                "Position : (0,0)";        
         assertEquals(guiSettingsAsString, new GuiSettings(600, 740, 0, 0).toString());
     }
 
