@@ -1,12 +1,12 @@
 package seedu.address.model;
 
+import java.util.Set;
+
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.person.UniquePersonList.DuplicatePersonException;
-
-import java.util.Set;
 
 /**
  * The API of the Model component.
