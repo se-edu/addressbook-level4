@@ -57,11 +57,20 @@
         <property name="sortImportsInGroupAlphabetically" value="true"/>
         <property name="separateLineBetweenGroups" value="true"/>
     </module>
+    
+    <!-- Checks for redundant import statements.
+    An import statement is redundant if:
+      * It is a duplicate of another import. This is, when a class is imported more than once.
+      * The class non-statically imported is from the java.lang package, e.g. importing java.lang.String.
+      * The class non-statically imported is from the same package as the current package.
+    -->
+    <module name="RedundantImport"/>
 
-    <module name="RedundantImport">
-      <!-- Checks for redundant import statements. -->
-      <property name="severity" value="error"/>
-    </module>
+    <!-- Checks for unused import statements.
+    An import statement is unused if:
+      It's not referenced in the file.
+    -->
+    <module name="UnusedImports"/>
 
     <module name="AvoidStarImport">
       <property name="allowClassImports" value="false"/>
