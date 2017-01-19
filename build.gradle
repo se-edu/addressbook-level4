@@ -45,8 +45,6 @@ allprojects {
         checkstyleVersion = '7.1.2'
 
         libDir = 'lib'
-        docsDir = 'docs'
-        generatedDocsDir = "${buildDir}/docs"
     }
 
     checkstyle {
@@ -187,8 +185,8 @@ allTests.mustRunAfter headless
 
 asciidoctor {
     backends 'html5'
-    sourceDir = file("${docsDir}")
-    outputDir = file("${generatedDocsDir}")
+    sourceDir = file('docs')
+    outputDir = file("${buildDir}/docs")
 
     attributes linkcss: true,
                stylesdir: 'stylesheets',
@@ -201,14 +199,14 @@ asciidoctor {
                idprefix: ''  // for compatibility with GitHub preview
 }
 
-/**
- * Copies stylesheets into the directory containing generated HTML files as
- * Asciidoctor does not copy linked CSS files to the output directory when rendering.
- * This is needed for linked stylesheets and embedded stylesheets which import other files.
- */
+/*
+ Copies stylesheets into the directory containing generated HTML files as
+ Asciidoctor does not copy linked CSS files to the output directory when rendering.
+ This is needed for linked stylesheets and embedded stylesheets which import other files.
+*/
 task copyStylesheets(type: Copy) {
-    from "${docsDir}/stylesheets"
-    into "${generatedDocsDir}/html5/stylesheets"
+    from file("${asciidoctor.sourceDir}/stylesheets")
+    into file("${asciidoctor.outputDir}/html5/stylesheets")
 }
 asciidoctor.dependsOn copyStylesheets
 
