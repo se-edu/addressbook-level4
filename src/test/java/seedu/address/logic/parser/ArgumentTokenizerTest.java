@@ -4,6 +4,7 @@ import org.junit.Test;
 import seedu.address.logic.parser.ArgumentTokenizer.Prefix;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 
@@ -32,11 +33,11 @@ public class ArgumentTokenizerTest {
     }
 
     private void assertPreamblePresent(ArgumentTokenizer argsTokenizer, String expectedPreamble) {
-        assertEquals(expectedPreamble, argsTokenizer.getPreamble().get());
+        assertEquals(expectedPreamble, argsTokenizer.getPreamble());
     }
 
     private void assertPreambleAbsent(ArgumentTokenizer argsTokenizer) {
-        assertFalse(argsTokenizer.getPreamble().isPresent());
+        assertTrue(argsTokenizer.getPreamble().isEmpty());
     }
 
     private void assertArgumentPresent(ArgumentTokenizer argsTokenizer, Prefix prefix, String... expectedValues) {
@@ -45,11 +46,11 @@ public class ArgumentTokenizerTest {
         assertEquals(expectedValues[expectedValues.length - 1], argsTokenizer.getValue(prefix).get());
 
         // Verify the number of values returned is as expected
-        assertEquals(expectedValues.length, argsTokenizer.getAllValues(prefix).get().size());
+        assertEquals(expectedValues.length, argsTokenizer.getAllValues(prefix).size());
 
         // Verify all values returned are as expected and in order
         for (int i = 0; i < expectedValues.length; i++) {
-            assertEquals(expectedValues[i], argsTokenizer.getAllValues(prefix).get().get(i));
+            assertEquals(expectedValues[i], argsTokenizer.getAllValues(prefix).get(i));
         }
     }
 
