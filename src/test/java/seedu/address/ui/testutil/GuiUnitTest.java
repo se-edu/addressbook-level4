@@ -15,15 +15,13 @@ public abstract class GuiUnitTest {
 
     protected GuiUnitTestApp testApp;
 
+    private static final int UI_UPDATE_SLEEP_DELAY = 1000;
+
     @Before
     public void setUp() throws Exception {
-        int desiredWidth = 200;
-        int desiredHeight = 120;
-
         FxToolkit.registerPrimaryStage();
         FxToolkit.hideStage();
-        testApp = (GuiUnitTestApp) FxToolkit.setupApplication(() ->
-                                                 new GuiUnitTestApp(desiredWidth, desiredHeight));
+        testApp = (GuiUnitTestApp) FxToolkit.setupApplication(() -> new GuiUnitTestApp());
     }
 
     /**
@@ -32,11 +30,41 @@ public abstract class GuiUnitTest {
      */
     protected GuiHandle addUiPart(UiPart<Region> part) {
         testApp.addUiPart(part);
+
+        // give time for UI addition to take effect
+        sleep(UI_UPDATE_SLEEP_DELAY);
+
         return getGuiHandle(part);
+    }
+
+    /**
+     * Clears all Ui parts that were inserted into the application.
+     */
+    protected void clearUiParts() {
+        testApp.clearUiParts();
+
+        // give time for UI addition to take effect
+        sleep(UI_UPDATE_SLEEP_DELAY);
     }
 
     /**
      * Creates an associated GuiHandle for the particular Ui component under test.
      */
     protected abstract GuiHandle getGuiHandle(UiPart<Region> part);
+
+    /**
+     * Sleeps this thread, allowing JavaFx threads to have a chance to run.
+     */
+    protected void sleep(int sleepDelayInMillis) {
+        try {
+            Thread.sleep(sleepDelayInMillis);
+        } catch (InterruptedException exception) {
+            /*
+             * Since sleep() must be called intentionally for JavaFx
+             * threads to have a chance to run, its failure will cause
+             * that to not happen at all, which is undesired behavior.
+             */
+            throw new RuntimeException(exception);
+        }
+    }
 }
