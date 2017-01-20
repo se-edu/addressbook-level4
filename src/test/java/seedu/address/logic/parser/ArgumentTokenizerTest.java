@@ -5,6 +5,7 @@ import seedu.address.logic.parser.ArgumentTokenizer.Prefix;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 
 public class ArgumentTokenizerTest {
@@ -42,7 +43,7 @@ public class ArgumentTokenizerTest {
     private void assertArgumentPresent(ArgumentTokenizer argsTokenizer, Prefix prefix, String... expectedValues) {
 
         // Verify the last value is returned
-        assertEquals(expectedValues[expectedValues.length - 1], argsTokenizer.getValue(prefix));
+        assertEquals(expectedValues[expectedValues.length - 1], argsTokenizer.getValue(prefix).get());
 
         // Verify the number of values returned is as expected
         assertEquals(expectedValues.length, argsTokenizer.getAllValues(prefix).size());
@@ -54,7 +55,7 @@ public class ArgumentTokenizerTest {
     }
 
     private void assertArgumentAbsent(ArgumentTokenizer argsTokenizer, Prefix prefix) {
-        assertTrue(argsTokenizer.getValue(prefix).isEmpty());
+        assertFalse(argsTokenizer.getValue(prefix).isPresent());
     }
 
     @Test

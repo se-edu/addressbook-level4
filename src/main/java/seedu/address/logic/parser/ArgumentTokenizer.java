@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Collections;
 
 /**
@@ -41,12 +42,15 @@ public class ArgumentTokenizer {
     }
 
     /**
-     * Returns last value of given prefix, if any.
-     * If the prefix does not exist or has no values, an empty string will be returned.
+     * Returns last value of given prefix.
      */
-    public String getValue(Prefix prefix) {
+    public Optional<String> getValue(Prefix prefix) {
         List<String> values = getAllValues(prefix);
-        return values.isEmpty() ? "" : values.get(values.size() - 1);
+        if (values.isEmpty()) {
+            return Optional.empty();
+        } else {
+            return Optional.of(values.get(values.size() - 1));
+        }
     }
 
     /**
@@ -62,10 +66,17 @@ public class ArgumentTokenizer {
 
     /**
      * Returns the preamble (text before the first valid prefix), if any. Leading/trailing spaces will be trimmed.
-     * If the string before the first prefix is empty, an empty string will be returned.
+     *     If the string before the first prefix is empty, an empty string will be returned.
      */
     public String getPreamble() {
-        return getValue(new Prefix(""));
+        Optional<String> storedPreamble = getValue(new Prefix(""));
+
+        /* An empty preamble is considered 'no preamble present' */
+        if (storedPreamble.isPresent() && !storedPreamble.get().isEmpty()) {
+            return storedPreamble.get();
+        } else {
+            return "";
+        }
     }
 
     private void resetTokenizerState() {
