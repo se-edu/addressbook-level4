@@ -20,7 +20,7 @@ public class HelpWindow extends UiPart<Region> {
     private static final String FXML = "HelpWindow.fxml";
     private static final String TITLE = "Help";
     private static final String USERGUIDE_URL =
-            "https://github.com/se-edu/addressbook-level4/blob/master/docs/UserGuide.md";
+            "https://se-edu.github.io/addressbook-level4/docs/UserGuide.html";
 
     @FXML
     private WebView browser;
