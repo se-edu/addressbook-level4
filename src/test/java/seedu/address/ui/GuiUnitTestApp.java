@@ -13,15 +13,17 @@ import javafx.stage.Stage;
  */
 public class GuiUnitTestApp extends Application {
 
-    static final int UI_UPDATE_SLEEP_DELAY = 1000;
+    private static final int UI_UPDATE_SLEEP_DELAY = 1000;
 
-    final int initialSceneWidth;
-    final int initialSceneHeight;
-    Stage stage;
-    AnchorPane mainPane;
-    GuiRobot guiRobot;
+    private final int initialSceneWidth;
+    private final int initialSceneHeight;
+    private final GuiRobot guiRobot;
 
-    public GuiUnitTestApp(int sceneWidth, int sceneHeight) {
+    private Stage stage;
+    private AnchorPane mainPane;
+
+    public GuiUnitTestApp(GuiRobot guiRobot, int sceneWidth, int sceneHeight) {
+        this.guiRobot = guiRobot;
         this.initialSceneWidth = sceneWidth;
         this.initialSceneHeight = sceneHeight;
     }
@@ -30,7 +32,6 @@ public class GuiUnitTestApp extends Application {
     public void start(Stage primaryStage) throws Exception {
         this.stage = primaryStage;
         this.mainPane = new AnchorPane();
-        this.guiRobot = new GuiRobot();
 
         Scene scene = new Scene(mainPane, initialSceneWidth, initialSceneHeight);
         stage.setScene(scene);
@@ -40,7 +41,7 @@ public class GuiUnitTestApp extends Application {
     /**
      * Adds a new UI part that is being tested into the scene.
      */
-    public <T> void addUiPart(UiPart<Region> part) {
+    public void addUiPart(UiPart<Region> part) {
         Platform.runLater(new Runnable() {
             @Override
             public void run() {

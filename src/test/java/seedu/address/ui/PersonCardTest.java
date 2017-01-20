@@ -7,29 +7,14 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.junit.Before;
 import org.junit.Test;
-import org.testfx.api.FxToolkit;
 
 import guitests.guihandles.PersonCardHandle;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.testutil.TestPerson;
 import seedu.address.testutil.TypicalTestPersons;
 
-public class PersonCardTest {
-
-    GuiUnitTestApp testApp;
-
-    @Before
-    public void setUp() throws Exception {
-        int desiredWidth = 200;
-        int desiredHeight = 120;
-
-        FxToolkit.registerPrimaryStage();
-        FxToolkit.hideStage();
-        testApp = (GuiUnitTestApp) FxToolkit.setupApplication(() ->
-                                                 new GuiUnitTestApp(desiredWidth, desiredHeight));
-    }
+public class PersonCardTest extends GuiUnitTest {
 
     @Test
     public void personCard_validPersonWithNoTags_labelsShowCorrectly() {
@@ -46,8 +31,8 @@ public class PersonCardTest {
      */
     private void assertCardDisplay(int validId, TestPerson validPerson) {
         PersonCard personCard = new PersonCard(validPerson, validId);
-        testApp.addUiPart(personCard);
-        PersonCardHandle personCardHandle = new PersonCardHandle(testApp.getGuiRobot(), testApp.getStage(),
+        getTestApp().addUiPart(personCard);
+        PersonCardHandle personCardHandle = new PersonCardHandle(getGuiRobot(), getTestApp().getStage(),
                                                                     personCard.getRoot());
 
         assertEquals(Integer.toString(validId) + ". ", personCardHandle.getId());
