@@ -68,11 +68,7 @@ public class ArgumentTokenizer {
         Optional<String> storedPreamble = getValue(new Prefix(""));
 
         /* An empty preamble is considered 'no preamble present' */
-        if (storedPreamble.isPresent() && !storedPreamble.get().isEmpty()) {
-            return storedPreamble.get();
-        } else {
-            return "";
-        }
+        return (storedPreamble.isPresent() && !storedPreamble.get().isEmpty()) ? storedPreamble.get() : "";
     }
 
     private void resetTokenizerState() {
