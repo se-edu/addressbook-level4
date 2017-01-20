@@ -36,6 +36,11 @@ public class GuiUnitTestApp extends Application {
 
     /**
      * Adds a new UI part that is being tested into the scene.
+     *
+     * This method blocks the main thread as it will have to wait
+     * for the JavaFx's thread to add the UI part to the application UI,
+     * otherwise the addition is not guaranteed to be completed when the
+     * method exits.
      */
     public void addUiPart(UiPart<Region> part) throws InterruptedException {
         runAndWait(() -> mainPane.getChildren().add(part.getRoot()));
@@ -43,6 +48,10 @@ public class GuiUnitTestApp extends Application {
 
     /**
      * Clears all UI parts added to the scene.
+     *
+     * This method blocks the main thread as it will have to wait
+     * for the JavaFx's thread to clear the UI parts, otherwise the
+     * clearing is not guaranteed to be completed when the method exits.
      */
     public void clearUiParts() throws InterruptedException {
         runAndWait(() -> mainPane.getChildren().clear());

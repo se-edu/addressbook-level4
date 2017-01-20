@@ -1,18 +1,31 @@
 package seedu.address.ui;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
+import org.junit.Rule;
 import org.junit.Test;
+import org.testfx.framework.junit.ApplicationRule;
 
 import guitests.GuiRobot;
-import guitests.guihandles.GuiHandle;
 import guitests.guihandles.PersonCardHandle;
-import javafx.scene.layout.Region;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.TestPerson;
-import seedu.address.ui.testutil.GuiUnitTest;
+import seedu.address.ui.testutil.GuiUnitTestApp;
 
-public class PersonCardTest extends GuiUnitTest {
+public class PersonCardTest {
+
+    private GuiUnitTestApp testApp;
+
+    @Rule
+    public ApplicationRule applicationRule = new ApplicationRule((stage) -> {
+        try {
+            testApp = new GuiUnitTestApp();
+            testApp.start(stage);
+        } catch (Exception e) {
+            fail("Unable to launch application.");
+        }
+    });
 
     @Test
     public void display() throws Exception {
@@ -23,7 +36,7 @@ public class PersonCardTest extends GuiUnitTest {
         TestPerson johnDoe = new PersonBuilder().withName("John Doe").withPhone("95458425")
                 .withEmail("johndoe@email.com").withAddress("4th Street").build();
         assertCardDisplay(1, johnDoe);
-        clearUiParts();
+        testApp.clearUiParts();
 
         // with tags
         TestPerson janeDoe = new PersonBuilder().withName("Jane Doe").withPhone("91043245")
@@ -39,7 +52,9 @@ public class PersonCardTest extends GuiUnitTest {
      */
     private void assertCardDisplay(int validId, TestPerson validPerson) throws Exception {
         PersonCard personCard = new PersonCard(validPerson, validId);
-        PersonCardHandle personCardHandle = (PersonCardHandle) addUiPart(personCard);
+        testApp.addUiPart(personCard);
+        PersonCardHandle personCardHandle = new PersonCardHandle(new GuiRobot(), testApp.getStage(),
+                personCard.getRoot());
 
         // verify id is displayed correctly
         assertEquals(Integer.toString(validId) + ". ", personCardHandle.getId());
@@ -52,10 +67,5 @@ public class PersonCardTest extends GuiUnitTest {
 
         // verify tags are displayed correctly
         assertEquals(validPerson.getTagsAsStringsList(), personCardHandle.getTags());
-    }
-
-    @Override
-    protected GuiHandle getGuiHandle(UiPart<Region> part) {
-        return new PersonCardHandle(new GuiRobot(), testApp.getStage(), part.getRoot());
     }
 }
