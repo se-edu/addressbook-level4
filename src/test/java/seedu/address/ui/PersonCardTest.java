@@ -17,12 +17,12 @@ import seedu.address.testutil.TypicalTestPersons;
 public class PersonCardTest extends GuiUnitTest {
 
     @Test
-    public void personCard_validPersonWithNoTags_labelsShowCorrectly() {
+    public void display_validPersonWithNoTags_labelsShowCorrectly() {
         assertCardDisplay(0, new TypicalTestPersons().george);
     }
 
     @Test
-    public void personCard_validPersonWithTags_labelsShowCorrectly() {
+    public void display_validPersonWithTags_labelsShowCorrectly() {
         assertCardDisplay(1, new TypicalTestPersons().alice);
     }
 
@@ -32,8 +32,9 @@ public class PersonCardTest extends GuiUnitTest {
     private void assertCardDisplay(int validId, TestPerson validPerson) {
         PersonCard personCard = new PersonCard(validPerson, validId);
         getTestApp().addUiPart(personCard);
-        PersonCardHandle personCardHandle = new PersonCardHandle(getGuiRobot(), getTestApp().getStage(),
-                                                                    personCard.getRoot());
+
+        PersonCardHandle personCardHandle =
+                new PersonCardHandle(getGuiRobot(), getTestApp().getStage(), personCard.getRoot());
 
         assertEquals(Integer.toString(validId) + ". ", personCardHandle.getId());
         assertEquals(validPerson.getName().toString(), personCardHandle.getFullName());
