@@ -1,5 +1,7 @@
 package seedu.address.ui.testutil;
 
+import static org.junit.Assert.fail;
+
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.Scene;
@@ -84,5 +86,20 @@ public class GuiUnitTestApp extends Application {
 
     public Stage getStage() {
         return stage;
+    }
+
+    /**
+     * Creates a {@link GuiUnitTestApp} with the stage assigned to it.
+     */
+    public static GuiUnitTestApp spawnApp(Stage stage) {
+        try {
+            GuiUnitTestApp testApp = new GuiUnitTestApp();
+            testApp.start(stage);
+            return testApp;
+
+        } catch (Exception e) {
+            fail("Unable to launch application.");
+            return null;
+        }
     }
 }

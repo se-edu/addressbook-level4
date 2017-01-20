@@ -1,7 +1,6 @@
 package seedu.address.ui;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -18,14 +17,7 @@ public class PersonCardTest {
     private GuiUnitTestApp testApp;
 
     @Rule
-    public ApplicationRule applicationRule = new ApplicationRule((stage) -> {
-        try {
-            testApp = new GuiUnitTestApp();
-            testApp.start(stage);
-        } catch (Exception e) {
-            fail("Unable to launch application.");
-        }
-    });
+    public ApplicationRule applicationRule = new ApplicationRule((stage) -> testApp = GuiUnitTestApp.spawnApp(stage));
 
     @Test
     public void display() throws Exception {
