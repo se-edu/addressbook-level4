@@ -1,6 +1,5 @@
 package seedu.address.ui;
 
-import guitests.GuiRobot;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.Scene;
@@ -10,6 +9,11 @@ import javafx.stage.Stage;
 
 /**
  * A dummy application for unit testing of a single GUI component.
+ *
+ * Instead of creating the entire interface (like {@link seedu.address.TestApp}),
+ * {@link GuiUnitTestApp} creates a blank window, and allow insertion of a
+ * single UiPart. This allows the GUI component to be isolated from other
+ * GUI components for unit testing purposes.
  */
 public class GuiUnitTestApp extends Application {
 
@@ -17,13 +21,11 @@ public class GuiUnitTestApp extends Application {
 
     private final int initialSceneWidth;
     private final int initialSceneHeight;
-    private final GuiRobot guiRobot;
 
     private Stage stage;
     private AnchorPane mainPane;
 
-    public GuiUnitTestApp(GuiRobot guiRobot, int sceneWidth, int sceneHeight) {
-        this.guiRobot = guiRobot;
+    public GuiUnitTestApp(int sceneWidth, int sceneHeight) {
         this.initialSceneWidth = sceneWidth;
         this.initialSceneHeight = sceneHeight;
     }
@@ -49,8 +51,12 @@ public class GuiUnitTestApp extends Application {
             }
         });
 
-        // give time for UI addition to take effect
-        guiRobot.sleep(UI_UPDATE_SLEEP_DELAY);
+        try {
+            // give time for UI addition to take effect
+            Thread.sleep(UI_UPDATE_SLEEP_DELAY);
+        } catch (InterruptedException ie) {
+
+        }
     }
 
     /**
@@ -64,12 +70,12 @@ public class GuiUnitTestApp extends Application {
             }
         });
 
-        // give time for UI clearing to take effect
-        guiRobot.sleep(UI_UPDATE_SLEEP_DELAY);
-    }
+        try {
+            // give time for UI addition to take effect
+            Thread.sleep(UI_UPDATE_SLEEP_DELAY);
+        } catch (InterruptedException ie) {
 
-    public GuiRobot getGuiRobot() {
-        return guiRobot;
+        }
     }
 
     public Stage getStage() {

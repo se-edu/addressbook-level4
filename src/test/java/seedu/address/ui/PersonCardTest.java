@@ -31,10 +31,7 @@ public class PersonCardTest extends GuiUnitTest {
      */
     private void assertCardDisplay(int validId, TestPerson validPerson) {
         PersonCard personCard = new PersonCard(validPerson, validId);
-        getTestApp().addUiPart(personCard);
-
-        PersonCardHandle personCardHandle =
-                new PersonCardHandle(getGuiRobot(), getTestApp().getStage(), personCard.getRoot());
+        PersonCardHandle personCardHandle = (PersonCardHandle) addUiPart(personCard);
 
         assertEquals(Integer.toString(validId) + ". ", personCardHandle.getId());
         assertEquals(validPerson.getName().toString(), personCardHandle.getFullName());

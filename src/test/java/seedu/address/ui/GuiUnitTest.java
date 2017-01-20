@@ -4,6 +4,9 @@ import org.junit.Before;
 import org.testfx.api.FxToolkit;
 
 import guitests.GuiRobot;
+import guitests.guihandles.GuiHandle;
+import guitests.guihandles.PersonCardHandle;
+import javafx.scene.layout.Region;
 
 /**
  * Serves as a base class for a GUI unit test, as it sets up
@@ -12,26 +15,35 @@ import guitests.GuiRobot;
 public class GuiUnitTest {
 
     private GuiUnitTestApp testApp;
-    private GuiRobot guiRobot;
 
     @Before
     public void setUp() throws Exception {
         int desiredWidth = 200;
         int desiredHeight = 120;
 
-        guiRobot = new GuiRobot();
-
         FxToolkit.registerPrimaryStage();
         FxToolkit.hideStage();
         testApp = (GuiUnitTestApp) FxToolkit.setupApplication(() ->
-                                                 new GuiUnitTestApp(guiRobot, desiredWidth, desiredHeight));
+                                                 new GuiUnitTestApp(desiredWidth, desiredHeight));
     }
 
-    protected GuiUnitTestApp getTestApp() {
-        return testApp;
+    /**
+     * Adds a new Ui part that is being tested into the application, and returns
+     * an associated GuiHandle for the Ui part.
+     */
+    protected GuiHandle addUiPart(UiPart<Region> part) {
+        testApp.addUiPart(part);
+        return getGuiHandle(part);
     }
 
-    protected GuiRobot getGuiRobot() {
-        return guiRobot;
+    /**
+     * Creates an associated GuiHandle for a particular Ui component.
+     */
+    private GuiHandle getGuiHandle(UiPart<Region> part) {
+        if (part.getClass() == PersonCard.class) {
+            return new PersonCardHandle(new GuiRobot(), testApp.getStage(), part.getRoot());
+        }
+
+        return null;
     }
 }
