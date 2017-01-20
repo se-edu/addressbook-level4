@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
+import java.util.Collections;
 
 /**
  * Tokenizes arguments string of the form: {@code preamble <prefix>value <prefix>value ...}<br>
@@ -41,37 +41,31 @@ public class ArgumentTokenizer {
     }
 
     /**
-     * Returns last value of given prefix.
+     * Returns last value of given prefix, if any.
+     * If the prefix does not exist or has no values, an empty string will be returned.
      */
-    public Optional<String> getValue(Prefix prefix) {
-        return getAllValues(prefix).flatMap((values) -> Optional.of(values.get(values.size() - 1)));
+    public String getValue(Prefix prefix) {
+        List<String> values = getAllValues(prefix);
+        return values.isEmpty() ? "" : values.get(values.size() - 1);
     }
 
     /**
-     * Returns all values of given prefix.
+     * Returns all values of given prefix, if any.
+     * If the prefix does not exist or has no values, an empty list will be returned.
      */
-    public Optional<List<String>> getAllValues(Prefix prefix) {
+    public List<String> getAllValues(Prefix prefix) {
         if (!this.tokenizedArguments.containsKey(prefix)) {
-            return Optional.empty();
+            return Collections.emptyList();
         }
-        List<String> values = new ArrayList<>(this.tokenizedArguments.get(prefix));
-        return Optional.of(values);
+        return new ArrayList<>(this.tokenizedArguments.get(prefix));
     }
 
     /**
      * Returns the preamble (text before the first valid prefix), if any. Leading/trailing spaces will be trimmed.
-     *     If the string before the first prefix is empty, Optional.empty() will be returned.
+     * If the string before the first prefix is empty, an empty string will be returned.
      */
-    public Optional<String> getPreamble() {
-
-        Optional<String> storedPreamble = getValue(new Prefix(""));
-
-        /* An empty preamble is considered 'no preamble present' */
-        if (storedPreamble.isPresent() && !storedPreamble.get().isEmpty()) {
-            return storedPreamble;
-        } else {
-            return Optional.empty();
-        }
+    public String getPreamble() {
+        return getValue(new Prefix(""));
     }
 
     private void resetTokenizerState() {

@@ -116,10 +116,10 @@ public class Parser {
         argsTokenizer.tokenize(args);
         try {
             return new AddCommand(
-                    argsTokenizer.getPreamble().get(),
-                    argsTokenizer.getValue(phoneNumberPrefix).get(),
-                    argsTokenizer.getValue(emailPrefix).get(),
-                    argsTokenizer.getValue(addressPrefix).get(),
+                    argsTokenizer.getPreamble(),
+                    argsTokenizer.getValue(phoneNumberPrefix),
+                    argsTokenizer.getValue(emailPrefix),
+                    argsTokenizer.getValue(addressPrefix),
                     toSet(argsTokenizer.getAllValues(tagsPrefix))
             );
         } catch (NoSuchElementException nsee) {
@@ -129,19 +129,18 @@ public class Parser {
         }
     }
 
-    private Set<String> toSet(Optional<List<String>> tagsOptional) {
-        List<String> tags = tagsOptional.orElse(Collections.emptyList());
+    private Set<String> toSet(List<String> tags) {
         return new HashSet<>(tags);
     }
 
     /**
     * Splits a preamble string into ordered fields.
     * @return A list of size {@code numFields} where the ith element is the ith field value if specified in
-    *         the input, {@code Optional.empty()} otherwise.
+    *         the input, an empty string otherwise.
     */
-    private List<Optional<String>> splitPreamble(String preamble, int numFields) {
+    private List<String> splitPreamble(String preamble, int numFields) {
         return Arrays.stream(Arrays.copyOf(preamble.split("\\s+", numFields), numFields))
-                .map(Optional::ofNullable)
+                .map(field -> field == null ? "" : field)
                 .collect(Collectors.toList());
     }
 
@@ -156,9 +155,9 @@ public class Parser {
         ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(phoneNumberPrefix, emailPrefix,
                                                                 addressPrefix, tagsPrefix);
         argsTokenizer.tokenize(args);
-        List<Optional<String>> preambleFields = splitPreamble(argsTokenizer.getPreamble().orElse(""), 2);
+        List<String> preambleFields = splitPreamble(argsTokenizer.getPreamble(), 2);
 
-        Optional<Integer> index = preambleFields.get(0).flatMap(this::parseIndex);
+        Optional<Integer> index = parseIndex(preambleFields.get(0));
         if (!index.isPresent()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         }
@@ -182,35 +181,31 @@ public class Parser {
     }
 
     /**
-     * Parses a {@code Optional<String> name} into an {@code Optional<Name>} if {@code name} is present.
+     * Parses a {@code String name} into an {@code Optional<Name>} if {@code name} is present.
      */
-    private Optional<Name> parseName(Optional<String> name) throws IllegalValueException {
-        assert name != null;
-        return name.isPresent() ? Optional.of(new Name(name.get())) : Optional.empty();
+    private Optional<Name> parseName(String name) throws IllegalValueException {
+        return name.isEmpty() ? Optional.empty() : Optional.of(new Name(name));
     }
 
     /**
-     * Parses a {@code Optional<String> phone} into an {@code Optional<Phone>} if {@code phone} is present.
+     * Parses a {@code String phone} into an {@code Optional<Phone>} if {@code phone} is present.
      */
-    private Optional<Phone> parsePhone(Optional<String> phone) throws IllegalValueException {
-        assert phone != null;
-        return phone.isPresent() ? Optional.of(new Phone(phone.get())) : Optional.empty();
+    private Optional<Phone> parsePhone(String phone) throws IllegalValueException {
+        return phone.isEmpty() ? Optional.empty() : Optional.of(new Phone(phone));
     }
 
     /**
-     * Parses a {@code Optional<String> address} into an {@code Optional<Address>} if {@code address} is present.
+     * Parses a {@code String address} into an {@code Optional<Address>} if {@code address} is present.
      */
-    private Optional<Address> parseAddress(Optional<String> address) throws IllegalValueException {
-        assert address != null;
-        return address.isPresent() ? Optional.of(new Address(address.get())) : Optional.empty();
+    private Optional<Address> parseAddress(String address) throws IllegalValueException {
+        return address.isEmpty() ? Optional.empty() : Optional.of(new Address(address));
     }
 
     /**
-     * Parses a {@code Optional<String> email} into an {@code Optional<Email>} if {@code email} is present.
+     * Parses a {@code String email} into an {@code Optional<Email>} if {@code email} is present.
      */
-    private Optional<Email> parseEmail(Optional<String> email) throws IllegalValueException {
-        assert email != null;
-        return email.isPresent() ? Optional.of(new Email(email.get())) : Optional.empty();
+    private Optional<Email> parseEmail(String email) throws IllegalValueException {
+        return email.isEmpty() ? Optional.empty() : Optional.of(new Email(email));
     }
 
     /**
@@ -288,7 +283,6 @@ public class Parser {
             return Optional.empty();
         }
         return Optional.of(Integer.parseInt(index));
-
     }
 
     /**
