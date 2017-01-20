@@ -28,11 +28,11 @@ public abstract class GuiUnitTest {
      * Adds a new Ui part that is being tested into the application, and returns
      * an associated GuiHandle for the Ui part.
      */
-    protected GuiHandle addUiPart(UiPart<Region> part) {
+    protected GuiHandle addUiPart(UiPart<Region> part) throws InterruptedException {
         testApp.addUiPart(part);
 
         // give time for UI addition to take effect
-        sleep(UI_UPDATE_SLEEP_DELAY);
+        Thread.sleep(UI_UPDATE_SLEEP_DELAY);
 
         return getGuiHandle(part);
     }
@@ -40,31 +40,15 @@ public abstract class GuiUnitTest {
     /**
      * Clears all Ui parts that were inserted into the application.
      */
-    protected void clearUiParts() {
+    protected void clearUiParts() throws InterruptedException {
         testApp.clearUiParts();
 
         // give time for UI addition to take effect
-        sleep(UI_UPDATE_SLEEP_DELAY);
+        Thread.sleep(UI_UPDATE_SLEEP_DELAY);
     }
 
     /**
      * Creates an associated GuiHandle for the particular Ui component under test.
      */
     protected abstract GuiHandle getGuiHandle(UiPart<Region> part);
-
-    /**
-     * Sleeps this thread, allowing JavaFx threads to have a chance to run.
-     */
-    protected void sleep(int sleepDelayInMillis) {
-        try {
-            Thread.sleep(sleepDelayInMillis);
-        } catch (InterruptedException exception) {
-            /*
-             * Since sleep() must be called intentionally for JavaFx
-             * threads to have a chance to run, its failure will cause
-             * that to not happen at all, which is undesired behavior.
-             */
-            throw new RuntimeException(exception);
-        }
-    }
 }
