@@ -55,7 +55,7 @@ public class ArgumentTokenizer {
 
     /**
      * Returns all values of given prefix, if any.
-     * If the prefix does not exist or has no values, an empty list will be returned.
+     * If the prefix does not exist or has no values, returns an empty list.
      */
     public List<String> getAllValues(Prefix prefix) {
         if (!this.tokenizedArguments.containsKey(prefix)) {
@@ -65,8 +65,8 @@ public class ArgumentTokenizer {
     }
 
     /**
-     * Returns the preamble (text before the first valid prefix), if any. Leading/trailing spaces will be trimmed.
-     *     If the string before the first prefix is empty, an empty string will be returned.
+     * Returns the preamble (text before the first valid prefix), if any. Trims any leading/trailing spaces.
+     * If the string before the first prefix is empty, returns an empty string.
      */
     public String getPreamble() {
         Optional<String> storedPreamble = getValue(new Prefix(""));
