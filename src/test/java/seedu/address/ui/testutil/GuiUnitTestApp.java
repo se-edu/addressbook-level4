@@ -1,4 +1,4 @@
-package seedu.address.ui;
+package seedu.address.ui.testutil;
 
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.stage.Stage;
+import seedu.address.ui.UiPart;
 
 /**
  * A dummy application for unit testing of a single GUI component.
@@ -51,12 +52,9 @@ public class GuiUnitTestApp extends Application {
             }
         });
 
-        try {
-            // give time for UI addition to take effect
-            Thread.sleep(UI_UPDATE_SLEEP_DELAY);
-        } catch (InterruptedException ie) {
+        // give time for UI addition to take effect
+        sleep(UI_UPDATE_SLEEP_DELAY);
 
-        }
     }
 
     /**
@@ -70,15 +68,27 @@ public class GuiUnitTestApp extends Application {
             }
         });
 
-        try {
-            // give time for UI addition to take effect
-            Thread.sleep(UI_UPDATE_SLEEP_DELAY);
-        } catch (InterruptedException ie) {
-
-        }
+        // give time for UI addition to take effect
+        sleep(UI_UPDATE_SLEEP_DELAY);
     }
 
     public Stage getStage() {
         return stage;
+    }
+
+    /**
+     * Sleeps this thread, allowing JavaFx threads to have a chance to run.
+     */
+    private void sleep(int sleepDelayInMillis) {
+        try {
+            Thread.sleep(sleepDelayInMillis);
+        } catch (InterruptedException exception) {
+            /*
+             * Since sleep() must be called intentionally for JavaFx
+             * threads to have a chance to run, its failure will cause
+             * that to not happen at all, which is undesired behavior.
+             */
+            throw new RuntimeException(exception);
+        }
     }
 }

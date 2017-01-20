@@ -9,10 +9,14 @@ import java.util.Set;
 
 import org.junit.Test;
 
+import guitests.GuiRobot;
+import guitests.guihandles.GuiHandle;
 import guitests.guihandles.PersonCardHandle;
+import javafx.scene.layout.Region;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.testutil.TestPerson;
 import seedu.address.testutil.TypicalTestPersons;
+import seedu.address.ui.testutil.GuiUnitTest;
 
 public class PersonCardTest extends GuiUnitTest {
 
@@ -51,5 +55,10 @@ public class PersonCardTest extends GuiUnitTest {
         expectedTags.forEach((tag) -> expectedTagsSet.add(tag.tagName));
         actualTags.forEach((tag) -> actualTagsSet.add(tag));
         assertTrue(expectedTagsSet.equals(actualTagsSet));
+    }
+
+    @Override
+    protected GuiHandle getGuiHandle(UiPart<Region> part) {
+        return new PersonCardHandle(new GuiRobot(), testApp.getStage(), part.getRoot());
     }
 }

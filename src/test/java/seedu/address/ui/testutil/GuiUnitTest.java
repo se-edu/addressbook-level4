@@ -1,20 +1,19 @@
-package seedu.address.ui;
+package seedu.address.ui.testutil;
 
 import org.junit.Before;
 import org.testfx.api.FxToolkit;
 
-import guitests.GuiRobot;
 import guitests.guihandles.GuiHandle;
-import guitests.guihandles.PersonCardHandle;
 import javafx.scene.layout.Region;
+import seedu.address.ui.UiPart;
 
 /**
  * Serves as a base class for a GUI unit test, as it sets up
  * an application that allows testing for a single GUI component.
  */
-public class GuiUnitTest {
+public abstract class GuiUnitTest {
 
-    private GuiUnitTestApp testApp;
+    protected GuiUnitTestApp testApp;
 
     @Before
     public void setUp() throws Exception {
@@ -37,13 +36,7 @@ public class GuiUnitTest {
     }
 
     /**
-     * Creates an associated GuiHandle for a particular Ui component.
+     * Creates an associated GuiHandle for the particular Ui component under test.
      */
-    private GuiHandle getGuiHandle(UiPart<Region> part) {
-        if (part.getClass() == PersonCard.class) {
-            return new PersonCardHandle(new GuiRobot(), testApp.getStage(), part.getRoot());
-        }
-
-        return null;
-    }
+    protected abstract GuiHandle getGuiHandle(UiPart<Region> part);
 }
