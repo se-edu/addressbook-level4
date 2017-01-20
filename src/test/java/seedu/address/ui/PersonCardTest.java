@@ -2,9 +2,7 @@ package seedu.address.ui;
 
 import static org.junit.Assert.assertEquals;
 
-import org.junit.Rule;
 import org.junit.Test;
-import org.testfx.framework.junit.ApplicationRule;
 
 import guitests.GuiRobot;
 import guitests.guihandles.PersonCardHandle;
@@ -14,10 +12,7 @@ import seedu.address.ui.testutil.GuiUnitTestApp;
 
 public class PersonCardTest {
 
-    private GuiUnitTestApp testApp;
-
-    @Rule
-    public ApplicationRule applicationRule = new ApplicationRule((stage) -> testApp = GuiUnitTestApp.spawnApp(stage));
+    private GuiUnitTestApp testApp = GuiUnitTestApp.spawnApp();
 
     @Test
     public void display() throws Exception {
