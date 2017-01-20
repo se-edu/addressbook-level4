@@ -7,71 +7,66 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.junit.Rule;
+import org.junit.Before;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
-import org.testfx.framework.junit.ApplicationTest;
+import org.testfx.api.FxToolkit;
 
-import javafx.scene.Node;
-import javafx.scene.control.Label;
-import javafx.stage.Stage;
+import guitests.guihandles.PersonCardHandle;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.testutil.TestPerson;
 import seedu.address.testutil.TypicalTestPersons;
 
-public class PersonCardTest extends ApplicationTest {
+public class PersonCardTest {
 
-    @Rule
-    public ExpectedException thrown = ExpectedException.none();
+    GuiUnitTestApp testApp;
 
-    @Test
-    public void personCard_nullPerson_throwsNullException() {
-        thrown.expect(NullPointerException.class);
-        new PersonCard(null, 0);
+    @Before
+    public void setUp() throws Exception {
+        int desiredWidth = 200;
+        int desiredHeight = 120;
+
+        FxToolkit.registerPrimaryStage();
+        FxToolkit.hideStage();
+        testApp = (GuiUnitTestApp) FxToolkit.setupApplication(() ->
+                                                 new GuiUnitTestApp(desiredWidth, desiredHeight));
     }
 
     @Test
-    public void personCard_validPerson_labelsShowCorrectly() {
+    public void personCard_validPersonWithNoTags_labelsShowCorrectly() {
         assertCardDisplay(0, new TypicalTestPersons().george);
-        assertCardDisplay(1, new TypicalTestPersons().alice);
     }
 
-    @Override
-    public void start(Stage stage) throws Exception {
-        // needed, otherwise we get an error saying toolkit is not initialized
+    @Test
+    public void personCard_validPersonWithTags_labelsShowCorrectly() {
+        assertCardDisplay(1, new TypicalTestPersons().alice);
     }
 
     /**
      * Asserts that the card displays the details correctly, given a valid person.
      */
     private void assertCardDisplay(int validId, TestPerson validPerson) {
-        TestPersonCard personCard = new TestPersonCard(validPerson, validId);
+        PersonCard personCard = new PersonCard(validPerson, validId);
+        testApp.addUiPart(personCard);
+        PersonCardHandle personCardHandle = new PersonCardHandle(testApp.getGuiRobot(), testApp.getStage(),
+                                                                    personCard.getRoot());
 
-        assertLabelContent(Integer.toString(validId) + ". ", personCard.getIdLabel());
-        assertLabelContent(validPerson.getName().toString(), personCard.getNameLabel());
-        assertLabelContent(validPerson.getPhone().toString(), personCard.getPhoneLabel());
-        assertLabelContent(validPerson.getAddress().toString(), personCard.getAddressLabel());
-        assertLabelContent(validPerson.getEmail().toString(), personCard.getEmailLabel());
-        assertTagsContent(validPerson.getTags(), personCard.getTagPane().getChildren());
+        assertEquals(Integer.toString(validId) + ". ", personCardHandle.getId());
+        assertEquals(validPerson.getName().toString(), personCardHandle.getFullName());
+        assertEquals(validPerson.getPhone().toString(), personCardHandle.getPhone());
+        assertEquals(validPerson.getAddress().toString(), personCardHandle.getAddress());
+        assertEquals(validPerson.getEmail().toString(), personCardHandle.getEmail());
+        assertTagsContent(validPerson.getTags(), personCardHandle.getTags());
     }
 
     /**
      * Asserts that the card creates all the tag labels correctly, given a list of valid tags.
      */
-    private void assertTagsContent(UniqueTagList expectedTags, List<Node> actualTagLabels) {
+    private void assertTagsContent(UniqueTagList expectedTags, List<String> actualTags) {
         Set<String> expectedTagsSet = new HashSet<String>();
         Set<String> actualTagsSet = new HashSet<String>();
 
         expectedTags.forEach((tag) -> expectedTagsSet.add(tag.tagName));
-        actualTagLabels.forEach((node) -> actualTagsSet.add(((Label) node).getText()));
-
+        actualTags.forEach((tag) -> actualTagsSet.add(tag));
         assertTrue(expectedTagsSet.equals(actualTagsSet));
-    }
-
-    /**
-     * Asserts that the label is displaying the correct content.
-     */
-    private void assertLabelContent(String expectedContent, Label actualLabel) {
-        assertEquals(expectedContent, actualLabel.getText());
     }
 }
