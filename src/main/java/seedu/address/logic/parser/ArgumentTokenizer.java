@@ -46,11 +46,7 @@ public class ArgumentTokenizer {
      */
     public Optional<String> getValue(Prefix prefix) {
         List<String> values = getAllValues(prefix);
-        if (values.isEmpty()) {
-            return Optional.empty();
-        } else {
-            return Optional.of(values.get(values.size() - 1));
-        }
+        return values.isEmpty() ? Optional.empty() : Optional.of(values.get(values.size() - 1));
     }
 
     /**
