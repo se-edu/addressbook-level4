@@ -12,19 +12,19 @@ public class PersonCard extends UiPart<Region> {
     private static final String FXML = "PersonListCard.fxml";
 
     @FXML
-    private HBox cardPane;
+    protected HBox cardPane;
     @FXML
-    private Label name;
+    protected Label name;
     @FXML
-    private Label id;
+    protected Label id;
     @FXML
-    private Label phone;
+    protected Label phone;
     @FXML
-    private Label address;
+    protected Label address;
     @FXML
-    private Label email;
+    protected Label email;
     @FXML
-    private FlowPane tags;
+    protected FlowPane tags;
 
     public PersonCard(ReadOnlyPerson person, int displayedIndex) {
         super(FXML);
