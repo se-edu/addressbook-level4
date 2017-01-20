@@ -4,7 +4,7 @@
 set -o errexit # exit with nonzero exit code if any line fails
 
 if [ -z "$GITHUB_TOKEN" ]; then
-  echo "GITHUB_TOKEN is not set up in Travis. Skipping deploy."
+  echo 'GITHUB_TOKEN is not set up in Travis. Skipping deploy.'
   exit 0
 fi;
 
@@ -13,10 +13,10 @@ set -o nounset # exit if variable is unset
 cd build/docs/html5
 
 git init
-git config user.name "Deployment Bot (Travis)"
-git config user.email "deploy@travis-ci.org"
+git config user.name 'Deployment Bot (Travis)'
+git config user.email 'deploy@travis-ci.org'
 
-git config credential.helper "store --file=.git/credentials"
+git config credential.helper 'store --file=.git/credentials'
 echo "https://${GITHUB_TOKEN}:@github.com" > .git/credentials
 
 git remote add upstream "https://github.com/${TRAVIS_REPO_SLUG}.git"
@@ -33,7 +33,7 @@ fi
 
 # Exit if there are no changes to gh-pages files.
 if changes=$(git status --porcelain) && [ -z "$changes" ]; then
-    echo "No changes to GitHub Pages files; exiting."
+    echo 'No changes to GitHub Pages files; exiting.'
     exit 0
 fi
 
