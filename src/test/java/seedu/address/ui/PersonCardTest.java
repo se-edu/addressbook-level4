@@ -20,16 +20,14 @@ public class PersonCardTest extends GuiUnitTest {
         testApp.setStageHeight(120);
 
         // no tags
-        TestPerson johnDoe = new PersonBuilder().withName("John Doe")
-                                .withPhone("95458425").withEmail("johndoe@email.com")
-                                .withAddress("4th Street").build();
+        TestPerson johnDoe = new PersonBuilder().withName("John Doe").withPhone("95458425")
+                .withEmail("johndoe@email.com").withAddress("4th Street").build();
         assertCardDisplay(1, johnDoe);
         clearUiParts();
 
         // with tags
-        TestPerson janeDoe = new PersonBuilder().withName("Jane Doe")
-                                .withPhone("91043245").withEmail("janedoe@email.com")
-                                .withAddress("6th Street").withTags("friends").build();
+        TestPerson janeDoe = new PersonBuilder().withName("Jane Doe").withPhone("91043245")
+                .withEmail("janedoe@email.com").withAddress("6th Street").withTags("friends").build();
         assertCardDisplay(2, janeDoe);
     }
 

@@ -15,8 +15,6 @@ public abstract class GuiUnitTest {
 
     protected GuiUnitTestApp testApp;
 
-    private static final int UI_UPDATE_SLEEP_DELAY = 1000;
-
     @Before
     public void setUp() throws Exception {
         FxToolkit.registerPrimaryStage();
@@ -30,10 +28,6 @@ public abstract class GuiUnitTest {
      */
     protected GuiHandle addUiPart(UiPart<Region> part) throws InterruptedException {
         testApp.addUiPart(part);
-
-        // give time for UI addition to take effect
-        Thread.sleep(UI_UPDATE_SLEEP_DELAY);
-
         return getGuiHandle(part);
     }
 
@@ -42,9 +36,6 @@ public abstract class GuiUnitTest {
      */
     protected void clearUiParts() throws InterruptedException {
         testApp.clearUiParts();
-
-        // give time for UI addition to take effect
-        Thread.sleep(UI_UPDATE_SLEEP_DELAY);
     }
 
     /**
