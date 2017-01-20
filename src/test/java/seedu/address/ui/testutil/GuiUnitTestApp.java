@@ -2,10 +2,6 @@ package seedu.address.ui.testutil;
 
 import static org.junit.Assert.fail;
 
-import java.util.concurrent.TimeoutException;
-
-import org.testfx.api.FxToolkit;
-
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.Scene;
@@ -95,12 +91,13 @@ public class GuiUnitTestApp extends Application {
     /**
      * Creates a {@link GuiUnitTestApp} with the stage assigned to it.
      */
-    public static GuiUnitTestApp spawnApp() {
+    public static GuiUnitTestApp spawnApp(Stage stage) {
         try {
-            FxToolkit.registerPrimaryStage();
-            return (GuiUnitTestApp) FxToolkit.setupApplication(() -> new GuiUnitTestApp());
+            GuiUnitTestApp testApp = new GuiUnitTestApp();
+            testApp.start(stage);
+            return testApp;
 
-        } catch (TimeoutException e) {
+        } catch (Exception e) {
             fail("Unable to launch application.");
             return null;
         }

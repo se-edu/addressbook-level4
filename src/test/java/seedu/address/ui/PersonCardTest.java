@@ -2,6 +2,7 @@ package seedu.address.ui;
 
 import static org.junit.Assert.assertEquals;
 
+import org.junit.Rule;
 import org.junit.Test;
 
 import guitests.GuiRobot;
@@ -9,13 +10,17 @@ import guitests.guihandles.PersonCardHandle;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.TestPerson;
 import seedu.address.ui.testutil.GuiUnitTestApp;
+import seedu.address.ui.testutil.GuiUnitTestApplicationRule;
 
 public class PersonCardTest {
 
-    private GuiUnitTestApp testApp = GuiUnitTestApp.spawnApp();
+    @Rule
+    public GuiUnitTestApplicationRule applicationRule = new GuiUnitTestApplicationRule();
 
     @Test
     public void display() throws Exception {
+        GuiUnitTestApp testApp = applicationRule.getTestApp();
+
         testApp.setStageWidth(200);
         testApp.setStageHeight(120);
 
@@ -38,6 +43,8 @@ public class PersonCardTest {
      * @param validPerson contact details
      */
     private void assertCardDisplay(int validId, TestPerson validPerson) throws Exception {
+        GuiUnitTestApp testApp = applicationRule.getTestApp();
+
         PersonCard personCard = new PersonCard(validPerson, validId);
         testApp.addUiPart(personCard);
         PersonCardHandle personCardHandle = new PersonCardHandle(new GuiRobot(), testApp.getStage(),
