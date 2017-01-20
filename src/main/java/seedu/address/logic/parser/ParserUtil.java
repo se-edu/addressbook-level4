@@ -45,15 +45,6 @@ public class ParserUtil {
     }
 
     /**
-     * Returns a new Set populated by all elements in the given list of strings
-     * Returns an empty set if the given {@code Optional} is empty,
-     * or if the list contained in the {@code Optional} is empty
-     */
-    public static Set<String> toSet(List<String> list) {
-        return new HashSet<>(list);
-    }
-
-    /**
     * Splits a preamble string into ordered fields.
     * @return A list of size {@code numFields} where the ith element is the ith field value if specified in
     *         the input, {@code Optional.empty()} otherwise.
