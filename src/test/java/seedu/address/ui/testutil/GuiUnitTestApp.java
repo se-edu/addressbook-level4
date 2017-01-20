@@ -11,10 +11,10 @@ import seedu.address.ui.UiPart;
 /**
  * A dummy application for unit testing of a single GUI component.
  *
- * Instead of creating the entire interface (like {@link seedu.address.TestApp}),
+ * Instead of creating the entire GUI (like {@link seedu.address.TestApp}),
  * {@link GuiUnitTestApp} creates a blank window, and allows insertion of a
- * single UiPart. This allows the GUI component to be isolated from other
- * GUI components for unit testing purposes.
+ * single UiPart. This allows the GUI part under test to be created without
+ * creating the rest of the GUI.
  */
 public class GuiUnitTestApp extends Application {
 

@@ -82,7 +82,7 @@ public class TestPerson implements ReadOnlyPerson {
     }
 
     /**
-     * Converts the list of tags to a string list.
+     * Returns the tags as a List<String>.
      */
     public List<String> getTagsAsStringsList() {
         List<String> tagsList = new ArrayList<String>();

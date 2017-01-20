@@ -2,9 +2,6 @@ package seedu.address.ui;
 
 import static org.junit.Assert.assertEquals;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.junit.Test;
 
 import guitests.GuiRobot;
@@ -46,7 +43,7 @@ public class PersonCardTest extends GuiUnitTest {
         PersonCard personCard = new PersonCard(validPerson, validId);
         PersonCardHandle personCardHandle = (PersonCardHandle) addUiPart(personCard);
 
-        // verify index is displayed correctly
+        // verify id is displayed correctly
         assertEquals(Integer.toString(validId) + ". ", personCardHandle.getId());
 
         // verify person details are displayed correctly
@@ -56,10 +53,7 @@ public class PersonCardTest extends GuiUnitTest {
         assertEquals(validPerson.getEmail().toString(), personCardHandle.getEmail());
 
         // verify tags are displayed correctly
-        List<String> actualTags = personCardHandle.getTags();
-        List<String> expectedTags = new ArrayList<String>();
-        expectedTags = validPerson.getTagsAsStringsList();
-        assertEquals(expectedTags, actualTags);
+        assertEquals(validPerson.getTagsAsStringsList(), personCardHandle.getTags());
     }
 
     @Override
