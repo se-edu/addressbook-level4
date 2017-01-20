@@ -120,17 +120,13 @@ public class Parser {
                     argsTokenizer.getValue(phoneNumberPrefix),
                     argsTokenizer.getValue(emailPrefix),
                     argsTokenizer.getValue(addressPrefix),
-                    toSet(argsTokenizer.getAllValues(tagsPrefix))
+                    argsTokenizer.getAllValues(tagsPrefix)
             );
         } catch (NoSuchElementException nsee) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }
-    }
-
-    private Set<String> toSet(List<String> tags) {
-        return new HashSet<>(tags);
     }
 
     /**
@@ -168,7 +164,7 @@ public class Parser {
             editPersonDescriptor.setPhone(parsePhone(argsTokenizer.getValue(phoneNumberPrefix)));
             editPersonDescriptor.setEmail(parseEmail(argsTokenizer.getValue(emailPrefix)));
             editPersonDescriptor.setAddress(parseAddress(argsTokenizer.getValue(addressPrefix)));
-            editPersonDescriptor.setTags(parseTagsForEdit(toSet(argsTokenizer.getAllValues(tagsPrefix))));
+            editPersonDescriptor.setTags(parseTagsForEdit(argsTokenizer.getAllValues(tagsPrefix)));
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }
