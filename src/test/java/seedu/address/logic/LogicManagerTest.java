@@ -400,7 +400,7 @@ public class LogicManagerTest {
 
         Person adam() throws Exception {
             // unicode format based on http://stackoverflow.com/questions/4237581/comparing-unicode-characters-in-junit
-            Name name = new Name("Adam,  o'\u00E9-\u00F6 Jr. 2");
+            Name name = new Name("Adam,  o'\u00E9-\u00F6 \u0041 \u030A Jr. 2");
             Phone privatePhone = new Phone("111111");
             Email email = new Email("adam@gmail.com");
             Address privateAddress = new Address("111, alpha street");
