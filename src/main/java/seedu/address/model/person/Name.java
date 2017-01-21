@@ -8,22 +8,11 @@ import seedu.address.commons.exceptions.IllegalValueException;
  */
 public class Name {
 
-    public static final String MESSAGE_NAME_CONSTRAINTS =
-            "Person names should only contain spaces, letters or characters, numbers "
-            + "or the following punctuation marks: . , ' - and should not be blank";
+    public static final String MESSAGE_NAME_CONSTRAINTS = "Person names can take any value and should not be blank";
     /**
-     * Names can contain spaces and the following:
-     *   unicode letters (e.g. German name with accents, where accented letters are written using one character),
-     *   unicode marks (e.g. accented names, where an accented letter is made up of a letter and an accent character)
-     *   numbers,
-     *   dots (e.g. John Paul Jr.),
-     *   commas (e.g. Smith, John),
-     *   apostrophes (e.g. d'Souza),
-     *   dashes (e.g. Jolie-Pitt)
-     * Names cannot start with whitespace (which also ensures names cannot be blank i.e. string of whitespaces)
-     * and unicode marks (since marks should only be used after characters).
+     * Names must start with a non-whitespace character. This also implies that names must not be blank e.g. "  ".
      */
-    public static final String NAME_VALIDATION_REGEX = "^[\\p{L}0-9.,'-][ \\p{L}\\p{M}0-9.,'-]*$";
+    public static final String NAME_VALIDATION_REGEX = "[^\\s].*";
     public final String fullName;
 
     /**

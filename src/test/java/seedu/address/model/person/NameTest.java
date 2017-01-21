@@ -12,14 +12,14 @@ public class NameTest {
         // invalid name
         assertFalse(Name.isValidName("")); // empty string
         assertFalse(Name.isValidName(" ")); // spaces only
-        assertFalse(Name.isValidName("^")); // only non-alphanumeric characters
-        assertFalse(Name.isValidName("peter*")); // contains non-alphanumeric characters
+        assertFalse(Name.isValidName(" peter the 2nd")); // starting with space
 
         // valid name
-        assertTrue(Name.isValidName("peter jack")); // alphabets only
-        assertTrue(Name.isValidName("12345")); // numbers only
-        assertTrue(Name.isValidName("peter the 2nd")); // alphanumeric characters
-        assertTrue(Name.isValidName("Capital Tan")); // with capital letters
+        assertTrue(Name.isValidName("Peter the 2nd")); // alphanumeric characters
+        assertTrue(Name.isValidName("'t Hart, Jolie-Pitt, Jr. 3 ・^")); // contains punctuation marks
+        // unicode format based on http://stackoverflow.com/questions/4237581/comparing-unicode-characters-in-junit
+        assertTrue(Name.isValidName("Adam \u00E9-\u0041 \u030A")); // contains unicode letters and marks
+        assertTrue(Name.isValidName("\u2660 \u21B7")); // non-letter unicode characters
         assertTrue(Name.isValidName("David Roger Jackson Ray Jr 2nd")); // long names
     }
 }

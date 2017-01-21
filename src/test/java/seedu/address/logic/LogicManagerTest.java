@@ -196,8 +196,6 @@ public class LogicManagerTest {
 
     @Test
     public void execute_add_invalidPersonData() {
-        assertCommandFailure("add []\\[;] p/12345 e/valid@e.mail a/valid, address",
-                Name.MESSAGE_NAME_CONSTRAINTS);
         assertCommandFailure("add Valid Name p/not_numbers e/valid@e.mail a/valid, address",
                 Phone.MESSAGE_PHONE_CONSTRAINTS);
         assertCommandFailure("add Valid Name p/12345 e/notAnEmail a/valid, address",
@@ -415,8 +413,7 @@ public class LogicManagerTest {
     class TestDataHelper {
 
         Person adam() throws Exception {
-            // unicode format based on http://stackoverflow.com/questions/4237581/comparing-unicode-characters-in-junit
-            Name name = new Name("Adam,  o'\u00E9-\u00F6 \u0041 \u030A Jr. 2");
+            Name name = new Name("Adam Brown");
             Phone privatePhone = new Phone("111111");
             Email email = new Email("adam@gmail.com");
             Address privateAddress = new Address("111, alpha street");
