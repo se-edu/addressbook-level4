@@ -64,10 +64,10 @@ public class GuiSettings implements Serializable {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Width : " + windowWidth + "\n");
-        sb.append("Height : " + windowHeight + "\n");
-        sb.append("Position : " + windowCoordinates);
-        return sb.toString();
+        return MoreObjects.toStringHelper(this)
+            .add("Width : ", windowWidth)
+            .add("\nHeight : ", windowHeight)
+            .add("\nPosition : ", windowCoordinates)
+            .toString();
     }
 }
