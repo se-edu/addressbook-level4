@@ -8,8 +8,17 @@ import seedu.address.commons.exceptions.IllegalValueException;
  */
 public class Name {
 
-    public static final String MESSAGE_NAME_CONSTRAINTS = "Person names should be spaces or alphanumeric characters";
-    public static final String NAME_VALIDATION_REGEX = "[\\p{Alnum} ]+";
+    public static final String MESSAGE_NAME_CONSTRAINTS =
+            "Person names should only contain spaces, unicode characters, numbers "
+            + "or the following punctuation marks: . , ' -";
+    public static final String NAME_VALIDATION_REGEX = "^["
+            + "\\p{L}"  // match unicode letters (e.g. German name with accents)
+            + "0-9 "    // match numbers and whitespace
+            + "."       // match dots (e.g. John Paul Jr.)
+            + ","       // match commas (e.g. Smith, John)
+            + "'"       // match apostrophes (e.g. d'Souza)
+            + "-"       // match dashes (e.g. Jolie-Pitt)
+            + "]+$";
 
     public final String fullName;
 
