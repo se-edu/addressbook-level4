@@ -71,6 +71,8 @@ public class CollectionUtilTest {
     }
 
     private void assertNotUnique(Object... objects) {
-        assertFalse(CollectionUtil.elementsAreUnique(Arrays.asList(objects)));
+        if(CollectionUtil.elementsAreUnique(Arrays.asList(objects))) {
+            throw new AssertionError();
+        }
     }
 }
