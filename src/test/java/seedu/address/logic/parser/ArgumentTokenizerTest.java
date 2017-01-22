@@ -3,8 +3,9 @@ package seedu.address.logic.parser;
 import org.junit.Test;
 import seedu.address.logic.parser.ArgumentTokenizer.Prefix;
 
+import java.lang.AssertionError;
+
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 
 public class ArgumentTokenizerTest {
@@ -36,7 +37,9 @@ public class ArgumentTokenizerTest {
     }
 
     private void assertPreambleAbsent(ArgumentTokenizer argsTokenizer) {
-        assertFalse(argsTokenizer.getPreamble().isPresent());
+        if(argsTokenizer.getPreamble().isPresent()) {
+            throw new AssertionError();
+        }
     }
 
     private void assertArgumentPresent(ArgumentTokenizer argsTokenizer, Prefix prefix, String... expectedValues) {
@@ -54,7 +57,9 @@ public class ArgumentTokenizerTest {
     }
 
     private void assertArgumentAbsent(ArgumentTokenizer argsTokenizer, Prefix prefix) {
-        assertFalse(argsTokenizer.getValue(prefix).isPresent());
+        if(argsTokenizer.getValue(prefix).isPresent()) {
+            throw new AssertionError();
+        }
     }
 
     @Test
