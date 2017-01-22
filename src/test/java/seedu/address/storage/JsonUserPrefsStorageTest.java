@@ -12,9 +12,9 @@ import seedu.address.model.UserPrefs;
 import java.io.File;
 import java.io.IOException;
 import java.util.Optional;
+import java.lang.AssertionError;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 
 public class JsonUserPrefsStorageTest {
 
@@ -39,7 +39,9 @@ public class JsonUserPrefsStorageTest {
 
     @Test
     public void readUserPrefs_missingFile_emptyResult() throws DataConversionException {
-        assertFalse(readUserPrefs("NonExistentFile.json").isPresent());
+        if(readUserPrefs("NonExistentFile.json").isPresent()) {
+            throw new AssertionError();
+        }
     }
 
     @Test
