@@ -11,9 +11,9 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Optional;
 import java.util.logging.Level;
+import java.lang.AssertionError;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 
 public class ConfigUtilTest {
 
@@ -33,7 +33,9 @@ public class ConfigUtilTest {
 
     @Test
     public void read_missingFile_emptyResult() throws DataConversionException {
-        assertFalse(read("NonExistentFile.json").isPresent());
+        if(read("NonExistentFile.json").isPresent()) {
+            throw new AssertionError();
+        }
     }
 
     @Test
