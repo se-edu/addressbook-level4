@@ -13,9 +13,9 @@ import seedu.address.model.person.Person;
 import seedu.address.testutil.TypicalTestPersons;
 
 import java.io.IOException;
+import java.lang.AssertionError;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 
 public class XmlAddressBookStorageTest {
     private static final String TEST_DATA_FOLDER = FileUtil.getPath("./src/test/data/XmlAddressBookStorageTest/");
@@ -44,7 +44,9 @@ public class XmlAddressBookStorageTest {
 
     @Test
     public void read_missingFile_emptyResult() throws Exception {
-        assertFalse(readAddressBook("NonExistentFile.xml").isPresent());
+        if(readAddressBook("NonExistentFile.xml").isPresent()) {
+            throw new AssertionError();
+        }
     }
 
     @Test
