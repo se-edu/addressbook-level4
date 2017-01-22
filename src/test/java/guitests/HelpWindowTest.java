@@ -39,7 +39,7 @@ public class HelpWindowTest extends AddressBookGuiTest {
     private void assertHelpWindowNotOpen(HelpWindowHandle helpWindowHandle) {
         if(helpWindowHandle.isWindowOpen()) {
             throw new AssertionError();
-        }   
+        }
     }
 
 }
