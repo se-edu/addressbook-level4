@@ -20,7 +20,7 @@ public class CollectionUtilTest {
         if(CollectionUtil.isAnyNull(new Object(), new Object()) | CollectionUtil.isAnyNull("test") | CollectionUtil.isAnyNull("")) {
             throw new AssertionError();
         }
-       
+
         // non empty list with just one null at the beginning
         assertTrue(CollectionUtil.isAnyNull((Object) null));
         assertTrue(CollectionUtil.isAnyNull(null, "", new Object()));
