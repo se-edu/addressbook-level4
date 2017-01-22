@@ -1,8 +1,8 @@
 package seedu.address.commons.util;
 
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import java.lang.AssertionError;
 import java.util.Arrays;
 import java.util.List;
 
@@ -12,13 +12,15 @@ public class CollectionUtilTest {
     @Test
     public void isAnyNull() {
         // empty list
-        assertFalse(CollectionUtil.isAnyNull());
+        if(CollectionUtil.isAnyNull()) {
+            throw new AssertionError();
+        }
 
         // Any non-empty list
-        assertFalse(CollectionUtil.isAnyNull(new Object(), new Object()));
-        assertFalse(CollectionUtil.isAnyNull("test"));
-        assertFalse(CollectionUtil.isAnyNull(""));
-
+        if(CollectionUtil.isAnyNull(new Object(), new Object()) | CollectionUtil.isAnyNull("test") | CollectionUtil.isAnyNull("")) {
+            throw new AssertionError();
+        }
+       
         // non empty list with just one null at the beginning
         assertTrue(CollectionUtil.isAnyNull((Object) null));
         assertTrue(CollectionUtil.isAnyNull(null, "", new Object()));
@@ -34,7 +36,9 @@ public class CollectionUtilTest {
 
         // confirms nulls inside the list are not considered
         List<Object> nullList = Arrays.asList((Object) null);
-        assertFalse(CollectionUtil.isAnyNull(nullList));
+        if(CollectionUtil.isAnyNull(nullList)) {
+            throw new AssertionError();
+        }
     }
 
     @Test
