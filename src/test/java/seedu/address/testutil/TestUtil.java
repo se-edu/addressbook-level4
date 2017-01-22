@@ -237,73 +237,12 @@ public class TestUtil {
     }
 
     /**
-     * Gets mid point of a node relative to its scene.
-     * @param node
-     * @return
-     */
-    public static Point2D getSceneMidPoint(Node node) {
-        double x = getScenePos(node).getMinX() + node.getLayoutBounds().getWidth() / 2;
-        double y = getScenePos(node).getMinY() + node.getLayoutBounds().getHeight() / 2;
-        return new Point2D(x, y);
-    }
-
-    /**
-     * Gets the bound of the node relative to the parent scene.
-     * @param node
-     * @return
-     */
-    public static Bounds getScenePos(Node node) {
-        return node.localToScene(node.getBoundsInLocal());
-    }
-
-    public static Bounds getScreenPos(Node node) {
-        return node.localToScreen(node.getBoundsInLocal());
-    }
-
-    public static double getSceneMaxX(Scene scene) {
-        return scene.getX() + scene.getWidth();
-    }
-
-    public static double getSceneMaxY(Scene scene) {
-        return scene.getX() + scene.getHeight();
-    }
-
-    public static Object getLastElement(List<?> list) {
-        return list.get(list.size() - 1);
-    }
-
-    /**
-     * Removes a subset from the list of persons.
-     * @param persons The list of persons
-     * @param personsToRemove The subset of persons.
-     * @return The modified persons after removal of the subset from persons.
-     */
-    public static TestPerson[] removePersonsFromList(final TestPerson[] persons, TestPerson... personsToRemove) {
-        List<TestPerson> listOfPersons = asList(persons);
-        listOfPersons.removeAll(asList(personsToRemove));
-        return listOfPersons.toArray(new TestPerson[listOfPersons.size()]);
-    }
-
-
-    /**
      * Returns a copy of the list with the person at specified index removed.
      * @param list original list to copy from
      * @param targetIndexInOneIndexedFormat e.g. index 1 if the first element is to be removed
      */
     public static TestPerson[] removePersonFromList(final TestPerson[] list, int targetIndexInOneIndexedFormat) {
         return removePersonsFromList(list, list[targetIndexInOneIndexedFormat - 1]);
-    }
-
-    /**
-     * Replaces persons[i] with a person.
-     * @param persons The array of persons.
-     * @param person The replacement person
-     * @param index The index of the person to be replaced.
-     * @return
-     */
-    public static TestPerson[] replacePersonFromList(TestPerson[] persons, TestPerson person, int index) {
-        persons[index] = person;
-        return persons;
     }
 
     /**
@@ -318,36 +257,8 @@ public class TestUtil {
         return listOfPersons.toArray(new TestPerson[listOfPersons.size()]);
     }
 
-    private static <T> List<T> asList(T[] objs) {
-        List<T> list = new ArrayList<>();
-        for (T obj : objs) {
-            list.add(obj);
-        }
-        return list;
-    }
-
     public static boolean compareCardAndPerson(PersonCardHandle card, ReadOnlyPerson person) {
         return card.isSamePerson(person);
-    }
-
-    public static Tag[] getTagList(String tags) {
-        if ("".equals(tags)) {
-            return new Tag[]{};
-        }
-
-        final String[] split = tags.split(", ");
-
-        final List<Tag> collect = Arrays.asList(split).stream().map(e -> {
-            try {
-                return new Tag(e.replaceFirst("Tag: ", ""));
-            } catch (IllegalValueException e1) {
-                //not possible
-                assert false;
-                return null;
-            }
-        }).collect(Collectors.toList());
-
-        return collect.toArray(new Tag[split.length]);
     }
 
 }
