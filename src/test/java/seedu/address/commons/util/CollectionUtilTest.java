@@ -2,7 +2,6 @@ package seedu.address.commons.util;
 
 import static org.junit.Assert.assertTrue;
 
-import java.lang.AssertionError;
 import java.util.Arrays;
 import java.util.List;
 
