@@ -11,7 +11,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Optional;
 import java.util.logging.Level;
-import java.lang.AssertionError;
 
 import static org.junit.Assert.assertEquals;
 
