@@ -15,6 +15,7 @@ import seedu.address.model.tag.UniqueTagList;
  * Provides a handle to a person card in the person list panel.
  */
 public class PersonCardHandle extends GuiHandle {
+    private static final String ID_FIELD_ID = "#id";
     private static final String NAME_FIELD_ID = "#name";
     private static final String ADDRESS_FIELD_ID = "#address";
     private static final String PHONE_FIELD_ID = "#phone";
@@ -30,6 +31,10 @@ public class PersonCardHandle extends GuiHandle {
 
     protected String getTextFromLabel(String fieldId) {
         return getTextFromLabel(fieldId, node);
+    }
+
+    public String getId() {
+        return getTextFromLabel(ID_FIELD_ID);
     }
 
     public String getFullName() {
