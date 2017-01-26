@@ -25,7 +25,7 @@ public class AddCommandTest {
     private static final String VALID_EMAIL = "valid.email@mail.com";
     private static final String VALID_ADDRESS = "valid address";
 
-    private static TestPerson validPerson;
+    private TestPerson validPerson;
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
