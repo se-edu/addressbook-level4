@@ -1,9 +1,10 @@
 package seedu.address.logic.commands;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Set;
 
 import org.junit.Rule;
@@ -23,11 +24,6 @@ import seedu.address.testutil.PersonBuilder;
 
 public class AddCommandTest {
 
-    private static final String VALID_NAME = "valid name";
-    private static final String VALID_PHONE = "61239876";
-    private static final String VALID_EMAIL = "valid.email@mail.com";
-    private static final String VALID_ADDRESS = "valid address";
-
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
@@ -38,33 +34,25 @@ public class AddCommandTest {
     }
 
     @Test
-    public void execute_newPersonNotInList_addSuccessful() throws Exception {
+    public void execute_personAcceptedByModel_addSuccessful() throws Exception {
         ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
-        Person validPerson = createValidPerson();
+        Person validPerson = new PersonBuilder().build();
 
         CommandResult commandResult = getAddCommandForPerson(validPerson, modelStub).execute();
 
         assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validPerson), commandResult.feedbackToUser);
-        assertTrue(modelStub.isAddPersonMethodCalledWith(validPerson));
+        assertEquals(Arrays.asList(validPerson), modelStub.personsAdded);
     }
 
     @Test
     public void execute_duplicatePerson_throwsCommandException() throws Exception {
         ModelStub modelStub = new ModelStubThrowingDuplicatePersonException();
-        Person validPerson = createValidPerson();
+        Person validPerson = new PersonBuilder().build();
 
         thrown.expect(CommandException.class);
         thrown.expectMessage(AddCommand.MESSAGE_DUPLICATE_PERSON);
 
         getAddCommandForPerson(validPerson, modelStub).execute();
-    }
-
-    /**
-     * Creates a person with valid contact details.
-     */
-    private Person createValidPerson() throws IllegalValueException {
-        return new PersonBuilder().withName(VALID_NAME).withPhone(VALID_PHONE).withEmail(VALID_EMAIL)
-                .withAddress(VALID_ADDRESS).build();
     }
 
     /**
@@ -138,19 +126,11 @@ public class AddCommandTest {
      * A Model stub that always accept the person being added.
      */
     private class ModelStubAcceptingPersonAdded extends ModelStub {
-        private Person personAdded = null;
+        final ArrayList<Person> personsAdded = new ArrayList<>();
 
         @Override
         public void addPerson(Person person) throws DuplicatePersonException {
-            if (personAdded != null) {
-                fail("This method should not be called twice.");
-            }
-
-            personAdded = person;
-        }
-
-        public boolean isAddPersonMethodCalledWith(Person person) {
-            return personAdded.equals(person);
+            personsAdded.add(person);
         }
     }
 
