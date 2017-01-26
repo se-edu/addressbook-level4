@@ -116,7 +116,7 @@ public class UniquePersonList implements Iterable<Person> {
      * Signals that an operation would have violated the 'no duplicates' property of the list.
      */
     public static class DuplicatePersonException extends DuplicateDataException {
-        protected DuplicatePersonException() {
+        public DuplicatePersonException() {
             super("Operation would result in duplicate persons");
         }
     }
