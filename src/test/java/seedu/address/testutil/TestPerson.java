@@ -82,9 +82,9 @@ public class TestPerson implements ReadOnlyPerson {
     }
 
     /**
-     * Converts the list of tags to a string set.
+     * Gets the names of the tags as a string set.
      */
-    public Set<String> getTagsAsStringsSet() {
+    public Set<String> getTagsSet() {
         Set<String> tagsSet = new HashSet<>();
         tags.forEach((tag) -> tagsSet.add(tag.tagName));
         return tagsSet;

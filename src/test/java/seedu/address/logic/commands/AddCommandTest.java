@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -24,8 +25,16 @@ public class AddCommandTest {
     private static final String VALID_EMAIL = "valid.email@mail.com";
     private static final String VALID_ADDRESS = "valid address";
 
+    private static TestPerson validPerson;
+
     @Rule
     public ExpectedException thrown = ExpectedException.none();
+
+    @Before
+    public void setUp() throws Exception {
+        validPerson = new PersonBuilder().withName(VALID_NAME).withPhone(VALID_PHONE).withEmail(VALID_EMAIL)
+                .withAddress(VALID_ADDRESS).build();
+    }
 
     /*
      * Constructor tests ensure that any invalid values actually throws an exception.
@@ -60,13 +69,7 @@ public class AddCommandTest {
 
     @Test
     public void execute_newPersonNotInList_addSuccessful() throws Exception {
-        UniquePersonModelStub modelStub = new UniquePersonModelStub();
-        TestPerson validPerson = new PersonBuilder()
-                .withName(VALID_NAME)
-                .withPhone(VALID_PHONE)
-                .withEmail(VALID_EMAIL)
-                .withAddress(VALID_ADDRESS)
-                .build();
+        ModelManager modelStub = new ModelStubAcceptingPersonAdded();
 
         CommandResult commandResult = getAddCommandForPerson(validPerson, modelStub).execute();
 
@@ -75,13 +78,7 @@ public class AddCommandTest {
 
     @Test
     public void execute_duplicatePerson_throwsDuplicatePersonException() throws Exception {
-        DuplicatePersonModelStub modelStub = new DuplicatePersonModelStub();
-        TestPerson validPerson = new PersonBuilder()
-                .withName(VALID_NAME)
-                .withPhone(VALID_PHONE)
-                .withEmail(VALID_EMAIL)
-                .withAddress(VALID_ADDRESS)
-                .build();
+        ModelManager modelStub = new ModelStubThrowingDuplicatePersonException();
 
         thrown.expect(CommandException.class);
         thrown.expectMessage(AddCommand.MESSAGE_DUPLICATE_PERSON);
@@ -93,39 +90,30 @@ public class AddCommandTest {
      * Generates a new AddCommand with the details of the given person.
      */
     private AddCommand getAddCommandForPerson(TestPerson person, ModelManager modelStub) throws IllegalValueException {
-        Set<String> tags = person.getTagsAsStringsSet();
+        Set<String> tags = person.getTagsSet();
 
         AddCommand command = new AddCommand(person.getName().toString(), person.getPhone().toString(),
-                person.getEmail().toString(), person.getAddress().toString(),
-                tags);
+                person.getEmail().toString(), person.getAddress().toString(), tags);
 
         command.setData(modelStub);
         return command;
     }
 
     /**
-     * A model stub injected into the add command, that always reject person being added
-     * by treating it as a duplicate.
-     *
-     * The stub inherits from ModelManager instead of implementing the Model interface so that we do not have
-     * too many empty methods.
+     * A Model stub that always throw a DuplicatePersonException when trying to add a person.
      */
-    private class DuplicatePersonModelStub extends ModelManager {
+    private class ModelStubThrowingDuplicatePersonException extends ModelManager {
         public void addPerson(Person person) throws DuplicatePersonException {
             throw new DuplicatePersonException();
         }
     }
 
     /**
-     * A model stub injected into the add command, that always accept the person being added
-     * by treating it as a unique person.
-     *
-     * The stub inherits from ModelManager instead of implementing the Model interface so that we do not have
-     * too many empty methods.
+     * A Model stub that always accept the person being added.
      */
-    private class UniquePersonModelStub extends ModelManager {
+    private class ModelStubAcceptingPersonAdded extends ModelManager {
         public void addPerson(Person person) throws DuplicatePersonException {
-            // always accept
+            // pretend to accept (but actually does nothing)
         }
     }
 }
