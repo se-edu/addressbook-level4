@@ -3,7 +3,6 @@ package seedu.address.logic.commands;
 import static org.junit.Assert.assertEquals;
 
 import java.util.HashSet;
-import java.util.Set;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -91,10 +90,8 @@ public class AddCommandTest {
      * Generates a new AddCommand with the details of the given person.
      */
     private AddCommand getAddCommandForPerson(TestPerson person, Model model) throws IllegalValueException {
-        Set<String> tags = person.getTagsSet();
-
         AddCommand command = new AddCommand(person.getName().toString(), person.getPhone().toString(),
-                person.getEmail().toString(), person.getAddress().toString(), tags);
+                person.getEmail().toString(), person.getAddress().toString(), person.getTagsSet());
 
         command.setData(model);
         return command;
