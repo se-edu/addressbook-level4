@@ -12,6 +12,7 @@ import org.junit.rules.ExpectedException;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList.DuplicatePersonException;
@@ -89,13 +90,13 @@ public class AddCommandTest {
     /**
      * Generates a new AddCommand with the details of the given person.
      */
-    private AddCommand getAddCommandForPerson(TestPerson person, ModelManager modelStub) throws IllegalValueException {
+    private AddCommand getAddCommandForPerson(TestPerson person, Model model) throws IllegalValueException {
         Set<String> tags = person.getTagsSet();
 
         AddCommand command = new AddCommand(person.getName().toString(), person.getPhone().toString(),
                 person.getEmail().toString(), person.getAddress().toString(), tags);
 
-        command.setData(modelStub);
+        command.setData(model);
         return command;
     }
 
