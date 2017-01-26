@@ -59,7 +59,31 @@ public class AddCommandTest {
     }
 
     @Test
-    public void constructor_invalidTags_throwsIllegalValueException() throws Exception {
+    public void constructor_noName_throwsAssertionError() throws Exception {
+        thrown.expect(AssertionError.class);
+        new AddCommand(null, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, new UniqueTagList());
+    }
+
+    @Test
+    public void constructor_noPhone_throwsAssertionError() throws Exception {
+        thrown.expect(AssertionError.class);
+        new AddCommand(VALID_NAME, null, VALID_EMAIL, VALID_ADDRESS, new UniqueTagList());
+    }
+
+    @Test
+    public void constructor_noEmail_throwsAssertionError() throws Exception {
+        thrown.expect(AssertionError.class);
+        new AddCommand(VALID_NAME, VALID_PHONE, null, VALID_ADDRESS, new UniqueTagList());
+    }
+
+    @Test
+    public void constructor_noAddress_throwsAssertionError() throws Exception {
+        thrown.expect(AssertionError.class);
+        new AddCommand(VALID_NAME, VALID_PHONE, VALID_EMAIL, null, new UniqueTagList());
+    }
+
+    @Test
+    public void constructor_noTags_throwsNullPointerException() throws Exception {
         thrown.expect(NullPointerException.class);
         new AddCommand(VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, null);
     }
