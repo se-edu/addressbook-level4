@@ -82,7 +82,7 @@ public class TestPerson implements ReadOnlyPerson {
     }
 
     /**
-     * Gets the names of the tags as a string set.
+     * Gets the names of the tags as a set of strings.
      */
     public Set<String> getTagsSet() {
         Set<String> tagsSet = new HashSet<>();

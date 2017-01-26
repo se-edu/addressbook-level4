@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.HashSet;
 
-import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -25,16 +24,8 @@ public class AddCommandTest {
     private static final String VALID_EMAIL = "valid.email@mail.com";
     private static final String VALID_ADDRESS = "valid address";
 
-    private TestPerson validPerson;
-
     @Rule
     public ExpectedException thrown = ExpectedException.none();
-
-    @Before
-    public void setUp() throws Exception {
-        validPerson = new PersonBuilder().withName(VALID_NAME).withPhone(VALID_PHONE).withEmail(VALID_EMAIL)
-                .withAddress(VALID_ADDRESS).build();
-    }
 
     /*
      * Constructor tests ensure that any invalid values actually throws an exception.
@@ -70,6 +61,7 @@ public class AddCommandTest {
     @Test
     public void execute_newPersonNotInList_addSuccessful() throws Exception {
         ModelManager modelStub = new ModelStubAcceptingPersonAdded();
+        TestPerson validPerson = createValidPerson();
 
         CommandResult commandResult = getAddCommandForPerson(validPerson, modelStub).execute();
 
@@ -79,11 +71,20 @@ public class AddCommandTest {
     @Test
     public void execute_duplicatePerson_throwsDuplicatePersonException() throws Exception {
         ModelManager modelStub = new ModelStubThrowingDuplicatePersonException();
+        TestPerson validPerson = createValidPerson();
 
         thrown.expect(CommandException.class);
         thrown.expectMessage(AddCommand.MESSAGE_DUPLICATE_PERSON);
 
         getAddCommandForPerson(validPerson, modelStub).execute();
+    }
+
+    /**
+     * Creates a person with valid contact details.
+     */
+    private TestPerson createValidPerson() throws IllegalValueException {
+        return new PersonBuilder().withName(VALID_NAME).withPhone(VALID_PHONE).withEmail(VALID_EMAIL)
+                .withAddress(VALID_ADDRESS).build();
     }
 
     /**
