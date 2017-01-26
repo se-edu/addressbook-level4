@@ -32,7 +32,7 @@ public class AddCommandTest {
     public ExpectedException thrown = ExpectedException.none();
 
     @Test
-    public void constructor_nullParameters_throwsNullPointerException() throws Exception {
+    public void constructor_nullPerson_throwsNullPointerException() throws Exception {
         thrown.expect(NullPointerException.class);
         new AddCommand(null);
     }
