@@ -7,7 +7,6 @@ import seedu.address.logic.parser.ArgumentTokenizer.Prefix;
 /**
  * A container class to contain all general Command Line Interface (CLI)
  * parsing related syntax definitions
- *
  */
 public class CliSyntax {
 
