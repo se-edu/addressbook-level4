@@ -49,9 +49,9 @@ public class ParserUtil {
      * Returns an empty set if the given {@code Optional} is empty,
      * or if the list contained in the {@code Optional} is empty
      */
-    public static Set<String> listOptionalToSet(Optional<List<String>> tagsOptional) {
-        List<String> tags = tagsOptional.orElse(Collections.emptyList());
-        return new HashSet<>(tags);
+    public static Set<String> toSet(Optional<List<String>> list) {
+        List<String> elements = list.orElse(Collections.emptyList());
+        return new HashSet<>(elements);
     }
 
     /**

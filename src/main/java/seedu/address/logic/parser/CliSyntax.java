@@ -5,8 +5,7 @@ import java.util.regex.Pattern;
 import seedu.address.logic.parser.ArgumentTokenizer.Prefix;
 
 /**
- * A container class to contain all general Command Line Interface (CLI)
- * parsing related syntax definitions
+ * Contains Command Line Interface (CLI) syntax definitions common to multiple commands
  */
 public class CliSyntax {
 
