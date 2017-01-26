@@ -19,9 +19,7 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.UniquePersonList.DuplicatePersonException;
 import seedu.address.model.person.UniquePersonList.PersonNotFoundException;
-import seedu.address.model.tag.UniqueTagList;
 import seedu.address.testutil.PersonBuilder;
-import seedu.address.testutil.TestPerson;
 
 public class AddCommandTest {
 
@@ -34,21 +32,15 @@ public class AddCommandTest {
     public ExpectedException thrown = ExpectedException.none();
 
     @Test
-    public void constructor_invalidParameters_throwsIllegalValueException() throws Exception {
-        thrown.expect(IllegalValueException.class);
-        new AddCommand("", VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, new UniqueTagList());
-    }
-
-    @Test
-    public void constructor_nullParameters_throwsAssertionError() throws Exception {
-        thrown.expect(AssertionError.class);
-        new AddCommand(VALID_NAME, null, VALID_EMAIL, VALID_ADDRESS, new UniqueTagList());
+    public void constructor_nullParameters_throwsNullPointerException() throws Exception {
+        thrown.expect(NullPointerException.class);
+        new AddCommand(null);
     }
 
     @Test
     public void execute_newPersonNotInList_addSuccessful() throws Exception {
         ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
-        TestPerson validPerson = createValidPerson();
+        Person validPerson = createValidPerson();
 
         CommandResult commandResult = getAddCommandForPerson(validPerson, modelStub).execute();
 
@@ -59,7 +51,7 @@ public class AddCommandTest {
     @Test
     public void execute_duplicatePerson_throwsCommandException() throws Exception {
         ModelStub modelStub = new ModelStubThrowingDuplicatePersonException();
-        TestPerson validPerson = createValidPerson();
+        Person validPerson = createValidPerson();
 
         thrown.expect(CommandException.class);
         thrown.expectMessage(AddCommand.MESSAGE_DUPLICATE_PERSON);
@@ -70,7 +62,7 @@ public class AddCommandTest {
     /**
      * Creates a person with valid contact details.
      */
-    private TestPerson createValidPerson() throws IllegalValueException {
+    private Person createValidPerson() throws IllegalValueException {
         return new PersonBuilder().withName(VALID_NAME).withPhone(VALID_PHONE).withEmail(VALID_EMAIL)
                 .withAddress(VALID_ADDRESS).build();
     }
@@ -78,10 +70,8 @@ public class AddCommandTest {
     /**
      * Generates a new AddCommand with the details of the given person.
      */
-    private AddCommand getAddCommandForPerson(TestPerson person, Model model) throws IllegalValueException {
-        AddCommand command = new AddCommand(person.getName().toString(), person.getPhone().toString(),
-                person.getEmail().toString(), person.getAddress().toString(), person.getTags());
-
+    private AddCommand getAddCommandForPerson(Person person, Model model) throws IllegalValueException {
+        AddCommand command = new AddCommand(person);
         command.setData(model);
         return command;
     }
@@ -159,7 +149,7 @@ public class AddCommandTest {
             personAdded = person;
         }
 
-        public boolean isAddPersonMethodCalledWith(TestPerson person) {
+        public boolean isAddPersonMethodCalledWith(Person person) {
             return personAdded.equals(person);
         }
     }
