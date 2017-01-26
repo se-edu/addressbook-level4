@@ -13,6 +13,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.ModelManager;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList.DuplicatePersonException;
@@ -21,6 +22,12 @@ import seedu.address.testutil.TestPerson;
 import seedu.address.testutil.TypicalTestPersons;
 
 public class AddCommandTest {
+
+    private static final String VALID_NAME = "valid name";
+    private static final String VALID_PHONE = "61239876";
+    private static final String VALID_EMAIL = "valid.email@mail.com";
+    private static final String VALID_ADDRESS = "valid address";
+
 
     private ModelStub model;
 
@@ -38,25 +45,25 @@ public class AddCommandTest {
     @Test
     public void constructor_invalidName_throwsIllegalValueException() throws Exception {
         thrown.expect(IllegalValueException.class);
-        new AddCommand("", "61239876", "valid.email@mail.com", "valid address", new HashSet<>());
+        new AddCommand("", VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, new HashSet<>());
     }
 
     @Test
     public void constructor_invalidPhone_throwsIllegalValueException() throws Exception {
         thrown.expect(IllegalValueException.class);
-        new AddCommand("valid name", "", "valid.email@mail.com", "valid address", new HashSet<>());
+        new AddCommand(VALID_NAME, "", VALID_EMAIL, VALID_ADDRESS, new HashSet<>());
     }
 
     @Test
     public void constructor_invalidEmail_throwsIllegalValueException() throws Exception {
         thrown.expect(IllegalValueException.class);
-        new AddCommand("valid name", "61239876", "", "valid address", new HashSet<>());
+        new AddCommand(VALID_NAME, VALID_PHONE, "", VALID_ADDRESS, new HashSet<>());
     }
 
     @Test
     public void constructor_invalidAddress_throwsIllegalValueException() throws Exception {
         thrown.expect(IllegalValueException.class);
-        new AddCommand("valid name", "61239876", "valid.email@mail.com", "", new HashSet<>());
+        new AddCommand(VALID_NAME, VALID_PHONE, VALID_EMAIL, "", new HashSet<>());
     }
 
     @Test
@@ -70,14 +77,17 @@ public class AddCommandTest {
         // set up model such that alice is our target person for testing duplicates
         model.addPerson(new Person(typicalTestPersons.alice));
 
+        thrown.expect(CommandException.class);
+        thrown.expectMessage(AddCommand.MESSAGE_DUPLICATE_PERSON);
+
         AddCommand command = getAddCommandForPerson(typicalTestPersons.alice);
-        assertCommandBehaviour(AddCommand.MESSAGE_DUPLICATE_PERSON, command);
+        command.execute();
     }
 
     /**
      * Asserts that the command produced the correct message after execution.
      */
-    public void assertCommandBehaviour(String expectedString, Command command) {
+    public void assertCommandBehaviour(String expectedString, Command command) throws CommandException {
         CommandResult commandResult = command.execute();
 
         assertEquals(expectedString, commandResult.feedbackToUser);
