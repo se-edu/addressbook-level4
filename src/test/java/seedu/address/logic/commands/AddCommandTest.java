@@ -1,11 +1,8 @@
 package seedu.address.logic.commands;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import org.junit.Rule;
@@ -15,13 +12,10 @@ import org.junit.rules.ExpectedException;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.ModelManager;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
 import seedu.address.model.person.UniquePersonList.DuplicatePersonException;
-import seedu.address.model.tag.UniqueTagList;
+import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.TestPerson;
 
 public class AddCommandTest {
 
@@ -32,6 +26,13 @@ public class AddCommandTest {
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
+
+    /*
+     * Constructor tests ensure that any invalid values actually throws an exception.
+     *
+     * It does not test the validation logic of the values, that is the job of the unit
+     * test of Name, Phone, Email, and Address.
+     */
 
     @Test
     public void constructor_invalidName_throwsIllegalValueException() throws Exception {
@@ -59,77 +60,72 @@ public class AddCommandTest {
 
     @Test
     public void execute_newPersonNotInList_addSuccessful() throws Exception {
-        ModelStub modelStub = new ModelStub();
-        Person validPerson = new Person(new Name(VALID_NAME), new Phone(VALID_PHONE), new Email(VALID_EMAIL),
-                                        new Address(VALID_ADDRESS), new UniqueTagList());
+        UniquePersonModelStub modelStub = new UniquePersonModelStub();
+        TestPerson validPerson = new PersonBuilder()
+                .withName(VALID_NAME)
+                .withPhone(VALID_PHONE)
+                .withEmail(VALID_EMAIL)
+                .withAddress(VALID_ADDRESS)
+                .build();
 
-        AddCommand command = getAddCommandForPerson(validPerson, modelStub);
-        CommandResult commandResult = command.execute();
+        CommandResult commandResult = getAddCommandForPerson(validPerson, modelStub).execute();
 
         assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validPerson), commandResult.feedbackToUser);
-        assertTrue(modelStub.isPersonAdded(validPerson));
     }
 
     @Test
     public void execute_duplicatePerson_throwsDuplicatePersonException() throws Exception {
-        ModelStub modelStub = new ModelStub();
-        Person validPerson = new Person(new Name(VALID_NAME), new Phone(VALID_PHONE), new Email(VALID_EMAIL),
-                                        new Address(VALID_ADDRESS), new UniqueTagList());
-
-        modelStub.addPerson(validPerson);
+        DuplicatePersonModelStub modelStub = new DuplicatePersonModelStub();
+        TestPerson validPerson = new PersonBuilder()
+                .withName(VALID_NAME)
+                .withPhone(VALID_PHONE)
+                .withEmail(VALID_EMAIL)
+                .withAddress(VALID_ADDRESS)
+                .build();
 
         thrown.expect(CommandException.class);
         thrown.expectMessage(AddCommand.MESSAGE_DUPLICATE_PERSON);
 
-        AddCommand command = getAddCommandForPerson(validPerson, modelStub);
-        command.execute();
+        getAddCommandForPerson(validPerson, modelStub).execute();
     }
 
     /**
      * Generates a new AddCommand with the details of the given person.
      */
-    private AddCommand getAddCommandForPerson(Person person, ModelStub modelStub) throws IllegalValueException {
-        Set<String> tags = new HashSet<>();
-        person.getTags().forEach((t) -> tags.add(t.tagName));
+    private AddCommand getAddCommandForPerson(TestPerson person, ModelManager modelStub) throws IllegalValueException {
+        Set<String> tags = person.getTagsAsStringsSet();
 
         AddCommand command = new AddCommand(person.getName().toString(), person.getPhone().toString(),
-                                            person.getEmail().toString(), person.getAddress().toString(),
-                                            tags);
+                person.getEmail().toString(), person.getAddress().toString(),
+                tags);
 
         command.setData(modelStub);
         return command;
     }
 
     /**
-     * A model stub injected into the add command, for testing add's functionality.
+     * A model stub injected into the add command, that always reject person being added
+     * by treating it as a duplicate.
      *
-     * We do not want the correctness of {@link ModelManager#addPerson(Person)} to affect the unit testing
-     * of AddCommand. Therefore, it is overridden to simplify the logic.
+     * The stub inherits from ModelManager instead of implementing the Model interface so that we do not have
+     * too many empty methods.
      */
-    private class ModelStub extends ModelManager {
-
-        private List<Person> personInList;
-
-        public ModelStub() {
-            personInList = new ArrayList<>();
-        }
-
-        @Override
+    private class DuplicatePersonModelStub extends ModelManager {
         public void addPerson(Person person) throws DuplicatePersonException {
-            for (Person existingPerson : personInList) {
-                if (existingPerson.equals(person)) {
-                    throw new DuplicatePersonException();
-                }
-            }
-
-            personInList.add(person);
+            throw new DuplicatePersonException();
         }
+    }
 
-        /**
-         * Checks whether the particular person is added.
-         */
-        public boolean isPersonAdded(Person person) {
-            return personInList.contains(person);
+    /**
+     * A model stub injected into the add command, that always accept the person being added
+     * by treating it as a unique person.
+     *
+     * The stub inherits from ModelManager instead of implementing the Model interface so that we do not have
+     * too many empty methods.
+     */
+    private class UniquePersonModelStub extends ModelManager {
+        public void addPerson(Person person) throws DuplicatePersonException {
+            // always accept
         }
     }
 }
