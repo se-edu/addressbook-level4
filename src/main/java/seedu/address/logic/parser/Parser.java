@@ -1,26 +1,14 @@
 package seedu.address.logic.parser;
 
-import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.commons.util.StringUtil;
-import seedu.address.logic.commands.AddCommand;
-import seedu.address.logic.commands.ClearCommand;
-import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.logic.commands.EditCommand;
-import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
-import seedu.address.logic.commands.ExitCommand;
-import seedu.address.logic.commands.FindCommand;
-import seedu.address.logic.commands.HelpCommand;
-import seedu.address.logic.commands.ListCommand;
-import seedu.address.logic.commands.SelectCommand;
-import seedu.address.logic.commands.IncorrectCommand;
-import seedu.address.logic.parser.ArgumentTokenizer.Prefix;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Phone;
-import seedu.address.model.tag.Tag;
-import seedu.address.model.tag.UniqueTagList;
+
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.address.logic.parser.CliSyntax.BASIC_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.KEYWORDS_ARGS_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -31,30 +19,32 @@ import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.Set;
 import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.ClearCommand;
+import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.EditCommand;
+import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
+import seedu.address.logic.commands.ExitCommand;
+import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.IncorrectCommand;
+import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.SelectCommand;
+import seedu.address.model.person.Address;
+import seedu.address.model.person.Email;
+import seedu.address.model.person.Name;
+import seedu.address.model.person.Phone;
+import seedu.address.model.tag.Tag;
+import seedu.address.model.tag.UniqueTagList;
 
 /**
  * Parses user input.
  */
 public class Parser {
-
-    /**
-     * Used for initial separation of command word and args.
-     */
-    private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
-
-    private static final Pattern PERSON_INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
-
-    private static final Pattern KEYWORDS_ARGS_FORMAT =
-            Pattern.compile("(?<keywords>\\S+(?:\\s+\\S+)*)"); // one or more keywords separated by whitespace
-    private static final Prefix phoneNumberPrefix = new Prefix("p/");
-    private static final Prefix emailPrefix = new Prefix("e/");
-    private static final Prefix addressPrefix = new Prefix("a/");
-    private static final Prefix tagsPrefix = new Prefix("t/");
 
     /**
      * Parses user input into command for execution.
@@ -111,27 +101,22 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareAdd(String args) {
-        ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(phoneNumberPrefix, emailPrefix,
-                                                                addressPrefix, tagsPrefix);
+        ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(
+                PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG);
         argsTokenizer.tokenize(args);
         try {
             return new AddCommand(
                     argsTokenizer.getPreamble().get(),
-                    argsTokenizer.getValue(phoneNumberPrefix).get(),
-                    argsTokenizer.getValue(emailPrefix).get(),
-                    argsTokenizer.getValue(addressPrefix).get(),
-                    toSet(argsTokenizer.getAllValues(tagsPrefix))
+                    argsTokenizer.getValue(PREFIX_PHONE).get(),
+                    argsTokenizer.getValue(PREFIX_EMAIL).get(),
+                    argsTokenizer.getValue(PREFIX_ADDRESS).get(),
+                    ParserUtil.toTagSet(argsTokenizer.getAllValues(PREFIX_TAG))
             );
         } catch (NoSuchElementException nsee) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }
-    }
-
-    private Set<String> toSet(Optional<List<String>> tagsOptional) {
-        List<String> tags = tagsOptional.orElse(Collections.emptyList());
-        return new HashSet<>(tags);
     }
 
     /**
@@ -153,12 +138,12 @@ public class Parser {
      */
     private Command prepareEdit(String args) {
         assert args != null;
-        ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(phoneNumberPrefix, emailPrefix,
-                                                                addressPrefix, tagsPrefix);
+        ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(
+                PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG);
         argsTokenizer.tokenize(args);
         List<Optional<String>> preambleFields = splitPreamble(argsTokenizer.getPreamble().orElse(""), 2);
 
-        Optional<Integer> index = preambleFields.get(0).flatMap(this::parseIndex);
+        Optional<Integer> index = preambleFields.get(0).flatMap(ParserUtil::parseIndex);
         if (!index.isPresent()) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         }
@@ -166,10 +151,10 @@ public class Parser {
         EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
         try {
             editPersonDescriptor.setName(parseName(preambleFields.get(1)));
-            editPersonDescriptor.setPhone(parsePhone(argsTokenizer.getValue(phoneNumberPrefix)));
-            editPersonDescriptor.setEmail(parseEmail(argsTokenizer.getValue(emailPrefix)));
-            editPersonDescriptor.setAddress(parseAddress(argsTokenizer.getValue(addressPrefix)));
-            editPersonDescriptor.setTags(parseTagsForEdit(toSet(argsTokenizer.getAllValues(tagsPrefix))));
+            editPersonDescriptor.setPhone(parsePhone(argsTokenizer.getValue(PREFIX_PHONE)));
+            editPersonDescriptor.setEmail(parseEmail(argsTokenizer.getValue(PREFIX_EMAIL)));
+            editPersonDescriptor.setAddress(parseAddress(argsTokenizer.getValue(PREFIX_ADDRESS)));
+            editPersonDescriptor.setTags(parseTagsForEdit(ParserUtil.toTagSet(argsTokenizer.getAllValues(PREFIX_TAG))));
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }
@@ -248,7 +233,7 @@ public class Parser {
      */
     private Command prepareDelete(String args) {
 
-        Optional<Integer> index = parseIndex(args);
+        Optional<Integer> index = ParserUtil.parseIndex(args);
         if (!index.isPresent()) {
             return new IncorrectCommand(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
@@ -264,31 +249,13 @@ public class Parser {
      * @return the prepared command
      */
     private Command prepareSelect(String args) {
-        Optional<Integer> index = parseIndex(args);
+        Optional<Integer> index = ParserUtil.parseIndex(args);
         if (!index.isPresent()) {
             return new IncorrectCommand(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE));
         }
 
         return new SelectCommand(index.get());
-    }
-
-    /**
-     * Returns the specified index in the {@code command} if it is a positive unsigned integer
-     * Returns an {@code Optional.empty()} otherwise.
-     */
-    private Optional<Integer> parseIndex(String command) {
-        final Matcher matcher = PERSON_INDEX_ARGS_FORMAT.matcher(command.trim());
-        if (!matcher.matches()) {
-            return Optional.empty();
-        }
-
-        String index = matcher.group("targetIndex");
-        if (!StringUtil.isUnsignedInteger(index)) {
-            return Optional.empty();
-        }
-        return Optional.of(Integer.parseInt(index));
-
     }
 
     /**
