@@ -1,8 +1,7 @@
 package seedu.address.logic.commands;
 
 import static org.junit.Assert.assertEquals;
-
-import java.util.HashSet;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -14,6 +13,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList.DuplicatePersonException;
+import seedu.address.model.tag.UniqueTagList;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.TestPerson;
 
@@ -37,35 +37,42 @@ public class AddCommandTest {
     @Test
     public void constructor_invalidName_throwsIllegalValueException() throws Exception {
         thrown.expect(IllegalValueException.class);
-        new AddCommand("", VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, new HashSet<>());
+        new AddCommand("", VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, new UniqueTagList());
     }
 
     @Test
     public void constructor_invalidPhone_throwsIllegalValueException() throws Exception {
         thrown.expect(IllegalValueException.class);
-        new AddCommand(VALID_NAME, "", VALID_EMAIL, VALID_ADDRESS, new HashSet<>());
+        new AddCommand(VALID_NAME, "", VALID_EMAIL, VALID_ADDRESS, new UniqueTagList());
     }
 
     @Test
     public void constructor_invalidEmail_throwsIllegalValueException() throws Exception {
         thrown.expect(IllegalValueException.class);
-        new AddCommand(VALID_NAME, VALID_PHONE, "", VALID_ADDRESS, new HashSet<>());
+        new AddCommand(VALID_NAME, VALID_PHONE, "", VALID_ADDRESS, new UniqueTagList());
     }
 
     @Test
     public void constructor_invalidAddress_throwsIllegalValueException() throws Exception {
         thrown.expect(IllegalValueException.class);
-        new AddCommand(VALID_NAME, VALID_PHONE, VALID_EMAIL, "", new HashSet<>());
+        new AddCommand(VALID_NAME, VALID_PHONE, VALID_EMAIL, "", new UniqueTagList());
+    }
+
+    @Test
+    public void constructor_invalidTags_throwsIllegalValueException() throws Exception {
+        thrown.expect(NullPointerException.class);
+        new AddCommand(VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, null);
     }
 
     @Test
     public void execute_newPersonNotInList_addSuccessful() throws Exception {
-        ModelManager modelStub = new ModelStubAcceptingPersonAdded();
+        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
         TestPerson validPerson = createValidPerson();
 
         CommandResult commandResult = getAddCommandForPerson(validPerson, modelStub).execute();
 
         assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validPerson), commandResult.feedbackToUser);
+        assertTrue(modelStub.isAddPersonMethodCalled());
     }
 
     @Test
@@ -92,7 +99,7 @@ public class AddCommandTest {
      */
     private AddCommand getAddCommandForPerson(TestPerson person, Model model) throws IllegalValueException {
         AddCommand command = new AddCommand(person.getName().toString(), person.getPhone().toString(),
-                person.getEmail().toString(), person.getAddress().toString(), person.getTagsSet());
+                person.getEmail().toString(), person.getAddress().toString(), person.getTags());
 
         command.setData(model);
         return command;
@@ -111,8 +118,15 @@ public class AddCommandTest {
      * A Model stub that always accept the person being added.
      */
     private class ModelStubAcceptingPersonAdded extends ModelManager {
+        private boolean addPersonMethodCalled = false;
+
         public void addPerson(Person person) throws DuplicatePersonException {
-            // pretend to accept (but actually does nothing)
+            addPersonMethodCalled = true;
+        }
+
+        public boolean isAddPersonMethodCalled() {
+            return addPersonMethodCalled;
         }
     }
+
 }
