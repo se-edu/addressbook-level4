@@ -8,7 +8,6 @@ import static seedu.address.logic.parser.CliSyntax.KEYWORDS_ARGS_FORMAT;
 
 import java.util.Arrays;
 import java.util.HashSet;
-import java.util.Optional;
 import java.util.Set;
 import java.util.regex.Matcher;
 
@@ -52,7 +51,7 @@ public class Parser {
             return new EditCommandParser().parse(arguments);
 
         case SelectCommand.COMMAND_WORD:
-            return prepareSelect(arguments);
+            return new SelectCommandParser().parse(arguments);
 
         case DeleteCommand.COMMAND_WORD:
             return new DeleteCommandParser().parse(arguments);
@@ -75,22 +74,6 @@ public class Parser {
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
         }
-    }
-
-    /**
-     * Parses arguments in the context of the select person command.
-     *
-     * @param args full command args string
-     * @return the prepared command
-     */
-    private Command prepareSelect(String args) {
-        Optional<Integer> index = ParserUtil.parseIndex(args);
-        if (!index.isPresent()) {
-            return new IncorrectCommand(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE));
-        }
-
-        return new SelectCommand(index.get());
     }
 
     /**
