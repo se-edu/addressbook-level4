@@ -1,0 +1,65 @@
+= Test Document
+:toc:
+:toc-placement: preamble
+:numbered:
+:sectlinks:
+:linkcss:
+:stylesheet: gh-pages.css
+:imagesdir: images
+:icons: font
+
+This is a test asciidoc document to check the setup for asciidoc documentation.
+
+== Heading
+
+=== Subheading
+
+.Bulleted lists
+* *bold*
+** _italics_
+*** `code`
+** [red]#red#
+
+.Numbered lists
+. first
+.. first i
+.. first ii
+.. first iii
+. second
+. third
+.. third i
+... third i i
+
+[NOTE]
+====
+This is a note.
+====
+
+[WARNING]
+====
+This is a warning.
+====
+
+[role="details"]
+****
+This is a custom block.
+****
+
+
+****
+This is a sidebar block.
+****
+
+=== Subheading II
+
+This tests line break. +
+This should be on a new line.
+
+http://google.com[This] is a link to an external site.
+
+<<_subheading, This>> is a link to the previous section.
+
+image::Architecture.png[title="Architecture diagram", width="400"]
+____
+This is a quote block.
+____
