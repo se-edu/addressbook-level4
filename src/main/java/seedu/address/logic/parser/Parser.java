@@ -54,7 +54,7 @@ public class Parser {
             return prepareSelect(arguments);
 
         case DeleteCommand.COMMAND_WORD:
-            return prepareDelete(arguments);
+            return new DeleteCommandParser().parse(arguments);
 
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
@@ -74,23 +74,6 @@ public class Parser {
         default:
             return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
         }
-    }
-
-    /**
-     * Parses arguments in the context of the delete person command.
-     *
-     * @param args full command args string
-     * @return the prepared command
-     */
-    private Command prepareDelete(String args) {
-
-        Optional<Integer> index = ParserUtil.parseIndex(args);
-        if (!index.isPresent()) {
-            return new IncorrectCommand(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
-        }
-
-        return new DeleteCommand(index.get());
     }
 
     /**
