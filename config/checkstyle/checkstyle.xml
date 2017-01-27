@@ -18,7 +18,7 @@
 
   <!-- Miscellaneous -->
   <module name="NewlineAtEndOfFile">
-    <!-- Accept LF, CR or CRLF to accomodate devs who prefer different line endings -->
+    <!-- Accept LF, CR or CR LF to accomodate devs who prefer different line endings -->
     <property name="lineSeparator" value="lf_cr_crlf"/>
   </module>
 
@@ -39,7 +39,7 @@
 
   <!-- All Java AST specific tests live under TreeWalker module. -->
   <module name="TreeWalker">
-      
+
     <!-- Miscellaneous -->
     <!-- Required for SuppressionCommentFilter to work -->
     <module name="FileContentsHolder"/>
@@ -145,7 +145,7 @@
     <!--
     LENGTH and CODING CHECKS
     -->
-      
+
     <!-- Size Violations -->
     <module name="LineLength">
       <!-- Checks if a line is too long. -->
@@ -267,14 +267,14 @@
       <!-- Checks that commas, semicolons and typecasts are followed by whitespace. -->
       <property name="tokens" value="COMMA, SEMI, TYPECAST"/>
     </module>
-      
+
     <module name="NoWhitespaceBefore">
       <!-- Checks that there is no whitespace before various unary operators. Linebreaks are allowed. -->
       <property name="tokens" value="SEMI, DOT, POST_DEC, POST_INC"/>
       <property name="allowLineBreaks" value="true"/>
       <property name="severity" value="error"/>
     </module>
-      
+
     <module name="NoWhitespaceAfter">
       <!-- Checks that there is no whitespace after various unary operators. Linebreaks are allowed. -->
       <property name="tokens" value="BNOT, DEC, DOT, INC, LNOT, UNARY_MINUS,
