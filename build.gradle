@@ -189,9 +189,11 @@ asciidoctor {
   outputDir = file("${buildDir}/docs")
 }
 
-// Copies stylesheets into the directory containing generated HTML files as
-// Asciidoctor does not copy linked CSS files to the output directory when rendering.
-// This is needed for linked stylesheets and embedded stylesheets which import other files.
+/*
+ Copies stylesheets into the directory containing generated HTML files as
+ Asciidoctor does not copy linked CSS files to the output directory when rendering.
+ This is needed for linked stylesheets and embedded stylesheets which import other files.
+*/
 task copyStylesheets(type: Copy) {
     from "docs/stylesheets"
     into "${buildDir}/docs/html5"
