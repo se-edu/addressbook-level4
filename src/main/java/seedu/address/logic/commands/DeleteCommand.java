@@ -1,50 +1,59 @@
 package seedu.address.logic.commands;
 
+import java.util.List;
+import java.util.Set;
+
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.UnmodifiableObservableList;
+import seedu.address.commons.util.CollectionUtil;
+import seedu.address.commons.util.IndexUtil;
+import seedu.address.commons.util.ListUtil;
+import seedu.address.commons.util.StringUtil;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.UniquePersonList.PersonsNotFoundException;
 
 /**
- * Deletes a person identified using it's last displayed index from the address book.
+ * Deletes persons identified using their last displayed indices from the address book.
  */
 public class DeleteCommand extends Command {
 
     public static final String COMMAND_WORD = "delete";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes the person identified by the index number used in the last person listing.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + COMMAND_WORD + " 1";
+            + ": Deletes the persons at the specified INDICES\n"
+            + "Parameters: INDICES (positive integers or integer ranges separated by spaces)\n"
+            + "INDICES must match those on the last shown list.\n"
+            + "Example: " + COMMAND_WORD + " 1 4-6 3 13-9";
 
-    public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Person: %1$s";
+    public static final String MESSAGE_DELETE_PERSON_SUCCESS =
+            "Deleted %1$s Person(s):\n"
+            + "%2$s";
 
-    public final int targetIndex;
+    public final Set<Integer> zeroBasedTargetIndices;
 
-    public DeleteCommand(int targetIndex) {
-        this.targetIndex = targetIndex;
+    public DeleteCommand(Set<Integer> oneBasedTargetIndices) {
+        assert !CollectionUtil.isAnyNull(oneBasedTargetIndices);
+        this.zeroBasedTargetIndices = IndexUtil.oneToZeroIndex(oneBasedTargetIndices);
     }
-
 
     @Override
     public CommandResult execute() {
+        UnmodifiableObservableList<ReadOnlyPerson> filteredPersonList = model.getFilteredPersonList();
 
-        UnmodifiableObservableList<ReadOnlyPerson> lastShownList = model.getFilteredPersonList();
-
-        if (lastShownList.size() < targetIndex) {
+        if (!IndexUtil.areIndicesWithinBounds(zeroBasedTargetIndices, filteredPersonList)) {
             indicateAttemptToExecuteIncorrectCommand();
             return new CommandResult(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
-        ReadOnlyPerson personToDelete = lastShownList.get(targetIndex - 1);
-
+        List<ReadOnlyPerson> personsToDelete = ListUtil.subList(filteredPersonList, zeroBasedTargetIndices);
         try {
-            model.deletePersons(personToDelete);
+            model.deletePersons(personsToDelete);
         } catch (PersonsNotFoundException pnfe) {
-            assert false : "DeleteCommand: " + pnfe.getMessage();
+            throw new AssertionError(pnfe);
         }
 
-        return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, personToDelete));
+        return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, personsToDelete.size(),
+                                               StringUtil.toIndexedListString(personsToDelete)));
     }
 
 }
