@@ -18,10 +18,22 @@ from [Travis CI Documentation](https://docs.travis-ci.com/).
 ## Setting up Travis CI
 
 1. Fork the repo to your own organization.
-2. Go to https://travis-ci.org/ and click `Sign in with GitHub`, then enter your GitHub account details if needed.<br>
+2. On GitHub, create a new user account and give this account collaborator access to the repo. Using this
+   account, generate a personal access token [here](https://github.com/settings/tokens/new).
+   **Personal access tokens are like passwords so make sure you keep them secret! If a person access token is leaked, please delete it and generate a new one.**
+    * Add a description for the token (e.g. `Travis CI - deploy docs to gh-pages`)
+    * Check the `public_repo` checkbox.
+    * Click `Generate Token` and copy your new personal access token.
+
+   We will use this token to grant Travis access to the repo.<br>
+   > We use a new user account to generate the token for team projects to prevent team members from gaining access to other team members' repos.
+   > If you are the only one with write access to the repo, you can use your own account to generate the token.
+
+   ![Generating personal access token](images/generate_token.png)
+3. Go to https://travis-ci.org/ and click `Sign in with GitHub`, then enter your GitHub account details if needed.<br>
 ![Signing into Travis CI](images/signing_in.png)
 
-3. Head to the [Accounts](https://travis-ci.org/profile) page, and find the switch for the forked repository.
+4. Head to the [Accounts](https://travis-ci.org/profile) page, and find the switch for the forked repository.
     * If the organization is not shown, click `Review and add` as shown below: <br>
       ![Review and add](images/review_and_add.png)<br>
       This should bring you to a GitHub page that manages the access of third-party applications.
@@ -32,20 +44,33 @@ from [Travis CI Documentation](https://docs.travis-ci.com/).
       to Travis CI so that it can access your commits and build your code.
 
     * If repository cannot be found, click `Sync account`
-4. Activate the switch.<br>
+5. Activate the switch.<br>
    ![Activate the switch](images/flick_repository_switch.png)
-5. This repo comes with a [`.travis.yml`](../.travis.yml) that tells Travis what to do.
+6. Click on the settings button next to the switch. In the Environment Variables section, add a new
+   environment variable with
+    * name: `GITHUB_TOKEN`
+    * value: personal access token copied in step 2
+    * Display value in build log: `OFF`
+
+    > **Make sure you set `Display value in build log` to `OFF`.**<br>
+    > Otherwise, other people will be able to see the personal access token and thus have access
+    this repo. Similarly, make sure you **do not print `$GITHUB_TOKEN` to the logs** in Travis
+    scripts as the logs are viewable by the public.
+
+    ![Add token to Travis](images/travis_add_token.png)<br>
+7. In [`deploy_github_pages.sh`](../deploy_github_pages.sh), change `GITHUB_REPO`'s value to this repo.
+8. This repo comes with a [`.travis.yml`](../.travis.yml) that tells Travis what to do.
    So there is no need for you to create one yourself.
-6. To see the CI in action, push a commit to the master branch!
+9. To see the CI in action, push a commit to the master branch!
     * Go to the repository and see the pushed commit. There should be an icon which will link you to the Travis build.<br>
       ![Commit build](images/build_pending.png)
 
     * As the build is run on a provided remote machine, we can only examine the logs it produces:<br>
       ![Travis build](images/travis_build.png)
 
-7. If the build is successful, you should be able to check the coverage details of the tests
+10. If the build is successful, you should be able to check the coverage details of the tests
    at [Coveralls](http://coveralls.io/)
-8. Update the link to the 'build status' badge at the top of the `README.md` to point to the build status of your
+11. Update the link to the 'build status' badge at the top of the `README.md` to point to the build status of your
    own repo.
 
 ## Repository-wide checks
