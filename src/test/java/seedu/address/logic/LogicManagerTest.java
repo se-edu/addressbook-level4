@@ -147,8 +147,19 @@ public class LogicManagerTest {
     }
 
     @Test
+    public void execute_sos() throws Exception {
+        assertCommandBehavior("sos", HelpCommand.SHOWING_HELP_MESSAGE);
+        assertTrue(helpShown);
+    }
+
+    @Test
     public void execute_exit() throws Exception {
         assertCommandBehavior("exit", ExitCommand.MESSAGE_EXIT_ACKNOWLEDGEMENT);
+    }
+
+    @Test
+    public void execute_quit() throws Exception {
+        assertCommandBehavior("quit", ExitCommand.MESSAGE_EXIT_ACKNOWLEDGEMENT);
     }
 
     @Test
@@ -159,6 +170,16 @@ public class LogicManagerTest {
         model.addPerson(helper.generatePerson(3));
 
         assertCommandBehavior("clear", ClearCommand.MESSAGE_SUCCESS, new AddressBook(), Collections.emptyList());
+    }
+
+    @Test
+    public void execute_clr() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        model.addPerson(helper.generatePerson(1));
+        model.addPerson(helper.generatePerson(2));
+        model.addPerson(helper.generatePerson(3));
+
+        assertCommandBehavior("clr", ClearCommand.MESSAGE_SUCCESS, new AddressBook(), Collections.emptyList());
     }
 
 
@@ -219,6 +240,26 @@ public class LogicManagerTest {
 
     }
 
+    @Test
+    public void execute_aDuplicate_notAllowed() throws Exception {
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        Person toBeAdded = helper.adam();
+        AddressBook expectedAB = new AddressBook();
+        expectedAB.addPerson(toBeAdded);
+
+        // setup starting state
+        model.addPerson(toBeAdded); // person already in internal address book
+
+        // execute command and verify result
+        assertCommandBehavior(
+                helper.generateAddCommand(toBeAdded).replaceFirst("add", "a"),
+                AddCommand.MESSAGE_DUPLICATE_PERSON,
+                expectedAB,
+                expectedAB.getPersonList());
+
+    }
+
 
     @Test
     public void execute_list_showsAllPersons() throws Exception {
@@ -231,6 +272,22 @@ public class LogicManagerTest {
         helper.addToModel(model, 2);
 
         assertCommandBehavior("list",
+                ListCommand.MESSAGE_SUCCESS,
+                expectedAB,
+                expectedList);
+    }
+
+    @Test
+    public void execute_l_showsAllPersons() throws Exception {
+        // prepare expectations
+        TestDataHelper helper = new TestDataHelper();
+        AddressBook expectedAB = helper.generateAddressBook(2);
+        List<? extends ReadOnlyPerson> expectedList = expectedAB.getPersonList();
+
+        // prepare address book state
+        helper.addToModel(model, 2);
+
+        assertCommandBehavior("l",
                 ListCommand.MESSAGE_SUCCESS,
                 expectedAB,
                 expectedList);
@@ -299,6 +356,22 @@ public class LogicManagerTest {
         assertEquals(model.getFilteredPersonList().get(1), threePersons.get(1));
     }
 
+    @Test
+    public void execute_sel_jumpsToCorrectPerson() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        List<Person> threePersons = helper.generatePersonList(3);
+
+        AddressBook expectedAB = helper.generateAddressBook(threePersons);
+        helper.addToModel(model, threePersons);
+
+        assertCommandBehavior("sel 2",
+                String.format(SelectCommand.MESSAGE_SELECT_PERSON_SUCCESS, 2),
+                expectedAB,
+                expectedAB.getPersonList());
+        assertEquals(1, targetedJumpIndex);
+        assertEquals(model.getFilteredPersonList().get(1), threePersons.get(1));
+    }
+
 
     @Test
     public void execute_deleteInvalidArgsFormat_errorMessageShown() throws Exception {
@@ -321,6 +394,21 @@ public class LogicManagerTest {
         helper.addToModel(model, threePersons);
 
         assertCommandBehavior("delete 2",
+                String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, threePersons.get(1)),
+                expectedAB,
+                expectedAB.getPersonList());
+    }
+
+    @Test
+    public void execute_del_removesCorrectPerson() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        List<Person> threePersons = helper.generatePersonList(3);
+
+        AddressBook expectedAB = helper.generateAddressBook(threePersons);
+        expectedAB.removePerson(threePersons.get(1));
+        helper.addToModel(model, threePersons);
+
+        assertCommandBehavior("del 2",
                 String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, threePersons.get(1)),
                 expectedAB,
                 expectedAB.getPersonList());
@@ -385,6 +473,25 @@ public class LogicManagerTest {
         helper.addToModel(model, fourPersons);
 
         assertCommandBehavior("find key rAnDoM",
+                Command.getMessageForPersonListShownSummary(expectedList.size()),
+                expectedAB,
+                expectedList);
+    }
+
+    @Test
+    public void execute_f_matchesIfAnyKeywordPresent() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Person pTarget1 = helper.generatePersonWithName("bla bla KEY bla");
+        Person pTarget2 = helper.generatePersonWithName("bla rAnDoM bla bceofeia");
+        Person pTarget3 = helper.generatePersonWithName("key key");
+        Person p1 = helper.generatePersonWithName("sduauo");
+
+        List<Person> fourPersons = helper.generatePersonList(pTarget1, p1, pTarget2, pTarget3);
+        AddressBook expectedAB = helper.generateAddressBook(fourPersons);
+        List<Person> expectedList = helper.generatePersonList(pTarget1, pTarget2, pTarget3);
+        helper.addToModel(model, fourPersons);
+
+        assertCommandBehavior("f key rAnDoM",
                 Command.getMessageForPersonListShownSummary(expectedList.size()),
                 expectedAB,
                 expectedList);
