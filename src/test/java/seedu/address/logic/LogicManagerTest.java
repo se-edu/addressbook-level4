@@ -255,23 +255,24 @@ public class LogicManagerTest {
     }
 
     /**
-     * Confirms the 'invalid argument index number behaviour' for the given command
-     * targeting a single person in the shown list, using visible index.
-     * @param commandWord to test assuming it targets a single person in the last shown list
+     * Confirms the 'invalid argument index number behaviour' for the given {@code commandArgs}
+     * targeting persons in the shown list of size {@code listSize}, using visible index.
+     * @param commandArgs to test assuming it targets persons in the last shown list
      *                    based on visible index.
+     * @param listSize last shown list size
      */
-    private void assertIndexNotFoundBehaviorForCommand(String commandWord) throws Exception {
+    private void assertIndexNotFoundBehaviorForCommand(String commandArgs, int listSize) throws Exception {
         String expectedMessage = MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
         TestDataHelper helper = new TestDataHelper();
-        List<Person> personList = helper.generatePersonList(2);
+        List<Person> personList = helper.generatePersonList(listSize);
 
-        // set AB state to 2 persons
+        // set AB state to 'listSize' persons
         model.resetData(new AddressBook());
         for (Person p : personList) {
             model.addPerson(p);
         }
 
-        assertCommandBehavior(commandWord + " 3", expectedMessage, model.getAddressBook(), personList);
+        assertCommandBehavior(commandArgs, expectedMessage, model.getAddressBook(), personList);
     }
 
     @Test
@@ -282,7 +283,7 @@ public class LogicManagerTest {
 
     @Test
     public void execute_selectIndexNotFound_errorMessageShown() throws Exception {
-        assertIndexNotFoundBehaviorForCommand("select");
+        assertIndexNotFoundBehaviorForCommand("select 3", 2);
     }
 
     @Test
