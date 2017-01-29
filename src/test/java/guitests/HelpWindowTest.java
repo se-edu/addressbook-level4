@@ -1,6 +1,7 @@
 package guitests;
 
 import guitests.guihandles.HelpWindowHandle;
+import java.lang.AssertionError;
 import org.junit.Test;
 
 import static org.junit.Assert.assertTrue;
@@ -36,7 +37,9 @@ public class HelpWindowTest extends AddressBookGuiTest {
     }
 
     private void assertHelpWindowNotOpen(HelpWindowHandle helpWindowHandle) {
-        assertFalse(helpWindowHandle.isWindowOpen());
+        if(helpWindowHandle.isWindowOpen()) {
+            throw new AssertionError();
+        }
     }
 
 }
