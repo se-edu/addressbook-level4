@@ -1,0 +1,60 @@
+= Using AsciiDoc and Asciidoctor
+ifdef::env-github,env-browser[:outfilesuffix: .adoc]
+
+link:asciidoctor.org[AsciiDoc] is a lightweight markup language that can be translated into various formats such as HTML, DocBook and PDF, using text processor and publishing toolchain  <<UsingGradle#rendering-asciidoc-files, Asciidoctor>>.
+
+== Writing AsciiDoc
+
+You can write AsciiDoc documents by using any text editor, then saving the file with the file extension `.adoc`.
+
+For a quick guide to the syntax, see link:http://asciidoctor.org/docs/asciidoc-syntax-quick-reference[this].
+
+[NOTE]
+AsciiDoctor uses slightly different syntax from AsciiDoc, to support faster processing, offer additional features, and decrease ambiguity. Hence, you should follow Asciidoctor's syntax when writing AsciiDoc documents.
+
+== Previewing
+
+To preview AsciiDoc documents locally, you can use <<UsingGradle.adoc#rendering-asciidoc-files, Asciidoctor>> to render the files to HTML.
+You can also install link:http://asciidoctor.org/docs/editing-asciidoc-with-live-preview/[tools] that support live preview.
+
+== Customizing
+
+=== Using stylesheets
+
+To style the HTML documents generated from AsciiDoc files, edit `gh-pages.css` in the `docs\stylesheets` folder.
+`gh-pages.css` imports `asciidoctor.css`, which is the default stylesheet by Asciidoctor.
+
+=== Custom blocks
+
+You can create your own custom blocks, like the `details` block in the <<UserGuide#, User Guide>>.
+For more examples, see link:http://asciidoctor.org/docs/user-manual/#block-assignment-2[Asciidoctor's guide] and link:https://leanpub.com/awesomeasciidoctornotebook/read#leanpub-auto-apply-custom-styling-to-blocks[this tutorial].
+
+=== Custom macros
+
+Custom macros, like the `cmd` inline macro used in the <<UserGuide#, User Guide>>, can be added to `asciidoctor` extensions in `build.gradle`.
+link:https://mrhaki.blogspot.sg/2015/03/awesome-asciidoctor-use-inline.html[Here] is another example.
+
+=== Custom extensions
+
+More complicated macros and extensions can be added in other ways, such as link:http://asciidoctor.org/docs/asciidoctor-gradle-plugin/#adding-custom-extensions[using gradle] (link:https://uberconf.com/blog/andres_almiray/2014/08/gradle_glam_custom_asciidoctor_extensions[an example]), or link:https://github.com/asciidoctor/asciidoctor-extensions-lab[Asciidoctor's Ruby based extensions lab].
+
+== Troubleshooting
+
+*Problem: Asciidoc is not displayed properly in GitHub preview even though it is rendered correctly in HTML*
+
+* Reason: GitHub preview only supports basic features of AsciiDoc.
+
+*Problem: Links to other AsciiDoc files don't work in GitHub preview (or HTML) even though they work in HTML (or GitHub preview)*
+
+* Reason: GitHub preview requires links to `.adoc` files whereas HTML files (in <<UsingGithubPages#, GitHub Pages>>) require links to `.html` files, so if links don't work if file extensions are stated explicitly, e.g. `\<<UserGuide.adoc>>` or `\<<UserGuide.html>>`.
+* Solution: Set the file extension in the document header's attributes instead with `ifdef::env-github,env-browser[:outfilesuffix: .adoc]`. Link endings are set to `.html` files by default, so this changes the links to end in `.adoc` if in GitHub.
+
+*Problem: Asciidoctor is ignoring the attributes set in the document header.*
+
+* Reason: Header attributes are overridden by attributes specified in `asciidoctor` in `build.gradle`.
+* Solution: Remove the attribute from `build.gradle` and set the attribute in individual document headers instead.
+
+== Resources
+
+* Check out link:https://github.com/darshandsoni/asciidoctor-skins[asciidoctor-skins] repository for custom stylesheets.
+* For miscellaneous useful tutorials, see link:https://leanpub.com/awesomeasciidoctornotebook/read[Awesome Asciidoctor Notebook]
