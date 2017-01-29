@@ -51,6 +51,14 @@ public class LogsCenter {
         return Logger.getLogger(name);
     }
 
+    /**
+     * Creates a Logger for the given class name.
+     */
+    public static <T> Logger getLogger(Class<T> clazz) {
+        if (clazz == null) return Logger.getLogger("");
+        return getLogger(clazz.getSimpleName());
+    }
+
     private static void addConsoleHandler(Logger logger) {
         if (consoleHandler == null) consoleHandler = createConsoleHandler();
         logger.addHandler(consoleHandler);
@@ -83,14 +91,6 @@ public class LogsCenter {
         ConsoleHandler consoleHandler = new ConsoleHandler();
         consoleHandler.setLevel(currentLogLevel);
         return consoleHandler;
-    }
-
-    /**
-     * Creates a Logger for the given class name.
-     */
-    public static <T> Logger getLogger(Class<T> clazz) {
-        if (clazz == null) return Logger.getLogger("");
-        return getLogger(clazz.getSimpleName());
     }
 
     /**

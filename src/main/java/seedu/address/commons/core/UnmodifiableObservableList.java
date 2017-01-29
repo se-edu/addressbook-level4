@@ -38,13 +38,13 @@ public class UnmodifiableObservableList<E> implements ObservableList<E> {
     }
 
     @Override
-    public final void removeListener(ListChangeListener<? super E> listener) {
-        backingList.removeListener(listener);
+    public final void addListener(InvalidationListener listener) {
+        backingList.addListener(listener);
     }
 
     @Override
-    public final void addListener(InvalidationListener listener) {
-        backingList.addListener(listener);
+    public final void removeListener(ListChangeListener<? super E> listener) {
+        backingList.removeListener(listener);
     }
 
     @Override
@@ -54,6 +54,16 @@ public class UnmodifiableObservableList<E> implements ObservableList<E> {
 
     @Override
     public final boolean addAll(Object... elements) {
+        throw new UnsupportedOperationException(MUTATION_OP_EXCEPTION_MESSAGE);
+    }
+
+    @Override
+    public final boolean addAll(Collection<? extends E> c) {
+        throw new UnsupportedOperationException(MUTATION_OP_EXCEPTION_MESSAGE);
+    }
+
+    @Override
+    public final boolean addAll(int index, Collection<? extends E> c) {
         throw new UnsupportedOperationException(MUTATION_OP_EXCEPTION_MESSAGE);
     }
 
@@ -73,7 +83,17 @@ public class UnmodifiableObservableList<E> implements ObservableList<E> {
     }
 
     @Override
+    public final boolean removeAll(Collection<?> c) {
+        throw new UnsupportedOperationException(MUTATION_OP_EXCEPTION_MESSAGE);
+    }
+
+    @Override
     public final boolean retainAll(Object... elements) {
+        throw new UnsupportedOperationException(MUTATION_OP_EXCEPTION_MESSAGE);
+    }
+
+    @Override
+    public final boolean retainAll(Collection<?> c) {
         throw new UnsupportedOperationException(MUTATION_OP_EXCEPTION_MESSAGE);
     }
 
@@ -82,6 +102,15 @@ public class UnmodifiableObservableList<E> implements ObservableList<E> {
         throw new UnsupportedOperationException(MUTATION_OP_EXCEPTION_MESSAGE);
     }
 
+    @Override
+    public final boolean remove(Object o) {
+        throw new UnsupportedOperationException(MUTATION_OP_EXCEPTION_MESSAGE);
+    }
+
+    @Override
+    public final E remove(int index) {
+        throw new UnsupportedOperationException(MUTATION_OP_EXCEPTION_MESSAGE);
+    }
 
     @Override
     public final FilteredList<E> filtered(Predicate<E> predicate) {
@@ -157,33 +186,13 @@ public class UnmodifiableObservableList<E> implements ObservableList<E> {
     }
 
     @Override
-    public final boolean remove(Object o) {
+    public final void add(int index, Object element) {
         throw new UnsupportedOperationException(MUTATION_OP_EXCEPTION_MESSAGE);
     }
 
     @Override
     public final boolean containsAll(Collection<?> c) {
         return backingList.containsAll(c);
-    }
-
-    @Override
-    public final boolean addAll(Collection<? extends E> c) {
-        throw new UnsupportedOperationException(MUTATION_OP_EXCEPTION_MESSAGE);
-    }
-
-    @Override
-    public final boolean addAll(int index, Collection<? extends E> c) {
-        throw new UnsupportedOperationException(MUTATION_OP_EXCEPTION_MESSAGE);
-    }
-
-    @Override
-    public final boolean removeAll(Collection<?> c) {
-        throw new UnsupportedOperationException(MUTATION_OP_EXCEPTION_MESSAGE);
-    }
-
-    @Override
-    public final boolean retainAll(Collection<?> c) {
-        throw new UnsupportedOperationException(MUTATION_OP_EXCEPTION_MESSAGE);
     }
 
     @Override
@@ -221,16 +230,6 @@ public class UnmodifiableObservableList<E> implements ObservableList<E> {
     @SuppressWarnings("unchecked")
     @Override
     public final Object set(int index, Object element) {
-        throw new UnsupportedOperationException(MUTATION_OP_EXCEPTION_MESSAGE);
-    }
-
-    @Override
-    public final void add(int index, Object element) {
-        throw new UnsupportedOperationException(MUTATION_OP_EXCEPTION_MESSAGE);
-    }
-
-    @Override
-    public final E remove(int index) {
         throw new UnsupportedOperationException(MUTATION_OP_EXCEPTION_MESSAGE);
     }
 
