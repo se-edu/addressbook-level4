@@ -2,6 +2,7 @@ package seedu.address.commons.util;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Stream;
@@ -35,7 +36,7 @@ public class CollectionUtil {
      */
     public static void assertNoNullElements(Collection<?> items) {
         assert items != null;
-        assert !isAnyNull(items);
+        assert !items.stream().anyMatch(Objects::isNull);
     }
 
     /**
