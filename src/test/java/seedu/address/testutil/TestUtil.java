@@ -7,7 +7,9 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.concurrent.TimeoutException;
 import java.util.stream.Collectors;
 
@@ -355,6 +357,11 @@ public class TestUtil {
         }).collect(Collectors.toList());
 
         return collect.toArray(new Tag[split.length]);
+    }
+
+    /** Converts {@code items} to an {@code Integer Set}. */
+    public static Set<Integer> toSet(Integer... items) {
+        return new HashSet<>(Arrays.asList(items));
     }
 
 }
