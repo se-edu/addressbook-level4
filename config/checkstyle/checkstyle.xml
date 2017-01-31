@@ -6,26 +6,30 @@
 <!--
     This configuration file enforces rules for a modified version of the module's code standard at
     https://oss-generic.github.io/process/codingstandards/coding-standards-java.html
+    Documentation on each module can be found at http://checkstyle.sourceforge.net/
 -->
 
 <module name="Checker">
 
+  <!-- Whitespace -->
   <module name="FileTabCharacter">
     <!-- Checks that there are no tab characters in the file. -->
   </module>
 
+  <!-- Miscellaneous -->
   <module name="NewlineAtEndOfFile">
-    <!-- Accept LF, CR or CRLF to accomodate devs who prefer different line endings -->
+    <!-- Accept LF, CR or CR LF to accomodate devs who prefer different line endings -->
     <property name="lineSeparator" value="lf_cr_crlf"/>
   </module>
 
+  <!-- Regexp -->
   <module name="RegexpSingleline">
     <!-- Checks that FIXME is not used in comments.  TODO is preferred. -->
     <property name="format" value="((//.*)|(\*.*))FIXME" />
     <property name="message" value='TODO is preferred to FIXME."' />
   </module>
 
-
+  <!-- Filters -->
   <!-- Required to allow exceptions in code style -->
   <module name="SuppressionCommentFilter">
     <property name="offCommentFormat" value="CHECKSTYLE.OFF\: ([\w\|]+)"/>
@@ -36,6 +40,7 @@
   <!-- All Java AST specific tests live under TreeWalker module. -->
   <module name="TreeWalker">
 
+    <!-- Miscellaneous -->
     <!-- Required for SuppressionCommentFilter to work -->
     <module name="FileContentsHolder"/>
 
@@ -43,6 +48,7 @@
     IMPORT CHECKS
     -->
 
+    <!-- Imports -->
     <!-- Checks for redundant import statements.
     An import statement is redundant if:
       * It is a duplicate of another import. This is, when a class is imported more than once.
@@ -66,19 +72,20 @@
     NAMING CHECKS
     -->
 
+    <!-- Naming Conventions -->
     <module name="PackageName">
       <!-- Validates identifiers for package names against the supplied expression. -->
       <property name="format" value="^[a-z]+(\.[a-z][a-z0-9]{1,})*$"/>
       <property name="severity" value="warning"/>
     </module>
 
-    <module name="TypeNameCheck">
+    <module name="TypeName">
       <!-- Validates static, final fields against the expression "^[A-Z][a-zA-Z0-9]*$". -->
       <metadata name="altname" value="TypeName"/>
       <property name="severity" value="warning"/>
     </module>
 
-    <module name="ConstantNameCheck">
+    <module name="ConstantName">
       <!-- Validates non-private, static, final fields against the expression "^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$". -->
       <metadata name="altname" value="ConstantName"/>
       <property name="applyToPublic" value="true"/>
@@ -90,7 +97,7 @@
       <property name="severity" value="warning"/>
     </module>
 
-    <module name="StaticVariableNameCheck">
+    <module name="StaticVariableName">
       <!-- Validates static, non-final fields against the supplied expression. -->
       <metadata name="altname" value="StaticVariableName"/>
       <property name="applyToPublic" value="true"/>
@@ -101,7 +108,7 @@
       <property name="severity" value="warning"/>
     </module>
 
-    <module name="MemberNameCheck">
+    <module name="MemberName">
       <!-- Validates non-static members against the supplied expression. -->
       <metadata name="altname" value="MemberName"/>
       <property name="applyToPublic" value="true"/>
@@ -112,7 +119,7 @@
       <property name="severity" value="warning"/>
     </module>
 
-    <module name="MethodNameCheck">
+    <module name="MethodName">
       <!-- Validates identifiers for method names against the supplied expression. -->
       <metadata name="altname" value="MethodName"/>
       <property name="format" value="^[a-z][a-zA-Z0-9]*(_[a-zA-Z0-9]+)*|_+[A-Z]+(_[A-Z]+)*_+$"/>
@@ -139,12 +146,14 @@
     LENGTH and CODING CHECKS
     -->
 
+    <!-- Size Violations -->
     <module name="LineLength">
       <!-- Checks if a line is too long. -->
       <property name="max" value="120"/>
       <property name="severity" value="error"/>
     </module>
 
+    <!-- Block Checks -->
     <module name="LeftCurly">
       <!-- Checks for placement of the left curly brace ('{'). -->
       <property name="severity" value="warning"/>
@@ -191,11 +200,13 @@
       <property name="allowSingleLineStatement" value="true"/>
     </module>
 
+    <!-- Miscellaneous -->
     <module name="UpperEll">
       <!-- Checks that long constants are defined with an upper ell.-->
       <property name="severity" value="error"/>
     </module>
 
+    <!-- Coding -->
     <module name="FallThrough">
       <!-- Warn about falling through to the next case statement.  Similar to
       javac -Xlint:fallthrough, but the check is suppressed if a single-line comment
@@ -212,6 +223,7 @@
     ORDER CHECKS
     -->
 
+    <!-- Modifiers -->
     <module name="ModifierOrder">
       <!-- Warn if modifier order is inconsistent with JLS3 8.1.1, 8.3.1, and
            8.4.3.  The prescribed order is:
@@ -226,6 +238,7 @@
     WHITESPACE CHECKS
     -->
 
+    <!-- Whitespace -->
     <module name="WhitespaceAround">
       <!-- Checks that various tokens are surrounded by whitespace.
            This includes most binary operators and keywords followed
@@ -256,6 +269,13 @@
       <property name="tokens" value="COMMA, SEMI, TYPECAST"/>
     </module>
 
+    <module name="NoWhitespaceBefore">
+      <!-- Checks that there is no whitespace before various unary operators. Linebreaks are allowed. -->
+      <property name="tokens" value="SEMI, DOT, POST_DEC, POST_INC"/>
+      <property name="allowLineBreaks" value="true"/>
+      <property name="severity" value="error"/>
+    </module>
+
     <module name="NoWhitespaceAfter">
       <!-- Checks that there is no whitespace after various unary operators. Linebreaks are allowed. -->
       <property name="tokens" value="BNOT, DEC, DOT, INC, LNOT, UNARY_MINUS,
@@ -264,27 +284,22 @@
       <property name="severity" value="error"/>
     </module>
 
-    <!-- No trailing whitespace -->
+    <module name="ParenPad">
+      <!-- Checks that there is no whitespace before close parenthesis or after open parenthesis. -->
+      <property name="severity" value="warning"/>
+    </module>
+
+    <!-- Regexp -->
     <module name="Regexp">
+      <!-- No trailing whitespace -->
       <property name="format" value="[ \t]+$"/>
       <property name="illegalPattern" value="true"/>
       <property name="message" value="Trailing whitespace"/>
     </module>
 
+    <!-- Miscellaneous -->
     <module name="Indentation">
       <property name="caseIndent" value="0" />
-    </module>
-
-    <module name="NoWhitespaceBefore">
-      <!-- Checks that there is no whitespace before various unary operators. Linebreaks are allowed. -->
-      <property name="tokens" value="SEMI, DOT, POST_DEC, POST_INC"/>
-      <property name="allowLineBreaks" value="true"/>
-      <property name="severity" value="error"/>
-    </module>
-
-    <module name="ParenPad">
-      <!-- Checks that there is no whitespace before close parenthesis or after open parenthesis. -->
-      <property name="severity" value="warning"/>
     </module>
 
   </module>
