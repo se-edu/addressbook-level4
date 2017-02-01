@@ -47,11 +47,11 @@ public class ArgumentTokenizerTest {
         assertEquals(expectedValues[expectedValues.length - 1], argsTokenizer.getValue(prefix).get());
 
         // Verify the number of values returned is as expected
-        assertEquals(expectedValues.length, argsTokenizer.getAllValues(prefix).get().size());
+        assertEquals(expectedValues.length, argsTokenizer.getAllValues(prefix).size());
 
         // Verify all values returned are as expected and in order
         for (int i = 0; i < expectedValues.length; i++) {
-            assertEquals(expectedValues[i], argsTokenizer.getAllValues(prefix).get().get(i));
+            assertEquals(expectedValues[i], argsTokenizer.getAllValues(prefix).get(i));
         }
     }
 
