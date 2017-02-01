@@ -43,6 +43,22 @@
     IMPORT CHECKS
     -->
 
+    <!-- Checks the ordering of import statements follow the rules that the default Eclipse formatter uses.
+    The order rule "STATIC###STANDARD_JAVA_PACKAGE###SPECIAL_IMPORTS###THIRD_PARTY_PACKAGE" consists of:
+      1. STATIC: static imports
+      2. STANDARD_JAVA_PACKAGE: standard java/javax imports
+      3. SPECIAL_IMPORTS: defined as org imports
+      4. THIRD_PARTY_PACKAGE: defined as com imports
+    -->
+    <module name="CustomImportOrder">
+        <property name="customImportOrderRules"
+            value="STATIC###STANDARD_JAVA_PACKAGE###SPECIAL_IMPORTS###THIRD_PARTY_PACKAGE"/>
+        <property name="specialImportsRegExp" value="^org\."/>
+        <property name="thirdPartyPackageRegExp" value="^com\."/>
+        <property name="sortImportsInGroupAlphabetically" value="true"/>
+        <property name="separateLineBetweenGroups" value="true"/>
+    </module>
+
     <!-- Checks for redundant import statements.
     An import statement is redundant if:
       * It is a duplicate of another import. This is, when a class is imported more than once.
