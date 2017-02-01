@@ -116,7 +116,7 @@ public class Parser {
         argsTokenizer.tokenize(args);
         try {
             return new AddCommand(
-                    argsTokenizer.getPreamble().get(),
+                    argsTokenizer.getPreamble(),
                     argsTokenizer.getValue(phoneNumberPrefix).get(),
                     argsTokenizer.getValue(emailPrefix).get(),
                     argsTokenizer.getValue(addressPrefix).get(),
@@ -156,7 +156,7 @@ public class Parser {
         ArgumentTokenizer argsTokenizer = new ArgumentTokenizer(phoneNumberPrefix, emailPrefix,
                                                                 addressPrefix, tagsPrefix);
         argsTokenizer.tokenize(args);
-        List<Optional<String>> preambleFields = splitPreamble(argsTokenizer.getPreamble().orElse(""), 2);
+        List<Optional<String>> preambleFields = splitPreamble(argsTokenizer.getPreamble(), 2);
 
         Optional<Integer> index = preambleFields.get(0).flatMap(this::parseIndex);
         if (!index.isPresent()) {
