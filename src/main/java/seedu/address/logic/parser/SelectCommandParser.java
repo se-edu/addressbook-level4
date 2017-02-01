@@ -26,4 +26,5 @@ public class SelectCommandParser {
 
         return new SelectCommand(index.get());
     }
+
 }

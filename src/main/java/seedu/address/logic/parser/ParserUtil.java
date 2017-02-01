@@ -1,7 +1,5 @@
 package seedu.address.logic.parser;
 
-import static seedu.address.logic.parser.CliSyntax.INDEX_ARGS_FORMAT;
-
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -10,6 +8,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import seedu.address.commons.exceptions.IllegalValueException;
@@ -25,6 +24,8 @@ import seedu.address.model.tag.UniqueTagList;
  * Contains utility methods used for parsing strings in the various *Parser classes
  */
 public class ParserUtil {
+
+    private static final Pattern INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
 
     /**
      * Returns the specified index in the {@code command} if it is a positive unsigned integer

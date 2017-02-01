@@ -27,4 +27,5 @@ public class DeleteCommandParser {
 
         return new DeleteCommand(index.get());
     }
+
 }
