@@ -3,6 +3,7 @@ package seedu.address.logic.parser;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
@@ -33,11 +34,11 @@ public class ArgumentTokenizerTest {
     }
 
     private void assertPreamblePresent(ArgumentTokenizer argsTokenizer, String expectedPreamble) {
-        assertEquals(expectedPreamble, argsTokenizer.getPreamble().get());
+        assertEquals(expectedPreamble, argsTokenizer.getPreamble());
     }
 
     private void assertPreambleAbsent(ArgumentTokenizer argsTokenizer) {
-        assertFalse(argsTokenizer.getPreamble().isPresent());
+        assertTrue(argsTokenizer.getPreamble().isEmpty());
     }
 
     private void assertArgumentPresent(ArgumentTokenizer argsTokenizer, Prefix prefix, String... expectedValues) {
