@@ -60,17 +60,16 @@ public class ArgumentTokenizer {
 
     /**
      * Returns the preamble (text before the first valid prefix), if any. Leading/trailing spaces will be trimmed.
-     *     If the string before the first prefix is empty, Optional.empty() will be returned.
+     *     If the string before the first prefix is empty, an empty string will be returned.
      */
-    public Optional<String> getPreamble() {
-
+    public String getPreamble() {
         Optional<String> storedPreamble = getValue(new Prefix(""));
 
         /* An empty preamble is considered 'no preamble present' */
         if (storedPreamble.isPresent() && !storedPreamble.get().isEmpty()) {
-            return storedPreamble;
+            return storedPreamble.get();
         } else {
-            return Optional.empty();
+            return "";
         }
     }
 
