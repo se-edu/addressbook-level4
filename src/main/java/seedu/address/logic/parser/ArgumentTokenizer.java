@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -44,18 +45,23 @@ public class ArgumentTokenizer {
      * Returns last value of given prefix.
      */
     public Optional<String> getValue(Prefix prefix) {
-        return getAllValues(prefix).flatMap((values) -> Optional.of(values.get(values.size() - 1)));
+        List<String> values = getAllValues(prefix);
+        if (values.isEmpty()) {
+            return Optional.empty();
+        } else {
+            return Optional.of(values.get(values.size() - 1));
+        }
     }
 
     /**
-     * Returns all values of given prefix.
+     * Returns all values of given prefix, if any.
+     * If the prefix does not exist or has no values, returns an empty list.
      */
-    public Optional<List<String>> getAllValues(Prefix prefix) {
+    public List<String> getAllValues(Prefix prefix) {
         if (!this.tokenizedArguments.containsKey(prefix)) {
-            return Optional.empty();
+            return Collections.emptyList();
         }
-        List<String> values = new ArrayList<>(this.tokenizedArguments.get(prefix));
-        return Optional.of(values);
+        return new ArrayList<>(this.tokenizedArguments.get(prefix));
     }
 
     /**
