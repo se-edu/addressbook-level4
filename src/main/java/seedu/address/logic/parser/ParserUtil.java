@@ -2,7 +2,6 @@ package seedu.address.logic.parser;
 
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -50,9 +49,8 @@ public class ParserUtil {
      * Returns an empty set if the given {@code Optional} is empty,
      * or if the list contained in the {@code Optional} is empty
      */
-    public static Set<String> toSet(Optional<List<String>> list) {
-        List<String> elements = list.orElse(Collections.emptyList());
-        return new HashSet<>(elements);
+    public static Set<String> toSet(List<String> list) {
+        return new HashSet<>(list);
     }
 
     /**
