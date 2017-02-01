@@ -129,8 +129,7 @@ public class Parser {
         }
     }
 
-    private Set<String> toSet(Optional<List<String>> tagsOptional) {
-        List<String> tags = tagsOptional.orElse(Collections.emptyList());
+    private Set<String> toSet(List<String> tags) {
         return new HashSet<>(tags);
     }
 
