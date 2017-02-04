@@ -1,6 +1,7 @@
 package guitests.guihandles;
 
 import guitests.GuiRobot;
+import javafx.collections.ObservableList;
 import javafx.stage.Stage;
 
 /**
@@ -42,5 +43,9 @@ public class CommandBoxHandle extends GuiHandle {
         enterCommand("help");
         pressEnter();
         return new HelpWindowHandle(guiRobot, primaryStage);
+    }
+
+    public ObservableList<String> getStyleClass() {
+        return getNode(COMMAND_INPUT_FIELD_ID).getStyleClass();
     }
 }

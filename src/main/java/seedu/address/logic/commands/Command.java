@@ -1,8 +1,7 @@
 package seedu.address.logic.commands;
 
-import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
-import seedu.address.commons.events.ui.IncorrectCommandAttemptedEvent;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
 /**
@@ -25,8 +24,9 @@ public abstract class Command {
      * Executes the command and returns the result message.
      *
      * @return feedback message of the operation result for display
+     * @throws CommandException If an error occurs during command execution.
      */
-    public abstract CommandResult execute();
+    public abstract CommandResult execute() throws CommandException;
 
     /**
      * Provides any needed dependencies to the command.
@@ -35,12 +35,5 @@ public abstract class Command {
      */
     public void setData(Model model) {
         this.model = model;
-    }
-
-    /**
-     * Raises an event to indicate an attempt to execute an incorrect command
-     */
-    protected void indicateAttemptToExecuteIncorrectCommand() {
-        EventsCenter.getInstance().post(new IncorrectCommandAttemptedEvent());
     }
 }

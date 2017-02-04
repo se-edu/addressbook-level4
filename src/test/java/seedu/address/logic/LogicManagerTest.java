@@ -1,6 +1,7 @@
 package seedu.address.logic;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
@@ -33,6 +34,7 @@ import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.SelectCommand;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -46,6 +48,7 @@ import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.storage.StorageManager;
+
 
 public class LogicManagerTest {
 
@@ -97,37 +100,55 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void execute_invalid() throws Exception {
+    public void execute_invalid() {
         String invalidCommand = "       ";
-        assertCommandBehavior(invalidCommand,
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+        assertCommandFailure(invalidCommand, String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
     }
 
     /**
-     * Executes the command and confirms that the result message is correct.
-     * Both the 'address book' and the 'last shown list' are expected to be empty.
-     * @see #assertCommandBehavior(String, String, ReadOnlyAddressBook, List)
+     * Executes the command, confirms that a CommandException is not thrown and that the result message is correct.
+     * Also confirms that both the 'address book' and the 'last shown list' are as specified.
+     * @see #assertCommandBehavior(boolean, String, String, ReadOnlyAddressBook, List)
      */
-    private void assertCommandBehavior(String inputCommand, String expectedMessage) throws Exception {
-        assertCommandBehavior(inputCommand, expectedMessage, new AddressBook(), Collections.emptyList());
+    private void assertCommandSuccess(String inputCommand, String expectedMessage,
+                                      ReadOnlyAddressBook expectedAddressBook,
+                                      List<? extends ReadOnlyPerson> expectedShownList) {
+        assertCommandBehavior(false, inputCommand, expectedMessage, expectedAddressBook, expectedShownList);
     }
 
     /**
-     * Executes the command and confirms that the result message is correct and
-     * also confirms that the following three parts of the LogicManager object's state are as expected:<br>
+     * Executes the command, confirms that a CommandException is thrown and that the result message is correct.
+     * Both the 'address book' and the 'last shown list' are verified to be unchanged.
+     * @see #assertCommandBehavior(boolean, String, String, ReadOnlyAddressBook, List)
+     */
+    private void assertCommandFailure(String inputCommand, String expectedMessage) {
+        AddressBook expectedAddressBook = new AddressBook(model.getAddressBook());
+        List<ReadOnlyPerson> expectedShownList = new ArrayList<>(model.getFilteredPersonList());
+        assertCommandBehavior(true, inputCommand, expectedMessage, expectedAddressBook, expectedShownList);
+    }
+
+    /**
+     * Executes the command, confirms that the result message is correct
+     * and that a CommandException is thrown if expected
+     * and also confirms that the following three parts of the LogicManager object's state are as expected:<br>
      *      - the internal address book data are same as those in the {@code expectedAddressBook} <br>
      *      - the backing list shown by UI matches the {@code shownList} <br>
      *      - {@code expectedAddressBook} was saved to the storage file. <br>
      */
-    private void assertCommandBehavior(String inputCommand, String expectedMessage,
+    private void assertCommandBehavior(boolean isCommandExceptionExpected, String inputCommand, String expectedMessage,
                                        ReadOnlyAddressBook expectedAddressBook,
-                                       List<? extends ReadOnlyPerson> expectedShownList) throws Exception {
+                                       List<? extends ReadOnlyPerson> expectedShownList) {
 
-        //Execute the command
-        CommandResult result = logic.execute(inputCommand);
+        try {
+            CommandResult result = logic.execute(inputCommand);
+            assertFalse("CommandException expected but was not thrown.", isCommandExceptionExpected);
+            assertEquals(expectedMessage, result.feedbackToUser);
+        } catch (CommandException e) {
+            assertTrue("CommandException not expected but was thrown.", isCommandExceptionExpected);
+            assertEquals(expectedMessage, e.getMessage());
+        }
 
         //Confirm the ui display elements should contain the right data
-        assertEquals(expectedMessage, result.feedbackToUser);
         assertEquals(expectedShownList, model.getFilteredPersonList());
 
         //Confirm the state of data (saved and in-memory) is as expected
@@ -135,22 +156,22 @@ public class LogicManagerTest {
         assertEquals(expectedAddressBook, latestSavedAddressBook);
     }
 
-
     @Test
-    public void execute_unknownCommandWord() throws Exception {
+    public void execute_unknownCommandWord() {
         String unknownCommand = "uicfhmowqewca";
-        assertCommandBehavior(unknownCommand, MESSAGE_UNKNOWN_COMMAND);
+        assertCommandFailure(unknownCommand, MESSAGE_UNKNOWN_COMMAND);
     }
 
     @Test
-    public void execute_help() throws Exception {
-        assertCommandBehavior("help", HelpCommand.SHOWING_HELP_MESSAGE);
+    public void execute_help() {
+        assertCommandSuccess("help", HelpCommand.SHOWING_HELP_MESSAGE, new AddressBook(), Collections.emptyList());
         assertTrue(helpShown);
     }
 
     @Test
-    public void execute_exit() throws Exception {
-        assertCommandBehavior("exit", ExitCommand.MESSAGE_EXIT_ACKNOWLEDGEMENT);
+    public void execute_exit() {
+        assertCommandSuccess("exit", ExitCommand.MESSAGE_EXIT_ACKNOWLEDGEMENT,
+                new AddressBook(), Collections.emptyList());
     }
 
     @Test
@@ -160,28 +181,29 @@ public class LogicManagerTest {
         model.addPerson(helper.generatePerson(2));
         model.addPerson(helper.generatePerson(3));
 
-        assertCommandBehavior("clear", ClearCommand.MESSAGE_SUCCESS, new AddressBook(), Collections.emptyList());
+        assertCommandSuccess("clear", ClearCommand.MESSAGE_SUCCESS, new AddressBook(), Collections.emptyList());
     }
 
 
     @Test
-    public void execute_add_invalidArgsFormat() throws Exception {
+    public void execute_add_invalidArgsFormat() {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
-        assertCommandBehavior("add wrong args wrong args", expectedMessage);
-        assertCommandBehavior("add Valid Name 12345 e/valid@email.butNoPhonePrefix a/valid, address", expectedMessage);
-        assertCommandBehavior("add Valid Name p/12345 valid@email.butNoPrefix a/valid, address", expectedMessage);
-        assertCommandBehavior("add Valid Name p/12345 e/valid@email.butNoAddressPrefix valid, address",
-                              expectedMessage);
+        assertCommandFailure("add wrong args wrong args", expectedMessage);
+        assertCommandFailure("add Valid Name 12345 e/valid@email.butNoPhonePrefix a/valid,address", expectedMessage);
+        assertCommandFailure("add Valid Name p/12345 valid@email.butNoPrefix a/valid, address", expectedMessage);
+        assertCommandFailure("add Valid Name p/12345 e/valid@email.butNoAddressPrefix valid, address", expectedMessage);
     }
 
     @Test
-    public void execute_add_invalidPersonData() throws Exception {
-        assertCommandBehavior("add []\\[;] p/12345 e/valid@e.mail a/valid, address", Name.MESSAGE_NAME_CONSTRAINTS);
-        assertCommandBehavior("add Valid Name p/not_numbers e/valid@e.mail a/valid, address",
-                              Phone.MESSAGE_PHONE_CONSTRAINTS);
-        assertCommandBehavior("add Valid Name p/12345 e/notAnEmail a/valid, address", Email.MESSAGE_EMAIL_CONSTRAINTS);
-        assertCommandBehavior("add Valid Name p/12345 e/valid@e.mail a/valid, address t/invalid_-[.tag",
-                              Tag.MESSAGE_TAG_CONSTRAINTS);
+    public void execute_add_invalidPersonData() {
+        assertCommandFailure("add []\\[;] p/12345 e/valid@e.mail a/valid, address",
+                Name.MESSAGE_NAME_CONSTRAINTS);
+        assertCommandFailure("add Valid Name p/not_numbers e/valid@e.mail a/valid, address",
+                Phone.MESSAGE_PHONE_CONSTRAINTS);
+        assertCommandFailure("add Valid Name p/12345 e/notAnEmail a/valid, address",
+                Email.MESSAGE_EMAIL_CONSTRAINTS);
+        assertCommandFailure("add Valid Name p/12345 e/valid@e.mail a/valid, address t/invalid_-[.tag",
+                Tag.MESSAGE_TAG_CONSTRAINTS);
 
     }
 
@@ -194,7 +216,7 @@ public class LogicManagerTest {
         expectedAB.addPerson(toBeAdded);
 
         // execute command and verify result
-        assertCommandBehavior(helper.generateAddCommand(toBeAdded),
+        assertCommandSuccess(helper.generateAddCommand(toBeAdded),
                 String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
                 expectedAB,
                 expectedAB.getPersonList());
@@ -206,18 +228,12 @@ public class LogicManagerTest {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         Person toBeAdded = helper.adam();
-        AddressBook expectedAB = new AddressBook();
-        expectedAB.addPerson(toBeAdded);
 
         // setup starting state
         model.addPerson(toBeAdded); // person already in internal address book
 
         // execute command and verify result
-        assertCommandBehavior(
-                helper.generateAddCommand(toBeAdded),
-                AddCommand.MESSAGE_DUPLICATE_PERSON,
-                expectedAB,
-                expectedAB.getPersonList());
+        assertCommandFailure(helper.generateAddCommand(toBeAdded),  AddCommand.MESSAGE_DUPLICATE_PERSON);
 
     }
 
@@ -232,7 +248,7 @@ public class LogicManagerTest {
         // prepare address book state
         helper.addToModel(model, 2);
 
-        assertCommandBehavior("list",
+        assertCommandSuccess("list",
                 ListCommand.MESSAGE_SUCCESS,
                 expectedAB,
                 expectedList);
@@ -247,11 +263,11 @@ public class LogicManagerTest {
      */
     private void assertIncorrectIndexFormatBehaviorForCommand(String commandWord, String expectedMessage)
             throws Exception {
-        assertCommandBehavior(commandWord , expectedMessage); //index missing
-        assertCommandBehavior(commandWord + " +1", expectedMessage); //index should be unsigned
-        assertCommandBehavior(commandWord + " -1", expectedMessage); //index should be unsigned
-        assertCommandBehavior(commandWord + " 0", expectedMessage); //index cannot be 0
-        assertCommandBehavior(commandWord + " not_a_number", expectedMessage);
+        assertCommandFailure(commandWord , expectedMessage); //index missing
+        assertCommandFailure(commandWord + " +1", expectedMessage); //index should be unsigned
+        assertCommandFailure(commandWord + " -1", expectedMessage); //index should be unsigned
+        assertCommandFailure(commandWord + " 0", expectedMessage); //index cannot be 0
+        assertCommandFailure(commandWord + " not_a_number", expectedMessage);
     }
 
     /**
@@ -271,7 +287,7 @@ public class LogicManagerTest {
             model.addPerson(p);
         }
 
-        assertCommandBehavior(commandWord + " 3", expectedMessage, model.getAddressBook(), personList);
+        assertCommandFailure(commandWord + " 3", expectedMessage);
     }
 
     @Test
@@ -293,7 +309,7 @@ public class LogicManagerTest {
         AddressBook expectedAB = helper.generateAddressBook(threePersons);
         helper.addToModel(model, threePersons);
 
-        assertCommandBehavior("select 2",
+        assertCommandSuccess("select 2",
                 String.format(SelectCommand.MESSAGE_SELECT_PERSON_SUCCESS, 2),
                 expectedAB,
                 expectedAB.getPersonList());
@@ -322,7 +338,7 @@ public class LogicManagerTest {
         expectedAB.removePerson(threePersons.get(1));
         helper.addToModel(model, threePersons);
 
-        assertCommandBehavior("delete 2",
+        assertCommandSuccess("delete 2",
                 String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, threePersons.get(1)),
                 expectedAB,
                 expectedAB.getPersonList());
@@ -330,9 +346,9 @@ public class LogicManagerTest {
 
 
     @Test
-    public void execute_find_invalidArgsFormat() throws Exception {
+    public void execute_find_invalidArgsFormat() {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE);
-        assertCommandBehavior("find ", expectedMessage);
+        assertCommandFailure("find ", expectedMessage);
     }
 
     @Test
@@ -348,7 +364,7 @@ public class LogicManagerTest {
         List<Person> expectedList = helper.generatePersonList(pTarget1, pTarget2);
         helper.addToModel(model, fourPersons);
 
-        assertCommandBehavior("find KEY",
+        assertCommandSuccess("find KEY",
                 Command.getMessageForPersonListShownSummary(expectedList.size()),
                 expectedAB,
                 expectedList);
@@ -367,7 +383,7 @@ public class LogicManagerTest {
         List<Person> expectedList = fourPersons;
         helper.addToModel(model, fourPersons);
 
-        assertCommandBehavior("find KEY",
+        assertCommandSuccess("find KEY",
                 Command.getMessageForPersonListShownSummary(expectedList.size()),
                 expectedAB,
                 expectedList);
@@ -386,7 +402,7 @@ public class LogicManagerTest {
         List<Person> expectedList = helper.generatePersonList(pTarget1, pTarget2, pTarget3);
         helper.addToModel(model, fourPersons);
 
-        assertCommandBehavior("find key rAnDoM",
+        assertCommandSuccess("find key rAnDoM",
                 Command.getMessageForPersonListShownSummary(expectedList.size()),
                 expectedAB,
                 expectedList);
