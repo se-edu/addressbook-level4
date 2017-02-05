@@ -5,11 +5,14 @@ matrix:
 
 script: >-
     ./config/travis/run-checks.sh &&
-    travis_retry ./gradlew clean checkstyleMain checkstyleTest headless allTests coverage coveralls
+    travis_retry ./gradlew clean checkstyleMain checkstyleTest headless allTests coverage coveralls asciidoctor -i
 
 before_install:
           - "export DISPLAY=:99.0"
           - "sh -e /etc/init.d/xvfb start"
+
+after_success:
+  - test $TRAVIS_PULL_REQUEST == "false" && test $TRAVIS_BRANCH == "master" && bash deploy_github_pages.sh
 
 addons:
   apt:

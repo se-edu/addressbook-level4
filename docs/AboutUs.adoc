@@ -1,0 +1,52 @@
+= About Us
+
+We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
+
+== Project Team
+
+=== http://www.comp.nus.edu.sg/~damithch[Damith C. Rajapakse]
+image::images/DamithRajapakse.jpg[width="150"]
+Role: Project Advisor
+
+'''
+
+=== http://github.com/lejolly[Joshua Lee]
+image::images/JoshuaLee.jpg[width="150"]
+Role: Developer +
+Responsibilities: UI
+
+'''
+
+=== http://github.com/yijinl[Leow Yijin]
+image::images/LeowYijin.jpg[width="150"]
+Role: Developer +
+Responsibilities: Data
+
+'''
+
+=== http://github.com/m133225[Martin Choo]
+image::images/MartinChoo.jpg[width="150"]
+Role: Developer +
+Responsibilities: Dev Ops
+
+'''
+
+=== https://github.com/ndt93)[Thien Nguyen]
+Role: Developer +
+Responsibilities: Threading
+
+'''
+
+=== http://github.com/yl-coder[You Liang]
+image::images/YouLiang.jpg[width="150"]
+Role: Developer +
+Responsibilities: UI
+
+'''
+
+== Contributors
+
+We welcome contributions. See link:ContactUs.adoc[Contact Us] page for more info.
+
+* https://github.com/se-edu/addressbook-level4/pulls?q=is%3Apr+author%3Aokkhoy[Akshay Narayan]
+* https://github.com/se-edu/addressbook-level4/pulls?q=is%3Apr+author%3Amauris[Sam Yong]

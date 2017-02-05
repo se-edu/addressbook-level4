@@ -1,0 +1,164 @@
+= AddressBook Level 4 - User Guide:
+:toc:
+:toc-placement: preamble
+
+
+By : `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+
+
+== Quick Start
+
+. Ensure you have Java version `1.8.0_60` or later installed in your
+Computer.
+
+[NOTE]
+Having any Java 8 version is not enough. This app will not work with
+earlier versions of Java 8.
+
+. Download the latest `addressbook.jar` from the
+link:../../../releases[releases] tab.
+. Copy the file to the folder you want to use as the home folder for
+your Address Book.
+. Double-click the file to start the app. The GUI should appear in a
+few seconds.
+. Type the command in the command box and press kbd:[Enter] to execute it.
+e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
+. Some example commands you can try:
++
+* `[blue]#list#` : **lists** all contacts
+* `[blue]#add# John Doe p/98765432 e/johnd@gmail.com a/John street, block 123, #01-01`
+: adds a contact named `John Doe` to the Address Book.
+* `[blue]#delete# 3` : deletes the 3rd contact shown in the current list
+* `[blue]#exit#` : exits the app
++
+. Refer to the <<Features>> section below for details of
+each command.
+
+== Features
+====
+*Command Format*
+
+* Words in `UPPER_CASE` are the parameters.
+* Items in `SQUARE_BRACKETS` are optional.
+* Items with `...` after them can have multiple instances.
+* Parameters can be in any order.
+====
+
+=== Viewing help : `help`
+Format: `help`
+
+[TIP]
+Help is also shown if you enter an incorrect command e.g. `abcd`
+
+=== Adding a person: `add`
+
+Adds a person to the address book +
+Format: `add NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+
+[TIP]
+Persons can have any number of tags (including 0)
+
+[role="examples"]
+====
+* `add John Doe p/98765432 e/johnd@gmail.com a/John street, block 123, #01-01`
+* `add Betsy Crowe t/friend e/betsycrowe@gmail.com a/Newgate Prison p/1234567 t/criminal`
+====
+
+=== Listing all persons : `list`
+
+Shows a list of all persons in the address book. +
+Format: `list`
+
+=== Finding all persons containing any keyword in their name: `find`
+
+Finds persons whose names contain any of the given keywords. +
+Format: `find KEYWORD [MORE_KEYWORDS]`
+
+[role="details"]
+****
+* The search is case sensitive. e.g `hans` will not match `Hans`
+* The order of the keywords does not matter. e.g. `Hans Bo` will match
+`Bo Hans`
+* Only the name is searched.
+* Only full words will be matched e.g. `Han` will not match `Hans`
+* Persons matching at least one keyword will be returned (i.e. `OR`
+search). e.g. `Hans` will match `Hans Bo`
+****
+
+[role="examples"]
+****
+Examples:
+
+* `find John` Returns `John Doe` but not `john`
+* `find Betsy Tim John` Returns Any person having names `Betsy`, `Tim`,
+or `John`
+****
+
+=== Deleting a person : `delete`
+
+Deletes the specified person from the address book. Irreversible. +
+Format: `delete INDEX`
+
+Deletes the person at the specified `INDEX`. The index refers to the
+index number shown in the most recent listing. The index *must be a
+positive integer* 1, 2, 3, ...
+
+[role="examples"]
+****
+* `list` `delete 2` Deletes the 2nd person in the address book.
+* `find Betsy` `delete 1` Deletes the 1st person in the results of the
+`find` command.
+****
+
+=== Select a person : `select`
+
+Selects the person identified by the index number used in the last
+person listing. +
+Format: `select INDEX`
+
+[role="details"]
+****
+* Selects the person and loads the Google search page the person at the
+* specified `INDEX`. The index refers to the index number shown in the
+ most recent listing. The index *must be a positive integer* 1, 2, 3, ...
+****
+
+[role="examples"]
+****
+* `list` `select 2` Selects the 2nd person in the address book.
+* `find Betsy` `select 1` Selects the 1st person in the results of the
+`find` command.
+****
+
+=== Clearing all entries : `clear`
+
+Clears all entries from the address book. +
+Format: `clear`
+
+=== Exiting the program : `exit`
+
+Exits the program. +
+Format: `exit`
+
+=== Saving the data
+
+Address book data are saved in the hard disk automatically after any
+command that changes the data. There is no need to save manually.
+
+== FAQ
+
+**Q**: How do I transfer my data to another Computer? **A**: Install the
+app in the other computer and overwrite the empty data file it creates
+with the file that contains the data of your previous Address Book
+folder.
+
+=== Command Summary
+
+* *Add* `add NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` e.g.
+`add James Ho p/22224444 e/jamesho@gmail.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
+* *Clear* : `clear`
+* *Delete* : `delete INDEX` e.g. `delete 3`
+* *Find* : `find KEYWORD [MORE_KEYWORDS]` e.g. `find James Jake`
+* *List* : `list` e.g.
+* *Help* : `help` e.g.
+* *Select* : `select INDEX` e.g.`select 2`

@@ -8,6 +8,7 @@
 plugins {
     id "com.github.kt3k.coveralls" version "2.4.0"
     id "com.github.johnrengelman.shadow" version '1.2.3'
+    id 'org.asciidoctor.convert' version '1.5.3'
     id 'application'
 }
 
@@ -182,4 +183,25 @@ nonGuiTests.mustRunAfter headless
 guiTests.mustRunAfter headless
 allTests.mustRunAfter headless
 
-defaultTasks 'clean', 'headless', 'allTests', 'coverage'
+asciidoctor {
+  backends 'html5'
+  sourceDir = file("docs")
+  outputDir = file("${buildDir}/docs")
+
+  attributes  linkcss: true,
+              stylesheet: 'custom.css',
+              icons: 'font',
+              experimental: true,
+              numbered: true,
+              sectlinks: true,
+              'source-highlighter': 'coderay',
+              'max-width': '50em'
+}
+
+task copyStylesheets(type: Copy) {
+    from "docs/stylesheets"
+    into "${buildDir}/docs/html5"
+}
+asciidoctor.dependsOn copyStylesheets
+
+defaultTasks 'clean', 'headless', 'allTests', 'coverage', 'asciidoctor'
