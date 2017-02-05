@@ -88,13 +88,13 @@
       <property name="severity" value="warning"/>
     </module>
 
-    <module name="TypeNameCheck">
+    <module name="TypeName">
       <!-- Validates static, final fields against the expression "^[A-Z][a-zA-Z0-9]*$". -->
       <metadata name="altname" value="TypeName"/>
       <property name="severity" value="warning"/>
     </module>
 
-    <module name="ConstantNameCheck">
+    <module name="ConstantName">
       <!-- Validates non-private, static, final fields against the expression "^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$". -->
       <metadata name="altname" value="ConstantName"/>
       <property name="applyToPublic" value="true"/>
@@ -106,7 +106,7 @@
       <property name="severity" value="warning"/>
     </module>
 
-    <module name="StaticVariableNameCheck">
+    <module name="StaticVariableName">
       <!-- Validates static, non-final fields against the supplied expression. -->
       <metadata name="altname" value="StaticVariableName"/>
       <property name="applyToPublic" value="true"/>
@@ -117,7 +117,7 @@
       <property name="severity" value="warning"/>
     </module>
 
-    <module name="MemberNameCheck">
+    <module name="MemberName">
       <!-- Validates non-static members against the supplied expression. -->
       <metadata name="altname" value="MemberName"/>
       <property name="applyToPublic" value="true"/>
@@ -128,7 +128,7 @@
       <property name="severity" value="warning"/>
     </module>
 
-    <module name="MethodNameCheck">
+    <module name="MethodName">
       <!-- Validates identifiers for method names against the supplied expression. -->
       <metadata name="altname" value="MethodName"/>
       <property name="format" value="^[a-z][a-zA-Z0-9]*(_[a-zA-Z0-9]+)*|_+[A-Z]+(_[A-Z]+)*_+$"/>
