@@ -1,5 +1,7 @@
 package seedu.address.model;
 
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.Set;
 
 import seedu.address.commons.core.UnmodifiableObservableList;
@@ -7,6 +9,7 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.person.UniquePersonList.DuplicatePersonException;
+import seedu.address.model.person.UniquePersonList.PersonsNotFoundException;
 
 /**
  * The API of the Model component.
@@ -18,8 +21,20 @@ public interface Model {
     /** Returns the AddressBook */
     ReadOnlyAddressBook getAddressBook();
 
-    /** Deletes the given person. */
-    void deletePerson(ReadOnlyPerson target) throws UniquePersonList.PersonNotFoundException;
+    /**
+     * Deletes the given person.
+     * @see #deletePersons(Collection)
+     */
+    default void deletePersons(ReadOnlyPerson... persons) throws UniquePersonList.PersonsNotFoundException {
+        deletePersons(Arrays.asList(persons));
+    }
+
+    /**
+     * Deletes the given {@code persons}.
+     * @throws PersonsNotFoundException without deleting any persons if any of the {@code persons}
+     *     can't be found in this list.
+     */
+    void deletePersons(Collection<ReadOnlyPerson> persons) throws UniquePersonList.PersonsNotFoundException;
 
     /** Adds the given person */
     void addPerson(Person person) throws UniquePersonList.DuplicatePersonException;
