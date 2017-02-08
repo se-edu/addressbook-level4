@@ -4,10 +4,10 @@ By : `Team SE-EDU`  &nbsp;&nbsp;&nbsp;&nbsp; Since: `Jun 2016`  &nbsp;&nbsp;&nbs
 
 ---
 
-1. [Quick Start](#1-quick-start)
-2. [Features](#2-features)
-3. [FAQ](#3-faq)
-4. [Command Summary](#4-command-summary)
+1. [Quick Start](#quick-start)
+2. [Features](#features)
+3. [FAQ](#faq)
+4. [Command Summary](#command-summary)
 
 ## 1. Quick Start
 
