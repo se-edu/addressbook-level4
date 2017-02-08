@@ -253,6 +253,7 @@ Tests can be found in the `./src/test/java` folder.
   to run as a JUnit test.
 
 **Using Gradle**:
+
 * See [UsingGradle.md](UsingGradle.md) for how to run tests using Gradle.
 
 We have two types of tests:
