@@ -11,38 +11,51 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import seedu.address.logic.commands.ListCommand;
 import seedu.address.ui.StatusBarFooter;
 
 public class StatusBarFooterTest extends AddressBookGuiTest {
 
-    private Clock oldClock;
-    private Clock newClock;
+    private Clock originalClock;
+    private Clock injectedClock;
 
     @Before
     public void injectFixedClock() {
-        oldClock = StatusBarFooter.clock;
-        newClock = Clock.fixed(Instant.now(), ZoneId.systemDefault());
-        StatusBarFooter.clock = newClock;
+        originalClock = StatusBarFooter.getClock();
+        injectedClock = Clock.fixed(Instant.now(), ZoneId.systemDefault());
+        StatusBarFooter.setClock(injectedClock);
     }
 
     @After
-    public void removeInjectedClock() {
-        StatusBarFooter.clock = oldClock;
+    public void restoreOriginalClock() {
+        StatusBarFooter.setClock(originalClock);
     }
 
     @Test
-    public void syncStatus_commandSucceeds_statusUpdated() {
-        // verify syncStatus is updated correctly after a successful command
-        String expected = "Last Updated: " + new Date(newClock.millis()).toString();
+    public void syncStatus_mutatingCommandSucceeds_statusUpdated() {
+        // verify the initial value of the status bar
+        String lastSyncStatus = statusBarFooter.getSyncStatus();
+        assertEquals("Not updated yet in this session", lastSyncStatus);
+
+        String expected = "Last Updated: " + new Date(injectedClock.millis()).toString();
         commandBox.runCommand(td.hoon.getAddCommand());
         assertEquals(expected, statusBarFooter.getSyncStatus());
     }
 
     @Test
+    public void syncStatus_nonMutatingCommandSucceeds_statusRemainsUnchanged() {
+        // verify the initial value of the status bar
+        String lastSyncStatus = statusBarFooter.getSyncStatus();
+        assertEquals("Not updated yet in this session", lastSyncStatus);
+
+        commandBox.runCommand(ListCommand.COMMAND_WORD);
+        assertResultMessage(ListCommand.MESSAGE_SUCCESS); // verify the list command succeeds
+        assertEquals(lastSyncStatus, statusBarFooter.getSyncStatus());
+    }
+
+    @Test
     public void syncStatus_commandFails_statusRemainsUnchanged() {
         String lastSyncStatus = statusBarFooter.getSyncStatus();
-
-        // verify syncStatus remains unchanged after an invalid command
         commandBox.runCommand("invalid command");
         assertEquals(lastSyncStatus, statusBarFooter.getSyncStatus());
     }

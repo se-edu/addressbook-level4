@@ -20,7 +20,7 @@ import seedu.address.commons.util.FxViewUtil;
  */
 public class StatusBarFooter extends UiPart<Region> {
 
-    public static Clock clock = Clock.systemDefaultZone();
+    private static Clock clock = Clock.systemDefaultZone();
 
     private static final Logger logger = LogsCenter.getLogger(StatusBarFooter.class);
 
@@ -30,6 +30,14 @@ public class StatusBarFooter extends UiPart<Region> {
     private StatusBar saveLocationStatus;
 
     private static final String FXML = "StatusBarFooter.fxml";
+
+    public static void setClock(Clock clock) {
+        StatusBarFooter.clock = clock;
+    }
+
+    public static Clock getClock() {
+        return StatusBarFooter.clock;
+    }
 
     public StatusBarFooter(AnchorPane placeHolder, String saveLocation) {
         super(FXML);
