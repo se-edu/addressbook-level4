@@ -37,7 +37,8 @@ public class StatusBarFooterTest extends AddressBookGuiTest {
     public void syncStatus_mutatingCommandSucceeds_statusUpdated() {
         assertEquals(INITIAL_STATUS, statusBarFooter.getSyncStatus()); // verify initial value
         commandBox.runCommand(td.hoon.getAddCommand());
-        String expected = "Last Updated: " + new Date(injectedClock.millis()).toString();
+        String timestamp = new Date(injectedClock.millis()).toString();
+        String expected = StatusBarFooter.getMessageForSyncStatus(timestamp);
         assertEquals(expected, statusBarFooter.getSyncStatus());
     }
 
