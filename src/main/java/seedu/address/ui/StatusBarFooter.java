@@ -45,7 +45,7 @@ public class StatusBarFooter extends UiPart<Region> {
     }
 
     /**
-     * Gets the currently in-used clock.
+     * Returns the currently in-used clock.
      */
     public static Clock getClock() {
         return StatusBarFooter.clock;
