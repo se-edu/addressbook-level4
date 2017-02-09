@@ -20,6 +20,11 @@ import seedu.address.commons.util.FxViewUtil;
  */
 public class StatusBarFooter extends UiPart<Region> {
 
+    public static final String DEFAULT_STATUS_BEFORE_ANY_UPDATES = "Not updated yet in this session";
+
+    /**
+     * Used to generate time stamps.
+     */
     private static Clock clock = Clock.systemDefaultZone();
 
     private static final Logger logger = LogsCenter.getLogger(StatusBarFooter.class);
@@ -31,10 +36,16 @@ public class StatusBarFooter extends UiPart<Region> {
 
     private static final String FXML = "StatusBarFooter.fxml";
 
+    /**
+     * Inject a clock to replace the default clock.
+     */
     public static void setClock(Clock clock) {
         StatusBarFooter.clock = clock;
     }
 
+    /**
+     * Get the currently in-used clock.
+     */
     public static Clock getClock() {
         return StatusBarFooter.clock;
     }
@@ -42,7 +53,7 @@ public class StatusBarFooter extends UiPart<Region> {
     public StatusBarFooter(AnchorPane placeHolder, String saveLocation) {
         super(FXML);
         addToPlaceholder(placeHolder);
-        setSyncStatus("Not updated yet in this session");
+        setSyncStatus(StatusBarFooter.DEFAULT_STATUS_BEFORE_ANY_UPDATES);
         setSaveLocation("./" + saveLocation);
         registerAsAnEventHandler(this);
     }

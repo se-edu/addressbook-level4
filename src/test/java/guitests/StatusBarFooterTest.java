@@ -2,6 +2,8 @@ package guitests;
 
 import static org.junit.Assert.assertEquals;
 
+import static seedu.address.ui.StatusBarFooter.DEFAULT_STATUS_BEFORE_ANY_UPDATES;
+
 import java.time.Clock;
 import java.time.Instant;
 import java.time.ZoneId;
@@ -33,10 +35,7 @@ public class StatusBarFooterTest extends AddressBookGuiTest {
 
     @Test
     public void syncStatus_mutatingCommandSucceeds_statusUpdated() {
-        // verify the initial value of the status bar
-        String lastSyncStatus = statusBarFooter.getSyncStatus();
-        assertEquals("Not updated yet in this session", lastSyncStatus);
-
+        assertEquals(DEFAULT_STATUS_BEFORE_ANY_UPDATES, statusBarFooter.getSyncStatus()); // verify initial value
         String expected = "Last Updated: " + new Date(injectedClock.millis()).toString();
         commandBox.runCommand(td.hoon.getAddCommand());
         assertEquals(expected, statusBarFooter.getSyncStatus());
@@ -44,20 +43,18 @@ public class StatusBarFooterTest extends AddressBookGuiTest {
 
     @Test
     public void syncStatus_nonMutatingCommandSucceeds_statusRemainsUnchanged() {
-        // verify the initial value of the status bar
-        String lastSyncStatus = statusBarFooter.getSyncStatus();
-        assertEquals("Not updated yet in this session", lastSyncStatus);
-
+        assertEquals(DEFAULT_STATUS_BEFORE_ANY_UPDATES, statusBarFooter.getSyncStatus()); // verify initial value
+        String expected = DEFAULT_STATUS_BEFORE_ANY_UPDATES;
         commandBox.runCommand(ListCommand.COMMAND_WORD);
         assertResultMessage(ListCommand.MESSAGE_SUCCESS); // verify the list command succeeds
-        assertEquals(lastSyncStatus, statusBarFooter.getSyncStatus());
+        assertEquals(expected, statusBarFooter.getSyncStatus());
     }
 
     @Test
     public void syncStatus_commandFails_statusRemainsUnchanged() {
-        String lastSyncStatus = statusBarFooter.getSyncStatus();
+        String expected = DEFAULT_STATUS_BEFORE_ANY_UPDATES;
         commandBox.runCommand("invalid command");
-        assertEquals(lastSyncStatus, statusBarFooter.getSyncStatus());
+        assertEquals(expected, statusBarFooter.getSyncStatus());
     }
 
 }
