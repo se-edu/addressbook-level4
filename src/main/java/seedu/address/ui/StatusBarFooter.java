@@ -25,6 +25,11 @@ public class StatusBarFooter extends UiPart<Region> {
 
     /**
      * Used to generate time stamps.
+     *
+     * TODO: change clock to an instance variable.
+     * We leave it as a static variable because manual dependency injection
+     * will require passing down the clock reference all the way from MainApp,
+     * but it should be easier once we have factories/DI frameworks.
      */
     private static Clock clock = Clock.systemDefaultZone();
 
@@ -38,7 +43,7 @@ public class StatusBarFooter extends UiPart<Region> {
     private static final String FXML = "StatusBarFooter.fxml";
 
     /**
-     * Injects a clock to replace the default clock.
+     * Sets the clock used to determine the current time.
      */
     public static void setClock(Clock clock) {
         StatusBarFooter.clock = clock;
@@ -76,7 +81,7 @@ public class StatusBarFooter extends UiPart<Region> {
     public void handleAddressBookChangedEvent(AddressBookChangedEvent abce) {
         long now = StatusBarFooter.clock.millis();
         String lastUpdated = new Date(now).toString();
-        setSyncStatus(String.format(SYNC_STATUS_UPDATED, lastUpdated));
         logger.info(LogsCenter.getEventHandlingLogMessage(abce, "Setting last updated status to " + lastUpdated));
+        setSyncStatus(String.format(SYNC_STATUS_UPDATED, lastUpdated));
     }
 }
