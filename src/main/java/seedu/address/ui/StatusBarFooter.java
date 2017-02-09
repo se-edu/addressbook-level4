@@ -38,24 +38,23 @@ public class StatusBarFooter extends UiPart<Region> {
     private static final String FXML = "StatusBarFooter.fxml";
 
     /**
-     * Inject a clock to replace the default clock.
+     * Injects a clock to replace the default clock.
      */
     public static void setClock(Clock clock) {
         StatusBarFooter.clock = clock;
     }
 
     /**
-     * Get the currently in-used clock.
+     * Gets the currently in-used clock.
      */
     public static Clock getClock() {
         return StatusBarFooter.clock;
     }
 
     /**
-     * Constructs a feedback message for sync status to display the last updated timestamp.
+     * Returns a feedback message for sync status to display the last updated timestamp.
      *
      * @param timestamp used to generate the updated message
-     * @return message for sync status
      */
     public static String getMessageForSyncStatus(String timestamp) {
         return String.format(UPDATED_STATUS, timestamp);

@@ -38,7 +38,7 @@ public class StatusBarFooterTest extends AddressBookGuiTest {
         assertEquals(INITIAL_STATUS, statusBarFooter.getSyncStatus()); // verify initial value
         commandBox.runCommand(td.hoon.getAddCommand());
         String timestamp = new Date(injectedClock.millis()).toString();
-        String expected = StatusBarFooter.getMessageForSyncStatus(timestamp);
+        String expected = String.format(StatusBarFooter.UPDATED_STATUS, timestamp);
         assertEquals(expected, statusBarFooter.getSyncStatus());
     }
 
