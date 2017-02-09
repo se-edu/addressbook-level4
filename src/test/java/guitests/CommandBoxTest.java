@@ -50,7 +50,7 @@ public class CommandBoxTest extends AddressBookGuiTest {
 
     /**
      * Runs a command that fails, then verifies that
-     * - the return value of runCommand is false,
+     * - the return value of runCommand(...) is false,
      * - the text remains,
      * - the command box has only one ERROR_STYLE_CLASS, with other style classes untouched.
      */
@@ -62,7 +62,7 @@ public class CommandBoxTest extends AddressBookGuiTest {
 
     /**
      * Runs a command that succeeds, then verifies that
-     * - the return value of runCommand is true,
+     * - the return value of runCommand(...) is true,
      * - the text is cleared,
      * - the command box does not have any ERROR_STYLE_CLASS, with style classes the same as default.
      */
