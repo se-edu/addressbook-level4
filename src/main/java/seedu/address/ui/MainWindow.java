@@ -18,8 +18,6 @@ import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.ReadOnlyPerson;
 
-import java.time.Clock;
-
 /**
  * The Main Window. Provides the basic application layout containing
  * a menu bar and space where other JavaFX elements can be placed.
@@ -38,7 +36,6 @@ public class MainWindow extends UiPart<Region> {
     private BrowserPanel browserPanel;
     private PersonListPanel personListPanel;
     private Config config;
-    private Clock clock;
 
     @FXML
     private AnchorPane browserPlaceholder;
@@ -58,35 +55,13 @@ public class MainWindow extends UiPart<Region> {
     @FXML
     private AnchorPane statusbarPlaceholder;
 
-    @Override
-    public void setNode(Node node) {
-        rootLayout = (VBox) node;
-    }
-
-    @Override
-    public String getFxmlPath() {
-        return FXML;
-    }
-
-    public Stage getPrimaryStage() {
-        return primaryStage;
-    }
-
-    public static MainWindow load(Stage primaryStage, Logic logic, Config config, UserPrefs prefs, Clock clock) {
-        MainWindow mainWindow = UiPartLoader.loadUiPart(new MainWindow());
-        mainWindow.configure(primaryStage, config.getAppTitle(), config.getAddressBookName(),
-            logic, config, prefs, clock);
-        return mainWindow;
-    }
-
-    private void configure(Stage primaryStage, String appTitle, String addressBookName, Logic logic, Config config,
-                           UserPrefs prefs, Clock clock) {
+    public MainWindow(Stage primaryStage, Config config, UserPrefs prefs, Logic logic) {
+        super(FXML);
 
         // Set dependencies
         this.primaryStage = primaryStage;
         this.logic = logic;
         this.config = config;
-        this.clock = clock;
 
         // Configure the UI
         setTitle(config.getAppTitle());
@@ -138,11 +113,11 @@ public class MainWindow extends UiPart<Region> {
     }
 
     void fillInnerParts() {
-        browserPanel = BrowserPanel.load(browserPlaceholder);
-        personListPanel = PersonListPanel.load(getPersonListPlaceholder(), logic.getFilteredPersonList());
-        ResultDisplay.load(getResultDisplayPlaceholder());
-        StatusBarFooter.load(getStatusbarPlaceholder(), clock, config.getAddressBookFilePath());
-        CommandBox.load(getCommandBoxPlaceholder(), logic);
+        browserPanel = new BrowserPanel(browserPlaceholder);
+        personListPanel = new PersonListPanel(getPersonListPlaceholder(), logic.getFilteredPersonList());
+        new ResultDisplay(getResultDisplayPlaceholder());
+        new StatusBarFooter(getStatusbarPlaceholder(), config.getAddressBookFilePath());
+        new CommandBox(getCommandBoxPlaceholder(), logic);
     }
 
     private AnchorPane getCommandBoxPlaceholder() {

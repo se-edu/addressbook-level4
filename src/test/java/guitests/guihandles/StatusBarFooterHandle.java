@@ -1,8 +1,9 @@
 package guitests.guihandles;
 
+import org.controlsfx.control.StatusBar;
+
 import guitests.GuiRobot;
 import javafx.stage.Stage;
-import org.controlsfx.control.StatusBar;
 import seedu.address.TestApp;
 
 /**
