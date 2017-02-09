@@ -2,7 +2,7 @@ package guitests;
 
 import static org.junit.Assert.assertEquals;
 
-import static seedu.address.ui.StatusBarFooter.DEFAULT_STATUS_BEFORE_ANY_UPDATES;
+import static seedu.address.ui.StatusBarFooter.INITIAL_STATUS;
 
 import java.time.Clock;
 import java.time.Instant;
@@ -35,26 +35,25 @@ public class StatusBarFooterTest extends AddressBookGuiTest {
 
     @Test
     public void syncStatus_mutatingCommandSucceeds_statusUpdated() {
-        assertEquals(DEFAULT_STATUS_BEFORE_ANY_UPDATES, statusBarFooter.getSyncStatus()); // verify initial value
-        String expected = "Last Updated: " + new Date(injectedClock.millis()).toString();
+        assertEquals(INITIAL_STATUS, statusBarFooter.getSyncStatus()); // verify initial value
         commandBox.runCommand(td.hoon.getAddCommand());
+        String expected = "Last Updated: " + new Date(injectedClock.millis()).toString();
         assertEquals(expected, statusBarFooter.getSyncStatus());
     }
 
     @Test
     public void syncStatus_nonMutatingCommandSucceeds_statusRemainsUnchanged() {
-        assertEquals(DEFAULT_STATUS_BEFORE_ANY_UPDATES, statusBarFooter.getSyncStatus()); // verify initial value
-        String expected = DEFAULT_STATUS_BEFORE_ANY_UPDATES;
+        assertEquals(INITIAL_STATUS, statusBarFooter.getSyncStatus()); // verify initial value
         commandBox.runCommand(ListCommand.COMMAND_WORD);
         assertResultMessage(ListCommand.MESSAGE_SUCCESS); // verify the list command succeeds
-        assertEquals(expected, statusBarFooter.getSyncStatus());
+        assertEquals(INITIAL_STATUS, statusBarFooter.getSyncStatus());
     }
 
     @Test
     public void syncStatus_commandFails_statusRemainsUnchanged() {
-        String expected = DEFAULT_STATUS_BEFORE_ANY_UPDATES;
+        assertEquals(INITIAL_STATUS, statusBarFooter.getSyncStatus()); // verify initial value
         commandBox.runCommand("invalid command");
-        assertEquals(expected, statusBarFooter.getSyncStatus());
+        assertEquals(INITIAL_STATUS, statusBarFooter.getSyncStatus());
     }
 
 }

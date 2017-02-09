@@ -20,7 +20,7 @@ import seedu.address.commons.util.FxViewUtil;
  */
 public class StatusBarFooter extends UiPart<Region> {
 
-    public static final String DEFAULT_STATUS_BEFORE_ANY_UPDATES = "Not updated yet in this session";
+    public static final String INITIAL_STATUS = "Not updated yet in this session";
 
     /**
      * Used to generate time stamps.
@@ -53,7 +53,7 @@ public class StatusBarFooter extends UiPart<Region> {
     public StatusBarFooter(AnchorPane placeHolder, String saveLocation) {
         super(FXML);
         addToPlaceholder(placeHolder);
-        setSyncStatus(StatusBarFooter.DEFAULT_STATUS_BEFORE_ANY_UPDATES);
+        setSyncStatus(StatusBarFooter.INITIAL_STATUS);
         setSaveLocation("./" + saveLocation);
         registerAsAnEventHandler(this);
     }
