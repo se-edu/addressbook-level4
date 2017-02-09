@@ -1,6 +1,8 @@
 package guitests;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_INITIAL;
 import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
@@ -35,26 +37,27 @@ public class StatusBarFooterTest extends AddressBookGuiTest {
     }
 
     @Test
+    public void syncStatus_initialValue() {
+        assertEquals(SYNC_STATUS_INITIAL, statusBarFooter.getSyncStatus());
+    }
+
+    @Test
     public void syncStatus_mutatingCommandSucceeds_syncStatusUpdated() {
-        assertEquals(SYNC_STATUS_INITIAL, statusBarFooter.getSyncStatus()); // verify initial value
-        commandBox.runCommand(td.hoon.getAddCommand());
         String timestamp = new Date(injectedClock.millis()).toString();
         String expected = String.format(SYNC_STATUS_UPDATED, timestamp);
+        assertTrue(commandBox.runCommand(td.hoon.getAddCommand())); // mutating command succeeds
         assertEquals(expected, statusBarFooter.getSyncStatus());
     }
 
     @Test
     public void syncStatus_nonMutatingCommandSucceeds_syncStatusRemainsUnchanged() {
-        assertEquals(SYNC_STATUS_INITIAL, statusBarFooter.getSyncStatus()); // verify initial value
-        commandBox.runCommand(ListCommand.COMMAND_WORD);
-        assertResultMessage(ListCommand.MESSAGE_SUCCESS); // verify the list command succeeds
+        assertTrue(commandBox.runCommand(ListCommand.COMMAND_WORD)); // non-mutating command succeeds
         assertEquals(SYNC_STATUS_INITIAL, statusBarFooter.getSyncStatus());
     }
 
     @Test
     public void syncStatus_commandFails_syncStatusRemainsUnchanged() {
-        assertEquals(SYNC_STATUS_INITIAL, statusBarFooter.getSyncStatus()); // verify initial value
-        commandBox.runCommand("invalid command");
+        assertFalse(commandBox.runCommand("invalid command")); // invalid command fails
         assertEquals(SYNC_STATUS_INITIAL, statusBarFooter.getSyncStatus());
     }
 

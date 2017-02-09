@@ -53,7 +53,7 @@ public class StatusBarFooter extends UiPart<Region> {
      * Returns the clock currently in use.
      */
     public static Clock getClock() {
-        return StatusBarFooter.clock;
+        return clock;
     }
 
     public StatusBarFooter(AnchorPane placeHolder, String saveLocation) {
@@ -79,7 +79,7 @@ public class StatusBarFooter extends UiPart<Region> {
 
     @Subscribe
     public void handleAddressBookChangedEvent(AddressBookChangedEvent abce) {
-        long now = StatusBarFooter.clock.millis();
+        long now = clock.millis();
         String lastUpdated = new Date(now).toString();
         logger.info(LogsCenter.getEventHandlingLogMessage(abce, "Setting last updated status to " + lastUpdated));
         setSyncStatus(String.format(SYNC_STATUS_UPDATED, lastUpdated));
