@@ -1,21 +1,41 @@
 package guitests;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
 
+import java.time.Clock;
+import java.time.Instant;
+import java.time.ZoneId;
+import java.util.Date;
+
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
+
+import seedu.address.ui.StatusBarFooter;
 
 public class StatusBarFooterTest extends AddressBookGuiTest {
 
+    private Clock oldClock;
+    private Clock newClock;
+
+    @Before
+    public void injectFixedClock() {
+        oldClock = StatusBarFooter.clock;
+        newClock = Clock.fixed(Instant.now(), ZoneId.systemDefault());
+        StatusBarFooter.clock = newClock;
+    }
+
+    @After
+    public void removeInjectedClock() {
+        StatusBarFooter.clock = oldClock;
+    }
+
     @Test
     public void syncStatus_commandSucceeds_statusUpdated() {
-        String lastSyncStatus = statusBarFooter.getSyncStatus();
-
-        // verify syncStatus is updated after a successful command
+        // verify syncStatus is updated correctly after a successful command
+        String expected = "Last Updated: " + new Date(newClock.millis()).toString();
         commandBox.runCommand(td.hoon.getAddCommand());
-        assertNotEquals(lastSyncStatus, statusBarFooter.getSyncStatus());
-
-        // TODO: verify the updated time stamp is accurate
+        assertEquals(expected, statusBarFooter.getSyncStatus());
     }
 
     @Test
