@@ -50,9 +50,9 @@ public class CommandBoxTest extends AddressBookGuiTest {
 
     /**
      * Runs a command that fails, then verifies that
-     * the return value of runCommand is false,
-     * text remains,
-     * and command box has only one ERROR_STYLE_CLASS, with other style classes untouched.
+     * - the return value of runCommand is false,
+     * - the text remains,
+     * - the command box has only one ERROR_STYLE_CLASS, with other style classes untouched.
      */
     private void assertBehaviorForFailedCommand() {
         assertFalse(commandBox.runCommand(COMMAND_THAT_FAILS));
@@ -62,9 +62,9 @@ public class CommandBoxTest extends AddressBookGuiTest {
 
     /**
      * Runs a command that succeeds, then verifies that
-     * the return value of runCommand is true,
-     * text is cleared,
-     * and command box does not have any ERROR_STYLE_CLASS, with style classes the same as default.
+     * - the return value of runCommand is true,
+     * - the text is cleared,
+     * - the command box does not have any ERROR_STYLE_CLASS, with style classes the same as default.
      */
     private void assertBehaviorForSuccessfulCommand() {
         assertTrue(commandBox.runCommand(COMMAND_THAT_SUCCEEDS));
