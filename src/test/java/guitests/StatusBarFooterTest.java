@@ -2,7 +2,7 @@ package guitests;
 
 import static org.junit.Assert.assertEquals;
 
-import static seedu.address.ui.StatusBarFooter.INITIAL_STATUS;
+import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_INITIAL;
 
 import java.time.Clock;
 import java.time.Instant;
@@ -35,26 +35,26 @@ public class StatusBarFooterTest extends AddressBookGuiTest {
 
     @Test
     public void syncStatus_mutatingCommandSucceeds_statusUpdated() {
-        assertEquals(INITIAL_STATUS, statusBarFooter.getSyncStatus()); // verify initial value
+        assertEquals(SYNC_STATUS_INITIAL, statusBarFooter.getSyncStatus()); // verify initial value
         commandBox.runCommand(td.hoon.getAddCommand());
         String timestamp = new Date(injectedClock.millis()).toString();
-        String expected = String.format(StatusBarFooter.UPDATED_STATUS, timestamp);
+        String expected = String.format(StatusBarFooter.SYNC_STATUS_UPDATED, timestamp);
         assertEquals(expected, statusBarFooter.getSyncStatus());
     }
 
     @Test
     public void syncStatus_nonMutatingCommandSucceeds_statusRemainsUnchanged() {
-        assertEquals(INITIAL_STATUS, statusBarFooter.getSyncStatus()); // verify initial value
+        assertEquals(SYNC_STATUS_INITIAL, statusBarFooter.getSyncStatus()); // verify initial value
         commandBox.runCommand(ListCommand.COMMAND_WORD);
         assertResultMessage(ListCommand.MESSAGE_SUCCESS); // verify the list command succeeds
-        assertEquals(INITIAL_STATUS, statusBarFooter.getSyncStatus());
+        assertEquals(SYNC_STATUS_INITIAL, statusBarFooter.getSyncStatus());
     }
 
     @Test
     public void syncStatus_commandFails_statusRemainsUnchanged() {
-        assertEquals(INITIAL_STATUS, statusBarFooter.getSyncStatus()); // verify initial value
+        assertEquals(SYNC_STATUS_INITIAL, statusBarFooter.getSyncStatus()); // verify initial value
         commandBox.runCommand("invalid command");
-        assertEquals(INITIAL_STATUS, statusBarFooter.getSyncStatus());
+        assertEquals(SYNC_STATUS_INITIAL, statusBarFooter.getSyncStatus());
     }
 
 }
