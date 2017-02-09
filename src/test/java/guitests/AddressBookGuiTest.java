@@ -19,6 +19,7 @@ import guitests.guihandles.MainMenuHandle;
 import guitests.guihandles.PersonCardHandle;
 import guitests.guihandles.PersonListPanelHandle;
 import guitests.guihandles.ResultDisplayHandle;
+import guitests.guihandles.StatusBarFooterHandle;
 import javafx.application.Platform;
 import javafx.stage.Stage;
 import seedu.address.TestApp;
@@ -52,6 +53,7 @@ public abstract class AddressBookGuiTest {
     protected ResultDisplayHandle resultDisplay;
     protected CommandBoxHandle commandBox;
     protected BrowserPanelHandle browserPanel;
+    protected StatusBarFooterHandle statusBarFooter;
     private Stage stage;
 
     @BeforeClass
@@ -73,6 +75,7 @@ public abstract class AddressBookGuiTest {
             resultDisplay = mainGui.getResultDisplay();
             commandBox = mainGui.getCommandBox();
             browserPanel = mainGui.getBrowserPanel();
+            statusBarFooter = mainGui.getStatusBarFooter();
             this.stage = stage;
         });
         EventsCenter.clearSubscribers();
