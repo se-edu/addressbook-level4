@@ -308,7 +308,21 @@ Here are the steps to create a new release.
  2. [Create a new release using GitHub](https://help.github.com/articles/creating-releases/)
     and upload the JAR file you created.
 
-### 5.4. Managing Dependencies
+### 5.4. Converting Documentation to PDF format
+
+Here are the steps to convert the project documentation files to PDF format.
+
+ 1. Using [Chrome](https://www.google.com/chrome/browser/desktop/), go to the GitHub pages version of the
+    documentation file <br>
+    e.g. `https://se-edu.github.io/addressbook-level4/docs/UserGuide.html` for [UserGuide.md](UserGuide.md).
+ 1. Click `Print...` in Chrome's main menu. <br>
+    <img src="images/chrome_print_docs.png" width="800"><br>
+    _Figure 5.4.1 : Printing using Chrome_
+ 1. Set the destination to `Save as PDF`, then click `Save` to save a copy of the file in PDF format.
+    <img src="images/chrome_save_as_pdf.png" width="800"><br>
+    _Figure 5.4.2 : Saving documentation as PDF files in Chrome_
+
+### 5.5. Managing Dependencies
 
 A project often depends on third-party libraries. For example, Address Book depends on the
 [Jackson library](http://wiki.fasterxml.com/JacksonHome) for XML parsing. Managing these _dependencies_
