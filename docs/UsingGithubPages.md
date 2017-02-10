@@ -12,7 +12,7 @@ Since we are using GitHub Pages to showcase the documentation for our project, w
     <img src="images/github_repo_settings.png" width="600">
  1. Under the GitHub Pages section, click `Choose a theme` in `Theme chooser`. Pick a theme for the
     project site and click `Select theme` when done.
- 1. You can now view the site at `https://<organization-name>.github.io/<repo-name>`. <br>
+ 1. You can now view the site at `https://<username>.github.io/<repo-name>`. <br>
     e.g. https://se-edu.github.io/addressbook-level4
 
 Note that the publishing source has been automatically set to `master branch`.
@@ -20,17 +20,21 @@ This means that the GitHub Pages site will be published using source files in th
 Jekyll, a static site generator integrated with GitHub Pages, automatically renders Markdown files
 (in the `master` branch) to HTML, which are then deployed to the project site by GitHub Pages.
 
-Now that GitHub Pages has been set up, simply edit the documentation files in Markdown and GitHub Pages will
-automatically update the project site when the changes are committed to the `master` branch.
-
 ## Viewing the Project Site
 
-The project site URL follows the format `https://<organization-name>.github.io/<repo-name>`,
+The project site URL follows the format `https://<username>.github.io/<repo-name>`,
 e.g. https://se-edu.github.io/addressbook-level4.
 By default, the [README](../README.md) file is displayed on this page.
 
 For the other pages, the structure of the site follows the structure of the repository. <br>
 For example, `docs/UserGuide.md` is published at `https://se-edu.github.io/addressbook-level4/docs/UserGuide.html`.
+
+## Updating the Project Site
+
+To update the project site, simply edit the documentation files in Markdown and push the changes to GitHub.
+GitHub Pages automatically updates the project site when changes are committed to the `master` branch
+(e.g. when the commit is pushed to the `master` branch or when the pull request containing the commit is
+merged into `master`).
 
 ## Customizing the Project Site
 
