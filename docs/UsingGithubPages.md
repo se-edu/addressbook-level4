@@ -5,7 +5,7 @@ webpages using files in their GitHub repositories.
 
 ## Setting Up
 
-GitHub Pages offers two kinds of sites: user or organization sites and project sites.
+GitHub Pages offers two kinds of sites: user/organization sites and project sites.
 Since we are using GitHub Pages to showcase the documentation for our project, we will be creating a project site.
 
  1. Navigate to the repository's `Settings` tab in GitHub. <br>
@@ -27,7 +27,7 @@ e.g. https://se-edu.github.io/addressbook-level4.
 By default, the [README](../README.md) file is displayed on this page.
 
 For the other pages, the structure of the site follows the structure of the repository. <br>
-For example, `docs/UserGuide.md` is published at `https://se-edu.github.io/addressbook-level4/docs/UserGuide.html`.
+For example, `docs/UserGuide.md` is published at `https://<username>.github.io/addressbook-level4/docs/UserGuide.html`.
 
 ## Updating the Project Site
 
