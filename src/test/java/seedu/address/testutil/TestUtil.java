@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import guitests.guihandles.PersonCardHandle;
 import javafx.geometry.Bounds;
@@ -18,23 +17,18 @@ import junit.framework.AssertionFailedError;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.XmlUtil;
-import seedu.address.model.AddressBook;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.ReadOnlyPerson;
-import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
-import seedu.address.storage.XmlSerializableAddressBook;
 
 /**
  * A utility class for test cases.
  */
 public class TestUtil {
-
-    public static final String LS = System.lineSeparator();
 
     /**
      * Folder used for temp files created during testing. Ignored by Git.
@@ -42,8 +36,6 @@ public class TestUtil {
     public static final String SANDBOX_FOLDER = FileUtil.getPath("./src/test/data/sandbox/");
 
     public static final Person[] SAMPLE_PERSON_DATA = getSamplePersonData();
-
-    public static final Tag[] SAMPLE_TAG_DATA = getSampleTagData();
 
     public static void assertThrows(Class<? extends Throwable> expected, Runnable executable) {
         try {
@@ -82,20 +74,6 @@ public class TestUtil {
         }
     }
 
-
-    private static Tag[] getSampleTagData() {
-        try {
-            return new Tag[]{
-                new Tag("relatives"),
-                new Tag("friends")
-            };
-        } catch (IllegalValueException e) {
-            assert false;
-            return null;
-            //not possible
-        }
-    }
-
     public static List<Person> generateSamplePersonData() {
         return Arrays.asList(SAMPLE_PERSON_DATA);
     }
@@ -115,10 +93,6 @@ public class TestUtil {
         return SANDBOX_FOLDER + fileName;
     }
 
-    public static void createDataFileWithSampleData(String filePath) {
-        createDataFileWithData(generateSampleStorageAddressBook(), filePath);
-    }
-
     public static <T> void createDataFileWithData(T data, String filePath) {
         try {
             File saveFileForTesting = new File(filePath);
@@ -127,10 +101,6 @@ public class TestUtil {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-    }
-
-    public static XmlSerializableAddressBook generateSampleStorageAddressBook() {
-        return new XmlSerializableAddressBook(new AddressBook());
     }
 
     /**
@@ -214,26 +184,6 @@ public class TestUtil {
 
     public static boolean compareCardAndPerson(PersonCardHandle card, ReadOnlyPerson person) {
         return card.isSamePerson(person);
-    }
-
-    public static Tag[] getTagList(String tags) {
-        if ("".equals(tags)) {
-            return new Tag[]{};
-        }
-
-        final String[] split = tags.split(", ");
-
-        final List<Tag> collect = Arrays.asList(split).stream().map(e -> {
-            try {
-                return new Tag(e.replaceFirst("Tag: ", ""));
-            } catch (IllegalValueException e1) {
-                //not possible
-                assert false;
-                return null;
-            }
-        }).collect(Collectors.toList());
-
-        return collect.toArray(new Tag[split.length]);
     }
 
 }
