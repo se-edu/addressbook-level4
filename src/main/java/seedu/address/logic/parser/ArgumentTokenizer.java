@@ -61,7 +61,7 @@ public class ArgumentTokenizer {
     }
 
     /**
-     * Returns the preamble (text before the first valid prefix), if any. Trims any leading/trailing spaces.
+     * Returns the preamble (text before the first valid prefix). Trims any leading/trailing spaces.
      */
     public String getPreamble() {
         Optional<String> storedPreamble = getValue(new Prefix(""));
