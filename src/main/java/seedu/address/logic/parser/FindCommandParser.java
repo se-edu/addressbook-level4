@@ -20,14 +20,12 @@ public class FindCommandParser {
      * and returns an FindCommand object for execution.
      */
     public Command parse(String args) {
-        String trimmedArgs = args.trim();
-        if (trimmedArgs.isEmpty()) {
+        // keywords delimited by whitespace
+        final String[] keywords = args.trim().split("\\s+");
+        if (keywords.length == 0) {
             return new IncorrectCommand(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         }
-
-        // keywords delimited by whitespace
-        final String[] keywords = trimmedArgs.split("\\s+");
         final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
         return new FindCommand(keywordSet);
     }
