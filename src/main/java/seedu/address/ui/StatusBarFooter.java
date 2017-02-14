@@ -1,5 +1,6 @@
 package seedu.address.ui;
 
+import java.time.Clock;
 import java.util.Date;
 import java.util.logging.Logger;
 
@@ -18,6 +19,12 @@ import seedu.address.commons.util.FxViewUtil;
  * A ui for the status bar that is displayed at the footer of the application.
  */
 public class StatusBarFooter extends UiPart<Region> {
+
+    /**
+     * Used to generate time stamps.
+     */
+    private static Clock clock = Clock.systemDefaultZone();
+
     private static final Logger logger = LogsCenter.getLogger(StatusBarFooter.class);
 
     @FXML
@@ -26,6 +33,20 @@ public class StatusBarFooter extends UiPart<Region> {
     private StatusBar saveLocationStatus;
 
     private static final String FXML = "StatusBarFooter.fxml";
+
+    /**
+     * Injects a clock to replace the default clock.
+     */
+    public static void setClock(Clock clock) {
+        StatusBarFooter.clock = clock;
+    }
+
+    /**
+     * Gets the currently in-used clock.
+     */
+    public static Clock getClock() {
+        return StatusBarFooter.clock;
+    }
 
     public StatusBarFooter(AnchorPane placeHolder, String saveLocation) {
         super(FXML);
@@ -50,7 +71,8 @@ public class StatusBarFooter extends UiPart<Region> {
 
     @Subscribe
     public void handleAddressBookChangedEvent(AddressBookChangedEvent abce) {
-        String lastUpdated = (new Date()).toString();
+        long now = StatusBarFooter.clock.millis();
+        String lastUpdated = new Date(now).toString();
         logger.info(LogsCenter.getEventHandlingLogMessage(abce, "Setting last updated status to " + lastUpdated));
         setSyncStatus("Last Updated: " + lastUpdated);
     }
