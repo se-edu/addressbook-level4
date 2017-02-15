@@ -12,6 +12,11 @@ import seedu.address.model.UserPrefs;
 public interface UserPrefsStorage {
 
     /**
+     * Returns the file path of the UserPrefs data file.
+     */
+    String getUserPrefsFilePath();
+
+    /**
      * Returns UserPrefs data from storage.
      *   Returns {@code Optional.empty()} if storage file is not found.
      * @throws DataConversionException if the data in storage is not in the expected format.
