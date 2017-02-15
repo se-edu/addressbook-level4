@@ -69,7 +69,7 @@ Note how the AddressBook app uses Java `assert`s to verify assumptions.
 
 ## Use Logging `[LO-Logging]`
 
-Note [how the AddressBook app uses Java's `java.util.log` package to do logging](DeveloperGuide.md#logging).
+Note [how the AddressBook app uses Java's `java.util.log` package to do logging](DeveloperGuide.md#31-logging).
 
 **Resources**
 
@@ -292,7 +292,7 @@ Here are some example design patterns used in the code base.
 
 * Note how some PRs in this project have been reviewed by other developers.
   Here is an [example](https://github.com/se-edu/addressbook-level4/pull/147).
-* Also not how we have used [Codacy](https://www.codacy.com) to do automate some part of the code review workload
+* Also note how we have used [Codacy](https://www.codacy.com) to do automate some part of the code review workload
   ([![Codacy Badge](https://api.codacy.com/project/badge/Grade/fc0b7775cf7f4fdeaf08776f3d8e364a)](https://www.codacy.com/app/damith/addressbook-level4?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=se-edu/addressbook-level4&amp;utm_campaign=Badge_Grade))
 
 Here are some things you can comment on when reviewing code:
