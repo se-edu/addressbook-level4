@@ -1,5 +1,8 @@
 package seedu.address.testutil;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -76,6 +79,15 @@ public class TestPerson implements ReadOnlyPerson {
     @Override
     public UniqueTagList getTags() {
         return tags;
+    }
+
+    /**
+     * Converts the list of tags to a string list.
+     */
+    public List<String> getTagsAsStringsList() {
+        List<String> tagsList = new ArrayList<String>();
+        tags.forEach((tag) -> tagsList.add(tag.tagName));
+        return tagsList;
     }
 
     @Override
