@@ -1,5 +1,8 @@
 package seedu.address.testutil;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -76,6 +79,15 @@ public class TestPerson implements ReadOnlyPerson {
     @Override
     public UniqueTagList getTags() {
         return tags;
+    }
+
+    /**
+     * Gets the names of the tags as a set of strings.
+     */
+    public Set<String> getTagsSet() {
+        Set<String> tagsSet = new HashSet<>();
+        tags.forEach((tag) -> tagsSet.add(tag.tagName));
+        return tagsSet;
     }
 
     @Override
