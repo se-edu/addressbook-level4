@@ -74,13 +74,7 @@ By : `Team SE-EDU`  &nbsp;&nbsp;&nbsp;&nbsp; Since: `Jun 2016`  &nbsp;&nbsp;&nbs
 
 ### 1.5. Coding style
 
-We use the following coding standards for this project:
-
-* Java: https://oss-generic.github.io/process/codingStandards/CodingStandard-Java.html
-* CSS: https://oss-generic.github.io/process/codingStandards/CodingStandard-Css.html
-* GitHub Flavored Markdown: https://oss-generic.github.io/process/codingStandards/CodingStandard-Gfmd.html
-
-Following a consistent coding style makes the code more readable and maintainable, so please ensure your code follows the above coding standards.
+We follow [oss-generic coding standards](https://github.com/oss-generic/process/blob/master/docs/CodingStandards.md).
 
 ## 2. Design
 
