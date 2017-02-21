@@ -72,6 +72,9 @@ By : `Team SE-EDU`  &nbsp;&nbsp;&nbsp;&nbsp; Since: `Jun 2016`  &nbsp;&nbsp;&nbs
 * Reason: Required libraries may not have been downloaded during the project import.
 * Solution: [Run tests using Gradle](UsingGradle.md) once (to refresh the libraries).
 
+### 1.5. Coding style
+
+We follow [oss-generic coding standards](https://github.com/oss-generic/process/blob/master/docs/CodingStandards.md).
 
 ## 2. Design
 
