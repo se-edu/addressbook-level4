@@ -53,7 +53,6 @@ public class AddCommand extends Command {
 
     @Override
     public CommandResult execute() throws CommandException {
-        assert model != null;
         try {
             model.addPerson(toAdd);
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
