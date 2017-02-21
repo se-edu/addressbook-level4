@@ -1,5 +1,8 @@
 package seedu.address.commons.util;
 
+import static com.google.common.base.Preconditions.checkArgument;
+import static java.util.Objects.requireNonNull;
+
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
@@ -20,15 +23,15 @@ public class StringUtil {
      * @param word cannot be null, cannot be empty, must be a single word
      */
     public static boolean containsWordIgnoreCase(String sentence, String word) {
-        assert word != null : "Word parameter cannot be null";
-        assert sentence != null : "Sentence parameter cannot be null";
 
+        requireNonNull(word, "Word parameter cannot be null");
         String preppedWord = word.trim();
-        assert !preppedWord.isEmpty() : "Word parameter cannot be empty";
-        assert preppedWord.split("\\s+").length == 1 : "Word parameter should be a single word";
 
-        String preppedSentence = sentence;
-        String[] wordsInPreppedSentence = preppedSentence.split("\\s+");
+        checkArgument(!preppedWord.isEmpty() && preppedWord.split("\\s+").length == 1,
+                "Word parameter should be a single word");
+
+        requireNonNull(sentence, "Sentence parameter cannot be null");
+        String[] wordsInPreppedSentence = sentence.split("\\s+");
 
         for (String wordInSentence: wordsInPreppedSentence) {
             if (wordInSentence.equalsIgnoreCase(preppedWord)) return true;
@@ -40,9 +43,8 @@ public class StringUtil {
      * Returns a detailed message of the t, including the stack trace.
      */
     public static String getDetails(Throwable t) {
-        assert t != null;
         StringWriter sw = new StringWriter();
-        t.printStackTrace(new PrintWriter(sw));
+        requireNonNull(t).printStackTrace(new PrintWriter(sw));
         return t.getMessage() + "\n" + sw.toString();
     }
 

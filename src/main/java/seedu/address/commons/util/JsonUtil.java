@@ -1,5 +1,7 @@
 package seedu.address.commons.util;
 
+import static java.util.Objects.requireNonNull;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.Optional;
@@ -55,8 +57,6 @@ public class JsonUtil {
     public static <T> Optional<T> readJsonFile(
             String filePath, Class<T> classOfObjectToDeserialize) throws DataConversionException {
 
-        assert filePath != null;
-
         File file = new File(filePath);
 
         if (!file.exists()) {
@@ -84,9 +84,6 @@ public class JsonUtil {
      * @throws IOException if there was an error during writing to the file
      */
     public static <T> void saveJsonFile(T jsonFile, String filePath) throws IOException {
-        assert jsonFile != null;
-        assert filePath != null;
-
         serializeObjectToJsonFile(new File(filePath), jsonFile);
     }
 
@@ -107,6 +104,7 @@ public class JsonUtil {
      * @return JSON data representation of the given class instance, in string
      */
     public static <T> String toJsonString(T instance) throws JsonProcessingException {
+        requireNonNull(instance);
         return objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(instance);
     }
 
