@@ -72,6 +72,15 @@ By : `Team SE-EDU`  &nbsp;&nbsp;&nbsp;&nbsp; Since: `Jun 2016`  &nbsp;&nbsp;&nbs
 * Reason: Required libraries may not have been downloaded during the project import.
 * Solution: [Run tests using Gradle](UsingGradle.md) once (to refresh the libraries).
 
+### 1.5. Coding style
+
+We use the following coding standards for this project:
+
+* Java: https://oss-generic.github.io/process/codingStandards/CodingStandard-Java.html
+* CSS: https://oss-generic.github.io/process/codingStandards/CodingStandard-Css.html
+* GitHub Flavored Markdown: https://oss-generic.github.io/process/codingStandards/CodingStandard-Gfmd.html
+
+Following a consistent coding style makes the code more readable and maintainable, so please ensure your code follows the above coding standards.
 
 ## 2. Design
 
