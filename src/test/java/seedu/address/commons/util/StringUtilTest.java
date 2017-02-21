@@ -59,28 +59,34 @@ public class StringUtilTest {
 
     @Test
     public void containsWordIgnoreCase_nullWord_exceptionThrown() {
-        assertExceptionThrown("typical sentence", null, "Word parameter cannot be null");
-    }
-
-    private void assertExceptionThrown(String sentence, String word, String errorMessage) {
-        thrown.expect(AssertionError.class);
-        thrown.expectMessage(errorMessage);
-        StringUtil.containsWordIgnoreCase(sentence, word);
+        assertExceptionThrown(NullPointerException.class,
+            "typical sentence", null, "Word parameter cannot be null");
     }
 
     @Test
     public void containsWordIgnoreCase_emptyWord_exceptionThrown() {
-        assertExceptionThrown("typical sentence", "  ", "Word parameter cannot be empty");
+        assertExceptionThrown(IllegalArgumentException.class,
+            "typical sentence", "  ", "Word parameter should be a single word");
     }
 
     @Test
     public void containsWordIgnoreCase_multipleWords_exceptionThrown() {
-        assertExceptionThrown("typical sentence", "aaa BBB", "Word parameter should be a single word");
+        assertExceptionThrown(IllegalArgumentException.class,
+            "typical sentence", "aaa BBB", "Word parameter should be a single word");
     }
 
     @Test
     public void containsWordIgnoreCase_nullSentence_exceptionThrown() {
-        assertExceptionThrown(null, "abc", "Sentence parameter cannot be null");
+        assertExceptionThrown(NullPointerException.class,
+            null, "abc", "Sentence parameter cannot be null");
+    }
+
+    private void assertExceptionThrown(Class<? extends Exception> exception,
+        String sentence, String word, String errorMessage) {
+
+        thrown.expect(exception);
+        thrown.expectMessage(errorMessage);
+        StringUtil.containsWordIgnoreCase(sentence, word);
     }
 
     /*
@@ -144,7 +150,7 @@ public class StringUtilTest {
 
     @Test
     public void getDetails_nullGiven_assertionError() {
-        thrown.expect(AssertionError.class);
+        thrown.expect(NullPointerException.class);
         StringUtil.getDetails(null);
     }
 
