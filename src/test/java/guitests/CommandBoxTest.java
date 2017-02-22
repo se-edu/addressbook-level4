@@ -30,29 +30,34 @@ public class CommandBoxTest extends AddressBookGuiTest {
     }
 
     @Test
-    public void commandBox_commandSucceeds_textClearedAndStyleClassRemainsTheSame() {
-        commandBox.runCommand(COMMAND_THAT_SUCCEEDS);
-
-        assertEquals("", commandBox.getCommandInput());
-        assertEquals(defaultStyleOfCommandBox, commandBox.getStyleClass());
+    public void commandBox_startingWithSuccessfulCommand() {
+        assertBehaviorForSuccessfulCommand();
     }
 
     @Test
-    public void commandBox_commandFails_textStaysAndErrorStyleClassAdded() {
+    public void commandBox_startingWithFailedCommand() {
+        // verify style is changed correctly when starting with a failed command and followed by a successful command
+        assertBehaviorForFailedCommand();
+        assertBehaviorForSuccessfulCommand();
+
+        // verify style is changed correctly even after multiple consecutive successful/failed commands
+        assertBehaviorForFailedCommand();
+        assertBehaviorForFailedCommand();
+        assertBehaviorForSuccessfulCommand();
+        assertBehaviorForSuccessfulCommand();
+    }
+
+    private void assertBehaviorForFailedCommand() {
         commandBox.runCommand(COMMAND_THAT_FAILS);
 
-        assertEquals(COMMAND_THAT_FAILS, commandBox.getCommandInput());
+        assertEquals(COMMAND_THAT_FAILS, commandBox.getCommandInput()); // text remains
         assertEquals(errorStyleOfCommandBox, commandBox.getStyleClass());
     }
 
-    @Test
-    public void commandBox_commandSucceedsAfterFailedCommand_textClearedAndErrorStyleClassRemoved() {
-        // add error style to simulate a failed command
-        commandBox.getStyleClass().add(CommandBox.ERROR_STYLE_CLASS);
-
+    private void assertBehaviorForSuccessfulCommand() {
         commandBox.runCommand(COMMAND_THAT_SUCCEEDS);
 
-        assertEquals("", commandBox.getCommandInput());
+        assertEquals("", commandBox.getCommandInput()); // text cleared
         assertEquals(defaultStyleOfCommandBox, commandBox.getStyleClass());
     }
 
