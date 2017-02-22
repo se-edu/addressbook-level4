@@ -56,4 +56,16 @@ public class CommandBoxTest extends AddressBookGuiTest {
         assertEquals(defaultStyleOfCommandBox, commandBox.getStyleClass());
     }
 
+    @Test
+    public void commandBox_commandSucceedsAfterMultipleFailedCommands_textClearedAndErrorStyleClassRemoved() {
+        // add multiple error styles to simulate multiple failed commands
+        commandBox.getStyleClass().add(CommandBox.ERROR_STYLE_CLASS);
+        commandBox.getStyleClass().add(CommandBox.ERROR_STYLE_CLASS);
+
+        commandBox.runCommand(COMMAND_THAT_SUCCEEDS);
+
+        assertEquals("", commandBox.getCommandInput());
+        assertEquals(defaultStyleOfCommandBox, commandBox.getStyleClass());
+    }
+
 }
