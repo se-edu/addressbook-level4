@@ -32,16 +32,12 @@ public class CommandBoxTest extends AddressBookGuiTest {
     @Test
     public void commandBox_startingWithSuccessfulCommand() {
         assertBehaviorForSuccessfulCommand();
-
-        // verify that ERROR_STYLE_CLASS is added
         assertBehaviorForFailedCommand();
     }
 
     @Test
     public void commandBox_startingWithFailedCommand() {
         assertBehaviorForFailedCommand();
-
-        // verify that ERROR_STYLE_CLASS is removed
         assertBehaviorForSuccessfulCommand();
 
         // verify that style is changed correctly even after multiple consecutive successful/failed commands
@@ -51,23 +47,25 @@ public class CommandBoxTest extends AddressBookGuiTest {
         assertBehaviorForSuccessfulCommand();
     }
 
+    /**
+     * Runs a command that fails, then verifies that text remains
+     * and that command box has only one ERROR_STYLE_CLASS, with other style classes untouched.
+     */
     private void assertBehaviorForFailedCommand() {
         commandBox.runCommand(COMMAND_THAT_FAILS);
 
-        // verify that text remains
         assertEquals(COMMAND_THAT_FAILS, commandBox.getCommandInput());
-
-        // verify that command box has only *one* ERROR_STYLE_CLASS, and other style classes are untouched
         assertEquals(errorStyleOfCommandBox, commandBox.getStyleClass());
     }
 
+    /**
+     * Runs a command that succeeds, then verifies that text is cleared
+     * and that command box does not have any ERROR_STYLE_CLASS, with style classes the same as default.
+     */
     private void assertBehaviorForSuccessfulCommand() {
         commandBox.runCommand(COMMAND_THAT_SUCCEEDS);
 
-        // verify that text is cleared
         assertEquals("", commandBox.getCommandInput());
-
-        // verify that command box does not have any ERROR_STYLE_CLASS, with style classes the same as default
         assertEquals(defaultStyleOfCommandBox, commandBox.getStyleClass());
     }
 
