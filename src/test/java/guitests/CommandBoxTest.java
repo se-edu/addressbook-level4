@@ -30,7 +30,7 @@ public class CommandBoxTest extends AddressBookGuiTest {
     }
 
     @Test
-    public void commandBox_commandSucceeds_normalBehavior() {
+    public void commandBox_commandSucceeds() {
         commandBox.runCommand(COMMAND_THAT_SUCCEEDS);
         assertNormalBehavior();
     }
