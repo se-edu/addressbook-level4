@@ -31,35 +31,34 @@ public class CommandBoxTest extends AddressBookGuiTest {
 
     @Test
     public void commandBox_commandSucceeds() {
-        commandBox.runCommand(COMMAND_THAT_SUCCEEDS);
-        assertNormalBehavior();
+        testSuccessfulCommand();
     }
 
     @Test
     public void commandBox_commandFails() {
-        commandBox.runCommand(COMMAND_THAT_FAILS);
-        assertErrorBehavior(COMMAND_THAT_FAILS);
+        testFailedCommand();
 
-        commandBox.runCommand(COMMAND_THAT_SUCCEEDS);
-        assertNormalBehavior();
+        testSuccessfulCommand();
 
         // run multiple failed commands
-        commandBox.runCommand(COMMAND_THAT_FAILS);
-        commandBox.runCommand(COMMAND_THAT_FAILS);
-        assertErrorBehavior(COMMAND_THAT_FAILS);
+        testFailedCommand();
+        testFailedCommand();
 
-        commandBox.runCommand(COMMAND_THAT_SUCCEEDS);
-        assertNormalBehavior();
+        testSuccessfulCommand();
     }
 
-    private void assertNormalBehavior() {
+    private void testFailedCommand() {
+        commandBox.runCommand(COMMAND_THAT_FAILS);
+
+        assertEquals(COMMAND_THAT_FAILS, commandBox.getCommandInput()); // text remains
+        assertEquals(errorStyleOfCommandBox, commandBox.getStyleClass()); // error style class added
+    }
+
+    private void testSuccessfulCommand() {
+        commandBox.runCommand(COMMAND_THAT_SUCCEEDS);
+
         assertEquals("", commandBox.getCommandInput()); // text cleared
         assertEquals(defaultStyleOfCommandBox, commandBox.getStyleClass()); // style class unchanged
-    }
-
-    private void assertErrorBehavior(String commandInput) {
-        assertEquals(commandInput, commandBox.getCommandInput()); // text remains
-        assertEquals(errorStyleOfCommandBox, commandBox.getStyleClass()); // error style class added
     }
 
 }
