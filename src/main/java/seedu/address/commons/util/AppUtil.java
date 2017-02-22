@@ -1,7 +1,5 @@
 package seedu.address.commons.util;
 
-import static java.util.Objects.requireNonNull;
-
 import javafx.scene.image.Image;
 import seedu.address.MainApp;
 
@@ -11,7 +9,7 @@ import seedu.address.MainApp;
 public class AppUtil {
 
     public static Image getImage(String imagePath) {
-        return new Image(MainApp.class.getResourceAsStream(requireNonNull(imagePath)));
+        return new Image(MainApp.class.getResourceAsStream(imagePath));
     }
 
 }

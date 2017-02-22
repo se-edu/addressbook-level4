@@ -20,8 +20,8 @@ public class FileUtilTest {
         // valid case
         assertEquals("folder" + File.separator + "sub-folder", FileUtil.getPath("folder/sub-folder"));
 
-        // IllegalArgument: null value
-        thrown.expect(IllegalArgumentException.class);
+        // null value
+        thrown.expect(NullPointerException.class);
         FileUtil.getPath(null);
 
         // IllegalArgument: no forward slash

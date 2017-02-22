@@ -70,6 +70,7 @@ public class UniquePersonList implements Iterable<Person> {
      * @throws PersonNotFoundException if no such person could be found in the list.
      */
     public boolean remove(ReadOnlyPerson toRemove) throws PersonNotFoundException {
+        requireNonNull(toRemove);
         final boolean personFoundAndDeleted = internalList.remove(toRemove);
         if (!personFoundAndDeleted) {
             throw new PersonNotFoundException();

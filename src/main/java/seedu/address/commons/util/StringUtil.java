@@ -44,7 +44,7 @@ public class StringUtil {
      */
     public static String getDetails(Throwable t) {
         StringWriter sw = new StringWriter();
-        requireNonNull(t).printStackTrace(new PrintWriter(sw));
+        t.printStackTrace(new PrintWriter(sw));
         return t.getMessage() + "\n" + sw.toString();
     }
 

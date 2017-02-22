@@ -1,6 +1,7 @@
 package seedu.address.commons.util;
 
 import static com.google.common.base.Preconditions.checkArgument;
+import static java.util.Objects.requireNonNull;
 
 import java.io.File;
 import java.io.IOException;
@@ -82,7 +83,8 @@ public class FileUtil {
      * @return {@code pathWithForwardSlash} but '/' replaced with {@code File.separator}
      */
     public static String getPath(String pathWithForwardSlash) {
-        checkArgument(pathWithForwardSlash != null && pathWithForwardSlash.contains("/"));
+        requireNonNull(pathWithForwardSlash);
+        checkArgument(pathWithForwardSlash.contains("/"));
         return pathWithForwardSlash.replace("/", File.separator);
     }
 
