@@ -31,34 +31,36 @@ public class CommandBoxTest extends AddressBookGuiTest {
 
     @Test
     public void commandBox_commandSucceeds() {
-        testSuccessfulCommand();
+        // verify that no error style class is added
+        assertBehaviorForSuccessfulCommand();
     }
 
     @Test
     public void commandBox_commandFails() {
-        testFailedCommand();
+        assertBehaviorForFailedCommand();
 
-        testSuccessfulCommand();
+        // verify that error style class is removed
+        assertBehaviorForSuccessfulCommand();
 
-        // run multiple failed commands
-        testFailedCommand();
-        testFailedCommand();
+        // verify that at most one error style class is added for failed commands
+        assertBehaviorForFailedCommand();
+        assertBehaviorForFailedCommand();
 
-        testSuccessfulCommand();
+        assertBehaviorForSuccessfulCommand();
     }
 
-    private void testFailedCommand() {
+    private void assertBehaviorForFailedCommand() {
         commandBox.runCommand(COMMAND_THAT_FAILS);
 
         assertEquals(COMMAND_THAT_FAILS, commandBox.getCommandInput()); // text remains
-        assertEquals(errorStyleOfCommandBox, commandBox.getStyleClass()); // error style class added
+        assertEquals(errorStyleOfCommandBox, commandBox.getStyleClass()); // contains an error style class
     }
 
-    private void testSuccessfulCommand() {
+    private void assertBehaviorForSuccessfulCommand() {
         commandBox.runCommand(COMMAND_THAT_SUCCEEDS);
 
         assertEquals("", commandBox.getCommandInput()); // text cleared
-        assertEquals(defaultStyleOfCommandBox, commandBox.getStyleClass()); // style class unchanged
+        assertEquals(defaultStyleOfCommandBox, commandBox.getStyleClass()); // does not contain any error style class
     }
 
 }
