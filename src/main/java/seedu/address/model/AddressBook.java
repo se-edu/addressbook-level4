@@ -1,5 +1,7 @@
 package seedu.address.model;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -60,7 +62,6 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     public void resetData(ReadOnlyAddressBook newData) {
-        assert newData != null;
         try {
             setPersons(newData.getPersonList());
         } catch (UniquePersonList.DuplicatePersonException e) {
@@ -99,7 +100,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void updatePerson(int index, ReadOnlyPerson editedReadOnlyPerson)
             throws UniquePersonList.DuplicatePersonException {
-        assert editedReadOnlyPerson != null;
+        requireNonNull(editedReadOnlyPerson);
 
         Person editedPerson = new Person(editedReadOnlyPerson);
         syncMasterTagListWith(editedPerson);
