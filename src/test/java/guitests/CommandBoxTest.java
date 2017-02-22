@@ -30,30 +30,36 @@ public class CommandBoxTest extends AddressBookGuiTest {
     }
 
     @Test
-    public void commandBox_commandSucceeds_textClearedAndStyleClassRemainsTheSame() {
+    public void commandBox_commandSucceeds() {
         commandBox.runCommand(COMMAND_THAT_SUCCEEDS);
-
-        assertEquals("", commandBox.getCommandInput());
-        assertEquals(defaultStyleOfCommandBox, commandBox.getStyleClass());
+        assertNormalBehavior();
     }
 
     @Test
-    public void commandBox_commandFails_textStaysAndErrorStyleClassAdded() {
+    public void commandBox_commandFails() {
         commandBox.runCommand(COMMAND_THAT_FAILS);
-
-        assertEquals(COMMAND_THAT_FAILS, commandBox.getCommandInput());
-        assertEquals(errorStyleOfCommandBox, commandBox.getStyleClass());
-    }
-
-    @Test
-    public void commandBox_commandSucceedsAfterFailedCommand_textClearedAndErrorStyleClassRemoved() {
-        // add error style to simulate a failed command
-        commandBox.getStyleClass().add(CommandBox.ERROR_STYLE_CLASS);
+        assertErrorBehavior(COMMAND_THAT_FAILS);
 
         commandBox.runCommand(COMMAND_THAT_SUCCEEDS);
+        assertNormalBehavior();
 
-        assertEquals("", commandBox.getCommandInput());
-        assertEquals(defaultStyleOfCommandBox, commandBox.getStyleClass());
+        // run multiple failed commands
+        commandBox.runCommand(COMMAND_THAT_FAILS);
+        commandBox.runCommand(COMMAND_THAT_FAILS);
+        assertErrorBehavior(COMMAND_THAT_FAILS);
+
+        commandBox.runCommand(COMMAND_THAT_SUCCEEDS);
+        assertNormalBehavior();
+    }
+
+    private void assertNormalBehavior() {
+        assertEquals("", commandBox.getCommandInput()); // text cleared
+        assertEquals(defaultStyleOfCommandBox, commandBox.getStyleClass()); // style class unchanged
+    }
+
+    private void assertErrorBehavior(String commandInput) {
+        assertEquals(commandInput, commandBox.getCommandInput()); // text remains
+        assertEquals(errorStyleOfCommandBox, commandBox.getStyleClass()); // error style class added
     }
 
 }
