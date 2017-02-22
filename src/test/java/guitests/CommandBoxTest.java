@@ -32,32 +32,42 @@ public class CommandBoxTest extends AddressBookGuiTest {
     @Test
     public void commandBox_startingWithSuccessfulCommand() {
         assertBehaviorForSuccessfulCommand();
+
+        // verify that ERROR_STYLE_CLASS is added
+        assertBehaviorForFailedCommand();
     }
 
     @Test
     public void commandBox_startingWithFailedCommand() {
-        // verify style is changed correctly when starting with a failed command and followed by a successful command
         assertBehaviorForFailedCommand();
+
+        // verify that ERROR_STYLE_CLASS is removed
         assertBehaviorForSuccessfulCommand();
 
-        // verify style is changed correctly even after multiple consecutive successful/failed commands
-        assertBehaviorForFailedCommand();
-        assertBehaviorForFailedCommand();
+        // verify that style is changed correctly even after multiple consecutive successful/failed commands
         assertBehaviorForSuccessfulCommand();
+        assertBehaviorForFailedCommand();
+        assertBehaviorForFailedCommand();
         assertBehaviorForSuccessfulCommand();
     }
 
     private void assertBehaviorForFailedCommand() {
         commandBox.runCommand(COMMAND_THAT_FAILS);
 
-        assertEquals(COMMAND_THAT_FAILS, commandBox.getCommandInput()); // text remains
+        // verify that text remains
+        assertEquals(COMMAND_THAT_FAILS, commandBox.getCommandInput());
+
+        // verify that command box has only *one* ERROR_STYLE_CLASS, and other style classes are untouched
         assertEquals(errorStyleOfCommandBox, commandBox.getStyleClass());
     }
 
     private void assertBehaviorForSuccessfulCommand() {
         commandBox.runCommand(COMMAND_THAT_SUCCEEDS);
 
-        assertEquals("", commandBox.getCommandInput()); // text cleared
+        // verify that text is cleared
+        assertEquals("", commandBox.getCommandInput());
+
+        // verify that command box does not have any ERROR_STYLE_CLASS, with style classes the same as default
         assertEquals(defaultStyleOfCommandBox, commandBox.getStyleClass());
     }
 
