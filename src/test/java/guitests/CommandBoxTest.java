@@ -30,29 +30,44 @@ public class CommandBoxTest extends AddressBookGuiTest {
     }
 
     @Test
-    public void commandBox_commandSucceeds_textClearedAndStyleClassRemainsTheSame() {
-        commandBox.runCommand(COMMAND_THAT_SUCCEEDS);
+    public void commandBox_startingWithSuccessfulCommand() {
+        assertBehaviorForSuccessfulCommand();
 
-        assertEquals("", commandBox.getCommandInput());
-        assertEquals(defaultStyleOfCommandBox, commandBox.getStyleClass());
+        // verify that ERROR_STYLE_CLASS is added
+        assertBehaviorForFailedCommand();
     }
 
     @Test
-    public void commandBox_commandFails_textStaysAndErrorStyleClassAdded() {
+    public void commandBox_startingWithFailedCommand() {
+        assertBehaviorForFailedCommand();
+
+        // verify that ERROR_STYLE_CLASS is removed
+        assertBehaviorForSuccessfulCommand();
+
+        // verify that style is changed correctly even after multiple consecutive successful/failed commands
+        assertBehaviorForSuccessfulCommand();
+        assertBehaviorForFailedCommand();
+        assertBehaviorForFailedCommand();
+        assertBehaviorForSuccessfulCommand();
+    }
+
+    private void assertBehaviorForFailedCommand() {
         commandBox.runCommand(COMMAND_THAT_FAILS);
 
+        // verify that text remains
         assertEquals(COMMAND_THAT_FAILS, commandBox.getCommandInput());
+
+        // verify that command box has only *one* ERROR_STYLE_CLASS, and other style classes are untouched
         assertEquals(errorStyleOfCommandBox, commandBox.getStyleClass());
     }
 
-    @Test
-    public void commandBox_commandSucceedsAfterFailedCommand_textClearedAndErrorStyleClassRemoved() {
-        // add error style to simulate a failed command
-        commandBox.getStyleClass().add(CommandBox.ERROR_STYLE_CLASS);
-
+    private void assertBehaviorForSuccessfulCommand() {
         commandBox.runCommand(COMMAND_THAT_SUCCEEDS);
 
+        // verify that text is cleared
         assertEquals("", commandBox.getCommandInput());
+
+        // verify that command box does not have any ERROR_STYLE_CLASS, with style classes the same as default
         assertEquals(defaultStyleOfCommandBox, commandBox.getStyleClass());
     }
 
