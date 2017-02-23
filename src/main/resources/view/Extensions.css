@@ -3,6 +3,10 @@
     -fx-background-color: red;
 }
 
+.list-cell:empty {
+    /* Empty cells will not have alternating colours */
+    -fx-background: white;
+}
 
 .tag-selector {
     -fx-border-width: 1;
@@ -13,9 +17,4 @@
 
 .tooltip-text {
     -fx-text-fill: white;
-}
-
-/* Empty cells will not have alternating colours */
-.list-cell:empty {
-    -fx-background: white;
 }
