@@ -37,15 +37,32 @@ public class GuiUnitTestApp extends Application {
     /**
      * Adds a new UI part that is being tested into the scene.
      */
-    public void addUiPart(UiPart<Region> part) {
-        Platform.runLater(() -> mainPane.getChildren().add(part.getRoot()));
+    public void addUiPart(UiPart<Region> part) throws InterruptedException {
+        runAndWait(() -> mainPane.getChildren().add(part.getRoot()));
     }
 
     /**
      * Clears all UI parts added to the scene.
      */
-    public void clearUiParts() {
-        Platform.runLater(() -> mainPane.getChildren().clear());
+    public void clearUiParts() throws InterruptedException {
+        runAndWait(() -> mainPane.getChildren().clear());
+    }
+
+    /**
+     * Runs the runnable on the JavaFx's thread, and wait for the
+     * runnable to finish on that thread before we continue executing.
+     */
+    public void runAndWait(Runnable runnable) throws InterruptedException {
+        synchronized (runnable) {
+            Platform.runLater(() -> {
+                synchronized (runnable) {
+                    runnable.run();
+                    runnable.notifyAll();
+                }
+            });
+
+            runnable.wait();
+        }
     }
 
     public void setStageWidth(int desiredWidth) {
