@@ -36,6 +36,7 @@ public class MainWindow extends UiPart<Region> {
     private BrowserPanel browserPanel;
     private PersonListPanel personListPanel;
     private Config config;
+    private UserPrefs prefs;
 
     @FXML
     private AnchorPane browserPlaceholder;
@@ -62,6 +63,7 @@ public class MainWindow extends UiPart<Region> {
         this.primaryStage = primaryStage;
         this.logic = logic;
         this.config = config;
+        this.prefs = prefs;
 
         // Configure the UI
         setTitle(config.getAppTitle());
@@ -116,7 +118,7 @@ public class MainWindow extends UiPart<Region> {
         browserPanel = new BrowserPanel(browserPlaceholder);
         personListPanel = new PersonListPanel(getPersonListPlaceholder(), logic.getFilteredPersonList());
         new ResultDisplay(getResultDisplayPlaceholder());
-        new StatusBarFooter(getStatusbarPlaceholder(), config.getAddressBookFilePath());
+        new StatusBarFooter(getStatusbarPlaceholder(), prefs.getAddressBookFilePath());
         new CommandBox(getCommandBoxPlaceholder(), logic);
     }
 
