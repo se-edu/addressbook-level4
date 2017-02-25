@@ -21,6 +21,7 @@ import seedu.address.commons.util.FxViewUtil;
 public class StatusBarFooter extends UiPart<Region> {
 
     public static final String INITIAL_STATUS = "Not updated yet in this session";
+    public static final String UPDATED_STATUS = "Last Updated: %s";
 
     /**
      * Used to generate time stamps.
@@ -50,6 +51,15 @@ public class StatusBarFooter extends UiPart<Region> {
         return StatusBarFooter.clock;
     }
 
+    /**
+     * Returns a feedback message for sync status to display the last updated timestamp.
+     *
+     * @param timestamp used to generate the updated message
+     */
+    public static String getMessageForSyncStatus(String timestamp) {
+        return String.format(UPDATED_STATUS, timestamp);
+    }
+
     public StatusBarFooter(AnchorPane placeHolder, String saveLocation) {
         super(FXML);
         addToPlaceholder(placeHolder);
@@ -75,7 +85,7 @@ public class StatusBarFooter extends UiPart<Region> {
     public void handleAddressBookChangedEvent(AddressBookChangedEvent abce) {
         long now = StatusBarFooter.clock.millis();
         String lastUpdated = new Date(now).toString();
+        setSyncStatus(getMessageForSyncStatus(lastUpdated));
         logger.info(LogsCenter.getEventHandlingLogMessage(abce, "Setting last updated status to " + lastUpdated));
-        setSyncStatus("Last Updated: " + lastUpdated);
     }
 }
