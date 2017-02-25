@@ -6,5 +6,7 @@
       "x" : 300,
       "y" : 100
     }
-  }
+  },
+  "addressBookFilePath" : "addressbook.xml",
+  "addressBookName" : "TypicalAddressBookName"
 }
