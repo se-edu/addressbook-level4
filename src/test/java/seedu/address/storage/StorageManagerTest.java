@@ -30,7 +30,9 @@ public class StorageManagerTest {
 
     @Before
     public void setUp() {
-        storageManager = new StorageManager(getTempFilePath("ab"), getTempFilePath("prefs"));
+        XmlAddressBookStorage addressBookStorage = new XmlAddressBookStorage(getTempFilePath("ab"));
+        JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
+        storageManager = new StorageManager(addressBookStorage, userPrefsStorage);
     }
 
 
