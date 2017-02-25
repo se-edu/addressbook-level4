@@ -10,6 +10,8 @@ import seedu.address.commons.core.GuiSettings;
 public class UserPrefs {
 
     public GuiSettings guiSettings;
+    private String addressBookFilePath = "data/addressbook.xml";
+    private String addressBookName = "MyAddressBook";
 
     public GuiSettings getGuiSettings() {
         return guiSettings == null ? new GuiSettings() : guiSettings;
@@ -27,6 +29,22 @@ public class UserPrefs {
         guiSettings = new GuiSettings(width, height, x, y);
     }
 
+    public String getAddressBookFilePath() {
+        return addressBookFilePath;
+    }
+
+    public void setAddressBookFilePath(String addressBookFilePath) {
+        this.addressBookFilePath = addressBookFilePath;
+    }
+
+    public String getAddressBookName() {
+        return addressBookName;
+    }
+
+    public void setAddressBookName(String addressBookName) {
+        this.addressBookName = addressBookName;
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -38,17 +56,23 @@ public class UserPrefs {
 
         UserPrefs o = (UserPrefs) other;
 
-        return Objects.equals(guiSettings, o.guiSettings);
+        return Objects.equals(guiSettings, o.guiSettings)
+                && Objects.equals(addressBookFilePath, o.addressBookFilePath)
+                && Objects.equals(addressBookName, o.addressBookName);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(guiSettings);
+        return Objects.hash(guiSettings, addressBookFilePath, addressBookName);
     }
 
     @Override
     public String toString() {
-        return guiSettings.toString();
+        StringBuilder sb = new StringBuilder();
+        sb.append("Gui Settings : " + guiSettings.toString());
+        sb.append("\nLocal data file location : " + addressBookFilePath);
+        sb.append("\nAddressBook name : " + addressBookName);
+        return sb.toString();
     }
 
 }
