@@ -58,11 +58,13 @@ public class MainApp extends Application {
 
         config = initConfig(getApplicationParameter("config"));
 
-        AddressBookStorage addressBookStorage = new XmlAddressBookStorage(config.getAddressBookFilePath());
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
-        storage = new StorageManager(addressBookStorage, userPrefsStorage);
 
-        userPrefs = initPrefs(config);
+        userPrefs = initPrefs(userPrefsStorage);
+
+        AddressBookStorage addressBookStorage = new XmlAddressBookStorage(userPrefs.getAddressBookFilePath());
+
+        storage = new StorageManager(addressBookStorage, userPrefsStorage);
 
         initLogging(config);
 
@@ -135,10 +137,8 @@ public class MainApp extends Application {
         return initializedConfig;
     }
 
-    protected UserPrefs initPrefs(Config config) {
-        assert config != null;
-
-        String prefsFilePath = config.getUserPrefsFilePath();
+    protected UserPrefs initPrefs(UserPrefsStorage storage) {
+        String prefsFilePath = storage.getUserPrefsFilePath();
         logger.info("Using prefs file : " + prefsFilePath);
 
         UserPrefs initializedPrefs;
