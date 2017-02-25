@@ -61,8 +61,7 @@ public class JsonUserPrefsStorageTest {
 
     @Test
     public void readUserPrefs_fileInOrder_successfullyRead() throws DataConversionException {
-        UserPrefs expected = new UserPrefs();
-        expected.setGuiSettings(1000, 500, 300, 100);
+        UserPrefs expected = getTypicalUserPrefs();
         UserPrefs actual = readUserPrefs("TypicalUserPref.json").get();
         assertEquals(expected, actual);
     }
@@ -75,11 +74,18 @@ public class JsonUserPrefsStorageTest {
 
     @Test
     public void readUserPrefs_extraValuesInFile_extraValuesIgnored() throws DataConversionException {
-        UserPrefs expected = new UserPrefs();
-        expected.setGuiSettings(1000, 500, 300, 100);
+        UserPrefs expected = getTypicalUserPrefs();
         UserPrefs actual = readUserPrefs("ExtraValuesUserPref.json").get();
 
         assertEquals(expected, actual);
+    }
+
+    private UserPrefs getTypicalUserPrefs() {
+        UserPrefs userPrefs = new UserPrefs();
+        userPrefs.setGuiSettings(1000, 500, 300, 100);
+        userPrefs.setAddressBookFilePath("addressbook.xml");
+        userPrefs.setAddressBookName("TypicalAddressBookName");
+        return userPrefs;
     }
 
     @Test
