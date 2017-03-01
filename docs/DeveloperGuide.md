@@ -71,7 +71,7 @@ Priority | As a ... | I want to ... | So that I can...
 `* *` | user | enter recurring tasks | not have to enter the same tasks repeatedly
 `* *` | power user | map standard commands to my preferred shortcut commands | be familiar with my own  modified commands
 `* *` | user | make tasks that have very close deadlines to appear as special priority | be reminded to complete them
-`* *` | user | set notifications for deadlines for my tasks, so that I can get reminded to do it.
+`* *` | user | set notifications for deadlines for my tasks | get reminded to do it.
 `* *` | power user | set roughly how much time it requires to finish a task | know how long I need to start and finish a task and not leave it halfway
 `* *` | power user | tell the program how much time I have right now | the program can assign me a task to complete in that time
 `* *` | user | set tasks that are currently underway | be aware of what are the tasks I’m working on right now
@@ -235,4 +235,4 @@ Though it supports basic task creation with the keyboard alone, it does not allo
 - No native apps provided for OS X and Windows platforms. 
 
 #### Verdict - NO
-For Jim, the applications allows him to zoom in to tasks or projects that require immediate action. However, this application is restricting  him to add tasks or projects using the command line interface. To edit or delete a task he has to use the graphical interface which will decrease his productivity and therefore it is not suitable for him. 
+For Jim, the applications allows him to zoom in to tasks or projects that require immediate action. However, this application is restricting  him to add tasks or projects using the command line interface. He has to use the graphical interface to edit or delete a task which will decrease his productivity and therefore it is not suitable for him. 
