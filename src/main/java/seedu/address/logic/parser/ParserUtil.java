@@ -2,13 +2,10 @@ package seedu.address.logic.parser;
 
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 import seedu.address.commons.exceptions.IllegalValueException;
@@ -25,34 +22,17 @@ import seedu.address.model.tag.UniqueTagList;
  */
 public class ParserUtil {
 
-    private static final Pattern INDEX_ARGS_FORMAT = Pattern.compile("(?<targetIndex>.+)");
-
     /**
      * Returns the specified index in the {@code command} if it is a positive unsigned integer
      * Returns an {@code Optional.empty()} otherwise.
      */
     public static Optional<Integer> parseIndex(String command) {
-        final Matcher matcher = INDEX_ARGS_FORMAT.matcher(command.trim());
-        if (!matcher.matches()) {
-            return Optional.empty();
-        }
-
-        String index = matcher.group("targetIndex");
+        String index = command.trim();
         if (!StringUtil.isUnsignedInteger(index)) {
             return Optional.empty();
         }
         return Optional.of(Integer.parseInt(index));
 
-    }
-
-    /**
-     * Returns a new Set populated by all elements in the given list of strings
-     * Returns an empty set if the given {@code Optional} is empty,
-     * or if the list contained in the {@code Optional} is empty
-     */
-    public static Set<String> toSet(Optional<List<String>> list) {
-        List<String> elements = list.orElse(Collections.emptyList());
-        return new HashSet<>(elements);
     }
 
     /**

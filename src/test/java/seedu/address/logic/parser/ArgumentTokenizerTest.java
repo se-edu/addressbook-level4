@@ -3,6 +3,7 @@ package seedu.address.logic.parser;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
@@ -18,7 +19,7 @@ public class ArgumentTokenizerTest {
     @Test
     public void accessors_notTokenizedYet() {
         ArgumentTokenizer tokenizer = new ArgumentTokenizer(slashP);
-        assertPreambleAbsent(tokenizer);
+        assertPreambleEmpty(tokenizer);
         assertArgumentAbsent(tokenizer, slashP);
     }
 
@@ -28,16 +29,16 @@ public class ArgumentTokenizerTest {
         String argsString = "  ";
         tokenizer.tokenize(argsString);
 
-        assertPreambleAbsent(tokenizer);
+        assertPreambleEmpty(tokenizer);
         assertArgumentAbsent(tokenizer, slashP);
     }
 
     private void assertPreamblePresent(ArgumentTokenizer argsTokenizer, String expectedPreamble) {
-        assertEquals(expectedPreamble, argsTokenizer.getPreamble().get());
+        assertEquals(expectedPreamble, argsTokenizer.getPreamble());
     }
 
-    private void assertPreambleAbsent(ArgumentTokenizer argsTokenizer) {
-        assertFalse(argsTokenizer.getPreamble().isPresent());
+    private void assertPreambleEmpty(ArgumentTokenizer argsTokenizer) {
+        assertTrue(argsTokenizer.getPreamble().isEmpty());
     }
 
     private void assertArgumentPresent(ArgumentTokenizer argsTokenizer, Prefix prefix, String... expectedValues) {
@@ -46,11 +47,11 @@ public class ArgumentTokenizerTest {
         assertEquals(expectedValues[expectedValues.length - 1], argsTokenizer.getValue(prefix).get());
 
         // Verify the number of values returned is as expected
-        assertEquals(expectedValues.length, argsTokenizer.getAllValues(prefix).get().size());
+        assertEquals(expectedValues.length, argsTokenizer.getAllValues(prefix).size());
 
         // Verify all values returned are as expected and in order
         for (int i = 0; i < expectedValues.length; i++) {
-            assertEquals(expectedValues[i], argsTokenizer.getAllValues(prefix).get().get(i));
+            assertEquals(expectedValues[i], argsTokenizer.getAllValues(prefix).get(i));
         }
     }
 
@@ -80,7 +81,7 @@ public class ArgumentTokenizerTest {
 
         // No preamble
         tokenizer.tokenize(" /p   Argument value ");
-        assertPreambleAbsent(tokenizer);
+        assertPreambleEmpty(tokenizer);
         assertArgumentPresent(tokenizer, slashP, "Argument value");
 
     }
@@ -110,7 +111,7 @@ public class ArgumentTokenizerTest {
         // Reuse tokenizer on an empty string to ensure state is correctly reset
         //   (i.e. no stale values from the previous tokenizing remain in the state)
         tokenizer.tokenize("");
-        assertPreambleAbsent(tokenizer);
+        assertPreambleEmpty(tokenizer);
         assertArgumentAbsent(tokenizer, slashP);
 
         /** Also covers: testing for prefixes not specified as a prefix **/
