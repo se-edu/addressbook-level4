@@ -83,21 +83,21 @@ Priority | As a ... | I want to ... | So that I can...
 
 ## Appendix B : Use Cases
 
-(For all use cases below, the **System** is the `ToDoList` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is the `ezDo` and the **Actor** is the `user`, unless specified otherwise)
 
 #### Use case: Adding a task
 
 **MSS**
 
 1. User enters command to add task, along with relevant arguments
-2. ToDoList adds the task and gives confirmation
+2. ezDo adds the task and gives confirmation
 Use case ends.
 
 **Extensions**
 
 1a. The user enters an invalid command
 
-> 1a1. ToDoList shows an error message and prompts the user to retry
+> 1a1. ezDo shows an error message and prompts the user to retry
   Use case resumes at step 1
   
 #### Use case: Updating a task
@@ -105,19 +105,19 @@ Use case ends.
 **MSS**
 
 1. User specifies task to update by index along with relevant details
-2. ToDoList updates the task and gives confirmation
+2. ezDo updates the task and gives confirmation
 Use case ends.
 
 **Extensions**
 
 1a. The user enters an invalid command
 
-> 1a1. ToDoList shows an error message and prompts the user to retry
+> 1a1. ezDo shows an error message and prompts the user to retry
 Use case resumes at step 1
 
 1b. The indexed task does not exist
 
-> 1b1. ToDoList shows an error message and prompts the user to select another index
+> 1b1. ezDo shows an error message and prompts the user to select another index
 Use case resumes at step 1
 
 #### Use case: Deleting a task
@@ -125,14 +125,14 @@ Use case resumes at step 1
 **MSS**
 
 1. User enters index of task to delete
-2. ToDoList deletes the task and gives confirmation
+2. ezDo deletes the task and gives confirmation
 Use case ends. 
 
 **Extensions**
 
 1a. The indexed task does not exist
 
-> 1a1. ToDoList shows an error message and prompts the user to select another index
+> 1a1. ezDo shows an error message and prompts the user to select another index
 Use case resumes at step 1
 
 #### Use case: Specifying save location
@@ -140,19 +140,19 @@ Use case resumes at step 1
 **MSS**
 
 1. User enters command to change save location, along with the new file path
-2. ToDoList updates the save location to the given path
+2. ezDo updates the save location to the given path
 Use case ends. 
 
 **Extensions**
 
 1a. The folder does not exist
 
-> 1a1. ToDoList shows an error message and prompts the user to choose another path
+> 1a1. ezDo shows an error message and prompts the user to choose another path
 Use case resumes at step 1
 
 1b. The user enters an invalid command
 
-> 1b1. ToDoList shows an error message and prompts the user to try again
+> 1b1. ezDo shows an error message and prompts the user to try again
 Use case resumes at step 1
 
 ## Appendix C : Non Functional Requirements

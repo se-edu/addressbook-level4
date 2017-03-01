@@ -126,7 +126,7 @@ Quits the program.<br>
 Format: `quit`  
 
 #### Moving the save file : `save`
-Moves the save file of ToDoList.<br>
+Moves the save file of ezDo.<br>
 Format: `save PATH`  
 * `save C:\Desktop\savefile.txt`
 
@@ -137,7 +137,7 @@ There is no need to save manually.
 ## FAQ
 
 **Q**: How do I transfer my data to another Computer?<br>
-**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous ToDoList folder.
+**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous ezDo folder.
        
 ## Command Summary
 
