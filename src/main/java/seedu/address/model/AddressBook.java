@@ -114,7 +114,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      *  - exists in the master list {@link #tags}
      *  - points to a Tag object in the master list
      */
-    private void syncMasterTagListWith(Person person) {
+    private Person syncMasterTagListWith(ReadOnlyPerson person) {
         final UniqueTagList personTags = person.getTags();
         tags.mergeFrom(personTags);
 
@@ -126,7 +126,10 @@ public class AddressBook implements ReadOnlyAddressBook {
         // Rebuild the list of person tags to point to the relevant tags in the master tag list.
         final Set<Tag> correctTagReferences = new HashSet<>();
         personTags.forEach(tag -> correctTagReferences.add(masterTagObjects.get(tag)));
-        person.setTags(new UniqueTagList(correctTagReferences));
+
+        Person personWithUpdatedTags = new Person(person);
+        personWithUpdatedTags.setTags(new UniqueTagList(correctTagReferences));
+        return personWithUpdatedTags;
     }
 
     /**
@@ -136,7 +139,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      *  @see #syncMasterTagListWith(Person)
      */
     private void syncMasterTagListWith(UniquePersonList persons) {
-        persons.forEach(this::syncMasterTagListWith);
+        persons.stream().map((person) -> syncMasterTagListWith(person));
     }
 
     public boolean removePerson(ReadOnlyPerson key) throws UniquePersonList.PersonNotFoundException {
