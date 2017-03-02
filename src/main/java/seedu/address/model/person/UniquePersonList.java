@@ -2,6 +2,7 @@ package seedu.address.model.person;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Stream;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -110,6 +111,10 @@ public class UniquePersonList implements Iterable<Person> {
     @Override
     public int hashCode() {
         return internalList.hashCode();
+    }
+
+    public Stream<Person> stream() {
+        return internalList.stream();
     }
 
     /**
