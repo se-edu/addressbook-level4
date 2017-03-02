@@ -1,6 +1,6 @@
 
 .error {
-    -fx-background-color: red;
+    -fx-text-fill: #d06651 !important; /* The error class should always override the default text-fill style */
 }
 
 .list-cell:empty {
@@ -17,19 +17,4 @@
 
 .tooltip-text {
     -fx-text-fill: white;
-}
-
-#commandTextField {
-    -fx-font-family: "Segoe UI Light";
-    -fx-font-size: 13pt;
-    -fx-background-insets: 0;
-    -fx-border-insets: 0;
-    -fx-background-color: transparent #383838 transparent #383838;
-    -fx-border-width: 1px;
-    -fx-border-color: #383838 #383838 #ffffff #383838;
-    -fx-text-fill: white;
-}
-
-#resultDisplay .content {
-    -fx-background-color: transparent, #383838, transparent, #383838;
 }

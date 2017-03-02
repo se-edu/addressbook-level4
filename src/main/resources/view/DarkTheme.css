@@ -77,7 +77,7 @@
 }
 
 .split-pane:horizontal .split-pane-divider {
-    -fx-border-color: transparent #4d4d4d transparent #4d4d4d;
+    -fx-border-color: transparent transparent transparent #4d4d4d;
     -fx-background-color: derive(#1d1d1d, 20%);
 }
 
@@ -102,8 +102,8 @@
     -fx-text-fill: white;
 }
 
-.list-cell:filled {
-    -fx-border-color: #4d4d4d;
+.list-cell:filled:selected:focused {
+    -fx-background-color: #424d5f;
 }
 
 .list-cell:filled:even {
@@ -142,10 +142,10 @@
 }
 
 .result-display {
+    -fx-background-color: transparent;
     -fx-font-family: "Segoe UI Light";
     -fx-font-size: 13pt;
     -fx-text-fill: white;
-    -fx-background-color: transparent;
 }
 
 .result-display .label {
@@ -302,8 +302,7 @@
 
 #cardPane {
     -fx-background-color: transparent;
-    -fx-border-color: #d6d6d6;
-    -fx-border-width: 1 1 1 1;
+    -fx-border-width: 0;
 }
 
 #commandTypeLabel {
@@ -311,8 +310,24 @@
     -fx-text-fill: #F70D1A;
 }
 
+#commandTextField {
+    -fx-background-insets: 0;
+    -fx-background-color: transparent #383838 transparent #383838;
+    -fx-border-insets: 0;
+    -fx-border-width: 1px;
+    -fx-border-color: #383838 #383838 #ffffff #383838;
+    -fx-font-family: "Segoe UI Light";
+    -fx-font-size: 13pt;
+    -fx-text-fill: white;
+}
+
 #filterField, #personListPanel, #personWebpage {
     -fx-effect: innershadow(gaussian, black, 10, 0, 0, 0);
+}
+
+#resultDisplay .content {
+    -fx-background-color: transparent, #383838, transparent, #383838;
+    -fx-background-radius: 0;
 }
 
 #tags {
