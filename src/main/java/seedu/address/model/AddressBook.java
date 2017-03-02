@@ -116,7 +116,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      *  - points to a Tag object in the master list
      */
     private Person syncMasterTagListWith(ReadOnlyPerson person) {
-        final UniqueTagList personTags = person.getTags();
+        final UniqueTagList personTags = new UniqueTagList(person.getTags());
         tags.mergeFrom(personTags);
 
         // Create map with values = tag object references in the master list
@@ -129,7 +129,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         personTags.forEach(tag -> correctTagReferences.add(masterTagObjects.get(tag)));
 
         Person personWithUpdatedTags = new Person(person);
-        personWithUpdatedTags.setTags(new UniqueTagList(correctTagReferences));
+        personWithUpdatedTags.setTags(correctTagReferences);
         return personWithUpdatedTags;
     }
 

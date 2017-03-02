@@ -425,10 +425,9 @@ public class LogicManagerTest {
             Phone privatePhone = new Phone("111111");
             Email email = new Email("adam@example.com");
             Address privateAddress = new Address("111, alpha street");
-            Tag tag1 = new Tag("tag1");
-            Tag tag2 = new Tag("thelongertag2");
-            UniqueTagList tags = new UniqueTagList(tag1, tag2);
-            return new Person(name, privatePhone, email, privateAddress, tags);
+
+            return new Person(name, privatePhone, email, privateAddress,
+                    getTagSet("tag1", "longertag2"));
         }
 
         /**
