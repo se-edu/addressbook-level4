@@ -9,6 +9,7 @@
 </columnConstraints>
  <children>
       <StatusBar styleClass="anchor-pane" fx:id="syncStatus" minWidth="0.0"/>
-      <StatusBar styleClass="anchor-pane" fx:id="saveLocationStatus" minWidth="0.0" GridPane.columnIndex="1"/>
+      <StatusBar styleClass="anchor-pane" fx:id="saveLocationStatus" minWidth="0.0" GridPane.columnIndex="1"
+          nodeOrientation="RIGHT_TO_LEFT" />
  </children>
 </GridPane>
