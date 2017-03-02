@@ -83,9 +83,9 @@ public class AddressBook implements ReadOnlyAddressBook {
      *
      * @throws UniquePersonList.DuplicatePersonException if an equivalent person already exists.
      */
-    public void addPerson(Person p) throws UniquePersonList.DuplicatePersonException {
-        syncMasterTagListWith(p);
-        persons.add(p);
+    public void addPerson(ReadOnlyPerson p) throws UniquePersonList.DuplicatePersonException {
+        ReadOnlyPerson personWithUpdatedTags = syncMasterTagListWith(p);
+        persons.add(personWithUpdatedTags);
     }
 
     /**
