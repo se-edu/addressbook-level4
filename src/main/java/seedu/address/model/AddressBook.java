@@ -84,8 +84,9 @@ public class AddressBook implements ReadOnlyAddressBook {
      * @throws UniquePersonList.DuplicatePersonException if an equivalent person already exists.
      */
     public void addPerson(ReadOnlyPerson p) throws UniquePersonList.DuplicatePersonException {
-        ReadOnlyPerson personWithUpdatedTags = syncMasterTagListWith(p);
-        persons.add(personWithUpdatedTags);
+        Person newPerson = new Person(p);
+        syncMasterTagListWith(newPerson);
+        persons.add(newPerson);
     }
 
     /**
@@ -115,7 +116,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      *  - exists in the master list {@link #tags}
      *  - points to a Tag object in the master list
      */
-    private Person syncMasterTagListWith(ReadOnlyPerson person) {
+    private void syncMasterTagListWith(Person person) {
         final UniqueTagList personTags = new UniqueTagList(person.getTags());
         tags.mergeFrom(personTags);
 
@@ -127,10 +128,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         // Rebuild the list of person tags to point to the relevant tags in the master tag list.
         final Set<Tag> correctTagReferences = new HashSet<>();
         personTags.forEach(tag -> correctTagReferences.add(masterTagObjects.get(tag)));
-
-        Person personWithUpdatedTags = new Person(person);
-        personWithUpdatedTags.setTags(correctTagReferences);
-        return personWithUpdatedTags;
+        person.setTags(correctTagReferences);
     }
 
     /**
@@ -140,7 +138,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      *  @see #syncMasterTagListWith(Person)
      */
     private void syncMasterTagListWith(UniquePersonList persons) {
-        persons.stream().map((person) -> syncMasterTagListWith(person));
+        persons.forEach(this::syncMasterTagListWith);
     }
 
     public boolean removePerson(ReadOnlyPerson key) throws UniquePersonList.PersonNotFoundException {
