@@ -197,6 +197,19 @@ asciidoctor {
                numbered: true,
                sectlinks: true,
                idprefix: ''  // for compatibility with GitHub preview
+
+    extensions {
+		// macro for formatting cmd:commandWord[commandArgs]
+        inlinemacro (name: "cmd") {
+            parent, target, attributes ->
+            String commandWord = "<b>" + target + "</b>";
+            String commandArgs = attributes.get("text");
+            if (commandArgs != null && !commandArgs.isEmpty()) {
+                commandArgs = " " + commandArgs;
+            }
+            return "<code>" + commandWord + commandArgs + "</code>";
+        }
+    }
 }
 
 /*
