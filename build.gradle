@@ -194,7 +194,6 @@ asciidoctor {
                'source-highlighter': 'coderay',
                icons: 'font',
                experimental: true,
-               numbered: true,
                sectlinks: true,
                idprefix: ''  // for compatibility with GitHub preview
 

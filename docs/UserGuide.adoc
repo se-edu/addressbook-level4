@@ -1,0 +1,184 @@
+= AddressBook Level 4 - User Guide:
+:toc:
+:toc-placement: preamble
+:sectnums:
+:imagesDir: images
+
+By : `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+
+== Quick Start
+
+. Ensure you have Java version `1.8.0_60` or later installed in your Computer.
++
+[NOTE]
+====
+Having any Java 8 version is not enough. +
+This app will not work with earlier versions of Java 8.
+====
+. Download the latest `addressbook.jar` from the link:../../../releases[releases] tab.
+. Copy the file to the folder you want to use as the home folder for your Address Book.
+. Double-click the file to start the app. The GUI should appear in a few seconds.
++
+image::Ui.png[title="Addressbook Screenshot", width="600"]
+. Type the command in the command box and press kbd:[Enter] to execute it. +
+  e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
+. Some example commands you can try:
++
+* cmd:list[] : lists all contacts
+* cmd:add[John Doe p/98765432 e/johnd@gmail.com a/John street, block 123, #01-01]:
+  adds a contact named `John Doe` to the Address Book.
+* cmd:delete[3]: deletes the 3rd contact shown in the current list
+* cmd:exit[] : exits the app
+. Refer to the <<Features>> section below for details of each command.
+
+== Features
+
+====
+*Command Format*
+
+* Words in `UPPER_CASE` are the parameters.
+* Items in `SQUARE_BRACKETS` are optional.
+* Items with `...` after them can have multiple instances.
+* Parameters can be in any order.
+====
+
+=== Viewing help : `help`
+Format: `help`
+
+[TIP]
+Help is also shown if you enter an incorrect command e.g. `abcd`
+
+=== Adding a person: `add`
+
+Adds a person to the address book +
+Format: cmd:add[NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG\]...]
+
+[TIP]
+Persons can have any number of tags (including 0)
+
+Examples:
+
+* cmd:add[John Doe p/98765432 e/johnd@gmail.com a/John street, block 123, #01-01]
+* cmd:add[Betsy Crowe t/friend e/betsycrowe@gmail.com a/Newgate Prison p/1234567 t/criminal]
+
+=== Listing all persons : `list`
+
+Shows a list of all persons in the address book. +
+Format: cmd:list[]
+
+=== Editing a person : `edit`
+
+Edits an existing person in the address book. +
+Format: cmd:edit[INDEX [NAME\] [p/PHONE\] [e/EMAIL\] [a/ADDRESS\] [t/TAG\]...]
+
+[role="details"]
+****
+* Edits the person at the specified `INDEX`. The index refers to the index number shown in the last person listing. The index *must be a positive integer* 1, 2, 3, ...
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
+* You can remove all the person's tags by typing `t/` without specifying any tags after it.
+****
+
+Examples:
+
+* cmd:edit[1 p/91234567 e/johndoe@yahoo.com] +
+  Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@yahoo.com` respectively.
+* cmd:edit[2 Betsy Crower t/] +
+  Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+
+=== Finding all persons containing any keyword in their name: `find`
+
+Finds persons whose names contain any of the given keywords. +
+Format: cmd:find[KEYWORD [MORE_KEYWORDS]]
+
+[role="details"]
+****
+* The search is case sensitive. e.g `hans` will not match `Hans`
+* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
+* Only the name is searched.
+* Only full words will be matched e.g. `Han` will not match `Hans`
+* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans` will match `Hans Bo`
+****
+
+Examples:
+
+* cmd:find[John] +
+  Returns `John Doe` but not `john`
+* cmd:find[Betsy Tim John] +
+  Returns Any person having names `Betsy`, `Tim`, or `John`
+
+=== Deleting a person : `delete`
+
+Deletes the specified person from the address book. Irreversible. +
+Format: cmd:delete[INDEX]
+
+[role="details"]
+****
+* Deletes the person at the specified `INDEX`.
+* The index refers to the index number shown in the most recent listing.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+* cmd:list[] +
+  cmd:delete[2] +
+  Deletes the 2nd person in the address book.
+* cmd:find[Betsy] +
+  cmd:delete[1] +
+  Deletes the 1st person in the results of the `find` command.
+
+=== Select a person : `select`
+
+Selects the person identified by the index number used in the last person listing. +
+Format: cmd:select[INDEX]
+
+[role="details"]
+****
+* Selects the person and loads the Google search page the person at the specified `INDEX`.
+* The index refers to the index number shown in the most recent listing.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
+
+Examples:
+
+* cmd:list[] cmd:select[2] Selects the 2nd person in the address book.
+* cmd:find[Betsy] cmd:select[1] Selects the 1st person in the results of the
+`find` command.
+
+=== Clearing all entries : `clear`
+
+Clears all entries from the address book. +
+Format: cmd:clear[]
+
+=== Exiting the program : `exit`
+
+Exits the program. +
+Format: cmd:exit[]
+
+=== Saving the data
+
+Address book data are saved in the hard disk automatically after any command that changes the data.
+There is no need to save manually.
+
+== FAQ
+
+**Q**: How do I transfer my data to another Computer? +
+**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+
+== Command Summary
+
+* *Add* cmd:add[NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...] +
+  e.g. cmd:add[James Ho p/22224444 e/jamesho@gmail.com a/123, Clementi Rd, 1234665 t/friend t/colleague]
+* *Clear* : cmd:clear[]
+* *Delete* : cmd:delete[INDEX] +
+  e.g. cmd:delete[3]
+* *Find* : cmd:find[KEYWORD [MORE_KEYWORDS]] +
+  e.g. cmd:find[James Jake]
+* *List* : cmd:list[] +
+  e.g.
+* *Help* : cmd:help[] +
+  e.g.
+* *Select* : cmd:select[INDEX] +
+  e.g.cmd:select[2]
