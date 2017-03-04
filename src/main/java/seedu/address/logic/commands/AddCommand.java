@@ -20,22 +20,20 @@ public class AddCommand extends Command {
     public static final String MESSAGE_SUCCESS = "New person added: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";
 
-    private final ReadOnlyPerson toAdd;
+    private final Person toAdd;
 
     /**
      * Creates an AddCommand to add the specified {@code Person}
      */
     public AddCommand(ReadOnlyPerson person) {
-        toAdd = person;
+        toAdd = new Person(person);
     }
 
     @Override
     public CommandResult execute() throws CommandException {
         assert model != null;
         try {
-            assert toAdd instanceof Person;
-
-            model.addPerson((Person) toAdd);
+            model.addPerson(toAdd);
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (UniquePersonList.DuplicatePersonException e) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);

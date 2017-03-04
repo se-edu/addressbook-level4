@@ -34,11 +34,12 @@ public class AddCommandParser {
         ArgumentTokenizer argsTokenizer =
                 new ArgumentTokenizer(PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG);
         argsTokenizer.tokenize(args);
-        try {
-            if (!isCompulsoryPrefixesPresent(argsTokenizer, PREFIX_ADDRESS, PREFIX_PHONE, PREFIX_EMAIL)) {
-                throw new NoSuchElementException();
-            }
 
+        if (!arePrefixesPresent(argsTokenizer, PREFIX_ADDRESS, PREFIX_PHONE, PREFIX_EMAIL)) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+        }
+
+        try {
             Name name = new Name(argsTokenizer.getPreamble());
             Phone phone = ParserUtil.parsePhone(argsTokenizer.getValue(PREFIX_PHONE)).get();
             Email email = ParserUtil.parseEmail(argsTokenizer.getValue(PREFIX_EMAIL)).get();
@@ -49,7 +50,7 @@ public class AddCommandParser {
 
             return new AddCommand(person);
         } catch (NoSuchElementException nsee) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+            throw new AssertionError("Unreachable code: A check for empty optionals have been performed.");
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }
@@ -59,7 +60,7 @@ public class AddCommandParser {
      * Returns true if all the given prefixes do not contain empty {@code Optional} values in the given
      * {@code ArgumentTokenizer}.
      */
-    private boolean isCompulsoryPrefixesPresent(ArgumentTokenizer argsTokenizer, Prefix... compulsoryPrefixes) {
+    private boolean arePrefixesPresent(ArgumentTokenizer argsTokenizer, Prefix... compulsoryPrefixes) {
         for (Prefix prefix : compulsoryPrefixes) {
             if (!argsTokenizer.getValue(prefix).isPresent()) {
                 return false;
