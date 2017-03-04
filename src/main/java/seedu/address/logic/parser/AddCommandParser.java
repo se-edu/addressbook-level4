@@ -6,8 +6,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
-import java.util.NoSuchElementException;
-
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.Command;
@@ -49,8 +47,6 @@ public class AddCommandParser {
             ReadOnlyPerson person = new Person(name, phone, email, address, tagList);
 
             return new AddCommand(person);
-        } catch (NoSuchElementException nsee) {
-            throw new AssertionError("Unreachable code: A check for empty optionals have been performed.");
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }
@@ -60,8 +56,8 @@ public class AddCommandParser {
      * Returns true if all the given prefixes do not contain empty {@code Optional} values in the given
      * {@code ArgumentTokenizer}.
      */
-    private boolean arePrefixesPresent(ArgumentTokenizer argsTokenizer, Prefix... compulsoryPrefixes) {
-        for (Prefix prefix : compulsoryPrefixes) {
+    private boolean arePrefixesPresent(ArgumentTokenizer argsTokenizer, Prefix... prefixes) {
+        for (Prefix prefix : prefixes) {
             if (!argsTokenizer.getValue(prefix).isPresent()) {
                 return false;
             }
