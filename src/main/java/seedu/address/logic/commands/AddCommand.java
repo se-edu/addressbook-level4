@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.UniquePersonList;
 
 /**
@@ -19,12 +20,12 @@ public class AddCommand extends Command {
     public static final String MESSAGE_SUCCESS = "New person added: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";
 
-    private final Person toAdd;
+    private final ReadOnlyPerson toAdd;
 
     /**
      * Creates an AddCommand to add the specified {@code Person}
      */
-    public AddCommand(Person person) {
+    public AddCommand(ReadOnlyPerson person) {
         toAdd = person;
     }
 
@@ -32,7 +33,9 @@ public class AddCommand extends Command {
     public CommandResult execute() throws CommandException {
         assert model != null;
         try {
-            model.addPerson(toAdd);
+            assert toAdd instanceof Person;
+
+            model.addPerson((Person) toAdd);
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (UniquePersonList.DuplicatePersonException e) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
