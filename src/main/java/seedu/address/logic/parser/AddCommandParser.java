@@ -15,6 +15,7 @@ import seedu.address.logic.commands.IncorrectCommand;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.UniqueTagList;
 
@@ -38,7 +39,9 @@ public class AddCommandParser {
             Phone phone = ParserUtil.parsePhone(argsTokenizer.getValue(PREFIX_PHONE)).get();
             UniqueTagList tagList = ParserUtil.parseTags(argsTokenizer.getAllValues(PREFIX_TAG));
 
-            return new AddCommand(name, phone, email, address, tagList);
+            Person person = new Person(name, phone, email, address, tagList);
+
+            return new AddCommand(person);
         } catch (NoSuchElementException nsee) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         } catch (IllegalValueException ive) {

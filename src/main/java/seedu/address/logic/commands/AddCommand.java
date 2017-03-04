@@ -1,13 +1,8 @@
 package seedu.address.logic.commands;
 
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
 import seedu.address.model.person.UniquePersonList;
-import seedu.address.model.tag.UniqueTagList;
 
 /**
  * Adds a person to the address book.
@@ -27,10 +22,10 @@ public class AddCommand extends Command {
     private final Person toAdd;
 
     /**
-     * Creates an AddCommand using raw values.
+     * Creates an AddCommand to add the specified {@code Person}
      */
-    public AddCommand(Name name, Phone phone, Email email, Address address, UniqueTagList tags) {
-        this.toAdd = new Person(name, phone, email, address, new UniqueTagList(tags));
+    public AddCommand(Person person) {
+        toAdd = person;
     }
 
     @Override
