@@ -33,7 +33,6 @@ public class ArgumentTokenizer {
      */
     public ArgumentTokenizer(String argsString, Prefix... prefixes) {
         this.prefixes = Arrays.asList(prefixes);
-        resetTokenizerState();
         List<PrefixPosition> positions = findAllPrefixPositions(argsString);
         extractArguments(argsString, positions);
     }
@@ -63,10 +62,6 @@ public class ArgumentTokenizer {
     public String getPreamble() {
         Optional<String> storedPreamble = getValue(new Prefix(""));
         return storedPreamble.orElse("");
-    }
-
-    private void resetTokenizerState() {
-        this.tokenizedArguments.clear();
     }
 
     /**
