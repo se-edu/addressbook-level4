@@ -26,16 +26,13 @@ public class ArgumentTokenizer {
     private final Map<Prefix, List<String>> tokenizedArguments = new HashMap<>();
 
     /**
-     * Creates an ArgumentTokenizer that can tokenize arguments string as described by prefixes
-     */
-    public ArgumentTokenizer(Prefix... prefixes) {
-        this.prefixes = Arrays.asList(prefixes);
-    }
-
-    /**
+     * Creates an ArgumentTokenizer that tokenize the given arguments string as described by prefixes
+     *
      * @param argsString arguments string of the form: preamble <prefix>value <prefix>value ...
+     * @param prefixes prefixes used to tokenize the arguments string
      */
-    public void tokenize(String argsString) {
+    public ArgumentTokenizer(String argsString, Prefix... prefixes) {
+        this.prefixes = Arrays.asList(prefixes);
         resetTokenizerState();
         List<PrefixPosition> positions = findAllPrefixPositions(argsString);
         extractArguments(argsString, positions);
