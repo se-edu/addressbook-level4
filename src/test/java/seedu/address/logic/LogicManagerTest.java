@@ -29,6 +29,7 @@ import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
@@ -50,7 +51,6 @@ import seedu.address.model.tag.UniqueTagList;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
 import seedu.address.storage.XmlAddressBookStorage;
-
 
 public class LogicManagerTest {
 
@@ -239,7 +239,26 @@ public class LogicManagerTest {
 
         // execute command and verify result
         assertCommandFailure(helper.generateAddCommand(toBeAdded),  AddCommand.MESSAGE_DUPLICATE_PERSON);
+    }
 
+
+    @Test
+    public void execute_edit_invalidValues() {
+        assertCommandFailure("edit 1 *&", Name.MESSAGE_NAME_CONSTRAINTS);
+        assertCommandFailure("edit 1 p/abcd", Phone.MESSAGE_PHONE_CONSTRAINTS);
+        assertCommandFailure("edit 1 e/yahoo!!!", Email.MESSAGE_EMAIL_CONSTRAINTS);
+        assertCommandFailure("edit 1 a/", Address.MESSAGE_ADDRESS_CONSTRAINTS);
+        assertCommandFailure("edit 1 t/*&", Tag.MESSAGE_TAG_CONSTRAINTS);
+    }
+
+    @Test
+    public void execute_edit_invalidPersonIndex() {
+        assertCommandFailure("edit 8 Bobby", MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+    }
+
+    @Test
+    public void execute_edit_missingPersonIndex() {
+        assertCommandFailure("edit Bobby", String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
     }
 
 
