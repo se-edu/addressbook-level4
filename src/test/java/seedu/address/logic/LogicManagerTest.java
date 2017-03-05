@@ -243,6 +243,42 @@ public class LogicManagerTest {
 
 
     @Test
+    public void execute_edit_successful() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        List<Person> threePersons = helper.generatePersonList(3);
+
+        AddressBook expectedAB = helper.generateAddressBook(threePersons);
+        helper.addToModel(model, threePersons);
+
+        // all fields specified
+        Person editedFirstPerson = helper.adam();
+        editedFirstPerson.setTags(new UniqueTagList("tag1", "tag2"));
+        expectedAB.updatePerson(0, editedFirstPerson);
+        assertCommandSuccess("edit 1 Adam Brown p/111111 e/adam@gmail.com a/111, alpha street t/tag1 t/tag2",
+                String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedFirstPerson),
+                expectedAB,
+                expectedAB.getPersonList());
+
+        // not all fields specified
+        Person editedSecondPerson = new Person(threePersons.get(1));
+        editedSecondPerson.setTags(new UniqueTagList("sweetie", "bestie"));
+        expectedAB.updatePerson(1, editedSecondPerson);
+        assertCommandSuccess("edit 2 t/sweetie t/bestie",
+                String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedSecondPerson),
+                expectedAB,
+                expectedAB.getPersonList());
+
+        // clear tags
+        Person editedThirdPerson = new Person(threePersons.get(2));
+        editedThirdPerson.setTags(new UniqueTagList());
+        expectedAB.updatePerson(2, editedThirdPerson);
+        assertCommandSuccess("edit 3 t/",
+                String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedThirdPerson),
+                expectedAB,
+                expectedAB.getPersonList());
+    }
+
+    @Test
     public void execute_edit_invalidValues() {
         assertCommandFailure("edit 1 *&", Name.MESSAGE_NAME_CONSTRAINTS);
         assertCommandFailure("edit 1 p/abcd", Phone.MESSAGE_PHONE_CONSTRAINTS);
