@@ -9,7 +9,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.UserPrefs;
 import seedu.address.storage.XmlSerializableAddressBook;
-import seedu.address.testutil.TestUtil;
+import seedu.address.testutil.TemporaryFilesUtil;
 
 /**
  * This class is meant to override some properties of MainApp so that it will be suited for
@@ -17,9 +17,9 @@ import seedu.address.testutil.TestUtil;
  */
 public class TestApp extends MainApp {
 
-    public static final String SAVE_LOCATION_FOR_TESTING = TestUtil.getFilePathInSandboxFolder("sampleData.xml");
+    public static final String SAVE_LOCATION_FOR_TESTING = TemporaryFilesUtil.getFilePathInSandboxFolder("sampleData.xml");
     protected static final String DEFAULT_PREF_FILE_LOCATION_FOR_TESTING =
-            TestUtil.getFilePathInSandboxFolder("pref_testing.json");
+            TemporaryFilesUtil.getFilePathInSandboxFolder("pref_testing.json");
     public static final String APP_TITLE = "Test App";
     protected static final String ADDRESS_BOOK_NAME = "Test";
     protected Supplier<ReadOnlyAddressBook> initialDataSupplier = () -> null;
@@ -35,7 +35,7 @@ public class TestApp extends MainApp {
 
         // If some initial local data has been provided, write those to the file
         if (initialDataSupplier.get() != null) {
-            TestUtil.saveDataToFile(
+            TemporaryFilesUtil.saveDataToFile(
                     new XmlSerializableAddressBook(this.initialDataSupplier.get()),
                     this.saveFileLocation);
         }
