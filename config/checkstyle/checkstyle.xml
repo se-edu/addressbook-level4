@@ -82,6 +82,13 @@
     NAMING CHECKS
     -->
 
+    <module name="AbbreviationAsWordInName">
+      <!-- Validate abbreviations(consecutive capital letters) length in identifier name -->
+      <property name="ignoreFinal" value="false"/>
+      <property name="allowedAbbreviationLength" value="1"/>
+      <property name="severity" value="warning"/>
+    </module>
+
     <module name="PackageName">
       <!-- Validates identifiers for package names against the supplied expression. -->
       <property name="format" value="^[a-z]+(\.[a-z][a-z0-9]{1,})*$"/>
