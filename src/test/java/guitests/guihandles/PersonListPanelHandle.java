@@ -63,7 +63,7 @@ public class PersonListPanelHandle extends GuiHandle {
             final int scrollTo = i + startPosition;
             guiRobot.interact(() -> getListView().scrollTo(scrollTo));
             guiRobot.sleep(200);
-            if (!TestUtil.compareCardAndPerson(getPersonCardHandle(startPosition + i), persons[i])) {
+            if (!TestUtil.isPersonSameAsPersonOnCard(getPersonCardHandle(startPosition + i), persons[i])) {
                 return false;
             }
         }

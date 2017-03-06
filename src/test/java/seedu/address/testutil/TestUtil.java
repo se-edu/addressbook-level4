@@ -35,8 +35,23 @@ public class TestUtil {
      */
     public static final String SANDBOX_FOLDER = FileUtil.getPath("./src/test/data/sandbox/");
 
-    public static final Person[] SAMPLE_PERSON_DATA = getSamplePersonData();
+    /**
+     * A Person array containing nine mock persons data.
+     */
+    public static final Person[] SAMPLE_PERSONS_ARRAY = makeSamplePersonsArray();
 
+    /**
+     * Asserts that executable throws an expected type of exception.
+     * Checks that the thrown exception is assignable from the expected exception class: 
+     * it is of the same class as the expected exception, 
+     * or it is a superclass of the expected exception class.
+     * Assertion fails if executable throws an exception that cannot be 
+     * assigned to the expected exception class,
+     * or if executable does not throw any exception.
+     * 
+     * @param expected class of the expected exception thrown
+     * @param executable to check the throwing of exception on
+     */
     public static void assertThrows(Class<? extends Throwable> expected, Runnable executable) {
         try {
             executable.run();
@@ -52,7 +67,7 @@ public class TestUtil {
                 String.format("Expected %s to be thrown, but nothing was thrown.", expected.getName()));
     }
 
-    private static Person[] getSamplePersonData() {
+    private static Person[] makeSamplePersonsArray() {
         try {
             //CHECKSTYLE.OFF: LineLength
             return new Person[]{
@@ -74,15 +89,17 @@ public class TestUtil {
         }
     }
 
-    public static List<Person> generateSamplePersonData() {
-        return Arrays.asList(SAMPLE_PERSON_DATA);
+    /**
+     * @return a list of nine mock persons data.
+     */
+    public static List<Person> getSamplePersonsList() {
+        return Arrays.asList(SAMPLE_PERSONS_ARRAY);
     }
 
     /**
-     * Appends the file name to the sandbox folder path.
+     * Appends the {@code filePath} to the sandbox folder path.
      * Creates the sandbox folder if it doesn't exist.
-     * @param fileName
-     * @return
+     * @return the sandbox folder file path appended with given file name.
      */
     public static String getFilePathInSandboxFolder(String fileName) {
         try {
@@ -93,7 +110,11 @@ public class TestUtil {
         return SANDBOX_FOLDER + fileName;
     }
 
-    public static <T> void createDataFileWithData(T data, String filePath) {
+    /**
+     * Saves the {@code data} to a file at {@code filePath}.
+     * Creates the file at {@code filePath} if it doesn't exist.
+     */
+    public static <T> void saveDataToFile(T data, String filePath) {
         try {
             File saveFileForTesting = new File(filePath);
             FileUtil.createIfMissing(saveFileForTesting);
@@ -127,8 +148,7 @@ public class TestUtil {
 
     /**
      * Gets mid point of a node relative to the screen.
-     * @param node
-     * @return
+     * @return a Point2D containing the x and y coordinates of the node's mid point on the screen.
      */
     public static Point2D getScreenMidPoint(Node node) {
         double x = getScreenPos(node).getMinX() + node.getLayoutBounds().getWidth() / 2;
@@ -136,39 +156,38 @@ public class TestUtil {
         return new Point2D(x, y);
     }
 
-    public static Bounds getScreenPos(Node node) {
+    private static Bounds getScreenPos(Node node) {
         return node.localToScreen(node.getBoundsInLocal());
     }
 
     /**
-     * Removes a subset from the list of persons.
-     * @param persons The list of persons
+     * Removes a subset from the array of persons.
+     * @param persons The array of persons
      * @param personsToRemove The subset of persons.
      * @return The modified persons after removal of the subset from persons.
      */
-    public static TestPerson[] removePersonsFromList(final TestPerson[] persons, TestPerson... personsToRemove) {
+    public static TestPerson[] removePersonsFromArray(final TestPerson[] persons, TestPerson... personsToRemove) {
         List<TestPerson> listOfPersons = asList(persons);
         listOfPersons.removeAll(asList(personsToRemove));
         return listOfPersons.toArray(new TestPerson[listOfPersons.size()]);
     }
 
-
     /**
-     * Returns a copy of the list with the person at specified index removed.
-     * @param list original list to copy from
+     * Returns a copy of the array with the person at specified index removed.
+     * @param persons original array to copy from
      * @param targetIndexInOneIndexedFormat e.g. index 1 if the first element is to be removed
      */
-    public static TestPerson[] removePersonFromList(final TestPerson[] list, int targetIndexInOneIndexedFormat) {
-        return removePersonsFromList(list, list[targetIndexInOneIndexedFormat - 1]);
+    public static TestPerson[] removePersonAtIndexFromArray(final TestPerson[] persons, int targetIndexInOneIndexedFormat) {
+        return removePersonsFromArray(persons, persons[targetIndexInOneIndexedFormat - 1]);
     }
 
     /**
      * Appends persons to the array of persons.
-     * @param persons A array of persons.
-     * @param personsToAdd The persons that are to be appended behind the original array.
+     * @param persons An array of persons.
+     * @param personsToAdd The persons that are to be appended to the original array.
      * @return The modified array of persons.
      */
-    public static TestPerson[] addPersonsToList(final TestPerson[] persons, TestPerson... personsToAdd) {
+    public static TestPerson[] addPersonsToArray(final TestPerson[] persons, TestPerson... personsToAdd) {
         List<TestPerson> listOfPersons = asList(persons);
         listOfPersons.addAll(asList(personsToAdd));
         return listOfPersons.toArray(new TestPerson[listOfPersons.size()]);
@@ -182,7 +201,13 @@ public class TestUtil {
         return list;
     }
 
-    public static boolean compareCardAndPerson(PersonCardHandle card, ReadOnlyPerson person) {
+    /**
+     * Returns true if {@code person} is the same as the person on {@code card}
+     * The persons are considered to be equal if they have the same name, phone, email,
+     * address, and tags.
+     * Returns false otherwise.
+     */
+    public static boolean isPersonSameAsPersonOnCard(PersonCardHandle card, ReadOnlyPerson person) {
         return card.isSamePerson(person);
     }
 
