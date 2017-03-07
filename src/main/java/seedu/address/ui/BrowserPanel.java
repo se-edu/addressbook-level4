@@ -44,8 +44,7 @@ public class BrowserPanel extends UiPart<Region> {
     }
 
     /**
-     * Loads an default HTML file with a matching background on start-up
-     * to better fit the general theme.
+     * Loads a default HTML file with a background that matches the general theme.
      */
     private void loadDefaultPage() {
         URL defaultPage = MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_PAGE);

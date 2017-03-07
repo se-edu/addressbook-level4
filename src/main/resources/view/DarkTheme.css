@@ -1,6 +1,6 @@
 .background {
     -fx-background-color: derive(#1d1d1d, 20%);
-    background-color: #383838; /* Used in the blank.html file */
+    background-color: #383838; /* Used in the default html file */
 }
 
 .label {
@@ -77,8 +77,8 @@
 }
 
 .split-pane:horizontal .split-pane-divider {
-    -fx-border-color: transparent transparent transparent #4d4d4d;
     -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-border-color: transparent transparent transparent #4d4d4d;
 }
 
 .split-pane {
@@ -316,11 +316,11 @@
 }
 
 #commandTextField {
-    -fx-background-insets: 0;
     -fx-background-color: transparent #383838 transparent #383838;
-    -fx-border-insets: 0;
-    -fx-border-width: 1px;
+    -fx-background-insets: 0;
     -fx-border-color: #383838 #383838 #ffffff #383838;
+    -fx-border-insets: 0;
+    -fx-border-width: 1;
     -fx-font-family: "Segoe UI Light";
     -fx-font-size: 13pt;
     -fx-text-fill: white;
