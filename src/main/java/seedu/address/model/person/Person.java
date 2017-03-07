@@ -1,5 +1,6 @@
 package seedu.address.model.person;
 
+import java.util.Collections;
 import java.util.Objects;
 import java.util.Set;
 
@@ -82,7 +83,7 @@ public class Person implements ReadOnlyPerson {
 
     @Override
     public Set<Tag> getTags() {
-        return tags.toSet();
+        return Collections.unmodifiableSet(tags.toSet());
     }
 
     /**
