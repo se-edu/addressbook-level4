@@ -1,6 +1,8 @@
 package seedu.address.model.person;
 
-import seedu.address.model.tag.UniqueTagList;
+import java.util.Set;
+
+import seedu.address.model.tag.Tag;
 
 /**
  * A read-only immutable interface for a Person in the addressbook.
@@ -12,12 +14,7 @@ public interface ReadOnlyPerson {
     Phone getPhone();
     Email getEmail();
     Address getAddress();
-
-    /**
-     * The returned TagList is a deep copy of the internal TagList,
-     * changes on the returned list will not affect the person's internal tags.
-     */
-    UniqueTagList getTags();
+    Set<Tag> getTags();
 
     /**
      * Returns true if both have the same state. (interfaces cannot override .equals)

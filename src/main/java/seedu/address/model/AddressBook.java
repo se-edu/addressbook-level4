@@ -115,7 +115,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      *  - points to a Tag object in the master list
      */
     private void syncMasterTagListWith(Person person) {
-        final UniqueTagList personTags = person.getTags();
+        final UniqueTagList personTags = new UniqueTagList(person.getTags());
         tags.mergeFrom(personTags);
 
         // Create map with values = tag object references in the master list
