@@ -1,5 +1,6 @@
 package seedu.address.model.person;
 
+import java.util.Collections;
 import java.util.Objects;
 import java.util.Set;
 
@@ -80,9 +81,13 @@ public class Person implements ReadOnlyPerson {
         return address;
     }
 
+    /**
+     * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
+     * if modification is attempted.
+     */
     @Override
     public Set<Tag> getTags() {
-        return tags.toSet();
+        return Collections.unmodifiableSet(tags.toSet());
     }
 
     /**
