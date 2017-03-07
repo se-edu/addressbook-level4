@@ -1,8 +1,10 @@
 package seedu.address.model.person;
 
 import java.util.Objects;
+import java.util.Set;
 
 import seedu.address.commons.util.CollectionUtil;
+import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 
 /**
@@ -34,7 +36,8 @@ public class Person implements ReadOnlyPerson {
      * Creates a copy of the given ReadOnlyPerson.
      */
     public Person(ReadOnlyPerson source) {
-        this(source.getName(), source.getPhone(), source.getEmail(), source.getAddress(), source.getTags());
+        this(source.getName(), source.getPhone(), source.getEmail(), source.getAddress(),
+                new UniqueTagList(source.getTags()));
     }
 
     public void setName(Name name) {
@@ -78,8 +81,8 @@ public class Person implements ReadOnlyPerson {
     }
 
     @Override
-    public UniqueTagList getTags() {
-        return new UniqueTagList(tags);
+    public Set<Tag> getTags() {
+        return tags.toSet();
     }
 
     /**
@@ -99,7 +102,7 @@ public class Person implements ReadOnlyPerson {
         this.setPhone(replacement.getPhone());
         this.setEmail(replacement.getEmail());
         this.setAddress(replacement.getAddress());
-        this.setTags(replacement.getTags());
+        this.setTags(new UniqueTagList(replacement.getTags()));
     }
 
     @Override
