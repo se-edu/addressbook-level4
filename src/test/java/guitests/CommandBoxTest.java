@@ -2,6 +2,7 @@ package guitests;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 
@@ -48,23 +49,25 @@ public class CommandBoxTest extends AddressBookGuiTest {
     }
 
     /**
-     * Runs a command that fails, then verifies that text remains
-     * and that command box has only one ERROR_STYLE_CLASS, with other style classes untouched.
+     * Runs a command that fails, then verifies that
+     * - the return value of runCommand(...) is false,
+     * - the text remains,
+     * - the command box has only one ERROR_STYLE_CLASS, with other style classes untouched.
      */
     private void assertBehaviorForFailedCommand() {
-        commandBox.runCommand(COMMAND_THAT_FAILS);
-
+        assertFalse(commandBox.runCommand(COMMAND_THAT_FAILS));
         assertEquals(COMMAND_THAT_FAILS, commandBox.getCommandInput());
         assertEquals(errorStyleOfCommandBox, commandBox.getStyleClass());
     }
 
     /**
-     * Runs a command that succeeds, then verifies that text is cleared
-     * and that command box does not have any ERROR_STYLE_CLASS, with style classes the same as default.
+     * Runs a command that succeeds, then verifies that
+     * - the return value of runCommand(...) is true,
+     * - the text is cleared,
+     * - the command box does not have any ERROR_STYLE_CLASS, with style classes the same as default.
      */
     private void assertBehaviorForSuccessfulCommand() {
-        commandBox.runCommand(COMMAND_THAT_SUCCEEDS);
-
+        assertTrue(commandBox.runCommand(COMMAND_THAT_SUCCEEDS));
         assertEquals("", commandBox.getCommandInput());
         assertEquals(defaultStyleOfCommandBox, commandBox.getStyleClass());
     }
