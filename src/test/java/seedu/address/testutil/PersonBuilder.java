@@ -5,7 +5,6 @@ import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
-import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 
 /**
@@ -32,10 +31,7 @@ public class PersonBuilder {
     }
 
     public PersonBuilder withTags(String ... tags) throws IllegalValueException {
-        person.setTags(new UniqueTagList());
-        for (String tag: tags) {
-            person.getTags().add(new Tag(tag));
-        }
+        this.person.setTags(new UniqueTagList(tags));
         return this;
     }
 
