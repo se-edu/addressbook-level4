@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 import org.junit.After;
 import org.junit.Before;
@@ -458,7 +459,7 @@ public class LogicManagerTest {
             cmd.append(" p/").append(p.getPhone());
             cmd.append(" a/").append(p.getAddress());
 
-            UniqueTagList tags = p.getTags();
+            Set<Tag> tags = p.getTags();
             for (Tag t: tags) {
                 cmd.append(" t/").append(t.tagName);
             }
