@@ -1,6 +1,7 @@
 package guitests.guihandles;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import guitests.GuiRobot;
@@ -9,7 +10,7 @@ import javafx.scene.control.Labeled;
 import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 import seedu.address.model.person.ReadOnlyPerson;
-import seedu.address.model.tag.UniqueTagList;
+import seedu.address.model.tag.Tag;
 
 /**
  * Provides a handle to a person card in the person list panel.
@@ -60,9 +61,8 @@ public class PersonCardHandle extends GuiHandle {
                 .collect(Collectors.toList());
     }
 
-    private List<String> getTags(UniqueTagList tags) {
+    private List<String> getTags(Set<Tag> tags) {
         return tags
-                .asObservableList()
                 .stream()
                 .map(tag -> tag.tagName)
                 .collect(Collectors.toList());

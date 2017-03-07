@@ -15,7 +15,6 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
-import seedu.address.model.tag.UniqueTagList;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes
@@ -79,14 +78,14 @@ public class ParserUtil {
     }
 
     /**
-     * Parses {@code Collection<String> tags} into an {@code UniqueTagList}.
+     * Parses {@code Collection<String> tags} into a {@code Set<Tag>}.
      */
-    public static UniqueTagList parseTags(Collection<String> tags) throws IllegalValueException {
+    public static Set<Tag> parseTags(Collection<String> tags) throws IllegalValueException {
         assert tags != null;
         final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tags) {
             tagSet.add(new Tag(tagName));
         }
-        return new UniqueTagList(tagSet);
+        return tagSet;
     }
 }
