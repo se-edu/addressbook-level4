@@ -4,6 +4,8 @@ import guitests.GuiRobot;
 import javafx.collections.ObservableList;
 import javafx.stage.Stage;
 
+import seedu.address.ui.CommandBox;
+
 /**
  * A handle to the Command Box in the GUI.
  */
@@ -32,11 +34,13 @@ public class CommandBoxHandle extends GuiHandle {
 
     /**
      * Enters the given command in the Command Box and presses enter.
+     * @return true if the command succeeded, false otherwise.
      */
-    public void runCommand(String command) {
+    public boolean runCommand(String command) {
         enterCommand(command);
         pressEnter();
         guiRobot.sleep(200); //Give time for the command to take effect
+        return !getStyleClass().contains(CommandBox.ERROR_STYLE_CLASS);
     }
 
     public HelpWindowHandle runHelpCommand() {
