@@ -32,7 +32,7 @@ public class BrowserPanel extends UiPart<Region> {
         FxViewUtil.applyAnchorBoundaryParameters(browser, 0.0, 0.0, 0.0, 0.0);
         placeholder.getChildren().add(browser);
 
-        loadEmptyPage();
+        loadBlankPage();
     }
 
     public void loadPersonPage(ReadOnlyPerson person) {
@@ -47,7 +47,7 @@ public class BrowserPanel extends UiPart<Region> {
      * Loads an empty HTML file with a matching background on start-up
      * to better fit the general theme.
      */
-    private void loadEmptyPage() {
+    private void loadBlankPage() {
         URL blankPage = MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_BLANK_PAGE);
         loadPage(blankPage.toExternalForm());
     }

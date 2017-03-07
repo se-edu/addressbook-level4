@@ -98,14 +98,6 @@
     -fx-padding: 0 0 0 0;
 }
 
-.list-cell .label {
-    -fx-text-fill: white;
-}
-
-.list-cell:filled:selected:focused {
-    -fx-background-color: #424d5f;
-}
-
 .list-cell:filled:even {
     -fx-background-color: #3c3e3f;
 }
@@ -114,15 +106,28 @@
     -fx-background-color: #515658;
 }
 
+.list-cell:filled:selected {
+    -fx-background-color: #424d5f;
+}
+
+.list-cell:filled:selected #cardPane {
+    -fx-border-color: #3e7b91;
+    -fx-border-width: 1;
+}
+
+.list-cell .label {
+    -fx-text-fill: white;
+}
+
 .cell_big_label {
-    -fx-font-size: 16px;
     -fx-font-family: "Segoe UI Semibold";
+    -fx-font-size: 16px;
     -fx-text-fill: #010504;
 }
 
 .cell_small_label {
-    -fx-font-size: 13px;
     -fx-font-family: "Segoe UI";
+    -fx-font-size: 13px;
     -fx-text-fill: #010504;
 }
 
