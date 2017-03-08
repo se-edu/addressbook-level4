@@ -1,7 +1,7 @@
 package seedu.address.model;
 
 import static org.junit.Assert.assertSame;
-import static seedu.address.testutil.TestAsserts.assertThrows;
+import static seedu.address.testutil.AssertTestUtil.assertThrows;
 
 import java.util.ArrayList;
 import java.util.Comparator;

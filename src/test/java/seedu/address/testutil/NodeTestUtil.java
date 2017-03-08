@@ -10,10 +10,9 @@ import javafx.scene.Node;
 public class NodeTestUtil {
 
     /**
-     * Gets mid point of the screen that {@code node} is on.
-     * @return a {@code Point2D} object containing the x and y coordinates
-     * of the mid point on the screen that {@code node} is on.
-     */
+    * Returns a {@code Point2D} object containing the x and y coordinates
+    * of the mid point on the screen that {@code node} is on.
+    */
     public static Point2D getScreenMidPoint(Node node) {
         double x = getNodeBounds(node).getMinX() + node.getLayoutBounds().getWidth() / 2;
         double y = getNodeBounds(node).getMinY() + node.getLayoutBounds().getHeight() / 2;
@@ -21,8 +20,8 @@ public class NodeTestUtil {
     }
 
     /**
-     * @return the bounds of a {@code node} relative to the screen.
-     */
+    * Returns the bounds of a {@code node} relative to the screen.
+    */
     private static Bounds getNodeBounds(Node node) {
         return node.localToScreen(node.getBoundsInLocal());
     }

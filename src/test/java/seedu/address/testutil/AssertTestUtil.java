@@ -5,7 +5,7 @@ import junit.framework.AssertionFailedError;
 /**
 * Utility class for test asserts.
 */
-public class TestAsserts {
+public class AssertTestUtil {
 
     /**
      * Asserts that {@code executable} throws an expected type of {@code exception}.
@@ -16,8 +16,8 @@ public class TestAsserts {
      * assigned to the {@code expected} exception class,
      * or if {@code executable} does not throw any exception.
      *
-     * @param expected class of the expected exception thrown
-     * @param executable to check the throwing of exception on
+     * @param expected class of the expected exception thrown.
+     * @param executable to check the throwing of exception on.
      */
     public static void assertThrows(Class<? extends Throwable> expected, Runnable executable) {
         try {

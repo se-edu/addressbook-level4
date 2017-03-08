@@ -4,13 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Utility class for TestPersons.
+ * Utility class for TestPerson.
  */
-public class TestPersonsUtil {
+public class TestPersonUtil {
 
     /**
      * Removes a subset from the array of persons.
-     * @param persons The array of persons
+     * @param persons The array of persons.
      * @param personsToRemove The subset of persons.
      * @return The modified persons after removal of the subset from persons.
      */
@@ -24,8 +24,8 @@ public class TestPersonsUtil {
      * Removes the person at {@code targetIndexInOneIndexedFormat} from the array.
      * The resulting array will not have any gaps in between,
      * elements will be shifted forward if necessary.
-     * @param persons original array to copy from
-     * @param targetIndexInOneIndexedFormat e.g. index 1 if the first element is to be removed
+     * @param persons original array to copy from.
+     * @param targetIndexInOneIndexedFormat e.g. index 1 if the first element is to be removed.
      * @return A copy of the array with the person at specified index removed.
      */
     public static TestPerson[] removePerson(final TestPerson[] persons, int targetIndexInOneIndexedFormat) {
