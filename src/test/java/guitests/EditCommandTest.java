@@ -7,6 +7,7 @@ import org.junit.Test;
 
 import guitests.guihandles.PersonCardHandle;
 import seedu.address.commons.core.Messages;
+import seedu.address.commons.util.IndexUtil;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
@@ -39,8 +40,8 @@ public class EditCommandTest extends AddressBookGuiTest {
         String detailsToEdit = "t/sweetie t/bestie";
         int addressBookIndex = 2;
 
-        Person personToEdit = expectedPersonsList[addressBookIndex - 1];
-        Person editedPerson = new PersonBuilder(personToEdit).withTags("sweetie", "bestie").build();
+        TestPerson personToEdit = expectedPersonsList[IndexUtil.oneToZeroIndex(addressBookIndex)];
+        TestPerson editedPerson = new PersonBuilder(personToEdit).withTags("sweetie", "bestie").build();
 
         assertEditSuccess(addressBookIndex, addressBookIndex, detailsToEdit, editedPerson);
     }
@@ -50,8 +51,8 @@ public class EditCommandTest extends AddressBookGuiTest {
         String detailsToEdit = "t/";
         int addressBookIndex = 2;
 
-        Person personToEdit = expectedPersonsList[addressBookIndex - 1];
-        Person editedPerson = new PersonBuilder(personToEdit).withTags().build();
+        TestPerson personToEdit = expectedPersonsList[IndexUtil.oneToZeroIndex(addressBookIndex)];
+        TestPerson editedPerson = new PersonBuilder(personToEdit).withTags().build();
 
         assertEditSuccess(addressBookIndex, addressBookIndex, detailsToEdit, editedPerson);
     }
@@ -64,8 +65,8 @@ public class EditCommandTest extends AddressBookGuiTest {
         int filteredPersonListIndex = 1;
         int addressBookIndex = 5;
 
-        Person personToEdit = expectedPersonsList[addressBookIndex - 1];
-        Person editedPerson = new PersonBuilder(personToEdit).withName("Belle").build();
+        TestPerson personToEdit = expectedPersonsList[IndexUtil.oneToZeroIndex(addressBookIndex)];
+        TestPerson editedPerson = new PersonBuilder(personToEdit).withName("Belle").build();
 
         assertEditSuccess(filteredPersonListIndex, addressBookIndex, detailsToEdit, editedPerson);
     }
@@ -131,7 +132,7 @@ public class EditCommandTest extends AddressBookGuiTest {
         assertMatching(editedPerson, editedCard);
 
         // confirm the list now contains all previous persons plus the person with updated details
-        expectedPersonsList[addressBookIndex - 1] = editedPerson;
+        expectedPersonsList[IndexUtil.oneToZeroIndex(addressBookIndex)] = editedPerson;
         assertTrue(personListPanel.isListMatching(expectedPersonsList));
         assertResultMessage(String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson));
     }
