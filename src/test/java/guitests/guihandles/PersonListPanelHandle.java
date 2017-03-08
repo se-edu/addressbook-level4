@@ -63,7 +63,7 @@ public class PersonListPanelHandle extends GuiHandle {
             final int scrollTo = i + startPosition;
             guiRobot.interact(() -> getListView().scrollTo(scrollTo));
             guiRobot.sleep(200);
-            if (!TestUtil.compareCardAndPerson(getPersonCardHandle(startPosition + i), persons[i])) {
+            if (!TestUtil.isPersonSameAsPersonOnCard(getPersonCardHandle(startPosition + i), persons[i])) {
                 return false;
             }
         }
@@ -74,7 +74,7 @@ public class PersonListPanelHandle extends GuiHandle {
      * Clicks on the ListView.
      */
     public void clickOnListView() {
-        Point2D point = TestUtil.getScreenMidPoint(getListView());
+        Point2D point = TestUtil.getScreenMidPointOfNode(getListView());
         guiRobot.clickOn(point.getX(), point.getY());
     }
 

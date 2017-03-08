@@ -15,7 +15,7 @@ import seedu.address.testutil.TestUtil;
  */
 public class JsonUtilTest {
 
-    private static final File SERIALIZATION_FILE = new File(TestUtil.getFilePathInSandboxFolder("serialize.json"));
+    private static final File SERIALIZATION_FILE = new File(TestUtil.getFilePathOfFileInSandboxFolder("serialize.json"));
 
     @Test
     public void serializeObjectToJsonFile_noExceptionThrown() throws IOException {
