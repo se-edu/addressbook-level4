@@ -31,8 +31,8 @@ public class EditCommandParser {
         assert args != null;
         ArgumentTokenizer argsTokenizer =
                 new ArgumentTokenizer(PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG);
-        argsTokenizer.tokenize(args);
-        List<Optional<String>> preambleFields = ParserUtil.splitPreamble(argsTokenizer.getPreamble(), 2);
+        ArgumentMap argumentMap = argsTokenizer.tokenize(args);
+        List<Optional<String>> preambleFields = ParserUtil.splitPreamble(argumentMap.getPreamble(), 2);
 
         Optional<Integer> index = preambleFields.get(0).flatMap(ParserUtil::parseIndex);
         if (!index.isPresent()) {
@@ -42,10 +42,10 @@ public class EditCommandParser {
         EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
         try {
             editPersonDescriptor.setName(ParserUtil.parseName(preambleFields.get(1)));
-            editPersonDescriptor.setPhone(ParserUtil.parsePhone(argsTokenizer.getValue(PREFIX_PHONE)));
-            editPersonDescriptor.setEmail(ParserUtil.parseEmail(argsTokenizer.getValue(PREFIX_EMAIL)));
-            editPersonDescriptor.setAddress(ParserUtil.parseAddress(argsTokenizer.getValue(PREFIX_ADDRESS)));
-            editPersonDescriptor.setTags(parseTagsForEdit(argsTokenizer.getAllValues(PREFIX_TAG)));
+            editPersonDescriptor.setPhone(ParserUtil.parsePhone(argumentMap.getValue(PREFIX_PHONE)));
+            editPersonDescriptor.setEmail(ParserUtil.parseEmail(argumentMap.getValue(PREFIX_EMAIL)));
+            editPersonDescriptor.setAddress(ParserUtil.parseAddress(argumentMap.getValue(PREFIX_ADDRESS)));
+            editPersonDescriptor.setTags(parseTagsForEdit(argumentMap.getAllValues(PREFIX_TAG)));
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }
