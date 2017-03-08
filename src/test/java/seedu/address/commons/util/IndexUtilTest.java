@@ -12,19 +12,19 @@ public class IndexUtilTest {
     public ExpectedException thrown = ExpectedException.none();
 
     @Test
-    public void convertOneToZeroIndex() {
+    public void oneToZeroIndex_validInput_success() {
         assertEquals(0, IndexUtil.oneToZeroIndex(1));
         assertEquals(7, IndexUtil.oneToZeroIndex(8));
     }
 
     @Test
-    public void oneToZeroIndex_zeroBasedGiven_exceptionThrown() throws IndexOutOfBoundsException {
+    public void oneToZeroIndex_zeroGiven_exceptionThrown() throws IndexOutOfBoundsException {
         thrown.expect(IndexOutOfBoundsException.class);
         IndexUtil.oneToZeroIndex(0);
     }
 
     @Test
-    public void oneToZeroIndex_negativeBasedGiven_exceptionThrown() throws IndexOutOfBoundsException {
+    public void oneToZeroIndex_negativeValueGiven_exceptionThrown() throws IndexOutOfBoundsException {
         thrown.expect(IndexOutOfBoundsException.class);
         IndexUtil.oneToZeroIndex(-1);
     }

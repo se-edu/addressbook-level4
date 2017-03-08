@@ -10,7 +10,7 @@ public class IndexUtil {
      */
     public static int oneToZeroIndex(int oneBasedIndex) throws IndexOutOfBoundsException {
         if (oneBasedIndex < 1) {
-            throw new IndexOutOfBoundsException("One-based index must be 1 or bigger than 1.");
+            throw new IndexOutOfBoundsException("One-based index cannot be smaller than 1.");
         }
         return oneBasedIndex - 1;
     }
