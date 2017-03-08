@@ -4,33 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import guitests.guihandles.PersonCardHandle;
-import javafx.geometry.Bounds;
-import javafx.geometry.Point2D;
-import javafx.scene.Node;
 import seedu.address.model.person.ReadOnlyPerson;
 
 /**
  * A utility class for test cases.
  */
 public class TestUtil {
-
-    /**
-     * Gets mid point of the screen that {@code node} is on.
-     * @return a {@code Point2D} object containing the x and y coordinates
-     * of the mid point on the screen that {@code node} is on.
-     */
-    public static Point2D getScreenMidPoint(Node node) {
-        double x = getNodeBounds(node).getMinX() + node.getLayoutBounds().getWidth() / 2;
-        double y = getNodeBounds(node).getMinY() + node.getLayoutBounds().getHeight() / 2;
-        return new Point2D(x, y);
-    }
-
-    /**
-     * @return the bounds of a {@code node} relative to the screen.
-     */
-    private static Bounds getNodeBounds(Node node) {
-        return node.localToScreen(node.getBoundsInLocal());
-    }
 
     /**
      * Removes a subset from the array of persons.
