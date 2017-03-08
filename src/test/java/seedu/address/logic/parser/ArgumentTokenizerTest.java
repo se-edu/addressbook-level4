@@ -37,7 +37,7 @@ public class ArgumentTokenizerTest {
 
         // Verify the last value is returned
         assertEquals(expectedValues[IndexUtil.oneToZeroIndex(expectedValues.length)],
-                     argMultimap.getValue(prefix).get());
+                argMultimap.getValue(prefix).get());
 
         // Verify the number of values returned is as expected
         assertEquals(expectedValues.length, argMultimap.getAllValues(prefix).size());
