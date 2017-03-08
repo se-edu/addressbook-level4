@@ -92,12 +92,6 @@ public class LogicManagerTest {
         EventsCenter.clearSubscribers();
     }
 
-    @Test
-    public void execute_invalid() {
-        String invalidCommand = "       ";
-        assertCommandFailure(invalidCommand, String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
-    }
-
     /**
      * Executes the command, confirms that a CommandException is not thrown and that the result message is correct.
      * Also confirms that both the 'address book' and the 'last shown list' are as specified.
