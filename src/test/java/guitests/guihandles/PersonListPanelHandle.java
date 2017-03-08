@@ -15,6 +15,7 @@ import javafx.stage.Stage;
 import seedu.address.TestApp;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.ReadOnlyPerson;
+import seedu.address.testutil.NodeTestUtil;
 import seedu.address.testutil.TestUtil;
 
 /**
@@ -74,7 +75,7 @@ public class PersonListPanelHandle extends GuiHandle {
      * Clicks on the ListView.
      */
     public void clickOnListView() {
-        Point2D point = TestUtil.getScreenMidPointOfNode(getListView());
+        Point2D point = NodeTestUtil.getScreenMidPointOfNode(getListView());
         guiRobot.clickOn(point.getX(), point.getY());
     }
 
