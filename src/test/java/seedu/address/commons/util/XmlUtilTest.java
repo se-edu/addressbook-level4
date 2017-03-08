@@ -14,8 +14,8 @@ import org.junit.rules.ExpectedException;
 import seedu.address.model.AddressBook;
 import seedu.address.storage.XmlSerializableAddressBook;
 import seedu.address.testutil.AddressBookBuilder;
-import seedu.address.testutil.TestUtil;
 import seedu.address.testutil.MockPersonsData;
+import seedu.address.testutil.TemporaryFilesUtil;
 
 public class XmlUtilTest {
 
@@ -23,7 +23,8 @@ public class XmlUtilTest {
     private static final File EMPTY_FILE = new File(TEST_DATA_FOLDER + "empty.xml");
     private static final File MISSING_FILE = new File(TEST_DATA_FOLDER + "missing.xml");
     private static final File VALID_FILE = new File(TEST_DATA_FOLDER + "validAddressBook.xml");
-    private static final File TEMP_FILE = new File(TestUtil.getFilePathOfFileInSandboxFolder("tempAddressBook.xml"));
+    private static final File TEMP_FILE =
+            new File(TemporaryFilesUtil.getFilePathOfFileInSandboxFolder("tempAddressBook.xml"));
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
