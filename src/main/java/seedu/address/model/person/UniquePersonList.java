@@ -58,10 +58,6 @@ public class UniquePersonList implements Iterable<Person> {
         }
 
         personToUpdate.resetData(editedPerson);
-        // TODO: The code below is just a workaround to notify observers of the updated person.
-        // The right way is to implement observable properties in the Person class.
-        // Then, PersonCard should then bind its text labels to those observable properties.
-        internalList.set(index, personToUpdate);
     }
 
     /**
