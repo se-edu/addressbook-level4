@@ -14,7 +14,7 @@ import org.junit.rules.ExpectedException;
 import seedu.address.model.AddressBook;
 import seedu.address.storage.XmlSerializableAddressBook;
 import seedu.address.testutil.AddressBookBuilder;
-import seedu.address.testutil.MockPersonsData;
+import seedu.address.testutil.SamplePersonsData;
 import seedu.address.testutil.TemporaryFilesUtil;
 
 public class XmlUtilTest {
@@ -89,7 +89,7 @@ public class XmlUtilTest {
 
         AddressBookBuilder builder = new AddressBookBuilder(new AddressBook());
         dataToWrite = new XmlSerializableAddressBook(
-                builder.withPerson(MockPersonsData.getSamplePersonsDataAsList().get(0)).withTag("Friends").build());
+                builder.withPerson(SamplePersonsData.getSamplePersonsDataAsList().get(0)).withTag("Friends").build());
 
         XmlUtil.saveDataToFile(TEMP_FILE, dataToWrite);
         dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE, XmlSerializableAddressBook.class);

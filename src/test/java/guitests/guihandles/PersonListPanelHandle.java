@@ -75,7 +75,7 @@ public class PersonListPanelHandle extends GuiHandle {
      * Clicks on the ListView.
      */
     public void clickOnListView() {
-        Point2D point = NodeTestUtil.getScreenMidPointOfNode(getListView());
+        Point2D point = NodeTestUtil.getScreenMidPoint(getListView());
         guiRobot.clickOn(point.getX(), point.getY());
     }
 

@@ -12,17 +12,17 @@ import seedu.address.model.person.Phone;
 import seedu.address.model.tag.UniqueTagList;
 
 /**
- * Utility class containing mock persons data.
+ * Utility class containing sample persons data.
  */
-public class MockPersonsData {
+public class SamplePersonsData {
 
     /**
-     * A Person array containing mock persons data.
+     * A Person array containing sample persons data.
      */
     public static final Person[] SAMPLE_PERSONS_ARRAY = makeSamplePersonsArray();
 
     /**
-     * @return a list of mock persons data.
+     * @return a list of sample persons data.
      */
     public static List<Person> getSamplePersonsDataAsList() {
         return Arrays.asList(SAMPLE_PERSONS_ARRAY);

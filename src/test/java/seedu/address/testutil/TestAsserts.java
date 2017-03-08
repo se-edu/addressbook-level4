@@ -8,13 +8,13 @@ import junit.framework.AssertionFailedError;
 public class TestAsserts {
 
     /**
-     * Asserts that executable throws an expected type of exception.
-     * The thrown exception is expected if it is assignable to the expected exception:
-     * it is of the same class as the expected exception,
-     * or it is a superclass of the expected exception class.
-     * Assertion fails if executable throws an exception that cannot be
-     * assigned to the expected exception class,
-     * or if executable does not throw any exception.
+     * Asserts that {@code executable} throws an expected type of {@code exception}.
+     * The thrown exception is expected if it is assignable to the {@code expected} exception:
+     * it is of the same class as the {@code expected} exception,
+     * or it is a superclass of the {@code expected} exception class.
+     * Assertion fails if {@code executable} throws an exception that cannot be
+     * assigned to the {@code expected} exception class,
+     * or if {@code executable} does not throw any exception.
      *
      * @param expected class of the expected exception thrown
      * @param executable to check the throwing of exception on

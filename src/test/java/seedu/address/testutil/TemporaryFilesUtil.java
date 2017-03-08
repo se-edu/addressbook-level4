@@ -17,7 +17,7 @@ public class TemporaryFilesUtil {
     public static final String SANDBOX_FOLDER = FileUtil.getPath("./src/test/data/sandbox/");
 
     /**
-     * Appends the {@code filePath} to the sandbox folder path.
+     * Appends the {@code fileName} to the sandbox folder path.
      * Creates the sandbox folder if it does not exist.
      * @return the sandbox folder file path appended with given file name.
      */
