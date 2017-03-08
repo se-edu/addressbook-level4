@@ -6,7 +6,7 @@ import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_PERSON_S
 import org.junit.Test;
 
 import seedu.address.testutil.TestPerson;
-import seedu.address.testutil.TestUtil;
+import seedu.address.testutil.TestPersons;
 
 public class DeleteCommandTest extends AddressBookGuiTest {
 
@@ -19,12 +19,12 @@ public class DeleteCommandTest extends AddressBookGuiTest {
         assertDeleteSuccess(targetIndex, currentList);
 
         //delete the last in the list
-        currentList = TestUtil.removePersonAtIndex(currentList, targetIndex);
+        currentList = TestPersons.removePersonAtIndex(currentList, targetIndex);
         targetIndex = currentList.length;
         assertDeleteSuccess(targetIndex, currentList);
 
         //delete from the middle of the list
-        currentList = TestUtil.removePersonAtIndex(currentList, targetIndex);
+        currentList = TestPersons.removePersonAtIndex(currentList, targetIndex);
         targetIndex = currentList.length / 2;
         assertDeleteSuccess(targetIndex, currentList);
 
@@ -41,7 +41,7 @@ public class DeleteCommandTest extends AddressBookGuiTest {
      */
     private void assertDeleteSuccess(int targetIndexOneIndexed, final TestPerson[] currentList) {
         TestPerson personToDelete = currentList[targetIndexOneIndexed - 1]; // -1 as array uses zero indexing
-        TestPerson[] expectedRemainder = TestUtil.removePersonAtIndex(currentList, targetIndexOneIndexed);
+        TestPerson[] expectedRemainder = TestPersons.removePersonAtIndex(currentList, targetIndexOneIndexed);
 
         commandBox.runCommand("delete " + targetIndexOneIndexed);
 
