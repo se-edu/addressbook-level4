@@ -46,7 +46,6 @@ public class EditCommand extends Command {
         assert editPersonDescriptor != null;
 
         this.filteredPersonListIndex = IndexUtil.oneToZeroIndex(filteredPersonListIndex);
-
         this.editPersonDescriptor = new EditPersonDescriptor(editPersonDescriptor);
     }
 
