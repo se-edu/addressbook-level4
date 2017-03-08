@@ -3,6 +3,8 @@ package seedu.address.logic.parser;
 import java.util.ArrayList;
 import java.util.List;
 
+import seedu.address.commons.util.IndexUtil;
+
 /**
  * Tokenizes arguments string of the form: {@code preamble <prefix>value <prefix>value ...}<br>
  *     e.g. {@code some preamble text t/ 11.00d/Today t/ 12.00 k/ m/ July}  where prefixes are {@code t/ d/ k/ m/}.<br>
@@ -22,9 +24,41 @@ public class ArgumentTokenizer {
      * @param prefixes   Prefixes to tokenize the arguments string with
      * @return           ArgumentMultimap object that maps prefixes to their arguments
      */
-    public static ArgumentMultimap tokenize(String argsString, Prefix... prefixes) {
-        List<PrefixPosition> positions = findAllPrefixPositions(argsString, prefixes);
-        return extractArguments(argsString, positions);
+    public void tokenize(String argsString) {
+        resetTokenizerState();
+        List<PrefixPosition> positions = findAllPrefixPositions(argsString);
+        extractArguments(argsString, positions);
+    }
+
+    /**
+     * Returns last value of given prefix.
+     */
+    public Optional<String> getValue(Prefix prefix) {
+        List<String> values = getAllValues(prefix);
+        return values.isEmpty() ? Optional.empty() : Optional.of(values.get(IndexUtil.oneToZeroIndex(values.size())));
+    }
+
+    /**
+     * Returns all values of given prefix, if any.
+     * If the prefix does not exist or has no values, returns an empty list.
+     */
+    public List<String> getAllValues(Prefix prefix) {
+        if (!this.tokenizedArguments.containsKey(prefix)) {
+            return Collections.emptyList();
+        }
+        return new ArrayList<>(this.tokenizedArguments.get(prefix));
+    }
+
+    /**
+     * Returns the preamble (text before the first valid prefix). Trims any leading/trailing spaces.
+     */
+    public String getPreamble() {
+        Optional<String> storedPreamble = getValue(new Prefix(""));
+        return storedPreamble.orElse("");
+    }
+
+    private void resetTokenizerState() {
+        this.tokenizedArguments.clear();
     }
 
     /**

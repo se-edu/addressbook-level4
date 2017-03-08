@@ -6,6 +6,7 @@ import java.util.Set;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.util.CollectionUtil;
+import seedu.address.commons.util.IndexUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
@@ -44,8 +45,7 @@ public class EditCommand extends Command {
         assert filteredPersonListIndex > 0;
         assert editPersonDescriptor != null;
 
-        // converts filteredPersonListIndex from one-based to zero-based.
-        this.filteredPersonListIndex = filteredPersonListIndex - 1;
+        this.filteredPersonListIndex = IndexUtil.oneToZeroIndex(filteredPersonListIndex);
 
         this.editPersonDescriptor = new EditPersonDescriptor(editPersonDescriptor);
     }
