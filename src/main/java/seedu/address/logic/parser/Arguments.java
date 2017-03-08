@@ -9,7 +9,7 @@ import java.util.Optional;
 import seedu.address.logic.parser.ArgumentTokenizer.Prefix;
 
 /**
- * Stores arguments tokenized by prefixes.
+ * Stores arguments tokenized by their respective prefixes.
  */
 public class Arguments {
 

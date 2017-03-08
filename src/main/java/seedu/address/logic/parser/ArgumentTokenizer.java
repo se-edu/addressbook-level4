@@ -32,8 +32,8 @@ public class ArgumentTokenizer {
      */
     public Arguments tokenize(String argsString) {
         List<PrefixPosition> positions = findAllPrefixPositions(argsString);
-        Map<Prefix, List<String>> tokenizedArguments = extractArguments(argsString, positions);
-        return new Arguments(tokenizedArguments);
+        Arguments arguments = extractArguments(argsString, positions);
+        return arguments;
     }
 
     /**
@@ -66,12 +66,12 @@ public class ArgumentTokenizer {
     }
 
     /**
-     * Extracts the preamble/arguments, and returns a map of preamble keys and argument values.
+     * Extracts the argument values, based on the 0-based positions of the prefixes in the arguments string.
      * @param argsString      Arguments string of the form: preamble <prefix>value <prefix>value ...
      * @param prefixPositions 0-based positions of prefixes, contains all prefixes in the {@code argsString}.
-     * @return                A map of preamble keys and argument values.
+     * @return                The argument values in the arguments string, with their prefixes as keys.
      */
-    private  Map<Prefix, List<String>> extractArguments(String argsString, List<PrefixPosition> prefixPositions) {
+    private Arguments extractArguments(String argsString, List<PrefixPosition> prefixPositions) {
 
         // Sort by start position
         prefixPositions.sort((prefix1, prefix2) -> prefix1.getStartPosition() - prefix2.getStartPosition());
@@ -84,14 +84,17 @@ public class ArgumentTokenizer {
         PrefixPosition endPositionMarker = new PrefixPosition(new Prefix(""), argsString.length());
         prefixPositions.add(endPositionMarker);
 
-        // Extract the prefixed arguments and preamble (if any)
+        // Extract and store the prefixed arguments and preamble (if any)
         Map<Prefix, List<String>> tokenizedArguments = new HashMap<>();
         for (int i = 0; i < prefixPositions.size() - 1; i++) {
             String argValue = extractArgumentValue(argsString, prefixPositions.get(i), prefixPositions.get(i + 1));
-            saveArgument(tokenizedArguments, prefixPositions.get(i).getPrefix(), argValue);
+            Prefix argPrefix = prefixPositions.get(i).getPrefix();
+            List<String> values = tokenizedArguments.getOrDefault(argPrefix, new ArrayList<>());
+            values.add(argValue);
+            tokenizedArguments.put(argPrefix, values);
         }
 
-        return tokenizedArguments;
+        return new Arguments(tokenizedArguments);
     }
 
     /**
@@ -107,20 +110,6 @@ public class ArgumentTokenizer {
         String value = argsString.substring(valueStartPos, nextPrefixPosition.getStartPosition());
 
         return value.trim();
-    }
-
-    /**
-     * Stores the value of the given prefix in the map of tokenized arguments
-     */
-    private void saveArgument(Map<Prefix, List<String>> tokenizedArguments, Prefix prefix, String value) {
-        if (tokenizedArguments.containsKey(prefix)) {
-            tokenizedArguments.get(prefix).add(value);
-            return;
-        }
-
-        List<String> values = new ArrayList<>();
-        values.add(value);
-        tokenizedArguments.put(prefix, values);
     }
 
     /**
