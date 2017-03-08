@@ -15,6 +15,7 @@ import seedu.address.model.AddressBook;
 import seedu.address.storage.XmlSerializableAddressBook;
 import seedu.address.testutil.AddressBookBuilder;
 import seedu.address.testutil.TestUtil;
+import seedu.address.testutil.MockPersonsData;
 
 public class XmlUtilTest {
 
@@ -87,7 +88,7 @@ public class XmlUtilTest {
 
         AddressBookBuilder builder = new AddressBookBuilder(new AddressBook());
         dataToWrite = new XmlSerializableAddressBook(
-                builder.withPerson(TestUtil.getSamplePersonsDataAsList().get(0)).withTag("Friends").build());
+                builder.withPerson(MockPersonsData.getSamplePersonsDataAsList().get(0)).withTag("Friends").build());
 
         XmlUtil.saveDataToFile(TEMP_FILE, dataToWrite);
         dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE, XmlSerializableAddressBook.class);
