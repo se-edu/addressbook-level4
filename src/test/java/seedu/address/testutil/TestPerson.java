@@ -1,10 +1,13 @@
 package seedu.address.testutil;
 
+import javafx.beans.property.ReadOnlyProperty;
+import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.ReadOnlyPerson;
+import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 
 /**
@@ -82,6 +85,31 @@ public class TestPerson implements ReadOnlyPerson {
     public String toString() {
         return getAsText();
     }
+
+    @Override
+    public ReadOnlyProperty<String> nameProperty() {
+        return null;
+    }
+
+    @Override
+    public ReadOnlyProperty<String> addressProperty() {
+        return null;
+    }
+
+    @Override
+    public ReadOnlyProperty<String> phoneProperty() {
+        return null;
+    }
+
+    @Override
+    public ReadOnlyProperty<String> emailProperty() {
+        return null;
+    }
+
+    public UnmodifiableObservableList<Tag> tagProperty() {
+        return tags.asObservableList();
+    }
+
 
     public String getAddCommand() {
         StringBuilder sb = new StringBuilder();
