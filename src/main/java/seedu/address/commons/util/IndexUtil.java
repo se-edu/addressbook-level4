@@ -6,6 +6,6 @@ package seedu.address.commons.util;
 public class IndexUtil {
 
     public static int oneToZeroIndex(int index) {
-        return index-1;
+        return index - 1;
     }
 }

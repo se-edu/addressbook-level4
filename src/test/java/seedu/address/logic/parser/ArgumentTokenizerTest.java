@@ -45,7 +45,8 @@ public class ArgumentTokenizerTest {
     private void assertArgumentPresent(ArgumentTokenizer argsTokenizer, Prefix prefix, String... expectedValues) {
 
         // Verify the last value is returned
-        assertEquals(expectedValues[IndexUtil.oneToZeroIndex(expectedValues.length)], argsTokenizer.getValue(prefix).get());
+        assertEquals(expectedValues[IndexUtil.oneToZeroIndex(expectedValues.length)],
+                     argsTokenizer.getValue(prefix).get());
 
         // Verify the number of values returned is as expected
         assertEquals(expectedValues.length, argsTokenizer.getAllValues(prefix).size());
