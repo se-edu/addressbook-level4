@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import seedu.address.commons.util.IndexUtil;
+
 /**
  * Tokenizes arguments string of the form: {@code preamble <prefix>value <prefix>value ...}<br>
  *     e.g. {@code some preamble text /t 11.00/dToday /t 12.00 /k /m July}  where prefixes are {@code /t /d /k /m}.<br>
@@ -46,7 +48,7 @@ public class ArgumentTokenizer {
      */
     public Optional<String> getValue(Prefix prefix) {
         List<String> values = getAllValues(prefix);
-        return values.isEmpty() ? Optional.empty() : Optional.of(values.get(values.size() - 1));
+        return values.isEmpty() ? Optional.empty() : Optional.of(values.get(IndexUtil.oneToZeroIndex(values.size())));
     }
 
     /**
@@ -119,7 +121,7 @@ public class ArgumentTokenizer {
         prefixPositions.add(endPositionMarker);
 
         // Extract the prefixed arguments and preamble (if any)
-        for (int i = 0; i < prefixPositions.size() - 1; i++) {
+        for (int i = 0; i < IndexUtil.oneToZeroIndex(prefixPositions.size()); i++) {
             String argValue = extractArgumentValue(argsString, prefixPositions.get(i), prefixPositions.get(i + 1));
             saveArgument(prefixPositions.get(i).getPrefix(), argValue);
         }
