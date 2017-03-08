@@ -121,7 +121,7 @@ public class ArgumentTokenizer {
         prefixPositions.add(endPositionMarker);
 
         // Extract the prefixed arguments and preamble (if any)
-        for (int i = 0; i < IndexUtil.oneToZeroIndex(prefixPositions.size()); i++) {
+        for (int i = 0; i < prefixPositions.size() - 1; i++) {
             String argValue = extractArgumentValue(argsString, prefixPositions.get(i), prefixPositions.get(i + 1));
             saveArgument(prefixPositions.get(i).getPrefix(), argValue);
         }
