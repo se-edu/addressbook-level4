@@ -19,7 +19,7 @@ public class SampleDataTest extends AddressBookGuiTest {
     @Override
     protected String getDataFileLocation() {
         // return a non-existent file location to force test app to load sample data
-        return TestUtil.getFilePathInSandboxFolder("SomeFileThatDoesNotExist1234567890.xml");
+        return TestUtil.getFilePathOfFileInSandboxFolder("SomeFileThatDoesNotExist1234567890.xml");
     }
 
     @Test
