@@ -160,7 +160,7 @@ public class TestUtil {
      * @param list original list to copy from
      * @param targetIndexInOneIndexedFormat e.g. index 1 if the first element is to be removed
      */
-    public static TestPerson[] removePersonFromList(final TestPerson[] list, int targetIndexInOneIndexedFormat) {
+    public static Person[] removePersonFromList(final Person[] list, int targetIndexInOneIndexedFormat) {
         return removePersonsFromList(list, list[IndexUtil.oneToZeroIndex(targetIndexInOneIndexedFormat)]);
     }
 
