@@ -3,8 +3,6 @@ package seedu.address.logic.parser;
 import java.util.ArrayList;
 import java.util.List;
 
-import seedu.address.commons.util.IndexUtil;
-
 /**
  * Tokenizes arguments string of the form: {@code preamble <prefix>value <prefix>value ...}<br>
  *     e.g. {@code some preamble text t/ 11.00d/Today t/ 12.00 k/ m/ July}  where prefixes are {@code t/ d/ k/ m/}.<br>
@@ -86,7 +84,7 @@ public class ArgumentTokenizer {
 
         // Map prefixes to their argument values (if any)
         ArgumentMultimap argMultimap = new ArgumentMultimap();
-        for (int i = 0; i < IndexUtil.oneToZeroIndex(prefixPositions.size()); i++) {
+        for (int i = 0; i < prefixPositions.size() - 1; i++) {
             // Extract and store prefixes and their arguments
             Prefix argPrefix = prefixPositions.get(i).getPrefix();
             String argValue = extractArgumentValue(argsString, prefixPositions.get(i), prefixPositions.get(i + 1));
