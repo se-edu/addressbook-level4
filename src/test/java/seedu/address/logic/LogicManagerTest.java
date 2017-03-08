@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
-import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -13,7 +12,6 @@ import java.util.List;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
-import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
 import com.google.common.eventbus.Subscribe;
@@ -137,12 +135,6 @@ public class LogicManagerTest {
         //Confirm the state of data (saved and in-memory) is as expected
         assertEquals(expectedAddressBook, model.getAddressBook());
         assertEquals(expectedAddressBook, latestSavedAddressBook);
-    }
-
-    @Test
-    public void execute_unknownCommandWord() {
-        String unknownCommand = "uicfhmowqewca";
-        assertCommandFailure(unknownCommand, MESSAGE_UNKNOWN_COMMAND);
     }
 
     /**
