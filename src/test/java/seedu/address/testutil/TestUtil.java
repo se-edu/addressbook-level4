@@ -31,28 +31,6 @@ import seedu.address.model.tag.UniqueTagList;
 public class TestUtil {
 
     /**
-     * Tweaks the {@code keyCodeCombination} to resolve the {@code KeyCode.SHORTCUT} to their
-     * respective platform-specific keycodes
-     */
-    public static KeyCode[] scrub(KeyCodeCombination keyCodeCombination) {
-        List<KeyCode> keys = new ArrayList<>();
-        if (keyCodeCombination.getAlt() == KeyCombination.ModifierValue.DOWN) {
-            keys.add(KeyCode.ALT);
-        }
-        if (keyCodeCombination.getShift() == KeyCombination.ModifierValue.DOWN) {
-            keys.add(KeyCode.SHIFT);
-        }
-        if (keyCodeCombination.getMeta() == KeyCombination.ModifierValue.DOWN) {
-            keys.add(KeyCode.META);
-        }
-        if (keyCodeCombination.getControl() == KeyCombination.ModifierValue.DOWN) {
-            keys.add(KeyCode.CONTROL);
-        }
-        keys.add(keyCodeCombination.getCode());
-        return keys.toArray(new KeyCode[]{});
-    }
-
-    /**
      * Gets mid point of {@code node} relative to the screen.
      * @return a Point2D containing the x and y coordinates of the node's mid point on the screen.
      */
