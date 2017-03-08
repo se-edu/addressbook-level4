@@ -7,6 +7,7 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
+import seedu.address.commons.util.IndexUtil;
 import seedu.address.logic.parser.ArgumentTokenizer.Prefix;
 
 public class ArgumentTokenizerTest {
@@ -44,7 +45,7 @@ public class ArgumentTokenizerTest {
     private void assertArgumentPresent(ArgumentTokenizer argsTokenizer, Prefix prefix, String... expectedValues) {
 
         // Verify the last value is returned
-        assertEquals(expectedValues[expectedValues.length - 1], argsTokenizer.getValue(prefix).get());
+        assertEquals(expectedValues[IndexUtil.oneToZeroIndex(expectedValues.length)], argsTokenizer.getValue(prefix).get());
 
         // Verify the number of values returned is as expected
         assertEquals(expectedValues.length, argsTokenizer.getAllValues(prefix).size());
