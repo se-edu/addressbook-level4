@@ -9,20 +9,20 @@ import java.util.Optional;
 import seedu.address.logic.parser.ArgumentTokenizer.Prefix;
 
 /**
- * Stores arguments tokenized by their respective prefixes.
+ * Stores prefixes and their respective arguments.
  */
 public class Arguments {
 
-    /** Arguments found after tokenizing **/
-    private final Map<Prefix, List<String>> tokenizedArguments;
+    /** Prefixes mapped to their respective arguments**/
+    private final Map<Prefix, List<String>> arguments;
 
     /**
-     * Creates Arguments object that stores arguments tokenized by their prefixes.
+     * Creates Arguments object that maps prefixes to their arguments.
      *
-     * @param tokenizedArguments Map with {@code Prefix} keys and {@code List<String>} argument values.
+     * @param arguments Map with {@code Prefix} keys and {@code List<String>} argument values.
      */
-    public Arguments(Map<Prefix, List<String>> tokenizedArguments) {
-        this.tokenizedArguments = tokenizedArguments;
+    public Arguments(Map<Prefix, List<String>> arguments) {
+        this.arguments = arguments;
     }
 
     /**
@@ -38,10 +38,10 @@ public class Arguments {
      * If the prefix does not exist or has no values, returns an empty list.
      */
     public List<String> getAllValues(Prefix prefix) {
-        if (!tokenizedArguments.containsKey(prefix)) {
+        if (!arguments.containsKey(prefix)) {
             return Collections.emptyList();
         }
-        return new ArrayList<>(tokenizedArguments.get(prefix));
+        return new ArrayList<>(arguments.get(prefix));
     }
 
     /**
