@@ -2,11 +2,9 @@ package seedu.address.logic.parser;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 /**
  * Tokenizes arguments string of the form: {@code preamble <prefix>value <prefix>value ...}<br>
@@ -22,9 +20,6 @@ public class ArgumentTokenizer {
     /** Given prefixes **/
     private final List<Prefix> prefixes;
 
-    /** Arguments found after tokenizing **/
-    private final Map<Prefix, List<String>> tokenizedArguments = new HashMap<>();
-
     /**
      * Creates an ArgumentTokenizer that can tokenize arguments string as described by prefixes
      */
@@ -33,43 +28,13 @@ public class ArgumentTokenizer {
     }
 
     /**
-     * @param argsString arguments string of the form: preamble <prefix>value <prefix>value ...
+     * @param argsString Arguments string of the form: {@code preamble <prefix>value <prefix>value ...}
+     * @return           Arguments object that maps prefixes to their arguments
      */
-    public void tokenize(String argsString) {
-        resetTokenizerState();
+    public Arguments tokenize(String argsString) {
         List<PrefixPosition> positions = findAllPrefixPositions(argsString);
-        extractArguments(argsString, positions);
-    }
-
-    /**
-     * Returns last value of given prefix.
-     */
-    public Optional<String> getValue(Prefix prefix) {
-        List<String> values = getAllValues(prefix);
-        return values.isEmpty() ? Optional.empty() : Optional.of(values.get(values.size() - 1));
-    }
-
-    /**
-     * Returns all values of given prefix, if any.
-     * If the prefix does not exist or has no values, returns an empty list.
-     */
-    public List<String> getAllValues(Prefix prefix) {
-        if (!this.tokenizedArguments.containsKey(prefix)) {
-            return Collections.emptyList();
-        }
-        return new ArrayList<>(this.tokenizedArguments.get(prefix));
-    }
-
-    /**
-     * Returns the preamble (text before the first valid prefix). Trims any leading/trailing spaces.
-     */
-    public String getPreamble() {
-        Optional<String> storedPreamble = getValue(new Prefix(""));
-        return storedPreamble.orElse("");
-    }
-
-    private void resetTokenizerState() {
-        this.tokenizedArguments.clear();
+        Arguments arguments = extractArguments(argsString, positions);
+        return arguments;
     }
 
     /**
@@ -102,10 +67,14 @@ public class ArgumentTokenizer {
     }
 
     /**
-     * Extracts the preamble/arguments and stores them in local variables.
-     * @param prefixPositions must contain all prefixes in the {@code argsString}
+     * Extracts prefixes and their argument values, and returns Arguments object that maps the extracted prefixes to
+     * their respective arguments. Prefixes are extracted based on their zero-based positions in {@code argsString}.
+     *
+     * @param argsString      Arguments string of the form: {@code preamble <prefix>value <prefix>value ...}
+     * @param prefixPositions Zero-based positions of all prefixes in {@code argsString}
+     * @return                Arguments object that maps prefixes to their arguments
      */
-    private void extractArguments(String argsString, List<PrefixPosition> prefixPositions) {
+    private Arguments extractArguments(String argsString, List<PrefixPosition> prefixPositions) {
 
         // Sort by start position
         prefixPositions.sort((prefix1, prefix2) -> prefix1.getStartPosition() - prefix2.getStartPosition());
@@ -118,12 +87,20 @@ public class ArgumentTokenizer {
         PrefixPosition endPositionMarker = new PrefixPosition(new Prefix(""), argsString.length());
         prefixPositions.add(endPositionMarker);
 
-        // Extract the prefixed arguments and preamble (if any)
+        // Map prefixes to their values (if any)
+        Map<Prefix, List<String>> tokenizedArguments = new HashMap<>();
         for (int i = 0; i < prefixPositions.size() - 1; i++) {
+            // Extract prefixes and their arguments
+            Prefix argPrefix = prefixPositions.get(i).getPrefix();
             String argValue = extractArgumentValue(argsString, prefixPositions.get(i), prefixPositions.get(i + 1));
-            saveArgument(prefixPositions.get(i).getPrefix(), argValue);
+
+            // Store extracted prefixes and arguments
+            List<String> argValues = tokenizedArguments.getOrDefault(argPrefix, new ArrayList<>());
+            argValues.add(argValue);
+            tokenizedArguments.put(argPrefix, argValues);
         }
 
+        return new Arguments(tokenizedArguments);
     }
 
     /**
@@ -139,20 +116,6 @@ public class ArgumentTokenizer {
         String value = argsString.substring(valueStartPos, nextPrefixPosition.getStartPosition());
 
         return value.trim();
-    }
-
-    /**
-     * Stores the value of the given prefix in the state of this tokenizer
-     */
-    private void saveArgument(Prefix prefix, String value) {
-        if (this.tokenizedArguments.containsKey(prefix)) {
-            this.tokenizedArguments.get(prefix).add(value);
-            return;
-        }
-
-        List<String> values = new ArrayList<>();
-        values.add(value);
-        this.tokenizedArguments.put(prefix, values);
     }
 
     /**
