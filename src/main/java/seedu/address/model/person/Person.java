@@ -1,7 +1,13 @@
 package seedu.address.model.person;
 
+import java.util.Map;
 import java.util.Objects;
 
+import com.google.common.collect.Maps;
+
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.value.ChangeListener;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.model.tag.UniqueTagList;
 
@@ -11,23 +17,23 @@ import seedu.address.model.tag.UniqueTagList;
  */
 public class Person implements ReadOnlyPerson {
 
-    private Name name;
-    private Phone phone;
-    private Email email;
-    private Address address;
-
-    private UniqueTagList tags;
+    private final Map<PersonProperty, ObjectProperty> propertyMap;
 
     /**
      * Every field must be present and not null.
      */
     public Person(Name name, Phone phone, Email email, Address address, UniqueTagList tags) {
         assert !CollectionUtil.isAnyNull(name, phone, email, address, tags);
-        this.name = name;
-        this.phone = phone;
-        this.email = email;
-        this.address = address;
-        this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
+
+        propertyMap = Maps.newEnumMap(PersonProperty.class);
+
+        propertyMap.put(PersonProperty.NAME, new SimpleObjectProperty<>(name));
+        propertyMap.put(PersonProperty.PHONE, new SimpleObjectProperty<>(phone));
+        propertyMap.put(PersonProperty.EMAIL, new SimpleObjectProperty<>(email));
+        propertyMap.put(PersonProperty.ADDRESS, new SimpleObjectProperty<>(address));
+
+        UniqueTagList tagList = new UniqueTagList(tags); // protect internal tags from changes in the arg list
+        propertyMap.put(PersonProperty.TAG, new SimpleObjectProperty<>(tagList));
     }
 
     /**
@@ -39,54 +45,55 @@ public class Person implements ReadOnlyPerson {
 
     public void setName(Name name) {
         assert name != null;
-        this.name = name;
+        propertyMap.get(PersonProperty.NAME).set(name);
     }
 
     @Override
     public Name getName() {
-        return name;
+        return (Name) propertyMap.get(PersonProperty.NAME).get();
     }
 
     public void setPhone(Phone phone) {
         assert phone != null;
-        this.phone = phone;
+        propertyMap.get(PersonProperty.PHONE).set(phone);
     }
 
     @Override
     public Phone getPhone() {
-        return phone;
+        return (Phone) propertyMap.get(PersonProperty.PHONE).get();
     }
 
     public void setEmail(Email email) {
         assert email != null;
-        this.email = email;
+        propertyMap.get(PersonProperty.EMAIL).set(email);
     }
 
     @Override
     public Email getEmail() {
-        return email;
+        return (Email) propertyMap.get(PersonProperty.EMAIL).get();
     }
 
     public void setAddress(Address address) {
         assert address != null;
-        this.address = address;
+        propertyMap.get(PersonProperty.ADDRESS).set(address);
     }
 
     @Override
     public Address getAddress() {
-        return address;
+        return (Address) propertyMap.get(PersonProperty.ADDRESS).get();
     }
 
     @Override
     public UniqueTagList getTags() {
-        return new UniqueTagList(tags);
+        UniqueTagList underlyingList = (UniqueTagList) propertyMap.get(PersonProperty.TAG).get();
+        return new UniqueTagList(underlyingList);
     }
 
     /**
      * Replaces this person's tags with the tags in the argument tag list.
      */
     public void setTags(UniqueTagList replacement) {
-        tags.setTags(replacement);
+        propertyMap.get(PersonProperty.TAG).set(new UniqueTagList(replacement));
     }
 
     /**
@@ -103,6 +110,16 @@ public class Person implements ReadOnlyPerson {
     }
 
     @Override
+    public void registerListener(PersonProperty property, ChangeListener<Object> listener) {
+        propertyMap.get(property).addListener(listener);
+    }
+
+    @Override
+    public void removeListener(PersonProperty property, ChangeListener<Object> listener) {
+        propertyMap.get(property).removeListener(listener);
+    }
+
+    @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof ReadOnlyPerson // instanceof handles nulls
@@ -112,7 +129,7 @@ public class Person implements ReadOnlyPerson {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(getName(), getPhone(), getEmail(), getAddress(), getTags());
     }
 
     @Override

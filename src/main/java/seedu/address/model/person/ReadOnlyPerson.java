@@ -6,7 +6,7 @@ import seedu.address.model.tag.UniqueTagList;
  * A read-only immutable interface for a Person in the addressbook.
  * Implementations should guarantee: details are present and not null, field values are validated.
  */
-public interface ReadOnlyPerson {
+public interface ReadOnlyPerson extends ObservablePerson {
 
     Name getName();
     Phone getPhone();
@@ -47,5 +47,4 @@ public interface ReadOnlyPerson {
         getTags().forEach(builder::append);
         return builder.toString();
     }
-
 }

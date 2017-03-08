@@ -1,5 +1,6 @@
 package seedu.address.testutil;
 
+import javafx.beans.value.ChangeListener;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -81,6 +82,16 @@ public class TestPerson implements ReadOnlyPerson {
     @Override
     public String toString() {
         return getAsText();
+    }
+
+    @Override
+    public void registerListener(PersonProperty property, ChangeListener<Object> listener) {
+        // NO-OP
+    }
+
+    @Override
+    public void removeListener(PersonProperty property, ChangeListener<Object> listener) {
+        // NO-OP
     }
 
     public String getAddCommand() {
