@@ -18,6 +18,7 @@ import javafx.scene.input.KeyCombination;
 import junit.framework.AssertionFailedError;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
+import seedu.address.commons.util.IndexUtil;
 import seedu.address.commons.util.XmlUtil;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
@@ -160,7 +161,7 @@ public class TestUtil {
      * @param targetIndexInOneIndexedFormat e.g. index 1 if the first element is to be removed
      */
     public static Person[] removePersonFromList(final Person[] list, int targetIndexInOneIndexedFormat) {
-        return removePersonsFromList(list, list[targetIndexInOneIndexedFormat - 1]);
+        return removePersonsFromList(list, list[IndexUtil.oneToZeroIndex(targetIndexInOneIndexedFormat)]);
     }
 
     /**
