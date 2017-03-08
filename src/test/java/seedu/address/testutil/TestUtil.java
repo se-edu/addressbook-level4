@@ -7,37 +7,12 @@ import guitests.guihandles.PersonCardHandle;
 import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyCodeCombination;
-import javafx.scene.input.KeyCombination;
 import seedu.address.model.person.ReadOnlyPerson;
 
 /**
  * A utility class for test cases.
  */
 public class TestUtil {
-
-    /**
-     * Tweaks the {@code keyCodeCombination} to resolve the {@code KeyCode.SHORTCUT} to their
-     * respective platform-specific keycodes.
-     */
-    public static KeyCode[] scrub(KeyCodeCombination keyCodeCombination) {
-        List<KeyCode> keys = new ArrayList<>();
-        if (keyCodeCombination.getAlt() == KeyCombination.ModifierValue.DOWN) {
-            keys.add(KeyCode.ALT);
-        }
-        if (keyCodeCombination.getShift() == KeyCombination.ModifierValue.DOWN) {
-            keys.add(KeyCode.SHIFT);
-        }
-        if (keyCodeCombination.getMeta() == KeyCombination.ModifierValue.DOWN) {
-            keys.add(KeyCode.META);
-        }
-        if (keyCodeCombination.getControl() == KeyCombination.ModifierValue.DOWN) {
-            keys.add(KeyCode.CONTROL);
-        }
-        keys.add(keyCodeCombination.getCode());
-        return keys.toArray(new KeyCode[]{});
-    }
 
     /**
      * Returns a {@code Point2D} object containing the x and y coordinates
