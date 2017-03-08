@@ -8,14 +8,15 @@ import java.io.IOException;
 import org.junit.Test;
 
 import seedu.address.testutil.SerializableTestClass;
-import seedu.address.testutil.TestUtil;
+import seedu.address.testutil.TemporaryFilesUtil;
 
 /**
  * Tests JSON Read and Write
  */
 public class JsonUtilTest {
 
-    private static final File SERIALIZATION_FILE = new File(TestUtil.getFilePathOfFileInSandboxFolder("serialize.json"));
+    private static final File SERIALIZATION_FILE =
+            new File(TemporaryFilesUtil.getFilePathOfFileInSandboxFolder("serialize.json"));
 
     @Test
     public void serializeObjectToJsonFile_noExceptionThrown() throws IOException {
