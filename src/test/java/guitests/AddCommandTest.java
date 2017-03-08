@@ -8,7 +8,7 @@ import guitests.guihandles.PersonCardHandle;
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.testutil.TestPerson;
-import seedu.address.testutil.TestUtil;
+import seedu.address.testutil.TestPersonUtil;
 
 public class AddCommandTest extends AddressBookGuiTest {
 
@@ -18,12 +18,12 @@ public class AddCommandTest extends AddressBookGuiTest {
         TestPerson[] currentList = td.getTypicalPersons();
         TestPerson personToAdd = td.hoon;
         assertAddSuccess(personToAdd, currentList);
-        currentList = TestUtil.addPersons(currentList, personToAdd);
+        currentList = TestPersonUtil.addPersons(currentList, personToAdd);
 
         //add another person
         personToAdd = td.ida;
         assertAddSuccess(personToAdd, currentList);
-        currentList = TestUtil.addPersons(currentList, personToAdd);
+        currentList = TestPersonUtil.addPersons(currentList, personToAdd);
 
         //add duplicate person
         commandBox.runCommand(td.hoon.getAddCommand());
@@ -47,7 +47,7 @@ public class AddCommandTest extends AddressBookGuiTest {
         assertMatching(personToAdd, addedCard);
 
         //confirm the list now contains all previous persons plus the new person
-        TestPerson[] expectedList = TestUtil.addPersons(currentList, personToAdd);
+        TestPerson[] expectedList = TestPersonUtil.addPersons(currentList, personToAdd);
         assertTrue(personListPanel.isListMatching(expectedList));
     }
 
