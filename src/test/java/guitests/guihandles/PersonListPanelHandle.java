@@ -16,7 +16,7 @@ import seedu.address.TestApp;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.testutil.NodeTestUtil;
-import seedu.address.testutil.TestUtil;
+import seedu.address.testutil.PersonCardTestUtil;
 
 /**
  * Provides a handle for the panel containing the person list.
@@ -64,7 +64,7 @@ public class PersonListPanelHandle extends GuiHandle {
             final int scrollTo = i + startPosition;
             guiRobot.interact(() -> getListView().scrollTo(scrollTo));
             guiRobot.sleep(200);
-            if (!TestUtil.isPersonSameAsPersonOnCard(getPersonCardHandle(startPosition + i), persons[i])) {
+            if (!PersonCardTestUtil.isPersonSameAsPersonOnCard(getPersonCardHandle(startPosition + i), persons[i])) {
                 return false;
             }
         }
