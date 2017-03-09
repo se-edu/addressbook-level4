@@ -17,7 +17,7 @@ public class Arguments {
     private final Map<Prefix, List<String>> arguments;
 
     /**
-     * Creates Arguments object stores the mapping of prefixes to their respective arguments.
+     * Creates an Arguments object that stores the mapping of prefixes to their respective arguments.
      *
      * @param arguments Map with {@code Prefix} keys and {@code List<String>} argument values.
      */
@@ -26,7 +26,7 @@ public class Arguments {
     }
 
     /**
-     * Returns last value of given prefix.
+     * Returns the last value of the given prefix
      */
     public Optional<String> getValue(Prefix prefix) {
         List<String> values = getAllValues(prefix);
@@ -34,8 +34,8 @@ public class Arguments {
     }
 
     /**
-     * Returns all values of given prefix, if any.
-     * If the prefix does not exist or has no values, returns an empty list.
+     * Returns all values of the given prefix.
+     * If the prefix does not exist or has no values, this will return an empty list.
      */
     public List<String> getAllValues(Prefix prefix) {
         if (!arguments.containsKey(prefix)) {

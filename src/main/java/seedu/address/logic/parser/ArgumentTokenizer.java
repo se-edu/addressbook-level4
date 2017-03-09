@@ -21,13 +21,17 @@ public class ArgumentTokenizer {
     private final List<Prefix> prefixes;
 
     /**
-     * Creates an ArgumentTokenizer that can tokenize arguments string as described by prefixes
+     * Creates an ArgumentTokenizer object that can tokenize arguments strings as described by the given prefixes.
      */
     public ArgumentTokenizer(Prefix... prefixes) {
         this.prefixes = Arrays.asList(prefixes);
     }
 
     /**
+     * Tokenizes an arguments string and returns an Arguments object that maps prefixes to their respective argument
+     * values. Only prefixes provided as arguments to the constructor of this {@cocde ArgumentTokenizer} object will be
+     * recognized in the arguments string.
+     *
      * @param argsString Arguments string of the form: {@code preamble <prefix>value <prefix>value ...}
      * @return           Arguments object that maps prefixes to their arguments
      */
@@ -38,7 +42,7 @@ public class ArgumentTokenizer {
     }
 
     /**
-     * Finds all positions in an arguments string at which any prefix appears
+     * Finds all zero-based prefix positions in an arguments string.
      */
     private List<PrefixPosition> findAllPrefixPositions(String argsString) {
         List<PrefixPosition> positions = new ArrayList<>();
@@ -51,7 +55,7 @@ public class ArgumentTokenizer {
     }
 
     /**
-     * Finds all positions in an arguments string at which a given {@code prefix} appears
+     * Finds all zero-based prefix positions of the given {@code prefix} in an arguments string.
      */
     private List<PrefixPosition> findPrefixPositions(String argsString, Prefix prefix) {
         List<PrefixPosition> positions = new ArrayList<>();
@@ -67,7 +71,7 @@ public class ArgumentTokenizer {
     }
 
     /**
-     * Extracts prefixes and their argument values, and returns Arguments object that maps the extracted prefixes to
+     * Extracts prefixes and their argument values, and returns an Arguments object that maps the extracted prefixes to
      * their respective arguments. Prefixes are extracted based on their zero-based positions in {@code argsString}.
      *
      * @param argsString      Arguments string of the form: {@code preamble <prefix>value <prefix>value ...}
@@ -104,8 +108,8 @@ public class ArgumentTokenizer {
     }
 
     /**
-     * Returns the trimmed value of the argument specified by {@code currentPrefixPosition}.
-     *    The end position of the value is determined by {@code nextPrefixPosition}
+     * Returns the trimmed value of the argument in the arguments string specified by {@code currentPrefixPosition}.
+     * The end position of the value is determined by {@code nextPrefixPosition}.
      */
     private String extractArgumentValue(String argsString,
                                         PrefixPosition currentPrefixPosition,
@@ -120,7 +124,7 @@ public class ArgumentTokenizer {
 
     /**
      * A prefix that marks the beginning of an argument.
-     * e.g. '/t' in 'add James /t friend'
+     * E.g. '/t' in 'add James /t friend'.
      */
     public static class Prefix {
         final String prefix;
@@ -153,7 +157,7 @@ public class ArgumentTokenizer {
     }
 
     /**
-     * Represents a prefix's position in an arguments string
+     * Represents a prefix's position in an arguments string.
      */
     private class PrefixPosition {
         private int startPosition;
