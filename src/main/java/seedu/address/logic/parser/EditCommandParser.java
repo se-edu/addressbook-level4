@@ -27,11 +27,11 @@ public class EditCommandParser {
      * Parses the given {@code String} of arguments in the context of the EditCommand
      * and returns an EditCommand object for execution.
      */
-    public Command parse(String args) {
-        assert args != null;
+    public Command parse(String argsString) {
+        assert argsString != null;
         ArgumentTokenizer argsTokenizer =
                 new ArgumentTokenizer(PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG);
-        Arguments arguments = argsTokenizer.tokenize(args);
+        Arguments arguments = argsTokenizer.tokenize(argsString);
         List<Optional<String>> preambleFields = ParserUtil.splitPreamble(arguments.getPreamble(), 2);
 
         Optional<Integer> index = preambleFields.get(0).flatMap(ParserUtil::parseIndex);
