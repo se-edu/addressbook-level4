@@ -17,9 +17,9 @@ public class DeleteCommandParser {
      * Parses the given {@code String} of arguments in the context of the DeleteCommand
      * and returns an DeleteCommand object for execution.
      */
-    public Command parse(String args) {
+    public Command parse(String argsString) {
 
-        Optional<Integer> index = ParserUtil.parseIndex(args);
+        Optional<Integer> index = ParserUtil.parseIndex(argsString);
         if (!index.isPresent()) {
             return new IncorrectCommand(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
