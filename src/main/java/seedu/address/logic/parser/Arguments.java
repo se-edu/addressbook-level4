@@ -9,7 +9,7 @@ import java.util.Optional;
 import seedu.address.logic.parser.ArgumentTokenizer.Prefix;
 
 /**
- * Stores prefixes and their respective arguments.
+ * Stores mapping of prefixes to their respective arguments.
  */
 public class Arguments {
 
@@ -17,7 +17,7 @@ public class Arguments {
     private final Map<Prefix, List<String>> arguments;
 
     /**
-     * Creates Arguments object that maps prefixes to their arguments.
+     * Creates Arguments object stores the mapping of prefixes to their respective arguments.
      *
      * @param arguments Map with {@code Prefix} keys and {@code List<String>} argument values.
      */
