@@ -22,10 +22,10 @@ public class AddCommandParser {
      * Parses the given {@code String} of arguments in the context of the AddCommand
      * and returns an AddCommand object for execution.
      */
-    public Command parse(String args) {
+    public Command parse(String argsString) {
         ArgumentTokenizer argsTokenizer =
                 new ArgumentTokenizer(PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG);
-        Arguments arguments = argsTokenizer.tokenize(args);
+        Arguments arguments = argsTokenizer.tokenize(argsString);
         try {
             return new AddCommand(
                     arguments.getPreamble(),
