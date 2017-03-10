@@ -156,7 +156,7 @@ public class StringUtilTest {
         assertTrue(StringUtil.isBlank(null));
         assertTrue(StringUtil.isBlank(""));
         assertTrue(StringUtil.isBlank(" "));
-        assertTrue(StringUtil.isBlank("    "));
+        assertTrue(StringUtil.isBlank("\u0009")); // tab
         assertTrue(StringUtil.isBlank("\n\u2028 \u0009")); // contains Unicode whitespace characters
 
     }
@@ -175,8 +175,8 @@ public class StringUtilTest {
         assertEquals("", StringUtil.stripLineTerminators(""));
 
         // single line string
-        assertEquals("Single line remains unchanged.",
-                StringUtil.stripLineTerminators("Single line remains unchanged."));
+        assertEquals("Single line remains unchanged. ",
+                StringUtil.stripLineTerminators("Single line remains unchanged. "));
 
         // multiline string
         assertEquals("Typical line breaks are removed.",

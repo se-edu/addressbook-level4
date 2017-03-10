@@ -50,6 +50,8 @@ import seedu.address.model.tag.UniqueTagList;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
 import seedu.address.storage.XmlAddressBookStorage;
+import seedu.address.testutil.ExpectedFailure;
+import seedu.address.testutil.ExpectedFailureRule;
 
 
 public class LogicManagerTest {
@@ -59,6 +61,9 @@ public class LogicManagerTest {
      */
     @Rule
     public TemporaryFolder saveFolder = new TemporaryFolder();
+
+    @Rule
+    public ExpectedFailureRule expectedFailure = new ExpectedFailureRule();
 
     private Model model;
     private Logic logic;
@@ -237,20 +242,24 @@ public class LogicManagerTest {
 
         // execute command and verify result
         assertCommandFailure(helper.generateAddCommand(toBeAdded),  AddCommand.MESSAGE_DUPLICATE_PERSON);
+    }
 
-        // check duplicates are detected for unicode input
+    @Test
+    @ExpectedFailure
+    public void execute_addDuplicateUnicode_notAllowed() throws Exception {
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
         Person personWithPrecomposedUnicodeName = helper.generatePersonWithName("Bj\u00F6rg");
         Person personWithDecomposedUnicodeName = helper.generatePersonWithName("Bj\u006F\u0308rg");
 
+        // setup starting state
         model.addPerson(personWithPrecomposedUnicodeName);
 
         // TODO: unicode names that look the same but are written in different ways should be considered identical
         assertCommandFailure(helper.generateAddCommand(personWithDecomposedUnicodeName),
                 AddCommand.MESSAGE_DUPLICATE_PERSON);
 
-
     }
-
 
     @Test
     public void execute_list_showsAllPersons() throws Exception {
@@ -401,13 +410,19 @@ public class LogicManagerTest {
                 Command.getMessageForPersonListShownSummary(expectedList.size()),
                 expectedAB,
                 expectedList);
+    }
 
-        // unicode names
-        Person p5 = helper.generatePersonWithName("bla ﬂu\u00DFchen");
-        Person p6 = helper.generatePersonWithName("fluSSchen bla blah");
-        List<Person> personsWithUnicodeNames = helper.generatePersonList(p5, p6);
-        expectedAB = helper.generateAddressBook(personsWithUnicodeNames);
-        expectedList = personsWithUnicodeNames;
+    @Test
+    @ExpectedFailure
+    public void execute_find_isNotCaseSensitiveForUnicode() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Person p1 = helper.generatePersonWithName("bla ﬂu\u00DFchen");
+        Person p2 = helper.generatePersonWithName("fluSSchen bla blah");
+
+        List<Person> personsWithUnicodeNames = helper.generatePersonList(p1, p2);
+        AddressBook expectedAB = helper.generateAddressBook(personsWithUnicodeNames);
+        List<Person> expectedList = personsWithUnicodeNames;
+
         helper.addToModel(model, personsWithUnicodeNames);
 
         // TODO: case insensitive comparisons do not work for unicode characters
@@ -435,16 +450,20 @@ public class LogicManagerTest {
                 Command.getMessageForPersonListShownSummary(expectedList.size()),
                 expectedAB,
                 expectedList);
+    }
 
-        // unicode names
-        Person uTarget1 = helper.generatePersonWithName("bla bla Bj\u006F\u0308rg bla");
-        Person uTarget2 = helper.generatePersonWithName("bla keY bla bsdfkj");
-        Person uTarget3 = helper.generatePersonWithName("Bj\u00F6rg Bj\u00F6rg");
-        Person u1 = helper.generatePersonWithName("asdfds");
+    @Test
+    @ExpectedFailure
+    public void execute_find_matchesIfAnyUnicodeKeywordPresent() throws Exception {
+        TestDataHelper helper = new TestDataHelper();
+        Person target1 = helper.generatePersonWithName("bla bla Bj\u006F\u0308rg bla");
+        Person target2 = helper.generatePersonWithName("bla keY bla bsdfkj");
+        Person target3 = helper.generatePersonWithName("Bj\u00F6rg Bj\u00F6rg");
+        Person p1 = helper.generatePersonWithName("asdfds");
 
-        List<Person> fourUnicodePersons = helper.generatePersonList(uTarget1, u1, uTarget2, uTarget3);
-        expectedAB = helper.generateAddressBook(fourUnicodePersons);
-        expectedList = helper.generatePersonList(uTarget1, uTarget2, uTarget3);
+        List<Person> fourUnicodePersons = helper.generatePersonList(target1, p1, target2, target3);
+        AddressBook expectedAB = helper.generateAddressBook(fourUnicodePersons);
+        List<Person> expectedList = helper.generatePersonList(target1, target2, target3);
         helper.addToModel(model, fourUnicodePersons);
 
         // TODO: unicode names that look the same but are written in different ways should be considered identical
@@ -453,7 +472,6 @@ public class LogicManagerTest {
                 expectedAB,
                 expectedList);
     }
-
 
     /**
      * A utility class to generate test data.
