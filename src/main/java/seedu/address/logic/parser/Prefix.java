@@ -5,13 +5,13 @@ package seedu.address.logic.parser;
  * E.g. '/t' in 'add James /t friend'.
  */
 public class Prefix {
-    final String prefix;
+    private final String prefix;
 
-    Prefix(String prefix) {
+    public Prefix(String prefix) {
         this.prefix = prefix;
     }
 
-    String getPrefix() {
+    public String getPrefix() {
         return prefix;
     }
 
