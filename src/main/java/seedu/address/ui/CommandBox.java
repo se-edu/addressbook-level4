@@ -13,6 +13,7 @@ import seedu.address.commons.events.ui.NewResultAvailableEvent;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.exceptions.ParseException;
 
 public class CommandBox extends UiPart<Region> {
 
@@ -47,7 +48,7 @@ public class CommandBox extends UiPart<Region> {
             logger.info("Result: " + commandResult.feedbackToUser);
             raise(new NewResultAvailableEvent(commandResult.feedbackToUser));
 
-        } catch (CommandException e) {
+        } catch (CommandException | ParseException e) {
             // handle command failure
             setStyleToIndicateCommandFailure();
             logger.info("Invalid command: " + commandTextField.getText());
