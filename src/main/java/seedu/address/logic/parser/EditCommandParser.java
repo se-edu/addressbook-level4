@@ -16,7 +16,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
-import seedu.address.logic.commands.IncorrectCommand;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -27,23 +27,17 @@ public class EditCommandParser {
     /**
      * Parses the given {@code String} of arguments in the context of the EditCommand
      * and returns an EditCommand object for execution.
+     * @throws ParseException if any illegal values are found
      */
-    public Command parse(String args) {
+    public Command parse(String args) throws ParseException {
         assert args != null;
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG);
         List<Optional<String>> preambleFields = ParserUtil.splitPreamble(argMultimap.getPreamble(), 2);
 
-        if (!preambleFields.get(0).isPresent()) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
-        }
-
-        int index;
-
-        try {
-            index = ParserUtil.parseIndex(preambleFields.get(0).get());
-        } catch (IllegalValueException ive) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+        Optional<Integer> index = preambleFields.get(0).flatMap(ParserUtil::parseIndex);
+        if (!index.isPresent()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         }
 
         EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
@@ -54,11 +48,11 @@ public class EditCommandParser {
             editPersonDescriptor.setAddress(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS)));
             editPersonDescriptor.setTags(parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)));
         } catch (IllegalValueException ive) {
-            return new IncorrectCommand(ive.getMessage());
+            throw new ParseException(ive.getMessage(), ive);
         }
 
         if (!editPersonDescriptor.isAnyFieldEdited()) {
-            return new IncorrectCommand(EditCommand.MESSAGE_NOT_EDITED);
+            throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);
         }
 
         return new EditCommand(index, editPersonDescriptor);

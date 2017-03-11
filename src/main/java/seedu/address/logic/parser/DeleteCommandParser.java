@@ -5,7 +5,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.logic.commands.IncorrectCommand;
+import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
  * Parses input arguments and creates a new DeleteCommand object
@@ -15,13 +15,13 @@ public class DeleteCommandParser {
     /**
      * Parses the given {@code String} of arguments in the context of the DeleteCommand
      * and returns an DeleteCommand object for execution.
+     * @throws ParseException if any illegal values are found
      */
-    public Command parse(String args) {
-        try {
-            int index = ParserUtil.parseIndex(args);
-            return new DeleteCommand(index);
-        } catch (IllegalValueException ive) {
-            return new IncorrectCommand(
+    public Command parse(String args) throws ParseException {
+
+        Optional<Integer> index = ParserUtil.parseIndex(args);
+        if (!index.isPresent()) {
+            throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
         }
     }
