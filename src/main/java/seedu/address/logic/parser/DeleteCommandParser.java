@@ -4,7 +4,6 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 
 import java.util.Optional;
 
-import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -18,7 +17,7 @@ public class DeleteCommandParser {
      * and returns an DeleteCommand object for execution.
      * @throws ParseException if any illegal values are found
      */
-    public Command parse(String args) throws ParseException {
+    public DeleteCommand parse(String args) throws ParseException {
 
         Optional<Integer> index = ParserUtil.parseIndex(args);
         if (!index.isPresent()) {

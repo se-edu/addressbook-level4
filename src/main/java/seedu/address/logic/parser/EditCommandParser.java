@@ -13,7 +13,6 @@ import java.util.Optional;
 import java.util.Set;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -29,7 +28,7 @@ public class EditCommandParser {
      * and returns an EditCommand object for execution.
      * @throws ParseException if any illegal values are found
      */
-    public Command parse(String args) throws ParseException {
+    public EditCommand parse(String args) throws ParseException {
         assert args != null;
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG);
