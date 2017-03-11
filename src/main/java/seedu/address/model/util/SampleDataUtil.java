@@ -55,7 +55,7 @@ public class SampleDataUtil {
     }
 
     /**
-     * Converts strings into a tag set.
+     * Returns a tag set containing the list of strings given.
      */
     public static Set<Tag> getTagSet(String... strings) throws IllegalValueException {
         HashSet<Tag> tags = new HashSet<>();

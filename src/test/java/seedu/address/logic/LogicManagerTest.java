@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.address.model.util.SampleDataUtil.getTagSet;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -47,7 +48,6 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.tag.Tag;
-import seedu.address.model.util.SampleDataUtil;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
 import seedu.address.storage.XmlAddressBookStorage;
@@ -427,7 +427,7 @@ public class LogicManagerTest {
             Address privateAddress = new Address("111, alpha street");
 
             return new Person(name, privatePhone, email, privateAddress,
-                    SampleDataUtil.getTagSet("tag1", "longertag2"));
+                    getTagSet("tag1", "longertag2"));
         }
 
         /**
@@ -443,7 +443,7 @@ public class LogicManagerTest {
                     new Phone("" + Math.abs(seed)),
                     new Email(seed + "@email"),
                     new Address("House of " + seed),
-                    SampleDataUtil.getTagSet("tag" + Math.abs(seed), "tag" + Math.abs(seed + 1)));
+                    getTagSet("tag" + Math.abs(seed), "tag" + Math.abs(seed + 1)));
         }
 
         /** Generates the correct add command based on the person given */
@@ -541,7 +541,7 @@ public class LogicManagerTest {
                     new Phone("1"),
                     new Email("1@email"),
                     new Address("House of 1"),
-                    SampleDataUtil.getTagSet("tag"));
+                    getTagSet("tag"));
         }
     }
 }
