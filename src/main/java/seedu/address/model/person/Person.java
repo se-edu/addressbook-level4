@@ -24,7 +24,7 @@ public class Person implements ReadOnlyPerson {
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, UniqueTagList tags) {
+    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
         assert !CollectionUtil.isAnyNull(name, phone, email, address, tags);
         this.name = name;
         this.phone = phone;
@@ -38,7 +38,7 @@ public class Person implements ReadOnlyPerson {
      */
     public Person(ReadOnlyPerson source) {
         this(source.getName(), source.getPhone(), source.getEmail(), source.getAddress(),
-                new UniqueTagList(source.getTags()));
+                source.getTags());
     }
 
     public void setName(Name name) {
@@ -81,16 +81,20 @@ public class Person implements ReadOnlyPerson {
         return address;
     }
 
+    /**
+     * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
+     * if modification is attempted.
+     */
     @Override
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(tags.toSet());
     }
 
     /**
-     * Replaces this person's tags with the tags in the argument tag list.
+     * Replaces this person's tags with the tags in the argument tag set.
      */
-    public void setTags(UniqueTagList replacement) {
-        tags.setTags(replacement);
+    public void setTags(Set<Tag> replacement) {
+        tags.setTags(new UniqueTagList(replacement));
     }
 
     /**
@@ -103,7 +107,7 @@ public class Person implements ReadOnlyPerson {
         this.setPhone(replacement.getPhone());
         this.setEmail(replacement.getEmail());
         this.setAddress(replacement.getAddress());
-        this.setTags(new UniqueTagList(replacement.getTags()));
+        this.setTags(replacement.getTags());
     }
 
     @Override
