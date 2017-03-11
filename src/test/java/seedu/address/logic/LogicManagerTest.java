@@ -124,7 +124,7 @@ public class LogicManagerTest {
     }
 
     /**
-     * Executes the command, confirms that the command exception is thrown and that the result message is correct.
+     * Executes the command, confirms that a CommandException is thrown and that the result message is correct.
      * Both the 'address book' and the 'last shown list' are verified to be unchanged.
      * @see #assertCommandBehavior(boolean, String, String, ReadOnlyAddressBook, List)
      */
@@ -133,7 +133,7 @@ public class LogicManagerTest {
     }
 
     /**
-     * Executes the command, confirms that the parse exception is thrown and that the result message is correct.
+     * Executes the command, confirms that a ParseException is thrown and that the result message is correct.
      * Both the 'address book' and the 'last shown list' are verified to be unchanged.
      * @see #assertCommandBehavior(boolean, String, String, ReadOnlyAddressBook, List)
      */
@@ -154,7 +154,7 @@ public class LogicManagerTest {
     }
 
     /**
-     * Executes the command, confirms that the result message is correct and that the expected Exception is thrown,
+     * Executes the command, confirms that the result message is correct and that the expected exception is thrown,
      * and also confirms that the following three parts of the LogicManager object's state are as expected:<br>
      *      - the internal address book data are same as those in the {@code expectedAddressBook} <br>
      *      - the backing list shown by UI matches the {@code shownList} <br>

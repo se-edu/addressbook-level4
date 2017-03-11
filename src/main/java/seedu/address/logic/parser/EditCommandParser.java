@@ -26,6 +26,7 @@ public class EditCommandParser {
     /**
      * Parses the given {@code String} of arguments in the context of the EditCommand
      * and returns an EditCommand object for execution.
+     * @throws ParseException if any illegal values are found
      */
     public EditCommand parse(String args) throws ParseException {
         assert args != null;

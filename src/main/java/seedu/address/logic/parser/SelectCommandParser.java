@@ -15,6 +15,7 @@ public class SelectCommandParser {
     /**
      * Parses the given {@code String} of arguments in the context of the SelectCommand
      * and returns an SelectCommand object for execution.
+     * @throws ParseException if any illegal values are found
      */
     public SelectCommand parse(String args) throws ParseException {
         Optional<Integer> index = ParserUtil.parseIndex(args);

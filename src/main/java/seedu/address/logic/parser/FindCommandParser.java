@@ -17,6 +17,7 @@ public class FindCommandParser {
     /**
      * Parses the given {@code String} of arguments in the context of the FindCommand
      * and returns an FindCommand object for execution.
+     * @throws ParseException if any illegal values are found
      */
     public FindCommand parse(String args) throws ParseException {
         String trimmedArgs = args.trim();
