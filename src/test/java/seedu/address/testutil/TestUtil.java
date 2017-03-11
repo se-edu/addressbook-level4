@@ -189,7 +189,7 @@ public class TestUtil {
     }
 
     /**
-     * Given a list of strings, convert them into a tag set.
+     * Converts strings into a tag set.
      */
     public static Set<Tag> getTagSet(String... strings) throws IllegalValueException {
         HashSet<Tag> tags = new HashSet<>();
