@@ -6,7 +6,6 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
-import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.FindCommand;
 
 /**
@@ -18,7 +17,7 @@ public class FindCommandParser {
      * Parses the given {@code String} of arguments in the context of the FindCommand
      * and returns an FindCommand object for execution.
      */
-    public Command parse(String args) throws ParseErrorException {
+    public FindCommand parse(String args) throws ParseErrorException {
         String trimmedArgs = args.trim();
         if (trimmedArgs.isEmpty()) {
             throw new ParseErrorException(
