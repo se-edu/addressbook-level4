@@ -82,9 +82,8 @@ public class Person implements ReadOnlyPerson {
     }
 
     /**
-     * Returns an immutable tag set.
-     *
-     * @throws UnsupportedOperationException if modification is attempted.
+     * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
+     * if modification is attempted.
      */
     @Override
     public Set<Tag> getTags() {
