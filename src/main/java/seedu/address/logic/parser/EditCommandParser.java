@@ -15,7 +15,6 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
-import seedu.address.logic.commands.IncorrectCommand;
 import seedu.address.model.tag.UniqueTagList;
 
 /**
@@ -27,7 +26,7 @@ public class EditCommandParser {
      * Parses the given {@code String} of arguments in the context of the EditCommand
      * and returns an EditCommand object for execution.
      */
-    public Command parse(String args) {
+    public Command parse(String args) throws ParseException {
         assert args != null;
         ArgumentTokenizer argsTokenizer =
                 new ArgumentTokenizer(PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG);
@@ -36,7 +35,7 @@ public class EditCommandParser {
 
         Optional<Integer> index = preambleFields.get(0).flatMap(ParserUtil::parseIndex);
         if (!index.isPresent()) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         }
 
         EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
@@ -47,11 +46,11 @@ public class EditCommandParser {
             editPersonDescriptor.setAddress(ParserUtil.parseAddress(argsTokenizer.getValue(PREFIX_ADDRESS)));
             editPersonDescriptor.setTags(parseTagsForEdit(argsTokenizer.getAllValues(PREFIX_TAG)));
         } catch (IllegalValueException ive) {
-            return new IncorrectCommand(ive.getMessage());
+            throw new ParseException(ive.getMessage());
         }
 
         if (!editPersonDescriptor.isAnyFieldEdited()) {
-            return new IncorrectCommand(EditCommand.MESSAGE_NOT_EDITED);
+            throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);
         }
 
         return new EditCommand(index.get(), editPersonDescriptor);
