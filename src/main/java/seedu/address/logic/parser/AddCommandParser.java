@@ -49,7 +49,7 @@ public class AddCommandParser {
 
             return new AddCommand(person);
         } catch (IllegalValueException ive) {
-            throw new ParseException(ive.getMessage());
+            throw new ParseException(ive.getMessage(), ive);
         }
     }
 

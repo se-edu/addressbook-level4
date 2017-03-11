@@ -47,7 +47,7 @@ public class EditCommandParser {
             editPersonDescriptor.setAddress(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS)));
             editPersonDescriptor.setTags(parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)));
         } catch (IllegalValueException ive) {
-            throw new ParseException(ive.getMessage());
+            throw new ParseException(ive.getMessage(), ive);
         }
 
         if (!editPersonDescriptor.isAnyFieldEdited()) {
