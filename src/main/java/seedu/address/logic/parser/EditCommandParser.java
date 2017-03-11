@@ -12,7 +12,6 @@ import java.util.List;
 import java.util.Optional;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.model.tag.UniqueTagList;
@@ -26,7 +25,7 @@ public class EditCommandParser {
      * Parses the given {@code String} of arguments in the context of the EditCommand
      * and returns an EditCommand object for execution.
      */
-    public Command parse(String args) throws ParseException {
+    public EditCommand parse(String args) throws ParseException {
         assert args != null;
         ArgumentTokenizer argsTokenizer =
                 new ArgumentTokenizer(PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG);
