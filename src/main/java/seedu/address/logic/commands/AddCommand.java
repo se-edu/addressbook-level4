@@ -39,7 +39,7 @@ public class AddCommand extends Command {
                 new Phone(phone),
                 new Email(email),
                 new Address(address),
-                new UniqueTagList(tags)
+                tags.toSet()
         );
     }
 
