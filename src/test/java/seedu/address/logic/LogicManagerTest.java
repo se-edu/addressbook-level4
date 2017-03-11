@@ -10,6 +10,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -47,7 +48,6 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.tag.Tag;
-import seedu.address.model.tag.UniqueTagList;
 import seedu.address.storage.StorageManager;
 
 
@@ -420,9 +420,10 @@ public class LogicManagerTest {
             Phone privatePhone = new Phone("111111");
             Email email = new Email("adam@gmail.com");
             Address privateAddress = new Address("111, alpha street");
-            Tag tag1 = new Tag("tag1");
-            Tag tag2 = new Tag("longertag2");
-            UniqueTagList tags = new UniqueTagList(tag1, tag2);
+
+            Set<Tag> tags = new HashSet<>();
+            tags.add(new Tag("tag1"));
+            tags.add(new Tag("longertag2"));
             return new Person(name, privatePhone, email, privateAddress, tags);
         }
 
@@ -434,13 +435,16 @@ public class LogicManagerTest {
          * @param seed used to generate the person data field values
          */
         Person generatePerson(int seed) throws Exception {
+            Set<Tag> tags = new HashSet<>();
+            tags.add(new Tag("tag" + Math.abs(seed)));
+            tags.add(new Tag("tag" + Math.abs(seed + 1)));
+
             return new Person(
                     new Name("Person " + seed),
                     new Phone("" + Math.abs(seed)),
                     new Email(seed + "@email"),
                     new Address("House of " + seed),
-                    new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
-            );
+                    tags);
         }
 
         /** Generates the correct add command based on the person given */
@@ -533,13 +537,15 @@ public class LogicManagerTest {
          * Generates a Person object with given name. Other fields will have some dummy values.
          */
         Person generatePersonWithName(String name) throws Exception {
+            Set<Tag> tags = new HashSet<>();
+            tags.add(new Tag("tag"));
+
             return new Person(
                     new Name(name),
                     new Phone("1"),
                     new Email("1@email"),
                     new Address("House of 1"),
-                    new UniqueTagList(new Tag("tag"))
-            );
+                    tags);
         }
     }
 }
