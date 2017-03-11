@@ -8,7 +8,6 @@ import java.util.Set;
 
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.FindCommand;
-import seedu.address.logic.commands.IncorrectCommand;
 
 /**
  * Parses input arguments and creates a new FindCommand object
@@ -19,10 +18,10 @@ public class FindCommandParser {
      * Parses the given {@code String} of arguments in the context of the FindCommand
      * and returns an FindCommand object for execution.
      */
-    public Command parse(String args) {
+    public Command parse(String args) throws ParseErrorException {
         String trimmedArgs = args.trim();
         if (trimmedArgs.isEmpty()) {
-            return new IncorrectCommand(
+            throw new ParseErrorException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         }
 
