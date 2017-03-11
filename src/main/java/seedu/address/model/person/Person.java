@@ -91,10 +91,10 @@ public class Person implements ReadOnlyPerson {
     }
 
     /**
-     * Replaces this person's tags with the tags in the argument tag list.
+     * Replaces this person's tags with the tags in the argument tag set.
      */
-    public void setTags(UniqueTagList replacement) {
-        tags.setTags(replacement);
+    public void setTags(Set<Tag> replacement) {
+        tags.setTags(new UniqueTagList(replacement));
     }
 
     /**
@@ -107,7 +107,7 @@ public class Person implements ReadOnlyPerson {
         this.setPhone(replacement.getPhone());
         this.setEmail(replacement.getEmail());
         this.setAddress(replacement.getAddress());
-        this.setTags(new UniqueTagList(replacement.getTags()));
+        this.setTags(replacement.getTags());
     }
 
     @Override
