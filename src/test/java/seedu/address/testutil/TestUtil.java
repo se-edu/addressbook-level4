@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import guitests.guihandles.PersonCardHandle;
 import javafx.geometry.Bounds;
@@ -24,6 +25,7 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.ReadOnlyPerson;
+import seedu.address.model.tag.Tag;
 
 /**
  * A utility class for test cases.
@@ -186,4 +188,15 @@ public class TestUtil {
         return card.isSamePerson(person);
     }
 
+    /**
+     * Given a list of strings, convert them into a tag set.
+     */
+    public static Set<Tag> getTagSet(String... strings) throws IllegalValueException {
+        HashSet<Tag> tags = new HashSet<>();
+        for (String s : strings) {
+            tags.add(new Tag(s));
+        }
+
+        return tags;
+    }
 }

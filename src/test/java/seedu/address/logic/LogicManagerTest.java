@@ -10,7 +10,6 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -49,6 +48,7 @@ import seedu.address.model.person.Phone;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.tag.Tag;
 import seedu.address.storage.StorageManager;
+import seedu.address.testutil.TestUtil;
 
 
 public class LogicManagerTest {
@@ -421,10 +421,7 @@ public class LogicManagerTest {
             Email email = new Email("adam@gmail.com");
             Address privateAddress = new Address("111, alpha street");
 
-            Set<Tag> tags = new HashSet<>();
-            tags.add(new Tag("tag1"));
-            tags.add(new Tag("longertag2"));
-            return new Person(name, privatePhone, email, privateAddress, tags);
+            return new Person(name, privatePhone, email, privateAddress, TestUtil.getTagSet("tag1", "longertag2"));
         }
 
         /**
@@ -435,16 +432,12 @@ public class LogicManagerTest {
          * @param seed used to generate the person data field values
          */
         Person generatePerson(int seed) throws Exception {
-            Set<Tag> tags = new HashSet<>();
-            tags.add(new Tag("tag" + Math.abs(seed)));
-            tags.add(new Tag("tag" + Math.abs(seed + 1)));
-
             return new Person(
                     new Name("Person " + seed),
                     new Phone("" + Math.abs(seed)),
                     new Email(seed + "@email"),
                     new Address("House of " + seed),
-                    tags);
+                    TestUtil.getTagSet("tag" + Math.abs(seed), "tag" + Math.abs(seed + 1)));
         }
 
         /** Generates the correct add command based on the person given */
@@ -537,15 +530,12 @@ public class LogicManagerTest {
          * Generates a Person object with given name. Other fields will have some dummy values.
          */
         Person generatePersonWithName(String name) throws Exception {
-            Set<Tag> tags = new HashSet<>();
-            tags.add(new Tag("tag"));
-
             return new Person(
                     new Name(name),
                     new Phone("1"),
                     new Email("1@email"),
                     new Address("House of 1"),
-                    tags);
+                    TestUtil.getTagSet("tag"));
         }
     }
 }
