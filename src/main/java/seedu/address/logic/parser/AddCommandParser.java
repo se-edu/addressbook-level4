@@ -12,7 +12,6 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.IncorrectCommand;
-import seedu.address.model.tag.UniqueTagList;
 
 /**
  * Parses input arguments and creates a new AddCommand object
@@ -33,7 +32,7 @@ public class AddCommandParser {
                     argsTokenizer.getValue(PREFIX_PHONE).get(),
                     argsTokenizer.getValue(PREFIX_EMAIL).get(),
                     argsTokenizer.getValue(PREFIX_ADDRESS).get(),
-                    new UniqueTagList(ParserUtil.parseTags(argsTokenizer.getAllValues(PREFIX_TAG)))
+                    ParserUtil.parseTags(argsTokenizer.getAllValues(PREFIX_TAG))
             );
         } catch (NoSuchElementException nsee) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
