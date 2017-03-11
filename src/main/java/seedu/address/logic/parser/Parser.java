@@ -74,7 +74,7 @@ public class Parser {
             return new HelpCommand();
 
         default:
-            return new IncorrectCommand(MESSAGE_UNKNOWN_COMMAND);
+            throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
         }
     }
 

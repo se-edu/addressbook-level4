@@ -189,7 +189,7 @@ public class LogicManagerTest {
     @Test
     public void execute_unknownCommandWord() {
         String unknownCommand = "uicfhmowqewca";
-        assertCommandException(unknownCommand, MESSAGE_UNKNOWN_COMMAND);
+        assertParseException(unknownCommand, MESSAGE_UNKNOWN_COMMAND);
     }
 
     @Test
@@ -220,21 +220,41 @@ public class LogicManagerTest {
     @Test
     public void execute_add_invalidArgsFormat() {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
-        assertParseException("add wrong args wrong args", expectedMessage);
-        assertParseException("add Valid Name 12345 e/valid@email.butNoPhonePrefix a/valid,address", expectedMessage);
-        assertParseException("add Valid Name p/12345 valid@email.butNoPrefix a/valid, address", expectedMessage);
-        assertParseException("add Valid Name p/12345 e/valid@email.butNoAddressPrefix valid, address", expectedMessage);
+        assertParseException(AddCommand.COMMAND_WORD + " wrong args wrong args", expectedMessage);
+        assertParseException(AddCommand.COMMAND_WORD + " Valid Name 12345 "
+                + PREFIX_EMAIL + "valid@email.butNoPhonePrefix "
+                + PREFIX_ADDRESS + "valid,address", expectedMessage);
+        assertParseException(AddCommand.COMMAND_WORD + " Valid Name "
+                + PREFIX_PHONE + "12345 valid@email.butNoPrefix "
+                + PREFIX_ADDRESS + "valid, address", expectedMessage);
+        assertParseException(AddCommand.COMMAND_WORD + " Valid Name "
+                + PREFIX_PHONE + "12345 "
+                + PREFIX_EMAIL + "valid@email.butNoAddressPrefix valid, address",
+                expectedMessage);
     }
 
     @Test
     public void execute_add_invalidPersonData() {
-        assertParseException("add []\\[;] p/12345 e/valid@e.mail a/valid, address",
+        assertParseException(AddCommand.COMMAND_WORD + " []\\[;] "
+                + PREFIX_PHONE + "12345 "
+                + PREFIX_EMAIL + "valid@e.mail "
+                + PREFIX_ADDRESS + "valid, address",
                 Name.MESSAGE_NAME_CONSTRAINTS);
-        assertParseException("add Valid Name p/not_numbers e/valid@e.mail a/valid, address",
+        assertParseException(AddCommand.COMMAND_WORD + " Valid Name "
+                + PREFIX_PHONE + "not_numbers "
+                + PREFIX_EMAIL + "valid@e.mail "
+                + PREFIX_ADDRESS + "valid, address",
                 Phone.MESSAGE_PHONE_CONSTRAINTS);
-        assertParseException("add Valid Name p/12345 e/notAnEmail a/valid, address",
+        assertParseException(AddCommand.COMMAND_WORD + " Valid Name "
+                + PREFIX_PHONE + "12345 "
+                + PREFIX_EMAIL + "notAnEmail "
+                + PREFIX_ADDRESS + "valid, address",
                 Email.MESSAGE_EMAIL_CONSTRAINTS);
-        assertParseException("add Valid Name p/12345 e/valid@e.mail a/valid, address t/invalid_-[.tag",
+        assertParseException(AddCommand.COMMAND_WORD + " Valid Name "
+                + PREFIX_PHONE + "12345 "
+                + PREFIX_EMAIL + "valid@e.mail "
+                + PREFIX_ADDRESS + "valid, address "
+                + PREFIX_TAG + "invalid_-[.tag",
                 Tag.MESSAGE_TAG_CONSTRAINTS);
     }
 
@@ -379,7 +399,7 @@ public class LogicManagerTest {
     @Test
     public void execute_find_invalidArgsFormat() {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE);
-        assertParseException("find ", expectedMessage);
+        assertParseException(FindCommand.COMMAND_WORD + " ", expectedMessage);
     }
 
     @Test
