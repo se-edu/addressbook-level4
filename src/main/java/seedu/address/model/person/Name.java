@@ -20,11 +20,11 @@ public class Name {
      */
     public Name(String name) throws IllegalValueException {
         assert name != null;
-        String trimmedName = name.trim();
-        if (!isValidName(trimmedName)) {
+        String standardizedName = StringUtil.stripLineTerminators(name).trim();
+        if (!isValidName(standardizedName)) {
             throw new IllegalValueException(MESSAGE_NAME_CONSTRAINTS);
         }
-        this.fullName = trimmedName;
+        this.fullName = standardizedName;
     }
 
     /**

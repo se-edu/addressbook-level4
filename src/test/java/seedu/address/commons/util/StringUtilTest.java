@@ -2,6 +2,7 @@ package seedu.address.commons.util;
 
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -166,4 +167,21 @@ public class StringUtilTest {
         assertFalse(StringUtil.isBlank(" string with whitespace"));
     }
 
+    //---------------- Tests for stripLineTerminators --------------------------------------
+
+    @Test
+    public void stripLineTerminators() {
+        // empty string
+        assertEquals("", StringUtil.stripLineTerminators(""));
+
+        // single line string
+        assertEquals("Single line remains unchanged. ",
+                StringUtil.stripLineTerminators("Single line remains unchanged. "));
+
+        // multiline string
+        assertEquals("Typical line breaks are removed.",
+                StringUtil.stripLineTerminators("Typical line breaks \nare\r removed."));
+        assertEquals("Unicode line breaks are removed.",
+                StringUtil.stripLineTerminators("\u2028Unicode \u2029line\u000B breaks\u000C are removed.\u0085"));
+    }
 }
