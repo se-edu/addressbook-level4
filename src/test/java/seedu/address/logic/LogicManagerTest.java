@@ -201,8 +201,6 @@ public class LogicManagerTest {
 
     @Test
     public void execute_add_invalidPersonData() {
-        assertCommandFailure("add []\\[;] p/12345 e/valid@e.mail a/valid, address",
-                Name.MESSAGE_NAME_CONSTRAINTS);
         assertCommandFailure("add Valid Name p/not_numbers e/valid@e.mail a/valid, address",
                 Phone.MESSAGE_PHONE_CONSTRAINTS);
         assertCommandFailure("add Valid Name p/12345 e/notAnEmail a/valid, address",
@@ -239,6 +237,17 @@ public class LogicManagerTest {
 
         // execute command and verify result
         assertCommandFailure(helper.generateAddCommand(toBeAdded),  AddCommand.MESSAGE_DUPLICATE_PERSON);
+
+        // check duplicates are detected for unicode input
+        Person personWithPrecomposedUnicodeName = helper.generatePersonWithName("Bj\u00F6rg");
+        Person personWithDecomposedUnicodeName = helper.generatePersonWithName("Bj\u006F\u0308rg");
+
+        model.addPerson(personWithPrecomposedUnicodeName);
+
+        // TODO: unicode names that look the same but are written in different ways should be considered identical
+        assertCommandFailure(helper.generateAddCommand(personWithDecomposedUnicodeName),
+                AddCommand.MESSAGE_DUPLICATE_PERSON);
+
 
     }
 
@@ -392,6 +401,21 @@ public class LogicManagerTest {
                 Command.getMessageForPersonListShownSummary(expectedList.size()),
                 expectedAB,
                 expectedList);
+
+        // unicode names
+        Person p5 = helper.generatePersonWithName("bla ﬂu\u00DFchen");
+        Person p6 = helper.generatePersonWithName("fluSSchen bla blah");
+        List<Person> personsWithUnicodeNames = helper.generatePersonList(p5, p6);
+        expectedAB = helper.generateAddressBook(personsWithUnicodeNames);
+        expectedList = personsWithUnicodeNames;
+        helper.addToModel(model, personsWithUnicodeNames);
+
+        // TODO: case insensitive comparisons do not work for unicode characters
+        // as String#equalsIgnoreCase(String) uses only simple case folding.
+        assertCommandSuccess("find FLUSSCHEN",
+                Command.getMessageForPersonListShownSummary(expectedList.size()),
+                expectedAB,
+                expectedList);
     }
 
     @Test
@@ -408,6 +432,23 @@ public class LogicManagerTest {
         helper.addToModel(model, fourPersons);
 
         assertCommandSuccess("find key rAnDoM",
+                Command.getMessageForPersonListShownSummary(expectedList.size()),
+                expectedAB,
+                expectedList);
+
+        // unicode names
+        Person uTarget1 = helper.generatePersonWithName("bla bla Bj\u006F\u0308rg bla");
+        Person uTarget2 = helper.generatePersonWithName("bla keY bla bsdfkj");
+        Person uTarget3 = helper.generatePersonWithName("Bj\u00F6rg Bj\u00F6rg");
+        Person u1 = helper.generatePersonWithName("asdfds");
+
+        List<Person> fourUnicodePersons = helper.generatePersonList(uTarget1, u1, uTarget2, uTarget3);
+        expectedAB = helper.generateAddressBook(fourUnicodePersons);
+        expectedList = helper.generatePersonList(uTarget1, uTarget2, uTarget3);
+        helper.addToModel(model, fourUnicodePersons);
+
+        // TODO: unicode names that look the same but are written in different ways should be considered identical
+        assertCommandSuccess("find key Bj\u00F6rg",
                 Command.getMessageForPersonListShownSummary(expectedList.size()),
                 expectedAB,
                 expectedList);
