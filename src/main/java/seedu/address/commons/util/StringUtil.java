@@ -55,4 +55,16 @@ public class StringUtil {
     public static boolean isUnsignedInteger(String s) {
         return s != null && s.matches("^0*[1-9]\\d*$");
     }
+
+    /**
+     * Returns true if s is null, empty or contains only (Unicode) whitespace characters.
+     */
+    public static boolean isBlank(String s) {
+        if (s == null) {
+            return true;
+        }
+
+        boolean hasOnlyWhitespace = s.codePoints().parallel().allMatch(cp -> Character.isWhitespace(cp));
+        return hasOnlyWhitespace;
+    }
 }

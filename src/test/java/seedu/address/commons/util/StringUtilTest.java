@@ -148,5 +148,22 @@ public class StringUtilTest {
         StringUtil.getDetails(null);
     }
 
+    //---------------- Tests for isBlank --------------------------------------
+
+    @Test
+    public void isBlank_blankString_returnsTrue() {
+        assertTrue(StringUtil.isBlank(null));
+        assertTrue(StringUtil.isBlank(""));
+        assertTrue(StringUtil.isBlank(" "));
+        assertTrue(StringUtil.isBlank("    "));
+        assertTrue(StringUtil.isBlank("\n\u2028 \u0009")); // contains Unicode whitespace characters
+
+    }
+
+    @Test
+    public void isBlank_nonBlankString_returnsFalse() {
+        assertFalse(StringUtil.isBlank("nonEmptyString\n"));
+        assertFalse(StringUtil.isBlank(" string with whitespace"));
+    }
 
 }

@@ -10,7 +10,6 @@ import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.PersonBuilder;
@@ -90,9 +89,6 @@ public class EditCommandTest extends AddressBookGuiTest {
 
     @Test
     public void edit_invalidValues_failure() {
-        commandBox.runCommand("edit 1 *&");
-        assertResultMessage(Name.MESSAGE_NAME_CONSTRAINTS);
-
         commandBox.runCommand("edit 1 p/abcd");
         assertResultMessage(Phone.MESSAGE_PHONE_CONSTRAINTS);
 
