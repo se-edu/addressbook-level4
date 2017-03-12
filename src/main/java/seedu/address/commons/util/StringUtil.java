@@ -7,6 +7,7 @@ import java.io.StringWriter;
  * Helper functions for handling strings.
  */
 public class StringUtil {
+    public static final String MULTILINE_REGEX = "(?s).*\\R.*"; // (?s) so that . matches line terminators as well
 
     /**
      * Returns true if the {@code sentence} contains the {@code word}.
@@ -66,5 +67,14 @@ public class StringUtil {
 
         boolean hasOnlyWhitespace = s.codePoints().parallel().allMatch(cp -> Character.isWhitespace(cp));
         return hasOnlyWhitespace;
+    }
+
+    /**
+     * Removes all Unicode line terminators.
+     * @param s cannot be null
+     */
+    public static String stripLineTerminators(String s) {
+        assert s != null : "s parameter cannot be null";
+        return s.replaceAll("\\R", "");
     }
 }
