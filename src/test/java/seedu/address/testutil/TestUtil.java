@@ -146,10 +146,10 @@ public class TestUtil {
      * @param personsToRemove The subset of persons.
      * @return The modified persons after removal of the subset from persons.
      */
-    public static TestPerson[] removePersonsFromList(final TestPerson[] persons, TestPerson... personsToRemove) {
-        List<TestPerson> listOfPersons = asList(persons);
+    public static Person[] removePersonsFromList(final Person[] persons, Person... personsToRemove) {
+        List<Person> listOfPersons = asList(persons);
         listOfPersons.removeAll(asList(personsToRemove));
-        return listOfPersons.toArray(new TestPerson[listOfPersons.size()]);
+        return listOfPersons.toArray(new Person[listOfPersons.size()]);
     }
 
 
@@ -158,7 +158,7 @@ public class TestUtil {
      * @param list original list to copy from
      * @param targetIndexInOneIndexedFormat e.g. index 1 if the first element is to be removed
      */
-    public static TestPerson[] removePersonFromList(final TestPerson[] list, int targetIndexInOneIndexedFormat) {
+    public static Person[] removePersonFromList(final Person[] list, int targetIndexInOneIndexedFormat) {
         return removePersonsFromList(list, list[targetIndexInOneIndexedFormat - 1]);
     }
 
@@ -168,10 +168,10 @@ public class TestUtil {
      * @param personsToAdd The persons that are to be appended behind the original array.
      * @return The modified array of persons.
      */
-    public static TestPerson[] addPersonsToList(final TestPerson[] persons, TestPerson... personsToAdd) {
-        List<TestPerson> listOfPersons = asList(persons);
+    public static Person[] addPersonsToList(final Person[] persons, Person... personsToAdd) {
+        List<Person> listOfPersons = asList(persons);
         listOfPersons.addAll(asList(personsToAdd));
-        return listOfPersons.toArray(new TestPerson[listOfPersons.size()]);
+        return listOfPersons.toArray(new Person[listOfPersons.size()]);
     }
 
     private static <T> List<T> asList(T[] objs) {
