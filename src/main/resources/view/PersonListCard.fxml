@@ -7,6 +7,7 @@
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
@@ -30,7 +31,12 @@
                         <HBox spacing="5" alignment="CENTER_LEFT">
                             <children>
                                 <HBox>
-                                    <Label fx:id="id" styleClass="cell_big_label"></Label>
+                                    <Label fx:id="id" styleClass="cell_big_label">
+                                        <minWidth>
+                                            <!-- Ensures that the label text is never truncated -->
+                                            <Region fx:constant="USE_PREF_SIZE" />
+                                        </minWidth>
+                                    </Label>
                                     <Label fx:id="name" text="\$first" styleClass="cell_big_label"/>
                                 </HBox>
                             </children>
