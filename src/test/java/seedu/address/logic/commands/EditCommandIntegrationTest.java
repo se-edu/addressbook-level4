@@ -11,6 +11,7 @@ import org.junit.Test;
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.Parser;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -53,7 +54,7 @@ public class EditCommandIntegrationTest {
     }
 
     @Test
-    public void execute_duplicatePerson_throwsCommandException() {
+    public void execute_duplicatePerson_throwsCommandException() throws Exception {
         Person firstPerson = new Person(model.getFilteredPersonList().get(ZERO_BASED_INDEX_FIRST_PERSON));
         String userInput = PersonUtil.getEditCommand(ZERO_BASED_INDEX_SECOND_PERSON, firstPerson);
         Command command = prepareCommand(userInput);
@@ -61,14 +62,14 @@ public class EditCommandIntegrationTest {
     }
 
     @Test
-    public void execute_invalidPersonIndex_throwsCommandException() {
+    public void execute_invalidPersonIndex_throwsCommandException() throws Exception {
         int oneBasedOutOfBoundIndex = model.getFilteredPersonList().size() + 1;
         String userInput = "edit " + oneBasedOutOfBoundIndex + " Bobby";
         Command command = prepareCommand(userInput);
         assertCommandFailure(command, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
-    private Command prepareCommand(String userInput) {
+    private Command prepareCommand(String userInput) throws ParseException {
         Command command = parser.parseCommand(userInput);
         command.setData(model);
         return command;
