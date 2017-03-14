@@ -102,19 +102,6 @@ public class Person implements ReadOnlyPerson {
         this.setTags(replacement.getTags());
     }
 
-    /**
-     * @return an add command string for adding this person.
-     */
-    public String getAddCommand() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("add " + this.getName().fullName + " ");
-        sb.append("a/" + this.getAddress().value + " ");
-        sb.append("p/" + this.getPhone().value + " ");
-        sb.append("e/" + this.getEmail().value + " ");
-        this.getTags().asObservableList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
-        return sb.toString();
-    }
-
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
