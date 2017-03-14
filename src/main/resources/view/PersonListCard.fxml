@@ -33,6 +33,10 @@
                                 <HBox>
                                     <Label fx:id="id" styleClass="cell_big_label">
                                         <minWidth>
+                                            <!--
+                                            Ensures that the index is shown on the UI regardless of the length of the
+                                            Person's name
+                                            -->
                                             <Region fx:constant="USE_PREF_SIZE" />
                                         </minWidth>
                                     </Label>
