@@ -18,7 +18,7 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.UserPrefs;
 import seedu.address.testutil.EventsCollector;
-import seedu.address.testutil.TypicalTestPersons;
+import seedu.address.testutil.TypicalPersons;
 
 public class StorageManagerTest {
 
@@ -62,7 +62,7 @@ public class StorageManagerTest {
          * {@link XmlAddressBookStorage} class.
          * More extensive testing of UserPref saving/reading is done in {@link XmlAddressBookStorageTest} class.
          */
-        AddressBook original = new TypicalTestPersons().getTypicalAddressBook();
+        AddressBook original = new TypicalPersons().getTypicalAddressBook();
         storageManager.saveAddressBook(original);
         ReadOnlyAddressBook retrieved = storageManager.readAddressBook().get();
         assertEquals(original, new AddressBook(retrieved));

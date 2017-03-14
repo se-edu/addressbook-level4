@@ -26,9 +26,10 @@ import seedu.address.TestApp;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.events.BaseEvent;
 import seedu.address.model.AddressBook;
+import seedu.address.model.person.Person;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.testutil.TestUtil;
-import seedu.address.testutil.TypicalTestPersons;
+import seedu.address.testutil.TypicalPersons;
 
 /**
  * A GUI Test class for AddressBook.
@@ -41,7 +42,7 @@ public abstract class AddressBookGuiTest {
 
     TestApp testApp;
 
-    protected TypicalTestPersons td = new TypicalTestPersons();
+    protected TypicalPersons td = new TypicalPersons();
 
     /*
      *   Handles to GUI elements present at the start up are created in advance
@@ -91,7 +92,7 @@ public abstract class AddressBookGuiTest {
      */
     protected AddressBook getInitialData() {
         AddressBook ab = new AddressBook();
-        TypicalTestPersons.loadAddressBookWithSampleData(ab);
+        TypicalPersons.loadAddressBookWithSampleData(ab);
         return ab;
     }
 
@@ -105,6 +106,19 @@ public abstract class AddressBookGuiTest {
     @After
     public void cleanup() throws TimeoutException {
         FxToolkit.cleanupStages();
+    }
+
+    /**
+     * @return an add command string for adding this person.
+     */
+    protected String getAddCommand(Person person) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("add " + person.getName().fullName + " ");
+        sb.append("a/" + person.getAddress().value + " ");
+        sb.append("p/" + person.getPhone().value + " ");
+        sb.append("e/" + person.getEmail().value + " ");
+        person.getTags().asObservableList().stream().forEach(s -> sb.append("t/" + s.tagName + " "));
+        return sb.toString();
     }
 
     /**
