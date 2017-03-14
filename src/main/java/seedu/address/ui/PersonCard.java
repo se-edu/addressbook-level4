@@ -34,19 +34,9 @@ public class PersonCard extends UiPart<Region> {
         address.setText(person.getAddress().value);
         email.setText(person.getEmail().value);
         initTags(person);
-
-        setMinWidthForIdLabel();
     }
 
     private void initTags(ReadOnlyPerson person) {
         person.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
-    }
-
-    /**
-     * Ensures that the index is shown on the UI regardless of the length of the {@code Person}
-     * name.
-     */
-    private void setMinWidthForIdLabel() {
-        id.setMinWidth(Label.USE_PREF_SIZE);
     }
 }
