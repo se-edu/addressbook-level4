@@ -20,7 +20,7 @@ public class AddCommandParser {
      * Parses the given {@code String} of arguments in the context of the AddCommand
      * and returns an AddCommand object for execution.
      */
-    public AddCommand parse(String args) throws ParseErrorException {
+    public AddCommand parse(String args) throws ParseException {
         ArgumentTokenizer argsTokenizer =
                 new ArgumentTokenizer(PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG);
         argsTokenizer.tokenize(args);
@@ -33,9 +33,9 @@ public class AddCommandParser {
                     ParserUtil.parseTags(argsTokenizer.getAllValues(PREFIX_TAG))
             );
         } catch (NoSuchElementException nsee) {
-            throw new ParseErrorException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         } catch (IllegalValueException ive) {
-            throw new ParseErrorException(ive.getMessage());
+            throw new ParseException(ive.getMessage());
         }
     }
 

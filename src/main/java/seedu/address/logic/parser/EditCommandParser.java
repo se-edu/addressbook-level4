@@ -25,7 +25,7 @@ public class EditCommandParser {
      * Parses the given {@code String} of arguments in the context of the EditCommand
      * and returns an EditCommand object for execution.
      */
-    public EditCommand parse(String args) throws ParseErrorException {
+    public EditCommand parse(String args) throws ParseException {
         assert args != null;
         ArgumentTokenizer argsTokenizer =
                 new ArgumentTokenizer(PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG);
@@ -34,7 +34,7 @@ public class EditCommandParser {
 
         Optional<Integer> index = preambleFields.get(0).flatMap(ParserUtil::parseIndex);
         if (!index.isPresent()) {
-            throw new ParseErrorException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         }
 
         EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
@@ -45,11 +45,11 @@ public class EditCommandParser {
             editPersonDescriptor.setAddress(ParserUtil.parseAddress(argsTokenizer.getValue(PREFIX_ADDRESS)));
             editPersonDescriptor.setTags(parseTagsForEdit(argsTokenizer.getAllValues(PREFIX_TAG)));
         } catch (IllegalValueException ive) {
-            throw new ParseErrorException(ive.getMessage());
+            throw new ParseException(ive.getMessage());
         }
 
         if (!editPersonDescriptor.isAnyFieldEdited()) {
-            throw new ParseErrorException(EditCommand.MESSAGE_NOT_EDITED);
+            throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);
         }
 
         return new EditCommand(index.get(), editPersonDescriptor);

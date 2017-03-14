@@ -3,8 +3,8 @@ package seedu.address.logic.parser;
 /**
  * Represents a parse error encountered by a parser.
  */
-public class ParseErrorException extends Exception {
-    public ParseErrorException(String message) {
+public class ParseException extends Exception {
+    public ParseException(String message) {
         super(message);
     }
 }
