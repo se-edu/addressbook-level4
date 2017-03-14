@@ -4,8 +4,8 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
-import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 
 /**
@@ -13,17 +13,28 @@ import seedu.address.model.tag.UniqueTagList;
  */
 public class PersonBuilder {
 
-    private TestPerson person;
+    public static final String DEFUALT_NAME = "Alice Pauline";
+    public static final String DEFUALT_PHONE = "85355255";
+    public static final String DEFUALT_EMAIL = "alice@gmail.com";
+    public static final String DEFUALT_ADDRESS = "123, Jurong West Ave 6, #08-111";
+    public static final String DEFUALT_TAGS = "friends";
 
-    public PersonBuilder() {
-        this.person = new TestPerson();
+    private Person person;
+
+    public PersonBuilder() throws IllegalValueException {
+        Name defaultName = new Name(DEFUALT_NAME);
+        Phone defaultPhone = new Phone(DEFUALT_PHONE);
+        Email defaultEmail = new Email(DEFUALT_EMAIL);
+        Address defaultAddress = new Address(DEFUALT_ADDRESS);
+        UniqueTagList defaultTags = new UniqueTagList(DEFUALT_TAGS);
+        this.person = new Person(defaultName, defaultPhone, defaultEmail, defaultAddress, defaultTags);
     }
 
     /**
      * Initializes the PersonBuilder with the data of {@code personToCopy}.
      */
-    public PersonBuilder(TestPerson personToCopy) {
-        this.person = new TestPerson(personToCopy);
+    public PersonBuilder(Person personToCopy) {
+        this.person = new Person(personToCopy);
     }
 
     public PersonBuilder withName(String name) throws IllegalValueException {
@@ -32,10 +43,7 @@ public class PersonBuilder {
     }
 
     public PersonBuilder withTags(String ... tags) throws IllegalValueException {
-        person.setTags(new UniqueTagList());
-        for (String tag: tags) {
-            person.getTags().add(new Tag(tag));
-        }
+        this.person.setTags(new UniqueTagList(tags));
         return this;
     }
 
@@ -54,7 +62,7 @@ public class PersonBuilder {
         return this;
     }
 
-    public TestPerson build() {
+    public Person build() {
         return this.person;
     }
 
