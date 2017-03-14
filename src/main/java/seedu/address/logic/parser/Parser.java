@@ -24,9 +24,9 @@ import seedu.address.logic.commands.SelectCommand;
 public class Parser {
 
     /**
-     * Used for initial separation of command word and arguments string .
+     * Used for initial separation of command word and args.
      */
-    private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<argsString>.*)");
+    private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
     /**
      * Parses user input into command for execution.
@@ -41,26 +41,26 @@ public class Parser {
         }
 
         final String commandWord = matcher.group("commandWord");
-        final String argsString = matcher.group("argsString");
+        final String arguments = matcher.group("arguments");
         switch (commandWord) {
 
         case AddCommand.COMMAND_WORD:
-            return new AddCommandParser().parse(argsString);
+            return new AddCommandParser().parse(arguments);
 
         case EditCommand.COMMAND_WORD:
-            return new EditCommandParser().parse(argsString);
+            return new EditCommandParser().parse(arguments);
 
         case SelectCommand.COMMAND_WORD:
-            return new SelectCommandParser().parse(argsString);
+            return new SelectCommandParser().parse(arguments);
 
         case DeleteCommand.COMMAND_WORD:
-            return new DeleteCommandParser().parse(argsString);
+            return new DeleteCommandParser().parse(arguments);
 
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
 
         case FindCommand.COMMAND_WORD:
-            return new FindCommandParser().parse(argsString);
+            return new FindCommandParser().parse(arguments);
 
         case ListCommand.COMMAND_WORD:
             return new ListCommand();

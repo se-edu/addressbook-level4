@@ -9,17 +9,17 @@ import java.util.Optional;
 /**
  * Stores mapping of prefixes to their respective arguments.
  */
-public class Arguments {
+public class ArgumentMap {
 
     /** Prefixes mapped to their respective arguments**/
     private final Map<Prefix, List<String>> arguments;
 
     /**
-     * Creates an Arguments object that stores the mapping of prefixes to their respective arguments.
+     * Creates an ArgumentMap object that stores the mapping of prefixes to their respective arguments.
      *
      * @param arguments Map with {@code Prefix} keys and {@code List<String>} argument values.
      */
-    public Arguments(Map<Prefix, List<String>> arguments) {
+    public ArgumentMap(Map<Prefix, List<String>> arguments) {
         this.arguments = arguments;
     }
 

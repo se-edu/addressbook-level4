@@ -28,17 +28,17 @@ public class ArgumentTokenizer {
     }
 
     /**
-     * Tokenizes an arguments string and returns an Arguments object that maps prefixes to their respective argument
+     * Tokenizes an arguments string and returns an ArgumentMap object that maps prefixes to their respective argument
      * values. Only prefixes provided as arguments to the constructor of this {@cocde ArgumentTokenizer} object will be
      * recognized in the arguments string.
      *
      * @param argsString Arguments string of the form: {@code preamble <prefix>value <prefix>value ...}
-     * @return           Arguments object that maps prefixes to their arguments
+     * @return           ArgumentMap object that maps prefixes to their arguments
      */
-    public Arguments tokenize(String argsString) {
+    public ArgumentMap tokenize(String argsString) {
         List<PrefixPosition> positions = findAllPrefixPositions(argsString);
-        Arguments arguments = extractArguments(argsString, positions);
-        return arguments;
+        ArgumentMap argumentMap = extractArguments(argsString, positions);
+        return argumentMap;
     }
 
     /**
@@ -71,14 +71,14 @@ public class ArgumentTokenizer {
     }
 
     /**
-     * Extracts prefixes and their argument values, and returns an Arguments object that maps the extracted prefixes to
-     * their respective arguments. Prefixes are extracted based on their zero-based positions in {@code argsString}.
+     * Extracts prefixes and their argument values, and returns an ArgumentMap object that maps the extracted prefixes
+     * to their respective arguments. Prefixes are extracted based on their zero-based positions in {@code argsString}.
      *
      * @param argsString      Arguments string of the form: {@code preamble <prefix>value <prefix>value ...}
      * @param prefixPositions Zero-based positions of all prefixes in {@code argsString}
-     * @return                Arguments object that maps prefixes to their arguments
+     * @return                ArgumentMap object that maps prefixes to their arguments
      */
-    private Arguments extractArguments(String argsString, List<PrefixPosition> prefixPositions) {
+    private ArgumentMap extractArguments(String argsString, List<PrefixPosition> prefixPositions) {
 
         // Sort by start position
         prefixPositions.sort((prefix1, prefix2) -> prefix1.getStartPosition() - prefix2.getStartPosition());
@@ -104,7 +104,7 @@ public class ArgumentTokenizer {
             tokenizedArguments.put(argPrefix, argValues);
         }
 
-        return new Arguments(tokenizedArguments);
+        return new ArgumentMap(tokenizedArguments);
     }
 
     /**

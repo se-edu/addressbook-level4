@@ -19,8 +19,8 @@ public class FindCommandParser {
      * Parses the given {@code String} of arguments in the context of the FindCommand
      * and returns an FindCommand object for execution.
      */
-    public Command parse(String argsString) {
-        String trimmedArgs = argsString.trim();
+    public Command parse(String args) {
+        String trimmedArgs = args.trim();
         if (trimmedArgs.isEmpty()) {
             return new IncorrectCommand(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));

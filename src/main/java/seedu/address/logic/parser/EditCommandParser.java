@@ -27,12 +27,12 @@ public class EditCommandParser {
      * Parses the given {@code String} of arguments in the context of the EditCommand
      * and returns an EditCommand object for execution.
      */
-    public Command parse(String argsString) {
-        assert argsString != null;
+    public Command parse(String args) {
+        assert args != null;
         ArgumentTokenizer argsTokenizer =
                 new ArgumentTokenizer(PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG);
-        Arguments arguments = argsTokenizer.tokenize(argsString);
-        List<Optional<String>> preambleFields = ParserUtil.splitPreamble(arguments.getPreamble(), 2);
+        ArgumentMap argumentMap = argsTokenizer.tokenize(args);
+        List<Optional<String>> preambleFields = ParserUtil.splitPreamble(argumentMap.getPreamble(), 2);
 
         Optional<Integer> index = preambleFields.get(0).flatMap(ParserUtil::parseIndex);
         if (!index.isPresent()) {
@@ -42,10 +42,10 @@ public class EditCommandParser {
         EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
         try {
             editPersonDescriptor.setName(ParserUtil.parseName(preambleFields.get(1)));
-            editPersonDescriptor.setPhone(ParserUtil.parsePhone(arguments.getValue(PREFIX_PHONE)));
-            editPersonDescriptor.setEmail(ParserUtil.parseEmail(arguments.getValue(PREFIX_EMAIL)));
-            editPersonDescriptor.setAddress(ParserUtil.parseAddress(arguments.getValue(PREFIX_ADDRESS)));
-            editPersonDescriptor.setTags(parseTagsForEdit(arguments.getAllValues(PREFIX_TAG)));
+            editPersonDescriptor.setPhone(ParserUtil.parsePhone(argumentMap.getValue(PREFIX_PHONE)));
+            editPersonDescriptor.setEmail(ParserUtil.parseEmail(argumentMap.getValue(PREFIX_EMAIL)));
+            editPersonDescriptor.setAddress(ParserUtil.parseAddress(argumentMap.getValue(PREFIX_ADDRESS)));
+            editPersonDescriptor.setTags(parseTagsForEdit(argumentMap.getAllValues(PREFIX_TAG)));
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }

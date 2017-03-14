@@ -22,17 +22,17 @@ public class AddCommandParser {
      * Parses the given {@code String} of arguments in the context of the AddCommand
      * and returns an AddCommand object for execution.
      */
-    public Command parse(String argsString) {
+    public Command parse(String args) {
         ArgumentTokenizer argsTokenizer =
                 new ArgumentTokenizer(PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG);
-        Arguments arguments = argsTokenizer.tokenize(argsString);
+        ArgumentMap argumentMap = argsTokenizer.tokenize(args);
         try {
             return new AddCommand(
-                    arguments.getPreamble(),
-                    arguments.getValue(PREFIX_PHONE).get(),
-                    arguments.getValue(PREFIX_EMAIL).get(),
-                    arguments.getValue(PREFIX_ADDRESS).get(),
-                    ParserUtil.parseTags(arguments.getAllValues(PREFIX_TAG))
+                    argumentMap.getPreamble(),
+                    argumentMap.getValue(PREFIX_PHONE).get(),
+                    argumentMap.getValue(PREFIX_EMAIL).get(),
+                    argumentMap.getValue(PREFIX_ADDRESS).get(),
+                    ParserUtil.parseTags(argumentMap.getAllValues(PREFIX_TAG))
             );
         } catch (NoSuchElementException nsee) {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
