@@ -147,7 +147,7 @@ public class LogicManagerTest {
 
     /**
      * Executes the command, confirms that the result message is correct
-     * and that a specific Exception is thrown if expected
+     * and that the expected Exception is thrown.
      * and also confirms that the following three parts of the LogicManager object's state are as expected:<br>
      *      - the internal address book data are same as those in the {@code expectedAddressBook} <br>
      *      - the backing list shown by UI matches the {@code shownList} <br>
