@@ -1,5 +1,8 @@
 package seedu.address.model.util;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
@@ -9,6 +12,7 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.UniquePersonList.DuplicatePersonException;
+import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 
 public class SampleDataUtil {
@@ -50,4 +54,17 @@ public class SampleDataUtil {
             throw new AssertionError("sample data cannot contain duplicate persons", e);
         }
     }
+
+    /**
+     * Converts strings into a tag set.
+     */
+    public static Set<Tag> getTagSet(String... strings) throws IllegalValueException {
+        HashSet<Tag> tags = new HashSet<>();
+        for (String s : strings) {
+            tags.add(new Tag(s));
+        }
+
+        return tags;
+    }
+
 }
