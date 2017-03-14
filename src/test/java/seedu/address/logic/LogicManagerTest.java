@@ -108,7 +108,8 @@ public class LogicManagerTest {
     @Test
     public void execute_invalid() {
         String invalidCommand = "       ";
-        assertCommandFailure(invalidCommand, String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
+        assertFailure(invalidCommand, CommandException.class,
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
     }
 
     /**
@@ -123,26 +124,14 @@ public class LogicManagerTest {
     }
 
     /**
-     * Executes the command, confirms that a CommandException is thrown and that the result message is correct.
+     * Executes the command, confirms that the exception is thrown and that the result message is correct.
      * Both the 'address book' and the 'last shown list' are verified to be unchanged.
      * @see #assertCommandBehavior(boolean, String, String, ReadOnlyAddressBook, List)
      */
-    private void assertCommandFailure(String inputCommand, String expectedMessage) {
+    private <T> void assertFailure(String inputCommand, Class<T> expectedException, String expectedMessage) {
         AddressBook expectedAddressBook = new AddressBook(model.getAddressBook());
         List<ReadOnlyPerson> expectedShownList = new ArrayList<>(model.getFilteredPersonList());
-        assertCommandBehavior(CommandException.class, inputCommand, expectedMessage, expectedAddressBook,
-                expectedShownList);
-    }
-
-    /**
-     * Executes the command, confirms that a ParseException is thrown and that the result message is correct.
-     * Both the 'address book' and the 'last shown list' are verified to be unchanged.
-     * @see #assertCommandBehavior(boolean, String, String, ReadOnlyAddressBook, List)
-     */
-    private void assertParseFailure(String inputCommand, String expectedMessage) {
-        AddressBook expectedAddressBook = new AddressBook(model.getAddressBook());
-        List<ReadOnlyPerson> expectedShownList = new ArrayList<>(model.getFilteredPersonList());
-        assertCommandBehavior(ParseException.class, inputCommand, expectedMessage, expectedAddressBook,
+        assertCommandBehavior(expectedException, inputCommand, expectedMessage, expectedAddressBook,
                 expectedShownList);
     }
 
@@ -161,11 +150,8 @@ public class LogicManagerTest {
             CommandResult result = logic.execute(inputCommand);
             assertEquals(expectedException, null);
             assertEquals(expectedMessage, result.feedbackToUser);
-        } catch (CommandException e) {
-            assertEquals(expectedException, CommandException.class);
-            assertEquals(expectedMessage, e.getMessage());
-        } catch (ParseException e) {
-            assertEquals(expectedException, ParseException.class);
+        } catch (CommandException | ParseException e) {
+            assertEquals(expectedException, e.getClass());
             assertEquals(expectedMessage, e.getMessage());
         }
 
@@ -180,7 +166,7 @@ public class LogicManagerTest {
     @Test
     public void execute_unknownCommandWord() {
         String unknownCommand = "uicfhmowqewca";
-        assertCommandFailure(unknownCommand, MESSAGE_UNKNOWN_COMMAND);
+        assertFailure(unknownCommand, CommandException.class, MESSAGE_UNKNOWN_COMMAND);
     }
 
     @Test
@@ -209,22 +195,25 @@ public class LogicManagerTest {
     @Test
     public void execute_add_invalidArgsFormat() {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
-        assertParseFailure("add wrong args wrong args", expectedMessage);
-        assertParseFailure("add Valid Name 12345 e/valid@email.butNoPhonePrefix a/valid,address", expectedMessage);
-        assertParseFailure("add Valid Name p/12345 valid@email.butNoPrefix a/valid, address", expectedMessage);
-        assertParseFailure("add Valid Name p/12345 e/valid@email.butNoAddressPrefix valid, address", expectedMessage);
+        assertFailure("add wrong args wrong args", ParseException.class, expectedMessage);
+        assertFailure("add Valid Name 12345 e/valid@email.butNoPhonePrefix a/valid,address",
+                ParseException.class, expectedMessage);
+        assertFailure("add Valid Name p/12345 valid@email.butNoPrefix a/valid, address",
+                ParseException.class, expectedMessage);
+        assertFailure("add Valid Name p/12345 e/valid@email.butNoAddressPrefix valid, address",
+                ParseException.class, expectedMessage);
     }
 
     @Test
     public void execute_add_invalidPersonData() {
-        assertParseFailure("add []\\[;] p/12345 e/valid@e.mail a/valid, address",
-                Name.MESSAGE_NAME_CONSTRAINTS);
-        assertParseFailure("add Valid Name p/not_numbers e/valid@e.mail a/valid, address",
-                Phone.MESSAGE_PHONE_CONSTRAINTS);
-        assertParseFailure("add Valid Name p/12345 e/notAnEmail a/valid, address",
-                Email.MESSAGE_EMAIL_CONSTRAINTS);
-        assertParseFailure("add Valid Name p/12345 e/valid@e.mail a/valid, address t/invalid_-[.tag",
-                Tag.MESSAGE_TAG_CONSTRAINTS);
+        assertFailure("add []\\[;] p/12345 e/valid@e.mail a/valid, address",
+                ParseException.class, Name.MESSAGE_NAME_CONSTRAINTS);
+        assertFailure("add Valid Name p/not_numbers e/valid@e.mail a/valid, address",
+                ParseException.class, Phone.MESSAGE_PHONE_CONSTRAINTS);
+        assertFailure("add Valid Name p/12345 e/notAnEmail a/valid, address",
+                ParseException.class, Email.MESSAGE_EMAIL_CONSTRAINTS);
+        assertFailure("add Valid Name p/12345 e/valid@e.mail a/valid, address t/invalid_-[.tag",
+                ParseException.class, Tag.MESSAGE_TAG_CONSTRAINTS);
 
     }
 
@@ -254,7 +243,8 @@ public class LogicManagerTest {
         model.addPerson(toBeAdded); // person already in internal address book
 
         // execute command and verify result
-        assertCommandFailure(helper.generateAddCommand(toBeAdded),  AddCommand.MESSAGE_DUPLICATE_PERSON);
+        assertFailure(helper.generateAddCommand(toBeAdded), CommandException.class,
+                AddCommand.MESSAGE_DUPLICATE_PERSON);
 
     }
 
@@ -284,11 +274,11 @@ public class LogicManagerTest {
      */
     private void assertIncorrectIndexFormatBehaviorForCommand(String commandWord, String expectedMessage)
             throws Exception {
-        assertParseFailure(commandWord , expectedMessage); //index missing
-        assertParseFailure(commandWord + " +1", expectedMessage); //index should be unsigned
-        assertParseFailure(commandWord + " -1", expectedMessage); //index should be unsigned
-        assertParseFailure(commandWord + " 0", expectedMessage); //index cannot be 0
-        assertParseFailure(commandWord + " not_a_number", expectedMessage);
+        assertFailure(commandWord , ParseException.class, expectedMessage); //index missing
+        assertFailure(commandWord + " +1", ParseException.class, expectedMessage); //index should be unsigned
+        assertFailure(commandWord + " -1", ParseException.class, expectedMessage); //index should be unsigned
+        assertFailure(commandWord + " 0", ParseException.class, expectedMessage); //index cannot be 0
+        assertFailure(commandWord + " not_a_number", ParseException.class, expectedMessage);
     }
 
     /**
@@ -308,7 +298,7 @@ public class LogicManagerTest {
             model.addPerson(p);
         }
 
-        assertCommandFailure(commandWord + " 3", expectedMessage);
+        assertFailure(commandWord + " 3", CommandException.class, expectedMessage);
     }
 
     @Test
@@ -369,7 +359,7 @@ public class LogicManagerTest {
     @Test
     public void execute_find_invalidArgsFormat() {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE);
-        assertParseFailure("find ", expectedMessage);
+        assertFailure("find ", ParseException.class, expectedMessage);
     }
 
     @Test
