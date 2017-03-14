@@ -16,14 +16,7 @@ import java.util.Optional;
 public class ArgumentMultimap {
 
     /** Prefixes mapped to their respective arguments**/
-    private final Map<Prefix, List<String>> argMultimap;
-
-    /**
-     * Creates an ArgumentMultimap object that stores the mapping of prefixes to their respective arguments.
-     */
-    public ArgumentMultimap() {
-        argMultimap = new HashMap<>();
-    }
+    private final Map<Prefix, List<String>> argMultimap = new HashMap<>();;
 
     /**
      * Associates the specified argument value with {@code prefix} key in this map.
@@ -62,7 +55,6 @@ public class ArgumentMultimap {
      * Returns the preamble (text before the first valid prefix). Trims any leading/trailing spaces.
      */
     public String getPreamble() {
-        Optional<String> storedPreamble = getValue(new Prefix(""));
-        return storedPreamble.orElse("");
+        return getValue(new Prefix("")).orElse("");
     }
 }
