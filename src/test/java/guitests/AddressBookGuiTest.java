@@ -109,7 +109,7 @@ public abstract class AddressBookGuiTest {
     }
 
     /**
-     * @return an add command string for adding this person.
+     * Returns an add command string for adding this person.
      */
     protected String getAddCommand(Person person) {
         StringBuilder sb = new StringBuilder();
