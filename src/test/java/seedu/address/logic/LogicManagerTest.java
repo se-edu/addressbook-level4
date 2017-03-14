@@ -47,7 +47,7 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.tag.Tag;
-import seedu.address.model.tag.UniqueTagList;
+import seedu.address.model.util.SampleDataUtil;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
 import seedu.address.storage.XmlAddressBookStorage;
@@ -425,10 +425,9 @@ public class LogicManagerTest {
             Phone privatePhone = new Phone("111111");
             Email email = new Email("adam@gmail.com");
             Address privateAddress = new Address("111, alpha street");
-            Tag tag1 = new Tag("tag1");
-            Tag tag2 = new Tag("longertag2");
-            UniqueTagList tags = new UniqueTagList(tag1, tag2);
-            return new Person(name, privatePhone, email, privateAddress, tags);
+
+            return new Person(name, privatePhone, email, privateAddress,
+                    SampleDataUtil.getTagSet("tag1", "longertag2"));
         }
 
         /**
@@ -444,8 +443,7 @@ public class LogicManagerTest {
                     new Phone("" + Math.abs(seed)),
                     new Email(seed + "@email"),
                     new Address("House of " + seed),
-                    new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
-            );
+                    SampleDataUtil.getTagSet("tag" + Math.abs(seed), "tag" + Math.abs(seed + 1)));
         }
 
         /** Generates the correct add command based on the person given */
@@ -543,8 +541,7 @@ public class LogicManagerTest {
                     new Phone("1"),
                     new Email("1@email"),
                     new Address("House of 1"),
-                    new UniqueTagList(new Tag("tag"))
-            );
+                    SampleDataUtil.getTagSet("tag"));
         }
     }
 }
