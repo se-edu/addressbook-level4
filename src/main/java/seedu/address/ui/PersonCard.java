@@ -11,8 +11,15 @@ public class PersonCard extends UiPart<Region> {
 
     private static final String FXML = "PersonListCard.fxml";
 
+    /**
+     * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
+     * As a consequence, {@code Label} fx-id cannot be set to such keywords
+     * or an exception will be thrown by JavaFX
+     *
+     * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
+     */
     @FXML
-    private HBox cardPane;
+    private Label address;
     @FXML
     private Label name;
     @FXML
@@ -20,11 +27,11 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private Label phone;
     @FXML
-    private Label address;
-    @FXML
     private Label email;
     @FXML
     private FlowPane tags;
+    @FXML
+    private HBox cardPane;
 
     public PersonCard(ReadOnlyPerson person, int displayedIndex) {
         super(FXML);
