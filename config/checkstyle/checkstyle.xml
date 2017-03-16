@@ -138,7 +138,7 @@
     <module name="MethodName">
       <!-- Validates identifiers for method names against the supplied expression. -->
       <metadata name="altname" value="MethodName"/>
-      <property name="format" value="^[a-z][a-zA-Z0-9]*(_[a-zA-Z0-9]+)*|_+[A-Z]+(_[A-Z]+)*_+$"/>
+      <property name="format" value="^[a-z][a-zA-Z0-9]*(_[a-z][a-zA-Z0-9]+)*$"/>
       <property name="severity" value="warning"/>
     </module>
 
