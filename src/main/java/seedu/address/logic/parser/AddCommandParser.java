@@ -6,12 +6,11 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
-import java.util.NoSuchElementException;
-
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.IncorrectCommand;
+import seedu.address.logic.parser.ArgumentTokenizer.Prefix;
 
 /**
  * Parses input arguments and creates a new AddCommand object
@@ -26,6 +25,11 @@ public class AddCommandParser {
         ArgumentTokenizer argsTokenizer =
                 new ArgumentTokenizer(PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG);
         argsTokenizer.tokenize(args);
+
+        if (!arePrefixesPresent(argsTokenizer, PREFIX_ADDRESS, PREFIX_PHONE, PREFIX_EMAIL)) {
+            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+        }
+
         try {
             return new AddCommand(
                     argsTokenizer.getPreamble(),
@@ -34,11 +38,23 @@ public class AddCommandParser {
                     argsTokenizer.getValue(PREFIX_ADDRESS).get(),
                     ParserUtil.parseTags(argsTokenizer.getAllValues(PREFIX_TAG))
             );
-        } catch (NoSuchElementException nsee) {
-            return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }
+    }
+
+    /**
+     * Returns true if all the given prefixes do not contain empty {@code Optional} values in the given
+     * {@code ArgumentTokenizer}.
+     */
+    private static boolean arePrefixesPresent(ArgumentTokenizer argsTokenizer, Prefix... prefixes) {
+        for (Prefix prefix : prefixes) {
+            if (!argsTokenizer.getValue(prefix).isPresent()) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
 }
