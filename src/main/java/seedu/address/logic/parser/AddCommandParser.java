@@ -13,6 +13,13 @@ import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.IncorrectCommand;
 import seedu.address.logic.parser.ArgumentTokenizer.Prefix;
+import seedu.address.model.person.Address;
+import seedu.address.model.person.Email;
+import seedu.address.model.person.Name;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.Phone;
+import seedu.address.model.person.ReadOnlyPerson;
+import seedu.address.model.tag.UniqueTagList;
 
 /**
  * Parses input arguments and creates a new AddCommand object
@@ -33,13 +40,15 @@ public class AddCommandParser {
         }
 
         try {
-            return new AddCommand(
-                    argsTokenizer.getPreamble(),
-                    argsTokenizer.getValue(PREFIX_PHONE).get(),
-                    argsTokenizer.getValue(PREFIX_EMAIL).get(),
-                    argsTokenizer.getValue(PREFIX_ADDRESS).get(),
-                    ParserUtil.parseTags(argsTokenizer.getAllValues(PREFIX_TAG))
-            );
+            Name name = new Name(argsTokenizer.getPreamble());
+            Phone phone = ParserUtil.parsePhone(argsTokenizer.getValue(PREFIX_PHONE)).get();
+            Email email = ParserUtil.parseEmail(argsTokenizer.getValue(PREFIX_EMAIL)).get();
+            Address address = ParserUtil.parseAddress(argsTokenizer.getValue(PREFIX_ADDRESS)).get();
+            UniqueTagList tagList = ParserUtil.parseTags(argsTokenizer.getAllValues(PREFIX_TAG));
+
+            ReadOnlyPerson person = new Person(name, phone, email, address, tagList);
+
+            return new AddCommand(person);
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }
