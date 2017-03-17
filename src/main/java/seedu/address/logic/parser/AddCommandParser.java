@@ -6,6 +6,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
+import java.util.stream.Stream;
+
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.Command;
@@ -53,17 +55,11 @@ public class AddCommandParser {
     }
 
     /**
-     * Returns true if all the given prefixes do not contain empty {@code Optional} values in the given
+     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
      * {@code ArgumentTokenizer}.
      */
     private static boolean arePrefixesPresent(ArgumentTokenizer argsTokenizer, Prefix... prefixes) {
-        for (Prefix prefix : prefixes) {
-            if (!argsTokenizer.getValue(prefix).isPresent()) {
-                return false;
-            }
-        }
-
-        return true;
+        return Stream.of(prefixes).allMatch(prefix -> argsTokenizer.getValue(prefix).isPresent());
     }
 
 }
