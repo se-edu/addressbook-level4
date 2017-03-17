@@ -56,7 +56,7 @@ public class AddCommandParser {
      * Returns true if all the given prefixes do not contain empty {@code Optional} values in the given
      * {@code ArgumentTokenizer}.
      */
-    private boolean arePrefixesPresent(ArgumentTokenizer argsTokenizer, Prefix... prefixes) {
+    private static boolean arePrefixesPresent(ArgumentTokenizer argsTokenizer, Prefix... prefixes) {
         for (Prefix prefix : prefixes) {
             if (!argsTokenizer.getValue(prefix).isPresent()) {
                 return false;
