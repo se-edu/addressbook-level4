@@ -84,13 +84,13 @@ public class Config {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("App title : " + appTitle);
-        sb.append("\nCurrent log level : " + logLevel);
-        sb.append("\nPreference file Location : " + userPrefsFilePath);
-        sb.append("\nLocal data file location : " + addressBookFilePath);
-        sb.append("\nAddressBook name : " + addressBookName);
-        return sb.toString();
+        return MoreObjects.toStringHelper(this)
+            .add("App title : ", appTitle)
+            .add("\nCurrent log level : ", logLevel)
+            .add("\nPreference file Location : ", userPrefsFilePath)
+            .add("\nLocal data file location : ", addressBookFilePath)
+            .add("\nAddressBook name : ", addressBookName)
+            .toString();
     }
 
 }
