@@ -19,6 +19,11 @@ public class JsonUserPrefsStorage implements UserPrefsStorage {
     }
 
     @Override
+    public String getUserPrefsFilePath() {
+        return filePath;
+    }
+
+    @Override
     public Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException {
         return readUserPrefs(filePath);
     }
