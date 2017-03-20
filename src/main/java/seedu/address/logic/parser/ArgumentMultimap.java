@@ -47,9 +47,13 @@ public class ArgumentMultimap {
     /**
      * Returns all values of the given prefix.
      * If the prefix does not exist or has no values, this will return an empty list.
+     * Modifying the returned list will not affect the underlying data structure of the ArgumentMultimap.
      */
     public List<String> getAllValues(Prefix prefix) {
-        return argMultimap.getOrDefault(prefix, new ArrayList<>());
+        if (!argMultimap.containsKey(prefix)) {
+            return new ArrayList<>();
+        }
+        return new ArrayList<>(argMultimap.get(prefix));
     }
 
     /**
