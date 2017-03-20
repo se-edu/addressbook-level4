@@ -36,9 +36,9 @@ public abstract class CommandIntegrationTest {
 
     /**
      * Executes the command, confirms that
-     * - the result message is as expected <br>
+     * - the result message matches {@code expectedMessage} <br>
      * - the internal address book data are same as those in the {@code expectedAddressBook} <br>
-     * - the backing list shown by UI matches the {@code shownList} <br>
+     * - the backing list shown by UI matches the {@code expectedShownList} <br>
      */
     protected void assertCommandSuccess(Command cmd,
                                         String expectedMessage,
@@ -48,11 +48,11 @@ public abstract class CommandIntegrationTest {
             CommandResult result = cmd.execute();
             assertEquals(expectedMessage, result.feedbackToUser);
 
-            // Verify the ui display elements should contain the right data
-            assertEquals(expectedShownList, model.getFilteredPersonList());
-
             // Verify the state of address book is as expected
             assertEquals(expectedAddressBook, model.getAddressBook());
+
+            // Verify the ui display elements should contain the right data
+            assertEquals(expectedShownList, model.getFilteredPersonList());
         } catch (Exception e) {
             fail("unexpected exception: " + e.getMessage());
         }
@@ -60,8 +60,8 @@ public abstract class CommandIntegrationTest {
 
     /**
      * Executes the command, confirms that
-     * - a CommandException is thrown
-     * - the CommandException message is as expected
+     * - a CommandException is thrown <br>
+     * - the CommandException message matches {@code expectedMessage} <br>
      */
     protected void assertCommandFailure(Command cmd, String expectedMessage) {
         try {
