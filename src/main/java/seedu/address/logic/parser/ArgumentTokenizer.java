@@ -15,8 +15,8 @@ import java.util.List;
 public class ArgumentTokenizer {
 
     /**
-     * Tokenizes an arguments string and returns an ArgumentMultimap object that maps prefixes to their respective
-     * argument values. Only the given prefixes will be recognized in the arguments string.
+     * Tokenizes an arguments string and returns an {@code ArgumentMultimap} object that maps prefixes to their
+     * respective argument values. Only the given prefixes will be recognized in the arguments string.
      *
      * @param argsString Arguments string of the form: {@code preamble <prefix>value <prefix>value ...}
      * @param prefixes   Prefixes to tokenize the arguments string with
@@ -24,8 +24,7 @@ public class ArgumentTokenizer {
      */
     public static ArgumentMultimap tokenize(String argsString, Prefix... prefixes) {
         List<PrefixPosition> positions = findAllPrefixPositions(argsString, prefixes);
-        ArgumentMultimap argMultimap = extractArguments(argsString, positions);
-        return argMultimap;
+        return extractArguments(argsString, positions);
     }
 
     /**
@@ -46,11 +45,7 @@ public class ArgumentTokenizer {
     }
 
     /**
-     * Finds all zero-based prefix positions of the given {@code prefix} in the given arguments string.
-     *
-     * @param argsString Arguments string of the form: {@code preamble <prefix>value <prefix>value ...}
-     * @param prefix     Prefix to find in the arguments string
-     * @return           List of zero-based prefix positions of the given prefix in the given arguments string
+     * {@see findAllPrefixPositions}
      */
     private static List<PrefixPosition> findPrefixPositions(String argsString, Prefix prefix) {
         List<PrefixPosition> positions = new ArrayList<>();
@@ -66,8 +61,8 @@ public class ArgumentTokenizer {
     }
 
     /**
-     * Extracts prefixes and their argument values, and returns an ArgumentMultimap object that maps the extracted
-     * prefixes to their respective arguments. Prefixes are extracted based on their zero-based positions in
+     * Extracts prefixes and their argument values, and returns an {@code ArgumentMultimap} object that maps the
+     * extracted prefixes to their respective arguments. Prefixes are extracted based on their zero-based positions in
      * {@code argsString}.
      *
      * @param argsString      Arguments string of the form: {@code preamble <prefix>value <prefix>value ...}
