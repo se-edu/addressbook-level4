@@ -16,6 +16,9 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.testutil.TypicalTestPersons;
 
+/*
+ * An Integration Test class for interactions between logic and model.
+ */
 public abstract class CommandIntegrationTest {
 
     protected Model model;
