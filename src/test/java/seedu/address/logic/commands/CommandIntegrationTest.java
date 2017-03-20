@@ -25,7 +25,7 @@ public abstract class CommandIntegrationTest {
     protected Parser parser;
 
     @Before
-    public void setup() {
+    public void setUp() {
         ReadOnlyAddressBook typicalAddressBook = new TypicalTestPersons().getTypicalAddressBook();
         model = new ModelManager(typicalAddressBook, new UserPrefs());
         parser = new Parser();
