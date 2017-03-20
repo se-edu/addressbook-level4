@@ -16,9 +16,8 @@ public class ArgumentTokenizerTest {
 
     @Test
     public void tokenize_emptyArgsString_noValues() {
-        ArgumentTokenizer tokenizer = new ArgumentTokenizer(slashP);
         String argsString = "  ";
-        ArgumentMap argMap = tokenizer.tokenize(argsString);
+        ArgumentMap argMap = ArgumentTokenizer.tokenize(argsString, slashP);
 
         assertPreambleEmpty(argMap);
         assertArgumentAbsent(argMap, slashP);
@@ -52,9 +51,8 @@ public class ArgumentTokenizerTest {
 
     @Test
     public void tokenize_noPrefixes_allTakenAsPreamble() {
-        ArgumentTokenizer tokenizer = new ArgumentTokenizer();
         String argsString = "  some random string /t tag with leading and trailing spaces ";
-        ArgumentMap argMap = tokenizer.tokenize(argsString);
+        ArgumentMap argMap = ArgumentTokenizer.tokenize(argsString);
 
         // Same string expected as preamble, but leading/trailing spaces should be trimmed
         assertPreamblePresent(argMap, argsString.trim());
@@ -63,17 +61,15 @@ public class ArgumentTokenizerTest {
 
     @Test
     public void tokenize_oneArgument() {
-        ArgumentTokenizer tokenizer = new ArgumentTokenizer(slashP);
-
         // Preamble present
         String argsString = "  Some preamble string /p Argument value ";
-        ArgumentMap argMap = tokenizer.tokenize(argsString);
+        ArgumentMap argMap = ArgumentTokenizer.tokenize(argsString, slashP);
         assertPreamblePresent(argMap, "Some preamble string");
         assertArgumentPresent(argMap, slashP, "Argument value");
 
         // No preamble
         argsString = " /p   Argument value ";
-        argMap = tokenizer.tokenize(argsString);
+        argMap = ArgumentTokenizer.tokenize(argsString, slashP);
         assertPreambleEmpty(argMap);
         assertArgumentPresent(argMap, slashP, "Argument value");
 
@@ -81,11 +77,9 @@ public class ArgumentTokenizerTest {
 
     @Test
     public void tokenize_multipleArguments() {
-        ArgumentTokenizer tokenizer = new ArgumentTokenizer(slashP, dashT, hatQ);
-
         // Only two arguments are present
         String argsString = "SomePreambleString -t dashT-Value/pslashP value";
-        ArgumentMap argMap = tokenizer.tokenize(argsString);
+        ArgumentMap argMap = ArgumentTokenizer.tokenize(argsString, slashP, dashT, hatQ);
         assertPreamblePresent(argMap, "SomePreambleString");
         assertArgumentPresent(argMap, slashP, "slashP value");
         assertArgumentPresent(argMap, dashT, "dashT-Value");
@@ -95,7 +89,7 @@ public class ArgumentTokenizerTest {
 
         // All three arguments are present, no spaces before the prefixes
         argsString = "Different Preamble String^Q 111-t dashT-Value/p slashP value";
-        argMap = tokenizer.tokenize(argsString);
+        argMap = ArgumentTokenizer.tokenize(argsString, slashP, dashT, hatQ);
         assertPreamblePresent(argMap, "Different Preamble String");
         assertArgumentPresent(argMap, slashP, "slashP value");
         assertArgumentPresent(argMap, dashT, "dashT-Value");
@@ -106,7 +100,7 @@ public class ArgumentTokenizerTest {
         // Reuse tokenizer on an empty string to ensure ArgumentMap is correctly reset
         // (i.e. no stale values from the previous tokenizing remain)
         argsString = "";
-        argMap = tokenizer.tokenize(argsString);
+        argMap = ArgumentTokenizer.tokenize(argsString, slashP, dashT, hatQ);
         assertPreambleEmpty(argMap);
         assertArgumentAbsent(argMap, slashP);
 
@@ -114,18 +108,16 @@ public class ArgumentTokenizerTest {
 
         // Prefixes not previously given to the tokenizer should not return any values
         argsString = unknownPrefix.getPrefix() + "some value";
-        argMap = tokenizer.tokenize(argsString);
+        argMap = ArgumentTokenizer.tokenize(argsString, slashP, dashT, hatQ);
         assertArgumentAbsent(argMap, unknownPrefix);
         assertPreamblePresent(argMap, argsString); // Unknown prefix is taken as part of preamble
     }
 
     @Test
     public void tokenize_multipleArgumentsWithRepeats() {
-        ArgumentTokenizer tokenizer = new ArgumentTokenizer(slashP, dashT, hatQ);
-
         // Two arguments repeated, some have empty values
         String argsString = "SomePreambleString -t dashT-Value ^Q ^Q-t another dashT value /p slashP value -t";
-        ArgumentMap argMap = tokenizer.tokenize(argsString);
+        ArgumentMap argMap = ArgumentTokenizer.tokenize(argsString, slashP, dashT, hatQ);
         assertPreamblePresent(argMap, "SomePreambleString");
         assertArgumentPresent(argMap, slashP, "slashP value");
         assertArgumentPresent(argMap, dashT, "dashT-Value", "another dashT value", "");
