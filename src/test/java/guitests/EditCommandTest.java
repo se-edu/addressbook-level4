@@ -1,10 +1,12 @@
 package guitests;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
 import guitests.guihandles.PersonCardHandle;
+import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.TestPerson;
@@ -16,7 +18,7 @@ public class EditCommandTest extends AddressBookGuiTest {
     TestPerson[] expectedPersonsList = td.getTypicalPersons();
 
     @Test
-    public void edit_allFieldsSpecified_success() throws Exception {
+    public void edit_validCommand_success() throws Exception {
         String detailsToEdit = "Bobby p/91234567 e/bobby@gmail.com a/Block 123, Bobby Street 3 t/husband";
         int addressBookIndex = 1;
 
@@ -27,30 +29,9 @@ public class EditCommandTest extends AddressBookGuiTest {
     }
 
     @Test
-    public void edit_findThenEdit_success() throws Exception {
-        commandBox.runCommand("find Elle");
-
-        String detailsToEdit = "Belle";
-        int filteredPersonListIndex = 1;
-        int addressBookIndex = 5;
-
-        TestPerson personToEdit = expectedPersonsList[addressBookIndex - 1];
-        TestPerson editedPerson = new PersonBuilder(personToEdit).withName("Belle").build();
-
-        assertEditSuccess(filteredPersonListIndex, addressBookIndex, detailsToEdit, editedPerson);
-    }
-
-    @Test
-    public void edit_noFieldsSpecified_failure() {
-        commandBox.runCommand("edit 1");
-        assertResultMessage(EditCommand.MESSAGE_NOT_EDITED);
-    }
-
-    @Test
-    public void edit_duplicatePerson_failure() {
-        commandBox.runCommand("edit 3 Alice Pauline p/85355255 e/alice@gmail.com "
-                                + "a/123, Jurong West Ave 6, #08-111 t/friends");
-        assertResultMessage(EditCommand.MESSAGE_DUPLICATE_PERSON);
+    public void edit_invalidCommand_failure() {
+        assertFalse(commandBox.runCommand("edit 8 Bobby"));
+        assertResultMessage(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
     /**

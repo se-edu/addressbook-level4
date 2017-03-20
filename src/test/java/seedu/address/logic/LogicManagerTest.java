@@ -29,7 +29,6 @@ import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
@@ -51,6 +50,7 @@ import seedu.address.model.tag.UniqueTagList;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
 import seedu.address.storage.XmlAddressBookStorage;
+
 
 public class LogicManagerTest {
 
@@ -239,62 +239,7 @@ public class LogicManagerTest {
 
         // execute command and verify result
         assertCommandFailure(helper.generateAddCommand(toBeAdded),  AddCommand.MESSAGE_DUPLICATE_PERSON);
-    }
 
-
-    @Test
-    public void execute_edit_successful() throws Exception {
-        TestDataHelper helper = new TestDataHelper();
-        List<Person> threePersons = helper.generatePersonList(3);
-
-        AddressBook expectedAB = helper.generateAddressBook(threePersons);
-        helper.addToModel(model, threePersons);
-
-        // all fields specified
-        Person editedFirstPerson = helper.adam();
-        editedFirstPerson.setTags(new UniqueTagList("tag1", "tag2"));
-        expectedAB.updatePerson(0, editedFirstPerson);
-        assertCommandSuccess("edit 1 Adam Brown p/111111 e/adam@gmail.com a/111, alpha street t/tag1 t/tag2",
-                String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedFirstPerson),
-                expectedAB,
-                expectedAB.getPersonList());
-
-        // not all fields specified
-        Person editedSecondPerson = new Person(threePersons.get(1));
-        editedSecondPerson.setTags(new UniqueTagList("sweetie", "bestie"));
-        expectedAB.updatePerson(1, editedSecondPerson);
-        assertCommandSuccess("edit 2 t/sweetie t/bestie",
-                String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedSecondPerson),
-                expectedAB,
-                expectedAB.getPersonList());
-
-        // clear tags
-        Person editedThirdPerson = new Person(threePersons.get(2));
-        editedThirdPerson.setTags(new UniqueTagList());
-        expectedAB.updatePerson(2, editedThirdPerson);
-        assertCommandSuccess("edit 3 t/",
-                String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedThirdPerson),
-                expectedAB,
-                expectedAB.getPersonList());
-    }
-
-    @Test
-    public void execute_edit_invalidValues() {
-        assertCommandFailure("edit 1 *&", Name.MESSAGE_NAME_CONSTRAINTS);
-        assertCommandFailure("edit 1 p/abcd", Phone.MESSAGE_PHONE_CONSTRAINTS);
-        assertCommandFailure("edit 1 e/yahoo!!!", Email.MESSAGE_EMAIL_CONSTRAINTS);
-        assertCommandFailure("edit 1 a/", Address.MESSAGE_ADDRESS_CONSTRAINTS);
-        assertCommandFailure("edit 1 t/*&", Tag.MESSAGE_TAG_CONSTRAINTS);
-    }
-
-    @Test
-    public void execute_edit_invalidPersonIndex() {
-        assertCommandFailure("edit 8 Bobby", MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
-    }
-
-    @Test
-    public void execute_edit_missingPersonIndex() {
-        assertCommandFailure("edit Bobby", String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
     }
 
 
