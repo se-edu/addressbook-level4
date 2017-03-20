@@ -15,17 +15,17 @@ import java.util.List;
 public class ArgumentTokenizer {
 
     /**
-     * Tokenizes an arguments string and returns an ArgumentMap object that maps prefixes to their respective argument
-     * values. Only the given prefixes will be recognized in the arguments string.
+     * Tokenizes an arguments string and returns an ArgumentMultimap object that maps prefixes to their respective
+     * argument values. Only the given prefixes will be recognized in the arguments string.
      *
      * @param argsString Arguments string of the form: {@code preamble <prefix>value <prefix>value ...}
      * @param prefixes   Prefixes to tokenize the arguments string with
-     * @return           ArgumentMap object that maps prefixes to their arguments
+     * @return           ArgumentMultimap object that maps prefixes to their arguments
      */
-    public static ArgumentMap tokenize(String argsString, Prefix... prefixes) {
+    public static ArgumentMultimap tokenize(String argsString, Prefix... prefixes) {
         List<PrefixPosition> positions = findAllPrefixPositions(argsString, prefixes);
-        ArgumentMap argumentMap = extractArguments(argsString, positions);
-        return argumentMap;
+        ArgumentMultimap argMultimap = extractArguments(argsString, positions);
+        return argMultimap;
     }
 
     /**
@@ -33,7 +33,7 @@ public class ArgumentTokenizer {
      *
      * @param argsString Arguments string of the form: {@code preamble <prefix>value <prefix>value ...}
      * @param prefixes   Prefixes to find in the arguments string
-     * @return           List of zero-based prefix positions in the given arguments string.
+     * @return           List of zero-based prefix positions in the given arguments string
      */
     private static List<PrefixPosition> findAllPrefixPositions(String argsString, Prefix... prefixes) {
         List<PrefixPosition> positions = new ArrayList<>();
@@ -50,7 +50,7 @@ public class ArgumentTokenizer {
      *
      * @param argsString Arguments string of the form: {@code preamble <prefix>value <prefix>value ...}
      * @param prefix     Prefix to find in the arguments string
-     * @return           List of zero-based prefix positions of the given prefix in the given arguments string.
+     * @return           List of zero-based prefix positions of the given prefix in the given arguments string
      */
     private static List<PrefixPosition> findPrefixPositions(String argsString, Prefix prefix) {
         List<PrefixPosition> positions = new ArrayList<>();
@@ -66,14 +66,15 @@ public class ArgumentTokenizer {
     }
 
     /**
-     * Extracts prefixes and their argument values, and returns an ArgumentMap object that maps the extracted prefixes
-     * to their respective arguments. Prefixes are extracted based on their zero-based positions in {@code argsString}.
+     * Extracts prefixes and their argument values, and returns an ArgumentMultimap object that maps the extracted
+     * prefixes to their respective arguments. Prefixes are extracted based on their zero-based positions in
+     * {@code argsString}.
      *
      * @param argsString      Arguments string of the form: {@code preamble <prefix>value <prefix>value ...}
      * @param prefixPositions Zero-based positions of all prefixes in {@code argsString}
-     * @return                ArgumentMap object that maps prefixes to their arguments
+     * @return                ArgumentMultimap object that maps prefixes to their arguments
      */
-    private static ArgumentMap extractArguments(String argsString, List<PrefixPosition> prefixPositions) {
+    private static ArgumentMultimap extractArguments(String argsString, List<PrefixPosition> prefixPositions) {
 
         // Sort by start position
         prefixPositions.sort((prefix1, prefix2) -> prefix1.getStartPosition() - prefix2.getStartPosition());
@@ -87,19 +88,15 @@ public class ArgumentTokenizer {
         prefixPositions.add(endPositionMarker);
 
         // Map prefixes to their argument values (if any)
-        ArgumentMap argMap = new ArgumentMap();
+        ArgumentMultimap argMultimap = new ArgumentMultimap();
         for (int i = 0; i < prefixPositions.size() - 1; i++) {
-            // Extract prefixes and their arguments
+            // Extract and store prefixes and their arguments
             Prefix argPrefix = prefixPositions.get(i).getPrefix();
             String argValue = extractArgumentValue(argsString, prefixPositions.get(i), prefixPositions.get(i + 1));
-
-            // Append extracted argument to any previously encountered arguments with the same prefix
-            List<String> argValues = new ArrayList<>(argMap.getAllValues(argPrefix));
-            argValues.add(argValue);
-            argMap.put(argPrefix, argValues);
+            argMultimap.put(argPrefix, argValue);
         }
 
-        return argMap;
+        return argMultimap;
     }
 
     /**

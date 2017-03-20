@@ -10,33 +10,33 @@ import java.util.Optional;
 /**
  * Stores mapping of prefixes to their respective arguments.
  */
-public class ArgumentMap {
+public class ArgumentMultimap {
 
     /** Prefixes mapped to their respective arguments**/
-    private final Map<Prefix, List<String>> argMap;
+    private final Map<Prefix, List<String>> argMultimap;
 
     /**
-     * Creates an ArgumentMap object that stores the mapping of prefixes to their respective arguments.
+     * Creates an ArgumentMultimap object that stores the mapping of prefixes to their respective arguments.
      */
-    public ArgumentMap() {
-        argMap = new HashMap<>();
+    public ArgumentMultimap() {
+        argMultimap = new HashMap<>();
     }
 
     /**
      * Associates the specified argument value with the specified prefix key in this map.
-     * If the map previously contained a mapping for the key, the old value is replaced.
+     * If the map previously contained a mapping for the key, the new value is appended to the list of existing values.
      *
-     * @param prefix    Prefix key with which the specified argument value is to be associated
-     * @param arguments Argument value to be associated with the specified prefix key
-     * @return          The previous value associated with key, or null if there was no mapping for key.
-     *                  (A null return can also indicate that the map previously associated null with key.)
+     * @param prefix   Prefix key with which the specified argument value is to be associated
+     * @param argValue Argument value to be associated with the specified prefix key
      */
-    public List<String> put(Prefix prefix, List<String> arguments) {
-        return argMap.put(prefix, arguments);
+    public void put(Prefix prefix, String argValue) {
+        List<String> argValues = new ArrayList<>(getAllValues(prefix));
+        argValues.add(argValue);
+        argMultimap.put(prefix, argValues);
     }
 
     /**
-     * Returns the last value of the given prefix
+     * Returns the last value of the given prefix.
      */
     public Optional<String> getValue(Prefix prefix) {
         List<String> values = getAllValues(prefix);
@@ -48,10 +48,10 @@ public class ArgumentMap {
      * If the prefix does not exist or has no values, this will return an empty list.
      */
     public List<String> getAllValues(Prefix prefix) {
-        if (!argMap.containsKey(prefix)) {
+        if (!argMultimap.containsKey(prefix)) {
             return Collections.emptyList();
         }
-        return new ArrayList<>(argMap.get(prefix));
+        return new ArrayList<>(argMultimap.get(prefix));
     }
 
     /**
