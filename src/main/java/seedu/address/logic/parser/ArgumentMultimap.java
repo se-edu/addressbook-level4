@@ -1,7 +1,6 @@
 package seedu.address.logic.parser;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -9,6 +8,8 @@ import java.util.Optional;
 
 /**
  * Stores mapping of prefixes to their respective arguments.
+ * Each key may be associated with multiple argument values.
+ * Values for a given key are stored in a list, and the insertion ordering is maintained.
  */
 public class ArgumentMultimap {
 
@@ -30,7 +31,7 @@ public class ArgumentMultimap {
      * @param argValue Argument value to be associated with the specified prefix key
      */
     public void put(Prefix prefix, String argValue) {
-        List<String> argValues = new ArrayList<>(getAllValues(prefix));
+        List<String> argValues = getAllValues(prefix);
         argValues.add(argValue);
         argMultimap.put(prefix, argValues);
     }
@@ -48,10 +49,7 @@ public class ArgumentMultimap {
      * If the prefix does not exist or has no values, this will return an empty list.
      */
     public List<String> getAllValues(Prefix prefix) {
-        if (!argMultimap.containsKey(prefix)) {
-            return Collections.emptyList();
-        }
-        return new ArrayList<>(argMultimap.get(prefix));
+        return argMultimap.getOrDefault(prefix, new ArrayList<>());
     }
 
     /**
