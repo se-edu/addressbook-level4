@@ -19,18 +19,9 @@
     * Support for *Build Automation* using Gradle and for *Continuous Integration* using Travis CI.
 
 
-#### Ways To Contribute
+#### Contribute to this repo
 
-* Pull Requests. Before you submit your pull request, please skim through our [guideline for submitting a PR](https://github.com/oss-generic/process/blob/master/docs/QuestionsIssuesPrs.md#submitting-a-pr).<br>
-  Key checkpoints include:
-  - [ ] Have you named your branch in the correct format? When in doubt, [check this guideline](https://github.com/oss-generic/process/blob/master/docs/FormatsAndConventions.md#branch).
-  - [ ] Have you named your PR in the correct format? When in doubt, [check this guideline](https://github.com/oss-generic/process/blob/master/docs/FormatsAndConventions.md#pr).
-  - [ ] Is your commit message clear? When in doubt, [check this guideline](https://github.com/oss-generic/process/blob/master/docs/FormatsAndConventions.md#commit-message).
-  - [ ] Are your commits organized? When in doubt, [check this guideline](https://github.com/oss-generic/process/blob/master/docs/FormatsAndConventions.md#commit-organization).
-  - [ ] Do you know how to use the [CanIHasReview tool](https://github.com/pyokagan/canihasreview/)?
-  - [ ] Do you know how to run Gradle build locally? Follow [this guide](https://github.com/se-edu/addressbook-level4/blob/master/docs/UsingGradle.md#using-gradle) to learn about using Gradle.
-
-* Issues. Before posting an issue in the issue tracker, please skim through our [guideline for posting an issue](https://github.com/oss-generic/process/blob/master/docs/QuestionsIssuesPrs.md#posting-an-issue).
+We welcome contributions from the community. To get started, please read through our [developer guide](docs/DeveloperGuide.md) and [CONTRIBUTING.md](CONTRIBUTING.md). You can also refer to [NUS OSS-Generic Process Repo](https://github.com/oss-generic/process) for more best practices on contributing to open source projects, like this one.
 
 
 #### Site Map
