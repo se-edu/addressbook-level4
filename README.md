@@ -19,6 +19,11 @@
     * Support for *Build Automation* using Gradle and for *Continuous Integration* using Travis CI.
 
 
+#### Contribute to this repo
+
+We welcome contributions from the community. To get started, please read through our [developer guide](docs/DeveloperGuide.md) and [CONTRIBUTING.md](CONTRIBUTING.md). You can also refer to [NUS OSS-Generic Process Repo](https://github.com/oss-generic/process) for more best practices on contributing to open source projects, like this one.
+
+
 #### Site Map
 * [User Guide](docs/UserGuide.md)
 * [Developer Guide](docs/DeveloperGuide.md)
