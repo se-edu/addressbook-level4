@@ -23,7 +23,7 @@ import seedu.address.commons.util.CollectionUtil;
  * @see Tag#equals(Object)
  * @see CollectionUtil#elementsAreUnique(Collection)
  */
-public class UniqueTagList implements Iterable<Tag> {
+public class UniqueTagList implements ReadOnlyUniqueTagList {
 
     private final ObservableList<Tag> internalList = FXCollections.observableArrayList();
 
@@ -76,11 +76,11 @@ public class UniqueTagList implements Iterable<Tag> {
     }
 
     /**
-     * Creates a copy of the given list.
+     * Creates a copy of the given read-only list.
      * Insulates from changes in source.
      */
-    public UniqueTagList(UniqueTagList source) {
-        internalList.addAll(source.internalList); // insulate internal list from changes in argument
+    public UniqueTagList(ReadOnlyUniqueTagList source) {
+        internalList.addAll(source.toSet());
     }
 
     /**
@@ -94,8 +94,8 @@ public class UniqueTagList implements Iterable<Tag> {
     /**
      * Replaces the Tags in this list with those in the argument tag list.
      */
-    public void setTags(UniqueTagList replacement) {
-        this.internalList.setAll(replacement.internalList);
+    public void setTags(ReadOnlyUniqueTagList replacement) {
+        this.internalList.setAll(replacement.toSet());
     }
 
     public void setTags(Collection<Tag> tags) throws DuplicateTagException {
@@ -109,9 +109,9 @@ public class UniqueTagList implements Iterable<Tag> {
     /**
      * Ensures every tag in the argument list exists in this object.
      */
-    public void mergeFrom(UniqueTagList from) {
+    public void mergeFrom(ReadOnlyUniqueTagList from) {
         final Set<Tag> alreadyInside = this.toSet();
-        from.internalList.stream()
+        from.toSet().stream()
                 .filter(tag -> !alreadyInside.contains(tag))
                 .forEach(internalList::add);
     }
@@ -154,8 +154,8 @@ public class UniqueTagList implements Iterable<Tag> {
                 ((UniqueTagList) other).internalList));
     }
 
-    public boolean equalsOrderInsensitive(UniqueTagList other) {
-        return this == other || new HashSet<>(this.internalList).equals(new HashSet<>(other.internalList));
+    public boolean equalsOrderInsensitive(ReadOnlyUniqueTagList other) {
+        return this == other || new HashSet<>(this.internalList).equals(new HashSet<>(other.toSet()));
     }
 
     @Override

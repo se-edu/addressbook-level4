@@ -3,6 +3,7 @@ package seedu.address.model.person;
 import java.util.Objects;
 
 import seedu.address.commons.util.CollectionUtil;
+import seedu.address.model.tag.ReadOnlyUniqueTagList;
 import seedu.address.model.tag.UniqueTagList;
 
 /**
@@ -21,7 +22,7 @@ public class Person implements ReadOnlyPerson {
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, UniqueTagList tags) {
+    public Person(Name name, Phone phone, Email email, Address address, ReadOnlyUniqueTagList tags) {
         assert !CollectionUtil.isAnyNull(name, phone, email, address, tags);
         this.name = name;
         this.phone = phone;
@@ -85,7 +86,7 @@ public class Person implements ReadOnlyPerson {
     /**
      * Replaces this person's tags with the tags in the argument tag list.
      */
-    public void setTags(UniqueTagList replacement) {
+    public void setTags(ReadOnlyUniqueTagList replacement) {
         tags.setTags(replacement);
     }
 

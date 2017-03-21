@@ -9,7 +9,7 @@ import javafx.scene.control.Labeled;
 import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 import seedu.address.model.person.ReadOnlyPerson;
-import seedu.address.model.tag.UniqueTagList;
+import seedu.address.model.tag.ReadOnlyUniqueTagList;
 
 /**
  * Provides a handle to a person card in the person list panel.
@@ -60,7 +60,7 @@ public class PersonCardHandle extends GuiHandle {
                 .collect(Collectors.toList());
     }
 
-    private List<String> getTags(UniqueTagList tags) {
+    private List<String> getTags(ReadOnlyUniqueTagList tags) {
         return tags
                 .asObservableList()
                 .stream()
