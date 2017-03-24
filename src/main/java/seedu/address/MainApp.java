@@ -75,8 +75,12 @@ public class MainApp extends Application {
     }
 
     private String getApplicationParameter(String parameterName) {
-        Map<String, String> applicationParameters = getParameters().getNamed();
-        return applicationParameters.get(parameterName);
+        if (getParameters() == null) {
+            return null;
+        } else {
+            Map<String, String> applicationParameters = getParameters().getNamed();
+            return applicationParameters.get(parameterName);
+        }
     }
 
     private Model initModelManager(Storage storage, UserPrefs userPrefs) {
