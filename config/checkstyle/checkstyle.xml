@@ -209,7 +209,7 @@
       <property name="severity" value="warning"/>
       <property name="tokens" value="LITERAL_FOR, LITERAL_WHILE, LITERAL_DO, LITERAL_IF, LITERAL_ELSE"/>
       <!--
-      if (true) return 1; // Allowed
+      if (true) return 1; // Not allowed for debugging purposes
 
       if (true) { return 1; } // Not allowed
 
@@ -221,7 +221,7 @@
         return 1; // Not allowed
       -->
       <property name="allowEmptyLoopBody" value="true"/>
-      <property name="allowSingleLineStatement" value="true"/>
+      <property name="allowSingleLineStatement" value="false"/>
     </module>
 
     <module name="UpperEll">
