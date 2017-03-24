@@ -162,6 +162,11 @@
     LENGTH and CODING CHECKS
     -->
 
+    <module name="ArrayTypeStyle">
+      <!-- Checks that array type declarations follow Java Style -->
+      <property name="severity" value="error"/>
+    </module>
+
     <module name ="DeclarationOrder">
       <!-- Checks if the Class and Interface declarations is organized in order -->
       <property name="severity" value="warning"/>
