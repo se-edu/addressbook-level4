@@ -162,6 +162,11 @@
     LENGTH and CODING CHECKS
     -->
 
+    <module name ="DeclarationOrder">
+      <!-- Checks if the Class and Interface declarations is organized in order -->
+      <property name="severity" value="warning"/>
+    </module>
+
     <module name="LineLength">
       <!-- Checks if a line is too long. -->
       <property name="max" value="120"/>
