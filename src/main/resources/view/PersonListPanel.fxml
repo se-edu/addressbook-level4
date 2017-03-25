@@ -9,7 +9,5 @@
     <URL value="@DarkTheme.css" />
     <URL value="@Extensions.css" />
   </stylesheets>
-  <children>
-    <ListView fx:id="personListView" VBox.vgrow="ALWAYS" />
-  </children>
+  <ListView fx:id="personListView" VBox.vgrow="ALWAYS" />
 </VBox>
