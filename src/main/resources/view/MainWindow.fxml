@@ -19,7 +19,6 @@
     <Menu mnemonicParsing="false" text="File">
       <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
     </Menu>
-
     <Menu mnemonicParsing="false" text="Help">
       <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
     </Menu>
@@ -27,29 +26,28 @@
 
   <AnchorPane VBox.vgrow="NEVER" fx:id="commandBoxPlaceholder" styleClass="anchor-pane-with-border">
     <padding>
-      <Insets top="5.0" bottom="5.0" left="10.0" right="10.0" />
+      <Insets top="5.0" bottom="5.0" left="10.0" right="10.0"/>
     </padding>
   </AnchorPane>
 
   <AnchorPane VBox.vgrow="NEVER" fx:id="resultDisplayPlaceholder" styleClass="anchor-pane-with-border"
     minHeight="100" prefHeight="100" maxHeight="100">
     <padding>
-      <Insets top="5.0" bottom="5.0" left="10.0" right="10.0" />
+      <Insets top="5.0" bottom="5.0" left="10.0" right="10.0"/>
     </padding>
   </AnchorPane>
 
   <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.4" VBox.vgrow="ALWAYS">
     <VBox fx:id="personList" minWidth="340" prefWidth="340">
       <padding>
-        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
       </padding>
-
-      <AnchorPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS" />
+      <AnchorPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
     </VBox>
 
     <AnchorPane fx:id="browserPlaceholder" prefWidth="340" >
       <padding>
-        <Insets top="10" bottom="10" left="10" right="10" />
+        <Insets top="10" bottom="10" left="10" right="10"/>
       </padding>
     </AnchorPane>
   </SplitPane>
