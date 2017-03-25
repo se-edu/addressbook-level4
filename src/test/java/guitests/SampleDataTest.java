@@ -7,7 +7,7 @@ import org.junit.Test;
 import seedu.address.model.AddressBook;
 import seedu.address.model.person.Person;
 import seedu.address.model.util.SampleDataUtil;
-import seedu.address.testutil.TestUtil;
+import seedu.address.testutil.TemporaryFilesUtil;
 
 public class SampleDataTest extends AddressBookGuiTest {
     @Override
@@ -19,7 +19,7 @@ public class SampleDataTest extends AddressBookGuiTest {
     @Override
     protected String getDataFileLocation() {
         // return a non-existent file location to force test app to load sample data
-        return TestUtil.getFilePathInSandboxFolder("SomeFileThatDoesNotExist1234567890.xml");
+        return TemporaryFilesUtil.getFilePathInSandboxFolder("SomeFileThatDoesNotExist1234567890.xml");
     }
 
     @Test

@@ -3,7 +3,7 @@ package guitests;
 import org.testfx.api.FxRobot;
 
 import javafx.scene.input.KeyCodeCombination;
-import seedu.address.testutil.TestUtil;
+import seedu.address.testutil.TestKeyCodeUtil;
 
 /**
  * Robot used to simulate user actions on the GUI.
@@ -12,7 +12,7 @@ import seedu.address.testutil.TestUtil;
 public class GuiRobot extends FxRobot {
 
     public GuiRobot push(KeyCodeCombination keyCodeCombination) {
-        return (GuiRobot) super.push(TestUtil.scrub(keyCodeCombination));
+        return (GuiRobot) super.push(TestKeyCodeUtil.scrub(keyCodeCombination));
     }
 
 }
