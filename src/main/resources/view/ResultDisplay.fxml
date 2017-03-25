@@ -1,15 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.net.URL?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.layout.AnchorPane?>
 
 <AnchorPane fx:id="placeHolder" styleClass="anchor-pane-with-border" xmlns="http://javafx.com/javafx/8"
   xmlns:fx="http://javafx.com/fxml/1">
-  <stylesheets>
-    <URL value="@DarkTheme.css"/>
-    <URL value="@Extensions.css"/>
-  </stylesheets>
   <AnchorPane fx:id="mainPane">
     <TextArea fx:id="resultDisplay" editable="false" styleClass="result-display"/>
   </AnchorPane>
