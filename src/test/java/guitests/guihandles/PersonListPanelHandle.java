@@ -15,7 +15,8 @@ import javafx.stage.Stage;
 import seedu.address.TestApp;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.ReadOnlyPerson;
-import seedu.address.testutil.TestUtil;
+import seedu.address.testutil.NodeTestUtil;
+import seedu.address.testutil.PersonCardTestUtil;
 
 /**
  * Provides a handle for the panel containing the person list.
@@ -63,7 +64,7 @@ public class PersonListPanelHandle extends GuiHandle {
             final int scrollTo = i + startPosition;
             guiRobot.interact(() -> getListView().scrollTo(scrollTo));
             guiRobot.sleep(200);
-            if (!TestUtil.compareCardAndPerson(getPersonCardHandle(startPosition + i), persons[i])) {
+            if (!PersonCardTestUtil.isPersonSameAsPersonOnCard(getPersonCardHandle(startPosition + i), persons[i])) {
                 return false;
             }
         }
@@ -74,7 +75,7 @@ public class PersonListPanelHandle extends GuiHandle {
      * Clicks on the ListView.
      */
     public void clickOnListView() {
-        Point2D point = TestUtil.getScreenMidPoint(getListView());
+        Point2D point = NodeTestUtil.getScreenMidPoint(getListView());
         guiRobot.clickOn(point.getX(), point.getY());
     }
 
