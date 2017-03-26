@@ -38,7 +38,7 @@ public class TypicalPersons {
             ida = new PersonBuilder().withName("Ida Mueller").withPhone("8482131")
                     .withEmail("hans@example.com").withAddress("chicago ave").build();
         } catch (IllegalValueException e) {
-            throw new AssertionError("sample data cannot be invalid", e);
+            throw new AssertionError("Sample data cannot be invalid", e);
         }
     }
 
