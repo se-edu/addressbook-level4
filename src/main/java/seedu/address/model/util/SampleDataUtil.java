@@ -44,11 +44,11 @@ public class SampleDataUtil {
 
     public static ReadOnlyAddressBook getSampleAddressBook() {
         try {
-            AddressBook sampleAB = new AddressBook();
+            AddressBook sampleAb = new AddressBook();
             for (Person samplePerson : getSamplePersons()) {
-                sampleAB.addPerson(samplePerson);
+                sampleAb.addPerson(samplePerson);
             }
-            return sampleAB;
+            return sampleAb;
         } catch (DuplicatePersonException e) {
             throw new AssertionError("sample data cannot contain duplicate persons", e);
         }
