@@ -81,11 +81,11 @@
     <!--
     NAMING CHECKS
     -->
+
+    <!-- Validate abbreviations (consecutive capital letters) length in identifier name -->
     <module name="AbbreviationAsWordInName">
-      <!-- Validate abbreviations (consecutive capital letters) length in identifier name -->
       <property name="ignoreFinal" value="false"/>
       <property name="allowedAbbreviationLength" value="1"/>
-      <property name="severity" value="error"/>
     </module>
 
     <module name="PackageName">
