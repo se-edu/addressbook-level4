@@ -303,5 +303,11 @@
       <property name="severity" value="warning"/>
     </module>
 
+    <module name="AtclauseOrder">
+      <!-- Checks that the order of at-clauses follows the tagOrder property value order. -->
+      <property name="severity" value="error"/>
+      <property name="tagOrder" value="@param, @return, @throws, @exception, @deprecated"/>
+      <property name="target" value="CLASS_DEF, INTERFACE_DEF, ENUM_DEF, METHOD_DEF, CTOR_DEF, VARIABLE_DEF"/>
+    </module>
   </module>
 </module>
