@@ -19,8 +19,8 @@ import seedu.address.model.person.ReadOnlyPerson;
  * Panel containing the list of persons.
  */
 public class PersonListPanel extends UiPart<Region> {
-    private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
     private static final String FXML = "PersonListPanel.fxml";
+    private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
 
     @FXML
     private ListView<ReadOnlyPerson> personListView;
