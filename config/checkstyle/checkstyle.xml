@@ -235,7 +235,11 @@
       <property name="severity" value="error"/>
     </module>
 
-    <module name="MissingSwitchDefault"/>
+    <!-- Checks that Class variables should never be declared public. -->
+    <module name="VisibilityModifier">
+      <property name="protectedAllowed" value="true"/>
+      <property name="allowPublicFinalFields" value="true"/>
+    </module>
 
     <!--
     ORDER CHECKS

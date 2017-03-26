@@ -53,7 +53,7 @@ public abstract class AddressBookGuiTest {
     protected BrowserPanelHandle browserPanel;
     protected StatusBarFooterHandle statusBarFooter;
 
-    TestApp testApp;
+    private TestApp testApp;
     private Stage stage;
 
     @BeforeClass
