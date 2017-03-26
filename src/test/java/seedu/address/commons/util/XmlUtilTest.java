@@ -28,25 +28,25 @@ public class XmlUtilTest {
     public ExpectedException thrown = ExpectedException.none();
 
     @Test
-    public void getDataFromFile_nullFile_AssertionError() throws Exception {
+    public void getDataFromFile_nullFile_assertionError() throws Exception {
         thrown.expect(AssertionError.class);
         XmlUtil.getDataFromFile(null, AddressBook.class);
     }
 
     @Test
-    public void getDataFromFile_nullClass_AssertionError() throws Exception {
+    public void getDataFromFile_nullClass_assertionError() throws Exception {
         thrown.expect(AssertionError.class);
         XmlUtil.getDataFromFile(VALID_FILE, null);
     }
 
     @Test
-    public void getDataFromFile_missingFile_FileNotFoundException() throws Exception {
+    public void getDataFromFile_missingFile_fileNotFoundException() throws Exception {
         thrown.expect(FileNotFoundException.class);
         XmlUtil.getDataFromFile(MISSING_FILE, AddressBook.class);
     }
 
     @Test
-    public void getDataFromFile_emptyFile_DataFormatMismatchException() throws Exception {
+    public void getDataFromFile_emptyFile_dataFormatMismatchException() throws Exception {
         thrown.expect(JAXBException.class);
         XmlUtil.getDataFromFile(EMPTY_FILE, AddressBook.class);
     }
@@ -59,19 +59,19 @@ public class XmlUtilTest {
     }
 
     @Test
-    public void saveDataToFile_nullFile_AssertionError() throws Exception {
+    public void saveDataToFile_nullFile_assertionError() throws Exception {
         thrown.expect(AssertionError.class);
         XmlUtil.saveDataToFile(null, new AddressBook());
     }
 
     @Test
-    public void saveDataToFile_nullClass_AssertionError() throws Exception {
+    public void saveDataToFile_nullClass_assertionError() throws Exception {
         thrown.expect(AssertionError.class);
         XmlUtil.saveDataToFile(VALID_FILE, null);
     }
 
     @Test
-    public void saveDataToFile_missingFile_FileNotFoundException() throws Exception {
+    public void saveDataToFile_missingFile_fileNotFoundException() throws Exception {
         thrown.expect(FileNotFoundException.class);
         XmlUtil.saveDataToFile(MISSING_FILE, new AddressBook());
     }
