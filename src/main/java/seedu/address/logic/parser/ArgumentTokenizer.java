@@ -33,7 +33,7 @@ public class ArgumentTokenizer {
     }
 
     /**
-     * @param argsString arguments string of the form: preamble <prefix>value <prefix>value ...
+     * @param argsString arguments string of the form: preamble (prefix)value (prefix)value ...
      */
     public void tokenize(String argsString) {
         resetTokenizerState();
