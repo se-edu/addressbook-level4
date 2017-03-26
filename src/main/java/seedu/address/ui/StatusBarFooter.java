@@ -35,12 +35,21 @@ public class StatusBarFooter extends UiPart<Region> {
 
     private static final Logger logger = LogsCenter.getLogger(StatusBarFooter.class);
 
+    private static final String FXML = "StatusBarFooter.fxml";
+
     @FXML
     private StatusBar syncStatus;
     @FXML
     private StatusBar saveLocationStatus;
 
-    private static final String FXML = "StatusBarFooter.fxml";
+
+    public StatusBarFooter(AnchorPane placeHolder, String saveLocation) {
+        super(FXML);
+        addToPlaceholder(placeHolder);
+        setSyncStatus(SYNC_STATUS_INITIAL);
+        setSaveLocation("./" + saveLocation);
+        registerAsAnEventHandler(this);
+    }
 
     /**
      * Sets the clock used to determine the current time.
@@ -54,14 +63,6 @@ public class StatusBarFooter extends UiPart<Region> {
      */
     public static Clock getClock() {
         return clock;
-    }
-
-    public StatusBarFooter(AnchorPane placeHolder, String saveLocation) {
-        super(FXML);
-        addToPlaceholder(placeHolder);
-        setSyncStatus(SYNC_STATUS_INITIAL);
-        setSaveLocation("./" + saveLocation);
-        registerAsAnEventHandler(this);
     }
 
     private void addToPlaceholder(AnchorPane placeHolder) {
