@@ -307,5 +307,6 @@
       <!-- Checks that there is no whitespace before close parenthesis or after open parenthesis. -->
       <property name="severity" value="warning"/>
     </module>
+
   </module>
 </module>
