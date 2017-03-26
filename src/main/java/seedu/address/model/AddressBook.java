@@ -48,7 +48,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         resetData(toBeCopied);
     }
 
-//// list overwrite operations
+    //// list overwrite operations
 
     public void setPersons(List<? extends ReadOnlyPerson> persons)
             throws UniquePersonList.DuplicatePersonException {
@@ -74,7 +74,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         syncMasterTagListWith(persons);
     }
 
-//// person-level operations
+    //// person-level operations
 
     /**
      * Adds a person to the address book.
@@ -147,13 +147,13 @@ public class AddressBook implements ReadOnlyAddressBook {
         }
     }
 
-//// tag-level operations
+    //// tag-level operations
 
     public void addTag(Tag t) throws UniqueTagList.DuplicateTagException {
         tags.add(t);
     }
 
-//// util methods
+    //// util methods
 
     @Override
     public String toString() {
