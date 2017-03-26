@@ -22,11 +22,10 @@ import seedu.address.testutil.TypicalTestPersons;
 
 public class StorageManagerTest {
 
-    private StorageManager storageManager;
-
     @Rule
     public TemporaryFolder testFolder = new TemporaryFolder();
 
+    private StorageManager storageManager;
 
     @Before
     public void setUp() {
