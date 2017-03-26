@@ -53,7 +53,6 @@ public abstract class AddressBookGuiTest {
     protected BrowserPanelHandle browserPanel;
     protected StatusBarFooterHandle statusBarFooter;
 
-    TestApp testApp;
     private Stage stage;
 
     @BeforeClass
@@ -79,7 +78,7 @@ public abstract class AddressBookGuiTest {
             this.stage = stage;
         });
         EventsCenter.clearSubscribers();
-        testApp = (TestApp) FxToolkit.setupApplication(() -> new TestApp(this::getInitialData, getDataFileLocation()));
+        FxToolkit.setupApplication(() -> new TestApp(this::getInitialData, getDataFileLocation()));
         FxToolkit.showStage();
         while (!stage.isShowing());
         mainGui.focusOnMainApp();

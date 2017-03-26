@@ -7,7 +7,7 @@ import seedu.address.commons.events.BaseEvent;
  */
 public class DataSavingExceptionEvent extends BaseEvent {
 
-    public Exception exception;
+    public final Exception exception;
 
     public DataSavingExceptionEvent(Exception exception) {
         this.exception = exception;
