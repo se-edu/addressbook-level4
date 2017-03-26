@@ -10,7 +10,7 @@ import seedu.address.model.person.UniquePersonList;
  */
 public class TypicalPersons {
 
-    public Person alice, benson, carl, daniel, elle, fiona, george, hoon, ida;
+    public final Person alice, benson, carl, daniel, elle, fiona, george, hoon, ida;
 
     public TypicalPersons() {
         try {
@@ -38,8 +38,7 @@ public class TypicalPersons {
             ida = new PersonBuilder().withName("Ida Mueller").withPhone("8482131")
                     .withEmail("hans@example.com").withAddress("chicago ave").build();
         } catch (IllegalValueException e) {
-            e.printStackTrace();
-            assert false : "not possible";
+            throw new AssertionError("Sample data cannot be invalid", e);
         }
     }
 
