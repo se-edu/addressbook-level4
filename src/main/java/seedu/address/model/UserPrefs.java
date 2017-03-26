@@ -9,7 +9,7 @@ import seedu.address.commons.core.GuiSettings;
  */
 public class UserPrefs {
 
-    public GuiSettings guiSettings;
+    private GuiSettings guiSettings;
     private String addressBookFilePath = "data/addressbook.xml";
     private String addressBookName = "MyAddressBook";
 

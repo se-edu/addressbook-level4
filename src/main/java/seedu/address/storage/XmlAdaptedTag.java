@@ -11,7 +11,7 @@ import seedu.address.model.tag.Tag;
 public class XmlAdaptedTag {
 
     @XmlValue
-    public String tagName;
+    private String tagName;
 
     /**
      * Constructs an XmlAdaptedTag.
