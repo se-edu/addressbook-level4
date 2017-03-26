@@ -10,37 +10,22 @@ import seedu.address.model.person.UniquePersonList;
  */
 public class TypicalPersons {
 
-    public Person alice, benson, carl, daniel, elle, fiona, george, hoon, ida;
+    public final Person alice, benson, carl, daniel, elle, fiona, george, hoon, ida;
 
     public TypicalPersons() {
-        try {
-            alice = new PersonBuilder().withName("Alice Pauline")
-                    .withAddress("123, Jurong West Ave 6, #08-111").withEmail("alice@example.com")
-                    .withPhone("85355255")
-                    .withTags("friends").build();
-            benson = new PersonBuilder().withName("Benson Meier").withAddress("311, Clementi Ave 2, #02-25")
-                    .withEmail("johnd@example.com").withPhone("98765432")
-                    .withTags("owesMoney", "friends").build();
-            carl = new PersonBuilder().withName("Carl Kurz").withPhone("95352563")
-                    .withEmail("heinz@example.com").withAddress("wall street").build();
-            daniel = new PersonBuilder().withName("Daniel Meier").withPhone("87652533")
-                    .withEmail("cornelia@example.com").withAddress("10th street").build();
-            elle = new PersonBuilder().withName("Elle Meyer").withPhone("9482224")
-                    .withEmail("werner@example.com").withAddress("michegan ave").build();
-            fiona = new PersonBuilder().withName("Fiona Kunz").withPhone("9482427")
-                    .withEmail("lydia@example.com").withAddress("little tokyo").build();
-            george = new PersonBuilder().withName("George Best").withPhone("9482442")
-                    .withEmail("anna@example.com").withAddress("4th street").build();
+        alice = buildPerson("Alice Pauline", "123, Jurong West Ave 6, #08-111", "alice@example.com",
+                "85355255", "friends");
+        benson = buildPerson("Benson Meier", "311, Clementi Ave 2, #02-25", "johnd@example.com",
+                "98765432", "owesMoney", "friends");
+        carl = buildPerson("Carl Kurz", "wall street", "heinz@example.com", "95352563");
+        daniel = buildPerson("Daniel Meier", "10th street", "cornelia@example.com", "87652533");
+        elle = buildPerson("Elle Meyer", "michegan ave", "werner@example.com", "9482224");
+        fiona = buildPerson("Fiona Kunz", "little tokyo", "lydia@example.com", "9482427");
+        george = buildPerson("George Best", "4th street", "anna@example.com", "9482442");
 
-            // Manually added
-            hoon = new PersonBuilder().withName("Hoon Meier").withPhone("8482424")
-                    .withEmail("stefan@example.com").withAddress("little india").build();
-            ida = new PersonBuilder().withName("Ida Mueller").withPhone("8482131")
-                    .withEmail("hans@example.com").withAddress("chicago ave").build();
-        } catch (IllegalValueException e) {
-            e.printStackTrace();
-            assert false : "not possible";
-        }
+        // Manually added
+        hoon = buildPerson("Hoon Meier", "little india", "stefan@example.com", "8482424");
+        ida = buildPerson("Ida Mueller", "chicago ave", "hans@example.com", "8482131");
     }
 
     public static void loadAddressBookWithSampleData(AddressBook ab) {
@@ -61,5 +46,19 @@ public class TypicalPersons {
         AddressBook ab = new AddressBook();
         loadAddressBookWithSampleData(ab);
         return ab;
+    }
+
+    /**
+     * Internal person builder to handle IllegalValueException
+     */
+    private Person buildPerson(String name, String address, String email, String phone, String... tags) {
+        try {
+            return new PersonBuilder().withName(name).withAddress(address).withEmail(email).withPhone(phone)
+                    .withTags(tags).build();
+        } catch (IllegalValueException e) {
+            e.printStackTrace();
+            assert false : "not possible";
+        }
+        return null;
     }
 }
