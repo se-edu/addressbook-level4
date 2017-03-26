@@ -39,8 +39,6 @@ public abstract class AddressBookGuiTest {
     @Rule
     public TestName name = new TestName();
 
-    TestApp testApp;
-
     protected TypicalTestPersons td = new TypicalTestPersons();
 
     /*
@@ -54,6 +52,8 @@ public abstract class AddressBookGuiTest {
     protected CommandBoxHandle commandBox;
     protected BrowserPanelHandle browserPanel;
     protected StatusBarFooterHandle statusBarFooter;
+
+    TestApp testApp;
     private Stage stage;
 
     @BeforeClass
