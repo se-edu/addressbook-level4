@@ -154,10 +154,12 @@
     <!--
     LENGTH and CODING CHECKS
     -->
-    <module name="ArrayTypeStyle">
-      <!-- Checks that array type declarations follow Java Style -->
-      <property name="severity" value="error"/>
-    </module>
+
+    <!-- Checks that array type declarations follow Java Style
+      Java style: public static void main(String[] args) // Allowed
+      C style:    public static void main(String args[]) // Not allowed
+    -->
+    <module name="ArrayTypeStyle"/>
 
     <module name="LineLength">
       <!-- Checks if a line is too long. -->
