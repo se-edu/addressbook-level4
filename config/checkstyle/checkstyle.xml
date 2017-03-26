@@ -242,6 +242,11 @@
     WHITESPACE CHECKS
     -->
 
+    <module name="CommentsIndentation">
+      <!-- Checks that comments are indented relative to their position in the code -->
+      <property name="severity" value="error"/>
+    </module>
+
     <module name="WhitespaceAround">
       <!-- Checks that various tokens are surrounded by whitespace.
            This includes most binary operators and keywords followed
@@ -302,6 +307,5 @@
       <!-- Checks that there is no whitespace before close parenthesis or after open parenthesis. -->
       <property name="severity" value="warning"/>
     </module>
-
   </module>
 </module>
