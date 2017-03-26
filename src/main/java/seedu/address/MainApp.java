@@ -39,9 +39,10 @@ import seedu.address.ui.UiManager;
  * The main entry point to the application.
  */
 public class MainApp extends Application {
-    private static final Logger logger = LogsCenter.getLogger(MainApp.class);
 
     public static final Version VERSION = new Version(1, 0, 0, true);
+
+    private static final Logger logger = LogsCenter.getLogger(MainApp.class);
 
     protected Ui ui;
     protected Logic logic;
