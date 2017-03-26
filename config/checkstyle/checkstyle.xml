@@ -303,5 +303,9 @@
       <property name="severity" value="warning"/>
     </module>
 
+    <module name="CommentsIndentation">
+      <!-- Checks that comments are indented relative to their position in the code -->
+      <property name="severity" value="error"/>
+    </module>
   </module>
 </module>
