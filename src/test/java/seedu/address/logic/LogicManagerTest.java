@@ -217,14 +217,14 @@ public class LogicManagerTest {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         Person toBeAdded = helper.adam();
-        AddressBook expectedAB = new AddressBook();
-        expectedAB.addPerson(toBeAdded);
+        AddressBook expectedAb = new AddressBook();
+        expectedAb.addPerson(toBeAdded);
 
         // execute command and verify result
         assertCommandSuccess(helper.generateAddCommand(toBeAdded),
                 String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
-                expectedAB,
-                expectedAB.getPersonList());
+                expectedAb,
+                expectedAb.getPersonList());
 
     }
 
@@ -247,15 +247,15 @@ public class LogicManagerTest {
     public void execute_list_showsAllPersons() throws Exception {
         // prepare expectations
         TestDataHelper helper = new TestDataHelper();
-        AddressBook expectedAB = helper.generateAddressBook(2);
-        List<? extends ReadOnlyPerson> expectedList = expectedAB.getPersonList();
+        AddressBook expectedAb = helper.generateAddressBook(2);
+        List<? extends ReadOnlyPerson> expectedList = expectedAb.getPersonList();
 
         // prepare address book state
         helper.addToModel(model, 2);
 
         assertCommandSuccess("list",
                 ListCommand.MESSAGE_SUCCESS,
-                expectedAB,
+                expectedAb,
                 expectedList);
     }
 
@@ -311,13 +311,13 @@ public class LogicManagerTest {
         TestDataHelper helper = new TestDataHelper();
         List<Person> threePersons = helper.generatePersonList(3);
 
-        AddressBook expectedAB = helper.generateAddressBook(threePersons);
+        AddressBook expectedAb = helper.generateAddressBook(threePersons);
         helper.addToModel(model, threePersons);
 
         assertCommandSuccess("select 2",
                 String.format(SelectCommand.MESSAGE_SELECT_PERSON_SUCCESS, 2),
-                expectedAB,
-                expectedAB.getPersonList());
+                expectedAb,
+                expectedAb.getPersonList());
         assertEquals(1, targetedJumpIndex);
         assertEquals(model.getFilteredPersonList().get(1), threePersons.get(1));
     }
@@ -339,14 +339,14 @@ public class LogicManagerTest {
         TestDataHelper helper = new TestDataHelper();
         List<Person> threePersons = helper.generatePersonList(3);
 
-        AddressBook expectedAB = helper.generateAddressBook(threePersons);
-        expectedAB.removePerson(threePersons.get(1));
+        AddressBook expectedAb = helper.generateAddressBook(threePersons);
+        expectedAb.removePerson(threePersons.get(1));
         helper.addToModel(model, threePersons);
 
         assertCommandSuccess("delete 2",
                 String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, threePersons.get(1)),
-                expectedAB,
-                expectedAB.getPersonList());
+                expectedAb,
+                expectedAb.getPersonList());
     }
 
 
@@ -365,13 +365,13 @@ public class LogicManagerTest {
         Person p2 = helper.generatePersonWithName("KEYKEYKEY sduauo");
 
         List<Person> fourPersons = helper.generatePersonList(p1, pTarget1, p2, pTarget2);
-        AddressBook expectedAB = helper.generateAddressBook(fourPersons);
+        AddressBook expectedAb = helper.generateAddressBook(fourPersons);
         List<Person> expectedList = helper.generatePersonList(pTarget1, pTarget2);
         helper.addToModel(model, fourPersons);
 
         assertCommandSuccess("find KEY",
                 Command.getMessageForPersonListShownSummary(expectedList.size()),
-                expectedAB,
+                expectedAb,
                 expectedList);
     }
 
@@ -384,13 +384,13 @@ public class LogicManagerTest {
         Person p4 = helper.generatePersonWithName("KEy sduauo");
 
         List<Person> fourPersons = helper.generatePersonList(p3, p1, p4, p2);
-        AddressBook expectedAB = helper.generateAddressBook(fourPersons);
+        AddressBook expectedAb = helper.generateAddressBook(fourPersons);
         List<Person> expectedList = fourPersons;
         helper.addToModel(model, fourPersons);
 
         assertCommandSuccess("find KEY",
                 Command.getMessageForPersonListShownSummary(expectedList.size()),
-                expectedAB,
+                expectedAb,
                 expectedList);
     }
 
@@ -403,13 +403,13 @@ public class LogicManagerTest {
         Person p1 = helper.generatePersonWithName("sduauo");
 
         List<Person> fourPersons = helper.generatePersonList(pTarget1, p1, pTarget2, pTarget3);
-        AddressBook expectedAB = helper.generateAddressBook(fourPersons);
+        AddressBook expectedAb = helper.generateAddressBook(fourPersons);
         List<Person> expectedList = helper.generatePersonList(pTarget1, pTarget2, pTarget3);
         helper.addToModel(model, fourPersons);
 
         assertCommandSuccess("find key rAnDoM",
                 Command.getMessageForPersonListShownSummary(expectedList.size()),
-                expectedAB,
+                expectedAb,
                 expectedList);
     }
 
