@@ -230,12 +230,12 @@
 
     <module name ="DeclarationOrder">
       <!-- Checks if the Class and Interface declarations is organized in this order
-        Class (static) variables.
-        First the public class variables, then protected, then package level (no access modifier), and then private.
-        Instance variables.
-        First the public class variables, then protected, then package level (no access modifier), and then private.
-        Constructors
-        Methods
+        1. Class (static) variables.
+        2. First the public class variables, then protected, then package level (no access modifier), and then private.
+        3. Instance variables.
+        4. First the public class variables, then protected, then package level (no access modifier), and then private.
+        5. Constructors
+        6. Methods
       -->
       <property name="severity" value="error"/>
     </module>
