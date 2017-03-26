@@ -154,10 +154,6 @@
     <!--
     LENGTH and CODING CHECKS
     -->
-    <module name ="DeclarationOrder">
-      <!-- Checks if the Class and Interface declarations is organized in order -->
-      <property name="severity" value="error"/>
-    </module>
 
     <module name="LineLength">
       <!-- Checks if a line is too long. -->
@@ -231,6 +227,18 @@
     <!--
     ORDER CHECKS
     -->
+
+    <module name ="DeclarationOrder">
+      <!-- Checks if the Class and Interface declarations is organized in this order
+        Class (static) variables.
+        First the public class variables, then protected, then package level (no access modifier), and then private.
+        Instance variables.
+        First the public class variables, then protected, then package level (no access modifier), and then private.
+        Constructors
+        Methods
+      -->
+      <property name="severity" value="error"/>
+    </module>
 
     <module name="ModifierOrder">
       <!-- Warn if modifier order is inconsistent with JLS3 8.1.1, 8.3.1, and
