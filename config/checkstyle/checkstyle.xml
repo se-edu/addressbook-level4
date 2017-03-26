@@ -189,7 +189,6 @@
 
     <!-- Checks for braces around loop blocks -->
     <module name="NeedBraces">
-      <property name="severity" value="error"/>
       <property name="tokens" value="LITERAL_FOR, LITERAL_WHILE, LITERAL_DO, LITERAL_IF, LITERAL_ELSE"/>
       <!--
       if (true) return 1; // Not allowed
@@ -204,7 +203,6 @@
         return 1; // Not allowed
       -->
       <property name="allowEmptyLoopBody" value="true"/>
-      <property name="allowSingleLineStatement" value="false"/>
     </module>
 
     <module name="UpperEll">
