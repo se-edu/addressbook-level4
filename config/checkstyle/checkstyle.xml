@@ -228,6 +228,11 @@
     ORDER CHECKS
     -->
 
+    <!-- Checks that the order of at-clauses follows the tagOrder default property value order.
+         @author, @version, @param, @return, @throws, @exception, @see, @since, @serial, @serialField, @serialData, @deprecated
+    -->
+    <module name="AtclauseOrder"/>
+
     <module name="ModifierOrder">
       <!-- Warn if modifier order is inconsistent with JLS3 8.1.1, 8.3.1, and
            8.4.3.  The prescribed order is:
