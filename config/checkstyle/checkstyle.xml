@@ -155,9 +155,8 @@
     LENGTH and CODING CHECKS
     -->
 
-    <module name="EmptyCatchBlock">
-      <!-- Checks if a catch block is empty and does not contains any comments. -->
-    </module>
+    <!-- Checks if a catch block is empty and does not contains any comments. -->
+    <module name="EmptyCatchBlock"/>
 
     <module name="LineLength">
       <!-- Checks if a line is too long. -->
