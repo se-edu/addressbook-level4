@@ -305,7 +305,7 @@
     </module>
 
     <module name="SeparatorWrap">
-      <!-- Checks that the ".", "at" is at the next line in a line wrap. -->
+      <!-- Checks that the ".", "@" is at the next line in a line wrap. -->
       <property name="tokens" value="DOT, AT"/>
       <property name="option" value="nl"/>
     </module>
