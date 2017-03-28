@@ -157,7 +157,6 @@
 
     <module name="EmptyCatchBlock">
       <!-- Checks if a catch block is empty and does not contains any comments. -->
-      <property name="severity" value="error"/>
     </module>
 
     <module name="LineLength">
