@@ -91,11 +91,12 @@ public class AddressBook implements ReadOnlyAddressBook {
     /**
      * Updates the person in the list at position {@code index} with {@code editedReadOnlyPerson}.
      * {@code AddressBook}'s tag list will be updated with the tags of {@code editedReadOnlyPerson}.
-     * @see #syncMasterTagListWith(Person)
      *
      * @throws DuplicatePersonException if updating the person's details causes the person to be equivalent to
      *      another existing person in the list.
      * @throws IndexOutOfBoundsException if {@code index} < 0 or >= the size of the list.
+     *
+     * @see #syncMasterTagListWith(Person)
      */
     public void updatePerson(int index, ReadOnlyPerson editedReadOnlyPerson)
             throws UniquePersonList.DuplicatePersonException {
