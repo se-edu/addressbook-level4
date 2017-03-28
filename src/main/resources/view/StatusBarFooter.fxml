@@ -6,8 +6,8 @@
 
 <GridPane styleClass="grid-pane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
   <columnConstraints>
-    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+    <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="100" />
+    <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="100" />
   </columnConstraints>
   <StatusBar styleClass="anchor-pane" fx:id="syncStatus" />
   <StatusBar styleClass="anchor-pane" fx:id="saveLocationStatus" GridPane.columnIndex="1" nodeOrientation="RIGHT_TO_LEFT" />
