@@ -9,9 +9,9 @@ import seedu.address.model.person.Phone;
 import seedu.address.model.tag.UniqueTagList;
 
 /**
- *
+ * A utility class to help with building TestPerson objects.
  */
-public class PersonBuilder {
+public class TestPersonBuilder {
 
     public static final String DEFUALT_NAME = "Alice Pauline";
     public static final String DEFUALT_PHONE = "85355255";
@@ -19,50 +19,50 @@ public class PersonBuilder {
     public static final String DEFUALT_ADDRESS = "123, Jurong West Ave 6, #08-111";
     public static final String DEFUALT_TAGS = "friends";
 
-    private Person person;
+    private TestPerson person;
 
-    public PersonBuilder() throws IllegalValueException {
+    public TestPersonBuilder() throws IllegalValueException {
         Name defaultName = new Name(DEFUALT_NAME);
         Phone defaultPhone = new Phone(DEFUALT_PHONE);
         Email defaultEmail = new Email(DEFUALT_EMAIL);
         Address defaultAddress = new Address(DEFUALT_ADDRESS);
         UniqueTagList defaultTags = new UniqueTagList(DEFUALT_TAGS);
-        this.person = new Person(defaultName, defaultPhone, defaultEmail, defaultAddress, defaultTags);
+        this.person = new TestPerson(defaultName, defaultPhone, defaultEmail, defaultAddress, defaultTags);
     }
 
     /**
-     * Initializes the PersonBuilder with the data of {@code personToCopy}.
+     * Initializes the TestPersonBuilder with the data of {@code personToCopy}.
      */
-    public PersonBuilder(Person personToCopy) {
-        this.person = new Person(personToCopy);
+    public TestPersonBuilder(Person personToCopy) {
+        this.person = new TestPerson(personToCopy);
     }
 
-    public PersonBuilder withName(String name) throws IllegalValueException {
+    public TestPersonBuilder withName(String name) throws IllegalValueException {
         this.person.setName(new Name(name));
         return this;
     }
 
-    public PersonBuilder withTags(String ... tags) throws IllegalValueException {
+    public TestPersonBuilder withTags(String ... tags) throws IllegalValueException {
         this.person.setTags(new UniqueTagList(tags));
         return this;
     }
 
-    public PersonBuilder withAddress(String address) throws IllegalValueException {
+    public TestPersonBuilder withAddress(String address) throws IllegalValueException {
         this.person.setAddress(new Address(address));
         return this;
     }
 
-    public PersonBuilder withPhone(String phone) throws IllegalValueException {
+    public TestPersonBuilder withPhone(String phone) throws IllegalValueException {
         this.person.setPhone(new Phone(phone));
         return this;
     }
 
-    public PersonBuilder withEmail(String email) throws IllegalValueException {
+    public TestPersonBuilder withEmail(String email) throws IllegalValueException {
         this.person.setEmail(new Email(email));
         return this;
     }
 
-    public Person build() {
+    public TestPerson build() {
         return this.person;
     }
 
