@@ -288,15 +288,19 @@
     </module>
 
     <module name="SeparatorWrap">
-      <!-- Checks that the DOT is at the next line in a line wrap. -->
-      <property name="severity" value="error"/>
+      <!-- Checks that the ".", "at" is at the next line in a line wrap. -->
       <property name="tokens" value="DOT"/>
+      <property name="tokens" value="AT"/>
       <property name="option" value="nl"/>
     </module>
     <module name="SeparatorWrap">
-      <!-- Checks that the COMMA is at the previous end of line in a line wrap. -->
-      <property name="severity" value="error"/>
+      <!-- Checks that the ",", "]", "[", "...", ";", "(" is at the previous end of line in a line wrap. -->
       <property name="tokens" value="COMMA"/>
+      <property name="tokens" value="RBRACK"/>
+      <property name="tokens" value="ARRAY_DECLARATOR"/>
+      <property name="tokens" value="ELLIPSIS"/>
+      <property name="tokens" value="SEMI"/>
+      <property name="tokens" value="SEMI"/>
       <property name="option" value="EOL"/>
     </module>
 
