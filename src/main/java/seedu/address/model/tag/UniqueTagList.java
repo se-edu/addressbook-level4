@@ -150,8 +150,8 @@ public class UniqueTagList implements Iterable<Tag> {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof UniqueTagList // instanceof handles nulls
-                && this.internalList.equals(
-                ((UniqueTagList) other).internalList));
+                && this.internalList.equals(((UniqueTagList) other)
+                        .internalList));
     }
 
     public boolean equalsOrderInsensitive(UniqueTagList other) {

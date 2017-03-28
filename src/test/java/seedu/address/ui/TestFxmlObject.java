@@ -27,8 +27,7 @@ public class TestFxmlObject {
 
     @Override
     public boolean equals(Object other) {
-        return other == this ||
-                (other instanceof TestFxmlObject
+        return other == this || (other instanceof TestFxmlObject
                         && this.text.equals(((TestFxmlObject) other).getText()));
     }
 
