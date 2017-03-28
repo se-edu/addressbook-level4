@@ -287,6 +287,19 @@
       <property name="message" value="Trailing whitespace"/>
     </module>
 
+    <module name="SeparatorWrap">
+      <!-- Checks that the DOT is at the next line in a line wrap. -->
+      <property name="severity" value="error"/>
+      <property name="tokens" value="DOT"/>
+      <property name="option" value="nl"/>
+    </module>
+    <module name="SeparatorWrap">
+      <!-- Checks that the COMMA is at the previous end of line in a line wrap. -->
+      <property name="severity" value="error"/>
+      <property name="tokens" value="COMMA"/>
+      <property name="option" value="EOL"/>
+    </module>
+
     <module name="Indentation">
       <property name="caseIndent" value="0" />
     </module>
