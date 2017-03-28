@@ -27,9 +27,9 @@ public class TestFxmlObject {
 
     @Override
     public boolean equals(Object other) {
-        return other == this ||
-                (other instanceof TestFxmlObject
-                        && this.text.equals(((TestFxmlObject) other).getText()));
+        return other == this // short circuit if same object
+                || (other instanceof TestFxmlObject
+                && this.text.equals(((TestFxmlObject) other).getText()));
     }
 
 }
