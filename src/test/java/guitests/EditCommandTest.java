@@ -9,6 +9,7 @@ import guitests.guihandles.PersonCardHandle;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.util.IndexUtil;
 import seedu.address.logic.commands.EditCommand;
+import seedu.address.logic.commands.FindCommand;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -59,7 +60,7 @@ public class EditCommandTest extends AddressBookGuiTest {
 
     @Test
     public void edit_findThenEdit_success() throws Exception {
-        commandBox.runCommand("find Elle");
+        commandBox.runCommand(FindCommand.COMMAND_WORD + " Elle");
 
         String detailsToEdit = "Belle";
         int filteredPersonListIndex = 1;
@@ -73,43 +74,43 @@ public class EditCommandTest extends AddressBookGuiTest {
 
     @Test
     public void edit_missingPersonIndex_failure() {
-        commandBox.runCommand("edit Bobby");
+        commandBox.runCommand(EditCommand.COMMAND_WORD + " Bobby");
         assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
     }
 
     @Test
     public void edit_invalidPersonIndex_failure() {
-        commandBox.runCommand("edit 8 Bobby");
+        commandBox.runCommand(EditCommand.COMMAND_WORD + " 8 Bobby");
         assertResultMessage(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
     @Test
     public void edit_noFieldsSpecified_failure() {
-        commandBox.runCommand("edit 1");
+        commandBox.runCommand(EditCommand.COMMAND_WORD + " 1");
         assertResultMessage(EditCommand.MESSAGE_NOT_EDITED);
     }
 
     @Test
     public void edit_invalidValues_failure() {
-        commandBox.runCommand("edit 1 *&");
+        commandBox.runCommand(EditCommand.COMMAND_WORD + " 1 *&");
         assertResultMessage(Name.MESSAGE_NAME_CONSTRAINTS);
 
-        commandBox.runCommand("edit 1 p/abcd");
+        commandBox.runCommand(EditCommand.COMMAND_WORD + " 1 p/abcd");
         assertResultMessage(Phone.MESSAGE_PHONE_CONSTRAINTS);
 
-        commandBox.runCommand("edit 1 e/yahoo!!!");
+        commandBox.runCommand(EditCommand.COMMAND_WORD + " 1 e/yahoo!!!");
         assertResultMessage(Email.MESSAGE_EMAIL_CONSTRAINTS);
 
-        commandBox.runCommand("edit 1 a/");
+        commandBox.runCommand(EditCommand.COMMAND_WORD + " 1 a/");
         assertResultMessage(Address.MESSAGE_ADDRESS_CONSTRAINTS);
 
-        commandBox.runCommand("edit 1 t/*&");
+        commandBox.runCommand(EditCommand.COMMAND_WORD + " 1 t/*&");
         assertResultMessage(Tag.MESSAGE_TAG_CONSTRAINTS);
     }
 
     @Test
     public void edit_duplicatePerson_failure() {
-        commandBox.runCommand("edit 3 Alice Pauline p/85355255 e/alice@example.com "
+        commandBox.runCommand(EditCommand.COMMAND_WORD + " 3 Alice Pauline p/85355255 e/alice@example.com "
                                 + "a/123, Jurong West Ave 6, #08-111 t/friends");
         assertResultMessage(EditCommand.MESSAGE_DUPLICATE_PERSON);
     }
@@ -125,7 +126,7 @@ public class EditCommandTest extends AddressBookGuiTest {
      */
     private void assertEditSuccess(int filteredPersonListIndex, int addressBookIndex,
                                     String detailsToEdit, Person editedPerson) {
-        commandBox.runCommand("edit " + filteredPersonListIndex + " " + detailsToEdit);
+        commandBox.runCommand(EditCommand.COMMAND_WORD + " " + filteredPersonListIndex + " " + detailsToEdit);
 
         // confirm the new card contains the right data
         PersonCardHandle editedCard = personListPanel.navigateToPerson(editedPerson.getName().fullName);
