@@ -6,6 +6,7 @@ import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_PERSON_S
 import org.junit.Test;
 
 import seedu.address.commons.util.IndexUtil;
+import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.TestUtil;
 
@@ -30,7 +31,7 @@ public class DeleteCommandTest extends AddressBookGuiTest {
         assertDeleteSuccess(targetIndex, currentList);
 
         //invalid index
-        commandBox.runCommand("delete " + currentList.length + 1);
+        commandBox.runCommand(DeleteCommand.COMMAND_WORD + " " + currentList.length + 1);
         assertResultMessage("The person index provided is invalid");
 
     }
@@ -44,7 +45,7 @@ public class DeleteCommandTest extends AddressBookGuiTest {
         Person personToDelete = currentList[IndexUtil.oneToZeroIndex(targetIndexOneIndexed)];
         Person[] expectedRemainder = TestUtil.removePersonFromList(currentList, targetIndexOneIndexed);
 
-        commandBox.runCommand("delete " + targetIndexOneIndexed);
+        commandBox.runCommand(DeleteCommand.COMMAND_WORD + " " + targetIndexOneIndexed);
 
         //confirm the list now contains all previous persons except the deleted person
         assertTrue(personListPanel.isListMatching(expectedRemainder));
