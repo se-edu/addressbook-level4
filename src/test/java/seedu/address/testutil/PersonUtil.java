@@ -2,6 +2,9 @@ package seedu.address.testutil;
 
 import seedu.address.model.person.Person;
 
+/**
+ * A utility class for Person.
+ */
 public class PersonUtil {
 
     /**
