@@ -2,7 +2,12 @@ package seedu.address.model.person;
 
 import java.util.Objects;
 
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.ReadOnlyProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.util.CollectionUtil;
+import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 
 /**
@@ -11,11 +16,15 @@ import seedu.address.model.tag.UniqueTagList;
  */
 public class Person implements ReadOnlyPerson {
 
+    private final ObjectProperty<String> nameProperty;
+    private final ObjectProperty<String> addressProperty;
+    private final ObjectProperty<String> emailProperty;
+    private final ObjectProperty<String> phoneProperty;
+
     private Name name;
     private Phone phone;
     private Email email;
     private Address address;
-
     private UniqueTagList tags;
 
     /**
@@ -27,6 +36,12 @@ public class Person implements ReadOnlyPerson {
         this.phone = phone;
         this.email = email;
         this.address = address;
+
+        nameProperty = new SimpleObjectProperty<>(name.fullName);
+        phoneProperty = new SimpleObjectProperty<>(phone.value);
+        emailProperty = new SimpleObjectProperty<>(email.value);
+        addressProperty = new SimpleObjectProperty<>(address.value);
+
         this.tags = new UniqueTagList(tags); // protect internal tags from changes in the arg list
     }
 
@@ -39,7 +54,9 @@ public class Person implements ReadOnlyPerson {
 
     public void setName(Name name) {
         assert name != null;
+
         this.name = name;
+        nameProperty.set(this.name.fullName);
     }
 
     @Override
@@ -47,9 +64,16 @@ public class Person implements ReadOnlyPerson {
         return name;
     }
 
+    @Override
+    public ReadOnlyProperty<String> nameProperty() {
+        return nameProperty;
+    }
+
     public void setPhone(Phone phone) {
         assert phone != null;
+
         this.phone = phone;
+        phoneProperty.set(this.phone.value);
     }
 
     @Override
@@ -57,9 +81,16 @@ public class Person implements ReadOnlyPerson {
         return phone;
     }
 
+    @Override
+    public ReadOnlyProperty<String> phoneProperty() {
+        return phoneProperty;
+    }
+
     public void setEmail(Email email) {
         assert email != null;
+
         this.email = email;
+        emailProperty.set(this.email.value);
     }
 
     @Override
@@ -67,9 +98,16 @@ public class Person implements ReadOnlyPerson {
         return email;
     }
 
+    @Override
+    public ReadOnlyProperty<String> emailProperty() {
+        return emailProperty;
+    }
+
     public void setAddress(Address address) {
         assert address != null;
+
         this.address = address;
+        addressProperty.set(this.address.value);
     }
 
     @Override
@@ -78,8 +116,18 @@ public class Person implements ReadOnlyPerson {
     }
 
     @Override
+    public ReadOnlyProperty<String> addressProperty() {
+        return addressProperty;
+    }
+
+    @Override
     public UniqueTagList getTags() {
         return new UniqueTagList(tags);
+    }
+
+    @Override
+    public UnmodifiableObservableList<Tag> tagProperty() {
+        return tags.asObservableList();
     }
 
     /**
@@ -112,7 +160,7 @@ public class Person implements ReadOnlyPerson {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(getName(), getPhone(), getEmail(), getAddress(), getTags());
     }
 
     @Override
