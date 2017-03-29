@@ -39,8 +39,6 @@ public abstract class AddressBookGuiTest {
     @Rule
     public TestName name = new TestName();
 
-    TestApp testApp;
-
     protected TypicalPersons td = new TypicalPersons();
 
     /*

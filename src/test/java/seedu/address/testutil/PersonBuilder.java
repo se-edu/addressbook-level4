@@ -16,20 +16,20 @@ import seedu.address.model.util.SampleDataUtil;
  */
 public class PersonBuilder {
 
-    public static final String DEFUALT_NAME = "Alice Pauline";
-    public static final String DEFUALT_PHONE = "85355255";
-    public static final String DEFUALT_EMAIL = "alice@gmail.com";
-    public static final String DEFUALT_ADDRESS = "123, Jurong West Ave 6, #08-111";
-    public static final String DEFUALT_TAGS = "friends";
+    public static final String DEFAULT_NAME = "Alice Pauline";
+    public static final String DEFAULT_PHONE = "85355255";
+    public static final String DEFAULT_EMAIL = "alice@gmail.com";
+    public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
+    public static final String DEFAULT_TAGS = "friends";
 
     private Person person;
 
     public PersonBuilder() throws IllegalValueException {
-        Name defaultName = new Name(DEFUALT_NAME);
-        Phone defaultPhone = new Phone(DEFUALT_PHONE);
-        Email defaultEmail = new Email(DEFUALT_EMAIL);
-        Address defaultAddress = new Address(DEFUALT_ADDRESS);
-        Set<Tag> defaultTags = SampleDataUtil.getTagSet(DEFUALT_TAGS);
+        Name defaultName = new Name(DEFAULT_NAME);
+        Phone defaultPhone = new Phone(DEFAULT_PHONE);
+        Email defaultEmail = new Email(DEFAULT_EMAIL);
+        Address defaultAddress = new Address(DEFAULT_ADDRESS);
+        Set<Tag> defaultTags = SampleDataUtil.getTagSet(DEFAULT_TAGS);
         this.person = new Person(defaultName, defaultPhone, defaultEmail, defaultAddress, defaultTags);
     }
 
