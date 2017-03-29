@@ -10,13 +10,14 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.logic.commands.IncorrectCommand;
-import seedu.address.model.tag.UniqueTagList;
+import seedu.address.model.tag.Tag;
 
 /**
  * Parses input arguments and creates a new EditCommand object
@@ -57,11 +58,11 @@ public class EditCommandParser {
     }
 
     /**
-     * Parses {@code Collection<String> tags} into an {@code Optional<UniqueTagList>} if {@code tags} is non-empty.
+     * Parses {@code Collection<String> tags} into a {@code Set<Tag>} if {@code tags} is non-empty.
      * If {@code tags} contain only one element which is an empty string, it will be parsed into a
-     * {@code Optional<UniqueTagList>} containing zero tags.
+     * {@code Set<Tag>} containing zero tags.
      */
-    private Optional<UniqueTagList> parseTagsForEdit(Collection<String> tags) throws IllegalValueException {
+    private Optional<Set<Tag>> parseTagsForEdit(Collection<String> tags) throws IllegalValueException {
         assert tags != null;
 
         if (tags.isEmpty()) {

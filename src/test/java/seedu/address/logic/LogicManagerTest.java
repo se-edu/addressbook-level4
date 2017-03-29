@@ -6,11 +6,13 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.address.model.util.SampleDataUtil.getTagSet;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 import org.junit.After;
 import org.junit.Before;
@@ -46,7 +48,6 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.tag.Tag;
-import seedu.address.model.tag.UniqueTagList;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
 import seedu.address.storage.XmlAddressBookStorage;
@@ -424,10 +425,9 @@ public class LogicManagerTest {
             Phone privatePhone = new Phone("111111");
             Email email = new Email("adam@gmail.com");
             Address privateAddress = new Address("111, alpha street");
-            Tag tag1 = new Tag("tag1");
-            Tag tag2 = new Tag("longertag2");
-            UniqueTagList tags = new UniqueTagList(tag1, tag2);
-            return new Person(name, privatePhone, email, privateAddress, tags);
+
+            return new Person(name, privatePhone, email, privateAddress,
+                    getTagSet("tag1", "longertag2"));
         }
 
         /**
@@ -443,8 +443,7 @@ public class LogicManagerTest {
                     new Phone("" + Math.abs(seed)),
                     new Email(seed + "@email"),
                     new Address("House of " + seed),
-                    new UniqueTagList(new Tag("tag" + Math.abs(seed)), new Tag("tag" + Math.abs(seed + 1)))
-            );
+                    getTagSet("tag" + Math.abs(seed), "tag" + Math.abs(seed + 1)));
         }
 
         /** Generates the correct add command based on the person given */
@@ -458,7 +457,7 @@ public class LogicManagerTest {
             cmd.append(" p/").append(p.getPhone());
             cmd.append(" a/").append(p.getAddress());
 
-            UniqueTagList tags = p.getTags();
+            Set<Tag> tags = p.getTags();
             for (Tag t: tags) {
                 cmd.append(" t/").append(t.tagName);
             }
@@ -542,8 +541,7 @@ public class LogicManagerTest {
                     new Phone("1"),
                     new Email("1@email"),
                     new Address("House of 1"),
-                    new UniqueTagList(new Tag("tag"))
-            );
+                    getTagSet("tag"));
         }
     }
 }
