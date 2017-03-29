@@ -5,6 +5,8 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 import seedu.address.commons.util.IndexUtil;
+import seedu.address.logic.commands.ClearCommand;
+import seedu.address.logic.commands.SelectCommand;
 import seedu.address.model.person.ReadOnlyPerson;
 
 public class SelectCommandTest extends AddressBookGuiTest {
@@ -30,18 +32,18 @@ public class SelectCommandTest extends AddressBookGuiTest {
 
     @Test
     public void selectPerson_emptyList() {
-        commandBox.runCommand("clear");
+        commandBox.runCommand(ClearCommand.COMMAND_WORD);
         assertListSize(0);
         assertSelectionInvalid(1); //invalid index
     }
 
     private void assertSelectionInvalid(int index) {
-        commandBox.runCommand("select " + index);
+        commandBox.runCommand(SelectCommand.COMMAND_WORD + " " + index);
         assertResultMessage("The person index provided is invalid");
     }
 
     private void assertSelectionSuccess(int index) {
-        commandBox.runCommand("select " + index);
+        commandBox.runCommand(SelectCommand.COMMAND_WORD + " " + index);
         assertResultMessage("Selected Person: " + index);
         assertPersonSelected(index);
     }
