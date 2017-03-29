@@ -82,6 +82,13 @@
     NAMING CHECKS
     -->
 
+    <module name="AbbreviationAsWordInName">
+      <!-- Validate abbreviations(consecutive capital letters) length in identifier name -->
+      <property name="ignoreFinal" value="false"/>
+      <property name="allowedAbbreviationLength" value="1"/>
+      <property name="severity" value="warning"/>
+    </module>
+
     <module name="PackageName">
       <!-- Validates identifiers for package names against the supplied expression. -->
       <property name="format" value="^[a-z]+(\.[a-z][a-z0-9]{1,})*$"/>
@@ -131,7 +138,7 @@
     <module name="MethodName">
       <!-- Validates identifiers for method names against the supplied expression. -->
       <metadata name="altname" value="MethodName"/>
-      <property name="format" value="^[a-z][a-zA-Z0-9]*(_[a-zA-Z0-9]+)*|_+[A-Z]+(_[A-Z]+)*_+$"/>
+      <property name="format" value="^[a-z][a-zA-Z0-9]*(_[a-z][a-zA-Z0-9]+)*$"/>
       <property name="severity" value="warning"/>
     </module>
 
@@ -154,6 +161,16 @@
     <!--
     LENGTH and CODING CHECKS
     -->
+
+    <module name="ArrayTypeStyle">
+      <!-- Checks that array type declarations follow Java Style -->
+      <property name="severity" value="error"/>
+    </module>
+
+    <module name ="DeclarationOrder">
+      <!-- Checks if the Class and Interface declarations is organized in order -->
+      <property name="severity" value="warning"/>
+    </module>
 
     <module name="LineLength">
       <!-- Checks if a line is too long. -->
@@ -192,7 +209,7 @@
       <property name="severity" value="warning"/>
       <property name="tokens" value="LITERAL_FOR, LITERAL_WHILE, LITERAL_DO, LITERAL_IF, LITERAL_ELSE"/>
       <!--
-      if (true) return 1; // Allowed
+      if (true) return 1; // Not allowed for debugging purposes
 
       if (true) { return 1; } // Not allowed
 
@@ -204,7 +221,7 @@
         return 1; // Not allowed
       -->
       <property name="allowEmptyLoopBody" value="true"/>
-      <property name="allowSingleLineStatement" value="true"/>
+      <property name="allowSingleLineStatement" value="false"/>
     </module>
 
     <module name="UpperEll">
@@ -303,5 +320,23 @@
       <property name="severity" value="warning"/>
     </module>
 
+    <module name="CommentsIndentation">
+      <!-- Checks that comments are indented relative to their position in the code -->
+      <property name="severity" value="error"/>
+    </module>
+
+    <module name="VisibilityModifier">
+      <!-- Checks that Class variables should never be declared public. -->
+      <property name="severity" value="warning"/>
+      <property name="protectedAllowed" value="true"/>
+      <property name="allowPublicFinalFields" value="true"/>
+    </module>
+
+    <module name="AtclauseOrder">
+      <!-- Checks that the order of at-clauses follows the tagOrder property value order. -->
+      <property name="severity" value="error"/>
+      <property name="tagOrder" value="@param, @return, @throws, @exception, @deprecated"/>
+      <property name="target" value="CLASS_DEF, INTERFACE_DEF, ENUM_DEF, METHOD_DEF, CTOR_DEF, VARIABLE_DEF"/>
+    </module>
   </module>
 </module>
