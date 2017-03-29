@@ -8,11 +8,11 @@ import seedu.address.model.person.UniquePersonList;
 /**
  *
  */
-public class TypicalTestPersons {
+public class TypicalPersons {
 
-    public TestPerson alice, benson, carl, daniel, elle, fiona, george, hoon, ida;
+    public Person alice, benson, carl, daniel, elle, fiona, george, hoon, ida;
 
-    public TypicalTestPersons() {
+    public TypicalPersons() {
         try {
             alice = new PersonBuilder().withName("Alice Pauline")
                     .withAddress("123, Jurong West Ave 6, #08-111").withEmail("alice@gmail.com")
@@ -44,7 +44,7 @@ public class TypicalTestPersons {
     }
 
     public static void loadAddressBookWithSampleData(AddressBook ab) {
-        for (TestPerson person : new TypicalTestPersons().getTypicalPersons()) {
+        for (Person person : new TypicalPersons().getTypicalPersons()) {
             try {
                 ab.addPerson(new Person(person));
             } catch (UniquePersonList.DuplicatePersonException e) {
@@ -53,8 +53,8 @@ public class TypicalTestPersons {
         }
     }
 
-    public TestPerson[] getTypicalPersons() {
-        return new TestPerson[]{alice, benson, carl, daniel, elle, fiona, george};
+    public Person[] getTypicalPersons() {
+        return new Person[]{alice, benson, carl, daniel, elle, fiona, george};
     }
 
     public AddressBook getTypicalAddressBook() {
