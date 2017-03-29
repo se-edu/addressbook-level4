@@ -1,5 +1,7 @@
 package seedu.address.testutil;
 
+import seedu.address.logic.commands.AddCommand;
+import seedu.address.logic.commands.EditCommand;
 import seedu.address.model.person.Person;
 
 /**
@@ -11,14 +13,14 @@ public class PersonUtil {
      * Returns an add command string for adding the {@code person}.
      */
     public static String getAddCommand(Person person) {
-        return "add " + getPersonDetails(person);
+        return AddCommand.COMMAND_WORD + " " + getPersonDetails(person);
     }
 
     /**
      * Returns an edit command string for editing the person at {@code zeroBasedIndex} to match {@code editedPerson}.
      */
     public static String getEditCommand(int zeroBasedIndex, Person editedPerson) {
-        return "edit " + (zeroBasedIndex + 1) + " " + getPersonDetails(editedPerson);
+        return EditCommand.COMMAND_WORD + " " + (zeroBasedIndex + 1) + " " + getPersonDetails(editedPerson);
     }
 
     /**

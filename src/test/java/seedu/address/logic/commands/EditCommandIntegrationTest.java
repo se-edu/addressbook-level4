@@ -63,7 +63,7 @@ public class EditCommandIntegrationTest {
     @Test
     public void execute_invalidPersonIndex_throwsCommandException() {
         int oneBasedOutOfBoundIndex = model.getFilteredPersonList().size() + 1;
-        String userInput = "edit " + oneBasedOutOfBoundIndex + " Bobby";
+        String userInput = EditCommand.COMMAND_WORD + " " + oneBasedOutOfBoundIndex + " Bobby";
         Command command = prepareCommand(userInput);
         assertCommandFailure(command, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
