@@ -16,7 +16,7 @@ import seedu.address.commons.util.FileUtil;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.person.Person;
-import seedu.address.testutil.TypicalTestPersons;
+import seedu.address.testutil.TypicalPersons;
 
 public class XmlAddressBookStorageTest {
     private static final String TEST_DATA_FOLDER = FileUtil.getPath("./src/test/data/XmlAddressBookStorageTest/");
@@ -62,7 +62,7 @@ public class XmlAddressBookStorageTest {
     @Test
     public void readAndSaveAddressBook_allInOrder_success() throws Exception {
         String filePath = testFolder.getRoot().getPath() + "TempAddressBook.xml";
-        TypicalTestPersons td = new TypicalTestPersons();
+        TypicalPersons td = new TypicalPersons();
         AddressBook original = td.getTypicalAddressBook();
         XmlAddressBookStorage xmlAddressBookStorage = new XmlAddressBookStorage(filePath);
 
