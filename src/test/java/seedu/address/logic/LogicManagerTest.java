@@ -423,7 +423,7 @@ public class LogicManagerTest {
         Person adam() throws Exception {
             Name name = new Name("Adam Brown");
             Phone privatePhone = new Phone("111111");
-            Email email = new Email("adam@gmail.com");
+            Email email = new Email("adam@example.com");
             Address privateAddress = new Address("111, alpha street");
 
             return new Person(name, privatePhone, email, privateAddress,

@@ -16,8 +16,9 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.testutil.TypicalTestPersons;
 
-/*
- * An Integration Test class for interactions between logic and model.
+/**
+ * An Integration Test class for each command's interaction
+ * with the Model and other Logic components (e.g. parser).
  */
 public abstract class CommandIntegrationTest {
 
@@ -38,17 +39,17 @@ public abstract class CommandIntegrationTest {
     }
 
     /**
-     * Executes the command, confirms that
+     * Executes {@code command}, confirms that <br>
      * - the result message matches {@code expectedMessage} <br>
      * - the internal address book data are same as those in the {@code expectedAddressBook} <br>
-     * - the backing list shown by UI matches the {@code expectedShownList} <br>
+     * - the filtered person list shown by UI matches the {@code expectedShownList} <br>
      */
-    protected void assertCommandSuccess(Command cmd,
+    protected void assertCommandSuccess(Command command,
                                         String expectedMessage,
                                         ReadOnlyAddressBook expectedAddressBook,
                                         List<? extends ReadOnlyPerson> expectedShownList) {
         try {
-            CommandResult result = cmd.execute();
+            CommandResult result = command.execute();
             assertEquals(expectedMessage, result.feedbackToUser);
 
             // Verify the state of address book is as expected
@@ -62,13 +63,13 @@ public abstract class CommandIntegrationTest {
     }
 
     /**
-     * Executes the command, confirms that
+     * Executes {@code command}, confirms that <br>
      * - a CommandException is thrown <br>
      * - the CommandException message matches {@code expectedMessage} <br>
      */
-    protected void assertCommandFailure(Command cmd, String expectedMessage) {
+    protected void assertCommandFailure(Command command, String expectedMessage) {
         try {
-            cmd.execute();
+            command.execute();
             fail("expected CommandException was not thrown.");
         } catch (CommandException e) {
             assertEquals(expectedMessage, e.getMessage());
