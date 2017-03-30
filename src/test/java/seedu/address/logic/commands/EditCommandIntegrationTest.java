@@ -15,13 +15,13 @@ public class EditCommandIntegrationTest extends CommandIntegrationTest {
     @Test
     public void execute_validCommand_succeeds() throws Exception {
         int addressBookIndex = 1;
-        String userInput = "edit " + addressBookIndex + " Bobby p/91234567 e/bobby@gmail.com " +
+        String userInput = "edit " + addressBookIndex + " Bobby p/91234567 e/bobby@example.com " +
                            "a/Block 123, Bobby Street 3 t/husband";
         Command command = prepareCommand(userInput);
 
         TestPerson editedPerson = new PersonBuilder().withName("Bobby")
                                                      .withPhone("91234567")
-                                                     .withEmail("bobby@gmail.com")
+                                                     .withEmail("bobby@example.com")
                                                      .withAddress("Block 123, Bobby Street 3")
                                                      .withTags("husband")
                                                      .build();
@@ -37,7 +37,7 @@ public class EditCommandIntegrationTest extends CommandIntegrationTest {
 
     @Test
     public void execute_duplicatePerson_throwsCommandException() {
-        String userInput = "edit 3 Alice Pauline p/85355255 e/alice@gmail.com " +
+        String userInput = "edit 3 Alice Pauline p/85355255 e/alice@example.com " +
                            "a/123, Jurong West Ave 6, #08-111 t/friends";
         Command command = prepareCommand(userInput);
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PERSON);
