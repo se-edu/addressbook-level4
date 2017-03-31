@@ -1,16 +1,9 @@
 package seedu.address.logic.commands;
 
-import java.util.Set;
-
-import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
+import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.UniquePersonList;
-import seedu.address.model.tag.Tag;
 
 /**
  * Adds a person to the address book.
@@ -30,19 +23,10 @@ public class AddCommand extends Command {
     private final Person toAdd;
 
     /**
-     * Creates an AddCommand using raw values.
-     *
-     * @throws IllegalValueException if any of the raw values are invalid
+     * Creates an AddCommand to add the specified {@code ReadOnlyPerson}
      */
-    public AddCommand(String name, String phone, String email, String address, Set<Tag> tags)
-            throws IllegalValueException {
-        this.toAdd = new Person(
-                new Name(name),
-                new Phone(phone),
-                new Email(email),
-                new Address(address),
-                tags
-        );
+    public AddCommand(ReadOnlyPerson person) {
+        toAdd = new Person(person);
     }
 
     @Override
