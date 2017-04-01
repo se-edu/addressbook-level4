@@ -155,6 +155,12 @@
     LENGTH and CODING CHECKS
     -->
 
+    <!-- Checks that array type declarations follow Java Style
+      Java style: public static void main(String[] args) // Allowed
+      C style:    public static void main(String args[]) // Not allowed
+    -->
+    <module name="ArrayTypeStyle"/>
+
     <module name="LineLength">
       <!-- Checks if a line is too long. -->
       <property name="max" value="120"/>
