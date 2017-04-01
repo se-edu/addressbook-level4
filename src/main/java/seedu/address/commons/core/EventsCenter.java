@@ -11,8 +11,12 @@ import seedu.address.commons.events.BaseEvent;
  */
 public class EventsCenter {
     private static final Logger logger = LogsCenter.getLogger(EventsCenter.class);
-    private final EventBus eventBus;
     private static EventsCenter instance;
+    private final EventBus eventBus;
+
+    private EventsCenter() {
+        eventBus = new EventBus();
+    }
 
     public static EventsCenter getInstance() {
         if (instance == null) {
@@ -23,10 +27,6 @@ public class EventsCenter {
 
     public static void clearSubscribers() {
         instance = null;
-    }
-
-    private EventsCenter() {
-        eventBus = new EventBus();
     }
 
     public EventsCenter registerHandler(Object handler) {

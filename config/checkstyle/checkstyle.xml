@@ -234,6 +234,14 @@
     ORDER CHECKS
     -->
 
+    <!-- Checks if the Class and Interface declarations is organized in this order
+      1. Class (static) variables. Order: public, protected, package level (no access modifier), private.
+      2. Instance variables. Order: public, protected, package level (no access modifier), private.
+      3. Constructors
+      4. Methods
+    -->
+    <module name ="DeclarationOrder"/>
+
     <module name="ModifierOrder">
       <!-- Warn if modifier order is inconsistent with JLS3 8.1.1, 8.3.1, and
            8.4.3.  The prescribed order is:
