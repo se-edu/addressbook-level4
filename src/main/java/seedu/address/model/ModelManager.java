@@ -74,7 +74,6 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void updatePerson(int filteredPersonListIndex, ReadOnlyPerson editedPerson)
             throws UniquePersonList.DuplicatePersonException {
-        assert editedPerson != null;
 
         int addressBookIndex = filteredPersons.getSourceIndex(filteredPersonListIndex);
         addressBook.updatePerson(addressBookIndex, editedPerson);
