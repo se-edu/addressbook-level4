@@ -161,6 +161,9 @@
     -->
     <module name="ArrayTypeStyle"/>
 
+    <!-- Checks if a catch block is empty and does not contain any comments. -->
+    <module name="EmptyCatchBlock"/>
+
     <module name="LineLength">
       <!-- Checks if a line is too long. -->
       <property name="max" value="120"/>
