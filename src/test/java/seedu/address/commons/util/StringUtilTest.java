@@ -2,6 +2,7 @@ package seedu.address.commons.util;
 
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -148,5 +149,39 @@ public class StringUtilTest {
         StringUtil.getDetails(null);
     }
 
+    //---------------- Tests for isBlank --------------------------------------
 
+    @Test
+    public void isBlank_blankString_returnsTrue() {
+        assertTrue(StringUtil.isBlank(null));
+        assertTrue(StringUtil.isBlank(""));
+        assertTrue(StringUtil.isBlank(" "));
+        assertTrue(StringUtil.isBlank("\u0009")); // tab
+        assertTrue(StringUtil.isBlank("\n\u2028 \u0009")); // contains Unicode whitespace characters
+
+    }
+
+    @Test
+    public void isBlank_nonBlankString_returnsFalse() {
+        assertFalse(StringUtil.isBlank("nonEmptyString\n"));
+        assertFalse(StringUtil.isBlank(" string with whitespace"));
+    }
+
+    //---------------- Tests for stripLineTerminators --------------------------------------
+
+    @Test
+    public void stripLineTerminators() {
+        // empty string
+        assertEquals("", StringUtil.stripLineTerminators(""));
+
+        // single line string
+        assertEquals("Single line remains unchanged. ",
+                StringUtil.stripLineTerminators("Single line remains unchanged. "));
+
+        // multiline string
+        assertEquals("Typical line breaks are removed.",
+                StringUtil.stripLineTerminators("Typical line breaks \nare\r removed."));
+        assertEquals("Unicode line breaks are removed.",
+                StringUtil.stripLineTerminators("\u2028Unicode \u2029line\u000B breaks\u000C are removed.\u0085"));
+    }
 }
