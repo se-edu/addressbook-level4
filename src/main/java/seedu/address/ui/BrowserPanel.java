@@ -27,8 +27,10 @@ public class BrowserPanel extends UiPart<Region> {
      */
     public BrowserPanel(AnchorPane placeholder) {
         super(FXML);
-        placeholder.setOnKeyPressed(Event::consume); // To prevent triggering events for typing inside the
-                                                     // loaded Web page.
+
+        // To prevent triggering events for typing inside the loaded Web page.
+        placeholder.setOnKeyPressed(Event::consume);
+
         FxViewUtil.applyAnchorBoundaryParameters(browser, 0.0, 0.0, 0.0, 0.0);
         placeholder.getChildren().add(browser);
 
