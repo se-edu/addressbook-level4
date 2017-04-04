@@ -42,7 +42,7 @@ allprojects {
         junitVersion = '4.12'
         testFxVersion = '4.0.5-alpha'
         monocleVersion = '1.8.0_20'
-        checkstyleVersion = '7.1.2'
+        checkstyleVersion = '7.2'
 
         libDir = 'lib'
     }
