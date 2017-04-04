@@ -323,8 +323,8 @@
     </module>
 
     <module name="OperatorWrap">
-      <!-- Checks that non-assignment type operator is at the next line in a line wrap.
-           This include "?", ":", "==", "!=", "/", "+", "-", "*", "%", ">>", ">>>",
+      <!-- Checks that the non-assignment type operator is at the next line in a line wrap.
+           This includes "?", ":", "==", "!=", "/", "+", "-", "*", "%", ">>", ">>>",
            ">=", ">", "<<", "<=", "<", "^", "|", "||", "&", "&&", "instanceof",
            "&" when used in a generic upper or lower bounds constraints,
              e.g. <T extends Foo & Bar>
@@ -336,8 +336,8 @@
       <property name="option" value="nl"/>
     </module>
     <module name="OperatorWrap">
-      <!-- Checks that assignment type operator is at the previous end of line in a line wrap.
-           This include "=", "/=", "+=", "-=", "*=", "%=", ">>=", ">>>=", "<<=", "^=", "&=".
+      <!-- Checks that the assignment type operator is at the previous end of line in a line wrap.
+           This includes "=", "/=", "+=", "-=", "*=", "%=", ">>=", ">>>=", "<<=", "^=", "&=".
       -->
       <property name="tokens" value="ASSIGN, DIV_ASSIGN, PLUS_ASSIGN, MINUS_ASSIGN, STAR_ASSIGN, MOD_ASSIGN,
         SR_ASSIGN, BSR_ASSIGN, SL_ASSIGN, BXOR_ASSIGN, BOR_ASSIGN, BAND_ASSIGN"/>
