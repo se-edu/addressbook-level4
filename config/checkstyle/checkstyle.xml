@@ -229,6 +229,7 @@
       <property name="severity" value="error"/>
     </module>
 
+    <module name="MissingSwitchDefault"/>
 
     <!--
     ORDER CHECKS
