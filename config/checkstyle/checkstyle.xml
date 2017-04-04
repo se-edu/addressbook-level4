@@ -323,10 +323,10 @@
     </module>
 
     <module name="OperatorWrap">
-      <!-- Checks that non-assign type operator is at the next line in a line wrap.
+      <!-- Checks that non-assignment type operator is at the next line in a line wrap.
            This include "?", ":", "==", "!=", "/", "+", "-", "*", "%", ">>", ">>>",
            ">=", ">", "<<", "<=", "<", "^", "|", "||", "&", "&&", "instanceof",
-           "&" when used in a generic upper or lower bounds constrain,
+           "&" when used in a generic upper or lower bounds constraints,
              e.g. <T extends Foo & Bar>
            "::" when used as a reference to a method or constructor without arguments.
              e.g. String::compareToIgnoreCase
@@ -336,7 +336,7 @@
       <property name="option" value="nl"/>
     </module>
     <module name="OperatorWrap">
-      <!-- Checks that assign type operator is at the previous end of line in a line wrap.
+      <!-- Checks that assignment type operator is at the previous end of line in a line wrap.
            This include "=", "/=", "+=", "-=", "*=", "%=", ">>=", ">>>=", "<<=", "^=", "&=".
       -->
       <property name="tokens" value="ASSIGN, DIV_ASSIGN, PLUS_ASSIGN, MINUS_ASSIGN, STAR_ASSIGN, MOD_ASSIGN,
