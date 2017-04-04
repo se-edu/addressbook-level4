@@ -330,7 +330,7 @@
              e.g. <T extends Foo & Bar>
            "::" when used as a reference to a method or constructor without arguments.
              e.g. String::compareToIgnoreCase
-      -->, 
+      -->
       <property name="tokens" value="QUESTION, COLON, EQUAL, NOT_EQUAL, DIV, PLUS, MINUS, STAR, MOD, SR, BSR,
         GE, GT, SL, LE, LT, BXOR, BOR, LOR, BAND, LAND, LITERAL_INSTANCEOF, TYPE_EXTENSION_AND, METHOD_REF"/>
       <property name="option" value="nl"/>
