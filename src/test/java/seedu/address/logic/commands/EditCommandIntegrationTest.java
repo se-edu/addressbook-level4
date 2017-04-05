@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.Test;
@@ -26,7 +27,7 @@ import seedu.address.testutil.TypicalPersons;
  */
 public class EditCommandIntegrationTest {
 
-    private Model model = new ModelManager(new TypicalPersons().getTypicalAddressBook(), new UserPrefs());;
+    private Model model = new ModelManager(new TypicalPersons().getTypicalAddressBook(), new UserPrefs());
     private Parser parser = new Parser();
 
     @Test
@@ -44,9 +45,9 @@ public class EditCommandIntegrationTest {
         AddressBook expectedAddressBook = new AddressBook(model.getAddressBook());
         expectedAddressBook.updatePerson(addressBookIndex, editedPerson);
 
-        List<ReadOnlyPerson> expectedShownList = expectedAddressBook.getPersonList();
+        List<ReadOnlyPerson> expectedFilteredList = new ArrayList<>(model.getFilteredPersonList());
 
-        assertCommandSuccess(command, expectedMessage, expectedAddressBook, expectedShownList);
+        assertCommandSuccess(command, expectedMessage, expectedAddressBook, expectedFilteredList);
     }
 
     @Test
@@ -91,13 +92,19 @@ public class EditCommandIntegrationTest {
      * Executes the given {@code command}, confirms that <br>
      * - a {@code CommandException} is thrown <br>
      * - the CommandException message matches {@code expectedMessage} <br>
+     * - the address book in the model remains unchanged <br>
+     * - the filtered person list in the model remains unchanged <br>
      */
     private void assertCommandFailure(Command command, String expectedMessage) {
+        AddressBook expectedAddressBook = new AddressBook(model.getAddressBook());
+        List<ReadOnlyPerson> expectedFilteredList = new ArrayList<>(model.getFilteredPersonList());
         try {
             command.execute();
             fail("expected CommandException was not thrown.");
         } catch (CommandException e) {
             assertEquals(expectedMessage, e.getMessage());
+            assertEquals(expectedAddressBook, model.getAddressBook());
+            assertEquals(expectedFilteredList, model.getFilteredPersonList());
         }
     }
 }
