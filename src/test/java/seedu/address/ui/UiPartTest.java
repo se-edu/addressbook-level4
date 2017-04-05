@@ -13,6 +13,9 @@ import org.junit.rules.TemporaryFolder;
 import javafx.fxml.FXML;
 import seedu.address.MainApp;
 
+/**
+ *
+ */
 public class UiPartTest {
 
     private static final String MISSING_FILE_PATH = "UiPartTest/missingFile.fxml";

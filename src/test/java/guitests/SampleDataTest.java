@@ -9,6 +9,9 @@ import seedu.address.model.person.Person;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.testutil.TestUtil;
 
+/**
+ *
+ */
 public class SampleDataTest extends AddressBookGuiTest {
     @Override
     protected AddressBook getInitialData() {

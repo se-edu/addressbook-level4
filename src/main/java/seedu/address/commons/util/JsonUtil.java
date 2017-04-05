@@ -110,7 +110,9 @@ public class JsonUtil {
         return objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(instance);
     }
 
-
+    /**
+     *
+     */
     private static class LevelDeserializer extends FromStringDeserializer<Level> {
 
         protected LevelDeserializer(Class<?> vc) {

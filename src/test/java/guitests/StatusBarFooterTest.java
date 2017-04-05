@@ -22,7 +22,7 @@ import seedu.address.testutil.PersonUtil;
 import seedu.address.ui.StatusBarFooter;
 
 /**
- * TODO: Remove this class when we have system tests.
+ *
  */
 public class StatusBarFooterTest extends AddressBookGuiTest {
 

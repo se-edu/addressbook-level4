@@ -17,16 +17,13 @@ public class AlertDialogHandle extends StageHandle {
     }
 
     /**
-     * Returns the text of the header in the {@code AlertDialog}.
+     *
      */
-    public String getHeaderText() {
-        return dialogPane.getHeaderText();
-    }
-
-    /**
-     * Returns the text of the content in the {@code AlertDialog}.
-     */
-    public String getContentText() {
-        return dialogPane.getContentText();
+    public boolean isMatching(String headerMessage, String contentMessage) {
+        assert intermediateStage.isPresent() : "Alert dialog is not present";
+        DialogPane dialogPane = getNode("#" + UiManager.ALERT_DIALOG_PANE_FIELD_ID);
+        boolean isMatching = dialogPane.getHeaderText().equals(headerMessage)
+                && dialogPane.getContentText().equals(contentMessage);
+        return isMatching;
     }
 }

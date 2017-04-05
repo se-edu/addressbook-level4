@@ -14,6 +14,9 @@ import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.model.person.ReadOnlyPerson;
 
+/**
+ *
+ */
 public class FindCommandTest extends AddressBookGuiTest {
 
     @Test
@@ -38,10 +41,13 @@ public class FindCommandTest extends AddressBookGuiTest {
         assertResultMessage(getResultDisplay(), Messages.MESSAGE_UNKNOWN_COMMAND);
     }
 
-    private void assertFindResult(String command, ReadOnlyPerson... expectedHits) throws Exception {
-        runCommand(command);
-        assertListSize(getPersonListPanel(), expectedHits.length);
-        assertResultMessage(getResultDisplay(), expectedHits.length + " persons listed!");
-        assertListMatching(getPersonListPanel(), expectedHits);
+    /**
+     *
+     */
+    private void assertFindResult(String command, Person... expectedHits) {
+        commandBox.runCommand(command);
+        assertListSize(expectedHits.length);
+        assertResultMessage(expectedHits.length + " persons listed!");
+        assertTrue(personListPanel.isListMatching(expectedHits));
     }
 }

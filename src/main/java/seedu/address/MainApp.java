@@ -80,6 +80,9 @@ public class MainApp extends Application {
         return applicationParameters.get(parameterName);
     }
 
+    /**
+     *
+     */
     private Model initModelManager(Storage storage, UserPrefs userPrefs) {
         Optional<ReadOnlyAddressBook> addressBookOptional;
         ReadOnlyAddressBook initialData;
@@ -104,6 +107,9 @@ public class MainApp extends Application {
         LogsCenter.init(config);
     }
 
+    /**
+     *
+     */
     protected Config initConfig(String configFilePath) {
         Config initializedConfig;
         String configFilePathUsed;
@@ -135,6 +141,9 @@ public class MainApp extends Application {
         return initializedConfig;
     }
 
+    /**
+     *
+     */
     protected UserPrefs initPrefs(UserPrefsStorage storage) {
         String prefsFilePath = storage.getUserPrefsFilePath();
         logger.info("Using prefs file : " + prefsFilePath);
@@ -185,6 +194,9 @@ public class MainApp extends Application {
         System.exit(0);
     }
 
+    /**
+     *
+     */
     @Subscribe
     public void handleExitAppRequestEvent(ExitAppRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));

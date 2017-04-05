@@ -11,23 +11,28 @@ import javafx.scene.input.KeyCode;
 public class MainMenuHandle extends NodeHandle<Node> {
     public static final String MENU_BAR_ID = "#menuBar";
 
-    public MainMenuHandle(Node mainMenuNode) {
-        super(mainMenuNode);
+    /**
+     *
+     */
+    public GuiHandle clickOn(String... menuText) {
+        Arrays.stream(menuText).forEach((menuItem) -> guiRobot.clickOn(menuItem));
+        return this;
     }
 
     /**
-     * Opens the {@code HelpWindow} using the menu bar in {@code MainWindow}.
+     *
      */
-    public void openHelpWindowUsingMenu() {
-        clickOnMenuItemsSequentially("Help", "F1");
+    public HelpWindowHandle openHelpWindowUsingMenu() {
+        clickOn("Help", "F1");
+        return new HelpWindowHandle(guiRobot, primaryStage);
     }
 
     /**
-     * Opens the {@code HelpWindow} by pressing the shortcut key associated
-     * with the menu bar in {@code MainWindow}.
+     *
      */
-    public void openHelpWindowUsingAccelerator() {
-        guiRobot.push(KeyCode.F1);
+    public HelpWindowHandle openHelpWindowUsingAccelerator() {
+        useF1Accelerator();
+        return new HelpWindowHandle(guiRobot, primaryStage);
     }
 
     /**

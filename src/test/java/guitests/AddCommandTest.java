@@ -19,6 +19,9 @@ import seedu.address.logic.commands.ClearCommand;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.testutil.PersonUtil;
 
+/**
+ *
+ */
 public class AddCommandTest extends AddressBookGuiTest {
 
     @Test
@@ -51,8 +54,11 @@ public class AddCommandTest extends AddressBookGuiTest {
         assertResultMessage(getResultDisplay(), Messages.MESSAGE_UNKNOWN_COMMAND);
     }
 
-    private void assertAddSuccess(ReadOnlyPerson personToAdd, List<ReadOnlyPerson> expectedList) throws Exception {
-        runCommand(PersonUtil.getAddCommand(personToAdd));
+    /**
+     *
+     */
+    private void assertAddSuccess(Person personToAdd, Person... currentList) {
+        commandBox.runCommand(PersonUtil.getAddCommand(personToAdd));
 
         //confirm the new card contains the right data
         getPersonListPanel().navigateToCard(personToAdd);

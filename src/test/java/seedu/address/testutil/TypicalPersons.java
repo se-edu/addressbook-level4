@@ -46,14 +46,11 @@ public class TypicalPersons {
         }
     }
 
-    private TypicalPersons() {} // prevents instantiation
-
     /**
-     * Returns an {@code AddressBook} with all the typical persons.
+     *
      */
-    public static AddressBook getTypicalAddressBook() {
-        AddressBook ab = new AddressBook();
-        for (ReadOnlyPerson person : getTypicalPersons()) {
+    public static void loadAddressBookWithSampleData(AddressBook ab) {
+        for (Person person : new TypicalPersons().getTypicalPersons()) {
             try {
                 ab.addPerson(person);
             } catch (DuplicatePersonException e) {

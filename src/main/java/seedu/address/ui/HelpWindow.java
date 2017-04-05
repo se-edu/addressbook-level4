@@ -39,6 +39,9 @@ public class HelpWindow extends UiPart<Region> {
         browser.getEngine().load(userGuideUrl);
     }
 
+    /**
+     *
+     */
     public void show() {
         logger.fine("Showing help page about the application.");
         dialogStage.showAndWait();

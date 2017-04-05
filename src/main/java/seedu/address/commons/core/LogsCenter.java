@@ -61,6 +61,9 @@ public class LogsCenter {
         return getLogger(clazz.getSimpleName());
     }
 
+    /**
+     *
+     */
     private static void addConsoleHandler(Logger logger) {
         if (consoleHandler == null) {
             consoleHandler = createConsoleHandler();
@@ -68,6 +71,9 @@ public class LogsCenter {
         logger.addHandler(consoleHandler);
     }
 
+    /**
+     *
+     */
     private static void removeHandlers(Logger logger) {
         Handler[] handlers = logger.getHandlers();
         for (Handler handler : handlers) {
@@ -75,6 +81,9 @@ public class LogsCenter {
         }
     }
 
+    /**
+     *
+     */
     private static void addFileHandler(Logger logger) {
         try {
             if (fileHandler == null) {
@@ -86,6 +95,9 @@ public class LogsCenter {
         }
     }
 
+    /**
+     *
+     */
     private static FileHandler createFileHandler() throws IOException {
         FileHandler fileHandler = new FileHandler(LOG_FILE, MAX_FILE_SIZE_IN_BYTES, MAX_FILE_COUNT, true);
         fileHandler.setFormatter(new SimpleFormatter());

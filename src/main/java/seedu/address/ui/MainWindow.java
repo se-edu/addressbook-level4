@@ -122,6 +122,9 @@ public class MainWindow extends UiPart<Region> {
         });
     }
 
+    /**
+     *
+     */
     void fillInnerParts() {
         browserPanel = new BrowserPanel();
         browserPlaceholder.getChildren().add(browserPanel.getRoot());
@@ -180,6 +183,9 @@ public class MainWindow extends UiPart<Region> {
                 (int) primaryStage.getX(), (int) primaryStage.getY());
     }
 
+    /**
+     *
+     */
     @FXML
     public void handleHelp() {
         HelpWindow helpWindow = new HelpWindow();

@@ -51,20 +51,20 @@ public class PersonListPanel extends UiPart<Region> {
                 });
     }
 
-    private void scrollTo(int index) {
+    /**
+     *
+     */
+    public void scrollTo(int index) {
         Platform.runLater(() -> {
             personListView.scrollTo(index);
             personListView.getSelectionModel().clearAndSelect(index);
         });
     }
 
-    @Subscribe
-    private void handleJumpToListRequestEvent(JumpToListRequestEvent event) {
-        logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        scrollTo(event.targetIndex);
-    }
-
-    class PersonListViewCell extends ListCell<PersonCard> {
+    /**
+     *
+     */
+    class PersonListViewCell extends ListCell<ReadOnlyPerson> {
 
         @Override
         protected void updateItem(PersonCard person, boolean empty) {
