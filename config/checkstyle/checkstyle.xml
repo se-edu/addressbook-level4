@@ -332,5 +332,43 @@
       <property name="severity" value="warning"/>
     </module>
 
+    <!--
+    JAVADOC CHECKS
+    -->
+
+    <!-- Checks that every class has a header comment. -->
+    <module name="JavadocType">
+      <property name="severity" value="warning"/>
+      <property name="allowMissingParamTags" value="true"/>
+    </module>
+
+    <!-- Checks that every public method (excluding getters and setters) has a header comment. -->
+    <module name="JavadocMethod">
+      <property name="severity" value="warning"/>
+      <property name="minLineCount" value="1"/>
+      <property name="allowedAnnotations" value="Override, Test, Before, BeforeClass, After"/>
+      <property name="scope" value="public"/>
+      <property name="allowUndeclaredRTE" value="true"/>
+      <property name="allowThrowsTagsForSubclasses" value="true"/>
+      <property name="allowMissingParamTags" value="true"/>
+      <property name="allowMissingThrowsTags" value="true"/>
+      <property name="allowMissingReturnTag" value="true"/>
+      <property name="allowMissingPropertyJavadoc" value="true"/>
+      <property name="ignoreMethodNamesRegex" value="(set.*|get.*)"/>
+    </module>
+    <!-- Checks that every non-trivial private method (excluding getters and setters) has a header comment. -->
+    <module name="JavadocMethod">
+      <property name="severity" value="warning"/>
+      <property name="minLineCount" value="3"/>
+      <property name="allowedAnnotations" value="Override, Test, Before, BeforeClass, After"/>
+      <property name="scope" value="private"/>
+      <property name="allowUndeclaredRTE" value="true"/>
+      <property name="allowThrowsTagsForSubclasses" value="true"/>
+      <property name="allowMissingParamTags" value="true"/>
+      <property name="allowMissingThrowsTags" value="true"/>
+      <property name="allowMissingReturnTag" value="true"/>
+      <property name="allowMissingPropertyJavadoc" value="true"/>
+      <property name="ignoreMethodNamesRegex" value="(set.*|get.*)"/>
+    </module>
   </module>
 </module>
