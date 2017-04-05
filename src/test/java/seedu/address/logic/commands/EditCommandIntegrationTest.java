@@ -53,7 +53,8 @@ public class EditCommandIntegrationTest {
     @Test
     public void execute_duplicatePerson_throwsCommandException() {
         Person alice = new TypicalPersons().alice; // Alice is the first person added to the typical address book
-        String userInput = PersonUtil.getEditCommand(2, alice); // userInput to update the second person to Alice
+        int addressBookIndex = 1; // zero-based index for the second person
+        String userInput = PersonUtil.getEditCommand(addressBookIndex, alice); // edit the second person to Alice
         Command command = prepareCommand(userInput);
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PERSON);
     }
@@ -67,33 +68,28 @@ public class EditCommandIntegrationTest {
     }
 
     private Command prepareCommand(String userInput) {
-        Command cmd = parser.parseCommand(userInput);
-        cmd.setData(model);
-        return cmd;
+        Command command = parser.parseCommand(userInput);
+        command.setData(model);
+        return command;
     }
 
     /**
-     * Executes {@code command}, confirms that <br>
+     * Executes the given {@code command}, confirms that <br>
      * - the result message matches {@code expectedMessage} <br>
      * - the address book in the model matches {@code expectedAddressBook} <br>
      * - the filtered person list in the model matches {@code expectedFilteredList} <br>
      */
-    private void assertCommandSuccess(Command command,
-                                        String expectedMessage,
-                                        ReadOnlyAddressBook expectedAddressBook,
-                                        List<? extends ReadOnlyPerson> expectedFilteredList) {
-        try {
-            CommandResult result = command.execute();
-            assertEquals(expectedMessage, result.feedbackToUser);
-            assertEquals(expectedAddressBook, model.getAddressBook());
-            assertEquals(expectedFilteredList, model.getFilteredPersonList());
-        } catch (Exception e) {
-            fail("unexpected exception: " + e.getMessage());
-        }
+    private void assertCommandSuccess(Command command, String expectedMessage,
+            ReadOnlyAddressBook expectedAddressBook,
+            List<? extends ReadOnlyPerson> expectedFilteredList) throws CommandException {
+        CommandResult result = command.execute();
+        assertEquals(expectedMessage, result.feedbackToUser);
+        assertEquals(expectedAddressBook, model.getAddressBook());
+        assertEquals(expectedFilteredList, model.getFilteredPersonList());
     }
 
     /**
-     * Executes {@code command}, confirms that <br>
+     * Executes the given {@code command}, confirms that <br>
      * - a {@code CommandException} is thrown <br>
      * - the CommandException message matches {@code expectedMessage} <br>
      */

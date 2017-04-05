@@ -18,17 +18,17 @@ public class PersonUtil {
     }
 
     /**
-     * Returns an edit command string for editing person at 0-based {@code addressBookIndex} to {@code newPerson}.
+     * Returns an edit command string for editing the person at {@code zeroBasedIndex} to match {@code editedPerson}.
      */
-    public static String getEditCommand(int addressBookIndex, Person newPerson) {
+    public static String getEditCommand(int zeroBasedIndex, Person editedPerson) {
         StringBuilder sb = new StringBuilder();
-        sb.append("edit " + (addressBookIndex + 1) + " ");
-        sb.append(getPersonDetails(newPerson));
+        sb.append("edit " + (zeroBasedIndex + 1) + " ");
+        sb.append(getPersonDetails(editedPerson));
         return sb.toString();
     }
 
     /**
-     * Returns the part of command string for the {@code person}'s information.
+     * Returns the part of command string for the given {@code person}'s details.
      */
     private static String getPersonDetails(Person person) {
         StringBuilder sb = new StringBuilder();
