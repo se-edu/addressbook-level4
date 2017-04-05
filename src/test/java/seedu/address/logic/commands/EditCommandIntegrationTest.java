@@ -52,8 +52,9 @@ public class EditCommandIntegrationTest {
 
     @Test
     public void execute_duplicatePerson_throwsCommandException() {
+        int firstPersonIndex = 0; // zero-based index for the first person
         int secondPersonIndex = 1; // zero-based index for the second person
-        Person firstPerson = new Person(model.getAddressBook().getPersonList().iterator().next());
+        Person firstPerson = new Person(model.getFilteredPersonList().get(firstPersonIndex));
         String userInput = PersonUtil.getEditCommand(secondPersonIndex, firstPerson);
         Command command = prepareCommand(userInput);
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PERSON);
