@@ -11,20 +11,14 @@ public class PersonUtil {
      * Returns an add command string for adding the {@code person}.
      */
     public static String getAddCommand(Person person) {
-        StringBuilder sb = new StringBuilder();
-        sb.append("add ");
-        sb.append(getPersonDetails(person));
-        return sb.toString();
+        return "add " + getPersonDetails(person);
     }
 
     /**
      * Returns an edit command string for editing the person at {@code zeroBasedIndex} to match {@code editedPerson}.
      */
     public static String getEditCommand(int zeroBasedIndex, Person editedPerson) {
-        StringBuilder sb = new StringBuilder();
-        sb.append("edit " + (zeroBasedIndex + 1) + " ");
-        sb.append(getPersonDetails(editedPerson));
-        return sb.toString();
+        return "edit " + (zeroBasedIndex + 1) + " " + getPersonDetails(editedPerson);
     }
 
     /**

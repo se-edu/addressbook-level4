@@ -22,8 +22,7 @@ import seedu.address.testutil.PersonUtil;
 import seedu.address.testutil.TypicalPersons;
 
 /**
- * An integration test class that tests
- * edit command's interaction with the Model.
+ * An integration test class that tests edit command's interaction with the Model.
  */
 public class EditCommandIntegrationTest {
 
@@ -54,7 +53,7 @@ public class EditCommandIntegrationTest {
     public void execute_duplicatePerson_throwsCommandException() {
         Person alice = new TypicalPersons().alice; // Alice is the first person added to the typical address book
         int addressBookIndex = 1; // zero-based index for the second person
-        String userInput = PersonUtil.getEditCommand(addressBookIndex, alice); // edit the second person to Alice
+        String userInput = PersonUtil.getEditCommand(addressBookIndex, alice); // edit the second person to match Alice
         Command command = prepareCommand(userInput);
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PERSON);
     }
