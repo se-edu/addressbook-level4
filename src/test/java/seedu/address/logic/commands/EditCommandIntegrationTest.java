@@ -27,23 +27,25 @@ import seedu.address.testutil.TypicalPersons;
  */
 public class EditCommandIntegrationTest {
 
+    private static final int ZERO_BASED_INDEX_FIRST_PERSON = 0;
+    private static final int ZERO_BASED_INDEX_SECOND_PERSON =  ZERO_BASED_INDEX_FIRST_PERSON + 1;
+
     private Model model = new ModelManager(new TypicalPersons().getTypicalAddressBook(), new UserPrefs());
     private Parser parser = new Parser();
 
     @Test
     public void execute_validCommand_succeeds() throws Exception {
-        int firstPersonIndex = 0; // zero-based index for the first person
         Person editedPerson = new PersonBuilder().withName("Bobby").withPhone("91234567")
                                     .withEmail("bobby@example.com").withAddress("Block 123, Bobby Street 3")
                                     .withTags("husband").build();
 
-        String userInput = PersonUtil.getEditCommand(firstPersonIndex, editedPerson);
+        String userInput = PersonUtil.getEditCommand(ZERO_BASED_INDEX_FIRST_PERSON, editedPerson);
         Command command = prepareCommand(userInput);
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
 
         AddressBook expectedAddressBook = new AddressBook(model.getAddressBook());
-        expectedAddressBook.updatePerson(firstPersonIndex, editedPerson);
+        expectedAddressBook.updatePerson(ZERO_BASED_INDEX_FIRST_PERSON, editedPerson);
 
         List<ReadOnlyPerson> expectedFilteredList = new ArrayList<>(model.getFilteredPersonList());
 
@@ -52,18 +54,16 @@ public class EditCommandIntegrationTest {
 
     @Test
     public void execute_duplicatePerson_throwsCommandException() {
-        int firstPersonIndex = 0; // zero-based index for the first person
-        int secondPersonIndex = 1; // zero-based index for the second person
-        Person firstPerson = new Person(model.getFilteredPersonList().get(firstPersonIndex));
-        String userInput = PersonUtil.getEditCommand(secondPersonIndex, firstPerson);
+        Person firstPerson = new Person(model.getFilteredPersonList().get(ZERO_BASED_INDEX_FIRST_PERSON));
+        String userInput = PersonUtil.getEditCommand(ZERO_BASED_INDEX_SECOND_PERSON, firstPerson);
         Command command = prepareCommand(userInput);
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PERSON);
     }
 
     @Test
     public void execute_invalidPersonIndex_throwsCommandException() {
-        int outOfBoundIndex = new TypicalPersons().getTypicalPersons().length + 1;
-        String userInput = "edit " + outOfBoundIndex + " Bobby";
+        int oneBasedOutOfBoundIndex = new TypicalPersons().getTypicalPersons().length + 1;
+        String userInput = "edit " + oneBasedOutOfBoundIndex + " Bobby";
         Command command = prepareCommand(userInput);
         assertCommandFailure(command, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
