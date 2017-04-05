@@ -59,6 +59,9 @@ public class AddressBook implements ReadOnlyAddressBook {
         this.tags.setTags(tags);
     }
 
+    /**
+     *
+     */
     public void resetData(ReadOnlyAddressBook newData) {
         assert newData != null;
         try {
@@ -140,6 +143,9 @@ public class AddressBook implements ReadOnlyAddressBook {
         persons.forEach(this::syncMasterTagListWith);
     }
 
+    /**
+     *
+     */
     public boolean removePerson(ReadOnlyPerson key) throws UniquePersonList.PersonNotFoundException {
         if (persons.remove(key)) {
             return true;

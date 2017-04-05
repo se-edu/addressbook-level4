@@ -39,6 +39,9 @@ public class HelpWindow extends UiPart<Region> {
         FxViewUtil.applyAnchorBoundaryParameters(browser, 0.0, 0.0, 0.0, 0.0);
     }
 
+    /**
+     *
+     */
     public void show() {
         logger.fine("Showing help page about the application.");
         dialogStage.showAndWait();

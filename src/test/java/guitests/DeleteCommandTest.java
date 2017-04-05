@@ -8,6 +8,9 @@ import org.junit.Test;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.TestUtil;
 
+/**
+ *
+ */
 public class DeleteCommandTest extends AddressBookGuiTest {
 
     @Test

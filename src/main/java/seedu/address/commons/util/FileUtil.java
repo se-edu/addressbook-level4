@@ -15,6 +15,9 @@ public class FileUtil {
         return file.exists() && file.isFile();
     }
 
+    /**
+     *
+     */
     public static void createIfMissing(File file) throws IOException {
         if (!isFileExists(file)) {
             createFile(file);

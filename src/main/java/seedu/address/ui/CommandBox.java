@@ -15,6 +15,9 @@ import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 
+/**
+ *
+ */
 public class CommandBox extends UiPart<Region> {
 
     public static final String ERROR_STYLE_CLASS = "error";
@@ -32,6 +35,9 @@ public class CommandBox extends UiPart<Region> {
         addToPlaceholder(commandBoxPlaceholder);
     }
 
+    /**
+     *
+     */
     private void addToPlaceholder(AnchorPane placeHolderPane) {
         SplitPane.setResizableWithParent(placeHolderPane, false);
         placeHolderPane.getChildren().add(commandTextField);
@@ -39,6 +45,9 @@ public class CommandBox extends UiPart<Region> {
         FxViewUtil.applyAnchorBoundaryParameters(commandTextField, 0.0, 0.0, 0.0, 0.0);
     }
 
+    /**
+     *
+     */
     @FXML
     private void handleCommandInputChanged() {
         try {

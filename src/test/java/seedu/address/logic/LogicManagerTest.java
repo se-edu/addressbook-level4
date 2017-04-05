@@ -52,7 +52,9 @@ import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
 import seedu.address.storage.XmlAddressBookStorage;
 
-
+/**
+ *
+ */
 public class LogicManagerTest {
 
     /**
@@ -420,6 +422,9 @@ public class LogicManagerTest {
      */
     class TestDataHelper {
 
+        /**
+         *
+         */
         Person adam() throws Exception {
             Name name = new Name("Adam Brown");
             Phone privatePhone = new Phone("111111");

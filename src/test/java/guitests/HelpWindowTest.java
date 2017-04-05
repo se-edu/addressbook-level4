@@ -7,6 +7,9 @@ import org.junit.Test;
 
 import guitests.guihandles.HelpWindowHandle;
 
+/**
+ *
+ */
 public class HelpWindowTest extends AddressBookGuiTest {
 
     @Test

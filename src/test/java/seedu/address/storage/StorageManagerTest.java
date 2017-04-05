@@ -20,6 +20,9 @@ import seedu.address.model.UserPrefs;
 import seedu.address.testutil.EventsCollector;
 import seedu.address.testutil.TypicalPersons;
 
+/**
+ *
+ */
 public class StorageManagerTest {
 
     @Rule

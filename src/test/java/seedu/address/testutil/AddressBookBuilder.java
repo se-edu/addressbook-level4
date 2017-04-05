@@ -19,11 +19,17 @@ public class AddressBookBuilder {
         this.addressBook = addressBook;
     }
 
+    /**
+     *
+     */
     public AddressBookBuilder withPerson(Person person) throws UniquePersonList.DuplicatePersonException {
         addressBook.addPerson(person);
         return this;
     }
 
+    /**
+     *
+     */
     public AddressBookBuilder withTag(String tagName) throws IllegalValueException {
         addressBook.addTag(new Tag(tagName));
         return this;

@@ -15,16 +15,25 @@ public class MainMenuHandle extends GuiHandle {
         super(guiRobot, primaryStage, TestApp.APP_TITLE);
     }
 
+    /**
+     *
+     */
     public GuiHandle clickOn(String... menuText) {
         Arrays.stream(menuText).forEach((menuItem) -> guiRobot.clickOn(menuItem));
         return this;
     }
 
+    /**
+     *
+     */
     public HelpWindowHandle openHelpWindowUsingMenu() {
         clickOn("Help", "F1");
         return new HelpWindowHandle(guiRobot, primaryStage);
     }
 
+    /**
+     *
+     */
     public HelpWindowHandle openHelpWindowUsingAccelerator() {
         useF1Accelerator();
         return new HelpWindowHandle(guiRobot, primaryStage);

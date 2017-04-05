@@ -43,6 +43,9 @@ public class TypicalPersons {
         }
     }
 
+    /**
+     *
+     */
     public static void loadAddressBookWithSampleData(AddressBook ab) {
         for (Person person : new TypicalPersons().getTypicalPersons()) {
             try {

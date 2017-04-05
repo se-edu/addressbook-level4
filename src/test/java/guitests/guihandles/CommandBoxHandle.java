@@ -43,6 +43,9 @@ public class CommandBoxHandle extends GuiHandle {
         return !getStyleClass().contains(CommandBox.ERROR_STYLE_CLASS);
     }
 
+    /**
+     *
+     */
     public HelpWindowHandle runHelpCommand() {
         enterCommand("help");
         pressEnter();

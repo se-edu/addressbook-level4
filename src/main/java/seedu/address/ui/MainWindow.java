@@ -114,6 +114,9 @@ public class MainWindow extends UiPart<Region> {
         });
     }
 
+    /**
+     *
+     */
     void fillInnerParts() {
         browserPanel = new BrowserPanel(browserPlaceholder);
         personListPanel = new PersonListPanel(getPersonListPlaceholder(), logic.getFilteredPersonList());
@@ -179,6 +182,9 @@ public class MainWindow extends UiPart<Region> {
                 (int) primaryStage.getX(), (int) primaryStage.getY());
     }
 
+    /**
+     *
+     */
     @FXML
     public void handleHelp() {
         HelpWindow helpWindow = new HelpWindow();

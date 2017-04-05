@@ -11,6 +11,9 @@ import org.junit.Test;
 
 import seedu.address.ui.CommandBox;
 
+/**
+ *
+ */
 public class CommandBoxTest extends AddressBookGuiTest {
 
     private static final String COMMAND_THAT_SUCCEEDS = "select 3";

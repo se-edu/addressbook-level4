@@ -104,11 +104,17 @@ public class ModelManager extends ComponentManager implements Model {
 
     //========== Inner classes/interfaces used for filtering =================================================
 
+    /**
+     *
+     */
     interface Expression {
         boolean satisfies(ReadOnlyPerson person);
         String toString();
     }
 
+    /**
+     *
+     */
     private class PredicateExpression implements Expression {
 
         private final Qualifier qualifier;
@@ -128,11 +134,17 @@ public class ModelManager extends ComponentManager implements Model {
         }
     }
 
+    /**
+     *
+     */
     interface Qualifier {
         boolean run(ReadOnlyPerson person);
         String toString();
     }
 
+    /**
+     *
+     */
     private class NameQualifier implements Qualifier {
         private Set<String> nameKeyWords;
 
