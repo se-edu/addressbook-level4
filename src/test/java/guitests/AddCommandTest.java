@@ -11,6 +11,9 @@ import seedu.address.model.person.Person;
 import seedu.address.testutil.PersonUtil;
 import seedu.address.testutil.TestUtil;
 
+/**
+ *
+ */
 public class AddCommandTest extends AddressBookGuiTest {
 
     @Test
@@ -40,6 +43,9 @@ public class AddCommandTest extends AddressBookGuiTest {
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
     }
 
+    /**
+     *
+     */
     private void assertAddSuccess(Person personToAdd, Person... currentList) {
         commandBox.runCommand(PersonUtil.getAddCommand(personToAdd));
 

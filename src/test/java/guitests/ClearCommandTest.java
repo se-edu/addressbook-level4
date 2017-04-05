@@ -6,6 +6,9 @@ import org.junit.Test;
 
 import seedu.address.testutil.PersonUtil;
 
+/**
+ *
+ */
 public class ClearCommandTest extends AddressBookGuiTest {
 
     @Test

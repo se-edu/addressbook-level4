@@ -99,6 +99,9 @@ public class PersonListPanelHandle extends GuiHandle {
         return true;
     }
 
+    /**
+     *
+     */
     public PersonCardHandle navigateToPerson(String name) {
         guiRobot.sleep(500); //Allow a bit of time for the list to be updated
         final Optional<ReadOnlyPerson> person = getListView().getItems().stream()

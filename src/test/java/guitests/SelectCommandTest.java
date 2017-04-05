@@ -6,6 +6,9 @@ import org.junit.Test;
 
 import seedu.address.model.person.ReadOnlyPerson;
 
+/**
+ *
+ */
 public class SelectCommandTest extends AddressBookGuiTest {
 
 
@@ -45,6 +48,9 @@ public class SelectCommandTest extends AddressBookGuiTest {
         assertPersonSelected(index);
     }
 
+    /**
+     *
+     */
     private void assertPersonSelected(int index) {
         assertEquals(personListPanel.getSelectedPersons().size(), 1);
         ReadOnlyPerson selectedPerson = personListPanel.getSelectedPersons().get(0);

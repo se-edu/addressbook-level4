@@ -72,6 +72,9 @@ public class PersonCardHandle extends GuiHandle {
         return guiRobot.from(node).lookup(TAGS_FIELD_ID).query();
     }
 
+    /**
+     *
+     */
     public boolean isSamePerson(ReadOnlyPerson person) {
         return getFullName().equals(person.getName().fullName)
                 && getPhone().equals(person.getPhone().value)

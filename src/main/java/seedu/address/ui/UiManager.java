@@ -82,6 +82,9 @@ public class UiManager extends ComponentManager implements Ui {
         showAlertDialogAndWait(mainWindow.getPrimaryStage(), type, title, headerText, contentText);
     }
 
+    /**
+     *
+     */
     private static void showAlertDialogAndWait(Stage owner, AlertType type, String title, String headerText,
                                                String contentText) {
         final Alert alert = new Alert(type);
@@ -94,6 +97,9 @@ public class UiManager extends ComponentManager implements Ui {
         alert.showAndWait();
     }
 
+    /**
+     *
+     */
     private void showFatalErrorDialogAndShutdown(String title, Throwable e) {
         logger.severe(title + " " + e.getMessage() + StringUtil.getDetails(e));
         showAlertDialogAndWait(Alert.AlertType.ERROR, title, e.getMessage(), e.toString());

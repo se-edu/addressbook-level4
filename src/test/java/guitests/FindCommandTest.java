@@ -7,6 +7,9 @@ import org.junit.Test;
 import seedu.address.commons.core.Messages;
 import seedu.address.model.person.Person;
 
+/**
+ *
+ */
 public class FindCommandTest extends AddressBookGuiTest {
 
     @Test
@@ -31,6 +34,9 @@ public class FindCommandTest extends AddressBookGuiTest {
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
     }
 
+    /**
+     *
+     */
     private void assertFindResult(String command, Person... expectedHits) {
         commandBox.runCommand(command);
         assertListSize(expectedHits.length);

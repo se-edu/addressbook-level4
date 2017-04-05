@@ -7,6 +7,9 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
+/**
+ *
+ */
 public class ArgumentTokenizerTest {
 
     private final Prefix unknownPrefix = new Prefix("--u");
@@ -31,6 +34,9 @@ public class ArgumentTokenizerTest {
         assertTrue(argMultimap.getPreamble().isEmpty());
     }
 
+    /**
+     *
+     */
     private void assertArgumentPresent(ArgumentMultimap argMultimap, Prefix prefix, String... expectedValues) {
 
         // Verify the last value is returned

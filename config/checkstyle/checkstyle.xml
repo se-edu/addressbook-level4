@@ -332,5 +332,48 @@
       <property name="severity" value="warning"/>
     </module>
 
+    <!--
+    JAVADOC CHECKS
+    -->
+
+    <!-- Checks that every class, enumeration and interface have a header comment. -->
+    <module name="JavadocType">
+      <property name="allowMissingParamTags" value="true"/>
+    </module>
+
+    <!-- Checks that every public method (excluding getters, setters and constructors) has a header comment. -->
+    <module name="JavadocMethod">
+      <!-- Checks public methods that have more than 1 line of code.
+        Single line of code methods are often due to refactor for readability.
+      -->
+      <property name="minLineCount" value="1"/>
+      <property name="allowedAnnotations" value="Override, Test, Before, BeforeClass, After"/>
+      <property name="scope" value="public"/>
+      <property name="allowUndeclaredRTE" value="true"/>
+      <property name="allowThrowsTagsForSubclasses" value="true"/>
+      <property name="allowMissingParamTags" value="true"/>
+      <property name="allowMissingThrowsTags" value="true"/>
+      <property name="allowMissingReturnTag" value="true"/>
+      <property name="allowMissingPropertyJavadoc" value="true"/>
+      <property name="ignoreMethodNamesRegex" value="(set.*|get.*)"/>
+      <property name="tokens" value="METHOD_DEF, ANNOTATION_FIELD_DEF"/>
+    </module>
+    <!-- Checks that every non-trivial private method (excluding getters, setters and constructors) has a header comment. -->
+    <module name="JavadocMethod">
+      <!-- Checks private methods that have more than 3 lines of code.
+        We define methods that have more than 3 lines of code as non-trivial.
+      -->
+      <property name="minLineCount" value="3"/>
+      <property name="allowedAnnotations" value="Override, Test, Before, BeforeClass, After"/>
+      <property name="scope" value="private"/>
+      <property name="allowUndeclaredRTE" value="true"/>
+      <property name="allowThrowsTagsForSubclasses" value="true"/>
+      <property name="allowMissingParamTags" value="true"/>
+      <property name="allowMissingThrowsTags" value="true"/>
+      <property name="allowMissingReturnTag" value="true"/>
+      <property name="allowMissingPropertyJavadoc" value="true"/>
+      <property name="ignoreMethodNamesRegex" value="(set.*|get.*)"/>
+      <property name="tokens" value="METHOD_DEF, ANNOTATION_FIELD_DEF"/>
+    </module>
   </module>
 </module>

@@ -34,6 +34,9 @@ public class GuiHandle {
         focusOnSelf();
     }
 
+    /**
+     *
+     */
     public void focusOnWindow(String stageTitle) {
         logger.info("Focusing " + stageTitle);
         Optional<Window> window = guiRobot.listTargetWindows()
@@ -74,6 +77,9 @@ public class GuiHandle {
         return ((Label) guiRobot.from(parentNode).lookup(fieldId).tryQuery().get()).getText();
     }
 
+    /**
+     *
+     */
     public void focusOnSelf() {
         if (stageTitle != null) {
             focusOnWindow(stageTitle);
@@ -84,6 +90,9 @@ public class GuiHandle {
         this.focusOnWindow(TestApp.APP_TITLE);
     }
 
+    /**
+     *
+     */
     public void closeWindow() {
         Optional<Window> window = guiRobot.listTargetWindows()
                 .stream()

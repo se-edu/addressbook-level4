@@ -16,6 +16,9 @@ import seedu.address.storage.XmlSerializableAddressBook;
 import seedu.address.testutil.AddressBookBuilder;
 import seedu.address.testutil.TestUtil;
 
+/**
+ *
+ */
 public class XmlUtilTest {
 
     private static final String TEST_DATA_FOLDER = FileUtil.getPath("src/test/data/XmlUtilTest/");

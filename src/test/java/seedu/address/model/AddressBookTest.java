@@ -19,6 +19,9 @@ import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.TypicalPersons;
 
+/**
+ *
+ */
 public class AddressBookTest {
 
     @Rule

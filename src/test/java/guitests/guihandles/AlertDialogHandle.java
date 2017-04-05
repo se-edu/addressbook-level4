@@ -15,6 +15,9 @@ public class AlertDialogHandle extends GuiHandle {
         super(guiRobot, primaryStage, dialogTitle);
     }
 
+    /**
+     *
+     */
     public boolean isMatching(String headerMessage, String contentMessage) {
         assert intermediateStage.isPresent() : "Alert dialog is not present";
         DialogPane dialogPane = getNode("#" + UiManager.ALERT_DIALOG_PANE_FIELD_ID);

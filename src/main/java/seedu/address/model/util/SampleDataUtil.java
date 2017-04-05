@@ -14,6 +14,9 @@ import seedu.address.model.person.Phone;
 import seedu.address.model.person.UniquePersonList.DuplicatePersonException;
 import seedu.address.model.tag.Tag;
 
+/**
+ *
+ */
 public class SampleDataUtil {
     public static Person[] getSamplePersons() {
         try {
