@@ -342,7 +342,7 @@
       <property name="allowMissingParamTags" value="true"/>
     </module>
 
-    <!-- Checks that every public method (excluding getters and setters) has a header comment. -->
+    <!-- Checks that every public method (excluding getters, setters and constructors) has a header comment. -->
     <module name="JavadocMethod">
       <property name="severity" value="warning"/>
       <property name="minLineCount" value="1"/>
@@ -355,8 +355,9 @@
       <property name="allowMissingReturnTag" value="true"/>
       <property name="allowMissingPropertyJavadoc" value="true"/>
       <property name="ignoreMethodNamesRegex" value="(set.*|get.*)"/>
+      <property name="tokens" value="METHOD_DEF, ANNOTATION_FIELD_DEF"/>
     </module>
-    <!-- Checks that every non-trivial private method (excluding getters and setters) has a header comment. -->
+    <!-- Checks that every non-trivial private method (excluding getters, setters and constructors) has a header comment. -->
     <module name="JavadocMethod">
       <property name="severity" value="warning"/>
       <property name="minLineCount" value="3"/>
@@ -369,6 +370,7 @@
       <property name="allowMissingReturnTag" value="true"/>
       <property name="allowMissingPropertyJavadoc" value="true"/>
       <property name="ignoreMethodNamesRegex" value="(set.*|get.*)"/>
+      <property name="tokens" value="METHOD_DEF, ANNOTATION_FIELD_DEF"/>
     </module>
   </module>
 </module>
