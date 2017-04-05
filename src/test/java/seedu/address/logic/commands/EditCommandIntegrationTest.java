@@ -32,18 +32,18 @@ public class EditCommandIntegrationTest {
 
     @Test
     public void execute_validCommand_succeeds() throws Exception {
-        int addressBookIndex = 0;
+        int firstPersonIndex = 0; // zero-based index for the first person
         Person editedPerson = new PersonBuilder().withName("Bobby").withPhone("91234567")
                                     .withEmail("bobby@example.com").withAddress("Block 123, Bobby Street 3")
                                     .withTags("husband").build();
 
-        String userInput = PersonUtil.getEditCommand(addressBookIndex, editedPerson);
+        String userInput = PersonUtil.getEditCommand(firstPersonIndex, editedPerson);
         Command command = prepareCommand(userInput);
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
 
         AddressBook expectedAddressBook = new AddressBook(model.getAddressBook());
-        expectedAddressBook.updatePerson(addressBookIndex, editedPerson);
+        expectedAddressBook.updatePerson(firstPersonIndex, editedPerson);
 
         List<ReadOnlyPerson> expectedFilteredList = new ArrayList<>(model.getFilteredPersonList());
 
@@ -52,9 +52,9 @@ public class EditCommandIntegrationTest {
 
     @Test
     public void execute_duplicatePerson_throwsCommandException() {
-        Person alice = new TypicalPersons().alice; // Alice is the first person added to the typical address book
-        int addressBookIndex = 1; // zero-based index for the second person
-        String userInput = PersonUtil.getEditCommand(addressBookIndex, alice); // edit the second person to match Alice
+        int secondPersonIndex = 1; // zero-based index for the second person
+        Person firstPerson = new Person(model.getAddressBook().getPersonList().iterator().next());
+        String userInput = PersonUtil.getEditCommand(secondPersonIndex, firstPerson);
         Command command = prepareCommand(userInput);
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PERSON);
     }
