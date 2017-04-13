@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import org.junit.Test;
 
+import seedu.address.commons.util.IndexUtil;
 import seedu.address.model.person.ReadOnlyPerson;
 
 public class SelectCommandTest extends AddressBookGuiTest {
@@ -48,7 +49,7 @@ public class SelectCommandTest extends AddressBookGuiTest {
     private void assertPersonSelected(int index) {
         assertEquals(personListPanel.getSelectedPersons().size(), 1);
         ReadOnlyPerson selectedPerson = personListPanel.getSelectedPersons().get(0);
-        assertEquals(personListPanel.getPerson(index - 1), selectedPerson);
+        assertEquals(personListPanel.getPerson(IndexUtil.oneToZeroIndex(index)), selectedPerson);
         //TODO: confirm the correct page is loaded in the Browser Panel
     }
 
