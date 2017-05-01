@@ -440,7 +440,7 @@ public class LogicManagerTest {
         Person generatePerson(int seed) throws Exception {
             return new Person(
                     new Name("Person " + seed),
-                    new Phone("" + Math.abs(seed)),
+                    new Phone(String.join("", Collections.nCopies(3, String.valueOf(Math.abs(seed))))),
                     new Email(seed + "@email"),
                     new Address("House of " + seed),
                     getTagSet("tag" + Math.abs(seed), "tag" + Math.abs(seed + 1)));
@@ -538,7 +538,7 @@ public class LogicManagerTest {
         Person generatePersonWithName(String name) throws Exception {
             return new Person(
                     new Name(name),
-                    new Phone("1"),
+                    new Phone("111"),
                     new Email("1@email"),
                     new Address("House of 1"),
                     getTagSet("tag"));
