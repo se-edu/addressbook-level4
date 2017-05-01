@@ -440,6 +440,7 @@ public class LogicManagerTest {
         Person generatePerson(int seed) throws Exception {
             return new Person(
                     new Name("Person " + seed),
+                    // to ensure that phone numbers are at least 3 digits long, in the event when seed is 1 digit
                     new Phone(String.join("", Collections.nCopies(3, String.valueOf(Math.abs(seed))))),
                     new Email(seed + "@email"),
                     new Address("House of " + seed),
