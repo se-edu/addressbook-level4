@@ -6,6 +6,7 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.CommandTestUtil;
 import seedu.address.testutil.PersonUtil;
@@ -45,5 +46,12 @@ public class AddCommandIntegrationTest {
         Command command = testUtil.prepareCommand(userInput);
 
         testUtil.assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
+    }
+
+    @Test
+    public void execute_invalidPersonData_throwsCommandException() throws Exception {
+        Command command = testUtil.prepareCommand("add []\\[;] p/12345 e/valid@e.mail a/valid, address");
+
+        testUtil.assertCommandFailure(command, Name.MESSAGE_NAME_CONSTRAINTS);
     }
 }
