@@ -51,6 +51,7 @@ import seedu.address.model.tag.Tag;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
 import seedu.address.storage.XmlAddressBookStorage;
+import seedu.address.testutil.PersonBuilder;
 
 
 public class LogicManagerTest {
@@ -360,10 +361,10 @@ public class LogicManagerTest {
     @Test
     public void execute_find_onlyMatchesFullWordsInNames() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        Person pTarget1 = helper.generatePersonWithName("bla bla KEY bla");
-        Person pTarget2 = helper.generatePersonWithName("bla KEY bla bceofeia");
-        Person p1 = helper.generatePersonWithName("KE Y");
-        Person p2 = helper.generatePersonWithName("KEYKEYKEY sduauo");
+        Person pTarget1 = new PersonBuilder().withName("bla bla KEY bla").build();
+        Person pTarget2 = new PersonBuilder().withName("bla KEY bla bceofeia").build();
+        Person p1 = new PersonBuilder().withName("KE Y").build();
+        Person p2 = new PersonBuilder().withName("KEYKEYKEY sduauo").build();
 
         List<Person> fourPersons = helper.generatePersonList(p1, pTarget1, p2, pTarget2);
         AddressBook expectedAb = helper.generateAddressBook(fourPersons);
@@ -379,10 +380,10 @@ public class LogicManagerTest {
     @Test
     public void execute_find_isNotCaseSensitive() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        Person p1 = helper.generatePersonWithName("bla bla KEY bla");
-        Person p2 = helper.generatePersonWithName("bla KEY bla bceofeia");
-        Person p3 = helper.generatePersonWithName("key key");
-        Person p4 = helper.generatePersonWithName("KEy sduauo");
+        Person p1 = new PersonBuilder().withName("bla bla KEY bla").build();
+        Person p2 = new PersonBuilder().withName("bla KEY bla bceofeia").build();
+        Person p3 = new PersonBuilder().withName("key key").build();
+        Person p4 = new PersonBuilder().withName("KEy sduauo").build();
 
         List<Person> fourPersons = helper.generatePersonList(p3, p1, p4, p2);
         AddressBook expectedAb = helper.generateAddressBook(fourPersons);
@@ -398,10 +399,10 @@ public class LogicManagerTest {
     @Test
     public void execute_find_matchesIfAnyKeywordPresent() throws Exception {
         TestDataHelper helper = new TestDataHelper();
-        Person pTarget1 = helper.generatePersonWithName("bla bla KEY bla");
-        Person pTarget2 = helper.generatePersonWithName("bla rAnDoM bla bceofeia");
-        Person pTarget3 = helper.generatePersonWithName("key key");
-        Person p1 = helper.generatePersonWithName("sduauo");
+        Person pTarget1 = new PersonBuilder().withName("bla bla KEY bla").build();
+        Person pTarget2 = new PersonBuilder().withName("bla rAnDoM bla bceofeia").build();
+        Person pTarget3 = new PersonBuilder().withName("key key").build();
+        Person p1 = new PersonBuilder().withName("sduauo").build();
 
         List<Person> fourPersons = helper.generatePersonList(pTarget1, p1, pTarget2, pTarget3);
         AddressBook expectedAb = helper.generateAddressBook(fourPersons);
@@ -438,12 +439,12 @@ public class LogicManagerTest {
          * @param seed used to generate the person data field values
          */
         Person generatePerson(int seed) throws Exception {
-            return new Person(
-                    new Name("Person " + seed),
-                    new Phone("" + Math.abs(seed)),
-                    new Email(seed + "@email"),
-                    new Address("House of " + seed),
-                    getTagSet("tag" + Math.abs(seed), "tag" + Math.abs(seed + 1)));
+            return new PersonBuilder().withName("Person " + seed)
+                    .withPhone("" + Math.abs(seed))
+                    .withEmail(seed + "@email")
+                    .withAddress("House of " + seed)
+                    .withTags("tag" + Math.abs(seed), "tag" + Math.abs(seed + 1))
+                    .build();
         }
 
         /** Generates the correct add command based on the person given */
@@ -530,18 +531,6 @@ public class LogicManagerTest {
 
         List<Person> generatePersonList(Person... persons) {
             return Arrays.asList(persons);
-        }
-
-        /**
-         * Generates a Person object with given name. Other fields will have some dummy values.
-         */
-        Person generatePersonWithName(String name) throws Exception {
-            return new Person(
-                    new Name(name),
-                    new Phone("1"),
-                    new Email("1@email"),
-                    new Address("House of 1"),
-                    getTagSet("tag"));
         }
     }
 }
