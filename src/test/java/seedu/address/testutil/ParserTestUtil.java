@@ -25,4 +25,12 @@ public class ParserTestUtil {
         IncorrectCommand incorrectCommand = (IncorrectCommand) command;
         assertEquals(expectedMessage, incorrectCommand.feedbackToUser);
     }
+
+    public static void assertParseSuccess(String userInput) {
+        Command command = parser.parseCommand(userInput);
+
+        if (command instanceof IncorrectCommand) {
+            fail();
+        }
+    }
 }

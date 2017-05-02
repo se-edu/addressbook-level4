@@ -16,6 +16,29 @@ import seedu.address.testutil.ParserTestUtil;
  */
 public class AddCommandParserTest {
     @Test
+    public void parse_validInput_success() {
+        // no tags
+        ParserTestUtil.assertParseSuccess(
+                "add Betsy Crowe p/1234567 a/Newgate Prison e/betsycrowe@example.com");
+
+        // leading and trailing whitespace
+        ParserTestUtil.assertParseSuccess(
+                "    add Betsy Crowe p/1234567 a/Newgate Prison e/betsycrowe@example.com    ");
+
+        // single tag
+        ParserTestUtil.assertParseSuccess(
+                "add Betsy Crowe e/betsycrowe@example.com t/friend a/Newgate Prison p/1234567");
+
+        // multiple non-sequential tags
+        ParserTestUtil.assertParseSuccess(
+                "add Betsy Crowe p/1234567 t/friend e/betsycrowe@example.com t/criminal a/Newgate Prison");
+
+        // multiple sequential tags
+        ParserTestUtil.assertParseSuccess(
+                "add Betsy Crowe t/criminal t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 ");
+    }
+
+    @Test
     public void parse_invalidArgsFormat_failure() {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
         ParserTestUtil.assertParseFailure("add wrong args wrong args", expectedMessage);
