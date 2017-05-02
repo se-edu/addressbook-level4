@@ -389,16 +389,6 @@ public class LogicManagerTest {
      */
     class TestDataHelper {
 
-        Person adam() throws Exception {
-            Name name = new Name("Adam Brown");
-            Phone privatePhone = new Phone("111111");
-            Email email = new Email("adam@example.com");
-            Address privateAddress = new Address("111, alpha street");
-
-            return new Person(name, privatePhone, email, privateAddress,
-                    getTagSet("tag1", "longertag2"));
-        }
-
         /**
          * Generates a valid person using the given seed.
          * Running this function with the same parameter values guarantees the returned person will have the same state.
