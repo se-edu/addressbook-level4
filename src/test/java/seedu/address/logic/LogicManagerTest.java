@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.Set;
 
 import org.junit.After;
 import org.junit.Before;
@@ -379,25 +378,6 @@ public class LogicManagerTest {
                     new Email(seed + "@email"),
                     new Address("House of " + seed),
                     getTagSet("tag" + Math.abs(seed), "tag" + Math.abs(seed + 1)));
-        }
-
-        /** Generates the correct add command based on the person given */
-        String generateAddCommand(Person p) {
-            StringBuffer cmd = new StringBuffer();
-
-            cmd.append("add ");
-
-            cmd.append(p.getName().toString());
-            cmd.append(" e/").append(p.getEmail());
-            cmd.append(" p/").append(p.getPhone());
-            cmd.append(" a/").append(p.getAddress());
-
-            Set<Tag> tags = p.getTags();
-            for (Tag t: tags) {
-                cmd.append(" t/").append(t.tagName);
-            }
-
-            return cmd.toString();
         }
 
         /**
