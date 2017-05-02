@@ -214,37 +214,6 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void execute_add_successful() throws Exception {
-        // setup expectations
-        TestDataHelper helper = new TestDataHelper();
-        Person toBeAdded = helper.adam();
-        AddressBook expectedAb = new AddressBook();
-        expectedAb.addPerson(toBeAdded);
-
-        // execute command and verify result
-        assertCommandSuccess(helper.generateAddCommand(toBeAdded),
-                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
-                expectedAb,
-                expectedAb.getPersonList());
-
-    }
-
-    @Test
-    public void execute_addDuplicate_notAllowed() throws Exception {
-        // setup expectations
-        TestDataHelper helper = new TestDataHelper();
-        Person toBeAdded = helper.adam();
-
-        // setup starting state
-        model.addPerson(toBeAdded); // person already in internal address book
-
-        // execute command and verify result
-        assertCommandFailure(helper.generateAddCommand(toBeAdded),  AddCommand.MESSAGE_DUPLICATE_PERSON);
-
-    }
-
-
-    @Test
     public void execute_list_showsAllPersons() throws Exception {
         // prepare expectations
         TestDataHelper helper = new TestDataHelper();
@@ -419,16 +388,6 @@ public class LogicManagerTest {
      * A utility class to generate test data.
      */
     class TestDataHelper {
-
-        Person adam() throws Exception {
-            Name name = new Name("Adam Brown");
-            Phone privatePhone = new Phone("111111");
-            Email email = new Email("adam@example.com");
-            Address privateAddress = new Address("111, alpha street");
-
-            return new Person(name, privatePhone, email, privateAddress,
-                    getTagSet("tag1", "longertag2"));
-        }
 
         /**
          * Generates a valid person using the given seed.
