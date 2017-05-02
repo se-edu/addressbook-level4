@@ -8,9 +8,10 @@ import seedu.address.commons.exceptions.IllegalValueException;
  */
 public class Phone {
 
-    public static final String MESSAGE_PHONE_CONSTRAINTS = "Person phone numbers should only contain numbers";
-    public static final String PHONE_VALIDATION_REGEX = "\\d+";
 
+    public static final String MESSAGE_PHONE_CONSTRAINTS =
+            "Person phone numbers should only contain numbers, and it should contain a minimum of 3 numbers";
+    public static final String PHONE_VALIDATION_REGEX = "\\d{3,}";
     public final String value;
 
     /**
