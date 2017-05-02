@@ -438,10 +438,12 @@ public class LogicManagerTest {
          * @param seed used to generate the person data field values
          */
         Person generatePerson(int seed) throws Exception {
+            // to ensure that phone numbers are at least 3 digits long, when seed is less than 3 digits
+            String phoneNumber = String.join("", Collections.nCopies(3, String.valueOf(Math.abs(seed))));
+
             return new Person(
                     new Name("Person " + seed),
-                    // to ensure that phone numbers are at least 3 digits long, when seed is less than 3 digits
-                    new Phone(String.join("", Collections.nCopies(3, String.valueOf(Math.abs(seed))))),
+                    new Phone(phoneNumber),
                     new Email(seed + "@email"),
                     new Address("House of " + seed),
                     getTagSet("tag" + Math.abs(seed), "tag" + Math.abs(seed + 1)));
