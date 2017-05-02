@@ -9,36 +9,34 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
-import seedu.address.testutil.TestDataHelper;
+import seedu.address.testutil.ParserTestUtil;
 
 /**
  * Tests the parsing of AddCommand.
  */
 public class AddCommandParserTest {
 
-    private final TestDataHelper helper = new TestDataHelper();
-
     @Test
-    public void execute_add_invalidArgsFormat() {
+    public void execute_invalidInput_invalidArgsFormat() {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
-        helper.assertCommandFailure("add wrong args wrong args", expectedMessage);
-        helper.assertCommandFailure(
+        ParserTestUtil.assertParseFailure("add wrong args wrong args", expectedMessage);
+        ParserTestUtil.assertParseFailure(
                 "add Valid Name 12345 e/valid@email.butNoPhonePrefix a/valid,address", expectedMessage);
-        helper.assertCommandFailure(
+        ParserTestUtil.assertParseFailure(
                 "add Valid Name p/12345 valid@email.butNoPrefix a/valid, address", expectedMessage);
-        helper.assertCommandFailure(
+        ParserTestUtil.assertParseFailure(
                 "add Valid Name p/12345 e/valid@email.butNoAddressPrefix valid, address", expectedMessage);
     }
 
     @Test
-    public void execute_add_invalidPersonData() {
-        helper.assertCommandFailure("add []\\[;] p/12345 e/valid@e.mail a/valid, address",
+    public void execute_invalidInput_invalidPersonData() {
+        ParserTestUtil.assertParseFailure("add []\\[;] p/12345 e/valid@e.mail a/valid, address",
                 Name.MESSAGE_NAME_CONSTRAINTS);
-        helper.assertCommandFailure("add Valid Name p/not_numbers e/valid@e.mail a/valid, address",
+        ParserTestUtil.assertParseFailure("add Valid Name p/not_numbers e/valid@e.mail a/valid, address",
                 Phone.MESSAGE_PHONE_CONSTRAINTS);
-        helper.assertCommandFailure("add Valid Name p/12345 e/notAnEmail a/valid, address",
+        ParserTestUtil.assertParseFailure("add Valid Name p/12345 e/notAnEmail a/valid, address",
                 Email.MESSAGE_EMAIL_CONSTRAINTS);
-        helper.assertCommandFailure("add Valid Name p/12345 e/valid@e.mail a/valid, address t/invalid_-[.tag",
+        ParserTestUtil.assertParseFailure("add Valid Name p/12345 e/valid@e.mail a/valid, address t/invalid_-[.tag",
                 Tag.MESSAGE_TAG_CONSTRAINTS);
 
     }
