@@ -19,7 +19,7 @@ import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.testutil.TypicalPersons;
 
 /**
- * A Test class for command integration tests.
+ * A base test class for all command integration tests.
  */
 public abstract class CommandIntegrationTest {
     protected Model model;
