@@ -1,4 +1,4 @@
-package seedu.address.testutil;
+package seedu.address.logic.commands;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
@@ -6,26 +6,30 @@ import static org.junit.Assert.fail;
 import java.util.ArrayList;
 import java.util.List;
 
-import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.CommandResult;
+import org.junit.Before;
+
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.Parser;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
+import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.UserPrefs;
 import seedu.address.model.person.ReadOnlyPerson;
+import seedu.address.testutil.TypicalPersons;
 
 /**
- * Utility class for command tests.
+ * A Test class for command integration tests.
  */
-public class CommandTestUtil {
-    private Model model;
+public abstract class CommandIntegrationTest {
+    protected Model model;
 
-    public CommandTestUtil(Model model) {
-        this.model = model;
+    @Before
+    public void setup() throws Exception {
+        model = new ModelManager(new TypicalPersons().getTypicalAddressBook(), new UserPrefs());
     }
 
-    public Command prepareCommand(String userInput) {
+    protected Command prepareCommand(String userInput) {
         Command command = new Parser().parseCommand(userInput);
         command.setData(model);
         return command;
@@ -37,7 +41,7 @@ public class CommandTestUtil {
      * - the address book in the model matches {@code expectedAddressBook} <br>
      * - the filtered person list in the model matches {@code expectedFilteredList} <br>
      */
-    public void assertCommandSuccess(Command command, String expectedMessage,
+    protected void assertCommandSuccess(Command command, String expectedMessage,
             ReadOnlyAddressBook expectedAddressBook,
             List<? extends ReadOnlyPerson> expectedFilteredList) throws CommandException {
         CommandResult result = command.execute();
@@ -53,7 +57,7 @@ public class CommandTestUtil {
      * - the address book in the model remains unchanged <br>
      * - the filtered person list in the model remains unchanged <br>
      */
-    public void assertCommandFailure(Command command, String expectedMessage) {
+    protected void assertCommandFailure(Command command, String expectedMessage) {
         AddressBook expectedAddressBook = new AddressBook(model.getAddressBook());
         List<ReadOnlyPerson> expectedFilteredList = new ArrayList<>(model.getFilteredPersonList());
         try {

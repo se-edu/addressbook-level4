@@ -3,36 +3,28 @@ package seedu.address.logic.commands;
 import org.junit.Test;
 
 import seedu.address.model.AddressBook;
-import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
-import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
-import seedu.address.testutil.CommandTestUtil;
 import seedu.address.testutil.PersonUtil;
-import seedu.address.testutil.TypicalPersons;
 
 /**
  * An integration test class that tests add command's interaction with the Model.
  */
-public class AddCommandIntegrationTest {
-
-    private Model model = new ModelManager(new TypicalPersons().getTypicalAddressBook(), new UserPrefs());
-    private CommandTestUtil testUtil = new CommandTestUtil(model);
+public class AddCommandIntegrationTest extends CommandIntegrationTest {
 
     @Test
     public void execute_validCommand_succeeds() throws Exception {
         Person toAdd = new PersonUtil().adam();
 
         String userInput = PersonUtil.getAddCommand(toAdd);
-        Command command = testUtil.prepareCommand(userInput);
+        Command command = prepareCommand(userInput);
 
         String expectedMessage = String.format(AddCommand.MESSAGE_SUCCESS, toAdd);
 
         AddressBook expectedAddressBook = new AddressBook(model.getAddressBook());
         expectedAddressBook.addPerson(toAdd);
 
-        testUtil.assertCommandSuccess(command, expectedMessage, expectedAddressBook,
+        assertCommandSuccess(command, expectedMessage, expectedAddressBook,
                 expectedAddressBook.getPersonList());
     }
 
@@ -43,15 +35,15 @@ public class AddCommandIntegrationTest {
         model.addPerson(toAdd); // person already in internal address book
 
         String userInput = PersonUtil.getAddCommand(toAdd);
-        Command command = testUtil.prepareCommand(userInput);
+        Command command = prepareCommand(userInput);
 
-        testUtil.assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
+        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
     }
 
     @Test
     public void execute_invalidPersonData_throwsCommandException() throws Exception {
-        Command command = testUtil.prepareCommand("add []\\[;] p/12345 e/valid@e.mail a/valid, address");
+        Command command = prepareCommand("add []\\[;] p/12345 e/valid@e.mail a/valid, address");
 
-        testUtil.assertCommandFailure(command, Name.MESSAGE_NAME_CONSTRAINTS);
+        assertCommandFailure(command, Name.MESSAGE_NAME_CONSTRAINTS);
     }
 }

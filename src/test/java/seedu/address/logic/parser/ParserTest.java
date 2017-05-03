@@ -1,36 +1,32 @@
-package seedu.address.testutil;
+package seedu.address.logic.parser;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.IncorrectCommand;
-import seedu.address.logic.parser.Parser;
 
 /**
- * Static utility class for parser tests.
+ * A Test class for the parsing of commands.
  */
-public class ParserTestUtil {
-    private static Parser parser = new Parser();
+public abstract class ParserTest {
+    private Parser parser = new Parser();
 
-    public static void assertParseFailure(String userInput, String expectedMessage) {
+    protected void assertParseFailure(String userInput, String expectedMessage) {
         Command command = parser.parseCommand(userInput);
 
         // The current implementation of the parsing of commands will always return
         // an IncorrectCommand if the parsing failed.
-        if (!(command instanceof IncorrectCommand)) {
-            fail();
-        }
-
+        assertTrue(command instanceof IncorrectCommand);
         IncorrectCommand incorrectCommand = (IncorrectCommand) command;
+
         assertEquals(expectedMessage, incorrectCommand.feedbackToUser);
     }
 
-    public static void assertParseSuccess(String userInput) {
+    protected void assertParseSuccess(String userInput) {
         Command command = parser.parseCommand(userInput);
 
-        if (command instanceof IncorrectCommand) {
-            fail();
-        }
+        assertFalse(command instanceof IncorrectCommand);
     }
 }
