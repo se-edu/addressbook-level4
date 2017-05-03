@@ -21,7 +21,6 @@ import java.util.Optional;
 
 import org.junit.Test;
 
-import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
@@ -78,7 +77,7 @@ public class EditCommandParserTest {
     }
 
     @Test
-    public void parse_allFieldsSpecified_success() throws IllegalValueException {
+    public void parse_allFieldsSpecified_success() throws Exception {
         String userInput = "2 " + VALID_NAME_ONE + " " + PREFIX_PHONE.getPrefix() + VALID_PHONE_TWO + " "
                 + PREFIX_TAG.getPrefix() + VALID_TAG_HUSBAND + " " + PREFIX_EMAIL.getPrefix() + VALID_EMAIL_ONE + " "
                 + PREFIX_ADDRESS.getPrefix() + VALID_ADDRESS_ONE + " " + PREFIX_TAG.getPrefix() + VALID_TAG_HUBBY;
@@ -94,7 +93,7 @@ public class EditCommandParserTest {
     }
 
     @Test
-    public void parse_someFieldsSpecified_success() throws IllegalValueException {
+    public void parse_someFieldsSpecified_success() throws Exception {
         String userInput = "1 " + PREFIX_PHONE.getPrefix() + VALID_PHONE_TWO + " " + PREFIX_EMAIL.getPrefix()
                 + VALID_EMAIL_ONE;
 
@@ -106,7 +105,7 @@ public class EditCommandParserTest {
     }
 
     @Test
-    public void parse_repeatedFieldsSpecified_acceptsLast() throws IllegalValueException {
+    public void parse_repeatedFieldsSpecified_acceptsLast() throws Exception {
         String userInput = "1 " + PREFIX_PHONE.getPrefix() + VALID_PHONE_TWO + " " + PREFIX_PHONE.getPrefix()
                 + VALID_PHONE_ONE;
 
@@ -118,7 +117,7 @@ public class EditCommandParserTest {
     }
 
     @Test
-    public void parse_oneFieldSpecified_success() throws IllegalValueException {
+    public void parse_oneFieldSpecified_success() throws Exception {
         String userInput = "3 " + VALID_NAME_ONE;
 
         EditPersonDescriptor descriptor = EditCommandTestUtil.createEditPersonDescriptor(Optional.of(VALID_NAME_ONE),
@@ -130,7 +129,7 @@ public class EditCommandParserTest {
     }
 
     @Test
-    public void parse_resetTags_success() throws IllegalValueException {
+    public void parse_resetTags_success() throws Exception {
         String userInput = "3 " + PREFIX_TAG.getPrefix();
 
         Optional<List<String>> tags = Optional.of(Arrays.asList());
