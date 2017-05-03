@@ -10,7 +10,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.logic.parser.ParserUtil;
 
-/*
+/**
  * Utility class containing the methods required for tests related to EditCommand
  */
 public class EditCommandTestUtil {
@@ -26,16 +26,14 @@ public class EditCommandTestUtil {
     public static final String VALID_TAG_HUBBY = "hubby";
 
     public static final Optional<List<String>> STANDARD_TAGS_ONE = Optional
-            .of(Arrays.asList(EditCommandTestUtil.VALID_TAG_HUSBAND, EditCommandTestUtil.VALID_TAG_HUBBY));
-    public static final EditPersonDescriptor STANDARD_DESCRIPTION_ONE = EditCommandTestUtil.createEditPersonDescriptor(
-            Optional.of(EditCommandTestUtil.VALID_NAME_ONE), Optional.of(EditCommandTestUtil.VALID_PHONE_ONE),
-            Optional.of(EditCommandTestUtil.VALID_EMAIL_ONE), Optional.of(EditCommandTestUtil.VALID_ADDRESS_ONE),
-            STANDARD_TAGS_ONE);
-    public static final Optional<List<String>> STANDARD_TAGS_TWO = Optional
-            .of(Arrays.asList(EditCommandTestUtil.VALID_TAG_HUSBAND));
-    public static final EditPersonDescriptor STANDARD_DESCRIPTION_TWO = EditCommandTestUtil.createEditPersonDescriptor(
-            Optional.of(EditCommandTestUtil.VALID_NAME_TWO), Optional.of(EditCommandTestUtil.VALID_PHONE_TWO),
-            Optional.empty(), Optional.of(EditCommandTestUtil.VALID_ADDRESS_ONE),
+            .of(Arrays.asList(VALID_TAG_HUSBAND, VALID_TAG_HUBBY));
+    public static final EditPersonDescriptor STANDARD_DESCRIPTION_ONE = createEditPersonDescriptor(
+            Optional.of(VALID_NAME_ONE), Optional.of(VALID_PHONE_ONE), Optional.of(VALID_EMAIL_ONE),
+            Optional.of(VALID_ADDRESS_ONE), STANDARD_TAGS_ONE);
+
+    public static final Optional<List<String>> STANDARD_TAGS_TWO = Optional.of(Arrays.asList(VALID_TAG_HUSBAND));
+    public static final EditPersonDescriptor STANDARD_DESCRIPTION_TWO = createEditPersonDescriptor(
+            Optional.of(VALID_NAME_TWO), Optional.of(VALID_PHONE_TWO), Optional.empty(), Optional.of(VALID_ADDRESS_ONE),
             STANDARD_TAGS_TWO);
 
     /**
