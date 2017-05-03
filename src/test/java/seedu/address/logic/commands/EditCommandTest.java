@@ -10,10 +10,11 @@ import org.junit.Test;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 
 public class EditCommandTest {
-    private static final EditCommand standardCommand = new EditCommand(1, DESC_AMY);
 
     @Test
     public void equals() {
+        final EditCommand standardCommand = new EditCommand(1, DESC_AMY);
+
         // same values -> returns true
         EditPersonDescriptor copyDescriptor = new EditPersonDescriptor(DESC_AMY);
         EditCommand commandWithSameValues = new EditCommand(1, copyDescriptor);
