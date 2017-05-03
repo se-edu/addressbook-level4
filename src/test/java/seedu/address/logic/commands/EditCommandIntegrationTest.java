@@ -18,7 +18,6 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.ReadOnlyPerson;
-import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.PersonUtil;
 import seedu.address.testutil.TypicalPersons;
 
@@ -35,9 +34,7 @@ public class EditCommandIntegrationTest {
 
     @Test
     public void execute_validCommand_succeeds() throws Exception {
-        Person editedPerson = new PersonBuilder().withName("Bobby").withPhone("91234567")
-                                    .withEmail("bobby@example.com").withAddress("Block 123, Bobby Street 3")
-                                    .withTags("husband").build();
+        Person editedPerson = PersonUtil.adam();
 
         String userInput = PersonUtil.getEditCommand(ZERO_BASED_INDEX_FIRST_PERSON, editedPerson);
         Command command = prepareCommand(userInput);
