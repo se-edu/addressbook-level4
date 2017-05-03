@@ -40,7 +40,18 @@ public class EditCommandParserTest {
     private EditCommandParser parser = new EditCommandParser();
 
     @Test
-    public void parse_failure() {
+    public void parse_noFieldSpecified_failure() {
+        assertParseFailure("1", EditCommand.MESSAGE_NOT_EDITED);
+    }
+
+    @Test
+    public void parse_invalidPrefix_failure() {
+        // entire string parsed as name
+        assertParseFailure("1 " + INVALID_PREFIX + "unknown", Name.MESSAGE_NAME_CONSTRAINTS);
+    }
+
+    @Test
+    public void parse_invalidIndexes_failure() {
         // no index specified
         assertParseFailure(VALID_NAME_AMY + " " + PREFIX_PHONE.getPrefix() + VALID_PHONE_ONE,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
@@ -48,26 +59,24 @@ public class EditCommandParserTest {
         // negative index
         assertParseFailure("-5 " + VALID_NAME_AMY + " " + PREFIX_EMAIL.getPrefix() + VALID_EMAIL_ONE,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+    }
 
-        // no fields specified
-        assertParseFailure("1", EditCommand.MESSAGE_NOT_EDITED);
-
-        // invalid prefix specified - unknown field will be parsed as name
-        assertParseFailure("1 " + INVALID_PREFIX + "unknown", Name.MESSAGE_NAME_CONSTRAINTS);
-
-        // single invalid value
+    @Test
+    public void parse_singleInvalidValue_failure() {
+        // invalid name
         assertParseFailure("1 *&", Name.MESSAGE_NAME_CONSTRAINTS);
+
+        // invalid phone
         assertParseFailure("1 " + PREFIX_PHONE.getPrefix() + "abcd", Phone.MESSAGE_PHONE_CONSTRAINTS);
+
+        // invalid email
         assertParseFailure("1 " + PREFIX_EMAIL.getPrefix() + "yahoo!!!", Email.MESSAGE_EMAIL_CONSTRAINTS);
+
+        // invalid address
         assertParseFailure("1 " + PREFIX_ADDRESS.getPrefix(), Address.MESSAGE_ADDRESS_CONSTRAINTS);
+
+        // invalid tag
         assertParseFailure("1 " + PREFIX_TAG.getPrefix() + "*&", Tag.MESSAGE_TAG_CONSTRAINTS);
-
-        // multiple invalid values
-        assertParseFailure("1 *& " + PREFIX_EMAIL.getPrefix() + "yahoo!!!", Name.MESSAGE_NAME_CONSTRAINTS);
-
-        // name not given as the first value, gets parsed as part of email, results in an invalid email
-        assertParseFailure("1 " + PREFIX_EMAIL.getPrefix() + VALID_EMAIL_ONE + " " + VALID_NAME_AMY,
-                Email.MESSAGE_EMAIL_CONSTRAINTS);
     }
 
     @Test
@@ -84,6 +93,18 @@ public class EditCommandParserTest {
         // of the {@code Person} being edited, however parsing it together with a valid tag results in error
         assertParseFailure("1 " + PREFIX_TAG.getPrefix() + VALID_TAG_HUSBAND + " " + PREFIX_TAG.getPrefix(),
                 Tag.MESSAGE_TAG_CONSTRAINTS);
+    }
+
+    @Test
+    public void parse_multipleInvalidValues_failure() {
+        assertParseFailure("1 *& " + PREFIX_EMAIL.getPrefix() + "yahoo!!!", Name.MESSAGE_NAME_CONSTRAINTS);
+    }
+
+    @Test
+    public void parse_invalidArgumentOrdering_failure() {
+        // name not given as the first value, gets parsed as part of email, results in an invalid email
+        assertParseFailure("1 " + PREFIX_EMAIL.getPrefix() + VALID_EMAIL_ONE + " " + VALID_NAME_AMY,
+                Email.MESSAGE_EMAIL_CONSTRAINTS);
     }
 
     @Test
