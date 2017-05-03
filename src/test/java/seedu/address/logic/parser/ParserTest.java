@@ -13,6 +13,10 @@ import seedu.address.logic.commands.IncorrectCommand;
 public abstract class ParserTest {
     private Parser parser = new Parser();
 
+    /**
+     * Asserts {@code userInput} is unsuccessfully parsed and the error message
+     * equals to {@code expectedMessage}
+     */
     protected void assertParseFailure(String userInput, String expectedMessage) {
         Command command = parser.parseCommand(userInput);
 
@@ -24,6 +28,9 @@ public abstract class ParserTest {
         assertEquals(expectedMessage, incorrectCommand.feedbackToUser);
     }
 
+    /**
+     * Asserts {@code userInput} is successfully parsed
+     */
     protected void assertParseSuccess(String userInput) {
         Command command = parser.parseCommand(userInput);
 
