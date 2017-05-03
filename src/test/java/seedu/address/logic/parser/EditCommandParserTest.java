@@ -62,22 +62,28 @@ public class EditCommandParserTest {
         assertParseFailure("1 " + PREFIX_ADDRESS.getPrefix(), Address.MESSAGE_ADDRESS_CONSTRAINTS);
         assertParseFailure("1 " + PREFIX_TAG.getPrefix() + "*&", Tag.MESSAGE_TAG_CONSTRAINTS);
 
-        // single invalid value with another valid value of a different field
-        assertParseFailure("1 " + PREFIX_PHONE.getPrefix() + "abcd " + VALID_EMAIL_ONE + " ",
-                Phone.MESSAGE_PHONE_CONSTRAINTS);
-
-        // single invalid value with other valid values of the same field
-        assertParseFailure("1 " + PREFIX_TAG.getPrefix() + VALID_TAG_HUSBAND + " " + PREFIX_TAG.getPrefix(),
-                Tag.MESSAGE_TAG_CONSTRAINTS);
-        assertParseFailure("1 " + PREFIX_PHONE.getPrefix() + VALID_PHONE_TWO + " " + PREFIX_PHONE.getPrefix() + "abcd",
-                Phone.MESSAGE_PHONE_CONSTRAINTS);
-
         // multiple invalid values
-        assertParseFailure("1 *& " + PREFIX_ADDRESS.getPrefix(), Name.MESSAGE_NAME_CONSTRAINTS);
+        assertParseFailure("1 *& " + PREFIX_EMAIL.getPrefix() + "yahoo!!!", Name.MESSAGE_NAME_CONSTRAINTS);
 
         // name not given as the first value, gets parsed as part of email, results in an invalid email
         assertParseFailure("1 " + PREFIX_EMAIL.getPrefix() + VALID_EMAIL_ONE + " " + VALID_NAME_AMY,
                 Email.MESSAGE_EMAIL_CONSTRAINTS);
+    }
+
+    @Test
+    public void parse_singleInvalidValueWithOtherValidValues_failure() {
+        // invalid phone followed by valid email
+        assertParseFailure("1 " + PREFIX_PHONE.getPrefix() + "abcd " + VALID_EMAIL_ONE + " ",
+                Phone.MESSAGE_PHONE_CONSTRAINTS);
+
+        // invalid phone followed by valid phone
+        assertParseFailure("1 " + PREFIX_PHONE.getPrefix() + VALID_PHONE_TWO + " " + PREFIX_PHONE.getPrefix() + "abcd",
+                Phone.MESSAGE_PHONE_CONSTRAINTS);
+
+        // valid tag followed by empty tag - while parsing {@code PREFIX_TAG.getPrefix()} alone will reset the tags
+        // of the {@code Person} being edited, however parsing it together with a valid tag results in error
+        assertParseFailure("1 " + PREFIX_TAG.getPrefix() + VALID_TAG_HUSBAND + " " + PREFIX_TAG.getPrefix(),
+                Tag.MESSAGE_TAG_CONSTRAINTS);
     }
 
     @Test
