@@ -1,14 +1,20 @@
 package seedu.address.logic.parser;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
 
 import org.junit.Test;
 
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.EditCommand;
+import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.logic.commands.IncorrectCommand;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
@@ -18,16 +24,24 @@ import seedu.address.model.tag.Tag;
 
 public class EditCommandParserTest {
 
+    private static String VALID_NAME = "Bobby ";
+    private static String VALID_PHONE_ONE = "98765432 ";
+    private static String VALID_PHONE_TWO = "91234567 ";
+    private static String VALID_EMAIL = "bobby@example.com ";
+    private static String VALID_ADDRESS = "Block 123, Bobby Street 3 ";
+    private static String VALID_TAG_ONE = "husband ";
+    private static String VALID_TAG_TWO = "hubby ";
+
     private EditCommandParser parser = new EditCommandParser();
 
     @Test
     public void parse_failure() {
         // no index specified
-        assertParseFailure("Bobby p/911", String.format(
+        assertParseFailure(VALID_NAME + CliSyntax.PREFIX_PHONE.getPrefix() + VALID_PHONE_ONE, String.format(
                 MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
 
         // negative index
-        assertParseFailure("-5 Bobby e/ bob@yahoo.com",
+        assertParseFailure("-5 " + VALID_NAME + CliSyntax.PREFIX_EMAIL.getPrefix() + VALID_EMAIL,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
 
         // no fields specified
@@ -38,43 +52,112 @@ public class EditCommandParserTest {
 
         // only invalid values
         assertParseFailure("1 *&", Name.MESSAGE_NAME_CONSTRAINTS);
-        assertParseFailure("1 p/abcd", Phone.MESSAGE_PHONE_CONSTRAINTS);
-        assertParseFailure("1 e/yahoo!!!", Email.MESSAGE_EMAIL_CONSTRAINTS);
-        assertParseFailure("1 a/", Address.MESSAGE_ADDRESS_CONSTRAINTS);
-        assertParseFailure("1 t/*&", Tag.MESSAGE_TAG_CONSTRAINTS);
+        assertParseFailure("1 " + CliSyntax.PREFIX_PHONE.getPrefix() + "abcd", Phone.MESSAGE_PHONE_CONSTRAINTS);
+        assertParseFailure("1 " + CliSyntax.PREFIX_EMAIL.getPrefix() + "yahoo!!!", Email.MESSAGE_EMAIL_CONSTRAINTS);
+        assertParseFailure("1 " + CliSyntax.PREFIX_ADDRESS.getPrefix(), Address.MESSAGE_ADDRESS_CONSTRAINTS);
+        assertParseFailure("1 " + CliSyntax.PREFIX_TAG.getPrefix() + "*&", Tag.MESSAGE_TAG_CONSTRAINTS);
 
         // invalid values with valid values of different type
-        assertParseFailure("1 p/abcd e/bob@yahoo.com.sg", Phone.MESSAGE_PHONE_CONSTRAINTS);
+        assertParseFailure("1 " + CliSyntax.PREFIX_PHONE.getPrefix() + "abcd " + VALID_EMAIL,
+                Phone.MESSAGE_PHONE_CONSTRAINTS);
 
         // invalid values with valid values of same type
-        assertParseFailure("1 t/hi t/", Tag.MESSAGE_TAG_CONSTRAINTS);
-        assertParseFailure("1 p/911 p/abcd", Phone.MESSAGE_PHONE_CONSTRAINTS);
+        assertParseFailure("1 " + CliSyntax.PREFIX_TAG.getPrefix() + VALID_TAG_ONE + CliSyntax.PREFIX_TAG.getPrefix(),
+                Tag.MESSAGE_TAG_CONSTRAINTS);
+        assertParseFailure("1 " + CliSyntax.PREFIX_PHONE.getPrefix() + VALID_PHONE_TWO
+                + CliSyntax.PREFIX_PHONE.getPrefix() + "abcd", Phone.MESSAGE_PHONE_CONSTRAINTS);
 
         // invalid ordering - entire string parsed as email
-        assertParseFailure("1 e/bob@gmail.com Bobby", Email.MESSAGE_EMAIL_CONSTRAINTS);
+        assertParseFailure("1 " + CliSyntax.PREFIX_EMAIL.getPrefix() + VALID_EMAIL + VALID_NAME,
+                Email.MESSAGE_EMAIL_CONSTRAINTS);
     }
 
     @Test
-    public void parse_success() {
-        // all fields specified
-        assertParseSuccess("2 Bobby p/91234567 t/hubby e/bobby@example.com a/Block 123, Bobby Street 3 t/husband");
+    public void parse_allFieldsSpecified_success() {
+        String userInput = "2 " + VALID_NAME + CliSyntax.PREFIX_PHONE.getPrefix() + VALID_PHONE_TWO
+                + CliSyntax.PREFIX_TAG.getPrefix() + VALID_TAG_ONE + CliSyntax.PREFIX_EMAIL.getPrefix() + VALID_EMAIL
+                + CliSyntax.PREFIX_ADDRESS.getPrefix() + VALID_ADDRESS + CliSyntax.PREFIX_TAG.getPrefix()
+                + VALID_TAG_TWO;
 
-        // some fields specified
-        assertParseSuccess("1 t/ p/91234567");
+        Optional<List<String>> tags = Optional.of(Arrays.asList(VALID_TAG_ONE, VALID_TAG_TWO));
+        EditPersonDescriptor descriptor = parseEditPersonDescriptor(Optional.of(VALID_NAME),
+                Optional.of(VALID_PHONE_TWO), Optional.of(VALID_EMAIL), Optional.of(VALID_ADDRESS.trim()), tags);
+        // should we auto trim addresses (see 1 line above)
+        EditCommand expectedCommand = new EditCommand(2, descriptor);
 
-        // same fields specified - unintended behavior, will be changed in future versions
-        assertParseSuccess("1 p/91234567 p/911");
+        assertParseSuccess(userInput, expectedCommand);
+    }
 
-        // one field specified
-        assertParseSuccess("3 Bub");
-        assertParseSuccess("3 t/");
+    @Test
+    public void parse_someFieldsSpecified_success() {
+        String userInput = "1 " + CliSyntax.PREFIX_PHONE.getPrefix() + VALID_PHONE_TWO
+                + CliSyntax.PREFIX_EMAIL.getPrefix() + VALID_EMAIL;
+
+        EditPersonDescriptor descriptor = parseEditPersonDescriptor(Optional.empty(), Optional.of(VALID_PHONE_TWO),
+                Optional.of(VALID_EMAIL), Optional.empty(), Optional.empty());
+        EditCommand expectedCommand = new EditCommand(1, descriptor);
+
+        assertParseSuccess(userInput, expectedCommand);
+    }
+
+    @Test
+    public void parse_unintendedBehavior_success() {
+        String userInput = "1 " + CliSyntax.PREFIX_PHONE.getPrefix() + VALID_PHONE_TWO
+                + CliSyntax.PREFIX_PHONE.getPrefix() + VALID_PHONE_ONE;
+
+        EditPersonDescriptor descriptor = parseEditPersonDescriptor(Optional.empty(), Optional.of(VALID_PHONE_ONE),
+                Optional.empty(), Optional.empty(), Optional.empty());
+        EditCommand expectedCommand = new EditCommand(1, descriptor);
+
+        assertParseSuccess(userInput, expectedCommand);
+    }
+
+    @Test
+    public void parse_oneFieldSpecified_success() {
+        String userInput = "3 " + VALID_NAME;
+
+        EditPersonDescriptor descriptor = parseEditPersonDescriptor(Optional.of(VALID_NAME), Optional.empty(),
+                Optional.empty(), Optional.empty(), Optional.empty());
+        EditCommand expectedCommand = new EditCommand(3, descriptor);
+
+        assertParseSuccess(userInput, expectedCommand);
+    }
+
+    @Test
+    public void parse_resetTags_success() {
+        String userInput = "3 " + CliSyntax.PREFIX_TAG.getPrefix();
+
+        Optional<List<String>> tags = Optional.of(Arrays.asList());
+        EditPersonDescriptor descriptor = parseEditPersonDescriptor(Optional.empty(), Optional.empty(),
+                Optional.empty(), Optional.empty(), tags);
+        EditCommand expectedCommand = new EditCommand(3, descriptor);
+
+        assertParseSuccess(userInput, expectedCommand);
+    }
+
+    private EditPersonDescriptor parseEditPersonDescriptor(Optional<String> name, Optional<String> phone,
+            Optional<String> email, Optional<String> address, Optional<List<String>> tags) {
+        EditPersonDescriptor descriptor = new EditPersonDescriptor();
+        try {
+            descriptor.setName(ParserUtil.parseName(name));
+            descriptor.setPhone(ParserUtil.parsePhone(phone));
+            descriptor.setEmail(ParserUtil.parseEmail(email));
+            descriptor.setAddress(ParserUtil.parseAddress(address));
+            if (tags.isPresent()) {
+                descriptor.setTags(Optional.of(ParserUtil.parseTags(tags.get())));
+            }
+        } catch (IllegalValueException ive) {
+            fail();
+        }
+
+        return descriptor;
     }
 
     /**
      * Asserts {@code userInput} is unsuccessfully parsed and the error message
      * equals to {@code expectedMessage}
      */
-    protected void assertParseFailure(String userInput, String expectedMessage) {
+    private void assertParseFailure(String userInput, String expectedMessage) {
         Command command = parser.parse(userInput);
 
         // The current implementation of the parsing of commands will always return
@@ -88,9 +171,8 @@ public class EditCommandParserTest {
     /**
      * Asserts {@code userInput} is successfully parsed
      */
-    protected void assertParseSuccess(String userInput) {
+    private void assertParseSuccess(String userInput, EditCommand expectedCommand) {
         Command command = parser.parse(userInput);
-
-        assertFalse(command instanceof IncorrectCommand);
+        assert expectedCommand.equals(command);
     }
 }
