@@ -45,7 +45,7 @@ public class EditCommand extends Command {
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
 
-    public final int filteredPersonListIndex;
+    private final int filteredPersonListIndex;
     private final EditPersonDescriptor editPersonDescriptor;
 
     /**
@@ -97,13 +97,6 @@ public class EditCommand extends Command {
         return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
     }
 
-    /**
-     * Returns a defensive copy of {@code editPersonDescriptor}.
-     */
-    public EditPersonDescriptor getEditPersonDescriptor() {
-        return new EditPersonDescriptor(editPersonDescriptor);
-    }
-
     @Override
     public boolean equals(Object other) {
         // short circuit if same object
@@ -119,7 +112,7 @@ public class EditCommand extends Command {
         // state check
         EditCommand e = (EditCommand) other;
         return filteredPersonListIndex == e.filteredPersonListIndex
-                && editPersonDescriptor.equals(e.getEditPersonDescriptor());
+                && editPersonDescriptor.equals(e.editPersonDescriptor);
     }
 
     /**
