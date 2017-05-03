@@ -36,28 +36,6 @@ public class EditCommandTest extends AddressBookGuiTest {
     }
 
     @Test
-    public void edit_notAllFieldsSpecified_success() throws Exception {
-        String detailsToEdit = "t/sweetie t/bestie";
-        int addressBookIndex = 2;
-
-        Person personToEdit = expectedPersonsList[IndexUtil.oneToZeroIndex(addressBookIndex)];
-        Person editedPerson = new PersonBuilder(personToEdit).withTags("sweetie", "bestie").build();
-
-        assertEditSuccess(addressBookIndex, addressBookIndex, detailsToEdit, editedPerson);
-    }
-
-    @Test
-    public void edit_clearTags_success() throws Exception {
-        String detailsToEdit = "t/";
-        int addressBookIndex = 2;
-
-        Person personToEdit = expectedPersonsList[IndexUtil.oneToZeroIndex(addressBookIndex)];
-        Person editedPerson = new PersonBuilder(personToEdit).withTags().build();
-
-        assertEditSuccess(addressBookIndex, addressBookIndex, detailsToEdit, editedPerson);
-    }
-
-    @Test
     public void edit_findThenEdit_success() throws Exception {
         commandBox.runCommand("find Elle");
 
