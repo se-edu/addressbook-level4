@@ -87,7 +87,7 @@ public class EditCommand extends Command {
     }
 
     public EditPersonDescriptor getEditPersonDescriptor() {
-        return editPersonDescriptor; // defensive copy
+        return new EditPersonDescriptor(editPersonDescriptor); // defensive copy
     }
 
     @Override
