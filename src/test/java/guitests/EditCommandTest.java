@@ -5,7 +5,6 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import guitests.guihandles.PersonCardHandle;
-import seedu.address.commons.core.Messages;
 import seedu.address.commons.util.IndexUtil;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.model.person.Person;
@@ -17,17 +16,6 @@ public class EditCommandTest extends AddressBookGuiTest {
     // The list of persons in the person list panel is expected to match this list.
     // This list is updated with every successful call to assertEditSuccess().
     private Person[] expectedPersonsList = td.getTypicalPersons();
-
-    @Test
-    public void edit_allFieldsSpecified_success() throws Exception {
-        String detailsToEdit = "Bobby p/91234567 e/bobby@example.com a/Block 123, Bobby Street 3 t/husband";
-        int addressBookIndex = 1;
-
-        Person editedPerson = new PersonBuilder().withName("Bobby").withPhone("91234567")
-                .withEmail("bobby@example.com").withAddress("Block 123, Bobby Street 3").withTags("husband").build();
-
-        assertEditSuccess(addressBookIndex, addressBookIndex, detailsToEdit, editedPerson);
-    }
 
     @Test
     public void edit_notAllFieldsSpecified_success() throws Exception {
@@ -63,19 +51,6 @@ public class EditCommandTest extends AddressBookGuiTest {
         Person editedPerson = new PersonBuilder(personToEdit).withName("Belle").build();
 
         assertEditSuccess(filteredPersonListIndex, addressBookIndex, detailsToEdit, editedPerson);
-    }
-
-    @Test
-    public void edit_invalidPersonIndex_failure() {
-        commandBox.runCommand("edit 8 Bobby");
-        assertResultMessage(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
-    }
-
-    @Test
-    public void edit_duplicatePerson_failure() {
-        commandBox.runCommand("edit 3 Alice Pauline p/85355255 e/alice@example.com "
-                                + "a/123, Jurong West Ave 6, #08-111 t/friends");
-        assertResultMessage(EditCommand.MESSAGE_DUPLICATE_PERSON);
     }
 
     /**
