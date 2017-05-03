@@ -10,34 +10,11 @@ import seedu.address.logic.commands.EditCommand;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.PersonBuilder;
 
-// TODO: reduce GUI tests by transferring some tests to be covered by lower level tests.
 public class EditCommandTest extends AddressBookGuiTest {
 
     // The list of persons in the person list panel is expected to match this list.
     // This list is updated with every successful call to assertEditSuccess().
     private Person[] expectedPersonsList = td.getTypicalPersons();
-
-    @Test
-    public void edit_notAllFieldsSpecified_success() throws Exception {
-        String detailsToEdit = "t/sweetie t/bestie";
-        int addressBookIndex = 2;
-
-        Person personToEdit = expectedPersonsList[IndexUtil.oneToZeroIndex(addressBookIndex)];
-        Person editedPerson = new PersonBuilder(personToEdit).withTags("sweetie", "bestie").build();
-
-        assertEditSuccess(addressBookIndex, addressBookIndex, detailsToEdit, editedPerson);
-    }
-
-    @Test
-    public void edit_clearTags_success() throws Exception {
-        String detailsToEdit = "t/";
-        int addressBookIndex = 2;
-
-        Person personToEdit = expectedPersonsList[IndexUtil.oneToZeroIndex(addressBookIndex)];
-        Person editedPerson = new PersonBuilder(personToEdit).withTags().build();
-
-        assertEditSuccess(addressBookIndex, addressBookIndex, detailsToEdit, editedPerson);
-    }
 
     @Test
     public void edit_findThenEdit_success() throws Exception {
