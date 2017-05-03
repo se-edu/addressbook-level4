@@ -9,6 +9,7 @@ import java.util.List;
 import org.junit.Test;
 
 import seedu.address.commons.core.Messages;
+import seedu.address.commons.util.IndexUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.Parser;
 import seedu.address.model.AddressBook;
@@ -32,6 +33,30 @@ public class EditCommandTest {
 
     private Model model = new ModelManager(new TypicalPersons().getTypicalAddressBook(), new UserPrefs());
     private Parser parser = new Parser();
+
+    @Test
+    public void execute_notAllFieldsSpecified_success() throws Exception {
+        Command command = prepareCommand("edit 2 t/sweetie t/bestie");
+
+        ReadOnlyPerson personToEdit = model.getAddressBook().getPersonList().get(IndexUtil.oneToZeroIndex(2));
+        Person editedPerson = new PersonBuilder(personToEdit).withTags("sweetie", "bestie").build();
+
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
+
+        assertCommandSuccess(command, expectedMessage);
+    }
+
+    @Test
+    public void edit_clearTags_success() throws Exception {
+        Command command = prepareCommand("edit 2 t/");
+
+        ReadOnlyPerson personToEdit = model.getAddressBook().getPersonList().get(IndexUtil.oneToZeroIndex(2));
+        Person editedPerson = new PersonBuilder(personToEdit).withTags().build();
+
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
+
+        assertCommandSuccess(command, expectedMessage);
+    }
 
     @Test
     public void execute_validCommand_succeeds() throws Exception {
@@ -77,8 +102,21 @@ public class EditCommandTest {
     /**
      * Executes the given {@code command}, confirms that <br>
      * - the result message matches {@code expectedMessage} <br>
+     * This is used for unit tests.
+     * @see #assertCommandSuccess(Command, String, ReadOnlyAddressBook, List)
+     */
+    private void assertCommandSuccess(Command command, String expectedMessage) throws CommandException {
+        CommandResult result = command.execute();
+        assertEquals(expectedMessage, result.feedbackToUser);
+    }
+
+    /**
+     * Executes the given {@code command}, confirms that <br>
+     * - the result message matches {@code expectedMessage} <br>
      * - the address book in the model matches {@code expectedAddressBook} <br>
      * - the filtered person list in the model matches {@code expectedFilteredList} <br>
+     * This is used for integration tests.
+     * @see #assertCommandSuccess(Command, String)
      */
     private void assertCommandSuccess(Command command, String expectedMessage,
             ReadOnlyAddressBook expectedAddressBook,
