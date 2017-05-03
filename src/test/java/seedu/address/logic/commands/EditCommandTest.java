@@ -24,9 +24,9 @@ import seedu.address.testutil.PersonUtil;
 import seedu.address.testutil.TypicalPersons;
 
 /**
- * An integration test class that tests edit command's interaction with the Model.
+ * Contains integration tests (interaction with the Model) and unit tests for EditCommand.
  */
-public class EditCommandIntegrationTest {
+public class EditCommandTest {
 
     private static final int ZERO_BASED_INDEX_FIRST_PERSON = 0;
     private static final int ZERO_BASED_INDEX_SECOND_PERSON =  ZERO_BASED_INDEX_FIRST_PERSON + 1;
@@ -34,6 +34,44 @@ public class EditCommandIntegrationTest {
     private Model model = new ModelManager(new TypicalPersons().getTypicalAddressBook(), new UserPrefs());
     private Parser parser = new Parser();
 
+    /*
+     * Unit Tests
+     */
+    @Test
+    public void execute_notAllFieldsSpecified_success() throws Exception {
+        Command command = prepareCommand("edit 2 t/sweetie t/bestie");
+
+        ReadOnlyPerson personToEdit = model.getAddressBook().getPersonList().get(IndexUtil.oneToZeroIndex(2));
+        Person editedPerson = new PersonBuilder(personToEdit).withTags("sweetie", "bestie").build();
+
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
+
+        assertCommandSuccess(command, expectedMessage);
+    }
+
+    @Test
+    public void edit_clearTags_success() throws Exception {
+        Command command = prepareCommand("edit 2 t/");
+
+        ReadOnlyPerson personToEdit = model.getAddressBook().getPersonList().get(IndexUtil.oneToZeroIndex(2));
+        Person editedPerson = new PersonBuilder(personToEdit).withTags().build();
+
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
+
+        assertCommandSuccess(command, expectedMessage);
+    }
+
+    @Test
+    public void execute_invalidPersonIndex_throwsCommandException() {
+        int oneBasedOutOfBoundIndex = model.getFilteredPersonList().size() + 1;
+        String userInput = "edit " + oneBasedOutOfBoundIndex + " Bobby";
+        Command command = prepareCommand(userInput);
+        assertCommandFailure(command, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+    }
+
+    /*
+     * Unit & Integration Test
+     */
     @Test
     public void execute_allFieldsSpecified_succeeds() throws Exception {
         Person editedPerson = new PersonBuilder().withName("Bobby").withPhone("91234567")
@@ -53,54 +91,15 @@ public class EditCommandIntegrationTest {
         assertCommandSuccess(command, expectedMessage, expectedAddressBook, expectedFilteredList);
     }
 
-    @Test
-    public void execute_notAllFieldsSpecified_success() throws Exception {
-        Command command = prepareCommand("edit 2 t/sweetie t/bestie");
-
-        ReadOnlyPerson personToEdit = model.getAddressBook().getPersonList().get(IndexUtil.oneToZeroIndex(2));
-        Person editedPerson = new PersonBuilder(personToEdit).withTags("sweetie", "bestie").build();
-
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
-
-        AddressBook expectedAddressBook = new AddressBook(model.getAddressBook());
-        expectedAddressBook.updatePerson(ZERO_BASED_INDEX_SECOND_PERSON, editedPerson);
-
-        List<ReadOnlyPerson> expectedFilteredList = new ArrayList<>(model.getFilteredPersonList());
-
-        assertCommandSuccess(command, expectedMessage, expectedAddressBook, expectedFilteredList);
-    }
-
-    @Test
-    public void edit_clearTags_success() throws Exception {
-        Command command = prepareCommand("edit 2 t/");
-
-        ReadOnlyPerson personToEdit = model.getAddressBook().getPersonList().get(IndexUtil.oneToZeroIndex(2));
-        Person editedPerson = new PersonBuilder(personToEdit).withTags().build();
-
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
-
-        AddressBook expectedAddressBook = new AddressBook(model.getAddressBook());
-        expectedAddressBook.updatePerson(ZERO_BASED_INDEX_SECOND_PERSON, editedPerson);
-
-        List<ReadOnlyPerson> expectedFilteredList = new ArrayList<>(model.getFilteredPersonList());
-
-        assertCommandSuccess(command, expectedMessage, expectedAddressBook, expectedFilteredList);
-    }
-
+    /*
+     * Integration Test
+     */
     @Test
     public void execute_duplicatePerson_throwsCommandException() {
         Person firstPerson = new Person(model.getFilteredPersonList().get(ZERO_BASED_INDEX_FIRST_PERSON));
         String userInput = PersonUtil.getEditCommand(ZERO_BASED_INDEX_SECOND_PERSON, firstPerson);
         Command command = prepareCommand(userInput);
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PERSON);
-    }
-
-    @Test
-    public void execute_invalidPersonIndex_throwsCommandException() {
-        int oneBasedOutOfBoundIndex = model.getFilteredPersonList().size() + 1;
-        String userInput = "edit " + oneBasedOutOfBoundIndex + " Bobby";
-        Command command = prepareCommand(userInput);
-        assertCommandFailure(command, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
     private Command prepareCommand(String userInput) {
@@ -112,8 +111,21 @@ public class EditCommandIntegrationTest {
     /**
      * Executes the given {@code command}, confirms that <br>
      * - the result message matches {@code expectedMessage} <br>
+     * This is used for unit tests.
+     * @see #assertCommandSuccess(Command, String, ReadOnlyAddressBook, List)
+     */
+    private void assertCommandSuccess(Command command, String expectedMessage) throws CommandException {
+        CommandResult result = command.execute();
+        assertEquals(expectedMessage, result.feedbackToUser);
+    }
+
+    /**
+     * Executes the given {@code command}, confirms that <br>
+     * - the result message matches {@code expectedMessage} <br>
      * - the address book in the model matches {@code expectedAddressBook} <br>
      * - the filtered person list in the model matches {@code expectedFilteredList} <br>
+     * This is used for integration tests.
+     * @see #assertCommandSuccess(Command, String)
      */
     private void assertCommandSuccess(Command command, String expectedMessage,
             ReadOnlyAddressBook expectedAddressBook,
