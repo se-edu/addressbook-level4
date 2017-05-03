@@ -22,35 +22,45 @@ public class EditPersonDescriptorTest {
 
     @Test
     public void equals() throws Exception {
-        // equals
+        // same values -> returns true
         EditPersonDescriptor descriptorWithSameValues = new EditPersonDescriptor(DESC_AMY);
-        assertTrue(DESC_AMY.equals(descriptorWithSameValues)); // same values
+        assertTrue(DESC_AMY.equals(descriptorWithSameValues));
 
-        assertTrue(DESC_AMY.equals(DESC_AMY)); // same object
+        // same object -> returns true
+        assertTrue(DESC_AMY.equals(DESC_AMY));
 
-        // not equals
-        assertFalse(DESC_AMY.equals(null)); // null
-        assertFalse(DESC_AMY.equals(5)); // different type
-        assertFalse(DESC_AMY.equals(DESC_BOB)); // different values
+        // null -> returns false
+        assertFalse(DESC_AMY.equals(null));
 
+        // different types -> returns false
+        assertFalse(DESC_AMY.equals(5));
+
+        // different values -> returns false
+        assertFalse(DESC_AMY.equals(DESC_BOB));
+
+        // different name -> returns false
         EditPersonDescriptor editedAmy = new EditPersonDescriptor(DESC_AMY);
         editedAmy.setName(ParserUtil.parseName(Optional.of(VALID_NAME_BOB)));
-        assertFalse(DESC_AMY.equals(editedAmy)); // different name
+        assertFalse(DESC_AMY.equals(editedAmy));
 
+        // different phone -> returns false
         editedAmy = new EditPersonDescriptor(DESC_AMY);
         editedAmy.setPhone(ParserUtil.parsePhone(Optional.of(VALID_PHONE_BOB)));
-        assertFalse(DESC_AMY.equals(editedAmy)); // different phone
+        assertFalse(DESC_AMY.equals(editedAmy));
 
+        // different email -> returns false
         editedAmy = new EditPersonDescriptor(DESC_AMY);
         editedAmy.setEmail(ParserUtil.parseEmail(Optional.of(VALID_EMAIL_BOB)));
-        assertFalse(DESC_AMY.equals(editedAmy)); // different email
+        assertFalse(DESC_AMY.equals(editedAmy));
 
+        // different address -> returns false
         editedAmy = new EditPersonDescriptor(DESC_AMY);
         editedAmy.setAddress(ParserUtil.parseAddress(Optional.of(VALID_ADDRESS_BOB)));
-        assertFalse(DESC_AMY.equals(editedAmy)); // different address
+        assertFalse(DESC_AMY.equals(editedAmy));
 
+        // different tags -> returns false
         editedAmy = new EditPersonDescriptor(DESC_AMY);
         editedAmy.setTags(Optional.of(ParserUtil.parseTags(Arrays.asList(VALID_TAG_HUSBAND))));
-        assertFalse(DESC_AMY.equals(editedAmy)); // different tags
+        assertFalse(DESC_AMY.equals(editedAmy));
     }
 }

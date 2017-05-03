@@ -1,7 +1,6 @@
 package seedu.address.logic.parser;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
@@ -89,15 +88,12 @@ public class EditCommandParserTest {
     }
 
     @Test
-    public void parse_singleInvalidValue_failure() {
-        // no valid values specified
+    public void parse_invalidValue_failure() {
         assertParseFailure("1" + INVALID_NAME_DESC, Name.MESSAGE_NAME_CONSTRAINTS); // invalid name
         assertParseFailure("1" + INVALID_PHONE_DESC, Phone.MESSAGE_PHONE_CONSTRAINTS); // invalid phone
         assertParseFailure("1" + INVALID_EMAIL_DESC, Email.MESSAGE_EMAIL_CONSTRAINTS); // invalid email
         assertParseFailure("1" + INVALID_ADDRESS_DESC, Address.MESSAGE_ADDRESS_CONSTRAINTS); // invalid address
         assertParseFailure("1" + INVALID_TAG_DESC, Tag.MESSAGE_TAG_CONSTRAINTS); // invalid tag
-
-        // other valid values specified
 
         // invalid phone followed by valid email
         assertParseFailure("1" + INVALID_PHONE_DESC + EMAIL_DESC_AMY, Phone.MESSAGE_PHONE_CONSTRAINTS);
@@ -110,18 +106,16 @@ public class EditCommandParserTest {
         assertParseFailure("1" + TAG_DESC_FRIEND + TAG_DESC_HUSBAND + TAG_EMPTY, Tag.MESSAGE_TAG_CONSTRAINTS);
         assertParseFailure("1" + TAG_DESC_FRIEND + TAG_EMPTY + TAG_DESC_HUSBAND, Tag.MESSAGE_TAG_CONSTRAINTS);
         assertParseFailure("1" + TAG_EMPTY + TAG_DESC_FRIEND + TAG_DESC_HUSBAND, Tag.MESSAGE_TAG_CONSTRAINTS);
-    }
 
-    @Test
-    public void parse_multipleInvalidValues_failure() {
-        // only the first invalid value is captured
+        // multiple invalid values, but only the first invalid value is captured
         assertParseFailure("1" + INVALID_NAME_DESC + INVALID_EMAIL_DESC + VALID_ADDRESS_AMY + VALID_PHONE_AMY,
                 Name.MESSAGE_NAME_CONSTRAINTS);
     }
 
     @Test
-    public void parse_invalidArgumentOrdering_failure() {
-        // name not given as the first value, gets parsed as part of email, results in an invalid email
+    public void parse_invalidFieldOrdering_failure() {
+        // name not given as the first value, gets parsed as part of email, results in an invalid email.
+        // Note: Name is the only field that is required to be specified before other fields.
         assertParseFailure("1" + EMAIL_DESC_AMY + NAME_DESC_AMY, Email.MESSAGE_EMAIL_CONSTRAINTS);
     }
 
@@ -153,12 +147,35 @@ public class EditCommandParserTest {
 
     @Test
     public void parse_oneFieldSpecified_success() throws Exception {
+        // name
         int targetIndex = 3;
         String userInput = targetIndex + NAME_DESC_AMY;
-
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
+        assertParseSuccess(userInput, expectedCommand);
 
+        // phone
+        userInput = targetIndex + PHONE_DESC_AMY;
+        descriptor = new EditPersonDescriptorBuilder().withPhone(VALID_PHONE_AMY).build();
+        expectedCommand = new EditCommand(targetIndex, descriptor);
+        assertParseSuccess(userInput, expectedCommand);
+
+        // email
+        userInput = targetIndex + EMAIL_DESC_AMY;
+        descriptor = new EditPersonDescriptorBuilder().withEmail(VALID_EMAIL_AMY).build();
+        expectedCommand = new EditCommand(targetIndex, descriptor);
+        assertParseSuccess(userInput, expectedCommand);
+
+        // address
+        userInput = targetIndex + ADDRESS_DESC_AMY;
+        descriptor = new EditPersonDescriptorBuilder().withAddress(VALID_ADDRESS_AMY).build();
+        expectedCommand = new EditCommand(targetIndex, descriptor);
+        assertParseSuccess(userInput, expectedCommand);
+
+        // tags
+        userInput = targetIndex + TAG_DESC_FRIEND;
+        descriptor = new EditPersonDescriptorBuilder().withTags(VALID_TAG_FRIEND).build();
+        expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(userInput, expectedCommand);
     }
 
@@ -182,7 +199,6 @@ public class EditCommandParserTest {
         // no other valid values specified
         int targetIndex = 1;
         String userInput = targetIndex + INVALID_PHONE_DESC + PHONE_DESC_BOB;
-
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withPhone(VALID_PHONE_BOB).build();
         EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
         assertParseSuccess(userInput, expectedCommand);
@@ -213,8 +229,7 @@ public class EditCommandParserTest {
     private void assertParseFailure(String userInput, String expectedMessage) {
         Command command = parser.parse(userInput);
 
-        // Parsing of commands will always return an IncorrectCommand if the parsing failed.
-        assertTrue(command instanceof IncorrectCommand);
+        // Parsing of commands will return an IncorrectCommand if the parsing failed.
         IncorrectCommand incorrectCommand = (IncorrectCommand) command;
 
         assertEquals(expectedMessage, incorrectCommand.feedbackToUser);
