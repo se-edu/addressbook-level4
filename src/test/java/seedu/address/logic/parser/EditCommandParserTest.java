@@ -32,30 +32,35 @@ import seedu.address.testutil.EditPersonDescriptorBuilder;
 
 public class EditCommandParserTest {
 
-    private static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS;
-    private static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "*&";
     private static final String NAME_DESC_AMY = " " + VALID_NAME_AMY;
     private static final String PHONE_DESC_AMY = " " + PREFIX_PHONE + VALID_PHONE_AMY;
     private static final String PHONE_DESC_BOB = " " + PREFIX_PHONE + VALID_PHONE_BOB;
     private static final String EMAIL_DESC_AMY = " " + PREFIX_EMAIL + VALID_EMAIL_AMY;
     private static final String EMAIL_DESC_BOB = " " + PREFIX_EMAIL + VALID_EMAIL_BOB;
-    private static final String ADDRESS_DESC_AMY = INVALID_ADDRESS_DESC + VALID_ADDRESS_AMY;
-    private static final String ADDRESS_DESC_BOB = INVALID_ADDRESS_DESC + VALID_ADDRESS_BOB;
+    private static final String ADDRESS_DESC_AMY = " " + PREFIX_ADDRESS + VALID_ADDRESS_AMY;
+    private static final String ADDRESS_DESC_BOB = " " + PREFIX_ADDRESS + VALID_ADDRESS_BOB;
     private static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
     private static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
+    private static final String TAG_EMPTY = " " + PREFIX_TAG;
 
     private static final String INVALID_NAME_DESC = " *&";
-    private static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "yahoo!!!";
     private static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "abcd";
+    private static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "yahoo!!!";
+    private static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS;
+    private static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "*&";
+
+    private static final String MESSAGE_INVALID_FORMAT = String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+            EditCommand.MESSAGE_USAGE);
 
     private EditCommandParser parser = new EditCommandParser();
 
     @Test
     public void parse_noValidPrefix_everythingTakenAsName() throws Exception {
         // Unable to test whether complex strings such as "1 q/unknown is this k/parsed"
-        // are entirely parsed as Name as verification of what is in the Name field
-        // requires successful parsing. However, "/" is an invalid value for Name, thus
-        // we parsing invalid prefixes will always fail
+        // are entirely parsed as Name. Verification of Name field requires successful parsing.
+        // However, "/" is an invalid value for Name, thus parsing invalid prefixes will always fail.
+        // E.g, we cannot verify if "q/unknown" is parsed as Name, resulting in an error, or whether
+        // "q/unknown is this k/parsed" is parsed as Name, which results in an error as well.
         String invalidPrefix = "q/";
         assertParseFailure("1 " + invalidPrefix + "unknown", Name.MESSAGE_NAME_CONSTRAINTS);
     }
@@ -63,20 +68,22 @@ public class EditCommandParserTest {
     @Test
     public void parse_missingParts_failure() {
         // no index specified
-        assertParseFailure(VALID_NAME_AMY, String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+        assertParseFailure(VALID_NAME_AMY, MESSAGE_INVALID_FORMAT);
 
         // no field specified
         assertParseFailure("1", EditCommand.MESSAGE_NOT_EDITED);
 
         // no index and no field specified
-        assertParseFailure("", String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+        assertParseFailure("", MESSAGE_INVALID_FORMAT);
     }
 
     @Test
     public void parse_invalidIndex_failure() {
         // negative index
-        assertParseFailure("-5" + NAME_DESC_AMY,
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+        assertParseFailure("-5" + NAME_DESC_AMY, MESSAGE_INVALID_FORMAT);
+
+        // zero
+        assertParseFailure("0" + NAME_DESC_AMY, MESSAGE_INVALID_FORMAT);
     }
 
     @Test
@@ -103,13 +110,13 @@ public class EditCommandParserTest {
         assertParseFailure("1" + INVALID_PHONE_DESC + EMAIL_DESC_AMY, Phone.MESSAGE_PHONE_CONSTRAINTS);
 
         // valid phone followed by invalid phone
-        assertParseFailure("1 " + PREFIX_PHONE + VALID_PHONE_BOB + INVALID_PHONE_DESC,
-                Phone.MESSAGE_PHONE_CONSTRAINTS);
+        assertParseFailure("1" + PHONE_DESC_BOB + INVALID_PHONE_DESC, Phone.MESSAGE_PHONE_CONSTRAINTS);
 
-        // valid tag followed by empty tag - while parsing {@code PREFIX_TAG}
-        // alone will reset the tags
+        // valid tag followed by empty tag - while parsing {@code PREFIX_TAG} alone will reset the tags
         // of the {@code Person} being edited, however parsing it together with a valid tag results in error
-        assertParseFailure("1" + TAG_DESC_HUSBAND + " " + PREFIX_TAG, Tag.MESSAGE_TAG_CONSTRAINTS);
+        assertParseFailure("1" + TAG_DESC_FRIEND + TAG_DESC_HUSBAND + TAG_EMPTY, Tag.MESSAGE_TAG_CONSTRAINTS);
+        assertParseFailure("1" + TAG_DESC_FRIEND + TAG_EMPTY + TAG_DESC_HUSBAND, Tag.MESSAGE_TAG_CONSTRAINTS);
+        assertParseFailure("1" + TAG_EMPTY + TAG_DESC_FRIEND + TAG_DESC_HUSBAND, Tag.MESSAGE_TAG_CONSTRAINTS);
     }
 
     @Test
@@ -125,56 +132,61 @@ public class EditCommandParserTest {
 
     @Test
     public void parse_allFieldsSpecified_success() throws Exception {
-        String userInput = "2" + NAME_DESC_AMY + PHONE_DESC_BOB + TAG_DESC_HUSBAND + EMAIL_DESC_AMY + ADDRESS_DESC_AMY
-                + TAG_DESC_FRIEND;
+        int targetIndex = 2;
+        String userInput = targetIndex + NAME_DESC_AMY + PHONE_DESC_BOB + TAG_DESC_HUSBAND + EMAIL_DESC_AMY
+                + ADDRESS_DESC_AMY + TAG_DESC_FRIEND;
 
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
                 .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY)
                 .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
-        EditCommand expectedCommand = new EditCommand(2, descriptor);
+        EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
         assertParseSuccess(userInput, expectedCommand);
     }
 
     @Test
     public void parse_someFieldsSpecified_success() throws Exception {
-        String userInput = "1" + PHONE_DESC_BOB + EMAIL_DESC_AMY;
+        int targetIndex = 1;
+        String userInput = targetIndex + PHONE_DESC_BOB + EMAIL_DESC_AMY;
 
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withPhone(VALID_PHONE_BOB)
                 .withEmail(VALID_EMAIL_AMY).build();
-        EditCommand expectedCommand = new EditCommand(1, descriptor);
+        EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
         assertParseSuccess(userInput, expectedCommand);
     }
 
     @Test
     public void parse_oneFieldSpecified_success() throws Exception {
-        String userInput = "3" + NAME_DESC_AMY;
+        int targetIndex = 3;
+        String userInput = targetIndex + NAME_DESC_AMY;
 
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY).build();
-        EditCommand expectedCommand = new EditCommand(3, descriptor);
+        EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
         assertParseSuccess(userInput, expectedCommand);
     }
 
     @Test
     public void parse_multipleRepeatedFields_acceptsLast() throws Exception {
-        String userInput = "1" + PHONE_DESC_AMY + PHONE_DESC_AMY + PHONE_DESC_BOB + EMAIL_DESC_AMY + EMAIL_DESC_AMY
-                + EMAIL_DESC_BOB + ADDRESS_DESC_AMY + ADDRESS_DESC_AMY + ADDRESS_DESC_BOB;
+        int targetIndex = 1;
+        String userInput = targetIndex + PHONE_DESC_AMY + PHONE_DESC_AMY + PHONE_DESC_BOB + EMAIL_DESC_AMY
+                + EMAIL_DESC_AMY + EMAIL_DESC_BOB + ADDRESS_DESC_AMY + ADDRESS_DESC_AMY + ADDRESS_DESC_BOB;
 
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withPhone(VALID_PHONE_BOB)
                 .withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB).build();
-        EditCommand expectedCommand = new EditCommand(1, descriptor);
+        EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
         assertParseSuccess(userInput, expectedCommand);
     }
 
     @Test
     public void parse_resetTags_success() throws Exception {
-        String userInput = "3 " + PREFIX_TAG;
+        int targetIndex = 3;
+        String userInput = targetIndex + TAG_EMPTY;
 
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withTags().build();
-        EditCommand expectedCommand = new EditCommand(3, descriptor);
+        EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
 
         assertParseSuccess(userInput, expectedCommand);
     }

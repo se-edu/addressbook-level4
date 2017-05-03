@@ -7,6 +7,9 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.logic.parser.ParserUtil;
 
+/**
+ * A utility class to help with building EditPersonDescriptorBuilder objects.
+ */
 public class EditPersonDescriptorBuilder {
 
     private EditPersonDescriptor descriptor;

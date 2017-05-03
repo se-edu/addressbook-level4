@@ -18,15 +18,15 @@ public class EditCommandTestUtil {
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
 
-    public static final EditPersonDescriptor STANDARD_DESCRIPTION_AMY;
-    public static final EditPersonDescriptor STANDARD_DESCRIPTION_BOB;
+    public static final EditPersonDescriptor DESC_AMY;
+    public static final EditPersonDescriptor DESC_BOB;
 
     static {
         try {
-            STANDARD_DESCRIPTION_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
+            DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
                     .withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY)
                     .withTags(VALID_TAG_FRIEND).build();
-            STANDARD_DESCRIPTION_BOB = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
+            DESC_BOB = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
                     .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
                     .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
         } catch (IllegalValueException ive) {
