@@ -8,6 +8,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.testutil.EditCommandTestUtil.VALID_ADDRESS_ONE;
+import static seedu.address.testutil.EditCommandTestUtil.VALID_ADDRESS_TWO;
 import static seedu.address.testutil.EditCommandTestUtil.VALID_EMAIL_ONE;
 import static seedu.address.testutil.EditCommandTestUtil.VALID_EMAIL_TWO;
 import static seedu.address.testutil.EditCommandTestUtil.VALID_NAME_AMY;
@@ -35,42 +36,44 @@ import seedu.address.testutil.EditCommandTestUtil;
 
 public class EditCommandParserTest {
 
+    private static final String INVALID_NAME_DESC = "*&";
+    private static final String INVALID_EMAIL_DESC = PREFIX_EMAIL.getPrefix() + "yahoo!!!";
+    private static final String INVALID_PHONE_DESC = PREFIX_PHONE.getPrefix() + "abcd";
     private static final String INVALID_PREFIX = "q/";
 
     private EditCommandParser parser = new EditCommandParser();
 
     @Test
-    public void parse_noFieldSpecified_failure() {
-        assertParseFailure("1", EditCommand.MESSAGE_NOT_EDITED);
-    }
-
-    @Test
-    public void parse_invalidPrefix_failure() {
-        // entire string parsed as name
+    public void parse_noValidPrefix_everythingTakenAsName() {
         assertParseFailure("1 " + INVALID_PREFIX + "unknown", Name.MESSAGE_NAME_CONSTRAINTS);
     }
 
     @Test
-    public void parse_invalidIndexes_failure() {
+    public void parse_invalidIndexAndField_failure() {
         // no index specified
-        assertParseFailure(VALID_NAME_AMY + " " + PREFIX_PHONE.getPrefix() + VALID_PHONE_ONE,
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+        assertParseFailure(VALID_NAME_AMY, String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
 
         // negative index
-        assertParseFailure("-5 " + VALID_NAME_AMY + " " + PREFIX_EMAIL.getPrefix() + VALID_EMAIL_ONE,
+        assertParseFailure("-5 " + VALID_NAME_AMY,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+
+        // no field specified
+        assertParseFailure("1", EditCommand.MESSAGE_NOT_EDITED);
+
+        // no index and no field specified
+        assertParseFailure("", String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
     }
 
     @Test
     public void parse_singleInvalidValue_failure() {
         // invalid name
-        assertParseFailure("1 *&", Name.MESSAGE_NAME_CONSTRAINTS);
+        assertParseFailure("1 " + INVALID_NAME_DESC, Name.MESSAGE_NAME_CONSTRAINTS);
 
         // invalid phone
-        assertParseFailure("1 " + PREFIX_PHONE.getPrefix() + "abcd", Phone.MESSAGE_PHONE_CONSTRAINTS);
+        assertParseFailure("1 " + INVALID_PHONE_DESC, Phone.MESSAGE_PHONE_CONSTRAINTS);
 
         // invalid email
-        assertParseFailure("1 " + PREFIX_EMAIL.getPrefix() + "yahoo!!!", Email.MESSAGE_EMAIL_CONSTRAINTS);
+        assertParseFailure("1 " + INVALID_EMAIL_DESC, Email.MESSAGE_EMAIL_CONSTRAINTS);
 
         // invalid address
         assertParseFailure("1 " + PREFIX_ADDRESS.getPrefix(), Address.MESSAGE_ADDRESS_CONSTRAINTS);
@@ -82,11 +85,11 @@ public class EditCommandParserTest {
     @Test
     public void parse_singleInvalidValueWithOtherValidValues_failure() {
         // invalid phone followed by valid email
-        assertParseFailure("1 " + PREFIX_PHONE.getPrefix() + "abcd " + VALID_EMAIL_ONE + " ",
+        assertParseFailure("1 " + INVALID_PHONE_DESC + " " + PREFIX_EMAIL.getPrefix() + VALID_EMAIL_ONE,
                 Phone.MESSAGE_PHONE_CONSTRAINTS);
 
-        // invalid phone followed by valid phone
-        assertParseFailure("1 " + PREFIX_PHONE.getPrefix() + VALID_PHONE_TWO + " " + PREFIX_PHONE.getPrefix() + "abcd",
+        // valid phone followed by invalid phone
+        assertParseFailure("1 " + PREFIX_PHONE.getPrefix() + VALID_PHONE_TWO + " " + INVALID_PHONE_DESC,
                 Phone.MESSAGE_PHONE_CONSTRAINTS);
 
         // valid tag followed by empty tag - while parsing {@code PREFIX_TAG.getPrefix()} alone will reset the tags
@@ -97,7 +100,7 @@ public class EditCommandParserTest {
 
     @Test
     public void parse_multipleInvalidValues_failure() {
-        assertParseFailure("1 *& " + PREFIX_EMAIL.getPrefix() + "yahoo!!!", Name.MESSAGE_NAME_CONSTRAINTS);
+        assertParseFailure("1 " + INVALID_NAME_DESC + " " + INVALID_EMAIL_DESC, Name.MESSAGE_NAME_CONSTRAINTS);
     }
 
     @Test
@@ -149,13 +152,15 @@ public class EditCommandParserTest {
 
     @Test
     public void parse_multipleRepeatedFields_acceptsLast() throws Exception {
-        String userInput = "1 " + PREFIX_PHONE.getPrefix() + VALID_PHONE_TWO + " " + PREFIX_PHONE.getPrefix()
-                + VALID_PHONE_ONE + " " + PREFIX_PHONE.getPrefix() + "911" + " " + PREFIX_EMAIL.getPrefix()
-                + VALID_EMAIL_ONE + " " + PREFIX_EMAIL.getPrefix() + " " + VALID_EMAIL_TWO + " "
-                + PREFIX_ADDRESS.getPrefix() + VALID_ADDRESS_ONE + " " + PREFIX_ADDRESS.getPrefix() + VALID_ADDRESS_ONE;
+        String userInput = "1 " + PREFIX_PHONE.getPrefix() + VALID_PHONE_ONE + " " + PREFIX_PHONE.getPrefix()
+                + VALID_PHONE_ONE + " " + PREFIX_PHONE.getPrefix() + VALID_PHONE_TWO + " " + PREFIX_EMAIL.getPrefix()
+                + VALID_EMAIL_ONE + " " + PREFIX_EMAIL.getPrefix() + VALID_EMAIL_ONE + " " + PREFIX_EMAIL.getPrefix()
+                + VALID_EMAIL_TWO + " " + PREFIX_ADDRESS.getPrefix() + VALID_ADDRESS_ONE + " "
+                + PREFIX_ADDRESS.getPrefix() + VALID_ADDRESS_ONE + " " + PREFIX_ADDRESS.getPrefix() + VALID_ADDRESS_TWO;
 
         EditPersonDescriptor descriptor = EditCommandTestUtil.createEditPersonDescriptor(Optional.empty(),
-                Optional.of("911"), Optional.of(VALID_EMAIL_TWO), Optional.of(VALID_ADDRESS_ONE), Optional.empty());
+                Optional.of(VALID_PHONE_TWO), Optional.of(VALID_EMAIL_TWO), Optional.of(VALID_ADDRESS_TWO),
+                Optional.empty());
         EditCommand expectedCommand = new EditCommand(1, descriptor);
 
         assertParseSuccess(userInput, expectedCommand);
