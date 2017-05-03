@@ -25,6 +25,17 @@ public class EditCommandTest extends AddressBookGuiTest {
     private Person[] expectedPersonsList = td.getTypicalPersons();
 
     @Test
+    public void edit_allFieldsSpecified_success() throws Exception {
+        String detailsToEdit = "Bobby p/91234567 e/bobby@example.com a/Block 123, Bobby Street 3 t/husband";
+        int addressBookIndex = 1;
+
+        Person editedPerson = new PersonBuilder().withName("Bobby").withPhone("91234567")
+                .withEmail("bobby@example.com").withAddress("Block 123, Bobby Street 3").withTags("husband").build();
+
+        assertEditSuccess(addressBookIndex, addressBookIndex, detailsToEdit, editedPerson);
+    }
+
+    @Test
     public void edit_findThenEdit_success() throws Exception {
         commandBox.runCommand("find Elle");
 

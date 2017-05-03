@@ -8,7 +8,6 @@ import java.util.List;
 
 import org.junit.Test;
 
-import javafx.collections.ObservableList;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.util.IndexUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -56,11 +55,9 @@ public class EditCommandIntegrationTest {
 
     @Test
     public void execute_notAllFieldsSpecified_success() throws Exception {
-        String userInput = "edit 2 t/sweetie t/bestie";
-        Command command = prepareCommand(userInput);
+        Command command = prepareCommand("edit 2 t/sweetie t/bestie");
 
-        ObservableList<ReadOnlyPerson> persons = model.getAddressBook().getPersonList();
-        ReadOnlyPerson personToEdit = persons.get(IndexUtil.oneToZeroIndex(2));
+        ReadOnlyPerson personToEdit = model.getAddressBook().getPersonList().get(IndexUtil.oneToZeroIndex(2));
         Person editedPerson = new PersonBuilder(personToEdit).withTags("sweetie", "bestie").build();
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
@@ -75,11 +72,9 @@ public class EditCommandIntegrationTest {
 
     @Test
     public void edit_clearTags_success() throws Exception {
-        String userInput = "edit 2 t/";
-        Command command = prepareCommand(userInput);
+        Command command = prepareCommand("edit 2 t/");
 
-        ObservableList<ReadOnlyPerson> persons = model.getAddressBook().getPersonList();
-        ReadOnlyPerson personToEdit = persons.get(IndexUtil.oneToZeroIndex(2));
+        ReadOnlyPerson personToEdit = model.getAddressBook().getPersonList().get(IndexUtil.oneToZeroIndex(2));
         Person editedPerson = new PersonBuilder(personToEdit).withTags().build();
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
