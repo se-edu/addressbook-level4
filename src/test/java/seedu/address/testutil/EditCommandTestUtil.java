@@ -2,6 +2,7 @@ package seedu.address.testutil;
 
 import static org.junit.Assert.fail;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,6 +24,19 @@ public class EditCommandTestUtil {
     public static final String VALID_ADDRESS_TWO = "Block 123, Bub Street 3";
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_HUBBY = "hubby";
+
+    public static final Optional<List<String>> standardTagsOne = Optional
+            .of(Arrays.asList(EditCommandTestUtil.VALID_TAG_HUSBAND, EditCommandTestUtil.VALID_TAG_HUBBY));
+    public static final EditPersonDescriptor standardDescriptorOne = EditCommandTestUtil.createEditPersonDescriptor(
+            Optional.of(EditCommandTestUtil.VALID_NAME_ONE), Optional.of(EditCommandTestUtil.VALID_PHONE_ONE),
+            Optional.of(EditCommandTestUtil.VALID_EMAIL_ONE), Optional.of(EditCommandTestUtil.VALID_ADDRESS_ONE),
+            standardTagsOne);
+    public static final Optional<List<String>> standardTagsTwo = Optional
+            .of(Arrays.asList(EditCommandTestUtil.VALID_TAG_HUSBAND));
+    public static final EditPersonDescriptor standardDescriptorTwo = EditCommandTestUtil.createEditPersonDescriptor(
+            Optional.of(EditCommandTestUtil.VALID_NAME_TWO), Optional.of(EditCommandTestUtil.VALID_PHONE_TWO),
+            Optional.empty(), Optional.of(EditCommandTestUtil.VALID_ADDRESS_ONE),
+            standardTagsTwo);
 
     /**
      * Creates an {@code EditPersonDescriptor} from raw values. Leaving a field
