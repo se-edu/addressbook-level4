@@ -25,18 +25,18 @@ public class EditCommandTestUtil {
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_HUBBY = "hubby";
 
-    public static final Optional<List<String>> standardTagsOne = Optional
+    public static final Optional<List<String>> STANDARD_TAGS_ONE = Optional
             .of(Arrays.asList(EditCommandTestUtil.VALID_TAG_HUSBAND, EditCommandTestUtil.VALID_TAG_HUBBY));
-    public static final EditPersonDescriptor standardDescriptorOne = EditCommandTestUtil.createEditPersonDescriptor(
+    public static final EditPersonDescriptor STANDARD_DESCRIPTION_ONE = EditCommandTestUtil.createEditPersonDescriptor(
             Optional.of(EditCommandTestUtil.VALID_NAME_ONE), Optional.of(EditCommandTestUtil.VALID_PHONE_ONE),
             Optional.of(EditCommandTestUtil.VALID_EMAIL_ONE), Optional.of(EditCommandTestUtil.VALID_ADDRESS_ONE),
-            standardTagsOne);
-    public static final Optional<List<String>> standardTagsTwo = Optional
+            STANDARD_TAGS_ONE);
+    public static final Optional<List<String>> STANDARD_TAGS_TWO = Optional
             .of(Arrays.asList(EditCommandTestUtil.VALID_TAG_HUSBAND));
-    public static final EditPersonDescriptor standardDescriptorTwo = EditCommandTestUtil.createEditPersonDescriptor(
+    public static final EditPersonDescriptor STANDARD_DESCRIPTION_TWO = EditCommandTestUtil.createEditPersonDescriptor(
             Optional.of(EditCommandTestUtil.VALID_NAME_TWO), Optional.of(EditCommandTestUtil.VALID_PHONE_TWO),
             Optional.empty(), Optional.of(EditCommandTestUtil.VALID_ADDRESS_ONE),
-            standardTagsTwo);
+            STANDARD_TAGS_TWO);
 
     /**
      * Creates an {@code EditPersonDescriptor} from raw values. Leaving a field

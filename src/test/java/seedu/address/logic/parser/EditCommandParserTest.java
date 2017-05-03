@@ -105,7 +105,7 @@ public class EditCommandParserTest {
     }
 
     @Test
-    public void parse_unintendedBehavior_success() {
+    public void parse_repeatedFieldsSpecified_acceptsLast() {
         String userInput = "1 " + CliSyntax.PREFIX_PHONE.getPrefix() + EditCommandTestUtil.VALID_PHONE_TWO + " "
                 + CliSyntax.PREFIX_PHONE.getPrefix() + EditCommandTestUtil.VALID_PHONE_ONE;
 

@@ -15,34 +15,35 @@ import seedu.address.testutil.EditCommandTestUtil;
 public class EditPersonDescriptorTest {
 
     @Test
-    public void equals_sameValues_success() {
-        EditPersonDescriptor differentDescriptor = new EditPersonDescriptor(EditCommandTestUtil.standardDescriptorOne);
+    public void equals_sameValues_returnsTrue() {
+        EditPersonDescriptor descriptorWithSameValues = new EditPersonDescriptor(
+                EditCommandTestUtil.STANDARD_DESCRIPTION_ONE);
 
-        assertTrue(EditCommandTestUtil.standardDescriptorOne.equals(differentDescriptor));
+        assertTrue(EditCommandTestUtil.STANDARD_DESCRIPTION_ONE.equals(descriptorWithSameValues));
     }
 
     @Test
-    public void equals_sameObject_success() {
-        assertTrue(EditCommandTestUtil.standardDescriptorOne.equals(EditCommandTestUtil.standardDescriptorOne));
+    public void equals_sameObject_returnsTrue() {
+        assertTrue(EditCommandTestUtil.STANDARD_DESCRIPTION_ONE.equals(EditCommandTestUtil.STANDARD_DESCRIPTION_ONE));
     }
 
     @Test
-    public void equals_nullObject_failure() {
-        assertFalse(EditCommandTestUtil.standardDescriptorOne.equals(null));
+    public void equals_nullObject_returnsFalse() {
+        assertFalse(EditCommandTestUtil.STANDARD_DESCRIPTION_ONE.equals(null));
     }
 
     @Test
-    public void equals_differentObject_failure() {
-        assertFalse(EditCommandTestUtil.standardDescriptorOne.equals(""));
+    public void equals_differentType_returnsFalse() {
+        assertFalse(EditCommandTestUtil.STANDARD_DESCRIPTION_ONE.equals(5));
     }
 
     @Test
-    public void equals_differentValues_failure() {
-        assertFalse(EditCommandTestUtil.standardDescriptorOne.equals(EditCommandTestUtil.standardDescriptorTwo));
+    public void equals_differentValues_returnsFalse() {
+        assertFalse(EditCommandTestUtil.STANDARD_DESCRIPTION_ONE.equals(EditCommandTestUtil.STANDARD_DESCRIPTION_TWO));
     }
 
     @Test
-    public void equals_differentName_failure() {
+    public void equals_differentName_returnsFalse() {
         EditPersonDescriptor descriptorOne = EditCommandTestUtil.createEditPersonDescriptor(
                 Optional.of(EditCommandTestUtil.VALID_NAME_ONE), Optional.empty(), Optional.empty(), Optional.empty(),
                 Optional.empty());
@@ -55,7 +56,7 @@ public class EditPersonDescriptorTest {
     }
 
     @Test
-    public void equals_differentPhone_failure() {
+    public void equals_differentPhone_returnsFalse() {
         EditPersonDescriptor descriptorOne = EditCommandTestUtil.createEditPersonDescriptor(Optional.empty(),
                 Optional.of(EditCommandTestUtil.VALID_PHONE_ONE), Optional.empty(), Optional.empty(), Optional.empty());
 
@@ -66,7 +67,7 @@ public class EditPersonDescriptorTest {
     }
 
     @Test
-    public void equals_differentEmail_failure() {
+    public void equals_differentEmail_returnsFalse() {
         EditPersonDescriptor descriptorOne = EditCommandTestUtil.createEditPersonDescriptor(Optional.empty(),
                 Optional.empty(), Optional.of(EditCommandTestUtil.VALID_EMAIL_ONE), Optional.empty(), Optional.empty());
 
@@ -77,7 +78,7 @@ public class EditPersonDescriptorTest {
     }
 
     @Test
-    public void equals_differentAddress_failure() {
+    public void equals_differentAddress_returnsFalse() {
         EditPersonDescriptor descriptorOne = EditCommandTestUtil.createEditPersonDescriptor(Optional.empty(),
                 Optional.empty(), Optional.empty(), Optional.of(EditCommandTestUtil.VALID_ADDRESS_ONE),
                 Optional.empty());
@@ -90,7 +91,7 @@ public class EditPersonDescriptorTest {
     }
 
     @Test
-    public void equals_differentTags_failure() {
+    public void equals_differentTags_returnsFalse() {
         Optional<List<String>> tagsOne = Optional.of(Arrays.asList(EditCommandTestUtil.VALID_TAG_HUSBAND));
         EditPersonDescriptor descriptorOne = EditCommandTestUtil.createEditPersonDescriptor(Optional.empty(),
                 Optional.empty(), Optional.empty(), Optional.empty(), tagsOne);
