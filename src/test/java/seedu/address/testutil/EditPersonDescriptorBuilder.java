@@ -18,6 +18,10 @@ public class EditPersonDescriptorBuilder {
         descriptor = new EditPersonDescriptor();
     }
 
+    public EditPersonDescriptorBuilder(EditPersonDescriptor descriptor) {
+        this.descriptor = new EditPersonDescriptor(descriptor);
+    }
+
     public EditPersonDescriptorBuilder withName(String name) throws IllegalValueException {
         descriptor.setName(ParserUtil.parseName(Optional.of(name)));
         return this;

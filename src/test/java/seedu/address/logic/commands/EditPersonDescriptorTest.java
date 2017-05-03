@@ -10,13 +10,10 @@ import static seedu.address.testutil.EditCommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.testutil.EditCommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.testutil.EditCommandTestUtil.VALID_TAG_HUSBAND;
 
-import java.util.Arrays;
-import java.util.Optional;
-
 import org.junit.Test;
 
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
-import seedu.address.logic.parser.ParserUtil;
+import seedu.address.testutil.EditPersonDescriptorBuilder;
 
 public class EditPersonDescriptorTest {
 
@@ -39,28 +36,28 @@ public class EditPersonDescriptorTest {
         assertFalse(DESC_AMY.equals(DESC_BOB));
 
         // different name -> returns false
-        EditPersonDescriptor editedAmy = new EditPersonDescriptor(DESC_AMY);
-        editedAmy.setName(ParserUtil.parseName(Optional.of(VALID_NAME_BOB)));
-        assertFalse(DESC_AMY.equals(editedAmy));
+        EditPersonDescriptorBuilder editedAmy = new EditPersonDescriptorBuilder(DESC_AMY);
+        editedAmy.withName(VALID_NAME_BOB);
+        assertFalse(DESC_AMY.equals(editedAmy.build()));
 
         // different phone -> returns false
-        editedAmy = new EditPersonDescriptor(DESC_AMY);
-        editedAmy.setPhone(ParserUtil.parsePhone(Optional.of(VALID_PHONE_BOB)));
-        assertFalse(DESC_AMY.equals(editedAmy));
+        editedAmy = new EditPersonDescriptorBuilder(DESC_AMY);
+        editedAmy.withPhone(VALID_PHONE_BOB);
+        assertFalse(DESC_AMY.equals(editedAmy.build()));
 
         // different email -> returns false
-        editedAmy = new EditPersonDescriptor(DESC_AMY);
-        editedAmy.setEmail(ParserUtil.parseEmail(Optional.of(VALID_EMAIL_BOB)));
-        assertFalse(DESC_AMY.equals(editedAmy));
+        editedAmy = new EditPersonDescriptorBuilder(DESC_AMY);
+        editedAmy.withEmail(VALID_EMAIL_BOB);
+        assertFalse(DESC_AMY.equals(editedAmy.build()));
 
         // different address -> returns false
-        editedAmy = new EditPersonDescriptor(DESC_AMY);
-        editedAmy.setAddress(ParserUtil.parseAddress(Optional.of(VALID_ADDRESS_BOB)));
-        assertFalse(DESC_AMY.equals(editedAmy));
+        editedAmy = new EditPersonDescriptorBuilder(DESC_AMY);
+        editedAmy.withAddress(VALID_ADDRESS_BOB);
+        assertFalse(DESC_AMY.equals(editedAmy.build()));
 
         // different tags -> returns false
-        editedAmy = new EditPersonDescriptor(DESC_AMY);
-        editedAmy.setTags(Optional.of(ParserUtil.parseTags(Arrays.asList(VALID_TAG_HUSBAND))));
-        assertFalse(DESC_AMY.equals(editedAmy));
+        editedAmy = new EditPersonDescriptorBuilder(DESC_AMY);
+        editedAmy.withTags(VALID_TAG_HUSBAND);
+        assertFalse(DESC_AMY.equals(editedAmy.build()));
     }
 }

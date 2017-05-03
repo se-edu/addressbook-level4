@@ -98,7 +98,8 @@ public class EditCommandParserTest {
         // invalid phone followed by valid email
         assertParseFailure("1" + INVALID_PHONE_DESC + EMAIL_DESC_AMY, Phone.MESSAGE_PHONE_CONSTRAINTS);
 
-        // valid phone followed by invalid phone
+        // valid phone followed by invalid phone. The test case for invalid phone followed by valid phone
+        // is tested at {@code parse_invalidValueFollowedByValidValue_success()}
         assertParseFailure("1" + PHONE_DESC_BOB + INVALID_PHONE_DESC, Phone.MESSAGE_PHONE_CONSTRAINTS);
 
         // while parsing {@code PREFIX_TAG} alone will reset the tags of the {@code Person} being edited,
@@ -115,7 +116,8 @@ public class EditCommandParserTest {
     @Test
     public void parse_invalidFieldOrdering_failure() {
         // name not given as the first value, gets parsed as part of email, results in an invalid email.
-        // Note: Name is the only field that is required to be specified before other fields.
+        // Only name field is tested here because it is the only field that is required to be specified
+        // before other fields.
         assertParseFailure("1" + EMAIL_DESC_AMY + NAME_DESC_AMY, Email.MESSAGE_EMAIL_CONSTRAINTS);
     }
 
@@ -195,7 +197,7 @@ public class EditCommandParserTest {
     }
 
     @Test
-    public void parse_invalidValueWithValidValue_success() throws Exception {
+    public void parse_invalidValueFollowedByValidValue_success() throws Exception {
         // no other valid values specified
         int targetIndex = 1;
         String userInput = targetIndex + INVALID_PHONE_DESC + PHONE_DESC_BOB;
