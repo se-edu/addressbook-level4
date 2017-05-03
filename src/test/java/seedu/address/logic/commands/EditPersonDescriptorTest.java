@@ -10,8 +10,8 @@ import static seedu.address.testutil.EditCommandTestUtil.VALID_ADDRESS_ONE;
 import static seedu.address.testutil.EditCommandTestUtil.VALID_ADDRESS_TWO;
 import static seedu.address.testutil.EditCommandTestUtil.VALID_EMAIL_ONE;
 import static seedu.address.testutil.EditCommandTestUtil.VALID_EMAIL_TWO;
-import static seedu.address.testutil.EditCommandTestUtil.VALID_NAME_ONE;
-import static seedu.address.testutil.EditCommandTestUtil.VALID_NAME_TWO;
+import static seedu.address.testutil.EditCommandTestUtil.VALID_NAME_AMY;
+import static seedu.address.testutil.EditCommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.testutil.EditCommandTestUtil.VALID_PHONE_ONE;
 import static seedu.address.testutil.EditCommandTestUtil.VALID_PHONE_TWO;
 
@@ -53,9 +53,9 @@ public class EditPersonDescriptorTest {
 
     @Test
     public void equals_differentName_returnsFalse() throws Exception {
-        EditPersonDescriptor descriptorOne = EditCommandTestUtil.createEditPersonDescriptor(Optional.of(VALID_NAME_ONE),
+        EditPersonDescriptor descriptorOne = EditCommandTestUtil.createEditPersonDescriptor(Optional.of(VALID_NAME_AMY),
                 Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
-        EditPersonDescriptor descriptorTwo = EditCommandTestUtil.createEditPersonDescriptor(Optional.of(VALID_NAME_TWO),
+        EditPersonDescriptor descriptorTwo = EditCommandTestUtil.createEditPersonDescriptor(Optional.of(VALID_NAME_BOB),
                 Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
 
         assertFalse(descriptorOne.equals(descriptorTwo));

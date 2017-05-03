@@ -9,10 +9,11 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.testutil.EditCommandTestUtil.VALID_ADDRESS_ONE;
 import static seedu.address.testutil.EditCommandTestUtil.VALID_EMAIL_ONE;
-import static seedu.address.testutil.EditCommandTestUtil.VALID_NAME_ONE;
+import static seedu.address.testutil.EditCommandTestUtil.VALID_EMAIL_TWO;
+import static seedu.address.testutil.EditCommandTestUtil.VALID_NAME_AMY;
 import static seedu.address.testutil.EditCommandTestUtil.VALID_PHONE_ONE;
 import static seedu.address.testutil.EditCommandTestUtil.VALID_PHONE_TWO;
-import static seedu.address.testutil.EditCommandTestUtil.VALID_TAG_HUBBY;
+import static seedu.address.testutil.EditCommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.address.testutil.EditCommandTestUtil.VALID_TAG_HUSBAND;
 
 import java.util.Arrays;
@@ -41,11 +42,11 @@ public class EditCommandParserTest {
     @Test
     public void parse_failure() {
         // no index specified
-        assertParseFailure(VALID_NAME_ONE + " " + PREFIX_PHONE.getPrefix() + VALID_PHONE_ONE,
+        assertParseFailure(VALID_NAME_AMY + " " + PREFIX_PHONE.getPrefix() + VALID_PHONE_ONE,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
 
         // negative index
-        assertParseFailure("-5 " + VALID_NAME_ONE + " " + PREFIX_EMAIL.getPrefix() + VALID_EMAIL_ONE,
+        assertParseFailure("-5 " + VALID_NAME_AMY + " " + PREFIX_EMAIL.getPrefix() + VALID_EMAIL_ONE,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
 
         // no fields specified
@@ -54,38 +55,41 @@ public class EditCommandParserTest {
         // invalid prefix specified - unknown field will be parsed as name
         assertParseFailure("1 " + INVALID_PREFIX + "unknown", Name.MESSAGE_NAME_CONSTRAINTS);
 
-        // only invalid values
+        // single invalid value
         assertParseFailure("1 *&", Name.MESSAGE_NAME_CONSTRAINTS);
         assertParseFailure("1 " + PREFIX_PHONE.getPrefix() + "abcd", Phone.MESSAGE_PHONE_CONSTRAINTS);
         assertParseFailure("1 " + PREFIX_EMAIL.getPrefix() + "yahoo!!!", Email.MESSAGE_EMAIL_CONSTRAINTS);
         assertParseFailure("1 " + PREFIX_ADDRESS.getPrefix(), Address.MESSAGE_ADDRESS_CONSTRAINTS);
         assertParseFailure("1 " + PREFIX_TAG.getPrefix() + "*&", Tag.MESSAGE_TAG_CONSTRAINTS);
 
-        // invalid values with valid values of different type
+        // single invalid value with another valid value of a different field
         assertParseFailure("1 " + PREFIX_PHONE.getPrefix() + "abcd " + VALID_EMAIL_ONE + " ",
                 Phone.MESSAGE_PHONE_CONSTRAINTS);
 
-        // invalid values with valid values of same type
+        // single invalid value with other valid values of the same field
         assertParseFailure("1 " + PREFIX_TAG.getPrefix() + VALID_TAG_HUSBAND + " " + PREFIX_TAG.getPrefix(),
                 Tag.MESSAGE_TAG_CONSTRAINTS);
         assertParseFailure("1 " + PREFIX_PHONE.getPrefix() + VALID_PHONE_TWO + " " + PREFIX_PHONE.getPrefix() + "abcd",
                 Phone.MESSAGE_PHONE_CONSTRAINTS);
 
-        // invalid ordering - entire string parsed as email
-        assertParseFailure("1 " + PREFIX_EMAIL.getPrefix() + VALID_EMAIL_ONE + " " + VALID_NAME_ONE,
+        // multiple invalid values
+        assertParseFailure("1 *& " + PREFIX_ADDRESS.getPrefix(), Name.MESSAGE_NAME_CONSTRAINTS);
+
+        // name not given as the first value, gets parsed as part of email, results in an invalid email
+        assertParseFailure("1 " + PREFIX_EMAIL.getPrefix() + VALID_EMAIL_ONE + " " + VALID_NAME_AMY,
                 Email.MESSAGE_EMAIL_CONSTRAINTS);
     }
 
     @Test
     public void parse_allFieldsSpecified_success() throws Exception {
-        String userInput = "2 " + VALID_NAME_ONE + " " + PREFIX_PHONE.getPrefix() + VALID_PHONE_TWO + " "
+        String userInput = "2 " + VALID_NAME_AMY + " " + PREFIX_PHONE.getPrefix() + VALID_PHONE_TWO + " "
                 + PREFIX_TAG.getPrefix() + VALID_TAG_HUSBAND + " " + PREFIX_EMAIL.getPrefix() + VALID_EMAIL_ONE + " "
-                + PREFIX_ADDRESS.getPrefix() + VALID_ADDRESS_ONE + " " + PREFIX_TAG.getPrefix() + VALID_TAG_HUBBY;
+                + PREFIX_ADDRESS.getPrefix() + VALID_ADDRESS_ONE + " " + PREFIX_TAG.getPrefix() + VALID_TAG_FRIEND;
 
-        Optional<List<String>> tags = Optional.of(Arrays.asList(VALID_TAG_HUSBAND, VALID_TAG_HUBBY));
+        Optional<List<String>> tags = Optional.of(Arrays.asList(VALID_TAG_HUSBAND, VALID_TAG_FRIEND));
 
         EditPersonDescriptor descriptor = EditCommandTestUtil.createEditPersonDescriptor(
-                Optional.of(VALID_NAME_ONE), Optional.of(VALID_PHONE_TWO), Optional.of(VALID_EMAIL_ONE),
+                Optional.of(VALID_NAME_AMY), Optional.of(VALID_PHONE_TWO), Optional.of(VALID_EMAIL_ONE),
                 Optional.of(VALID_ADDRESS_ONE), tags);
         EditCommand expectedCommand = new EditCommand(2, descriptor);
 
@@ -105,25 +109,27 @@ public class EditCommandParserTest {
     }
 
     @Test
-    public void parse_repeatedFieldsSpecified_acceptsLast() throws Exception {
-        String userInput = "1 " + PREFIX_PHONE.getPrefix() + VALID_PHONE_TWO + " " + PREFIX_PHONE.getPrefix()
-                + VALID_PHONE_ONE;
+    public void parse_oneFieldSpecified_success() throws Exception {
+        String userInput = "3 " + VALID_NAME_AMY;
 
-        EditPersonDescriptor descriptor = EditCommandTestUtil.createEditPersonDescriptor(Optional.empty(),
-                Optional.of(VALID_PHONE_ONE), Optional.empty(), Optional.empty(), Optional.empty());
-        EditCommand expectedCommand = new EditCommand(1, descriptor);
+        EditPersonDescriptor descriptor = EditCommandTestUtil.createEditPersonDescriptor(Optional.of(VALID_NAME_AMY),
+                Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
+
+        EditCommand expectedCommand = new EditCommand(3, descriptor);
 
         assertParseSuccess(userInput, expectedCommand);
     }
 
     @Test
-    public void parse_oneFieldSpecified_success() throws Exception {
-        String userInput = "3 " + VALID_NAME_ONE;
+    public void parse_multipleRepeatedFields_acceptsLast() throws Exception {
+        String userInput = "1 " + PREFIX_PHONE.getPrefix() + VALID_PHONE_TWO + " " + PREFIX_PHONE.getPrefix()
+                + VALID_PHONE_ONE + " " + PREFIX_PHONE.getPrefix() + "911" + " " + PREFIX_EMAIL.getPrefix()
+                + VALID_EMAIL_ONE + " " + PREFIX_EMAIL.getPrefix() + " " + VALID_EMAIL_TWO + " "
+                + PREFIX_ADDRESS.getPrefix() + VALID_ADDRESS_ONE + " " + PREFIX_ADDRESS.getPrefix() + VALID_ADDRESS_ONE;
 
-        EditPersonDescriptor descriptor = EditCommandTestUtil.createEditPersonDescriptor(Optional.of(VALID_NAME_ONE),
-                Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
-
-        EditCommand expectedCommand = new EditCommand(3, descriptor);
+        EditPersonDescriptor descriptor = EditCommandTestUtil.createEditPersonDescriptor(Optional.empty(),
+                Optional.of("911"), Optional.of(VALID_EMAIL_TWO), Optional.of(VALID_ADDRESS_ONE), Optional.empty());
+        EditCommand expectedCommand = new EditCommand(1, descriptor);
 
         assertParseSuccess(userInput, expectedCommand);
     }
@@ -141,7 +147,7 @@ public class EditCommandParserTest {
     }
 
     /**
-     * Asserts {@code userInput} is unsuccessfully parsed and the error message
+     * Asserts the parsing of {@code userInput} is unsuccessful and the error message
      * equals to {@code expectedMessage}
      */
     private void assertParseFailure(String userInput, String expectedMessage) {
@@ -156,7 +162,7 @@ public class EditCommandParserTest {
     }
 
     /**
-     * Asserts {@code userInput} is successfully parsed and the result matches {@code expectedCommand}
+     * Asserts the parsing of {@code userInput} is successful and the result matches {@code expectedCommand}
      */
     private void assertParseSuccess(String userInput, EditCommand expectedCommand) {
         Command command = parser.parse(userInput);
