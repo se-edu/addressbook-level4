@@ -51,6 +51,8 @@ import seedu.address.model.tag.Tag;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
 import seedu.address.storage.XmlAddressBookStorage;
+import seedu.address.testutil.PersonUtil;
+
 
 public class LogicManagerTest {
 
@@ -212,6 +214,38 @@ public class LogicManagerTest {
 
     }
 
+    @Test
+    public void execute_add_successful() throws Exception {
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        Person toBeAdded = PersonUtil.adam();
+        AddressBook expectedAb = new AddressBook();
+        expectedAb.addPerson(toBeAdded);
+
+        // execute command and verify result
+        assertCommandSuccess(helper.generateAddCommand(toBeAdded),
+                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
+                expectedAb,
+                expectedAb.getPersonList());
+
+    }
+
+    @Test
+    public void execute_addDuplicate_notAllowed() throws Exception {
+        // setup expectations
+        TestDataHelper helper = new TestDataHelper();
+        Person toBeAdded = PersonUtil.adam();
+
+        // setup starting state
+        model.addPerson(toBeAdded); // person already in internal address book
+
+        // execute command and verify result
+        assertCommandFailure(helper.generateAddCommand(toBeAdded),  AddCommand.MESSAGE_DUPLICATE_PERSON);
+
+    }
+
+
+    @Test
     public void execute_list_showsAllPersons() throws Exception {
         // prepare expectations
         TestDataHelper helper = new TestDataHelper();
