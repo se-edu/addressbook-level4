@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import org.junit.Test;
 
 import seedu.address.model.AddressBook;
+import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.PersonUtil;
 
@@ -38,4 +39,12 @@ public class AddCommandIntegrationTest extends CommandIntegrationTest {
 
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
     }
+
+    @Test
+    public void execute_invalidPersonData_throwsCommandException() throws Exception {
+        Command command = prepareCommand("add []\\[;] p/12345 e/valid@e.mail a/valid, address");
+
+        assertCommandFailure(command, Name.MESSAGE_NAME_CONSTRAINTS);
+    }
+
 }
