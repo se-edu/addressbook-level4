@@ -2,7 +2,6 @@ package seedu.address.logic.commands;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 import static seedu.address.testutil.EditCommandTestUtil.STANDARD_DESCRIPTION_ONE;
 import static seedu.address.testutil.EditCommandTestUtil.STANDARD_DESCRIPTION_TWO;
 import static seedu.address.testutil.EditCommandTestUtil.STANDARD_TAGS_ONE;
@@ -54,74 +53,52 @@ public class EditPersonDescriptorTest {
     }
 
     @Test
-    public void equals_differentName_returnsFalse() {
-        try {
-            EditPersonDescriptor descriptorOne = EditCommandTestUtil.createEditPersonDescriptor(
-                    Optional.of(VALID_NAME_ONE), Optional.empty(), Optional.empty(), Optional.empty(),
-                    Optional.empty());
-            EditPersonDescriptor descriptorTwo = EditCommandTestUtil.createEditPersonDescriptor(
-                    Optional.of(VALID_NAME_TWO), Optional.empty(), Optional.empty(), Optional.empty(),
-                    Optional.empty());
+    public void equals_differentName_returnsFalse() throws IllegalValueException {
+        EditPersonDescriptor descriptorOne = EditCommandTestUtil.createEditPersonDescriptor(Optional.of(VALID_NAME_ONE),
+                Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
+        EditPersonDescriptor descriptorTwo = EditCommandTestUtil.createEditPersonDescriptor(Optional.of(VALID_NAME_TWO),
+                Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
 
-            assertFalse(descriptorOne.equals(descriptorTwo));
-        } catch (IllegalValueException e) {
-            fail();
-        }
+        assertFalse(descriptorOne.equals(descriptorTwo));
     }
 
     @Test
-    public void equals_differentPhone_returnsFalse() {
-        try {
-            EditPersonDescriptor descriptorOne = EditCommandTestUtil.createEditPersonDescriptor(Optional.empty(),
+    public void equals_differentPhone_returnsFalse() throws IllegalValueException {
+        EditPersonDescriptor descriptorOne = EditCommandTestUtil.createEditPersonDescriptor(Optional.empty(),
                     Optional.of(VALID_PHONE_ONE), Optional.empty(), Optional.empty(), Optional.empty());
-            EditPersonDescriptor descriptorTwo = EditCommandTestUtil.createEditPersonDescriptor(Optional.empty(),
+        EditPersonDescriptor descriptorTwo = EditCommandTestUtil.createEditPersonDescriptor(Optional.empty(),
                     Optional.of(VALID_PHONE_TWO), Optional.empty(), Optional.empty(), Optional.empty());
 
-            assertFalse(descriptorOne.equals(descriptorTwo));
-        } catch (IllegalValueException e) {
-            fail();
-        }
+        assertFalse(descriptorOne.equals(descriptorTwo));
     }
 
     @Test
-    public void equals_differentEmail_returnsFalse() {
-        try {
-            EditPersonDescriptor descriptorOne = EditCommandTestUtil.createEditPersonDescriptor(Optional.empty(),
+    public void equals_differentEmail_returnsFalse() throws IllegalValueException {
+        EditPersonDescriptor descriptorOne = EditCommandTestUtil.createEditPersonDescriptor(Optional.empty(),
                     Optional.empty(), Optional.of(VALID_EMAIL_ONE), Optional.empty(), Optional.empty());
-            EditPersonDescriptor descriptorTwo = EditCommandTestUtil.createEditPersonDescriptor(Optional.empty(),
+        EditPersonDescriptor descriptorTwo = EditCommandTestUtil.createEditPersonDescriptor(Optional.empty(),
                     Optional.empty(), Optional.of(VALID_EMAIL_TWO), Optional.empty(), Optional.empty());
 
-            assertFalse(descriptorOne.equals(descriptorTwo));
-        } catch (IllegalValueException e) {
-            fail();
-        }
+        assertFalse(descriptorOne.equals(descriptorTwo));
     }
 
     @Test
-    public void equals_differentAddress_returnsFalse() {
-        try {
-            EditPersonDescriptor descriptorOne = EditCommandTestUtil.createEditPersonDescriptor(Optional.empty(),
+    public void equals_differentAddress_returnsFalse() throws IllegalValueException {
+        EditPersonDescriptor descriptorOne = EditCommandTestUtil.createEditPersonDescriptor(Optional.empty(),
                     Optional.empty(), Optional.empty(), Optional.of(VALID_ADDRESS_ONE), Optional.empty());
-            EditPersonDescriptor descriptorTwo = EditCommandTestUtil.createEditPersonDescriptor(Optional.empty(),
+        EditPersonDescriptor descriptorTwo = EditCommandTestUtil.createEditPersonDescriptor(Optional.empty(),
                     Optional.empty(), Optional.empty(), Optional.of(VALID_ADDRESS_TWO), Optional.empty());
 
-            assertFalse(descriptorOne.equals(descriptorTwo));
-        } catch (IllegalValueException e) {
-            fail();
-        }
+        assertFalse(descriptorOne.equals(descriptorTwo));
     }
 
     @Test
-    public void equals_differentTags_returnsFalse() {
-        try {
-            EditPersonDescriptor descriptorOne = EditCommandTestUtil.createEditPersonDescriptor(Optional.empty(),
+    public void equals_differentTags_returnsFalse() throws IllegalValueException {
+        EditPersonDescriptor descriptorOne = EditCommandTestUtil.createEditPersonDescriptor(Optional.empty(),
                     Optional.empty(), Optional.empty(), Optional.empty(), STANDARD_TAGS_ONE);
-            EditPersonDescriptor descriptorTwo = EditCommandTestUtil.createEditPersonDescriptor(Optional.empty(),
+        EditPersonDescriptor descriptorTwo = EditCommandTestUtil.createEditPersonDescriptor(Optional.empty(),
                     Optional.empty(), Optional.empty(), Optional.empty(), STANDARD_TAGS_TWO);
 
-            assertFalse(descriptorOne.equals(descriptorTwo));
-        } catch (IllegalValueException e) {
-            fail();
-        }
+        assertFalse(descriptorOne.equals(descriptorTwo));
     }
 }

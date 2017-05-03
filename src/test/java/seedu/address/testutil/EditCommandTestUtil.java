@@ -26,24 +26,18 @@ public class EditCommandTestUtil {
     public static final Optional<List<String>> STANDARD_TAGS_ONE = Optional
             .of(Arrays.asList(VALID_TAG_HUSBAND, VALID_TAG_HUBBY));
     public static final EditPersonDescriptor STANDARD_DESCRIPTION_ONE;
+    public static final Optional<List<String>> STANDARD_TAGS_TWO = Optional.of(Arrays.asList(VALID_TAG_HUSBAND));
+    public static final EditPersonDescriptor STANDARD_DESCRIPTION_TWO;
+
     static {
         try {
             STANDARD_DESCRIPTION_ONE = createEditPersonDescriptor(Optional.of(VALID_NAME_ONE),
-                    Optional.of(VALID_PHONE_ONE), Optional.of(VALID_EMAIL_ONE),
-                    Optional.of(VALID_ADDRESS_ONE), STANDARD_TAGS_ONE);
-        } catch (IllegalValueException ive) {
-            throw new RuntimeException();
-        }
-    }
-
-    public static final Optional<List<String>> STANDARD_TAGS_TWO = Optional.of(Arrays.asList(VALID_TAG_HUSBAND));
-    public static final EditPersonDescriptor STANDARD_DESCRIPTION_TWO;
-    static {
-        try {
+                    Optional.of(VALID_PHONE_ONE), Optional.of(VALID_EMAIL_ONE), Optional.of(VALID_ADDRESS_ONE),
+                    STANDARD_TAGS_ONE);
             STANDARD_DESCRIPTION_TWO = createEditPersonDescriptor(Optional.of(VALID_NAME_TWO),
                     Optional.of(VALID_PHONE_TWO), Optional.empty(), Optional.of(VALID_ADDRESS_ONE), STANDARD_TAGS_TWO);
         } catch (IllegalValueException ive) {
-            throw new RuntimeException();
+            throw new AssertionError("Method should not fail.");
         }
     }
 

@@ -2,7 +2,6 @@ package seedu.address.logic.parser;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
@@ -79,87 +78,67 @@ public class EditCommandParserTest {
     }
 
     @Test
-    public void parse_allFieldsSpecified_success() {
+    public void parse_allFieldsSpecified_success() throws IllegalValueException {
         String userInput = "2 " + VALID_NAME_ONE + " " + PREFIX_PHONE.getPrefix() + VALID_PHONE_TWO + " "
                 + PREFIX_TAG.getPrefix() + VALID_TAG_HUSBAND + " " + PREFIX_EMAIL.getPrefix() + VALID_EMAIL_ONE + " "
                 + PREFIX_ADDRESS.getPrefix() + VALID_ADDRESS_ONE + " " + PREFIX_TAG.getPrefix() + VALID_TAG_HUBBY;
 
         Optional<List<String>> tags = Optional.of(Arrays.asList(VALID_TAG_HUSBAND, VALID_TAG_HUBBY));
-        try {
-            EditPersonDescriptor descriptor = EditCommandTestUtil.createEditPersonDescriptor(
-                    Optional.of(VALID_NAME_ONE), Optional.of(VALID_PHONE_TWO), Optional.of(VALID_EMAIL_ONE),
-                    Optional.of(VALID_ADDRESS_ONE), tags);
-            EditCommand expectedCommand = new EditCommand(2, descriptor);
 
-            assertParseSuccess(userInput, expectedCommand);
-        } catch (IllegalValueException e) {
-            fail();
-        }
+        EditPersonDescriptor descriptor = EditCommandTestUtil.createEditPersonDescriptor(
+                Optional.of(VALID_NAME_ONE), Optional.of(VALID_PHONE_TWO), Optional.of(VALID_EMAIL_ONE),
+                Optional.of(VALID_ADDRESS_ONE), tags);
+        EditCommand expectedCommand = new EditCommand(2, descriptor);
+
+        assertParseSuccess(userInput, expectedCommand);
     }
 
     @Test
-    public void parse_someFieldsSpecified_success() {
+    public void parse_someFieldsSpecified_success() throws IllegalValueException {
         String userInput = "1 " + PREFIX_PHONE.getPrefix() + VALID_PHONE_TWO + " " + PREFIX_EMAIL.getPrefix()
                 + VALID_EMAIL_ONE;
 
-        try {
-            EditPersonDescriptor descriptor = EditCommandTestUtil.createEditPersonDescriptor(Optional.empty(),
-                    Optional.of(VALID_PHONE_TWO), Optional.of(VALID_EMAIL_ONE), Optional.empty(), Optional.empty());
-            EditCommand expectedCommand = new EditCommand(1, descriptor);
+        EditPersonDescriptor descriptor = EditCommandTestUtil.createEditPersonDescriptor(Optional.empty(),
+                Optional.of(VALID_PHONE_TWO), Optional.of(VALID_EMAIL_ONE), Optional.empty(), Optional.empty());
+        EditCommand expectedCommand = new EditCommand(1, descriptor);
 
-            assertParseSuccess(userInput, expectedCommand);
-        } catch (IllegalValueException e) {
-            fail();
-        }
+        assertParseSuccess(userInput, expectedCommand);
     }
 
     @Test
-    public void parse_repeatedFieldsSpecified_acceptsLast() {
+    public void parse_repeatedFieldsSpecified_acceptsLast() throws IllegalValueException {
         String userInput = "1 " + PREFIX_PHONE.getPrefix() + VALID_PHONE_TWO + " " + PREFIX_PHONE.getPrefix()
                 + VALID_PHONE_ONE;
 
-        try {
-            EditPersonDescriptor descriptor = EditCommandTestUtil.createEditPersonDescriptor(Optional.empty(),
-                    Optional.of(VALID_PHONE_ONE), Optional.empty(), Optional.empty(), Optional.empty());
-            EditCommand expectedCommand = new EditCommand(1, descriptor);
+        EditPersonDescriptor descriptor = EditCommandTestUtil.createEditPersonDescriptor(Optional.empty(),
+                Optional.of(VALID_PHONE_ONE), Optional.empty(), Optional.empty(), Optional.empty());
+        EditCommand expectedCommand = new EditCommand(1, descriptor);
 
-            assertParseSuccess(userInput, expectedCommand);
-        } catch (IllegalValueException e) {
-            fail();
-        }
+        assertParseSuccess(userInput, expectedCommand);
     }
 
     @Test
-    public void parse_oneFieldSpecified_success() {
+    public void parse_oneFieldSpecified_success() throws IllegalValueException {
         String userInput = "3 " + VALID_NAME_ONE;
 
-        try {
-            EditPersonDescriptor descriptor = EditCommandTestUtil.createEditPersonDescriptor(
-                    Optional.of(VALID_NAME_ONE), Optional.empty(), Optional.empty(), Optional.empty(),
-                    Optional.empty());
+        EditPersonDescriptor descriptor = EditCommandTestUtil.createEditPersonDescriptor(Optional.of(VALID_NAME_ONE),
+                Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
 
-            EditCommand expectedCommand = new EditCommand(3, descriptor);
+        EditCommand expectedCommand = new EditCommand(3, descriptor);
 
-            assertParseSuccess(userInput, expectedCommand);
-        } catch (IllegalValueException e) {
-            fail();
-        }
+        assertParseSuccess(userInput, expectedCommand);
     }
 
     @Test
-    public void parse_resetTags_success() {
+    public void parse_resetTags_success() throws IllegalValueException {
         String userInput = "3 " + PREFIX_TAG.getPrefix();
 
         Optional<List<String>> tags = Optional.of(Arrays.asList());
-        try {
-            EditPersonDescriptor descriptor = EditCommandTestUtil.createEditPersonDescriptor(Optional.empty(),
-                    Optional.empty(), Optional.empty(), Optional.empty(), tags);
-            EditCommand expectedCommand = new EditCommand(3, descriptor);
+        EditPersonDescriptor descriptor = EditCommandTestUtil.createEditPersonDescriptor(Optional.empty(),
+                Optional.empty(), Optional.empty(), Optional.empty(), tags);
+        EditCommand expectedCommand = new EditCommand(3, descriptor);
 
-            assertParseSuccess(userInput, expectedCommand);
-        } catch (IllegalValueException e) {
-            fail();
-        }
+        assertParseSuccess(userInput, expectedCommand);
     }
 
     /**
