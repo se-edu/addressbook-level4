@@ -14,6 +14,28 @@ import seedu.address.model.tag.Tag;
  * Tests the parsing of AddCommand.
  */
 public class AddCommandParserTest extends ParserTest {
+    @Test
+    public void parse_validInput_success() {
+        // no tags
+        assertParseSuccess(
+                "add Betsy Crowe p/1234567 a/Newgate Prison e/betsycrowe@example.com");
+
+        // leading and trailing whitespace
+        assertParseSuccess(
+                "    add Betsy Crowe p/1234567 a/Newgate Prison e/betsycrowe@example.com    ");
+
+        // single tag
+        assertParseSuccess(
+                "add Betsy Crowe e/betsycrowe@example.com t/friend a/Newgate Prison p/1234567");
+
+        // multiple non-sequential tags
+        assertParseSuccess(
+                "add Betsy Crowe p/1234567 t/friend e/betsycrowe@example.com t/criminal a/Newgate Prison");
+
+        // multiple sequential tags
+        assertParseSuccess(
+                "add Betsy Crowe t/criminal t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 ");
+    }
 
     @Test
     public void parse_invalidArgsFormat_failure() {
