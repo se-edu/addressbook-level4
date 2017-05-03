@@ -19,7 +19,7 @@ public class EditCommandTest {
         EditCommand commandWithSameValues = new EditCommand(1, copyDescriptor);
         assertTrue(standardCommand.equals(commandWithSameValues)); // same values
 
-        assertTrue(standardCommand.equals(standardCommand)); // same object 
+        assertTrue(standardCommand.equals(standardCommand)); // same object
 
         // not equals
         assertFalse(standardCommand.equals(null)); // null
