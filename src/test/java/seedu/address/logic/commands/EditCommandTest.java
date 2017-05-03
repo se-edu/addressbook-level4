@@ -13,29 +13,18 @@ public class EditCommandTest {
     private static final EditCommand standardCommand = new EditCommand(1, DESC_AMY);
 
     @Test
-    public void equals_returnsTrue() {
-        // same values
+    public void equals() {
+        // equals
         EditPersonDescriptor copyDescriptor = new EditPersonDescriptor(DESC_AMY);
         EditCommand commandWithSameValues = new EditCommand(1, copyDescriptor);
+        assertTrue(standardCommand.equals(commandWithSameValues)); // same values
 
-        assertTrue(standardCommand.equals(commandWithSameValues));
+        assertTrue(standardCommand.equals(standardCommand)); // same object
 
-        // same object
-        assertTrue(standardCommand.equals(standardCommand));
-    }
-
-    @Test
-    public void equals_returnsFalse() {
-        // null
-        assertFalse(standardCommand.equals(null));
-
-        // different type
-        assertFalse(standardCommand.equals(new ClearCommand()));
-
-        // different index
-        assertFalse(standardCommand.equals(new EditCommand(2, DESC_AMY)));
-
-        // different descriptor
-        assertFalse(standardCommand.equals(new EditCommand(1, DESC_BOB)));
+        // not equals
+        assertFalse(standardCommand.equals(null)); // null
+        assertFalse(standardCommand.equals(new ClearCommand())); // different type
+        assertFalse(standardCommand.equals(new EditCommand(2, DESC_AMY))); // different index
+        assertFalse(standardCommand.equals(new EditCommand(1, DESC_BOB))); // different descriptor
     }
 }

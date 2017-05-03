@@ -21,64 +21,36 @@ import seedu.address.logic.parser.ParserUtil;
 public class EditPersonDescriptorTest {
 
     @Test
-    public void equals_sameValues_returnsTrue() {
+    public void equals() throws Exception {
+        // equals
         EditPersonDescriptor descriptorWithSameValues = new EditPersonDescriptor(DESC_AMY);
+        assertTrue(DESC_AMY.equals(descriptorWithSameValues)); // same values
 
-        assertTrue(DESC_AMY.equals(descriptorWithSameValues));
-    }
+        assertTrue(DESC_AMY.equals(DESC_AMY)); // same object
 
-    @Test
-    public void equals_sameObject_returnsTrue() {
-        assertTrue(DESC_AMY.equals(DESC_AMY));
-    }
+        // not equals
+        assertFalse(DESC_AMY.equals(null)); // null
+        assertFalse(DESC_AMY.equals(5)); // different type
+        assertFalse(DESC_AMY.equals(DESC_BOB)); // different values
 
-    @Test
-    public void equals_nullObject_returnsFalse() {
-        assertFalse(DESC_AMY.equals(null));
-    }
-
-    @Test
-    public void equals_differentType_returnsFalse() {
-        assertFalse(DESC_AMY.equals(5));
-    }
-
-    @Test
-    public void equals_differentValues_returnsFalse() {
-        assertFalse(DESC_AMY.equals(DESC_BOB));
-    }
-
-    @Test
-    public void equals_differentName_returnsFalse() throws Exception {
         EditPersonDescriptor editedAmy = new EditPersonDescriptor(DESC_AMY);
         editedAmy.setName(ParserUtil.parseName(Optional.of(VALID_NAME_BOB)));
-        assertFalse(DESC_AMY.equals(editedAmy));
-    }
+        assertFalse(DESC_AMY.equals(editedAmy)); // different name
 
-    @Test
-    public void equals_differentPhone_returnsFalse() throws Exception {
-        EditPersonDescriptor editedAmy = new EditPersonDescriptor(DESC_AMY);
+        editedAmy = new EditPersonDescriptor(DESC_AMY);
         editedAmy.setPhone(ParserUtil.parsePhone(Optional.of(VALID_PHONE_BOB)));
-        assertFalse(DESC_AMY.equals(editedAmy));
-    }
+        assertFalse(DESC_AMY.equals(editedAmy)); // different phone
 
-    @Test
-    public void equals_differentEmail_returnsFalse() throws Exception {
-        EditPersonDescriptor editedAmy = new EditPersonDescriptor(DESC_AMY);
+        editedAmy = new EditPersonDescriptor(DESC_AMY);
         editedAmy.setEmail(ParserUtil.parseEmail(Optional.of(VALID_EMAIL_BOB)));
-        assertFalse(DESC_AMY.equals(editedAmy));
-    }
+        assertFalse(DESC_AMY.equals(editedAmy)); // different email
 
-    @Test
-    public void equals_differentAddress_returnsFalse() throws Exception {
-        EditPersonDescriptor editedAmy = new EditPersonDescriptor(DESC_AMY);
+        editedAmy = new EditPersonDescriptor(DESC_AMY);
         editedAmy.setAddress(ParserUtil.parseAddress(Optional.of(VALID_ADDRESS_BOB)));
-        assertFalse(DESC_AMY.equals(editedAmy));
-    }
+        assertFalse(DESC_AMY.equals(editedAmy)); // different address
 
-    @Test
-    public void equals_differentTags_returnsFalse() throws Exception {
-        EditPersonDescriptor editedAmy = new EditPersonDescriptor(DESC_AMY);
+        editedAmy = new EditPersonDescriptor(DESC_AMY);
         editedAmy.setTags(Optional.of(ParserUtil.parseTags(Arrays.asList(VALID_TAG_HUSBAND))));
-        assertFalse(DESC_AMY.equals(editedAmy));
+        assertFalse(DESC_AMY.equals(editedAmy)); // different tags
     }
 }
