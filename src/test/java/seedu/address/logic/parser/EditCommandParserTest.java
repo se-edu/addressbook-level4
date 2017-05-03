@@ -23,32 +23,50 @@ public class EditCommandParserTest {
     @Test
     public void parse_failure() {
         // no index specified
-        assertParseFailure("edit Bobby", String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+        assertParseFailure("edit Bobby p/911", String.format(
+                MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+
+        // negative index
+        assertParseFailure("edit -5 Bobby e/ bob@yahoo.com",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
 
         // no fields specified
         assertParseFailure("edit 1", EditCommand.MESSAGE_NOT_EDITED);
 
-        // invalid values
+        // unknown field specified - unknown field will be parsed as name
+        assertParseFailure("edit 1 q/unknown", Name.MESSAGE_NAME_CONSTRAINTS);
+
+        // only invalid values
         assertParseFailure("edit 1 *&", Name.MESSAGE_NAME_CONSTRAINTS);
-
         assertParseFailure("edit 1 p/abcd", Phone.MESSAGE_PHONE_CONSTRAINTS);
-
         assertParseFailure("edit 1 e/yahoo!!!", Email.MESSAGE_EMAIL_CONSTRAINTS);
-
         assertParseFailure("edit 1 a/", Address.MESSAGE_ADDRESS_CONSTRAINTS);
-
         assertParseFailure("edit 1 t/*&", Tag.MESSAGE_TAG_CONSTRAINTS);
+
+        // invalid values with valid values of different type
+        assertParseFailure("edit 1 p/abcd e/bob@yahoo.com.sg", Phone.MESSAGE_PHONE_CONSTRAINTS);
+
+        // invalid values with valid values of same type
+        assertParseFailure("edit 1 t/hi t/", Tag.MESSAGE_TAG_CONSTRAINTS);
+        assertParseFailure("edit 1 p/911 p/abcd", Phone.MESSAGE_PHONE_CONSTRAINTS);
+
+        // invalid ordering - entire string parsed as email
+        assertParseFailure("edit 1 e/bob@gmail.com Bobby", Email.MESSAGE_EMAIL_CONSTRAINTS);
     }
 
     @Test
     public void parse_success() {
         // all fields specified
-        assertParseSuccess("edit 2 Bobby p/91234567 e/bobby@example.com a/Block 123, Bobby Street 3 t/husband");
+        assertParseSuccess("edit 2 Bobby p/91234567 t/hubby e/bobby@example.com a/Block 123, Bobby Street 3 t/husband");
 
         // some fields specified
-        assertParseSuccess("edit 1 t/sweetie p/91234567 t/bestie");
+        assertParseSuccess("edit 1 t/ p/91234567");
 
-        // one field specified & remove all tags
+        // same fields specified - unintended behavior, will be changed in future versions
+        assertParseSuccess("edit 1 p/91234567 p/911");
+
+        // one field specified
+        assertParseSuccess("edit 3 Bub");
         assertParseSuccess("edit 3 t/");
     }
 
