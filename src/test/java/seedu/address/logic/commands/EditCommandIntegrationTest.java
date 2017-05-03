@@ -35,7 +35,7 @@ public class EditCommandIntegrationTest {
     private Parser parser = new Parser();
 
     @Test
-    public void execute_validCommand_succeeds() throws Exception {
+    public void execute_allFieldsSpecified_succeeds() throws Exception {
         Person editedPerson = new PersonBuilder().withName("Bobby").withPhone("91234567")
                                     .withEmail("bobby@example.com").withAddress("Block 123, Bobby Street 3")
                                     .withTags("husband").build();
