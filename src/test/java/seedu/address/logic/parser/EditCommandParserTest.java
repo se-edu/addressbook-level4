@@ -58,7 +58,7 @@ public class EditCommandParserTest {
     public void parse_noValidPrefix_everythingTakenAsName() throws Exception {
         // Unable to test whether complex strings such as "1 q/unknown is this k/parsed"
         // are entirely parsed as Name. Verification of Name field requires successful parsing.
-        // However, "/" is an invalid value for Name, thus parsing invalid prefixes will always fail.
+        // However, "/" is an invalid character for Name, thus parsing invalid prefixes will always fail.
         // E.g, we cannot verify if "q/unknown" is parsed as Name, resulting in an error, or whether
         // "q/unknown is this k/parsed" is parsed as Name, which results in an error as well.
         String invalidPrefix = "q/";

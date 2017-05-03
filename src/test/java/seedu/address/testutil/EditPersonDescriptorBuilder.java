@@ -8,7 +8,7 @@ import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.logic.parser.ParserUtil;
 
 /**
- * A utility class to help with building EditPersonDescriptorBuilder objects.
+ * A utility class to help with building EditPersonDescriptor objects.
  */
 public class EditPersonDescriptorBuilder {
 
