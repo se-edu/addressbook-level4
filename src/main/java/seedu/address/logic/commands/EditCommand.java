@@ -86,8 +86,11 @@ public class EditCommand extends Command {
         return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
     }
 
+    /**
+     * Returns a defensive copy of {@code editPersonDescriptor}.
+     */
     public EditPersonDescriptor getEditPersonDescriptor() {
-        return new EditPersonDescriptor(editPersonDescriptor); // defensive copy
+        return new EditPersonDescriptor(editPersonDescriptor);
     }
 
     @Override

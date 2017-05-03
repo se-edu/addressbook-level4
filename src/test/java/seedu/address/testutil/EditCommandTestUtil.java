@@ -1,7 +1,5 @@
 package seedu.address.testutil;
 
-import static org.junit.Assert.fail;
-
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -27,32 +25,45 @@ public class EditCommandTestUtil {
 
     public static final Optional<List<String>> STANDARD_TAGS_ONE = Optional
             .of(Arrays.asList(VALID_TAG_HUSBAND, VALID_TAG_HUBBY));
-    public static final EditPersonDescriptor STANDARD_DESCRIPTION_ONE = createEditPersonDescriptor(
-            Optional.of(VALID_NAME_ONE), Optional.of(VALID_PHONE_ONE), Optional.of(VALID_EMAIL_ONE),
-            Optional.of(VALID_ADDRESS_ONE), STANDARD_TAGS_ONE);
+    public static final EditPersonDescriptor STANDARD_DESCRIPTION_ONE;
+    static {
+        try {
+            STANDARD_DESCRIPTION_ONE = createEditPersonDescriptor(Optional.of(VALID_NAME_ONE),
+                    Optional.of(VALID_PHONE_ONE), Optional.of(VALID_EMAIL_ONE),
+                    Optional.of(VALID_ADDRESS_ONE), STANDARD_TAGS_ONE);
+        } catch (IllegalValueException ive) {
+            throw new RuntimeException();
+        }
+    }
 
     public static final Optional<List<String>> STANDARD_TAGS_TWO = Optional.of(Arrays.asList(VALID_TAG_HUSBAND));
-    public static final EditPersonDescriptor STANDARD_DESCRIPTION_TWO = createEditPersonDescriptor(
-            Optional.of(VALID_NAME_TWO), Optional.of(VALID_PHONE_TWO), Optional.empty(), Optional.of(VALID_ADDRESS_ONE),
-            STANDARD_TAGS_TWO);
+    public static final EditPersonDescriptor STANDARD_DESCRIPTION_TWO;
+    static {
+        try {
+            STANDARD_DESCRIPTION_TWO = createEditPersonDescriptor(Optional.of(VALID_NAME_TWO),
+                    Optional.of(VALID_PHONE_TWO), Optional.empty(), Optional.of(VALID_ADDRESS_ONE), STANDARD_TAGS_TWO);
+        } catch (IllegalValueException ive) {
+            throw new RuntimeException();
+        }
+    }
 
     /**
-     * Creates an {@code EditPersonDescriptor} from raw values. Leaving a field
-     * as optional implies that the field will not be changed upon execution of {@code EditCommand}
+     * Creates an {@code EditPersonDescriptor} from raw values. Specifying a field with an empty
+     * Optional implies that the field will not be changed upon execution of {@code EditCommand}
+     *
+     * @throws IllegalValueException if any of the input values cannot be parsed
      **/
     public static EditPersonDescriptor createEditPersonDescriptor(Optional<String> name, Optional<String> phone,
-            Optional<String> email, Optional<String> address, Optional<List<String>> tags) {
+            Optional<String> email, Optional<String> address, Optional<List<String>> tags)
+            throws IllegalValueException {
         EditPersonDescriptor descriptor = new EditPersonDescriptor();
-        try {
-            descriptor.setName(ParserUtil.parseName(name));
-            descriptor.setPhone(ParserUtil.parsePhone(phone));
-            descriptor.setEmail(ParserUtil.parseEmail(email));
-            descriptor.setAddress(ParserUtil.parseAddress(address));
-            if (tags.isPresent()) {
-                descriptor.setTags(Optional.of(ParserUtil.parseTags(tags.get())));
-            }
-        } catch (IllegalValueException ive) {
-            fail();
+
+        descriptor.setName(ParserUtil.parseName(name));
+        descriptor.setPhone(ParserUtil.parsePhone(phone));
+        descriptor.setEmail(ParserUtil.parseEmail(email));
+        descriptor.setAddress(ParserUtil.parseAddress(address));
+        if (tags.isPresent()) {
+            descriptor.setTags(Optional.of(ParserUtil.parseTags(tags.get())));
         }
 
         return descriptor;

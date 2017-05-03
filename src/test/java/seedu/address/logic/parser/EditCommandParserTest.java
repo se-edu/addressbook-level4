@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
@@ -21,6 +22,7 @@ import java.util.Optional;
 
 import org.junit.Test;
 
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
@@ -33,6 +35,8 @@ import seedu.address.model.tag.Tag;
 import seedu.address.testutil.EditCommandTestUtil;
 
 public class EditCommandParserTest {
+
+    private static final String INVALID_PREFIX = "q/";
 
     private EditCommandParser parser = new EditCommandParser();
 
@@ -49,8 +53,8 @@ public class EditCommandParserTest {
         // no fields specified
         assertParseFailure("1", EditCommand.MESSAGE_NOT_EDITED);
 
-        // unknown field specified - unknown field will be parsed as name
-        assertParseFailure("1 q/unknown", Name.MESSAGE_NAME_CONSTRAINTS);
+        // invalid prefix specified - unknown field will be parsed as name
+        assertParseFailure("1 " + INVALID_PREFIX + "unknown", Name.MESSAGE_NAME_CONSTRAINTS);
 
         // only invalid values
         assertParseFailure("1 *&", Name.MESSAGE_NAME_CONSTRAINTS);
@@ -81,12 +85,16 @@ public class EditCommandParserTest {
                 + PREFIX_ADDRESS.getPrefix() + VALID_ADDRESS_ONE + " " + PREFIX_TAG.getPrefix() + VALID_TAG_HUBBY;
 
         Optional<List<String>> tags = Optional.of(Arrays.asList(VALID_TAG_HUSBAND, VALID_TAG_HUBBY));
-        EditPersonDescriptor descriptor = EditCommandTestUtil.createEditPersonDescriptor(Optional.of(VALID_NAME_ONE),
-                Optional.of(VALID_PHONE_TWO), Optional.of(VALID_EMAIL_ONE), Optional.of(VALID_ADDRESS_ONE), tags);
+        try {
+            EditPersonDescriptor descriptor = EditCommandTestUtil.createEditPersonDescriptor(
+                    Optional.of(VALID_NAME_ONE), Optional.of(VALID_PHONE_TWO), Optional.of(VALID_EMAIL_ONE),
+                    Optional.of(VALID_ADDRESS_ONE), tags);
+            EditCommand expectedCommand = new EditCommand(2, descriptor);
 
-        EditCommand expectedCommand = new EditCommand(2, descriptor);
-
-        assertParseSuccess(userInput, expectedCommand);
+            assertParseSuccess(userInput, expectedCommand);
+        } catch (IllegalValueException e) {
+            fail();
+        }
     }
 
     @Test
@@ -94,11 +102,15 @@ public class EditCommandParserTest {
         String userInput = "1 " + PREFIX_PHONE.getPrefix() + VALID_PHONE_TWO + " " + PREFIX_EMAIL.getPrefix()
                 + VALID_EMAIL_ONE;
 
-        EditPersonDescriptor descriptor = EditCommandTestUtil.createEditPersonDescriptor(Optional.empty(),
-                Optional.of(VALID_PHONE_TWO), Optional.of(VALID_EMAIL_ONE), Optional.empty(), Optional.empty());
-        EditCommand expectedCommand = new EditCommand(1, descriptor);
+        try {
+            EditPersonDescriptor descriptor = EditCommandTestUtil.createEditPersonDescriptor(Optional.empty(),
+                    Optional.of(VALID_PHONE_TWO), Optional.of(VALID_EMAIL_ONE), Optional.empty(), Optional.empty());
+            EditCommand expectedCommand = new EditCommand(1, descriptor);
 
-        assertParseSuccess(userInput, expectedCommand);
+            assertParseSuccess(userInput, expectedCommand);
+        } catch (IllegalValueException e) {
+            fail();
+        }
     }
 
     @Test
@@ -106,22 +118,32 @@ public class EditCommandParserTest {
         String userInput = "1 " + PREFIX_PHONE.getPrefix() + VALID_PHONE_TWO + " " + PREFIX_PHONE.getPrefix()
                 + VALID_PHONE_ONE;
 
-        EditPersonDescriptor descriptor = EditCommandTestUtil.createEditPersonDescriptor(Optional.empty(),
-                Optional.of(VALID_PHONE_ONE), Optional.empty(), Optional.empty(), Optional.empty());
-        EditCommand expectedCommand = new EditCommand(1, descriptor);
+        try {
+            EditPersonDescriptor descriptor = EditCommandTestUtil.createEditPersonDescriptor(Optional.empty(),
+                    Optional.of(VALID_PHONE_ONE), Optional.empty(), Optional.empty(), Optional.empty());
+            EditCommand expectedCommand = new EditCommand(1, descriptor);
 
-        assertParseSuccess(userInput, expectedCommand);
+            assertParseSuccess(userInput, expectedCommand);
+        } catch (IllegalValueException e) {
+            fail();
+        }
     }
 
     @Test
     public void parse_oneFieldSpecified_success() {
         String userInput = "3 " + VALID_NAME_ONE;
 
-        EditPersonDescriptor descriptor = EditCommandTestUtil.createEditPersonDescriptor(Optional.of(VALID_NAME_ONE),
-                Optional.empty(), Optional.empty(), Optional.empty(), Optional.empty());
-        EditCommand expectedCommand = new EditCommand(3, descriptor);
+        try {
+            EditPersonDescriptor descriptor = EditCommandTestUtil.createEditPersonDescriptor(
+                    Optional.of(VALID_NAME_ONE), Optional.empty(), Optional.empty(), Optional.empty(),
+                    Optional.empty());
 
-        assertParseSuccess(userInput, expectedCommand);
+            EditCommand expectedCommand = new EditCommand(3, descriptor);
+
+            assertParseSuccess(userInput, expectedCommand);
+        } catch (IllegalValueException e) {
+            fail();
+        }
     }
 
     @Test
@@ -129,11 +151,15 @@ public class EditCommandParserTest {
         String userInput = "3 " + PREFIX_TAG.getPrefix();
 
         Optional<List<String>> tags = Optional.of(Arrays.asList());
-        EditPersonDescriptor descriptor = EditCommandTestUtil.createEditPersonDescriptor(Optional.empty(),
-                Optional.empty(), Optional.empty(), Optional.empty(), tags);
-        EditCommand expectedCommand = new EditCommand(3, descriptor);
+        try {
+            EditPersonDescriptor descriptor = EditCommandTestUtil.createEditPersonDescriptor(Optional.empty(),
+                    Optional.empty(), Optional.empty(), Optional.empty(), tags);
+            EditCommand expectedCommand = new EditCommand(3, descriptor);
 
-        assertParseSuccess(userInput, expectedCommand);
+            assertParseSuccess(userInput, expectedCommand);
+        } catch (IllegalValueException e) {
+            fail();
+        }
     }
 
     /**
@@ -152,7 +178,7 @@ public class EditCommandParserTest {
     }
 
     /**
-     * Asserts {@code userInput} is successfully parsed
+     * Asserts {@code userInput} is successfully parsed and the result matches {@code expectedCommand}
      */
     private void assertParseSuccess(String userInput, EditCommand expectedCommand) {
         Command command = parser.parse(userInput);
