@@ -9,6 +9,7 @@ import java.util.List;
 import org.junit.Test;
 
 import seedu.address.commons.core.Messages;
+import seedu.address.commons.util.IndexUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.Parser;
 import seedu.address.model.AddressBook;
@@ -46,6 +47,40 @@ public class EditCommandIntegrationTest {
 
         AddressBook expectedAddressBook = new AddressBook(model.getAddressBook());
         expectedAddressBook.updatePerson(ZERO_BASED_INDEX_FIRST_PERSON, editedPerson);
+
+        List<ReadOnlyPerson> expectedFilteredList = new ArrayList<>(model.getFilteredPersonList());
+
+        assertCommandSuccess(command, expectedMessage, expectedAddressBook, expectedFilteredList);
+    }
+
+    @Test
+    public void execute_notAllFieldsSpecified_success() throws Exception {
+        Command command = prepareCommand("edit 2 t/sweetie t/bestie");
+
+        ReadOnlyPerson personToEdit = model.getAddressBook().getPersonList().get(IndexUtil.oneToZeroIndex(2));
+        Person editedPerson = new PersonBuilder(personToEdit).withTags("sweetie", "bestie").build();
+
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
+
+        AddressBook expectedAddressBook = new AddressBook(model.getAddressBook());
+        expectedAddressBook.updatePerson(ZERO_BASED_INDEX_SECOND_PERSON, editedPerson);
+
+        List<ReadOnlyPerson> expectedFilteredList = new ArrayList<>(model.getFilteredPersonList());
+
+        assertCommandSuccess(command, expectedMessage, expectedAddressBook, expectedFilteredList);
+    }
+
+    @Test
+    public void edit_clearTags_success() throws Exception {
+        Command command = prepareCommand("edit 2 t/");
+
+        ReadOnlyPerson personToEdit = model.getAddressBook().getPersonList().get(IndexUtil.oneToZeroIndex(2));
+        Person editedPerson = new PersonBuilder(personToEdit).withTags().build();
+
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
+
+        AddressBook expectedAddressBook = new AddressBook(model.getAddressBook());
+        expectedAddressBook.updatePerson(ZERO_BASED_INDEX_SECOND_PERSON, editedPerson);
 
         List<ReadOnlyPerson> expectedFilteredList = new ArrayList<>(model.getFilteredPersonList());
 
