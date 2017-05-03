@@ -7,6 +7,15 @@ import seedu.address.model.person.Person;
  */
 public class PersonUtil {
 
+    public static Person adam() throws Exception {
+        return new PersonBuilder().withName("Adam Brown")
+                .withPhone("111111")
+                .withEmail("adam@example.com")
+                .withAddress("111, alpha street")
+                .withTags("tag1", "longertag2")
+                .build();
+    }
+
     /**
      * Returns an add command string for adding the {@code person}.
      */
