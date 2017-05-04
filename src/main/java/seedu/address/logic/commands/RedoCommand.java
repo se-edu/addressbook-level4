@@ -3,8 +3,9 @@ package seedu.address.logic.commands;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 import seedu.address.logic.CommandHistory;
-import seedu.address.logic.ListElementPointer;
+import seedu.address.logic.ReversibleCommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.exceptions.OutOfReversibleCommandException;
 import seedu.address.model.Model;
 
 /**
@@ -19,51 +20,23 @@ public class RedoCommand extends Command {
     @Override
     public CommandResult execute() throws CommandException {
         checkNotNull(model);
-        checkNotNull(history);
+        checkNotNull(reversibleCommandHistory);
 
-        int toSkip = -1;
-
-        ListElementPointer pointer = new ListElementPointer(history.getHistory());
-
-        if (!pointer.hasCurrent()) {
+        try {
+            reversibleCommandHistory.next().execute();
+            model.updateFilteredListToShowAll();
+            return new CommandResult(MESSAGE_SUCCESS);
+        } catch (OutOfReversibleCommandException oorce) {
             throw new CommandException(MESSAGE_FAILURE);
+        } catch (CommandException ce) {
+            throw new AssertionError("The command has been successfully executed previously; "
+                    + "it should not fail now");
         }
-
-        String commandType = pointer.current().command.getClass().getSimpleName();
-        switch (commandType) {
-        case "UndoCommand":
-            toSkip++;
-            break;
-        case "RedoCommand":
-            toSkip--;
-            break;
-        default:
-            throw new CommandException(MESSAGE_FAILURE);
-        }
-
-        while (pointer.hasPrevious()) {
-            Command command = pointer.previous().command;
-            if (command instanceof ReversibleCommand) {
-                if (toSkip == 0) {
-                    command.execute();
-                    model.updateFilteredListToShowAll();
-                    return new CommandResult(MESSAGE_SUCCESS);
-                } else {
-                    toSkip--;
-                }
-            } else if (command instanceof UndoCommand) {
-                toSkip++;
-            } else if (command instanceof RedoCommand) {
-                toSkip--;
-            }
-        }
-
-        throw new CommandException(MESSAGE_FAILURE);
     }
 
     @Override
-    public void setData(Model model, CommandHistory history) {
+    public void setData(Model model, CommandHistory commandHistory, ReversibleCommandHistory reversibleCommandHistory) {
         this.model = model;
-        this.history = history;
+        this.reversibleCommandHistory = reversibleCommandHistory;
     }
 }

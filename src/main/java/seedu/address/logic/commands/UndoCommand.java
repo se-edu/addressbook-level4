@@ -2,12 +2,10 @@ package seedu.address.logic.commands;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-import java.util.List;
-
 import seedu.address.logic.CommandHistory;
-import seedu.address.logic.CommandObject;
-import seedu.address.logic.ListElementPointer;
+import seedu.address.logic.ReversibleCommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.exceptions.OutOfReversibleCommandException;
 import seedu.address.model.Model;
 
 /**
@@ -22,39 +20,20 @@ public class UndoCommand extends Command {
     @Override
     public CommandResult execute() throws CommandException {
         checkNotNull(model);
-        checkNotNull(history);
+        checkNotNull(reversibleCommandHistory);
 
-        int toSkip = 0;
-
-        // append a stub value to allow easier iterating
-        List<CommandObject> temp = history.getHistory();
-        temp.add(new CommandObject("", null));
-        ListElementPointer pointer = new ListElementPointer(temp);
-
-        while (pointer.hasPrevious()) {
-            Command command = pointer.previous().command;
-            if (command instanceof ReversibleCommand) {
-                if (toSkip == 0) {
-                    ReversibleCommand reversibleCommand = (ReversibleCommand) command;
-                    reversibleCommand.rollback();
-                    model.updateFilteredListToShowAll();
-                    return new CommandResult(MESSAGE_SUCCESS);
-                } else {
-                    toSkip--;
-                }
-            } else if (command instanceof UndoCommand) {
-                toSkip++;
-            } else if (command instanceof RedoCommand) {
-                toSkip--;
-            }
+        try {
+            reversibleCommandHistory.previous().rollback();
+            model.updateFilteredListToShowAll();
+            return new CommandResult(MESSAGE_SUCCESS);
+        } catch (OutOfReversibleCommandException oorce) {
+            throw new CommandException(MESSAGE_FAILURE);
         }
-
-        throw new CommandException(MESSAGE_FAILURE);
     }
 
     @Override
-    public void setData(Model model, CommandHistory history) {
+    public void setData(Model model, CommandHistory commandHistory, ReversibleCommandHistory reversibleCommandHistory) {
         this.model = model;
-        this.history = history;
+        this.reversibleCommandHistory = reversibleCommandHistory;
     }
 }

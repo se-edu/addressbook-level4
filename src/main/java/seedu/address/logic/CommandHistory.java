@@ -9,24 +9,24 @@ import java.util.List;
  * Stores the history of commands executed.
  */
 public class CommandHistory {
-    private LinkedList<CommandObject> commandObjectHistory;
+    private LinkedList<String> userInputHistory;
 
     public CommandHistory() {
-        commandObjectHistory = new LinkedList<>();
+        userInputHistory = new LinkedList<>();
     }
 
     /**
-     * Appends {@code commandObject} to the list of user input entered.
+     * Appends {@code userInput} to the list of user input entered.
      */
-    public void add(CommandObject commandObject) {
-        requireNonNull(commandObject);
-        commandObjectHistory.add(commandObject);
+    public void add(String userInput) {
+        requireNonNull(userInput);
+        userInputHistory.add(userInput);
     }
 
     /**
-     * Returns a defensive copy of {@code commandObjectHistory}.
+     * Returns a defensive copy of {@code userInputHistory}.
      */
-    public List<CommandObject> getHistory() {
-        return new LinkedList<>(commandObjectHistory);
+    public List<String> getHistory() {
+        return new LinkedList<>(userInputHistory);
     }
 }

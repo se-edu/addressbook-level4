@@ -4,10 +4,9 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import seedu.address.logic.CommandHistory;
-import seedu.address.logic.CommandObject;
+import seedu.address.logic.ReversibleCommandHistory;
 import seedu.address.model.Model;
 
 /**
@@ -21,22 +20,19 @@ public class HistoryCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        List<CommandObject> previousCommandsObjects = history.getHistory();
+        List<String> previousCommands = commandHistory.getHistory();
 
-        if (previousCommandsObjects.isEmpty()) {
+        if (previousCommands.isEmpty()) {
             return new CommandResult(MESSAGE_NO_HISTORY);
         }
 
-        List<String> previousUserInput = previousCommandsObjects.stream()
-                .map(commandObject -> commandObject.userInput).collect(Collectors.toList());
-
-        Collections.reverse(previousUserInput);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, String.join("\n", previousUserInput)));
+        Collections.reverse(previousCommands);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, String.join("\n", previousCommands)));
     }
 
     @Override
-    public void setData(Model model, CommandHistory history) {
-        requireNonNull(history);
-        this.history = history;
+    public void setData(Model model, CommandHistory commandHistory, ReversibleCommandHistory reversibleCommandHistory) {
+        requireNonNull(commandHistory);
+        this.commandHistory = commandHistory;
     }
 }

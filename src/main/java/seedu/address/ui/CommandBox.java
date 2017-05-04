@@ -9,7 +9,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.NewResultAvailableEvent;
-import seedu.address.logic.CommandObject;
 import seedu.address.logic.ListElementPointer;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
@@ -65,7 +64,7 @@ public class CommandBox extends UiPart<Region> {
             return;
         }
 
-        replaceText(historySnapshot.previous().userInput);
+        replaceText(historySnapshot.previous());
     }
 
     /**
@@ -78,7 +77,7 @@ public class CommandBox extends UiPart<Region> {
             return;
         }
 
-        replaceText(historySnapshot.next().userInput);
+        replaceText(historySnapshot.next());
     }
 
     /**
@@ -114,7 +113,7 @@ public class CommandBox extends UiPart<Region> {
         historySnapshot = logic.getHistorySnapshot();
         // add an empty string to represent the most-recent end of historySnapshot, to be shown to
         // the user if she tries to navigate past the most-recent end of the historySnapshot.
-        historySnapshot.add(new CommandObject("", null));
+        historySnapshot.add("");
     }
 
     /**

@@ -12,7 +12,8 @@ public abstract class ReversibleCommand extends Command {
     }
 
     /**
-     * Reverts the state of AddressBook to the previous state
+     * Reverts the state of AddressBook to the state before
+     * this command was executed.
      */
     public final void rollback() {
         checkNotNull(model);

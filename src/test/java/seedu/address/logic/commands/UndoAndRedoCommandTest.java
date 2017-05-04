@@ -15,7 +15,7 @@ import org.junit.rules.ExpectedException;
 
 import javafx.collections.transformation.FilteredList;
 import seedu.address.logic.CommandHistory;
-import seedu.address.logic.CommandObject;
+import seedu.address.logic.ReversibleCommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
@@ -29,17 +29,15 @@ public class UndoAndRedoCommandTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-    private Model model;
-    private CommandHistory history;
+    private Model model = new ModelManager(new TypicalPersons().getTypicalAddressBook(), new UserPrefs());
+    private ReversibleCommandHistory history = new ReversibleCommandHistory();
     private UndoCommand undoCommand = new UndoCommand();
     private RedoCommand redoCommand = new RedoCommand();
 
     @Before
     public void setUp() throws Exception {
-        model = new ModelManager(new TypicalPersons().getTypicalAddressBook(), new UserPrefs());
-        history = new CommandHistory();
-        undoCommand.setData(model, history);
-        redoCommand.setData(model, history);
+        undoCommand.setData(model, new CommandHistory(), history);
+        redoCommand.setData(model, new CommandHistory(), history);
     }
 
     @Test
@@ -64,9 +62,9 @@ public class UndoAndRedoCommandTest {
         FilteredList<ReadOnlyPerson> expectedFilteredList = new FilteredList<>(expectedAddressBook.getPersonList());
 
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_PERSON);
-        deleteCommand.setData(model, history);
+        deleteCommand.setData(model, new CommandHistory(), history);
         deleteCommand.execute();
-        history.add(new CommandObject(Integer.toString(INDEX_FIRST_PERSON.getOneBased()), deleteCommand));
+        history.add(deleteCommand);
 
         updateFilteredListShowOnlyFirstPersonInAddressBook();
 
@@ -77,7 +75,7 @@ public class UndoAndRedoCommandTest {
         ReadOnlyPerson toDelete = expectedFilteredList.get(0);
         expectedAddressBook.removePerson(toDelete);
 
-        history.add(new CommandObject(UndoCommand.COMMAND_WORD, new UndoCommand()));
+        history.add(new UndoCommand());
 
         assertCommandSuccess(redoCommand, RedoCommand.MESSAGE_SUCCESS, expectedAddressBook, expectedFilteredList);
     }
