@@ -2,13 +2,18 @@ package seedu.address.logic.commands;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
+import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 
 public abstract class ReversibleCommand extends Command {
     protected ReadOnlyAddressBook previousAddressBook;
 
-    public final void setData(ReadOnlyAddressBook previousAddressBook) {
-        this.previousAddressBook = previousAddressBook;
+    /**
+     * Stores the current state of {@code model#addressBook} in {@code previousAddressBook}.
+     */
+    protected final void saveAddressBookSnapshot() {
+        checkNotNull(model);
+        this.previousAddressBook = new AddressBook(model.getAddressBook());
     }
 
     /**

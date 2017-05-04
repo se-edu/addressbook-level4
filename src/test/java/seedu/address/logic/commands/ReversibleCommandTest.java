@@ -1,20 +1,33 @@
 package seedu.address.logic.commands;
 
+import static org.junit.Assert.assertEquals;
+import static seedu.address.testutil.TypicalPersons.INDEX_FIRST_PERSON;
+
+import org.junit.Test;
+
+import seedu.address.logic.CommandHistory;
+import seedu.address.logic.UndoRedoStack;
+import seedu.address.model.Model;
+import seedu.address.model.ModelManager;
+import seedu.address.model.UserPrefs;
+import seedu.address.model.person.ReadOnlyPerson;
+import seedu.address.testutil.TypicalPersons;
+
 public class ReversibleCommandTest {
-    /*
     private Model model = new ModelManager(new TypicalPersons().getTypicalAddressBook(), new UserPrefs());
 
     @Test
-    public void rollback_validCommand_succeeds() throws Exception {
+    public void saveAddressBookSnapshotAndRollback() throws Exception {
+        Model expectedModel = new ModelManager(new TypicalPersons().getTypicalAddressBook(), new UserPrefs());
+
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_PERSON);
-        deleteCommand.setData(model, new CommandHistory(), new ReversibleCommandHistory());
+        deleteCommand.setData(model, new CommandHistory(), new UndoRedoStack());
+        deleteCommand.saveAddressBookSnapshot();
 
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
-        ReadOnlyPerson toRemove = model.getFilteredPersonList().get(0);
-        expectedModel.deletePerson(toRemove);
+        ReadOnlyPerson toRemove = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        model.deletePerson(toRemove);
 
-        String expectedMessage = String.format(MESSAGE_DELETE_PERSON_SUCCESS, toRemove);
-
-        assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
-    }*/
+        deleteCommand.rollback();
+        assertEquals(expectedModel, model);
+    }
 }

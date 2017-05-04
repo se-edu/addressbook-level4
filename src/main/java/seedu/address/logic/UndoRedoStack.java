@@ -11,11 +11,11 @@ import seedu.address.logic.commands.exceptions.OutOfReversibleCommandException;
 /**
  * Stores the history of reversible commands executed.
  */
-public class ReversibleCommandHistory {
+public class UndoRedoStack {
     private Stack<ReversibleCommand> undoStack;
     private Stack<ReversibleCommand> redoStack;
 
-    public ReversibleCommandHistory() {
+    public UndoRedoStack() {
         undoStack = new Stack<>();
         redoStack = new Stack<>();
     }
@@ -63,7 +63,25 @@ public class ReversibleCommandHistory {
 
         ReversibleCommand toRedo = redoStack.pop();
         undoStack.push(toRedo);
-
         return toRedo;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        // short circuit if same object
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(other instanceof UndoRedoStack)) {
+            return false;
+        }
+
+        UndoRedoStack stack = (UndoRedoStack) other;
+
+        // state check
+        return undoStack.equals(stack.undoStack)
+                && redoStack.equals(stack.redoStack);
     }
 }

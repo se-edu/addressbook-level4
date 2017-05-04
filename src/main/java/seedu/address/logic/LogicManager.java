@@ -20,14 +20,14 @@ public class LogicManager extends ComponentManager implements Logic {
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
 
     private final Model model;
-    private final CommandHistory commandHistory;
-    private final ReversibleCommandHistory reversibleCommandHistory;
+    private final CommandHistory history;
+    private final UndoRedoStack undoRedoStack;
     private final Parser parser;
 
     public LogicManager(Model model) {
         this.model = model;
-        this.commandHistory = new CommandHistory();
-        this.reversibleCommandHistory = new ReversibleCommandHistory();
+        this.history = new CommandHistory();
+        this.undoRedoStack = new UndoRedoStack();
         this.parser = new Parser();
     }
 
@@ -36,12 +36,12 @@ public class LogicManager extends ComponentManager implements Logic {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
         try {
             Command command = parser.parseCommand(commandText);
-            command.setData(model, commandHistory, reversibleCommandHistory);
+            command.setData(model, history, undoRedoStack);
             CommandResult result = command.execute();
-            reversibleCommandHistory.add(command);
+            undoRedoStack.add(command);
             return result;
         } finally {
-            commandHistory.add(commandText);
+            history.add(commandText);
         }
     }
 
@@ -52,6 +52,6 @@ public class LogicManager extends ComponentManager implements Logic {
 
     @Override
     public ListElementPointer getHistorySnapshot() {
-        return new ListElementPointer(commandHistory.getHistory());
+        return new ListElementPointer(history.getHistory());
     }
 }

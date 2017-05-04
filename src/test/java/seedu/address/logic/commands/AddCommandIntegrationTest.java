@@ -7,7 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import seedu.address.logic.CommandHistory;
-import seedu.address.logic.ReversibleCommandHistory;
+import seedu.address.logic.UndoRedoStack;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -61,7 +61,7 @@ public class AddCommandIntegrationTest {
      */
     private AddCommand prepareCommand(Person person, Model model) {
         AddCommand command = new AddCommand(person);
-        command.setData(model, new CommandHistory(), new ReversibleCommandHistory());
+        command.setData(model, new CommandHistory(), new UndoRedoStack());
         return command;
     }
 }

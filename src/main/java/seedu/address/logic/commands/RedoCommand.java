@@ -3,7 +3,7 @@ package seedu.address.logic.commands;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 import seedu.address.logic.CommandHistory;
-import seedu.address.logic.ReversibleCommandHistory;
+import seedu.address.logic.UndoRedoStack;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.exceptions.OutOfReversibleCommandException;
 import seedu.address.model.Model;
@@ -20,10 +20,10 @@ public class RedoCommand extends Command {
     @Override
     public CommandResult execute() throws CommandException {
         checkNotNull(model);
-        checkNotNull(reversibleCommandHistory);
+        checkNotNull(undoRedoStack);
 
         try {
-            reversibleCommandHistory.next().execute();
+            undoRedoStack.next().execute();
             model.updateFilteredListToShowAll();
             return new CommandResult(MESSAGE_SUCCESS);
         } catch (OutOfReversibleCommandException oorce) {
@@ -35,8 +35,8 @@ public class RedoCommand extends Command {
     }
 
     @Override
-    public void setData(Model model, CommandHistory commandHistory, ReversibleCommandHistory reversibleCommandHistory) {
+    public void setData(Model model, CommandHistory commandHistory, UndoRedoStack undoRedoStack) {
         this.model = model;
-        this.reversibleCommandHistory = reversibleCommandHistory;
+        this.undoRedoStack = undoRedoStack;
     }
 }
