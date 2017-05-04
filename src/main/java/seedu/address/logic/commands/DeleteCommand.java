@@ -10,7 +10,7 @@ import seedu.address.model.person.exceptions.PersonNotFoundException;
 /**
  * Deletes a person identified using it's last displayed index from the address book.
  */
-public class DeleteCommand extends Command {
+public class DeleteCommand extends ReversibleCommand {
 
     public static final String COMMAND_WORD = "delete";
 
@@ -40,6 +40,7 @@ public class DeleteCommand extends Command {
         ReadOnlyPerson personToDelete = lastShownList.get(targetIndex.getZeroBased());
 
         try {
+            saveAddressBookSnapshot();
             model.deletePerson(personToDelete);
         } catch (PersonNotFoundException pnfe) {
             assert false : "The target person cannot be missing";
