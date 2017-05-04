@@ -29,7 +29,7 @@ public class DeleteCommand extends ReversibleCommand {
 
 
     @Override
-    public CommandResult execute() throws CommandException {
+    CommandResult executeReversibleCommand() throws CommandException {
 
         UnmodifiableObservableList<ReadOnlyPerson> lastShownList = model.getFilteredPersonList();
 
@@ -40,7 +40,6 @@ public class DeleteCommand extends ReversibleCommand {
         ReadOnlyPerson personToDelete = lastShownList.get(targetIndex.getZeroBased());
 
         try {
-            saveAddressBookSnapshot();
             model.deletePerson(personToDelete);
         } catch (PersonNotFoundException pnfe) {
             assert false : "The target person cannot be missing";

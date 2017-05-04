@@ -62,104 +62,79 @@ public class UndoRedoStackTest {
     }
 
     @Test
-    public void add_addNonReversibleCommand_redoStackCleared() throws Exception {
-        standardCommandList.forEach(undoRedoStack::add);
-
-        // popUndo() populates redoStack
-        undoRedoStack.popUndo();
-        undoRedoStack.popUndo();
-
-        undoRedoStack.add(nonReversibleListCommand); // add() expected to clear redoStack
+    public void pushUndo_addNonReversibleCommand_redoStackCleared() throws Exception {
+        fillUndoRedoStack(undoRedoStack, standardCommandList, 2);
+        undoRedoStack.pushUndo(nonReversibleListCommand); // adding NonReversibleCommand expected to clear redoStack
         assertEquals(new UndoRedoStack(), undoRedoStack);
     }
 
     @Test
-    public void add_addReversibleCommand_redoStackCleared() throws Exception {
-        standardCommandList.forEach(undoRedoStack::add);
+    public void pushUndo_addReversibleCommand_redoStackCleared() throws Exception {
+        fillUndoRedoStack(undoRedoStack, standardCommandList, 2);
+        undoRedoStack.pushUndo(reversibleAddCommand); // adding ReversibleCommand expected to clear redoStack
 
-        // popUndo() populates redoStack
-        undoRedoStack.popUndo();
-        undoRedoStack.popUndo();
-
-        undoRedoStack.add(reversibleAddCommand); // add() expected to clear redoStack
         UndoRedoStack expected = new UndoRedoStack();
-        expected.add(reversibleAddCommand);
+        expected.pushUndo(reversibleAddCommand);
         assertEquals(expected, undoRedoStack);
     }
 
     @Test
-    public void add_addUndoCommand_redoStackUncleared() throws Exception {
-        standardCommandList.forEach(undoRedoStack::add);
-
-        // popUndo() populates redoStack
-        undoRedoStack.popUndo();
-        undoRedoStack.popUndo();
-
-        undoRedoStack.add(new UndoCommand()); // adding UndoCommand not expected to clear redoStack
+    public void pushUndo_addUndoCommand_redoStackUncleared() throws Exception {
+        fillUndoRedoStack(undoRedoStack, standardCommandList, 2);
+        undoRedoStack.pushUndo(new UndoCommand()); // adding UndoCommand not expected to clear redoStack
 
         UndoRedoStack expected = new UndoRedoStack();
-        expected.add(reversibleAddCommand);
-        expected.add(reversibleClearCommand);
-        expected.popUndo();
-        expected.popUndo();
+        fillUndoRedoStack(expected, Arrays.asList(reversibleAddCommand, reversibleClearCommand), 2);
 
         assertEquals(expected, undoRedoStack);
     }
 
     @Test
-    public void add_addRedoCommand_redoStackUncleared() throws Exception {
-        standardCommandList.forEach(undoRedoStack::add);
-
-        // popUndo() populates redoStack
-        undoRedoStack.popUndo();
-        undoRedoStack.popUndo();
-
-        undoRedoStack.add(new RedoCommand()); // adding RedoCommand not expected to clear redoStack
+    public void pushUndo_addRedoCommand_redoStackUncleared() throws Exception {
+        fillUndoRedoStack(undoRedoStack, standardCommandList, 2);
+        undoRedoStack.pushUndo(new RedoCommand()); // adding RedoCommand not expected to clear redoStack
 
         UndoRedoStack expected = new UndoRedoStack();
-        expected.add(reversibleAddCommand);
-        expected.add(reversibleClearCommand);
-        expected.popUndo();
-        expected.popUndo();
+        fillUndoRedoStack(expected, Arrays.asList(reversibleAddCommand, reversibleClearCommand), 2);
 
         assertEquals(expected, undoRedoStack);
     }
 
     @Test
     public void popUndoAndPopRedo_emptyUndoStack_throwsCommandException() {
-        assertPreviousFailure();
-        assertNextFailure();
+        assertPopUndoFailure();
+        assertPopRedoFailure();
     }
 
     @Test
     public void popUndoAndPopRedo_onlyNonReversibleCommands_throwsCommandException() {
-        undoRedoStack.add(nonReversibleListCommand);
-        undoRedoStack.add(nonReversibleSelectCommand);
+        undoRedoStack.pushUndo(nonReversibleListCommand);
+        undoRedoStack.pushUndo(nonReversibleSelectCommand);
 
-        assertPreviousFailure();
-        assertNextFailure();
+        assertPopUndoFailure();
+        assertPopRedoFailure();
     }
 
     @Test
     public void popUndoAndPopRedo_nonReversibleAndReversibleCommands() throws Exception {
-        standardCommandList.forEach(undoRedoStack::add);
+        standardCommandList.forEach(undoRedoStack::pushUndo);
 
         assertEquals(reversibleClearCommand, undoRedoStack.popUndo());
         assertEquals(reversibleAddCommand, undoRedoStack.popUndo());
-        assertPreviousFailure();
+        assertPopUndoFailure();
 
         assertEquals(reversibleAddCommand, undoRedoStack.popRedo());
         assertEquals(reversibleClearCommand, undoRedoStack.popRedo());
-        assertNextFailure();
+        assertPopRedoFailure();
     }
 
     @Test
     public void equals() throws Exception {
-        standardCommandList.forEach(undoRedoStack::add);
+        standardCommandList.forEach(undoRedoStack::pushUndo);
 
         // same values -> returns true
         UndoRedoStack copy = new UndoRedoStack();
-        standardCommandList.forEach(copy::add);
+        standardCommandList.forEach(copy::pushUndo);
         assertTrue(undoRedoStack.equals(copy));
 
         // same object -> returns true
@@ -173,16 +148,27 @@ public class UndoRedoStackTest {
 
         // different undoStack -> returns false
         UndoRedoStack differentUndoStack = new UndoRedoStack();
-        standardCommandList.forEach(differentUndoStack::add);
-        differentUndoStack.add(reversibleClearCommand);
+        standardCommandList.forEach(differentUndoStack::pushUndo);
+        differentUndoStack.pushUndo(reversibleClearCommand);
         assertFalse(undoRedoStack.equals(differentUndoStack));
 
         // different redoStack -> returns false
         UndoRedoStack differentRedoStack = new UndoRedoStack();
-        standardCommandList.forEach(differentRedoStack::add);
-        differentRedoStack.add(reversibleClearCommand);
+        standardCommandList.forEach(differentRedoStack::pushUndo);
+        differentRedoStack.pushUndo(reversibleClearCommand);
         undoRedoStack.popUndo(); // reversibleClearCommand in redoStack
         assertFalse(undoRedoStack.equals(differentRedoStack));
+    }
+
+    /**
+     * Helper method that adds {@code toAdd} into {@code undoRedoStack}, followed by calling
+     * {@code undoRedoStack#popUndo()} for {@code numPopUndo} times.
+     */
+    private void fillUndoRedoStack(UndoRedoStack undoRedoStack, List<Command> toAdd, int numPopUndo) throws Exception {
+        toAdd.forEach(undoRedoStack::pushUndo);
+        for (int i = 0; i < numPopUndo; i++) {
+            undoRedoStack.popUndo();
+        }
     }
 
     /**
@@ -190,7 +176,7 @@ public class UndoRedoStackTest {
      * {@code OutOfElementsException} is thrown and the error message equals
      * to {@value UndoCommand#MESSAGE_FAILURE}.
      */
-    private void assertPreviousFailure() {
+    private void assertPopUndoFailure() {
         try {
             undoRedoStack.popUndo();
             fail();
@@ -204,7 +190,7 @@ public class UndoRedoStackTest {
      * and {@code OutOfElementsException} is thrown and the error message
      * equals to {@value RedoCommand#MESSAGE_FAILURE}.
      */
-    private void assertNextFailure() {
+    private void assertPopRedoFailure() {
         try {
             undoRedoStack.popRedo();
             fail();

@@ -1,6 +1,6 @@
 package seedu.address.logic.commands;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.UndoRedoStack;
@@ -19,8 +19,7 @@ public class RedoCommand extends Command {
 
     @Override
     public CommandResult execute() throws CommandException {
-        checkNotNull(model);
-        checkNotNull(undoRedoStack);
+        requireAllNonNull(model, undoRedoStack);
 
         try {
             undoRedoStack.popRedo().redo();

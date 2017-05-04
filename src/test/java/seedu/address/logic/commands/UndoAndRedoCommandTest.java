@@ -69,6 +69,6 @@ public class UndoAndRedoCommandTest {
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_PERSON);
         deleteCommand.setData(model, new CommandHistory(), undoRedoStack);
         deleteCommand.execute();
-        undoRedoStack.add(deleteCommand);
+        undoRedoStack.pushUndo(deleteCommand);
     }
 }

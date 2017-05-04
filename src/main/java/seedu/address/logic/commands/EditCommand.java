@@ -65,7 +65,7 @@ public class EditCommand extends ReversibleCommand {
     }
 
     @Override
-    public CommandResult execute() throws CommandException {
+    CommandResult executeReversibleCommand() throws CommandException {
         List<ReadOnlyPerson> lastShownList = model.getFilteredPersonList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
@@ -76,7 +76,6 @@ public class EditCommand extends ReversibleCommand {
         Person editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
 
         try {
-            saveAddressBookSnapshot();
             model.updatePerson(personToEdit, editedPerson);
         } catch (DuplicatePersonException dpe) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);

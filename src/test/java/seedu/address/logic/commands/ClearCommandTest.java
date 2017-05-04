@@ -14,13 +14,13 @@ import seedu.address.testutil.TypicalPersons;
 public class ClearCommandTest {
 
     @Test
-    public void execute_emptyAddressBook_success() {
+    public void execute_emptyAddressBook_success() throws Exception {
         Model model = new ModelManager();
         assertCommandSuccess(model);
     }
 
     @Test
-    public void execute_nonEmptyAddressBook_success() {
+    public void execute_nonEmptyAddressBook_success() throws Exception {
         Model model = new ModelManager(new TypicalPersons().getTypicalAddressBook(), new UserPrefs());
         assertCommandSuccess(model);
     }
@@ -30,7 +30,7 @@ public class ClearCommandTest {
      * - the result message matches {@code ClearCommand.MESSAGE_SUCCESS} <br>
      * - the address book and filtered person list in {@code model} is empty <br>
      */
-    private void assertCommandSuccess(Model model) {
+    private void assertCommandSuccess(Model model) throws Exception {
         ClearCommand command = new ClearCommand();
         command.setData(model, new CommandHistory(), new UndoRedoStack());
         CommandResult result = command.execute();

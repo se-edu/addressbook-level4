@@ -1,20 +1,26 @@
 package seedu.address.logic.commands;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.exceptions.OutOfElementsException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 
+/**
+ * Represents a command which can be undone and redone.
+ */
 public abstract class ReversibleCommand extends Command {
     private ReadOnlyAddressBook previousAddressBook;
 
+    abstract CommandResult executeReversibleCommand() throws CommandException;
+
     /**
-     * Stores the current state of {@code model#addressBook} in {@code previousAddressBook}.
+     * Stores the current state of {@code model#addressBook}.
      */
-    protected final void saveAddressBookSnapshot() {
-        checkNotNull(model);
+    private void saveAddressBookSnapshot() {
+        requireNonNull(model);
         this.previousAddressBook = new AddressBook(model.getAddressBook());
     }
 
@@ -24,8 +30,7 @@ public abstract class ReversibleCommand extends Command {
      * list to show all persons.
      */
     protected final void undo() {
-        checkNotNull(model);
-        checkNotNull(previousAddressBook);
+        requireAllNonNull(model, previousAddressBook);
         model.resetData(previousAddressBook);
         model.updateFilteredListToShowAll();
     }
@@ -35,13 +40,19 @@ public abstract class ReversibleCommand extends Command {
      * list to show all persons.
      */
     protected final void redo() throws OutOfElementsException {
-        checkNotNull(model);
+        requireNonNull(model);
         try {
-            execute();
+            executeReversibleCommand();
         } catch (CommandException ce) {
             throw new AssertionError("The command has been successfully executed previously; "
                     + "it should not fail now");
         }
         model.updateFilteredListToShowAll();
+    }
+
+    @Override
+    public final CommandResult execute() throws CommandException {
+        saveAddressBookSnapshot();
+        return executeReversibleCommand();
     }
 }

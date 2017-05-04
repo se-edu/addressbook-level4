@@ -2,41 +2,40 @@ package seedu.address.logic.commands;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.testutil.TypicalPersons.INDEX_FIRST_PERSON;
+import static org.junit.Assert.fail;
 
 import java.util.Collections;
 import java.util.HashSet;
 
 import org.junit.Test;
 
-import seedu.address.logic.CommandHistory;
-import seedu.address.logic.UndoRedoStack;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.ReadOnlyPerson;
+import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.testutil.TypicalPersons;
 
 public class ReversibleCommandTest {
     private Model model = new ModelManager(new TypicalPersons().getTypicalAddressBook(), new UserPrefs());
 
     @Test
-    public void saveAddressBookSnapshotAndUndo() throws Exception {
+    public void executeUndoRedo() throws Exception {
         Model expectedModel = new ModelManager(new TypicalPersons().getTypicalAddressBook(), new UserPrefs());
 
-        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_PERSON);
-        deleteCommand.setData(model, new CommandHistory(), new UndoRedoStack());
-        deleteCommand.saveAddressBookSnapshot();
-        showFirstPersonOnly();
+        DummyCommand dummyCommand = new DummyCommand(model);
+        dummyCommand.execute();
+        showFirstPersonOnly(); // tests that upon undo, all persons are shown
 
-        ReadOnlyPerson toRemove = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
-        model.deletePerson(toRemove);
-
-        deleteCommand.undo();
+        dummyCommand.undo();
         assertEquals(expectedModel, model);
 
-        deleteCommand.redo();
+        ReadOnlyPerson toRemove = model.getFilteredPersonList().get(0);
         expectedModel.deletePerson(toRemove);
+        showFirstPersonOnly(); // tests that upon redo, all persons are shown
+
+        dummyCommand.redo();
         assertEquals(expectedModel, model);
     }
 
@@ -48,5 +47,25 @@ public class ReversibleCommandTest {
         final String[] splitName = person.getName().fullName.split("\\s+");
         model.updateFilteredPersonList(new HashSet<>(Collections.singletonList(splitName[0])));
         assertTrue(model.getFilteredPersonList().size() == 1);
+    }
+
+    /**
+     * Deletes the first person in the model's filtered list.
+     */
+    class DummyCommand extends ReversibleCommand {
+        DummyCommand(Model model) {
+            this.model = model;
+        }
+
+        @Override
+        CommandResult executeReversibleCommand() throws CommandException {
+            ReadOnlyPerson personToDelete = model.getFilteredPersonList().get(0);
+            try {
+                model.deletePerson(personToDelete);
+            } catch (PersonNotFoundException pnfe) {
+                fail();
+            }
+            return new CommandResult("");
+        }
     }
 }

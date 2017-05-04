@@ -24,7 +24,7 @@ public class UndoRedoStack {
      * Appends {@code command} into the list of commands that can be undone, if it is of type {@code ReversibleCommand}.
      * Upon calling this method, previously undone commands (that are not redone) will be lost.
      */
-    public void add(Command command) {
+    public void pushUndo(Command command) {
         if (command instanceof UndoCommand || command instanceof RedoCommand) {
             return;
         }

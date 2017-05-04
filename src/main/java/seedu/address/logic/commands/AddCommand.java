@@ -47,10 +47,9 @@ public class AddCommand extends ReversibleCommand {
     }
 
     @Override
-    public CommandResult execute() throws CommandException {
+    CommandResult executeReversibleCommand() throws CommandException {
         requireNonNull(model);
         try {
-            saveAddressBookSnapshot();
             model.addPerson(toAdd);
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (DuplicatePersonException e) {
