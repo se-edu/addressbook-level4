@@ -5,11 +5,11 @@ import static com.google.common.base.Preconditions.checkNotNull;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.UndoRedoStack;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.commands.exceptions.OutOfReversibleCommandException;
+import seedu.address.logic.commands.exceptions.OutOfElementsException;
 import seedu.address.model.Model;
 
 /**
- * Undo the previous command.
+ * Undo the popUndo command.
  */
 public class UndoCommand extends Command {
 
@@ -23,10 +23,9 @@ public class UndoCommand extends Command {
         checkNotNull(undoRedoStack);
 
         try {
-            undoRedoStack.previous().rollback();
-            model.updateFilteredListToShowAll();
+            undoRedoStack.popUndo().undo();
             return new CommandResult(MESSAGE_SUCCESS);
-        } catch (OutOfReversibleCommandException oorce) {
+        } catch (OutOfElementsException ooee) {
             throw new CommandException(MESSAGE_FAILURE);
         }
     }

@@ -6,7 +6,7 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.ReversibleCommand;
 import seedu.address.logic.commands.UndoCommand;
-import seedu.address.logic.commands.exceptions.OutOfReversibleCommandException;
+import seedu.address.logic.commands.exceptions.OutOfElementsException;
 
 /**
  * Stores the history of reversible commands executed.
@@ -35,16 +35,16 @@ public class UndoRedoStack {
             return;
         }
 
-        undoStack.push((ReversibleCommand) command);
+        undoStack.add((ReversibleCommand) command);
     }
 
     /**
-     * Pops and returns the previous {@code ReversibleCommand} in the list.
-     * @throws OutOfReversibleCommandException if there are no more commands to be undone.
+     * Pops and returns the next {@code ReversibleCommand} to be undone in the list.
+     * @throws OutOfElementsException if there are no more commands to be undone.
      */
-    public ReversibleCommand previous() throws OutOfReversibleCommandException {
+    public ReversibleCommand popUndo() throws OutOfElementsException {
         if (undoStack.empty()) {
-            throw new OutOfReversibleCommandException(UndoCommand.MESSAGE_FAILURE);
+            throw new OutOfElementsException();
         }
 
         ReversibleCommand toUndo = undoStack.pop();
@@ -53,12 +53,12 @@ public class UndoRedoStack {
     }
 
     /**
-     * Pops and returns the next {@code ReversibleCommand} in the list.
-     * @throws OutOfReversibleCommandException if there are no more commands to be redone.
+     * Pops and returns the next {@code ReversibleCommand} to be redone in the list.
+     * @throws OutOfElementsException if there are no more commands to be redone.
      */
-    public ReversibleCommand next() throws OutOfReversibleCommandException {
+    public ReversibleCommand popRedo() throws OutOfElementsException {
         if (redoStack.empty()) {
-            throw new OutOfReversibleCommandException(RedoCommand.MESSAGE_FAILURE);
+            throw new OutOfElementsException();
         }
 
         ReversibleCommand toRedo = redoStack.pop();

@@ -1,11 +1,7 @@
 package seedu.address.logic.commands;
 
-import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalPersons.INDEX_FIRST_PERSON;
-
-import java.util.Collections;
-import java.util.HashSet;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -58,30 +54,21 @@ public class UndoAndRedoCommandTest {
     public void undoAndRedoCommandExecute_oneCommandInHistory_success() throws Exception {
         Model expectedModel = new ModelManager(new TypicalPersons().getTypicalAddressBook(), new UserPrefs());
 
-        // deletes first person from AddressBook and lists only the first person
-        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_PERSON);
-        deleteCommand.setData(model, new CommandHistory(), undoRedoStack);
-        deleteCommand.execute();
-        updateFilteredListShowOnlyFirstPersonInAddressBook();
-
-        undoRedoStack.add(deleteCommand);
-
+        deleteFirstPerson();
         assertCommandSuccess(undoCommand, model, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
         ReadOnlyPerson toDelete = expectedModel.getFilteredPersonList().get(0);
         expectedModel.deletePerson(toDelete);
-
-        updateFilteredListShowOnlyFirstPersonInAddressBook();
-
-        undoRedoStack.add(new UndoCommand());
-
         assertCommandSuccess(redoCommand, model, RedoCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
-    private void updateFilteredListShowOnlyFirstPersonInAddressBook() {
-        ReadOnlyPerson person = model.getAddressBook().getPersonList().get(0);
-        final String[] splitName = person.getName().fullName.split("\\s+");
-        model.updateFilteredPersonList(new HashSet<>(Collections.singletonList(splitName[0])));
-        assertTrue(model.getFilteredPersonList().size() == 1);
+    /**
+     * Executes {@code DeleteCommand} to delete the first person in {@code model}, and updates the {@code undoRedoStack}
+     */
+    private void deleteFirstPerson() throws CommandException {
+        DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_PERSON);
+        deleteCommand.setData(model, new CommandHistory(), undoRedoStack);
+        deleteCommand.execute();
+        undoRedoStack.add(deleteCommand);
     }
 }
