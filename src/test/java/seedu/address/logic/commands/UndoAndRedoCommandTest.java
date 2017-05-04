@@ -18,7 +18,7 @@ import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.testutil.TypicalPersons;
 
 public class UndoAndRedoCommandTest {
-    private static final CommandHistory HISTORY = new CommandHistory();
+    private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -30,8 +30,8 @@ public class UndoAndRedoCommandTest {
 
     @Before
     public void setUp() throws Exception {
-        undoCommand.setData(model, HISTORY, undoRedoStack);
-        redoCommand.setData(model, HISTORY, undoRedoStack);
+        undoCommand.setData(model, EMPTY_COMMAND_HISTORY, undoRedoStack);
+        redoCommand.setData(model, EMPTY_COMMAND_HISTORY, undoRedoStack);
     }
 
     @Test

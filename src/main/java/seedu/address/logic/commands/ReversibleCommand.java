@@ -25,9 +25,9 @@ public abstract class ReversibleCommand extends Command {
     }
 
     /**
-     * Reverts the state of AddressBook to the state before
-     * this command was executed and updates the filtered person
-     * list to show all persons.
+     * Reverts the AddressBook to the state before this command
+     * was executed and updates the filtered person list to
+     * show all persons.
      */
     protected final void undo() {
         requireAllNonNull(model, previousAddressBook);

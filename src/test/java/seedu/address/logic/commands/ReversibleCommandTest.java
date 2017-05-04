@@ -63,7 +63,7 @@ public class ReversibleCommandTest {
             try {
                 model.deletePerson(personToDelete);
             } catch (PersonNotFoundException pnfe) {
-                fail();
+                fail("Impossible: personToDelete was retrieved from model.");
             }
             return new CommandResult("");
         }

@@ -28,12 +28,9 @@ public class ClearCommandTest {
     /**
      * Generates a new {@code ClearCommand} which upon execution, clears the contents in {@code model}.
      */
-    private void assertCommandSuccess(Model model) throws Exception {
+    private ClearCommand prepareCommand(Model model) {
         ClearCommand command = new ClearCommand();
         command.setData(model, new CommandHistory(), new UndoRedoStack());
-        CommandResult result = command.execute();
-
-        assertEquals(ClearCommand.MESSAGE_SUCCESS, result.feedbackToUser);
-        assertEquals(new ModelManager(), model);
+        return command;
     }
 }

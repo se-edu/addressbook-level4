@@ -172,28 +172,28 @@ public class UndoRedoStackTest {
     }
 
     /**
-     * Confirms that execution of {@code UndoRedoStack#popUndo()} fails and
+     * Confirms that execution of {@code UndoRedoStack#popUndo()} fails,
      * {@code OutOfElementsException} is thrown and the error message equals
      * to {@value UndoCommand#MESSAGE_FAILURE}.
      */
     private void assertPopUndoFailure() {
         try {
             undoRedoStack.popUndo();
-            fail();
+            fail("The expected OutOfElementsException was not thrown.");
         } catch (OutOfElementsException ooee) {
             // expected exception thrown
         }
     }
 
     /**
-     * Confirms that execution of {@code UndoRedoStack#popRedo()} fails and
-     * and {@code OutOfElementsException} is thrown and the error message
+     * Confirms that execution of {@code UndoRedoStack#popRedo()} fails,
+     * {@code OutOfElementsException} is thrown and the error message
      * equals to {@value RedoCommand#MESSAGE_FAILURE}.
      */
     private void assertPopRedoFailure() {
         try {
             undoRedoStack.popRedo();
-            fail();
+            fail("The expected OutOfElementsException was not thrown.");
         } catch (OutOfElementsException ooee) {
             // expected exception thrown
         }
