@@ -21,8 +21,10 @@ public class LogicManager extends ComponentManager implements Logic {
 
     private final Model model;
     private final Parser parser;
+    private final History history;
 
     public LogicManager(Model model, Storage storage) {
+        history = new HistoryManager();
         this.model = model;
         this.parser = new Parser();
     }
@@ -31,8 +33,11 @@ public class LogicManager extends ComponentManager implements Logic {
     public CommandResult execute(String commandText) throws CommandException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
         Command command = parser.parseCommand(commandText);
-        command.setData(model);
-        return command.execute();
+        command.setData(model, history);
+        CommandResult result = command.execute();
+        history.addNewExecutedCommand(command);
+
+        return result;
     }
 
     @Override
