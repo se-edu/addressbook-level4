@@ -15,7 +15,7 @@ import seedu.address.model.person.exceptions.DuplicatePersonException;
 /**
  * Adds a person to the address book.
  */
-public class AddCommand extends Command {
+public class AddCommand extends ReversibleCommand {
 
     public static final String COMMAND_WORD = "add";
 
@@ -47,7 +47,7 @@ public class AddCommand extends Command {
     }
 
     @Override
-    public CommandResult execute() throws CommandException {
+    CommandResult executeReversibleCommand() throws CommandException {
         requireNonNull(model);
         try {
             model.addPerson(toAdd);
