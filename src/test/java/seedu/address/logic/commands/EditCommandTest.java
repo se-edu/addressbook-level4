@@ -23,9 +23,9 @@ import seedu.address.testutil.PersonUtil;
 import seedu.address.testutil.TypicalPersons;
 
 /**
- * An integration test class that tests edit command's interaction with the Model.
+ * Contains integration tests (interaction with the Model) and unit tests for EditCommand.
  */
-public class EditCommandIntegrationTest {
+public class EditCommandTest {
 
     private static final int ZERO_BASED_INDEX_FIRST_PERSON = 0;
     private static final int ZERO_BASED_INDEX_SECOND_PERSON =  ZERO_BASED_INDEX_FIRST_PERSON + 1;
