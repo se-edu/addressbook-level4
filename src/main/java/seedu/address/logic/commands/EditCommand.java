@@ -8,6 +8,7 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.commons.util.IndexUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.CliSyntax;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -27,8 +28,14 @@ public class EditCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Edits the details of the person identified "
             + "by the index number used in the last person listing. "
             + "Existing values will be overwritten by the input values.\n"
-            + "Parameters: INDEX (must be a positive integer) [NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS ] [t/TAG]...\n"
-            + "Example: " + COMMAND_WORD + " 1 p/91234567 e/johndoe@example.com";
+            + "Parameters: INDEX (must be a positive integer) [NAME] "
+            + "[" + CliSyntax.PREFIX_PHONE.getPrefix() + "PHONE] "
+            + "[" + CliSyntax.PREFIX_EMAIL.getPrefix() + "EMAIL] "
+            + "[" + CliSyntax.PREFIX_ADDRESS.getPrefix() + "ADDRESS] "
+            + "[" + CliSyntax.PREFIX_TAG.getPrefix() + "TAG]...\n"
+            + "Example: " + COMMAND_WORD + " 1 "
+            + CliSyntax.PREFIX_PHONE.getPrefix() + "91234567 "
+            + CliSyntax.PREFIX_EMAIL.getPrefix() + "johndoe@example.com";
 
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
