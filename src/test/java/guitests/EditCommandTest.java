@@ -2,6 +2,10 @@ package guitests;
 
 import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import org.junit.Test;
 
@@ -10,7 +14,6 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.util.IndexUtil;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.FindCommand;
-import seedu.address.logic.parser.CliSyntax;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -28,10 +31,10 @@ public class EditCommandTest extends AddressBookGuiTest {
 
     @Test
     public void edit_allFieldsSpecified_success() throws Exception {
-        String detailsToEdit = "Bobby " + CliSyntax.PREFIX_PHONE.getPrefix() + "91234567 "
-                + CliSyntax.PREFIX_EMAIL.getPrefix() + "bobby@example.com"
-                + CliSyntax.PREFIX_ADDRESS.getPrefix() + "Block 123, Bobby Street 3"
-                + CliSyntax.PREFIX_TAG.getPrefix() + "husband";
+        String detailsToEdit = "Bobby " + PREFIX_PHONE + "91234567 "
+                + PREFIX_EMAIL + "bobby@example.com"
+                + PREFIX_ADDRESS + "Block 123, Bobby Street 3"
+                + PREFIX_TAG + "husband";
         int addressBookIndex = 1;
 
         Person editedPerson = new PersonBuilder().withName("Bobby").withPhone("91234567")
@@ -42,8 +45,8 @@ public class EditCommandTest extends AddressBookGuiTest {
 
     @Test
     public void edit_notAllFieldsSpecified_success() throws Exception {
-        String detailsToEdit = CliSyntax.PREFIX_TAG.getPrefix() + "sweetie "
-                + CliSyntax.PREFIX_TAG.getPrefix() + "bestie";
+        String detailsToEdit = PREFIX_TAG + "sweetie "
+                + PREFIX_TAG + "bestie";
         int addressBookIndex = 2;
 
         Person personToEdit = expectedPersonsList[IndexUtil.oneToZeroIndex(addressBookIndex)];
@@ -54,7 +57,7 @@ public class EditCommandTest extends AddressBookGuiTest {
 
     @Test
     public void edit_clearTags_success() throws Exception {
-        String detailsToEdit = CliSyntax.PREFIX_TAG.getPrefix();
+        String detailsToEdit = PREFIX_TAG.getPrefix();
         int addressBookIndex = 2;
 
         Person personToEdit = expectedPersonsList[IndexUtil.oneToZeroIndex(addressBookIndex)];
@@ -100,26 +103,26 @@ public class EditCommandTest extends AddressBookGuiTest {
         commandBox.runCommand(EditCommand.COMMAND_WORD + " 1 *&");
         assertResultMessage(Name.MESSAGE_NAME_CONSTRAINTS);
 
-        commandBox.runCommand(EditCommand.COMMAND_WORD + " 1 " + CliSyntax.PREFIX_PHONE.getPrefix() + "abcd");
+        commandBox.runCommand(EditCommand.COMMAND_WORD + " 1 " + PREFIX_PHONE + "abcd");
         assertResultMessage(Phone.MESSAGE_PHONE_CONSTRAINTS);
 
-        commandBox.runCommand(EditCommand.COMMAND_WORD + " 1 " + CliSyntax.PREFIX_EMAIL.getPrefix() + "yahoo!!!");
+        commandBox.runCommand(EditCommand.COMMAND_WORD + " 1 " + PREFIX_EMAIL + "yahoo!!!");
         assertResultMessage(Email.MESSAGE_EMAIL_CONSTRAINTS);
 
-        commandBox.runCommand(EditCommand.COMMAND_WORD + " 1 " + CliSyntax.PREFIX_ADDRESS.getPrefix());
+        commandBox.runCommand(EditCommand.COMMAND_WORD + " 1 " + PREFIX_ADDRESS.getPrefix());
         assertResultMessage(Address.MESSAGE_ADDRESS_CONSTRAINTS);
 
-        commandBox.runCommand(EditCommand.COMMAND_WORD + " 1 " + CliSyntax.PREFIX_TAG.getPrefix() + "*&");
+        commandBox.runCommand(EditCommand.COMMAND_WORD + " 1 " + PREFIX_TAG + "*&");
         assertResultMessage(Tag.MESSAGE_TAG_CONSTRAINTS);
     }
 
     @Test
     public void edit_duplicatePerson_failure() {
         commandBox.runCommand(EditCommand.COMMAND_WORD + " 3 Alice Pauline "
-                + CliSyntax.PREFIX_PHONE.getPrefix() + "85355255 "
-                + CliSyntax.PREFIX_EMAIL.getPrefix() + "alice@example.com "
-                + CliSyntax.PREFIX_ADDRESS.getPrefix() + "123, Jurong West Ave 6, #08-111 "
-                + CliSyntax.PREFIX_TAG.getPrefix() + "friends");
+                + PREFIX_PHONE + "85355255 "
+                + PREFIX_EMAIL + "alice@example.com "
+                + PREFIX_ADDRESS + "123, Jurong West Ave 6, #08-111 "
+                + PREFIX_TAG + "friends");
         assertResultMessage(EditCommand.MESSAGE_DUPLICATE_PERSON);
     }
 

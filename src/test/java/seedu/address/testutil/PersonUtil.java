@@ -1,8 +1,12 @@
 package seedu.address.testutil;
 
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.EditCommand;
-import seedu.address.logic.parser.CliSyntax;
 import seedu.address.model.person.Person;
 
 /**
@@ -30,11 +34,11 @@ public class PersonUtil {
     private static String getPersonDetails(Person person) {
         StringBuilder sb = new StringBuilder();
         sb.append(person.getName().fullName + " ");
-        sb.append(CliSyntax.PREFIX_PHONE.getPrefix() + person.getPhone().value + " ");
-        sb.append(CliSyntax.PREFIX_EMAIL.getPrefix() + person.getEmail().value + " ");
-        sb.append(CliSyntax.PREFIX_ADDRESS.getPrefix() + person.getAddress().value + " ");
+        sb.append(PREFIX_PHONE + person.getPhone().value + " ");
+        sb.append(PREFIX_EMAIL + person.getEmail().value + " ");
+        sb.append(PREFIX_ADDRESS + person.getAddress().value + " ");
         person.getTags().stream().forEach(
-            s -> sb.append(CliSyntax.PREFIX_TAG.getPrefix() + s.tagName + " ")
+            s -> sb.append(PREFIX_TAG + s.tagName + " ")
         );
         return sb.toString();
     }
