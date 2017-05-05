@@ -165,5 +165,26 @@ public class EditCommand extends Command {
         public Optional<Set<Tag>> getTags() {
             return tags;
         }
+
+        @Override
+        public boolean equals(Object other) {
+            // short circuit if same object
+            if (other == this) {
+                return true;
+            }
+
+            // instanceof handles nulls
+            if (!(other instanceof EditPersonDescriptor)) {
+                return false;
+            }
+
+            // state check
+            EditPersonDescriptor e = (EditPersonDescriptor) other;
+            return name.equals(e.getName())
+                    && phone.equals(e.getPhone())
+                    && email.equals(e.getEmail())
+                    && address.equals(e.getAddress())
+                    && tags.equals(e.getTags());
+        }
     }
 }
