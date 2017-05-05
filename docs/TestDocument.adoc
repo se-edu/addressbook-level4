@@ -5,7 +5,7 @@
 
 This is a test asciidoc document to check the setup for asciidoc documentation.
 
-== Heading
+== Heading NEW
 
 === Subheading
 
