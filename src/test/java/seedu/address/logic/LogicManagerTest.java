@@ -37,6 +37,7 @@ import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.CliSyntax;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -197,22 +198,41 @@ public class LogicManagerTest {
     public void execute_add_invalidArgsFormat() {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
         assertCommandFailure(AddCommand.COMMAND_WORD + " wrong args wrong args", expectedMessage);
-        assertCommandFailure(AddCommand.COMMAND_WORD + " Valid Name 12345 e/valid@email.butNoPhonePrefix a/valid,address", expectedMessage);
-        assertCommandFailure(AddCommand.COMMAND_WORD + " Valid Name p/12345 valid@email.butNoPrefix a/valid, address", expectedMessage);
-        assertCommandFailure(AddCommand.COMMAND_WORD + " Valid Name p/12345 e/valid@email.butNoAddressPrefix valid, address", expectedMessage);
+        assertCommandFailure(AddCommand.COMMAND_WORD + " Valid Name 12345 "
+                + CliSyntax.PREFIX_EMAIL.getPrefix() + "valid@email.butNoPhonePrefix "
+                + CliSyntax.PREFIX_ADDRESS.getPrefix() + "valid,address", expectedMessage);
+        assertCommandFailure(AddCommand.COMMAND_WORD + " Valid Name "
+                + CliSyntax.PREFIX_PHONE.getPrefix() + "12345 valid@email.butNoPrefix "
+                + CliSyntax.PREFIX_ADDRESS.getPrefix() + "valid, address", expectedMessage);
+        assertCommandFailure(AddCommand.COMMAND_WORD + " Valid Name "
+                + CliSyntax.PREFIX_PHONE.getPrefix() + "12345 "
+                + CliSyntax.PREFIX_EMAIL.getPrefix() + "valid@email.butNoAddressPrefix valid, address",
+                expectedMessage);
     }
 
     @Test
     public void execute_add_invalidPersonData() {
-        assertCommandFailure(AddCommand.COMMAND_WORD + " []\\[;] p/12345 e/valid@e.mail a/valid, address",
+        assertCommandFailure(AddCommand.COMMAND_WORD + " []\\[;] "
+                + CliSyntax.PREFIX_PHONE.getPrefix() + "12345 "
+                + CliSyntax.PREFIX_EMAIL.getPrefix() + "valid@e.mail "
+                + CliSyntax.PREFIX_ADDRESS.getPrefix() + "valid, address",
                 Name.MESSAGE_NAME_CONSTRAINTS);
-        assertCommandFailure(AddCommand.COMMAND_WORD + " Valid Name p/not_numbers e/valid@e.mail a/valid, address",
+        assertCommandFailure(AddCommand.COMMAND_WORD + " Valid Name "
+                + CliSyntax.PREFIX_PHONE.getPrefix() + "not_numbers "
+                + CliSyntax.PREFIX_EMAIL.getPrefix() + "valid@e.mail "
+                + CliSyntax.PREFIX_ADDRESS.getPrefix() + "valid, address",
                 Phone.MESSAGE_PHONE_CONSTRAINTS);
-        assertCommandFailure(AddCommand.COMMAND_WORD + " Valid Name p/12345 e/notAnEmail a/valid, address",
+        assertCommandFailure(AddCommand.COMMAND_WORD + " Valid Name "
+                + CliSyntax.PREFIX_PHONE.getPrefix() + "12345 "
+                + CliSyntax.PREFIX_EMAIL.getPrefix() + "notAnEmail "
+                + CliSyntax.PREFIX_ADDRESS.getPrefix() + "valid, address",
                 Email.MESSAGE_EMAIL_CONSTRAINTS);
-        assertCommandFailure(AddCommand.COMMAND_WORD + " Valid Name p/12345 e/valid@e.mail a/valid, address t/invalid_-[.tag",
+        assertCommandFailure(AddCommand.COMMAND_WORD + " Valid Name "
+                + CliSyntax.PREFIX_PHONE.getPrefix() + "12345 "
+                + CliSyntax.PREFIX_EMAIL.getPrefix() + "valid@e.mail "
+                + CliSyntax.PREFIX_ADDRESS.getPrefix() + "valid, address "
+                + CliSyntax.PREFIX_TAG.getPrefix() + "invalid_-[.tag",
                 Tag.MESSAGE_TAG_CONSTRAINTS);
-
     }
 
     @Test
@@ -458,13 +478,13 @@ public class LogicManagerTest {
             cmd.append(AddCommand.COMMAND_WORD + " ");
 
             cmd.append(p.getName().toString());
-            cmd.append(" e/").append(p.getEmail());
-            cmd.append(" p/").append(p.getPhone());
-            cmd.append(" a/").append(p.getAddress());
+            cmd.append(" " + CliSyntax.PREFIX_EMAIL.getPrefix()).append(p.getEmail());
+            cmd.append(" " + CliSyntax.PREFIX_PHONE.getPrefix()).append(p.getPhone());
+            cmd.append(" " + CliSyntax.PREFIX_ADDRESS.getPrefix()).append(p.getAddress());
 
             Set<Tag> tags = p.getTags();
             for (Tag t: tags) {
-                cmd.append(" t/").append(t.tagName);
+                cmd.append(" " + CliSyntax.PREFIX_TAG.getPrefix()).append(t.tagName);
             }
 
             return cmd.toString();

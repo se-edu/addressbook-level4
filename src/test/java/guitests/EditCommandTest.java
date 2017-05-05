@@ -10,6 +10,7 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.util.IndexUtil;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.parser.CliSyntax;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -27,7 +28,10 @@ public class EditCommandTest extends AddressBookGuiTest {
 
     @Test
     public void edit_allFieldsSpecified_success() throws Exception {
-        String detailsToEdit = "Bobby p/91234567 e/bobby@example.com a/Block 123, Bobby Street 3 t/husband";
+        String detailsToEdit = "Bobby " + CliSyntax.PREFIX_PHONE.getPrefix() + "91234567 "
+                + CliSyntax.PREFIX_EMAIL.getPrefix() + "bobby@example.com"
+                + CliSyntax.PREFIX_ADDRESS.getPrefix() + "Block 123, Bobby Street 3"
+                + CliSyntax.PREFIX_TAG.getPrefix() + "husband";
         int addressBookIndex = 1;
 
         Person editedPerson = new PersonBuilder().withName("Bobby").withPhone("91234567")
@@ -38,7 +42,8 @@ public class EditCommandTest extends AddressBookGuiTest {
 
     @Test
     public void edit_notAllFieldsSpecified_success() throws Exception {
-        String detailsToEdit = "t/sweetie t/bestie";
+        String detailsToEdit = CliSyntax.PREFIX_TAG.getPrefix() + "sweetie "
+                + CliSyntax.PREFIX_TAG.getPrefix() + "bestie";
         int addressBookIndex = 2;
 
         Person personToEdit = expectedPersonsList[IndexUtil.oneToZeroIndex(addressBookIndex)];
@@ -49,7 +54,7 @@ public class EditCommandTest extends AddressBookGuiTest {
 
     @Test
     public void edit_clearTags_success() throws Exception {
-        String detailsToEdit = "t/";
+        String detailsToEdit = CliSyntax.PREFIX_TAG.getPrefix();
         int addressBookIndex = 2;
 
         Person personToEdit = expectedPersonsList[IndexUtil.oneToZeroIndex(addressBookIndex)];
@@ -95,23 +100,26 @@ public class EditCommandTest extends AddressBookGuiTest {
         commandBox.runCommand(EditCommand.COMMAND_WORD + " 1 *&");
         assertResultMessage(Name.MESSAGE_NAME_CONSTRAINTS);
 
-        commandBox.runCommand(EditCommand.COMMAND_WORD + " 1 p/abcd");
+        commandBox.runCommand(EditCommand.COMMAND_WORD + " 1 " + CliSyntax.PREFIX_PHONE.getPrefix() + "abcd");
         assertResultMessage(Phone.MESSAGE_PHONE_CONSTRAINTS);
 
-        commandBox.runCommand(EditCommand.COMMAND_WORD + " 1 e/yahoo!!!");
+        commandBox.runCommand(EditCommand.COMMAND_WORD + " 1 " + CliSyntax.PREFIX_EMAIL.getPrefix() + "yahoo!!!");
         assertResultMessage(Email.MESSAGE_EMAIL_CONSTRAINTS);
 
-        commandBox.runCommand(EditCommand.COMMAND_WORD + " 1 a/");
+        commandBox.runCommand(EditCommand.COMMAND_WORD + " 1 " + CliSyntax.PREFIX_ADDRESS.getPrefix());
         assertResultMessage(Address.MESSAGE_ADDRESS_CONSTRAINTS);
 
-        commandBox.runCommand(EditCommand.COMMAND_WORD + " 1 t/*&");
+        commandBox.runCommand(EditCommand.COMMAND_WORD + " 1 " + CliSyntax.PREFIX_TAG.getPrefix() + "*&");
         assertResultMessage(Tag.MESSAGE_TAG_CONSTRAINTS);
     }
 
     @Test
     public void edit_duplicatePerson_failure() {
-        commandBox.runCommand(EditCommand.COMMAND_WORD + " 3 Alice Pauline p/85355255 e/alice@example.com "
-                                + "a/123, Jurong West Ave 6, #08-111 t/friends");
+        commandBox.runCommand(EditCommand.COMMAND_WORD + " 3 Alice Pauline "
+                + CliSyntax.PREFIX_PHONE.getPrefix() + "85355255 "
+                + CliSyntax.PREFIX_EMAIL.getPrefix() + "alice@example.com "
+                + CliSyntax.PREFIX_ADDRESS.getPrefix() + "123, Jurong West Ave 6, #08-111 "
+                + CliSyntax.PREFIX_TAG.getPrefix() + "friends");
         assertResultMessage(EditCommand.MESSAGE_DUPLICATE_PERSON);
     }
 
