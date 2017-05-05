@@ -34,7 +34,7 @@ public class EditCommand extends Command {
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
 
-    private final int filteredPersonListIndex;
+    public final int filteredPersonListIndex;
     private final EditPersonDescriptor editPersonDescriptor;
 
     /**
@@ -84,6 +84,13 @@ public class EditCommand extends Command {
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElseGet(personToEdit::getTags);
 
         return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
+    }
+
+    /**
+     * Returns a defensive copy of {@code editPersonDescriptor}.
+     */
+    public EditPersonDescriptor getEditPersonDescriptor() {
+        return new EditPersonDescriptor(editPersonDescriptor);
     }
 
     /**
