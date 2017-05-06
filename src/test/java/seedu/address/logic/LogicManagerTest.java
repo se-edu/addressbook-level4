@@ -51,6 +51,7 @@ import seedu.address.model.tag.Tag;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
 import seedu.address.storage.XmlAddressBookStorage;
+import seedu.address.testutil.PersonUtil;
 
 
 public class LogicManagerTest {
@@ -217,7 +218,7 @@ public class LogicManagerTest {
     public void execute_add_successful() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
-        Person toBeAdded = helper.adam();
+        Person toBeAdded = PersonUtil.adam();
         AddressBook expectedAb = new AddressBook();
         expectedAb.addPerson(toBeAdded);
 
@@ -233,7 +234,7 @@ public class LogicManagerTest {
     public void execute_addDuplicate_notAllowed() throws Exception {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
-        Person toBeAdded = helper.adam();
+        Person toBeAdded = PersonUtil.adam();
 
         // setup starting state
         model.addPerson(toBeAdded); // person already in internal address book
@@ -419,16 +420,6 @@ public class LogicManagerTest {
      * A utility class to generate test data.
      */
     class TestDataHelper {
-
-        Person adam() throws Exception {
-            Name name = new Name("Adam Brown");
-            Phone privatePhone = new Phone("111111");
-            Email email = new Email("adam@example.com");
-            Address privateAddress = new Address("111, alpha street");
-
-            return new Person(name, privatePhone, email, privateAddress,
-                    getTagSet("tag1", "longertag2"));
-        }
 
         /**
          * Generates a valid person using the given seed.
