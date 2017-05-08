@@ -15,6 +15,10 @@ public class Prefix {
         return prefix;
     }
 
+    public String toString() {
+        return getPrefix();
+    }
+
     @Override
     public int hashCode() {
         return prefix == null ? 0 : prefix.hashCode();
