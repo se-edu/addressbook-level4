@@ -44,16 +44,14 @@ public class ParserUtilTest {
      * Asserts {@code index} is unsuccessfully parsed
      */
     private void assertParseIndexNotPresent(String index) {
-        Optional<Integer> actualValue = ParserUtil.parseIndex(index);
-
-        assertFalse(actualValue.isPresent());
+        assertFalse(ParserUtil.parseIndex(index).isPresent());
     }
 
     /**
      * Asserts {@code index} is successfully parsed and the parsed value equals to {@code expectedValue}
      */
-    private void assertParseIndexPresent(String index, int expectedValue) {
-        assertEquals(expectedValue, ParserUtil.parseIndex(index).get().intValue());
+    private void assertParseIndexPresent(String index, Integer expectedValue) {
+        assertEquals(expectedValue, ParserUtil.parseIndex(index).get());
     }
 
     @Test
