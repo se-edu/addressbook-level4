@@ -110,7 +110,7 @@ public class ParserUtilTest {
         Name expectedName = new Name("Name 123");
         Optional<Name> actualName = ParserUtil.parseName(Optional.of("Name 123"));
 
-        assertEquals(actualName.get(), expectedName);
+        assertEquals(expectedName, actualName.get());
     }
 
     @Test
