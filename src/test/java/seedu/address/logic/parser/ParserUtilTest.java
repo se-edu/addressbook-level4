@@ -15,7 +15,10 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.person.Address;
+import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
 
 public class ParserUtilTest {
@@ -127,8 +130,8 @@ public class ParserUtilTest {
     @Test
     public void parseName_specialCharacterArg_throwsIllegalValueException() throws IllegalValueException {
         thrown.expect(IllegalValueException.class);
-        String argEmail = "$*%";
-        ParserUtil.parseEmail(toOptionalString(argEmail));
+        String argName = "$*%";
+        ParserUtil.parseName(toOptionalString(argName));
     }
 
     @Test
@@ -149,13 +152,13 @@ public class ParserUtilTest {
     public void parsePhone_specialCharacterArg_throwsIllegalValueException() throws IllegalValueException {
         thrown.expect(IllegalValueException.class);
         String argPhone = "$*%";
-        ParserUtil.parseEmail(toOptionalString(argPhone));
+        ParserUtil.parsePhone(toOptionalString(argPhone));
     }
 
     @Test
     public void parsePhone_validString() throws IllegalValueException {
         String argPhone = "Phone 123";
-        Optional<Name> phone = ParserUtil.parseName(toOptionalString(argPhone));
+        Optional<Phone> phone = ParserUtil.parsePhone(toOptionalString(argPhone));
 
         assertEquals(phone.get().toString(), argPhone);
     }
@@ -170,13 +173,13 @@ public class ParserUtilTest {
     public void parseAddress_specialCharacterArg_throwsIllegalValueException() throws IllegalValueException {
         thrown.expect(IllegalValueException.class);
         String argAddress = "$*%";
-        ParserUtil.parseEmail(toOptionalString(argAddress));
+        ParserUtil.parseAddress(toOptionalString(argAddress));
     }
 
     @Test
     public void parseAddress_validString() throws IllegalValueException {
         String argAddress = "Address 123";
-        Optional<Name> address = ParserUtil.parseName(toOptionalString(argAddress));
+        Optional<Address> address = ParserUtil.parseAddress(toOptionalString(argAddress));
 
         assertEquals(address.get().toString(), argAddress);
     }
@@ -197,7 +200,7 @@ public class ParserUtilTest {
     @Test
     public void parseEmail_validString() throws IllegalValueException {
         String argEmail = "Email 123";
-        Optional<Name> email = ParserUtil.parseName(toOptionalString(argEmail));
+        Optional<Email> email = ParserUtil.parseEmail(toOptionalString(argEmail));
 
         assertEquals(email.get().toString(), argEmail);
     }
