@@ -135,7 +135,7 @@ public class ParserUtilTest {
         Phone expectedPhone = new Phone("123");
         Optional<Phone> actualPhone = ParserUtil.parsePhone(Optional.of("123"));
 
-        assertEquals(actualPhone.get(), expectedPhone);
+        assertEquals(expectedPhone, actualPhone.get());
     }
 
     @Test
@@ -160,7 +160,7 @@ public class ParserUtilTest {
         Address expectedAddress = new Address("Address 123 #0505");
         Optional<Address> actualAddress = ParserUtil.parseAddress(Optional.of("Address 123 #0505"));
 
-        assertEquals(actualAddress.get(), expectedAddress);
+        assertEquals(expectedAddress, actualAddress.get());
     }
 
     @Test
@@ -185,7 +185,7 @@ public class ParserUtilTest {
         Email expectedEmail = new Email("Email@123");
         Optional<Email> actualEmail = ParserUtil.parseEmail(Optional.of("Email@123"));
 
-        assertEquals(actualEmail.get(), expectedEmail);
+        assertEquals(expectedEmail, actualEmail.get());
     }
 
     @Test
@@ -210,6 +210,6 @@ public class ParserUtilTest {
         Set<Tag> actualTagSet = ParserUtil.parseTags(Arrays.asList("tag1", "tag2"));
         Set<Tag> expectedTagSet = new HashSet<Tag>(Arrays.asList(new Tag("tag1"), new Tag("tag2")));
 
-        assertEquals(actualTagSet, expectedTagSet);
+        assertEquals(expectedTagSet, actualTagSet);
     }
 }
