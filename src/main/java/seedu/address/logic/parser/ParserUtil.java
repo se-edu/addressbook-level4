@@ -23,12 +23,12 @@ public class ParserUtil {
 
     /**
      * Returns the specified index in the {@code command} if it is a positive unsigned integer
-     * @throws IllegalValueException if the specified index is not a valid integer.
+     * @throws IllegalValueException if the specified index is an invalid integer.
      */
     public static int parseIndex(String command) throws IllegalValueException {
         String index = command.trim();
         if (!StringUtil.isUnsignedInteger(index)) {
-            throw new IllegalValueException("index is not an unsigned integer");
+            throw new IllegalValueException("Index is not a positive unsigned integer.");
         }
         return Integer.parseInt(index);
 
