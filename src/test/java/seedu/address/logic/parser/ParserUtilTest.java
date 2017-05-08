@@ -187,9 +187,9 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parseTags_invalidCollection_throwsIllegalValueException() throws Exception {
+    public void parseTags_collectionWithInvalidTags_throwsIllegalValueException() throws Exception {
         thrown.expect(IllegalValueException.class);
-        ParserUtil.parseTags(Arrays.asList("$*%"));
+        ParserUtil.parseTags(Arrays.asList("tag1", "$*%"));
     }
 
     @Test
