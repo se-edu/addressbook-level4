@@ -29,12 +29,6 @@ public class ParserUtilTest {
     @Test
     public void parseIndex_invalidInput_throwsIllegalValueException() throws Exception {
         thrown.expect(IllegalValueException.class);
-        ParserUtil.parseIndex("abc");
-    }
-
-    @Test
-    public void parseIndex_mixedInput_throwsIllegalValueException() throws Exception {
-        thrown.expect(IllegalValueException.class);
         ParserUtil.parseIndex("10 a");
     }
 
@@ -67,14 +61,8 @@ public class ParserUtilTest {
         // Empty string
         assertPreambleListCorrect("", 1, Arrays.asList(Optional.of("")));
 
-        // Whitespaces only
-        assertPreambleListCorrect(" ", 2, Arrays.asList(Optional.of(""), Optional.of("")));
-
-        // Leading whitespace
-        assertPreambleListCorrect(" abc 123", 2, Arrays.asList(Optional.of(""), Optional.of("abc 123")));
-
-        // Trailing whitespace
-        assertPreambleListCorrect("abc 123 ", 2, Arrays.asList(Optional.of("abc"), Optional.of("123 ")));
+        // Leading and trailing whitespaces
+        assertPreambleListCorrect(" abc 123 ", 2, Arrays.asList(Optional.of("abc"), Optional.of("123")));
 
         // No whitespaces
         assertPreambleListCorrect("abc", 1, Arrays.asList(Optional.of("abc")));
