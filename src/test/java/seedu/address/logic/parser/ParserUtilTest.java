@@ -44,18 +44,16 @@ public class ParserUtilTest {
      * Asserts {@code index} is unsuccessfully parsed
      */
     private void assertParseIndexNotPresent(String index) {
-        Optional<Integer> optionalIndex = ParserUtil.parseIndex(index);
+        Optional<Integer> actualValue = ParserUtil.parseIndex(index);
 
-        assertFalse(optionalIndex.isPresent());
+        assertFalse(actualValue.isPresent());
     }
 
     /**
      * Asserts {@code index} is successfully parsed and the parsed value equals to {@code expectedValue}
      */
     private void assertParseIndexPresent(String index, int expectedValue) {
-        Optional<Integer> optionalIndex = ParserUtil.parseIndex(index);
-
-        assertEquals(expectedValue, optionalIndex.get().intValue());
+        assertEquals(expectedValue, ParserUtil.parseIndex(index).get().intValue());
     }
 
     @Test
@@ -106,17 +104,15 @@ public class ParserUtilTest {
 
     @Test
     public void parseName_optionalEmpty_returnsOptionalEmpty() throws Exception {
-        Optional<Name> name = ParserUtil.parseName(Optional.empty());
-
-        assertFalse(name.isPresent());
+        assertFalse(ParserUtil.parseName(Optional.empty()).isPresent());
     }
 
     @Test
     public void parseName_validArg_returnsName() throws Exception {
-        Name validName = new Name("Name 123");
-        Optional<Name> name = ParserUtil.parseName(Optional.of("Name 123"));
+        Name expectedName = new Name("Name 123");
+        Optional<Name> actualName = ParserUtil.parseName(Optional.of("Name 123"));
 
-        assertEquals(name.get(), validName);
+        assertEquals(actualName.get(), expectedName);
     }
 
     @Test
@@ -133,17 +129,15 @@ public class ParserUtilTest {
 
     @Test
     public void parsePhone_optionalEmpty_returnsOptionalEmpty() throws Exception {
-        Optional<Phone> phone = ParserUtil.parsePhone(Optional.empty());
-
-        assertFalse(phone.isPresent());
+        assertFalse(ParserUtil.parsePhone(Optional.empty()).isPresent());
     }
 
     @Test
     public void parsePhone_validArg_returnsPhone() throws Exception {
-        Phone validPhone = new Phone("123");
-        Optional<Phone> phone = ParserUtil.parsePhone(Optional.of("123"));
+        Phone expectedPhone = new Phone("123");
+        Optional<Phone> actualPhone = ParserUtil.parsePhone(Optional.of("123"));
 
-        assertEquals(phone.get(), validPhone);
+        assertEquals(actualPhone.get(), expectedPhone);
     }
 
     @Test
@@ -160,17 +154,15 @@ public class ParserUtilTest {
 
     @Test
     public void parseAddress_optionalEmpty_returnsOptionalEmpty() throws Exception {
-        Optional<Address> address = ParserUtil.parseAddress(Optional.empty());
-
-        assertFalse(address.isPresent());
+        assertFalse(ParserUtil.parseAddress(Optional.empty()).isPresent());
     }
 
     @Test
     public void parseAddress_validArg_returnsAddress() throws Exception {
-        Address validAddress = new Address("Address 123 #0505");
-        Optional<Address> address = ParserUtil.parseAddress(Optional.of("Address 123 #0505"));
+        Address expectedAddress = new Address("Address 123 #0505");
+        Optional<Address> actualAddress = ParserUtil.parseAddress(Optional.of("Address 123 #0505"));
 
-        assertEquals(address.get(), validAddress);
+        assertEquals(actualAddress.get(), expectedAddress);
     }
 
     @Test
@@ -187,17 +179,15 @@ public class ParserUtilTest {
 
     @Test
     public void parseEmail_optionalEmpty_returnsOptionalEmpty() throws Exception {
-        Optional<Email> email = ParserUtil.parseEmail(Optional.empty());
-
-        assertFalse(email.isPresent());
+        assertFalse(ParserUtil.parseEmail(Optional.empty()).isPresent());
     }
 
     @Test
     public void parseEmail_validArg_returnsEmail() throws Exception {
-        Email validEmail = new Email("Email@123");
-        Optional<Email> email = ParserUtil.parseEmail(Optional.of("Email@123"));
+        Email expectedEmail = new Email("Email@123");
+        Optional<Email> actualEmail = ParserUtil.parseEmail(Optional.of("Email@123"));
 
-        assertEquals(email.get(), validEmail);
+        assertEquals(actualEmail.get(), expectedEmail);
     }
 
     @Test
@@ -214,16 +204,14 @@ public class ParserUtilTest {
 
     @Test
     public void parseTags_emptyCollection_returnsEmptySet() throws Exception {
-        Set<Tag> tags = ParserUtil.parseTags(Collections.emptyList());
-
-        assertTrue(tags.isEmpty());
+        assertTrue(ParserUtil.parseTags(Collections.emptyList()).isEmpty());
     }
 
     @Test
     public void parseTags_validCollection_returnsTagList() throws Exception {
-        Set<Tag> tags = ParserUtil.parseTags(Arrays.asList("tag1", "tag2"));
-        Set<Tag> expectedSet = new HashSet<Tag>(Arrays.asList(new Tag("tag1"), new Tag("tag2")));
+        Set<Tag> actualTagSet = ParserUtil.parseTags(Arrays.asList("tag1", "tag2"));
+        Set<Tag> expectedTagSet = new HashSet<Tag>(Arrays.asList(new Tag("tag1"), new Tag("tag2")));
 
-        assertEquals(tags, expectedSet);
+        assertEquals(actualTagSet, expectedTagSet);
     }
 }
