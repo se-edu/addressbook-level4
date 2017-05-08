@@ -7,6 +7,7 @@ import static org.junit.Assert.assertTrue;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.Set;
 
@@ -15,7 +16,10 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.person.Address;
+import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
 
 public class ParserUtilTest {
@@ -106,6 +110,25 @@ public class ParserUtilTest {
     }
 
     @Test
+    public void splitPreamble_fewerNumFieldsThanValues() {
+        String argsPreamble = "abc 123 qwe 456";
+        int argsNumFields = 2;
+        List<Optional<String>> list = ParserUtil.splitPreamble(argsPreamble, argsNumFields);
+
+        assertPreambleListCorrect(list, "abc", "123 qwe 456");
+    }
+
+    @Test
+    public void splitPreamble_moreNumFieldsThanValues() {
+        String argsPreamble = "abc 123";
+        int argsNumFields = 3;
+        List<Optional<String>> list = ParserUtil.splitPreamble(argsPreamble, argsNumFields);
+
+        thrown.expect(NoSuchElementException.class);
+        assertPreambleListCorrect(list, "abc", "123", "");
+    }
+
+    @Test
     public void splitPreamble_validStringsMultipleSpaces() {
         String argsPreamble = "abc     123";
         int argsNumFields = 2;
@@ -127,8 +150,8 @@ public class ParserUtilTest {
     @Test
     public void parseName_specialCharacterArg_throwsIllegalValueException() throws IllegalValueException {
         thrown.expect(IllegalValueException.class);
-        String argEmail = "$*%";
-        ParserUtil.parseEmail(toOptionalString(argEmail));
+        String argName = "$*%";
+        ParserUtil.parseName(toOptionalString(argName));
     }
 
     @Test
@@ -149,13 +172,27 @@ public class ParserUtilTest {
     public void parsePhone_specialCharacterArg_throwsIllegalValueException() throws IllegalValueException {
         thrown.expect(IllegalValueException.class);
         String argPhone = "$*%";
-        ParserUtil.parseEmail(toOptionalString(argPhone));
+        ParserUtil.parsePhone(toOptionalString(argPhone));
     }
 
     @Test
-    public void parsePhone_validString() throws IllegalValueException {
-        String argPhone = "Phone 123";
-        Optional<Name> phone = ParserUtil.parseName(toOptionalString(argPhone));
+    public void parsePhone_alphaCharacterArg_throwsIllegalValueException() throws IllegalValueException {
+        thrown.expect(IllegalValueException.class);
+        String argPhone = "abc";
+        ParserUtil.parsePhone(toOptionalString(argPhone));
+    }
+
+    @Test
+    public void parsePhone_shortNumber_throwsIllegalValueException() throws IllegalValueException {
+        thrown.expect(IllegalValueException.class);
+        String argPhone = "12";
+        ParserUtil.parsePhone(toOptionalString(argPhone));
+    }
+
+    @Test
+    public void parsePhone_validPhone() throws IllegalValueException {
+        String argPhone = "123";
+        Optional<Phone> phone = ParserUtil.parsePhone(toOptionalString(argPhone));
 
         assertEquals(phone.get().toString(), argPhone);
     }
@@ -167,16 +204,9 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parseAddress_specialCharacterArg_throwsIllegalValueException() throws IllegalValueException {
-        thrown.expect(IllegalValueException.class);
-        String argAddress = "$*%";
-        ParserUtil.parseEmail(toOptionalString(argAddress));
-    }
-
-    @Test
-    public void parseAddress_validString() throws IllegalValueException {
-        String argAddress = "Address 123";
-        Optional<Name> address = ParserUtil.parseName(toOptionalString(argAddress));
+    public void parseAddress_validAddress() throws IllegalValueException {
+        String argAddress = "Address 123 #0505";
+        Optional<Address> address = ParserUtil.parseAddress(toOptionalString(argAddress));
 
         assertEquals(address.get().toString(), argAddress);
     }
@@ -188,16 +218,16 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parseEmail_specialCharacterArg_throwsIllegalValueException() throws IllegalValueException {
+    public void parseEmail_invalidEmail_throwsIllegalValueException() throws IllegalValueException {
         thrown.expect(IllegalValueException.class);
-        String argEmail = "$*%";
+        String argEmail = "Email.com";
         ParserUtil.parseEmail(toOptionalString(argEmail));
     }
 
     @Test
-    public void parseEmail_validString() throws IllegalValueException {
-        String argEmail = "Email 123";
-        Optional<Name> email = ParserUtil.parseName(toOptionalString(argEmail));
+    public void parseEmail_validEmail() throws IllegalValueException {
+        String argEmail = "Email@123";
+        Optional<Email> email = ParserUtil.parseEmail(toOptionalString(argEmail));
 
         assertEquals(email.get().toString(), argEmail);
     }
