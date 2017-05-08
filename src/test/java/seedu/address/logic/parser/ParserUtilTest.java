@@ -11,6 +11,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -28,25 +29,21 @@ public class ParserUtilTest {
     public final ExpectedException thrown = ExpectedException.none();
 
     @Test
-    public void parseIndex_nonUnsignedPositiveInt_notPresent() {
-        // Non-integer
+    public void parseIndex_invalidInput_notPresent() {
         assertParseIndexNotPresent("abc");
     }
 
     @Test
-    public void parseIndex_unsignedPositiveInt_present() {
+    public void parseIndex_validInput_present() {
         // Unsigned positive integer without white spaces
         assertParseIndexPresent("1", 1);
 
-        // Unsigned positive integer with leading white space
-        assertParseIndexPresent(" 1", 1);
-
-        // Unsigned positive integer with trailing white space
-        assertParseIndexPresent("1 ", 1);
+        // Unsigned positive integer with leading and trailing whitespaces
+        assertParseIndexPresent(" 1 ", 1);
     }
 
     /**
-     * Parses {@code index} which is invalid, and checks that the optional integer is not present
+     * Asserts {@code index} is unsuccessfully parsed
      */
     private void assertParseIndexNotPresent(String index) {
         Optional<Integer> optionalIndex = ParserUtil.parseIndex(index);
@@ -65,33 +62,34 @@ public class ParserUtilTest {
 
     @Test
     public void splitPreamble() {
-        // Zero fields
+        // Empty string
         assertPreambleListCorrect(0, "", Arrays.asList());
 
         // Empty arg
         assertPreambleListCorrect(2, " ", Arrays.asList(Optional.of(""), Optional.of("")));
 
-        // Valid string with no spaces
+        // No spaces
         assertPreambleListCorrect(1, "abc", Arrays.asList(Optional.of("abc")));
 
-        // Valid string with spaces
+        // Valid string with single space
         assertPreambleListCorrect(2, "abc 123", Arrays.asList(Optional.of("abc"), Optional.of("123")));
 
         // Valid string with multiple spaces
         assertPreambleListCorrect(2, "abc     123", Arrays.asList(Optional.of("abc"), Optional.of("123")));
 
-        // String with fewer num fields than values
+        // String with more whitespaces than numFields
         assertPreambleListCorrect(2, "abc 123 qwe 456", Arrays.asList(Optional.of("abc"), Optional.of("123 qwe 456")));
 
-        // String with more num fields than values
+        // String with more numFields than whitespaces
         assertPreambleListCorrect(2, "abc", Arrays.asList(Optional.of("abc"), Optional.empty()));
     }
 
     /**
-     * Splits {@code arg} into ordered fields, and checks if the result is the same as {@code expectedValues}
+     * Splits {@code arg} into ordered fields of size {@code numFields}
+     * and checks if the result is the same as {@code expectedValues}
      */
-    private void assertPreambleListCorrect(int numFields, String arg, List<Optional<String>> expectedValues) {
-        List<Optional<String>> list = ParserUtil.splitPreamble(arg, numFields);
+    private void assertPreambleListCorrect(int numFields, String toSplit, List<Optional<String>> expectedValues) {
+        List<Optional<String>> list = ParserUtil.splitPreamble(toSplit, numFields);
 
         assertTrue(list.equals(expectedValues));
     }
@@ -110,14 +108,13 @@ public class ParserUtilTest {
 
     @Test
     public void parseName_optionalEmpty_returnsOptionalEmpty() throws Exception {
-        Optional<String> argName = Optional.empty();
-        Optional<Name> name = ParserUtil.parseName(argName);
+        Optional<Name> name = ParserUtil.parseName(Optional.empty());
 
         assertFalse(name.isPresent());
     }
 
     @Test
-    public void parseName_validArg() throws Exception {
+    public void parseName_validArg_returnsName() throws Exception {
         String argName = "Name 123";
         Optional<Name> name = ParserUtil.parseName(Optional.of(argName));
 
@@ -138,14 +135,13 @@ public class ParserUtilTest {
 
     @Test
     public void parsePhone_optionalEmpty_returnsOptionalEmpty() throws Exception {
-        Optional<String> argPhone = Optional.empty();
-        Optional<Phone> phone = ParserUtil.parsePhone(argPhone);
+        Optional<Phone> phone = ParserUtil.parsePhone(Optional.empty());
 
         assertFalse(phone.isPresent());
     }
 
     @Test
-    public void parsePhone_validArg() throws Exception {
+    public void parsePhone_validArg_returnsPhone() throws Exception {
         String argPhone = "123";
         Optional<Phone> phone = ParserUtil.parsePhone(Optional.of(argPhone));
 
@@ -166,14 +162,13 @@ public class ParserUtilTest {
 
     @Test
     public void parseAddress_optionalEmpty_returnsOptionalEmpty() throws Exception {
-        Optional<String> argAddress = Optional.empty();
-        Optional<Address> address = ParserUtil.parseAddress(argAddress);
+        Optional<Address> address = ParserUtil.parseAddress(Optional.empty());
 
         assertFalse(address.isPresent());
     }
 
     @Test
-    public void parseAddress_validArg() throws Exception {
+    public void parseAddress_validArg_returnsAddress() throws Exception {
         String argAddress = "Address 123 #0505";
         Optional<Address> address = ParserUtil.parseAddress(Optional.of(argAddress));
 
@@ -194,14 +189,13 @@ public class ParserUtilTest {
 
     @Test
     public void parseEmail_optionalEmpty_returnsOptionalEmpty() throws Exception {
-        Optional<String> argEmail = Optional.empty();
-        Optional<Email> email = ParserUtil.parseEmail(argEmail);
+        Optional<Email> email = ParserUtil.parseEmail(Optional.empty());
 
         assertFalse(email.isPresent());
     }
 
     @Test
-    public void parseEmail_validArg() throws Exception {
+    public void parseEmail_validArg_returnsEmail() throws Exception {
         String argEmail = "Email@123";
         Optional<Email> email = ParserUtil.parseEmail(Optional.of(argEmail));
 
@@ -232,14 +226,10 @@ public class ParserUtilTest {
     public void parseTags_validCollection_returnsTagList() throws Exception {
         Set<Tag> tags = ParserUtil.parseTags(Arrays.asList("tag1", "tag2"));
 
-        // Verify that the tags set created is equal to the expected tags
         Set<String> expectedSet = new HashSet<String>(Arrays.asList("tag1", "tag2"));
         // Convert tags into a set of tagNames
-        Set<String> tagsString = new HashSet<String>();
-        for (Tag tag : tags) {
-            tagsString.add(tag.tagName);
-        }
+        Set<String> tagsString = tags.stream().map(tag -> tag.tagName).collect(Collectors.toSet());
 
-        assertTrue(tagsString.equals(expectedSet));
+        assertEquals(tagsString, expectedSet);
     }
 }
