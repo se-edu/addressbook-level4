@@ -28,16 +28,17 @@ public class ParserUtilTest {
 
     @Test
     public void parseIndex_invalidInput_throwsIllegalValueException() throws Exception {
-        assertParseIndexNotPresent("abc");
+        thrown.expect(IllegalValueException.class);
+        ParserUtil.parseIndex("abc");
     }
 
     @Test
-    public void parseIndex_validInput_present() throws Exception {
+    public void parseIndex_validInput_success() throws Exception {
         // No whitespaces
-        assertParseIndexPresent("1", 1);
+        assertEquals(1, ParserUtil.parseIndex("1"));
 
         // Leading and trailing whitespaces
-        assertParseIndexPresent(" 1 ", 1);
+        assertEquals(1, ParserUtil.parseIndex(" 1 "));
     }
 
     @Test
@@ -202,22 +203,6 @@ public class ParserUtilTest {
         Set<Tag> expectedTagSet = new HashSet<Tag>(Arrays.asList(new Tag("tag1"), new Tag("tag2")));
 
         assertEquals(expectedTagSet, actualTagSet);
-    }
-
-    /**
-     * Asserts {@code index} is unsuccessfully parsed
-     */
-    private void assertParseIndexNotPresent(String index) throws Exception {
-        thrown.expect(IllegalValueException.class);
-        ParserUtil.parseIndex(index);
-    }
-
-    /**
-     * Asserts {@code index} is successfully parsed and the parsed value equals to {@code expectedValue}
-     */
-    private void assertParseIndexPresent(String index, Integer expectedValue) throws Exception {
-        Integer actualValue = ParserUtil.parseIndex(index);
-        assertEquals(expectedValue, actualValue);
     }
 
     /**
