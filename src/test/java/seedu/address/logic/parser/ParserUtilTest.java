@@ -41,22 +41,25 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void splitPreamble_nullPreamble_throwsNullPointerException() {
-        thrown.expect(NullPointerException.class);
+    public void splitPreamble_nullPreamble_throwsAssertionError() {
+        thrown.expect(AssertionError.class);
         ParserUtil.splitPreamble(null, 0);
     }
 
     @Test
-    public void splitPreamble_negativeNumFields_throwsNegativeArraySizeException() {
-        thrown.expect(NegativeArraySizeException.class);
+    public void splitPreamble_negativeNumFields_throwsAssertionError() {
+        thrown.expect(AssertionError.class);
         ParserUtil.splitPreamble("abc", -1);
     }
 
     @Test
-    public void splitPreamble_validInput_success() {
-        // Zero numFields
-        assertPreambleListCorrect("", 0, Arrays.asList());
+    public void splitPreamble_zeroNumFields_throwsAssertionError() {
+        thrown.expect(AssertionError.class);
+        ParserUtil.splitPreamble("", 0);
+    }
 
+    @Test
+    public void splitPreamble_validInput_success() {
         // Empty string
         assertPreambleListCorrect("", 1, Arrays.asList(Optional.of("")));
 
