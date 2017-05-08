@@ -27,118 +27,73 @@ public class ParserUtilTest {
     public final ExpectedException thrown = ExpectedException.none();
 
     @Test
-    public void parseIndex_emptyArgsString_notPresent() {
-        String argsString = " ";
-        Optional<Integer> optionalInteger = ParserUtil.parseIndex(argsString);
+    public void parseIndex_invalidArgs_notPresent() {
+        //empty arg
+        assertParseIndexNotPresent(" ");
+
+        //non-integer
+        assertParseIndexNotPresent("abc");
+
+        //signed negative integer
+        assertParseIndexNotPresent("-1");
+
+        //zero
+        assertParseIndexNotPresent("0");
+
+        //signed positive integer
+        assertParseIndexNotPresent("+1");
+    }
+
+    @Test
+    public void parseIndex_validArgs_present() {
+        //unsigned positive integer
+        assertParseIndexPresent("1");
+    }
+
+    private void assertParseIndexNotPresent(String arg) {
+        Optional<Integer> optionalInteger = ParserUtil.parseIndex(arg);
 
         assertFalse(optionalInteger.isPresent());
     }
 
-    @Test
-    public void parseIndex_nonInteger_notPresent() {
-        String argsString = "abc";
-        Optional<Integer> optionalInteger = ParserUtil.parseIndex(argsString);
-
-        assertFalse(optionalInteger.isPresent());
-    }
-
-    @Test
-    public void parseIndex_signedNegativeInt_notPresent() {
-        String argsString = "-1";
-        Optional<Integer> optionalInteger = ParserUtil.parseIndex(argsString);
-
-        assertFalse(optionalInteger.isPresent());
-    }
-
-    @Test
-    public void parseIndex_signedPositiveInt_notPresent() {
-        String argsString = "+1";
-        Optional<Integer> optionalInteger = ParserUtil.parseIndex(argsString);
-
-        assertFalse(optionalInteger.isPresent());
-    }
-
-    @Test
-    public void parseIndex_unsignedPositiveInt_present() {
-        String argsString = "1";
-        Optional<Integer> optionalInteger = ParserUtil.parseIndex(argsString);
+    private void assertParseIndexPresent(String arg) {
+        Optional<Integer> optionalInteger = ParserUtil.parseIndex(arg);
 
         assertTrue(optionalInteger.isPresent());
-        assertEquals(argsString, optionalInteger.get().toString());
+        assertEquals(arg, optionalInteger.get().toString());
     }
 
-    private void assertPreambleListCorrect(List<Optional<String>> list, String... expectedValues) {
+    @Test
+    public void splitPreambleTest() {
+        //zero fields
+        assertPreambleListCorrect(0, "");
+
+        //empty arg
+        assertPreambleListCorrect(2, " ", "", "");
+
+        //valid string with no spaces
+        assertPreambleListCorrect(1, "abc", "abc");
+
+        //valid string with spaces
+        assertPreambleListCorrect(2, "abc 123", "abc", "123");
+
+        //valid string with multiple spaces
+        assertPreambleListCorrect(2, "abc     123", "abc", "123");
+
+        //string with fewer num fields than values
+        assertPreambleListCorrect(2, "abc 123 qwe 456", "abc", "123 qwe 456");
+
+        //string with more num fields than values - throws NoSuchElementException
+        thrown.expect(NoSuchElementException.class);
+        assertPreambleListCorrect(3, "abc 123", "abc", "123", "");
+    }
+
+    private void assertPreambleListCorrect(int numFields, String arg, String... expectedValues) {
+        List<Optional<String>> list = ParserUtil.splitPreamble(arg, numFields);
+
         for (int i = 0; i < expectedValues.length; i++) {
             assertEquals(list.get(i).get(), expectedValues[i]);
         }
-    }
-
-    @Test
-    public void splitPreamble_zeroFields_emptyList() {
-        String argsPreamble = "";
-        int argsNumFields = 0;
-        List<Optional<String>> list = ParserUtil.splitPreamble(argsPreamble, argsNumFields);
-
-        assertPreambleListCorrect(list);
-    }
-
-    @Test
-    public void splitPreamble_nullArgs_listWithNullEntries() {
-        String argsPreamble = " ";
-        int argsNumFields = 2;
-        List<Optional<String>> list = ParserUtil.splitPreamble(argsPreamble, argsNumFields);
-
-        assertPreambleListCorrect(list, "", "");
-    }
-
-    @Test
-    public void splitPreamble_validString() {
-        String argsPreamble = "abc";
-        int argsNumFields = 1;
-        List<Optional<String>> list = ParserUtil.splitPreamble(argsPreamble, argsNumFields);
-
-        assertPreambleListCorrect(list, "abc");
-    }
-
-    @Test
-    public void splitPreamble_validStrings() {
-        String argsPreamble = "abc 123";
-        int argsNumFields = 2;
-        List<Optional<String>> list = ParserUtil.splitPreamble(argsPreamble, argsNumFields);
-
-        assertPreambleListCorrect(list, "abc", "123");
-    }
-
-    @Test
-    public void splitPreamble_fewerNumFieldsThanValues() {
-        String argsPreamble = "abc 123 qwe 456";
-        int argsNumFields = 2;
-        List<Optional<String>> list = ParserUtil.splitPreamble(argsPreamble, argsNumFields);
-
-        assertPreambleListCorrect(list, "abc", "123 qwe 456");
-    }
-
-    @Test
-    public void splitPreamble_moreNumFieldsThanValues() {
-        String argsPreamble = "abc 123";
-        int argsNumFields = 3;
-        List<Optional<String>> list = ParserUtil.splitPreamble(argsPreamble, argsNumFields);
-
-        thrown.expect(NoSuchElementException.class);
-        assertPreambleListCorrect(list, "abc", "123", "");
-    }
-
-    @Test
-    public void splitPreamble_validStringsMultipleSpaces() {
-        String argsPreamble = "abc     123";
-        int argsNumFields = 2;
-        List<Optional<String>> list = ParserUtil.splitPreamble(argsPreamble, argsNumFields);
-
-        assertPreambleListCorrect(list, "abc", "123");
-    }
-
-    private Optional<String> toOptionalString(String string) {
-        return Optional.ofNullable(string).filter(s -> !s.isEmpty());
     }
 
     @Test
@@ -151,13 +106,13 @@ public class ParserUtilTest {
     public void parseName_specialCharacterArg_throwsIllegalValueException() throws IllegalValueException {
         thrown.expect(IllegalValueException.class);
         String argName = "$*%";
-        ParserUtil.parseName(toOptionalString(argName));
+        ParserUtil.parseName(Optional.of(argName));
     }
 
     @Test
     public void parseName_validString() throws IllegalValueException {
         String argName = "Name 123";
-        Optional<Name> name = ParserUtil.parseName(toOptionalString(argName));
+        Optional<Name> name = ParserUtil.parseName(Optional.of(argName));
 
         assertEquals(name.get().toString(), argName);
     }
@@ -172,27 +127,27 @@ public class ParserUtilTest {
     public void parsePhone_specialCharacterArg_throwsIllegalValueException() throws IllegalValueException {
         thrown.expect(IllegalValueException.class);
         String argPhone = "$*%";
-        ParserUtil.parsePhone(toOptionalString(argPhone));
+        ParserUtil.parsePhone(Optional.of(argPhone));
     }
 
     @Test
     public void parsePhone_alphaCharacterArg_throwsIllegalValueException() throws IllegalValueException {
         thrown.expect(IllegalValueException.class);
         String argPhone = "abc";
-        ParserUtil.parsePhone(toOptionalString(argPhone));
+        ParserUtil.parsePhone(Optional.of(argPhone));
     }
 
     @Test
     public void parsePhone_shortNumber_throwsIllegalValueException() throws IllegalValueException {
         thrown.expect(IllegalValueException.class);
         String argPhone = "12";
-        ParserUtil.parsePhone(toOptionalString(argPhone));
+        ParserUtil.parsePhone(Optional.of(argPhone));
     }
 
     @Test
     public void parsePhone_validPhone() throws IllegalValueException {
         String argPhone = "123";
-        Optional<Phone> phone = ParserUtil.parsePhone(toOptionalString(argPhone));
+        Optional<Phone> phone = ParserUtil.parsePhone(Optional.of(argPhone));
 
         assertEquals(phone.get().toString(), argPhone);
     }
@@ -206,7 +161,7 @@ public class ParserUtilTest {
     @Test
     public void parseAddress_validAddress() throws IllegalValueException {
         String argAddress = "Address 123 #0505";
-        Optional<Address> address = ParserUtil.parseAddress(toOptionalString(argAddress));
+        Optional<Address> address = ParserUtil.parseAddress(Optional.of(argAddress));
 
         assertEquals(address.get().toString(), argAddress);
     }
@@ -221,13 +176,13 @@ public class ParserUtilTest {
     public void parseEmail_invalidEmail_throwsIllegalValueException() throws IllegalValueException {
         thrown.expect(IllegalValueException.class);
         String argEmail = "Email.com";
-        ParserUtil.parseEmail(toOptionalString(argEmail));
+        ParserUtil.parseEmail(Optional.of(argEmail));
     }
 
     @Test
     public void parseEmail_validEmail() throws IllegalValueException {
         String argEmail = "Email@123";
-        Optional<Email> email = ParserUtil.parseEmail(toOptionalString(argEmail));
+        Optional<Email> email = ParserUtil.parseEmail(Optional.of(argEmail));
 
         assertEquals(email.get().toString(), argEmail);
     }
