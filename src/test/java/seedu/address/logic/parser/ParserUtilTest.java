@@ -4,13 +4,12 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -64,16 +63,16 @@ public class ParserUtilTest {
         // Empty string
         assertPreambleListCorrect(0, "", Arrays.asList());
 
-        // Empty arg
+        // Whitespaces only
         assertPreambleListCorrect(2, " ", Arrays.asList(Optional.of(""), Optional.of("")));
 
-        // No spaces
+        // No whitespaces
         assertPreambleListCorrect(1, "abc", Arrays.asList(Optional.of("abc")));
 
-        // Single space
+        // Single whitespace
         assertPreambleListCorrect(2, "abc 123", Arrays.asList(Optional.of("abc"), Optional.of("123")));
 
-        // Multiple spaces
+        // Multiple whitespaces
         assertPreambleListCorrect(2, "abc     123", Arrays.asList(Optional.of("abc"), Optional.of("123")));
 
         // More whitespaces than numFields
@@ -114,10 +113,10 @@ public class ParserUtilTest {
 
     @Test
     public void parseName_validArg_returnsName() throws Exception {
-        String validName = "Name 123";
-        Optional<Name> name = ParserUtil.parseName(Optional.of(validName));
+        Name validName = new Name("Name 123");
+        Optional<Name> name = ParserUtil.parseName(Optional.of("Name 123"));
 
-        assertEquals(name.get().toString(), validName);
+        assertEquals(name.get(), validName);
     }
 
     @Test
@@ -141,10 +140,10 @@ public class ParserUtilTest {
 
     @Test
     public void parsePhone_validArg_returnsPhone() throws Exception {
-        String validPhone = "123";
-        Optional<Phone> phone = ParserUtil.parsePhone(Optional.of(validPhone));
+        Phone validPhone = new Phone("123");
+        Optional<Phone> phone = ParserUtil.parsePhone(Optional.of("123"));
 
-        assertEquals(phone.get().toString(), validPhone);
+        assertEquals(phone.get(), validPhone);
     }
 
     @Test
@@ -168,10 +167,10 @@ public class ParserUtilTest {
 
     @Test
     public void parseAddress_validArg_returnsAddress() throws Exception {
-        String validAddress = "Address 123 #0505";
-        Optional<Address> address = ParserUtil.parseAddress(Optional.of(validAddress));
+        Address validAddress = new Address("Address 123 #0505");
+        Optional<Address> address = ParserUtil.parseAddress(Optional.of("Address 123 #0505"));
 
-        assertEquals(address.get().toString(), validAddress);
+        assertEquals(address.get(), validAddress);
     }
 
     @Test
@@ -195,10 +194,10 @@ public class ParserUtilTest {
 
     @Test
     public void parseEmail_validArg_returnsEmail() throws Exception {
-        String validEmail = "Email@123";
-        Optional<Email> email = ParserUtil.parseEmail(Optional.of(validEmail));
+        Email validEmail = new Email("Email@123");
+        Optional<Email> email = ParserUtil.parseEmail(Optional.of("Email@123"));
 
-        assertEquals(email.get().toString(), validEmail);
+        assertEquals(email.get(), validEmail);
     }
 
     @Test
@@ -215,7 +214,7 @@ public class ParserUtilTest {
 
     @Test
     public void parseTags_emptyCollection_returnsEmptySet() throws Exception {
-        Set<Tag> tags = ParserUtil.parseTags(new ArrayList<String>());
+        Set<Tag> tags = ParserUtil.parseTags(Collections.emptyList());
 
         assertTrue(tags.isEmpty());
     }
@@ -223,11 +222,8 @@ public class ParserUtilTest {
     @Test
     public void parseTags_validCollection_returnsTagList() throws Exception {
         Set<Tag> tags = ParserUtil.parseTags(Arrays.asList("tag1", "tag2"));
-        // Convert tags into a set of tagNames
-        Set<String> actualSet = tags.stream().map(tag -> tag.tagName).collect(Collectors.toSet());
+        Set<Tag> expectedSet = new HashSet<Tag>(Arrays.asList(new Tag("tag1"), new Tag("tag2")));
 
-        Set<String> expectedSet = new HashSet<String>(Arrays.asList("tag1", "tag2"));
-
-        assertEquals(actualSet, expectedSet);
+        assertEquals(tags, expectedSet);
     }
 }
