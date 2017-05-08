@@ -6,7 +6,6 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -35,10 +34,10 @@ public class ParserUtilTest {
 
     @Test
     public void parseIndex_validInput_present() {
-        // Unsigned positive integer without white spaces
+        // No whitespaces
         assertParseIndexPresent("1", 1);
 
-        // Unsigned positive integer with leading and trailing whitespaces
+        // Leading and trailing whitespaces
         assertParseIndexPresent(" 1 ", 1);
     }
 
@@ -71,21 +70,21 @@ public class ParserUtilTest {
         // No spaces
         assertPreambleListCorrect(1, "abc", Arrays.asList(Optional.of("abc")));
 
-        // Valid string with single space
+        // Single space
         assertPreambleListCorrect(2, "abc 123", Arrays.asList(Optional.of("abc"), Optional.of("123")));
 
-        // Valid string with multiple spaces
+        // Multiple spaces
         assertPreambleListCorrect(2, "abc     123", Arrays.asList(Optional.of("abc"), Optional.of("123")));
 
-        // String with more whitespaces than numFields
+        // More whitespaces than numFields
         assertPreambleListCorrect(2, "abc 123 qwe 456", Arrays.asList(Optional.of("abc"), Optional.of("123 qwe 456")));
 
-        // String with more numFields than whitespaces
+        // More numFields than whitespaces
         assertPreambleListCorrect(2, "abc", Arrays.asList(Optional.of("abc"), Optional.empty()));
     }
 
     /**
-     * Splits {@code arg} into ordered fields of size {@code numFields}
+     * Splits {@code toSplit} into ordered fields of size {@code numFields}
      * and checks if the result is the same as {@code expectedValues}
      */
     private void assertPreambleListCorrect(int numFields, String toSplit, List<Optional<String>> expectedValues) {
@@ -115,10 +114,10 @@ public class ParserUtilTest {
 
     @Test
     public void parseName_validArg_returnsName() throws Exception {
-        String argName = "Name 123";
-        Optional<Name> name = ParserUtil.parseName(Optional.of(argName));
+        String validName = "Name 123";
+        Optional<Name> name = ParserUtil.parseName(Optional.of(validName));
 
-        assertEquals(name.get().toString(), argName);
+        assertEquals(name.get().toString(), validName);
     }
 
     @Test
@@ -142,10 +141,10 @@ public class ParserUtilTest {
 
     @Test
     public void parsePhone_validArg_returnsPhone() throws Exception {
-        String argPhone = "123";
-        Optional<Phone> phone = ParserUtil.parsePhone(Optional.of(argPhone));
+        String validPhone = "123";
+        Optional<Phone> phone = ParserUtil.parsePhone(Optional.of(validPhone));
 
-        assertEquals(phone.get().toString(), argPhone);
+        assertEquals(phone.get().toString(), validPhone);
     }
 
     @Test
@@ -169,10 +168,10 @@ public class ParserUtilTest {
 
     @Test
     public void parseAddress_validArg_returnsAddress() throws Exception {
-        String argAddress = "Address 123 #0505";
-        Optional<Address> address = ParserUtil.parseAddress(Optional.of(argAddress));
+        String validAddress = "Address 123 #0505";
+        Optional<Address> address = ParserUtil.parseAddress(Optional.of(validAddress));
 
-        assertEquals(address.get().toString(), argAddress);
+        assertEquals(address.get().toString(), validAddress);
     }
 
     @Test
@@ -196,10 +195,10 @@ public class ParserUtilTest {
 
     @Test
     public void parseEmail_validArg_returnsEmail() throws Exception {
-        String argEmail = "Email@123";
-        Optional<Email> email = ParserUtil.parseEmail(Optional.of(argEmail));
+        String validEmail = "Email@123";
+        Optional<Email> email = ParserUtil.parseEmail(Optional.of(validEmail));
 
-        assertEquals(email.get().toString(), argEmail);
+        assertEquals(email.get().toString(), validEmail);
     }
 
     @Test
@@ -216,8 +215,7 @@ public class ParserUtilTest {
 
     @Test
     public void parseTags_emptyCollection_returnsEmptySet() throws Exception {
-        Collection<String> argTags = new ArrayList<String>();
-        Set<Tag> tags = ParserUtil.parseTags(argTags);
+        Set<Tag> tags = ParserUtil.parseTags(new ArrayList<String>());
 
         assertTrue(tags.isEmpty());
     }
@@ -225,11 +223,11 @@ public class ParserUtilTest {
     @Test
     public void parseTags_validCollection_returnsTagList() throws Exception {
         Set<Tag> tags = ParserUtil.parseTags(Arrays.asList("tag1", "tag2"));
+        // Convert tags into a set of tagNames
+        Set<String> actualSet = tags.stream().map(tag -> tag.tagName).collect(Collectors.toSet());
 
         Set<String> expectedSet = new HashSet<String>(Arrays.asList("tag1", "tag2"));
-        // Convert tags into a set of tagNames
-        Set<String> tagsString = tags.stream().map(tag -> tag.tagName).collect(Collectors.toSet());
 
-        assertEquals(tagsString, expectedSet);
+        assertEquals(actualSet, expectedSet);
     }
 }
