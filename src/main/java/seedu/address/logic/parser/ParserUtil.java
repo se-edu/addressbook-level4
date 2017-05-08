@@ -40,7 +40,7 @@ public class ParserUtil {
     *         the input, {@code Optional.empty()} otherwise.
     */
     public static List<Optional<String>> splitPreamble(String preamble, int numFields) {
-        return Arrays.stream(Arrays.copyOf(preamble.split("\\s+", numFields), numFields))
+        return Arrays.stream(Arrays.copyOf(preamble.trim().split("\\s+", numFields), numFields))
                 .map(Optional::ofNullable)
                 .collect(Collectors.toList());
     }
