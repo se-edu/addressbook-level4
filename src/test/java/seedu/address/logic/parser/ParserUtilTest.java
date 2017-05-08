@@ -27,12 +27,12 @@ public class ParserUtilTest {
     public final ExpectedException thrown = ExpectedException.none();
 
     @Test
-    public void parseIndex_invalidInput_notPresent() {
+    public void parseIndex_invalidInput_throwsIllegalValueException() throws Exception {
         assertParseIndexNotPresent("abc");
     }
 
     @Test
-    public void parseIndex_validInput_present() {
+    public void parseIndex_validInput_present() throws Exception {
         // No whitespaces
         assertParseIndexPresent("1", 1);
 
@@ -41,25 +41,22 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void splitPreamble_nullPreamble_throwsAssertionError() {
-        thrown.expect(AssertionError.class);
+    public void splitPreamble_nullPreamble_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
         ParserUtil.splitPreamble(null, 0);
     }
 
     @Test
-    public void splitPreamble_negativeNumFields_throwsAssertionError() {
-        thrown.expect(AssertionError.class);
+    public void splitPreamble_negativeNumFields_throwsNegativeArraySizeException() {
+        thrown.expect(NegativeArraySizeException.class);
         ParserUtil.splitPreamble("abc", -1);
     }
 
     @Test
-    public void splitPreamble_zeroNumFields_throwsAssertionError() {
-        thrown.expect(AssertionError.class);
-        ParserUtil.splitPreamble("", 0);
-    }
-
-    @Test
     public void splitPreamble_validInput_success() {
+        // Zero numFields
+        assertPreambleListCorrect(" ", 0, Arrays.asList());
+
         // Empty string
         assertPreambleListCorrect("", 1, Arrays.asList(Optional.of("")));
 
@@ -210,15 +207,17 @@ public class ParserUtilTest {
     /**
      * Asserts {@code index} is unsuccessfully parsed
      */
-    private void assertParseIndexNotPresent(String index) {
-        assertFalse(ParserUtil.parseIndex(index).isPresent());
+    private void assertParseIndexNotPresent(String index) throws Exception {
+        thrown.expect(IllegalValueException.class);
+        ParserUtil.parseIndex(index);
     }
 
     /**
      * Asserts {@code index} is successfully parsed and the parsed value equals to {@code expectedValue}
      */
-    private void assertParseIndexPresent(String index, Integer expectedValue) {
-        assertEquals(expectedValue, ParserUtil.parseIndex(index).get());
+    private void assertParseIndexPresent(String index, Integer expectedValue) throws Exception {
+        Integer actualValue = ParserUtil.parseIndex(index);
+        assertEquals(expectedValue, actualValue);
     }
 
     /**
