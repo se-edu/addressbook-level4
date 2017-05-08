@@ -40,52 +40,43 @@ public class ParserUtilTest {
         assertParseIndexPresent(" 1 ", 1);
     }
 
-    /**
-     * Asserts {@code index} is unsuccessfully parsed
-     */
-    private void assertParseIndexNotPresent(String index) {
-        assertFalse(ParserUtil.parseIndex(index).isPresent());
-    }
-
-    /**
-     * Asserts {@code index} is successfully parsed and the parsed value equals to {@code expectedValue}
-     */
-    private void assertParseIndexPresent(String index, Integer expectedValue) {
-        assertEquals(expectedValue, ParserUtil.parseIndex(index).get());
+    @Test
+    public void splitPreamble_nullPreamble_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        ParserUtil.splitPreamble(null, 0);
     }
 
     @Test
-    public void splitPreamble() {
-        // Empty string
-        assertPreambleListCorrect(0, "", Arrays.asList());
-
-        // Whitespaces only
-        assertPreambleListCorrect(2, " ", Arrays.asList(Optional.of(""), Optional.of("")));
-
-        // No whitespaces
-        assertPreambleListCorrect(1, "abc", Arrays.asList(Optional.of("abc")));
-
-        // Single whitespace
-        assertPreambleListCorrect(2, "abc 123", Arrays.asList(Optional.of("abc"), Optional.of("123")));
-
-        // Multiple whitespaces
-        assertPreambleListCorrect(2, "abc     123", Arrays.asList(Optional.of("abc"), Optional.of("123")));
-
-        // More whitespaces than numFields
-        assertPreambleListCorrect(2, "abc 123 qwe 456", Arrays.asList(Optional.of("abc"), Optional.of("123 qwe 456")));
-
-        // More numFields than whitespaces
-        assertPreambleListCorrect(2, "abc", Arrays.asList(Optional.of("abc"), Optional.empty()));
+    public void splitPreamble_negativeNumFields_throwsNegativeArraySizeException() {
+        thrown.expect(NegativeArraySizeException.class);
+        ParserUtil.splitPreamble("abc", -1);
     }
 
-    /**
-     * Splits {@code toSplit} into ordered fields of size {@code numFields}
-     * and checks if the result is the same as {@code expectedValues}
-     */
-    private void assertPreambleListCorrect(int numFields, String toSplit, List<Optional<String>> expectedValues) {
-        List<Optional<String>> list = ParserUtil.splitPreamble(toSplit, numFields);
+    @Test
+    public void splitPreamble_validInput_success() {
+        // Zero numFields
+        assertPreambleListCorrect("", 0, Arrays.asList());
 
-        assertTrue(list.equals(expectedValues));
+        // Empty string
+        assertPreambleListCorrect("", 1, Arrays.asList(Optional.of("")));
+
+        // Whitespaces only
+        assertPreambleListCorrect(" ", 2, Arrays.asList(Optional.of(""), Optional.of("")));
+
+        // No whitespaces
+        assertPreambleListCorrect("abc", 1, Arrays.asList(Optional.of("abc")));
+
+        // Single whitespace
+        assertPreambleListCorrect("abc 123", 2, Arrays.asList(Optional.of("abc"), Optional.of("123")));
+
+        // Multiple whitespaces
+        assertPreambleListCorrect("abc     123", 2, Arrays.asList(Optional.of("abc"), Optional.of("123")));
+
+        // More whitespaces than numFields
+        assertPreambleListCorrect("abc 123 qwe 456", 2, Arrays.asList(Optional.of("abc"), Optional.of("123 qwe 456")));
+
+        // More numFields than whitespaces
+        assertPreambleListCorrect("abc", 2, Arrays.asList(Optional.of("abc"), Optional.empty()));
     }
 
     @Test
@@ -211,5 +202,29 @@ public class ParserUtilTest {
         Set<Tag> expectedTagSet = new HashSet<Tag>(Arrays.asList(new Tag("tag1"), new Tag("tag2")));
 
         assertEquals(expectedTagSet, actualTagSet);
+    }
+
+    /**
+     * Asserts {@code index} is unsuccessfully parsed
+     */
+    private void assertParseIndexNotPresent(String index) {
+        assertFalse(ParserUtil.parseIndex(index).isPresent());
+    }
+
+    /**
+     * Asserts {@code index} is successfully parsed and the parsed value equals to {@code expectedValue}
+     */
+    private void assertParseIndexPresent(String index, Integer expectedValue) {
+        assertEquals(expectedValue, ParserUtil.parseIndex(index).get());
+    }
+
+    /**
+     * Splits {@code toSplit} into ordered fields of size {@code numFields}
+     * and checks if the result is the same as {@code expectedValues}
+     */
+    private void assertPreambleListCorrect(String preamble, int numFields, List<Optional<String>> expectedValues) {
+        List<Optional<String>> list = ParserUtil.splitPreamble(preamble, numFields);
+
+        assertTrue(list.equals(expectedValues));
     }
 }
