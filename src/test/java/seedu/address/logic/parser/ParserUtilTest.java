@@ -33,6 +33,12 @@ public class ParserUtilTest {
     }
 
     @Test
+    public void parseIndex_mixedInput_throwsIllegalValueException() throws Exception {
+        thrown.expect(IllegalValueException.class);
+        ParserUtil.parseIndex("10 a");
+    }
+
+    @Test
     public void parseIndex_validInput_success() throws Exception {
         // No whitespaces
         assertEquals(1, ParserUtil.parseIndex("1"));
@@ -56,13 +62,19 @@ public class ParserUtilTest {
     @Test
     public void splitPreamble_validInput_success() {
         // Zero numFields
-        assertPreambleListCorrect(" ", 0, Arrays.asList());
+        assertPreambleListCorrect("abc", 0, Arrays.asList());
 
         // Empty string
         assertPreambleListCorrect("", 1, Arrays.asList(Optional.of("")));
 
         // Whitespaces only
         assertPreambleListCorrect(" ", 2, Arrays.asList(Optional.of(""), Optional.of("")));
+
+        // Leading whitespace
+        assertPreambleListCorrect(" abc 123", 2, Arrays.asList(Optional.of(""), Optional.of("abc 123")));
+
+        // Trailing whitespace
+        assertPreambleListCorrect("abc 123 ", 2, Arrays.asList(Optional.of("abc"), Optional.of("123 ")));
 
         // No whitespaces
         assertPreambleListCorrect("abc", 1, Arrays.asList(Optional.of("abc")));
@@ -87,7 +99,7 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parseName_invalidArg_throwsIllegalValueException() throws Exception {
+    public void parseName_invalidValue_throwsIllegalValueException() throws Exception {
         thrown.expect(IllegalValueException.class);
         ParserUtil.parseName(Optional.of("$*%"));
     }
@@ -98,7 +110,7 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parseName_validArg_returnsName() throws Exception {
+    public void parseName_validValue_returnsName() throws Exception {
         Name expectedName = new Name("Name 123");
         Optional<Name> actualName = ParserUtil.parseName(Optional.of("Name 123"));
 
@@ -112,7 +124,7 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parsePhone_invalidArg_throwsIllegalValueException() throws Exception {
+    public void parsePhone_invalidValue_throwsIllegalValueException() throws Exception {
         thrown.expect(IllegalValueException.class);
         ParserUtil.parsePhone(Optional.of("$*%"));
     }
@@ -123,7 +135,7 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parsePhone_validArg_returnsPhone() throws Exception {
+    public void parsePhone_validValue_returnsPhone() throws Exception {
         Phone expectedPhone = new Phone("123");
         Optional<Phone> actualPhone = ParserUtil.parsePhone(Optional.of("123"));
 
@@ -137,7 +149,7 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parseAddress_invalidArg_throwsIllegalValueException() throws Exception {
+    public void parseAddress_invalidValue_throwsIllegalValueException() throws Exception {
         thrown.expect(IllegalValueException.class);
         ParserUtil.parseAddress(Optional.of(" "));
     }
@@ -148,7 +160,7 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parseAddress_validArg_returnsAddress() throws Exception {
+    public void parseAddress_validValue_returnsAddress() throws Exception {
         Address expectedAddress = new Address("Address 123 #0505");
         Optional<Address> actualAddress = ParserUtil.parseAddress(Optional.of("Address 123 #0505"));
 
@@ -162,7 +174,7 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parseEmail_invalidArg_throwsIllegalValueException() throws Exception {
+    public void parseEmail_invalidValue_throwsIllegalValueException() throws Exception {
         thrown.expect(IllegalValueException.class);
         ParserUtil.parseEmail(Optional.of("$*%"));
     }
@@ -173,7 +185,7 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parseEmail_validArg_returnsEmail() throws Exception {
+    public void parseEmail_validValue_returnsEmail() throws Exception {
         Email expectedEmail = new Email("Email@123");
         Optional<Email> actualEmail = ParserUtil.parseEmail(Optional.of("Email@123"));
 
@@ -198,7 +210,7 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parseTags_validCollection_returnsTagList() throws Exception {
+    public void parseTags_collectionWithValidTags_returnsTagSet() throws Exception {
         Set<Tag> actualTagSet = ParserUtil.parseTags(Arrays.asList("tag1", "tag2"));
         Set<Tag> expectedTagSet = new HashSet<Tag>(Arrays.asList(new Tag("tag1"), new Tag("tag2")));
 
