@@ -7,6 +7,7 @@ import static org.junit.Assert.assertTrue;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.Set;
 
@@ -106,6 +107,25 @@ public class ParserUtilTest {
         List<Optional<String>> list = ParserUtil.splitPreamble(argsPreamble, argsNumFields);
 
         assertPreambleListCorrect(list, "abc", "123");
+    }
+
+    @Test
+    public void splitPreamble_fewerNumFieldsThanValues() {
+        String argsPreamble = "abc 123 qwe 456";
+        int argsNumFields = 2;
+        List<Optional<String>> list = ParserUtil.splitPreamble(argsPreamble, argsNumFields);
+
+        assertPreambleListCorrect(list, "abc", "123 qwe 456");
+    }
+
+    @Test
+    public void splitPreamble_moreNumFieldsThanValues() {
+        String argsPreamble = "abc 123";
+        int argsNumFields = 3;
+        List<Optional<String>> list = ParserUtil.splitPreamble(argsPreamble, argsNumFields);
+
+        thrown.expect(NoSuchElementException.class);
+        assertPreambleListCorrect(list, "abc", "123", "");
     }
 
     @Test
