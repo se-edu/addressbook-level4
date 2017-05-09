@@ -67,6 +67,11 @@ public class EditCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
         model.updateFilteredListToShowAll();
+
+        if (editPersonDescriptor.getPhone().size() > 1 || editPersonDescriptor.getAddress().size() > 1
+                || editPersonDescriptor.getEmail().size() > 1) {
+            return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, personToEdit, "WARNING"));
+        }
         return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, personToEdit));
     }
 
