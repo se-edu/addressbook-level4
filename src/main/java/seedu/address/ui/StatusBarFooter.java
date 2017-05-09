@@ -9,11 +9,10 @@ import org.controlsfx.control.StatusBar;
 import com.google.common.eventbus.Subscribe;
 
 import javafx.fxml.FXML;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.StackPane;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
-import seedu.address.commons.util.FxViewUtil;
 
 /**
  * A ui for the status bar that is displayed at the footer of the application.
@@ -43,7 +42,7 @@ public class StatusBarFooter extends UiPart<Region> {
     private StatusBar saveLocationStatus;
 
 
-    public StatusBarFooter(AnchorPane placeHolder, String saveLocation) {
+    public StatusBarFooter(StackPane placeHolder, String saveLocation) {
         super(FXML);
         addToPlaceholder(placeHolder);
         setSyncStatus(SYNC_STATUS_INITIAL);
@@ -65,8 +64,7 @@ public class StatusBarFooter extends UiPart<Region> {
         return clock;
     }
 
-    private void addToPlaceholder(AnchorPane placeHolder) {
-        FxViewUtil.applyAnchorBoundaryParameters(getRoot(), 0.0, 0.0, 0.0, 0.0);
+    private void addToPlaceholder(StackPane placeHolder) {
         placeHolder.getChildren().add(getRoot());
     }
 
