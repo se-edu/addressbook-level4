@@ -34,6 +34,8 @@ public class EditCommand extends Command {
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
+    public static final String MESSAGE_MULTIPLE_VALUES_WARNING = "Warning: Multiple values of the same field entered. "
+            + "Only the last field has been stored.\n";
 
     private final int filteredPersonListIndex;
     private final EditPersonDescriptor editPersonDescriptor;
@@ -68,9 +70,9 @@ public class EditCommand extends Command {
         }
         model.updateFilteredListToShowAll();
 
-        if (editPersonDescriptor.getPhone().size() > 1 || editPersonDescriptor.getAddress().size() > 1
-                || editPersonDescriptor.getEmail().size() > 1) {
-            return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, personToEdit, "WARNING"));
+        if (editPersonDescriptor.hasMultipleValues()) {
+            return new CommandResult(
+                    MESSAGE_MULTIPLE_VALUES_WARNING + String.format(MESSAGE_EDIT_PERSON_SUCCESS, personToEdit));
         }
         return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, personToEdit));
     }
@@ -84,15 +86,12 @@ public class EditCommand extends Command {
         assert personToEdit != null;
 
         Name updatedName = editPersonDescriptor.getName().orElseGet(personToEdit::getName);
-        int numPhones = editPersonDescriptor.getPhone().size();
-        Phone updatedPhone = numPhones == 0 ? personToEdit.getPhone()
-                : editPersonDescriptor.getPhone().get(numPhones - 1);
-        int numEmails = editPersonDescriptor.getEmail().size();
-        Email updatedEmail = numEmails == 0 ? personToEdit.getEmail()
-                : editPersonDescriptor.getEmail().get(numEmails - 1);
-        int numAddresses = editPersonDescriptor.getAddress().size();
-        Address updatedAddress = numAddresses == 0 ? personToEdit.getAddress()
-                : editPersonDescriptor.getAddress().get(numAddresses - 1);
+        Phone updatedPhone = editPersonDescriptor.getPhone().size() == 0 ? personToEdit.getPhone()
+                : editPersonDescriptor.getLastPhone();
+        Email updatedEmail = editPersonDescriptor.getEmail().size() == 0 ? personToEdit.getEmail()
+                : editPersonDescriptor.getLastEmail();
+        Address updatedAddress = editPersonDescriptor.getAddress().size() == 0 ? personToEdit.getAddress()
+                : editPersonDescriptor.getLastAddress();
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElseGet(personToEdit::getTags);
 
         return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
@@ -127,6 +126,13 @@ public class EditCommand extends Command {
                     || !address.isEmpty();
         }
 
+        /**
+         * Returns true if {@code phone, email} or {@code address} has multiple values.
+         */
+        public boolean hasMultipleValues() {
+            return phone.size() > 1 || email.size() > 1 || address.size() > 1;
+        }
+
         public void setName(Optional<Name> name) {
             assert name != null;
             this.name = name;
@@ -145,6 +151,10 @@ public class EditCommand extends Command {
             return phone;
         }
 
+        public Phone getLastPhone() {
+            return phone.get(phone.size() - 1);
+        }
+
         public void setEmail(List<Email> email) {
             assert email != null;
             this.email = email;
@@ -154,6 +164,10 @@ public class EditCommand extends Command {
             return email;
         }
 
+        public Email getLastEmail() {
+            return email.get(email.size() - 1);
+        }
+
         public void setAddress(List<Address> address) {
             assert address != null;
             this.address = address;
@@ -161,6 +175,10 @@ public class EditCommand extends Command {
 
         public List<Address> getAddress() {
             return address;
+        }
+
+        public Address getLastAddress() {
+            return address.get(address.size() - 1);
         }
 
         public void setTags(Optional<Set<Tag>> tags) {
