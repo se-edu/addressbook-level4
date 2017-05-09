@@ -8,6 +8,7 @@ import java.util.Set;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.commons.util.IndexUtil;
+import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
@@ -34,6 +35,8 @@ public class EditCommand extends Command {
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
+    public static final String MESSAGE_MULTIPLE_VALUES_WARNING = "Warning: Multiple %s values entered. "
+            + "Only the last instance of %s has been stored.\n";
 
     private final int filteredPersonListIndex;
     private final EditPersonDescriptor editPersonDescriptor;
@@ -67,7 +70,24 @@ public class EditCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
         model.updateFilteredListToShowAll();
-        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, personToEdit));
+
+        return new CommandResult(formatResultMessage(personToEdit));
+    }
+
+    /**
+     * Returns the result message from successfully executing EditCommand. Also includes warning messages
+     * to the user if the user entered multiple values for a single field.
+     */
+    private String formatResultMessage(ReadOnlyPerson personToEdit) {
+        String message = String.format(MESSAGE_EDIT_PERSON_SUCCESS, personToEdit);
+        if (!editPersonDescriptor.hasMultipleValues()) {
+            return message;
+        }
+
+        ArrayList<String> fieldsWithMultipleValues = editPersonDescriptor.getFieldsWithMultipleValues();
+        String toFormat = StringUtil.joinStrings(fieldsWithMultipleValues);
+
+        return String.format(MESSAGE_MULTIPLE_VALUES_WARNING, toFormat, toFormat) + message;
     }
 
     /**
@@ -116,6 +136,48 @@ public class EditCommand extends Command {
         public boolean isAnyFieldEdited() {
             return CollectionUtil.isAnyPresent(this.name, this.tags) || !phones.isEmpty() || !emails.isEmpty()
                     || !addresses.isEmpty();
+        }
+
+        /**
+         * Returns true if {@code phone, email} or {@code address} has multiple values.
+         */
+        public boolean hasMultipleValues() {
+            return hasMultiplePhones() || hasMultipleEmails() || hasMultipleAddresses();
+        }
+
+        public boolean hasMultiplePhones() {
+            return phones.size() > 1;
+        }
+
+        public boolean hasMultipleEmails() {
+            return emails.size() > 1;
+        }
+
+        public boolean hasMultipleAddresses() {
+            return addresses.size() > 1;
+        }
+
+        /**
+         * Returns an {@code ArrayList<String>} containing the names of classes
+         * with multiple values. The possible classes are: {@code Phone, Email}
+         * and {@code Address}.
+         */
+        public ArrayList<String> getFieldsWithMultipleValues() {
+            ArrayList<String> fieldsWithMultipleValues = new ArrayList<>();
+
+            if (hasMultiplePhones()) {
+                fieldsWithMultipleValues.add(Phone.class.getSimpleName());
+            }
+
+            if (hasMultipleEmails()) {
+                fieldsWithMultipleValues.add(Email.class.getSimpleName());
+            }
+
+            if (hasMultipleAddresses()) {
+                fieldsWithMultipleValues.add(Address.class.getSimpleName());
+            }
+
+            return fieldsWithMultipleValues;
         }
 
         public void setName(Optional<Name> name) {
