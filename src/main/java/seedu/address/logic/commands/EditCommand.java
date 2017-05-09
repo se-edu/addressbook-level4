@@ -1,5 +1,6 @@
 package seedu.address.logic.commands;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -78,9 +79,12 @@ public class EditCommand extends Command {
         assert personToEdit != null;
 
         Name updatedName = editPersonDescriptor.getName().orElseGet(personToEdit::getName);
-        Phone updatedPhone = editPersonDescriptor.getPhone().orElseGet(personToEdit::getPhone);
-        Email updatedEmail = editPersonDescriptor.getEmail().orElseGet(personToEdit::getEmail);
-        Address updatedAddress = editPersonDescriptor.getAddress().orElseGet(personToEdit::getAddress);
+        Phone updatedPhone = editPersonDescriptor.getPhone().size() == 0 ? personToEdit.getPhone()
+                : editPersonDescriptor.getLastPhone();
+        Email updatedEmail = editPersonDescriptor.getEmail().size() == 0 ? personToEdit.getEmail()
+                : editPersonDescriptor.getLastEmail();
+        Address updatedAddress = editPersonDescriptor.getAddress().size() == 0 ? personToEdit.getAddress()
+                : editPersonDescriptor.getLastAddress();
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElseGet(personToEdit::getTags);
 
         return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
@@ -92,9 +96,9 @@ public class EditCommand extends Command {
      */
     public static class EditPersonDescriptor {
         private Optional<Name> name = Optional.empty();
-        private Optional<Phone> phone = Optional.empty();
-        private Optional<Email> email = Optional.empty();
-        private Optional<Address> address = Optional.empty();
+        private List<Phone> phone = new ArrayList<>();
+        private List<Email> email = new ArrayList<>();
+        private List<Address> address = new ArrayList<>();
         private Optional<Set<Tag>> tags = Optional.empty();
 
         public EditPersonDescriptor() {}
@@ -111,7 +115,8 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyPresent(this.name, this.phone, this.email, this.address, this.tags);
+            return CollectionUtil.isAnyPresent(this.name, this.tags) || !phone.isEmpty() || !email.isEmpty()
+                    || !address.isEmpty();
         }
 
         public void setName(Optional<Name> name) {
@@ -123,31 +128,43 @@ public class EditCommand extends Command {
             return name;
         }
 
-        public void setPhone(Optional<Phone> phone) {
+        public void setPhone(List<Phone> phone) {
             assert phone != null;
             this.phone = phone;
         }
 
-        public Optional<Phone> getPhone() {
+        public List<Phone> getPhone() {
             return phone;
         }
 
-        public void setEmail(Optional<Email> email) {
+        public Phone getLastPhone() {
+            return phone.get(phone.size() - 1);
+        }
+
+        public void setEmail(List<Email> email) {
             assert email != null;
             this.email = email;
         }
 
-        public Optional<Email> getEmail() {
+        public List<Email> getEmail() {
             return email;
         }
 
-        public void setAddress(Optional<Address> address) {
+        public Email getLastEmail() {
+            return email.get(email.size() - 1);
+        }
+
+        public void setAddress(List<Address> address) {
             assert address != null;
             this.address = address;
         }
 
-        public Optional<Address> getAddress() {
+        public List<Address> getAddress() {
             return address;
+        }
+
+        public Address getLastAddress() {
+            return address.get(address.size() - 1);
         }
 
         public void setTags(Optional<Set<Tag>> tags) {
