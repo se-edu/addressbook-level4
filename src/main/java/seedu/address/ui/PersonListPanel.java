@@ -8,8 +8,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.SplitPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
-import javafx.scene.layout.StackPane;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
 import seedu.address.model.person.ReadOnlyPerson;
@@ -24,7 +24,7 @@ public class PersonListPanel extends UiPart<Region> {
     @FXML
     private ListView<ReadOnlyPerson> personListView;
 
-    public PersonListPanel(StackPane personListPlaceholder, ObservableList<ReadOnlyPerson> personList) {
+    public PersonListPanel(Pane personListPlaceholder, ObservableList<ReadOnlyPerson> personList) {
         super(FXML);
         setConnections(personList);
         addToPlaceholder(personListPlaceholder);
@@ -36,7 +36,7 @@ public class PersonListPanel extends UiPart<Region> {
         setEventHandlerForSelectionChangeEvent();
     }
 
-    private void addToPlaceholder(StackPane placeHolderPane) {
+    private void addToPlaceholder(Pane placeHolderPane) {
         SplitPane.setResizableWithParent(placeHolderPane, false);
         placeHolderPane.getChildren().add(getRoot());
     }

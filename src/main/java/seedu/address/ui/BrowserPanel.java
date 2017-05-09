@@ -4,8 +4,8 @@ import java.net.URL;
 
 import javafx.event.Event;
 import javafx.fxml.FXML;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
-import javafx.scene.layout.StackPane;
 import javafx.scene.web.WebView;
 import seedu.address.MainApp;
 import seedu.address.model.person.ReadOnlyPerson;
@@ -22,9 +22,9 @@ public class BrowserPanel extends UiPart<Region> {
     private WebView browser;
 
     /**
-     * @param placeholder The StackPane where the BrowserPanel must be inserted
+     * @param placeholder The Pane where the BrowserPanel must be inserted
      */
-    public BrowserPanel(StackPane placeholder) {
+    public BrowserPanel(Pane placeholder) {
         super(FXML);
 
         // To prevent triggering events for typing inside the loaded Web page.

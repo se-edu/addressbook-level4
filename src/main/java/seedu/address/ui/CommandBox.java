@@ -6,8 +6,8 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
-import javafx.scene.layout.StackPane;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.NewResultAvailableEvent;
 import seedu.address.logic.Logic;
@@ -25,13 +25,13 @@ public class CommandBox extends UiPart<Region> {
     @FXML
     private TextField commandTextField;
 
-    public CommandBox(StackPane commandBoxPlaceholder, Logic logic) {
+    public CommandBox(Pane commandBoxPlaceholder, Logic logic) {
         super(FXML);
         this.logic = logic;
         addToPlaceholder(commandBoxPlaceholder);
     }
 
-    private void addToPlaceholder(StackPane placeHolderPane) {
+    private void addToPlaceholder(Pane placeHolderPane) {
         SplitPane.setResizableWithParent(placeHolderPane, false);
         placeHolderPane.getChildren().add(commandTextField);
     }
