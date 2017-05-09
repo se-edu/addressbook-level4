@@ -1,7 +1,9 @@
 package seedu.address.commons.util;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
@@ -30,6 +32,10 @@ public class CollectionUtil {
      */
     public static boolean isAnyPresent(Optional<?>... items) {
         return Stream.of(items).anyMatch(Optional::isPresent);
+    }
+
+    public static boolean isAnyNonEmpty(List<?>... lists) {
+        return Arrays.stream(lists).anyMatch(list -> !list.isEmpty());
     }
 
     /**
