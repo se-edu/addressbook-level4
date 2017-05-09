@@ -80,8 +80,10 @@ public class EditCommandTest extends AddressBookGuiTest {
         Person personToEdit = expectedPersonsList[IndexUtil.oneToZeroIndex(addressBookIndex)];
         Person editedPerson = new PersonBuilder(personToEdit).withPhone(phoneNumber).build();
 
+        String fieldWithMultipleValues = "Phone";
         assertEditSuccess(addressBookIndex, addressBookIndex, detailsToEdit, editedPerson,
-                String.format(EditCommand.MESSAGE_MULTIPLE_VALUES_WARNING, "Phones", "Phone")
+                String.format(EditCommand.MESSAGE_MULTIPLE_VALUES_WARNING, fieldWithMultipleValues,
+                        fieldWithMultipleValues)
                         + String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson));
     }
 
@@ -95,8 +97,10 @@ public class EditCommandTest extends AddressBookGuiTest {
         Person personToEdit = expectedPersonsList[IndexUtil.oneToZeroIndex(addressBookIndex)];
         Person editedPerson = new PersonBuilder(personToEdit).withEmail(emailAddress).withAddress(address).build();
 
+        String fieldsWithMultipleValues = "Email and Address";
         assertEditSuccess(addressBookIndex, addressBookIndex, detailsToEdit, editedPerson,
-                String.format(EditCommand.MESSAGE_MULTIPLE_VALUES_WARNING, "Emails and Addresses", "Email and Address")
+                String.format(EditCommand.MESSAGE_MULTIPLE_VALUES_WARNING, fieldsWithMultipleValues,
+                        fieldsWithMultipleValues)
                         + String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson));
     }
 
@@ -113,9 +117,10 @@ public class EditCommandTest extends AddressBookGuiTest {
         Person editedPerson = new PersonBuilder(personToEdit).withEmail(emailAddress).withAddress(address)
                 .withPhone(phoneNumber).build();
 
+        String fieldsWithMultipleValues = "Phone, Email and Address";
         assertEditSuccess(addressBookIndex, addressBookIndex, detailsToEdit, editedPerson,
-                String.format(EditCommand.MESSAGE_MULTIPLE_VALUES_WARNING, "Phones, Emails and Addresses",
-                        "Phone, Email and Address")
+                String.format(EditCommand.MESSAGE_MULTIPLE_VALUES_WARNING, fieldsWithMultipleValues,
+                        fieldsWithMultipleValues)
                         + String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson));
     }
 

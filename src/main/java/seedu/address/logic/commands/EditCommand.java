@@ -34,7 +34,7 @@ public class EditCommand extends Command {
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
-    public static final String MESSAGE_MULTIPLE_VALUES_WARNING = "Warning: Multiple %s entered. "
+    public static final String MESSAGE_MULTIPLE_VALUES_WARNING = "Warning: Multiple %s values entered. "
             + "Only the last instance of %s has been stored.\n";
 
     private final int filteredPersonListIndex;
@@ -73,48 +73,60 @@ public class EditCommand extends Command {
         return new CommandResult(formatResultMessage(personToEdit));
     }
 
+    /**
+     * Formats the message after EditCommand has been successfully executed. Also informs the user
+     * when multiple values have been entered into a field.
+     */
     private String formatResultMessage(ReadOnlyPerson personToEdit) {
         String message = String.format(MESSAGE_EDIT_PERSON_SUCCESS, personToEdit);
         if (!editPersonDescriptor.hasMultipleValues()) {
             return message;
         }
 
-        ArrayList<String> fieldsWithMultipleValuesPlural = new ArrayList<>();
-        ArrayList<String> fieldsWithMultipleValuesSingular = new ArrayList<>();
+        ArrayList<String> fieldsWithMultipleValues = getFieldsWithRepeatedValues();
+        String toFormat = joinFields(fieldsWithMultipleValues);
+
+        return String.format(MESSAGE_MULTIPLE_VALUES_WARNING, toFormat, toFormat) + message;
+    }
+
+    /**
+     * Returns an {@code ArrayList<String>} containing the names of classes
+     * (Phone, Email, Address) with repeated values.
+     */
+    private ArrayList<String> getFieldsWithRepeatedValues() {
+        ArrayList<String> fieldsWithMultipleValues = new ArrayList<>();
 
         if (editPersonDescriptor.hasMultiplePhones()) {
-            fieldsWithMultipleValuesPlural.add("Phones");
-            fieldsWithMultipleValuesSingular.add("Phone");
+            fieldsWithMultipleValues.add(Phone.class.getSimpleName());
         }
 
         if (editPersonDescriptor.hasMultipleEmails()) {
-            fieldsWithMultipleValuesPlural.add("Emails");
-            fieldsWithMultipleValuesSingular.add("Email");
+            fieldsWithMultipleValues.add(Email.class.getSimpleName());
         }
 
         if (editPersonDescriptor.hasMultipleAddresses()) {
-            fieldsWithMultipleValuesPlural.add("Addresses");
-            fieldsWithMultipleValuesSingular.add("Address");
+            fieldsWithMultipleValues.add(Address.class.getSimpleName());
         }
 
-        String toFormatPlural;
-        String toFormatSingular;
+        return fieldsWithMultipleValues;
+    }
 
-        if (fieldsWithMultipleValuesPlural.size() == 1) {
-            toFormatPlural = fieldsWithMultipleValuesPlural.get(0);
-            toFormatSingular = fieldsWithMultipleValuesSingular.get(0);
-        } else if (fieldsWithMultipleValuesPlural.size() == 2) {
-            toFormatPlural = fieldsWithMultipleValuesPlural.get(0) + " and " + fieldsWithMultipleValuesPlural.get(1);
-            toFormatSingular = fieldsWithMultipleValuesSingular.get(0) + " and "
-                    + fieldsWithMultipleValuesSingular.get(1);
-        } else { // size of list == 3
-            toFormatPlural = fieldsWithMultipleValuesPlural.get(0) + ", " + fieldsWithMultipleValuesPlural.get(1)
-                    + " and " + fieldsWithMultipleValuesPlural.get(2);
-            toFormatSingular = fieldsWithMultipleValuesSingular.get(0) + ", " + fieldsWithMultipleValuesSingular.get(1)
-                    + " and " + fieldsWithMultipleValuesSingular.get(2);
+    /**
+     * Joins each element in {@code fieldsWithMultipleValues} with a comma or "and".
+     */
+    // put this in StringUtil?
+    private String joinFields(ArrayList<String> fieldsWithMultipleValues) {
+        StringBuilder toFormat = new StringBuilder();
+        for (int i = 0; i < fieldsWithMultipleValues.size(); i++) {
+            if (i == 0) {
+                toFormat.append(fieldsWithMultipleValues.get(i));
+                continue;
+            }
+
+            String delimiter = i == (fieldsWithMultipleValues.size() - 1) ? " and " : ", ";
+            toFormat.append(delimiter + fieldsWithMultipleValues.get(i));
         }
-
-        return String.format(MESSAGE_MULTIPLE_VALUES_WARNING, toFormatPlural, toFormatSingular) + message;
+        return toFormat.toString();
     }
 
     /**
@@ -128,12 +140,9 @@ public class EditCommand extends Command {
         assert personToEdit != null;
 
         Name updatedName = editPersonDescriptor.getName().orElseGet(personToEdit::getName);
-        Phone updatedPhone = editPersonDescriptor.getPhone().size() == 0 ? personToEdit.getPhone()
-                : editPersonDescriptor.getLastPhone();
-        Email updatedEmail = editPersonDescriptor.getEmail().size() == 0 ? personToEdit.getEmail()
-                : editPersonDescriptor.getLastEmail();
-        Address updatedAddress = editPersonDescriptor.getAddress().size() == 0 ? personToEdit.getAddress()
-                : editPersonDescriptor.getLastAddress();
+        Phone updatedPhone = editPersonDescriptor.getLastPhone().orElseGet(personToEdit::getPhone);
+        Email updatedEmail = editPersonDescriptor.getLastEmail().orElseGet(personToEdit::getEmail);
+        Address updatedAddress = editPersonDescriptor.getLastAddress().orElseGet(personToEdit::getAddress);
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElseGet(personToEdit::getTags);
 
         return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
@@ -205,8 +214,8 @@ public class EditCommand extends Command {
             return phones;
         }
 
-        public Phone getLastPhone() {
-            return phones.get(phones.size() - 1);
+        public Optional<Phone> getLastPhone() {
+            return !phones.isEmpty() ? Optional.of(phones.get(phones.size() - 1)) : Optional.empty();
         }
 
         public void setEmail(List<Email> email) {
@@ -218,8 +227,8 @@ public class EditCommand extends Command {
             return emails;
         }
 
-        public Email getLastEmail() {
-            return emails.get(emails.size() - 1);
+        public Optional<Email> getLastEmail() {
+            return !emails.isEmpty() ? Optional.of(emails.get(emails.size() - 1)) : Optional.empty();
         }
 
         public void setAddress(List<Address> address) {
@@ -231,8 +240,8 @@ public class EditCommand extends Command {
             return addresses;
         }
 
-        public Address getLastAddress() {
-            return addresses.get(addresses.size() - 1);
+        public Optional<Address> getLastAddress() {
+            return !addresses.isEmpty() ? Optional.of(addresses.get(addresses.size() - 1)) : Optional.empty();
         }
 
         public void setTags(Optional<Set<Tag>> tags) {
