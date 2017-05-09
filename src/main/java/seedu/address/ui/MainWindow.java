@@ -43,7 +43,7 @@ public class MainWindow extends UiPart<Region> {
     private StackPane browserPlaceholder;
 
     @FXML
-    private AnchorPane commandBoxPlaceholder;
+    private StackPane commandBoxPlaceholder;
 
     @FXML
     private MenuItem helpMenuItem;
@@ -123,7 +123,7 @@ public class MainWindow extends UiPart<Region> {
         new CommandBox(getCommandBoxPlaceholder(), logic);
     }
 
-    private AnchorPane getCommandBoxPlaceholder() {
+    private StackPane getCommandBoxPlaceholder() {
         return commandBoxPlaceholder;
     }
 
