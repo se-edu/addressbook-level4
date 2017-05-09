@@ -34,6 +34,8 @@ public class EditCommand extends Command {
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
+    public static final String MESSAGE_MULTIPLE_VALUES_WARNING = "Warning: Multiple %s values entered. "
+            + "Only the last instance of %s has been stored.\n";
 
     private final int filteredPersonListIndex;
     private final EditPersonDescriptor editPersonDescriptor;
@@ -67,7 +69,64 @@ public class EditCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
         model.updateFilteredListToShowAll();
-        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, personToEdit));
+
+        return new CommandResult(formatResultMessage(personToEdit));
+    }
+
+    /**
+     * Formats the message after EditCommand has been successfully executed. Also informs the user
+     * when multiple values have been entered into a field.
+     */
+    private String formatResultMessage(ReadOnlyPerson personToEdit) {
+        String message = String.format(MESSAGE_EDIT_PERSON_SUCCESS, personToEdit);
+        if (!editPersonDescriptor.hasMultipleValues()) {
+            return message;
+        }
+
+        ArrayList<String> fieldsWithMultipleValues = getFieldsWithRepeatedValues();
+        String toFormat = joinFields(fieldsWithMultipleValues);
+
+        return String.format(MESSAGE_MULTIPLE_VALUES_WARNING, toFormat, toFormat) + message;
+    }
+
+    /**
+     * Returns an {@code ArrayList<String>} containing the names of classes
+     * (Phone, Email, Address) with repeated values.
+     */
+    private ArrayList<String> getFieldsWithRepeatedValues() {
+        ArrayList<String> fieldsWithMultipleValues = new ArrayList<>();
+
+        if (editPersonDescriptor.hasMultiplePhones()) {
+            fieldsWithMultipleValues.add(Phone.class.getSimpleName());
+        }
+
+        if (editPersonDescriptor.hasMultipleEmails()) {
+            fieldsWithMultipleValues.add(Email.class.getSimpleName());
+        }
+
+        if (editPersonDescriptor.hasMultipleAddresses()) {
+            fieldsWithMultipleValues.add(Address.class.getSimpleName());
+        }
+
+        return fieldsWithMultipleValues;
+    }
+
+    /**
+     * Joins each element in {@code fieldsWithMultipleValues} with a comma or "and".
+     */
+    // put this in StringUtil?
+    private String joinFields(ArrayList<String> fieldsWithMultipleValues) {
+        StringBuilder toFormat = new StringBuilder();
+        for (int i = 0; i < fieldsWithMultipleValues.size(); i++) {
+            if (i == 0) {
+                toFormat.append(fieldsWithMultipleValues.get(i));
+                continue;
+            }
+
+            String delimiter = i == (fieldsWithMultipleValues.size() - 1) ? " and " : ", ";
+            toFormat.append(delimiter + fieldsWithMultipleValues.get(i));
+        }
+        return toFormat.toString();
     }
 
     /**
@@ -116,6 +175,25 @@ public class EditCommand extends Command {
         public boolean isAnyFieldEdited() {
             return CollectionUtil.isAnyPresent(this.name, this.tags) || !phones.isEmpty() || !emails.isEmpty()
                     || !addresses.isEmpty();
+        }
+
+        /**
+         * Returns true if {@code phone, email} or {@code address} has multiple values.
+         */
+        public boolean hasMultipleValues() {
+            return phones.size() > 1 || emails.size() > 1 || addresses.size() > 1;
+        }
+
+        public boolean hasMultiplePhones() {
+            return phones.size() > 1;
+        }
+
+        public boolean hasMultipleEmails() {
+            return emails.size() > 1;
+        }
+
+        public boolean hasMultipleAddresses() {
+            return addresses.size() > 1;
         }
 
         public void setName(Optional<Name> name) {
