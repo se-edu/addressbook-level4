@@ -52,7 +52,7 @@ public class MainWindow extends UiPart<Region> {
     private StackPane personListPanelPlaceholder;
 
     @FXML
-    private AnchorPane resultDisplayPlaceholder;
+    private StackPane resultDisplayPlaceholder;
 
     @FXML
     private AnchorPane statusbarPlaceholder;
@@ -131,7 +131,7 @@ public class MainWindow extends UiPart<Region> {
         return statusbarPlaceholder;
     }
 
-    private AnchorPane getResultDisplayPlaceholder() {
+    private StackPane getResultDisplayPlaceholder() {
         return resultDisplayPlaceholder;
     }
 
