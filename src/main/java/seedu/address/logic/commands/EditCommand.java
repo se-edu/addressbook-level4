@@ -8,6 +8,7 @@ import java.util.Set;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.commons.util.IndexUtil;
+import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
@@ -74,8 +75,8 @@ public class EditCommand extends Command {
     }
 
     /**
-     * Formats the message after EditCommand has been successfully executed. Also informs the user
-     * when multiple values have been entered into a field.
+     * Returns the result message from successfully executing EditCommand. Also includes warning messages
+     * to the user if the user entered multiple values for a single field.
      */
     private String formatResultMessage(ReadOnlyPerson personToEdit) {
         String message = String.format(MESSAGE_EDIT_PERSON_SUCCESS, personToEdit);
@@ -83,56 +84,16 @@ public class EditCommand extends Command {
             return message;
         }
 
-        ArrayList<String> fieldsWithMultipleValues = getFieldsWithRepeatedValues();
-        String toFormat = joinFields(fieldsWithMultipleValues);
+        ArrayList<String> fieldsWithMultipleValues = editPersonDescriptor.getFieldsWithMultipleValues();
+        String toFormat = StringUtil.joinStrings(fieldsWithMultipleValues);
 
         return String.format(MESSAGE_MULTIPLE_VALUES_WARNING, toFormat, toFormat) + message;
     }
 
     /**
-     * Returns an {@code ArrayList<String>} containing the names of classes
-     * (Phone, Email, Address) with repeated values.
-     */
-    private ArrayList<String> getFieldsWithRepeatedValues() {
-        ArrayList<String> fieldsWithMultipleValues = new ArrayList<>();
-
-        if (editPersonDescriptor.hasMultiplePhones()) {
-            fieldsWithMultipleValues.add(Phone.class.getSimpleName());
-        }
-
-        if (editPersonDescriptor.hasMultipleEmails()) {
-            fieldsWithMultipleValues.add(Email.class.getSimpleName());
-        }
-
-        if (editPersonDescriptor.hasMultipleAddresses()) {
-            fieldsWithMultipleValues.add(Address.class.getSimpleName());
-        }
-
-        return fieldsWithMultipleValues;
-    }
-
-    /**
-     * Joins each element in {@code fieldsWithMultipleValues} with a comma or "and".
-     */
-    // put this in StringUtil?
-    private String joinFields(ArrayList<String> fieldsWithMultipleValues) {
-        StringBuilder toFormat = new StringBuilder();
-        for (int i = 0; i < fieldsWithMultipleValues.size(); i++) {
-            if (i == 0) {
-                toFormat.append(fieldsWithMultipleValues.get(i));
-                continue;
-            }
-
-            String delimiter = i == (fieldsWithMultipleValues.size() - 1) ? " and " : ", ";
-            toFormat.append(delimiter + fieldsWithMultipleValues.get(i));
-        }
-        return toFormat.toString();
-    }
-
-    /**
      * Creates and returns a {@code Person} with the details of {@code personToEdit}
      * edited with {@code editPersonDescriptor}. If there are multiple values in any of the fields
-     * {@code Phone, Email} or {@code Address}, the last value  for that field will be used to
+     * {@code Phone, Email} or {@code Address}, the last value for that field will be used to
      * edit {@code personToEdit}.
      */
     private static Person createEditedPerson(ReadOnlyPerson personToEdit,
@@ -181,7 +142,7 @@ public class EditCommand extends Command {
          * Returns true if {@code phone, email} or {@code address} has multiple values.
          */
         public boolean hasMultipleValues() {
-            return phones.size() > 1 || emails.size() > 1 || addresses.size() > 1;
+            return hasMultiplePhones() || hasMultipleEmails() || hasMultipleAddresses();
         }
 
         public boolean hasMultiplePhones() {
@@ -194,6 +155,29 @@ public class EditCommand extends Command {
 
         public boolean hasMultipleAddresses() {
             return addresses.size() > 1;
+        }
+
+        /**
+         * Returns an {@code ArrayList<String>} containing the names of classes
+         * with multiple values. The possible classes are: {@code Phone, Email}
+         * and {@code Address}.
+         */
+        public ArrayList<String> getFieldsWithMultipleValues() {
+            ArrayList<String> fieldsWithMultipleValues = new ArrayList<>();
+
+            if (hasMultiplePhones()) {
+                fieldsWithMultipleValues.add(Phone.class.getSimpleName());
+            }
+
+            if (hasMultipleEmails()) {
+                fieldsWithMultipleValues.add(Email.class.getSimpleName());
+            }
+
+            if (hasMultipleAddresses()) {
+                fieldsWithMultipleValues.add(Address.class.getSimpleName());
+            }
+
+            return fieldsWithMultipleValues;
         }
 
         public void setName(Optional<Name> name) {
