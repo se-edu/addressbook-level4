@@ -1,5 +1,6 @@
 package seedu.address.logic.commands;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -71,16 +72,18 @@ public class EditCommand extends Command {
 
     /**
      * Creates and returns a {@code Person} with the details of {@code personToEdit}
-     * edited with {@code editPersonDescriptor}.
+     * edited with {@code editPersonDescriptor}. If there are multiple values in any of the fields
+     * {@code Phone, Email} or {@code Address}, the last value for that field will be used to
+     * edit {@code personToEdit}.
      */
     private static Person createEditedPerson(ReadOnlyPerson personToEdit,
                                              EditPersonDescriptor editPersonDescriptor) {
         assert personToEdit != null;
 
         Name updatedName = editPersonDescriptor.getName().orElseGet(personToEdit::getName);
-        Phone updatedPhone = editPersonDescriptor.getPhone().orElseGet(personToEdit::getPhone);
-        Email updatedEmail = editPersonDescriptor.getEmail().orElseGet(personToEdit::getEmail);
-        Address updatedAddress = editPersonDescriptor.getAddress().orElseGet(personToEdit::getAddress);
+        Phone updatedPhone = editPersonDescriptor.getLastPhone().orElseGet(personToEdit::getPhone);
+        Email updatedEmail = editPersonDescriptor.getLastEmail().orElseGet(personToEdit::getEmail);
+        Address updatedAddress = editPersonDescriptor.getLastAddress().orElseGet(personToEdit::getAddress);
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElseGet(personToEdit::getTags);
 
         return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
@@ -92,18 +95,18 @@ public class EditCommand extends Command {
      */
     public static class EditPersonDescriptor {
         private Optional<Name> name = Optional.empty();
-        private Optional<Phone> phone = Optional.empty();
-        private Optional<Email> email = Optional.empty();
-        private Optional<Address> address = Optional.empty();
+        private List<Phone> phones = new ArrayList<>();
+        private List<Email> emails = new ArrayList<>();
+        private List<Address> addresses = new ArrayList<>();
         private Optional<Set<Tag>> tags = Optional.empty();
 
         public EditPersonDescriptor() {}
 
         public EditPersonDescriptor(EditPersonDescriptor toCopy) {
             this.name = toCopy.getName();
-            this.phone = toCopy.getPhone();
-            this.email = toCopy.getEmail();
-            this.address = toCopy.getAddress();
+            this.phones = toCopy.getPhone();
+            this.emails = toCopy.getEmail();
+            this.addresses = toCopy.getAddress();
             this.tags = toCopy.getTags();
         }
 
@@ -111,7 +114,8 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyPresent(this.name, this.phone, this.email, this.address, this.tags);
+            return CollectionUtil.isAnyPresent(this.name, this.tags) || !phones.isEmpty() || !emails.isEmpty()
+                    || !addresses.isEmpty();
         }
 
         public void setName(Optional<Name> name) {
@@ -123,31 +127,43 @@ public class EditCommand extends Command {
             return name;
         }
 
-        public void setPhone(Optional<Phone> phone) {
+        public void setPhone(List<Phone> phone) {
             assert phone != null;
-            this.phone = phone;
+            this.phones = phone;
         }
 
-        public Optional<Phone> getPhone() {
-            return phone;
+        public List<Phone> getPhone() {
+            return phones;
         }
 
-        public void setEmail(Optional<Email> email) {
+        public Optional<Phone> getLastPhone() {
+            return !phones.isEmpty() ? Optional.of(phones.get(phones.size() - 1)) : Optional.empty();
+        }
+
+        public void setEmail(List<Email> email) {
             assert email != null;
-            this.email = email;
+            this.emails = email;
         }
 
-        public Optional<Email> getEmail() {
-            return email;
+        public List<Email> getEmail() {
+            return emails;
         }
 
-        public void setAddress(Optional<Address> address) {
+        public Optional<Email> getLastEmail() {
+            return !emails.isEmpty() ? Optional.of(emails.get(emails.size() - 1)) : Optional.empty();
+        }
+
+        public void setAddress(List<Address> address) {
             assert address != null;
-            this.address = address;
+            this.addresses = address;
         }
 
-        public Optional<Address> getAddress() {
-            return address;
+        public List<Address> getAddress() {
+            return addresses;
+        }
+
+        public Optional<Address> getLastAddress() {
+            return !addresses.isEmpty() ? Optional.of(addresses.get(addresses.size() - 1)) : Optional.empty();
         }
 
         public void setTags(Optional<Set<Tag>> tags) {
