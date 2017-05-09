@@ -34,6 +34,8 @@ public class EditCommand extends Command {
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
+    public static final String MESSAGE_MULTIPLE_VALUES_WARNING = "Warning: Multiple values of the same field entered. "
+            + "Only the last field has been stored.\n";
 
     private final int filteredPersonListIndex;
     private final EditPersonDescriptor editPersonDescriptor;
@@ -67,6 +69,11 @@ public class EditCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
         model.updateFilteredListToShowAll();
+
+        if (editPersonDescriptor.hasMultipleValues()) {
+            return new CommandResult(
+                    MESSAGE_MULTIPLE_VALUES_WARNING + String.format(MESSAGE_EDIT_PERSON_SUCCESS, personToEdit));
+        }
         return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, personToEdit));
     }
 
@@ -117,6 +124,13 @@ public class EditCommand extends Command {
         public boolean isAnyFieldEdited() {
             return CollectionUtil.isAnyPresent(this.name, this.tags) || !phone.isEmpty() || !email.isEmpty()
                     || !address.isEmpty();
+        }
+
+        /**
+         * Returns true if {@code phone, email} or {@code address} has multiple values.
+         */
+        public boolean hasMultipleValues() {
+            return phone.size() > 1 || email.size() > 1 || address.size() > 1;
         }
 
         public void setName(Optional<Name> name) {
