@@ -72,14 +72,51 @@ public class EditCommandTest extends AddressBookGuiTest {
     }
 
     @Test
-    public void edit_multipleValuesSameField_success() throws Exception {
-        String detailsToEdit = "p/911 p/92139131";
+    public void edit_multipleValuesOneField_success() throws Exception {
+        String phoneNumber = "92139131";
+        String detailsToEdit = "p/911 p/" + phoneNumber;
         int addressBookIndex = 2;
 
         Person personToEdit = expectedPersonsList[IndexUtil.oneToZeroIndex(addressBookIndex)];
-        Person editedPerson = new PersonBuilder(personToEdit).withPhone("92139131").build();
+        Person editedPerson = new PersonBuilder(personToEdit).withPhone(phoneNumber).build();
 
-        assertEditSuccessWarning(addressBookIndex, addressBookIndex, detailsToEdit, editedPerson);
+        assertEditSuccess(addressBookIndex, addressBookIndex, detailsToEdit, editedPerson,
+                String.format(EditCommand.MESSAGE_MULTIPLE_VALUES_WARNING, "Phones", "Phone")
+                        + String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson));
+    }
+
+    @Test
+    public void edit_multipleValuesTwoFields_success() throws Exception {
+        String emailAddress = "bob@yahoo.com";
+        String address = "Block 1 Bob Lane";
+        String detailsToEdit = "e/alice@yahoo.com a/Alice House e/" + emailAddress + " a/" + address;
+        int addressBookIndex = 2;
+
+        Person personToEdit = expectedPersonsList[IndexUtil.oneToZeroIndex(addressBookIndex)];
+        Person editedPerson = new PersonBuilder(personToEdit).withEmail(emailAddress).withAddress(address).build();
+
+        assertEditSuccess(addressBookIndex, addressBookIndex, detailsToEdit, editedPerson,
+                String.format(EditCommand.MESSAGE_MULTIPLE_VALUES_WARNING, "Emails and Addresses", "Email and Address")
+                        + String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson));
+    }
+
+    @Test
+    public void edit_multipleValuesThreeFields_success() throws Exception {
+        String phoneNumber = "92139131";
+        String emailAddress = "bob@yahoo.com";
+        String address = "Block 1 Bob Lane";
+        String detailsToEdit = "e/alice@yahoo.com a/Alice House e/" + emailAddress + " a/" + address + " p/911 p/"
+                + phoneNumber;
+        int addressBookIndex = 2;
+
+        Person personToEdit = expectedPersonsList[IndexUtil.oneToZeroIndex(addressBookIndex)];
+        Person editedPerson = new PersonBuilder(personToEdit).withEmail(emailAddress).withAddress(address)
+                .withPhone(phoneNumber).build();
+
+        assertEditSuccess(addressBookIndex, addressBookIndex, detailsToEdit, editedPerson,
+                String.format(EditCommand.MESSAGE_MULTIPLE_VALUES_WARNING, "Phones, Emails and Addresses",
+                        "Phone, Email and Address")
+                        + String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson));
     }
 
     @Test
@@ -127,23 +164,12 @@ public class EditCommandTest extends AddressBookGuiTest {
 
     /**
      * Checks whether the edited person has the correct updated details. Also
-     * checks that the result message contains both the warning message from
-     * editing multiple values for a same type, and the edit success message.
-     */
-    private void assertEditSuccessWarning(int filteredPersonListIndex, int addressBookIndex, String detailsToEdit,
-            Person editedPerson) {
-        assertEditSuccess(filteredPersonListIndex, addressBookIndex, detailsToEdit, editedPerson,
-                EditCommand.MESSAGE_MULTIPLE_VALUES_WARNING + EditCommand.MESSAGE_EDIT_PERSON_SUCCESS);
-    }
-
-    /**
-     * Checks whether the edited person has the correct updated details. Also
      * checks that the result message contains the edit success message.
      */
     private void assertEditSuccessNoWarning(int filteredPersonListIndex, int addressBookIndex, String detailsToEdit,
             Person editedPerson) {
         assertEditSuccess(filteredPersonListIndex, addressBookIndex, detailsToEdit, editedPerson,
-                EditCommand.MESSAGE_EDIT_PERSON_SUCCESS);
+                String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson));
     }
 
     /**
@@ -163,10 +189,9 @@ public class EditCommandTest extends AddressBookGuiTest {
         PersonCardHandle editedCard = personListPanel.navigateToPerson(editedPerson.getName().fullName);
         assertMatching(editedPerson, editedCard);
 
-        // confirm the list now contains all previous persons plus the person
-        // with updated details
+        // confirm the list now contains all previous persons plus the person with updated details
         expectedPersonsList[IndexUtil.oneToZeroIndex(addressBookIndex)] = editedPerson;
         assertTrue(personListPanel.isListMatching(expectedPersonsList));
-        assertResultMessage(String.format(expectedMessage, editedPerson));
+        assertResultMessage(expectedMessage);
     }
 }

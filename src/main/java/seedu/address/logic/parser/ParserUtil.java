@@ -65,7 +65,7 @@ public class ParserUtil {
     /**
      * Parses a {@code List<String> phones} into a {@code List<Phone>}.
      */
-    public static List<Phone> parsePhone(List<String> phones) throws IllegalValueException {
+    public static List<Phone> parsePhones(List<String> phones) throws IllegalValueException {
         assert phones != null;
         final List<Phone> phoneList = new ArrayList<>();
         for (String phone : phones) {
@@ -85,7 +85,7 @@ public class ParserUtil {
     /**
      * Parses a {@code List<String> addresses} into a {@code List<Address>}.
      */
-    public static List<Address> parseAddress(List<String> addresses) throws IllegalValueException {
+    public static List<Address> parseAddresses(List<String> addresses) throws IllegalValueException {
         assert addresses != null;
         final List<Address> addressList = new ArrayList<>();
         for (String address : addresses) {
@@ -105,7 +105,7 @@ public class ParserUtil {
     /**
      * Parses a {@code List<String> emails} into a {@code List<Email>}.
      */
-    public static List<Email> parseEmail(List<String> emails) throws IllegalValueException {
+    public static List<Email> parseEmails(List<String> emails) throws IllegalValueException {
         assert emails != null;
         final List<Email> emailList = new ArrayList<>();
         for (String email : emails) {

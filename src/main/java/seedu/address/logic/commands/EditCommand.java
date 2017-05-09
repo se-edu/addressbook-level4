@@ -34,8 +34,8 @@ public class EditCommand extends Command {
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
-    public static final String MESSAGE_MULTIPLE_VALUES_WARNING = "Warning: Multiple values of the same field entered. "
-            + "Only the last field has been stored.\n";
+    public static final String MESSAGE_MULTIPLE_VALUES_WARNING = "Warning: Multiple %s entered. "
+            + "Only the last instance of %s has been stored.\n";
 
     private final int filteredPersonListIndex;
     private final EditPersonDescriptor editPersonDescriptor;
@@ -70,16 +70,58 @@ public class EditCommand extends Command {
         }
         model.updateFilteredListToShowAll();
 
-        if (editPersonDescriptor.hasMultipleValues()) {
-            return new CommandResult(
-                    MESSAGE_MULTIPLE_VALUES_WARNING + String.format(MESSAGE_EDIT_PERSON_SUCCESS, personToEdit));
+        return new CommandResult(formatResultMessage(personToEdit));
+    }
+
+    private String formatResultMessage(ReadOnlyPerson personToEdit) {
+        String message = String.format(MESSAGE_EDIT_PERSON_SUCCESS, personToEdit);
+        if (!editPersonDescriptor.hasMultipleValues()) {
+            return message;
         }
-        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, personToEdit));
+
+        ArrayList<String> fieldsWithMultipleValuesPlural = new ArrayList<>();
+        ArrayList<String> fieldsWithMultipleValuesSingular = new ArrayList<>();
+
+        if (editPersonDescriptor.hasMultiplePhones()) {
+            fieldsWithMultipleValuesPlural.add("Phones");
+            fieldsWithMultipleValuesSingular.add("Phone");
+        }
+
+        if (editPersonDescriptor.hasMultipleEmails()) {
+            fieldsWithMultipleValuesPlural.add("Emails");
+            fieldsWithMultipleValuesSingular.add("Email");
+        }
+
+        if (editPersonDescriptor.hasMultipleAddresses()) {
+            fieldsWithMultipleValuesPlural.add("Addresses");
+            fieldsWithMultipleValuesSingular.add("Address");
+        }
+
+        String toFormatPlural;
+        String toFormatSingular;
+
+        if (fieldsWithMultipleValuesPlural.size() == 1) {
+            toFormatPlural = fieldsWithMultipleValuesPlural.get(0);
+            toFormatSingular = fieldsWithMultipleValuesSingular.get(0);
+        } else if (fieldsWithMultipleValuesPlural.size() == 2) {
+            toFormatPlural = fieldsWithMultipleValuesPlural.get(0) + " and " + fieldsWithMultipleValuesPlural.get(1);
+            toFormatSingular = fieldsWithMultipleValuesSingular.get(0) + " and "
+                    + fieldsWithMultipleValuesSingular.get(1);
+        } else { // size of list == 3
+            toFormatPlural = fieldsWithMultipleValuesPlural.get(0) + ", " + fieldsWithMultipleValuesPlural.get(1)
+                    + " and " + fieldsWithMultipleValuesPlural.get(2);
+            toFormatSingular = fieldsWithMultipleValuesSingular.get(0) + ", " + fieldsWithMultipleValuesSingular.get(1)
+                    + " and " + fieldsWithMultipleValuesSingular.get(2);
+        }
+
+        return String.format(MESSAGE_MULTIPLE_VALUES_WARNING, toFormatPlural, toFormatSingular) + message;
     }
 
     /**
      * Creates and returns a {@code Person} with the details of {@code personToEdit}
-     * edited with {@code editPersonDescriptor}.
+     * edited with {@code editPersonDescriptor}. If there are multiple values in any of the fields
+     * {@code Phone, Email} or {@code Address}, the last value  for that field will be used to
+     * edit {@code personToEdit}.
      */
     private static Person createEditedPerson(ReadOnlyPerson personToEdit,
                                              EditPersonDescriptor editPersonDescriptor) {
@@ -103,18 +145,18 @@ public class EditCommand extends Command {
      */
     public static class EditPersonDescriptor {
         private Optional<Name> name = Optional.empty();
-        private List<Phone> phone = new ArrayList<>();
-        private List<Email> email = new ArrayList<>();
-        private List<Address> address = new ArrayList<>();
+        private List<Phone> phones = new ArrayList<>();
+        private List<Email> emails = new ArrayList<>();
+        private List<Address> addresses = new ArrayList<>();
         private Optional<Set<Tag>> tags = Optional.empty();
 
         public EditPersonDescriptor() {}
 
         public EditPersonDescriptor(EditPersonDescriptor toCopy) {
             this.name = toCopy.getName();
-            this.phone = toCopy.getPhone();
-            this.email = toCopy.getEmail();
-            this.address = toCopy.getAddress();
+            this.phones = toCopy.getPhone();
+            this.emails = toCopy.getEmail();
+            this.addresses = toCopy.getAddress();
             this.tags = toCopy.getTags();
         }
 
@@ -122,15 +164,27 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyPresent(this.name, this.tags) || !phone.isEmpty() || !email.isEmpty()
-                    || !address.isEmpty();
+            return CollectionUtil.isAnyPresent(this.name, this.tags) || !phones.isEmpty() || !emails.isEmpty()
+                    || !addresses.isEmpty();
         }
 
         /**
          * Returns true if {@code phone, email} or {@code address} has multiple values.
          */
         public boolean hasMultipleValues() {
-            return phone.size() > 1 || email.size() > 1 || address.size() > 1;
+            return phones.size() > 1 || emails.size() > 1 || addresses.size() > 1;
+        }
+
+        public boolean hasMultiplePhones() {
+            return phones.size() > 1;
+        }
+
+        public boolean hasMultipleEmails() {
+            return emails.size() > 1;
+        }
+
+        public boolean hasMultipleAddresses() {
+            return addresses.size() > 1;
         }
 
         public void setName(Optional<Name> name) {
@@ -144,41 +198,41 @@ public class EditCommand extends Command {
 
         public void setPhone(List<Phone> phone) {
             assert phone != null;
-            this.phone = phone;
+            this.phones = phone;
         }
 
         public List<Phone> getPhone() {
-            return phone;
+            return phones;
         }
 
         public Phone getLastPhone() {
-            return phone.get(phone.size() - 1);
+            return phones.get(phones.size() - 1);
         }
 
         public void setEmail(List<Email> email) {
             assert email != null;
-            this.email = email;
+            this.emails = email;
         }
 
         public List<Email> getEmail() {
-            return email;
+            return emails;
         }
 
         public Email getLastEmail() {
-            return email.get(email.size() - 1);
+            return emails.get(emails.size() - 1);
         }
 
         public void setAddress(List<Address> address) {
             assert address != null;
-            this.address = address;
+            this.addresses = address;
         }
 
         public List<Address> getAddress() {
-            return address;
+            return addresses;
         }
 
         public Address getLastAddress() {
-            return address.get(address.size() - 1);
+            return addresses.get(addresses.size() - 1);
         }
 
         public void setTags(Optional<Set<Tag>> tags) {
