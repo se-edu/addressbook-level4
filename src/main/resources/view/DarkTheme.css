@@ -141,6 +141,12 @@
      -fx-border-top-width: 1px;
 }
 
+.stack-pane-with-border {
+     -fx-background-color: derive(#1d1d1d, 20%);
+     -fx-border-color: derive(#1d1d1d, 10%);
+     -fx-border-top-width: 1px;
+}
+
 .status-bar {
     -fx-background-color: derive(#1d1d1d, 20%);
     -fx-text-fill: black;
