@@ -7,6 +7,13 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.testutil.EditCommandTestUtil.ADDRESS_DESC_AMY;
+import static seedu.address.testutil.EditCommandTestUtil.ADDRESS_DESC_BOB;
+import static seedu.address.testutil.EditCommandTestUtil.EMAIL_DESC_AMY;
+import static seedu.address.testutil.EditCommandTestUtil.EMAIL_DESC_BOB;
+import static seedu.address.testutil.EditCommandTestUtil.NAME_DESC_AMY;
+import static seedu.address.testutil.EditCommandTestUtil.PHONE_DESC_AMY;
+import static seedu.address.testutil.EditCommandTestUtil.PHONE_DESC_BOB;
 import static seedu.address.testutil.EditCommandTestUtil.VALID_ADDRESS_AMY;
 import static seedu.address.testutil.EditCommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.testutil.EditCommandTestUtil.VALID_EMAIL_AMY;
@@ -32,13 +39,6 @@ import seedu.address.testutil.EditPersonDescriptorBuilder;
 
 public class EditCommandParserTest {
 
-    private static final String NAME_DESC_AMY = " " + VALID_NAME_AMY;
-    private static final String PHONE_DESC_AMY = " " + PREFIX_PHONE + VALID_PHONE_AMY;
-    private static final String PHONE_DESC_BOB = " " + PREFIX_PHONE + VALID_PHONE_BOB;
-    private static final String EMAIL_DESC_AMY = " " + PREFIX_EMAIL + VALID_EMAIL_AMY;
-    private static final String EMAIL_DESC_BOB = " " + PREFIX_EMAIL + VALID_EMAIL_BOB;
-    private static final String ADDRESS_DESC_AMY = " " + PREFIX_ADDRESS + VALID_ADDRESS_AMY;
-    private static final String ADDRESS_DESC_BOB = " " + PREFIX_ADDRESS + VALID_ADDRESS_BOB;
     private static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
     private static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
     private static final String TAG_EMPTY = " " + PREFIX_TAG;
