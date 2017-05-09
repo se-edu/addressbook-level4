@@ -2,6 +2,9 @@ package seedu.address.logic.commands;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +31,13 @@ import seedu.address.testutil.TypicalPersons;
  */
 public class EditCommandIntegrationTest {
 
+    private static final String VALID_ADDRESS_ALICE = "Block 321, Alice Street 1";
+    private static final String VALID_EMAIL_ALICE = "alice@yahoo.com";
+    private static final String VALID_NAME_ALICE = "Alice";
+    private static final String VALID_PHONE_ALICE = "91111111";
+    private static final String VALID_ADDRESS_BOB = "Block 123, Bobby Street 3";
+    private static final String VALID_EMAIL_BOB = "bobby@example.com";
+    private static final String VALID_PHONE_BOB = "91234567";
     private static final int ZERO_BASED_INDEX_FIRST_PERSON = 0;
     private static final int ZERO_BASED_INDEX_SECOND_PERSON =  ZERO_BASED_INDEX_FIRST_PERSON + 1;
 
@@ -36,8 +46,8 @@ public class EditCommandIntegrationTest {
 
     @Test
     public void execute_validCommand_succeeds() throws Exception {
-        Person editedPerson = new PersonBuilder().withName("Bobby").withPhone("91234567")
-                                    .withEmail("bobby@example.com").withAddress("Block 123, Bobby Street 3")
+        Person editedPerson = new PersonBuilder().withName("Bobby").withPhone(VALID_PHONE_BOB)
+                .withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
                                     .withTags("husband").build();
 
         String userInput = PersonUtil.getEditCommand(ZERO_BASED_INDEX_FIRST_PERSON, editedPerson);
@@ -48,6 +58,72 @@ public class EditCommandIntegrationTest {
         AddressBook expectedAddressBook = new AddressBook(model.getAddressBook());
         expectedAddressBook.updatePerson(ZERO_BASED_INDEX_FIRST_PERSON, editedPerson);
         FilteredList<ReadOnlyPerson> expectedFilteredList = new FilteredList<>(expectedAddressBook.getPersonList());
+
+        assertCommandSuccess(command, expectedMessage, expectedAddressBook, expectedFilteredList);
+    }
+
+    @Test
+    public void edit_multipleValuesOneField_success() throws Exception {
+        String userInput = "edit 1 " + VALID_NAME_ALICE + " " + PREFIX_PHONE.getPrefix() + VALID_PHONE_ALICE + " "
+                + PREFIX_PHONE.getPrefix() + VALID_PHONE_BOB;
+        Command command = prepareCommand(userInput);
+        Person firstPerson = new Person(model.getFilteredPersonList().get(ZERO_BASED_INDEX_FIRST_PERSON));
+        Person editedPerson = new PersonBuilder(firstPerson).withName(VALID_NAME_ALICE).withPhone(VALID_PHONE_BOB)
+                .build();
+
+        String fieldWithMultipleValues = "Phone";
+        String expectedMessage = String.format(EditCommand.MESSAGE_MULTIPLE_VALUES_WARNING, fieldWithMultipleValues,
+                fieldWithMultipleValues) + String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
+
+        AddressBook expectedAddressBook = new AddressBook(model.getAddressBook());
+        expectedAddressBook.updatePerson(ZERO_BASED_INDEX_FIRST_PERSON, editedPerson);
+
+        List<ReadOnlyPerson> expectedFilteredList = new ArrayList<>(model.getFilteredPersonList());
+
+        assertCommandSuccess(command, expectedMessage, expectedAddressBook, expectedFilteredList);
+    }
+
+    @Test
+    public void edit_multipleValuesTwoFields_success() throws Exception {
+        String userInput = "edit 1 " + VALID_NAME_ALICE + " " + PREFIX_EMAIL.getPrefix() + VALID_EMAIL_ALICE + " "
+                + PREFIX_ADDRESS.getPrefix() + VALID_ADDRESS_ALICE + " " + PREFIX_EMAIL.getPrefix() + VALID_EMAIL_BOB
+                + " " + PREFIX_ADDRESS.getPrefix() + VALID_ADDRESS_BOB;
+        Command command = prepareCommand(userInput);
+        Person firstPerson = new Person(model.getFilteredPersonList().get(ZERO_BASED_INDEX_FIRST_PERSON));
+        Person editedPerson = new PersonBuilder(firstPerson).withName(VALID_NAME_ALICE).withAddress(VALID_ADDRESS_BOB)
+                .withEmail(VALID_EMAIL_BOB).build();
+
+        String fieldWithMultipleValues = "Email and Address";
+        String expectedMessage = String.format(EditCommand.MESSAGE_MULTIPLE_VALUES_WARNING, fieldWithMultipleValues,
+                fieldWithMultipleValues) + String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
+
+        AddressBook expectedAddressBook = new AddressBook(model.getAddressBook());
+        expectedAddressBook.updatePerson(ZERO_BASED_INDEX_FIRST_PERSON, editedPerson);
+
+        List<ReadOnlyPerson> expectedFilteredList = new ArrayList<>(model.getFilteredPersonList());
+
+        assertCommandSuccess(command, expectedMessage, expectedAddressBook, expectedFilteredList);
+    }
+
+    @Test
+    public void edit_multipleValuesThreeFields_success() throws Exception {
+        String userInput = "edit 1 " + VALID_NAME_ALICE + " " + PREFIX_EMAIL.getPrefix() + VALID_EMAIL_ALICE + " "
+                + PREFIX_ADDRESS.getPrefix() + VALID_ADDRESS_ALICE + " " + PREFIX_EMAIL.getPrefix() + VALID_EMAIL_BOB
+                + " " + PREFIX_ADDRESS.getPrefix() + VALID_ADDRESS_BOB + " " + PREFIX_PHONE.getPrefix()
+                + VALID_PHONE_ALICE + " " + PREFIX_PHONE.getPrefix() + VALID_PHONE_BOB;
+        Command command = prepareCommand(userInput);
+        Person firstPerson = new Person(model.getFilteredPersonList().get(ZERO_BASED_INDEX_FIRST_PERSON));
+        Person editedPerson = new PersonBuilder(firstPerson).withName(VALID_NAME_ALICE).withAddress(VALID_ADDRESS_BOB)
+                .withEmail(VALID_EMAIL_BOB).withPhone(VALID_PHONE_BOB).build();
+
+        String fieldWithMultipleValues = "Phone, Email and Address";
+        String expectedMessage = String.format(EditCommand.MESSAGE_MULTIPLE_VALUES_WARNING, fieldWithMultipleValues,
+                fieldWithMultipleValues) + String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
+
+        AddressBook expectedAddressBook = new AddressBook(model.getAddressBook());
+        expectedAddressBook.updatePerson(ZERO_BASED_INDEX_FIRST_PERSON, editedPerson);
+
+        List<ReadOnlyPerson> expectedFilteredList = new ArrayList<>(model.getFilteredPersonList());
 
         assertCommandSuccess(command, expectedMessage, expectedAddressBook, expectedFilteredList);
     }

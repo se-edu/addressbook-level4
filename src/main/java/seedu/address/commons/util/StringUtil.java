@@ -2,6 +2,7 @@ package seedu.address.commons.util;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.List;
 
 /**
  * Helper functions for handling strings.
@@ -36,6 +37,26 @@ public class StringUtil {
             }
         }
         return false;
+    }
+
+    /**
+     * Joins each element except the last element in {@code strings} with a
+     * comma, and joins the last element with "and". e.g If {@code strings}
+     * contain {"Phone","Address", "Name", "Email"}, the result is: "Phone,
+     * Address, Name and Email".
+     */
+    public static String joinStrings(List<String> strings) {
+        StringBuilder result = new StringBuilder();
+        for (int i = 0; i < strings.size(); i++) {
+            if (i == 0) {
+                result.append(strings.get(i));
+                continue;
+            }
+
+            String delimiter = i != (strings.size() - 1) ? ", " : " and ";
+            result.append(delimiter + strings.get(i));
+        }
+        return result.toString();
     }
 
     /**
