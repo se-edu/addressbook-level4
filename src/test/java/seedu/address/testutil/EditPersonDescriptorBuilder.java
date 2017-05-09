@@ -1,11 +1,16 @@
 package seedu.address.testutil;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.logic.parser.ParserUtil;
+import seedu.address.model.person.Address;
+import seedu.address.model.person.Email;
+import seedu.address.model.person.Phone;
 
 /**
  * A utility class to help with building EditPersonDescriptor objects.
@@ -27,18 +32,30 @@ public class EditPersonDescriptorBuilder {
         return this;
     }
 
-    public EditPersonDescriptorBuilder withPhone(String phone) throws IllegalValueException {
-        descriptor.setPhone(ParserUtil.parsePhone(Optional.of(phone)));
+    public EditPersonDescriptorBuilder withPhones(String... phones) throws IllegalValueException {
+        List<Phone> phoneList = new ArrayList<>();
+        for (String phone : phones) {
+            phoneList.add(new Phone(phone));
+        }
+        descriptor.setPhones(phoneList);
         return this;
     }
 
-    public EditPersonDescriptorBuilder withEmail(String email) throws IllegalValueException {
-        descriptor.setEmail(ParserUtil.parseEmail(Optional.of(email)));
+    public EditPersonDescriptorBuilder withEmails(String... emails) throws IllegalValueException {
+        List<Email> emailList = new ArrayList<>();
+        for (String email : emails) {
+            emailList.add(new Email(email));
+        }
+        descriptor.setEmails(emailList);
         return this;
     }
 
-    public EditPersonDescriptorBuilder withAddress(String address) throws IllegalValueException {
-        descriptor.setAddress(ParserUtil.parseAddress(Optional.of(address)));
+    public EditPersonDescriptorBuilder withAddresses(String... addresses) throws IllegalValueException {
+        List<Address> addressList = new ArrayList<>();
+        for (String address : addresses) {
+            addressList.add(new Address(address));
+        }
+        descriptor.setAddresses(addressList);
         return this;
     }
 
