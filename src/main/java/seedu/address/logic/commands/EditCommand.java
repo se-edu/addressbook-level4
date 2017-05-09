@@ -34,6 +34,8 @@ public class EditCommand extends Command {
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
+    public static final String MESSAGE_MULTIPLE_VALUES_WARNING = "Warning: Multiple %s entered. "
+            + "Only the last instance of %s has been stored.\n";
 
     private final int filteredPersonListIndex;
     private final EditPersonDescriptor editPersonDescriptor;
@@ -67,7 +69,52 @@ public class EditCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
         model.updateFilteredListToShowAll();
-        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, personToEdit));
+
+        return new CommandResult(formatResultMessage(personToEdit));
+    }
+
+    private String formatResultMessage(ReadOnlyPerson personToEdit) {
+        String message = String.format(MESSAGE_EDIT_PERSON_SUCCESS, personToEdit);
+        if (!editPersonDescriptor.hasMultipleValues()) {
+            return message;
+        }
+
+        ArrayList<String> fieldsWithMultipleValuesPlural = new ArrayList<>();
+        ArrayList<String> fieldsWithMultipleValuesSingular = new ArrayList<>();
+
+        if (editPersonDescriptor.hasMultiplePhones()) {
+            fieldsWithMultipleValuesPlural.add("Phones");
+            fieldsWithMultipleValuesSingular.add("Phone");
+        }
+
+        if (editPersonDescriptor.hasMultipleEmails()) {
+            fieldsWithMultipleValuesPlural.add("Emails");
+            fieldsWithMultipleValuesSingular.add("Email");
+        }
+
+        if (editPersonDescriptor.hasMultipleAddresses()) {
+            fieldsWithMultipleValuesPlural.add("Addresses");
+            fieldsWithMultipleValuesSingular.add("Address");
+        }
+
+        String toFormatPlural;
+        String toFormatSingular;
+
+        if (fieldsWithMultipleValuesPlural.size() == 1) {
+            toFormatPlural = fieldsWithMultipleValuesPlural.get(0);
+            toFormatSingular = fieldsWithMultipleValuesSingular.get(0);
+        } else if (fieldsWithMultipleValuesPlural.size() == 2) {
+            toFormatPlural = fieldsWithMultipleValuesPlural.get(0) + " and " + fieldsWithMultipleValuesPlural.get(1);
+            toFormatSingular = fieldsWithMultipleValuesSingular.get(0) + " and "
+                    + fieldsWithMultipleValuesSingular.get(1);
+        } else { // size of list == 3
+            toFormatPlural = fieldsWithMultipleValuesPlural.get(0) + ", " + fieldsWithMultipleValuesPlural.get(1)
+                    + " and " + fieldsWithMultipleValuesPlural.get(2);
+            toFormatSingular = fieldsWithMultipleValuesSingular.get(0) + ", " + fieldsWithMultipleValuesSingular.get(1)
+                    + " and " + fieldsWithMultipleValuesSingular.get(2);
+        }
+
+        return String.format(MESSAGE_MULTIPLE_VALUES_WARNING, toFormatPlural, toFormatSingular) + message;
     }
 
     /**
@@ -119,6 +166,25 @@ public class EditCommand extends Command {
         public boolean isAnyFieldEdited() {
             return CollectionUtil.isAnyPresent(this.name, this.tags) || !phones.isEmpty() || !emails.isEmpty()
                     || !addresses.isEmpty();
+        }
+
+        /**
+         * Returns true if {@code phone, email} or {@code address} has multiple values.
+         */
+        public boolean hasMultipleValues() {
+            return phones.size() > 1 || emails.size() > 1 || addresses.size() > 1;
+        }
+
+        public boolean hasMultiplePhones() {
+            return phones.size() > 1;
+        }
+
+        public boolean hasMultipleEmails() {
+            return emails.size() > 1;
+        }
+
+        public boolean hasMultipleAddresses() {
+            return addresses.size() > 1;
         }
 
         public void setName(Optional<Name> name) {
