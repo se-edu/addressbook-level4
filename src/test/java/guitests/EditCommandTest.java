@@ -32,8 +32,8 @@ public class EditCommandTest extends AddressBookGuiTest {
     @Test
     public void edit_allFieldsSpecified_success() throws Exception {
         String detailsToEdit = "Bobby " + PREFIX_PHONE + "91234567 "
-                + PREFIX_EMAIL + "bobby@example.com"
-                + PREFIX_ADDRESS + "Block 123, Bobby Street 3"
+                + PREFIX_EMAIL + "bobby@example.com "
+                + PREFIX_ADDRESS + "Block 123, Bobby Street 3 "
                 + PREFIX_TAG + "husband";
         int addressBookIndex = 1;
 
