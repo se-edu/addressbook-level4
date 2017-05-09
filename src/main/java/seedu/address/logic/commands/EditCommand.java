@@ -1,12 +1,18 @@
 package seedu.address.logic.commands;
 
+import static seedu.address.commons.util.CollectionUtil.isAnyNonEmpty;
+import static seedu.address.commons.util.CollectionUtil.isAnyPresent;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
 import seedu.address.commons.core.Messages;
-import seedu.address.commons.util.CollectionUtil;
 import seedu.address.commons.util.IndexUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -148,9 +154,9 @@ public class EditCommand extends Command {
 
         public EditPersonDescriptor(EditPersonDescriptor toCopy) {
             this.name = toCopy.getName();
-            this.phones = toCopy.getPhone();
-            this.emails = toCopy.getEmail();
-            this.addresses = toCopy.getAddress();
+            this.phones = toCopy.getPhones();
+            this.emails = toCopy.getEmails();
+            this.addresses = toCopy.getAddresses();
             this.tags = toCopy.getTags();
         }
 
@@ -158,8 +164,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyPresent(this.name, this.tags) || !phones.isEmpty() || !emails.isEmpty()
-                    || !addresses.isEmpty();
+            return isAnyPresent(this.name, this.tags) || isAnyNonEmpty(phones, emails, addresses);
         }
 
         /**
@@ -213,12 +218,12 @@ public class EditCommand extends Command {
             return name;
         }
 
-        public void setPhone(List<Phone> phone) {
+        public void setPhones(List<Phone> phone) {
             assert phone != null;
             this.phones = phone;
         }
 
-        public List<Phone> getPhone() {
+        public List<Phone> getPhones() {
             return phones;
         }
 
@@ -226,12 +231,12 @@ public class EditCommand extends Command {
             return !phones.isEmpty() ? Optional.of(phones.get(phones.size() - 1)) : Optional.empty();
         }
 
-        public void setEmail(List<Email> email) {
+        public void setEmails(List<Email> email) {
             assert email != null;
             this.emails = email;
         }
 
-        public List<Email> getEmail() {
+        public List<Email> getEmails() {
             return emails;
         }
 
@@ -239,12 +244,12 @@ public class EditCommand extends Command {
             return !emails.isEmpty() ? Optional.of(emails.get(emails.size() - 1)) : Optional.empty();
         }
 
-        public void setAddress(List<Address> address) {
+        public void setAddresses(List<Address> address) {
             assert address != null;
             this.addresses = address;
         }
 
-        public List<Address> getAddress() {
+        public List<Address> getAddresses() {
             return addresses;
         }
 
@@ -276,9 +281,9 @@ public class EditCommand extends Command {
             // state check
             EditPersonDescriptor e = (EditPersonDescriptor) other;
             return name.equals(e.getName())
-                    && phone.equals(e.getPhone())
-                    && email.equals(e.getEmail())
-                    && address.equals(e.getAddress())
+                    && phones.equals(e.getPhones())
+                    && emails.equals(e.getEmails())
+                    && addresses.equals(e.getAddresses())
                     && tags.equals(e.getTags());
         }
     }

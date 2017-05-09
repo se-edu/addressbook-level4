@@ -1,5 +1,7 @@
 package seedu.address.logic.parser;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -66,7 +68,7 @@ public class ParserUtil {
      * Parses a {@code List<String> phones} into a {@code List<Phone>}.
      */
     public static List<Phone> parsePhones(List<String> phones) throws IllegalValueException {
-        assert phones != null;
+        requireNonNull(phones);
         final List<Phone> phoneList = new ArrayList<>();
         for (String phone : phones) {
             phoneList.add(new Phone(phone));
@@ -86,7 +88,7 @@ public class ParserUtil {
      * Parses a {@code List<String> addresses} into a {@code List<Address>}.
      */
     public static List<Address> parseAddresses(List<String> addresses) throws IllegalValueException {
-        assert addresses != null;
+        requireNonNull(addresses);
         final List<Address> addressList = new ArrayList<>();
         for (String address : addresses) {
             addressList.add(new Address(address));
@@ -106,7 +108,7 @@ public class ParserUtil {
      * Parses a {@code List<String> emails} into a {@code List<Email>}.
      */
     public static List<Email> parseEmails(List<String> emails) throws IllegalValueException {
-        assert emails != null;
+        requireNonNull(emails);
         final List<Email> emailList = new ArrayList<>();
         for (String email : emails) {
             emailList.add(new Email(email));

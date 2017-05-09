@@ -49,9 +49,9 @@ public class EditCommandParser {
         EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
         try {
             editPersonDescriptor.setName(ParserUtil.parseName(preambleFields.get(1)));
-            editPersonDescriptor.setPhone(ParserUtil.parsePhones(argMultimap.getAllValues(PREFIX_PHONE)));
-            editPersonDescriptor.setEmail(ParserUtil.parseEmails(argMultimap.getAllValues(PREFIX_EMAIL)));
-            editPersonDescriptor.setAddress(ParserUtil.parseAddresses(argMultimap.getAllValues(PREFIX_ADDRESS)));
+            editPersonDescriptor.setPhones(ParserUtil.parsePhones(argMultimap.getAllValues(PREFIX_PHONE)));
+            editPersonDescriptor.setEmails(ParserUtil.parseEmails(argMultimap.getAllValues(PREFIX_EMAIL)));
+            editPersonDescriptor.setAddresses(ParserUtil.parseAddresses(argMultimap.getAllValues(PREFIX_ADDRESS)));
             editPersonDescriptor.setTags(parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)));
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
