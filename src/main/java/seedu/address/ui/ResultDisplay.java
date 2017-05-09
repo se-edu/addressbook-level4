@@ -8,11 +8,10 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextArea;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.StackPane;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.NewResultAvailableEvent;
-import seedu.address.commons.util.FxViewUtil;
 
 /**
  * A ui for the status bar that is displayed at the header of the application.
@@ -25,17 +24,12 @@ public class ResultDisplay extends UiPart<Region> {
     private final StringProperty displayed = new SimpleStringProperty("");
 
     @FXML
-    private AnchorPane mainPane;
-
-    @FXML
     private TextArea resultDisplay;
 
-    public ResultDisplay(AnchorPane placeHolder) {
+    public ResultDisplay(StackPane placeHolder) {
         super(FXML);
         resultDisplay.textProperty().bind(displayed);
-        FxViewUtil.applyAnchorBoundaryParameters(resultDisplay, 0.0, 0.0, 0.0, 0.0);
-        FxViewUtil.applyAnchorBoundaryParameters(mainPane, 0.0, 0.0, 0.0, 0.0);
-        placeHolder.getChildren().add(mainPane);
+        placeHolder.getChildren().add(resultDisplay);
         registerAsAnEventHandler(this);
     }
 
