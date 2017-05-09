@@ -31,12 +31,12 @@
     </padding>
   </StackPane>
 
-  <AnchorPane VBox.vgrow="NEVER" fx:id="resultDisplayPlaceholder" styleClass="anchor-pane-with-border"
+  <StackPane VBox.vgrow="NEVER" fx:id="resultDisplayPlaceholder" styleClass="anchor-pane-with-border"
       minHeight="100" prefHeight="100" maxHeight="100">
     <padding>
       <Insets top="5" right="10" bottom="5" left="10" />
     </padding>
-  </AnchorPane>
+  </StackPane>
 
   <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.4" VBox.vgrow="ALWAYS">
     <VBox fx:id="personList" minWidth="340" prefWidth="340">
