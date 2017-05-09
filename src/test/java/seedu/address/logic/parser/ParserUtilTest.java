@@ -213,12 +213,12 @@ public class ParserUtilTest {
 
     @Test
     public void parseAddresses() throws Exception {
-        final String validAddressOne = "alice@example.com";
-        final String validAddressTwo = "bobby@example.com";
-        final String validAddressThree = "charlie@example.com";
-        final String invalidAddressOne = "@@@";
+        final String validAddressOne = "Alice Street 91";
+        final String validAddressTwo = "Bob Street 92";
+        final String validAddressThree = "Charlie Street 93";
+        final String invalidAddressOne = " ";
 
-        // one invalid email
+        // one invalid address
         try {
             ParserUtil.parseEmails(Arrays.asList(validAddressOne, invalidAddressOne, validAddressTwo));
             fail("expected IllegalValueException was not thrown.");
@@ -226,7 +226,7 @@ public class ParserUtilTest {
             // expected behaviour
         }
 
-        // all valid emails
+        // all valid addresses
         List<Address> actualResult = ParserUtil.parseAddresses(Arrays.asList(
                 validAddressOne, validAddressTwo, validAddressThree));
 
