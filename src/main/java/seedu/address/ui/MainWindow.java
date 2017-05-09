@@ -7,7 +7,6 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
@@ -55,7 +54,7 @@ public class MainWindow extends UiPart<Region> {
     private StackPane resultDisplayPlaceholder;
 
     @FXML
-    private AnchorPane statusbarPlaceholder;
+    private StackPane statusbarPlaceholder;
 
     public MainWindow(Stage primaryStage, Config config, UserPrefs prefs, Logic logic) {
         super(FXML);
@@ -127,7 +126,7 @@ public class MainWindow extends UiPart<Region> {
         return commandBoxPlaceholder;
     }
 
-    private AnchorPane getStatusbarPlaceholder() {
+    private StackPane getStatusbarPlaceholder() {
         return statusbarPlaceholder;
     }
 
