@@ -3,10 +3,12 @@ package seedu.address.logic.parser;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -182,5 +184,74 @@ public class ParserUtilTest {
         Set<Tag> expectedTagSet = new HashSet<Tag>(Arrays.asList(new Tag(VALID_TAG_1), new Tag(VALID_TAG_2)));
 
         assertEquals(expectedTagSet, actualTagSet);
+    }
+
+    @Test
+    public void parsePhones() throws Exception {
+        final String validPhoneOne = "11111111";
+        final String validPhoneTwo = "222222222";
+        final String validPhoneThree = "33333333";
+        final String invalidPhoneOne = "1";
+
+        // one invalid phone number
+        try {
+            ParserUtil.parsePhones(Arrays.asList(validPhoneOne, invalidPhoneOne, validPhoneTwo));
+            fail("expected IllegalValueException was not thrown.");
+        } catch (IllegalValueException ive) {
+            // expected behaviour
+        }
+
+        // all valid phone numbers
+        List<Phone> actualResult = ParserUtil.parsePhones(Arrays.asList(
+                validPhoneOne, validPhoneTwo, validPhoneThree));
+
+        assertEquals(Arrays.asList(new Phone(validPhoneOne), new Phone(validPhoneTwo),
+                new Phone(validPhoneThree)), actualResult);
+    }
+
+    @Test
+    public void parseEmails() throws Exception {
+        final String validEmailOne = "alice@example.com";
+        final String validEmailTwo = "bobby@example.com";
+        final String validEmailThree = "charlie@example.com";
+        final String invalidEmailOne = "@@@";
+
+        // one invalid email
+        try {
+            ParserUtil.parseEmails(Arrays.asList(validEmailOne, invalidEmailOne, validEmailTwo));
+            fail("expected IllegalValueException was not thrown.");
+        } catch (IllegalValueException ive) {
+            // expected behaviour
+        }
+
+        // all valid emails
+        List<Email> actualResult = ParserUtil.parseEmails(Arrays.asList(
+                validEmailOne, validEmailTwo, validEmailThree));
+
+        assertEquals(Arrays.asList(new Email(validEmailOne), new Email(validEmailTwo),
+                new Email(validEmailThree)), actualResult);
+    }
+
+    @Test
+    public void parseAddresses() throws Exception {
+        final String validAddressOne = "Alice Street 91";
+        final String validAddressTwo = "Bob Street 92";
+        final String validAddressThree = "Charlie Street 93";
+        final String invalidAddressOne = " ";
+
+        // one invalid address
+        try {
+            ParserUtil.parseEmails(Arrays.asList(validAddressOne, invalidAddressOne, validAddressTwo));
+            fail("expected IllegalValueException was not thrown.");
+        } catch (IllegalValueException ive) {
+            // expected behaviour
+        }
+
+        // all valid addresses
+        List<Address> actualResult = ParserUtil.parseAddresses(Arrays.asList(
+                validAddressOne, validAddressTwo, validAddressThree));
+
+        assertEquals(Arrays.asList(new Address(validAddressOne), new Address(validAddressTwo),
+                new Address(validAddressThree)), actualResult);
     }
 }
