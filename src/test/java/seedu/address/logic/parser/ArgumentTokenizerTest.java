@@ -110,7 +110,7 @@ public class ArgumentTokenizerTest {
         /** Also covers: testing for prefixes not specified as a prefix **/
 
         // Prefixes not previously given to the tokenizer should not return any values
-        argsString = unknownPrefix.getPrefix() + "some value";
+        argsString = unknownPrefix + "some value";
         argMultimap = ArgumentTokenizer.tokenize(argsString, pSlash, dashT, hatQ);
         assertArgumentAbsent(argMultimap, unknownPrefix);
         assertPreamblePresent(argMultimap, argsString); // Unknown prefix is taken as part of preamble
