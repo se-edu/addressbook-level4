@@ -4,11 +4,10 @@ import java.net.URL;
 
 import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.scene.web.WebView;
 import seedu.address.MainApp;
-import seedu.address.commons.util.FxViewUtil;
 import seedu.address.model.person.ReadOnlyPerson;
 
 /**
@@ -23,15 +22,14 @@ public class BrowserPanel extends UiPart<Region> {
     private WebView browser;
 
     /**
-     * @param placeholder The AnchorPane where the BrowserPanel must be inserted
+     * @param placeholder The Pane where the BrowserPanel must be inserted
      */
-    public BrowserPanel(AnchorPane placeholder) {
+    public BrowserPanel(Pane placeholder) {
         super(FXML);
 
         // To prevent triggering events for typing inside the loaded Web page.
         placeholder.setOnKeyPressed(Event::consume);
 
-        FxViewUtil.applyAnchorBoundaryParameters(browser, 0.0, 0.0, 0.0, 0.0);
         placeholder.getChildren().add(browser);
 
         loadDefaultPage();
