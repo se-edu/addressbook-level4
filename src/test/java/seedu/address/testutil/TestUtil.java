@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 import guitests.guihandles.PersonCardHandle;
 import javafx.geometry.Bounds;
@@ -23,6 +24,7 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.ReadOnlyPerson;
+import seedu.address.model.tag.Tag;
 
 /**
  * A utility class for test cases.
@@ -160,6 +162,15 @@ public class TestUtil {
 
     public static boolean compareCardAndPerson(PersonCardHandle card, ReadOnlyPerson person) {
         return card.isSamePerson(person);
+    }
+
+    /**
+     * Returns the tags as a {@code List<String>}.
+     */
+    public static List<String> getTagsAsStringsList(Set<Tag> tags) {
+        List<String> tagsList = new ArrayList<>();
+        tags.forEach((tag) -> tagsList.add(tag.tagName));
+        return tagsList;
     }
 
 }
