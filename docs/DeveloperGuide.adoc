@@ -1,11 +1,15 @@
-= AddressBook Level 4 - Developer Guide:
+= AddressBook Level 4 - Developer Guide
 :toc:
 :toc-title:
 :toc-placement: preamble
 :sectnums:
 :imagesDir: images
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+endif::[]
 
-By : `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
 
 == Setting up
 
@@ -35,7 +39,7 @@ This app will not work with earlier versions of Java 8.
 [NOTE]
 ====
 * If you are asked whether to 'keep' or 'overwrite' config files, choose to 'keep'.
-* Depending on your connection speed and server load, it can even take up to 30 minutes for the set up to finish (This is because Gradle downloads library files from servers during the project set up process)
+* Depending on your connection speed and server load, it can even take up to 30 minutes for the set up to finish (This is because Gradle downloads library files from servers during the project set up process).
 * If Eclipse auto-changed any settings files during the import process, you can discard those changes.
 ====
 
