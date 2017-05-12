@@ -4,6 +4,7 @@ import guitests.GuiRobot;
 import javafx.collections.ObservableList;
 import javafx.stage.Stage;
 
+import seedu.address.logic.commands.HelpCommand;
 import seedu.address.ui.CommandBox;
 
 /**
@@ -44,7 +45,7 @@ public class CommandBoxHandle extends GuiHandle {
     }
 
     public HelpWindowHandle runHelpCommand() {
-        enterCommand("help");
+        enterCommand(HelpCommand.COMMAND_WORD);
         pressEnter();
         return new HelpWindowHandle(guiRobot, primaryStage);
     }

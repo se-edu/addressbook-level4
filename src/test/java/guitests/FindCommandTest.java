@@ -5,29 +5,32 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import seedu.address.commons.core.Messages;
+import seedu.address.logic.commands.ClearCommand;
+import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.FindCommand;
 import seedu.address.model.person.Person;
 
 public class FindCommandTest extends AddressBookGuiTest {
 
     @Test
     public void find_nonEmptyList() {
-        assertFindResult("find Mark"); // no results
-        assertFindResult("find Meier", td.benson, td.daniel); // multiple results
+        assertFindResult(FindCommand.COMMAND_WORD + " Mark"); // no results
+        assertFindResult(FindCommand.COMMAND_WORD + " Meier", td.benson, td.daniel); // multiple results
 
         //find after deleting one result
-        commandBox.runCommand("delete 1");
-        assertFindResult("find Meier", td.daniel);
+        commandBox.runCommand(DeleteCommand.COMMAND_WORD + " 1");
+        assertFindResult(FindCommand.COMMAND_WORD + " Meier", td.daniel);
     }
 
     @Test
     public void find_emptyList() {
-        commandBox.runCommand("clear");
-        assertFindResult("find Jean"); // no results
+        commandBox.runCommand(ClearCommand.COMMAND_WORD);
+        assertFindResult(FindCommand.COMMAND_WORD + " Jean"); // no results
     }
 
     @Test
     public void find_invalidCommand_fail() {
-        commandBox.runCommand("findgeorge");
+        commandBox.runCommand(FindCommand.COMMAND_WORD + "george");
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
     }
 

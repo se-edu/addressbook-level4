@@ -6,6 +6,10 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.util.SampleDataUtil.getTagSet;
 
 import java.util.ArrayList;
@@ -171,13 +175,14 @@ public class LogicManagerTest {
 
     @Test
     public void execute_help() {
-        assertCommandSuccess("help", HelpCommand.SHOWING_HELP_MESSAGE, new AddressBook(), Collections.emptyList());
+        assertCommandSuccess(HelpCommand.COMMAND_WORD, HelpCommand.SHOWING_HELP_MESSAGE,
+                new AddressBook(), Collections.emptyList());
         assertTrue(helpShown);
     }
 
     @Test
     public void execute_exit() {
-        assertCommandSuccess("exit", ExitCommand.MESSAGE_EXIT_ACKNOWLEDGEMENT,
+        assertCommandSuccess(ExitCommand.COMMAND_WORD, ExitCommand.MESSAGE_EXIT_ACKNOWLEDGEMENT,
                 new AddressBook(), Collections.emptyList());
     }
 
@@ -188,30 +193,50 @@ public class LogicManagerTest {
         model.addPerson(helper.generatePerson(2));
         model.addPerson(helper.generatePerson(3));
 
-        assertCommandSuccess("clear", ClearCommand.MESSAGE_SUCCESS, new AddressBook(), Collections.emptyList());
+        assertCommandSuccess(ClearCommand.COMMAND_WORD, ClearCommand.MESSAGE_SUCCESS,
+                new AddressBook(), Collections.emptyList());
     }
 
 
     @Test
     public void execute_add_invalidArgsFormat() {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
-        assertCommandFailure("add wrong args wrong args", expectedMessage);
-        assertCommandFailure("add Valid Name 12345 e/valid@email.butNoPhonePrefix a/valid,address", expectedMessage);
-        assertCommandFailure("add Valid Name p/12345 valid@email.butNoPrefix a/valid, address", expectedMessage);
-        assertCommandFailure("add Valid Name p/12345 e/valid@email.butNoAddressPrefix valid, address", expectedMessage);
+        assertCommandFailure(AddCommand.COMMAND_WORD + " wrong args wrong args", expectedMessage);
+        assertCommandFailure(AddCommand.COMMAND_WORD + " Valid Name 12345 "
+                + PREFIX_EMAIL + "valid@email.butNoPhonePrefix "
+                + PREFIX_ADDRESS + "valid,address", expectedMessage);
+        assertCommandFailure(AddCommand.COMMAND_WORD + " Valid Name "
+                + PREFIX_PHONE + "12345 valid@email.butNoPrefix "
+                + PREFIX_ADDRESS + "valid, address", expectedMessage);
+        assertCommandFailure(AddCommand.COMMAND_WORD + " Valid Name "
+                + PREFIX_PHONE + "12345 "
+                + PREFIX_EMAIL + "valid@email.butNoAddressPrefix valid, address",
+                expectedMessage);
     }
 
     @Test
     public void execute_add_invalidPersonData() {
-        assertCommandFailure("add []\\[;] p/12345 e/valid@e.mail a/valid, address",
+        assertCommandFailure(AddCommand.COMMAND_WORD + " []\\[;] "
+                + PREFIX_PHONE + "12345 "
+                + PREFIX_EMAIL + "valid@e.mail "
+                + PREFIX_ADDRESS + "valid, address",
                 Name.MESSAGE_NAME_CONSTRAINTS);
-        assertCommandFailure("add Valid Name p/not_numbers e/valid@e.mail a/valid, address",
+        assertCommandFailure(AddCommand.COMMAND_WORD + " Valid Name "
+                + PREFIX_PHONE + "not_numbers "
+                + PREFIX_EMAIL + "valid@e.mail "
+                + PREFIX_ADDRESS + "valid, address",
                 Phone.MESSAGE_PHONE_CONSTRAINTS);
-        assertCommandFailure("add Valid Name p/12345 e/notAnEmail a/valid, address",
+        assertCommandFailure(AddCommand.COMMAND_WORD + " Valid Name "
+                + PREFIX_PHONE + "12345 "
+                + PREFIX_EMAIL + "notAnEmail "
+                + PREFIX_ADDRESS + "valid, address",
                 Email.MESSAGE_EMAIL_CONSTRAINTS);
-        assertCommandFailure("add Valid Name p/12345 e/valid@e.mail a/valid, address t/invalid_-[.tag",
+        assertCommandFailure(AddCommand.COMMAND_WORD + " Valid Name "
+                + PREFIX_PHONE + "12345 "
+                + PREFIX_EMAIL + "valid@e.mail "
+                + PREFIX_ADDRESS + "valid, address "
+                + PREFIX_TAG + "invalid_-[.tag",
                 Tag.MESSAGE_TAG_CONSTRAINTS);
-
     }
 
     @Test
@@ -255,7 +280,7 @@ public class LogicManagerTest {
         // prepare address book state
         helper.addToModel(model, 2);
 
-        assertCommandSuccess("list",
+        assertCommandSuccess(ListCommand.COMMAND_WORD,
                 ListCommand.MESSAGE_SUCCESS,
                 expectedAb,
                 expectedList);
@@ -300,12 +325,12 @@ public class LogicManagerTest {
     @Test
     public void execute_selectInvalidArgsFormat_errorMessageShown() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE);
-        assertIncorrectIndexFormatBehaviorForCommand("select", expectedMessage);
+        assertIncorrectIndexFormatBehaviorForCommand(SelectCommand.COMMAND_WORD, expectedMessage);
     }
 
     @Test
     public void execute_selectIndexNotFound_errorMessageShown() throws Exception {
-        assertIndexNotFoundBehaviorForCommand("select");
+        assertIndexNotFoundBehaviorForCommand(SelectCommand.COMMAND_WORD);
     }
 
     @Test
@@ -316,7 +341,7 @@ public class LogicManagerTest {
         AddressBook expectedAb = helper.generateAddressBook(threePersons);
         helper.addToModel(model, threePersons);
 
-        assertCommandSuccess("select 2",
+        assertCommandSuccess(SelectCommand.COMMAND_WORD + " 2",
                 String.format(SelectCommand.MESSAGE_SELECT_PERSON_SUCCESS, 2),
                 expectedAb,
                 expectedAb.getPersonList());
@@ -328,12 +353,12 @@ public class LogicManagerTest {
     @Test
     public void execute_deleteInvalidArgsFormat_errorMessageShown() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE);
-        assertIncorrectIndexFormatBehaviorForCommand("delete", expectedMessage);
+        assertIncorrectIndexFormatBehaviorForCommand(DeleteCommand.COMMAND_WORD, expectedMessage);
     }
 
     @Test
     public void execute_deleteIndexNotFound_errorMessageShown() throws Exception {
-        assertIndexNotFoundBehaviorForCommand("delete");
+        assertIndexNotFoundBehaviorForCommand(DeleteCommand.COMMAND_WORD);
     }
 
     @Test
@@ -345,7 +370,7 @@ public class LogicManagerTest {
         expectedAb.removePerson(threePersons.get(1));
         helper.addToModel(model, threePersons);
 
-        assertCommandSuccess("delete 2",
+        assertCommandSuccess(DeleteCommand.COMMAND_WORD + " 2",
                 String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, threePersons.get(1)),
                 expectedAb,
                 expectedAb.getPersonList());
@@ -355,7 +380,7 @@ public class LogicManagerTest {
     @Test
     public void execute_find_invalidArgsFormat() {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE);
-        assertCommandFailure("find ", expectedMessage);
+        assertCommandFailure(FindCommand.COMMAND_WORD + " ", expectedMessage);
     }
 
     @Test
@@ -371,7 +396,7 @@ public class LogicManagerTest {
         List<Person> expectedList = helper.generatePersonList(pTarget1, pTarget2);
         helper.addToModel(model, fourPersons);
 
-        assertCommandSuccess("find KEY",
+        assertCommandSuccess(FindCommand.COMMAND_WORD + " KEY",
                 Command.getMessageForPersonListShownSummary(expectedList.size()),
                 expectedAb,
                 expectedList);
@@ -390,7 +415,7 @@ public class LogicManagerTest {
         List<Person> expectedList = fourPersons;
         helper.addToModel(model, fourPersons);
 
-        assertCommandSuccess("find KEY",
+        assertCommandSuccess(FindCommand.COMMAND_WORD + " KEY",
                 Command.getMessageForPersonListShownSummary(expectedList.size()),
                 expectedAb,
                 expectedList);
@@ -409,7 +434,7 @@ public class LogicManagerTest {
         List<Person> expectedList = helper.generatePersonList(pTarget1, pTarget2, pTarget3);
         helper.addToModel(model, fourPersons);
 
-        assertCommandSuccess("find key rAnDoM",
+        assertCommandSuccess(FindCommand.COMMAND_WORD + " key rAnDoM",
                 Command.getMessageForPersonListShownSummary(expectedList.size()),
                 expectedAb,
                 expectedList);
@@ -454,16 +479,16 @@ public class LogicManagerTest {
         String generateAddCommand(Person p) {
             StringBuffer cmd = new StringBuffer();
 
-            cmd.append("add ");
+            cmd.append(AddCommand.COMMAND_WORD + " ");
 
             cmd.append(p.getName().toString());
-            cmd.append(" e/").append(p.getEmail());
-            cmd.append(" p/").append(p.getPhone());
-            cmd.append(" a/").append(p.getAddress());
+            cmd.append(" " + PREFIX_EMAIL.getPrefix()).append(p.getEmail());
+            cmd.append(" " + PREFIX_PHONE.getPrefix()).append(p.getPhone());
+            cmd.append(" " + PREFIX_ADDRESS.getPrefix()).append(p.getAddress());
 
             Set<Tag> tags = p.getTags();
             for (Tag t: tags) {
-                cmd.append(" t/").append(t.tagName);
+                cmd.append(" " + PREFIX_TAG.getPrefix()).append(t.tagName);
             }
 
             return cmd.toString();

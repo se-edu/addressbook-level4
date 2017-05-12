@@ -9,11 +9,12 @@ import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
 
+import seedu.address.logic.commands.SelectCommand;
 import seedu.address.ui.CommandBox;
 
 public class CommandBoxTest extends AddressBookGuiTest {
 
-    private static final String COMMAND_THAT_SUCCEEDS = "select 3";
+    private static final String COMMAND_THAT_SUCCEEDS = SelectCommand.COMMAND_WORD + " 3";
     private static final String COMMAND_THAT_FAILS = "invalid command";
 
     private ArrayList<String> defaultStyleOfCommandBox;
