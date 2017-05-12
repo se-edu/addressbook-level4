@@ -49,11 +49,11 @@ public class ArgumentTokenizer {
     private static List<PrefixPosition> findPrefixPositions(String argsString, Prefix prefix) {
         List<PrefixPosition> positions = new ArrayList<>();
 
-        int argumentStart = getArgumentStart(argsString, prefix.getPrefix(), 0);
-        while (argumentStart != -1) {
-            PrefixPosition extendedPrefix = new PrefixPosition(prefix, argumentStart);
+        int prefixPosition = findPrefixPosition(argsString, prefix.getPrefix(), 0);
+        while (prefixPosition != -1) {
+            PrefixPosition extendedPrefix = new PrefixPosition(prefix, prefixPosition);
             positions.add(extendedPrefix);
-            argumentStart = getArgumentStart(argsString, prefix.getPrefix(), argumentStart);
+            prefixPosition = findPrefixPosition(argsString, prefix.getPrefix(), prefixPosition);
         }
 
         return positions;
@@ -71,7 +71,7 @@ public class ArgumentTokenizer {
      * {@code prefix} = "p/", {@code argsString} = "e/hi p/900" and
      * {@code fromIndex} = 0, this method returns 5.
      */
-    private static int getArgumentStart(String argsString, String prefix, int fromIndex) {
+    private static int findPrefixPosition(String argsString, String prefix, int fromIndex) {
         // chained prefixes without a whitespace in between them e.g "edit 1
         // a/fooe/barp/barbart/foo" are considered as invalid
         int prefixIndex = argsString.indexOf(" " + prefix, fromIndex);
