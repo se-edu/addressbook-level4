@@ -46,22 +46,43 @@ public class EditCommandParser {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         }
 
+        StringBuilder illegalValueMessage = new StringBuilder();
+
         EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
+
         try {
             editPersonDescriptor.setName(ParserUtil.parseName(preambleFields.get(1)));
+        } catch (IllegalValueException ive) {
+            illegalValueMessage.append(ive.getMessage()).append("\n");
+        }
+        try {
             editPersonDescriptor.setPhone(ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE)));
+        } catch (IllegalValueException ive) {
+            illegalValueMessage.append(ive.getMessage()).append("\n");
+        }
+        try {
             editPersonDescriptor.setEmail(ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL)));
+        } catch (IllegalValueException ive) {
+            illegalValueMessage.append(ive.getMessage()).append("\n");
+        }
+        try {
             editPersonDescriptor.setAddress(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS)));
+        } catch (IllegalValueException ive) {
+            illegalValueMessage.append(ive.getMessage()).append("\n");
+        }
+        try {
             editPersonDescriptor.setTags(parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)));
         } catch (IllegalValueException ive) {
-            return new IncorrectCommand(ive.getMessage());
+            illegalValueMessage.append(ive.getMessage()).append("\n");
         }
 
-        if (!editPersonDescriptor.isAnyFieldEdited()) {
+        if (!illegalValueMessage.toString().isEmpty()) {
+            return new IncorrectCommand(illegalValueMessage.toString().trim());
+        } else if (!editPersonDescriptor.isAnyFieldEdited()) {
             return new IncorrectCommand(EditCommand.MESSAGE_NOT_EDITED);
+        } else {
+            return new EditCommand(index.get(), editPersonDescriptor);
         }
-
-        return new EditCommand(index, editPersonDescriptor);
     }
 
     /**

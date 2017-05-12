@@ -38,18 +38,49 @@ public class AddCommandParser {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 
+        StringBuilder illegalValueMessage = new StringBuilder();
+
+        Name name = null;
+        Phone phone = null;
+        Email email = null;
+        Address address = null;
+        Set<Tag> tagList = null;
+
         try {
-            Name name = new Name(argMultimap.getPreamble());
-            Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE)).get();
-            Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL)).get();
-            Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS)).get();
-            Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
-
-            ReadOnlyPerson person = new Person(name, phone, email, address, tagList);
-
-            return new AddCommand(person);
+            name = new Name(argMultimap.getPreamble());
         } catch (IllegalValueException ive) {
-            return new IncorrectCommand(ive.getMessage());
+            illegalValueMessage.append(ive.getMessage()).append("\n");
+        }
+
+        try {
+            phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE)).get();
+        } catch (IllegalValueException ive) {
+            illegalValueMessage.append(ive.getMessage()).append("\n");
+        }
+
+        try {
+            email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL)).get();
+        } catch (IllegalValueException ive) {
+            illegalValueMessage.append(ive.getMessage()).append("\n");
+        }
+
+        try {
+            address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS)).get();
+        } catch (IllegalValueException ive) {
+            illegalValueMessage.append(ive.getMessage()).append("\n");
+        }
+
+        try {
+            tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
+        } catch (IllegalValueException ive) {
+            illegalValueMessage.append(ive.getMessage()).append("\n");
+        }
+
+        if (illegalValueMessage.toString().isEmpty()) {
+            ReadOnlyPerson person = new Person(name, phone, email, address, tagList);
+            return new AddCommand(person);
+        } else {
+            return new IncorrectCommand(illegalValueMessage.toString().trim());
         }
     }
 
