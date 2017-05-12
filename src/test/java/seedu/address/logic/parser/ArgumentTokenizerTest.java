@@ -127,10 +127,12 @@ public class ArgumentTokenizerTest {
 
     @Test
     public void tokenize_multipleArgumentsJoined() {
-        String argsString = "SomePreambleStringp/ pSlash value";
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(argsString, pSlash);
-        assertPreamblePresent(argMultimap, "SomePreambleStringp/ pSlash value");
+        String argsString = "SomePreambleStringp/ pSlash joined-tjoined -t not joined^Qjoined";
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(argsString, pSlash, dashT, hatQ);
+        assertPreamblePresent(argMultimap, "SomePreambleStringp/ pSlash joined-tjoined");
         assertArgumentAbsent(argMultimap, pSlash);
+        assertArgumentPresent(argMultimap, dashT, "not joined^Qjoined");
+        assertArgumentAbsent(argMultimap, hatQ);
     }
 
     @Test
