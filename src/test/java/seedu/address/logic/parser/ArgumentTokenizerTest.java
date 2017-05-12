@@ -88,10 +88,8 @@ public class ArgumentTokenizerTest {
         assertArgumentPresent(argMultimap, dashT, "dashT-Value");
         assertArgumentAbsent(argMultimap, hatQ);
 
-        /* Also covers: Cases where the prefix doesn't have a space before/after it */
-
-        // All three arguments are present, no spaces before the prefixes
-        argsString = "Different Preamble String ^Q 111 -t dashT-Value p/ pSlash value";
+        // All three arguments are present
+        argsString = "Different Preamble String ^Q111 -t dashT-Value p/pSlash value";
         argMultimap = ArgumentTokenizer.tokenize(argsString, pSlash, dashT, hatQ);
         assertPreamblePresent(argMultimap, "Different Preamble String");
         assertArgumentPresent(argMultimap, pSlash, "pSlash value");
@@ -132,6 +130,7 @@ public class ArgumentTokenizerTest {
         String argsString = "SomePreambleStringp/ pSlash value";
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(argsString, pSlash);
         assertPreamblePresent(argMultimap, "SomePreambleStringp/ pSlash value");
+        assertArgumentAbsent(argMultimap, pSlash);
     }
 
     @Test
