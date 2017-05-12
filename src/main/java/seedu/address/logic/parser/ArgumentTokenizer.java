@@ -61,8 +61,15 @@ public class ArgumentTokenizer {
 
     /**
      * Returns the index of the first occurrence of {@code prefix} in
-     * {@code argsString} after index {@code fromIndex}. Returns -1 if no such
-     * occurrence can be found.
+     * {@code argsString} starting from index {@code fromIndex}. An occurrence
+     * is valid if there is a whitespace before {@code prefix}. Returns -1 if no
+     * such occurrence can be found.
+     *
+     * E.g if {@code prefix} = "p/", {@code argsString} = "e/hip/900" and
+     * {@code fromIndex} = 0, this method returns -1 as there are no valid
+     * occurrences of "p/" because there is no whitespace before it. However, if
+     * {@code prefix} = "p/", {@code argsString} = "e/hi p/900" and
+     * {@code fromIndex} = 0, this method returns 5.
      */
     private static int getArgumentStart(String argsString, String prefix, int fromIndex) {
         // chained prefixes without a whitespace in between them e.g "edit 1
