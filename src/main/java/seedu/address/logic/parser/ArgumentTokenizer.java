@@ -5,11 +5,10 @@ import java.util.List;
 
 /**
  * Tokenizes arguments string of the form: {@code preamble <prefix>value <prefix>value ...}<br>
- *     e.g. {@code some preamble text t/ 11.00d/Today t/ 12.00 k/ m/ July}  where prefixes are {@code t/ d/ k/ m/}.<br>
+ *     e.g. {@code some preamble text t/ 11.00 t/ 12.00 k/ m/ July}  where prefixes are {@code t/ k/ m/}.<br>
  * 1. An argument's value can be an empty string e.g. the value of {@code k/} in the above example.<br>
  * 2. Leading and trailing whitespaces of an argument value will be discarded.<br>
- * 3. A prefix need not have leading and trailing spaces e.g. the {@code d/ in 11.00d/Today} in the above example<br>
- * 4. An argument may be repeated and all its values will be accumulated e.g. the value of {@code t/}
+ * 3. An argument may be repeated and all its values will be accumulated e.g. the value of {@code t/}
  *    in the above example.<br>
  */
 public class ArgumentTokenizer {
@@ -50,14 +49,37 @@ public class ArgumentTokenizer {
     private static List<PrefixPosition> findPrefixPositions(String argsString, Prefix prefix) {
         List<PrefixPosition> positions = new ArrayList<>();
 
-        int argumentStart = argsString.indexOf(prefix.getPrefix());
-        while (argumentStart != -1) {
-            PrefixPosition extendedPrefix = new PrefixPosition(prefix, argumentStart);
+        int prefixPosition = findPrefixPosition(argsString, prefix.getPrefix(), 0);
+        while (prefixPosition != -1) {
+            PrefixPosition extendedPrefix = new PrefixPosition(prefix, prefixPosition);
             positions.add(extendedPrefix);
-            argumentStart = argsString.indexOf(prefix.getPrefix(), argumentStart + 1);
+            prefixPosition = findPrefixPosition(argsString, prefix.getPrefix(), prefixPosition);
         }
 
         return positions;
+    }
+
+    /**
+     * Returns the index of the first occurrence of {@code prefix} in
+     * {@code argsString} starting from index {@code fromIndex}. An occurrence
+     * is valid if there is a whitespace before {@code prefix}. Returns -1 if no
+     * such occurrence can be found.
+     *
+     * E.g if {@code prefix} = "p/", {@code argsString} = "e/hip/900" and
+     * {@code fromIndex} = 0, this method returns -1 as there are no valid
+     * occurrences of "p/" because there is no whitespace before it. However, if
+     * {@code prefix} = "p/", {@code argsString} = "e/hi p/900" and
+     * {@code fromIndex} = 0, this method returns 5.
+     */
+    private static int findPrefixPosition(String argsString, String prefix, int fromIndex) {
+        // chained prefixes without a whitespace in between them e.g "edit 1
+        // a/fooe/barp/barbart/foo" are considered as invalid
+        int prefixIndex = argsString.indexOf(" " + prefix, fromIndex);
+        if (prefixIndex == -1) {
+            return -1;
+        } else {
+            return prefixIndex + 1; // offset for whitespace
+        }
     }
 
     /**
