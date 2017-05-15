@@ -1,5 +1,7 @@
 package seedu.address.commons.util;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.io.File;
 import java.io.IOException;
 import java.util.Optional;
@@ -55,7 +57,7 @@ public class JsonUtil {
     public static <T> Optional<T> readJsonFile(
             String filePath, Class<T> classOfObjectToDeserialize) throws DataConversionException {
 
-        assert filePath != null;
+        checkNotNull(filePath);
 
         File file = new File(filePath);
 
@@ -84,8 +86,8 @@ public class JsonUtil {
      * @throws IOException if there was an error during writing to the file
      */
     public static <T> void saveJsonFile(T jsonFile, String filePath) throws IOException {
-        assert jsonFile != null;
-        assert filePath != null;
+        checkNotNull(jsonFile);
+        checkNotNull(filePath);
 
         serializeObjectToJsonFile(new File(filePath), jsonFile);
     }
