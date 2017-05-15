@@ -60,8 +60,8 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parseName_null_throwsAssertionError() throws Exception {
-        thrown.expect(AssertionError.class);
+    public void parseName_null_throwsNullPointerException() throws Exception {
+        thrown.expect(NullPointerException.class);
         ParserUtil.parseName(null);
     }
 
@@ -85,8 +85,8 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parsePhone_null_throwsAssertionError() throws Exception {
-        thrown.expect(AssertionError.class);
+    public void parsePhone_null_throwsNullPointerException() throws Exception {
+        thrown.expect(NullPointerException.class);
         ParserUtil.parsePhone(null);
     }
 
@@ -110,8 +110,8 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parseAddress_null_throwsAssertionError() throws Exception {
-        thrown.expect(AssertionError.class);
+    public void parseAddress_null_throwsNullPointerException() throws Exception {
+        thrown.expect(NullPointerException.class);
         ParserUtil.parseAddress(null);
     }
 
@@ -135,8 +135,8 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parseEmail_null_throwsAssertionError() throws Exception {
-        thrown.expect(AssertionError.class);
+    public void parseEmail_null_throwsNullPointerException() throws Exception {
+        thrown.expect(NullPointerException.class);
         ParserUtil.parseEmail(null);
     }
 
@@ -160,8 +160,8 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parseTags_null_throwsAssertionError() throws Exception {
-        thrown.expect(AssertionError.class);
+    public void parseTags_null_throwsNullPointerException() throws Exception {
+        thrown.expect(NullPointerException.class);
         ParserUtil.parseTags(null);
     }
 
