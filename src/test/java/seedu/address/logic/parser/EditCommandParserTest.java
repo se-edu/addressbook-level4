@@ -6,15 +6,15 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.testutil.EditCommandTestUtil.VALID_ADDRESS_AMY;
-import static seedu.address.testutil.EditCommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.address.testutil.EditCommandTestUtil.VALID_EMAIL_AMY;
-import static seedu.address.testutil.EditCommandTestUtil.VALID_EMAIL_BOB;
-import static seedu.address.testutil.EditCommandTestUtil.VALID_NAME_AMY;
-import static seedu.address.testutil.EditCommandTestUtil.VALID_PHONE_AMY;
-import static seedu.address.testutil.EditCommandTestUtil.VALID_PHONE_BOB;
-import static seedu.address.testutil.EditCommandTestUtil.VALID_TAG_FRIEND;
-import static seedu.address.testutil.EditCommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.testutil.AddAndEditCommandTestUtil.VALID_ADDRESS_AMY;
+import static seedu.address.testutil.AddAndEditCommandTestUtil.VALID_ADDRESS_BOB;
+import static seedu.address.testutil.AddAndEditCommandTestUtil.VALID_EMAIL_AMY;
+import static seedu.address.testutil.AddAndEditCommandTestUtil.VALID_EMAIL_BOB;
+import static seedu.address.testutil.AddAndEditCommandTestUtil.VALID_NAME_AMY;
+import static seedu.address.testutil.AddAndEditCommandTestUtil.VALID_PHONE_AMY;
+import static seedu.address.testutil.AddAndEditCommandTestUtil.VALID_PHONE_BOB;
+import static seedu.address.testutil.AddAndEditCommandTestUtil.VALID_TAG_FRIEND;
+import static seedu.address.testutil.AddAndEditCommandTestUtil.VALID_TAG_HUSBAND;
 
 import org.junit.Test;
 
@@ -108,9 +108,9 @@ public class EditCommandParserTest {
         assertParseFailure("1" + TAG_DESC_FRIEND + TAG_EMPTY + TAG_DESC_HUSBAND, Tag.MESSAGE_TAG_CONSTRAINTS);
         assertParseFailure("1" + TAG_EMPTY + TAG_DESC_FRIEND + TAG_DESC_HUSBAND, Tag.MESSAGE_TAG_CONSTRAINTS);
 
-        // multiple invalid values, but only the first invalid value is captured
+        // multiple invalid values, all of which are reported
         assertParseFailure("1" + INVALID_NAME_DESC + INVALID_EMAIL_DESC + VALID_ADDRESS_AMY + VALID_PHONE_AMY,
-                Name.MESSAGE_NAME_CONSTRAINTS);
+                Name.MESSAGE_NAME_CONSTRAINTS + "\n" + Email.MESSAGE_EMAIL_CONSTRAINTS);
     }
 
     @Test
