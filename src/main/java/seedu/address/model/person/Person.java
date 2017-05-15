@@ -1,5 +1,8 @@
 package seedu.address.model.person;
 
+import static com.google.common.base.Preconditions.checkArgument;
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.Collections;
 import java.util.Objects;
 import java.util.Set;
@@ -25,7 +28,7 @@ public class Person implements ReadOnlyPerson {
      * Every field must be present and not null.
      */
     public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
-        assert !CollectionUtil.isAnyNull(name, phone, email, address, tags);
+        checkArgument(!CollectionUtil.isAnyNull(name, phone, email, address, tags));
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -42,7 +45,7 @@ public class Person implements ReadOnlyPerson {
     }
 
     public void setName(Name name) {
-        assert name != null;
+        checkNotNull(name);
         this.name = name;
     }
 
@@ -52,7 +55,7 @@ public class Person implements ReadOnlyPerson {
     }
 
     public void setPhone(Phone phone) {
-        assert phone != null;
+        checkNotNull(phone);
         this.phone = phone;
     }
 
@@ -62,7 +65,7 @@ public class Person implements ReadOnlyPerson {
     }
 
     public void setEmail(Email email) {
-        assert email != null;
+        checkNotNull(email);
         this.email = email;
     }
 
@@ -72,7 +75,7 @@ public class Person implements ReadOnlyPerson {
     }
 
     public void setAddress(Address address) {
-        assert address != null;
+        checkNotNull(address);
         this.address = address;
     }
 
@@ -101,7 +104,7 @@ public class Person implements ReadOnlyPerson {
      * Updates this person with the details of {@code replacement}.
      */
     public void resetData(ReadOnlyPerson replacement) {
-        assert replacement != null;
+        checkNotNull(replacement);
 
         this.setName(replacement.getName());
         this.setPhone(replacement.getPhone());

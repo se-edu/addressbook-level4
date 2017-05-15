@@ -1,5 +1,7 @@
 package seedu.address.logic.commands;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import seedu.address.model.AddressBook;
 
 /**
@@ -13,7 +15,7 @@ public class ClearCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        assert model != null;
+        checkNotNull(model);
         model.resetData(new AddressBook());
         return new CommandResult(MESSAGE_SUCCESS);
     }
