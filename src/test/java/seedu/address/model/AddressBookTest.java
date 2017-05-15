@@ -33,8 +33,8 @@ public class AddressBookTest {
     }
 
     @Test
-    public void resetData_null_throwsAssertionError() {
-        thrown.expect(AssertionError.class);
+    public void resetData_null_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
         addressBook.resetData(null);
     }
 

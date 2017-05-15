@@ -1,5 +1,7 @@
 package seedu.address.ui;
 
+import static java.util.Objects.requireNonNull;
+
 import java.io.IOException;
 import java.net.URL;
 
@@ -27,8 +29,7 @@ public abstract class UiPart<T> {
      * The FXML file must not specify the {@code fx:controller} attribute.
      */
     public UiPart(URL fxmlFileUrl) {
-        assert fxmlFileUrl != null;
-        fxmlLoader = new FXMLLoader(fxmlFileUrl);
+        fxmlLoader = new FXMLLoader(requireNonNull(fxmlFileUrl));
         fxmlLoader.setController(this);
         try {
             fxmlLoader.load();

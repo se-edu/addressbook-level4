@@ -28,8 +28,8 @@ public class JsonUserPrefsStorageTest {
     public TemporaryFolder testFolder = new TemporaryFolder();
 
     @Test
-    public void readUserPrefs_nullFilePath_assertionFailure() throws DataConversionException {
-        thrown.expect(AssertionError.class);
+    public void readUserPrefs_nullFilePath_throwsNullPointerException() throws DataConversionException {
+        thrown.expect(NullPointerException.class);
         readUserPrefs(null);
     }
 
@@ -89,14 +89,14 @@ public class JsonUserPrefsStorageTest {
     }
 
     @Test
-    public void savePrefs_nullPrefs_assertionFailure() throws IOException {
-        thrown.expect(AssertionError.class);
+    public void savePrefs_nullPrefs_throwsNullPointerException() throws IOException {
+        thrown.expect(NullPointerException.class);
         saveUserPrefs(null, "SomeFile.json");
     }
 
     @Test
-    public void saveUserPrefs_nullFilePath_assertionFailure() throws IOException {
-        thrown.expect(AssertionError.class);
+    public void saveUserPrefs_nullFilePath_throwsNullPointerException() throws IOException {
+        thrown.expect(NullPointerException.class);
         saveUserPrefs(new UserPrefs(), null);
     }
 
