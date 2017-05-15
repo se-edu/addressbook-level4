@@ -42,6 +42,8 @@ public class UniqueTagList implements Iterable<Tag> {
             tagList.add(new Tag(tag));
         }
         setTags(tagList);
+
+        assert CollectionUtil.elementsAreUnique(internalList);
     }
 
     /**
@@ -55,6 +57,8 @@ public class UniqueTagList implements Iterable<Tag> {
             throw new DuplicateTagException();
         }
         internalList.addAll(initialTags);
+
+        assert CollectionUtil.elementsAreUnique(internalList);
     }
 
     /**
@@ -64,6 +68,8 @@ public class UniqueTagList implements Iterable<Tag> {
     public UniqueTagList(Collection<Tag> tags) throws DuplicateTagException {
         this();
         setTags(tags);
+
+        assert CollectionUtil.elementsAreUnique(internalList);
     }
 
     /**
@@ -73,6 +79,8 @@ public class UniqueTagList implements Iterable<Tag> {
     public UniqueTagList(Set<Tag> tags) {
         assert !CollectionUtil.isAnyNull(tags);
         internalList.addAll(tags);
+
+        assert CollectionUtil.elementsAreUnique(internalList);
     }
 
     /**
@@ -81,6 +89,8 @@ public class UniqueTagList implements Iterable<Tag> {
      */
     public UniqueTagList(UniqueTagList source) {
         internalList.addAll(source.internalList); // insulate internal list from changes in argument
+
+        assert CollectionUtil.elementsAreUnique(internalList);
     }
 
     /**
@@ -88,6 +98,7 @@ public class UniqueTagList implements Iterable<Tag> {
      * This set is mutable and change-insulated against the internal list.
      */
     public Set<Tag> toSet() {
+        assert CollectionUtil.elementsAreUnique(internalList);
         return new HashSet<>(internalList);
     }
 
@@ -96,6 +107,7 @@ public class UniqueTagList implements Iterable<Tag> {
      */
     public void setTags(UniqueTagList replacement) {
         this.internalList.setAll(replacement.internalList);
+        assert CollectionUtil.elementsAreUnique(internalList);
     }
 
     public void setTags(Collection<Tag> tags) throws DuplicateTagException {
@@ -104,6 +116,8 @@ public class UniqueTagList implements Iterable<Tag> {
             throw new DuplicateTagException();
         }
         internalList.setAll(tags);
+
+        assert CollectionUtil.elementsAreUnique(internalList);
     }
 
     /**
@@ -114,6 +128,8 @@ public class UniqueTagList implements Iterable<Tag> {
         from.internalList.stream()
                 .filter(tag -> !alreadyInside.contains(tag))
                 .forEach(internalList::add);
+
+        assert CollectionUtil.elementsAreUnique(internalList);
     }
 
     /**
@@ -135,30 +151,38 @@ public class UniqueTagList implements Iterable<Tag> {
             throw new DuplicateTagException();
         }
         internalList.add(toAdd);
+
+        assert CollectionUtil.elementsAreUnique(internalList);
     }
 
     @Override
     public Iterator<Tag> iterator() {
+        assert CollectionUtil.elementsAreUnique(internalList);
         return internalList.iterator();
     }
 
     public UnmodifiableObservableList<Tag> asObservableList() {
+        assert CollectionUtil.elementsAreUnique(internalList);
         return new UnmodifiableObservableList<>(internalList);
     }
 
     @Override
     public boolean equals(Object other) {
+        assert CollectionUtil.elementsAreUnique(internalList);
         return other == this // short circuit if same object
                 || (other instanceof UniqueTagList // instanceof handles nulls
                         && this.internalList.equals(((UniqueTagList) other).internalList));
     }
 
     public boolean equalsOrderInsensitive(UniqueTagList other) {
+        assert CollectionUtil.elementsAreUnique(internalList);
+        assert CollectionUtil.elementsAreUnique(other.internalList);
         return this == other || new HashSet<>(this.internalList).equals(new HashSet<>(other.internalList));
     }
 
     @Override
     public int hashCode() {
+        assert CollectionUtil.elementsAreUnique(internalList);
         return internalList.hashCode();
     }
 
