@@ -54,4 +54,10 @@ public class AddCommand extends Command {
 
     }
 
+    @Override
+    public boolean equals(Object other) {
+        return other == this
+                || (other instanceof AddCommand
+                && this.toAdd.equals(((AddCommand) other).toAdd));
+    }
 }
