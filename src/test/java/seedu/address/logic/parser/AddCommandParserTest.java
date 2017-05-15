@@ -5,13 +5,19 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.testutil.AddAndEditCommandTestUtil.VALID_ADDRESS_AMY;
-import static seedu.address.testutil.AddAndEditCommandTestUtil.VALID_EMAIL_AMY;
-import static seedu.address.testutil.AddAndEditCommandTestUtil.VALID_NAME_AMY;
-import static seedu.address.testutil.AddAndEditCommandTestUtil.VALID_PHONE_AMY;
-import static seedu.address.testutil.AddAndEditCommandTestUtil.VALID_TAG_FRIEND;
+import static seedu.address.testutil.CommandTestUtil.INVALID_ADDRESS_JAMES;
+import static seedu.address.testutil.CommandTestUtil.INVALID_EMAIL_JAMES;
+import static seedu.address.testutil.CommandTestUtil.INVALID_NAME_JAMES;
+import static seedu.address.testutil.CommandTestUtil.INVALID_PHONE_JAMES;
+import static seedu.address.testutil.CommandTestUtil.INVALID_TAG_HUBBY;
+import static seedu.address.testutil.CommandTestUtil.VALID_ADDRESS_AMY;
+import static seedu.address.testutil.CommandTestUtil.VALID_EMAIL_AMY;
+import static seedu.address.testutil.CommandTestUtil.VALID_NAME_AMY;
+import static seedu.address.testutil.CommandTestUtil.VALID_PHONE_AMY;
+import static seedu.address.testutil.CommandTestUtil.VALID_TAG_FRIEND;
 
-import java.util.StringJoiner;
+import java.util.Arrays;
+import java.util.stream.Collectors;
 
 import org.junit.Test;
 
@@ -31,14 +37,14 @@ public class AddCommandParserTest {
     private static final String VALID_ADDRESS = " " + PREFIX_ADDRESS + VALID_ADDRESS_AMY;
     private static final String VALID_TAG = " " + PREFIX_TAG + VALID_TAG_FRIEND;
 
-    private static final String INVALID_NAME = "James&";
-    private static final String INVALID_PHONE = " " + PREFIX_PHONE + "+651234";
-    private static final String INVALID_EMAIL = " " + PREFIX_EMAIL + "example.com";
-    private static final String INVALID_ADDRESS = " " + PREFIX_ADDRESS + " ";
-    private static final String INVALID_TAG = " " + PREFIX_TAG + "#friends";
+    private static final String INVALID_NAME = INVALID_NAME_JAMES;
+    private static final String INVALID_PHONE = " " + PREFIX_PHONE + INVALID_PHONE_JAMES;
+    private static final String INVALID_EMAIL = " " + PREFIX_EMAIL + INVALID_EMAIL_JAMES;
+    private static final String INVALID_ADDRESS = " " + PREFIX_ADDRESS + INVALID_ADDRESS_JAMES;
+    private static final String INVALID_TAG = " " + PREFIX_TAG + INVALID_TAG_HUBBY;
 
     @Test
-    public void parse_oneInvalidField_returnsIncorrectCommand() throws Exception {
+    public void parse_oneInvalidField_failure() throws Exception {
         // Invalid name
         assertParseFailure(INVALID_NAME + VALID_PHONE + VALID_EMAIL + VALID_ADDRESS + VALID_TAG,
                             Name.MESSAGE_NAME_CONSTRAINTS);
@@ -61,24 +67,23 @@ public class AddCommandParserTest {
     }
 
     @Test
-    public void parse_multipleInvalidFields_returnsIncorrectCommand() throws Exception {
+    public void parse_multipleInvalidFields_failure() throws Exception {
         // Two invalid fields - phone and address
-        StringJoiner expectedMessage = new StringJoiner("\n");
-        expectedMessage.add(Phone.MESSAGE_PHONE_CONSTRAINTS).add(Address.MESSAGE_ADDRESS_CONSTRAINTS);
         assertParseFailure(VALID_NAME + INVALID_PHONE + VALID_EMAIL + INVALID_ADDRESS + VALID_TAG,
-                            expectedMessage.toString());
+                            Arrays.asList(Phone.MESSAGE_PHONE_CONSTRAINTS, Address.MESSAGE_ADDRESS_CONSTRAINTS)
+                                .stream().collect(Collectors.joining("\n")));
 
         // All invalid fields
-        expectedMessage = new StringJoiner("\n");
-        expectedMessage.add(Name.MESSAGE_NAME_CONSTRAINTS).add(Phone.MESSAGE_PHONE_CONSTRAINTS)
-                        .add(Email.MESSAGE_EMAIL_CONSTRAINTS).add(Address.MESSAGE_ADDRESS_CONSTRAINTS)
-                        .add(Tag.MESSAGE_TAG_CONSTRAINTS);
         assertParseFailure(INVALID_NAME + INVALID_PHONE + INVALID_EMAIL + INVALID_ADDRESS + INVALID_TAG,
-                            expectedMessage.toString());
+                            Arrays.asList(Name.MESSAGE_NAME_CONSTRAINTS, Phone.MESSAGE_PHONE_CONSTRAINTS,
+                                    Email.MESSAGE_EMAIL_CONSTRAINTS, Address.MESSAGE_ADDRESS_CONSTRAINTS,
+                                    Tag.MESSAGE_TAG_CONSTRAINTS).stream().collect(Collectors.joining("\n")));
 
         // Random order for all fields
         assertParseFailure(INVALID_NAME + INVALID_TAG + INVALID_ADDRESS + INVALID_EMAIL + INVALID_PHONE,
-                            expectedMessage.toString());
+                            Arrays.asList(Name.MESSAGE_NAME_CONSTRAINTS, Phone.MESSAGE_PHONE_CONSTRAINTS,
+                                    Email.MESSAGE_EMAIL_CONSTRAINTS, Address.MESSAGE_ADDRESS_CONSTRAINTS,
+                                    Tag.MESSAGE_TAG_CONSTRAINTS).stream().collect(Collectors.joining("\n")));
     }
 
     /**

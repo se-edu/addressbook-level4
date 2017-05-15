@@ -21,7 +21,6 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
-import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -79,13 +78,11 @@ public class AddCommandParser {
             recordedViolations.add(ive.getMessage());
         }
 
-        if (recordedViolations.isEmpty()) {
-            ReadOnlyPerson person = new Person(name, phone, email, address, tagList);
-            return new AddCommand(person);
-        } else {
-            return new IncorrectCommand(recordedViolations.stream()
-                    .collect(Collectors.joining("\n")));
+        if (!recordedViolations.isEmpty()) {
+            return new IncorrectCommand(recordedViolations.stream().collect(Collectors.joining("\n")));
         }
+        return new AddCommand(new Person(name, phone, email, address, tagList));
+
     }
 
     /**

@@ -83,13 +83,13 @@ public class EditCommandParser {
         }
 
         if (!recordedViolations.isEmpty()) {
-            return new IncorrectCommand(recordedViolations.stream()
-                    .collect(Collectors.joining("\n")));
-        } else if (!editPersonDescriptor.isAnyFieldEdited()) {
-            return new IncorrectCommand(EditCommand.MESSAGE_NOT_EDITED);
-        } else {
-            return new EditCommand(index, editPersonDescriptor);
+            return new IncorrectCommand(recordedViolations.stream().collect(Collectors.joining("\n")));
         }
+        if (!editPersonDescriptor.isAnyFieldEdited()) {
+            return new IncorrectCommand(EditCommand.MESSAGE_NOT_EDITED);
+        }
+        return new EditCommand(index, editPersonDescriptor);
+
     }
 
     /**
