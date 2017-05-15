@@ -1,7 +1,7 @@
 package seedu.address.logic.parser;
 
 import static org.junit.Assert.assertEquals;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static org.junit.Assert.assertTrue;
 
 import java.util.StringJoiner;
 
@@ -10,48 +10,107 @@ import org.junit.Test;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.IncorrectCommand;
+import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.tag.Tag;
 import seedu.address.testutil.PersonBuilder;
 
 public class AddCommandParserTest {
 
-    @Test
-    public void parse_missingFields_returnsIncorrectCommand() throws Exception {
-        Command actualCommand = new AddCommandParser().parse("Name");
-        Command expectedCommand = new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                                                        AddCommand.MESSAGE_USAGE));
-
-        assertEquals(expectedCommand, actualCommand);
-    }
+    private static final String INVALID_NAME = "$*%";
+    private static final String INVALID_ADDRESS = " a/";
+    private static final String INVALID_EMAIL = " e/";
+    private static final String INVALID_PHONE = " p/";
+    private static final String INVALID_TAG = " t/$";
+    private static final String VALID_NAME = "Name";
+    private static final String VALID_ADDRESS = " a/123 Street";
+    private static final String VALID_EMAIL = " e/123@email.com";
+    private static final String VALID_PHONE = " p/123456";
+    private static final String VALID_TAG = " t/tag";
 
     @Test
     public void parse_oneInvalidField_returnsIncorrectCommand() throws Exception {
-        Command actualCommand = new AddCommandParser().parse("Name a/123 Street p/123456 e/");
-        Command expectedCommand = new IncorrectCommand(Email.MESSAGE_EMAIL_CONSTRAINTS);
+        // Invalid name
+        assertParseFailure(INVALID_NAME + VALID_ADDRESS + VALID_EMAIL + VALID_PHONE + VALID_TAG,
+                            Name.MESSAGE_NAME_CONSTRAINTS);
 
-        assertEquals(expectedCommand, actualCommand);
+        // Invalid address
+        assertParseFailure(VALID_NAME + INVALID_ADDRESS + VALID_EMAIL + VALID_PHONE + VALID_TAG,
+                            Address.MESSAGE_ADDRESS_CONSTRAINTS);
+
+        // Invalid email
+        assertParseFailure(VALID_NAME + VALID_ADDRESS + INVALID_EMAIL + VALID_PHONE + VALID_TAG,
+                            Email.MESSAGE_EMAIL_CONSTRAINTS);
+
+        // Invalid phone
+        assertParseFailure(VALID_NAME + VALID_ADDRESS + VALID_EMAIL + INVALID_PHONE + VALID_TAG,
+                            Phone.MESSAGE_PHONE_CONSTRAINTS);
+
+        // Invalid tag
+        assertParseFailure(VALID_NAME + VALID_ADDRESS + VALID_EMAIL + VALID_PHONE + INVALID_TAG,
+                            Tag.MESSAGE_TAG_CONSTRAINTS);
     }
 
     @Test
     public void parse_multipleInvalidFields_returnsIncorrectCommand() throws Exception {
-        Command actualCommand = new AddCommandParser().parse("Name a/123 Street p/ e/");
-
+        // Two invalid fields - phone and email
         StringJoiner expectedMessage = new StringJoiner(System.lineSeparator());
         expectedMessage.add(Phone.MESSAGE_PHONE_CONSTRAINTS).add(Email.MESSAGE_EMAIL_CONSTRAINTS);
-        Command expectedCommand = new IncorrectCommand(expectedMessage.toString());
+        assertParseFailure(VALID_NAME + VALID_ADDRESS + INVALID_EMAIL + INVALID_PHONE + VALID_TAG,
+                            expectedMessage.toString());
 
-        assertEquals(expectedCommand, actualCommand);
+        // All invalid fields
+        expectedMessage = new StringJoiner(System.lineSeparator());
+        expectedMessage.add(Name.MESSAGE_NAME_CONSTRAINTS).add(Phone.MESSAGE_PHONE_CONSTRAINTS)
+                        .add(Email.MESSAGE_EMAIL_CONSTRAINTS).add(Address.MESSAGE_ADDRESS_CONSTRAINTS)
+                        .add(Tag.MESSAGE_TAG_CONSTRAINTS);
+        assertParseFailure(INVALID_NAME + INVALID_ADDRESS + INVALID_EMAIL + INVALID_PHONE + INVALID_TAG,
+                            expectedMessage.toString());
+
+        // Random order for all fields
+        assertParseFailure(INVALID_NAME + INVALID_TAG + INVALID_ADDRESS + INVALID_EMAIL + INVALID_PHONE,
+                            expectedMessage.toString());
+    }
+
+    @Test
+    public void parse_repeatedFields_returns() throws Exception {
+        // First instance is valid and second is invalid
+        assertParseFailure(VALID_NAME + VALID_ADDRESS + VALID_EMAIL + VALID_PHONE + INVALID_PHONE,
+                            Phone.MESSAGE_PHONE_CONSTRAINTS);
+
+        // First instance is invalid and second is valid
+        Person personToAdd = new PersonBuilder().withName("Name").withAddress("123 Street")
+                .withPhone("123456").withEmail("123@email.com").build();
+        assertParseSuccess(VALID_NAME + VALID_ADDRESS + VALID_EMAIL + INVALID_PHONE + VALID_PHONE,
+                            new AddCommand(personToAdd));
     }
 
     @Test
     public void parse_allValidFields_returnsAddCommand() throws Exception {
-        Command actualCommand = new AddCommandParser().parse("Name a/123 Street p/123456 e/123@email.com");
-        Person person = new PersonBuilder().withName("Name").withAddress("123 Street")
-                .withPhone("123456").withEmail("123@email.com").build();
-        Command expectedCommand = new AddCommand(person);
+        Person personToAdd = new PersonBuilder().withName("Name").withAddress("123 Street")
+                                .withPhone("123456").withEmail("123@email.com").build();
 
+        assertParseSuccess(VALID_NAME + VALID_ADDRESS + VALID_PHONE + VALID_EMAIL, new AddCommand(personToAdd));
+    }
+
+    /**
+     * Asserts that parsing {@code userInput} was successful and the command returned
+     * is equal to {@code expectedCommand}
+     */
+    private void assertParseSuccess(String userInput, Command expectedCommand) {
+        Command actualCommand = new AddCommandParser().parse(userInput);
         assertEquals(expectedCommand, actualCommand);
+    }
+
+    /**
+     * Asserts that parsing {@code userInput} was unsuccessful and the error message given
+     * is equal to {@code expectedMessage}
+     */
+    private void assertParseFailure(String userInput, String expectedMessage) {
+        Command actualCommand = new AddCommandParser().parse(userInput);
+        assertTrue(((IncorrectCommand) actualCommand).feedbackToUser.equals(expectedMessage));
     }
 }
