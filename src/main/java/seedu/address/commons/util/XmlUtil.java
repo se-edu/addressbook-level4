@@ -1,5 +1,7 @@
 package seedu.address.commons.util;
 
+import static java.util.Objects.requireNonNull;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 
@@ -27,8 +29,8 @@ public class XmlUtil {
     public static <T> T getDataFromFile(File file, Class<T> classToConvert)
             throws FileNotFoundException, JAXBException {
 
-        assert file != null;
-        assert classToConvert != null;
+        requireNonNull(file);
+        requireNonNull(classToConvert);
 
         if (!FileUtil.isFileExists(file)) {
             throw new FileNotFoundException("File not found : " + file.getAbsolutePath());
@@ -51,8 +53,8 @@ public class XmlUtil {
      */
     public static <T> void saveDataToFile(File file, T data) throws FileNotFoundException, JAXBException {
 
-        assert file != null;
-        assert data != null;
+        requireNonNull(file);
+        requireNonNull(data);
 
         if (!file.exists()) {
             throw new FileNotFoundException("File not found : " + file.getAbsolutePath());
