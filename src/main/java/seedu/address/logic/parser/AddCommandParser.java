@@ -6,7 +6,10 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import seedu.address.commons.exceptions.IllegalValueException;
@@ -38,7 +41,7 @@ public class AddCommandParser {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 
-        StringBuilder illegalValueMessage = new StringBuilder();
+        List<String> illegalValueMessage = new ArrayList<String>();
 
         Name name = null;
         Phone phone = null;
@@ -49,38 +52,39 @@ public class AddCommandParser {
         try {
             name = new Name(argMultimap.getPreamble());
         } catch (IllegalValueException ive) {
-            illegalValueMessage.append(ive.getMessage()).append("\n");
+            illegalValueMessage.add(ive.getMessage());
         }
 
         try {
             phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE)).get();
         } catch (IllegalValueException ive) {
-            illegalValueMessage.append(ive.getMessage()).append("\n");
+            illegalValueMessage.add(ive.getMessage());
         }
 
         try {
             email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL)).get();
         } catch (IllegalValueException ive) {
-            illegalValueMessage.append(ive.getMessage()).append("\n");
+            illegalValueMessage.add(ive.getMessage());
         }
 
         try {
             address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS)).get();
         } catch (IllegalValueException ive) {
-            illegalValueMessage.append(ive.getMessage()).append("\n");
+            illegalValueMessage.add(ive.getMessage());
         }
 
         try {
             tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
         } catch (IllegalValueException ive) {
-            illegalValueMessage.append(ive.getMessage()).append("\n");
+            illegalValueMessage.add(ive.getMessage());
         }
 
-        if (illegalValueMessage.toString().isEmpty()) {
+        if (illegalValueMessage.isEmpty()) {
             ReadOnlyPerson person = new Person(name, phone, email, address, tagList);
             return new AddCommand(person);
         } else {
-            return new IncorrectCommand(illegalValueMessage.toString().trim());
+            return new IncorrectCommand(illegalValueMessage.stream()
+                    .collect(Collectors.joining(System.lineSeparator())));
         }
     }
 
