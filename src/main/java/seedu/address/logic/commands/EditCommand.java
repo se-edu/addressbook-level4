@@ -1,5 +1,7 @@
 package seedu.address.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.AppUtil.checkArgument;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
@@ -53,11 +55,9 @@ public class EditCommand extends Command {
      * @param editPersonDescriptor details to edit the person with
      */
     public EditCommand(int filteredPersonListIndex, EditPersonDescriptor editPersonDescriptor) {
-        assert filteredPersonListIndex > 0;
-        assert editPersonDescriptor != null;
-
+        checkArgument(filteredPersonListIndex > 0);
+        this.editPersonDescriptor = new EditPersonDescriptor(requireNonNull(editPersonDescriptor));
         this.filteredPersonListIndex = IndexUtil.oneToZeroIndex(filteredPersonListIndex);
-        this.editPersonDescriptor = new EditPersonDescriptor(editPersonDescriptor);
     }
 
     @Override
@@ -126,8 +126,7 @@ public class EditCommand extends Command {
         }
 
         public void setName(Optional<Name> name) {
-            assert name != null;
-            this.name = name;
+            this.name = requireNonNull(name);
         }
 
         public Optional<Name> getName() {
@@ -135,8 +134,7 @@ public class EditCommand extends Command {
         }
 
         public void setPhone(Optional<Phone> phone) {
-            assert phone != null;
-            this.phone = phone;
+            this.phone = requireNonNull(phone);
         }
 
         public Optional<Phone> getPhone() {
@@ -144,8 +142,7 @@ public class EditCommand extends Command {
         }
 
         public void setEmail(Optional<Email> email) {
-            assert email != null;
-            this.email = email;
+            this.email = requireNonNull(email);
         }
 
         public Optional<Email> getEmail() {
@@ -153,8 +150,7 @@ public class EditCommand extends Command {
         }
 
         public void setAddress(Optional<Address> address) {
-            assert address != null;
-            this.address = address;
+            this.address = requireNonNull(address);
         }
 
         public Optional<Address> getAddress() {
@@ -162,8 +158,7 @@ public class EditCommand extends Command {
         }
 
         public void setTags(Optional<Set<Tag>> tags) {
-            assert tags != null;
-            this.tags = tags;
+            this.tags = requireNonNull(tags);
         }
 
         public Optional<Set<Tag>> getTags() {
