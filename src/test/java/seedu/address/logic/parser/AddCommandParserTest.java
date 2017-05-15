@@ -20,16 +20,32 @@ import seedu.address.testutil.PersonBuilder;
 
 public class AddCommandParserTest {
 
-    private static final String INVALID_NAME = "$*%";
-    private static final String INVALID_PHONE = " p/+651234";
-    private static final String INVALID_EMAIL = " e/email.com";
-    private static final String INVALID_ADDRESS = " a/ ";
-    private static final String INVALID_TAG = " t/$";
-    private static final String VALID_NAME = "Name";
-    private static final String VALID_PHONE = " p/123456";
-    private static final String VALID_EMAIL = " e/123@email.com";
-    private static final String VALID_ADDRESS = " a/123 Street";
-    private static final String VALID_TAG = " t/tag";
+    private static final String PHONE_PREFIX = "p/";
+    private static final String EMAIL_PREFIX = "e/";
+    private static final String ADDRESS_PREFIX = "a/";
+    private static final String TAG_PREFIX = "t/";
+
+    private static final String INVALID_NAME_VALUE = "$*%";
+    private static final String INVALID_PHONE_VALUE = "+651234";
+    private static final String INVALID_EMAIL_VALUE = "email.com";
+    private static final String INVALID_ADDRESS_VALUE = " ";
+    private static final String INVALID_TAG_VALUE = "$";
+    private static final String VALID_NAME_VALUE = "Name";
+    private static final String VALID_PHONE_VALUE = "123456";
+    private static final String VALID_EMAIL_VALUE = "123@email.com";
+    private static final String VALID_ADDRESS_VALUE = "123 Street";
+    private static final String VALID_TAG_VALUE = "tag";
+
+    private static final String INVALID_NAME = INVALID_NAME_VALUE;
+    private static final String INVALID_PHONE = " " + PHONE_PREFIX + INVALID_PHONE_VALUE;
+    private static final String INVALID_EMAIL = " " + EMAIL_PREFIX + INVALID_EMAIL_VALUE;
+    private static final String INVALID_ADDRESS = " " + ADDRESS_PREFIX + INVALID_ADDRESS_VALUE;
+    private static final String INVALID_TAG = " " + TAG_PREFIX + INVALID_TAG_VALUE;
+    private static final String VALID_NAME = VALID_NAME_VALUE;
+    private static final String VALID_PHONE = " " + PHONE_PREFIX + VALID_PHONE_VALUE;
+    private static final String VALID_EMAIL = " " + EMAIL_PREFIX + VALID_EMAIL_VALUE;
+    private static final String VALID_ADDRESS = " " + ADDRESS_PREFIX + VALID_ADDRESS_VALUE;
+    private static final String VALID_TAG = " " + TAG_PREFIX + VALID_TAG_VALUE;
 
     @Test
     public void parse_oneInvalidField_returnsIncorrectCommand() throws Exception {
@@ -56,7 +72,7 @@ public class AddCommandParserTest {
 
     @Test
     public void parse_multipleInvalidFields_returnsIncorrectCommand() throws Exception {
-        // Two invalid fields - phone and email
+        // Two invalid fields - phone and address
         StringJoiner expectedMessage = new StringJoiner(System.lineSeparator());
         expectedMessage.add(Phone.MESSAGE_PHONE_CONSTRAINTS).add(Address.MESSAGE_ADDRESS_CONSTRAINTS);
         assertParseFailure(VALID_NAME + INVALID_PHONE + VALID_EMAIL + INVALID_ADDRESS + VALID_TAG,
@@ -77,8 +93,8 @@ public class AddCommandParserTest {
 
     @Test
     public void parse_allValidFields_returnsAddCommand() throws Exception {
-        Person personToAdd = new PersonBuilder().withName("Name").withPhone("123456")
-                .withEmail("123@email.com").withAddress("123 Street").withTags("tag").build();
+        Person personToAdd = new PersonBuilder().withName(VALID_NAME_VALUE).withPhone(VALID_PHONE_VALUE)
+                .withEmail(VALID_EMAIL_VALUE).withAddress(VALID_ADDRESS_VALUE).withTags(VALID_TAG_VALUE).build();
 
         assertParseSuccess(VALID_NAME + VALID_PHONE + VALID_EMAIL + VALID_ADDRESS + VALID_TAG,
                             new AddCommand(personToAdd));
