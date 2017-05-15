@@ -6,11 +6,13 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.Command;
@@ -46,22 +48,48 @@ public class EditCommandParser {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         }
 
+        List<String> illegalValueMessages = new ArrayList<String>();
+
         EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
+
         try {
             editPersonDescriptor.setName(ParserUtil.parseName(preambleFields.get(1)));
+        } catch (IllegalValueException ive) {
+            illegalValueMessages.add(ive.getMessage());
+        }
+
+        try {
             editPersonDescriptor.setPhone(ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE)));
+        } catch (IllegalValueException ive) {
+            illegalValueMessages.add(ive.getMessage());
+        }
+
+        try {
             editPersonDescriptor.setEmail(ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL)));
+        } catch (IllegalValueException ive) {
+            illegalValueMessages.add(ive.getMessage());
+        }
+
+        try {
             editPersonDescriptor.setAddress(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS)));
+        } catch (IllegalValueException ive) {
+            illegalValueMessages.add(ive.getMessage());
+        }
+
+        try {
             editPersonDescriptor.setTags(parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)));
         } catch (IllegalValueException ive) {
-            return new IncorrectCommand(ive.getMessage());
+            illegalValueMessages.add(ive.getMessage());
         }
 
-        if (!editPersonDescriptor.isAnyFieldEdited()) {
+        if (!illegalValueMessages.isEmpty()) {
+            return new IncorrectCommand(illegalValueMessages.stream()
+                    .collect(Collectors.joining(System.lineSeparator())));
+        } else if (!editPersonDescriptor.isAnyFieldEdited()) {
             return new IncorrectCommand(EditCommand.MESSAGE_NOT_EDITED);
+        } else {
+            return new EditCommand(index, editPersonDescriptor);
         }
-
-        return new EditCommand(index, editPersonDescriptor);
     }
 
     /**
