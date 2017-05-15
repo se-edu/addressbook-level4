@@ -27,8 +27,8 @@ public class UiPartTest {
     public TemporaryFolder testFolder = new TemporaryFolder();
 
     @Test
-    public void constructor_nullFileUrl_throwsAssertionError() {
-        thrown.expect(AssertionError.class);
+    public void constructor_nullFileUrl_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
         new TestUiPart<Object>((URL) null);
     }
 
@@ -53,14 +53,14 @@ public class UiPartTest {
     }
 
     @Test
-    public void constructor_nullFileName_throwsAssertionError() {
-        thrown.expect(AssertionError.class);
+    public void constructor_nullFileName_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
         new TestUiPart<Object>((String) null);
     }
 
     @Test
-    public void constructor_missingFileName_throwsAssertionError() {
-        thrown.expect(AssertionError.class);
+    public void constructor_missingFileName_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
         new TestUiPart<Object>(MISSING_FILE_PATH);
     }
 
