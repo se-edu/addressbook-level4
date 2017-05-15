@@ -41,7 +41,7 @@ public class AddCommandParser {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 
-        List<String> illegalValueMessages = new ArrayList<String>();
+        List<String> recordedViolations = new ArrayList<String>();
 
         Name name = null;
         Phone phone = null;
@@ -52,39 +52,39 @@ public class AddCommandParser {
         try {
             name = new Name(argMultimap.getPreamble());
         } catch (IllegalValueException ive) {
-            illegalValueMessages.add(ive.getMessage());
+            recordedViolations.add(ive.getMessage());
         }
 
         try {
             phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE)).get();
         } catch (IllegalValueException ive) {
-            illegalValueMessages.add(ive.getMessage());
+            recordedViolations.add(ive.getMessage());
         }
 
         try {
             email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL)).get();
         } catch (IllegalValueException ive) {
-            illegalValueMessages.add(ive.getMessage());
+            recordedViolations.add(ive.getMessage());
         }
 
         try {
             address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS)).get();
         } catch (IllegalValueException ive) {
-            illegalValueMessages.add(ive.getMessage());
+            recordedViolations.add(ive.getMessage());
         }
 
         try {
             tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
         } catch (IllegalValueException ive) {
-            illegalValueMessages.add(ive.getMessage());
+            recordedViolations.add(ive.getMessage());
         }
 
-        if (illegalValueMessages.isEmpty()) {
+        if (recordedViolations.isEmpty()) {
             ReadOnlyPerson person = new Person(name, phone, email, address, tagList);
             return new AddCommand(person);
         } else {
-            return new IncorrectCommand(illegalValueMessages.stream()
-                    .collect(Collectors.joining(System.lineSeparator())));
+            return new IncorrectCommand(recordedViolations.stream()
+                    .collect(Collectors.joining("\n")));
         }
     }
 

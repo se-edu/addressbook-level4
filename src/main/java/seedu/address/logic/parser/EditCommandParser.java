@@ -48,43 +48,43 @@ public class EditCommandParser {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         }
 
-        List<String> illegalValueMessages = new ArrayList<String>();
+        List<String> recordedViolations = new ArrayList<String>();
 
         EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
 
         try {
             editPersonDescriptor.setName(ParserUtil.parseName(preambleFields.get(1)));
         } catch (IllegalValueException ive) {
-            illegalValueMessages.add(ive.getMessage());
+            recordedViolations.add(ive.getMessage());
         }
 
         try {
             editPersonDescriptor.setPhone(ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE)));
         } catch (IllegalValueException ive) {
-            illegalValueMessages.add(ive.getMessage());
+            recordedViolations.add(ive.getMessage());
         }
 
         try {
             editPersonDescriptor.setEmail(ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL)));
         } catch (IllegalValueException ive) {
-            illegalValueMessages.add(ive.getMessage());
+            recordedViolations.add(ive.getMessage());
         }
 
         try {
             editPersonDescriptor.setAddress(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS)));
         } catch (IllegalValueException ive) {
-            illegalValueMessages.add(ive.getMessage());
+            recordedViolations.add(ive.getMessage());
         }
 
         try {
             editPersonDescriptor.setTags(parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)));
         } catch (IllegalValueException ive) {
-            illegalValueMessages.add(ive.getMessage());
+            recordedViolations.add(ive.getMessage());
         }
 
-        if (!illegalValueMessages.isEmpty()) {
-            return new IncorrectCommand(illegalValueMessages.stream()
-                    .collect(Collectors.joining(System.lineSeparator())));
+        if (!recordedViolations.isEmpty()) {
+            return new IncorrectCommand(recordedViolations.stream()
+                    .collect(Collectors.joining("\n")));
         } else if (!editPersonDescriptor.isAnyFieldEdited()) {
             return new IncorrectCommand(EditCommand.MESSAGE_NOT_EDITED);
         } else {
