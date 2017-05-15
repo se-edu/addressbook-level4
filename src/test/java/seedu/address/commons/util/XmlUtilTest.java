@@ -28,14 +28,14 @@ public class XmlUtilTest {
     public ExpectedException thrown = ExpectedException.none();
 
     @Test
-    public void getDataFromFile_nullFile_assertionError() throws Exception {
-        thrown.expect(AssertionError.class);
+    public void getDataFromFile_nullFile_throwsNullPointerException() throws Exception {
+        thrown.expect(NullPointerException.class);
         XmlUtil.getDataFromFile(null, AddressBook.class);
     }
 
     @Test
-    public void getDataFromFile_nullClass_assertionError() throws Exception {
-        thrown.expect(AssertionError.class);
+    public void getDataFromFile_nullClass_throwsIllegalArgumentException() throws Exception {
+        thrown.expect(IllegalArgumentException.class);
         XmlUtil.getDataFromFile(VALID_FILE, null);
     }
 
@@ -59,14 +59,14 @@ public class XmlUtilTest {
     }
 
     @Test
-    public void saveDataToFile_nullFile_assertionError() throws Exception {
-        thrown.expect(AssertionError.class);
+    public void saveDataToFile_nullFile_throwsNullPointerException() throws Exception {
+        thrown.expect(NullPointerException.class);
         XmlUtil.saveDataToFile(null, new AddressBook());
     }
 
     @Test
-    public void saveDataToFile_nullClass_assertionError() throws Exception {
-        thrown.expect(AssertionError.class);
+    public void saveDataToFile_nullClass_throwsNullPointerException() throws Exception {
+        thrown.expect(NullPointerException.class);
         XmlUtil.saveDataToFile(VALID_FILE, null);
     }
 

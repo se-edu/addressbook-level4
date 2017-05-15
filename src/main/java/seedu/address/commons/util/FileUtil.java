@@ -80,7 +80,6 @@ public class FileUtil {
      * @return {@code pathWithForwardSlash} but '/' replaced with {@code File.separator}
      */
     public static String getPath(String pathWithForwardSlash) {
-        assert pathWithForwardSlash != null;
         assert pathWithForwardSlash.contains("/");
         return pathWithForwardSlash.replace("/", File.separator);
     }

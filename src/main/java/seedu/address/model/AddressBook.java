@@ -60,7 +60,6 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     public void resetData(ReadOnlyAddressBook newData) {
-        assert newData != null;
         try {
             setPersons(newData.getPersonList());
         } catch (UniquePersonList.DuplicatePersonException e) {
@@ -100,8 +99,6 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void updatePerson(int index, ReadOnlyPerson editedReadOnlyPerson)
             throws UniquePersonList.DuplicatePersonException {
-        assert editedReadOnlyPerson != null;
-
         Person editedPerson = new Person(editedReadOnlyPerson);
         syncMasterTagListWith(editedPerson);
         // TODO: the tags master list will be updated even though the below line fails.

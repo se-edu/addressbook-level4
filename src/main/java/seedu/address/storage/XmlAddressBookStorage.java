@@ -40,8 +40,6 @@ public class XmlAddressBookStorage implements AddressBookStorage {
      */
     public Optional<ReadOnlyAddressBook> readAddressBook(String filePath) throws DataConversionException,
                                                                                  FileNotFoundException {
-        assert filePath != null;
-
         File addressBookFile = new File(filePath);
 
         if (!addressBookFile.exists()) {
@@ -64,9 +62,6 @@ public class XmlAddressBookStorage implements AddressBookStorage {
      * @param filePath location of the data. Cannot be null
      */
     public void saveAddressBook(ReadOnlyAddressBook addressBook, String filePath) throws IOException {
-        assert addressBook != null;
-        assert filePath != null;
-
         File file = new File(filePath);
         FileUtil.createIfMissing(file);
         XmlFileStorage.saveDataToFile(file, new XmlSerializableAddressBook(addressBook));

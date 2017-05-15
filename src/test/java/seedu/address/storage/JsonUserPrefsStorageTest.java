@@ -28,8 +28,8 @@ public class JsonUserPrefsStorageTest {
     public TemporaryFolder testFolder = new TemporaryFolder();
 
     @Test
-    public void readUserPrefs_nullFilePath_assertionFailure() throws DataConversionException {
-        thrown.expect(AssertionError.class);
+    public void readUserPrefs_nullFilePath_throwsNullPointerException() throws DataConversionException {
+        thrown.expect(NullPointerException.class);
         readUserPrefs(null);
     }
 

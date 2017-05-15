@@ -27,9 +27,6 @@ public class XmlUtil {
     public static <T> T getDataFromFile(File file, Class<T> classToConvert)
             throws FileNotFoundException, JAXBException {
 
-        assert file != null;
-        assert classToConvert != null;
-
         if (!FileUtil.isFileExists(file)) {
             throw new FileNotFoundException("File not found : " + file.getAbsolutePath());
         }
@@ -50,10 +47,6 @@ public class XmlUtil {
      *                               into xml and writing to the file.
      */
     public static <T> void saveDataToFile(File file, T data) throws FileNotFoundException, JAXBException {
-
-        assert file != null;
-        assert data != null;
-
         if (!file.exists()) {
             throw new FileNotFoundException("File not found : " + file.getAbsolutePath());
         }

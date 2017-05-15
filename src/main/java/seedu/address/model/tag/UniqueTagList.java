@@ -120,7 +120,6 @@ public class UniqueTagList implements Iterable<Tag> {
      * Returns true if the list contains an equivalent Tag as the given argument.
      */
     public boolean contains(Tag toCheck) {
-        assert toCheck != null;
         return internalList.contains(toCheck);
     }
 
@@ -130,7 +129,6 @@ public class UniqueTagList implements Iterable<Tag> {
      * @throws DuplicateTagException if the Tag to add is a duplicate of an existing Tag in the list.
      */
     public void add(Tag toAdd) throws DuplicateTagException {
-        assert toAdd != null;
         if (contains(toAdd)) {
             throw new DuplicateTagException();
         }
