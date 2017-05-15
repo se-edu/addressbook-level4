@@ -1,5 +1,7 @@
 package seedu.address.commons.util;
 
+import static seedu.address.commons.util.AppUtil.checkArgument;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -80,8 +82,7 @@ public class FileUtil {
      * @return {@code pathWithForwardSlash} but '/' replaced with {@code File.separator}
      */
     public static String getPath(String pathWithForwardSlash) {
-        assert pathWithForwardSlash != null;
-        assert pathWithForwardSlash.contains("/");
+        checkArgument(pathWithForwardSlash.contains("/"));
         return pathWithForwardSlash.replace("/", File.separator);
     }
 

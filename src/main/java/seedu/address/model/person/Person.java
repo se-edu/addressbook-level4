@@ -1,5 +1,8 @@
 package seedu.address.model.person;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.AppUtil.checkArgument;
+
 import java.util.Collections;
 import java.util.Objects;
 import java.util.Set;
@@ -25,7 +28,7 @@ public class Person implements ReadOnlyPerson {
      * Every field must be present and not null.
      */
     public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
-        assert !CollectionUtil.isAnyNull(name, phone, email, address, tags);
+        checkArgument(!CollectionUtil.isAnyNull(name, phone, email, address, tags));
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -42,8 +45,7 @@ public class Person implements ReadOnlyPerson {
     }
 
     public void setName(Name name) {
-        assert name != null;
-        this.name = name;
+        this.name = requireNonNull(name);
     }
 
     @Override
@@ -52,8 +54,7 @@ public class Person implements ReadOnlyPerson {
     }
 
     public void setPhone(Phone phone) {
-        assert phone != null;
-        this.phone = phone;
+        this.phone = requireNonNull(phone);
     }
 
     @Override
@@ -62,8 +63,7 @@ public class Person implements ReadOnlyPerson {
     }
 
     public void setEmail(Email email) {
-        assert email != null;
-        this.email = email;
+        this.email = requireNonNull(email);
     }
 
     @Override
@@ -72,8 +72,7 @@ public class Person implements ReadOnlyPerson {
     }
 
     public void setAddress(Address address) {
-        assert address != null;
-        this.address = address;
+        this.address = requireNonNull(address);
     }
 
     @Override
@@ -101,7 +100,7 @@ public class Person implements ReadOnlyPerson {
      * Updates this person with the details of {@code replacement}.
      */
     public void resetData(ReadOnlyPerson replacement) {
-        assert replacement != null;
+        requireNonNull(replacement);
 
         this.setName(replacement.getName());
         this.setPhone(replacement.getPhone());

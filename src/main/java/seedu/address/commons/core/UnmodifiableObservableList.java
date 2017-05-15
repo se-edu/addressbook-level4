@@ -1,5 +1,7 @@
 package seedu.address.commons.core;
 
+import static java.util.Objects.requireNonNull;
+
 import java.text.Collator;
 import java.util.Collection;
 import java.util.Collections;
@@ -28,8 +30,7 @@ public class UnmodifiableObservableList<E> implements ObservableList<E> {
     private final ObservableList<? extends E> backingList;
 
     public UnmodifiableObservableList(ObservableList<? extends E> backingList) {
-        assert backingList != null;
-        this.backingList = backingList;
+        this.backingList = requireNonNull(backingList);
     }
 
     @Override
