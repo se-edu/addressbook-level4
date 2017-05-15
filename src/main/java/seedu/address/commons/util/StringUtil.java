@@ -1,5 +1,7 @@
 package seedu.address.commons.util;
 
+import static com.google.common.base.Preconditions.checkArgument;
+
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
@@ -21,8 +23,8 @@ public class StringUtil {
      */
     public static boolean containsWordIgnoreCase(String sentence, String word) {
         String preppedWord = word.trim();
-        assert !preppedWord.isEmpty() : "Word parameter cannot be empty";
-        assert preppedWord.split("\\s+").length == 1 : "Word parameter should be a single word";
+        checkArgument(!preppedWord.isEmpty(), "Word parameter cannot be empty");
+        checkArgument(preppedWord.split("\\s+").length == 1, "Word parameter should be a single word");
 
         String preppedSentence = sentence;
         String[] wordsInPreppedSentence = preppedSentence.split("\\s+");
