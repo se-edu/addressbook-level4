@@ -1,5 +1,7 @@
 package seedu.address.logic.commands;
 
+import static com.google.common.base.Preconditions.checkArgument;
+import static com.google.common.base.Preconditions.checkNotNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
@@ -53,7 +55,7 @@ public class EditCommand extends Command {
      * @param editPersonDescriptor details to edit the person with
      */
     public EditCommand(int filteredPersonListIndex, EditPersonDescriptor editPersonDescriptor) {
-        assert filteredPersonListIndex > 0;
+        checkArgument(filteredPersonListIndex > 0);
 
         this.filteredPersonListIndex = IndexUtil.oneToZeroIndex(filteredPersonListIndex);
         this.editPersonDescriptor = new EditPersonDescriptor(editPersonDescriptor);
@@ -125,7 +127,7 @@ public class EditCommand extends Command {
         }
 
         public void setName(Optional<Name> name) {
-            assert name != null;
+            checkNotNull(name);
             this.name = name;
         }
 
@@ -134,7 +136,7 @@ public class EditCommand extends Command {
         }
 
         public void setPhone(Optional<Phone> phone) {
-            assert phone != null;
+            checkNotNull(phone);
             this.phone = phone;
         }
 
@@ -143,7 +145,7 @@ public class EditCommand extends Command {
         }
 
         public void setEmail(Optional<Email> email) {
-            assert email != null;
+            checkNotNull(email);
             this.email = email;
         }
 
@@ -152,7 +154,7 @@ public class EditCommand extends Command {
         }
 
         public void setAddress(Optional<Address> address) {
-            assert address != null;
+            checkNotNull(address);
             this.address = address;
         }
 
@@ -161,7 +163,7 @@ public class EditCommand extends Command {
         }
 
         public void setTags(Optional<Set<Tag>> tags) {
-            assert tags != null;
+            checkNotNull(tags);
             this.tags = tags;
         }
 

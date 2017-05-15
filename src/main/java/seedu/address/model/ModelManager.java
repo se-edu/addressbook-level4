@@ -1,5 +1,7 @@
 package seedu.address.model;
 
+import static com.google.common.base.Preconditions.checkArgument;
+
 import java.util.Set;
 import java.util.logging.Logger;
 
@@ -30,7 +32,7 @@ public class ModelManager extends ComponentManager implements Model {
      */
     public ModelManager(ReadOnlyAddressBook addressBook, UserPrefs userPrefs) {
         super();
-        assert !CollectionUtil.isAnyNull(addressBook, userPrefs);
+        checkArgument(!CollectionUtil.isAnyNull(addressBook, userPrefs));
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
