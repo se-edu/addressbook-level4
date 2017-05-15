@@ -104,6 +104,8 @@ public class Person implements ReadOnlyPerson {
      * Updates this person with the details of {@code replacement}.
      */
     public void resetData(ReadOnlyPerson replacement) {
+        checkNotNull(replacement);
+
         this.setName(replacement.getName());
         this.setPhone(replacement.getPhone());
         this.setEmail(replacement.getEmail());

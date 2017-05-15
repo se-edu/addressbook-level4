@@ -1,6 +1,7 @@
 package seedu.address.model.tag;
 
 import static com.google.common.base.Preconditions.checkArgument;
+import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -122,6 +123,7 @@ public class UniqueTagList implements Iterable<Tag> {
      * Returns true if the list contains an equivalent Tag as the given argument.
      */
     public boolean contains(Tag toCheck) {
+        checkNotNull(toCheck);
         return internalList.contains(toCheck);
     }
 
@@ -131,6 +133,7 @@ public class UniqueTagList implements Iterable<Tag> {
      * @throws DuplicateTagException if the Tag to add is a duplicate of an existing Tag in the list.
      */
     public void add(Tag toAdd) throws DuplicateTagException {
+        checkNotNull(toAdd);
         if (contains(toAdd)) {
             throw new DuplicateTagException();
         }

@@ -34,8 +34,8 @@ public class XmlUtilTest {
     }
 
     @Test
-    public void getDataFromFile_nullClass_throwsIllegalArgumentException() throws Exception {
-        thrown.expect(IllegalArgumentException.class);
+    public void getDataFromFile_nullClass_throwsNullPointerException() throws Exception {
+        thrown.expect(NullPointerException.class);
         XmlUtil.getDataFromFile(VALID_FILE, null);
     }
 

@@ -56,6 +56,7 @@ public class EditCommand extends Command {
      */
     public EditCommand(int filteredPersonListIndex, EditPersonDescriptor editPersonDescriptor) {
         checkArgument(filteredPersonListIndex > 0);
+        checkNotNull(editPersonDescriptor);
 
         this.filteredPersonListIndex = IndexUtil.oneToZeroIndex(filteredPersonListIndex);
         this.editPersonDescriptor = new EditPersonDescriptor(editPersonDescriptor);

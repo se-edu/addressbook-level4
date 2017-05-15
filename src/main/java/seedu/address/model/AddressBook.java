@@ -1,5 +1,7 @@
 package seedu.address.model;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -60,6 +62,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     public void resetData(ReadOnlyAddressBook newData) {
+        checkNotNull(newData);
         try {
             setPersons(newData.getPersonList());
         } catch (UniquePersonList.DuplicatePersonException e) {
@@ -99,6 +102,8 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void updatePerson(int index, ReadOnlyPerson editedReadOnlyPerson)
             throws UniquePersonList.DuplicatePersonException {
+        checkNotNull(editedReadOnlyPerson);
+
         Person editedPerson = new Person(editedReadOnlyPerson);
         syncMasterTagListWith(editedPerson);
         // TODO: the tags master list will be updated even though the below line fails.

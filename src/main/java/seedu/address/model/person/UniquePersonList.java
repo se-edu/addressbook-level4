@@ -1,5 +1,7 @@
 package seedu.address.model.person;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.Iterator;
 import java.util.List;
 
@@ -25,6 +27,7 @@ public class UniquePersonList implements Iterable<Person> {
      * Returns true if the list contains an equivalent person as the given argument.
      */
     public boolean contains(ReadOnlyPerson toCheck) {
+        checkNotNull(toCheck);
         return internalList.contains(toCheck);
     }
 
@@ -34,6 +37,7 @@ public class UniquePersonList implements Iterable<Person> {
      * @throws DuplicatePersonException if the person to add is a duplicate of an existing person in the list.
      */
     public void add(Person toAdd) throws DuplicatePersonException {
+        checkNotNull(toAdd);
         if (contains(toAdd)) {
             throw new DuplicatePersonException();
         }
@@ -48,6 +52,8 @@ public class UniquePersonList implements Iterable<Person> {
      * @throws IndexOutOfBoundsException if {@code index} < 0 or >= the size of the list.
      */
     public void updatePerson(int index, ReadOnlyPerson editedPerson) throws DuplicatePersonException {
+        checkNotNull(editedPerson);
+
         Person personToUpdate = internalList.get(index);
         if (!personToUpdate.equals(editedPerson) && internalList.contains(editedPerson)) {
             throw new DuplicatePersonException();
@@ -66,6 +72,7 @@ public class UniquePersonList implements Iterable<Person> {
      * @throws PersonNotFoundException if no such person could be found in the list.
      */
     public boolean remove(ReadOnlyPerson toRemove) throws PersonNotFoundException {
+        checkNotNull(toRemove);
         final boolean personFoundAndDeleted = internalList.remove(toRemove);
         if (!personFoundAndDeleted) {
             throw new PersonNotFoundException();

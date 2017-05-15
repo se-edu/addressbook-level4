@@ -38,6 +38,10 @@ public class JsonUtil {
                     .addSerializer(Level.class, new ToStringSerializer())
                     .addDeserializer(Level.class, new LevelDeserializer(Level.class)));
 
+    static <T> void serializeObjectToJsonFile(File jsonFile, T objectToSerialize) throws IOException {
+        FileUtil.writeToFile(jsonFile, toJsonString(objectToSerialize));
+    }
+
     static <T> T deserializeObjectFromJsonFile(File jsonFile, Class<T> classOfObjectToDeserialize)
             throws IOException {
         return fromJsonString(FileUtil.readFromFile(jsonFile), classOfObjectToDeserialize);
@@ -52,6 +56,8 @@ public class JsonUtil {
      */
     public static <T> Optional<T> readJsonFile(
             String filePath, Class<T> classOfObjectToDeserialize) throws DataConversionException {
+
+        checkNotNull(filePath);
 
         File file = new File(filePath);
 
@@ -82,7 +88,8 @@ public class JsonUtil {
     public static <T> void saveJsonFile(T jsonFile, String filePath) throws IOException {
         checkNotNull(jsonFile);
         checkNotNull(filePath);
-        FileUtil.writeToFile(new File(filePath), toJsonString(jsonFile));
+
+        serializeObjectToJsonFile(new File(filePath), jsonFile);
     }
 
 

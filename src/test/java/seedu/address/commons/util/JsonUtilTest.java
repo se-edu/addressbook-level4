@@ -18,11 +18,11 @@ public class JsonUtilTest {
     private static final File SERIALIZATION_FILE = new File(TestUtil.getFilePathInSandboxFolder("serialize.json"));
 
     @Test
-    public void saveJsonFile_noExceptionThrown() throws IOException {
+    public void serializeObjectToJsonFile_noExceptionThrown() throws IOException {
         SerializableTestClass serializableTestClass = new SerializableTestClass();
         serializableTestClass.setTestValues();
 
-        JsonUtil.saveJsonFile(SERIALIZATION_FILE, JsonUtil.toJsonString(serializableTestClass));
+        JsonUtil.serializeObjectToJsonFile(SERIALIZATION_FILE, serializableTestClass);
 
         assertEquals(FileUtil.readFromFile(SERIALIZATION_FILE), SerializableTestClass.JSON_STRING_REPRESENTATION);
     }
