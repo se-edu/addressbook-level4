@@ -21,36 +21,36 @@ import seedu.address.testutil.PersonBuilder;
 public class AddCommandParserTest {
 
     private static final String INVALID_NAME = "$*%";
-    private static final String INVALID_ADDRESS = " a/";
-    private static final String INVALID_EMAIL = " e/";
-    private static final String INVALID_PHONE = " p/";
+    private static final String INVALID_PHONE = " p/+651234";
+    private static final String INVALID_EMAIL = " e/email.com";
+    private static final String INVALID_ADDRESS = " a/ ";
     private static final String INVALID_TAG = " t/$";
     private static final String VALID_NAME = "Name";
-    private static final String VALID_ADDRESS = " a/123 Street";
-    private static final String VALID_EMAIL = " e/123@email.com";
     private static final String VALID_PHONE = " p/123456";
+    private static final String VALID_EMAIL = " e/123@email.com";
+    private static final String VALID_ADDRESS = " a/123 Street";
     private static final String VALID_TAG = " t/tag";
 
     @Test
     public void parse_oneInvalidField_returnsIncorrectCommand() throws Exception {
         // Invalid name
-        assertParseFailure(INVALID_NAME + VALID_ADDRESS + VALID_EMAIL + VALID_PHONE + VALID_TAG,
+        assertParseFailure(INVALID_NAME + VALID_PHONE + VALID_EMAIL + VALID_ADDRESS + VALID_TAG,
                             Name.MESSAGE_NAME_CONSTRAINTS);
 
-        // Invalid address
-        assertParseFailure(VALID_NAME + INVALID_ADDRESS + VALID_EMAIL + VALID_PHONE + VALID_TAG,
-                            Address.MESSAGE_ADDRESS_CONSTRAINTS);
-
-        // Invalid email
-        assertParseFailure(VALID_NAME + VALID_ADDRESS + INVALID_EMAIL + VALID_PHONE + VALID_TAG,
-                            Email.MESSAGE_EMAIL_CONSTRAINTS);
-
         // Invalid phone
-        assertParseFailure(VALID_NAME + VALID_ADDRESS + VALID_EMAIL + INVALID_PHONE + VALID_TAG,
+        assertParseFailure(VALID_NAME + INVALID_PHONE + VALID_EMAIL + VALID_ADDRESS + VALID_TAG,
                             Phone.MESSAGE_PHONE_CONSTRAINTS);
 
+        // Invalid email
+        assertParseFailure(VALID_NAME + VALID_PHONE + INVALID_EMAIL + VALID_ADDRESS + VALID_TAG,
+                            Email.MESSAGE_EMAIL_CONSTRAINTS);
+
+        // Invalid address
+        assertParseFailure(VALID_NAME + VALID_PHONE + VALID_EMAIL + INVALID_ADDRESS + VALID_TAG,
+                            Address.MESSAGE_ADDRESS_CONSTRAINTS);
+
         // Invalid tag
-        assertParseFailure(VALID_NAME + VALID_ADDRESS + VALID_EMAIL + VALID_PHONE + INVALID_TAG,
+        assertParseFailure(VALID_NAME + VALID_PHONE + VALID_EMAIL + VALID_ADDRESS + INVALID_TAG,
                             Tag.MESSAGE_TAG_CONSTRAINTS);
     }
 
@@ -58,8 +58,8 @@ public class AddCommandParserTest {
     public void parse_multipleInvalidFields_returnsIncorrectCommand() throws Exception {
         // Two invalid fields - phone and email
         StringJoiner expectedMessage = new StringJoiner(System.lineSeparator());
-        expectedMessage.add(Phone.MESSAGE_PHONE_CONSTRAINTS).add(Email.MESSAGE_EMAIL_CONSTRAINTS);
-        assertParseFailure(VALID_NAME + VALID_ADDRESS + INVALID_EMAIL + INVALID_PHONE + VALID_TAG,
+        expectedMessage.add(Phone.MESSAGE_PHONE_CONSTRAINTS).add(Address.MESSAGE_ADDRESS_CONSTRAINTS);
+        assertParseFailure(VALID_NAME + INVALID_PHONE + VALID_EMAIL + INVALID_ADDRESS + VALID_TAG,
                             expectedMessage.toString());
 
         // All invalid fields
@@ -67,7 +67,7 @@ public class AddCommandParserTest {
         expectedMessage.add(Name.MESSAGE_NAME_CONSTRAINTS).add(Phone.MESSAGE_PHONE_CONSTRAINTS)
                         .add(Email.MESSAGE_EMAIL_CONSTRAINTS).add(Address.MESSAGE_ADDRESS_CONSTRAINTS)
                         .add(Tag.MESSAGE_TAG_CONSTRAINTS);
-        assertParseFailure(INVALID_NAME + INVALID_ADDRESS + INVALID_EMAIL + INVALID_PHONE + INVALID_TAG,
+        assertParseFailure(INVALID_NAME + INVALID_PHONE + INVALID_EMAIL + INVALID_ADDRESS + INVALID_TAG,
                             expectedMessage.toString());
 
         // Random order for all fields
@@ -76,24 +76,12 @@ public class AddCommandParserTest {
     }
 
     @Test
-    public void parse_repeatedFields_returns() throws Exception {
-        // First instance is valid and second is invalid
-        assertParseFailure(VALID_NAME + VALID_ADDRESS + VALID_EMAIL + VALID_PHONE + INVALID_PHONE,
-                            Phone.MESSAGE_PHONE_CONSTRAINTS);
-
-        // First instance is invalid and second is valid
-        Person personToAdd = new PersonBuilder().withName("Name").withAddress("123 Street")
-                .withPhone("123456").withEmail("123@email.com").build();
-        assertParseSuccess(VALID_NAME + VALID_ADDRESS + VALID_EMAIL + INVALID_PHONE + VALID_PHONE,
-                            new AddCommand(personToAdd));
-    }
-
-    @Test
     public void parse_allValidFields_returnsAddCommand() throws Exception {
-        Person personToAdd = new PersonBuilder().withName("Name").withAddress("123 Street")
-                                .withPhone("123456").withEmail("123@email.com").build();
+        Person personToAdd = new PersonBuilder().withName("Name").withPhone("123456")
+                .withEmail("123@email.com").withAddress("123 Street").withTags("tag").build();
 
-        assertParseSuccess(VALID_NAME + VALID_ADDRESS + VALID_PHONE + VALID_EMAIL, new AddCommand(personToAdd));
+        assertParseSuccess(VALID_NAME + VALID_PHONE + VALID_EMAIL + VALID_ADDRESS + VALID_TAG,
+                            new AddCommand(personToAdd));
     }
 
     /**
