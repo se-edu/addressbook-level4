@@ -54,7 +54,6 @@ public class EditCommand extends Command {
      */
     public EditCommand(int filteredPersonListIndex, EditPersonDescriptor editPersonDescriptor) {
         assert filteredPersonListIndex > 0;
-        assert editPersonDescriptor != null;
 
         this.filteredPersonListIndex = IndexUtil.oneToZeroIndex(filteredPersonListIndex);
         this.editPersonDescriptor = new EditPersonDescriptor(editPersonDescriptor);

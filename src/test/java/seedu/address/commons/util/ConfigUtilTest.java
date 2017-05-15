@@ -27,8 +27,8 @@ public class ConfigUtilTest {
     public TemporaryFolder testFolder = new TemporaryFolder();
 
     @Test
-    public void read_null_assertionFailure() throws DataConversionException {
-        thrown.expect(AssertionError.class);
+    public void read_null_throwsNullPointerException() throws DataConversionException {
+        thrown.expect(NullPointerException.class);
         read(null);
     }
 

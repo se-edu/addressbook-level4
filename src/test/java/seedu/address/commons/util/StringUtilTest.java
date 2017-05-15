@@ -6,6 +6,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.io.FileNotFoundException;
+import java.util.Optional;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -58,29 +59,32 @@ public class StringUtilTest {
      */
 
     @Test
-    public void containsWordIgnoreCase_nullWord_exceptionThrown() {
-        assertExceptionThrown("typical sentence", null, "Word parameter cannot be null");
+    public void containsWordIgnoreCase_nullWord_throwsNullPointerException() {
+        assertExceptionThrown(NullPointerException.class, "typical sentence", null, Optional.empty());
     }
 
-    private void assertExceptionThrown(String sentence, String word, String errorMessage) {
-        thrown.expect(AssertionError.class);
-        thrown.expectMessage(errorMessage);
+    private void assertExceptionThrown(Class<? extends Throwable> exceptionClass, String sentence, String word,
+            Optional<String> errorMessage) {
+        thrown.expect(exceptionClass);
+        errorMessage.ifPresent(message -> thrown.expectMessage(message));
         StringUtil.containsWordIgnoreCase(sentence, word);
     }
 
     @Test
     public void containsWordIgnoreCase_emptyWord_exceptionThrown() {
-        assertExceptionThrown("typical sentence", "  ", "Word parameter cannot be empty");
+        assertExceptionThrown(AssertionError.class, "typical sentence", "  ",
+                Optional.of("Word parameter cannot be empty"));
     }
 
     @Test
     public void containsWordIgnoreCase_multipleWords_exceptionThrown() {
-        assertExceptionThrown("typical sentence", "aaa BBB", "Word parameter should be a single word");
+        assertExceptionThrown(AssertionError.class, "typical sentence", "aaa BBB",
+                Optional.of("Word parameter should be a single word"));
     }
 
     @Test
-    public void containsWordIgnoreCase_nullSentence_exceptionThrown() {
-        assertExceptionThrown(null, "abc", "Sentence parameter cannot be null");
+    public void containsWordIgnoreCase_nullSentence_throwsNullPointerException() {
+        assertExceptionThrown(NullPointerException.class, null, "abc", Optional.empty());
     }
 
     /*
@@ -143,8 +147,8 @@ public class StringUtilTest {
     }
 
     @Test
-    public void getDetails_nullGiven_assertionError() {
-        thrown.expect(AssertionError.class);
+    public void getDetails_nullGiven_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
         StringUtil.getDetails(null);
     }
 
