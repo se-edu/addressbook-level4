@@ -36,7 +36,6 @@ public class HelpWindow extends UiPart<Region> {
 
         String userGuideUrl = getClass().getResource(USERGUIDE_FILE_PATH).toString();
         browser.getEngine().load(userGuideUrl);
-        FxViewUtil.applyAnchorBoundaryParameters(browser, 0.0, 0.0, 0.0, 0.0);
     }
 
     public void show() {
