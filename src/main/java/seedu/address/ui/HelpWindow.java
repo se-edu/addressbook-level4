@@ -1,5 +1,6 @@
 package seedu.address.ui;
 
+import java.net.URL;
 import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
@@ -19,8 +20,7 @@ public class HelpWindow extends UiPart<Region> {
     private static final String ICON = "/images/help_icon.png";
     private static final String FXML = "HelpWindow.fxml";
     private static final String TITLE = "Help";
-    private static final String USERGUIDE_URL =
-            "https://se-edu.github.io/addressbook-level4/docs/UserGuide.html";
+    private static final String USERGUIDE_FILE_PATH = "/docs/UserGuide.html";
 
     @FXML
     private WebView browser;
@@ -35,7 +35,8 @@ public class HelpWindow extends UiPart<Region> {
         dialogStage.setMaximized(true); //TODO: set a more appropriate initial size
         FxViewUtil.setStageIcon(dialogStage, ICON);
 
-        browser.getEngine().load(USERGUIDE_URL);
+        URL userGuideUrl = getClass().getResource(USERGUIDE_FILE_PATH);
+        browser.getEngine().load(userGuideUrl.toString());
         FxViewUtil.applyAnchorBoundaryParameters(browser, 0.0, 0.0, 0.0, 0.0);
     }
 
