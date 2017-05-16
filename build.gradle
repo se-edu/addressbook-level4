@@ -4,7 +4,6 @@
  * For more details take a look at the Java Quickstart chapter in the Gradle
  * user guide available at http://gradle.org/docs/2.2.1/userguide/tutorial_java_projects.html
  */
-
 plugins {
     id "com.github.kt3k.coveralls" version "2.4.0"
     id "com.github.johnrengelman.shadow" version '1.2.3'
@@ -209,5 +208,18 @@ task copyStylesheets(type: Copy) {
     into "${asciidoctor.outputDir}/html5/stylesheets"
 }
 asciidoctor.dependsOn copyStylesheets
+
+task deployOfflineDocs(type: Copy) {
+    into('src/main/resources/docs')
+
+    from ("${asciidoctor.outputDir}/html5") {
+        include 'stylesheets/*'
+        include 'images/*'
+        include 'UserGuide.html'
+    }
+}
+
+deployOfflineDocs.dependsOn asciidoctor
+processResources.dependsOn deployOfflineDocs
 
 defaultTasks 'clean', 'headless', 'allTests', 'coverage', 'asciidoctor'
