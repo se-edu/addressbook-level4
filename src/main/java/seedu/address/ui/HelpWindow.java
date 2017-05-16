@@ -1,6 +1,5 @@
 package seedu.address.ui;
 
-import java.net.URL;
 import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
@@ -35,8 +34,8 @@ public class HelpWindow extends UiPart<Region> {
         dialogStage.setMaximized(true); //TODO: set a more appropriate initial size
         FxViewUtil.setStageIcon(dialogStage, ICON);
 
-        URL userGuideUrl = getClass().getResource(USERGUIDE_FILE_PATH);
-        browser.getEngine().load(userGuideUrl.toString());
+        String userGuideUrl = getClass().getResource(USERGUIDE_FILE_PATH).toString();
+        browser.getEngine().load(userGuideUrl);
         FxViewUtil.applyAnchorBoundaryParameters(browser, 0.0, 0.0, 0.0, 0.0);
     }
 
