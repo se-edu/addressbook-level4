@@ -22,6 +22,19 @@ import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
 
 public class ParserUtilTest {
+    private static final String INVALID_NAME = "R@chel";
+    private static final String INVALID_PHONE = "+651234";
+    private static final String INVALID_ADDRESS = " ";
+    private static final String INVALID_EMAIL = "example.com";
+    private static final String INVALID_TAG = "#friend";
+
+    private static final String VALID_NAME = "Rachel Walker";
+    private static final String VALID_PHONE = "123456";
+    private static final String VALID_ADDRESS = "123 Main Street #0505";
+    private static final String VALID_EMAIL = "rachel@example.com";
+    private static final String VALID_TAG_1 = "friend";
+    private static final String VALID_TAG_2 = "neighbour";
+
     @Rule
     public final ExpectedException thrown = ExpectedException.none();
 
@@ -34,7 +47,7 @@ public class ParserUtilTest {
     @Test
     public void parseName_invalidValue_throwsIllegalValueException() throws Exception {
         thrown.expect(IllegalValueException.class);
-        ParserUtil.parseName(Optional.of("$*%"));
+        ParserUtil.parseName(Optional.of(INVALID_NAME));
     }
 
     @Test
@@ -44,8 +57,8 @@ public class ParserUtilTest {
 
     @Test
     public void parseName_validValue_returnsName() throws Exception {
-        Name expectedName = new Name("Name 123");
-        Optional<Name> actualName = ParserUtil.parseName(Optional.of("Name 123"));
+        Name expectedName = new Name(VALID_NAME);
+        Optional<Name> actualName = ParserUtil.parseName(Optional.of(VALID_NAME));
 
         assertEquals(expectedName, actualName.get());
     }
@@ -59,7 +72,7 @@ public class ParserUtilTest {
     @Test
     public void parsePhone_invalidValue_throwsIllegalValueException() throws Exception {
         thrown.expect(IllegalValueException.class);
-        ParserUtil.parsePhone(Optional.of("$*%"));
+        ParserUtil.parsePhone(Optional.of(INVALID_PHONE));
     }
 
     @Test
@@ -69,8 +82,8 @@ public class ParserUtilTest {
 
     @Test
     public void parsePhone_validValue_returnsPhone() throws Exception {
-        Phone expectedPhone = new Phone("123");
-        Optional<Phone> actualPhone = ParserUtil.parsePhone(Optional.of("123"));
+        Phone expectedPhone = new Phone(VALID_PHONE);
+        Optional<Phone> actualPhone = ParserUtil.parsePhone(Optional.of(VALID_PHONE));
 
         assertEquals(expectedPhone, actualPhone.get());
     }
@@ -84,7 +97,7 @@ public class ParserUtilTest {
     @Test
     public void parseAddress_invalidValue_throwsIllegalValueException() throws Exception {
         thrown.expect(IllegalValueException.class);
-        ParserUtil.parseAddress(Optional.of(" "));
+        ParserUtil.parseAddress(Optional.of(INVALID_ADDRESS));
     }
 
     @Test
@@ -94,8 +107,8 @@ public class ParserUtilTest {
 
     @Test
     public void parseAddress_validValue_returnsAddress() throws Exception {
-        Address expectedAddress = new Address("Address 123 #0505");
-        Optional<Address> actualAddress = ParserUtil.parseAddress(Optional.of("Address 123 #0505"));
+        Address expectedAddress = new Address(VALID_ADDRESS);
+        Optional<Address> actualAddress = ParserUtil.parseAddress(Optional.of(VALID_ADDRESS));
 
         assertEquals(expectedAddress, actualAddress.get());
     }
@@ -109,7 +122,7 @@ public class ParserUtilTest {
     @Test
     public void parseEmail_invalidValue_throwsIllegalValueException() throws Exception {
         thrown.expect(IllegalValueException.class);
-        ParserUtil.parseEmail(Optional.of("$*%"));
+        ParserUtil.parseEmail(Optional.of(INVALID_EMAIL));
     }
 
     @Test
@@ -119,8 +132,8 @@ public class ParserUtilTest {
 
     @Test
     public void parseEmail_validValue_returnsEmail() throws Exception {
-        Email expectedEmail = new Email("example@email.com");
-        Optional<Email> actualEmail = ParserUtil.parseEmail(Optional.of("example@email.com"));
+        Email expectedEmail = new Email(VALID_EMAIL);
+        Optional<Email> actualEmail = ParserUtil.parseEmail(Optional.of(VALID_EMAIL));
 
         assertEquals(expectedEmail, actualEmail.get());
     }
@@ -134,7 +147,7 @@ public class ParserUtilTest {
     @Test
     public void parseTags_collectionWithInvalidTags_throwsIllegalValueException() throws Exception {
         thrown.expect(IllegalValueException.class);
-        ParserUtil.parseTags(Arrays.asList("tag1", "$*%"));
+        ParserUtil.parseTags(Arrays.asList(VALID_TAG_1, INVALID_TAG));
     }
 
     @Test
@@ -144,8 +157,8 @@ public class ParserUtilTest {
 
     @Test
     public void parseTags_collectionWithValidTags_returnsTagSet() throws Exception {
-        Set<Tag> actualTagSet = ParserUtil.parseTags(Arrays.asList("tag1", "tag2"));
-        Set<Tag> expectedTagSet = new HashSet<Tag>(Arrays.asList(new Tag("tag1"), new Tag("tag2")));
+        Set<Tag> actualTagSet = ParserUtil.parseTags(Arrays.asList(VALID_TAG_1, VALID_TAG_2));
+        Set<Tag> expectedTagSet = new HashSet<Tag>(Arrays.asList(new Tag(VALID_TAG_1), new Tag(VALID_TAG_2)));
 
         assertEquals(expectedTagSet, actualTagSet);
     }
