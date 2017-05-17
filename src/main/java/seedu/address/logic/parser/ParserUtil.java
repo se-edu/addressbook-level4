@@ -22,11 +22,11 @@ import seedu.address.model.tag.Tag;
 public class ParserUtil {
 
     /**
-     * Returns the specified index in the {@code command}.
+     * Returns the specified index in the {@code command}. Spaces will be trimmed.
      * @throws IllegalValueException if the specified index is invalid (not positive unsigned integer).
      */
-    public static int parseIndex(String command) throws IllegalValueException {
-        String index = command.trim();
+    public static int parseIndex(String indexAsString) throws IllegalValueException {
+        String index = indexAsString.trim();
         if (!StringUtil.isUnsignedInteger(index)) {
             throw new IllegalValueException("Index is not a positive unsigned integer.");
         }
