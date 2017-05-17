@@ -35,7 +35,8 @@ public class ParserUtil {
     }
 
     /**
-    * Splits a {@code preamble} string into ordered fields of size {@code numFields}. Spaces will be trimmed.
+    * Splits a {@code preamble} string into ordered fields of size {@code numFields}, using whitespace as a delimiter.
+    * Leading and trailing whitespaces will be trimmed.
     * @return A list of size {@code numFields} where the ith element is the ith field value if specified in
     *         the input, {@code Optional.empty()} otherwise.
     */
