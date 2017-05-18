@@ -35,12 +35,12 @@ public class ParserUtil {
     }
 
     /**
-    * Splits a preamble string into ordered fields.
+    * Splits a {@code preamble} string into ordered fields of size {@code numFields}. Spaces will be trimmed.
     * @return A list of size {@code numFields} where the ith element is the ith field value if specified in
     *         the input, {@code Optional.empty()} otherwise.
     */
     public static List<Optional<String>> splitPreamble(String preamble, int numFields) {
-        return Arrays.stream(Arrays.copyOf(preamble.split("\\s+", numFields), numFields))
+        return Arrays.stream(Arrays.copyOf(preamble.trim().split("\\s+", numFields), numFields))
                 .map(Optional::ofNullable)
                 .collect(Collectors.toList());
     }
