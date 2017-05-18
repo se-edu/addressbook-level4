@@ -84,7 +84,7 @@ public class ModelManager extends ComponentManager implements Model {
     //=========== Filtered Person List Accessors =============================================================
 
     /**
-     * Returns a list of {@code ReadOnlyPerson} backed by the internal list of {@code addressBook}
+     * Return a list of {@code ReadOnlyPerson} backed by the internal list of {@code addressBook}
      */
     @Override
     public UnmodifiableObservableList<ReadOnlyPerson> getFilteredPersonList() {
