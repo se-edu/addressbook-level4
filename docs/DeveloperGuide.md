@@ -26,53 +26,44 @@ By : `Team SE-EDU`  &nbsp;&nbsp;&nbsp;&nbsp; Since: `Jun 2016`  &nbsp;&nbsp;&nbs
     > Having any Java 8 version is not enough. <br>
     This app will not work with earlier versions of Java 8.
 
-2. **Eclipse** IDE
-3. **e(fx)clipse** plugin for Eclipse (Do the steps 2 onwards given in
-   [this page](http://www.eclipse.org/efxclipse/install.html#for-the-ambitious))
-4. **Buildship Gradle Integration** plugin from the Eclipse Marketplace
-5. **Checkstyle Plug-in** plugin from the Eclipse Marketplace
+2. **IntelliJ** IDE
+
+    > IntelliJ by default has Gradle and JavaFx plugins installed.
+    Do not disable them. If you have disabled them, go to
+    `File` > `Settings` > `Plugins` to enable them.
+
+3. **CheckStyle-IDEA** plugin
+
+    > Install the plugin by going to `File` > `Settings` > `Plugins`. Press
+    'Browse Repository', and find the plugin. Restart the IDE to
+    complete the installation.
 
 
-### 1.2. Importing the project into Eclipse
+### 1.2. Importing the project into IntelliJ
 
 0. Fork this repo, and clone the fork to your computer
-1. Open Eclipse (Note: Ensure you have installed the **e(fx)clipse** and **buildship** plugins as given
-   in the prerequisites above)
-2. Click `File` > `Import`
-3. Click `Gradle` > `Gradle Project` > `Next` > `Next`
-4. Click `Browse`, then locate the project's directory
-5. Click `Finish`
+1. Open IntelliJ (if you are not in the welcome screen, click `File` > `Close Project` to close
+    the existing project dialog first).
+2. Set up the correct JDK version for Gradle
+    a. Click `Configure` > `Project Defaults` > `Project Structure`
+    b. Click 'New...' and find the directory of the JDK.
+3. Click `Import Project`
+4. Locate the `build.gradle` file and select it. Click `OK`
+5. Click `Open as Project`
+6. Click `OK` to accept the default settings
 
-  > * If you are asked whether to 'keep' or 'overwrite' config files, choose to 'keep'.
-  > * Depending on your connection speed and server load, it can even take up to 30 minutes for the set up to finish
-      (This is because Gradle downloads library files from servers during the project set up process)
-  > * If Eclipse auto-changed any settings files during the import process, you can discard those changes.
 
 ### 1.3. Configuring Checkstyle
-1. Click `Project` -> `Properties` -> `Checkstyle` -> `Local Check Configurations` -> `New...`
-2. Choose `External Configuration File` under `Type`
-3. Enter an arbitrary configuration name e.g. addressbook
-4. Import checkstyle configuration file found at `config/checkstyle/checkstyle.xml`
-5. Click OK once, go to the `Main` tab, use the newly imported check configuration.
-6. Tick and select `files from packages`, click `Change...`, and select the `resources` package
-7. Click OK twice. Rebuild project if prompted
+1. Click `File` > `Settings...` > `Other Settings` > `Checkstyle`
+2. Click the plus sign under `Configuration File`
+3. Enter an arbitrary description e.g. addressbook
+4. Select `Use a local Checkstyle file`
+5. Use the checkstyle configuration file found at `config/checkstyle/checkstyle.xml`
+6. Click `Next` > `Finish`
+7. Mark `Active` for the newly imported check configuration
+8. Click `OK`
 
-> Note to click on the `files from packages` text after ticking in order to enable the `Change...` button
-
-### 1.4. Troubleshooting project setup
-
-**Problem: Eclipse reports compile errors after new commits are pulled from Git**
-
-* Reason: Eclipse fails to recognize new files that appeared due to the Git pull.
-* Solution: Refresh the project in Eclipse:<br>
-  Right click on the project (in Eclipse package explorer), choose `Gradle` -> `Refresh Gradle Project`.
-
-**Problem: Eclipse reports some required libraries missing**
-
-* Reason: Required libraries may not have been downloaded during the project import.
-* Solution: [Run tests using Gradle](UsingGradle.md) once (to refresh the libraries).
-
-### 1.5. Coding style
+### 1.4. Coding style
 
 We follow [oss-generic coding standards](https://github.com/oss-generic/process/blob/master/docs/CodingStandards.md).
 
@@ -248,10 +239,10 @@ Certain properties of the application can be controlled (e.g App name, logging l
 
 Tests can be found in the `./src/test/java` folder.
 
-**In Eclipse**:
+**In IntelliJ**:
 
 * To run all tests, right-click on the `src/test/java` folder and choose
-  `Run as` > `JUnit Test`
+  `Run 'All Tests'`
 * To run a subset of tests, you can right-click on a test package, test class, or a test and choose
   to run as a JUnit test.
 
@@ -280,16 +271,6 @@ Thanks to the [TestFX](https://github.com/TestFX/TestFX) library we use,
  In the headless mode, GUI tests do not show up on the screen.
  That means the developer can do other things on the Computer while the tests are running.<br>
  See [UsingGradle.md](UsingGradle.md#running-tests) to learn how to run tests in headless mode.
-
-### 4.1. Troubleshooting tests
-
- **Problem: Tests fail because NullPointException when AssertionError is expected**
-
- * Reason: Assertions are not enabled for JUnit tests.
-   This can happen if you are not using a recent Eclipse version (i.e. _Neon_ or later)
- * Solution: Enable assertions in JUnit tests as described
-   [here](http://stackoverflow.com/questions/2522897/eclipse-junit-ea-vm-option). <br>
-   Delete run configurations created when you ran tests earlier.
 
 ## 5. Dev Ops
 
