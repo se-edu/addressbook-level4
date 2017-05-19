@@ -24,18 +24,19 @@ Having any Java 8 version is not enough. +
 This app will not work with earlier versions of Java 8.
 +
 
-[start=2]
 .  *IntelliJ* IDE
-
++
 [NOTE]
 IntelliJ by default has Gradle and JavaFx plugins installed. +
 Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plugins` to re-enable them.
++
 
-[start=3]
 .  *CheckStyle-IDEA* plugin
 
++
 [TIP]
-Install the plugin by going to `File` > `Settings` > `Plugins`. Press `Browse Repository`, and find the plugin. Restart the IDE to complete the installation.
+Install the plugin by going to `File` > `Settings` (Windows/Linux), or `IntelliJ IDEA` > `Preferences...` (macOS).
+Select `Plugins`. Press `Browse Repository`, and find the plugin. Restart the IDE to complete the installation.
 
 === Importing the project into IntelliJ
 
@@ -70,10 +71,11 @@ After forking the repo, links in the documentation will link to the wrong repo. 
 
 ==== Configuring the import statement
 
-IntelliJ uses a different import order from the coding style. To rectify that issue, go to `File` > `Settings...` > `Editor` > `Code Style` > `Java`. Go to the `Imports` tab to set the order.
+IntelliJ uses a different import order from the coding style. To rectify that issue, go to `File` > `Settings...` (Windows/Linux), or `IntelliJ IDEA` > `Preferences...` (macOS).
+Select `Editor` > `Code Style` > `Java`. Go to the `Imports` tab to set the order.
 
 * For `Class count to use import with '\*'` and `Names count to use static import with '*'`: Set to `999` to prevent IntelliJ from contracting the import statements
-* For `Import Layout`: The order is `import static all other imports`, `import java.\*`, `import javax.*`, `import org.\*`, `import com.*`, `import all other imports`
+* For `Import Layout`: The order is `import static all other imports`, `import java.\*`, `import javax.*`, `import org.\*`, `import com.*`, `import all other imports`. Add a `<blank line>` between each `import`
 
 == Design
 
@@ -233,10 +235,10 @@ Certain properties of the application can be controlled (e.g App name, logging l
 
 Tests can be found in the `./src/test/java` folder.
 
-*In Eclipse*:
+*In IntelliJ*:
 
-* To run all tests, right-click on the `src/test/java` folder and choose `Run as` > `JUnit Test`
-* To run a subset of tests, you can right-click on a test package, test class, or a test and choose to run as a JUnit test.
+* To run all tests, right-click on the `src/test/java` folder and choose `Run 'All Tests'`
+* To run a subset of tests, you can right-click on a test package, test class, or a test and choose `Run 'ABC'`.
 
 *Using Gradle*:
 
@@ -256,13 +258,6 @@ e.g. `seedu.address.logic.LogicManagerTest`
 === Headless GUI Testing
 
 Thanks to the https://github.com/TestFX/TestFX[TestFX] library we use, our GUI tests can be run in the _headless_ mode. In the headless mode, GUI tests do not show up on the screen. That means the developer can do other things on the Computer while the tests are running. See <<UsingGradle#running-tests, UsingGradle.adoc>> to learn how to run tests in headless mode.
-
-=== Troubleshooting tests
-
-*Problem: Tests fail because NullPointException when AssertionError is expected*
-
-* Reason: Assertions are not enabled for JUnit tests. This can happen if you are not using a recent Eclipse version (i.e. _Neon_ or later)
-* Solution: Enable assertions in JUnit tests as described http://stackoverflow.com/questions/2522897/eclipse-junit-ea-vm-option[here]. Delete run configurations created when you ran tests earlier.
 
 == Dev Ops
 
