@@ -1,6 +1,6 @@
 package seedu.address.storage;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static java.util.Objects.requireNonNull;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -42,7 +42,7 @@ public class XmlAddressBookStorage implements AddressBookStorage {
      */
     public Optional<ReadOnlyAddressBook> readAddressBook(String filePath) throws DataConversionException,
                                                                                  FileNotFoundException {
-        checkNotNull(filePath);
+        requireNonNull(filePath);
 
         File addressBookFile = new File(filePath);
 
@@ -66,8 +66,8 @@ public class XmlAddressBookStorage implements AddressBookStorage {
      * @param filePath location of the data. Cannot be null
      */
     public void saveAddressBook(ReadOnlyAddressBook addressBook, String filePath) throws IOException {
-        checkNotNull(addressBook);
-        checkNotNull(filePath);
+        requireNonNull(addressBook);
+        requireNonNull(filePath);
 
         File file = new File(filePath);
         FileUtil.createIfMissing(file);

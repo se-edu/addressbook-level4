@@ -1,6 +1,6 @@
 package seedu.address.commons.core;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static java.util.Objects.requireNonNull;
 
 import java.text.Collator;
 import java.util.Collection;
@@ -30,8 +30,7 @@ public class UnmodifiableObservableList<E> implements ObservableList<E> {
     private final ObservableList<? extends E> backingList;
 
     public UnmodifiableObservableList(ObservableList<? extends E> backingList) {
-        checkNotNull(backingList);
-        this.backingList = backingList;
+        this.backingList = requireNonNull(backingList);
     }
 
     @Override

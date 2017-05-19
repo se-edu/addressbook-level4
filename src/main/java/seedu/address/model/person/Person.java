@@ -1,13 +1,12 @@
 package seedu.address.model.person;
 
-import static com.google.common.base.Preconditions.checkArgument;
-import static com.google.common.base.Preconditions.checkNotNull;
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireNonNull;
 
 import java.util.Collections;
 import java.util.Objects;
 import java.util.Set;
 
-import seedu.address.commons.util.CollectionUtil;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 
@@ -28,7 +27,7 @@ public class Person implements ReadOnlyPerson {
      * Every field must be present and not null.
      */
     public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
-        checkArgument(!CollectionUtil.isAnyNull(name, phone, email, address, tags));
+        requireNonNull(name, phone, email, address, tags);
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -45,8 +44,7 @@ public class Person implements ReadOnlyPerson {
     }
 
     public void setName(Name name) {
-        checkNotNull(name);
-        this.name = name;
+        this.name = requireNonNull(name);
     }
 
     @Override
@@ -55,8 +53,7 @@ public class Person implements ReadOnlyPerson {
     }
 
     public void setPhone(Phone phone) {
-        checkNotNull(phone);
-        this.phone = phone;
+        this.phone = requireNonNull(phone);
     }
 
     @Override
@@ -65,8 +62,7 @@ public class Person implements ReadOnlyPerson {
     }
 
     public void setEmail(Email email) {
-        checkNotNull(email);
-        this.email = email;
+        this.email = requireNonNull(email);
     }
 
     @Override
@@ -75,8 +71,7 @@ public class Person implements ReadOnlyPerson {
     }
 
     public void setAddress(Address address) {
-        checkNotNull(address);
-        this.address = address;
+        this.address = requireNonNull(address);
     }
 
     @Override
@@ -104,7 +99,7 @@ public class Person implements ReadOnlyPerson {
      * Updates this person with the details of {@code replacement}.
      */
     public void resetData(ReadOnlyPerson replacement) {
-        checkNotNull(replacement);
+        requireNonNull(replacement);
 
         this.setName(replacement.getName());
         this.setPhone(replacement.getPhone());

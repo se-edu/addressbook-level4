@@ -1,7 +1,7 @@
 package seedu.address.commons.util;
 
-import static com.google.common.base.Preconditions.checkArgument;
-import static com.google.common.base.Preconditions.checkNotNull;
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.AppUtil.checkArgument;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -23,8 +23,8 @@ public class StringUtil {
      * @param word cannot be null, cannot be empty, must be a single word
      */
     public static boolean containsWordIgnoreCase(String sentence, String word) {
-        checkNotNull(sentence);
-        checkNotNull(word);
+        requireNonNull(sentence);
+        requireNonNull(word);
 
         String preppedWord = word.trim();
         checkArgument(!preppedWord.isEmpty(), "Word parameter cannot be empty");
@@ -45,7 +45,7 @@ public class StringUtil {
      * Returns a detailed message of the t, including the stack trace.
      */
     public static String getDetails(Throwable t) {
-        checkNotNull(t);
+        requireNonNull(t);
         StringWriter sw = new StringWriter();
         t.printStackTrace(new PrintWriter(sw));
         return t.getMessage() + "\n" + sw.toString();

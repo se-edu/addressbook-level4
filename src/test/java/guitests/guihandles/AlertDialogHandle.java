@@ -1,6 +1,6 @@
 package guitests.guihandles;
 
-import static com.google.common.base.Preconditions.checkArgument;
+import static seedu.address.commons.util.AppUtil.checkArgument;
 
 import guitests.GuiRobot;
 import javafx.scene.control.DialogPane;

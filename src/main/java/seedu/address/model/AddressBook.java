@@ -1,6 +1,6 @@
 package seedu.address.model;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static java.util.Objects.requireNonNull;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -62,7 +62,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     public void resetData(ReadOnlyAddressBook newData) {
-        checkNotNull(newData);
+        requireNonNull(newData);
         try {
             setPersons(newData.getPersonList());
         } catch (UniquePersonList.DuplicatePersonException e) {
@@ -102,7 +102,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void updatePerson(int index, ReadOnlyPerson editedReadOnlyPerson)
             throws UniquePersonList.DuplicatePersonException {
-        checkNotNull(editedReadOnlyPerson);
+        requireNonNull(editedReadOnlyPerson);
 
         Person editedPerson = new Person(editedReadOnlyPerson);
         syncMasterTagListWith(editedPerson);
