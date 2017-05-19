@@ -3,7 +3,7 @@ package seedu.address.commons.util;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
-import static seedu.address.commons.util.CollectionUtil.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -14,7 +14,7 @@ import org.junit.Test;
 
 public class CollectionUtilTest {
     @Test
-    public void requireNonNullVarargs() {
+    public void requireAllNonNullVarargs() {
         // no arguments
         assertNullPointerExceptionNotThrown();
 
@@ -45,7 +45,7 @@ public class CollectionUtilTest {
     }
 
     @Test
-    public void requireNonNullCollection() {
+    public void requireAllNonNullCollection() {
         // lists containing nulls in the front
         assertNullPointerExceptionThrown(Arrays.asList((Object) null));
         assertNullPointerExceptionThrown(Arrays.asList(null, new Object(), ""));
@@ -100,28 +100,28 @@ public class CollectionUtilTest {
 
     private void assertNullPointerExceptionThrown(Object... objects) {
         try {
-            requireNonNull(objects);
-            fail("Expected NullPointerException was not thrown");
+            requireAllNonNull(objects);
+            fail("The expected NullPointerException was not thrown");
         } catch (NullPointerException npe) {
             // expected behavior
         }
     }
 
-    private void assertNullPointerExceptionThrown(Collection<?> objects) {
+    private void assertNullPointerExceptionThrown(Collection<?> collection) {
         try {
-            requireNonNull(objects);
-            fail("Expected NullPointerException was not thrown");
+            requireAllNonNull(collection);
+            fail("The expected NullPointerException was not thrown");
         } catch (NullPointerException npe) {
             // expected behavior
         }
     }
 
     private void assertNullPointerExceptionNotThrown(Object... objects) {
-        requireNonNull(objects);
+        requireAllNonNull(objects);
     }
 
-    private void assertNullPointerExceptionNotThrown(Collection<?> objects) {
-        requireNonNull(objects);
+    private void assertNullPointerExceptionNotThrown(Collection<?> collection) {
+        requireAllNonNull(collection);
     }
 
     private void assertAreUnique(Object... objects) {

@@ -12,8 +12,8 @@ import java.util.stream.Stream;
  */
 public class CollectionUtil {
 
-    /** @see #requireNonNull(Collection) */
-    public static void requireNonNull(Object... items) {
+    /** @see #requireAllNonNull(Collection) */
+    public static void requireAllNonNull(Object... items) {
         Objects.requireNonNull(items);
         Stream.of(items).forEach(Objects::requireNonNull);
     }
@@ -21,7 +21,7 @@ public class CollectionUtil {
     /**
      * Throws NullPointerException if {@code items} or any element of {@code items} is null.
      */
-    public static void requireNonNull(Collection<?> items) {
+    public static void requireAllNonNull(Collection<?> items) {
         Objects.requireNonNull(items);
         items.forEach(Objects::requireNonNull);
     }
