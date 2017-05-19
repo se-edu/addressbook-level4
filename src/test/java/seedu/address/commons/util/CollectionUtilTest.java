@@ -103,8 +103,7 @@ public class CollectionUtilTest {
             requireNonNull(objects);
             fail();
         } catch (NullPointerException npe) {
-        } catch (Exception e) {
-            fail();
+            // expected behavior
         }
     }
 
@@ -113,29 +112,16 @@ public class CollectionUtilTest {
             requireNonNull(objects);
             fail();
         } catch (NullPointerException npe) {
-        } catch (Exception e) {
-            fail();
+            // expected behavior
         }
     }
 
     private void assertNullPointerExceptionNotThrown(Object... objects) {
-        try {
-            requireNonNull(objects);
-            return;
-        } catch (NullPointerException npe) {
-            fail();
-        }
-        fail();
+        requireNonNull(objects);
     }
 
     private void assertNullPointerExceptionNotThrown(Collection<?> objects) {
-        try {
-            requireNonNull(objects);
-            return;
-        } catch (NullPointerException npe) {
-            fail();
-        }
-        fail();
+        requireNonNull(objects);
     }
 
     private void assertAreUnique(Object... objects) {

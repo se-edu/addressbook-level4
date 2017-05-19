@@ -33,7 +33,7 @@ public class AppUtil {
      */
     public static void checkArgument(Boolean condition, String errorMessage) {
         if (!condition) {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException(errorMessage);
         }
     }
 }
