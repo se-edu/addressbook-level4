@@ -56,8 +56,10 @@ public class EditCommand extends Command {
      */
     public EditCommand(int filteredPersonListIndex, EditPersonDescriptor editPersonDescriptor) {
         checkArgument(filteredPersonListIndex > 0);
-        this.editPersonDescriptor = new EditPersonDescriptor(requireNonNull(editPersonDescriptor));
+        requireNonNull(editPersonDescriptor);
+
         this.filteredPersonListIndex = IndexUtil.oneToZeroIndex(filteredPersonListIndex);
+        this.editPersonDescriptor = new EditPersonDescriptor(editPersonDescriptor);
     }
 
     @Override
