@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.junit.Test;
 
+import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.Parser;
@@ -46,8 +47,7 @@ public class EditCommandIntegrationTest {
 
         AddressBook expectedAddressBook = new AddressBook(model.getAddressBook());
         expectedAddressBook.updatePerson(ZERO_BASED_INDEX_FIRST_PERSON, editedPerson);
-
-        List<ReadOnlyPerson> expectedFilteredList = new ArrayList<>(model.getFilteredPersonList());
+        FilteredList<ReadOnlyPerson> expectedFilteredList = new FilteredList<>(expectedAddressBook.getPersonList());
 
         assertCommandSuccess(command, expectedMessage, expectedAddressBook, expectedFilteredList);
     }
