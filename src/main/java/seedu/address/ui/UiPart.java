@@ -29,7 +29,8 @@ public abstract class UiPart<T> {
      * The FXML file must not specify the {@code fx:controller} attribute.
      */
     public UiPart(URL fxmlFileUrl) {
-        fxmlLoader = new FXMLLoader(requireNonNull(fxmlFileUrl));
+        requireNonNull(fxmlFileUrl);
+        fxmlLoader = new FXMLLoader(fxmlFileUrl);
         fxmlLoader.setController(this);
         try {
             fxmlLoader.load();
