@@ -6,7 +6,7 @@
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.SplitPane?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
 <VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
@@ -24,33 +24,33 @@
     </Menu>
   </MenuBar>
 
-  <AnchorPane VBox.vgrow="NEVER" fx:id="commandBoxPlaceholder" styleClass="anchor-pane-with-border">
+  <StackPane VBox.vgrow="NEVER" fx:id="commandBoxPlaceholder" styleClass="pane-with-border">
     <padding>
       <Insets top="5" right="10" bottom="5" left="10" />
     </padding>
-  </AnchorPane>
+  </StackPane>
 
-  <AnchorPane VBox.vgrow="NEVER" fx:id="resultDisplayPlaceholder" styleClass="anchor-pane-with-border"
+  <StackPane VBox.vgrow="NEVER" fx:id="resultDisplayPlaceholder" styleClass="pane-with-border"
       minHeight="100" prefHeight="100" maxHeight="100">
     <padding>
       <Insets top="5" right="10" bottom="5" left="10" />
     </padding>
-  </AnchorPane>
+  </StackPane>
 
   <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.4" VBox.vgrow="ALWAYS">
     <VBox fx:id="personList" minWidth="340" prefWidth="340">
       <padding>
         <Insets top="10" right="10" bottom="10" left="10" />
       </padding>
-      <AnchorPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS" />
+      <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS" />
     </VBox>
 
-    <AnchorPane fx:id="browserPlaceholder" prefWidth="340" >
+    <StackPane fx:id="browserPlaceholder" prefWidth="340" >
       <padding>
         <Insets top="10" right="10" bottom="10" left="10" />
       </padding>
-    </AnchorPane>
+    </StackPane>
   </SplitPane>
 
-  <AnchorPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
+  <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
 </VBox>

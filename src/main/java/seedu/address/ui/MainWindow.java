@@ -7,8 +7,8 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.GuiSettings;
@@ -39,22 +39,22 @@ public class MainWindow extends UiPart<Region> {
     private UserPrefs prefs;
 
     @FXML
-    private AnchorPane browserPlaceholder;
+    private StackPane browserPlaceholder;
 
     @FXML
-    private AnchorPane commandBoxPlaceholder;
+    private StackPane commandBoxPlaceholder;
 
     @FXML
     private MenuItem helpMenuItem;
 
     @FXML
-    private AnchorPane personListPanelPlaceholder;
+    private StackPane personListPanelPlaceholder;
 
     @FXML
-    private AnchorPane resultDisplayPlaceholder;
+    private StackPane resultDisplayPlaceholder;
 
     @FXML
-    private AnchorPane statusbarPlaceholder;
+    private StackPane statusbarPlaceholder;
 
     public MainWindow(Stage primaryStage, Config config, UserPrefs prefs, Logic logic) {
         super(FXML);
@@ -122,19 +122,19 @@ public class MainWindow extends UiPart<Region> {
         new CommandBox(getCommandBoxPlaceholder(), logic);
     }
 
-    private AnchorPane getCommandBoxPlaceholder() {
+    private StackPane getCommandBoxPlaceholder() {
         return commandBoxPlaceholder;
     }
 
-    private AnchorPane getStatusbarPlaceholder() {
+    private StackPane getStatusbarPlaceholder() {
         return statusbarPlaceholder;
     }
 
-    private AnchorPane getResultDisplayPlaceholder() {
+    private StackPane getResultDisplayPlaceholder() {
         return resultDisplayPlaceholder;
     }
 
-    private AnchorPane getPersonListPlaceholder() {
+    private StackPane getPersonListPlaceholder() {
         return personListPanelPlaceholder;
     }
 

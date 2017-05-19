@@ -6,11 +6,10 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.NewResultAvailableEvent;
-import seedu.address.commons.util.FxViewUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -26,17 +25,15 @@ public class CommandBox extends UiPart<Region> {
     @FXML
     private TextField commandTextField;
 
-    public CommandBox(AnchorPane commandBoxPlaceholder, Logic logic) {
+    public CommandBox(Pane commandBoxPlaceholder, Logic logic) {
         super(FXML);
         this.logic = logic;
         addToPlaceholder(commandBoxPlaceholder);
     }
 
-    private void addToPlaceholder(AnchorPane placeHolderPane) {
+    private void addToPlaceholder(Pane placeHolderPane) {
         SplitPane.setResizableWithParent(placeHolderPane, false);
         placeHolderPane.getChildren().add(commandTextField);
-        FxViewUtil.applyAnchorBoundaryParameters(getRoot(), 0.0, 0.0, 0.0, 0.0);
-        FxViewUtil.applyAnchorBoundaryParameters(commandTextField, 0.0, 0.0, 0.0, 0.0);
     }
 
     @FXML

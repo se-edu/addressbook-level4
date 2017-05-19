@@ -36,7 +36,6 @@ public class HelpWindow extends UiPart<Region> {
         FxViewUtil.setStageIcon(dialogStage, ICON);
 
         browser.getEngine().load(USERGUIDE_URL);
-        FxViewUtil.applyAnchorBoundaryParameters(browser, 0.0, 0.0, 0.0, 0.0);
     }
 
     public void show() {
