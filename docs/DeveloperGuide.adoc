@@ -24,19 +24,19 @@ Having any Java 8 version is not enough. +
 This app will not work with earlier versions of Java 8.
 +
 
-.  *IntelliJ* IDE
+. *IntelliJ* IDE
 +
 [NOTE]
 IntelliJ by default has Gradle and JavaFx plugins installed. +
 Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plugins` to re-enable them.
 +
 
-.  *CheckStyle-IDEA* plugin
-
+. *CheckStyle-IDEA* plugin
 +
 [TIP]
-Install the plugin by going to `File` > `Settings` (Windows/Linux), or `IntelliJ IDEA` > `Preferences...` (macOS).
-Select `Plugins`. Press `Browse Repository`, and find the plugin. Restart the IDE to complete the installation.
+Install the plugin by going to `File` > `Settings` (Windows/Linux), or `IntelliJ IDEA` > `Preferences...` (macOS). +
+Select `Plugins`, press `Browse Repository`, and find the plugin. +
+Restart the IDE to complete the installation.
 
 === Importing the project into IntelliJ
 
@@ -61,15 +61,15 @@ Select `Plugins`. Press `Browse Repository`, and find the plugin. Restart the ID
 . Mark `Active` for the newly imported check configuration
 . Click `OK`
 
-=== Coding style
-
-We follow https://github.com/oss-generic/process/blob/master/docs/CodingStandards.md[oss-generic coding standards].
-
 === Updating documentation
 
 After forking the repo, links in the documentation will link to the wrong repo. You should replace the URL in the variable `repoURL` in DeveloperGuide.adoc with the URL of your fork.
 
-==== Configuring import statements
+=== Coding style
+
+We follow https://github.com/oss-generic/process/blob/master/docs/CodingStandards.md[oss-generic coding standards].
+
+=== Configuring import statements
 
 IntelliJ uses a different import order from our coding style. To rectify this issue:
 
