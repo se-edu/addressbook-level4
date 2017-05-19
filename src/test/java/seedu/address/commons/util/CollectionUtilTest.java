@@ -101,7 +101,7 @@ public class CollectionUtilTest {
     private void assertNullPointerExceptionThrown(Object... objects) {
         try {
             requireNonNull(objects);
-            fail();
+            fail("Expected NullPointerException was not thrown");
         } catch (NullPointerException npe) {
             // expected behavior
         }
@@ -110,7 +110,7 @@ public class CollectionUtilTest {
     private void assertNullPointerExceptionThrown(Collection<?> objects) {
         try {
             requireNonNull(objects);
-            fail();
+            fail("Expected NullPointerException was not thrown");
         } catch (NullPointerException npe) {
             // expected behavior
         }
