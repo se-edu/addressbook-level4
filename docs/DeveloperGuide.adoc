@@ -69,10 +69,13 @@ We follow https://github.com/oss-generic/process/blob/master/docs/CodingStandard
 
 After forking the repo, links in the documentation will link to the wrong repo. You should replace the URL in the variable `repoURL` in DeveloperGuide.adoc with the URL of your fork.
 
-==== Configuring the import statement
+==== Configuring import statements
 
-IntelliJ uses a different import order from the coding style. To rectify that issue, go to `File` > `Settings...` (Windows/Linux), or `IntelliJ IDEA` > `Preferences...` (macOS).
-Select `Editor` > `Code Style` > `Java`. Go to the `Imports` tab to set the order.
+IntelliJ uses a different import order from our coding style. To rectify this issue:
+
+. Go to `File` > `Settings...` (Windows/Linux), or `IntelliJ IDEA` > `Preferences...` (macOS)
+. Select `Editor` > `Code Style` > `Java`
+. Click on the `Imports` tab to set the order
 
 * For `Class count to use import with '\*'` and `Names count to use static import with '*'`: Set to `999` to prevent IntelliJ from contracting the import statements
 * For `Import Layout`: The order is `import static all other imports`, `import java.\*`, `import javax.*`, `import org.\*`, `import com.*`, `import all other imports`. Add a `<blank line>` between each `import`
@@ -238,7 +241,7 @@ Tests can be found in the `./src/test/java` folder.
 *In IntelliJ*:
 
 * To run all tests, right-click on the `src/test/java` folder and choose `Run 'All Tests'`
-* To run a subset of tests, you can right-click on a test package, test class, or a test and choose `Run 'ABC'`.
+* To run a subset of tests, you can right-click on a test package, test class, or a test and choose `Run 'ABC'`
 
 *Using Gradle*:
 
