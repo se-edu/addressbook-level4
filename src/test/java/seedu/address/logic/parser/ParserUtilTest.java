@@ -43,6 +43,9 @@ public class ParserUtilTest {
         // Multiple whitespaces between fields
         assertPreambleListCorrect("abc     123", 2, Arrays.asList(Optional.of("abc"), Optional.of("123")));
 
+        // Leading and trailing whitespaces
+        assertPreambleListCorrect("  abc 123  ", 2, Arrays.asList(Optional.of("abc"), Optional.of("123")));
+
         // More whitespaces than numFields
         assertPreambleListCorrect("abc 123 qwe 456", 2, Arrays.asList(Optional.of("abc"), Optional.of("123 qwe 456")));
 
