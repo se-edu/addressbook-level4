@@ -28,7 +28,7 @@ public class FindCommandParser {
 
         String[] nameKeywords = trimmedArgs.split("\\s+");
 
-        Predicate<ReadOnlyPerson> predicate = createEmptyPredicate();
+        Predicate<ReadOnlyPerson> predicate = (person -> false); // to allow chaining of predicate
 
         for (String name : nameKeywords) {
             predicate = predicate.or(nameContains(name));
@@ -41,13 +41,6 @@ public class FindCommandParser {
      * Returns a predicate that returns true if the {@code ReadOnlyPerson}'s Name contains {@code keyword}
      */
     private Predicate<ReadOnlyPerson> nameContains(String keyword) {
-        return p -> StringUtil.containsWordIgnoreCase(p.getName().fullName, keyword);
-    }
-
-    /**
-     * Returns a false predicate
-     */
-    private Predicate<ReadOnlyPerson> createEmptyPredicate() {
-        return p -> false;
+        return person -> StringUtil.containsWordIgnoreCase(person.getName().fullName, keyword);
     }
 }
