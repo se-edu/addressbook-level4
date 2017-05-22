@@ -5,18 +5,14 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
 import seedu.address.commons.core.Messages;
-import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.commons.util.IndexUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.parser.ParserUtil;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -211,57 +207,6 @@ public class EditCommand extends Command {
                     && email.equals(e.getEmail())
                     && address.equals(e.getAddress())
                     && tags.equals(e.getTags());
-        }
-    }
-
-    /**
-     * A utility class to help with building EditPersonDescriptor objects.
-     */
-    public static class EditPersonDescriptorBuilder {
-
-        private EditPersonDescriptor descriptor;
-
-        public EditPersonDescriptorBuilder() {
-            descriptor = new EditPersonDescriptor();
-        }
-
-        public EditPersonDescriptorBuilder(EditPersonDescriptor descriptor) {
-            this.descriptor = new EditPersonDescriptor(descriptor);
-        }
-
-        public EditPersonDescriptorBuilder withName(String name) throws IllegalValueException {
-            descriptor.setName(ParserUtil.parseName(Optional.ofNullable(name)));
-            return this;
-        }
-
-        public EditPersonDescriptorBuilder withPhone(String phone) throws IllegalValueException {
-            descriptor.setPhone(ParserUtil.parsePhone(Optional.ofNullable(phone)));
-            return this;
-        }
-
-        public EditPersonDescriptorBuilder withEmail(String email) throws IllegalValueException {
-            descriptor.setEmail(ParserUtil.parseEmail(Optional.ofNullable(email)));
-            return this;
-        }
-
-        public EditPersonDescriptorBuilder withAddress(String address) throws IllegalValueException {
-            descriptor.setAddress(ParserUtil.parseAddress(Optional.ofNullable(address)));
-            return this;
-        }
-
-        public EditPersonDescriptorBuilder withTags(String... tags) throws IllegalValueException {
-            withTags(Arrays.asList(tags));
-            return this;
-        }
-
-        public EditPersonDescriptorBuilder withTags(Collection<String> tags) throws IllegalValueException {
-            Optional<Set<Tag>> toSet = tags == null ? Optional.empty() : Optional.of(ParserUtil.parseTags(tags));
-            descriptor.setTags(toSet);
-            return this;
-        }
-
-        public EditPersonDescriptor build() {
-            return descriptor;
         }
     }
 }
