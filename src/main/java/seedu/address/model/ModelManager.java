@@ -1,6 +1,6 @@
 package seedu.address.model;
 
-import java.util.Set;
+import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import javafx.collections.transformation.FilteredList;
@@ -9,7 +9,6 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.util.CollectionUtil;
-import seedu.address.commons.util.StringUtil;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.UniquePersonList;
@@ -97,64 +96,8 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void updateFilteredPersonList(Set<String> keywords) {
-        updateFilteredPersonList(new PredicateExpression(new NameQualifier(keywords)));
-    }
-
-    private void updateFilteredPersonList(Expression expression) {
-        filteredPersons.setPredicate(expression::satisfies);
-    }
-
-    //========== Inner classes/interfaces used for filtering =================================================
-
-    interface Expression {
-        boolean satisfies(ReadOnlyPerson person);
-        String toString();
-    }
-
-    private class PredicateExpression implements Expression {
-
-        private final Qualifier qualifier;
-
-        PredicateExpression(Qualifier qualifier) {
-            this.qualifier = qualifier;
-        }
-
-        @Override
-        public boolean satisfies(ReadOnlyPerson person) {
-            return qualifier.run(person);
-        }
-
-        @Override
-        public String toString() {
-            return qualifier.toString();
-        }
-    }
-
-    interface Qualifier {
-        boolean run(ReadOnlyPerson person);
-        String toString();
-    }
-
-    private class NameQualifier implements Qualifier {
-        private Set<String> nameKeyWords;
-
-        NameQualifier(Set<String> nameKeyWords) {
-            this.nameKeyWords = nameKeyWords;
-        }
-
-        @Override
-        public boolean run(ReadOnlyPerson person) {
-            return nameKeyWords.stream()
-                    .filter(keyword -> StringUtil.containsWordIgnoreCase(person.getName().fullName, keyword))
-                    .findAny()
-                    .isPresent();
-        }
-
-        @Override
-        public String toString() {
-            return "name=" + String.join(", ", nameKeyWords);
-        }
+    public void updateFilteredPersonList(Predicate<ReadOnlyPerson> predicate) {
+        filteredPersons.setPredicate(predicate);
     }
 
 }
