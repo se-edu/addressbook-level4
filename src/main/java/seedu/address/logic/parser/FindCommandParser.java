@@ -15,8 +15,6 @@ import seedu.address.model.person.ReadOnlyPerson;
  */
 public class FindCommandParser {
 
-    private Predicate<ReadOnlyPerson> predicate;
-
     /**
      * Parses the given {@code String} of arguments in the context of the FindCommand
      * and returns an FindCommand object for execution.
@@ -28,32 +26,28 @@ public class FindCommandParser {
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         }
 
-        String[] nameKeywords = args.split("\\s+");
+        String[] nameKeywords = trimmedArgs.split("\\s+");
 
-        predicate = createEmptyPredicate();
+        Predicate<ReadOnlyPerson> predicate = createEmptyPredicate();
 
         for (String name : nameKeywords) {
-            if (!name.isEmpty()) {
-                predicate = predicate.or(nameContains(name));
-            }
+            predicate = predicate.or(nameContains(name));
         }
 
         return new FindCommand(predicate);
     }
 
+    /**
+     * Returns a predicate that is true if the Name of the Person being tested contains {@code name} as a word
+     */
     private Predicate<ReadOnlyPerson> nameContains(String name) {
         return p -> StringUtil.containsWordIgnoreCase(p.getName().fullName, name);
     }
 
     /**
-     * @return a predicate that is always false
+     * Returns a false predicate
      */
     private Predicate<ReadOnlyPerson> createEmptyPredicate() {
         return p -> false;
     }
-
-    public Predicate<ReadOnlyPerson> getPredicate() {
-        return this.predicate;
-    }
-
 }

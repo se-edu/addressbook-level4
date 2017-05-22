@@ -17,7 +17,7 @@ public class FindCommand extends Command {
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
             + "Example: " + COMMAND_WORD + " alice bob charlie";
 
-    private final Predicate<ReadOnlyPerson> predicate;
+    public final Predicate<ReadOnlyPerson> predicate;
 
     public FindCommand(Predicate<ReadOnlyPerson> findPredicate) {
         this.predicate = findPredicate;

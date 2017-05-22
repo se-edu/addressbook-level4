@@ -20,21 +20,21 @@ public class FindCommandParserTest {
     private FindCommandParser parser = new FindCommandParser();
 
     @Test
-    public void parse_noKeywords_failure() throws Exception {
+    public void parse_emptyString_failure() throws Exception {
         assertParseFailure("", String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
     }
 
     @Test
     public void parse_oneKeyword_success() throws Exception {
-        assertPersonMatch("James", "James Henry");
-        assertPersonNoMatch("James", "John Henry");
+        assertPredicateAcceptsPerson("James", "James Henry");
+        assertPredicateRejectsPerson("James", "John Henry");
     }
 
     @Test
     public void parse_multipleKeywords_success() throws Exception {
-        assertPersonMatch("James Yu", "James Henry");
-        assertPersonMatch("James Yu", "John Yu");
-        assertPersonNoMatch("James Yu", "Henry Lee");
+        assertPredicateAcceptsPerson("James Yu", "James Henry");
+        assertPredicateAcceptsPerson("James Yu Lee", "John Yu");
+        assertPredicateRejectsPerson("James Yu Bernard Tan", "Henry Lee");
     }
 
     /**
@@ -51,9 +51,9 @@ public class FindCommandParserTest {
     /**
      * Asserts that {@code userInput} is successfully parsed and the person with {@code name} is found
      */
-    private void assertPersonMatch(String userInput, String name) throws Exception {
-        parser.parse(userInput);
-        Predicate<ReadOnlyPerson> actualPredicate = parser.getPredicate();
+    private void assertPredicateAcceptsPerson(String userInput, String name) throws Exception {
+        Command command = parser.parse(userInput);
+        Predicate<ReadOnlyPerson> actualPredicate = ((FindCommand) command).predicate;
 
         ReadOnlyPerson personToTest = new PersonBuilder().withName(name).build();
         assertTrue(actualPredicate.test(personToTest));
@@ -62,9 +62,9 @@ public class FindCommandParserTest {
     /**
      * Asserts that {@code userInput} is successfully parsed and the person with {@code name} is not found
      */
-    private void assertPersonNoMatch(String userInput, String name) throws Exception {
-        parser.parse(userInput);
-        Predicate<ReadOnlyPerson> actualPredicate = parser.getPredicate();
+    private void assertPredicateRejectsPerson(String userInput, String name) throws Exception {
+        Command command = parser.parse(userInput);
+        Predicate<ReadOnlyPerson> actualPredicate = ((FindCommand) command).predicate;
 
         ReadOnlyPerson personToTest = new PersonBuilder().withName(name).build();
         assertFalse(actualPredicate.test(personToTest));
