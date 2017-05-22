@@ -5,7 +5,7 @@ import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Set;
+import java.util.function.Predicate;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -107,7 +107,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void updateFilteredPersonList(Set<String> keywords) {
+        public void updateFilteredPersonList(Predicate<ReadOnlyPerson> predicate) {
             fail("This method should not be called.");
         }
     }
