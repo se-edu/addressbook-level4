@@ -97,6 +97,24 @@ public class EditCommand extends Command {
         return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
     }
 
+    @Override
+    public boolean equals(Object other) {
+        // short circuit if same object
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(other instanceof EditCommand)) {
+            return false;
+        }
+
+        // state check
+        EditCommand e = (EditCommand) other;
+        return filteredPersonListIndex == e.filteredPersonListIndex
+                && editPersonDescriptor.equals(e.editPersonDescriptor);
+    }
+
     /**
      * Stores the details to edit the person with. Each non-empty field value will replace the
      * corresponding field value of the person.
@@ -168,6 +186,27 @@ public class EditCommand extends Command {
 
         public Optional<Set<Tag>> getTags() {
             return tags;
+        }
+
+        @Override
+        public boolean equals(Object other) {
+            // short circuit if same object
+            if (other == this) {
+                return true;
+            }
+
+            // instanceof handles nulls
+            if (!(other instanceof EditPersonDescriptor)) {
+                return false;
+            }
+
+            // state check
+            EditPersonDescriptor e = (EditPersonDescriptor) other;
+            return name.equals(e.getName())
+                    && phone.equals(e.getPhone())
+                    && email.equals(e.getEmail())
+                    && address.equals(e.getAddress())
+                    && tags.equals(e.getTags());
         }
     }
 }
