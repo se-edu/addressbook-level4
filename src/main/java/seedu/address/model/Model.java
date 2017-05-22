@@ -39,7 +39,7 @@ public interface Model {
     /** Updates the filter of the filtered person list to show all persons */
     void updateFilteredListToShowAll();
 
-    /** Updates the filter of the filtered person list to filter by the given keywords*/
+    /** Updates the filter of the filtered person list to filter by the given {@code predicate}*/
     void updateFilteredPersonList(Predicate<ReadOnlyPerson> predicate);
 
 }

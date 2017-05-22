@@ -38,10 +38,10 @@ public class FindCommandParser {
     }
 
     /**
-     * Returns a predicate that is true if the Name of the Person being tested contains {@code name} as a word
+     * Returns a predicate that returns true if the {@code ReadOnlyPerson}'s Name contains {@code keyword}
      */
-    private Predicate<ReadOnlyPerson> nameContains(String name) {
-        return p -> StringUtil.containsWordIgnoreCase(p.getName().fullName, name);
+    private Predicate<ReadOnlyPerson> nameContains(String keyword) {
+        return p -> StringUtil.containsWordIgnoreCase(p.getName().fullName, keyword);
     }
 
     /**

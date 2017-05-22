@@ -25,16 +25,26 @@ public class FindCommandParserTest {
     }
 
     @Test
-    public void parse_oneKeyword_success() throws Exception {
-        assertPredicateAcceptsPerson("James", "James Henry");
+    public void parse_nonMatchingInput_personNotFound() throws Exception {
+        // One keyword
         assertPredicateRejectsPerson("James", "John Henry");
+
+        // Multiple keywords
+        assertPredicateRejectsPerson("James Yu Bernard Tan", "Henry Lee");
     }
 
     @Test
-    public void parse_multipleKeywords_success() throws Exception {
+    public void parse_matchingInput_personFound() throws Exception {
+        // One keyword
+        assertPredicateAcceptsPerson("James", "James Henry");
+
+        // Multiple keywords
         assertPredicateAcceptsPerson("James Yu", "James Henry");
-        assertPredicateAcceptsPerson("James Yu Lee", "John Yu");
-        assertPredicateRejectsPerson("James Yu Bernard Tan", "Henry Lee");
+        assertPredicateAcceptsPerson("James Yu", "Yu James");
+        assertPredicateAcceptsPerson("James Yu Lee", "James Lee");
+
+        // Leading and trailing whitespaces, multiple whitespaces between keywords and name
+        assertPredicateAcceptsPerson(" \t  James  Yu \nBernard Tan \t ", " \n  Bernard   Ng\t");
     }
 
     /**
@@ -43,30 +53,35 @@ public class FindCommandParserTest {
     private void assertParseFailure(String userInput, String expectedMessage) {
         Command command = parser.parse(userInput);
 
-        IncorrectCommand incorrectCommand = (IncorrectCommand) command;
-
-        assertEquals(expectedMessage, incorrectCommand.feedbackToUser);
+        assertEquals(expectedMessage, ((IncorrectCommand) command).feedbackToUser);
     }
 
     /**
-     * Asserts that {@code userInput} is successfully parsed and the person with {@code name} is found
+     * Asserts that {@code userInput} is successfully parsed and {@code name} matches the resulting predicate
      */
     private void assertPredicateAcceptsPerson(String userInput, String name) throws Exception {
-        Command command = parser.parse(userInput);
-        Predicate<ReadOnlyPerson> actualPredicate = ((FindCommand) command).predicate;
-
-        ReadOnlyPerson personToTest = new PersonBuilder().withName(name).build();
-        assertTrue(actualPredicate.test(personToTest));
+        assertTrue(getPredicate(userInput).test(getPersonWithName(name)));
     }
 
     /**
-     * Asserts that {@code userInput} is successfully parsed and the person with {@code name} is not found
+     * Asserts that {@code userInput} is successfully parsed and {@code name} does not match the resulting predicate
      */
     private void assertPredicateRejectsPerson(String userInput, String name) throws Exception {
-        Command command = parser.parse(userInput);
-        Predicate<ReadOnlyPerson> actualPredicate = ((FindCommand) command).predicate;
+        assertFalse(getPredicate(userInput).test(getPersonWithName(name)));
+    }
 
-        ReadOnlyPerson personToTest = new PersonBuilder().withName(name).build();
-        assertFalse(actualPredicate.test(personToTest));
+    /**
+     * Returns the predicate from FindCommand given the input {@code userInput}
+     */
+    private Predicate<ReadOnlyPerson> getPredicate(String userInput) {
+        Command command = parser.parse(userInput);
+        return ((FindCommand) command).predicate;
+    }
+
+    /**
+     * Returns a ReadOnlyPerson with {@code name}
+     */
+    private ReadOnlyPerson getPersonWithName(String name) throws Exception {
+        return new PersonBuilder().withName(name).build();
     }
 }
