@@ -3,11 +3,13 @@ package seedu.address.logic.parser;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.function.Function;
+import java.util.function.Predicate;
 
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.person.NameContainsKeywordsPredicate;
+import seedu.address.model.person.ReadOnlyPerson;
 
 /**
  * Parses input arguments and creates a new FindCommand object
@@ -26,10 +28,20 @@ public class FindCommandParser {
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         }
 
-        // keywords delimited by whitespace
-        final String[] keywords = trimmedArgs.split("\\s+");
-        final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
-        return new FindCommand(keywordSet);
+        String[] nameKeywords = trimmedArgs.split("\\s+");
+
+        Predicate<ReadOnlyPerson> predicate = createPredicate(nameKeywords, NameContainsKeywordsPredicate::new);
+
+        return new FindCommand(predicate);
+    }
+
+    /**
+     * Creates a {@code Predicate<ReadOnlyPerson} using {@code keywords} for {@code func}
+     */
+    private Predicate<ReadOnlyPerson> createPredicate(String[] keywords,
+                    Function<String, ? extends Predicate<ReadOnlyPerson>> function) {
+        return Arrays.stream(keywords).map(function).map(predicate -> (Predicate<ReadOnlyPerson>) predicate)
+                .reduce(Predicate::or).get();
     }
 
 }
