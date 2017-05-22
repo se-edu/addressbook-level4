@@ -10,7 +10,6 @@ import java.util.function.Predicate;
 
 import org.junit.Test;
 
-import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.ReadOnlyPerson;
@@ -28,24 +27,27 @@ public class FindCommandParserTest {
     @Test
     public void parse_nameDoesNotMatchKeyword_personNotFound() throws Exception {
         // One keyword
-        assertNamePredicateRejectsPerson("James", "John Henry");
+        assertNamePredicateRejectsPerson(createPredicate("James"), "John Henry");
 
         // Multiple keywords
-        assertNamePredicateRejectsPerson("James Yu Bernard Tan", "Henry Lee");
+        assertNamePredicateRejectsPerson(createPredicate("James Yu Bernard Tan"), "Henry Lee");
     }
 
     @Test
     public void parse_nameMatchesKeyword_personFound() throws Exception {
         // One keyword
-        assertNamePredicateAcceptsPerson("James", "James Henry");
+        assertNamePredicateAcceptsPerson(createPredicate("James"), "James Henry");
+
+        // Repeated keywords
+        assertNamePredicateAcceptsPerson(createPredicate("James James Lee"), "James");
 
         // Multiple keywords
-        assertNamePredicateAcceptsPerson("James Yu", "James Henry");
-        assertNamePredicateAcceptsPerson("James Yu", "Yu James");
-        assertNamePredicateAcceptsPerson("James Yu Lee", "James Lee");
+        assertNamePredicateAcceptsPerson(createPredicate("James Yu"), "James Henry");
+        assertNamePredicateAcceptsPerson(createPredicate("James Yu"), "Yu Feng James");
+        assertNamePredicateAcceptsPerson(createPredicate("James Yu Lee"), "James Lee");
 
         // Leading and trailing whitespaces, multiple whitespaces between keywords and name
-        assertNamePredicateAcceptsPerson(" \t  James  Yu \nBernard Tan \t ", " \n  Bernard   Ng\t");
+        assertNamePredicateAcceptsPerson(createPredicate(" \t  James  Yu \nBernard Tan \t "), " \n  Bernard   Ng\t");
     }
 
     /**
@@ -54,31 +56,31 @@ public class FindCommandParserTest {
     private void assertParseFailure(String userInput, String expectedMessage) {
         try {
             parser.parse(userInput);
-            fail("An exception should have been thrown.");
+            fail("expected ParseException was not thrown.");
         } catch (ParseException pe) {
             assertEquals(expectedMessage, pe.getMessage());
         }
     }
 
     /**
-     * Asserts that {@code userInput} is successfully parsed and {@code name} matches the resulting predicate
+     * Asserts that {@code predicate} accepts a Person with the given {@code name}
      */
-    private void assertNamePredicateAcceptsPerson(String userInput, String name) throws Exception {
-        assertTrue(getPredicate(userInput).test(new PersonBuilder().withName(name).build()));
+    private void assertNamePredicateAcceptsPerson(Predicate<ReadOnlyPerson> predicate, String name) throws Exception {
+        assertTrue(predicate.test(new PersonBuilder().withName(name).build()));
     }
 
     /**
-     * Asserts that {@code userInput} is successfully parsed and {@code name} does not match the resulting predicate
+     * Asserts that {@code predicate} rejects a Person with the given {@code name}
      */
-    private void assertNamePredicateRejectsPerson(String userInput, String name) throws Exception {
-        assertFalse(getPredicate(userInput).test(new PersonBuilder().withName(name).build()));
+    private void assertNamePredicateRejectsPerson(Predicate<ReadOnlyPerson> predicate, String name) throws Exception {
+        assertFalse(predicate.test(new PersonBuilder().withName(name).build()));
     }
 
     /**
-     * Returns the predicate from FindCommand given the input {@code userInput}
+     * Parses the {@code userInput} as a FindCommand and returns the predicate created by the FindCommand
      */
-    private Predicate<ReadOnlyPerson> getPredicate(String userInput) throws Exception {
-        Command command = parser.parse(userInput);
-        return ((FindCommand) command).predicate;
+    private Predicate<ReadOnlyPerson> createPredicate(String userInput) throws Exception {
+        FindCommand command = parser.parse(userInput);
+        return command.predicate;
     }
 }

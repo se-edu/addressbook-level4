@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
+import java.util.Arrays;
 import java.util.function.Predicate;
 
 import seedu.address.commons.util.StringUtil;
@@ -28,11 +29,8 @@ public class FindCommandParser {
 
         String[] nameKeywords = trimmedArgs.split("\\s+");
 
-        Predicate<ReadOnlyPerson> predicate = (person -> false); // to allow chaining of predicate
-
-        for (String name : nameKeywords) {
-            predicate = predicate.or(nameContains(name));
-        }
+        Predicate<ReadOnlyPerson> predicate =
+                Arrays.stream(nameKeywords).map(this::nameContains).reduce(Predicate::or).get();
 
         return new FindCommand(predicate);
     }
