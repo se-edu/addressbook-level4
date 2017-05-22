@@ -6,18 +6,19 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import static seedu.address.testutil.EditCommandTestUtil.DESC_AMY;
 import static seedu.address.testutil.EditCommandTestUtil.DESC_BOB;
+import static seedu.address.testutil.EditCommandTestUtil.VALID_NAME_BOB;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.Test;
 
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.Messages;
-import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
-import seedu.address.logic.parser.Parser;
-import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -25,8 +26,8 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.ReadOnlyPerson;
+import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.PersonBuilder;
-import seedu.address.testutil.PersonUtil;
 import seedu.address.testutil.TypicalPersons;
 
 /**
@@ -34,20 +35,20 @@ import seedu.address.testutil.TypicalPersons;
  */
 public class EditCommandTest {
 
+    // zero-based index is used for interacting with Model, one-based index is used for interacting with EditCommand
     private static final int ZERO_BASED_INDEX_FIRST_PERSON = 0;
-    private static final int ZERO_BASED_INDEX_SECOND_PERSON =  ZERO_BASED_INDEX_FIRST_PERSON + 1;
+    private static final int ONE_BASED_INDEX_FIRST_PERSON = 1;
+    private static final int ONE_BASED_INDEX_SECOND_PERSON =  ONE_BASED_INDEX_FIRST_PERSON + 1;
 
     private Model model = new ModelManager(new TypicalPersons().getTypicalAddressBook(), new UserPrefs());
-    private Parser parser = new Parser();
 
     @Test
     public void execute_validCommand_succeeds() throws Exception {
         Person editedPerson = new PersonBuilder().withName("Bobby").withPhone("91234567")
                                     .withEmail("bobby@example.com").withAddress("Block 123, Bobby Street 3")
                                     .withTags("husband").build();
-
-        String userInput = PersonUtil.getEditCommand(ZERO_BASED_INDEX_FIRST_PERSON, editedPerson);
-        Command command = prepareCommand(userInput);
+        EditPersonDescriptor descriptor = createEditPersonDescriptor(editedPerson);
+        EditCommand editCommand = prepareCommand(ONE_BASED_INDEX_FIRST_PERSON, descriptor);
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
 
@@ -55,23 +56,23 @@ public class EditCommandTest {
         expectedAddressBook.updatePerson(ZERO_BASED_INDEX_FIRST_PERSON, editedPerson);
         FilteredList<ReadOnlyPerson> expectedFilteredList = new FilteredList<>(expectedAddressBook.getPersonList());
 
-        assertCommandSuccess(command, expectedMessage, expectedAddressBook, expectedFilteredList);
+        assertCommandSuccess(editCommand, expectedMessage, expectedAddressBook, expectedFilteredList);
     }
 
     @Test
     public void execute_duplicatePerson_throwsCommandException() throws Exception {
         Person firstPerson = new Person(model.getFilteredPersonList().get(ZERO_BASED_INDEX_FIRST_PERSON));
-        String userInput = PersonUtil.getEditCommand(ZERO_BASED_INDEX_SECOND_PERSON, firstPerson);
-        Command command = prepareCommand(userInput);
-        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PERSON);
+        EditPersonDescriptor descriptor = createEditPersonDescriptor(firstPerson);
+        EditCommand editCommand = prepareCommand(ONE_BASED_INDEX_SECOND_PERSON, descriptor);
+        assertCommandFailure(editCommand, EditCommand.MESSAGE_DUPLICATE_PERSON);
     }
 
     @Test
     public void execute_invalidPersonIndex_throwsCommandException() throws Exception {
         int oneBasedOutOfBoundIndex = model.getFilteredPersonList().size() + 1;
-        String userInput = EditCommand.COMMAND_WORD + " " + oneBasedOutOfBoundIndex + " Bobby";
-        Command command = prepareCommand(userInput);
-        assertCommandFailure(command, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build();
+        EditCommand editCommand = prepareCommand(oneBasedOutOfBoundIndex, descriptor);
+        assertCommandFailure(editCommand, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
     @Test
@@ -99,10 +100,27 @@ public class EditCommandTest {
         assertFalse(standardCommand.equals(new EditCommand(1, DESC_BOB)));
     }
 
-    private Command prepareCommand(String userInput) throws Exception {
-        Command command = parser.parseCommand(userInput);
-        command.setData(model);
-        return command;
+    /**
+     * Returns an {@code EditCommand} with parameters {@code oneBasedIndex} and {@code descriptor}
+     */
+    private EditCommand prepareCommand(int oneBasedIndex, EditPersonDescriptor descriptor) {
+        EditCommand editCommand = new EditCommand(oneBasedIndex, descriptor);
+        editCommand.setData(model);
+        return editCommand;
+    }
+
+    /**
+     * Returns an {@code EditPersonDescriptor} with fields containing {@code person}'s values
+     */
+    private EditPersonDescriptor createEditPersonDescriptor(ReadOnlyPerson person) throws IllegalValueException {
+        EditPersonDescriptor descriptor = new EditPersonDescriptor();
+        descriptor.setName(Optional.of(person.getName()));
+        descriptor.setPhone(Optional.of(person.getPhone()));
+        descriptor.setEmail(Optional.of(person.getEmail()));
+        descriptor.setAddress(Optional.of(person.getAddress()));
+        descriptor.setTags(Optional.of(person.getTags()));
+
+        return descriptor;
     }
 
     /**
