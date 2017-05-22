@@ -4,6 +4,7 @@ import java.util.Optional;
 import java.util.logging.Logger;
 
 import guitests.GuiRobot;
+import javafx.application.Platform;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -62,7 +63,7 @@ public class GuiHandle {
     protected void setTextField(String textFieldId, String newText) {
         guiRobot.clickOn(textFieldId);
         TextField textField = getNode(textFieldId);
-        textField.setText(newText);
+        Platform.runLater(() -> textField.setText(newText));
         guiRobot.sleep(500); // so that the texts stays visible on the GUI for a short period
     }
 
