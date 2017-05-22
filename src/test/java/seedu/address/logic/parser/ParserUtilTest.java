@@ -39,6 +39,27 @@ public class ParserUtilTest {
     public final ExpectedException thrown = ExpectedException.none();
 
     @Test
+    public void parseIndex_invalidInput_throwsIllegalValueException() throws Exception {
+        thrown.expect(IllegalValueException.class);
+        ParserUtil.parseIndex("10 a");
+    }
+
+    @Test
+    public void parseIndex_outOfRangeInput_throwsNumberFormatException() throws Exception {
+        thrown.expect(NumberFormatException.class);
+        ParserUtil.parseIndex("3423423423423432");
+    }
+
+    @Test
+    public void parseIndex_validInput_success() throws Exception {
+        // No whitespaces
+        assertEquals(1, ParserUtil.parseIndex("1"));
+
+        // Leading and trailing whitespaces
+        assertEquals(1, ParserUtil.parseIndex("  1  "));
+    }
+
+    @Test
     public void parseName_null_throwsAssertionError() throws Exception {
         thrown.expect(AssertionError.class);
         ParserUtil.parseName(null);
