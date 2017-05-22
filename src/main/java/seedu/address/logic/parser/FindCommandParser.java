@@ -5,9 +5,8 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import java.util.function.Predicate;
 
 import seedu.address.commons.util.StringUtil;
-import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.FindCommand;
-import seedu.address.logic.commands.IncorrectCommand;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.ReadOnlyPerson;
 
 /**

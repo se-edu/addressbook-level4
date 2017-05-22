@@ -3,6 +3,7 @@ package seedu.address.logic.parser;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import java.util.function.Predicate;
@@ -11,7 +12,7 @@ import org.junit.Test;
 
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.FindCommand;
-import seedu.address.logic.commands.IncorrectCommand;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.testutil.PersonBuilder;
 
@@ -51,9 +52,12 @@ public class FindCommandParserTest {
      * Asserts that {@code userInput} is unsuccessfully parsed and the error message is equal to {@code expectedMessage}
      */
     private void assertParseFailure(String userInput, String expectedMessage) {
-        Command command = parser.parse(userInput);
-
-        assertEquals(expectedMessage, ((IncorrectCommand) command).feedbackToUser);
+        try {
+            parser.parse(userInput);
+            fail("An exception should have been thrown.");
+        } catch (ParseException pe) {
+            assertEquals(expectedMessage, pe.getMessage());
+        }
     }
 
     /**
@@ -73,7 +77,7 @@ public class FindCommandParserTest {
     /**
      * Returns the predicate from FindCommand given the input {@code userInput}
      */
-    private Predicate<ReadOnlyPerson> getPredicate(String userInput) {
+    private Predicate<ReadOnlyPerson> getPredicate(String userInput) throws Exception {
         Command command = parser.parse(userInput);
         return ((FindCommand) command).predicate;
     }
