@@ -22,14 +22,14 @@ After studying this code and completing the corresponding exercises, you should 
 
 ## Use High-Level Designs `[LO-HighLevelDesign]`
 
-Note how the [Developer Guide](DeveloperGuide.md#architecture) describes the high-level design using an
+Note how the [Developer Guide](DeveloperGuide.adoc#architecture) describes the high-level design using an
 _Architecture Diagrams_ and high-level sequence diagrams.
 
 ------------------------------------------------------------------------------------------------------
 
 ## Use Event-Driven Programming `[LO-EventDriven]`
 
-Note how the [Developer Guide](DeveloperGuide.md#architecture) uses events to communicate with components
+Note how the [Developer Guide](DeveloperGuide.adoc#architecture) uses events to communicate with components
 without needing a direct coupling. Also note how the `EventsCenter` class acts as an event dispatcher to
 facilitate communication between event creators and event consumers.
 
@@ -69,7 +69,7 @@ Note how the AddressBook app uses Java `assert`s to verify assumptions.
 
 ## Use Logging `[LO-Logging]`
 
-Note [how the AddressBook app uses Java's `java.util.log` package to do logging](DeveloperGuide.md#31-logging).
+Note [how the AddressBook app uses Java's `java.util.log` package to do logging](DeveloperGuide.adoc#31-logging).
 
 **Resources**
 
@@ -223,7 +223,7 @@ the entire system end-to-end.
 ## Automate GUI Testing `[LO-AutomateGuiTesting]`
 
 Note how this project uses TextFX library to automate GUI testing, including
-[_headless_ GUI testing](DeveloperGuide.md#headless-gui-testing).
+[_headless_ GUI testing](DeveloperGuide.adoc#headless-gui-testing).
 
 #### Exercise: Write more automated GUI tests
  * Add some more automated GUI tests.
@@ -242,7 +242,7 @@ Here are some example design patterns used in the code base.
   Facade class.
 * **Command Pattern** : The [`Command.java`](../src/main/java/seedu/address/logic/commands/Command.java) and its
   sub classes implement the Command Pattern.
-* **Observer Pattern** : The [event driven mechanism](DeveloperGuide.md#events-driven-nature-of-the-design) used by
+* **Observer Pattern** : The [event driven mechanism](DeveloperGuide.adoc#events-driven-nature-of-the-design) used by
   this code base employs the Observer pattern.<br>
   For example, objects that are interested in events need to have the `@Subscribe` annotation in the class (this is
   similar to implementing an `<<Observer>>` interface) and register with the `EventsCenter`. When something noteworthy
