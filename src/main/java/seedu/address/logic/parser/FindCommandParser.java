@@ -3,11 +3,12 @@ package seedu.address.logic.parser;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import java.util.Arrays;
+import java.util.function.Function;
 import java.util.function.Predicate;
 
-import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.ReadOnlyPerson;
 
 /**
@@ -29,16 +30,18 @@ public class FindCommandParser {
 
         String[] nameKeywords = trimmedArgs.split("\\s+");
 
-        Predicate<ReadOnlyPerson> predicate =
-                Arrays.stream(nameKeywords).map(this::nameContains).reduce(Predicate::or).get();
+        Predicate<ReadOnlyPerson> predicate = createPredicate(nameKeywords, NameContainsKeywordsPredicate::new);
 
         return new FindCommand(predicate);
     }
 
     /**
-     * Returns a predicate that returns true if the {@code ReadOnlyPerson}'s Name contains {@code keyword}
+     * Creates a {@code Predicate<ReadOnlyPerson} using {@code keywords} for {@code func}
      */
-    private Predicate<ReadOnlyPerson> nameContains(String keyword) {
-        return person -> StringUtil.containsWordIgnoreCase(person.getName().fullName, keyword);
+    private Predicate<ReadOnlyPerson> createPredicate(String[] keywords,
+                    Function<String, ? extends Predicate<ReadOnlyPerson>> function) {
+        return Arrays.stream(keywords).map(function).map(predicate -> (Predicate<ReadOnlyPerson>) predicate)
+                .reduce(Predicate::or).get();
     }
+
 }
