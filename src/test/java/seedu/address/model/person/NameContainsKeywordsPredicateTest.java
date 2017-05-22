@@ -8,17 +8,16 @@ import org.junit.Test;
 import seedu.address.testutil.PersonBuilder;
 
 public class NameContainsKeywordsPredicateTest {
-    private NameContainsKeywordsPredicate predicate;
 
     @Test
     public void test_nameContainsKeywords_returnsTrue() throws Exception {
-        predicate = new NameContainsKeywordsPredicate("Hans");
+        NameContainsKeywordPredicate predicate = new NameContainsKeywordPredicate("Hans");
         assertTrue(predicate.test(new PersonBuilder().withName("Hans Anderson").build()));
     }
 
     @Test
     public void test_nameDoesNotContainKeywords_returnsFalse() throws Exception {
-        predicate = new NameContainsKeywordsPredicate("Owen");
+        NameContainsKeywordPredicate predicate = new NameContainsKeywordPredicate("Owen");
         assertFalse(predicate.test(new PersonBuilder().withName("Christopher Low").build()));
     }
 }

@@ -19,15 +19,14 @@ public class PredicateBuilder {
 
     public PredicateBuilder withNamePredicate(String... keywords) throws IllegalValueException {
         for (String keyword : keywords) {
-            this.predicate = this.predicate.or(person -> StringUtil.containsWordIgnoreCase(
-                                                        person.getName().fullName, keyword));
+            predicate = predicate.or(person -> StringUtil.containsWordIgnoreCase(person.getName().fullName, keyword));
         }
 
         return this;
     }
 
     public Predicate<ReadOnlyPerson> build() {
-        return this.predicate;
+        return predicate;
     }
 
 }

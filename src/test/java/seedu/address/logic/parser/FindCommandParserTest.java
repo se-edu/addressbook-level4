@@ -27,27 +27,28 @@ public class FindCommandParserTest {
     @Test
     public void parse_nameDoesNotMatchKeyword_personNotFound() throws Exception {
         // One keyword
-        assertNamePredicateRejectsPerson(createPredicate("James"), "John Henry");
+        assertNamePredicateRejectsPerson(createPredicate("Alice"), "Alibaba Babu");
 
         // Multiple keywords
-        assertNamePredicateRejectsPerson(createPredicate("James Yu Bernard Tan"), "Henry Lee");
+        assertNamePredicateRejectsPerson(createPredicate("Alice Bob Charlie"), "Alibaba Babu");
     }
 
     @Test
     public void parse_nameMatchesKeyword_personFound() throws Exception {
         // One keyword
-        assertNamePredicateAcceptsPerson(createPredicate("James"), "James Henry");
+        assertNamePredicateAcceptsPerson(createPredicate("Alice"), "Alice Bob");
 
         // Repeated keywords
-        assertNamePredicateAcceptsPerson(createPredicate("James James Lee"), "James");
+        assertNamePredicateAcceptsPerson(createPredicate("Alice Bob Bob"), "Alice");
 
         // Multiple keywords
-        assertNamePredicateAcceptsPerson(createPredicate("James Yu"), "James Henry");
-        assertNamePredicateAcceptsPerson(createPredicate("James Yu"), "Yu Feng James");
-        assertNamePredicateAcceptsPerson(createPredicate("James Yu Lee"), "James Lee");
+        assertNamePredicateAcceptsPerson(createPredicate("Alice Bob"), "Alice Bob");
+        assertNamePredicateAcceptsPerson(createPredicate("Alice Bob"), "Charlie Bob");
+        assertNamePredicateAcceptsPerson(createPredicate("Alice Bob Charlie"), "Alice Charlie");
 
         // Leading and trailing whitespaces, multiple whitespaces between keywords and name
-        assertNamePredicateAcceptsPerson(createPredicate(" \t  James  Yu \nBernard Tan \t "), " \n  Bernard   Ng\t");
+        assertNamePredicateAcceptsPerson(createPredicate(" \t  Alice  Bob \nCharlie Dick \t "),
+                                                            " \n  Bob   Charlie\t");
     }
 
     /**
@@ -63,21 +64,22 @@ public class FindCommandParserTest {
     }
 
     /**
-     * Asserts that {@code predicate} accepts a Person with the given {@code name}
+     * Asserts that {@code predicate} accepts a {@code Person} with the given {@code name}
      */
     private void assertNamePredicateAcceptsPerson(Predicate<ReadOnlyPerson> predicate, String name) throws Exception {
         assertTrue(predicate.test(new PersonBuilder().withName(name).build()));
     }
 
     /**
-     * Asserts that {@code predicate} rejects a Person with the given {@code name}
+     * Asserts that {@code predicate} rejects a {@code Person} with the given {@code name}
      */
     private void assertNamePredicateRejectsPerson(Predicate<ReadOnlyPerson> predicate, String name) throws Exception {
         assertFalse(predicate.test(new PersonBuilder().withName(name).build()));
     }
 
     /**
-     * Parses the {@code userInput} as a FindCommand and returns the predicate created by the FindCommand
+     * Parses the {@code userInput} as a {@code FindCommand} and returns the predicate created by the
+     * {@code FindCommand}
      */
     private Predicate<ReadOnlyPerson> createPredicate(String userInput) throws Exception {
         FindCommand command = parser.parse(userInput);

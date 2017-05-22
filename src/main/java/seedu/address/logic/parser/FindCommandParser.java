@@ -2,13 +2,11 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
-import java.util.Arrays;
-import java.util.function.Function;
 import java.util.function.Predicate;
 
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.NameContainsKeywordsPredicate;
+import seedu.address.model.person.NameContainsKeywordPredicate;
 import seedu.address.model.person.ReadOnlyPerson;
 
 /**
@@ -30,18 +28,10 @@ public class FindCommandParser {
 
         String[] nameKeywords = trimmedArgs.split("\\s+");
 
-        Predicate<ReadOnlyPerson> predicate = createPredicate(nameKeywords, NameContainsKeywordsPredicate::new);
+        Predicate<ReadOnlyPerson> predicate = NameContainsKeywordPredicate
+                .createPredicate(nameKeywords, NameContainsKeywordPredicate::new);
 
         return new FindCommand(predicate);
-    }
-
-    /**
-     * Creates a {@code Predicate<ReadOnlyPerson} using {@code keywords} for {@code func}
-     */
-    private Predicate<ReadOnlyPerson> createPredicate(String[] keywords,
-                    Function<String, ? extends Predicate<ReadOnlyPerson>> function) {
-        return Arrays.stream(keywords).map(function).map(predicate -> (Predicate<ReadOnlyPerson>) predicate)
-                .reduce(Predicate::or).get();
     }
 
 }
