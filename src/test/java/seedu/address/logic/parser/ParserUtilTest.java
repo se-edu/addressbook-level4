@@ -3,6 +3,7 @@ package seedu.address.logic.parser;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -43,26 +44,23 @@ public class ParserUtilTest {
     @Test
     public void split_nullPreamble_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        ParserUtil.split(null, 0);
+        ParserUtil.split(null, 2);
     }
 
     @Test
-    public void split_negativeNumFields_throwsNegativeArraySizeException() {
-        thrown.expect(NegativeArraySizeException.class);
-        ParserUtil.split("abc", -1);
+    public void split_invalidNumOfParts_throwsIllegalArgumentException() {
+        // Negative numOfParts
+        assertSplitFailure("abc", -1);
+
+        // Zero numOfParts
+        assertSplitFailure("abc", 0);
+
+        // One numOfParts
+        assertSplitFailure("abc", 1);
     }
 
     @Test
     public void split_validInput_success() {
-        // Zero numFields
-        assertSplitListCorrect("abc", 0, Arrays.asList());
-
-        // Empty string
-        assertSplitListCorrect("", 1, Arrays.asList(Optional.of("")));
-
-        // No whitespaces
-        assertSplitListCorrect("abc", 1, Arrays.asList(Optional.of("abc")));
-
         // Single whitespace between fields
         assertSplitSuccess("abc 123", 2, optionalList("abc", "123"));
 
@@ -77,7 +75,20 @@ public class ParserUtilTest {
     }
 
     /**
-     * Splits {@code string} into ordered fields of size {@code numOfParts}
+     * Asserts that {@code string} is unsuccessfully split into ordered fields of size {@code numOfParts}
+     * and an IllegalArgumentException is thrown.
+     */
+    private void assertSplitFailure(String string, int numOfParts) {
+        try {
+            ParserUtil.split(string, numOfParts);
+            fail("Expected IllegalArgumentException was not thrown");
+        } catch (IllegalArgumentException iae) {
+            assertEquals("Number of parts must be more than 1.", iae.getMessage());
+        }
+    }
+
+    /**
+     * Asserts that {@code string} is successfully split into ordered fields of size {@code numOfParts}
      * and checks if the result is the same as {@code expectedValues}
      */
     private void assertSplitSuccess(String string, int numOfParts, List<Optional<String>> expectedValues) {
