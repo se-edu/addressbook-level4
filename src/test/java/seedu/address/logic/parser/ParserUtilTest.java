@@ -1,65 +1,220 @@
 package seedu.address.logic.parser;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.person.Address;
+import seedu.address.model.person.Email;
+import seedu.address.model.person.Name;
+import seedu.address.model.person.Phone;
+import seedu.address.model.tag.Tag;
+
 public class ParserUtilTest {
+    private static final String INVALID_NAME = "R@chel";
+    private static final String INVALID_PHONE = "+651234";
+    private static final String INVALID_ADDRESS = " ";
+    private static final String INVALID_EMAIL = "example.com";
+    private static final String INVALID_TAG = "#friend";
+
+    private static final String VALID_NAME = "Rachel Walker";
+    private static final String VALID_PHONE = "123456";
+    private static final String VALID_ADDRESS = "123 Main Street #0505";
+    private static final String VALID_EMAIL = "rachel@example.com";
+    private static final String VALID_TAG_1 = "friend";
+    private static final String VALID_TAG_2 = "neighbour";
+
     @Rule
     public final ExpectedException thrown = ExpectedException.none();
 
     @Test
-    public void splitPreamble_nullPreamble_throwsNullPointerException() {
+    public void split_nullPreamble_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        ParserUtil.splitPreamble(null, 0);
+        ParserUtil.split(null, 2);
     }
 
     @Test
-    public void splitPreamble_negativeNumFields_throwsNegativeArraySizeException() {
-        thrown.expect(NegativeArraySizeException.class);
-        ParserUtil.splitPreamble("abc", -1);
+    public void split_negativeNumFields_throwsIllegalArgumentException() {
+        thrown.expect(IllegalArgumentException.class);
+        ParserUtil.split("abc", -1);
     }
 
     @Test
-    public void splitPreamble_validInput_success() {
-        // Zero numFields
-        assertPreambleListCorrect("abc", 0, Arrays.asList());
+    public void split_zeroNumFields_throwsIllegalArgumentException() {
+        thrown.expect(IllegalArgumentException.class);
+        ParserUtil.split("", 0);
+    }
 
-        // Empty string
-        assertPreambleListCorrect("", 1, Arrays.asList(Optional.of("")));
+    @Test
+    public void split_oneNumField_throwsIllegalArgumentException() {
+        thrown.expect(IllegalArgumentException.class);
+        ParserUtil.split("abc", 1);
+    }
 
-        // No whitespaces
-        assertPreambleListCorrect("abc", 1, Arrays.asList(Optional.of("abc")));
-
+    @Test
+    public void split_validInput_success() {
         // Single whitespace between fields
-        assertPreambleListCorrect("abc 123", 2, Arrays.asList(Optional.of("abc"), Optional.of("123")));
+        assertSplitListCorrect("abc 123", 2, Arrays.asList(Optional.of("abc"), Optional.of("123")));
 
         // Multiple whitespaces between fields
-        assertPreambleListCorrect("abc     123", 2, Arrays.asList(Optional.of("abc"), Optional.of("123")));
+        assertSplitListCorrect("abc  \n qwe \t  123", 3, Arrays.asList(Optional.of("abc"),
+                                                            Optional.of("qwe"), Optional.of("123")));
 
         // Leading and trailing whitespaces
-        assertPreambleListCorrect("  abc 123  ", 2, Arrays.asList(Optional.of("abc"), Optional.of("123")));
+        assertSplitListCorrect(" \t abc qwe 123\t\n", 3, Arrays.asList(Optional.of("abc"),
+                                                            Optional.of("qwe"), Optional.of("123")));
 
         // More whitespaces than numFields
-        assertPreambleListCorrect("abc 123 qwe 456", 2, Arrays.asList(Optional.of("abc"), Optional.of("123 qwe 456")));
+        assertSplitListCorrect("abc 123 qwe 456", 2, Arrays.asList(Optional.of("abc"), Optional.of("123 qwe 456")));
 
         // More numFields than whitespaces
-        assertPreambleListCorrect("abc", 2, Arrays.asList(Optional.of("abc"), Optional.empty()));
+        assertSplitListCorrect("abc", 2, Arrays.asList(Optional.of("abc"), Optional.empty()));
     }
 
     /**
      * Splits {@code toSplit} into ordered fields of size {@code numFields}
      * and checks if the result is the same as {@code expectedValues}
      */
-    private void assertPreambleListCorrect(String preamble, int numFields, List<Optional<String>> expectedValues) {
-        List<Optional<String>> list = ParserUtil.splitPreamble(preamble, numFields);
+    private void assertSplitListCorrect(String preamble, int numFields, List<Optional<String>> expectedValues) {
+        List<Optional<String>> list = ParserUtil.split(preamble, numFields);
 
         assertTrue(list.equals(expectedValues));
+    }
+
+    @Test
+    public void parseName_null_throwsAssertionError() throws Exception {
+        thrown.expect(AssertionError.class);
+        ParserUtil.parseName(null);
+    }
+
+    @Test
+    public void parseName_invalidValue_throwsIllegalValueException() throws Exception {
+        thrown.expect(IllegalValueException.class);
+        ParserUtil.parseName(Optional.of(INVALID_NAME));
+    }
+
+    @Test
+    public void parseName_optionalEmpty_returnsOptionalEmpty() throws Exception {
+        assertFalse(ParserUtil.parseName(Optional.empty()).isPresent());
+    }
+
+    @Test
+    public void parseName_validValue_returnsName() throws Exception {
+        Name expectedName = new Name(VALID_NAME);
+        Optional<Name> actualName = ParserUtil.parseName(Optional.of(VALID_NAME));
+
+        assertEquals(expectedName, actualName.get());
+    }
+
+    @Test
+    public void parsePhone_null_throwsAssertionError() throws Exception {
+        thrown.expect(AssertionError.class);
+        ParserUtil.parsePhone(null);
+    }
+
+    @Test
+    public void parsePhone_invalidValue_throwsIllegalValueException() throws Exception {
+        thrown.expect(IllegalValueException.class);
+        ParserUtil.parsePhone(Optional.of(INVALID_PHONE));
+    }
+
+    @Test
+    public void parsePhone_optionalEmpty_returnsOptionalEmpty() throws Exception {
+        assertFalse(ParserUtil.parsePhone(Optional.empty()).isPresent());
+    }
+
+    @Test
+    public void parsePhone_validValue_returnsPhone() throws Exception {
+        Phone expectedPhone = new Phone(VALID_PHONE);
+        Optional<Phone> actualPhone = ParserUtil.parsePhone(Optional.of(VALID_PHONE));
+
+        assertEquals(expectedPhone, actualPhone.get());
+    }
+
+    @Test
+    public void parseAddress_null_throwsAssertionError() throws Exception {
+        thrown.expect(AssertionError.class);
+        ParserUtil.parseAddress(null);
+    }
+
+    @Test
+    public void parseAddress_invalidValue_throwsIllegalValueException() throws Exception {
+        thrown.expect(IllegalValueException.class);
+        ParserUtil.parseAddress(Optional.of(INVALID_ADDRESS));
+    }
+
+    @Test
+    public void parseAddress_optionalEmpty_returnsOptionalEmpty() throws Exception {
+        assertFalse(ParserUtil.parseAddress(Optional.empty()).isPresent());
+    }
+
+    @Test
+    public void parseAddress_validValue_returnsAddress() throws Exception {
+        Address expectedAddress = new Address(VALID_ADDRESS);
+        Optional<Address> actualAddress = ParserUtil.parseAddress(Optional.of(VALID_ADDRESS));
+
+        assertEquals(expectedAddress, actualAddress.get());
+    }
+
+    @Test
+    public void parseEmail_null_throwsAssertionError() throws Exception {
+        thrown.expect(AssertionError.class);
+        ParserUtil.parseEmail(null);
+    }
+
+    @Test
+    public void parseEmail_invalidValue_throwsIllegalValueException() throws Exception {
+        thrown.expect(IllegalValueException.class);
+        ParserUtil.parseEmail(Optional.of(INVALID_EMAIL));
+    }
+
+    @Test
+    public void parseEmail_optionalEmpty_returnsOptionalEmpty() throws Exception {
+        assertFalse(ParserUtil.parseEmail(Optional.empty()).isPresent());
+    }
+
+    @Test
+    public void parseEmail_validValue_returnsEmail() throws Exception {
+        Email expectedEmail = new Email(VALID_EMAIL);
+        Optional<Email> actualEmail = ParserUtil.parseEmail(Optional.of(VALID_EMAIL));
+
+        assertEquals(expectedEmail, actualEmail.get());
+    }
+
+    @Test
+    public void parseTags_null_throwsAssertionError() throws Exception {
+        thrown.expect(AssertionError.class);
+        ParserUtil.parseTags(null);
+    }
+
+    @Test
+    public void parseTags_collectionWithInvalidTags_throwsIllegalValueException() throws Exception {
+        thrown.expect(IllegalValueException.class);
+        ParserUtil.parseTags(Arrays.asList(VALID_TAG_1, INVALID_TAG));
+    }
+
+    @Test
+    public void parseTags_emptyCollection_returnsEmptySet() throws Exception {
+        assertTrue(ParserUtil.parseTags(Collections.emptyList()).isEmpty());
+    }
+
+    @Test
+    public void parseTags_collectionWithValidTags_returnsTagSet() throws Exception {
+        Set<Tag> actualTagSet = ParserUtil.parseTags(Arrays.asList(VALID_TAG_1, VALID_TAG_2));
+        Set<Tag> expectedTagSet = new HashSet<Tag>(Arrays.asList(new Tag(VALID_TAG_1), new Tag(VALID_TAG_2)));
+
+        assertEquals(expectedTagSet, actualTagSet);
     }
 }
