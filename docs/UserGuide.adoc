@@ -15,18 +15,17 @@ By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
 == Quick Start
 
 .  Ensure you have Java version `1.8.0_60` or later installed in your Computer.
-
++
 [NOTE]
 Having any Java 8 version is not enough. +
 This app will not work with earlier versions of Java 8.
-
-[start=2]
++
 .  Download the latest `addressbook.jar` from the link:../../../releases[releases] tab.
 .  Copy the file to the folder you want to use as the home folder for your Address Book.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
-
++
 image::Ui.png[width="790"]
-[start=5]
++
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
