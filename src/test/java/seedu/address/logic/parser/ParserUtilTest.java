@@ -7,8 +7,10 @@ import static org.junit.Assert.assertTrue;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -57,6 +59,59 @@ public class ParserUtilTest {
 
         // Leading and trailing whitespaces
         assertEquals(1, ParserUtil.parseIndex("  1  "));
+    }
+
+    @Test
+    public void splitPreamble_nullPreamble_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        ParserUtil.splitPreamble(null, 0);
+    }
+
+    @Test
+    public void splitPreamble_negativeNumFields_throwsNegativeArraySizeException() {
+        thrown.expect(NegativeArraySizeException.class);
+        ParserUtil.splitPreamble("abc", -1);
+    }
+
+    @Test
+    public void splitPreamble_validInput_success() {
+        // Zero numFields
+        assertPreambleListCorrect("abc", 0, asOptionalList());
+
+        // Empty string
+        assertPreambleListCorrect("", 1, asOptionalList(""));
+
+        // No whitespaces
+        assertPreambleListCorrect("abc", 1, asOptionalList("abc"));
+
+        // Single whitespace between fields
+        assertPreambleListCorrect("abc 123", 2, asOptionalList("abc", "123"));
+
+        // Multiple whitespaces between fields
+        assertPreambleListCorrect("abc  \n qwe \t  123", 3, asOptionalList("abc", "qwe", "123"));
+
+        // More whitespaces than numFields
+        assertPreambleListCorrect("abc 123 qwe 456", 2,  asOptionalList("abc", "123 qwe 456"));
+
+        // More numFields than whitespaces
+        assertPreambleListCorrect("abc", 2,  asOptionalList("abc", null));
+    }
+
+    /**
+     * Splits {@code string} into ordered fields of size {@code numOfParts}
+     * and checks if the result is the same as {@code expectedValues}
+     */
+    private void assertPreambleListCorrect(String string, int numOfParts, List<Optional<String>> expectedValues) {
+        List<Optional<String>> list = ParserUtil.splitPreamble(string, numOfParts);
+
+        assertTrue(list.equals(expectedValues));
+    }
+
+    /**
+     * Returns {@code strings} as {@code List<Optional<String>>}. Null values will be converted to Optional.empty().
+     */
+    private List<Optional<String>> asOptionalList(String... strings) {
+        return Arrays.stream(strings).map(Optional::ofNullable).collect(Collectors.toList());
     }
 
     @Test
