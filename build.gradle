@@ -210,4 +210,17 @@ task copyStylesheets(type: Copy) {
 }
 asciidoctor.dependsOn copyStylesheets
 
+task deployOfflineDocs(type: Copy) {
+    into('src/main/resources/docs')
+
+    from ("${asciidoctor.outputDir}/html5") {
+        include 'stylesheets/*'
+        include 'images/*'
+        include 'UserGuide.html'
+    }
+}
+
+deployOfflineDocs.dependsOn asciidoctor
+processResources.dependsOn deployOfflineDocs
+
 defaultTasks 'clean', 'headless', 'allTests', 'coverage', 'asciidoctor'
