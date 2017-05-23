@@ -52,6 +52,10 @@ If we package only our own class files into the JAR file, it will not work prope
 * **`asciidoctor`**<br>
   Converts AsciiDoc files in `docs` to HTML format. Generated HTML files can be found in `build/docs`.
 
+* **`deployOfflineDocs`**<br>
+  Updates the offline user guide, and its associated files, used by the Help window in the application. Deployed HTML
+  files and images can be found in `src/main/resources/docs`.
+
 ## Running the application
 
 * **`run`** <br>
