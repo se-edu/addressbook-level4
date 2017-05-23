@@ -35,12 +35,18 @@ public class ParserUtil {
     }
 
     /**
-    * Splits a {@code preamble} string into ordered fields of size {@code numFields}, using whitespace as a delimiter.
-    * @return A list of size {@code numFields} where the ith element is the ith field value if specified in
+    * Splits a {@code string} into {@code numOfParts} ordered fields, using whitespace as a delimiter.
+    * Leading and trailing whitespaces will be trimmed.
+    *   <br>Examples:<pre>
+    *       split("  Hello World! ", 2) -> "Hello" and "World!"
+    *       split(" Hello    World!", 3) -> "Hello" and "World!" and Optional.empty()
+    *       split("Foo bar baz", 2) -> "Foo" and "bar baz" //only 2 fields
+    *       </pre>
+    * @return A list of size {@code numOfParts} where the ith element is the ith field value if specified in
     *         the input, {@code Optional.empty()} otherwise.
     */
-    public static List<Optional<String>> splitPreamble(String preamble, int numFields) {
-        return Arrays.stream(Arrays.copyOf(preamble.split("\\s+", numFields), numFields))
+    public static List<Optional<String>> split(String string, int numOfParts) {
+        return Arrays.stream(Arrays.copyOf(string.trim().split("\\s+", numOfParts), numOfParts))
                 .map(Optional::ofNullable)
                 .collect(Collectors.toList());
     }
