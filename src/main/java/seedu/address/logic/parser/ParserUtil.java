@@ -36,15 +36,16 @@ public class ParserUtil {
 
     /**
     * Splits a {@code string} into {@code numOfParts} ordered fields, using whitespace as a delimiter.
-    * Leading and trailing whitespaces will be trimmed.
-    *   <br>Examples:<pre>
-    *       split("  Hello World! ", 2) -> "Hello" and "World!"
-    *       split(" Hello    World!", 3) -> "Hello" and "World!" and Optional.empty()
-    *       split("Foo bar baz", 2) -> "Foo" and "bar baz" //only 2 fields
-    *       </pre>
+    * Leading and trailing whitespaces will be trimmed.<br>
+    * Examples:
+    * <pre>
+    *     split("  Hello World! ", 2) -> "Hello" and "World!"
+    *     split(" Hello    World!", 3) -> "Hello" and "World!" and Optional.empty()
+    *     split("Foo bar baz", 2) -> "Foo" and "bar baz" // only 2 fields
+    * </pre>
     * @return A list of size {@code numOfParts} where the ith element is the ith field value if specified in
     *         the input, {@code Optional.empty()} otherwise.
-    * @throws IllegalArgumentException if {@code numOfParts < 2}
+    * @throws IllegalArgumentException if {@code numOfParts} < 2
     */
     public static List<Optional<String>> split(String string, int numOfParts) throws IllegalArgumentException {
         if (numOfParts < 2) {

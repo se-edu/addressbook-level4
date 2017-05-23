@@ -3,7 +3,9 @@ package seedu.address.logic.parser;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
@@ -46,51 +48,68 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void split_negativeNumFields_throwsIllegalArgumentException() {
-        thrown.expect(IllegalArgumentException.class);
-        ParserUtil.split("abc", -1);
-    }
+    public void split_invalidNumOfParts_throwsIllegalArgumentException() {
+        // Negative numOfParts
+        assertSplitFailure("abc", -1);
 
-    @Test
-    public void split_zeroNumFields_throwsIllegalArgumentException() {
-        thrown.expect(IllegalArgumentException.class);
-        ParserUtil.split("", 0);
-    }
+        // Zero numOfParts
+        assertSplitFailure("abc", 0);
 
-    @Test
-    public void split_oneNumField_throwsIllegalArgumentException() {
-        thrown.expect(IllegalArgumentException.class);
-        ParserUtil.split("abc", 1);
+        // One numOfParts
+        assertSplitFailure("abc", 1);
     }
 
     @Test
     public void split_validInput_success() {
         // Single whitespace between fields
-        assertSplitListCorrect("abc 123", 2, Arrays.asList(Optional.of("abc"), Optional.of("123")));
+        assertSplitSuccess("abc 123", 2, optionalList("abc", "123"));
 
-        // Multiple whitespaces between fields
-        assertSplitListCorrect("abc  \n qwe \t  123", 3, Arrays.asList(Optional.of("abc"),
-                                                            Optional.of("qwe"), Optional.of("123")));
-
-        // Leading and trailing whitespaces
-        assertSplitListCorrect(" \t abc qwe 123\t\n", 3, Arrays.asList(Optional.of("abc"),
-                                                            Optional.of("qwe"), Optional.of("123")));
+        // Leading and trailing whitespaces, multiple whitespaces between fields
+        assertSplitSuccess(" \t abc  \n qwe \t  123\t\n", 3, optionalList("abc", "qwe", "123"));
 
         // More whitespaces than numFields
-        assertSplitListCorrect("abc 123 qwe 456", 2, Arrays.asList(Optional.of("abc"), Optional.of("123 qwe 456")));
+        assertSplitSuccess("abc 123 qwe 456", 2, optionalList("abc", "123 qwe 456"));
 
         // More numFields than whitespaces
-        assertSplitListCorrect("abc", 2, Arrays.asList(Optional.of("abc"), Optional.empty()));
+        assertSplitSuccess("abc", 2, optionalList("abc", null));
     }
 
     /**
-     * Splits {@code toSplit} into ordered fields of size {@code numFields}
+     * Asserts that {@code string} is unsuccessfully split into ordered fields of size {@code numOfParts}
+     * and an IllegalArgumentException is thrown.
+     */
+    private void assertSplitFailure(String string, int numOfParts) {
+        try {
+            ParserUtil.split(string, numOfParts);
+            fail("Expected IllegalArgumentException was not thrown");
+        } catch (IllegalArgumentException iae) {
+            assertEquals("Number of parts must be more than 1.", iae.getMessage());
+        }
+    }
+
+    /**
+     * Asserts that {@code string} is successfully split into ordered fields of size {@code numOfParts}
      * and checks if the result is the same as {@code expectedValues}
      */
-    private void assertSplitListCorrect(String preamble, int numFields, List<Optional<String>> expectedValues) {
-        List<Optional<String>> list = ParserUtil.split(preamble, numFields);
+    private void assertSplitSuccess(String string, int numOfParts, List<Optional<String>> expectedValues) {
+        List<Optional<String>> list = ParserUtil.split(string, numOfParts);
 
         assertTrue(list.equals(expectedValues));
+    }
+
+    /**
+     * Returns {@code strings} as a list of Optional strings
+     */
+    private List<Optional<String>> optionalList(String... strings) {
+        List<Optional<String>> list = new ArrayList<Optional<String>>();
+        for (String str : strings) {
+            if (str == null) {
+                list.add(Optional.empty());
+            } else {
+                list.add(Optional.of(str));
+            }
+        }
+        return list;
     }
 
     @Test
