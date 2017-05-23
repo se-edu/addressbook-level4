@@ -53,9 +53,6 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 Format: `help`
 
-[TIP]
-Help is also shown if you enter an incorrect command e.g. `abcd`
-
 === Adding a person: `add`
 
 Adds a person to the address book +
@@ -183,9 +180,7 @@ e.g. `add James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 
 e.g. `delete 3`
 * *Find* : `find KEYWORD [MORE_KEYWORDS]` +
 e.g. `find James Jake`
-* *List* : `list` +
-e.g.
-* *Help* : `help` +
-e.g.
+* *List* : `list`
+* *Help* : `help`
 * *Select* : `select INDEX` +
 e.g.`select 2`
