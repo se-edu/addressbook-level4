@@ -290,7 +290,7 @@ We use https://www.google.com/chrome/browser/desktop/[Google Chrome] for convert
 Here are the steps to convert the project documentation files to PDF format.
 
 .  Make sure you have set up GitHub Pages as described in link:UsingGithubPages.md#setting-up[UsingGithubPages.md].
-.  Using Chrome, go to the link:UsingGithubPages.md#viewing-the-project-site[GitHub Pages version] of the documentation file. e.g. For link:UserGuide.md[UserGuide.md], the URL will be `\https://<your-username-or-organization-name>.github.io/addressbook-level4/docs/UserGuide.html`.
+.  Using Chrome, go to the link:UsingGithubPages.md#viewing-the-project-site[GitHub Pages version] of the documentation file. e.g. For link:UserGuide.adoc[UserGuide.adoc], the URL will be `\https://<your-username-or-organization-name>.github.io/addressbook-level4/docs/UserGuide.html`.
 .  Click on the `Print` option in Chrome's menu.
 .  Set the destination to `Save as PDF`, then click `Save` to save a copy of the file in PDF format. For best results, use the settings indicated in the screenshot below.
 

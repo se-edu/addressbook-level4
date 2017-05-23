@@ -20,7 +20,7 @@
 
 
 #### Site Map
-* [User Guide](docs/UserGuide.md)
+* [User Guide](docs/UserGuide.adoc)
 * [Developer Guide](docs/DeveloperGuide.adoc)
 * [Learning Outcomes](docs/LearningOutcomes.md)
 * [About Us](docs/AboutUs.md)

@@ -27,7 +27,7 @@ e.g. `https://se-edu.github.io/addressbook-level4`.
 By default, the [README](../README.md) file is displayed on this page.
 
 For the other pages, the structure of the site follows the structure of the repository. <br>
-For example, `docs/UserGuide.md` is published at `https://<username-or-organization-name>.github.io/addressbook-level4/docs/UserGuide.html`.
+For example, `docs/UserGuide.adoc` is published at `https://<username-or-organization-name>.github.io/addressbook-level4/docs/UserGuide.html`.
 
 ## Updating the Project Site
 
