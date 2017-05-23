@@ -42,26 +42,29 @@ public class ParserUtilTest {
     @Test
     public void split_nullPreamble_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        ParserUtil.split(null, 0);
+        ParserUtil.split(null, 2);
     }
 
     @Test
-    public void split_negativeNumFields_throwsNegativeArraySizeException() {
-        thrown.expect(NegativeArraySizeException.class);
+    public void split_negativeNumFields_throwsIllegalArgumentException() {
+        thrown.expect(IllegalArgumentException.class);
         ParserUtil.split("abc", -1);
     }
 
     @Test
+    public void split_zeroNumFields_throwsIllegalArgumentException() {
+        thrown.expect(IllegalArgumentException.class);
+        ParserUtil.split("", 0);
+    }
+
+    @Test
+    public void split_oneNumField_throwsIllegalArgumentException() {
+        thrown.expect(IllegalArgumentException.class);
+        ParserUtil.split("abc", 1);
+    }
+
+    @Test
     public void split_validInput_success() {
-        // Zero numFields
-        assertSplitListCorrect("abc", 0, Arrays.asList());
-
-        // Empty string
-        assertSplitListCorrect("", 1, Arrays.asList(Optional.of("")));
-
-        // No whitespaces
-        assertSplitListCorrect("abc", 1, Arrays.asList(Optional.of("abc")));
-
         // Single whitespace between fields
         assertSplitListCorrect("abc 123", 2, Arrays.asList(Optional.of("abc"), Optional.of("123")));
 
