@@ -2,6 +2,7 @@ package seedu.address.commons.util;
 
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -155,5 +156,23 @@ public class StringUtilTest {
         StringUtil.getDetails(null);
     }
 
+    //---------------- Tests for join --------------------------------------
+    @Test
+    public void join_validValues_success() {
+        assertEquals("Alice and Bob", StringUtil.join(" and ", "Alice", "Bob"));
+        assertEquals("Alice\nBob\nCharlie",
+                StringUtil.join("\n", "Alice", "Bob", "Charlie"));
+    }
 
+    @Test
+    public void join_zeroString_throwsIllegalArgumentException() {
+        thrown.expect(IllegalArgumentException.class);
+        StringUtil.join(" and ");
+    }
+
+    @Test
+    public void join_oneString_throwsIllegalArgumentException() {
+        thrown.expect(IllegalArgumentException.class);
+        StringUtil.join(" and ", "Alice");
+    }
 }
