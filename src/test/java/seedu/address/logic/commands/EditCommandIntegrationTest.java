@@ -10,6 +10,7 @@ import org.junit.Test;
 
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.Messages;
+import seedu.address.logic.HistoryManager;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.Parser;
 import seedu.address.model.AddressBook;
@@ -70,7 +71,7 @@ public class EditCommandIntegrationTest {
 
     private Command prepareCommand(String userInput) {
         Command command = parser.parseCommand(userInput);
-        command.setData(model);
+        command.setData(model, new HistoryManager());
         return command;
     }
 
