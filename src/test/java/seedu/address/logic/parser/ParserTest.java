@@ -13,10 +13,7 @@ public class ParserTest {
     @Test
     public void parseCommand_history() {
         assertTrue(parser.parseCommand(HistoryCommand.COMMAND_WORD) instanceof HistoryCommand);
-
-        //TODO: unintended behavior
         assertTrue(parser.parseCommand(HistoryCommand.COMMAND_WORD + " 3") instanceof HistoryCommand);
-
         assertFalse(parser.parseCommand("histories") instanceof HistoryCommand);
     }
 }

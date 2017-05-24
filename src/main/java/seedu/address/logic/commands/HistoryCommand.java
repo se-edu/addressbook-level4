@@ -26,7 +26,6 @@ public class HistoryCommand extends Command {
 
     @Override
     public void setData(Model model, History history) {
-        this.model = model;
         this.history = history;
     }
 }

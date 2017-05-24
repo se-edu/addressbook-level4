@@ -17,11 +17,11 @@ public class HistoryManagerTest {
 
     @Test
     public void add() {
-        String clear = "clear";
-        String addsBob = "adds Bob";
+        final String validCommand = "clear";
+        final String invalidCommand = "adds Bob";
 
-        history.add(clear);
-        history.add(addsBob);
-        assertEquals(Arrays.asList(clear, addsBob), history.getHistory());
+        history.add(validCommand);
+        history.add(invalidCommand);
+        assertEquals(Arrays.asList(validCommand, invalidCommand), history.getHistory());
     }
 }

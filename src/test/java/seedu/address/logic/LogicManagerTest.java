@@ -113,27 +113,6 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void execute_verifyHistory_success() {
-        String validCommand = "clear";
-        try {
-            logic.execute(validCommand);
-        } catch (CommandException ce) {
-            fail("expected command was not executed successfully.");
-        }
-
-        String invalidCommand = "   adds   Bob   ";
-        try {
-            logic.execute(invalidCommand);
-            fail("expected CommandException was not thrown.");
-        } catch (CommandException ce) {
-            // expected behaviour
-        }
-
-        String expectedMessage = String.format(HistoryCommand.MESSAGE_SUCCESS, validCommand + "\n" + invalidCommand);
-        assertCommandSuccess("history", expectedMessage, model.getAddressBook(), model.getFilteredPersonList());
-    }
-
-    @Test
     public void execute_invalid() {
         String invalidCommand = "       ";
         assertCommandFailure(invalidCommand, String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
@@ -463,6 +442,26 @@ public class LogicManagerTest {
                 expectedList);
     }
 
+    @Test
+    public void execute_verifyHistory_success() {
+        String validCommand = "clear";
+        try {
+            logic.execute(validCommand);
+        } catch (CommandException ce) {
+            fail("expected command was not executed successfully.");
+        }
+
+        String invalidCommand = "   adds   Bob   ";
+        try {
+            logic.execute(invalidCommand);
+            fail("expected CommandException was not thrown.");
+        } catch (CommandException ce) {
+            assertEquals(MESSAGE_UNKNOWN_COMMAND, ce.getMessage());
+        }
+
+        String expectedMessage = String.format(HistoryCommand.MESSAGE_SUCCESS, validCommand + "\n" + invalidCommand);
+        assertCommandSuccess("history", expectedMessage, model.getAddressBook(), model.getFilteredPersonList());
+    }
 
     /**
      * A utility class to generate test data.
