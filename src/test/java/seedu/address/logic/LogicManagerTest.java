@@ -2,6 +2,7 @@ package seedu.address.logic;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
@@ -33,6 +34,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
+import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
@@ -41,6 +43,7 @@ import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -432,6 +435,31 @@ public class LogicManagerTest {
                 expectedModel);
     }
 
+    @Test
+    public void execute_verifyHistory_success() throws Exception {
+        String validCommand = "clear";
+        logic.execute(validCommand);
+
+        String invalidCommandParse = "   adds   Bob   ";
+        try {
+            logic.execute(invalidCommandParse);
+            fail("The expected ParseException was not thrown.");
+        } catch (ParseException pe) {
+            assertEquals(MESSAGE_UNKNOWN_COMMAND, pe.getMessage());
+        }
+
+        String invalidCommandExecute = "delete 1"; // address book is of size 0; index out of bounds
+        try {
+            logic.execute(invalidCommandExecute);
+            fail("The expected CommandException was not thrown.");
+        } catch (CommandException ce) {
+            assertEquals(MESSAGE_INVALID_PERSON_DISPLAYED_INDEX, ce.getMessage());
+        }
+
+        String expectedMessage = String.format(HistoryCommand.MESSAGE_SUCCESS,
+                StringUtil.join("\n", validCommand, invalidCommandParse, invalidCommandExecute));
+        assertCommandSuccess("history", expectedMessage, model);
+    }
 
     /**
      * A utility class to generate test data.
