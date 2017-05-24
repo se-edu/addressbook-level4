@@ -145,12 +145,17 @@ Examples:
 Clears all entries from the address book.<br>
 Format: `clear`
 
-### 2.9. Exiting the program : `exit`
+### 2.9. Listing entered commands : `history`
+
+Lists all the commands that you have entered.<br>
+Format: `history`
+
+### 2.10. Exiting the program : `exit`
 
 Exits the program.<br>
 Format: `exit`
 
-### 2.10. Saving the data
+### 2.11. Saving the data
 
 Address book data are saved in the hard disk automatically after any command that changes the data.<br>
 There is no need to save manually.

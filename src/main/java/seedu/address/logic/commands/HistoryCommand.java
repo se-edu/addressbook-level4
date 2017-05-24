@@ -4,8 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- * Finds and lists all persons in address book whose name contains any of the argument keywords.
- * Keyword matching is case sensitive.
+ * Lists all the commands entered by user from the start of app launch.
  */
 public class HistoryCommand extends Command {
 

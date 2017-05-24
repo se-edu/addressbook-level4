@@ -27,7 +27,7 @@ public class HistoryCommandTest {
     public void execute_emptyHistory_throwsIndexOutOfBoundsException() {
         try {
             historyCommand.execute();
-            fail();
+            fail("expected IndexOutOfBoundsException was not thrown.");
         } catch (IndexOutOfBoundsException ioobe) {
             // expected behaviour
         }
@@ -35,21 +35,18 @@ public class HistoryCommandTest {
 
     @Test
     public void execute_nonEmptyHistory() {
-        String historyString = "history";
-        String clearString = "clear";
-        String randomCommandString = "randomCommand";
-
-        history.add(historyString);
+        history.add(HistoryCommand.COMMAND_WORD);
         assertCommandResult(historyCommand, HistoryCommand.MESSAGE_NO_HISTORY);
 
-        history.add(clearString);
-        assertCommandResult(historyCommand, String.format(HistoryCommand.MESSAGE_SUCCESS, "history"));
+        history.add(ClearCommand.COMMAND_WORD);
+        assertCommandResult(historyCommand, String.format(HistoryCommand.MESSAGE_SUCCESS, HistoryCommand.COMMAND_WORD));
 
+        String randomCommandString = "randomCommand";
         history.add(randomCommandString);
         history.add("select 1");
 
-        assertCommandResult(historyCommand, String.format(
-                HistoryCommand.MESSAGE_SUCCESS, historyString + "\n" + clearString + "\n" + randomCommandString));
+        assertCommandResult(historyCommand, String.format(HistoryCommand.MESSAGE_SUCCESS, HistoryCommand.COMMAND_WORD
+                + "\n" + ClearCommand.COMMAND_WORD + "\n" + randomCommandString));
     }
 
     /**
