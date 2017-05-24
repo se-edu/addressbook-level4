@@ -19,8 +19,11 @@ public class HistoryCommand extends Command {
     public CommandResult execute() {
         List<String> previousCommands = history.getHistory();
 
-        return previousCommands.isEmpty() ? new CommandResult(MESSAGE_NO_HISTORY)
-                : new CommandResult(String.format(MESSAGE_SUCCESS,
+        if (previousCommands.isEmpty()) {
+            return new CommandResult(MESSAGE_NO_HISTORY);
+        }
+
+        return new CommandResult(String.format(MESSAGE_SUCCESS,
                 previousCommands.stream().collect(Collectors.joining("\n"))));
     }
 

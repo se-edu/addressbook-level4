@@ -462,24 +462,21 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void execute_verifyHistory_success() {
+    public void execute_verifyHistory_success() throws Exception {
         String validCommand = "clear";
-        try {
-            logic.execute(validCommand);
-        } catch (CommandException ce) {
-            fail("expected command was not executed successfully.");
-        }
+        logic.execute(validCommand);
 
         String invalidCommand = "   adds   Bob   ";
         try {
             logic.execute(invalidCommand);
-            fail("expected CommandException was not thrown.");
-        } catch (CommandException ce) {
-            assertEquals(MESSAGE_UNKNOWN_COMMAND, ce.getMessage());
+            fail("expected ParseException was not thrown.");
+        } catch (ParseException pe) {
+            assertEquals(MESSAGE_UNKNOWN_COMMAND, pe.getMessage());
         }
 
         String expectedMessage = String.format(HistoryCommand.MESSAGE_SUCCESS, validCommand + "\n" + invalidCommand);
-        assertCommandSuccess("history", expectedMessage, model.getAddressBook(), model.getFilteredPersonList());
+        assertCommandSuccess("history", expectedMessage, model.getAddressBook(),
+                model.getFilteredPersonList());
     }
 
     /**

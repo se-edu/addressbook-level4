@@ -32,13 +32,13 @@ public class HistoryCommandTest {
         history.add(ClearCommand.COMMAND_WORD);
         assertCommandResult(historyCommand, String.format(HistoryCommand.MESSAGE_SUCCESS, ClearCommand.COMMAND_WORD));
 
-        String randomCommandString = "randomCommand";
-        String selectString = "select 1";
-        history.add(randomCommandString);
-        history.add(selectString);
+        String randomCommand = "randomCommand";
+        String selectInput = "select 1";
+        history.add(randomCommand);
+        history.add(selectInput);
 
         String expectedMessage = String.format(HistoryCommand.MESSAGE_SUCCESS,
-                Stream.of(ClearCommand.COMMAND_WORD, randomCommandString, selectString).collect(
+                Stream.of(ClearCommand.COMMAND_WORD, randomCommand, selectInput).collect(
                         Collectors.joining("\n")));
 
         assertCommandResult(historyCommand, expectedMessage);
