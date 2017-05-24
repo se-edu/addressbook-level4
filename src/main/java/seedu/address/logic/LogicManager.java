@@ -21,19 +21,44 @@ public class LogicManager extends ComponentManager implements Logic {
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
 
     private final Model model;
+    private final History history;
     private final Parser parser;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
+        this.history = new HistoryManager();
         this.parser = new Parser();
     }
 
     @Override
     public CommandResult execute(String commandText) throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
-        Command command = parser.parseCommand(commandText);
-        command.setData(model);
-        return command.execute();
+        Command command = parseCommand(commandText);
+        command.setData(model, history);
+        return executeCommand(command, commandText);
+    }
+
+    /**
+     * Parses {@code commandText} and adds {@code commandText} into {@code history} if the parsing fails.
+     */
+    private Command parseCommand(String commandText) throws ParseException {
+        try {
+            return parser.parseCommand(commandText);
+        } catch (ParseException pe) {
+            history.add(commandText);
+            throw pe;
+        }
+    }
+
+    /**
+     * Executes {@code command} and adds {@code commandText} into {@code history}.
+     */
+    private CommandResult executeCommand(Command command, String commandText) throws CommandException {
+        try {
+            return command.execute();
+        } finally {
+            history.add(commandText);
+        }
     }
 
     @Override
