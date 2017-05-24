@@ -5,6 +5,8 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Helper functions for handling strings.
@@ -67,5 +69,17 @@ public class StringUtil {
         } catch (NumberFormatException nfe) {
             return false;
         }
+    }
+
+    /**
+     * Concatenates {@code strings}, separated by {@code delimiter}, in encounter order.
+     * @throws IllegalArgumentException if size of {@code strings} is < 2.
+     */
+    public static String join(String delimiter, String... strings) {
+        requireNonNull(delimiter);
+        requireNonNull(strings);
+        checkArgument(strings.length >= 2);
+
+        return Stream.of(strings).collect(Collectors.joining(delimiter));
     }
 }
