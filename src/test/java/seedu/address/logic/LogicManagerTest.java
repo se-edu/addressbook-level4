@@ -469,7 +469,7 @@ public class LogicManagerTest {
         String invalidCommand = "   adds   Bob   ";
         try {
             logic.execute(invalidCommand);
-            fail("expected ParseException was not thrown.");
+            fail("The expected ParseException was not thrown.");
         } catch (ParseException pe) {
             assertEquals(MESSAGE_UNKNOWN_COMMAND, pe.getMessage());
         }

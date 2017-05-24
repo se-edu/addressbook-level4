@@ -6,14 +6,16 @@ import java.util.List;
 /**
  * Stores the history of commands executed.
  */
-public class HistoryManager implements History {
+public class HistoryManager {
     private ArrayList<String> userInputHistory;
 
     public HistoryManager() {
         userInputHistory = new ArrayList<>();
     }
 
-    @Override
+    /**
+     * Appends {@code userInput} to the list of user input entered.
+     */
     public void add(String userInput) {
         userInputHistory.add(userInput);
     }
@@ -21,7 +23,6 @@ public class HistoryManager implements History {
     /**
      * Returns a defensive copy of {@code userInputHistory}.
      */
-    @Override
     public List<String> getHistory() {
         return new ArrayList<>(userInputHistory);
     }

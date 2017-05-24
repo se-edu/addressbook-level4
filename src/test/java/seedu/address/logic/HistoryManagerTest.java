@@ -8,7 +8,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class HistoryManagerTest {
-    private History history;
+    private HistoryManager history;
 
     @Before
     public void setUp() {

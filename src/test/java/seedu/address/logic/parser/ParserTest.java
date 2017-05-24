@@ -20,7 +20,7 @@ public class ParserTest {
 
         try {
             parser.parseCommand("histories");
-            fail("expected ParseException was not thrown.");
+            fail("The expected ParseException was not thrown.");
         } catch (ParseException pe) {
             assertEquals(MESSAGE_UNKNOWN_COMMAND, pe.getMessage());
         }

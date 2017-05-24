@@ -3,7 +3,7 @@ package seedu.address.logic.commands;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import seedu.address.logic.History;
+import seedu.address.logic.HistoryManager;
 import seedu.address.model.Model;
 
 /**
@@ -28,7 +28,7 @@ public class HistoryCommand extends Command {
     }
 
     @Override
-    public void setData(Model model, History history) {
+    public void setData(Model model, HistoryManager history) {
         this.history = history;
     }
 }

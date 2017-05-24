@@ -2,20 +2,17 @@ package seedu.address.logic.commands;
 
 import static org.junit.Assert.assertEquals;
 
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
 import org.junit.Before;
 import org.junit.Test;
 
-import seedu.address.logic.History;
+import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.HistoryManager;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 
 public class HistoryCommandTest {
     private HistoryCommand historyCommand;
-    private History history;
+    private HistoryManager history;
 
     @Before
     public void setUp() {
@@ -29,17 +26,17 @@ public class HistoryCommandTest {
     public void execute() {
         assertCommandResult(historyCommand, HistoryCommand.MESSAGE_NO_HISTORY);
 
-        history.add(ClearCommand.COMMAND_WORD);
-        assertCommandResult(historyCommand, String.format(HistoryCommand.MESSAGE_SUCCESS, ClearCommand.COMMAND_WORD));
+        String command1 = "clear";
+        history.add(command1);
+        assertCommandResult(historyCommand, String.format(HistoryCommand.MESSAGE_SUCCESS, command1));
 
-        String randomCommand = "randomCommand";
-        String selectInput = "select 1";
-        history.add(randomCommand);
-        history.add(selectInput);
+        String command2 = "randomCommand";
+        String command3 = "select 1";
+        history.add(command2);
+        history.add(command3);
 
         String expectedMessage = String.format(HistoryCommand.MESSAGE_SUCCESS,
-                Stream.of(ClearCommand.COMMAND_WORD, randomCommand, selectInput).collect(
-                        Collectors.joining("\n")));
+                StringUtil.join("\n", command1, command2, command3));
 
         assertCommandResult(historyCommand, expectedMessage);
     }
