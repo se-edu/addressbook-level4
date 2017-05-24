@@ -69,7 +69,7 @@ public class AddCommandTest {
      */
     private class ModelStub implements Model {
         @Override
-        public void addPerson(Person person) throws DuplicatePersonException {
+        public void addPerson(ReadOnlyPerson person) throws DuplicatePersonException {
             fail("This method should not be called.");
         }
 
@@ -117,7 +117,7 @@ public class AddCommandTest {
      */
     private class ModelStubThrowingDuplicatePersonException extends ModelStub {
         @Override
-        public void addPerson(Person person) throws DuplicatePersonException {
+        public void addPerson(ReadOnlyPerson person) throws DuplicatePersonException {
             throw new DuplicatePersonException();
         }
     }
@@ -129,8 +129,8 @@ public class AddCommandTest {
         final ArrayList<Person> personsAdded = new ArrayList<>();
 
         @Override
-        public void addPerson(Person person) throws DuplicatePersonException {
-            personsAdded.add(person);
+        public void addPerson(ReadOnlyPerson person) throws DuplicatePersonException {
+            personsAdded.add(new Person(person));
         }
     }
 
