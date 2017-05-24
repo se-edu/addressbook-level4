@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import org.junit.Test;
@@ -19,6 +20,7 @@ public class ParserTest {
 
         try {
             parser.parseCommand("histories");
+            fail("expected ParseException was not thrown.");
         } catch (ParseException pe) {
             assertEquals(MESSAGE_UNKNOWN_COMMAND, pe.getMessage());
         }
