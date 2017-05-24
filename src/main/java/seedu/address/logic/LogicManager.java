@@ -32,10 +32,20 @@ public class LogicManager extends ComponentManager implements Logic {
     @Override
     public CommandResult execute(String commandText) throws CommandException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
-        history.add(commandText);
         Command command = parser.parseCommand(commandText);
         command.setData(model, history);
-        return command.execute();
+        return executeCommand(command, commandText);
+    }
+
+    /**
+     * Executes {@code command} and adds {@code commandText} into {@code history}.
+     */
+    private CommandResult executeCommand(Command command, String commandText) throws CommandException {
+        try {
+            return command.execute();
+        } finally {
+            history.add(commandText);
+        }
     }
 
     @Override

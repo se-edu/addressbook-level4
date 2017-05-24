@@ -118,7 +118,7 @@ public class LogicManagerTest {
         try {
             logic.execute(validCommand);
         } catch (CommandException ce) {
-            fail("expected command was not executed successfully");
+            fail("expected command was not executed successfully.");
         }
 
         String invalidCommand = "   adds   Bob   ";

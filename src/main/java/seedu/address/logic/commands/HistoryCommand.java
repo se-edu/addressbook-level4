@@ -14,9 +14,7 @@ public class HistoryCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        // exclude the last executed command
         List<String> previousCommands = history.getHistory();
-        previousCommands.remove(previousCommands.size() - 1);
 
         return previousCommands.isEmpty() ? new CommandResult(MESSAGE_NO_HISTORY)
                 : new CommandResult(String.format(MESSAGE_SUCCESS,
