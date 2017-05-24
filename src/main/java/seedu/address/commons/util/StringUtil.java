@@ -1,7 +1,11 @@
 package seedu.address.commons.util;
 
+import static java.util.Objects.requireNonNull;
+
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Helper functions for handling strings.
@@ -56,5 +60,19 @@ public class StringUtil {
      */
     public static boolean isUnsignedInteger(String s) {
         return s != null && s.matches("^0*[1-9]\\d*$");
+    }
+
+    /**
+     * Concatenates {@code strings}, separated by {@code delimiter}, in encounter order.
+     * @throws IllegalArgumentException if size of {@code strings} is 1.
+     */
+    public static String join(String delimiter, String... strings) {
+        requireNonNull(delimiter);
+        requireNonNull(strings);
+        if (strings.length < 2) {
+            throw new IllegalArgumentException();
+        }
+
+        return Stream.of(strings).collect(Collectors.joining(delimiter));
     }
 }
