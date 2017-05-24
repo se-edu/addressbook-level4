@@ -3,6 +3,7 @@ package seedu.address.logic;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
@@ -38,6 +39,7 @@ import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -108,6 +110,27 @@ public class LogicManagerTest {
     @After
     public void tearDown() {
         EventsCenter.clearSubscribers();
+    }
+
+    @Test
+    public void execute_verifyHistory_success() {
+        String validCommand = "clear";
+        try {
+            logic.execute(validCommand);
+        } catch (CommandException ce) {
+            fail("expected command was not executed successfully");
+        }
+
+        String invalidCommand = "   adds   Bob   ";
+        try {
+            logic.execute(invalidCommand);
+            fail("expected CommandException was not thrown.");
+        } catch (CommandException ce) {
+            // expected behaviour
+        }
+
+        String expectedMessage = String.format(HistoryCommand.MESSAGE_SUCCESS, validCommand + "\n" + invalidCommand);
+        assertCommandSuccess("history", expectedMessage, model.getAddressBook(), model.getFilteredPersonList());
     }
 
     @Test
