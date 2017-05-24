@@ -150,6 +150,11 @@ Selects the 2nd person in the address book.
 `select 1` +
 Selects the 1st person in the results of the `find` command.
 
+=== Listing entered commands : `history`
+
+Lists all the commands that you have entered. +
+Format: `history`
+
 === Clearing all entries : `clear`
 
 Clears all entries from the address book. +
