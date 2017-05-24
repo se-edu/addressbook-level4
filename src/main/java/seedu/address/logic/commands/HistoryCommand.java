@@ -3,6 +3,9 @@ package seedu.address.logic.commands;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import seedu.address.logic.History;
+import seedu.address.model.Model;
+
 /**
  * Lists all the commands entered by user from the start of app launch.
  */
@@ -21,4 +24,9 @@ public class HistoryCommand extends Command {
                 previousCommands.stream().collect(Collectors.joining("\n"))));
     }
 
+    @Override
+    public void setData(Model model, History history) {
+        this.model = model;
+        this.history = history;
+    }
 }

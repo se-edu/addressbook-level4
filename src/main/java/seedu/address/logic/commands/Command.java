@@ -37,6 +37,5 @@ public abstract class Command {
      */
     public void setData(Model model, History history) {
         this.model = model;
-        this.history = history;
     }
 }

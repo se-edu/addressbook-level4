@@ -2,8 +2,8 @@ package seedu.address.logic.commands;
 
 import static org.junit.Assert.assertEquals;
 
-import java.util.Arrays;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -26,7 +26,7 @@ public class HistoryCommandTest {
     }
 
     @Test
-    public void execute_nonEmptyHistory() {
+    public void execute() {
         assertCommandResult(historyCommand, HistoryCommand.MESSAGE_NO_HISTORY);
 
         history.add(ClearCommand.COMMAND_WORD);
@@ -37,9 +37,9 @@ public class HistoryCommandTest {
         history.add(randomCommandString);
         history.add(selectString);
 
-        String expectedMessage = String.format(HistoryCommand.MESSAGE_SUCCESS, Arrays.stream(
-                new String[]{ClearCommand.COMMAND_WORD, randomCommandString, selectString})
-                .collect(Collectors.joining("\n")));
+        String expectedMessage = String.format(HistoryCommand.MESSAGE_SUCCESS,
+                Stream.of(ClearCommand.COMMAND_WORD, randomCommandString, selectString).collect(
+                        Collectors.joining("\n")));
 
         assertCommandResult(historyCommand, expectedMessage);
     }
