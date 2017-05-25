@@ -5,6 +5,9 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
+import static seedu.address.testutil.TypicalPersons.INDEX_FIRST_PERSON;
+
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
@@ -123,8 +126,8 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parseName_null_throwsAssertionError() throws Exception {
-        thrown.expect(AssertionError.class);
+    public void parseName_null_throwsNullPointerException() throws Exception {
+        thrown.expect(NullPointerException.class);
         ParserUtil.parseName(null);
     }
 
