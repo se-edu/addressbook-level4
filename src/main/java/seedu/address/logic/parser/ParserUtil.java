@@ -45,8 +45,12 @@ public class ParserUtil {
     * </pre>
     * @return A list of size {@code numOfParts} where the ith element is the ith field value if specified in
     *         the input, {@code Optional.empty()} otherwise.
+    * @throws IllegalArgumentException if {@code numOfParts} < 2
     */
-    public static List<Optional<String>> split(String string, int numOfParts) {
+    public static List<Optional<String>> split(String string, int numOfParts) throws IllegalArgumentException {
+        if (numOfParts < 2) {
+            throw new IllegalArgumentException("Number of parts must be more than 1.");
+        }
         return Arrays.stream(Arrays.copyOf(string.trim().split("\\s+", numOfParts), numOfParts))
                 .map(Optional::ofNullable)
                 .collect(Collectors.toList());
