@@ -62,47 +62,47 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void splitPreamble_nullPreamble_throwsNullPointerException() {
+    public void split_nullPreamble_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        ParserUtil.splitPreamble(null, 0);
+        ParserUtil.split(null, 0);
     }
 
     @Test
-    public void splitPreamble_negativeNumFields_throwsNegativeArraySizeException() {
+    public void split_negativeNumFields_throwsNegativeArraySizeException() {
         thrown.expect(NegativeArraySizeException.class);
-        ParserUtil.splitPreamble("abc", -1);
+        ParserUtil.split("abc", -1);
     }
 
     @Test
-    public void splitPreamble_validInput_success() {
-        // Zero numFields
-        assertPreambleListCorrect("abc", 0, asOptionalList());
+    public void split_validInput_success() {
+        // Zero numOfParts
+        assertSplitSuccess("abc", 0, asOptionalList());
 
         // Empty string
-        assertPreambleListCorrect("", 1, asOptionalList(""));
+        assertSplitSuccess("", 1, asOptionalList(""));
 
         // No whitespaces
-        assertPreambleListCorrect("abc", 1, asOptionalList("abc"));
+        assertSplitSuccess("abc", 1, asOptionalList("abc"));
 
-        // Single whitespace between fields
-        assertPreambleListCorrect("abc 123", 2, asOptionalList("abc", "123"));
+        // Single whitespace between parts
+        assertSplitSuccess("abc 123", 2, asOptionalList("abc", "123"));
 
-        // Multiple whitespaces between fields
-        assertPreambleListCorrect("abc  \n qwe \t  123", 3, asOptionalList("abc", "qwe", "123"));
+        // Multiple whitespaces between parts
+        assertSplitSuccess("abc  \n qwe \t  123", 3, asOptionalList("abc", "qwe", "123"));
 
-        // More whitespaces than numFields
-        assertPreambleListCorrect("abc 123 qwe 456", 2,  asOptionalList("abc", "123 qwe 456"));
+        // More whitespaces than numOfParts
+        assertSplitSuccess("abc 123 qwe 456", 2,  asOptionalList("abc", "123 qwe 456"));
 
-        // More numFields than whitespaces
-        assertPreambleListCorrect("abc", 2,  asOptionalList("abc", null));
+        // More numOfParts than whitespaces
+        assertSplitSuccess("abc", 2,  asOptionalList("abc", null));
     }
 
     /**
-     * Splits {@code string} into ordered fields of size {@code numOfParts}
+     * Splits {@code string} into ordered parts of size {@code numOfParts}
      * and checks if the result is the same as {@code expectedValues}
      */
-    private void assertPreambleListCorrect(String string, int numOfParts, List<Optional<String>> expectedValues) {
-        List<Optional<String>> list = ParserUtil.splitPreamble(string, numOfParts);
+    private void assertSplitSuccess(String string, int numOfParts, List<Optional<String>> expectedValues) {
+        List<Optional<String>> list = ParserUtil.split(string, numOfParts);
 
         assertTrue(list.equals(expectedValues));
     }
