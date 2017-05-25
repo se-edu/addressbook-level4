@@ -21,6 +21,8 @@ import seedu.address.model.tag.Tag;
  */
 public class ParserUtil {
 
+    public static final String MESSAGE_INSUFFICIENT_PARTS = "Number of parts must be more than 1.";
+
     /**
      * Parses {@code index} into an integer and returns it. Leading and trailing whitespaces will be trimmed.
      * @throws IllegalValueException if the specified index is invalid (not non-zero unsigned integer).
@@ -35,21 +37,22 @@ public class ParserUtil {
     }
 
     /**
-    * Splits a {@code string} into {@code numOfParts} ordered parts, using whitespace as a delimiter.
-    * Leading and trailing whitespaces will be trimmed.<br>
+    * Splits the {@code string} into {@code numOfParts} parts, using whitespace as a delimiter.
+    * Leading and trailing whitespaces will be trimmed. {@code Optional.empty()} objects are
+    * used as 'fillers' if the number of parts in {@code string} is fewer than {@code numOfParts}.<br>
     * Examples:
     * <pre>
     *     split("  Hello World! ", 2) -> "Hello" and "World!"
     *     split(" Hello    World!", 3) -> "Hello" and "World!" and Optional.empty()
     *     split("Foo bar baz", 2) -> "Foo" and "bar baz" // only 2 fields
     * </pre>
-    * @return A list of size {@code numOfParts} where the ith element is the ith field value if specified in
-    *         the input, {@code Optional.empty()} otherwise.
+    * @return A list of size {@code numOfParts} containing the resultant parts in the order they
+    *         appeared in the input followed by {@code Optional.empty()} objects (if any).
     * @throws IllegalArgumentException if {@code numOfParts} < 2
     */
     public static List<Optional<String>> split(String string, int numOfParts) throws IllegalArgumentException {
         if (numOfParts < 2) {
-            throw new IllegalArgumentException("Number of parts must be more than 1.");
+            throw new IllegalArgumentException(MESSAGE_INSUFFICIENT_PARTS);
         }
         return Arrays.stream(Arrays.copyOf(string.trim().split("\\s+", numOfParts), numOfParts))
                 .map(Optional::ofNullable)

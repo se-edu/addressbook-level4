@@ -42,6 +42,27 @@ public class ParserUtilTest {
     public final ExpectedException thrown = ExpectedException.none();
 
     @Test
+    public void parseIndex_invalidInput_throwsIllegalValueException() throws Exception {
+        thrown.expect(IllegalValueException.class);
+        ParserUtil.parseIndex("10 a");
+    }
+
+    @Test
+    public void parseIndex_outOfRangeInput_throwsNumberFormatException() throws Exception {
+        thrown.expect(NumberFormatException.class);
+        ParserUtil.parseIndex("3423423423423432");
+    }
+
+    @Test
+    public void parseIndex_validInput_success() throws Exception {
+        // No whitespaces
+        assertEquals(1, ParserUtil.parseIndex("1"));
+
+        // Leading and trailing whitespaces
+        assertEquals(1, ParserUtil.parseIndex("  1  "));
+    }
+
+    @Test
     public void split_nullPreamble_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         ParserUtil.split(null, 2);
@@ -59,16 +80,16 @@ public class ParserUtilTest {
     @Test
     public void split_validInput_success() {
         // Single whitespace between fields
-        assertSplitSuccess("abc 123", 2, optionalList("abc", "123"));
+        assertSplitSuccess("abc 123", 2, asOptionalList("abc", "123"));
 
-        // Leading and trailing whitespaces, multiple whitespaces between fields
-        assertSplitSuccess(" \t abc  \n qwe \t  123\t\n", 3, optionalList("abc", "qwe", "123"));
+        // Multiple whitespaces between fields
+        assertSplitSuccess("abc  \n qwe \t  123", 3, asOptionalList("abc", "qwe", "123"));
 
         // More whitespaces than numFields
-        assertSplitSuccess("abc 123 qwe 456", 2, optionalList("abc", "123 qwe 456"));
+        assertSplitSuccess("abc 123 qwe 456", 2,  asOptionalList("abc", "123 qwe 456"));
 
         // More numFields than whitespaces
-        assertSplitSuccess("abc", 2, optionalList("abc", null));
+        assertSplitSuccess("abc", 2,  asOptionalList("abc", null));
     }
 
     /**
@@ -79,7 +100,7 @@ public class ParserUtilTest {
             ParserUtil.split(string, numOfParts);
             fail("Expected IllegalArgumentException was not thrown");
         } catch (IllegalArgumentException iae) {
-            assertEquals("Number of parts must be more than 1.", iae.getMessage());
+            assertEquals(ParserUtil.MESSAGE_INSUFFICIENT_PARTS, iae.getMessage());
         }
     }
 
@@ -94,9 +115,9 @@ public class ParserUtilTest {
     }
 
     /**
-     * Returns {@code strings} as {@code List<Optional<String>>}
+     * Returns {@code strings} as {@code List<Optional<String>>}. Null values will be converted to Optional.empty().
      */
-    private List<Optional<String>> optionalList(String... strings) {
+    private List<Optional<String>> asOptionalList(String... strings) {
         return Arrays.stream(strings).map(Optional::ofNullable).collect(Collectors.toList());
     }
 
