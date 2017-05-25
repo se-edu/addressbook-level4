@@ -5,14 +5,9 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
 public class IndexTest {
-
-    @Rule
-    public ExpectedException thrown = ExpectedException.none();
 
     @Test
     public void createOneBasedIndex() {
@@ -75,8 +70,8 @@ public class IndexTest {
         final Index fifthPersonIndex = Index.createFromOneBased(5);
 
         // same values -> returns true
-        Index fifthPersonIndexCopy = Index.createFromOneBased(5);
-        assertTrue(fifthPersonIndex.equals(fifthPersonIndexCopy));
+        assertTrue(fifthPersonIndex.equals(Index.createFromOneBased(5)));
+        assertTrue(fifthPersonIndex.equals(Index.createFromZeroBased(4)));
 
         // same object -> returns true
         assertTrue(fifthPersonIndex.equals(fifthPersonIndex));
