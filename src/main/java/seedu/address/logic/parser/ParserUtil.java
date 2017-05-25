@@ -10,6 +10,7 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import seedu.address.commons.core.index.Index;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.model.person.Address;
@@ -26,16 +27,16 @@ public class ParserUtil {
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
 
     /**
-     * Parses {@code index} into an integer and returns it. Leading and trailing whitespaces will be trimmed.
+     * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
+     * trimmed.
      * @throws IllegalValueException if the specified index is invalid (not non-zero unsigned integer).
      */
-    public static int parseIndex(String index) throws IllegalValueException {
-        String trimmedIndex = index.trim();
+    public static Index parseIndex(String oneBasedIndex) throws IllegalValueException {
+        String trimmedIndex = oneBasedIndex.trim();
         if (!StringUtil.isNonZeroUnsignedInteger(trimmedIndex)) {
             throw new IllegalValueException(MESSAGE_INVALID_INDEX);
         }
-        return Integer.parseInt(trimmedIndex);
-
+        return Index.fromOneBased(Integer.parseInt(trimmedIndex));
     }
 
     /**
