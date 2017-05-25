@@ -77,33 +77,34 @@ public class ParserUtilTest {
 
     @Test
     public void split_validInput_success() {
-        // Single whitespace between fields
+        // Single whitespace between parts
         assertSplitSuccess("abc 123", 2, asOptionalList("abc", "123"));
 
-        // Leading and trailing whitespaces, multiple whitespaces between fields
+        // Leading and trailing whitespaces, multiple whitespaces between parts
         assertSplitSuccess(" \t abc  \n qwe \t  123\t\n", 3, asOptionalList("abc", "qwe", "123"));
 
-        // More whitespaces than numFields
+        // More whitespaces than numOfParts
         assertSplitSuccess("abc 123 qwe 456", 2,  asOptionalList("abc", "123 qwe 456"));
 
-        // More numFields than whitespaces
+        // More numOfParts than whitespaces
         assertSplitSuccess("abc", 2,  asOptionalList("abc", null));
     }
 
     /**
-     * Asserts that {@code string} is unsuccessfully split and an IllegalArgumentException is thrown.
+     * Asserts that {@code split(string, numOfParts)} is unsuccessful and a matching
+     * {@code IllegalArgumentException} is thrown.
      */
     private void assertSplitFailure(String string, int numOfParts) {
         try {
             ParserUtil.split(string, numOfParts);
-            fail("Expected IllegalArgumentException was not thrown");
+            fail("The expected IllegalArgumentException was not thrown");
         } catch (IllegalArgumentException iae) {
             assertEquals(ParserUtil.MESSAGE_INSUFFICIENT_PARTS, iae.getMessage());
         }
     }
 
     /**
-     * Asserts that {@code string} is successfully split into ordered fields of size {@code numOfParts}
+     * Asserts that {@code string} is successfully split into ordered parts of size {@code numOfParts}
      * and checks if the result is the same as {@code expectedValues}
      */
     private void assertSplitSuccess(String string, int numOfParts, List<Optional<String>> expectedValues) {
@@ -113,7 +114,8 @@ public class ParserUtilTest {
     }
 
     /**
-     * Returns {@code strings} as {@code List<Optional<String>>}. Null values will be converted to Optional.empty().
+     * Returns {@code strings} as {@code List<Optional<String>>}. Null values will be converted to
+     * {@code Optional.empty()}.
      */
     private List<Optional<String>> asOptionalList(String... strings) {
         return Arrays.stream(strings).map(Optional::ofNullable).collect(Collectors.toList());

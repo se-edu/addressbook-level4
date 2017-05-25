@@ -38,14 +38,13 @@ public class ParserUtil {
 
     /**
     * Splits the {@code string} into {@code numOfParts} parts, using whitespace as a delimiter.
-    * Leading and trailing whitespaces will be trimmed.
-    * {@code Optional.empty()} objects are appended as 'fillers' if the total number of parts after
-    * splitting {@code string} is fewer than {@code numOfParts}.<br>
+    * Leading and trailing whitespaces will be trimmed. {@code Optional.empty()} objects are appended
+    * as 'fillers' if the total number of parts after splitting {@code string} is fewer than {@code numOfParts}.<br>
     * Examples:
     * <pre>
     *     split("  Hello World! ", 2) -> "Hello" and "World!"
     *     split(" Hello    World!", 3) -> "Hello" and "World!" and Optional.empty()
-    *     split("Foo bar baz", 2) -> "Foo" and "bar baz" // only 2 fields
+    *     split("Foo bar baz", 2) -> "Foo" and "bar baz" // only 2 parts
     * </pre>
     * @return A list of size {@code numOfParts} containing the resultant parts in the order they
     *         appeared in the input followed by {@code Optional.empty()} objects (if any).
