@@ -21,6 +21,8 @@ import seedu.address.model.tag.Tag;
  */
 public class ParserUtil {
 
+    public static final String MESSAGE_INSUFFICIENT_PARTS = "Number of parts must be more than 1.";
+
     /**
      * Parses {@code index} into an integer and returns it. Leading and trailing whitespaces will be trimmed.
      * @throws IllegalValueException if the specified index is invalid (not non-zero unsigned integer).
@@ -47,8 +49,12 @@ public class ParserUtil {
     * </pre>
     * @return A list of size {@code numOfParts} containing the resultant parts in the order they
     *         appeared in the input followed by {@code Optional.empty()} objects (if any).
+    * @throws IllegalArgumentException if {@code numOfParts} < 2
     */
-    public static List<Optional<String>> split(String string, int numOfParts) {
+    public static List<Optional<String>> split(String string, int numOfParts) throws IllegalArgumentException {
+        if (numOfParts < 2) {
+            throw new IllegalArgumentException(MESSAGE_INSUFFICIENT_PARTS);
+        }
         return Arrays.stream(Arrays.copyOf(string.trim().split("\\s+", numOfParts), numOfParts))
                 .map(Optional::ofNullable)
                 .collect(Collectors.toList());
