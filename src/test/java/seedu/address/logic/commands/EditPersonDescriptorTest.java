@@ -13,7 +13,7 @@ import static seedu.address.testutil.EditCommandTestUtil.VALID_TAG_HUSBAND;
 import org.junit.Test;
 
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
-import seedu.address.testutil.EditPersonDescriptorBuilder;
+import seedu.address.logic.commands.EditCommand.EditPersonDescriptorBuilder;
 
 public class EditPersonDescriptorTest {
 
