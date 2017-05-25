@@ -1,5 +1,6 @@
 package seedu.address.testutil;
 
+import seedu.address.commons.core.index.Index;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.person.Person;
@@ -9,6 +10,10 @@ import seedu.address.model.person.UniquePersonList;
  *
  */
 public class TypicalPersons {
+
+    public static final Index INDEX_FIRST_PERSON = Index.fromOneBased(1);
+    public static final Index INDEX_SECOND_PERSON = Index.fromOneBased(2);
+    public static final Index INDEX_THIRD_PERSON = Index.fromOneBased(3);
 
     public final Person alice, benson, carl, daniel, elle, fiona, george, hoon, ida;
 
