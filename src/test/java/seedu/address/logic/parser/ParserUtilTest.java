@@ -3,6 +3,7 @@ package seedu.address.logic.parser;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -64,26 +65,18 @@ public class ParserUtilTest {
     @Test
     public void split_nullPreamble_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        ParserUtil.split(null, 0);
+        ParserUtil.split(null, 2);
     }
 
     @Test
-    public void split_negativeNumFields_throwsNegativeArraySizeException() {
-        thrown.expect(NegativeArraySizeException.class);
-        ParserUtil.split("abc", -1);
+    public void split_invalidNumOfParts_throwsIllegalArgumentException() {
+        assertSplitFailure("abc", -1);
+        assertSplitFailure("abc", 0);
+        assertSplitFailure("abc", 1);
     }
 
     @Test
     public void split_validInput_success() {
-        // Zero numFields
-        assertSplitSuccess("abc", 0, asOptionalList());
-
-        // Empty string
-        assertSplitSuccess("", 1, asOptionalList(""));
-
-        // No whitespaces
-        assertSplitSuccess("abc", 1, asOptionalList("abc"));
-
         // Single whitespace between fields
         assertSplitSuccess("abc 123", 2, asOptionalList("abc", "123"));
 
@@ -98,7 +91,19 @@ public class ParserUtilTest {
     }
 
     /**
-     * Splits {@code string} into ordered fields of size {@code numOfParts}
+     * Asserts that {@code string} is unsuccessfully split and an IllegalArgumentException is thrown.
+     */
+    private void assertSplitFailure(String string, int numOfParts) {
+        try {
+            ParserUtil.split(string, numOfParts);
+            fail("Expected IllegalArgumentException was not thrown");
+        } catch (IllegalArgumentException iae) {
+            assertEquals(ParserUtil.MESSAGE_INSUFFICIENT_PARTS, iae.getMessage());
+        }
+    }
+
+    /**
+     * Asserts that {@code string} is successfully split into ordered fields of size {@code numOfParts}
      * and checks if the result is the same as {@code expectedValues}
      */
     private void assertSplitSuccess(String string, int numOfParts, List<Optional<String>> expectedValues) {
