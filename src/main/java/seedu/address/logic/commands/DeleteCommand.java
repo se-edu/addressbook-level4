@@ -2,7 +2,7 @@ package seedu.address.logic.commands;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.UnmodifiableObservableList;
-import seedu.address.commons.util.IndexUtil;
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.UniquePersonList.PersonNotFoundException;
@@ -21,9 +21,9 @@ public class DeleteCommand extends Command {
 
     public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Person: %1$s";
 
-    public final int targetIndex;
+    public final Index targetIndex;
 
-    public DeleteCommand(int targetIndex) {
+    public DeleteCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
     }
 
@@ -33,11 +33,11 @@ public class DeleteCommand extends Command {
 
         UnmodifiableObservableList<ReadOnlyPerson> lastShownList = model.getFilteredPersonList();
 
-        if (lastShownList.size() < targetIndex) {
+        if (targetIndex.getZeroBasedIndex() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
-        ReadOnlyPerson personToDelete = lastShownList.get(IndexUtil.oneToZeroIndex(targetIndex));
+        ReadOnlyPerson personToDelete = lastShownList.get(targetIndex.getZeroBasedIndex());
 
         try {
             model.deletePerson(personToDelete);

@@ -7,6 +7,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.UnmodifiableObservableList;
+import seedu.address.commons.core.index.Index;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.commons.util.StringUtil;
@@ -71,11 +72,11 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void updatePerson(int filteredPersonListIndex, ReadOnlyPerson editedPerson)
+    public void updatePerson(Index index, ReadOnlyPerson editedPerson)
             throws UniquePersonList.DuplicatePersonException {
         assert editedPerson != null;
 
-        int addressBookIndex = filteredPersons.getSourceIndex(filteredPersonListIndex);
+        int addressBookIndex = filteredPersons.getSourceIndex(index.getZeroBasedIndex());
         addressBook.updatePerson(addressBookIndex, editedPerson);
         indicateAddressBookChanged();
     }

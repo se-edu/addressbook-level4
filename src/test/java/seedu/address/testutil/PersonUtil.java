@@ -5,6 +5,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.model.person.Person;
@@ -22,10 +23,10 @@ public class PersonUtil {
     }
 
     /**
-     * Returns an edit command string for editing the person at {@code zeroBasedIndex} to match {@code editedPerson}.
+     * Returns an edit command string for editing the person at {@code index} to match {@code editedPerson}.
      */
-    public static String getEditCommand(int zeroBasedIndex, Person editedPerson) {
-        return EditCommand.COMMAND_WORD + " " + (zeroBasedIndex + 1) + " " + getPersonDetails(editedPerson);
+    public static String getEditCommand(Index index, Person editedPerson) {
+        return EditCommand.COMMAND_WORD + " " + index.getOneBasedIndex() + " " + getPersonDetails(editedPerson);
     }
 
     /**
