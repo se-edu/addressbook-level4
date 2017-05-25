@@ -2,6 +2,8 @@ package seedu.address.logic.commands;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
+import static seedu.address.testutil.TypicalPersons.INDEX_FIRST_PERSON;
+import static seedu.address.testutil.TypicalPersons.INDEX_SECOND_PERSON;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,9 +31,6 @@ import seedu.address.testutil.TypicalPersons;
  */
 public class EditCommandIntegrationTest {
 
-    private static final int ZERO_BASED_INDEX_FIRST_PERSON = 0;
-    private static final int ZERO_BASED_INDEX_SECOND_PERSON =  ZERO_BASED_INDEX_FIRST_PERSON + 1;
-
     private Model model = new ModelManager(new TypicalPersons().getTypicalAddressBook(), new UserPrefs());
     private Parser parser = new Parser();
 
@@ -41,13 +40,13 @@ public class EditCommandIntegrationTest {
                                     .withEmail("bobby@example.com").withAddress("Block 123, Bobby Street 3")
                                     .withTags("husband").build();
 
-        String userInput = PersonUtil.getEditCommand(ZERO_BASED_INDEX_FIRST_PERSON, editedPerson);
+        String userInput = PersonUtil.getEditCommand(INDEX_FIRST_PERSON, editedPerson);
         Command command = prepareCommand(userInput);
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
 
         AddressBook expectedAddressBook = new AddressBook(model.getAddressBook());
-        expectedAddressBook.updatePerson(ZERO_BASED_INDEX_FIRST_PERSON, editedPerson);
+        expectedAddressBook.updatePerson(INDEX_FIRST_PERSON.getZeroBased(), editedPerson);
         FilteredList<ReadOnlyPerson> expectedFilteredList = new FilteredList<>(expectedAddressBook.getPersonList());
 
         assertCommandSuccess(command, expectedMessage, expectedAddressBook, expectedFilteredList);
@@ -55,8 +54,8 @@ public class EditCommandIntegrationTest {
 
     @Test
     public void execute_duplicatePerson_throwsCommandException() throws Exception {
-        Person firstPerson = new Person(model.getFilteredPersonList().get(ZERO_BASED_INDEX_FIRST_PERSON));
-        String userInput = PersonUtil.getEditCommand(ZERO_BASED_INDEX_SECOND_PERSON, firstPerson);
+        Person firstPerson = new Person(model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased()));
+        String userInput = PersonUtil.getEditCommand(INDEX_SECOND_PERSON, firstPerson);
         Command command = prepareCommand(userInput);
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PERSON);
     }
