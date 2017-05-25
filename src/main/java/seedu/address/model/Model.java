@@ -31,8 +31,7 @@ public interface Model {
      *      another existing person in the list.
      * @throws IndexOutOfBoundsException if {@code index} is out of range of the filtered list.
      */
-    void updatePerson(Index index, ReadOnlyPerson editedPerson)
-            throws UniquePersonList.DuplicatePersonException;
+    void updatePerson(Index index, ReadOnlyPerson editedPerson) throws UniquePersonList.DuplicatePersonException;
 
     /** Returns the filtered person list as an {@code UnmodifiableObservableList<ReadOnlyPerson>} */
     UnmodifiableObservableList<ReadOnlyPerson> getFilteredPersonList();
