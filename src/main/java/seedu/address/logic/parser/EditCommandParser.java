@@ -10,14 +10,13 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
+import seedu.address.logic.commands.EditCommand.EditPersonDescriptorBuilder;
 import seedu.address.logic.commands.IncorrectCommand;
-import seedu.address.model.tag.Tag;
 
 /**
  * Parses input arguments and creates a new EditCommand object
@@ -46,13 +45,14 @@ public class EditCommandParser {
             return new IncorrectCommand(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         }
 
-        EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
+        EditPersonDescriptor editPersonDescriptor;
         try {
-            editPersonDescriptor.setName(ParserUtil.parseName(preambleFields.get(1)));
-            editPersonDescriptor.setPhone(ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE)));
-            editPersonDescriptor.setEmail(ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL)));
-            editPersonDescriptor.setAddress(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS)));
-            editPersonDescriptor.setTags(parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)));
+            editPersonDescriptor = new EditPersonDescriptorBuilder()
+                    .withName(preambleFields.get(1).orElse(null))
+                    .withPhone(argMultimap.getValue(PREFIX_PHONE).orElse(null))
+                    .withEmail(argMultimap.getValue(PREFIX_EMAIL).orElse(null))
+                    .withAddress(argMultimap.getValue(PREFIX_ADDRESS).orElse(null))
+                    .withTags(parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).orElse(null)).build();
         } catch (IllegalValueException ive) {
             return new IncorrectCommand(ive.getMessage());
         }
@@ -65,18 +65,18 @@ public class EditCommandParser {
     }
 
     /**
-     * Parses {@code Collection<String> tags} into a {@code Set<Tag>} if {@code tags} is non-empty.
-     * If {@code tags} contain only one element which is an empty string, it will be parsed into a
-     * {@code Set<Tag>} containing zero tags.
+     * Parses {@code Collection<String> tags} into an {@code Optional<Collection<String>>}.
+     * If {@code tags} contain only one element which is an empty string, it will be parsed into an empty
+     * {@code Collection<String>}.
      */
-    private Optional<Set<Tag>> parseTagsForEdit(Collection<String> tags) throws IllegalValueException {
+    private Optional<Collection<String>> parseTagsForEdit(Collection<String> tags) throws IllegalValueException {
         assert tags != null;
 
         if (tags.isEmpty()) {
             return Optional.empty();
         }
         Collection<String> tagSet = tags.size() == 1 && tags.contains("") ? Collections.emptySet() : tags;
-        return Optional.of(ParserUtil.parseTags(tagSet));
+        return Optional.of(tagSet);
     }
 
 }
