@@ -32,7 +32,7 @@ public class ParserUtil {
         if (!StringUtil.isUnsignedInteger(trimmedIndex)) {
             throw new IllegalValueException("Index is not a non-zero unsigned integer.");
         }
-        return Index.createFromOneBased(Integer.parseInt(trimmedIndex));
+        return Index.fromOneBased(Integer.parseInt(trimmedIndex));
     }
 
     /**

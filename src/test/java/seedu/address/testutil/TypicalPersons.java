@@ -11,9 +11,9 @@ import seedu.address.model.person.UniquePersonList;
  */
 public class TypicalPersons {
 
-    public static final Index INDEX_FIRST_PERSON = Index.createFromOneBased(1);
-    public static final Index INDEX_SECOND_PERSON = Index.createFromOneBased(2);
-    public static final Index INDEX_THIRD_PERSON = Index.createFromOneBased(3);
+    public static final Index INDEX_FIRST_PERSON = Index.fromOneBased(1);
+    public static final Index INDEX_SECOND_PERSON = Index.fromOneBased(2);
+    public static final Index INDEX_THIRD_PERSON = Index.fromOneBased(3);
 
     public final Person alice, benson, carl, daniel, elle, fiona, george, hoon, ida;
 

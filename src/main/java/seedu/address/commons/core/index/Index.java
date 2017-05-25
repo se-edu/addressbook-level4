@@ -7,8 +7,8 @@ public class Index {
     private int zeroBasedIndex;
 
     /**
-     * Index can only be created by calling {@link Index#createFromZeroBased(int)} or
-     * {@link Index#createFromOneBased(int)}.
+     * Index can only be created by calling {@link Index#fromZeroBased(int)} or
+     * {@link Index#fromOneBased(int)}.
      */
     private Index(int zeroBasedIndex) {
         if (zeroBasedIndex < 0) {
@@ -29,14 +29,14 @@ public class Index {
     /**
      * Creates a new {@code Index} using a zero-based index.
      */
-    public static Index createFromZeroBased(int zeroBasedIndex) {
+    public static Index fromZeroBased(int zeroBasedIndex) {
         return new Index(zeroBasedIndex);
     }
 
     /**
      * Creates a new {@code Index} using a one-based index.
      */
-    public static Index createFromOneBased(int oneBasedIndex) {
+    public static Index fromOneBased(int oneBasedIndex) {
         return new Index(oneBasedIndex - 1);
     }
 

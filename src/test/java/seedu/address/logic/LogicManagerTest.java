@@ -89,7 +89,7 @@ public class LogicManagerTest {
 
     @Subscribe
     private void handleJumpToListRequestEvent(JumpToListRequestEvent je) {
-        targetedJumpIndex = Index.createFromZeroBased(je.targetIndex);
+        targetedJumpIndex = Index.fromZeroBased(je.targetIndex);
     }
 
     @Before
@@ -341,8 +341,7 @@ public class LogicManagerTest {
             model.addPerson(p);
         }
 
-        assertCommandException(commandWord + " " + INDEX_THIRD_PERSON.getOneBased(),
-                expectedMessage);
+        assertCommandException(commandWord + " " + INDEX_THIRD_PERSON.getOneBased(), expectedMessage);
     }
 
     @Test
