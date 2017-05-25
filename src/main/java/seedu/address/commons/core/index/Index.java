@@ -1,41 +1,43 @@
 package seedu.address.commons.core.index;
 
 /**
- * Allows the index to be zero-based or one-based.
+ * Represents a zero-based or one-based index.
  */
 public class Index {
     private int zeroBasedIndex;
 
-    private Index(int zeroBasedIndex) {
+    /**
+     * Index can only be created by calling {@link Index#createFromZeroBased(int)} or
+     * {@link Index#createFromOneBased(int)}.
+     */
+    private Index(int zeroBasedIndex) throws IndexOutOfBoundsException {
+        if (zeroBasedIndex < 0) {
+            throw new IndexOutOfBoundsException();
+        }
+
         this.zeroBasedIndex = zeroBasedIndex;
     }
 
-    /**
-     * Returns the index that starts from 0.
-     */
-    public int getZeroBasedIndex() {
-        return this.zeroBasedIndex;
+    public int getZeroBased() {
+        return zeroBasedIndex;
+    }
+
+    public int getOneBased() {
+        return zeroBasedIndex + 1;
     }
 
     /**
-     * Returns the index that starts from 1.
+     * Creates a new {@code Index} using a zero-based index.
      */
-    public int getOneBasedIndex() {
-        return this.zeroBasedIndex + 1;
+    public static Index createFromZeroBased(int zeroBasedIndex) {
+        return new Index(zeroBasedIndex);
     }
 
     /**
-     * Creates a new {@code Index} if the parameter passed in is zero-based.
+     * Creates a new {@code Index} using a one-based index.
      */
-    public static Index createFromZeroBased(int zeroBased) {
-        return new Index(zeroBased);
-    }
-
-    /**
-     * Creates a new {@code Index} if the parameter passed in is one-based.
-     */
-    public static Index createFromOneBased(int oneBased) {
-        return new Index(oneBased - 1);
+    public static Index createFromOneBased(int oneBasedIndex) {
+        return new Index(oneBasedIndex - 1);
     }
 
     @Override

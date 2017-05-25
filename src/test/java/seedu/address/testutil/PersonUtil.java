@@ -26,7 +26,7 @@ public class PersonUtil {
      * Returns an edit command string for editing the person at {@code index} to match {@code editedPerson}.
      */
     public static String getEditCommand(Index index, Person editedPerson) {
-        return EditCommand.COMMAND_WORD + " " + index.getOneBasedIndex() + " " + getPersonDetails(editedPerson);
+        return EditCommand.COMMAND_WORD + " " + index.getOneBased() + " " + getPersonDetails(editedPerson);
     }
 
     /**

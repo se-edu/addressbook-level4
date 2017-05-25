@@ -46,7 +46,7 @@ public class EditCommandIntegrationTest {
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
 
         AddressBook expectedAddressBook = new AddressBook(model.getAddressBook());
-        expectedAddressBook.updatePerson(INDEX_FIRST_PERSON.getZeroBasedIndex(), editedPerson);
+        expectedAddressBook.updatePerson(INDEX_FIRST_PERSON.getZeroBased(), editedPerson);
         FilteredList<ReadOnlyPerson> expectedFilteredList = new FilteredList<>(expectedAddressBook.getPersonList());
 
         assertCommandSuccess(command, expectedMessage, expectedAddressBook, expectedFilteredList);
@@ -54,7 +54,7 @@ public class EditCommandIntegrationTest {
 
     @Test
     public void execute_duplicatePerson_throwsCommandException() throws Exception {
-        Person firstPerson = new Person(model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBasedIndex()));
+        Person firstPerson = new Person(model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased()));
         String userInput = PersonUtil.getEditCommand(INDEX_SECOND_PERSON, firstPerson);
         Command command = prepareCommand(userInput);
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PERSON);

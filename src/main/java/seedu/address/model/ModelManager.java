@@ -76,7 +76,7 @@ public class ModelManager extends ComponentManager implements Model {
             throws UniquePersonList.DuplicatePersonException {
         assert editedPerson != null;
 
-        int addressBookIndex = filteredPersons.getSourceIndex(index.getZeroBasedIndex());
+        int addressBookIndex = filteredPersons.getSourceIndex(index.getZeroBased());
         addressBook.updatePerson(addressBookIndex, editedPerson);
         indicateAddressBookChanged();
     }

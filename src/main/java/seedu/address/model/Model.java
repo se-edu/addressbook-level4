@@ -25,11 +25,11 @@ public interface Model {
     void addPerson(ReadOnlyPerson person) throws UniquePersonList.DuplicatePersonException;
 
     /**
-     * Updates the person located at {@code filteredPersonListIndex} with {@code editedPerson}.
+     * Updates the person located at {@code index} with {@code editedPerson}.
      *
      * @throws DuplicatePersonException if updating the person's details causes the person to be equivalent to
      *      another existing person in the list.
-     * @throws IndexOutOfBoundsException if {@code filteredPersonListIndex} is out of range of the filtered list.
+     * @throws IndexOutOfBoundsException if {@code index} is out of range of the filtered list.
      */
     void updatePerson(Index index, ReadOnlyPerson editedPerson)
             throws UniquePersonList.DuplicatePersonException;

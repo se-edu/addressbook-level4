@@ -105,7 +105,7 @@ public class LogicManagerTest {
 
         latestSavedAddressBook = new AddressBook(model.getAddressBook()); // last saved assumed to be up to date
         helpShown = false;
-        targetedJumpIndex = Index.createFromZeroBased(-1); // none yet
+        targetedJumpIndex = null;
     }
 
     @After
@@ -341,7 +341,7 @@ public class LogicManagerTest {
             model.addPerson(p);
         }
 
-        assertCommandException(commandWord + " " + INDEX_THIRD_PERSON.getOneBasedIndex(),
+        assertCommandException(commandWord + " " + INDEX_THIRD_PERSON.getOneBased(),
                 expectedMessage);
     }
 

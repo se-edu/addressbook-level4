@@ -4,49 +4,69 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 public class IndexTest {
+
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
+
     @Test
     public void createOneBasedIndex() {
-        // get back the same index type
-        assertEquals(1, Index.createFromOneBased(1).getOneBasedIndex());
-        assertEquals(5, Index.createFromOneBased(5).getOneBasedIndex());
+        // check equality for the same base
+        assertEquals(1, Index.createFromOneBased(1).getOneBased());
+        assertEquals(5, Index.createFromOneBased(5).getOneBased());
 
         // convert to zero-based index
-        assertEquals(0, Index.createFromOneBased(1).getZeroBasedIndex());
-        assertEquals(4, Index.createFromOneBased(5).getZeroBasedIndex());
+        assertEquals(0, Index.createFromOneBased(1).getZeroBased());
+        assertEquals(4, Index.createFromOneBased(5).getZeroBased());
+    }
+
+    @Test
+    public void createOneBasedIndex_invalidIndex_throwsOutOfBoundsException() {
+        thrown.expect(IndexOutOfBoundsException.class);
+
+        Index.createFromOneBased(0);
     }
 
     @Test
     public void createZeroBasedIndex() {
-        // get back the same index type
-        assertEquals(0, Index.createFromZeroBased(0).getZeroBasedIndex());
-        assertEquals(5, Index.createFromZeroBased(5).getZeroBasedIndex());
+        // check equality for the same base
+        assertEquals(0, Index.createFromZeroBased(0).getZeroBased());
+        assertEquals(5, Index.createFromZeroBased(5).getZeroBased());
 
         // convert to one-based index
-        assertEquals(1, Index.createFromZeroBased(0).getOneBasedIndex());
-        assertEquals(6, Index.createFromZeroBased(5).getOneBasedIndex());
+        assertEquals(1, Index.createFromZeroBased(0).getOneBased());
+        assertEquals(6, Index.createFromZeroBased(5).getOneBased());
+    }
+
+    @Test
+    public void createZeroBasedIndex_invalidIndex_throwsOutOfBoundsException() {
+        thrown.expect(IndexOutOfBoundsException.class);
+
+        Index.createFromZeroBased(-1);
     }
 
     @Test
     public void equals() {
-        final Index indexFifthPerson = Index.createFromOneBased(5);
+        final Index fifthPersonIndex = Index.createFromOneBased(5);
 
         // same values -> returns true
-        Index indexWithSameValues = Index.createFromOneBased(5);
-        assertTrue(indexFifthPerson.equals(indexWithSameValues));
+        Index fifthPersonIndexCopy = Index.createFromOneBased(5);
+        assertTrue(fifthPersonIndex.equals(fifthPersonIndexCopy));
 
         // same object -> returns true
-        assertTrue(indexFifthPerson.equals(indexFifthPerson));
+        assertTrue(fifthPersonIndex.equals(fifthPersonIndex));
 
         // null -> returns false
-        assertFalse(indexFifthPerson.equals(null));
+        assertFalse(fifthPersonIndex.equals(null));
 
         // different types -> returns false
-        assertFalse(indexFifthPerson.equals(""));
+        assertFalse(fifthPersonIndex.equals(5.0f));
 
         // different index -> returns false
-        assertFalse(indexFifthPerson.equals(Index.createFromOneBased(1)));
+        assertFalse(fifthPersonIndex.equals(Index.createFromOneBased(1)));
     }
 }
