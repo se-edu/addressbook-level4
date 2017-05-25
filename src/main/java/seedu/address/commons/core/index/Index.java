@@ -10,7 +10,7 @@ public class Index {
      * Index can only be created by calling {@link Index#createFromZeroBased(int)} or
      * {@link Index#createFromOneBased(int)}.
      */
-    private Index(int zeroBasedIndex) throws IndexOutOfBoundsException {
+    private Index(int zeroBasedIndex) {
         if (zeroBasedIndex < 0) {
             throw new IndexOutOfBoundsException();
         }
