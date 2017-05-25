@@ -3,8 +3,8 @@ package seedu.address.logic.commands;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.UnmodifiableObservableList;
+import seedu.address.commons.core.index.Index;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
-import seedu.address.commons.util.IndexUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.person.ReadOnlyPerson;
 
@@ -22,9 +22,9 @@ public class SelectCommand extends Command {
 
     public static final String MESSAGE_SELECT_PERSON_SUCCESS = "Selected Person: %1$s";
 
-    public final int targetIndex;
+    public final Index targetIndex;
 
-    public SelectCommand(int targetIndex) {
+    public SelectCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
     }
 
@@ -33,12 +33,12 @@ public class SelectCommand extends Command {
 
         UnmodifiableObservableList<ReadOnlyPerson> lastShownList = model.getFilteredPersonList();
 
-        if (lastShownList.size() < targetIndex) {
+        if (targetIndex.getZeroBasedIndex() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
-        EventsCenter.getInstance().post(new JumpToListRequestEvent(IndexUtil.oneToZeroIndex(targetIndex)));
-        return new CommandResult(String.format(MESSAGE_SELECT_PERSON_SUCCESS, targetIndex));
+        EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex));
+        return new CommandResult(String.format(MESSAGE_SELECT_PERSON_SUCCESS, targetIndex.getOneBasedIndex()));
 
     }
 

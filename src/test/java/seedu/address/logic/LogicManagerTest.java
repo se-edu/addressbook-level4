@@ -10,6 +10,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.util.SampleDataUtil.getTagSet;
+import static seedu.address.testutil.TypicalPersons.INDEX_SECOND_PERSON;
+import static seedu.address.testutil.TypicalPersons.INDEX_THIRD_PERSON;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -26,6 +28,7 @@ import org.junit.rules.TemporaryFolder;
 import com.google.common.eventbus.Subscribe;
 
 import seedu.address.commons.core.EventsCenter;
+import seedu.address.commons.core.index.Index;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
@@ -72,7 +75,7 @@ public class LogicManagerTest {
     //These are for checking the correctness of the events raised
     private ReadOnlyAddressBook latestSavedAddressBook;
     private boolean helpShown;
-    private int targetedJumpIndex;
+    private Index targetedJumpIndex;
 
     @Subscribe
     private void handleLocalModelChangedEvent(AddressBookChangedEvent abce) {
@@ -86,7 +89,7 @@ public class LogicManagerTest {
 
     @Subscribe
     private void handleJumpToListRequestEvent(JumpToListRequestEvent je) {
-        targetedJumpIndex = je.targetIndex;
+        targetedJumpIndex = Index.createFromZeroBased(je.targetIndex);
     }
 
     @Before
@@ -102,7 +105,7 @@ public class LogicManagerTest {
 
         latestSavedAddressBook = new AddressBook(model.getAddressBook()); // last saved assumed to be up to date
         helpShown = false;
-        targetedJumpIndex = -1; // non yet
+        targetedJumpIndex = Index.createFromZeroBased(-1); // none yet
     }
 
     @After
@@ -338,7 +341,8 @@ public class LogicManagerTest {
             model.addPerson(p);
         }
 
-        assertCommandException(commandWord + " 3", expectedMessage);
+        assertCommandException(commandWord + " " + INDEX_THIRD_PERSON.getOneBasedIndex(),
+                expectedMessage);
     }
 
     @Test
@@ -364,7 +368,7 @@ public class LogicManagerTest {
                 String.format(SelectCommand.MESSAGE_SELECT_PERSON_SUCCESS, 2),
                 expectedAb,
                 expectedAb.getPersonList());
-        assertEquals(1, targetedJumpIndex);
+        assertEquals(INDEX_SECOND_PERSON, targetedJumpIndex);
         assertEquals(model.getFilteredPersonList().get(1), threePersons.get(1));
     }
 
