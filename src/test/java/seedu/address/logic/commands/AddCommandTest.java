@@ -12,6 +12,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.commons.core.UnmodifiableObservableList;
+import seedu.address.commons.core.index.Index;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -90,7 +91,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public void updatePerson(int filteredPersonListIndex, ReadOnlyPerson editedPerson)
+        public void updatePerson(Index filteredPersonListIndex, ReadOnlyPerson editedPerson)
                 throws DuplicatePersonException {
             fail("This method should not be called.");
         }
