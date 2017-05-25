@@ -71,9 +71,7 @@ public class ParserUtilTest {
     @Test
     public void split_invalidNumOfParts_throwsIllegalArgumentException() {
         assertSplitFailure("abc", -1);
-
         assertSplitFailure("abc", 0);
-
         assertSplitFailure("abc", 1);
     }
 
@@ -82,8 +80,8 @@ public class ParserUtilTest {
         // Single whitespace between fields
         assertSplitSuccess("abc 123", 2, asOptionalList("abc", "123"));
 
-        // Multiple whitespaces between fields
-        assertSplitSuccess("abc  \n qwe \t  123", 3, asOptionalList("abc", "qwe", "123"));
+        // Leading and trailing whitespaces, multiple whitespaces between fields
+        assertSplitSuccess(" \t abc  \n qwe \t  123\t\n", 3, asOptionalList("abc", "qwe", "123"));
 
         // More whitespaces than numFields
         assertSplitSuccess("abc 123 qwe 456", 2,  asOptionalList("abc", "123 qwe 456"));
