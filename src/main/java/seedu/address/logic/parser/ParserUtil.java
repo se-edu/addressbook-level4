@@ -35,7 +35,7 @@ public class ParserUtil {
     }
 
     /**
-    * Splits a {@code string} into {@code numOfParts} ordered fields, using whitespace as a delimiter.
+    * Splits a {@code string} into {@code numOfParts} ordered parts, using whitespace as a delimiter.
     * Leading and trailing whitespaces will be trimmed.<br>
     * Examples:
     * <pre>

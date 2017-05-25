@@ -5,13 +5,13 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -49,13 +49,10 @@ public class ParserUtilTest {
 
     @Test
     public void split_invalidNumOfParts_throwsIllegalArgumentException() {
-        // Negative numOfParts
         assertSplitFailure("abc", -1);
 
-        // Zero numOfParts
         assertSplitFailure("abc", 0);
 
-        // One numOfParts
         assertSplitFailure("abc", 1);
     }
 
@@ -75,8 +72,7 @@ public class ParserUtilTest {
     }
 
     /**
-     * Asserts that {@code string} is unsuccessfully split into ordered fields of size {@code numOfParts}
-     * and an IllegalArgumentException is thrown.
+     * Asserts that {@code string} is unsuccessfully split and an IllegalArgumentException is thrown.
      */
     private void assertSplitFailure(String string, int numOfParts) {
         try {
@@ -98,18 +94,10 @@ public class ParserUtilTest {
     }
 
     /**
-     * Returns {@code strings} as a list of Optional strings
+     * Returns {@code strings} as {@code List<Optional<String>>}
      */
     private List<Optional<String>> optionalList(String... strings) {
-        List<Optional<String>> list = new ArrayList<Optional<String>>();
-        for (String str : strings) {
-            if (str == null) {
-                list.add(Optional.empty());
-            } else {
-                list.add(Optional.of(str));
-            }
-        }
-        return list;
+        return Arrays.stream(strings).map(Optional::ofNullable).collect(Collectors.toList());
     }
 
     @Test
