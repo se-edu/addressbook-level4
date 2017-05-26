@@ -125,7 +125,7 @@ public class EditCommandTest {
      * Executes the given {@code command}, confirms that <br>
      * - the result message matches {@code expectedMessage} <br>
      * - the address book in the model matches {@code expectedAddressBook} <br>
-     * - the filtered person list in the model matches {@code expectedFilteredList} <br>
+     * - the filtered person list in the model matches {@code expectedFilteredList}
      */
     private void assertCommandSuccess(Command command, String expectedMessage,
             ReadOnlyAddressBook expectedAddressBook,
@@ -141,7 +141,7 @@ public class EditCommandTest {
      * - a {@code CommandException} is thrown <br>
      * - the CommandException message matches {@code expectedMessage} <br>
      * - the address book in the model remains unchanged <br>
-     * - the filtered person list in the model remains unchanged <br>
+     * - the filtered person list in the model remains unchanged
      */
     private void assertCommandFailure(Command command, String expectedMessage) {
         AddressBook expectedAddressBook = new AddressBook(model.getAddressBook());
