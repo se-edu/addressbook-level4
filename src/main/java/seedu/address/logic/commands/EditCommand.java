@@ -13,6 +13,8 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.commons.util.IndexUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.AddressBook;
+import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -25,7 +27,7 @@ import seedu.address.model.tag.Tag;
 /**
  * Edits the details of an existing person in the address book.
  */
-public class EditCommand extends Command {
+public class EditCommand extends ReversibleCommand {
 
     public static final String COMMAND_WORD = "edit";
 
@@ -47,6 +49,7 @@ public class EditCommand extends Command {
 
     private final int filteredPersonListIndex;
     private final EditPersonDescriptor editPersonDescriptor;
+    private ReadOnlyAddressBook previousAddressBook;
 
     /**
      * @param filteredPersonListIndex the index of the person in the filtered person list to edit
@@ -72,12 +75,19 @@ public class EditCommand extends Command {
         Person editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
 
         try {
+            previousAddressBook = new AddressBook(model.getAddressBook());
             model.updatePerson(filteredPersonListIndex, editedPerson);
         } catch (UniquePersonList.DuplicatePersonException dpe) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
         model.updateFilteredListToShowAll();
         return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, personToEdit));
+    }
+
+    @Override
+    public void undo() {
+        assert previousAddressBook != null;
+        model.resetData(previousAddressBook);
     }
 
     /**

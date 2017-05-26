@@ -9,11 +9,12 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.person.UniquePersonList.PersonNotFoundException;
 
 /**
  * Adds a person to the address book.
  */
-public class AddCommand extends Command {
+public class AddCommand extends ReversibleCommand {
 
     public static final String COMMAND_WORD = "add";
 
@@ -54,4 +55,14 @@ public class AddCommand extends Command {
 
     }
 
+    @Override
+    public void undo() {
+        assert model.getAddressBook().getPersonList().size() != 0;
+
+        try {
+            model.deletePerson(toAdd);
+        } catch (PersonNotFoundException pnfe) {
+            assert false : "The target person cannot be missing";
+        }
+    }
 }

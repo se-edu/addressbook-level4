@@ -10,6 +10,7 @@ import org.junit.Test;
 
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.Messages;
+import seedu.address.logic.HistoryManager;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.Parser;
 import seedu.address.model.AddressBook;
@@ -32,7 +33,7 @@ public class EditCommandIntegrationTest {
     private static final int ZERO_BASED_INDEX_SECOND_PERSON =  ZERO_BASED_INDEX_FIRST_PERSON + 1;
 
     private Model model = new ModelManager(new TypicalPersons().getTypicalAddressBook(), new UserPrefs());
-    private Parser parser = new Parser();
+    private Parser parser = new Parser(new HistoryManager());
 
     @Test
     public void execute_validCommand_succeeds() throws Exception {
