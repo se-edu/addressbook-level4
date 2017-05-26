@@ -108,7 +108,7 @@ public class EditCommandTest {
     }
 
     /**
-     * Returns an {@code EditPersonDescriptor} with fields containing {@code person}'s values
+     * Returns an {@code EditPersonDescriptor} with fields containing {@code person}'s details
      */
     private EditPersonDescriptor createEditPersonDescriptor(ReadOnlyPerson person) throws IllegalValueException {
         EditPersonDescriptor descriptor = new EditPersonDescriptor();
