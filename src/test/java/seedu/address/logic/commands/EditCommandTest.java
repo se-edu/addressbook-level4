@@ -122,32 +122,32 @@ public class EditCommandTest {
     }
 
     /**
-     * Executes the given {@code command}, confirms that <br>
+     * Executes the given {@code editCommand}, confirms that <br>
      * - the result message matches {@code expectedMessage} <br>
      * - the address book in the model matches {@code expectedAddressBook} <br>
      * - the filtered person list in the model matches {@code expectedFilteredList}
      */
-    private void assertCommandSuccess(Command command, String expectedMessage,
+    private void assertCommandSuccess(EditCommand editCommand, String expectedMessage,
             ReadOnlyAddressBook expectedAddressBook,
             List<? extends ReadOnlyPerson> expectedFilteredList) throws CommandException {
-        CommandResult result = command.execute();
+        CommandResult result = editCommand.execute();
         assertEquals(expectedMessage, result.feedbackToUser);
         assertEquals(expectedAddressBook, model.getAddressBook());
         assertEquals(expectedFilteredList, model.getFilteredPersonList());
     }
 
     /**
-     * Executes the given {@code command}, confirms that <br>
+     * Executes the given {@code editCommand}, confirms that <br>
      * - a {@code CommandException} is thrown <br>
      * - the CommandException message matches {@code expectedMessage} <br>
      * - the address book in the model remains unchanged <br>
      * - the filtered person list in the model remains unchanged
      */
-    private void assertCommandFailure(Command command, String expectedMessage) {
+    private void assertCommandFailure(EditCommand editCommand, String expectedMessage) {
         AddressBook expectedAddressBook = new AddressBook(model.getAddressBook());
         List<ReadOnlyPerson> expectedFilteredList = new ArrayList<>(model.getFilteredPersonList());
         try {
-            command.execute();
+            editCommand.execute();
             fail("The expected CommandException was not thrown.");
         } catch (CommandException e) {
             assertEquals(expectedMessage, e.getMessage());
