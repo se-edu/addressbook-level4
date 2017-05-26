@@ -6,15 +6,20 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.testutil.EditCommandTestUtil.VALID_ADDRESS_AMY;
-import static seedu.address.testutil.EditCommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.address.testutil.EditCommandTestUtil.VALID_EMAIL_AMY;
-import static seedu.address.testutil.EditCommandTestUtil.VALID_EMAIL_BOB;
-import static seedu.address.testutil.EditCommandTestUtil.VALID_NAME_AMY;
-import static seedu.address.testutil.EditCommandTestUtil.VALID_PHONE_AMY;
-import static seedu.address.testutil.EditCommandTestUtil.VALID_PHONE_BOB;
-import static seedu.address.testutil.EditCommandTestUtil.VALID_TAG_FRIEND;
-import static seedu.address.testutil.EditCommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.testutil.CommandTestUtil.INVALID_ADDRESS_JAMES;
+import static seedu.address.testutil.CommandTestUtil.INVALID_EMAIL_JAMES;
+import static seedu.address.testutil.CommandTestUtil.INVALID_NAME_JAMES;
+import static seedu.address.testutil.CommandTestUtil.INVALID_PHONE_JAMES;
+import static seedu.address.testutil.CommandTestUtil.INVALID_TAG_HUBBY;
+import static seedu.address.testutil.CommandTestUtil.VALID_ADDRESS_AMY;
+import static seedu.address.testutil.CommandTestUtil.VALID_ADDRESS_BOB;
+import static seedu.address.testutil.CommandTestUtil.VALID_EMAIL_AMY;
+import static seedu.address.testutil.CommandTestUtil.VALID_EMAIL_BOB;
+import static seedu.address.testutil.CommandTestUtil.VALID_NAME_AMY;
+import static seedu.address.testutil.CommandTestUtil.VALID_PHONE_AMY;
+import static seedu.address.testutil.CommandTestUtil.VALID_PHONE_BOB;
+import static seedu.address.testutil.CommandTestUtil.VALID_TAG_FRIEND;
+import static seedu.address.testutil.CommandTestUtil.VALID_TAG_HUSBAND;
 
 import org.junit.Test;
 
@@ -42,11 +47,11 @@ public class EditCommandParserTest {
     private static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
     private static final String TAG_EMPTY = " " + PREFIX_TAG;
 
-    private static final String INVALID_NAME_DESC = " " + "James&"; // '&' not allowed in names
-    private static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
-    private static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
-    private static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
-    private static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
+    private static final String INVALID_NAME_DESC = " " + INVALID_NAME_JAMES;
+    private static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + INVALID_PHONE_JAMES;
+    private static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + INVALID_EMAIL_JAMES;
+    private static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS + INVALID_ADDRESS_JAMES;
+    private static final String INVALID_TAG_DESC = " " + PREFIX_TAG + INVALID_TAG_HUBBY;
 
     private static final String MESSAGE_INVALID_FORMAT =
             String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE);
@@ -108,9 +113,9 @@ public class EditCommandParserTest {
         assertParseFailure("1" + TAG_DESC_FRIEND + TAG_EMPTY + TAG_DESC_HUSBAND, Tag.MESSAGE_TAG_CONSTRAINTS);
         assertParseFailure("1" + TAG_EMPTY + TAG_DESC_FRIEND + TAG_DESC_HUSBAND, Tag.MESSAGE_TAG_CONSTRAINTS);
 
-        // multiple invalid values, but only the first invalid value is captured
+        // multiple invalid values, all of which are reported
         assertParseFailure("1" + INVALID_NAME_DESC + INVALID_EMAIL_DESC + VALID_ADDRESS_AMY + VALID_PHONE_AMY,
-                Name.MESSAGE_NAME_CONSTRAINTS);
+                Name.MESSAGE_NAME_CONSTRAINTS + "\n" + Email.MESSAGE_EMAIL_CONSTRAINTS);
     }
 
     @Test
