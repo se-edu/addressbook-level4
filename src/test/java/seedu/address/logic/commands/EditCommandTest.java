@@ -107,6 +107,9 @@ public class EditCommandTest {
         return editCommand;
     }
 
+    /**
+     * Returns an {@code EditPersonDescriptor} with fields containing {@code person}'s values
+     */
     private EditPersonDescriptor createEditPersonDescriptor(ReadOnlyPerson person) throws IllegalValueException {
         EditPersonDescriptor descriptor = new EditPersonDescriptor();
         descriptor.setName(Optional.of(person.getName()));
@@ -145,7 +148,7 @@ public class EditCommandTest {
         List<ReadOnlyPerson> expectedFilteredList = new ArrayList<>(model.getFilteredPersonList());
         try {
             editCommand.execute();
-            fail("expected CommandException was not thrown.");
+            fail("The expected CommandException was not thrown.");
         } catch (CommandException e) {
             assertEquals(expectedMessage, e.getMessage());
             assertEquals(expectedAddressBook, model.getAddressBook());
