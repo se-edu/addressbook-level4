@@ -44,9 +44,7 @@ public class EditCommandTest {
 
     @Test
     public void execute_validCommand_succeeds() throws Exception {
-        Person editedPerson = new PersonBuilder().withName("Bobby").withPhone("91234567")
-                                    .withEmail("bobby@example.com").withAddress("Block 123, Bobby Street 3")
-                                    .withTags("husband").build();
+        Person editedPerson = new PersonBuilder().build();
         EditPersonDescriptor descriptor = createEditPersonDescriptor(editedPerson);
         EditCommand editCommand = prepareCommand(ONE_BASED_INDEX_FIRST_PERSON, descriptor);
 
