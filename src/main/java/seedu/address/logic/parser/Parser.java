@@ -57,19 +57,19 @@ public class Parser {
             return new DeleteCommandParser().parse(arguments);
 
         case ClearCommand.COMMAND_WORD:
-            return new ParserResult(new ClearCommand());
+            return new ParserResult<>(new ClearCommand());
 
         case FindCommand.COMMAND_WORD:
             return new FindCommandParser().parse(arguments);
 
         case ListCommand.COMMAND_WORD:
-            return new ParserResult(new ListCommand());
+            return new ParserResult<>(new ListCommand());
 
         case ExitCommand.COMMAND_WORD:
-            return new ParserResult(new ExitCommand());
+            return new ParserResult<>(new ExitCommand());
 
         case HelpCommand.COMMAND_WORD:
-            return new ParserResult(new HelpCommand());
+            return new ParserResult<>(new HelpCommand());
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);

@@ -31,7 +31,7 @@ public class AddCommandParser {
      * Parses the given {@code String} of arguments in the context of the AddCommand
      * @throws ParseException if the user input does not conform the expected format
      */
-    public ParserResult parse(String args) throws ParseException {
+    public ParserResult<AddCommand> parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG);
 
@@ -50,8 +50,8 @@ public class AddCommandParser {
 
             ReadOnlyPerson person = new Person(name, phone, email, address, tagList);
 
-            return warning.isPresent() ? new ParserResult(new AddCommand(person), warning.get())
-                    : new ParserResult(new AddCommand(person));
+            return warning.isPresent() ? new ParserResult<>(new AddCommand(person), warning.get())
+                    : new ParserResult<>(new AddCommand(person));
         } catch (IllegalValueException ive) {
             throw new ParseException(ive.getMessage(), ive);
         }

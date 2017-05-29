@@ -18,7 +18,7 @@ public class FindCommandParser {
      * Parses the given {@code String} of arguments in the context of the FindCommand
      * @throws ParseException if the user input does not conform the expected format
      */
-    public ParserResult parse(String args) throws ParseException {
+    public ParserResult<FindCommand> parse(String args) throws ParseException {
         String trimmedArgs = args.trim();
         if (trimmedArgs.isEmpty()) {
             throw new ParseException(
@@ -28,7 +28,7 @@ public class FindCommandParser {
         // keywords delimited by whitespace
         final String[] keywords = trimmedArgs.split("\\s+");
         final Set<String> keywordSet = new HashSet<>(Arrays.asList(keywords));
-        return new ParserResult(new FindCommand(keywordSet));
+        return new ParserResult<>(new FindCommand(keywordSet));
     }
 
 }

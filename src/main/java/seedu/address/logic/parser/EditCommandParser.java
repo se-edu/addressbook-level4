@@ -28,7 +28,7 @@ public class EditCommandParser {
      * Parses the given {@code String} of arguments in the context of the EditCommand
      * @throws ParseException if the user input does not conform the expected format
      */
-    public ParserResult parse(String args) throws ParseException {
+    public ParserResult<EditCommand> parse(String args) throws ParseException {
         assert args != null;
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG);
@@ -63,8 +63,8 @@ public class EditCommandParser {
             throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);
         }
 
-        return warning.isPresent() ? new ParserResult(new EditCommand(index, editPersonDescriptor), warning.get())
-                : new ParserResult(new EditCommand(index, editPersonDescriptor));
+        return warning.isPresent() ? new ParserResult<>(new EditCommand(index, editPersonDescriptor), warning.get())
+                : new ParserResult<>(new EditCommand(index, editPersonDescriptor));
     }
 
     /**
