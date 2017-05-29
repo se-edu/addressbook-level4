@@ -32,8 +32,8 @@ import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.ExecutionResult;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
@@ -170,7 +170,7 @@ public class LogicManagerTest {
             List<? extends ReadOnlyPerson> expectedShownList) {
 
         try {
-            CommandResult result = logic.execute(inputCommand);
+            ExecutionResult result = logic.execute(inputCommand);
             assertEquals(expectedException, null);
             assertEquals(expectedMessage, result.feedbackToUser);
         } catch (CommandException | ParseException e) {
