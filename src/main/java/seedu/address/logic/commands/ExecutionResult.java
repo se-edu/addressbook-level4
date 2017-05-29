@@ -1,7 +1,7 @@
 package seedu.address.logic.commands;
 
 /**
- * Represents the result of a command execution.
+ * Represents the result of the entire execution process, including the parsing of input and execution of command.
  */
 public class ExecutionResult {
     public final String feedbackToUser;

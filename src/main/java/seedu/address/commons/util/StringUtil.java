@@ -6,7 +6,6 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -49,13 +48,13 @@ public class StringUtil {
      * and joins the last element with "and". e.g If {@code strings} contain
      * {"Phone", null, "Name", "Email"}, the returned result is: "Phone, Name and Email".
      *
-     * @return Optional.empty() if {@code strings} is an empty list.
+     * @throws IllegalArgumentException if strings is an empty list.
      */
-    public static Optional<String> joinStrings(List<String> strings) {
+    public static String joinStrings(List<String> strings) {
         requireNonNull(strings);
 
         if (strings.isEmpty()) {
-            return Optional.empty();
+            throw new IllegalArgumentException();
         }
 
         StringBuilder result = new StringBuilder(strings.stream().filter(Objects::nonNull)
@@ -63,8 +62,11 @@ public class StringUtil {
 
         // Replaces the last comma with the word "and"
         int lastIndexOfComma = result.lastIndexOf(",");
-        return lastIndexOfComma != -1 ? Optional.of(result.substring(0, lastIndexOfComma) + " and"
-                + result.substring(lastIndexOfComma + 1)) : Optional.of(result.toString());
+        if (lastIndexOfComma == -1) {
+            return result.toString();
+        }
+
+        return result.replace(lastIndexOfComma, lastIndexOfComma + 1, " and").toString();
     }
 
     /**

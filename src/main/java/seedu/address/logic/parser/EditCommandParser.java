@@ -63,8 +63,7 @@ public class EditCommandParser {
             throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);
         }
 
-        return warning.isPresent() ? new ParserResult<>(new EditCommand(index, editPersonDescriptor), warning.get())
-                : new ParserResult<>(new EditCommand(index, editPersonDescriptor));
+        return new ParserResult<>(new EditCommand(index, editPersonDescriptor), warning.orElse(null));
     }
 
     /**

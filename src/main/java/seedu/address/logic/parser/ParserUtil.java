@@ -1,5 +1,6 @@
 package seedu.address.logic.parser;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
@@ -108,19 +109,33 @@ public class ParserUtil {
     }
 
     /**
-     * Returns a {@code List<String>} containing the names of classes with multiple values in {@code argMultimap}.
-     * ????
+     * Generates a warning message for key-value mappings with multiple values for each key in {@code prefixes}
+     * in {@code argMultimap}.
+     *
+     * @return Optional.empty() if there are no key-value mappings with multiple values.
      */
-    private static List<String> getFieldsWithMultipleValues(ArgumentMultimap argMultimap, Prefix... prefixes) {
-        return Arrays.stream(prefixes).filter(prefix -> argMultimap.getAllValues(prefix).size() > 1)
-                .map(PREFIX_TO_CLASS::get).collect(Collectors.toList());
+    public static Optional<String> getWarningMessage(ArgumentMultimap argMultimap, Prefix... prefixes) {
+        requireNonNull(argMultimap);
+        requireNonNull(prefixes);
+
+        List<String> fieldsWithMultipleValues = getFieldsWithMultipleValues(argMultimap, prefixes);
+        if (fieldsWithMultipleValues.isEmpty()) {
+            return Optional.empty();
+        }
+
+        String joinedFields = StringUtil.joinStrings(fieldsWithMultipleValues);
+        return Optional.of(String.format(MESSAGE_MULTIPLE_VALUES_WARNING, joinedFields));
     }
 
-    public static Optional<String> getWarningMessage(ArgumentMultimap argMultimap, Prefix... prefixes) {
-        List<String> fieldsWithMultipleValues = getFieldsWithMultipleValues(argMultimap, prefixes);
-        Optional<String> joinedFields = StringUtil.joinStrings(fieldsWithMultipleValues);
+    /**
+     * Returns a {@code List<String>} containing the key-value mappings with multiple values
+     * for each key in {@code prefixes} in {@code argMultimap}.
+     */
+    private static List<String> getFieldsWithMultipleValues(ArgumentMultimap argMultimap, Prefix... prefixes) {
+        assert argMultimap != null;
+        assert prefixes != null;
 
-        return joinedFields.isPresent()
-                ? Optional.of(String.format(MESSAGE_MULTIPLE_VALUES_WARNING, joinedFields.get())) : Optional.empty();
+        return Arrays.stream(prefixes).filter(prefix -> argMultimap.getAllValues(prefix).size() > 1)
+                .map(PREFIX_TO_CLASS::get).collect(Collectors.toList());
     }
 }
