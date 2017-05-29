@@ -242,7 +242,7 @@ public class EditCommandParserTest {
      * Asserts the parsing of {@code userInput} is successful and the result matches {@code expectedCommand}
      */
     private void assertParseSuccess(String userInput, EditCommand expectedCommand) throws Exception {
-        Command command = parser.parse(userInput);
+        Command command = parser.parse(userInput).command;
         assert expectedCommand.equals(command);
     }
 }
