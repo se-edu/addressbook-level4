@@ -1,9 +1,15 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -20,6 +26,18 @@ import seedu.address.model.tag.Tag;
  * Contains utility methods used for parsing strings in the various *Parser classes
  */
 public class ParserUtil {
+
+    public static final String MESSAGE_MULTIPLE_VALUES_WARNING = "Warning: Multiple %1$s values entered. "
+            + "Only the last instance of %1$s has been stored.\n";
+
+    private static final Map<Prefix, String> PREFIX_TO_CLASS;
+
+    static {
+        PREFIX_TO_CLASS = new HashMap<>();
+        PREFIX_TO_CLASS.put(PREFIX_PHONE, Phone.class.getSimpleName());
+        PREFIX_TO_CLASS.put(PREFIX_EMAIL, Email.class.getSimpleName());
+        PREFIX_TO_CLASS.put(PREFIX_ADDRESS, Address.class.getSimpleName());
+    }
 
     /**
      * Parses {@code index} into an integer and returns it. Leading and trailing whitespaces will be trimmed.
@@ -87,5 +105,22 @@ public class ParserUtil {
             tagSet.add(new Tag(tagName));
         }
         return tagSet;
+    }
+
+    /**
+     * Returns a {@code List<String>} containing the names of classes with multiple values in {@code argMultimap}.
+     * ????
+     */
+    private static List<String> getFieldsWithMultipleValues(ArgumentMultimap argMultimap, Prefix... prefixes) {
+        return Arrays.stream(prefixes).filter(prefix -> argMultimap.getAllValues(prefix).size() > 1)
+                .map(PREFIX_TO_CLASS::get).collect(Collectors.toList());
+    }
+
+    public static Optional<String> getWarningMessage(ArgumentMultimap argMultimap, Prefix... prefixes) {
+        List<String> fieldsWithMultipleValues = getFieldsWithMultipleValues(argMultimap, prefixes);
+        Optional<String> joinedFields = StringUtil.joinStrings(fieldsWithMultipleValues);
+
+        return joinedFields.isPresent()
+                ? Optional.of(String.format(MESSAGE_MULTIPLE_VALUES_WARNING, joinedFields.get())) : Optional.empty();
     }
 }
