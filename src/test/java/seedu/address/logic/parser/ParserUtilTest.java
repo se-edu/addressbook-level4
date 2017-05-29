@@ -5,7 +5,10 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
+import static seedu.address.logic.parser.ParserUtil.MESSAGE_MULTIPLE_VALUES_WARNING;
 import static seedu.address.testutil.TypicalPersons.INDEX_FIRST_PERSON;
 
 import java.util.Arrays;
@@ -41,8 +44,31 @@ public class ParserUtilTest {
     private static final String VALID_TAG_1 = "friend";
     private static final String VALID_TAG_2 = "neighbour";
 
+    private static final ArgumentMultimap NO_REPEATED_FIELD = createArgumentMultimapNoRepeatedField();
+    private static final ArgumentMultimap ONE_REPEATED_FIELD = createArgumentMultimapOneRepeatedField();
+    private static final ArgumentMultimap TWO_REPEATED_FIELDS = createArgumentMultimapTwoRepeatedFields();
+
     @Rule
     public final ExpectedException thrown = ExpectedException.none();
+
+    private static ArgumentMultimap createArgumentMultimapNoRepeatedField() {
+        ArgumentMultimap argumentMultimap = new ArgumentMultimap();
+        argumentMultimap.put(PREFIX_PHONE, VALID_PHONE);
+        argumentMultimap.put(PREFIX_EMAIL, INVALID_EMAIL);
+        return argumentMultimap;
+    }
+
+    private static ArgumentMultimap createArgumentMultimapOneRepeatedField() {
+        ArgumentMultimap argumentMultimap = createArgumentMultimapNoRepeatedField();
+        argumentMultimap.put(PREFIX_PHONE, INVALID_PHONE);
+        return argumentMultimap;
+    }
+
+    private static ArgumentMultimap createArgumentMultimapTwoRepeatedFields() {
+        ArgumentMultimap argumentMultimap = createArgumentMultimapOneRepeatedField();
+        argumentMultimap.put(PREFIX_EMAIL, VALID_EMAIL);
+        return argumentMultimap;
+    }
 
     @Test
     public void parseIndex_invalidInput_throwsIllegalValueException() throws Exception {
@@ -248,5 +274,23 @@ public class ParserUtilTest {
         Set<Tag> expectedTagSet = new HashSet<Tag>(Arrays.asList(new Tag(VALID_TAG_1), new Tag(VALID_TAG_2)));
 
         assertEquals(expectedTagSet, actualTagSet);
+    }
+
+    @Test
+    public void getWarningMessage() {
+        // no repeated fields
+        assertEquals(Optional.empty(), ParserUtil.getWarningMessage(NO_REPEATED_FIELD, PREFIX_PHONE, PREFIX_EMAIL));
+
+        // one repeated field
+        assertEquals(String.format(MESSAGE_MULTIPLE_VALUES_WARNING, "Phone"),
+                ParserUtil.getWarningMessage(ONE_REPEATED_FIELD, PREFIX_PHONE, PREFIX_EMAIL).get());
+
+        // two repeated fields
+        assertEquals(String.format(MESSAGE_MULTIPLE_VALUES_WARNING, "Phone and Email"),
+                ParserUtil.getWarningMessage(TWO_REPEATED_FIELDS, PREFIX_PHONE, PREFIX_EMAIL).get());
+
+        // two repeated fields, only pass 1 prefix
+        assertEquals(String.format(MESSAGE_MULTIPLE_VALUES_WARNING, "Email"),
+                ParserUtil.getWarningMessage(TWO_REPEATED_FIELDS, PREFIX_EMAIL).get());
     }
 }
