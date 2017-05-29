@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TO_CLASS_NAME;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -24,8 +25,8 @@ import seedu.address.model.tag.Tag;
  */
 public class ParserUtil {
 
-    public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
-    public static final String MESSAGE_INSUFFICIENT_PARTS = "Number of parts must be more than 1.";
+    public static final String MESSAGE_MULTIPLE_VALUES_WARNING = "Warning: Multiple %1$s values entered. "
+            + "Only the last instance of %1$s has been stored.";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -105,5 +106,36 @@ public class ParserUtil {
             tagSet.add(new Tag(tagName));
         }
         return tagSet;
+    }
+
+    /**
+     * Generates a warning message for each field (represented by {@code prefixes}) that appears multiple times in
+     * {@code argMultimap}. Returns {@code Optional.empty()} if there are no fields that appears multiple times.
+     */
+    public static Optional<String> getWarningMessage(ArgumentMultimap argMultimap, Prefix... prefixes) {
+        requireNonNull(argMultimap);
+        requireNonNull(prefixes);
+
+        List<String> fieldsWithMultipleValues = getFieldsWithMultipleValues(argMultimap, prefixes);
+        if (fieldsWithMultipleValues.isEmpty()) {
+            return Optional.empty();
+        }
+
+        String joinedFields = (fieldsWithMultipleValues.size() == 1)
+                ? fieldsWithMultipleValues.get(0)
+                : StringUtil.joinStrings(fieldsWithMultipleValues);
+        return Optional.of(String.format(MESSAGE_MULTIPLE_VALUES_WARNING, joinedFields));
+    }
+
+    /**
+     * Returns a {@code List<String>} of fields (represented by {@code prefixes}) that appears multiple times in
+     * {@code argMultimap}.
+     */
+    private static List<String> getFieldsWithMultipleValues(ArgumentMultimap argMultimap, Prefix... prefixes) {
+        assert argMultimap != null;
+        assert prefixes != null;
+
+        return Arrays.stream(prefixes).filter(prefix -> argMultimap.getAllValues(prefix).size() > 1)
+                .map(PREFIX_TO_CLASS_NAME::get).collect(Collectors.toList());
     }
 }
