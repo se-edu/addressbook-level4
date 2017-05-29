@@ -8,11 +8,11 @@ import junit.framework.AssertionFailedError;
 public class Assert {
 
     /**
-     * Asserts that the {@code executable} throws the {@code expected} Exception.
+     * Asserts that the {@code callable} throws the {@code expected} Exception.
      */
-    public static void assertThrows(Class<? extends Throwable> expected, Runnable executable) {
+    public static void assertThrows(Class<? extends Throwable> expected, VoidCallable callable) {
         try {
-            executable.run();
+            callable.call();
         } catch (Throwable actualException) {
             if (actualException.getClass().isAssignableFrom(expected)) {
                 return;
@@ -24,4 +24,13 @@ public class Assert {
         throw new AssertionFailedError(
                 String.format("Expected %s to be thrown, but nothing was thrown.", expected.getName()));
     }
+
+    /**
+     * Represents a function which does not return anything and may throw an exception.
+     */
+    @FunctionalInterface
+    public interface VoidCallable {
+        void call() throws Exception;
+    }
+
 }
