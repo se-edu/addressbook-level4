@@ -1,7 +1,7 @@
 package seedu.address.logic;
 
 import javafx.collections.ObservableList;
-import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.ExecutionResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.ReadOnlyPerson;
@@ -17,7 +17,7 @@ public interface Logic {
      * @throws CommandException If an error occurs during command execution.
      * @throws ParseException If an error occurs during parsing.
      */
-    CommandResult execute(String commandText) throws CommandException, ParseException;
+    ExecutionResult execute(String commandText) throws CommandException, ParseException;
 
     /** Returns the filtered list of persons */
     ObservableList<ReadOnlyPerson> getFilteredPersonList();
