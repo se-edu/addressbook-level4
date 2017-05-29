@@ -11,7 +11,7 @@ import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.NewResultAvailableEvent;
 import seedu.address.logic.Logic;
-import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.ExecutionResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -40,13 +40,15 @@ public class CommandBox extends UiPart<Region> {
     @FXML
     private void handleCommandInputChanged() {
         try {
-            CommandResult commandResult = logic.execute(commandTextField.getText());
+            ExecutionResult executionResult = logic.execute(commandTextField.getText());
 
             // process result of the command
             setStyleToIndicateCommandSuccess();
             commandTextField.setText("");
-            logger.info("Result: " + commandResult.feedbackToUser);
-            raise(new NewResultAvailableEvent(commandResult.feedbackToUser));
+            String resultMessage = executionResult.warning.isEmpty() ? executionResult.feedbackToUser
+                    : executionResult.feedbackToUser + "\n" + executionResult.warning;
+            logger.info("Result: " + resultMessage);
+            raise(new NewResultAvailableEvent(resultMessage));
 
         } catch (CommandException | ParseException e) {
             // handle command failure
