@@ -1,20 +1,17 @@
 package seedu.address.logic.commands;
 
-import static seedu.address.commons.util.CollectionUtil.isAnyNonEmpty;
-import static seedu.address.commons.util.CollectionUtil.isAnyPresent;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
 import seedu.address.commons.core.Messages;
+import seedu.address.commons.util.CollectionUtil;
 import seedu.address.commons.util.IndexUtil;
-import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
@@ -47,8 +44,6 @@ public class EditCommand extends Command {
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
-    public static final String MESSAGE_MULTIPLE_VALUES_WARNING = "Warning: Multiple %s values entered. "
-            + "Only the last instance of %s has been stored.\n";
 
     private final int filteredPersonListIndex;
     private final EditPersonDescriptor editPersonDescriptor;
@@ -82,40 +77,21 @@ public class EditCommand extends Command {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         }
         model.updateFilteredListToShowAll();
-
-        return new CommandResult(formatResultMessage(personToEdit));
-    }
-
-    /**
-     * Returns the result message from successfully executing EditCommand. Also includes warning messages
-     * to the user if the user entered multiple values for a single field.
-     */
-    private String formatResultMessage(ReadOnlyPerson personToEdit) {
-        String message = String.format(MESSAGE_EDIT_PERSON_SUCCESS, personToEdit);
-        if (!editPersonDescriptor.hasMultipleValues()) {
-            return message;
-        }
-
-        ArrayList<String> fieldsWithMultipleValues = editPersonDescriptor.getFieldsWithMultipleValues();
-        String toFormat = StringUtil.joinStrings(fieldsWithMultipleValues);
-
-        return String.format(MESSAGE_MULTIPLE_VALUES_WARNING, toFormat, toFormat) + message;
+        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, personToEdit));
     }
 
     /**
      * Creates and returns a {@code Person} with the details of {@code personToEdit}
-     * edited with {@code editPersonDescriptor}. If there are multiple values in any of the fields
-     * {@code Phone, Email} or {@code Address}, the last value for that field will be used to
-     * edit {@code personToEdit}.
+     * edited with {@code editPersonDescriptor}.
      */
     private static Person createEditedPerson(ReadOnlyPerson personToEdit,
                                              EditPersonDescriptor editPersonDescriptor) {
         assert personToEdit != null;
 
         Name updatedName = editPersonDescriptor.getName().orElseGet(personToEdit::getName);
-        Phone updatedPhone = editPersonDescriptor.getLastPhone().orElseGet(personToEdit::getPhone);
-        Email updatedEmail = editPersonDescriptor.getLastEmail().orElseGet(personToEdit::getEmail);
-        Address updatedAddress = editPersonDescriptor.getLastAddress().orElseGet(personToEdit::getAddress);
+        Phone updatedPhone = editPersonDescriptor.getPhone().orElseGet(personToEdit::getPhone);
+        Email updatedEmail = editPersonDescriptor.getEmail().orElseGet(personToEdit::getEmail);
+        Address updatedAddress = editPersonDescriptor.getAddress().orElseGet(personToEdit::getAddress);
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElseGet(personToEdit::getTags);
 
         return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
@@ -145,18 +121,18 @@ public class EditCommand extends Command {
      */
     public static class EditPersonDescriptor {
         private Optional<Name> name = Optional.empty();
-        private List<Phone> phones = new ArrayList<>();
-        private List<Email> emails = new ArrayList<>();
-        private List<Address> addresses = new ArrayList<>();
+        private Optional<Phone> phone = Optional.empty();
+        private Optional<Email> email = Optional.empty();
+        private Optional<Address> address = Optional.empty();
         private Optional<Set<Tag>> tags = Optional.empty();
 
         public EditPersonDescriptor() {}
 
         public EditPersonDescriptor(EditPersonDescriptor toCopy) {
             this.name = toCopy.getName();
-            this.phones = toCopy.getPhones();
-            this.emails = toCopy.getEmails();
-            this.addresses = toCopy.getAddresses();
+            this.phone = toCopy.getPhone();
+            this.email = toCopy.getEmail();
+            this.address = toCopy.getAddress();
             this.tags = toCopy.getTags();
         }
 
@@ -164,49 +140,7 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return isAnyPresent(this.name, this.tags) || isAnyNonEmpty(phones, emails, addresses);
-        }
-
-        /**
-         * Returns true if {@code phone, email} or {@code address} has multiple values.
-         */
-        public boolean hasMultipleValues() {
-            return hasMultiplePhones() || hasMultipleEmails() || hasMultipleAddresses();
-        }
-
-        public boolean hasMultiplePhones() {
-            return phones.size() > 1;
-        }
-
-        public boolean hasMultipleEmails() {
-            return emails.size() > 1;
-        }
-
-        public boolean hasMultipleAddresses() {
-            return addresses.size() > 1;
-        }
-
-        /**
-         * Returns an {@code ArrayList<String>} containing the names of classes
-         * with multiple values. The possible classes are: {@code Phone, Email}
-         * and {@code Address}.
-         */
-        public ArrayList<String> getFieldsWithMultipleValues() {
-            ArrayList<String> fieldsWithMultipleValues = new ArrayList<>();
-
-            if (hasMultiplePhones()) {
-                fieldsWithMultipleValues.add(Phone.class.getSimpleName());
-            }
-
-            if (hasMultipleEmails()) {
-                fieldsWithMultipleValues.add(Email.class.getSimpleName());
-            }
-
-            if (hasMultipleAddresses()) {
-                fieldsWithMultipleValues.add(Address.class.getSimpleName());
-            }
-
-            return fieldsWithMultipleValues;
+            return CollectionUtil.isAnyPresent(this.name, this.phone, this.email, this.address, this.tags);
         }
 
         public void setName(Optional<Name> name) {
@@ -218,43 +152,31 @@ public class EditCommand extends Command {
             return name;
         }
 
-        public void setPhones(List<Phone> phone) {
+        public void setPhone(Optional<Phone> phone) {
             assert phone != null;
-            this.phones = phone;
+            this.phone = phone;
         }
 
-        public List<Phone> getPhones() {
-            return phones;
+        public Optional<Phone> getPhone() {
+            return phone;
         }
 
-        public Optional<Phone> getLastPhone() {
-            return !phones.isEmpty() ? Optional.of(phones.get(phones.size() - 1)) : Optional.empty();
-        }
-
-        public void setEmails(List<Email> email) {
+        public void setEmail(Optional<Email> email) {
             assert email != null;
-            this.emails = email;
+            this.email = email;
         }
 
-        public List<Email> getEmails() {
-            return emails;
+        public Optional<Email> getEmail() {
+            return email;
         }
 
-        public Optional<Email> getLastEmail() {
-            return !emails.isEmpty() ? Optional.of(emails.get(emails.size() - 1)) : Optional.empty();
-        }
-
-        public void setAddresses(List<Address> address) {
+        public void setAddress(Optional<Address> address) {
             assert address != null;
-            this.addresses = address;
+            this.address = address;
         }
 
-        public List<Address> getAddresses() {
-            return addresses;
-        }
-
-        public Optional<Address> getLastAddress() {
-            return !addresses.isEmpty() ? Optional.of(addresses.get(addresses.size() - 1)) : Optional.empty();
+        public Optional<Address> getAddress() {
+            return address;
         }
 
         public void setTags(Optional<Set<Tag>> tags) {
@@ -281,9 +203,9 @@ public class EditCommand extends Command {
             // state check
             EditPersonDescriptor e = (EditPersonDescriptor) other;
             return name.equals(e.getName())
-                    && phones.equals(e.getPhones())
-                    && emails.equals(e.getEmails())
-                    && addresses.equals(e.getAddresses())
+                    && phone.equals(e.getPhone())
+                    && email.equals(e.getEmail())
+                    && address.equals(e.getAddress())
                     && tags.equals(e.getTags());
         }
     }

@@ -1,8 +1,12 @@
 package seedu.address.commons.util;
 
+import static java.util.Objects.requireNonNull;
+
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -41,20 +45,26 @@ public class StringUtil {
     }
 
     /**
-     * Joins each element except the last element in {@code strings} with a
-     * comma, and joins the last element with "and". e.g If {@code strings}
-     * contain {"Phone","Address", "Name", "Email"}, the result is: "Phone,
-     * Address, Name and Email".
+     * Joins each element except the last element in {@code strings} with a comma,
+     * and joins the last element with "and". e.g If {@code strings} contain
+     * {"Phone", null, "Name", "Email"}, the returned result is: "Phone, Name and Email".
+     *
+     * @return Optional.empty() if {@code strings} is an empty list.
      */
-    public static String joinStrings(List<String> strings) {
-        // Joins all strings in the list with a comma
-        StringBuilder result = new StringBuilder(strings.stream().collect(Collectors.joining(", ")));
+    public static Optional<String> joinStrings(List<String> strings) {
+        requireNonNull(strings);
+
+        if (strings.isEmpty()) {
+            return Optional.empty();
+        }
+
+        StringBuilder result = new StringBuilder(strings.stream().filter(Objects::nonNull)
+                .collect(Collectors.joining(", ")));
 
         // Replaces the last comma with the word "and"
         int lastIndexOfComma = result.lastIndexOf(",");
-
-        return lastIndexOfComma != -1 ? result.substring(0, lastIndexOfComma) + " and"
-                + result.substring(lastIndexOfComma + 1) : result.toString();
+        return lastIndexOfComma != -1 ? Optional.of(result.substring(0, lastIndexOfComma) + " and"
+                + result.substring(lastIndexOfComma + 1)) : Optional.of(result.toString());
     }
 
     /**

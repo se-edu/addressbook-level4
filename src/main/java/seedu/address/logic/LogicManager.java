@@ -5,10 +5,11 @@ import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.ExecutionResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.Parser;
+import seedu.address.logic.parser.ParserResult;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.person.ReadOnlyPerson;
@@ -29,11 +30,12 @@ public class LogicManager extends ComponentManager implements Logic {
     }
 
     @Override
-    public CommandResult execute(String commandText) throws CommandException, ParseException {
+    public ExecutionResult execute(String commandText) throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
-        Command command = parser.parseCommand(commandText);
-        command.setData(model);
-        return command.execute();
+        ParserResult parserResult = parser.parseCommand(commandText);
+        parserResult.command.setData(model);
+        CommandResult commandResult = parserResult.command.execute();
+        return new ExecutionResult(commandResult.feedbackToUser, parserResult.warning);
     }
 
     @Override
