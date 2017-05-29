@@ -1,7 +1,12 @@
 package seedu.address.commons.util;
 
+import static java.util.Objects.requireNonNull;
+
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * Helper functions for handling strings.
@@ -36,6 +41,31 @@ public class StringUtil {
             }
         }
         return false;
+    }
+
+    /**
+     * Joins each element except the last element in {@code strings} with a comma,
+     * and joins the last element with "and". e.g If {@code strings} contain
+     * {"Phone", null, "Name", "Email"}, the returned result is: "Phone, Name and Email".
+     *
+     * @throws IllegalArgumentException if strings is an empty list.
+     */
+    public static String joinStrings(List<String> strings) {
+        requireNonNull(strings);
+
+        if (strings.isEmpty()) {
+            throw new IllegalArgumentException();
+        }
+
+        StringBuilder result = new StringBuilder(strings.stream().filter(Objects::nonNull)
+                .collect(Collectors.joining(", ")));
+
+        int lastIndexOfComma = result.lastIndexOf(",");
+        if (lastIndexOfComma == -1) {
+            return result.toString();
+        }
+
+        return result.replace(lastIndexOfComma, lastIndexOfComma + 1, " and").toString();
     }
 
     /**
