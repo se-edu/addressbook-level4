@@ -92,12 +92,24 @@ public class ParserUtil {
     }
 
     /**
+     * Parses a {@code String address} into an {@code Address}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws IllegalValueException if the given {@code address} is invalid.
+     */
+    public static Address parseAddress(String address) throws IllegalValueException {
+        requireNonNull(address);
+        String trimmedAddress = address.trim();
+        return new Address(trimmedAddress);
+    }
+
+    /**
      * Parses a {@code Optional<String> address} into an {@code Optional<Address>} if {@code address} is present.
      * See header comment of this class regarding the use of {@code Optional} parameters.
      */
     public static Optional<Address> parseAddress(Optional<String> address) throws IllegalValueException {
         requireNonNull(address);
-        return address.isPresent() ? Optional.of(new Address(address.get())) : Optional.empty();
+        return address.isPresent() ? Optional.of(parseAddress(address.get())) : Optional.empty();
     }
 
     /**
