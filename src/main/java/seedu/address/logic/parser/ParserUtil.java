@@ -119,12 +119,23 @@ public class ParserUtil {
     }
 
     /**
+     * Parses a {@code String email} into an {@code Email}.
+     *
+     * @throws IllegalValueException if the input is invalid.
+     */
+    public static Email parseEmail(String email) throws IllegalValueException {
+        requireNonNull(email);
+        String trimmedEmail = email.trim();
+        return new Email(trimmedEmail);
+    }
+
+    /**
      * Parses a {@code Optional<String> email} into an {@code Optional<Email>} if {@code email} is present.
      * See header comment of this class regarding the use of {@code Optional} parameters.
      */
     public static Optional<Email> parseEmail(Optional<String> email) throws IllegalValueException {
         requireNonNull(email);
-        return email.isPresent() ? Optional.of(new Email(email.get())) : Optional.empty();
+        return email.isPresent() ? Optional.of(parseEmail(email.get())) : Optional.empty();
     }
 
     /**
