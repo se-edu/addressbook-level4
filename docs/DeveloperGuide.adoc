@@ -8,6 +8,7 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
+ifdef::env-github,env-browser[:outfilesuffix: .adoc]
 
 By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
 
@@ -66,7 +67,7 @@ Click on the `files from packages` text after ticking in order to enable the `Ch
 *Problem: Eclipse reports some required libraries missing*
 
 * Reason: Required libraries may not have been downloaded during the project import.
-* Solution: link:UsingGradle.md[Run tests using Gradle] once (to refresh the libraries).
+* Solution: <<UsingGradle#, Run tests using Gradle>> once (to refresh the libraries).
 
 === Coding style
 
@@ -237,7 +238,7 @@ Tests can be found in the `./src/test/java` folder.
 
 *Using Gradle*:
 
-* See link:UsingGradle.md[UsingGradle.md] for how to run tests using Gradle.
+* See <<UsingGradle#, UsingGradle.adoc>> for how to run tests using Gradle.
 
 We have two types of tests:
 
@@ -252,7 +253,7 @@ e.g. `seedu.address.logic.LogicManagerTest`
 
 === Headless GUI Testing
 
-Thanks to the https://github.com/TestFX/TestFX[TestFX] library we use, our GUI tests can be run in the _headless_ mode. In the headless mode, GUI tests do not show up on the screen. That means the developer can do other things on the Computer while the tests are running. See link:UsingGradle.md#running-tests[UsingGradle.md] to learn how to run tests in headless mode.
+Thanks to the https://github.com/TestFX/TestFX[TestFX] library we use, our GUI tests can be run in the _headless_ mode. In the headless mode, GUI tests do not show up on the screen. That means the developer can do other things on the Computer while the tests are running. See link:<<UsingGradle#running-tests, UsingGradle.adoc>> to learn how to run tests in headless mode.
 
 === Troubleshooting tests
 
@@ -265,21 +266,21 @@ Thanks to the https://github.com/TestFX/TestFX[TestFX] library we use, our GUI t
 
 === Build Automation
 
-See link:UsingGradle.md[UsingGradle.md] to learn how to use Gradle for build automation.
+See <<UsingGradle#, UsingGradle.adoc>> to learn how to use Gradle for build automation.
 
 === Continuous Integration
 
-We use https://travis-ci.org/[Travis CI] and https://www.appveyor.com/[AppVeyor] to perform _Continuous Integration_ on our projects. See link:UsingTravis.md[UsingTravis.md] and link:UsingAppVeyor.md[UsingAppVeyor.md] for more details.
+We use https://travis-ci.org/[Travis CI] and https://www.appveyor.com/[AppVeyor] to perform _Continuous Integration_ on our projects. See <<UsingTravis#, UsingTravis.adoc>> and <<UsingAppVeyor#, UsingAppVeyor.adoc>> for more details.
 
 === Publishing Documentation
 
-See link:UsingGithubPages.md[UsingGithubPages.md] to learn how to use GitHub Pages to publish documentation to the project site.
+See <<UsingGithubPages#, UsingGithubPages.adoc>> to learn how to use GitHub Pages to publish documentation to the project site.
 
 === Making a Release
 
 Here are the steps to create a new release.
 
-.  Generate a JAR file link:UsingGradle.md#creating-the-jar-file[using Gradle].
+.  Generate a JAR file <<UsingGradle#creating-the-jar-file, using Gradle>>.
 .  Tag the repo with the version number. e.g. `v0.1`
 .  https://help.github.com/articles/creating-releases/[Create a new release using GitHub] and upload the JAR file you created.
 
@@ -289,8 +290,8 @@ We use https://www.google.com/chrome/browser/desktop/[Google Chrome] for convert
 
 Here are the steps to convert the project documentation files to PDF format.
 
-.  Make sure you have set up GitHub Pages as described in link:UsingGithubPages.md#setting-up[UsingGithubPages.md].
-.  Using Chrome, go to the link:UsingGithubPages.md#viewing-the-project-site[GitHub Pages version] of the documentation file. e.g. For link:UserGuide.adoc[UserGuide.adoc], the URL will be `\https://<your-username-or-organization-name>.github.io/addressbook-level4/docs/UserGuide.html`.
+.  Make sure you have set up GitHub Pages as described in <<UsingGithubPages#setting-up, UsingGithubPages.adoc>>.
+.  Using Chrome, go to the <<UsingGithubPages#viewing-the-project-site, GitHub Pages version>> of the documentation file. e.g. For <<UserGuide#, UserGuide.adoc>>, the URL will be `\https://<your-username-or-organization-name>.github.io/addressbook-level4/docs/UserGuide.html`.
 .  Click on the `Print` option in Chrome's menu.
 .  Set the destination to `Save as PDF`, then click `Save` to save a copy of the file in PDF format. For best results, use the settings indicated in the screenshot below.
 
