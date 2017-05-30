@@ -15,6 +15,12 @@ public class NameTest {
     }
 
     @Test
+    public void constructor_invalidName_throwsIllegalArgumentException() {
+        String invalidName = "";
+        Assert.assertThrows(IllegalArgumentException.class, () -> new Name(invalidName));
+    }
+
+    @Test
     public void isValidName() {
         // null name
         Assert.assertThrows(NullPointerException.class, () -> Name.isValidName(null));
