@@ -22,11 +22,10 @@ public class Tag {
      */
     public Tag(String name) throws IllegalValueException {
         requireNonNull(name);
-        String trimmedName = name.trim();
-        if (!isValidTagName(trimmedName)) {
+        if (!isValidTagName(name)) {
             throw new IllegalValueException(MESSAGE_TAG_CONSTRAINTS);
         }
-        this.tagName = trimmedName;
+        this.tagName = name;
     }
 
     /**
