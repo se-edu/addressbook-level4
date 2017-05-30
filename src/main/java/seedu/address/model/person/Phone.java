@@ -23,11 +23,10 @@ public class Phone {
      */
     public Phone(String phone) throws IllegalValueException {
         requireNonNull(phone);
-        String trimmedPhone = phone.trim();
-        if (!isValidPhone(trimmedPhone)) {
+        if (!isValidPhone(phone)) {
             throw new IllegalValueException(MESSAGE_PHONE_CONSTRAINTS);
         }
-        this.value = trimmedPhone;
+        this.value = phone;
     }
 
     /**
