@@ -154,12 +154,29 @@ public class StringUtilTest {
     //---------------- Test for joinStrings --------------------------------------
 
     @Test
-    public void joinStrings() {
-        assertEquals("one", StringUtil.joinStrings(Collections.singletonList("one")));
+    public void joinStrings_validValues_success() {
         assertEquals("one and two", StringUtil.joinStrings(Arrays.asList("one", "two")));
         assertEquals("one, two, three and four", StringUtil.joinStrings(
                 Arrays.asList("one", "two", "three", "four")));
-        assertEquals("one, three and four", StringUtil.joinStrings(
-                Arrays.asList("one", null, "three", "four")));
+        assertEquals("one , , , three and , four ,", StringUtil.joinStrings(
+                Arrays.asList("one , ", ", three", ", four ,")));
+    }
+
+    @Test
+    public void joinStrings_listContainsNull_failure() {
+        thrown.expect(IllegalArgumentException.class);
+        StringUtil.joinStrings(Arrays.asList("one", null, "three", "four"));
+    }
+
+    @Test
+    public void joinStrings_sizeZeroList_failure() {
+        thrown.expect(IllegalArgumentException.class);
+        StringUtil.joinStrings(Collections.emptyList());
+    }
+
+    @Test
+    public void joinStrings_sizeOneList_failure() {
+        thrown.expect(IllegalArgumentException.class);
+        StringUtil.joinStrings(Collections.singletonList("one"));
     }
 }

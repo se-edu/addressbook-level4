@@ -4,9 +4,8 @@ import static java.util.Objects.requireNonNull;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
 
 /**
  * Helper functions for handling strings.
@@ -46,26 +45,19 @@ public class StringUtil {
     /**
      * Joins each element except the last element in {@code strings} with a comma,
      * and joins the last element with "and". e.g If {@code strings} contain
-     * {"Phone", null, "Name", "Email"}, the returned result is: "Phone, Name and Email".
+     * {"Phone", "Name", "Email"}, the returned result is: "Phone, Name and Email".
      *
-     * @throws IllegalArgumentException if strings is an empty list.
+     * @throws IllegalArgumentException if {@code strings.size()} < 2 or any null values exist in it.
      */
     public static String joinStrings(List<String> strings) {
         requireNonNull(strings);
-
-        if (strings.isEmpty()) {
+        if (strings.size() < 2 || CollectionUtil.isAnyNull(strings)) {
             throw new IllegalArgumentException();
         }
 
-        StringBuilder result = new StringBuilder(strings.stream().filter(Objects::nonNull)
-                .collect(Collectors.joining(", ")));
-
-        int lastIndexOfComma = result.lastIndexOf(",");
-        if (lastIndexOfComma == -1) {
-            return result.toString();
-        }
-
-        return result.replace(lastIndexOfComma, lastIndexOfComma + 1, " and").toString();
+        ArrayList<String> copy = new ArrayList<>(strings);
+        String lastString = copy.remove(copy.size() - 1);
+        return String.join(", ", copy) + " and " + lastString;
     }
 
     /**

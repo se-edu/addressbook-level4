@@ -50,7 +50,7 @@ public class AddCommandParser {
 
             ReadOnlyPerson person = new Person(name, phone, email, address, tagList);
 
-            return new ParserResult<>(new AddCommand(person), warning.orElse(null));
+            return new ParserResult<>(new AddCommand(person), warning.orElse(""));
         } catch (IllegalValueException ive) {
             throw new ParseException(ive.getMessage(), ive);
         }

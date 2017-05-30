@@ -22,7 +22,7 @@ public class ParserResult<T extends Command> {
      */
     public ParserResult(T command, String warning) {
         this.command = requireNonNull(command);
-        this.warning = (warning != null) ? warning : "";
+        this.warning = requireNonNull(warning);
     }
 
 }

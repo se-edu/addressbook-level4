@@ -63,7 +63,7 @@ public class EditCommandParser {
             throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);
         }
 
-        return new ParserResult<>(new EditCommand(index, editPersonDescriptor), warning.orElse(null));
+        return new ParserResult<>(new EditCommand(index, editPersonDescriptor), warning.orElse(""));
     }
 
     /**
