@@ -23,9 +23,8 @@ public class XmlAdaptedPersonTest {
     private static final String VALID_PHONE = BENSON.getPhone().toString();
     private static final String VALID_EMAIL = BENSON.getEmail().toString();
     private static final String VALID_ADDRESS = BENSON.getAddress().toString();
-
-    private final List<XmlAdaptedTag> validTags = BENSON.getTags().stream()
-            .map(tag -> new XmlAdaptedTag(tag))
+    private static final List<XmlAdaptedTag> VALID_TAGS = BENSON.getTags().stream()
+            .map(XmlAdaptedTag::new)
             .collect(Collectors.toList());
 
     @Test
@@ -37,38 +36,38 @@ public class XmlAdaptedPersonTest {
     @Test
     public void toModelType_invalidName_throwsIllegalValueException() {
         XmlAdaptedPerson person =
-                new XmlAdaptedPerson(INVALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, validTags);
-        Assert.assertThrows(IllegalValueException.class, () -> person.toModelType());
+                new XmlAdaptedPerson(INVALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
+        Assert.assertThrows(IllegalValueException.class, person::toModelType);
     }
 
     @Test
     public void toModelType_invalidPhone_throwsIllegalValueException() {
         XmlAdaptedPerson person =
-                new XmlAdaptedPerson(VALID_NAME, INVALID_PHONE, VALID_EMAIL, VALID_ADDRESS, validTags);
-        Assert.assertThrows(IllegalValueException.class, () -> person.toModelType());
+                new XmlAdaptedPerson(VALID_NAME, INVALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
+        Assert.assertThrows(IllegalValueException.class, person::toModelType);
     }
 
     @Test
     public void toModelType_invalidEmail_throwsIllegalValueException() {
         XmlAdaptedPerson person =
-                new XmlAdaptedPerson(VALID_NAME, VALID_PHONE, INVALID_EMAIL, VALID_ADDRESS, validTags);
-        Assert.assertThrows(IllegalValueException.class, () -> person.toModelType());
+                new XmlAdaptedPerson(VALID_NAME, VALID_PHONE, INVALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
+        Assert.assertThrows(IllegalValueException.class, person::toModelType);
     }
 
     @Test
     public void toModelType_invalidAddress_throwsIllegalValueException() {
         XmlAdaptedPerson person =
-                new XmlAdaptedPerson(VALID_NAME, VALID_PHONE, VALID_EMAIL, INVALID_ADDRESS, validTags);
-        Assert.assertThrows(IllegalValueException.class, () -> person.toModelType());
+                new XmlAdaptedPerson(VALID_NAME, VALID_PHONE, VALID_EMAIL, INVALID_ADDRESS, VALID_TAGS);
+        Assert.assertThrows(IllegalValueException.class, person::toModelType);
     }
 
     @Test
     public void toModelType_invalidTags_throwsIllegalValueException() {
-        List<XmlAdaptedTag> invalidTags = new ArrayList<>(validTags);
+        List<XmlAdaptedTag> invalidTags = new ArrayList<>(VALID_TAGS);
         invalidTags.add(new XmlAdaptedTag(INVALID_TAG));
         XmlAdaptedPerson person =
                 new XmlAdaptedPerson(VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, invalidTags);
-        Assert.assertThrows(IllegalValueException.class, () -> person.toModelType());
+        Assert.assertThrows(IllegalValueException.class, person::toModelType);
     }
 
 }
