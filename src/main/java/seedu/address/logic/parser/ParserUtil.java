@@ -151,6 +151,9 @@ public class ParserUtil {
     public static Tag parseTag(String tag) throws IllegalValueException {
         requireNonNull(tag);
         String trimmedTag = tag.trim();
+        if (!Tag.isValidTagName(trimmedTag)) {
+            throw new IllegalValueException(Tag.MESSAGE_TAG_CONSTRAINTS);
+        }
         return new Tag(trimmedTag);
     }
 
