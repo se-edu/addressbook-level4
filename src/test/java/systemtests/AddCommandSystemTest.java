@@ -41,10 +41,14 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
-import seedu.address.logic.parser.ParserUtil;
 import seedu.address.model.Model;
+import seedu.address.model.person.Address;
+import seedu.address.model.person.Email;
+import seedu.address.model.person.Name;
+import seedu.address.model.person.Phone;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
+import seedu.address.model.tag.Tag;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.PersonUtil;
 
@@ -163,24 +167,24 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: invalid name -> rejected */
         command = AddCommand.COMMAND_WORD + INVALID_NAME_DESC + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY;
-        assertCommandFailure(command, ParserUtil.MESSAGE_NAME_CONSTRAINTS);
+        assertCommandFailure(command, Name.MESSAGE_NAME_CONSTRAINTS);
 
         /* Case: invalid phone -> rejected */
         command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + INVALID_PHONE_DESC + EMAIL_DESC_AMY + ADDRESS_DESC_AMY;
-        assertCommandFailure(command, ParserUtil.MESSAGE_PHONE_CONSTRAINTS);
+        assertCommandFailure(command, Phone.MESSAGE_PHONE_CONSTRAINTS);
 
         /* Case: invalid email -> rejected */
         command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + INVALID_EMAIL_DESC + ADDRESS_DESC_AMY;
-        assertCommandFailure(command, ParserUtil.MESSAGE_EMAIL_CONSTRAINTS);
+        assertCommandFailure(command, Email.MESSAGE_EMAIL_CONSTRAINTS);
 
         /* Case: invalid address -> rejected */
         command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + INVALID_ADDRESS_DESC;
-        assertCommandFailure(command, ParserUtil.MESSAGE_ADDRESS_CONSTRAINTS);
+        assertCommandFailure(command, Address.MESSAGE_ADDRESS_CONSTRAINTS);
 
         /* Case: invalid tag -> rejected */
         command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY
                 + INVALID_TAG_DESC;
-        assertCommandFailure(command, ParserUtil.MESSAGE_TAG_CONSTRAINTS);
+        assertCommandFailure(command, Tag.MESSAGE_TAG_CONSTRAINTS);
     }
 
     /**

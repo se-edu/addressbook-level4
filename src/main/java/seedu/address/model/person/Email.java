@@ -9,6 +9,8 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Email {
 
+    public static final String MESSAGE_EMAIL_CONSTRAINTS =
+            "Person emails should be 2 alphanumeric/period strings separated by '@'";
     public static final String EMAIL_VALIDATION_REGEX = "[\\w\\.]+@[\\w\\.]+";
 
     public final String value;
@@ -18,7 +20,7 @@ public class Email {
      */
     public Email(String email) {
         requireNonNull(email);
-        checkArgument(isValidEmail(email));
+        checkArgument(isValidEmail(email), MESSAGE_EMAIL_CONSTRAINTS);
         this.value = email;
     }
 

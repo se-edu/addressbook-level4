@@ -9,6 +9,9 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Phone {
 
+
+    public static final String MESSAGE_PHONE_CONSTRAINTS =
+            "Phone numbers can only contain numbers, and should be at least 3 digits long";
     public static final String PHONE_VALIDATION_REGEX = "\\d{3,}";
     public final String value;
 
@@ -17,7 +20,7 @@ public class Phone {
      */
     public Phone(String phone) {
         requireNonNull(phone);
-        checkArgument(isValidPhone(phone));
+        checkArgument(isValidPhone(phone), MESSAGE_PHONE_CONSTRAINTS);
         this.value = phone;
     }
 

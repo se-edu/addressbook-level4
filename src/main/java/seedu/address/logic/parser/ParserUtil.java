@@ -29,15 +29,6 @@ public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
     public static final String MESSAGE_INSUFFICIENT_PARTS = "Number of parts must be more than 1.";
-    public static final String MESSAGE_NAME_CONSTRAINTS =
-            "Person names should only contain alphanumeric characters and spaces, and it should not be blank";
-    public static final String MESSAGE_PHONE_CONSTRAINTS =
-            "Phone numbers can only contain numbers, and should be at least 3 digits long";
-    public static final String MESSAGE_ADDRESS_CONSTRAINTS =
-            "Person addresses can take any values, and it should not be blank";
-    public static final String MESSAGE_EMAIL_CONSTRAINTS =
-            "Person emails should be 2 alphanumeric/period strings separated by '@'";
-    public static final String MESSAGE_TAG_CONSTRAINTS = "Tags names should be alphanumeric";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -54,14 +45,15 @@ public class ParserUtil {
 
     /**
      * Parses a {@code String name} into a {@code Name}.
+     * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws IllegalValueException if the name is invalid.
+     * @throws IllegalValueException if the given name string is invalid.
      */
     public static Name parseName(String name) throws IllegalValueException {
         requireNonNull(name);
         String trimmedName = name.trim();
         if (!Name.isValidName(trimmedName)) {
-            throw new IllegalValueException(MESSAGE_NAME_CONSTRAINTS);
+            throw new IllegalValueException(Name.MESSAGE_NAME_CONSTRAINTS);
         }
         return new Name(trimmedName);
     }
@@ -76,15 +68,16 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String phone} into a {@code phone}.
+     * Parses a {@code String phone} into a {@code Phone}.
+     * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws IllegalValueException if the input is invalid.
+     * @throws IllegalValueException if the given phone string is invalid.
      */
     public static Phone parsePhone(String phone) throws IllegalValueException {
         requireNonNull(phone);
         String trimmedPhone = phone.trim();
         if (!Phone.isValidPhone(trimmedPhone)) {
-            throw new IllegalValueException(MESSAGE_PHONE_CONSTRAINTS);
+            throw new IllegalValueException(Phone.MESSAGE_PHONE_CONSTRAINTS);
         }
         return new Phone(trimmedPhone);
     }
@@ -100,14 +93,15 @@ public class ParserUtil {
 
     /**
      * Parses a {@code String address} into an {@code Address}.
+     * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws IllegalValueException if the input is invalid.
+     * @throws IllegalValueException if the given address string is invalid.
      */
     public static Address parseAddress(String address) throws IllegalValueException {
         requireNonNull(address);
         String trimmedAddress = address.trim();
         if (!Address.isValidAddress(trimmedAddress)) {
-            throw new IllegalValueException(MESSAGE_ADDRESS_CONSTRAINTS);
+            throw new IllegalValueException(Address.MESSAGE_ADDRESS_CONSTRAINTS);
         }
         return new Address(trimmedAddress);
     }
@@ -123,14 +117,15 @@ public class ParserUtil {
 
     /**
      * Parses a {@code String email} into an {@code Email}.
+     * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws IllegalValueException if the input is invalid.
+     * @throws IllegalValueException if the given email address string is invalid.
      */
     public static Email parseEmail(String email) throws IllegalValueException {
         requireNonNull(email);
         String trimmedEmail = email.trim();
         if (!Email.isValidEmail(trimmedEmail)) {
-            throw new IllegalValueException(MESSAGE_EMAIL_CONSTRAINTS);
+            throw new IllegalValueException(Email.MESSAGE_EMAIL_CONSTRAINTS);
         }
         return new Email(trimmedEmail);
     }
@@ -146,14 +141,15 @@ public class ParserUtil {
 
     /**
      * Parses a {@code String tag} into a {@code Tag}.
+     * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws IllegalValueException if the input is invalid.
+     * @throws IllegalValueException if the given tag name string is invalid.
      */
     public static Tag parseTag(String tag) throws IllegalValueException {
         requireNonNull(tag);
         String trimmedTag = tag.trim();
         if (!Tag.isValidTagName(trimmedTag)) {
-            throw new IllegalValueException(MESSAGE_TAG_CONSTRAINTS);
+            throw new IllegalValueException(Tag.MESSAGE_TAG_CONSTRAINTS);
         }
         return new Tag(trimmedTag);
     }
