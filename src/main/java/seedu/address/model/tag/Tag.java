@@ -1,8 +1,7 @@
 package seedu.address.model.tag;
 
 import static java.util.Objects.requireNonNull;
-
-import seedu.address.commons.exceptions.IllegalValueException;
+import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents a Tag in the address book.
@@ -16,15 +15,11 @@ public class Tag {
     public final String tagName;
 
     /**
-     * Validates given tag name.
-     *
-     * @throws IllegalValueException if the given tag name string is invalid.
+     * Constructs a valid Tag.
      */
-    public Tag(String name) throws IllegalValueException {
+    public Tag(String name) {
         requireNonNull(name);
-        if (!isValidTagName(name)) {
-            throw new IllegalValueException(MESSAGE_TAG_CONSTRAINTS);
-        }
+        checkArgument(isValidTagName(name), MESSAGE_TAG_CONSTRAINTS);
         this.tagName = name;
     }
 
