@@ -126,6 +126,9 @@ public class ParserUtil {
     public static Email parseEmail(String email) throws IllegalValueException {
         requireNonNull(email);
         String trimmedEmail = email.trim();
+        if (!Email.isValidEmail(trimmedEmail)) {
+            throw new IllegalValueException(Email.MESSAGE_EMAIL_CONSTRAINTS);
+        }
         return new Email(trimmedEmail);
     }
 
