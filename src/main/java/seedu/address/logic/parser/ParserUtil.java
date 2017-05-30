@@ -68,12 +68,24 @@ public class ParserUtil {
     }
 
     /**
+     * Parses a {@code String phone} into a {@code Phone}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws IllegalValueException if the given phone string is invalid.
+     */
+    public static Phone parsePhone(String phone) throws IllegalValueException {
+        requireNonNull(phone);
+        String trimmedPhone = phone.trim();
+        return new Phone(trimmedPhone);
+    }
+
+    /**
      * Parses a {@code Optional<String> phone} into an {@code Optional<Phone>} if {@code phone} is present.
      * See header comment of this class regarding the use of {@code Optional} parameters.
      */
     public static Optional<Phone> parsePhone(Optional<String> phone) throws IllegalValueException {
         requireNonNull(phone);
-        return phone.isPresent() ? Optional.of(new Phone(phone.get())) : Optional.empty();
+        return phone.isPresent() ? Optional.of(parsePhone(phone.get())) : Optional.empty();
     }
 
     /**
