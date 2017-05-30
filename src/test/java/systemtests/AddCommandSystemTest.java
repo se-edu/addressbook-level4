@@ -41,10 +41,10 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
+import seedu.address.logic.parser.ParserUtil;
 import seedu.address.model.Model;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
@@ -167,7 +167,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: invalid name -> rejected */
         command = AddCommand.COMMAND_WORD + INVALID_NAME_DESC + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY;
-        assertCommandFailure(command, Name.MESSAGE_NAME_CONSTRAINTS);
+        assertCommandFailure(command, ParserUtil.MESSAGE_NAME_CONSTRAINTS);
 
         /* Case: invalid phone -> rejected */
         command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + INVALID_PHONE_DESC + EMAIL_DESC_AMY + ADDRESS_DESC_AMY;

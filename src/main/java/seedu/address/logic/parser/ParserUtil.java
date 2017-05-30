@@ -29,6 +29,8 @@ public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
     public static final String MESSAGE_INSUFFICIENT_PARTS = "Number of parts must be more than 1.";
+    public static final String MESSAGE_NAME_CONSTRAINTS =
+            "Person names should only contain alphanumeric characters and spaces, and it should not be blank";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -52,7 +54,7 @@ public class ParserUtil {
         requireNonNull(name);
         String trimmedName = name.trim();
         if (!Name.isValidName(trimmedName)) {
-            throw new IllegalValueException(Name.MESSAGE_NAME_CONSTRAINTS);
+            throw new IllegalValueException(MESSAGE_NAME_CONSTRAINTS);
         }
         return new Name(trimmedName);
     }
