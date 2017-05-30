@@ -41,6 +41,9 @@ public class XmlAdaptedTag {
      * @throws IllegalValueException if there were any data constraints violated in the adapted person
      */
     public Tag toModelType() throws IllegalValueException {
+        if (!Tag.isValidTagName(tagName)) {
+            throw new IllegalValueException(Tag.MESSAGE_TAG_CONSTRAINTS);
+        }
         return new Tag(tagName);
     }
 
