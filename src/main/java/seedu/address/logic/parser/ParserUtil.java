@@ -33,6 +33,8 @@ public class ParserUtil {
             "Person names should only contain alphanumeric characters and spaces, and it should not be blank";
     public static final String MESSAGE_PHONE_CONSTRAINTS =
             "Phone numbers can only contain numbers, and should be at least 3 digits long";
+    public static final String MESSAGE_ADDRESS_CONSTRAINTS =
+            "Person addresses can take any values, and it should not be blank";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -102,7 +104,7 @@ public class ParserUtil {
         requireNonNull(address);
         String trimmedAddress = address.trim();
         if (!Address.isValidAddress(trimmedAddress)) {
-            throw new IllegalValueException(Address.MESSAGE_ADDRESS_CONSTRAINTS);
+            throw new IllegalValueException(MESSAGE_ADDRESS_CONSTRAINTS);
         }
         return new Address(trimmedAddress);
     }
