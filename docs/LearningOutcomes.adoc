@@ -6,6 +6,7 @@
 :sectnumlevels: 1
 :imagesDir: images
 ifdef::env-github,env-browser[:outfilesuffix: .adoc]
+:repoURL: https://github.com/se-edu/addressbook-level4/tree/master
 
 After studying this code and completing the corresponding exercises, you should be able to,
 
@@ -27,7 +28,7 @@ Note how the <<DeveloperGuide#architecture, Developer Guide>> uses events to com
 
 == Use API Design `[LO-ApiDesign]`
 
-Note how components of AddressBook have well-defined APIs. For example, the API of the `Logic` component is given in the link:../src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
+Note how components of AddressBook have well-defined APIs. For example, the API of the `Logic` component is given in the link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 image:LogicClassDiagram.png[width="800"]
 
 *Resources*
@@ -137,7 +138,7 @@ Note how our CI server <<UsingTravis#, Travis uses Coveralls to report code cove
 
 == Apply Test Case Design Heuristics `[LO-TestCaseDesignHeuristics]`
 
-The link:../src/test/java/seedu/address/commons/util/StringUtilTest.java[`StringUtilTest.java`]
+The link:{repoURL}/src/test/java/seedu/address/commons/util/StringUtilTest.java[`StringUtilTest.java`]
 class gives some examples of how to use _Equivalence Partitions_, _Boundary Value Analysis_, and _Test Input Combination Heuristics_ to improve the efficiency and effectiveness of test cases testing the link:../src/main/java/seedu/address/commons/util/StringUtil.java[`StringUtil.java`] class.
 
 === Exercise: Apply Test Case Design Heuristics to other places
@@ -152,12 +153,12 @@ class gives some examples of how to use _Equivalence Partitions_, _Boundary Valu
 
 == Write Integration Tests `[LO-IntegrationTests]`
 
-Consider the link:../src/test/java/seedu/address/storage/StorageManagerTest.java[`StorageManagerTest.java`] class.
+Consider the link:{repoURL}/src/test/java/seedu/address/storage/StorageManagerTest.java[`StorageManagerTest.java`] class.
 
 * Test methods `prefsReadSave()` and `addressBookReadSave()` are integration tests. Note how they simply test if The `StorageManager` class is correctly wired to its dependencies.
 * Test method `handleAddressBookChangedEvent_exceptionThrown_eventRaised()` is a unit test because it uses _dependency injection_ to isolate the SUT `StorageManger::handleAddressBookChangedEvent(...)` from its dependencies.
 
-Compare the above with link:../src/test/java/seedu/address/logic/LogicManagerTest.java[`LogicManagerTest`]. Many of the tests in that class (e.g. `execute_add_*` methods) tests are neither integration nor unit tests. They are a _integration + unit_ tests because they not only checks if the LogicManager is correctly wired to its dependencies, but also checks the working of its dependencies. For example, the following two lines test the the `LogicManager` but also the `Parser`.
+Compare the above with link:{repoURL}/src/test/java/seedu/address/logic/LogicManagerTest.java[`LogicManagerTest`]. Many of the tests in that class (e.g. `execute_add_*` methods) tests are neither integration nor unit tests. They are a _integration + unit_ tests because they not only checks if the LogicManager is correctly wired to its dependencies, but also checks the working of its dependencies. For example, the following two lines test the the `LogicManager` but also the `Parser`.
 
 [source,java]
 ----
@@ -179,7 +180,7 @@ public void execute_add_invalidArgsFormat() throws Exception {
 
 == Perform System Testing `[LO-SystemTesting]`
 
-Note how tests below `src/test/java/guitests` package (e.g link:../src/test/java/guitests/AddCommandTest.java[`AddCommandTest.java`]) are system tests because they test the entire system end-to-end.
+Note how tests below `src/test/java/guitests` package (e.g link:{repoURL}/src/test/java/guitests/AddCommandTest.java[`AddCommandTest.java`]) are system tests because they test the entire system end-to-end.
 
 === Exercise: Write more system tests
 
@@ -201,14 +202,14 @@ Note how this project uses TextFX library to automate GUI testing, including <<D
 
 Here are some example design patterns used in the code base.
 
-* *Singleton Pattern* : link:../src/main/java/seedu/address/commons/core/EventsCenter.java[`EventsCenter.java`] is Singleton class. Its single instance can be accessed using the `EventsCenter.getInstance()` method.
-* *Facade Pattern* : link:../src/main/java/seedu/address/storage/StorageManager.java[`StorageManager.java`] is not only shielding the internals of the Storage component from outsiders, it is mostly redirecting methods calls to its internal components (i.e. minimal logic in the class itself). Therefore, `StorageManager` can be considered a Facade class.
-* *Command Pattern* : The link:../src/main/java/seedu/address/logic/commands/Command.java[`Command.java`] and its sub classes implement the Command Pattern.
+* *Singleton Pattern* : link:{repoURL}/src/main/java/seedu/address/commons/core/EventsCenter.java[`EventsCenter.java`] is Singleton class. Its single instance can be accessed using the `EventsCenter.getInstance()` method.
+* *Facade Pattern* : link:{repoURL}/src/main/java/seedu/address/storage/StorageManager.java[`StorageManager.java`] is not only shielding the internals of the Storage component from outsiders, it is mostly redirecting methods calls to its internal components (i.e. minimal logic in the class itself). Therefore, `StorageManager` can be considered a Facade class.
+* *Command Pattern* : The link:{repoURL}/src/main/java/seedu/address/logic/commands/Command.java[`Command.java`] and its sub classes implement the Command Pattern.
 * *Observer Pattern* : The <<DeveloperGuide#events-driven-nature-of-the-desig, event driven mechanism>> used by this code base employs the Observer pattern. For example, objects that are interested in events need to have the `@Subscribe` annotation in the class (this is similar to implementing an `\<<Observer>>` interface) and register with the `EventsCenter`. When something noteworthy happens, an event is raised and the `EventsCenter` notifies all relevant subscribers. Unlike in the Observer pattern in which the `\<<Observerable>>` class is notifying all `\<<Observer>>` objects, here the `\<<Observable>>` classes simply raises an event and the `EventsCenter` takes care of the notifications.
 * *MVC Pattern* :
 ** The 'View' part of the application is mostly in the `.fxml` files in the `src/main/resources/view` folder.
 ** `Model` component contains the 'Model'.
-** Sub classes of link:../src/main/java/seedu/address/ui/UiPart.java[`UiPart`] (e.g. `PersonListPanel` ) act as 'Controllers', each controlling some part of the UI and communicating with the 'Model' via a `Logic` component which sits between the 'Controller' and the 'Model'.
+** Sub classes of link:{repoURL}/src/main/java/seedu/address/ui/UiPart.java[`UiPart`] (e.g. `PersonListPanel` ) act as 'Controllers', each controlling some part of the UI and communicating with the 'Model' via a `Logic` component which sits between the 'Controller' and the 'Model'.
 * *Abstraction Occurrence Pattern* : Not currently used in the app.
 
 === Exercise: Discover other possible applications of the patterns
