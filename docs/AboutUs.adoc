@@ -9,7 +9,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 === http://www.comp.nus.edu.sg/~damithch[Damith C. Rajapakse]
 image::DamithRajapakse.jpg[width="150", align="left"]
 
-*Role*: Project Advisor
+Role: Project Advisor
 
 '''
 

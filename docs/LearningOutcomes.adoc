@@ -38,7 +38,7 @@ image:LogicClassDiagram.png[width="800"]
 
 == Use Assertions `[LO-Assertions]`
 
-Note how the AddressBook app uses Java `assert`s to verify assumptions.
+Note how the AddressBook app uses Java ``assert``s to verify assumptions.
 
 *Resources*
 
@@ -201,7 +201,7 @@ Note how this project uses TextFX library to automate GUI testing, including <<D
 
 Here are some example design patterns used in the code base.
 
-* *Singleton Pattern* : link:../src/main/java/seedu/address/commons/core/EventsCenter.java[`EventsCenter.java`] is Singleton class. Its single instance can be accessed using the `EventsCenter.getInsance()` method.
+* *Singleton Pattern* : link:../src/main/java/seedu/address/commons/core/EventsCenter.java[`EventsCenter.java`] is Singleton class. Its single instance can be accessed using the `EventsCenter.getInstance()` method.
 * *Facade Pattern* : link:../src/main/java/seedu/address/storage/StorageManager.java[`StorageManager.java`] is not only shielding the internals of the Storage component from outsiders, it is mostly redirecting methods calls to its internal components (i.e. minimal logic in the class itself). Therefore, `StorageManager` can be considered a Facade class.
 * *Command Pattern* : The link:../src/main/java/seedu/address/logic/commands/Command.java[`Command.java`] and its sub classes implement the Command Pattern.
 * *Observer Pattern* : The <<DeveloperGuide#events-driven-nature-of-the-desig, event driven mechanism>> used by this code base employs the Observer pattern. For example, objects that are interested in events need to have the `@Subscribe` annotation in the class (this is similar to implementing an `\<<Observer>>` interface) and register with the `EventsCenter`. When something noteworthy happens, an event is raised and the `EventsCenter` notifies all relevant subscribers. Unlike in the Observer pattern in which the `\<<Observerable>>` class is notifying all `\<<Observer>>` objects, here the `\<<Observable>>` classes simply raises an event and the `EventsCenter` takes care of the notifications.
