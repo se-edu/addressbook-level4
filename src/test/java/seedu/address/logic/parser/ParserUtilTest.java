@@ -91,8 +91,8 @@ public class ParserUtilTest {
 
     @Test
     public void parsePhone_null_throwsNullPointerException() throws Exception {
-        thrown.expect(NullPointerException.class);
-        ParserUtil.parsePhone(null);
+        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parsePhone((String) null));
+        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parsePhone((Optional<String>) null));
     }
 
     @Test
