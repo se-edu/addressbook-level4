@@ -2,7 +2,6 @@ package seedu.address.testutil;
 
 import java.util.Set;
 
-import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -26,16 +25,12 @@ public class PersonBuilder {
     private Person person;
 
     public PersonBuilder() {
-        try {
-            Name defaultName = new Name(DEFAULT_NAME);
-            Phone defaultPhone = new Phone(DEFAULT_PHONE);
-            Email defaultEmail = new Email(DEFAULT_EMAIL);
-            Address defaultAddress = new Address(DEFAULT_ADDRESS);
-            Set<Tag> defaultTags = SampleDataUtil.getTagSet(DEFAULT_TAGS);
-            this.person = new Person(defaultName, defaultPhone, defaultEmail, defaultAddress, defaultTags);
-        } catch (IllegalValueException ive) {
-            throw new AssertionError("Default person's values are invalid.");
-        }
+        Name defaultName = new Name(DEFAULT_NAME);
+        Phone defaultPhone = new Phone(DEFAULT_PHONE);
+        Email defaultEmail = new Email(DEFAULT_EMAIL);
+        Address defaultAddress = new Address(DEFAULT_ADDRESS);
+        Set<Tag> defaultTags = SampleDataUtil.getTagSet(DEFAULT_TAGS);
+        this.person = new Person(defaultName, defaultPhone, defaultEmail, defaultAddress, defaultTags);
     }
 
     /**
@@ -57,11 +52,7 @@ public class PersonBuilder {
      * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Person} that we are building.
      */
     public PersonBuilder withTags(String ... tags) {
-        try {
-            this.person.setTags(SampleDataUtil.getTagSet(tags));
-        } catch (IllegalValueException ive) {
-            throw new IllegalArgumentException("tags are expected to be unique.");
-        }
+        this.person.setTags(SampleDataUtil.getTagSet(tags));
         return this;
     }
 
