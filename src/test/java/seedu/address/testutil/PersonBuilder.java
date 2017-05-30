@@ -49,11 +49,7 @@ public class PersonBuilder {
      * Sets the {@code Name} of the {@code Person} that we are building.
      */
     public PersonBuilder withName(String name) {
-        try {
-            this.person.setName(new Name(name));
-        } catch (IllegalValueException ive) {
-            throw new IllegalArgumentException("name is expected to be unique.");
-        }
+        this.person.setName(new Name(name));
         return this;
     }
 
