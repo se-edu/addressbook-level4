@@ -167,7 +167,7 @@ public class LogicManagerTest {
         try {
             ExecutionResult result = logic.execute(inputCommand);
             assertEquals(expectedException, null);
-            assertEquals(expectedMessage, result.feedbackToUser);
+            assertEquals(expectedMessage, result.message);
         } catch (CommandException | ParseException e) {
             assertEquals(expectedException, e.getClass());
             assertEquals(expectedMessage, e.getMessage());

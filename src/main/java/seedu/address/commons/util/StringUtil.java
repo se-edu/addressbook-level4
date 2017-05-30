@@ -1,6 +1,8 @@
 package seedu.address.commons.util;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.AppUtil.checkArgument;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -47,13 +49,12 @@ public class StringUtil {
      * and joins the last element with "and". e.g If the {@code strings} are
      * {"Phone", "Name", "Email"}, the returned result is: "Phone, Name and Email".
      *
-     * @throws IllegalArgumentException if {@code strings.size()} < 2 or any null values exist in it.
+     * @throws IllegalArgumentException if {@code strings.size()} < 2.
+     * @throws NullPointerException if {@code strings} contain any null values.
      */
     public static String joinStrings(List<String> strings) {
-        requireNonNull(strings);
-        if (strings.size() < 2 || CollectionUtil.isAnyNull(strings)) {
-            throw new IllegalArgumentException();
-        }
+        requireAllNonNull(strings);
+        checkArgument(strings.size() >= 2);
 
         // strings parameter may not always have List#remove(int) implemented, so we have to
         // recreate the list to ArrayList (which implements List#remove(int))

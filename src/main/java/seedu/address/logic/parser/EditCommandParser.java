@@ -30,7 +30,7 @@ public class EditCommandParser {
      * @throws ParseException if the user input does not conform the expected format
      */
     public ParserResult<EditCommand> parse(String args) throws ParseException {
-        assert args != null;
+        requireNonNull(args);
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_TAG);
         List<Optional<String>> preambleFields = ParserUtil.split(argMultimap.getPreamble(), 2);

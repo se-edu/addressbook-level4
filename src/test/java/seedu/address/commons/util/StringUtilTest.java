@@ -9,6 +9,7 @@ import static org.junit.Assert.assertTrue;
 import java.io.FileNotFoundException;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Optional;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -169,8 +170,8 @@ public class StringUtilTest {
     }
 
     @Test
-    public void joinStrings_listContainsNull_throwsIllegalArgumentException() {
-        thrown.expect(IllegalArgumentException.class);
+    public void joinStrings_listContainsNull_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
         StringUtil.joinStrings(Arrays.asList("one", null, "three", "four"));
     }
 

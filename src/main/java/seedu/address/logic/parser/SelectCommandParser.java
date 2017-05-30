@@ -18,7 +18,7 @@ public class SelectCommandParser {
      */
     public ParserResult<SelectCommand> parse(String args) throws ParseException {
         try {
-            int index = ParserUtil.parseIndex(args);
+            Index index = ParserUtil.parseIndex(args);
             return new ParserResult<>(new SelectCommand(index));
         } catch (IllegalValueException ive) {
             throw new ParseException(
