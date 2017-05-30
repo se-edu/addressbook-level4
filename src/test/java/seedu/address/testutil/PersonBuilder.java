@@ -81,11 +81,7 @@ public class PersonBuilder {
      * Sets the {@code Phone} of the {@code Person} that we are building.
      */
     public PersonBuilder withPhone(String phone) {
-        try {
-            this.person.setPhone(new Phone(phone));
-        } catch (IllegalValueException ive) {
-            throw new IllegalArgumentException("phone is expected to be unique.");
-        }
+        this.person.setPhone(new Phone(phone));
         return this;
     }
 
