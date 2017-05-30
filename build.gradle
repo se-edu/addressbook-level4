@@ -196,7 +196,8 @@ asciidoctor {
                experimental: true,
                numbered: true,
                sectlinks: true,
-               idprefix: ''  // for compatibility with GitHub preview
+               idprefix: '',  // for compatibility with GitHub preview
+               idseparator: '-'
 }
 
 /*
