@@ -5,7 +5,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.logic.parser.ParserUtil.getWarningMessage;
 
 import java.util.Optional;
 import java.util.Set;
@@ -39,7 +38,8 @@ public class AddCommandParser {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
         }
 
-        Optional<String> warning = getWarningMessage(argMultimap, PREFIX_ADDRESS, PREFIX_PHONE, PREFIX_EMAIL);
+        Optional<String> warning = ParserUtil.getWarningMessage(
+                argMultimap, PREFIX_ADDRESS, PREFIX_PHONE, PREFIX_EMAIL);
 
         try {
             Name name = new Name(argMultimap.getPreamble());
@@ -50,8 +50,7 @@ public class AddCommandParser {
 
             ReadOnlyPerson person = new Person(name, phone, email, address, tagList);
 
-            return warning.isPresent() ? new ParserResult<>(new AddCommand(person), warning.get())
-                    : new ParserResult<>(new AddCommand(person));
+            return new ParserResult<>(new AddCommand(person), warning.orElse(null));
         } catch (IllegalValueException ive) {
             throw new ParseException(ive.getMessage(), ive);
         }

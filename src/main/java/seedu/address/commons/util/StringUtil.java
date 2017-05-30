@@ -60,7 +60,6 @@ public class StringUtil {
         StringBuilder result = new StringBuilder(strings.stream().filter(Objects::nonNull)
                 .collect(Collectors.joining(", ")));
 
-        // Replaces the last comma with the word "and"
         int lastIndexOfComma = result.lastIndexOf(",");
         if (lastIndexOfComma == -1) {
             return result.toString();
