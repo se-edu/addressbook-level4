@@ -140,13 +140,25 @@ public class ParserUtil {
     }
 
     /**
+     * Parses a {@code String tag} into a {@code Tag}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws IllegalValueException if the given tag name string is invalid.
+     */
+    public static Tag parseTag(String tag) throws IllegalValueException {
+        requireNonNull(tag);
+        String trimmedTag = tag.trim();
+        return new Tag(trimmedTag);
+    }
+
+    /**
      * Parses {@code Collection<String> tags} into a {@code Set<Tag>}.
      */
     public static Set<Tag> parseTags(Collection<String> tags) throws IllegalValueException {
         requireNonNull(tags);
         final Set<Tag> tagSet = new HashSet<>();
         for (String tagName : tags) {
-            tagSet.add(new Tag(tagName));
+            tagSet.add(parseTag(tagName));
         }
         return tagSet;
     }
