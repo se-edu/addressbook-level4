@@ -55,8 +55,8 @@ public class StringUtil {
             throw new IllegalArgumentException();
         }
 
-        // strings parameter may not always have remove(int) implemented, so we have to
-        // recreate the list to ArrayList (which implements remove(int))
+        // strings parameter may not always have List#remove(int) implemented, so we have to
+        // recreate the list to ArrayList (which implements List#remove(int))
         ArrayList<String> copy = new ArrayList<>(strings);
         String lastString = copy.remove(copy.size() - 1);
         return String.join(", ", copy) + " and " + lastString;

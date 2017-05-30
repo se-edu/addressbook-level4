@@ -35,7 +35,7 @@ public class LogicManager extends ComponentManager implements Logic {
         ParserResult parserResult = parser.parseCommand(commandText);
         parserResult.command.setData(model);
         CommandResult commandResult = parserResult.command.execute();
-        return new ExecutionResult(commandResult.feedbackToUser, parserResult.warning);
+        return new ExecutionResult(parserResult, commandResult);
     }
 
     @Override

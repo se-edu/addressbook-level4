@@ -1,7 +1,7 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TO_CLASS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TO_CLASS_NAME;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -108,7 +108,8 @@ public class ParserUtil {
             return Optional.empty();
         }
 
-        String joinedFields = (fieldsWithMultipleValues.size() == 1) ? fieldsWithMultipleValues.get(0)
+        String joinedFields = (fieldsWithMultipleValues.size() == 1)
+                ? fieldsWithMultipleValues.get(0)
                 : StringUtil.joinStrings(fieldsWithMultipleValues);
         return Optional.of(String.format(MESSAGE_MULTIPLE_VALUES_WARNING, joinedFields));
     }
@@ -122,6 +123,6 @@ public class ParserUtil {
         assert prefixes != null;
 
         return Arrays.stream(prefixes).filter(prefix -> argMultimap.getAllValues(prefix).size() > 1)
-                .map(PREFIX_TO_CLASS::get).collect(Collectors.toList());
+                .map(PREFIX_TO_CLASS_NAME::get).collect(Collectors.toList());
     }
 }

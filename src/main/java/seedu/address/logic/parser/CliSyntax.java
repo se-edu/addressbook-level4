@@ -18,12 +18,12 @@ public class CliSyntax {
     public static final Prefix PREFIX_ADDRESS = new Prefix("a/");
     public static final Prefix PREFIX_TAG = new Prefix("t/");
 
-    public static final Map<Prefix, String> PREFIX_TO_CLASS;
+    public static final Map<Prefix, String> PREFIX_TO_CLASS_NAME;
 
     static {
-        PREFIX_TO_CLASS = new HashMap<>();
-        PREFIX_TO_CLASS.put(PREFIX_PHONE, Phone.class.getSimpleName());
-        PREFIX_TO_CLASS.put(PREFIX_EMAIL, Email.class.getSimpleName());
-        PREFIX_TO_CLASS.put(PREFIX_ADDRESS, Address.class.getSimpleName());
+        PREFIX_TO_CLASS_NAME = new HashMap<>();
+        PREFIX_TO_CLASS_NAME.put(PREFIX_PHONE, Phone.class.getSimpleName());
+        PREFIX_TO_CLASS_NAME.put(PREFIX_EMAIL, Email.class.getSimpleName());
+        PREFIX_TO_CLASS_NAME.put(PREFIX_ADDRESS, Address.class.getSimpleName());
     }
 }

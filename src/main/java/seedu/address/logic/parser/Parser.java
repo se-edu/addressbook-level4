@@ -28,10 +28,9 @@ public class Parser {
     private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
 
     /**
-     * Parses user input into command for execution.
+     * Parses (@code userInput} into command for execution. Returns {@code ParserResult}
+     * containing the command and warning message (if any).
      *
-     * @param userInput full user input string
-     * @return the command based on the user input
      * @throws ParseException if the user input does not conform the expected format
      */
     public ParserResult parseCommand(String userInput) throws ParseException {
