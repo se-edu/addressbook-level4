@@ -1,8 +1,7 @@
 package seedu.address.model.person;
 
 import static java.util.Objects.requireNonNull;
-
-import seedu.address.commons.exceptions.IllegalValueException;
+import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents a Person's address in the address book.
@@ -22,15 +21,11 @@ public class Address {
     public final String value;
 
     /**
-     * Validates given address.
-     *
-     * @throws IllegalValueException if given address string is invalid.
+     * Constructs a valid address.
      */
-    public Address(String address) throws IllegalValueException {
+    public Address(String address) {
         requireNonNull(address);
-        if (!isValidAddress(address)) {
-            throw new IllegalValueException(MESSAGE_ADDRESS_CONSTRAINTS);
-        }
+        checkArgument(isValidAddress(address), MESSAGE_ADDRESS_CONSTRAINTS);
         this.value = address;
     }
 
