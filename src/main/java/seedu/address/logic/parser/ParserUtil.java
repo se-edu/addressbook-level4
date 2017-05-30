@@ -51,6 +51,9 @@ public class ParserUtil {
     public static Name parseName(String name) throws IllegalValueException {
         requireNonNull(name);
         String trimmedName = name.trim();
+        if (!Name.isValidName(trimmedName)) {
+            throw new IllegalValueException(Name.MESSAGE_NAME_CONSTRAINTS);
+        }
         return new Name(trimmedName);
     }
 
