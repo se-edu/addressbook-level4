@@ -37,6 +37,7 @@ public class ParserUtil {
             "Person addresses can take any values, and it should not be blank";
     public static final String MESSAGE_EMAIL_CONSTRAINTS =
             "Person emails should be 2 alphanumeric/period strings separated by '@'";
+    public static final String MESSAGE_TAG_CONSTRAINTS = "Tags names should be alphanumeric";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -152,7 +153,7 @@ public class ParserUtil {
         requireNonNull(tag);
         String trimmedTag = tag.trim();
         if (!Tag.isValidTagName(trimmedTag)) {
-            throw new IllegalValueException(Tag.MESSAGE_TAG_CONSTRAINTS);
+            throw new IllegalValueException(MESSAGE_TAG_CONSTRAINTS);
         }
         return new Tag(trimmedTag);
     }

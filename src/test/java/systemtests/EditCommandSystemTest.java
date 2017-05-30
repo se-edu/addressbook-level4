@@ -43,7 +43,6 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
-import seedu.address.model.tag.Tag;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.PersonUtil;
 
@@ -169,7 +168,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: invalid tag -> rejected */
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased() + INVALID_TAG_DESC,
-                Tag.MESSAGE_TAG_CONSTRAINTS);
+                ParserUtil.MESSAGE_TAG_CONSTRAINTS);
 
         /* Case: edit a person with new values same as another person's values -> rejected */
         executeCommand(PersonUtil.getAddCommand(BOB));

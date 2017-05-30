@@ -36,7 +36,6 @@ import org.junit.Test;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.logic.commands.EditCommand;
-import seedu.address.model.tag.Tag;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 
 public class EditCommandParserTest {
@@ -82,7 +81,7 @@ public class EditCommandParserTest {
         assertParseFailure(parser, "1" + INVALID_EMAIL_DESC, ParserUtil.MESSAGE_EMAIL_CONSTRAINTS); // invalid email
         // invalid address
         assertParseFailure(parser, "1" + INVALID_ADDRESS_DESC, ParserUtil.MESSAGE_ADDRESS_CONSTRAINTS);
-        assertParseFailure(parser, "1" + INVALID_TAG_DESC, Tag.MESSAGE_TAG_CONSTRAINTS); // invalid tag
+        assertParseFailure(parser, "1" + INVALID_TAG_DESC, ParserUtil.MESSAGE_TAG_CONSTRAINTS); // invalid tag
 
         // invalid phone followed by valid email
         assertParseFailure(parser, "1" + INVALID_PHONE_DESC + EMAIL_DESC_AMY, ParserUtil.MESSAGE_PHONE_CONSTRAINTS);
@@ -93,9 +92,12 @@ public class EditCommandParserTest {
 
         // while parsing {@code PREFIX_TAG} alone will reset the tags of the {@code Person} being edited,
         // parsing it together with a valid tag results in error
-        assertParseFailure(parser, "1" + TAG_DESC_FRIEND + TAG_DESC_HUSBAND + TAG_EMPTY, Tag.MESSAGE_TAG_CONSTRAINTS);
-        assertParseFailure(parser, "1" + TAG_DESC_FRIEND + TAG_EMPTY + TAG_DESC_HUSBAND, Tag.MESSAGE_TAG_CONSTRAINTS);
-        assertParseFailure(parser, "1" + TAG_EMPTY + TAG_DESC_FRIEND + TAG_DESC_HUSBAND, Tag.MESSAGE_TAG_CONSTRAINTS);
+        assertParseFailure(parser, "1" + TAG_DESC_FRIEND + TAG_DESC_HUSBAND + TAG_EMPTY,
+                ParserUtil.MESSAGE_TAG_CONSTRAINTS);
+        assertParseFailure(parser, "1" + TAG_DESC_FRIEND + TAG_EMPTY + TAG_DESC_HUSBAND,
+                ParserUtil.MESSAGE_TAG_CONSTRAINTS);
+        assertParseFailure(parser, "1" + TAG_EMPTY + TAG_DESC_FRIEND + TAG_DESC_HUSBAND,
+                ParserUtil.MESSAGE_TAG_CONSTRAINTS);
 
         // multiple invalid values, but only the first invalid value is captured
         assertParseFailure(parser, "1" + INVALID_NAME_DESC + INVALID_EMAIL_DESC + VALID_ADDRESS_AMY + VALID_PHONE_AMY,
