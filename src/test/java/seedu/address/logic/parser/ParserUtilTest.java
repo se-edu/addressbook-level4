@@ -131,15 +131,15 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parseAddress_null_throwsNullPointerException() throws Exception {
-        thrown.expect(NullPointerException.class);
-        ParserUtil.parseAddress(null);
+    public void parseAddress_null_throwsNullPointerException() {
+        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseAddress((String) null));
+        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseAddress((Optional<String>) null));
     }
 
     @Test
-    public void parseAddress_invalidValue_throwsIllegalValueException() throws Exception {
-        thrown.expect(IllegalValueException.class);
-        ParserUtil.parseAddress(Optional.of(INVALID_ADDRESS));
+    public void parseAddress_invalidValue_throwsIllegalValueException() {
+        Assert.assertThrows(IllegalValueException.class, () -> ParserUtil.parseAddress(INVALID_ADDRESS));
+        Assert.assertThrows(IllegalValueException.class, () -> ParserUtil.parseAddress(Optional.of(INVALID_ADDRESS)));
     }
 
     @Test
@@ -150,9 +150,16 @@ public class ParserUtilTest {
     @Test
     public void parseAddress_validValue_returnsAddress() throws Exception {
         Address expectedAddress = new Address(VALID_ADDRESS);
-        Optional<Address> actualAddress = ParserUtil.parseAddress(Optional.of(VALID_ADDRESS));
+        assertEquals(expectedAddress, ParserUtil.parseAddress(VALID_ADDRESS));
+        assertEquals(Optional.of(expectedAddress), ParserUtil.parseAddress(Optional.of(VALID_ADDRESS)));
+    }
 
-        assertEquals(expectedAddress, actualAddress.get());
+    @Test
+    public void parseAddress_validValueWithWhitespace_returnsAddress() throws Exception {
+        String addressWithWhitespace = WHITESPACE + VALID_ADDRESS + WHITESPACE;
+        Address expectedAddress = new Address(VALID_ADDRESS);
+        assertEquals(expectedAddress, ParserUtil.parseAddress(addressWithWhitespace));
+        assertEquals(Optional.of(expectedAddress), ParserUtil.parseAddress(Optional.of(addressWithWhitespace)));
     }
 
     @Test
