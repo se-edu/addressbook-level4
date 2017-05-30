@@ -89,7 +89,12 @@ public class XmlAdaptedPerson {
         }
         final Phone phone = new Phone(this.phone);
         final Email email = new Email(this.email);
+
+        if (!Address.isValidAddress(this.address)) {
+            throw new IllegalValueException(Address.MESSAGE_ADDRESS_CONSTRAINTS);
+        }
         final Address address = new Address(this.address);
+
         final Set<Tag> tags = new HashSet<>(personTags);
         return new Person(name, phone, email, address, tags);
     }
