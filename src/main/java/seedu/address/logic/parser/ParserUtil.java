@@ -76,6 +76,9 @@ public class ParserUtil {
     public static Phone parsePhone(String phone) throws IllegalValueException {
         requireNonNull(phone);
         String trimmedPhone = phone.trim();
+        if (!Phone.isValidPhone(trimmedPhone)) {
+            throw new IllegalValueException(Phone.MESSAGE_PHONE_CONSTRAINTS);
+        }
         return new Phone(trimmedPhone);
     }
 
