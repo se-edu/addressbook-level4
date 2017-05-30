@@ -163,19 +163,19 @@ public class StringUtilTest {
     }
 
     @Test
-    public void joinStrings_listContainsNull_failure() {
+    public void joinStrings_listContainsNull_throwsIllegalArgumentException() {
         thrown.expect(IllegalArgumentException.class);
         StringUtil.joinStrings(Arrays.asList("one", null, "three", "four"));
     }
 
     @Test
-    public void joinStrings_sizeZeroList_failure() {
+    public void joinStrings_sizeZeroList_throwsIllegalArgumentException() {
         thrown.expect(IllegalArgumentException.class);
         StringUtil.joinStrings(Collections.emptyList());
     }
 
     @Test
-    public void joinStrings_sizeOneList_failure() {
+    public void joinStrings_sizeOneList_throwsIllegalArgumentException() {
         thrown.expect(IllegalArgumentException.class);
         StringUtil.joinStrings(Collections.singletonList("one"));
     }

@@ -16,13 +16,8 @@ public class ParserResult<T extends Command> {
         this(command, "");
     }
 
-    /**
-     * @param warning will be converted into an empty String if null.
-     * @throws NullPointerException if command is null.
-     */
     public ParserResult(T command, String warning) {
         this.command = requireNonNull(command);
         this.warning = requireNonNull(warning);
     }
-
 }

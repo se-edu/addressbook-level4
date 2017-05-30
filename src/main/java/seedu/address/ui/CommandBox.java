@@ -45,8 +45,11 @@ public class CommandBox extends UiPart<Region> {
             // process result of the command
             setStyleToIndicateCommandSuccess();
             commandTextField.setText("");
-            String resultMessage = executionResult.warning.isEmpty() ? executionResult.feedbackToUser
-                    : executionResult.feedbackToUser + "\n" + executionResult.warning;
+            String resultMessage = executionResult.feedbackToUser;
+            if (!executionResult.warning.isEmpty()) {
+                resultMessage += "\n" + executionResult.warning;
+            }
+
             logger.info("Result: " + resultMessage);
             raise(new NewResultAvailableEvent(resultMessage));
 

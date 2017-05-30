@@ -25,7 +25,7 @@ import seedu.address.model.tag.Tag;
 public class ParserUtil {
 
     public static final String MESSAGE_MULTIPLE_VALUES_WARNING = "Warning: Multiple %1$s values entered. "
-            + "Only the last instance of %1$s has been stored.\n";
+            + "Only the last instance of %1$s has been stored.";
 
     /**
      * Parses {@code index} into an integer and returns it. Leading and trailing whitespaces will be trimmed.
@@ -96,10 +96,8 @@ public class ParserUtil {
     }
 
     /**
-     * Generates a warning message for key-value mappings with multiple values for each key in {@code prefixes}
-     * in {@code argMultimap}.
-     *
-     * @return Optional.empty() if there are no key-value mappings with multiple values.
+     * Generates a warning message for each field (represented by {@code prefixes}) that appears multiple times in
+     * {@code argMultimap}. Returns {@code Optional.empty()} if there are no fields that appears multiple times.
      */
     public static Optional<String> getWarningMessage(ArgumentMultimap argMultimap, Prefix... prefixes) {
         requireNonNull(argMultimap);
@@ -110,14 +108,14 @@ public class ParserUtil {
             return Optional.empty();
         }
 
-        String joinedFields = fieldsWithMultipleValues.size() == 1 ? fieldsWithMultipleValues.get(0)
+        String joinedFields = (fieldsWithMultipleValues.size() == 1) ? fieldsWithMultipleValues.get(0)
                 : StringUtil.joinStrings(fieldsWithMultipleValues);
         return Optional.of(String.format(MESSAGE_MULTIPLE_VALUES_WARNING, joinedFields));
     }
 
     /**
-     * Returns a {@code List<String>} containing the key-value mappings with multiple values
-     * for each key in {@code prefixes} in {@code argMultimap}.
+     * Returns a {@code List<String>} of fields (represented by {@code prefixes}) that appears multiple times in
+     * {@code argMultimap}.
      */
     private static List<String> getFieldsWithMultipleValues(ArgumentMultimap argMultimap, Prefix... prefixes) {
         assert argMultimap != null;

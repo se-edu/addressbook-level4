@@ -5,7 +5,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.logic.parser.ParserUtil.getWarningMessage;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -46,7 +45,8 @@ public class EditCommandParser {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
         }
 
-        Optional<String> warning = getWarningMessage(argMultimap, PREFIX_ADDRESS, PREFIX_PHONE, PREFIX_EMAIL);
+        Optional<String> warning = ParserUtil.getWarningMessage(
+                argMultimap, PREFIX_ADDRESS, PREFIX_PHONE, PREFIX_EMAIL);
 
         EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
         try {
