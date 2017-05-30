@@ -47,7 +47,7 @@ public class ParserUtil {
      * Parses a {@code String name} into a {@code Name}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws IllegalValueException if the given name string is invalid.
+     * @throws IllegalValueException if the given {@code name} is invalid.
      */
     public static Name parseName(String name) throws IllegalValueException {
         requireNonNull(name);
@@ -71,7 +71,7 @@ public class ParserUtil {
      * Parses a {@code String phone} into a {@code Phone}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws IllegalValueException if the given phone string is invalid.
+     * @throws IllegalValueException if the given {@code phone} is invalid.
      */
     public static Phone parsePhone(String phone) throws IllegalValueException {
         requireNonNull(phone);
@@ -95,7 +95,7 @@ public class ParserUtil {
      * Parses a {@code String address} into an {@code Address}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws IllegalValueException if the given address string is invalid.
+     * @throws IllegalValueException if the given {@code address} is invalid.
      */
     public static Address parseAddress(String address) throws IllegalValueException {
         requireNonNull(address);
@@ -119,7 +119,7 @@ public class ParserUtil {
      * Parses a {@code String email} into an {@code Email}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws IllegalValueException if the given email address string is invalid.
+     * @throws IllegalValueException if the given {@code email} is invalid.
      */
     public static Email parseEmail(String email) throws IllegalValueException {
         requireNonNull(email);
@@ -143,7 +143,7 @@ public class ParserUtil {
      * Parses a {@code String tag} into a {@code Tag}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws IllegalValueException if the given tag name string is invalid.
+     * @throws IllegalValueException if the given {@code tag} is invalid.
      */
     public static Tag parseTag(String tag) throws IllegalValueException {
         requireNonNull(tag);

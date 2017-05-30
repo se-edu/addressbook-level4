@@ -16,7 +16,9 @@ public class Email {
     public final String value;
 
     /**
-     * Constructs a valid email.
+     * Constructs an {@code Email}.
+     *
+     * @param email A valid email address.
      */
     public Email(String email) {
         requireNonNull(email);

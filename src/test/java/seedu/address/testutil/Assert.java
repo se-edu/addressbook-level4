@@ -8,7 +8,7 @@ import junit.framework.AssertionFailedError;
 public class Assert {
 
     /**
-     * Asserts that the {@code executable} throws the {@code expected} Exception.
+     * Asserts that the {@code callable} throws the {@code expected} Exception.
      */
     public static void assertThrows(Class<? extends Throwable> expected, VoidCallable callable) {
         try {

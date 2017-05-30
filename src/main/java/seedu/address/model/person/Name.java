@@ -21,7 +21,9 @@ public class Name {
     public final String fullName;
 
     /**
-     * Constructs a valid name.
+     * Constructs a {@code Name}.
+     *
+     * @param name A valid name.
      */
     public Name(String name) {
         requireNonNull(name);

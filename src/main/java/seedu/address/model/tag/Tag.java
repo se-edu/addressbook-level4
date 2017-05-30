@@ -15,12 +15,14 @@ public class Tag {
     public final String tagName;
 
     /**
-     * Constructs a valid Tag.
+     * Constructs a {@code Tag}.
+     *
+     * @param tagName A valid tag name.
      */
-    public Tag(String name) {
-        requireNonNull(name);
-        checkArgument(isValidTagName(name), MESSAGE_TAG_CONSTRAINTS);
-        this.tagName = name;
+    public Tag(String tagName) {
+        requireNonNull(tagName);
+        checkArgument(isValidTagName(tagName), MESSAGE_TAG_CONSTRAINTS);
+        this.tagName = tagName;
     }
 
     /**

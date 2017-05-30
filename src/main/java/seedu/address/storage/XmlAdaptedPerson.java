@@ -39,6 +39,18 @@ public class XmlAdaptedPerson {
      */
     public XmlAdaptedPerson() {}
 
+    /**
+     * Constructs an {@code XmlAdaptedPerson} with the given person details.
+     */
+    public XmlAdaptedPerson(String name, String phone, String email, String address, List<XmlAdaptedTag> tagged) {
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.address = address;
+        if (tagged != null) {
+            this.tagged = new ArrayList<>(tagged);
+        }
+    }
 
     /**
      * Converts a given Person into this class for JAXB use.
@@ -66,10 +78,27 @@ public class XmlAdaptedPerson {
         for (XmlAdaptedTag tag : tagged) {
             personTags.add(tag.toModelType());
         }
+
+        if (!Name.isValidName(this.name)) {
+            throw new IllegalValueException(Name.MESSAGE_NAME_CONSTRAINTS);
+        }
         final Name name = new Name(this.name);
+
+        if (!Phone.isValidPhone(this.phone)) {
+            throw new IllegalValueException(Phone.MESSAGE_PHONE_CONSTRAINTS);
+        }
         final Phone phone = new Phone(this.phone);
+
+        if (!Email.isValidEmail(this.email)) {
+            throw new IllegalValueException(Email.MESSAGE_EMAIL_CONSTRAINTS);
+        }
         final Email email = new Email(this.email);
+
+        if (!Address.isValidAddress(this.address)) {
+            throw new IllegalValueException(Address.MESSAGE_ADDRESS_CONSTRAINTS);
+        }
         final Address address = new Address(this.address);
+
         final Set<Tag> tags = new HashSet<>(personTags);
         return new Person(name, phone, email, address, tags);
     }
