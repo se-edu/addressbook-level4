@@ -35,6 +35,8 @@ public class ParserUtil {
             "Phone numbers can only contain numbers, and should be at least 3 digits long";
     public static final String MESSAGE_ADDRESS_CONSTRAINTS =
             "Person addresses can take any values, and it should not be blank";
+    public static final String MESSAGE_EMAIL_CONSTRAINTS =
+            "Person emails should be 2 alphanumeric/period strings separated by '@'";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -127,7 +129,7 @@ public class ParserUtil {
         requireNonNull(email);
         String trimmedEmail = email.trim();
         if (!Email.isValidEmail(trimmedEmail)) {
-            throw new IllegalValueException(Email.MESSAGE_EMAIL_CONSTRAINTS);
+            throw new IllegalValueException(MESSAGE_EMAIL_CONSTRAINTS);
         }
         return new Email(trimmedEmail);
     }
