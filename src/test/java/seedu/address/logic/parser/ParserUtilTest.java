@@ -163,15 +163,15 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parseEmail_null_throwsNullPointerException() throws Exception {
-        thrown.expect(NullPointerException.class);
-        ParserUtil.parseEmail(null);
+    public void parseEmail_null_throwsNullPointerException() {
+        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseEmail((String) null));
+        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseEmail((Optional<String>) null));
     }
 
     @Test
-    public void parseEmail_invalidValue_throwsIllegalValueException() throws Exception {
-        thrown.expect(IllegalValueException.class);
-        ParserUtil.parseEmail(Optional.of(INVALID_EMAIL));
+    public void parseEmail_invalidValue_throwsIllegalValueException() {
+        Assert.assertThrows(IllegalValueException.class, () -> ParserUtil.parseEmail(INVALID_EMAIL));
+        Assert.assertThrows(IllegalValueException.class, () -> ParserUtil.parseEmail(Optional.of(INVALID_EMAIL)));
     }
 
     @Test
@@ -180,11 +180,18 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parseEmail_validValue_returnsEmail() throws Exception {
+    public void parseEmail_validValueWithoutWhitespace_returnsEmail() throws Exception {
         Email expectedEmail = new Email(VALID_EMAIL);
-        Optional<Email> actualEmail = ParserUtil.parseEmail(Optional.of(VALID_EMAIL));
+        assertEquals(expectedEmail, ParserUtil.parseEmail(VALID_EMAIL));
+        assertEquals(Optional.of(expectedEmail), ParserUtil.parseEmail(Optional.of(VALID_EMAIL)));
+    }
 
-        assertEquals(expectedEmail, actualEmail.get());
+    @Test
+    public void parseEmail_validValueWithWhitespace_returnsTrimmedEmail() throws Exception {
+        String emailWithWhitespace = WHITESPACE + VALID_EMAIL + WHITESPACE;
+        Email expectedEmail = new Email(VALID_EMAIL);
+        assertEquals(expectedEmail, ParserUtil.parseEmail(emailWithWhitespace));
+        assertEquals(Optional.of(expectedEmail), ParserUtil.parseEmail(Optional.of(emailWithWhitespace)));
     }
 
     @Test
