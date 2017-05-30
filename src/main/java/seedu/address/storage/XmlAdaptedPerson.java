@@ -88,6 +88,10 @@ public class XmlAdaptedPerson {
             throw new IllegalValueException(Phone.MESSAGE_PHONE_CONSTRAINTS);
         }
         final Phone phone = new Phone(this.phone);
+
+        if (!Email.isValidEmail(this.email)) {
+            throw new IllegalValueException(Email.MESSAGE_EMAIL_CONSTRAINTS);
+        }
         final Email email = new Email(this.email);
 
         if (!Address.isValidAddress(this.address)) {
