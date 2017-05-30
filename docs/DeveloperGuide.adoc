@@ -17,12 +17,11 @@ By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
 === Prerequisites
 
 . *JDK `1.8.0_60`* or later
-
++
 [NOTE]
 Having any Java 8 version is not enough. +
 This app will not work with earlier versions of Java 8.
-
-[start=2]
++
 .  *Eclipse* IDE
 .  *e(fx)clipse* plugin for Eclipse (Do the steps 2 onwards given in http://www.eclipse.org/efxclipse/install.html#for-the-ambitious[this page])
 .  *Buildship Gradle Integration* plugin from the Eclipse Marketplace
@@ -304,7 +303,8 @@ A project often depends on third-party libraries. For example, Address Book depe
 a. Include those libraries in the repo (this bloats the repo size) +
 b. Require developers to download those libraries manually (this creates extra work for developers)
 
-== Appendix A : User Stories
+[appendix]
+== User Stories
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
 
@@ -326,7 +326,8 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 {More to be added}
 
-== Appendix B : Use Cases
+[appendix]
+== Use Cases
 
 (For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
 
@@ -357,7 +358,8 @@ ____
 
 {More to be added}
 
-== Appendix C : Non Functional Requirements
+[appendix]
+== Non Functional Requirements
 
 .  Should work on any link:#mainstream-os[mainstream OS] as long as it has Java `1.8.0_60` or higher installed.
 .  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
@@ -365,7 +367,8 @@ ____
 
 {More to be added}
 
-== Appendix D : Glossary
+[appendix]
+== Glossary
 
 [[mainstream-os]]
 Mainstream OS
@@ -381,7 +384,8 @@ _____
 A contact detail that is not meant to be shared with others
 _____
 
-== Appendix E : Product Survey
+[appendix]
+== Product Survey
 
 *Product Name*
 
