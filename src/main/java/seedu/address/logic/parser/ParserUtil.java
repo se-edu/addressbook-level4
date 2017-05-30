@@ -31,6 +31,8 @@ public class ParserUtil {
     public static final String MESSAGE_INSUFFICIENT_PARTS = "Number of parts must be more than 1.";
     public static final String MESSAGE_NAME_CONSTRAINTS =
             "Person names should only contain alphanumeric characters and spaces, and it should not be blank";
+    public static final String MESSAGE_PHONE_CONSTRAINTS =
+            "Phone numbers can only contain numbers, and should be at least 3 digits long";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -77,7 +79,7 @@ public class ParserUtil {
         requireNonNull(phone);
         String trimmedPhone = phone.trim();
         if (!Phone.isValidPhone(trimmedPhone)) {
-            throw new IllegalValueException(Phone.MESSAGE_PHONE_CONSTRAINTS);
+            throw new IllegalValueException(MESSAGE_PHONE_CONSTRAINTS);
         }
         return new Phone(trimmedPhone);
     }
