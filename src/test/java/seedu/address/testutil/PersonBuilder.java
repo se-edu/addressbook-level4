@@ -69,11 +69,7 @@ public class PersonBuilder {
      * Sets the {@code Address} of the {@code Person} that we are building.
      */
     public PersonBuilder withAddress(String address) {
-        try {
-            this.person.setAddress(new Address(address));
-        } catch (IllegalValueException ive) {
-            throw new IllegalArgumentException("address is expected to be unique.");
-        }
+        this.person.setAddress(new Address(address));
         return this;
     }
 
