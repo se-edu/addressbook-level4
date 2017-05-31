@@ -104,6 +104,24 @@ public class ModelManager extends ComponentManager implements Model {
         filteredPersons.setPredicate(expression::satisfies);
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        // short circuit if same object
+        if (obj == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(obj instanceof ModelManager)) {
+            return false;
+        }
+
+        // state check
+        ModelManager other = (ModelManager) obj;
+        return addressBook.equals(other.addressBook)
+                && filteredPersons.equals(other.filteredPersons);
+    }
+
     //========== Inner classes/interfaces used for filtering =================================================
 
     interface Expression {
