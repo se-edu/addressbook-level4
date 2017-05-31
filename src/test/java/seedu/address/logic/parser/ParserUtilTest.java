@@ -87,8 +87,8 @@ public class ParserUtilTest {
         // Single whitespace between parts
         assertSplitSuccess("abc 123", 2, asOptionalList("abc", "123"));
 
-        // Multiple whitespaces between parts
-        assertSplitSuccess("abc  \n qwe \t  123", 3, asOptionalList("abc", "qwe", "123"));
+        // Leading and trailing whitespaces, multiple whitespaces between parts
+        assertSplitSuccess(" \t abc  \n qwe \t  123\t\n", 3, asOptionalList("abc", "qwe", "123"));
 
         // More whitespaces than numOfParts
         assertSplitSuccess("abc 123 qwe 456", 2,  asOptionalList("abc", "123 qwe 456"));
