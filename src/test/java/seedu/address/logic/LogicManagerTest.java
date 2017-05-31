@@ -390,7 +390,8 @@ public class LogicManagerTest {
         expectedModel.updateFilteredPersonList(new HashSet<>(Collections.singletonList("KEY")));
         helper.addToModel(model, fourPersons);
         assertCommandSuccess(FindCommand.COMMAND_WORD + " KEY",
-                Command.getMessageForPersonListShownSummary(2), expectedModel);
+                Command.getMessageForPersonListShownSummary(expectedModel.getFilteredPersonList().size()),
+                expectedModel);
     }
 
     @Test
@@ -406,7 +407,8 @@ public class LogicManagerTest {
         helper.addToModel(model, fourPersons);
 
         assertCommandSuccess(FindCommand.COMMAND_WORD + " KEY",
-                Command.getMessageForPersonListShownSummary(4), expectedModel);
+                Command.getMessageForPersonListShownSummary(expectedModel.getFilteredPersonList().size()),
+                expectedModel);
     }
 
     @Test
@@ -423,7 +425,8 @@ public class LogicManagerTest {
         helper.addToModel(model, fourPersons);
 
         assertCommandSuccess(FindCommand.COMMAND_WORD + " key rAnDoM",
-                Command.getMessageForPersonListShownSummary(3), expectedModel);
+                Command.getMessageForPersonListShownSummary(expectedModel.getFilteredPersonList().size()),
+                expectedModel);
     }
 
 
