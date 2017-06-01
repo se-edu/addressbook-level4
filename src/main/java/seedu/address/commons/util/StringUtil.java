@@ -51,9 +51,10 @@ public class StringUtil {
     }
 
     /**
-     * Returns true if {@code s} represents an unsigned integer e.g. 1, 2, 3, ... <br>
-     * Will return false if {@code s} is:
-     * empty string, "-1", "0", "+1", and " 2 " (untrimmed) "3 0" (contains whitespace).
+     * Returns true if {@code s} represents an unsigned integer
+     * e.g. 1, 2, 3, ..., {@code Integer.MAX_VALUE} <br>
+     * Will return false for any other non-null string input
+     * e.g. empty string, "-1", "0", "+1", and " 2 " (untrimmed), "3 0" (contains whitespace)
      * @throws NullPointerException if {@code s} is null.
      */
     public static boolean isUnsignedInteger(String s) {
