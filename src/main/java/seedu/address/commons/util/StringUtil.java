@@ -1,5 +1,7 @@
 package seedu.address.commons.util;
 
+import static java.util.Objects.requireNonNull;
+
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
@@ -51,10 +53,18 @@ public class StringUtil {
     /**
      * Returns true if s represents an unsigned integer e.g. 1, 2, 3, ... <br>
      * Will return false if the string is:
-     * null, empty string, "-1", "0", "+1", and " 2 " (untrimmed) "3 0" (contains whitespace).
+     * empty string, "-1", "0", "+1", and " 2 " (untrimmed) "3 0" (contains whitespace).
      * @param s Should be trimmed.
+     * @throws NullPointerException if {@code s} is null.
      */
     public static boolean isUnsignedInteger(String s) {
-        return s != null && s.matches("^0*[1-9]\\d*$");
+        requireNonNull(s);
+
+        try {
+            int value = Integer.parseInt(s);
+            return value > 0 && !s.startsWith("+"); // "+1" is successfully parsed by Integer#parseInt(String)
+        } catch (NumberFormatException nfe) {
+            return false;
+        }
     }
 }
