@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import org.junit.Before;
 import org.junit.Test;
 
+import javafx.scene.input.KeyCode;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.ui.CommandBox;
 
@@ -47,6 +48,33 @@ public class CommandBoxTest extends AddressBookGuiTest {
         assertBehaviorForFailedCommand();
         assertBehaviorForFailedCommand();
         assertBehaviorForSuccessfulCommand();
+    }
+
+    @Test
+    public void updateText() {
+        GuiRobot guiRobot = new GuiRobot();
+        commandBox.runCommand(COMMAND_THAT_SUCCEEDS);
+        commandBox.runCommand(COMMAND_THAT_FAILS);
+
+        guiRobot.push(KeyCode.UP);
+        assertEquals(COMMAND_THAT_FAILS, commandBox.getCommandInput());
+        guiRobot.sleep(500);
+
+        guiRobot.push(KeyCode.UP);
+        assertEquals(COMMAND_THAT_SUCCEEDS, commandBox.getCommandInput());
+        guiRobot.sleep(500);
+
+        guiRobot.push(KeyCode.UP);
+        assertEquals(COMMAND_THAT_SUCCEEDS, commandBox.getCommandInput());
+        guiRobot.sleep(500);
+
+        guiRobot.push(KeyCode.DOWN);
+        assertEquals(COMMAND_THAT_FAILS, commandBox.getCommandInput());
+        guiRobot.sleep(500);
+
+        guiRobot.push(KeyCode.DOWN);
+        assertEquals("", commandBox.getCommandInput());
+        guiRobot.sleep(500);
     }
 
     /**
