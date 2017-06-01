@@ -29,4 +29,11 @@ public class CommandHistory {
     public List<String> getHistory() {
         return new ArrayList<>(userInputHistory);
     }
+
+    /**
+     * Returns a list iterator of the elements in {@code userInputHistory} in reverse order.
+     */
+    public NonAlternatingListIterator<String> listIterator() {
+        return new NonAlternatingListIterator<>(userInputHistory.listIterator(userInputHistory.size()));
+    }
 }
