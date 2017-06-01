@@ -3,6 +3,7 @@ package seedu.address.logic.parser;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -45,9 +46,10 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parseIndex_outOfRangeInput_throwsNumberFormatException() throws Exception {
-        thrown.expect(NumberFormatException.class);
-        ParserUtil.parseIndex("3423423423423432");
+    public void parseIndex_outOfRangeInput_throwsIllegalValueException() throws Exception {
+        thrown.expect(IllegalValueException.class);
+        thrown.expectMessage(MESSAGE_INVALID_INDEX);
+        ParserUtil.parseIndex(Long.toString(Integer.MAX_VALUE + 1));
     }
 
     @Test
