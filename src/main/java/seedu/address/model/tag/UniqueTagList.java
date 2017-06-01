@@ -1,5 +1,8 @@
 package seedu.address.model.tag;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -51,7 +54,7 @@ public class UniqueTagList implements Iterable<Tag> {
      * Enforces no nulls or duplicates.
      */
     public UniqueTagList(Tag... tags) throws DuplicateTagException {
-        assert !CollectionUtil.isAnyNull((Object[]) tags);
+        requireAllNonNull((Object[]) tags);
         final List<Tag> initialTags = Arrays.asList(tags);
         if (!CollectionUtil.elementsAreUnique(initialTags)) {
             throw new DuplicateTagException();
@@ -77,7 +80,7 @@ public class UniqueTagList implements Iterable<Tag> {
      * Enforces no nulls.
      */
     public UniqueTagList(Set<Tag> tags) {
-        assert !CollectionUtil.isAnyNull(tags);
+        requireAllNonNull(tags);
         internalList.addAll(tags);
 
         assert CollectionUtil.elementsAreUnique(internalList);
@@ -111,7 +114,7 @@ public class UniqueTagList implements Iterable<Tag> {
     }
 
     public void setTags(Collection<Tag> tags) throws DuplicateTagException {
-        assert !CollectionUtil.isAnyNull(tags);
+        requireAllNonNull(tags);
         if (!CollectionUtil.elementsAreUnique(tags)) {
             throw new DuplicateTagException();
         }
@@ -136,7 +139,7 @@ public class UniqueTagList implements Iterable<Tag> {
      * Returns true if the list contains an equivalent Tag as the given argument.
      */
     public boolean contains(Tag toCheck) {
-        assert toCheck != null;
+        requireNonNull(toCheck);
         return internalList.contains(toCheck);
     }
 
@@ -146,7 +149,7 @@ public class UniqueTagList implements Iterable<Tag> {
      * @throws DuplicateTagException if the Tag to add is a duplicate of an existing Tag in the list.
      */
     public void add(Tag toAdd) throws DuplicateTagException {
-        assert toAdd != null;
+        requireNonNull(toAdd);
         if (contains(toAdd)) {
             throw new DuplicateTagException();
         }
