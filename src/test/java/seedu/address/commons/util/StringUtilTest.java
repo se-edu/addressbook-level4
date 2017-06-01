@@ -21,9 +21,6 @@ public class StringUtilTest {
     @Test
     public void isUnsignedPositiveInteger() {
 
-        // Equivalence partition: null
-        assertFalse(StringUtil.isUnsignedInteger(null));
-
         // EP: empty strings
         assertFalse(StringUtil.isUnsignedInteger("")); // Boundary value
         assertFalse(StringUtil.isUnsignedInteger("  "));
@@ -42,6 +39,10 @@ public class StringUtilTest {
         // EP: numbers with white space
         assertFalse(StringUtil.isUnsignedInteger(" 10 ")); // Leading/trailing spaces
         assertFalse(StringUtil.isUnsignedInteger("1 0"));  // Spaces in the middle
+
+        // EP: number larger than Integer.MAX_VALUE
+        Long value = new Long(Integer.MAX_VALUE + 1);
+        assertFalse(StringUtil.isUnsignedInteger(value.toString()));
 
         // EP: valid numbers, should return true
         assertTrue(StringUtil.isUnsignedInteger("1")); // Boundary value
