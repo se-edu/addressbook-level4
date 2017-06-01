@@ -21,6 +21,8 @@ import seedu.address.model.tag.Tag;
  */
 public class ParserUtil {
 
+    public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+
     /**
      * Parses {@code index} into an integer and returns it. Leading and trailing whitespaces will be trimmed.
      * @throws IllegalValueException if the specified index is invalid (not non-zero unsigned integer).
@@ -28,7 +30,7 @@ public class ParserUtil {
     public static int parseIndex(String index) throws IllegalValueException {
         String trimmedIndex = index.trim();
         if (!StringUtil.isUnsignedInteger(trimmedIndex)) {
-            throw new IllegalValueException("Index is not a non-zero unsigned integer.");
+            throw new IllegalValueException(MESSAGE_INVALID_INDEX);
         }
         return Integer.parseInt(trimmedIndex);
 
