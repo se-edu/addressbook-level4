@@ -63,7 +63,7 @@ public class EditCommandIntegrationTest {
 
     private Command prepareCommand(String userInput) throws ParseException {
         Command command = parser.parseCommand(userInput);
-        command.setData(model);
+        command.setData(model, null);
         return command;
     }
 
