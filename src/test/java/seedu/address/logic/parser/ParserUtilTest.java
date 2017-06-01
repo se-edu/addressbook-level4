@@ -49,7 +49,7 @@ public class ParserUtilTest {
     public void parseIndex_outOfRangeInput_throwsIllegalValueException() throws Exception {
         thrown.expect(IllegalValueException.class);
         thrown.expectMessage(MESSAGE_INVALID_INDEX);
-        ParserUtil.parseIndex("3423423423423432");
+        ParserUtil.parseIndex(Long.toString(Integer.MAX_VALUE + 1));
     }
 
     @Test

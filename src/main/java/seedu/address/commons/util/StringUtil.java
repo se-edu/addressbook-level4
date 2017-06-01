@@ -51,13 +51,13 @@ public class StringUtil {
     }
 
     /**
-     * Returns true if {@code s} represents an unsigned integer
+     * Returns true if {@code s} represents a non-zero unsigned integer
      * e.g. 1, 2, 3, ..., {@code Integer.MAX_VALUE} <br>
      * Will return false for any other non-null string input
-     * e.g. empty string, "-1", "0", "+1", and " 2 " (untrimmed), "3 0" (contains whitespace)
+     * e.g. empty string, "-1", "0", "+1", and " 2 " (untrimmed), "3 0" (contains whitespace), "1 a" (contains letters)
      * @throws NullPointerException if {@code s} is null.
      */
-    public static boolean isUnsignedInteger(String s) {
+    public static boolean isNonZeroUnsignedInteger(String s) {
         requireNonNull(s);
 
         try {

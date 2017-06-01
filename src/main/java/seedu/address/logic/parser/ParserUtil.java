@@ -29,7 +29,7 @@ public class ParserUtil {
      */
     public static int parseIndex(String index) throws IllegalValueException {
         String trimmedIndex = index.trim();
-        if (!StringUtil.isUnsignedInteger(trimmedIndex)) {
+        if (!StringUtil.isNonZeroUnsignedInteger(trimmedIndex)) {
             throw new IllegalValueException(MESSAGE_INVALID_INDEX);
         }
         return Integer.parseInt(trimmedIndex);
