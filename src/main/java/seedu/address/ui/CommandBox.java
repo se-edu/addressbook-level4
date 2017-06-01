@@ -6,10 +6,13 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.NewResultAvailableEvent;
+import seedu.address.logic.CommandHistoryListIterator;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -22,6 +25,7 @@ public class CommandBox extends UiPart<Region> {
 
     private final Logger logger = LogsCenter.getLogger(CommandBox.class);
     private final Logic logic;
+    private CommandHistoryListIterator historyIterator;
 
     @FXML
     private TextField commandTextField;
@@ -29,7 +33,43 @@ public class CommandBox extends UiPart<Region> {
     public CommandBox(Pane commandBoxPlaceholder, Logic logic) {
         super(FXML);
         this.logic = logic;
+        historyIterator = logic.getHistoryIterator();
         addToPlaceholder(commandBoxPlaceholder);
+        commandTextField.setOnKeyPressed(this::updateText);
+    }
+
+    /**
+     * Shows the previous input if {@code KeyCode.UP} is pressed,
+     * and shows the next input if {@code KeyCode.DOWN} is pressed.
+     */
+    private void updateText(KeyEvent keyEvent) {
+        assert historyIterator != null;
+
+        if (keyEvent.getCode() == KeyCode.UP) {
+            keyEvent.consume();
+            if (!historyIterator.hasPrevious()) {
+                return;
+            }
+
+            updateText(historyIterator.previous());
+        } else if (keyEvent.getCode() == KeyCode.DOWN) {
+            keyEvent.consume();
+            if (!historyIterator.hasNext()) {
+                commandTextField.setText("");
+                return;
+            }
+
+            updateText(historyIterator.next());
+        }
+    }
+
+    /**
+     * Sets {@code CommandBox}'s text field with {@code text} and
+     * positions the caret to the end of the {@code text}.
+     */
+    private void updateText(String text) {
+        commandTextField.setText(text);
+        commandTextField.positionCaret(commandTextField.getText().length());
     }
 
     private void addToPlaceholder(Pane placeHolderPane) {
@@ -53,6 +93,8 @@ public class CommandBox extends UiPart<Region> {
             setStyleToIndicateCommandFailure();
             logger.info("Invalid command: " + commandTextField.getText());
             raise(new NewResultAvailableEvent(e.getMessage()));
+        } finally {
+            historyIterator = logic.getHistoryIterator();
         }
     }
 

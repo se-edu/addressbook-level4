@@ -23,5 +23,9 @@ public class CommandHistoryTest {
         history.add(validCommand);
         history.add(invalidCommand);
         assertEquals(Arrays.asList(validCommand, invalidCommand), history.getHistory());
+
+        CommandHistoryListIterator listIterator = history.listIterator();
+        assertEquals(listIterator.previous(), invalidCommand);
+        assertEquals(listIterator.previous(), validCommand);
     }
 }
