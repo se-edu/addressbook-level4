@@ -6,6 +6,8 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
@@ -30,6 +32,19 @@ public class CommandBox extends UiPart<Region> {
         super(FXML);
         this.logic = logic;
         addToPlaceholder(commandBoxPlaceholder);
+        commandTextField.setOnKeyPressed(this::updateCommandBox);
+    }
+
+    private void updateCommandBox(KeyEvent keyEvent) {
+        if (keyEvent.getCode() == KeyCode.UP) {
+            commandTextField.setText(logic.getPreviousInput());
+            keyEvent.consume();
+            commandTextField.positionCaret(commandTextField.getText().length());
+        } else if (keyEvent.getCode() == KeyCode.DOWN) {
+            commandTextField.setText(logic.getNextInput());
+            keyEvent.consume();
+            commandTextField.positionCaret(commandTextField.getText().length());
+        }
     }
 
     private void addToPlaceholder(Pane placeHolderPane) {

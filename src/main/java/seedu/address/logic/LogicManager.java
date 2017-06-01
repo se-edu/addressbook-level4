@@ -46,4 +46,14 @@ public class LogicManager extends ComponentManager implements Logic {
     public ObservableList<ReadOnlyPerson> getFilteredPersonList() {
         return model.getFilteredPersonList();
     }
+
+    @Override
+    public String getPreviousInput() {
+        return history.previous();
+    }
+
+    @Override
+    public String getNextInput() {
+        return history.next();
+    }
 }
