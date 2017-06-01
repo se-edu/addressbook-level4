@@ -22,31 +22,34 @@ public class StringUtilTest {
     @Test
     public void isUnsignedPositiveInteger() {
 
-        // Equivalence partition: null
-        assertFalse(StringUtil.isUnsignedInteger(null));
-
         // EP: empty strings
-        assertFalse(StringUtil.isUnsignedInteger("")); // Boundary value
-        assertFalse(StringUtil.isUnsignedInteger("  "));
+        assertFalse(StringUtil.isNonZeroUnsignedInteger("")); // Boundary value
+        assertFalse(StringUtil.isNonZeroUnsignedInteger("  "));
 
         // EP: not a number
-        assertFalse(StringUtil.isUnsignedInteger("a"));
-        assertFalse(StringUtil.isUnsignedInteger("aaa"));
+        assertFalse(StringUtil.isNonZeroUnsignedInteger("a"));
+        assertFalse(StringUtil.isNonZeroUnsignedInteger("aaa"));
 
         // EP: zero
-        assertFalse(StringUtil.isUnsignedInteger("0"));
+        assertFalse(StringUtil.isNonZeroUnsignedInteger("0"));
+
+        // EP: zero as prefix
+        assertTrue(StringUtil.isNonZeroUnsignedInteger("01"));
 
         // EP: signed numbers
-        assertFalse(StringUtil.isUnsignedInteger("-1"));
-        assertFalse(StringUtil.isUnsignedInteger("+1"));
+        assertFalse(StringUtil.isNonZeroUnsignedInteger("-1"));
+        assertFalse(StringUtil.isNonZeroUnsignedInteger("+1"));
 
         // EP: numbers with white space
-        assertFalse(StringUtil.isUnsignedInteger(" 10 ")); // Leading/trailing spaces
-        assertFalse(StringUtil.isUnsignedInteger("1 0"));  // Spaces in the middle
+        assertFalse(StringUtil.isNonZeroUnsignedInteger(" 10 ")); // Leading/trailing spaces
+        assertFalse(StringUtil.isNonZeroUnsignedInteger("1 0"));  // Spaces in the middle
+
+        // EP: number larger than Integer.MAX_VALUE
+        assertFalse(StringUtil.isNonZeroUnsignedInteger(Long.toString(Integer.MAX_VALUE + 1)));
 
         // EP: valid numbers, should return true
-        assertTrue(StringUtil.isUnsignedInteger("1")); // Boundary value
-        assertTrue(StringUtil.isUnsignedInteger("10"));
+        assertTrue(StringUtil.isNonZeroUnsignedInteger("1")); // Boundary value
+        assertTrue(StringUtil.isNonZeroUnsignedInteger("10"));
     }
 
 
