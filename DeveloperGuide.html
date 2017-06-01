@@ -24,23 +24,24 @@
 <div id="toc" class="toc">
 <div id="toctitle"></div>
 <ul class="sectlevel1">
-<li><a href="#setting_up">1. Setting up</a>
+<li><a href="#setting-up">1. Setting up</a>
 <ul class="sectlevel2">
 <li><a href="#prerequisites">1.1. Prerequisites</a></li>
-<li><a href="#importing_the_project_into_eclipse">1.2. Importing the project into Eclipse</a></li>
-<li><a href="#configuring_checkstyle">1.3. Configuring Checkstyle</a></li>
-<li><a href="#troubleshooting_project_setup">1.4. Troubleshooting project setup</a></li>
-<li><a href="#coding_style">1.5. Coding style</a></li>
+<li><a href="#importing-the-project-into-eclipse">1.2. Importing the project into Eclipse</a></li>
+<li><a href="#configuring-checkstyle">1.3. Configuring Checkstyle</a></li>
+<li><a href="#troubleshooting-project-setup">1.4. Troubleshooting project setup</a></li>
+<li><a href="#updating-documentation">1.5. Updating documentation</a></li>
+<li><a href="#coding-style">1.6. Coding style</a></li>
 </ul>
 </li>
 <li><a href="#design">2. Design</a>
 <ul class="sectlevel2">
 <li><a href="#architecture">2.1. Architecture</a></li>
-<li><a href="#ui_component">2.2. UI component</a></li>
-<li><a href="#logic_component">2.3. Logic component</a></li>
-<li><a href="#model_component">2.4. Model component</a></li>
-<li><a href="#storage_component">2.5. Storage component</a></li>
-<li><a href="#common_classes">2.6. Common classes</a></li>
+<li><a href="#ui-component">2.2. UI component</a></li>
+<li><a href="#logic-component">2.3. Logic component</a></li>
+<li><a href="#model-component">2.4. Model component</a></li>
+<li><a href="#storage-component">2.5. Storage component</a></li>
+<li><a href="#common-classes">2.6. Common classes</a></li>
 </ul>
 </li>
 <li><a href="#implementation">3. Implementation</a>
@@ -51,30 +52,30 @@
 </li>
 <li><a href="#testing">4. Testing</a>
 <ul class="sectlevel2">
-<li><a href="#headless_gui_testing">4.1. Headless GUI Testing</a></li>
-<li><a href="#troubleshooting_tests">4.2. Troubleshooting tests</a></li>
+<li><a href="#headless-gui-testing">4.1. Headless GUI Testing</a></li>
+<li><a href="#troubleshooting-tests">4.2. Troubleshooting tests</a></li>
 </ul>
 </li>
-<li><a href="#dev_ops">5. Dev Ops</a>
+<li><a href="#dev-ops">5. Dev Ops</a>
 <ul class="sectlevel2">
-<li><a href="#build_automation">5.1. Build Automation</a></li>
-<li><a href="#continuous_integration">5.2. Continuous Integration</a></li>
-<li><a href="#publishing_documentation">5.3. Publishing Documentation</a></li>
-<li><a href="#making_a_release">5.4. Making a Release</a></li>
-<li><a href="#converting_documentation_to_pdf_format">5.5. Converting Documentation to PDF format</a></li>
-<li><a href="#managing_dependencies">5.6. Managing Dependencies</a></li>
+<li><a href="#build-automation">5.1. Build Automation</a></li>
+<li><a href="#continuous-integration">5.2. Continuous Integration</a></li>
+<li><a href="#publishing-documentation">5.3. Publishing Documentation</a></li>
+<li><a href="#making-a-release">5.4. Making a Release</a></li>
+<li><a href="#converting-documentation-to-pdf-format">5.5. Converting Documentation to PDF format</a></li>
+<li><a href="#managing-dependencies">5.6. Managing Dependencies</a></li>
 </ul>
 </li>
-<li><a href="#appendix_a_user_stories">6. Appendix A : User Stories</a></li>
-<li><a href="#appendix_b_use_cases">7. Appendix B : Use Cases</a></li>
-<li><a href="#appendix_c_non_functional_requirements">8. Appendix C : Non Functional Requirements</a></li>
-<li><a href="#appendix_d_glossary">9. Appendix D : Glossary</a></li>
-<li><a href="#appendix_e_product_survey">10. Appendix E : Product Survey</a></li>
+<li><a href="#user-stories">Appendix A: User Stories</a></li>
+<li><a href="#use-cases">Appendix B: Use Cases</a></li>
+<li><a href="#non-functional-requirements">Appendix C: Non Functional Requirements</a></li>
+<li><a href="#glossary">Appendix D: Glossary</a></li>
+<li><a href="#product-survey">Appendix E: Product Survey</a></li>
 </ul>
 </div>
 </div>
 <div class="sect1">
-<h2 id="setting_up"><a class="link" href="#setting_up">1. Setting up</a></h2>
+<h2 id="setting-up"><a class="link" href="#setting-up">1. Setting up</a></h2>
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="prerequisites"><a class="link" href="#prerequisites">1.1. Prerequisites</a></h3>
@@ -82,9 +83,6 @@
 <ol class="arabic">
 <li>
 <p><strong>JDK <code>1.8.0_60</code></strong> or later</p>
-</li>
-</ol>
-</div>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -98,8 +96,7 @@ This app will not work with earlier versions of Java 8.
 </tr>
 </table>
 </div>
-<div class="olist arabic">
-<ol class="arabic" start="2">
+</li>
 <li>
 <p><strong>Eclipse</strong> IDE</p>
 </li>
@@ -116,7 +113,7 @@ This app will not work with earlier versions of Java 8.
 </div>
 </div>
 <div class="sect2">
-<h3 id="importing_the_project_into_eclipse"><a class="link" href="#importing_the_project_into_eclipse">1.2. Importing the project into Eclipse</a></h3>
+<h3 id="importing-the-project-into-eclipse"><a class="link" href="#importing-the-project-into-eclipse">1.2. Importing the project into Eclipse</a></h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -165,7 +162,7 @@ This app will not work with earlier versions of Java 8.
 </div>
 </div>
 <div class="sect2">
-<h3 id="configuring_checkstyle"><a class="link" href="#configuring_checkstyle">1.3. Configuring Checkstyle</a></h3>
+<h3 id="configuring-checkstyle"><a class="link" href="#configuring-checkstyle">1.3. Configuring Checkstyle</a></h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -205,7 +202,7 @@ Click on the <code>files from packages</code> text after ticking in order to ena
 </div>
 </div>
 <div class="sect2">
-<h3 id="troubleshooting_project_setup"><a class="link" href="#troubleshooting_project_setup">1.4. Troubleshooting project setup</a></h3>
+<h3 id="troubleshooting-project-setup"><a class="link" href="#troubleshooting-project-setup">1.4. Troubleshooting project setup</a></h3>
 <div class="paragraph">
 <p><strong>Problem: Eclipse reports compile errors after new commits are pulled from Git</strong></p>
 </div>
@@ -228,13 +225,19 @@ Click on the <code>files from packages</code> text after ticking in order to ena
 <p>Reason: Required libraries may not have been downloaded during the project import.</p>
 </li>
 <li>
-<p>Solution: <a href="UsingGradle.md">Run tests using Gradle</a> once (to refresh the libraries).</p>
+<p>Solution: <a href="UsingGradle.html">Run tests using Gradle</a> once (to refresh the libraries).</p>
 </li>
 </ul>
 </div>
 </div>
 <div class="sect2">
-<h3 id="coding_style"><a class="link" href="#coding_style">1.5. Coding style</a></h3>
+<h3 id="updating-documentation"><a class="link" href="#updating-documentation">1.5. Updating documentation</a></h3>
+<div class="paragraph">
+<p>After forking the repo, links in the documentation will link to the wrong repo. You should replace the URL in the variable <code>repoURL</code> in DeveloperGuide.adoc with the URL of your fork.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="coding-style"><a class="link" href="#coding-style">1.6. Coding style</a></h3>
 <div class="paragraph">
 <p>We follow <a href="https://github.com/oss-generic/process/blob/master/docs/CodingStandards.md">oss-generic coding standards</a>.</p>
 </div>
@@ -264,13 +267,13 @@ Click on the <code>files from packages</code> text after ticking in order to ena
 <i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
-The <code>.pptx</code> files used to create diagrams in this document can be found in the <a href="diagrams/">diagrams</a> folder. To update a diagram, modify the diagram in the pptx file, select the objects of the diagram, and choose <code>Save as picture</code>.
+The <code>.pptx</code> files used to create diagrams in this document can be found in the <a href="https://github.com/se-edu/addressbook-level4/tree/master/docs/diagrams/">diagrams</a> folder. To update a diagram, modify the diagram in the pptx file, select the objects of the diagram, and choose <code>Save as picture</code>.
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p><code>Main</code> has only one class called <a href="../src/main/java/seedu/address/MainApp.java"><code>MainApp</code></a>. It is responsible for,</p>
+<p><code>Main</code> has only one class called <a href="https://github.com/se-edu/addressbook-level4/tree/master/src/main/java/seedu/address/MainApp.java"><code>MainApp</code></a>. It is responsible for,</p>
 </div>
 <div class="ulist">
 <ul>
@@ -338,7 +341,7 @@ The <code>.pptx</code> files used to create diagrams in this document can be fou
 <div class="paragraph">
 <p><em>Figure 2.1.2 : Class Diagram of the Logic Component</em></p>
 </div>
-<h4 id="events_driven_nature_of_the_design" class="discrete">Events-Driven nature of the design</h4>
+<h4 id="events-driven-nature-of-the-design" class="discrete">Events-Driven nature of the design</h4>
 <div class="paragraph">
 <p>The <em>Sequence Diagram</em> below shows how the components interact for the scenario where the user issues the command <code>delete 1</code>.</p>
 </div>
@@ -390,7 +393,7 @@ Note how the event is propagated through the <code>EventsCenter</code> to the <c
 </div>
 </div>
 <div class="sect2">
-<h3 id="ui_component"><a class="link" href="#ui_component">2.2. UI component</a></h3>
+<h3 id="ui-component"><a class="link" href="#ui-component">2.2. UI component</a></h3>
 <div class="paragraph">
 <p>Author: Alice Bee</p>
 </div>
@@ -403,13 +406,13 @@ Note how the event is propagated through the <code>EventsCenter</code> to the <c
 <p><em>Figure 2.2.1 : Structure of the UI Component</em></p>
 </div>
 <div class="paragraph">
-<p><strong>API</strong> : <a href="../src/main/java/seedu/address/ui/Ui.java"><code>Ui.java</code></a></p>
+<p><strong>API</strong> : <a href="https://github.com/se-edu/addressbook-level4/tree/master/src/main/java/seedu/address/ui/Ui.java"><code>Ui.java</code></a></p>
 </div>
 <div class="paragraph">
 <p>The UI consists of a <code>MainWindow</code> that is made up of parts e.g.<code>CommandBox</code>, <code>ResultDisplay</code>, <code>PersonListPanel</code>, <code>StatusBarFooter</code>, <code>BrowserPanel</code> etc. All these, including the <code>MainWindow</code>, inherit from the abstract <code>UiPart</code> class.</p>
 </div>
 <div class="paragraph">
-<p>The <code>UI</code> component uses JavaFx UI framework. The layout of these UI parts are defined in matching <code>.fxml</code> files that are in the <code>src/main/resources/view</code> folder. For example, the layout of the <a href="../src/main/java/seedu/address/ui/MainWindow.java"><code>MainWindow</code></a> is specified in <a href="../src/main/resources/view/MainWindow.fxml"><code>MainWindow.fxml</code></a></p>
+<p>The <code>UI</code> component uses JavaFx UI framework. The layout of these UI parts are defined in matching <code>.fxml</code> files that are in the <code>src/main/resources/view</code> folder. For example, the layout of the <a href="https://github.com/se-edu/addressbook-level4/tree/master/src/main/java/seedu/address/ui/MainWindow.java"><code>MainWindow</code></a> is specified in <a href="https://github.com/se-edu/addressbook-level4/tree/master/src/main/resources/view/MainWindow.fxml"><code>MainWindow.fxml</code></a></p>
 </div>
 <div class="paragraph">
 <p>The <code>UI</code> component,</p>
@@ -429,7 +432,7 @@ Note how the event is propagated through the <code>EventsCenter</code> to the <c
 </div>
 </div>
 <div class="sect2">
-<h3 id="logic_component"><a class="link" href="#logic_component">2.3. Logic component</a></h3>
+<h3 id="logic-component"><a class="link" href="#logic-component">2.3. Logic component</a></h3>
 <div class="paragraph">
 <p>Author: Bernard Choo</p>
 </div>
@@ -443,7 +446,7 @@ Note how the event is propagated through the <code>EventsCenter</code> to the <c
 </div>
 <div class="paragraph">
 <p><strong>API</strong> :
-<a href="../src/main/java/seedu/address/logic/Logic.java"><code>Logic.java</code></a></p>
+<a href="https://github.com/se-edu/addressbook-level4/tree/master/src/main/java/seedu/address/logic/Logic.java"><code>Logic.java</code></a></p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -474,7 +477,7 @@ Note how the event is propagated through the <code>EventsCenter</code> to the <c
 </div>
 </div>
 <div class="sect2">
-<h3 id="model_component"><a class="link" href="#model_component">2.4. Model component</a></h3>
+<h3 id="model-component"><a class="link" href="#model-component">2.4. Model component</a></h3>
 <div class="paragraph">
 <p>Author: Cynthia Dharman</p>
 </div>
@@ -487,7 +490,7 @@ Note how the event is propagated through the <code>EventsCenter</code> to the <c
 <p><em>Figure 2.4.1 : Structure of the Model Component</em></p>
 </div>
 <div class="paragraph">
-<p><strong>API</strong> : <a href="../src/main/java/seedu/address/model/Model.java"><code>Model.java</code></a></p>
+<p><strong>API</strong> : <a href="https://github.com/se-edu/addressbook-level4/tree/master/src/main/java/seedu/address/model/Model.java"><code>Model.java</code></a></p>
 </div>
 <div class="paragraph">
 <p>The <code>Model</code>,</p>
@@ -510,7 +513,7 @@ Note how the event is propagated through the <code>EventsCenter</code> to the <c
 </div>
 </div>
 <div class="sect2">
-<h3 id="storage_component"><a class="link" href="#storage_component">2.5. Storage component</a></h3>
+<h3 id="storage-component"><a class="link" href="#storage-component">2.5. Storage component</a></h3>
 <div class="paragraph">
 <p>Author: Darius Foong</p>
 </div>
@@ -523,7 +526,7 @@ Note how the event is propagated through the <code>EventsCenter</code> to the <c
 <p><em>Figure 2.5.1 : Structure of the Storage Component</em></p>
 </div>
 <div class="paragraph">
-<p><strong>API</strong> : <a href="../src/main/java/seedu/address/storage/Storage.java"><code>Storage.java</code></a></p>
+<p><strong>API</strong> : <a href="https://github.com/se-edu/addressbook-level4/tree/master/src/main/java/seedu/address/storage/Storage.java"><code>Storage.java</code></a></p>
 </div>
 <div class="paragraph">
 <p>The <code>Storage</code> component,</p>
@@ -540,7 +543,7 @@ Note how the event is propagated through the <code>EventsCenter</code> to the <c
 </div>
 </div>
 <div class="sect2">
-<h3 id="common_classes"><a class="link" href="#common_classes">2.6. Common classes</a></h3>
+<h3 id="common-classes"><a class="link" href="#common-classes">2.6. Common classes</a></h3>
 <div class="paragraph">
 <p>Classes used by multiple components are in the <code>seedu.addressbook.commons</code> package.</p>
 </div>
@@ -621,7 +624,7 @@ Note how the event is propagated through the <code>EventsCenter</code> to the <c
 <div class="ulist">
 <ul>
 <li>
-<p>See <a href="UsingGradle.md">UsingGradle.md</a> for how to run tests using Gradle.</p>
+<p>See <a href="UsingGradle.html">UsingGradle.adoc</a> for how to run tests using Gradle.</p>
 </li>
 </ul>
 </div>
@@ -655,13 +658,13 @@ e.g. <code>seedu.address.logic.LogicManagerTest</code></p>
 </ol>
 </div>
 <div class="sect2">
-<h3 id="headless_gui_testing"><a class="link" href="#headless_gui_testing">4.1. Headless GUI Testing</a></h3>
+<h3 id="headless-gui-testing"><a class="link" href="#headless-gui-testing">4.1. Headless GUI Testing</a></h3>
 <div class="paragraph">
-<p>Thanks to the <a href="https://github.com/TestFX/TestFX">TestFX</a> library we use, our GUI tests can be run in the <em>headless</em> mode. In the headless mode, GUI tests do not show up on the screen. That means the developer can do other things on the Computer while the tests are running. See <a href="UsingGradle.md#running-tests">UsingGradle.md</a> to learn how to run tests in headless mode.</p>
+<p>Thanks to the <a href="https://github.com/TestFX/TestFX">TestFX</a> library we use, our GUI tests can be run in the <em>headless</em> mode. In the headless mode, GUI tests do not show up on the screen. That means the developer can do other things on the Computer while the tests are running. See <a href="UsingGradle.html#running-tests">UsingGradle.adoc</a> to learn how to run tests in headless mode.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="troubleshooting_tests"><a class="link" href="#troubleshooting_tests">4.2. Troubleshooting tests</a></h3>
+<h3 id="troubleshooting-tests"><a class="link" href="#troubleshooting-tests">4.2. Troubleshooting tests</a></h3>
 <div class="paragraph">
 <p><strong>Problem: Tests fail because NullPointException when AssertionError is expected</strong></p>
 </div>
@@ -679,35 +682,35 @@ e.g. <code>seedu.address.logic.LogicManagerTest</code></p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="dev_ops"><a class="link" href="#dev_ops">5. Dev Ops</a></h2>
+<h2 id="dev-ops"><a class="link" href="#dev-ops">5. Dev Ops</a></h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="build_automation"><a class="link" href="#build_automation">5.1. Build Automation</a></h3>
+<h3 id="build-automation"><a class="link" href="#build-automation">5.1. Build Automation</a></h3>
 <div class="paragraph">
-<p>See <a href="UsingGradle.md">UsingGradle.md</a> to learn how to use Gradle for build automation.</p>
+<p>See <a href="UsingGradle.html">UsingGradle.adoc</a> to learn how to use Gradle for build automation.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="continuous_integration"><a class="link" href="#continuous_integration">5.2. Continuous Integration</a></h3>
+<h3 id="continuous-integration"><a class="link" href="#continuous-integration">5.2. Continuous Integration</a></h3>
 <div class="paragraph">
-<p>We use <a href="https://travis-ci.org/">Travis CI</a> and <a href="https://www.appveyor.com/">AppVeyor</a> to perform <em>Continuous Integration</em> on our projects. See <a href="UsingTravis.md">UsingTravis.md</a> and <a href="UsingAppVeyor.md">UsingAppVeyor.md</a> for more details.</p>
+<p>We use <a href="https://travis-ci.org/">Travis CI</a> and <a href="https://www.appveyor.com/">AppVeyor</a> to perform <em>Continuous Integration</em> on our projects. See <a href="UsingTravis.html">UsingTravis.adoc</a> and <a href="UsingAppVeyor.html">UsingAppVeyor.adoc</a> for more details.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="publishing_documentation"><a class="link" href="#publishing_documentation">5.3. Publishing Documentation</a></h3>
+<h3 id="publishing-documentation"><a class="link" href="#publishing-documentation">5.3. Publishing Documentation</a></h3>
 <div class="paragraph">
-<p>See <a href="UsingGithubPages.md">UsingGithubPages.md</a> to learn how to use GitHub Pages to publish documentation to the project site.</p>
+<p>See <a href="UsingGithubPages.html">UsingGithubPages.adoc</a> to learn how to use GitHub Pages to publish documentation to the project site.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="making_a_release"><a class="link" href="#making_a_release">5.4. Making a Release</a></h3>
+<h3 id="making-a-release"><a class="link" href="#making-a-release">5.4. Making a Release</a></h3>
 <div class="paragraph">
 <p>Here are the steps to create a new release.</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Generate a JAR file <a href="UsingGradle.md#creating-the-jar-file">using Gradle</a>.</p>
+<p>Generate a JAR file <a href="UsingGradle.html#creating-the-jar-file">using Gradle</a>.</p>
 </li>
 <li>
 <p>Tag the repo with the version number. e.g. <code>v0.1</code></p>
@@ -719,7 +722,7 @@ e.g. <code>seedu.address.logic.LogicManagerTest</code></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="converting_documentation_to_pdf_format"><a class="link" href="#converting_documentation_to_pdf_format">5.5. Converting Documentation to PDF format</a></h3>
+<h3 id="converting-documentation-to-pdf-format"><a class="link" href="#converting-documentation-to-pdf-format">5.5. Converting Documentation to PDF format</a></h3>
 <div class="paragraph">
 <p>We use <a href="https://www.google.com/chrome/browser/desktop/">Google Chrome</a> for converting documentation to PDF format, as Chrome&#8217;s PDF engine preserves hyperlinks used in webpages.</p>
 </div>
@@ -729,10 +732,10 @@ e.g. <code>seedu.address.logic.LogicManagerTest</code></p>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Make sure you have set up GitHub Pages as described in <a href="UsingGithubPages.md#setting-up">UsingGithubPages.md</a>.</p>
+<p>Make sure you have set up GitHub Pages as described in <a href="UsingGithubPages.html#setting-up">UsingGithubPages.adoc</a>.</p>
 </li>
 <li>
-<p>Using Chrome, go to the <a href="UsingGithubPages.md#viewing-the-project-site">GitHub Pages version</a> of the documentation file. e.g. For <a href="UserGuide.adoc">UserGuide.adoc</a>, the URL will be <code>https://&lt;your-username-or-organization-name&gt;.github.io/addressbook-level4/docs/UserGuide.html</code>.</p>
+<p>Using Chrome, go to the <a href="UsingGithubPages.html#viewing-the-project-site">GitHub Pages version</a> of the documentation file. e.g. For <a href="UserGuide.html">UserGuide.adoc</a>, the URL will be <code>https://&lt;your-username-or-organization-name&gt;.github.io/addressbook-level4/docs/UserGuide.html</code>.</p>
 </li>
 <li>
 <p>Click on the <code>Print</code> option in Chrome&#8217;s menu.</p>
@@ -752,7 +755,7 @@ e.g. <code>seedu.address.logic.LogicManagerTest</code></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="managing_dependencies"><a class="link" href="#managing_dependencies">5.6. Managing Dependencies</a></h3>
+<h3 id="managing-dependencies"><a class="link" href="#managing-dependencies">5.6. Managing Dependencies</a></h3>
 <div class="paragraph">
 <p>A project often depends on third-party libraries. For example, Address Book depends on the <a href="http://wiki.fasterxml.com/JacksonHome">Jackson library</a> for XML parsing. Managing these <em>dependencies</em> can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives.<br>
 a. Include those libraries in the repo (this bloats the repo size)<br>
@@ -762,7 +765,7 @@ b. Require developers to download those libraries manually (this creates extra w
 </div>
 </div>
 <div class="sect1">
-<h2 id="appendix_a_user_stories"><a class="link" href="#appendix_a_user_stories">6. Appendix A : User Stories</a></h2>
+<h2 id="user-stories"><a class="link" href="#user-stories">Appendix A: User Stories</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Priorities: High (must have) - <code>* * *</code>, Medium (nice to have) - <code>* *</code>, Low (unlikely to have) - <code>*</code></p>
@@ -827,12 +830,12 @@ b. Require developers to download those libraries manually (this creates extra w
 </div>
 </div>
 <div class="sect1">
-<h2 id="appendix_b_use_cases"><a class="link" href="#appendix_b_use_cases">7. Appendix B : Use Cases</a></h2>
+<h2 id="use-cases"><a class="link" href="#use-cases">Appendix B: Use Cases</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>(For all use cases below, the <strong>System</strong> is the <code>AddressBook</code> and the <strong>Actor</strong> is the <code>user</code>, unless specified otherwise)</p>
 </div>
-<h3 id="use_case_delete_person" class="discrete">Use case: Delete person</h3>
+<h3 id="use-case-delete-person" class="discrete">Use case: Delete person</h3>
 <div class="paragraph">
 <p><strong>MSS</strong></p>
 </div>
@@ -882,7 +885,7 @@ Use case resumes at step 2</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="appendix_c_non_functional_requirements"><a class="link" href="#appendix_c_non_functional_requirements">8. Appendix C : Non Functional Requirements</a></h2>
+<h2 id="non-functional-requirements"><a class="link" href="#non-functional-requirements">Appendix C: Non Functional Requirements</a></h2>
 <div class="sectionbody">
 <div class="olist arabic">
 <ol class="arabic">
@@ -903,7 +906,7 @@ Use case resumes at step 2</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="appendix_d_glossary"><a class="link" href="#appendix_d_glossary">9. Appendix D : Glossary</a></h2>
+<h2 id="glossary"><a class="link" href="#glossary">Appendix D: Glossary</a></h2>
 <div class="sectionbody">
 <div id="mainstream-os" class="paragraph">
 <p>Mainstream OS</p>
@@ -928,7 +931,7 @@ Use case resumes at step 2</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="appendix_e_product_survey"><a class="link" href="#appendix_e_product_survey">10. Appendix E : Product Survey</a></h2>
+<h2 id="product-survey"><a class="link" href="#product-survey">Appendix E: Product Survey</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p><strong>Product Name</strong></p>
@@ -967,7 +970,7 @@ Use case resumes at step 2</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-06-01 09:13:05 +00:00
+Last updated 2017-06-01 09:14:37 +00:00
 </div>
 </div>
 </body>

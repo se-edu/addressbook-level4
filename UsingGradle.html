@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 1.5.3">
+<title>Using Gradle</title>
+<link rel="stylesheet" href="stylesheets/gh-pages.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="stylesheets/coderay-asciidoctor.css">
+</head>
+<body class="article">
+<div id="header">
+<h1>Using Gradle</h1>
+</div>
+<div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="https://gradle.org/">Gradle</a> is a build automation tool. It can automate build-related tasks such as</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Running tests</p>
+</li>
+<li>
+<p>Managing library dependencies</p>
+</li>
+<li>
+<p>Analyzing code for style compliance</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The gradle configuration for this project is defined in the <em>build script</em> <a href="../build.gradle"><code>build.gradle</code></a>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+To learn more about gradle build scripts, refer <a href="https://docs.gradle.org/current/userguide/tutorial_using_tasks.html">Build Scripts Basics</a>.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="running-gradle-commands"><a class="link" href="#running-gradle-commands">Running Gradle Commands</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To run a Gradle command, open a command window on the project folder and enter the Gradle command. Gradle commands look like this:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>On Windows: <code>gradlew &lt;task1&gt; &lt;task2&gt; &#8230;&#8203;</code> e.g. <code>gradlew clean allTests</code></p>
+</li>
+<li>
+<p>On Mac/Linux: <code>./gradlew &lt;task1&gt; &lt;task2&gt;&#8230;&#8203;</code> e.g.
+<code>./gradlew clean allTests</code></p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If you do not specify any tasks, Gradlew will run the default tasks <code>clean</code> <code>headless</code> <code>allTests</code> <code>coverage</code>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="cleaning-the-project"><a class="link" href="#cleaning-the-project">Cleaning the Project</a></h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><strong><code>clean</code></strong><br>
+Deletes the files created during the previous build tasks (e.g. files in the <code>build</code> folder). e.g. <code>./gradlew clean</code></p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<strong><code>clean</code> to force Gradle to execute a task</strong>:<br>
+When running a Gradle task, Gradle will try to figure out if the task needs running at all. If Gradle determines that the output of the task will be same as the previous time, it will not run the task. For example, it will not build the JAR file again if the relevant source files have not changed since the last time the JAR file was built. If we want to force Gradle to run a task, we can combine that task with <code>clean</code>. Once the build files have been <code>clean</code> ed, Gradle has no way to determine if the output will be same as before, so it will be forced to execute the task.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="creating-the-jar-file"><a class="link" href="#creating-the-jar-file">Creating the JAR file</a></h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><strong><code>shadowJar</code></strong><br>
+Creates the <code>addressbook.jar</code> file in the <code>build/jar</code> folder, <em>if the current file is outdated</em>.<br>
+e.g. <code>./gradlew shadowJar</code></p>
+</li>
+</ul>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="paragraph">
+<p>To force Gradle to create the JAR file even if the current one is up-to-date, you can &#8216;clean&#8217; first.<br>
+e.g. <code>./gradlew clean shadowJar</code></p>
+</div>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<strong>Why do we create a fat JAR?</strong> If we package only our own class files into the JAR file, it will not work properly unless the user has all the other JAR files (i.e. third party libraries) our classes depend on, which is rather inconvenient. Therefore, we package all dependencies into a single JAR files, creating what is also known as a <em>fat</em> JAR file. To create a fat JAR file, we use the Gradle plugin <a href="https://github.com/johnrengelman/shadow">shadow jar</a>.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="rendering-asciidoc-files"><a class="link" href="#rendering-asciidoc-files">Rendering AsciiDoc files</a></h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><strong><code>asciidoctor</code></strong><br>
+Converts AsciiDoc files in <code>docs</code> to HTML format. Generated HTML files can be found in <code>build/docs</code>.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="running-the-application"><a class="link" href="#running-the-application">Running the application</a></h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><strong><code>run</code></strong><br>
+Builds and runs the application.</p>
+</li>
+<li>
+<p><strong><code>runShadow</code></strong><br>
+Builds the application as a fat JAR, and then runs it.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="running-code-style-checks"><a class="link" href="#running-code-style-checks">Running code style checks</a></h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><strong><code>checkstyleMain</code></strong><br>
+Runs the code style check for the main code base</p>
+</li>
+<li>
+<p><strong><code>checkstyleTest</code></strong><br>
+Runs the code style check for the test code base</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The set of code style rules implemented can be found in <code>config/checkstyle/checkstyle.xml</code>. To enable <em>exceptions</em> to code styles, add in the comment <code>//CODESTYLE.OFF: RuleName</code> at the start of the section and <code>//CODESTYLE.ON: RuleName</code> at the end of the section.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="running-tests"><a class="link" href="#running-tests">Running Tests</a></h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><strong><code>allTests</code></strong><br>
+Runs all tests.</p>
+</li>
+<li>
+<p><strong><code>guiTests</code></strong><br>
+Runs all tests in the <code>guitests</code> package</p>
+</li>
+<li>
+<p><strong><code>nonGuiTests</code></strong><br>
+Runs all non-GUI tests in the <code>seedu.address</code>
+package</p>
+</li>
+<li>
+<p><strong><code>headless</code></strong><br>
+Sets the test mode as <em>headless</em>. The mode is effective for that Gradle run only so it should be combined with other test tasks.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Here are some examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>./gradlew headless allTests</code>&#8201;&#8212;&#8201;Runs all tests in headless mode</p>
+</li>
+<li>
+<p><code>./gradlew clean nonGuiTests</code>&#8201;&#8212;&#8201;Cleans the project and runs non-GUI
+tests</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="updating-dependencies"><a class="link" href="#updating-dependencies">Updating Dependencies</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>There is no need to run these Gradle tasks manually as they are called automatically by other relevant Gradle tasks.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong><code>compileJava</code></strong><br>
+Checks whether the project has the required dependencies to compile and run the main program, and download any missing dependencies before compiling the classes.<br>
+See <code>build.gradle</code> &#8594;
+<code>allprojects</code> &#8594; <code>dependencies</code> &#8594; <code>compile</code> for the list of dependencies required.</p>
+</li>
+<li>
+<p><strong><code>compileTestJava</code></strong><br>
+Checks whether the project has the required dependencies to perform testing, and download any missing dependencies before compiling the test classes.<br>
+See <code>build.gradle</code> &#8594; <code>allprojects</code> &#8594; <code>dependencies</code> &#8594; <code>testCompile</code> for the list of dependencies required.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2017-06-01 09:14:37 +00:00
+</div>
+</div>
+</body>
+</html>

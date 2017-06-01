@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 1.5.3">
+<title>Using GitHub Pages</title>
+<link rel="stylesheet" href="stylesheets/gh-pages.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="stylesheets/coderay-asciidoctor.css">
+</head>
+<body class="article">
+<div id="header">
+<h1>Using GitHub Pages</h1>
+</div>
+<div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="https://pages.github.com/">GitHub Pages</a> is a static site hosting service that allows users to publish webpages using files in their GitHub repositories.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="setting-up"><a class="link" href="#setting-up">Setting Up</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>GitHub Pages offers two kinds of sites: user/organization sites and project sites. Since we are using GitHub Pages to showcase the documentation for our project, we will be creating a project site.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Navigate to the repository&#8217;s <code>Settings</code> tab in GitHub.</p>
+<div class="imageblock">
+<div class="content">
+<img src="images/github_repo_settings.png" alt="github repo settings" width="600">
+</div>
+</div>
+</li>
+<li>
+<p>Under the GitHub Pages section, click <code>Choose a theme</code> in <code>Theme chooser</code>. Pick a theme for the project site and click <code>Select theme</code> when done.</p>
+</li>
+<li>
+<p>You can now view the site at <code><a href="https://&lt;username-or-organization-name&gt;.github.io/&lt;repo-name&gt" class="bare">https://&lt;username-or-organization-name&gt;.github.io/&lt;repo-name&gt</a>;</code>. e.g. <code><a href="https://se-edu.github.io/addressbook-level4" class="bare">https://se-edu.github.io/addressbook-level4</a></code></p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Note that the publishing source has been automatically set to <code>master branch</code>. This means that the GitHub Pages site will be published using source files in the <code>master</code> branch. Jekyll, a static site generator integrated with GitHub Pages, automatically renders asciidoc files (in the <code>master</code> branch) to HTML, which are then deployed to the project site by GitHub Pages.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="viewing-the-project-site"><a class="link" href="#viewing-the-project-site">Viewing the Project Site</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The project site URL follows the format <code><a href="https://&lt;username-or-organization-name&gt;.github.io/&lt;repo-name&gt" class="bare">https://&lt;username-or-organization-name&gt;.github.io/&lt;repo-name&gt</a>;</code>, e.g. <code><a href="https://se-edu.github.io/addressbook-level4" class="bare">https://se-edu.github.io/addressbook-level4</a></code>. By default, the <a href="../README.html">README</a> file is displayed on this page.</p>
+</div>
+<div class="paragraph">
+<p>For the other pages, the structure of the site follows the structure of the repository. For example, <code>docs/UserGuide.adoc</code> is published at <code><a href="https://&lt;username-or-organization-name&gt;.github.io/addressbook-level4/docs/UserGuide.html" class="bare">https://&lt;username-or-organization-name&gt;.github.io/addressbook-level4/docs/UserGuide.html</a></code>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="updating-the-project-site"><a class="link" href="#updating-the-project-site">Updating the Project Site</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To update the project site, simply edit the documentation files in asciidoc and push the changes to GitHub. GitHub Pages automatically updates the project site when changes are committed to the <code>master</code> branch (e.g. when the commit is pushed to the <code>master</code> branch or when the pull request containing the commit is merged into <code>master</code>).</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="customizing-the-project-site"><a class="link" href="#customizing-the-project-site">Customizing the Project Site</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>For instructions on customizing the project site, refer to <a href="https://help.github.com/categories/customizing-github-pages/">GitHub&#8217;s guides</a>.</p>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2017-06-01 09:14:37 +00:00
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 1.5.3">
+<title>AppVeyor</title>
+<link rel="stylesheet" href="stylesheets/gh-pages.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="stylesheets/coderay-asciidoctor.css">
+</head>
+<body class="article">
+<div id="header">
+<h1>AppVeyor</h1>
+</div>
+<div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="https://www.appveyor.com/">AppVeyor</a> is a <em>Continuous Integration</em> platform for GitHub projects. It runs its builds on Windows virtual machines.</p>
+</div>
+<div class="paragraph">
+<p>AppVeyor can run the project&#8217;s tests automatically whenever new code is pushed to the repo. This ensures that existing functionality and features have not been broken on Windows by the changes.</p>
+</div>
+<div class="paragraph">
+<p>The current AppVeyor setup performs the following things whenever someone pushes code to the repo:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Runs the <code>gradlew.bat headless allTests</code> command.</p>
+</li>
+<li>
+<p>Automatically retries the build up to 3 times if a task fails.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>If you would like to customize your AppVeyor build further, you can learn more about AppVeyor from the <a href="https://www.appveyor.com/docs/">AppVeyor Documentation</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="setting-up-appveyor"><a class="link" href="#setting-up-appveyor">Setting up AppVeyor</a></h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Fork the repo to your own organization.</p>
+</li>
+<li>
+<p>Go to <a href="https://ci.appveyor.com/" class="bare">https://ci.appveyor.com/</a>, and under <code>Login</code>, click on <code>GitHub</code> to login with your GitHub account. Enter your GitHub account details if needed.</p>
+<div class="paragraph">
+<p><span class="image"><img src="images/appveyor/login.png" alt="Click on GitHub in the login page"></span></p>
+</div>
+</li>
+<li>
+<p>After logging in, you will be brought to your projects dashboard. Click on <code>NEW PROJECT</code>.</p>
+<div class="paragraph">
+<p><span class="image"><img src="images/appveyor/add-project-1.png" alt="Click on "NEW PROJECT" in the projects dashboard"></span></p>
+</div>
+</li>
+<li>
+<p>You will be brought to the <code>Select repository</code> page. Select <code>GitHub</code>.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>On your first usage of AppVeyor, you will need to give AppVeyor authorization to your GitHub account. Click on <code>Authorize GitHub</code>.</p>
+<div class="paragraph">
+<p><span class="image"><img src="images/appveyor/add-project-2.png" alt="Click on Authorize GitHub"></span></p>
+</div>
+</li>
+<li>
+<p>This will bring you to a GitHub page that manages the access of third-party applications to your repositories.</p>
+<div class="paragraph">
+<p>Depending on whether you are the owner of the repository, you can either
+grant access:</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="images/grant_access.png" alt="Grant Access"></span></p>
+</div>
+<div class="paragraph">
+<p>Or request access:</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="images/request_access.png" alt="Request Access"></span></p>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>AppVeyor will then list the repositories you have access to in your GitHub account. Find the repository you want to set AppVeyor up on, and then click <code>ADD</code>.</p>
+<div class="paragraph">
+<p><span class="image"><img src="images/appveyor/add-project-3.png" alt="Click "Add" on the repository you want to set AppVeyor up on"></span></p>
+</div>
+</li>
+<li>
+<p>AppVeyor will then be activated on that repository. To see the CI in action, push a commit to any branch!</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Go to the repository and see the pushed commit. There should be an icon which will link you to the AppVeyor build:</p>
+<div class="paragraph">
+<p><span class="image"><img src="images/appveyor/ci-pending.png" alt="Commit build"></span></p>
+</div>
+</li>
+<li>
+<p>As the build is run on a remote machine, we can only examine the logs it produces:</p>
+<div class="paragraph">
+<p><span class="image"><img src="images/appveyor/ci-log.png" alt="AppVeyor build"></span></p>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Update the link to the "build status" badge at the top of <code>README.adoc</code> to point to the AppVeyor build status of your own repo.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>To find your build status badge URL, first go to your project settings by clicking on the "Settings" icon:</p>
+<div class="paragraph">
+<p><span class="image"><img src="images/appveyor/project-settings-1.png" alt="Click on project settings"></span></p>
+</div>
+</li>
+<li>
+<p>Then go to the <code>Badges</code> section of your project settings by clicking on it:</p>
+<div class="paragraph">
+<p><span class="image"><img src="images/appveyor/project-settings-2.png" alt="Click on "Badges""></span></p>
+</div>
+</li>
+<li>
+<p>As AppVeyor does not provide asciidoc code for the badge, we will have to create our own. Start by copying the markdown code provided:</p>
+<div class="paragraph">
+<p><span class="image"><img src="images/appveyor/project-settings-3.png" alt="Copy the markdown code"></span></p>
+</div>
+<div class="paragraph">
+<p>The markdown code should be in this format:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>[![Build status](&lt;link to image&gt;)](&lt;link to project&gt;)</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Convert it to the asciidoc format as follows:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>&lt;link to project&gt;[image:&lt;link to image&gt;[Build status]]</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The asciidoc code should look similar to:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>https://ci.appveyor.com/project/damithc/addressbook-level4[image:https://ci.appveyor.com/api/projects/status/3boko2x2vr5cc3w2?svg=true[Build status]]</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Copy and paste the asciidoc code to your <code>README.adoc</code> file.</p>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2017-06-01 09:14:37 +00:00
+</div>
+</div>
+</body>
+</html>

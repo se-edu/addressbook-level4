@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 1.5.3">
+<title>Travis CI</title>
+<link rel="stylesheet" href="stylesheets/gh-pages.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="stylesheets/coderay-asciidoctor.css">
+</head>
+<body class="article">
+<div id="header">
+<h1>Travis CI</h1>
+</div>
+<div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="https://travis-ci.org/">Travis CI</a> is a <em>Continuous Integration</em> platform for GitHub projects.</p>
+</div>
+<div class="paragraph">
+<p>Travis CI can run the projects' tests automatically whenever new code is pushed to the repo. This ensures that existing functionality and features have not been broken by the changes.</p>
+</div>
+<div class="paragraph">
+<p>The current Travis CI set up performs the following things whenever someone push code to the repo:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Runs the <code>./gradlew clean headless allTests coverage coveralls -i</code> command (see <a href="UsingGradle.html">UsingGradle</a> for more details on what this command means).</p>
+</li>
+<li>
+<p>Automatically retries the build up to 3 times if a task fails.</p>
+</li>
+<li>
+<p>Runs additional <a href="#repository-wide-checks">repository-wide checks</a>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>If you would like to customise your travis build further, you can learn more about Travis from <a href="https://docs.travis-ci.com/">Travis CI Documentation</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="setting-up-travis-ci"><a class="link" href="#setting-up-travis-ci">Setting up Travis CI</a></h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Fork the repo to your own organization.</p>
+</li>
+<li>
+<p>Go to <a href="https://travis-ci.org/" class="bare">https://travis-ci.org/</a> and click <code>Sign in with GitHub</code>, then enter your GitHub account details if needed.</p>
+<div class="paragraph">
+<p><span class="image"><img src="images/signing_in.png" alt="Signing into Travis CI"></span></p>
+</div>
+</li>
+<li>
+<p>Head to the <a href="https://travis-ci.org/profile">Accounts</a> page, and find the switch for the forked repository.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>If the organization is not shown, click <code>Review and add</code> as shown below:</p>
+<div class="paragraph">
+<p><span class="image"><img src="images/review_and_add.png" alt="Review and add"></span></p>
+</div>
+<div class="paragraph">
+<p>This should bring you to a GitHub page that manages the access of third-party applications. Depending on whether you are the owner of the repository, you can either grant access</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="images/grant_access.png" alt="Grant Access"></span></p>
+</div>
+<div class="paragraph">
+<p>or request access</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="images/request_access.png" alt="Request Access"></span></p>
+</div>
+<div class="paragraph">
+<p>to Travis CI so that it can access your commits and build your code.</p>
+</div>
+</li>
+<li>
+<p>If repository cannot be found, click <code>Sync account</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Activate the switch.</p>
+<div class="paragraph">
+<p><span class="image"><img src="images/flick_repository_switch.png" alt="Activate the switch"></span></p>
+</div>
+</li>
+<li>
+<p>This repo comes with a <a href="../.travis.yml"><code>.travis.yml</code></a> that tells Travis what to do. So there is no need for you to create one yourself.</p>
+</li>
+<li>
+<p>To see the CI in action, push a commit to the master branch!</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Go to the repository and see the pushed commit. There should be an icon which will link you to the Travis build.</p>
+<div class="paragraph">
+<p><span class="image"><img src="images/build_pending.png" alt="Commit build"></span></p>
+</div>
+</li>
+<li>
+<p>As the build is run on a provided remote machine, we can only examine the logs it produces:</p>
+<div class="paragraph">
+<p><span class="image"><img src="images/travis_build.png" alt="Travis build"></span></p>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>If the build is successful, you should be able to check the coverage details of the tests at <a href="http://coveralls.io/">Coveralls</a></p>
+</li>
+<li>
+<p>Update the link to the 'build status' badge at the top of the <code>README.adoc</code> to point to the build status of your own repo.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="repository-wide-checks"><a class="link" href="#repository-wide-checks">Repository-wide checks</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In addition to running Gradle checks, we also configure Travis CI to run some repository-wide checks. Unlike the Gradle checks which only cover files used in the build process, these repository-wide checks cover <em>all</em> files in the repository. They check for repository rules which are hard to enforce on development machines such as line ending requirements.</p>
+</div>
+<div class="paragraph">
+<p>These checks are implemented as POSIX shell scripts, and thus can only be run on POSIX-compliant operating systems such as macOS and Linux. To run all checks locally on these operating systems, execute the following in the repository root directory:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="shell">./config/travis/run-checks.sh</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Any warnings or errors will be printed out to the console.</p>
+</div>
+<div class="sect2">
+<h3 id="implementing-new-checks"><a class="link" href="#implementing-new-checks">Implementing new checks</a></h3>
+<div class="paragraph">
+<p>Checks are implemented as executable <code>check-*</code> scripts within the <code>config/travis/</code> directory. The <code>run-checks.sh</code> script will automatically pick up and run files named as such.</p>
+</div>
+<div class="paragraph">
+<p>Check scripts should print out errors in the following format:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>SEVERITY:FILENAME:LINE: MESSAGE</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>where <code>SEVERITY</code> is either <code>ERROR</code> or <code>WARN</code>, <code>FILENAME</code> is the path to the file relative to the current directory, <code>LINE</code> is the line of the file where the error occurred and <code>MESSAGE</code> is the message explaining the error.</p>
+</div>
+<div class="paragraph">
+<p>Check scripts must exit with a non-zero exit code if any errors occur.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2017-06-01 09:14:37 +00:00
+</div>
+</div>
+</body>
+</html>

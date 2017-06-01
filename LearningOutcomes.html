@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 1.5.3">
+<title>Learning Outcomes</title>
+<link rel="stylesheet" href="stylesheets/gh-pages.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="stylesheets/coderay-asciidoctor.css">
+</head>
+<body class="article">
+<div id="header">
+<h1>Learning Outcomes</h1>
+</div>
+<div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>After studying this code and completing the corresponding exercises, you should be able to,</p>
+</div>
+<div id="toc" class="toc">
+<div id="toctitle" class="title"></div>
+<ul class="sectlevel1">
+<li><a href="#use-high-level-designs-code-lo-highleveldesign-code">1. Use High-Level Designs <code>[LO-HighLevelDesign]</code></a></li>
+<li><a href="#use-event-driven-programming-code-lo-eventdriven-code">2. Use Event-Driven Programming <code>[LO-EventDriven]</code></a></li>
+<li><a href="#use-api-design-code-lo-apidesign-code">3. Use API Design <code>[LO-ApiDesign]</code></a></li>
+<li><a href="#use-assertions-code-lo-assertions-code">4. Use Assertions <code>[LO-Assertions]</code></a></li>
+<li><a href="#use-logging-code-lo-logging-code">5. Use Logging <code>[LO-Logging]</code></a></li>
+<li><a href="#use-defensive-coding-code-lo-defensivecoding-code">6. Use Defensive Coding <code>[LO-DefensiveCoding]</code></a></li>
+<li><a href="#use-build-automation-code-lo-buildautomation-code">7. Use Build Automation <code>[LO-BuildAutomation]</code></a></li>
+<li><a href="#use-continuous-integration-code-lo-continuousintegration-code">8. Use Continuous Integration <code>[LO-ContinuousIntegration]</code></a></li>
+<li><a href="#use-code-coverage-code-lo-codecoverage-code">9. Use Code Coverage <code>[LO-CodeCoverage]</code></a></li>
+<li><a href="#apply-test-case-design-heuristics-code-lo-testcasedesignheuristics-code">10. Apply Test Case Design Heuristics <code>[LO-TestCaseDesignHeuristics]</code></a></li>
+<li><a href="#write-integration-tests-code-lo-integrationtests-code">11. Write Integration Tests <code>[LO-IntegrationTests]</code></a></li>
+<li><a href="#perform-system-testing-code-lo-systemtesting-code">12. Perform System Testing <code>[LO-SystemTesting]</code></a></li>
+<li><a href="#automate-gui-testing-code-lo-automateguitesting-code">13. Automate GUI Testing <code>[LO-AutomateGuiTesting]</code></a></li>
+<li><a href="#apply-design-patterns-code-lo-designpatterns-code">14. Apply Design Patterns <code>[LO-DesignPatterns]</code></a></li>
+<li><a href="#use-static-analysis-code-lo-staticanalysis-code">15. Use Static Analysis <code>[LO-StaticAnalysis]</code></a></li>
+<li><a href="#do-code-reviews-code-lo-codereview-code">16. Do Code Reviews <code>[LO-CodeReview]</code></a></li>
+</ul>
+</div>
+<hr>
+</div>
+</div>
+<div class="sect1">
+<h2 id="use-high-level-designs-code-lo-highleveldesign-code"><a class="link" href="#use-high-level-designs-code-lo-highleveldesign-code">1. Use High-Level Designs <code>[LO-HighLevelDesign]</code></a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Note how the <a href="DeveloperGuide.html#architecture">Developer Guide</a> describes the high-level design using an <em>Architecture Diagrams</em> and high-level sequence diagrams.</p>
+</div>
+<hr>
+</div>
+</div>
+<div class="sect1">
+<h2 id="use-event-driven-programming-code-lo-eventdriven-code"><a class="link" href="#use-event-driven-programming-code-lo-eventdriven-code">2. Use Event-Driven Programming <code>[LO-EventDriven]</code></a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Note how the <a href="DeveloperGuide.html#architecture">Developer Guide</a> uses events to communicate with components without needing a direct coupling. Also note how the <code>EventsCenter</code> class acts as an event dispatcher to facilitate communication between event creators and event consumers.</p>
+</div>
+<hr>
+</div>
+</div>
+<div class="sect1">
+<h2 id="use-api-design-code-lo-apidesign-code"><a class="link" href="#use-api-design-code-lo-apidesign-code">3. Use API Design <code>[LO-ApiDesign]</code></a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Note how components of AddressBook have well-defined APIs. For example, the API of the <code>Logic</code> component is given in the <a href="https://github.com/se-edu/addressbook-level4/tree/master/src/main/java/seedu/address/logic/Logic.java"><code>Logic.java</code></a>
+<span class="image"><img src="images/LogicClassDiagram.png" alt="LogicClassDiagram" width="800"></span></p>
+</div>
+<div class="paragraph">
+<p><strong>Resources</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://www.youtube.com/watch?v=Un80XoRT1ME">A three-minutes video</a> of designing architecture of and discovering component APIs for a Game of Tic-Tac-Toe.</p>
+</li>
+</ul>
+</div>
+<hr>
+</div>
+</div>
+<div class="sect1">
+<h2 id="use-assertions-code-lo-assertions-code"><a class="link" href="#use-assertions-code-lo-assertions-code">4. Use Assertions <code>[LO-Assertions]</code></a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Note how the AddressBook app uses Java <code>assert</code>s to verify assumptions.</p>
+</div>
+<div class="paragraph">
+<p><strong>Resources</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="http://docs.oracle.com/javase/6/docs/technotes/guides/language/assert.html">Programming With Assertions</a> - a guide from Oracle.</p>
+</li>
+<li>
+<p><a href="http://stackoverflow.com/questions/5509082/eclipse-enable-assertions">How to enable assertions in Eclipse</a></p>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<h3 id="exercise-add-more-assertions"><a class="link" href="#exercise-add-more-assertions">Exercise: Add more assertions</a></h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Make sure assertions are enabled in Eclipse by forcing an assertion failure (e.g. add <code>assert false;</code> somewhere in the code and run the code
+to ensure the runtime reports an assertion failure).</p>
+</li>
+<li>
+<p>Add more assertions to AddressBook as you see fit.</p>
+</li>
+</ul>
+</div>
+<hr>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="use-logging-code-lo-logging-code"><a class="link" href="#use-logging-code-lo-logging-code">5. Use Logging <code>[LO-Logging]</code></a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Note <a href="DeveloperGuide.html#31-logging">how the AddressBook app uses Java&#8217;s <code>java.util.log</code> package to do logging</a>.</p>
+</div>
+<div class="paragraph">
+<p><strong>Resources</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Tutorials</p>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="http://tutorials.jenkov.com/java-logging/index.html">Logging using java.util.logging</a> - a tutorial by Jakob Jenkov</p>
+</li>
+<li>
+<p><a href="http://docs.oracle.com/javase/7/docs/technotes/guides/logging/overview.html">Logging tutorial</a> - a more detailed tutorial from Oracle.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Logging best practices</p>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="http://commons.apache.org/proper/commons-logging/guide.html#Message_PrioritiesLevels">Apache Commons Logging guide</a></p>
+</li>
+<li>
+<p><a href="https://www.javacodegeeks.com/2011/01/10-tips-proper-application-logging.html">10 Tips for Proper Application Logging</a></p>
+</li>
+<li>
+<p><a href="https://wiki.base22.com/display/btg/Java+Logging+Standards+and+Guidelines">Base 22 Java Logging Standards and Guidelines</a></p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<h3 id="exercise-add-more-logging"><a class="link" href="#exercise-add-more-logging">Exercise: Add more logging</a></h3>
+<div class="paragraph">
+<p>Add more logging to AddressBook as you see fit.</p>
+</div>
+<hr>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="use-defensive-coding-code-lo-defensivecoding-code"><a class="link" href="#use-defensive-coding-code-lo-defensivecoding-code">6. Use Defensive Coding <code>[LO-DefensiveCoding]</code></a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Note how AddressBook uses the <code>ReadOnly*</code> interfaces to prevent objects being modified by clients who are not supposed to modify them.</p>
+</div>
+<div class="sect2">
+<h3 id="exercise-identify-more-places-for-defensive-coding"><a class="link" href="#exercise-identify-more-places-for-defensive-coding">Exercise: identify more places for defensive coding</a></h3>
+<div class="paragraph">
+<p>Analyze the AddressBook code/design to identify,</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>where defensive coding is used</p>
+</li>
+<li>
+<p>where the code can be more defensive</p>
+</li>
+</ul>
+</div>
+<hr>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="use-build-automation-code-lo-buildautomation-code"><a class="link" href="#use-build-automation-code-lo-buildautomation-code">7. Use Build Automation <code>[LO-BuildAutomation]</code></a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Note <a href="UsingGradle.html">how the AddressBook app uses Gradle to automate build tasks</a>.</p>
+</div>
+<div class="paragraph">
+<p><strong>Resources</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Tutorials</p>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://gradle.org/getting-started-gradle-java/">Getting started with Gradle (Java)</a> - a tutorial from the Gradle team</p>
+</li>
+<li>
+<p><a href="http://www.tutorialspoint.com/gradle/">Another tutorial</a> - from TutorialPoint</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<h3 id="exercise-use-gradle-to-run-tasks"><a class="link" href="#exercise-use-gradle-to-run-tasks">Exercise: Use gradle to run tasks</a></h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Use gradle to do these tasks (instructions are <a href="UsingGradle.html">here</a>) : Run all tests in headless mode, build the jar file.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="exercise-use-gradle-to-manage-dependencies"><a class="link" href="#exercise-use-gradle-to-manage-dependencies">Exercise: Use gradle to manage dependencies</a></h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Note how the build script <code>build.gradle</code> file manages third party dependencies such as ControlsFx. Update that file to manage a third-party library dependency.</p>
+</li>
+</ul>
+</div>
+<hr>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="use-continuous-integration-code-lo-continuousintegration-code"><a class="link" href="#use-continuous-integration-code-lo-continuousintegration-code">8. Use Continuous Integration <code>[LO-ContinuousIntegration]</code></a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Note <a href="UsingTravis.html">how the AddressBook app uses Travis to perform Continuous Integration</a>. (<a href="https://travis-ci.org/se-edu/addressbook-level4"><span class="image"><img src="https://travis-ci.org/se-edu/addressbook-level4.svg?branch=master" alt="Build Status"></span></a>)</p>
+</div>
+<div class="paragraph">
+<p><strong>Resources</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Tutorials</p>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://docs.travis-ci.com/user/getting-started/">Getting started with Travis</a> - a tutorial from the Travis team</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<h3 id="exercise-use-travis-in-your-own-project"><a class="link" href="#exercise-use-travis-in-your-own-project">Exercise: Use Travis in your own project</a></h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Set up Travis to perform CI on your own project.</p>
+</li>
+</ul>
+</div>
+<hr>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="use-code-coverage-code-lo-codecoverage-code"><a class="link" href="#use-code-coverage-code-lo-codecoverage-code">9. Use Code Coverage <code>[LO-CodeCoverage]</code></a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Note how our CI server <a href="UsingTravis.html">Travis uses Coveralls to report code coverage</a>. (<a href="https://coveralls.io/github/se-edu/addressbook-level4?branch=master"><span class="image"><img src="https://coveralls.io/repos/github/se-edu/addressbook-level4/badge.svg?branch=master" alt="Coverage Status"></span></a>) After setting up Coveralls for your project, you can visit Coveralls website to find details about the coverage of code pushed to your repo. <a href="https://coveralls.io/github/se-edu/addressbook-level4?branch=master">Here</a> is an example.</p>
+</div>
+<div class="sect2">
+<h3 id="exercise-use-eclemma-to-measure-coverage-locally"><a class="link" href="#exercise-use-eclemma-to-measure-coverage-locally">Exercise: Use EclEmma to measure coverage locally</a></h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Install the <a href="http://www.eclemma.org/">EclEmma Eclipse Plugin</a> in your computer and use that to find code that is not covered by the tests. This plugin can help you to find coverage details even before you push code to the remote repo.</p>
+</li>
+</ul>
+</div>
+<hr>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="apply-test-case-design-heuristics-code-lo-testcasedesignheuristics-code"><a class="link" href="#apply-test-case-design-heuristics-code-lo-testcasedesignheuristics-code">10. Apply Test Case Design Heuristics <code>[LO-TestCaseDesignHeuristics]</code></a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The <a href="https://github.com/se-edu/addressbook-level4/tree/master/src/test/java/seedu/address/commons/util/StringUtilTest.java"><code>StringUtilTest.java</code></a>
+class gives some examples of how to use <em>Equivalence Partitions</em>, <em>Boundary Value Analysis</em>, and <em>Test Input Combination Heuristics</em> to improve the efficiency and effectiveness of test cases testing the <a href="../src/main/java/seedu/address/commons/util/StringUtil.java"><code>StringUtil.java</code></a> class.</p>
+</div>
+<div class="sect2">
+<h3 id="exercise-apply-test-case-design-heuristics-to-other-places"><a class="link" href="#exercise-apply-test-case-design-heuristics-to-other-places">Exercise: Apply Test Case Design Heuristics to other places</a></h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Find answers to these questions:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>What is an Equivalence Partition? How does it help to improve E&amp;E of testing?</p>
+</li>
+<li>
+<p>What is Boundary Value Analysis? How does it help to improve E&amp;E of testing?</p>
+</li>
+<li>
+<p>What are the heuristics that can be used when combining multiple test inputs?</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Use the test case design heuristics mentioned above to improve test cases in other places.</p>
+</li>
+</ul>
+</div>
+<hr>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="write-integration-tests-code-lo-integrationtests-code"><a class="link" href="#write-integration-tests-code-lo-integrationtests-code">11. Write Integration Tests <code>[LO-IntegrationTests]</code></a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Consider the <a href="https://github.com/se-edu/addressbook-level4/tree/master/src/test/java/seedu/address/storage/StorageManagerTest.java"><code>StorageManagerTest.java</code></a> class.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Test methods <code>prefsReadSave()</code> and <code>addressBookReadSave()</code> are integration tests. Note how they simply test if The <code>StorageManager</code> class is correctly wired to its dependencies.</p>
+</li>
+<li>
+<p>Test method <code>handleAddressBookChangedEvent_exceptionThrown_eventRaised()</code> is a unit test because it uses <em>dependency injection</em> to isolate the SUT <code>StorageManger::handleAddressBookChangedEvent(&#8230;&#8203;)</code> from its dependencies.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Compare the above with <a href="https://github.com/se-edu/addressbook-level4/tree/master/src/test/java/seedu/address/logic/LogicManagerTest.java"><code>LogicManagerTest</code></a>. Many of the tests in that class (e.g. <code>execute_add_*</code> methods) tests are neither integration nor unit tests. They are a <em>integration + unit</em> tests because they not only checks if the LogicManager is correctly wired to its dependencies, but also checks the working of its dependencies. For example, the following two lines test the the <code>LogicManager</code> but also the <code>Parser</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@Test</span>
+<span class="directive">public</span> <span class="type">void</span> execute_add_invalidArgsFormat() <span class="directive">throws</span> <span class="exception">Exception</span> {
+    ...
+    assertCommandBehavior(<span class="string"><span class="delimiter">&quot;</span><span class="content">add Valid Name 12345 e/valid@email.butNoPhonePrefix a/valid, address</span><span class="delimiter">&quot;</span></span>, expectedMessage);
+    assertCommandBehavior(<span class="string"><span class="delimiter">&quot;</span><span class="content">add Valid Name p/12345 valid@email.butNoPrefix a/valid, address</span><span class="delimiter">&quot;</span></span>, expectedMessage);
+    ...
+}</code></pre>
+</div>
+</div>
+<div class="sect2">
+<h3 id="exercise-write-unit-and-integration-tests-for-the-same-method"><a class="link" href="#exercise-write-unit-and-integration-tests-for-the-same-method">Exercise: Write unit and integration tests for the same method.</a></h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Write a unit test for a a high-level methods somewhere in the code base.</p>
+</li>
+<li>
+<p>Write an integration test for the same method.</p>
+</li>
+</ul>
+</div>
+<hr>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="perform-system-testing-code-lo-systemtesting-code"><a class="link" href="#perform-system-testing-code-lo-systemtesting-code">12. Perform System Testing <code>[LO-SystemTesting]</code></a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Note how tests below <code>src/test/java/guitests</code> package (e.g <a href="https://github.com/se-edu/addressbook-level4/tree/master/src/test/java/guitests/AddCommandTest.java"><code>AddCommandTest.java</code></a>) are system tests because they test the entire system end-to-end.</p>
+</div>
+<div class="sect2">
+<h3 id="exercise-write-more-system-tests"><a class="link" href="#exercise-write-more-system-tests">Exercise: Write more system tests</a></h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Add some more system tests to the existing system tests.</p>
+</li>
+</ul>
+</div>
+<hr>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="automate-gui-testing-code-lo-automateguitesting-code"><a class="link" href="#automate-gui-testing-code-lo-automateguitesting-code">13. Automate GUI Testing <code>[LO-AutomateGuiTesting]</code></a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Note how this project uses TextFX library to automate GUI testing, including <a href="DeveloperGuide.html#headless-gui-testing"><em>headless</em> GUI testing</a>.</p>
+</div>
+<div class="sect2">
+<h3 id="exercise-write-more-automated-gui-tests"><a class="link" href="#exercise-write-more-automated-gui-tests">Exercise: Write more automated GUI tests</a></h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Add some more automated GUI tests.</p>
+</li>
+</ul>
+</div>
+<hr>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="apply-design-patterns-code-lo-designpatterns-code"><a class="link" href="#apply-design-patterns-code-lo-designpatterns-code">14. Apply Design Patterns <code>[LO-DesignPatterns]</code></a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Here are some example design patterns used in the code base.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Singleton Pattern</strong> : <a href="https://github.com/se-edu/addressbook-level4/tree/master/src/main/java/seedu/address/commons/core/EventsCenter.java"><code>EventsCenter.java</code></a> is Singleton class. Its single instance can be accessed using the <code>EventsCenter.getInstance()</code> method.</p>
+</li>
+<li>
+<p><strong>Facade Pattern</strong> : <a href="https://github.com/se-edu/addressbook-level4/tree/master/src/main/java/seedu/address/storage/StorageManager.java"><code>StorageManager.java</code></a> is not only shielding the internals of the Storage component from outsiders, it is mostly redirecting methods calls to its internal components (i.e. minimal logic in the class itself). Therefore, <code>StorageManager</code> can be considered a Facade class.</p>
+</li>
+<li>
+<p><strong>Command Pattern</strong> : The <a href="https://github.com/se-edu/addressbook-level4/tree/master/src/main/java/seedu/address/logic/commands/Command.java"><code>Command.java</code></a> and its sub classes implement the Command Pattern.</p>
+</li>
+<li>
+<p><strong>Observer Pattern</strong> : The <a href="DeveloperGuide.html#events-driven-nature-of-the-desig">event driven mechanism</a> used by this code base employs the Observer pattern. For example, objects that are interested in events need to have the <code>@Subscribe</code> annotation in the class (this is similar to implementing an <code>&lt;&lt;Observer&gt;&gt;</code> interface) and register with the <code>EventsCenter</code>. When something noteworthy happens, an event is raised and the <code>EventsCenter</code> notifies all relevant subscribers. Unlike in the Observer pattern in which the <code>&lt;&lt;Observerable&gt;&gt;</code> class is notifying all <code>&lt;&lt;Observer&gt;&gt;</code> objects, here the <code>&lt;&lt;Observable&gt;&gt;</code> classes simply raises an event and the <code>EventsCenter</code> takes care of the notifications.</p>
+</li>
+<li>
+<p><strong>MVC Pattern</strong> :</p>
+<div class="ulist">
+<ul>
+<li>
+<p>The 'View' part of the application is mostly in the <code>.fxml</code> files in the <code>src/main/resources/view</code> folder.</p>
+</li>
+<li>
+<p><code>Model</code> component contains the 'Model'.</p>
+</li>
+<li>
+<p>Sub classes of <a href="https://github.com/se-edu/addressbook-level4/tree/master/src/main/java/seedu/address/ui/UiPart.java"><code>UiPart</code></a> (e.g. <code>PersonListPanel</code> ) act as 'Controllers', each controlling some part of the UI and communicating with the 'Model' via a <code>Logic</code> component which sits between the 'Controller' and the 'Model'.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Abstraction Occurrence Pattern</strong> : Not currently used in the app.</p>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<h3 id="exercise-discover-other-possible-applications-of-the-patterns"><a class="link" href="#exercise-discover-other-possible-applications-of-the-patterns">Exercise: Discover other possible applications of the patterns</a></h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Find other possible applications of the patterns to improve the current design. e.g. where else in the design can you apply the Singleton pattern?</p>
+</li>
+<li>
+<p>Discuss pros and cons of applying the pattern in each of the situations you found in the previous step.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="exercise-find-more-applicable-patterns"><a class="link" href="#exercise-find-more-applicable-patterns">Exercise: Find more applicable patterns</a></h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Learn other <em>Gang of Four</em> Design patterns to see if they are applicable to the app.</p>
+</li>
+</ul>
+</div>
+<hr>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="use-static-analysis-code-lo-staticanalysis-code"><a class="link" href="#use-static-analysis-code-lo-staticanalysis-code">15. Use Static Analysis <code>[LO-StaticAnalysis]</code></a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Note how this project uses the <a href="http://checkstyle.sourceforge.net/">CheckStyle</a> static analysis tool to confirm compliance with the coding standard.</p>
+</div>
+<div class="paragraph">
+<p>Other popular Java static analysis tools:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="http://findbugs.sourceforge.net/">Find Bugs</a></p>
+</li>
+<li>
+<p><a href="https://pmd.github.io/">PMD</a></p>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<h3 id="exercise-use-the-checkstyle-eclipse-plugin"><a class="link" href="#exercise-use-the-checkstyle-eclipse-plugin">Exercise: Use the CheckStyle Eclipse plugin</a></h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Install the <a href="http://eclipse-cs.sourceforge.net/#!/">CheckStyle Eclipse plugin</a> and use it to detect coding standard violations.</p>
+</li>
+</ul>
+</div>
+<hr>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="do-code-reviews-code-lo-codereview-code"><a class="link" href="#do-code-reviews-code-lo-codereview-code">16. Do Code Reviews <code>[LO-CodeReview]</code></a></h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Note how some PRs in this project have been reviewed by other developers. Here is an <a href="https://github.com/se-edu/addressbook-level4/pull/147">example</a>.</p>
+</li>
+<li>
+<p>Also note how we have used <a href="https://www.codacy.com">Codacy</a> to do automate some part of the code review workload (<a href="https://www.codacy.com/app/damith/addressbook-level4?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=se-edu/addressbook-level4&amp;utm_campaign=Badge_Grade"><span class="image"><img src="https://api.codacy.com/project/badge/Grade/fc0b7775cf7f4fdeaf08776f3d8e364a" alt="Codacy Badge"></span></a>)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Here are some things you can comment on when reviewing code:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Read the code from the perspective of a new developer. Identify parts that are harder to understand and suggest improvements.</p>
+</li>
+<li>
+<p>Point out any coding standard violations.</p>
+</li>
+<li>
+<p>Suggest better names for methods/variables/classes.</p>
+</li>
+<li>
+<p>Point out unnecessary code duplications.</p>
+</li>
+<li>
+<p>Check if the comments, docs, tests have been updated to match the code change.</p>
+</li>
+<li>
+<p>Check for violation of relevant principles such as the SOLID principles.</p>
+</li>
+<li>
+<p>Point out where SLAP can be improved. e.g. methods that are too long or has too deep nesting.</p>
+</li>
+<li>
+<p>Suggest any other code quality improvements.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Resources</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://www.kevinlondon.com/2015/05/05/code-review-best-practices.html">Code Review Best Practices</a> - Blog post by Kevin London</p>
+</li>
+<li>
+<p><a href="https://www.atlassian.com/agile/code-reviews">Why Code Reviews Matter</a> - An article by Atlassian</p>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<h3 id="exercise-review-a-pr"><a class="link" href="#exercise-review-a-pr">Exercise: Review a PR</a></h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Review a GitHub PR created by a team member.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2017-06-01 09:14:37 +00:00
+</div>
+</div>
+</body>
+</html>
