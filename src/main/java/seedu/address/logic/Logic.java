@@ -22,4 +22,6 @@ public interface Logic {
     /** Returns the filtered list of persons */
     ObservableList<ReadOnlyPerson> getFilteredPersonList();
 
+    /** Returns the list of input entered by the user */
+    NonAlternatingListIterator<String> getHistoryIterator();
 }
