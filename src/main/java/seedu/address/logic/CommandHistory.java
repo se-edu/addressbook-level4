@@ -29,4 +29,11 @@ public class CommandHistory {
     public List<String> getHistory() {
         return new ArrayList<>(userInputHistory);
     }
+
+    /**
+     * Returns a list-iterator of the elements in {@code userInputHistory}.
+     */
+    public CommandHistoryListIterator listIterator() {
+        return new CommandHistoryListIterator(userInputHistory.listIterator(userInputHistory.size()));
+    }
 }
