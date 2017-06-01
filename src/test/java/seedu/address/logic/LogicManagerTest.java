@@ -14,6 +14,7 @@ import static seedu.address.model.util.SampleDataUtil.getTagSet;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -45,12 +46,12 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
-import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.tag.Tag;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
@@ -119,19 +120,16 @@ public class LogicManagerTest {
 
     /**
      * Executes the command, confirms that no exceptions are thrown and that the result message is correct.
-     * Also confirms that both the 'address book' and the 'last shown list' are as specified.
-     * @see #assertCommandBehavior(boolean, String, String, ReadOnlyAddressBook, List)
+     * Also confirms that {@code expectedModel} is as specified.
+     * @see #assertCommandBehavior(Class, String, String, Model)
      */
-    private void assertCommandSuccess(String inputCommand, String expectedMessage,
-                                      ReadOnlyAddressBook expectedAddressBook,
-                                      List<? extends ReadOnlyPerson> expectedShownList) {
-        assertCommandBehavior(null, inputCommand, expectedMessage, expectedAddressBook, expectedShownList);
+    private void assertCommandSuccess(String inputCommand, String expectedMessage, Model expectedModel) {
+        assertCommandBehavior(null, inputCommand, expectedMessage, expectedModel);
     }
 
     /**
      * Executes the command, confirms that a CommandException is thrown and that the result message is correct.
-     * Both the 'address book' and the 'last shown list' are verified to be unchanged.
-     * @see #assertCommandBehavior(boolean, String, String, ReadOnlyAddressBook, List)
+     * @see #assertCommandBehavior(Class, String, String, Model)
      */
     private void assertCommandException(String inputCommand, String expectedMessage) {
         assertCommandFailure(inputCommand, CommandException.class, expectedMessage);
@@ -139,8 +137,7 @@ public class LogicManagerTest {
 
     /**
      * Executes the command, confirms that a ParseException is thrown and that the result message is correct.
-     * Both the 'address book' and the 'last shown list' are verified to be unchanged.
-     * @see #assertCommandBehavior(boolean, String, String, ReadOnlyAddressBook, List)
+     * @see #assertCommandBehavior(Class, String, String, Model)
      */
     private void assertParseException(String inputCommand, String expectedMessage) {
         assertCommandFailure(inputCommand, ParseException.class, expectedMessage);
@@ -148,26 +145,21 @@ public class LogicManagerTest {
 
     /**
      * Executes the command, confirms that the exception is thrown and that the result message is correct.
-     * Both the 'address book' and the 'last shown list' are verified to be unchanged.
-     * @see #assertCommandBehavior(boolean, String, String, ReadOnlyAddressBook, List)
+     * @see #assertCommandBehavior(Class, String, String, Model)
      */
     private <T> void assertCommandFailure(String inputCommand, Class<T> expectedException, String expectedMessage) {
-        AddressBook expectedAddressBook = new AddressBook(model.getAddressBook());
-        List<ReadOnlyPerson> expectedShownList = new ArrayList<>(model.getFilteredPersonList());
-        assertCommandBehavior(expectedException, inputCommand, expectedMessage, expectedAddressBook,
-                expectedShownList);
+        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        assertCommandBehavior(expectedException, inputCommand, expectedMessage, expectedModel);
     }
 
     /**
      * Executes the command, confirms that the result message is correct and that the expected exception is thrown,
-     * and also confirms that the following three parts of the LogicManager object's state are as expected:<br>
-     *      - the internal address book data are same as those in the {@code expectedAddressBook} <br>
-     *      - the backing list shown by UI matches the {@code shownList} <br>
-     *      - {@code expectedAddressBook} was saved to the storage file. <br>
+     * and also confirms that the following two parts of the LogicManager object's state are as expected:<br>
+     *      - the internal model manager data are same as those in the {@code expectedModel} <br>
+     *      - {@code expectedModel}'s address book was saved to the storage file.
      */
-    private <T> void assertCommandBehavior(Class<T> expectedException,
-            String inputCommand, String expectedMessage, ReadOnlyAddressBook expectedAddressBook,
-            List<? extends ReadOnlyPerson> expectedShownList) {
+    private <T> void assertCommandBehavior(Class<T> expectedException, String inputCommand,
+                                           String expectedMessage, Model expectedModel) {
 
         try {
             CommandResult result = logic.execute(inputCommand);
@@ -178,12 +170,8 @@ public class LogicManagerTest {
             assertEquals(expectedMessage, e.getMessage());
         }
 
-        //Confirm the ui display elements should contain the right data
-        assertEquals(expectedShownList, model.getFilteredPersonList());
-
-        //Confirm the state of data (saved and in-memory) is as expected
-        assertEquals(expectedAddressBook, model.getAddressBook());
-        assertEquals(expectedAddressBook, latestSavedAddressBook);
+        assertEquals(expectedModel, model);
+        assertEquals(expectedModel.getAddressBook(), latestSavedAddressBook);
     }
 
     @Test
@@ -194,15 +182,13 @@ public class LogicManagerTest {
 
     @Test
     public void execute_help() {
-        assertCommandSuccess(HelpCommand.COMMAND_WORD, HelpCommand.SHOWING_HELP_MESSAGE,
-                new AddressBook(), Collections.emptyList());
+        assertCommandSuccess(HelpCommand.COMMAND_WORD, HelpCommand.SHOWING_HELP_MESSAGE, new ModelManager());
         assertTrue(helpShown);
     }
 
     @Test
     public void execute_exit() {
-        assertCommandSuccess(ExitCommand.COMMAND_WORD, ExitCommand.MESSAGE_EXIT_ACKNOWLEDGEMENT,
-                new AddressBook(), Collections.emptyList());
+        assertCommandSuccess(ExitCommand.COMMAND_WORD, ExitCommand.MESSAGE_EXIT_ACKNOWLEDGEMENT, new ModelManager());
     }
 
     @Test
@@ -212,8 +198,7 @@ public class LogicManagerTest {
         model.addPerson(helper.generatePerson(2));
         model.addPerson(helper.generatePerson(3));
 
-        assertCommandSuccess(ClearCommand.COMMAND_WORD, ClearCommand.MESSAGE_SUCCESS,
-                new AddressBook(), Collections.emptyList());
+        assertCommandSuccess(ClearCommand.COMMAND_WORD, ClearCommand.MESSAGE_SUCCESS, new ModelManager());
     }
 
 
@@ -263,14 +248,12 @@ public class LogicManagerTest {
         // setup expectations
         TestDataHelper helper = new TestDataHelper();
         Person toBeAdded = helper.adam();
-        AddressBook expectedAb = new AddressBook();
-        expectedAb.addPerson(toBeAdded);
+        Model expectedModel = new ModelManager();
+        expectedModel.addPerson(toBeAdded);
 
         // execute command and verify result
         assertCommandSuccess(helper.generateAddCommand(toBeAdded),
-                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded),
-                expectedAb,
-                expectedAb.getPersonList());
+                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded), expectedModel);
 
     }
 
@@ -293,16 +276,12 @@ public class LogicManagerTest {
     public void execute_list_showsAllPersons() throws Exception {
         // prepare expectations
         TestDataHelper helper = new TestDataHelper();
-        AddressBook expectedAb = helper.generateAddressBook(2);
-        List<? extends ReadOnlyPerson> expectedList = expectedAb.getPersonList();
+        Model expectedModel = new ModelManager(helper.generateAddressBook(2), new UserPrefs());
 
         // prepare address book state
         helper.addToModel(model, 2);
 
-        assertCommandSuccess(ListCommand.COMMAND_WORD,
-                ListCommand.MESSAGE_SUCCESS,
-                expectedAb,
-                expectedList);
+        assertCommandSuccess(ListCommand.COMMAND_WORD, ListCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
 
@@ -357,13 +336,11 @@ public class LogicManagerTest {
         TestDataHelper helper = new TestDataHelper();
         List<Person> threePersons = helper.generatePersonList(3);
 
-        AddressBook expectedAb = helper.generateAddressBook(threePersons);
+        Model expectedModel = new ModelManager(helper.generateAddressBook(threePersons), new UserPrefs());
         helper.addToModel(model, threePersons);
 
         assertCommandSuccess(SelectCommand.COMMAND_WORD + " 2",
-                String.format(SelectCommand.MESSAGE_SELECT_PERSON_SUCCESS, 2),
-                expectedAb,
-                expectedAb.getPersonList());
+                String.format(SelectCommand.MESSAGE_SELECT_PERSON_SUCCESS, 2), expectedModel);
         assertEquals(1, targetedJumpIndex);
         assertEquals(model.getFilteredPersonList().get(1), threePersons.get(1));
     }
@@ -385,14 +362,12 @@ public class LogicManagerTest {
         TestDataHelper helper = new TestDataHelper();
         List<Person> threePersons = helper.generatePersonList(3);
 
-        AddressBook expectedAb = helper.generateAddressBook(threePersons);
-        expectedAb.removePerson(threePersons.get(1));
+        Model expectedModel = new ModelManager(helper.generateAddressBook(threePersons), new UserPrefs());
+        expectedModel.deletePerson(threePersons.get(1));
         helper.addToModel(model, threePersons);
 
         assertCommandSuccess(DeleteCommand.COMMAND_WORD + " 2",
-                String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, threePersons.get(1)),
-                expectedAb,
-                expectedAb.getPersonList());
+                String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, threePersons.get(1)), expectedModel);
     }
 
 
@@ -411,14 +386,12 @@ public class LogicManagerTest {
         Person p2 = new PersonBuilder().withName("KEYKEYKEY sduauo").build();
 
         List<Person> fourPersons = helper.generatePersonList(p1, pTarget1, p2, pTarget2);
-        AddressBook expectedAb = helper.generateAddressBook(fourPersons);
-        List<Person> expectedList = helper.generatePersonList(pTarget1, pTarget2);
+        Model expectedModel = new ModelManager(helper.generateAddressBook(fourPersons), new UserPrefs());
+        expectedModel.updateFilteredPersonList(new HashSet<>(Collections.singletonList("KEY")));
         helper.addToModel(model, fourPersons);
-
         assertCommandSuccess(FindCommand.COMMAND_WORD + " KEY",
-                Command.getMessageForPersonListShownSummary(expectedList.size()),
-                expectedAb,
-                expectedList);
+                Command.getMessageForPersonListShownSummary(expectedModel.getFilteredPersonList().size()),
+                expectedModel);
     }
 
     @Test
@@ -430,14 +403,12 @@ public class LogicManagerTest {
         Person p4 = new PersonBuilder().withName("KEy sduauo").build();
 
         List<Person> fourPersons = helper.generatePersonList(p3, p1, p4, p2);
-        AddressBook expectedAb = helper.generateAddressBook(fourPersons);
-        List<Person> expectedList = fourPersons;
+        Model expectedModel = new ModelManager(helper.generateAddressBook(fourPersons), new UserPrefs());
         helper.addToModel(model, fourPersons);
 
         assertCommandSuccess(FindCommand.COMMAND_WORD + " KEY",
-                Command.getMessageForPersonListShownSummary(expectedList.size()),
-                expectedAb,
-                expectedList);
+                Command.getMessageForPersonListShownSummary(expectedModel.getFilteredPersonList().size()),
+                expectedModel);
     }
 
     @Test
@@ -449,14 +420,13 @@ public class LogicManagerTest {
         Person p1 = new PersonBuilder().withName("sduauo").build();
 
         List<Person> fourPersons = helper.generatePersonList(pTarget1, p1, pTarget2, pTarget3);
-        AddressBook expectedAb = helper.generateAddressBook(fourPersons);
-        List<Person> expectedList = helper.generatePersonList(pTarget1, pTarget2, pTarget3);
+        Model expectedModel = new ModelManager(helper.generateAddressBook(fourPersons), new UserPrefs());
+        expectedModel.updateFilteredPersonList(new HashSet<>(Arrays.asList("key", "rAnDoM")));
         helper.addToModel(model, fourPersons);
 
         assertCommandSuccess(FindCommand.COMMAND_WORD + " key rAnDoM",
-                Command.getMessageForPersonListShownSummary(expectedList.size()),
-                expectedAb,
-                expectedList);
+                Command.getMessageForPersonListShownSummary(expectedModel.getFilteredPersonList().size()),
+                expectedModel);
     }
 
 

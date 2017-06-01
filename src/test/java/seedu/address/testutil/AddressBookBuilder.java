@@ -15,6 +15,10 @@ public class AddressBookBuilder {
 
     private AddressBook addressBook;
 
+    public AddressBookBuilder() {
+        addressBook = new AddressBook();
+    }
+
     public AddressBookBuilder(AddressBook addressBook) {
         this.addressBook = addressBook;
     }

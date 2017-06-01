@@ -3,23 +3,16 @@ package seedu.address.logic.commands;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.junit.Test;
 
-import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.PersonUtil;
 import seedu.address.testutil.TypicalPersons;
@@ -46,11 +39,10 @@ public class EditCommandIntegrationTest {
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
 
-        AddressBook expectedAddressBook = new AddressBook(model.getAddressBook());
-        expectedAddressBook.updatePerson(ZERO_BASED_INDEX_FIRST_PERSON, editedPerson);
-        FilteredList<ReadOnlyPerson> expectedFilteredList = new FilteredList<>(expectedAddressBook.getPersonList());
+        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        expectedModel.updatePerson(ZERO_BASED_INDEX_FIRST_PERSON, editedPerson);
 
-        assertCommandSuccess(command, expectedMessage, expectedAddressBook, expectedFilteredList);
+        assertCommandSuccess(command, expectedMessage, expectedModel);
     }
 
     @Test
@@ -82,12 +74,10 @@ public class EditCommandIntegrationTest {
      * - the filtered person list in the model matches {@code expectedFilteredList} <br>
      */
     private void assertCommandSuccess(Command command, String expectedMessage,
-            ReadOnlyAddressBook expectedAddressBook,
-            List<? extends ReadOnlyPerson> expectedFilteredList) throws CommandException {
+            Model expectedModel) throws CommandException {
         CommandResult result = command.execute();
         assertEquals(expectedMessage, result.feedbackToUser);
-        assertEquals(expectedAddressBook, model.getAddressBook());
-        assertEquals(expectedFilteredList, model.getFilteredPersonList());
+        assertEquals(expectedModel, model);
     }
 
     /**
@@ -98,15 +88,13 @@ public class EditCommandIntegrationTest {
      * - the filtered person list in the model remains unchanged <br>
      */
     private void assertCommandFailure(Command command, String expectedMessage) {
-        AddressBook expectedAddressBook = new AddressBook(model.getAddressBook());
-        List<ReadOnlyPerson> expectedFilteredList = new ArrayList<>(model.getFilteredPersonList());
+        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         try {
             command.execute();
             fail("expected CommandException was not thrown.");
         } catch (CommandException e) {
             assertEquals(expectedMessage, e.getMessage());
-            assertEquals(expectedAddressBook, model.getAddressBook());
-            assertEquals(expectedFilteredList, model.getFilteredPersonList());
+            assertEquals(expectedModel, model);
         }
     }
 }
