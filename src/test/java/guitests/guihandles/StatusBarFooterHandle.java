@@ -2,7 +2,6 @@ package guitests.guihandles;
 
 import org.controlsfx.control.StatusBar;
 
-import guitests.GuiRobot;
 import javafx.stage.Stage;
 import seedu.address.TestApp;
 
@@ -14,8 +13,8 @@ public class StatusBarFooterHandle extends GuiHandle {
     public static final String SYNC_STATUS_ID = "#syncStatus";
     public static final String SAVE_LOCATION_STATUS_ID = "#saveLocationStatus";
 
-    public StatusBarFooterHandle(GuiRobot guiRobot, Stage primaryStage) {
-        super(guiRobot, primaryStage, TestApp.APP_TITLE);
+    public StatusBarFooterHandle(Stage primaryStage) {
+        super(primaryStage, TestApp.APP_TITLE);
     }
 
     public String getSyncStatus() {
