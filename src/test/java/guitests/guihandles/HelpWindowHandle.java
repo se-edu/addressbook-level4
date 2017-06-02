@@ -1,6 +1,5 @@
 package guitests.guihandles;
 
-import guitests.GuiRobot;
 import javafx.stage.Stage;
 
 /**
@@ -11,8 +10,9 @@ public class HelpWindowHandle extends GuiHandle {
     private static final String HELP_WINDOW_TITLE = "Help";
     private static final String HELP_WINDOW_ROOT_FIELD_ID = "#helpWindowRoot";
 
-    public HelpWindowHandle(GuiRobot guiRobot, Stage primaryStage) {
-        super(guiRobot, primaryStage, HELP_WINDOW_TITLE);
+    public HelpWindowHandle(Stage primaryStage) {
+        super(primaryStage, HELP_WINDOW_TITLE);
+
         guiRobot.pauseForHuman(1000);
     }
 
