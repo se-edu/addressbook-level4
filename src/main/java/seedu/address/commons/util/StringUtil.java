@@ -2,9 +2,12 @@ package seedu.address.commons.util;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Helper functions for handling strings.
@@ -39,6 +42,25 @@ public class StringUtil {
             }
         }
         return false;
+    }
+
+    /**
+     * Joins each element except the last element in {@code strings} with a comma,
+     * and joins the last element with "and". e.g If the {@code strings} are
+     * {"Phone", "Name", "Email"}, the returned result is: "Phone, Name and Email".
+     *
+     * @throws IllegalArgumentException if {@code strings.size()} < 2.
+     * @throws NullPointerException if {@code strings} contain any null values.
+     */
+    public static String joinStrings(List<String> strings) {
+        requireAllNonNull(strings);
+        checkArgument(strings.size() >= 2);
+
+        // strings parameter may not always have List#remove(int) implemented, so we have to
+        // recreate the list to ArrayList (which implements List#remove(int))
+        ArrayList<String> copy = new ArrayList<>(strings);
+        String lastString = copy.remove(copy.size() - 1);
+        return String.join(", ", copy) + " and " + lastString;
     }
 
     /**
