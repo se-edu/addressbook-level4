@@ -1,6 +1,5 @@
 package guitests.guihandles;
 
-import javafx.stage.Stage;
 import seedu.address.TestApp;
 
 /**
@@ -10,8 +9,8 @@ public class BrowserPanelHandle extends GuiHandle {
 
     private static final String BROWSER_ID = "#browser";
 
-    public BrowserPanelHandle(Stage primaryStage) {
-        super(primaryStage, TestApp.APP_TITLE);
+    public BrowserPanelHandle() {
+        super(TestApp.APP_TITLE);
     }
 
     /**
