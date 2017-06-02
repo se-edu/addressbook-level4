@@ -7,7 +7,6 @@ import java.util.stream.Collectors;
 import javafx.scene.Node;
 import javafx.scene.control.Labeled;
 import javafx.scene.layout.Region;
-import javafx.stage.Stage;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.tag.Tag;
 
@@ -23,8 +22,8 @@ public class PersonCardHandle extends GuiHandle {
 
     private Node node;
 
-    public PersonCardHandle(Stage primaryStage, Node node) {
-        super(primaryStage, null);
+    public PersonCardHandle(Node node) {
+        super(null);
         this.node = node;
     }
 
