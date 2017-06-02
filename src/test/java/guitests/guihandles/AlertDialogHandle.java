@@ -2,7 +2,6 @@ package guitests.guihandles;
 
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
-import guitests.GuiRobot;
 import javafx.scene.control.DialogPane;
 import javafx.stage.Stage;
 import seedu.address.ui.UiManager;
@@ -12,9 +11,8 @@ import seedu.address.ui.UiManager;
  */
 public class AlertDialogHandle extends GuiHandle {
 
-
-    public AlertDialogHandle(GuiRobot guiRobot, Stage primaryStage, String dialogTitle) {
-        super(guiRobot, primaryStage, dialogTitle);
+    public AlertDialogHandle(Stage primaryStage, String dialogTitle) {
+        super(primaryStage, dialogTitle);
     }
 
     public boolean isMatching(String headerMessage, String contentMessage) {
