@@ -13,7 +13,7 @@ public class HelpWindowHandle extends GuiHandle {
 
     public HelpWindowHandle(GuiRobot guiRobot, Stage primaryStage) {
         super(guiRobot, primaryStage, HELP_WINDOW_TITLE);
-        guiRobot.sleep(1000);
+        guiRobot.pauseForHuman(1000);
     }
 
     public boolean isWindowOpen() {
@@ -22,7 +22,7 @@ public class HelpWindowHandle extends GuiHandle {
 
     public void closeWindow() {
         super.closeWindow();
-        guiRobot.sleep(500);
+        guiRobot.pauseForHuman(500);
     }
 
 }
