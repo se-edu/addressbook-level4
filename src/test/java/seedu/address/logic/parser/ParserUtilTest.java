@@ -3,14 +3,18 @@ package seedu.address.logic.parser;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static seedu.address.testutil.TypicalPersons.INDEX_FIRST_PERSON;
 
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -60,6 +64,65 @@ public class ParserUtilTest {
 
         // Leading and trailing whitespaces
         assertEquals(INDEX_FIRST_PERSON, ParserUtil.parseIndex("  1  "));
+    }
+
+    @Test
+    public void split_nullPreamble_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        ParserUtil.split(null, 2);
+    }
+
+    @Test
+    public void split_invalidNumOfParts_throwsIllegalArgumentException() {
+        assertSplitFailure("abc", -1);
+        assertSplitFailure("abc", 0);
+        assertSplitFailure("abc", 1);
+    }
+
+    @Test
+    public void split_validInput_success() {
+        // Single whitespace between parts
+        assertSplitSuccess("abc 123", 2, asOptionalList("abc", "123"));
+
+        // Leading and trailing whitespaces, multiple whitespaces between parts
+        assertSplitSuccess(" \t abc  \n qwe \t  123\t\n", 3, asOptionalList("abc", "qwe", "123"));
+
+        // More whitespaces than numOfParts
+        assertSplitSuccess("abc 123 qwe 456", 2,  asOptionalList("abc", "123 qwe 456"));
+
+        // More numOfParts than whitespaces
+        assertSplitSuccess("abc", 2,  asOptionalList("abc", null));
+    }
+
+    /**
+     * Asserts that {@code split(string, numOfParts)} is unsuccessful and a matching
+     * {@code IllegalArgumentException} is thrown.
+     */
+    private void assertSplitFailure(String string, int numOfParts) {
+        try {
+            ParserUtil.split(string, numOfParts);
+            fail("The expected IllegalArgumentException was not thrown");
+        } catch (IllegalArgumentException iae) {
+            assertEquals(ParserUtil.MESSAGE_INSUFFICIENT_PARTS, iae.getMessage());
+        }
+    }
+
+    /**
+     * Asserts that {@code string} is successfully split into ordered parts of size {@code numOfParts}
+     * and checks if the result is the same as {@code expectedValues}
+     */
+    private void assertSplitSuccess(String string, int numOfParts, List<Optional<String>> expectedValues) {
+        List<Optional<String>> list = ParserUtil.split(string, numOfParts);
+
+        assertTrue(list.equals(expectedValues));
+    }
+
+    /**
+     * Returns {@code strings} as {@code List<Optional<String>>}. Null values will be converted to
+     * {@code Optional.empty()}.
+     */
+    private List<Optional<String>> asOptionalList(String... strings) {
+        return Arrays.stream(strings).map(Optional::ofNullable).collect(Collectors.toList());
     }
 
     @Test
