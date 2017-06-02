@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import guitests.GuiRobot;
 import javafx.scene.Node;
 import javafx.scene.control.Labeled;
 import javafx.scene.layout.Region;
@@ -24,8 +23,8 @@ public class PersonCardHandle extends GuiHandle {
 
     private Node node;
 
-    public PersonCardHandle(GuiRobot guiRobot, Stage primaryStage, Node node) {
-        super(guiRobot, primaryStage, null);
+    public PersonCardHandle(Stage primaryStage, Node node) {
+        super(primaryStage, null);
         this.node = node;
     }
 
