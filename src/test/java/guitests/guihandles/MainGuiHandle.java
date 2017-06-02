@@ -1,6 +1,5 @@
 package guitests.guihandles;
 
-import guitests.GuiRobot;
 import javafx.stage.Stage;
 import seedu.address.TestApp;
 
@@ -9,35 +8,35 @@ import seedu.address.TestApp;
  */
 public class MainGuiHandle extends GuiHandle {
 
-    public MainGuiHandle(GuiRobot guiRobot, Stage primaryStage) {
-        super(guiRobot, primaryStage, TestApp.APP_TITLE);
+    public MainGuiHandle(Stage primaryStage) {
+        super(primaryStage, TestApp.APP_TITLE);
     }
 
     public PersonListPanelHandle getPersonListPanel() {
-        return new PersonListPanelHandle(guiRobot, primaryStage);
+        return new PersonListPanelHandle(primaryStage);
     }
 
     public ResultDisplayHandle getResultDisplay() {
-        return new ResultDisplayHandle(guiRobot, primaryStage);
+        return new ResultDisplayHandle(primaryStage);
     }
 
     public CommandBoxHandle getCommandBox() {
-        return new CommandBoxHandle(guiRobot, primaryStage, TestApp.APP_TITLE);
+        return new CommandBoxHandle(primaryStage, TestApp.APP_TITLE);
     }
 
     public StatusBarFooterHandle getStatusBarFooter() {
-        return new StatusBarFooterHandle(guiRobot, primaryStage);
+        return new StatusBarFooterHandle(primaryStage);
     }
 
     public MainMenuHandle getMainMenu() {
-        return new MainMenuHandle(guiRobot, primaryStage);
+        return new MainMenuHandle(primaryStage);
     }
 
     public BrowserPanelHandle getBrowserPanel() {
-        return new BrowserPanelHandle(guiRobot, primaryStage);
+        return new BrowserPanelHandle(primaryStage);
     }
 
     public AlertDialogHandle getAlertDialog(String title) {
-        return new AlertDialogHandle(guiRobot, primaryStage, title);
+        return new AlertDialogHandle(primaryStage, title);
     }
 }
