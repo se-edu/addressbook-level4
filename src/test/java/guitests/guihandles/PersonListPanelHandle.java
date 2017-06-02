@@ -10,7 +10,6 @@ import java.util.Set;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.control.ListView;
-import javafx.stage.Stage;
 import seedu.address.TestApp;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.ReadOnlyPerson;
@@ -26,8 +25,8 @@ public class PersonListPanelHandle extends GuiHandle {
 
     private static final String PERSON_LIST_VIEW_ID = "#personListView";
 
-    public PersonListPanelHandle(Stage primaryStage) {
-        super(primaryStage, TestApp.APP_TITLE);
+    public PersonListPanelHandle() {
+        super(TestApp.APP_TITLE);
     }
 
     public List<ReadOnlyPerson> getSelectedPersons() {
@@ -153,10 +152,10 @@ public class PersonListPanelHandle extends GuiHandle {
     public PersonCardHandle getPersonCardHandle(ReadOnlyPerson person) {
         Set<Node> nodes = getAllCardNodes();
         Optional<Node> personCardNode = nodes.stream()
-                .filter(n -> new PersonCardHandle(primaryStage, n).isSamePerson(person))
+                .filter(n -> new PersonCardHandle(n).isSamePerson(person))
                 .findFirst();
         if (personCardNode.isPresent()) {
-            return new PersonCardHandle(primaryStage, personCardNode.get());
+            return new PersonCardHandle(personCardNode.get());
         } else {
             return null;
         }
