@@ -3,7 +3,6 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
@@ -25,8 +24,7 @@ public class HistoryCommand extends Command {
             return new CommandResult(MESSAGE_NO_HISTORY);
         }
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS,
-                previousCommands.stream().collect(Collectors.joining("\n"))));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, String.join("\n", previousCommands)));
     }
 
     @Override

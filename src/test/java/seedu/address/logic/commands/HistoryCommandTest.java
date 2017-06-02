@@ -5,7 +5,6 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 
-import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -36,7 +35,7 @@ public class HistoryCommandTest {
         history.add(command3);
 
         String expectedMessage = String.format(HistoryCommand.MESSAGE_SUCCESS,
-                StringUtil.join("\n", command1, command2, command3));
+                String.join("\n", command1, command2, command3));
 
         assertCommandResult(historyCommand, expectedMessage);
     }

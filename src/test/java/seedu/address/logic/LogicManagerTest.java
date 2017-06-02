@@ -34,7 +34,6 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
-import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
@@ -457,7 +456,7 @@ public class LogicManagerTest {
         }
 
         String expectedMessage = String.format(HistoryCommand.MESSAGE_SUCCESS,
-                StringUtil.join("\n", validCommand, invalidCommandParse, invalidCommandExecute));
+                String.join("\n", validCommand, invalidCommandParse, invalidCommandExecute));
         assertCommandSuccess("history", expectedMessage, model);
     }
 
