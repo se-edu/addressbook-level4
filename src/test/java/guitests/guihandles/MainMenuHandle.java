@@ -3,7 +3,6 @@ package guitests.guihandles;
 import java.util.Arrays;
 
 import javafx.scene.input.KeyCode;
-import javafx.stage.Stage;
 import seedu.address.TestApp;
 
 /**
@@ -11,8 +10,8 @@ import seedu.address.TestApp;
  */
 public class MainMenuHandle extends GuiHandle {
 
-    public MainMenuHandle(Stage primaryStage) {
-        super(primaryStage, TestApp.APP_TITLE);
+    public MainMenuHandle() {
+        super(TestApp.APP_TITLE);
     }
 
     public GuiHandle clickOn(String... menuText) {
@@ -22,12 +21,12 @@ public class MainMenuHandle extends GuiHandle {
 
     public HelpWindowHandle openHelpWindowUsingMenu() {
         clickOn("Help", "F1");
-        return new HelpWindowHandle(primaryStage);
+        return new HelpWindowHandle();
     }
 
     public HelpWindowHandle openHelpWindowUsingAccelerator() {
         useF1Accelerator();
-        return new HelpWindowHandle(primaryStage);
+        return new HelpWindowHandle();
     }
 
     private void useF1Accelerator() {
