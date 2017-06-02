@@ -1,7 +1,6 @@
 package guitests.guihandles;
 
 import javafx.collections.ObservableList;
-import javafx.stage.Stage;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.ui.CommandBox;
 
@@ -12,8 +11,8 @@ public class CommandBoxHandle extends GuiHandle {
 
     private static final String COMMAND_INPUT_FIELD_ID = "#commandTextField";
 
-    public CommandBoxHandle(Stage primaryStage, String stageTitle) {
-        super(primaryStage, stageTitle);
+    public CommandBoxHandle(String stageTitle) {
+        super(stageTitle);
     }
 
     /**
@@ -45,7 +44,7 @@ public class CommandBoxHandle extends GuiHandle {
     public HelpWindowHandle runHelpCommand() {
         enterCommand(HelpCommand.COMMAND_WORD);
         pressEnter();
-        return new HelpWindowHandle(primaryStage);
+        return new HelpWindowHandle();
     }
 
     public ObservableList<String> getStyleClass() {
