@@ -11,8 +11,30 @@ import seedu.address.testutil.TestUtil;
  */
 public class GuiRobot extends FxRobot {
 
+    private static final String PROPERTY_TESTFX_HEADLESS = "testfx.headless";
+
+    private final boolean isHeadlessMode;
+
+    public GuiRobot() {
+        String headlessPropertyValue = System.getProperty(PROPERTY_TESTFX_HEADLESS);
+        isHeadlessMode = headlessPropertyValue != null && headlessPropertyValue.equals("true");
+    }
+
     public GuiRobot push(KeyCodeCombination keyCodeCombination) {
         return (GuiRobot) super.push(TestUtil.scrub(keyCodeCombination));
     }
 
+    /**
+     * Pause execution for a human to examine the effects of the test. This method will be disabled
+     * when the GUI tests are executed in headless mode to avoid unnecessary delays.
+     *
+     * @param duration in milliseconds
+     */
+    public void pauseForHuman(int duration) {
+        if (isHeadlessMode) {
+            return;
+        }
+
+        sleep(duration);
+    }
 }
