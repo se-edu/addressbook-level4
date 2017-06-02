@@ -3,7 +3,6 @@ package guitests.guihandles;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 import javafx.scene.control.DialogPane;
-import javafx.stage.Stage;
 import seedu.address.ui.UiManager;
 
 /**
@@ -11,8 +10,8 @@ import seedu.address.ui.UiManager;
  */
 public class AlertDialogHandle extends GuiHandle {
 
-    public AlertDialogHandle(Stage primaryStage, String dialogTitle) {
-        super(primaryStage, dialogTitle);
+    public AlertDialogHandle(String dialogTitle) {
+        super(dialogTitle);
     }
 
     public boolean isMatching(String headerMessage, String contentMessage) {
