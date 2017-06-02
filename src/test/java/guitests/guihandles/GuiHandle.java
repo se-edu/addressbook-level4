@@ -18,7 +18,6 @@ import seedu.address.commons.core.LogsCenter;
  */
 public class GuiHandle {
     protected final GuiRobot guiRobot = new GuiRobot();
-    protected final Stage primaryStage;
     /**
      * An optional stage that exists in the App other than the primaryStage, could be a alert dialog, popup window, etc.
      */
@@ -27,8 +26,7 @@ public class GuiHandle {
 
     private final Logger logger = LogsCenter.getLogger(this.getClass());
 
-    public GuiHandle(Stage primaryStage, String stageTitle) {
-        this.primaryStage = primaryStage;
+    public GuiHandle(String stageTitle) {
         this.stageTitle = stageTitle;
         focusOnSelf();
     }
