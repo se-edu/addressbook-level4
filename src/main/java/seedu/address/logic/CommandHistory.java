@@ -1,15 +1,17 @@
 package seedu.address.logic;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Stores the history of commands executed.
  */
-public class HistoryManager {
+public class CommandHistory {
     private ArrayList<String> userInputHistory;
 
-    public HistoryManager() {
+    public CommandHistory() {
         userInputHistory = new ArrayList<>();
     }
 
@@ -17,6 +19,7 @@ public class HistoryManager {
      * Appends {@code userInput} to the list of user input entered.
      */
     public void add(String userInput) {
+        requireNonNull(userInput);
         userInputHistory.add(userInput);
     }
 

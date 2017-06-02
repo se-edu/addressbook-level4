@@ -1,9 +1,11 @@
 package seedu.address.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
-import seedu.address.logic.HistoryManager;
+import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 
 /**
@@ -28,7 +30,8 @@ public class HistoryCommand extends Command {
     }
 
     @Override
-    public void setData(Model model, HistoryManager history) {
+    public void setData(Model model, CommandHistory history) {
+        requireNonNull(history);
         this.history = history;
     }
 }

@@ -6,18 +6,18 @@ import org.junit.Before;
 import org.junit.Test;
 
 import seedu.address.commons.util.StringUtil;
-import seedu.address.logic.HistoryManager;
+import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 
 public class HistoryCommandTest {
     private HistoryCommand historyCommand;
-    private HistoryManager history;
+    private CommandHistory history;
 
     @Before
     public void setUp() {
         Model model = new ModelManager();
-        history = new HistoryManager();
+        history = new CommandHistory();
         historyCommand = new HistoryCommand();
         historyCommand.setData(model, history);
     }

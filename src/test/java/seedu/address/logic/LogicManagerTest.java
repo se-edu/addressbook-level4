@@ -34,6 +34,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
+import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
@@ -439,17 +440,25 @@ public class LogicManagerTest {
         String validCommand = "clear";
         logic.execute(validCommand);
 
-        String invalidCommand = "   adds   Bob   ";
+        String invalidCommandParse = "   adds   Bob   ";
         try {
-            logic.execute(invalidCommand);
+            logic.execute(invalidCommandParse);
             fail("The expected ParseException was not thrown.");
         } catch (ParseException pe) {
             assertEquals(MESSAGE_UNKNOWN_COMMAND, pe.getMessage());
         }
 
-        String expectedMessage = String.format(HistoryCommand.MESSAGE_SUCCESS, validCommand + "\n" + invalidCommand);
-        assertCommandSuccess("history", expectedMessage, model.getAddressBook(),
-                model.getFilteredPersonList());
+        String invalidCommandExecute = "delete 1"; // address book is of size 0; index out of bounds
+        try {
+            logic.execute(invalidCommandExecute);
+            fail("The expected CommandException was not thrown.");
+        } catch (CommandException ce) {
+            assertEquals(MESSAGE_INVALID_PERSON_DISPLAYED_INDEX, ce.getMessage());
+        }
+
+        String expectedMessage = String.format(HistoryCommand.MESSAGE_SUCCESS,
+                StringUtil.join("\n", validCommand, invalidCommandParse, invalidCommandExecute));
+        assertCommandSuccess("history", expectedMessage, model);
     }
 
     /**

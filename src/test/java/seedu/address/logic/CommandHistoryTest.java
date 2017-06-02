@@ -7,12 +7,12 @@ import java.util.Arrays;
 import org.junit.Before;
 import org.junit.Test;
 
-public class HistoryManagerTest {
-    private HistoryManager history;
+public class CommandHistoryTest {
+    private CommandHistory history;
 
     @Before
     public void setUp() {
-        history = new HistoryManager();
+        history = new CommandHistory();
     }
 
     @Test

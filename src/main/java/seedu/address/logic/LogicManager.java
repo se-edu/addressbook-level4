@@ -21,12 +21,12 @@ public class LogicManager extends ComponentManager implements Logic {
     private final Logger logger = LogsCenter.getLogger(LogicManager.class);
 
     private final Model model;
-    private final HistoryManager history;
+    private final CommandHistory history;
     private final Parser parser;
 
     public LogicManager(Model model, Storage storage) {
         this.model = model;
-        this.history = new HistoryManager();
+        this.history = new CommandHistory();
         this.parser = new Parser();
     }
 

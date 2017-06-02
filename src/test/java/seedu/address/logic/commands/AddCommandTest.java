@@ -14,7 +14,7 @@ import org.junit.rules.ExpectedException;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.logic.HistoryManager;
+import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
@@ -62,7 +62,7 @@ public class AddCommandTest {
      */
     private AddCommand getAddCommandForPerson(Person person, Model model) throws IllegalValueException {
         AddCommand command = new AddCommand(person);
-        command.setData(model, new HistoryManager());
+        command.setData(model, new CommandHistory());
         return command;
     }
 

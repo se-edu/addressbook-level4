@@ -1,6 +1,7 @@
 package seedu.address.commons.util;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.AppUtil.checkArgument;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -72,14 +73,12 @@ public class StringUtil {
 
     /**
      * Concatenates {@code strings}, separated by {@code delimiter}, in encounter order.
-     * @throws IllegalArgumentException if size of {@code strings} is 1.
+     * @throws IllegalArgumentException if size of {@code strings} is < 2.
      */
     public static String join(String delimiter, String... strings) {
         requireNonNull(delimiter);
         requireNonNull(strings);
-        if (strings.length < 2) {
-            throw new IllegalArgumentException();
-        }
+        checkArgument(strings.length >= 2);
 
         return Stream.of(strings).collect(Collectors.joining(delimiter));
     }
