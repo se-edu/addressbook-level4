@@ -1,6 +1,5 @@
 package guitests.guihandles;
 
-import javafx.stage.Stage;
 import seedu.address.TestApp;
 
 /**
@@ -15,15 +14,15 @@ public class MainWindowHandle extends GuiHandle {
     private final MainMenuHandle mainMenu;
     private final BrowserPanelHandle browserPanel;
 
-    public MainWindowHandle(Stage primaryStage) {
-        super(primaryStage, TestApp.APP_TITLE);
+    public MainWindowHandle() {
+        super(TestApp.APP_TITLE);
 
-        personListPanel = new PersonListPanelHandle(primaryStage);
-        resultDisplay = new ResultDisplayHandle(primaryStage);
-        commandBox = new CommandBoxHandle(primaryStage, TestApp.APP_TITLE);
-        statusBarFooter = new StatusBarFooterHandle(primaryStage);
-        mainMenu = new MainMenuHandle(primaryStage);
-        browserPanel = new BrowserPanelHandle(primaryStage);
+        personListPanel = new PersonListPanelHandle();
+        resultDisplay = new ResultDisplayHandle();
+        commandBox = new CommandBoxHandle(TestApp.APP_TITLE);
+        statusBarFooter = new StatusBarFooterHandle();
+        mainMenu = new MainMenuHandle();
+        browserPanel = new BrowserPanelHandle();
     }
 
     public PersonListPanelHandle getPersonListPanel() {
