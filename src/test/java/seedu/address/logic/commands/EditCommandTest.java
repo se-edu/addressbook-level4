@@ -7,6 +7,8 @@ import static org.junit.Assert.fail;
 import static seedu.address.testutil.EditCommandTestUtil.DESC_AMY;
 import static seedu.address.testutil.EditCommandTestUtil.DESC_BOB;
 import static seedu.address.testutil.EditCommandTestUtil.VALID_NAME_BOB;
+import static seedu.address.testutil.TypicalPersons.INDEX_FIRST_PERSON;
+import static seedu.address.testutil.TypicalPersons.INDEX_SECOND_PERSON;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +18,7 @@ import org.junit.Test;
 
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.Messages;
+import seedu.address.commons.core.index.Index;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -35,23 +38,18 @@ import seedu.address.testutil.TypicalPersons;
  */
 public class EditCommandTest {
 
-    // zero-based index is used for interacting with Model, one-based index is used for interacting with EditCommand
-    private static final int ZERO_BASED_INDEX_FIRST_PERSON = 0;
-    private static final int ONE_BASED_INDEX_FIRST_PERSON = 1;
-    private static final int ONE_BASED_INDEX_SECOND_PERSON =  ONE_BASED_INDEX_FIRST_PERSON + 1;
-
     private Model model = new ModelManager(new TypicalPersons().getTypicalAddressBook(), new UserPrefs());
 
     @Test
     public void execute_validCommand_succeeds() throws Exception {
         Person editedPerson = new PersonBuilder().build();
         EditPersonDescriptor descriptor = createEditPersonDescriptor(editedPerson);
-        EditCommand editCommand = prepareCommand(ONE_BASED_INDEX_FIRST_PERSON, descriptor);
+        EditCommand editCommand = prepareCommand(INDEX_FIRST_PERSON, descriptor);
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
 
         AddressBook expectedAddressBook = new AddressBook(model.getAddressBook());
-        expectedAddressBook.updatePerson(ZERO_BASED_INDEX_FIRST_PERSON, editedPerson);
+        expectedAddressBook.updatePerson(INDEX_FIRST_PERSON.getZeroBased(), editedPerson);
         FilteredList<ReadOnlyPerson> expectedFilteredList = new FilteredList<>(expectedAddressBook.getPersonList());
 
         assertCommandSuccess(editCommand, expectedMessage, expectedAddressBook, expectedFilteredList);
@@ -59,27 +57,27 @@ public class EditCommandTest {
 
     @Test
     public void execute_duplicatePerson_throwsCommandException() throws Exception {
-        Person firstPerson = new Person(model.getFilteredPersonList().get(ZERO_BASED_INDEX_FIRST_PERSON));
+        Person firstPerson = new Person(model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased()));
         EditPersonDescriptor descriptor = createEditPersonDescriptor(firstPerson);
-        EditCommand editCommand = prepareCommand(ONE_BASED_INDEX_SECOND_PERSON, descriptor);
+        EditCommand editCommand = prepareCommand(INDEX_SECOND_PERSON, descriptor);
         assertCommandFailure(editCommand, EditCommand.MESSAGE_DUPLICATE_PERSON);
     }
 
     @Test
     public void execute_invalidPersonIndex_throwsCommandException() throws Exception {
-        int oneBasedOutOfBoundIndex = model.getFilteredPersonList().size() + 1;
+        Index outOfBoundIndex = Index.fromZeroBased(model.getFilteredPersonList().size());
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build();
-        EditCommand editCommand = prepareCommand(oneBasedOutOfBoundIndex, descriptor);
+        EditCommand editCommand = prepareCommand(outOfBoundIndex, descriptor);
         assertCommandFailure(editCommand, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
     @Test
     public void equals() {
-        final EditCommand standardCommand = new EditCommand(1, DESC_AMY);
+        final EditCommand standardCommand = new EditCommand(INDEX_FIRST_PERSON, DESC_AMY);
 
         // same values -> returns true
         EditPersonDescriptor copyDescriptor = new EditPersonDescriptor(DESC_AMY);
-        EditCommand commandWithSameValues = new EditCommand(1, copyDescriptor);
+        EditCommand commandWithSameValues = new EditCommand(INDEX_FIRST_PERSON, copyDescriptor);
         assertTrue(standardCommand.equals(commandWithSameValues));
 
         // same object -> returns true
@@ -92,17 +90,17 @@ public class EditCommandTest {
         assertFalse(standardCommand.equals(new ClearCommand()));
 
         // different index -> returns false
-        assertFalse(standardCommand.equals(new EditCommand(2, DESC_AMY)));
+        assertFalse(standardCommand.equals(new EditCommand(INDEX_SECOND_PERSON, DESC_AMY)));
 
         // different descriptor -> returns false
-        assertFalse(standardCommand.equals(new EditCommand(1, DESC_BOB)));
+        assertFalse(standardCommand.equals(new EditCommand(INDEX_FIRST_PERSON, DESC_BOB)));
     }
 
     /**
-     * Returns an {@code EditCommand} with parameters {@code oneBasedIndex} and {@code descriptor}
+     * Returns an {@code EditCommand} with parameters {@code index} and {@code descriptor}
      */
-    private EditCommand prepareCommand(int oneBasedIndex, EditPersonDescriptor descriptor) {
-        EditCommand editCommand = new EditCommand(oneBasedIndex, descriptor);
+    private EditCommand prepareCommand(Index index, EditPersonDescriptor descriptor) {
+        EditCommand editCommand = new EditCommand(index, descriptor);
         editCommand.setData(model);
         return editCommand;
     }
