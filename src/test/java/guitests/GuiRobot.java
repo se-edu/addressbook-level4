@@ -1,6 +1,10 @@
 package guitests;
 
+import java.util.function.BooleanSupplier;
+
 import org.testfx.api.FxRobot;
+
+import javafx.stage.Stage;
 
 /**
  * Robot used to simulate user actions on the GUI.
@@ -29,5 +33,40 @@ public class GuiRobot extends FxRobot {
         }
 
         sleep(duration);
+    }
+
+    /**
+     * Waits for {@code event} to be true.
+     *
+     * @param timeOut in milliseconds
+     * @throws EventTimeoutException if the time taken exceeds {@code timeOut}.
+     */
+    public void waitForEvent(BooleanSupplier event, int timeOut) {
+        int timePassed = 0;
+        final int retryInterval = 50;
+
+        while (!event.getAsBoolean()) {
+            sleep(retryInterval);
+            timePassed += retryInterval;
+
+            if (timePassed >= timeOut) {
+                throw new EventTimeoutException();
+            }
+        }
+    }
+
+    /**
+     * Returns true if the window with {@code stageTitle} is currently open.
+     */
+    public boolean isWindowShown(String stageTitle) {
+        return listTargetWindows().stream()
+                .filter(window -> window instanceof Stage && ((Stage) window).getTitle().equals(stageTitle))
+                .count() >= 1;
+    }
+
+    /**
+     * Represents an error which occurs when a timeout occurs when waiting for an event.
+     */
+    private class EventTimeoutException extends RuntimeException {
     }
 }
