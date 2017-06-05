@@ -71,13 +71,13 @@ public class EditCommandTest extends AddressBookGuiTest {
 
     @Test
     public void edit_findThenEdit_success() throws Exception {
-        commandBox.runCommand(FindCommand.COMMAND_WORD + " carl");
+        commandBox.runCommand(FindCommand.COMMAND_WORD + " Carl");
 
-        String detailsToEdit = "carrle";
+        String detailsToEdit = "Carrle";
         Index addressBookIndex = INDEX_THIRD_PERSON;
 
         Person personToEdit = expectedPersonsList[addressBookIndex.getZeroBased()];
-        Person editedPerson = new PersonBuilder(personToEdit).withName("carrle").build();
+        Person editedPerson = new PersonBuilder(personToEdit).withName(detailsToEdit).build();
 
         assertEditSuccess(INDEX_FIRST_PERSON, addressBookIndex, detailsToEdit, editedPerson);
     }
