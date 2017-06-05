@@ -15,7 +15,6 @@ import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.UniquePersonList;
-import seedu.address.model.person.UniquePersonList.PersonNotFoundException;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -61,9 +60,11 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public synchronized void deletePerson(ReadOnlyPerson target) throws PersonNotFoundException {
-        addressBook.removePerson(target);
+    public synchronized ReadOnlyPerson deletePerson(Index index) {
+        int addressBookIndex = filteredPersons.getSourceIndex(index.getZeroBased());
+        ReadOnlyPerson removedPerson = addressBook.removePerson(addressBookIndex);
         indicateAddressBookChanged();
+        return removedPerson;
     }
 
     @Override
