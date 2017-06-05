@@ -6,6 +6,7 @@ import java.util.Optional;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.logic.parser.ParserUtil;
+import seedu.address.model.person.ReadOnlyPerson;
 
 /**
  * A utility class to help with building EditPersonDescriptor objects.
@@ -20,6 +21,18 @@ public class EditPersonDescriptorBuilder {
 
     public EditPersonDescriptorBuilder(EditPersonDescriptor descriptor) {
         this.descriptor = new EditPersonDescriptor(descriptor);
+    }
+
+    /**
+     * Returns an {@code EditPersonDescriptor} with fields containing {@code person}'s details
+     */
+    public EditPersonDescriptorBuilder(ReadOnlyPerson person) throws IllegalValueException {
+        descriptor = new EditPersonDescriptor();
+        descriptor.setName(Optional.of(person.getName()));
+        descriptor.setPhone(Optional.of(person.getPhone()));
+        descriptor.setEmail(Optional.of(person.getEmail()));
+        descriptor.setAddress(Optional.of(person.getAddress()));
+        descriptor.setTags(Optional.of(person.getTags()));
     }
 
     public EditPersonDescriptorBuilder withName(String name) throws IllegalValueException {

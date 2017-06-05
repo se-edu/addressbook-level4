@@ -12,13 +12,11 @@ import static seedu.address.testutil.TypicalPersons.INDEX_SECOND_PERSON;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.junit.Test;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
-import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -42,7 +40,7 @@ public class EditCommandTest {
     @Test
     public void execute_validCommand_succeeds() throws Exception {
         Person editedPerson = new PersonBuilder().build();
-        EditPersonDescriptor descriptor = createEditPersonDescriptor(editedPerson);
+        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(editedPerson).build();
         EditCommand editCommand = prepareCommand(INDEX_FIRST_PERSON, descriptor);
 
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
@@ -56,7 +54,7 @@ public class EditCommandTest {
     @Test
     public void execute_duplicatePerson_throwsCommandException() throws Exception {
         Person firstPerson = new Person(model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased()));
-        EditPersonDescriptor descriptor = createEditPersonDescriptor(firstPerson);
+        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(firstPerson).build();
         EditCommand editCommand = prepareCommand(INDEX_SECOND_PERSON, descriptor);
         assertCommandFailure(editCommand, EditCommand.MESSAGE_DUPLICATE_PERSON);
     }
@@ -101,20 +99,6 @@ public class EditCommandTest {
         EditCommand editCommand = new EditCommand(index, descriptor);
         editCommand.setData(model, new CommandHistory());
         return editCommand;
-    }
-
-    /**
-     * Returns an {@code EditPersonDescriptor} with fields containing {@code person}'s details
-     */
-    private EditPersonDescriptor createEditPersonDescriptor(ReadOnlyPerson person) throws IllegalValueException {
-        EditPersonDescriptor descriptor = new EditPersonDescriptor();
-        descriptor.setName(Optional.of(person.getName()));
-        descriptor.setPhone(Optional.of(person.getPhone()));
-        descriptor.setEmail(Optional.of(person.getEmail()));
-        descriptor.setAddress(Optional.of(person.getAddress()));
-        descriptor.setTags(Optional.of(person.getTags()));
-
-        return descriptor;
     }
 
     /**
