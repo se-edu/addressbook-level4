@@ -43,10 +43,7 @@ public class DeleteCommandTest {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
         DeleteCommand deleteCommand = prepareCommand(outOfBoundIndex);
 
-        ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
-
-        CommandTestUtil.assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX,
-                expectedModel);
+        CommandTestUtil.assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
     @Test
@@ -75,11 +72,7 @@ public class DeleteCommandTest {
 
         DeleteCommand deleteCommand = prepareCommand(outOfBoundIndex);
 
-        ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
-        showFirstPersonOnly(expectedModel);
-
-        CommandTestUtil.assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX,
-                expectedModel);
+        CommandTestUtil.assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
     /**
