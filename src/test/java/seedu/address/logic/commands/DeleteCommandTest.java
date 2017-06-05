@@ -92,6 +92,6 @@ public class DeleteCommandTest {
         final String[] splitName = person.getName().fullName.split("\\s+");
         model.updateFilteredPersonList(new HashSet<>(Arrays.asList(splitName)));
 
-        assert (model.getFilteredPersonList().size() == 1);
+        assert model.getFilteredPersonList().size() == 1;
     }
 }
