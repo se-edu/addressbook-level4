@@ -2,7 +2,6 @@ package seedu.address.logic.commands;
 
 import static org.junit.Assert.assertTrue;
 import static seedu.address.testutil.TypicalPersons.INDEX_FIRST_PERSON;
-import static seedu.address.testutil.TypicalPersons.INDEX_SECOND_PERSON;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -27,20 +26,20 @@ public class DeleteCommandTest {
     private Model model = new ModelManager(new TypicalPersons().getTypicalAddressBook(), new UserPrefs());
 
     @Test
-    public void execute_validIndex_succeeds() throws Exception {
-        ReadOnlyPerson deletedPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+    public void execute_validIndexInUnfilteredList_succeeds() throws Exception {
+        ReadOnlyPerson personToDelete = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         DeleteCommand deleteCommand = prepareCommand(INDEX_FIRST_PERSON);
 
-        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, deletedPerson);
+        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, personToDelete);
 
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
-        expectedModel.deletePerson(deletedPerson);
+        expectedModel.deletePerson(personToDelete);
 
         CommandTestUtil.assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
     }
 
     @Test
-    public void execute_invalidIndex_throwsCommandException() throws Exception {
+    public void execute_invalidIndexInUnfilteredList_throwsCommandException() throws Exception {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
         DeleteCommand deleteCommand = prepareCommand(outOfBoundIndex);
 
@@ -54,14 +53,14 @@ public class DeleteCommandTest {
     public void execute_validIndexInFilteredList_succeeds() throws Exception {
         showFirstPersonOnly(model);
 
-        ReadOnlyPerson deletedPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        ReadOnlyPerson personToDelete = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         DeleteCommand deleteCommand = prepareCommand(INDEX_FIRST_PERSON);
 
-        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, deletedPerson);
+        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, personToDelete);
 
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
-        expectedModel.deletePerson(deletedPerson);
-        expectedModel.updateFilteredPersonList(Collections.emptySet());
+        expectedModel.deletePerson(personToDelete);
+        showNoPerson(expectedModel);
 
         CommandTestUtil.assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
     }
@@ -70,9 +69,8 @@ public class DeleteCommandTest {
     public void execute_invalidIndexInFilteredList_throwsCommandException() throws Exception {
         showFirstPersonOnly(model);
 
-        // with only the first person shown, there is no second person in the new filtered list,
-        // even if the original list do have more than two people
-        Index outOfBoundIndex = INDEX_SECOND_PERSON;
+        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
+        // ensures that outOfBoundIndex is still in bounds of address book list
         assertTrue(outOfBoundIndex.getZeroBased() <= model.getAddressBook().getPersonList().size());
 
         DeleteCommand deleteCommand = prepareCommand(outOfBoundIndex);
@@ -102,5 +100,12 @@ public class DeleteCommandTest {
         model.updateFilteredPersonList(new HashSet<>(Arrays.asList(splitName)));
 
         assertTrue(model.getFilteredPersonList().size() == 1);
+    }
+
+    /**
+     * Updates {@code model}'s filtered list to show no person at all.
+     */
+    private void showNoPerson(Model model) {
+        model.updateFilteredPersonList(Collections.emptySet());
     }
 }
