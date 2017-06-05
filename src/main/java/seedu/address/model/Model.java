@@ -18,8 +18,8 @@ public interface Model {
     /** Returns the AddressBook */
     ReadOnlyAddressBook getAddressBook();
 
-    /** Deletes the given person. */
-    void deletePerson(ReadOnlyPerson target) throws UniquePersonList.PersonNotFoundException;
+    /** Deletes the person at {@code index}. */
+    ReadOnlyPerson deletePerson(Index index);
 
     /** Adds the given person */
     void addPerson(ReadOnlyPerson person) throws UniquePersonList.DuplicatePersonException;
