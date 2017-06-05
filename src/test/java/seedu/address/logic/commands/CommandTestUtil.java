@@ -9,7 +9,6 @@ import java.util.List;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.person.ReadOnlyPerson;
 
 /**
@@ -20,16 +19,13 @@ public class CommandTestUtil {
     /**
      * Executes the given {@code command}, confirms that <br>
      * - the result message matches {@code expectedMessage} <br>
-     * - the address book matches that of {@code expectedAddressBook} <br>
-     * - the filtered person list matches that of {@code expectedFilteredList}
+     * - the address book and he filtered person matches that of {@code expectedModel}
      */
     public static void assertCommandSuccess(Command command, Model actualModel, String expectedMessage,
-            ReadOnlyAddressBook expectedAddressBook, List<ReadOnlyPerson> expectedFilteredList)
-            throws CommandException {
+            Model expectedModel) throws CommandException {
         CommandResult result = command.execute();
         assertEquals(expectedMessage, result.feedbackToUser);
-        assertEquals(expectedAddressBook, actualModel.getAddressBook());
-        assertEquals(expectedFilteredList, actualModel.getFilteredPersonList());
+        assertEquals(expectedModel, actualModel);
     }
 
     /**
