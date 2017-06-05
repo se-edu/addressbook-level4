@@ -3,7 +3,6 @@ package seedu.address.logic.commands;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 import static seedu.address.testutil.EditCommandTestUtil.DESC_AMY;
 import static seedu.address.testutil.EditCommandTestUtil.DESC_BOB;
 import static seedu.address.testutil.EditCommandTestUtil.VALID_NAME_BOB;
@@ -12,9 +11,6 @@ import static seedu.address.testutil.EditCommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.TypicalPersons.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalPersons.INDEX_SECOND_PERSON;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
 
 import org.junit.Test;
@@ -110,7 +106,9 @@ public class EditCommandTest {
         Person firstPerson = new Person(model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased()));
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(firstPerson).build();
         EditCommand editCommand = prepareCommand(INDEX_SECOND_PERSON, descriptor);
-        assertCommandFailure(editCommand, EditCommand.MESSAGE_DUPLICATE_PERSON);
+
+        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        CommandTestUtil.assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_PERSON, expectedModel);
     }
 
     @Test
@@ -129,7 +127,10 @@ public class EditCommandTest {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build();
         EditCommand editCommand = prepareCommand(outOfBoundIndex, descriptor);
-        assertCommandFailure(editCommand, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+
+        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        CommandTestUtil.assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX,
+                expectedModel);
     }
 
     /**
@@ -203,25 +204,5 @@ public class EditCommandTest {
         CommandResult result = editCommand.execute();
         assertEquals(expectedMessage, result.feedbackToUser);
         assertEquals(expectedModel, model);
-    }
-
-    /**
-     * Executes the given {@code editCommand}, confirms that <br>
-     * - a {@code CommandException} is thrown <br>
-     * - the CommandException message matches {@code expectedMessage} <br>
-     * - the address book in the model remains unchanged <br>
-     * - the filtered person list in the model remains unchanged
-     */
-    private void assertCommandFailure(EditCommand editCommand, String expectedMessage) {
-        AddressBook expectedAddressBook = new AddressBook(model.getAddressBook());
-        List<ReadOnlyPerson> expectedFilteredList = new ArrayList<>(model.getFilteredPersonList());
-        try {
-            editCommand.execute();
-            fail("The expected CommandException was not thrown.");
-        } catch (CommandException e) {
-            assertEquals(expectedMessage, e.getMessage());
-            assertEquals(expectedAddressBook, model.getAddressBook());
-            assertEquals(expectedFilteredList, model.getFilteredPersonList());
-        }
     }
 }
