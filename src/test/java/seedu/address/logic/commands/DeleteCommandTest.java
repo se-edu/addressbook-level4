@@ -5,6 +5,7 @@ import static seedu.address.testutil.TypicalPersons.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalPersons.INDEX_SECOND_PERSON;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
 
 import org.junit.Test;
@@ -56,8 +57,8 @@ public class DeleteCommandTest {
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, personToDelete);
 
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
-        showFirstPersonOnly(expectedModel);
         expectedModel.deletePerson(personToDelete);
+        showNoPerson(expectedModel);
 
         CommandTestUtil.assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
     }
@@ -93,5 +94,14 @@ public class DeleteCommandTest {
         model.updateFilteredPersonList(new HashSet<>(Arrays.asList(splitName)));
 
         assert model.getFilteredPersonList().size() == 1;
+    }
+
+    /**
+     * Updates {@code model}'s filtered list to show no one.
+     */
+    private void showNoPerson(Model model) {
+        model.updateFilteredPersonList(Collections.emptySet());
+
+        assert model.getFilteredPersonList().isEmpty();
     }
 }
