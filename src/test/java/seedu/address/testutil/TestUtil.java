@@ -16,9 +16,9 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
 import junit.framework.AssertionFailedError;
+import seedu.address.commons.core.index.Index;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
-import seedu.address.commons.util.IndexUtil;
 import seedu.address.commons.util.XmlUtil;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
@@ -158,10 +158,9 @@ public class TestUtil {
     /**
      * Returns a copy of the list with the person at specified index removed.
      * @param list original list to copy from
-     * @param targetIndexInOneIndexedFormat e.g. index 1 if the first element is to be removed
      */
-    public static Person[] removePersonFromList(final Person[] list, int targetIndexInOneIndexedFormat) {
-        return removePersonsFromList(list, list[IndexUtil.oneToZeroIndex(targetIndexInOneIndexedFormat)]);
+    public static Person[] removePersonFromList(final Person[] list, Index index) {
+        return removePersonsFromList(list, list[index.getZeroBased()]);
     }
 
     /**
