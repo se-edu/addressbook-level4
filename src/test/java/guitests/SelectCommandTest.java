@@ -1,6 +1,7 @@
 package guitests;
 
 import static org.junit.Assert.assertEquals;
+import static seedu.address.testutil.TypicalPersons.INDEX_FIRST_PERSON;
 
 import org.junit.Test;
 
@@ -18,7 +19,7 @@ public class SelectCommandTest extends AddressBookGuiTest {
         assertSelectionInvalid(Index.fromOneBased(10)); // invalid index
         assertNoPersonSelected();
 
-        assertSelectionSuccess(Index.fromOneBased(1)); // first person in the list
+        assertSelectionSuccess(INDEX_FIRST_PERSON); // first person in the list
         Index personCount = Index.fromOneBased(td.getTypicalPersons().length);
         assertSelectionSuccess(personCount); // last person in the list
         Index middleIndex = Index.fromOneBased(personCount.getOneBased() / 2);
@@ -34,7 +35,7 @@ public class SelectCommandTest extends AddressBookGuiTest {
     public void selectPerson_emptyList() {
         commandBox.runCommand(ClearCommand.COMMAND_WORD);
         assertListSize(0);
-        assertSelectionInvalid(Index.fromOneBased(1)); //invalid index
+        assertSelectionInvalid(INDEX_FIRST_PERSON); //invalid index
     }
 
     private void assertSelectionInvalid(Index index) {

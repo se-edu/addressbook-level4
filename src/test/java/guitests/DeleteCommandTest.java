@@ -2,6 +2,7 @@ package guitests;
 
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS;
+import static seedu.address.testutil.TypicalPersons.INDEX_FIRST_PERSON;
 
 import org.junit.Test;
 
@@ -17,7 +18,7 @@ public class DeleteCommandTest extends AddressBookGuiTest {
 
         //delete the first in the list
         Person[] currentList = td.getTypicalPersons();
-        Index targetIndex = Index.fromOneBased(1);
+        Index targetIndex = INDEX_FIRST_PERSON;
         assertDeleteSuccess(targetIndex, currentList);
 
         //delete the last in the list
@@ -37,8 +38,7 @@ public class DeleteCommandTest extends AddressBookGuiTest {
     }
 
     /**
-     * Runs the delete command to delete the person at specified index and confirms the result is correct.
-     * @param index e.g. index 1 to delete the first person in the list,
+     * Runs the delete command to delete the person at {@code index} and confirms the result is correct.
      * @param currentList A copy of the current list of persons (before deletion).
      */
     private void assertDeleteSuccess(Index index, final Person[] currentList) {

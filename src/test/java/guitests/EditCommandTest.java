@@ -6,6 +6,9 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.testutil.TypicalPersons.INDEX_FIRST_PERSON;
+import static seedu.address.testutil.TypicalPersons.INDEX_SECOND_PERSON;
+import static seedu.address.testutil.TypicalPersons.INDEX_THIRD_PERSON;
 
 import org.junit.Test;
 
@@ -35,7 +38,7 @@ public class EditCommandTest extends AddressBookGuiTest {
                 + PREFIX_EMAIL + "bobby@example.com "
                 + PREFIX_ADDRESS + "Block 123, Bobby Street 3 "
                 + PREFIX_TAG + "husband";
-        Index addressBookIndex = Index.fromOneBased(1);
+        Index addressBookIndex = INDEX_FIRST_PERSON;
 
         Person editedPerson = new PersonBuilder().withName("Bobby").withPhone("91234567")
                 .withEmail("bobby@example.com").withAddress("Block 123, Bobby Street 3").withTags("husband").build();
@@ -47,7 +50,7 @@ public class EditCommandTest extends AddressBookGuiTest {
     public void edit_notAllFieldsSpecified_success() throws Exception {
         String detailsToEdit = PREFIX_TAG + "sweetie "
                 + PREFIX_TAG + "bestie";
-        Index addressBookIndex = Index.fromOneBased(2);
+        Index addressBookIndex = INDEX_SECOND_PERSON;
 
         Person personToEdit = expectedPersonsList[addressBookIndex.getZeroBased()];
         Person editedPerson = new PersonBuilder(personToEdit).withTags("sweetie", "bestie").build();
@@ -58,7 +61,7 @@ public class EditCommandTest extends AddressBookGuiTest {
     @Test
     public void edit_clearTags_success() throws Exception {
         String detailsToEdit = PREFIX_TAG.getPrefix();
-        Index addressBookIndex = Index.fromOneBased(2);
+        Index addressBookIndex = INDEX_SECOND_PERSON;
 
         Person personToEdit = expectedPersonsList[addressBookIndex.getZeroBased()];
         Person editedPerson = new PersonBuilder(personToEdit).withTags().build();
@@ -68,16 +71,15 @@ public class EditCommandTest extends AddressBookGuiTest {
 
     @Test
     public void edit_findThenEdit_success() throws Exception {
-        commandBox.runCommand(FindCommand.COMMAND_WORD + " Elle");
+        commandBox.runCommand(FindCommand.COMMAND_WORD + " carl");
 
-        String detailsToEdit = "Belle";
-        Index filteredPersonListIndex = Index.fromOneBased(1);
-        Index addressBookIndex = Index.fromOneBased(5);
+        String detailsToEdit = "carrle";
+        Index addressBookIndex = INDEX_THIRD_PERSON;
 
         Person personToEdit = expectedPersonsList[addressBookIndex.getZeroBased()];
-        Person editedPerson = new PersonBuilder(personToEdit).withName("Belle").build();
+        Person editedPerson = new PersonBuilder(personToEdit).withName("carrle").build();
 
-        assertEditSuccess(filteredPersonListIndex, addressBookIndex, detailsToEdit, editedPerson);
+        assertEditSuccess(INDEX_FIRST_PERSON, addressBookIndex, detailsToEdit, editedPerson);
     }
 
     @Test
