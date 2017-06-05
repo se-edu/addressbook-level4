@@ -11,7 +11,7 @@ import org.junit.Test;
 
 import guitests.guihandles.PersonCardHandle;
 import seedu.address.commons.core.Messages;
-import seedu.address.commons.util.IndexUtil;
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.model.person.Address;
@@ -35,7 +35,7 @@ public class EditCommandTest extends AddressBookGuiTest {
                 + PREFIX_EMAIL + "bobby@example.com "
                 + PREFIX_ADDRESS + "Block 123, Bobby Street 3 "
                 + PREFIX_TAG + "husband";
-        int addressBookIndex = 1;
+        Index addressBookIndex = Index.fromOneBased(1);
 
         Person editedPerson = new PersonBuilder().withName("Bobby").withPhone("91234567")
                 .withEmail("bobby@example.com").withAddress("Block 123, Bobby Street 3").withTags("husband").build();
@@ -47,9 +47,9 @@ public class EditCommandTest extends AddressBookGuiTest {
     public void edit_notAllFieldsSpecified_success() throws Exception {
         String detailsToEdit = PREFIX_TAG + "sweetie "
                 + PREFIX_TAG + "bestie";
-        int addressBookIndex = 2;
+        Index addressBookIndex = Index.fromOneBased(2);
 
-        Person personToEdit = expectedPersonsList[IndexUtil.oneToZeroIndex(addressBookIndex)];
+        Person personToEdit = expectedPersonsList[addressBookIndex.getZeroBased()];
         Person editedPerson = new PersonBuilder(personToEdit).withTags("sweetie", "bestie").build();
 
         assertEditSuccess(addressBookIndex, addressBookIndex, detailsToEdit, editedPerson);
@@ -58,9 +58,9 @@ public class EditCommandTest extends AddressBookGuiTest {
     @Test
     public void edit_clearTags_success() throws Exception {
         String detailsToEdit = PREFIX_TAG.getPrefix();
-        int addressBookIndex = 2;
+        Index addressBookIndex = Index.fromOneBased(2);
 
-        Person personToEdit = expectedPersonsList[IndexUtil.oneToZeroIndex(addressBookIndex)];
+        Person personToEdit = expectedPersonsList[addressBookIndex.getZeroBased()];
         Person editedPerson = new PersonBuilder(personToEdit).withTags().build();
 
         assertEditSuccess(addressBookIndex, addressBookIndex, detailsToEdit, editedPerson);
@@ -71,10 +71,10 @@ public class EditCommandTest extends AddressBookGuiTest {
         commandBox.runCommand(FindCommand.COMMAND_WORD + " Elle");
 
         String detailsToEdit = "Belle";
-        int filteredPersonListIndex = 1;
-        int addressBookIndex = 5;
+        Index filteredPersonListIndex = Index.fromOneBased(1);
+        Index addressBookIndex = Index.fromOneBased(5);
 
-        Person personToEdit = expectedPersonsList[IndexUtil.oneToZeroIndex(addressBookIndex)];
+        Person personToEdit = expectedPersonsList[addressBookIndex.getZeroBased()];
         Person editedPerson = new PersonBuilder(personToEdit).withName("Belle").build();
 
         assertEditSuccess(filteredPersonListIndex, addressBookIndex, detailsToEdit, editedPerson);
@@ -135,16 +135,17 @@ public class EditCommandTest extends AddressBookGuiTest {
      * @param detailsToEdit details to edit the person with as input to the edit command
      * @param editedPerson the expected person after editing the person's details
      */
-    private void assertEditSuccess(int filteredPersonListIndex, int addressBookIndex,
+    private void assertEditSuccess(Index filteredPersonListIndex, Index addressBookIndex,
                                     String detailsToEdit, Person editedPerson) {
-        commandBox.runCommand(EditCommand.COMMAND_WORD + " " + filteredPersonListIndex + " " + detailsToEdit);
+        commandBox.runCommand(EditCommand.COMMAND_WORD + " "
+                + filteredPersonListIndex.getOneBased() + " " + detailsToEdit);
 
         // confirm the new card contains the right data
         PersonCardHandle editedCard = personListPanel.navigateToPerson(editedPerson.getName().fullName);
         assertMatching(editedPerson, editedCard);
 
         // confirm the list now contains all previous persons plus the person with updated details
-        expectedPersonsList[IndexUtil.oneToZeroIndex(addressBookIndex)] = editedPerson;
+        expectedPersonsList[addressBookIndex.getZeroBased()] = editedPerson;
         assertTrue(personListPanel.isListMatching(expectedPersonsList));
         assertResultMessage(String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson));
     }
