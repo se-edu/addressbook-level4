@@ -143,12 +143,8 @@ public class AddressBook implements ReadOnlyAddressBook {
         persons.forEach(this::syncMasterTagListWith);
     }
 
-    public boolean removePerson(ReadOnlyPerson key) throws UniquePersonList.PersonNotFoundException {
-        if (persons.remove(key)) {
-            return true;
-        } else {
-            throw new UniquePersonList.PersonNotFoundException();
-        }
+    public ReadOnlyPerson removePerson(int index) {
+        return persons.remove(index);
     }
 
     //// tag-level operations
