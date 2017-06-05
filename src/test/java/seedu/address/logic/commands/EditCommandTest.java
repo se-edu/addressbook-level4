@@ -1,6 +1,5 @@
 package seedu.address.logic.commands;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.testutil.EditCommandTestUtil.DESC_AMY;
@@ -9,7 +8,6 @@ import static seedu.address.testutil.EditCommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.testutil.TypicalPersons.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalPersons.INDEX_SECOND_PERSON;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.junit.Test;
@@ -20,11 +18,9 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.ReadOnlyPerson;
@@ -52,7 +48,8 @@ public class EditCommandTest {
         ReadOnlyPerson personToEdit = expectedFilteredList.get(INDEX_FIRST_PERSON.getZeroBased());
         expectedAddressBook.updatePerson(personToEdit, editedPerson);
 
-        assertCommandSuccess(editCommand, expectedMessage, expectedAddressBook, expectedFilteredList);
+        CommandTestUtil.assertCommandSuccess(editCommand, model, expectedMessage,
+                new ModelManager(expectedAddressBook, new UserPrefs()));
     }
 
     @Test
@@ -122,20 +119,5 @@ public class EditCommandTest {
         descriptor.setTags(Optional.of(person.getTags()));
 
         return descriptor;
-    }
-
-    /**
-     * Executes the given {@code editCommand}, confirms that <br>
-     * - the result message matches {@code expectedMessage} <br>
-     * - the address book in the model matches {@code expectedAddressBook} <br>
-     * - the filtered person list in the model matches {@code expectedFilteredList}
-     */
-    private void assertCommandSuccess(EditCommand editCommand, String expectedMessage,
-            ReadOnlyAddressBook expectedAddressBook,
-            List<? extends ReadOnlyPerson> expectedFilteredList) throws CommandException {
-        CommandResult result = editCommand.execute();
-        assertEquals(expectedMessage, result.feedbackToUser);
-        assertEquals(expectedAddressBook, model.getAddressBook());
-        assertEquals(expectedFilteredList, model.getFilteredPersonList());
     }
 }
