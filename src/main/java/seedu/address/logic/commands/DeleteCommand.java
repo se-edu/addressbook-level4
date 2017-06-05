@@ -5,7 +5,6 @@ import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.person.ReadOnlyPerson;
-import seedu.address.model.person.UniquePersonList.PersonNotFoundException;
 
 /**
  * Deletes a person identified using it's last displayed index from the address book.
@@ -37,15 +36,9 @@ public class DeleteCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
-        ReadOnlyPerson personToDelete = lastShownList.get(targetIndex.getZeroBased());
+        ReadOnlyPerson deletedPerson = model.deletePerson(targetIndex);
 
-        try {
-            model.deletePerson(personToDelete);
-        } catch (PersonNotFoundException pnfe) {
-            assert false : "The target person cannot be missing";
-        }
-
-        return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, personToDelete));
+        return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, deletedPerson));
     }
 
 }
