@@ -28,8 +28,8 @@ public class DeleteCommandTest {
     private Model model = new ModelManager(new TypicalPersons().getTypicalAddressBook(), new UserPrefs());
 
     @Test
-    public void execute_validCommand_succeeds() throws Exception {
-        ReadOnlyPerson deletedPerson = model.getAddressBook().getPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+    public void execute_validIndex_succeeds() throws Exception {
+        ReadOnlyPerson deletedPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         DeleteCommand deleteCommand = prepareCommand(INDEX_FIRST_PERSON);
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, deletedPerson);
@@ -42,7 +42,7 @@ public class DeleteCommandTest {
     }
 
     @Test
-    public void execute_invalidPersonIndex_throwsCommandException() throws Exception {
+    public void execute_invalidIndex_throwsCommandException() throws Exception {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
         DeleteCommand deleteCommand = prepareCommand(outOfBoundIndex);
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
@@ -54,7 +54,7 @@ public class DeleteCommandTest {
     public void execute_validIndexInFilteredList_succeeds() throws Exception {
         showFirstPersonOnly(model);
 
-        ReadOnlyPerson deletedPerson = model.getAddressBook().getPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        ReadOnlyPerson deletedPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         DeleteCommand deleteCommand = prepareCommand(INDEX_FIRST_PERSON);
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, deletedPerson);
@@ -69,10 +69,12 @@ public class DeleteCommandTest {
 
     @Test
     public void execute_invalidIndexInFilteredList_throwsCommandException() throws Exception {
+        showFirstPersonOnly(model);
+
+        // with only the first person shown, there is no second-th person in the new filtered list,
+        // even if the original list do have more than two people
         Index outOfBoundIndex = INDEX_SECOND_PERSON;
         assertTrue(outOfBoundIndex.getZeroBased() <= model.getFilteredPersonList().size());
-
-        showFirstPersonOnly(model);
 
         DeleteCommand deleteCommand = prepareCommand(outOfBoundIndex);
 
@@ -84,7 +86,7 @@ public class DeleteCommandTest {
     }
 
     /**
-     * Returns an {@code DeleteCommand} with the parameter {@code index}
+     * Returns an {@code DeleteCommand} with the parameter {@code index}.
      */
     private DeleteCommand prepareCommand(Index index) {
         DeleteCommand deleteCommand = new DeleteCommand(index);
@@ -92,6 +94,9 @@ public class DeleteCommandTest {
         return deleteCommand;
     }
 
+    /**
+     * Updates {@code model}'s filtered list to show only the first person from the address book.
+     */
     private void showFirstPersonOnly(Model model) {
         ReadOnlyPerson person = model.getAddressBook().getPersonList().get(0);
         final String[] splitName = person.getName().fullName.split("\\s+");
