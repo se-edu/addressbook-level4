@@ -26,7 +26,7 @@ public class DeleteCommandTest {
     private Model model = new ModelManager(new TypicalPersons().getTypicalAddressBook(), new UserPrefs());
 
     @Test
-    public void execute_validIndexInUnfilteredList_succeeds() throws Exception {
+    public void execute_validIndexUnfilteredList_success() throws Exception {
         ReadOnlyPerson personToDelete = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         DeleteCommand deleteCommand = prepareCommand(INDEX_FIRST_PERSON);
 
@@ -39,7 +39,7 @@ public class DeleteCommandTest {
     }
 
     @Test
-    public void execute_invalidIndexInUnfilteredList_throwsCommandException() throws Exception {
+    public void execute_invalidIndexUnfilteredList_throwsCommandException() throws Exception {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
         DeleteCommand deleteCommand = prepareCommand(outOfBoundIndex);
 
@@ -50,7 +50,7 @@ public class DeleteCommandTest {
     }
 
     @Test
-    public void execute_validIndexInFilteredList_succeeds() throws Exception {
+    public void execute_validIndexFilteredList_success() throws Exception {
         showFirstPersonOnly(model);
 
         ReadOnlyPerson personToDelete = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
@@ -66,12 +66,12 @@ public class DeleteCommandTest {
     }
 
     @Test
-    public void execute_invalidIndexInFilteredList_throwsCommandException() throws Exception {
+    public void execute_invalidIndexFilteredList_throwsCommandException() throws Exception {
         showFirstPersonOnly(model);
 
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
         // ensures that outOfBoundIndex is still in bounds of address book list
-        assertTrue(outOfBoundIndex.getZeroBased() <= model.getAddressBook().getPersonList().size());
+        assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getPersonList().size());
 
         DeleteCommand deleteCommand = prepareCommand(outOfBoundIndex);
 
