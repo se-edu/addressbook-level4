@@ -47,8 +47,8 @@ public class EditCommandTest {
         expectedAddressBook.updatePerson(INDEX_FIRST_PERSON.getZeroBased(), editedPerson);
         FilteredList<ReadOnlyPerson> expectedFilteredList = new FilteredList<>(expectedAddressBook.getPersonList());
 
-        CommandTestUtil.assertCommandSuccess(editCommand, model, expectedMessage, expectedAddressBook,
-                expectedFilteredList);
+        CommandTestUtil.assertCommandSuccess(editCommand, model, expectedMessage,
+                new ModelManager(expectedAddressBook, new UserPrefs()));
     }
 
     @Test
@@ -56,7 +56,9 @@ public class EditCommandTest {
         Person firstPerson = new Person(model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased()));
         EditPersonDescriptor descriptor = createEditPersonDescriptor(firstPerson);
         EditCommand editCommand = prepareCommand(INDEX_SECOND_PERSON, descriptor);
-        CommandTestUtil.assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_PERSON);
+
+        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        CommandTestUtil.assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_PERSON, expectedModel);
     }
 
     @Test
@@ -64,7 +66,10 @@ public class EditCommandTest {
         Index outOfBoundIndex = Index.fromZeroBased(model.getFilteredPersonList().size());
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build();
         EditCommand editCommand = prepareCommand(outOfBoundIndex, descriptor);
-        CommandTestUtil.assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+
+        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        CommandTestUtil.assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX,
+                expectedModel);
     }
 
     @Test
