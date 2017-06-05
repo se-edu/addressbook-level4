@@ -85,7 +85,7 @@ public class EditCommandTest {
 
     @Test
     public void execute_filteredList_success() throws Exception {
-        showFirstPersonOnly();
+        showFirstPersonOnly(model);
 
         ReadOnlyPerson personInFilteredList = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         Person editedPerson = new PersonBuilder(personInFilteredList).withName(VALID_NAME_BOB).build();
@@ -106,20 +106,23 @@ public class EditCommandTest {
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(firstPerson).build();
         EditCommand editCommand = prepareCommand(INDEX_SECOND_PERSON, descriptor);
 
-        Model expectedModel = new ModelManager((ModelManager) model);
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+
         CommandTestUtil.assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_PERSON, expectedModel);
     }
 
     @Test
     public void execute_duplicatePersonFilteredList_failure() throws Exception {
-        showFirstPersonOnly();
+        showFirstPersonOnly(model);
 
         // edit person in filtered list into a duplicate in address book
         ReadOnlyPerson personInList = model.getAddressBook().getPersonList().get(INDEX_SECOND_PERSON.getZeroBased());
         EditCommand editCommand = prepareCommand(INDEX_FIRST_PERSON,
                 new EditPersonDescriptorBuilder(personInList).build());
 
-        Model expectedModel = new ModelManager((ModelManager) model);
+        ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        showFirstPersonOnly(expectedModel);
+
         CommandTestUtil.assertCommandFailure(editCommand, model, EditCommand.MESSAGE_DUPLICATE_PERSON, expectedModel);
     }
 
@@ -129,7 +132,8 @@ public class EditCommandTest {
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build();
         EditCommand editCommand = prepareCommand(outOfBoundIndex, descriptor);
 
-        Model expectedModel = new ModelManager((ModelManager) model);
+        ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+
         CommandTestUtil.assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX,
                 expectedModel);
     }
@@ -140,7 +144,7 @@ public class EditCommandTest {
      */
     @Test
     public void execute_invalidPersonIndexFilteredList_failure() throws Exception {
-        showFirstPersonOnly();
+        showFirstPersonOnly(model);
         Index outOfBoundIndex = INDEX_SECOND_PERSON;
         // ensures that outOfBoundIndex is still in bounds of address book list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getPersonList().size());
@@ -148,7 +152,9 @@ public class EditCommandTest {
         EditCommand editCommand = prepareCommand(outOfBoundIndex,
                 new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build());
 
-        Model expectedModel = new ModelManager((ModelManager) model);
+        ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        showFirstPersonOnly(expectedModel);
+
         CommandTestUtil.assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX,
                 expectedModel);
     }
@@ -190,7 +196,7 @@ public class EditCommandTest {
     /**
      * Updates the filtered list to show only the first person in the {@code model}'s address book.
      */
-    private void showFirstPersonOnly() {
+    private void showFirstPersonOnly(Model model) {
         ReadOnlyPerson person = model.getAddressBook().getPersonList().get(0);
         final String[] splitName = person.getName().fullName.split("\\s+");
         model.updateFilteredPersonList(new HashSet<>(Arrays.asList(splitName)));

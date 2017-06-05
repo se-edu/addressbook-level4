@@ -27,7 +27,7 @@ public class CommandTestUtil {
      * Executes the given {@code command}, confirms that <br>
      * - a {@code CommandException} is thrown <br>
      * - the CommandException message matches {@code expectedMessage} <br>
-     * - the address book and the filtered person list in the {@code actualModel} matches that of {@code expectedModel}
+     * - the address book and the filtered person list in the {@code actualModel} is same as {@code expectedModel}
      */
     public static void assertCommandFailure(Command command, Model actualModel, String expectedMessage,
             Model expectedModel) {
