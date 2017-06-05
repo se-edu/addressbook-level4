@@ -9,6 +9,7 @@ import java.util.List;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
+import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.person.ReadOnlyPerson;
 
 /**
@@ -19,20 +20,23 @@ public class CommandTestUtil {
     /**
      * Executes the given {@code command}, confirms that <br>
      * - the result message matches {@code expectedMessage} <br>
-     * - the address book and the filtered person list in the {@code actualModel} matches that of {@code expectedModel}
+     * - the address book matches that of {@code expectedAddressBook} <br>
+     * - the filtered person list matches that of {@code expectedFilteredList}
      */
     public static void assertCommandSuccess(Command command, Model actualModel, String expectedMessage,
-            Model expectedModel) throws CommandException {
+            ReadOnlyAddressBook expectedAddressBook, List<ReadOnlyPerson> expectedFilteredList)
+            throws CommandException {
         CommandResult result = command.execute();
         assertEquals(expectedMessage, result.feedbackToUser);
-        assertEquals(expectedModel, actualModel);
+        assertEquals(expectedAddressBook, actualModel.getAddressBook());
+        assertEquals(expectedFilteredList, actualModel.getFilteredPersonList());
     }
 
     /**
      * Executes the given {@code command}, confirms that <br>
      * - a {@code CommandException} is thrown <br>
      * - the CommandException message matches {@code expectedMessage} <br>
-     * - the address book and the filtered person list in the {@code actualModel} remains unchanged
+     * - the address book and the filtered person list in the {@code actualModel} remain unchanged
      */
     public static void assertCommandFailure(Command command, Model actualModel, String expectedMessage) {
         // we are unable to defensively copy the model for comparison later, so we can

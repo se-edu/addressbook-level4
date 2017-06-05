@@ -4,6 +4,7 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.testutil.TypicalPersons.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalPersons.INDEX_SECOND_PERSON;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 
@@ -35,7 +36,8 @@ public class DeleteCommandTest {
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.deletePerson(personToDelete);
 
-        CommandTestUtil.assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
+        CommandTestUtil.assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel.getAddressBook(),
+            expectedModel.getFilteredPersonList());
     }
 
     @Test
@@ -56,10 +58,10 @@ public class DeleteCommandTest {
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, personToDelete);
 
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
-        showFirstPersonOnly(expectedModel);
         expectedModel.deletePerson(personToDelete);
 
-        CommandTestUtil.assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
+        CommandTestUtil.assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel.getAddressBook(),
+                new ArrayList<>());
     }
 
     @Test
