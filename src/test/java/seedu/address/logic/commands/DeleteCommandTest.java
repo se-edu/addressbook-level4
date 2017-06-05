@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static org.junit.Assert.assertTrue;
 import static seedu.address.testutil.TypicalPersons.INDEX_FIRST_PERSON;
+import static seedu.address.testutil.TypicalPersons.INDEX_SECOND_PERSON;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -19,7 +20,7 @@ import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.testutil.TypicalPersons;
 
 /**
- * Contains integration tests (interaction with the Model) and unit tests for DeleteCommand.
+ * Contains integration tests (interaction with the Model) and unit tests for {@code DeleteCommand}.
  */
 public class DeleteCommandTest {
 
@@ -69,7 +70,7 @@ public class DeleteCommandTest {
     public void execute_invalidIndexFilteredList_throwsCommandException() throws Exception {
         showFirstPersonOnly(model);
 
-        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
+        Index outOfBoundIndex = INDEX_SECOND_PERSON;
         // ensures that outOfBoundIndex is still in bounds of address book list
         assertTrue(outOfBoundIndex.getZeroBased() < model.getAddressBook().getPersonList().size());
 
