@@ -18,6 +18,18 @@ public class CommandTestUtil {
 
     /**
      * Executes the given {@code command}, confirms that <br>
+     * - the result message matches {@code expectedMessage} <br>
+     * - the model matches {@code expectedModel}
+     */
+    public static void assertCommandSuccess(Command command, Model actualModel, String expectedMessage,
+            Model expectedModel) throws CommandException {
+        CommandResult result = command.execute();
+        assertEquals(expectedMessage, result.feedbackToUser);
+        assertEquals(expectedModel, actualModel);
+    }
+
+    /**
+     * Executes the given {@code command}, confirms that <br>
      * - a {@code CommandException} is thrown <br>
      * - the CommandException message matches {@code expectedMessage} <br>
      * - the address book and the filtered person list in the {@code actualModel} remain unchanged
