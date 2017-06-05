@@ -13,7 +13,6 @@ import org.junit.Test;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
-import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -34,9 +33,8 @@ public class DeleteCommandTest {
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, deletedPerson);
 
-        AddressBook expectedAddressBook = new AddressBook(model.getAddressBook());
-        expectedAddressBook.removePerson(deletedPerson);
-        ModelManager expectedModel = new ModelManager(expectedAddressBook, new UserPrefs());
+        ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        expectedModel.deletePerson(deletedPerson);
 
         CommandTestUtil.assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
     }
@@ -45,7 +43,9 @@ public class DeleteCommandTest {
     public void execute_invalidIndex_throwsCommandException() throws Exception {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
         DeleteCommand deleteCommand = prepareCommand(outOfBoundIndex);
+
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+
         CommandTestUtil.assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX,
                 expectedModel);
     }
@@ -59,9 +59,8 @@ public class DeleteCommandTest {
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, deletedPerson);
 
-        AddressBook expectedAddressBook = new AddressBook(model.getAddressBook());
-        expectedAddressBook.removePerson(deletedPerson);
-        ModelManager expectedModel = new ModelManager(expectedAddressBook, new UserPrefs());
+        ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        expectedModel.deletePerson(deletedPerson);
         expectedModel.updateFilteredPersonList(Collections.emptySet());
 
         CommandTestUtil.assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
@@ -71,10 +70,10 @@ public class DeleteCommandTest {
     public void execute_invalidIndexInFilteredList_throwsCommandException() throws Exception {
         showFirstPersonOnly(model);
 
-        // with only the first person shown, there is no second-th person in the new filtered list,
+        // with only the first person shown, there is no second person in the new filtered list,
         // even if the original list do have more than two people
         Index outOfBoundIndex = INDEX_SECOND_PERSON;
-        assertTrue(outOfBoundIndex.getZeroBased() <= model.getFilteredPersonList().size());
+        assertTrue(outOfBoundIndex.getZeroBased() <= model.getAddressBook().getPersonList().size());
 
         DeleteCommand deleteCommand = prepareCommand(outOfBoundIndex);
 
@@ -86,7 +85,7 @@ public class DeleteCommandTest {
     }
 
     /**
-     * Returns an {@code DeleteCommand} with the parameter {@code index}.
+     * Returns a {@code DeleteCommand} with the parameter {@code index}.
      */
     private DeleteCommand prepareCommand(Index index) {
         DeleteCommand deleteCommand = new DeleteCommand(index);
