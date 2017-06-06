@@ -23,11 +23,13 @@ import seedu.address.testutil.TypicalPersons;
 public class ListCommandTest {
 
     private Model model;
+    private Model expectedModel;
     private ListCommand listCommand;
 
     @Before
     public void setUp() {
         model = new ModelManager(new TypicalPersons().getTypicalAddressBook(), new UserPrefs());
+        expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
 
         listCommand = new ListCommand();
         listCommand.setData(model, new CommandHistory());
@@ -35,15 +37,12 @@ public class ListCommandTest {
 
     @Test
     public void execute_listIsNotFiltered_showsSameList() throws Exception {
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         assertCommandSuccess(listCommand, model, ListCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test
     public void execute_listIsFiltered_showsEverything() throws Exception {
         showFirstPersonOnly(model);
-
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         assertCommandSuccess(listCommand, model, ListCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
@@ -61,7 +60,7 @@ public class ListCommandTest {
     /**
      * Executes the given {@code command}, confirms that <br>
      * - the result message matches {@code expectedMessage} <br>
-     * - the address book and the filtered person list in the {@code model} matches {@code expectedModel}
+     * - the address book and the filtered person list in the {@code model} matches that of {@code expectedModel}
      */
     public static void assertCommandSuccess(Command command, Model model, String expectedMessage, Model expectedModel)
             throws CommandException {
