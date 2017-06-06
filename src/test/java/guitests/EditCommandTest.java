@@ -74,12 +74,11 @@ public class EditCommandTest extends AddressBookGuiTest {
     public void edit_findThenEdit_success() throws Exception {
         commandBox.runCommand(FindCommand.COMMAND_WORD + " Carl");
 
-        String detailsToEdit = PREFIX_NAME + "Belle";
-        int filteredPersonListIndex = 1;
-        int addressBookIndex = 5;
+        String detailsToEdit = PREFIX_NAME + "Carrle";
+        Index addressBookIndex = INDEX_THIRD_PERSON;
 
         Person personToEdit = expectedPersonsList[addressBookIndex.getZeroBased()];
-        Person editedPerson = new PersonBuilder(personToEdit).withName(detailsToEdit).build();
+        Person editedPerson = new PersonBuilder(personToEdit).withName("Carrle").build();
 
         assertEditSuccess(INDEX_FIRST_PERSON, addressBookIndex, detailsToEdit, editedPerson);
     }
@@ -123,9 +122,9 @@ public class EditCommandTest extends AddressBookGuiTest {
     @Test
     public void edit_duplicatePerson_failure() {
         commandBox.runCommand(EditCommand.COMMAND_WORD + " 3 "
-                + PREFIX_NAME + "Alice Pauline "
                 + PREFIX_PHONE + "85355255 "
                 + PREFIX_EMAIL + "alice@example.com "
+                + PREFIX_NAME + "Alice Pauline "
                 + PREFIX_ADDRESS + "123, Jurong West Ave 6, #08-111 "
                 + PREFIX_TAG + "friends");
         assertResultMessage(EditCommand.MESSAGE_DUPLICATE_PERSON);
