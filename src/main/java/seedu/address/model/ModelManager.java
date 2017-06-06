@@ -14,8 +14,8 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.model.person.ReadOnlyPerson;
-import seedu.address.model.person.UniquePersonList;
-import seedu.address.model.person.UniquePersonList.PersonNotFoundException;
+import seedu.address.model.person.exceptions.DuplicatePersonException;
+import seedu.address.model.person.exceptions.PersonNotFoundException;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -67,15 +67,14 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public synchronized void addPerson(ReadOnlyPerson person) throws UniquePersonList.DuplicatePersonException {
+    public synchronized void addPerson(ReadOnlyPerson person) throws DuplicatePersonException {
         addressBook.addPerson(person);
         updateFilteredListToShowAll();
         indicateAddressBookChanged();
     }
 
     @Override
-    public void updatePerson(Index index, ReadOnlyPerson editedPerson)
-            throws UniquePersonList.DuplicatePersonException {
+    public void updatePerson(Index index, ReadOnlyPerson editedPerson) throws DuplicatePersonException {
         requireNonNull(editedPerson);
 
         int addressBookIndex = filteredPersons.getSourceIndex(index.getZeroBased());
