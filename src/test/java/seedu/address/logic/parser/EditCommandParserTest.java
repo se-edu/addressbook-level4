@@ -60,14 +60,6 @@ public class EditCommandParserTest {
     private EditCommandParser parser = new EditCommandParser();
 
     @Test
-    public void parse_noValidPrefix_failure() throws Exception {
-        String invalidPrefix = "q/";
-        assertParseFailure("1 " + invalidPrefix + "some random string", MESSAGE_INVALID_FORMAT);
-        assertParseFailure("1 " + "some " + invalidPrefix + "random string", MESSAGE_INVALID_FORMAT);
-        assertParseFailure("1 " + "some random " + invalidPrefix + "string", MESSAGE_INVALID_FORMAT);
-    }
-
-    @Test
     public void parse_missingParts_failure() {
         // no index specified
         assertParseFailure(VALID_NAME_AMY, MESSAGE_INVALID_FORMAT);
@@ -80,12 +72,18 @@ public class EditCommandParserTest {
     }
 
     @Test
-    public void parse_invalidIndex_failure() {
+    public void parse_invalidPreamble_failure() {
         // negative index
         assertParseFailure("-5" + NAME_DESC_AMY, MESSAGE_INVALID_FORMAT);
 
-        // zero
+        // zero index
         assertParseFailure("0" + NAME_DESC_AMY, MESSAGE_INVALID_FORMAT);
+
+        // invalid arguments being parsed as preamble
+        assertParseFailure("1 some random string", MESSAGE_INVALID_FORMAT);
+
+        // invalid prefix being parsed as preamble
+        assertParseFailure("1 i/ string", MESSAGE_INVALID_FORMAT);
     }
 
     @Test
