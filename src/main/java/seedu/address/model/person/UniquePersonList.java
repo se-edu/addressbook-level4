@@ -49,7 +49,7 @@ public class UniquePersonList implements Iterable<Person> {
      *
      * @throws DuplicatePersonException if updating the person's details causes the person to be equivalent to
      *      another existing person in the list.
-     * @throws PersonNotFoundException if no such person could be found in the list.
+     * @throws PersonNotFoundException if {@code target} could not be found in the list.
      */
     public void updatePerson(ReadOnlyPerson target, ReadOnlyPerson editedPerson)
             throws DuplicatePersonException, PersonNotFoundException {

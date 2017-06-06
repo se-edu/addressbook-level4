@@ -77,7 +77,7 @@ public class EditCommand extends Command {
         } catch (UniquePersonList.DuplicatePersonException dpe) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
         } catch (UniquePersonList.PersonNotFoundException pnfe) {
-            assert false : "The target person cannot be missing";
+            throw new AssertionError("The target person cannot be missing");
         }
         model.updateFilteredListToShowAll();
         return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, personToEdit));
