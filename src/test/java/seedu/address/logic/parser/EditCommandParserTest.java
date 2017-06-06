@@ -5,6 +5,7 @@ import static org.junit.Assert.fail;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.testutil.EditCommandTestUtil.VALID_ADDRESS_AMY;
@@ -36,7 +37,7 @@ import seedu.address.testutil.EditPersonDescriptorBuilder;
 
 public class EditCommandParserTest {
 
-    private static final String NAME_DESC_AMY = " " + VALID_NAME_AMY;
+    private static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     private static final String PHONE_DESC_AMY = " " + PREFIX_PHONE + VALID_PHONE_AMY;
     private static final String PHONE_DESC_BOB = " " + PREFIX_PHONE + VALID_PHONE_BOB;
     private static final String EMAIL_DESC_AMY = " " + PREFIX_EMAIL + VALID_EMAIL_AMY;
@@ -47,7 +48,7 @@ public class EditCommandParserTest {
     private static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
     private static final String TAG_EMPTY = " " + PREFIX_TAG;
 
-    private static final String INVALID_NAME_DESC = " " + "James&"; // '&' not allowed in names
+    private static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     private static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
     private static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
     private static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
@@ -57,19 +58,6 @@ public class EditCommandParserTest {
             String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE);
 
     private EditCommandParser parser = new EditCommandParser();
-
-    @Test
-    public void parse_noValidPrefix_everythingTakenAsName() throws Exception {
-        // Unable to test whether complex strings such as "1 q/unknown is this k/parsed"
-        // are entirely parsed as Name. Verification of Name field requires successful parsing.
-        // However, "/" is an invalid character for Name, thus parsing invalid prefixes will always fail.
-        // E.g, we cannot verify if "q/unknown" is parsed as Name, resulting in an error, or whether
-        // "q/unknown is this k/parsed" is parsed as Name, which results in an error as well.
-        String invalidPrefix = "q/";
-        assertParseFailure("1 " + invalidPrefix + "some random string", Name.MESSAGE_NAME_CONSTRAINTS);
-        assertParseFailure("1 " + "some " + invalidPrefix + "random string", Name.MESSAGE_NAME_CONSTRAINTS);
-        assertParseFailure("1 " + "some random " + invalidPrefix + "string", Name.MESSAGE_NAME_CONSTRAINTS);
-    }
 
     @Test
     public void parse_missingParts_failure() {
@@ -84,12 +72,18 @@ public class EditCommandParserTest {
     }
 
     @Test
-    public void parse_invalidIndex_failure() {
+    public void parse_invalidPreamble_failure() {
         // negative index
         assertParseFailure("-5" + NAME_DESC_AMY, MESSAGE_INVALID_FORMAT);
 
-        // zero
+        // zero index
         assertParseFailure("0" + NAME_DESC_AMY, MESSAGE_INVALID_FORMAT);
+
+        // invalid arguments being parsed as preamble
+        assertParseFailure("1 some random string", MESSAGE_INVALID_FORMAT);
+
+        // invalid prefix being parsed as preamble
+        assertParseFailure("1 i/ string", MESSAGE_INVALID_FORMAT);
     }
 
     @Test
@@ -116,14 +110,6 @@ public class EditCommandParserTest {
         // multiple invalid values, but only the first invalid value is captured
         assertParseFailure("1" + INVALID_NAME_DESC + INVALID_EMAIL_DESC + VALID_ADDRESS_AMY + VALID_PHONE_AMY,
                 Name.MESSAGE_NAME_CONSTRAINTS);
-    }
-
-    @Test
-    public void parse_invalidFieldOrdering_failure() {
-        // name not given as the first value, gets parsed as part of email, results in an invalid email.
-        // Only name field is tested here because it is the only field that is required to be specified
-        // before other fields.
-        assertParseFailure("1" + EMAIL_DESC_AMY + NAME_DESC_AMY, Email.MESSAGE_EMAIL_CONSTRAINTS);
     }
 
     @Test
