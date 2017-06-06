@@ -1,6 +1,5 @@
 package seedu.address.model;
 
-import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Set;
@@ -10,7 +9,6 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.core.UnmodifiableObservableList;
-import seedu.address.commons.core.index.Index;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.model.person.ReadOnlyPerson;
@@ -74,12 +72,11 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void updatePerson(Index index, ReadOnlyPerson editedPerson)
-            throws UniquePersonList.DuplicatePersonException {
-        requireNonNull(editedPerson);
+    public void updatePerson(ReadOnlyPerson target, ReadOnlyPerson editedPerson)
+            throws UniquePersonList.DuplicatePersonException, UniquePersonList.PersonNotFoundException {
+        requireAllNonNull(target, editedPerson);
 
-        int addressBookIndex = filteredPersons.getSourceIndex(index.getZeroBased());
-        addressBook.updatePerson(addressBookIndex, editedPerson);
+        addressBook.updatePerson(target, editedPerson);
         indicateAddressBookChanged();
     }
 

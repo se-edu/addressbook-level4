@@ -3,10 +3,10 @@ package seedu.address.model;
 import java.util.Set;
 
 import seedu.address.commons.core.UnmodifiableObservableList;
-import seedu.address.commons.core.index.Index;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.person.UniquePersonList.DuplicatePersonException;
+import seedu.address.model.person.UniquePersonList.PersonNotFoundException;
 
 /**
  * The API of the Model component.
@@ -25,13 +25,14 @@ public interface Model {
     void addPerson(ReadOnlyPerson person) throws UniquePersonList.DuplicatePersonException;
 
     /**
-     * Updates the person located at {@code index} with {@code editedPerson}.
+     * Replaces the given person {@code target} with {@code editedPerson}.
      *
      * @throws DuplicatePersonException if updating the person's details causes the person to be equivalent to
      *      another existing person in the list.
-     * @throws IndexOutOfBoundsException if {@code index} is out of range of the filtered list.
+     * @throws PersonNotFoundException if no such person could be found in the list.
      */
-    void updatePerson(Index index, ReadOnlyPerson editedPerson) throws UniquePersonList.DuplicatePersonException;
+    void updatePerson(ReadOnlyPerson target, ReadOnlyPerson editedPerson)
+            throws UniquePersonList.DuplicatePersonException, UniquePersonList.PersonNotFoundException;
 
     /** Returns the filtered person list as an {@code UnmodifiableObservableList<ReadOnlyPerson>} */
     UnmodifiableObservableList<ReadOnlyPerson> getFilteredPersonList();
