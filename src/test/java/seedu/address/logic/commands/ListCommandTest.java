@@ -6,9 +6,11 @@ import static org.junit.Assert.assertTrue;
 import java.util.Arrays;
 import java.util.HashSet;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -21,29 +23,27 @@ import seedu.address.testutil.TypicalPersons;
 public class ListCommandTest {
 
     private Model model = new ModelManager(new TypicalPersons().getTypicalAddressBook(), new UserPrefs());
+    private ListCommand listCommand = new ListCommand();
 
-    @Test
-    public void execute_listIsNotFiltered_showsSameList() {
-        ListCommand listCommand = prepareCommand();
-
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
-
-        CommandResult result = listCommand.execute();
-        assertEquals(model, expectedModel);
-        assertEquals(result.feedbackToUser, ListCommand.MESSAGE_SUCCESS);
+    @Before
+    public void setUp() {
+        listCommand.setData(model, new CommandHistory());
     }
 
     @Test
-    public void execute_listIsFiltered_showsEverything() {
-        showFirstPersonOnly(model);
+    public void execute_listIsNotFiltered_showsSameList() throws Exception {
+        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
 
-        ListCommand listCommand = prepareCommand();
+        assertCommandSuccess(listCommand, model, ListCommand.MESSAGE_SUCCESS, expectedModel);
+    }
+
+    @Test
+    public void execute_listIsFiltered_showsEverything() throws Exception {
+        showFirstPersonOnly(model);
 
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
 
-        CommandResult result = listCommand.execute();
-        assertEquals(model, expectedModel);
-        assertEquals(result.feedbackToUser, ListCommand.MESSAGE_SUCCESS);
+        assertCommandSuccess(listCommand, model, ListCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     /**
@@ -58,11 +58,14 @@ public class ListCommandTest {
     }
 
     /**
-     * Returns a {@code ListCommand} with its dependencies set up.
+     * Executes the given {@code command}, confirms that <br>
+     * - the result message matches {@code expectedMessage} <br>
+     * - the address book and the filtered person list in the {@code model} matches {@code expectedModel}
      */
-    private ListCommand prepareCommand() {
-        ListCommand listCommand = new ListCommand();
-        listCommand.setData(model, new CommandHistory());
-        return listCommand;
+    public static void assertCommandSuccess(Command command, Model model, String expectedMessage, Model expectedModel)
+            throws CommandException {
+        CommandResult result = command.execute();
+        assertEquals(expectedMessage, result.feedbackToUser);
+        assertEquals(expectedModel, model);
     }
 }
