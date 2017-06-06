@@ -2,13 +2,10 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.exceptions.IllegalValueException;
@@ -38,29 +35,6 @@ public class ParserUtil {
             throw new IllegalValueException(MESSAGE_INVALID_INDEX);
         }
         return Index.fromOneBased(Integer.parseInt(trimmedIndex));
-    }
-
-    /**
-    * Splits the {@code string} into {@code numOfParts} parts, using whitespace as a delimiter.
-    * Leading and trailing whitespaces will be trimmed. {@code Optional.empty()} objects are appended
-    * as 'fillers' if the total number of parts after splitting {@code string} is fewer than {@code numOfParts}.<br>
-    * Examples:
-    * <pre>
-    *     split("  Hello World! ", 2) -> "Hello" and "World!"
-    *     split(" Hello    World!", 3) -> "Hello" and "World!" and Optional.empty()
-    *     split("Foo bar baz", 2) -> "Foo" and "bar baz" // only 2 parts
-    * </pre>
-    * @return A list of size {@code numOfParts} containing the resultant parts in the order they
-    *         appeared in the input followed by {@code Optional.empty()} objects (if any).
-    * @throws IllegalArgumentException if {@code numOfParts} < 2
-    */
-    public static List<Optional<String>> split(String string, int numOfParts) throws IllegalArgumentException {
-        if (numOfParts < 2) {
-            throw new IllegalArgumentException(MESSAGE_INSUFFICIENT_PARTS);
-        }
-        return Arrays.stream(Arrays.copyOf(string.trim().split("\\s+", numOfParts), numOfParts))
-                .map(Optional::ofNullable)
-                .collect(Collectors.toList());
     }
 
     /**
