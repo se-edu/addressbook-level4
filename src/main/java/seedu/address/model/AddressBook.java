@@ -16,6 +16,7 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.person.UniquePersonList.DuplicatePersonException;
+import seedu.address.model.person.UniquePersonList.PersonNotFoundException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 
@@ -92,17 +93,17 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Updates the person in the list at position {@code index} with {@code editedReadOnlyPerson}.
+     * Replaces the given person {@code target} in the list with {@code editedReadOnlyPerson}.
      * {@code AddressBook}'s tag list will be updated with the tags of {@code editedReadOnlyPerson}.
      *
      * @throws DuplicatePersonException if updating the person's details causes the person to be equivalent to
      *      another existing person in the list.
-     * @throws IndexOutOfBoundsException if {@code index} < 0 or >= the size of the list.
+     * @throws PersonNotFoundException if {@code target} could not be found in the list.
      *
      * @see #syncMasterTagListWith(Person)
      */
-    public void updatePerson(int index, ReadOnlyPerson editedReadOnlyPerson)
-            throws UniquePersonList.DuplicatePersonException {
+    public void updatePerson(ReadOnlyPerson target, ReadOnlyPerson editedReadOnlyPerson)
+            throws UniquePersonList.DuplicatePersonException, UniquePersonList.PersonNotFoundException {
         requireNonNull(editedReadOnlyPerson);
 
         Person editedPerson = new Person(editedReadOnlyPerson);
@@ -110,7 +111,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         // TODO: the tags master list will be updated even though the below line fails.
         // This can cause the tags master list to have additional tags that are not tagged to any person
         // in the person list.
-        persons.updatePerson(index, editedPerson);
+        persons.updatePerson(target, editedPerson);
     }
 
     /**

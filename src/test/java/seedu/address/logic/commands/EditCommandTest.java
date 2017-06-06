@@ -50,8 +50,9 @@ public class EditCommandTest {
         String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
 
         AddressBook expectedAddressBook = new AddressBook(model.getAddressBook());
-        expectedAddressBook.updatePerson(INDEX_FIRST_PERSON.getZeroBased(), editedPerson);
         FilteredList<ReadOnlyPerson> expectedFilteredList = new FilteredList<>(expectedAddressBook.getPersonList());
+        ReadOnlyPerson personToEdit = expectedFilteredList.get(INDEX_FIRST_PERSON.getZeroBased());
+        expectedAddressBook.updatePerson(personToEdit, editedPerson);
 
         assertCommandSuccess(editCommand, expectedMessage, expectedAddressBook, expectedFilteredList);
     }

@@ -73,9 +73,11 @@ public class EditCommand extends Command {
         Person editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
 
         try {
-            model.updatePerson(index, editedPerson);
+            model.updatePerson(personToEdit, editedPerson);
         } catch (UniquePersonList.DuplicatePersonException dpe) {
             throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+        } catch (UniquePersonList.PersonNotFoundException pnfe) {
+            throw new AssertionError("The target person cannot be missing");
         }
         model.updateFilteredListToShowAll();
         return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, personToEdit));
