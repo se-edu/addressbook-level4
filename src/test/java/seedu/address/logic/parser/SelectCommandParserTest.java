@@ -12,7 +12,8 @@ import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
- * Test scope: similar to DeleteCommandParserTest.
+ * Test scope: similar to {@code DeleteCommandParserTest}.
+ * @see DeleteCommandParserTest
  */
 public class SelectCommandParserTest {
 
