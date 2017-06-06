@@ -72,8 +72,9 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void updatePerson(Index index, ReadOnlyPerson editedPerson) throws DuplicatePersonException {
-        requireNonNull(editedPerson);
+    public void updatePerson(ReadOnlyPerson target, ReadOnlyPerson editedPerson)
+            throws DuplicatePersonException, PersonNotFoundException {
+        requireAllNonNull(target, editedPerson);
 
         addressBook.updatePerson(target, editedPerson);
         indicateAddressBookChanged();

@@ -30,7 +30,8 @@ public interface Model {
      *      another existing person in the list.
      * @throws PersonNotFoundException if {@code target} could not be found in the list.
      */
-    void updatePerson(Index index, ReadOnlyPerson editedPerson) throws DuplicatePersonException;
+    void updatePerson(ReadOnlyPerson target, ReadOnlyPerson editedPerson)
+            throws DuplicatePersonException, PersonNotFoundException;
 
     /** Returns the filtered person list as an {@code UnmodifiableObservableList<ReadOnlyPerson>} */
     UnmodifiableObservableList<ReadOnlyPerson> getFilteredPersonList();
