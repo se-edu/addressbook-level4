@@ -22,18 +22,20 @@ import seedu.address.testutil.TypicalPersons;
  */
 public class ListCommandTest {
 
-    private Model model = new ModelManager(new TypicalPersons().getTypicalAddressBook(), new UserPrefs());
-    private ListCommand listCommand = new ListCommand();
+    private Model model;
+    private ListCommand listCommand;
 
     @Before
     public void setUp() {
+        model = new ModelManager(new TypicalPersons().getTypicalAddressBook(), new UserPrefs());
+
+        listCommand = new ListCommand();
         listCommand.setData(model, new CommandHistory());
     }
 
     @Test
     public void execute_listIsNotFiltered_showsSameList() throws Exception {
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
-
         assertCommandSuccess(listCommand, model, ListCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
@@ -42,7 +44,6 @@ public class ListCommandTest {
         showFirstPersonOnly(model);
 
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
-
         assertCommandSuccess(listCommand, model, ListCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
