@@ -11,7 +11,7 @@ import javafx.stage.Window;
 import seedu.address.commons.core.LogsCenter;
 
 /**
- * Provides access to a node in a JavaFx application for GUI testing purposes.
+ * Provides access to a window in a JavaFx application for GUI testing purposes.
  */
 public abstract class WindowHandle {
     protected final GuiRobot guiRobot = new GuiRobot();
@@ -31,10 +31,10 @@ public abstract class WindowHandle {
 
     public void focusOnWindow() {
         String windowTitle = ((Stage) window).getTitle();
-        logger.info("Focusing " + windowTitle);
+        logger.info("Focusing on" + windowTitle);
         guiRobot.targetWindow(window);
         guiRobot.interact(() -> window.requestFocus());
-        logger.info("Finishing focus " + windowTitle);
+        logger.info("Finishing focus on" + windowTitle);
     }
 
     protected <T extends Node> T getNode(String query) {

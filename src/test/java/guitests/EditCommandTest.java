@@ -85,13 +85,13 @@ public class EditCommandTest extends AddressBookGuiTest {
 
     @Test
     public void edit_missingPersonIndex_failure() {
-        mainWindowHandle.getCommandBox().runCommand(EditCommand.COMMAND_WORD + " Bobby");
+        mainWindowHandle.getCommandBox().runCommand(EditCommand.COMMAND_WORD + " " + PREFIX_NAME + "Bobby");
         assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
     }
 
     @Test
     public void edit_invalidPersonIndex_failure() {
-        mainWindowHandle.getCommandBox().runCommand(EditCommand.COMMAND_WORD + " 8 Bobby");
+        mainWindowHandle.getCommandBox().runCommand(EditCommand.COMMAND_WORD + " 8 " + PREFIX_NAME + "Bobby");
         assertResultMessage(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
@@ -103,7 +103,7 @@ public class EditCommandTest extends AddressBookGuiTest {
 
     @Test
     public void edit_invalidValues_failure() {
-        mainWindowHandle.getCommandBox().runCommand(EditCommand.COMMAND_WORD + " 1 *&");
+        mainWindowHandle.getCommandBox().runCommand(EditCommand.COMMAND_WORD + " 1 " + PREFIX_NAME + "*&");
         assertResultMessage(Name.MESSAGE_NAME_CONSTRAINTS);
 
         mainWindowHandle.getCommandBox().runCommand(EditCommand.COMMAND_WORD + " 1 " + PREFIX_PHONE + "abcd");
@@ -121,7 +121,7 @@ public class EditCommandTest extends AddressBookGuiTest {
 
     @Test
     public void edit_duplicatePerson_failure() {
-        mainWindowHandle.getCommandBox().runCommand(EditCommand.COMMAND_WORD + " 3 Alice Pauline "
+        mainWindowHandle.getCommandBox().runCommand(EditCommand.COMMAND_WORD + " 3 "
                 + PREFIX_PHONE + "85355255 "
                 + PREFIX_EMAIL + "alice@example.com "
                 + PREFIX_NAME + "Alice Pauline "
