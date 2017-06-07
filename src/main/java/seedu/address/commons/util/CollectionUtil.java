@@ -33,7 +33,7 @@ public class CollectionUtil {
      */
     public static boolean isAnyNonNull(Object... items) {
         requireNonNull(items);
-        return Arrays.stream(items).filter(Objects::nonNull).count() > 0;
+        return Arrays.stream(items).anyMatch(Objects::nonNull);
     }
 
     /**
