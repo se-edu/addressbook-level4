@@ -71,7 +71,7 @@ public class EditCommandTest extends AddressBookGuiTest {
 
     @Test
     public void edit_findThenEdit_success() throws Exception {
-        commandBox.runCommand(FindCommand.COMMAND_WORD + " Carl");
+        mainWindowHandle.getCommandBox().runCommand(FindCommand.COMMAND_WORD + " Carl");
 
         String detailsToEdit = "Carrle";
         Index addressBookIndex = INDEX_THIRD_PERSON;
@@ -84,43 +84,43 @@ public class EditCommandTest extends AddressBookGuiTest {
 
     @Test
     public void edit_missingPersonIndex_failure() {
-        commandBox.runCommand(EditCommand.COMMAND_WORD + " Bobby");
+        mainWindowHandle.getCommandBox().runCommand(EditCommand.COMMAND_WORD + " Bobby");
         assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
     }
 
     @Test
     public void edit_invalidPersonIndex_failure() {
-        commandBox.runCommand(EditCommand.COMMAND_WORD + " 8 Bobby");
+        mainWindowHandle.getCommandBox().runCommand(EditCommand.COMMAND_WORD + " 8 Bobby");
         assertResultMessage(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
     @Test
     public void edit_noFieldsSpecified_failure() {
-        commandBox.runCommand(EditCommand.COMMAND_WORD + " 1");
+        mainWindowHandle.getCommandBox().runCommand(EditCommand.COMMAND_WORD + " 1");
         assertResultMessage(EditCommand.MESSAGE_NOT_EDITED);
     }
 
     @Test
     public void edit_invalidValues_failure() {
-        commandBox.runCommand(EditCommand.COMMAND_WORD + " 1 *&");
+        mainWindowHandle.getCommandBox().runCommand(EditCommand.COMMAND_WORD + " 1 *&");
         assertResultMessage(Name.MESSAGE_NAME_CONSTRAINTS);
 
-        commandBox.runCommand(EditCommand.COMMAND_WORD + " 1 " + PREFIX_PHONE + "abcd");
+        mainWindowHandle.getCommandBox().runCommand(EditCommand.COMMAND_WORD + " 1 " + PREFIX_PHONE + "abcd");
         assertResultMessage(Phone.MESSAGE_PHONE_CONSTRAINTS);
 
-        commandBox.runCommand(EditCommand.COMMAND_WORD + " 1 " + PREFIX_EMAIL + "yahoo!!!");
+        mainWindowHandle.getCommandBox().runCommand(EditCommand.COMMAND_WORD + " 1 " + PREFIX_EMAIL + "yahoo!!!");
         assertResultMessage(Email.MESSAGE_EMAIL_CONSTRAINTS);
 
-        commandBox.runCommand(EditCommand.COMMAND_WORD + " 1 " + PREFIX_ADDRESS.getPrefix());
+        mainWindowHandle.getCommandBox().runCommand(EditCommand.COMMAND_WORD + " 1 " + PREFIX_ADDRESS.getPrefix());
         assertResultMessage(Address.MESSAGE_ADDRESS_CONSTRAINTS);
 
-        commandBox.runCommand(EditCommand.COMMAND_WORD + " 1 " + PREFIX_TAG + "*&");
+        mainWindowHandle.getCommandBox().runCommand(EditCommand.COMMAND_WORD + " 1 " + PREFIX_TAG + "*&");
         assertResultMessage(Tag.MESSAGE_TAG_CONSTRAINTS);
     }
 
     @Test
     public void edit_duplicatePerson_failure() {
-        commandBox.runCommand(EditCommand.COMMAND_WORD + " 3 Alice Pauline "
+        mainWindowHandle.getCommandBox().runCommand(EditCommand.COMMAND_WORD + " 3 Alice Pauline "
                 + PREFIX_PHONE + "85355255 "
                 + PREFIX_EMAIL + "alice@example.com "
                 + PREFIX_ADDRESS + "123, Jurong West Ave 6, #08-111 "
@@ -139,16 +139,17 @@ public class EditCommandTest extends AddressBookGuiTest {
      */
     private void assertEditSuccess(Index filteredPersonListIndex, Index addressBookIndex,
                                     String detailsToEdit, Person editedPerson) {
-        commandBox.runCommand(EditCommand.COMMAND_WORD + " "
+        mainWindowHandle.getCommandBox().runCommand(EditCommand.COMMAND_WORD + " "
                 + filteredPersonListIndex.getOneBased() + " " + detailsToEdit);
 
         // confirm the new card contains the right data
-        PersonCardHandle editedCard = personListPanel.navigateToPerson(editedPerson.getName().fullName);
+        PersonCardHandle editedCard = mainWindowHandle.getPersonListPanel()
+                .navigateToPerson(editedPerson.getName().fullName);
         assertMatching(editedPerson, editedCard);
 
         // confirm the list now contains all previous persons plus the person with updated details
         expectedPersonsList[addressBookIndex.getZeroBased()] = editedPerson;
-        assertTrue(personListPanel.isListMatching(expectedPersonsList));
+        assertTrue(mainWindowHandle.getPersonListPanel().isListMatching(expectedPersonsList));
         assertResultMessage(String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson));
     }
 }
