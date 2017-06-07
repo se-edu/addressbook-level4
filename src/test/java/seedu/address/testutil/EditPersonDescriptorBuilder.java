@@ -28,11 +28,11 @@ public class EditPersonDescriptorBuilder {
      */
     public EditPersonDescriptorBuilder(ReadOnlyPerson person) throws IllegalValueException {
         descriptor = new EditPersonDescriptor();
-        descriptor.setName(Optional.of(person.getName()));
-        descriptor.setPhone(Optional.of(person.getPhone()));
-        descriptor.setEmail(Optional.of(person.getEmail()));
-        descriptor.setAddress(Optional.of(person.getAddress()));
-        descriptor.setTags(Optional.of(person.getTags()));
+        descriptor.setName(person.getName());
+        descriptor.setPhone(person.getPhone());
+        descriptor.setEmail(person.getEmail());
+        descriptor.setAddress(person.getAddress());
+        descriptor.setTags(person.getTags());
     }
 
     public EditPersonDescriptorBuilder withName(String name) throws IllegalValueException {
