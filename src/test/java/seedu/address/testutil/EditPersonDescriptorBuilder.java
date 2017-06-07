@@ -28,35 +28,35 @@ public class EditPersonDescriptorBuilder {
      */
     public EditPersonDescriptorBuilder(ReadOnlyPerson person) throws IllegalValueException {
         descriptor = new EditPersonDescriptor();
-        descriptor.setName(Optional.of(person.getName()));
-        descriptor.setPhone(Optional.of(person.getPhone()));
-        descriptor.setEmail(Optional.of(person.getEmail()));
-        descriptor.setAddress(Optional.of(person.getAddress()));
-        descriptor.setTags(Optional.of(person.getTags()));
+        descriptor.setName(person.getName());
+        descriptor.setPhone(person.getPhone());
+        descriptor.setEmail(person.getEmail());
+        descriptor.setAddress(person.getAddress());
+        descriptor.setTags(person.getTags());
     }
 
     public EditPersonDescriptorBuilder withName(String name) throws IllegalValueException {
-        descriptor.setName(ParserUtil.parseName(Optional.of(name)));
+        ParserUtil.parseName(Optional.of(name)).ifPresent(descriptor::setName);
         return this;
     }
 
     public EditPersonDescriptorBuilder withPhone(String phone) throws IllegalValueException {
-        descriptor.setPhone(ParserUtil.parsePhone(Optional.of(phone)));
+        ParserUtil.parsePhone(Optional.of(phone)).ifPresent(descriptor::setPhone);
         return this;
     }
 
     public EditPersonDescriptorBuilder withEmail(String email) throws IllegalValueException {
-        descriptor.setEmail(ParserUtil.parseEmail(Optional.of(email)));
+        ParserUtil.parseEmail(Optional.of(email)).ifPresent(descriptor::setEmail);
         return this;
     }
 
     public EditPersonDescriptorBuilder withAddress(String address) throws IllegalValueException {
-        descriptor.setAddress(ParserUtil.parseAddress(Optional.of(address)));
+        ParserUtil.parseAddress(Optional.of(address)).ifPresent(descriptor::setAddress);
         return this;
     }
 
     public EditPersonDescriptorBuilder withTags(String... tags) throws IllegalValueException {
-        descriptor.setTags(Optional.of(ParserUtil.parseTags(Arrays.asList(tags))));
+        descriptor.setTags(ParserUtil.parseTags(Arrays.asList(tags)));
         return this;
     }
 
