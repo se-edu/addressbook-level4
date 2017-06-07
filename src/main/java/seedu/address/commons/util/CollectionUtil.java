@@ -1,9 +1,11 @@
 package seedu.address.commons.util;
 
+import static java.util.Objects.requireNonNull;
+
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Objects;
-import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Stream;
 
@@ -14,7 +16,7 @@ public class CollectionUtil {
 
     /** @see #requireAllNonNull(Collection) */
     public static void requireAllNonNull(Object... items) {
-        Objects.requireNonNull(items);
+        requireNonNull(items);
         Stream.of(items).forEach(Objects::requireNonNull);
     }
 
@@ -22,15 +24,16 @@ public class CollectionUtil {
      * Throws NullPointerException if {@code items} or any element of {@code items} is null.
      */
     public static void requireAllNonNull(Collection<?> items) {
-        Objects.requireNonNull(items);
+        requireNonNull(items);
         items.forEach(Objects::requireNonNull);
     }
 
     /**
-     * Returns true is any of the given items are present.
+     * Returns true is {@code items} contain any elements that are non-null.
      */
-    public static boolean isAnyPresent(Optional<?>... items) {
-        return Stream.of(items).anyMatch(Optional::isPresent);
+    public static boolean isAnyNonNull(Object... items) {
+        requireNonNull(items);
+        return Arrays.stream(items).filter(Objects::nonNull).count() > 0;
     }
 
     /**

@@ -7,7 +7,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 import seedu.address.commons.core.Messages;
@@ -91,11 +90,16 @@ public class EditCommand extends Command {
                                              EditPersonDescriptor editPersonDescriptor) {
         assert personToEdit != null;
 
-        Name updatedName = editPersonDescriptor.getName().orElseGet(personToEdit::getName);
-        Phone updatedPhone = editPersonDescriptor.getPhone().orElseGet(personToEdit::getPhone);
-        Email updatedEmail = editPersonDescriptor.getEmail().orElseGet(personToEdit::getEmail);
-        Address updatedAddress = editPersonDescriptor.getAddress().orElseGet(personToEdit::getAddress);
-        Set<Tag> updatedTags = editPersonDescriptor.getTags().orElseGet(personToEdit::getTags);
+        Name name = editPersonDescriptor.getName();
+        Name updatedName = (name == null) ? personToEdit.getName() : name;
+        Phone phone = editPersonDescriptor.getPhone();
+        Phone updatedPhone = (phone == null) ? personToEdit.getPhone() : phone;
+        Email email = editPersonDescriptor.getEmail();
+        Email updatedEmail = (email == null) ? personToEdit.getEmail() : email;
+        Address address = editPersonDescriptor.getAddress();
+        Address updatedAddress = (address == null) ? personToEdit.getAddress() : address;
+        Set<Tag> tags = editPersonDescriptor.getTags();
+        Set<Tag> updatedTags = (tags == null) ? personToEdit.getTags() : tags;
 
         return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
     }
@@ -123,11 +127,11 @@ public class EditCommand extends Command {
      * corresponding field value of the person.
      */
     public static class EditPersonDescriptor {
-        private Optional<Name> name = Optional.empty();
-        private Optional<Phone> phone = Optional.empty();
-        private Optional<Email> email = Optional.empty();
-        private Optional<Address> address = Optional.empty();
-        private Optional<Set<Tag>> tags = Optional.empty();
+        private Name name;
+        private Phone phone;
+        private Email email;
+        private Address address;
+        private Set<Tag> tags;
 
         public EditPersonDescriptor() {}
 
@@ -143,46 +147,46 @@ public class EditCommand extends Command {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyPresent(this.name, this.phone, this.email, this.address, this.tags);
+            return CollectionUtil.isAnyNonNull(this.name, this.phone, this.email, this.address, this.tags);
         }
 
-        public void setName(Optional<Name> name) {
+        public void setName(Name name) {
             this.name = requireNonNull(name);
         }
 
-        public Optional<Name> getName() {
+        public Name getName() {
             return name;
         }
 
-        public void setPhone(Optional<Phone> phone) {
+        public void setPhone(Phone phone) {
             this.phone = requireNonNull(phone);
         }
 
-        public Optional<Phone> getPhone() {
+        public Phone getPhone() {
             return phone;
         }
 
-        public void setEmail(Optional<Email> email) {
+        public void setEmail(Email email) {
             this.email = requireNonNull(email);
         }
 
-        public Optional<Email> getEmail() {
+        public Email getEmail() {
             return email;
         }
 
-        public void setAddress(Optional<Address> address) {
+        public void setAddress(Address address) {
             this.address = requireNonNull(address);
         }
 
-        public Optional<Address> getAddress() {
+        public Address getAddress() {
             return address;
         }
 
-        public void setTags(Optional<Set<Tag>> tags) {
+        public void setTags(Set<Tag> tags) {
             this.tags = requireNonNull(tags);
         }
 
-        public Optional<Set<Tag>> getTags() {
+        public Set<Tag> getTags() {
             return tags;
         }
 
@@ -200,11 +204,13 @@ public class EditCommand extends Command {
 
             // state check
             EditPersonDescriptor e = (EditPersonDescriptor) other;
-            return name.equals(e.getName())
-                    && phone.equals(e.getPhone())
-                    && email.equals(e.getEmail())
-                    && address.equals(e.getAddress())
-                    && tags.equals(e.getTags());
+
+            boolean isNameEquals = (name == null) ? (e.getName() == null) : name.equals(e.getName());
+            boolean isPhoneEquals = (phone == null) ? (e.getPhone() == null) : phone.equals(e.getPhone());
+            boolean isEmailEquals = (email == null) ? (e.getEmail() == null) : email.equals(e.getEmail());
+            boolean isAddressEquals = (address == null) ? (e.getAddress() == null) : address.equals(e.getAddress());
+            boolean isTagEquals = (tags == null) ? (e.getTags() == null) : tags.equals(e.getTags());
+            return isNameEquals && isPhoneEquals && isEmailEquals && isAddressEquals && isTagEquals;
         }
     }
 }
