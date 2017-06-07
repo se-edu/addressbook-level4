@@ -74,6 +74,14 @@ public class CollectionUtilTest {
     }
 
     @Test
+    public void isAnyNonNull() {
+        assertFalse(CollectionUtil.isAnyNonNull());
+        assertFalse(CollectionUtil.isAnyNonNull((Object) null));
+        assertTrue(CollectionUtil.isAnyNonNull(new Object()));
+        assertTrue(CollectionUtil.isAnyNonNull(new Object(), null));
+    }
+
+    @Test
     public void elementsAreUnique() throws Exception {
         // empty list
         assertAreUnique();
