@@ -185,12 +185,15 @@ public class EditCommandTest {
     /**
      * Updates the filtered list to show only the first person in the {@code model}'s address book.
      */
-    private void showFirstPersonOnly() {
-        ReadOnlyPerson person = model.getAddressBook().getPersonList().get(0);
-        final String[] splitName = person.getName().fullName.split("\\s+");
-        model.updateFilteredPersonList(new HashSet<>(Arrays.asList(splitName)));
+    private EditPersonDescriptor createEditPersonDescriptor(ReadOnlyPerson person) throws IllegalValueException {
+        EditPersonDescriptor descriptor = new EditPersonDescriptor();
+        descriptor.setName(person.getName());
+        descriptor.setPhone(person.getPhone());
+        descriptor.setEmail(person.getEmail());
+        descriptor.setAddress(person.getAddress());
+        descriptor.setTags(person.getTags());
 
-        assertTrue(model.getFilteredPersonList().size() == 1);
+        return descriptor;
     }
 
     /**
