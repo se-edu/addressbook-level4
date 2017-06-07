@@ -3,30 +3,26 @@ package guitests.guihandles;
 import java.util.Arrays;
 
 import javafx.scene.input.KeyCode;
-import seedu.address.TestApp;
 
 /**
  * Provides a handle to the main menu of the app.
  */
-public class MainMenuHandle extends GuiHandle {
+public class MainMenuHandle extends NodeHandle {
 
-    public MainMenuHandle() {
-        super(TestApp.APP_TITLE);
+    public MainMenuHandle(MainWindowHandle mainWindowHandle) {
+        super(mainWindowHandle.getNode("#menuBar"));
     }
 
-    public GuiHandle clickOn(String... menuText) {
+    public void clickOn(String... menuText) {
         Arrays.stream(menuText).forEach((menuItem) -> guiRobot.clickOn(menuItem));
-        return this;
     }
 
-    public HelpWindowHandle openHelpWindowUsingMenu() {
+    public void openHelpWindowUsingMenu() {
         clickOn("Help", "F1");
-        return new HelpWindowHandle();
     }
 
-    public HelpWindowHandle openHelpWindowUsingAccelerator() {
+    public void openHelpWindowUsingAccelerator() {
         useF1Accelerator();
-        return new HelpWindowHandle();
     }
 
     private void useF1Accelerator() {

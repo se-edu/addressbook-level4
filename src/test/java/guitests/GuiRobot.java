@@ -61,6 +61,11 @@ public class GuiRobot extends FxRobot {
                 .stream()
                 .filter(w -> w instanceof Stage && ((Stage) w).getTitle().equals(stageTitle)).findAny();
 
-        return window.isPresent();
+        if (!window.isPresent()) {
+            return false;
+        }
+
+        Stage stage = (Stage) window.get();
+        return stage.isShowing();
     }
 }
