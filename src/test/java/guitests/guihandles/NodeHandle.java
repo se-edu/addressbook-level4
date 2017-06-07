@@ -12,24 +12,27 @@ import seedu.address.commons.core.LogsCenter;
  * Provides access to a node in a JavaFx application for GUI testing purposes.
  */
 public abstract class NodeHandle {
-    protected final GuiRobot guiRobot = new GuiRobot();
+    protected static final GuiRobot GUI_ROBOT = GuiRobot.getInstance();
     protected final Logger logger = LogsCenter.getLogger(this.getClass());
 
     private final Node rootNode;
 
-    public NodeHandle(Node rootNode) {
+    protected NodeHandle(Node rootNode) {
         this.rootNode = requireNonNull(rootNode);
     }
 
-    public Node getRootNode() {
+    protected Node getRootNode() {
         return rootNode;
     }
 
     protected <T extends Node> Node getNode(String query) {
-        return guiRobot.from(rootNode).lookup(query).query();
+        return GUI_ROBOT.from(rootNode).lookup(query).query();
     }
 
-    public void click() {
-        guiRobot.clickOn(rootNode);
+    /**
+     * Clicks on the root node (i.e. itself).
+     */
+    public void clickOnSelf() {
+        GUI_ROBOT.clickOn(rootNode);
     }
 }
