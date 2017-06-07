@@ -10,10 +10,10 @@ public class ResultDisplayHandle extends NodeHandle {
     public static final String RESULT_DISPLAY_ID = "#resultDisplay";
 
     public ResultDisplayHandle(MainWindowHandle mainWindowHandle) {
-        super(mainWindowHandle.getNode(RESULT_DISPLAY_ID));
+        super(mainWindowHandle.getChildNode(RESULT_DISPLAY_ID));
     }
 
     public String getText() {
-        return ((TextArea) getRootNode()).getText();
+        return ((TextArea) getNode()).getText();
     }
 }

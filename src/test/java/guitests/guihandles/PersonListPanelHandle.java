@@ -3,7 +3,6 @@ package guitests.guihandles;
 
 import static guitests.GuiRobotUtil.MEDIUM_WAIT;
 import static guitests.GuiRobotUtil.SHORT_WAIT;
-import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 import java.util.Optional;
@@ -26,16 +25,21 @@ public class PersonListPanelHandle extends NodeHandle {
     private static final String PERSON_LIST_VIEW_ID = "#personListView";
 
     public PersonListPanelHandle(MainWindowHandle mainWindowHandle) {
-        super(mainWindowHandle.getNode(PERSON_LIST_VIEW_ID));
+        super(mainWindowHandle.getChildNode(PERSON_LIST_VIEW_ID));
     }
 
     private ListView<ReadOnlyPerson> getListView() {
-        return (ListView<ReadOnlyPerson>) getRootNode();
+        return (ListView<ReadOnlyPerson>) getNode();
     }
 
-    public List<ReadOnlyPerson> getSelectedPersons() {
-        ListView<ReadOnlyPerson> personList = getListView();
-        return personList.getSelectionModel().getSelectedItems();
+    public Optional<ReadOnlyPerson> getSelectedPerson() {
+        List<ReadOnlyPerson> personList = getListView().getSelectionModel().getSelectedItems();
+
+        if (personList.size() > 1) {
+            throw new AssertionError("Person list size expected 0 or 1.");
+        }
+
+        return (personList.size() == 0) ? Optional.empty() : Optional.of(personList.get(0));
     }
 
     /**
@@ -51,12 +55,22 @@ public class PersonListPanelHandle extends NodeHandle {
      * @param startPosition The starting position of the sub list.
      * @param persons A list of person in the correct order.
      */
-    public boolean isListMatching(int startPosition, ReadOnlyPerson... persons) throws IllegalArgumentException {
-        if (persons.length + startPosition != getListView().getItems().size()) {
+    public boolean isListMatching(int startPosition, ReadOnlyPerson... persons) {
+        List<ReadOnlyPerson> personList = getListView().getItems();
+
+
+        if (persons.length + startPosition != personList.size()) {
             throw new IllegalArgumentException("List size mismatched\n"
-                    + "Expected " + (getListView().getItems().size() - 1) + " persons");
+                    + "Expected " + personList.size() + " persons");
         }
-        assertTrue(this.containsInOrder(startPosition, persons));
+
+        return (containsInOrder(startPosition, persons) && cardAndPersonMatch(startPosition, persons));
+    }
+
+    /**
+     * Returns true if each person in {@code persons} matches the card at the exact same position.
+     */
+    private boolean cardAndPersonMatch(int startPosition, ReadOnlyPerson... persons) {
         for (int i = 0; i < persons.length; i++) {
             final int scrollTo = i + startPosition;
             GUI_ROBOT.interact(() -> getListView().scrollTo(scrollTo));
@@ -71,9 +85,9 @@ public class PersonListPanelHandle extends NodeHandle {
     /**
      * Returns true if the {@code persons} appear as the sub list (in that order) at position {@code startPosition}.
      */
-    public boolean containsInOrder(int startPosition, ReadOnlyPerson... persons) {
-        List<ReadOnlyPerson> personsToCompare = getListView().getItems().subList(startPosition,
-                getListView().getItems().size());
+    private boolean containsInOrder(int startPosition, ReadOnlyPerson... persons) {
+        List<ReadOnlyPerson> personList = getListView().getItems();
+        List<ReadOnlyPerson> personsToCompare = personList.subList(startPosition, personList.size());
 
         if (personsToCompare.size() != persons.length) {
             return false;
@@ -81,7 +95,7 @@ public class PersonListPanelHandle extends NodeHandle {
 
         // Return false if any of the persons doesn't match
         for (int i = 0; i < persons.length; i++) {
-            if (!personsToCompare.get(startPosition + i).getName().fullName.equals(persons[i].getName().fullName)) {
+            if (!personsToCompare.get(i).getName().fullName.equals(persons[i].getName().fullName)) {
                 return false;
             }
         }

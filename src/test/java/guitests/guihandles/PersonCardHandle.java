@@ -30,11 +30,11 @@ public class PersonCardHandle extends NodeHandle {
     public PersonCardHandle(Node cardNode) {
         super(cardNode);
 
-        this.nameLabel = (Label) getNode(NAME_FIELD_ID);
-        this.addressLabel = (Label) getNode(ADDRESS_FIELD_ID);
-        this.phoneLabel = (Label) getNode(PHONE_FIELD_ID);
-        this.emailLabel = (Label) getNode(EMAIL_FIELD_ID);
-        this.tagsContainer = (Region) getNode(TAGS_FIELD_ID);
+        this.nameLabel = (Label) getChildNode(NAME_FIELD_ID);
+        this.addressLabel = (Label) getChildNode(ADDRESS_FIELD_ID);
+        this.phoneLabel = (Label) getChildNode(PHONE_FIELD_ID);
+        this.emailLabel = (Label) getChildNode(EMAIL_FIELD_ID);
+        this.tagsContainer = (Region) getChildNode(TAGS_FIELD_ID);
     }
 
     public String getFullName() {

@@ -1,7 +1,10 @@
 package guitests;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static seedu.address.testutil.TypicalPersons.INDEX_FIRST_PERSON;
+
+import java.util.Optional;
 
 import org.junit.Test;
 
@@ -49,14 +52,13 @@ public class SelectCommandTest extends AddressBookGuiTest {
     }
 
     private void assertPersonSelected(Index index) {
-        assertEquals(getPersonListPanel().getSelectedPersons().size(), 1);
-        ReadOnlyPerson selectedPerson = getPersonListPanel().getSelectedPersons().get(0);
-        assertEquals(getPersonListPanel().getPerson(index.getZeroBased()), selectedPerson);
+        Optional<ReadOnlyPerson> selectedPerson = getPersonListPanel().getSelectedPerson();
+        assertEquals(getPersonListPanel().getPerson(index.getZeroBased()), selectedPerson.get());
         //TODO: confirm the correct page is loaded in the Browser Panel
     }
 
     private void assertNoPersonSelected() {
-        assertEquals(getPersonListPanel().getSelectedPersons().size(), 0);
+        assertFalse(getPersonListPanel().getSelectedPerson().isPresent());
     }
 
 }

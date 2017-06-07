@@ -18,9 +18,9 @@ public class AlertDialogHandle extends WindowHandle {
      * {@code expectedContentMessage}.
      */
     public boolean isMatchingContent(String expectedHeaderMessage, String expectedContentMessage) {
-        DialogPane dialogPane = getNode("#" + UiManager.ALERT_DIALOG_PANE_FIELD_ID);
-        boolean isMatching = dialogPane.getHeaderText().equals(expectedHeaderMessage)
-                && dialogPane.getContentText().equals(expectedContentMessage);
-        return isMatching;
+        DialogPane dialogPane = getChildNode("#" + UiManager.ALERT_DIALOG_PANE_FIELD_ID);
+
+        return (dialogPane.getHeaderText().equals(expectedHeaderMessage)
+                && dialogPane.getContentText().equals(expectedContentMessage));
     }
 }

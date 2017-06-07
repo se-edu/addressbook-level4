@@ -2,8 +2,6 @@ package guitests.guihandles;
 
 import java.util.Arrays;
 
-import javafx.scene.input.KeyCode;
-
 /**
  * Provides a handle to the main menu of the app.
  */
@@ -12,7 +10,7 @@ public class MainMenuHandle extends NodeHandle {
     private static final String MENU_BAR_ID = "#menuBar";
 
     public MainMenuHandle(MainWindowHandle mainWindowHandle) {
-        super(mainWindowHandle.getNode(MENU_BAR_ID));
+        super(mainWindowHandle.getChildNode(MENU_BAR_ID));
     }
 
     public void clickOnMenuItemsSequentially(String... menuItems) {
@@ -23,7 +21,4 @@ public class MainMenuHandle extends NodeHandle {
         clickOnMenuItemsSequentially("Help", "F1");
     }
 
-    public void openHelpWindowUsingF1Accelerator() {
-        GUI_ROBOT.push(KeyCode.F1);
-    }
 }

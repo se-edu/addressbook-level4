@@ -20,7 +20,7 @@ public class GuiRobot extends FxRobot {
     private static final String PROPERTY_GUITESTS_HEADLESS = "guitests.headless";
     private static final GuiRobot INSTANCE = new GuiRobot();
 
-    private boolean isHeadlessMode = false;
+    private final boolean isHeadlessMode;
 
     private GuiRobot() {
         String headlessPropertyValue = System.getProperty(PROPERTY_GUITESTS_HEADLESS);
@@ -38,14 +38,16 @@ public class GuiRobot extends FxRobot {
      * unnecessary delay.
      */
     public void pauseForHuman(int duration) {
-        if (!isHeadlessMode) {
-            sleep(duration);
+        if (isHeadlessMode) {
+            return;
         }
+
+        sleep(duration);
     }
 
     /**
      * Waits for {@code event} to be true.
-     * Throws {@code AssertionError} if the time taken exceeds {@code timeOut}.
+     * @throws AssertionError if the time taken exceeds {@code timeOut}.
      */
     public void waitForEvent(BooleanSupplier event, int timeOut) {
         int timePassed = 0;
@@ -56,13 +58,13 @@ public class GuiRobot extends FxRobot {
             timePassed += retryInterval;
 
             if (timePassed > timeOut) {
-                throw new AssertionError("Event timeout.");
+                throw new EventTimeoutException();
             }
         }
     }
 
     /**
-     * Checks that the window with {@code stageTitle} is currently open.
+     * Returns true if the window with {@code stageTitle} is currently open.
      */
     public boolean isWindowActive(String stageTitle) {
         return (listTargetWindows().stream()
@@ -85,5 +87,11 @@ public class GuiRobot extends FxRobot {
         clickOn(textField);
         interact(() -> textField.setText(text));
         pauseForHuman(MEDIUM_WAIT);
+    }
+
+    /**
+     * Represents an error which occurs when a timeout occurs when waiting for an event.
+     */
+    private class EventTimeoutException extends RuntimeException {
     }
 }

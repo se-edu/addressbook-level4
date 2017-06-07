@@ -1,5 +1,6 @@
 package guitests;
 
+import static guitests.GuiRobotUtil.EVENT_TIMEOUT;
 import static guitests.GuiRobotUtil.LONG_WAIT;
 import static junit.framework.TestCase.assertTrue;
 
@@ -18,13 +19,10 @@ public class ErrorDialogGuiTest extends AddressBookGuiTest {
 
     @Test
     public void showErrorDialogs() {
-        GuiRobot guiRobot = GuiRobot.getInstance();
-
         // create a stub exception
         raise(new DataSavingExceptionEvent(new IOException()));
 
-        int eventWaitTimeout = 5000;
-        guiRobot.waitForEvent(() -> guiRobot.isWindowActive(ERROR_DIALOG_STAGE_TITLE), eventWaitTimeout);
+        guiRobot.waitForEvent(() -> guiRobot.isWindowActive(ERROR_DIALOG_STAGE_TITLE), EVENT_TIMEOUT);
         guiRobot.pauseForHuman(LONG_WAIT);
 
         AlertDialogHandle alertDialog = new AlertDialogHandle(guiRobot.window(ERROR_DIALOG_STAGE_TITLE));

@@ -38,7 +38,7 @@ public abstract class WindowHandle {
         logger.info("Finishing focus on" + windowTitle);
     }
 
-    protected <T extends Node> T getNode(String query) {
+    protected <T extends Node> T getChildNode(String query) {
         return GUI_ROBOT.from(window.getScene().getRoot()).lookup(query).query();
     }
 }

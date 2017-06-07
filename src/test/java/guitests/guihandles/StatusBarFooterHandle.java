@@ -11,10 +11,10 @@ public class StatusBarFooterHandle extends NodeHandle {
     private static final String SYNC_STATUS_ID = "#syncStatus";
 
     public StatusBarFooterHandle(MainWindowHandle mainWindowHandle) {
-        super(mainWindowHandle.getNode(STATUS_BAR_PLACEHOLDER));
+        super(mainWindowHandle.getChildNode(STATUS_BAR_PLACEHOLDER));
     }
 
     public String getSyncStatus() {
-        return ((StatusBar) getNode(SYNC_STATUS_ID)).getText();
+        return ((StatusBar) getChildNode(SYNC_STATUS_ID)).getText();
     }
 }

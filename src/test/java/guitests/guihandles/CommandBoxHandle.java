@@ -14,25 +14,25 @@ public class CommandBoxHandle extends NodeHandle {
     private static final String COMMAND_INPUT_FIELD_ID = "#commandTextField";
 
     public CommandBoxHandle(MainWindowHandle mainWindowHandle) {
-        super(mainWindowHandle.getNode(COMMAND_INPUT_FIELD_ID));
+        super(mainWindowHandle.getChildNode(COMMAND_INPUT_FIELD_ID));
     }
 
     public String getInput() {
-        return ((TextField) getRootNode()).getText();
+        return ((TextField) getNode()).getText();
     }
 
     /**
-     * Enters the given command in the {@code command} and presses enter.
+     * Enters the given {@code command} in the {@code CommandBox} and presses enter.
      * @return true if the command succeeded, false otherwise.
      */
     public boolean enterCommand(String command) {
-        GUI_ROBOT.enterText((TextField) getRootNode(), command);
+        GUI_ROBOT.enterText((TextField) getNode(), command);
         GUI_ROBOT.pressEnter();
         GUI_ROBOT.pauseForHuman(SHORT_WAIT);
         return !getStyleClass().contains(CommandBox.ERROR_STYLE_CLASS);
     }
 
     public ObservableList<String> getStyleClass() {
-        return getRootNode().getStyleClass();
+        return getNode().getStyleClass();
     }
 }

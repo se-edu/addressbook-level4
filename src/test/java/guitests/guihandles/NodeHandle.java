@@ -21,11 +21,11 @@ public abstract class NodeHandle {
         this.rootNode = requireNonNull(rootNode);
     }
 
-    protected Node getRootNode() {
+    protected Node getNode() {
         return rootNode;
     }
 
-    protected <T extends Node> Node getNode(String query) {
+    protected <T extends Node> Node getChildNode(String query) {
         return GUI_ROBOT.from(rootNode).lookup(query).query();
     }
 

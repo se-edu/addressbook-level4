@@ -43,6 +43,8 @@ public abstract class AddressBookGuiTest {
 
     protected MainWindowHandle mainWindowHandle;
 
+    protected GuiRobot guiRobot = GuiRobot.getInstance();
+
     private Stage stage;
 
     @BeforeClass

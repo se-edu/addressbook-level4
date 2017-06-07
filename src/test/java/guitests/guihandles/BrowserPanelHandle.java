@@ -8,6 +8,6 @@ public class BrowserPanelHandle extends NodeHandle {
     private static final String BROWSER_ID = "#browser";
 
     public BrowserPanelHandle(MainWindowHandle mainWindowHandle) {
-        super(mainWindowHandle.getNode(BROWSER_ID));
+        super(mainWindowHandle.getChildNode(BROWSER_ID));
     }
 }

@@ -8,6 +8,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import guitests.guihandles.HelpWindowHandle;
+import javafx.scene.input.KeyCode;
 import seedu.address.logic.commands.HelpCommand;
 
 public class HelpWindowTest extends AddressBookGuiTest {
@@ -16,22 +17,22 @@ public class HelpWindowTest extends AddressBookGuiTest {
     public void openHelpWindow() {
         // use accelerator
         getCommandBox().clickOnSelf();
-        getMainMenu().openHelpWindowUsingF1Accelerator();
+        guiRobot.push(KeyCode.F1);
         assertHelpWindowOpen();
 
         mainWindowHandle.focusOnWindow();   // needed in headless mode, otherwise main window loses focus
         getResultDisplay().clickOnSelf();
-        getMainMenu().openHelpWindowUsingF1Accelerator();
+        guiRobot.push(KeyCode.F1);
         assertHelpWindowOpen();
 
         mainWindowHandle.focusOnWindow();
         getPersonListPanel().clickOnSelf();
-        getMainMenu().openHelpWindowUsingF1Accelerator();
+        guiRobot.push(KeyCode.F1);
         assertHelpWindowOpen();
 
         mainWindowHandle.focusOnWindow();
         getBrowserPanel().clickOnSelf();
-        getMainMenu().openHelpWindowUsingF1Accelerator();
+        guiRobot.push(KeyCode.F1);
         assertHelpWindowNotOpen();
 
         // use menu button
@@ -49,8 +50,6 @@ public class HelpWindowTest extends AddressBookGuiTest {
      * Asserts that the help window is open, and closes it after we are done checking.
      */
     private void assertHelpWindowOpen() {
-        GuiRobot guiRobot = GuiRobot.getInstance();
-
         assertTrue(guiRobot.isWindowActive(HELP_WINDOW_TITLE));
         guiRobot.pauseForHuman(LONG_WAIT);
 
@@ -61,7 +60,6 @@ public class HelpWindowTest extends AddressBookGuiTest {
      * Asserts that the help window isn't open at all.
      */
     private void assertHelpWindowNotOpen() {
-        GuiRobot guiRobot = GuiRobot.getInstance();
         assertFalse(guiRobot.isWindowActive(HELP_WINDOW_TITLE));
     }
 
