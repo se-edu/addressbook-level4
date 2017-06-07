@@ -94,11 +94,11 @@ public class EditCommand extends Command {
                                              EditPersonDescriptor editPersonDescriptor) {
         assert personToEdit != null;
 
-        Name updatedName = editPersonDescriptor.getName().orElseGet(personToEdit::getName);
-        Phone updatedPhone = editPersonDescriptor.getPhone().orElseGet(personToEdit::getPhone);
-        Email updatedEmail = editPersonDescriptor.getEmail().orElseGet(personToEdit::getEmail);
-        Address updatedAddress = editPersonDescriptor.getAddress().orElseGet(personToEdit::getAddress);
-        Set<Tag> updatedTags = editPersonDescriptor.getTags().orElseGet(personToEdit::getTags);
+        Name updatedName = editPersonDescriptor.getName().orElse(personToEdit.getName());
+        Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
+        Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
+        Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
+        Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
 
         return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
     }
@@ -126,67 +126,67 @@ public class EditCommand extends Command {
      * corresponding field value of the person.
      */
     public static class EditPersonDescriptor {
-        private Optional<Name> name = Optional.empty();
-        private Optional<Phone> phone = Optional.empty();
-        private Optional<Email> email = Optional.empty();
-        private Optional<Address> address = Optional.empty();
-        private Optional<Set<Tag>> tags = Optional.empty();
+        private Name name;
+        private Phone phone;
+        private Email email;
+        private Address address;
+        private Set<Tag> tags;
 
         public EditPersonDescriptor() {}
 
         public EditPersonDescriptor(EditPersonDescriptor toCopy) {
-            this.name = toCopy.getName();
-            this.phone = toCopy.getPhone();
-            this.email = toCopy.getEmail();
-            this.address = toCopy.getAddress();
-            this.tags = toCopy.getTags();
+            this.name = toCopy.name;
+            this.phone = toCopy.phone;
+            this.email = toCopy.email;
+            this.address = toCopy.address;
+            this.tags = toCopy.tags;
         }
 
         /**
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyPresent(this.name, this.phone, this.email, this.address, this.tags);
+            return CollectionUtil.isAnyNonNull(this.name, this.phone, this.email, this.address, this.tags);
         }
 
-        public void setName(Optional<Name> name) {
-            this.name = requireNonNull(name);
+        public void setName(Name name) {
+            this.name = name;
         }
 
         public Optional<Name> getName() {
-            return name;
+            return Optional.ofNullable(name);
         }
 
-        public void setPhone(Optional<Phone> phone) {
-            this.phone = requireNonNull(phone);
+        public void setPhone(Phone phone) {
+            this.phone = phone;
         }
 
         public Optional<Phone> getPhone() {
-            return phone;
+            return Optional.ofNullable(phone);
         }
 
-        public void setEmail(Optional<Email> email) {
-            this.email = requireNonNull(email);
+        public void setEmail(Email email) {
+            this.email = email;
         }
 
         public Optional<Email> getEmail() {
-            return email;
+            return Optional.ofNullable(email);
         }
 
-        public void setAddress(Optional<Address> address) {
-            this.address = requireNonNull(address);
+        public void setAddress(Address address) {
+            this.address = address;
         }
 
         public Optional<Address> getAddress() {
-            return address;
+            return Optional.ofNullable(address);
         }
 
-        public void setTags(Optional<Set<Tag>> tags) {
-            this.tags = requireNonNull(tags);
+        public void setTags(Set<Tag> tags) {
+            this.tags = tags;
         }
 
         public Optional<Set<Tag>> getTags() {
-            return tags;
+            return Optional.ofNullable(tags);
         }
 
         @Override
@@ -203,11 +203,12 @@ public class EditCommand extends Command {
 
             // state check
             EditPersonDescriptor e = (EditPersonDescriptor) other;
-            return name.equals(e.getName())
-                    && phone.equals(e.getPhone())
-                    && email.equals(e.getEmail())
-                    && address.equals(e.getAddress())
-                    && tags.equals(e.getTags());
+
+            return getName().equals(e.getName())
+                    && getPhone().equals(e.getPhone())
+                    && getEmail().equals(e.getEmail())
+                    && getAddress().equals(e.getAddress())
+                    && getTags().equals(e.getTags());
         }
     }
 }
