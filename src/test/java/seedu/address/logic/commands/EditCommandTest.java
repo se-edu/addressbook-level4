@@ -12,7 +12,6 @@ import static seedu.address.testutil.TypicalPersons.INDEX_SECOND_PERSON;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import org.junit.Test;
 
@@ -112,11 +111,11 @@ public class EditCommandTest {
      */
     private EditPersonDescriptor createEditPersonDescriptor(ReadOnlyPerson person) throws IllegalValueException {
         EditPersonDescriptor descriptor = new EditPersonDescriptor();
-        descriptor.setName(Optional.of(person.getName()));
-        descriptor.setPhone(Optional.of(person.getPhone()));
-        descriptor.setEmail(Optional.of(person.getEmail()));
-        descriptor.setAddress(Optional.of(person.getAddress()));
-        descriptor.setTags(Optional.of(person.getTags()));
+        descriptor.setName(person.getName());
+        descriptor.setPhone(person.getPhone());
+        descriptor.setEmail(person.getEmail());
+        descriptor.setAddress(person.getAddress());
+        descriptor.setTags(person.getTags());
 
         return descriptor;
     }
