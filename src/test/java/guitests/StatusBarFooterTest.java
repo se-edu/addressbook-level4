@@ -39,27 +39,29 @@ public class StatusBarFooterTest extends AddressBookGuiTest {
 
     @Test
     public void syncStatus_initialValue() {
-        assertEquals(SYNC_STATUS_INITIAL, statusBarFooter.getSyncStatus());
+        assertEquals(SYNC_STATUS_INITIAL, mainWindowHandle.getStatusBarFooter().getSyncStatus());
     }
 
     @Test
     public void syncStatus_mutatingCommandSucceeds_syncStatusUpdated() {
         String timestamp = new Date(injectedClock.millis()).toString();
         String expected = String.format(SYNC_STATUS_UPDATED, timestamp);
-        assertTrue(commandBox.runCommand(PersonUtil.getAddCommand(td.hoon))); // mutating command succeeds
-        assertEquals(expected, statusBarFooter.getSyncStatus());
+        assertTrue(mainWindowHandle.getCommandBox()
+                .runCommand(PersonUtil.getAddCommand(td.hoon))); // mutating command succeeds
+        assertEquals(expected, mainWindowHandle.getStatusBarFooter().getSyncStatus());
     }
 
     @Test
     public void syncStatus_nonMutatingCommandSucceeds_syncStatusRemainsUnchanged() {
-        assertTrue(commandBox.runCommand(ListCommand.COMMAND_WORD)); // non-mutating command succeeds
-        assertEquals(SYNC_STATUS_INITIAL, statusBarFooter.getSyncStatus());
+        assertTrue(mainWindowHandle.getCommandBox()
+                .runCommand(ListCommand.COMMAND_WORD)); // non-mutating command succeeds
+        assertEquals(SYNC_STATUS_INITIAL, mainWindowHandle.getStatusBarFooter().getSyncStatus());
     }
 
     @Test
     public void syncStatus_commandFails_syncStatusRemainsUnchanged() {
-        assertFalse(commandBox.runCommand("invalid command")); // invalid command fails
-        assertEquals(SYNC_STATUS_INITIAL, statusBarFooter.getSyncStatus());
+        assertFalse(mainWindowHandle.getCommandBox().runCommand("invalid command")); // invalid command fails
+        assertEquals(SYNC_STATUS_INITIAL, mainWindowHandle.getStatusBarFooter().getSyncStatus());
     }
 
 }

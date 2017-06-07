@@ -1,33 +1,43 @@
 package guitests.guihandles;
 
 import javafx.collections.ObservableList;
+import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.ui.CommandBox;
 
 /**
  * A handle to the Command Box in the GUI.
  */
-public class CommandBoxHandle extends GuiHandle {
+public class CommandBoxHandle extends NodeHandle {
 
     private static final String COMMAND_INPUT_FIELD_ID = "#commandTextField";
 
-    public CommandBoxHandle(String stageTitle) {
-        super(stageTitle);
-    }
-
-    /**
-     * Clicks on the TextField.
-     */
-    public void clickOnTextField() {
-        guiRobot.clickOn(COMMAND_INPUT_FIELD_ID);
+    public CommandBoxHandle(MainWindowHandle mainWindowHandle) {
+        super(mainWindowHandle.getNode(COMMAND_INPUT_FIELD_ID));
     }
 
     public void enterCommand(String command) {
-        setTextField(COMMAND_INPUT_FIELD_ID, command);
+        setTextField((TextField) getRootNode(), command);
     }
 
     public String getCommandInput() {
-        return getTextFieldText(COMMAND_INPUT_FIELD_ID);
+        return ((TextField) getRootNode()).getText();
+    }
+
+    public void setTextField(TextField textField, String newText) {
+        guiRobot.clickOn(textField);
+        guiRobot.interact(() -> textField.setText(newText));
+        guiRobot.pauseForHuman(500);
+    }
+
+    public String getTextField(TextField textField) {
+        return textField.getText();
+    }
+
+    public void pressEnter() {
+        guiRobot.type(KeyCode.ENTER);
+        guiRobot.pauseForHuman(500);
     }
 
     /**
