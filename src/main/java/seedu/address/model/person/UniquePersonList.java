@@ -73,17 +73,10 @@ public class UniquePersonList implements Iterable<Person> {
     }
 
     /**
-     * Removes the equivalent person from the list.
-     *
-     * @throws PersonNotFoundException if no such person could be found in the list.
+     * Removes the person at {@code index}.
      */
-    public boolean remove(ReadOnlyPerson toRemove) throws PersonNotFoundException {
-        requireNonNull(toRemove);
-        final boolean personFoundAndDeleted = internalList.remove(toRemove);
-        if (!personFoundAndDeleted) {
-            throw new PersonNotFoundException();
-        }
-        return personFoundAndDeleted;
+    public ReadOnlyPerson remove(int index) {
+        return internalList.remove(index);
     }
 
     public void setPersons(UniquePersonList replacement) {
@@ -127,11 +120,5 @@ public class UniquePersonList implements Iterable<Person> {
             super("Operation would result in duplicate persons");
         }
     }
-
-    /**
-     * Signals that an operation targeting a specified person in the list would fail because
-     * there is no such matching person in the list.
-     */
-    public static class PersonNotFoundException extends Exception {}
 
 }

@@ -20,7 +20,6 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.UniquePersonList.DuplicatePersonException;
-import seedu.address.model.person.UniquePersonList.PersonNotFoundException;
 import seedu.address.testutil.PersonBuilder;
 
 public class AddCommandTest {
@@ -86,8 +85,9 @@ public class AddCommandTest {
         }
 
         @Override
-        public void deletePerson(ReadOnlyPerson target) throws PersonNotFoundException {
+        public ReadOnlyPerson deletePerson(Index index) {
             fail("This method should not be called.");
+            return null;
         }
 
         @Override
