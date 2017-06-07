@@ -1,23 +1,24 @@
 package guitests.guihandles;
 
-import guitests.GuiRobot;
+import static org.junit.Assert.assertFalse;
+
 /**
- * Provides a handle to the help window of the app.
+ * A handle to the {@code HelpWindow} of the application.
  */
 public class HelpWindowHandle extends WindowHandle {
 
     public static final String HELP_WINDOW_TITLE = "Help";
-    private static final String HELP_WINDOW_ROOT_FIELD_ID = "#helpWindowRoot";
 
     public HelpWindowHandle() {
-        super(new GuiRobot().window(HELP_WINDOW_TITLE));
-        guiRobot.pauseForHuman(1000);
+        super(GUI_ROBOT.window(HELP_WINDOW_TITLE));
     }
 
+    /**
+     * Closes the help window.
+     */
     public void closeWindow() {
         super.closeWindow();
 
-        int eventWaitTimeout = 5000;
-        guiRobot.waitForEvent(() -> !guiRobot.isWindowActive(HELP_WINDOW_TITLE), eventWaitTimeout);
+        assertFalse(GUI_ROBOT.isWindowActive(HELP_WINDOW_TITLE));
     }
 }

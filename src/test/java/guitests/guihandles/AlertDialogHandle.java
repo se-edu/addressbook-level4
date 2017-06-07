@@ -5,7 +5,7 @@ import javafx.stage.Window;
 import seedu.address.ui.UiManager;
 
 /**
- * A handle for the AlertDialog of the UI
+ * A handle for the {@code AlertDialog} of the UI.
  */
 public class AlertDialogHandle extends WindowHandle {
 
@@ -13,10 +13,14 @@ public class AlertDialogHandle extends WindowHandle {
         super(window);
     }
 
-    public boolean isMatching(String headerMessage, String contentMessage) {
+    /**
+     * Checks that the content of the {@code AlertDialog} matches that of {@code expectedHeaderMessage} and
+     * {@code expectedContentMessage}.
+     */
+    public boolean isMatchingContent(String expectedHeaderMessage, String expectedContentMessage) {
         DialogPane dialogPane = getNode("#" + UiManager.ALERT_DIALOG_PANE_FIELD_ID);
-        boolean isMatching = dialogPane.getHeaderText().equals(headerMessage)
-                && dialogPane.getContentText().equals(contentMessage);
+        boolean isMatching = dialogPane.getHeaderText().equals(expectedHeaderMessage)
+                && dialogPane.getContentText().equals(expectedContentMessage);
         return isMatching;
     }
 }

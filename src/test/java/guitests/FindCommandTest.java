@@ -18,26 +18,26 @@ public class FindCommandTest extends AddressBookGuiTest {
         assertFindResult(FindCommand.COMMAND_WORD + " Meier", td.benson, td.daniel); // multiple results
 
         //find after deleting one result
-        mainWindowHandle.getCommandBox().runCommand(DeleteCommand.COMMAND_WORD + " 1");
+        getCommandBox().enterCommand(DeleteCommand.COMMAND_WORD + " 1");
         assertFindResult(FindCommand.COMMAND_WORD + " Meier", td.daniel);
     }
 
     @Test
     public void find_emptyList() {
-        mainWindowHandle.getCommandBox().runCommand(ClearCommand.COMMAND_WORD);
+        getCommandBox().enterCommand(ClearCommand.COMMAND_WORD);
         assertFindResult(FindCommand.COMMAND_WORD + " Jean"); // no results
     }
 
     @Test
     public void find_invalidCommand_fail() {
-        mainWindowHandle.getCommandBox().runCommand(FindCommand.COMMAND_WORD + "george");
+        getCommandBox().enterCommand(FindCommand.COMMAND_WORD + "george");
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
     }
 
     private void assertFindResult(String command, Person... expectedHits) {
-        mainWindowHandle.getCommandBox().runCommand(command);
+        getCommandBox().enterCommand(command);
         assertListSize(expectedHits.length);
         assertResultMessage(expectedHits.length + " persons listed!");
-        assertTrue(mainWindowHandle.getPersonListPanel().isListMatching(expectedHits));
+        assertTrue(getPersonListPanel().isListMatching(expectedHits));
     }
 }

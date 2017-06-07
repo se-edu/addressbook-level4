@@ -14,13 +14,13 @@ public class ClearCommandTest extends AddressBookGuiTest {
     public void clear() {
 
         //verify a non-empty list can be cleared
-        assertTrue(mainWindowHandle.getPersonListPanel().isListMatching(td.getTypicalPersons()));
+        assertTrue(getPersonListPanel().isListMatching(td.getTypicalPersons()));
         assertClearCommandSuccess();
 
         //verify other commands can work after a clear command
-        mainWindowHandle.getCommandBox().runCommand(PersonUtil.getAddCommand(td.hoon));
-        assertTrue(mainWindowHandle.getPersonListPanel().isListMatching(td.hoon));
-        mainWindowHandle.getCommandBox().runCommand(DeleteCommand.COMMAND_WORD + " 1");
+        getCommandBox().enterCommand(PersonUtil.getAddCommand(td.hoon));
+        assertTrue(getPersonListPanel().isListMatching(td.hoon));
+        getCommandBox().enterCommand(DeleteCommand.COMMAND_WORD + " 1");
         assertListSize(0);
 
         //verify clear command works when the list is empty
@@ -28,7 +28,7 @@ public class ClearCommandTest extends AddressBookGuiTest {
     }
 
     private void assertClearCommandSuccess() {
-        mainWindowHandle.getCommandBox().runCommand(ClearCommand.COMMAND_WORD);
+        getCommandBox().enterCommand(ClearCommand.COMMAND_WORD);
         assertListSize(0);
         assertResultMessage("Address book has been cleared!");
     }

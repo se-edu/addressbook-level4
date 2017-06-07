@@ -9,24 +9,21 @@ import javafx.scene.input.KeyCode;
  */
 public class MainMenuHandle extends NodeHandle {
 
+    private static final String MENU_BAR_ID = "#menuBar";
+
     public MainMenuHandle(MainWindowHandle mainWindowHandle) {
-        super(mainWindowHandle.getNode("#menuBar"));
+        super(mainWindowHandle.getNode(MENU_BAR_ID));
     }
 
-    public void clickOn(String... menuText) {
-        Arrays.stream(menuText).forEach((menuItem) -> guiRobot.clickOn(menuItem));
+    public void clickOnMenuItemsSequentially(String... menuItems) {
+        Arrays.stream(menuItems).forEach(GUI_ROBOT::clickOn);
     }
 
     public void openHelpWindowUsingMenu() {
-        clickOn("Help", "F1");
+        clickOnMenuItemsSequentially("Help", "F1");
     }
 
-    public void openHelpWindowUsingAccelerator() {
-        useF1Accelerator();
-    }
-
-    private void useF1Accelerator() {
-        guiRobot.push(KeyCode.F1);
-        guiRobot.pauseForHuman(500);
+    public void openHelpWindowUsingF1Accelerator() {
+        GUI_ROBOT.push(KeyCode.F1);
     }
 }

@@ -53,7 +53,7 @@ public class PersonCardHandle extends NodeHandle {
         return emailLabel.getText();
     }
 
-    private List<String> getTags() {
+    private List<String> getTagsFromSelf() {
         return tagsContainer
                 .getChildrenUnmodifiable()
                 .stream()
@@ -61,32 +61,36 @@ public class PersonCardHandle extends NodeHandle {
                 .collect(Collectors.toList());
     }
 
-    private List<String> getTags(Set<Tag> tags) {
+    private List<String> getTagsFromSet(Set<Tag> tags) {
         return tags
                 .stream()
                 .map(tag -> tag.tagName)
                 .collect(Collectors.toList());
     }
 
-    public boolean isSamePerson(ReadOnlyPerson person) {
+    /**
+     * Returns true if {@code PersonCard} belongs to {@code person}.
+     */
+    public boolean belongsTo(ReadOnlyPerson person) {
         return getFullName().equals(person.getName().fullName)
                 && getPhone().equals(person.getPhone().value)
                 && getEmail().equals(person.getEmail().value)
                 && getAddress().equals(person.getAddress().value)
-                && getTags().equals(getTags(person.getTags()));
+                && getTagsFromSelf().equals(getTagsFromSet(person.getTags()));
     }
 
     @Override
     public boolean equals(Object obj) {
-        if (obj instanceof PersonCardHandle) {
-            PersonCardHandle handle = (PersonCardHandle) obj;
-            return getFullName().equals(handle.getFullName())
-                    && getPhone().equals(handle.getPhone())
-                    && getEmail().equals(handle.getEmail())
-                    && getAddress().equals(handle.getAddress())
-                    && getTags().equals(handle.getTags());
+        if (!(obj instanceof PersonCardHandle)) {
+            return super.equals(obj);
         }
-        return super.equals(obj);
+
+        PersonCardHandle handle = (PersonCardHandle) obj;
+        return getFullName().equals(handle.getFullName())
+                && getPhone().equals(handle.getPhone())
+                && getEmail().equals(handle.getEmail())
+                && getAddress().equals(handle.getAddress())
+                && getTagsFromSelf().equals(handle.getTagsFromSelf());
     }
 
     @Override

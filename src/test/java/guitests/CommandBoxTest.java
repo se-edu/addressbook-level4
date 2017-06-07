@@ -22,7 +22,7 @@ public class CommandBoxTest extends AddressBookGuiTest {
 
     @Before
     public void setUp() {
-        defaultStyleOfCommandBox = new ArrayList<>(mainWindowHandle.getCommandBox().getStyleClass());
+        defaultStyleOfCommandBox = new ArrayList<>(getCommandBox().getStyleClass());
         assertFalse("CommandBox default style classes should not contain error style class.",
                     defaultStyleOfCommandBox.contains(CommandBox.ERROR_STYLE_CLASS));
 
@@ -51,26 +51,26 @@ public class CommandBoxTest extends AddressBookGuiTest {
 
     /**
      * Runs a command that fails, then verifies that
-     * - the return value of runCommand(...) is false,
+     * - the return value of enterCommand(...) is false,
      * - the text remains,
      * - the command box has only one ERROR_STYLE_CLASS, with other style classes untouched.
      */
     private void assertBehaviorForFailedCommand() {
-        assertFalse(mainWindowHandle.getCommandBox().runCommand(COMMAND_THAT_FAILS));
-        assertEquals(COMMAND_THAT_FAILS, mainWindowHandle.getCommandBox().getCommandInput());
-        assertEquals(errorStyleOfCommandBox, mainWindowHandle.getCommandBox().getStyleClass());
+        assertFalse(getCommandBox().enterCommand(COMMAND_THAT_FAILS));
+        assertEquals(COMMAND_THAT_FAILS, getCommandBox().getInput());
+        assertEquals(errorStyleOfCommandBox, getCommandBox().getStyleClass());
     }
 
     /**
      * Runs a command that succeeds, then verifies that
-     * - the return value of runCommand(...) is true,
+     * - the return value of enterCommand(...) is true,
      * - the text is cleared,
      * - the command box does not have any ERROR_STYLE_CLASS, with style classes the same as default.
      */
     private void assertBehaviorForSuccessfulCommand() {
-        assertTrue(mainWindowHandle.getCommandBox().runCommand(COMMAND_THAT_SUCCEEDS));
-        assertEquals("", mainWindowHandle.getCommandBox().getCommandInput());
-        assertEquals(defaultStyleOfCommandBox, mainWindowHandle.getCommandBox().getStyleClass());
+        assertTrue(getCommandBox().enterCommand(COMMAND_THAT_SUCCEEDS));
+        assertEquals("", getCommandBox().getInput());
+        assertEquals(defaultStyleOfCommandBox, getCommandBox().getStyleClass());
     }
 
 }
