@@ -12,14 +12,8 @@ import org.junit.Rule;
 import org.junit.rules.TestName;
 import org.testfx.api.FxToolkit;
 
-import guitests.guihandles.BrowserPanelHandle;
-import guitests.guihandles.CommandBoxHandle;
-import guitests.guihandles.MainGuiHandle;
-import guitests.guihandles.MainMenuHandle;
+import guitests.guihandles.MainWindowHandle;
 import guitests.guihandles.PersonCardHandle;
-import guitests.guihandles.PersonListPanelHandle;
-import guitests.guihandles.ResultDisplayHandle;
-import guitests.guihandles.StatusBarFooterHandle;
 import javafx.application.Platform;
 import javafx.stage.Stage;
 import seedu.address.TestApp;
@@ -45,13 +39,7 @@ public abstract class AddressBookGuiTest {
      *   Handles to GUI elements present at the start up are created in advance
      *   for easy access from child classes.
      */
-    protected MainGuiHandle mainGui;
-    protected MainMenuHandle mainMenu;
-    protected PersonListPanelHandle personListPanel;
-    protected ResultDisplayHandle resultDisplay;
-    protected CommandBoxHandle commandBox;
-    protected BrowserPanelHandle browserPanel;
-    protected StatusBarFooterHandle statusBarFooter;
+    protected MainWindowHandle mainWindowHandle;
 
     private Stage stage;
 
@@ -68,20 +56,17 @@ public abstract class AddressBookGuiTest {
     @Before
     public void setup() throws Exception {
         FxToolkit.setupStage((stage) -> {
-            mainGui = new MainGuiHandle();
-            mainMenu = mainGui.getMainMenu();
-            personListPanel = mainGui.getPersonListPanel();
-            resultDisplay = mainGui.getResultDisplay();
-            commandBox = mainGui.getCommandBox();
-            browserPanel = mainGui.getBrowserPanel();
-            statusBarFooter = mainGui.getStatusBarFooter();
             this.stage = stage;
         });
+
         EventsCenter.clearSubscribers();
         FxToolkit.setupApplication(() -> new TestApp(this::getInitialData, getDataFileLocation()));
         FxToolkit.showStage();
+
         while (!stage.isShowing());
-        mainGui.focusOnMainApp();
+
+        mainWindowHandle = new MainWindowHandle(stage);
+        mainWindowHandle.focusOnWindow();
     }
 
     /**
@@ -117,7 +102,7 @@ public abstract class AddressBookGuiTest {
      * Asserts the size of the person list is equal to the given number.
      */
     protected void assertListSize(int size) {
-        int numberOfPeople = personListPanel.getNumberOfPeople();
+        int numberOfPeople = mainWindowHandle.getPersonListPanel().getNumberOfPeople();
         assertEquals(size, numberOfPeople);
     }
 
@@ -125,7 +110,7 @@ public abstract class AddressBookGuiTest {
      * Asserts the message shown in the Result Display area is same as the given string.
      */
     protected void assertResultMessage(String expected) {
-        assertEquals(expected, resultDisplay.getText());
+        assertEquals(expected, mainWindowHandle.getResultDisplay().getText());
     }
 
     public void raise(BaseEvent e) {
