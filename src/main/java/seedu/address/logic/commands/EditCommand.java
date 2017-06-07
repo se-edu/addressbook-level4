@@ -204,13 +204,11 @@ public class EditCommand extends Command {
             // state check
             EditPersonDescriptor e = (EditPersonDescriptor) other;
 
-            boolean areNamesEqual = !getName().isPresent() ? !e.getName().isPresent() : name.equals(e.name);
-            boolean arePhonesEqual = !getPhone().isPresent() ? !e.getPhone().isPresent() : phone.equals(e.phone);
-            boolean areEmailsEqual = !getEmail().isPresent() ? !e.getEmail().isPresent() : email.equals(e.email);
-            boolean areAddressesEqual = !getAddress().isPresent()
-                    ? !e.getAddress().isPresent() : address.equals(e.address);
-            boolean areTagsEqual = !getTags().isPresent() ? !e.getTags().isPresent() : tags.equals(e.tags);
-            return areNamesEqual && arePhonesEqual && areEmailsEqual && areAddressesEqual && areTagsEqual;
+            return getName().equals(e.getName())
+                    && getPhone().equals(e.getPhone())
+                    && getEmail().equals(e.getEmail())
+                    && getAddress().equals(e.getAddress())
+                    && getTags().equals(e.getTags());
         }
     }
 }
