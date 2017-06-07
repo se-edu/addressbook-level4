@@ -16,7 +16,8 @@ public class HelpWindowHandle extends WindowHandle {
 
     public void closeWindow() {
         super.closeWindow();
-        guiRobot.pauseForHuman(500);
-    }
 
+        int eventWaitTimeout = 5000;
+        guiRobot.waitForEvent(() -> !guiRobot.isWindowActive(HELP_WINDOW_TITLE), eventWaitTimeout);
+    }
 }
