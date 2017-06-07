@@ -7,6 +7,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import seedu.address.commons.core.Messages;
@@ -90,16 +91,11 @@ public class EditCommand extends Command {
                                              EditPersonDescriptor editPersonDescriptor) {
         assert personToEdit != null;
 
-        Name name = editPersonDescriptor.getName();
-        Name updatedName = (name == null) ? personToEdit.getName() : name;
-        Phone phone = editPersonDescriptor.getPhone();
-        Phone updatedPhone = (phone == null) ? personToEdit.getPhone() : phone;
-        Email email = editPersonDescriptor.getEmail();
-        Email updatedEmail = (email == null) ? personToEdit.getEmail() : email;
-        Address address = editPersonDescriptor.getAddress();
-        Address updatedAddress = (address == null) ? personToEdit.getAddress() : address;
-        Set<Tag> tags = editPersonDescriptor.getTags();
-        Set<Tag> updatedTags = (tags == null) ? personToEdit.getTags() : tags;
+        Name updatedName = editPersonDescriptor.getName().orElse(personToEdit.getName());
+        Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
+        Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
+        Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
+        Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
 
         return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
     }
@@ -136,11 +132,11 @@ public class EditCommand extends Command {
         public EditPersonDescriptor() {}
 
         public EditPersonDescriptor(EditPersonDescriptor toCopy) {
-            this.name = toCopy.getName();
-            this.phone = toCopy.getPhone();
-            this.email = toCopy.getEmail();
-            this.address = toCopy.getAddress();
-            this.tags = toCopy.getTags();
+            this.name = toCopy.name;
+            this.phone = toCopy.phone;
+            this.email = toCopy.email;
+            this.address = toCopy.address;
+            this.tags = toCopy.tags;
         }
 
         /**
@@ -151,43 +147,43 @@ public class EditCommand extends Command {
         }
 
         public void setName(Name name) {
-            this.name = requireNonNull(name);
+            this.name = name;
         }
 
-        public Name getName() {
-            return name;
+        public Optional<Name> getName() {
+            return Optional.ofNullable(name);
         }
 
         public void setPhone(Phone phone) {
-            this.phone = requireNonNull(phone);
+            this.phone = phone;
         }
 
-        public Phone getPhone() {
-            return phone;
+        public Optional<Phone> getPhone() {
+            return Optional.ofNullable(phone);
         }
 
         public void setEmail(Email email) {
-            this.email = requireNonNull(email);
+            this.email = email;
         }
 
-        public Email getEmail() {
-            return email;
+        public Optional<Email> getEmail() {
+            return Optional.ofNullable(email);
         }
 
         public void setAddress(Address address) {
-            this.address = requireNonNull(address);
+            this.address = address;
         }
 
-        public Address getAddress() {
-            return address;
+        public Optional<Address> getAddress() {
+            return Optional.ofNullable(address);
         }
 
         public void setTags(Set<Tag> tags) {
-            this.tags = requireNonNull(tags);
+            this.tags = tags;
         }
 
-        public Set<Tag> getTags() {
-            return tags;
+        public Optional<Set<Tag>> getTags() {
+            return Optional.ofNullable(tags);
         }
 
         @Override
@@ -205,12 +201,13 @@ public class EditCommand extends Command {
             // state check
             EditPersonDescriptor e = (EditPersonDescriptor) other;
 
-            boolean isNameEquals = (name == null) ? (e.getName() == null) : name.equals(e.getName());
-            boolean isPhoneEquals = (phone == null) ? (e.getPhone() == null) : phone.equals(e.getPhone());
-            boolean isEmailEquals = (email == null) ? (e.getEmail() == null) : email.equals(e.getEmail());
-            boolean isAddressEquals = (address == null) ? (e.getAddress() == null) : address.equals(e.getAddress());
-            boolean isTagEquals = (tags == null) ? (e.getTags() == null) : tags.equals(e.getTags());
-            return isNameEquals && isPhoneEquals && isEmailEquals && isAddressEquals && isTagEquals;
+            boolean areNamesEqual = !getName().isPresent() ? !e.getName().isPresent() : name.equals(e.name);
+            boolean arePhonesEqual = !getPhone().isPresent() ? !e.getPhone().isPresent() : phone.equals(e.phone);
+            boolean areEmailsEqual = !getEmail().isPresent() ? !e.getEmail().isPresent() : email.equals(e.email);
+            boolean areAddressesEqual = !getAddress().isPresent()
+                    ? !e.getAddress().isPresent() : address.equals(e.address);
+            boolean areTagsEqual = !getTags().isPresent() ? !e.getTags().isPresent() : tags.equals(e.tags);
+            return areNamesEqual && arePhonesEqual && areEmailsEqual && areAddressesEqual && areTagsEqual;
         }
     }
 }

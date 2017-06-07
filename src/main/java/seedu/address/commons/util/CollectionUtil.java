@@ -29,7 +29,7 @@ public class CollectionUtil {
     }
 
     /**
-     * Returns true is {@code items} contain any elements that are non-null.
+     * Returns true if {@code items} contain any elements that are non-null.
      */
     public static boolean isAnyNonNull(Object... items) {
         requireNonNull(items);
