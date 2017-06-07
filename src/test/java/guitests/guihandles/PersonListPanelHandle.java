@@ -7,10 +7,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.control.ListView;
-import seedu.address.TestApp;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.testutil.TestUtil;
@@ -18,24 +16,24 @@ import seedu.address.testutil.TestUtil;
 /**
  * Provides a handle for the panel containing the person list.
  */
-public class PersonListPanelHandle extends GuiHandle {
+public class PersonListPanelHandle extends NodeHandle {
 
     public static final int NOT_FOUND = -1;
     public static final String CARD_PANE_ID = "#cardPane";
 
     private static final String PERSON_LIST_VIEW_ID = "#personListView";
 
-    public PersonListPanelHandle() {
-        super(TestApp.APP_TITLE);
+    public PersonListPanelHandle(MainWindowHandle mainWindowHandle) {
+        super(mainWindowHandle.getNode(PERSON_LIST_VIEW_ID));
+    }
+
+    public ListView<ReadOnlyPerson> getListView() {
+        return (ListView<ReadOnlyPerson>) getRootNode();
     }
 
     public List<ReadOnlyPerson> getSelectedPersons() {
         ListView<ReadOnlyPerson> personList = getListView();
         return personList.getSelectionModel().getSelectedItems();
-    }
-
-    public ListView<ReadOnlyPerson> getListView() {
-        return getNode(PERSON_LIST_VIEW_ID);
     }
 
     /**
@@ -66,14 +64,6 @@ public class PersonListPanelHandle extends GuiHandle {
             }
         }
         return true;
-    }
-
-    /**
-     * Clicks on the ListView.
-     */
-    public void clickOnListView() {
-        Point2D point = TestUtil.getScreenMidPoint(getListView());
-        guiRobot.clickOn(point.getX(), point.getY());
     }
 
     /**
