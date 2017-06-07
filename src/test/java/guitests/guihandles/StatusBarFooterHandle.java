@@ -2,25 +2,19 @@ package guitests.guihandles;
 
 import org.controlsfx.control.StatusBar;
 
-import seedu.address.TestApp;
-
 /**
- * A handle for the status bar at the footer of the application.
+ * A handle for the {@code StatusBarFooter} at the footer of the application.
  */
-public class StatusBarFooterHandle extends GuiHandle {
+public class StatusBarFooterHandle extends NodeHandle {
 
-    public static final String SYNC_STATUS_ID = "#syncStatus";
-    public static final String SAVE_LOCATION_STATUS_ID = "#saveLocationStatus";
+    private static final String STATUS_BAR_PLACEHOLDER = "#statusbarPlaceholder";
+    private static final String SYNC_STATUS_ID = "#syncStatus";
 
-    public StatusBarFooterHandle() {
-        super(TestApp.APP_TITLE);
+    public StatusBarFooterHandle(MainWindowHandle mainWindowHandle) {
+        super(mainWindowHandle.getChildNode(STATUS_BAR_PLACEHOLDER));
     }
 
     public String getSyncStatus() {
-        return ((StatusBar) getNode(SYNC_STATUS_ID)).getText();
-    }
-
-    public String getSaveLocation() {
-        return ((StatusBar) getNode(SAVE_LOCATION_STATUS_ID)).getText();
+        return ((StatusBar) getChildNode(SYNC_STATUS_ID)).getText();
     }
 }
