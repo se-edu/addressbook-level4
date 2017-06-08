@@ -4,7 +4,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.exceptions.DuplicatePersonException;
+import seedu.address.model.person.UniquePersonList;
 
 /**
  *
@@ -51,7 +51,7 @@ public class TypicalPersons {
         for (Person person : new TypicalPersons().getTypicalPersons()) {
             try {
                 ab.addPerson(new Person(person));
-            } catch (DuplicatePersonException e) {
+            } catch (UniquePersonList.DuplicatePersonException e) {
                 assert false : "not possible";
             }
         }

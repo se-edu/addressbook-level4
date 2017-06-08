@@ -5,6 +5,7 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import static seedu.address.testutil.TypicalPersons.INDEX_FIRST_PERSON;
+import static seedu.address.testutil.TypicalPersons.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalPersons.INDEX_THIRD_PERSON;
 
 import java.util.Arrays;
@@ -34,11 +35,11 @@ public class SelectCommandTest {
 
     private Model model;
 
-    private Index eventTargetedJumpIndex;
+    private Index jumpToListEventIndex;
 
     @Subscribe
     private void handleJumpToListRequestEvent(JumpToListRequestEvent je) {
-        eventTargetedJumpIndex = Index.fromZeroBased(je.targetIndex);
+        jumpToListEventIndex = Index.fromZeroBased(je.targetIndex);
     }
 
     @Before
@@ -51,33 +52,34 @@ public class SelectCommandTest {
     public void execute_validIndexUnfilteredList_success() throws Exception {
         Index lastPersonIndex = Index.fromOneBased(model.getFilteredPersonList().size());
 
-        assertIndexInBoundsSuccess(INDEX_FIRST_PERSON);
-        assertIndexInBoundsSuccess(INDEX_THIRD_PERSON);
-        assertIndexInBoundsSuccess(lastPersonIndex);
+        assertExecutionSuccess(INDEX_FIRST_PERSON);
+        assertExecutionSuccess(INDEX_THIRD_PERSON);
+        assertExecutionSuccess(lastPersonIndex);
     }
 
     @Test
     public void execute_invalidIndexUnfilteredList_failure() {
         Index outOfBoundsIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
 
-        assertInvalidIndexFailure(outOfBoundsIndex, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertExecutionFailure(outOfBoundsIndex, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
     @Test
     public void execute_validIndexFilteredList_success() throws Exception {
         showFirstPersonOnly(model);
 
-        assertIndexInBoundsSuccess(INDEX_FIRST_PERSON);
+        assertExecutionSuccess(INDEX_FIRST_PERSON);
     }
 
     @Test
     public void execute_invalidIndexFilteredList_failure() {
         showFirstPersonOnly(model);
 
-        Index outOfBoundsIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
+        Index outOfBoundsIndex = INDEX_SECOND_PERSON;
+        // ensures that outOfBoundIndex is still in bounds of address book list
         assertTrue(outOfBoundsIndex.getZeroBased() < model.getAddressBook().getPersonList().size());
 
-        assertInvalidIndexFailure(outOfBoundsIndex, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertExecutionFailure(outOfBoundsIndex, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
     /**
@@ -95,34 +97,41 @@ public class SelectCommandTest {
      * Executes a {@code SelectCommand} with the given {@code index}, and checks that {@code JumpToListRequestEvent}
      * is raised with the correct index.
      */
-    private void assertIndexInBoundsSuccess(Index index) throws Exception {
-        eventTargetedJumpIndex = null;
+    private void assertExecutionSuccess(Index index) throws Exception {
+        jumpToListEventIndex = null;
 
-        SelectCommand selectCommand = new SelectCommand(index);
-        selectCommand.setData(model, new CommandHistory());
+        SelectCommand selectCommand = prepareCommand(index);
         CommandResult commandResult = selectCommand.execute();
 
         assertEquals(String.format(SelectCommand.MESSAGE_SELECT_PERSON_SUCCESS, index.getOneBased()),
                 commandResult.feedbackToUser);
-        assertEquals(index, eventTargetedJumpIndex);
+        assertEquals(index, jumpToListEventIndex);
     }
 
     /**
      * Executes a {@code SelectCommand} with the given {@code index}, and checks that a {@code CommandException}
      * is thrown with the {@code expectedMessage}.
      */
-    private void assertInvalidIndexFailure(Index index, String expectedMessage) {
-        eventTargetedJumpIndex = null;
+    private void assertExecutionFailure(Index index, String expectedMessage) {
+        jumpToListEventIndex = null;
 
-        SelectCommand selectCommand = new SelectCommand(index);
-        selectCommand.setData(model, new CommandHistory());
+        SelectCommand selectCommand = prepareCommand(index);
 
         try {
             selectCommand.execute();
             fail("The expected CommandException was not thrown.");
         } catch (CommandException ce) {
             assertEquals(expectedMessage, ce.getMessage());
-            assertNull(eventTargetedJumpIndex);
+            assertNull(jumpToListEventIndex);
         }
+    }
+
+    /**
+     * Returns a {@code SelectCommand} with parameters {@code index}.
+     */
+    private SelectCommand prepareCommand(Index index) {
+        SelectCommand selectCommand = new SelectCommand(index);
+        selectCommand.setData(model, new CommandHistory());
+        return selectCommand;
     }
 }
