@@ -26,6 +26,7 @@ public class MainMenuHandle extends NodeHandle {
     }
 
     private void useF1Accelerator() {
+        logger.info("GUIRobot pushing KeyCode F1");
         guiRobot.push(KeyCode.F1);
         guiRobot.pauseForHuman(500);
     }

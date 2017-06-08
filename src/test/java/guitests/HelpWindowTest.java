@@ -35,6 +35,7 @@ public class HelpWindowTest extends AddressBookGuiTest {
         assertHelpWindowOpen();
 
         //use command
+        mainWindowHandle.getCommandBox();
         mainWindowHandle.getCommandBox().runHelpCommand();
         assertHelpWindowOpen();
     }
