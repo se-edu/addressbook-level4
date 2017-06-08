@@ -1,7 +1,7 @@
 package guitests;
 
+import static guitests.guihandles.HelpWindowHandle.HELP_WINDOW_TITLE;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
@@ -11,33 +11,48 @@ public class HelpWindowTest extends AddressBookGuiTest {
 
     @Test
     public void openHelpWindow() {
+        /*
         //use accelerator
-        commandBox.clickOnTextField();
-        assertHelpWindowOpen(mainMenu.openHelpWindowUsingAccelerator());
+        mainWindowHandle.getCommandBox().click();
+        mainWindowHandle.getMainMenu().openHelpWindowUsingAccelerator();
+        assertHelpWindowOpen();
 
-        resultDisplay.clickOnTextArea();
-        assertHelpWindowOpen(mainMenu.openHelpWindowUsingAccelerator());
 
-        personListPanel.clickOnListView();
-        assertHelpWindowOpen(mainMenu.openHelpWindowUsingAccelerator());
+        mainWindowHandle.getResultDisplay().click();
+        mainWindowHandle.getMainMenu().openHelpWindowUsingAccelerator();
+        assertHelpWindowOpen();
 
-        browserPanel.clickOnWebView();
-        assertHelpWindowNotOpen(mainMenu.openHelpWindowUsingAccelerator());
+        mainWindowHandle.getPersonListPanel().click();
+        mainWindowHandle.getMainMenu().openHelpWindowUsingAccelerator();
+        assertHelpWindowOpen();
+        */
 
+        mainWindowHandle.getBrowserPanel().click();
+        mainWindowHandle.getMainMenu().openHelpWindowUsingAccelerator();
+        assertHelpWindowNotOpen();
+
+        /*
         //use menu button
-        assertHelpWindowOpen(mainMenu.openHelpWindowUsingMenu());
+        mainWindowHandle.getMainMenu().openHelpWindowUsingMenu();
+        assertHelpWindowOpen();
+        */
 
         //use command
-        assertHelpWindowOpen(commandBox.runHelpCommand());
+        mainWindowHandle.getCommandBox().runHelpCommand();
+        assertHelpWindowOpen();
     }
 
-    private void assertHelpWindowOpen(HelpWindowHandle helpWindowHandle) {
-        assertTrue(helpWindowHandle.isWindowOpen());
-        helpWindowHandle.closeWindow();
+    private void assertHelpWindowOpen() {
+        GuiRobot guiRobot = new GuiRobot();
+
+        int eventWaitTimeout = 5000;
+        guiRobot.waitForEvent(() -> guiRobot.isWindowActive(HELP_WINDOW_TITLE), eventWaitTimeout);
+        new HelpWindowHandle().closeWindow();
     }
 
-    private void assertHelpWindowNotOpen(HelpWindowHandle helpWindowHandle) {
-        assertFalse(helpWindowHandle.isWindowOpen());
+    private void assertHelpWindowNotOpen() {
+        GuiRobot guiRobot = new GuiRobot();
+        assertFalse(guiRobot.isWindowActive(HELP_WINDOW_TITLE));
     }
 
 }

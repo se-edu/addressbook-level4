@@ -1,5 +1,7 @@
 package seedu.address.ui;
 
+import java.util.logging.Logger;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
@@ -12,6 +14,7 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.commons.util.FxViewUtil;
 import seedu.address.logic.Logic;
@@ -37,6 +40,7 @@ public class MainWindow extends UiPart<Region> {
     private PersonListPanel personListPanel;
     private Config config;
     private UserPrefs prefs;
+    private final Logger logger = LogsCenter.getLogger(MainWindow.class);
 
     @FXML
     private StackPane browserPlaceholder;
@@ -182,7 +186,9 @@ public class MainWindow extends UiPart<Region> {
     @FXML
     public void handleHelp() {
         HelpWindow helpWindow = new HelpWindow();
+        logger.info("MainWindow: starting to show HelpWindow");
         helpWindow.show();
+        logger.info("MainWindow: helpWindow.show() code executed. Unsure whether shown or not.");
     }
 
     void show() {
