@@ -1,13 +1,13 @@
 package seedu.address.logic.commands;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -39,7 +39,7 @@ public class AddCommandIntegrationTest {
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.addPerson(validPerson);
 
-        CommandResult commandResult = getAddCommandForPerson(validPerson, model).execute();
+        CommandResult commandResult = prepareCommand(validPerson, model).execute();
 
         assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validPerson), commandResult.feedbackToUser);
         assertEquals(expectedModel, model);
@@ -49,16 +49,21 @@ public class AddCommandIntegrationTest {
     public void execute_duplicatePerson_throwsCommandException() throws Exception {
         Person firstPerson = new Person(model.getAddressBook().getPersonList().get(0));
 
-        thrown.expect(CommandException.class);
-        thrown.expectMessage(AddCommand.MESSAGE_DUPLICATE_PERSON);
+        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
 
-        getAddCommandForPerson(firstPerson, model).execute();
+        try {
+            prepareCommand(firstPerson, model).execute();
+            fail("The expected CommandException was not thrown.");
+        } catch (CommandException ce) {
+            assertEquals(AddCommand.MESSAGE_DUPLICATE_PERSON, ce.getMessage());
+            assertEquals(expectedModel, model);
+        }
     }
 
     /**
-     * Generates a new AddCommand with the details of the given person.
+     * Generates a new {@code AddCommand} which upon execution, adds {@code person} into the {@code model}.
      */
-    private AddCommand getAddCommandForPerson(Person person, Model model) throws IllegalValueException {
+    private AddCommand prepareCommand(Person person, Model model) {
         AddCommand command = new AddCommand(person);
         command.setData(model, new CommandHistory());
         return command;
