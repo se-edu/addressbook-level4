@@ -29,7 +29,7 @@ import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.testutil.TypicalPersons;
 
 /**
- * Contains integration tests (interaction with the Model) for SelectCommand.
+ * Contains integration tests (interaction with the Model) for {@code SelectCommand}.
  */
 public class SelectCommandTest {
 
