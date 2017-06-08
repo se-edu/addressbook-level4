@@ -47,12 +47,12 @@ public class AddCommandIntegrationTest {
 
     @Test
     public void execute_duplicatePerson_throwsCommandException() throws Exception {
-        Person firstPerson = new Person(model.getAddressBook().getPersonList().get(0));
+        Person personInList = new Person(model.getAddressBook().getPersonList().get(0));
 
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
 
         try {
-            prepareCommand(firstPerson, model).execute();
+            prepareCommand(personInList, model).execute();
             fail("The expected CommandException was not thrown.");
         } catch (CommandException ce) {
             assertEquals(AddCommand.MESSAGE_DUPLICATE_PERSON, ce.getMessage());
