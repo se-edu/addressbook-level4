@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import static seedu.address.testutil.TypicalPersons.INDEX_FIRST_PERSON;
@@ -48,7 +49,7 @@ public class SelectCommandTest {
 
     @Test
     public void execute_validIndexUnfilteredList_success() throws Exception {
-        Index lastPersonIndex = Index.fromOneBased(model.getAddressBook().getPersonList().size());
+        Index lastPersonIndex = Index.fromOneBased(model.getFilteredPersonList().size());
 
         assertIndexInBoundsSuccess(INDEX_FIRST_PERSON);
         assertIndexInBoundsSuccess(INDEX_THIRD_PERSON);
@@ -57,9 +58,9 @@ public class SelectCommandTest {
 
     @Test
     public void execute_invalidIndexUnfilteredList_failure() {
-        Index outsideListIndex = Index.fromOneBased(model.getAddressBook().getPersonList().size() + 1);
+        Index outOfBoundsIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
 
-        assertInvalidIndexFailure(outsideListIndex, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertInvalidIndexFailure(outOfBoundsIndex, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
     @Test
@@ -70,13 +71,13 @@ public class SelectCommandTest {
     }
 
     @Test
-    public void execute_invalidIndexFilteredList_success() {
+    public void execute_invalidIndexFilteredList_failure() {
         showFirstPersonOnly(model);
 
-        Index outsideListIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
-        assertTrue(outsideListIndex.getZeroBased() < model.getAddressBook().getPersonList().size());
+        Index outOfBoundsIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
+        assertTrue(outOfBoundsIndex.getZeroBased() < model.getAddressBook().getPersonList().size());
 
-        assertInvalidIndexFailure(outsideListIndex, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertInvalidIndexFailure(outOfBoundsIndex, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
     /**
@@ -91,10 +92,10 @@ public class SelectCommandTest {
     }
 
     /**
-     * Executes a select command with the given {@code index}, and checks that {@code JumpToListRequestEvent}
+     * Executes a {@code SelectCommand} with the given {@code index}, and checks that {@code JumpToListRequestEvent}
      * is raised with the correct index.
      */
-    private void assertIndexInBoundsSuccess(Index index) throws CommandException {
+    private void assertIndexInBoundsSuccess(Index index) throws Exception {
         eventTargetedJumpIndex = null;
 
         SelectCommand selectCommand = new SelectCommand(index);
@@ -107,19 +108,21 @@ public class SelectCommandTest {
     }
 
     /**
-     * Executes a select command with the given {@code index}, and checks that a {@code CommandException}
+     * Executes a {@code SelectCommand} with the given {@code index}, and checks that a {@code CommandException}
      * is thrown with the {@code expectedMessage}.
      */
     private void assertInvalidIndexFailure(Index index, String expectedMessage) {
+        eventTargetedJumpIndex = null;
+
         SelectCommand selectCommand = new SelectCommand(index);
         selectCommand.setData(model, new CommandHistory());
 
         try {
             selectCommand.execute();
-            fail("CommandException was not thrown.");
-        }
-        catch (CommandException ce) {
+            fail("The expected CommandException was not thrown.");
+        } catch (CommandException ce) {
             assertEquals(expectedMessage, ce.getMessage());
+            assertNull(eventTargetedJumpIndex);
         }
     }
 }
