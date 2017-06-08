@@ -35,11 +35,11 @@ public class SelectCommandTest {
 
     private Model model;
 
-    private Index jumpToListEventIndex;
+    private Index eventTargetedJumpIndex;
 
     @Subscribe
-    private void handleJumpToListRequestEvent(JumpToListRequestEvent je) {
-        jumpToListEventIndex = Index.fromZeroBased(je.targetIndex);
+    private void recordJumpToListRequestEvent(JumpToListRequestEvent je) {
+        eventTargetedJumpIndex = Index.fromZeroBased(je.targetIndex);
     }
 
     @Before
@@ -98,14 +98,14 @@ public class SelectCommandTest {
      * is raised with the correct index.
      */
     private void assertExecutionSuccess(Index index) throws Exception {
-        jumpToListEventIndex = null;
+        eventTargetedJumpIndex = null;
 
         SelectCommand selectCommand = prepareCommand(index);
         CommandResult commandResult = selectCommand.execute();
 
         assertEquals(String.format(SelectCommand.MESSAGE_SELECT_PERSON_SUCCESS, index.getOneBased()),
                 commandResult.feedbackToUser);
-        assertEquals(index, jumpToListEventIndex);
+        assertEquals(index, eventTargetedJumpIndex);
     }
 
     /**
@@ -113,7 +113,7 @@ public class SelectCommandTest {
      * is thrown with the {@code expectedMessage}.
      */
     private void assertExecutionFailure(Index index, String expectedMessage) {
-        jumpToListEventIndex = null;
+        eventTargetedJumpIndex = null;
 
         SelectCommand selectCommand = prepareCommand(index);
 
@@ -122,7 +122,7 @@ public class SelectCommandTest {
             fail("The expected CommandException was not thrown.");
         } catch (CommandException ce) {
             assertEquals(expectedMessage, ce.getMessage());
-            assertNull(jumpToListEventIndex);
+            assertNull(eventTargetedJumpIndex);
         }
     }
 
