@@ -6,8 +6,6 @@ import static seedu.address.testutil.TypicalPersons.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalPersons.INDEX_SECOND_PERSON;
 
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashSet;
 
 import org.junit.Test;
 
@@ -17,6 +15,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.testutil.TypicalPersons;
 
@@ -114,7 +113,7 @@ public class DeleteCommandTest {
     private void showFirstPersonOnly(Model model) {
         ReadOnlyPerson person = model.getAddressBook().getPersonList().get(0);
         final String[] splitName = person.getName().fullName.split("\\s+");
-        model.updateFilteredPersonList(new HashSet<>(Arrays.asList(splitName)));
+        model.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(splitName)));
 
         assert model.getFilteredPersonList().size() == 1;
     }
@@ -123,7 +122,7 @@ public class DeleteCommandTest {
      * Updates {@code model}'s filtered list to show no one.
      */
     private void showNoPerson(Model model) {
-        model.updateFilteredPersonList(Collections.emptySet());
+        model.updateFilteredPersonList(p -> false);
 
         assert model.getFilteredPersonList().isEmpty();
     }

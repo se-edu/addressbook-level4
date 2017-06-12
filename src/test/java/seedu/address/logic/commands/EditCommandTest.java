@@ -11,7 +11,6 @@ import static seedu.address.testutil.TypicalPersons.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalPersons.INDEX_SECOND_PERSON;
 
 import java.util.Arrays;
-import java.util.HashSet;
 
 import org.junit.Test;
 
@@ -23,6 +22,7 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
@@ -187,7 +187,7 @@ public class EditCommandTest {
     private void showFirstPersonOnly() {
         ReadOnlyPerson person = model.getAddressBook().getPersonList().get(0);
         final String[] splitName = person.getName().fullName.split("\\s+");
-        model.updateFilteredPersonList(new HashSet<>(Arrays.asList(splitName)));
+        model.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(splitName)));
 
         assertTrue(model.getFilteredPersonList().size() == 1);
     }
