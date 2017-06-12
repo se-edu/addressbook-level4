@@ -1,8 +1,6 @@
 package guitests.guihandles;
 
 
-import static org.junit.Assert.assertTrue;
-
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -64,7 +62,7 @@ public class PersonListPanelHandle extends GuiHandle {
             throw new IllegalArgumentException("List size mismatched\n"
                     + "Expected " + (getListView().getItems().size() - 1) + " persons");
         }
-        assertTrue(this.containsInOrder(startPosition, persons));
+
         for (int i = 0; i < persons.length; i++) {
             final int scrollTo = i + startPosition;
             guiRobot.interact(() -> getListView().scrollTo(scrollTo));
@@ -82,27 +80,6 @@ public class PersonListPanelHandle extends GuiHandle {
     public void clickOnListView() {
         Point2D point = TestUtil.getScreenMidPoint(getListView());
         guiRobot.clickOn(point.getX(), point.getY());
-    }
-
-    /**
-     * Returns true if the {@code persons} appear as the sub list (in that order) at position {@code startPosition}.
-     */
-    public boolean containsInOrder(int startPosition, ReadOnlyPerson... persons) {
-        List<ReadOnlyPerson> personsInList = getListView().getItems();
-
-        // Return false if the list in panel is too short to contain the given list
-        if (startPosition + persons.length > personsInList.size()) {
-            return false;
-        }
-
-        // Return false if any of the persons doesn't match
-        for (int i = 0; i < persons.length; i++) {
-            if (!personsInList.get(startPosition + i).getName().fullName.equals(persons[i].getName().fullName)) {
-                return false;
-            }
-        }
-
-        return true;
     }
 
     public PersonCardHandle navigateToPerson(String name) {
