@@ -5,12 +5,12 @@ import static org.junit.Assert.fail;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import java.util.Arrays;
-import java.util.HashSet;
 
 import org.junit.Test;
 
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.person.NameContainsKeywordPredicate;
 
 public class FindCommandParserTest {
 
@@ -29,7 +29,8 @@ public class FindCommandParserTest {
     @Test
     public void parse_validArgs_returnsFindCommand() throws Exception {
         // no leading and trailing whitespaces
-        FindCommand expectedFindCommand = new FindCommand(new HashSet<>(Arrays.asList("Alice", "Bob")));
+        FindCommand expectedFindCommand =
+                new FindCommand(new NameContainsKeywordPredicate(Arrays.asList("Alice", "Bob")));
         FindCommand actualFindCommand = parser.parse("Alice Bob");
         assertEquals(expectedFindCommand, actualFindCommand);
 

@@ -10,8 +10,7 @@ import static seedu.address.testutil.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.TypicalPersons.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalPersons.INDEX_SECOND_PERSON;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
 
 import org.junit.Test;
 
@@ -23,11 +22,11 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.person.NameContainsKeywordPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.PersonBuilder;
-import seedu.address.testutil.PredicateBuilder;
 import seedu.address.testutil.TypicalPersons;
 
 /**
@@ -188,7 +187,7 @@ public class EditCommandTest {
     private void showFirstPersonOnly() {
         ReadOnlyPerson person = model.getAddressBook().getPersonList().get(0);
         final String[] splitName = person.getName().fullName.split("\\s+");
-        model.updateFilteredPersonList(new PredicateBuilder().withNamePredicate(splitName).build());
+        model.updateFilteredPersonList(new NameContainsKeywordPredicate(Arrays.asList(splitName)));
 
         assertTrue(model.getFilteredPersonList().size() == 1);
     }
