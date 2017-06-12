@@ -5,6 +5,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.scene.control.Labeled;
 import javafx.scene.layout.Region;
 import seedu.address.model.person.ReadOnlyPerson;
@@ -22,29 +23,37 @@ public class PersonCardHandle extends GuiHandle {
 
     private Node node;
 
+    private Label nameLabel;
+    private Label addressLabel;
+    private Label phoneLabel;
+    private Label emailLabel;
+    private Region tagsContainer;
+
     public PersonCardHandle(Node node) {
         super(null);
         this.node = node;
-    }
 
-    protected String getTextFromLabel(String fieldId) {
-        return getTextFromLabel(fieldId, node);
+        this.nameLabel = getNode(node, NAME_FIELD_ID);
+        this.addressLabel = getNode(node, ADDRESS_FIELD_ID);
+        this.phoneLabel = getNode(node, PHONE_FIELD_ID);
+        this.emailLabel = getNode(node, EMAIL_FIELD_ID);
+        this.tagsContainer = getNode(node, TAGS_FIELD_ID);
     }
 
     public String getFullName() {
-        return getTextFromLabel(NAME_FIELD_ID);
+        return nameLabel.getText();
     }
 
     public String getAddress() {
-        return getTextFromLabel(ADDRESS_FIELD_ID);
+        return addressLabel.getText();
     }
 
     public String getPhone() {
-        return getTextFromLabel(PHONE_FIELD_ID);
+        return phoneLabel.getText();
     }
 
     public String getEmail() {
-        return getTextFromLabel(EMAIL_FIELD_ID);
+        return emailLabel.getText();
     }
 
     public List<String> getTags() {
