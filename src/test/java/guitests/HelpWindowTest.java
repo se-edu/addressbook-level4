@@ -13,30 +13,38 @@ public class HelpWindowTest extends AddressBookGuiTest {
     public void openHelpWindow() {
         //use accelerator
         commandBox.clickOnTextField();
-        assertHelpWindowOpen(mainMenu.openHelpWindowUsingAccelerator());
+        mainMenu.openHelpWindowUsingAccelerator();
+        assertHelpWindowOpen();
 
         resultDisplay.clickOnTextArea();
-        assertHelpWindowOpen(mainMenu.openHelpWindowUsingAccelerator());
+        mainMenu.openHelpWindowUsingAccelerator();
+        assertHelpWindowOpen();
 
         personListPanel.clickOnListView();
-        assertHelpWindowOpen(mainMenu.openHelpWindowUsingAccelerator());
+        mainMenu.openHelpWindowUsingAccelerator();
+        assertHelpWindowOpen();
 
         browserPanel.clickOnWebView();
-        assertHelpWindowNotOpen(mainMenu.openHelpWindowUsingAccelerator());
+        mainMenu.openHelpWindowUsingAccelerator();
+        assertHelpWindowNotOpen();
 
         //use menu button
-        assertHelpWindowOpen(mainMenu.openHelpWindowUsingMenu());
+        mainMenu.openHelpWindowUsingMenu();
+        assertHelpWindowOpen();
 
         //use command
-        assertHelpWindowOpen(commandBox.runHelpCommand());
+        commandBox.runHelpCommand();
+        assertHelpWindowOpen();
     }
 
-    private void assertHelpWindowOpen(HelpWindowHandle helpWindowHandle) {
+    private void assertHelpWindowOpen() {
+        HelpWindowHandle helpWindowHandle = new HelpWindowHandle();
         assertTrue(helpWindowHandle.isWindowOpen());
         helpWindowHandle.closeWindow();
     }
 
-    private void assertHelpWindowNotOpen(HelpWindowHandle helpWindowHandle) {
+    private void assertHelpWindowNotOpen() {
+        HelpWindowHandle helpWindowHandle = new HelpWindowHandle();
         assertFalse(helpWindowHandle.isWindowOpen());
     }
 

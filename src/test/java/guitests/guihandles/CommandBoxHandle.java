@@ -43,10 +43,9 @@ public class CommandBoxHandle extends GuiHandle {
         return !getStyleClass().contains(CommandBox.ERROR_STYLE_CLASS);
     }
 
-    public HelpWindowHandle runHelpCommand() {
+    public void runHelpCommand() {
         enterCommand(HelpCommand.COMMAND_WORD);
         pressEnter();
-        return new HelpWindowHandle();
     }
 
     public ObservableList<String> getStyleClass() {
