@@ -1,5 +1,6 @@
 package seedu.address.testutil;
 
+import java.util.Arrays;
 import java.util.function.Predicate;
 
 import seedu.address.commons.exceptions.IllegalValueException;
@@ -13,20 +14,24 @@ public class PredicateBuilder {
 
     private Predicate<ReadOnlyPerson> predicate;
 
-    public PredicateBuilder() {
-        this.predicate = (person -> false);
-    }
-
     public PredicateBuilder withNamePredicate(String... keywords) throws IllegalValueException {
-        for (String keyword : keywords) {
-            predicate = predicate.or(person -> StringUtil.containsWordIgnoreCase(person.getName().fullName, keyword));
-        }
+        Predicate<ReadOnlyPerson> resultantPredicate =
+                Arrays.stream(keywords).map(this::nameContains).reduce(Predicate::or).get();
+
+        predicate = (predicate == null) ? resultantPredicate : predicate.or(resultantPredicate);
 
         return this;
     }
 
     public Predicate<ReadOnlyPerson> build() {
         return predicate;
+    }
+
+    /**
+     * Returns a predicate that returns true if the {@code ReadOnlyPerson}'s {@code Name} contains {@code keyword}
+     */
+    private Predicate<ReadOnlyPerson> nameContains(String keyword) {
+        return person -> StringUtil.containsWordIgnoreCase(person.getName().fullName, keyword);
     }
 
 }

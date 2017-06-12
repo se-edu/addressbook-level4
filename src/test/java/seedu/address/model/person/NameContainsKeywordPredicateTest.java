@@ -7,7 +7,7 @@ import org.junit.Test;
 
 import seedu.address.testutil.PersonBuilder;
 
-public class NameContainsKeywordsPredicateTest {
+public class NameContainsKeywordPredicateTest {
 
     @Test
     public void test_nameContainsKeywords_returnsTrue() throws Exception {

@@ -4,6 +4,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 
 import java.util.function.Predicate;
 
+import seedu.address.commons.util.PredicateUtil;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.NameContainsKeywordPredicate;
@@ -28,7 +29,7 @@ public class FindCommandParser {
 
         String[] nameKeywords = trimmedArgs.split("\\s+");
 
-        Predicate<ReadOnlyPerson> predicate = NameContainsKeywordPredicate
+        Predicate<ReadOnlyPerson> predicate = PredicateUtil
                 .createPredicate(nameKeywords, NameContainsKeywordPredicate::new);
 
         return new FindCommand(predicate);
