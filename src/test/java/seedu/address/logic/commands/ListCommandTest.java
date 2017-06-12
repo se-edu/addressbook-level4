@@ -3,9 +3,6 @@ package seedu.address.logic.commands;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import java.util.Arrays;
-import java.util.HashSet;
-
 import org.junit.Before;
 import org.junit.Test;
 
@@ -15,6 +12,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.ReadOnlyPerson;
+import seedu.address.testutil.PredicateBuilder;
 import seedu.address.testutil.TypicalPersons;
 
 /**
@@ -52,7 +50,7 @@ public class ListCommandTest {
     private void showFirstPersonOnly(Model model) {
         ReadOnlyPerson person = model.getAddressBook().getPersonList().get(0);
         final String[] splitName = person.getName().fullName.split("\\s+");
-        model.updateFilteredPersonList(new HashSet<>(Arrays.asList(splitName)));
+        model.updateFilteredPersonList(new PredicateBuilder().withNamePredicate(splitName).build());
 
         assertTrue(model.getFilteredPersonList().size() == 1);
     }
