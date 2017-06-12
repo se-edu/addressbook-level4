@@ -29,9 +29,17 @@ public class PersonListPanelHandle extends GuiHandle {
         super(TestApp.APP_TITLE);
     }
 
-    public List<ReadOnlyPerson> getSelectedPersons() {
-        ListView<ReadOnlyPerson> personList = getListView();
-        return personList.getSelectionModel().getSelectedItems();
+    /**
+     * Returns the selected person in the list view. Only a maximum of 1 item can be selected at any time.
+     */
+    public Optional<ReadOnlyPerson> getSelectedPerson() {
+        List<ReadOnlyPerson> personList = getListView().getSelectionModel().getSelectedItems();
+
+        if (personList.size() > 1) {
+            throw new AssertionError("Person list size expected 0 or 1.");
+        }
+
+        return personList.isEmpty() ? Optional.empty() : Optional.of(personList.get(0));
     }
 
     public ListView<ReadOnlyPerson> getListView() {
