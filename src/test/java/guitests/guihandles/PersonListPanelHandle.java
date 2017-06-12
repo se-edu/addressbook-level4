@@ -1,6 +1,8 @@
 package guitests.guihandles;
 
 
+import static guitests.GuiRobotUtil.MEDIUM_WAIT;
+import static guitests.GuiRobotUtil.SHORT_WAIT;
 import static org.junit.Assert.assertTrue;
 
 import java.util.List;
@@ -60,7 +62,7 @@ public class PersonListPanelHandle extends GuiHandle {
         for (int i = 0; i < persons.length; i++) {
             final int scrollTo = i + startPosition;
             guiRobot.interact(() -> getListView().scrollTo(scrollTo));
-            guiRobot.pauseForHuman(200);
+            guiRobot.pauseForHuman(SHORT_WAIT);
             if (!TestUtil.compareCardAndPerson(getPersonCardHandle(startPosition + i), persons[i])) {
                 return false;
             }
@@ -98,7 +100,7 @@ public class PersonListPanelHandle extends GuiHandle {
     }
 
     public PersonCardHandle navigateToPerson(String name) {
-        guiRobot.pauseForHuman(500);
+        guiRobot.pauseForHuman(MEDIUM_WAIT);
         final Optional<ReadOnlyPerson> person = getListView().getItems().stream()
                                                     .filter(p -> p.getName().fullName.equals(name))
                                                     .findAny();
@@ -117,10 +119,10 @@ public class PersonListPanelHandle extends GuiHandle {
 
         guiRobot.interact(() -> {
             getListView().scrollTo(index);
-            guiRobot.pauseForHuman(150);
+            guiRobot.pauseForHuman(SHORT_WAIT);
             getListView().getSelectionModel().select(index);
         });
-        guiRobot.pauseForHuman(100);
+        guiRobot.pauseForHuman(SHORT_WAIT);
         return getPersonCardHandle(person);
     }
 
