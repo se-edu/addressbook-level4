@@ -1,6 +1,6 @@
 package seedu.address.model;
 
-import java.util.Set;
+import java.util.function.Predicate;
 
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.model.person.ReadOnlyPerson;
@@ -39,7 +39,7 @@ public interface Model {
     /** Updates the filter of the filtered person list to show all persons */
     void updateFilteredListToShowAll();
 
-    /** Updates the filter of the filtered person list to filter by the given keywords*/
-    void updateFilteredPersonList(Set<String> keywords);
+    /** Updates the filter of the filtered person list to filter by the given {@code predicate}*/
+    void updateFilteredPersonList(Predicate<ReadOnlyPerson> predicate);
 
 }
