@@ -63,12 +63,12 @@ public class GuiHandle {
         guiRobot.clickOn(textFieldId);
         TextField textField = getNode(textFieldId);
         guiRobot.interact(() -> textField.setText(newText));
-        guiRobot.pauseForHuman(500);
+        guiRobot.pauseForHuman();
     }
 
     public void pressEnter() {
         guiRobot.type(KeyCode.ENTER);
-        guiRobot.pauseForHuman(500);
+        guiRobot.pauseForHuman();
     }
 
     protected String getTextFromLabel(String fieldId, Node parentNode) {
