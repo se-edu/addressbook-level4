@@ -12,6 +12,8 @@ import javafx.stage.Stage;
  */
 public class GuiRobot extends FxRobot {
 
+    public static final int PAUSE_FOR_HUMAN_DELAY_MILLISECONDS = 250;
+
     private static final String PROPERTY_TESTFX_HEADLESS = "testfx.headless";
 
     private final boolean isHeadlessMode;
@@ -22,17 +24,16 @@ public class GuiRobot extends FxRobot {
     }
 
     /**
-     * Pauses execution for a human to examine the effects of the test. This method will be disabled
-     * when the GUI tests are executed in headless mode to avoid unnecessary delays.
-     *
-     * @param duration in milliseconds
+     * Pauses execution for {@code PAUSE_FOR_HUMAN_DELAY_MILLISECONDS} milliseconds for a human to examine the
+     * effects of the test. This method will be disabled when the GUI tests are executed in headless mode to avoid
+     * unnecessary delays.
      */
-    public void pauseForHuman(int duration) {
+    public void pauseForHuman() {
         if (isHeadlessMode) {
             return;
         }
 
-        sleep(duration);
+        sleep(PAUSE_FOR_HUMAN_DELAY_MILLISECONDS);
     }
 
     /**
@@ -54,7 +55,7 @@ public class GuiRobot extends FxRobot {
             }
         }
 
-        pauseForHuman(1000);
+        pauseForHuman();
     }
 
     /**
