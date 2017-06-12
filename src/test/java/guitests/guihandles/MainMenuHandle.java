@@ -1,5 +1,7 @@
 package guitests.guihandles;
 
+import static guitests.GuiRobotUtil.MEDIUM_WAIT;
+
 import java.util.Arrays;
 
 import javafx.scene.input.KeyCode;
@@ -31,6 +33,6 @@ public class MainMenuHandle extends GuiHandle {
 
     private void useF1Accelerator() {
         guiRobot.push(KeyCode.F1);
-        guiRobot.pauseForHuman(500);
+        guiRobot.pauseForHuman(MEDIUM_WAIT);
     }
 }
