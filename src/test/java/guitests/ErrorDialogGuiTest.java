@@ -19,14 +19,14 @@ public class ErrorDialogGuiTest extends AddressBookGuiTest {
     public void showErrorDialogs() throws InterruptedException {
         GuiRobot guiRobot = new GuiRobot();
 
-        raise(new DataSavingExceptionEvent(new IOException("Stub")));
+        raise(new DataSavingExceptionEvent(new IOException()));
 
         guiRobot.waitForEvent(() -> guiRobot.isWindowActive(ERROR_DIALOG_STAGE_TITLE), EVENT_TIMEOUT);
         guiRobot.pauseForHuman(LONG_WAIT);
 
         AlertDialogHandle alertDialog = mainGui.getAlertDialog(ERROR_DIALOG_STAGE_TITLE);
         assertTrue(alertDialog.isMatching("Could not save data", "Could not save data to file" + ":\n"
-                                                                         + "java.io.IOException: Stub"));
+                                                                         + "java.io.IOException"));
 
     }
 
