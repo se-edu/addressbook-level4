@@ -40,7 +40,7 @@ public class CommandBoxHandle extends GuiHandle {
     public boolean runCommand(String command) {
         enterCommand(command);
         pressEnter();
-        guiRobot.pauseForHuman(200);
+        guiRobot.pauseForHuman();
         return !getStyleClass().contains(CommandBox.ERROR_STYLE_CLASS);
     }
 
