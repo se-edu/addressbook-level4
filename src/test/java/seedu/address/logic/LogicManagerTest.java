@@ -18,7 +18,6 @@ import static seedu.address.testutil.TypicalPersons.INDEX_THIRD_PERSON;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -60,6 +59,7 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.PredicateBuilder;
 
 
 public class LogicManagerTest {
@@ -389,7 +389,7 @@ public class LogicManagerTest {
 
         List<Person> fourPersons = helper.generatePersonList(p1, pTarget1, p2, pTarget2);
         Model expectedModel = new ModelManager(helper.generateAddressBook(fourPersons), new UserPrefs());
-        expectedModel.updateFilteredPersonList(new HashSet<>(Collections.singletonList("KEY")));
+        expectedModel.updateFilteredPersonList(new PredicateBuilder().withNamePredicate("KEY").build());
         helper.addToModel(model, fourPersons);
         assertCommandSuccess(FindCommand.COMMAND_WORD + " KEY",
                 Command.getMessageForPersonListShownSummary(expectedModel.getFilteredPersonList().size()),
@@ -423,7 +423,7 @@ public class LogicManagerTest {
 
         List<Person> fourPersons = helper.generatePersonList(pTarget1, p1, pTarget2, pTarget3);
         Model expectedModel = new ModelManager(helper.generateAddressBook(fourPersons), new UserPrefs());
-        expectedModel.updateFilteredPersonList(new HashSet<>(Arrays.asList("key", "rAnDoM")));
+        expectedModel.updateFilteredPersonList(new PredicateBuilder().withNamePredicate("key", "rAnDoM").build());
         helper.addToModel(model, fourPersons);
 
         assertCommandSuccess(FindCommand.COMMAND_WORD + " key rAnDoM",
