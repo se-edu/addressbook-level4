@@ -7,9 +7,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_PERSONS_LISTED_OVERVIE
 
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import org.junit.Test;
 
@@ -18,6 +16,7 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.testutil.TypicalPersons;
 
@@ -30,17 +29,19 @@ public class FindCommandTest {
 
     @Test
     public void equals() {
-        Set<String> firstKeyword = Collections.singleton("first");
-        Set<String> secondKeyword = Collections.singleton("second");
+        NameContainsKeywordsPredicate firstPredicate =
+                new NameContainsKeywordsPredicate(Collections.singletonList("first"));
+        NameContainsKeywordsPredicate secondPredicate =
+                new NameContainsKeywordsPredicate(Collections.singletonList("second"));
 
-        FindCommand findFirstCommand = new FindCommand(firstKeyword);
-        FindCommand findSecondCommand = new FindCommand(secondKeyword);
+        FindCommand findFirstCommand = new FindCommand(firstPredicate);
+        FindCommand findSecondCommand = new FindCommand(secondPredicate);
 
         // same object -> returns true
         assertTrue(findFirstCommand.equals(findFirstCommand));
 
         // same values -> returns true
-        FindCommand findFirstCommandCopy = new FindCommand(firstKeyword);
+        FindCommand findFirstCommandCopy = new FindCommand(firstPredicate);
         assertTrue(findFirstCommand.equals(findFirstCommandCopy));
 
         // different types -> returns false
@@ -71,7 +72,8 @@ public class FindCommandTest {
      * Parses {@code userInput} into a {@code FindCommand}.
      */
     private FindCommand prepareCommand(String userInput) throws Exception {
-        FindCommand command = new FindCommand(new HashSet<>(Arrays.asList(userInput.split("\\s+"))));
+        FindCommand command =
+                new FindCommand(new NameContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+"))));
         command.setData(model, new CommandHistory());
         return command;
     }

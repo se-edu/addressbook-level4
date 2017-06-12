@@ -8,7 +8,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.testutil.TypicalPersons.INDEX_FIRST_PERSON;
 
 import java.util.Arrays;
-import java.util.HashSet;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import org.junit.Rule;
@@ -27,6 +27,7 @@ import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.PersonBuilder;
@@ -75,10 +76,10 @@ public class ParserTest {
 
     @Test
     public void parseCommand_find() throws Exception {
-        HashSet<String> keywords = new HashSet<>(Arrays.asList("foo", "bar", "baz"));
+        List<String> keywords = Arrays.asList("foo", "bar", "baz");
         FindCommand command = (FindCommand) parser.parseCommand(
                 FindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
-        assertEquals(new FindCommand(keywords), command);
+        assertEquals(new FindCommand(new NameContainsKeywordsPredicate(keywords)), command);
     }
 
     @Test
