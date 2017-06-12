@@ -17,7 +17,7 @@ public class ErrorDialogGuiTest extends AddressBookGuiTest {
 
     @Test
     public void showErrorDialogs() throws InterruptedException {
-        GuiRobot guiRobot = new GuiRobot();
+        GuiRobot guiRobot = GuiRobot.getInstance();
 
         raise(new DataSavingExceptionEvent(new IOException("Stub")));
 

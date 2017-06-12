@@ -19,7 +19,7 @@ import seedu.address.commons.core.LogsCenter;
  * Base class for all GUI Handles used in testing.
  */
 public class GuiHandle {
-    protected final GuiRobot guiRobot = new GuiRobot();
+    protected final GuiRobot guiRobot = GuiRobot.getInstance();
     /**
      * An optional stage that exists in the App other than the primaryStage, could be a alert dialog, popup window, etc.
      */
