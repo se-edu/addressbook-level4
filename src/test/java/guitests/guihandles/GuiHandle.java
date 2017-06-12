@@ -7,6 +7,7 @@ import guitests.GuiRobot;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import seedu.address.TestApp;
@@ -26,7 +27,7 @@ public class GuiHandle {
 
     private final Logger logger = LogsCenter.getLogger(this.getClass());
 
-    public GuiHandle(Stage primaryStage, String stageTitle) {
+    public GuiHandle(GuiRobot guiRobot, Stage primaryStage, String stageTitle) {
         this.primaryStage = primaryStage;
         this.stageTitle = stageTitle;
         focusOnSelf();
@@ -55,6 +56,17 @@ public class GuiHandle {
     protected String getTextFieldText(String filedName) {
         TextField textField = getNode(filedName);
         return textField.getText();
+    }
+
+    protected void setTextField(String textFieldId, String newText) {
+        guiRobot.clickOn(textFieldId);
+        TextField textField = getNode(textFieldId);
+        guiRobot.interact(() -> textField.setText(newText));
+        guiRobot.sleep(500); // so that the texts stays visible on the GUI for a short period
+    }
+
+    public void pressEnter() {
+        guiRobot.type(KeyCode.ENTER).sleep(500);
     }
 
     protected String getTextFromLabel(String fieldId, Node parentNode) {
