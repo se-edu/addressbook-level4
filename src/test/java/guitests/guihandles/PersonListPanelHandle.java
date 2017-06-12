@@ -31,9 +31,14 @@ public class PersonListPanelHandle extends GuiHandle {
         super(guiRobot, primaryStage, TestApp.APP_TITLE);
     }
 
-    public List<ReadOnlyPerson> getSelectedPersons() {
-        ListView<ReadOnlyPerson> personList = getListView();
-        return personList.getSelectionModel().getSelectedItems();
+    public Optional<ReadOnlyPerson> getSelectedPerson() {
+        List<ReadOnlyPerson> personList = getListView().getSelectionModel().getSelectedItems();
+
+        if (personList.size() > 1) {
+            throw new AssertionError("Person list size expected 0 or 1.");
+        }
+
+        return personList.isEmpty() ? Optional.empty() : Optional.of(personList.get(0));
     }
 
     public ListView<ReadOnlyPerson> getListView() {
