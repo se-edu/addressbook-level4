@@ -6,7 +6,6 @@ import java.util.stream.Collectors;
 
 import javafx.scene.Node;
 import javafx.scene.control.Label;
-import javafx.scene.control.Labeled;
 import javafx.scene.layout.Region;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.tag.Tag;
@@ -22,12 +21,12 @@ public class PersonCardHandle extends NodeHandle<Node> {
     private static final String EMAIL_FIELD_ID = "#email";
     private static final String TAGS_FIELD_ID = "#tags";
 
-    private Label idLabel;
-    private Label nameLabel;
-    private Label addressLabel;
-    private Label phoneLabel;
-    private Label emailLabel;
-    private Region tagsContainer;
+    private final Label idLabel;
+    private final Label nameLabel;
+    private final Label addressLabel;
+    private final Label phoneLabel;
+    private final Label emailLabel;
+    private final List<Label> tagLabels;
 
     public PersonCardHandle(Node cardNode) {
         super(cardNode);
@@ -37,7 +36,13 @@ public class PersonCardHandle extends NodeHandle<Node> {
         this.addressLabel = getChildNode(ADDRESS_FIELD_ID);
         this.phoneLabel = getChildNode(PHONE_FIELD_ID);
         this.emailLabel = getChildNode(EMAIL_FIELD_ID);
-        this.tagsContainer = getChildNode(TAGS_FIELD_ID);
+
+        Region tagsContainer = getChildNode(TAGS_FIELD_ID);
+        this.tagLabels = tagsContainer
+                .getChildrenUnmodifiable()
+                .stream()
+                .map(Label.class::cast)
+                .collect(Collectors.toList());
     }
 
     public String getId() {
@@ -61,37 +66,28 @@ public class PersonCardHandle extends NodeHandle<Node> {
     }
 
     public List<String> getTags() {
-        return getTags(getTagsContainer());
-    }
-
-    private List<String> getTags(Region tagsContainer) {
-        return tagsContainer
-                .getChildrenUnmodifiable()
+        return tagLabels
                 .stream()
-                .map(node -> ((Labeled) node).getText())
+                .map(Label::getText)
                 .collect(Collectors.toList());
     }
 
-    private List<String> getTags(Set<Tag> tags) {
+    private List<String> getTagsFromSet(Set<Tag> tags) {
         return tags
                 .stream()
                 .map(tag -> tag.tagName)
                 .collect(Collectors.toList());
     }
 
-    private Region getTagsContainer() {
-        return tagsContainer;
-    }
-
     /**
-     * Returns true if this card contains the same particulars as {@code person}.
+     * Returns true if {@code PersonCard} belongs to {@code person}.
      */
-    public boolean isSamePerson(ReadOnlyPerson person) {
+    public boolean belongsTo(ReadOnlyPerson person) {
         return getName().equals(person.getName().fullName)
                 && getPhone().equals(person.getPhone().value)
                 && getEmail().equals(person.getEmail().value)
                 && getAddress().equals(person.getAddress().value)
-                && getTags().equals(getTags(person.getTags()));
+                && getTags().equals(getTagsFromSet(person.getTags()));
     }
 
     @Override
