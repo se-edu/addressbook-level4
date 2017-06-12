@@ -21,7 +21,7 @@ public class PredicateUtilTest {
     @Test
     public void createPredicate_emptyArray_throwsIllegalArgumentException() throws IllegalArgumentException {
         thrown.expect(IllegalArgumentException.class);
-        PredicateUtil.createPredicate(new String[0], NameContainsKeywordPredicate::new);
+        PredicateUtil.createPredicate(NameContainsKeywordPredicate::new, new String[0]);
     }
 
     @Test
@@ -69,6 +69,6 @@ public class PredicateUtilTest {
      * contains any of the {@code keywords}
      */
     private Predicate<ReadOnlyPerson> createNamePredicate(String... keywords) {
-        return PredicateUtil.createPredicate(keywords, NameContainsKeywordPredicate::new);
+        return PredicateUtil.createPredicate(NameContainsKeywordPredicate::new, keywords);
     }
 }

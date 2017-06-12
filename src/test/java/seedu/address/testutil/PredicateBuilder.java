@@ -3,7 +3,7 @@ package seedu.address.testutil;
 import java.util.Arrays;
 import java.util.function.Predicate;
 
-import seedu.address.commons.util.StringUtil;
+import seedu.address.model.person.NameContainsKeywordPredicate;
 import seedu.address.model.person.ReadOnlyPerson;
 
 /**
@@ -14,8 +14,8 @@ public class PredicateBuilder {
     private Predicate<ReadOnlyPerson> predicate;
 
     public PredicateBuilder withNamePredicate(String... keywords) {
-        Predicate<ReadOnlyPerson> resultantPredicate =
-                Arrays.stream(keywords).map(this::nameContains).reduce(Predicate::or).get();
+        Predicate<ReadOnlyPerson> resultantPredicate = Arrays.stream(keywords).map(NameContainsKeywordPredicate::new)
+                .map(predicate -> (Predicate<ReadOnlyPerson>) predicate).reduce(Predicate::or).get();
 
         predicate = (predicate == null) ? resultantPredicate : predicate.or(resultantPredicate);
 
@@ -24,14 +24,6 @@ public class PredicateBuilder {
 
     public Predicate<ReadOnlyPerson> build() {
         return predicate;
-    }
-
-    /**
-     * Returns a {@code Predicate<ReadOnlyPerson>} that returns true if the {@code ReadOnlyPerson}'s {@code Name}
-     * contains {@code keyword}
-     */
-    private Predicate<ReadOnlyPerson> nameContains(String keyword) {
-        return person -> StringUtil.containsWordIgnoreCase(person.getName().fullName, keyword);
     }
 
 }

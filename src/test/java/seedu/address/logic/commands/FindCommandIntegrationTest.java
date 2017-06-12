@@ -75,6 +75,7 @@ public class FindCommandIntegrationTest {
             throws Exception {
         AddressBook expectedAddressBook = new AddressBook(model.getAddressBook());
         CommandResult commandResult = command.execute();
+
         assertEquals(expectedMessage, commandResult.feedbackToUser);
         assertEquals(expectedList, model.getFilteredPersonList());
         assertEquals(expectedAddressBook, model.getAddressBook());
