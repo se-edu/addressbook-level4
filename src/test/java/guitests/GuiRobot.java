@@ -10,18 +10,26 @@ import javafx.stage.Window;
 
 /**
  * Robot used to simulate user actions on the GUI.
+ * Is a singleton.
+ *
  * Extends {@link FxRobot} by adding some customized functionality and workarounds.
  */
 public class GuiRobot extends FxRobot {
+    private static final GuiRobot INSTANCE = new GuiRobot();
 
     public static final String PROPERTY_GUITESTS_HEADLESS = "guitests.headless";
 
     private boolean isHeadlessMode = false;
 
-    public GuiRobot() {
+    private GuiRobot() {
         String headlessPropertyValue = System.getProperty(PROPERTY_GUITESTS_HEADLESS);
         isHeadlessMode = (headlessPropertyValue != null && headlessPropertyValue.equals("true"));
     }
+
+    public static GuiRobot getInstance() {
+        return INSTANCE;
+    }
+
 
     /**
      * Allows GUI tests to pause its execution for a human to examine the effects of the test.
