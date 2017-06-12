@@ -17,7 +17,7 @@ import seedu.address.commons.core.LogsCenter;
  * Base class for all GUI Handles used in testing.
  */
 public class GuiHandle {
-    protected final GuiRobot guiRobot;
+    protected final GuiRobot guiRobot = GuiRobot.getInstance();
     protected final Stage primaryStage;
     /**
      * An optional stage that exists in the App other than the primaryStage, could be a alert dialog, popup window, etc.
@@ -28,7 +28,6 @@ public class GuiHandle {
     private final Logger logger = LogsCenter.getLogger(this.getClass());
 
     public GuiHandle(GuiRobot guiRobot, Stage primaryStage, String stageTitle) {
-        this.guiRobot = guiRobot;
         this.primaryStage = primaryStage;
         this.stageTitle = stageTitle;
         focusOnSelf();
