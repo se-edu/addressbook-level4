@@ -26,10 +26,6 @@ public class MainMenuHandle extends GuiHandle {
     }
 
     public void openHelpWindowUsingAccelerator() {
-        useF1Accelerator();
-    }
-
-    private void useF1Accelerator() {
         guiRobot.push(KeyCode.F1);
         guiRobot.pauseForHuman(MEDIUM_WAIT);
     }
