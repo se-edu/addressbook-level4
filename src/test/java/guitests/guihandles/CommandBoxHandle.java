@@ -3,7 +3,6 @@ package guitests.guihandles;
 import guitests.GuiRobot;
 import javafx.collections.ObservableList;
 import javafx.stage.Stage;
-
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.ui.CommandBox;
 
@@ -40,7 +39,7 @@ public class CommandBoxHandle extends GuiHandle {
     public boolean runCommand(String command) {
         enterCommand(command);
         pressEnter();
-        guiRobot.pauseForHuman(200);
+        guiRobot.pauseForHuman();
         return !getStyleClass().contains(CommandBox.ERROR_STYLE_CLASS);
     }
 
