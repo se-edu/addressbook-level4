@@ -36,7 +36,7 @@ public class GuiRobot extends FxRobot {
 
     /**
      * Wait for {@code event} to be true.
-     * @throws EventTimeoutException if the event takes too long to be completed.
+     * @throws AssertionError if the time taken exceeds {@code timeOut}.
      */
     public void waitForEvent(BooleanSupplier event, int timeOut) {
         int timePassed = 0;
