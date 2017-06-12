@@ -21,7 +21,7 @@ public class ErrorDialogGuiTest extends AddressBookGuiTest {
 
         int eventWaitTimeout = 5000;
         guiRobot.waitForEvent(() -> guiRobot.isWindowActive(ERROR_DIALOG_STAGE_TITLE), eventWaitTimeout);
-        guiRobot.pauseForHuman(1000);
+        guiRobot.pauseForHuman();
 
         AlertDialogHandle alertDialog = mainGui.getAlertDialog(ERROR_DIALOG_STAGE_TITLE);
         assertTrue(alertDialog.isMatching("Could not save data", "Could not save data to file" + ":\n"

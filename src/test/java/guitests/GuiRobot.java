@@ -15,6 +15,7 @@ import seedu.address.testutil.TestUtil;
 public class GuiRobot extends FxRobot {
 
     private static final String PROPERTY_TESTFX_HEADLESS = "testfx.headless";
+    private static final int PAUSE_FOR_HUMAN_DELAY_MILLISECONDS = 250;
 
     private final boolean isHeadlessMode;
 
@@ -28,17 +29,16 @@ public class GuiRobot extends FxRobot {
     }
 
     /**
-     * Pause execution for a human to examine the effects of the test. This method will be disabled
-     * when the GUI tests are executed in headless mode to avoid unnecessary delays.
-     *
-     * @param duration in milliseconds
+     * Pause execution for {@code PAUSE_FOR_HUMAN_DELAY_MILLISECONDS} milliseconds for a human
+     * to examine the effects of the test. This method will be disabled when the GUI tests are
+     * executed in headless mode to avoid unnecessary delays.
      */
-    public void pauseForHuman(int duration) {
+    public void pauseForHuman() {
         if (isHeadlessMode) {
             return;
         }
 
-        sleep(duration);
+        sleep(PAUSE_FOR_HUMAN_DELAY_MILLISECONDS);
     }
 
     /**
