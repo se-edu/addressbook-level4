@@ -184,7 +184,7 @@ public class EditCommandTest {
     /**
      * Updates the filtered list to show only the first person in the {@code model}'s address book.
      */
-    private void showFirstPersonOnly() throws Exception {
+    private void showFirstPersonOnly() {
         ReadOnlyPerson person = model.getAddressBook().getPersonList().get(0);
         final String[] splitName = person.getName().fullName.split("\\s+");
         model.updateFilteredPersonList(new PredicateBuilder().withNamePredicate(splitName).build());

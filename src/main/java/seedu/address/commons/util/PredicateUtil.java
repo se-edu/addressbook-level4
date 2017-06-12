@@ -12,7 +12,7 @@ import seedu.address.model.person.ReadOnlyPerson;
 public class PredicateUtil {
 
     /**
-     * Creates a {@code Predicate<ReadOnlyPerson>} using {@code keywords} for {@code constructor}
+     * Creates a {@code Predicate} using {@code constructor} with parameters {@code keywords}
      */
     public static Predicate<ReadOnlyPerson> createPredicate(String[] keywords,
                                             Function<String, ? extends Predicate<ReadOnlyPerson>> constructor) {

@@ -11,13 +11,13 @@ public class NameContainsKeywordPredicateTest {
 
     @Test
     public void test_nameContainsKeywords_returnsTrue() throws Exception {
-        NameContainsKeywordPredicate predicate = new NameContainsKeywordPredicate("Hans");
-        assertTrue(predicate.test(new PersonBuilder().withName("Hans Anderson").build()));
+        NameContainsKeywordPredicate predicate = new NameContainsKeywordPredicate("Alice");
+        assertTrue(predicate.test(new PersonBuilder().withName("Alice Bob").build()));
     }
 
     @Test
     public void test_nameDoesNotContainKeywords_returnsFalse() throws Exception {
-        NameContainsKeywordPredicate predicate = new NameContainsKeywordPredicate("Owen");
-        assertFalse(predicate.test(new PersonBuilder().withName("Christopher Low").build()));
+        NameContainsKeywordPredicate predicate = new NameContainsKeywordPredicate("Bob");
+        assertFalse(predicate.test(new PersonBuilder().withName("Alice Charlie").build()));
     }
 }
