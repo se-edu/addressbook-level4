@@ -140,7 +140,7 @@ public class EditCommandTest extends AddressBookGuiTest {
      * @param editedPerson the expected person after editing the person's details
      */
     private void assertEditSuccess(Index filteredPersonListIndex, Index addressBookIndex,
-                                    String detailsToEdit, Person editedPerson) {
+                                    String detailsToEdit, Person editedPerson) throws Exception {
         commandBox.runCommand(EditCommand.COMMAND_WORD + " "
                 + filteredPersonListIndex.getOneBased() + " " + detailsToEdit);
 
