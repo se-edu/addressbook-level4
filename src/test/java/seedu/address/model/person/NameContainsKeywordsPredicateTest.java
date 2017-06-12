@@ -40,29 +40,14 @@ public class NameContainsKeywordsPredicateTest {
 
     @Test
     public void test_nameContainsKeywords_returnsTrue() throws Exception {
-        // Name matches all keywords
-        NameContainsKeywordsPredicate predicate = new NameContainsKeywordsPredicate(Arrays.asList("Bob", "Alice"));
-        assertTrue(predicate.test(new PersonBuilder().withName("Alice Bob").build()));
-
         // Only one matching keyword
-        predicate = new NameContainsKeywordsPredicate(Collections.singletonList("Alice"));
-        assertTrue(predicate.test(new PersonBuilder().withName("Alice Bob").build()));
-
-        // Extra non-matching keywords
-        predicate = new NameContainsKeywordsPredicate(Arrays.asList("Alice", "Bob", "Carol"));
+        NameContainsKeywordsPredicate predicate =
+                new NameContainsKeywordsPredicate(Arrays.asList("Alice", "Carol", "Dave"));
         assertTrue(predicate.test(new PersonBuilder().withName("Alice Bob").build()));
 
         // Mixed-case keywords
         predicate = new NameContainsKeywordsPredicate(Arrays.asList("aLIce", "bOB"));
         assertTrue(predicate.test(new PersonBuilder().withName("Alice Bob").build()));
-
-        // Repeated matching keyword
-        predicate = new NameContainsKeywordsPredicate(Arrays.asList("Alice", "Alice", "Bob"));
-        assertTrue(predicate.test(new PersonBuilder().withName("Alice").build()));
-
-        // Repeated non-matching keyword
-        predicate = new NameContainsKeywordsPredicate(Arrays.asList("Alice", "Bob", "Bob"));
-        assertTrue(predicate.test(new PersonBuilder().withName("Alice").build()));
     }
 
     @Test
@@ -70,9 +55,5 @@ public class NameContainsKeywordsPredicateTest {
         // Non-matching keywords
         NameContainsKeywordsPredicate predicate = new NameContainsKeywordsPredicate(Arrays.asList("Bob", "Carol"));
         assertFalse(predicate.test(new PersonBuilder().withName("Alice").build()));
-
-        // Invalid names as keywords
-        predicate = new NameContainsKeywordsPredicate(Arrays.asList("$%", "***"));
-        assertFalse(predicate.test(new PersonBuilder().withName("Alice Bob").build()));
     }
 }
