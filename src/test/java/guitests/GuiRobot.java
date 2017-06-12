@@ -9,16 +9,23 @@ import javafx.stage.Stage;
 /**
  * Robot used to simulate user actions on the GUI.
  * Extends {@link FxRobot} by adding some customized functionality and workarounds.
+ *
+ * {@code GuiRobot} is designed to be a singleton as some functionalities in
+ * {@code FxRobot} also acts like a singleton.
  */
 public class GuiRobot extends FxRobot {
-
     private static final String PROPERTY_GUITESTS_HEADLESS = "guitests.headless";
+    private static final GuiRobot INSTANCE = new GuiRobot();
 
     private final boolean isHeadlessMode;
 
-    public GuiRobot() {
+    private GuiRobot() {
         String headlessPropertyValue = System.getProperty(PROPERTY_GUITESTS_HEADLESS);
         isHeadlessMode = (headlessPropertyValue != null && headlessPropertyValue.equals("true"));
+    }
+
+    public static GuiRobot getInstance() {
+        return INSTANCE;
     }
 
     /**
