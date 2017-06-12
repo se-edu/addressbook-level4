@@ -1,5 +1,7 @@
 package guitests;
 
+import static guitests.GuiRobotUtil.EVENT_TIMEOUT;
+import static guitests.GuiRobotUtil.LONG_WAIT;
 import static junit.framework.TestCase.assertTrue;
 
 import java.io.IOException;
@@ -19,9 +21,8 @@ public class ErrorDialogGuiTest extends AddressBookGuiTest {
 
         raise(new DataSavingExceptionEvent(new IOException("Stub")));
 
-        int eventWaitTimeout = 5000;
-        guiRobot.waitForEvent(() -> guiRobot.isWindowActive(ERROR_DIALOG_STAGE_TITLE), eventWaitTimeout);
-        guiRobot.pauseForHuman(1000);
+        guiRobot.waitForEvent(() -> guiRobot.isWindowActive(ERROR_DIALOG_STAGE_TITLE), EVENT_TIMEOUT);
+        guiRobot.pauseForHuman(LONG_WAIT);
 
         AlertDialogHandle alertDialog = mainGui.getAlertDialog(ERROR_DIALOG_STAGE_TITLE);
         assertTrue(alertDialog.isMatching("Could not save data", "Could not save data to file" + ":\n"

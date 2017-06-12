@@ -1,5 +1,7 @@
 package guitests.guihandles;
 
+import static guitests.GuiRobotUtil.MEDIUM_WAIT;
+
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -60,12 +62,12 @@ public class GuiHandle {
         guiRobot.clickOn(textFieldId);
         TextField textField = getNode(textFieldId);
         guiRobot.interact(() -> textField.setText(newText));
-        guiRobot.pauseForHuman(500);
+        guiRobot.pauseForHuman(MEDIUM_WAIT);
     }
 
     public void pressEnter() {
         guiRobot.type(KeyCode.ENTER);
-        guiRobot.pauseForHuman(500);
+        guiRobot.pauseForHuman(MEDIUM_WAIT);
     }
 
     protected String getTextFromLabel(String fieldId, Node parentNode) {
