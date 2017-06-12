@@ -48,7 +48,7 @@ public class PersonListPanelHandle extends NodeHandle<ListView<PersonCard>> {
             final int scrollTo = i; // lambda expression needs i to be final
             guiRobot.interact(() -> getRootNode().scrollTo(scrollTo));
             guiRobot.pauseForHuman();
-            if (!getPersonCardHandle(i).isSamePerson(persons[i])) {
+            if (!getPersonCardHandle(i).belongsTo(persons[i])) {
                 return false;
             }
         }
