@@ -3,7 +3,6 @@ package guitests.guihandles;
 
 import static guitests.GuiRobotUtil.MEDIUM_WAIT;
 import static guitests.GuiRobotUtil.SHORT_WAIT;
-import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 import java.util.Optional;
@@ -63,7 +62,14 @@ public class PersonListPanelHandle extends GuiHandle {
             throw new IllegalArgumentException("List size mismatched\n"
                     + "Expected " + (getListView().getItems().size() - 1) + " persons");
         }
-        assertTrue(this.containsInOrder(startPosition, persons));
+        return (containsInOrder(startPosition, persons) && cardAndPersonMatch(startPosition, persons));
+    }
+
+    /**
+     * Returns true if each person in {@code persons} matches the card at the exact same position,
+     * beginning from the card at {@code startPosition}.
+     */
+    private boolean cardAndPersonMatch(int startPosition, ReadOnlyPerson... persons) {
         for (int i = 0; i < persons.length; i++) {
             final int scrollTo = i + startPosition;
             guiRobot.interact(() -> getListView().scrollTo(scrollTo));
