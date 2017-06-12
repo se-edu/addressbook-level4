@@ -59,10 +59,11 @@ public class PersonListPanelHandle extends GuiHandle {
      * @param startPosition The starting position of the sub list.
      * @param persons A list of person in the correct order.
      */
-    public boolean isListMatching(int startPosition, ReadOnlyPerson... persons) throws IllegalArgumentException {
-        if (persons.length + startPosition != getListView().getItems().size()) {
-            throw new IllegalArgumentException("List size mismatched\n"
-                    + "Expected " + (getListView().getItems().size() - 1) + " persons");
+    public boolean isListMatching(int startPosition, ReadOnlyPerson... persons) {
+        List<ReadOnlyPerson> personList = getListView().getItems();
+
+        if (personList.size() != persons.length + startPosition) {
+            throw new IllegalArgumentException("List size mismatched\nExpected " + personList.size() + " persons");
         }
         return cardsAndPersonsMatchInOrder(startPosition, persons);
     }
