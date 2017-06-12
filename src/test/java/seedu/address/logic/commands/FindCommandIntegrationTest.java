@@ -12,6 +12,7 @@ import org.junit.Test;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.parser.FindCommandParser;
+import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -24,6 +25,7 @@ import seedu.address.testutil.TypicalPersons;
 public class FindCommandIntegrationTest {
     private Model model;
     private TypicalPersons persons = new TypicalPersons();
+    private FindCommandParser parser = new FindCommandParser();
 
     @Before
     public void setUp() {
@@ -58,7 +60,7 @@ public class FindCommandIntegrationTest {
      * Generates a new {@code FindCommand} by parsing the {@code userInput} and updating {@code model}
      */
     private FindCommand prepareCommand(String userInput, Model model) throws Exception {
-        FindCommand command = new FindCommandParser().parse(userInput);
+        FindCommand command = parser.parse(userInput);
         command.setData(model, new CommandHistory());
         return command;
     }
@@ -67,14 +69,14 @@ public class FindCommandIntegrationTest {
      * Asserts that {@code command} is successfully executed, and<br>
      *     - the command feedback is equal to {@code expectedMessage}<br>
      *     - the {@code FilteredList<ReadOnlyPerson>} is equal to {@code expectedList}<br>
-     *     - the {@code model} remains the same after executing the {@code command}
+     *     - the {@code AddressBook} in model remains the same after executing the {@code command}
      */
     private void assertCommandSuccess(FindCommand command, String expectedMessage, List<ReadOnlyPerson> expectedList)
             throws Exception {
-        Model expectedModel = model;
+        AddressBook expectedAddressBook = new AddressBook(model.getAddressBook());
         CommandResult commandResult = command.execute();
         assertEquals(expectedMessage, commandResult.feedbackToUser);
         assertEquals(expectedList, model.getFilteredPersonList());
-        assertEquals(expectedModel, model);
+        assertEquals(expectedAddressBook, model.getAddressBook());
     }
 }

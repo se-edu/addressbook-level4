@@ -38,8 +38,8 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(new ModelManager(differentAddressBook, userPrefs)));
 
         // different filteredList -> returns false
-        modelManager.updateFilteredPersonList(new PredicateBuilder()
-                .withNamePredicate(typicalPersons.alice.getName().fullName.split("\\s+")).build());
+        String[] keywords = typicalPersons.alice.getName().fullName.split("\\s+");
+        modelManager.updateFilteredPersonList(new PredicateBuilder().withNamePredicate(keywords).build());
         assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs)));
         modelManager.updateFilteredListToShowAll(); // resets modelManager to initial state for upcoming tests
 

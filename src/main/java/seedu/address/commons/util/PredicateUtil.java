@@ -16,6 +16,8 @@ public class PredicateUtil {
      */
     public static Predicate<ReadOnlyPerson> createPredicate(String[] keywords,
                                             Function<String, ? extends Predicate<ReadOnlyPerson>> constructor) {
+        CollectionUtil.requireAllNonNull(keywords, constructor);
+        AppUtil.checkArgument(keywords.length > 0);
         return Arrays.stream(keywords).map(constructor).map(predicate -> (Predicate<ReadOnlyPerson>) predicate)
                 .reduce(Predicate::or).get();
     }

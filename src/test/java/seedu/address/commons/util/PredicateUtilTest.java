@@ -5,13 +5,24 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.function.Predicate;
 
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.ExpectedException;
 
 import seedu.address.model.person.NameContainsKeywordPredicate;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.testutil.PersonBuilder;
 
 public class PredicateUtilTest {
+
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
+
+    @Test
+    public void createPredicate_emptyArray_throwsIllegalArgumentException() throws IllegalArgumentException {
+        thrown.expect(IllegalArgumentException.class);
+        PredicateUtil.createPredicate(new String[0], NameContainsKeywordPredicate::new);
+    }
 
     @Test
     public void createPredicate_nameDoesNotMatchKeyword_predicateRejectsPerson() throws Exception {

@@ -29,8 +29,8 @@ public class FindCommandParser {
 
         String[] nameKeywords = trimmedArgs.split("\\s+");
 
-        Predicate<ReadOnlyPerson> predicate = PredicateUtil
-                .createPredicate(nameKeywords, NameContainsKeywordPredicate::new);
+        Predicate<ReadOnlyPerson> predicate = PredicateUtil.createPredicate(
+                                                nameKeywords, NameContainsKeywordPredicate::new);
 
         return new FindCommand(predicate);
     }
