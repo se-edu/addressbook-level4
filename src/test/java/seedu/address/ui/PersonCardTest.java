@@ -80,6 +80,6 @@ public class PersonCardTest extends GuiUnitTest {
         assertEquals(Integer.toString(expectedId) + ". ", personCardHandle.getId());
 
         // verify person details are displayed correctly
-        assertTrue(personCardHandle.isSamePerson(expectedPerson));
+        assertTrue(personCardHandle.belongsTo(expectedPerson));
     }
 }

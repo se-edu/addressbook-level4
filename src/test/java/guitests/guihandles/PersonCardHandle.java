@@ -60,11 +60,7 @@ public class PersonCardHandle extends NodeHandle<Node> {
         return emailLabel.getText();
     }
 
-    public List<String> getTags() {
-        return getTags(getTagsContainer());
-    }
-
-    private List<String> getTags(Region tagsContainer) {
+    private List<String> getTagsFromSelf() {
         return tagsContainer
                 .getChildrenUnmodifiable()
                 .stream()
@@ -72,39 +68,36 @@ public class PersonCardHandle extends NodeHandle<Node> {
                 .collect(Collectors.toList());
     }
 
-    private List<String> getTags(Set<Tag> tags) {
+    private List<String> getTagsFromSet(Set<Tag> tags) {
         return tags
                 .stream()
                 .map(tag -> tag.tagName)
                 .collect(Collectors.toList());
     }
 
-    private Region getTagsContainer() {
-        return tagsContainer;
-    }
-
     /**
-     * Returns true if this card contains the same particulars as {@code person}.
+     * Returns true if {@code PersonCard} belongs to {@code person}.
      */
-    public boolean isSamePerson(ReadOnlyPerson person) {
+    public boolean belongsTo(ReadOnlyPerson person) {
         return getName().equals(person.getName().fullName)
                 && getPhone().equals(person.getPhone().value)
                 && getEmail().equals(person.getEmail().value)
                 && getAddress().equals(person.getAddress().value)
-                && getTags().equals(getTags(person.getTags()));
+                && getTagsFromSelf().equals(getTagsFromSet(person.getTags()));
     }
 
     @Override
     public boolean equals(Object obj) {
-        if (obj instanceof PersonCardHandle) {
-            PersonCardHandle handle = (PersonCardHandle) obj;
-            return getName().equals(handle.getName())
-                    && getPhone().equals(handle.getPhone())
-                    && getEmail().equals(handle.getEmail())
-                    && getAddress().equals(handle.getAddress())
-                    && getTags().equals(handle.getTags());
+        if (!(obj instanceof PersonCardHandle)) {
+            return super.equals(obj);
         }
-        return super.equals(obj);
+
+        PersonCardHandle handle = (PersonCardHandle) obj;
+        return getName().equals(handle.getName())
+                && getPhone().equals(handle.getPhone())
+                && getEmail().equals(handle.getEmail())
+                && getAddress().equals(handle.getAddress())
+                && getTagsFromSelf().equals(handle.getTagsFromSelf());
     }
 
     @Override
