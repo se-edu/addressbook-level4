@@ -358,8 +358,8 @@ class gives some examples of how to use <em>Equivalence Partitions</em>, <em>Bou
 <pre class="CodeRay highlight"><code data-lang="java"><span class="annotation">@Test</span>
 <span class="directive">public</span> <span class="type">void</span> execute_add_invalidArgsFormat() <span class="directive">throws</span> <span class="exception">Exception</span> {
     ...
-    assertCommandBehavior(<span class="string"><span class="delimiter">&quot;</span><span class="content">add Valid Name 12345 e/valid@email.butNoPhonePrefix a/valid, address</span><span class="delimiter">&quot;</span></span>, expectedMessage);
-    assertCommandBehavior(<span class="string"><span class="delimiter">&quot;</span><span class="content">add Valid Name p/12345 valid@email.butNoPrefix a/valid, address</span><span class="delimiter">&quot;</span></span>, expectedMessage);
+    assertCommandBehavior(<span class="string"><span class="delimiter">&quot;</span><span class="content">add n/Valid Name 12345 e/valid@email.butNoPhonePrefix a/valid, address</span><span class="delimiter">&quot;</span></span>, expectedMessage);
+    assertCommandBehavior(<span class="string"><span class="delimiter">&quot;</span><span class="content">add n/Valid Name p/12345 valid@email.butNoPrefix a/valid, address</span><span class="delimiter">&quot;</span></span>, expectedMessage);
     ...
 }</code></pre>
 </div>
@@ -589,7 +589,7 @@ class gives some examples of how to use <em>Equivalence Partitions</em>, <em>Bou
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-06-09 01:55:25 +00:00
+Last updated 2017-06-12 00:04:09 +00:00
 </div>
 </div>
 </body>
