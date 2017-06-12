@@ -7,7 +7,7 @@ import java.util.Arrays;
 
 import org.junit.Test;
 
-import seedu.address.model.person.NameContainsKeywordPredicate;
+import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.testutil.AddressBookBuilder;
 import seedu.address.testutil.TypicalPersons;
 
@@ -41,7 +41,7 @@ public class ModelManagerTest {
 
         // different filteredList -> returns false
         String[] keywords = typicalPersons.alice.getName().fullName.split("\\s+");
-        modelManager.updateFilteredPersonList(new NameContainsKeywordPredicate(Arrays.asList(keywords)));
+        modelManager.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
         assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs)));
         modelManager.updateFilteredListToShowAll(); // resets modelManager to initial state for upcoming tests
 

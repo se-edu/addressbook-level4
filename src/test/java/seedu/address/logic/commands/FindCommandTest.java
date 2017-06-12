@@ -16,7 +16,7 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.person.NameContainsKeywordPredicate;
+import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.testutil.TypicalPersons;
 
@@ -29,10 +29,10 @@ public class FindCommandTest {
 
     @Test
     public void equals() {
-        NameContainsKeywordPredicate firstPredicate =
-                new NameContainsKeywordPredicate(Collections.singletonList("first"));
-        NameContainsKeywordPredicate secondPredicate =
-                new NameContainsKeywordPredicate(Collections.singletonList("second"));
+        NameContainsKeywordsPredicate firstPredicate =
+                new NameContainsKeywordsPredicate(Collections.singletonList("first"));
+        NameContainsKeywordsPredicate secondPredicate =
+                new NameContainsKeywordsPredicate(Collections.singletonList("second"));
 
         FindCommand findFirstCommand = new FindCommand(firstPredicate);
         FindCommand findSecondCommand = new FindCommand(secondPredicate);
@@ -73,7 +73,7 @@ public class FindCommandTest {
      */
     private FindCommand prepareCommand(String userInput) throws Exception {
         FindCommand command =
-                new FindCommand(new NameContainsKeywordPredicate(Arrays.asList(userInput.split("\\s+"))));
+                new FindCommand(new NameContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+"))));
         command.setData(model, new CommandHistory());
         return command;
     }

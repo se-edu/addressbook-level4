@@ -6,12 +6,12 @@ import java.util.function.Predicate;
 import seedu.address.commons.util.StringUtil;
 
 /**
- * Tests that a {@code ReadOnlyPerson}'s {@code Name} matches the keyword given.
+ * Tests that a {@code ReadOnlyPerson}'s {@code Name} matches any of the keywords given.
  */
-public class NameContainsKeywordPredicate implements Predicate<ReadOnlyPerson> {
+public class NameContainsKeywordsPredicate implements Predicate<ReadOnlyPerson> {
     private final List<String> keywords;
 
-    public NameContainsKeywordPredicate(List<String> keywords) {
+    public NameContainsKeywordsPredicate(List<String> keywords) {
         this.keywords = keywords;
     }
 
@@ -24,8 +24,8 @@ public class NameContainsKeywordPredicate implements Predicate<ReadOnlyPerson> {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof NameContainsKeywordPredicate // instanceof handles nulls
-                && this.keywords.equals(((NameContainsKeywordPredicate) other).keywords)); // state check
+                || (other instanceof NameContainsKeywordsPredicate // instanceof handles nulls
+                && this.keywords.equals(((NameContainsKeywordsPredicate) other).keywords)); // state check
     }
 
 }

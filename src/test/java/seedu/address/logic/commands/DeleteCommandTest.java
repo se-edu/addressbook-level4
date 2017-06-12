@@ -15,7 +15,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.person.NameContainsKeywordPredicate;
+import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.testutil.TypicalPersons;
 
@@ -113,7 +113,7 @@ public class DeleteCommandTest {
     private void showFirstPersonOnly(Model model) {
         ReadOnlyPerson person = model.getAddressBook().getPersonList().get(0);
         final String[] splitName = person.getName().fullName.split("\\s+");
-        model.updateFilteredPersonList(new NameContainsKeywordPredicate(Arrays.asList(splitName)));
+        model.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(splitName)));
 
         assert model.getFilteredPersonList().size() == 1;
     }

@@ -10,7 +10,7 @@ import org.junit.Test;
 
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.NameContainsKeywordPredicate;
+import seedu.address.model.person.NameContainsKeywordsPredicate;
 
 public class FindCommandParserTest {
 
@@ -30,7 +30,7 @@ public class FindCommandParserTest {
     public void parse_validArgs_returnsFindCommand() throws Exception {
         // no leading and trailing whitespaces
         FindCommand expectedFindCommand =
-                new FindCommand(new NameContainsKeywordPredicate(Arrays.asList("Alice", "Bob")));
+                new FindCommand(new NameContainsKeywordsPredicate(Arrays.asList("Alice", "Bob")));
         FindCommand actualFindCommand = parser.parse("Alice Bob");
         assertEquals(expectedFindCommand, actualFindCommand);
 
