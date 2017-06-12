@@ -13,6 +13,7 @@ import javafx.stage.Stage;
 import seedu.address.TestApp;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.ReadOnlyPerson;
+import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.testutil.TestUtil;
 
 /**
@@ -90,7 +91,7 @@ public class PersonListPanelHandle extends GuiHandle {
         guiRobot.clickOn(point.getX(), point.getY());
     }
 
-    public PersonCardHandle navigateToPerson(String name) {
+    public PersonCardHandle navigateToPerson(String name) throws PersonNotFoundException {
         guiRobot.sleep(500); //Allow a bit of time for the list to be updated
         final Optional<ReadOnlyPerson> person = getListView().getItems().stream()
                                                     .filter(p -> p.getName().fullName.equals(name))
@@ -105,13 +106,15 @@ public class PersonListPanelHandle extends GuiHandle {
     /**
      * Navigates the listview to display and select the person.
      */
-    public PersonCardHandle navigateToPerson(ReadOnlyPerson person) {
-        int index = getPersonIndex(person);
+    public PersonCardHandle navigateToPerson(ReadOnlyPerson person) throws PersonNotFoundException {
+        if (!getListView().getItems().contains(person)) {
+            throw new PersonNotFoundException();
+        }
 
         guiRobot.interact(() -> {
-            getListView().scrollTo(index);
+            getListView().scrollTo(person);
             guiRobot.sleep(150);
-            getListView().getSelectionModel().select(index);
+            getListView().getSelectionModel().select(person);
         });
         guiRobot.sleep(100);
         return getPersonCardHandle(person);
