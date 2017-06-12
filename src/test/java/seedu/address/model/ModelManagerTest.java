@@ -3,12 +3,10 @@ package seedu.address.model;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import java.util.Arrays;
-import java.util.HashSet;
-
 import org.junit.Test;
 
 import seedu.address.testutil.AddressBookBuilder;
+import seedu.address.testutil.PredicateBuilder;
 import seedu.address.testutil.TypicalPersons;
 
 public class ModelManagerTest {
@@ -40,8 +38,8 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(new ModelManager(differentAddressBook, userPrefs)));
 
         // different filteredList -> returns false
-        modelManager.updateFilteredPersonList(new HashSet<>(
-                Arrays.asList(typicalPersons.alice.getName().fullName.split(" "))));
+        String[] keywords = typicalPersons.alice.getName().fullName.split("\\s+");
+        modelManager.updateFilteredPersonList(new PredicateBuilder().withNamePredicate(keywords).build());
         assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs)));
         modelManager.updateFilteredListToShowAll(); // resets modelManager to initial state for upcoming tests
 
