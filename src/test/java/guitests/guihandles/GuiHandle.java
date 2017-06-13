@@ -12,7 +12,10 @@ import seedu.address.commons.core.LogsCenter;
 
 /**
  * Base class for all GUI Handles used in testing.
+ *
+ * @deprecated use {@code NodeHandle} for component handles, {@code StageHandle} for stage handles.
  */
+@Deprecated
 public class GuiHandle {
     protected final GuiRobot guiRobot = new GuiRobot();
     /**
