@@ -21,7 +21,7 @@ public class MainWindowHandle extends StageHandle {
         resultDisplay = new ResultDisplayHandle();
         commandBox = new CommandBoxHandle(getChildNode(CommandBoxHandle.COMMAND_INPUT_FIELD_ID));
         statusBarFooter = new StatusBarFooterHandle();
-        mainMenu = new MainMenuHandle();
+        mainMenu = new MainMenuHandle(getChildNode(MainMenuHandle.MENU_BAR_ID));
         browserPanel = new BrowserPanelHandle(getChildNode(BrowserPanelHandle.BROWSER_ID));
     }
 
