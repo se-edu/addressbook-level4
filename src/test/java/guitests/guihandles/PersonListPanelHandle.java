@@ -154,10 +154,10 @@ public class PersonListPanelHandle extends GuiHandle {
     public PersonCardHandle getPersonCardHandle(ReadOnlyPerson person) {
         Set<Node> nodes = getAllCardNodes();
         Optional<Node> personCardNode = nodes.stream()
-                .filter(n -> new PersonCardHandle(guiRobot, primaryStage, n).isSamePerson(person))
+                .filter(n -> new PersonCardHandle(n).isSamePerson(person))
                 .findFirst();
         if (personCardNode.isPresent()) {
-            return new PersonCardHandle(guiRobot, primaryStage, personCardNode.get());
+            return new PersonCardHandle(personCardNode.get());
         } else {
             return null;
         }
