@@ -23,7 +23,7 @@ public class FindCommandTest extends AddressBookGuiTest {
     }
 
     @Test
-    public void find_emptyList() {
+    public void find_emptyList() throws Exception {
         getCommandBox().runCommand(ClearCommand.COMMAND_WORD);
         assertFindResult(FindCommand.COMMAND_WORD + " Jean"); // no results
     }
@@ -34,7 +34,7 @@ public class FindCommandTest extends AddressBookGuiTest {
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
     }
 
-    private void assertFindResult(String command, Person... expectedHits) {
+    private void assertFindResult(String command, Person... expectedHits) throws Exception {
         getCommandBox().runCommand(command);
         assertListSize(expectedHits.length);
         assertResultMessage(expectedHits.length + " persons listed!");

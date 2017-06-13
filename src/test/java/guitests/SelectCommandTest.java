@@ -51,14 +51,13 @@ public class SelectCommandTest extends AddressBookGuiTest {
     }
 
     private void assertPersonSelected(Index index) {
-        assertEquals(getPersonListPanel().getSelectedPersons().size(), 1);
-        ReadOnlyPerson selectedPerson = getPersonListPanel().getSelectedPersons().get(0);
+        ReadOnlyPerson selectedPerson = getPersonListPanel().getSelectedPerson().get();
         assertEquals(getPersonListPanel().getPerson(index.getZeroBased()), selectedPerson);
         //TODO: confirm the correct page is loaded in the Browser Panel
     }
 
     private void assertNoPersonSelected() {
-        assertEquals(getPersonListPanel().getSelectedPersons().size(), 0);
+        assertFalse(getPersonListPanel().getSelectedPerson().isPresent());
     }
 
 }

@@ -13,7 +13,7 @@ public class HelpWindowTest extends AddressBookGuiTest {
 
     @Test
     public void openHelpWindow() {
-        // use accelerator
+        //use accelerator
         getCommandBox().clickOnSelf();
         getMainMenu().openHelpWindowUsingAccelerator();
         assertHelpWindowOpen();
@@ -33,12 +33,12 @@ public class HelpWindowTest extends AddressBookGuiTest {
         getMainMenu().openHelpWindowUsingAccelerator();
         assertHelpWindowNotOpen();
 
-        // use menu button
+        //use menu button
         mainWindowHandle.focusOnWindow();
         getMainMenu().openHelpWindowUsingMenu();
         assertHelpWindowOpen();
 
-        // use command box
+        //use command box
         mainWindowHandle.focusOnWindow();
         getCommandBox().runHelpCommand();
         assertHelpWindowOpen();
@@ -55,7 +55,7 @@ public class HelpWindowTest extends AddressBookGuiTest {
     }
 
     /**
-     * Asserts that the help window isn't open at all.
+     * Asserts that the help window isn't open.
      */
     private void assertHelpWindowNotOpen() {
         guiRobot.pauseForHuman();

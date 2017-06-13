@@ -41,11 +41,12 @@ public class AddCommandTest extends AddressBookGuiTest {
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
     }
 
-    private void assertAddSuccess(Person personToAdd, Person... currentList) {
+    private void assertAddSuccess(Person personToAdd, Person... currentList) throws Exception {
         getCommandBox().runCommand(PersonUtil.getAddCommand(personToAdd));
 
         //confirm the new card contains the right data
-        PersonCardHandle addedCard = getPersonListPanel().navigateToPerson(personToAdd.getName().fullName);
+        getPersonListPanel().navigateToPerson(personToAdd);
+        PersonCardHandle addedCard = getPersonListPanel().getPersonCardHandle(personToAdd);
         assertMatching(personToAdd, addedCard);
 
         //confirm the list now contains all previous persons plus the new person

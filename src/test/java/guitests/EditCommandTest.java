@@ -140,12 +140,13 @@ public class EditCommandTest extends AddressBookGuiTest {
      * @param editedPerson the expected person after editing the person's details
      */
     private void assertEditSuccess(Index filteredPersonListIndex, Index addressBookIndex,
-                                    String detailsToEdit, Person editedPerson) {
+                                    String detailsToEdit, Person editedPerson) throws Exception {
         getCommandBox().runCommand(EditCommand.COMMAND_WORD + " "
                 + filteredPersonListIndex.getOneBased() + " " + detailsToEdit);
 
         // confirm the new card contains the right data
-        PersonCardHandle editedCard = getPersonListPanel().navigateToPerson(editedPerson.getName().fullName);
+        getPersonListPanel().navigateToPerson(editedPerson);
+        PersonCardHandle editedCard = getPersonListPanel().getPersonCardHandle(editedPerson);
         assertMatching(editedPerson, editedCard);
 
         // confirm the list now contains all previous persons plus the person with updated details

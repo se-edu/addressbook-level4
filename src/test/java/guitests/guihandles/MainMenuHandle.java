@@ -8,7 +8,6 @@ import javafx.scene.input.KeyCode;
  * Provides a handle to the main menu of the app.
  */
 public class MainMenuHandle extends NodeHandle {
-
     private static final String MENU_BAR_ID = "#menuBar";
 
     public MainMenuHandle(MainWindowHandle mainWindowHandle) {
@@ -37,5 +36,4 @@ public class MainMenuHandle extends NodeHandle {
     public void clickOnMenuItemsSequentially(String... menuItems) {
         Arrays.stream(menuItems).forEach(GUI_ROBOT::clickOn);
     }
-
 }

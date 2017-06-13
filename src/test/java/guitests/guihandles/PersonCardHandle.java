@@ -21,8 +21,6 @@ public class PersonCardHandle extends NodeHandle {
     private static final String EMAIL_FIELD_ID = "#email";
     private static final String TAGS_FIELD_ID = "#tags";
 
-    private Node node;
-
     private Label nameLabel;
     private Label addressLabel;
     private Label phoneLabel;
@@ -72,10 +70,6 @@ public class PersonCardHandle extends NodeHandle {
                 .stream()
                 .map(tag -> tag.tagName)
                 .collect(Collectors.toList());
-    }
-
-    private String getTextFromLabel(String fieldId) {
-        return ((Label) guiRobot.from(node).lookup(fieldId).tryQuery().get()).getText();
     }
 
     private Region getTagsContainer() {
