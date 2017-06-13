@@ -21,12 +21,12 @@ public class MainMenuHandle extends GuiHandle {
 
     public HelpWindowHandle openHelpWindowUsingMenu() {
         clickOn("Help", "F1");
-        return new HelpWindowHandle();
+        return new HelpWindowHandle(guiRobot.getStage(HelpWindowHandle.HELP_WINDOW_TITLE));
     }
 
     public HelpWindowHandle openHelpWindowUsingAccelerator() {
         useF1Accelerator();
-        return new HelpWindowHandle();
+        return new HelpWindowHandle(guiRobot.getStage(HelpWindowHandle.HELP_WINDOW_TITLE));
     }
 
     private void useF1Accelerator() {
