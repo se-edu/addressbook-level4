@@ -13,13 +13,12 @@ public class MainMenuHandle extends GuiHandle {
         super(TestApp.APP_TITLE);
     }
 
-    public GuiHandle clickOn(String... menuText) {
-        Arrays.stream(menuText).forEach((menuItem) -> guiRobot.clickOn(menuItem));
-        return this;
+    public void clickOnMenuItemsSequentially(String... menuItems) {
+        Arrays.stream(menuItems).forEach(guiRobot::clickOn);
     }
 
     public void openHelpWindowUsingMenu() {
-        clickOn("Help", "F1");
+        clickOnMenuItemsSequentially("Help", "F1");
     }
 
 }
