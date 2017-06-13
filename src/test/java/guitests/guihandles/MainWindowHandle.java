@@ -20,7 +20,7 @@ public class MainWindowHandle extends WindowHandle {
         personListPanel = new PersonListPanelHandle(this);
         resultDisplay = new ResultDisplayHandle(this);
         commandBox = new CommandBoxHandle(this);
-        statusBarFooter = new StatusBarFooterHandle();
+        statusBarFooter = new StatusBarFooterHandle(this);
         mainMenu = new MainMenuHandle(this);
         browserPanel = new BrowserPanelHandle(this);
     }
