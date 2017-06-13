@@ -1,7 +1,6 @@
 package guitests.guihandles;
 
 import javafx.stage.Stage;
-import seedu.address.TestApp;
 
 /**
  * Provides a handle for {@code MainWindow}.
@@ -20,7 +19,7 @@ public class MainWindowHandle extends StageHandle {
 
         personListPanel = new PersonListPanelHandle();
         resultDisplay = new ResultDisplayHandle();
-        commandBox = new CommandBoxHandle(TestApp.APP_TITLE);
+        commandBox = new CommandBoxHandle(getChildNode(CommandBoxHandle.COMMAND_INPUT_FIELD_ID));
         statusBarFooter = new StatusBarFooterHandle();
         mainMenu = new MainMenuHandle();
         browserPanel = new BrowserPanelHandle(getChildNode(BrowserPanelHandle.BROWSER_ID));
