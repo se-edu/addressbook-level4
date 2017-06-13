@@ -60,7 +60,7 @@ public abstract class AddressBookGuiTest {
         FxToolkit.setupStage((stage) -> {
             this.stage = stage;
         });
-        EventsCenter.clearSubscribers();
+
         FxToolkit.setupApplication(() -> new TestApp(this::getInitialData, getDataFileLocation()));
         FxToolkit.showStage();
 
