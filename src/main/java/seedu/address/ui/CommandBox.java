@@ -42,21 +42,22 @@ public class CommandBox extends UiPart<Region> {
      * and shows the next input if {@code KeyCode.DOWN} is pressed.
      */
     private void handleKeyPress(KeyEvent keyEvent) {
-        assert historyIterator != null;
-
         switch (keyEvent.getCode()) {
-            case UP:
-                keyEvent.consume(); // up and down buttons will alter the position of the caret
-                getPreviousInput();
-                break;
-            case DOWN:
-                keyEvent.consume(); // up and down buttons will alter the position of the caret
-                getNextInput();
-                break;
+        case UP:
+            keyEvent.consume(); // up and down buttons will alter the position of the caret
+            getPreviousInput();
+            break;
+        case DOWN:
+            keyEvent.consume();
+            getNextInput();
+            break;
+        default:
+            // return
         }
     }
 
     private void getPreviousInput() {
+        assert historyIterator != null;
         if (!historyIterator.hasPrevious()) {
             return;
         }
@@ -65,6 +66,7 @@ public class CommandBox extends UiPart<Region> {
     }
 
     private void getNextInput() {
+        assert historyIterator != null;
         if (!historyIterator.hasNext()) {
             setText("");
             return;
