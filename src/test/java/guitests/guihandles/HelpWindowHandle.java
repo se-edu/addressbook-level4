@@ -15,7 +15,7 @@ public class HelpWindowHandle extends StageHandle {
     }
 
     /**
-     * Returns whether a help window is currently present in the application.
+     * Returns true if a help window is currently present in the application.
      */
     public static boolean isWindowPresent() {
         return new GuiRobot().isWindowShown(HELP_WINDOW_TITLE);

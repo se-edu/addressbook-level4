@@ -34,7 +34,7 @@ public class HelpWindowTest extends AddressBookGuiTest {
         assertHelpWindowOpen();
 
         //use command box
-        getCommandBox().run(HelpCommand.COMMAND_WORD);
+        runCommand(HelpCommand.COMMAND_WORD);
         assertHelpWindowOpen();
     }
 
@@ -45,7 +45,7 @@ public class HelpWindowTest extends AddressBookGuiTest {
         assertTrue(HelpWindowHandle.isWindowPresent());
         guiRobot.pauseForHuman();
 
-        guiRobot.interact(() -> guiRobot.getStage(HelpWindowHandle.HELP_WINDOW_TITLE).close());
+        new HelpWindowHandle(guiRobot.getStage(HelpWindowHandle.HELP_WINDOW_TITLE)).close();
         mainWindowHandle.focus();
     }
 

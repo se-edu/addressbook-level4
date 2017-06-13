@@ -5,7 +5,7 @@ import javafx.scene.Node;
 /**
  * A handler for the {@code BrowserPanel} of the UI.
  */
-public class BrowserPanelHandle extends NodeHandle {
+public class BrowserPanelHandle extends NodeHandle<Node> {
 
     public static final String BROWSER_ID = "#browser";
 

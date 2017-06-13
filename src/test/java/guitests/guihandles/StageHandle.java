@@ -16,7 +16,7 @@ import seedu.address.commons.core.LogsCenter;
  */
 public abstract class StageHandle {
     protected final GuiRobot guiRobot = new GuiRobot();
-    protected final Logger logger = LogsCenter.getLogger(this.getClass());
+    private final Logger logger = LogsCenter.getLogger(this.getClass());
 
     private final Stage stage;
 
@@ -47,7 +47,6 @@ public abstract class StageHandle {
      */
     protected <T extends Node> T getChildNode(String query) {
         Optional<T> node = guiRobot.from(stage.getScene().getRoot()).lookup(query).tryQuery();
-
         return node.orElseThrow(NodeNotFoundException::new);
     }
 }

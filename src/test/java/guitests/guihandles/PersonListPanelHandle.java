@@ -70,7 +70,6 @@ public class PersonListPanelHandle extends NodeHandle<ListView<ReadOnlyPerson>> 
             getRootNode().scrollTo(person);
             getRootNode().getSelectionModel().select(person);
         });
-        guiRobot.pauseForHuman();
     }
 
     /**
@@ -91,19 +90,15 @@ public class PersonListPanelHandle extends NodeHandle<ListView<ReadOnlyPerson>> 
      * Returns the {@code PersonCardHandle} of the specified {@code person} in the list.
      */
     public PersonCardHandle getPersonCardHandle(ReadOnlyPerson person) throws PersonNotFoundException {
-        if (!getRootNode().getItems().contains(person)) {
-            throw new PersonNotFoundException();
-        }
-
         Set<Node> nodes = getAllCardNodes();
         Optional<PersonCardHandle> personCardNode = nodes.stream()
                 .map(PersonCardHandle::new)
                 .filter(handle -> handle.isSamePerson(person))
                 .findFirst();
 
-        // post-condition: since we verified at the start that the person exist in the list,
-        // it must have a corresponding person card, so the person card's node must exist
-        assert personCardNode.isPresent();
+        if (!personCardNode.isPresent()) {
+            throw new PersonNotFoundException();
+        }
 
         return personCardNode.get();
     }
