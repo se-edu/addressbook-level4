@@ -38,14 +38,14 @@ public class CommandBoxHandle extends GuiHandle {
      */
     public boolean runCommand(String command) {
         enterCommand(command);
-        pressEnter();
+        guiRobot.pressEnter();
         guiRobot.pauseForHuman(SHORT_WAIT);
         return !getStyleClass().contains(CommandBox.ERROR_STYLE_CLASS);
     }
 
     public void runHelpCommand() {
         enterCommand(HelpCommand.COMMAND_WORD);
-        pressEnter();
+        guiRobot.pressEnter();
     }
 
     public ObservableList<String> getStyleClass() {
