@@ -15,12 +15,14 @@ import seedu.address.model.tag.Tag;
  * Provides a handle to a person card in the person list panel.
  */
 public class PersonCardHandle extends NodeHandle {
+    private static final String ID_FIELD_ID = "#id";
     private static final String NAME_FIELD_ID = "#name";
     private static final String ADDRESS_FIELD_ID = "#address";
     private static final String PHONE_FIELD_ID = "#phone";
     private static final String EMAIL_FIELD_ID = "#email";
     private static final String TAGS_FIELD_ID = "#tags";
 
+    private Label idLabel;
     private Label nameLabel;
     private Label addressLabel;
     private Label phoneLabel;
@@ -30,6 +32,7 @@ public class PersonCardHandle extends NodeHandle {
     public PersonCardHandle(Node cardNode) {
         super(cardNode);
 
+        this.idLabel = (Label) getChildNode(ID_FIELD_ID);
         this.nameLabel = (Label) getChildNode(NAME_FIELD_ID);
         this.addressLabel = (Label) getChildNode(ADDRESS_FIELD_ID);
         this.phoneLabel = (Label) getChildNode(PHONE_FIELD_ID);
@@ -38,7 +41,7 @@ public class PersonCardHandle extends NodeHandle {
     }
 
     public String getId() {
-        return getTextFromLabel(ID_FIELD_ID);
+        return idLabel.getText();
     }
 
     public String getFullName() {

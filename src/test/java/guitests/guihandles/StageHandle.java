@@ -28,8 +28,7 @@ public abstract class StageHandle {
      * Closes {@code stage}.
      */
     public void close() {
-        guiRobot.interact(() -> stage.close());
-        guiRobot.pauseForHuman();
+        guiRobot.interact(stage::close);
     }
 
     /**
@@ -38,7 +37,7 @@ public abstract class StageHandle {
     public void focus() {
         String windowTitle = stage.getTitle();
         logger.info("Focusing on" + windowTitle);
-        guiRobot.interact(() -> stage.requestFocus());
+        guiRobot.interact(stage::requestFocus);
         logger.info("Finishing focus on" + windowTitle);
     }
 
@@ -47,8 +46,7 @@ public abstract class StageHandle {
      * @throws NodeNotFoundException if no such node exist.
      */
     protected <T extends Node> T getChildNode(String query) {
-        Optional<T> node = Optional.ofNullable(
-                guiRobot.from(stage.getScene().getRoot()).lookup(query).query());
+        Optional<T> node = guiRobot.from(stage.getScene().getRoot()).lookup(query).tryQuery();
 
         return node.orElseThrow(NodeNotFoundException::new);
     }

@@ -13,14 +13,21 @@ public class AlertDialogHandle extends StageHandle {
         super(stage);
     }
 
+    private DialogPane getDialogPane() {
+        return getChildNode("#" + UiManager.ALERT_DIALOG_PANE_FIELD_ID);
+    }
+
     /**
-     * Checks that the content of the {@code AlertDialog} matches that of {@code headerMessage} and
-     * {@code contentMessage}.
+     * Returns the text of the header in the {@code AlertDialog}.
      */
-    public boolean isMatching(String headerMessage, String contentMessage) {
-        DialogPane dialogPane = getChildNode("#" + UiManager.ALERT_DIALOG_PANE_FIELD_ID);
-        boolean isMatching = dialogPane.getHeaderText().equals(headerMessage)
-                && dialogPane.getContentText().equals(contentMessage);
-        return isMatching;
+    public String getHeaderText() {
+        return getDialogPane().getHeaderText();
+    }
+
+    /**
+     * Returns the text of the content in the {@code AlertDialog}.
+     */
+    public String getContentText() {
+        return getDialogPane().getContentText();
     }
 }

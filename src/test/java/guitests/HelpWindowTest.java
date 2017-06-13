@@ -49,7 +49,7 @@ public class HelpWindowTest extends AddressBookGuiTest {
         assertTrue(guiRobot.isWindowShown(HelpWindowHandle.HELP_WINDOW_TITLE));
         guiRobot.pauseForHuman();
 
-        new HelpWindowHandle().closeWindow();
+        new HelpWindowHandle().close();
     }
 
     /**

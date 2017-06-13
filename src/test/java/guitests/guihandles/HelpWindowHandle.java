@@ -1,7 +1,5 @@
 package guitests.guihandles;
 
-import static org.junit.Assert.assertFalse;
-
 import guitests.GuiRobot;
 
 /**
@@ -13,15 +11,5 @@ public class HelpWindowHandle extends StageHandle {
 
     public HelpWindowHandle() {
         super(new GuiRobot().getStage(HELP_WINDOW_TITLE));
-    }
-
-    /**
-     * Closes the help window.
-     */
-    public void closeWindow() {
-        super.close();
-        guiRobot.pauseForHuman();
-
-        assertFalse(guiRobot.isWindowShown(HELP_WINDOW_TITLE));
     }
 }

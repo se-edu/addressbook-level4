@@ -34,7 +34,7 @@ public abstract class NodeHandle {
      * @throws NodeNotFoundException if no such node exist.
      */
     protected <T extends Node> T getChildNode(String query) {
-        Optional<T> node = Optional.ofNullable(guiRobot.from(rootNode).lookup(query).query());
+        Optional<T> node = guiRobot.from(rootNode).lookup(query).tryQuery();
         return node.orElseThrow(NodeNotFoundException::new);
     }
 
