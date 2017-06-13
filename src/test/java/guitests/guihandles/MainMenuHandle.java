@@ -1,10 +1,7 @@
 package guitests.guihandles;
 
-import static guitests.GuiRobotUtil.MEDIUM_WAIT;
-
 import java.util.Arrays;
 
-import javafx.scene.input.KeyCode;
 import seedu.address.TestApp;
 
 /**
@@ -25,8 +22,4 @@ public class MainMenuHandle extends GuiHandle {
         clickOn("Help", "F1");
     }
 
-    public void openHelpWindowUsingAccelerator() {
-        guiRobot.push(KeyCode.F1);
-        guiRobot.pauseForHuman(MEDIUM_WAIT);
-    }
 }
