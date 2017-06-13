@@ -50,9 +50,4 @@ public class MainGuiHandle extends GuiHandle {
     public BrowserPanelHandle getBrowserPanel() {
         return browserPanel;
     }
-
-    public AlertDialogHandle getAlertDialog(String title) {
-        guiRobot.sleep(1000);
-        return new AlertDialogHandle(guiRobot, primaryStage, title);
-    }
 }
