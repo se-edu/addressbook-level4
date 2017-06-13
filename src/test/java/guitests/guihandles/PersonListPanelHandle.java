@@ -7,10 +7,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.control.ListView;
-import seedu.address.TestApp;
+import seedu.address.model.person.Person;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.testutil.TestUtil;
@@ -18,31 +17,27 @@ import seedu.address.testutil.TestUtil;
 /**
  * Provides a handle for the panel containing the person list.
  */
-public class PersonListPanelHandle extends GuiHandle {
+public class PersonListPanelHandle extends NodeHandle {
+
+    public static final int NOT_FOUND = -1;
 
     private static final String CARD_PANE_ID = "#cardPane";
-
     private static final String PERSON_LIST_VIEW_ID = "#personListView";
 
-    public PersonListPanelHandle() {
-        super(TestApp.APP_TITLE);
+    public PersonListPanelHandle(MainWindowHandle mainWindowHandle) {
+        super(mainWindowHandle.getChildNode(PERSON_LIST_VIEW_ID));
     }
 
     /**
-     * Returns the selected person in the list view. A maximum of 1 item can be selected at any time.
+     * Returns all selected {@code ReadOnlyPerson} in the list.
      */
-    public Optional<ReadOnlyPerson> getSelectedPerson() {
-        List<ReadOnlyPerson> personList = getListView().getSelectionModel().getSelectedItems();
-
-        if (personList.size() > 1) {
-            throw new AssertionError("Person list size expected 0 or 1.");
-        }
-
-        return personList.isEmpty() ? Optional.empty() : Optional.of(personList.get(0));
+    public List<ReadOnlyPerson> getSelectedPersons() {
+        ListView<ReadOnlyPerson> personList = getListView();
+        return personList.getSelectionModel().getSelectedItems();
     }
 
-    private ListView<ReadOnlyPerson> getListView() {
-        return getNode(PERSON_LIST_VIEW_ID);
+    public ListView<ReadOnlyPerson> getListView() {
+        return (ListView<ReadOnlyPerson>) getNode();
     }
 
     /**
@@ -55,10 +50,10 @@ public class PersonListPanelHandle extends GuiHandle {
                 "List size mismatched\nExpected " + personList.size() + " persons");
 
         for (int i = 0; i < persons.length; i++) {
-            final int scrollTo = i; // lambda expression needs i to be final
-            guiRobot.interact(() -> getListView().scrollTo(scrollTo));
-            guiRobot.pauseForHuman();
-            if (!TestUtil.compareCardAndPerson(getPersonCardHandle(i), persons[i])) {
+            final int scrollTo = i + startPosition;
+            GUI_ROBOT.interact(() -> getListView().scrollTo(scrollTo));
+            GUI_ROBOT.pauseForHuman();
+            if (!TestUtil.compareCardAndPerson(getPersonCardHandle(startPosition + i), persons[i])) {
                 return false;
             }
         }
@@ -66,44 +61,85 @@ public class PersonListPanelHandle extends GuiHandle {
     }
 
     /**
-     * Clicks on the ListView.
+     * Returns true if the {@code persons} appear as the sub list (in that order) at position {@code startPosition}.
      */
-    public void clickOnListView() {
-        Point2D point = TestUtil.getScreenMidPoint(getListView());
-        guiRobot.clickOn(point.getX(), point.getY());
+    public boolean containsInOrder(int startPosition, ReadOnlyPerson... persons) {
+        List<ReadOnlyPerson> personsInList = getListView().getItems();
+
+        // Return false if the list in panel is too short to contain the given list
+        if (startPosition + persons.length > personsInList.size()) {
+            return false;
+        }
+
+        // Return false if any of the persons doesn't match
+        for (int i = 0; i < persons.length; i++) {
+            if (!personsInList.get(startPosition + i).getName().fullName.equals(persons[i].getName().fullName)) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     /**
-     * Navigates the listview to display and select the person.
+     * Scrolls the list such that a {@code ReadOnlyPerson} with {@code name} is visible at the top of the list.
      */
-    public void navigateToPerson(ReadOnlyPerson person) throws PersonNotFoundException {
-        if (!getListView().getItems().contains(person)) {
-            throw new PersonNotFoundException();
+    public PersonCardHandle navigateToPerson(String name) {
+        GUI_ROBOT.pauseForHuman();
+        final Optional<ReadOnlyPerson> person = getListView().getItems().stream()
+                                                    .filter(p -> p.getName().fullName.equals(name))
+                                                    .findAny();
+        if (!person.isPresent()) {
+            throw new IllegalStateException("Name not found: " + name);
         }
 
-        guiRobot.interact(() -> {
+        return navigateToPerson(person.get());
+    }
+
+    /**
+     * Scrolls the list such that {@code ReadOnlyPerson} is visible at the top of the list.
+     */
+    public PersonCardHandle navigateToPerson(ReadOnlyPerson person) {
+        GUI_ROBOT.interact(() -> {
             getListView().scrollTo(person);
             getListView().getSelectionModel().select(person);
         });
-        guiRobot.pauseForHuman();
+        GUI_ROBOT.pauseForHuman();
+        return getPersonCardHandle(person);
+    }
+
+
+    /**
+     * Returns the position of the person given, {@code NOT_FOUND} if not found in the list.
+     */
+    public int getPersonIndex(ReadOnlyPerson targetPerson) {
+        List<ReadOnlyPerson> personsInList = getListView().getItems();
+        for (int i = 0; i < personsInList.size(); i++) {
+            if (personsInList.get(i).getName().equals(targetPerson.getName())) {
+                return i;
+            }
+        }
+        return NOT_FOUND;
     }
 
     /**
-     * Gets a person from the list by index
+     * Returns the person associated with the {@code index} from the list.
      */
     public ReadOnlyPerson getPerson(int index) {
         return getListView().getItems().get(index);
     }
 
-    private PersonCardHandle getPersonCardHandle(int index) throws PersonNotFoundException {
-        return getPersonCardHandle(getPerson(index));
+    /**
+     * Returns the person card handle of a person associated with the {@code index} from the list.
+     */
+    public PersonCardHandle getPersonCardHandle(int index) {
+        return getPersonCardHandle(new Person(getListView().getItems().get(index)));
     }
 
-    public PersonCardHandle getPersonCardHandle(ReadOnlyPerson person) throws PersonNotFoundException {
-        if (!getListView().getItems().contains(person)) {
-            throw new PersonNotFoundException();
-        }
-
+    /**
+     * Gets the person card handle of a person in the list.
+     */
+    public PersonCardHandle getPersonCardHandle(ReadOnlyPerson person) {
         Set<Node> nodes = getAllCardNodes();
         Optional<Node> personCardNode = nodes.stream()
                 .filter(n -> new PersonCardHandle(n).isSamePerson(person))
@@ -115,10 +151,13 @@ public class PersonListPanelHandle extends GuiHandle {
         }
     }
 
-    private Set<Node> getAllCardNodes() {
-        return guiRobot.lookup(CARD_PANE_ID).queryAll();
+    protected Set<Node> getAllCardNodes() {
+        return GUI_ROBOT.lookup(CARD_PANE_ID).queryAll();
     }
 
+    /**
+     * Gets the total number of people in the list.
+     */
     public int getNumberOfPeople() {
         return getListView().getItems().size();
     }
