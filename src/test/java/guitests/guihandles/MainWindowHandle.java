@@ -23,7 +23,7 @@ public class MainWindowHandle extends WindowHandle {
         commandBox = new CommandBoxHandle(TestApp.APP_TITLE);
         statusBarFooter = new StatusBarFooterHandle();
         mainMenu = new MainMenuHandle();
-        browserPanel = new BrowserPanelHandle();
+        browserPanel = new BrowserPanelHandle(this);
     }
 
     public PersonListPanelHandle getPersonListPanel() {
