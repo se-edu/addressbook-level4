@@ -26,7 +26,7 @@ public class ErrorDialogGuiTest extends AddressBookGuiTest {
         guiRobot.waitForEvent(() -> guiRobot.isWindowActive(ERROR_DIALOG_STAGE_TITLE), EVENT_TIMEOUT);
         guiRobot.pauseForHuman(LONG_WAIT);
 
-        AlertDialogHandle alertDialog = mainGui.getAlertDialog(ERROR_DIALOG_STAGE_TITLE);
+        AlertDialogHandle alertDialog = new AlertDialogHandle(ERROR_DIALOG_STAGE_TITLE);
         assertTrue(alertDialog.isMatching(ERROR_HEADER_MESSAGE, ERROR_CONTENT_MESSAGE + ":\n"
                                                                          + "java.io.IOException"));
 
