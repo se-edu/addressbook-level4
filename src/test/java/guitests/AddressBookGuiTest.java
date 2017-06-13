@@ -77,7 +77,7 @@ public abstract class AddressBookGuiTest {
             statusBarFooter = mainGui.getStatusBarFooter();
             this.stage = stage;
         });
-        EventsCenter.clearSubscribers();
+
         FxToolkit.setupApplication(() -> new TestApp(this::getInitialData, getDataFileLocation()));
         FxToolkit.showStage();
         mainGui.focusOnMainApp();
