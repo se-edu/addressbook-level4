@@ -8,7 +8,6 @@ import java.util.logging.Logger;
 import guitests.GuiRobot;
 import javafx.scene.Node;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import seedu.address.TestApp;
@@ -65,11 +64,6 @@ public class GuiHandle {
         guiRobot.clickOn(textFieldId);
         TextField textField = getNode(textFieldId);
         guiRobot.interact(() -> textField.setText(newText));
-        guiRobot.pauseForHuman(MEDIUM_WAIT);
-    }
-
-    public void pressEnter() {
-        guiRobot.type(KeyCode.ENTER);
         guiRobot.pauseForHuman(MEDIUM_WAIT);
     }
 
