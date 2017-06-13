@@ -1,6 +1,6 @@
 package seedu.address.logic;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -21,16 +21,12 @@ public class NonAlternatingListIteratorTest {
 
     @Test
     public void previousAndNext() {
-        Integer one = 1;
-        Integer two = 2;
-        Integer three = 3;
-
-        assertEquals(one, iterator.next());
-        assertEquals(two, iterator.next());
-        assertEquals(three, iterator.next());
-        assertEquals(two, iterator.previous());
-        assertEquals(three, iterator.next());
-        assertEquals(two, iterator.previous());
-        assertEquals(one, iterator.previous());
+        assertTrue(iterator.next() == 1);
+        assertTrue(iterator.next() == 2);
+        assertTrue(iterator.next() == 3);
+        assertTrue(iterator.previous() == 2);
+        assertTrue(iterator.next() == 3);
+        assertTrue(iterator.previous() == 2);
+        assertTrue(iterator.previous() == 1);
     }
 }

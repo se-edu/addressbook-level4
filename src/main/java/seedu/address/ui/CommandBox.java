@@ -6,7 +6,6 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
@@ -45,26 +44,33 @@ public class CommandBox extends UiPart<Region> {
     private void handleKeyPress(KeyEvent keyEvent) {
         assert historyIterator != null;
 
-        if (keyEvent.getCode() != KeyCode.UP && keyEvent.getCode() != KeyCode.DOWN) {
+        switch (keyEvent.getCode()) {
+            case UP:
+                keyEvent.consume(); // up and down buttons will alter the position of the caret
+                getPreviousInput();
+                break;
+            case DOWN:
+                keyEvent.consume(); // up and down buttons will alter the position of the caret
+                getNextInput();
+                break;
+        }
+    }
+
+    private void getPreviousInput() {
+        if (!historyIterator.hasPrevious()) {
             return;
         }
 
-        keyEvent.consume(); // up and down buttons will alter the position of the caret
+        setText(historyIterator.previous());
+    }
 
-        if (keyEvent.getCode() == KeyCode.UP) {
-            if (!historyIterator.hasPrevious()) {
-                return;
-            }
-
-            setText(historyIterator.previous());
-        } else if (keyEvent.getCode() == KeyCode.DOWN) {
-            if (!historyIterator.hasNext()) {
-                setText("");
-                return;
-            }
-
-            setText(historyIterator.next());
+    private void getNextInput() {
+        if (!historyIterator.hasNext()) {
+            setText("");
+            return;
         }
+
+        setText(historyIterator.next());
     }
 
     /**

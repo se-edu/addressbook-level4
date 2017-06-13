@@ -11,8 +11,8 @@ import java.util.ListIterator;
  */
 public class NonAlternatingListIterator<T> {
     private ListIterator<T> iterator;
-    private boolean isPreviousCalledPreviously;
-    private boolean isNextCalledPreviously;
+    private boolean wasPreviousCalledPreviously;
+    private boolean wasNextCalledPreviously;
 
     public NonAlternatingListIterator(ListIterator<T> iterator) {
         this.iterator = iterator;
@@ -27,22 +27,22 @@ public class NonAlternatingListIterator<T> {
     }
 
     public T previous() {
-        if (isNextCalledPreviously) {
+        if (wasNextCalledPreviously) {
             iterator.previous();
         }
 
-        isPreviousCalledPreviously = true;
-        isNextCalledPreviously = false;
+        wasPreviousCalledPreviously = true;
+        wasNextCalledPreviously = false;
         return iterator.previous();
     }
 
     public T next() {
-        if (isPreviousCalledPreviously) {
+        if (wasPreviousCalledPreviously) {
             iterator.next();
         }
 
-        isNextCalledPreviously = true;
-        isPreviousCalledPreviously = false;
+        wasNextCalledPreviously = true;
+        wasPreviousCalledPreviously = false;
         return iterator.next();
     }
 }
