@@ -1,11 +1,9 @@
 package guitests.guihandles;
 
-import guitests.GuiRobot;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
-
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.ui.CommandBox;
 
@@ -16,8 +14,8 @@ public class CommandBoxHandle extends GuiHandle {
 
     private static final String COMMAND_INPUT_FIELD_ID = "#commandTextField";
 
-    public CommandBoxHandle(GuiRobot guiRobot, Stage primaryStage, String stageTitle) {
-        super(guiRobot, primaryStage, stageTitle);
+    public CommandBoxHandle(Stage primaryStage, String stageTitle) {
+        super(primaryStage, stageTitle);
     }
 
     /**
@@ -38,23 +36,26 @@ public class CommandBoxHandle extends GuiHandle {
         return getTextFieldText(COMMAND_INPUT_FIELD_ID);
     }
 
+    public void pressEnter() {
+        guiRobot.type(KeyCode.ENTER);
+        guiRobot.sleep(500);
+    }
+
     /**
      * Enters the given command in the Command Box and presses enter.
      * @return true if the command succeeded, false otherwise.
      */
     public boolean runCommand(String command) {
         enterCommand(command);
-        guiRobot.type(KeyCode.ENTER);
-        guiRobot.sleep(500);
+        pressEnter();
         guiRobot.sleep(200); //Give time for the command to take effect
         return !getStyleClass().contains(CommandBox.ERROR_STYLE_CLASS);
     }
 
     public HelpWindowHandle runHelpCommand() {
         enterCommand(HelpCommand.COMMAND_WORD);
-        guiRobot.type(KeyCode.ENTER);
-        guiRobot.sleep(500);
-        return new HelpWindowHandle(guiRobot, primaryStage);
+        pressEnter();
+        return new HelpWindowHandle(primaryStage);
     }
 
     public ObservableList<String> getStyleClass() {
