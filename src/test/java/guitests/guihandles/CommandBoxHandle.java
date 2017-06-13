@@ -39,14 +39,14 @@ public class CommandBoxHandle extends GuiHandle {
      */
     public boolean runCommand(String command) {
         enterCommand(command);
-        pressEnter();
+        guiRobot.pressEnter();
         guiRobot.sleep(200); //Give time for the command to take effect
         return !getStyleClass().contains(CommandBox.ERROR_STYLE_CLASS);
     }
 
     public HelpWindowHandle runHelpCommand() {
         enterCommand(HelpCommand.COMMAND_WORD);
-        pressEnter();
+        guiRobot.pressEnter();
         return new HelpWindowHandle(guiRobot, primaryStage);
     }
 
