@@ -9,32 +9,46 @@ import seedu.address.TestApp;
  */
 public class MainGuiHandle extends GuiHandle {
 
+    private PersonListPanelHandle personListPanel;
+    private ResultDisplayHandle resultDisplay;
+    private CommandBoxHandle commandBox;
+    private StatusBarFooterHandle statusBarFooter;
+    private MainMenuHandle mainMenu;
+    private BrowserPanelHandle browserPanel;
+
     public MainGuiHandle(GuiRobot guiRobot, Stage primaryStage) {
         super(guiRobot, primaryStage, TestApp.APP_TITLE);
+
+        personListPanel = new PersonListPanelHandle(guiRobot, primaryStage);
+        resultDisplay = new ResultDisplayHandle(guiRobot, primaryStage);
+        commandBox = new CommandBoxHandle(guiRobot, primaryStage, TestApp.APP_TITLE);
+        statusBarFooter = new StatusBarFooterHandle(guiRobot, primaryStage);
+        mainMenu = new MainMenuHandle(guiRobot, primaryStage);
+        browserPanel = new BrowserPanelHandle(guiRobot, primaryStage);
     }
 
     public PersonListPanelHandle getPersonListPanel() {
-        return new PersonListPanelHandle(guiRobot, primaryStage);
+        return personListPanel;
     }
 
     public ResultDisplayHandle getResultDisplay() {
-        return new ResultDisplayHandle(guiRobot, primaryStage);
+        return resultDisplay;
     }
 
     public CommandBoxHandle getCommandBox() {
-        return new CommandBoxHandle(guiRobot, primaryStage, TestApp.APP_TITLE);
+        return commandBox;
     }
 
     public StatusBarFooterHandle getStatusBarFooter() {
-        return new StatusBarFooterHandle(guiRobot, primaryStage);
+        return statusBarFooter;
     }
 
     public MainMenuHandle getMainMenu() {
-        return new MainMenuHandle(guiRobot, primaryStage);
+        return mainMenu;
     }
 
     public BrowserPanelHandle getBrowserPanel() {
-        return new BrowserPanelHandle(guiRobot, primaryStage);
+        return browserPanel;
     }
 
     public AlertDialogHandle getAlertDialog(String title) {
