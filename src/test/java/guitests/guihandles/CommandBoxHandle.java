@@ -1,6 +1,7 @@
 package guitests.guihandles;
 
 import javafx.collections.ObservableList;
+import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.ui.CommandBox;
@@ -29,6 +30,11 @@ public class CommandBoxHandle extends GuiHandle {
 
     public String getCommandInput() {
         return getTextFieldText(COMMAND_INPUT_FIELD_ID);
+    }
+
+    public void pressEnter() {
+        guiRobot.type(KeyCode.ENTER);
+        guiRobot.sleep(500);
     }
 
     /**
