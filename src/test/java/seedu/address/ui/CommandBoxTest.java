@@ -66,7 +66,6 @@ public class CommandBoxTest extends GuiUnitTest {
         assertEquals(errorStyleOfCommandBox, commandBoxHandle.getStyleClass());
 
         guiRobot.push(KeyCode.A);
-        guiRobot.pauseForHuman();
         assertEquals(defaultStyleOfCommandBox, commandBoxHandle.getStyleClass());
     }
 
