@@ -11,6 +11,7 @@ import static seedu.address.testutil.TypicalPersons.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalPersons.INDEX_THIRD_PERSON;
 import static seedu.address.testutil.TypicalPersons.TYPICAL_PERSONS;
 import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysPerson;
+import static seedu.address.ui.testutil.GuiTestAssert.assertListMatching;
 
 import org.junit.Test;
 
@@ -149,7 +150,7 @@ public class EditCommandTest extends AddressBookGuiTest {
 
         // confirm the list now contains all previous persons plus the person with updated details
         TYPICAL_PERSONS[addressBookIndex.getZeroBased()] = editedPerson;
-        getPersonListPanel().assertListMatching(TYPICAL_PERSONS);
+        assertListMatching(getPersonListPanel(), TYPICAL_PERSONS);
         assertResultMessage(String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson));
     }
 }

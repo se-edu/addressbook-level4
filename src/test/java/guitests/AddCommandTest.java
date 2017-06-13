@@ -5,6 +5,7 @@ import static seedu.address.testutil.TypicalPersons.HOON;
 import static seedu.address.testutil.TypicalPersons.IDA;
 import static seedu.address.testutil.TypicalPersons.TYPICAL_PERSONS;
 import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysPerson;
+import static seedu.address.ui.testutil.GuiTestAssert.assertListMatching;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -37,7 +38,7 @@ public class AddCommandTest extends AddressBookGuiTest {
         //add duplicate person
         runCommand(PersonUtil.getAddCommand(HOON));
         assertResultMessage(AddCommand.MESSAGE_DUPLICATE_PERSON);
-        getPersonListPanel().assertListMatching(expectedList.toArray(new Person[expectedList.size()]));
+        assertListMatching(getPersonListPanel(), expectedList.toArray(new Person[expectedList.size()]));
 
         //add to empty list
         runCommand(ClearCommand.COMMAND_WORD);
@@ -60,7 +61,7 @@ public class AddCommandTest extends AddressBookGuiTest {
         assertCardDisplaysPerson(personToAdd, addedCard);
 
         //confirm the list now contains all previous persons plus the new person
-        getPersonListPanel().assertListMatching(expectedList.toArray(new ReadOnlyPerson[expectedList.size()]));
+        assertListMatching(getPersonListPanel(), expectedList.toArray(new ReadOnlyPerson[expectedList.size()]));
     }
 
 }
