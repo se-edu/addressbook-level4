@@ -1,11 +1,13 @@
 package guitests;
 
+import static guitests.GuiRobotUtil.MEDIUM_WAIT;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
 import guitests.guihandles.HelpWindowHandle;
+import javafx.scene.input.KeyCode;
 import seedu.address.logic.commands.HelpCommand;
 
 public class HelpWindowTest extends AddressBookGuiTest {
@@ -14,19 +16,23 @@ public class HelpWindowTest extends AddressBookGuiTest {
     public void openHelpWindow() {
         //use accelerator
         getCommandBox().clickOnTextField();
-        getMainMenu().openHelpWindowUsingAccelerator();
+        guiRobot.push(KeyCode.F1);
+        guiRobot.pauseForHuman(MEDIUM_WAIT);
         assertHelpWindowOpen();
 
         getResultDisplay().clickOnTextArea();
-        getMainMenu().openHelpWindowUsingAccelerator();
+        guiRobot.push(KeyCode.F1);
+        guiRobot.pauseForHuman(MEDIUM_WAIT);
         assertHelpWindowOpen();
 
         getPersonListPanel().clickOnListView();
-        getMainMenu().openHelpWindowUsingAccelerator();
+        guiRobot.push(KeyCode.F1);
+        guiRobot.pauseForHuman(MEDIUM_WAIT);
         assertHelpWindowOpen();
 
         getBrowserPanel().clickOnWebView();
-        getMainMenu().openHelpWindowUsingAccelerator();
+        guiRobot.push(KeyCode.F1);
+        guiRobot.pauseForHuman(MEDIUM_WAIT);
         assertHelpWindowNotOpen();
 
         //use menu button
