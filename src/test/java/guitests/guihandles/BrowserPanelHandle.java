@@ -1,25 +1,13 @@
 package guitests.guihandles;
 
-import guitests.GuiRobot;
-import javafx.stage.Stage;
-import seedu.address.TestApp;
-
 /**
- * A handler for the BrowserPanel of the UI
+ * A handler for the {@code BrowserPanel} of the UI.
  */
-public class BrowserPanelHandle extends GuiHandle {
+public class BrowserPanelHandle extends NodeHandle {
 
     private static final String BROWSER_ID = "#browser";
 
-    public BrowserPanelHandle(GuiRobot guiRobot, Stage primaryStage) {
-        super(guiRobot, primaryStage, TestApp.APP_TITLE);
+    public BrowserPanelHandle(MainWindowHandle mainWindowHandle) {
+        super(mainWindowHandle.getChildNode(BROWSER_ID));
     }
-
-    /**
-     * Clicks on the WebView.
-     */
-    public void clickOnWebView() {
-        guiRobot.clickOn(BROWSER_ID);
-    }
-
 }
