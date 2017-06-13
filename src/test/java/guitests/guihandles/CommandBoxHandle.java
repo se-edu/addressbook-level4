@@ -1,6 +1,7 @@
 package guitests.guihandles;
 
 import javafx.collections.ObservableList;
+import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.ui.CommandBox;
@@ -24,7 +25,10 @@ public class CommandBoxHandle extends GuiHandle {
     }
 
     public void enterCommand(String command) {
-        setTextField(COMMAND_INPUT_FIELD_ID, command);
+        TextField textField = getNode(COMMAND_INPUT_FIELD_ID);
+        guiRobot.clickOn(textField);
+        guiRobot.interact(() -> textField.setText(command));
+        guiRobot.sleep(500);
     }
 
     public String getCommandInput() {
