@@ -146,7 +146,6 @@ public class EditCommandTest extends AddressBookGuiTest {
 
         // confirm the new card contains the right data
         getPersonListPanel().navigateToPerson(editedPerson);
-        guiRobot.pauseForHuman();
         PersonCardHandle editedCard = getPersonListPanel().getPersonCardHandle(editedPerson);
         assertCardMatchesPerson(editedCard, editedPerson);
 

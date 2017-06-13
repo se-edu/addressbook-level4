@@ -70,6 +70,7 @@ public class PersonListPanelHandle extends NodeHandle<ListView<ReadOnlyPerson>> 
             getRootNode().scrollTo(person);
             getRootNode().getSelectionModel().select(person);
         });
+        guiRobot.pauseForHuman();
     }
 
     /**
@@ -86,6 +87,7 @@ public class PersonListPanelHandle extends NodeHandle<ListView<ReadOnlyPerson>> 
         return getPersonCardHandle(getPerson(index));
     }
 
+
     /**
      * Returns the {@code PersonCardHandle} of the specified {@code person} in the list.
      */
@@ -95,12 +97,7 @@ public class PersonListPanelHandle extends NodeHandle<ListView<ReadOnlyPerson>> 
                 .map(PersonCardHandle::new)
                 .filter(handle -> handle.isSamePerson(person))
                 .findFirst();
-
-        if (!personCardNode.isPresent()) {
-            throw new PersonNotFoundException();
-        }
-
-        return personCardNode.get();
+        return personCardNode.orElseThrow(PersonNotFoundException::new);
     }
 
     private Set<Node> getAllCardNodes() {

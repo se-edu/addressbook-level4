@@ -13,14 +13,14 @@ public class StatusBarFooterHandle extends NodeHandle<Node> {
     private static final String SYNC_STATUS_ID = "#syncStatus";
     private static final String SAVE_LOCATION_STATUS_ID = "#saveLocationStatus";
 
-    private StatusBar syncStatusNode;
-    private StatusBar saveLocationNode;
+    private final StatusBar syncStatusNode;
+    private final StatusBar saveLocationNode;
 
     public StatusBarFooterHandle(Node statusBarFooterNode) {
         super(statusBarFooterNode);
 
-        this.syncStatusNode = (StatusBar) getChildNode(SYNC_STATUS_ID);
-        this.saveLocationNode = (StatusBar) getChildNode(SAVE_LOCATION_STATUS_ID);
+        this.syncStatusNode = getChildNode(SYNC_STATUS_ID);
+        this.saveLocationNode = getChildNode(SAVE_LOCATION_STATUS_ID);
     }
 
     /**

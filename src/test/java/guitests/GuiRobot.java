@@ -81,9 +81,9 @@ public class GuiRobot extends FxRobot {
     }
 
     /**
-     * Returns the first stage, ordered by proximity to the last target window, with the stage title.
-     * For the definition of the proximity to the last target window, refer to
-     * {@code WindowFinderImpl#orderWindowsByProximityTo(Window, List<Window>)}.
+     * Returns the first stage, ordered by proximity to the current target window, with the stage title.
+     * The order that the windows are searched are as follows (proximity): current target window,
+     * children of the target window, rest of the windows.
      *
      * @throws StageNotFoundException if the stage is not found.
      */

@@ -46,7 +46,6 @@ public class AddCommandTest extends AddressBookGuiTest {
 
         //confirm the new card contains the right data
         getPersonListPanel().navigateToPerson(personToAdd);
-        guiRobot.pauseForHuman();
         PersonCardHandle addedCard = getPersonListPanel().getPersonCardHandle(personToAdd);
         assertCardMatchesPerson(addedCard, personToAdd);
 
