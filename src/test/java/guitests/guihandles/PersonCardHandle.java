@@ -78,6 +78,9 @@ public class PersonCardHandle extends NodeHandle {
         return tagsContainer;
     }
 
+    /**
+     * Returns true if this card contains the same particulars as {@code person}.
+     */
     public boolean isSamePerson(ReadOnlyPerson person) {
         return getFullName().equals(person.getName().fullName)
                 && getPhone().equals(person.getPhone().value)

@@ -17,6 +17,9 @@ public class CommandBoxHandle extends NodeHandle {
         super(mainWindowHandle.getChildNode(COMMAND_INPUT_FIELD_ID));
     }
 
+    /**
+     * Gets the text of the command box.
+     */
     public String getCommandInput() {
         return ((TextField) getNode()).getText();
     }
@@ -35,11 +38,18 @@ public class CommandBoxHandle extends NodeHandle {
         return !getStyleClass().contains(CommandBox.ERROR_STYLE_CLASS);
     }
 
+    /**
+     * Types {@code HelpCommand#COMMAND_WORD} and executes it.
+     * @return the handle of the help window.
+     */
     public HelpWindowHandle runHelpCommand() {
         runCommand(HelpCommand.COMMAND_WORD);
         return new HelpWindowHandle();
     }
 
+    /**
+     * Gets the list of style classes present in the command box.
+     */
     public ObservableList<String> getStyleClass() {
         return getNode().getStyleClass();
     }

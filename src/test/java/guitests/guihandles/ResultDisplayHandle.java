@@ -13,6 +13,9 @@ public class ResultDisplayHandle extends NodeHandle {
         super(mainWindowHandle.getChildNode(RESULT_DISPLAY_ID));
     }
 
+    /**
+     * Gets the text in the result display.
+     */
     public String getText() {
         return ((TextArea) getNode()).getText();
     }

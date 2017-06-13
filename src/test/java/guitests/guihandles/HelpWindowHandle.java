@@ -4,8 +4,6 @@ import static org.junit.Assert.assertFalse;
 
 import java.util.Optional;
 
-import guitests.GuiRobot;
-import javafx.stage.Stage;
 import javafx.stage.Window;
 
 /**
@@ -19,17 +17,17 @@ public class HelpWindowHandle extends WindowHandle {
         super(GUI_ROBOT.window(HELP_WINDOW_TITLE));
     }
 
+    /**
+     * Returns whether a help window is currently present in the application.
+     */
     public static boolean isWindowPresent() {
-        GuiRobot guiRobot = new GuiRobot();
-        Optional<Window> window = guiRobot.listTargetWindows()
-                .stream()
-                .filter(w -> w instanceof Stage
-                        && ((Stage) w).getTitle().equals(HelpWindowHandle.HELP_WINDOW_TITLE)).findAny();
-
+        Optional<Window> window = findWindow(HelpWindowHandle.HELP_WINDOW_TITLE);
         return window.isPresent();
     }
 
-
+    /**
+     * Closes the help window.
+     */
     public void closeWindow() {
         super.closeWindow();
         GUI_ROBOT.pauseForHuman();

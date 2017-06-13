@@ -27,6 +27,9 @@ public class PersonListPanelHandle extends NodeHandle {
         super(mainWindowHandle.getChildNode(PERSON_LIST_VIEW_ID));
     }
 
+    /**
+     * Returns all selected {@code ReadOnlyPerson} in the list.
+     */
     public List<ReadOnlyPerson> getSelectedPersons() {
         ListView<ReadOnlyPerson> personList = getListView();
         return personList.getSelectionModel().getSelectedItems();
@@ -87,11 +90,14 @@ public class PersonListPanelHandle extends NodeHandle {
         return true;
     }
 
+    /**
+     * Scrolls the list such that a {@code ReadOnlyPerson} with {@code name} is visible at the top of the list.
+     */
     public PersonCardHandle navigateToPerson(String name) {
         GUI_ROBOT.pauseForHuman();
         final Optional<ReadOnlyPerson> person = getListView().getItems().stream()
-                .filter(p -> p.getName().fullName.equals(name))
-                .findAny();
+                                                    .filter(p -> p.getName().fullName.equals(name))
+                                                    .findAny();
         if (!person.isPresent()) {
             throw new IllegalStateException("Name not found: " + name);
         }
@@ -100,7 +106,7 @@ public class PersonListPanelHandle extends NodeHandle {
     }
 
     /**
-     * Navigates the listview to display and select the person.
+     * Scrolls the list such that {@code ReadOnlyPerson} is visible at the top of the list.
      */
     public PersonCardHandle navigateToPerson(ReadOnlyPerson person) {
         GUI_ROBOT.interact(() -> {
@@ -126,16 +132,22 @@ public class PersonListPanelHandle extends NodeHandle {
     }
 
     /**
-     * Gets a person from the list by index
+     * Returns the person associated with the {@code index} from the list.
      */
     public ReadOnlyPerson getPerson(int index) {
         return getListView().getItems().get(index);
     }
 
+    /**
+     * Returns the person card handle of a person associated with the {@code index} from the list.
+     */
     public PersonCardHandle getPersonCardHandle(int index) {
         return getPersonCardHandle(new Person(getListView().getItems().get(index)));
     }
 
+    /**
+     * Gets the person card handle of a person in the list.
+     */
     public PersonCardHandle getPersonCardHandle(ReadOnlyPerson person) {
         Set<Node> nodes = getAllCardNodes();
         Optional<Node> personCardNode = nodes.stream()
@@ -152,6 +164,9 @@ public class PersonListPanelHandle extends NodeHandle {
         return GUI_ROBOT.lookup(CARD_PANE_ID).queryAll();
     }
 
+    /**
+     * Gets the total number of people in the list.
+     */
     public int getNumberOfPeople() {
         return getListView().getItems().size();
     }
