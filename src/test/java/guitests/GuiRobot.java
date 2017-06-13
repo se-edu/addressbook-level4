@@ -15,7 +15,7 @@ public class GuiRobot extends FxRobot {
     private static GuiRobot instance;
 
     private GuiRobot() {
-        // to prevent instances being created
+        // to prevent instances from being created
     }
 
     public static GuiRobot getInstance() {
