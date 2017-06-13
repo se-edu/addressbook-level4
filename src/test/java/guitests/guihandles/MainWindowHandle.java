@@ -18,7 +18,7 @@ public class MainWindowHandle extends StageHandle {
         super(stage);
 
         personListPanel = new PersonListPanelHandle(this);
-        resultDisplay = new ResultDisplayHandle();
+        resultDisplay = new ResultDisplayHandle(this);
         commandBox = new CommandBoxHandle(this);
         statusBarFooter = new StatusBarFooterHandle();
         mainMenu = new MainMenuHandle(this);
