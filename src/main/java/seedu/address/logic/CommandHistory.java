@@ -2,17 +2,17 @@ package seedu.address.logic;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
  * Stores the history of commands executed.
  */
 public class CommandHistory {
-    private ArrayList<String> userInputHistory;
+    private LinkedList<String> userInputHistory;
 
     public CommandHistory() {
-        userInputHistory = new ArrayList<>();
+        userInputHistory = new LinkedList<>();
     }
 
     /**
@@ -20,14 +20,14 @@ public class CommandHistory {
      */
     public void add(String userInput) {
         requireNonNull(userInput);
-        userInputHistory.add(userInput);
+        userInputHistory.offer(userInput);
     }
 
     /**
      * Returns a defensive copy of {@code userInputHistory}.
      */
     public List<String> getHistory() {
-        return new ArrayList<>(userInputHistory);
+        return new LinkedList<>(userInputHistory);
     }
 
     /**
