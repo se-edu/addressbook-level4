@@ -24,7 +24,7 @@ public class CommandBoxTest extends AddressBookGuiTest {
 
     @Before
     public void setUp() {
-        defaultStyleOfCommandBox = new ArrayList<>(commandBox.getStyleClass());
+        defaultStyleOfCommandBox = new ArrayList<>(getCommandBox().getStyleClass());
         assertFalse("CommandBox default style classes should not contain error style class.",
                     defaultStyleOfCommandBox.contains(CommandBox.ERROR_STYLE_CLASS));
 
@@ -53,14 +53,14 @@ public class CommandBoxTest extends AddressBookGuiTest {
 
     @Test
     public void commandBox_handleKeyPress() {
-        commandBox.runCommand(COMMAND_THAT_FAILS);
-        assertEquals(errorStyleOfCommandBox, commandBox.getStyleClass());
+        getCommandBox().runCommand(COMMAND_THAT_FAILS);
+        assertEquals(errorStyleOfCommandBox, getCommandBox().getStyleClass());
         guiRobot.push(KeyCode.ESCAPE);
-        assertEquals(errorStyleOfCommandBox, commandBox.getStyleClass());
+        assertEquals(errorStyleOfCommandBox, getCommandBox().getStyleClass());
 
         guiRobot.push(KeyCode.A);
         guiRobot.pauseForHuman();
-        assertEquals(defaultStyleOfCommandBox, commandBox.getStyleClass());
+        assertEquals(defaultStyleOfCommandBox, getCommandBox().getStyleClass());
     }
 
     @Test
@@ -70,12 +70,12 @@ public class CommandBoxTest extends AddressBookGuiTest {
         assertInputHistory(KeyCode.DOWN, "");
 
         // one command
-        commandBox.runCommand(COMMAND_THAT_SUCCEEDS);
+        getCommandBox().runCommand(COMMAND_THAT_SUCCEEDS);
         assertInputHistory(KeyCode.UP, COMMAND_THAT_SUCCEEDS);
         assertInputHistory(KeyCode.DOWN, "");
 
         // two commands
-        commandBox.runCommand(COMMAND_THAT_FAILS);
+        getCommandBox().runCommand(COMMAND_THAT_FAILS);
         assertInputHistory(KeyCode.UP, COMMAND_THAT_SUCCEEDS);
         assertInputHistory(KeyCode.UP, COMMAND_THAT_SUCCEEDS);
         assertInputHistory(KeyCode.DOWN, COMMAND_THAT_FAILS);
@@ -86,7 +86,7 @@ public class CommandBoxTest extends AddressBookGuiTest {
         // insert command in the middle of retrieving previous commands
         guiRobot.push(KeyCode.UP);
         String thirdCommand = "list";
-        commandBox.runCommand(thirdCommand);
+        getCommandBox().runCommand(thirdCommand);
         assertInputHistory(KeyCode.UP, thirdCommand);
         assertInputHistory(KeyCode.UP, COMMAND_THAT_FAILS);
         assertInputHistory(KeyCode.UP, COMMAND_THAT_SUCCEEDS);
@@ -102,19 +102,19 @@ public class CommandBoxTest extends AddressBookGuiTest {
         assertInputHistory(KeyCode.UP, "");
 
         // one command
-        commandBox.runCommand(COMMAND_THAT_SUCCEEDS);
+        getCommandBox().runCommand(COMMAND_THAT_SUCCEEDS);
         assertInputHistory(KeyCode.DOWN, "");
         assertInputHistory(KeyCode.UP, COMMAND_THAT_SUCCEEDS);
 
         // two commands
-        commandBox.runCommand(COMMAND_THAT_FAILS);
+        getCommandBox().runCommand(COMMAND_THAT_FAILS);
         assertInputHistory(KeyCode.DOWN, "");
         assertInputHistory(KeyCode.UP, COMMAND_THAT_FAILS);
 
         // insert command in the middle of retrieving previous commands
         guiRobot.push(KeyCode.UP);
         String thirdCommand = "list";
-        commandBox.runCommand(thirdCommand);
+        getCommandBox().runCommand(thirdCommand);
         assertInputHistory(KeyCode.DOWN, "");
         assertInputHistory(KeyCode.UP, thirdCommand);
     }
@@ -126,9 +126,9 @@ public class CommandBoxTest extends AddressBookGuiTest {
      * - the command box has only one ERROR_STYLE_CLASS, with other style classes untouched.
      */
     private void assertBehaviorForFailedCommand() {
-        assertFalse(commandBox.runCommand(COMMAND_THAT_FAILS));
-        assertEquals(COMMAND_THAT_FAILS, commandBox.getCommandInput());
-        assertEquals(errorStyleOfCommandBox, commandBox.getStyleClass());
+        assertFalse(getCommandBox().runCommand(COMMAND_THAT_FAILS));
+        assertEquals(COMMAND_THAT_FAILS, getCommandBox().getCommandInput());
+        assertEquals(errorStyleOfCommandBox, getCommandBox().getStyleClass());
     }
 
     /**
@@ -138,9 +138,9 @@ public class CommandBoxTest extends AddressBookGuiTest {
      * - the command box does not have any ERROR_STYLE_CLASS, with style classes the same as default.
      */
     private void assertBehaviorForSuccessfulCommand() {
-        assertTrue(commandBox.runCommand(COMMAND_THAT_SUCCEEDS));
-        assertEquals("", commandBox.getCommandInput());
-        assertEquals(defaultStyleOfCommandBox, commandBox.getStyleClass());
+        assertTrue(getCommandBox().runCommand(COMMAND_THAT_SUCCEEDS));
+        assertEquals("", getCommandBox().getCommandInput());
+        assertEquals(defaultStyleOfCommandBox, getCommandBox().getStyleClass());
     }
 
     /**
@@ -148,6 +148,6 @@ public class CommandBoxTest extends AddressBookGuiTest {
      */
     private void assertInputHistory(KeyCode keycode, String expectedCommand) {
         guiRobot.push(keycode);
-        assertEquals(expectedCommand, commandBox.getCommandInput());
+        assertEquals(expectedCommand, getCommandBox().getCommandInput());
     }
 }
