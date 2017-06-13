@@ -3,7 +3,6 @@ package guitests.guihandles;
 import static guitests.GuiRobotUtil.SHORT_WAIT;
 
 import javafx.collections.ObservableList;
-import seedu.address.logic.commands.HelpCommand;
 import seedu.address.ui.CommandBox;
 
 /**
@@ -37,11 +36,6 @@ public class CommandBoxHandle extends GuiHandle {
         guiRobot.pressEnter();
         guiRobot.pauseForHuman(SHORT_WAIT);
         return !getStyleClass().contains(CommandBox.ERROR_STYLE_CLASS);
-    }
-
-    public void runHelpCommand() {
-        guiRobot.enterText(getNode(COMMAND_INPUT_FIELD_ID), HelpCommand.COMMAND_WORD);
-        guiRobot.pressEnter();
     }
 
     public ObservableList<String> getStyleClass() {
