@@ -1,25 +1,34 @@
 package guitests.guihandles;
 
-/**
- * Provides a handle to the help window of the app.
- */
-public class HelpWindowHandle extends GuiHandle {
+import static org.junit.Assert.assertFalse;
 
-    private static final String HELP_WINDOW_TITLE = "Help";
-    private static final String HELP_WINDOW_ROOT_FIELD_ID = "#helpWindowRoot";
+import guitests.GuiRobot;
+
+/**
+ * A handle to the {@code HelpWindow} of the application.
+ */
+public class HelpWindowHandle extends StageHandle {
+
+    public static final String HELP_WINDOW_TITLE = "Help";
 
     public HelpWindowHandle() {
-        super(HELP_WINDOW_TITLE);
-        guiRobot.pauseForHuman();
+        super(new GuiRobot().getStage(HELP_WINDOW_TITLE).get());
     }
 
-    public boolean isWindowOpen() {
-        return guiRobot.lookup(HELP_WINDOW_ROOT_FIELD_ID).tryQuery().isPresent();
+    /**
+     * Returns whether a help window is currently present in the application.
+     */
+    public static boolean isWindowPresent() {
+        return new GuiRobot().getStage(HELP_WINDOW_TITLE).isPresent();
     }
 
+    /**
+     * Closes the help window.
+     */
     public void closeWindow() {
-        super.closeWindow();
+        super.closeStage();
         guiRobot.pauseForHuman();
-    }
 
+        assertFalse(isWindowPresent());
+    }
 }
