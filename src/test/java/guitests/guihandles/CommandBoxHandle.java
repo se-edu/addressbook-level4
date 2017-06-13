@@ -3,62 +3,44 @@ package guitests.guihandles;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
-import seedu.address.logic.commands.HelpCommand;
 import seedu.address.ui.CommandBox;
 
 /**
- * A handle to the Command Box in the GUI.
+ * A handle to the {@code CommandBox} in the GUI.
  */
-public class CommandBoxHandle extends GuiHandle {
+public class CommandBoxHandle extends NodeHandle<TextField> {
 
-    private static final String COMMAND_INPUT_FIELD_ID = "#commandTextField";
+    public static final String COMMAND_INPUT_FIELD_ID = "#commandTextField";
 
-    public CommandBoxHandle(String stageTitle) {
-        super(stageTitle);
+    public CommandBoxHandle(TextField commandBoxNode) {
+        super(commandBoxNode);
     }
 
     /**
-     * Clicks on the TextField.
+     * Returns the text in the command box.
      */
-    public void clickOnTextField() {
-        guiRobot.clickOn(COMMAND_INPUT_FIELD_ID);
-    }
-
-    public void enterCommand(String command) {
-        TextField textField = getNode(COMMAND_INPUT_FIELD_ID);
-        guiRobot.clickOn(textField);
-        guiRobot.interact(() -> textField.setText(command));
-        guiRobot.pauseForHuman();
-    }
-
-    public String getCommandInput() {
-        TextField textField = getNode(COMMAND_INPUT_FIELD_ID);
-        return textField.getText();
-    }
-
-    public void pressEnter() {
-        guiRobot.type(KeyCode.ENTER);
-        guiRobot.pauseForHuman();
+    public String getInput() {
+        return getRootNode().getText();
     }
 
     /**
      * Enters the given command in the Command Box and presses enter.
      * @return true if the command succeeded, false otherwise.
      */
-    public boolean runCommand(String command) {
-        enterCommand(command);
-        pressEnter();
+    public boolean run(String command) {
+        click();
+        guiRobot.interact(() -> getRootNode().setText(command));
+        guiRobot.pauseForHuman();
+
+        guiRobot.type(KeyCode.ENTER);
         guiRobot.pauseForHuman();
         return !getStyleClass().contains(CommandBox.ERROR_STYLE_CLASS);
     }
 
-    public HelpWindowHandle runHelpCommand() {
-        enterCommand(HelpCommand.COMMAND_WORD);
-        pressEnter();
-        return new HelpWindowHandle();
-    }
-
+    /**
+     * Returns the list of style classes present in the command box.
+     */
     public ObservableList<String> getStyleClass() {
-        return getNode(COMMAND_INPUT_FIELD_ID).getStyleClass();
+        return getRootNode().getStyleClass();
     }
 }

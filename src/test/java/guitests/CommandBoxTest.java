@@ -121,25 +121,25 @@ public class CommandBoxTest extends AddressBookGuiTest {
 
     /**
      * Runs a command that fails, then verifies that
-     * - the return value of runCommand(...) is false,
+     * - the return value of run(...) is false,
      * - the text remains,
      * - the command box has only one ERROR_STYLE_CLASS, with other style classes untouched.
      */
     private void assertBehaviorForFailedCommand() {
         assertFalse(runCommand(COMMAND_THAT_FAILS));
-        assertEquals(COMMAND_THAT_FAILS, getCommandBox().getCommandInput());
+        assertEquals(COMMAND_THAT_FAILS, getCommandBox().getInput());
         assertEquals(errorStyleOfCommandBox, getCommandBox().getStyleClass());
     }
 
     /**
      * Runs a command that succeeds, then verifies that
-     * - the return value of runCommand(...) is true,
+     * - the return value of run(...) is true,
      * - the text is cleared,
      * - the command box does not have any ERROR_STYLE_CLASS, with style classes the same as default.
      */
     private void assertBehaviorForSuccessfulCommand() {
         assertTrue(runCommand(COMMAND_THAT_SUCCEEDS));
-        assertEquals("", getCommandBox().getCommandInput());
+        assertEquals("", getCommandBox().getInput());
         assertEquals(defaultStyleOfCommandBox, getCommandBox().getStyleClass());
     }
 
@@ -148,6 +148,6 @@ public class CommandBoxTest extends AddressBookGuiTest {
      */
     private void assertInputHistory(KeyCode keycode, String expectedCommand) {
         guiRobot.push(keycode);
-        assertEquals(expectedCommand, getCommandBox().getCommandInput());
+        assertEquals(expectedCommand, getCommandBox().getInput());
     }
 }
