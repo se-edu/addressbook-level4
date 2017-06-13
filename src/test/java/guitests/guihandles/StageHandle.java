@@ -29,6 +29,7 @@ public abstract class StageHandle {
      */
     public void close() {
         guiRobot.interact(stage::close);
+        assert !stage.isShowing();
     }
 
     /**
