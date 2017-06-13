@@ -6,7 +6,6 @@ import java.util.stream.Collectors;
 
 import javafx.scene.Node;
 import javafx.scene.control.Label;
-import javafx.scene.control.Labeled;
 import javafx.scene.layout.Region;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.tag.Tag;
@@ -22,12 +21,12 @@ public class PersonCardHandle extends NodeHandle<Node> {
     private static final String EMAIL_FIELD_ID = "#email";
     private static final String TAGS_FIELD_ID = "#tags";
 
-    private Label idLabel;
-    private Label nameLabel;
-    private Label addressLabel;
-    private Label phoneLabel;
-    private Label emailLabel;
-    private Region tagsContainer;
+    private final Label idLabel;
+    private final Label nameLabel;
+    private final Label addressLabel;
+    private final Label phoneLabel;
+    private final Label emailLabel;
+    private final List<Label> tagLabels;
 
     public PersonCardHandle(Node cardNode) {
         super(cardNode);
@@ -37,7 +36,13 @@ public class PersonCardHandle extends NodeHandle<Node> {
         this.addressLabel = getChildNode(ADDRESS_FIELD_ID);
         this.phoneLabel = getChildNode(PHONE_FIELD_ID);
         this.emailLabel = getChildNode(EMAIL_FIELD_ID);
-        this.tagsContainer = getChildNode(TAGS_FIELD_ID);
+
+        Region tagsContainer = getChildNode(TAGS_FIELD_ID);
+        this.tagLabels = tagsContainer
+                .getChildrenUnmodifiable()
+                .stream()
+                .map(Label.class::cast)
+                .collect(Collectors.toList());
     }
 
     public String getId() {
@@ -60,11 +65,10 @@ public class PersonCardHandle extends NodeHandle<Node> {
         return emailLabel.getText();
     }
 
-    private List<String> getTagsFromSelf() {
-        return tagsContainer
-                .getChildrenUnmodifiable()
+    public List<String> getTags() {
+        return tagLabels
                 .stream()
-                .map(node -> ((Labeled) node).getText())
+                .map(Label::getText)
                 .collect(Collectors.toList());
     }
 
@@ -83,21 +87,7 @@ public class PersonCardHandle extends NodeHandle<Node> {
                 && getPhone().equals(person.getPhone().value)
                 && getEmail().equals(person.getEmail().value)
                 && getAddress().equals(person.getAddress().value)
-                && getTagsFromSelf().equals(getTagsFromSet(person.getTags()));
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (!(obj instanceof PersonCardHandle)) {
-            return super.equals(obj);
-        }
-
-        PersonCardHandle handle = (PersonCardHandle) obj;
-        return getName().equals(handle.getName())
-                && getPhone().equals(handle.getPhone())
-                && getEmail().equals(handle.getEmail())
-                && getAddress().equals(handle.getAddress())
-                && getTagsFromSelf().equals(handle.getTagsFromSelf());
+                && getTags().equals(getTagsFromSet(person.getTags()));
     }
 
     @Override
