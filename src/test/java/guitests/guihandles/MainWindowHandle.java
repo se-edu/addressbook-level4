@@ -1,11 +1,12 @@
 package guitests.guihandles;
 
+import javafx.stage.Stage;
 import seedu.address.TestApp;
 
 /**
  * Provides a handle for {@code MainWindow}.
  */
-public class MainWindowHandle extends GuiHandle {
+public class MainWindowHandle extends StageHandle {
 
     private final PersonListPanelHandle personListPanel;
     private final ResultDisplayHandle resultDisplay;
@@ -14,8 +15,8 @@ public class MainWindowHandle extends GuiHandle {
     private final MainMenuHandle mainMenu;
     private final BrowserPanelHandle browserPanel;
 
-    public MainWindowHandle() {
-        super(TestApp.APP_TITLE);
+    public MainWindowHandle(Stage stage) {
+        super(stage);
 
         personListPanel = new PersonListPanelHandle();
         resultDisplay = new ResultDisplayHandle();
