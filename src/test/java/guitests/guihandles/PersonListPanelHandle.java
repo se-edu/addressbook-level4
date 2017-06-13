@@ -107,10 +107,8 @@ public class PersonListPanelHandle extends GuiHandle {
     /**
      * Navigates the listview to display and select the person.
      */
-    public PersonCardHandle navigateToPerson(ReadOnlyPerson person) throws PersonNotFoundException {
-        if (!getListView().getItems().contains(person)) {
-            throw new PersonNotFoundException();
-        }
+    private PersonCardHandle navigateToPerson(ReadOnlyPerson person) {
+        assert getListView().getItems().contains(person);
 
         guiRobot.interact(() -> {
             getListView().scrollTo(person);
