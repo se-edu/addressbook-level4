@@ -87,7 +87,6 @@ public class PersonListPanelHandle extends NodeHandle<ListView<ReadOnlyPerson>> 
         return getPersonCardHandle(getPerson(index));
     }
 
-
     /**
      * Returns the {@code PersonCardHandle} of the specified {@code person} in the list.
      */
