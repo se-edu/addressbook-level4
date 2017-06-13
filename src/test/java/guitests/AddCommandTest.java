@@ -28,30 +28,30 @@ public class AddCommandTest extends AddressBookGuiTest {
         currentList = TestUtil.addPersonsToList(currentList, personToAdd);
 
         //add duplicate person
-        commandBox.runCommand(PersonUtil.getAddCommand(td.hoon));
+        getCommandBox().runCommand(PersonUtil.getAddCommand(td.hoon));
         assertResultMessage(AddCommand.MESSAGE_DUPLICATE_PERSON);
-        assertTrue(personListPanel.isListMatching(currentList));
+        assertTrue(getPersonListPanel().isListMatching(currentList));
 
         //add to empty list
-        commandBox.runCommand(ClearCommand.COMMAND_WORD);
+        getCommandBox().runCommand(ClearCommand.COMMAND_WORD);
         assertAddSuccess(td.alice);
 
         //invalid command
-        commandBox.runCommand("adds Johnny");
+        getCommandBox().runCommand("adds Johnny");
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
     }
 
     private void assertAddSuccess(Person personToAdd, Person... currentList) throws Exception {
-        commandBox.runCommand(PersonUtil.getAddCommand(personToAdd));
+        getCommandBox().runCommand(PersonUtil.getAddCommand(personToAdd));
 
         //confirm the new card contains the right data
-        personListPanel.navigateToPerson(personToAdd);
-        PersonCardHandle addedCard = personListPanel.getPersonCardHandle(personToAdd);
+        getPersonListPanel().navigateToPerson(personToAdd);
+        PersonCardHandle addedCard = getPersonListPanel().getPersonCardHandle(personToAdd);
         assertCardMatchesPerson(addedCard, personToAdd);
 
         //confirm the list now contains all previous persons plus the new person
         Person[] expectedList = TestUtil.addPersonsToList(currentList, personToAdd);
-        assertTrue(personListPanel.isListMatching(expectedList));
+        assertTrue(getPersonListPanel().isListMatching(expectedList));
     }
 
 }
