@@ -26,14 +26,14 @@ public class MainMenuHandle extends NodeHandle {
      * to the menu bar in {@code MainWindow}.
      */
     public void openHelpWindowUsingAccelerator() {
-        GUI_ROBOT.push(KeyCode.F1);
-        GUI_ROBOT.pauseForHuman();
+        guiRobot.push(KeyCode.F1);
+        guiRobot.pauseForHuman();
     }
 
     /**
      * Clicks on the menu items in order.
      */
     public void clickOnMenuItemsSequentially(String... menuItems) {
-        Arrays.stream(menuItems).forEach(GUI_ROBOT::clickOn);
+        Arrays.stream(menuItems).forEach(guiRobot::clickOn);
     }
 }

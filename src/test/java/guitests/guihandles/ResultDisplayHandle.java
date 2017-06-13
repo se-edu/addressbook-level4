@@ -17,6 +17,6 @@ public class ResultDisplayHandle extends NodeHandle {
      * Gets the text in the result display.
      */
     public String getText() {
-        return ((TextArea) getNode()).getText();
+        return ((TextArea) getRootNode()).getText();
     }
 }

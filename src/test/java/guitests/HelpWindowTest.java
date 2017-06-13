@@ -14,32 +14,32 @@ public class HelpWindowTest extends AddressBookGuiTest {
     @Test
     public void openHelpWindow() {
         //use accelerator
-        getCommandBox().clickOnSelf();
+        getCommandBox().clickOnRootNode();
         getMainMenu().openHelpWindowUsingAccelerator();
         assertHelpWindowOpen();
 
-        mainWindowHandle.focusOnWindow();   // needed in headless mode, otherwise main window loses focus
-        getResultDisplay().clickOnSelf();
+        mainWindowHandle.focusOnStage();   // needed in headless mode, otherwise main window loses focus
+        getResultDisplay().clickOnRootNode();
         getMainMenu().openHelpWindowUsingAccelerator();
         assertHelpWindowOpen();
 
-        mainWindowHandle.focusOnWindow();
-        getPersonListPanel().clickOnSelf();
+        mainWindowHandle.focusOnStage();
+        getPersonListPanel().clickOnRootNode();
         getMainMenu().openHelpWindowUsingAccelerator();
         assertHelpWindowOpen();
 
-        mainWindowHandle.focusOnWindow();
-        getBrowserPanel().clickOnSelf();
+        mainWindowHandle.focusOnStage();
+        getBrowserPanel().clickOnRootNode();
         getMainMenu().openHelpWindowUsingAccelerator();
         assertHelpWindowNotOpen();
 
         //use menu button
-        mainWindowHandle.focusOnWindow();
+        mainWindowHandle.focusOnStage();
         getMainMenu().openHelpWindowUsingMenu();
         assertHelpWindowOpen();
 
         //use command box
-        mainWindowHandle.focusOnWindow();
+        mainWindowHandle.focusOnStage();
         getCommandBox().runHelpCommand();
         assertHelpWindowOpen();
     }

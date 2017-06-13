@@ -39,7 +39,7 @@ public class PersonListPanelHandle extends NodeHandle {
     }
 
     public ListView<ReadOnlyPerson> getListView() {
-        return (ListView<ReadOnlyPerson>) getNode();
+        return (ListView<ReadOnlyPerson>) getRootNode();
     }
 
     /**
@@ -53,8 +53,8 @@ public class PersonListPanelHandle extends NodeHandle {
 
         for (int i = 0; i < persons.length; i++) {
             final int scrollTo = i; // lambda expression needs i to be final
-            GUI_ROBOT.interact(() -> getListView().scrollTo(scrollTo));
-            GUI_ROBOT.pauseForHuman();
+            guiRobot.interact(() -> getListView().scrollTo(scrollTo));
+            guiRobot.pauseForHuman();
             if (!TestUtil.compareCardAndPerson(getPersonCardHandle(i), persons[i])) {
                 return false;
             }
@@ -70,11 +70,11 @@ public class PersonListPanelHandle extends NodeHandle {
             throw new PersonNotFoundException();
         }
 
-        GUI_ROBOT.interact(() -> {
+        guiRobot.interact(() -> {
             getListView().scrollTo(person);
             getListView().getSelectionModel().select(person);
         });
-        GUI_ROBOT.pauseForHuman();
+        guiRobot.pauseForHuman();
     }
 
     /**
@@ -113,7 +113,7 @@ public class PersonListPanelHandle extends NodeHandle {
     }
 
     private Set<Node> getAllCardNodes() {
-        return GUI_ROBOT.lookup(CARD_PANE_ID).queryAll();
+        return guiRobot.lookup(CARD_PANE_ID).queryAll();
     }
 
     /**

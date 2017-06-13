@@ -21,7 +21,7 @@ public class CommandBoxHandle extends NodeHandle {
      * Gets the text of the command box.
      */
     public String getCommandInput() {
-        return ((TextField) getNode()).getText();
+        return ((TextField) getRootNode()).getText();
     }
 
     /**
@@ -29,12 +29,12 @@ public class CommandBoxHandle extends NodeHandle {
      * @return true if the command succeeded, false otherwise.
      */
     public boolean runCommand(String command) {
-        GUI_ROBOT.clickOn(getNode());
-        GUI_ROBOT.interact(() -> ((TextField) getNode()).setText(command));
-        GUI_ROBOT.pauseForHuman();
+        guiRobot.clickOn(getRootNode());
+        guiRobot.interact(() -> ((TextField) getRootNode()).setText(command));
+        guiRobot.pauseForHuman();
 
-        GUI_ROBOT.type(KeyCode.ENTER);
-        GUI_ROBOT.pauseForHuman();
+        guiRobot.type(KeyCode.ENTER);
+        guiRobot.pauseForHuman();
         return !getStyleClass().contains(CommandBox.ERROR_STYLE_CLASS);
     }
 
@@ -51,6 +51,6 @@ public class CommandBoxHandle extends NodeHandle {
      * Gets the list of style classes present in the command box.
      */
     public ObservableList<String> getStyleClass() {
-        return getNode().getStyleClass();
+        return getRootNode().getStyleClass();
     }
 }

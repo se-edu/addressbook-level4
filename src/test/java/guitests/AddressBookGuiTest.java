@@ -66,7 +66,7 @@ public abstract class AddressBookGuiTest {
         while (!stage.isShowing());
 
         mainWindowHandle = new MainWindowHandle(stage);
-        mainWindowHandle.focusOnWindow();
+        mainWindowHandle.focusOnStage();
     }
 
     /**

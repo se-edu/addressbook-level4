@@ -1,11 +1,11 @@
 package guitests.guihandles;
 
-import javafx.stage.Window;
+import javafx.stage.Stage;
 
 /**
  * Provides a handle for {@code MainWindow}.
  */
-public class MainWindowHandle extends WindowHandle {
+public class MainWindowHandle extends StageHandle {
 
     private final PersonListPanelHandle personListPanel;
     private final ResultDisplayHandle resultDisplay;
@@ -14,8 +14,8 @@ public class MainWindowHandle extends WindowHandle {
     private final MainMenuHandle mainMenu;
     private final BrowserPanelHandle browserPanel;
 
-    public MainWindowHandle(Window window) {
-        super(window);
+    public MainWindowHandle(Stage stage) {
+        super(stage);
 
         personListPanel = new PersonListPanelHandle(this);
         resultDisplay = new ResultDisplayHandle(this);
