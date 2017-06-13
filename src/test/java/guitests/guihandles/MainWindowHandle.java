@@ -2,7 +2,6 @@ package guitests.guihandles;
 
 import guitests.GuiRobot;
 import javafx.stage.Window;
-import seedu.address.TestApp;
 
 /**
  * Provides a handle for {@code MainWindow}.
@@ -21,7 +20,7 @@ public class MainWindowHandle extends WindowHandle {
 
         personListPanel = new PersonListPanelHandle(new GuiRobot(), null);
         resultDisplay = new ResultDisplayHandle(new GuiRobot(), null);
-        commandBox = new CommandBoxHandle(new GuiRobot(), null, TestApp.APP_TITLE);
+        commandBox = new CommandBoxHandle(this);
         statusBarFooter = new StatusBarFooterHandle(new GuiRobot(), null);
         mainMenu = new MainMenuHandle(new GuiRobot(), null);
         browserPanel = new BrowserPanelHandle(this);
