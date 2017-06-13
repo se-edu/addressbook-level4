@@ -14,34 +14,43 @@ import seedu.address.model.tag.Tag;
 /**
  * Provides a handle to a person card in the person list panel.
  */
-public class PersonCardHandle extends GuiHandle {
+public class PersonCardHandle extends NodeHandle {
     private static final String NAME_FIELD_ID = "#name";
     private static final String ADDRESS_FIELD_ID = "#address";
     private static final String PHONE_FIELD_ID = "#phone";
     private static final String EMAIL_FIELD_ID = "#email";
     private static final String TAGS_FIELD_ID = "#tags";
 
-    private Node node;
+    private Label nameLabel;
+    private Label addressLabel;
+    private Label phoneLabel;
+    private Label emailLabel;
+    private Region tagsContainer;
 
-    public PersonCardHandle(Node node) {
-        super(null);
-        this.node = node;
+    public PersonCardHandle(Node cardNode) {
+        super(cardNode);
+
+        this.nameLabel = (Label) getChildNode(NAME_FIELD_ID);
+        this.addressLabel = (Label) getChildNode(ADDRESS_FIELD_ID);
+        this.phoneLabel = (Label) getChildNode(PHONE_FIELD_ID);
+        this.emailLabel = (Label) getChildNode(EMAIL_FIELD_ID);
+        this.tagsContainer = (Region) getChildNode(TAGS_FIELD_ID);
     }
 
     public String getFullName() {
-        return getTextFromLabel(NAME_FIELD_ID);
+        return nameLabel.getText();
     }
 
     public String getAddress() {
-        return getTextFromLabel(ADDRESS_FIELD_ID);
+        return addressLabel.getText();
     }
 
     public String getPhone() {
-        return getTextFromLabel(PHONE_FIELD_ID);
+        return phoneLabel.getText();
     }
 
     public String getEmail() {
-        return getTextFromLabel(EMAIL_FIELD_ID);
+        return emailLabel.getText();
     }
 
     public List<String> getTags() {
@@ -63,14 +72,13 @@ public class PersonCardHandle extends GuiHandle {
                 .collect(Collectors.toList());
     }
 
-    private String getTextFromLabel(String fieldId) {
-        return ((Label) guiRobot.from(node).lookup(fieldId).tryQuery().get()).getText();
-    }
-
     private Region getTagsContainer() {
-        return guiRobot.from(node).lookup(TAGS_FIELD_ID).query();
+        return tagsContainer;
     }
 
+    /**
+     * Returns true if this card contains the same particulars as {@code person}.
+     */
     public boolean isSamePerson(ReadOnlyPerson person) {
         return getFullName().equals(person.getName().fullName)
                 && getPhone().equals(person.getPhone().value)
