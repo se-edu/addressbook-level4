@@ -24,7 +24,7 @@ public class MainWindowHandle extends WindowHandle {
         commandBox = new CommandBoxHandle(new GuiRobot(), null, TestApp.APP_TITLE);
         statusBarFooter = new StatusBarFooterHandle(new GuiRobot(), null);
         mainMenu = new MainMenuHandle(new GuiRobot(), null);
-        browserPanel = new BrowserPanelHandle(new GuiRobot(), null);
+        browserPanel = new BrowserPanelHandle(this);
     }
 
     public PersonListPanelHandle getPersonListPanel() {
