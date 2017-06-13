@@ -40,6 +40,7 @@ public abstract class AddressBookGuiTest {
     public TestName name = new TestName();
 
     protected TypicalPersons td = new TypicalPersons();
+    protected GuiRobot guiRobot = new GuiRobot();
 
     /*
      *   Handles to GUI elements present at the start up are created in advance
@@ -68,7 +69,7 @@ public abstract class AddressBookGuiTest {
     @Before
     public void setup() throws Exception {
         FxToolkit.setupStage((stage) -> {
-            mainGui = new MainWindowHandle(new GuiRobot(), stage);
+            mainGui = new MainWindowHandle(guiRobot, stage);
             mainMenu = mainGui.getMainMenu();
             personListPanel = mainGui.getPersonListPanel();
             resultDisplay = mainGui.getResultDisplay();
