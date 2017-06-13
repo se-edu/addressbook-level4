@@ -1,7 +1,6 @@
 package seedu.address.ui.testutil;
 
 import static org.junit.Assert.assertEquals;
-import static seedu.address.commons.util.AppUtil.checkArgument;
 
 import java.util.stream.Collectors;
 
@@ -41,15 +40,12 @@ public class GuiTestAssert {
     }
 
     /**
-     * Asserts that the list in {@code personListPanelHandle} is showing the person details correctly and in the
-     * correct order. The {@code PersonListPanel} list will be scrolled when verifying each individual person.
-     * @param persons A list of person in the correct order.
+     * Asserts that the list in {@code personListPanelHandle} displays the details of {@code persons} correctly and
+     * in the correct order. The {@code PersonListPanel} list will be scrolled when verifying each individual person.
      */
     public static void assertListMatching(PersonListPanelHandle personListPanelHandle, ReadOnlyPerson... persons)
             throws PersonNotFoundException {
         GuiRobot guiRobot = new GuiRobot();
-        checkArgument(personListPanelHandle.getListSize() == persons.length,
-                "List size mismatched\nExpected " + personListPanelHandle.getListSize() + " persons");
 
         for (int i = 0; i < persons.length; i++) {
             personListPanelHandle.scrollTo(Index.fromZeroBased(i));
