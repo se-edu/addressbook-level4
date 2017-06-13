@@ -29,10 +29,10 @@ public class CommandBoxHandle extends GuiHandle {
     }
 
     /**
-     * Enters the given command in the Command Box and presses enter.
+     * Enters the given {@code command} in the {@code CommandBox} and presses enter.
      * @return true if the command succeeded, false otherwise.
      */
-    public boolean runCommand(String command) {
+    public boolean submitCommand(String command) {
         guiRobot.enterText(getNode(COMMAND_INPUT_FIELD_ID), command);
         guiRobot.pressEnter();
         guiRobot.pauseForHuman(SHORT_WAIT);
