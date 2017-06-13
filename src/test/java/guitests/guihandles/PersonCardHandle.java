@@ -5,6 +5,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.scene.control.Labeled;
 import javafx.scene.layout.Region;
 import seedu.address.model.person.ReadOnlyPerson;
@@ -20,38 +21,39 @@ public class PersonCardHandle extends GuiHandle {
     private static final String EMAIL_FIELD_ID = "#email";
     private static final String TAGS_FIELD_ID = "#tags";
 
-    private Node node;
+    private Label nameLabel;
+    private Label addressLabel;
+    private Label phoneLabel;
+    private Label emailLabel;
+    private Region tagsContainer;
 
     public PersonCardHandle(Node node) {
         super(null);
-        this.node = node;
-    }
 
-    protected String getTextFromLabel(String fieldId) {
-        return getTextFromLabel(fieldId, node);
+        this.nameLabel = getNode(node, NAME_FIELD_ID);
+        this.addressLabel = getNode(node, ADDRESS_FIELD_ID);
+        this.phoneLabel = getNode(node, PHONE_FIELD_ID);
+        this.emailLabel = getNode(node, EMAIL_FIELD_ID);
+        this.tagsContainer = getNode(node, TAGS_FIELD_ID);
     }
 
     public String getFullName() {
-        return getTextFromLabel(NAME_FIELD_ID);
+        return nameLabel.getText();
     }
 
     public String getAddress() {
-        return getTextFromLabel(ADDRESS_FIELD_ID);
+        return addressLabel.getText();
     }
 
     public String getPhone() {
-        return getTextFromLabel(PHONE_FIELD_ID);
+        return phoneLabel.getText();
     }
 
     public String getEmail() {
-        return getTextFromLabel(EMAIL_FIELD_ID);
+        return emailLabel.getText();
     }
 
-    public List<String> getTags() {
-        return getTags(getTagsContainer());
-    }
-
-    private List<String> getTags(Region tagsContainer) {
+    private List<String> getTagsFromSelf() {
         return tagsContainer
                 .getChildrenUnmodifiable()
                 .stream()
@@ -59,36 +61,36 @@ public class PersonCardHandle extends GuiHandle {
                 .collect(Collectors.toList());
     }
 
-    private List<String> getTags(Set<Tag> tags) {
+    private List<String> getTagsFromSet(Set<Tag> tags) {
         return tags
                 .stream()
                 .map(tag -> tag.tagName)
                 .collect(Collectors.toList());
     }
 
-    private Region getTagsContainer() {
-        return guiRobot.from(node).lookup(TAGS_FIELD_ID).query();
-    }
-
-    public boolean isSamePerson(ReadOnlyPerson person) {
+    /**
+     * Returns true if {@code PersonCard} belongs to {@code person}.
+     */
+    public boolean belongsTo(ReadOnlyPerson person) {
         return getFullName().equals(person.getName().fullName)
                 && getPhone().equals(person.getPhone().value)
                 && getEmail().equals(person.getEmail().value)
                 && getAddress().equals(person.getAddress().value)
-                && getTags().equals(getTags(person.getTags()));
+                && getTagsFromSelf().equals(getTagsFromSet(person.getTags()));
     }
 
     @Override
     public boolean equals(Object obj) {
-        if (obj instanceof PersonCardHandle) {
-            PersonCardHandle handle = (PersonCardHandle) obj;
-            return getFullName().equals(handle.getFullName())
-                    && getPhone().equals(handle.getPhone())
-                    && getEmail().equals(handle.getEmail())
-                    && getAddress().equals(handle.getAddress())
-                    && getTags().equals(handle.getTags());
+        if (!(obj instanceof PersonCardHandle)) {
+            return super.equals(obj);
         }
-        return super.equals(obj);
+
+        PersonCardHandle handle = (PersonCardHandle) obj;
+        return getFullName().equals(handle.getFullName())
+                && getPhone().equals(handle.getPhone())
+                && getEmail().equals(handle.getEmail())
+                && getAddress().equals(handle.getAddress())
+                && getTagsFromSelf().equals(handle.getTagsFromSelf());
     }
 
     @Override

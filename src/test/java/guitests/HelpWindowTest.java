@@ -6,34 +6,36 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import guitests.guihandles.HelpWindowHandle;
+import javafx.scene.input.KeyCode;
+import seedu.address.logic.commands.HelpCommand;
 
 public class HelpWindowTest extends AddressBookGuiTest {
 
     @Test
     public void openHelpWindow() {
         //use accelerator
-        commandBox.clickOnTextField();
-        mainMenu.openHelpWindowUsingAccelerator();
+        getCommandBox().clickOnTextField();
+        guiRobot.push(KeyCode.F1);
         assertHelpWindowOpen();
 
-        resultDisplay.clickOnTextArea();
-        mainMenu.openHelpWindowUsingAccelerator();
+        getResultDisplay().clickOnTextArea();
+        guiRobot.push(KeyCode.F1);
         assertHelpWindowOpen();
 
-        personListPanel.clickOnListView();
-        mainMenu.openHelpWindowUsingAccelerator();
+        getPersonListPanel().clickOnListView();
+        guiRobot.push(KeyCode.F1);
         assertHelpWindowOpen();
 
-        browserPanel.clickOnWebView();
-        mainMenu.openHelpWindowUsingAccelerator();
+        getBrowserPanel().clickOnWebView();
+        guiRobot.push(KeyCode.F1);
         assertHelpWindowNotOpen();
 
         //use menu button
-        mainMenu.openHelpWindowUsingMenu();
+        getMainMenu().openHelpWindowUsingMenu();
         assertHelpWindowOpen();
 
         //use command
-        commandBox.runHelpCommand();
+        getCommandBox().enterCommand(HelpCommand.COMMAND_WORD);
         assertHelpWindowOpen();
     }
 

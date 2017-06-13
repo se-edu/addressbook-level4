@@ -1,24 +1,35 @@
 package guitests;
 
+import static guitests.GuiRobotUtil.MEDIUM_WAIT;
+
 import java.util.function.BooleanSupplier;
 
 import org.testfx.api.FxRobot;
 
+import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 
 /**
  * Robot used to simulate user actions on the GUI.
  * Extends {@link FxRobot} by adding some customized functionality and workarounds.
+ *
+ * {@code GuiRobot} is designed to be a singleton as some functionalities in
+ * {@code FxRobot} also acts like a singleton.
  */
 public class GuiRobot extends FxRobot {
-
     private static final String PROPERTY_GUITESTS_HEADLESS = "guitests.headless";
+    private static final GuiRobot INSTANCE = new GuiRobot();
 
     private final boolean isHeadlessMode;
 
-    public GuiRobot() {
+    private GuiRobot() {
         String headlessPropertyValue = System.getProperty(PROPERTY_GUITESTS_HEADLESS);
         isHeadlessMode = (headlessPropertyValue != null && headlessPropertyValue.equals("true"));
+    }
+
+    public static GuiRobot getInstance() {
+        return INSTANCE;
     }
 
     /**
@@ -59,6 +70,23 @@ public class GuiRobot extends FxRobot {
         return (listTargetWindows().stream()
                 .filter(window -> window instanceof Stage && ((Stage) window).getTitle().equals(stageTitle))
                 .count() == 1);
+    }
+
+    /**
+     * Presses the enter key.
+     */
+    public void pressEnter() {
+        type(KeyCode.ENTER);
+        pauseForHuman(MEDIUM_WAIT);
+    }
+
+    /**
+     * Enters {@code text} into the {@code textField}.
+     */
+    public void enterText(TextField textField, String text) {
+        clickOn(textField);
+        interact(() -> textField.setText(text));
+        pauseForHuman(MEDIUM_WAIT);
     }
 
     /**

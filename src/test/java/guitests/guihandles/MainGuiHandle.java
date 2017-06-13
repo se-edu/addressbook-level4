@@ -7,35 +7,45 @@ import seedu.address.TestApp;
  */
 public class MainGuiHandle extends GuiHandle {
 
+    private PersonListPanelHandle personListPanel;
+    private ResultDisplayHandle resultDisplay;
+    private CommandBoxHandle commandBox;
+    private StatusBarFooterHandle statusBarFooter;
+    private MainMenuHandle mainMenu;
+    private BrowserPanelHandle browserPanel;
+
     public MainGuiHandle() {
         super(TestApp.APP_TITLE);
+
+        personListPanel = new PersonListPanelHandle();
+        resultDisplay = new ResultDisplayHandle();
+        commandBox = new CommandBoxHandle(TestApp.APP_TITLE);
+        statusBarFooter = new StatusBarFooterHandle();
+        mainMenu = new MainMenuHandle();
+        browserPanel = new BrowserPanelHandle();
     }
 
     public PersonListPanelHandle getPersonListPanel() {
-        return new PersonListPanelHandle();
+        return personListPanel;
     }
 
     public ResultDisplayHandle getResultDisplay() {
-        return new ResultDisplayHandle();
+        return resultDisplay;
     }
 
     public CommandBoxHandle getCommandBox() {
-        return new CommandBoxHandle(TestApp.APP_TITLE);
+        return commandBox;
     }
 
     public StatusBarFooterHandle getStatusBarFooter() {
-        return new StatusBarFooterHandle();
+        return statusBarFooter;
     }
 
     public MainMenuHandle getMainMenu() {
-        return new MainMenuHandle();
+        return mainMenu;
     }
 
     public BrowserPanelHandle getBrowserPanel() {
-        return new BrowserPanelHandle();
-    }
-
-    public AlertDialogHandle getAlertDialog(String title) {
-        return new AlertDialogHandle(title);
+        return browserPanel;
     }
 }

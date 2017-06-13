@@ -3,7 +3,6 @@ package guitests.guihandles;
 
 import static guitests.GuiRobotUtil.MEDIUM_WAIT;
 import static guitests.GuiRobotUtil.SHORT_WAIT;
-import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 import java.util.Optional;
@@ -15,14 +14,14 @@ import javafx.scene.control.ListView;
 import seedu.address.TestApp;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.ReadOnlyPerson;
+import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.testutil.TestUtil;
 
 /**
- * Provides a handle for the panel containing the person list.
+ * Provides a handle for {@code PersonListPanel} containing the list of {@code PersonCard}.
  */
 public class PersonListPanelHandle extends GuiHandle {
 
-    public static final int NOT_FOUND = -1;
     public static final String CARD_PANE_ID = "#cardPane";
 
     private static final String PERSON_LIST_VIEW_ID = "#personListView";
@@ -31,9 +30,14 @@ public class PersonListPanelHandle extends GuiHandle {
         super(TestApp.APP_TITLE);
     }
 
-    public List<ReadOnlyPerson> getSelectedPersons() {
-        ListView<ReadOnlyPerson> personList = getListView();
-        return personList.getSelectionModel().getSelectedItems();
+    public Optional<ReadOnlyPerson> getSelectedPerson() {
+        List<ReadOnlyPerson> personList = getListView().getSelectionModel().getSelectedItems();
+
+        if (personList.size() > 1) {
+            throw new AssertionError("Person list size expected 0 or 1.");
+        }
+
+        return personList.isEmpty() ? Optional.empty() : Optional.of(personList.get(0));
     }
 
     public ListView<ReadOnlyPerson> getListView() {
@@ -53,12 +57,22 @@ public class PersonListPanelHandle extends GuiHandle {
      * @param startPosition The starting position of the sub list.
      * @param persons A list of person in the correct order.
      */
-    public boolean isListMatching(int startPosition, ReadOnlyPerson... persons) throws IllegalArgumentException {
-        if (persons.length + startPosition != getListView().getItems().size()) {
+    public boolean isListMatching(int startPosition, ReadOnlyPerson... persons) {
+        List<ReadOnlyPerson> personList = getListView().getItems();
+
+        if (personList.size() != persons.length + startPosition) {
             throw new IllegalArgumentException("List size mismatched\n"
-                    + "Expected " + (getListView().getItems().size() - 1) + " persons");
+                    + "Expected " + personList.size() + " persons");
         }
-        assertTrue(this.containsInOrder(startPosition, persons));
+
+        return cardAndPersonMatchInOrder(startPosition, persons);
+    }
+
+    /**
+     * Returns true if each person in {@code persons} matches the card at the exact same position,
+     * beginning from the card at {@code startPosition}.
+     */
+    private boolean cardAndPersonMatchInOrder(int startPosition, ReadOnlyPerson... persons) {
         for (int i = 0; i < persons.length; i++) {
             final int scrollTo = i + startPosition;
             guiRobot.interact(() -> getListView().scrollTo(scrollTo));
@@ -78,34 +92,13 @@ public class PersonListPanelHandle extends GuiHandle {
         guiRobot.clickOn(point.getX(), point.getY());
     }
 
-    /**
-     * Returns true if the {@code persons} appear as the sub list (in that order) at position {@code startPosition}.
-     */
-    public boolean containsInOrder(int startPosition, ReadOnlyPerson... persons) {
-        List<ReadOnlyPerson> personsInList = getListView().getItems();
-
-        // Return false if the list in panel is too short to contain the given list
-        if (startPosition + persons.length > personsInList.size()) {
-            return false;
-        }
-
-        // Return false if any of the persons doesn't match
-        for (int i = 0; i < persons.length; i++) {
-            if (!personsInList.get(startPosition + i).getName().fullName.equals(persons[i].getName().fullName)) {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
-    public PersonCardHandle navigateToPerson(String name) {
+    public PersonCardHandle navigateToPerson(String name) throws PersonNotFoundException {
         guiRobot.pauseForHuman(MEDIUM_WAIT);
         final Optional<ReadOnlyPerson> person = getListView().getItems().stream()
                                                     .filter(p -> p.getName().fullName.equals(name))
                                                     .findAny();
         if (!person.isPresent()) {
-            throw new IllegalStateException("Name not found: " + name);
+            throw new PersonNotFoundException();
         }
 
         return navigateToPerson(person.get());
@@ -114,30 +107,16 @@ public class PersonListPanelHandle extends GuiHandle {
     /**
      * Navigates the listview to display and select the person.
      */
-    public PersonCardHandle navigateToPerson(ReadOnlyPerson person) {
-        int index = getPersonIndex(person);
+    private PersonCardHandle navigateToPerson(ReadOnlyPerson person) {
+        assert getListView().getItems().contains(person);
 
         guiRobot.interact(() -> {
-            getListView().scrollTo(index);
+            getListView().scrollTo(person);
             guiRobot.pauseForHuman(SHORT_WAIT);
-            getListView().getSelectionModel().select(index);
+            getListView().getSelectionModel().select(person);
         });
         guiRobot.pauseForHuman(SHORT_WAIT);
         return getPersonCardHandle(person);
-    }
-
-
-    /**
-     * Returns the position of the person given, {@code NOT_FOUND} if not found in the list.
-     */
-    public int getPersonIndex(ReadOnlyPerson targetPerson) {
-        List<ReadOnlyPerson> personsInList = getListView().getItems();
-        for (int i = 0; i < personsInList.size(); i++) {
-            if (personsInList.get(i).getName().equals(targetPerson.getName())) {
-                return i;
-            }
-        }
-        return NOT_FOUND;
     }
 
     /**
@@ -154,7 +133,7 @@ public class PersonListPanelHandle extends GuiHandle {
     public PersonCardHandle getPersonCardHandle(ReadOnlyPerson person) {
         Set<Node> nodes = getAllCardNodes();
         Optional<Node> personCardNode = nodes.stream()
-                .filter(n -> new PersonCardHandle(n).isSamePerson(person))
+                .filter(n -> new PersonCardHandle(n).belongsTo(person))
                 .findFirst();
         if (personCardNode.isPresent()) {
             return new PersonCardHandle(personCardNode.get());
