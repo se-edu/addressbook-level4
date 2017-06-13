@@ -7,7 +7,6 @@ import guitests.GuiRobot;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import seedu.address.TestApp;
@@ -63,10 +62,6 @@ public class GuiHandle {
         TextField textField = getNode(textFieldId);
         guiRobot.interact(() -> textField.setText(newText));
         guiRobot.sleep(500); // so that the texts stays visible on the GUI for a short period
-    }
-
-    public void pressEnter() {
-        guiRobot.type(KeyCode.ENTER).sleep(500);
     }
 
     protected String getTextFromLabel(String fieldId, Node parentNode) {
