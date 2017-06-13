@@ -15,7 +15,7 @@ import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 public class ErrorDialogGuiTest extends AddressBookGuiTest {
 
     @Test
-    public void showErrorDialogs() throws InterruptedException {
+    public void showErrorDialogs() {
         GuiRobot guiRobot = new GuiRobot();
 
         raise(new DataSavingExceptionEvent(new IOException("Stub")));
