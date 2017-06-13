@@ -13,31 +13,46 @@ public class HelpWindowTest extends AddressBookGuiTest {
     public void openHelpWindow() {
         //use accelerator
         getCommandBox().click();
-        assertHelpWindowOpen(getMainMenu().openHelpWindowUsingAccelerator());
+        getMainMenu().openHelpWindowUsingAccelerator();
+        assertHelpWindowOpen();
 
         getResultDisplay().clickOnTextArea();
-        assertHelpWindowOpen(getMainMenu().openHelpWindowUsingAccelerator());
+        getMainMenu().openHelpWindowUsingAccelerator();
+        assertHelpWindowOpen();
 
         getPersonListPanel().clickOnListView();
-        assertHelpWindowOpen(getMainMenu().openHelpWindowUsingAccelerator());
+        getMainMenu().openHelpWindowUsingAccelerator();
+        assertHelpWindowOpen();
 
         getBrowserPanel().click();
-        assertHelpWindowNotOpen(getMainMenu().openHelpWindowUsingAccelerator());
+        getMainMenu().openHelpWindowUsingAccelerator();
+        assertHelpWindowNotOpen();
 
         //use menu button
-        assertHelpWindowOpen(getMainMenu().openHelpWindowUsingMenu());
+        getMainMenu().openHelpWindowUsingMenu();
+        assertHelpWindowOpen();
 
-        //use command
-        assertHelpWindowOpen(getCommandBox().runHelpCommand());
+        //use command box
+        getCommandBox().runHelpCommand();
+        assertHelpWindowOpen();
     }
 
-    private void assertHelpWindowOpen(HelpWindowHandle helpWindowHandle) {
-        assertTrue(helpWindowHandle.isWindowOpen());
-        helpWindowHandle.closeWindow();
+    /**
+     * Asserts that the help window is open, and closes it after we are done checking.
+     */
+    private void assertHelpWindowOpen() {
+        assertTrue(guiRobot.isWindowShown(HelpWindowHandle.HELP_WINDOW_TITLE));
+        guiRobot.pauseForHuman();
+
+        guiRobot.interact(() -> guiRobot.getStage(HelpWindowHandle.HELP_WINDOW_TITLE).close());
+        mainWindowHandle.focus();
     }
 
-    private void assertHelpWindowNotOpen(HelpWindowHandle helpWindowHandle) {
-        assertFalse(helpWindowHandle.isWindowOpen());
+    /**
+     * Asserts that the help window isn't open.
+     */
+    private void assertHelpWindowNotOpen() {
+        assertFalse(guiRobot.isWindowShown(HelpWindowHandle.HELP_WINDOW_TITLE));
     }
 
 }
