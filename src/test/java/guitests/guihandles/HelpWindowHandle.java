@@ -1,28 +1,39 @@
 package guitests.guihandles;
 
+import static org.junit.Assert.assertFalse;
+
+import java.util.Optional;
+
 import guitests.GuiRobot;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 
 /**
- * Provides a handle to the help window of the app.
+ * A handle to the {@code HelpWindow} of the application.
  */
-public class HelpWindowHandle extends GuiHandle {
+public class HelpWindowHandle extends WindowHandle {
 
-    private static final String HELP_WINDOW_TITLE = "Help";
-    private static final String HELP_WINDOW_ROOT_FIELD_ID = "#helpWindowRoot";
+    public static final String HELP_WINDOW_TITLE = "Help";
 
-    public HelpWindowHandle(GuiRobot guiRobot, Stage primaryStage) {
-        super(guiRobot, primaryStage, HELP_WINDOW_TITLE);
-        guiRobot.sleep(1000);
+    public HelpWindowHandle() {
+        super(GUI_ROBOT.window(HELP_WINDOW_TITLE));
     }
 
-    public boolean isWindowOpen() {
-        return guiRobot.lookup(HELP_WINDOW_ROOT_FIELD_ID).tryQuery().isPresent();
+    public static boolean isWindowPresent() {
+        GuiRobot guiRobot = new GuiRobot();
+        Optional<Window> window = guiRobot.listTargetWindows()
+                .stream()
+                .filter(w -> w instanceof Stage
+                        && ((Stage) w).getTitle().equals(HelpWindowHandle.HELP_WINDOW_TITLE)).findAny();
+
+        return window.isPresent();
     }
+
 
     public void closeWindow() {
         super.closeWindow();
-        guiRobot.sleep(500);
-    }
+        GUI_ROBOT.sleep(500);
 
+        assertFalse(isWindowPresent());
+    }
 }
