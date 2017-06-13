@@ -96,7 +96,7 @@ public class PersonListPanelHandle extends GuiHandle {
                                                     .filter(p -> p.getName().fullName.equals(name))
                                                     .findAny();
         if (!person.isPresent()) {
-            throw new IllegalStateException("Name not found: " + name);
+            throw new PersonNotFoundException();
         }
 
         return navigateToPerson(person.get());
