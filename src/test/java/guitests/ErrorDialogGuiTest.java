@@ -12,6 +12,8 @@ import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 public class ErrorDialogGuiTest extends AddressBookGuiTest {
 
     private static final String ERROR_DIALOG_STAGE_TITLE = "File Op Error";
+    private static final String ERROR_HEADER_MESSAGE = "Could not save data";
+    private static final String ERROR_CONTENT_MESSAGE = "Could not save data to file";
 
     @Test
     public void showErrorDialogs() throws InterruptedException {
@@ -21,7 +23,7 @@ public class ErrorDialogGuiTest extends AddressBookGuiTest {
 
         guiRobot.waitForEvent(() -> guiRobot.isWindowShown(ERROR_DIALOG_STAGE_TITLE));
         AlertDialogHandle alertDialog = new AlertDialogHandle(ERROR_DIALOG_STAGE_TITLE);
-        assertTrue(alertDialog.isMatching("Could not save data", "Could not save data to file" + ":\n"
+        assertTrue(alertDialog.isMatching(ERROR_HEADER_MESSAGE, ERROR_CONTENT_MESSAGE + ":\n"
                                                                          + "java.io.IOException: Stub"));
 
     }
