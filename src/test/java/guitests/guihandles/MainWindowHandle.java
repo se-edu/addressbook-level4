@@ -21,7 +21,7 @@ public class MainWindowHandle extends WindowHandle {
         resultDisplay = new ResultDisplayHandle();
         commandBox = new CommandBoxHandle(this);
         statusBarFooter = new StatusBarFooterHandle();
-        mainMenu = new MainMenuHandle();
+        mainMenu = new MainMenuHandle(this);
         browserPanel = new BrowserPanelHandle(this);
     }
 
