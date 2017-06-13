@@ -38,7 +38,7 @@ public class PersonListPanelHandle extends NodeHandle {
         return personList.isEmpty() ? Optional.empty() : Optional.of(personList.get(0));
     }
 
-    public ListView<ReadOnlyPerson> getListView() {
+    private ListView<ReadOnlyPerson> getListView() {
         return (ListView<ReadOnlyPerson>) getRootNode();
     }
 
