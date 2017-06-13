@@ -1,6 +1,5 @@
 package guitests.guihandles;
 
-import guitests.GuiRobot;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
@@ -38,7 +37,7 @@ public class CommandBoxHandle extends NodeHandle {
 
     public HelpWindowHandle runHelpCommand() {
         runCommand(HelpCommand.COMMAND_WORD);
-        return new HelpWindowHandle(new GuiRobot(), null);
+        return new HelpWindowHandle();
     }
 
     public ObservableList<String> getStyleClass() {
