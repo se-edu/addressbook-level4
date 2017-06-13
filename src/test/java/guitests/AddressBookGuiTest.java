@@ -41,17 +41,7 @@ public abstract class AddressBookGuiTest {
 
     protected TypicalPersons td = new TypicalPersons();
 
-    /*
-     *   Handles to GUI elements present at the start up are created in advance
-     *   for easy access from child classes.
-     */
-    protected MainGuiHandle mainGui;
-    protected MainMenuHandle mainMenu;
-    protected PersonListPanelHandle personListPanel;
-    protected ResultDisplayHandle resultDisplay;
-    protected CommandBoxHandle commandBox;
-    protected BrowserPanelHandle browserPanel;
-    protected StatusBarFooterHandle statusBarFooter;
+    private MainGuiHandle mainGui;
 
     private Stage stage;
 
@@ -68,19 +58,14 @@ public abstract class AddressBookGuiTest {
     @Before
     public void setup() throws Exception {
         FxToolkit.setupStage((stage) -> {
-            mainGui = new MainGuiHandle();
-            mainMenu = mainGui.getMainMenu();
-            personListPanel = mainGui.getPersonListPanel();
-            resultDisplay = mainGui.getResultDisplay();
-            commandBox = mainGui.getCommandBox();
-            browserPanel = mainGui.getBrowserPanel();
-            statusBarFooter = mainGui.getStatusBarFooter();
             this.stage = stage;
         });
         EventsCenter.clearSubscribers();
         FxToolkit.setupApplication(() -> new TestApp(this::getInitialData, getDataFileLocation()));
         FxToolkit.showStage();
         while (!stage.isShowing());
+
+        mainGui = new MainGuiHandle();
         mainGui.focusOnMainApp();
     }
 
@@ -92,6 +77,30 @@ public abstract class AddressBookGuiTest {
         AddressBook ab = new AddressBook();
         TypicalPersons.loadAddressBookWithSampleData(ab);
         return ab;
+    }
+
+    protected CommandBoxHandle getCommandBox() {
+        return mainGui.getCommandBox();
+    }
+
+    protected PersonListPanelHandle getPersonListPanel() {
+        return mainGui.getPersonListPanel();
+    }
+
+    protected MainMenuHandle getMainMenu() {
+        return mainGui.getMainMenu();
+    }
+
+    protected BrowserPanelHandle getBrowserPanel() {
+        return mainGui.getBrowserPanel();
+    }
+
+    protected StatusBarFooterHandle getStatusBarFooter() {
+        return mainGui.getStatusBarFooter();
+    }
+
+    protected ResultDisplayHandle getResultDisplay() {
+        return mainGui.getResultDisplay();
     }
 
     /**
@@ -117,7 +126,7 @@ public abstract class AddressBookGuiTest {
      * Asserts the size of the person list is equal to the given number.
      */
     protected void assertListSize(int size) {
-        int numberOfPeople = personListPanel.getNumberOfPeople();
+        int numberOfPeople = getPersonListPanel().getNumberOfPeople();
         assertEquals(size, numberOfPeople);
     }
 
@@ -125,7 +134,7 @@ public abstract class AddressBookGuiTest {
      * Asserts the message shown in the Result Display area is same as the given string.
      */
     protected void assertResultMessage(String expected) {
-        assertEquals(expected, resultDisplay.getText());
+        assertEquals(expected, getResultDisplay().getText());
     }
 
     public void raise(BaseEvent e) {
