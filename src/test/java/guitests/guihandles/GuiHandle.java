@@ -55,13 +55,6 @@ public class GuiHandle {
         return textField.getText();
     }
 
-    protected void setTextField(String textFieldId, String newText) {
-        guiRobot.clickOn(textFieldId);
-        TextField textField = getNode(textFieldId);
-        guiRobot.interact(() -> textField.setText(newText));
-        guiRobot.sleep(500); // so that the texts stays visible on the GUI for a short period
-    }
-
     protected String getTextFromLabel(String fieldId, Node parentNode) {
         return ((Label) guiRobot.from(parentNode).lookup(fieldId).tryQuery().get()).getText();
     }
