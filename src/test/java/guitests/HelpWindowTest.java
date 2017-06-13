@@ -1,6 +1,5 @@
 package guitests;
 
-import static guitests.GuiRobotUtil.MEDIUM_WAIT;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
@@ -17,22 +16,18 @@ public class HelpWindowTest extends AddressBookGuiTest {
         //use accelerator
         getCommandBox().clickOnTextField();
         guiRobot.push(KeyCode.F1);
-        guiRobot.pauseForHuman(MEDIUM_WAIT);
         assertHelpWindowOpen();
 
         getResultDisplay().clickOnTextArea();
         guiRobot.push(KeyCode.F1);
-        guiRobot.pauseForHuman(MEDIUM_WAIT);
         assertHelpWindowOpen();
 
         getPersonListPanel().clickOnListView();
         guiRobot.push(KeyCode.F1);
-        guiRobot.pauseForHuman(MEDIUM_WAIT);
         assertHelpWindowOpen();
 
         getBrowserPanel().clickOnWebView();
         guiRobot.push(KeyCode.F1);
-        guiRobot.pauseForHuman(MEDIUM_WAIT);
         assertHelpWindowNotOpen();
 
         //use menu button
