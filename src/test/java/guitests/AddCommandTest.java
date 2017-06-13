@@ -28,21 +28,21 @@ public class AddCommandTest extends AddressBookGuiTest {
         currentList = TestUtil.addPersonsToList(currentList, personToAdd);
 
         //add duplicate person
-        getCommandBox().runCommand(PersonUtil.getAddCommand(td.hoon));
+        getCommandBox().enterCommand(PersonUtil.getAddCommand(td.hoon));
         assertResultMessage(AddCommand.MESSAGE_DUPLICATE_PERSON);
         assertTrue(getPersonListPanel().isListMatching(currentList));
 
         //add to empty list
-        getCommandBox().runCommand(ClearCommand.COMMAND_WORD);
+        getCommandBox().enterCommand(ClearCommand.COMMAND_WORD);
         assertAddSuccess(td.alice);
 
         //invalid command
-        getCommandBox().runCommand("adds Johnny");
+        getCommandBox().enterCommand("adds Johnny");
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
     }
 
     private void assertAddSuccess(Person personToAdd, Person... currentList) throws Exception {
-        getCommandBox().runCommand(PersonUtil.getAddCommand(personToAdd));
+        getCommandBox().enterCommand(PersonUtil.getAddCommand(personToAdd));
 
         //confirm the new card contains the right data
         PersonCardHandle addedCard = getPersonListPanel().navigateToPerson(personToAdd.getName().fullName);
