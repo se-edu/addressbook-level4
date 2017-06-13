@@ -4,7 +4,7 @@ import javafx.scene.control.TextArea;
 import seedu.address.TestApp;
 
 /**
- * A handler for the ResultDisplay of the UI
+ * A handler for the {@code ResultDisplay} of the UI
  */
 public class ResultDisplayHandle extends GuiHandle {
 
