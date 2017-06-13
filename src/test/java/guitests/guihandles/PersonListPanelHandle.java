@@ -7,12 +7,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-import guitests.GuiRobot;
-import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.control.ListView;
-import javafx.stage.Stage;
-import seedu.address.TestApp;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.testutil.TestUtil;
@@ -20,15 +16,15 @@ import seedu.address.testutil.TestUtil;
 /**
  * Provides a handle for the panel containing the person list.
  */
-public class PersonListPanelHandle extends GuiHandle {
+public class PersonListPanelHandle extends NodeHandle {
 
     public static final int NOT_FOUND = -1;
-    public static final String CARD_PANE_ID = "#cardPane";
 
+    private static final String CARD_PANE_ID = "#cardPane";
     private static final String PERSON_LIST_VIEW_ID = "#personListView";
 
-    public PersonListPanelHandle(GuiRobot guiRobot, Stage primaryStage) {
-        super(guiRobot, primaryStage, TestApp.APP_TITLE);
+    public PersonListPanelHandle(MainWindowHandle mainWindowHandle) {
+        super(mainWindowHandle.getChildNode(PERSON_LIST_VIEW_ID));
     }
 
     public List<ReadOnlyPerson> getSelectedPersons() {
@@ -37,7 +33,7 @@ public class PersonListPanelHandle extends GuiHandle {
     }
 
     public ListView<ReadOnlyPerson> getListView() {
-        return getNode(PERSON_LIST_VIEW_ID);
+        return (ListView<ReadOnlyPerson>) getNode();
     }
 
     /**
@@ -61,21 +57,13 @@ public class PersonListPanelHandle extends GuiHandle {
         assertTrue(this.containsInOrder(startPosition, persons));
         for (int i = 0; i < persons.length; i++) {
             final int scrollTo = i + startPosition;
-            guiRobot.interact(() -> getListView().scrollTo(scrollTo));
-            guiRobot.sleep(200);
+            GUI_ROBOT.interact(() -> getListView().scrollTo(scrollTo));
+            GUI_ROBOT.sleep(200);
             if (!TestUtil.compareCardAndPerson(getPersonCardHandle(startPosition + i), persons[i])) {
                 return false;
             }
         }
         return true;
-    }
-
-    /**
-     * Clicks on the ListView.
-     */
-    public void clickOnListView() {
-        Point2D point = TestUtil.getScreenMidPoint(getListView());
-        guiRobot.clickOn(point.getX(), point.getY());
     }
 
     /**
@@ -100,10 +88,10 @@ public class PersonListPanelHandle extends GuiHandle {
     }
 
     public PersonCardHandle navigateToPerson(String name) {
-        guiRobot.sleep(500); //Allow a bit of time for the list to be updated
+        GUI_ROBOT.sleep(500); //Allow a bit of time for the list to be updated
         final Optional<ReadOnlyPerson> person = getListView().getItems().stream()
-                                                    .filter(p -> p.getName().fullName.equals(name))
-                                                    .findAny();
+                .filter(p -> p.getName().fullName.equals(name))
+                .findAny();
         if (!person.isPresent()) {
             throw new IllegalStateException("Name not found: " + name);
         }
@@ -117,12 +105,11 @@ public class PersonListPanelHandle extends GuiHandle {
     public PersonCardHandle navigateToPerson(ReadOnlyPerson person) {
         int index = getPersonIndex(person);
 
-        guiRobot.interact(() -> {
-            getListView().scrollTo(index);
-            guiRobot.sleep(150);
-            getListView().getSelectionModel().select(index);
+        GUI_ROBOT.interact(() -> {
+            getListView().scrollTo(person);
+            getListView().getSelectionModel().select(person);
         });
-        guiRobot.sleep(100);
+        GUI_ROBOT.sleep(500);
         return getPersonCardHandle(person);
     }
 
@@ -164,7 +151,7 @@ public class PersonListPanelHandle extends GuiHandle {
     }
 
     protected Set<Node> getAllCardNodes() {
-        return guiRobot.lookup(CARD_PANE_ID).queryAll();
+        return GUI_ROBOT.lookup(CARD_PANE_ID).queryAll();
     }
 
     public int getNumberOfPeople() {
