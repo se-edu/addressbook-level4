@@ -22,7 +22,7 @@ public class HelpWindowTest extends AddressBookGuiTest {
         getPersonListPanel().clickOnListView();
         assertHelpWindowOpen(getMainMenu().openHelpWindowUsingAccelerator());
 
-        getBrowserPanel().clickOnWebView();
+        getBrowserPanel().click();
         assertHelpWindowNotOpen(getMainMenu().openHelpWindowUsingAccelerator());
 
         //use menu button
