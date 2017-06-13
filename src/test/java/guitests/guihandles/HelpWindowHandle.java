@@ -1,5 +1,6 @@
 package guitests.guihandles;
 
+import guitests.GuiRobot;
 import javafx.stage.Stage;
 
 /**
@@ -11,5 +12,12 @@ public class HelpWindowHandle extends StageHandle {
 
     public HelpWindowHandle(Stage helpWindowStage) {
         super(helpWindowStage);
+    }
+
+    /**
+     * Returns whether a help window is currently present in the application.
+     */
+    public static boolean isWindowPresent() {
+        return new GuiRobot().isWindowShown(HELP_WINDOW_TITLE);
     }
 }

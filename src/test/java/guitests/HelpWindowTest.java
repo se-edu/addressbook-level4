@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import guitests.guihandles.HelpWindowHandle;
+import seedu.address.logic.commands.HelpCommand;
 
 public class HelpWindowTest extends AddressBookGuiTest {
 
@@ -33,15 +34,15 @@ public class HelpWindowTest extends AddressBookGuiTest {
         assertHelpWindowOpen();
 
         //use command box
-        getCommandBox().runHelpCommand();
+        getCommandBox().run(HelpCommand.COMMAND_WORD);
         assertHelpWindowOpen();
     }
 
     /**
-     * Asserts that the help window is open, and closes it after we are done checking.
+     * Asserts that the help window is open, and closes it after checking.
      */
     private void assertHelpWindowOpen() {
-        assertTrue(guiRobot.isWindowShown(HelpWindowHandle.HELP_WINDOW_TITLE));
+        assertTrue(HelpWindowHandle.isWindowPresent());
         guiRobot.pauseForHuman();
 
         guiRobot.interact(() -> guiRobot.getStage(HelpWindowHandle.HELP_WINDOW_TITLE).close());
@@ -52,7 +53,7 @@ public class HelpWindowTest extends AddressBookGuiTest {
      * Asserts that the help window isn't open.
      */
     private void assertHelpWindowNotOpen() {
-        assertFalse(guiRobot.isWindowShown(HelpWindowHandle.HELP_WINDOW_TITLE));
+        assertFalse(HelpWindowHandle.isWindowPresent());
     }
 
 }

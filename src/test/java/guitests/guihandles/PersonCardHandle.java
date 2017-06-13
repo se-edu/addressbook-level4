@@ -44,7 +44,7 @@ public class PersonCardHandle extends NodeHandle<Node> {
         return idLabel.getText();
     }
 
-    public String getFullName() {
+    public String getName() {
         return nameLabel.getText();
     }
 
@@ -87,7 +87,7 @@ public class PersonCardHandle extends NodeHandle<Node> {
      * Returns true if this card contains the same particulars as {@code person}.
      */
     public boolean isSamePerson(ReadOnlyPerson person) {
-        return getFullName().equals(person.getName().fullName)
+        return getName().equals(person.getName().fullName)
                 && getPhone().equals(person.getPhone().value)
                 && getEmail().equals(person.getEmail().value)
                 && getAddress().equals(person.getAddress().value)
@@ -98,7 +98,7 @@ public class PersonCardHandle extends NodeHandle<Node> {
     public boolean equals(Object obj) {
         if (obj instanceof PersonCardHandle) {
             PersonCardHandle handle = (PersonCardHandle) obj;
-            return getFullName().equals(handle.getFullName())
+            return getName().equals(handle.getName())
                     && getPhone().equals(handle.getPhone())
                     && getEmail().equals(handle.getEmail())
                     && getAddress().equals(handle.getAddress())
@@ -109,6 +109,6 @@ public class PersonCardHandle extends NodeHandle<Node> {
 
     @Override
     public String toString() {
-        return getFullName() + " " + getAddress();
+        return getName() + " " + getAddress();
     }
 }

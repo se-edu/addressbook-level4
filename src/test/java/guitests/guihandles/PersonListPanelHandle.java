@@ -74,7 +74,7 @@ public class PersonListPanelHandle extends NodeHandle<ListView<ReadOnlyPerson>> 
     }
 
     /**
-     * Returns the person associated with the {@code index} in the list.
+     * Returns the person at the specified {@code index} in the list.
      */
     public ReadOnlyPerson getPerson(int index) {
         return getRootNode().getItems().get(index);
@@ -88,7 +88,7 @@ public class PersonListPanelHandle extends NodeHandle<ListView<ReadOnlyPerson>> 
     }
 
     /**
-     * Returns the person card handle of a person in the list.
+     * Returns the {@code PersonCardHandle} of the specified {@code person} in the list.
      */
     public PersonCardHandle getPersonCardHandle(ReadOnlyPerson person) throws PersonNotFoundException {
         if (!getRootNode().getItems().contains(person)) {

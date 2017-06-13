@@ -82,11 +82,14 @@ public class GuiRobot extends FxRobot {
 
     /**
      * Returns the first stage, ordered by proximity to the last target window, with the stage title.
+     * For the definition of the proximity to the last target window, refer to
+     * {@code WindowFinderImpl#orderWindowsByProximityTo(Window, List<Window>)}.
+     *
      * @throws StageNotFoundException if the stage is not found.
      */
     public Stage getStage(String stageTitle) {
         Optional<Stage> targetStage = listTargetWindows().stream()
-                .filter(Stage.class::isInstance)
+                .filter(Stage.class::isInstance)    // checks that the window is of type Stage
                 .map(Stage.class::cast)
                 .filter(stage -> stage.getTitle().equals(stageTitle))
                 .findFirst();

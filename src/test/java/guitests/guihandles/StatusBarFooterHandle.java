@@ -13,21 +13,27 @@ public class StatusBarFooterHandle extends NodeHandle {
     private static final String SYNC_STATUS_ID = "#syncStatus";
     private static final String SAVE_LOCATION_STATUS_ID = "#saveLocationStatus";
 
+    private StatusBar syncStatusNode;
+    private StatusBar saveLocationNode;
+
     public StatusBarFooterHandle(Node statusBarFooterNode) {
         super(statusBarFooterNode);
+
+        this.syncStatusNode = (StatusBar) getChildNode(SYNC_STATUS_ID);
+        this.saveLocationNode = (StatusBar) getChildNode(SAVE_LOCATION_STATUS_ID);
     }
 
     /**
      * Returns the text of the sync status portion of the status bar.
      */
     public String getSyncStatus() {
-        return ((StatusBar) getChildNode(SYNC_STATUS_ID)).getText();
+        return syncStatusNode.getText();
     }
 
     /**
      * Returns the text of the 'save location' portion of the status bar.
      */
     public String getSaveLocation() {
-        return ((StatusBar) getChildNode(SAVE_LOCATION_STATUS_ID)).getText();
+        return saveLocationNode.getText();
     }
 }
