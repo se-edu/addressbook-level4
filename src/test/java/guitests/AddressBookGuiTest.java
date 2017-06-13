@@ -40,6 +40,7 @@ public abstract class AddressBookGuiTest {
     public TestName name = new TestName();
 
     protected TypicalPersons td = new TypicalPersons();
+    protected GuiRobot guiRobot = GuiRobot.getInstance();
 
     private MainGuiHandle mainGui;
 
