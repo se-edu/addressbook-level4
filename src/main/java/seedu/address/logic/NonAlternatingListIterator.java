@@ -9,12 +9,12 @@ import java.util.ListIterator;
  * @see ListIterator#previous()
  * @see ListIterator#next()
  */
-public class CommandHistoryListIterator {
-    private ListIterator<String> iterator;
+public class NonAlternatingListIterator<T> {
+    private ListIterator<T> iterator;
     private boolean isPreviousCalledPreviously;
     private boolean isNextCalledPreviously;
 
-    public CommandHistoryListIterator(ListIterator<String> iterator) {
+    public NonAlternatingListIterator(ListIterator<T> iterator) {
         this.iterator = iterator;
     }
 
@@ -26,7 +26,7 @@ public class CommandHistoryListIterator {
         return iterator.hasNext();
     }
 
-    public String previous() {
+    public T previous() {
         if (isNextCalledPreviously) {
             iterator.previous();
         }
@@ -36,7 +36,7 @@ public class CommandHistoryListIterator {
         return iterator.previous();
     }
 
-    public String next() {
+    public T next() {
         if (isPreviousCalledPreviously) {
             iterator.next();
         }

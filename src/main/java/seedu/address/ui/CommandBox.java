@@ -12,8 +12,8 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.NewResultAvailableEvent;
-import seedu.address.logic.CommandHistoryListIterator;
 import seedu.address.logic.Logic;
+import seedu.address.logic.NonAlternatingListIterator;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -25,7 +25,7 @@ public class CommandBox extends UiPart<Region> {
 
     private final Logger logger = LogsCenter.getLogger(CommandBox.class);
     private final Logic logic;
-    private CommandHistoryListIterator historyIterator;
+    private NonAlternatingListIterator<String> historyIterator;
 
     @FXML
     private TextField commandTextField;
@@ -35,31 +35,35 @@ public class CommandBox extends UiPart<Region> {
         this.logic = logic;
         historyIterator = logic.getHistoryIterator();
         addToPlaceholder(commandBoxPlaceholder);
-        commandTextField.setOnKeyPressed(this::updateText);
+        commandTextField.setOnKeyPressed(this::handleKeyPress);
     }
 
     /**
      * Shows the previous input if {@code KeyCode.UP} is pressed,
      * and shows the next input if {@code KeyCode.DOWN} is pressed.
      */
-    private void updateText(KeyEvent keyEvent) {
+    private void handleKeyPress(KeyEvent keyEvent) {
         assert historyIterator != null;
 
+        if (keyEvent.getCode() != KeyCode.UP && keyEvent.getCode() != KeyCode.DOWN) {
+            return;
+        }
+
+        keyEvent.consume(); // up and down buttons will alter the position of the caret
+
         if (keyEvent.getCode() == KeyCode.UP) {
-            keyEvent.consume();
             if (!historyIterator.hasPrevious()) {
                 return;
             }
 
-            updateText(historyIterator.previous());
+            setText(historyIterator.previous());
         } else if (keyEvent.getCode() == KeyCode.DOWN) {
-            keyEvent.consume();
             if (!historyIterator.hasNext()) {
-                commandTextField.setText("");
+                setText("");
                 return;
             }
 
-            updateText(historyIterator.next());
+            setText(historyIterator.next());
         }
     }
 
@@ -67,7 +71,7 @@ public class CommandBox extends UiPart<Region> {
      * Sets {@code CommandBox}'s text field with {@code text} and
      * positions the caret to the end of the {@code text}.
      */
-    private void updateText(String text) {
+    private void setText(String text) {
         commandTextField.setText(text);
         commandTextField.positionCaret(commandTextField.getText().length());
     }

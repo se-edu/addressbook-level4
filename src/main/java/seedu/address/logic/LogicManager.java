@@ -48,7 +48,7 @@ public class LogicManager extends ComponentManager implements Logic {
     }
 
     @Override
-    public CommandHistoryListIterator getHistoryIterator() {
+    public NonAlternatingListIterator<String> getHistoryIterator() {
         return history.listIterator();
     }
 }

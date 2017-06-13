@@ -31,9 +31,9 @@ public class CommandHistory {
     }
 
     /**
-     * Returns a list-iterator of the elements in {@code userInputHistory}.
+     * Returns a list iterator of the elements in {@code userInputHistory} in reverse order.
      */
-    public CommandHistoryListIterator listIterator() {
-        return new CommandHistoryListIterator(userInputHistory.listIterator(userInputHistory.size()));
+    public NonAlternatingListIterator<String> listIterator() {
+        return new NonAlternatingListIterator<>(userInputHistory.listIterator(userInputHistory.size()));
     }
 }
