@@ -22,7 +22,7 @@ public class MainWindowHandle extends WindowHandle {
         resultDisplay = new ResultDisplayHandle(new GuiRobot(), null);
         commandBox = new CommandBoxHandle(this);
         statusBarFooter = new StatusBarFooterHandle(new GuiRobot(), null);
-        mainMenu = new MainMenuHandle(new GuiRobot(), null);
+        mainMenu = new MainMenuHandle(this);
         browserPanel = new BrowserPanelHandle(this);
     }
 
