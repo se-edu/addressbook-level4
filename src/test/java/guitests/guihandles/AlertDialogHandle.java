@@ -1,19 +1,20 @@
 package guitests.guihandles;
 
 import javafx.scene.control.DialogPane;
+import javafx.stage.Stage;
 import seedu.address.ui.UiManager;
 
 /**
- * A handle for the AlertDialog of the UI
+ * A handle for the {@code AlertDialog} of the UI.
  */
-public class AlertDialogHandle extends GuiHandle {
+public class AlertDialogHandle extends StageHandle {
 
-    public AlertDialogHandle(String dialogTitle) {
-        super(dialogTitle);
+    public AlertDialogHandle(Stage stage) {
+        super(stage);
     }
 
     private DialogPane getDialogPane() {
-        return getNode("#" + UiManager.ALERT_DIALOG_PANE_FIELD_ID);
+        return getChildNode("#" + UiManager.ALERT_DIALOG_PANE_FIELD_ID);
     }
 
     /**
