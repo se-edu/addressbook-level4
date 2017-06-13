@@ -19,7 +19,7 @@ public class MainWindowHandle extends WindowHandle {
         super(window);
 
         personListPanel = new PersonListPanelHandle(this);
-        resultDisplay = new ResultDisplayHandle(new GuiRobot(), null);
+        resultDisplay = new ResultDisplayHandle(this);
         commandBox = new CommandBoxHandle(this);
         statusBarFooter = new StatusBarFooterHandle(new GuiRobot(), null);
         mainMenu = new MainMenuHandle(this);
