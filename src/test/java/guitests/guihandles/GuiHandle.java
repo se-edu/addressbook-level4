@@ -1,7 +1,5 @@
 package guitests.guihandles;
 
-import static guitests.GuiRobotUtil.MEDIUM_WAIT;
-
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -58,13 +56,6 @@ public class GuiHandle {
     protected String getTextFieldText(String filedName) {
         TextField textField = getNode(filedName);
         return textField.getText();
-    }
-
-    protected void setTextField(String textFieldId, String newText) {
-        guiRobot.clickOn(textFieldId);
-        TextField textField = getNode(textFieldId);
-        guiRobot.interact(() -> textField.setText(newText));
-        guiRobot.pauseForHuman(MEDIUM_WAIT);
     }
 
     public void focusOnSelf() {
