@@ -16,7 +16,7 @@ public class ErrorDialogGuiTest extends AddressBookGuiTest {
     private static final String ERROR_CONTENT_MESSAGE = "Could not save data to file";
 
     @Test
-    public void showErrorDialogs() throws InterruptedException {
+    public void showErrorDialogs() {
         GuiRobot guiRobot = new GuiRobot();
 
         raise(new DataSavingExceptionEvent(new IOException("Stub")));
