@@ -26,7 +26,7 @@ public class CommandBoxHandle extends GuiHandle {
     }
 
     public void enterCommand(String command) {
-        setTextField(COMMAND_INPUT_FIELD_ID, command);
+        guiRobot.enterText(getNode(COMMAND_INPUT_FIELD_ID), command);
     }
 
     public String getCommandInput() {
