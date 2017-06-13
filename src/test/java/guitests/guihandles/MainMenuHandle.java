@@ -3,7 +3,6 @@ package guitests.guihandles;
 import java.util.Arrays;
 
 import javafx.scene.Node;
-import javafx.scene.input.KeyCode;
 
 /**
  * Provides a handle to the main menu of the app.
@@ -20,15 +19,6 @@ public class MainMenuHandle extends NodeHandle<Node> {
      */
     public void openHelpWindowUsingMenu() {
         clickOnMenuItemsSequentially("Help", "F1");
-    }
-
-    /**
-     * Opens the {@code HelpWindow} by pressing the shortcut key associated
-     * with the menu bar in {@code MainWindow}.
-     */
-    public void openHelpWindowUsingAccelerator() {
-        guiRobot.push(KeyCode.F1);
-        guiRobot.pauseForHuman();
     }
 
     /**
