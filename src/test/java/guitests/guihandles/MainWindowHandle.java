@@ -1,11 +1,13 @@
 package guitests.guihandles;
 
+import guitests.GuiRobot;
+import javafx.stage.Window;
 import seedu.address.TestApp;
 
 /**
  * Provides a handle for {@code MainWindow}.
  */
-public class MainWindowHandle extends GuiHandle {
+public class MainWindowHandle extends WindowHandle {
 
     private final PersonListPanelHandle personListPanel;
     private final ResultDisplayHandle resultDisplay;
@@ -14,15 +16,15 @@ public class MainWindowHandle extends GuiHandle {
     private final MainMenuHandle mainMenu;
     private final BrowserPanelHandle browserPanel;
 
-    public MainWindowHandle() {
-        super(TestApp.APP_TITLE);
+    public MainWindowHandle(Window window) {
+        super(window);
 
-        personListPanel = new PersonListPanelHandle();
-        resultDisplay = new ResultDisplayHandle();
-        commandBox = new CommandBoxHandle(TestApp.APP_TITLE);
-        statusBarFooter = new StatusBarFooterHandle();
-        mainMenu = new MainMenuHandle();
-        browserPanel = new BrowserPanelHandle();
+        personListPanel = new PersonListPanelHandle(new GuiRobot(), null);
+        resultDisplay = new ResultDisplayHandle(new GuiRobot(), null);
+        commandBox = new CommandBoxHandle(new GuiRobot(), null, TestApp.APP_TITLE);
+        statusBarFooter = new StatusBarFooterHandle(new GuiRobot(), null);
+        mainMenu = new MainMenuHandle(new GuiRobot(), null);
+        browserPanel = new BrowserPanelHandle(new GuiRobot(), null);
     }
 
     public PersonListPanelHandle getPersonListPanel() {
