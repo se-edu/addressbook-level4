@@ -1,7 +1,7 @@
 package guitests.guihandles;
 
 import static guitests.GuiRobotUtil.LONG_WAIT;
-import static guitests.GuiRobotUtil.MEDIUM_WAIT;
+import static org.junit.Assert.assertFalse;
 
 /**
  * Provides a handle to the help window of the app.
@@ -20,9 +20,12 @@ public class HelpWindowHandle extends GuiHandle {
         return guiRobot.lookup(HELP_WINDOW_ROOT_FIELD_ID).tryQuery().isPresent();
     }
 
+    /**
+     * Closes the help window.
+     */
     public void closeWindow() {
         super.closeWindow();
-        guiRobot.pauseForHuman(MEDIUM_WAIT);
+        assertFalse(guiRobot.isWindowActive(HELP_WINDOW_TITLE));
     }
 
 }
