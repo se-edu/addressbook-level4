@@ -48,8 +48,4 @@ public class MainGuiHandle extends GuiHandle {
     public BrowserPanelHandle getBrowserPanel() {
         return browserPanel;
     }
-
-    public AlertDialogHandle getAlertDialog(String title) {
-        return new AlertDialogHandle(title);
-    }
 }
