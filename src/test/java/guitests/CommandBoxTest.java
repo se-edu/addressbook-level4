@@ -53,14 +53,13 @@ public class CommandBoxTest extends AddressBookGuiTest {
 
     @Test
     public void commandBox_handleKeyPress() {
-        GuiRobot robot = new GuiRobot();
         getCommandBox().runCommand(COMMAND_THAT_FAILS);
         assertEquals(errorStyleOfCommandBox, getCommandBox().getStyleClass());
-        robot.push(KeyCode.ESCAPE);
+        guiRobot.push(KeyCode.ESCAPE);
         assertEquals(errorStyleOfCommandBox, getCommandBox().getStyleClass());
 
-        robot.push(KeyCode.A);
-        robot.pauseForHuman();
+        guiRobot.push(KeyCode.A);
+        guiRobot.pauseForHuman();
         assertEquals(defaultStyleOfCommandBox, getCommandBox().getStyleClass());
     }
 
@@ -71,12 +70,12 @@ public class CommandBoxTest extends AddressBookGuiTest {
         assertInputHistory(KeyCode.DOWN, "");
 
         // one command
-        commandBox.runCommand(COMMAND_THAT_SUCCEEDS);
+        getCommandBox().runCommand(COMMAND_THAT_SUCCEEDS);
         assertInputHistory(KeyCode.UP, COMMAND_THAT_SUCCEEDS);
         assertInputHistory(KeyCode.DOWN, "");
 
         // two commands
-        commandBox.runCommand(COMMAND_THAT_FAILS);
+        getCommandBox().runCommand(COMMAND_THAT_FAILS);
         assertInputHistory(KeyCode.UP, COMMAND_THAT_SUCCEEDS);
         assertInputHistory(KeyCode.UP, COMMAND_THAT_SUCCEEDS);
         assertInputHistory(KeyCode.DOWN, COMMAND_THAT_FAILS);
@@ -87,7 +86,7 @@ public class CommandBoxTest extends AddressBookGuiTest {
         // insert command in the middle of retrieving previous commands
         guiRobot.push(KeyCode.UP);
         String thirdCommand = "list";
-        commandBox.runCommand(thirdCommand);
+        getCommandBox().runCommand(thirdCommand);
         assertInputHistory(KeyCode.UP, thirdCommand);
         assertInputHistory(KeyCode.UP, COMMAND_THAT_FAILS);
         assertInputHistory(KeyCode.UP, COMMAND_THAT_SUCCEEDS);
@@ -103,19 +102,19 @@ public class CommandBoxTest extends AddressBookGuiTest {
         assertInputHistory(KeyCode.UP, "");
 
         // one command
-        commandBox.runCommand(COMMAND_THAT_SUCCEEDS);
+        getCommandBox().runCommand(COMMAND_THAT_SUCCEEDS);
         assertInputHistory(KeyCode.DOWN, "");
         assertInputHistory(KeyCode.UP, COMMAND_THAT_SUCCEEDS);
 
         // two commands
-        commandBox.runCommand(COMMAND_THAT_FAILS);
+        getCommandBox().runCommand(COMMAND_THAT_FAILS);
         assertInputHistory(KeyCode.DOWN, "");
         assertInputHistory(KeyCode.UP, COMMAND_THAT_FAILS);
 
         // insert command in the middle of retrieving previous commands
         guiRobot.push(KeyCode.UP);
         String thirdCommand = "list";
-        commandBox.runCommand(thirdCommand);
+        getCommandBox().runCommand(thirdCommand);
         assertInputHistory(KeyCode.DOWN, "");
         assertInputHistory(KeyCode.UP, thirdCommand);
     }
@@ -149,6 +148,6 @@ public class CommandBoxTest extends AddressBookGuiTest {
      */
     private void assertInputHistory(KeyCode keycode, String expectedCommand) {
         guiRobot.push(keycode);
-        assertEquals(expectedCommand, commandBox.getCommandInput());
+        assertEquals(expectedCommand, getCommandBox().getCommandInput());
     }
 }

@@ -13,17 +13,17 @@ import seedu.address.commons.core.LogsCenter;
 /**
  * Provides access to a node in a JavaFx application for GUI testing purposes.
  */
-public abstract class NodeHandle {
+public abstract class NodeHandle<T extends Node> {
     protected final GuiRobot guiRobot = new GuiRobot();
     protected final Logger logger = LogsCenter.getLogger(this.getClass());
 
-    private final Node rootNode;
+    private final T rootNode;
 
-    protected NodeHandle(Node rootNode) {
+    protected NodeHandle(T rootNode) {
         this.rootNode = requireNonNull(rootNode);
     }
 
-    protected Node getRootNode() {
+    protected T getRootNode() {
         return rootNode;
     }
 
@@ -33,8 +33,8 @@ public abstract class NodeHandle {
      * @param query name of the CSS selector for the node to retrieve.
      * @throws NodeNotFoundException if no such node exist.
      */
-    protected <T extends Node> T getChildNode(String query) {
-        Optional<T> node = guiRobot.from(rootNode).lookup(query).tryQuery();
+    protected <Q extends Node> Q getChildNode(String query) {
+        Optional<Q> node = guiRobot.from(rootNode).lookup(query).tryQuery();
         return node.orElseThrow(NodeNotFoundException::new);
     }
 

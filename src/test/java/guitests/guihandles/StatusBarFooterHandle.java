@@ -18,14 +18,14 @@ public class StatusBarFooterHandle extends NodeHandle {
     }
 
     /**
-     * Gets the text of the sync status portion of the status bar.
+     * Returns the text of the sync status portion of the status bar.
      */
     public String getSyncStatus() {
         return ((StatusBar) getChildNode(SYNC_STATUS_ID)).getText();
     }
 
     /**
-     * Gets the text of the 'save location' portion of the status bar.
+     * Returns the text of the 'save location' portion of the status bar.
      */
     public String getSaveLocation() {
         return ((StatusBar) getChildNode(SAVE_LOCATION_STATUS_ID)).getText();

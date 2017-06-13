@@ -81,7 +81,7 @@ public class GuiRobot extends FxRobot {
     }
 
     /**
-     * Returns the stage with the stage title.
+     * Returns the first stage, ordered by proximity to the last target window, with the stage title.
      * @throws StageNotFoundException if the stage is not found.
      */
     public Stage getStage(String stageTitle) {

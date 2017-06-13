@@ -16,28 +16,23 @@ public class HelpWindowTest extends AddressBookGuiTest {
         getMainMenu().openHelpWindowUsingAccelerator();
         assertHelpWindowOpen();
 
-        mainWindowHandle.focus();   // needed in headless mode, otherwise main window loses focus
         getResultDisplay().click();
         getMainMenu().openHelpWindowUsingAccelerator();
         assertHelpWindowOpen();
 
-        mainWindowHandle.focus();
         getPersonListPanel().click();
         getMainMenu().openHelpWindowUsingAccelerator();
         assertHelpWindowOpen();
 
-        mainWindowHandle.focus();
         getBrowserPanel().click();
         getMainMenu().openHelpWindowUsingAccelerator();
         assertHelpWindowNotOpen();
 
         //use menu button
-        mainWindowHandle.focus();
         getMainMenu().openHelpWindowUsingMenu();
         assertHelpWindowOpen();
 
         //use command box
-        mainWindowHandle.focus();
         getCommandBox().runHelpCommand();
         assertHelpWindowOpen();
     }
@@ -49,7 +44,8 @@ public class HelpWindowTest extends AddressBookGuiTest {
         assertTrue(guiRobot.isWindowShown(HelpWindowHandle.HELP_WINDOW_TITLE));
         guiRobot.pauseForHuman();
 
-        new HelpWindowHandle().close();
+        guiRobot.interact(() -> guiRobot.getStage(HelpWindowHandle.HELP_WINDOW_TITLE).close());
+        mainWindowHandle.focus();
     }
 
     /**

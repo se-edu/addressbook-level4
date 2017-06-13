@@ -11,8 +11,8 @@ import javafx.scene.input.KeyCode;
 public class MainMenuHandle extends NodeHandle {
     public static final String MENU_BAR_ID = "#menuBar";
 
-    public MainMenuHandle(Node mainMenuHandle) {
-        super(mainMenuHandle);
+    public MainMenuHandle(Node mainMenuNode) {
+        super(mainMenuNode);
     }
 
     /**
@@ -24,7 +24,7 @@ public class MainMenuHandle extends NodeHandle {
 
     /**
      * Opens the {@code HelpWindow} by pressing the shortcut key associated
-     * to the menu bar in {@code MainWindow}.
+     * with the menu bar in {@code MainWindow}.
      */
     public void openHelpWindowUsingAccelerator() {
         guiRobot.push(KeyCode.F1);
@@ -34,7 +34,7 @@ public class MainMenuHandle extends NodeHandle {
     /**
      * Clicks on the menu items in order.
      */
-    public void clickOnMenuItemsSequentially(String... menuItems) {
+    private void clickOnMenuItemsSequentially(String... menuItems) {
         Arrays.stream(menuItems).forEach(guiRobot::clickOn);
     }
 }

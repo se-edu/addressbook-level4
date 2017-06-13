@@ -1,7 +1,6 @@
 package guitests.guihandles;
 
 import javafx.collections.ObservableList;
-import javafx.scene.Node;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import seedu.address.logic.commands.HelpCommand;
@@ -10,11 +9,11 @@ import seedu.address.ui.CommandBox;
 /**
  * A handle to the {@code CommandBox} in the GUI.
  */
-public class CommandBoxHandle extends NodeHandle {
+public class CommandBoxHandle extends NodeHandle<TextField> {
 
     public static final String COMMAND_INPUT_FIELD_ID = "#commandTextField";
 
-    public CommandBoxHandle(Node commandBoxNode) {
+    public CommandBoxHandle(TextField commandBoxNode) {
         super(commandBoxNode);
     }
 
@@ -22,7 +21,7 @@ public class CommandBoxHandle extends NodeHandle {
      * Returns the text in the command box.
      */
     public String getCommandInput() {
-        return ((TextField) getRootNode()).getText();
+        return getRootNode().getText();
     }
 
     /**
@@ -30,8 +29,8 @@ public class CommandBoxHandle extends NodeHandle {
      * @return true if the command succeeded, false otherwise.
      */
     public boolean runCommand(String command) {
-        guiRobot.clickOn(getRootNode());
-        guiRobot.interact(() -> ((TextField) getRootNode()).setText(command));
+        click();
+        guiRobot.interact(() -> getRootNode().setText(command));
         guiRobot.pauseForHuman();
 
         guiRobot.type(KeyCode.ENTER);
@@ -43,13 +42,12 @@ public class CommandBoxHandle extends NodeHandle {
      * Types {@code HelpCommand#COMMAND_WORD} and executes it.
      * @return the handle of the help window.
      */
-    public HelpWindowHandle runHelpCommand() {
+    public void runHelpCommand() {
         runCommand(HelpCommand.COMMAND_WORD);
-        return new HelpWindowHandle();
     }
 
     /**
-     * Gets the list of style classes present in the command box.
+     * Returns the list of style classes present in the command box.
      */
     public ObservableList<String> getStyleClass() {
         return getRootNode().getStyleClass();

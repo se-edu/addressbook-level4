@@ -1,6 +1,6 @@
 package guitests.guihandles;
 
-import guitests.GuiRobot;
+import javafx.stage.Stage;
 
 /**
  * A handle to the {@code HelpWindow} of the application.
@@ -9,7 +9,7 @@ public class HelpWindowHandle extends StageHandle {
 
     public static final String HELP_WINDOW_TITLE = "Help";
 
-    public HelpWindowHandle() {
-        super(new GuiRobot().getStage(HELP_WINDOW_TITLE));
+    public HelpWindowHandle(Stage helpWindowStage) {
+        super(helpWindowStage);
     }
 }

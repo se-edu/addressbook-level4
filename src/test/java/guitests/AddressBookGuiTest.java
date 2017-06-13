@@ -104,7 +104,7 @@ public abstract class AddressBookGuiTest {
     }
 
     /**
-     * Runs  {@code command} in the application's {@code CommandBox}.
+     * Runs {@code command} in the application's {@code CommandBox}.
      * @return true if the command succeeded.
      */
     protected boolean runCommand(String command) {

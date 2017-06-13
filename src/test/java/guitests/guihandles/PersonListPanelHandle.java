@@ -16,12 +16,12 @@ import seedu.address.testutil.TestUtil;
 /**
  * Provides a handle for the panel containing the person list.
  */
-public class PersonListPanelHandle extends NodeHandle {
+public class PersonListPanelHandle extends NodeHandle<ListView<ReadOnlyPerson>> {
     public static final String PERSON_LIST_VIEW_ID = "#personListView";
 
     private static final String CARD_PANE_ID = "#cardPane";
 
-    public PersonListPanelHandle(Node personListPanelNode) {
+    public PersonListPanelHandle(ListView<ReadOnlyPerson> personListPanelNode) {
         super(personListPanelNode);
     }
 
@@ -29,7 +29,7 @@ public class PersonListPanelHandle extends NodeHandle {
      * Returns the selected person in the list view. A maximum of 1 item can be selected at any time.
      */
     public Optional<ReadOnlyPerson> getSelectedPerson() {
-        List<ReadOnlyPerson> personList = getListView().getSelectionModel().getSelectedItems();
+        List<ReadOnlyPerson> personList = getRootNode().getSelectionModel().getSelectedItems();
 
         if (personList.size() > 1) {
             throw new AssertionError("Person list size expected 0 or 1.");
@@ -38,22 +38,18 @@ public class PersonListPanelHandle extends NodeHandle {
         return personList.isEmpty() ? Optional.empty() : Optional.of(personList.get(0));
     }
 
-    private ListView<ReadOnlyPerson> getListView() {
-        return (ListView<ReadOnlyPerson>) getRootNode();
-    }
-
     /**
      * Returns true if the list is showing the person details correctly and in correct order.
      * @param persons A list of person in the correct order.
      */
     public boolean isListMatching(ReadOnlyPerson... persons) throws PersonNotFoundException {
-        List<ReadOnlyPerson> personList = getListView().getItems();
+        List<ReadOnlyPerson> personList = getRootNode().getItems();
         checkArgument(personList.size() == persons.length,
                 "List size mismatched\nExpected " + personList.size() + " persons");
 
         for (int i = 0; i < persons.length; i++) {
             final int scrollTo = i; // lambda expression needs i to be final
-            guiRobot.interact(() -> getListView().scrollTo(scrollTo));
+            guiRobot.interact(() -> getRootNode().scrollTo(scrollTo));
             guiRobot.pauseForHuman();
             if (!TestUtil.compareCardAndPerson(getPersonCardHandle(i), persons[i])) {
                 return false;
@@ -66,36 +62,36 @@ public class PersonListPanelHandle extends NodeHandle {
      * Navigates the listview to display and select the person.
      */
     public void navigateToPerson(ReadOnlyPerson person) throws PersonNotFoundException {
-        if (!getListView().getItems().contains(person)) {
+        if (!getRootNode().getItems().contains(person)) {
             throw new PersonNotFoundException();
         }
 
         guiRobot.interact(() -> {
-            getListView().scrollTo(person);
-            getListView().getSelectionModel().select(person);
+            getRootNode().scrollTo(person);
+            getRootNode().getSelectionModel().select(person);
         });
         guiRobot.pauseForHuman();
     }
 
     /**
-     * Returns the person associated with the {@code index} from the list.
+     * Returns the person associated with the {@code index} in the list.
      */
     public ReadOnlyPerson getPerson(int index) {
-        return getListView().getItems().get(index);
+        return getRootNode().getItems().get(index);
     }
 
     /**
-     * Returns the person card handle of a person associated with the {@code index} from the list.
+     * Returns the person card handle of a person associated with the {@code index} in the list.
      */
     private PersonCardHandle getPersonCardHandle(int index) throws PersonNotFoundException {
         return getPersonCardHandle(getPerson(index));
     }
 
     /**
-     * Gets the person card handle of a person in the list.
+     * Returns the person card handle of a person in the list.
      */
     public PersonCardHandle getPersonCardHandle(ReadOnlyPerson person) throws PersonNotFoundException {
-        if (!getListView().getItems().contains(person)) {
+        if (!getRootNode().getItems().contains(person)) {
             throw new PersonNotFoundException();
         }
 
@@ -117,9 +113,9 @@ public class PersonListPanelHandle extends NodeHandle {
     }
 
     /**
-     * Gets the total number of people in the list.
+     * Returns the total number of people in the list.
      */
     public int getNumberOfPeople() {
-        return getListView().getItems().size();
+        return getRootNode().getItems().size();
     }
 }

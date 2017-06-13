@@ -14,7 +14,7 @@ import seedu.address.model.tag.Tag;
 /**
  * Provides a handle to a person card in the person list panel.
  */
-public class PersonCardHandle extends NodeHandle {
+public class PersonCardHandle extends NodeHandle<Node> {
     private static final String ID_FIELD_ID = "#id";
     private static final String NAME_FIELD_ID = "#name";
     private static final String ADDRESS_FIELD_ID = "#address";
@@ -32,12 +32,12 @@ public class PersonCardHandle extends NodeHandle {
     public PersonCardHandle(Node cardNode) {
         super(cardNode);
 
-        this.idLabel = (Label) getChildNode(ID_FIELD_ID);
-        this.nameLabel = (Label) getChildNode(NAME_FIELD_ID);
-        this.addressLabel = (Label) getChildNode(ADDRESS_FIELD_ID);
-        this.phoneLabel = (Label) getChildNode(PHONE_FIELD_ID);
-        this.emailLabel = (Label) getChildNode(EMAIL_FIELD_ID);
-        this.tagsContainer = (Region) getChildNode(TAGS_FIELD_ID);
+        this.idLabel = getChildNode(ID_FIELD_ID);
+        this.nameLabel = getChildNode(NAME_FIELD_ID);
+        this.addressLabel = getChildNode(ADDRESS_FIELD_ID);
+        this.phoneLabel = getChildNode(PHONE_FIELD_ID);
+        this.emailLabel = getChildNode(EMAIL_FIELD_ID);
+        this.tagsContainer = getChildNode(TAGS_FIELD_ID);
     }
 
     public String getId() {
