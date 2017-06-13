@@ -7,10 +7,8 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.control.ListView;
-import seedu.address.TestApp;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.testutil.TestUtil;
@@ -18,14 +16,13 @@ import seedu.address.testutil.TestUtil;
 /**
  * Provides a handle for the panel containing the person list.
  */
-public class PersonListPanelHandle extends GuiHandle {
+public class PersonListPanelHandle extends NodeHandle {
 
     private static final String CARD_PANE_ID = "#cardPane";
-
     private static final String PERSON_LIST_VIEW_ID = "#personListView";
 
-    public PersonListPanelHandle() {
-        super(TestApp.APP_TITLE);
+    public PersonListPanelHandle(MainWindowHandle mainWindowHandle) {
+        super(mainWindowHandle.getChildNode(PERSON_LIST_VIEW_ID));
     }
 
     /**
@@ -42,7 +39,7 @@ public class PersonListPanelHandle extends GuiHandle {
     }
 
     private ListView<ReadOnlyPerson> getListView() {
-        return getNode(PERSON_LIST_VIEW_ID);
+        return (ListView<ReadOnlyPerson>) getRootNode();
     }
 
     /**
@@ -66,14 +63,6 @@ public class PersonListPanelHandle extends GuiHandle {
     }
 
     /**
-     * Clicks on the ListView.
-     */
-    public void clickOnListView() {
-        Point2D point = TestUtil.getScreenMidPoint(getListView());
-        guiRobot.clickOn(point.getX(), point.getY());
-    }
-
-    /**
      * Navigates the listview to display and select the person.
      */
     public void navigateToPerson(ReadOnlyPerson person) throws PersonNotFoundException {
@@ -89,16 +78,22 @@ public class PersonListPanelHandle extends GuiHandle {
     }
 
     /**
-     * Gets a person from the list by index
+     * Returns the person associated with the {@code index} from the list.
      */
     public ReadOnlyPerson getPerson(int index) {
         return getListView().getItems().get(index);
     }
 
+    /**
+     * Returns the person card handle of a person associated with the {@code index} from the list.
+     */
     private PersonCardHandle getPersonCardHandle(int index) throws PersonNotFoundException {
         return getPersonCardHandle(getPerson(index));
     }
 
+    /**
+     * Gets the person card handle of a person in the list.
+     */
     public PersonCardHandle getPersonCardHandle(ReadOnlyPerson person) throws PersonNotFoundException {
         if (!getListView().getItems().contains(person)) {
             throw new PersonNotFoundException();
@@ -121,6 +116,9 @@ public class PersonListPanelHandle extends GuiHandle {
         return guiRobot.lookup(CARD_PANE_ID).queryAll();
     }
 
+    /**
+     * Gets the total number of people in the list.
+     */
     public int getNumberOfPeople() {
         return getListView().getItems().size();
     }
