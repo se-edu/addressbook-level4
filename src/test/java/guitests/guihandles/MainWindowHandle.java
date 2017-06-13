@@ -17,7 +17,7 @@ public class MainWindowHandle extends WindowHandle {
     public MainWindowHandle(Window window) {
         super(window);
 
-        personListPanel = new PersonListPanelHandle();
+        personListPanel = new PersonListPanelHandle(this);
         resultDisplay = new ResultDisplayHandle();
         commandBox = new CommandBoxHandle(this);
         statusBarFooter = new StatusBarFooterHandle();
