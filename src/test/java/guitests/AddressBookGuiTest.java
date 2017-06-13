@@ -44,7 +44,7 @@ public abstract class AddressBookGuiTest {
 
     protected Stage stage;
 
-    protected MainWindowHandle mainGui;
+    protected MainWindowHandle mainWindowHandle;
 
     @BeforeClass
     public static void setupOnce() {
@@ -66,8 +66,8 @@ public abstract class AddressBookGuiTest {
         FxToolkit.showStage();
         while (!stage.isShowing());
 
-        mainGui = new MainWindowHandle();
-        mainGui.focusOnMainApp();
+        mainWindowHandle = new MainWindowHandle(stage);
+        mainWindowHandle.focusOnStage();
     }
 
     /**
@@ -81,27 +81,27 @@ public abstract class AddressBookGuiTest {
     }
 
     protected CommandBoxHandle getCommandBox() {
-        return mainGui.getCommandBox();
+        return mainWindowHandle.getCommandBox();
     }
 
     protected PersonListPanelHandle getPersonListPanel() {
-        return mainGui.getPersonListPanel();
+        return mainWindowHandle.getPersonListPanel();
     }
 
     protected MainMenuHandle getMainMenu() {
-        return mainGui.getMainMenu();
+        return mainWindowHandle.getMainMenu();
     }
 
     protected BrowserPanelHandle getBrowserPanel() {
-        return mainGui.getBrowserPanel();
+        return mainWindowHandle.getBrowserPanel();
     }
 
     protected StatusBarFooterHandle getStatusBarFooter() {
-        return mainGui.getStatusBarFooter();
+        return mainWindowHandle.getStatusBarFooter();
     }
 
     protected ResultDisplayHandle getResultDisplay() {
-        return mainGui.getResultDisplay();
+        return mainWindowHandle.getResultDisplay();
     }
 
     /**
