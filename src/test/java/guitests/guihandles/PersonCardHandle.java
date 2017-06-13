@@ -1,14 +1,11 @@
 package guitests.guihandles;
 
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
-import seedu.address.model.person.ReadOnlyPerson;
-import seedu.address.model.tag.Tag;
 
 /**
  * Provides a handle to a person card in the person list panel.
@@ -70,24 +67,6 @@ public class PersonCardHandle extends NodeHandle<Node> {
                 .stream()
                 .map(Label::getText)
                 .collect(Collectors.toList());
-    }
-
-    private List<String> getTagsFromSet(Set<Tag> tags) {
-        return tags
-                .stream()
-                .map(tag -> tag.tagName)
-                .collect(Collectors.toList());
-    }
-
-    /**
-     * Returns true if {@code PersonCard} belongs to {@code person}.
-     */
-    public boolean belongsTo(ReadOnlyPerson person) {
-        return getName().equals(person.getName().fullName)
-                && getPhone().equals(person.getPhone().value)
-                && getEmail().equals(person.getEmail().value)
-                && getAddress().equals(person.getAddress().value)
-                && getTags().equals(getTagsFromSet(person.getTags()));
     }
 
     @Override

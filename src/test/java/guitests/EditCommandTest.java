@@ -1,6 +1,5 @@
 package guitests;
 
-import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
@@ -11,6 +10,7 @@ import static seedu.address.testutil.TypicalPersons.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalPersons.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalPersons.INDEX_THIRD_PERSON;
 import static seedu.address.testutil.TypicalPersons.TYPICAL_PERSONS;
+import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysPerson;
 
 import org.junit.Test;
 
@@ -145,11 +145,11 @@ public class EditCommandTest extends AddressBookGuiTest {
         // confirm the new card contains the right data
         getPersonListPanel().navigateToCard(editedPerson);
         PersonCardHandle editedCard = getPersonListPanel().getPersonCardHandle(editedPerson);
-        assertCardMatchesPerson(editedCard, editedPerson);
+        assertCardDisplaysPerson(editedPerson, editedCard);
 
         // confirm the list now contains all previous persons plus the person with updated details
         TYPICAL_PERSONS[addressBookIndex.getZeroBased()] = editedPerson;
-        assertTrue(getPersonListPanel().isListMatching(TYPICAL_PERSONS));
+        getPersonListPanel().assertListMatching(TYPICAL_PERSONS);
         assertResultMessage(String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson));
     }
 }

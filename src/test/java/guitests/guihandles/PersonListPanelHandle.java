@@ -1,7 +1,7 @@
 package guitests.guihandles;
 
-
 import static seedu.address.commons.util.AppUtil.checkArgument;
+import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysPerson;
 
 import java.util.List;
 import java.util.Optional;
@@ -39,7 +39,7 @@ public class PersonListPanelHandle extends NodeHandle<ListView<PersonCard>> {
      * Returns true if the list is showing the person details correctly and in correct order.
      * @param persons A list of person in the correct order.
      */
-    public boolean isListMatching(ReadOnlyPerson... persons) throws PersonNotFoundException {
+    public void assertListMatching(ReadOnlyPerson... persons) throws PersonNotFoundException {
         List<PersonCard> personList = getRootNode().getItems();
         checkArgument(personList.size() == persons.length,
                 "List size mismatched\nExpected " + personList.size() + " persons");
@@ -48,11 +48,9 @@ public class PersonListPanelHandle extends NodeHandle<ListView<PersonCard>> {
             final int scrollTo = i; // lambda expression needs i to be final
             guiRobot.interact(() -> getRootNode().scrollTo(scrollTo));
             guiRobot.pauseForHuman();
-            if (!getPersonCardHandle(i).belongsTo(persons[i])) {
-                return false;
-            }
+
+            assertCardDisplaysPerson(persons[i], getPersonCardHandle(i));
         }
-        return true;
     }
 
     /**

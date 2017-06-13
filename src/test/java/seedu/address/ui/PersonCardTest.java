@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.testutil.TypicalPersons.ALICE;
+import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysPerson;
 
 import org.junit.Test;
 
@@ -79,6 +80,6 @@ public class PersonCardTest extends GuiUnitTest {
         assertEquals(Integer.toString(expectedId) + ". ", personCardHandle.getId());
 
         // verify person details are displayed correctly
-        assertTrue(personCardHandle.belongsTo(expectedPerson));
+        assertCardDisplaysPerson(expectedPerson, personCardHandle);
     }
 }
