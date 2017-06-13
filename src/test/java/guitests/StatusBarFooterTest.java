@@ -46,19 +46,19 @@ public class StatusBarFooterTest extends AddressBookGuiTest {
     public void syncStatus_mutatingCommandSucceeds_syncStatusUpdated() {
         String timestamp = new Date(injectedClock.millis()).toString();
         String expected = String.format(SYNC_STATUS_UPDATED, timestamp);
-        assertTrue(getCommandBox().runCommand(PersonUtil.getAddCommand(td.hoon))); // mutating command succeeds
+        assertTrue(getCommandBox().submitCommand(PersonUtil.getAddCommand(td.hoon))); // mutating command succeeds
         assertEquals(expected, getStatusBarFooter().getSyncStatus());
     }
 
     @Test
     public void syncStatus_nonMutatingCommandSucceeds_syncStatusRemainsUnchanged() {
-        assertTrue(getCommandBox().runCommand(ListCommand.COMMAND_WORD)); // non-mutating command succeeds
+        assertTrue(getCommandBox().submitCommand(ListCommand.COMMAND_WORD)); // non-mutating command succeeds
         assertEquals(SYNC_STATUS_INITIAL, getStatusBarFooter().getSyncStatus());
     }
 
     @Test
     public void syncStatus_commandFails_syncStatusRemainsUnchanged() {
-        assertFalse(getCommandBox().runCommand("invalid command")); // invalid command fails
+        assertFalse(getCommandBox().submitCommand("invalid command")); // invalid command fails
         assertEquals(SYNC_STATUS_INITIAL, getStatusBarFooter().getSyncStatus());
     }
 
