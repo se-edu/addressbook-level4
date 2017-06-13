@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 import guitests.guihandles.HelpWindowHandle;
+import seedu.address.logic.commands.HelpCommand;
 
 public class HelpWindowTest extends AddressBookGuiTest {
 
@@ -33,7 +34,7 @@ public class HelpWindowTest extends AddressBookGuiTest {
         assertHelpWindowOpen();
 
         //use command
-        getCommandBox().runHelpCommand();
+        getCommandBox().enterCommand(HelpCommand.COMMAND_WORD);
         assertHelpWindowOpen();
     }
 
