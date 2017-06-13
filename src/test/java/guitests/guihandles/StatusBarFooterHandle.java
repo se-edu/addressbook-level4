@@ -2,25 +2,38 @@ package guitests.guihandles;
 
 import org.controlsfx.control.StatusBar;
 
-import seedu.address.TestApp;
+import javafx.scene.Node;
 
 /**
- * A handle for the status bar at the footer of the application.
+ * A handle for the {@code StatusBarFooter} at the footer of the application.
  */
-public class StatusBarFooterHandle extends GuiHandle {
+public class StatusBarFooterHandle extends NodeHandle<Node> {
+    public static final String STATUS_BAR_PLACEHOLDER = "#statusbarPlaceholder";
 
-    public static final String SYNC_STATUS_ID = "#syncStatus";
-    public static final String SAVE_LOCATION_STATUS_ID = "#saveLocationStatus";
+    private static final String SYNC_STATUS_ID = "#syncStatus";
+    private static final String SAVE_LOCATION_STATUS_ID = "#saveLocationStatus";
 
-    public StatusBarFooterHandle() {
-        super(TestApp.APP_TITLE);
+    private final StatusBar syncStatusNode;
+    private final StatusBar saveLocationNode;
+
+    public StatusBarFooterHandle(Node statusBarFooterNode) {
+        super(statusBarFooterNode);
+
+        this.syncStatusNode = getChildNode(SYNC_STATUS_ID);
+        this.saveLocationNode = getChildNode(SAVE_LOCATION_STATUS_ID);
     }
 
+    /**
+     * Returns the text of the sync status portion of the status bar.
+     */
     public String getSyncStatus() {
-        return ((StatusBar) getNode(SYNC_STATUS_ID)).getText();
+        return syncStatusNode.getText();
     }
 
+    /**
+     * Returns the text of the 'save location' portion of the status bar.
+     */
     public String getSaveLocation() {
-        return ((StatusBar) getNode(SAVE_LOCATION_STATUS_ID)).getText();
+        return saveLocationNode.getText();
     }
 }
