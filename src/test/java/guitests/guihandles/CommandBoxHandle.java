@@ -24,10 +24,6 @@ public class CommandBoxHandle extends GuiHandle {
         guiRobot.clickOn(COMMAND_INPUT_FIELD_ID);
     }
 
-    public void enterCommand(String command) {
-        guiRobot.enterText(getNode(COMMAND_INPUT_FIELD_ID), command);
-    }
-
     public String getCommandInput() {
         return getTextFieldText(COMMAND_INPUT_FIELD_ID);
     }
@@ -37,14 +33,14 @@ public class CommandBoxHandle extends GuiHandle {
      * @return true if the command succeeded, false otherwise.
      */
     public boolean runCommand(String command) {
-        enterCommand(command);
+        guiRobot.enterText(getNode(COMMAND_INPUT_FIELD_ID), command);
         guiRobot.pressEnter();
         guiRobot.pauseForHuman(SHORT_WAIT);
         return !getStyleClass().contains(CommandBox.ERROR_STYLE_CLASS);
     }
 
     public void runHelpCommand() {
-        enterCommand(HelpCommand.COMMAND_WORD);
+        guiRobot.enterText(getNode(COMMAND_INPUT_FIELD_ID), HelpCommand.COMMAND_WORD);
         guiRobot.pressEnter();
     }
 
