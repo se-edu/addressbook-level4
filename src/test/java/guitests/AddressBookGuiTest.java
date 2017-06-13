@@ -108,7 +108,7 @@ public abstract class AddressBookGuiTest {
      * @return true if the command was executed successfully.
      */
     protected boolean runCommand(String command) {
-        return mainWindowHandle.getCommandBox().runCommand(command);
+        return mainWindowHandle.getCommandBox().run(command);
     }
 
     /**
