@@ -44,7 +44,7 @@ public class CommandBoxHandle extends NodeHandle {
      */
     public HelpWindowHandle runHelpCommand() {
         runCommand(HelpCommand.COMMAND_WORD);
-        return new HelpWindowHandle(new GuiRobot(), null);
+        return new HelpWindowHandle();
     }
 
     /**
