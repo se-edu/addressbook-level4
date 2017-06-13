@@ -1,5 +1,6 @@
 package guitests.guihandles;
 
+import javafx.scene.Node;
 import javafx.scene.control.TextArea;
 
 /**
@@ -9,8 +10,8 @@ public class ResultDisplayHandle extends NodeHandle {
 
     public static final String RESULT_DISPLAY_ID = "#resultDisplay";
 
-    public ResultDisplayHandle(MainWindowHandle mainWindowHandle) {
-        super(mainWindowHandle.getChildNode(RESULT_DISPLAY_ID));
+    public ResultDisplayHandle(Node resultDisplayHandle) {
+        super(resultDisplayHandle);
     }
 
     /**

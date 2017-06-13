@@ -17,12 +17,12 @@ import seedu.address.testutil.TestUtil;
  * Provides a handle for the panel containing the person list.
  */
 public class PersonListPanelHandle extends NodeHandle {
+    public static final String PERSON_LIST_VIEW_ID = "#personListView";
 
     private static final String CARD_PANE_ID = "#cardPane";
-    private static final String PERSON_LIST_VIEW_ID = "#personListView";
 
-    public PersonListPanelHandle(MainWindowHandle mainWindowHandle) {
-        super(mainWindowHandle.getChildNode(PERSON_LIST_VIEW_ID));
+    public PersonListPanelHandle(Node personListPanelNode) {
+        super(personListPanelNode);
     }
 
     /**

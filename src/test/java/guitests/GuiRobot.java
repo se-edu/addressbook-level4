@@ -82,12 +82,16 @@ public class GuiRobot extends FxRobot {
 
     /**
      * Returns the stage with the stage title.
+     * @throws StageNotFoundException if the stage is not found.
      */
-    public Optional<Stage> getStage(String stageTitle) throws StageNotFoundException {
-        return listTargetWindows().stream()
-                .filter(window -> window instanceof Stage && ((Stage) window).getTitle().equals(stageTitle))
-                .map(window -> (Stage) window)
+    public Stage getStage(String stageTitle) {
+        Optional<Stage> targetStage = listTargetWindows().stream()
+                .filter(Stage.class::isInstance)
+                .map(Stage.class::cast)
+                .filter(stage -> stage.getTitle().equals(stageTitle))
                 .findFirst();
+
+        return targetStage.orElseThrow(StageNotFoundException::new);
     }
 
     /**

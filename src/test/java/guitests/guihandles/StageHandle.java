@@ -2,6 +2,7 @@ package guitests.guihandles;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Optional;
 import java.util.logging.Logger;
 
 import guitests.GuiRobot;
@@ -26,8 +27,7 @@ public abstract class StageHandle {
     /**
      * Closes {@code stage}.
      */
-    public void closeStage() {
-        guiRobot.targetWindow(stage);
+    public void close() {
         guiRobot.interact(() -> stage.close());
         guiRobot.pauseForHuman();
     }
@@ -35,25 +35,21 @@ public abstract class StageHandle {
     /**
      * Focuses on this {@code stage}.
      */
-    public void focusOnStage() {
+    public void focus() {
         String windowTitle = stage.getTitle();
         logger.info("Focusing on" + windowTitle);
-        guiRobot.targetWindow(stage);
         guiRobot.interact(() -> stage.requestFocus());
         logger.info("Finishing focus on" + windowTitle);
     }
 
     /**
      * Retrieves the {@code query} node owned by the {@code stage}.
-     * Throws {@code NodeNotFoundException} if no such node exist.
+     * @throws NodeNotFoundException if no such node exist.
      */
     protected <T extends Node> T getChildNode(String query) {
-        T node = guiRobot.from(stage.getScene().getRoot()).lookup(query).query();
+        Optional<T> node = Optional.ofNullable(
+                guiRobot.from(stage.getScene().getRoot()).lookup(query).query());
 
-        if (node == null) {
-            throw new NodeNotFoundException();
-        }
-
-        return node;
+        return node.orElseThrow(NodeNotFoundException::new);
     }
 }

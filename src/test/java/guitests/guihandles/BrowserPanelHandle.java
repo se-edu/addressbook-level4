@@ -1,13 +1,15 @@
 package guitests.guihandles;
 
+import javafx.scene.Node;
+
 /**
  * A handler for the {@code BrowserPanel} of the UI.
  */
 public class BrowserPanelHandle extends NodeHandle {
 
-    private static final String BROWSER_ID = "#browser";
+    public static final String BROWSER_ID = "#browser";
 
-    public BrowserPanelHandle(MainWindowHandle mainWindowHandle) {
-        super(mainWindowHandle.getChildNode(BROWSER_ID));
+    public BrowserPanelHandle(Node browserPanelNode) {
+        super(browserPanelNode);
     }
 }

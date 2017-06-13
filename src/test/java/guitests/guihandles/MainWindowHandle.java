@@ -17,12 +17,12 @@ public class MainWindowHandle extends StageHandle {
     public MainWindowHandle(Stage stage) {
         super(stage);
 
-        personListPanel = new PersonListPanelHandle(this);
-        resultDisplay = new ResultDisplayHandle(this);
-        commandBox = new CommandBoxHandle(this);
-        statusBarFooter = new StatusBarFooterHandle(this);
-        mainMenu = new MainMenuHandle(this);
-        browserPanel = new BrowserPanelHandle(this);
+        personListPanel = new PersonListPanelHandle(getChildNode(PersonListPanelHandle.PERSON_LIST_VIEW_ID));
+        resultDisplay = new ResultDisplayHandle(getChildNode(ResultDisplayHandle.RESULT_DISPLAY_ID));
+        commandBox = new CommandBoxHandle(getChildNode(CommandBoxHandle.COMMAND_INPUT_FIELD_ID));
+        statusBarFooter = new StatusBarFooterHandle(getChildNode(StatusBarFooterHandle.STATUS_BAR_PLACEHOLDER));
+        mainMenu = new MainMenuHandle(getChildNode(MainMenuHandle.MENU_BAR_ID));
+        browserPanel = new BrowserPanelHandle(getChildNode(BrowserPanelHandle.BROWSER_ID));
     }
 
     public PersonListPanelHandle getPersonListPanel() {

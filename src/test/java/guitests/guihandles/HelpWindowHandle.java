@@ -12,23 +12,16 @@ public class HelpWindowHandle extends StageHandle {
     public static final String HELP_WINDOW_TITLE = "Help";
 
     public HelpWindowHandle() {
-        super(new GuiRobot().getStage(HELP_WINDOW_TITLE).get());
-    }
-
-    /**
-     * Returns whether a help window is currently present in the application.
-     */
-    public static boolean isWindowPresent() {
-        return new GuiRobot().getStage(HELP_WINDOW_TITLE).isPresent();
+        super(new GuiRobot().getStage(HELP_WINDOW_TITLE));
     }
 
     /**
      * Closes the help window.
      */
     public void closeWindow() {
-        super.closeStage();
+        super.close();
         guiRobot.pauseForHuman();
 
-        assertFalse(isWindowPresent());
+        assertFalse(guiRobot.isWindowShown(HELP_WINDOW_TITLE));
     }
 }

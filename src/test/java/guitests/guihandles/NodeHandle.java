@@ -2,6 +2,7 @@ package guitests.guihandles;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Optional;
 import java.util.logging.Logger;
 
 import guitests.GuiRobot;
@@ -28,22 +29,19 @@ public abstract class NodeHandle {
 
     /**
      * Retrieves the {@code query} node owned by the {@code rootNode}.
-     * Throws {@code NodeNotFoundException} if no such node exist.
+     *
+     * @param query name of the CSS selector for the node to retrieve.
+     * @throws NodeNotFoundException if no such node exist.
      */
     protected <T extends Node> T getChildNode(String query) {
-        T node = guiRobot.from(rootNode).lookup(query).query();
-
-        if (node == null) {
-            throw new NodeNotFoundException();
-        }
-
-        return node;
+        Optional<T> node = Optional.ofNullable(guiRobot.from(rootNode).lookup(query).query());
+        return node.orElseThrow(NodeNotFoundException::new);
     }
 
     /**
      * Clicks on the root node (i.e. itself).
      */
-    public void clickOnRootNode() {
+    public void click() {
         guiRobot.clickOn(rootNode);
     }
 }

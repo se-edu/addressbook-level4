@@ -2,16 +2,17 @@ package guitests.guihandles;
 
 import java.util.Arrays;
 
+import javafx.scene.Node;
 import javafx.scene.input.KeyCode;
 
 /**
  * Provides a handle to the main menu of the app.
  */
 public class MainMenuHandle extends NodeHandle {
-    private static final String MENU_BAR_ID = "#menuBar";
+    public static final String MENU_BAR_ID = "#menuBar";
 
-    public MainMenuHandle(MainWindowHandle mainWindowHandle) {
-        super(mainWindowHandle.getChildNode(MENU_BAR_ID));
+    public MainMenuHandle(Node mainMenuHandle) {
+        super(mainMenuHandle);
     }
 
     /**

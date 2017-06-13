@@ -1,6 +1,7 @@
 package guitests.guihandles;
 
 import javafx.collections.ObservableList;
+import javafx.scene.Node;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import seedu.address.logic.commands.HelpCommand;
@@ -11,14 +12,14 @@ import seedu.address.ui.CommandBox;
  */
 public class CommandBoxHandle extends NodeHandle {
 
-    private static final String COMMAND_INPUT_FIELD_ID = "#commandTextField";
+    public static final String COMMAND_INPUT_FIELD_ID = "#commandTextField";
 
-    public CommandBoxHandle(MainWindowHandle mainWindowHandle) {
-        super(mainWindowHandle.getChildNode(COMMAND_INPUT_FIELD_ID));
+    public CommandBoxHandle(Node commandBoxNode) {
+        super(commandBoxNode);
     }
 
     /**
-     * Gets the text of the command box.
+     * Returns the text in the command box.
      */
     public String getCommandInput() {
         return ((TextField) getRootNode()).getText();

@@ -53,14 +53,14 @@ public class CommandBoxTest extends AddressBookGuiTest {
     @Test
     public void commandBox_handleKeyPress() {
         GuiRobot robot = new GuiRobot();
-        commandBox.runCommand(COMMAND_THAT_FAILS);
-        assertEquals(errorStyleOfCommandBox, commandBox.getStyleClass());
+        getCommandBox().runCommand(COMMAND_THAT_FAILS);
+        assertEquals(errorStyleOfCommandBox, getCommandBox().getStyleClass());
         robot.push(KeyCode.ESCAPE);
-        assertEquals(errorStyleOfCommandBox, commandBox.getStyleClass());
+        assertEquals(errorStyleOfCommandBox, getCommandBox().getStyleClass());
 
         robot.push(KeyCode.A);
         robot.pauseForHuman();
-        assertEquals(defaultStyleOfCommandBox, commandBox.getStyleClass());
+        assertEquals(defaultStyleOfCommandBox, getCommandBox().getStyleClass());
     }
 
     /**

@@ -66,7 +66,7 @@ public abstract class AddressBookGuiTest {
         FxToolkit.showStage();
 
         mainWindowHandle = new MainWindowHandle(stage);
-        mainWindowHandle.focusOnStage();
+        mainWindowHandle.focus();
     }
 
     /**
@@ -104,7 +104,8 @@ public abstract class AddressBookGuiTest {
     }
 
     /**
-     * Runs a {@code command} in the application's {@code CommandBox}.
+     * Runs  {@code command} in the application's {@code CommandBox}.
+     * @return true if the command succeeded.
      */
     protected boolean runCommand(String command) {
         return mainWindowHandle.getCommandBox().runCommand(command);
