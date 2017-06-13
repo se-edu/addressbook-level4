@@ -42,9 +42,8 @@ public class CommandBoxHandle extends NodeHandle<TextField> {
      * Types {@code HelpCommand#COMMAND_WORD} and executes it.
      * @return the handle of the help window.
      */
-    public HelpWindowHandle runHelpCommand() {
+    public void runHelpCommand() {
         runCommand(HelpCommand.COMMAND_WORD);
-        return new HelpWindowHandle();
     }
 
     /**
