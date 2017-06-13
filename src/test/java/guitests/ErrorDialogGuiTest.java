@@ -25,7 +25,7 @@ public class ErrorDialogGuiTest extends AddressBookGuiTest {
         guiRobot.pauseForHuman(LONG_WAIT);
 
         AlertDialogHandle alertDialog = new AlertDialogHandle(ERROR_DIALOG_STAGE_TITLE);
-        assertTrue(alertDialog.isMatching(ERROR_HEADER_MESSAGE, ERROR_CONTENT_MESSAGE + ":\n"
+        assertTrue(alertDialog.isMatchingContent(ERROR_HEADER_MESSAGE, ERROR_CONTENT_MESSAGE + ":\n"
                                                                          + "java.io.IOException"));
 
     }
