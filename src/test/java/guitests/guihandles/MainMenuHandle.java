@@ -21,7 +21,7 @@ public class MainMenuHandle extends NodeHandle {
 
     public void openHelpWindowUsingAccelerator() {
         GUI_ROBOT.push(KeyCode.F1);
-        GUI_ROBOT.sleep(500);
+        GUI_ROBOT.pauseForHuman();
     }
 
     public void clickOnMenuItemsSequentially(String... menuItems) {

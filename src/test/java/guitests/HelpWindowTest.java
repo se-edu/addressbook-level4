@@ -49,7 +49,7 @@ public class HelpWindowTest extends AddressBookGuiTest {
      */
     private void assertHelpWindowOpen() {
         assertTrue(HelpWindowHandle.isWindowPresent());
-        guiRobot.sleep(500);
+        guiRobot.pauseForHuman();
 
         new HelpWindowHandle().closeWindow();
     }
@@ -58,7 +58,7 @@ public class HelpWindowTest extends AddressBookGuiTest {
      * Asserts that the help window isn't open at all.
      */
     private void assertHelpWindowNotOpen() {
-        guiRobot.sleep(500);
+        guiRobot.pauseForHuman();
 
         assertFalse(HelpWindowHandle.isWindowPresent());
     }

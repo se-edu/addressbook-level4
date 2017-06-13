@@ -58,7 +58,7 @@ public class PersonListPanelHandle extends NodeHandle {
         for (int i = 0; i < persons.length; i++) {
             final int scrollTo = i + startPosition;
             GUI_ROBOT.interact(() -> getListView().scrollTo(scrollTo));
-            GUI_ROBOT.sleep(200);
+            GUI_ROBOT.pauseForHuman();
             if (!TestUtil.compareCardAndPerson(getPersonCardHandle(startPosition + i), persons[i])) {
                 return false;
             }
@@ -88,7 +88,7 @@ public class PersonListPanelHandle extends NodeHandle {
     }
 
     public PersonCardHandle navigateToPerson(String name) {
-        GUI_ROBOT.sleep(500); //Allow a bit of time for the list to be updated
+        GUI_ROBOT.pauseForHuman();
         final Optional<ReadOnlyPerson> person = getListView().getItems().stream()
                 .filter(p -> p.getName().fullName.equals(name))
                 .findAny();
@@ -103,13 +103,11 @@ public class PersonListPanelHandle extends NodeHandle {
      * Navigates the listview to display and select the person.
      */
     public PersonCardHandle navigateToPerson(ReadOnlyPerson person) {
-        int index = getPersonIndex(person);
-
         GUI_ROBOT.interact(() -> {
             getListView().scrollTo(person);
             getListView().getSelectionModel().select(person);
         });
-        GUI_ROBOT.sleep(500);
+        GUI_ROBOT.pauseForHuman();
         return getPersonCardHandle(person);
     }
 

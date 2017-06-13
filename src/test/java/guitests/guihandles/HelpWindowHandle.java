@@ -32,7 +32,7 @@ public class HelpWindowHandle extends WindowHandle {
 
     public void closeWindow() {
         super.closeWindow();
-        GUI_ROBOT.sleep(500);
+        GUI_ROBOT.pauseForHuman();
 
         assertFalse(isWindowPresent());
     }

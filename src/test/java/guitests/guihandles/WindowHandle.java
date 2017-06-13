@@ -26,7 +26,7 @@ public abstract class WindowHandle {
     public void closeWindow() {
         GUI_ROBOT.targetWindow(window);
         GUI_ROBOT.interact(() -> ((Stage) window).close());
-        GUI_ROBOT.sleep(500);
+        GUI_ROBOT.pauseForHuman();
     }
 
     public void focusOnWindow() {

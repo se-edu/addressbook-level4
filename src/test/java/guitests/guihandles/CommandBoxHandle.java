@@ -28,10 +28,10 @@ public class CommandBoxHandle extends NodeHandle {
     public boolean runCommand(String command) {
         GUI_ROBOT.clickOn(getNode());
         GUI_ROBOT.interact(() -> ((TextField) getNode()).setText(command));
-        GUI_ROBOT.sleep(500);
+        GUI_ROBOT.pauseForHuman();
 
         GUI_ROBOT.type(KeyCode.ENTER);
-        GUI_ROBOT.sleep(500);
+        GUI_ROBOT.pauseForHuman();
         return !getStyleClass().contains(CommandBox.ERROR_STYLE_CLASS);
     }
 
