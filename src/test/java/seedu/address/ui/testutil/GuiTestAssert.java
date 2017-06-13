@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import guitests.GuiRobot;
 import guitests.guihandles.PersonCardHandle;
 import guitests.guihandles.PersonListPanelHandle;
+import seedu.address.commons.core.index.Index;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 
@@ -40,8 +41,8 @@ public class GuiTestAssert {
     }
 
     /**
-     * Returns true if the list in {@code personListPanelHandle} is showing the person details correctly and in the
-     * correct order.
+     * Asserts that the list in {@code personListPanelHandle} is showing the person details correctly and in the
+     * correct order. The {@code PersonListPanel} list will be scrolled when verifying each individual person.
      * @param persons A list of person in the correct order.
      */
     public static void assertListMatching(PersonListPanelHandle personListPanelHandle, ReadOnlyPerson... persons)
@@ -51,8 +52,7 @@ public class GuiTestAssert {
                 "List size mismatched\nExpected " + personListPanelHandle.getListSize() + " persons");
 
         for (int i = 0; i < persons.length; i++) {
-            final int scrollTo = i; // lambda expression needs i to be final
-            guiRobot.interact(() -> personListPanelHandle.scrollTo(scrollTo));
+            personListPanelHandle.scrollTo(Index.fromZeroBased(i));
             guiRobot.pauseForHuman();
 
             assertCardDisplaysPerson(persons[i], personListPanelHandle.getPersonCardHandle(i));
