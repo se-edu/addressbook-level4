@@ -107,7 +107,7 @@ public class PersonListPanelHandle extends GuiHandle {
     /**
      * Navigates the listview to display and select the person.
      */
-    public PersonCardHandle navigateToPerson(ReadOnlyPerson person) {
+    private PersonCardHandle navigateToPerson(ReadOnlyPerson person) {
         int index = getPersonIndex(person);
 
         guiRobot.interact(() -> {
