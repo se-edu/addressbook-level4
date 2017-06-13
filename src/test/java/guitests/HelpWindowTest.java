@@ -9,8 +9,6 @@ import guitests.guihandles.HelpWindowHandle;
 
 public class HelpWindowTest extends AddressBookGuiTest {
 
-    private GuiRobot guiRobot = new GuiRobot();
-
     @Test
     public void openHelpWindow() {
         //use accelerator
