@@ -17,7 +17,7 @@ public class HelpWindowTest extends AddressBookGuiTest {
         assertHelpWindowOpen();
 
         mainWindowHandle.focus();   // needed in headless mode, otherwise main window loses focus
-        getResultDisplay().clickOnTextArea();
+        getResultDisplay().click();
         getMainMenu().openHelpWindowUsingAccelerator();
         assertHelpWindowOpen();
 
