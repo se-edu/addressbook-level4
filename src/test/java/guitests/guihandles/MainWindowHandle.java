@@ -23,7 +23,7 @@ public class MainWindowHandle extends StageHandle {
         commandBox = new CommandBoxHandle(TestApp.APP_TITLE);
         statusBarFooter = new StatusBarFooterHandle();
         mainMenu = new MainMenuHandle();
-        browserPanel = new BrowserPanelHandle();
+        browserPanel = new BrowserPanelHandle(getChildNode(BrowserPanelHandle.BROWSER_ID));
     }
 
     public PersonListPanelHandle getPersonListPanel() {
