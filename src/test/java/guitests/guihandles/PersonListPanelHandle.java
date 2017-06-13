@@ -21,7 +21,6 @@ import seedu.address.testutil.TestUtil;
  */
 public class PersonListPanelHandle extends GuiHandle {
 
-    public static final int NOT_FOUND = -1;
     public static final String CARD_PANE_ID = "#cardPane";
 
     private static final String PERSON_LIST_VIEW_ID = "#personListView";
@@ -107,20 +106,6 @@ public class PersonListPanelHandle extends GuiHandle {
         });
         guiRobot.pauseForHuman();
         return getPersonCardHandle(person);
-    }
-
-
-    /**
-     * Returns the position of the person given, {@code NOT_FOUND} if not found in the list.
-     */
-    public int getPersonIndex(ReadOnlyPerson targetPerson) {
-        List<ReadOnlyPerson> personsInList = getListView().getItems();
-        for (int i = 0; i < personsInList.size(); i++) {
-            if (personsInList.get(i).getName().equals(targetPerson.getName())) {
-                return i;
-            }
-        }
-        return NOT_FOUND;
     }
 
     /**
