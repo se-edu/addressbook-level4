@@ -12,7 +12,6 @@ import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.person.ReadOnlyPerson;
-import seedu.address.storage.Storage;
 
 /**
  * The main LogicManager of the app.
@@ -24,7 +23,7 @@ public class LogicManager extends ComponentManager implements Logic {
     private final CommandHistory history;
     private final Parser parser;
 
-    public LogicManager(Model model, Storage storage) {
+    public LogicManager(Model model) {
         this.model = model;
         this.history = new CommandHistory();
         this.parser = new Parser();
