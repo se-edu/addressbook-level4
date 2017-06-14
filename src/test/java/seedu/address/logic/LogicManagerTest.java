@@ -58,7 +58,7 @@ public class LogicManagerTest {
      * Executes the command, confirms that the exception is thrown and that the result message is correct.
      * @see #assertCommandBehavior(Class, String, String, Model)
      */
-    private <T> void assertCommandFailure(String inputCommand, Class<T> expectedException, String expectedMessage) {
+    private void assertCommandFailure(String inputCommand, Class<?> expectedException, String expectedMessage) {
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         assertCommandBehavior(expectedException, inputCommand, expectedMessage, expectedModel);
     }
@@ -69,7 +69,7 @@ public class LogicManagerTest {
      *      - the internal model manager data are same as those in the {@code expectedModel} <br>
      *      - {@code expectedModel}'s address book was saved to the storage file.
      */
-    private <T> void assertCommandBehavior(Class<T> expectedException, String inputCommand,
+    private void assertCommandBehavior(Class<?> expectedException, String inputCommand,
                                            String expectedMessage, Model expectedModel) {
 
         try {
