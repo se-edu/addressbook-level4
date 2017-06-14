@@ -1,6 +1,5 @@
 package guitests.guihandles;
 
-import static guitests.GuiRobotUtil.LONG_WAIT;
 import static org.junit.Assert.assertFalse;
 
 /**
@@ -8,12 +7,11 @@ import static org.junit.Assert.assertFalse;
  */
 public class HelpWindowHandle extends GuiHandle {
 
-    private static final String HELP_WINDOW_TITLE = "Help";
+    public static final String HELP_WINDOW_TITLE = "Help";
     private static final String HELP_WINDOW_ROOT_FIELD_ID = "#helpWindowRoot";
 
     public HelpWindowHandle() {
         super(HELP_WINDOW_TITLE);
-        guiRobot.pauseForHuman(LONG_WAIT);
     }
 
     public boolean isWindowOpen() {
