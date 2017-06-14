@@ -68,6 +68,8 @@ public class GuiRobot extends FxRobot {
                 throw new EventTimeoutException();
             }
         }
+
+        pauseForHuman(MEDIUM_WAIT);
     }
 
     /**

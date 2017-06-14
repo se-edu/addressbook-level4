@@ -1,7 +1,6 @@
 package guitests;
 
 import static guitests.GuiRobotUtil.EVENT_TIMEOUT;
-import static guitests.GuiRobotUtil.MEDIUM_WAIT;
 import static guitests.guihandles.HelpWindowHandle.HELP_WINDOW_TITLE;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -44,7 +43,6 @@ public class HelpWindowTest extends AddressBookGuiTest {
 
     private void assertHelpWindowOpen() {
         guiRobot.waitForEvent(() -> guiRobot.isWindowActive(HELP_WINDOW_TITLE), EVENT_TIMEOUT);
-        guiRobot.pauseForHuman(MEDIUM_WAIT);
 
         HelpWindowHandle helpWindowHandle = new HelpWindowHandle();
         assertTrue(helpWindowHandle.isWindowOpen());
