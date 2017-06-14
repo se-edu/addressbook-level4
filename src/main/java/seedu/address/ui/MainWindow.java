@@ -1,6 +1,7 @@
 package seedu.address.ui;
 
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
@@ -116,7 +117,7 @@ public class MainWindow extends UiPart<Region> {
     }
 
     void fillInnerParts() {
-        browserPanel = new BrowserPanel(browserPlaceholder);
+        browserPanel = new BrowserPanel();
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
         ResultDisplay resultDisplay = new ResultDisplay();
         StatusBarFooter statusBarFooter = new StatusBarFooter(prefs.getAddressBookFilePath());
@@ -124,10 +125,14 @@ public class MainWindow extends UiPart<Region> {
 
         SplitPane.setResizableWithParent(personListPanelPlaceholder, false);
         SplitPane.setResizableWithParent(commandBoxPlaceholder, false);
+        browserPlaceholder.getChildren().add(browserPanel.getRoot());
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        // To prevent triggering events for typing inside the loaded Web page.
+        browserPlaceholder.setOnKeyPressed(Event::consume);
     }
 
     private StackPane getCommandBoxPlaceholder() {
