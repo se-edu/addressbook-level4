@@ -6,59 +6,28 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
-import org.junit.After;
 import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.TemporaryFolder;
 
-import com.google.common.eventbus.Subscribe;
-
-import seedu.address.commons.core.EventsCenter;
-import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.UserPrefs;
 
 
 public class LogicManagerTest {
 
-    /**
-     * See https://github.com/junit-team/junit4/wiki/rules#temporaryfolder-rule
-     */
-    @Rule
-    public TemporaryFolder saveFolder = new TemporaryFolder();
-
     private Model model;
     private Logic logic;
-
-    //These are for checking the correctness of the events raised
-    private ReadOnlyAddressBook latestSavedAddressBook;
-
-    @Subscribe
-    private void handleLocalModelChangedEvent(AddressBookChangedEvent abce) {
-        latestSavedAddressBook = new AddressBook(abce.data);
-    }
 
     @Before
     public void setUp() {
         model = new ModelManager();
         logic = new LogicManager(model);
-        EventsCenter.getInstance().registerHandler(this);
-
-        latestSavedAddressBook = new AddressBook(model.getAddressBook()); // last saved assumed to be up to date
-    }
-
-    @After
-    public void tearDown() {
-        EventsCenter.clearSubscribers();
     }
 
     @Test
@@ -113,7 +82,6 @@ public class LogicManagerTest {
         }
 
         assertEquals(expectedModel, model);
-        assertEquals(expectedModel.getAddressBook(), latestSavedAddressBook);
     }
 
     @Test
