@@ -1,6 +1,10 @@
 package guitests.guihandles;
 
+import static guitests.GuiRobotUtil.MEDIUM_WAIT;
+
 import javafx.collections.ObservableList;
+import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import seedu.address.ui.CommandBox;
 
 /**
@@ -30,8 +34,15 @@ public class CommandBoxHandle extends GuiHandle {
      * @return true if the command succeeded, false otherwise.
      */
     public boolean submitCommand(String command) {
-        guiRobot.enterText(getNode(COMMAND_INPUT_FIELD_ID), command);
-        guiRobot.pressEnter();
+        TextField textField = getNode(COMMAND_INPUT_FIELD_ID);
+
+        guiRobot.clickOn(textField);
+        guiRobot.interact(() -> textField.setText(command));
+        guiRobot.pauseForHuman(MEDIUM_WAIT);
+
+        guiRobot.type(KeyCode.ENTER);
+        guiRobot.pauseForHuman(MEDIUM_WAIT);
+
         return !getStyleClass().contains(CommandBox.ERROR_STYLE_CLASS);
     }
 

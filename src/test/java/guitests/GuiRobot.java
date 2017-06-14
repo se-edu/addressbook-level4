@@ -6,8 +6,6 @@ import java.util.function.BooleanSupplier;
 
 import org.testfx.api.FxRobot;
 
-import javafx.scene.control.TextField;
-import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 
 /**
@@ -72,23 +70,6 @@ public class GuiRobot extends FxRobot {
         return (listTargetWindows().stream()
                 .filter(window -> window instanceof Stage && ((Stage) window).getTitle().equals(stageTitle))
                 .count() == 1);
-    }
-
-    /**
-     * Presses the enter key.
-     */
-    public void pressEnter() {
-        type(KeyCode.ENTER);
-        pauseForHuman(MEDIUM_WAIT);
-    }
-
-    /**
-     * Enters {@code text} into the {@code textField}.
-     */
-    public void enterText(TextField textField, String text) {
-        clickOn(textField);
-        interact(() -> textField.setText(text));
-        pauseForHuman(MEDIUM_WAIT);
     }
 
     /**
