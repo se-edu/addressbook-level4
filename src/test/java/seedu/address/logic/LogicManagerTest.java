@@ -30,13 +30,6 @@ public class LogicManagerTest {
         logic = new LogicManager(model);
     }
 
-    @Test
-    public void execute_invalid() {
-        String invalidCommand = "       ";
-        assertParseException(invalidCommand,
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
-    }
-
     /**
      * Executes the command, confirms that no exceptions are thrown and that the result message is correct.
      * Also confirms that {@code expectedModel} is as specified.
@@ -85,7 +78,7 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void execute_unknownCommandWord() {
+    public void execute_unknownCommandWord_throwsParseException() {
         String unknownCommand = "uicfhmowqewca";
         assertParseException(unknownCommand, MESSAGE_UNKNOWN_COMMAND);
     }
