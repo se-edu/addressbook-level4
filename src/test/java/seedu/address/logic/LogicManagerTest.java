@@ -59,9 +59,6 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
-import seedu.address.storage.JsonUserPrefsStorage;
-import seedu.address.storage.StorageManager;
-import seedu.address.storage.XmlAddressBookStorage;
 import seedu.address.testutil.PersonBuilder;
 
 
@@ -99,12 +96,7 @@ public class LogicManagerTest {
     @Before
     public void setUp() {
         model = new ModelManager();
-        String tempAddressBookFile = saveFolder.getRoot().getPath() + "TempAddressBook.xml";
-        String tempPreferencesFile = saveFolder.getRoot().getPath() + "TempPreferences.json";
-        XmlAddressBookStorage addressBookStorage = new XmlAddressBookStorage(tempAddressBookFile);
-        JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(tempPreferencesFile);
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
-        logic = new LogicManager(model, storage);
+        logic = new LogicManager(model);
         EventsCenter.getInstance().registerHandler(this);
 
         latestSavedAddressBook = new AddressBook(model.getAddressBook()); // last saved assumed to be up to date
