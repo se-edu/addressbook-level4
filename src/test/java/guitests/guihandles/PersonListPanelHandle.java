@@ -29,6 +29,9 @@ public class PersonListPanelHandle extends GuiHandle {
         super(guiRobot, primaryStage, TestApp.APP_TITLE);
     }
 
+    /**
+     * Returns the selected person in the list view. Only a maximum of 1 item can be selected at any time.
+     */
     public Optional<ReadOnlyPerson> getSelectedPerson() {
         List<ReadOnlyPerson> personList = getListView().getSelectionModel().getSelectedItems();
 
@@ -63,14 +66,14 @@ public class PersonListPanelHandle extends GuiHandle {
             throw new IllegalArgumentException("List size mismatched\n"
                     + "Expected " + personList.size() + " persons");
         }
-        return cardAndPersonMatchInOrder(startPosition, persons);
+        return cardsAndPersonsMatchInOrder(startPosition, persons);
     }
 
     /**
      * Returns true if each person in {@code persons} matches the card at the exact same position,
      * beginning from the card at {@code startPosition}.
      */
-    private boolean cardAndPersonMatchInOrder(int startPosition, ReadOnlyPerson... persons) {
+    private boolean cardsAndPersonsMatchInOrder(int startPosition, ReadOnlyPerson... persons) {
         for (int i = 0; i < persons.length; i++) {
             final int scrollTo = i + startPosition;
             guiRobot.interact(() -> getListView().scrollTo(scrollTo));
@@ -104,8 +107,10 @@ public class PersonListPanelHandle extends GuiHandle {
     /**
      * Navigates the listview to display and select the person.
      */
-    private PersonCardHandle navigateToPerson(ReadOnlyPerson person) {
-        assert getListView().getItems().contains(person);
+    private PersonCardHandle navigateToPerson(ReadOnlyPerson person) throws PersonNotFoundException {
+        if (!getListView().getItems().contains(person)) {
+            throw new PersonNotFoundException();
+        }
 
         guiRobot.interact(() -> {
             getListView().scrollTo(person);
