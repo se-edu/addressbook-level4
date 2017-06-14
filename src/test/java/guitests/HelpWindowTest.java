@@ -37,7 +37,7 @@ public class HelpWindowTest extends AddressBookGuiTest {
         assertHelpWindowOpen();
 
         //use command
-        getCommandBox().enterCommand(HelpCommand.COMMAND_WORD);
+        getCommandBox().submitCommand(HelpCommand.COMMAND_WORD);
         assertHelpWindowOpen();
     }
 

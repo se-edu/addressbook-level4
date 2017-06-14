@@ -34,18 +34,18 @@ public class SelectCommandTest extends AddressBookGuiTest {
 
     @Test
     public void selectPerson_emptyList() {
-        getCommandBox().enterCommand(ClearCommand.COMMAND_WORD);
+        getCommandBox().submitCommand(ClearCommand.COMMAND_WORD);
         assertListSize(0);
         assertSelectionInvalid(INDEX_FIRST_PERSON); //invalid index
     }
 
     private void assertSelectionInvalid(Index index) {
-        getCommandBox().enterCommand(SelectCommand.COMMAND_WORD + " " + index.getOneBased());
+        getCommandBox().submitCommand(SelectCommand.COMMAND_WORD + " " + index.getOneBased());
         assertResultMessage("The person index provided is invalid");
     }
 
     private void assertSelectionSuccess(Index index) {
-        getCommandBox().enterCommand(SelectCommand.COMMAND_WORD + " " + index.getOneBased());
+        getCommandBox().submitCommand(SelectCommand.COMMAND_WORD + " " + index.getOneBased());
         assertResultMessage("Selected Person: " + index.getOneBased());
         assertPersonSelected(index);
     }

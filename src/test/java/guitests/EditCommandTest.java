@@ -72,7 +72,7 @@ public class EditCommandTest extends AddressBookGuiTest {
 
     @Test
     public void edit_findThenEdit_success() throws Exception {
-        getCommandBox().enterCommand(FindCommand.COMMAND_WORD + " Carl");
+        getCommandBox().submitCommand(FindCommand.COMMAND_WORD + " Carl");
 
         String detailsToEdit = PREFIX_NAME + "Carrle";
         Index addressBookIndex = INDEX_THIRD_PERSON;
@@ -85,43 +85,43 @@ public class EditCommandTest extends AddressBookGuiTest {
 
     @Test
     public void edit_missingPersonIndex_failure() {
-        getCommandBox().enterCommand(EditCommand.COMMAND_WORD + " " + PREFIX_NAME + "Bobby");
+        getCommandBox().submitCommand(EditCommand.COMMAND_WORD + " " + PREFIX_NAME + "Bobby");
         assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
     }
 
     @Test
     public void edit_invalidPersonIndex_failure() {
-        getCommandBox().enterCommand(EditCommand.COMMAND_WORD + " 8 " + PREFIX_NAME + "Bobby");
+        getCommandBox().submitCommand(EditCommand.COMMAND_WORD + " 8 " + PREFIX_NAME + "Bobby");
         assertResultMessage(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
     @Test
     public void edit_noFieldsSpecified_failure() {
-        getCommandBox().enterCommand(EditCommand.COMMAND_WORD + " 1");
+        getCommandBox().submitCommand(EditCommand.COMMAND_WORD + " 1");
         assertResultMessage(EditCommand.MESSAGE_NOT_EDITED);
     }
 
     @Test
     public void edit_invalidValues_failure() {
-        getCommandBox().enterCommand(EditCommand.COMMAND_WORD + " 1 " + PREFIX_NAME + "*&");
+        getCommandBox().submitCommand(EditCommand.COMMAND_WORD + " 1 " + PREFIX_NAME + "*&");
         assertResultMessage(Name.MESSAGE_NAME_CONSTRAINTS);
 
-        getCommandBox().enterCommand(EditCommand.COMMAND_WORD + " 1 " + PREFIX_PHONE + "abcd");
+        getCommandBox().submitCommand(EditCommand.COMMAND_WORD + " 1 " + PREFIX_PHONE + "abcd");
         assertResultMessage(Phone.MESSAGE_PHONE_CONSTRAINTS);
 
-        getCommandBox().enterCommand(EditCommand.COMMAND_WORD + " 1 " + PREFIX_EMAIL + "yahoo!!!");
+        getCommandBox().submitCommand(EditCommand.COMMAND_WORD + " 1 " + PREFIX_EMAIL + "yahoo!!!");
         assertResultMessage(Email.MESSAGE_EMAIL_CONSTRAINTS);
 
-        getCommandBox().enterCommand(EditCommand.COMMAND_WORD + " 1 " + PREFIX_ADDRESS.getPrefix());
+        getCommandBox().submitCommand(EditCommand.COMMAND_WORD + " 1 " + PREFIX_ADDRESS.getPrefix());
         assertResultMessage(Address.MESSAGE_ADDRESS_CONSTRAINTS);
 
-        getCommandBox().enterCommand(EditCommand.COMMAND_WORD + " 1 " + PREFIX_TAG + "*&");
+        getCommandBox().submitCommand(EditCommand.COMMAND_WORD + " 1 " + PREFIX_TAG + "*&");
         assertResultMessage(Tag.MESSAGE_TAG_CONSTRAINTS);
     }
 
     @Test
     public void edit_duplicatePerson_failure() {
-        getCommandBox().enterCommand(EditCommand.COMMAND_WORD + " 3 "
+        getCommandBox().submitCommand(EditCommand.COMMAND_WORD + " 3 "
                 + PREFIX_PHONE + "85355255 "
                 + PREFIX_EMAIL + "alice@example.com "
                 + PREFIX_NAME + "Alice Pauline "
@@ -141,7 +141,7 @@ public class EditCommandTest extends AddressBookGuiTest {
      */
     private void assertEditSuccess(Index filteredPersonListIndex, Index addressBookIndex,
                                     String detailsToEdit, Person editedPerson) throws Exception {
-        getCommandBox().enterCommand(EditCommand.COMMAND_WORD + " "
+        getCommandBox().submitCommand(EditCommand.COMMAND_WORD + " "
                 + filteredPersonListIndex.getOneBased() + " " + detailsToEdit);
 
         // confirm the new card contains the right data
