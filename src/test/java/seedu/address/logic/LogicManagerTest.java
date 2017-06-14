@@ -35,6 +35,12 @@ public class LogicManagerTest {
     }
 
     @Test
+    public void execute_commandExecutionError_throwsCommandException() {
+        String deleteCommand = "delete 9";
+        assertCommandException(deleteCommand, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+    }
+
+    @Test
     public void execute_verifyHistory_success() throws Exception {
         String validCommand = "clear";
         logic.execute(validCommand);
@@ -75,6 +81,14 @@ public class LogicManagerTest {
      */
     private void assertParseException(String inputCommand, String expectedMessage) {
         assertCommandFailure(inputCommand, ParseException.class, expectedMessage);
+    }
+
+    /**
+     * Executes the command, confirms that a CommandException is thrown and that the result message is correct.
+     * @see #assertCommandBehavior(Class, String, String, Model)
+     */
+    private void assertCommandException(String inputCommand, String expectedMessage) {
+        assertCommandFailure(inputCommand, CommandException.class, expectedMessage);
     }
 
     /**
