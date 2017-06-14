@@ -1,7 +1,6 @@
 package seedu.address.logic;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
@@ -12,13 +11,11 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.util.SampleDataUtil.getTagSet;
-import static seedu.address.testutil.TypicalPersons.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalPersons.INDEX_THIRD_PERSON;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -31,21 +28,11 @@ import org.junit.rules.TemporaryFolder;
 import com.google.common.eventbus.Subscribe;
 
 import seedu.address.commons.core.EventsCenter;
-import seedu.address.commons.core.index.Index;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
-import seedu.address.commons.events.ui.JumpToListRequestEvent;
-import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.logic.commands.AddCommand;
-import seedu.address.logic.commands.ClearCommand;
-import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.logic.commands.ExitCommand;
-import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
-import seedu.address.logic.commands.ListCommand;
-import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.AddressBook;
@@ -59,7 +46,6 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
-import seedu.address.testutil.PersonBuilder;
 
 
 public class LogicManagerTest {
@@ -75,22 +61,10 @@ public class LogicManagerTest {
 
     //These are for checking the correctness of the events raised
     private ReadOnlyAddressBook latestSavedAddressBook;
-    private boolean helpShown;
-    private Index targetedJumpIndex;
 
     @Subscribe
     private void handleLocalModelChangedEvent(AddressBookChangedEvent abce) {
         latestSavedAddressBook = new AddressBook(abce.data);
-    }
-
-    @Subscribe
-    private void handleShowHelpRequestEvent(ShowHelpRequestEvent she) {
-        helpShown = true;
-    }
-
-    @Subscribe
-    private void handleJumpToListRequestEvent(JumpToListRequestEvent je) {
-        targetedJumpIndex = Index.fromZeroBased(je.targetIndex);
     }
 
     @Before
@@ -100,8 +74,6 @@ public class LogicManagerTest {
         EventsCenter.getInstance().registerHandler(this);
 
         latestSavedAddressBook = new AddressBook(model.getAddressBook()); // last saved assumed to be up to date
-        helpShown = false;
-        targetedJumpIndex = null;
     }
 
     @After
@@ -178,115 +150,6 @@ public class LogicManagerTest {
         assertParseException(unknownCommand, MESSAGE_UNKNOWN_COMMAND);
     }
 
-    @Test
-    public void execute_help() {
-        assertCommandSuccess(HelpCommand.COMMAND_WORD, HelpCommand.SHOWING_HELP_MESSAGE, new ModelManager());
-        assertTrue(helpShown);
-    }
-
-    @Test
-    public void execute_exit() {
-        assertCommandSuccess(ExitCommand.COMMAND_WORD, ExitCommand.MESSAGE_EXIT_ACKNOWLEDGEMENT, new ModelManager());
-    }
-
-    @Test
-    public void execute_clear() throws Exception {
-        TestDataHelper helper = new TestDataHelper();
-        model.addPerson(helper.generatePerson(1));
-        model.addPerson(helper.generatePerson(2));
-        model.addPerson(helper.generatePerson(3));
-
-        assertCommandSuccess(ClearCommand.COMMAND_WORD, ClearCommand.MESSAGE_SUCCESS, new ModelManager());
-    }
-
-
-    @Test
-    public void execute_add_invalidArgsFormat() {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
-        assertParseException(AddCommand.COMMAND_WORD + " wrong args wrong args", expectedMessage);
-        assertParseException(AddCommand.COMMAND_WORD + " " + PREFIX_NAME + "Valid Name 12345 "
-                + PREFIX_EMAIL + "valid@email.butNoPhonePrefix "
-                + PREFIX_ADDRESS + "valid,address", expectedMessage);
-        assertParseException(AddCommand.COMMAND_WORD + " " + PREFIX_NAME + "Valid Name "
-                + PREFIX_PHONE + "12345 valid@email.butNoPrefix "
-                + PREFIX_ADDRESS + "valid, address", expectedMessage);
-        assertParseException(AddCommand.COMMAND_WORD + " " + PREFIX_NAME + "Valid Name "
-                + PREFIX_PHONE + "12345 "
-                + PREFIX_EMAIL + "valid@email.butNoAddressPrefix valid, address",
-                expectedMessage);
-    }
-
-    @Test
-    public void execute_add_invalidPersonData() {
-        assertParseException(AddCommand.COMMAND_WORD + " "
-                + PREFIX_NAME + "[]\\[;] "
-                + PREFIX_PHONE + "12345 "
-                + PREFIX_EMAIL + "valid@e.mail "
-                + PREFIX_ADDRESS + "valid, address",
-                Name.MESSAGE_NAME_CONSTRAINTS);
-        assertParseException(AddCommand.COMMAND_WORD + " "
-                + PREFIX_NAME + "Valid Name "
-                + PREFIX_PHONE + "not_numbers "
-                + PREFIX_EMAIL + "valid@e.mail "
-                + PREFIX_ADDRESS + "valid, address",
-                Phone.MESSAGE_PHONE_CONSTRAINTS);
-        assertParseException(AddCommand.COMMAND_WORD + " "
-                + PREFIX_NAME + "Valid Name "
-                + PREFIX_PHONE + "12345 "
-                + PREFIX_EMAIL + "notAnEmail "
-                + PREFIX_ADDRESS + "valid, address",
-                Email.MESSAGE_EMAIL_CONSTRAINTS);
-        assertParseException(AddCommand.COMMAND_WORD + " "
-                + PREFIX_NAME + "Valid Name "
-                + PREFIX_PHONE + "12345 "
-                + PREFIX_EMAIL + "valid@e.mail "
-                + PREFIX_ADDRESS + "valid, address "
-                + PREFIX_TAG + "invalid_-[.tag",
-                Tag.MESSAGE_TAG_CONSTRAINTS);
-    }
-
-    @Test
-    public void execute_add_successful() throws Exception {
-        // setup expectations
-        TestDataHelper helper = new TestDataHelper();
-        Person toBeAdded = helper.adam();
-        Model expectedModel = new ModelManager();
-        expectedModel.addPerson(toBeAdded);
-
-        // execute command and verify result
-        assertCommandSuccess(helper.generateAddCommand(toBeAdded),
-                String.format(AddCommand.MESSAGE_SUCCESS, toBeAdded), expectedModel);
-
-    }
-
-    @Test
-    public void execute_addDuplicate_notAllowed() throws Exception {
-        // setup expectations
-        TestDataHelper helper = new TestDataHelper();
-        Person toBeAdded = helper.adam();
-
-        // setup starting state
-        model.addPerson(toBeAdded); // person already in internal address book
-
-        // execute command and verify result
-        assertCommandException(helper.generateAddCommand(toBeAdded), AddCommand.MESSAGE_DUPLICATE_PERSON);
-
-    }
-
-
-    @Test
-    public void execute_list_showsAllPersons() throws Exception {
-        // prepare expectations
-        TestDataHelper helper = new TestDataHelper();
-        Model expectedModel = new ModelManager(helper.generateAddressBook(2), new UserPrefs());
-
-        // prepare address book state
-        helper.addToModel(model, 2);
-
-        assertCommandSuccess(ListCommand.COMMAND_WORD, ListCommand.MESSAGE_SUCCESS, expectedModel);
-    }
-
-
     /**
      * Confirms the 'invalid argument index number behaviour' for the given command
      * targeting a single person in the shown list, using visible index.
@@ -320,115 +183,6 @@ public class LogicManagerTest {
         }
 
         assertCommandException(commandWord + " " + INDEX_THIRD_PERSON.getOneBased(), expectedMessage);
-    }
-
-    @Test
-    public void execute_selectInvalidArgsFormat_errorMessageShown() throws Exception {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE);
-        assertIncorrectIndexFormatBehaviorForCommand(SelectCommand.COMMAND_WORD, expectedMessage);
-    }
-
-    @Test
-    public void execute_selectIndexNotFound_errorMessageShown() throws Exception {
-        assertIndexNotFoundBehaviorForCommand(SelectCommand.COMMAND_WORD);
-    }
-
-    @Test
-    public void execute_select_jumpsToCorrectPerson() throws Exception {
-        TestDataHelper helper = new TestDataHelper();
-        List<Person> threePersons = helper.generatePersonList(3);
-
-        Model expectedModel = new ModelManager(helper.generateAddressBook(threePersons), new UserPrefs());
-        helper.addToModel(model, threePersons);
-
-        assertCommandSuccess(SelectCommand.COMMAND_WORD + " 2",
-                String.format(SelectCommand.MESSAGE_SELECT_PERSON_SUCCESS, 2), expectedModel);
-        assertEquals(INDEX_SECOND_PERSON, targetedJumpIndex);
-        assertEquals(model.getFilteredPersonList().get(1), threePersons.get(1));
-    }
-
-
-    @Test
-    public void execute_deleteInvalidArgsFormat_errorMessageShown() throws Exception {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE);
-        assertIncorrectIndexFormatBehaviorForCommand(DeleteCommand.COMMAND_WORD, expectedMessage);
-    }
-
-    @Test
-    public void execute_deleteIndexNotFound_errorMessageShown() throws Exception {
-        assertIndexNotFoundBehaviorForCommand(DeleteCommand.COMMAND_WORD);
-    }
-
-    @Test
-    public void execute_delete_removesCorrectPerson() throws Exception {
-        TestDataHelper helper = new TestDataHelper();
-        List<Person> threePersons = helper.generatePersonList(3);
-
-        Model expectedModel = new ModelManager(helper.generateAddressBook(threePersons), new UserPrefs());
-        expectedModel.deletePerson(threePersons.get(1));
-        helper.addToModel(model, threePersons);
-
-        assertCommandSuccess(DeleteCommand.COMMAND_WORD + " 2",
-                String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, threePersons.get(1)), expectedModel);
-    }
-
-
-    @Test
-    public void execute_find_invalidArgsFormat() {
-        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE);
-        assertParseException(FindCommand.COMMAND_WORD + " ", expectedMessage);
-    }
-
-    @Test
-    public void execute_find_onlyMatchesFullWordsInNames() throws Exception {
-        TestDataHelper helper = new TestDataHelper();
-        Person pTarget1 = new PersonBuilder().withName("bla bla KEY bla").build();
-        Person pTarget2 = new PersonBuilder().withName("bla KEY bla bceofeia").build();
-        Person p1 = new PersonBuilder().withName("KE Y").build();
-        Person p2 = new PersonBuilder().withName("KEYKEYKEY sduauo").build();
-
-        List<Person> fourPersons = helper.generatePersonList(p1, pTarget1, p2, pTarget2);
-        Model expectedModel = new ModelManager(helper.generateAddressBook(fourPersons), new UserPrefs());
-        expectedModel.updateFilteredPersonList(new HashSet<>(Collections.singletonList("KEY")));
-        helper.addToModel(model, fourPersons);
-        assertCommandSuccess(FindCommand.COMMAND_WORD + " KEY",
-                Command.getMessageForPersonListShownSummary(expectedModel.getFilteredPersonList().size()),
-                expectedModel);
-    }
-
-    @Test
-    public void execute_find_isNotCaseSensitive() throws Exception {
-        TestDataHelper helper = new TestDataHelper();
-        Person p1 = new PersonBuilder().withName("bla bla KEY bla").build();
-        Person p2 = new PersonBuilder().withName("bla KEY bla bceofeia").build();
-        Person p3 = new PersonBuilder().withName("key key").build();
-        Person p4 = new PersonBuilder().withName("KEy sduauo").build();
-
-        List<Person> fourPersons = helper.generatePersonList(p3, p1, p4, p2);
-        Model expectedModel = new ModelManager(helper.generateAddressBook(fourPersons), new UserPrefs());
-        helper.addToModel(model, fourPersons);
-
-        assertCommandSuccess(FindCommand.COMMAND_WORD + " KEY",
-                Command.getMessageForPersonListShownSummary(expectedModel.getFilteredPersonList().size()),
-                expectedModel);
-    }
-
-    @Test
-    public void execute_find_matchesIfAnyKeywordPresent() throws Exception {
-        TestDataHelper helper = new TestDataHelper();
-        Person pTarget1 = new PersonBuilder().withName("bla bla KEY bla").build();
-        Person pTarget2 = new PersonBuilder().withName("bla rAnDoM bla bceofeia").build();
-        Person pTarget3 = new PersonBuilder().withName("key key").build();
-        Person p1 = new PersonBuilder().withName("sduauo").build();
-
-        List<Person> fourPersons = helper.generatePersonList(pTarget1, p1, pTarget2, pTarget3);
-        Model expectedModel = new ModelManager(helper.generateAddressBook(fourPersons), new UserPrefs());
-        expectedModel.updateFilteredPersonList(new HashSet<>(Arrays.asList("key", "rAnDoM")));
-        helper.addToModel(model, fourPersons);
-
-        assertCommandSuccess(FindCommand.COMMAND_WORD + " key rAnDoM",
-                Command.getMessageForPersonListShownSummary(expectedModel.getFilteredPersonList().size()),
-                expectedModel);
     }
 
     @Test
