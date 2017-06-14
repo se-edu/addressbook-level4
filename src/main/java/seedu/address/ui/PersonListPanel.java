@@ -7,8 +7,6 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
-import javafx.scene.control.SplitPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
@@ -24,21 +22,15 @@ public class PersonListPanel extends UiPart<Region> {
     @FXML
     private ListView<ReadOnlyPerson> personListView;
 
-    public PersonListPanel(Pane personListPlaceholder, ObservableList<ReadOnlyPerson> personList) {
+    public PersonListPanel(ObservableList<ReadOnlyPerson> personList) {
         super(FXML);
         setConnections(personList);
-        addToPlaceholder(personListPlaceholder);
     }
 
     private void setConnections(ObservableList<ReadOnlyPerson> personList) {
         personListView.setItems(personList);
         personListView.setCellFactory(listView -> new PersonListViewCell());
         setEventHandlerForSelectionChangeEvent();
-    }
-
-    private void addToPlaceholder(Pane placeHolderPane) {
-        SplitPane.setResizableWithParent(placeHolderPane, false);
-        placeHolderPane.getChildren().add(getRoot());
     }
 
     private void setEventHandlerForSelectionChangeEvent() {
