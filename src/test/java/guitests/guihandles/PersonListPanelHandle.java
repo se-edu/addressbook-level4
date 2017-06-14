@@ -103,7 +103,6 @@ public class PersonListPanelHandle extends GuiHandle {
 
         guiRobot.interact(() -> {
             getListView().scrollTo(person);
-            guiRobot.pauseForHuman();
             getListView().getSelectionModel().select(person);
         });
         guiRobot.pauseForHuman();
