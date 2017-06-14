@@ -19,13 +19,13 @@ public class ErrorDialogGuiTest extends AddressBookGuiTest {
     @Test
     public void showErrorDialogs() {
         // create a stub exception
-        raise(new DataSavingExceptionEvent(new IOException()));
+        raise(new DataSavingExceptionEvent(new IOException("Stub")));
 
         guiRobot.waitForEvent(() -> guiRobot.isWindowActive(ERROR_DIALOG_STAGE_TITLE), EVENT_TIMEOUT);
 
         AlertDialogHandle alertDialog = new AlertDialogHandle(ERROR_DIALOG_STAGE_TITLE);
         assertTrue(alertDialog.isMatchingContent(ERROR_HEADER_MESSAGE, ERROR_CONTENT_MESSAGE + ":\n"
-                                                                         + "java.io.IOException"));
+                                                                         + "java.io.IOException: Stub"));
 
     }
 

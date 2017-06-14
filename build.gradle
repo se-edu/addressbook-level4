@@ -144,7 +144,6 @@ class AddressBookTest extends Test {
         systemProperty 'testfx.headless', 'true'
         systemProperty 'prism.order', 'sw'
         systemProperty 'prism.text', 't2k'
-        systemProperty 'guitests.headless', 'true'
     }
 }
 
