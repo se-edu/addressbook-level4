@@ -116,7 +116,6 @@ public class PersonListPanelHandle extends GuiHandle {
             getListView().scrollTo(person);
             getListView().getSelectionModel().select(person);
         });
-        guiRobot.sleep(250);
         return getPersonCardHandle(person);
     }
 
