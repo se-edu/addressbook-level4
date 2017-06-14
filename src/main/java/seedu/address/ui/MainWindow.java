@@ -118,11 +118,12 @@ public class MainWindow extends UiPart<Region> {
     void fillInnerParts() {
         browserPanel = new BrowserPanel(browserPlaceholder);
         personListPanel = new PersonListPanel(getPersonListPlaceholder(), logic.getFilteredPersonList());
-        new ResultDisplay(getResultDisplayPlaceholder());
+        ResultDisplay resultDisplay = new ResultDisplay();
         StatusBarFooter statusBarFooter = new StatusBarFooter(prefs.getAddressBookFilePath());
         CommandBox commandBox = new CommandBox(logic);
 
         SplitPane.setResizableWithParent(commandBoxPlaceholder, false);
+        resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
