@@ -4,7 +4,6 @@ import java.net.URL;
 
 import javafx.event.Event;
 import javafx.fxml.FXML;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.scene.web.WebView;
 import seedu.address.MainApp;
@@ -21,16 +20,11 @@ public class BrowserPanel extends UiPart<Region> {
     @FXML
     private WebView browser;
 
-    /**
-     * @param placeholder The Pane where the BrowserPanel must be inserted
-     */
-    public BrowserPanel(Pane placeholder) {
+    public BrowserPanel() {
         super(FXML);
 
         // To prevent triggering events for typing inside the loaded Web page.
-        placeholder.setOnKeyPressed(Event::consume);
-
-        placeholder.getChildren().add(browser);
+        getRoot().setOnKeyPressed(Event::consume);
 
         loadDefaultPage();
     }
