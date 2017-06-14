@@ -1,7 +1,5 @@
 package guitests.guihandles;
 
-import static guitests.GuiRobotUtil.SHORT_WAIT;
-
 import javafx.collections.ObservableList;
 import seedu.address.ui.CommandBox;
 
@@ -34,7 +32,6 @@ public class CommandBoxHandle extends GuiHandle {
     public boolean enterCommand(String command) {
         guiRobot.enterText(getNode(COMMAND_INPUT_FIELD_ID), command);
         guiRobot.pressEnter();
-        guiRobot.pauseForHuman(SHORT_WAIT);
         return !getStyleClass().contains(CommandBox.ERROR_STYLE_CLASS);
     }
 
