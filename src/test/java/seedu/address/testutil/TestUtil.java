@@ -184,7 +184,7 @@ public class TestUtil {
     }
 
     public static boolean compareCardAndPerson(PersonCardHandle card, ReadOnlyPerson person) {
-        return card.isSamePerson(person);
+        return card.belongsTo(person);
     }
 
 }
