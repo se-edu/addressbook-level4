@@ -94,7 +94,6 @@ public class PersonListPanelHandle extends GuiHandle {
     }
 
     public PersonCardHandle navigateToPerson(String name) throws PersonNotFoundException {
-        guiRobot.sleep(500); //Allow a bit of time for the list to be updated
         final Optional<ReadOnlyPerson> person = getListView().getItems().stream()
                                                     .filter(p -> p.getName().fullName.equals(name))
                                                     .findAny();
@@ -115,10 +114,9 @@ public class PersonListPanelHandle extends GuiHandle {
 
         guiRobot.interact(() -> {
             getListView().scrollTo(person);
-            guiRobot.sleep(150);
             getListView().getSelectionModel().select(person);
         });
-        guiRobot.pauseForHuman();
+        guiRobot.sleep(250);
         return getPersonCardHandle(person);
     }
 
