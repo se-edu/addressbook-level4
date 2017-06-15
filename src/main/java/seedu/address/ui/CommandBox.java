@@ -34,9 +34,9 @@ public class CommandBox extends UiPart<Region> {
         this.logic = logic;
         historyIterator = logic.getHistoryIterator();
         addToPlaceholder(commandBoxPlaceholder);
-        commandTextField.setOnKeyPressed(this::handleKeyPress);
     }
 
+    @FXML
     private void handleKeyPress(KeyEvent keyEvent) {
         switch (keyEvent.getCode()) {
         case UP:
