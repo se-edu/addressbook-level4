@@ -29,14 +29,10 @@ import static seedu.address.testutil.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.testutil.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.address.testutil.CommandTestUtil.VALID_TAG_HUSBAND;
 
-import org.junit.Before;
 import org.junit.Test;
 
-import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -54,81 +50,66 @@ import seedu.address.testutil.PersonBuilder;
  */
 public class AddCommandParserTest {
     private AddCommandParser parser = new AddCommandParser();
-    private Model model;
-
-    @Before
-    public void setUp() {
-        model = new ModelManager();
-    }
-
-    @Test
-    public void parse_multipleSpacesInInput_success() throws Exception {
-        Person expectedPerson = new PersonBuilder().withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY)
-                .withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY).withTags().build();
-        assertParseSuccess("   " + AddCommand.COMMAND_WORD + "  " + NAME_DESC_AMY + "   "
-                + PHONE_DESC_AMY + "   " + EMAIL_DESC_AMY + "   " + ADDRESS_DESC_AMY + "    ", expectedPerson);
-    }
 
     @Test
     public void parse_noTags_success() throws Exception {
         Person expectedPerson = new PersonBuilder().withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY)
                 .withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY).withTags().build();
         assertParseSuccess(AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY
-                + EMAIL_DESC_AMY + ADDRESS_DESC_AMY, expectedPerson);
+                + EMAIL_DESC_AMY + ADDRESS_DESC_AMY, new AddCommand(expectedPerson));
     }
 
     @Test
-    public void parse_singleTag_success() throws Exception {
-        Person expectedPerson = new PersonBuilder().withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY)
-                .withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY).withTags(VALID_TAG_FRIEND).build();
-        assertParseSuccess(AddCommand.COMMAND_WORD + NAME_DESC_AMY + TAG_DESC_FRIEND + PHONE_DESC_AMY
-                + EMAIL_DESC_AMY + ADDRESS_DESC_AMY, expectedPerson);
-    }
-
-    @Test
-    public void parse_multipleNonSequentialTags_success() throws Exception {
-        Person expectedPerson = new PersonBuilder().withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
-                .withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
-                .withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND).build();
-        assertParseSuccess(AddCommand.COMMAND_WORD + NAME_DESC_BOB + TAG_DESC_FRIEND + PHONE_DESC_BOB
-                + EMAIL_DESC_BOB + ADDRESS_DESC_BOB + TAG_DESC_HUSBAND, expectedPerson);
-    }
-
-    @Test
-    public void parse_multipleSequentialTags_success() throws Exception {
+    public void parse_multipleTags_success() throws Exception {
         Person expectedPerson = new PersonBuilder().withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
                 .withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
                 .withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND).build();
         assertParseSuccess(AddCommand.COMMAND_WORD + NAME_DESC_BOB + PHONE_DESC_BOB
-                + EMAIL_DESC_BOB + ADDRESS_DESC_BOB + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, expectedPerson);
+                + EMAIL_DESC_BOB + ADDRESS_DESC_BOB + TAG_DESC_HUSBAND + TAG_DESC_FRIEND,
+                new AddCommand(expectedPerson));
     }
 
     @Test
-    public void parse_duplicateTags_onlyOneAccepted() throws Exception {
+    public void parse_multipleArgs_lastArgAccepted() throws Exception {
         Person expectedPerson = new PersonBuilder().withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
                 .withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_FRIEND).build();
-        assertParseSuccess(AddCommand.COMMAND_WORD + NAME_DESC_BOB + PHONE_DESC_BOB
-                + EMAIL_DESC_BOB + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_FRIEND, expectedPerson);
-    }
 
-    @Test
-    public void parse_twoPhones_lastPhoneAccepted() throws Exception {
-        Person expectedPerson = new PersonBuilder().withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
-                .withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_FRIEND).build();
+        // multiple names
+        assertParseSuccess(AddCommand.COMMAND_WORD + NAME_DESC_AMY + NAME_DESC_BOB + PHONE_DESC_BOB
+                + EMAIL_DESC_BOB + ADDRESS_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedPerson));
+
+        // multiple phones
         assertParseSuccess(AddCommand.COMMAND_WORD + NAME_DESC_BOB + PHONE_DESC_AMY + PHONE_DESC_BOB
-                + EMAIL_DESC_BOB + ADDRESS_DESC_BOB + TAG_DESC_FRIEND, expectedPerson);
+                + EMAIL_DESC_BOB + ADDRESS_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedPerson));
+
+        // multiple emails
+        assertParseSuccess(AddCommand.COMMAND_WORD + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_AMY
+                + EMAIL_DESC_BOB + ADDRESS_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedPerson));
+
+        // multiple addresses
+        assertParseSuccess(AddCommand.COMMAND_WORD + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
+                + ADDRESS_DESC_AMY + ADDRESS_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedPerson));
     }
 
     @Test
     public void parse_invalidArgsFormat_failure() {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE);
 
-        // missing mandatory parameters
-        assertParseFailure(AddCommand.COMMAND_WORD + NAME_DESC_BOB + PHONE_DESC_BOB, expectedMessage);
-
         // missing name prefix
-        assertParseFailure(AddCommand.COMMAND_WORD + VALID_NAME_AMY + PHONE_DESC_BOB
+        assertParseFailure(AddCommand.COMMAND_WORD + VALID_NAME_BOB + PHONE_DESC_BOB
                 + EMAIL_DESC_BOB + ADDRESS_DESC_BOB, expectedMessage);
+
+        // missing phone prefix
+        assertParseFailure(AddCommand.COMMAND_WORD + NAME_DESC_BOB + VALID_PHONE_BOB
+                + EMAIL_DESC_BOB + ADDRESS_DESC_BOB, expectedMessage);
+
+        // missing email prefix
+        assertParseFailure(AddCommand.COMMAND_WORD + NAME_DESC_BOB + PHONE_DESC_BOB
+                + VALID_EMAIL_BOB + ADDRESS_DESC_BOB, expectedMessage);
+
+        // missing address prefix
+        assertParseFailure(AddCommand.COMMAND_WORD + NAME_DESC_BOB + PHONE_DESC_BOB
+                + EMAIL_DESC_BOB + VALID_ADDRESS_BOB, expectedMessage);
     }
 
     @Test
@@ -160,15 +141,12 @@ public class AddCommandParserTest {
     }
 
     /**
-     * Asserts that the parsing of {@code userInput} is successful and the person created
-     * equals to {@code expectedPerson}
+     * Asserts that the parsing of {@code userInput} is successful and the {@code AddCommand} created
+     * equals to {@code expectedCommand}
      */
-    private void assertParseSuccess(String userInput, Person expectedPerson) throws Exception {
+    private void assertParseSuccess(String userInput, AddCommand expectedCommand) throws Exception {
         AddCommand command = parser.parse(userInput);
-        command.setData(model, new CommandHistory());
-        command.execute();
-
-        assertEquals(expectedPerson, model.getAddressBook().getPersonList().get(0));
+        assertEquals(expectedCommand, command);
     }
 
     /**
