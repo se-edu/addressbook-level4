@@ -60,26 +60,21 @@ public class CommandBoxTest extends AddressBookGuiTest {
         // Previous commands are returned in order
         guiRobot.push(KeyCode.UP);
         assertEquals(COMMAND_THAT_FAILS, commandBox.getCommandInput());
-        guiRobot.sleep(500);
         guiRobot.push(KeyCode.UP);
         assertEquals(COMMAND_THAT_SUCCEEDS, commandBox.getCommandInput());
-        guiRobot.sleep(500);
 
         // Pressing `KeyCode.UP` where there are no more previous command
         // to be shown, causes input to remain unchanged.
         guiRobot.push(KeyCode.UP);
         assertEquals(COMMAND_THAT_SUCCEEDS, commandBox.getCommandInput());
-        guiRobot.sleep(500);
 
         // Subsequent executed command returned correctly
         guiRobot.push(KeyCode.DOWN);
         assertEquals(COMMAND_THAT_FAILS, commandBox.getCommandInput());
-        guiRobot.sleep(500);
 
         // Reset command box if there's no more subsequent executed command.
         guiRobot.push(KeyCode.DOWN);
         assertEquals("", commandBox.getCommandInput());
-        guiRobot.sleep(500);
     }
 
     @Test
@@ -96,13 +91,10 @@ public class CommandBoxTest extends AddressBookGuiTest {
         // despite executing a new command after pushing `KeyCode.UP`.
         guiRobot.push(KeyCode.UP);
         assertEquals(COMMAND_THAT_FAILS, commandBox.getCommandInput());
-        guiRobot.sleep(500);
         guiRobot.push(KeyCode.UP);
         assertEquals(COMMAND_THAT_FAILS, commandBox.getCommandInput());
-        guiRobot.sleep(500);
         guiRobot.push(KeyCode.UP);
         assertEquals(COMMAND_THAT_SUCCEEDS, commandBox.getCommandInput());
-        guiRobot.sleep(500);
     }
 
     /**
