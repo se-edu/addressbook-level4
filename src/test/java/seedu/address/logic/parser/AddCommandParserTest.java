@@ -62,7 +62,7 @@ public class AddCommandParserTest {
     }
 
     @Test
-    public void parse_spacesInInput_success() throws Exception {
+    public void parse_multipleSpacesInInput_success() throws Exception {
         Person expectedPerson = new PersonBuilder().withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY)
                 .withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY).withTags().build();
         assertParseSuccess("   " + AddCommand.COMMAND_WORD + "  " + NAME_DESC_AMY + "   "
@@ -134,37 +134,33 @@ public class AddCommandParserTest {
     @Test
     public void parse_invalidValue_failure() {
         // invalid name
-        assertParseFailure(AddCommand.COMMAND_WORD + INVALID_NAME_DESC + PHONE_DESC_BOB
-                        + EMAIL_DESC_BOB + ADDRESS_DESC_BOB + TAG_DESC_HUSBAND + TAG_DESC_FRIEND,
-                Name.MESSAGE_NAME_CONSTRAINTS);
+        assertParseFailure(AddCommand.COMMAND_WORD + INVALID_NAME_DESC + PHONE_DESC_BOB + EMAIL_DESC_BOB
+                        + ADDRESS_DESC_BOB + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, Name.MESSAGE_NAME_CONSTRAINTS);
 
         // invalid phone
-        assertParseFailure(AddCommand.COMMAND_WORD + NAME_DESC_BOB + INVALID_PHONE_DESC
-                        + EMAIL_DESC_BOB + ADDRESS_DESC_BOB + TAG_DESC_HUSBAND + TAG_DESC_FRIEND,
-                Phone.MESSAGE_PHONE_CONSTRAINTS);
+        assertParseFailure(AddCommand.COMMAND_WORD + NAME_DESC_BOB + INVALID_PHONE_DESC + EMAIL_DESC_BOB
+                + ADDRESS_DESC_BOB + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, Phone.MESSAGE_PHONE_CONSTRAINTS);
 
         // invalid email
-        assertParseFailure(AddCommand.COMMAND_WORD + NAME_DESC_BOB + PHONE_DESC_BOB
-                        + INVALID_EMAIL_DESC + ADDRESS_DESC_BOB + TAG_DESC_HUSBAND + TAG_DESC_FRIEND,
-                Email.MESSAGE_EMAIL_CONSTRAINTS);
+        assertParseFailure(AddCommand.COMMAND_WORD + NAME_DESC_BOB + PHONE_DESC_BOB + INVALID_EMAIL_DESC
+                        + ADDRESS_DESC_BOB + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, Email.MESSAGE_EMAIL_CONSTRAINTS);
 
         // invalid address
-        assertParseFailure(AddCommand.COMMAND_WORD + NAME_DESC_BOB + PHONE_DESC_BOB
-                        + EMAIL_DESC_BOB + INVALID_ADDRESS_DESC + TAG_DESC_HUSBAND + TAG_DESC_FRIEND,
+        assertParseFailure(AddCommand.COMMAND_WORD + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
+                        + INVALID_ADDRESS_DESC + TAG_DESC_HUSBAND + TAG_DESC_FRIEND,
                 Address.MESSAGE_ADDRESS_CONSTRAINTS);
 
         // invalid tag
-        assertParseFailure(AddCommand.COMMAND_WORD + NAME_DESC_BOB + PHONE_DESC_BOB
-                        + EMAIL_DESC_BOB + ADDRESS_DESC_BOB + INVALID_TAG_DESC + VALID_TAG_FRIEND,
-                Tag.MESSAGE_TAG_CONSTRAINTS);
+        assertParseFailure(AddCommand.COMMAND_WORD + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
+                        + ADDRESS_DESC_BOB + INVALID_TAG_DESC + VALID_TAG_FRIEND, Tag.MESSAGE_TAG_CONSTRAINTS);
 
         // two invalid values, only first invalid value reported
-        assertParseFailure(AddCommand.COMMAND_WORD + INVALID_NAME_DESC + PHONE_DESC_BOB
-                        + EMAIL_DESC_BOB + INVALID_ADDRESS_DESC, Name.MESSAGE_NAME_CONSTRAINTS);
+        assertParseFailure(AddCommand.COMMAND_WORD + INVALID_NAME_DESC + PHONE_DESC_BOB + EMAIL_DESC_BOB
+                + INVALID_ADDRESS_DESC, Name.MESSAGE_NAME_CONSTRAINTS);
     }
 
     /**
-     * Asserts the parsing of {@code userInput} is successful and the person created
+     * Asserts that the parsing of {@code userInput} is successful and the person created
      * equals to {@code expectedPerson}
      */
     private void assertParseSuccess(String userInput, Person expectedPerson) throws Exception {
@@ -176,7 +172,7 @@ public class AddCommandParserTest {
     }
 
     /**
-     * Asserts the parsing of {@code userInput} is unsuccessful and the error message
+     * Asserts that the parsing of {@code userInput} is unsuccessful and the error message
      * equals to {@code expectedMessage}
      */
     private void assertParseFailure(String userInput, String expectedMessage) {
