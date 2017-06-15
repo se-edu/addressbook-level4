@@ -37,10 +37,6 @@ public class CommandBox extends UiPart<Region> {
         commandTextField.setOnKeyPressed(this::handleKeyPress);
     }
 
-    /**
-     * Shows the previous input if {@code KeyCode.UP} is pressed,
-     * and shows the next input if {@code KeyCode.DOWN} is pressed.
-     */
     private void handleKeyPress(KeyEvent keyEvent) {
         switch (keyEvent.getCode()) {
         case UP:

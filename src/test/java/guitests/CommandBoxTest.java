@@ -85,12 +85,13 @@ public class CommandBoxTest extends AddressBookGuiTest {
         commandBox.runCommand(COMMAND_THAT_FAILS);
         guiRobot.push(KeyCode.UP);
         guiRobot.push(KeyCode.UP); // command box displays COMMAND_THAT_SUCCEEDS now
-        commandBox.runCommand(COMMAND_THAT_FAILS);
+        String anotherCommandThatFails = "foo";
+        commandBox.runCommand(anotherCommandThatFails);
 
         // Previous commands are returned in order
         // despite executing a new command after pushing `KeyCode.UP`.
         guiRobot.push(KeyCode.UP);
-        assertEquals(COMMAND_THAT_FAILS, commandBox.getCommandInput());
+        assertEquals(anotherCommandThatFails, commandBox.getCommandInput());
         guiRobot.push(KeyCode.UP);
         assertEquals(COMMAND_THAT_FAILS, commandBox.getCommandInput());
         guiRobot.push(KeyCode.UP);
