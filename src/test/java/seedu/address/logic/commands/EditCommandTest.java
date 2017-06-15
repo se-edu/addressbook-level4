@@ -2,11 +2,12 @@ package seedu.address.logic.commands;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.testutil.EditCommandTestUtil.DESC_AMY;
-import static seedu.address.testutil.EditCommandTestUtil.DESC_BOB;
-import static seedu.address.testutil.EditCommandTestUtil.VALID_NAME_BOB;
-import static seedu.address.testutil.EditCommandTestUtil.VALID_PHONE_BOB;
-import static seedu.address.testutil.EditCommandTestUtil.VALID_TAG_HUSBAND;
+import static org.junit.Assert.fail;
+import static seedu.address.testutil.CommandTestUtil.DESC_AMY;
+import static seedu.address.testutil.CommandTestUtil.DESC_BOB;
+import static seedu.address.testutil.CommandTestUtil.VALID_NAME_BOB;
+import static seedu.address.testutil.CommandTestUtil.VALID_PHONE_BOB;
+import static seedu.address.testutil.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.TypicalPersons.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalPersons.INDEX_SECOND_PERSON;
 
