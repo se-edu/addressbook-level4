@@ -37,8 +37,9 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 .  Refer to the link:#features[Features] section below for details of each command.
 
-== Features
+link:#addressbook-level-4---user-guide[Return to top]
 
+== Features
 ====
 *Command Format*
 
@@ -47,13 +48,15 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Items with `...` after them can have multiple instances.
 * Parameters can be in any order.
 ====
+link:#addressbook-level-4---user-guide[Return to top]
 
 === Viewing help : `help`
 
 Format: `help`
 
-=== Adding a person: `add`
+link:#addressbook-level-4---user-guide[Return to top]
 
+=== Adding a person: `add`
 Adds a person to the address book +
 Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
 
@@ -65,13 +68,15 @@ Examples:
 * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
 * `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
 
-=== Listing all persons : `list`
+link:#addressbook-level-4---user-guide[Return to top]
 
+=== Listing all persons : `list`
 Shows a list of all persons in the address book. +
 Format: `list`
 
-=== Editing a person : `edit`
+link:#addressbook-level-4---user-guide[Return to top]
 
+=== Editing a person : `edit`
 Edits an existing person in the address book. +
 Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
 
@@ -90,8 +95,9 @@ Edits the phone number and email address of the 1st person to be `91234567` and 
 * `edit 2 n/Betsy Crower t/` +
 Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
 
-=== Finding all persons containing any keyword in their name: `find`
+link:#addressbook-level-4---user-guide[Return to top]
 
+=== Finding all persons containing any keyword in their name: `find`
 Finds persons whose names contain any of the given keywords. +
 Format: `find KEYWORD [MORE_KEYWORDS]`
 
@@ -110,8 +116,9 @@ Returns `John Doe` but not `john`
 * `find Betsy Tim John` +
 Returns Any person having names `Betsy`, `Tim`, or `John`
 
-=== Deleting a person : `delete`
+link:#addressbook-level-4---user-guide[Return to top]
 
+=== Deleting a person : `delete`
 Deletes the specified person from the address book. Irreversible. +
 Format: `delete INDEX`
 
@@ -130,8 +137,9 @@ Deletes the 2nd person in the address book.
 `delete 1` +
 Deletes the 1st person in the results of the `find` command.
 
-=== Select a person : `select`
+link:#addressbook-level-4---user-guide[Return to top]
 
+=== Select a person : `select`
 Selects the person identified by the index number used in the last person listing. +
 Format: `select INDEX`
 
@@ -150,33 +158,39 @@ Selects the 2nd person in the address book.
 `select 1` +
 Selects the 1st person in the results of the `find` command.
 
-=== Listing entered commands : `history`
+link:#addressbook-level-4---user-guide[Return to top]
 
+=== Listing entered commands : `history`
 Lists all the commands that you have entered in chronological order. +
 Format: `history`
 
-=== Clearing all entries : `clear`
+link:#addressbook-level-4---user-guide[Return to top]
 
+=== Clearing all entries : `clear`
 Clears all entries from the address book. +
 Format: `clear`
 
-=== Exiting the program : `exit`
+link:#addressbook-level-4---user-guide[Return to top]
 
+=== Exiting the program : `exit`
 Exits the program. +
 Format: `exit`
 
-=== Saving the data
+link:#addressbook-level-4---user-guide[Return to top]
 
+=== Saving the data
 Address book data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
-== FAQ
+link:#addressbook-level-4---user-guide[Return to top]
 
+== FAQ
 *Q*: How do I transfer my data to another Computer? +
 *A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
 
-== Command Summary
+link:#addressbook-level-4---user-guide[Return to top]
 
+== Command Summary
 * *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
 e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
 * *Clear* : `clear`
@@ -189,3 +203,5 @@ e.g. `find James Jake`
 * *Select* : `select INDEX` +
 e.g.`select 2`
 * *History* : `history`
+
+link:#addressbook-level-4---user-guide[Return to top]

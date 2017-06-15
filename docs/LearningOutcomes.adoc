@@ -18,11 +18,15 @@ toc::[]
 
 Note how the <<DeveloperGuide#architecture, Developer Guide>> describes the high-level design using an _Architecture Diagrams_ and high-level sequence diagrams.
 
+link:#addressbook-level-4---user-guide[Return to top]
+
 '''
 
 == Use Event-Driven Programming `[LO-EventDriven]`
 
 Note how the <<DeveloperGuide#architecture, Developer Guide>> uses events to communicate with components without needing a direct coupling. Also note how the `EventsCenter` class acts as an event dispatcher to facilitate communication between event creators and event consumers.
+
+link:#addressbook-level-4---user-guide[Return to top]
 
 '''
 
@@ -34,6 +38,8 @@ image:LogicClassDiagram.png[width="800"]
 *Resources*
 
 * https://www.youtube.com/watch?v=Un80XoRT1ME[A three-minutes video] of designing architecture of and discovering component APIs for a Game of Tic-Tac-Toe.
+
+link:#addressbook-level-4---user-guide[Return to top]
 
 '''
 
@@ -52,6 +58,7 @@ Note how the AddressBook app uses Java ``assert``s to verify assumptions.
 to ensure the runtime reports an assertion failure).
 * Add more assertions to AddressBook as you see fit.
 
+link:#addressbook-level-4---user-guide[Return to top]
 
 '''
 
@@ -73,6 +80,7 @@ Note <<DeveloperGuide#31-logging, how the AddressBook app uses Java's `java.util
 
 Add more logging to AddressBook as you see fit.
 
+link:#addressbook-level-4---user-guide[Return to top]
 
 '''
 
@@ -86,6 +94,8 @@ Analyze the AddressBook code/design to identify,
 
 * where defensive coding is used
 * where the code can be more defensive
+
+link:#addressbook-level-4---user-guide[Return to top]
 
 '''
 
@@ -107,6 +117,7 @@ Note <<UsingGradle#, how the AddressBook app uses Gradle to automate build tasks
 
 * Note how the build script `build.gradle` file manages third party dependencies such as ControlsFx. Update that file to manage a third-party library dependency.
 
+link:#addressbook-level-4---user-guide[Return to top]
 
 '''
 
@@ -123,6 +134,7 @@ Note <<UsingTravis#, how the AddressBook app uses Travis to perform Continuous I
 
 * Set up Travis to perform CI on your own project.
 
+link:#addressbook-level-4---user-guide[Return to top]
 
 '''
 
@@ -133,6 +145,8 @@ Note how our CI server <<UsingTravis#, Travis uses Coveralls to report code cove
 === Exercise: Use EclEmma to measure coverage locally
 
 * Install the http://www.eclemma.org/[EclEmma Eclipse Plugin] in your computer and use that to find code that is not covered by the tests. This plugin can help you to find coverage details even before you push code to the remote repo.
+
+link:#addressbook-level-4---user-guide[Return to top]
 
 '''
 
@@ -148,6 +162,8 @@ class gives some examples of how to use _Equivalence Partitions_, _Boundary Valu
 ** What is Boundary Value Analysis? How does it help to improve E&E of testing?
 ** What are the heuristics that can be used when combining multiple test inputs?
 * Use the test case design heuristics mentioned above to improve test cases in other places.
+
+link:#addressbook-level-4---user-guide[Return to top]
 
 '''
 
@@ -176,6 +192,8 @@ public void execute_add_invalidArgsFormat() throws Exception {
 * Write a unit test for a a high-level methods somewhere in the code base.
 * Write an integration test for the same method.
 
+link:#addressbook-level-4---user-guide[Return to top]
+
 '''
 
 == Perform System Testing `[LO-SystemTesting]`
@@ -186,6 +204,8 @@ Note how tests below `src/test/java/guitests` package (e.g link:{repoURL}/src/te
 
 * Add some more system tests to the existing system tests.
 
+link:#addressbook-level-4---user-guide[Return to top]
+
 '''
 
 == Automate GUI Testing `[LO-AutomateGuiTesting]`
@@ -195,6 +215,8 @@ Note how this project uses TextFX library to automate GUI testing, including <<D
 === Exercise: Write more automated GUI tests
 
 * Add some more automated GUI tests.
+
+link:#addressbook-level-4---user-guide[Return to top]
 
 '''
 
@@ -221,6 +243,8 @@ Here are some example design patterns used in the code base.
 
 * Learn other _Gang of Four_ Design patterns to see if they are applicable to the app.
 
+link:#addressbook-level-4---user-guide[Return to top]
+
 '''
 
 == Use Static Analysis `[LO-StaticAnalysis]`
@@ -235,6 +259,8 @@ Other popular Java static analysis tools:
 === Exercise: Use the CheckStyle Eclipse plugin
 
 * Install the http://eclipse-cs.sourceforge.net/#!/[CheckStyle Eclipse plugin] and use it to detect coding standard violations.
+
+link:#addressbook-level-4---user-guide[Return to top]
 
 '''
 
@@ -262,3 +288,5 @@ Here are some things you can comment on when reviewing code:
 === Exercise: Review a PR
 
 * Review a GitHub PR created by a team member.
+
+link:#addressbook-level-4---user-guide[Return to top]
