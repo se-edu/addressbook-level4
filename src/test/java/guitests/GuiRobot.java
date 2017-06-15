@@ -2,6 +2,7 @@ package guitests;
 
 import org.testfx.api.FxRobot;
 
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import seedu.address.testutil.TestUtil;
 
@@ -15,4 +16,8 @@ public class GuiRobot extends FxRobot {
         return (GuiRobot) super.push(TestUtil.scrub(keyCodeCombination));
     }
 
+    public void push(KeyCode keyCode) {
+        super.push(keyCode);
+        sleep(500);
+    }
 }
