@@ -6,7 +6,7 @@ import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 /**
  * Utility class containing the constants required for tests related to EditCommand
  */
-public class EditCommandTestUtil {
+public class CommandTestUtil {
     public static final String VALID_NAME_AMY = "Amy Bee";
     public static final String VALID_NAME_BOB = "Bob Choo";
     public static final String VALID_PHONE_AMY = "11111111";
