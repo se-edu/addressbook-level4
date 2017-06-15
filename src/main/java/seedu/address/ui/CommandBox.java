@@ -52,7 +52,7 @@ public class CommandBox extends UiPart<Region> {
             getNextInput();
             break;
         default:
-            // return
+            // let JavaFx handle the keypress
         }
     }
 

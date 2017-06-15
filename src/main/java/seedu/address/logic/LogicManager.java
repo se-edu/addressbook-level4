@@ -48,6 +48,6 @@ public class LogicManager extends ComponentManager implements Logic {
 
     @Override
     public NonAlternatingListIterator<String> getHistoryIterator() {
-        return history.listIterator();
+        return history.reversedListIterator();
     }
 }
