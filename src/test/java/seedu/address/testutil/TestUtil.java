@@ -12,9 +12,6 @@ import guitests.guihandles.PersonCardHandle;
 import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
 import javafx.scene.Node;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyCodeCombination;
-import javafx.scene.input.KeyCombination;
 import junit.framework.AssertionFailedError;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.exceptions.IllegalValueException;
@@ -103,28 +100,6 @@ public class TestUtil {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-    }
-
-    /**
-     * Tweaks the {@code keyCodeCombination} to resolve the {@code KeyCode.SHORTCUT} to their
-     * respective platform-specific keycodes
-     */
-    public static KeyCode[] scrub(KeyCodeCombination keyCodeCombination) {
-        List<KeyCode> keys = new ArrayList<>();
-        if (keyCodeCombination.getAlt() == KeyCombination.ModifierValue.DOWN) {
-            keys.add(KeyCode.ALT);
-        }
-        if (keyCodeCombination.getShift() == KeyCombination.ModifierValue.DOWN) {
-            keys.add(KeyCode.SHIFT);
-        }
-        if (keyCodeCombination.getMeta() == KeyCombination.ModifierValue.DOWN) {
-            keys.add(KeyCode.META);
-        }
-        if (keyCodeCombination.getControl() == KeyCombination.ModifierValue.DOWN) {
-            keys.add(KeyCode.CONTROL);
-        }
-        keys.add(keyCodeCombination.getCode());
-        return keys.toArray(new KeyCode[]{});
     }
 
     /**
