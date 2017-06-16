@@ -117,22 +117,60 @@ public class MainWindow extends UiPart<Region> {
     }
 
     void fillInnerParts() {
+        setupBrowserPanel();
+        setupPersonListPanel();
+        setupResultDisplay();
+        setupStatusBarFooter();
+        setupCommandBox();
+    }
+
+    /**
+     * Create a new browser panel and place it inside its placeholder.
+     */
+    private void setupBrowserPanel() {
         browserPanel = new BrowserPanel();
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-        ResultDisplay resultDisplay = new ResultDisplay();
-        StatusBarFooter statusBarFooter = new StatusBarFooter(prefs.getAddressBookFilePath());
-        CommandBox commandBox = new CommandBox(logic);
 
-        SplitPane.setResizableWithParent(personListPanelPlaceholder, false);
-        SplitPane.setResizableWithParent(commandBoxPlaceholder, false);
         browserPlaceholder.getChildren().add(browserPanel.getRoot());
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
-        resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
-        statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
-        commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
-
         // To prevent triggering events for typing inside the loaded Web page.
         browserPlaceholder.setOnKeyPressed(Event::consume);
+    }
+
+    /**
+     * Create a new person list panel and place it inside its placeholder.
+     */
+    private void setupPersonListPanel() {
+        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
+
+        SplitPane.setResizableWithParent(personListPanelPlaceholder, false);
+        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+    }
+
+    /**
+     * Create a new result display and place it inside its placeholder.
+     */
+    private void setupResultDisplay() {
+        ResultDisplay resultDisplay = new ResultDisplay();
+
+        resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
+    }
+
+    /**
+     * Create a new status bar footer and place it inside its placeholder.
+     */
+    private void setupStatusBarFooter() {
+        StatusBarFooter statusBarFooter = new StatusBarFooter(prefs.getAddressBookFilePath());
+
+        statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
+    }
+
+    /**
+     * Create a new command box and place it inside its placeholder.
+     */
+    private void setupCommandBox() {
+        CommandBox commandBox = new CommandBox(logic);
+
+        SplitPane.setResizableWithParent(commandBoxPlaceholder, false);
+        commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
 
     private StackPane getCommandBoxPlaceholder() {
