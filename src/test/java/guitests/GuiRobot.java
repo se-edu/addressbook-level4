@@ -24,9 +24,8 @@ public class GuiRobot extends FxRobot {
     }
 
     /**
-     * Pause execution for {@code PAUSE_FOR_HUMAN_DELAY_MILLISECONDS} milliseconds for a human
-     * to examine the effects of the test. This method will be disabled when the GUI tests are
-     * executed in headless mode to avoid unnecessary delays.
+     * Pause execution for 250 milliseconds for a human to examine the effects of the test.
+     * This method will be disabled when the GUI tests are executed in headless mode to avoid unnecessary delays.
      */
     public void pauseForHuman() {
         if (isHeadlessMode) {
@@ -37,16 +36,16 @@ public class GuiRobot extends FxRobot {
     }
 
     /**
-     * Wait for {@code event} to be true by 500ms.
+     * Waits for {@code event} to be true by 500 milliseconds.
      *
-     * @throws EventTimeoutException if the time taken exceeds 500ms.
+     * @throws EventTimeoutException if the time taken exceeds 500 milliseconds.
      */
     public void waitForEvent(BooleanSupplier event) {
         waitForEvent(event, DEFAULT_WAIT_FOR_EVENT_TIMEOUT_MILLISECONDS);
     }
 
     /**
-     * Wait for {@code event} to be true.
+     * Waits for {@code event} to be true.
      *
      * @param timeOut in milliseconds
      * @throws EventTimeoutException if the time taken exceeds {@code timeOut}.

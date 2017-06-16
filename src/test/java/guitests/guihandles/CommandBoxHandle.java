@@ -3,6 +3,7 @@ package guitests.guihandles;
 import guitests.GuiRobot;
 import javafx.collections.ObservableList;
 import javafx.stage.Stage;
+
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.ui.CommandBox;
 
