@@ -4,9 +4,7 @@ import java.util.function.BooleanSupplier;
 
 import org.testfx.api.FxRobot;
 
-import javafx.scene.input.KeyCodeCombination;
 import javafx.stage.Stage;
-import seedu.address.testutil.TestUtil;
 
 /**
  * Robot used to simulate user actions on the GUI.
@@ -25,10 +23,6 @@ public class GuiRobot extends FxRobot {
         isHeadlessMode = headlessPropertyValue != null && headlessPropertyValue.equals("true");
     }
 
-    public GuiRobot push(KeyCodeCombination keyCodeCombination) {
-        return (GuiRobot) super.push(TestUtil.scrub(keyCodeCombination));
-    }
-
     /**
      * Pause execution for {@code PAUSE_FOR_HUMAN_DELAY_MILLISECONDS} milliseconds for a human
      * to examine the effects of the test. This method will be disabled when the GUI tests are
@@ -43,9 +37,9 @@ public class GuiRobot extends FxRobot {
     }
 
     /**
-     * Wait for {@code event} to be true by {@code DEFAULT_WAIT_FOR_EVENT_TIMEOUT_MILLISECONDS}.
+     * Wait for {@code event} to be true by 500ms.
      *
-     * @throws EventTimeoutException if the time taken exceeds {@code DEFAULT_WAIT_FOR_EVENT_TIMEOUT_MILLISECONDS}.
+     * @throws EventTimeoutException if the time taken exceeds 500ms.
      */
     public void waitForEvent(BooleanSupplier event) {
         waitForEvent(event, DEFAULT_WAIT_FOR_EVENT_TIMEOUT_MILLISECONDS);
@@ -74,10 +68,10 @@ public class GuiRobot extends FxRobot {
     /**
      * Returns true if the window with {@code stageTitle} is currently open.
      */
-    public boolean isWindowActive(String stageTitle) {
+    public boolean isWindowShown(String stageTitle) {
         return listTargetWindows().stream()
                 .filter(window -> window instanceof Stage && ((Stage) window).getTitle().equals(stageTitle))
-                .count() == 1;
+                .count() >= 1;
     }
 
     /**
