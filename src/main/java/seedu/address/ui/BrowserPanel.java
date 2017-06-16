@@ -1,6 +1,9 @@
 package seedu.address.ui;
 
 import java.net.URL;
+import java.util.logging.Logger;
+
+import com.google.common.eventbus.Subscribe;
 
 import javafx.event.Event;
 import javafx.fxml.FXML;
@@ -8,6 +11,8 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.scene.web.WebView;
 import seedu.address.MainApp;
+import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
 import seedu.address.model.person.ReadOnlyPerson;
 
 /**
@@ -17,6 +22,8 @@ public class BrowserPanel extends UiPart<Region> {
 
     private static final String FXML = "BrowserPanel.fxml";
     private static final String DEFAULT_PAGE = "default.html";
+
+    private final Logger logger = LogsCenter.getLogger(this.getClass());
 
     @FXML
     private WebView browser;
@@ -33,9 +40,10 @@ public class BrowserPanel extends UiPart<Region> {
         placeholder.getChildren().add(browser);
 
         loadDefaultPage();
+        registerAsAnEventHandler(this);
     }
 
-    public void loadPersonPage(ReadOnlyPerson person) {
+    private void loadPersonPage(ReadOnlyPerson person) {
         loadPage("https://www.google.com.sg/#safe=off&q=" + person.getName().fullName.replaceAll(" ", "+"));
     }
 
@@ -58,4 +66,9 @@ public class BrowserPanel extends UiPart<Region> {
         browser = null;
     }
 
+    @Subscribe
+    private void handlePersonPanelSelectionChangedEvent(PersonPanelSelectionChangedEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        loadPersonPage(event.getNewSelection());
+    }
 }
