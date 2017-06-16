@@ -12,9 +12,10 @@ import javafx.stage.Stage;
  */
 public class GuiRobot extends FxRobot {
 
+    public static final int PAUSE_FOR_HUMAN_DELAY_MILLISECONDS = 250;
+    public static final int DEFAULT_WAIT_FOR_EVENT_TIMEOUT_MILLISECONDS = 5000;
+
     private static final String PROPERTY_TESTFX_HEADLESS = "testfx.headless";
-    private static final int PAUSE_FOR_HUMAN_DELAY_MILLISECONDS = 250;
-    private static final int DEFAULT_WAIT_FOR_EVENT_TIMEOUT_MILLISECONDS = 5000;
 
     private final boolean isHeadlessMode;
 
@@ -24,8 +25,9 @@ public class GuiRobot extends FxRobot {
     }
 
     /**
-     * Pause execution for 250 milliseconds for a human to examine the effects of the test.
-     * This method will be disabled when the GUI tests are executed in headless mode to avoid unnecessary delays.
+     * Pauses execution for {@code PAUSE_FOR_HUMAN_DELAY_MILLISECONDS} milliseconds for a human to examine the
+     * effects of the test. This method will be disabled when the GUI tests are executed in headless mode to avoid
+     * unnecessary delays.
      */
     public void pauseForHuman() {
         if (isHeadlessMode) {
@@ -36,9 +38,10 @@ public class GuiRobot extends FxRobot {
     }
 
     /**
-     * Waits for {@code event} to be true by 500 milliseconds.
+     * Waits for {@code event} to be true by {@code DEFAULT_WAIT_FOR_EVENT_TIMEOUT_MILLISECONDS} milliseconds.
      *
-     * @throws EventTimeoutException if the time taken exceeds 500 milliseconds.
+     * @throws EventTimeoutException if the time taken exceeds {@code DEFAULT_WAIT_FOR_EVENT_TIMEOUT_MILLISECONDS}
+     * milliseconds.
      */
     public void waitForEvent(BooleanSupplier event) {
         waitForEvent(event, DEFAULT_WAIT_FOR_EVENT_TIMEOUT_MILLISECONDS);
@@ -62,6 +65,8 @@ public class GuiRobot extends FxRobot {
                 throw new EventTimeoutException();
             }
         }
+
+        pauseForHuman();
     }
 
     /**
