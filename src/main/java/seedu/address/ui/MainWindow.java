@@ -125,7 +125,7 @@ public class MainWindow extends UiPart<Region> {
     }
 
     /**
-     * Create a new browser panel and place it inside its placeholder.
+     * Creates a new browser panel and places it inside its placeholder.
      */
     private void setupBrowserPanel() {
         browserPanel = new BrowserPanel();
@@ -136,7 +136,7 @@ public class MainWindow extends UiPart<Region> {
     }
 
     /**
-     * Create a new person list panel and place it inside its placeholder.
+     * Creates a new person list panel and places it inside its placeholder.
      */
     private void setupPersonListPanel() {
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
@@ -146,7 +146,7 @@ public class MainWindow extends UiPart<Region> {
     }
 
     /**
-     * Create a new result display and place it inside its placeholder.
+     * Creates a new result display and places it inside its placeholder.
      */
     private void setupResultDisplay() {
         ResultDisplay resultDisplay = new ResultDisplay();
@@ -155,7 +155,7 @@ public class MainWindow extends UiPart<Region> {
     }
 
     /**
-     * Create a new status bar footer and place it inside its placeholder.
+     * Creates a new status bar footer and places it inside its placeholder.
      */
     private void setupStatusBarFooter() {
         StatusBarFooter statusBarFooter = new StatusBarFooter(prefs.getAddressBookFilePath());
@@ -164,7 +164,7 @@ public class MainWindow extends UiPart<Region> {
     }
 
     /**
-     * Create a new command box and place it inside its placeholder.
+     * Creates a new command box and places it inside its placeholder.
      */
     private void setupCommandBox() {
         CommandBox commandBox = new CommandBox(logic);
