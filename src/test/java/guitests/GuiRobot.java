@@ -14,6 +14,7 @@ public class GuiRobot extends FxRobot {
 
     private static final String PROPERTY_TESTFX_HEADLESS = "testfx.headless";
     private static final int PAUSE_FOR_HUMAN_DELAY_MILLISECONDS = 250;
+    private static final int DEFAULT_WAIT_FOR_EVENT_TIMEOUT_MILLISECONDS = 5000;
 
     private final boolean isHeadlessMode;
 
@@ -33,6 +34,15 @@ public class GuiRobot extends FxRobot {
         }
 
         sleep(PAUSE_FOR_HUMAN_DELAY_MILLISECONDS);
+    }
+
+    /**
+     * Wait for {@code event} to be true by 500ms.
+     *
+     * @throws EventTimeoutException if the time taken exceeds 500ms.
+     */
+    public void waitForEvent(BooleanSupplier event) {
+        waitForEvent(event, DEFAULT_WAIT_FOR_EVENT_TIMEOUT_MILLISECONDS);
     }
 
     /**
