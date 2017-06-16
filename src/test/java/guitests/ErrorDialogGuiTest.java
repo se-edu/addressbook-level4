@@ -19,8 +19,7 @@ public class ErrorDialogGuiTest extends AddressBookGuiTest {
 
         raise(new DataSavingExceptionEvent(new IOException("Stub")));
 
-        int eventWaitTimeout = 5000;
-        guiRobot.waitForEvent(() -> guiRobot.isWindowShown(ERROR_DIALOG_STAGE_TITLE), eventWaitTimeout);
+        guiRobot.waitForEvent(() -> guiRobot.isWindowShown(ERROR_DIALOG_STAGE_TITLE));
         AlertDialogHandle alertDialog = new AlertDialogHandle(new GuiRobot(), stage, "File Op Error");
         assertTrue(alertDialog.isMatching("Could not save data", "Could not save data to file" + ":\n"
                                                                          + "java.io.IOException: Stub"));
