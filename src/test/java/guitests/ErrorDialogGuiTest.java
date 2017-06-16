@@ -19,8 +19,7 @@ public class ErrorDialogGuiTest extends AddressBookGuiTest {
 
         raise(new DataSavingExceptionEvent(new IOException("Stub")));
 
-        int eventWaitTimeout = 5000;
-        guiRobot.waitForEvent(() -> guiRobot.isWindowActive(ERROR_DIALOG_STAGE_TITLE), eventWaitTimeout);
+        guiRobot.waitForEvent(() -> guiRobot.isWindowActive(ERROR_DIALOG_STAGE_TITLE));
         guiRobot.pauseForHuman();
 
         AlertDialogHandle alertDialog = mainGui.getAlertDialog(ERROR_DIALOG_STAGE_TITLE);
