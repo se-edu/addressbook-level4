@@ -12,7 +12,6 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.SplitPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
-import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
@@ -32,7 +31,7 @@ public class PersonListPanel extends UiPart<Region> {
         super(FXML);
         setConnections(personList);
         addToPlaceholder(personListPlaceholder);
-        EventsCenter.getInstance().registerHandler(this);
+        registerAsAnEventHandler(this);
     }
 
     private void setConnections(ObservableList<ReadOnlyPerson> personList) {
