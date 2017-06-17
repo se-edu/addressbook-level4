@@ -218,23 +218,14 @@ public class MainWindow extends UiPart<Region> {
     @Subscribe
     private void handleDataSavingExceptionEvent(DataSavingExceptionEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        showFileOperationAlertAndWait("Could not save data", "Could not save data to file", event.exception);
+        final String content = "Could not save data to file" + ":\n" + event.exception.toString();
+        showAlertDialogAndWait("File Op Error", "Could not save data", content);
     }
 
-    private void showFileOperationAlertAndWait(String description, String details, Throwable cause) {
-        final String content = details + ":\n" + cause.toString();
-        showAlertDialogAndWait(AlertType.ERROR, "File Op Error", description, content);
-    }
-
-    private void showAlertDialogAndWait(AlertType type, String title, String headerText, String contentText) {
-        showAlertDialogAndWait(primaryStage, type, title, headerText, contentText);
-    }
-
-    private static void showAlertDialogAndWait(Stage owner, AlertType type, String title, String headerText,
-                                               String contentText) {
-        final Alert alert = new Alert(type);
+    private void showAlertDialogAndWait(String title, String headerText, String contentText) {
+        final Alert alert = new Alert(AlertType.ERROR);
         alert.getDialogPane().getStylesheets().add("view/DarkTheme.css");
-        alert.initOwner(owner);
+        alert.initOwner(primaryStage);
         alert.setTitle(title);
         alert.setHeaderText(headerText);
         alert.setContentText(contentText);
@@ -244,7 +235,7 @@ public class MainWindow extends UiPart<Region> {
 
     public void showFatalErrorDialogAndShutdown(String title, Throwable e) {
         logger.severe(title + " " + e.getMessage() + StringUtil.getDetails(e));
-        showAlertDialogAndWait(AlertType.ERROR, title, e.getMessage(), e.toString());
+        showAlertDialogAndWait(title, e.getMessage(), e.toString());
         Platform.exit();
         System.exit(1);
     }
