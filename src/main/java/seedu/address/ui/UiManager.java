@@ -2,12 +2,18 @@ package seedu.address.ui;
 
 import java.util.logging.Logger;
 
+import com.google.common.eventbus.Subscribe;
+
+import javafx.application.Platform;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import seedu.address.MainApp;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
@@ -49,7 +55,7 @@ public class UiManager extends ComponentManager implements Ui {
 
         } catch (Throwable e) {
             logger.severe(StringUtil.getDetails(e));
-            mainWindow.showFatalErrorDialogAndShutdown("Fatal error during initializing", e);
+            showFatalErrorDialogAndShutdown("Fatal error during initializing", e);
         }
     }
 
@@ -60,7 +66,43 @@ public class UiManager extends ComponentManager implements Ui {
         mainWindow.releaseResources();
     }
 
+    private void showFileOperationAlertAndWait(String description, String details, Throwable cause) {
+        final String content = details + ":\n" + cause.toString();
+        showAlertDialogAndWait(AlertType.ERROR, "File Op Error", description, content);
+    }
+
     private Image getImage(String imagePath) {
         return new Image(MainApp.class.getResourceAsStream(imagePath));
+    }
+
+    void showAlertDialogAndWait(Alert.AlertType type, String title, String headerText, String contentText) {
+        showAlertDialogAndWait(mainWindow.getPrimaryStage(), type, title, headerText, contentText);
+    }
+
+    private static void showAlertDialogAndWait(Stage owner, AlertType type, String title, String headerText,
+                                               String contentText) {
+        final Alert alert = new Alert(type);
+        alert.getDialogPane().getStylesheets().add("view/DarkTheme.css");
+        alert.initOwner(owner);
+        alert.setTitle(title);
+        alert.setHeaderText(headerText);
+        alert.setContentText(contentText);
+        alert.getDialogPane().setId(ALERT_DIALOG_PANE_FIELD_ID);
+        alert.showAndWait();
+    }
+
+    private void showFatalErrorDialogAndShutdown(String title, Throwable e) {
+        logger.severe(title + " " + e.getMessage() + StringUtil.getDetails(e));
+        showAlertDialogAndWait(Alert.AlertType.ERROR, title, e.getMessage(), e.toString());
+        Platform.exit();
+        System.exit(1);
+    }
+
+    //==================== Event Handling Code ===============================================================
+
+    @Subscribe
+    private void handleDataSavingExceptionEvent(DataSavingExceptionEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        showFileOperationAlertAndWait("Could not save data", "Could not save data to file", event.exception);
     }
 }

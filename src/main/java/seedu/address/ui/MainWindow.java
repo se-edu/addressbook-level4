@@ -1,17 +1,12 @@
 package seedu.address.ui;
 
-import static seedu.address.ui.UiManager.ALERT_DIALOG_PANE_FIELD_ID;
-
 import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
 
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
@@ -22,11 +17,9 @@ import javafx.stage.Stage;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
 import seedu.address.commons.util.FxViewUtil;
-import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.model.UserPrefs;
 
@@ -205,6 +198,10 @@ public class MainWindow extends UiPart<Region> {
         raise(new ExitAppRequestEvent());
     }
 
+    public PersonListPanel getPersonListPanel() {
+        return this.personListPanel;
+    }
+
     void releaseResources() {
         browserPanel.freeResources();
     }
@@ -213,30 +210,5 @@ public class MainWindow extends UiPart<Region> {
     private void handleShowHelpEvent(ShowHelpRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         handleHelp();
-    }
-
-    @Subscribe
-    private void handleDataSavingExceptionEvent(DataSavingExceptionEvent event) {
-        logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        final String content = "Could not save data to file" + ":\n" + event.exception.toString();
-        showAlertDialogAndWait("File Op Error", "Could not save data", content);
-    }
-
-    private void showAlertDialogAndWait(String title, String headerText, String contentText) {
-        final Alert alert = new Alert(AlertType.ERROR);
-        alert.getDialogPane().getStylesheets().add("view/DarkTheme.css");
-        alert.initOwner(primaryStage);
-        alert.setTitle(title);
-        alert.setHeaderText(headerText);
-        alert.setContentText(contentText);
-        alert.getDialogPane().setId(ALERT_DIALOG_PANE_FIELD_ID);
-        alert.showAndWait();
-    }
-
-    public void showFatalErrorDialogAndShutdown(String title, Throwable e) {
-        logger.severe(title + " " + e.getMessage() + StringUtil.getDetails(e));
-        showAlertDialogAndWait(title, e.getMessage(), e.toString());
-        Platform.exit();
-        System.exit(1);
     }
 }

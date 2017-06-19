@@ -28,7 +28,6 @@ public class PersonListPanel extends UiPart<Region> {
     public PersonListPanel(ObservableList<ReadOnlyPerson> personList) {
         super(FXML);
         setConnections(personList);
-        addToPlaceholder(personListPlaceholder);
         registerAsAnEventHandler(this);
     }
 
