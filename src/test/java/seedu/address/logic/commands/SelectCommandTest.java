@@ -31,6 +31,7 @@ import seedu.address.testutil.TypicalPersons;
 public class SelectCommandTest {
 
     private Model model;
+    private EventsCollector eventCollector = new EventsCollector();
 
     @Before
     public void setUp() {
@@ -87,7 +88,6 @@ public class SelectCommandTest {
      * is raised with the correct index.
      */
     private void assertExecutionSuccess(Index index) throws Exception {
-        EventsCollector eventCollector = new EventsCollector();
 
         SelectCommand selectCommand = prepareCommand(index);
         CommandResult commandResult = selectCommand.execute();
@@ -95,7 +95,7 @@ public class SelectCommandTest {
         assertEquals(String.format(SelectCommand.MESSAGE_SELECT_PERSON_SUCCESS, index.getOneBased()),
                 commandResult.feedbackToUser);
 
-        JumpToListRequestEvent lastEvent = (JumpToListRequestEvent) eventCollector.get(0);
+        JumpToListRequestEvent lastEvent = (JumpToListRequestEvent) eventCollector.getMostRecent();
         assertEquals(index, Index.fromZeroBased(lastEvent.targetIndex));
     }
 
@@ -111,6 +111,7 @@ public class SelectCommandTest {
             fail("The expected CommandException was not thrown.");
         } catch (CommandException ce) {
             assertEquals(expectedMessage, ce.getMessage());
+            assertTrue(eventCollector.isEmpty());
         }
     }
 
