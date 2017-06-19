@@ -7,7 +7,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 /**
  * Executes the user input entered into the {@code CommandBox} on its behalf.
  */
-public interface CommandBoxDelegate {
+public interface ExecuteDelegate {
     /**
      * Executes {@code userInput} and returns the result.
      */

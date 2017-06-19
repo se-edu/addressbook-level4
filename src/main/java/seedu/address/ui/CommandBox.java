@@ -19,12 +19,12 @@ public class CommandBox extends UiPart<Region> {
     private static final String FXML = "CommandBox.fxml";
 
     private final Logger logger = LogsCenter.getLogger(CommandBox.class);
-    private CommandBoxDelegate delegate;
+    private ExecuteDelegate delegate;
 
     @FXML
     private TextField commandTextField;
 
-    public CommandBox(Pane commandBoxPlaceholder, CommandBoxDelegate delegate) {
+    public CommandBox(Pane commandBoxPlaceholder, ExecuteDelegate delegate) {
         super(FXML);
         this.delegate = delegate;
         addToPlaceholder(commandBoxPlaceholder);
