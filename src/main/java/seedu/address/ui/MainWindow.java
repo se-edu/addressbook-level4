@@ -122,7 +122,7 @@ public class MainWindow extends UiPart<Region> implements CommandBoxDelegate {
         personListPanel = new PersonListPanel(getPersonListPlaceholder(), logic.getFilteredPersonList());
         new ResultDisplay(getResultDisplayPlaceholder());
         new StatusBarFooter(getStatusbarPlaceholder(), prefs.getAddressBookFilePath());
-        new CommandBox(getCommandBoxPlaceholder(), logic, this);
+        new CommandBox(getCommandBoxPlaceholder(), this);
     }
 
     private StackPane getCommandBoxPlaceholder() {
