@@ -38,6 +38,7 @@ public class MainWindow extends UiPart<Region> implements CommandBoxDelegate {
     // Independent Ui parts residing in this Ui container
     private BrowserPanel browserPanel;
     private PersonListPanel personListPanel;
+    private ResultDisplay resultDisplay;
     private Config config;
     private UserPrefs prefs;
 
@@ -120,7 +121,7 @@ public class MainWindow extends UiPart<Region> implements CommandBoxDelegate {
     void fillInnerParts() {
         browserPanel = new BrowserPanel(browserPlaceholder);
         personListPanel = new PersonListPanel(getPersonListPlaceholder(), logic.getFilteredPersonList());
-        new ResultDisplay(getResultDisplayPlaceholder());
+        resultDisplay = new ResultDisplay(getResultDisplayPlaceholder());
         new StatusBarFooter(getStatusbarPlaceholder(), prefs.getAddressBookFilePath());
         new CommandBox(getCommandBoxPlaceholder(), this);
     }
@@ -213,6 +214,13 @@ public class MainWindow extends UiPart<Region> implements CommandBoxDelegate {
     }
 
     public CommandResult execute(String userInput) throws CommandException, ParseException {
-        return logic.execute(userInput);
+        try {
+            CommandResult result = logic.execute(userInput);
+            resultDisplay.setText(result.feedbackToUser);
+            return result;
+        } catch (CommandException | ParseException e) {
+            resultDisplay.setText(e.getMessage());
+            throw e;
+        }
     }
 }
