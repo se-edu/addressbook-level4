@@ -37,7 +37,7 @@ public class BrowserPanel extends UiPart<Region> {
         registerAsAnEventHandler(this);
     }
 
-    public void loadPersonPage(ReadOnlyPerson person) {
+    private void loadPersonPage(ReadOnlyPerson person) {
         loadPage("https://www.google.com.sg/#safe=off&q=" + person.getName().fullName.replaceAll(" ", "+"));
     }
 
