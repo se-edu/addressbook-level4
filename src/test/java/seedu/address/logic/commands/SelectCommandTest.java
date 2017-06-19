@@ -1,7 +1,6 @@
 package seedu.address.logic.commands;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import static seedu.address.testutil.TypicalPersons.INDEX_FIRST_PERSON;
@@ -14,9 +13,6 @@ import java.util.HashSet;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.google.common.eventbus.Subscribe;
-
-import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
@@ -26,6 +22,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.ReadOnlyPerson;
+import seedu.address.testutil.EventsCollector;
 import seedu.address.testutil.TypicalPersons;
 
 /**
@@ -34,17 +31,10 @@ import seedu.address.testutil.TypicalPersons;
 public class SelectCommandTest {
 
     private Model model;
-
-    private Index eventTargetedJumpIndex;
-
-    @Subscribe
-    private void recordJumpToListRequestEvent(JumpToListRequestEvent je) {
-        eventTargetedJumpIndex = Index.fromZeroBased(je.targetIndex);
-    }
+    private EventsCollector eventCollector = new EventsCollector();
 
     @Before
     public void setUp() {
-        EventsCenter.getInstance().registerHandler(this);
         model = new ModelManager(new TypicalPersons().getTypicalAddressBook(), new UserPrefs());
     }
 
@@ -53,7 +43,11 @@ public class SelectCommandTest {
         Index lastPersonIndex = Index.fromOneBased(model.getFilteredPersonList().size());
 
         assertExecutionSuccess(INDEX_FIRST_PERSON);
+
+        eventCollector.reset();
         assertExecutionSuccess(INDEX_THIRD_PERSON);
+
+        eventCollector.reset();
         assertExecutionSuccess(lastPersonIndex);
     }
 
@@ -98,14 +92,16 @@ public class SelectCommandTest {
      * is raised with the correct index.
      */
     private void assertExecutionSuccess(Index index) throws Exception {
-        eventTargetedJumpIndex = null;
 
         SelectCommand selectCommand = prepareCommand(index);
         CommandResult commandResult = selectCommand.execute();
 
         assertEquals(String.format(SelectCommand.MESSAGE_SELECT_PERSON_SUCCESS, index.getOneBased()),
                 commandResult.feedbackToUser);
-        assertEquals(index, eventTargetedJumpIndex);
+
+        JumpToListRequestEvent lastEvent = (JumpToListRequestEvent) eventCollector.getMostRecent();
+        assertEquals(index, Index.fromZeroBased(lastEvent.targetIndex));
+        assertTrue(eventCollector.getSize() == 1);
     }
 
     /**
@@ -113,8 +109,6 @@ public class SelectCommandTest {
      * is thrown with the {@code expectedMessage}.
      */
     private void assertExecutionFailure(Index index, String expectedMessage) {
-        eventTargetedJumpIndex = null;
-
         SelectCommand selectCommand = prepareCommand(index);
 
         try {
@@ -122,7 +116,7 @@ public class SelectCommandTest {
             fail("The expected CommandException was not thrown.");
         } catch (CommandException ce) {
             assertEquals(expectedMessage, ce.getMessage());
-            assertNull(eventTargetedJumpIndex);
+            assertTrue(eventCollector.getSize() == 0);
         }
     }
 
