@@ -19,14 +19,14 @@ public class CommandBox extends UiPart<Region> {
     private static final String FXML = "CommandBox.fxml";
 
     private final Logger logger = LogsCenter.getLogger(CommandBox.class);
-    private ExecuteDelegate delegate;
+    private ExecuteDelegate executeDelegate;
 
     @FXML
     private TextField commandTextField;
 
-    public CommandBox(Pane commandBoxPlaceholder, ExecuteDelegate delegate) {
+    public CommandBox(Pane commandBoxPlaceholder, ExecuteDelegate executeDelegate) {
         super(FXML);
-        this.delegate = delegate;
+        this.executeDelegate = executeDelegate;
         addToPlaceholder(commandBoxPlaceholder);
     }
 
@@ -38,7 +38,7 @@ public class CommandBox extends UiPart<Region> {
     @FXML
     private void handleCommandInputChanged() {
         try {
-            CommandResult commandResult = delegate.execute(commandTextField.getText());
+            CommandResult commandResult = executeDelegate.execute(commandTextField.getText());
 
             // process result of the command
             setStyleToIndicateCommandSuccess();
