@@ -15,6 +15,9 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.commons.util.FxViewUtil;
 import seedu.address.logic.Logic;
+import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.ReadOnlyPerson;
 
@@ -22,7 +25,7 @@ import seedu.address.model.person.ReadOnlyPerson;
  * The Main Window. Provides the basic application layout containing
  * a menu bar and space where other JavaFX elements can be placed.
  */
-public class MainWindow extends UiPart<Region> {
+public class MainWindow extends UiPart<Region> implements CommandBoxDelegate {
 
     private static final String ICON = "/images/address_book_32.png";
     private static final String FXML = "MainWindow.fxml";
@@ -119,7 +122,7 @@ public class MainWindow extends UiPart<Region> {
         personListPanel = new PersonListPanel(getPersonListPlaceholder(), logic.getFilteredPersonList());
         new ResultDisplay(getResultDisplayPlaceholder());
         new StatusBarFooter(getStatusbarPlaceholder(), prefs.getAddressBookFilePath());
-        new CommandBox(getCommandBoxPlaceholder(), logic);
+        new CommandBox(getCommandBoxPlaceholder(), logic, this);
     }
 
     private StackPane getCommandBoxPlaceholder() {
@@ -209,4 +212,7 @@ public class MainWindow extends UiPart<Region> {
         browserPanel.freeResources();
     }
 
+    public CommandResult execute(String userInput) throws CommandException, ParseException {
+        return logic.execute(userInput);
+    }
 }
