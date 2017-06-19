@@ -212,10 +212,6 @@ public class MainWindow extends UiPart<Region> {
         raise(new ExitAppRequestEvent());
     }
 
-    public PersonListPanel getPersonListPanel() {
-        return this.personListPanel;
-    }
-
     void releaseResources() {
         browserPanel.freeResources();
     }
