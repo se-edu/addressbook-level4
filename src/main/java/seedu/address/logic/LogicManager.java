@@ -1,5 +1,6 @@
 package seedu.address.logic;
 
+import java.util.List;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
@@ -47,7 +48,7 @@ public class LogicManager extends ComponentManager implements Logic {
     }
 
     @Override
-    public NonAlternatingListIterator<String> getHistoryIterator() {
-        return history.reversedListIterator();
+    public List<String> getUserInputHistory() {
+        return history.getHistory();
     }
 }

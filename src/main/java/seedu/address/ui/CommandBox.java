@@ -1,5 +1,6 @@
 package seedu.address.ui;
 
+import java.util.List;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
@@ -11,8 +12,8 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.NewResultAvailableEvent;
+import seedu.address.logic.ListElementPointer;
 import seedu.address.logic.Logic;
-import seedu.address.logic.NonAlternatingListIterator;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -24,7 +25,7 @@ public class CommandBox extends UiPart<Region> {
 
     private final Logger logger = LogsCenter.getLogger(CommandBox.class);
     private final Logic logic;
-    private NonAlternatingListIterator<String> historyIterator;
+    private ListElementPointer pointer;
 
     @FXML
     private TextField commandTextField;
@@ -32,7 +33,7 @@ public class CommandBox extends UiPart<Region> {
     public CommandBox(Pane commandBoxPlaceholder, Logic logic) {
         super(FXML);
         this.logic = logic;
-        historyIterator = logic.getHistoryIterator();
+        pointer = new ListElementPointer(logic.getUserInputHistory());
         addToPlaceholder(commandBoxPlaceholder);
     }
 
@@ -56,30 +57,30 @@ public class CommandBox extends UiPart<Region> {
     }
 
     /**
-     * Retrieves the previous input from the current cursor in {@code historyIterator}
-     * and updates the text field with it. Moves the cursor in {@code historyIterator} backward by 1.
+     * Retrieves the previous input from the current cursor in {@code pointer}
+     * and updates the text field with it. Moves the cursor in {@code pointer} backward by 1.
      */
     private void navigateToPreviousInput() {
-        assert historyIterator != null;
-        if (!historyIterator.hasPrevious()) {
+        assert pointer != null;
+        if (!pointer.hasPrecedingElement()) {
             return;
         }
 
-        setText(historyIterator.previous());
+        setText(pointer.getPrecedingElement());
     }
 
     /**
-     * Retrieves the next input from the current cursor in {@code historyIterator}
-     * and updates the text field with it. Moves the cursor in {@code historyIterator} forward by 1.
+     * Retrieves the next input from the current cursor in {@code pointer}
+     * and updates the text field with it. Moves the cursor in {@code pointer} forward by 1.
      */
     private void navigateToNextInput() {
-        assert historyIterator != null;
-        if (!historyIterator.hasNext()) {
+        assert pointer != null;
+        if (!pointer.hasSubsequentElement()) {
             setText("");
             return;
         }
 
-        setText(historyIterator.next());
+        setText(pointer.getSubsequentElement());
     }
 
     /**
@@ -113,7 +114,8 @@ public class CommandBox extends UiPart<Region> {
             logger.info("Invalid command: " + commandTextField.getText());
             raise(new NewResultAvailableEvent(e.getMessage()));
         } finally {
-            historyIterator = logic.getHistoryIterator();
+            List<String> userInputHistory = logic.getUserInputHistory();
+            pointer = new ListElementPointer(userInputHistory, userInputHistory.size());
         }
     }
 
