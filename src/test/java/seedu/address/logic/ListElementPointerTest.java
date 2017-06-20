@@ -18,7 +18,7 @@ public class ListElementPointerTest {
 
     @Test
     public void constructor_noIndexSpecified_iteratesSuccessfully() {
-        pointer = new ListElementPointer(pointerElements);
+        pointer = new ListElementPointer<>(pointerElements);
         assertPointerNextSuccess(first, second);
         assertPointerNextFailure();
 
@@ -28,7 +28,7 @@ public class ListElementPointerTest {
 
     @Test
     public void constructor_indexSpecified_iteratesSuccessfully() {
-        pointer = new ListElementPointer(pointerElements, 0);
+        pointer = new ListElementPointer<>(pointerElements, 0);
         assertPointerNextSuccess(second);
         assertPointerPreviousSuccess(first);
     }
@@ -65,8 +65,8 @@ public class ListElementPointerTest {
         assertFalse(pointer.hasNext());
         try {
             pointer.next();
-            fail("The expected ArrayIndexOutOfBoundsException was not thrown");
-        } catch (ArrayIndexOutOfBoundsException e) {
+            fail("The expected IndexOutOfBoundsException was not thrown");
+        } catch (IndexOutOfBoundsException e) {
             // expected exception thrown
         }
     }
@@ -79,8 +79,8 @@ public class ListElementPointerTest {
         assertFalse(pointer.hasPrevious());
         try {
             pointer.previous();
-            fail("The expected ArrayIndexOutOfBoundsException was not thrown");
-        } catch (ArrayIndexOutOfBoundsException e) {
+            fail("The expected IndexOutOfBoundsException was not thrown");
+        } catch (IndexOutOfBoundsException e) {
             // expected exception thrown
         }
     }

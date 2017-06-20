@@ -7,7 +7,6 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.NewResultAvailableEvent;
@@ -24,7 +23,7 @@ public class CommandBox extends UiPart<Region> {
 
     private final Logger logger = LogsCenter.getLogger(CommandBox.class);
     private final Logic logic;
-    private ListElementPointer pointer;
+    private ListElementPointer<String> pointer;
 
     @FXML
     private TextField commandTextField;
@@ -32,8 +31,7 @@ public class CommandBox extends UiPart<Region> {
     public CommandBox(Logic logic) {
         super(FXML);
         this.logic = logic;
-        pointer = new ListElementPointer(logic.getUserInputHistory());
-        addToPlaceholder(commandBoxPlaceholder);
+        pointer = new ListElementPointer<>(logic.getUserInputHistory());
     }
 
     @FXML
@@ -91,11 +89,6 @@ public class CommandBox extends UiPart<Region> {
         commandTextField.positionCaret(commandTextField.getText().length());
     }
 
-    private void addToPlaceholder(Pane placeHolderPane) {
-        SplitPane.setResizableWithParent(placeHolderPane, false);
-        placeHolderPane.getChildren().add(commandTextField);
-    }
-
     @FXML
     private void handleCommandInputChanged() {
         try {
@@ -114,7 +107,7 @@ public class CommandBox extends UiPart<Region> {
             raise(new NewResultAvailableEvent(e.getMessage()));
         } finally {
             List<String> userInputHistory = logic.getUserInputHistory();
-            pointer = new ListElementPointer(userInputHistory, userInputHistory.size());
+            pointer = new ListElementPointer<>(userInputHistory, userInputHistory.size());
         }
     }
 
