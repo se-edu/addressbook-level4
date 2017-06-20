@@ -37,8 +37,9 @@ public class LogicManagerTest {
 
     @Test
     public void execute_validCommand_success() throws Exception {
-        assertCommandSuccess(ListCommand.COMMAND_WORD, ListCommand.MESSAGE_SUCCESS, model);
-        assertHistoryCorrect(ListCommand.COMMAND_WORD);
+        String listCommand = ListCommand.COMMAND_WORD;
+        assertCommandSuccess(listCommand, ListCommand.MESSAGE_SUCCESS, model);
+        assertHistoryCorrect(listCommand);
     }
 
     /**
