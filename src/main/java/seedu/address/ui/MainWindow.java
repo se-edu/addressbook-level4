@@ -173,22 +173,6 @@ public class MainWindow extends UiPart<Region> {
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
 
-    private StackPane getCommandBoxPlaceholder() {
-        return commandBoxPlaceholder;
-    }
-
-    private StackPane getStatusbarPlaceholder() {
-        return statusbarPlaceholder;
-    }
-
-    private StackPane getResultDisplayPlaceholder() {
-        return resultDisplayPlaceholder;
-    }
-
-    private StackPane getPersonListPlaceholder() {
-        return personListPanelPlaceholder;
-    }
-
     void hide() {
         primaryStage.hide();
     }
