@@ -6,11 +6,13 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.NewResultAvailableEvent;
 import seedu.address.logic.Logic;
+import seedu.address.logic.NonAlternatingListIterator;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -22,6 +24,7 @@ public class CommandBox extends UiPart<Region> {
 
     private final Logger logger = LogsCenter.getLogger(CommandBox.class);
     private final Logic logic;
+    private NonAlternatingListIterator<String> historyIterator;
 
     @FXML
     private TextField commandTextField;
@@ -29,7 +32,63 @@ public class CommandBox extends UiPart<Region> {
     public CommandBox(Pane commandBoxPlaceholder, Logic logic) {
         super(FXML);
         this.logic = logic;
+        historyIterator = logic.getHistoryIterator();
         addToPlaceholder(commandBoxPlaceholder);
+    }
+
+    @FXML
+    private void handleKeyPress(KeyEvent keyEvent) {
+        switch (keyEvent.getCode()) {
+        case UP:
+            // As up and down buttons will alter the position of the caret,
+            // consuming it causes the caret's position to remain unchanged
+            keyEvent.consume();
+
+            navigateToPreviousInput();
+            break;
+        case DOWN:
+            keyEvent.consume();
+            navigateToNextInput();
+            break;
+        default:
+            // let JavaFx handle the keypress
+        }
+    }
+
+    /**
+     * Retrieves the previous input from the current cursor in {@code historyIterator}
+     * and updates the text field with it. Moves the cursor in {@code historyIterator} backward by 1.
+     */
+    private void navigateToPreviousInput() {
+        assert historyIterator != null;
+        if (!historyIterator.hasPrevious()) {
+            return;
+        }
+
+        setText(historyIterator.previous());
+    }
+
+    /**
+     * Retrieves the next input from the current cursor in {@code historyIterator}
+     * and updates the text field with it. Moves the cursor in {@code historyIterator} forward by 1.
+     */
+    private void navigateToNextInput() {
+        assert historyIterator != null;
+        if (!historyIterator.hasNext()) {
+            setText("");
+            return;
+        }
+
+        setText(historyIterator.next());
+    }
+
+    /**
+     * Sets {@code CommandBox}'s text field with {@code text} and
+     * positions the caret to the end of the {@code text}.
+     */
+    private void setText(String text) {
+        commandTextField.setText(text);
+        commandTextField.positionCaret(commandTextField.getText().length());
     }
 
     private void addToPlaceholder(Pane placeHolderPane) {
@@ -53,6 +112,8 @@ public class CommandBox extends UiPart<Region> {
             setStyleToIndicateCommandFailure();
             logger.info("Invalid command: " + commandTextField.getText());
             raise(new NewResultAvailableEvent(e.getMessage()));
+        } finally {
+            historyIterator = logic.getHistoryIterator();
         }
     }
 
