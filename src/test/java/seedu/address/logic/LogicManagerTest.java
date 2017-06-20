@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
-import org.junit.Before;
 import org.junit.Test;
 
 import seedu.address.logic.commands.CommandResult;
@@ -19,13 +18,27 @@ import seedu.address.model.UserPrefs;
 
 public class LogicManagerTest {
 
-    private Model model;
-    private Logic logic;
+    private Model model = new ModelManager();
+    private Logic logic = new LogicManager(model);
 
-    @Before
-    public void setUp() {
-        model = new ModelManager();
-        logic = new LogicManager(model);
+    @Test
+    public void execute_invalidCommandFormat_throwsParseException() throws Exception {
+        String invalidCommand = "uicfhmowqewca";
+        assertParseException(invalidCommand, MESSAGE_UNKNOWN_COMMAND);
+        assertHistoryCorrect(invalidCommand);
+    }
+
+    @Test
+    public void execute_commandExecutionError_throwsCommandException() throws Exception {
+        String deleteCommand = "delete 9";
+        assertCommandException(deleteCommand, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertHistoryCorrect(deleteCommand);
+    }
+
+    @Test
+    public void execute_validCommand_success() throws Exception {
+        assertCommandSuccess(ListCommand.COMMAND_WORD, ListCommand.MESSAGE_SUCCESS, model);
+        assertHistoryCorrect(ListCommand.COMMAND_WORD);
     }
 
     /**
@@ -88,25 +101,5 @@ public class LogicManagerTest {
         String expectedMessage = String.format(HistoryCommand.MESSAGE_SUCCESS,
                 String.join("\n", expectedCommands));
         assertEquals(expectedMessage, result.feedbackToUser);
-    }
-
-    @Test
-    public void execute_unknownCommandWord_throwsParseException() throws Exception {
-        String unknownCommand = "uicfhmowqewca";
-        assertParseException(unknownCommand, MESSAGE_UNKNOWN_COMMAND);
-        assertHistoryCorrect(unknownCommand);
-    }
-
-    @Test
-    public void execute_commandExecutionError_throwsCommandException() throws Exception {
-        String deleteCommand = "delete 9";
-        assertCommandException(deleteCommand, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
-        assertHistoryCorrect(deleteCommand);
-    }
-
-    @Test
-    public void execute_validCommand_success() throws Exception {
-        assertCommandSuccess(ListCommand.COMMAND_WORD, ListCommand.MESSAGE_SUCCESS, model);
-        assertHistoryCorrect(ListCommand.COMMAND_WORD);
     }
 }
