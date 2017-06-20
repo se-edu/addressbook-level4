@@ -5,18 +5,18 @@ import javafx.stage.Stage;
 import seedu.address.TestApp;
 
 /**
- * Provides a handle for the main GUI.
+ * Provides a handle for {@code MainWindow}.
  */
-public class MainGuiHandle extends GuiHandle {
+public class MainWindowHandle extends GuiHandle {
 
-    private PersonListPanelHandle personListPanel;
-    private ResultDisplayHandle resultDisplay;
-    private CommandBoxHandle commandBox;
-    private StatusBarFooterHandle statusBarFooter;
-    private MainMenuHandle mainMenu;
-    private BrowserPanelHandle browserPanel;
+    private final PersonListPanelHandle personListPanel;
+    private final ResultDisplayHandle resultDisplay;
+    private final CommandBoxHandle commandBox;
+    private final StatusBarFooterHandle statusBarFooter;
+    private final MainMenuHandle mainMenu;
+    private final BrowserPanelHandle browserPanel;
 
-    public MainGuiHandle(GuiRobot guiRobot, Stage primaryStage) {
+    public MainWindowHandle(GuiRobot guiRobot, Stage primaryStage) {
         super(guiRobot, primaryStage, TestApp.APP_TITLE);
 
         personListPanel = new PersonListPanelHandle(guiRobot, primaryStage);
