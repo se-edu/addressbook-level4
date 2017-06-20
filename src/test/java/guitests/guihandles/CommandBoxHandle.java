@@ -3,6 +3,7 @@ package guitests.guihandles;
 import guitests.GuiRobot;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 
 import seedu.address.logic.commands.HelpCommand;
@@ -43,14 +44,16 @@ public class CommandBoxHandle extends GuiHandle {
      */
     public boolean runCommand(String command) {
         enterCommand(command);
-        guiRobot.pressEnter();
+        guiRobot.type(KeyCode.ENTER);
+        guiRobot.sleep(500);
         guiRobot.sleep(200); //Give time for the command to take effect
         return !getStyleClass().contains(CommandBox.ERROR_STYLE_CLASS);
     }
 
     public HelpWindowHandle runHelpCommand() {
         enterCommand(HelpCommand.COMMAND_WORD);
-        guiRobot.pressEnter();
+        guiRobot.type(KeyCode.ENTER);
+        guiRobot.sleep(500);
         return new HelpWindowHandle(guiRobot, primaryStage);
     }
 

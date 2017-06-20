@@ -2,8 +2,6 @@ package guitests;
 
 import org.testfx.api.FxRobot;
 
-import javafx.scene.input.KeyCode;
-
 /**
  * Robot used to simulate user actions on the GUI.
  * Extends {@link FxRobot} by adding some customized functionality and workarounds.
@@ -20,14 +18,6 @@ public class GuiRobot extends FxRobot {
             instance = new GuiRobot();
         }
         return instance;
-    }
-
-    /**
-     * Presses the enter key.
-     */
-    public void pressEnter() {
-        type(KeyCode.ENTER);
-        sleep(500);
     }
 
 }
