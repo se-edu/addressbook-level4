@@ -68,7 +68,7 @@ public abstract class AddressBookGuiTest {
     @Before
     public void setup() throws Exception {
         FxToolkit.setupStage((stage) -> {
-            mainGui = new MainWindowHandle(new GuiRobot(), stage);
+            mainGui = new MainGuiHandle(stage);
             mainMenu = mainGui.getMainMenu();
             personListPanel = mainGui.getPersonListPanel();
             resultDisplay = mainGui.getResultDisplay();
