@@ -29,9 +29,9 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void execute_unknownCommandWord_throwsParseException() {
-        String unknownCommand = "uicfhmowqewca";
-        assertParseException(unknownCommand, MESSAGE_UNKNOWN_COMMAND);
+    public void execute_invalidCommandFormat_throwsParseException() {
+        String invalidCommand = "uicfhmowqewca";
+        assertParseException(invalidCommand, MESSAGE_UNKNOWN_COMMAND);
     }
 
     @Test
