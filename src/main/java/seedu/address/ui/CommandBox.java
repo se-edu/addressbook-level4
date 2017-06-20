@@ -62,11 +62,11 @@ public class CommandBox extends UiPart<Region> {
      */
     private void navigateToPreviousInput() {
         assert pointer != null;
-        if (!pointer.hasPrecedingElement()) {
+        if (!pointer.hasPrevious()) {
             return;
         }
 
-        setText(pointer.getPrecedingElement());
+        setText(pointer.previous());
     }
 
     /**
@@ -75,12 +75,12 @@ public class CommandBox extends UiPart<Region> {
      */
     private void navigateToNextInput() {
         assert pointer != null;
-        if (!pointer.hasSubsequentElement()) {
+        if (!pointer.hasNext()) {
             setText("");
             return;
         }
 
-        setText(pointer.getSubsequentElement());
+        setText(pointer.next());
     }
 
     /**

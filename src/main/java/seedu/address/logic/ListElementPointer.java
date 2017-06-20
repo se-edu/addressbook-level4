@@ -20,13 +20,13 @@ public class ListElementPointer {
         this.index = index;
     }
 
-    public boolean hasSubsequentElement() {
+    public boolean hasNext() {
         int upIndex = index + 1;
         return isWithinBounds(upIndex);
     }
 
 
-    public boolean hasPrecedingElement() {
+    public boolean hasPrevious() {
         int downIndex = index - 1;
         return isWithinBounds(downIndex);
     }
@@ -35,11 +35,11 @@ public class ListElementPointer {
         return index >= 0 && index < list.size();
     }
 
-    public String getSubsequentElement() {
+    public String next() {
         return list.get(++index);
     }
 
-    public String getPrecedingElement() {
+    public String previous() {
         return list.get(--index);
     }
 }

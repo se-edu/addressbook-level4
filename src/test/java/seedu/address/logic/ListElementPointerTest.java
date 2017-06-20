@@ -17,68 +17,71 @@ public class ListElementPointerTest {
     private ListElementPointer pointer;
 
     @Test
-    public void testsAllPublicMethods() {
+    public void constructor_noIndexSpecified_iteratesSuccessfully() {
         pointer = new ListElementPointer(pointerElements);
-        assertPointerUp(first, second);
-        assertPointerUpFailure();
+        assertPointerNextSuccess(first, second);
+        assertPointerNextFailure();
 
-        assertPointerDown(second, first);
-        assertPointerDownFailure();
+        assertPointerPreviousSuccess(second, first);
+        assertPointerPreviousFailure();
+    }
 
+    @Test
+    public void constructor_indexSpecified_iteratesSuccessfully() {
         pointer = new ListElementPointer(pointerElements, 0);
-        assertPointerUp(second);
-        assertPointerDown(first);
+        assertPointerNextSuccess(second);
+        assertPointerPreviousSuccess(first);
     }
 
     /**
-     * Calls {@code pointer#getSubsequentElement()} for {@code elements.length} number of times,
-     * with each time checking that {@code pointer#hasSubsequentElement()} returns true and the
-     * return value of {@code pointer#getSubsequentElement()} equals to the element.
+     * Calls {@code pointer#next()} for {@code elements.length} number of times,
+     * with each time checking that {@code pointer#hasNext()} returns true and the
+     * return value of {@code pointer#next()} equals to the element.
      */
-    private void assertPointerUp(String... elements) {
+    private void assertPointerNextSuccess(String... elements) {
         for (String element : elements) {
-            assertTrue(pointer.hasSubsequentElement());
-            assertEquals(element, pointer.getSubsequentElement());
+            assertTrue(pointer.hasNext());
+            assertEquals(element, pointer.next());
         }
     }
 
     /**
-     * Calls {@code pointer#getPrecedingElement()} for {@code elements.length} number of times,
-     * with each time checking that {@code pointer#hasPrecedingElement()} returns true and the
-     * return value of {@code pointer#getPrecedingElement()} equals to the element.
+     * Calls {@code pointer#previous()} for {@code elements.length} number of times,
+     * with each time checking that {@code pointer#hasPrevious()} returns true and the
+     * return value of {@code pointer#previous()} equals to the element.
      */
-    private void assertPointerDown(String... elements) {
+    private void assertPointerPreviousSuccess(String... elements) {
         for (String element : elements) {
-            assertTrue(pointer.hasPrecedingElement());
-            assertEquals(element, pointer.getPrecedingElement());
+            assertTrue(pointer.hasPrevious());
+            assertEquals(element, pointer.previous());
         }
     }
 
     /**
-     * Asserts that {@code pointer#hasSubsequentElement()} returns false and the following
-     * {@code pointer#getSubsequentElement()} call throws {@code ArrayIndexOutOfBoundsException}.
+     * Asserts that {@code pointer#hasNext()} returns false and the following
+     * {@code pointer#next()} call throws {@code ArrayIndexOutOfBoundsException}.
      */
-    private void assertPointerUpFailure() {
-        assertFalse(pointer.hasSubsequentElement());
+    private void assertPointerNextFailure() {
+        assertFalse(pointer.hasNext());
         try {
-            pointer.getSubsequentElement();
+            pointer.next();
             fail("The expected ArrayIndexOutOfBoundsException was not thrown");
-        } catch (Exception e) {
-            assertEquals(ArrayIndexOutOfBoundsException.class, e.getClass());
+        } catch (ArrayIndexOutOfBoundsException e) {
+            // expected exception thrown
         }
     }
 
     /**
-     * Asserts that {@code pointer#hasPrecedingElement()} returns false and the following
-     * {@code pointer#getPrecedingElement()} call throws {@code ArrayIndexOutOfBoundsException}.
+     * Asserts that {@code pointer#hasPrevious()} returns false and the following
+     * {@code pointer#previous()} call throws {@code ArrayIndexOutOfBoundsException}.
      */
-    private void assertPointerDownFailure() {
-        assertFalse(pointer.hasPrecedingElement());
+    private void assertPointerPreviousFailure() {
+        assertFalse(pointer.hasPrevious());
         try {
-            pointer.getPrecedingElement();
+            pointer.previous();
             fail("The expected ArrayIndexOutOfBoundsException was not thrown");
-        } catch (Exception e) {
-            assertEquals(ArrayIndexOutOfBoundsException.class, e.getClass());
+        } catch (ArrayIndexOutOfBoundsException e) {
+            // expected exception thrown
         }
     }
 }
