@@ -2,7 +2,6 @@ package guitests;
 
 import org.testfx.api.FxRobot;
 
-import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 
 /**
@@ -31,12 +30,4 @@ public class GuiRobot extends FxRobot {
         sleep(500);
     }
 
-    /**
-     * Enters {@code text} into the {@code textField}.
-     */
-    public void enterText(TextField textField, String text) {
-        clickOn(textField);
-        interact(() -> textField.setText(text));
-        sleep(500);
-    }
 }
