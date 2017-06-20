@@ -2,7 +2,6 @@ package seedu.address.logic;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
@@ -10,7 +9,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -28,6 +26,38 @@ public class LogicManagerTest {
     public void setUp() {
         model = new ModelManager();
         logic = new LogicManager(model);
+    }
+
+    @Test
+    public void execute_unknownCommandWord_throwsParseException() {
+        String unknownCommand = "uicfhmowqewca";
+        assertParseException(unknownCommand, MESSAGE_UNKNOWN_COMMAND);
+    }
+
+    @Test
+    public void execute_verifyHistory_success() throws Exception {
+        String validCommand = "clear";
+        logic.execute(validCommand);
+
+        String invalidCommandParse = "   adds   Bob   ";
+        try {
+            logic.execute(invalidCommandParse);
+            fail("The expected ParseException was not thrown.");
+        } catch (ParseException pe) {
+            assertEquals(MESSAGE_UNKNOWN_COMMAND, pe.getMessage());
+        }
+
+        String invalidCommandExecute = "delete 1"; // address book is of size 0; index out of bounds
+        try {
+            logic.execute(invalidCommandExecute);
+            fail("The expected CommandException was not thrown.");
+        } catch (CommandException ce) {
+            assertEquals(MESSAGE_INVALID_PERSON_DISPLAYED_INDEX, ce.getMessage());
+        }
+
+        String expectedMessage = String.format(HistoryCommand.MESSAGE_SUCCESS,
+                String.join("\n", validCommand, invalidCommandParse, invalidCommandExecute));
+        assertCommandSuccess("history", expectedMessage, model);
     }
 
     /**
@@ -75,37 +105,5 @@ public class LogicManagerTest {
         }
 
         assertEquals(expectedModel, model);
-    }
-
-    @Test
-    public void execute_unknownCommandWord_throwsParseException() {
-        String unknownCommand = "uicfhmowqewca";
-        assertParseException(unknownCommand, MESSAGE_UNKNOWN_COMMAND);
-    }
-
-    @Test
-    public void execute_verifyHistory_success() throws Exception {
-        String validCommand = "clear";
-        logic.execute(validCommand);
-
-        String invalidCommandParse = "   adds   Bob   ";
-        try {
-            logic.execute(invalidCommandParse);
-            fail("The expected ParseException was not thrown.");
-        } catch (ParseException pe) {
-            assertEquals(MESSAGE_UNKNOWN_COMMAND, pe.getMessage());
-        }
-
-        String invalidCommandExecute = "delete 1"; // address book is of size 0; index out of bounds
-        try {
-            logic.execute(invalidCommandExecute);
-            fail("The expected CommandException was not thrown.");
-        } catch (CommandException ce) {
-            assertEquals(MESSAGE_INVALID_PERSON_DISPLAYED_INDEX, ce.getMessage());
-        }
-
-        String expectedMessage = String.format(HistoryCommand.MESSAGE_SUCCESS,
-                String.join("\n", validCommand, invalidCommandParse, invalidCommandExecute));
-        assertCommandSuccess("history", expectedMessage, model);
     }
 }
