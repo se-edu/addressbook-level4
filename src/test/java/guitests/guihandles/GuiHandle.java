@@ -27,7 +27,7 @@ public class GuiHandle {
 
     private final Logger logger = LogsCenter.getLogger(this.getClass());
 
-    public GuiHandle(GuiRobot guiRobot, Stage primaryStage, String stageTitle) {
+    public GuiHandle(Stage primaryStage, String stageTitle) {
         this.primaryStage = primaryStage;
         this.stageTitle = stageTitle;
         focusOnSelf();
