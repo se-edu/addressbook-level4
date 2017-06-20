@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 
-import org.junit.Before;
 import org.junit.Test;
 
 import seedu.address.logic.commands.CommandResult;
@@ -19,14 +18,8 @@ import seedu.address.model.UserPrefs;
 
 public class LogicManagerTest {
 
-    private Model model;
-    private Logic logic;
-
-    @Before
-    public void setUp() {
-        model = new ModelManager();
-        logic = new LogicManager(model);
-    }
+    private Model model = new ModelManager();
+    private Logic logic = new LogicManager(model);
 
     @Test
     public void execute_invalidCommandFormat_throwsParseException() throws Exception {
