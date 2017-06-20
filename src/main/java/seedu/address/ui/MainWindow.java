@@ -1,11 +1,9 @@
 package seedu.address.ui;
 
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
@@ -117,59 +115,19 @@ public class MainWindow extends UiPart<Region> {
     }
 
     void fillInnerParts() {
-        setupBrowserPanel();
-        setupPersonListPanel();
-        setupResultDisplay();
-        setupStatusBarFooter();
-        setupCommandBox();
-    }
-
-    /**
-     * Creates a new {@code BrowserPanel} and places it inside its placeholder.
-     */
-    private void setupBrowserPanel() {
         browserPanel = new BrowserPanel();
-
         browserPlaceholder.getChildren().add(browserPanel.getRoot());
-        // To prevent triggering events for typing inside the loaded Web page.
-        browserPlaceholder.setOnKeyPressed(Event::consume);
-    }
 
-    /**
-     * Creates a new {@code PersonListPanel} and places it inside its placeholder.
-     */
-    private void setupPersonListPanel() {
         personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-
-        SplitPane.setResizableWithParent(personListPanelPlaceholder, false);
         personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
-    }
 
-    /**
-     * Creates a new {@code ResultDisplay} and places it inside its placeholder.
-     */
-    private void setupResultDisplay() {
         ResultDisplay resultDisplay = new ResultDisplay();
-
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
-    }
 
-    /**
-     * Creates a new {@code StatusBarFooter} and places it inside its placeholder.
-     */
-    private void setupStatusBarFooter() {
         StatusBarFooter statusBarFooter = new StatusBarFooter(prefs.getAddressBookFilePath());
-
         statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
-    }
 
-    /**
-     * Creates a new {@code CommandBox} and places it inside its placeholder.
-     */
-    private void setupCommandBox() {
         CommandBox commandBox = new CommandBox(logic);
-
-        SplitPane.setResizableWithParent(commandBoxPlaceholder, false);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
     }
 

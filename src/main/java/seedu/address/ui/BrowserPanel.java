@@ -2,6 +2,7 @@ package seedu.address.ui;
 
 import java.net.URL;
 
+import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.layout.Region;
 import javafx.scene.web.WebView;
@@ -21,6 +22,10 @@ public class BrowserPanel extends UiPart<Region> {
 
     public BrowserPanel() {
         super(FXML);
+
+        // To prevent triggering events for typing inside the loaded Web page.
+        getRoot().setOnKeyPressed(Event::consume);
+
         loadDefaultPage();
     }
 
