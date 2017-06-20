@@ -40,19 +40,26 @@ public class CommandBox extends UiPart<Region> {
     private void handleKeyPress(KeyEvent keyEvent) {
         switch (keyEvent.getCode()) {
         case UP:
-            keyEvent.consume(); // up and down buttons will alter the position of the caret
-            getPreviousInput();
+            // As up and down buttons will alter the position of the caret,
+            // consuming it causes the caret's position to remain unchanged
+            keyEvent.consume();
+
+            navigateToPreviousInput();
             break;
         case DOWN:
             keyEvent.consume();
-            getNextInput();
+            navigateToNextInput();
             break;
         default:
             // let JavaFx handle the keypress
         }
     }
 
-    private void getPreviousInput() {
+    /**
+     * Retrieves the previous input from the current cursor in {@code historyIterator}
+     * and updates the text field with it. Moves the cursor in {@code historyIterator} backward by 1.
+     */
+    private void navigateToPreviousInput() {
         assert historyIterator != null;
         if (!historyIterator.hasPrevious()) {
             return;
@@ -61,7 +68,11 @@ public class CommandBox extends UiPart<Region> {
         setText(historyIterator.previous());
     }
 
-    private void getNextInput() {
+    /**
+     * Retrieves the next input from the current cursor in {@code historyIterator}
+     * and updates the text field with it. Moves the cursor in {@code historyIterator} forward by 1.
+     */
+    private void navigateToNextInput() {
         assert historyIterator != null;
         if (!historyIterator.hasNext()) {
             setText("");

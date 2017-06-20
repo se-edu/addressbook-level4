@@ -3,9 +3,11 @@ package seedu.address.logic;
 import java.util.ListIterator;
 
 /**
- * Wraps around {@code ListIterator} as calling alternating {@code ListIterator#next()} and
- * {@code ListIterator#previous()} will return the same value. This wrapper class disables
- * this functionality.
+ * This wrapper class disables the alternating functionality of the normal {@code ListIterator}.
+ * This makes calling {@code #next()} and {@code #previous()} more intuitive for the caller.
+ *
+ * In the original {@code ListIterator}, calling alternating {@code ListIterator#next()} and
+ * {@code ListIterator#previous()} will return the same value.
  * @see ListIterator#previous()
  * @see ListIterator#next()
  */
@@ -18,14 +20,25 @@ public class NonAlternatingListIterator<T> {
         this.iterator = iterator;
     }
 
+    /**
+     * Returns true if {@code iterator} has a previous element in the list.
+     * @see ListIterator#hasPrevious()
+     */
     public boolean hasPrevious() {
         return iterator.hasPrevious();
     }
 
+    /**
+     * Returns true if {@code iterator} has a next element in the list.
+     * @see ListIterator#hasNext()
+     */
     public boolean hasNext() {
         return iterator.hasNext();
     }
 
+    /**
+     * Returns the previous element in the list and moves the cursor position backwards.
+     */
     public T previous() {
         if (wasNextCalledPreviously) {
             iterator.previous();
@@ -36,6 +49,9 @@ public class NonAlternatingListIterator<T> {
         return iterator.previous();
     }
 
+    /**
+     * Returns the next element in the list and advances the cursor position.
+     */
     public T next() {
         if (wasPreviousCalledPreviously) {
             iterator.next();
