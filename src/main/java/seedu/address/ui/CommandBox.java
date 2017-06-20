@@ -5,6 +5,7 @@ import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
@@ -29,7 +30,7 @@ public class CommandBox extends UiPart<Region> {
     @FXML
     private TextField commandTextField;
 
-    public CommandBox(Logic logic) {
+    public CommandBox(Pane commandBoxPlaceholder, Logic logic) {
         super(FXML);
         this.logic = logic;
         pointer = new ListElementPointer(logic.getUserInputHistory());

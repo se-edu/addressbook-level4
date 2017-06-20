@@ -115,20 +115,27 @@ public class MainWindow extends UiPart<Region> {
     }
 
     void fillInnerParts() {
-        browserPanel = new BrowserPanel();
-        browserPlaceholder.getChildren().add(browserPanel.getRoot());
+        browserPanel = new BrowserPanel(browserPlaceholder);
+        personListPanel = new PersonListPanel(getPersonListPlaceholder(), logic.getFilteredPersonList());
+        new ResultDisplay(getResultDisplayPlaceholder());
+        new StatusBarFooter(getStatusbarPlaceholder(), prefs.getAddressBookFilePath());
+        new CommandBox(getCommandBoxPlaceholder(), logic);
+    }
 
-        personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-        personListPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+    private StackPane getCommandBoxPlaceholder() {
+        return commandBoxPlaceholder;
+    }
 
-        ResultDisplay resultDisplay = new ResultDisplay();
-        resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
+    private StackPane getStatusbarPlaceholder() {
+        return statusbarPlaceholder;
+    }
 
-        StatusBarFooter statusBarFooter = new StatusBarFooter(prefs.getAddressBookFilePath());
-        statusbarPlaceholder.getChildren().add(statusBarFooter.getRoot());
+    private StackPane getResultDisplayPlaceholder() {
+        return resultDisplayPlaceholder;
+    }
 
-        CommandBox commandBox = new CommandBox(logic);
-        commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+    private StackPane getPersonListPlaceholder() {
+        return personListPanelPlaceholder;
     }
 
     void hide() {

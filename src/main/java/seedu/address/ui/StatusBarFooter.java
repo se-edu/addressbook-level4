@@ -9,6 +9,7 @@ import org.controlsfx.control.StatusBar;
 import com.google.common.eventbus.Subscribe;
 
 import javafx.fxml.FXML;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
@@ -41,8 +42,9 @@ public class StatusBarFooter extends UiPart<Region> {
     private StatusBar saveLocationStatus;
 
 
-    public StatusBarFooter(String saveLocation) {
+    public StatusBarFooter(Pane placeHolder, String saveLocation) {
         super(FXML);
+        addToPlaceholder(placeHolder);
         setSyncStatus(SYNC_STATUS_INITIAL);
         setSaveLocation("./" + saveLocation);
         registerAsAnEventHandler(this);
@@ -60,6 +62,10 @@ public class StatusBarFooter extends UiPart<Region> {
      */
     public static Clock getClock() {
         return clock;
+    }
+
+    private void addToPlaceholder(Pane placeHolder) {
+        placeHolder.getChildren().add(getRoot());
     }
 
     private void setSaveLocation(String location) {
