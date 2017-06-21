@@ -84,7 +84,8 @@ public class PersonCardHandle extends NodeHandle<Node> {
     }
 
     /**
-     * Returns true if this card contains the same particulars as {@code person}.
+     * Checks that this person card contains the same information the given {@code person}.
+     * @return true if all the particulars are the same.
      */
     public boolean isSamePerson(ReadOnlyPerson person) {
         return getName().equals(person.getName().fullName)

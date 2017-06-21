@@ -24,9 +24,14 @@ public class AlertDialogHandle extends StageHandle {
     }
 
     /**
-     * Returns the text of the content in the {@code AlertDialog}.
+     * Checks that the alert dialog shows the given messages.
+     * @return true if alert dialog's header and content text match the given messages.
      */
-    public String getContentText() {
-        return dialogPane.getContentText();
+    public boolean isMatching(String headerMessage, String contentMessage) {
+        checkArgument(intermediateStage.isPresent(), "Alert dialog is not present");
+        DialogPane dialogPane = getNode("#" + UiManager.ALERT_DIALOG_PANE_FIELD_ID);
+        boolean isMatching = dialogPane.getHeaderText().equals(headerMessage)
+                && dialogPane.getContentText().equals(contentMessage);
+        return isMatching;
     }
 }

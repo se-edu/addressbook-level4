@@ -59,6 +59,23 @@ public class PersonListPanelHandle extends NodeHandle<ListView<ReadOnlyPerson>> 
     }
 
     /**
+     * Automates the navigation to the person card with the given {@code name}.
+     * @return the PersonCardHandle of the given name.
+     * @throws IllegalStateException if the person card with the given {@code name} is not found.
+     */
+    public PersonCardHandle navigateToPerson(String name) {
+        guiRobot.sleep(500); //Allow a bit of time for the list to be updated
+        final Optional<ReadOnlyPerson> person = getListView().getItems().stream()
+                                                    .filter(p -> p.getName().fullName.equals(name))
+                                                    .findAny();
+        if (!person.isPresent()) {
+            throw new IllegalStateException("Name not found: " + name);
+        }
+
+        return navigateToPerson(person.get());
+    }
+
+    /**
      * Navigates the listview to display and select the person.
      */
     public void navigateToPerson(ReadOnlyPerson person) throws PersonNotFoundException {
