@@ -101,7 +101,6 @@ public class PersonListPanelHandle extends GuiHandle {
 
     /**
      * Automates the navigation to the person card with the given {@code name}.
-     * @param name
      * @return the PersonCardHandle of the given name.
      * @throws IllegalStateException if the person card with the given {@code name} is not found.
      */

@@ -37,9 +37,7 @@ public class TestUtil {
     public static final Person[] SAMPLE_PERSON_DATA = getSamplePersonData();
 
     /**
-     * Asserts that the given {@code executable} throws the given {@code expected}.
-     * @param expected the expected Exception class to be thrown.
-     * @param executable
+     * Asserts that the given {@code executable} throws the given {@code expected} Exception.
      */
     public static void assertThrows(Class<? extends Throwable> expected, Runnable executable) {
         try {
@@ -99,8 +97,6 @@ public class TestUtil {
 
     /**
      * Creates the data file at the given {@code filePath} with the given {@code data}.
-     * @param data
-     * @param filePath
      */
     public static <T> void createDataFileWithData(T data, String filePath) {
         try {
@@ -162,7 +158,6 @@ public class TestUtil {
 
     /**
      * Generates a list with all the given {@code objs}.
-     * @param objs
      * @return a List that contains all the given {@code objs}.
      */
     private static <T> List<T> asList(T[] objs) {

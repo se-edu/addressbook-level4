@@ -17,7 +17,6 @@ public class MainMenuHandle extends GuiHandle {
 
     /**
      * Automates the manual click on the given {@code menuText}.
-     * @param menuText
      * @return the MainMenuHandle.
      */
     public GuiHandle clickOn(String... menuText) {

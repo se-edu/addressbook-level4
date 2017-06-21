@@ -42,8 +42,7 @@ public class PersonBuilder {
     }
 
     /**
-     * Sets the name of the building Person.
-     * @param name
+     * Sets the {@code Name} of the {@code Person} that we are building.
      * @return the PersonBuilder.
      * @throws IllegalValueException if given name string is invalid.
      */
@@ -53,8 +52,7 @@ public class PersonBuilder {
     }
 
     /**
-     * Sets the tags of the building Person.
-     * @param tags
+     * Sets the {@code Tags} of the {@code Person} that we are building.
      * @return the PersonBuilder.
      * @throws IllegalValueException if any of the given tag name string is invalid.
      */
@@ -64,8 +62,7 @@ public class PersonBuilder {
     }
 
     /**
-     * Sets the address of the building Person.
-     * @param address
+     * Sets the {@code Address} of the {@code Person} that we are building.
      * @return the PersonBuilder.
      * @throws IllegalValueException if given address string is invalid.
      */
@@ -75,8 +72,7 @@ public class PersonBuilder {
     }
 
     /**
-     * Sets the phone of the building Person.
-     * @param phone
+     * Sets the {@code Phone} of the {@code Person} that we are building.
      * @return the PersonBuilder.
      * @throws IllegalValueException if given phone string is invalid.
      */
@@ -86,8 +82,7 @@ public class PersonBuilder {
     }
 
     /**
-     * Sets the email of the building Person.
-     * @param email
+     * Sets the {@code Email} of the {@code Person} that we are building.
      * @return the PersonBuilder.
      * @throws IllegalValueException if given email address string is invalid.
      */

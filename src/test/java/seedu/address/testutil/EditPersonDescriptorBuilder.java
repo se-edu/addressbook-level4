@@ -36,8 +36,7 @@ public class EditPersonDescriptorBuilder {
     }
 
     /**
-     * Sets the name of the building EditPersonDescriptor.
-     * @param name
+     * Sets the {@code Name} of the {@code EditPersonDescriptor} that we are building.
      * @return the EditPersonDescriptorBuilder.
      * @throws IllegalValueException if given name string is invalid.
      */
@@ -47,8 +46,7 @@ public class EditPersonDescriptorBuilder {
     }
 
     /**
-     * Sets the phone of the building EditPersonDescriptor.
-     * @param phone
+     * Sets the {@code Phone} of the {@code EditPersonDescriptor} that we are building.
      * @return the EditPersonDescriptorBuilder.
      * @throws IllegalValueException if given phone string is invalid.
      */
@@ -58,8 +56,7 @@ public class EditPersonDescriptorBuilder {
     }
 
     /**
-     * Sets the email of the building EditPersonDescriptor.
-     * @param email
+     * Sets the {@code Email} of the {@code EditPersonDescriptor} that we are building.
      * @return the EditPersonDescriptorBuilder.
      * @throws IllegalValueException if given email address string is invalid.
      */
@@ -69,8 +66,7 @@ public class EditPersonDescriptorBuilder {
     }
 
     /**
-     * Sets the address of the building EditPersonDescriptor.
-     * @param address
+     * Sets the {@code Address} of the {@code EditPersonDescriptor} that we are building.
      * @return the EditPersonDescriptorBuilder.
      * @throws IllegalValueException if given address string is invalid.
      */
@@ -80,8 +76,7 @@ public class EditPersonDescriptorBuilder {
     }
 
     /**
-     * Sets the tags of the building EditPersonDescriptor.
-     * @param tags
+     * Sets the {@code Tags} of the {@code EditPersonDescriptor} that we are building.
      * @return the EditPersonDescriptorBuilder.
      * @throws IllegalValueException if any of the given tag name string is invalid.
      */

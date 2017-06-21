@@ -74,7 +74,6 @@ public class PersonCardHandle extends GuiHandle {
 
     /**
      * Checks that this person card contains the same information the given {@code person}.
-     * @param person
      * @return true if all the particulars are the same.
      */
     public boolean isSamePerson(ReadOnlyPerson person) {

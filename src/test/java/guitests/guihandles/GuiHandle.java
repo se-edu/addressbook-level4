@@ -35,8 +35,7 @@ public class GuiHandle {
     }
 
     /**
-     * Requests focus on the window that has the given stageTitle.
-     * @param stageTitle
+     * Requests focus on the window that has the given {@code stageTitle}.
      */
     public void focusOnWindow(String stageTitle) {
         logger.info("Focusing " + stageTitle);
@@ -92,7 +91,7 @@ public class GuiHandle {
     }
 
     /**
-     * Automates the close window process using guiRobot.
+     * Automates the close window process using {@code GuiRobot}.
      */
     public void closeWindow() {
         Optional<Window> window = guiRobot.listTargetWindows()

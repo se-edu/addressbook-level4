@@ -24,8 +24,7 @@ public class AddressBookBuilder {
     }
 
     /**
-     * Adds the person to the building Addressbook.
-     * @param person
+     * Adds a new person to the {@code AddressBook} that we are building.
      * @return the AddressBookBuilder.
      * @throws DuplicatePersonException if the given person already exists in the building Addressbook.
      */
@@ -35,8 +34,7 @@ public class AddressBookBuilder {
     }
 
     /**
-     * Adds the given tagName to the building Addressbook's unique tag list.
-     * @param tagName
+     * Adds a new tag to the {@code AddressBook} that we are building.
      * @return the AddressBookBuilder.
      * @throws IllegalValueException if the given tag name string is invalid.
      */

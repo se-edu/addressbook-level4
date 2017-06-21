@@ -19,8 +19,6 @@ public class AlertDialogHandle extends GuiHandle {
 
     /**
      * Checks that the alert dialog shows the given messages.
-     * @param headerMessage
-     * @param contentMessage
      * @return true if alert dialog's header and content text match the given messages.
      */
     public boolean isMatching(String headerMessage, String contentMessage) {
