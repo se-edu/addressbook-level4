@@ -42,7 +42,7 @@
       <padding>
         <Insets top="10" right="10" bottom="10" left="10" />
       </padding>
-      <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS" />
+      <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS" SplitPane.resizableWithParent="false"/>
     </VBox>
 
     <StackPane fx:id="browserPlaceholder" prefWidth="340" >
