@@ -5,6 +5,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.scene.control.Labeled;
 import javafx.scene.layout.Region;
 import seedu.address.model.person.ReadOnlyPerson;
@@ -25,10 +26,6 @@ public class PersonCardHandle extends GuiHandle {
     public PersonCardHandle(Node node) {
         super(null);
         this.node = node;
-    }
-
-    protected String getTextFromLabel(String fieldId) {
-        return getTextFromLabel(fieldId, node);
     }
 
     public String getFullName() {
@@ -64,6 +61,10 @@ public class PersonCardHandle extends GuiHandle {
                 .stream()
                 .map(tag -> tag.tagName)
                 .collect(Collectors.toList());
+    }
+
+    private String getTextFromLabel(String fieldId) {
+        return ((Label) guiRobot.from(node).lookup(fieldId).tryQuery().get()).getText();
     }
 
     private Region getTagsContainer() {
