@@ -6,7 +6,6 @@ import java.util.logging.Logger;
 import guitests.GuiRobot;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import seedu.address.TestApp;
@@ -48,11 +47,6 @@ public class GuiHandle {
 
     protected <T extends Node> T getNode(String query) {
         return guiRobot.lookup(query).query();
-    }
-
-    protected String getTextFieldText(String filedName) {
-        TextField textField = getNode(filedName);
-        return textField.getText();
     }
 
     protected String getTextFromLabel(String fieldId, Node parentNode) {
