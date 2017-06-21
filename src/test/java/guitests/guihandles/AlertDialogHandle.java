@@ -17,6 +17,10 @@ public class AlertDialogHandle extends GuiHandle {
         super(guiRobot, primaryStage, dialogTitle);
     }
 
+    /**
+     * Checks that the alert dialog shows the given messages.
+     * @return true if alert dialog's header and content text match the given messages.
+     */
     public boolean isMatching(String headerMessage, String contentMessage) {
         checkArgument(intermediateStage.isPresent(), "Alert dialog is not present");
         DialogPane dialogPane = getNode("#" + UiManager.ALERT_DIALOG_PANE_FIELD_ID);

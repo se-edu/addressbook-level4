@@ -72,6 +72,10 @@ public class PersonCardHandle extends GuiHandle {
         return guiRobot.from(node).lookup(TAGS_FIELD_ID).query();
     }
 
+    /**
+     * Checks that this person card contains the same information the given {@code person}.
+     * @return true if all the particulars are the same.
+     */
     public boolean isSamePerson(ReadOnlyPerson person) {
         return getFullName().equals(person.getName().fullName)
                 && getPhone().equals(person.getPhone().value)
