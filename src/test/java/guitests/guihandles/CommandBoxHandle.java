@@ -32,7 +32,8 @@ public class CommandBoxHandle extends GuiHandle {
     }
 
     public String getCommandInput() {
-        return getTextFieldText(COMMAND_INPUT_FIELD_ID);
+        TextField textField = getNode(COMMAND_INPUT_FIELD_ID);
+        return textField.getText();
     }
 
     public void pressEnter() {
