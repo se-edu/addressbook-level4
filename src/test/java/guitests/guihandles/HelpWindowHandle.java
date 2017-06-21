@@ -10,7 +10,7 @@ public class HelpWindowHandle extends GuiHandle {
 
     public HelpWindowHandle() {
         super(HELP_WINDOW_TITLE);
-        guiRobot.sleep(1000);
+        guiRobot.pauseForHuman();
     }
 
     public boolean isWindowOpen() {

@@ -28,7 +28,7 @@ public class CommandBoxHandle extends GuiHandle {
         TextField textField = getNode(COMMAND_INPUT_FIELD_ID);
         guiRobot.clickOn(textField);
         guiRobot.interact(() -> textField.setText(command));
-        guiRobot.sleep(500);
+        guiRobot.pauseForHuman();
     }
 
     public String getCommandInput() {
@@ -38,7 +38,7 @@ public class CommandBoxHandle extends GuiHandle {
 
     public void pressEnter() {
         guiRobot.type(KeyCode.ENTER);
-        guiRobot.sleep(500);
+        guiRobot.pauseForHuman();
     }
 
     /**
