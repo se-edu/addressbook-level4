@@ -41,26 +41,56 @@ public class PersonBuilder {
         this.person = new Person(personToCopy);
     }
 
+    /**
+     * Sets the name of the building Person.
+     * @param name
+     * @return the PersonBuilder.
+     * @throws IllegalValueException if given name string is invalid.
+     */
     public PersonBuilder withName(String name) throws IllegalValueException {
         this.person.setName(new Name(name));
         return this;
     }
 
+    /**
+     * Sets the tags of the building Person.
+     * @param tags
+     * @return the PersonBuilder.
+     * @throws IllegalValueException if any of the given tag name string is invalid.
+     */
     public PersonBuilder withTags(String ... tags) throws IllegalValueException {
         this.person.setTags(SampleDataUtil.getTagSet(tags));
         return this;
     }
 
+    /**
+     * Sets the address of the building Person.
+     * @param address
+     * @return the PersonBuilder.
+     * @throws IllegalValueException if given address string is invalid.
+     */
     public PersonBuilder withAddress(String address) throws IllegalValueException {
         this.person.setAddress(new Address(address));
         return this;
     }
 
+    /**
+     * Sets the phone of the building Person.
+     * @param phone
+     * @return the PersonBuilder.
+     * @throws IllegalValueException if given phone string is invalid.
+     */
     public PersonBuilder withPhone(String phone) throws IllegalValueException {
         this.person.setPhone(new Phone(phone));
         return this;
     }
 
+    /**
+     * Sets the email of the building Person.
+     * @param email
+     * @return the PersonBuilder.
+     * @throws IllegalValueException if given email address string is invalid.
+     */
     public PersonBuilder withEmail(String email) throws IllegalValueException {
         this.person.setEmail(new Email(email));
         return this;

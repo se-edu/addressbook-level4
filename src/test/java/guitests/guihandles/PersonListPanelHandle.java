@@ -99,6 +99,12 @@ public class PersonListPanelHandle extends GuiHandle {
         return true;
     }
 
+    /**
+     * Automates the navigation to the person card with the given {@code name}.
+     * @param name
+     * @return the PersonCardHandle of the given name.
+     * @throws IllegalStateException if the person card with the given {@code name} is not found.
+     */
     public PersonCardHandle navigateToPerson(String name) {
         guiRobot.sleep(500); //Allow a bit of time for the list to be updated
         final Optional<ReadOnlyPerson> person = getListView().getItems().stream()

@@ -34,6 +34,10 @@ public class GuiHandle {
         focusOnSelf();
     }
 
+    /**
+     * Requests focus on the window that has the given stageTitle.
+     * @param stageTitle
+     */
     public void focusOnWindow(String stageTitle) {
         logger.info("Focusing " + stageTitle);
         Optional<Window> window = guiRobot.listTargetWindows()
@@ -74,6 +78,9 @@ public class GuiHandle {
         return ((Label) guiRobot.from(parentNode).lookup(fieldId).tryQuery().get()).getText();
     }
 
+    /**
+     * Requests focus on self.
+     */
     public void focusOnSelf() {
         if (stageTitle != null) {
             focusOnWindow(stageTitle);
@@ -84,6 +91,9 @@ public class GuiHandle {
         this.focusOnWindow(TestApp.APP_TITLE);
     }
 
+    /**
+     * Automates the close window process using guiRobot.
+     */
     public void closeWindow() {
         Optional<Window> window = guiRobot.listTargetWindows()
                 .stream()
