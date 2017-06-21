@@ -5,7 +5,6 @@ import java.util.logging.Logger;
 
 import guitests.GuiRobot;
 import javafx.scene.Node;
-import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import seedu.address.TestApp;
@@ -47,10 +46,6 @@ public class GuiHandle {
 
     protected <T extends Node> T getNode(String query) {
         return guiRobot.lookup(query).query();
-    }
-
-    protected String getTextFromLabel(String fieldId, Node parentNode) {
-        return ((Label) guiRobot.from(parentNode).lookup(fieldId).tryQuery().get()).getText();
     }
 
     public void focusOnSelf() {
