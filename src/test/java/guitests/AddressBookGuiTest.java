@@ -14,8 +14,8 @@ import org.testfx.api.FxToolkit;
 
 import guitests.guihandles.BrowserPanelHandle;
 import guitests.guihandles.CommandBoxHandle;
-import guitests.guihandles.MainGuiHandle;
 import guitests.guihandles.MainMenuHandle;
+import guitests.guihandles.MainWindowHandle;
 import guitests.guihandles.PersonCardHandle;
 import guitests.guihandles.PersonListPanelHandle;
 import guitests.guihandles.ResultDisplayHandle;
@@ -45,7 +45,7 @@ public abstract class AddressBookGuiTest {
      *   Handles to GUI elements present at the start up are created in advance
      *   for easy access from child classes.
      */
-    protected MainGuiHandle mainGui;
+    protected MainWindowHandle mainGui;
     protected MainMenuHandle mainMenu;
     protected PersonListPanelHandle personListPanel;
     protected ResultDisplayHandle resultDisplay;
@@ -53,7 +53,7 @@ public abstract class AddressBookGuiTest {
     protected BrowserPanelHandle browserPanel;
     protected StatusBarFooterHandle statusBarFooter;
 
-    private Stage stage;
+    protected Stage stage;
 
     @BeforeClass
     public static void setupSpec() {
@@ -68,7 +68,7 @@ public abstract class AddressBookGuiTest {
     @Before
     public void setup() throws Exception {
         FxToolkit.setupStage((stage) -> {
-            mainGui = new MainGuiHandle(new GuiRobot(), stage);
+            mainGui = new MainWindowHandle(new GuiRobot(), stage);
             mainMenu = mainGui.getMainMenu();
             personListPanel = mainGui.getPersonListPanel();
             resultDisplay = mainGui.getResultDisplay();
