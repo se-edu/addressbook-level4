@@ -79,7 +79,7 @@ public class StorageManagerTest {
                                              new JsonUserPrefsStorage("dummy"));
         EventsCollector eventCollector = new EventsCollector();
         storage.handleAddressBookChangedEvent(new AddressBookChangedEvent(new AddressBook()));
-        assertTrue(eventCollector.get(0) instanceof DataSavingExceptionEvent);
+        assertTrue(eventCollector.getMostRecent() instanceof DataSavingExceptionEvent);
     }
 
 
