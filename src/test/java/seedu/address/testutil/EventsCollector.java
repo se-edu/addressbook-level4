@@ -33,13 +33,6 @@ public class EventsCollector {
         events.clear();
     }
 
-    /**
-     * Returns the event at the specified index
-     */
-    public BaseEvent get(int index) {
-        return events.get(index);
-    }
-
     public int getSize() {
         return events.size();
     }
