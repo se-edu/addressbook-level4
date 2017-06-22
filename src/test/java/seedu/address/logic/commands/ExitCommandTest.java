@@ -18,5 +18,6 @@ public class ExitCommandTest {
         CommandResult result = new ExitCommand().execute();
         assertEquals(MESSAGE_EXIT_ACKNOWLEDGEMENT, result.feedbackToUser);
         assertTrue(eventCollector.getMostRecent() instanceof ExitAppRequestEvent);
+        assertTrue(eventCollector.getSize() == 1);
     }
 }

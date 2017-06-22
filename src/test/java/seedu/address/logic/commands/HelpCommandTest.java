@@ -18,5 +18,6 @@ public class HelpCommandTest {
         CommandResult result = new HelpCommand().execute();
         assertEquals(SHOWING_HELP_MESSAGE, result.feedbackToUser);
         assertTrue(eventCollector.getMostRecent() instanceof ShowHelpRequestEvent);
+        assertTrue(eventCollector.getSize() == 1);
     }
 }

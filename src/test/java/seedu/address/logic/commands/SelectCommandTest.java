@@ -43,7 +43,11 @@ public class SelectCommandTest {
         Index lastPersonIndex = Index.fromOneBased(model.getFilteredPersonList().size());
 
         assertExecutionSuccess(INDEX_FIRST_PERSON);
+
+        eventCollector.reset();
         assertExecutionSuccess(INDEX_THIRD_PERSON);
+
+        eventCollector.reset();
         assertExecutionSuccess(lastPersonIndex);
     }
 
@@ -97,6 +101,7 @@ public class SelectCommandTest {
 
         JumpToListRequestEvent lastEvent = (JumpToListRequestEvent) eventCollector.getMostRecent();
         assertEquals(index, Index.fromZeroBased(lastEvent.targetIndex));
+        assertTrue(eventCollector.getSize() == 1);
     }
 
     /**
@@ -111,7 +116,7 @@ public class SelectCommandTest {
             fail("The expected CommandException was not thrown.");
         } catch (CommandException ce) {
             assertEquals(expectedMessage, ce.getMessage());
-            assertTrue(eventCollector.isEmpty());
+            assertTrue(eventCollector.getSize() == 0);
         }
     }
 

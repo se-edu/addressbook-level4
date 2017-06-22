@@ -33,11 +33,8 @@ public class EventsCollector {
         events.clear();
     }
 
-    /**
-     * Returns the event at the specified index
-     */
-    public BaseEvent get(int index) {
-        return events.get(index);
+    public int getSize() {
+        return events.size();
     }
 
     /**
@@ -49,12 +46,5 @@ public class EventsCollector {
         }
 
         return events.get(events.size() - 1);
-    }
-
-    /**
-     * Returns true if the collector did not receive any events
-     */
-    public boolean isEmpty() {
-        return events.isEmpty();
     }
 }
