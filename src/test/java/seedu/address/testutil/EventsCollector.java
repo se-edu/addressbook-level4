@@ -54,4 +54,11 @@ public class EventsCollector {
 
         return events.get(events.size() - 1);
     }
+
+    /**
+     * Returns true if the collector did not receive any events
+     */
+    public boolean isEmpty() {
+        return events.isEmpty();
+    }
 }

@@ -112,7 +112,7 @@ public class SelectCommandTest {
             fail("The expected CommandException was not thrown.");
         } catch (CommandException ce) {
             assertEquals(expectedMessage, ce.getMessage());
-            assertTrue(eventCollector.getSize() == 0);
+            assertTrue(eventCollector.isEmpty());
         }
     }
 
