@@ -43,4 +43,15 @@ public class EventsCollector {
     public int getSize() {
         return events.size();
     }
+
+    /**
+     * Returns the most recent event collected
+     */
+    public BaseEvent getMostRecent() {
+        if (events.isEmpty()) {
+            return null;
+        }
+
+        return events.get(events.size() - 1);
+    }
 }
