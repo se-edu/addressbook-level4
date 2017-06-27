@@ -88,8 +88,6 @@ public class FindCommandTest {
     @Test
     public void execute_noPersonFound_success() throws Exception {
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 0);
-
-        // valid name that does not match any person
         FindCommand command = prepareCommand("NoSuchPerson");
         assertCommandSuccess(command, expectedMessage, Collections.emptyList());
     }

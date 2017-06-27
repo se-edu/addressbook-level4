@@ -28,7 +28,8 @@ public class FindCommandParserTest {
 
     @Test
     public void parse_validArgs_returnsFindCommand() throws Exception {
-        FindCommand expectedFindCommand = new FindCommand(new HashSet<String>(Arrays.asList("Alice", "Bob")));
+        // no leading and trailing whitespaces
+        FindCommand expectedFindCommand = new FindCommand(new HashSet<>(Arrays.asList("Alice", "Bob")));
         FindCommand actualFindCommand = parser.parse("Alice Bob");
         assertEquals(expectedFindCommand, actualFindCommand);
 
