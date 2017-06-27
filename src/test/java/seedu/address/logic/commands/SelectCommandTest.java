@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
@@ -80,6 +81,28 @@ public class SelectCommandTest {
         assertTrue(outOfBoundsIndex.getZeroBased() < model.getAddressBook().getPersonList().size());
 
         assertExecutionFailure(outOfBoundsIndex, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+    }
+
+    @Test
+    public void equals() {
+        SelectCommand selectFirstCommand = new SelectCommand(INDEX_FIRST_PERSON);
+        SelectCommand selectSecondCommand = new SelectCommand(INDEX_SECOND_PERSON);
+
+        // same object -> returns true
+        assertTrue(selectFirstCommand.equals(selectFirstCommand));
+
+        // same values -> returns true
+        SelectCommand selectFirstCommandCopy = new SelectCommand(INDEX_FIRST_PERSON);
+        assertTrue(selectFirstCommand.equals(selectFirstCommandCopy));
+
+        // different types -> returns false
+        assertFalse(selectFirstCommand.equals(1));
+
+        // null -> returns false
+        assertFalse(selectFirstCommand.equals(null));
+
+        // different person -> returns false
+        assertFalse(selectFirstCommand.equals(selectSecondCommand));
     }
 
     /**
