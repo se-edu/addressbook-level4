@@ -4,11 +4,10 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import guitests.GuiRobot;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.scene.control.Labeled;
 import javafx.scene.layout.Region;
-import javafx.stage.Stage;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.tag.Tag;
 
@@ -24,13 +23,9 @@ public class PersonCardHandle extends GuiHandle {
 
     private Node node;
 
-    public PersonCardHandle(GuiRobot guiRobot, Stage primaryStage, Node node) {
-        super(guiRobot, primaryStage, null);
+    public PersonCardHandle(Node node) {
+        super(null);
         this.node = node;
-    }
-
-    protected String getTextFromLabel(String fieldId) {
-        return getTextFromLabel(fieldId, node);
     }
 
     public String getFullName() {
@@ -66,6 +61,10 @@ public class PersonCardHandle extends GuiHandle {
                 .stream()
                 .map(tag -> tag.tagName)
                 .collect(Collectors.toList());
+    }
+
+    private String getTextFromLabel(String fieldId) {
+        return ((Label) guiRobot.from(node).lookup(fieldId).tryQuery().get()).getText();
     }
 
     private Region getTagsContainer() {

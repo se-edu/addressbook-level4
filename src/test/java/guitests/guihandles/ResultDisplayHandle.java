@@ -1,8 +1,6 @@
 package guitests.guihandles;
 
-import guitests.GuiRobot;
 import javafx.scene.control.TextArea;
-import javafx.stage.Stage;
 import seedu.address.TestApp;
 
 /**
@@ -12,8 +10,8 @@ public class ResultDisplayHandle extends GuiHandle {
 
     public static final String RESULT_DISPLAY_ID = "#resultDisplay";
 
-    public ResultDisplayHandle(GuiRobot guiRobot, Stage primaryStage) {
-        super(guiRobot, primaryStage, TestApp.APP_TITLE);
+    public ResultDisplayHandle() {
+        super(TestApp.APP_TITLE);
     }
 
     /**

@@ -1,9 +1,8 @@
 package guitests.guihandles;
 
-import guitests.GuiRobot;
 import javafx.collections.ObservableList;
-import javafx.stage.Stage;
-
+import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.ui.CommandBox;
 
@@ -14,8 +13,8 @@ public class CommandBoxHandle extends GuiHandle {
 
     private static final String COMMAND_INPUT_FIELD_ID = "#commandTextField";
 
-    public CommandBoxHandle(GuiRobot guiRobot, Stage primaryStage, String stageTitle) {
-        super(guiRobot, primaryStage, stageTitle);
+    public CommandBoxHandle(String stageTitle) {
+        super(stageTitle);
     }
 
     /**
@@ -26,11 +25,20 @@ public class CommandBoxHandle extends GuiHandle {
     }
 
     public void enterCommand(String command) {
-        setTextField(COMMAND_INPUT_FIELD_ID, command);
+        TextField textField = getNode(COMMAND_INPUT_FIELD_ID);
+        guiRobot.clickOn(textField);
+        guiRobot.interact(() -> textField.setText(command));
+        guiRobot.pauseForHuman();
     }
 
     public String getCommandInput() {
-        return getTextFieldText(COMMAND_INPUT_FIELD_ID);
+        TextField textField = getNode(COMMAND_INPUT_FIELD_ID);
+        return textField.getText();
+    }
+
+    public void pressEnter() {
+        guiRobot.type(KeyCode.ENTER);
+        guiRobot.pauseForHuman();
     }
 
     /**
@@ -47,7 +55,7 @@ public class CommandBoxHandle extends GuiHandle {
     public HelpWindowHandle runHelpCommand() {
         enterCommand(HelpCommand.COMMAND_WORD);
         pressEnter();
-        return new HelpWindowHandle(guiRobot, primaryStage);
+        return new HelpWindowHandle();
     }
 
     public ObservableList<String> getStyleClass() {

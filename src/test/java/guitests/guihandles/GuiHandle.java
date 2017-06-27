@@ -5,9 +5,6 @@ import java.util.logging.Logger;
 
 import guitests.GuiRobot;
 import javafx.scene.Node;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import seedu.address.TestApp;
@@ -17,8 +14,7 @@ import seedu.address.commons.core.LogsCenter;
  * Base class for all GUI Handles used in testing.
  */
 public class GuiHandle {
-    protected final GuiRobot guiRobot;
-    protected final Stage primaryStage;
+    protected final GuiRobot guiRobot = new GuiRobot();
     /**
      * An optional stage that exists in the App other than the primaryStage, could be a alert dialog, popup window, etc.
      */
@@ -27,9 +23,7 @@ public class GuiHandle {
 
     private final Logger logger = LogsCenter.getLogger(this.getClass());
 
-    public GuiHandle(GuiRobot guiRobot, Stage primaryStage, String stageTitle) {
-        this.guiRobot = guiRobot;
-        this.primaryStage = primaryStage;
+    public GuiHandle(String stageTitle) {
         this.stageTitle = stageTitle;
         focusOnSelf();
     }
@@ -52,27 +46,6 @@ public class GuiHandle {
 
     protected <T extends Node> T getNode(String query) {
         return guiRobot.lookup(query).query();
-    }
-
-    protected String getTextFieldText(String filedName) {
-        TextField textField = getNode(filedName);
-        return textField.getText();
-    }
-
-    protected void setTextField(String textFieldId, String newText) {
-        guiRobot.clickOn(textFieldId);
-        TextField textField = getNode(textFieldId);
-        guiRobot.interact(() -> textField.setText(newText));
-        guiRobot.pauseForHuman();
-    }
-
-    public void pressEnter() {
-        guiRobot.type(KeyCode.ENTER);
-        guiRobot.pauseForHuman();
-    }
-
-    protected String getTextFromLabel(String fieldId, Node parentNode) {
-        return ((Label) guiRobot.from(parentNode).lookup(fieldId).tryQuery().get()).getText();
     }
 
     public void focusOnSelf() {
