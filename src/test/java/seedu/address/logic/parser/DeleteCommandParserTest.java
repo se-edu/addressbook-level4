@@ -28,7 +28,7 @@ public class DeleteCommandParserTest {
     @Test
     public void parse_validArgs_returnsDeleteCommand() throws Exception {
         DeleteCommand command = parser.parse("1");
-        assertEquals(INDEX_FIRST_PERSON, command.targetIndex);
+        assertEquals(new DeleteCommand(INDEX_FIRST_PERSON), command);
     }
 
     @Test
