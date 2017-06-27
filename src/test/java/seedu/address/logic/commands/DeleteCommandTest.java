@@ -99,8 +99,6 @@ public class DeleteCommandTest {
         assertFalse(deleteFirstCommand.equals(deleteSecondCommand));
     }
 
-
-
     /**
      * Returns a {@code DeleteCommand} with the parameter {@code index}.
      */
