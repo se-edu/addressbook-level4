@@ -11,7 +11,6 @@ import javafx.scene.Node;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 import seedu.address.TestApp;
-import seedu.address.model.person.Person;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.testutil.TestUtil;
@@ -105,7 +104,17 @@ public class PersonListPanelHandle extends GuiHandle {
             getListView().getSelectionModel().select(person);
         });
         guiRobot.pauseForHuman();
-        return getPersonCardHandle(person);
+
+        Set<Node> nodes = getAllCardNodes();
+        Optional<Node> personCardNode = nodes.stream()
+                .filter(n -> new PersonCardHandle(guiRobot, primaryStage, n).isSamePerson(person))
+                .findFirst();
+
+        if (personCardNode.isPresent()) {
+            return new PersonCardHandle(guiRobot, primaryStage, personCardNode.get());
+        } else {
+            return null;
+        }
     }
 
     /**
@@ -116,10 +125,7 @@ public class PersonListPanelHandle extends GuiHandle {
     }
 
     public PersonCardHandle getPersonCardHandle(int index) {
-        return getPersonCardHandle(new Person(getListView().getItems().get(index)));
-    }
-
-    public PersonCardHandle getPersonCardHandle(ReadOnlyPerson person) {
+        ReadOnlyPerson person = getListView().getItems().get(index);
         Set<Node> nodes = getAllCardNodes();
         Optional<Node> personCardNode = nodes.stream()
                 .filter(n -> new PersonCardHandle(guiRobot, primaryStage, n).isSamePerson(person))
