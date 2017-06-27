@@ -63,11 +63,12 @@ public class GuiHandle {
         guiRobot.clickOn(textFieldId);
         TextField textField = getNode(textFieldId);
         guiRobot.interact(() -> textField.setText(newText));
-        guiRobot.sleep(500); // so that the texts stays visible on the GUI for a short period
+        guiRobot.pauseForHuman();
     }
 
     public void pressEnter() {
-        guiRobot.type(KeyCode.ENTER).sleep(500);
+        guiRobot.type(KeyCode.ENTER);
+        guiRobot.pauseForHuman();
     }
 
     protected String getTextFromLabel(String fieldId, Node parentNode) {
