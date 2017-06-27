@@ -1,12 +1,15 @@
 package seedu.address.logic.commands;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_PERSONS_LISTED_OVERVIEW;
 
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.junit.Test;
 
@@ -24,6 +27,31 @@ import seedu.address.testutil.TypicalPersons;
 public class FindCommandTest {
     private TypicalPersons persons = new TypicalPersons();
     private Model model = new ModelManager(persons.getTypicalAddressBook(), new UserPrefs());
+
+    @Test
+    public void equals() {
+        Set<String> firstKeyword = Collections.singleton("first");
+        Set<String> secondKeyword = Collections.singleton("second");
+
+        FindCommand findFirstCommand = new FindCommand(firstKeyword);
+        FindCommand findSecondCommand = new FindCommand(secondKeyword);
+
+        // same object -> returns true
+        assertTrue(findFirstCommand.equals(findFirstCommand));
+
+        // same values -> returns true
+        FindCommand findFirstCommandCopy = new FindCommand(firstKeyword);
+        assertTrue(findFirstCommand.equals(findFirstCommandCopy));
+
+        // different types -> returns false
+        assertFalse(findFirstCommand.equals(1));
+
+        // null -> returns false
+        assertFalse(findFirstCommand.equals(null));
+
+        // different person -> returns false
+        assertFalse(findFirstCommand.equals(findSecondCommand));
+    }
 
     @Test
     public void execute_zeroKeywords_noPersonFound() throws Exception {
