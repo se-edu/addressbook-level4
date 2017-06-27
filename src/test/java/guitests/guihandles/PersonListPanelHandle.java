@@ -84,18 +84,6 @@ public class PersonListPanelHandle extends GuiHandle {
         guiRobot.clickOn(point.getX(), point.getY());
     }
 
-    public PersonCardHandle navigateToPerson(String name) throws PersonNotFoundException {
-        guiRobot.pauseForHuman();
-        final Optional<ReadOnlyPerson> person = getListView().getItems().stream()
-                                                    .filter(p -> p.getName().fullName.equals(name))
-                                                    .findAny();
-        if (!person.isPresent()) {
-            throw new PersonNotFoundException();
-        }
-
-        return navigateToPerson(person.get());
-    }
-
     /**
      * Navigates the listview to display and select the person.
      */
