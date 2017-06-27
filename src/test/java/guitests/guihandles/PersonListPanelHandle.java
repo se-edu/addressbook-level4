@@ -51,24 +51,15 @@ public class PersonListPanelHandle extends GuiHandle {
      * @param persons A list of person in the correct order.
      */
     public boolean isListMatching(ReadOnlyPerson... persons) {
-        return this.isListMatching(0, persons);
-    }
-
-    /**
-     * Returns true if the list is showing the person details correctly and in correct order.
-     * @param startPosition The starting position of the sub list.
-     * @param persons A list of person in the correct order.
-     */
-    public boolean isListMatching(int startPosition, ReadOnlyPerson... persons) {
         List<ReadOnlyPerson> personList = getListView().getItems();
-        checkArgument(personList.size() == persons.length + startPosition,
+        checkArgument(personList.size() == persons.length,
                 "List size mismatched\nExpected " + personList.size() + " persons");
 
         for (int i = 0; i < persons.length; i++) {
-            final int scrollTo = i + startPosition;
+            final int scrollTo = i; // lambda expression needs i to be final
             guiRobot.interact(() -> getListView().scrollTo(scrollTo));
             guiRobot.pauseForHuman();
-            if (!TestUtil.compareCardAndPerson(getPersonCardHandle(startPosition + i), persons[i])) {
+            if (!TestUtil.compareCardAndPerson(getPersonCardHandle(i), persons[i])) {
                 return false;
             }
         }
