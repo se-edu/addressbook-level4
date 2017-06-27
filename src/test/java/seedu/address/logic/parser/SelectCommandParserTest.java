@@ -25,7 +25,7 @@ public class SelectCommandParserTest {
     @Test
     public void parse_validArgs_returnsSelectCommand() throws Exception {
         SelectCommand command = parser.parse("1");
-        assertEquals(INDEX_FIRST_PERSON, command.targetIndex);
+        assertEquals(new SelectCommand(INDEX_FIRST_PERSON), command);
     }
 
     @Test
