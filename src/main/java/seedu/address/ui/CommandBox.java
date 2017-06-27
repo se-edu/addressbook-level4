@@ -102,7 +102,10 @@ public class CommandBox extends UiPart<Region> {
             raise(new NewResultAvailableEvent(e.getMessage()));
         } finally {
             List<String> userInputHistory = logic.getUserInputHistory();
+            // causes history to return an empty string upon pressing the down button after the last user input
+            // has been returned
             userInputHistory.add("");
+
             pointer = new ListElementPointer<>(userInputHistory, userInputHistory.size() - 1);
         }
     }
