@@ -7,7 +7,6 @@ import static seedu.address.commons.core.Messages.MESSAGE_PERSONS_LISTED_OVERVIE
 
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -32,8 +31,8 @@ public class FindCommandTest {
 
     @Test
     public void equals() {
-        Set<String> firstKeyword = new HashSet<String>(Arrays.asList("first"));
-        Set<String> secondKeyword = new HashSet<String>(Arrays.asList("second"));
+        Set<String> firstKeyword = Collections.singleton("first");
+        Set<String> secondKeyword = Collections.singleton("second");
 
         FindCommand findFirstCommand = new FindCommand(firstKeyword);
         FindCommand findSecondCommand = new FindCommand(secondKeyword);
@@ -61,7 +60,7 @@ public class FindCommandTest {
         List<ReadOnlyPerson> expectedList = Collections.singletonList(persons.alice);
 
         // matches all keywords
-        FindCommand command = prepareCommand("Pauline Alice");
+        FindCommand command = prepareCommand(persons.alice.getName().fullName);
         assertCommandSuccess(command, expectedMessage, expectedList);
 
         // matches only one keyword
@@ -93,14 +92,10 @@ public class FindCommandTest {
         // valid name that does not match any person
         FindCommand command = prepareCommand("NoSuchPerson");
         assertCommandSuccess(command, expectedMessage, Collections.emptyList());
-
-        // invalid name as keyword
-        command = prepareCommand("*** $%^");
-        assertCommandSuccess(command, expectedMessage, Collections.emptyList());
     }
 
     /**
-     * Parses {@code userInput} into a {@code FindCommand}. The {@code FindCommand} executes on {@code model}.
+     * Parses {@code userInput} into a {@code FindCommand}.
      */
     private FindCommand prepareCommand(String userInput) throws Exception {
         FindCommand command = parser.parse(userInput);

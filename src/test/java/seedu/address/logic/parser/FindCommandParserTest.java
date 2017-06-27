@@ -19,7 +19,7 @@ public class FindCommandParserTest {
     @Test
     public void parse_emptyArg_throwsParseException() {
         try {
-            parser.parse("");
+            parser.parse("     ");
             fail("The expected ParseException was not thrown.");
         } catch (ParseException pe) {
             assertEquals(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE), pe.getMessage());
