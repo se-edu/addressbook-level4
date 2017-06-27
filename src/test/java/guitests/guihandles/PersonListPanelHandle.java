@@ -48,33 +48,23 @@ public class PersonListPanelHandle extends GuiHandle {
      * @param persons A list of person in the correct order.
      */
     public boolean isListMatching(ReadOnlyPerson... persons) {
-        return this.isListMatching(0, persons);
-    }
-
-    /**
-     * Returns true if the list is showing the person details correctly and in correct order.
-     * @param startPosition The starting position of the sub list.
-     * @param persons A list of person in the correct order.
-     */
-    public boolean isListMatching(int startPosition, ReadOnlyPerson... persons) {
         List<ReadOnlyPerson> personList = getListView().getItems();
 
-        if (personList.size() != persons.length + startPosition) {
+        if (personList.size() != persons.length) {
             throw new IllegalArgumentException("List size mismatched\nExpected " + personList.size() + " persons");
         }
-        return cardsAndPersonsMatchInOrder(startPosition, persons);
+        return cardsAndPersonsMatchInOrder(persons);
     }
 
     /**
-     * Returns true if each person in {@code persons} matches the card at the exact same position,
-     * beginning from the card at {@code startPosition}.
+     * Returns true if each person in {@code persons} matches the card at the exact same position.
      */
-    private boolean cardsAndPersonsMatchInOrder(int startPosition, ReadOnlyPerson... persons) {
+    private boolean cardsAndPersonsMatchInOrder(ReadOnlyPerson... persons) {
         for (int i = 0; i < persons.length; i++) {
-            final int scrollTo = i + startPosition;
+            final int scrollTo = i; // lambda expression needs i to be final
             guiRobot.interact(() -> getListView().scrollTo(scrollTo));
             guiRobot.pauseForHuman();
-            if (!TestUtil.compareCardAndPerson(getPersonCardHandle(startPosition + i), persons[i])) {
+            if (!TestUtil.compareCardAndPerson(getPersonCardHandle(i), persons[i])) {
                 return false;
             }
         }
