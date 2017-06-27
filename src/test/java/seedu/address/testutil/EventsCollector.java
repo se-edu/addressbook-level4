@@ -33,10 +33,25 @@ public class EventsCollector {
         events.clear();
     }
 
+    public int getSize() {
+        return events.size();
+    }
+
     /**
-     * Returns the event at the specified index
+     * Returns the most recent event collected
      */
-    public BaseEvent get(int index) {
-        return events.get(index);
+    public BaseEvent getMostRecent() {
+        if (events.isEmpty()) {
+            return null;
+        }
+
+        return events.get(events.size() - 1);
+    }
+
+    /**
+     * Returns true if the collector did not receive any events
+     */
+    public boolean isEmpty() {
+        return events.isEmpty();
     }
 }
