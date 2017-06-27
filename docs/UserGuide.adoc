@@ -155,6 +155,11 @@ Selects the 1st person in the results of the `find` command.
 Lists all the commands that you have entered in chronological order. +
 Format: `history`
 
+[NOTE]
+====
+Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows respectively will display the previous and next input respectively in the command box.
+====
+
 === Clearing all entries : `clear`
 
 Clears all entries from the address book. +
