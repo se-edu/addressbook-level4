@@ -165,6 +165,10 @@ Format: `clear`
 Exits the program. +
 Format: `exit`
 
+=== Retrieving previous and next input
+
+Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows respectively will display the previous and next input respectively in the command box.
+
 === Saving the data
 
 Address book data are saved in the hard disk automatically after any command that changes the data. +
