@@ -8,9 +8,10 @@ import java.util.List;
 /**
  * Points to the element in the {@code list} at {@code index}, and is able to iterate through the list.
  * This is different from {@code ListIterator}, which has a cursor that points in between elements.
- * As such, while calling {@code ListIterator#next()} and {@code ListIterator#previous()} which returns the same
- * element on both calls, calling {@code next()} and {@code previous()} returns the next and previous elements
- * respectively.
+ * The {@code ListIterator}'s behaviour is as such: when making alternating calls of {@code ListIterator#next()} and
+ * {@code ListIterator#previous()}, the same element is returned on both calls.
+ * However, {@code ListElementPointer}'s behaviour is as such: when making alternating calls of {@code next()} and
+ * {@code previous()}, the next and previous elements are returned respectively.
  */
 public class ListElementPointer<T> {
     private List<T> list;
