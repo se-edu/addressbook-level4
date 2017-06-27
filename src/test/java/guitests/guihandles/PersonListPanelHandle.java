@@ -20,7 +20,7 @@ import seedu.address.testutil.TestUtil;
  */
 public class PersonListPanelHandle extends GuiHandle {
 
-    public static final String CARD_PANE_ID = "#cardPane";
+    private static final String CARD_PANE_ID = "#cardPane";
 
     private static final String PERSON_LIST_VIEW_ID = "#personListView";
 
@@ -41,7 +41,7 @@ public class PersonListPanelHandle extends GuiHandle {
         return personList.isEmpty() ? Optional.empty() : Optional.of(personList.get(0));
     }
 
-    public ListView<ReadOnlyPerson> getListView() {
+    private ListView<ReadOnlyPerson> getListView() {
         return getNode(PERSON_LIST_VIEW_ID);
     }
 
@@ -114,7 +114,7 @@ public class PersonListPanelHandle extends GuiHandle {
         return getListView().getItems().get(index);
     }
 
-    public PersonCardHandle getPersonCardHandle(int index) {
+    private PersonCardHandle getPersonCardHandle(int index) {
         ReadOnlyPerson person = getListView().getItems().get(index);
         Set<Node> nodes = getAllCardNodes();
         Optional<Node> personCardNode = nodes.stream()
@@ -127,7 +127,7 @@ public class PersonListPanelHandle extends GuiHandle {
         }
     }
 
-    protected Set<Node> getAllCardNodes() {
+    private Set<Node> getAllCardNodes() {
         return guiRobot.lookup(CARD_PANE_ID).queryAll();
     }
 
