@@ -72,12 +72,7 @@ public class CommandBox extends UiPart<Region> {
      */
     private void navigateToNextInput() {
         assert pointer != null;
-        if (!pointer.hasNext()) {
-            setText("");
-            return;
-        }
-
-        setText(pointer.next());
+        setText(!pointer.hasNext() ? "" : pointer.next());
     }
 
     /**
@@ -107,7 +102,8 @@ public class CommandBox extends UiPart<Region> {
             raise(new NewResultAvailableEvent(e.getMessage()));
         } finally {
             List<String> userInputHistory = logic.getUserInputHistory();
-            pointer = new ListElementPointer<>(userInputHistory, userInputHistory.size());
+            userInputHistory.add("");
+            pointer = new ListElementPointer<>(userInputHistory, userInputHistory.size() - 1);
         }
     }
 

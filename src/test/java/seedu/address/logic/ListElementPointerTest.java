@@ -11,50 +11,46 @@ import java.util.List;
 import org.junit.Test;
 
 public class ListElementPointerTest {
-    private final String first = "first";
-    private final String second = "second";
-    private final List<String> pointerElements = Arrays.asList(first, second);
+    private final String firstElement = "first";
+    private final String secondElement = "second";
+    private final List<String> pointerElements = Arrays.asList(firstElement, secondElement);
     private ListElementPointer pointer;
 
     @Test
     public void constructor_noIndexSpecified_iteratesSuccessfully() {
         pointer = new ListElementPointer<>(pointerElements);
-        assertPointerNextSuccess(first, second);
+        assertPointerNextSuccess(firstElement);
+        assertPointerNextSuccess(secondElement);
         assertPointerNextFailure();
 
-        assertPointerPreviousSuccess(second, first);
+        assertPointerPreviousSuccess(secondElement);
+        assertPointerPreviousSuccess(firstElement);
         assertPointerPreviousFailure();
     }
 
     @Test
     public void constructor_indexSpecified_iteratesSuccessfully() {
         pointer = new ListElementPointer<>(pointerElements, 0);
-        assertPointerNextSuccess(second);
-        assertPointerPreviousSuccess(first);
+        assertPointerNextSuccess(secondElement);
+        assertPointerPreviousSuccess(firstElement);
     }
 
     /**
-     * Calls {@code pointer#next()} for {@code elements.length} number of times,
-     * with each time checking that {@code pointer#hasNext()} returns true and the
-     * return value of {@code pointer#next()} equals to the element.
+     * Calls {@code pointer#next()} and checks that {@code pointer#hasNext()} returns true
+     * and the return value of {@code pointer#next()} equals to {@code element}.
      */
-    private void assertPointerNextSuccess(String... elements) {
-        for (String element : elements) {
-            assertTrue(pointer.hasNext());
-            assertEquals(element, pointer.next());
-        }
+    private void assertPointerNextSuccess(String element) {
+        assertTrue(pointer.hasNext());
+        assertEquals(element, pointer.next());
     }
 
     /**
-     * Calls {@code pointer#previous()} for {@code elements.length} number of times,
-     * with each time checking that {@code pointer#hasPrevious()} returns true and the
-     * return value of {@code pointer#previous()} equals to the element.
+     * Calls {@code pointer#previous()} and checks that {@code pointer#hasPrevious()} returns true
+     * and the return value of {@code pointer#previous()} equals to {@code element}.
      */
-    private void assertPointerPreviousSuccess(String... elements) {
-        for (String element : elements) {
-            assertTrue(pointer.hasPrevious());
-            assertEquals(element, pointer.previous());
-        }
+    private void assertPointerPreviousSuccess(String element) {
+        assertTrue(pointer.hasPrevious());
+        assertEquals(element, pointer.previous());
     }
 
     /**

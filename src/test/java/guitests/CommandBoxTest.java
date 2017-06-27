@@ -52,38 +52,51 @@ public class CommandBoxTest extends AddressBookGuiTest {
     }
 
     @Test
-    public void handleKeyPress_sequentialExecution() {
-        // setup
-        commandBox.runCommand(COMMAND_THAT_SUCCEEDS);
-        commandBox.runCommand(COMMAND_THAT_FAILS);
-
-        // Previous commands are returned in order
-        assertInputHistory(KeyCode.UP, COMMAND_THAT_FAILS, COMMAND_THAT_SUCCEEDS);
-
-        // Pressing `KeyCode.UP` where there are no more previous command
-        // to be shown, causes input to remain unchanged.
-        assertInputHistory(KeyCode.UP, COMMAND_THAT_SUCCEEDS);
-
-        // Subsequent executed command returned correctly
-        assertInputHistory(KeyCode.DOWN, COMMAND_THAT_FAILS);
-
-        // Reset command box if there's no more subsequent executed command.
+    public void handleKeyPress_startingWithUp() {
+        // empty history
+        assertInputHistory(KeyCode.UP, "");
         assertInputHistory(KeyCode.DOWN, "");
+
+        commandBox.runCommand(COMMAND_THAT_SUCCEEDS);
+        // one command
+        assertInputHistory(KeyCode.UP, COMMAND_THAT_SUCCEEDS);
+        assertInputHistory(KeyCode.UP, COMMAND_THAT_SUCCEEDS);
+        assertInputHistory(KeyCode.DOWN, "");
+        assertInputHistory(KeyCode.DOWN, "");
+
+        // two commands
+        commandBox.runCommand(COMMAND_THAT_FAILS);
+        assertInputHistory(KeyCode.UP, COMMAND_THAT_FAILS);
+        assertInputHistory(KeyCode.UP, COMMAND_THAT_SUCCEEDS);
+        assertInputHistory(KeyCode.UP, COMMAND_THAT_SUCCEEDS);
+        assertInputHistory(KeyCode.DOWN, COMMAND_THAT_FAILS);
+        assertInputHistory(KeyCode.DOWN, "");
+        assertInputHistory(KeyCode.DOWN, "");
+        assertInputHistory(KeyCode.UP, COMMAND_THAT_FAILS);
     }
 
     @Test
-    public void handleKeyPress_nonSequentialExecution() {
-        // setup
-        commandBox.runCommand(COMMAND_THAT_SUCCEEDS);
-        commandBox.runCommand(COMMAND_THAT_FAILS);
-        guiRobot.push(KeyCode.UP);
-        guiRobot.push(KeyCode.UP); // command box displays COMMAND_THAT_SUCCEEDS now
-        String anotherCommandThatFails = "foo";
-        commandBox.runCommand(anotherCommandThatFails);
+    public void handleKeyPress_startingWithDown() {
+        // empty history
+        assertInputHistory(KeyCode.DOWN, "");
+        assertInputHistory(KeyCode.UP, "");
 
-        // Previous commands are returned in order
-        // despite executing a new command after pushing `KeyCode.UP`.
-        assertInputHistory(KeyCode.UP, anotherCommandThatFails, COMMAND_THAT_FAILS, COMMAND_THAT_SUCCEEDS);
+        commandBox.runCommand(COMMAND_THAT_SUCCEEDS);
+        // one command
+        assertInputHistory(KeyCode.DOWN, "");
+        assertInputHistory(KeyCode.UP, COMMAND_THAT_SUCCEEDS);
+        assertInputHistory(KeyCode.UP, COMMAND_THAT_SUCCEEDS);
+        assertInputHistory(KeyCode.DOWN, "");
+
+        // two commands
+        commandBox.runCommand(COMMAND_THAT_FAILS);
+        assertInputHistory(KeyCode.DOWN, "");
+        assertInputHistory(KeyCode.UP, COMMAND_THAT_FAILS);
+        assertInputHistory(KeyCode.UP, COMMAND_THAT_SUCCEEDS);
+        assertInputHistory(KeyCode.UP, COMMAND_THAT_SUCCEEDS);
+        assertInputHistory(KeyCode.DOWN, COMMAND_THAT_FAILS);
+        assertInputHistory(KeyCode.DOWN, "");
+        assertInputHistory(KeyCode.UP, COMMAND_THAT_FAILS);
     }
 
     /**
@@ -111,13 +124,10 @@ public class CommandBoxTest extends AddressBookGuiTest {
     }
 
     /**
-     * Pushes {@code keycode} for {@code expectedCommands#length} number of times, with each time
-     * checking that the input in the {@code commandBox} equals to {@code expectedCommands}.
+     * Pushes {@code keycode} and checks that the input in the {@code commandBox} equals to {@code expectedCommand}.
      */
-    private void assertInputHistory(KeyCode keycode, String... expectedCommands) {
-        for (String expectedCommand : expectedCommands) {
-            guiRobot.push(keycode);
-            assertEquals(expectedCommand, commandBox.getCommandInput());
-        }
+    private void assertInputHistory(KeyCode keycode, String expectedCommand) {
+        guiRobot.push(keycode);
+        assertEquals(expectedCommand, commandBox.getCommandInput());
     }
 }
