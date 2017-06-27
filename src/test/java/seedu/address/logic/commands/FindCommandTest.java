@@ -1,11 +1,15 @@
 package seedu.address.logic.commands;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_PERSONS_LISTED_OVERVIEW;
 
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.junit.Test;
 
@@ -21,26 +25,52 @@ import seedu.address.testutil.TypicalPersons;
 /**
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
  */
-public class FindCommandIntegrationTest {
+public class FindCommandTest {
     private TypicalPersons persons = new TypicalPersons();
     private Model model = new ModelManager(persons.getTypicalAddressBook(), new UserPrefs());
     private FindCommandParser parser = new FindCommandParser();
 
     @Test
-    public void execute_personFound_success() throws Exception {
+    public void equals() {
+        Set<String> firstKeyword = new HashSet<String>(Arrays.asList("first"));
+        Set<String> secondKeyword = new HashSet<String>(Arrays.asList("second"));
+
+        FindCommand findFirstCommand = new FindCommand(firstKeyword);
+        FindCommand findSecondCommand = new FindCommand(secondKeyword);
+
+        // same object -> returns true
+        assertTrue(findFirstCommand.equals(findFirstCommand));
+
+        // same values -> returns true
+        FindCommand findFirstCommandCopy = new FindCommand(firstKeyword);
+        assertTrue(findFirstCommand.equals(findFirstCommandCopy));
+
+        // different types -> returns false
+        assertFalse(findFirstCommand.equals(1));
+
+        // null -> returns false
+        assertFalse(findFirstCommand.equals(null));
+
+        // different person -> returns false
+        assertFalse(findFirstCommand.equals(findSecondCommand));
+    }
+
+    @Test
+    public void execute_singlePersonFound_success() throws Exception {
         String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 1);
+        List<ReadOnlyPerson> expectedList = Collections.singletonList(persons.alice);
 
-        // name matches all keywords
+        // matches all keywords
         FindCommand command = prepareCommand("Pauline Alice");
-        assertCommandSuccess(command, expectedMessage, Collections.singletonList(persons.alice));
+        assertCommandSuccess(command, expectedMessage, expectedList);
 
-        // name matches only one keyword
+        // matches only one keyword
         command = prepareCommand("Alice NonMatchingKeyword");
-        assertCommandSuccess(command, expectedMessage, Collections.singletonList(persons.alice));
+        assertCommandSuccess(command, expectedMessage, expectedList);
 
         // repeated matching keywords
         command = prepareCommand("Alice Alice");
-        assertCommandSuccess(command, expectedMessage, Collections.singletonList(persons.alice));
+        assertCommandSuccess(command, expectedMessage, expectedList);
     }
 
     @Test
@@ -70,7 +100,7 @@ public class FindCommandIntegrationTest {
     }
 
     /**
-     * Generates a new {@code FindCommand} by parsing the {@code userInput} and updating {@code model}
+     * Parses {@code userInput} into a {@code FindCommand}. The {@code FindCommand} executes on {@code model}.
      */
     private FindCommand prepareCommand(String userInput) throws Exception {
         FindCommand command = parser.parse(userInput);
