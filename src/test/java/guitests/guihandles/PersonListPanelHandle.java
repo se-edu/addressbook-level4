@@ -1,6 +1,8 @@
 package guitests.guihandles;
 
 
+import static seedu.address.commons.util.AppUtil.checkArgument;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -9,6 +11,7 @@ import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.control.ListView;
 import seedu.address.TestApp;
+import seedu.address.model.person.Person;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.testutil.TestUtil;
@@ -47,19 +50,11 @@ public class PersonListPanelHandle extends GuiHandle {
      * Returns true if the list is showing the person details correctly and in correct order.
      * @param persons A list of person in the correct order.
      */
-    public boolean isListMatching(ReadOnlyPerson... persons) {
+    public boolean isListMatching(ReadOnlyPerson... persons) throws PersonNotFoundException {
         List<ReadOnlyPerson> personList = getListView().getItems();
+        checkArgument(personList.size() == persons.length,
+                "List size mismatched\nExpected " + personList.size() + " persons");
 
-        if (personList.size() != persons.length) {
-            throw new IllegalArgumentException("List size mismatched\nExpected " + personList.size() + " persons");
-        }
-        return cardsAndPersonsMatchInOrder(persons);
-    }
-
-    /**
-     * Returns true if each person in {@code persons} matches the card at the exact same position.
-     */
-    private boolean cardsAndPersonsMatchInOrder(ReadOnlyPerson... persons) {
         for (int i = 0; i < persons.length; i++) {
             final int scrollTo = i; // lambda expression needs i to be final
             guiRobot.interact(() -> getListView().scrollTo(scrollTo));
@@ -82,7 +77,7 @@ public class PersonListPanelHandle extends GuiHandle {
     /**
      * Navigates the listview to display and select the person.
      */
-    public PersonCardHandle navigateToPerson(ReadOnlyPerson person) throws PersonNotFoundException {
+    public void navigateToPerson(ReadOnlyPerson person) throws PersonNotFoundException {
         if (!getListView().getItems().contains(person)) {
             throw new PersonNotFoundException();
         }
@@ -92,17 +87,6 @@ public class PersonListPanelHandle extends GuiHandle {
             getListView().getSelectionModel().select(person);
         });
         guiRobot.pauseForHuman();
-
-        Set<Node> nodes = getAllCardNodes();
-        Optional<Node> personCardNode = nodes.stream()
-                .filter(n -> new PersonCardHandle(guiRobot, primaryStage, n).isSamePerson(person))
-                .findFirst();
-
-        if (personCardNode.isPresent()) {
-            return new PersonCardHandle(guiRobot, primaryStage, personCardNode.get());
-        } else {
-            return null;
-        }
     }
 
     /**
@@ -112,17 +96,21 @@ public class PersonListPanelHandle extends GuiHandle {
         return getListView().getItems().get(index);
     }
 
-    private PersonCardHandle getPersonCardHandle(int index) {
-        ReadOnlyPerson person = getListView().getItems().get(index);
+    private PersonCardHandle getPersonCardHandle(int index) throws PersonNotFoundException {
+        return getPersonCardHandle(new Person(getListView().getItems().get(index)));
+    }
+
+    public PersonCardHandle getPersonCardHandle(ReadOnlyPerson person) throws PersonNotFoundException {
+        if (!getListView().getItems().contains(person)) {
+            throw new PersonNotFoundException();
+        }
+
         Set<Node> nodes = getAllCardNodes();
         Optional<Node> personCardNode = nodes.stream()
                 .filter(n -> new PersonCardHandle(n).isSamePerson(person))
                 .findFirst();
-        if (personCardNode.isPresent()) {
-            return new PersonCardHandle(personCardNode.get());
-        } else {
-            return null;
-        }
+
+        return new PersonCardHandle(personCardNode.get());
     }
 
     private Set<Node> getAllCardNodes() {
