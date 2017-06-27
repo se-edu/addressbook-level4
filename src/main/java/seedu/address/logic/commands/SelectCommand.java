@@ -22,7 +22,7 @@ public class SelectCommand extends Command {
 
     public static final String MESSAGE_SELECT_PERSON_SUCCESS = "Selected Person: %1$s";
 
-    public final Index targetIndex;
+    private final Index targetIndex;
 
     public SelectCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
