@@ -5,15 +5,11 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
-import static seedu.address.testutil.PersonBuilder.DEFAULT_ADDRESS;
-import static seedu.address.testutil.PersonBuilder.DEFAULT_EMAIL;
-import static seedu.address.testutil.PersonBuilder.DEFAULT_NAME;
-import static seedu.address.testutil.PersonBuilder.DEFAULT_PHONE;
-import static seedu.address.testutil.PersonBuilder.DEFAULT_TAGS;
 import static seedu.address.testutil.TypicalPersons.INDEX_FIRST_PERSON;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.stream.Collectors;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -65,9 +61,7 @@ public class ParserTest {
     @Test
     public void parseCommand_edit() throws Exception {
         Person person = new PersonBuilder().build();
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(DEFAULT_NAME)
-                .withPhone(DEFAULT_PHONE).withAddress(DEFAULT_ADDRESS).withEmail(DEFAULT_EMAIL)
-                .withTags(DEFAULT_TAGS).build();
+        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(person).build();
         EditCommand command = (EditCommand) parser.parseCommand(EditCommand.COMMAND_WORD + " "
                 + INDEX_FIRST_PERSON.getOneBased() + " " + PersonUtil.getPersonDetails(person));
         assertEquals(new EditCommand(INDEX_FIRST_PERSON, descriptor), command);
@@ -82,7 +76,8 @@ public class ParserTest {
     @Test
     public void parseCommand_find() throws Exception {
         HashSet<String> keywords = new HashSet<>(Arrays.asList("foo", "bar", "baz"));
-        FindCommand command = (FindCommand) parser.parseCommand(FindCommand.COMMAND_WORD + " " + "foo bar baz");
+        FindCommand command = (FindCommand) parser.parseCommand(
+                FindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
         assertEquals(new FindCommand(keywords), command);
     }
 
