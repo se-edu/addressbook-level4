@@ -5,7 +5,6 @@ import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.NewResultAvailableEvent;
@@ -28,9 +27,11 @@ public class CommandBox extends UiPart<Region> {
     public CommandBox(Logic logic) {
         super(FXML);
         this.logic = logic;
+        commandTextField.textProperty().addListener((foo, bar, baz) -> setStyleToDefault());
     }
 
-    private void executeUserInput() {
+    @FXML
+    private void handleCommandInputChanged() {
         try {
             CommandResult commandResult = logic.execute(commandTextField.getText());
 
@@ -47,20 +48,9 @@ public class CommandBox extends UiPart<Region> {
         }
     }
 
-    @FXML
-    private void handleKeyPress(KeyEvent keyEvent) {
-        setStyleToDefault();
-        switch (keyEvent.getCode()) {
-        case ENTER:
-            executeUserInput();
-            break;
-        default:
-            // let JavaFx handle the keypress
-        }
-    }
 
     /**
-     * Sets the command box style to indicate a successful command.
+     * Sets the command box style to use no style at all.
      */
     private void setStyleToDefault() {
         commandTextField.getStyleClass().remove(ERROR_STYLE_CLASS);
