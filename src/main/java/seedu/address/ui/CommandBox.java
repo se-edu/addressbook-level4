@@ -30,7 +30,6 @@ public class CommandBox extends UiPart<Region> {
         this.logic = logic;
     }
 
-    @FXML
     private void handleCommandInputChanged() {
         try {
             CommandResult commandResult = logic.execute(commandTextField.getText());
@@ -51,6 +50,13 @@ public class CommandBox extends UiPart<Region> {
     @FXML
     private void handleKeyPress(KeyEvent keyEvent) {
         setStyleToDefault();
+        switch (keyEvent.getCode()) {
+        case ENTER:
+            handleCommandInputChanged();
+            break;
+        default:
+            // let JavaFx handle the keypress
+        }
     }
 
     /**
