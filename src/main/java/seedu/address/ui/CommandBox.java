@@ -5,6 +5,7 @@ import java.util.logging.Logger;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.NewResultAvailableEvent;
@@ -35,7 +36,6 @@ public class CommandBox extends UiPart<Region> {
             CommandResult commandResult = logic.execute(commandTextField.getText());
 
             // process result of the command
-            setStyleToIndicateCommandSuccess();
             commandTextField.setText("");
             logger.info("Result: " + commandResult.feedbackToUser);
             raise(new NewResultAvailableEvent(commandResult.feedbackToUser));
@@ -48,6 +48,10 @@ public class CommandBox extends UiPart<Region> {
         }
     }
 
+    @FXML
+    private void handleKeyPress(KeyEvent keyEvent) {
+        setStyleToIndicateCommandSuccess();
+    }
 
     /**
      * Sets the command box style to indicate a successful command.
