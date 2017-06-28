@@ -3,20 +3,30 @@ package seedu.address.logic.parser;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.testutil.EditCommandTestUtil.VALID_ADDRESS_AMY;
-import static seedu.address.testutil.EditCommandTestUtil.VALID_ADDRESS_BOB;
-import static seedu.address.testutil.EditCommandTestUtil.VALID_EMAIL_AMY;
-import static seedu.address.testutil.EditCommandTestUtil.VALID_EMAIL_BOB;
-import static seedu.address.testutil.EditCommandTestUtil.VALID_NAME_AMY;
-import static seedu.address.testutil.EditCommandTestUtil.VALID_PHONE_AMY;
-import static seedu.address.testutil.EditCommandTestUtil.VALID_PHONE_BOB;
-import static seedu.address.testutil.EditCommandTestUtil.VALID_TAG_FRIEND;
-import static seedu.address.testutil.EditCommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.testutil.CommandTestUtil.ADDRESS_DESC_AMY;
+import static seedu.address.testutil.CommandTestUtil.ADDRESS_DESC_BOB;
+import static seedu.address.testutil.CommandTestUtil.EMAIL_DESC_AMY;
+import static seedu.address.testutil.CommandTestUtil.EMAIL_DESC_BOB;
+import static seedu.address.testutil.CommandTestUtil.INVALID_ADDRESS_DESC;
+import static seedu.address.testutil.CommandTestUtil.INVALID_EMAIL_DESC;
+import static seedu.address.testutil.CommandTestUtil.INVALID_NAME_DESC;
+import static seedu.address.testutil.CommandTestUtil.INVALID_PHONE_DESC;
+import static seedu.address.testutil.CommandTestUtil.INVALID_TAG_DESC;
+import static seedu.address.testutil.CommandTestUtil.NAME_DESC_AMY;
+import static seedu.address.testutil.CommandTestUtil.PHONE_DESC_AMY;
+import static seedu.address.testutil.CommandTestUtil.PHONE_DESC_BOB;
+import static seedu.address.testutil.CommandTestUtil.TAG_DESC_FRIEND;
+import static seedu.address.testutil.CommandTestUtil.TAG_DESC_HUSBAND;
+import static seedu.address.testutil.CommandTestUtil.VALID_ADDRESS_AMY;
+import static seedu.address.testutil.CommandTestUtil.VALID_ADDRESS_BOB;
+import static seedu.address.testutil.CommandTestUtil.VALID_EMAIL_AMY;
+import static seedu.address.testutil.CommandTestUtil.VALID_EMAIL_BOB;
+import static seedu.address.testutil.CommandTestUtil.VALID_NAME_AMY;
+import static seedu.address.testutil.CommandTestUtil.VALID_PHONE_AMY;
+import static seedu.address.testutil.CommandTestUtil.VALID_PHONE_BOB;
+import static seedu.address.testutil.CommandTestUtil.VALID_TAG_FRIEND;
+import static seedu.address.testutil.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.TypicalPersons.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalPersons.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalPersons.INDEX_THIRD_PERSON;
@@ -37,22 +47,7 @@ import seedu.address.testutil.EditPersonDescriptorBuilder;
 
 public class EditCommandParserTest {
 
-    private static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
-    private static final String PHONE_DESC_AMY = " " + PREFIX_PHONE + VALID_PHONE_AMY;
-    private static final String PHONE_DESC_BOB = " " + PREFIX_PHONE + VALID_PHONE_BOB;
-    private static final String EMAIL_DESC_AMY = " " + PREFIX_EMAIL + VALID_EMAIL_AMY;
-    private static final String EMAIL_DESC_BOB = " " + PREFIX_EMAIL + VALID_EMAIL_BOB;
-    private static final String ADDRESS_DESC_AMY = " " + PREFIX_ADDRESS + VALID_ADDRESS_AMY;
-    private static final String ADDRESS_DESC_BOB = " " + PREFIX_ADDRESS + VALID_ADDRESS_BOB;
-    private static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
-    private static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
     private static final String TAG_EMPTY = " " + PREFIX_TAG;
-
-    private static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
-    private static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
-    private static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
-    private static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
-    private static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
 
     private static final String MESSAGE_INVALID_FORMAT =
             String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE);
