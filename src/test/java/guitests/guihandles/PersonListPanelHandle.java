@@ -77,7 +77,7 @@ public class PersonListPanelHandle extends GuiHandle {
     /**
      * Navigates the listview to display and select the person.
      */
-    public PersonCardHandle navigateToPerson(ReadOnlyPerson person) throws PersonNotFoundException {
+    public void navigateToPerson(ReadOnlyPerson person) throws PersonNotFoundException {
         if (!getListView().getItems().contains(person)) {
             throw new PersonNotFoundException();
         }
@@ -87,7 +87,6 @@ public class PersonListPanelHandle extends GuiHandle {
             getListView().getSelectionModel().select(person);
         });
         guiRobot.pauseForHuman();
-        return getPersonCardHandle(person);
     }
 
     /**
