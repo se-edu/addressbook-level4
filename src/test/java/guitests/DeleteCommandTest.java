@@ -14,7 +14,7 @@ import seedu.address.testutil.TestUtil;
 public class DeleteCommandTest extends AddressBookGuiTest {
 
     @Test
-    public void delete() {
+    public void delete() throws Exception {
 
         //delete the first in the list
         Person[] currentList = td.getTypicalPersons();
@@ -41,7 +41,7 @@ public class DeleteCommandTest extends AddressBookGuiTest {
      * Runs the delete command to delete the person at {@code index} and confirms the result is correct.
      * @param currentList A copy of the current list of persons (before deletion).
      */
-    private void assertDeleteSuccess(Index index, final Person[] currentList) {
+    private void assertDeleteSuccess(Index index, final Person[] currentList) throws Exception {
         Person personToDelete = currentList[index.getZeroBased()];
         Person[] expectedRemainder = TestUtil.removePersonFromList(currentList, index);
 

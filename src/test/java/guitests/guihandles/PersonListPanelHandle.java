@@ -50,7 +50,7 @@ public class PersonListPanelHandle extends GuiHandle {
      * Returns true if the list is showing the person details correctly and in correct order.
      * @param persons A list of person in the correct order.
      */
-    public boolean isListMatching(ReadOnlyPerson... persons) {
+    public boolean isListMatching(ReadOnlyPerson... persons) throws PersonNotFoundException {
         List<ReadOnlyPerson> personList = getListView().getItems();
         checkArgument(personList.size() == persons.length,
                 "List size mismatched\nExpected " + personList.size() + " persons");
@@ -96,20 +96,21 @@ public class PersonListPanelHandle extends GuiHandle {
         return getListView().getItems().get(index);
     }
 
-    public PersonCardHandle getPersonCardHandle(int index) {
+    public PersonCardHandle getPersonCardHandle(int index) throws PersonNotFoundException {
         return getPersonCardHandle(new Person(getListView().getItems().get(index)));
     }
 
-    public PersonCardHandle getPersonCardHandle(ReadOnlyPerson person) {
+    public PersonCardHandle getPersonCardHandle(ReadOnlyPerson person) throws PersonNotFoundException {
+        if (!getListView().getItems().contains(person)) {
+            throw new PersonNotFoundException();
+        }
+
         Set<Node> nodes = getAllCardNodes();
         Optional<Node> personCardNode = nodes.stream()
                 .filter(n -> new PersonCardHandle(n).isSamePerson(person))
                 .findFirst();
-        if (personCardNode.isPresent()) {
-            return new PersonCardHandle(personCardNode.get());
-        } else {
-            return null;
-        }
+
+        return new PersonCardHandle(personCardNode.get());
     }
 
     protected Set<Node> getAllCardNodes() {
