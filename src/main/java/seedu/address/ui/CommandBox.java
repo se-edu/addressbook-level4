@@ -30,7 +30,7 @@ public class CommandBox extends UiPart<Region> {
         this.logic = logic;
     }
 
-    private void handleCommandInputChanged() {
+    private void executeUserInput() {
         try {
             CommandResult commandResult = logic.execute(commandTextField.getText());
 
@@ -52,7 +52,7 @@ public class CommandBox extends UiPart<Region> {
         setStyleToDefault();
         switch (keyEvent.getCode()) {
         case ENTER:
-            handleCommandInputChanged();
+            executeUserInput();
             break;
         default:
             // let JavaFx handle the keypress
