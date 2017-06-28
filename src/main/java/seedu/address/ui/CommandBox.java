@@ -50,13 +50,13 @@ public class CommandBox extends UiPart<Region> {
 
     @FXML
     private void handleKeyPress(KeyEvent keyEvent) {
-        setStyleToIndicateCommandSuccess();
+        setStyleToDefault();
     }
 
     /**
      * Sets the command box style to indicate a successful command.
      */
-    private void setStyleToIndicateCommandSuccess() {
+    private void setStyleToDefault() {
         commandTextField.getStyleClass().remove(ERROR_STYLE_CLASS);
     }
 
