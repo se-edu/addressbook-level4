@@ -105,11 +105,16 @@ public class PersonListPanelHandle extends GuiHandle {
         }
 
         Set<Node> nodes = getAllCardNodes();
-        Optional<Node> personCardNode = nodes.stream()
-                .filter(n -> new PersonCardHandle(n).isSamePerson(person))
+        Optional<PersonCardHandle> personCardNode = nodes.stream()
+                .map(PersonCardHandle::new)
+                .filter(handle -> handle.isSamePerson(person))
                 .findFirst();
 
-        return new PersonCardHandle(personCardNode.get());
+        // post-condition: since we verified at the start that the person exist in the list,
+        // it must have a corresponding person card, so the person card's node must exist
+        assert personCardNode.isPresent();
+
+        return personCardNode.get();
     }
 
     private Set<Node> getAllCardNodes() {
