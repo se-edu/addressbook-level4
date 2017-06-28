@@ -28,7 +28,7 @@ public class CommandBox extends UiPart<Region> {
         super(FXML);
         this.logic = logic;
         // calls #setStyleToDefault() whenever there is a change to the text of the command box.
-        commandTextField.textProperty().addListener((foo, bar, baz) -> setStyleToDefault());
+        commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
     }
 
     @FXML
