@@ -11,7 +11,6 @@ import javafx.geometry.Point2D;
 import javafx.scene.Node;
 import javafx.scene.control.ListView;
 import seedu.address.TestApp;
-import seedu.address.model.person.Person;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.testutil.TestUtil;
@@ -30,7 +29,7 @@ public class PersonListPanelHandle extends GuiHandle {
     }
 
     /**
-     * Returns the selected person in the list view. Only a maximum of 1 item can be selected at any time.
+     * Returns the selected person in the list view. A maximum of 1 item can be selected at any time.
      */
     public Optional<ReadOnlyPerson> getSelectedPerson() {
         List<ReadOnlyPerson> personList = getListView().getSelectionModel().getSelectedItems();
@@ -97,7 +96,7 @@ public class PersonListPanelHandle extends GuiHandle {
     }
 
     private PersonCardHandle getPersonCardHandle(int index) throws PersonNotFoundException {
-        return getPersonCardHandle(new Person(getListView().getItems().get(index)));
+        return getPersonCardHandle(getPerson(index));
     }
 
     public PersonCardHandle getPersonCardHandle(ReadOnlyPerson person) throws PersonNotFoundException {
@@ -106,11 +105,13 @@ public class PersonListPanelHandle extends GuiHandle {
         }
 
         Set<Node> nodes = getAllCardNodes();
-        Optional<Node> personCardNode = nodes.stream()
-                .filter(n -> new PersonCardHandle(n).isSamePerson(person))
+        Optional<PersonCardHandle> personCardNode = nodes.stream()
+                .map(PersonCardHandle::new)
+                .filter(handle -> handle.isSamePerson(person))
                 .findFirst();
 
-        return new PersonCardHandle(personCardNode.get());
+        assert personCardNode.isPresent();
+        return personCardNode.get();
     }
 
     private Set<Node> getAllCardNodes() {
