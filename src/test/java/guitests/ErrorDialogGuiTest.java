@@ -19,6 +19,7 @@ public class ErrorDialogGuiTest extends AddressBookGuiTest {
     public void showErrorDialogs() {
         GuiRobot guiRobot = new GuiRobot();
 
+        // create a stub exception
         raise(new DataSavingExceptionEvent(new IOException("Stub")));
 
         guiRobot.waitForEvent(() -> guiRobot.isWindowShown(ERROR_DIALOG_STAGE_TITLE));
