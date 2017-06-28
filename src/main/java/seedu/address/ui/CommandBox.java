@@ -27,6 +27,8 @@ public class CommandBox extends UiPart<Region> {
     public CommandBox(Logic logic) {
         super(FXML);
         this.logic = logic;
+        // calls #setStyleToIndicateCommandSuccess() whenever there is a change to the text of the command box.
+        commandTextField.textProperty().addListener((foo, bar, baz) -> setStyleToIndicateCommandSuccess());
     }
 
     @FXML
@@ -35,7 +37,6 @@ public class CommandBox extends UiPart<Region> {
             CommandResult commandResult = logic.execute(commandTextField.getText());
 
             // process result of the command
-            setStyleToIndicateCommandSuccess();
             commandTextField.setText("");
             logger.info("Result: " + commandResult.feedbackToUser);
             raise(new NewResultAvailableEvent(commandResult.feedbackToUser));
