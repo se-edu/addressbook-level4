@@ -28,9 +28,7 @@ public class ListElementPointerTest {
 
     @Test
     public void constructor_nonEmptyList() {
-        List<String> copy = Arrays.asList(FIRST_ELEMENT, SECOND_ELEMENT);
         iterator = new ListElementPointer(POINTER_ELEMENTS);
-        assertEquals(copy, POINTER_ELEMENTS);
 
         assertCurrentSuccess(SECOND_ELEMENT);
 
@@ -84,8 +82,8 @@ public class ListElementPointerTest {
     }
 
     /**
-     * Calls {@code iterator#next()} and checks that {@code iterator#hasNext()} returns true
-     * and the return value of {@code iterator#next()} equals to {@code element}.
+     * Asserts that {@code iterator#hasNext()} returns true and the return value
+     * of {@code iterator#next()} equals to {@code element}.
      */
     private void assertNextSuccess(String element) {
         assertTrue(iterator.hasNext());
@@ -93,8 +91,8 @@ public class ListElementPointerTest {
     }
 
     /**
-     * Calls {@code iterator#previous()} and checks that {@code iterator#hasPrevious()} returns true
-     * and the return value of {@code iterator#previous()} equals to {@code element}.
+     * Asserts that {@code iterator#hasPrevious()} returns true and the return value
+     * of {@code iterator#previous()} equals to {@code element}.
      */
     private void assertPreviousSuccess(String element) {
         assertTrue(iterator.hasPrevious());
@@ -102,8 +100,8 @@ public class ListElementPointerTest {
     }
 
     /**
-     * Calls {@code iterator#current()} and checks that {@code iterator#hasCurrent()} returns true
-     * and the return value of {@code iterator#current()} equals to {@code element}.
+     * Asserts that {@code iterator#hasCurrent()} returns true and the return value
+     * of {@code iterator#current()} equals to {@code element}.
      */
     private void assertCurrentSuccess(String element) {
         assertTrue(iterator.hasCurrent());

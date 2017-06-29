@@ -1,6 +1,6 @@
 package seedu.address.logic;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -17,7 +17,7 @@ import java.util.NoSuchElementException;
  * construction. As such, when #add(String) is called, the original list remains unmodified.
  */
 public class ListElementPointer {
-    private List<String> list;
+    private LinkedList<String> list;
     private int index;
 
     /**
@@ -25,7 +25,7 @@ public class ListElementPointer {
      * The cursor points to the last element in {@code list}.
      */
     public ListElementPointer(List<String> list) {
-        this.list = new ArrayList<>(list);
+        this.list = new LinkedList<>(list);
         index = this.list.size() - 1;
     }
 
@@ -75,7 +75,7 @@ public class ListElementPointer {
     }
 
     /**
-     * Returns the previous element in the list moves the cursor position backwards.
+     * Returns the previous element in the list and moves the cursor position backwards.
      * @throws NoSuchElementException if there is no more previous element in the list.
      */
     public String previous() {
