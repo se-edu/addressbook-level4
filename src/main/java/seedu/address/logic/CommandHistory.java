@@ -24,9 +24,9 @@ public class CommandHistory {
     }
 
     /**
-     * Returns a defensive copy of {@code userInputHistory}.
+     * Returns a defensive copy of {@code userInputHistory} as a {@code HistoryIterator}.
      */
-    public List<String> getHistory() {
-        return new ArrayList<>(userInputHistory);
+    public HistoryIterator<String> getHistory() {
+        return new HistoryIterator<>(userInputHistory);
     }
 }
