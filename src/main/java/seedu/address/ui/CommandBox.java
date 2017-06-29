@@ -1,6 +1,5 @@
 package seedu.address.ui;
 
-import java.util.List;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
@@ -10,7 +9,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.NewResultAvailableEvent;
-import seedu.address.logic.ListElementPointer;
+import seedu.address.logic.HistoryIterator;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -23,7 +22,7 @@ public class CommandBox extends UiPart<Region> {
 
     private final Logger logger = LogsCenter.getLogger(CommandBox.class);
     private final Logic logic;
-    private ListElementPointer<String> pointer;
+    private HistoryIterator<String> history;
 
     @FXML
     private TextField commandTextField;
@@ -31,7 +30,7 @@ public class CommandBox extends UiPart<Region> {
     public CommandBox(Logic logic) {
         super(FXML);
         this.logic = logic;
-        pointer = new ListElementPointer<>(logic.getUserInputHistory());
+        history = logic.getUserInputHistory();
     }
 
     @FXML
@@ -54,25 +53,29 @@ public class CommandBox extends UiPart<Region> {
     }
 
     /**
-     * Retrieves the previous input from the current cursor in {@code pointer}
-     * and updates the text field with it. Moves the cursor in {@code pointer} backward by 1.
+     * Retrieves the previous input from the current cursor in {@code history}
+     * and updates the text field with it. Moves the cursor in {@code history} backward by 1.
      */
     private void navigateToPreviousInput() {
-        assert pointer != null;
-        if (!pointer.hasPrevious()) {
+        assert history != null;
+        if (!history.hasPrevious()) {
             return;
         }
 
-        setText(pointer.previous());
+        setText(history.previous());
     }
 
     /**
-     * Retrieves the next input from the current cursor in {@code pointer}
-     * and updates the text field with it. Moves the cursor in {@code pointer} forward by 1.
+     * Retrieves the next input from the current cursor in {@code history}
+     * and updates the text field with it. Moves the cursor in {@code history} forward by 1.
      */
     private void navigateToNextInput() {
-        assert pointer != null;
-        setText(!pointer.hasNext() ? "" : pointer.next());
+        assert history != null;
+        if (!history.hasNext()) {
+            return;
+        }
+
+        setText(history.next());
     }
 
     /**
@@ -88,7 +91,7 @@ public class CommandBox extends UiPart<Region> {
     private void handleCommandInputChanged() {
         try {
             CommandResult commandResult = logic.execute(commandTextField.getText());
-
+            initHistory(false);
             // process result of the command
             setStyleToIndicateCommandSuccess();
             commandTextField.setText("");
@@ -96,20 +99,24 @@ public class CommandBox extends UiPart<Region> {
             raise(new NewResultAvailableEvent(commandResult.feedbackToUser));
 
         } catch (CommandException | ParseException e) {
+            initHistory(true);
             // handle command failure
             setStyleToIndicateCommandFailure();
             logger.info("Invalid command: " + commandTextField.getText());
             raise(new NewResultAvailableEvent(e.getMessage()));
-        } finally {
-            List<String> userInputHistory = logic.getUserInputHistory();
-            // causes history to return an empty string upon pressing the down button after the last user input
-            // has been returned
-            userInputHistory.add("");
-
-            pointer = new ListElementPointer<>(userInputHistory, userInputHistory.size() - 1);
         }
     }
 
+    private void initHistory(boolean isError) {
+        history = logic.getUserInputHistory();
+        // add an empty string to represent the most-recent end of history, to be shown to
+        // the user if she tries to navigate past the most-recent end of the history.
+        history.add("");
+
+        if (!isError) {
+            history.next();
+        }
+    }
 
     /**
      * Sets the command box style to indicate a successful command.

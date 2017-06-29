@@ -1,7 +1,5 @@
 package seedu.address.logic;
 
-import java.util.List;
-
 import javafx.collections.ObservableList;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -25,5 +23,5 @@ public interface Logic {
     ObservableList<ReadOnlyPerson> getFilteredPersonList();
 
     /** Returns the list of input entered by the user */
-    List<String> getUserInputHistory();
+    HistoryIterator<String> getUserInputHistory();
 }
