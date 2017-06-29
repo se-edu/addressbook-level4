@@ -22,7 +22,7 @@ public class SelectCommand extends Command {
 
     public static final String MESSAGE_SELECT_PERSON_SUCCESS = "Selected Person: %1$s";
 
-    public final Index targetIndex;
+    private final Index targetIndex;
 
     public SelectCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
@@ -42,4 +42,10 @@ public class SelectCommand extends Command {
 
     }
 
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof SelectCommand // instanceof handles nulls
+                && this.targetIndex.equals(((SelectCommand) other).targetIndex)); // state check
+    }
 }
