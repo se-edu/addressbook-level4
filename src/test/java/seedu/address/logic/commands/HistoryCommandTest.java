@@ -35,7 +35,7 @@ public class HistoryCommandTest {
         history.add(command3);
 
         String expectedMessage = String.format(HistoryCommand.MESSAGE_SUCCESS,
-                String.join("\n", command1, command2, command3));
+                String.join("\n", command3, command2, command1));
 
         assertCommandResult(historyCommand, expectedMessage);
     }
