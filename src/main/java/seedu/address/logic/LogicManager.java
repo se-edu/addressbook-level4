@@ -37,7 +37,7 @@ public class LogicManager extends ComponentManager implements Logic {
             command.setData(model, history);
             return command.execute();
         } finally {
-            history.add(commandText);
+            history.addFirst(commandText);
         }
     }
 
