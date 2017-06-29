@@ -14,11 +14,21 @@ public class AlertDialogHandle extends GuiHandle {
         super(dialogTitle);
     }
 
+    private DialogPane getDialogPane() {
+        return getNode("#" + UiManager.ALERT_DIALOG_PANE_FIELD_ID);
+    }
+
+    public String getHeaderText() {
+        return getDialogPane().getHeaderText();
+    }
+
+    public String getContentText() {
+        return getDialogPane().getContentText();
+    }
+
     public boolean isMatching(String headerMessage, String contentMessage) {
         checkArgument(intermediateStage.isPresent(), "Alert dialog is not present");
-        DialogPane dialogPane = getNode("#" + UiManager.ALERT_DIALOG_PANE_FIELD_ID);
-        boolean isMatching = dialogPane.getHeaderText().equals(headerMessage)
-                && dialogPane.getContentText().equals(contentMessage);
+        boolean isMatching = getHeaderText().equals(headerMessage) && getContentText().equals(contentMessage);
         return isMatching;
     }
 }
