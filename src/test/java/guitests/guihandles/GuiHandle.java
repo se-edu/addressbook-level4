@@ -39,7 +39,6 @@ public class GuiHandle {
             return;
         }
         intermediateStage = Optional.ofNullable((Stage) window.get());
-        guiRobot.targetWindow(window.get());
         guiRobot.interact(() -> window.get().requestFocus());
         logger.info("Finishing focus " + stageTitle);
     }
@@ -67,7 +66,6 @@ public class GuiHandle {
             return;
         }
 
-        guiRobot.targetWindow(window.get());
         guiRobot.interact(() -> ((Stage) window.get()).close());
         focusOnMainApp();
     }
