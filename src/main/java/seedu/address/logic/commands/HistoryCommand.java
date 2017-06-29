@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Collections;
 import java.util.List;
 
 import seedu.address.logic.CommandHistory;
@@ -13,7 +14,7 @@ import seedu.address.model.Model;
 public class HistoryCommand extends Command {
 
     public static final String COMMAND_WORD = "history";
-    public static final String MESSAGE_SUCCESS = "Entered commands (from earliest to most recent):\n%1$s";
+    public static final String MESSAGE_SUCCESS = "Entered commands (from most recent to earliest):\n%1$s";
     public static final String MESSAGE_NO_HISTORY = "You have not yet entered any commands.";
 
     @Override
@@ -24,6 +25,7 @@ public class HistoryCommand extends Command {
             return new CommandResult(MESSAGE_NO_HISTORY);
         }
 
+        Collections.reverse(previousCommands);
         return new CommandResult(String.format(MESSAGE_SUCCESS, String.join("\n", previousCommands)));
     }
 
