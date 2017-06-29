@@ -3,10 +3,10 @@ package seedu.address.logic;
 import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
- * Stores the history of commands executed.
+ * Stores the history of commands executed. Elements added into this object is always prepended to simulate the
+ * reverse-chronological order of history.
  */
 public class CommandHistory {
     private ArrayList<String> userInputHistory;
@@ -16,11 +16,11 @@ public class CommandHistory {
     }
 
     /**
-     * Appends {@code userInput} to the list of user input entered.
+     * Prepends {@code userInput} to the list of user input entered.
      */
-    public void add(String userInput) {
+    public void addFirst(String userInput) {
         requireNonNull(userInput);
-        userInputHistory.add(userInput);
+        userInputHistory.add(0, userInput);
     }
 
     /**
