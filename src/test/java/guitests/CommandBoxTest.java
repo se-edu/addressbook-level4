@@ -52,6 +52,18 @@ public class CommandBoxTest extends AddressBookGuiTest {
     }
 
     @Test
+    public void commandBox_handleKeyPress() {
+        commandBox.runCommand(COMMAND_THAT_FAILS);
+        assertEquals(errorStyleOfCommandBox, commandBox.getStyleClass());
+        guiRobot.push(KeyCode.ESCAPE);
+        assertEquals(errorStyleOfCommandBox, commandBox.getStyleClass());
+
+        guiRobot.push(KeyCode.A);
+        guiRobot.pauseForHuman();
+        assertEquals(defaultStyleOfCommandBox, commandBox.getStyleClass());
+    }
+
+    @Test
     public void handleKeyPress_startingWithUp() {
         // empty history
         assertInputHistory(KeyCode.UP, "");
