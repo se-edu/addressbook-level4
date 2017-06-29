@@ -102,14 +102,14 @@ public abstract class AddressBookGuiTest {
     }
 
     @After
-    public void cleanup() throws TimeoutException {
+    public void cleanup() throws Exception {
         FxToolkit.cleanupStages();
     }
 
     /**
      * Asserts the person shown in the card is same as the given person
      */
-    protected void assertMatching(ReadOnlyPerson person, PersonCardHandle card) {
+    protected void assertCardMatchesPerson(PersonCardHandle card, ReadOnlyPerson person) {
         assertTrue(TestUtil.compareCardAndPerson(card, person));
     }
 
