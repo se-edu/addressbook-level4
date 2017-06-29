@@ -6,9 +6,9 @@ import org.junit.runners.model.Statement;
 import org.testfx.api.FxToolkit;
 
 /**
- * Properly sets up and tears down JavaFx for our testing purposes.
+ * Properly sets up and tears down a JavaFx stage for our testing purposes.
  */
-public class TestFxRule implements TestRule {
+public class StageRule implements TestRule {
     protected void before() throws Throwable {
         FxToolkit.registerPrimaryStage();
     }

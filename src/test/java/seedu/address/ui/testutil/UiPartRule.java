@@ -9,9 +9,9 @@ import javafx.scene.Scene;
 import seedu.address.ui.UiPart;
 
 /**
- * Provides an isolated scene to test an individual {@code UiPart}.
+ * Provides an isolated stage to test an individual {@code UiPart}.
  */
-public class UiPartRule extends TestFxRule {
+public class UiPartRule extends StageRule {
     private static final String[] CSS_FILES = {"view/DarkTheme.css", "view/Extensions.css"};
 
     public void setUiPart(final UiPart<? extends Parent> uiPart) throws TimeoutException {
