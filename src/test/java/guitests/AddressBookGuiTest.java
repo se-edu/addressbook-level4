@@ -57,7 +57,7 @@ public abstract class AddressBookGuiTest {
     protected Stage stage;
 
     @BeforeClass
-    public static void setupSpec() {
+    public static void setupOnce() {
         try {
             FxToolkit.registerPrimaryStage();
             FxToolkit.hideStage();
