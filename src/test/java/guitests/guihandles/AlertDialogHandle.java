@@ -16,10 +16,16 @@ public class AlertDialogHandle extends GuiHandle {
         return getNode("#" + UiManager.ALERT_DIALOG_PANE_FIELD_ID);
     }
 
+    /**
+     * Returns the text of the header in the {@code AlertDialog}.
+     */
     public String getHeaderText() {
         return getDialogPane().getHeaderText();
     }
 
+    /**
+     * Returns the text of the content in the {@code AlertDialog}.
+     */
     public String getContentText() {
         return getDialogPane().getContentText();
     }
