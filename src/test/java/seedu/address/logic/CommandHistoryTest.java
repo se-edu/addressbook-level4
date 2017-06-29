@@ -16,12 +16,13 @@ public class CommandHistoryTest {
     }
 
     @Test
-    public void add() {
+    public void addFirst() {
         final String validCommand = "clear";
         final String invalidCommand = "adds Bob";
 
         history.addFirst(validCommand);
         history.addFirst(invalidCommand);
-        assertEquals(Arrays.asList(invalidCommand, validCommand), history.getHistory());
+        HistoryIterator expectedIterator = new HistoryIterator(Arrays.asList(invalidCommand, validCommand));
+        assertEquals(expectedIterator, history.getHistory());
     }
 }
