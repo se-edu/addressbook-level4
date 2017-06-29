@@ -1,7 +1,5 @@
 package guitests.guihandles;
 
-import static seedu.address.commons.util.AppUtil.checkArgument;
-
 import javafx.scene.control.DialogPane;
 import seedu.address.ui.UiManager;
 
@@ -30,11 +28,5 @@ public class AlertDialogHandle extends GuiHandle {
      */
     public String getContentText() {
         return getDialogPane().getContentText();
-    }
-
-    public boolean isMatching(String headerMessage, String contentMessage) {
-        checkArgument(intermediateStage.isPresent(), "Alert dialog is not present");
-        boolean isMatching = getHeaderText().equals(headerMessage) && getContentText().equals(contentMessage);
-        return isMatching;
     }
 }
