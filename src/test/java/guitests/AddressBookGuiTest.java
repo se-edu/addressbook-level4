@@ -57,7 +57,7 @@ public abstract class AddressBookGuiTest {
     protected Stage stage;
 
     @BeforeClass
-    public static void setupSpec() {
+    public static void setupOnce() {
         try {
             FxToolkit.registerPrimaryStage();
             FxToolkit.hideStage();
@@ -69,7 +69,7 @@ public abstract class AddressBookGuiTest {
     @Before
     public void setup() throws Exception {
         FxToolkit.setupStage((stage) -> {
-            mainGui = new MainWindowHandle(guiRobot, stage);
+            mainGui = new MainWindowHandle();
             mainMenu = mainGui.getMainMenu();
             personListPanel = mainGui.getPersonListPanel();
             resultDisplay = mainGui.getResultDisplay();
@@ -78,7 +78,7 @@ public abstract class AddressBookGuiTest {
             statusBarFooter = mainGui.getStatusBarFooter();
             this.stage = stage;
         });
-
+        EventsCenter.clearSubscribers();
         FxToolkit.setupApplication(() -> new TestApp(this::getInitialData, getDataFileLocation()));
         FxToolkit.showStage();
         mainGui.focusOnMainApp();
@@ -109,7 +109,7 @@ public abstract class AddressBookGuiTest {
     /**
      * Asserts the person shown in the card is same as the given person
      */
-    public void assertMatching(ReadOnlyPerson person, PersonCardHandle card) {
+    protected void assertMatching(ReadOnlyPerson person, PersonCardHandle card) {
         assertTrue(TestUtil.compareCardAndPerson(card, person));
     }
 
@@ -128,8 +128,8 @@ public abstract class AddressBookGuiTest {
         assertEquals(expected, resultDisplay.getText());
     }
 
-    public void raise(BaseEvent e) {
+    protected void raise(BaseEvent event) {
         //JUnit doesn't run its test cases on the UI thread. Platform.runLater is used to post event on the UI thread.
-        Platform.runLater(() -> EventsCenter.getInstance().post(e));
+        Platform.runLater(() -> EventsCenter.getInstance().post(event));
     }
 }
