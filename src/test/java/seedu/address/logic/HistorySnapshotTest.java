@@ -12,15 +12,15 @@ import java.util.NoSuchElementException;
 
 import org.junit.Test;
 
-public class HistoryIteratorTest {
+public class HistorySnapshotTest {
     private static final String FIRST_ELEMENT = "first";
     private static final String SECOND_ELEMENT = "second";
     private static final List<String> POINTER_ELEMENTS = Arrays.asList(SECOND_ELEMENT, FIRST_ELEMENT);
-    private HistoryIterator iterator;
+    private HistorySnapshot iterator;
 
     @Test
     public void constructor_emptyList() {
-        iterator = new HistoryIterator(Collections.emptyList());
+        iterator = new HistorySnapshot(Collections.emptyList());
         assertCurrentFailure();
         assertPreviousFailure();
         assertNextFailure();
@@ -29,7 +29,7 @@ public class HistoryIteratorTest {
     @Test
     public void constructor_nonEmptyList() {
         List<String> copy = Arrays.asList(SECOND_ELEMENT, FIRST_ELEMENT);
-        iterator = new HistoryIterator(POINTER_ELEMENTS);
+        iterator = new HistorySnapshot(POINTER_ELEMENTS);
         assertEquals(copy, POINTER_ELEMENTS);
 
         assertCurrentSuccess(SECOND_ELEMENT);
@@ -47,7 +47,7 @@ public class HistoryIteratorTest {
 
     @Test
     public void add() {
-        iterator = new HistoryIterator(POINTER_ELEMENTS);
+        iterator = new HistorySnapshot(POINTER_ELEMENTS);
         String thirdElement = "third";
         iterator.add(thirdElement);
 
@@ -63,14 +63,14 @@ public class HistoryIteratorTest {
 
     @Test
     public void equals() {
-        HistoryIterator firstIterator = new HistoryIterator(Collections.singletonList(FIRST_ELEMENT));
-        HistoryIterator secondIterator = new HistoryIterator(Collections.singletonList(SECOND_ELEMENT));
+        HistorySnapshot firstIterator = new HistorySnapshot(Collections.singletonList(FIRST_ELEMENT));
+        HistorySnapshot secondIterator = new HistorySnapshot(Collections.singletonList(SECOND_ELEMENT));
 
         // same object -> returns true
         assertTrue(firstIterator.equals(firstIterator));
 
         // same values -> returns true
-        HistoryIterator firstIteratorCopy = new HistoryIterator(Collections.singletonList(FIRST_ELEMENT));
+        HistorySnapshot firstIteratorCopy = new HistorySnapshot(Collections.singletonList(FIRST_ELEMENT));
         assertTrue(firstIterator.equals(firstIteratorCopy));
 
         // different types -> returns false

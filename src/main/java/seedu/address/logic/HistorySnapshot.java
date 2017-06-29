@@ -6,18 +6,26 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 /**
- * Points to the most recent element added in the {@code CommandHistory}, and is able to iterate through the list.
+ * Has a cursor that points to an element in the list, and is able to iterate through the list.
  * This is different from {@code ListIterator}, which has a cursor that points in between elements.
  * The {@code ListIterator}'s behaviour is as such: when making alternating calls of {@code ListIterator#next()} and
  * {@code ListIterator#previous()}, the same element is returned on both calls.
- * However, {@code HistoryIterator}'s behaviour is as such: when making alternating calls of {@code next()} and
+ * However, {@code HistorySnapshot}'s behaviour is as such: when making alternating calls of {@code next()} and
  * {@code previous()}, the next and previous elements are returned respectively.
+ *
+ * When an element is added or removed from the {@code ListIterator}, the change is reflected in the original list.
+ * However, for {@code HistorySnapshot}, a defensive copy of the list is created and assigned to it during construction.
+ * As such, when #add(String) is called, the original list remains unmodified.
  */
-public class HistoryIterator {
+public class HistorySnapshot {
     private List<String> list;
     private int index;
 
-    public HistoryIterator(List<String> list) {
+    /**
+     * Constructs {@code HistorySnapshot} which is backed by a defensive copy of {@code list}.
+     * The cursor points to the first element in {@code list}.
+     */
+    public HistorySnapshot(List<String> list) {
         this.list = new ArrayList<>(list);
         Collections.reverse(this.list);
         index = this.list.size() - 1;
@@ -58,7 +66,7 @@ public class HistoryIterator {
     }
 
     /**
-     * Returns the next element in the list.
+     * Returns the next element in the list and advances the cursor position.
      * @throws NoSuchElementException if there is no more next element in the list.
      */
     public String next() {
@@ -69,7 +77,7 @@ public class HistoryIterator {
     }
 
     /**
-     * Returns the previous element in the list.
+     * Returns the previous element in the list moves the cursor position backwards.
      * @throws NoSuchElementException if there is no more previous element in the list.
      */
     public String previous() {
@@ -81,7 +89,7 @@ public class HistoryIterator {
 
     /**
      * Returns the current element in the list.
-     * @throws NoSuchElementException if there is no more previous element in the list.
+     * @throws NoSuchElementException if the list is empty.
      */
     public String current() {
         if (!hasCurrent()) {
@@ -98,12 +106,12 @@ public class HistoryIterator {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof HistoryIterator)) {
+        if (!(other instanceof HistorySnapshot)) {
             return false;
         }
 
         // state check
-        HistoryIterator iterator = (HistoryIterator) other;
+        HistorySnapshot iterator = (HistorySnapshot) other;
         return list.equals(iterator.list) && index == iterator.index;
     }
 }

@@ -7,7 +7,7 @@ import java.util.Collections;
 import java.util.List;
 
 import seedu.address.logic.CommandHistory;
-import seedu.address.logic.HistoryIterator;
+import seedu.address.logic.HistorySnapshot;
 import seedu.address.model.Model;
 
 /**
@@ -21,7 +21,7 @@ public class HistoryCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        HistoryIterator previousCommands = history.getHistory();
+        HistorySnapshot previousCommands = history.getHistory();
 
         if (!previousCommands.hasCurrent()) {
             return new CommandResult(MESSAGE_NO_HISTORY);
@@ -37,7 +37,7 @@ public class HistoryCommand extends Command {
         this.history = history;
     }
 
-    private List<String> getReversedCommands(HistoryIterator iterator) {
+    private List<String> getReversedCommands(HistorySnapshot iterator) {
         List<String> list = new ArrayList<>();
         list.add(iterator.current());
 

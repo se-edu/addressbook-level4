@@ -9,7 +9,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.NewResultAvailableEvent;
-import seedu.address.logic.HistoryIterator;
+import seedu.address.logic.HistorySnapshot;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -22,7 +22,7 @@ public class CommandBox extends UiPart<Region> {
 
     private final Logger logger = LogsCenter.getLogger(CommandBox.class);
     private final Logic logic;
-    private HistoryIterator history;
+    private HistorySnapshot historySnapshot;
 
     @FXML
     private TextField commandTextField;
@@ -30,7 +30,7 @@ public class CommandBox extends UiPart<Region> {
     public CommandBox(Logic logic) {
         super(FXML);
         this.logic = logic;
-        history = logic.getUserInputHistory();
+        historySnapshot = logic.getHistorySnapshot();
     }
 
     @FXML
@@ -53,29 +53,29 @@ public class CommandBox extends UiPart<Region> {
     }
 
     /**
-     * Retrieves the previous input from the current cursor in {@code history}
-     * and updates the text field with it. Moves the cursor in {@code history} backward by 1.
+     * Updates the text field with the previous input in {@code historySnapshot},
+     * if there exists a previous input in {@code historySnapshot}
      */
     private void navigateToPreviousInput() {
-        assert history != null;
-        if (!history.hasPrevious()) {
+        assert historySnapshot != null;
+        if (!historySnapshot.hasPrevious()) {
             return;
         }
 
-        setText(history.previous());
+        setText(historySnapshot.previous());
     }
 
     /**
-     * Retrieves the next input from the current cursor in {@code history}
-     * and updates the text field with it. Moves the cursor in {@code history} forward by 1.
+     * Updates the text field with the next input in {@code historySnapshot},
+     * if there exists a next input in {@code historySnapshot}
      */
     private void navigateToNextInput() {
-        assert history != null;
-        if (!history.hasNext()) {
+        assert historySnapshot != null;
+        if (!historySnapshot.hasNext()) {
             return;
         }
 
-        setText(history.next());
+        setText(historySnapshot.next());
     }
 
     /**
@@ -91,7 +91,8 @@ public class CommandBox extends UiPart<Region> {
     private void handleCommandInputChanged() {
         try {
             CommandResult commandResult = logic.execute(commandTextField.getText());
-            initHistory(false);
+            initHistory();
+            historySnapshot.next();
             // process result of the command
             setStyleToIndicateCommandSuccess();
             commandTextField.setText("");
@@ -99,7 +100,7 @@ public class CommandBox extends UiPart<Region> {
             raise(new NewResultAvailableEvent(commandResult.feedbackToUser));
 
         } catch (CommandException | ParseException e) {
-            initHistory(true);
+            initHistory();
             // handle command failure
             setStyleToIndicateCommandFailure();
             logger.info("Invalid command: " + commandTextField.getText());
@@ -107,15 +108,11 @@ public class CommandBox extends UiPart<Region> {
         }
     }
 
-    private void initHistory(boolean isError) {
-        history = logic.getUserInputHistory();
-        // add an empty string to represent the most-recent end of history, to be shown to
-        // the user if she tries to navigate past the most-recent end of the history.
-        history.add("");
-
-        if (!isError) {
-            history.next();
-        }
+    private void initHistory() {
+        historySnapshot = logic.getHistorySnapshot();
+        // add an empty string to represent the most-recent end of historySnapshot, to be shown to
+        // the user if she tries to navigate past the most-recent end of the historySnapshot.
+        historySnapshot.add("");
     }
 
     /**

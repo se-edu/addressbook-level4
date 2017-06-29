@@ -37,7 +37,7 @@ public class LogicManager extends ComponentManager implements Logic {
             command.setData(model, history);
             return command.execute();
         } finally {
-            history.addFirst(commandText);
+            history.add(commandText);
         }
     }
 
@@ -47,7 +47,7 @@ public class LogicManager extends ComponentManager implements Logic {
     }
 
     @Override
-    public HistoryIterator getUserInputHistory() {
+    public HistorySnapshot getHistorySnapshot() {
         return history.getHistory();
     }
 }
