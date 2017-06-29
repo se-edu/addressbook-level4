@@ -1,6 +1,6 @@
 package seedu.address.logic;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -17,7 +17,7 @@ import java.util.NoSuchElementException;
  * construction. As such, when #add(String) is called, the original list remains unmodified.
  */
 public class ListElementPointer {
-    private LinkedList<String> list;
+    private ArrayList<String> list;
     private int index;
 
     /**
@@ -25,7 +25,7 @@ public class ListElementPointer {
      * The cursor points to the last element in {@code list}.
      */
     public ListElementPointer(List<String> list) {
-        this.list = new LinkedList<>(list);
+        this.list = new ArrayList<>(list); // copy to ensure that #add(String) operation is supported
         index = this.list.size() - 1;
     }
 

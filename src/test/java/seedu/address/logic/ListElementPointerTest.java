@@ -16,11 +16,11 @@ public class ListElementPointerTest {
     private static final String FIRST_ELEMENT = "first";
     private static final String SECOND_ELEMENT = "second";
     private static final List<String> POINTER_ELEMENTS = Arrays.asList(FIRST_ELEMENT, SECOND_ELEMENT);
-    private ListElementPointer iterator;
+    private ListElementPointer pointer;
 
     @Test
     public void constructor_emptyList() {
-        iterator = new ListElementPointer(Collections.emptyList());
+        pointer = new ListElementPointer(Collections.emptyList());
         assertCurrentFailure();
         assertPreviousFailure();
         assertNextFailure();
@@ -28,7 +28,7 @@ public class ListElementPointerTest {
 
     @Test
     public void constructor_nonEmptyList() {
-        iterator = new ListElementPointer(POINTER_ELEMENTS);
+        pointer = new ListElementPointer(POINTER_ELEMENTS);
 
         assertCurrentSuccess(SECOND_ELEMENT);
 
@@ -45,9 +45,9 @@ public class ListElementPointerTest {
 
     @Test
     public void add() {
-        iterator = new ListElementPointer(POINTER_ELEMENTS);
+        pointer = new ListElementPointer(POINTER_ELEMENTS);
         String thirdElement = "third";
-        iterator.add(thirdElement);
+        pointer.add(thirdElement);
 
         assertCurrentSuccess(SECOND_ELEMENT);
 
@@ -61,61 +61,65 @@ public class ListElementPointerTest {
 
     @Test
     public void equals() {
-        ListElementPointer firstIterator = new ListElementPointer(Collections.singletonList(FIRST_ELEMENT));
-        ListElementPointer secondIterator = new ListElementPointer(Collections.singletonList(SECOND_ELEMENT));
+        ListElementPointer firstPointer = new ListElementPointer(Arrays.asList(FIRST_ELEMENT, SECOND_ELEMENT));
 
         // same object -> returns true
-        assertTrue(firstIterator.equals(firstIterator));
+        assertTrue(firstPointer.equals(firstPointer));
 
         // same values -> returns true
-        ListElementPointer firstIteratorCopy = new ListElementPointer(Collections.singletonList(FIRST_ELEMENT));
-        assertTrue(firstIterator.equals(firstIteratorCopy));
+        ListElementPointer firstPointerCopy = new ListElementPointer(Arrays.asList(FIRST_ELEMENT, SECOND_ELEMENT));
+        assertTrue(firstPointer.equals(firstPointerCopy));
 
         // different types -> returns false
-        assertFalse(firstIterator.equals(1));
+        assertFalse(firstPointer.equals(1));
 
         // null -> returns false
-        assertFalse(firstIterator.equals(null));
+        assertFalse(firstPointer.equals(null));
 
-        // different person -> returns false
-        assertFalse(firstIterator.equals(secondIterator));
+        // different elements -> returns false
+        ListElementPointer differentElementPointer = new ListElementPointer(Collections.singletonList(SECOND_ELEMENT));
+        assertFalse(firstPointer.equals(differentElementPointer));
+
+        // different index -> returns false
+        firstPointerCopy.previous();
+        assertFalse(firstPointer.equals(firstPointerCopy));
     }
 
     /**
-     * Asserts that {@code iterator#hasNext()} returns true and the return value
-     * of {@code iterator#next()} equals to {@code element}.
+     * Asserts that {@code pointer#hasNext()} returns true and the return value
+     * of {@code pointer#next()} equals to {@code element}.
      */
     private void assertNextSuccess(String element) {
-        assertTrue(iterator.hasNext());
-        assertEquals(element, iterator.next());
+        assertTrue(pointer.hasNext());
+        assertEquals(element, pointer.next());
     }
 
     /**
-     * Asserts that {@code iterator#hasPrevious()} returns true and the return value
-     * of {@code iterator#previous()} equals to {@code element}.
+     * Asserts that {@code pointer#hasPrevious()} returns true and the return value
+     * of {@code pointer#previous()} equals to {@code element}.
      */
     private void assertPreviousSuccess(String element) {
-        assertTrue(iterator.hasPrevious());
-        assertEquals(element, iterator.previous());
+        assertTrue(pointer.hasPrevious());
+        assertEquals(element, pointer.previous());
     }
 
     /**
-     * Asserts that {@code iterator#hasCurrent()} returns true and the return value
-     * of {@code iterator#current()} equals to {@code element}.
+     * Asserts that {@code pointer#hasCurrent()} returns true and the return value
+     * of {@code pointer#current()} equals to {@code element}.
      */
     private void assertCurrentSuccess(String element) {
-        assertTrue(iterator.hasCurrent());
-        assertEquals(element, iterator.current());
+        assertTrue(pointer.hasCurrent());
+        assertEquals(element, pointer.current());
     }
 
     /**
-     * Asserts that {@code iterator#hasNext()} returns false and the following
-     * {@code iterator#next()} call throws {@code NoSuchElementException}.
+     * Asserts that {@code pointer#hasNext()} returns false and the following
+     * {@code pointer#next()} call throws {@code NoSuchElementException}.
      */
     private void assertNextFailure() {
-        assertFalse(iterator.hasNext());
+        assertFalse(pointer.hasNext());
         try {
-            iterator.next();
+            pointer.next();
             fail("The expected NoSuchElementException was not thrown");
         } catch (NoSuchElementException e) {
             // expected exception thrown
@@ -123,13 +127,13 @@ public class ListElementPointerTest {
     }
 
     /**
-     * Asserts that {@code iterator#hasPrevious()} returns false and the following
-     * {@code iterator#previous()} call throws {@code NoSuchElementException}.
+     * Asserts that {@code pointer#hasPrevious()} returns false and the following
+     * {@code pointer#previous()} call throws {@code NoSuchElementException}.
      */
     private void assertPreviousFailure() {
-        assertFalse(iterator.hasPrevious());
+        assertFalse(pointer.hasPrevious());
         try {
-            iterator.previous();
+            pointer.previous();
             fail("The expected NoSuchElementException was not thrown");
         } catch (NoSuchElementException e) {
             // expected exception thrown
@@ -137,13 +141,13 @@ public class ListElementPointerTest {
     }
 
     /**
-     * Asserts that {@code iterator#hasCurrent()} returns false and the following
-     * {@code iterator#current()} call throws {@code NoSuchElementException}.
+     * Asserts that {@code pointer#hasCurrent()} returns false and the following
+     * {@code pointer#current()} call throws {@code NoSuchElementException}.
      */
     private void assertCurrentFailure() {
-        assertFalse(iterator.hasCurrent());
+        assertFalse(pointer.hasCurrent());
         try {
-            iterator.current();
+            pointer.current();
             fail("The expected NoSuchElementException was not thrown");
         } catch (NoSuchElementException e) {
             // expected exception thrown
