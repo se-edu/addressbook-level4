@@ -102,7 +102,7 @@ public abstract class AddressBookGuiTest {
     }
 
     @After
-    public void cleanup() throws TimeoutException {
+    public void cleanup() throws Exception {
         FxToolkit.cleanupStages();
     }
 
