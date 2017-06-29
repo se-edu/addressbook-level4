@@ -72,8 +72,6 @@ public class CommandBoxTest extends AddressBookGuiTest {
         // one command
         commandBox.runCommand(COMMAND_THAT_SUCCEEDS);
         assertInputHistory(KeyCode.UP, COMMAND_THAT_SUCCEEDS);
-        assertInputHistory(KeyCode.UP, COMMAND_THAT_SUCCEEDS);
-        assertInputHistory(KeyCode.DOWN, "");
         assertInputHistory(KeyCode.DOWN, "");
 
         // two commands

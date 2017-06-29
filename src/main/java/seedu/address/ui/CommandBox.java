@@ -64,7 +64,7 @@ public class CommandBox extends UiPart<Region> {
             return;
         }
 
-        setText(historySnapshot.previous());
+        replaceText(historySnapshot.previous());
     }
 
     /**
@@ -77,14 +77,14 @@ public class CommandBox extends UiPart<Region> {
             return;
         }
 
-        setText(historySnapshot.next());
+        replaceText(historySnapshot.next());
     }
 
     /**
      * Sets {@code CommandBox}'s text field with {@code text} and
      * positions the caret to the end of the {@code text}.
      */
-    private void setText(String text) {
+    private void replaceText(String text) {
         commandTextField.setText(text);
         commandTextField.positionCaret(commandTextField.getText().length());
     }

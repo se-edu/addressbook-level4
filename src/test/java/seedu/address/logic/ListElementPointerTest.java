@@ -5,47 +5,57 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.NoSuchElementException;
 
+import org.junit.Before;
 import org.junit.Test;
 
 public class ListElementPointerTest {
     private static final String FIRST_ELEMENT = "first";
     private static final String SECOND_ELEMENT = "second";
-    private static final List<String> POINTER_ELEMENTS = Arrays.asList(FIRST_ELEMENT, SECOND_ELEMENT);
+    private List<String> pointerElements;
     private ListElementPointer pointer;
 
+    @Before
+    public void setUp() {
+        pointerElements = new ArrayList<>();
+        pointerElements.add(FIRST_ELEMENT);
+        pointerElements.add(SECOND_ELEMENT);
+    }
+
     @Test
-    public void constructor_emptyList() {
-        pointer = new ListElementPointer(Collections.emptyList());
+    public void emptyList() {
+        pointer = new ListElementPointer(new ArrayList<>());
         assertCurrentFailure();
         assertPreviousFailure();
         assertNextFailure();
+
+        pointer.add(FIRST_ELEMENT);
+        assertNextSuccess(FIRST_ELEMENT);
     }
 
     @Test
-    public void constructor_nonEmptyList() {
-        pointer = new ListElementPointer(POINTER_ELEMENTS);
-
-        assertCurrentSuccess(SECOND_ELEMENT);
-
-        assertPreviousSuccess(FIRST_ELEMENT);
-        assertPreviousFailure();
+    public void singleElementList() {
+        List<String> list = new ArrayList<>();
+        list.add(FIRST_ELEMENT);
+        pointer = new ListElementPointer(list);
 
         assertCurrentSuccess(FIRST_ELEMENT);
-
-        assertNextSuccess(SECOND_ELEMENT);
+        assertPreviousFailure();
+        assertCurrentSuccess(FIRST_ELEMENT);
         assertNextFailure();
+        assertCurrentSuccess(FIRST_ELEMENT);
 
-        assertCurrentSuccess(SECOND_ELEMENT);
+        pointer.add(SECOND_ELEMENT);
+        assertNextSuccess(SECOND_ELEMENT);
     }
 
     @Test
-    public void add() {
-        pointer = new ListElementPointer(POINTER_ELEMENTS);
+    public void multipleElementsList() {
+        pointer = new ListElementPointer(pointerElements);
         String thirdElement = "third";
         pointer.add(thirdElement);
 
@@ -61,13 +71,13 @@ public class ListElementPointerTest {
 
     @Test
     public void equals() {
-        ListElementPointer firstPointer = new ListElementPointer(Arrays.asList(FIRST_ELEMENT, SECOND_ELEMENT));
+        ListElementPointer firstPointer = new ListElementPointer(pointerElements);
 
         // same object -> returns true
         assertTrue(firstPointer.equals(firstPointer));
 
         // same values -> returns true
-        ListElementPointer firstPointerCopy = new ListElementPointer(Arrays.asList(FIRST_ELEMENT, SECOND_ELEMENT));
+        ListElementPointer firstPointerCopy = new ListElementPointer(pointerElements);
         assertTrue(firstPointer.equals(firstPointerCopy));
 
         // different types -> returns false

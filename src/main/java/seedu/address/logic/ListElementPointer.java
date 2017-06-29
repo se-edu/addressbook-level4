@@ -1,23 +1,18 @@
 package seedu.address.logic;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
 /**
  * Has a cursor that points to an element in the list, and is able to iterate through the list.
  * This is different from {@code ListIterator}, which has a cursor that points in between elements.
- * The {@code ListIterator}'s behaviour is as such: when making alternating calls of {@code ListIterator#next()} and
- * {@code ListIterator#previous()}, the same element is returned on both calls.
- * However, {@code ListElementPointer}'s behaviour is as such: when making alternating calls of {@code next()} and
- * {@code previous()}, the next and previous elements are returned respectively.
- *
- * When an element is added or removed from the {@code ListIterator}, the change is reflected in the original list.
- * However, for {@code ListElementPointer}, a defensive copy of the list is created and assigned to it during
- * construction. As such, when #add(String) is called, the original list remains unmodified.
+ * The {@code ListIterator}'s behaviour: when making alternating calls of {@code next()} and
+ * {@code previous()}, the same element is returned on both calls.
+ * In contrast, {@code ListElementPointer}'s behaviour: when making alternating calls of
+ * {@code next()} and {@code previous()}, the next and previous elements are returned respectively.
  */
 public class ListElementPointer {
-    private ArrayList<String> list;
+    private List<String> list;
     private int index;
 
     /**
@@ -25,7 +20,7 @@ public class ListElementPointer {
      * The cursor points to the last element in {@code list}.
      */
     public ListElementPointer(List<String> list) {
-        this.list = new ArrayList<>(list); // copy to ensure that #add(String) operation is supported
+        this.list = list;
         index = this.list.size() - 1;
     }
 
