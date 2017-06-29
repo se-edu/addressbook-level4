@@ -1,6 +1,7 @@
 package seedu.address.ui;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -10,7 +11,6 @@ import guitests.guihandles.PersonCardHandle;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.testutil.PersonBuilder;
-import seedu.address.testutil.TestUtil;
 import seedu.address.ui.testutil.UiPartRule;
 
 public class PersonCardTest {
@@ -23,23 +23,19 @@ public class PersonCardTest {
         GuiRobot guiRobot = new GuiRobot();
 
         // no tags
-        Person johnDoe = new PersonBuilder().withName("John Doe").withPhone("95458425")
-                .withEmail("johndoe@email.com").withAddress("4th Street").build();
-        assertCardDisplay(1, johnDoe);
+        Person personWithNoTags = new PersonBuilder().withTags(new String[0]).build();
+        assertCardDisplay(1, personWithNoTags);
         guiRobot.pauseForHuman();
 
         // with tags
-        Person janeDoe = new PersonBuilder().withName("Jane Doe").withPhone("91043245")
-                .withEmail("janedoe@email.com").withAddress("6th Street").withTags("friends").build();
-        assertCardDisplay(2, janeDoe);
+        Person personWithTags = new PersonBuilder().build();
+        assertCardDisplay(2, personWithTags);
         guiRobot.pauseForHuman();
     }
 
     /**
-     * Asserts that the card displays the details correctly, given a valid person.
-     *
-     * @param validId of the person in the card list
-     * @param validPerson contact details
+     * Asserts that the card in {@code validId} in the card list displays the contact
+     * details of {@code validPerson}.
      */
     private void assertCardDisplay(int validId, ReadOnlyPerson validPerson) throws Exception {
 
@@ -52,13 +48,6 @@ public class PersonCardTest {
         assertEquals(Integer.toString(validId) + ". ", personCardHandle.getId());
 
         // verify person details are displayed correctly
-        assertEquals(validPerson.getName().toString(), personCardHandle.getFullName());
-        assertEquals(validPerson.getPhone().toString(), personCardHandle.getPhone());
-        assertEquals(validPerson.getAddress().toString(), personCardHandle.getAddress());
-        assertEquals(validPerson.getEmail().toString(), personCardHandle.getEmail());
-
-        // verify tags are displayed correctly
-        assertEquals(TestUtil.getTagsAsStringsList(validPerson.getTags()), personCardHandle.getTags());
-
+        assertTrue(personCardHandle.isSamePerson(validPerson));
     }
 }

@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import guitests.guihandles.PersonCardHandle;
 import javafx.geometry.Bounds;
@@ -168,9 +169,7 @@ public class TestUtil {
      * Returns the tags as a {@code List<String>}.
      */
     public static List<String> getTagsAsStringsList(Set<Tag> tags) {
-        List<String> tagsList = new ArrayList<>();
-        tags.forEach((tag) -> tagsList.add(tag.tagName));
-        return tagsList;
+        return tags.stream().map(tag -> tag.tagName).collect(Collectors.toList());
     }
 
 }
