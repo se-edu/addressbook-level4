@@ -6,24 +6,27 @@ import java.util.List;
 import java.util.NoSuchElementException;
 
 /**
- * Points to the last element in the {@code list}, and is able to iterate through the list.
+ * Points to the most recent element added in the {@code CommandHistory}, and is able to iterate through the list.
  * This is different from {@code ListIterator}, which has a cursor that points in between elements.
  * The {@code ListIterator}'s behaviour is as such: when making alternating calls of {@code ListIterator#next()} and
  * {@code ListIterator#previous()}, the same element is returned on both calls.
  * However, {@code HistoryIterator}'s behaviour is as such: when making alternating calls of {@code next()} and
  * {@code previous()}, the next and previous elements are returned respectively.
  */
-public class HistoryIterator<T> {
-    private List<T> list;
+public class HistoryIterator {
+    private List<String> list;
     private int index;
 
-    public HistoryIterator(List<T> list) {
-        Collections.reverse(list);
+    public HistoryIterator(List<String> list) {
         this.list = new ArrayList<>(list);
-        index = list.size() - 1;
+        Collections.reverse(this.list);
+        index = this.list.size() - 1;
     }
 
-    public void add(T element) {
+    /**
+     * Appends {@code element} to the end of the list.
+     */
+    public void add(String element) {
         list.add(element);
     }
 
@@ -31,20 +34,20 @@ public class HistoryIterator<T> {
      * Returns true if calling {@code #next()} does not throw an {@code NoSuchElementException}.
      */
     public boolean hasNext() {
-        int upIndex = index + 1;
-        return isWithinBounds(upIndex);
+        int nextIndex = index + 1;
+        return isWithinBounds(nextIndex);
     }
 
     /**
      * Returns true if calling {@code #previous()} does not throw an {@code NoSuchElementException}.
      */
     public boolean hasPrevious() {
-        int downIndex = index - 1;
-        return isWithinBounds(downIndex);
+        int previousIndex = index - 1;
+        return isWithinBounds(previousIndex);
     }
 
     /**
-     * Returns true if calling {@code #previous()} does not throw an {@code NoSuchElementException}.
+     * Returns true if calling {@code #current()} does not throw an {@code NoSuchElementException}.
      */
     public boolean hasCurrent() {
         return isWithinBounds(index);
@@ -58,7 +61,7 @@ public class HistoryIterator<T> {
      * Returns the next element in the list.
      * @throws NoSuchElementException if there is no more next element in the list.
      */
-    public T next() {
+    public String next() {
         if (!hasNext()) {
             throw new NoSuchElementException();
         }
@@ -69,7 +72,7 @@ public class HistoryIterator<T> {
      * Returns the previous element in the list.
      * @throws NoSuchElementException if there is no more previous element in the list.
      */
-    public T previous() {
+    public String previous() {
         if (!hasPrevious()) {
             throw new NoSuchElementException();
         }
@@ -80,7 +83,7 @@ public class HistoryIterator<T> {
      * Returns the current element in the list.
      * @throws NoSuchElementException if there is no more previous element in the list.
      */
-    public T current() {
+    public String current() {
         if (!hasCurrent()) {
             throw new NoSuchElementException();
         }

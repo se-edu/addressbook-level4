@@ -23,5 +23,5 @@ public interface Logic {
     ObservableList<ReadOnlyPerson> getFilteredPersonList();
 
     /** Returns the list of input entered by the user */
-    HistoryIterator<String> getUserInputHistory();
+    HistoryIterator getUserInputHistory();
 }

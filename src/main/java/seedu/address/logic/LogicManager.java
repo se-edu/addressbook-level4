@@ -47,7 +47,7 @@ public class LogicManager extends ComponentManager implements Logic {
     }
 
     @Override
-    public HistoryIterator<String> getUserInputHistory() {
+    public HistoryIterator getUserInputHistory() {
         return history.getHistory();
     }
 }

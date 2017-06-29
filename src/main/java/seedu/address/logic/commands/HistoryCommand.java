@@ -21,7 +21,7 @@ public class HistoryCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        HistoryIterator<String> previousCommands = history.getHistory();
+        HistoryIterator previousCommands = history.getHistory();
 
         if (!previousCommands.hasCurrent()) {
             return new CommandResult(MESSAGE_NO_HISTORY);
@@ -37,7 +37,7 @@ public class HistoryCommand extends Command {
         this.history = history;
     }
 
-    private List<String> getReversedCommands(HistoryIterator<String> iterator) {
+    private List<String> getReversedCommands(HistoryIterator iterator) {
         List<String> list = new ArrayList<>();
         list.add(iterator.current());
 

@@ -53,6 +53,8 @@ public class CommandBoxTest extends AddressBookGuiTest {
 
     @Test
     public void handleKeyPress_startingWithUp() {
+        GuiRobot robot = new GuiRobot();
+
         // empty history
         assertInputHistory(KeyCode.UP, "");
         assertInputHistory(KeyCode.DOWN, "");
@@ -72,10 +74,23 @@ public class CommandBoxTest extends AddressBookGuiTest {
         assertInputHistory(KeyCode.DOWN, "");
         assertInputHistory(KeyCode.DOWN, "");
         assertInputHistory(KeyCode.UP, COMMAND_THAT_FAILS);
+
+        // insert command in the middle of retrieving previous commands
+        robot.push(KeyCode.UP);
+        String thirdCommand = "list";
+        commandBox.runCommand(thirdCommand);
+        assertInputHistory(KeyCode.UP, thirdCommand);
+        assertInputHistory(KeyCode.UP, COMMAND_THAT_FAILS);
+        assertInputHistory(KeyCode.UP, COMMAND_THAT_SUCCEEDS);
+        assertInputHistory(KeyCode.DOWN, COMMAND_THAT_FAILS);
+        assertInputHistory(KeyCode.DOWN, thirdCommand);
+        assertInputHistory(KeyCode.DOWN, "");
     }
 
     @Test
     public void handleKeyPress_startingWithDown() {
+        GuiRobot robot = new GuiRobot();
+
         // empty history
         assertInputHistory(KeyCode.DOWN, "");
         assertInputHistory(KeyCode.UP, "");
@@ -96,6 +111,18 @@ public class CommandBoxTest extends AddressBookGuiTest {
         assertInputHistory(KeyCode.DOWN, COMMAND_THAT_FAILS);
         assertInputHistory(KeyCode.DOWN, "");
         assertInputHistory(KeyCode.UP, COMMAND_THAT_FAILS);
+
+        // insert command in the middle of retrieving previous commands
+        robot.push(KeyCode.UP);
+        String thirdCommand = "list";
+        commandBox.runCommand(thirdCommand);
+        assertInputHistory(KeyCode.DOWN, "");
+        assertInputHistory(KeyCode.UP, thirdCommand);
+        assertInputHistory(KeyCode.UP, COMMAND_THAT_FAILS);
+        assertInputHistory(KeyCode.UP, COMMAND_THAT_SUCCEEDS);
+        assertInputHistory(KeyCode.DOWN, COMMAND_THAT_FAILS);
+        assertInputHistory(KeyCode.DOWN, thirdCommand);
+        assertInputHistory(KeyCode.DOWN, "");
     }
 
     /**
