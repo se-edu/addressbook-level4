@@ -7,33 +7,32 @@ import org.junit.Test;
 
 import guitests.GuiRobot;
 import guitests.guihandles.PersonCardHandle;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.testutil.PersonBuilder;
-import seedu.address.testutil.TestPerson;
-import seedu.address.ui.testutil.GuiUnitTestApp;
-import seedu.address.ui.testutil.GuiUnitTestApplicationRule;
+import seedu.address.testutil.TestUtil;
+import seedu.address.ui.testutil.UiPartRule;
 
 public class PersonCardTest {
 
     @Rule
-    public GuiUnitTestApplicationRule applicationRule = new GuiUnitTestApplicationRule();
+    public final UiPartRule uiPartRule = new UiPartRule();
 
     @Test
     public void display() throws Exception {
-        GuiUnitTestApp testApp = applicationRule.getTestApp();
-
-        testApp.setStageWidth(200);
-        testApp.setStageHeight(120);
+        GuiRobot guiRobot = new GuiRobot();
 
         // no tags
-        TestPerson johnDoe = new PersonBuilder().withName("John Doe").withPhone("95458425")
+        Person johnDoe = new PersonBuilder().withName("John Doe").withPhone("95458425")
                 .withEmail("johndoe@email.com").withAddress("4th Street").build();
         assertCardDisplay(1, johnDoe);
-        testApp.clearUiParts();
+        guiRobot.pauseForHuman();
 
         // with tags
-        TestPerson janeDoe = new PersonBuilder().withName("Jane Doe").withPhone("91043245")
+        Person janeDoe = new PersonBuilder().withName("Jane Doe").withPhone("91043245")
                 .withEmail("janedoe@email.com").withAddress("6th Street").withTags("friends").build();
         assertCardDisplay(2, janeDoe);
+        guiRobot.pauseForHuman();
     }
 
     /**
@@ -42,13 +41,12 @@ public class PersonCardTest {
      * @param validId of the person in the card list
      * @param validPerson contact details
      */
-    private void assertCardDisplay(int validId, TestPerson validPerson) throws Exception {
-        GuiUnitTestApp testApp = applicationRule.getTestApp();
+    private void assertCardDisplay(int validId, ReadOnlyPerson validPerson) throws Exception {
 
         PersonCard personCard = new PersonCard(validPerson, validId);
-        testApp.addUiPart(personCard);
-        PersonCardHandle personCardHandle = new PersonCardHandle(new GuiRobot(), testApp.getStage(),
-                personCard.getRoot());
+
+        uiPartRule.setUiPart(personCard);
+        PersonCardHandle personCardHandle = new PersonCardHandle(personCard.getRoot());
 
         // verify id is displayed correctly
         assertEquals(Integer.toString(validId) + ". ", personCardHandle.getId());
@@ -60,6 +58,7 @@ public class PersonCardTest {
         assertEquals(validPerson.getEmail().toString(), personCardHandle.getEmail());
 
         // verify tags are displayed correctly
-        assertEquals(validPerson.getTagsAsStringsList(), personCardHandle.getTags());
+        assertEquals(TestUtil.getTagsAsStringsList(validPerson.getTags()), personCardHandle.getTags());
+
     }
 }

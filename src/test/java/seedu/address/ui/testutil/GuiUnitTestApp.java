@@ -23,6 +23,8 @@ public class GuiUnitTestApp extends Application {
     private static final int DEFAULT_STAGE_WIDTH = 400;
     private static final int DEFAULT_STAGE_HEIGHT = 400;
 
+    private static final String[] CSS_FILES = { "view/DarkTheme.css", "view/Extensions.css" };
+
     private Stage stage;
     private AnchorPane mainPane;
 
@@ -32,6 +34,9 @@ public class GuiUnitTestApp extends Application {
         this.mainPane = new AnchorPane();
 
         Scene scene = new Scene(mainPane, DEFAULT_STAGE_WIDTH, DEFAULT_STAGE_HEIGHT);
+        for (String cssFile : CSS_FILES) {
+            scene.getStylesheets().add(cssFile);
+        }
         stage.setScene(scene);
         stage.show();
     }
@@ -86,6 +91,10 @@ public class GuiUnitTestApp extends Application {
 
     public Stage getStage() {
         return stage;
+    }
+
+    public AnchorPane getMainPane() {
+        return mainPane;
     }
 
     /**

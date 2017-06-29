@@ -29,10 +29,6 @@ public class PersonCardHandle extends GuiHandle {
         this.node = node;
     }
 
-    protected String getTextFromLabel(String fieldId) {
-        return getTextFromLabel(fieldId, node);
-    }
-
     public String getId() {
         return getTextFromLabel(ID_FIELD_ID);
     }
