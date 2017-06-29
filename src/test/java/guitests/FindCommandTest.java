@@ -13,7 +13,7 @@ import seedu.address.model.person.Person;
 public class FindCommandTest extends AddressBookGuiTest {
 
     @Test
-    public void find_nonEmptyList() {
+    public void find_nonEmptyList() throws Exception {
         assertFindResult(FindCommand.COMMAND_WORD + " Mark"); // no results
         assertFindResult(FindCommand.COMMAND_WORD + " Meier", td.benson, td.daniel); // multiple results
 
@@ -23,7 +23,7 @@ public class FindCommandTest extends AddressBookGuiTest {
     }
 
     @Test
-    public void find_emptyList() {
+    public void find_emptyList() throws Exception {
         commandBox.runCommand(ClearCommand.COMMAND_WORD);
         assertFindResult(FindCommand.COMMAND_WORD + " Jean"); // no results
     }
@@ -34,7 +34,7 @@ public class FindCommandTest extends AddressBookGuiTest {
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
     }
 
-    private void assertFindResult(String command, Person... expectedHits) {
+    private void assertFindResult(String command, Person... expectedHits) throws Exception {
         commandBox.runCommand(command);
         assertListSize(expectedHits.length);
         assertResultMessage(expectedHits.length + " persons listed!");

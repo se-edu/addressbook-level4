@@ -11,7 +11,7 @@ import seedu.address.testutil.PersonUtil;
 public class ClearCommandTest extends AddressBookGuiTest {
 
     @Test
-    public void clear() {
+    public void clear() throws Exception {
 
         //verify a non-empty list can be cleared
         assertTrue(personListPanel.isListMatching(td.getTypicalPersons()));

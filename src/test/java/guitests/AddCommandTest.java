@@ -15,7 +15,7 @@ import seedu.address.testutil.TestUtil;
 public class AddCommandTest extends AddressBookGuiTest {
 
     @Test
-    public void add() {
+    public void add() throws Exception {
         //add one person
         Person[] currentList = td.getTypicalPersons();
         Person personToAdd = td.hoon;
@@ -41,11 +41,12 @@ public class AddCommandTest extends AddressBookGuiTest {
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
     }
 
-    private void assertAddSuccess(Person personToAdd, Person... currentList) {
+    private void assertAddSuccess(Person personToAdd, Person... currentList) throws Exception {
         commandBox.runCommand(PersonUtil.getAddCommand(personToAdd));
 
         //confirm the new card contains the right data
-        PersonCardHandle addedCard = personListPanel.navigateToPerson(personToAdd.getName().fullName);
+        personListPanel.navigateToPerson(personToAdd);
+        PersonCardHandle addedCard = personListPanel.getPersonCardHandle(personToAdd);
         assertMatching(personToAdd, addedCard);
 
         //confirm the list now contains all previous persons plus the new person
