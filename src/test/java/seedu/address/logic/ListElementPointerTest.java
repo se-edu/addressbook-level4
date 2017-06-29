@@ -12,15 +12,15 @@ import java.util.NoSuchElementException;
 
 import org.junit.Test;
 
-public class HistorySnapshotTest {
+public class ListElementPointerTest {
     private static final String FIRST_ELEMENT = "first";
     private static final String SECOND_ELEMENT = "second";
-    private static final List<String> POINTER_ELEMENTS = Arrays.asList(SECOND_ELEMENT, FIRST_ELEMENT);
-    private HistorySnapshot iterator;
+    private static final List<String> POINTER_ELEMENTS = Arrays.asList(FIRST_ELEMENT, SECOND_ELEMENT);
+    private ListElementPointer iterator;
 
     @Test
     public void constructor_emptyList() {
-        iterator = new HistorySnapshot(Collections.emptyList());
+        iterator = new ListElementPointer(Collections.emptyList());
         assertCurrentFailure();
         assertPreviousFailure();
         assertNextFailure();
@@ -28,8 +28,8 @@ public class HistorySnapshotTest {
 
     @Test
     public void constructor_nonEmptyList() {
-        List<String> copy = Arrays.asList(SECOND_ELEMENT, FIRST_ELEMENT);
-        iterator = new HistorySnapshot(POINTER_ELEMENTS);
+        List<String> copy = Arrays.asList(FIRST_ELEMENT, SECOND_ELEMENT);
+        iterator = new ListElementPointer(POINTER_ELEMENTS);
         assertEquals(copy, POINTER_ELEMENTS);
 
         assertCurrentSuccess(SECOND_ELEMENT);
@@ -47,7 +47,7 @@ public class HistorySnapshotTest {
 
     @Test
     public void add() {
-        iterator = new HistorySnapshot(POINTER_ELEMENTS);
+        iterator = new ListElementPointer(POINTER_ELEMENTS);
         String thirdElement = "third";
         iterator.add(thirdElement);
 
@@ -63,14 +63,14 @@ public class HistorySnapshotTest {
 
     @Test
     public void equals() {
-        HistorySnapshot firstIterator = new HistorySnapshot(Collections.singletonList(FIRST_ELEMENT));
-        HistorySnapshot secondIterator = new HistorySnapshot(Collections.singletonList(SECOND_ELEMENT));
+        ListElementPointer firstIterator = new ListElementPointer(Collections.singletonList(FIRST_ELEMENT));
+        ListElementPointer secondIterator = new ListElementPointer(Collections.singletonList(SECOND_ELEMENT));
 
         // same object -> returns true
         assertTrue(firstIterator.equals(firstIterator));
 
         // same values -> returns true
-        HistorySnapshot firstIteratorCopy = new HistorySnapshot(Collections.singletonList(FIRST_ELEMENT));
+        ListElementPointer firstIteratorCopy = new ListElementPointer(Collections.singletonList(FIRST_ELEMENT));
         assertTrue(firstIterator.equals(firstIteratorCopy));
 
         // different types -> returns false

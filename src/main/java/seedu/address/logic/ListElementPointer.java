@@ -1,7 +1,6 @@
 package seedu.address.logic;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -10,24 +9,23 @@ import java.util.NoSuchElementException;
  * This is different from {@code ListIterator}, which has a cursor that points in between elements.
  * The {@code ListIterator}'s behaviour is as such: when making alternating calls of {@code ListIterator#next()} and
  * {@code ListIterator#previous()}, the same element is returned on both calls.
- * However, {@code HistorySnapshot}'s behaviour is as such: when making alternating calls of {@code next()} and
+ * However, {@code ListElementPointer}'s behaviour is as such: when making alternating calls of {@code next()} and
  * {@code previous()}, the next and previous elements are returned respectively.
  *
  * When an element is added or removed from the {@code ListIterator}, the change is reflected in the original list.
- * However, for {@code HistorySnapshot}, a defensive copy of the list is created and assigned to it during construction.
- * As such, when #add(String) is called, the original list remains unmodified.
+ * However, for {@code ListElementPointer}, a defensive copy of the list is created and assigned to it during
+ * construction. As such, when #add(String) is called, the original list remains unmodified.
  */
-public class HistorySnapshot {
+public class ListElementPointer {
     private List<String> list;
     private int index;
 
     /**
-     * Constructs {@code HistorySnapshot} which is backed by a defensive copy of {@code list}.
-     * The cursor points to the first element in {@code list}.
+     * Constructs {@code ListElementPointer} which is backed by a defensive copy of {@code list}.
+     * The cursor points to the last element in {@code list}.
      */
-    public HistorySnapshot(List<String> list) {
+    public ListElementPointer(List<String> list) {
         this.list = new ArrayList<>(list);
-        Collections.reverse(this.list);
         index = this.list.size() - 1;
     }
 
@@ -106,12 +104,12 @@ public class HistorySnapshot {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof HistorySnapshot)) {
+        if (!(other instanceof ListElementPointer)) {
             return false;
         }
 
         // state check
-        HistorySnapshot iterator = (HistorySnapshot) other;
+        ListElementPointer iterator = (ListElementPointer) other;
         return list.equals(iterator.list) && index == iterator.index;
     }
 }

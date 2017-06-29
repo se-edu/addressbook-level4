@@ -2,11 +2,11 @@ package seedu.address.logic;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
- * Stores the history of commands executed. Elements added into this object are always prepended to simulate the
- * reverse-chronological order of history.
+ * Stores the history of commands executed.
  */
 public class CommandHistory {
     private LinkedList<String> userInputHistory;
@@ -16,17 +16,17 @@ public class CommandHistory {
     }
 
     /**
-     * Prepends {@code userInput} to the list of user input entered.
+     * Appends {@code userInput} to the list of user input entered.
      */
     public void add(String userInput) {
         requireNonNull(userInput);
-        userInputHistory.add(0, userInput);
+        userInputHistory.add(userInput);
     }
 
     /**
-     * Returns a defensive copy of {@code userInputHistory} encapsulated in a {@code HistorySnapshot} object.
+     * Returns a defensive copy of {@code userInputHistory}.
      */
-    public HistorySnapshot getHistory() {
-        return new HistorySnapshot(userInputHistory);
+    public List<String> getHistory() {
+        return new LinkedList<>(userInputHistory);
     }
 }

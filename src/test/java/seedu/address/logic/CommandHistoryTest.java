@@ -22,7 +22,6 @@ public class CommandHistoryTest {
 
         history.add(validCommand);
         history.add(invalidCommand);
-        HistorySnapshot expectedIterator = new HistorySnapshot(Arrays.asList(invalidCommand, validCommand));
-        assertEquals(expectedIterator, history.getHistory());
+        assertEquals(Arrays.asList(validCommand, invalidCommand), history.getHistory());
     }
 }

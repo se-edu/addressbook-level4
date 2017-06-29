@@ -2,12 +2,9 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import seedu.address.logic.CommandHistory;
-import seedu.address.logic.HistorySnapshot;
 import seedu.address.model.Model;
 
 /**
@@ -21,31 +18,18 @@ public class HistoryCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        HistorySnapshot previousCommands = history.getHistory();
+        List<String> previousCommands = history.getHistory();
 
-        if (!previousCommands.hasCurrent()) {
+        if (previousCommands.isEmpty()) {
             return new CommandResult(MESSAGE_NO_HISTORY);
         }
 
-        return new CommandResult(String.format(MESSAGE_SUCCESS,
-                String.join("\n", getReversedCommands(previousCommands))));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, String.join("\n", previousCommands)));
     }
 
     @Override
     public void setData(Model model, CommandHistory history) {
         requireNonNull(history);
         this.history = history;
-    }
-
-    private List<String> getReversedCommands(HistorySnapshot iterator) {
-        List<String> list = new ArrayList<>();
-        list.add(iterator.current());
-
-        while (iterator.hasPrevious()) {
-            list.add(iterator.previous());
-        }
-        Collections.reverse(list);
-
-        return list;
     }
 }
