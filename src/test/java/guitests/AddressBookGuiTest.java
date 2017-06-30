@@ -104,6 +104,13 @@ public abstract class AddressBookGuiTest {
     }
 
     /**
+     * Runs a {@code command} in the application's {@code CommandBox}.
+     */
+    protected boolean runCommand(String command) {
+        return mainWindowHandle.getCommandBox().runCommand(command);
+    }
+
+    /**
      * Override this in child classes to set the data file location.
      */
     protected String getDataFileLocation() {
