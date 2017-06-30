@@ -147,7 +147,7 @@ public class EditCommandTest extends AddressBookGuiTest {
         // confirm the new card contains the right data
         getPersonListPanel().navigateToPerson(editedPerson);
         PersonCardHandle editedCard = getPersonListPanel().getPersonCardHandle(editedPerson);
-        assertMatching(editedPerson, editedCard);
+        assertCardMatchesPerson(editedCard, editedPerson);
 
         // confirm the list now contains all previous persons plus the person with updated details
         expectedPersonsList[addressBookIndex.getZeroBased()] = editedPerson;

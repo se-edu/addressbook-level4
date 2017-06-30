@@ -64,7 +64,6 @@ public abstract class AddressBookGuiTest {
         EventsCenter.clearSubscribers();
         FxToolkit.setupApplication(() -> new TestApp(this::getInitialData, getDataFileLocation()));
         FxToolkit.showStage();
-        while (!stage.isShowing());
 
         mainWindowHandle = new MainWindowHandle(stage);
         mainWindowHandle.focusOnStage();
