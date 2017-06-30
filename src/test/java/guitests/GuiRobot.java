@@ -1,9 +1,11 @@
 package guitests;
 
+import java.util.Optional;
 import java.util.function.BooleanSupplier;
 
 import org.testfx.api.FxRobot;
 
+import guitests.guihandles.exceptions.StageNotFoundException;
 import javafx.stage.Stage;
 
 /**
@@ -76,6 +78,16 @@ public class GuiRobot extends FxRobot {
         return listTargetWindows().stream()
                 .filter(window -> window instanceof Stage && ((Stage) window).getTitle().equals(stageTitle))
                 .count() >= 1;
+    }
+
+    /**
+     * Returns the stage with the stage title.
+     */
+    public Optional<Stage> getStage(String stageTitle) throws StageNotFoundException {
+        return listTargetWindows().stream()
+                .filter(window -> window instanceof Stage && ((Stage) window).getTitle().equals(stageTitle))
+                .map(window -> (Stage) window)
+                .findFirst();
     }
 
     /**
