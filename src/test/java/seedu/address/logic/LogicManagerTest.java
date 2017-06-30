@@ -453,7 +453,7 @@ public class LogicManagerTest {
         }
 
         String expectedMessage = String.format(HistoryCommand.MESSAGE_SUCCESS,
-                String.join("\n", validCommand, invalidCommandParse, invalidCommandExecute));
+                String.join("\n", invalidCommandExecute, invalidCommandParse, validCommand));
         assertCommandSuccess("history", expectedMessage, model);
     }
 
