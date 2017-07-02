@@ -27,4 +27,10 @@ public class FindCommand extends Command {
         return new CommandResult(getMessageForPersonListShownSummary(model.getFilteredPersonList().size()));
     }
 
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof FindCommand // instanceof handles nulls
+                && this.keywords.equals(((FindCommand) other).keywords)); // state check
+    }
 }
