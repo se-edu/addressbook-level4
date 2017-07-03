@@ -41,6 +41,13 @@ public class PersonListPanelHandle extends GuiHandle {
         return personList.isEmpty() ? Optional.empty() : Optional.of(personList.get(0));
     }
 
+    /**
+     * Returns the selected index in the list view.
+     */
+    public int getSelectedIndex() {
+        return getListView().getSelectionModel().getSelectedIndex();
+    }
+
     private ListView<ReadOnlyPerson> getListView() {
         return getNode(PERSON_LIST_VIEW_ID);
     }
