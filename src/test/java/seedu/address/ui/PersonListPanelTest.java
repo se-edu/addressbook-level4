@@ -15,17 +15,14 @@ import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.testutil.TypicalPersons;
 
 public class PersonListPanelTest extends GuiUnitTest {
+    private static final List<ReadOnlyPerson> TYPICAL_PERSONS = Arrays.asList(new TypicalPersons().getTypicalPersons());
 
     private PersonListPanel personListPanel;
     private PersonListPanelHandle personListPanelHandle;
 
-    private List<ReadOnlyPerson> typicalPersons;
-
     @Before
     public void setUp() throws Exception {
-        typicalPersons = Arrays.asList(new TypicalPersons().getTypicalPersons());
-
-        ObservableList<ReadOnlyPerson> observableList = FXCollections.observableList(typicalPersons);
+        ObservableList<ReadOnlyPerson> observableList = FXCollections.observableList(TYPICAL_PERSONS);
 
         guiRobot.interact(() -> personListPanel = new PersonListPanel(observableList));
         uiPartRule.setUiPart(personListPanel);
@@ -35,11 +32,11 @@ public class PersonListPanelTest extends GuiUnitTest {
 
     @Test
     public void display() throws Exception {
-        for (int i = 0; i < typicalPersons.size(); i++) {
-            personListPanelHandle.navigateToPerson(typicalPersons.get(i));
+        for (int i = 0; i < TYPICAL_PERSONS.size(); i++) {
+            personListPanelHandle.navigateToPerson(TYPICAL_PERSONS.get(i));
             guiRobot.pauseForHuman();
 
-            assertEquals(typicalPersons.get(i), personListPanelHandle.getPerson(i));
+            assertEquals(TYPICAL_PERSONS.get(i), personListPanelHandle.getPerson(i));
         }
     }
 }

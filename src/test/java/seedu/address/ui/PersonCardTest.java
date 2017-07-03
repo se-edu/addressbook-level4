@@ -5,7 +5,6 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-import guitests.GuiRobot;
 import guitests.guihandles.PersonCardHandle;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.ReadOnlyPerson;
@@ -29,8 +28,8 @@ public class PersonCardTest extends GuiUnitTest {
      * details of {@code validPerson}.
      */
     private void assertCardDisplay(ReadOnlyPerson validPerson, int validId) throws Exception {
+
         PersonCard personCard = new PersonCard(validPerson, validId);
-        GuiRobot guiRobot = new GuiRobot();
 
         uiPartRule.setUiPart(personCard);
         guiRobot.pauseForHuman();

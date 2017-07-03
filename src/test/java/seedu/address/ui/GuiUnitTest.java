@@ -8,7 +8,7 @@ import seedu.address.ui.testutil.UiPartRule;
 /**
  * A GUI unit test class for AddressBook.
  */
-public class GuiUnitTest {
+public abstract class GuiUnitTest {
     @Rule
     public final UiPartRule uiPartRule = new UiPartRule();
 

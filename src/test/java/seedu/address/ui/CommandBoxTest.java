@@ -55,11 +55,10 @@ public class CommandBoxTest extends GuiUnitTest {
         assertBehaviorForFailedCommand();
         assertBehaviorForSuccessfulCommand();
 
-        // verify that style is changed correctly even after multiple consecutive successful/failed commands
+        // verify that style is changed correctly even after multiple consecutive failed commands
         assertBehaviorForSuccessfulCommand();
         assertBehaviorForFailedCommand();
         assertBehaviorForFailedCommand();
-        assertBehaviorForSuccessfulCommand();
     }
 
     @Test

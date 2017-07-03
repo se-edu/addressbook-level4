@@ -36,18 +36,14 @@ public class BrowserPanelTest extends GuiUnitTest {
 
         // default web page
         URL expectedDefaultPageUrl = MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_PAGE);
-        assertUrlMatch(expectedDefaultPageUrl);
+        assertEquals(expectedDefaultPageUrl, browserPanelHandle.getLoadedUrl());
 
         // web page with person
         Person person = new PersonBuilder().build();
         guiRobot.interact(() -> EventsCenter.getInstance().post(new PersonPanelSelectionChangedEvent(person)));
+        guiRobot.pauseForHuman();
         URL expectedPersonUrl = new URL(GOOGLE_SEARCH_URL_PREFIX
                 + person.getName().fullName.replaceAll(" ", "+"));
-        assertUrlMatch(expectedPersonUrl);
-    }
-
-    private void assertUrlMatch(URL expectedUrl) throws Exception {
-        assertEquals(expectedUrl, new URL(browserPanelHandle.getLoadedUrl()));
-        guiRobot.pauseForHuman();
+        assertEquals(expectedPersonUrl, browserPanelHandle.getLoadedUrl());
     }
 }

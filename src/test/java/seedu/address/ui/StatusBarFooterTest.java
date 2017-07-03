@@ -22,6 +22,7 @@ import seedu.address.model.AddressBook;
 public class StatusBarFooterTest extends GuiUnitTest {
 
     private static final String STUB_SAVE_LOCATION = "Stub";
+    private static final String RELATIVE_PATH = "./";
 
     private static Clock originalClock;
     private static Clock injectedClock;
@@ -60,13 +61,13 @@ public class StatusBarFooterTest extends GuiUnitTest {
     @Test
     public void display() throws Exception {
         // initial state
-        assertEquals("./" + STUB_SAVE_LOCATION, statusBarFooterHandle.getSaveLocation());
+        assertEquals(RELATIVE_PATH + STUB_SAVE_LOCATION, statusBarFooterHandle.getSaveLocation());
         assertEquals(SYNC_STATUS_INITIAL, statusBarFooterHandle.getSyncStatus());
         guiRobot.pauseForHuman();
 
         // address book state changed
         EventsCenter.getInstance().post(new AddressBookChangedEvent(new AddressBook()));
-        assertEquals("./" + STUB_SAVE_LOCATION, statusBarFooterHandle.getSaveLocation());
+        assertEquals(RELATIVE_PATH + STUB_SAVE_LOCATION, statusBarFooterHandle.getSaveLocation());
         assertEquals(String.format(SYNC_STATUS_UPDATED, new Date(injectedClock.millis()).toString()),
                 statusBarFooterHandle.getSyncStatus());
         guiRobot.pauseForHuman();
