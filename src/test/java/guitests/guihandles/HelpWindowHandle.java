@@ -1,5 +1,10 @@
 package guitests.guihandles;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+
+import javafx.scene.web.WebView;
+
 /**
  * Provides a handle to the help window of the app.
  */
@@ -7,6 +12,8 @@ public class HelpWindowHandle extends GuiHandle {
 
     private static final String HELP_WINDOW_TITLE = "Help";
     private static final String HELP_WINDOW_ROOT_FIELD_ID = "#helpWindowRoot";
+
+    private static final String HELP_WINDOW_BROWSER_ID = "#browser";
 
     public HelpWindowHandle() {
         super(HELP_WINDOW_TITLE);
@@ -22,4 +29,11 @@ public class HelpWindowHandle extends GuiHandle {
         guiRobot.pauseForHuman();
     }
 
+    /**
+     * Returns the URL of the currently loaded page.
+     */
+    public URL getLoadedUrl() throws MalformedURLException {
+        WebView webView = getNode(HELP_WINDOW_BROWSER_ID);
+        return new URL(webView.getEngine().getLocation());
+    }
 }
