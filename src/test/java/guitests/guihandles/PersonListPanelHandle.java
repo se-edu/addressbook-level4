@@ -39,6 +39,17 @@ public class PersonListPanelHandle extends NodeHandle<ListView<ReadOnlyPerson>> 
     }
 
     /**
+     * Returns the selected index in the list view.
+     */
+    public int getSelectedIndex() {
+        return getListView().getSelectionModel().getSelectedIndex();
+    }
+
+    private ListView<ReadOnlyPerson> getListView() {
+        return getNode(PERSON_LIST_VIEW_ID);
+    }
+
+    /**
      * Returns true if the list is showing the person details correctly and in correct order.
      * @param persons A list of person in the correct order.
      */
