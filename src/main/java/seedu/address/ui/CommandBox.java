@@ -27,6 +27,8 @@ public class CommandBox extends UiPart<Region> {
     public CommandBox(Logic logic) {
         super(FXML);
         this.logic = logic;
+        // calls #setStyleToDefault() whenever there is a change to the text of the command box.
+        commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
     }
 
     @FXML
@@ -35,7 +37,6 @@ public class CommandBox extends UiPart<Region> {
             CommandResult commandResult = logic.execute(commandTextField.getText());
 
             // process result of the command
-            setStyleToIndicateCommandSuccess();
             commandTextField.setText("");
             logger.info("Result: " + commandResult.feedbackToUser);
             raise(new NewResultAvailableEvent(commandResult.feedbackToUser));
@@ -50,9 +51,9 @@ public class CommandBox extends UiPart<Region> {
 
 
     /**
-     * Sets the command box style to indicate a successful command.
+     * Sets the command box style to use the default style.
      */
-    private void setStyleToIndicateCommandSuccess() {
+    private void setStyleToDefault() {
         commandTextField.getStyleClass().remove(ERROR_STYLE_CLASS);
     }
 
