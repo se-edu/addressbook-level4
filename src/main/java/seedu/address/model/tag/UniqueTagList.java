@@ -3,19 +3,15 @@ package seedu.address.model.tag;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.List;
 import java.util.Set;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.exceptions.DuplicateDataException;
-import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.CollectionUtil;
 
 /**
@@ -36,62 +32,12 @@ public class UniqueTagList implements Iterable<Tag> {
     public UniqueTagList() {}
 
     /**
-     * Creates a UniqueTagList using given String tags.
-     * Enforces no nulls or duplicates.
-     */
-    public UniqueTagList(String... tags) throws DuplicateTagException, IllegalValueException {
-        final List<Tag> tagList = new ArrayList<Tag>();
-        for (String tag : tags) {
-            tagList.add(new Tag(tag));
-        }
-        setTags(tagList);
-
-        assert CollectionUtil.elementsAreUnique(internalList);
-    }
-
-    /**
-     * Creates a UniqueTagList using given tags.
-     * Enforces no nulls or duplicates.
-     */
-    public UniqueTagList(Tag... tags) throws DuplicateTagException {
-        requireAllNonNull((Object[]) tags);
-        final List<Tag> initialTags = Arrays.asList(tags);
-        if (!CollectionUtil.elementsAreUnique(initialTags)) {
-            throw new DuplicateTagException();
-        }
-        internalList.addAll(initialTags);
-
-        assert CollectionUtil.elementsAreUnique(internalList);
-    }
-
-    /**
-     * Creates a UniqueTagList using given tags.
-     * Enforces no null or duplicate elements.
-     */
-    public UniqueTagList(Collection<Tag> tags) throws DuplicateTagException {
-        this();
-        setTags(tags);
-
-        assert CollectionUtil.elementsAreUnique(internalList);
-    }
-
-    /**
      * Creates a UniqueTagList using given tags.
      * Enforces no nulls.
      */
     public UniqueTagList(Set<Tag> tags) {
         requireAllNonNull(tags);
         internalList.addAll(tags);
-
-        assert CollectionUtil.elementsAreUnique(internalList);
-    }
-
-    /**
-     * Creates a copy of the given list.
-     * Insulates from changes in source.
-     */
-    public UniqueTagList(UniqueTagList source) {
-        internalList.addAll(source.internalList); // insulate internal list from changes in argument
 
         assert CollectionUtil.elementsAreUnique(internalList);
     }
