@@ -59,13 +59,13 @@ public abstract class AddressBookGuiTest {
     @Before
     public void setup() throws Exception {
         FxToolkit.setupStage((stage) -> {
-            mainGui = new MainWindowHandle();
             this.stage = stage;
         });
         EventsCenter.clearSubscribers();
         FxToolkit.setupApplication(() -> new TestApp(this::getInitialData, getDataFileLocation()));
         FxToolkit.showStage();
 
+        mainGui = new MainWindowHandle();
         mainGui.focusOnMainApp();
     }
 
