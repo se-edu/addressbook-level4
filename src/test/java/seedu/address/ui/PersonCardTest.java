@@ -17,18 +17,18 @@ public class PersonCardTest extends GuiUnitTest {
     public void display() throws Exception {
         // no tags
         Person personWithNoTags = new PersonBuilder().withTags(new String[0]).build();
-        assertCardDisplay(1, personWithNoTags);
+        assertCardDisplay(personWithNoTags, 1);
 
         // with tags
         Person personWithTags = new PersonBuilder().build();
-        assertCardDisplay(2, personWithTags);
+        assertCardDisplay(personWithTags, 2);
     }
 
     /**
      * Asserts that the card in {@code validId} in the card list displays the contact
      * details of {@code validPerson}.
      */
-    private void assertCardDisplay(int validId, ReadOnlyPerson validPerson) throws Exception {
+    private void assertCardDisplay(ReadOnlyPerson validPerson, int validId) throws Exception {
         PersonCard personCard = new PersonCard(validPerson, validId);
         GuiRobot guiRobot = new GuiRobot();
 
