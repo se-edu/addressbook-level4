@@ -3,7 +3,6 @@ package seedu.address.model.tag;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
@@ -20,7 +19,6 @@ import seedu.address.commons.util.CollectionUtil;
  * Supports minimal set of list operations for the app's features.
  *
  * @see Tag#equals(Object)
- * @see CollectionUtil#elementsAreUnique(Collection)
  */
 public class UniqueTagList implements Iterable<Tag> {
 
@@ -57,16 +55,6 @@ public class UniqueTagList implements Iterable<Tag> {
     public void setTags(Set<Tag> tags) {
         requireAllNonNull(tags);
         internalList.setAll(tags);
-        assert CollectionUtil.elementsAreUnique(internalList);
-    }
-
-    public void setTags(Collection<Tag> tags) throws DuplicateTagException {
-        requireAllNonNull(tags);
-        if (!CollectionUtil.elementsAreUnique(tags)) {
-            throw new DuplicateTagException();
-        }
-        internalList.setAll(tags);
-
         assert CollectionUtil.elementsAreUnique(internalList);
     }
 
