@@ -57,19 +57,6 @@ public class AddressBookTest {
         addressBook.resetData(newData);
     }
 
-    @Test
-    public void resetData_withDuplicateTags_throwsAssertionError() {
-        AddressBook typicalAddressBook = new TypicalPersons().getTypicalAddressBook();
-        List<ReadOnlyPerson> newPersons = typicalAddressBook.getPersonList();
-        List<Tag> newTags = new ArrayList<>(typicalAddressBook.getTagList());
-        // Repeat the first tag twice
-        newTags.add(newTags.get(0));
-        AddressBookStub newData = new AddressBookStub(newPersons, newTags);
-
-        thrown.expect(AssertionError.class);
-        addressBook.resetData(newData);
-    }
-
     /**
      * A stub ReadOnlyAddressBook whose persons and tags lists can violate interface constraints.
      */
