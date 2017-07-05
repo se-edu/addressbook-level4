@@ -54,8 +54,9 @@ public class UniqueTagList implements Iterable<Tag> {
     /**
      * Replaces the Tags in this list with those in the argument tag list.
      */
-    public void setTags(UniqueTagList replacement) {
-        this.internalList.setAll(replacement.internalList);
+    public void setTags(Set<Tag> tags) {
+        requireAllNonNull(tags);
+        this.internalList.setAll(tags);
         assert CollectionUtil.elementsAreUnique(internalList);
     }
 
