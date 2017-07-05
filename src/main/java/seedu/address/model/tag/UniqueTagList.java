@@ -49,10 +49,12 @@ public class UniqueTagList implements Iterable<Tag> {
         return new HashSet<>(internalList);
     }
 
+    /**
+     * Replaces the Tags in this list with those in the argument tag list.
+     */
     public void setTags(Set<Tag> tags) {
         requireAllNonNull(tags);
-        internalList.setAll(tags);
-
+        this.internalList.setAll(tags);
         assert CollectionUtil.elementsAreUnique(internalList);
     }
 
