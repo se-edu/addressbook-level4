@@ -17,12 +17,10 @@ public class PersonCardTest extends GuiUnitTest {
         // no tags
         Person personWithNoTags = new PersonBuilder().withTags(new String[0]).build();
         assertCardDisplay(1, personWithNoTags);
-        guiRobot.pauseForHuman();
 
         // with tags
         Person personWithTags = new PersonBuilder().build();
         assertCardDisplay(2, personWithTags);
-        guiRobot.pauseForHuman();
     }
 
     /**
@@ -34,6 +32,8 @@ public class PersonCardTest extends GuiUnitTest {
         PersonCard personCard = new PersonCard(validPerson, validId);
 
         uiPartRule.setUiPart(personCard);
+        guiRobot.pauseForHuman();
+
         PersonCardHandle personCardHandle = new PersonCardHandle(personCard.getRoot());
 
         // verify id is displayed correctly
