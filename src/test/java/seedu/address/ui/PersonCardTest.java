@@ -4,25 +4,17 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import org.junit.Rule;
 import org.junit.Test;
 
-import guitests.GuiRobot;
 import guitests.guihandles.PersonCardHandle;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.testutil.PersonBuilder;
-import seedu.address.ui.testutil.UiPartRule;
 
-public class PersonCardTest {
-
-    @Rule
-    public final UiPartRule uiPartRule = new UiPartRule();
+public class PersonCardTest extends GuiUnitTest {
 
     @Test
     public void display() throws Exception {
-        GuiRobot guiRobot = new GuiRobot();
-
         // no tags
         Person personWithNoTags = new PersonBuilder().withTags(new String[0]).build();
         assertCardDisplay(1, personWithNoTags);
