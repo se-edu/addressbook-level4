@@ -4,8 +4,10 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.CommandObject;
 import seedu.address.model.Model;
 
 /**
@@ -19,14 +21,17 @@ public class HistoryCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        List<String> previousCommands = history.getHistory();
+        List<CommandObject> previousCommandsObjects = history.getHistory();
 
-        if (previousCommands.isEmpty()) {
+        if (previousCommandsObjects.isEmpty()) {
             return new CommandResult(MESSAGE_NO_HISTORY);
         }
 
-        Collections.reverse(previousCommands);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, String.join("\n", previousCommands)));
+        List<String> previousUserInput = previousCommandsObjects.stream()
+                .map(commandObject -> commandObject.userInput).collect(Collectors.toList());
+
+        Collections.reverse(previousUserInput);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, String.join("\n", previousUserInput)));
     }
 
     @Override

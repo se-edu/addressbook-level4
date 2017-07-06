@@ -7,6 +7,8 @@ import java.util.Arrays;
 import org.junit.Before;
 import org.junit.Test;
 
+import seedu.address.logic.commands.ClearCommand;
+
 public class CommandHistoryTest {
     private CommandHistory history;
 
@@ -17,8 +19,8 @@ public class CommandHistoryTest {
 
     @Test
     public void add() {
-        final String validCommand = "clear";
-        final String invalidCommand = "adds Bob";
+        final CommandObject validCommand = new CommandObject("clear", new ClearCommand());
+        final CommandObject invalidCommand = new CommandObject("adds Bob", null);
 
         history.add(validCommand);
         history.add(invalidCommand);

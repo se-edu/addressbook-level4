@@ -35,9 +35,12 @@ public class LogicManager extends ComponentManager implements Logic {
         try {
             Command command = parser.parseCommand(commandText);
             command.setData(model, history);
-            return command.execute();
-        } finally {
-            history.add(commandText);
+            CommandResult result = command.execute();
+            history.add(new CommandObject(commandText, command));
+            return result;
+        } catch (CommandException | ParseException e) {
+            history.add(new CommandObject(commandText, null));
+            throw e;
         }
     }
 
