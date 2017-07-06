@@ -13,10 +13,12 @@ import java.util.NoSuchElementException;
 import org.junit.Before;
 import org.junit.Test;
 
+import seedu.address.logic.commands.ClearCommand;
+
 public class ListElementPointerTest {
-    private static final String FIRST_ELEMENT = "first";
-    private static final String SECOND_ELEMENT = "second";
-    private List<String> pointerElements;
+    private static final CommandObject FIRST_ELEMENT = new CommandObject("clear", new ClearCommand());
+    private static final CommandObject SECOND_ELEMENT = new CommandObject("foo", null);
+    private List<CommandObject> pointerElements;
     private ListElementPointer pointer;
 
     @Before
@@ -39,7 +41,7 @@ public class ListElementPointerTest {
 
     @Test
     public void singleElementList() {
-        List<String> list = new ArrayList<>();
+        List<CommandObject> list = new ArrayList<>();
         list.add(FIRST_ELEMENT);
         pointer = new ListElementPointer(list);
 
@@ -56,7 +58,7 @@ public class ListElementPointerTest {
     @Test
     public void multipleElementsList() {
         pointer = new ListElementPointer(pointerElements);
-        String thirdElement = "third";
+        CommandObject thirdElement = new CommandObject("bar", null);
         pointer.add(thirdElement);
 
         assertCurrentSuccess(SECOND_ELEMENT);
@@ -99,7 +101,7 @@ public class ListElementPointerTest {
      * Asserts that {@code pointer#hasNext()} returns true and the return value
      * of {@code pointer#next()} equals to {@code element}.
      */
-    private void assertNextSuccess(String element) {
+    private void assertNextSuccess(CommandObject element) {
         assertTrue(pointer.hasNext());
         assertEquals(element, pointer.next());
     }
@@ -108,7 +110,7 @@ public class ListElementPointerTest {
      * Asserts that {@code pointer#hasPrevious()} returns true and the return value
      * of {@code pointer#previous()} equals to {@code element}.
      */
-    private void assertPreviousSuccess(String element) {
+    private void assertPreviousSuccess(CommandObject element) {
         assertTrue(pointer.hasPrevious());
         assertEquals(element, pointer.previous());
     }
@@ -117,7 +119,7 @@ public class ListElementPointerTest {
      * Asserts that {@code pointer#hasCurrent()} returns true and the return value
      * of {@code pointer#current()} equals to {@code element}.
      */
-    private void assertCurrentSuccess(String element) {
+    private void assertCurrentSuccess(CommandObject element) {
         assertTrue(pointer.hasCurrent());
         assertEquals(element, pointer.current());
     }

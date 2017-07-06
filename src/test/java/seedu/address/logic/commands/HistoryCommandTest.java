@@ -1,11 +1,13 @@
 package seedu.address.logic.commands;
 
 import static org.junit.Assert.assertEquals;
+import static seedu.address.testutil.TypicalPersons.INDEX_FIRST_PERSON;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.CommandObject;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 
@@ -25,17 +27,17 @@ public class HistoryCommandTest {
     public void execute() {
         assertCommandResult(historyCommand, HistoryCommand.MESSAGE_NO_HISTORY);
 
-        String command1 = "clear";
+        CommandObject command1 = new CommandObject("clear", new ClearCommand());
         history.add(command1);
-        assertCommandResult(historyCommand, String.format(HistoryCommand.MESSAGE_SUCCESS, command1));
+        assertCommandResult(historyCommand, String.format(HistoryCommand.MESSAGE_SUCCESS, command1.userInput));
 
-        String command2 = "randomCommand";
-        String command3 = "select 1";
+        CommandObject command2 = new CommandObject("randomCommand", null);
+        CommandObject command3 = new CommandObject("select 1", new SelectCommand(INDEX_FIRST_PERSON));
         history.add(command2);
         history.add(command3);
 
         String expectedMessage = String.format(HistoryCommand.MESSAGE_SUCCESS,
-                String.join("\n", command3, command2, command1));
+                String.join("\n", command3.userInput, command2.userInput, command1.userInput));
 
         assertCommandResult(historyCommand, expectedMessage);
     }

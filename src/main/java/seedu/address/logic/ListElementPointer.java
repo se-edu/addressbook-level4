@@ -12,14 +12,14 @@ import java.util.NoSuchElementException;
  * {@code next()} and {@code previous()}, the next and previous elements are returned respectively.
  */
 public class ListElementPointer {
-    private List<String> list;
+    private List<CommandObject> list;
     private int index;
 
     /**
      * Constructs {@code ListElementPointer} which is backed by a defensive copy of {@code list}.
      * The cursor points to the last element in {@code list}.
      */
-    public ListElementPointer(List<String> list) {
+    public ListElementPointer(List<CommandObject> list) {
         this.list = list;
         index = this.list.size() - 1;
     }
@@ -27,7 +27,7 @@ public class ListElementPointer {
     /**
      * Appends {@code element} to the end of the list.
      */
-    public void add(String element) {
+    public void add(CommandObject element) {
         list.add(element);
     }
 
@@ -62,7 +62,7 @@ public class ListElementPointer {
      * Returns the next element in the list and advances the cursor position.
      * @throws NoSuchElementException if there is no more next element in the list.
      */
-    public String next() {
+    public CommandObject next() {
         if (!hasNext()) {
             throw new NoSuchElementException();
         }
@@ -73,7 +73,7 @@ public class ListElementPointer {
      * Returns the previous element in the list and moves the cursor position backwards.
      * @throws NoSuchElementException if there is no more previous element in the list.
      */
-    public String previous() {
+    public CommandObject previous() {
         if (!hasPrevious()) {
             throw new NoSuchElementException();
         }
@@ -84,7 +84,7 @@ public class ListElementPointer {
      * Returns the current element in the list.
      * @throws NoSuchElementException if the list is empty.
      */
-    public String current() {
+    public CommandObject current() {
         if (!hasCurrent()) {
             throw new NoSuchElementException();
         }
