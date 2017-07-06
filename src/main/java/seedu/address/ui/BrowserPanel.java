@@ -19,8 +19,10 @@ import seedu.address.model.person.ReadOnlyPerson;
  */
 public class BrowserPanel extends UiPart<Region> {
 
+    public static final String DEFAULT_PAGE = "default.html";
+    public static final String GOOGLE_SEARCH_URL_PREFIX = "https://www.google.com.sg/#safe=off&q=";
+
     private static final String FXML = "BrowserPanel.fxml";
-    private static final String DEFAULT_PAGE = "default.html";
 
     private final Logger logger = LogsCenter.getLogger(this.getClass());
 
@@ -38,7 +40,7 @@ public class BrowserPanel extends UiPart<Region> {
     }
 
     private void loadPersonPage(ReadOnlyPerson person) {
-        loadPage("https://www.google.com.sg/#safe=off&q=" + person.getName().fullName.replaceAll(" ", "+"));
+        loadPage(GOOGLE_SEARCH_URL_PREFIX + person.getName().fullName.replaceAll(" ", "+"));
     }
 
     public void loadPage(String url) {
