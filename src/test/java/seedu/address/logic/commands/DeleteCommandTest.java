@@ -14,6 +14,7 @@ import org.junit.Test;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.UndoRedoStack;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -103,7 +104,7 @@ public class DeleteCommandTest {
      */
     private DeleteCommand prepareCommand(Index index) {
         DeleteCommand deleteCommand = new DeleteCommand(index);
-        deleteCommand.setData(model, new CommandHistory());
+        deleteCommand.setData(model, new CommandHistory(), new UndoRedoStack());
         return deleteCommand;
     }
 
