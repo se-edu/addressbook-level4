@@ -43,10 +43,10 @@ public class UndoRedoStackTest {
         CommandHistory history = new CommandHistory();
         undoRedoStack = new UndoRedoStack();
 
-        reversibleAddCommand.setData(model, history);
-        reversibleClearCommand.setData(model, history);
-        nonReversibleListCommand.setData(model, history);
-        nonReversibleSelectCommand.setData(model, history);
+        reversibleAddCommand.setData(model, history, undoRedoStack);
+        reversibleClearCommand.setData(model, history, undoRedoStack);
+        nonReversibleListCommand.setData(model, history, undoRedoStack);
+        nonReversibleSelectCommand.setData(model, history, undoRedoStack);
     }
 
     @BeforeClass
