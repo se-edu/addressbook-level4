@@ -6,6 +6,7 @@ import static seedu.address.testutil.TypicalPersons.INDEX_FIRST_PERSON;
 import org.junit.Test;
 
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.UndoRedoStack;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -20,7 +21,7 @@ public class ReversibleCommandTest {
         Model expectedModel = new ModelManager(new TypicalPersons().getTypicalAddressBook(), new UserPrefs());
 
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_PERSON);
-        deleteCommand.setData(model, new CommandHistory());
+        deleteCommand.setData(model, new CommandHistory(), new UndoRedoStack());
         deleteCommand.saveAddressBookSnapshot();
 
         ReadOnlyPerson toRemove = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
