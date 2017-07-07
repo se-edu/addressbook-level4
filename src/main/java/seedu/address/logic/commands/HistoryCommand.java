@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.List;
 
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.UndoRedoStack;
 import seedu.address.model.Model;
 
 /**
@@ -30,8 +31,8 @@ public class HistoryCommand extends Command {
     }
 
     @Override
-    public void setData(Model model, CommandHistory history) {
-        requireNonNull(history);
-        this.history = history;
+    public void setData(Model model, CommandHistory commandHistory, UndoRedoStack undoRedoStack) {
+        requireNonNull(commandHistory);
+        this.history = commandHistory;
     }
 }
