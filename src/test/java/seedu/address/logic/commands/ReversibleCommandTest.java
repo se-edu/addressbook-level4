@@ -7,7 +7,7 @@ public class ReversibleCommandTest {
     @Test
     public void rollback_validCommand_succeeds() throws Exception {
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_PERSON);
-        deleteCommand.setData(model, new CommandHistory());
+        deleteCommand.setData(model, new CommandHistory(), new ReversibleCommandHistory());
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         ReadOnlyPerson toRemove = model.getFilteredPersonList().get(0);

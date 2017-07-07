@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.List;
 
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.ReversibleCommandHistory;
 import seedu.address.model.Model;
 
 /**
@@ -19,7 +20,7 @@ public class HistoryCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        List<String> previousCommands = history.getHistory();
+        List<String> previousCommands = commandHistory.getHistory();
 
         if (previousCommands.isEmpty()) {
             return new CommandResult(MESSAGE_NO_HISTORY);
@@ -30,8 +31,8 @@ public class HistoryCommand extends Command {
     }
 
     @Override
-    public void setData(Model model, CommandHistory history) {
-        requireNonNull(history);
-        this.history = history;
+    public void setData(Model model, CommandHistory commandHistory, ReversibleCommandHistory reversibleCommandHistory) {
+        requireNonNull(commandHistory);
+        this.commandHistory = commandHistory;
     }
 }

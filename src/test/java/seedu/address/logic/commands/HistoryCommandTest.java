@@ -6,6 +6,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.ReversibleCommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 
@@ -18,7 +19,7 @@ public class HistoryCommandTest {
         Model model = new ModelManager();
         history = new CommandHistory();
         historyCommand = new HistoryCommand();
-        historyCommand.setData(model, history);
+        historyCommand.setData(model, history, new ReversibleCommandHistory());
     }
 
     @Test
