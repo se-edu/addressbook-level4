@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.UndoRedoStack;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -31,7 +32,7 @@ public class ClearCommandTest {
      */
     private void assertCommandSuccess(Model model) {
         ClearCommand command = new ClearCommand();
-        command.setData(model, new CommandHistory());
+        command.setData(model, new CommandHistory(), new UndoRedoStack());
         CommandResult result = command.execute();
 
         assertEquals(ClearCommand.MESSAGE_SUCCESS, result.feedbackToUser);
