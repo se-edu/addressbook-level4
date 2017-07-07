@@ -16,6 +16,7 @@ import java.util.List;
 import org.junit.Test;
 
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.UndoRedoStack;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -76,7 +77,7 @@ public class FindCommandTest {
     private FindCommand prepareCommand(String userInput) throws Exception {
         FindCommand command =
                 new FindCommand(new NameContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+"))));
-        command.setData(model, new CommandHistory());
+        command.setData(model, new CommandHistory(), new UndoRedoStack());
         return command;
     }
 
