@@ -51,10 +51,10 @@ public class ReversibleCommandHistoryTest {
         CommandHistory commandHistory = new CommandHistory();
         reversibleCommandHistory = new ReversibleCommandHistory();
 
-        reversibleAddCommand.setData(model, commandHistory);
-        reversibleClearCommand.setData(model, commandHistory);
-        nonReversibleListCommand.setData(model, commandHistory);
-        nonReversibleSelectCommand.setData(model, commandHistory);
+        reversibleAddCommand.setData(model, commandHistory, reversibleCommandHistory);
+        reversibleClearCommand.setData(model, commandHistory, reversibleCommandHistory);
+        nonReversibleListCommand.setData(model, commandHistory, reversibleCommandHistory);
+        nonReversibleSelectCommand.setData(model, commandHistory, reversibleCommandHistory);
     }
 
     @BeforeClass
