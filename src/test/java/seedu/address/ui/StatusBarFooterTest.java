@@ -25,16 +25,14 @@ public class StatusBarFooterTest extends GuiUnitTest {
 
     private static final AddressBookChangedEvent EVENT_STUB = new AddressBookChangedEvent(new AddressBook());
 
-    private static Clock originalClock;
-    private static Clock injectedClock;
+    private static final Clock originalClock = StatusBarFooter.getClock();
+    private static final Clock injectedClock = Clock.fixed(Instant.now(), ZoneId.systemDefault());
 
     private StatusBarFooter statusBarFooter;
     private StatusBarFooterHandle statusBarFooterHandle;
 
     @BeforeClass
     public static void injectFixedClock() {
-        originalClock = StatusBarFooter.getClock();
-        injectedClock = Clock.fixed(Instant.now(), ZoneId.systemDefault());
         StatusBarFooter.setClock(injectedClock);
     }
 

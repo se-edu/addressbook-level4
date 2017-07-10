@@ -25,7 +25,6 @@ public class BrowserPanelTest extends GuiUnitTest {
     private BrowserPanel browserPanel;
     private BrowserPanelHandle browserPanelHandle;
 
-
     @Before
     public void setUp() throws Exception {
         guiRobot.interact(() -> browserPanel = new BrowserPanel());
@@ -36,15 +35,12 @@ public class BrowserPanelTest extends GuiUnitTest {
 
     @Test
     public void display() throws Exception {
-        browserPanelHandle.clickOnWebView();
-
         // default web page
         URL expectedDefaultPageUrl = MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_PAGE);
         assertEquals(expectedDefaultPageUrl, browserPanelHandle.getLoadedUrl());
 
         // web page with person
         raise(SELECTION_CHANGED_EVENT_STUB);
-        guiRobot.pauseForHuman();
         URL expectedPersonUrl = new URL(GOOGLE_SEARCH_URL_PREFIX
                 + ALICE.getName().fullName.replaceAll(" ", "+"));
         assertEquals(expectedPersonUrl, browserPanelHandle.getLoadedUrl());

@@ -17,7 +17,7 @@ public abstract class GuiUnitTest {
     protected final GuiRobot guiRobot = new GuiRobot();
 
     /**
-     * Raise an {@code event}.
+     * Raises an {@code event}.
      */
     protected void raise(BaseEvent event) {
         guiRobot.interact(() -> EventsCenter.getInstance().post(event));

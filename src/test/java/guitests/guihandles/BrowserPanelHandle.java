@@ -24,7 +24,7 @@ public class BrowserPanelHandle extends GuiHandle {
     }
 
     /**
-     * Returns the URL of the currently loaded page.
+     * Returns the {@code URL} of the currently loaded page.
      */
     public URL getLoadedUrl() throws MalformedURLException {
         return WebViewUtil.getLoadedUrl(getNode(BROWSER_ID));

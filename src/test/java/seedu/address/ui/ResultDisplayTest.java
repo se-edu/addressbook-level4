@@ -25,8 +25,11 @@ public class ResultDisplayTest extends GuiUnitTest {
 
     @Test
     public void display() throws Exception {
-        raise(NEW_RESULT_EVENT_STUB);
-        assertEquals(NEW_RESULT_EVENT_STUB.message, resultDisplayHandle.getText());
         guiRobot.pauseForHuman();
+        assertEquals("", resultDisplayHandle.getText());
+
+        raise(NEW_RESULT_EVENT_STUB);
+        guiRobot.pauseForHuman();
+        assertEquals(NEW_RESULT_EVENT_STUB.message, resultDisplayHandle.getText());
     }
 }

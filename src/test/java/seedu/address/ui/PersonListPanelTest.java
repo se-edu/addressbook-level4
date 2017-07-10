@@ -32,7 +32,6 @@ public class PersonListPanelTest extends GuiUnitTest {
     public void display() throws Exception {
         for (int i = 0; i < TYPICAL_PERSONS.size(); i++) {
             personListPanelHandle.navigateToPerson(TYPICAL_PERSONS.get(i));
-            guiRobot.pauseForHuman();
 
             assertEquals(TYPICAL_PERSONS.get(i), personListPanelHandle.getPerson(i));
         }
