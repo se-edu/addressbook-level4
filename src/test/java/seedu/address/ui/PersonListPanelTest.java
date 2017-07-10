@@ -3,7 +3,6 @@ package seedu.address.ui;
 import static org.junit.Assert.assertEquals;
 
 import java.util.Arrays;
-import java.util.List;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -15,16 +14,15 @@ import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.testutil.TypicalPersons;
 
 public class PersonListPanelTest extends GuiUnitTest {
-    private static final List<ReadOnlyPerson> TYPICAL_PERSONS = Arrays.asList(new TypicalPersons().getTypicalPersons());
+    private static final ObservableList<ReadOnlyPerson> TYPICAL_PERSONS =
+            FXCollections.observableList(Arrays.asList(new TypicalPersons().getTypicalPersons()));
 
     private PersonListPanel personListPanel;
     private PersonListPanelHandle personListPanelHandle;
 
     @Before
     public void setUp() throws Exception {
-        ObservableList<ReadOnlyPerson> observableList = FXCollections.observableList(TYPICAL_PERSONS);
-
-        guiRobot.interact(() -> personListPanel = new PersonListPanel(observableList));
+        guiRobot.interact(() -> personListPanel = new PersonListPanel(TYPICAL_PERSONS));
         uiPartRule.setUiPart(personListPanel);
 
         personListPanelHandle = new PersonListPanelHandle();

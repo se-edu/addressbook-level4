@@ -15,12 +15,17 @@ import seedu.address.MainApp;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
 import seedu.address.model.person.Person;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.TypicalPersons;
 
 public class BrowserPanelTest extends GuiUnitTest {
 
+    private static final Person PERSON_STUB = new TypicalPersons().alice;
+    private static final PersonPanelSelectionChangedEvent EVENT_STUB =
+            new PersonPanelSelectionChangedEvent(PERSON_STUB);
+
     private BrowserPanel browserPanel;
     private BrowserPanelHandle browserPanelHandle;
+
 
     @Before
     public void setUp() throws Exception {
@@ -39,11 +44,10 @@ public class BrowserPanelTest extends GuiUnitTest {
         assertEquals(expectedDefaultPageUrl, browserPanelHandle.getLoadedUrl());
 
         // web page with person
-        Person person = new PersonBuilder().build();
-        guiRobot.interact(() -> EventsCenter.getInstance().post(new PersonPanelSelectionChangedEvent(person)));
+        guiRobot.interact(() -> EventsCenter.getInstance().post(EVENT_STUB));
         guiRobot.pauseForHuman();
         URL expectedPersonUrl = new URL(GOOGLE_SEARCH_URL_PREFIX
-                + person.getName().fullName.replaceAll(" ", "+"));
+                + PERSON_STUB.getName().fullName.replaceAll(" ", "+"));
         assertEquals(expectedPersonUrl, browserPanelHandle.getLoadedUrl());
     }
 }

@@ -24,6 +24,8 @@ public class StatusBarFooterTest extends GuiUnitTest {
     private static final String STUB_SAVE_LOCATION = "Stub";
     private static final String RELATIVE_PATH = "./";
 
+    private static final AddressBookChangedEvent EVENT_STUB = new AddressBookChangedEvent(new AddressBook());
+
     private static Clock originalClock;
     private static Clock injectedClock;
 
@@ -31,13 +33,15 @@ public class StatusBarFooterTest extends GuiUnitTest {
     private StatusBarFooterHandle statusBarFooterHandle;
 
     @BeforeClass
-    public static void setUpBeforeClass() throws Exception {
-        injectFixedClock();
+    public static void injectFixedClock() {
+        originalClock = StatusBarFooter.getClock();
+        injectedClock = Clock.fixed(Instant.now(), ZoneId.systemDefault());
+        StatusBarFooter.setClock(injectedClock);
     }
 
     @AfterClass
-    public static void tearDownAfterClass() throws Exception {
-        restoreOriginalClock();
+    public static void restoreOriginalClock() {
+        StatusBarFooter.setClock(originalClock);
     }
 
     @Before
@@ -48,28 +52,25 @@ public class StatusBarFooterTest extends GuiUnitTest {
         statusBarFooterHandle = new StatusBarFooterHandle();
     }
 
-    private static void injectFixedClock() {
-        originalClock = StatusBarFooter.getClock();
-        injectedClock = Clock.fixed(Instant.now(), ZoneId.systemDefault());
-        StatusBarFooter.setClock(injectedClock);
-    }
-
-    private static void restoreOriginalClock() {
-        StatusBarFooter.setClock(originalClock);
-    }
-
     @Test
     public void display() throws Exception {
         // initial state
-        assertEquals(RELATIVE_PATH + STUB_SAVE_LOCATION, statusBarFooterHandle.getSaveLocation());
-        assertEquals(SYNC_STATUS_INITIAL, statusBarFooterHandle.getSyncStatus());
-        guiRobot.pauseForHuman();
+        assertStatusBarContent(RELATIVE_PATH + STUB_SAVE_LOCATION, SYNC_STATUS_INITIAL);
 
-        // address book state changed
-        EventsCenter.getInstance().post(new AddressBookChangedEvent(new AddressBook()));
-        assertEquals(RELATIVE_PATH + STUB_SAVE_LOCATION, statusBarFooterHandle.getSaveLocation());
-        assertEquals(String.format(SYNC_STATUS_UPDATED, new Date(injectedClock.millis()).toString()),
-                statusBarFooterHandle.getSyncStatus());
+        // address book is updated
+        EventsCenter.getInstance().post(EVENT_STUB);
+        assertStatusBarContent(RELATIVE_PATH + STUB_SAVE_LOCATION,
+                String.format(SYNC_STATUS_UPDATED, new Date(injectedClock.millis()).toString()));
+    }
+
+    /**
+     * Asserts that the save location matches that of {@code expectedSaveLocation}, and the
+     * sync status matches that of {@code expectedSyncStatus}.
+     */
+    private void assertStatusBarContent(String expectedSaveLocation, String expectedSyncStatus) {
+        assertEquals(expectedSaveLocation, statusBarFooterHandle.getSaveLocation());
+        assertEquals(expectedSyncStatus, statusBarFooterHandle.getSyncStatus());
         guiRobot.pauseForHuman();
     }
+
 }

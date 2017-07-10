@@ -39,7 +39,6 @@ public class CommandBoxTest extends GuiUnitTest {
 
         defaultStyleOfCommandBox = new ArrayList<>(commandBoxHandle.getStyleClass());
 
-        // build style class for error
         errorStyleOfCommandBox = new ArrayList<>(defaultStyleOfCommandBox);
         errorStyleOfCommandBox.add(CommandBox.ERROR_STYLE_CLASS);
     }
@@ -77,7 +76,7 @@ public class CommandBoxTest extends GuiUnitTest {
      * Runs a command that fails, then verifies that
      * - the return value of runCommand(...) is false,
      * - the text remains,
-     * - the command box has only one ERROR_STYLE_CLASS, with other style classes untouched.
+     * - the command box's style is the same as {@code errorStyleOfCommandBox}.
      */
     private void assertBehaviorForFailedCommand() {
         assertFalse(commandBoxHandle.runCommand(COMMAND_THAT_FAILS));
@@ -89,7 +88,7 @@ public class CommandBoxTest extends GuiUnitTest {
      * Runs a command that succeeds, then verifies that
      * - the return value of runCommand(...) is true,
      * - the text is cleared,
-     * - the command box does not have any ERROR_STYLE_CLASS, with style classes the same as default.
+     * - the command box's style is the same as {@code defaultStyleOfCommandBox}.
      */
     private void assertBehaviorForSuccessfulCommand() {
         assertTrue(commandBoxHandle.runCommand(COMMAND_THAT_SUCCEEDS));
