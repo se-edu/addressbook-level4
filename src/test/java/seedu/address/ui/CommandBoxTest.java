@@ -73,10 +73,10 @@ public class CommandBoxTest extends GuiUnitTest {
     }
 
     /**
-     * Runs a command that fails, then verifies that
-     * - the return value of runCommand(...) is false,
-     * - the text remains,
-     * - the command box's style is the same as {@code errorStyleOfCommandBox}.
+     * Runs a command that fails, then verifies that <br>
+     *      - the return value of runCommand(...) is false <br>
+     *      - the text remains <br>
+     *      - the command box's style is the same as {@code errorStyleOfCommandBox}.
      */
     private void assertBehaviorForFailedCommand() {
         assertFalse(commandBoxHandle.runCommand(COMMAND_THAT_FAILS));
@@ -85,10 +85,10 @@ public class CommandBoxTest extends GuiUnitTest {
     }
 
     /**
-     * Runs a command that succeeds, then verifies that
-     * - the return value of runCommand(...) is true,
-     * - the text is cleared,
-     * - the command box's style is the same as {@code defaultStyleOfCommandBox}.
+     * Runs a command that succeeds, then verifies that <br>
+     *      - the return value of runCommand(...) is true <br>
+     *      - the text is cleared <br>
+     *      - the command box's style is the same as {@code defaultStyleOfCommandBox}.
      */
     private void assertBehaviorForSuccessfulCommand() {
         assertTrue(commandBoxHandle.runCommand(COMMAND_THAT_SUCCEEDS));

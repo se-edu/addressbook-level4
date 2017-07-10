@@ -6,7 +6,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import guitests.guihandles.ResultDisplayHandle;
-import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.events.ui.NewResultAvailableEvent;
 
 public class ResultDisplayTest extends GuiUnitTest {
@@ -26,7 +25,7 @@ public class ResultDisplayTest extends GuiUnitTest {
 
     @Test
     public void display() throws Exception {
-        EventsCenter.getInstance().post(NEW_RESULT_EVENT_STUB);
+        raise(NEW_RESULT_EVENT_STUB);
         assertEquals(NEW_RESULT_EVENT_STUB.message, resultDisplayHandle.getText());
         guiRobot.pauseForHuman();
     }
