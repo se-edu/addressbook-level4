@@ -1,6 +1,7 @@
 package seedu.address.ui;
 
 import static org.junit.Assert.assertEquals;
+import static seedu.address.testutil.EventsUtil.post;
 import static seedu.address.ui.BrowserPanel.DEFAULT_PAGE;
 import static seedu.address.ui.BrowserPanel.GOOGLE_SEARCH_URL_PREFIX;
 import static seedu.address.ui.UiPart.FXML_FILE_FOLDER;
@@ -14,7 +15,6 @@ import guitests.guihandles.BrowserPanelHandle;
 import seedu.address.MainApp;
 import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
 import seedu.address.model.person.Person;
-import seedu.address.testutil.EventsUtil;
 import seedu.address.testutil.TypicalPersons;
 
 public class BrowserPanelTest extends GuiUnitTest {
@@ -40,8 +40,8 @@ public class BrowserPanelTest extends GuiUnitTest {
         URL expectedDefaultPageUrl = MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_PAGE);
         assertEquals(expectedDefaultPageUrl, browserPanelHandle.getLoadedUrl());
 
-        // display associated webpage of a person
-        EventsUtil.raise(SELECTION_CHANGED_EVENT_STUB);
+        // associated web page of a person
+        post(SELECTION_CHANGED_EVENT_STUB);
         URL expectedPersonUrl = new URL(GOOGLE_SEARCH_URL_PREFIX
                 + ALICE.getName().fullName.replaceAll(" ", "+"));
         assertEquals(expectedPersonUrl, browserPanelHandle.getLoadedUrl());

@@ -129,7 +129,6 @@ public class CommandBoxTest extends GuiUnitTest {
 
     /**
      * Runs a command that fails, then verifies that <br>
-     *      - the return value of runCommand(...) is false <br>
      *      - the text remains <br>
      *      - the command box's style is the same as {@code errorStyleOfCommandBox}.
      */
@@ -141,7 +140,6 @@ public class CommandBoxTest extends GuiUnitTest {
 
     /**
      * Runs a command that succeeds, then verifies that <br>
-     *      - the return value of runCommand(...) is true <br>
      *      - the text is cleared <br>
      *      - the command box's style is the same as {@code defaultStyleOfCommandBox}.
      */

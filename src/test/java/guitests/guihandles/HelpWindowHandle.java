@@ -27,7 +27,7 @@ public class HelpWindowHandle extends StageHandle {
     }
 
     /**
-     * Returns the URL of the currently loaded page.
+     * Returns the {@code URL} of the currently loaded page.
      */
     public URL getLoadedUrl() throws MalformedURLException {
         return WebViewUtil.getLoadedUrl(getChildNode(HELP_WINDOW_BROWSER_ID));
