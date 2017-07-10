@@ -3,7 +3,6 @@ package guitests.guihandles;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import javafx.scene.web.WebView;
 import seedu.address.TestApp;
 
 /**
@@ -28,7 +27,6 @@ public class BrowserPanelHandle extends NodeHandle<Node> {
      * Returns the {@code URL} of the currently loaded page.
      */
     public URL getLoadedUrl() throws MalformedURLException {
-        WebView webView = getNode(BROWSER_ID);
-        return new URL(webView.getEngine().getLocation());
+        return WebViewUtil.getLoadedUrl(getNode(BROWSER_ID));
     }
 }
