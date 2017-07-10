@@ -4,7 +4,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 import guitests.GuiRobot;
-import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 
 /**
@@ -31,7 +30,6 @@ public class HelpWindowHandle extends StageHandle {
      * Returns the {@code URL} of the currently loaded page.
      */
     public URL getLoadedUrl() throws MalformedURLException {
-        WebView webView = getChildNode(HELP_WINDOW_BROWSER_ID);
-        return new URL(webView.getEngine().getLocation());
+        return WebViewUtil.getLoadedUrl(getChildNode(HELP_WINDOW_BROWSER_ID));
     }
 }

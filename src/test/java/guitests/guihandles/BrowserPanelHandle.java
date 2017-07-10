@@ -4,8 +4,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 import javafx.scene.Node;
-import javafx.scene.web.WebView;
-
 
 /**
  * A handler for the {@code BrowserPanel} of the UI.
@@ -22,7 +20,6 @@ public class BrowserPanelHandle extends NodeHandle<Node> {
      * Returns the {@code URL} of the currently loaded page.
      */
     public URL getLoadedUrl() throws MalformedURLException {
-        WebView webView = getChildNode(BROWSER_ID);
-        return new URL(webView.getEngine().getLocation());
+        return WebViewUtil.getLoadedUrl(getChildNode(BROWSER_ID));
     }
 }
