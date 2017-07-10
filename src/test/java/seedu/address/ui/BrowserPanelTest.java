@@ -30,7 +30,7 @@ public class BrowserPanelTest extends GuiUnitTest {
         guiRobot.interact(() -> browserPanel = new BrowserPanel());
         uiPartRule.setUiPart(browserPanel);
 
-        browserPanelHandle = new BrowserPanelHandle();
+        browserPanelHandle = new BrowserPanelHandle(browserPanel.getRoot());
     }
 
     @Test

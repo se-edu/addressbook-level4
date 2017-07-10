@@ -10,6 +10,7 @@ import org.junit.Test;
 import org.testfx.api.FxToolkit;
 
 import guitests.guihandles.HelpWindowHandle;
+import javafx.stage.Stage;
 
 public class HelpWindowTest extends GuiUnitTest {
 
@@ -19,9 +20,9 @@ public class HelpWindowTest extends GuiUnitTest {
     @Before
     public void setUp() throws Exception {
         guiRobot.interact(() -> helpWindow = new HelpWindow());
-        FxToolkit.setupStage((stage) -> stage.setScene(helpWindow.getRoot().getScene()));
+        Stage helpWindowStage = FxToolkit.setupStage((stage) -> stage.setScene(helpWindow.getRoot().getScene()));
         FxToolkit.showStage();
-        helpWindowHandle = new HelpWindowHandle();
+        helpWindowHandle = new HelpWindowHandle(helpWindowStage);
     }
 
     @Test

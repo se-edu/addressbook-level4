@@ -26,6 +26,13 @@ public class PersonListPanelHandle extends NodeHandle<ListView<ReadOnlyPerson>> 
     }
 
     /**
+     * Returns the selected index in the list view.
+     */
+    public int getSelectedIndex() {
+        return getRootNode().getSelectionModel().getSelectedIndex();
+    }
+
+    /**
      * Returns the selected person in the list view. A maximum of 1 item can be selected at any time.
      */
     public Optional<ReadOnlyPerson> getSelectedPerson() {
@@ -36,17 +43,6 @@ public class PersonListPanelHandle extends NodeHandle<ListView<ReadOnlyPerson>> 
         }
 
         return personList.isEmpty() ? Optional.empty() : Optional.of(personList.get(0));
-    }
-
-    /**
-     * Returns the selected index in the list view.
-     */
-    public int getSelectedIndex() {
-        return getListView().getSelectionModel().getSelectedIndex();
-    }
-
-    private ListView<ReadOnlyPerson> getListView() {
-        return getNode(PERSON_LIST_VIEW_ID);
     }
 
     /**

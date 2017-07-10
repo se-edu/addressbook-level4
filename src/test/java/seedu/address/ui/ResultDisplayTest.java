@@ -20,7 +20,8 @@ public class ResultDisplayTest extends GuiUnitTest {
         guiRobot.interact(() -> resultDisplay = new ResultDisplay());
         uiPartRule.setUiPart(resultDisplay);
 
-        resultDisplayHandle = new ResultDisplayHandle();
+        resultDisplayHandle = new ResultDisplayHandle(getChildNode(resultDisplay.getRoot(),
+                ResultDisplayHandle.RESULT_DISPLAY_ID));
     }
 
     @Test

@@ -3,17 +3,17 @@ package guitests.guihandles;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import guitests.GuiRobot;
+import javafx.stage.Stage;
+
 /**
  * A handle to the {@code HelpWindow} of the application.
  */
 public class HelpWindowHandle extends StageHandle {
 
-    private static final String HELP_WINDOW_BROWSER_ID = "#browser";
+    public static final String HELP_WINDOW_TITLE = "Help";
 
-    public HelpWindowHandle() {
-        super(HELP_WINDOW_TITLE);
-        guiRobot.pauseForHuman();
-    }
+    private static final String HELP_WINDOW_BROWSER_ID = "#browser";
 
     public HelpWindowHandle(Stage helpWindowStage) {
         super(helpWindowStage);
@@ -30,6 +30,6 @@ public class HelpWindowHandle extends StageHandle {
      * Returns the URL of the currently loaded page.
      */
     public URL getLoadedUrl() throws MalformedURLException {
-        return WebViewUtil.getLoadedUrl(getNode(HELP_WINDOW_BROWSER_ID));
+        return WebViewUtil.getLoadedUrl(getChildNode(HELP_WINDOW_BROWSER_ID));
     }
 }
