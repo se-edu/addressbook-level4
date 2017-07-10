@@ -7,6 +7,7 @@ import org.junit.Test;
 
 import guitests.guihandles.ResultDisplayHandle;
 import seedu.address.commons.events.ui.NewResultAvailableEvent;
+import seedu.address.testutil.EventsUtil;
 
 public class ResultDisplayTest extends GuiUnitTest {
 
@@ -29,7 +30,7 @@ public class ResultDisplayTest extends GuiUnitTest {
         guiRobot.pauseForHuman();
         assertEquals("", resultDisplayHandle.getText());
 
-        raise(NEW_RESULT_EVENT_STUB);
+        EventsUtil.raise(NEW_RESULT_EVENT_STUB);
         guiRobot.pauseForHuman();
         assertEquals(NEW_RESULT_EVENT_STUB.message, resultDisplayHandle.getText());
     }

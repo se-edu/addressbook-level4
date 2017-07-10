@@ -14,6 +14,7 @@ import guitests.guihandles.BrowserPanelHandle;
 import seedu.address.MainApp;
 import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
 import seedu.address.model.person.Person;
+import seedu.address.testutil.EventsUtil;
 import seedu.address.testutil.TypicalPersons;
 
 public class BrowserPanelTest extends GuiUnitTest {
@@ -40,7 +41,7 @@ public class BrowserPanelTest extends GuiUnitTest {
         assertEquals(expectedDefaultPageUrl, browserPanelHandle.getLoadedUrl());
 
         // display associated webpage of a person
-        raise(SELECTION_CHANGED_EVENT_STUB);
+        EventsUtil.raise(SELECTION_CHANGED_EVENT_STUB);
         URL expectedPersonUrl = new URL(GOOGLE_SEARCH_URL_PREFIX
                 + ALICE.getName().fullName.replaceAll(" ", "+"));
         assertEquals(expectedPersonUrl, browserPanelHandle.getLoadedUrl());

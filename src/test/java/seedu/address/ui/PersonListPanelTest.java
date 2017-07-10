@@ -13,6 +13,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.model.person.ReadOnlyPerson;
+import seedu.address.testutil.EventsUtil;
 import seedu.address.testutil.TypicalPersons;
 
 public class PersonListPanelTest extends GuiUnitTest {
@@ -43,7 +44,7 @@ public class PersonListPanelTest extends GuiUnitTest {
 
     @Test
     public void handleJumpToListRequestEvent() {
-        raise(JUMP_TO_SECOND_EVENT);
+        EventsUtil.raise(JUMP_TO_SECOND_EVENT);
         guiRobot.pauseForHuman();
         assertEquals(INDEX_SECOND_PERSON.getZeroBased(), personListPanelHandle.getSelectedIndex());
     }

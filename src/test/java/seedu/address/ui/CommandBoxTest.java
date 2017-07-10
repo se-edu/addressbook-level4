@@ -1,8 +1,6 @@
 package seedu.address.ui;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 
@@ -136,7 +134,7 @@ public class CommandBoxTest extends GuiUnitTest {
      *      - the command box's style is the same as {@code errorStyleOfCommandBox}.
      */
     private void assertBehaviorForFailedCommand() {
-        assertFalse(commandBoxHandle.run(COMMAND_THAT_FAILS));
+        commandBoxHandle.run(COMMAND_THAT_FAILS);
         assertEquals(COMMAND_THAT_FAILS, commandBoxHandle.getInput());
         assertEquals(errorStyleOfCommandBox, commandBoxHandle.getStyleClass());
     }
@@ -148,7 +146,7 @@ public class CommandBoxTest extends GuiUnitTest {
      *      - the command box's style is the same as {@code defaultStyleOfCommandBox}.
      */
     private void assertBehaviorForSuccessfulCommand() {
-        assertTrue(commandBoxHandle.run(COMMAND_THAT_SUCCEEDS));
+        commandBoxHandle.run(COMMAND_THAT_SUCCEEDS);
         assertEquals("", commandBoxHandle.getInput());
         assertEquals(defaultStyleOfCommandBox, commandBoxHandle.getStyleClass());
     }

@@ -17,6 +17,7 @@ import org.junit.Test;
 import guitests.guihandles.StatusBarFooterHandle;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.model.AddressBook;
+import seedu.address.testutil.EventsUtil;
 
 public class StatusBarFooterTest extends GuiUnitTest {
 
@@ -57,7 +58,7 @@ public class StatusBarFooterTest extends GuiUnitTest {
         assertStatusBarContent(RELATIVE_PATH + STUB_SAVE_LOCATION, SYNC_STATUS_INITIAL);
 
         // after address book is updated
-        raise(EVENT_STUB);
+        EventsUtil.raise(EVENT_STUB);
         assertStatusBarContent(RELATIVE_PATH + STUB_SAVE_LOCATION,
                 String.format(SYNC_STATUS_UPDATED, new Date(injectedClock.millis()).toString()));
     }
