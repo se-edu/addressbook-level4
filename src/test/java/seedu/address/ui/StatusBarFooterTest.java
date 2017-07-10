@@ -32,12 +32,14 @@ public class StatusBarFooterTest extends GuiUnitTest {
     private StatusBarFooterHandle statusBarFooterHandle;
 
     @BeforeClass
-    public static void injectFixedClock() {
+    public static void setUpBeforeClass() {
+        // inject fixed clock
         StatusBarFooter.setClock(injectedClock);
     }
 
     @AfterClass
-    public static void restoreOriginalClock() {
+    public static void tearDownAfterClass() {
+        // restore original clock
         StatusBarFooter.setClock(originalClock);
     }
 
