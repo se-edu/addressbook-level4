@@ -2,6 +2,8 @@ package seedu.address.ui;
 
 import java.util.logging.Logger;
 
+import org.fxmisc.easybind.EasyBind;
+
 import com.google.common.eventbus.Subscribe;
 
 import javafx.application.Platform;
@@ -23,7 +25,7 @@ public class PersonListPanel extends UiPart<Region> {
     private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
 
     @FXML
-    private ListView<ReadOnlyPerson> personListView;
+    private ListView<PersonCard> personListView;
 
     public PersonListPanel(ObservableList<ReadOnlyPerson> personList) {
         super(FXML);
@@ -32,7 +34,9 @@ public class PersonListPanel extends UiPart<Region> {
     }
 
     private void setConnections(ObservableList<ReadOnlyPerson> personList) {
-        personListView.setItems(personList);
+        ObservableList<PersonCard> mappedList = EasyBind.map(personList, (person) ->
+                new PersonCard(person, personList.indexOf(person) + 1));
+        personListView.setItems(mappedList);
         personListView.setCellFactory(listView -> new PersonListViewCell());
         setEventHandlerForSelectionChangeEvent();
     }
@@ -60,17 +64,17 @@ public class PersonListPanel extends UiPart<Region> {
         scrollTo(event.targetIndex);
     }
 
-    class PersonListViewCell extends ListCell<ReadOnlyPerson> {
+    class PersonListViewCell extends ListCell<PersonCard> {
 
         @Override
-        protected void updateItem(ReadOnlyPerson person, boolean empty) {
+        protected void updateItem(PersonCard person, boolean empty) {
             super.updateItem(person, empty);
 
             if (empty || person == null) {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(new PersonCard(person, getIndex() + 1).getRoot());
+                setGraphic(person.getRoot());
             }
         }
     }
