@@ -5,13 +5,13 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
-import javafx.scene.Node;
+import javafx.geometry.Point2D;
 import javafx.scene.control.ListView;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.testutil.TestUtil;
+import seedu.address.ui.PersonCard;
 
 /**
  * Provides a handle for the panel containing the person list.
@@ -19,23 +19,27 @@ import seedu.address.testutil.TestUtil;
 public class PersonListPanelHandle extends NodeHandle<ListView<ReadOnlyPerson>> {
     public static final String PERSON_LIST_VIEW_ID = "#personListView";
 
-    private static final String CARD_PANE_ID = "#cardPane";
+    private static final String PERSON_LIST_VIEW_ID = "#personListView";
 
-    public PersonListPanelHandle(ListView<ReadOnlyPerson> personListPanelNode) {
-        super(personListPanelNode);
+    public PersonListPanelHandle() {
+        super(TestApp.APP_TITLE);
     }
 
     /**
      * Returns the selected person in the list view. A maximum of 1 item can be selected at any time.
      */
     public Optional<ReadOnlyPerson> getSelectedPerson() {
-        List<ReadOnlyPerson> personList = getRootNode().getSelectionModel().getSelectedItems();
+        List<PersonCard> personList = getListView().getSelectionModel().getSelectedItems();
 
         if (personList.size() > 1) {
             throw new AssertionError("Person list size expected 0 or 1.");
         }
 
-        return personList.isEmpty() ? Optional.empty() : Optional.of(personList.get(0));
+        return personList.isEmpty() ? Optional.empty() : Optional.of(personList.get(0).person);
+    }
+
+    private ListView<PersonCard> getListView() {
+        return getNode(PERSON_LIST_VIEW_ID);
     }
 
     /**
@@ -43,7 +47,7 @@ public class PersonListPanelHandle extends NodeHandle<ListView<ReadOnlyPerson>> 
      * @param persons A list of person in the correct order.
      */
     public boolean isListMatching(ReadOnlyPerson... persons) throws PersonNotFoundException {
-        List<ReadOnlyPerson> personList = getRootNode().getItems();
+        List<PersonCard> personList = getListView().getItems();
         checkArgument(personList.size() == persons.length,
                 "List size mismatched\nExpected " + personList.size() + " persons");
 
@@ -62,13 +66,16 @@ public class PersonListPanelHandle extends NodeHandle<ListView<ReadOnlyPerson>> 
      * Navigates the listview to display and select the person.
      */
     public void navigateToPerson(ReadOnlyPerson person) throws PersonNotFoundException {
-        if (!getRootNode().getItems().contains(person)) {
+        List<PersonCard> cards = getListView().getItems();
+        Optional<PersonCard> matchingCard = cards.stream().filter(card -> card.person.equals(person)).findFirst();
+
+        if (!matchingCard.isPresent()) {
             throw new PersonNotFoundException();
         }
 
         guiRobot.interact(() -> {
-            getRootNode().scrollTo(person);
-            getRootNode().getSelectionModel().select(person);
+            getListView().scrollTo(matchingCard.get());
+            getListView().getSelectionModel().select(matchingCard.get());
         });
         guiRobot.pauseForHuman();
     }
@@ -77,7 +84,7 @@ public class PersonListPanelHandle extends NodeHandle<ListView<ReadOnlyPerson>> 
      * Returns the person at the specified {@code index} in the list.
      */
     public ReadOnlyPerson getPerson(int index) {
-        return getRootNode().getItems().get(index);
+        return getListView().getItems().get(index).person;
     }
 
     /**
@@ -91,16 +98,9 @@ public class PersonListPanelHandle extends NodeHandle<ListView<ReadOnlyPerson>> 
      * Returns the {@code PersonCardHandle} of the specified {@code person} in the list.
      */
     public PersonCardHandle getPersonCardHandle(ReadOnlyPerson person) throws PersonNotFoundException {
-        Set<Node> nodes = getAllCardNodes();
-        Optional<PersonCardHandle> personCardNode = nodes.stream()
-                .map(PersonCardHandle::new)
-                .filter(handle -> handle.isSamePerson(person))
-                .findFirst();
-        return personCardNode.orElseThrow(PersonNotFoundException::new);
-    }
-
-    private Set<Node> getAllCardNodes() {
-        return guiRobot.lookup(CARD_PANE_ID).queryAll();
+        Optional<PersonCardHandle> handle = getListView().getItems().stream().filter(card -> card.person.equals(person))
+                .map(card -> new PersonCardHandle(card.getRoot())).findFirst();
+        return handle.orElseThrow(PersonNotFoundException::new);
     }
 
     /**
