@@ -5,10 +5,8 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 
 import javafx.geometry.Point2D;
-import javafx.scene.Node;
 import javafx.scene.control.ListView;
 import seedu.address.TestApp;
 import seedu.address.model.person.ReadOnlyPerson;
@@ -20,8 +18,6 @@ import seedu.address.ui.PersonCard;
  * Provides a handle for the panel containing the person list.
  */
 public class PersonListPanelHandle extends GuiHandle {
-
-    private static final String CARD_PANE_ID = "#cardPane";
 
     private static final String PERSON_LIST_VIEW_ID = "#personListView";
 
@@ -104,26 +100,9 @@ public class PersonListPanelHandle extends GuiHandle {
     }
 
     public PersonCardHandle getPersonCardHandle(ReadOnlyPerson person) throws PersonNotFoundException {
-        if (getListView().getItems().stream().map(card -> card.person)
-                .noneMatch(cardPerson -> cardPerson.equals(person))) {
-            throw new PersonNotFoundException();
-        }
-
-        Set<Node> nodes = getAllCardNodes();
-        Optional<PersonCardHandle> personCardNode = nodes.stream()
-                .map(PersonCardHandle::new)
-                .filter(handle -> handle.isSamePerson(person))
-                .findFirst();
-
-        // post-condition: since we verified at the start that the person exist in the list,
-        // it must have a corresponding person card, so the person card's node must exist
-        assert personCardNode.isPresent();
-
-        return personCardNode.get();
-    }
-
-    private Set<Node> getAllCardNodes() {
-        return guiRobot.lookup(CARD_PANE_ID).queryAll();
+        Optional<PersonCardHandle> handle = getListView().getItems().stream().filter(card -> card.person.equals(person))
+                .map(card -> new PersonCardHandle(card.getRoot())).findFirst();
+        return handle.orElseThrow(PersonNotFoundException::new);
     }
 
     public int getNumberOfPeople() {

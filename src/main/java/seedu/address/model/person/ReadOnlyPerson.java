@@ -20,7 +20,7 @@ public interface ReadOnlyPerson {
     Email getEmail();
     ObjectProperty<Address> addressProperty();
     Address getAddress();
-    ObjectProperty<UniqueTagList> getTagProperty();
+    ObjectProperty<UniqueTagList> tagProperty();
     Set<Tag> getTags();
 
     /**

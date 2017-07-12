@@ -111,7 +111,7 @@ public class Person implements ReadOnlyPerson {
         return Collections.unmodifiableSet(tags.get().toSet());
     }
 
-    public ObjectProperty<UniqueTagList> getTagProperty() {
+    public ObjectProperty<UniqueTagList> tagProperty() {
         return tags;
     }
 
