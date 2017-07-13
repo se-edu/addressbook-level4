@@ -1,6 +1,5 @@
 package seedu.address.logic;
 
-import java.util.EmptyStackException;
 import java.util.Stack;
 
 import seedu.address.logic.commands.Command;
@@ -21,8 +20,9 @@ public class UndoRedoStack {
     }
 
     /**
-     * Appends {@code command} into the list of commands that can be undone, if it is of type {@code ReversibleCommand}.
-     * Upon calling this method, previously undone commands (that are not redone) will be lost.
+     * Appends {@code command} into the stack of commands that can be undone,
+     * if it is of type {@code ReversibleCommand}. Upon calling this method,
+     * previously undone commands (that are not redone) will be lost.
      */
     public void pushUndo(Command command) {
         if (command instanceof UndoCommand || command instanceof RedoCommand) {
@@ -39,26 +39,18 @@ public class UndoRedoStack {
     }
 
     /**
-     * Pops and returns the next {@code ReversibleCommand} to be undone in the list.
+     * Pops and returns the next {@code ReversibleCommand} to be undone in the stack.
      */
     public ReversibleCommand popUndo() {
-        if (!canUndo()) {
-            throw new EmptyStackException();
-        }
-
         ReversibleCommand toUndo = undoStack.pop();
         redoStack.push(toUndo);
         return toUndo;
     }
 
     /**
-     * Pops and returns the next {@code ReversibleCommand} to be redone in the list.
+     * Pops and returns the next {@code ReversibleCommand} to be redone in the stack.
      */
     public ReversibleCommand popRedo() {
-        if (!canRedo()) {
-            throw new EmptyStackException();
-        }
-
         ReversibleCommand toRedo = redoStack.pop();
         undoStack.push(toRedo);
         return toRedo;
