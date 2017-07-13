@@ -3,7 +3,9 @@ package seedu.address.logic;
 import java.util.Stack;
 
 import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.ReversibleCommand;
+import seedu.address.logic.commands.UndoCommand;
 
 /**
  * Maintains the undo-stack (the stack of commands that can be undone) and the redo-stack (the stack of
@@ -19,9 +21,14 @@ public class UndoRedoStack {
     }
 
     /**
-     * Pushes {@code command} onto the undo-stack if it is of type {@code ReversibleCommand}. Clears the redo-stack.
+     * Pushes {@code command} onto the undo-stack if it is of type {@code ReversibleCommand}. Clears the redo-stack
+     * if {@code command} is not of type {@code UndoCommand} or {@code RedoCommand}.
      */
     public void push(Command command) {
+        if (command instanceof UndoCommand || command instanceof RedoCommand) {
+            return;
+        }
+
         redoStack.clear();
 
         if (!(command instanceof ReversibleCommand)) {
