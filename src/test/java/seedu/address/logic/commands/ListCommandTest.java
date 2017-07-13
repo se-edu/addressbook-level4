@@ -1,7 +1,7 @@
 package seedu.address.logic.commands;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -10,7 +10,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import seedu.address.logic.CommandHistory;
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -55,17 +54,5 @@ public class ListCommandTest {
         model.updateFilteredPersonList(new HashSet<>(Arrays.asList(splitName)));
 
         assertTrue(model.getFilteredPersonList().size() == 1);
-    }
-
-    /**
-     * Executes the given {@code command}, confirms that <br>
-     * - the result message matches {@code expectedMessage} <br>
-     * - the address book and the filtered person list in the {@code model} matches that of {@code expectedModel}
-     */
-    public static void assertCommandSuccess(Command command, Model model, String expectedMessage, Model expectedModel)
-            throws CommandException {
-        CommandResult result = command.execute();
-        assertEquals(expectedMessage, result.feedbackToUser);
-        assertEquals(expectedModel, model);
     }
 }
