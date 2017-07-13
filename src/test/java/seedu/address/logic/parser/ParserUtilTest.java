@@ -127,7 +127,7 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parseEmail_optionalEmpty_returnsOptionalEmpty() throws Exception {
+    public void parseEmail_null_returnsOptionalEmpty() throws Exception {
         assertFalse(ParserUtil.parseEmail(null).isPresent());
     }
 
