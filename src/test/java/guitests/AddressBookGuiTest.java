@@ -25,8 +25,12 @@ import javafx.stage.Stage;
 import seedu.address.TestApp;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.events.BaseEvent;
+import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.model.AddressBook;
 import seedu.address.model.person.ReadOnlyPerson;
+import seedu.address.storage.AddressBookStorage;
+import seedu.address.storage.StorageManager;
+import seedu.address.storage.UserPrefsStorage;
 import seedu.address.testutil.TestUtil;
 import seedu.address.testutil.TypicalPersons;
 
@@ -133,5 +137,20 @@ public abstract class AddressBookGuiTest {
     protected void raise(BaseEvent event) {
         //JUnit doesn't run its test cases on the UI thread. Platform.runLater is used to post event on the UI thread.
         Platform.runLater(() -> EventsCenter.getInstance().post(event));
+    }
+
+    /**
+     * A {@code StorageManager} with the {@code AddressBookChangedEvent} event disabled.
+     */
+    protected class DisabledEventStorageManager extends StorageManager {
+
+        public DisabledEventStorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage) {
+            super(addressBookStorage, userPrefsStorage);
+        }
+
+        @Override
+        public void handleAddressBookChangedEvent(AddressBookChangedEvent event) {
+            // do nothing
+        }
     }
 }
