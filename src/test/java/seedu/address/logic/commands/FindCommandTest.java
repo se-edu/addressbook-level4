@@ -73,7 +73,8 @@ public class FindCommandTest {
      * Parses {@code userInput} into a {@code FindCommand}.
      */
     private FindCommand prepareCommand(String userInput) throws Exception {
-        FindCommand command = new FindCommand(new HashSet<>(Arrays.asList(userInput.split("\\s+"))));
+        FindCommand command =
+                new FindCommand(new NameContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+"))));
         command.setData(model, new CommandHistory(), new UndoRedoStack());
         return command;
     }

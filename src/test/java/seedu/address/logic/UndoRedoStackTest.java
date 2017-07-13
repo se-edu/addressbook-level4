@@ -20,9 +20,9 @@ import seedu.address.logic.commands.UndoCommand;
 
 public class UndoRedoStackTest {
     // Commands
-    private DummyCommand dummyCommandOne = new DummyCommand();
-    private DummyReversibleCommand dummyReversibleCommandOne = new DummyReversibleCommand();
-    private DummyReversibleCommand dummyReversibleCommandTwo = new DummyReversibleCommand();
+    private final DummyCommand dummyCommandOne = new DummyCommand();
+    private final DummyReversibleCommand dummyReversibleCommandOne = new DummyReversibleCommand();
+    private final DummyReversibleCommand dummyReversibleCommandTwo = new DummyReversibleCommand();
 
     private UndoRedoStack undoRedoStack = new UndoRedoStack();
 

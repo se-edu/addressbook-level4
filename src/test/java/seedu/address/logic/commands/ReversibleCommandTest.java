@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 import java.util.Collections;
-import java.util.HashSet;
 
 import org.junit.Test;
 
@@ -12,12 +11,13 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.testutil.TypicalPersons;
 
 public class ReversibleCommandTest {
-    private Model model = new ModelManager(new TypicalPersons().getTypicalAddressBook(), new UserPrefs());
+    private final Model model = new ModelManager(new TypicalPersons().getTypicalAddressBook(), new UserPrefs());
 
     @Test
     public void executeUndoRedo() throws Exception {
@@ -44,7 +44,7 @@ public class ReversibleCommandTest {
     private void showFirstPersonOnly() {
         ReadOnlyPerson person = model.getAddressBook().getPersonList().get(0);
         final String[] splitName = person.getName().fullName.split("\\s+");
-        model.updateFilteredPersonList(new HashSet<>(Collections.singletonList(splitName[0])));
+        model.updateFilteredPersonList(new NameContainsKeywordsPredicate(Collections.singletonList(splitName[0])));
         assert model.getFilteredPersonList().size() == 1;
     }
 

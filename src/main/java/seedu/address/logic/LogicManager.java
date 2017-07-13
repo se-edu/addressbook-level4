@@ -21,21 +21,21 @@ public class LogicManager extends ComponentManager implements Logic {
 
     private final Model model;
     private final CommandHistory history;
+    private final AddressBookParser addressBookParser;
     private final UndoRedoStack undoRedoStack;
-    private final Parser parser;
 
     public LogicManager(Model model) {
         this.model = model;
         this.history = new CommandHistory();
+        this.addressBookParser = new AddressBookParser();
         this.undoRedoStack = new UndoRedoStack();
-        this.parser = new Parser();
     }
 
     @Override
     public CommandResult execute(String commandText) throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
         try {
-            Command command = parser.parseCommand(commandText);
+            Command command = addressBookParser.parseCommand(commandText);
             command.setData(model, history, undoRedoStack);
             CommandResult result = command.execute();
             undoRedoStack.pushUndo(command);
