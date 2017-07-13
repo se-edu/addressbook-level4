@@ -1,7 +1,6 @@
 package seedu.address.testutil;
 
 import java.util.Arrays;
-import java.util.Optional;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
@@ -36,22 +35,22 @@ public class EditPersonDescriptorBuilder {
     }
 
     public EditPersonDescriptorBuilder withName(String name) throws IllegalValueException {
-        ParserUtil.parseName(Optional.of(name)).ifPresent(descriptor::setName);
+        ParserUtil.parseName(name).ifPresent(descriptor::setName);
         return this;
     }
 
     public EditPersonDescriptorBuilder withPhone(String phone) throws IllegalValueException {
-        ParserUtil.parsePhone(Optional.of(phone)).ifPresent(descriptor::setPhone);
+        ParserUtil.parsePhone(phone).ifPresent(descriptor::setPhone);
         return this;
     }
 
     public EditPersonDescriptorBuilder withEmail(String email) throws IllegalValueException {
-        ParserUtil.parseEmail(Optional.of(email)).ifPresent(descriptor::setEmail);
+        ParserUtil.parseEmail(email).ifPresent(descriptor::setEmail);
         return this;
     }
 
     public EditPersonDescriptorBuilder withAddress(String address) throws IllegalValueException {
-        ParserUtil.parseAddress(Optional.of(address)).ifPresent(descriptor::setAddress);
+        ParserUtil.parseAddress(address).ifPresent(descriptor::setAddress);
         return this;
     }
 
