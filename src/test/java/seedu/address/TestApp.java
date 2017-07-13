@@ -1,11 +1,14 @@
 package seedu.address;
 
+import java.io.IOException;
 import java.util.function.Supplier;
 
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.UserPrefs;
 import seedu.address.storage.UserPrefsStorage;
@@ -62,6 +65,15 @@ public class TestApp extends MainApp {
         return userPrefs;
     }
 
+    /**
+     * Returns a defensive copy of the address book content stored inside the storage file.
+     *
+     * @throws IOException if the storage file for the address book cannot be found.
+     * @throws DataConversionException if the file is not in the correct format.
+     */
+    public AddressBook readStorageAddressBook() throws DataConversionException, IOException {
+        return new AddressBook(storage.readAddressBook().get());
+    }
 
     @Override
     public void start(Stage primaryStage) {
