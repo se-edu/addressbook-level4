@@ -9,7 +9,7 @@ import seedu.address.logic.commands.exceptions.OutOfElementsException;
 import seedu.address.model.Model;
 
 /**
- * Undo the popUndo command.
+ * Undo the previous {@code ReversibleCommand}.
  */
 public class UndoCommand extends Command {
 

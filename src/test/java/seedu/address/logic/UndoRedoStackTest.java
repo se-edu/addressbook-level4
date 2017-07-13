@@ -7,6 +7,7 @@ import static org.junit.Assert.fail;
 import static seedu.address.testutil.TypicalPersons.INDEX_FIRST_PERSON;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import org.junit.Before;
@@ -63,14 +64,16 @@ public class UndoRedoStackTest {
 
     @Test
     public void pushUndo_addNonReversibleCommand_redoStackCleared() throws Exception {
-        fillUndoRedoStack(undoRedoStack, standardCommandList, 2);
+        fillUndoRedoStack(undoRedoStack, Collections.emptyList(),
+                Arrays.asList(reversibleAddCommand, reversibleClearCommand));
         undoRedoStack.pushUndo(nonReversibleListCommand); // adding NonReversibleCommand expected to clear redoStack
         assertEquals(new UndoRedoStack(), undoRedoStack);
     }
 
     @Test
     public void pushUndo_addReversibleCommand_redoStackCleared() throws Exception {
-        fillUndoRedoStack(undoRedoStack, standardCommandList, 2);
+        fillUndoRedoStack(undoRedoStack, Collections.emptyList(),
+                Arrays.asList(reversibleAddCommand, reversibleClearCommand));
         undoRedoStack.pushUndo(reversibleAddCommand); // adding ReversibleCommand expected to clear redoStack
 
         UndoRedoStack expected = new UndoRedoStack();
@@ -80,22 +83,26 @@ public class UndoRedoStackTest {
 
     @Test
     public void pushUndo_addUndoCommand_redoStackUncleared() throws Exception {
-        fillUndoRedoStack(undoRedoStack, standardCommandList, 2);
+        fillUndoRedoStack(undoRedoStack, Collections.emptyList(),
+                Arrays.asList(reversibleAddCommand, reversibleClearCommand));
         undoRedoStack.pushUndo(new UndoCommand()); // adding UndoCommand not expected to clear redoStack
 
         UndoRedoStack expected = new UndoRedoStack();
-        fillUndoRedoStack(expected, Arrays.asList(reversibleAddCommand, reversibleClearCommand), 2);
+        fillUndoRedoStack(expected, Collections.emptyList(),
+                Arrays.asList(reversibleAddCommand, reversibleClearCommand));
 
         assertEquals(expected, undoRedoStack);
     }
 
     @Test
     public void pushUndo_addRedoCommand_redoStackUncleared() throws Exception {
-        fillUndoRedoStack(undoRedoStack, standardCommandList, 2);
+        fillUndoRedoStack(undoRedoStack, Collections.emptyList(),
+                Arrays.asList(reversibleAddCommand, reversibleClearCommand));
         undoRedoStack.pushUndo(new RedoCommand()); // adding RedoCommand not expected to clear redoStack
 
         UndoRedoStack expected = new UndoRedoStack();
-        fillUndoRedoStack(expected, Arrays.asList(reversibleAddCommand, reversibleClearCommand), 2);
+        fillUndoRedoStack(expected, Collections.emptyList(),
+                Arrays.asList(reversibleAddCommand, reversibleClearCommand));
 
         assertEquals(expected, undoRedoStack);
     }
@@ -161,20 +168,23 @@ public class UndoRedoStackTest {
     }
 
     /**
-     * Helper method that adds {@code toAdd} into {@code undoRedoStack}, followed by calling
-     * {@code undoRedoStack#popUndo()} for {@code numPopUndo} times.
+     * Helper method that adds {@code undoStack} into {@code undoRedoStack#undoStack} and adds {@code redoStack}
+     * into {@code undoRedoStack#redoStack}. The first element in both {@code undoStack} and {@code redoStack}
+     * will be the bottommost element in the respective stack in {@code undoRedoStack}, while the last element will
+     * be the topmost element.
      */
-    private void fillUndoRedoStack(UndoRedoStack undoRedoStack, List<Command> toAdd, int numPopUndo) throws Exception {
-        toAdd.forEach(undoRedoStack::pushUndo);
-        for (int i = 0; i < numPopUndo; i++) {
+    private void fillUndoRedoStack(UndoRedoStack undoRedoStack, List<Command> undoStack, List<Command> redoStack)
+            throws Exception {
+        for (Command command : redoStack) {
+            undoRedoStack.pushUndo(command);
             undoRedoStack.popUndo();
         }
+        undoStack.forEach(undoRedoStack::pushUndo);
     }
 
     /**
      * Confirms that execution of {@code UndoRedoStack#popUndo()} fails,
-     * {@code OutOfElementsException} is thrown and the error message equals
-     * to {@value UndoCommand#MESSAGE_FAILURE}.
+     * {@code OutOfElementsException} is thrown.
      */
     private void assertPopUndoFailure() {
         try {
@@ -187,8 +197,7 @@ public class UndoRedoStackTest {
 
     /**
      * Confirms that execution of {@code UndoRedoStack#popRedo()} fails,
-     * {@code OutOfElementsException} is thrown and the error message
-     * equals to {@value RedoCommand#MESSAGE_FAILURE}.
+     * {@code OutOfElementsException} is thrown.
      */
     private void assertPopRedoFailure() {
         try {
