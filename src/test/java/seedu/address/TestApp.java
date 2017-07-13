@@ -74,6 +74,13 @@ public class TestApp extends MainApp {
         return new AddressBook(storage.readAddressBook().get());
     }
 
+    /**
+     * Returns the file location of the storage file.
+     */
+    public String getStorageSaveLocation() {
+        return userPrefs.getAddressBookFilePath();
+    }
+
     @Override
     public void start(Stage primaryStage) {
         ui.start(primaryStage);
