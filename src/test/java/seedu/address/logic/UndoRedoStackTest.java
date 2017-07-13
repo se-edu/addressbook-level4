@@ -14,7 +14,9 @@ import org.junit.Test;
 
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.ReversibleCommand;
+import seedu.address.logic.commands.UndoCommand;
 
 public class UndoRedoStackTest {
     // Commands
@@ -47,6 +49,28 @@ public class UndoRedoStackTest {
     public void pushUndo_addNonReversibleCommand_emptyStack() {
         undoRedoStack.pushUndo(dummyCommandOne);
         assertEquals(new UndoRedoStack(), undoRedoStack);
+    }
+
+    @Test
+    public void pushUndo_addUndoCommand_redoStackUncleared() {
+        undoRedoStack = prepareStack(Collections.emptyList(),
+                Arrays.asList(dummyReversibleCommandOne, dummyReversibleCommandTwo));
+        undoRedoStack.pushUndo(new UndoCommand()); // adding UndoCommand not expected to clear redoStack
+
+        UndoRedoStack expected = prepareStack(Collections.emptyList(),
+                Arrays.asList(dummyReversibleCommandOne, dummyReversibleCommandTwo));
+        assertEquals(expected, undoRedoStack);
+    }
+
+    @Test
+    public void pushUndo_addRedoCommand_redoStackUncleared() {
+        undoRedoStack = prepareStack(Collections.emptyList(),
+                Arrays.asList(dummyReversibleCommandOne, dummyReversibleCommandTwo));
+        undoRedoStack.pushUndo(new RedoCommand()); // adding RedoCommand not expected to clear redoStack
+
+        UndoRedoStack expected = prepareStack(Collections.emptyList(),
+                Arrays.asList(dummyReversibleCommandOne, dummyReversibleCommandTwo));
+        assertEquals(expected, undoRedoStack);
     }
 
     @Test
