@@ -15,6 +15,8 @@ import org.junit.Test;
 
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.RedoCommand;
+import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.UndoableCommand;
 
 public class UndoRedoStackTest {
@@ -41,6 +43,26 @@ public class UndoRedoStackTest {
 
         assertStackStatus(Arrays.asList(dummyUndoableCommandOne, dummyUndoableCommandOne),
                 Collections.emptyList());
+    }
+
+    @Test
+    public void push_nonEmptyRedoStackAndUndoCommand_redoStackNotClearedAndCommandNotAdded() {
+        undoRedoStack = prepareStack(Collections.singletonList(dummyUndoableCommandOne),
+                Arrays.asList(dummyUndoableCommandOne, dummyUndoableCommandTwo));
+        undoRedoStack.push(new UndoCommand());
+
+        assertStackStatus(Collections.singletonList(dummyUndoableCommandOne),
+                Arrays.asList(dummyUndoableCommandOne, dummyUndoableCommandTwo));
+    }
+
+    @Test
+    public void push_nonEmptyRedoStackAndRedoCommand_redoStackNotClearedAndCommandNotAdded() {
+        undoRedoStack = prepareStack(Collections.singletonList(dummyUndoableCommandOne),
+                Arrays.asList(dummyUndoableCommandOne, dummyUndoableCommandTwo));
+        undoRedoStack.push(new RedoCommand());
+
+        assertStackStatus(Collections.singletonList(dummyUndoableCommandOne),
+                Arrays.asList(dummyUndoableCommandOne, dummyUndoableCommandTwo));
     }
 
     @Test
