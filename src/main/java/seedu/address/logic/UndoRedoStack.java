@@ -3,7 +3,9 @@ package seedu.address.logic;
 import java.util.Stack;
 
 import seedu.address.logic.commands.Command;
+import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.ReversibleCommand;
+import seedu.address.logic.commands.UndoCommand;
 
 /**
  * Stores the history of reversible commands executed.
@@ -23,6 +25,10 @@ public class UndoRedoStack {
      * previously undone commands (that are not redone) will be lost.
      */
     public void pushUndo(Command command) {
+        if (command instanceof UndoCommand || command instanceof RedoCommand) {
+            return;
+        }
+
         redoStack.clear();
 
         if (!(command instanceof ReversibleCommand)) {
