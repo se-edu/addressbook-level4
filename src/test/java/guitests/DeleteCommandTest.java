@@ -1,17 +1,73 @@
 package guitests;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS;
 import static seedu.address.testutil.TypicalPersons.INDEX_FIRST_PERSON;
+import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
 
+import java.io.File;
+import java.time.Clock;
+import java.time.Instant;
+import java.time.ZoneId;
+import java.util.Date;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.TemporaryFolder;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.model.AddressBook;
+import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.person.Person;
+import seedu.address.storage.JsonUserPrefsStorage;
+import seedu.address.storage.XmlAddressBookStorage;
 import seedu.address.testutil.TestUtil;
+import seedu.address.ui.StatusBarFooter;
 
 public class DeleteCommandTest extends AddressBookGuiTest {
+    @Rule
+    public TemporaryFolder testFolder = new TemporaryFolder();
+
+    private DisabledEventStorageManager expectedStorageManager;
+    private AddressBook expectedAddressBook;
+
+    private Clock originalClock;
+    private Clock injectedClock;
+
+    private void injectFixedClock() {
+        originalClock = StatusBarFooter.getClock();
+        injectedClock = Clock.fixed(Instant.now(), ZoneId.systemDefault());
+        StatusBarFooter.setClock(injectedClock);
+    }
+
+    private void restoreOriginalClock() {
+        StatusBarFooter.setClock(originalClock);
+    }
+
+    @Before
+    public void setUp() throws Exception {
+        injectFixedClock();
+
+        XmlAddressBookStorage addressBookStorage = new XmlAddressBookStorage(getTempFilePath("expectedAb"));
+        JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("expectedPrefs"));
+        expectedStorageManager = new DisabledEventStorageManager(addressBookStorage, userPrefsStorage);
+
+        expectedAddressBook = new AddressBook(getInitialData());
+        expectedStorageManager.saveAddressBook(expectedAddressBook);
+    }
+
+    @After
+    public void tearDown() throws Exception {
+        restoreOriginalClock();
+    }
+
+    private String getTempFilePath(String fileName) {
+        return testFolder.getRoot().getPath() + File.separator + fileName;
+    }
 
     @Test
     public void delete() throws Exception {
@@ -52,6 +108,19 @@ public class DeleteCommandTest extends AddressBookGuiTest {
 
         //confirm the result message is correct
         assertResultMessage(String.format(MESSAGE_DELETE_PERSON_SUCCESS, personToDelete));
+
+        //confirm that the status bar has been changed
+        String timestamp = new Date(injectedClock.millis()).toString();
+        String expectedSyncStatus = String.format(SYNC_STATUS_UPDATED, timestamp);
+        assertEquals(expectedSyncStatus, statusBarFooter.getSyncStatus());
+        assertEquals("./" + testApp.getStorageSaveLocation(), statusBarFooter.getSaveLocation());
+
+        //confirm that the file is updated correctly
+        expectedAddressBook.removePerson(personToDelete);
+        expectedStorageManager.saveAddressBook(expectedAddressBook);
+        ReadOnlyAddressBook expectedStorage = new AddressBook(expectedStorageManager.readAddressBook().get());
+        ReadOnlyAddressBook actualStorage = testApp.readStorageAddressBook();
+        assertEquals(expectedStorage, actualStorage);
     }
 
 }
