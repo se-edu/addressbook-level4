@@ -15,6 +15,8 @@ import org.junit.Test;
 
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.RedoCommand;
+import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.UndoableCommand;
 
 public class UndoRedoStackTest {
@@ -50,6 +52,36 @@ public class UndoRedoStackTest {
         undoRedoStack.push(dummyUndoableCommandOne);
         assertStackStatus(Arrays.asList(dummyUndoableCommandOne, dummyUndoableCommandOne, dummyUndoableCommandOne),
                 Collections.emptyList());
+    }
+
+    @Test
+    public void push_undoCommand_stackRemainsUnchanged() {
+        // non-empty redoStack
+        undoRedoStack = prepareStack(Collections.singletonList(dummyUndoableCommandOne),
+                Arrays.asList(dummyUndoableCommandOne, dummyUndoableCommandTwo));
+        undoRedoStack.push(new UndoCommand());
+        assertStackStatus(Collections.singletonList(dummyUndoableCommandOne),
+                Arrays.asList(dummyUndoableCommandOne, dummyUndoableCommandTwo));
+
+        // empty redoStack
+        undoRedoStack = prepareStack(Collections.singletonList(dummyUndoableCommandOne), Collections.emptyList());
+        undoRedoStack.push(new UndoCommand());
+        assertStackStatus(Collections.singletonList(dummyUndoableCommandOne), Collections.emptyList());
+    }
+
+    @Test
+    public void push_redoCommand_stackRemainsUnchanged() {
+        // non-empty redoStack
+        undoRedoStack = prepareStack(Collections.singletonList(dummyUndoableCommandOne),
+                Arrays.asList(dummyUndoableCommandOne, dummyUndoableCommandTwo));
+        undoRedoStack.push(new RedoCommand());
+        assertStackStatus(Collections.singletonList(dummyUndoableCommandOne),
+                Arrays.asList(dummyUndoableCommandOne, dummyUndoableCommandTwo));
+
+        // empty redoStack
+        undoRedoStack = prepareStack(Collections.singletonList(dummyUndoableCommandOne), Collections.emptyList());
+        undoRedoStack.push(new RedoCommand());
+        assertStackStatus(Collections.singletonList(dummyUndoableCommandOne), Collections.emptyList());
     }
 
     @Test
