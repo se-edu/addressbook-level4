@@ -45,6 +45,8 @@ public abstract class AddressBookGuiTest {
 
     protected MainWindowHandle mainWindowHandle;
 
+    protected TestApp testApp;
+
     @BeforeClass
     public static void setupOnce() {
         try {
@@ -61,7 +63,7 @@ public abstract class AddressBookGuiTest {
             this.stage = stage;
         });
         EventsCenter.clearSubscribers();
-        FxToolkit.setupApplication(() -> new TestApp(this::getInitialData, getDataFileLocation()));
+        FxToolkit.setupApplication(() -> testApp = new TestApp(this::getInitialData, getDataFileLocation()));
         FxToolkit.showStage();
 
         mainWindowHandle = new MainWindowHandle(stage);
