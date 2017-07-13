@@ -38,35 +38,35 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code Optional<String> name} into an {@code Optional<Name>} if {@code name} is present.
+     * Returns the parsed {@code name} as an {@code Optional<Name>} if {@code name} is not null.
+     * Else, returns {@code Optional.empty()}.
      */
-    public static Optional<Name> parseName(Optional<String> name) throws IllegalValueException {
-        requireNonNull(name);
-        return name.isPresent() ? Optional.of(new Name(name.get())) : Optional.empty();
+    public static Optional<Name> parseName(String name) throws IllegalValueException {
+        return name != null ? Optional.of(new Name(name)) : Optional.empty();
     }
 
     /**
-     * Parses a {@code Optional<String> phone} into an {@code Optional<Phone>} if {@code phone} is present.
+     * Returns the parsed {@code phone} as an {@code Optional<Phone>} if {@code phone} is not null.
+     * Else, returns {@code Optional.empty()}.
      */
-    public static Optional<Phone> parsePhone(Optional<String> phone) throws IllegalValueException {
-        requireNonNull(phone);
-        return phone.isPresent() ? Optional.of(new Phone(phone.get())) : Optional.empty();
+    public static Optional<Phone> parsePhone(String phone) throws IllegalValueException {
+        return phone != null ? Optional.of(new Phone(phone)) : Optional.empty();
     }
 
     /**
-     * Parses a {@code Optional<String> address} into an {@code Optional<Address>} if {@code address} is present.
+     * Returns the parsed {@code address} as an {@code Optional<Address>} if {@code address} is not null.
+     * Else, returns {@code Optional.empty()}.
      */
-    public static Optional<Address> parseAddress(Optional<String> address) throws IllegalValueException {
-        requireNonNull(address);
-        return address.isPresent() ? Optional.of(new Address(address.get())) : Optional.empty();
+    public static Optional<Address> parseAddress(String address) throws IllegalValueException {
+        return address != null ? Optional.of(new Address(address)) : Optional.empty();
     }
 
     /**
-     * Parses a {@code Optional<String> email} into an {@code Optional<Email>} if {@code email} is present.
+     * Returns the parsed {@code email} as an {@code Optional<Email>} if {@code email} is not null.
+     * Else, returns {@code Optional.empty()}.
      */
-    public static Optional<Email> parseEmail(Optional<String> email) throws IllegalValueException {
-        requireNonNull(email);
-        return email.isPresent() ? Optional.of(new Email(email.get())) : Optional.empty();
+    public static Optional<Email> parseEmail(String email) throws IllegalValueException {
+        return email != null ? Optional.of(new Email(email)) : Optional.empty();
     }
 
     /**

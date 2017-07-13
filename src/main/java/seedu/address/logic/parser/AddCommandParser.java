@@ -40,10 +40,10 @@ public class AddCommandParser {
         }
 
         try {
-            Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME)).get();
-            Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE)).get();
-            Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL)).get();
-            Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS)).get();
+            Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).orElse(null)).get();
+            Phone phone = ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).orElse(null)).get();
+            Email email = ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).orElse(null)).get();
+            Address address = ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).orElse(null)).get();
             Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
             ReadOnlyPerson person = new Person(name, phone, email, address, tagList);
