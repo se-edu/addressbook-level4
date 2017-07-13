@@ -18,7 +18,9 @@ import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
+import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.exceptions.OutOfElementsException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -76,6 +78,32 @@ public class UndoRedoStackTest {
 
         UndoRedoStack expected = new UndoRedoStack();
         expected.pushUndo(reversibleAddCommand);
+        assertEquals(expected, undoRedoStack);
+    }
+
+    @Test
+    public void pushUndo_addUndoCommand_redoStackUncleared() throws Exception {
+        fillUndoRedoStack(undoRedoStack, Collections.emptyList(),
+                Arrays.asList(reversibleAddCommand, reversibleClearCommand));
+        undoRedoStack.pushUndo(new UndoCommand()); // adding UndoCommand not expected to clear redoStack
+
+        UndoRedoStack expected = new UndoRedoStack();
+        fillUndoRedoStack(expected, Collections.emptyList(),
+                Arrays.asList(reversibleAddCommand, reversibleClearCommand));
+
+        assertEquals(expected, undoRedoStack);
+    }
+
+    @Test
+    public void pushUndo_addRedoCommand_redoStackUncleared() throws Exception {
+        fillUndoRedoStack(undoRedoStack, Collections.emptyList(),
+                Arrays.asList(reversibleAddCommand, reversibleClearCommand));
+        undoRedoStack.pushUndo(new RedoCommand()); // adding RedoCommand not expected to clear redoStack
+
+        UndoRedoStack expected = new UndoRedoStack();
+        fillUndoRedoStack(expected, Collections.emptyList(),
+                Arrays.asList(reversibleAddCommand, reversibleClearCommand));
+
         assertEquals(expected, undoRedoStack);
     }
 
