@@ -65,7 +65,7 @@ public class EditCommand extends ReversibleCommand {
     }
 
     @Override
-    CommandResult executeReversibleCommand() throws CommandException {
+    public CommandResult executeReversibleCommand() throws CommandException {
         List<ReadOnlyPerson> lastShownList = model.getFilteredPersonList();
 
         if (index.getZeroBased() >= lastShownList.size()) {

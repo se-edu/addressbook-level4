@@ -29,7 +29,7 @@ public class DeleteCommand extends ReversibleCommand {
 
 
     @Override
-    CommandResult executeReversibleCommand() throws CommandException {
+    public CommandResult executeReversibleCommand() throws CommandException {
 
         UnmodifiableObservableList<ReadOnlyPerson> lastShownList = model.getFilteredPersonList();
 

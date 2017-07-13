@@ -1,7 +1,6 @@
 package seedu.address.logic.commands;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.util.Collections;
@@ -46,7 +45,7 @@ public class ReversibleCommandTest {
         ReadOnlyPerson person = model.getAddressBook().getPersonList().get(0);
         final String[] splitName = person.getName().fullName.split("\\s+");
         model.updateFilteredPersonList(new HashSet<>(Collections.singletonList(splitName[0])));
-        assertTrue(model.getFilteredPersonList().size() == 1);
+        assert model.getFilteredPersonList().size() == 1;
     }
 
     /**
@@ -58,7 +57,7 @@ public class ReversibleCommandTest {
         }
 
         @Override
-        CommandResult executeReversibleCommand() throws CommandException {
+        public CommandResult executeReversibleCommand() throws CommandException {
             ReadOnlyPerson personToDelete = model.getFilteredPersonList().get(0);
             try {
                 model.deletePerson(personToDelete);

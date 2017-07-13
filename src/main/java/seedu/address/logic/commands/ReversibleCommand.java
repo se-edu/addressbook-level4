@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.commands.exceptions.OutOfElementsException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 
@@ -14,7 +13,7 @@ import seedu.address.model.ReadOnlyAddressBook;
 public abstract class ReversibleCommand extends Command {
     private ReadOnlyAddressBook previousAddressBook;
 
-    abstract CommandResult executeReversibleCommand() throws CommandException;
+    protected abstract CommandResult executeReversibleCommand() throws CommandException;
 
     /**
      * Stores the current state of {@code model#addressBook}.
@@ -39,7 +38,7 @@ public abstract class ReversibleCommand extends Command {
      * Executes the command and updates the filtered person
      * list to show all persons.
      */
-    protected final void redo() throws OutOfElementsException {
+    protected final void redo() {
         requireNonNull(model);
         try {
             executeReversibleCommand();

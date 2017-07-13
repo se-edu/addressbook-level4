@@ -47,7 +47,7 @@ public class AddCommand extends ReversibleCommand {
     }
 
     @Override
-    CommandResult executeReversibleCommand() throws CommandException {
+    public CommandResult executeReversibleCommand() throws CommandException {
         requireNonNull(model);
         try {
             model.addPerson(toAdd);

@@ -5,7 +5,6 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.UndoRedoStack;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.commands.exceptions.OutOfElementsException;
 import seedu.address.model.Model;
 
 /**
@@ -21,12 +20,12 @@ public class UndoCommand extends Command {
     public CommandResult execute() throws CommandException {
         requireAllNonNull(model, undoRedoStack);
 
-        try {
-            undoRedoStack.popUndo().undo();
-            return new CommandResult(MESSAGE_SUCCESS);
-        } catch (OutOfElementsException ooee) {
+        if (!undoRedoStack.canUndo()) {
             throw new CommandException(MESSAGE_FAILURE);
         }
+
+        undoRedoStack.popUndo().undo();
+        return new CommandResult(MESSAGE_SUCCESS);
     }
 
     @Override

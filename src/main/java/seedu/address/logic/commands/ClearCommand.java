@@ -14,7 +14,7 @@ public class ClearCommand extends ReversibleCommand {
 
 
     @Override
-    CommandResult executeReversibleCommand() {
+    public CommandResult executeReversibleCommand() {
         requireNonNull(model);
         model.resetData(new AddressBook());
         return new CommandResult(MESSAGE_SUCCESS);

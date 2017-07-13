@@ -23,10 +23,10 @@ public class UndoAndRedoCommandTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-    private Model model = new ModelManager(new TypicalPersons().getTypicalAddressBook(), new UserPrefs());
-    private UndoRedoStack undoRedoStack = new UndoRedoStack();
-    private UndoCommand undoCommand = new UndoCommand();
-    private RedoCommand redoCommand = new RedoCommand();
+    private final Model model = new ModelManager(new TypicalPersons().getTypicalAddressBook(), new UserPrefs());
+    private final UndoRedoStack undoRedoStack = new UndoRedoStack();
+    private final UndoCommand undoCommand = new UndoCommand();
+    private final RedoCommand redoCommand = new RedoCommand();
 
     @Before
     public void setUp() throws Exception {
@@ -63,7 +63,8 @@ public class UndoAndRedoCommandTest {
     }
 
     /**
-     * Executes {@code DeleteCommand} to delete the first person in {@code model}, and updates the {@code undoRedoStack}
+     * Executes {@code DeleteCommand} to delete the first person in {@code model},
+     * and updates the {@code undoRedoStack}.
      */
     private void deleteFirstPerson() throws CommandException {
         DeleteCommand deleteCommand = new DeleteCommand(INDEX_FIRST_PERSON);
