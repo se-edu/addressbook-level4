@@ -92,7 +92,7 @@ public class Person implements ReadOnlyPerson {
      * Replaces this person's tags with the tags in the argument tag set.
      */
     public void setTags(Set<Tag> replacement) {
-        tags.setTags(new UniqueTagList(replacement));
+        tags.setTags(replacement);
     }
 
     /**
