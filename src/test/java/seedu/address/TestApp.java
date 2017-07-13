@@ -77,6 +77,13 @@ public class TestApp extends MainApp {
         }
     }
 
+    /**
+     * Returns the file location of the storage file.
+     */
+    public String getStorageSaveLocation() {
+        return userPrefs.getAddressBookFilePath();
+    }
+
     @Override
     public void start(Stage primaryStage) {
         ui.start(primaryStage);
