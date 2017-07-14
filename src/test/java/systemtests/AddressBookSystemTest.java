@@ -1,5 +1,6 @@
 package systemtests;
 
+import static org.junit.Assert.assertEquals;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 import static seedu.address.ui.BrowserPanel.DEFAULT_PAGE;
 import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_INITIAL;
@@ -34,7 +35,8 @@ import seedu.address.ui.StatusBarFooter;
 
 /**
  * A system test class for AddressBook, which sets up the {@code TestApp}, provides access
- * to handles of GUI components and other tools for system testing purposes.
+ * to handles of GUI components, provides clock injection and verifies that the starting state of the
+ * application is correct.
  */
 public abstract class AddressBookSystemTest {
     public static final Clock INJECTED_CLOCK = Clock.fixed(Instant.now(), ZoneId.systemDefault());
@@ -48,6 +50,9 @@ public abstract class AddressBookSystemTest {
     @BeforeClass
     public static void setupUpBeforeClass() {
         initializeFxToolkit();
+
+        // provides us a way to predict expected time more easily, to prevent scenarios whereby
+        // a 1-second delay causes the verification to be wrong
         injectFixedClock();
     }
 
@@ -77,7 +82,7 @@ public abstract class AddressBookSystemTest {
         mainWindowHandle = new MainWindowHandle(stage);
         mainWindowHandle.focus();
 
-        checkPreconditions();
+        verifyStartingStateIsCorrect();
     }
 
     private void setupApplication() throws TimeoutException {
@@ -133,16 +138,18 @@ public abstract class AddressBookSystemTest {
     /**
      * Checks that the starting state of the application is correct.
      */
-    private void checkPreconditions() {
+    private void verifyStartingStateIsCorrect() {
         try {
-            assert getCommandBox().getInput().equals("");
-            assert getResultDisplay().getText().equals("");
+            assertEquals("", getCommandBox().getInput());
+
+            assertEquals("", getCommandBox().getInput());
+            assertEquals("", getResultDisplay().getText());
             assertListMatching(getPersonListPanel(),
                     getTypicalAddressBook().getPersonList().toArray(new ReadOnlyPerson[0]));
-            assert getBrowserPanel().getLoadedUrl().equals(
-                    MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_PAGE));
-            assert getStatusBarFooter().getSaveLocation().equals("./" + testApp.getStorageSaveLocation());
-            assert getStatusBarFooter().getSyncStatus().equals(SYNC_STATUS_INITIAL);
+            assertEquals(MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_PAGE),
+                    getBrowserPanel().getLoadedUrl());
+            assertEquals("./" + testApp.getStorageSaveLocation(), getStatusBarFooter().getSaveLocation());
+            assertEquals(SYNC_STATUS_INITIAL, getStatusBarFooter().getSyncStatus());
         } catch (Exception e) {
             throw new AssertionError("Starting state is wrong.", e);
         }

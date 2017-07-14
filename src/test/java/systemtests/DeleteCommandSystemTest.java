@@ -1,5 +1,6 @@
 package systemtests;
 
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
 import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS;
 import static seedu.address.testutil.TypicalPersons.INDEX_FIRST_PERSON;
 import static systemtests.AppStateAsserts.assertCommandFailure;
@@ -28,61 +29,53 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
         expectedModel = new ModelManager(new AddressBook(getTestApp().getModel().getAddressBook()), new UserPrefs());
 
         // delete the first in the list
-        assertDeleteSuccess(INDEX_FIRST_PERSON);
+        ReadOnlyPerson targetPerson = expectedModel.getAddressBook().getPersonList()
+                .get(INDEX_FIRST_PERSON.getZeroBased());
+        String command = String.valueOf(INDEX_FIRST_PERSON.getOneBased());
+        String expectedResultMessage = String.format(MESSAGE_DELETE_PERSON_SUCCESS, targetPerson);
+        expectedModel.deletePerson(targetPerson);
+        assertDeleteSuccess(command, expectedResultMessage);
 
         // delete the last in the list
         Index lastPersonIndex = Index.fromOneBased(expectedModel.getAddressBook().getPersonList().size());
-        assertDeleteSuccess(lastPersonIndex);
+        targetPerson = expectedModel.getAddressBook().getPersonList().get(lastPersonIndex.getZeroBased());
+        command = String.valueOf(lastPersonIndex.getOneBased());
+        expectedResultMessage = String.format(MESSAGE_DELETE_PERSON_SUCCESS, targetPerson);
+        expectedModel.deletePerson(targetPerson);
+        assertDeleteSuccess(command, expectedResultMessage);
 
         // delete from the middle of the list
         Index middlePersonIndex = Index.fromOneBased(expectedModel.getAddressBook().getPersonList().size() / 2);
-        assertDeleteSuccess(middlePersonIndex);
+        targetPerson = expectedModel.getAddressBook().getPersonList().get(middlePersonIndex.getZeroBased());
+        command = String.valueOf(middlePersonIndex.getOneBased());
+        expectedResultMessage = String.format(MESSAGE_DELETE_PERSON_SUCCESS, targetPerson);
+        expectedModel.deletePerson(targetPerson);
+        assertDeleteSuccess(command, expectedResultMessage);
 
         // invalid index
         Index outOfBoundsIndex = Index.fromOneBased(expectedModel.getAddressBook().getPersonList().size() + 1);
-        assertDeleteFailure(outOfBoundsIndex);
+        assertDeleteFailure(String.valueOf(outOfBoundsIndex.getOneBased()), MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
 
         // invalid arguments
-        assertDeleteFailure("abc");
-        assertDeleteFailure("1 abc");
+        assertDeleteFailure("abc", INVALID_DELETE_COMMAND_FORMAT_MESSAGE);
+        assertDeleteFailure("1 abc", INVALID_DELETE_COMMAND_FORMAT_MESSAGE);
     }
 
     /**
-     * Asserts that after executing the delete command with {@code validIndex}, the model updates, and the entire
-     * application state matches what was expected.
+     * Asserts that after executing the delete command with {@code validArguments}, the model and storage are updated,
+     * and the {@code ResultDisplay} shows {@code expectedResultMessage}.
      */
-    private void assertDeleteSuccess(Index validIndex) throws Exception {
-        ReadOnlyPerson targetPerson = expectedModel.getAddressBook().getPersonList().get(validIndex.getZeroBased());
-        expectedModel.deletePerson(targetPerson);
-
-        String command = DeleteCommand.COMMAND_WORD + " " + validIndex.getOneBased();
-        String expectedResultMessage = String.format(MESSAGE_DELETE_PERSON_SUCCESS, targetPerson);
-
-        assertCommandSuccess(this, command, expectedModel, expectedResultMessage);
-    }
-
-    /**
-     * Asserts that after executing the delete command with {@code invalidIndex}, the GUI remains the same with the
-     * model and storage unchanged as well, but the {@code ResultDisplay} should show
-     * {@code Messages#MESSAGE_INVALID_PERSON_DISPLAYED_INDEX}.
-     */
-    private void assertDeleteFailure(Index invalidIndex) throws Exception {
-        String invalidCommand = DeleteCommand.COMMAND_WORD + " " + invalidIndex.getOneBased();
-        String expectedResultMessage = Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
-
-        assertCommandFailure(this, invalidCommand, expectedResultMessage);
+    private void assertDeleteSuccess(String validArguments, String expectedResultMessage) throws Exception {
+        String validCommand = DeleteCommand.COMMAND_WORD + " " + validArguments;
+        assertCommandSuccess(this, validCommand, expectedModel, expectedResultMessage);
     }
 
     /**
      * Asserts that after executing the delete command with {@code invalidArguments}, the GUI remains the same with the
-     * model and storage unchanged as well, but the {@code ResultDisplay} should show
-     * {@code #INVALID_DELETE_COMMAND_FORMAT_MESSAGE}.
+     * model and storage unchanged as well, but the {@code ResultDisplay} should show {@code expectedResultMessage}.
      */
-    private void assertDeleteFailure(String invalidArguments) throws Exception {
+    private void assertDeleteFailure(String invalidArguments, String expectedResultMessage) throws Exception {
         String invalidCommand = DeleteCommand.COMMAND_WORD + " " + invalidArguments;
-        String expectedResultMessage = INVALID_DELETE_COMMAND_FORMAT_MESSAGE;
-
         assertCommandFailure(this, invalidCommand, expectedResultMessage);
     }
-
 }
