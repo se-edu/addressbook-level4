@@ -9,6 +9,7 @@ import seedu.address.commons.core.Config;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.AddressBook;
+import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.UserPrefs;
 import seedu.address.storage.UserPrefsStorage;
@@ -66,9 +67,10 @@ public class TestApp extends MainApp {
     }
 
     /**
-     * Returns a defensive copy of the address book content stored inside the address book.
+     * Returns a defensive copy of the address book content stored inside the storage file.
      *
      * @throws IOException if the storage file for the address book cannot be found.
+     * @throws DataConversionException if the file is not in the correct format.
      */
     public AddressBook readStorageAddressBook() throws DataConversionException, IOException {
         return new AddressBook(storage.readAddressBook().get());
@@ -79,6 +81,13 @@ public class TestApp extends MainApp {
      */
     public String getStorageSaveLocation() {
         return userPrefs.getAddressBookFilePath();
+    }
+
+    /**
+     * Returns the model.
+     */
+    public Model getModel() {
+        return model;
     }
 
     @Override

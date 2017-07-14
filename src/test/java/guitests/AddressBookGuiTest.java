@@ -2,10 +2,16 @@ package guitests;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
 
+import java.time.Clock;
+import java.time.Instant;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.concurrent.TimeoutException;
 
 import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Rule;
@@ -25,19 +31,23 @@ import javafx.stage.Stage;
 import seedu.address.TestApp;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.events.BaseEvent;
-import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.model.AddressBook;
+import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.person.Person;
 import seedu.address.model.person.ReadOnlyPerson;
-import seedu.address.storage.AddressBookStorage;
-import seedu.address.storage.StorageManager;
-import seedu.address.storage.UserPrefsStorage;
+import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.testutil.TestUtil;
 import seedu.address.testutil.TypicalPersons;
+import seedu.address.ui.StatusBarFooter;
 
 /**
  * A GUI Test class for AddressBook.
  */
 public abstract class AddressBookGuiTest {
+
+    protected static Clock originalClock;
+    protected static Clock injectedClock;
+
 
     /* The TestName Rule makes the current test name available inside test methods */
     @Rule
@@ -48,7 +58,21 @@ public abstract class AddressBookGuiTest {
 
     protected Stage stage;
 
+    protected MainWindowHandle mainWindowHandle;
+
     protected TestApp testApp;
+
+    @BeforeClass
+    public static void injectFixedClock() {
+        originalClock = StatusBarFooter.getClock();
+        injectedClock = Clock.fixed(Instant.now(), ZoneId.systemDefault());
+        StatusBarFooter.setClock(injectedClock);
+    }
+
+    @AfterClass
+    public static void restoreOriginalClock() {
+        StatusBarFooter.setClock(originalClock);
+    }
 
     @BeforeClass
     public static void setupOnce() {
@@ -143,6 +167,49 @@ public abstract class AddressBookGuiTest {
     }
 
     /**
+     * Asserts that only the sync status in the status bar was changed
+     * to the {@code injectedCLock} timing, while the save location remains
+     * the same.
+     */
+    protected void assertOnlySyncStatusChanged() {
+        String timestamp = new Date(injectedClock.millis()).toString();
+        String expectedSyncStatus = String.format(SYNC_STATUS_UPDATED, timestamp);
+        assertEquals(expectedSyncStatus, getStatusBarFooter().getSyncStatus());
+        getStatusBarFooter().assertSaveLocationNotChanged();
+    }
+
+    /**
+     * Asserts that the status bar content did not change.
+     */
+    protected void assertStatusBarUnchanged() {
+        getStatusBarFooter().assertSyncStatusNotChanged();
+        getStatusBarFooter().assertSaveLocationNotChanged();
+    }
+
+    /**
+     * Asserts that the content of the storage file matches an {@code AddressBook} with
+     * the content same as {@code expectedAddressBook}.
+     */
+    protected void assertStorageFileContentMatch(AddressBook expectedAddressBook) throws Exception {
+        ReadOnlyAddressBook actualStorage = testApp.readStorageAddressBook();
+        assertEquals(expectedAddressBook, actualStorage);
+    }
+
+    /**
+     * Asserts that the address book in the application's model matches {@code expectedAddressBook}.
+     */
+    protected void assertModelMatch(AddressBook expectedAddressBook) {
+        assertEquals(expectedAddressBook, testApp.getModel().getAddressBook());
+    }
+
+    /**
+     * Asserts that the person list matches {@code expectedList}.
+     */
+    protected void assertPersonListPanelMatches(Person[] expectedList) throws PersonNotFoundException {
+        assertTrue(getPersonListPanel().isListMatching(expectedList));
+    }
+
+    /**
      * Asserts the message shown in the Result Display area is same as the given string.
      */
     protected void assertResultMessage(String expected) {
@@ -152,20 +219,5 @@ public abstract class AddressBookGuiTest {
     protected void raise(BaseEvent event) {
         //JUnit doesn't run its test cases on the UI thread. Platform.runLater is used to post event on the UI thread.
         Platform.runLater(() -> EventsCenter.getInstance().post(event));
-    }
-
-    /**
-     * A {@code StorageManager} with the {@code AddressBookChangedEvent} event disabled.
-     */
-    protected class DisabledEventStorageManager extends StorageManager {
-
-        public DisabledEventStorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage) {
-            super(addressBookStorage, userPrefsStorage);
-        }
-
-        @Override
-        public void handleAddressBookChangedEvent(AddressBookChangedEvent event) {
-            // do nothing
-        }
     }
 }

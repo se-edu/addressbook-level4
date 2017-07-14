@@ -1,94 +1,48 @@
 package guitests;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS;
 import static seedu.address.testutil.TypicalPersons.INDEX_FIRST_PERSON;
-import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
 
-import java.io.File;
-import java.time.Clock;
-import java.time.Instant;
-import java.time.ZoneId;
-import java.util.Date;
-
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.TemporaryFolder;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.model.AddressBook;
-import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.person.Person;
-import seedu.address.storage.JsonUserPrefsStorage;
-import seedu.address.storage.XmlAddressBookStorage;
 import seedu.address.testutil.TestUtil;
-import seedu.address.ui.StatusBarFooter;
 
 public class DeleteCommandTest extends AddressBookGuiTest {
-    @Rule
-    public TemporaryFolder testFolder = new TemporaryFolder();
-
-    private DisabledEventStorageManager expectedStorageManager;
-    private AddressBook expectedAddressBook;
-
-    private Clock originalClock;
-    private Clock injectedClock;
-
-    private void injectFixedClock() {
-        originalClock = StatusBarFooter.getClock();
-        injectedClock = Clock.fixed(Instant.now(), ZoneId.systemDefault());
-        StatusBarFooter.setClock(injectedClock);
-    }
-
-    private void restoreOriginalClock() {
-        StatusBarFooter.setClock(originalClock);
-    }
-
-    @Before
-    public void setUp() throws Exception {
-        injectFixedClock();
-
-        XmlAddressBookStorage addressBookStorage = new XmlAddressBookStorage(getTempFilePath("expectedAb"));
-        JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("expectedPrefs"));
-        expectedStorageManager = new DisabledEventStorageManager(addressBookStorage, userPrefsStorage);
-
-        expectedAddressBook = new AddressBook(getInitialData());
-        expectedStorageManager.saveAddressBook(expectedAddressBook);
-    }
-
-    @After
-    public void tearDown() throws Exception {
-        restoreOriginalClock();
-    }
-
-    private String getTempFilePath(String fileName) {
-        return testFolder.getRoot().getPath() + File.separator + fileName;
-    }
 
     @Test
     public void delete() throws Exception {
+        // assert that the start state is correct
+        assertEquals("./" + testApp.getStorageSaveLocation(), getStatusBarFooter().getSaveLocation());
+
+        Person[] currentList = td.getTypicalPersons();
+        AddressBook currentAddressBook = td.getTypicalAddressBook();
 
         //delete the first in the list
-        Person[] currentList = td.getTypicalPersons();
         Index targetIndex = INDEX_FIRST_PERSON;
-        assertDeleteSuccess(targetIndex, currentList);
+        Person personTargeted = currentList[targetIndex.getZeroBased()];
+        assertDeleteSuccess(targetIndex, currentList, currentAddressBook);
 
         //delete the last in the list
         currentList = TestUtil.removePersonFromList(currentList, targetIndex);
+        currentAddressBook.removePerson(personTargeted);
         targetIndex = Index.fromOneBased(currentList.length);
-        assertDeleteSuccess(targetIndex, currentList);
+        personTargeted = currentList[targetIndex.getZeroBased()];
+        assertDeleteSuccess(targetIndex, currentList, currentAddressBook);
 
         //delete from the middle of the list
         currentList = TestUtil.removePersonFromList(currentList, targetIndex);
+        currentAddressBook.removePerson(personTargeted);
         targetIndex = Index.fromOneBased(currentList.length / 2);
-        assertDeleteSuccess(targetIndex, currentList);
+        assertDeleteSuccess(targetIndex, currentList, currentAddressBook);
 
         //invalid index
-        runCommand(DeleteCommand.COMMAND_WORD + " " + currentList.length + 1);
+        String invalidCommand = DeleteCommand.COMMAND_WORD + " " + currentList.length + 1;
+        runCommand(invalidCommand);
         assertResultMessage("The person index provided is invalid");
 
     }
@@ -96,31 +50,39 @@ public class DeleteCommandTest extends AddressBookGuiTest {
     /**
      * Runs the delete command to delete the person at {@code index} and confirms the result is correct.
      * @param currentList A copy of the current list of persons (before deletion).
+     * @param currentAddressBook A copy of the address book model (before deletion).
      */
-    private void assertDeleteSuccess(Index index, final Person[] currentList) throws Exception {
-        Person personToDelete = currentList[index.getZeroBased()];
-        Person[] expectedRemainder = TestUtil.removePersonFromList(currentList, index);
+    private void assertDeleteSuccess(Index index, final Person[] currentList, final AddressBook currentAddressBook)
+            throws Exception {
+        String commandToRun = DeleteCommand.COMMAND_WORD + " " + index.getOneBased();
 
-        runCommand(DeleteCommand.COMMAND_WORD + " " + index.getOneBased());
+        String expectedResultMessage = String.format(MESSAGE_DELETE_PERSON_SUCCESS, currentList[index.getZeroBased()]);
+        Person[] expectedList = TestUtil.removePersonFromList(currentList, index);
+        AddressBook expectedAddressBook = new AddressBook(currentAddressBook);
+        expectedAddressBook.removePerson(currentList[index.getZeroBased()]);
 
-        //confirm the list now contains all previous persons except the deleted person
-        assertTrue(getPersonListPanel().isListMatching(expectedRemainder));
+        assertRunCommand(commandToRun, expectedList, expectedAddressBook, expectedResultMessage);
+    }
 
-        //confirm the result message is correct
-        assertResultMessage(String.format(MESSAGE_DELETE_PERSON_SUCCESS, personToDelete));
+    /**
+     * Asserts that after running the command, the model, storage and GUI are all in the correct state.
+     */
+    private void assertRunCommand(String commandToRun, Person[] expectedList, AddressBook expectedAddressBook,
+                                  String expectedResultMessage) throws Exception {
 
-        //confirm that the status bar has been changed
-        String timestamp = new Date(injectedClock.millis()).toString();
-        String expectedSyncStatus = String.format(SYNC_STATUS_UPDATED, timestamp);
-        assertEquals(expectedSyncStatus, statusBarFooter.getSyncStatus());
-        assertEquals("./" + testApp.getStorageSaveLocation(), statusBarFooter.getSaveLocation());
+        // ensure that these things do not change
+        getBrowserPanel().rememberUrl();
+        getStatusBarFooter().rememberSaveLocation();
 
-        //confirm that the file is updated correctly
-        expectedAddressBook.removePerson(personToDelete);
-        expectedStorageManager.saveAddressBook(expectedAddressBook);
-        ReadOnlyAddressBook expectedStorage = new AddressBook(expectedStorageManager.readAddressBook().get());
-        ReadOnlyAddressBook actualStorage = testApp.readStorageAddressBook();
-        assertEquals(expectedStorage, actualStorage);
+        runCommand(commandToRun);
+
+        // check that all components are matched
+        getBrowserPanel().assertUrlNotChanged();
+        assertPersonListPanelMatches(expectedList);
+        assertResultMessage(expectedResultMessage);
+        assertOnlySyncStatusChanged();
+        assertStorageFileContentMatch(expectedAddressBook);
+        assertModelMatch(expectedAddressBook);
     }
 
 }
