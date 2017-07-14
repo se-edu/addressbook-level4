@@ -6,16 +6,9 @@ import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_PERSON_S
 import static seedu.address.testutil.TypicalPersons.INDEX_FIRST_PERSON;
 import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
 
-import java.time.Clock;
-import java.time.Instant;
-import java.time.ZoneId;
 import java.util.Date;
 
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.TemporaryFolder;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.DeleteCommand;
@@ -23,36 +16,8 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.TestUtil;
-import seedu.address.ui.StatusBarFooter;
 
 public class DeleteCommandTest extends AddressBookGuiTest {
-
-    private static Clock originalClock;
-    private static Clock injectedClock;
-
-    @Rule
-    public TemporaryFolder testFolder = new TemporaryFolder();
-
-
-    private static void injectFixedClock() {
-        originalClock = StatusBarFooter.getClock();
-        injectedClock = Clock.fixed(Instant.now(), ZoneId.systemDefault());
-        StatusBarFooter.setClock(injectedClock);
-    }
-
-    private static void restoreOriginalClock() {
-        StatusBarFooter.setClock(originalClock);
-    }
-
-    @BeforeClass
-    public static void setUpBeforeClass() throws Exception {
-        injectFixedClock();
-    }
-
-    @AfterClass
-    public static void tearDownAfterClass() throws Exception {
-        restoreOriginalClock();
-    }
 
     @Test
     public void delete() throws Exception {
