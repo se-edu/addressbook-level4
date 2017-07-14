@@ -2,7 +2,6 @@ package systemtests;
 
 import static seedu.address.ui.BrowserPanel.DEFAULT_PAGE;
 import static seedu.address.ui.UiPart.FXML_FILE_FOLDER;
-import static systemtests.SystemTestAsserts.assertStartStateCorrect;
 
 import java.net.URL;
 import java.time.Clock;
@@ -14,11 +13,8 @@ import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.junit.Rule;
-import org.junit.rules.TestName;
 import org.testfx.api.FxToolkit;
 
-import guitests.GuiRobot;
 import guitests.guihandles.BrowserPanelHandle;
 import guitests.guihandles.CommandBoxHandle;
 import guitests.guihandles.MainMenuHandle;
@@ -26,35 +22,27 @@ import guitests.guihandles.MainWindowHandle;
 import guitests.guihandles.PersonListPanelHandle;
 import guitests.guihandles.ResultDisplayHandle;
 import guitests.guihandles.StatusBarFooterHandle;
-import javafx.application.Platform;
 import javafx.stage.Stage;
 import seedu.address.MainApp;
 import seedu.address.TestApp;
 import seedu.address.commons.core.EventsCenter;
-import seedu.address.commons.events.BaseEvent;
-import seedu.address.model.AddressBook;
+import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.testutil.TypicalPersons;
 import seedu.address.ui.StatusBarFooter;
 
 /**
- * A system test class for AddressBook.
+ * A system test class for AddressBook, which set up the {@code TestApp} and provides access
+ * to injected clocks, handles of GUI components, and other tools for system testing purposes.
  */
-public class AddressBookSystemTest {
-    protected static Clock originalClock = StatusBarFooter.getClock();
-    protected static Clock injectedClock = Clock.fixed(Instant.now(), ZoneId.systemDefault());
-
-    /* The TestName Rule makes the current test name available inside test methods */
-    @Rule
-    public TestName name = new TestName();
-
-    protected TypicalPersons td = new TypicalPersons();
-    protected GuiRobot guiRobot = new GuiRobot();
+public abstract class AddressBookSystemTest {
+    public static final Clock INJECTED_CLOCK = Clock.fixed(Instant.now(), ZoneId.systemDefault());
+    private static final Clock ORIGINAL_CLOCK = StatusBarFooter.getClock();
 
     protected Stage stage;
 
-    protected MainWindowHandle mainWindowHandle;
-
-    protected TestApp testApp;
+    private MainWindowHandle mainWindowHandle;
+    private TestApp testApp;
 
     @BeforeClass
     public static void setupOnce() {
@@ -62,43 +50,39 @@ public class AddressBookSystemTest {
             FxToolkit.registerPrimaryStage();
             FxToolkit.hideStage();
         } catch (TimeoutException e) {
-            e.printStackTrace();
+            throw new AssertionError(e);
         }
 
-        StatusBarFooter.setClock(injectedClock);
+        StatusBarFooter.setClock(INJECTED_CLOCK);
     }
 
     @AfterClass
     public static void tearDownAfterClass() {
-        StatusBarFooter.setClock(originalClock);
+        StatusBarFooter.setClock(ORIGINAL_CLOCK);
     }
 
     @Before
-    public void setup() throws Exception {
+    public void setUp() throws Exception {
         FxToolkit.setupStage((stage) -> {
             this.stage = stage;
         });
-        EventsCenter.clearSubscribers();
-        FxToolkit.setupApplication(() -> testApp = new TestApp(this::getInitialData, getDataFileLocation()));
+        FxToolkit.setupApplication(() -> testApp = new TestApp(TypicalPersons::getTypicalAddressBook,
+                getDataFileLocation()));
         FxToolkit.showStage();
 
         mainWindowHandle = new MainWindowHandle(stage);
         mainWindowHandle.focus();
 
-        assertStartStateCorrect(testApp, getStatusBarFooter(), getBrowserPanel(), getDefaultBrowserUrl());
+        assertStartStateCorrect(TypicalPersons.getTypicalAddressBook());
     }
 
-    /**
-     * Override this in child classes to set the initial local data.
-     * Return null to use the data in the file specified in {@link #getDataFileLocation()}
-     */
-    protected AddressBook getInitialData() {
-        AddressBook ab = new AddressBook();
-        TypicalPersons.loadAddressBookWithSampleData(ab);
-        return ab;
+    @After
+    public void tearDown() throws Exception {
+        EventsCenter.clearSubscribers();
+        FxToolkit.cleanupStages();
     }
 
-    protected CommandBoxHandle getCommandBox() {
+    public CommandBoxHandle getCommandBox() {
         return mainWindowHandle.getCommandBox();
     }
 
@@ -106,7 +90,7 @@ public class AddressBookSystemTest {
         return mainWindowHandle.getPersonListPanel();
     }
 
-    protected MainMenuHandle getMainMenu() {
+    public MainMenuHandle getMainMenu() {
         return mainWindowHandle.getMainMenu();
     }
 
@@ -130,38 +114,31 @@ public class AddressBookSystemTest {
         return mainWindowHandle.getCommandBox().run(command);
     }
 
-    /**
-     * Override this in child classes to set the data file location.
-     */
-    protected String getDataFileLocation() {
+    private String getDataFileLocation() {
         return TestApp.SAVE_LOCATION_FOR_TESTING;
     }
 
-    protected URL getDefaultBrowserUrl() {
+    private URL getDefaultBrowserUrl() {
         return MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_PAGE);
     }
 
-    @After
-    public void cleanup() throws Exception {
-        FxToolkit.cleanupStages();
-    }
-
-    /**
-     * Get the underlying {@code TestApp} used by the test.
-     */
     public TestApp getTestApp() {
         return testApp;
     }
 
     /**
-     * Get the underlying {@code injectedClock}.
+     * Asserts that the starting state of the application is correct.
      */
-    public Clock getInjectedClock() {
-        return injectedClock;
-    }
-
-    protected void raise(BaseEvent event) {
-        //JUnit doesn't run its test cases on the UI thread. Platform.runLater is used to post event on the UI thread.
-        Platform.runLater(() -> EventsCenter.getInstance().post(event));
+    private void assertStartStateCorrect(ReadOnlyAddressBook expectedAddressBook) {
+        try {
+            assert getCommandBox().getInput().equals("");
+            assert getResultDisplay().getText().equals("");
+            assert getPersonListPanel().isListMatching(
+                    expectedAddressBook.getPersonList().toArray(new ReadOnlyPerson[0]));
+            assert getBrowserPanel().getLoadedUrl().equals(getDefaultBrowserUrl());
+            assert getStatusBarFooter().getSaveLocation().equals("./" + testApp.getStorageSaveLocation());
+        } catch (Exception e) {
+            throw new AssertionError("Starting state is wrong.", e);
+        }
     }
 }

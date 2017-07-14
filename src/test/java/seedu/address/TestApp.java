@@ -93,7 +93,7 @@ public class TestApp extends MainApp {
      * Returns the defensive copy of the model.
      */
     public Model getModel() {
-        return new ModelManager(model.getAddressBook(), new UserPrefs());
+        return new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
     }
 
     @Override

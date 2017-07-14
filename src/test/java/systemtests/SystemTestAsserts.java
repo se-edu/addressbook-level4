@@ -5,15 +5,10 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
 
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.time.Clock;
 import java.util.Date;
 
-import guitests.guihandles.BrowserPanelHandle;
 import guitests.guihandles.StatusBarFooterHandle;
-import seedu.address.TestApp;
-import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.person.ReadOnlyPerson;
 
@@ -35,19 +30,11 @@ public class SystemTestAsserts {
     }
 
     /**
-     * Asserts that the application starts with the correct state.
-     */
-    public static void assertStartStateCorrect(TestApp testApp, StatusBarFooterHandle statusBarFooterHandle,
-             BrowserPanelHandle browserPanelHandle, URL defaultBrowserUrl) throws MalformedURLException {
-        assertEquals("./" + testApp.getStorageSaveLocation(), statusBarFooterHandle.getSaveLocation());
-        assertEquals(defaultBrowserUrl, browserPanelHandle.getLoadedUrl());
-    }
-
-    /**
-     * Asserts that after running the valid command, the entire application is in the correct state.
+     * Asserts that after executing the valid command {@code commandToRun}, the entire application state matches
+     * what we expected.
      */
     public static void assertRunValidCommand(AddressBookSystemTest addressBookSystemTest, String commandToRun,
-            AddressBook expectedAddressBook, Model expectedModel, String expectedResultMessage) throws Exception {
+            Model expectedModel, String expectedResultMessage) throws Exception {
 
         // ensure that these things do not change
         addressBookSystemTest.getBrowserPanel().rememberUrl();
@@ -55,39 +42,39 @@ public class SystemTestAsserts {
 
         addressBookSystemTest.runCommand(commandToRun);
 
-        // check that all components are matched
+        // check that all components matched
         assertFalse(addressBookSystemTest.getBrowserPanel().isUrlChanged());
         assertTrue(addressBookSystemTest.getPersonListPanel().isListMatching(
-                expectedAddressBook.getPersonList().toArray(new ReadOnlyPerson[0])));
+                expectedModel.getAddressBook().getPersonList().toArray(new ReadOnlyPerson[0])));
         assertEquals(expectedResultMessage, addressBookSystemTest.getResultDisplay().getText());
         assertOnlySyncStatusChanged(addressBookSystemTest.getStatusBarFooter(),
-                addressBookSystemTest.getInjectedClock());
-        assertEquals(expectedAddressBook, addressBookSystemTest.getTestApp().readStorageAddressBook());
+                AddressBookSystemTest.INJECTED_CLOCK);
+        assertEquals(expectedModel.getAddressBook(), addressBookSystemTest.getTestApp().readStorageAddressBook());
         assertEquals(expectedModel, addressBookSystemTest.getTestApp().getModel());
     }
 
     /**
-     * Asserts that after running the invalid command, no modification were made to the model and the
-     * entire applciation is in the wrong command state.
+     * Asserts that after running the invalid command {@code commandToRun}, the entire application state remains
+     * unmodified except for {@code expectedResultMessage}.
      */
     public static void assertRunInvalidCommand(AddressBookSystemTest addressBookSystemTest, String commandToRun,
-            AddressBook expectedAddressBook, Model expectedModel, String expectedResultMessage) throws Exception {
+            Model expectedModel, String expectedResultMessage) throws Exception {
 
-        // ensure that nothing changes
+        // ensure that these things do not change
         addressBookSystemTest.getBrowserPanel().rememberUrl();
         addressBookSystemTest.getStatusBarFooter().rememberSaveLocation();
         addressBookSystemTest.getStatusBarFooter().rememberSyncStatus();
 
         addressBookSystemTest.runCommand(commandToRun);
 
-        // check that no components have been changed
+        // check that all components matched
         assertFalse(addressBookSystemTest.getBrowserPanel().isUrlChanged());
         assertTrue(addressBookSystemTest.getPersonListPanel().isListMatching(
-                expectedAddressBook.getPersonList().toArray(new ReadOnlyPerson[0])));
+                expectedModel.getAddressBook().getPersonList().toArray(new ReadOnlyPerson[0])));
         assertEquals(expectedResultMessage, addressBookSystemTest.getResultDisplay().getText());
         assertFalse(addressBookSystemTest.getStatusBarFooter().isSaveLocationChanged());
         assertFalse(addressBookSystemTest.getStatusBarFooter().isSyncStatusChanged());
-        assertEquals(expectedAddressBook, addressBookSystemTest.getTestApp().readStorageAddressBook());
+        assertEquals(expectedModel.getAddressBook(), addressBookSystemTest.getTestApp().readStorageAddressBook());
         assertEquals(expectedModel, addressBookSystemTest.getTestApp().getModel());
     }
 }
