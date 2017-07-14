@@ -9,6 +9,8 @@ import seedu.address.commons.core.Config;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.AddressBook;
+import seedu.address.model.Model;
+import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.UserPrefs;
 import seedu.address.storage.UserPrefsStorage;
@@ -82,6 +84,13 @@ public class TestApp extends MainApp {
      */
     public String getStorageSaveLocation() {
         return userPrefs.getAddressBookFilePath();
+    }
+
+    /**
+     * Returns the model.
+     */
+    public Model getModel() {
+        return new ModelManager(model.getAddressBook(), new UserPrefs());
     }
 
     @Override
