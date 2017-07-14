@@ -17,7 +17,12 @@ import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
 
 /**
- * Contains utility methods used for parsing strings in the various *Parser classes
+ * Contains utility methods used for parsing strings in the various *Parser classes.
+ * Even though methods should not take {@code Optional} as parameters as it goes against Java's convention
+ * (see https://stackoverflow.com/a/39005452), however {@code ParserUtil} is currently being used like a middle-man
+ * as it takes in an {@code Optional} from the caller, and it returns a parsed {@code Optional} to be used by the
+ * caller. It seems redundant to first unwrap the initial {@code Optional}, just to have it re-wrap back into an
+ * {@code Optional} after being parsed by {@code ParserUtil}.
  */
 public class ParserUtil {
 
