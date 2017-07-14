@@ -48,7 +48,7 @@ public class StatusBarFooterHandle extends NodeHandle<Node> {
     }
 
     /**
-     * Returns whether the current content of the sync status is different from what we last remembered.
+     * Returns true if the current content of the sync status is different from what we last remembered.
      */
     public boolean isSyncStatusChanged() {
         return !lastRememberedSyncStatus.equals(getSyncStatus());
@@ -62,7 +62,7 @@ public class StatusBarFooterHandle extends NodeHandle<Node> {
     }
 
     /**
-     * Returns whether the current content of the 'save location' is different from what we last remembered.
+     * Returns true if the current content of the 'save location' is different from what we last remembered.
      */
     public boolean isSaveLocationChanged() {
         return !lastRememberedSaveLocation.equals(getSaveLocation());

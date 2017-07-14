@@ -33,8 +33,8 @@ import seedu.address.testutil.TypicalPersons;
 import seedu.address.ui.StatusBarFooter;
 
 /**
- * A system test class for AddressBook, which sets up the {@code TestApp} and provides access
- * to handles of GUI components, and other tools for system testing purposes.
+ * A system test class for AddressBook, which sets up the {@code TestApp}, provides access
+ * to handles of GUI components and other tools for system testing purposes.
  */
 public abstract class AddressBookSystemTest {
     public static final Clock INJECTED_CLOCK = Clock.fixed(Instant.now(), ZoneId.systemDefault());
@@ -46,35 +46,50 @@ public abstract class AddressBookSystemTest {
     private TestApp testApp;
 
     @BeforeClass
-    public static void setupOnce() {
+    public static void setupUpBeforeClass() {
+        initializeFxToolkit();
+        injectFixedClock();
+    }
+
+    private static void initializeFxToolkit() {
         try {
             FxToolkit.registerPrimaryStage();
             FxToolkit.hideStage();
         } catch (TimeoutException e) {
             throw new AssertionError(e);
         }
+    }
 
+    private static void injectFixedClock() {
         StatusBarFooter.setClock(INJECTED_CLOCK);
     }
 
     @AfterClass
     public static void tearDownAfterClass() {
+        restoreOriginalClock();
+    }
+
+    private static void restoreOriginalClock() {
         StatusBarFooter.setClock(ORIGINAL_CLOCK);
     }
 
     @Before
     public void setUp() throws Exception {
+        setupStage();
+
+        mainWindowHandle = new MainWindowHandle(stage);
+        mainWindowHandle.focus();
+
+        preconditionCheck(getTypicalAddressBook());
+    }
+
+    private void setupStage() throws TimeoutException {
         FxToolkit.setupStage((stage) -> {
             this.stage = stage;
         });
         FxToolkit.setupApplication(() -> testApp = new TestApp(TypicalPersons::getTypicalAddressBook,
                 getDataFileLocation()));
         FxToolkit.showStage();
-
-        mainWindowHandle = new MainWindowHandle(stage);
-        mainWindowHandle.focus();
-
-        assertStartStateCorrect(getTypicalAddressBook());
     }
 
     @After
@@ -127,9 +142,9 @@ public abstract class AddressBookSystemTest {
     }
 
     /**
-     * Asserts that the starting state of the application is correct.
+     * Checks that the starting state of the application is correct.
      */
-    private void assertStartStateCorrect(ReadOnlyAddressBook expectedAddressBook) {
+    private void preconditionCheck(ReadOnlyAddressBook expectedAddressBook) {
         try {
             assert getCommandBox().getInput().equals("");
             assert getResultDisplay().getText().equals("");

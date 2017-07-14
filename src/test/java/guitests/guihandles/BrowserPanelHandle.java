@@ -33,7 +33,7 @@ public class BrowserPanelHandle extends NodeHandle<Node> {
     }
 
     /**
-     * Returns whether the current {@code URL} is different from what we last remembered.
+     * Returns true if the current {@code URL} is different from what we last remembered.
      */
     public boolean isUrlChanged() throws MalformedURLException {
         return !lastRememberedUrl.equals(getLoadedUrl());

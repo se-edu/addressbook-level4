@@ -9,6 +9,7 @@ import java.time.Clock;
 import java.util.Date;
 
 import guitests.guihandles.StatusBarFooterHandle;
+import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -61,8 +62,8 @@ public class SystemTestAsserts {
      */
     public static void assertRunInvalidCommand(AddressBookSystemTest addressBookSystemTest, String commandToRun,
             String expectedResultMessage) throws Exception {
-        Model expectedModel = new ModelManager(addressBookSystemTest.getTestApp().getModel().getAddressBook(),
-                new UserPrefs());
+        Model expectedModel = new ModelManager(
+                new AddressBook(addressBookSystemTest.getTestApp().getModel().getAddressBook()), new UserPrefs());
 
         // ensure that these things do not change
         addressBookSystemTest.getBrowserPanel().rememberUrl();
