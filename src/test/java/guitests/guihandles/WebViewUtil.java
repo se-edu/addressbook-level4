@@ -11,7 +11,7 @@ import javafx.scene.web.WebView;
 public class WebViewUtil {
 
     /**
-     * Returns the {@code URL} of the currently loaded page in the {@code webView}.
+     * Returns the URL of the currently loaded page in the {@code webView}.
      */
     public static URL getLoadedUrl(WebView webView) throws MalformedURLException {
         return new URL(webView.getEngine().getLocation());
