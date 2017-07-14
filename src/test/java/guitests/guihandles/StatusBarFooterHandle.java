@@ -40,18 +40,30 @@ public class StatusBarFooterHandle extends NodeHandle<Node> {
         return saveLocationNode.getText();
     }
 
+    /**
+     * Remembers the content of the sync status portion of the status bar.
+     */
     public void rememberSyncStatus() {
         lastRememberedSyncStatus = getSyncStatus();
     }
 
+    /**
+     * Returns whether the current content of the sync status is different from what we last remembered.
+     */
     public boolean isSyncStatusChanged() {
         return !lastRememberedSyncStatus.equals(getSyncStatus());
     }
 
+    /**
+     * Remembers the content of the 'save location' portion of the status bar.
+     */
     public void rememberSaveLocation() {
         lastRememberedSaveLocation = getSaveLocation();
     }
 
+    /**
+     * Returns whether the current content of the 'save location' is different from what we last remembered.
+     */
     public boolean isSaveLocationChanged() {
         return !lastRememberedSaveLocation.equals(getSaveLocation());
     }

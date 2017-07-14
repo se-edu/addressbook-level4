@@ -1,5 +1,6 @@
 package systemtests;
 
+import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 import static seedu.address.ui.BrowserPanel.DEFAULT_PAGE;
 import static seedu.address.ui.UiPart.FXML_FILE_FOLDER;
 
@@ -32,8 +33,8 @@ import seedu.address.testutil.TypicalPersons;
 import seedu.address.ui.StatusBarFooter;
 
 /**
- * A system test class for AddressBook, which set up the {@code TestApp} and provides access
- * to injected clocks, handles of GUI components, and other tools for system testing purposes.
+ * A system test class for AddressBook, which sets up the {@code TestApp} and provides access
+ * to handles of GUI components, and other tools for system testing purposes.
  */
 public abstract class AddressBookSystemTest {
     public static final Clock INJECTED_CLOCK = Clock.fixed(Instant.now(), ZoneId.systemDefault());
@@ -73,7 +74,7 @@ public abstract class AddressBookSystemTest {
         mainWindowHandle = new MainWindowHandle(stage);
         mainWindowHandle.focus();
 
-        assertStartStateCorrect(TypicalPersons.getTypicalAddressBook());
+        assertStartStateCorrect(getTypicalAddressBook());
     }
 
     @After
@@ -108,10 +109,9 @@ public abstract class AddressBookSystemTest {
 
     /**
      * Runs {@code command} in the application's {@code CommandBox}.
-     * @return true if the command was executed successfully.
      */
-    public boolean runCommand(String command) {
-        return mainWindowHandle.getCommandBox().run(command);
+    public void runCommand(String command) {
+        mainWindowHandle.getCommandBox().run(command);
     }
 
     private String getDataFileLocation() {

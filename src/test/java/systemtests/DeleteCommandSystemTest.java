@@ -20,68 +20,58 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
 
     @Test
     public void delete() throws Exception {
-        Model currentModel = new ModelManager(new AddressBook(getTestApp().getModel().getAddressBook()),
+        Model expectedModel = new ModelManager(new AddressBook(getTestApp().getModel().getAddressBook()),
                 new UserPrefs());
 
         //delete the first in the list
         Index targetIndex = INDEX_FIRST_PERSON;
-        ReadOnlyPerson personTargeted = currentModel.getAddressBook().getPersonList().get(targetIndex.getZeroBased());
-        assertDeleteSuccess(targetIndex, currentModel);
+        ReadOnlyPerson targetPerson = expectedModel.getAddressBook().getPersonList().get(targetIndex.getZeroBased());
+        expectedModel.deletePerson(targetPerson);
+        assertDeleteSuccess(targetIndex, targetPerson, expectedModel);
 
         //delete the last in the list
-        currentModel.deletePerson(personTargeted);
-        targetIndex = Index.fromOneBased(currentModel.getAddressBook().getPersonList().size());
-        personTargeted = currentModel.getAddressBook().getPersonList().get(targetIndex.getZeroBased());
-        assertDeleteSuccess(targetIndex, currentModel);
+        targetIndex = Index.fromOneBased(expectedModel.getAddressBook().getPersonList().size());
+        targetPerson = expectedModel.getAddressBook().getPersonList().get(targetIndex.getZeroBased());
+        expectedModel.deletePerson(targetPerson);
+        assertDeleteSuccess(targetIndex, targetPerson, expectedModel);
 
         //delete from the middle of the list
-        currentModel.deletePerson(personTargeted);
-        targetIndex = Index.fromOneBased(currentModel.getAddressBook().getPersonList().size() / 2);
-        personTargeted = currentModel.getAddressBook().getPersonList().get(targetIndex.getZeroBased());
-        assertDeleteSuccess(targetIndex, currentModel);
+        targetIndex = Index.fromOneBased(expectedModel.getAddressBook().getPersonList().size() / 2);
+        targetPerson = expectedModel.getAddressBook().getPersonList().get(targetIndex.getZeroBased());
+        expectedModel.deletePerson(targetPerson);
+        assertDeleteSuccess(targetIndex, targetPerson, expectedModel);
 
         //invalid index
-        currentModel.deletePerson(personTargeted);
         String invalidCommand = DeleteCommand.COMMAND_WORD + " "
-                + currentModel.getAddressBook().getPersonList().size() + 1;
-        assertDeleteFailure(invalidCommand, currentModel, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+                + expectedModel.getAddressBook().getPersonList().size() + 1;
+        assertDeleteFailure(invalidCommand, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
 
         // invalid arguments
         invalidCommand = DeleteCommand.COMMAND_WORD + " abc";
-        assertDeleteFailure(invalidCommand, currentModel,
+        assertDeleteFailure(invalidCommand,
                 String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
         invalidCommand = DeleteCommand.COMMAND_WORD + " 1 abc";
-        assertDeleteFailure(invalidCommand, currentModel,
+        assertDeleteFailure(invalidCommand,
                 String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE));
     }
 
     /**
-     * Runs the delete command to delete the person at {@code index} and confirms the result is correct.
-     * @param currentModel A copy of the address book model (before deletion).
+     * Runs the delete command to delete {@code targetPerson} at {@code index} and confirms the entire application
+     * state matches what we expected.
+     * @param expectedModel A copy of the address book model (after deletion).
      */
-    private void assertDeleteSuccess(Index index, final Model currentModel)
+    private void assertDeleteSuccess(Index index, final ReadOnlyPerson targetPerson, final Model expectedModel)
             throws Exception {
         String commandToRun = DeleteCommand.COMMAND_WORD + " " + index.getOneBased();
-
-        ReadOnlyPerson targetedPerson = currentModel.getAddressBook().getPersonList().get(index.getZeroBased());
-        String expectedResultMessage = String.format(MESSAGE_DELETE_PERSON_SUCCESS, targetedPerson);
-
-        AddressBook expectedAddressBook = new AddressBook(currentModel.getAddressBook());
-        expectedAddressBook.removePerson(targetedPerson);
-
-        Model expectedModel = new ModelManager(expectedAddressBook, new UserPrefs());
+        String expectedResultMessage = String.format(MESSAGE_DELETE_PERSON_SUCCESS, targetPerson);
 
         assertRunValidCommand(this, commandToRun, expectedModel, expectedResultMessage);
     }
 
     /**
-     * Runs the delete command that is malformed, and confirms the result is correct.
+     * Runs the {@code invalidCommand}, and confirms the entire application state matches what we expected.
      */
-    private void assertDeleteFailure(String invalidCommand, final Model currentModel,
-            String expectedResultMessage) throws Exception {
-        AddressBook expectedAddressBook = new AddressBook(currentModel.getAddressBook());
-        Model expectedModel = new ModelManager(expectedAddressBook, new UserPrefs());
-
-        assertRunInvalidCommand(this, invalidCommand, expectedModel, expectedResultMessage);
+    private void assertDeleteFailure(String invalidCommand, String expectedResultMessage) throws Exception {
+        assertRunInvalidCommand(this, invalidCommand, expectedResultMessage);
     }
 }

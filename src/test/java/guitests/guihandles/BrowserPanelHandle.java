@@ -25,10 +25,16 @@ public class BrowserPanelHandle extends NodeHandle<Node> {
         return WebViewUtil.getLoadedUrl(getChildNode(BROWSER_ID));
     }
 
+    /**
+     * Remembers the {@code URL} of the currently loaded page.
+     */
     public void rememberUrl() throws MalformedURLException {
         lastRememberedUrl = getLoadedUrl();
     }
 
+    /**
+     * Returns whether the current {@code URL} is different from what we last remembered.
+     */
     public boolean isUrlChanged() throws MalformedURLException {
         return !lastRememberedUrl.equals(getLoadedUrl());
     }

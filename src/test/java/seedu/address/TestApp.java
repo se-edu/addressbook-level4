@@ -90,7 +90,7 @@ public class TestApp extends MainApp {
     }
 
     /**
-     * Returns the defensive copy of the model.
+     * Returns a defensive copy of the model.
      */
     public Model getModel() {
         return new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
