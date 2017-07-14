@@ -65,7 +65,7 @@ public abstract class AddressBookSystemTest {
     }
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         setupApplication();
 
         mainWindowHandle = new MainWindowHandle(stage);
