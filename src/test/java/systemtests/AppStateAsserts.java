@@ -25,14 +25,15 @@ public class AppStateAsserts {
      * and the model and storage are modified accordingly.
      */
     public static void assertCommandSuccess(AddressBookSystemTest addressBookSystemTest, String commandToRun,
-            Model expectedModel, String expectedResultMessage) throws Exception {
+            Model expectedModel, String expectedResultMessage, boolean browserUrlWillChange,
+            boolean personListSelectionWillChange) throws Exception {
         final String expectedCommandBoxText = "";
         final boolean addressBookWillUpdate = true;
 
         rememberStates(addressBookSystemTest);
         addressBookSystemTest.runCommand(commandToRun);
         assertComponentsMatchesExpected(addressBookSystemTest, addressBookWillUpdate, expectedModel,
-                expectedCommandBoxText, expectedResultMessage);
+                expectedCommandBoxText, expectedResultMessage, browserUrlWillChange, personListSelectionWillChange);
     }
 
     /**
@@ -46,15 +47,18 @@ public class AppStateAsserts {
 
         final String expectedCommandBoxText = commandToRun;
         final boolean addressBookWillUpdate = false;
+        final boolean browserUrlWillChange = false;
+        final boolean personListSelectionWillChange = false;
 
         rememberStates(addressBookSystemTest);
         addressBookSystemTest.runCommand(commandToRun);
         assertComponentsMatchesExpected(addressBookSystemTest, addressBookWillUpdate, expectedModel,
-                expectedCommandBoxText, expectedResultMessage);
+                expectedCommandBoxText, expectedResultMessage, browserUrlWillChange, personListSelectionWillChange);
     }
 
     /**
-     * Calls {@code BrowserPanelHandle} and {@code StatusBarFooterHandle} to remember their current state.
+     * Calls {@code BrowserPanelHandle}, {@code PersonListPanelHandle} and {@code StatusBarFooterHandle} to remember
+     * their current state.
      */
     private static void rememberStates(AddressBookSystemTest addressBookSystemTest)
             throws Exception {
@@ -62,6 +66,7 @@ public class AppStateAsserts {
         addressBookSystemTest.getBrowserPanel().rememberUrl();
         addressBookSystemTest.getStatusBarFooter().rememberSaveLocation();
         addressBookSystemTest.getStatusBarFooter().rememberSyncStatus();
+        addressBookSystemTest.getPersonListPanel().rememberSelectedPersonCard();
     }
 
     /**
@@ -69,12 +74,15 @@ public class AppStateAsserts {
      */
     private static void assertComponentsMatchesExpected(AddressBookSystemTest addressBookSystemTest,
             boolean addressBookWillUpdate, Model expectedModel, String expectedCommandBoxText,
-            String expectedResultMessage) throws Exception {
+            String expectedResultMessage, boolean browserUrlWillChange,
+            boolean personListSelectionWillChange) throws Exception {
 
         assertEquals(expectedCommandBoxText, addressBookSystemTest.getCommandBox().getInput());
-        assertFalse(addressBookSystemTest.getBrowserPanel().isUrlChanged());
+        assertEquals(browserUrlWillChange, addressBookSystemTest.getBrowserPanel().isUrlChanged());
         assertListMatching(addressBookSystemTest.getPersonListPanel(),
                 expectedModel.getAddressBook().getPersonList().toArray(new ReadOnlyPerson[0]));
+        assertEquals(personListSelectionWillChange,
+                addressBookSystemTest.getPersonListPanel().isSelectedPersonCardChanged());
         assertEquals(expectedResultMessage, addressBookSystemTest.getResultDisplay().getText());
         assertEquals(expectedModel.getAddressBook(), addressBookSystemTest.getTestApp().readStorageAddressBook());
         assertEquals(expectedModel, addressBookSystemTest.getTestApp().getModel());

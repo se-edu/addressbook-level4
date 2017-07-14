@@ -32,21 +32,21 @@ public class TestUtil {
     }
 
     /**
-     * Get the middle index of the person in the {@code model}.
+     * Returns the middle index of the person in the {@code model}.
      */
     public static Index getMidIndex(Model model) {
         return Index.fromOneBased(model.getAddressBook().getPersonList().size() / 2);
     }
 
     /**
-     * Get the last index of the person in the {@code model}.
+     * Returns the last index of the person in the {@code model}.
      */
     public static Index getLastIndex(Model model) {
         return Index.fromOneBased(model.getAddressBook().getPersonList().size());
     }
 
     /**
-     * Get the person in the {@code model} of {@code index}.
+     * Returns the person in the {@code model} of {@code index}.
      */
     public static ReadOnlyPerson getPerson(Model model, Index index) {
         return model.getAddressBook().getPersonList().get(index.getZeroBased());
