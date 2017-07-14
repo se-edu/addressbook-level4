@@ -27,7 +27,6 @@ import javafx.stage.Stage;
 import seedu.address.MainApp;
 import seedu.address.TestApp;
 import seedu.address.commons.core.EventsCenter;
-import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.testutil.TypicalPersons;
 import seedu.address.ui.StatusBarFooter;
@@ -80,7 +79,7 @@ public abstract class AddressBookSystemTest {
         mainWindowHandle = new MainWindowHandle(stage);
         mainWindowHandle.focus();
 
-        preconditionCheck(getTypicalAddressBook());
+        preconditionCheck();
     }
 
     private void setupStage() throws TimeoutException {
@@ -144,12 +143,12 @@ public abstract class AddressBookSystemTest {
     /**
      * Checks that the starting state of the application is correct.
      */
-    private void preconditionCheck(ReadOnlyAddressBook expectedAddressBook) {
+    private void preconditionCheck() {
         try {
             assert getCommandBox().getInput().equals("");
             assert getResultDisplay().getText().equals("");
             assert getPersonListPanel().isListMatching(
-                    expectedAddressBook.getPersonList().toArray(new ReadOnlyPerson[0]));
+                    getTypicalAddressBook().getPersonList().toArray(new ReadOnlyPerson[0]));
             assert getBrowserPanel().getLoadedUrl().equals(getDefaultBrowserUrl());
             assert getStatusBarFooter().getSaveLocation().equals("./" + testApp.getStorageSaveLocation());
         } catch (Exception e) {
