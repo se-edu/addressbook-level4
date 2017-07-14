@@ -88,4 +88,24 @@ public class DeleteCommandTest extends AddressBookGuiTest {
         assertEquals(expectedAddressBook, testApp.getModel().getAddressBook());
     }
 
+    /**
+     * Asserts that after running the command, the model, storage and GUI are all in the correct state.
+     */
+    private void assertRunCommand(String commandToRun, Person[] expectedList, AddressBook expectedAddressBook,
+                                  String expectedResultMessage) throws Exception {
+
+        // ensure that these things do not change
+        getBrowserPanel().rememberUrl();
+        getStatusBarFooter().rememberSaveLocation();
+
+        runCommand(commandToRun);
+
+        // check that all components are matched
+        getBrowserPanel().assertUrlNotChanged();
+        assertPersonListPanelMatches(expectedList);
+        assertResultMessage(expectedResultMessage);
+        assertOnlySyncStatusChanged();
+        assertStorageFileContentMatch(expectedAddressBook);
+        assertModelMatch(expectedAddressBook);
+    }
 }
