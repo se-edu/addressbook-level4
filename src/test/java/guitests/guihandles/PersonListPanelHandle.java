@@ -16,7 +16,7 @@ import seedu.address.ui.PersonCard;
 public class PersonListPanelHandle extends NodeHandle<ListView<PersonCard>> {
     public static final String PERSON_LIST_VIEW_ID = "#personListView";
 
-    private PersonCard lastRememberedSelectedPersonCard;
+    private Optional<PersonCard> lastRememberedSelectedPersonCard;
 
     public PersonListPanelHandle(ListView<PersonCard> personListPanelNode) {
         super(personListPanelNode);
@@ -93,23 +93,24 @@ public class PersonListPanelHandle extends NodeHandle<ListView<PersonCard>> {
         List<PersonCard> selectedItems = getRootNode().getSelectionModel().getSelectedItems();
 
         if (selectedItems.size() == 0) {
-            lastRememberedSelectedPersonCard = null;
+            lastRememberedSelectedPersonCard = Optional.empty();
         } else {
-            lastRememberedSelectedPersonCard = selectedItems.get(0);
+            lastRememberedSelectedPersonCard = Optional.of(selectedItems.get(0));
         }
     }
 
     /**
-     * Returns true if the selected {@code PersonCard} is different from the most recent
+     * Returns true if the selected {@code PersonCard} is different from the value remembered by the most recent
      * {@code rememberSelectedPersonCard()} call.
      */
     public boolean isSelectedPersonCardChanged() {
         List<PersonCard> selectedItems = getRootNode().getSelectionModel().getSelectedItems();
 
         if (selectedItems.size() == 0) {
-            return lastRememberedSelectedPersonCard != null;
+            return lastRememberedSelectedPersonCard.isPresent();
         } else {
-            return !lastRememberedSelectedPersonCard.equals(selectedItems.get(0));
+            return lastRememberedSelectedPersonCard.isPresent()
+                    && !lastRememberedSelectedPersonCard.get().equals(selectedItems.get(0));
         }
     }
 

@@ -1,11 +1,6 @@
 package systemtests;
 
-import static org.junit.Assert.assertEquals;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
-import static seedu.address.ui.BrowserPanel.DEFAULT_PAGE;
-import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_INITIAL;
-import static seedu.address.ui.UiPart.FXML_FILE_FOLDER;
-import static seedu.address.ui.testutil.GuiTestAssert.assertListMatching;
+import static systemtests.AppStateAsserts.verifyApplicationStartingStateIsCorrect;
 
 import java.time.Clock;
 import java.time.Instant;
@@ -26,10 +21,8 @@ import guitests.guihandles.PersonListPanelHandle;
 import guitests.guihandles.ResultDisplayHandle;
 import guitests.guihandles.StatusBarFooterHandle;
 import javafx.stage.Stage;
-import seedu.address.MainApp;
 import seedu.address.TestApp;
 import seedu.address.commons.core.EventsCenter;
-import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.testutil.TypicalPersons;
 import seedu.address.ui.StatusBarFooter;
 
@@ -42,7 +35,7 @@ public abstract class AddressBookSystemTest {
     public static final Clock INJECTED_CLOCK = Clock.fixed(Instant.now(), ZoneId.systemDefault());
     private static final Clock ORIGINAL_CLOCK = StatusBarFooter.getClock();
 
-    protected Stage stage;
+    private Stage stage;
 
     private MainWindowHandle mainWindowHandle;
     private TestApp testApp;
@@ -53,7 +46,7 @@ public abstract class AddressBookSystemTest {
 
         // provides us a way to predict expected time more easily, to prevent scenarios whereby
         // a 1-second delay causes the verification to be wrong
-        injectFixedClock();
+        StatusBarFooter.setClock(INJECTED_CLOCK);
     }
 
     private static void initializeFxToolkit() {
@@ -63,10 +56,6 @@ public abstract class AddressBookSystemTest {
         } catch (TimeoutException e) {
             throw new AssertionError(e);
         }
-    }
-
-    private static void injectFixedClock() {
-        StatusBarFooter.setClock(INJECTED_CLOCK);
     }
 
     @AfterClass
@@ -82,16 +71,20 @@ public abstract class AddressBookSystemTest {
         mainWindowHandle = new MainWindowHandle(stage);
         mainWindowHandle.focus();
 
-        verifyStartingStateIsCorrect();
+        verifyApplicationStartingStateIsCorrect(this);
     }
 
-    private void setupApplication() throws TimeoutException {
-        FxToolkit.setupStage((stage) -> {
-            this.stage = stage;
-        });
-        FxToolkit.setupApplication(() -> testApp = new TestApp(TypicalPersons::getTypicalAddressBook,
-                TestApp.SAVE_LOCATION_FOR_TESTING));
-        FxToolkit.showStage();
+    private void setupApplication() {
+        try {
+            FxToolkit.setupStage((stage) -> {
+                this.stage = stage;
+            });
+            FxToolkit.setupApplication(() -> testApp = new TestApp(TypicalPersons::getTypicalAddressBook,
+                    TestApp.SAVE_LOCATION_FOR_TESTING));
+            FxToolkit.showStage();
+        } catch (TimeoutException te) {
+            throw new AssertionError("Application takes too long to set up.");
+        }
     }
 
     @After
@@ -133,25 +126,5 @@ public abstract class AddressBookSystemTest {
 
     public TestApp getTestApp() {
         return testApp;
-    }
-
-    /**
-     * Checks that the starting state of the application is correct.
-     */
-    private void verifyStartingStateIsCorrect() {
-        try {
-            assertEquals("", getCommandBox().getInput());
-
-            assertEquals("", getCommandBox().getInput());
-            assertEquals("", getResultDisplay().getText());
-            assertListMatching(getPersonListPanel(),
-                    getTypicalAddressBook().getPersonList().toArray(new ReadOnlyPerson[0]));
-            assertEquals(MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_PAGE),
-                    getBrowserPanel().getLoadedUrl());
-            assertEquals("./" + testApp.getStorageSaveLocation(), getStatusBarFooter().getSaveLocation());
-            assertEquals(SYNC_STATUS_INITIAL, getStatusBarFooter().getSyncStatus());
-        } catch (Exception e) {
-            throw new AssertionError("Starting state is wrong.", e);
-        }
     }
 }

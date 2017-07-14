@@ -33,12 +33,11 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
     public void delete() throws Exception {
         Model expectedModel = new ModelManager(new AddressBook(getTestApp().getModel().getAddressBook()),
                 new UserPrefs());
-        GuiRobot guiRobot = new GuiRobot();
 
         // delete the first in the list
         ReadOnlyPerson targetPerson = getPerson(expectedModel, INDEX_FIRST_PERSON);
-        String command = getUserInput("      " + INDEX_FIRST_PERSON.getOneBased() + "       ");
-        String expectedResultMessage = getSuccessMessage(targetPerson);
+        String command = "     " + DeleteCommand.COMMAND_WORD + "      " + INDEX_FIRST_PERSON.getOneBased() + "       ";
+        String expectedResultMessage = String.format(MESSAGE_DELETE_PERSON_SUCCESS, targetPerson);
         expectedModel.deletePerson(targetPerson);
         assertCommandSuccess(this, command, expectedModel, expectedResultMessage, false, false);
 
@@ -46,8 +45,8 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
         Model modelBeforeDeletingLast = new ModelManager(expectedModel.getAddressBook(), new UserPrefs());
         Index lastPersonIndex = getLastIndex(expectedModel);
         targetPerson = getPerson(expectedModel, lastPersonIndex);
-        command = getUserInput(String.valueOf(lastPersonIndex.getOneBased()));
-        expectedResultMessage = getSuccessMessage(targetPerson);
+        command = DeleteCommand.COMMAND_WORD + " " + String.valueOf(lastPersonIndex.getOneBased());
+        expectedResultMessage = String.format(MESSAGE_DELETE_PERSON_SUCCESS, targetPerson);
         expectedModel.deletePerson(targetPerson);
         assertCommandSuccess(this, command, expectedModel, expectedResultMessage, false, false);
 
@@ -64,27 +63,27 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
         // delete from the middle of the list
         Index middlePersonIndex = getMidIndex(expectedModel);
         targetPerson = getPerson(expectedModel, middlePersonIndex);
-        command = getUserInput(String.valueOf(middlePersonIndex.getOneBased()));
-        expectedResultMessage = getSuccessMessage(targetPerson);
+        command = DeleteCommand.COMMAND_WORD + " " + String.valueOf(middlePersonIndex.getOneBased());
+        expectedResultMessage = String.format(MESSAGE_DELETE_PERSON_SUCCESS, targetPerson);
         expectedModel.deletePerson(targetPerson);
         assertCommandSuccess(this, command, expectedModel, expectedResultMessage, false, false);
 
-        // delete the selected person
+        // delete the selected person -> person list panel now selects the person that was before the deleted person
         Index selectedIndex = getMidIndex(expectedModel);
         getPersonListPanel().select(selectedIndex.getZeroBased());
         targetPerson = getPerson(expectedModel, selectedIndex);
-        command = getUserInput(String.valueOf(selectedIndex.getOneBased()));
-        expectedResultMessage = getSuccessMessage(targetPerson);
+        command = DeleteCommand.COMMAND_WORD + " " + String.valueOf(selectedIndex.getOneBased());
+        expectedResultMessage = String.format(MESSAGE_DELETE_PERSON_SUCCESS, targetPerson);
         expectedModel.deletePerson(targetPerson);
         assertCommandSuccess(this, command, expectedModel, expectedResultMessage, true, true);
 
-        // as the selected person was deleted, a new person will be selected, causing the browser to reload, and
+        // as a new person is selected in the previous test case, causing the browser to reload,
         // it needs time to load the new page
-        guiRobot.sleep(5000);
+        new GuiRobot().sleep(5000);
 
         // invalid index
         Index outOfBoundsIndex = Index.fromOneBased(expectedModel.getAddressBook().getPersonList().size() + 1);
-        command = getUserInput(String.valueOf(outOfBoundsIndex.getOneBased()));
+        command = DeleteCommand.COMMAND_WORD + " " + String.valueOf(outOfBoundsIndex.getOneBased());
         assertCommandFailure(this, command, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
 
         // invalid arguments
@@ -94,14 +93,7 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
                 DeleteCommand.COMMAND_WORD + " 1 abc", INVALID_DELETE_COMMAND_FORMAT_MESSAGE);
 
         // case sensitivity
-        assertCommandFailure(this, "DelETE 1", MESSAGE_UNKNOWN_COMMAND);
+        assertCommandFailure(this, "    DelETE 1", MESSAGE_UNKNOWN_COMMAND);
     }
 
-    private String getUserInput(String arguments) {
-        return DeleteCommand.COMMAND_WORD + " " + arguments;
-    }
-
-    private String getSuccessMessage(ReadOnlyPerson person) {
-        return String.format(MESSAGE_DELETE_PERSON_SUCCESS, person);
-    }
 }

@@ -2,13 +2,18 @@ package systemtests;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.ui.BrowserPanel.DEFAULT_PAGE;
+import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_INITIAL;
 import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
+import static seedu.address.ui.UiPart.FXML_FILE_FOLDER;
 import static seedu.address.ui.testutil.GuiTestAssert.assertListMatching;
 
 import java.time.Clock;
 import java.util.Date;
 
 import guitests.guihandles.StatusBarFooterHandle;
+import seedu.address.MainApp;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -27,13 +32,11 @@ public class AppStateAsserts {
     public static void assertCommandSuccess(AddressBookSystemTest addressBookSystemTest, String commandToRun,
             Model expectedModel, String expectedResultMessage, boolean browserUrlWillChange,
             boolean personListSelectionWillChange) throws Exception {
-        final String expectedCommandBoxText = "";
-        final boolean addressBookWillUpdate = true;
 
         rememberStates(addressBookSystemTest);
         addressBookSystemTest.runCommand(commandToRun);
-        assertComponentsMatchesExpected(addressBookSystemTest, addressBookWillUpdate, expectedModel,
-                expectedCommandBoxText, expectedResultMessage, browserUrlWillChange, personListSelectionWillChange);
+        assertComponentsMatchExpected(addressBookSystemTest, true, expectedModel,
+                "", expectedResultMessage, browserUrlWillChange, personListSelectionWillChange);
     }
 
     /**
@@ -45,15 +48,10 @@ public class AppStateAsserts {
         Model expectedModel = new ModelManager(
                 new AddressBook(addressBookSystemTest.getTestApp().getModel().getAddressBook()), new UserPrefs());
 
-        final String expectedCommandBoxText = commandToRun;
-        final boolean addressBookWillUpdate = false;
-        final boolean browserUrlWillChange = false;
-        final boolean personListSelectionWillChange = false;
-
         rememberStates(addressBookSystemTest);
         addressBookSystemTest.runCommand(commandToRun);
-        assertComponentsMatchesExpected(addressBookSystemTest, addressBookWillUpdate, expectedModel,
-                expectedCommandBoxText, expectedResultMessage, browserUrlWillChange, personListSelectionWillChange);
+        assertComponentsMatchExpected(addressBookSystemTest, false, expectedModel,
+                commandToRun, expectedResultMessage, false, false);
     }
 
     /**
@@ -72,7 +70,7 @@ public class AppStateAsserts {
     /**
      * Asserts that the GUI components in the application matches what was expected.
      */
-    private static void assertComponentsMatchesExpected(AddressBookSystemTest addressBookSystemTest,
+    private static void assertComponentsMatchExpected(AddressBookSystemTest addressBookSystemTest,
             boolean addressBookWillUpdate, Model expectedModel, String expectedCommandBoxText,
             String expectedResultMessage, boolean browserUrlWillChange,
             boolean personListSelectionWillChange) throws Exception {
@@ -112,5 +110,24 @@ public class AppStateAsserts {
         String expectedSyncStatus = String.format(SYNC_STATUS_UPDATED, timestamp);
         assertEquals(expectedSyncStatus, statusBarFooterHandle.getSyncStatus());
         assertFalse(statusBarFooterHandle.isSaveLocationChanged());
+    }
+
+    /**
+     * Checks that the starting state of the application is correct.
+     */
+    public static void verifyApplicationStartingStateIsCorrect(AddressBookSystemTest addressBookSystemTest) {
+        try {
+            assertEquals("", addressBookSystemTest.getCommandBox().getInput());
+            assertEquals("", addressBookSystemTest.getResultDisplay().getText());
+            assertListMatching(addressBookSystemTest.getPersonListPanel(),
+                    getTypicalAddressBook().getPersonList().toArray(new ReadOnlyPerson[0]));
+            assertEquals(MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_PAGE),
+                    addressBookSystemTest.getBrowserPanel().getLoadedUrl());
+            assertEquals("./" + addressBookSystemTest.getTestApp().getStorageSaveLocation(),
+                    addressBookSystemTest.getStatusBarFooter().getSaveLocation());
+            assertEquals(SYNC_STATUS_INITIAL, addressBookSystemTest.getStatusBarFooter().getSyncStatus());
+        } catch (Exception e) {
+            throw new AssertionError("Starting state is wrong.", e);
+        }
     }
 }
