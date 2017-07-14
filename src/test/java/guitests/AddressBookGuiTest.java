@@ -216,6 +216,27 @@ public abstract class AddressBookGuiTest {
         assertEquals(expected, getResultDisplay().getText());
     }
 
+    /**
+     * Asserts that after running the valid command, the model, storage and GUI are all in the correct state.
+     */
+    protected void assertRunValidCommand(String commandToRun, Person[] expectedList, AddressBook expectedAddressBook,
+                                  String expectedResultMessage) throws Exception {
+
+        // ensure that these things do not change
+        getBrowserPanel().rememberUrl();
+        getStatusBarFooter().rememberSaveLocation();
+
+        runCommand(commandToRun);
+
+        // check that all components are matched
+        getBrowserPanel().assertUrlNotChanged();
+        assertPersonListPanelMatches(expectedList);
+        assertResultMessage(expectedResultMessage);
+        assertOnlySyncStatusChanged();
+        assertStorageFileContentMatch(expectedAddressBook);
+        assertModelMatch(expectedAddressBook);
+    }
+
     protected void raise(BaseEvent event) {
         //JUnit doesn't run its test cases on the UI thread. Platform.runLater is used to post event on the UI thread.
         Platform.runLater(() -> EventsCenter.getInstance().post(event));
