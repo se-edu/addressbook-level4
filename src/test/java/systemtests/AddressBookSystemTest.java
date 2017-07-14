@@ -79,7 +79,7 @@ public abstract class AddressBookSystemTest {
         mainWindowHandle = new MainWindowHandle(stage);
         mainWindowHandle.focus();
 
-        preconditionCheck();
+        checkPreconditions();
     }
 
     private void setupStage() throws TimeoutException {
@@ -143,7 +143,7 @@ public abstract class AddressBookSystemTest {
     /**
      * Checks that the starting state of the application is correct.
      */
-    private void preconditionCheck() {
+    private void checkPreconditions() {
         try {
             assert getCommandBox().getInput().equals("");
             assert getResultDisplay().getText().equals("");
