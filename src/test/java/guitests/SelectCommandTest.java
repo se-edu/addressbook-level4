@@ -34,30 +34,30 @@ public class SelectCommandTest extends AddressBookGuiTest {
 
     @Test
     public void selectPerson_emptyList() {
-        commandBox.runCommand(ClearCommand.COMMAND_WORD);
+        runCommand(ClearCommand.COMMAND_WORD);
         assertListSize(0);
         assertSelectionInvalid(INDEX_FIRST_PERSON); //invalid index
     }
 
     private void assertSelectionInvalid(Index index) {
-        commandBox.runCommand(SelectCommand.COMMAND_WORD + " " + index.getOneBased());
+        runCommand(SelectCommand.COMMAND_WORD + " " + index.getOneBased());
         assertResultMessage("The person index provided is invalid");
     }
 
     private void assertSelectionSuccess(Index index) {
-        commandBox.runCommand(SelectCommand.COMMAND_WORD + " " + index.getOneBased());
+        runCommand(SelectCommand.COMMAND_WORD + " " + index.getOneBased());
         assertResultMessage("Selected Person: " + index.getOneBased());
         assertPersonSelected(index);
     }
 
     private void assertPersonSelected(Index index) {
-        ReadOnlyPerson selectedPerson = personListPanel.getSelectedPerson().get();
-        assertEquals(personListPanel.getPerson(index.getZeroBased()), selectedPerson);
+        ReadOnlyPerson selectedPerson = getPersonListPanel().getSelectedPerson().get();
+        assertEquals(getPersonListPanel().getPerson(index.getZeroBased()), selectedPerson);
         //TODO: confirm the correct page is loaded in the Browser Panel
     }
 
     private void assertNoPersonSelected() {
-        assertFalse(personListPanel.getSelectedPerson().isPresent());
+        assertFalse(getPersonListPanel().getSelectedPerson().isPresent());
     }
 
 }

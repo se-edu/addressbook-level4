@@ -32,7 +32,7 @@ public class DeleteCommandTest extends AddressBookGuiTest {
         assertDeleteSuccess(targetIndex, currentList);
 
         //invalid index
-        commandBox.runCommand(DeleteCommand.COMMAND_WORD + " " + currentList.length + 1);
+        runCommand(DeleteCommand.COMMAND_WORD + " " + currentList.length + 1);
         assertResultMessage("The person index provided is invalid");
 
     }
@@ -45,10 +45,10 @@ public class DeleteCommandTest extends AddressBookGuiTest {
         Person personToDelete = currentList[index.getZeroBased()];
         Person[] expectedRemainder = TestUtil.removePersonFromList(currentList, index);
 
-        commandBox.runCommand(DeleteCommand.COMMAND_WORD + " " + index.getOneBased());
+        runCommand(DeleteCommand.COMMAND_WORD + " " + index.getOneBased());
 
         //confirm the list now contains all previous persons except the deleted person
-        assertTrue(personListPanel.isListMatching(expectedRemainder));
+        assertTrue(getPersonListPanel().isListMatching(expectedRemainder));
 
         //confirm the result message is correct
         assertResultMessage(String.format(MESSAGE_DELETE_PERSON_SUCCESS, personToDelete));
