@@ -12,6 +12,8 @@ public class BrowserPanelHandle extends NodeHandle<Node> {
 
     public static final String BROWSER_ID = "#browser";
 
+    private URL lastUrl;
+
     public BrowserPanelHandle(Node browserPanelNode) {
         super(browserPanelNode);
     }
@@ -21,5 +23,13 @@ public class BrowserPanelHandle extends NodeHandle<Node> {
      */
     public URL getLoadedUrl() throws MalformedURLException {
         return WebViewUtil.getLoadedUrl(getChildNode(BROWSER_ID));
+    }
+
+    public void rememberUrl() throws MalformedURLException {
+        lastUrl = getLoadedUrl();
+    }
+
+    public boolean isUrlChanged() throws MalformedURLException {
+        return !lastUrl.equals(getLoadedUrl());
     }
 }
