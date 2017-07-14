@@ -2,12 +2,16 @@ package systemtests;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
 
 import java.time.Clock;
 import java.util.Date;
 
 import guitests.guihandles.StatusBarFooterHandle;
+import seedu.address.model.AddressBook;
+import seedu.address.model.Model;
+import seedu.address.model.person.ReadOnlyPerson;
 
 /**
  * Contains assertion methods to check the validity of the application.
@@ -24,5 +28,28 @@ public class SystemTestAsserts {
         String expectedSyncStatus = String.format(SYNC_STATUS_UPDATED, timestamp);
         assertEquals(expectedSyncStatus, statusBarFooterHandle.getSyncStatus());
         assertFalse(statusBarFooterHandle.isSaveLocationChanged());
+    }
+
+    /**
+     * Asserts that after running the valid command, the entire application is in the correct state.
+     */
+    public static void assertRunValidCommand(AddressBookSystemTest addressBookSystemTest, String commandToRun,
+            AddressBook expectedAddressBook, Model expectedModel, String expectedResultMessage) throws Exception {
+
+        // ensure that these things do not change
+        addressBookSystemTest.getBrowserPanel().rememberUrl();
+        addressBookSystemTest.getStatusBarFooter().rememberSaveLocation();
+
+        addressBookSystemTest.runCommand(commandToRun);
+
+        // check that all components are matched
+        assertFalse(addressBookSystemTest.getBrowserPanel().isUrlChanged());
+        assertTrue(addressBookSystemTest.getPersonListPanel().isListMatching(
+                expectedAddressBook.getPersonList().toArray(new ReadOnlyPerson[0])));
+        assertEquals(expectedResultMessage, addressBookSystemTest.getResultDisplay().getText());
+        assertOnlySyncStatusChanged(addressBookSystemTest.getStatusBarFooter(),
+                addressBookSystemTest.getInjectedClock());
+        assertEquals(expectedAddressBook, addressBookSystemTest.getTestApp().readStorageAddressBook());
+        assertEquals(expectedModel, addressBookSystemTest.getTestApp().getModel());
     }
 }
