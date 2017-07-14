@@ -2,8 +2,8 @@ package systemtests;
 
 import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS;
 import static seedu.address.testutil.TypicalPersons.INDEX_FIRST_PERSON;
-import static systemtests.SystemTestAsserts.assertCommandFailure;
-import static systemtests.SystemTestAsserts.assertCommandSuccess;
+import static systemtests.AppStateAsserts.assertCommandFailure;
+import static systemtests.AppStateAsserts.assertCommandSuccess;
 
 import org.junit.Test;
 
@@ -43,10 +43,8 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
         assertDeleteFailure(outOfBoundsIndex);
 
         // invalid arguments
-        assertCommandFailure(this, DeleteCommand.COMMAND_WORD + " abc",
-                INVALID_DELETE_COMMAND_FORMAT_MESSAGE);
-        assertCommandFailure(this, DeleteCommand.COMMAND_WORD + " 1 abc",
-                INVALID_DELETE_COMMAND_FORMAT_MESSAGE);
+        assertDeleteFailure(" abc");
+        assertDeleteFailure(" 1 abc");
     }
 
     /**
@@ -64,8 +62,9 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
     }
 
     /**
-     * Asserts that after executing the delete command with {@code invalidIndex}, the entire application state remains
-     * unmodified except for the result display.
+     * Asserts that after executing the delete command with {@code invalidIndex}, the GUI remains the same with the
+     * model and storage unchanged as well, but the {@code ResultDisplay} should show
+     * {@code Messages#MESSAGE_INVALID_PERSON_DISPLAYED_INDEX}.
      */
     private void assertDeleteFailure(Index invalidIndex) throws Exception {
         String invalidCommand = DeleteCommand.COMMAND_WORD + " " + invalidIndex.getOneBased();
@@ -73,4 +72,17 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
 
         assertCommandFailure(this, invalidCommand, expectedResultMessage);
     }
+
+    /**
+     * Asserts that after executing the delete command with {@code invalidArguments}, the GUI remains the same with the
+     * model and storage unchanged as well, but the {@code ResultDisplay} should show
+     * {@code #INVALID_DELETE_COMMAND_FORMAT_MESSAGE}.
+     */
+    private void assertDeleteFailure(String invalidArguments) throws Exception {
+        String invalidCommand = DeleteCommand.COMMAND_WORD + " " + invalidArguments;
+        String expectedResultMessage = INVALID_DELETE_COMMAND_FORMAT_MESSAGE;
+
+        assertCommandFailure(this, invalidCommand, expectedResultMessage);
+    }
+
 }

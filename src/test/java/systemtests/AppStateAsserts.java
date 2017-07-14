@@ -16,41 +16,45 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.person.ReadOnlyPerson;
 
 /**
- * Contains assertion methods to check the validity of the application state.
+ * Contains assertion methods to verify the state of the application is as expected.
  */
-public class SystemTestAsserts {
+public class AppStateAsserts {
 
     /**
-     * Asserts that after executing the valid command {@code commandToRun}, the entire application state matches
-     * what was expected.
+     * Asserts that after executing the command {@code commandToRun}, the GUI components display what we expected,
+     * and the model and storage are modified accordingly.
      */
     public static void assertCommandSuccess(AddressBookSystemTest addressBookSystemTest, String commandToRun,
             Model expectedModel, String expectedResultMessage) throws Exception {
+        final boolean addressBookWillUpdate = true;
 
-        takeSnapshot(addressBookSystemTest, true);
+        rememberStates(addressBookSystemTest, addressBookWillUpdate);
         addressBookSystemTest.runCommand(commandToRun);
-        assertComponentsMatchesExpected(addressBookSystemTest, true, expectedModel, expectedResultMessage);
+        assertComponentsMatchesExpected(addressBookSystemTest, addressBookWillUpdate, expectedModel,
+                expectedResultMessage);
     }
 
     /**
-     * Asserts that after executing the invalid command {@code commandToRun}, the entire application state remains
-     * unmodified except for {@code expectedResultMessage}.
+     * Asserts that after executing the command {@code commandToRun}, the GUI components display the same, except for
+     * the {@code ResultDisplay} displaying {@code expectedResultMessage}. The model and storage remains unchanged.
      */
     public static void assertCommandFailure(AddressBookSystemTest addressBookSystemTest, String commandToRun,
             String expectedResultMessage) throws Exception {
         Model expectedModel = new ModelManager(
                 new AddressBook(addressBookSystemTest.getTestApp().getModel().getAddressBook()), new UserPrefs());
+        final boolean addressBookWillUpdate = false;
 
-        takeSnapshot(addressBookSystemTest, false);
+        rememberStates(addressBookSystemTest, addressBookWillUpdate);
         addressBookSystemTest.runCommand(commandToRun);
-        assertComponentsMatchesExpected(addressBookSystemTest, false, expectedModel, expectedResultMessage);
+        assertComponentsMatchesExpected(addressBookSystemTest, addressBookWillUpdate, expectedModel,
+                expectedResultMessage);
     }
 
     /**
      * Calls {@code BrowserPanelHandle} and {@code StatusBarFooterHandle} to save a snapshot of their current state,
      * and only take a snapshot of the sync status if {@code addressBookWillUpdate} is false.
      */
-    private static void takeSnapshot(AddressBookSystemTest addressBookSystemTest, boolean addressBookWillUpdate)
+    private static void rememberStates(AddressBookSystemTest addressBookSystemTest, boolean addressBookWillUpdate)
             throws Exception {
 
         addressBookSystemTest.getBrowserPanel().rememberUrl();
@@ -78,14 +82,21 @@ public class SystemTestAsserts {
             assertOnlySyncStatusChanged(addressBookSystemTest.getStatusBarFooter(),
                 AddressBookSystemTest.INJECTED_CLOCK);
         } else {
-            assertFalse(addressBookSystemTest.getStatusBarFooter().isSaveLocationChanged());
-            assertFalse(addressBookSystemTest.getStatusBarFooter().isSyncStatusChanged());
+            assertStatusBarUnchanged(addressBookSystemTest.getStatusBarFooter());
         }
     }
 
     /**
-     * Asserts that only the sync status in the status bar was changed to the {@code injectedClock} timing, while the
-     * save location remains the same.
+     * Asserts that the entire status bar remains the same.
+     */
+    private static void assertStatusBarUnchanged(StatusBarFooterHandle statusBarFooterHandle) {
+        assertFalse(statusBarFooterHandle.isSaveLocationChanged());
+        assertFalse(statusBarFooterHandle.isSyncStatusChanged());
+    }
+
+    /**
+     * Asserts that only the sync status in the status bar was changed to the timing of the {@code injectedClock},
+     * while the save location remains the same.
      */
     private static void assertOnlySyncStatusChanged(StatusBarFooterHandle statusBarFooterHandle, Clock injectedClock) {
         String timestamp = new Date(injectedClock.millis()).toString();
