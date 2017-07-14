@@ -2,8 +2,11 @@ package guitests;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static seedu.address.ui.BrowserPanel.DEFAULT_PAGE;
 import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
+import static seedu.address.ui.UiPart.FXML_FILE_FOLDER;
 
+import java.net.URL;
 import java.time.Clock;
 import java.time.Instant;
 import java.time.ZoneId;
@@ -28,6 +31,7 @@ import guitests.guihandles.ResultDisplayHandle;
 import guitests.guihandles.StatusBarFooterHandle;
 import javafx.application.Platform;
 import javafx.stage.Stage;
+import seedu.address.MainApp;
 import seedu.address.TestApp;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.events.BaseEvent;
@@ -146,6 +150,10 @@ public abstract class AddressBookGuiTest {
         return TestApp.SAVE_LOCATION_FOR_TESTING;
     }
 
+    protected URL getDefaultBrowserUrl() {
+        return MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_PAGE);
+    }
+
     @After
     public void cleanup() throws Exception {
         FxToolkit.cleanupStages();
@@ -190,7 +198,7 @@ public abstract class AddressBookGuiTest {
      * Asserts that the content of the storage file matches an {@code AddressBook} with
      * the content same as {@code expectedAddressBook}.
      */
-    protected void assertStorageFileContentMatch(AddressBook expectedAddressBook) throws Exception {
+    protected void assertStorageFileContentMatch(AddressBook expectedAddressBook) {
         ReadOnlyAddressBook actualStorage = testApp.readStorageAddressBook();
         assertEquals(expectedAddressBook, actualStorage);
     }
@@ -214,6 +222,27 @@ public abstract class AddressBookGuiTest {
      */
     protected void assertResultMessage(String expected) {
         assertEquals(expected, getResultDisplay().getText());
+    }
+
+    /**
+     * Asserts that after running the valid command, the model, storage and GUI are all in the correct state.
+     */
+    protected void assertRunValidCommand(String commandToRun, Person[] expectedList, AddressBook expectedAddressBook,
+                                  String expectedResultMessage) throws Exception {
+
+        // ensure that these things do not change
+        getBrowserPanel().rememberUrl();
+        getStatusBarFooter().rememberSaveLocation();
+
+        runCommand(commandToRun);
+
+        // check that all components are matched
+        getBrowserPanel().assertUrlNotChanged();
+        assertPersonListPanelMatches(expectedList);
+        assertResultMessage(expectedResultMessage);
+        assertOnlySyncStatusChanged();
+        assertStorageFileContentMatch(expectedAddressBook);
+        assertModelMatch(expectedAddressBook);
     }
 
     protected void raise(BaseEvent event) {

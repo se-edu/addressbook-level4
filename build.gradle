@@ -149,6 +149,7 @@ class AddressBookTest extends Test {
 
 task guiTests(type: AddressBookTest) {
     include 'guitests/**'
+    include 'systemtests/**'
     include 'seedu/address/ui/**'
 
     jacoco {

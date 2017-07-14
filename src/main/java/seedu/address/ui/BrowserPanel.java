@@ -19,8 +19,8 @@ import seedu.address.model.person.ReadOnlyPerson;
  */
 public class BrowserPanel extends UiPart<Region> {
 
+    public static final String DEFAULT_PAGE = "default.html";
     private static final String FXML = "BrowserPanel.fxml";
-    private static final String DEFAULT_PAGE = "default.html";
 
     private final Logger logger = LogsCenter.getLogger(this.getClass());
 

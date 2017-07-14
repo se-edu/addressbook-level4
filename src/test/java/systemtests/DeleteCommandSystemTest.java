@@ -1,4 +1,4 @@
-package guitests;
+package systemtests;
 
 import static org.junit.Assert.assertEquals;
 import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS;
@@ -6,18 +6,20 @@ import static seedu.address.testutil.TypicalPersons.INDEX_FIRST_PERSON;
 
 import org.junit.Test;
 
+import guitests.AddressBookGuiTest;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.model.AddressBook;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.TestUtil;
 
-public class DeleteCommandTest extends AddressBookGuiTest {
+public class DeleteCommandSystemTest extends AddressBookGuiTest {
 
     @Test
     public void delete() throws Exception {
         // assert that the start state is correct
         assertEquals("./" + testApp.getStorageSaveLocation(), getStatusBarFooter().getSaveLocation());
+        assertEquals(getDefaultBrowserUrl(), getBrowserPanel().getLoadedUrl());
 
         Person[] currentList = td.getTypicalPersons();
         AddressBook currentAddressBook = td.getTypicalAddressBook();
@@ -61,28 +63,6 @@ public class DeleteCommandTest extends AddressBookGuiTest {
         AddressBook expectedAddressBook = new AddressBook(currentAddressBook);
         expectedAddressBook.removePerson(currentList[index.getZeroBased()]);
 
-        assertRunCommand(commandToRun, expectedList, expectedAddressBook, expectedResultMessage);
+        assertRunValidCommand(commandToRun, expectedList, expectedAddressBook, expectedResultMessage);
     }
-
-    /**
-     * Asserts that after running the command, the model, storage and GUI are all in the correct state.
-     */
-    private void assertRunCommand(String commandToRun, Person[] expectedList, AddressBook expectedAddressBook,
-                                  String expectedResultMessage) throws Exception {
-
-        // ensure that these things do not change
-        getBrowserPanel().rememberUrl();
-        getStatusBarFooter().rememberSaveLocation();
-
-        runCommand(commandToRun);
-
-        // check that all components are matched
-        getBrowserPanel().assertUrlNotChanged();
-        assertPersonListPanelMatches(expectedList);
-        assertResultMessage(expectedResultMessage);
-        assertOnlySyncStatusChanged();
-        assertStorageFileContentMatch(expectedAddressBook);
-        assertModelMatch(expectedAddressBook);
-    }
-
 }
