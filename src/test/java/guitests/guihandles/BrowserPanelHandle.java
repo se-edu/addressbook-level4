@@ -1,7 +1,5 @@
 package guitests.guihandles;
 
-import static org.junit.Assert.assertEquals;
-
 import java.net.MalformedURLException;
 import java.net.URL;
 
@@ -31,7 +29,7 @@ public class BrowserPanelHandle extends NodeHandle<Node> {
         lastUrl = getLoadedUrl();
     }
 
-    public void assertUrlNotChanged() throws MalformedURLException {
-        assertEquals(lastUrl, getLoadedUrl());
+    public boolean isUrlChanged() throws MalformedURLException {
+        return !lastUrl.equals(getLoadedUrl());
     }
 }

@@ -1,7 +1,5 @@
 package guitests.guihandles;
 
-import static org.junit.Assert.assertEquals;
-
 import org.controlsfx.control.StatusBar;
 
 import javafx.scene.Node;
@@ -46,15 +44,15 @@ public class StatusBarFooterHandle extends NodeHandle<Node> {
         lastSeenSyncStatus = getSyncStatus();
     }
 
-    public void assertSyncStatusNotChanged() {
-        assertEquals(lastSeenSyncStatus, getSyncStatus());
+    public boolean isSyncStatusChanged() {
+        return !lastSeenSyncStatus.equals(getSyncStatus());
     }
 
     public void rememberSaveLocation() {
         lastSeenSaveLocation = getSaveLocation();
     }
 
-    public void assertSaveLocationNotChanged() {
-        assertEquals(lastSeenSaveLocation, getSaveLocation());
+    public boolean isSaveLocationChanged() {
+        return !lastSeenSaveLocation.equals(getSaveLocation());
     }
 }

@@ -1,38 +1,47 @@
-package guitests;
+package systemtests;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static seedu.address.ui.BrowserPanel.DEFAULT_PAGE;
+import static seedu.address.ui.UiPart.FXML_FILE_FOLDER;
+import static systemtests.SystemTestAsserts.assertStartStateCorrect;
 
+import java.net.URL;
+import java.time.Clock;
+import java.time.Instant;
+import java.time.ZoneId;
 import java.util.concurrent.TimeoutException;
 
 import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.rules.TestName;
 import org.testfx.api.FxToolkit;
 
+import guitests.GuiRobot;
 import guitests.guihandles.BrowserPanelHandle;
 import guitests.guihandles.CommandBoxHandle;
 import guitests.guihandles.MainMenuHandle;
 import guitests.guihandles.MainWindowHandle;
-import guitests.guihandles.PersonCardHandle;
 import guitests.guihandles.PersonListPanelHandle;
 import guitests.guihandles.ResultDisplayHandle;
 import guitests.guihandles.StatusBarFooterHandle;
 import javafx.application.Platform;
 import javafx.stage.Stage;
+import seedu.address.MainApp;
 import seedu.address.TestApp;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.events.BaseEvent;
 import seedu.address.model.AddressBook;
-import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.testutil.TypicalPersons;
+import seedu.address.ui.StatusBarFooter;
 
 /**
- * A GUI Test class for AddressBook.
+ * A system test class for AddressBook.
  */
-public abstract class AddressBookGuiTest {
+public class AddressBookSystemTest {
+    protected static Clock originalClock = StatusBarFooter.getClock();
+    protected static Clock injectedClock = Clock.fixed(Instant.now(), ZoneId.systemDefault());
 
     /* The TestName Rule makes the current test name available inside test methods */
     @Rule
@@ -45,6 +54,8 @@ public abstract class AddressBookGuiTest {
 
     protected MainWindowHandle mainWindowHandle;
 
+    protected TestApp testApp;
+
     @BeforeClass
     public static void setupOnce() {
         try {
@@ -53,6 +64,13 @@ public abstract class AddressBookGuiTest {
         } catch (TimeoutException e) {
             e.printStackTrace();
         }
+
+        StatusBarFooter.setClock(injectedClock);
+    }
+
+    @AfterClass
+    public static void tearDownAfterClass() {
+        StatusBarFooter.setClock(originalClock);
     }
 
     @Before
@@ -61,11 +79,13 @@ public abstract class AddressBookGuiTest {
             this.stage = stage;
         });
         EventsCenter.clearSubscribers();
-        FxToolkit.setupApplication(() -> new TestApp(this::getInitialData, getDataFileLocation()));
+        FxToolkit.setupApplication(() -> testApp = new TestApp(this::getInitialData, getDataFileLocation()));
         FxToolkit.showStage();
 
         mainWindowHandle = new MainWindowHandle(stage);
         mainWindowHandle.focus();
+
+        assertStartStateCorrect(testApp, getStatusBarFooter(), getBrowserPanel(), getDefaultBrowserUrl());
     }
 
     /**
@@ -82,7 +102,7 @@ public abstract class AddressBookGuiTest {
         return mainWindowHandle.getCommandBox();
     }
 
-    protected PersonListPanelHandle getPersonListPanel() {
+    public PersonListPanelHandle getPersonListPanel() {
         return mainWindowHandle.getPersonListPanel();
     }
 
@@ -90,15 +110,15 @@ public abstract class AddressBookGuiTest {
         return mainWindowHandle.getMainMenu();
     }
 
-    protected BrowserPanelHandle getBrowserPanel() {
+    public BrowserPanelHandle getBrowserPanel() {
         return mainWindowHandle.getBrowserPanel();
     }
 
-    protected StatusBarFooterHandle getStatusBarFooter() {
+    public StatusBarFooterHandle getStatusBarFooter() {
         return mainWindowHandle.getStatusBarFooter();
     }
 
-    protected ResultDisplayHandle getResultDisplay() {
+    public ResultDisplayHandle getResultDisplay() {
         return mainWindowHandle.getResultDisplay();
     }
 
@@ -106,7 +126,7 @@ public abstract class AddressBookGuiTest {
      * Runs {@code command} in the application's {@code CommandBox}.
      * @return true if the command was executed successfully.
      */
-    protected boolean runCommand(String command) {
+    public boolean runCommand(String command) {
         return mainWindowHandle.getCommandBox().run(command);
     }
 
@@ -117,31 +137,27 @@ public abstract class AddressBookGuiTest {
         return TestApp.SAVE_LOCATION_FOR_TESTING;
     }
 
+    protected URL getDefaultBrowserUrl() {
+        return MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_PAGE);
+    }
+
     @After
     public void cleanup() throws Exception {
         FxToolkit.cleanupStages();
     }
 
     /**
-     * Asserts the person shown in the card is same as the given person
+     * Get the underlying {@code TestApp} used by the test.
      */
-    protected void assertCardMatchesPerson(PersonCardHandle card, ReadOnlyPerson person) {
-        assertTrue(card.isSamePerson(person));
+    public TestApp getTestApp() {
+        return testApp;
     }
 
     /**
-     * Asserts the size of the person list is equal to the given number.
+     * Get the underlying {@code injectedClock}.
      */
-    protected void assertListSize(int size) {
-        int numberOfPeople = getPersonListPanel().getListSize();
-        assertEquals(size, numberOfPeople);
-    }
-
-    /**
-     * Asserts the message shown in the Result Display area is same as the given string.
-     */
-    protected void assertResultMessage(String expected) {
-        assertEquals(expected, getResultDisplay().getText());
+    public Clock getInjectedClock() {
+        return injectedClock;
     }
 
     protected void raise(BaseEvent event) {
