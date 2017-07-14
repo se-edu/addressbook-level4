@@ -2,8 +2,8 @@ package systemtests;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
+import static seedu.address.ui.testutil.GuiTestAssert.assertListMatching;
 
 import java.time.Clock;
 import java.util.Date;
@@ -26,33 +26,36 @@ public class AppStateAsserts {
      */
     public static void assertCommandSuccess(AddressBookSystemTest addressBookSystemTest, String commandToRun,
             Model expectedModel, String expectedResultMessage) throws Exception {
+        final String expectedCommandBoxText = "";
         final boolean addressBookWillUpdate = true;
 
         rememberStates(addressBookSystemTest, addressBookWillUpdate);
         addressBookSystemTest.runCommand(commandToRun);
         assertComponentsMatchesExpected(addressBookSystemTest, addressBookWillUpdate, expectedModel,
-                expectedResultMessage);
+                expectedCommandBoxText, expectedResultMessage);
     }
 
     /**
-     * Asserts that after executing the command {@code commandToRun}, the GUI components display the same, except for
+     * Asserts that after executing the command {@code commandToRun}, the GUI components remain unchanged, except for
      * the {@code ResultDisplay} displaying {@code expectedResultMessage}. The model and storage remains unchanged.
      */
     public static void assertCommandFailure(AddressBookSystemTest addressBookSystemTest, String commandToRun,
             String expectedResultMessage) throws Exception {
         Model expectedModel = new ModelManager(
                 new AddressBook(addressBookSystemTest.getTestApp().getModel().getAddressBook()), new UserPrefs());
+
+        final String expectedCommandBoxText = commandToRun;
         final boolean addressBookWillUpdate = false;
 
         rememberStates(addressBookSystemTest, addressBookWillUpdate);
         addressBookSystemTest.runCommand(commandToRun);
         assertComponentsMatchesExpected(addressBookSystemTest, addressBookWillUpdate, expectedModel,
-                expectedResultMessage);
+                expectedCommandBoxText, expectedResultMessage);
     }
 
     /**
-     * Calls {@code BrowserPanelHandle} and {@code StatusBarFooterHandle} to save a snapshot of their current state,
-     * and only take a snapshot of the sync status if {@code addressBookWillUpdate} is false.
+     * Calls {@code BrowserPanelHandle} and {@code StatusBarFooterHandle} to remember their current state,
+     * and also remembers the state of the sync status if {@code addressBookWillUpdate} is false.
      */
     private static void rememberStates(AddressBookSystemTest addressBookSystemTest, boolean addressBookWillUpdate)
             throws Exception {
@@ -69,11 +72,13 @@ public class AppStateAsserts {
      * Asserts that the GUI components in the application matches what was expected.
      */
     private static void assertComponentsMatchesExpected(AddressBookSystemTest addressBookSystemTest,
-            boolean addressBookWillUpdate, final Model expectedModel, String expectedResultMessage) throws Exception {
+            boolean addressBookWillUpdate, Model expectedModel, String expectedCommandBoxText,
+            String expectedResultMessage) throws Exception {
 
+        assertEquals(expectedCommandBoxText, addressBookSystemTest.getCommandBox().getInput());
         assertFalse(addressBookSystemTest.getBrowserPanel().isUrlChanged());
-        assertTrue(addressBookSystemTest.getPersonListPanel().isListMatching(
-                expectedModel.getAddressBook().getPersonList().toArray(new ReadOnlyPerson[0])));
+        assertListMatching(addressBookSystemTest.getPersonListPanel(),
+                expectedModel.getAddressBook().getPersonList().toArray(new ReadOnlyPerson[0]));
         assertEquals(expectedResultMessage, addressBookSystemTest.getResultDisplay().getText());
         assertEquals(expectedModel.getAddressBook(), addressBookSystemTest.getTestApp().readStorageAddressBook());
         assertEquals(expectedModel, addressBookSystemTest.getTestApp().getModel());

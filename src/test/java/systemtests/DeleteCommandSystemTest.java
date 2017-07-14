@@ -43,8 +43,8 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
         assertDeleteFailure(outOfBoundsIndex);
 
         // invalid arguments
-        assertDeleteFailure(" abc");
-        assertDeleteFailure(" 1 abc");
+        assertDeleteFailure("abc");
+        assertDeleteFailure("1 abc");
     }
 
     /**

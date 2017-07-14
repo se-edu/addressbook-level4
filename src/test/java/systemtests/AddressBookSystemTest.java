@@ -4,6 +4,7 @@ import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 import static seedu.address.ui.BrowserPanel.DEFAULT_PAGE;
 import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_INITIAL;
 import static seedu.address.ui.UiPart.FXML_FILE_FOLDER;
+import static seedu.address.ui.testutil.GuiTestAssert.assertListMatching;
 
 import java.time.Clock;
 import java.time.Instant;
@@ -136,7 +137,7 @@ public abstract class AddressBookSystemTest {
         try {
             assert getCommandBox().getInput().equals("");
             assert getResultDisplay().getText().equals("");
-            assert getPersonListPanel().isListMatching(
+            assertListMatching(getPersonListPanel(),
                     getTypicalAddressBook().getPersonList().toArray(new ReadOnlyPerson[0]));
             assert getBrowserPanel().getLoadedUrl().equals(
                     MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_PAGE));
