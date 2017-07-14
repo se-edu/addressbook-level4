@@ -16,6 +16,9 @@ public class StatusBarFooterHandle extends NodeHandle<Node> {
     private final StatusBar syncStatusNode;
     private final StatusBar saveLocationNode;
 
+    private String lastSeenSyncStatus;
+    private String lastSeenSaveLocation;
+
     public StatusBarFooterHandle(Node statusBarFooterNode) {
         super(statusBarFooterNode);
 
@@ -35,5 +38,21 @@ public class StatusBarFooterHandle extends NodeHandle<Node> {
      */
     public String getSaveLocation() {
         return saveLocationNode.getText();
+    }
+
+    public void rememberSyncStatus() {
+        lastSeenSyncStatus = getSyncStatus();
+    }
+
+    public boolean isSyncStatusChanged() {
+        return !lastSeenSyncStatus.equals(getSyncStatus());
+    }
+
+    public void rememberSaveLocation() {
+        lastSeenSaveLocation = getSaveLocation();
+    }
+
+    public boolean isSaveLocationChanged() {
+        return !lastSeenSaveLocation.equals(getSaveLocation());
     }
 }
