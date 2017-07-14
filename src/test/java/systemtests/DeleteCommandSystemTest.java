@@ -2,6 +2,9 @@ package systemtests;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
 import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS;
+import static seedu.address.testutil.TestUtil.getLastIndex;
+import static seedu.address.testutil.TestUtil.getMidIndex;
+import static seedu.address.testutil.TestUtil.getPerson;
 import static seedu.address.testutil.TypicalPersons.INDEX_FIRST_PERSON;
 import static systemtests.AppStateAsserts.assertCommandFailure;
 import static systemtests.AppStateAsserts.assertCommandSuccess;
@@ -22,60 +25,51 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
     private static final String INVALID_DELETE_COMMAND_FORMAT_MESSAGE =
             String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE);
 
-    private Model expectedModel;
-
     @Test
     public void delete() throws Exception {
-        expectedModel = new ModelManager(new AddressBook(getTestApp().getModel().getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new AddressBook(getTestApp().getModel().getAddressBook()),
+                new UserPrefs());
 
         // delete the first in the list
-        ReadOnlyPerson targetPerson = expectedModel.getAddressBook().getPersonList()
-                .get(INDEX_FIRST_PERSON.getZeroBased());
-        String command = String.valueOf(INDEX_FIRST_PERSON.getOneBased());
-        String expectedResultMessage = String.format(MESSAGE_DELETE_PERSON_SUCCESS, targetPerson);
+        ReadOnlyPerson targetPerson = getPerson(expectedModel, INDEX_FIRST_PERSON);
+        String command = getUserInput(String.valueOf(INDEX_FIRST_PERSON.getOneBased()));
+        String expectedResultMessage = getSuccessMessage(targetPerson);
         expectedModel.deletePerson(targetPerson);
-        assertDeleteSuccess(command, expectedResultMessage);
+        assertCommandSuccess(this, command, expectedModel, expectedResultMessage);
 
         // delete the last in the list
-        Index lastPersonIndex = Index.fromOneBased(expectedModel.getAddressBook().getPersonList().size());
-        targetPerson = expectedModel.getAddressBook().getPersonList().get(lastPersonIndex.getZeroBased());
-        command = String.valueOf(lastPersonIndex.getOneBased());
-        expectedResultMessage = String.format(MESSAGE_DELETE_PERSON_SUCCESS, targetPerson);
+        Index lastPersonIndex = getLastIndex(expectedModel);
+        targetPerson = getPerson(expectedModel, lastPersonIndex);
+        command = getUserInput(String.valueOf(lastPersonIndex.getOneBased()));
+        expectedResultMessage = getSuccessMessage(targetPerson);
         expectedModel.deletePerson(targetPerson);
-        assertDeleteSuccess(command, expectedResultMessage);
+        assertCommandSuccess(this, command, expectedModel, expectedResultMessage);
 
         // delete from the middle of the list
-        Index middlePersonIndex = Index.fromOneBased(expectedModel.getAddressBook().getPersonList().size() / 2);
-        targetPerson = expectedModel.getAddressBook().getPersonList().get(middlePersonIndex.getZeroBased());
-        command = String.valueOf(middlePersonIndex.getOneBased());
-        expectedResultMessage = String.format(MESSAGE_DELETE_PERSON_SUCCESS, targetPerson);
+        Index middlePersonIndex = getMidIndex(expectedModel);
+        targetPerson = getPerson(expectedModel, middlePersonIndex);
+        command = getUserInput(String.valueOf(middlePersonIndex.getOneBased()));
+        expectedResultMessage = getSuccessMessage(targetPerson);
         expectedModel.deletePerson(targetPerson);
-        assertDeleteSuccess(command, expectedResultMessage);
+        assertCommandSuccess(this, command, expectedModel, expectedResultMessage);
 
         // invalid index
         Index outOfBoundsIndex = Index.fromOneBased(expectedModel.getAddressBook().getPersonList().size() + 1);
-        assertDeleteFailure(String.valueOf(outOfBoundsIndex.getOneBased()), MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        command = getUserInput(String.valueOf(outOfBoundsIndex.getOneBased()));
+        assertCommandFailure(this, command, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
 
         // invalid arguments
-        assertDeleteFailure("abc", INVALID_DELETE_COMMAND_FORMAT_MESSAGE);
-        assertDeleteFailure("1 abc", INVALID_DELETE_COMMAND_FORMAT_MESSAGE);
+        assertCommandFailure(this,
+                DeleteCommand.COMMAND_WORD + " abc", INVALID_DELETE_COMMAND_FORMAT_MESSAGE);
+        assertCommandFailure(this,
+                DeleteCommand.COMMAND_WORD + " 1 abc", INVALID_DELETE_COMMAND_FORMAT_MESSAGE);
     }
 
-    /**
-     * Asserts that after executing the delete command with {@code validArguments}, the model and storage are updated,
-     * and the {@code ResultDisplay} shows {@code expectedResultMessage}.
-     */
-    private void assertDeleteSuccess(String validArguments, String expectedResultMessage) throws Exception {
-        String validCommand = DeleteCommand.COMMAND_WORD + " " + validArguments;
-        assertCommandSuccess(this, validCommand, expectedModel, expectedResultMessage);
+    private String getUserInput(String arguments) {
+        return DeleteCommand.COMMAND_WORD + " " + arguments;
     }
 
-    /**
-     * Asserts that after executing the delete command with {@code invalidArguments}, the GUI remains the same with the
-     * model and storage unchanged as well, but the {@code ResultDisplay} should show {@code expectedResultMessage}.
-     */
-    private void assertDeleteFailure(String invalidArguments, String expectedResultMessage) throws Exception {
-        String invalidCommand = DeleteCommand.COMMAND_WORD + " " + invalidArguments;
-        assertCommandFailure(this, invalidCommand, expectedResultMessage);
+    private String getSuccessMessage(ReadOnlyPerson person) {
+        return String.format(MESSAGE_DELETE_PERSON_SUCCESS, person);
     }
 }

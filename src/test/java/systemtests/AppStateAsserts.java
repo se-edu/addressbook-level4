@@ -29,7 +29,7 @@ public class AppStateAsserts {
         final String expectedCommandBoxText = "";
         final boolean addressBookWillUpdate = true;
 
-        rememberStates(addressBookSystemTest, addressBookWillUpdate);
+        rememberStates(addressBookSystemTest);
         addressBookSystemTest.runCommand(commandToRun);
         assertComponentsMatchesExpected(addressBookSystemTest, addressBookWillUpdate, expectedModel,
                 expectedCommandBoxText, expectedResultMessage);
@@ -47,25 +47,21 @@ public class AppStateAsserts {
         final String expectedCommandBoxText = commandToRun;
         final boolean addressBookWillUpdate = false;
 
-        rememberStates(addressBookSystemTest, addressBookWillUpdate);
+        rememberStates(addressBookSystemTest);
         addressBookSystemTest.runCommand(commandToRun);
         assertComponentsMatchesExpected(addressBookSystemTest, addressBookWillUpdate, expectedModel,
                 expectedCommandBoxText, expectedResultMessage);
     }
 
     /**
-     * Calls {@code BrowserPanelHandle} and {@code StatusBarFooterHandle} to remember their current state,
-     * and also remembers the state of the sync status if {@code addressBookWillUpdate} is false.
+     * Calls {@code BrowserPanelHandle} and {@code StatusBarFooterHandle} to remember their current state.
      */
-    private static void rememberStates(AddressBookSystemTest addressBookSystemTest, boolean addressBookWillUpdate)
+    private static void rememberStates(AddressBookSystemTest addressBookSystemTest)
             throws Exception {
 
         addressBookSystemTest.getBrowserPanel().rememberUrl();
         addressBookSystemTest.getStatusBarFooter().rememberSaveLocation();
-
-        if (!addressBookWillUpdate) {
-            addressBookSystemTest.getStatusBarFooter().rememberSyncStatus();
-        }
+        addressBookSystemTest.getStatusBarFooter().rememberSyncStatus();
     }
 
     /**
