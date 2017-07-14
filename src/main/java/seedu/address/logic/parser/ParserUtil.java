@@ -44,6 +44,7 @@ public class ParserUtil {
 
     /**
      * Parses a {@code Optional<String> name} into an {@code Optional<Name>} if {@code name} is present.
+     * See header comment regarding the use of Optional parameters.
      */
     public static Optional<Name> parseName(Optional<String> name) throws IllegalValueException {
         requireNonNull(name);
@@ -52,6 +53,7 @@ public class ParserUtil {
 
     /**
      * Parses a {@code Optional<String> phone} into an {@code Optional<Phone>} if {@code phone} is present.
+     * See header comment regarding the use of Optional parameters.
      */
     public static Optional<Phone> parsePhone(Optional<String> phone) throws IllegalValueException {
         requireNonNull(phone);
@@ -60,6 +62,7 @@ public class ParserUtil {
 
     /**
      * Parses a {@code Optional<String> address} into an {@code Optional<Address>} if {@code address} is present.
+     * See header comment regarding the use of Optional parameters.
      */
     public static Optional<Address> parseAddress(Optional<String> address) throws IllegalValueException {
         requireNonNull(address);
@@ -68,6 +71,7 @@ public class ParserUtil {
 
     /**
      * Parses a {@code Optional<String> email} into an {@code Optional<Email>} if {@code email} is present.
+     * See header comment regarding the use of Optional parameters.
      */
     public static Optional<Email> parseEmail(Optional<String> email) throws IllegalValueException {
         requireNonNull(email);
