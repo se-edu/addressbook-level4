@@ -57,5 +57,4 @@ public class DeleteCommandTest extends AddressBookGuiTest {
         //confirm the result message is correct
         assertResultMessage(String.format(MESSAGE_DELETE_PERSON_SUCCESS, personToDelete));
     }
-
 }
