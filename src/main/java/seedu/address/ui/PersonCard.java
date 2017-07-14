@@ -63,4 +63,11 @@ public class PersonCard extends UiPart<Region> {
     private void initTags(ReadOnlyPerson person) {
         person.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof PersonCard // instanceof handles nulls
+                && this.person.equals(((PersonCard) other).person)); // state check
+    }
 }
