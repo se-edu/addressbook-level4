@@ -43,7 +43,6 @@ public class PersonBuilder {
 
     /**
      * Sets the {@code Name} of the {@code Person} that we are building.
-     * @return the PersonBuilder.
      * @throws IllegalValueException if given name string is invalid.
      */
     public PersonBuilder withName(String name) throws IllegalValueException {
@@ -53,7 +52,6 @@ public class PersonBuilder {
 
     /**
      * Sets the {@code Tags} of the {@code Person} that we are building.
-     * @return the PersonBuilder.
      * @throws IllegalValueException if any of the given tag name string is invalid.
      */
     public PersonBuilder withTags(String ... tags) throws IllegalValueException {
@@ -63,7 +61,6 @@ public class PersonBuilder {
 
     /**
      * Sets the {@code Address} of the {@code Person} that we are building.
-     * @return the PersonBuilder.
      * @throws IllegalValueException if given address string is invalid.
      */
     public PersonBuilder withAddress(String address) throws IllegalValueException {
@@ -73,7 +70,6 @@ public class PersonBuilder {
 
     /**
      * Sets the {@code Phone} of the {@code Person} that we are building.
-     * @return the PersonBuilder.
      * @throws IllegalValueException if given phone string is invalid.
      */
     public PersonBuilder withPhone(String phone) throws IllegalValueException {
@@ -83,7 +79,6 @@ public class PersonBuilder {
 
     /**
      * Sets the {@code Email} of the {@code Person} that we are building.
-     * @return the PersonBuilder.
      * @throws IllegalValueException if given email address string is invalid.
      */
     public PersonBuilder withEmail(String email) throws IllegalValueException {

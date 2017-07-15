@@ -37,7 +37,6 @@ public class EditPersonDescriptorBuilder {
 
     /**
      * Sets the {@code Name} of the {@code EditPersonDescriptor} that we are building.
-     * @return the EditPersonDescriptorBuilder.
      * @throws IllegalValueException if given name string is invalid.
      */
     public EditPersonDescriptorBuilder withName(String name) throws IllegalValueException {
@@ -47,7 +46,6 @@ public class EditPersonDescriptorBuilder {
 
     /**
      * Sets the {@code Phone} of the {@code EditPersonDescriptor} that we are building.
-     * @return the EditPersonDescriptorBuilder.
      * @throws IllegalValueException if given phone string is invalid.
      */
     public EditPersonDescriptorBuilder withPhone(String phone) throws IllegalValueException {
@@ -57,7 +55,6 @@ public class EditPersonDescriptorBuilder {
 
     /**
      * Sets the {@code Email} of the {@code EditPersonDescriptor} that we are building.
-     * @return the EditPersonDescriptorBuilder.
      * @throws IllegalValueException if given email address string is invalid.
      */
     public EditPersonDescriptorBuilder withEmail(String email) throws IllegalValueException {
@@ -67,7 +64,6 @@ public class EditPersonDescriptorBuilder {
 
     /**
      * Sets the {@code Address} of the {@code EditPersonDescriptor} that we are building.
-     * @return the EditPersonDescriptorBuilder.
      * @throws IllegalValueException if given address string is invalid.
      */
     public EditPersonDescriptorBuilder withAddress(String address) throws IllegalValueException {
@@ -77,7 +73,6 @@ public class EditPersonDescriptorBuilder {
 
     /**
      * Sets the {@code Tags} of the {@code EditPersonDescriptor} that we are building.
-     * @return the EditPersonDescriptorBuilder.
      * @throws IllegalValueException if any of the given tag name string is invalid.
      */
     public EditPersonDescriptorBuilder withTags(String... tags) throws IllegalValueException {

@@ -48,7 +48,7 @@ public class TypicalPersons {
     }
 
     /**
-     * Loads the given {@code AddressBook} with all the typical persons.
+     * Loads the {@code AddressBook} with all the typical persons.
      */
     public static void loadAddressBookWithSampleData(AddressBook ab) {
         for (Person person : new TypicalPersons().getTypicalPersons()) {

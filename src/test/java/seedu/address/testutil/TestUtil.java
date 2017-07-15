@@ -40,7 +40,7 @@ public class TestUtil {
     public static final Person[] SAMPLE_PERSON_DATA = getSamplePersonData();
 
     /**
-     * Asserts that the given {@code executable} throws the given {@code expected} Exception.
+     * Asserts that {@code executable} throws {@code expected} Exception.
      */
     public static void assertThrows(Class<? extends Throwable> expected, Runnable executable) {
         try {
@@ -99,7 +99,7 @@ public class TestUtil {
     }
 
     /**
-     * Creates the data file at the given {@code filePath} with the given {@code data}.
+     * Creates the data file at {@code filePath} with {@code data}.
      */
     public static <T> void createDataFileWithData(T data, String filePath) {
         try {
@@ -160,8 +160,8 @@ public class TestUtil {
     }
 
     /**
-     * Generates a list with all the given {@code objs}.
-     * @return a List that contains all the given {@code objs}.
+     * Generates a list with {@code objs}.
+     * @return a List that contains {@code objs}.
      */
     private static <T> List<T> asList(T[] objs) {
         List<T> list = new ArrayList<>();
