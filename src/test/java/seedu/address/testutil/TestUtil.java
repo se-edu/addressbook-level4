@@ -39,6 +39,9 @@ public class TestUtil {
 
     public static final Person[] SAMPLE_PERSON_DATA = getSamplePersonData();
 
+    /**
+     * Asserts that {@code executable} throws {@code expected} Exception.
+     */
     public static void assertThrows(Class<? extends Throwable> expected, Runnable executable) {
         try {
             executable.run();
@@ -95,6 +98,9 @@ public class TestUtil {
         return SANDBOX_FOLDER + fileName;
     }
 
+    /**
+     * Creates the data file at {@code filePath} with {@code data}.
+     */
     public static <T> void createDataFileWithData(T data, String filePath) {
         try {
             File saveFileForTesting = new File(filePath);
@@ -153,6 +159,10 @@ public class TestUtil {
         return listOfPersons.toArray(new Person[listOfPersons.size()]);
     }
 
+    /**
+     * Generates a list with {@code objs}.
+     * @return a List that contains {@code objs}.
+     */
     private static <T> List<T> asList(T[] objs) {
         List<T> list = new ArrayList<>();
         for (T obj : objs) {
