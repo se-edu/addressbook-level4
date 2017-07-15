@@ -35,26 +35,46 @@ public class EditPersonDescriptorBuilder {
         descriptor.setTags(person.getTags());
     }
 
+    /**
+     * Sets the {@code Name} of the {@code EditPersonDescriptor} that we are building.
+     * @throws IllegalValueException if the {@code name} is invalid.
+     */
     public EditPersonDescriptorBuilder withName(String name) throws IllegalValueException {
         ParserUtil.parseName(Optional.of(name)).ifPresent(descriptor::setName);
         return this;
     }
 
+    /**
+     * Sets the {@code Phone} of the {@code EditPersonDescriptor} that we are building.
+     * @throws IllegalValueException if the {@code phone} is invalid.
+     */
     public EditPersonDescriptorBuilder withPhone(String phone) throws IllegalValueException {
         ParserUtil.parsePhone(Optional.of(phone)).ifPresent(descriptor::setPhone);
         return this;
     }
 
+    /**
+     * Sets the {@code Email} of the {@code EditPersonDescriptor} that we are building.
+     * @throws IllegalValueException if the {@code email} is invalid.
+     */
     public EditPersonDescriptorBuilder withEmail(String email) throws IllegalValueException {
         ParserUtil.parseEmail(Optional.of(email)).ifPresent(descriptor::setEmail);
         return this;
     }
 
+    /**
+     * Sets the {@code Address} of the {@code EditPersonDescriptor} that we are building.
+     * @throws IllegalValueException if the {@code address} is invalid.
+     */
     public EditPersonDescriptorBuilder withAddress(String address) throws IllegalValueException {
         ParserUtil.parseAddress(Optional.of(address)).ifPresent(descriptor::setAddress);
         return this;
     }
 
+    /**
+     * Sets the {@code Tags} of the {@code EditPersonDescriptor} that we are building.
+     * @throws IllegalValueException if any of the {@code tags} is invalid.
+     */
     public EditPersonDescriptorBuilder withTags(String... tags) throws IllegalValueException {
         descriptor.setTags(ParserUtil.parseTags(Arrays.asList(tags)));
         return this;

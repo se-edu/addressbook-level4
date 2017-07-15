@@ -23,11 +23,19 @@ public class AddressBookBuilder {
         this.addressBook = addressBook;
     }
 
-    public AddressBookBuilder withPerson(ReadOnlyPerson person) throws DuplicatePersonException {
+    /**
+     * Adds a new {@code Person} to the {@code AddressBook} that we are building.
+     * @throws DuplicatePersonException if the {@code person} already exists in the building Addressbook.
+     */
+    public AddressBookBuilder withPerson(Person person) throws DuplicatePersonException {
         addressBook.addPerson(person);
         return this;
     }
 
+    /**
+     * Adds a new {@code Tag} to the {@code AddressBook} that we are building.
+     * @throws IllegalValueException if the {@code tagName} is invalid.
+     */
     public AddressBookBuilder withTag(String tagName) throws IllegalValueException {
         addressBook.addTag(new Tag(tagName));
         return this;
