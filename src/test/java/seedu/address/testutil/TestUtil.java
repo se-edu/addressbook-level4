@@ -99,7 +99,7 @@ public class TestUtil {
     }
 
     /**
-     * Creates the data file at {@code filePath} with {@code data}.
+     * Creates the data file at the {@code filePath} with the {@code data}.
      */
     public static <T> void createDataFileWithData(T data, String filePath) {
         try {
@@ -160,8 +160,8 @@ public class TestUtil {
     }
 
     /**
-     * Generates a list with {@code objs}.
-     * @return a List that contains {@code objs}.
+     * Generates a list with the {@code objs}.
+     * @return a List that contains the {@code objs}.
      */
     private static <T> List<T> asList(T[] objs) {
         List<T> list = new ArrayList<>();

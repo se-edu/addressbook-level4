@@ -43,7 +43,7 @@ public class PersonBuilder {
 
     /**
      * Sets the {@code Name} of the {@code Person} that we are building.
-     * @throws IllegalValueException if given name string is invalid.
+     * @throws IllegalValueException if the {@code name} is invalid.
      */
     public PersonBuilder withName(String name) throws IllegalValueException {
         this.person.setName(new Name(name));
@@ -52,7 +52,7 @@ public class PersonBuilder {
 
     /**
      * Sets the {@code Tags} of the {@code Person} that we are building.
-     * @throws IllegalValueException if any of the given tag name string is invalid.
+     * @throws IllegalValueException if any of the {@code tags} is invalid.
      */
     public PersonBuilder withTags(String ... tags) throws IllegalValueException {
         this.person.setTags(SampleDataUtil.getTagSet(tags));
@@ -61,7 +61,7 @@ public class PersonBuilder {
 
     /**
      * Sets the {@code Address} of the {@code Person} that we are building.
-     * @throws IllegalValueException if given address string is invalid.
+     * @throws IllegalValueException if the {@code address} is invalid.
      */
     public PersonBuilder withAddress(String address) throws IllegalValueException {
         this.person.setAddress(new Address(address));
@@ -70,7 +70,7 @@ public class PersonBuilder {
 
     /**
      * Sets the {@code Phone} of the {@code Person} that we are building.
-     * @throws IllegalValueException if given phone string is invalid.
+     * @throws IllegalValueException if the {@code phone} is invalid.
      */
     public PersonBuilder withPhone(String phone) throws IllegalValueException {
         this.person.setPhone(new Phone(phone));
@@ -79,7 +79,7 @@ public class PersonBuilder {
 
     /**
      * Sets the {@code Email} of the {@code Person} that we are building.
-     * @throws IllegalValueException if given email address string is invalid.
+     * @throws IllegalValueException if the {@code email} is invalid.
      */
     public PersonBuilder withEmail(String email) throws IllegalValueException {
         this.person.setEmail(new Email(email));

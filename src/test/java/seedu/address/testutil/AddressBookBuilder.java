@@ -24,8 +24,8 @@ public class AddressBookBuilder {
     }
 
     /**
-     * Adds a new person to the {@code AddressBook} that we are building.
-     * @throws DuplicatePersonException if the given person already exists in the building Addressbook.
+     * Adds a new {@code Person} to the {@code AddressBook} that we are building.
+     * @throws DuplicatePersonException if the {@code person} already exists in the building Addressbook.
      */
     public AddressBookBuilder withPerson(Person person) throws DuplicatePersonException {
         addressBook.addPerson(person);
@@ -33,8 +33,8 @@ public class AddressBookBuilder {
     }
 
     /**
-     * Adds a new tag to the {@code AddressBook} that we are building.
-     * @throws IllegalValueException if the given tag name string is invalid.
+     * Adds a new {@code Tag} to the {@code AddressBook} that we are building.
+     * @throws IllegalValueException if the {@code tagName} is invalid.
      */
     public AddressBookBuilder withTag(String tagName) throws IllegalValueException {
         addressBook.addTag(new Tag(tagName));
