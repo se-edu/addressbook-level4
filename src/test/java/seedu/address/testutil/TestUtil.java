@@ -7,13 +7,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 import guitests.guihandles.PersonCardHandle;
-import javafx.geometry.Bounds;
-import javafx.geometry.Point2D;
-import javafx.scene.Node;
 import junit.framework.AssertionFailedError;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.exceptions.IllegalValueException;
@@ -25,7 +20,6 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.ReadOnlyPerson;
-import seedu.address.model.tag.Tag;
 
 /**
  * A utility class for test cases.
@@ -106,21 +100,6 @@ public class TestUtil {
     }
 
     /**
-     * Gets mid point of a node relative to the screen.
-     * @param node
-     * @return
-     */
-    public static Point2D getScreenMidPoint(Node node) {
-        double x = getScreenPos(node).getMinX() + node.getLayoutBounds().getWidth() / 2;
-        double y = getScreenPos(node).getMinY() + node.getLayoutBounds().getHeight() / 2;
-        return new Point2D(x, y);
-    }
-
-    public static Bounds getScreenPos(Node node) {
-        return node.localToScreen(node.getBoundsInLocal());
-    }
-
-    /**
      * Removes a subset from the list of persons.
      * @param persons The list of persons
      * @param personsToRemove The subset of persons.
@@ -163,13 +142,6 @@ public class TestUtil {
 
     public static boolean compareCardAndPerson(PersonCardHandle card, ReadOnlyPerson person) {
         return card.isSamePerson(person);
-    }
-
-    /**
-     * Returns the tags as a {@code List<String>}.
-     */
-    public static List<String> getTagsAsStringsList(Set<Tag> tags) {
-        return tags.stream().map(tag -> tag.tagName).collect(Collectors.toList());
     }
 
 }
