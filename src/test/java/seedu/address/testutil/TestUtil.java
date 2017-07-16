@@ -63,9 +63,7 @@ public class TestUtil {
             };
             //CHECKSTYLE.ON: LineLength
         } catch (IllegalValueException e) {
-            assert false;
-            // not possible
-            return null;
+            throw new AssertionError();
         }
     }
 
