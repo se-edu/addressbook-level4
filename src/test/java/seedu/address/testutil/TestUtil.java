@@ -28,9 +28,9 @@ public class TestUtil {
     /**
      * Folder used for temp files created during testing. Ignored by Git.
      */
-    public static final String SANDBOX_FOLDER = FileUtil.getPath("./src/test/data/sandbox/");
+    private static final String SANDBOX_FOLDER = FileUtil.getPath("./src/test/data/sandbox/");
 
-    public static final Person[] SAMPLE_PERSON_DATA = getSamplePersonData();
+    private static final Person[] SAMPLE_PERSON_DATA = getSamplePersonData();
 
     public static void assertThrows(Class<? extends Throwable> expected, Runnable executable) {
         try {
@@ -102,7 +102,7 @@ public class TestUtil {
      * @param personsToRemove The subset of persons.
      * @return The modified persons after removal of the subset from persons.
      */
-    public static Person[] removePersonsFromList(final Person[] persons, Person... personsToRemove) {
+    private static Person[] removePersonsFromList(final Person[] persons, Person... personsToRemove) {
         List<Person> listOfPersons = Arrays.asList(persons);
         listOfPersons.removeAll(Arrays.asList(personsToRemove));
         return listOfPersons.toArray(new Person[listOfPersons.size()]);
