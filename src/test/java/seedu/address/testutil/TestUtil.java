@@ -4,7 +4,6 @@ import static seedu.address.model.util.SampleDataUtil.getTagSet;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -106,8 +105,8 @@ public class TestUtil {
      * @return The modified persons after removal of the subset from persons.
      */
     public static Person[] removePersonsFromList(final Person[] persons, Person... personsToRemove) {
-        List<Person> listOfPersons = asList(persons);
-        listOfPersons.removeAll(asList(personsToRemove));
+        List<Person> listOfPersons = Arrays.asList(persons);
+        listOfPersons.removeAll(Arrays.asList(personsToRemove));
         return listOfPersons.toArray(new Person[listOfPersons.size()]);
     }
 
@@ -127,17 +126,9 @@ public class TestUtil {
      * @return The modified array of persons.
      */
     public static Person[] addPersonsToList(final Person[] persons, Person... personsToAdd) {
-        List<Person> listOfPersons = asList(persons);
-        listOfPersons.addAll(asList(personsToAdd));
+        List<Person> listOfPersons = Arrays.asList(persons);
+        listOfPersons.addAll(Arrays.asList(personsToAdd));
         return listOfPersons.toArray(new Person[listOfPersons.size()]);
-    }
-
-    private static <T> List<T> asList(T[] objs) {
-        List<T> list = new ArrayList<>();
-        for (T obj : objs) {
-            list.add(obj);
-        }
-        return list;
     }
 
     public static boolean compareCardAndPerson(PersonCardHandle card, ReadOnlyPerson person) {
