@@ -4,12 +4,16 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS;
 import static seedu.address.testutil.TypicalPersons.INDEX_FIRST_PERSON;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import org.junit.Test;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.model.person.Person;
-import seedu.address.testutil.TestUtil;
+import seedu.address.model.person.ReadOnlyPerson;
 
 public class DeleteCommandTest extends AddressBookGuiTest {
 
@@ -17,38 +21,38 @@ public class DeleteCommandTest extends AddressBookGuiTest {
     public void delete() throws Exception {
 
         //delete the first in the list
-        Person[] currentList = td.getTypicalPersons();
+        ArrayList<Person> expectedList = new ArrayList<>(Arrays.asList(td.getTypicalPersons()));
         Index targetIndex = INDEX_FIRST_PERSON;
-        assertDeleteSuccess(targetIndex, currentList);
+        expectedList.remove(targetIndex.getZeroBased());
+        assertDeleteSuccess(targetIndex, expectedList);
 
         //delete the last in the list
-        currentList = TestUtil.removePersonFromList(currentList, targetIndex);
-        targetIndex = Index.fromOneBased(currentList.length);
-        assertDeleteSuccess(targetIndex, currentList);
+        targetIndex = Index.fromOneBased(expectedList.size());
+        expectedList.remove(targetIndex.getZeroBased());
+        assertDeleteSuccess(targetIndex, expectedList);
 
         //delete from the middle of the list
-        currentList = TestUtil.removePersonFromList(currentList, targetIndex);
-        targetIndex = Index.fromOneBased(currentList.length / 2);
-        assertDeleteSuccess(targetIndex, currentList);
+        targetIndex = Index.fromOneBased(expectedList.size() / 2);
+        expectedList.remove(targetIndex.getZeroBased());
+        assertDeleteSuccess(targetIndex, expectedList);
 
         //invalid index
-        runCommand(DeleteCommand.COMMAND_WORD + " " + currentList.length + 1);
+        runCommand(DeleteCommand.COMMAND_WORD + " " + expectedList.size() + 1);
         assertResultMessage("The person index provided is invalid");
 
     }
 
     /**
-     * Runs the delete command to delete the person at {@code index} and confirms the result is correct.
-     * @param currentList A copy of the current list of persons (before deletion).
+     * Runs the delete command to delete the person at {@code index} and confirms resulting list equals to
+     * {@code expectedList} and that the displayed result message is correct.
      */
-    private void assertDeleteSuccess(Index index, final Person[] currentList) throws Exception {
-        Person personToDelete = currentList[index.getZeroBased()];
-        Person[] expectedRemainder = TestUtil.removePersonFromList(currentList, index);
+    private void assertDeleteSuccess(Index index, final List<Person> expectedList) throws Exception {
+        ReadOnlyPerson personToDelete = getPersonListPanel().getPerson(index.getZeroBased());
 
         runCommand(DeleteCommand.COMMAND_WORD + " " + index.getOneBased());
 
         //confirm the list now contains all previous persons except the deleted person
-        assertTrue(getPersonListPanel().isListMatching(expectedRemainder));
+        assertTrue(getPersonListPanel().isListMatching(expectedList.toArray(new Person[expectedList.size()])));
 
         //confirm the result message is correct
         assertResultMessage(String.format(MESSAGE_DELETE_PERSON_SUCCESS, personToDelete));
