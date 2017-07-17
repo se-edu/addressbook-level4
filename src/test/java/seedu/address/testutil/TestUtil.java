@@ -3,11 +3,9 @@ package seedu.address.testutil;
 import java.io.File;
 import java.io.IOException;
 
-import guitests.guihandles.PersonCardHandle;
 import junit.framework.AssertionFailedError;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.XmlUtil;
-import seedu.address.model.person.ReadOnlyPerson;
 
 /**
  * A utility class for test cases.
@@ -57,10 +55,6 @@ public class TestUtil {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-    }
-
-    public static boolean compareCardAndPerson(PersonCardHandle card, ReadOnlyPerson person) {
-        return card.isSamePerson(person);
     }
 
 }

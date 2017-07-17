@@ -11,7 +11,6 @@ import javafx.scene.Node;
 import javafx.scene.control.ListView;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
-import seedu.address.testutil.TestUtil;
 
 /**
  * Provides a handle for the panel containing the person list.
@@ -51,7 +50,7 @@ public class PersonListPanelHandle extends NodeHandle<ListView<ReadOnlyPerson>> 
             final int scrollTo = i; // lambda expression needs i to be final
             guiRobot.interact(() -> getRootNode().scrollTo(scrollTo));
             guiRobot.pauseForHuman();
-            if (!TestUtil.compareCardAndPerson(getPersonCardHandle(i), persons[i])) {
+            if (!getPersonCardHandle(i).isSamePerson(persons[i])) {
                 return false;
             }
         }
