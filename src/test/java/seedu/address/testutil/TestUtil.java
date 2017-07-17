@@ -14,7 +14,7 @@ public class TestUtil {
     /**
      * Folder used for temp files created during testing. Ignored by Git.
      */
-    public static final String SANDBOX_FOLDER = FileUtil.getPath("./src/test/data/sandbox/");
+    private static final String SANDBOX_FOLDER = FileUtil.getPath("./src/test/data/sandbox/");
 
     public static void assertThrows(Class<? extends Throwable> expected, Runnable executable) {
         try {
