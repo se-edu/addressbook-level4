@@ -7,7 +7,6 @@ import java.util.List;
 
 import guitests.guihandles.PersonCardHandle;
 import junit.framework.AssertionFailedError;
-import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.XmlUtil;
 import seedu.address.model.person.Person;
@@ -61,27 +60,6 @@ public class TestUtil {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-    }
-
-    /**
-     * Removes a subset from the list of persons.
-     * @param persons The list of persons
-     * @param personsToRemove The subset of persons.
-     * @return The modified persons after removal of the subset from persons.
-     */
-    public static Person[] removePersonsFromList(final Person[] persons, Person... personsToRemove) {
-        List<Person> listOfPersons = Arrays.asList(persons);
-        listOfPersons.removeAll(Arrays.asList(personsToRemove));
-        return listOfPersons.toArray(new Person[listOfPersons.size()]);
-    }
-
-
-    /**
-     * Returns a copy of the list with the person at specified index removed.
-     * @param list original list to copy from
-     */
-    public static Person[] removePersonFromList(final Person[] list, Index index) {
-        return removePersonsFromList(list, list[index.getZeroBased()]);
     }
 
     /**
