@@ -19,30 +19,34 @@ public class AddCommandTest extends AddressBookGuiTest {
     @Test
     public void add() throws Exception {
         //add one person
-        ArrayList<Person> currentList = new ArrayList<>(Arrays.asList(td.getTypicalPersons()));
+        ArrayList<Person> expectedList = new ArrayList<>(Arrays.asList(td.getTypicalPersons()));
         Person personToAdd = td.hoon;
-        assertAddSuccess(personToAdd, currentList);
+        expectedList.add(personToAdd);
+        assertAddSuccess(personToAdd, expectedList);
 
         //add another person
         personToAdd = td.ida;
-        assertAddSuccess(personToAdd, currentList);
+        expectedList.add(personToAdd);
+        assertAddSuccess(personToAdd, expectedList);
 
         //add duplicate person
         runCommand(PersonUtil.getAddCommand(td.hoon));
         assertResultMessage(AddCommand.MESSAGE_DUPLICATE_PERSON);
-        assertTrue(getPersonListPanel().isListMatching(currentList.toArray(new Person[currentList.size()])));
+        assertTrue(getPersonListPanel().isListMatching(expectedList.toArray(new Person[expectedList.size()])));
 
         //add to empty list
         runCommand(ClearCommand.COMMAND_WORD);
-        currentList.clear();
-        assertAddSuccess(td.alice, currentList);
+        expectedList.clear();
+        personToAdd = td.alice;
+        expectedList.add(personToAdd);
+        assertAddSuccess(td.alice, expectedList);
 
         //invalid command
         runCommand("adds Johnny");
         assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
     }
 
-    private void assertAddSuccess(Person personToAdd, ArrayList<Person> currentList) throws Exception {
+    private void assertAddSuccess(Person personToAdd, ArrayList<Person> expectedList) throws Exception {
         runCommand(PersonUtil.getAddCommand(personToAdd));
 
         //confirm the new card contains the right data
@@ -51,8 +55,7 @@ public class AddCommandTest extends AddressBookGuiTest {
         assertCardMatchesPerson(addedCard, personToAdd);
 
         //confirm the list now contains all previous persons plus the new person
-        currentList.add(personToAdd);
-        assertTrue(getPersonListPanel().isListMatching(currentList.toArray(new Person[currentList.size()])));
+        assertTrue(getPersonListPanel().isListMatching(expectedList.toArray(new Person[expectedList.size()])));
     }
 
 }

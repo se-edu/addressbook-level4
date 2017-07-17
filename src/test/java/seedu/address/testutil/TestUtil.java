@@ -3,7 +3,6 @@ package seedu.address.testutil;
 import java.io.File;
 import java.io.IOException;
 
-import junit.framework.AssertionFailedError;
 import seedu.address.commons.util.FileUtil;
 
 /**
@@ -16,26 +15,9 @@ public class TestUtil {
      */
     private static final String SANDBOX_FOLDER = FileUtil.getPath("./src/test/data/sandbox/");
 
-    public static void assertThrows(Class<? extends Throwable> expected, Runnable executable) {
-        try {
-            executable.run();
-        } catch (Throwable actualException) {
-            if (actualException.getClass().isAssignableFrom(expected)) {
-                return;
-            }
-            String message = String.format("Expected thrown: %s, actual: %s", expected.getName(),
-                    actualException.getClass().getName());
-            throw new AssertionFailedError(message);
-        }
-        throw new AssertionFailedError(
-                String.format("Expected %s to be thrown, but nothing was thrown.", expected.getName()));
-    }
-
     /**
-     * Appends the file name to the sandbox folder path.
+     * Appends {@code fileName} to the sandbox folder path and returns the resulting string.
      * Creates the sandbox folder if it doesn't exist.
-     * @param fileName
-     * @return
      */
     public static String getFilePathInSandboxFolder(String fileName) {
         try {
