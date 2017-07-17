@@ -2,14 +2,11 @@ package seedu.address.testutil;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
 
 import guitests.guihandles.PersonCardHandle;
 import junit.framework.AssertionFailedError;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.XmlUtil;
-import seedu.address.model.person.Person;
 import seedu.address.model.person.ReadOnlyPerson;
 
 /**
@@ -60,18 +57,6 @@ public class TestUtil {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-    }
-
-    /**
-     * Appends persons to the array of persons.
-     * @param persons A array of persons.
-     * @param personsToAdd The persons that are to be appended behind the original array.
-     * @return The modified array of persons.
-     */
-    public static Person[] addPersonsToList(final Person[] persons, Person... personsToAdd) {
-        List<Person> listOfPersons = Arrays.asList(persons);
-        listOfPersons.addAll(Arrays.asList(personsToAdd));
-        return listOfPersons.toArray(new Person[listOfPersons.size()]);
     }
 
     public static boolean compareCardAndPerson(PersonCardHandle card, ReadOnlyPerson person) {
