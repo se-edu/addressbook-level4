@@ -156,8 +156,8 @@ public class UndoRedoStackTest {
 
     /**
      * Asserts that the result of {@code undoRedoStack#popUndo()} equals {@code expectedCommand}.
-     * Also calls {@code assertStackStatus(List<ReversibleCommand>, List<ReversibleCommand>)}
-     * with parameters {@code expectedUndoElements} and {@code expectedRedoElements} respectively.
+     * Also asserts that the content of the {@code undoRedoStack#undoStack} equals {@code undoElements},
+     * and {@code undoRedoStack#redoStack} equals {@code redoElements}.
      */
     private void assertPopUndoSuccess(ReversibleCommand expectedCommand, List<ReversibleCommand> expectedUndoElements,
                                       List<ReversibleCommand> expectedRedoElements) {
@@ -167,8 +167,8 @@ public class UndoRedoStackTest {
 
     /**
      * Asserts that the result of {@code undoRedoStack#popRedo()} equals {@code expectedCommand}.
-     * Also calls {@code assertStackStatus(List<ReversibleCommand>, List<ReversibleCommand>)}
-     * with parameters {@code expectedUndoElements} and {@code expectedRedoElements} respectively.
+     * Also asserts that the content of the {@code undoRedoStack#undoStack} equals {@code undoElements},
+     * and {@code undoRedoStack#redoStack} equals {@code redoElements}.
      */
     private void assertPopRedoSuccess(ReversibleCommand expectedCommand, List<ReversibleCommand> expectedUndoElements,
                                       List<ReversibleCommand> expectedRedoElements) {
@@ -178,8 +178,8 @@ public class UndoRedoStackTest {
 
     /**
      * Asserts that the execution of {@code undoRedoStack#popUndo()} fails and {@code EmptyStackException} is thrown.
-     * Also calls {@code assertStackStatus(List<ReversibleCommand>, List<ReversibleCommand>)}
-     * with parameters {@code expectedUndoElements} and {@code expectedRedoElements} respectively.
+     * Also asserts that the content of the {@code undoRedoStack#undoStack} equals {@code undoElements},
+     * and {@code undoRedoStack#redoStack} equals {@code redoElements}.
      */
     private void assertPopUndoFailure(List<ReversibleCommand> expectedUndoElements,
                                       List<ReversibleCommand> expectedRedoElements) {
@@ -193,8 +193,8 @@ public class UndoRedoStackTest {
 
     /**
      * Asserts that the execution of {@code undoRedoStack#popRedo()} fails and {@code EmptyStackException} is thrown.
-     * Also calls {@code assertStackStatus(List<ReversibleCommand>, List<ReversibleCommand>)}
-     * with parameters {@code expectedUndoElements} and {@code expectedRedoElements} respectively.
+     * Also asserts that the content of the {@code undoRedoStack#undoStack} equals {@code undoElements},
+     * and {@code undoRedoStack#redoStack} equals {@code redoElements}.
      */
     private void assertPopRedoFailure(List<ReversibleCommand> expectedUndoElements,
                                       List<ReversibleCommand> expectedRedoElements) {

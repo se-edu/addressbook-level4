@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static seedu.address.logic.UndoRedoStackUtil.prepareStack;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.logic.commands.CommandTestUtil.deleteFirstPerson;
 import static seedu.address.testutil.TypicalPersons.INDEX_FIRST_PERSON;
 
 import java.util.Arrays;
@@ -18,7 +19,6 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.testutil.TypicalPersons;
 
 public class RedoCommandTest {
@@ -62,10 +62,5 @@ public class RedoCommandTest {
 
         deleteFirstPerson(expectedModel);
         assertCommandSuccess(redoCommand, model, RedoCommand.MESSAGE_SUCCESS, expectedModel);
-    }
-
-    private void deleteFirstPerson(Model model) throws Exception {
-        ReadOnlyPerson firstPerson = model.getFilteredPersonList().get(0);
-        model.deletePerson(firstPerson);
     }
 }

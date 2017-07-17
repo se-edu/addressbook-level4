@@ -2,6 +2,7 @@ package seedu.address.logic.commands;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
+import static seedu.address.logic.commands.CommandTestUtil.deleteFirstPerson;
 
 import java.util.Collections;
 
@@ -18,27 +19,31 @@ import seedu.address.testutil.TypicalPersons;
 
 public class ReversibleCommandTest {
     private final Model model = new ModelManager(new TypicalPersons().getTypicalAddressBook(), new UserPrefs());
-    private final Model expectedModel = new ModelManager(new TypicalPersons().getTypicalAddressBook(), new UserPrefs());
     private final DummyCommand dummyCommand = new DummyCommand(model);
 
+    private Model expectedModel = new ModelManager(new TypicalPersons().getTypicalAddressBook(), new UserPrefs());
+
     @Test
-    public void executeUndoRedo() throws Exception {
+    public void executeUndo() throws Exception {
         dummyCommand.execute();
+        deleteFirstPerson(expectedModel);
+        assertEquals(expectedModel, model);
+
         showFirstPersonOnly();
 
         // undo() should cause the model's filtered list to show all persons
         dummyCommand.undo();
+        expectedModel = new ModelManager(new TypicalPersons().getTypicalAddressBook(), new UserPrefs());
         assertEquals(expectedModel, model);
     }
 
     @Test
     public void redo() throws Exception {
-        ReadOnlyPerson toRemove = expectedModel.getFilteredPersonList().get(0);
-        expectedModel.deletePerson(toRemove);
         showFirstPersonOnly();
 
         // redo() should cause the model's filtered list to show all persons
         dummyCommand.redo();
+        deleteFirstPerson(expectedModel);
         assertEquals(expectedModel, model);
     }
 

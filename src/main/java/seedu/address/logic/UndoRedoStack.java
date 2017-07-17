@@ -8,7 +8,7 @@ import seedu.address.logic.commands.ReversibleCommand;
 import seedu.address.logic.commands.UndoCommand;
 
 /**
- * Maintains the undo-stack (i.e. the stack of commands that can be undone) and the redo-stack (i.e. the stack of
+ * Maintains the undo-stack (the stack of commands that can be undone) and the redo-stack (the stack of
  * commands that can be undone).
  */
 public class UndoRedoStack {
