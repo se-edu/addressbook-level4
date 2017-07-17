@@ -1,11 +1,14 @@
 package seedu.address;
 
+import java.io.File;
 import java.util.function.Supplier;
 
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.util.FileUtil;
+import seedu.address.commons.util.XmlUtil;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.UserPrefs;
 import seedu.address.storage.UserPrefsStorage;
@@ -37,8 +40,7 @@ public class TestApp extends MainApp {
 
         // If some initial local data has been provided, write those to the file
         if (initialDataSupplier.get() != null) {
-            TestUtil.createDataFileWithData(
-                    new XmlSerializableAddressBook(this.initialDataSupplier.get()),
+            createDataFileWithData(new XmlSerializableAddressBook(this.initialDataSupplier.get()),
                     this.saveFileLocation);
         }
     }
@@ -70,5 +72,15 @@ public class TestApp extends MainApp {
 
     public static void main(String[] args) {
         launch(args);
+    }
+
+    private <T> void createDataFileWithData(T data, String filePath) {
+        try {
+            File saveFileForTesting = new File(filePath);
+            FileUtil.createIfMissing(saveFileForTesting);
+            XmlUtil.saveDataToFile(saveFileForTesting, data);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 }
