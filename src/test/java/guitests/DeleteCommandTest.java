@@ -47,7 +47,7 @@ public class DeleteCommandTest extends AddressBookGuiTest {
      * {@code expectedList} and that the displayed result message is correct.
      */
     private void assertDeleteSuccess(Index index, final List<Person> expectedList) throws Exception {
-        ReadOnlyPerson personToDelete = getPersonListPanel().getPerson(index.getZeroBased());
+        ReadOnlyPerson personToDelete = getPersonListPanel().getCard(index.getZeroBased()).person;
 
         runCommand(DeleteCommand.COMMAND_WORD + " " + index.getOneBased());
 

@@ -9,6 +9,7 @@ import java.util.Optional;
 import javafx.scene.control.ListView;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
+import seedu.address.ui.PersonCard;
 
 /**
  * Provides a handle for the panel containing the person list.
