@@ -28,7 +28,7 @@ import seedu.address.model.tag.Tag;
 /**
  * Edits the details of an existing person in the address book.
  */
-public class EditCommand extends ReversibleCommand {
+public class EditCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = "edit";
 
@@ -65,7 +65,7 @@ public class EditCommand extends ReversibleCommand {
     }
 
     @Override
-    public CommandResult executeReversibleCommand() throws CommandException {
+    public CommandResult executeUndoableCommand() throws CommandException {
         List<ReadOnlyPerson> lastShownList = model.getFilteredPersonList();
 
         if (index.getZeroBased() >= lastShownList.size()) {

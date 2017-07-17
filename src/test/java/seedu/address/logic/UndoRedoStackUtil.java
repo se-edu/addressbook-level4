@@ -3,7 +3,7 @@ package seedu.address.logic;
 import java.util.Collections;
 import java.util.List;
 
-import seedu.address.logic.commands.ReversibleCommand;
+import seedu.address.logic.commands.UndoableCommand;
 
 public class UndoRedoStackUtil {
     /**
@@ -12,8 +12,8 @@ public class UndoRedoStackUtil {
      * will be the bottommost element in the respective stack in {@code undoRedoStack}, while the last element will
      * be the topmost element.
      */
-    public static UndoRedoStack prepareStack(List<ReversibleCommand> undoElements,
-                                             List<ReversibleCommand> redoElements) {
+    public static UndoRedoStack prepareStack(List<UndoableCommand> undoElements,
+                                             List<UndoableCommand> redoElements) {
         UndoRedoStack undoRedoStack = new UndoRedoStack();
         undoElements.forEach(undoRedoStack::push);
 

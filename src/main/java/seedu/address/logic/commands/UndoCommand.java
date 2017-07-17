@@ -8,7 +8,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
 /**
- * Undo the previous {@code ReversibleCommand}.
+ * Undo the previous {@code UndoableCommand}.
  */
 public class UndoCommand extends Command {
 

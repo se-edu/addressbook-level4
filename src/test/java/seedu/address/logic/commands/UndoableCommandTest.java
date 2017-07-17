@@ -17,7 +17,7 @@ import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.testutil.TypicalPersons;
 
-public class ReversibleCommandTest {
+public class UndoableCommandTest {
     private final Model model = new ModelManager(new TypicalPersons().getTypicalAddressBook(), new UserPrefs());
     private final DummyCommand dummyCommand = new DummyCommand(model);
 
@@ -60,13 +60,13 @@ public class ReversibleCommandTest {
     /**
      * Deletes the first person in the model's filtered list.
      */
-    class DummyCommand extends ReversibleCommand {
+    class DummyCommand extends UndoableCommand {
         DummyCommand(Model model) {
             this.model = model;
         }
 
         @Override
-        public CommandResult executeReversibleCommand() throws CommandException {
+        public CommandResult executeUndoableCommand() throws CommandException {
             ReadOnlyPerson personToDelete = model.getFilteredPersonList().get(0);
             try {
                 model.deletePerson(personToDelete);

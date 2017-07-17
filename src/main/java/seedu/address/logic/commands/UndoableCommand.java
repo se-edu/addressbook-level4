@@ -10,10 +10,10 @@ import seedu.address.model.ReadOnlyAddressBook;
 /**
  * Represents a command which can be undone and redone.
  */
-public abstract class ReversibleCommand extends Command {
+public abstract class UndoableCommand extends Command {
     private ReadOnlyAddressBook previousAddressBook;
 
-    protected abstract CommandResult executeReversibleCommand() throws CommandException;
+    protected abstract CommandResult executeUndoableCommand() throws CommandException;
 
     /**
      * Stores the current state of {@code model#addressBook}.
@@ -41,7 +41,7 @@ public abstract class ReversibleCommand extends Command {
     protected final void redo() {
         requireNonNull(model);
         try {
-            executeReversibleCommand();
+            executeUndoableCommand();
         } catch (CommandException ce) {
             throw new AssertionError("The command has been successfully executed previously; "
                     + "it should not fail now");
@@ -52,6 +52,6 @@ public abstract class ReversibleCommand extends Command {
     @Override
     public final CommandResult execute() throws CommandException {
         saveAddressBookSnapshot();
-        return executeReversibleCommand();
+        return executeUndoableCommand();
     }
 }

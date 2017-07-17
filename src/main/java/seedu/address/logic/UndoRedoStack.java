@@ -4,16 +4,16 @@ import java.util.Stack;
 
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.RedoCommand;
-import seedu.address.logic.commands.ReversibleCommand;
 import seedu.address.logic.commands.UndoCommand;
+import seedu.address.logic.commands.UndoableCommand;
 
 /**
  * Maintains the undo-stack (the stack of commands that can be undone) and the redo-stack (the stack of
  * commands that can be undone).
  */
 public class UndoRedoStack {
-    private Stack<ReversibleCommand> undoStack;
-    private Stack<ReversibleCommand> redoStack;
+    private Stack<UndoableCommand> undoStack;
+    private Stack<UndoableCommand> redoStack;
 
     public UndoRedoStack() {
         undoStack = new Stack<>();
@@ -21,37 +21,35 @@ public class UndoRedoStack {
     }
 
     /**
-     * Pushes {@code command} onto the undo-stack if it is of type {@code ReversibleCommand}. Clears the redo-stack
+     * Pushes {@code command} onto the undo-stack if it is of type {@code UndoableCommand}. Clears the redo-stack
      * if {@code command} is not of type {@code UndoCommand} or {@code RedoCommand}.
      */
     public void push(Command command) {
-        if (command instanceof UndoCommand || command instanceof RedoCommand) {
+        if (!(command instanceof UndoCommand) && !(command instanceof RedoCommand)) {
+            redoStack.clear();
+        }
+
+        if (!(command instanceof UndoableCommand)) {
             return;
         }
 
-        redoStack.clear();
-
-        if (!(command instanceof ReversibleCommand)) {
-            return;
-        }
-
-        undoStack.add((ReversibleCommand) command);
+        undoStack.add((UndoableCommand) command);
     }
 
     /**
-     * Pops and returns the next {@code ReversibleCommand} to be undone in the stack.
+     * Pops and returns the next {@code UndoableCommand} to be undone in the stack.
      */
-    public ReversibleCommand popUndo() {
-        ReversibleCommand toUndo = undoStack.pop();
+    public UndoableCommand popUndo() {
+        UndoableCommand toUndo = undoStack.pop();
         redoStack.push(toUndo);
         return toUndo;
     }
 
     /**
-     * Pops and returns the next {@code ReversibleCommand} to be redone in the stack.
+     * Pops and returns the next {@code UndoableCommand} to be redone in the stack.
      */
-    public ReversibleCommand popRedo() {
-        ReversibleCommand toRedo = redoStack.pop();
+    public UndoableCommand popRedo() {
+        UndoableCommand toRedo = redoStack.pop();
         undoStack.push(toRedo);
         return toRedo;
     }
