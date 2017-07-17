@@ -32,10 +32,8 @@ public class TestUtil {
     }
 
     /**
-     * Appends the file name to the sandbox folder path.
+     * Appends {@code fileName} to the sandbox folder path and returns the resulting string.
      * Creates the sandbox folder if it doesn't exist.
-     * @param fileName
-     * @return
      */
     public static String getFilePathInSandboxFolder(String fileName) {
         try {
