@@ -5,7 +5,6 @@ import java.io.IOException;
 
 import junit.framework.AssertionFailedError;
 import seedu.address.commons.util.FileUtil;
-import seedu.address.commons.util.XmlUtil;
 
 /**
  * A utility class for test cases.
@@ -45,16 +44,6 @@ public class TestUtil {
             throw new RuntimeException(e);
         }
         return SANDBOX_FOLDER + fileName;
-    }
-
-    public static <T> void createDataFileWithData(T data, String filePath) {
-        try {
-            File saveFileForTesting = new File(filePath);
-            FileUtil.createIfMissing(saveFileForTesting);
-            XmlUtil.saveDataToFile(saveFileForTesting, data);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
     }
 
 }
