@@ -33,11 +33,11 @@ import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.PersonUtil;
 
-public class ParserTest {
+public class AddressBookParserTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
-    private final Parser parser = new Parser();
+    private final AddressBookParser parser = new AddressBookParser();
 
     @Test
     public void parseCommand_add() throws Exception {
