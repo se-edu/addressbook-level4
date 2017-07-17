@@ -176,6 +176,14 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 image::DeletePersonSdForLogic.png[width="800"]
 _Figure 2.3.1 : Interactions Inside the Logic Component for the `delete 1` Command_
 
+==== FindCommand
+
+*API* :
+link:{repoURL}/src/main/java/seedu/address/logic/commands/FindCommand.java[`FindCommand.java`]
+
+. `FindCommand` uses `NameContainsKeywordsPredicate` and passes it to `Model` to filter the list of persons in the address book by name.
+. `NameContainsKeywordsPredicate` stores a list of keywords, and returns true if any of the individual words in the person's name matches any of the keywords.
+
 === Model component
 
 Author: Cynthia Dharman
