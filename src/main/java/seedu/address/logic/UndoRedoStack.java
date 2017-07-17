@@ -8,7 +8,8 @@ import seedu.address.logic.commands.ReversibleCommand;
 import seedu.address.logic.commands.UndoCommand;
 
 /**
- * Stores the history of reversible commands executed.
+ * Maintains the undo-stack (i.e. the stack of commands that can be undone) and the redo-stack (i.e. the stack of
+ * commands that can be undone).
  */
 public class UndoRedoStack {
     private Stack<ReversibleCommand> undoStack;
@@ -20,11 +21,10 @@ public class UndoRedoStack {
     }
 
     /**
-     * Appends {@code command} into the stack of commands that can be undone,
-     * if it is of type {@code ReversibleCommand}. Upon calling this method,
-     * previously undone commands (that are not redone) will be lost.
+     * Pushes {@code command} onto the undo-stack if it is of type {@code ReversibleCommand}. Clears the redo-stack
+     * if {@code command} is not of type {@code UndoCommand} or {@code RedoCommand}.
      */
-    public void pushUndo(Command command) {
+    public void push(Command command) {
         if (command instanceof UndoCommand || command instanceof RedoCommand) {
             return;
         }
@@ -57,14 +57,14 @@ public class UndoRedoStack {
     }
 
     /**
-     * Returns true if calling {@code popUndo()} does not throw an {@code EmptyStackException}.
+     * Returns true if there are more commands that can be undone.
      */
     public boolean canUndo() {
         return !undoStack.empty();
     }
 
     /**
-     * Returns true if calling {@code popRedo()} does not throw an {@code EmptyStackException}.
+     * Returns true if there are more commands that can be redone.
      */
     public boolean canRedo() {
         return !redoStack.empty();

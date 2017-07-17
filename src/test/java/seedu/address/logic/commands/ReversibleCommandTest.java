@@ -18,22 +18,26 @@ import seedu.address.testutil.TypicalPersons;
 
 public class ReversibleCommandTest {
     private final Model model = new ModelManager(new TypicalPersons().getTypicalAddressBook(), new UserPrefs());
+    private final Model expectedModel = new ModelManager(new TypicalPersons().getTypicalAddressBook(), new UserPrefs());
+    private final DummyCommand dummyCommand = new DummyCommand(model);
 
     @Test
     public void executeUndoRedo() throws Exception {
-        Model expectedModel = new ModelManager(new TypicalPersons().getTypicalAddressBook(), new UserPrefs());
-
-        DummyCommand dummyCommand = new DummyCommand(model);
         dummyCommand.execute();
-        showFirstPersonOnly(); // tests that upon undo, all persons are shown
+        showFirstPersonOnly();
 
+        // undo() should cause the model's filtered list to show all persons
         dummyCommand.undo();
         assertEquals(expectedModel, model);
+    }
 
-        ReadOnlyPerson toRemove = model.getFilteredPersonList().get(0);
+    @Test
+    public void redo() throws Exception {
+        ReadOnlyPerson toRemove = expectedModel.getFilteredPersonList().get(0);
         expectedModel.deletePerson(toRemove);
-        showFirstPersonOnly(); // tests that upon redo, all persons are shown
+        showFirstPersonOnly();
 
+        // redo() should cause the model's filtered list to show all persons
         dummyCommand.redo();
         assertEquals(expectedModel, model);
     }

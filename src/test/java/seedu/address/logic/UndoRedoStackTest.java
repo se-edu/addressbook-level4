@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
+import static seedu.address.logic.UndoRedoStackUtil.prepareStack;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -19,7 +20,6 @@ import seedu.address.logic.commands.ReversibleCommand;
 import seedu.address.logic.commands.UndoCommand;
 
 public class UndoRedoStackTest {
-    // Commands
     private final DummyCommand dummyCommandOne = new DummyCommand();
     private final DummyReversibleCommand dummyReversibleCommandOne = new DummyReversibleCommand();
     private final DummyReversibleCommand dummyReversibleCommandTwo = new DummyReversibleCommand();
@@ -27,44 +27,50 @@ public class UndoRedoStackTest {
     private UndoRedoStack undoRedoStack = new UndoRedoStack();
 
     @Test
-    public void pushUndo_addNonReversibleCommand_redoStackCleared() {
-        undoRedoStack = prepareStack(Collections.emptyList(),
+    public void push_nonReversibleCommand_redoStackClearedAndCommandNotAdded() {
+        undoRedoStack = prepareStack(Collections.singletonList(dummyReversibleCommandOne),
                 Arrays.asList(dummyReversibleCommandOne, dummyReversibleCommandTwo));
-        undoRedoStack.pushUndo(dummyCommandOne);
-        assertEquals(new UndoRedoStack(), undoRedoStack);
-    }
-
-    @Test
-    public void pushUndo_addReversibleCommand_redoStackCleared() {
-        undoRedoStack = prepareStack(Collections.emptyList(),
-                Arrays.asList(dummyReversibleCommandOne, dummyReversibleCommandTwo));
-        undoRedoStack.pushUndo(dummyReversibleCommandOne);
+        undoRedoStack.push(dummyCommandOne);
 
         assertStackStatus(Collections.singletonList(dummyReversibleCommandOne), Collections.emptyList());
     }
 
     @Test
-    public void pushUndo_addNonReversibleCommand_commandNotAdded() {
-        undoRedoStack.pushUndo(dummyCommandOne);
-        assertEquals(new UndoRedoStack(), undoRedoStack);
+    public void push_reversibleCommand_redoStackClearedAndCommandAdded() {
+        undoRedoStack = prepareStack(Collections.singletonList(dummyReversibleCommandOne),
+                Arrays.asList(dummyReversibleCommandOne, dummyReversibleCommandTwo));
+        undoRedoStack.push(dummyReversibleCommandOne);
+
+        assertStackStatus(Arrays.asList(dummyReversibleCommandOne, dummyReversibleCommandOne),
+                Collections.emptyList());
     }
 
     @Test
-    public void pushUndo_addUndoCommand_redoStackNotCleared() {
-        undoRedoStack = prepareStack(Collections.emptyList(),
-                Arrays.asList(dummyReversibleCommandOne, dummyReversibleCommandTwo));
-        undoRedoStack.pushUndo(new UndoCommand());
+    public void push_emptyRedoStack_redoStackRemainsEmpty() {
+        undoRedoStack = prepareStack(Collections.singletonList(dummyReversibleCommandOne), Collections.emptyList());
+        undoRedoStack.push(dummyCommandOne);
 
-        assertStackStatus(Collections.emptyList(), Arrays.asList(dummyReversibleCommandOne, dummyReversibleCommandTwo));
+        assertStackStatus(Collections.singletonList(dummyReversibleCommandOne), Collections.emptyList());
     }
 
     @Test
-    public void pushUndo_addRedoCommand_redoStackNotCleared() {
-        undoRedoStack = prepareStack(Collections.emptyList(),
+    public void push_undoCommand_redoStackNotClearedAndCommandNotAdded() {
+        undoRedoStack = prepareStack(Collections.singletonList(dummyReversibleCommandOne),
                 Arrays.asList(dummyReversibleCommandOne, dummyReversibleCommandTwo));
-        undoRedoStack.pushUndo(new RedoCommand());
+        undoRedoStack.push(new UndoCommand());
 
-        assertStackStatus(Collections.emptyList(), Arrays.asList(dummyReversibleCommandOne, dummyReversibleCommandTwo));
+        assertStackStatus(Collections.singletonList(dummyReversibleCommandOne),
+                Arrays.asList(dummyReversibleCommandOne, dummyReversibleCommandTwo));
+    }
+
+    @Test
+    public void push_redoCommand_redoStackNotClearedAndCommandNotAdded() {
+        undoRedoStack = prepareStack(Collections.singletonList(dummyReversibleCommandOne),
+                Arrays.asList(dummyReversibleCommandOne, dummyReversibleCommandTwo));
+        undoRedoStack.push(new RedoCommand());
+
+        assertStackStatus(Collections.singletonList(dummyReversibleCommandOne),
+                Arrays.asList(dummyReversibleCommandOne, dummyReversibleCommandTwo));
     }
 
     @Test
@@ -88,41 +94,33 @@ public class UndoRedoStackTest {
     }
 
     @Test
-    public void popUndo_emptyStack_throwsEmptyStackException() {
-        assertPopUndoFailure();
-        assertEquals(new UndoRedoStack(), undoRedoStack);
-    }
-
-    @Test
-    public void popRedo_emptyStack_throwsEmptyStackException() {
-        assertPopRedoFailure();
-        assertEquals(new UndoRedoStack(), undoRedoStack);
-    }
-
-    @Test
-    public void popUndo_twoReversibleCommands() {
+    public void popUndo_twoCommandsInUndoStack() {
         undoRedoStack = prepareStack(Arrays.asList(dummyReversibleCommandOne, dummyReversibleCommandTwo),
                 Collections.emptyList());
 
-        assertPopUndoSuccess(dummyReversibleCommandTwo);
-        assertStackStatus(Collections.singletonList(dummyReversibleCommandOne),
+        assertPopUndoSuccess(dummyReversibleCommandTwo, Collections.singletonList(dummyReversibleCommandOne),
                 Collections.singletonList(dummyReversibleCommandTwo));
 
-        assertPopUndoSuccess(dummyReversibleCommandOne);
-        assertStackStatus(Collections.emptyList(), Arrays.asList(dummyReversibleCommandTwo, dummyReversibleCommandOne));
+        assertPopUndoSuccess(dummyReversibleCommandOne, Collections.emptyList(),
+                Arrays.asList(dummyReversibleCommandTwo, dummyReversibleCommandOne));
+
+        assertPopUndoFailure(Collections.emptyList(),
+                Arrays.asList(dummyReversibleCommandTwo, dummyReversibleCommandOne));
     }
 
     @Test
-    public void popRedo_twoReversibleCommands() {
+    public void popRedo_twoCommandsInRedoStack() {
         undoRedoStack = prepareStack(Collections.emptyList(),
                 Arrays.asList(dummyReversibleCommandOne, dummyReversibleCommandTwo));
 
-        assertPopRedoSuccess(dummyReversibleCommandTwo);
-        assertStackStatus(Collections.singletonList(dummyReversibleCommandTwo),
+        assertPopRedoSuccess(dummyReversibleCommandTwo, Collections.singletonList(dummyReversibleCommandTwo),
                 Collections.singletonList(dummyReversibleCommandOne));
 
-        assertPopRedoSuccess(dummyReversibleCommandOne);
-        assertStackStatus(Arrays.asList(dummyReversibleCommandTwo, dummyReversibleCommandOne), Collections.emptyList());
+        assertPopRedoSuccess(dummyReversibleCommandOne,
+                Arrays.asList(dummyReversibleCommandTwo, dummyReversibleCommandOne), Collections.emptyList());
+
+        assertPopRedoFailure(Arrays.asList(dummyReversibleCommandTwo, dummyReversibleCommandOne),
+                Collections.emptyList());
     }
 
     @Test
@@ -157,57 +155,54 @@ public class UndoRedoStackTest {
     }
 
     /**
-     * Helper method that adds {@code undoElements} into {@code UndoRedoStack#undoStack} and adds {@code redoElements}
-     * into {@code UndoRedoStack#redoStack}. The first element in both {@code undoElements} and {@code redoElements}
-     * will be the bottommost element in the respective stack in {@code undoRedoStack}, while the last element will
-     * be the topmost element.
+     * Asserts that the result of {@code undoRedoStack#popUndo()} equals {@code expectedCommand}.
+     * Also calls {@code assertStackStatus(List<ReversibleCommand>, List<ReversibleCommand>)}
+     * with parameters {@code expectedUndoElements} and {@code expectedRedoElements} respectively.
      */
-    private UndoRedoStack prepareStack(List<ReversibleCommand> undoElements, List<ReversibleCommand> redoElements) {
-        UndoRedoStack undoRedoStack = new UndoRedoStack();
-        undoElements.forEach(undoRedoStack::pushUndo);
-
-        Collections.reverse(redoElements);
-        redoElements.forEach(undoRedoStack::pushUndo);
-        redoElements.forEach(unused -> undoRedoStack.popUndo());
-
-        return undoRedoStack;
+    private void assertPopUndoSuccess(ReversibleCommand expectedCommand, List<ReversibleCommand> expectedUndoElements,
+                                      List<ReversibleCommand> expectedRedoElements) {
+        assertEquals(expectedCommand, undoRedoStack.popUndo());
+        assertStackStatus(expectedUndoElements, expectedRedoElements);
     }
 
     /**
-     * Asserts that the result of {@code undoRedoStack#popUndo()} equals {@code expected}.
+     * Asserts that the result of {@code undoRedoStack#popRedo()} equals {@code expectedCommand}.
+     * Also calls {@code assertStackStatus(List<ReversibleCommand>, List<ReversibleCommand>)}
+     * with parameters {@code expectedUndoElements} and {@code expectedRedoElements} respectively.
      */
-    private void assertPopUndoSuccess(ReversibleCommand expected) {
-        assertEquals(expected, undoRedoStack.popUndo());
-    }
-
-    /**
-     * Asserts that the result of {@code undoRedoStack#popRedo()} equals {@code expected}.
-     */
-    private void assertPopRedoSuccess(ReversibleCommand expected) {
-        assertEquals(expected, undoRedoStack.popRedo());
+    private void assertPopRedoSuccess(ReversibleCommand expectedCommand, List<ReversibleCommand> expectedUndoElements,
+                                      List<ReversibleCommand> expectedRedoElements) {
+        assertEquals(expectedCommand, undoRedoStack.popRedo());
+        assertStackStatus(expectedUndoElements, expectedRedoElements);
     }
 
     /**
      * Asserts that the execution of {@code undoRedoStack#popUndo()} fails and {@code EmptyStackException} is thrown.
+     * Also calls {@code assertStackStatus(List<ReversibleCommand>, List<ReversibleCommand>)}
+     * with parameters {@code expectedUndoElements} and {@code expectedRedoElements} respectively.
      */
-    private void assertPopUndoFailure() {
+    private void assertPopUndoFailure(List<ReversibleCommand> expectedUndoElements,
+                                      List<ReversibleCommand> expectedRedoElements) {
         try {
             undoRedoStack.popUndo();
             fail("The expected EmptyStackException was not thrown.");
         } catch (EmptyStackException ese) {
-            // expected exception thrown
+            assertStackStatus(expectedUndoElements, expectedRedoElements);
         }
     }
 
     /**
      * Asserts that the execution of {@code undoRedoStack#popRedo()} fails and {@code EmptyStackException} is thrown.
+     * Also calls {@code assertStackStatus(List<ReversibleCommand>, List<ReversibleCommand>)}
+     * with parameters {@code expectedUndoElements} and {@code expectedRedoElements} respectively.
      */
-    private void assertPopRedoFailure() {
+    private void assertPopRedoFailure(List<ReversibleCommand> expectedUndoElements,
+                                      List<ReversibleCommand> expectedRedoElements) {
         try {
             undoRedoStack.popRedo();
             fail("The expected EmptyStackException was not thrown.");
         } catch (EmptyStackException ese) {
-            // expected exception thrown
+            assertStackStatus(expectedUndoElements, expectedRedoElements);
         }
     }
 
