@@ -80,14 +80,13 @@ public class PersonListPanelHandle extends NodeHandle<ListView<PersonCard>> {
     }
 
     /**
-     * Returns the {@code PersonCardHandle} of the specified {@code person} in the list.
+     * Returns the {@code PersonCard} of the specified {@code person} in the list.
      */
-    public PersonCardHandle getPersonCardHandle(ReadOnlyPerson person) throws PersonNotFoundException {
-        Optional<PersonCardHandle> handle = getRootNode().getItems().stream()
+    public PersonCard getCard(ReadOnlyPerson person) throws PersonNotFoundException {
+        Optional<PersonCard> personCard = getRootNode().getItems().stream()
                 .filter(card -> card.person.equals(person))
-                .map(card -> new PersonCardHandle(card.getRoot()))
                 .findFirst();
-        return handle.orElseThrow(PersonNotFoundException::new);
+        return personCard.orElseThrow(PersonNotFoundException::new);
     }
 
     /**
