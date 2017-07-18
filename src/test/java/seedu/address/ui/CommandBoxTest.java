@@ -31,7 +31,7 @@ public class CommandBoxTest extends GuiUnitTest {
         Model model = new ModelManager();
         Logic logic = new LogicManager(model);
 
-        guiRobot.interact(() -> commandBox = new CommandBox(logic));
+        commandBox = new CommandBox(logic);
         commandBoxHandle = new CommandBoxHandle(getChildNode(commandBox.getRoot(),
                 CommandBoxHandle.COMMAND_INPUT_FIELD_ID));
         uiPartRule.setUiPart(commandBox);

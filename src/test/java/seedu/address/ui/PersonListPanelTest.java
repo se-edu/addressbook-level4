@@ -27,7 +27,7 @@ public class PersonListPanelTest extends GuiUnitTest {
 
     @Before
     public void setUp() throws Exception {
-        guiRobot.interact(() -> personListPanel = new PersonListPanel(TYPICAL_PERSONS));
+        personListPanel = new PersonListPanel(TYPICAL_PERSONS);
         uiPartRule.setUiPart(personListPanel);
 
         personListPanelHandle = new PersonListPanelHandle(getChildNode(personListPanel.getRoot(),

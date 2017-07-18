@@ -18,7 +18,7 @@ public class ResultDisplayTest extends GuiUnitTest {
 
     @Before
     public void setUp() throws Exception {
-        guiRobot.interact(() -> resultDisplay = new ResultDisplay());
+        resultDisplay = new ResultDisplay();
         uiPartRule.setUiPart(resultDisplay);
 
         resultDisplayHandle = new ResultDisplayHandle(getChildNode(resultDisplay.getRoot(),

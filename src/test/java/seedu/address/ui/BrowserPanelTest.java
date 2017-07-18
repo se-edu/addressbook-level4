@@ -21,16 +21,14 @@ public class BrowserPanelTest extends GuiUnitTest {
 
     private static final Person ALICE = new TypicalPersons().alice;
 
-    private PersonCard alicePersonCard;
-    private PersonPanelSelectionChangedEvent selectedChangedEventStub;
+    private PersonPanelSelectionChangedEvent selectionChangedEventStub;
 
     private BrowserPanel browserPanel;
     private BrowserPanelHandle browserPanelHandle;
 
     @Before
     public void setUp() throws Exception {
-        guiRobot.interact(() -> alicePersonCard = new PersonCard(ALICE, 0));
-        selectedChangedEventStub = new PersonPanelSelectionChangedEvent(alicePersonCard);
+        selectionChangedEventStub = new PersonPanelSelectionChangedEvent(new PersonCard(ALICE, 0));
 
         guiRobot.interact(() -> browserPanel = new BrowserPanel());
         uiPartRule.setUiPart(browserPanel);
@@ -45,7 +43,7 @@ public class BrowserPanelTest extends GuiUnitTest {
         assertEquals(expectedDefaultPageUrl, browserPanelHandle.getLoadedUrl());
 
         // associated web page of a person
-        post(selectedChangedEventStub);
+        post(selectionChangedEventStub);
         URL expectedPersonUrl = new URL(GOOGLE_SEARCH_URL_PREFIX
                 + ALICE.getName().fullName.replaceAll(" ", "+"));
         assertEquals(expectedPersonUrl, browserPanelHandle.getLoadedUrl());

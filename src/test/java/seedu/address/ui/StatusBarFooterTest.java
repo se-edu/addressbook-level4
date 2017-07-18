@@ -46,7 +46,7 @@ public class StatusBarFooterTest extends GuiUnitTest {
 
     @Before
     public void setUp() throws Exception {
-        guiRobot.interact(() -> statusBarFooter = new StatusBarFooter(STUB_SAVE_LOCATION));
+        statusBarFooter = new StatusBarFooter(STUB_SAVE_LOCATION);
         uiPartRule.setUiPart(statusBarFooter);
 
         statusBarFooterHandle = new StatusBarFooterHandle(statusBarFooter.getRoot());
