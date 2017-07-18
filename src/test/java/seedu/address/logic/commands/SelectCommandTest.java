@@ -4,11 +4,10 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
+import static seedu.address.logic.commands.CommandTestUtil.showFirstPersonOnly;
 import static seedu.address.testutil.TypicalPersons.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalPersons.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalPersons.INDEX_THIRD_PERSON;
-
-import java.util.Arrays;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -21,8 +20,6 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.person.NameContainsKeywordsPredicate;
-import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.testutil.EventsCollector;
 import seedu.address.testutil.TypicalPersons;
 
@@ -92,17 +89,6 @@ public class SelectCommandTest {
 
         // different person -> returns false
         assertFalse(selectFirstCommand.equals(selectSecondCommand));
-    }
-
-    /**
-     * Updates {@code model}'s filtered list to show only the first person from the address book.
-     */
-    private void showFirstPersonOnly(Model model) {
-        ReadOnlyPerson person = model.getAddressBook().getPersonList().get(0);
-        final String[] splitName = person.getName().fullName.split("\\s+");
-        model.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(splitName)));
-
-        assertTrue(model.getFilteredPersonList().size() == 1);
     }
 
     /**
