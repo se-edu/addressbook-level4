@@ -1,9 +1,7 @@
 package seedu.address.logic.commands;
 
-import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-
-import java.util.Arrays;
+import static seedu.address.logic.commands.CommandTestUtil.showFirstPersonOnly;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -12,8 +10,6 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.person.NameContainsKeywordsPredicate;
-import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.testutil.TypicalPersons;
 
 /**
@@ -43,16 +39,5 @@ public class ListCommandTest {
     public void execute_listIsFiltered_showsEverything() throws Exception {
         showFirstPersonOnly(model);
         assertCommandSuccess(listCommand, model, ListCommand.MESSAGE_SUCCESS, expectedModel);
-    }
-
-    /**
-     * Updates the filtered list to show only the first person in the {@code model}'s address book.
-     */
-    private void showFirstPersonOnly(Model model) {
-        ReadOnlyPerson person = model.getAddressBook().getPersonList().get(0);
-        final String[] splitName = person.getName().fullName.split("\\s+");
-        model.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(splitName)));
-
-        assertTrue(model.getFilteredPersonList().size() == 1);
     }
 }
