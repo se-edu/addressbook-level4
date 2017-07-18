@@ -23,7 +23,6 @@ public class CommandBoxTest extends GuiUnitTest {
     private ArrayList<String> defaultStyleOfCommandBox;
     private ArrayList<String> errorStyleOfCommandBox;
 
-    private CommandBox commandBox;
     private CommandBoxHandle commandBoxHandle;
 
     @Before
@@ -31,7 +30,7 @@ public class CommandBoxTest extends GuiUnitTest {
         Model model = new ModelManager();
         Logic logic = new LogicManager(model);
 
-        commandBox = new CommandBox(logic);
+        CommandBox commandBox = new CommandBox(logic);
         commandBoxHandle = new CommandBoxHandle(getChildNode(commandBox.getRoot(),
                 CommandBoxHandle.COMMAND_INPUT_FIELD_ID));
         uiPartRule.setUiPart(commandBox);

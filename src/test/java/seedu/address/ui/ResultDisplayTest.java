@@ -13,12 +13,11 @@ public class ResultDisplayTest extends GuiUnitTest {
 
     private static final NewResultAvailableEvent NEW_RESULT_EVENT_STUB = new NewResultAvailableEvent("Stub");
 
-    private ResultDisplay resultDisplay;
     private ResultDisplayHandle resultDisplayHandle;
 
     @Before
     public void setUp() throws Exception {
-        resultDisplay = new ResultDisplay();
+        ResultDisplay resultDisplay = new ResultDisplay();
         uiPartRule.setUiPart(resultDisplay);
 
         resultDisplayHandle = new ResultDisplayHandle(getChildNode(resultDisplay.getRoot(),

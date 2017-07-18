@@ -22,12 +22,11 @@ public class PersonListPanelTest extends GuiUnitTest {
 
     private static final JumpToListRequestEvent JUMP_TO_SECOND_EVENT = new JumpToListRequestEvent(INDEX_SECOND_PERSON);
 
-    private PersonListPanel personListPanel;
     private PersonListPanelHandle personListPanelHandle;
 
     @Before
     public void setUp() throws Exception {
-        personListPanel = new PersonListPanel(TYPICAL_PERSONS);
+        PersonListPanel personListPanel = new PersonListPanel(TYPICAL_PERSONS);
         uiPartRule.setUiPart(personListPanel);
 
         personListPanelHandle = new PersonListPanelHandle(getChildNode(personListPanel.getRoot(),
