@@ -23,14 +23,7 @@ public class PersonListPanelHandle extends NodeHandle<ListView<PersonCard>> {
     }
 
     /**
-     * Returns the selected index in the list view.
-     */
-    public int getSelectedIndex() {
-        return getRootNode().getSelectionModel().getSelectedIndex();
-    }
-
-    /**
-     * Returns the selected person in the list view. A maximum of 1 item can be selected at any time.
+     * Returns the selected {@code PersonCard} in the list view. A maximum of 1 item can be selected at any time.
      */
     public Optional<PersonCard> getSelectedCard() {
         List<PersonCard> personList = getRootNode().getSelectionModel().getSelectedItems();

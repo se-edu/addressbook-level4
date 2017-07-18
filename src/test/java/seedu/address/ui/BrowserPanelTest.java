@@ -20,14 +20,18 @@ import seedu.address.testutil.TypicalPersons;
 public class BrowserPanelTest extends GuiUnitTest {
 
     private static final Person ALICE = new TypicalPersons().alice;
-    private static final PersonPanelSelectionChangedEvent SELECTION_CHANGED_EVENT_STUB =
-            new PersonPanelSelectionChangedEvent(ALICE);
+
+    private PersonCard alicePersonCard;
+    private PersonPanelSelectionChangedEvent selectedChangedEventStub;
 
     private BrowserPanel browserPanel;
     private BrowserPanelHandle browserPanelHandle;
 
     @Before
     public void setUp() throws Exception {
+        guiRobot.interact(() -> alicePersonCard = new PersonCard(ALICE, 0));
+        selectedChangedEventStub = new PersonPanelSelectionChangedEvent(alicePersonCard);
+
         guiRobot.interact(() -> browserPanel = new BrowserPanel());
         uiPartRule.setUiPart(browserPanel);
 
@@ -41,7 +45,7 @@ public class BrowserPanelTest extends GuiUnitTest {
         assertEquals(expectedDefaultPageUrl, browserPanelHandle.getLoadedUrl());
 
         // associated web page of a person
-        post(SELECTION_CHANGED_EVENT_STUB);
+        post(selectedChangedEventStub);
         URL expectedPersonUrl = new URL(GOOGLE_SEARCH_URL_PREFIX
                 + ALICE.getName().fullName.replaceAll(" ", "+"));
         assertEquals(expectedPersonUrl, browserPanelHandle.getLoadedUrl());

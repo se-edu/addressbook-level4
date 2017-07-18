@@ -37,8 +37,8 @@ public class PersonListPanelTest extends GuiUnitTest {
     @Test
     public void display() throws Exception {
         for (int i = 0; i < TYPICAL_PERSONS.size(); i++) {
-            personListPanelHandle.navigateToPerson(TYPICAL_PERSONS.get(i));
-            assertEquals(TYPICAL_PERSONS.get(i), personListPanelHandle.getPerson(i));
+            personListPanelHandle.navigateToCard(TYPICAL_PERSONS.get(i));
+            assertEquals(TYPICAL_PERSONS.get(i), personListPanelHandle.getCard(i).person);
         }
     }
 
@@ -46,6 +46,8 @@ public class PersonListPanelTest extends GuiUnitTest {
     public void handleJumpToListRequestEvent() {
         post(JUMP_TO_SECOND_EVENT);
         guiRobot.pauseForHuman();
-        assertEquals(INDEX_SECOND_PERSON.getZeroBased(), personListPanelHandle.getSelectedIndex());
+
+        PersonCard selectedCard = personListPanelHandle.getSelectedCard().get();
+        assertEquals(personListPanelHandle.getCard(INDEX_SECOND_PERSON.getZeroBased()), selectedCard);
     }
 }
