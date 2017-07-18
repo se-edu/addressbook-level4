@@ -47,7 +47,7 @@ public class PersonListPanelHandle extends NodeHandle<ListView<PersonCard>> {
             final int scrollTo = i; // lambda expression needs i to be final
             guiRobot.interact(() -> getRootNode().scrollTo(scrollTo));
             guiRobot.pauseForHuman();
-            if (!getPersonCardHandle(i).isSamePerson(persons[i])) {
+            if (!(getCard(i).person.equals(persons[i]))) {
                 return false;
             }
         }
@@ -77,13 +77,6 @@ public class PersonListPanelHandle extends NodeHandle<ListView<PersonCard>> {
      */
     public PersonCard getCard(int index) {
         return getRootNode().getItems().get(index);
-    }
-
-    /**
-     * Returns the person card handle of a person associated with the {@code index} in the list.
-     */
-    private PersonCardHandle getPersonCardHandle(int index) throws PersonNotFoundException {
-        return getPersonCardHandle(getCard(index).person);
     }
 
     /**
