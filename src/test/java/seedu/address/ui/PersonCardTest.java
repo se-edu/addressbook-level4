@@ -4,34 +4,40 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import org.junit.Rule;
 import org.junit.Test;
 
-import guitests.GuiRobot;
 import guitests.guihandles.PersonCardHandle;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.testutil.PersonBuilder;
-import seedu.address.ui.testutil.UiPartRule;
+import seedu.address.testutil.TypicalPersons;
 
-public class PersonCardTest {
-
-    @Rule
-    public final UiPartRule uiPartRule = new UiPartRule();
+public class PersonCardTest extends GuiUnitTest {
 
     @Test
     public void display() throws Exception {
-        GuiRobot guiRobot = new GuiRobot();
-
         // no tags
         Person personWithNoTags = new PersonBuilder().withTags(new String[0]).build();
-        assertCardDisplay(1, personWithNoTags);
-        guiRobot.pauseForHuman();
+        PersonCard personCard = new PersonCard(personWithNoTags, 1);
+        uiPartRule.setUiPart(personCard);
+        assertCardDisplay(personCard, personWithNoTags, 1);
 
         // with tags
         Person personWithTags = new PersonBuilder().build();
-        assertCardDisplay(2, personWithTags);
-        guiRobot.pauseForHuman();
+        personCard = new PersonCard(personWithTags, 2);
+        uiPartRule.setUiPart(personCard);
+        assertCardDisplay(personCard, personWithTags, 2);
+
+        // changes made to Person reflects on card
+        Person alice = new TypicalPersons().alice;
+        guiRobot.interact(() -> {
+            personWithTags.setName(alice.getName());
+            personWithTags.setAddress(alice.getAddress());
+            personWithTags.setEmail(alice.getEmail());
+            personWithTags.setPhone(alice.getPhone());
+            personWithTags.setTags(alice.getTags());
+        });
+        assertCardDisplay(personCard, personWithTags, 2);
     }
 
     @Test
@@ -61,20 +67,19 @@ public class PersonCardTest {
     }
 
     /**
-     * Asserts that the card in {@code validId} in the card list displays the contact
-     * details of {@code validPerson}.
+     * Asserts that {@code personCard} displays the details of {@code expectedPerson} correctly and matches
+     * {@code expectedId}.
      */
-    private void assertCardDisplay(int validId, ReadOnlyPerson validPerson) throws Exception {
+    private void assertCardDisplay(PersonCard personCard, ReadOnlyPerson expectedPerson, int expectedId)
+            throws Exception {
+        guiRobot.pauseForHuman();
 
-        PersonCard personCard = new PersonCard(validPerson, validId);
-
-        uiPartRule.setUiPart(personCard);
         PersonCardHandle personCardHandle = new PersonCardHandle(personCard.getRoot());
 
         // verify id is displayed correctly
-        assertEquals(Integer.toString(validId) + ". ", personCardHandle.getId());
+        assertEquals(Integer.toString(expectedId) + ". ", personCardHandle.getId());
 
         // verify person details are displayed correctly
-        assertTrue(personCardHandle.isSamePerson(validPerson));
+        assertTrue(personCardHandle.isSamePerson(expectedPerson));
     }
 }
