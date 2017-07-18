@@ -3,10 +3,12 @@ package seedu.address.ui;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 
 import org.junit.Test;
 
 import guitests.guihandles.PersonCardHandle;
+import seedu.address.model.person.Address;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.testutil.PersonBuilder;
@@ -21,6 +23,10 @@ public class PersonCardTest extends GuiUnitTest {
 
         // with tags
         Person personWithTags = new PersonBuilder().build();
+        assertCardDisplay(personWithTags, 2);
+
+        // change is reflected
+        personWithTags.setAddress(new Address(VALID_ADDRESS_BOB));
         assertCardDisplay(personWithTags, 2);
     }
 
