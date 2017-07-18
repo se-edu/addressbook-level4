@@ -10,18 +10,35 @@ import guitests.guihandles.PersonCardHandle;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.TypicalPersons;
 
 public class PersonCardTest extends GuiUnitTest {
+    private static final Person ALICE = new TypicalPersons().alice;
+
+    private PersonCard personCard;
 
     @Test
     public void display() throws Exception {
         // no tags
         Person personWithNoTags = new PersonBuilder().withTags(new String[0]).build();
-        assertCardDisplay(personWithNoTags, 1);
+        personCard = new PersonCard(personWithNoTags, 1);
+        uiPartRule.setUiPart(personCard);
+        assertCardDisplay(personCard, personWithNoTags, 1);
 
         // with tags
         Person personWithTags = new PersonBuilder().build();
-        assertCardDisplay(personWithTags, 2);
+        personCard = new PersonCard(personWithTags, 2);
+        uiPartRule.setUiPart(personCard);
+        assertCardDisplay(personCard, personWithTags, 2);
+
+        // changes made to Person reflects on card
+        guiRobot.interact(() -> {
+            personWithTags.setName(ALICE.getName());
+            personWithTags.setAddress(ALICE.getAddress());
+            personWithTags.setEmail(ALICE.getEmail());
+            personWithTags.setPhone(ALICE.getPhone());
+        });
+        assertCardDisplay(personCard, personWithTags, 2);
     }
 
     @Test
@@ -54,11 +71,7 @@ public class PersonCardTest extends GuiUnitTest {
      * Asserts that the card in {@code validId} in the card list displays the contact
      * details of {@code validPerson}.
      */
-    private void assertCardDisplay(ReadOnlyPerson validPerson, int validId) throws Exception {
-
-        PersonCard personCard = new PersonCard(validPerson, validId);
-
-        uiPartRule.setUiPart(personCard);
+    private void assertCardDisplay(PersonCard personCard, ReadOnlyPerson validPerson, int validId) throws Exception {
         guiRobot.pauseForHuman();
 
         PersonCardHandle personCardHandle = new PersonCardHandle(personCard.getRoot());
