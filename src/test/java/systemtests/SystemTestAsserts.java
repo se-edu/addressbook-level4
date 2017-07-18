@@ -5,10 +5,14 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.time.Clock;
 import java.util.Date;
 
+import guitests.guihandles.BrowserPanelHandle;
 import guitests.guihandles.StatusBarFooterHandle;
+import seedu.address.TestApp;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.person.ReadOnlyPerson;
@@ -28,6 +32,15 @@ public class SystemTestAsserts {
         String expectedSyncStatus = String.format(SYNC_STATUS_UPDATED, timestamp);
         assertEquals(expectedSyncStatus, statusBarFooterHandle.getSyncStatus());
         assertFalse(statusBarFooterHandle.isSaveLocationChanged());
+    }
+
+    /**
+     * Asserts that the application starts with the correct state.
+     */
+    public static void assertStartStateCorrect(TestApp testApp, StatusBarFooterHandle statusBarFooterHandle,
+             BrowserPanelHandle browserPanelHandle, URL defaultBrowserUrl) throws MalformedURLException {
+        assertEquals("./" + testApp.getStorageSaveLocation(), statusBarFooterHandle.getSaveLocation());
+        assertEquals(defaultBrowserUrl, browserPanelHandle.getLoadedUrl());
     }
 
     /**
