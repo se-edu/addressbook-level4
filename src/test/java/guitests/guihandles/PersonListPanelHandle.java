@@ -9,7 +9,6 @@ import java.util.Optional;
 import javafx.scene.control.ListView;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
-import seedu.address.testutil.TestUtil;
 import seedu.address.ui.PersonCard;
 
 /**
@@ -48,7 +47,7 @@ public class PersonListPanelHandle extends NodeHandle<ListView<PersonCard>> {
             final int scrollTo = i; // lambda expression needs i to be final
             guiRobot.interact(() -> getRootNode().scrollTo(scrollTo));
             guiRobot.pauseForHuman();
-            if (!TestUtil.compareCardAndPerson(getPersonCardHandle(i), persons[i])) {
+            if (!(getCard(i).person.equals(persons[i]))) {
                 return false;
             }
         }
@@ -78,13 +77,6 @@ public class PersonListPanelHandle extends NodeHandle<ListView<PersonCard>> {
      */
     public PersonCard getCard(int index) {
         return getRootNode().getItems().get(index);
-    }
-
-    /**
-     * Returns the person card handle of a person associated with the {@code index} in the list.
-     */
-    private PersonCardHandle getPersonCardHandle(int index) throws PersonNotFoundException {
-        return getPersonCardHandle(getCard(index).person);
     }
 
     /**
