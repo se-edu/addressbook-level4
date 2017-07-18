@@ -2,6 +2,7 @@ package systemtests;
 
 import static seedu.address.ui.BrowserPanel.DEFAULT_PAGE;
 import static seedu.address.ui.UiPart.FXML_FILE_FOLDER;
+import static systemtests.SystemTestAsserts.assertStartStateCorrect;
 
 import java.net.URL;
 import java.time.Clock;
@@ -83,6 +84,8 @@ public class AddressBookSystemTest {
 
         mainWindowHandle = new MainWindowHandle(stage);
         mainWindowHandle.focus();
+
+        assertStartStateCorrect(testApp, getStatusBarFooter(), getBrowserPanel(), getDefaultBrowserUrl());
     }
 
     /**
