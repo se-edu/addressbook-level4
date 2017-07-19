@@ -10,6 +10,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.testutil.TypicalPersons.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalPersons.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalPersons.INDEX_THIRD_PERSON;
+import static seedu.address.testutil.TypicalPersons.getTypicalPersons;
 
 import org.junit.Test;
 
@@ -23,15 +24,12 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.PersonBuilder;
 
 // TODO: reduce GUI tests by transferring some tests to be covered by lower level tests.
 public class EditCommandTest extends AddressBookGuiTest {
-
-    // The list of persons in the person list panel is expected to match this list.
-    // This list is updated with every successful call to assertEditSuccess().
-    private Person[] expectedPersonsList = td.getTypicalPersons();
 
     @Test
     public void edit_allFieldsSpecified_success() throws Exception {
@@ -53,7 +51,7 @@ public class EditCommandTest extends AddressBookGuiTest {
                 + PREFIX_TAG + "bestie";
         Index addressBookIndex = INDEX_SECOND_PERSON;
 
-        Person personToEdit = expectedPersonsList[addressBookIndex.getZeroBased()];
+        ReadOnlyPerson personToEdit = getTypicalPersons()[addressBookIndex.getZeroBased()];
         Person editedPerson = new PersonBuilder(personToEdit).withTags("sweetie", "bestie").build();
 
         assertEditSuccess(addressBookIndex, addressBookIndex, detailsToEdit, editedPerson);
@@ -64,7 +62,7 @@ public class EditCommandTest extends AddressBookGuiTest {
         String detailsToEdit = PREFIX_TAG.getPrefix();
         Index addressBookIndex = INDEX_SECOND_PERSON;
 
-        Person personToEdit = expectedPersonsList[addressBookIndex.getZeroBased()];
+        ReadOnlyPerson personToEdit = getTypicalPersons()[addressBookIndex.getZeroBased()];
         Person editedPerson = new PersonBuilder(personToEdit).withTags().build();
 
         assertEditSuccess(addressBookIndex, addressBookIndex, detailsToEdit, editedPerson);
@@ -77,7 +75,7 @@ public class EditCommandTest extends AddressBookGuiTest {
         String detailsToEdit = PREFIX_NAME + "Carrle";
         Index addressBookIndex = INDEX_THIRD_PERSON;
 
-        Person personToEdit = expectedPersonsList[addressBookIndex.getZeroBased()];
+        ReadOnlyPerson personToEdit = getTypicalPersons()[addressBookIndex.getZeroBased()];
         Person editedPerson = new PersonBuilder(personToEdit).withName("Carrle").build();
 
         assertEditSuccess(INDEX_FIRST_PERSON, addressBookIndex, detailsToEdit, editedPerson);
@@ -150,8 +148,8 @@ public class EditCommandTest extends AddressBookGuiTest {
         assertCardMatchesPerson(editedCard, editedPerson);
 
         // confirm the list now contains all previous persons plus the person with updated details
-        expectedPersonsList[addressBookIndex.getZeroBased()] = editedPerson;
-        assertTrue(getPersonListPanel().isListMatching(expectedPersonsList));
+        getTypicalPersons()[addressBookIndex.getZeroBased()] = editedPerson;
+        assertTrue(getPersonListPanel().isListMatching(getTypicalPersons()));
         assertResultMessage(String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson));
     }
 }
