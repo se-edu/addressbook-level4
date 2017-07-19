@@ -112,7 +112,7 @@ Returns Any person having names `Betsy`, `Tim`, or `John`
 
 === Deleting a person : `delete`
 
-Deletes the specified person from the address book. Irreversible. +
+Deletes the specified person from the address book. +
 Format: `delete INDEX`
 
 ****
@@ -160,6 +160,60 @@ Format: `history`
 Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
 ====
 
+=== Undo previous command : `undo`
+
+Restores the address book to the state before the previous _undoable_ command was executed. +
+Format: `undo`
+
+[NOTE]
+====
+Undoable commands: those commands that modify the address book's content (`add`, `delete`, `edit` and `clear`).
+====
+
+Examples:
+
+* `delete 1` +
+`list` +
+`undo` +
+The `undo` command reverses `delete 1` i.e. it reverses the deletion of the first person from the address book.
+
+* `select 1` +
+`list` +
+`undo` +
+The `undo` command fails as there are no undoable commands executed previously.
+
+* `delete 1` +
+`clear` +
+`undo` +
+`undo` +
+The first `undo` command reverses `clear`.
+The second `undo` command reverses `delete 1`.
+
+=== Redo the previously undone command : `redo`
+
+Reverses the most recent `undo` command. +
+Format: `redo`
+
+Examples:
+
+* `delete 1` +
+`undo` +
+`redo` +
+The `redo` command reverses undo i.e. it reapplies the deletion of the first person from the address book.
+
+* `delete 1` +
+`redo` +
+The `redo` command fails as there are no `undo` commands executed previously.
+
+* `delete 1` +
+`clear` +
+`undo` +
+`undo` +
+`redo` +
+`redo` +
+The first `redo` command reapplies `delete 1`.
+The second `redo` command reapplies `clear`.
+
 === Clearing all entries : `clear`
 
 Clears all entries from the address book. +
@@ -194,3 +248,5 @@ e.g. `find James Jake`
 * *Select* : `select INDEX` +
 e.g.`select 2`
 * *History* : `history`
+* *Undo* : `undo`
+* *Redo* : `redo`
