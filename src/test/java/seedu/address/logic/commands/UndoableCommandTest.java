@@ -3,8 +3,8 @@ package seedu.address.logic.commands;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 import static seedu.address.logic.commands.CommandTestUtil.deleteFirstPerson;
-
-import java.util.Collections;
+import static seedu.address.logic.commands.CommandTestUtil.showFirstPersonOnly;
+import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.Test;
 
@@ -12,16 +12,14 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
-import seedu.address.testutil.TypicalPersons;
 
 public class UndoableCommandTest {
-    private final Model model = new ModelManager(new TypicalPersons().getTypicalAddressBook(), new UserPrefs());
+    private final Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     private final DummyCommand dummyCommand = new DummyCommand(model);
 
-    private Model expectedModel = new ModelManager(new TypicalPersons().getTypicalAddressBook(), new UserPrefs());
+    private Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
     @Test
     public void executeUndo() throws Exception {
@@ -29,32 +27,22 @@ public class UndoableCommandTest {
         deleteFirstPerson(expectedModel);
         assertEquals(expectedModel, model);
 
-        showFirstPersonOnly();
+        showFirstPersonOnly(model);
 
         // undo() should cause the model's filtered list to show all persons
         dummyCommand.undo();
-        expectedModel = new ModelManager(new TypicalPersons().getTypicalAddressBook(), new UserPrefs());
+        expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
         assertEquals(expectedModel, model);
     }
 
     @Test
     public void redo() throws Exception {
-        showFirstPersonOnly();
+        showFirstPersonOnly(model);
 
         // redo() should cause the model's filtered list to show all persons
         dummyCommand.redo();
         deleteFirstPerson(expectedModel);
         assertEquals(expectedModel, model);
-    }
-
-    /**
-     * Updates {@code model}'s filtered list to show only the first person from the address book.
-     */
-    private void showFirstPersonOnly() {
-        ReadOnlyPerson person = model.getAddressBook().getPersonList().get(0);
-        final String[] splitName = person.getName().fullName.split("\\s+");
-        model.updateFilteredPersonList(new NameContainsKeywordsPredicate(Collections.singletonList(splitName[0])));
-        assert model.getFilteredPersonList().size() == 1;
     }
 
     /**

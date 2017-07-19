@@ -27,50 +27,60 @@ public class UndoRedoStackTest {
     private UndoRedoStack undoRedoStack = new UndoRedoStack();
 
     @Test
-    public void push_nonEmptyRedoStackAndNonUndoableCommand_redoStackClearedAndCommandNotAdded() {
+    public void push_nonUndoableCommand_redoStackClearedAndCommandNotAdded() {
+        // non-empty redoStack
         undoRedoStack = prepareStack(Collections.singletonList(dummyUndoableCommandOne),
                 Arrays.asList(dummyUndoableCommandOne, dummyUndoableCommandTwo));
         undoRedoStack.push(dummyCommandOne);
+        assertStackStatus(Collections.singletonList(dummyUndoableCommandOne), Collections.emptyList());
 
+        // empty redoStack
+        undoRedoStack.push(dummyCommandOne);
         assertStackStatus(Collections.singletonList(dummyUndoableCommandOne), Collections.emptyList());
     }
 
     @Test
-    public void push_nonEmptyRedoStackAndUndoableCommand_redoStackClearedAndCommandAdded() {
+    public void push_undoableCommand_redoStackClearedAndCommandAdded() {
+        // non-empty redoStack
         undoRedoStack = prepareStack(Collections.singletonList(dummyUndoableCommandOne),
                 Arrays.asList(dummyUndoableCommandOne, dummyUndoableCommandTwo));
         undoRedoStack.push(dummyUndoableCommandOne);
-
         assertStackStatus(Arrays.asList(dummyUndoableCommandOne, dummyUndoableCommandOne),
+                Collections.emptyList());
+
+        // empty redoStack
+        undoRedoStack.push(dummyUndoableCommandOne);
+        assertStackStatus(Arrays.asList(dummyUndoableCommandOne, dummyUndoableCommandOne, dummyUndoableCommandOne),
                 Collections.emptyList());
     }
 
     @Test
-    public void push_nonEmptyRedoStackAndUndoCommand_redoStackNotClearedAndCommandNotAdded() {
+    public void push_undoCommand_stackRemainsUnchanged() {
+        // non-empty redoStack
         undoRedoStack = prepareStack(Collections.singletonList(dummyUndoableCommandOne),
                 Arrays.asList(dummyUndoableCommandOne, dummyUndoableCommandTwo));
         undoRedoStack.push(new UndoCommand());
-
         assertStackStatus(Collections.singletonList(dummyUndoableCommandOne),
                 Arrays.asList(dummyUndoableCommandOne, dummyUndoableCommandTwo));
+
+        // empty redoStack
+        undoRedoStack = prepareStack(Collections.singletonList(dummyUndoableCommandOne), Collections.emptyList());
+        undoRedoStack.push(new UndoCommand());
+        assertStackStatus(Collections.singletonList(dummyUndoableCommandOne), Collections.emptyList());
     }
 
     @Test
-    public void push_nonEmptyRedoStackAndRedoCommand_redoStackNotClearedAndCommandNotAdded() {
+    public void push_redoCommand_stackRemainsUnchanged() {
+        // non-empty redoStack
         undoRedoStack = prepareStack(Collections.singletonList(dummyUndoableCommandOne),
                 Arrays.asList(dummyUndoableCommandOne, dummyUndoableCommandTwo));
         undoRedoStack.push(new RedoCommand());
-
         assertStackStatus(Collections.singletonList(dummyUndoableCommandOne),
                 Arrays.asList(dummyUndoableCommandOne, dummyUndoableCommandTwo));
-    }
 
-    @Test
-    public void push_emptyRedoStack_redoStackRemainsEmpty() {
+        // empty redoStack
         undoRedoStack = prepareStack(Collections.singletonList(dummyUndoableCommandOne), Collections.emptyList());
-        // pushing dummyCommandOne expected to clear redoStack
-        undoRedoStack.push(dummyCommandOne);
-
+        undoRedoStack.push(new RedoCommand());
         assertStackStatus(Collections.singletonList(dummyUndoableCommandOne), Collections.emptyList());
     }
 

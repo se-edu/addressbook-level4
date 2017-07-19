@@ -162,12 +162,12 @@ Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and 
 
 === Undo previous command : `undo`
 
-Restores the address book to the state before the previous command was executed. +
+Restores the address book to the state before the previous undoable command was executed. +
 Format: `undo`
 
 [NOTE]
 ====
-Only `add`, `delete`, `edit` and `clear` commands can be undone.
+Only commands that modify the address book's content (`add`, `delete`, `edit` and `clear`) can be undone.
 ====
 
 === Redo the previously undone command : `redo`
@@ -177,7 +177,7 @@ Format: `redo`
 
 [NOTE]
 ====
-Only `add`, `delete`, `edit` and `clear` commands can be redone.
+Only commands that modify the address book's content (`add`, `delete`, `edit` and `clear`) can be undone.
 ====
 
 === Clearing all entries : `clear`
