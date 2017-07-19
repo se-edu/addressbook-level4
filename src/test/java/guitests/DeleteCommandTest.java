@@ -3,7 +3,7 @@ package guitests;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS;
 import static seedu.address.testutil.TypicalPersons.INDEX_FIRST_PERSON;
-import static seedu.address.testutil.TypicalPersons.getTypicalPersons;
+import static seedu.address.testutil.TypicalPersons.TYPICAL_PERSONS;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -21,7 +21,7 @@ public class DeleteCommandTest extends AddressBookGuiTest {
     public void delete() throws Exception {
 
         //delete the first in the list
-        ArrayList<ReadOnlyPerson> expectedList = new ArrayList<>(Arrays.asList(getTypicalPersons()));
+        ArrayList<ReadOnlyPerson> expectedList = new ArrayList<>(Arrays.asList(TYPICAL_PERSONS));
         Index targetIndex = INDEX_FIRST_PERSON;
         expectedList.remove(targetIndex.getZeroBased());
         assertDeleteSuccess(targetIndex, expectedList);

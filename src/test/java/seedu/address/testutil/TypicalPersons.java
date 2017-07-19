@@ -48,18 +48,17 @@ public class TypicalPersons {
         }
     }
 
+    public static final ReadOnlyPerson[] TYPICAL_PERSONS =
+            new ReadOnlyPerson[]{ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE};
+
     public static void loadAddressBookWithSampleData(AddressBook ab) {
-        for (ReadOnlyPerson person : getTypicalPersons()) {
+        for (ReadOnlyPerson person : TYPICAL_PERSONS) {
             try {
                 ab.addPerson(new Person(person));
             } catch (DuplicatePersonException e) {
                 assert false : "not possible";
             }
         }
-    }
-
-    public static ReadOnlyPerson[] getTypicalPersons() {
-        return new ReadOnlyPerson[]{ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE};
     }
 
     public static AddressBook getTypicalAddressBook() {
