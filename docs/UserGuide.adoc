@@ -162,23 +162,41 @@ Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and 
 
 === Undo previous command : `undo`
 
-Restores the address book to the state before the previous undoable command was executed. +
+Restores the address book to the state before the previous _undoable_ command was executed. +
 Format: `undo`
 
 [NOTE]
 ====
-Only commands that modify the address book's content (`add`, `delete`, `edit` and `clear`) can be undone.
+undoable commands: those commands that modify the address book's content (`add`, `delete`, `edit` and `clear`).
 ====
+
+Examples:
+
+* `delete 1` +
+`list` +
+`undo` +
+The `undo` command reverses `delete 1` i.e it reverses the deletion of the first person from the address book.
+
+* `select 1` +
+`list` +
+`undo` +
+The `undo` command fails as there are no undoable commands executed previously.
 
 === Redo the previously undone command : `redo`
 
-Restores the address book to the state before the previous undo command was executed. +
+Reverses the most recent `undo` command. +
 Format: `redo`
 
-[NOTE]
-====
-Only commands that modify the address book's content (`add`, `delete`, `edit` and `clear`) can be undone.
-====
+Examples:
+
+* `delete 1` +
+`undo` +
+`redo` +
+The `redo` command deletes the first person from the address book.
+
+* `delete 1` +
+`redo` +
+The `redo` command fails as there are no `undo` commands executed previously.
 
 === Clearing all entries : `clear`
 
