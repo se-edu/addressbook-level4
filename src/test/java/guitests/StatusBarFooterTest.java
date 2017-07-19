@@ -42,6 +42,7 @@ public class StatusBarFooterTest extends AddressBookGuiTest {
 
     @Test
     public void syncStatus_initialValue() {
+        guiRobot.pauseForHuman();
         assertEquals(SYNC_STATUS_INITIAL, getStatusBarFooter().getSyncStatus());
     }
 
@@ -50,18 +51,21 @@ public class StatusBarFooterTest extends AddressBookGuiTest {
         String timestamp = new Date(injectedClock.millis()).toString();
         String expected = String.format(SYNC_STATUS_UPDATED, timestamp);
         assertTrue(runCommand(PersonUtil.getAddCommand(td.hoon))); // mutating command succeeds
+        guiRobot.pauseForHuman();
         assertEquals(expected, getStatusBarFooter().getSyncStatus());
     }
 
     @Test
     public void syncStatus_nonMutatingCommandSucceeds_syncStatusRemainsUnchanged() {
         assertTrue(runCommand(ListCommand.COMMAND_WORD)); // non-mutating command succeeds
+        guiRobot.pauseForHuman();
         assertEquals(SYNC_STATUS_INITIAL, getStatusBarFooter().getSyncStatus());
     }
 
     @Test
     public void syncStatus_commandFails_syncStatusRemainsUnchanged() {
         assertFalse(runCommand("invalid command")); // invalid command fails
+        guiRobot.pauseForHuman();
         assertEquals(SYNC_STATUS_INITIAL, getStatusBarFooter().getSyncStatus());
     }
 
