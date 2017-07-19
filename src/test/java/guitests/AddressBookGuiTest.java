@@ -38,7 +38,6 @@ public abstract class AddressBookGuiTest {
     @Rule
     public TestName name = new TestName();
 
-    protected TypicalPersons td = new TypicalPersons();
     protected GuiRobot guiRobot = new GuiRobot();
 
     protected Stage stage;

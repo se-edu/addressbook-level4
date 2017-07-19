@@ -4,6 +4,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 
 /**
@@ -15,32 +16,32 @@ public class TypicalPersons {
     public static final Index INDEX_SECOND_PERSON = Index.fromOneBased(2);
     public static final Index INDEX_THIRD_PERSON = Index.fromOneBased(3);
 
-    public final Person alice, benson, carl, daniel, elle, fiona, george, hoon, ida;
+    public static final ReadOnlyPerson ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE, HOON, IDA;
 
-    public TypicalPersons() {
+    static {
         try {
-            alice = new PersonBuilder().withName("Alice Pauline")
+            ALICE = new PersonBuilder().withName("Alice Pauline")
                     .withAddress("123, Jurong West Ave 6, #08-111").withEmail("alice@example.com")
                     .withPhone("85355255")
                     .withTags("friends").build();
-            benson = new PersonBuilder().withName("Benson Meier").withAddress("311, Clementi Ave 2, #02-25")
+            BENSON = new PersonBuilder().withName("Benson Meier").withAddress("311, Clementi Ave 2, #02-25")
                     .withEmail("johnd@example.com").withPhone("98765432")
                     .withTags("owesMoney", "friends").build();
-            carl = new PersonBuilder().withName("Carl Kurz").withPhone("95352563")
+            CARL = new PersonBuilder().withName("Carl Kurz").withPhone("95352563")
                     .withEmail("heinz@example.com").withAddress("wall street").build();
-            daniel = new PersonBuilder().withName("Daniel Meier").withPhone("87652533")
+            DANIEL = new PersonBuilder().withName("Daniel Meier").withPhone("87652533")
                     .withEmail("cornelia@example.com").withAddress("10th street").build();
-            elle = new PersonBuilder().withName("Elle Meyer").withPhone("9482224")
+            ELLE = new PersonBuilder().withName("Elle Meyer").withPhone("9482224")
                     .withEmail("werner@example.com").withAddress("michegan ave").build();
-            fiona = new PersonBuilder().withName("Fiona Kunz").withPhone("9482427")
+            FIONA = new PersonBuilder().withName("Fiona Kunz").withPhone("9482427")
                     .withEmail("lydia@example.com").withAddress("little tokyo").build();
-            george = new PersonBuilder().withName("George Best").withPhone("9482442")
+            GEORGE = new PersonBuilder().withName("George Best").withPhone("9482442")
                     .withEmail("anna@example.com").withAddress("4th street").build();
 
             // Manually added
-            hoon = new PersonBuilder().withName("Hoon Meier").withPhone("8482424")
+            HOON = new PersonBuilder().withName("Hoon Meier").withPhone("8482424")
                     .withEmail("stefan@example.com").withAddress("little india").build();
-            ida = new PersonBuilder().withName("Ida Mueller").withPhone("8482131")
+            IDA = new PersonBuilder().withName("Ida Mueller").withPhone("8482131")
                     .withEmail("hans@example.com").withAddress("chicago ave").build();
         } catch (IllegalValueException e) {
             throw new AssertionError("Sample data cannot be invalid", e);
@@ -48,7 +49,7 @@ public class TypicalPersons {
     }
 
     public static void loadAddressBookWithSampleData(AddressBook ab) {
-        for (Person person : new TypicalPersons().getTypicalPersons()) {
+        for (ReadOnlyPerson person : getTypicalPersons()) {
             try {
                 ab.addPerson(new Person(person));
             } catch (DuplicatePersonException e) {
@@ -57,11 +58,11 @@ public class TypicalPersons {
         }
     }
 
-    public Person[] getTypicalPersons() {
-        return new Person[]{alice, benson, carl, daniel, elle, fiona, george};
+    public static ReadOnlyPerson[] getTypicalPersons() {
+        return new ReadOnlyPerson[]{ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE};
     }
 
-    public AddressBook getTypicalAddressBook() {
+    public static AddressBook getTypicalAddressBook() {
         AddressBook ab = new AddressBook();
         loadAddressBookWithSampleData(ab);
         return ab;

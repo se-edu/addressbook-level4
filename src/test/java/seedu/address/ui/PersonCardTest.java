@@ -3,6 +3,7 @@ package seedu.address.ui;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static seedu.address.testutil.TypicalPersons.ALICE;
 
 import org.junit.Test;
 
@@ -10,7 +11,6 @@ import guitests.guihandles.PersonCardHandle;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.testutil.PersonBuilder;
-import seedu.address.testutil.TypicalPersons;
 
 public class PersonCardTest extends GuiUnitTest {
 
@@ -29,13 +29,12 @@ public class PersonCardTest extends GuiUnitTest {
         assertCardDisplay(personCard, personWithTags, 2);
 
         // changes made to Person reflects on card
-        Person alice = new TypicalPersons().alice;
         guiRobot.interact(() -> {
-            personWithTags.setName(alice.getName());
-            personWithTags.setAddress(alice.getAddress());
-            personWithTags.setEmail(alice.getEmail());
-            personWithTags.setPhone(alice.getPhone());
-            personWithTags.setTags(alice.getTags());
+            personWithTags.setName(ALICE.getName());
+            personWithTags.setAddress(ALICE.getAddress());
+            personWithTags.setEmail(ALICE.getEmail());
+            personWithTags.setPhone(ALICE.getPhone());
+            personWithTags.setTags(ALICE.getTags());
         });
         assertCardDisplay(personCard, personWithTags, 2);
     }
