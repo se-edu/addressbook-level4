@@ -163,6 +163,9 @@ Author: Bernard Choo
 image::LogicClassDiagram.png[width="800"]
 _Figure 2.3.1 : Structure of the Logic Component_
 
+image::LogicCommandClassDiagram.png[width="800"]
+_Figure 2.3.2 : Structure of Commands in the Logic Component. This diagram shows finer details concerning `XYZCommand` and `Command` in Figure 2.3.1_
+
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
