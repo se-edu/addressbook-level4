@@ -112,7 +112,7 @@ Returns Any person having names `Betsy`, `Tim`, or `John`
 
 === Deleting a person : `delete`
 
-Deletes the specified person from the address book. Irreversible. +
+Deletes the specified person from the address book. +
 Format: `delete INDEX`
 
 ****
@@ -160,6 +160,26 @@ Format: `history`
 Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
 ====
 
+=== Undo previous command : `undo`
+
+Restores the address book to the state before the previous command was executed. +
+Format: `undo`
+
+[NOTE]
+====
+Only `add`, `delete`, `edit` and `clear` commands can be undone.
+====
+
+=== Redo the previously undone command : `redo`
+
+Restores the address book to the state before the previous undo command was executed. +
+Format: `redo`
+
+[NOTE]
+====
+Only `add`, `delete`, `edit` and `clear` commands can be redone.
+====
+
 === Clearing all entries : `clear`
 
 Clears all entries from the address book. +
@@ -194,3 +214,5 @@ e.g. `find James Jake`
 * *Select* : `select INDEX` +
 e.g.`select 2`
 * *History* : `history`
+* *Undo* : `undo`
+* *Redo* : `redo`
