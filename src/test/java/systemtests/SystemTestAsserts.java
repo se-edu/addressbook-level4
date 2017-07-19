@@ -52,4 +52,29 @@ public class SystemTestAsserts {
         assertEquals(expectedModel.getAddressBook(), addressBookSystemTest.getTestApp().readStorageAddressBook());
         assertEquals(expectedModel, addressBookSystemTest.getTestApp().getModel());
     }
+
+    /**
+     * Asserts that after running the invalid command {@code commandToRun}, the entire application state remains
+     * unmodified except for {@code expectedResultMessage}.
+     */
+    public static void assertRunInvalidCommand(AddressBookSystemTest addressBookSystemTest, String commandToRun,
+            Model expectedModel, String expectedResultMessage) throws Exception {
+
+        // ensure that these things do not change
+        addressBookSystemTest.getBrowserPanel().rememberUrl();
+        addressBookSystemTest.getStatusBarFooter().rememberSaveLocation();
+        addressBookSystemTest.getStatusBarFooter().rememberSyncStatus();
+
+        addressBookSystemTest.runCommand(commandToRun);
+
+        // check that all components matched
+        assertFalse(addressBookSystemTest.getBrowserPanel().isUrlChanged());
+        assertTrue(addressBookSystemTest.getPersonListPanel().isListMatching(
+                expectedModel.getAddressBook().getPersonList().toArray(new ReadOnlyPerson[0])));
+        assertEquals(expectedResultMessage, addressBookSystemTest.getResultDisplay().getText());
+        assertFalse(addressBookSystemTest.getStatusBarFooter().isSaveLocationChanged());
+        assertFalse(addressBookSystemTest.getStatusBarFooter().isSyncStatusChanged());
+        assertEquals(expectedModel.getAddressBook(), addressBookSystemTest.getTestApp().readStorageAddressBook());
+        assertEquals(expectedModel, addressBookSystemTest.getTestApp().getModel());
+    }
 }
