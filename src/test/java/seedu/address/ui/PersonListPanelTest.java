@@ -3,7 +3,6 @@ package seedu.address.ui;
 import static org.junit.Assert.assertEquals;
 import static seedu.address.testutil.EventsUtil.post;
 import static seedu.address.testutil.TypicalPersons.INDEX_SECOND_PERSON;
-import static seedu.address.testutil.TypicalPersons.getTypicalPersons;
 
 import java.util.Arrays;
 
@@ -15,10 +14,11 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.model.person.ReadOnlyPerson;
+import seedu.address.testutil.TypicalPersons;
 
 public class PersonListPanelTest extends GuiUnitTest {
     private static final ObservableList<ReadOnlyPerson> TYPICAL_PERSONS =
-            FXCollections.observableList(Arrays.asList(getTypicalPersons()));
+            FXCollections.observableList(Arrays.asList(TypicalPersons.TYPICAL_PERSONS));
 
     private static final JumpToListRequestEvent JUMP_TO_SECOND_EVENT = new JumpToListRequestEvent(INDEX_SECOND_PERSON);
 

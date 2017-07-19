@@ -4,7 +4,7 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.HOON;
 import static seedu.address.testutil.TypicalPersons.IDA;
-import static seedu.address.testutil.TypicalPersons.getTypicalPersons;
+import static seedu.address.testutil.TypicalPersons.TYPICAL_PERSONS;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -24,7 +24,7 @@ public class AddCommandTest extends AddressBookGuiTest {
     @Test
     public void add() throws Exception {
         //add one person
-        ArrayList<ReadOnlyPerson> expectedList = new ArrayList<>(Arrays.asList(getTypicalPersons()));
+        ArrayList<ReadOnlyPerson> expectedList = new ArrayList<>(Arrays.asList(TYPICAL_PERSONS));
         ReadOnlyPerson personToAdd = HOON;
         expectedList.add(personToAdd);
         assertAddSuccess(personToAdd, expectedList);
