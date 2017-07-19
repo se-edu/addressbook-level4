@@ -10,6 +10,8 @@ import java.util.Date;
 
 import guitests.guihandles.StatusBarFooterHandle;
 import seedu.address.model.Model;
+import seedu.address.model.ModelManager;
+import seedu.address.model.UserPrefs;
 import seedu.address.model.person.ReadOnlyPerson;
 
 /**
@@ -49,6 +51,33 @@ public class SystemTestAsserts {
         assertEquals(expectedResultMessage, addressBookSystemTest.getResultDisplay().getText());
         assertOnlySyncStatusChanged(addressBookSystemTest.getStatusBarFooter(),
                 AddressBookSystemTest.INJECTED_CLOCK);
+        assertEquals(expectedModel.getAddressBook(), addressBookSystemTest.getTestApp().readStorageAddressBook());
+        assertEquals(expectedModel, addressBookSystemTest.getTestApp().getModel());
+    }
+
+    /**
+     * Asserts that after running the invalid command {@code commandToRun}, the entire application state remains
+     * unmodified except for {@code expectedResultMessage}.
+     */
+    public static void assertRunInvalidCommand(AddressBookSystemTest addressBookSystemTest, String commandToRun,
+            String expectedResultMessage) throws Exception {
+        Model expectedModel = new ModelManager(addressBookSystemTest.getTestApp().getModel().getAddressBook(),
+                new UserPrefs());
+
+        // ensure that these things do not change
+        addressBookSystemTest.getBrowserPanel().rememberUrl();
+        addressBookSystemTest.getStatusBarFooter().rememberSaveLocation();
+        addressBookSystemTest.getStatusBarFooter().rememberSyncStatus();
+
+        addressBookSystemTest.runCommand(commandToRun);
+
+        // check that all components matched
+        assertFalse(addressBookSystemTest.getBrowserPanel().isUrlChanged());
+        assertTrue(addressBookSystemTest.getPersonListPanel().isListMatching(
+                expectedModel.getAddressBook().getPersonList().toArray(new ReadOnlyPerson[0])));
+        assertEquals(expectedResultMessage, addressBookSystemTest.getResultDisplay().getText());
+        assertFalse(addressBookSystemTest.getStatusBarFooter().isSaveLocationChanged());
+        assertFalse(addressBookSystemTest.getStatusBarFooter().isSyncStatusChanged());
         assertEquals(expectedModel.getAddressBook(), addressBookSystemTest.getTestApp().readStorageAddressBook());
         assertEquals(expectedModel, addressBookSystemTest.getTestApp().getModel());
     }
