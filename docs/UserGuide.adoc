@@ -167,7 +167,7 @@ Format: `undo`
 
 [NOTE]
 ====
-undoable commands: those commands that modify the address book's content (`add`, `delete`, `edit` and `clear`).
+Undoable commands: those commands that modify the address book's content (`add`, `delete`, `edit` and `clear`).
 ====
 
 Examples:
@@ -175,12 +175,19 @@ Examples:
 * `delete 1` +
 `list` +
 `undo` +
-The `undo` command reverses `delete 1` i.e it reverses the deletion of the first person from the address book.
+The `undo` command reverses `delete 1` i.e. it reverses the deletion of the first person from the address book.
 
 * `select 1` +
 `list` +
 `undo` +
 The `undo` command fails as there are no undoable commands executed previously.
+
+* `delete 1` +
+`clear` +
+`undo` +
+`undo` +
+The first `undo` command reverses `clear`.
+The second `undo` command reverses `delete 1`.
 
 === Redo the previously undone command : `redo`
 
@@ -192,11 +199,20 @@ Examples:
 * `delete 1` +
 `undo` +
 `redo` +
-The `redo` command deletes the first person from the address book.
+The `redo` command reverses undo i.e. it reapplies the deletion of the first person from the address book.
 
 * `delete 1` +
 `redo` +
 The `redo` command fails as there are no `undo` commands executed previously.
+
+* `delete 1` +
+`clear` +
+`undo` +
+`undo` +
+`redo` +
+`redo` +
+The first `redo` command reapplies `delete 1`.
+The second `redo` command reapplies `clear`.
 
 === Clearing all entries : `clear`
 
