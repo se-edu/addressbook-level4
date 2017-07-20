@@ -9,6 +9,7 @@ import java.util.Arrays;
 import org.junit.Before;
 import org.junit.Test;
 
+import guitests.guihandles.PersonCardHandle;
 import guitests.guihandles.PersonListPanelHandle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -42,11 +43,17 @@ public class PersonListPanelTest extends GuiUnitTest {
     }
 
     @Test
-    public void handleJumpToListRequestEvent() {
+    public void handleJumpToListRequestEvent() throws Exception {
         post(JUMP_TO_SECOND_EVENT);
         guiRobot.pauseForHuman();
 
-        PersonCard selectedCard = personListPanelHandle.getSelectedCard().get();
-        assertEquals(personListPanelHandle.getCard(INDEX_SECOND_PERSON.getZeroBased()), selectedCard);
+        PersonCardHandle selectedCard = personListPanelHandle.getSelectedCardAsHandle().get();
+        PersonCardHandle expectedCard = personListPanelHandle.getPersonCardHandle(INDEX_SECOND_PERSON.getZeroBased());
+        assertEquals(expectedCard.getId(), selectedCard.getId());
+        assertEquals(expectedCard.getAddress(), selectedCard.getAddress());
+        assertEquals(expectedCard.getEmail(), selectedCard.getEmail());
+        assertEquals(expectedCard.getName(), selectedCard.getName());
+        assertEquals(expectedCard.getPhone(), selectedCard.getPhone());
+        assertEquals(expectedCard.getTags(), selectedCard.getTags());
     }
 }
