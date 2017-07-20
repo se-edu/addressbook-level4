@@ -3,12 +3,14 @@ package seedu.address.ui;
 import static org.junit.Assert.assertEquals;
 import static seedu.address.testutil.EventsUtil.post;
 import static seedu.address.testutil.TypicalPersons.INDEX_SECOND_PERSON;
+import static seedu.address.ui.testutil.GuiTestAssert.assertCardEquals;
 
 import java.util.Arrays;
 
 import org.junit.Before;
 import org.junit.Test;
 
+import guitests.guihandles.PersonCardHandle;
 import guitests.guihandles.PersonListPanelHandle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -42,11 +44,12 @@ public class PersonListPanelTest extends GuiUnitTest {
     }
 
     @Test
-    public void handleJumpToListRequestEvent() {
+    public void handleJumpToListRequestEvent() throws Exception {
         post(JUMP_TO_SECOND_EVENT);
         guiRobot.pauseForHuman();
 
-        PersonCard selectedCard = personListPanelHandle.getSelectedCard().get();
-        assertEquals(personListPanelHandle.getCard(INDEX_SECOND_PERSON.getZeroBased()), selectedCard);
+        PersonCardHandle expectedCard = personListPanelHandle.getPersonCardHandle(INDEX_SECOND_PERSON.getZeroBased());
+        PersonCardHandle selectedCard = personListPanelHandle.getHandleToSelectedCard().get();
+        assertCardEquals(expectedCard, selectedCard);
     }
 }
