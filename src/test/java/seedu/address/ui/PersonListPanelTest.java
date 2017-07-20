@@ -5,6 +5,7 @@ import static seedu.address.testutil.EventsUtil.post;
 import static seedu.address.testutil.TypicalPersons.INDEX_SECOND_PERSON;
 
 import java.util.Arrays;
+import java.util.stream.Collectors;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -38,7 +39,16 @@ public class PersonListPanelTest extends GuiUnitTest {
     public void display() throws Exception {
         for (int i = 0; i < TYPICAL_PERSONS.size(); i++) {
             personListPanelHandle.navigateToCard(TYPICAL_PERSONS.get(i));
-            assertEquals(TYPICAL_PERSONS.get(i), personListPanelHandle.getCard(i).person);
+            ReadOnlyPerson expectedPerson = TYPICAL_PERSONS.get(i);
+            PersonCardHandle actualCard = personListPanelHandle.getPersonCardHandle(i);
+
+            assertEquals(Integer.toString(i + 1) + ". ", actualCard.getId());
+            assertEquals(expectedPerson.getAddress().value, actualCard.getAddress());
+            assertEquals(expectedPerson.getEmail().value, actualCard.getEmail());
+            assertEquals(expectedPerson.getName().fullName, actualCard.getName());
+            assertEquals(expectedPerson.getPhone().value, actualCard.getPhone());
+            assertEquals(expectedPerson.getTags().stream().map(tag -> tag.tagName).collect(Collectors.toList()),
+                    actualCard.getTags());
         }
     }
 
