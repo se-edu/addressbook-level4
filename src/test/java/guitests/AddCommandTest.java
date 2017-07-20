@@ -1,6 +1,5 @@
 package guitests;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
@@ -8,13 +7,12 @@ import java.util.Arrays;
 
 import org.junit.Test;
 
+import guitests.guihandles.PersonCardHandle;
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.PersonUtil;
-import seedu.address.testutil.TestUtil;
-import seedu.address.ui.PersonCard;
 
 public class AddCommandTest extends AddressBookGuiTest {
 
@@ -53,8 +51,8 @@ public class AddCommandTest extends AddressBookGuiTest {
 
         //confirm the new card contains the right data
         getPersonListPanel().navigateToCard(personToAdd);
-        PersonCard addedCard = getPersonListPanel().getCard(personToAdd);
-        assertEquals(addedCard.person, personToAdd);
+        PersonCardHandle addedCard = getPersonListPanel().getPersonCardHandle(personToAdd);
+        assertCardMatchesPerson(addedCard, personToAdd);
 
         //confirm the list now contains all previous persons plus the new person
         assertTrue(getPersonListPanel().isListMatching(expectedList.toArray(new Person[expectedList.size()])));

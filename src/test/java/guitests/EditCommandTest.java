@@ -1,6 +1,5 @@
 package guitests;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
@@ -14,6 +13,7 @@ import static seedu.address.testutil.TypicalPersons.INDEX_THIRD_PERSON;
 
 import org.junit.Test;
 
+import guitests.guihandles.PersonCardHandle;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditCommand;
@@ -25,7 +25,6 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.PersonBuilder;
-import seedu.address.ui.PersonCard;
 
 // TODO: reduce GUI tests by transferring some tests to be covered by lower level tests.
 public class EditCommandTest extends AddressBookGuiTest {
@@ -147,8 +146,8 @@ public class EditCommandTest extends AddressBookGuiTest {
 
         // confirm the new card contains the right data
         getPersonListPanel().navigateToCard(editedPerson);
-        PersonCard editedCard = getPersonListPanel().getCard(editedPerson);
-        assertEquals(editedCard.person, editedPerson);
+        PersonCardHandle editedCard = getPersonListPanel().getPersonCardHandle(editedPerson);
+        assertCardMatchesPerson(editedCard, editedPerson);
 
         // confirm the list now contains all previous persons plus the person with updated details
         expectedPersonsList[addressBookIndex.getZeroBased()] = editedPerson;

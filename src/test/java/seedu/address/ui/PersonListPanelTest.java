@@ -5,10 +5,12 @@ import static seedu.address.testutil.EventsUtil.post;
 import static seedu.address.testutil.TypicalPersons.INDEX_SECOND_PERSON;
 
 import java.util.Arrays;
+import java.util.stream.Collectors;
 
 import org.junit.Before;
 import org.junit.Test;
 
+import guitests.guihandles.PersonCardHandle;
 import guitests.guihandles.PersonListPanelHandle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -37,16 +39,31 @@ public class PersonListPanelTest extends GuiUnitTest {
     public void display() throws Exception {
         for (int i = 0; i < TYPICAL_PERSONS.size(); i++) {
             personListPanelHandle.navigateToCard(TYPICAL_PERSONS.get(i));
-            assertEquals(TYPICAL_PERSONS.get(i), personListPanelHandle.getCard(i).person);
+            ReadOnlyPerson expectedPerson = TYPICAL_PERSONS.get(i);
+            PersonCardHandle actualCard = personListPanelHandle.getPersonCardHandle(i);
+
+            assertEquals(Integer.toString(i + 1) + ". ", actualCard.getId());
+            assertEquals(expectedPerson.getAddress().value, actualCard.getAddress());
+            assertEquals(expectedPerson.getEmail().value, actualCard.getEmail());
+            assertEquals(expectedPerson.getName().fullName, actualCard.getName());
+            assertEquals(expectedPerson.getPhone().value, actualCard.getPhone());
+            assertEquals(expectedPerson.getTags().stream().map(tag -> tag.tagName).collect(Collectors.toList()),
+                    actualCard.getTags());
         }
     }
 
     @Test
-    public void handleJumpToListRequestEvent() {
+    public void handleJumpToListRequestEvent() throws Exception {
         post(JUMP_TO_SECOND_EVENT);
         guiRobot.pauseForHuman();
 
-        PersonCard selectedCard = personListPanelHandle.getSelectedCard().get();
-        assertEquals(personListPanelHandle.getCard(INDEX_SECOND_PERSON.getZeroBased()), selectedCard);
+        PersonCardHandle selectedCard = personListPanelHandle.getSelectedCardAsHandle().get();
+        PersonCardHandle expectedCard = personListPanelHandle.getPersonCardHandle(INDEX_SECOND_PERSON.getZeroBased());
+        assertEquals(expectedCard.getId(), selectedCard.getId());
+        assertEquals(expectedCard.getAddress(), selectedCard.getAddress());
+        assertEquals(expectedCard.getEmail(), selectedCard.getEmail());
+        assertEquals(expectedCard.getName(), selectedCard.getName());
+        assertEquals(expectedCard.getPhone(), selectedCard.getPhone());
+        assertEquals(expectedCard.getTags(), selectedCard.getTags());
     }
 }

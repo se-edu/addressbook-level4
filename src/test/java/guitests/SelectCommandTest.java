@@ -6,16 +6,16 @@ import static seedu.address.testutil.TypicalPersons.INDEX_FIRST_PERSON;
 
 import org.junit.Test;
 
+import guitests.guihandles.PersonCardHandle;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.SelectCommand;
-import seedu.address.ui.PersonCard;
 
 public class SelectCommandTest extends AddressBookGuiTest {
 
 
     @Test
-    public void selectPerson_nonEmptyList() {
+    public void selectPerson_nonEmptyList() throws Exception {
 
         assertSelectionInvalid(Index.fromOneBased(10)); // invalid index
         assertNoCardSelected();
@@ -44,20 +44,26 @@ public class SelectCommandTest extends AddressBookGuiTest {
         assertResultMessage("The person index provided is invalid");
     }
 
-    private void assertSelectionSuccess(Index index) {
+    private void assertSelectionSuccess(Index index) throws Exception {
         runCommand(SelectCommand.COMMAND_WORD + " " + index.getOneBased());
         assertResultMessage("Selected Person: " + index.getOneBased());
         assertCardSelected(index);
     }
 
-    private void assertCardSelected(Index index) {
-        PersonCard selectedCard = getPersonListPanel().getSelectedCard().get();
-        assertEquals(getPersonListPanel().getCard(index.getZeroBased()), selectedCard);
+    private void assertCardSelected(Index index) throws Exception {
+        PersonCardHandle selectedCard = getPersonListPanel().getSelectedCardAsHandle().get();
+        PersonCardHandle expectedCard = getPersonListPanel().getPersonCardHandle(index.getZeroBased());
+        assertEquals(expectedCard.getId(), selectedCard.getId());
+        assertEquals(expectedCard.getAddress(), selectedCard.getAddress());
+        assertEquals(expectedCard.getEmail(), selectedCard.getEmail());
+        assertEquals(expectedCard.getName(), selectedCard.getName());
+        assertEquals(expectedCard.getPhone(), selectedCard.getPhone());
+        assertEquals(expectedCard.getTags(), selectedCard.getTags());
         //TODO: confirm the correct page is loaded in the Browser Panel
     }
 
     private void assertNoCardSelected() {
-        assertFalse(getPersonListPanel().getSelectedCard().isPresent());
+        assertFalse(getPersonListPanel().getSelectedCardAsHandle().isPresent());
     }
 
 }

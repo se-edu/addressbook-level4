@@ -22,16 +22,17 @@ public class PersonListPanelHandle extends NodeHandle<ListView<PersonCard>> {
     }
 
     /**
-     * Returns the selected {@code PersonCard} in the list view. A maximum of 1 item can be selected at any time.
+     * Returns the selected {@code PersonCard} in the list view encapsulated in a {@code PersonCardHandle}.
+     * A maximum of 1 item can be selected at any time.
      */
-    public Optional<PersonCard> getSelectedCard() {
+    public Optional<PersonCardHandle> getSelectedCardAsHandle() {
         List<PersonCard> personList = getRootNode().getSelectionModel().getSelectedItems();
 
         if (personList.size() > 1) {
             throw new AssertionError("Person list size expected 0 or 1.");
         }
 
-        return personList.isEmpty() ? Optional.empty() : Optional.of(personList.get(0));
+        return personList.isEmpty() ? Optional.empty() : Optional.of(new PersonCardHandle(personList.get(0).getRoot()));
     }
 
     /**
@@ -47,7 +48,7 @@ public class PersonListPanelHandle extends NodeHandle<ListView<PersonCard>> {
             final int scrollTo = i; // lambda expression needs i to be final
             guiRobot.interact(() -> getRootNode().scrollTo(scrollTo));
             guiRobot.pauseForHuman();
-            if (!(getCard(i).person.equals(persons[i]))) {
+            if (!getPersonCardHandle(i).isSamePerson(persons[i])) {
                 return false;
             }
         }
@@ -73,20 +74,21 @@ public class PersonListPanelHandle extends NodeHandle<ListView<PersonCard>> {
     }
 
     /**
-     * Returns the {@code PersonCard} at the specified {@code index} in the list.
+     * Returns the person card handle of a person associated with the {@code index} in the list.
      */
-    public PersonCard getCard(int index) {
-        return getRootNode().getItems().get(index);
+    public PersonCardHandle getPersonCardHandle(int index) throws PersonNotFoundException {
+        return getPersonCardHandle(getRootNode().getItems().get(index).person);
     }
 
     /**
-     * Returns the {@code PersonCard} of the specified {@code person} in the list.
+     * Returns the {@code PersonCardHandle} of the specified {@code person} in the list.
      */
-    public PersonCard getCard(ReadOnlyPerson person) throws PersonNotFoundException {
-        Optional<PersonCard> personCard = getRootNode().getItems().stream()
+    public PersonCardHandle getPersonCardHandle(ReadOnlyPerson person) throws PersonNotFoundException {
+        Optional<PersonCardHandle> handle = getRootNode().getItems().stream()
                 .filter(card -> card.person.equals(person))
+                .map(card -> new PersonCardHandle(card.getRoot()))
                 .findFirst();
-        return personCard.orElseThrow(PersonNotFoundException::new);
+        return handle.orElseThrow(PersonNotFoundException::new);
     }
 
     /**
