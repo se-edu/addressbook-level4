@@ -1,8 +1,8 @@
 package guitests;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static seedu.address.testutil.TypicalPersons.INDEX_FIRST_PERSON;
+import static seedu.address.ui.testutil.GuiTestAssert.assertCardEquals;
 
 import org.junit.Test;
 
@@ -51,14 +51,9 @@ public class SelectCommandTest extends AddressBookGuiTest {
     }
 
     private void assertCardSelected(Index index) throws Exception {
-        PersonCardHandle selectedCard = getPersonListPanel().getSelectedCardAsHandle().get();
         PersonCardHandle expectedCard = getPersonListPanel().getPersonCardHandle(index.getZeroBased());
-        assertEquals(expectedCard.getId(), selectedCard.getId());
-        assertEquals(expectedCard.getAddress(), selectedCard.getAddress());
-        assertEquals(expectedCard.getEmail(), selectedCard.getEmail());
-        assertEquals(expectedCard.getName(), selectedCard.getName());
-        assertEquals(expectedCard.getPhone(), selectedCard.getPhone());
-        assertEquals(expectedCard.getTags(), selectedCard.getTags());
+        PersonCardHandle selectedCard = getPersonListPanel().getSelectedCardAsHandle().get();
+        assertCardEquals(expectedCard, selectedCard);
         //TODO: confirm the correct page is loaded in the Browser Panel
     }
 

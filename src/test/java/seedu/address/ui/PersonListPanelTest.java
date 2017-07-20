@@ -3,6 +3,7 @@ package seedu.address.ui;
 import static org.junit.Assert.assertEquals;
 import static seedu.address.testutil.EventsUtil.post;
 import static seedu.address.testutil.TypicalPersons.INDEX_SECOND_PERSON;
+import static seedu.address.ui.testutil.GuiTestAssert.assertCardEquals;
 
 import java.util.Arrays;
 import java.util.stream.Collectors;
@@ -41,15 +42,18 @@ public class PersonListPanelTest extends GuiUnitTest {
             personListPanelHandle.navigateToCard(TYPICAL_PERSONS.get(i));
             ReadOnlyPerson expectedPerson = TYPICAL_PERSONS.get(i);
             PersonCardHandle actualCard = personListPanelHandle.getPersonCardHandle(i);
-
-            assertEquals(Integer.toString(i + 1) + ". ", actualCard.getId());
-            assertEquals(expectedPerson.getAddress().value, actualCard.getAddress());
-            assertEquals(expectedPerson.getEmail().value, actualCard.getEmail());
-            assertEquals(expectedPerson.getName().fullName, actualCard.getName());
-            assertEquals(expectedPerson.getPhone().value, actualCard.getPhone());
-            assertEquals(expectedPerson.getTags().stream().map(tag -> tag.tagName).collect(Collectors.toList()),
-                    actualCard.getTags());
+            assertPersonEqualsCard(i, expectedPerson, actualCard);
         }
+    }
+
+    private void assertPersonEqualsCard(int i, ReadOnlyPerson expectedPerson, PersonCardHandle actualCard) {
+        assertEquals(Integer.toString(i + 1) + ". ", actualCard.getId());
+        assertEquals(expectedPerson.getAddress().value, actualCard.getAddress());
+        assertEquals(expectedPerson.getEmail().value, actualCard.getEmail());
+        assertEquals(expectedPerson.getName().fullName, actualCard.getName());
+        assertEquals(expectedPerson.getPhone().value, actualCard.getPhone());
+        assertEquals(expectedPerson.getTags().stream().map(tag -> tag.tagName).collect(Collectors.toList()),
+                actualCard.getTags());
     }
 
     @Test
@@ -57,13 +61,8 @@ public class PersonListPanelTest extends GuiUnitTest {
         post(JUMP_TO_SECOND_EVENT);
         guiRobot.pauseForHuman();
 
-        PersonCardHandle selectedCard = personListPanelHandle.getSelectedCardAsHandle().get();
         PersonCardHandle expectedCard = personListPanelHandle.getPersonCardHandle(INDEX_SECOND_PERSON.getZeroBased());
-        assertEquals(expectedCard.getId(), selectedCard.getId());
-        assertEquals(expectedCard.getAddress(), selectedCard.getAddress());
-        assertEquals(expectedCard.getEmail(), selectedCard.getEmail());
-        assertEquals(expectedCard.getName(), selectedCard.getName());
-        assertEquals(expectedCard.getPhone(), selectedCard.getPhone());
-        assertEquals(expectedCard.getTags(), selectedCard.getTags());
+        PersonCardHandle selectedCard = personListPanelHandle.getSelectedCardAsHandle().get();
+        assertCardEquals(expectedCard, selectedCard);
     }
 }
