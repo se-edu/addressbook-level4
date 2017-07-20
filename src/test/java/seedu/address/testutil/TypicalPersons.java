@@ -51,6 +51,8 @@ public class TypicalPersons {
     public static final ReadOnlyPerson[] TYPICAL_PERSONS =
             new ReadOnlyPerson[]{ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE};
 
+    private TypicalPersons() {} // prevents instantiation
+
     public static void loadAddressBookWithSampleData(AddressBook ab) {
         for (ReadOnlyPerson person : TYPICAL_PERSONS) {
             try {
