@@ -23,18 +23,21 @@ public class DeleteCommandTest extends AddressBookGuiTest {
         //delete the first in the list
         ArrayList<ReadOnlyPerson> expectedList = new ArrayList<>(Arrays.asList(TYPICAL_PERSONS));
         Index targetIndex = INDEX_FIRST_PERSON;
+        ReadOnlyPerson toDelete = expectedList.get(targetIndex.getZeroBased());
         expectedList.remove(targetIndex.getZeroBased());
-        assertDeleteSuccess(targetIndex, expectedList);
+        assertDeleteSuccess(targetIndex, toDelete, expectedList);
 
         //delete the last in the list
         targetIndex = Index.fromOneBased(expectedList.size());
+        toDelete = expectedList.get(targetIndex.getZeroBased());
         expectedList.remove(targetIndex.getZeroBased());
-        assertDeleteSuccess(targetIndex, expectedList);
+        assertDeleteSuccess(targetIndex, toDelete, expectedList);
 
         //delete from the middle of the list
         targetIndex = Index.fromOneBased(expectedList.size() / 2);
+        toDelete = expectedList.get(targetIndex.getZeroBased());
         expectedList.remove(targetIndex.getZeroBased());
-        assertDeleteSuccess(targetIndex, expectedList);
+        assertDeleteSuccess(targetIndex, toDelete, expectedList);
 
         //invalid index
         runCommand(DeleteCommand.COMMAND_WORD + " " + expectedList.size() + 1);
@@ -46,9 +49,8 @@ public class DeleteCommandTest extends AddressBookGuiTest {
      * Runs the delete command to delete the person at {@code index} and confirms resulting list equals to
      * {@code expectedList} and that the displayed result message is correct.
      */
-    private void assertDeleteSuccess(Index index, final List<ReadOnlyPerson> expectedList) throws Exception {
-        ReadOnlyPerson personToDelete = getPersonListPanel().getCard(index.getZeroBased()).person;
-
+    private void assertDeleteSuccess(Index index, ReadOnlyPerson personToDelete, final List<Person> expectedList)
+            throws Exception {
         runCommand(DeleteCommand.COMMAND_WORD + " " + index.getOneBased());
 
         //confirm the list now contains all previous persons except the deleted person
