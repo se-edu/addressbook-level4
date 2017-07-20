@@ -48,9 +48,10 @@ public class DeleteCommandTest extends AddressBookGuiTest {
     /**
      * Runs the delete command to delete the person at {@code index} and confirms resulting list equals to
      * {@code expectedList} and that the displayed result message is correct.
+     * @param personToDelete the person located at {@code index} of the original list
      */
-    private void assertDeleteSuccess(Index index, ReadOnlyPerson personToDelete, final List<Person> expectedList)
-            throws Exception {
+    private void assertDeleteSuccess(Index index, ReadOnlyPerson personToDelete,
+                                     final List<ReadOnlyPerson> expectedList) throws Exception {
         runCommand(DeleteCommand.COMMAND_WORD + " " + index.getOneBased());
 
         //confirm the list now contains all previous persons except the deleted person
