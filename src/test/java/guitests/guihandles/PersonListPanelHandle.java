@@ -82,8 +82,8 @@ public class PersonListPanelHandle extends NodeHandle<ListView<PersonCard>> {
     /**
      * Returns the person card handle of a person associated with the {@code index} in the list.
      */
-    private PersonCardHandle getPersonCardHandle(int index) throws PersonNotFoundException {
-        return getPersonCardHandle(getCard(index).person);
+    public PersonCardHandle getPersonCardHandle(int index) throws PersonNotFoundException {
+        return getPersonCardHandle(getRootNode().getItems().get(index).person);
     }
 
     /**
