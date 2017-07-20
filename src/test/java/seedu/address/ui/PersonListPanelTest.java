@@ -43,7 +43,7 @@ public class PersonListPanelTest extends GuiUnitTest {
             ReadOnlyPerson expectedPerson = TYPICAL_PERSONS.get(i);
             PersonCardHandle actualCard = personListPanelHandle.getPersonCardHandle(i);
 
-            assertPersonEqualsCard(expectedPerson, actualCard);
+            assertCardDisplaysPerson(expectedPerson, actualCard);
             assertEquals(Integer.toString(i + 1) + ". ", actualCard.getId());
         }
     }
@@ -51,7 +51,7 @@ public class PersonListPanelTest extends GuiUnitTest {
     /**
      * Asserts that {@code actualCard} displays the details of {@code expectedPerson}.
      */
-    private void assertPersonEqualsCard(ReadOnlyPerson expectedPerson, PersonCardHandle actualCard) {
+    private void assertCardDisplaysPerson(ReadOnlyPerson expectedPerson, PersonCardHandle actualCard) {
         assertEquals(expectedPerson.getName().fullName, actualCard.getName());
         assertEquals(expectedPerson.getPhone().value, actualCard.getPhone());
         assertEquals(expectedPerson.getEmail().value, actualCard.getEmail());
@@ -66,7 +66,7 @@ public class PersonListPanelTest extends GuiUnitTest {
         guiRobot.pauseForHuman();
 
         PersonCardHandle expectedCard = personListPanelHandle.getPersonCardHandle(INDEX_SECOND_PERSON.getZeroBased());
-        PersonCardHandle selectedCard = personListPanelHandle.getSelectedCardAsHandle().get();
+        PersonCardHandle selectedCard = personListPanelHandle.getHandleToSelectedCard().get();
         assertCardEquals(expectedCard, selectedCard);
     }
 }

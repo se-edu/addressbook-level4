@@ -22,10 +22,10 @@ public class PersonListPanelHandle extends NodeHandle<ListView<PersonCard>> {
     }
 
     /**
-     * Returns the selected {@code PersonCard} in the list view encapsulated in a {@code PersonCardHandle}.
+     * Returns a handle to the selected {@code PersonCardHandle}.
      * A maximum of 1 item can be selected at any time.
      */
-    public Optional<PersonCardHandle> getSelectedCardAsHandle() {
+    public Optional<PersonCardHandle> getHandleToSelectedCard() {
         List<PersonCard> personList = getRootNode().getSelectionModel().getSelectedItems();
 
         if (personList.size() > 1) {
