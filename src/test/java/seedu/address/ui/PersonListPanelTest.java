@@ -18,7 +18,7 @@ import seedu.address.testutil.TypicalPersons;
 
 public class PersonListPanelTest extends GuiUnitTest {
     private static final ObservableList<ReadOnlyPerson> TYPICAL_PERSONS =
-            FXCollections.observableList(Arrays.asList(new TypicalPersons().getTypicalPersons()));
+            FXCollections.observableList(Arrays.asList(TypicalPersons.TYPICAL_PERSONS));
 
     private static final JumpToListRequestEvent JUMP_TO_SECOND_EVENT = new JumpToListRequestEvent(INDEX_SECOND_PERSON);
 

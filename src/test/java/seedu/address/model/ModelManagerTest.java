@@ -2,6 +2,8 @@ package seedu.address.model;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static seedu.address.testutil.TypicalPersons.ALICE;
+import static seedu.address.testutil.TypicalPersons.BENSON;
 
 import java.util.Arrays;
 
@@ -9,16 +11,12 @@ import org.junit.Test;
 
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.testutil.AddressBookBuilder;
-import seedu.address.testutil.TypicalPersons;
 
 public class ModelManagerTest {
 
-    private TypicalPersons typicalPersons = new TypicalPersons();
-
     @Test
     public void equals() throws Exception {
-        AddressBook addressBook = new AddressBookBuilder().withPerson(typicalPersons.alice)
-                .withPerson(typicalPersons.benson).build();
+        AddressBook addressBook = new AddressBookBuilder().withPerson(ALICE).withPerson(BENSON).build();
         AddressBook differentAddressBook = new AddressBook();
         UserPrefs userPrefs = new UserPrefs();
 
@@ -40,7 +38,7 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(new ModelManager(differentAddressBook, userPrefs)));
 
         // different filteredList -> returns false
-        String[] keywords = typicalPersons.alice.getName().fullName.split("\\s+");
+        String[] keywords = ALICE.getName().fullName.split("\\s+");
         modelManager.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
         assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs)));
         modelManager.updateFilteredListToShowAll(); // resets modelManager to initial state for upcoming tests
