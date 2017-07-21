@@ -1,6 +1,5 @@
 package guitests;
 
-import static org.junit.Assert.assertTrue;
 import static seedu.address.testutil.TypicalPersons.HOON;
 import static seedu.address.testutil.TypicalPersons.TYPICAL_PERSONS;
 
@@ -16,12 +15,12 @@ public class ClearCommandTest extends AddressBookGuiTest {
     public void clear() throws Exception {
 
         //verify a non-empty list can be cleared
-        assertTrue(getPersonListPanel().isListMatching(TYPICAL_PERSONS));
+        getPersonListPanel().assertListMatching(TYPICAL_PERSONS);
         assertClearCommandSuccess();
 
         //verify other commands can work after a clear command
         runCommand(PersonUtil.getAddCommand(HOON));
-        assertTrue(getPersonListPanel().isListMatching(HOON));
+        getPersonListPanel().assertListMatching(HOON);
         runCommand(DeleteCommand.COMMAND_WORD + " 1");
         assertListSize(0);
 
