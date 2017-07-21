@@ -95,19 +95,6 @@ public class PersonCardHandle extends NodeHandle<Node> {
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (obj instanceof PersonCardHandle) {
-            PersonCardHandle handle = (PersonCardHandle) obj;
-            return getName().equals(handle.getName())
-                    && getPhone().equals(handle.getPhone())
-                    && getEmail().equals(handle.getEmail())
-                    && getAddress().equals(handle.getAddress())
-                    && getTags().equals(handle.getTags());
-        }
-        return super.equals(obj);
-    }
-
-    @Override
     public String toString() {
         return getName() + " " + getAddress();
     }
