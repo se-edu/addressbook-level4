@@ -1,6 +1,6 @@
 package guitests;
 
-import static org.junit.Assert.assertTrue;
+import static seedu.address.ui.testutil.GuiTestAssert.assertListMatching;
 
 import org.junit.Test;
 
@@ -25,6 +25,6 @@ public class SampleDataTest extends AddressBookGuiTest {
     @Test
     public void addressBook_dataFileDoesNotExist_loadSampleData() throws Exception {
         Person[] expectedList = SampleDataUtil.getSamplePersons();
-        assertTrue(getPersonListPanel().isListMatching(expectedList));
+        assertListMatching(getPersonListPanel(), expectedList);
     }
 }
