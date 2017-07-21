@@ -1,7 +1,6 @@
 package seedu.address.ui.testutil;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 import java.util.stream.Collectors;
 
@@ -45,7 +44,7 @@ public class GuiTestAssert {
     public static void assertListMatching(PersonListPanelHandle personListPanelHandle, ReadOnlyPerson... persons)
             throws PersonNotFoundException {
         for (int i = 0; i < persons.length; i++) {
-            assertTrue(personListPanelHandle.getPersonCardHandle(i).isSamePerson(persons[i]));
+            assertCardDisplaysPerson(persons[i], personListPanelHandle.getPersonCardHandle(i));
         }
     }
 }
