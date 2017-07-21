@@ -1,11 +1,16 @@
 package seedu.address.ui.testutil;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 import java.util.stream.Collectors;
 
+import guitests.GuiRobot;
 import guitests.guihandles.PersonCardHandle;
+import guitests.guihandles.PersonListPanelHandle;
+import seedu.address.commons.core.index.Index;
 import seedu.address.model.person.ReadOnlyPerson;
+import seedu.address.model.person.exceptions.PersonNotFoundException;
 
 /**
  * A set of assertion methods useful for writing GUI tests.
@@ -33,5 +38,21 @@ public class GuiTestAssert {
         assertEquals(expectedPerson.getAddress().value, actualCard.getAddress());
         assertEquals(expectedPerson.getTags().stream().map(tag -> tag.tagName).collect(Collectors.toList()),
                 actualCard.getTags());
+    }
+
+    /**
+     * Asserts that the list in {@code personListPanelHandle} displays the details of {@code persons} correctly and
+     * in the correct order. The {@code PersonListPanel} list will be scrolled when verifying each individual person.
+     */
+    public static void assertListMatching(PersonListPanelHandle personListPanelHandle, ReadOnlyPerson... persons)
+            throws PersonNotFoundException {
+        GuiRobot guiRobot = new GuiRobot();
+
+        for (int i = 0; i < persons.length; i++) {
+            personListPanelHandle.scrollTo(Index.fromZeroBased(i));
+            guiRobot.pauseForHuman();
+
+            assertTrue(personListPanelHandle.getPersonCardHandle(i).isSamePerson(persons[i]));
+        }
     }
 }
