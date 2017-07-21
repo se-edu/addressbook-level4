@@ -3,12 +3,15 @@ package seedu.address.ui;
 import static org.junit.Assert.assertEquals;
 import static seedu.address.testutil.EventsUtil.post;
 import static seedu.address.testutil.TypicalPersons.INDEX_SECOND_PERSON;
+import static seedu.address.ui.testutil.GuiTestAssert.assertCardEquals;
 
 import java.util.Arrays;
+import java.util.stream.Collectors;
 
 import org.junit.Before;
 import org.junit.Test;
 
+import guitests.guihandles.PersonCardHandle;
 import guitests.guihandles.PersonListPanelHandle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -37,16 +40,33 @@ public class PersonListPanelTest extends GuiUnitTest {
     public void display() throws Exception {
         for (int i = 0; i < TYPICAL_PERSONS.size(); i++) {
             personListPanelHandle.navigateToCard(TYPICAL_PERSONS.get(i));
-            assertEquals(TYPICAL_PERSONS.get(i), personListPanelHandle.getCard(i).person);
+            ReadOnlyPerson expectedPerson = TYPICAL_PERSONS.get(i);
+            PersonCardHandle actualCard = personListPanelHandle.getPersonCardHandle(i);
+
+            assertCardDisplaysPerson(expectedPerson, actualCard);
+            assertEquals(Integer.toString(i + 1) + ". ", actualCard.getId());
         }
     }
 
+    /**
+     * Asserts that {@code actualCard} displays the details of {@code expectedPerson}.
+     */
+    private void assertCardDisplaysPerson(ReadOnlyPerson expectedPerson, PersonCardHandle actualCard) {
+        assertEquals(expectedPerson.getName().fullName, actualCard.getName());
+        assertEquals(expectedPerson.getPhone().value, actualCard.getPhone());
+        assertEquals(expectedPerson.getEmail().value, actualCard.getEmail());
+        assertEquals(expectedPerson.getAddress().value, actualCard.getAddress());
+        assertEquals(expectedPerson.getTags().stream().map(tag -> tag.tagName).collect(Collectors.toList()),
+                actualCard.getTags());
+    }
+
     @Test
-    public void handleJumpToListRequestEvent() {
+    public void handleJumpToListRequestEvent() throws Exception {
         post(JUMP_TO_SECOND_EVENT);
         guiRobot.pauseForHuman();
 
-        PersonCard selectedCard = personListPanelHandle.getSelectedCard().get();
-        assertEquals(personListPanelHandle.getCard(INDEX_SECOND_PERSON.getZeroBased()), selectedCard);
+        PersonCardHandle expectedCard = personListPanelHandle.getPersonCardHandle(INDEX_SECOND_PERSON.getZeroBased());
+        PersonCardHandle selectedCard = personListPanelHandle.getHandleToSelectedCard().get();
+        assertCardEquals(expectedCard, selectedCard);
     }
 }

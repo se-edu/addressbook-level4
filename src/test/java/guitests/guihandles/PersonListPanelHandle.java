@@ -22,16 +22,17 @@ public class PersonListPanelHandle extends NodeHandle<ListView<PersonCard>> {
     }
 
     /**
-     * Returns the selected {@code PersonCard} in the list view. A maximum of 1 item can be selected at any time.
+     * Returns a handle to the selected {@code PersonCardHandle}.
+     * A maximum of 1 item can be selected at any time.
      */
-    public Optional<PersonCard> getSelectedCard() {
+    public Optional<PersonCardHandle> getHandleToSelectedCard() {
         List<PersonCard> personList = getRootNode().getSelectionModel().getSelectedItems();
 
         if (personList.size() > 1) {
             throw new AssertionError("Person list size expected 0 or 1.");
         }
 
-        return personList.isEmpty() ? Optional.empty() : Optional.of(personList.get(0));
+        return personList.isEmpty() ? Optional.empty() : Optional.of(new PersonCardHandle(personList.get(0).getRoot()));
     }
 
     /**
@@ -73,17 +74,10 @@ public class PersonListPanelHandle extends NodeHandle<ListView<PersonCard>> {
     }
 
     /**
-     * Returns the {@code PersonCard} at the specified {@code index} in the list.
-     */
-    public PersonCard getCard(int index) {
-        return getRootNode().getItems().get(index);
-    }
-
-    /**
      * Returns the person card handle of a person associated with the {@code index} in the list.
      */
-    private PersonCardHandle getPersonCardHandle(int index) throws PersonNotFoundException {
-        return getPersonCardHandle(getCard(index).person);
+    public PersonCardHandle getPersonCardHandle(int index) throws PersonNotFoundException {
+        return getPersonCardHandle(getRootNode().getItems().get(index).person);
     }
 
     /**
