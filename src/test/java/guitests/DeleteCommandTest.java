@@ -1,6 +1,5 @@
 package guitests;
 
-import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS;
 import static seedu.address.testutil.TypicalPersons.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalPersons.TYPICAL_PERSONS;
@@ -55,7 +54,7 @@ public class DeleteCommandTest extends AddressBookGuiTest {
         runCommand(DeleteCommand.COMMAND_WORD + " " + index.getOneBased());
 
         //confirm the list now contains all previous persons except the deleted person
-        assertTrue(getPersonListPanel().isListMatching(expectedList.toArray(new ReadOnlyPerson[expectedList.size()])));
+        getPersonListPanel().assertListMatching(expectedList.toArray(new ReadOnlyPerson[expectedList.size()]));
 
         //confirm the result message is correct
         assertResultMessage(String.format(MESSAGE_DELETE_PERSON_SUCCESS, personToDelete));

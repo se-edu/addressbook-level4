@@ -1,6 +1,5 @@
 package guitests;
 
-import static org.junit.Assert.assertTrue;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.HOON;
 import static seedu.address.testutil.TypicalPersons.IDA;
@@ -37,7 +36,7 @@ public class AddCommandTest extends AddressBookGuiTest {
         //add duplicate person
         runCommand(PersonUtil.getAddCommand(HOON));
         assertResultMessage(AddCommand.MESSAGE_DUPLICATE_PERSON);
-        assertTrue(getPersonListPanel().isListMatching(expectedList.toArray(new Person[expectedList.size()])));
+        getPersonListPanel().assertListMatching(expectedList.toArray(new Person[expectedList.size()]));
 
         //add to empty list
         runCommand(ClearCommand.COMMAND_WORD);
@@ -60,7 +59,7 @@ public class AddCommandTest extends AddressBookGuiTest {
         assertCardMatchesPerson(addedCard, personToAdd);
 
         //confirm the list now contains all previous persons plus the new person
-        assertTrue(getPersonListPanel().isListMatching(expectedList.toArray(new ReadOnlyPerson[expectedList.size()])));
+        getPersonListPanel().assertListMatching(expectedList.toArray(new ReadOnlyPerson[expectedList.size()]));
     }
 
 }
