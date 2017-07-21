@@ -3,10 +3,10 @@ package seedu.address.ui;
 import static org.junit.Assert.assertEquals;
 import static seedu.address.testutil.EventsUtil.post;
 import static seedu.address.testutil.TypicalPersons.INDEX_SECOND_PERSON;
+import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysPerson;
 import static seedu.address.ui.testutil.GuiTestAssert.assertCardEquals;
 
 import java.util.Arrays;
-import java.util.stream.Collectors;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -46,18 +46,6 @@ public class PersonListPanelTest extends GuiUnitTest {
             assertCardDisplaysPerson(expectedPerson, actualCard);
             assertEquals(Integer.toString(i + 1) + ". ", actualCard.getId());
         }
-    }
-
-    /**
-     * Asserts that {@code actualCard} displays the details of {@code expectedPerson}.
-     */
-    private void assertCardDisplaysPerson(ReadOnlyPerson expectedPerson, PersonCardHandle actualCard) {
-        assertEquals(expectedPerson.getName().fullName, actualCard.getName());
-        assertEquals(expectedPerson.getPhone().value, actualCard.getPhone());
-        assertEquals(expectedPerson.getEmail().value, actualCard.getEmail());
-        assertEquals(expectedPerson.getAddress().value, actualCard.getAddress());
-        assertEquals(expectedPerson.getTags().stream().map(tag -> tag.tagName).collect(Collectors.toList()),
-                actualCard.getTags());
     }
 
     @Test
