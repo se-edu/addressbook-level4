@@ -32,6 +32,9 @@ public abstract class UiPart<T> {
         requireNonNull(fxmlFileUrl);
         fxmlLoader = new FXMLLoader(fxmlFileUrl);
         fxmlLoader.setController(this);
+        if (this instanceof BrowserPanel) {
+            return;
+        }
         try {
             fxmlLoader.load();
         } catch (IOException e) {
