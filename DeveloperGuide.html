@@ -27,11 +27,11 @@
 <li><a href="#setting-up">1. Setting up</a>
 <ul class="sectlevel2">
 <li><a href="#prerequisites">1.1. Prerequisites</a></li>
-<li><a href="#importing-the-project-into-eclipse">1.2. Importing the project into Eclipse</a></li>
-<li><a href="#configuring-checkstyle">1.3. Configuring Checkstyle</a></li>
-<li><a href="#troubleshooting-project-setup">1.4. Troubleshooting project setup</a></li>
-<li><a href="#updating-documentation">1.5. Updating documentation</a></li>
-<li><a href="#coding-style">1.6. Coding style</a></li>
+<li><a href="#importing-the-project-into-intellij">1.2. Importing the project into IntelliJ</a></li>
+<li><a href="#configuring-checkstyle-idea">1.3. Configuring Checkstyle-IDEA</a></li>
+<li><a href="#updating-documentation">1.4. Updating documentation</a></li>
+<li><a href="#coding-style">1.5. Coding style</a></li>
+<li><a href="#configuring-import-statements">1.6. Configuring import statements</a></li>
 </ul>
 </li>
 <li><a href="#design">2. Design</a>
@@ -53,7 +53,6 @@
 <li><a href="#testing">4. Testing</a>
 <ul class="sectlevel2">
 <li><a href="#headless-gui-testing">4.1. Headless GUI Testing</a></li>
-<li><a href="#troubleshooting-tests">4.2. Troubleshooting tests</a></li>
 </ul>
 </li>
 <li><a href="#dev-ops">5. Dev Ops</a>
@@ -98,148 +97,149 @@ This app will not work with earlier versions of Java 8.
 </div>
 </li>
 <li>
-<p><strong>Eclipse</strong> IDE</p>
+<p><strong>IntelliJ</strong> IDE</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+IntelliJ by default has Gradle and JavaFx plugins installed.<br>
+Do not disable them. If you have disabled them, go to <code>File</code> &gt; <code>Settings</code> &gt; <code>Plugins</code> to re-enable them.
+</td>
+</tr>
+</table>
+</div>
 </li>
 <li>
-<p><strong>e(fx)clipse</strong> plugin for Eclipse (Do the steps 2 onwards given in <a href="http://www.eclipse.org/efxclipse/install.html#for-the-ambitious">this page</a>)</p>
-</li>
-<li>
-<p><strong>Buildship Gradle Integration</strong> plugin from the Eclipse Marketplace</p>
-</li>
-<li>
-<p><strong>Checkstyle Plug-in</strong> plugin from the Eclipse Marketplace</p>
+<p><strong>CheckStyle-IDEA</strong> plugin</p>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Install the plugin by going to <code>File</code> &gt; <code>Settings</code> (Windows/Linux), or <code>IntelliJ IDEA</code> &gt; <code>Preferences&#8230;&#8203;</code> (macOS).<br>
+Select <code>Plugins</code>, press <code>Browse Repository</code>, and find the plugin.<br>
+Restart the IDE to complete the installation.
+</td>
+</tr>
+</table>
+</div>
 </li>
 </ol>
 </div>
 </div>
 <div class="sect2">
-<h3 id="importing-the-project-into-eclipse"><a class="link" href="#importing-the-project-into-eclipse">1.2. Importing the project into Eclipse</a></h3>
+<h3 id="importing-the-project-into-intellij"><a class="link" href="#importing-the-project-into-intellij">1.2. Importing the project into IntelliJ</a></h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
 <p>Fork this repo, and clone the fork to your computer</p>
 </li>
 <li>
-<p>Open Eclipse (Note: Ensure you have installed the <strong>e(fx)clipse</strong> and <strong>buildship</strong> plugins as given in the prerequisites above)</p>
+<p>Open IntelliJ (if you are not in the welcome screen, click <code>File</code> &gt; <code>Close Project</code> to close the existing project dialog first)</p>
 </li>
 <li>
-<p>Click <code>File</code> &gt; <code>Import</code></p>
+<p>Set up the correct JDK version for Gradle</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Click <code>Configure</code> &gt; <code>Project Defaults</code> &gt; <code>Project Structure</code></p>
 </li>
 <li>
-<p>Click <code>Gradle</code> &gt; <code>Gradle Project</code> &gt; <code>Next</code> &gt; <code>Next</code></p>
-</li>
-<li>
-<p>Click <code>Browse</code>, then locate the project&#8217;s directory</p>
-</li>
-<li>
-<p>Click <code>Finish</code></p>
+<p>Click <code>New&#8230;&#8203;</code> and find the directory of the JDK</p>
 </li>
 </ol>
 </div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<div class="ulist">
-<ul>
-<li>
-<p>If you are asked whether to 'keep' or 'overwrite' config files, choose to 'keep'.</p>
 </li>
 <li>
-<p>Depending on your connection speed and server load, it can even take up to 30 minutes for the set up to finish (This is because Gradle downloads library files from servers during the project set up process).</p>
+<p>Click <code>Import Project</code></p>
 </li>
 <li>
-<p>If Eclipse auto-changed any settings files during the import process, you can discard those changes.</p>
+<p>Locate the <code>build.gradle</code> file and select it. Click <code>OK</code></p>
 </li>
-</ul>
-</div>
-</td>
-</tr>
-</table>
+<li>
+<p>Click <code>Open as Project</code></p>
+</li>
+<li>
+<p>Click <code>OK</code> to accept the default settings</p>
+</li>
+</ol>
 </div>
 </div>
 <div class="sect2">
-<h3 id="configuring-checkstyle"><a class="link" href="#configuring-checkstyle">1.3. Configuring Checkstyle</a></h3>
+<h3 id="configuring-checkstyle-idea"><a class="link" href="#configuring-checkstyle-idea">1.3. Configuring Checkstyle-IDEA</a></h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Click <code>Project</code> &#8594; <code>Properties</code> &#8594; <code>Checkstyle</code> &#8594; <code>Local Check Configurations</code> &#8594; <code>New&#8230;&#8203;</code></p>
+<p>Click <code>File</code> &gt; <code>Settings&#8230;&#8203;</code> &gt; <code>Other Settings</code> &gt; <code>Checkstyle</code></p>
 </li>
 <li>
-<p>Choose <code>External Configuration File</code> under <code>Type</code></p>
+<p>Click the plus sign under <code>Configuration File</code></p>
 </li>
 <li>
-<p>Enter an arbitrary configuration name e.g. addressbook</p>
+<p>Enter an arbitrary description e.g. addressbook</p>
 </li>
 <li>
-<p>Import checkstyle configuration file found at <code>config/checkstyle/checkstyle.xml</code></p>
+<p>Select <code>Use a local Checkstyle file</code></p>
 </li>
 <li>
-<p>Click OK once, go to the <code>Main</code> tab, use the newly imported check configuration.</p>
+<p>Use the checkstyle configuration file found at <code>config/checkstyle/checkstyle.xml</code></p>
 </li>
 <li>
-<p>Tick and select <code>files from packages</code>, click <code>Change&#8230;&#8203;</code>, and select the <code>resources</code> package</p>
+<p>Click <code>Next</code> &gt; <code>Finish</code></p>
 </li>
 <li>
-<p>Click OK twice. Rebuild project if prompted</p>
+<p>Mark <code>Active</code> for the newly imported check configuration</p>
+</li>
+<li>
+<p>Click <code>OK</code></p>
 </li>
 </ol>
 </div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-Click on the <code>files from packages</code> text after ticking in order to enable the <code>Change&#8230;&#8203;</code> button
-</td>
-</tr>
-</table>
-</div>
 </div>
 <div class="sect2">
-<h3 id="troubleshooting-project-setup"><a class="link" href="#troubleshooting-project-setup">1.4. Troubleshooting project setup</a></h3>
-<div class="paragraph">
-<p><strong>Problem: Eclipse reports compile errors after new commits are pulled from Git</strong></p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Reason: Eclipse fails to recognize new files that appeared due to the Git pull.</p>
-</li>
-<li>
-<p>Solution: Refresh the project in Eclipse: Right click on the project (in Eclipse package explorer), choose <code>Gradle</code> &#8594; <code>Refresh Gradle Project</code>.</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p><strong>Problem: Eclipse reports some required libraries missing</strong></p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Reason: Required libraries may not have been downloaded during the project import.</p>
-</li>
-<li>
-<p>Solution: <a href="UsingGradle.html">Run tests using Gradle</a> once (to refresh the libraries).</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="updating-documentation"><a class="link" href="#updating-documentation">1.5. Updating documentation</a></h3>
+<h3 id="updating-documentation"><a class="link" href="#updating-documentation">1.4. Updating documentation</a></h3>
 <div class="paragraph">
 <p>After forking the repo, links in the documentation will link to the wrong repo. You should replace the URL in the variable <code>repoURL</code> in DeveloperGuide.adoc with the URL of your fork.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="coding-style"><a class="link" href="#coding-style">1.6. Coding style</a></h3>
+<h3 id="coding-style"><a class="link" href="#coding-style">1.5. Coding style</a></h3>
 <div class="paragraph">
 <p>We follow <a href="https://github.com/oss-generic/process/blob/master/docs/CodingStandards.md">oss-generic coding standards</a>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="configuring-import-statements"><a class="link" href="#configuring-import-statements">1.6. Configuring import statements</a></h3>
+<div class="paragraph">
+<p>IntelliJ uses a different import order from our coding style. To rectify this issue:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Go to <code>File</code> &gt; <code>Settings&#8230;&#8203;</code> (Windows/Linux), or <code>IntelliJ IDEA</code> &gt; <code>Preferences&#8230;&#8203;</code> (macOS)</p>
+</li>
+<li>
+<p>Select <code>Editor</code> &gt; <code>Code Style</code> &gt; <code>Java</code></p>
+</li>
+<li>
+<p>Click on the <code>Imports</code> tab to set the order</p>
+<div class="ulist">
+<ul>
+<li>
+<p>For <code>Class count to use import with '*'</code> and <code>Names count to use static import with '*'</code>: Set to <code>999</code> to prevent IntelliJ from contracting the import statements</p>
+</li>
+<li>
+<p>For <code>Import Layout</code>: The order is <code>import static all other imports</code>, <code>import java.*</code>, <code>import javax.*</code>, <code>import org.*</code>, <code>import com.*</code>, <code>import all other imports</code>. Add a <code>&lt;blank line&gt;</code> between each <code>import</code></p>
+</li>
+</ul>
+</div>
+</li>
+</ol>
 </div>
 </div>
 </div>
@@ -614,15 +614,15 @@ Note how the event is propagated through the <code>EventsCenter</code> to the <c
 <p>Tests can be found in the <code>./src/test/java</code> folder.</p>
 </div>
 <div class="paragraph">
-<p><strong>In Eclipse</strong>:</p>
+<p><strong>In IntelliJ</strong>:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>To run all tests, right-click on the <code>src/test/java</code> folder and choose <code>Run as</code> &gt; <code>JUnit Test</code></p>
+<p>To run all tests, right-click on the <code>src/test/java</code> folder and choose <code>Run 'All Tests'</code></p>
 </li>
 <li>
-<p>To run a subset of tests, you can right-click on a test package, test class, or a test and choose to run as a JUnit test.</p>
+<p>To run a subset of tests, you can right-click on a test package, test class, or a test and choose <code>Run 'ABC'</code></p>
 </li>
 </ul>
 </div>
@@ -669,22 +669,6 @@ e.g. <code>seedu.address.logic.LogicManagerTest</code></p>
 <h3 id="headless-gui-testing"><a class="link" href="#headless-gui-testing">4.1. Headless GUI Testing</a></h3>
 <div class="paragraph">
 <p>Thanks to the <a href="https://github.com/TestFX/TestFX">TestFX</a> library we use, our GUI tests can be run in the <em>headless</em> mode. In the headless mode, GUI tests do not show up on the screen. That means the developer can do other things on the Computer while the tests are running. See <a href="UsingGradle.html#running-tests">UsingGradle.adoc</a> to learn how to run tests in headless mode.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="troubleshooting-tests"><a class="link" href="#troubleshooting-tests">4.2. Troubleshooting tests</a></h3>
-<div class="paragraph">
-<p><strong>Problem: Tests fail because NullPointException when AssertionError is expected</strong></p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Reason: Assertions are not enabled for JUnit tests. This can happen if you are not using a recent Eclipse version (i.e. <em>Neon</em> or later)</p>
-</li>
-<li>
-<p>Solution: Enable assertions in JUnit tests as described <a href="http://stackoverflow.com/questions/2522897/eclipse-junit-ea-vm-option">here</a>. Delete run configurations created when you ran tests earlier.</p>
-</li>
-</ul>
 </div>
 </div>
 </div>
@@ -981,7 +965,7 @@ Use case resumes at step 2</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-07-21 07:39:14 +00:00
+Last updated 2017-07-21 07:40:45 +00:00
 </div>
 </div>
 </body>
