@@ -1,7 +1,6 @@
 package seedu.address.ui.testutil;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 import java.util.stream.Collectors;
@@ -56,7 +55,7 @@ public class GuiTestAssert {
             guiRobot.interact(() -> personListPanelHandle.scrollTo(scrollTo));
             guiRobot.pauseForHuman();
 
-            assertTrue(personListPanelHandle.getPersonCardHandle(i).isSamePerson(persons[i]));
+            assertCardDisplaysPerson(persons[i], personListPanelHandle.getPersonCardHandle(i));
         }
     }
 }
