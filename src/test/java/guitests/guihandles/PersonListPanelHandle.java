@@ -1,8 +1,7 @@
 package guitests.guihandles;
 
-
-import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.util.AppUtil.checkArgument;
+import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysPerson;
 
 import java.util.List;
 import java.util.Optional;
@@ -50,7 +49,7 @@ public class PersonListPanelHandle extends NodeHandle<ListView<PersonCard>> {
             guiRobot.interact(() -> getRootNode().scrollTo(scrollTo));
             guiRobot.pauseForHuman();
 
-            assertTrue(getPersonCardHandle(i).isSamePerson(persons[i]));
+            assertCardDisplaysPerson(persons[i], getPersonCardHandle(i));
         }
     }
 
