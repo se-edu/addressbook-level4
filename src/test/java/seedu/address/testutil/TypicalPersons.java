@@ -53,6 +53,9 @@ public class TypicalPersons {
 
     private TypicalPersons() {} // prevents instantiation
 
+    /**
+     * Loads the {@code ab} with all the typical persons.
+     */
     public static void loadAddressBookWithSampleData(AddressBook ab) {
         for (ReadOnlyPerson person : TYPICAL_PERSONS) {
             try {
