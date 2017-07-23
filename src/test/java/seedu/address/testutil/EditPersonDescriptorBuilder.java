@@ -72,7 +72,8 @@ public class EditPersonDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code Tags} of the {@code EditPersonDescriptor} that we are building.
+     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code EditPersonDescriptor}
+     * that we are building.
      * @throws IllegalValueException if any of the {@code tags} is invalid.
      */
     public EditPersonDescriptorBuilder withTags(String... tags) throws IllegalValueException {

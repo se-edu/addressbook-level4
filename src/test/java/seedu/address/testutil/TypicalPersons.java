@@ -48,8 +48,13 @@ public class TypicalPersons {
         }
     }
 
+    public static final ReadOnlyPerson[] TYPICAL_PERSONS =
+            new ReadOnlyPerson[]{ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE};
+
+    private TypicalPersons() {} // prevents instantiation
+
     /**
-     * Loads the {@code AddressBook} with all the typical persons.
+     * Loads the {@code ab} with all the typical persons.
      */
     public static void loadAddressBookWithSampleData(AddressBook ab) {
         for (ReadOnlyPerson person : TYPICAL_PERSONS) {
