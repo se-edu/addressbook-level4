@@ -6,6 +6,10 @@ import junit.framework.AssertionFailedError;
  * A set of assertion methods useful for writing tests.
  */
 public class Assert {
+
+    /**
+ +   * Asserts that the {@code executable} throws the {@code expected} Exception.
+ +   */
     public static void assertThrows(Class<? extends Throwable> expected, Runnable executable) {
         try {
             executable.run();
