@@ -114,7 +114,7 @@ public class CommandTestUtil {
         assert model.getFilteredPersonList().size() == 1;
     }
 
-    /*
+    /**
      * Deletes the first person in {@code model}'s filtered list from {@code model}'s address book.
      */
     public static void deleteFirstPerson(Model model) throws Exception {

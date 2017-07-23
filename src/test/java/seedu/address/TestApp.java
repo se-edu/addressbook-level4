@@ -74,6 +74,9 @@ public class TestApp extends MainApp {
         launch(args);
     }
 
+    /**
+     * Creates an XML file at the {@code filePath} with the {@code data}.
+     */
     private <T> void createDataFileWithData(T data, String filePath) {
         try {
             File saveFileForTesting = new File(filePath);
