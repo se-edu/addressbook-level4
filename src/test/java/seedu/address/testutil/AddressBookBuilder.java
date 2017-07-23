@@ -24,7 +24,7 @@ public class AddressBookBuilder {
     }
 
     /**
-     * Adds a new {@code ReadOnlyPerson} to the {@code AddressBook} that we are building.
+     * Adds a new {@code Person} to the {@code AddressBook} that we are building.
      * @throws DuplicatePersonException if the {@code person} already exists in the building Addressbook.
      */
     public AddressBookBuilder withPerson(ReadOnlyPerson person) throws DuplicatePersonException {
