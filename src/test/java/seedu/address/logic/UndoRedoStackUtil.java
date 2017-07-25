@@ -5,6 +5,9 @@ import java.util.List;
 
 import seedu.address.logic.commands.UndoableCommand;
 
+/**
+ * Contains helper methods for testing {@code UndoRedoStack}.
+ */
 public class UndoRedoStackUtil {
     /**
      * Adds {@code undoElements} into {@code UndoRedoStack#undoStack} and adds {@code redoElements}
