@@ -1,18 +1,17 @@
 package guitests.guihandles;
 
 
-import static seedu.address.commons.util.AppUtil.checkArgument;
-
 import java.util.List;
 import java.util.Optional;
 
 import javafx.scene.control.ListView;
+import seedu.address.commons.core.index.Index;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.ui.PersonCard;
 
 /**
- * Provides a handle for the panel containing the person list.
+ * Provides a handle for {@code PersonListPanel} containing the list of {@code PersonCard}.
  */
 public class PersonListPanelHandle extends NodeHandle<ListView<PersonCard>> {
     public static final String PERSON_LIST_VIEW_ID = "#personListView";
@@ -36,23 +35,10 @@ public class PersonListPanelHandle extends NodeHandle<ListView<PersonCard>> {
     }
 
     /**
-     * Returns true if the list is showing the person details correctly and in correct order.
-     * @param persons A list of person in the correct order.
+     * Scrolls the list to the {@code index} given.
      */
-    public boolean isListMatching(ReadOnlyPerson... persons) throws PersonNotFoundException {
-        List<PersonCard> personList = getRootNode().getItems();
-        checkArgument(personList.size() == persons.length,
-                "List size mismatched\nExpected " + personList.size() + " persons");
-
-        for (int i = 0; i < persons.length; i++) {
-            final int scrollTo = i; // lambda expression needs i to be final
-            guiRobot.interact(() -> getRootNode().scrollTo(scrollTo));
-            guiRobot.pauseForHuman();
-            if (!getPersonCardHandle(i).isSamePerson(persons[i])) {
-                return false;
-            }
-        }
-        return true;
+    public void scrollTo(Index index) {
+        guiRobot.interact(() -> getRootNode().scrollTo(index.getZeroBased()));
     }
 
     /**
