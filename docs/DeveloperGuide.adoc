@@ -227,11 +227,17 @@ The undo/redo mechanism is facilitated by an `UndoRedoStack`, which is owned by 
 * When undoing, the most recent undone command (at the top of the `undoStack`) will be popped off the `undoStack`, and pushed back into the `redoStack` as the `AddressBook` reverts the changes made.
 * When redoing, the most recent redone command (at the top of the `redoStack`) will be popped off the `redoStack`, and pushed back into the `undoStack` as the `AddressBook` reapplies the changes made.
 
-==== Running Example
+`UndoRedoStack` only interacts with `UndoableCommands`. Commands that cannot be undone will inherit from `Command` instead. The following diagram shows the inheritance diagram for commands:
 
-Suppose that the user has just launched the application and executed the `clear` command (which is an `UndoableCommand`). The user executes a new `UndoableCommand`, `add n/foo ...` to add a new person.
+image::LogicCommandClassDiagram.png[width="800"]
 
-The current state of the address book is saved before the `add` command executes. The `add` command will then be pushed onto the `undoStack`. (The current state is saved together with the command).
+Suppose that the user has just launched the application. The `UndoRedoStack` will be empty at the beginning.
+
+The user executes a new `UndoableCommand`, `clear`, to delete all person in the address book. The current state of the address book is saved before the `clear` command executes. The `clear` command will then be pushed onto the `undoStack` (the current state is saved together with the command).
+
+image::UndoRedoStartingStackDiagram.png[width="800"]
+
+As the user continues to use the program, more commands are added into the `undoStack`. For example, the user may execute `add n/foo ...` to add a new person.
 
 image::UndoRedoNewCommand1StackDiagram.png[width="800"]
 
@@ -244,6 +250,10 @@ image::UndoRedoExecuteUndoStackDiagram.png[width="800"]
 [NOTE]
 If the `undoStack` is empty, then there are no other commands left to be undone, and an `Exception` will be thrown when popping the `undoStack`.
 
+The following sequence diagram shows how the undo operation works:
+
+image::UndoRedoSequenceDiagram.png[width="800"]
+
 The redo does the exact opposite (pops from `redoStack`, push to `undoStack`, and restores the address book to the state after the command is executed).
 
 [NOTE]
@@ -252,6 +262,10 @@ If the `redoStack` is empty, then there are no other commands left to be redone,
 The user now decides to execute a new command, `delete 5`. As before, `delete 5` will be pushed into the `undoStack`. This time the `redoStack` is no longer empty. It will be purged as it no longer make sense to redo the `add n/foo` command (this is the behavior that most modern desktop applications follow).
 
 image::UndoRedoNewCommand2StackDiagram.png[width="800"]
+
+Commands that are not undoable are not added into the `undoStack`. For example, `list`, which inherits from `Command` rather than `UndoableCommand`, will not be added after execution:
+
+image::UndoRedoNewCommand3StackDiagram.png[width="800"]
 
 The following activity diagram summarize what happens inside the `UndoRedoStack` when a user executes a new command:
 
@@ -272,7 +286,7 @@ We decided to make `UndoRedoStack` a separate entity from `HistoryManager`. Comb
 
 We decided to use two stacks as it is easy to understand for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
 
-We decided not to include commands that do not modify the state of the address book (e.g. `find`, `list`). This is because no data is lost during the process, and the person list can easily be reconfigured to display what the user wants.
+We decided not to include commands that do not modify the state of the address book (e.g. `find`, `list`). This is because no data is lost during the process, and the person list can easily be reconfigured to display what the user wants. (See our discusion https://github.com/se-edu/addressbook-level4/issues/390#issuecomment-298936672[here].)
 
 === Logging
 
