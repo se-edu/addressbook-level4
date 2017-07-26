@@ -14,18 +14,17 @@ import seedu.address.model.person.Remark;
 
 public class RemarkCommandParserTest {
     private RemarkCommandParser parser = new RemarkCommandParser();
+    private final String nonEmptyRemark = "Some remark.";
 
     @Test
-    public void parse_indexSpecified_failure() throws Exception {
-        final Remark remark = new Remark("Some remark.");
-
-        // have remarks
+    public void parse_indexSpecified_success() throws Exception {
+        // have remark
         Index targetIndex = INDEX_FIRST_PERSON;
-        String userInput = targetIndex.getOneBased() + " " + PREFIX_REMARK.toString() + " " + remark;
-        RemarkCommand expectedCommand = new RemarkCommand(INDEX_FIRST_PERSON, remark);
+        String userInput = targetIndex.getOneBased() + " " + PREFIX_REMARK.toString() + nonEmptyRemark;
+        RemarkCommand expectedCommand = new RemarkCommand(INDEX_FIRST_PERSON, new Remark(nonEmptyRemark));
         assertParseSuccess(parser, userInput, expectedCommand);
 
-        // no remarks
+        // no remark
         userInput = targetIndex.getOneBased() + " " + PREFIX_REMARK.toString();
         expectedCommand = new RemarkCommand(INDEX_FIRST_PERSON, new Remark(""));
         assertParseSuccess(parser, userInput, expectedCommand);
@@ -35,7 +34,10 @@ public class RemarkCommandParserTest {
     public void parse_noFieldSpecified_failure() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, RemarkCommand.MESSAGE_USAGE);
 
-        // nothing at all
+        // no parameters
         assertParseFailure(parser, RemarkCommand.COMMAND_WORD, expectedMessage);
+
+        // no index
+        assertParseFailure(parser, RemarkCommand.COMMAND_WORD + " " + nonEmptyRemark, expectedMessage);
     }
 }

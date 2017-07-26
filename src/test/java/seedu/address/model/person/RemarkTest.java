@@ -24,7 +24,7 @@ public class RemarkTest {
         // null -> returns false
         assertFalse(remark.equals(null));
 
-        // different person -> returns false
+        // different remark -> returns false
         Remark differentRemark = new Remark("Bye");
         assertFalse(remark.equals(differentRemark));
     }

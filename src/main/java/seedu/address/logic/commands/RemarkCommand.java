@@ -38,7 +38,7 @@ public class RemarkCommand extends UndoableCommand {
 
     /**
      * @param index of the person in the filtered person list to edit the remark
-     * @param remark of the person
+     * @param remark of the person to be updated to
      */
     public RemarkCommand(Index index, Remark remark) {
         requireNonNull(index);
@@ -73,15 +73,12 @@ public class RemarkCommand extends UndoableCommand {
     }
 
     /**
-     * Generate a command execution success message based on whether the remark is added to or removed from
+     * Generates a command execution success message based on whether the remark is added to or removed from
      * {@code personToEdit}.
      */
     private String generateSuccessMessage(Person personToEdit) {
-        if (!remark.value.isEmpty()) {
-            return String.format(MESSAGE_ADD_REMARK_SUCCESS, personToEdit);
-        } else {
-            return String.format(MESSAGE_DELETE_REMARK_SUCCESS, personToEdit);
-        }
+        String message = (!remark.value.isEmpty()) ? MESSAGE_ADD_REMARK_SUCCESS : MESSAGE_DELETE_REMARK_SUCCESS;
+        return String.format(message, personToEdit);
     }
 
     @Override
