@@ -223,15 +223,42 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 The undo/redo mechanism is facilitated by an `UndoRedoStack`, which resides inside `LogicManager`. It supports undoing and redoing of commands that modifies the state of the address book (e.g. `add`, `edit`). Such commands will inherit from `UndoableCommand`.
 
-* Newly executed `UndoableCommand` will be pushed into the `undoStack`.
-* When undoing, the most recent undone command (at the top of the `undoStack`) will be popped off the `undoStack`, and pushed back into the `redoStack` as the `AddressBook` reverts the changes made.
-* When redoing, the most recent redone command (at the top of the `redoStack`) will be popped off the `redoStack`, and pushed back into the `undoStack` as the `AddressBook` reapplies the changes made.
-
-`UndoRedoStack` only interacts with `UndoableCommands`. Commands that cannot be undone will inherit from `Command` instead. The following diagram shows the inheritance diagram for commands:
+`UndoRedoStack` only deals with `UndoableCommands`. Commands that cannot be undone will inherit from `Command` instead. The following diagram shows the inheritance diagram for commands:
 
 image::LogicCommandClassDiagram.png[width="800"]
 
-`UndoableCommand` implements the https://www.tutorialspoint.com/design_pattern/template_pattern.htm[template pattern]. The template pattern allows users of `UndoableCommand` to continue using the `execute()` method just like any other `Command`, while allowing `UndoableCommand` to inject additional behaviors to `execute()` (such as saving the state of the address book before execution) that will be automatically inherited by subclasses of `UndoableCommand`. Subclasses of `UndoableCommand` will now override `executeUndoableCommand()` instead of `execute()` as a result.
+As you can see from the diagram, `UndoableCommand` adds an extra layer between the abstract `Command` class and concrete commands that can be undone, such as the `DeleteCommand`. Note that extra tasks need to be done when executing a command in an _undoable_ way, such as saving the state of the address book before execution. `UndoableCommand` contains the high-level algorithm for those extra tasks while the child classes implements the details of how to execute the specific command. Note that this technique of putting the high-level algorithm in the parent class and lower-level steps of the algorithm in child classes is also known as the https://www.tutorialspoint.com/design_pattern/template_pattern.htm[template pattern].
+
+Before `UndoableCommand`, commands were implemented this way:
+[source,java]
+----
+public class DeleteCommand extends Command {
+    @Override
+    public CommandResult execute() {
+        // ... delete logic ...
+    }
+}
+----
+
+With the extra layer, the commands are now implemented this way:
+[source,java]
+----
+public abstract class UndoableCommand extends Command {
+    @Override
+    public CommandResult execute() {
+        // ... undo logic ...
+
+        executeUndoableCommand();
+    }
+}
+
+public class DeleteCommand extends UndoableCommand {
+    @Override
+    public CommandResult executeUndoableCommand() {
+        // ... delete logic ...
+    }
+}
+----
 
 Suppose that the user has just launched the application. The `UndoRedoStack` will be empty at the beginning.
 
@@ -239,7 +266,7 @@ The user executes a new `UndoableCommand`, `clear`, to delete all person in the 
 
 image::UndoRedoStartingStackDiagram.png[width="800"]
 
-As the user continues to use the program, more commands are added into the `undoStack`. For example, the user may execute `add n/foo ...` to add a new person.
+As the user continues to use the program, more commands are added into the `undoStack`. For example, the user may execute `add n/David ...` to add a new person.
 
 image::UndoRedoNewCommand1StackDiagram.png[width="800"]
 
@@ -261,7 +288,7 @@ The redo does the exact opposite (pops from `redoStack`, push to `undoStack`, an
 [NOTE]
 If the `redoStack` is empty, then there are no other commands left to be redone, and an `Exception` will be thrown when popping the `redoStack`.
 
-The user now decides to execute a new command, `delete 5`. As before, `delete 5` will be pushed into the `undoStack`. This time the `redoStack` is no longer empty. It will be purged as it no longer make sense to redo the `add n/foo` command (this is the behavior that most modern desktop applications follow).
+The user now decides to execute a new command, `delete 5`. As before, `delete 5` will be pushed into the `undoStack`. This time the `redoStack` is no longer empty. It will be purged as it no longer make sense to redo the `add n/David` command (this is the behavior that most modern desktop applications follow).
 
 image::UndoRedoNewCommand2StackDiagram.png[width="800"]
 
