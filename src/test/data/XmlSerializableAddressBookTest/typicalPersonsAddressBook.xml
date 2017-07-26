@@ -7,6 +7,7 @@
         <phone>85355255</phone>
         <email>alice@example.com</email>
         <address>123, Jurong West Ave 6, #08-111</address>
+        <remark></remark>
         <tagged>friends</tagged>
     </persons>
     <persons>
@@ -14,6 +15,7 @@
         <phone>98765432</phone>
         <email>johnd@example.com</email>
         <address>311, Clementi Ave 2, #02-25</address>
+        <remark></remark>
         <tagged>owesMoney</tagged>
         <tagged>friends</tagged>
     </persons>
@@ -22,30 +24,35 @@
         <phone>95352563</phone>
         <email>heinz@example.com</email>
         <address>wall street</address>
+        <remark></remark>
     </persons>
     <persons>
         <name>Daniel Meier</name>
         <phone>87652533</phone>
         <email>cornelia@example.com</email>
         <address>10th street</address>
+        <remark></remark>
     </persons>
     <persons>
         <name>Elle Meyer</name>
         <phone>9482224</phone>
         <email>werner@example.com</email>
         <address>michegan ave</address>
+        <remark></remark>
     </persons>
     <persons>
         <name>Fiona Kunz</name>
         <phone>9482427</phone>
         <email>lydia@example.com</email>
         <address>little tokyo</address>
+        <remark></remark>
     </persons>
     <persons>
         <name>George Best</name>
         <phone>9482442</phone>
         <email>anna@example.com</email>
         <address>4th street</address>
+        <remark></remark>
     </persons>
     <tags>friends</tags>
     <tags>owesMoney</tags>
