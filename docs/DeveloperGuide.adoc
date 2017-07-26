@@ -228,11 +228,11 @@ When the user executes a new undoable command, a snapshot of the address book is
 
 image::UndoRedoNewCommandDiagram.png[width="800"]
 
-If at some point in time the user decided to undo, we will pop the most recent command out of the `undoStack`, restore the snapshot that we saved with the new command and push it back to the `redoStack`.
+If at some point in time the user decided to undo, we will pop the most recent command out of the `undoStack`, restore the snapshot that we saved with the new command and push it back to the `redoStack`. If the `undoStack` is empty, then there are no other commands left to be undone, and an `Exception` will be thrown if a pop is attempted.
 
 image::UndoRedoExecuteUndoDiagram.png[width="800"]
 
-The redo does the exact opposite (pops from `redoStack`, push to `undoStack`, and re-executes the command to restore the state of the address book after the command).
+The redo does the exact opposite (pops from `redoStack`, push to `undoStack`, and re-executes the command to restore the state of the address book after the command). If the `redoStack` is empty, then there are no other commands left to be redone, and an `Exception` will be thrown if a pop is attempted.
 
 When executing new commands, if the `redoStack` is not empty, the contents will be purged, as it does not make semantical sense to execute a redo after executing a new command.
 
@@ -240,17 +240,17 @@ image::UndoRedoPushDiagram.png[width="800"]
 
 ==== Design Considerations
 
-We decided to create an `UndoableCommand`, which implements the template pattern. We have considered overriding `execute()` instead of adding a new `executeUndoableCommand()`. However, that would mean that classes that inherit from `UndoableCommand` must remember to call `super.execute()`. The template pattern allows us to avoid this problem completely, by forcing command to override `executeUndoableCommand()` instead of `execute()`.
+We decided to create an `UndoableCommand`, which implements the https://www.tutorialspoint.com/design_pattern/template_pattern.htm[template pattern]. We have considered overriding `execute()` instead of adding a new `executeUndoableCommand()`. However, that would mean that classes that inherit from `UndoableCommand` must remember to call `super.execute()`. The template pattern allows us to avoid this problem completely, by forcing command to override `executeUndoableCommand()` instead of `execute()`.
 
-We decided to take an entire snapshot of the `AddressBook` to implement our `undo` and `redo`. An alternative implementation that we have considered was to implement a specialized `rollback()` method for all undoable command, that knows how to undo its own action. For example, for `delete 2`, the `rollback()` will add the deleted 2nd person back into the `AddressBook`. This may be more memory and performance efficient than restoring the entire `AddressBook` content using a snapshot. However, as Donald Knuth once said, "Premature optimization is the root of all evil". There is no need to complicate the mechanism as the snapshot does not cause any performance issues at the moment.
+We decided to take an entire snapshot of the `AddressBook` to implement our `undo` and `redo`. An alternative implementation that we have considered was to implement a specialized `rollback()` method for all undoable commands, that knows how to undo its own action. For example, for `delete 2`, the `rollback()` will add the deleted 2nd person back into the `AddressBook`. This may be more memory and performance efficient than restoring the entire `AddressBook` content using a snapshot. However, there is no need to complicate the mechanism as the snapshot does not cause any performance issues at the moment.
 
 We decided not to add undo & redo commands into the stack. Adding them into the stack will force developers to take into consideration skipping these commands when performing an `undo` or `redo`. Inventing such skipping algorithm is unconventional and not necessary when we can just omit adding them altogether.
 
 We decided to use two stacks as it is easy to understand for new Computer Science student undergraduates to understand, which are likely to be the new incoming developers of our project.
 
-We decided to make `UndoRedoStack` a separate entity of the `HistoryManager`. Combining them would violate Single Responsibility Principle and Separation of Concerns. It also complicates the undo redo mechanism, as `HistoryManager` will have to store the `undo` and `redo` commands, so we will face the skipping algorithm problem that we have stated earlier, which isn't intuitive.
+We decided to make `UndoRedoStack` a separate entity from `HistoryManager`. Combining them would violate Single Responsibility Principle and Separation of Concerns. It also complicates the undo redo mechanism, as `HistoryManager` will have to store the `undo` and `redo` commands, so we will face the skipping algorithm problem that we have stated earlier.
 
-We decided not to include commands that do not modify the state of the address book (e.g. `find`, `list`). This is because no data are lost during the process, and the person list can easily be reconfigured to display what the user wanted.
+We decided not to include commands that do not modify the state of the address book (e.g. `find`, `list`). This is because no data is lost during the process, and the person list can easily be reconfigured to display what the user wants.
 
 == Implementation
 
