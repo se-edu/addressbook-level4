@@ -497,11 +497,11 @@ image::getting-started-ui-tag-after.png[width="300"]
 +
 **Before**
 +
-image::getting-started-ui-result-before.png[width="300"]
+image::getting-started-ui-result-before.png[width="200"]
 +
 **After**
 +
-image::getting-started-ui-result-after.png[width="300"]
+image::getting-started-ui-result-after.png[width="200"]
 +
 ****
 * Hints
@@ -517,11 +517,11 @@ image::getting-started-ui-result-after.png[width="300"]
 +
 **Before**
 +
-image::getting-started-ui-status-before.png[width="600"]
+image::getting-started-ui-status-before.png[width="500"]
 +
 **After**
 +
-image::getting-started-ui-status-after.png[width="600"]
+image::getting-started-ui-status-after.png[width="500"]
 +
 ****
 * Hints
@@ -548,7 +548,7 @@ image::getting-started-ui-status-after.png[width="600"]
 
 === Creating a new command: `remark`
 
-By creating this command, you will be exposed to all components at once.
+By creating this command, you will get a chance to learn how to implement a feature end-to-end, touching all major components of the app.
 
 ==== Description
 Edits the remark for a person specified in the `INDEX`. +
@@ -568,7 +568,7 @@ Let's start by teaching the application how to parse a `remark` command. We will
 
 **Main:**
 
-. Add a `RemarkCommand` that extends link:{repoURL}/src/main/java/seedu/address/logic/commands/UndoableCommand.java[`UndoableCommand`]. It should just throw an `Exception`.
+. Add a `RemarkCommand` that extends link:{repoURL}/src/main/java/seedu/address/logic/commands/UndoableCommand.java[`UndoableCommand`]. Upon execution, it should just throw an `Exception`.
 . Modify link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] to accept a `RemarkCommand`.
 
 **Tests:**
@@ -609,7 +609,7 @@ We have to properly encapsulate the remark in our link:{repoURL}/src/main/java/s
 
 **Main:**
 
-. Add `Remark` to model component (you can copy from link:{repoURL}/src/main/java/seedu/address/model/person/Address.java[`Address`], remove the regex and change the names accordingly accordingly).
+. Add `Remark` to model component (you can copy from link:{repoURL}/src/main/java/seedu/address/model/person/Address.java[`Address`], remove the regex and change the names accordingly).
 . Modify `RemarkCommand` to now take in a `Remark` instead of a `String`.
 
 **Tests:**
@@ -646,7 +646,7 @@ Our remark label in link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.jav
 
 **Tests:**
 
-. Modify link:{repoURL}/src/test/java/seedu/address/ui/testutil/GuiTestAssert.java[`GuiTestAssert#assertCardDisplaysPerson(...)`] so that it will compare the remark label
+. Modify link:{repoURL}/src/test/java/seedu/address/ui/testutil/GuiTestAssert.java[`GuiTestAssert#assertCardDisplaysPerson(...)`] so that it will compare the remark label.
 . In link:{repoURL}/src/test/java/seedu/address/ui/PersonCardTest.java[`PersonCardTest`], call `personWithTags.setRemark(ALICE.getRemark())` to test that changes in the link:{repoURL}/src/main/java/seedu/address/model/person/ReadOnlyPerson.java[`Person`] 's remark correctly updates the corresponding link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`].
 
 ===== [Step 8] Logic: Implement `RemarkCommand#execute()` logic
@@ -654,7 +654,7 @@ We now have everything set up... but we still can't modify the remarks. Let's fi
 
 **Main:**
 
-. Replace the error message with an actual logic to modify the remarks of a person.
+. Replace the logic in `RemarkCommand#execute()` (that currently just throws an `Exception`), with the actual logic to modify the remarks of a person.
 
 **Tests:**
 
