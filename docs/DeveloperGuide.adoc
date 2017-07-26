@@ -441,67 +441,105 @@ Removes the remark for the first person.
 ===== Logic: Teach the app to accept 'remark' but do nothing
 Let's start by teaching the application how to parse a `remark` command! We will add the logic of `remark` later.
 
+**Main:**
+
 . Add a `RemarkCommand` that just throws an `Exception`.
 . Modify `AddressBookParser` to accept a `RemarkCommand`.
 
+**Tests:**
+
+. Add `RemarkCommandTest` that will test that executeUndoableCommand() throws an Exception.
+. Add new test to `AddressBookParserTest`, which will test that typing "remark" returns an instance of `RemarkCommand`.
+
 ===== Logic: Teach the app to accept 'remark' arguments
 Let's teach the application to parse arguments that our `remark` command will accept. E.g. `1 r/Likes to drink coffee.`
+
+**Main:**
 
 . Modify `RemarkCommand` to take in an Index and String for remark, and print those two parameters as the error message.
 . Add `RemarkCommandParser` that will know how to parse two arguments, one index and one with prefix 'r/'.
 . Modify `AddressBookParser` to use the newly implemented `RemarkCommandParser`.
 
+**Tests:**
+
+. Modify `RemarkCommandTest` to test the `RemarkCommand#equals()` method
+. Add `RemarkCommandParserTest` that will test different boundary values
+for `RemarkCommandParser`.
+. Modify `AddressBookParserTest` to ensure that what the user input
+generated the correct command.
+
 ===== Ui: Add a placeholder for remark in `PersonCard` GUI
 Let's add a placeholder on all our `PersonCards` to display a remark for each person later!
+
+**Main:**
 
 . Add label with any random text inside `PersonListCard.fxml`.
 . Add FXML annotation in `PersonCard` to tie the variable to the actual label.
 
+**Tests:**
+
+. Modify `PersonCardHandle` so that future tests can read the contents of the remark label.
+
 ===== Model: Add Remark class
 We have to properly encapsulate the remark in our `ReadOnlyPerson` class. Instead of just using a `String`, let's follow the conventional class structure that the codebase already uses, by adding a `Remark` class.
+
+**Main:**
 
 . Add `Remark` to model component (you can copy from `Address`, remove the regex and rename accordingly).
 . Modify `RemarkCommand` to now take in a Remark instead of a String.
 
+**Tests:**
+
+. Add test for `Remark`, to test the `Remark#equals()` method.
+
 ===== Model: Modify `ReadOnlyPerson` to support a `Remark` field
 Now we have the `Remark` class, we need to actually use it inside `ReadOnlyPerson`!
 
-. Add three methods `setRemark(Remark)`, `getRemark()` and `remarkProperty()`.
-. Be sure to implement these newly created methods in `Person`, which implements the `ReadOnlyPerson` interface.
+**Main:**
+
+. Add three methods `setRemark(Remark)`, `getRemark()` and `remarkProperty()`. Be sure to implement these newly created methods in `Person`, which implements the `ReadOnlyPerson` interface.
 . You may assume that the user will not be able to use the `add` and `edit` commands to modify the remarks field (i.e. the person will be created without a remark).
+. Modify `SampleDataUtil` to add remarks for the sample data (delete your `addressBook.xml` so that the application will load the sample data when you launch it.)
 
 ===== Storage: Add `Remark` field to `XmlAdaptedPerson` class
 We now have `Remarks` for `Persons`, but they will be gone when we exit the application! Let's modify `XmlAdaptedPerson` to include a `Remark` field so that it is not gone forever!
 
+**Main:**
+
 . Add a new Xml field for `Remark`.
 . Be sure to modify the logic of the constructor and `toModelType()`, which handles the conversion to/from `ReadOnlyPerson`.
+
+**Tests:**
+
+. Fix `validAddressBook.xml` such that the XML tests will not fail due to a mising `<remark>` element.
 
 ===== Ui: Connect `Remark` field to `PersonCard`
 Our remark label in `PersonCard` is still a placeholder. Let's bring it to life by binding it with the actual `remark` field!
 
+**Main:**
+
 . Modify `PersonCard#bindListeners()` to add in the binding for `remark`.
+
+**Tests:**
+
+. Modify `GuiTestAssert#assertCardDisplaysPerson(...)` so that it will also do comparison for the now-functioning remark label
+. In `PersonCardTest`, call `personWithTags.setRemark(ALICE.getRemark())` to
+test that changes in the `Person` 's remark affects the appearance of the `PersonCard`.
 
 ===== Logic: Implement `RemarkCommand#execute()` logic
 We now have everything set up... but we still can't modify the remarks! Let's finish it up by adding in actual logic for our `remark` command.
 
+**Main:**
+
 . Replace the error message with an actual logic to modify the remarks of a person.
 
-===== Test: Add all tests to ensure that we implemented `remark` correctly
-Our `remark` command implementation is done, but how confident are we in terms of whether everything works? We will have to implement tests to verify that our `remark` command works as we expected.
+**Tests:**
 
-. Add a new test case in `AddressBookParserTest` that verifies the parser parses `RemarkCommand` command and its arguments correctly.
-. Create `RemarkCommandTest` that will test different combinations of valid and invalid arguments.
-. Create `RemarkCommandParserTest` that will test the different combinations of field omission.
-. Modify `PersonCardHandle` to include the new remark label.
-. Modify `PersonCardTest` and `GuiTestAssert` to check for the new remark label.
-. Create `RemarkTest` to test the `#equals()` method.
-. Modify `validAddressBook.xml` such that it includes the new remark XML element in the test data.
-. Modify `PersonBuilder` by adding a `#withRemark(String)` builder method.
-. Modify `TypicalPersons` so that some people will have remarks (otherwise we will not be able to test whether the remark fields work in some situations).
+. Update `RemarkCommandTest` to test that the `execute()` logic works.
 
 ==== Full Solution
 
-See this https://github.com/se-edu/addressbook-level4/pull/597[PR] for the step-by-step solution.
+See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-by-step solution.
 
 [appendix]
 == User Stories
