@@ -10,13 +10,14 @@ import org.junit.Test;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.RemarkCommand;
+import seedu.address.model.person.Remark;
 
 public class RemarkCommandParserTest {
     private RemarkCommandParser parser = new RemarkCommandParser();
 
     @Test
     public void parse_indexSpecified_failure() throws Exception {
-        final String remark = "Some remark.";
+        final Remark remark = new Remark("Some remark.");
 
         // have remarks
         Index targetIndex = INDEX_FIRST_PERSON;
@@ -26,7 +27,7 @@ public class RemarkCommandParserTest {
 
         // no remarks
         userInput = targetIndex.getOneBased() + " " + PREFIX_REMARK.toString();
-        expectedCommand = new RemarkCommand(INDEX_FIRST_PERSON, "");
+        expectedCommand = new RemarkCommand(INDEX_FIRST_PERSON, new Remark(""));
         assertParseSuccess(parser, userInput, expectedCommand);
     }
 
