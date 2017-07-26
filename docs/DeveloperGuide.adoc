@@ -80,182 +80,12 @@ IntelliJ uses a different import order from our coding style. To rectify this is
 * For `Class count to use import with '\*'` and `Names count to use static import with '*'`: Set to `999` to prevent IntelliJ from contracting the import statements
 * For `Import Layout`: The order is `import static all other imports`, `import java.\*`, `import javax.*`, `import org.\*`, `import com.*`, `import all other imports`. Add a `<blank line>` between each `import`
 
-== Getting Started in Writing Code
-
-We have prepared some exercises for beginners of the codebase. There are two kinds of exercise: the first one is component-based, while the second one allow you to interact with all of the components.
-
-=== Improving each component
-
-Each individual exercise in this section is component-based (i.e. you would not need to modify the other components to get it to work).
-
-[discrete]
-==== `logic` component
-
-. Add a shorthand equivalent alias for each of the individual commands. For example, instead of typing `clear`, the user may instead type `c` to remove all persons in the list.
-+
-****
-* Hints
-** Just like we store each individual command word constant `COMMAND_WORD` inside `XYZCommand.java`, you need a new constant for aliases as well.
-** `AddressBookParser` is responsible for analyzing command words.
-* Solution
-** For each `XYZCommand.java`, add a new constant `COMMAND_ALIAS`.
-** Modify the switch statement in `AddressBookParser#parseCommand(String)` such that both the proper command word and alias can be used to execute the same intended command.
-** See this https://github.com/se-edu/addressbook-level4/pull/590[PR] for the full solution.
-****
-
-[discrete]
-==== `model` component
-
-. Add a new `removeTag(Tag)` method. The specified tag will be removed from all persons, effectively removing it from the address book entirely.
-+
-****
-* Hints
-** The `Model` API interface needs to be updated.
-** Explore the `AddressBook` and `Person` classes to see which API methods you can use to implement the tag removal logic. `AddressBook` allows you to update a person, and `Person` allows you to update the tags.
-* Solution
-** Add the new method to the `Model` interface.
-** Add the implementation of `deleteTag(Tag)` method in `ModelManager`. Loop through each person, and remove the `tag` from each person.
-** See this https://github.com/se-edu/addressbook-level4/pull/591[PR] for the full solution.
-****
-
-[discrete]
-==== `ui` component
-
-. Use different colors for different tags inside person cards.
-+
-****
-* Hints
-** The tag labels are created inside `PersonCard` (`new Label(tag.tagName)`). https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/Label.html[JavaFX's Label class] allows you to modify the style of each Label, such as changing its color.
-** Use the .css attribute `-fx-background-color` to add a color.
-* Solution
-** See this https://github.com/se-edu/addressbook-level4/pull/592[PR] for the full solution.
-****
-
-. Modify `NewResultAvailableEvent` such that `ResultDisplay` can show a different style on error (currently it shows the same regardless of errors).
-+
-****
-* Hints
-** `NewResultAvailableEvent` is raised by `CommandBox` (which has the result status), and is catched by `ResultDisplay` (which is where we want to change the style to).
-** `CommandBox` has a similar style for displaying an error. It also has methods for setting the style.
-* Solution
-** Modify `NewResultAvailableEvent` 's constructor so that users of the event can indicate whether an error has occurred.
-** Modify `ResultDisplay#handleNewResultAvailableEvent(event)` to react to this event appropriately.
-** See this https://github.com/se-edu/addressbook-level4/pull/593[PR] for the full solution.
-****
-
-. Modify the status bar to show the total number of people in the address book.
-+
-****
-* Hints
-** `StatusBarFooter.fxml` will need a new `StatusBar`. Be sure to set the `GridPane.columnIndex` properly for each `StatusBar` to avoid misalignment!
-** `StatusBarFooter` needs to change the status bar: (1) When the application just started. (2) When the address book is updated.
-* Solution
-** Modify the constructor of `StatusBarFooter` to take in the number of persons when the application just started.
-** Use `StatusBarFooter#handleAddressBookChangedEvent(AddressBookChangedEvent)` to update the number of persons whenever there are new changes to the addressbook.
-** See this https://github.com/se-edu/addressbook-level4/pull/596[PR] for the full solution.
-****
-
-[discrete]
-==== `storage` component
-
-. Add a new method `backupAddressBook(ReadOnlyAddressBook)`,
-+
-****
-* Hint
-** Add the API method in `AddressBookStorage` interface.
-** Implement the logic in `StorageManager` class.
-* Solution
-** See this https://github.com/se-edu/addressbook-level4/pull/594[PR] for the full solution.
-****
-
-=== Creating a new command: `remark`
-
-By creating this command, you will be exposed to all parts of the component at once.
-
-==== Description
-Edit the remark for a person specified in the `INDEX`. +
-Format: `remark INDEX r/[REMARK]`
-
-Examples:
-
-* `remark 1 r/Likes to drink coffee.` +
-Changes the remark for the first person to `Likes to drink coffee.`
-* `remark 1 r/` +
-Removes the remark for the first person.
-
-==== Step-by-step Instructions
-
-===== Logic: Teach the app to accept 'remark' but do nothing
-Let's start by teaching the application how to parse a `remark` command! We will add the logic of `remark` later.
-
-. Add a `RemarkCommand` that just throws an `Exception`.
-. Modify `AddressBookParser` to accept a `RemarkCommand`.
-
-===== Logic: Teach the app to accept 'remark' arguments
-Let's teach the application to parse arguments that our `remark` command will accept. E.g. `1 r/Likes to drink coffee.`
-
-. Modify `RemarkCommand` to take in an Index and String for remark, and print those two parameters as the error message.
-. Add `RemarkCommandParser` that will know how to parse two arguments, one index and one with prefix 'r/'.
-. Modify `AddressBookParser` to use the newly implemented `RemarkCommandParser`.
-
-===== Ui: Add a placeholder for remark in `PersonCard` GUI
-Let's add a placeholder on all our `PersonCards` to display a remark for each person later!
-
-. Add label with any random text inside `PersonListCard.fxml`.
-. Add FXML annotation in `PersonCard` to tie the variable to the actual label.
-
-===== Model: Add Remark class
-We have to properly encapsulate the remark in our `ReadOnlyPerson` class. Instead of just using a `String`, let's follow the conventional class structure that the codebase already uses, by adding a `Remark` class.
-
-. Add `Remark` to model component (you can copy from `Address`, remove the regex and rename accordingly).
-. Modify `RemarkCommand` to now take in a Remark instead of a String.
-
-===== Model: Modify `ReadOnlyPerson` to support a `Remark` field
-Now we have the `Remark` class, we need to actually use it inside `ReadOnlyPerson`!
-
-. Add three methods `setRemark(Remark)`, `getRemark()` and `remarkProperty()`.
-. Be sure to implement these newly created methods in `Person`, which implements the `ReadOnlyPerson` interface.
-. You may assume that the user will not be able to use the `add` and `edit` commands to modify the remarks field (i.e. the person will be created without a remark).
-
-===== Storage: Add `Remark` field to `XmlAdaptedPerson` class
-We now have `Remarks` for `Persons`, but they will be gone when we exit the application! Let's modify `XmlAdaptedPerson` to include a `Remark` field so that it is not gone forever!
-
-. Add a new Xml field for `Remark`.
-. Be sure to modify the logic of the constructor and `toModelType()`, which handles the conversion to/from `ReadOnlyPerson`.
-
-===== Ui: Connect `Remark` field to `PersonCard`
-Our remark label in `PersonCard` is still a placeholder. Let's bring it to life by binding it with the actual `remark` field!
-
-. Modify `PersonCard#bindListeners()` to add in the binding for `remark`.
-
-===== Logic: Implement `RemarkCommand#execute()` logic
-We now have everything set up... but we still can't modify the remarks! Let's finish it up by adding in actual logic for our `remark` command.
-
-. Replace the error message with an actual logic to modify the remarks of a person.
-
-===== Test: Add all tests to ensure that we implemented `remark` correctly
-Our `remark` command implementation is done, but how confident are we in terms of whether everything works? We will have to implement tests to verify that our `remark` command works as we expected.
-
-. Add a new test case in `AddressBookParserTest` that verifies the parser parses `RemarkCommand` command and its arguments correctly.
-. Create `RemarkCommandTest` that will test different combinations of valid and invalid arguments.
-. Create `RemarkCommandParserTest` that will test the different combinations of field omission.
-. Modify `PersonCardHandle` to include the new remark label.
-. Modify `PersonCardTest` and `GuiTestAssert` to check for the new remark label.
-. Create `RemarkTest` to test the `#equals()` method.
-. Modify `validAddressBook.xml` such that it includes the new remark XML element in the test data.
-. Modify `PersonBuilder` by adding a `#withRemark(String)` builder method.
-. Modify `TypicalPersons` so that some people will have remarks (otherwise we will not be able to test whether the remark fields work in some situations).
-
-==== Full Solution
-
-See this https://github.com/se-edu/addressbook-level4/pull/597[PR] for the step-by-step solution.
-
 == Design
 
 === Architecture
 
 image::Architecture.png[width="600"]
-_Figure 3.1.1 : Architecture Diagram_
+_Figure 2.1.1 : Architecture Diagram_
 
 The *_Architecture Diagram_* given above explains the high-level design of the App. Given below is a quick overview of each component.
 
@@ -287,7 +117,7 @@ Each of the four components
 For example, the `Logic` component (see the class diagram given below) defines it's API in the `Logic.java` interface and exposes its functionality using the `LogicManager.java` class.
 
 image::LogicClassDiagram.png[width="800"]
-_Figure 3.1.2 : Class Diagram of the Logic Component_
+_Figure 2.1.2 : Class Diagram of the Logic Component_
 
 [discrete]
 ==== Events-Driven nature of the design
@@ -295,7 +125,7 @@ _Figure 3.1.2 : Class Diagram of the Logic Component_
 The _Sequence Diagram_ below shows how the components interact for the scenario where the user issues the command `delete 1`.
 
 image::SDforDeletePerson.png[width="800"]
-_Figure 3.1.3a : Component interactions for `delete 1` command (part 1)_
+_Figure 2.1.3a : Component interactions for `delete 1` command (part 1)_
 
 [NOTE]
 Note how the `Model` simply raises a `AddressBookChangedEvent` when the Address Book data are changed, instead of asking the `Storage` to save the updates to the hard disk.
@@ -303,7 +133,7 @@ Note how the `Model` simply raises a `AddressBookChangedEvent` when the Address 
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time.
 
 image::SDforDeletePersonEventHandling.png[width="800"]
-_Figure 3.1.3b : Component interactions for `delete 1` command (part 2)_
+_Figure 2.1.3b : Component interactions for `delete 1` command (part 2)_
 
 [NOTE]
 Note how the event is propagated through the `EventsCenter` to the `Storage` and `UI` without `Model` having to be coupled to either of them. This is an example of how this Event Driven approach helps us reduce direct coupling between components.
@@ -315,7 +145,7 @@ The sections below give more details of each component.
 Author: Alice Bee
 
 image::UiClassDiagram.png[width="800"]
-_Figure 3.2.1 : Structure of the UI Component_
+_Figure 2.2.1 : Structure of the UI Component_
 
 *API* : link:{repoURL}/src/main/java/seedu/address/ui/Ui.java[`Ui.java`]
 
@@ -334,10 +164,10 @@ The `UI` component,
 Author: Bernard Choo
 
 image::LogicClassDiagram.png[width="800"]
-_Figure 3.3.1 : Structure of the Logic Component_
+_Figure 2.3.1 : Structure of the Logic Component_
 
 image::LogicCommandClassDiagram.png[width="800"]
-_Figure 3.3.2 : Structure of Commands in the Logic Component. This diagram shows finer details concerning `XYZCommand` and `Command` in Figure 3.3.1_
+_Figure 2.3.2 : Structure of Commands in the Logic Component. This diagram shows finer details concerning `XYZCommand` and `Command` in Figure 2.3.1_
 
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
@@ -350,14 +180,14 @@ link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 Given below is the Sequence Diagram for interactions within the `Logic` component for the `execute("delete 1")` API call.
 
 image::DeletePersonSdForLogic.png[width="800"]
-_Figure 3.3.1 : Interactions Inside the Logic Component for the `delete 1` Command_
+_Figure 2.3.1 : Interactions Inside the Logic Component for the `delete 1` Command_
 
 === Model component
 
 Author: Cynthia Dharman
 
 image::ModelClassDiagram.png[width="800"]
-_Figure 3.4.1 : Structure of the Model Component_
+_Figure 2.4.1 : Structure of the Model Component_
 
 *API* : link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model.java`]
 
@@ -373,7 +203,7 @@ The `Model`,
 Author: Darius Foong
 
 image::StorageClassDiagram.png[width="800"]
-_Figure 3.5.1 : Structure of the Storage Component_
+_Figure 2.5.1 : Structure of the Storage Component_
 
 *API* : link:{repoURL}/src/main/java/seedu/address/storage/Storage.java[`Storage.java`]
 
@@ -470,13 +300,208 @@ Here are the steps to convert the project documentation files to PDF format.
 .  Set the destination to `Save as PDF`, then click `Save` to save a copy of the file in PDF format. For best results, use the settings indicated in the screenshot below.
 
 image::chrome_save_as_pdf.png[width="300"]
-_Figure 6.4.1 : Saving documentation as PDF files in Chrome_
+_Figure 5.4.1 : Saving documentation as PDF files in Chrome_
 
 === Managing Dependencies
 
 A project often depends on third-party libraries. For example, Address Book depends on the http://wiki.fasterxml.com/JacksonHome[Jackson library] for XML parsing. Managing these _dependencies_ can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives. +
 a. Include those libraries in the repo (this bloats the repo size) +
 b. Require developers to download those libraries manually (this creates extra work for developers)
+
+[appendix]
+== Getting Started in Writing Code
+
+We have prepared some exercises for beginners of the codebase. There are two kinds of exercise: the first one (i.e. improving each component) is for learning one component at a time, and the second one (i.e. adding the remark command) is to learn how to implement an end-to-end feature across all components.
+
+=== Improving each component
+
+Each individual exercise in this section is component-based (i.e. you would not need to modify the other components to get it to work).
+
+[discrete]
+==== `Logic` component
+
+. Add a shorthand equivalent alias for each of the individual commands. For example, beside typing `clear`, the user can also type `c` to remove all persons in the list.
++
+****
+* Hints
+** Just like we store each individual command word constant `COMMAND_WORD` inside `*Command.java` (e.g. `FindCommand#COMMAND_WORD`, `DeleteCommand#COMMAND_WORD`), you need a new constant for aliases as well.
+** link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] is responsible for analyzing command words.
+* Solution
+** For each `*Command.java`, add a new constant `COMMAND_ALIAS`.
+** Modify the switch statement in link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser#parseCommand(String)`] such that both the proper command word and alias can be used to execute the same intended command.
+** See this https://github.com/se-edu/addressbook-level4/pull/590/files[PR] for the full solution.
+****
+
+[discrete]
+==== `Model` component
+
+. Add a new `removeTag(Tag)` method. The specified tag will be removed from all persons, effectively removing it from the address book entirely.
++
+****
+* Hints
+** The link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model`] API needs to be updated.
+** Explore the link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] and link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] classes to see which API methods you can use to implement the tag removal logic. link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] allows you to update a person, and link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] allows you to update the tags.
+* Solution
+** Add the new method to the link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model`] interface.
+** Add the implementation of `deleteTag(Tag)` method in link:{repoURL}/src/main/java/seedu/address/model/ModelManager.java[`ModelManager`]. Loop through each person, and remove the `tag` from each person.
+** See this https://github.com/se-edu/addressbook-level4/pull/591/files[PR] for the full solution.
+****
+
+[discrete]
+==== `Ui` component
+
+. Use different colors for different tags inside person cards. For example, `friends` tags can be all in grey, and `colleagues` tags can be all in red.
++
+**Before**
++
+image::getting-started-ui-tag-before.png[width="300"]
++
+**After**
++
+image::getting-started-ui-tag-after.png[width="300"]
++
+****
+* Hints
+** The tag labels are created inside link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`] (`new Label(tag.tagName)`). https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/Label.html[JavaFX's Label class] allows you to modify the style of each Label, such as changing its color.
+** Use the .css attribute `-fx-background-color` to add a color.
+* Solution
+** See this https://github.com/se-edu/addressbook-level4/pull/592/files[PR] for the full solution.
+****
+
+. Modify link:{repoURL}src/main/java/seedu/address/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] such that link:{repoURL}src/main/java/seedu/address/commons/events/ui/ResultDisplay.java[`ResultDisplay`] can show a different style on error (currently it shows the same regardless of errors).
++
+**Before**
++
+image::getting-started-ui-result-before.png[width="300"]
++
+**After**
++
+image::getting-started-ui-result-after.png[width="300"]
++
+****
+* Hints
+** link:{repoURL}src/main/java/seedu/address/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] is raised by link:{repoURL}src/main/java/seedu/address/commons/events/ui/CommandBox.java[`CommandBox`] (which has the result status), and is catched by link:{repoURL}src/main/java/seedu/address/commons/events/ui/ResultDisplay.java[`ResultDisplay`] (which is where we want to change the style to).
+** link:{repoURL}src/main/java/seedu/address/commons/events/ui/CommandBox.java[`CommandBox`] has a similar style for displaying an error. It also has methods for setting the style.
+* Solution
+** Modify link:{repoURL}src/main/java/seedu/address/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] 's constructor so that users of the event can indicate whether an error has occurred.
+** Modify link:{repoURL}src/main/java/seedu/address/commons/events/ui/ResultDisplay.java[`ResultDisplay#handleNewResultAvailableEvent(event)`] to react to this event appropriately.
+** See this https://github.com/se-edu/addressbook-level4/pull/593/files[PR] for the full solution.
+****
+
+. Modify the status bar to show the total number of people in the address book.
++
+**Before**
++
+image::getting-started-ui-status-before.png[width="600"]
++
+**After**
++
+image::getting-started-ui-status-after.png[width="600"]
++
+****
+* Hints
+** link:{repoURL}src/main/resources/view/StatusBarFooter.fxml[`StatusBarFooter.fxml`] will need a new `StatusBar`. Be sure to set the `GridPane.columnIndex` properly for each `StatusBar` to avoid misalignment!
+** link:{repoURL}src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] needs to change the status bar: (1) When the application just started. (2) When the address book is updated.
+* Solution
+** Modify the constructor of link:{repoURL}src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] to take in the number of persons when the application just started.
+** Use link:{repoURL}src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter#handleAddressBookChangedEvent(AddressBookChangedEvent`] to update the number of persons whenever there are new changes to the addressbook.
+** See this https://github.com/se-edu/addressbook-level4/pull/596/files[PR] for the full solution.
+****
+
+[discrete]
+==== `Storage` component
+
+. Add a new method `backupAddressBook(ReadOnlyAddressBook)`, so that the address book can be saved in a different temporary location.
++
+****
+* Hint
+** Add the API method in link:{repoURL}src/main/java/seedu/address/storage/AddressBookStorage.java[`AddressBookStorage`] interface.
+** Implement the logic in link:{repoURL}src/main/java/seedu/address/storage/StorageManager.java[`StorageManager`] class.
+* Solution
+** See this https://github.com/se-edu/addressbook-level4/pull/594/files[PR] for the full solution.
+****
+
+=== Creating a new command: `remark`
+
+By creating this command, you will be exposed to all parts of the component at once.
+
+==== Description
+Edits the remark for a person specified in the `INDEX`. +
+Format: `remark INDEX r/[REMARK]`
+
+Examples:
+
+* `remark 1 r/Likes to drink coffee.` +
+Changes the remark for the first person to `Likes to drink coffee.`
+* `remark 1 r/` +
+Removes the remark for the first person.
+
+==== Step-by-step Instructions
+
+===== Logic: Teach the app to accept 'remark' but do nothing
+Let's start by teaching the application how to parse a `remark` command! We will add the logic of `remark` later.
+
+. Add a `RemarkCommand` that just throws an `Exception`.
+. Modify `AddressBookParser` to accept a `RemarkCommand`.
+
+===== Logic: Teach the app to accept 'remark' arguments
+Let's teach the application to parse arguments that our `remark` command will accept. E.g. `1 r/Likes to drink coffee.`
+
+. Modify `RemarkCommand` to take in an Index and String for remark, and print those two parameters as the error message.
+. Add `RemarkCommandParser` that will know how to parse two arguments, one index and one with prefix 'r/'.
+. Modify `AddressBookParser` to use the newly implemented `RemarkCommandParser`.
+
+===== Ui: Add a placeholder for remark in `PersonCard` GUI
+Let's add a placeholder on all our `PersonCards` to display a remark for each person later!
+
+. Add label with any random text inside `PersonListCard.fxml`.
+. Add FXML annotation in `PersonCard` to tie the variable to the actual label.
+
+===== Model: Add Remark class
+We have to properly encapsulate the remark in our `ReadOnlyPerson` class. Instead of just using a `String`, let's follow the conventional class structure that the codebase already uses, by adding a `Remark` class.
+
+. Add `Remark` to model component (you can copy from `Address`, remove the regex and rename accordingly).
+. Modify `RemarkCommand` to now take in a Remark instead of a String.
+
+===== Model: Modify `ReadOnlyPerson` to support a `Remark` field
+Now we have the `Remark` class, we need to actually use it inside `ReadOnlyPerson`!
+
+. Add three methods `setRemark(Remark)`, `getRemark()` and `remarkProperty()`.
+. Be sure to implement these newly created methods in `Person`, which implements the `ReadOnlyPerson` interface.
+. You may assume that the user will not be able to use the `add` and `edit` commands to modify the remarks field (i.e. the person will be created without a remark).
+
+===== Storage: Add `Remark` field to `XmlAdaptedPerson` class
+We now have `Remarks` for `Persons`, but they will be gone when we exit the application! Let's modify `XmlAdaptedPerson` to include a `Remark` field so that it is not gone forever!
+
+. Add a new Xml field for `Remark`.
+. Be sure to modify the logic of the constructor and `toModelType()`, which handles the conversion to/from `ReadOnlyPerson`.
+
+===== Ui: Connect `Remark` field to `PersonCard`
+Our remark label in `PersonCard` is still a placeholder. Let's bring it to life by binding it with the actual `remark` field!
+
+. Modify `PersonCard#bindListeners()` to add in the binding for `remark`.
+
+===== Logic: Implement `RemarkCommand#execute()` logic
+We now have everything set up... but we still can't modify the remarks! Let's finish it up by adding in actual logic for our `remark` command.
+
+. Replace the error message with an actual logic to modify the remarks of a person.
+
+===== Test: Add all tests to ensure that we implemented `remark` correctly
+Our `remark` command implementation is done, but how confident are we in terms of whether everything works? We will have to implement tests to verify that our `remark` command works as we expected.
+
+. Add a new test case in `AddressBookParserTest` that verifies the parser parses `RemarkCommand` command and its arguments correctly.
+. Create `RemarkCommandTest` that will test different combinations of valid and invalid arguments.
+. Create `RemarkCommandParserTest` that will test the different combinations of field omission.
+. Modify `PersonCardHandle` to include the new remark label.
+. Modify `PersonCardTest` and `GuiTestAssert` to check for the new remark label.
+. Create `RemarkTest` to test the `#equals()` method.
+. Modify `validAddressBook.xml` such that it includes the new remark XML element in the test data.
+. Modify `PersonBuilder` by adding a `#withRemark(String)` builder method.
+. Modify `TypicalPersons` so that some people will have remarks (otherwise we will not be able to test whether the remark fields work in some situations).
+
+==== Full Solution
+
+See this https://github.com/se-edu/addressbook-level4/pull/597[PR] for the step-by-step solution.
 
 [appendix]
 == User Stories
