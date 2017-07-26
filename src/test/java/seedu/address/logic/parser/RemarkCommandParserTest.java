@@ -31,7 +31,7 @@ public class RemarkCommandParserTest {
     }
 
     @Test
-    public void parse_noFieldSpecified_failure() throws Exception {
+    public void parse_missingCompulsoryField_failure() throws Exception {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, RemarkCommand.MESSAGE_USAGE);
 
         // no parameters
