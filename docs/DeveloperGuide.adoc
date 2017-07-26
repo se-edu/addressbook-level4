@@ -216,6 +216,42 @@ The `Storage` component,
 
 Classes used by multiple components are in the `seedu.addressbook.commons` package.
 
+=== Undo/Redo mechanism
+
+Author: Bernard Choo
+
+==== Implementation
+
+The undo/redo mechanism is facilitated by an `UndoRedoStack`, which is owned by the `LogicManager`. It supports undoing and redoing of commands that modifies the state of the address book (e.g. `add`, `edit`). Such commands will inherit from `UndoableCommand`.
+
+When the user executes a new undoable command, a snapshot of the address book is taken before the new command executes. The new command will then be pushed onto the `undoStack`. (The snapshot is saved together with the command).
+
+image::UndoRedoNewCommandDiagram.png[width="800"]
+
+If at some point in time the user decided to undo, we will pop the most recent command out of the `undoStack`, restore the snapshot that we saved with the new command and push it back to the `redoStack`.
+
+image::UndoRedoExecuteUndoDiagram.png[width="800"]
+
+The redo does the exact opposite (pops from `redoStack`, push to `undoStack`, and re-executes the command to restore the state of the address book after the command).
+
+When executing new commands, if the `redoStack` is not empty, the contents will be purged, as it does not make semantical sense to execute a redo after executing a new command.
+
+image::UndoRedoPushDiagram.png[width="800"]
+
+==== Design Considerations
+
+We decided to create an `UndoableCommand`, which implements the template pattern. We have considered overriding `execute()` instead of adding a new `executeUndoableCommand()`. However, that would mean that classes that inherit from `UndoableCommand` must remember to call `super.execute()`. The template pattern allows us to avoid this problem completely, by forcing command to override `executeUndoableCommand()` instead of `execute()`.
+
+We decided to take an entire snapshot of the `AddressBook` to implement our `undo` and `redo`. An alternative implementation that we have considered was to implement a specialized `rollback()` method for all undoable command, that knows how to undo its own action. For example, for `delete 2`, the `rollback()` will add the deleted 2nd person back into the `AddressBook`. This may be more memory and performance efficient than restoring the entire `AddressBook` content using a snapshot. However, as Donald Knuth once said, "Premature optimization is the root of all evil". There is no need to complicate the mechanism as the snapshot does not cause any performance issues at the moment.
+
+We decided not to add undo & redo commands into the stack. Adding them into the stack will force developers to take into consideration skipping these commands when performing an `undo` or `redo`. Inventing such skipping algorithm is unconventional and not necessary when we can just omit adding them altogether.
+
+We decided to use two stacks as it is easy to understand for new Computer Science student undergraduates to understand, which are likely to be the new incoming developers of our project.
+
+We decided to make `UndoRedoStack` a separate entity of the `HistoryManager`. Combining them would violate Single Responsibility Principle and Separation of Concerns. It also complicates the undo redo mechanism, as `HistoryManager` will have to store the `undo` and `redo` commands, so we will face the skipping algorithm problem that we have stated earlier, which isn't intuitive.
+
+We decided not to include commands that do not modify the state of the address book (e.g. `find`, `list`). This is because no data are lost during the process, and the person list can easily be reconfigured to display what the user wanted.
+
 == Implementation
 
 === Logging
