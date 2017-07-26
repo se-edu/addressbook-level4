@@ -436,6 +436,239 @@ a. Include those libraries in the repo (this bloats the repo size) +
 b. Require developers to download those libraries manually (this creates extra work for developers)
 
 [appendix]
+== Getting Started in Writing Code
+
+We have prepared some exercises for beginners of the codebase. There are two kinds of exercise: the first one (i.e. improving each component) is for learning one component at a time, and the second one (i.e. adding the remark command) is to learn how to implement an end-to-end feature across all components.
+
+=== Improving each component
+
+Each individual exercise in this section is component-based (i.e. you would not need to modify the other components to get it to work).
+
+[discrete]
+==== `Logic` component
+
+. Add a shorthand equivalent alias for each of the individual commands. For example, beside typing `clear`, the user can also type `c` to remove all persons in the list.
++
+****
+* Hints
+** Just like we store each individual command word constant `COMMAND_WORD` inside `*Command.java` (e.g. `FindCommand#COMMAND_WORD`, `DeleteCommand#COMMAND_WORD`), you need a new constant for aliases as well.
+** link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] is responsible for analyzing command words.
+* Solution
+** For each `*Command.java`, add a new constant `COMMAND_ALIAS`.
+** Modify the switch statement in link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser#parseCommand(String)`] such that both the proper command word and alias can be used to execute the same intended command.
+** See this https://github.com/se-edu/addressbook-level4/pull/590/files[PR] for the full solution.
+****
+
+[discrete]
+==== `Model` component
+
+. Add a new `removeTag(Tag)` method. The specified tag will be removed from all persons, effectively removing it from the address book entirely.
++
+****
+* Hints
+** The link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model`] API needs to be updated.
+** Explore the link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] and link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] classes to see which API methods you can use to implement the tag removal logic. link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] allows you to update a person, and link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] allows you to update the tags.
+* Solution
+** Add the new method to the link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model`] interface.
+** Add the implementation of `deleteTag(Tag)` method in link:{repoURL}/src/main/java/seedu/address/model/ModelManager.java[`ModelManager`]. Loop through each person, and remove the `tag` from each person.
+** See this https://github.com/se-edu/addressbook-level4/pull/591/files[PR] for the full solution.
+****
+
+[discrete]
+==== `Ui` component
+
+. Use different colors for different tags inside person cards. For example, `friends` tags can be all in grey, and `colleagues` tags can be all in red.
++
+**Before**
++
+image::getting-started-ui-tag-before.png[width="300"]
++
+**After**
++
+image::getting-started-ui-tag-after.png[width="300"]
++
+****
+* Hints
+** The tag labels are created inside link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`] (`new Label(tag.tagName)`). https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/Label.html[JavaFX's Label class] allows you to modify the style of each Label, such as changing its color.
+** Use the .css attribute `-fx-background-color` to add a color.
+* Solution
+** See this https://github.com/se-edu/addressbook-level4/pull/592/files[PR] for the full solution.
+****
+
+. Modify link:{repoURL}src/main/java/seedu/address/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] such that link:{repoURL}src/main/java/seedu/address/commons/events/ui/ResultDisplay.java[`ResultDisplay`] can show a different style on error (currently it shows the same regardless of errors).
++
+**Before**
++
+image::getting-started-ui-result-before.png[width="300"]
++
+**After**
++
+image::getting-started-ui-result-after.png[width="300"]
++
+****
+* Hints
+** link:{repoURL}src/main/java/seedu/address/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] is raised by link:{repoURL}src/main/java/seedu/address/commons/events/ui/CommandBox.java[`CommandBox`] (which has the result status), and is catched by link:{repoURL}src/main/java/seedu/address/commons/events/ui/ResultDisplay.java[`ResultDisplay`] (which is where we want to change the style to).
+** link:{repoURL}src/main/java/seedu/address/commons/events/ui/CommandBox.java[`CommandBox`] has a similar style for displaying an error. It also has methods for setting the style.
+* Solution
+** Modify link:{repoURL}src/main/java/seedu/address/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] 's constructor so that users of the event can indicate whether an error has occurred.
+** Modify link:{repoURL}src/main/java/seedu/address/commons/events/ui/ResultDisplay.java[`ResultDisplay#handleNewResultAvailableEvent(event)`] to react to this event appropriately.
+** See this https://github.com/se-edu/addressbook-level4/pull/593/files[PR] for the full solution.
+****
+
+. Modify the status bar to show the total number of people in the address book.
++
+**Before**
++
+image::getting-started-ui-status-before.png[width="600"]
++
+**After**
++
+image::getting-started-ui-status-after.png[width="600"]
++
+****
+* Hints
+** link:{repoURL}src/main/resources/view/StatusBarFooter.fxml[`StatusBarFooter.fxml`] will need a new `StatusBar`. Be sure to set the `GridPane.columnIndex` properly for each `StatusBar` to avoid misalignment!
+** link:{repoURL}src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] needs to change the status bar: (1) When the application just started. (2) When the address book is updated.
+* Solution
+** Modify the constructor of link:{repoURL}src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] to take in the number of persons when the application just started.
+** Use link:{repoURL}src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter#handleAddressBookChangedEvent(AddressBookChangedEvent`] to update the number of persons whenever there are new changes to the addressbook.
+** See this https://github.com/se-edu/addressbook-level4/pull/596/files[PR] for the full solution.
+****
+
+[discrete]
+==== `Storage` component
+
+. Add a new method `backupAddressBook(ReadOnlyAddressBook)`, so that the address book can be saved in a different temporary location.
++
+****
+* Hint
+** Add the API method in link:{repoURL}src/main/java/seedu/address/storage/AddressBookStorage.java[`AddressBookStorage`] interface.
+** Implement the logic in link:{repoURL}src/main/java/seedu/address/storage/StorageManager.java[`StorageManager`] class.
+* Solution
+** See this https://github.com/se-edu/addressbook-level4/pull/594/files[PR] for the full solution.
+****
+
+=== Creating a new command: `remark`
+
+By creating this command, you will be exposed to all parts of the component at once.
+
+==== Description
+Edits the remark for a person specified in the `INDEX`. +
+Format: `remark INDEX r/[REMARK]`
+
+Examples:
+
+* `remark 1 r/Likes to drink coffee.` +
+Changes the remark for the first person to `Likes to drink coffee.`
+* `remark 1 r/` +
+Removes the remark for the first person.
+
+==== Step-by-step Instructions
+
+===== Logic: Teach the app to accept 'remark' but do nothing
+Let's start by teaching the application how to parse a `remark` command! We will add the logic of `remark` later.
+
+**Main:**
+
+. Add a `RemarkCommand` that just throws an `Exception`.
+. Modify `AddressBookParser` to accept a `RemarkCommand`.
+
+**Tests:**
+
+. Add `RemarkCommandTest` that will test that executeUndoableCommand() throws an Exception.
+. Add new test to `AddressBookParserTest`, which will test that typing "remark" returns an instance of `RemarkCommand`.
+
+===== Logic: Teach the app to accept 'remark' arguments
+Let's teach the application to parse arguments that our `remark` command will accept. E.g. `1 r/Likes to drink coffee.`
+
+**Main:**
+
+. Modify `RemarkCommand` to take in an Index and String for remark, and print those two parameters as the error message.
+. Add `RemarkCommandParser` that will know how to parse two arguments, one index and one with prefix 'r/'.
+. Modify `AddressBookParser` to use the newly implemented `RemarkCommandParser`.
+
+**Tests:**
+
+. Modify `RemarkCommandTest` to test the `RemarkCommand#equals()` method
+. Add `RemarkCommandParserTest` that will test different boundary values
+for `RemarkCommandParser`.
+. Modify `AddressBookParserTest` to ensure that what the user input
+generated the correct command.
+
+===== Ui: Add a placeholder for remark in `PersonCard` GUI
+Let's add a placeholder on all our `PersonCards` to display a remark for each person later!
+
+**Main:**
+
+. Add label with any random text inside `PersonListCard.fxml`.
+. Add FXML annotation in `PersonCard` to tie the variable to the actual label.
+
+**Tests:**
+
+. Modify `PersonCardHandle` so that future tests can read the contents of the remark label.
+
+===== Model: Add Remark class
+We have to properly encapsulate the remark in our `ReadOnlyPerson` class. Instead of just using a `String`, let's follow the conventional class structure that the codebase already uses, by adding a `Remark` class.
+
+**Main:**
+
+. Add `Remark` to model component (you can copy from `Address`, remove the regex and rename accordingly).
+. Modify `RemarkCommand` to now take in a Remark instead of a String.
+
+**Tests:**
+
+. Add test for `Remark`, to test the `Remark#equals()` method.
+
+===== Model: Modify `ReadOnlyPerson` to support a `Remark` field
+Now we have the `Remark` class, we need to actually use it inside `ReadOnlyPerson`!
+
+**Main:**
+
+. Add three methods `setRemark(Remark)`, `getRemark()` and `remarkProperty()`. Be sure to implement these newly created methods in `Person`, which implements the `ReadOnlyPerson` interface.
+. You may assume that the user will not be able to use the `add` and `edit` commands to modify the remarks field (i.e. the person will be created without a remark).
+. Modify `SampleDataUtil` to add remarks for the sample data (delete your `addressBook.xml` so that the application will load the sample data when you launch it.)
+
+===== Storage: Add `Remark` field to `XmlAdaptedPerson` class
+We now have `Remarks` for `Persons`, but they will be gone when we exit the application! Let's modify `XmlAdaptedPerson` to include a `Remark` field so that it is not gone forever!
+
+**Main:**
+
+. Add a new Xml field for `Remark`.
+. Be sure to modify the logic of the constructor and `toModelType()`, which handles the conversion to/from `ReadOnlyPerson`.
+
+**Tests:**
+
+. Fix `validAddressBook.xml` such that the XML tests will not fail due to a mising `<remark>` element.
+
+===== Ui: Connect `Remark` field to `PersonCard`
+Our remark label in `PersonCard` is still a placeholder. Let's bring it to life by binding it with the actual `remark` field!
+
+**Main:**
+
+. Modify `PersonCard#bindListeners()` to add in the binding for `remark`.
+
+**Tests:**
+
+. Modify `GuiTestAssert#assertCardDisplaysPerson(...)` so that it will also do comparison for the now-functioning remark label
+. In `PersonCardTest`, call `personWithTags.setRemark(ALICE.getRemark())` to
+test that changes in the `Person` 's remark affects the appearance of the `PersonCard`.
+
+===== Logic: Implement `RemarkCommand#execute()` logic
+We now have everything set up... but we still can't modify the remarks! Let's finish it up by adding in actual logic for our `remark` command.
+
+**Main:**
+
+. Replace the error message with an actual logic to modify the remarks of a person.
+
+**Tests:**
+
+. Update `RemarkCommandTest` to test that the `execute()` logic works.
+
+==== Full Solution
+
+See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-by-step solution.
+
+[appendix]
 == User Stories
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
