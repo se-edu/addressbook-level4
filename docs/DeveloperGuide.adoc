@@ -80,6 +80,105 @@ IntelliJ uses a different import order from our coding style. To rectify this is
 * For `Class count to use import with '\*'` and `Names count to use static import with '*'`: Set to `999` to prevent IntelliJ from contracting the import statements
 * For `Import Layout`: The order is `import static all other imports`, `import java.\*`, `import javax.*`, `import org.\*`, `import com.*`, `import all other imports`. Add a `<blank line>` between each `import`
 
+== Getting Started in Writing Code
+
+You may want to try the following exercises in order to familiarize yourself with the codebase:
+
+=== Improving each component
+==== `logic` component
+
+Add a shorthand equivalent alias for each of the individual commands. For example, instead of typing `clear`, the user may instead type `c` to remove all persons in the list.
+
+****
+* For each `XYZCommand.java`, add a new alias constant `COMMAND_WORD_ALIAS`. For example, `ClearCommand#COMMAND_WORD`.
+* Modify the switch statement in `AddressBookParser#parseCommand(String)` such that both the proper command and alias can be used to execute the same intent command.
+****
+
+==== `model` component
+
+Add a new `removeTag(Tag tag)` method. The specified tag will be removed from all persons, effectively removing it from the address book entirely too.
+
+****
+* Add this new method to the `Model` interface, then implement the logic in `ModelManager`.
+* For the logic, loop through each individual person in the `AddressBook`, modify their tag list with `Person#setTags(Set<Tag>)`, then finally update it with `AddressBook#updatePerson(ReadOnlyPerson, ReadOnlyPerson)`.
+****
+
+==== `ui` component
+
+. Use different colors for different tags.
++
+****
+* The tag labels are created inside `PersonCard` (something like `new Label(tag.tagName)`). https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/Label.html[JavaFX's Label class] allow you to add style and background colors.
+****
+
+. Modify `NewResultAvailableEvent` such that `ResultDisplay` can show a different style on error (right now it shows the same regardless of error or not).
++
+****
+* Modify `NewResultAvailableEvent` 's constructor so that users of the event can indicate whether an error has occurred.
+* Modify `ResultDisplay#handleNewResultAvailableEvent(event)` to react to this event appropriately.
+****
+
+==== `storage` component
+
+Convert the format for `UserPrefs` from `.json` to `.xml`.
+
+****
+* Create a `XmlSerializableUserPrefs` class, that implements the `UserPrefs` interface. The class variables will use `@XmlRootElement` and `@XmlElement` annotations to link them with the corresponding XML elements (see `XmlSerializableAddressBook` for an example of how this works). You may also need to create a `XmlAdaptedGuiSettings` specifically for the `GuiSettings` (see `XmlAdaptedPerson` for an example of how this works).
+* Create a `XmlUserPrefsStorage` class, that implements the `UserPrefsStorage` interface (see `JsonUserPrefsStorage` and `XmlAddressBookStorage` for a rough idea of how this works).
+****
+
+=== Creating a new command: `remark`
+
+By creating this command, you will be exposed to all parts of the component at once.
+
+==== Description
+Edit the remarks for a person. +
+Format: `remark INDEX r/[REMARK]`
+
+Examples:
+
+* `remark 1 r/The quick brown fox jumps over the lazy dog.` +
+Changes the remark for the first person to `The quick brown fox jumps over the lazy dog.`
+* `remark 1 r/` +
+Removes the remark for the first person.
+
+==== Changes needed
+
+**`model` component:**
+
+. Create a new `Remark` class inside `seedu.address.model.person`.
+.. You can adapt the code from the `Address` class. You can even remove the regex and validation logic as remarks can be empty.
+. Modify `ReadOnlyPerson` to support a `Remark` field.
+.. Add three methods `setRemark(Remark)`, `getRemark()` and `remarkProperty()`.
+.. Be sure to implement these newly created methods in `Person`, which implements the `ReadOnlyPerson` interface.
+.. You may assume that the user will not be able to use the `add` and `edit` commands to modify the remarks field (i.e. the person will be created without a remark).
+
+**`storage` component:**
+
+. Add a new `Remark` xml element inside `XmlAdaptedPerson`.
+.. If your `XmlUtilTest` tests are failing, ensure that you have modified the test data `validAddressBook.xml` to include the new `<remark>` element.
+
+**`ui` component:**
+
+. Create a new label in `PersonCard` for the `Remark` field.
+.. See `PersonCard.fxml`
+. Bind the `Remark` field to `PersonCard`.
+.. Modify `PersonCard#bindListeners(ReadOnlyPerson)` by adding in a binding.
+
+**`logic` component:**
+
+. Create a new `RemarkCommand` class inside `seedu.address.logic.commands`.
+.. It should inherit from the `UndoableCommand` class.
+.. You can adapt the code from the `EditCommand` class.
+. Create a new `RemarkCommandParser` class inside `seedu.address.logic.parser`.
+.. You can adapt the code from the `EditCommandParser` class. The logic should be simple as you will not need to use `EditPersonDescriptor`, and the parameter can be absent.
+. Modify `AddressBookParser` so that it is able to detect the new command.
+.. Modify the switch statement in `parseCommand(String)`.
+
+**Tests:**
+
+. Be sure to add the corresponding unit tests for classes that you have created and methods that you have modified.
+
 == Design
 
 === Architecture
