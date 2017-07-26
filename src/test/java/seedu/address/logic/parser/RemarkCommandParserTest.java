@@ -17,7 +17,7 @@ public class RemarkCommandParserTest {
     private final String nonEmptyRemark = "Some remark.";
 
     @Test
-    public void parse_indexSpecified_success() throws Exception {
+    public void parse_indexSpecified_success() {
         // have remark
         Index targetIndex = INDEX_FIRST_PERSON;
         String userInput = targetIndex.getOneBased() + " " + PREFIX_REMARK.toString() + nonEmptyRemark;
@@ -31,7 +31,7 @@ public class RemarkCommandParserTest {
     }
 
     @Test
-    public void parse_missingCompulsoryField_failure() throws Exception {
+    public void parse_missingCompulsoryField_failure() {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, RemarkCommand.MESSAGE_USAGE);
 
         // no parameters

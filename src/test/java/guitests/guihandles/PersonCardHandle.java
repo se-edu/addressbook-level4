@@ -33,12 +33,12 @@ public class PersonCardHandle extends NodeHandle<Node> {
     public PersonCardHandle(Node cardNode) {
         super(cardNode);
 
-        this.idLabel = getChildNode(ID_FIELD_ID);
-        this.nameLabel = getChildNode(NAME_FIELD_ID);
-        this.addressLabel = getChildNode(ADDRESS_FIELD_ID);
-        this.phoneLabel = getChildNode(PHONE_FIELD_ID);
-        this.emailLabel = getChildNode(EMAIL_FIELD_ID);
-        this.remarkLabel = getChildNode(REMARK_FIELD_ID);
+        idLabel = getChildNode(ID_FIELD_ID);
+        nameLabel = getChildNode(NAME_FIELD_ID);
+        addressLabel = getChildNode(ADDRESS_FIELD_ID);
+        phoneLabel = getChildNode(PHONE_FIELD_ID);
+        emailLabel = getChildNode(EMAIL_FIELD_ID);
+        remarkLabel = getChildNode(REMARK_FIELD_ID);
 
         Region tagsContainer = getChildNode(TAGS_FIELD_ID);
         tagLabels = tagsContainer

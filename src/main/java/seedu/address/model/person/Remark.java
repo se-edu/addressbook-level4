@@ -15,7 +15,7 @@ public class Remark {
 
     public Remark(String remark) {
         requireNonNull(remark);
-        this.value = remark;
+        value = remark;
     }
 
     @Override
@@ -27,7 +27,7 @@ public class Remark {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Remark // instanceof handles nulls
-                && this.value.equals(((Remark) other).value)); // state check
+                && value.equals(((Remark) other).value)); // state check
     }
 
     @Override
