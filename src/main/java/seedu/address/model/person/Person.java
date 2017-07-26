@@ -19,11 +19,10 @@ public class Person {
     private final Name name;
     private final Phone phone;
     private final Email email;
-    private final Address address;
-    private final Remark remark;
 
     // Data fields
     private final Address address;
+    private final Remark remark;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
@@ -36,8 +35,7 @@ public class Person {
         this.email = email;
         this.address = address;
         this.remark = remark;
-        // protect internal tags from changes in the arg list
-        this.tags = new UniqueTagList(tags);
+        this.tags.addAll(tags);
     }
 
     public Name getName() {

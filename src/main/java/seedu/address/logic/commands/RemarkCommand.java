@@ -17,7 +17,7 @@ import seedu.address.model.person.exceptions.PersonNotFoundException;
 /**
  * Changes the remark of an existing person in the address book.
  */
-public class RemarkCommand extends UndoableCommand {
+public class RemarkCommand extends Command {
 
     public static final String COMMAND_WORD = "remark";
 
@@ -51,24 +51,7 @@ public class RemarkCommand extends UndoableCommand {
     }
 
     @Override
-    public CommandResult executeUndoableCommand() throws CommandException {
-        requireNonNull(personToEdit);
-        requireNonNull(editedPerson);
-
-        try {
-            model.updatePerson(personToEdit, editedPerson);
-        } catch (DuplicatePersonException dpe) {
-            throw new AssertionError("Changing target person's remark should not result in a duplicate");
-        } catch (PersonNotFoundException pnfe) {
-            throw new AssertionError("The target person cannot be missing");
-        }
-        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-
-        return new CommandResult(generateSuccessMessage(editedPerson));
-    }
-
-    @Override
-    protected void preprocessUndoableCommand() throws CommandException {
+    public CommandResult execute() throws CommandException {
         List<Person> lastShownList = model.getFilteredPersonList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
@@ -78,6 +61,18 @@ public class RemarkCommand extends UndoableCommand {
         personToEdit = lastShownList.get(index.getZeroBased());
         editedPerson = new Person(personToEdit.getName(), personToEdit.getPhone(), personToEdit.getEmail(),
                 personToEdit.getAddress(), remark, personToEdit.getTags());
+
+        try {
+            model.updatePerson(personToEdit, editedPerson);
+        } catch (DuplicatePersonException dpe) {
+            throw new AssertionError("Changing target person's remark should not result in a duplicate");
+        } catch (PersonNotFoundException pnfe) {
+            throw new AssertionError("The target person cannot be missing");
+        }
+        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        model.commitAddressBook();
+
+        return new CommandResult(generateSuccessMessage(editedPerson));
     }
 
     /**

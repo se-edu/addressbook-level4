@@ -1,7 +1,6 @@
 package seedu.address.logic.commands;
 
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_REMARK_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_REMARK_BOB;
@@ -19,7 +18,6 @@ import org.junit.Test;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
-import seedu.address.logic.UndoRedoStack;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -48,6 +46,7 @@ public class RemarkCommandTest {
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.updatePerson(firstPerson, editedPerson);
+        expectedModel.commitAddressBook();
 
         assertCommandSuccess(remarkCommand, model, expectedMessage, expectedModel);
     }
@@ -63,6 +62,7 @@ public class RemarkCommandTest {
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.updatePerson(firstPerson, editedPerson);
+        expectedModel.commitAddressBook();
 
         assertCommandSuccess(remarkCommand, model, expectedMessage, expectedModel);
     }
@@ -81,6 +81,7 @@ public class RemarkCommandTest {
 
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
         expectedModel.updatePerson(firstPerson, editedPerson);
+        expectedModel.commitAddressBook();
 
         assertCommandSuccess(remarkCommand, model, expectedMessage, expectedModel);
     }
@@ -111,38 +112,38 @@ public class RemarkCommandTest {
 
     @Test
     public void executeUndoRedo_validIndexUnfilteredList_success() throws Exception {
-        UndoRedoStack undoRedoStack = new UndoRedoStack();
-        UndoCommand undoCommand = prepareUndoCommand(model, undoRedoStack);
-        RedoCommand redoCommand = prepareRedoCommand(model, undoRedoStack);
+        UndoCommand undoCommand = prepareUndoCommand(model);
+        RedoCommand redoCommand = prepareRedoCommand(model);
         Person personToModify = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         Person modifiedPerson = new PersonBuilder(personToModify).withRemark(REMARK_STUB).build();
         RemarkCommand remarkCommand = prepareCommand(INDEX_FIRST_PERSON, REMARK_STUB);
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        expectedModel.updatePerson(personToModify, modifiedPerson);
+        expectedModel.commitAddressBook();
 
         // remark -> first person remark changed
         remarkCommand.execute();
-        undoRedoStack.push(remarkCommand);
 
         // undo -> reverts addressbook back to previous state and filtered person list to show all persons
+        expectedModel.undoAddressBook();
         assertCommandSuccess(undoCommand, model, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
         // redo -> same first person modified again
-        expectedModel.updatePerson(personToModify, modifiedPerson);
+        expectedModel.redoAddressBook();
         assertCommandSuccess(redoCommand, model, RedoCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test
     public void executeUndoRedo_invalidIndexUnfilteredList_failure() {
-        UndoRedoStack undoRedoStack = new UndoRedoStack();
-        UndoCommand undoCommand = prepareUndoCommand(model, undoRedoStack);
-        RedoCommand redoCommand = prepareRedoCommand(model, undoRedoStack);
+        UndoCommand undoCommand = prepareUndoCommand(model);
+        RedoCommand redoCommand = prepareRedoCommand(model);
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
         RemarkCommand remarkCommand = prepareCommand(outOfBoundIndex, "");
 
-        // execution failed -> remarkCommand not pushed into undoRedoStack
+        // execution failed -> address book state not added into model
         assertCommandFailure(remarkCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
 
-        // no commands in undoRedoStack -> undoCommand and redoCommand fail
+        // single address book state in model -> undoCommand and redoCommand fail
         assertCommandFailure(undoCommand, model, UndoCommand.MESSAGE_FAILURE);
         assertCommandFailure(redoCommand, model, RedoCommand.MESSAGE_FAILURE);
     }
@@ -156,25 +157,26 @@ public class RemarkCommandTest {
      */
     @Test
     public void executeUndoRedo_validIndexFilteredList_samePersonDeleted() throws Exception {
-        UndoRedoStack undoRedoStack = new UndoRedoStack();
-        UndoCommand undoCommand = prepareUndoCommand(model, undoRedoStack);
-        RedoCommand redoCommand = prepareRedoCommand(model, undoRedoStack);
+        UndoCommand undoCommand = prepareUndoCommand(model);
+        RedoCommand redoCommand = prepareRedoCommand(model);
         RemarkCommand remarkCommand = prepareCommand(INDEX_FIRST_PERSON, REMARK_STUB);
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
 
         showPersonAtIndex(model, INDEX_SECOND_PERSON);
         Person personToModify = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         Person modifiedPerson = new PersonBuilder(personToModify).withRemark(REMARK_STUB).build();
+        expectedModel.updatePerson(personToModify, modifiedPerson);
+        expectedModel.commitAddressBook();
+
         // remark -> modifies second person in unfiltered person list / first person in filtered person list
         remarkCommand.execute();
-        undoRedoStack.push(remarkCommand);
 
         // undo -> reverts addressbook back to previous state and filtered person list to show all persons
+        expectedModel.undoAddressBook();
         assertCommandSuccess(undoCommand, model, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
-        expectedModel.updatePerson(personToModify, modifiedPerson);
-        assertNotEquals(personToModify, model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased()));
         // redo -> modifies same second person in unfiltered person list
+        expectedModel.redoAddressBook();
         assertCommandSuccess(redoCommand, model, RedoCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
@@ -207,7 +209,7 @@ public class RemarkCommandTest {
      */
     private RemarkCommand prepareCommand(Index index, String remark) {
         RemarkCommand remarkCommand = new RemarkCommand(index, new Remark(remark));
-        remarkCommand.setData(model, new CommandHistory(), new UndoRedoStack());
+        remarkCommand.setData(model, new CommandHistory());
         return remarkCommand;
     }
 }
