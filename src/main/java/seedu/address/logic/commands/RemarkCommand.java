@@ -35,6 +35,9 @@ public class RemarkCommand extends UndoableCommand {
     private final Index index;
     private final Remark remark;
 
+    private Person personToEdit;
+    private Person editedPerson;
+
     /**
      * @param index of the person in the filtered person list to edit the remark
      * @param remark of the person to be updated to
@@ -49,15 +52,8 @@ public class RemarkCommand extends UndoableCommand {
 
     @Override
     public CommandResult executeUndoableCommand() throws CommandException {
-        List<Person> lastShownList = model.getFilteredPersonList();
-
-        if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
-        }
-
-        Person personToEdit = lastShownList.get(index.getZeroBased());
-        Person editedPerson = new Person(personToEdit.getName(), personToEdit.getPhone(), personToEdit.getEmail(),
-                personToEdit.getAddress(), remark, personToEdit.getTags());
+        requireNonNull(personToEdit);
+        requireNonNull(editedPerson);
 
         try {
             model.updatePerson(personToEdit, editedPerson);
@@ -69,6 +65,19 @@ public class RemarkCommand extends UndoableCommand {
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
 
         return new CommandResult(generateSuccessMessage(editedPerson));
+    }
+
+    @Override
+    protected void preprocessUndoableCommand() throws CommandException {
+        List<Person> lastShownList = model.getFilteredPersonList();
+
+        if (index.getZeroBased() >= lastShownList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        }
+
+        personToEdit = lastShownList.get(index.getZeroBased());
+        editedPerson = new Person(personToEdit.getName(), personToEdit.getPhone(), personToEdit.getEmail(),
+                personToEdit.getAddress(), remark, personToEdit.getTags());
     }
 
     /**
