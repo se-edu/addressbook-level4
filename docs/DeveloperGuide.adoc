@@ -221,7 +221,7 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 // tag::undo[]
 === Undo/Redo mechanism
 
-The undo/redo mechanism is facilitated by an `UndoRedoStack`, which is owned by the `LogicManager`. It supports undoing and redoing of commands that modifies the state of the address book (e.g. `add`, `edit`). Such commands will inherit from `UndoableCommand`.
+The undo/redo mechanism is facilitated by an `UndoRedoStack`, which resides inside `LogicManager`. It supports undoing and redoing of commands that modifies the state of the address book (e.g. `add`, `edit`). Such commands will inherit from `UndoableCommand`.
 
 * Newly executed `UndoableCommand` will be pushed into the `undoStack`.
 * When undoing, the most recent undone command (at the top of the `undoStack`) will be popped off the `undoStack`, and pushed back into the `redoStack` as the `AddressBook` reverts the changes made.
@@ -230,6 +230,8 @@ The undo/redo mechanism is facilitated by an `UndoRedoStack`, which is owned by 
 `UndoRedoStack` only interacts with `UndoableCommands`. Commands that cannot be undone will inherit from `Command` instead. The following diagram shows the inheritance diagram for commands:
 
 image::LogicCommandClassDiagram.png[width="800"]
+
+`UndoableCommand` implements the https://www.tutorialspoint.com/design_pattern/template_pattern.htm[template pattern]. The template pattern allows users of `UndoableCommand` to continue using the `execute()` method just like any other `Command`, while allowing `UndoableCommand` to inject additional behaviors to `execute()` (such as saving the state of the address book before execution) that will be automatically inherited by subclasses of `UndoableCommand`. Subclasses of `UndoableCommand` will now override `executeUndoableCommand()` instead of `execute()` as a result.
 
 Suppose that the user has just launched the application. The `UndoRedoStack` will be empty at the beginning.
 
@@ -269,24 +271,49 @@ image::UndoRedoNewCommand3StackDiagram.png[width="800"]
 
 The following activity diagram summarize what happens inside the `UndoRedoStack` when a user executes a new command:
 
-image::UndoRedoActivityDiagram.png[width="800"]
+image::UndoRedoActivityDiagram.png[width="200"]
 // end::undo[]
 
 ==== Design Considerations
 
-We decided to create an `UndoableCommand`, which implements the https://www.tutorialspoint.com/design_pattern/template_pattern.htm[template pattern]. The template pattern allows users of `UndoableCommand` to continue using the `execute()` method just like any other `Command`, while allowing `UndoableCommand` to inject additional behaviors to `execute()` (such as saving the state of the address book before execution) that will be automatically inherited by subclasses of `UndoableCommand`. Subclasses of `UndoableCommand` will now override `executeUndoableCommand()` instead of `execute()` as a result.
+**Aspect:** Implementation of `UndoableCommand` +
+**Alternative 1 (current choice):** Add a new abstract method `executeUndoableCommand()` +
+**Pros:** We will not lose any undone/redone functionality as it is now part of the default behaviour. Classes that deal with `Command` do not have to know that `executeUndoableCommand()` exist. +
+**Cons:** Hard for new developers to understand the template pattern. +
+**Alternative 2:** Just override `execute()` +
+**Pros:** Does not involve the template pattern, easier for new developers to understand. +
+**Cons:** Classes that inherit from `UndoableCommand` must remember to call `super.execute()`, or lose the ability to undo/redo.
 
-We have considered just overriding `execute()` instead of adding a new `executeUndoableCommand()`. However, that would mean that classes that inherit from `UndoableCommand` must remember to call `super.execute()`. The template pattern allows us to avoid this problem completely, by forcing each subclasses of `UndoableCommand` to override `executeUndoableCommand()` instead of `execute()`.
+---
 
-We decided to save the entire state of the `AddressBook` to implement our `undo` and `redo`. An alternative implementation that we have considered was a specialized `rollback()` method for all `UndoableCommand`, that knows how to undo its own action. For example, if the user input is `delete 2`, the `rollback()` method will add the deleted 2nd person back into the `AddressBook` when undoing. This may be more memory and performance efficient than restoring the entire `AddressBook` content. However, there is no need to complicate the mechanism as restoring the entire `AddressBook` content does not cause any performance issues at the moment.
+**Aspect:** How undo & redo executes +
+**Alternative 1 (current choice):** Saves the entire address book. +
+**Pros:** Easy to implement. +
+**Cons:** May have performance issues in terms of memory usage. +
+**Alternative 2:** Individual command knows how to undo/redo by itself. +
+**Pros:** Will use less memory (e.g. for `delete`, just save the person being deleted). +
+**Cons:** We must ensure that the implementation of each individual command are correct.
 
-We decided not to add `undo` & `redo` commands into the stack. Otherwise, developers will have to implement a "skipping" algorithm, because previously undone commands will no longer be popped off the stack. Inventing such skipping algorithm is unconventional and not necessary when we can just omit adding them altogether.
+---
 
-We decided to make `UndoRedoStack` a separate entity from `HistoryManager`. Combining them would violate Single Responsibility Principle and Separation of Concerns. It also complicates the undo redo mechanism. `HistoryManager` stores everything that the user has typed, including `undo` and `redo`. As stated in the previous paragraph, we do not want `undo` and `redo` into our `UndoRedoStack`, so we cannot combine our undo redo mechanism with `HistoryManager`.
+**Aspect:** Type of commands that can be undone/redone +
+**Alternative 1 (current choice):** Only include commands that modifies the address book (`add`, `clear`, `edit`). +
+**Pros:** We only revert changes that are hard to change back (the view can easily be re-modified as no data are lost). +
+**Cons:** User might think that undo also applies when the list is modified (undoing filtering for example), only to realize that it does not do that, after executing `undo`. +
+**Alternative 2:** Include all commands. +
+**Pros:** Might be more intuitive for the user. +
+**Cons:** User have no way of skipping such commands if he or she just want to reset the state of the address book and not the view. +
+**Additional Info:** See our discussion  https://github.com/se-edu/addressbook-level4/issues/390#issuecomment-298936672[here].
 
-We decided to use two stacks as it is easy to understand for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
+---
 
-We decided not to include commands that do not modify the state of the address book (e.g. `find`, `list`). This is because no data is lost during the process, and the person list can easily be reconfigured to display what the user wants. (See our discusion https://github.com/se-edu/addressbook-level4/issues/390#issuecomment-298936672[here].)
+**Aspect:** Data structure to support the undo/redo commands +
+**Alternative 1 (current choice):** Use separate stack for undo and redo +
+**Pros:** Easy to understand for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project. +
+**Cons:** Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `UndoRedoStack`. +
+**Alternative 2:** Use `HistoryManager` for undo/redo +
+**Pros:** We do not need to maintain a separate stack, and just reuse what is already in the codebase. +
+**Cons:** Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things. +
 
 === Logging
 
