@@ -1,6 +1,6 @@
 package seedu.address.logic.commands;
 
-import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_REMARK;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
@@ -13,8 +13,6 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Remark;
-import seedu.address.model.person.exceptions.DuplicatePersonException;
-import seedu.address.model.person.exceptions.PersonNotFoundException;
 
 /**
  * Changes the remark of an existing person in the address book.
@@ -37,16 +35,12 @@ public class RemarkCommand extends Command {
     private final Index index;
     private final Remark remark;
 
-    private Person personToEdit;
-    private Person editedPerson;
-
     /**
      * @param index of the person in the filtered person list to edit the remark
      * @param remark of the person to be updated to
      */
     public RemarkCommand(Index index, Remark remark) {
-        requireNonNull(index);
-        requireNonNull(remark);
+        requireAllNonNull(index, remark);
 
         this.index = index;
         this.remark = remark;
@@ -60,17 +54,11 @@ public class RemarkCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
-        personToEdit = lastShownList.get(index.getZeroBased());
-        editedPerson = new Person(personToEdit.getName(), personToEdit.getPhone(), personToEdit.getEmail(),
+        Person personToEdit = lastShownList.get(index.getZeroBased());
+        Person editedPerson = new Person(personToEdit.getName(), personToEdit.getPhone(), personToEdit.getEmail(),
                 personToEdit.getAddress(), remark, personToEdit.getTags());
 
-        try {
-            model.updatePerson(personToEdit, editedPerson);
-        } catch (DuplicatePersonException dpe) {
-            throw new AssertionError("Changing target person's remark should not result in a duplicate");
-        } catch (PersonNotFoundException pnfe) {
-            throw new AssertionError("The target person cannot be missing");
-        }
+        model.updatePerson(personToEdit, editedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         model.commitAddressBook();
 
