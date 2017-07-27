@@ -11,11 +11,19 @@ AddressBook - Level 4 is a desktop address book application used for teaching So
 
 ==== External behavior
 
+---
+
 include::../UserGuide.adoc[tag=undoredo]
+
+---
 
 ==== Implementation details
 
+---
+
 include::../DeveloperGuide.adoc[tag=undoredo]
+
+---
 
 === Enhancement Proposed: Remark
 
