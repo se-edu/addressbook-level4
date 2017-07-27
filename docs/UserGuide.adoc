@@ -160,6 +160,7 @@ Format: `history`
 Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
 ====
 
+// tag::undoredo[]
 === Undo previous command : `undo`
 
 Restores the address book to the state before the previous _undoable_ command was executed. +
@@ -207,6 +208,7 @@ The `redo` command fails as there are no `undo` commands executed previously.
 `undo` (reverses the `delete 1` command) +
 `redo` (reapplies the `delete 1` command) +
 `redo` (reapplies the `clear` command) +
+// end::undoredo[]
 
 === Clearing all entries : `clear`
 
