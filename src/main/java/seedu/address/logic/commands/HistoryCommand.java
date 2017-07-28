@@ -15,6 +15,7 @@ import seedu.address.model.Model;
 public class HistoryCommand extends Command {
 
     public static final String COMMAND_WORD = "history";
+    public static final String COMMAND_ALIAS = "h";
     public static final String MESSAGE_SUCCESS = "Entered commands (from most recent to earliest):\n%1$s";
     public static final String MESSAGE_NO_HISTORY = "You have not yet entered any commands.";
 
