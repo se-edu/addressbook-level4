@@ -1,7 +1,6 @@
 package seedu.address.ui.testutil;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 
 import java.util.Arrays;
 import java.util.List;
@@ -73,8 +72,7 @@ public class GuiTestAssert {
             return "grey";
 
         default:
-            fail(tagName + " does not have a color assigned.");
-            return "";
+            throw new AssertionError(tagName + " does not have a color assigned.");
         }
     }
 
