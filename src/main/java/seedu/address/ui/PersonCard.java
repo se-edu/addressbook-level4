@@ -60,7 +60,7 @@ public class PersonCard extends UiPart<Region> {
     }
 
     /**
-     * Creates the tag labels for {@code person} and attach them to this {@code PersonCard}.
+     * Creates the tag labels for {@code person}.
      */
     private void initTags(Person person) {
         person.getTags().forEach(tag -> {

@@ -16,6 +16,8 @@ import seedu.address.ui.PersonCard;
  * A set of assertion methods useful for writing GUI tests.
  */
 public class GuiTestAssert {
+    private static final String LABEL_DEFAULT_STYLE = "label";
+
     /**
      * Asserts that {@code actualCard} displays the same values as {@code expectedCard}.
      */
@@ -36,10 +38,12 @@ public class GuiTestAssert {
         assertEquals(expectedPerson.getPhone().value, actualCard.getPhone());
         assertEquals(expectedPerson.getEmail().value, actualCard.getEmail());
         assertEquals(expectedPerson.getAddress().value, actualCard.getAddress());
-        assertEquals(expectedPerson.getTags().stream().map(tag -> tag.tagName).collect(Collectors.toList()),
-                actualCard.getTags());
-        expectedPerson.getTags().stream().map(tag -> tag.tagName).forEach(tag ->
-            assertEquals(Arrays.asList("label", PersonCard.getTagColorStyleFor(tag)),
+
+        List<String> expectedTags = expectedPerson.getTags().stream().map(tag -> tag.tagName)
+                .collect(Collectors.toList());
+        assertEquals(expectedTags, actualCard.getTags());
+        expectedTags.forEach(tag ->
+            assertEquals(Arrays.asList(LABEL_DEFAULT_STYLE, PersonCard.getTagColorStyleFor(tag)),
                     actualCard.getTagStyleClasses(tag)));
     }
 
