@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -22,10 +23,12 @@ public class XmlAddressBookStorage implements AddressBookStorage {
 
     private static final Logger logger = LogsCenter.getLogger(XmlAddressBookStorage.class);
 
-    private Path filePath;
+    private final Path filePath;
+    private final Path backupFilePath;
 
     public XmlAddressBookStorage(Path filePath) {
         this.filePath = filePath;
+        backupFilePath = Paths.get(filePath.toString() + ".backup");
     }
 
     public Path getAddressBookFilePath() {
@@ -58,6 +61,11 @@ public class XmlAddressBookStorage implements AddressBookStorage {
             logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
             throw new DataConversionException(ive);
         }
+    }
+
+    @Override
+    public void backupAddressBook(ReadOnlyAddressBook addressBook) throws IOException {
+        saveAddressBook(addressBook, backupFilePath);
     }
 
     @Override
