@@ -28,7 +28,7 @@ public class XmlAddressBookStorage implements AddressBookStorage {
 
     public XmlAddressBookStorage(Path filePath) {
         this.filePath = filePath;
-        this.backupFilePath = Paths.get(filePath.toString() + ".backup");
+        backupFilePath = Paths.get(filePath.toString() + ".backup");
     }
 
     public Path getAddressBookFilePath() {
