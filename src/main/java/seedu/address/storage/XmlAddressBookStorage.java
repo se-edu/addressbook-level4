@@ -23,10 +23,12 @@ public class XmlAddressBookStorage implements AddressBookStorage {
 
     private static final Logger logger = LogsCenter.getLogger(XmlAddressBookStorage.class);
 
-    private Path filePath;
+    private final Path filePath;
+    private final Path backupFilePath;
 
     public XmlAddressBookStorage(Path filePath) {
         this.filePath = filePath;
+        this.backupFilePath = Paths.get(filePath.toString() + ".backup");
     }
 
     public Path getAddressBookFilePath() {
@@ -63,7 +65,7 @@ public class XmlAddressBookStorage implements AddressBookStorage {
 
     @Override
     public void backupAddressBook(ReadOnlyAddressBook addressBook) throws IOException {
-        saveAddressBook(addressBook, Paths.get(filePath.toString() + ".backup"));
+        saveAddressBook(addressBook, backupFilePath);
     }
 
     @Override
