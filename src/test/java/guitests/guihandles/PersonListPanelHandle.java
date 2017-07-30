@@ -78,6 +78,13 @@ public class PersonListPanelHandle extends NodeHandle<ListView<PersonCard>> {
     }
 
     /**
+     * Selects the {@code PersonCard} at {@code index} in the list.
+     */
+    public void select(int index) {
+        getRootNode().getSelectionModel().select(index);
+    }
+
+    /**
      * Returns the size of the list.
      */
     public int getListSize() {
