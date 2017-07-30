@@ -16,6 +16,8 @@ import seedu.address.ui.PersonCard;
 public class PersonListPanelHandle extends NodeHandle<ListView<PersonCard>> {
     public static final String PERSON_LIST_VIEW_ID = "#personListView";
 
+    private PersonCard lastRememberedSelectedPersonCard;
+
     public PersonListPanelHandle(ListView<PersonCard> personListPanelNode) {
         super(personListPanelNode);
     }
@@ -82,6 +84,33 @@ public class PersonListPanelHandle extends NodeHandle<ListView<PersonCard>> {
      */
     public void select(int index) {
         getRootNode().getSelectionModel().select(index);
+    }
+
+    /**
+     * Remembers the selected {@code PersonCard} in the list.
+     */
+    public void rememberSelectedPersonCard() {
+        List<PersonCard> selectedItems = getRootNode().getSelectionModel().getSelectedItems();
+
+        if (selectedItems.size() == 0) {
+            lastRememberedSelectedPersonCard = null;
+        } else {
+            lastRememberedSelectedPersonCard = selectedItems.get(0);
+        }
+    }
+
+    /**
+     * Returns true if the selected {@code PersonCard} is different from the most recent
+     * {@code rememberSelectedPersonCard()} call.
+     */
+    public boolean isSelectedPersonCardChanged() {
+        List<PersonCard> selectedItems = getRootNode().getSelectionModel().getSelectedItems();
+
+        if (selectedItems.size() == 0) {
+            return lastRememberedSelectedPersonCard != null;
+        } else {
+            return !lastRememberedSelectedPersonCard.equals(selectedItems.get(0));
+        }
     }
 
     /**
