@@ -1,6 +1,6 @@
 = John Doe - Project Portfolio
 ifdef::env-github,env-browser[:outfilesuffix: .adoc]
-:imagesDir: ../images
+:imagesDir: images
 
 == Project: AddressBook - Level 4
 AddressBook - Level 4 is a desktop address book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 6 kLoC.
@@ -13,7 +13,7 @@ AddressBook - Level 4 is a desktop address book application used for teaching So
 
 ---
 
-include::../UserGuide.adoc[tag=undoredo]
+include::UserGuide.adoc[tag=undoredo]
 
 ---
 
@@ -21,7 +21,7 @@ include::../UserGuide.adoc[tag=undoredo]
 
 ---
 
-include::../DeveloperGuide.adoc[tag=undoredo]
+include::DeveloperGuide.adoc[tag=undoredo]
 
 ---
 
