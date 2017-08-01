@@ -1,5 +1,6 @@
 = AppVeyor
 :imagesDir: images
+:stylesDir: stylesheets
 
 https://www.appveyor.com/[AppVeyor] is a _Continuous Integration_ platform for GitHub projects. It runs its builds on Windows virtual machines.
 

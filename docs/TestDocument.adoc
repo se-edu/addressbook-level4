@@ -2,6 +2,7 @@
 :toc:
 :toc-placement: preamble
 :imagesDir: images
+:stylesDir: stylesheets
 
 This is a test asciidoc document to check the setup for asciidoc documentation.
 

@@ -5,6 +5,7 @@
 :sectnums:
 :sectnumlevels: 1
 :imagesDir: images
+:stylesDir: stylesheets
 ifdef::env-github,env-browser[:outfilesuffix: .adoc]
 :repoURL: https://github.com/se-edu/addressbook-level4/tree/master
 

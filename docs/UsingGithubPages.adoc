@@ -1,5 +1,6 @@
 = Using GitHub Pages
 :imagesDir: images
+:stylesDir: stylesheets
 ifdef::env-github,env-browser[:outfilesuffix: .adoc]
 
 https://pages.github.com/[GitHub Pages] is a static site hosting service that allows users to publish webpages using files in their GitHub repositories.

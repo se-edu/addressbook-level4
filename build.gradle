@@ -191,7 +191,6 @@ asciidoctor {
     outputDir "${buildDir}/docs"
 
     attributes linkcss: true,
-               stylesdir: 'stylesheets',
                stylesheet: 'gh-pages.css',
                'source-highlighter': 'coderay',
                icons: 'font',

@@ -1,5 +1,6 @@
 = Using Gradle
 :imagesDir: images
+:stylesDir: stylesheets
 :experimental:
 ifdef::env-github[]
 :tip-caption: :bulb:
