@@ -22,13 +22,16 @@
 <p>AddressBook - Level 4 is a desktop address book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 6 kLoC.</p>
 </div>
 <div class="paragraph">
-<p><strong>Code</strong>: [<a href="https://github.com/se-edu/addressbook-level4/blob/master/src/main/java/seedu/address/logic/commands/UndoCommand.java">UndoCommand</a>] [<a href="https://github.com/se-edu/addressbook-level4/blob/master/src/test/java/seedu/address/logic/commands/UndoCommandTest.java">UndoCommandTest</a>]</p>
+<p><strong>Code contributed</strong>: [<a href="https://github.com">Functional code</a>] [<a href="https://github.com">Test code</a>] {give links to collated code files}</p>
 </div>
 <div class="sect2">
 <h3 id="enhancement-added-undo-redo"><a class="link" href="#enhancement-added-undo-redo">Enhancement Added: Undo/Redo</a></h3>
 <div class="sect3">
 <h4 id="external-behavior"><a class="link" href="#external-behavior">External behavior</a></h4>
 <hr>
+<div class="paragraph">
+<p><mark>Start of Extract [from: User Guide]</mark></p>
+</div>
 </div>
 </div>
 <div class="sect2">
@@ -107,10 +110,22 @@ The <code>redo</code> command fails as there are no <code>undo</code> commands e
 </li>
 </ul>
 </div>
+<div class="paragraph">
+<p><mark>End of Extract</mark></p>
+</div>
 <hr>
 <div class="sect3">
-<h4 id="implementation-details"><a class="link" href="#implementation-details">Implementation details</a></h4>
+<h4 id="justification"><a class="link" href="#justification">Justification</a></h4>
+<div class="paragraph">
+<p>{Justify the need for, and the current design (i.e. external behavior) of, the feature}</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="implementation"><a class="link" href="#implementation">Implementation</a></h4>
 <hr>
+<div class="paragraph">
+<p><mark>Start of Extract [from: Developer Guide]</mark></p>
+</div>
 </div>
 </div>
 <div class="sect2">
@@ -307,13 +322,16 @@ If the <code>redoStack</code> is empty, then there are no other commands left to
 <strong>Pros:</strong> We do not need to maintain a separate stack, and just reuse what is already in the codebase.<br>
 <strong>Cons:</strong> Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as <code>HistoryManager</code> now needs to do two different things.<br></p>
 </div>
+<div class="paragraph">
+<p><mark>End of Extract</mark></p>
+</div>
 <hr>
 </div>
 </div>
 <div class="sect2">
-<h3 id="enhancement-proposed-remark"><a class="link" href="#enhancement-proposed-remark">Enhancement Proposed: Remark</a></h3>
+<h3 id="enhancement-proposed-add-command-code-remark-code"><a class="link" href="#enhancement-proposed-add-command-code-remark-code">Enhancement Proposed: Add command <code>remark</code></a></h3>
 <div class="paragraph">
-<p>{Explain similar to the Undo/Redo feature.}</p>
+<p>{Explain similar to the Undo/Redo feature above.}</p>
 </div>
 </div>
 <div class="sect2">
@@ -321,10 +339,10 @@ If the <code>redoStack</code> is empty, then there are no other commands left to
 <div class="ulist">
 <ul>
 <li>
-<p><a href="https://github.com/se-edu/addressbook-level4/pull/10">Updated the GUI color scheme</a></p>
+<p>Updated the GUI color scheme (Pull requests <a href="https://github.com">#33</a>, <a href="https://github.com">#34</a>)</p>
 </li>
 <li>
-<p><a href="https://github.com/se-edu/addressbook-level4/pull/15">Wrote additional tests to increase coverage from 88% to 92%</a></p>
+<p>Wrote additional tests to increase coverage from 88% to 92% (Pull requests <a href="https://github.com">#36</a>, <a href="https://github.com">#38</a>)</p>
 </li>
 </ul>
 </div>
@@ -335,14 +353,14 @@ If the <code>redoStack</code> is empty, then there are no other commands left to
 <h2 id="project-powerpointlabs"><a class="link" href="#project-powerpointlabs">Project: PowerPointLabs</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>{You may include other projects in your portfolio.}</p>
+<p>{Optionally (not graded), you may include other projects in your portfolio.}</p>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-08-02 00:26:21 +00:00
+Last updated 2017-08-02 04:37:22 +00:00
 </div>
 </div>
 </body>
