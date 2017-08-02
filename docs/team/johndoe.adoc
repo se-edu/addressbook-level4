@@ -6,35 +6,45 @@ ifdef::env-github,env-browser[:outfilesuffix: .adoc]
 == Project: AddressBook - Level 4
 AddressBook - Level 4 is a desktop address book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 6 kLoC.
 
-*Code*: [https://github.com/se-edu/addressbook-level4/blob/master/src/main/java/seedu/address/logic/commands/UndoCommand.java[UndoCommand]] [https://github.com/se-edu/addressbook-level4/blob/master/src/test/java/seedu/address/logic/commands/UndoCommandTest.java[UndoCommandTest]]
+*Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] {give links to collated code files}
 
 === Enhancement Added: Undo/Redo
 
 ==== External behavior
 
 ---
+#Start of Extract [from: User Guide]#
 
 include::../UserGuide.adoc[tag=undoredo]
 
----
-
-==== Implementation details
+#End of Extract#
 
 ---
+
+==== Justification
+
+{Justify the need for, and the current design (i.e. external behavior) of, the feature}
+
+==== Implementation
+
+---
+#Start of Extract [from: Developer Guide]#
 
 include::../DeveloperGuide.adoc[tag=undoredo]
 
+#End of Extract#
+
 ---
 
-=== Enhancement Proposed: Remark
+=== Enhancement Proposed: Add command `remark`
 
-{Explain similar to the Undo/Redo feature.}
+{Explain similar to the Undo/Redo feature above.}
 
 === Other contributions
 
-* https://github.com/se-edu/addressbook-level4/pull/10[Updated the GUI color scheme]
-* https://github.com/se-edu/addressbook-level4/pull/15[Wrote additional tests to increase coverage from 88% to 92%]
+* Updated the GUI color scheme (Pull requests https://github.com[#33], https://github.com[#34])
+* Wrote additional tests to increase coverage from 88% to 92% (Pull requests https://github.com[#36], https://github.com[#38])
 
 == Project: PowerPointLabs
 
-{You may include other projects in your portfolio.}
+{Optionally (not graded), you may include other projects in your portfolio.}
