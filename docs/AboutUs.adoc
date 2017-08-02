@@ -1,6 +1,7 @@
 = About Us
 ifdef::env-github,env-browser[:outfilesuffix: .adoc]
 :imagesDir: images
+:stylesDir: stylesheets
 
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
