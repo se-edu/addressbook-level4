@@ -1,14 +1,19 @@
 package seedu.address;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.function.Supplier;
 
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import seedu.address.commons.core.Config;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.XmlUtil;
+import seedu.address.model.AddressBook;
+import seedu.address.model.Model;
+import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.UserPrefs;
 import seedu.address.storage.UserPrefsStorage;
@@ -64,6 +69,32 @@ public class TestApp extends MainApp {
         return userPrefs;
     }
 
+    /**
+     * Returns a defensive copy of the address book data stored inside the storage file.
+     */
+    public AddressBook readStorageAddressBook() {
+        try {
+            return new AddressBook(storage.readAddressBook().get());
+        } catch (DataConversionException dce) {
+            throw new AssertionError("Data is not in the AddressBook format.");
+        } catch (IOException ioe) {
+            throw new AssertionError("Storage file cannot be found.");
+        }
+    }
+
+    /**
+     * Returns the file path of the storage file.
+     */
+    public String getStorageSaveLocation() {
+        return storage.getAddressBookFilePath();
+    }
+
+    /**
+     * Returns a defensive copy of the model.
+     */
+    public Model getModel() {
+        return new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+    }
 
     @Override
     public void start(Stage primaryStage) {
