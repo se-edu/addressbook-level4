@@ -16,7 +16,9 @@ import org.junit.rules.ExpectedException;
 import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.CommandHistory;
+import seedu.address.logic.UndoRedoStack;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.person.Person;
@@ -87,7 +89,7 @@ public class AddCommandTest {
      */
     private AddCommand getAddCommandForPerson(Person person, Model model) throws IllegalValueException {
         AddCommand command = new AddCommand(person);
-        command.setData(model, new CommandHistory());
+        command.setData(model, new CommandHistory(), new UndoRedoStack());
         return command;
     }
 
@@ -147,6 +149,11 @@ public class AddCommandTest {
         public void addPerson(ReadOnlyPerson person) throws DuplicatePersonException {
             throw new DuplicatePersonException();
         }
+
+        @Override
+        public ReadOnlyAddressBook getAddressBook() {
+            return new AddressBook();
+        }
     }
 
     /**
@@ -158,6 +165,11 @@ public class AddCommandTest {
         @Override
         public void addPerson(ReadOnlyPerson person) throws DuplicatePersonException {
             personsAdded.add(new Person(person));
+        }
+
+        @Override
+        public ReadOnlyAddressBook getAddressBook() {
+            return new AddressBook();
         }
     }
 
