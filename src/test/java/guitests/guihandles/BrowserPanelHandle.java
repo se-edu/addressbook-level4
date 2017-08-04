@@ -1,9 +1,15 @@
 package guitests.guihandles;
 
+import static seedu.address.testutil.EventsUtil.post;
+
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import guitests.GuiRobot;
+import javafx.concurrent.Worker;
 import javafx.scene.Node;
+import javafx.scene.web.WebEngine;
+import javafx.scene.web.WebView;
 
 /**
  * A handler for the {@code BrowserPanel} of the UI.
@@ -16,6 +22,15 @@ public class BrowserPanelHandle extends NodeHandle<Node> {
 
     public BrowserPanelHandle(Node browserPanelNode) {
         super(browserPanelNode);
+
+        // Posts WebViewLoadedEvent whenever a new page is loaded.
+        WebView webView = getChildNode(BROWSER_ID);
+        WebEngine engine = webView.getEngine();
+        new GuiRobot().interact(() -> engine.getLoadWorker().stateProperty().addListener((obs, oldState, newState) -> {
+            if (newState == Worker.State.SUCCEEDED) {
+                post(new WebViewLoadedEvent());
+            }
+        }));
     }
 
     /**
