@@ -11,6 +11,7 @@ import static seedu.address.testutil.TypicalPersons.INDEX_THIRD_PERSON;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 
 import seedu.address.commons.core.Messages;
@@ -22,12 +23,14 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.testutil.EventsCollector;
+import seedu.address.ui.testutil.EventsCollectorRule;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code SelectCommand}.
  */
 public class SelectCommandTest {
+    @Rule
+    public final EventsCollectorRule eventsCollectorRule = new EventsCollectorRule();
 
     private Model model;
 
@@ -97,16 +100,14 @@ public class SelectCommandTest {
      * is raised with the correct index.
      */
     private void assertExecutionSuccess(Index index) throws Exception {
-        EventsCollector eventCollector = new EventsCollector();
         SelectCommand selectCommand = prepareCommand(index);
         CommandResult commandResult = selectCommand.execute();
 
         assertEquals(String.format(SelectCommand.MESSAGE_SELECT_PERSON_SUCCESS, index.getOneBased()),
                 commandResult.feedbackToUser);
 
-        JumpToListRequestEvent lastEvent = (JumpToListRequestEvent) eventCollector.getMostRecent();
+        JumpToListRequestEvent lastEvent = (JumpToListRequestEvent) eventsCollectorRule.eventsCollector.getMostRecent();
         assertEquals(index, Index.fromZeroBased(lastEvent.targetIndex));
-        assertTrue(eventCollector.getSize() == 1);
     }
 
     /**
@@ -114,7 +115,6 @@ public class SelectCommandTest {
      * is thrown with the {@code expectedMessage}.
      */
     private void assertExecutionFailure(Index index, String expectedMessage) {
-        EventsCollector eventCollector = new EventsCollector();
         SelectCommand selectCommand = prepareCommand(index);
 
         try {
@@ -122,7 +122,7 @@ public class SelectCommandTest {
             fail("The expected CommandException was not thrown.");
         } catch (CommandException ce) {
             assertEquals(expectedMessage, ce.getMessage());
-            assertTrue(eventCollector.isEmpty());
+            assertTrue(eventsCollectorRule.eventsCollector.isEmpty());
         }
     }
 
