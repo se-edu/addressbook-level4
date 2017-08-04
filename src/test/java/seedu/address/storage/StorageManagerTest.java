@@ -8,11 +8,13 @@ import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.io.IOException;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
+import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.model.AddressBook;
@@ -34,6 +36,10 @@ public class StorageManagerTest {
         storageManager = new StorageManager(addressBookStorage, userPrefsStorage);
     }
 
+    @After
+    public void tearDown() {
+        EventsCenter.clearSubscribers();
+    }
 
     private String getTempFilePath(String fileName) {
         return testFolder.getRoot().getPath() + fileName;
