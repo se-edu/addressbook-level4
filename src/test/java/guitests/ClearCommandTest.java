@@ -1,7 +1,7 @@
 package guitests;
 
 import static seedu.address.testutil.TypicalPersons.HOON;
-import static seedu.address.testutil.TypicalPersons.TYPICAL_PERSONS;
+import static seedu.address.testutil.TypicalPersons.getTypicalPersons;
 import static seedu.address.ui.testutil.GuiTestAssert.assertListMatching;
 
 import org.junit.Test;
@@ -16,7 +16,7 @@ public class ClearCommandTest extends AddressBookGuiTest {
     public void clear() throws Exception {
 
         //verify a non-empty list can be cleared
-        assertListMatching(getPersonListPanel(), TYPICAL_PERSONS);
+        assertListMatching(getPersonListPanel(), getTypicalPersons());
         assertClearCommandSuccess();
 
         //verify other commands can work after a clear command
