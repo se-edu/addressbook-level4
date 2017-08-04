@@ -8,24 +8,24 @@ import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.io.IOException;
 
-import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.TemporaryFolder;
 
-import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.UserPrefs;
-import seedu.address.testutil.EventsCollector;
+import seedu.address.ui.testutil.EventsCollectorRule;
 
 public class StorageManagerTest {
 
     @Rule
     public TemporaryFolder testFolder = new TemporaryFolder();
+    @Rule
+    public final EventsCollectorRule eventsCollectorRule = new EventsCollectorRule();
 
     private StorageManager storageManager;
 
@@ -34,11 +34,6 @@ public class StorageManagerTest {
         XmlAddressBookStorage addressBookStorage = new XmlAddressBookStorage(getTempFilePath("ab"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
         storageManager = new StorageManager(addressBookStorage, userPrefsStorage);
-    }
-
-    @After
-    public void tearDown() {
-        EventsCenter.clearSubscribers();
     }
 
     private String getTempFilePath(String fileName) {
@@ -83,9 +78,8 @@ public class StorageManagerTest {
         // Create a StorageManager while injecting a stub that  throws an exception when the save method is called
         Storage storage = new StorageManager(new XmlAddressBookStorageExceptionThrowingStub("dummy"),
                                              new JsonUserPrefsStorage("dummy"));
-        EventsCollector eventCollector = new EventsCollector();
         storage.handleAddressBookChangedEvent(new AddressBookChangedEvent(new AddressBook()));
-        assertTrue(eventCollector.getMostRecent() instanceof DataSavingExceptionEvent);
+        assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof DataSavingExceptionEvent);
     }
 
 

@@ -22,9 +22,10 @@ public class BrowserPanelHandle extends NodeHandle<Node> {
 
     public BrowserPanelHandle(Node browserPanelNode) {
         super(browserPanelNode);
+
+        // Posts WebViewLoadedEvent whenever a new page is loaded.
         WebView webView = getChildNode(BROWSER_ID);
         WebEngine engine = webView.getEngine();
-
         new GuiRobot().interact(() -> engine.getLoadWorker().stateProperty().addListener((obs, oldState, newState) -> {
             if (newState == Worker.State.SUCCEEDED) {
                 post(new WebViewLoadedEvent());

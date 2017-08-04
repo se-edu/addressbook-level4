@@ -4,27 +4,21 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.HelpCommand.SHOWING_HELP_MESSAGE;
 
-import org.junit.After;
+import org.junit.Rule;
 import org.junit.Test;
 
-import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.events.ui.ShowHelpRequestEvent;
-import seedu.address.testutil.EventsCollector;
+import seedu.address.ui.testutil.EventsCollectorRule;
 
 public class HelpCommandTest {
-
-    @After
-    public void tearDown() {
-        EventsCenter.clearSubscribers();
-    }
+    @Rule
+    public final EventsCollectorRule eventsCollectorRule = new EventsCollectorRule();
 
     @Test
     public void execute_help_success() {
-        EventsCollector eventCollector = new EventsCollector();
-
         CommandResult result = new HelpCommand().execute();
         assertEquals(SHOWING_HELP_MESSAGE, result.feedbackToUser);
-        assertTrue(eventCollector.getMostRecent() instanceof ShowHelpRequestEvent);
-        assertTrue(eventCollector.getSize() == 1);
+        assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof ShowHelpRequestEvent);
+        assertTrue(eventsCollectorRule.eventsCollector.getSize() == 1);
     }
 }
