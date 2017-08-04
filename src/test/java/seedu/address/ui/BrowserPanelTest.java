@@ -10,27 +10,25 @@ import static seedu.address.ui.UiPart.FXML_FILE_FOLDER;
 
 import java.net.URL;
 
-import org.junit.After;
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
-
-import com.google.common.eventbus.Subscribe;
 
 import guitests.GuiRobot;
 import guitests.guihandles.BrowserPanelHandle;
 import guitests.guihandles.WebViewLoadedEvent;
 import seedu.address.MainApp;
-import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
+import seedu.address.ui.testutil.EventsCollectorRule;
 
 public class BrowserPanelTest extends GuiUnitTest {
+    @Rule
+    public final EventsCollectorRule eventsCollectorRule = new EventsCollectorRule();
 
     private PersonPanelSelectionChangedEvent selectionChangedEventStub;
 
     private BrowserPanel browserPanel;
     private BrowserPanelHandle browserPanelHandle;
-
-    private boolean isUrlLoaded = false;
 
     @Before
     public void setUp() throws Exception {
@@ -40,13 +38,6 @@ public class BrowserPanelTest extends GuiUnitTest {
         uiPartRule.setUiPart(browserPanel);
 
         browserPanelHandle = new BrowserPanelHandle(browserPanel.getRoot());
-
-        EventsCenter.getInstance().registerHandler(this);
-    }
-
-    @After
-    public void tearDown() {
-        EventsCenter.clearSubscribers();
     }
 
     @Test
@@ -60,12 +51,8 @@ public class BrowserPanelTest extends GuiUnitTest {
         URL expectedPersonUrl = new URL(GOOGLE_SEARCH_URL_PREFIX
                 + ALICE.getName().fullName.replaceAll(" ", "+") + GOOGLE_SEARCH_URL_SUFFIX);
 
-        new GuiRobot().waitForEvent(() -> isUrlLoaded);
+        new GuiRobot().waitForEvent(() ->
+                eventsCollectorRule.eventsCollector.getMostRecent() instanceof WebViewLoadedEvent);
         assertEquals(expectedPersonUrl, browserPanelHandle.getLoadedUrl());
-    }
-
-    @Subscribe
-    private void handleWebViewLoadedEvent(WebViewLoadedEvent event) {
-        isUrlLoaded = true;
     }
 }
