@@ -3,6 +3,7 @@ package guitests;
 import static seedu.address.testutil.TypicalPersons.BENSON;
 import static seedu.address.testutil.TypicalPersons.DANIEL;
 import static seedu.address.ui.testutil.GuiTestAssert.assertListMatching;
+import static seedu.address.ui.testutil.GuiTestAssert.assertListSize;
 
 import org.junit.Test;
 
@@ -38,7 +39,7 @@ public class FindCommandTest extends AddressBookGuiTest {
 
     private void assertFindResult(String command, ReadOnlyPerson... expectedHits) throws Exception {
         runCommand(command);
-        assertListSize(expectedHits.length);
+        assertListSize(getPersonListPanel(), expectedHits.length);
         assertResultMessage(expectedHits.length + " persons listed!");
         assertListMatching(getPersonListPanel(), expectedHits);
     }

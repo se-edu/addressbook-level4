@@ -4,6 +4,7 @@ import static org.junit.Assert.assertFalse;
 import static seedu.address.testutil.TypicalPersons.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalPersons.TYPICAL_PERSONS;
 import static seedu.address.ui.testutil.GuiTestAssert.assertCardEquals;
+import static seedu.address.ui.testutil.GuiTestAssert.assertListSize;
 
 import org.junit.Test;
 
@@ -36,7 +37,7 @@ public class SelectCommandTest extends AddressBookGuiTest {
     @Test
     public void selectPerson_emptyList() {
         runCommand(ClearCommand.COMMAND_WORD);
-        assertListSize(0);
+        assertListSize(getPersonListPanel(), 0);
         assertSelectionInvalid(INDEX_FIRST_PERSON); //invalid index
     }
 
