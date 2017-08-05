@@ -16,11 +16,9 @@ import guitests.guihandles.MainWindowHandle;
 import guitests.guihandles.PersonListPanelHandle;
 import guitests.guihandles.ResultDisplayHandle;
 import guitests.guihandles.StatusBarFooterHandle;
-import javafx.application.Platform;
 import javafx.stage.Stage;
 import seedu.address.TestApp;
 import seedu.address.commons.core.EventsCenter;
-import seedu.address.commons.events.BaseEvent;
 import seedu.address.model.AddressBook;
 import seedu.address.testutil.TypicalPersons;
 
@@ -116,8 +114,4 @@ public abstract class AddressBookGuiTest {
         FxToolkit.cleanupStages();
     }
 
-    protected void raise(BaseEvent event) {
-        //JUnit doesn't run its test cases on the UI thread. Platform.runLater is used to post event on the UI thread.
-        Platform.runLater(() -> EventsCenter.getInstance().post(event));
-    }
 }
