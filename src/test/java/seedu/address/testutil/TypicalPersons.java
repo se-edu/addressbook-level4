@@ -51,9 +51,10 @@ public class TypicalPersons {
     private TypicalPersons() {} // prevents instantiation
 
     /**
-     * Loads the {@code ab} with all the typical persons.
+     * Returns an {@code AddressBook} with all the typical persons.
      */
-    public static void loadAddressBookWithSampleData(AddressBook ab) {
+    public static AddressBook getTypicalAddressBook() {
+        AddressBook ab = new AddressBook();
         for (ReadOnlyPerson person : getTypicalPersons()) {
             try {
                 ab.addPerson(new Person(person));
@@ -61,11 +62,6 @@ public class TypicalPersons {
                 assert false : "not possible";
             }
         }
-    }
-
-    public static AddressBook getTypicalAddressBook() {
-        AddressBook ab = new AddressBook();
-        loadAddressBookWithSampleData(ab);
         return ab;
     }
 
