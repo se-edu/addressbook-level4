@@ -1,6 +1,7 @@
 package seedu.address.testutil;
 
 import guitests.GuiRobot;
+import javafx.application.Platform;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.events.BaseEvent;
 
@@ -14,5 +15,9 @@ public class EventsUtil {
      */
     public static void post(BaseEvent event) {
         new GuiRobot().interact(() -> EventsCenter.getInstance().post(event));
+    }
+
+    public static void raise(BaseEvent event) {
+        Platform.runLater(() -> EventsCenter.getInstance().post(event));
     }
 }
