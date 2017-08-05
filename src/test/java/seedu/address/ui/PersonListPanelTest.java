@@ -54,7 +54,7 @@ public class PersonListPanelTest extends GuiUnitTest {
         guiRobot.pauseForHuman();
 
         PersonCardHandle expectedCard = personListPanelHandle.getPersonCardHandle(INDEX_SECOND_PERSON.getZeroBased());
-        PersonCardHandle selectedCard = personListPanelHandle.getHandleToSelectedCard().get();
+        PersonCardHandle selectedCard = personListPanelHandle.getHandleToSelectedCard();
         assertCardEquals(expectedCard, selectedCard);
     }
 }
