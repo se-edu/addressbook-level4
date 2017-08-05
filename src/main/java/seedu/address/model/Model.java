@@ -11,6 +11,8 @@ import seedu.address.model.person.exceptions.PersonNotFoundException;
  * The API of the Model component.
  */
 public interface Model {
+    Predicate<ReadOnlyPerson> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+
     /** Clears existing backing model and replaces with the provided new data. */
     void resetData(ReadOnlyAddressBook newData);
 
@@ -38,7 +40,7 @@ public interface Model {
 
     /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.
-     * @throws NullPointerException if {@code predicate} is null.
+     * @throws NullPointerException if {@code predicate} is null.\
      */
     void updateFilteredPersonList(Predicate<ReadOnlyPerson> predicate);
 
