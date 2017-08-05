@@ -47,4 +47,12 @@ public class GuiTestAssert {
             assertCardDisplaysPerson(persons[i], personListPanelHandle.getPersonCardHandle(i));
         }
     }
+
+    /**
+     * Asserts the size of the list in {@code personListPanelHandle} equals to {@code size}.
+     */
+    public static void assertListSize(PersonListPanelHandle personListPanelHandle, int size) {
+        int numberOfPeople = personListPanelHandle.getListSize();
+        assertEquals(size, numberOfPeople);
+    }
 }
