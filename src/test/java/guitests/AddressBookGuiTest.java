@@ -119,14 +119,6 @@ public abstract class AddressBookGuiTest {
     }
 
     /**
-     * Asserts the size of the person list is equal to the given number.
-     */
-    protected void assertListSize(int size) {
-        int numberOfPeople = getPersonListPanel().getListSize();
-        assertEquals(size, numberOfPeople);
-    }
-
-    /**
      * Asserts the message shown in the Result Display area is same as the given string.
      */
     protected void assertResultMessage(String expected) {
