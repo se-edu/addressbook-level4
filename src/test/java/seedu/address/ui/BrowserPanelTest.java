@@ -1,7 +1,7 @@
 package seedu.address.ui;
 
 import static org.junit.Assert.assertEquals;
-import static seedu.address.testutil.EventsUtil.post;
+import static seedu.address.testutil.EventsUtil.postAndWait;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.ui.BrowserPanel.DEFAULT_PAGE;
 import static seedu.address.ui.BrowserPanel.GOOGLE_SEARCH_URL_PREFIX;
@@ -40,7 +40,7 @@ public class BrowserPanelTest extends GuiUnitTest {
         assertEquals(expectedDefaultPageUrl, browserPanelHandle.getLoadedUrl());
 
         // associated web page of a person
-        post(selectionChangedEventStub);
+        postAndWait(selectionChangedEventStub);
         URL expectedPersonUrl = new URL(GOOGLE_SEARCH_URL_PREFIX
                 + ALICE.getName().fullName.replaceAll(" ", "+"));
         assertEquals(expectedPersonUrl, browserPanelHandle.getLoadedUrl());
