@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Optional;
 
 import javafx.scene.control.ListView;
-import seedu.address.commons.core.index.Index;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.ui.PersonCard;
@@ -33,13 +32,6 @@ public class PersonListPanelHandle extends NodeHandle<ListView<PersonCard>> {
         }
 
         return personList.isEmpty() ? Optional.empty() : Optional.of(new PersonCardHandle(personList.get(0).getRoot()));
-    }
-
-    /**
-     * Scrolls the list to the {@code index} given.
-     */
-    public void scrollTo(Index index) {
-        guiRobot.interact(() -> getRootNode().scrollTo(index.getZeroBased()));
     }
 
     /**
