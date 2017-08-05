@@ -41,7 +41,9 @@ public class ModelManagerTest {
         String[] keywords = ALICE.getName().fullName.split("\\s+");
         modelManager.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
         assertFalse(modelManager.equals(new ModelManager(addressBook, userPrefs)));
-        modelManager.updateFilteredPersonList(null); // resets modelManager to initial state for upcoming tests
+
+        // resets modelManager to initial state for upcoming tests
+        modelManager.updateFilteredPersonList(unused -> true);
 
         // different userPrefs -> returns true
         UserPrefs differentUserPrefs = new UserPrefs();

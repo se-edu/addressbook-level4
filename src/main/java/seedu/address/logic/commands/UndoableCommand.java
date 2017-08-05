@@ -31,7 +31,7 @@ public abstract class UndoableCommand extends Command {
     protected final void undo() {
         requireAllNonNull(model, previousAddressBook);
         model.resetData(previousAddressBook);
-        model.updateFilteredPersonList(null);
+        model.updateFilteredPersonList(unused -> true);
     }
 
     /**
@@ -46,7 +46,7 @@ public abstract class UndoableCommand extends Command {
             throw new AssertionError("The command has been successfully executed previously; "
                     + "it should not fail now");
         }
-        model.updateFilteredPersonList(null);
+        model.updateFilteredPersonList(unused -> true);
     }
 
     @Override
