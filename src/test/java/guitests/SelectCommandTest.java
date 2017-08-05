@@ -55,7 +55,7 @@ public class SelectCommandTest extends AddressBookGuiTest {
 
     private void assertCardSelected(Index index) throws Exception {
         PersonCardHandle expectedCard = getPersonListPanel().getPersonCardHandle(index.getZeroBased());
-        PersonCardHandle selectedCard = getPersonListPanel().getHandleToSelectedCard().get();
+        PersonCardHandle selectedCard = getPersonListPanel().getHandleToSelectedCard();
         assertCardEquals(expectedCard, selectedCard);
         //TODO: confirm the correct page is loaded in the Browser Panel
     }
