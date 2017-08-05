@@ -61,12 +61,11 @@ public class UniquePersonList implements Iterable<Person> {
             throw new PersonNotFoundException();
         }
 
-        Person personToUpdate = internalList.get(index);
-        if (!personToUpdate.equals(editedPerson) && internalList.contains(editedPerson)) {
+        if (!target.equals(editedPerson) && internalList.contains(editedPerson)) {
             throw new DuplicatePersonException();
         }
 
-        personToUpdate.resetData(editedPerson);
+        internalList.set(index, new Person(editedPerson));
     }
 
     /**
