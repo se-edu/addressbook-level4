@@ -122,19 +122,6 @@ public class Person implements ReadOnlyPerson {
         tags.set(new UniqueTagList(replacement));
     }
 
-    /**
-     * Updates this person with the details of {@code replacement}.
-     */
-    public void resetData(ReadOnlyPerson replacement) {
-        requireNonNull(replacement);
-
-        this.setName(replacement.getName());
-        this.setPhone(replacement.getPhone());
-        this.setEmail(replacement.getEmail());
-        this.setAddress(replacement.getAddress());
-        this.setTags(replacement.getTags());
-    }
-
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
