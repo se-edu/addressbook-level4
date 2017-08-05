@@ -36,10 +36,10 @@ public interface Model {
     /** Returns the filtered person list as an {@code UnmodifiableObservableList<ReadOnlyPerson>} */
     UnmodifiableObservableList<ReadOnlyPerson> getFilteredPersonList();
 
-    /** Updates the filter of the filtered person list to show all persons */
-    void updateFilteredListToShowAll();
-
-    /** Updates the filter of the filtered person list to filter by the given {@code predicate}*/
+    /**
+     * Updates the filter of the filtered person list to filter by the given {@code predicate}
+     * If the predicate is null, all elements will be matched and the list is equal to the source list.
+     */
     void updateFilteredPersonList(Predicate<ReadOnlyPerson> predicate);
 
 }
