@@ -66,7 +66,7 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public synchronized void addPerson(ReadOnlyPerson person) throws DuplicatePersonException {
         addressBook.addPerson(person);
-        updateFilteredListToShowAll();
+        updateFilteredPersonList(null);
         indicateAddressBookChanged();
     }
 
@@ -87,11 +87,6 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public UnmodifiableObservableList<ReadOnlyPerson> getFilteredPersonList() {
         return new UnmodifiableObservableList<>(filteredPersons);
-    }
-
-    @Override
-    public void updateFilteredListToShowAll() {
-        filteredPersons.setPredicate(null);
     }
 
     @Override
