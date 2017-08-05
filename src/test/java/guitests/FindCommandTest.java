@@ -4,6 +4,7 @@ import static seedu.address.testutil.TypicalPersons.BENSON;
 import static seedu.address.testutil.TypicalPersons.DANIEL;
 import static seedu.address.ui.testutil.GuiTestAssert.assertListMatching;
 import static seedu.address.ui.testutil.GuiTestAssert.assertListSize;
+import static seedu.address.ui.testutil.GuiTestAssert.assertResultMessage;
 
 import org.junit.Test;
 
@@ -34,13 +35,13 @@ public class FindCommandTest extends AddressBookGuiTest {
     @Test
     public void find_invalidCommand_fail() {
         runCommand(FindCommand.COMMAND_WORD + "george");
-        assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
+        assertResultMessage(getResultDisplay(), Messages.MESSAGE_UNKNOWN_COMMAND);
     }
 
     private void assertFindResult(String command, ReadOnlyPerson... expectedHits) throws Exception {
         runCommand(command);
         assertListSize(getPersonListPanel(), expectedHits.length);
-        assertResultMessage(expectedHits.length + " persons listed!");
+        assertResultMessage(getResultDisplay(), expectedHits.length + " persons listed!");
         assertListMatching(getPersonListPanel(), expectedHits);
     }
 }

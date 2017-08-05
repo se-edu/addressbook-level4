@@ -4,6 +4,7 @@ import static seedu.address.testutil.TypicalPersons.HOON;
 import static seedu.address.testutil.TypicalPersons.TYPICAL_PERSONS;
 import static seedu.address.ui.testutil.GuiTestAssert.assertListMatching;
 import static seedu.address.ui.testutil.GuiTestAssert.assertListSize;
+import static seedu.address.ui.testutil.GuiTestAssert.assertResultMessage;
 
 import org.junit.Test;
 
@@ -33,6 +34,6 @@ public class ClearCommandTest extends AddressBookGuiTest {
     private void assertClearCommandSuccess() {
         runCommand(ClearCommand.COMMAND_WORD);
         assertListSize(getPersonListPanel(), 0);
-        assertResultMessage("Address book has been cleared!");
+        assertResultMessage(getResultDisplay(), "Address book has been cleared!");
     }
 }

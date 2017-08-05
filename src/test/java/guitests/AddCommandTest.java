@@ -6,6 +6,7 @@ import static seedu.address.testutil.TypicalPersons.IDA;
 import static seedu.address.testutil.TypicalPersons.TYPICAL_PERSONS;
 import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysPerson;
 import static seedu.address.ui.testutil.GuiTestAssert.assertListMatching;
+import static seedu.address.ui.testutil.GuiTestAssert.assertResultMessage;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -37,7 +38,7 @@ public class AddCommandTest extends AddressBookGuiTest {
 
         //add duplicate person
         runCommand(PersonUtil.getAddCommand(HOON));
-        assertResultMessage(AddCommand.MESSAGE_DUPLICATE_PERSON);
+        assertResultMessage(getResultDisplay(), AddCommand.MESSAGE_DUPLICATE_PERSON);
         assertListMatching(getPersonListPanel(), expectedList.toArray(new Person[expectedList.size()]));
 
         //add to empty list
@@ -49,7 +50,7 @@ public class AddCommandTest extends AddressBookGuiTest {
 
         //invalid command
         runCommand("adds Johnny");
-        assertResultMessage(Messages.MESSAGE_UNKNOWN_COMMAND);
+        assertResultMessage(getResultDisplay(), Messages.MESSAGE_UNKNOWN_COMMAND);
     }
 
     private void assertAddSuccess(ReadOnlyPerson personToAdd, ArrayList<ReadOnlyPerson> expectedList) throws Exception {
