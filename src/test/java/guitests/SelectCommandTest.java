@@ -61,7 +61,7 @@ public class SelectCommandTest extends AddressBookGuiTest {
     }
 
     private void assertNoCardSelected() {
-        assertFalse(getPersonListPanel().isCardSelected());
+        assertFalse(getPersonListPanel().isAnyCardSelected());
     }
 
 }

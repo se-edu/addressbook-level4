@@ -24,6 +24,7 @@ public class PersonListPanelHandle extends NodeHandle<ListView<PersonCard>> {
     /**
      * Returns a handle to the selected {@code PersonCardHandle}.
      * A maximum of 1 item can be selected at any time.
+     * @throws AssertionError if no card is selected, or more than 1 card is selected.
      */
     public PersonCardHandle getHandleToSelectedCard() {
         List<PersonCard> personList = getRootNode().getSelectionModel().getSelectedItems();
@@ -38,7 +39,7 @@ public class PersonListPanelHandle extends NodeHandle<ListView<PersonCard>> {
     /**
      * Returns true if a card is currently selected.
      */
-    public boolean isCardSelected() {
+    public boolean isAnyCardSelected() {
         List<PersonCard> selectedCardsList = getRootNode().getSelectionModel().getSelectedItems();
 
         if (selectedCardsList.size() > 1) {
