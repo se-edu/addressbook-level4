@@ -3,7 +3,6 @@ package seedu.address.testutil;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.AddressBook;
-import seedu.address.model.person.Person;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 
@@ -57,7 +56,7 @@ public class TypicalPersons {
         AddressBook ab = new AddressBook();
         for (ReadOnlyPerson person : getTypicalPersons()) {
             try {
-                ab.addPerson(new Person(person));
+                ab.addPerson(person);
             } catch (DuplicatePersonException e) {
                 assert false : "not possible";
             }
