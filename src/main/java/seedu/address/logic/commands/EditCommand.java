@@ -82,8 +82,8 @@ public class EditCommand extends UndoableCommand {
         } catch (PersonNotFoundException pnfe) {
             throw new AssertionError("The target person cannot be missing");
         }
-        model.updateFilteredListToShowAll();
-        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedPerson));
+        model.updateFilteredPersonList(unused -> true);
+        return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, personToEdit));
     }
 
     /**
