@@ -5,6 +5,7 @@ import static seedu.address.testutil.TypicalPersons.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalPersons.getTypicalPersons;
 import static seedu.address.ui.testutil.GuiTestAssert.assertCardEquals;
 import static seedu.address.ui.testutil.GuiTestAssert.assertListSize;
+import static seedu.address.ui.testutil.GuiTestAssert.assertResultMessage;
 
 import org.junit.Test;
 
@@ -43,12 +44,12 @@ public class SelectCommandTest extends AddressBookGuiTest {
 
     private void assertSelectionInvalid(Index index) {
         runCommand(SelectCommand.COMMAND_WORD + " " + index.getOneBased());
-        assertResultMessage("The person index provided is invalid");
+        assertResultMessage(getResultDisplay(), "The person index provided is invalid");
     }
 
     private void assertSelectionSuccess(Index index) throws Exception {
         runCommand(SelectCommand.COMMAND_WORD + " " + index.getOneBased());
-        assertResultMessage("Selected Person: " + index.getOneBased());
+        assertResultMessage(getResultDisplay(), "Selected Person: " + index.getOneBased());
         assertCardSelected(index);
     }
 

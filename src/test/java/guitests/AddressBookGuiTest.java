@@ -1,7 +1,5 @@
 package guitests;
 
-import static org.junit.Assert.assertEquals;
-
 import java.util.concurrent.TimeoutException;
 
 import org.junit.After;
@@ -116,13 +114,6 @@ public abstract class AddressBookGuiTest {
     public void cleanup() throws Exception {
         EventsCenter.clearSubscribers();
         FxToolkit.cleanupStages();
-    }
-
-    /**
-     * Asserts the message shown in the Result Display area is same as the given string.
-     */
-    protected void assertResultMessage(String expected) {
-        assertEquals(expected, getResultDisplay().getText());
     }
 
     protected void raise(BaseEvent event) {
