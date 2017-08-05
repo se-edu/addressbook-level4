@@ -1,7 +1,7 @@
 package seedu.address.ui;
 
 import static org.junit.Assert.assertEquals;
-import static seedu.address.testutil.EventsUtil.post;
+import static seedu.address.testutil.EventsUtil.postNow;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -31,7 +31,7 @@ public class ResultDisplayTest extends GuiUnitTest {
         assertEquals("", resultDisplayHandle.getText());
 
         // new result received
-        post(NEW_RESULT_EVENT_STUB);
+        postNow(NEW_RESULT_EVENT_STUB);
         guiRobot.pauseForHuman();
         assertEquals(NEW_RESULT_EVENT_STUB.message, resultDisplayHandle.getText());
     }
