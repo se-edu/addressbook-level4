@@ -8,8 +8,7 @@ import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysPerson;
 import static seedu.address.ui.testutil.GuiTestAssert.assertListMatching;
 import static seedu.address.ui.testutil.GuiTestAssert.assertResultMessage;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.List;
 
 import org.junit.Test;
 
@@ -17,7 +16,6 @@ import guitests.guihandles.PersonCardHandle;
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.ClearCommand;
-import seedu.address.model.person.Person;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.testutil.PersonUtil;
 
@@ -26,7 +24,7 @@ public class AddCommandTest extends AddressBookGuiTest {
     @Test
     public void add() throws Exception {
         //add one person
-        ArrayList<ReadOnlyPerson> expectedList = new ArrayList<>(Arrays.asList(getTypicalPersons()));
+        List<ReadOnlyPerson> expectedList = getTypicalPersons();
         ReadOnlyPerson personToAdd = HOON;
         expectedList.add(personToAdd);
         assertAddSuccess(personToAdd, expectedList);
@@ -39,7 +37,7 @@ public class AddCommandTest extends AddressBookGuiTest {
         //add duplicate person
         runCommand(PersonUtil.getAddCommand(HOON));
         assertResultMessage(getResultDisplay(), AddCommand.MESSAGE_DUPLICATE_PERSON);
-        assertListMatching(getPersonListPanel(), expectedList.toArray(new Person[expectedList.size()]));
+        assertListMatching(getPersonListPanel(), expectedList);
 
         //add to empty list
         runCommand(ClearCommand.COMMAND_WORD);
@@ -53,7 +51,7 @@ public class AddCommandTest extends AddressBookGuiTest {
         assertResultMessage(getResultDisplay(), Messages.MESSAGE_UNKNOWN_COMMAND);
     }
 
-    private void assertAddSuccess(ReadOnlyPerson personToAdd, ArrayList<ReadOnlyPerson> expectedList) throws Exception {
+    private void assertAddSuccess(ReadOnlyPerson personToAdd, List<ReadOnlyPerson> expectedList) throws Exception {
         runCommand(PersonUtil.getAddCommand(personToAdd));
 
         //confirm the new card contains the right data

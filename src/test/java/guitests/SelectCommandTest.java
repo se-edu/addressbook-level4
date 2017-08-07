@@ -24,7 +24,7 @@ public class SelectCommandTest extends AddressBookGuiTest {
         assertNoCardSelected();
 
         assertSelectionSuccess(INDEX_FIRST_PERSON); // first person in the list
-        Index personCount = Index.fromOneBased(getTypicalPersons().length);
+        Index personCount = Index.fromOneBased(getTypicalPersons().size());
         assertSelectionSuccess(personCount); // last person in the list
         Index middleIndex = Index.fromOneBased(personCount.getOneBased() / 2);
         assertSelectionSuccess(middleIndex); // a person in the middle of the list
