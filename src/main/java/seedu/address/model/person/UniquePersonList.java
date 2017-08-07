@@ -48,11 +48,10 @@ public class UniquePersonList implements Iterable<Person> {
     /**
      * Replaces the person {@code target} in the list with {@code editedPerson}.
      *
-     * @throws DuplicatePersonException if updating the person's details causes the person to be equivalent to
-     *      another existing person in the list.
+     * @throws DuplicatePersonException if the replacement causes violation of the uniqueness between elements.
      * @throws PersonNotFoundException if {@code target} could not be found in the list.
      */
-    public void updatePerson(ReadOnlyPerson target, ReadOnlyPerson editedPerson)
+    public void setPerson(ReadOnlyPerson target, ReadOnlyPerson editedPerson)
             throws DuplicatePersonException, PersonNotFoundException {
         requireNonNull(editedPerson);
 
