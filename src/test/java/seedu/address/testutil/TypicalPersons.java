@@ -48,16 +48,13 @@ public class TypicalPersons {
         }
     }
 
-    public static final ReadOnlyPerson[] TYPICAL_PERSONS =
-            new ReadOnlyPerson[]{ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE};
-
     private TypicalPersons() {} // prevents instantiation
 
     /**
      * Loads the {@code ab} with all the typical persons.
      */
     public static void loadAddressBookWithSampleData(AddressBook ab) {
-        for (ReadOnlyPerson person : TYPICAL_PERSONS) {
+        for (ReadOnlyPerson person : getTypicalPersons()) {
             try {
                 ab.addPerson(new Person(person));
             } catch (DuplicatePersonException e) {
@@ -70,5 +67,9 @@ public class TypicalPersons {
         AddressBook ab = new AddressBook();
         loadAddressBookWithSampleData(ab);
         return ab;
+    }
+
+    public static ReadOnlyPerson[] getTypicalPersons() {
+        return new ReadOnlyPerson[]{ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE};
     }
 }

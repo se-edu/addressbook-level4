@@ -5,18 +5,25 @@ import static seedu.address.testutil.EventsUtil.post;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.ui.BrowserPanel.DEFAULT_PAGE;
 import static seedu.address.ui.BrowserPanel.GOOGLE_SEARCH_URL_PREFIX;
+import static seedu.address.ui.BrowserPanel.GOOGLE_SEARCH_URL_SUFFIX;
 import static seedu.address.ui.UiPart.FXML_FILE_FOLDER;
 
 import java.net.URL;
 
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 
+import guitests.GuiRobot;
 import guitests.guihandles.BrowserPanelHandle;
+import guitests.guihandles.WebViewLoadedEvent;
 import seedu.address.MainApp;
 import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
+import seedu.address.ui.testutil.EventsCollectorRule;
 
 public class BrowserPanelTest extends GuiUnitTest {
+    @Rule
+    public final EventsCollectorRule eventsCollectorRule = new EventsCollectorRule();
 
     private PersonPanelSelectionChangedEvent selectionChangedEventStub;
 
@@ -42,7 +49,10 @@ public class BrowserPanelTest extends GuiUnitTest {
         // associated web page of a person
         post(selectionChangedEventStub);
         URL expectedPersonUrl = new URL(GOOGLE_SEARCH_URL_PREFIX
-                + ALICE.getName().fullName.replaceAll(" ", "+"));
+                + ALICE.getName().fullName.replaceAll(" ", "+") + GOOGLE_SEARCH_URL_SUFFIX);
+
+        new GuiRobot().waitForEvent(() ->
+                eventsCollectorRule.eventsCollector.getMostRecent() instanceof WebViewLoadedEvent);
         assertEquals(expectedPersonUrl, browserPanelHandle.getLoadedUrl());
     }
 }

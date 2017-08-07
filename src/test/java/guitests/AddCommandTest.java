@@ -3,7 +3,7 @@ package guitests;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.HOON;
 import static seedu.address.testutil.TypicalPersons.IDA;
-import static seedu.address.testutil.TypicalPersons.TYPICAL_PERSONS;
+import static seedu.address.testutil.TypicalPersons.getTypicalPersons;
 import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysPerson;
 import static seedu.address.ui.testutil.GuiTestAssert.assertListMatching;
 
@@ -25,7 +25,7 @@ public class AddCommandTest extends AddressBookGuiTest {
     @Test
     public void add() throws Exception {
         //add one person
-        ArrayList<ReadOnlyPerson> expectedList = new ArrayList<>(Arrays.asList(TYPICAL_PERSONS));
+        ArrayList<ReadOnlyPerson> expectedList = new ArrayList<>(Arrays.asList(getTypicalPersons()));
         ReadOnlyPerson personToAdd = HOON;
         expectedList.add(personToAdd);
         assertAddSuccess(personToAdd, expectedList);
