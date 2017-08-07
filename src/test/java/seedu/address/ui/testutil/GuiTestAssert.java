@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import guitests.guihandles.PersonCardHandle;
 import guitests.guihandles.PersonListPanelHandle;
+import guitests.guihandles.ResultDisplayHandle;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 
@@ -46,5 +47,20 @@ public class GuiTestAssert {
         for (int i = 0; i < persons.length; i++) {
             assertCardDisplaysPerson(persons[i], personListPanelHandle.getPersonCardHandle(i));
         }
+    }
+
+    /**
+     * Asserts the size of the list in {@code personListPanelHandle} equals to {@code size}.
+     */
+    public static void assertListSize(PersonListPanelHandle personListPanelHandle, int size) {
+        int numberOfPeople = personListPanelHandle.getListSize();
+        assertEquals(size, numberOfPeople);
+    }
+
+    /**
+     * Asserts the message shown in {@code resultDisplayHandle} equals to {@code expected}.
+     */
+    public static void assertResultMessage(ResultDisplayHandle resultDisplayHandle, String expected) {
+        assertEquals(expected, resultDisplayHandle.getText());
     }
 }

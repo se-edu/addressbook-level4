@@ -1,6 +1,7 @@
 package guitests;
 
 import static org.junit.Assert.assertEquals;
+import static seedu.address.testutil.EventsUtil.postLater;
 import static seedu.address.ui.UiManager.FILE_OPS_ERROR_DIALOG_CONTENT_MESSAGE;
 import static seedu.address.ui.UiManager.FILE_OPS_ERROR_DIALOG_HEADER_MESSAGE;
 import static seedu.address.ui.UiManager.FILE_OPS_ERROR_DIALOG_STAGE_TITLE;
@@ -18,7 +19,7 @@ public class ErrorDialogGuiTest extends AddressBookGuiTest {
 
     @Test
     public void showErrorDialogs() {
-        raise(new DataSavingExceptionEvent(IO_EXCEPTION_STUB));
+        postLater(new DataSavingExceptionEvent(IO_EXCEPTION_STUB));
 
         guiRobot.waitForEvent(() -> guiRobot.isWindowShown(FILE_OPS_ERROR_DIALOG_STAGE_TITLE));
 

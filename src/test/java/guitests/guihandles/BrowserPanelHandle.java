@@ -1,6 +1,6 @@
 package guitests.guihandles;
 
-import static seedu.address.testutil.EventsUtil.post;
+import static seedu.address.testutil.EventsUtil.postNow;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -28,7 +28,7 @@ public class BrowserPanelHandle extends NodeHandle<Node> {
         WebEngine engine = webView.getEngine();
         new GuiRobot().interact(() -> engine.getLoadWorker().stateProperty().addListener((obs, oldState, newState) -> {
             if (newState == Worker.State.SUCCEEDED) {
-                post(new WebViewLoadedEvent());
+                postNow(new WebViewLoadedEvent());
             }
         }));
     }

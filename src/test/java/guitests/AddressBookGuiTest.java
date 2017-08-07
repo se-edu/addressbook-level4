@@ -1,7 +1,5 @@
 package guitests;
 
-import static org.junit.Assert.assertEquals;
-
 import java.util.concurrent.TimeoutException;
 
 import org.junit.After;
@@ -18,11 +16,9 @@ import guitests.guihandles.MainWindowHandle;
 import guitests.guihandles.PersonListPanelHandle;
 import guitests.guihandles.ResultDisplayHandle;
 import guitests.guihandles.StatusBarFooterHandle;
-import javafx.application.Platform;
 import javafx.stage.Stage;
 import seedu.address.TestApp;
 import seedu.address.commons.core.EventsCenter;
-import seedu.address.commons.events.BaseEvent;
 import seedu.address.model.AddressBook;
 import seedu.address.testutil.TypicalPersons;
 
@@ -118,23 +114,4 @@ public abstract class AddressBookGuiTest {
         FxToolkit.cleanupStages();
     }
 
-    /**
-     * Asserts the size of the person list is equal to the given number.
-     */
-    protected void assertListSize(int size) {
-        int numberOfPeople = getPersonListPanel().getListSize();
-        assertEquals(size, numberOfPeople);
-    }
-
-    /**
-     * Asserts the message shown in the Result Display area is same as the given string.
-     */
-    protected void assertResultMessage(String expected) {
-        assertEquals(expected, getResultDisplay().getText());
-    }
-
-    protected void raise(BaseEvent event) {
-        //JUnit doesn't run its test cases on the UI thread. Platform.runLater is used to post event on the UI thread.
-        Platform.runLater(() -> EventsCenter.getInstance().post(event));
-    }
 }

@@ -12,6 +12,7 @@ import static seedu.address.testutil.TypicalPersons.INDEX_THIRD_PERSON;
 import static seedu.address.testutil.TypicalPersons.getTypicalPersons;
 import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysPerson;
 import static seedu.address.ui.testutil.GuiTestAssert.assertListMatching;
+import static seedu.address.ui.testutil.GuiTestAssert.assertResultMessage;
 
 import org.junit.Test;
 
@@ -85,37 +86,38 @@ public class EditCommandTest extends AddressBookGuiTest {
     @Test
     public void edit_missingPersonIndex_failure() {
         runCommand(EditCommand.COMMAND_WORD + " " + PREFIX_NAME + "Bobby");
-        assertResultMessage(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+        assertResultMessage(getResultDisplay(),
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
     }
 
     @Test
     public void edit_invalidPersonIndex_failure() {
         runCommand(EditCommand.COMMAND_WORD + " 8 " + PREFIX_NAME + "Bobby");
-        assertResultMessage(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertResultMessage(getResultDisplay(), Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
     @Test
     public void edit_noFieldsSpecified_failure() {
         runCommand(EditCommand.COMMAND_WORD + " 1");
-        assertResultMessage(EditCommand.MESSAGE_NOT_EDITED);
+        assertResultMessage(getResultDisplay(), EditCommand.MESSAGE_NOT_EDITED);
     }
 
     @Test
     public void edit_invalidValues_failure() {
         runCommand(EditCommand.COMMAND_WORD + " 1 " + PREFIX_NAME + "*&");
-        assertResultMessage(Name.MESSAGE_NAME_CONSTRAINTS);
+        assertResultMessage(getResultDisplay(), Name.MESSAGE_NAME_CONSTRAINTS);
 
         runCommand(EditCommand.COMMAND_WORD + " 1 " + PREFIX_PHONE + "abcd");
-        assertResultMessage(Phone.MESSAGE_PHONE_CONSTRAINTS);
+        assertResultMessage(getResultDisplay(), Phone.MESSAGE_PHONE_CONSTRAINTS);
 
         runCommand(EditCommand.COMMAND_WORD + " 1 " + PREFIX_EMAIL + "yahoo!!!");
-        assertResultMessage(Email.MESSAGE_EMAIL_CONSTRAINTS);
+        assertResultMessage(getResultDisplay(), Email.MESSAGE_EMAIL_CONSTRAINTS);
 
         runCommand(EditCommand.COMMAND_WORD + " 1 " + PREFIX_ADDRESS.getPrefix());
-        assertResultMessage(Address.MESSAGE_ADDRESS_CONSTRAINTS);
+        assertResultMessage(getResultDisplay(), Address.MESSAGE_ADDRESS_CONSTRAINTS);
 
         runCommand(EditCommand.COMMAND_WORD + " 1 " + PREFIX_TAG + "*&");
-        assertResultMessage(Tag.MESSAGE_TAG_CONSTRAINTS);
+        assertResultMessage(getResultDisplay(), Tag.MESSAGE_TAG_CONSTRAINTS);
     }
 
     @Test
@@ -126,7 +128,7 @@ public class EditCommandTest extends AddressBookGuiTest {
                 + PREFIX_NAME + "Alice Pauline "
                 + PREFIX_ADDRESS + "123, Jurong West Ave 6, #08-111 "
                 + PREFIX_TAG + "friends");
-        assertResultMessage(EditCommand.MESSAGE_DUPLICATE_PERSON);
+        assertResultMessage(getResultDisplay(), EditCommand.MESSAGE_DUPLICATE_PERSON);
     }
 
     /**
@@ -152,6 +154,6 @@ public class EditCommandTest extends AddressBookGuiTest {
         ReadOnlyPerson[] expectedPersons = getTypicalPersons();
         expectedPersons[addressBookIndex.getZeroBased()] = editedPerson;
         assertListMatching(getPersonListPanel(), expectedPersons);
-        assertResultMessage(String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson));
+        assertResultMessage(getResultDisplay(), String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson));
     }
 }

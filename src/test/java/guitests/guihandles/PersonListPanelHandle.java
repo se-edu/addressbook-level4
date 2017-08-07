@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Optional;
 
 import javafx.scene.control.ListView;
-import seedu.address.commons.core.index.Index;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.ui.PersonCard;
@@ -24,22 +23,29 @@ public class PersonListPanelHandle extends NodeHandle<ListView<PersonCard>> {
     /**
      * Returns a handle to the selected {@code PersonCardHandle}.
      * A maximum of 1 item can be selected at any time.
+     * @throws AssertionError if no card is selected, or more than 1 card is selected.
      */
-    public Optional<PersonCardHandle> getHandleToSelectedCard() {
+    public PersonCardHandle getHandleToSelectedCard() {
         List<PersonCard> personList = getRootNode().getSelectionModel().getSelectedItems();
 
-        if (personList.size() > 1) {
-            throw new AssertionError("Person list size expected 0 or 1.");
+        if (personList.size() != 1) {
+            throw new AssertionError("Person list size expected 1.");
         }
 
-        return personList.isEmpty() ? Optional.empty() : Optional.of(new PersonCardHandle(personList.get(0).getRoot()));
+        return new PersonCardHandle(personList.get(0).getRoot());
     }
 
     /**
-     * Scrolls the list to the {@code index} given.
+     * Returns true if a card is currently selected.
      */
-    public void scrollTo(Index index) {
-        guiRobot.interact(() -> getRootNode().scrollTo(index.getZeroBased()));
+    public boolean isAnyCardSelected() {
+        List<PersonCard> selectedCardsList = getRootNode().getSelectionModel().getSelectedItems();
+
+        if (selectedCardsList.size() > 1) {
+            throw new AssertionError("Card list size expected 0 or 1.");
+        }
+
+        return !selectedCardsList.isEmpty();
     }
 
     /**
