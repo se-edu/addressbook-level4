@@ -2,6 +2,7 @@ package seedu.address.ui.testutil;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
 import guitests.guihandles.PersonCardHandle;
@@ -47,6 +48,15 @@ public class GuiTestAssert {
         for (int i = 0; i < persons.length; i++) {
             assertCardDisplaysPerson(persons[i], personListPanelHandle.getPersonCardHandle(i));
         }
+    }
+
+    /**
+     * Asserts that the list in {@code personListPanelHandle} displays the details of {@code persons} correctly and
+     * in the correct order.
+     */
+    public static void assertListMatching(PersonListPanelHandle personListPanelHandle, List<ReadOnlyPerson> persons)
+            throws PersonNotFoundException {
+        assertListMatching(personListPanelHandle, persons.toArray(new ReadOnlyPerson[0]));
     }
 
     /**
