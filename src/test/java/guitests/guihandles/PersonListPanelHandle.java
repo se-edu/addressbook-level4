@@ -114,8 +114,8 @@ public class PersonListPanelHandle extends NodeHandle<ListView<PersonCard>> {
         if (selectedItems.size() == 0) {
             return lastRememberedSelectedPersonCard.isPresent();
         } else {
-            return lastRememberedSelectedPersonCard.isPresent()
-                    && !lastRememberedSelectedPersonCard.get().equals(selectedItems.get(0));
+            return !lastRememberedSelectedPersonCard.isPresent()
+                    || !lastRememberedSelectedPersonCard.get().equals(selectedItems.get(0));
         }
     }
 
