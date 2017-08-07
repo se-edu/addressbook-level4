@@ -46,12 +46,12 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
         /* Case: undo deleting the last person in the list -> last person restored */
         command = UndoCommand.COMMAND_WORD;
         String expectedResultMessage = UndoCommand.MESSAGE_SUCCESS;
-        assertCommandSuccess(this, command, modelBeforeDeletingLast, expectedResultMessage, false, false);
+        assertCommandSuccess(this, command, modelBeforeDeletingLast, expectedResultMessage, true, false, false);
 
         /* Case: redo deleting the last person in the list -> last person deleted again */
         command = RedoCommand.COMMAND_WORD;
         expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
-        assertCommandSuccess(this, command, expectedModel, expectedResultMessage, false, false);
+        assertCommandSuccess(this, command, expectedModel, expectedResultMessage, true, false, false);
 
         /* Case: delete the middle person in the list -> deleted */
         Index middlePersonIndex = getMidIndex(expectedModel);
@@ -99,7 +99,7 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
         String expectedResultMessage = String.format(MESSAGE_DELETE_PERSON_SUCCESS, targetPerson);
         expectedModel.deletePerson(targetPerson);
 
-        assertCommandSuccess(this, command, expectedModel, expectedResultMessage, browserUrlWillChange,
+        assertCommandSuccess(this, command, expectedModel, expectedResultMessage, true, browserUrlWillChange,
                 personListSelectionWillChange);
 
     }
