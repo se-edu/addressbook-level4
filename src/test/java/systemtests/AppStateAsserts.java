@@ -30,12 +30,12 @@ public class AppStateAsserts {
      * and the model and storage are modified accordingly.
      */
     public static void assertCommandSuccess(AddressBookSystemTest addressBookSystemTest, String commandToRun,
-            Model expectedModel, String expectedResultMessage, boolean browserUrlWillChange,
-            boolean personListSelectionWillChange) throws Exception {
+            Model expectedModel, String expectedResultMessage, boolean addressBookWillUpdate,
+            boolean browserUrlWillChange, boolean personListSelectionWillChange) throws Exception {
 
         rememberStates(addressBookSystemTest);
         addressBookSystemTest.runCommand(commandToRun);
-        assertComponentsMatchExpected(addressBookSystemTest, true, expectedModel,
+        assertComponentsMatchExpected(addressBookSystemTest, addressBookWillUpdate, expectedModel,
                 "", expectedResultMessage, browserUrlWillChange, personListSelectionWillChange);
     }
 
