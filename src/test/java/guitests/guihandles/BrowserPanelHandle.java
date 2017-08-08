@@ -27,6 +27,7 @@ public class BrowserPanelHandle extends NodeHandle<Node> {
         WebEngine engine = webView.getEngine();
         new GuiRobot().interact(() -> engine.getLoadWorker().stateProperty().addListener((obs, oldState, newState) -> {
             if (newState == Worker.State.SUCCEEDED) {
+                postNow(new WebViewLoadedEvent());
                 isWebViewLoaded = true;
             }
         }));

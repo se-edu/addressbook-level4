@@ -37,6 +37,9 @@ public class AppStateAsserts {
 
         rememberStates(addressBookSystemTest);
         addressBookSystemTest.runCommand(commandToRun);
+        if (browserUrlWillChange) {
+            waitUntilBrowserLoaded(addressBookSystemTest.getBrowserPanel());
+        }
         assertComponentsMatchExpected(addressBookSystemTest, addressBookWillUpdate, expectedModel,
                 "", expectedResultMessage, browserUrlWillChange, personListSelectionWillChange);
         if (browserUrlWillChange) {
