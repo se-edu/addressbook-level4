@@ -12,6 +12,8 @@ import static seedu.address.ui.testutil.GuiTestAssert.assertListMatching;
 import java.time.Clock;
 import java.util.Date;
 
+import guitests.GuiRobot;
+import guitests.guihandles.BrowserPanelHandle;
 import guitests.guihandles.StatusBarFooterHandle;
 import seedu.address.MainApp;
 import seedu.address.model.AddressBook;
@@ -35,6 +37,7 @@ public class AppStateAsserts {
 
         rememberStates(addressBookSystemTest);
         addressBookSystemTest.runCommand(commandToRun);
+        waitUntilBrowserLoaded(addressBookSystemTest.getBrowserPanel(), browserUrlWillChange);
         assertComponentsMatchExpected(addressBookSystemTest, addressBookWillUpdate, expectedModel,
                 "", expectedResultMessage, browserUrlWillChange, personListSelectionWillChange);
     }
@@ -90,6 +93,17 @@ public class AppStateAsserts {
                 AddressBookSystemTest.INJECTED_CLOCK);
         } else {
             assertStatusBarUnchanged(addressBookSystemTest.getStatusBarFooter());
+        }
+    }
+
+    /**
+     * Sleeps the thread if {@code browserUrlWillChange} is true, till the {@code browserPanelHandle}'s
+     * {@code WebView} has successfully loaded.
+     */
+    private static void waitUntilBrowserLoaded(BrowserPanelHandle browserPanelHandle, boolean browserUrlWillChange) {
+        if (browserUrlWillChange) {
+            new GuiRobot().waitForEvent(browserPanelHandle::getIsWebViewLoaded);
+            browserPanelHandle.setIsWebViewLoaded(false);
         }
     }
 
