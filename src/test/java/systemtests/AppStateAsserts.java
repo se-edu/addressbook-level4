@@ -2,7 +2,6 @@ package systemtests;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 import static seedu.address.ui.BrowserPanel.DEFAULT_PAGE;
 import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_INITIAL;
@@ -13,6 +12,7 @@ import static seedu.address.ui.testutil.GuiTestAssert.assertListMatching;
 import java.time.Clock;
 import java.util.Date;
 
+import guitests.GuiRobot;
 import guitests.guihandles.BrowserPanelHandle;
 import guitests.guihandles.StatusBarFooterHandle;
 import seedu.address.MainApp;
@@ -32,13 +32,12 @@ public class AppStateAsserts {
      * and the model and storage are modified accordingly.
      */
     public static void assertCommandSuccess(AddressBookSystemTest addressBookSystemTest, String commandToRun,
-                                            Model expectedModel, String expectedResultMessage,
-                                            boolean addressBookWillUpdate,
-                                            boolean browserUrlWillChange,
-                                            boolean personListSelectionWillChange) throws Exception {
+            Model expectedModel, String expectedResultMessage, boolean addressBookWillUpdate,
+            boolean browserUrlWillChange, boolean personListSelectionWillChange) throws Exception {
 
         rememberStates(addressBookSystemTest);
         addressBookSystemTest.runCommand(commandToRun);
+        waitUntilBrowserLoaded(addressBookSystemTest.getBrowserPanel(), browserUrlWillChange);
         assertComponentsMatchExpected(addressBookSystemTest, addressBookWillUpdate, expectedModel,
                 "", expectedResultMessage, browserUrlWillChange, personListSelectionWillChange);
     }
@@ -80,7 +79,7 @@ public class AppStateAsserts {
             boolean personListSelectionWillChange) throws Exception {
 
         assertEquals(expectedCommandBoxText, addressBookSystemTest.getCommandBox().getInput());
-        assertBrowserStatus(addressBookSystemTest, browserUrlWillChange);
+        assertEquals(browserUrlWillChange, addressBookSystemTest.getBrowserPanel().isUrlChanged());
         assertListMatching(addressBookSystemTest.getPersonListPanel(),
                 expectedModel.getAddressBook().getPersonList().toArray(new ReadOnlyPerson[0]));
         assertEquals(personListSelectionWillChange,
@@ -98,16 +97,13 @@ public class AppStateAsserts {
     }
 
     /**
-     * Asserts that the {@code BrowserPanel}'s status matches what is expected.
+     * Sleeps the thread if {@code browserUrlWillChange} is true, till the {@code browserPanelHandle}'s
+     * {@code WebView} has successfully loaded.
      */
-    private static void assertBrowserStatus(AddressBookSystemTest addressBookSystemTest, boolean browserUrlWillChange)
-            throws Exception {
-        BrowserPanelHandle browserPanelHandle = addressBookSystemTest.getBrowserPanel();
-        if (!browserUrlWillChange) {
-            assertFalse(browserPanelHandle.isUrlChanged());
-        } else {
-            addressBookSystemTest.semaphore.acquire();
-            assertTrue(browserPanelHandle.isUrlChanged());
+    private static void waitUntilBrowserLoaded(BrowserPanelHandle browserPanelHandle, boolean browserUrlWillChange) {
+        if (browserUrlWillChange) {
+            new GuiRobot().waitForEvent(browserPanelHandle::getIsWebViewLoaded);
+            browserPanelHandle.setIsWebViewLoaded(false);
         }
     }
 

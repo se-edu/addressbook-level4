@@ -5,7 +5,6 @@ import static systemtests.AppStateAsserts.verifyApplicationStartingStateIsCorrec
 import java.time.Clock;
 import java.time.Instant;
 import java.time.ZoneId;
-import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeoutException;
 
 import org.junit.After;
@@ -14,8 +13,6 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.testfx.api.FxToolkit;
 
-import com.google.common.eventbus.Subscribe;
-
 import guitests.guihandles.BrowserPanelHandle;
 import guitests.guihandles.CommandBoxHandle;
 import guitests.guihandles.MainMenuHandle;
@@ -23,7 +20,6 @@ import guitests.guihandles.MainWindowHandle;
 import guitests.guihandles.PersonListPanelHandle;
 import guitests.guihandles.ResultDisplayHandle;
 import guitests.guihandles.StatusBarFooterHandle;
-import guitests.guihandles.WebViewLoadedEvent;
 import javafx.stage.Stage;
 import seedu.address.TestApp;
 import seedu.address.commons.core.EventsCenter;
@@ -38,8 +34,6 @@ import seedu.address.ui.StatusBarFooter;
 public abstract class AddressBookSystemTest {
     public static final Clock INJECTED_CLOCK = Clock.fixed(Instant.now(), ZoneId.systemDefault());
     private static final Clock ORIGINAL_CLOCK = StatusBarFooter.getClock();
-
-    public final Semaphore semaphore = new Semaphore(0);
 
     private Stage stage;
 
@@ -76,8 +70,6 @@ public abstract class AddressBookSystemTest {
 
         mainWindowHandle = new MainWindowHandle(stage);
         mainWindowHandle.focus();
-
-        EventsCenter.getInstance().registerHandler(this);
 
         verifyApplicationStartingStateIsCorrect(this);
     }
@@ -134,10 +126,5 @@ public abstract class AddressBookSystemTest {
 
     public TestApp getTestApp() {
         return testApp;
-    }
-
-    @Subscribe
-    private void handleWebViewLoadedEvent(WebViewLoadedEvent event) {
-        semaphore.release();
     }
 }
