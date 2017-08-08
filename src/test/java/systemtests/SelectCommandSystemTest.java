@@ -1,7 +1,9 @@
 package systemtests;
 
 import static org.junit.Assert.assertFalse;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
+import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.commands.SelectCommand.MESSAGE_SELECT_PERSON_SUCCESS;
 import static seedu.address.testutil.TypicalPersons.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalPersons.getTypicalPersons;
@@ -14,7 +16,9 @@ import org.junit.Test;
 import guitests.guihandles.PersonCardHandle;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.ClearCommand;
+import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
+import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -41,14 +45,48 @@ public class SelectCommandSystemTest extends AddressBookSystemTest {
         command = SelectCommand.COMMAND_WORD + " " + personCount.getOneBased();
         assertSelectCommandSuccess(command, expectedModel, personCount, true, true);
 
+        /* Case: undo previous selection -> rejected, last card remains selected */
+        command = UndoCommand.COMMAND_WORD;
+        String expectedResultMessage = UndoCommand.MESSAGE_FAILURE;
+        assertCommandFailure(this, command, expectedResultMessage);
+        assertCardSelected(personCount);
+
+        /* Case: redo selecting last card in the list -> rejected, last card remains selected */
+        command = RedoCommand.COMMAND_WORD;
+        expectedResultMessage = RedoCommand.MESSAGE_FAILURE;
+        assertCommandFailure(this, command, expectedResultMessage);
+        assertCardSelected(personCount);
+
         /* Case: select the middle card in the list -> selected */
         Index middleIndex = Index.fromOneBased(personCount.getOneBased() / 2);
         command = SelectCommand.COMMAND_WORD + " " + middleIndex.getOneBased();
         assertSelectCommandSuccess(command, expectedModel, middleIndex, true, true);
 
-        /* Case: invalid index (size + 1) -> rejected, middle card remains selected */
-        assertCommandFailure(this, SelectCommand.COMMAND_WORD + " " + invalidIndex,
-                MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        /* Case: select the current selected card -> selected */
+        assertSelectCommandSuccess(command, expectedModel, middleIndex, false, false);
+
+        /* Case: invalid index (0) -> rejected, middle card remains selected */
+        assertCommandFailure(this, SelectCommand.COMMAND_WORD + " " + 0,
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE));
+        assertCardSelected(middleIndex);
+
+        /* Case: invalid index (-1) -> rejected, middle card remains selected */
+        assertCommandFailure(this, SelectCommand.COMMAND_WORD + " " + -1,
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE));
+        assertCardSelected(middleIndex);
+
+        /* Case: invalid arguments (alphabets) -> rejected, middle card remains selected */
+        assertCommandFailure(this, SelectCommand.COMMAND_WORD + " abc",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE));
+        assertCardSelected(middleIndex);
+
+        /* Case: invalid arguments (extra argument) -> rejected, middle card remains selected */
+        assertCommandFailure(this, SelectCommand.COMMAND_WORD + " 1 abc",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE));
+        assertCardSelected(middleIndex);
+
+        /* Case: mixed case command word -> rejected, middle card remains selected */
+        assertCommandFailure(this, "SeLeCt 1", MESSAGE_UNKNOWN_COMMAND);
         assertCardSelected(middleIndex);
     }
 
