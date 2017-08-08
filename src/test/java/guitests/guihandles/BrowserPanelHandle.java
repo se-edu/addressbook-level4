@@ -18,6 +18,8 @@ public class BrowserPanelHandle extends NodeHandle<Node> {
 
     public static final String BROWSER_ID = "#browser";
 
+    private boolean isWebViewLoaded = false;
+
     private URL lastRememberedUrl;
 
     public BrowserPanelHandle(Node browserPanelNode) {
@@ -29,6 +31,7 @@ public class BrowserPanelHandle extends NodeHandle<Node> {
         new GuiRobot().interact(() -> engine.getLoadWorker().stateProperty().addListener((obs, oldState, newState) -> {
             if (newState == Worker.State.SUCCEEDED) {
                 postNow(new WebViewLoadedEvent());
+                isWebViewLoaded = true;
             }
         }));
     }
@@ -53,5 +56,13 @@ public class BrowserPanelHandle extends NodeHandle<Node> {
      */
     public boolean isUrlChanged() throws MalformedURLException {
         return !lastRememberedUrl.equals(getLoadedUrl());
+    }
+
+    public boolean getIsWebViewLoaded() {
+        return isWebViewLoaded;
+    }
+
+    public void setIsWebViewLoaded(boolean isWebViewLoaded) {
+        this.isWebViewLoaded = isWebViewLoaded;
     }
 }
