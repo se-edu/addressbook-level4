@@ -12,7 +12,6 @@ import static systemtests.AppStateAsserts.assertCommandSuccess;
 
 import org.junit.Test;
 
-import guitests.GuiRobot;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.DeleteCommand;
@@ -64,10 +63,6 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
         getPersonListPanel().select(selectedIndex.getZeroBased());
         command = DeleteCommand.COMMAND_WORD + " " + String.valueOf(selectedIndex.getOneBased());
         assertDeleteCommandSuccess(command, expectedModel, selectedIndex, true, true);
-
-        // as a new person is selected in the previous test case, causing the browser to reload,
-        // it needs time to load the new page
-        new GuiRobot().sleep(5000);
 
         /* Case: invalid index (0) -> rejected */
         command = DeleteCommand.COMMAND_WORD + " 0";
