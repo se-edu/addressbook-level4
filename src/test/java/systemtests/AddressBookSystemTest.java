@@ -112,7 +112,7 @@ public abstract class AddressBookSystemTest {
     /**
      * Runs {@code command} in the application's {@code CommandBox}.
      */
-    private void runCommand(String command) {
+    protected void runCommand(String command) {
         mainWindowHandle.getCommandBox().run(command);
     }
 
@@ -175,11 +175,11 @@ public abstract class AddressBookSystemTest {
 
     /**
      * Asserts that only the sync status in the status bar was changed to the timing of
-     * {@code ClockRule#INJECTED_CLOCK}, while the save location remains the same.
+     * {@code ClockRule#getInjectedClock()}, while the save location remains the same.
      */
     protected void assertOnlySyncStatusChanged() {
         StatusBarFooterHandle handle = getStatusBarFooter();
-        String timestamp = new Date(ClockRule.getInjectedClock().millis()).toString();
+        String timestamp = new Date(clockRule.getInjectedClock().millis()).toString();
         String expectedSyncStatus = String.format(SYNC_STATUS_UPDATED, timestamp);
         assertEquals(expectedSyncStatus, handle.getSyncStatus());
         assertFalse(handle.isSaveLocationChanged());

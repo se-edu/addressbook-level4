@@ -105,8 +105,10 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
     }
 
     /**
-     * Apart from the assertions verified by
-     * {@code AddressBookSystemTest#assertCommandExecution(String, String, String, Model)}, also verifies that
+     * Executes {@code commandToRun} and verifies that the command box displays an empty string, the result display
+     * box displays {@code expectedResultMessage} and the model related components equal to {@code expectedModel}.
+     * These verifications are done by
+     * {@code AddressBookSystemTest#assertCommandExecution(String, String, String, Model)}. Also verifies that
      * the command box has the default style class, the status bar's sync status changes, the browser url and selected
      * card changes depending on {@code browserUrlWillChange}.
      * @see AddressBookSystemTest#assertCommandExecution(String, String, String, Model)
@@ -121,16 +123,20 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
         } else {
             assertBrowserUrlAndSelectedCardUnchanged();
         }
+
         assertCommandBoxStyleDefault();
         assertOnlySyncStatusChanged();
 
-        ClockRule.advanceClock();
+        clockRule.setInjectedClockToCurrentTime();
     }
 
     /**
-     * Apart from the assertions verified by
-     * {@code AddressBookSystemTest#assertCommandExecution(String, String, String, Model)}, also verifies that
+     * Executes {@code commandToRun} and verifies that the command box displays {@code commandToRun}, the result display
+     * box displays {@code expectedResultMessage} and the model related components equal to the current model.
+     * These verifications are done by
+     * {@code AddressBookSystemTest#assertCommandExecution(String, String, String, Model)}. Also verifies that
      * the browser url, selected card and status bar remain unchanged, and the command box has the error style.
+     * @see AddressBookSystemTest#assertCommandExecution(String, String, String, Model)
      */
     private void assertCommandFailure(String commandToRun, String expectedResultMessage) throws Exception {
         Model expectedModel = new ModelManager(
@@ -141,6 +147,6 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
         assertBrowserUrlAndSelectedCardUnchanged();
         assertStatusBarUnchanged();
 
-        ClockRule.advanceClock();
+        clockRule.setInjectedClockToCurrentTime();
     }
 }

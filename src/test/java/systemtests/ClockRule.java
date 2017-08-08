@@ -14,17 +14,18 @@ import seedu.address.ui.StatusBarFooter;
  * This rule makes the time stamp in the status bar predictable during a test.
  * Before the test starts, the rule replaces the clock in the status bar with a fixed clock.
  * At the end of the test, the rule restores the original clock.
+ * @see Clock#fixed(Instant, ZoneId)
  */
 public class ClockRule implements TestRule {
-    private static Clock injectedClock = Clock.fixed(Instant.now(), ZoneId.systemDefault());
-    private static final Clock ORIGINAL_CLOCK = StatusBarFooter.getClock();
+    private Clock injectedClock = Clock.fixed(Instant.now(), ZoneId.systemDefault());
+    private final Clock originalClock = StatusBarFooter.getClock();
 
     protected void before() {
         StatusBarFooter.setClock(injectedClock);
     }
 
     protected void after() {
-        StatusBarFooter.setClock(ORIGINAL_CLOCK);
+        StatusBarFooter.setClock(originalClock);
     }
 
     @Override
@@ -42,11 +43,14 @@ public class ClockRule implements TestRule {
         };
     }
 
-    public static Clock getInjectedClock() {
+    public Clock getInjectedClock() {
         return injectedClock;
     }
 
-    public static void advanceClock() {
+    /**
+     * Replaces the clock in the status bar with a fixed clock having the current time as its instance.
+     */
+    public void setInjectedClockToCurrentTime() {
         injectedClock = Clock.fixed(Instant.now(), ZoneId.systemDefault());
         StatusBarFooter.setClock(injectedClock);
     }
