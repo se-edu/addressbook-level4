@@ -1,20 +1,18 @@
 package seedu.address.testutil;
 
-import seedu.address.commons.core.index.Index;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.AddressBook;
-import seedu.address.model.person.Person;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 
 /**
- *
+ * A utility class containing a list of {@code Person} objects to be used in tests.
  */
 public class TypicalPersons {
-
-    public static final Index INDEX_FIRST_PERSON = Index.fromOneBased(1);
-    public static final Index INDEX_SECOND_PERSON = Index.fromOneBased(2);
-    public static final Index INDEX_THIRD_PERSON = Index.fromOneBased(3);
 
     public static final ReadOnlyPerson ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE, HOON, IDA;
 
@@ -51,25 +49,21 @@ public class TypicalPersons {
     private TypicalPersons() {} // prevents instantiation
 
     /**
-     * Loads the {@code ab} with all the typical persons.
+     * Returns an {@code AddressBook} with all the typical persons.
      */
-    public static void loadAddressBookWithSampleData(AddressBook ab) {
+    public static AddressBook getTypicalAddressBook() {
+        AddressBook ab = new AddressBook();
         for (ReadOnlyPerson person : getTypicalPersons()) {
             try {
-                ab.addPerson(new Person(person));
+                ab.addPerson(person);
             } catch (DuplicatePersonException e) {
                 assert false : "not possible";
             }
         }
-    }
-
-    public static AddressBook getTypicalAddressBook() {
-        AddressBook ab = new AddressBook();
-        loadAddressBookWithSampleData(ab);
         return ab;
     }
 
-    public static ReadOnlyPerson[] getTypicalPersons() {
-        return new ReadOnlyPerson[]{ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE};
+    public static List<ReadOnlyPerson> getTypicalPersons() {
+        return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
     }
 }
