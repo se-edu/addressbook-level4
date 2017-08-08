@@ -112,7 +112,7 @@ public abstract class AddressBookSystemTest {
     /**
      * Runs {@code command} in the application's {@code CommandBox}.
      */
-    private void runCommand(String command) {
+    protected void runCommand(String command) {
         mainWindowHandle.getCommandBox().run(command);
     }
 
