@@ -14,12 +14,22 @@ import java.util.Date;
 
 import guitests.guihandles.StatusBarFooterHandle;
 import seedu.address.MainApp;
+import seedu.address.TestApp;
+import seedu.address.model.Model;
 import seedu.address.model.person.ReadOnlyPerson;
 
 /**
  * Contains assertion methods to verify the state of the application is as expected.
  */
 public class AppStateAsserts {
+    /**
+     * Asserts that the model in {@code testApp}'s storage and {@code testApp}'s model equals {@code expectedModel}.
+     */
+    public static void assertAppModel(Model expectedModel, TestApp testApp) {
+        assertEquals(expectedModel.getAddressBook(), testApp.readStorageAddressBook());
+        assertEquals(expectedModel, testApp.getModel());
+    }
+
     /**
      * Asserts that the entire status bar remains the same.
      */
