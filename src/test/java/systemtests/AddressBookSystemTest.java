@@ -124,6 +124,18 @@ public abstract class AddressBookSystemTest {
         mainWindowHandle.getCommandBox().run(command);
     }
 
+    /**
+     * Calls {@code BrowserPanelHandle}, {@code PersonListPanelHandle} and {@code StatusBarFooterHandle} to remember
+     * their current state.
+     */
+    protected void rememberStates() throws Exception {
+        StatusBarFooterHandle statusBarFooterHandle = getStatusBarFooter();
+        getBrowserPanel().rememberUrl();
+        statusBarFooterHandle.rememberSaveLocation();
+        statusBarFooterHandle.rememberSyncStatus();
+        getPersonListPanel().rememberSelectedPersonCard();
+    }
+
     public TestApp getTestApp() {
         return testApp;
     }
