@@ -12,105 +12,28 @@ import static seedu.address.ui.testutil.GuiTestAssert.assertListMatching;
 import java.time.Clock;
 import java.util.Date;
 
-import guitests.GuiRobot;
-import guitests.guihandles.BrowserPanelHandle;
 import guitests.guihandles.StatusBarFooterHandle;
 import seedu.address.MainApp;
-import seedu.address.model.AddressBook;
+import seedu.address.TestApp;
 import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
-import seedu.address.model.UserPrefs;
 import seedu.address.model.person.ReadOnlyPerson;
 
 /**
  * Contains assertion methods to verify the state of the application is as expected.
  */
 public class AppStateAsserts {
-
     /**
-     * Asserts that after executing the command {@code commandToRun}, the GUI components display what we expected,
-     * and the model and storage are modified accordingly.
+     * Asserts that the model in {@code testApp}'s storage and {@code testApp}'s model equals {@code expectedModel}.
      */
-    public static void assertCommandSuccess(AddressBookSystemTest addressBookSystemTest, String commandToRun,
-            Model expectedModel, String expectedResultMessage, boolean addressBookWillUpdate,
-            boolean browserUrlWillChange, boolean personListSelectionWillChange) throws Exception {
-
-        rememberStates(addressBookSystemTest);
-        addressBookSystemTest.runCommand(commandToRun);
-        waitUntilBrowserLoaded(addressBookSystemTest.getBrowserPanel(), browserUrlWillChange);
-        assertComponentsMatchExpected(addressBookSystemTest, addressBookWillUpdate, expectedModel,
-                "", expectedResultMessage, browserUrlWillChange, personListSelectionWillChange);
-    }
-
-    /**
-     * Asserts that after executing the command {@code commandToRun}, the GUI components remain unchanged, except for
-     * the {@code ResultDisplay} displaying {@code expectedResultMessage}. The model and storage remains unchanged.
-     */
-    public static void assertCommandFailure(AddressBookSystemTest addressBookSystemTest, String commandToRun,
-            String expectedResultMessage) throws Exception {
-        Model expectedModel = new ModelManager(
-                new AddressBook(addressBookSystemTest.getTestApp().getModel().getAddressBook()), new UserPrefs());
-
-        rememberStates(addressBookSystemTest);
-        addressBookSystemTest.runCommand(commandToRun);
-        assertComponentsMatchExpected(addressBookSystemTest, false, expectedModel,
-                commandToRun, expectedResultMessage, false, false);
-    }
-
-    /**
-     * Calls {@code BrowserPanelHandle}, {@code PersonListPanelHandle} and {@code StatusBarFooterHandle} to remember
-     * their current state.
-     */
-    private static void rememberStates(AddressBookSystemTest addressBookSystemTest)
-            throws Exception {
-
-        addressBookSystemTest.getBrowserPanel().rememberUrl();
-        addressBookSystemTest.getStatusBarFooter().rememberSaveLocation();
-        addressBookSystemTest.getStatusBarFooter().rememberSyncStatus();
-        addressBookSystemTest.getPersonListPanel().rememberSelectedPersonCard();
-    }
-
-    /**
-     * Asserts that the GUI components in the application matches what was expected.
-     */
-    private static void assertComponentsMatchExpected(AddressBookSystemTest addressBookSystemTest,
-            boolean addressBookWillUpdate, Model expectedModel, String expectedCommandBoxText,
-            String expectedResultMessage, boolean browserUrlWillChange,
-            boolean personListSelectionWillChange) throws Exception {
-
-        assertEquals(expectedCommandBoxText, addressBookSystemTest.getCommandBox().getInput());
-        assertEquals(browserUrlWillChange, addressBookSystemTest.getBrowserPanel().isUrlChanged());
-        assertListMatching(addressBookSystemTest.getPersonListPanel(),
-                expectedModel.getAddressBook().getPersonList().toArray(new ReadOnlyPerson[0]));
-        assertEquals(personListSelectionWillChange,
-                addressBookSystemTest.getPersonListPanel().isSelectedPersonCardChanged());
-        assertEquals(expectedResultMessage, addressBookSystemTest.getResultDisplay().getText());
-        assertEquals(expectedModel.getAddressBook(), addressBookSystemTest.getTestApp().readStorageAddressBook());
-        assertEquals(expectedModel, addressBookSystemTest.getTestApp().getModel());
-
-        if (addressBookWillUpdate) {
-            assertOnlySyncStatusChanged(addressBookSystemTest.getStatusBarFooter(),
-                AddressBookSystemTest.INJECTED_CLOCK);
-        } else {
-            assertStatusBarUnchanged(addressBookSystemTest.getStatusBarFooter());
-        }
-    }
-
-    /**
-     * Sleeps the thread if {@code browserUrlWillChange} is true, till the {@code browserPanelHandle}'s
-     * {@code WebView} has successfully loaded.
-     */
-    private static void waitUntilBrowserLoaded(BrowserPanelHandle browserPanelHandle, boolean browserUrlWillChange) {
-        if (browserUrlWillChange) {
-            new GuiRobot().waitForEvent(browserPanelHandle::getIsWebViewLoaded);
-            browserPanelHandle.setIsWebViewLoaded(false);
-        }
+    public static void assertAppModel(Model expectedModel, TestApp testApp) {
+        assertEquals(expectedModel.getAddressBook(), testApp.readStorageAddressBook());
+        assertEquals(expectedModel, testApp.getModel());
     }
 
     /**
      * Asserts that the entire status bar remains the same.
      */
-    private static void assertStatusBarUnchanged(StatusBarFooterHandle statusBarFooterHandle) {
+    public static void assertStatusBarUnchanged(StatusBarFooterHandle statusBarFooterHandle) {
         assertFalse(statusBarFooterHandle.isSaveLocationChanged());
         assertFalse(statusBarFooterHandle.isSyncStatusChanged());
     }
@@ -119,7 +42,7 @@ public class AppStateAsserts {
      * Asserts that only the sync status in the status bar was changed to the timing of the {@code injectedClock},
      * while the save location remains the same.
      */
-    private static void assertOnlySyncStatusChanged(StatusBarFooterHandle statusBarFooterHandle, Clock injectedClock) {
+    public static void assertOnlySyncStatusChanged(StatusBarFooterHandle statusBarFooterHandle, Clock injectedClock) {
         String timestamp = new Date(injectedClock.millis()).toString();
         String expectedSyncStatus = String.format(SYNC_STATUS_UPDATED, timestamp);
         assertEquals(expectedSyncStatus, statusBarFooterHandle.getSyncStatus());
