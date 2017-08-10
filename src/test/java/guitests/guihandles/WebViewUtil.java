@@ -3,6 +3,7 @@ package guitests.guihandles;
 import java.net.MalformedURLException;
 import java.net.URL;
 
+import guitests.GuiRobot;
 import javafx.scene.web.WebView;
 
 /**
@@ -15,5 +16,13 @@ public class WebViewUtil {
      */
     public static URL getLoadedUrl(WebView webView) throws MalformedURLException {
         return new URL(webView.getEngine().getLocation());
+    }
+
+    /**
+     * Sleeps the thread till the {@code browserPanelHandle}'s {@code WebView} is successfully loaded.
+     */
+    public static void waitUntilBrowserLoaded(BrowserPanelHandle browserPanelHandle) {
+        new GuiRobot().waitForEvent(browserPanelHandle::getIsWebViewLoaded);
+        browserPanelHandle.setIsWebViewLoaded(false);
     }
 }
