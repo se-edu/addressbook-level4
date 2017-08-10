@@ -8,6 +8,7 @@ import org.controlsfx.control.StatusBar;
 
 import com.google.common.eventbus.Subscribe;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
@@ -63,11 +64,11 @@ public class StatusBarFooter extends UiPart<Region> {
     }
 
     private void setSaveLocation(String location) {
-        this.saveLocationStatus.setText(location);
+        Platform.runLater(() -> this.saveLocationStatus.setText(location));
     }
 
     private void setSyncStatus(String status) {
-        this.syncStatus.setText(status);
+        Platform.runLater(() -> this.syncStatus.setText(status));
     }
 
     @Subscribe
