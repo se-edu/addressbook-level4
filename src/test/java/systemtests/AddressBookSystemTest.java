@@ -2,6 +2,7 @@ package systemtests;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static seedu.address.ui.BrowserPanel.DEFAULT_PAGE;
 import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_INITIAL;
 import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
@@ -99,6 +100,26 @@ public abstract class AddressBookSystemTest {
         statusBarFooterHandle.rememberSaveLocation();
         statusBarFooterHandle.rememberSyncStatus();
         getPersonListPanel().rememberSelectedPersonCard();
+    }
+
+    /**
+     * Asserts that the browser's url and the selected card in the person list panel are changed.
+     * @see BrowserPanelHandle#isUrlChanged()
+     * @see PersonListPanelHandle#isSelectedPersonCardChanged()
+     */
+    protected void assertSelectedCardChanged() throws Exception {
+        assertTrue(getBrowserPanel().isUrlChanged());
+        assertTrue(getPersonListPanel().isSelectedPersonCardChanged());
+    }
+
+    /**
+     * Asserts that the browser's url and the selected card in the person list panel remain unchanged.
+     * @see BrowserPanelHandle#isUrlChanged()
+     * @see PersonListPanelHandle#isSelectedPersonCardChanged()
+     */
+    protected void assertSelectedCardUnchanged() throws Exception {
+        assertFalse(getBrowserPanel().isUrlChanged());
+        assertFalse(getPersonListPanel().isSelectedPersonCardChanged());
     }
 
     /**

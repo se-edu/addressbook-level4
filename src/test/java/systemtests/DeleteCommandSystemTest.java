@@ -2,7 +2,6 @@ package systemtests;
 
 import static guitests.guihandles.WebViewUtil.waitUntilBrowserLoaded;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS;
@@ -37,34 +36,34 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: delete the first person in the list, command with leading spaces and trailing spaces -> deleted */
         String command = "     " + DeleteCommand.COMMAND_WORD + "      " + INDEX_FIRST_PERSON.getOneBased() + "       ";
-        assertDeleteCommandSuccess(command, expectedModel, INDEX_FIRST_PERSON, false, false);
+        assertDeleteCommandSuccess(command, expectedModel, INDEX_FIRST_PERSON, false);
 
         /* Case: delete the last person in the list -> deleted */
         Model modelBeforeDeletingLast = new ModelManager(expectedModel.getAddressBook(), new UserPrefs());
         Index lastPersonIndex = getLastIndex(expectedModel);
         command = DeleteCommand.COMMAND_WORD + " " + String.valueOf(lastPersonIndex.getOneBased());
-        assertDeleteCommandSuccess(command, expectedModel, lastPersonIndex, false, false);
+        assertDeleteCommandSuccess(command, expectedModel, lastPersonIndex, false);
 
         /* Case: undo deleting the last person in the list -> last person restored */
         command = UndoCommand.COMMAND_WORD;
         String expectedResultMessage = UndoCommand.MESSAGE_SUCCESS;
-        assertCommandSuccess(command, modelBeforeDeletingLast, expectedResultMessage, false, false);
+        assertCommandSuccess(command, modelBeforeDeletingLast, expectedResultMessage, false);
 
         /* Case: redo deleting the last person in the list -> last person deleted again */
         command = RedoCommand.COMMAND_WORD;
         expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
-        assertCommandSuccess(command, expectedModel, expectedResultMessage, false, false);
+        assertCommandSuccess(command, expectedModel, expectedResultMessage, false);
 
         /* Case: delete the middle person in the list -> deleted */
         Index middlePersonIndex = getMidIndex(expectedModel);
         command = DeleteCommand.COMMAND_WORD + " " + String.valueOf(middlePersonIndex.getOneBased());
-        assertDeleteCommandSuccess(command, expectedModel, middlePersonIndex, false, false);
+        assertDeleteCommandSuccess(command, expectedModel, middlePersonIndex, false);
 
         /* Case: delete the selected person -> person list panel selects the person before the deleted person */
         Index selectedIndex = getMidIndex(expectedModel);
         getPersonListPanel().select(selectedIndex.getZeroBased());
         command = DeleteCommand.COMMAND_WORD + " " + String.valueOf(selectedIndex.getOneBased());
-        assertDeleteCommandSuccess(command, expectedModel, selectedIndex, true, true);
+        assertDeleteCommandSuccess(command, expectedModel, selectedIndex, true);
 
         /* Case: invalid index (0) -> rejected */
         command = DeleteCommand.COMMAND_WORD + " 0";
@@ -94,13 +93,12 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
      * and the model and storage are modified accordingly.
      */
     private void assertDeleteCommandSuccess(String command, Model expectedModel, Index index,
-            boolean browserUrlWillChange, boolean personListSelectionWillChange) throws Exception {
+            boolean browserUrlWillChange) throws Exception {
         ReadOnlyPerson targetPerson = getPerson(expectedModel, index);
         String expectedResultMessage = String.format(MESSAGE_DELETE_PERSON_SUCCESS, targetPerson);
         expectedModel.deletePerson(targetPerson);
 
-        assertCommandSuccess(command, expectedModel, expectedResultMessage, browserUrlWillChange,
-                personListSelectionWillChange);
+        assertCommandSuccess(command, expectedModel, expectedResultMessage, browserUrlWillChange);
     }
 
     /**
@@ -108,19 +106,20 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
      * and the model and storage are modified accordingly.
      */
     private void assertCommandSuccess(String commandToRun, Model expectedModel, String expectedResultMessage,
-            boolean browserUrlWillChange, boolean personListSelectionWillChange) throws Exception {
+            boolean selectedCardWillChange) throws Exception {
 
         rememberStates();
         runCommand(commandToRun);
-        if (browserUrlWillChange) {
+        if (selectedCardWillChange) {
             waitUntilBrowserLoaded(getBrowserPanel());
+            assertSelectedCardChanged();
+        } else {
+            assertSelectedCardUnchanged();
         }
 
         assertEquals("", getCommandBox().getInput());
-        assertEquals(browserUrlWillChange, getBrowserPanel().isUrlChanged());
         assertListMatching(getPersonListPanel(),
                 expectedModel.getAddressBook().getPersonList().toArray(new ReadOnlyPerson[0]));
-        assertEquals(personListSelectionWillChange, getPersonListPanel().isSelectedPersonCardChanged());
         assertEquals(expectedResultMessage, getResultDisplay().getText());
         assertEquals(expectedModel.getAddressBook(), getTestApp().readStorageAddressBook());
         assertEquals(expectedModel, getTestApp().getModel());
@@ -141,8 +140,7 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
         runCommand(commandToRun);
 
         assertEquals(commandToRun, getCommandBox().getInput());
-        assertFalse(getBrowserPanel().isUrlChanged());
-        assertFalse(getPersonListPanel().isSelectedPersonCardChanged());
+        assertSelectedCardUnchanged();
         assertEquals(expectedResultMessage, getResultDisplay().getText());
         assertEquals(expectedModel.getAddressBook(), getTestApp().readStorageAddressBook());
         assertEquals(expectedModel, getTestApp().getModel());
