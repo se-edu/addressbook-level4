@@ -2,6 +2,7 @@ package systemtests;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 import static seedu.address.ui.BrowserPanel.DEFAULT_PAGE;
 import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_INITIAL;
@@ -14,6 +15,8 @@ import java.util.Date;
 
 import guitests.guihandles.StatusBarFooterHandle;
 import seedu.address.MainApp;
+import seedu.address.model.Model;
+import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.person.ReadOnlyPerson;
 
 /**
@@ -24,6 +27,66 @@ public class AppStateAsserts {
 
     public AppStateAsserts(AddressBookSystemTest addressBookSystemTest) {
         this.addressBookSystemTest = addressBookSystemTest;
+    }
+
+    /**
+     * Asserts that the browser's url is changed.
+     * @see guitests.guihandles.BrowserPanelHandle#isUrlChanged()
+     */
+    public void assertBrowserUrlChanged() throws Exception {
+        assertTrue(addressBookSystemTest.getBrowserPanel().isUrlChanged());
+    }
+
+    /**
+     * Asserts that the browser's url remain unchanged.
+     * @see guitests.guihandles.BrowserPanelHandle#isUrlChanged()
+     */
+    public void assertBrowserUrlUnchanged() throws Exception {
+        assertFalse(addressBookSystemTest.getBrowserPanel().isUrlChanged());
+    }
+
+    /**
+     * Asserts that the selected card in the person list panel is changed.
+     * @see guitests.guihandles.PersonListPanelHandle#isSelectedPersonCardChanged()
+     */
+    public void assertSelectedCardChanged() throws Exception {
+        assertTrue(addressBookSystemTest.getPersonListPanel().isSelectedPersonCardChanged());
+    }
+
+    /**
+     * Asserts that the selected card in the person list panel remains unchanged.
+     * @see guitests.guihandles.PersonListPanelHandle#isSelectedPersonCardChanged()
+     */
+    public void assertSelectedCardUnchanged() throws Exception {
+        assertFalse(addressBookSystemTest.getPersonListPanel().isSelectedPersonCardChanged());
+    }
+
+    /**
+     * Asserts that the command box shows {@code expected}.
+     */
+    public void assertCommandBoxShows(String expected) {
+        assertEquals(expected, addressBookSystemTest.getCommandBox().getInput());
+    }
+
+    /**
+     * Asserts that the result box shows {@code expected}.
+     */
+    public void assertResultBoxShows(String expected) {
+        assertEquals(expected, addressBookSystemTest.getResultDisplay().getText());
+    }
+
+    /**
+     * Asserts that the address book saved in the storage equals {@code expected}.
+     */
+    public void assertSavedAddressBookEquals(ReadOnlyAddressBook expected) {
+        assertEquals(expected, addressBookSystemTest.getTestApp().getModel().getAddressBook());
+    }
+
+    /**
+     * Asserts that the current model equals {@code expected}.
+     */
+    public void assertModelEquals(Model expected) {
+        assertEquals(expected, addressBookSystemTest.getTestApp().getModel());
     }
 
     /**
@@ -53,8 +116,8 @@ public class AppStateAsserts {
     public void verifyApplicationStartingStateIsCorrect() {
         StatusBarFooterHandle footer = addressBookSystemTest.getStatusBarFooter();
         try {
-            assertEquals("", addressBookSystemTest.getCommandBox().getInput());
-            assertEquals("", addressBookSystemTest.getResultDisplay().getText());
+            assertCommandBoxShows("");
+            assertResultBoxShows("");
             assertListMatching(addressBookSystemTest.getPersonListPanel(),
                     getTypicalAddressBook().getPersonList().toArray(new ReadOnlyPerson[0]));
             assertEquals(MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_PAGE),
