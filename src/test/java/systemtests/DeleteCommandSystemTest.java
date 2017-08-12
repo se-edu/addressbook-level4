@@ -1,8 +1,6 @@
 package systemtests;
 
 import static guitests.guihandles.WebViewUtil.waitUntilBrowserLoaded;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS;
@@ -11,9 +9,6 @@ import static seedu.address.testutil.TestUtil.getMidIndex;
 import static seedu.address.testutil.TestUtil.getPerson;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.ui.testutil.GuiTestAssert.assertListMatching;
-import static systemtests.AppStateAsserts.assertAppModel;
-import static systemtests.AppStateAsserts.assertOnlySyncStatusChanged;
-import static systemtests.AppStateAsserts.assertStatusBarUnchanged;
 import static systemtests.SystemTestUtil.rememberStates;
 
 import org.junit.Test;
@@ -98,13 +93,12 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
      * and the model and storage are modified accordingly.
      */
     private void assertDeleteCommandSuccess(String command, Model expectedModel, Index index,
-            boolean selectedCardWillChange) throws Exception {
+            boolean browserUrlWillChange) throws Exception {
         ReadOnlyPerson targetPerson = getPerson(expectedModel, index);
         String expectedResultMessage = String.format(MESSAGE_DELETE_PERSON_SUCCESS, targetPerson);
         expectedModel.deletePerson(targetPerson);
 
-        assertCommandSuccess(command, expectedModel, expectedResultMessage, selectedCardWillChange);
-
+        assertCommandSuccess(command, expectedModel, expectedResultMessage, browserUrlWillChange);
     }
 
     /**
@@ -112,23 +106,26 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
      * and the model and storage are modified accordingly.
      */
     private void assertCommandSuccess(String commandToRun, Model expectedModel, String expectedResultMessage,
-            boolean selectedCardWillChange) throws Exception {
+            boolean browserUrlWillChange) throws Exception {
 
         rememberStates(this);
         runCommand(commandToRun);
-        // if selected card changes, the browser is expected to load the page of the selected card
-        if (selectedCardWillChange) {
+        if (browserUrlWillChange) {
             waitUntilBrowserLoaded(getBrowserPanel());
+            asserts.assertBrowserUrlChanged();
+            asserts.assertSelectedCardChanged();
+        } else {
+            asserts.assertBrowserUrlUnchanged();
+            asserts.assertSelectedCardUnchanged();
         }
 
-        assertEquals("", getCommandBox().getInput());
-        assertEquals(selectedCardWillChange, getBrowserPanel().isUrlChanged());
+        asserts.assertCommandBoxShows("");
         assertListMatching(getPersonListPanel(),
                 expectedModel.getAddressBook().getPersonList().toArray(new ReadOnlyPerson[0]));
-        assertEquals(selectedCardWillChange, getPersonListPanel().isSelectedPersonCardChanged());
-        assertEquals(expectedResultMessage, getResultDisplay().getText());
-        assertAppModel(expectedModel, getTestApp());
-        assertOnlySyncStatusChanged(getStatusBarFooter(), AddressBookSystemTest.INJECTED_CLOCK);
+        asserts.assertResultBoxShows(expectedResultMessage);
+        asserts.assertSavedAddressBook(expectedModel.getAddressBook());
+        asserts.assertModelEquals(expectedModel);
+        asserts.assertOnlySyncStatusChanged();
     }
 
     /**
@@ -142,11 +139,12 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
         rememberStates(this);
         runCommand(commandToRun);
 
-        assertEquals(commandToRun, getCommandBox().getInput());
-        assertFalse(getBrowserPanel().isUrlChanged());
-        assertFalse(getPersonListPanel().isSelectedPersonCardChanged());
-        assertEquals(expectedResultMessage, getResultDisplay().getText());
-        assertAppModel(expectedModel, getTestApp());
-        assertStatusBarUnchanged(getStatusBarFooter());
+        asserts.assertCommandBoxShows(commandToRun);
+        asserts.assertBrowserUrlUnchanged();
+        asserts.assertSelectedCardUnchanged();
+        asserts.assertResultBoxShows(expectedResultMessage);
+        asserts.assertSavedAddressBook(expectedModel.getAddressBook());
+        asserts.assertModelEquals(expectedModel);
+        asserts.assertStatusBarUnchanged();
     }
 }
