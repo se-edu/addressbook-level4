@@ -4,6 +4,7 @@ import java.util.logging.Logger;
 
 import com.google.common.eventbus.Subscribe;
 
+import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.fxml.FXML;
@@ -34,7 +35,7 @@ public class ResultDisplay extends UiPart<Region> {
     @Subscribe
     private void handleNewResultAvailableEvent(NewResultAvailableEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        displayed.setValue(event.message);
+        Platform.runLater(() -> displayed.setValue(event.message));
     }
 
 }
