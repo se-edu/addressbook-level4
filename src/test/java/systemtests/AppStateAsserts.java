@@ -8,8 +8,8 @@ import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_INITIAL;
 import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
 import static seedu.address.ui.UiPart.FXML_FILE_FOLDER;
 import static seedu.address.ui.testutil.GuiTestAssert.assertListMatching;
+import static systemtests.AddressBookSystemTest.INJECTED_CLOCK;
 
-import java.time.Clock;
 import java.util.Date;
 
 import guitests.guihandles.StatusBarFooterHandle;
@@ -20,29 +20,38 @@ import seedu.address.model.person.ReadOnlyPerson;
  * Contains assertion methods to verify the state of the application is as expected.
  */
 public class AppStateAsserts {
+    private AddressBookSystemTest addressBookSystemTest;
+
+    public AppStateAsserts(AddressBookSystemTest addressBookSystemTest) {
+        this.addressBookSystemTest = addressBookSystemTest;
+    }
+
     /**
      * Asserts that the entire status bar remains the same.
      */
-    public static void assertStatusBarUnchanged(StatusBarFooterHandle statusBarFooterHandle) {
-        assertFalse(statusBarFooterHandle.isSaveLocationChanged());
-        assertFalse(statusBarFooterHandle.isSyncStatusChanged());
+    public void assertStatusBarUnchanged() {
+        StatusBarFooterHandle footer = addressBookSystemTest.getStatusBarFooter();
+        assertFalse(footer.isSaveLocationChanged());
+        assertFalse(footer.isSyncStatusChanged());
     }
 
     /**
      * Asserts that only the sync status in the status bar was changed to the timing of the {@code injectedClock},
      * while the save location remains the same.
      */
-    public static void assertOnlySyncStatusChanged(StatusBarFooterHandle statusBarFooterHandle, Clock injectedClock) {
-        String timestamp = new Date(injectedClock.millis()).toString();
+    public void assertOnlySyncStatusChanged() {
+        StatusBarFooterHandle footer = addressBookSystemTest.getStatusBarFooter();
+        String timestamp = new Date(INJECTED_CLOCK.millis()).toString();
         String expectedSyncStatus = String.format(SYNC_STATUS_UPDATED, timestamp);
-        assertEquals(expectedSyncStatus, statusBarFooterHandle.getSyncStatus());
-        assertFalse(statusBarFooterHandle.isSaveLocationChanged());
+        assertEquals(expectedSyncStatus, footer.getSyncStatus());
+        assertFalse(footer.isSaveLocationChanged());
     }
 
     /**
      * Checks that the starting state of the application is correct.
      */
-    public static void verifyApplicationStartingStateIsCorrect(AddressBookSystemTest addressBookSystemTest) {
+    public void verifyApplicationStartingStateIsCorrect() {
+        StatusBarFooterHandle footer = addressBookSystemTest.getStatusBarFooter();
         try {
             assertEquals("", addressBookSystemTest.getCommandBox().getInput());
             assertEquals("", addressBookSystemTest.getResultDisplay().getText());
@@ -50,9 +59,8 @@ public class AppStateAsserts {
                     getTypicalAddressBook().getPersonList().toArray(new ReadOnlyPerson[0]));
             assertEquals(MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_PAGE),
                     addressBookSystemTest.getBrowserPanel().getLoadedUrl());
-            assertEquals("./" + addressBookSystemTest.getTestApp().getStorageSaveLocation(),
-                    addressBookSystemTest.getStatusBarFooter().getSaveLocation());
-            assertEquals(SYNC_STATUS_INITIAL, addressBookSystemTest.getStatusBarFooter().getSyncStatus());
+            assertEquals("./" + addressBookSystemTest.getTestApp().getStorageSaveLocation(), footer.getSaveLocation());
+            assertEquals(SYNC_STATUS_INITIAL, footer.getSyncStatus());
         } catch (Exception e) {
             throw new AssertionError("Starting state is wrong.", e);
         }

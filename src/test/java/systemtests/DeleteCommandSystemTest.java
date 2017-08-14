@@ -11,8 +11,6 @@ import static seedu.address.testutil.TestUtil.getMidIndex;
 import static seedu.address.testutil.TestUtil.getPerson;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.ui.testutil.GuiTestAssert.assertListMatching;
-import static systemtests.AppStateAsserts.assertOnlySyncStatusChanged;
-import static systemtests.AppStateAsserts.assertStatusBarUnchanged;
 import static systemtests.SystemTestUtil.rememberStates;
 
 import org.junit.Test;
@@ -127,7 +125,7 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
         assertEquals(expectedResultMessage, getResultDisplay().getText());
         assertEquals(expectedModel.getAddressBook(), getTestApp().readStorageAddressBook());
         assertEquals(expectedModel, getTestApp().getModel());
-        assertOnlySyncStatusChanged(getStatusBarFooter(), AddressBookSystemTest.INJECTED_CLOCK);
+        asserts.assertOnlySyncStatusChanged();
     }
 
     /**
@@ -147,6 +145,6 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
         assertEquals(expectedResultMessage, getResultDisplay().getText());
         assertEquals(expectedModel.getAddressBook(), getTestApp().readStorageAddressBook());
         assertEquals(expectedModel, getTestApp().getModel());
-        assertStatusBarUnchanged(getStatusBarFooter());
+        asserts.assertStatusBarUnchanged();
     }
 }
