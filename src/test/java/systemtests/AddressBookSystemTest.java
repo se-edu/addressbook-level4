@@ -1,7 +1,5 @@
 package systemtests;
 
-import static systemtests.AppStateAsserts.verifyApplicationStartingStateIsCorrect;
-
 import java.time.Clock;
 import java.time.Instant;
 import java.time.ZoneId;
@@ -34,6 +32,8 @@ import seedu.address.ui.StatusBarFooter;
 public abstract class AddressBookSystemTest {
     public static final Clock INJECTED_CLOCK = Clock.fixed(Instant.now(), ZoneId.systemDefault());
     private static final Clock ORIGINAL_CLOCK = StatusBarFooter.getClock();
+
+    protected AppStateAsserts asserts;
 
     private Stage stage;
 
@@ -68,10 +68,11 @@ public abstract class AddressBookSystemTest {
     public void setUp() {
         setupApplication();
 
+        asserts = new AppStateAsserts(this);
         mainWindowHandle = new MainWindowHandle(stage);
         mainWindowHandle.focus();
 
-        verifyApplicationStartingStateIsCorrect(this);
+        asserts.verifyApplicationStartingStateIsCorrect();
     }
 
     private void setupApplication() {
