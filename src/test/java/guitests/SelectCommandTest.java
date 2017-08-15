@@ -18,7 +18,7 @@ public class SelectCommandTest extends AddressBookGuiTest {
 
 
     @Test
-    public void selectPerson_nonEmptyList() throws Exception {
+    public void selectPerson_nonEmptyList() {
 
         assertSelectionInvalid(Index.fromOneBased(10)); // invalid index
         assertNoCardSelected();
@@ -47,13 +47,13 @@ public class SelectCommandTest extends AddressBookGuiTest {
         assertResultMessage(getResultDisplay(), "The person index provided is invalid");
     }
 
-    private void assertSelectionSuccess(Index index) throws Exception {
+    private void assertSelectionSuccess(Index index) {
         runCommand(SelectCommand.COMMAND_WORD + " " + index.getOneBased());
         assertResultMessage(getResultDisplay(), "Selected Person: " + index.getOneBased());
         assertCardSelected(index);
     }
 
-    private void assertCardSelected(Index index) throws Exception {
+    private void assertCardSelected(Index index) {
         PersonCardHandle expectedCard = getPersonListPanel().getPersonCardHandle(index.getZeroBased());
         PersonCardHandle selectedCard = getPersonListPanel().getHandleToSelectedCard();
         assertCardEquals(expectedCard, selectedCard);

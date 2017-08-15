@@ -22,7 +22,7 @@ import seedu.address.testutil.PersonUtil;
 public class AddCommandTest extends AddressBookGuiTest {
 
     @Test
-    public void add() throws Exception {
+    public void add() {
         //add one person
         List<ReadOnlyPerson> expectedList = getTypicalPersons();
         ReadOnlyPerson personToAdd = HOON;
@@ -51,7 +51,7 @@ public class AddCommandTest extends AddressBookGuiTest {
         assertResultMessage(getResultDisplay(), Messages.MESSAGE_UNKNOWN_COMMAND);
     }
 
-    private void assertAddSuccess(ReadOnlyPerson personToAdd, List<ReadOnlyPerson> expectedList) throws Exception {
+    private void assertAddSuccess(ReadOnlyPerson personToAdd, List<ReadOnlyPerson> expectedList) {
         runCommand(PersonUtil.getAddCommand(personToAdd));
 
         //confirm the new card contains the right data
