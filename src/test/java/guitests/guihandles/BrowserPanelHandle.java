@@ -1,6 +1,5 @@
 package guitests.guihandles;
 
-import java.net.MalformedURLException;
 import java.net.URL;
 
 import guitests.GuiRobot;
@@ -35,14 +34,14 @@ public class BrowserPanelHandle extends NodeHandle<Node> {
     /**
      * Returns the {@code URL} of the currently loaded page.
      */
-    public URL getLoadedUrl() throws MalformedURLException {
+    public URL getLoadedUrl() {
         return WebViewUtil.getLoadedUrl(getChildNode(BROWSER_ID));
     }
 
     /**
      * Remembers the {@code URL} of the currently loaded page.
      */
-    public void rememberUrl() throws MalformedURLException {
+    public void rememberUrl() {
         lastRememberedUrl = getLoadedUrl();
     }
 
@@ -50,7 +49,7 @@ public class BrowserPanelHandle extends NodeHandle<Node> {
      * Returns true if the current {@code URL} is different from the value remembered by the most recent
      * {@code rememberUrl()} call.
      */
-    public boolean isUrlChanged() throws MalformedURLException {
+    public boolean isUrlChanged() {
         return !lastRememberedUrl.equals(getLoadedUrl());
     }
 

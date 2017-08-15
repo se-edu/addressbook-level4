@@ -14,12 +14,16 @@ import seedu.address.ui.UiPart;
 public class UiPartRule extends StageRule {
     private static final String[] CSS_FILES = {"view/DarkTheme.css", "view/Extensions.css"};
 
-    public void setUiPart(final UiPart<? extends Parent> uiPart) throws TimeoutException {
-        FxToolkit.setupScene(() -> {
-            Scene scene = new Scene(uiPart.getRoot());
-            scene.getStylesheets().setAll(CSS_FILES);
-            return scene;
-        });
-        FxToolkit.showStage();
+    public void setUiPart(final UiPart<? extends Parent> uiPart) {
+        try {
+            FxToolkit.setupScene(() -> {
+                Scene scene = new Scene(uiPart.getRoot());
+                scene.getStylesheets().setAll(CSS_FILES);
+                return scene;
+            });
+            FxToolkit.showStage();
+        } catch (TimeoutException te) {
+            throw new AssertionError("timeout should not happen.", te);
+        }
     }
 }

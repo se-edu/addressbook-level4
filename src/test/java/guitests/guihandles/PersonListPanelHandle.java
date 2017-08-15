@@ -5,7 +5,6 @@ import java.util.Optional;
 
 import javafx.scene.control.ListView;
 import seedu.address.model.person.ReadOnlyPerson;
-import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.ui.PersonCard;
 
 /**
@@ -51,12 +50,12 @@ public class PersonListPanelHandle extends NodeHandle<ListView<PersonCard>> {
     /**
      * Navigates the listview to display and select the person.
      */
-    public void navigateToCard(ReadOnlyPerson person) throws PersonNotFoundException {
+    public void navigateToCard(ReadOnlyPerson person) {
         List<PersonCard> cards = getRootNode().getItems();
         Optional<PersonCard> matchingCard = cards.stream().filter(card -> card.person.equals(person)).findFirst();
 
         if (!matchingCard.isPresent()) {
-            throw new PersonNotFoundException();
+            throw new IllegalArgumentException("person does not exist.");
         }
 
         guiRobot.interact(() -> {
@@ -69,19 +68,19 @@ public class PersonListPanelHandle extends NodeHandle<ListView<PersonCard>> {
     /**
      * Returns the person card handle of a person associated with the {@code index} in the list.
      */
-    public PersonCardHandle getPersonCardHandle(int index) throws PersonNotFoundException {
+    public PersonCardHandle getPersonCardHandle(int index) {
         return getPersonCardHandle(getRootNode().getItems().get(index).person);
     }
 
     /**
      * Returns the {@code PersonCardHandle} of the specified {@code person} in the list.
      */
-    public PersonCardHandle getPersonCardHandle(ReadOnlyPerson person) throws PersonNotFoundException {
+    public PersonCardHandle getPersonCardHandle(ReadOnlyPerson person) {
         Optional<PersonCardHandle> handle = getRootNode().getItems().stream()
                 .filter(card -> card.person.equals(person))
                 .map(card -> new PersonCardHandle(card.getRoot()))
                 .findFirst();
-        return handle.orElseThrow(PersonNotFoundException::new);
+        return handle.orElseThrow(() -> new IllegalArgumentException("person does not exist"));
     }
 
     /**

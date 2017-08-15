@@ -88,20 +88,24 @@ public class JsonUserPrefsStorageTest {
     }
 
     @Test
-    public void savePrefs_nullPrefs_throwsNullPointerException() throws IOException {
+    public void savePrefs_nullPrefs_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         saveUserPrefs(null, "SomeFile.json");
     }
 
     @Test
-    public void saveUserPrefs_nullFilePath_throwsNullPointerException() throws IOException {
+    public void saveUserPrefs_nullFilePath_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         saveUserPrefs(new UserPrefs(), null);
     }
 
-    private void saveUserPrefs(UserPrefs userPrefs, String prefsFileInTestDataFolder) throws IOException {
-        new JsonUserPrefsStorage(addToTestDataPathIfNotNull(prefsFileInTestDataFolder))
-                .saveUserPrefs(userPrefs);
+    private void saveUserPrefs(UserPrefs userPrefs, String prefsFileInTestDataFolder) {
+        try {
+            new JsonUserPrefsStorage(addToTestDataPathIfNotNull(prefsFileInTestDataFolder))
+                    .saveUserPrefs(userPrefs);
+        } catch (IOException ioe) {
+            throw new AssertionError("there should not be an error writing to the file", ioe);
+        }
     }
 
     @Test
