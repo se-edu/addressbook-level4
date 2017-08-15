@@ -8,8 +8,6 @@ import static seedu.address.testutil.TestUtil.getLastIndex;
 import static seedu.address.testutil.TestUtil.getMidIndex;
 import static seedu.address.testutil.TestUtil.getPerson;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.address.ui.testutil.GuiTestAssert.assertListMatching;
-import static systemtests.SystemTestUtil.rememberStates;
 
 import org.junit.Test;
 
@@ -108,7 +106,7 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
     private void assertCommandSuccess(String commandToRun, Model expectedModel, String expectedResultMessage,
             boolean browserUrlWillChange) throws Exception {
 
-        rememberStates(this);
+        rememberStates();
         runCommand(commandToRun);
         if (browserUrlWillChange) {
             waitUntilBrowserLoaded(getBrowserPanel());
@@ -120,11 +118,11 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
         }
 
         asserts.assertCommandBoxShows("");
-        assertListMatching(getPersonListPanel(),
-                expectedModel.getAddressBook().getPersonList().toArray(new ReadOnlyPerson[0]));
+        asserts.assertCommandBoxStyleDefault();
         asserts.assertResultBoxShows(expectedResultMessage);
-        asserts.assertSavedAddressBook(expectedModel.getAddressBook());
+        asserts.assertSavedAddressBookEquals(expectedModel.getAddressBook());
         asserts.assertModelEquals(expectedModel);
+        asserts.assertPersonListPanelBounded();
         asserts.assertOnlySyncStatusChanged();
     }
 
@@ -136,15 +134,17 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
         Model expectedModel = new ModelManager(
                 new AddressBook(getTestApp().getModel().getAddressBook()), new UserPrefs());
 
-        rememberStates(this);
+        rememberStates();
         runCommand(commandToRun);
 
         asserts.assertCommandBoxShows(commandToRun);
+        asserts.assertCommandBoxStyleError();
         asserts.assertBrowserUrlUnchanged();
         asserts.assertSelectedCardUnchanged();
         asserts.assertResultBoxShows(expectedResultMessage);
-        asserts.assertSavedAddressBook(expectedModel.getAddressBook());
+        asserts.assertSavedAddressBookEquals(expectedModel.getAddressBook());
         asserts.assertModelEquals(expectedModel);
+        asserts.assertPersonListPanelBounded();
         asserts.assertStatusBarUnchanged();
     }
 }

@@ -68,11 +68,11 @@ public abstract class AddressBookSystemTest {
     public void setUp() {
         setupApplication();
 
-        asserts = new AppStateAsserts(this);
         mainWindowHandle = new MainWindowHandle(stage);
         mainWindowHandle.focus();
 
-        asserts.verifyApplicationStartingStateIsCorrect();
+        asserts = new AppStateAsserts(this);
+        asserts.assertApplicationStartingStateIsCorrect();
     }
 
     private void setupApplication() {
@@ -123,6 +123,17 @@ public abstract class AddressBookSystemTest {
      */
     public void runCommand(String command) {
         mainWindowHandle.getCommandBox().run(command);
+    }
+
+    /**
+     * Calls {@code BrowserPanelHandle}, {@code PersonListPanelHandle} and {@code StatusBarFooterHandle} to remember
+     * their current state.
+     */
+    protected void rememberStates() throws Exception {
+        getBrowserPanel().rememberUrl();
+        getStatusBarFooter().rememberSaveLocation();
+        getStatusBarFooter().rememberSyncStatus();
+        getPersonListPanel().rememberSelectedPersonCard();
     }
 
     public TestApp getTestApp() {

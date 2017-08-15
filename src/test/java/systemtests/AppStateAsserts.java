@@ -3,7 +3,6 @@ package systemtests;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 import static seedu.address.ui.BrowserPanel.DEFAULT_PAGE;
 import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_INITIAL;
 import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
@@ -11,13 +10,14 @@ import static seedu.address.ui.UiPart.FXML_FILE_FOLDER;
 import static seedu.address.ui.testutil.GuiTestAssert.assertListMatching;
 import static systemtests.AddressBookSystemTest.INJECTED_CLOCK;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 import guitests.guihandles.StatusBarFooterHandle;
 import seedu.address.MainApp;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.person.ReadOnlyPerson;
+import seedu.address.ui.CommandBox;
 
 /**
  * Contains assertion methods to verify the state of the application is as expected.
@@ -25,8 +25,19 @@ import seedu.address.model.person.ReadOnlyPerson;
 public class AppStateAsserts {
     private AddressBookSystemTest addressBookSystemTest;
 
+    private ArrayList<String> defaultStyleOfCommandBox;
+    private ArrayList<String> errorStyleOfCommandBox;
+
+    /**
+     * Throws {@code NullPointerException} if the command box of {@code addressBookSystemTest}
+     * isn't initialised.
+     */
     public AppStateAsserts(AddressBookSystemTest addressBookSystemTest) {
         this.addressBookSystemTest = addressBookSystemTest;
+
+        defaultStyleOfCommandBox = new ArrayList<>(addressBookSystemTest.getCommandBox().getStyleClass());
+        errorStyleOfCommandBox = new ArrayList<>(defaultStyleOfCommandBox);
+        errorStyleOfCommandBox.add(CommandBox.ERROR_STYLE_CLASS);
     }
 
     /**
@@ -69,6 +80,22 @@ public class AppStateAsserts {
     }
 
     /**
+     * Asserts that the command box's style is the default style.
+     */
+    public void assertCommandBoxStyleDefault() {
+        // TODO: We can merge this with assertCommandBoxShows(String) if we disallow users to press enter with no input
+        assertEquals(defaultStyleOfCommandBox, addressBookSystemTest.getCommandBox().getStyleClass());
+    }
+
+    /**
+     * Asserts that the command box's style is the error style.
+     */
+    public void assertCommandBoxStyleError() {
+        // TODO: We can merge this with assertCommandBoxShows(String) if we disallow users to press enter with no input
+        assertEquals(errorStyleOfCommandBox, addressBookSystemTest.getCommandBox().getStyleClass());
+    }
+
+    /**
      * Asserts that the result box shows {@code expected}.
      */
     public void assertResultBoxShows(String expected) {
@@ -78,7 +105,7 @@ public class AppStateAsserts {
     /**
      * Asserts that the address book saved in the storage equals {@code expected}.
      */
-    public void assertSavedAddressBook(ReadOnlyAddressBook expected) {
+    public void assertSavedAddressBookEquals(ReadOnlyAddressBook expected) {
         assertEquals(expected, addressBookSystemTest.getTestApp().getModel().getAddressBook());
     }
 
@@ -87,6 +114,15 @@ public class AppStateAsserts {
      */
     public void assertModelEquals(Model expected) {
         assertEquals(expected, addressBookSystemTest.getTestApp().getModel());
+    }
+
+    /**
+     * Asserts that the person list panel displays the model's filtered list correctly; that is, the UI
+     * is correctly bounded to the Model.
+     */
+    public void assertPersonListPanelBounded() throws Exception {
+        assertListMatching(addressBookSystemTest.getPersonListPanel(),
+                addressBookSystemTest.getTestApp().getModel().getFilteredPersonList());
     }
 
     /**
@@ -99,8 +135,8 @@ public class AppStateAsserts {
     }
 
     /**
-     * Asserts that only the sync status in the status bar was changed to the timing of the {@code injectedClock},
-     * while the save location remains the same.
+     * Asserts that only the sync status in the status bar was changed to the timing of the
+     * {@code AddressBookSystemTest#INJECTED_CLOCK}, while the save location remains the same.
      */
     public void assertOnlySyncStatusChanged() {
         StatusBarFooterHandle footer = addressBookSystemTest.getStatusBarFooter();
@@ -111,15 +147,14 @@ public class AppStateAsserts {
     }
 
     /**
-     * Checks that the starting state of the application is correct.
+     * Asserts that the starting state of the application is correct.
      */
-    public void verifyApplicationStartingStateIsCorrect() {
+    public void assertApplicationStartingStateIsCorrect() {
         StatusBarFooterHandle footer = addressBookSystemTest.getStatusBarFooter();
         try {
             assertCommandBoxShows("");
             assertResultBoxShows("");
-            assertListMatching(addressBookSystemTest.getPersonListPanel(),
-                    getTypicalAddressBook().getPersonList().toArray(new ReadOnlyPerson[0]));
+            assertPersonListPanelBounded();
             assertEquals(MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_PAGE),
                     addressBookSystemTest.getBrowserPanel().getLoadedUrl());
             assertEquals("./" + addressBookSystemTest.getTestApp().getStorageSaveLocation(), footer.getSaveLocation());
