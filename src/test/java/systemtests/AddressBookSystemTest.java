@@ -62,7 +62,7 @@ public abstract class AddressBookSystemTest {
 
         initCommandBoxStyles();
 
-        verifyApplicationStartingStateIsCorrect();
+        assertApplicationStartingStateIsCorrect();
     }
 
     private void initCommandBoxStyles() {
@@ -228,9 +228,9 @@ public abstract class AddressBookSystemTest {
     }
 
     /**
-     * Checks that the starting state of the application is correct.
+     * Asserts that the starting state of the application is correct.
      */
-    private void verifyApplicationStartingStateIsCorrect() {
+    private void assertApplicationStartingStateIsCorrect() {
         try {
             assertCommandBoxShows("");
             assertResultBoxShows("");
