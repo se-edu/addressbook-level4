@@ -147,9 +147,9 @@ public class AppStateAsserts {
     }
 
     /**
-     * Checks that the starting state of the application is correct.
+     * Asserts that the starting state of the application is correct.
      */
-    public void verifyApplicationStartingStateIsCorrect() {
+    public void assertApplicationStartingStateIsCorrect() {
         StatusBarFooterHandle footer = addressBookSystemTest.getStatusBarFooter();
         try {
             assertCommandBoxShows("");
