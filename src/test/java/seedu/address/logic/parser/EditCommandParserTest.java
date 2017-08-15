@@ -106,7 +106,7 @@ public class EditCommandParserTest {
     }
 
     @Test
-    public void parse_allFieldsSpecified_success() throws Exception {
+    public void parse_allFieldsSpecified_success() {
         Index targetIndex = INDEX_SECOND_PERSON;
         String userInput = targetIndex.getOneBased() + PHONE_DESC_BOB + TAG_DESC_HUSBAND
                 + EMAIL_DESC_AMY + ADDRESS_DESC_AMY + NAME_DESC_AMY + TAG_DESC_FRIEND;
@@ -120,7 +120,7 @@ public class EditCommandParserTest {
     }
 
     @Test
-    public void parse_someFieldsSpecified_success() throws Exception {
+    public void parse_someFieldsSpecified_success() {
         Index targetIndex = INDEX_FIRST_PERSON;
         String userInput = targetIndex.getOneBased() + PHONE_DESC_BOB + EMAIL_DESC_AMY;
 
@@ -132,7 +132,7 @@ public class EditCommandParserTest {
     }
 
     @Test
-    public void parse_oneFieldSpecified_success() throws Exception {
+    public void parse_oneFieldSpecified_success() {
         // name
         Index targetIndex = INDEX_THIRD_PERSON;
         String userInput = targetIndex.getOneBased() + NAME_DESC_AMY;
@@ -166,7 +166,7 @@ public class EditCommandParserTest {
     }
 
     @Test
-    public void parse_multipleRepeatedFields_acceptsLast() throws Exception {
+    public void parse_multipleRepeatedFields_acceptsLast() {
         Index targetIndex = INDEX_FIRST_PERSON;
         String userInput = targetIndex.getOneBased()  + PHONE_DESC_AMY + ADDRESS_DESC_AMY + EMAIL_DESC_AMY
                 + TAG_DESC_FRIEND + PHONE_DESC_AMY + ADDRESS_DESC_AMY + EMAIL_DESC_AMY + TAG_DESC_FRIEND
@@ -181,7 +181,7 @@ public class EditCommandParserTest {
     }
 
     @Test
-    public void parse_invalidValueFollowedByValidValue_success() throws Exception {
+    public void parse_invalidValueFollowedByValidValue_success() {
         // no other valid values specified
         Index targetIndex = INDEX_FIRST_PERSON;
         String userInput = targetIndex.getOneBased() + INVALID_PHONE_DESC + PHONE_DESC_BOB;
@@ -199,7 +199,7 @@ public class EditCommandParserTest {
     }
 
     @Test
-    public void parse_resetTags_success() throws Exception {
+    public void parse_resetTags_success() {
         Index targetIndex = INDEX_THIRD_PERSON;
         String userInput = targetIndex.getOneBased() + TAG_EMPTY;
 

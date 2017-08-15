@@ -65,7 +65,7 @@ public class DeleteCommandTest {
     }
 
     @Test
-    public void execute_invalidIndexFilteredList_throwsCommandException() throws Exception {
+    public void execute_invalidIndexFilteredList_throwsCommandException() {
         showFirstPersonOnly(model);
 
         Index outOfBoundIndex = INDEX_SECOND_PERSON;

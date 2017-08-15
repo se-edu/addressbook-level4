@@ -26,7 +26,7 @@ public class PersonListPanelTest extends GuiUnitTest {
     private PersonListPanelHandle personListPanelHandle;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         PersonListPanel personListPanel = new PersonListPanel(TYPICAL_PERSONS);
         uiPartRule.setUiPart(personListPanel);
 
@@ -35,7 +35,7 @@ public class PersonListPanelTest extends GuiUnitTest {
     }
 
     @Test
-    public void display() throws Exception {
+    public void display() {
         for (int i = 0; i < TYPICAL_PERSONS.size(); i++) {
             personListPanelHandle.navigateToCard(TYPICAL_PERSONS.get(i));
             ReadOnlyPerson expectedPerson = TYPICAL_PERSONS.get(i);
@@ -47,7 +47,7 @@ public class PersonListPanelTest extends GuiUnitTest {
     }
 
     @Test
-    public void handleJumpToListRequestEvent() throws Exception {
+    public void handleJumpToListRequestEvent() {
         postNow(JUMP_TO_SECOND_EVENT);
         guiRobot.pauseForHuman();
 

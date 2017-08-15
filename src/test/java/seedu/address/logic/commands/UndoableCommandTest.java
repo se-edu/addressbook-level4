@@ -36,7 +36,7 @@ public class UndoableCommandTest {
     }
 
     @Test
-    public void redo() throws Exception {
+    public void redo() {
         showFirstPersonOnly(model);
 
         // redo() should cause the model's filtered list to show all persons
