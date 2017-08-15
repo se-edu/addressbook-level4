@@ -87,8 +87,11 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
     }
 
     /**
-     * Asserts that after executing the {@code command}, the GUI components display what we expected,
-     * and the model and storage are modified accordingly.
+     * Asserts that after executing the {@code command}, the command box displays an empty string and
+     * it has the default style class, the result box displays {@code expectedResultMessage}, the model and storage
+     * contains the same person objects as {@code expectedModel}, the person list panel displays the persons in the
+     * model correctly and the status bar's sync status changes, the browser url and selected card changes depending
+     * on {@code browserUrlWillChange}, and the model and storage are modified accordingly.
      */
     private void assertDeleteCommandSuccess(String command, Model expectedModel, Index index,
             boolean browserUrlWillChange) throws Exception {
@@ -100,8 +103,11 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
     }
 
     /**
-     * Asserts that after executing the command {@code commandToRun}, the GUI components display what we expected,
-     * and the model and storage are modified accordingly.
+     * Asserts that after executing the command {@code commandToRun}, the command box displays an empty string and
+     * has the default style class, the result box displays {@code expectedResultMessage}, the model and storage
+     * contains the same person objects as {@code expectedModel}, the person list panel displays the persons in the
+     * model correctly, the status bar's sync status changes, the browser url and selected card changes depending
+     * on {@code browserUrlWillChange}.
      */
     private void assertCommandSuccess(String commandToRun, Model expectedModel, String expectedResultMessage,
             boolean browserUrlWillChange) throws Exception {
@@ -128,7 +134,8 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
 
     /**
      * Asserts that after executing the command {@code commandToRun}, the GUI components remain unchanged, except for
-     * the {@code ResultDisplay} displaying {@code expectedResultMessage}. The model and storage remains unchanged.
+     * the {@code ResultDisplay} displaying {@code expectedResultMessage} and the command box has the error style.
+     * The model and storage remains unchanged.
      */
     private void assertCommandFailure(String commandToRun, String expectedResultMessage) throws Exception {
         Model expectedModel = new ModelManager(
