@@ -20,6 +20,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.ReadOnlyPerson;
+import seedu.address.model.person.exceptions.PersonNotFoundException;
 
 public class DeleteCommandSystemTest extends AddressBookSystemTest {
 
@@ -27,7 +28,7 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
             String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE);
 
     @Test
-    public void delete() throws Exception {
+    public void delete() {
         Model expectedModel = new ModelManager(new AddressBook(getTestApp().getModel().getAddressBook()),
                 new UserPrefs());
 
@@ -98,63 +99,17 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
      * Removes the {@code ReadOnlyPerson} at the specified {@code index} in {@code model}'s address book.
      * @return the removed person
      */
-    private ReadOnlyPerson removePerson(Model model, Index index) throws Exception {
-        ReadOnlyPerson targetPerson = getPerson(model, index);
-        model.deletePerson(targetPerson);
-        return targetPerson;
-    }
+    private void assertDeleteCommandSuccess(String command, Model expectedModel, Index index,
+            boolean browserUrlWillChange, boolean personListSelectionWillChange) {
+        ReadOnlyPerson targetPerson = getPerson(expectedModel, index);
+        String expectedResultMessage = String.format(MESSAGE_DELETE_PERSON_SUCCESS, targetPerson);
 
-    /**
-     * Executes {@code commandToRun} and verifies that the command box displays an empty string, the result display
-     * box displays {@code expectedResultMessage} and the model related components equal to {@code expectedModel}.
-     * These verifications are done by
-     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}. Also verifies that
-     * the command box has the default style class, the status bar's sync status changes, the browser url and selected
-     * card remains unchanged.
-     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
-     */
-    private void assertCommandSuccess(String commandToRun, Model expectedModel, String expectedResultMessage)
-            throws Exception {
-        assertCommandSuccess(commandToRun, expectedModel, expectedResultMessage, null);
-    }
-
-    /**
-     * Performs the same verification as {@code assertCommandSuccess(String, Model, String)} except that the browser url
-     * and selected card are expected to update accordingly depending on the card at {@code expectedSelectedCardIndex}.
-     * @see DeleteCommandSystemTest#assertCommandSuccess(String, Model, String)
-     * @see AddressBookSystemTest#assertSelectedCardChanged(Index)
-     */
-    private void assertCommandSuccess(String commandToRun, Model expectedModel, String expectedResultMessage,
-            Index expectedSelectedCardIndex) throws Exception {
-        executeCommand(commandToRun);
-        assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);
-
-        if (expectedSelectedCardIndex != null) {
-            assertSelectedCardChanged(expectedSelectedCardIndex);
-        } else {
-            assertSelectedCardUnchanged();
+        try {
+            expectedModel.deletePerson(targetPerson);
+            assertCommandSuccess(this, command, expectedModel, expectedResultMessage, browserUrlWillChange,
+                    personListSelectionWillChange);
+        } catch (PersonNotFoundException pnfe) {
+            throw new IllegalArgumentException("targetPerson should be in the list.", pnfe);
         }
-
-        assertCommandBoxStyleDefault();
-        assertStatusBarUnchangedExceptSyncStatus();
-    }
-
-    /**
-     * Executes {@code commandToRun} and verifies that the command box displays {@code commandToRun}, the result display
-     * box displays {@code expectedResultMessage} and the model related components equal to the current model.
-     * These verifications are done by
-     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}. Also verifies that
-     * the browser url, selected card and status bar remain unchanged, and the command box has the error style.
-     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
-     */
-    private void assertCommandFailure(String commandToRun, String expectedResultMessage) throws Exception {
-        Model expectedModel = new ModelManager(
-                new AddressBook(getTestApp().getModel().getAddressBook()), new UserPrefs());
-
-        executeCommand(commandToRun);
-        assertApplicationDisplaysExpected(commandToRun, expectedResultMessage, expectedModel);
-        assertSelectedCardUnchanged();
-        assertCommandBoxStyleError();
-        assertStatusBarUnchanged();
     }
 }

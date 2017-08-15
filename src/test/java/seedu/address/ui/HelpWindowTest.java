@@ -26,7 +26,7 @@ public class HelpWindowTest extends GuiUnitTest {
     }
 
     @Test
-    public void display() throws Exception {
+    public void display() {
         URL expectedHelpPage = HelpWindow.class.getResource(USERGUIDE_FILE_PATH);
         assertEquals(expectedHelpPage, helpWindowHandle.getLoadedUrl());
     }

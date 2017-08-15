@@ -1,6 +1,5 @@
 package guitests.guihandles;
 
-import java.net.MalformedURLException;
 import java.net.URL;
 
 import guitests.GuiRobot;
@@ -29,7 +28,7 @@ public class HelpWindowHandle extends StageHandle {
     /**
      * Returns the {@code URL} of the currently loaded page.
      */
-    public URL getLoadedUrl() throws MalformedURLException {
+    public URL getLoadedUrl() {
         return WebViewUtil.getLoadedUrl(getChildNode(HELP_WINDOW_BROWSER_ID));
     }
 }
