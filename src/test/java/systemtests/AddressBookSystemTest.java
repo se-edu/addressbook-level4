@@ -11,6 +11,7 @@ import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
 import static seedu.address.ui.UiPart.FXML_FILE_FOLDER;
 import static seedu.address.ui.testutil.GuiTestAssert.assertListMatching;
 
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Arrays;
 import java.util.Date;
@@ -100,7 +101,7 @@ public abstract class AddressBookSystemTest {
      * Executes {@code command} in the application's {@code CommandBox}.
      * Method returns after UI components have been updated.
      */
-    protected void executeCommand(String command) throws Exception {
+    protected void executeCommand(String command) {
         rememberStates();
         // Injects a fixed clock before executing a command so that the time stamp shown in the status bar
         // after each command is predictable and also different from the previous command.
@@ -117,7 +118,7 @@ public abstract class AddressBookSystemTest {
      * and the person list panel displays the persons in the model correctly.
      */
     protected void assertApplicationDisplaysExpected(String expectedCommandInput, String expectedResultMessage,
-            Model expectedModel) throws Exception {
+            Model expectedModel) {
         assertEquals(expectedCommandInput, getCommandBox().getInput());
         assertEquals(expectedResultMessage, getResultDisplay().getText());
         assertEquals(expectedModel, getTestApp().getModel());
@@ -129,7 +130,7 @@ public abstract class AddressBookSystemTest {
      * Calls {@code BrowserPanelHandle}, {@code PersonListPanelHandle} and {@code StatusBarFooterHandle} to remember
      * their current state.
      */
-    private void rememberStates() throws Exception {
+    private void rememberStates() {
         StatusBarFooterHandle statusBarFooterHandle = getStatusBarFooter();
         getBrowserPanel().rememberUrl();
         statusBarFooterHandle.rememberSaveLocation();
@@ -143,10 +144,15 @@ public abstract class AddressBookSystemTest {
      * @see BrowserPanelHandle#isUrlChanged()
      * @see PersonListPanelHandle#isSelectedPersonCardChanged()
      */
-    protected void assertSelectedCardChanged(Index expectedSelectedCardIndex) throws Exception {
+    protected void assertSelectedCardChanged(Index expectedSelectedCardIndex) {
         String selectedCardName = getPersonListPanel().getHandleToSelectedCard().getName();
-        URL expectedUrl = new URL(GOOGLE_SEARCH_URL_PREFIX + selectedCardName.replaceAll(" ", "+")
-                + GOOGLE_SEARCH_URL_SUFFIX);
+        URL expectedUrl;
+        try {
+            expectedUrl = new URL(GOOGLE_SEARCH_URL_PREFIX + selectedCardName.replaceAll(" ", "+")
+                    + GOOGLE_SEARCH_URL_SUFFIX);
+        } catch (MalformedURLException mue) {
+            throw new AssertionError("URL expected to be valid.");
+        }
         assertEquals(expectedUrl, getBrowserPanel().getLoadedUrl());
 
         assertEquals(expectedSelectedCardIndex.getZeroBased(), getPersonListPanel().getSelectedCardIndex());
@@ -157,7 +163,7 @@ public abstract class AddressBookSystemTest {
      * @see BrowserPanelHandle#isUrlChanged()
      * @see PersonListPanelHandle#isSelectedPersonCardChanged()
      */
-    protected void assertSelectedCardUnchanged() throws Exception {
+    protected void assertSelectedCardUnchanged() {
         assertFalse(getBrowserPanel().isUrlChanged());
         assertFalse(getPersonListPanel().isSelectedPersonCardChanged());
     }

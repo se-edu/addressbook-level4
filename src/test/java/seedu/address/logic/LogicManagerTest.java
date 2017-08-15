@@ -98,7 +98,8 @@ public class LogicManagerTest {
     }
 
     /**
-     * Asserts that {@code expectedCommands} are displayed after executing {@code HistoryCommand}.
+     * Asserts that the result display shows all the {@code expectedCommands} upon the execution of
+     * {@code HistoryCommand}.
      */
     private void assertHistoryCorrect(String... expectedCommands) {
         try {

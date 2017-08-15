@@ -53,6 +53,9 @@ public class SelectCommandTest extends AddressBookGuiTest {
         assertCardSelected(index);
     }
 
+    /**
+     * Asserts that the selected card is the card at zero based {@code index}.
+     */
     private void assertCardSelected(Index index) {
         PersonCardHandle expectedCard = getPersonListPanel().getPersonCardHandle(index.getZeroBased());
         PersonCardHandle selectedCard = getPersonListPanel().getHandleToSelectedCard();

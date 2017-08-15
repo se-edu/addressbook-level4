@@ -38,6 +38,10 @@ public class FindCommandTest extends AddressBookGuiTest {
         assertResultMessage(getResultDisplay(), Messages.MESSAGE_UNKNOWN_COMMAND);
     }
 
+    /**
+     * Asserts that the person panel list contains all and only the {@code expectedHits} and the result
+     * display shows the correct number of {@code expectedHits} upon execution of {@code command}.
+     */
     private void assertFindResult(String command, ReadOnlyPerson... expectedHits) {
         runCommand(command);
         assertListSize(getPersonListPanel(), expectedHits.length);
