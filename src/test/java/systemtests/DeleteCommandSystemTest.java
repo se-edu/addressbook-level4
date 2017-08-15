@@ -142,6 +142,7 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
         assertResultBoxShows(expectedResultMessage);
         assertSavedAddressBookEquals(expectedModel.getAddressBook());
         assertModelEquals(expectedModel);
+        assertPersonListPanelBounded();
         assertStatusBarUnchanged();
     }
 }
