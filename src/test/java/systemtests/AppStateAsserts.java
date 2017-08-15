@@ -3,7 +3,6 @@ package systemtests;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 import static seedu.address.ui.BrowserPanel.DEFAULT_PAGE;
 import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_INITIAL;
 import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
@@ -17,7 +16,6 @@ import guitests.guihandles.StatusBarFooterHandle;
 import seedu.address.MainApp;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.person.ReadOnlyPerson;
 
 /**
  * Contains assertion methods to verify the state of the application is as expected.
@@ -90,6 +88,15 @@ public class AppStateAsserts {
     }
 
     /**
+     * Asserts that the person list panel displays the model's filtered list correctly; that is, the UI
+     * is correctly bounded to the Model.
+     */
+    public void assertPersonListPanelBounded() throws Exception {
+        assertListMatching(addressBookSystemTest.getPersonListPanel(),
+                addressBookSystemTest.getTestApp().getModel().getFilteredPersonList());
+    }
+
+    /**
      * Asserts that the entire status bar remains the same.
      */
     public void assertStatusBarUnchanged() {
@@ -118,8 +125,7 @@ public class AppStateAsserts {
         try {
             assertCommandBoxShows("");
             assertResultBoxShows("");
-            assertListMatching(addressBookSystemTest.getPersonListPanel(),
-                    getTypicalAddressBook().getPersonList().toArray(new ReadOnlyPerson[0]));
+            assertPersonListPanelBounded();
             assertEquals(MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_PAGE),
                     addressBookSystemTest.getBrowserPanel().getLoadedUrl());
             assertEquals("./" + addressBookSystemTest.getTestApp().getStorageSaveLocation(), footer.getSaveLocation());
