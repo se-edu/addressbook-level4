@@ -118,6 +118,7 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
         }
 
         assertCommandBoxShows("");
+        assertCommandBoxStyleDefault();
         assertResultBoxShows(expectedResultMessage);
         assertSavedAddressBookEquals(expectedModel.getAddressBook());
         assertModelEquals(expectedModel);
@@ -137,6 +138,7 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
         runCommand(commandToRun);
 
         assertCommandBoxShows(commandToRun);
+        assertCommandBoxStyleError();
         assertBrowserUrlUnchanged();
         assertSelectedCardUnchanged();
         assertResultBoxShows(expectedResultMessage);
