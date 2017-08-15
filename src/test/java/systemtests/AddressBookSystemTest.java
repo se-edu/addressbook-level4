@@ -10,7 +10,9 @@ import static seedu.address.ui.UiPart.FXML_FILE_FOLDER;
 import static seedu.address.ui.testutil.GuiTestAssert.assertListMatching;
 import static systemtests.ClockRule.INJECTED_CLOCK;
 
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 import org.junit.After;
 import org.junit.Before;
@@ -29,6 +31,7 @@ import seedu.address.TestApp;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.ui.CommandBox;
 
 /**
  * A system test class for AddressBook, which provides access to handles of GUI components, and
@@ -37,6 +40,10 @@ import seedu.address.model.ReadOnlyAddressBook;
 public abstract class AddressBookSystemTest {
     @ClassRule
     public static ClockRule clockRule = new ClockRule();
+
+    private static final List<String> COMMAND_BOX_DEFAULT_STYLE = Arrays.asList("text-input", "text-field");
+    private static final List<String> COMMAND_BOX_ERROR_STYLE =
+            Arrays.asList("text-input", "text-field", CommandBox.ERROR_STYLE_CLASS);
 
     private MainWindowHandle mainWindowHandle;
     private TestApp testApp;
@@ -142,6 +149,22 @@ public abstract class AddressBookSystemTest {
      */
     protected void assertCommandBoxShows(String expected) {
         assertEquals(expected, getCommandBox().getInput());
+    }
+
+    /**
+     * Asserts that the command box's style is the default style.
+     */
+    protected void assertCommandBoxStyleDefault() {
+        // TODO: We can merge this with assertCommandBoxShows(String) if we disallow users to press enter with no input
+        assertEquals(COMMAND_BOX_DEFAULT_STYLE, getCommandBox().getStyleClass());
+    }
+
+    /**
+     * Asserts that the command box's style is the error style.
+     */
+    protected void assertCommandBoxStyleError() {
+        // TODO: We can merge this with assertCommandBoxShows(String) if we disallow users to press enter with no input
+        assertEquals(COMMAND_BOX_ERROR_STYLE, getCommandBox().getStyleClass());
     }
 
     /**
