@@ -17,7 +17,7 @@ import seedu.address.model.person.ReadOnlyPerson;
 public class FindCommandTest extends AddressBookGuiTest {
 
     @Test
-    public void find_nonEmptyList() throws Exception {
+    public void find_nonEmptyList() {
         assertFindResult(FindCommand.COMMAND_WORD + " Mark"); // no results
         assertFindResult(FindCommand.COMMAND_WORD + " Meier", BENSON, DANIEL); // multiple results
 
@@ -27,7 +27,7 @@ public class FindCommandTest extends AddressBookGuiTest {
     }
 
     @Test
-    public void find_emptyList() throws Exception {
+    public void find_emptyList() {
         runCommand(ClearCommand.COMMAND_WORD);
         assertFindResult(FindCommand.COMMAND_WORD + " Jean"); // no results
     }
@@ -38,7 +38,7 @@ public class FindCommandTest extends AddressBookGuiTest {
         assertResultMessage(getResultDisplay(), Messages.MESSAGE_UNKNOWN_COMMAND);
     }
 
-    private void assertFindResult(String command, ReadOnlyPerson... expectedHits) throws Exception {
+    private void assertFindResult(String command, ReadOnlyPerson... expectedHits) {
         runCommand(command);
         assertListSize(getPersonListPanel(), expectedHits.length);
         assertResultMessage(getResultDisplay(), expectedHits.length + " persons listed!");

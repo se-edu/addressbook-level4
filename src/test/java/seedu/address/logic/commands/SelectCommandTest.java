@@ -40,7 +40,7 @@ public class SelectCommandTest {
     }
 
     @Test
-    public void execute_validIndexUnfilteredList_success() throws Exception {
+    public void execute_validIndexUnfilteredList_success() {
         Index lastPersonIndex = Index.fromOneBased(model.getFilteredPersonList().size());
 
         assertExecutionSuccess(INDEX_FIRST_PERSON);
@@ -56,7 +56,7 @@ public class SelectCommandTest {
     }
 
     @Test
-    public void execute_validIndexFilteredList_success() throws Exception {
+    public void execute_validIndexFilteredList_success() {
         showFirstPersonOnly(model);
 
         assertExecutionSuccess(INDEX_FIRST_PERSON);
@@ -99,12 +99,16 @@ public class SelectCommandTest {
      * Executes a {@code SelectCommand} with the given {@code index}, and checks that {@code JumpToListRequestEvent}
      * is raised with the correct index.
      */
-    private void assertExecutionSuccess(Index index) throws Exception {
+    private void assertExecutionSuccess(Index index) {
         SelectCommand selectCommand = prepareCommand(index);
-        CommandResult commandResult = selectCommand.execute();
 
-        assertEquals(String.format(SelectCommand.MESSAGE_SELECT_PERSON_SUCCESS, index.getOneBased()),
-                commandResult.feedbackToUser);
+        try {
+            CommandResult commandResult = selectCommand.execute();
+            assertEquals(String.format(SelectCommand.MESSAGE_SELECT_PERSON_SUCCESS, index.getOneBased()),
+                    commandResult.feedbackToUser);
+        } catch (CommandException ce) {
+            throw new AssertionError("execution of command should not fail.", ce);
+        }
 
         JumpToListRequestEvent lastEvent = (JumpToListRequestEvent) eventsCollectorRule.eventsCollector.getMostRecent();
         assertEquals(index, Index.fromZeroBased(lastEvent.targetIndex));
