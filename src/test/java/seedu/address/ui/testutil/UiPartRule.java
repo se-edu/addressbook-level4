@@ -23,7 +23,7 @@ public class UiPartRule extends StageRule {
             });
             FxToolkit.showStage();
         } catch (TimeoutException te) {
-            throw new AssertionError("timeout should not happen.", te);
+            throw new AssertionError("Timeout should not happen.", te);
         }
     }
 }

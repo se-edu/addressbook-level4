@@ -55,7 +55,7 @@ public class PersonListPanelHandle extends NodeHandle<ListView<PersonCard>> {
         Optional<PersonCard> matchingCard = cards.stream().filter(card -> card.person.equals(person)).findFirst();
 
         if (!matchingCard.isPresent()) {
-            throw new IllegalArgumentException("person does not exist.");
+            throw new IllegalArgumentException("Person does not exist.");
         }
 
         guiRobot.interact(() -> {
@@ -80,7 +80,7 @@ public class PersonListPanelHandle extends NodeHandle<ListView<PersonCard>> {
                 .filter(card -> card.person.equals(person))
                 .map(card -> new PersonCardHandle(card.getRoot()))
                 .findFirst();
-        return handle.orElseThrow(() -> new IllegalArgumentException("person does not exist"));
+        return handle.orElseThrow(() -> new IllegalArgumentException("Person does not exist."));
     }
 
     /**

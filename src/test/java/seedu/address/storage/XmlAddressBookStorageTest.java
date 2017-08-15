@@ -93,11 +93,14 @@ public class XmlAddressBookStorageTest {
         saveAddressBook(null, "SomeFile.xml");
     }
 
+    /**
+     * Saves {@code addressBook} at the specified {@code filePath}.
+     */
     private void saveAddressBook(ReadOnlyAddressBook addressBook, String filePath) {
         try {
             new XmlAddressBookStorage(filePath).saveAddressBook(addressBook, addToTestDataPathIfNotNull(filePath));
         } catch (IOException ioe) {
-            throw new AssertionError("there should not be an error writing to the file", ioe);
+            throw new AssertionError("There should not be an error writing to the file.", ioe);
         }
     }
 

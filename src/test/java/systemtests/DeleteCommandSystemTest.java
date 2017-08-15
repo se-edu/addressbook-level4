@@ -104,7 +104,7 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
             assertCommandSuccess(this, command, expectedModel, expectedResultMessage, browserUrlWillChange,
                     personListSelectionWillChange);
         } catch (PersonNotFoundException pnfe) {
-            throw new IllegalArgumentException("targetPerson should be in the list", pnfe);
+            throw new IllegalArgumentException("targetPerson should be in the list.", pnfe);
         }
     }
 }

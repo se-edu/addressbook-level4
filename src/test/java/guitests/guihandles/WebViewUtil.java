@@ -17,7 +17,7 @@ public class WebViewUtil {
         try {
             return new URL(webView.getEngine().getLocation());
         } catch (MalformedURLException mue) {
-            throw new AssertionError("webView's should not be displaying an invalid URL.", mue);
+            throw new AssertionError("webView should not be displaying an invalid URL.", mue);
         }
     }
 }

@@ -107,7 +107,7 @@ public class SelectCommandTest {
             assertEquals(String.format(SelectCommand.MESSAGE_SELECT_PERSON_SUCCESS, index.getOneBased()),
                     commandResult.feedbackToUser);
         } catch (CommandException ce) {
-            throw new IllegalArgumentException("execution of command should not fail.", ce);
+            throw new IllegalArgumentException("Execution of command should not fail.", ce);
         }
 
         JumpToListRequestEvent lastEvent = (JumpToListRequestEvent) eventsCollectorRule.eventsCollector.getMostRecent();

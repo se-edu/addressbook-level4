@@ -99,12 +99,15 @@ public class JsonUserPrefsStorageTest {
         saveUserPrefs(new UserPrefs(), null);
     }
 
+    /**
+     * Saves {@code userPrefs} at the specified {@code prefsFileInTestDataFolder} filepath.
+     */
     private void saveUserPrefs(UserPrefs userPrefs, String prefsFileInTestDataFolder) {
         try {
             new JsonUserPrefsStorage(addToTestDataPathIfNotNull(prefsFileInTestDataFolder))
                     .saveUserPrefs(userPrefs);
         } catch (IOException ioe) {
-            throw new AssertionError("there should not be an error writing to the file", ioe);
+            throw new AssertionError("There should not be an error writing to the file", ioe);
         }
     }
 

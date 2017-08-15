@@ -97,6 +97,9 @@ public class LogicManagerTest {
         assertEquals(expectedModel, model);
     }
 
+    /**
+     * Asserts that {@code expectedCommands} are displayed after executing {@code HistoryCommand}.
+     */
     private void assertHistoryCorrect(String... expectedCommands) {
         try {
             CommandResult result = logic.execute(HistoryCommand.COMMAND_WORD);
@@ -104,7 +107,7 @@ public class LogicManagerTest {
                     String.join("\n", expectedCommands));
             assertEquals(expectedMessage, result.feedbackToUser);
         } catch (ParseException | CommandException e) {
-            throw new AssertionError("parsing and execution of HistoryCommand.COMMAND_WORD should succeed", e);
+            throw new AssertionError("Parsing and execution of HistoryCommand.COMMAND_WORD should succeed.", e);
         }
     }
 }

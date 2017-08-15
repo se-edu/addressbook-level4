@@ -77,7 +77,7 @@ public class CommandTestUtil {
             assertEquals(expectedMessage, result.feedbackToUser);
             assertEquals(expectedModel, actualModel);
         } catch (CommandException ce) {
-            throw new AssertionError("execution of command should not fail.", ce);
+            throw new AssertionError("Execution of command should not fail.", ce);
         }
     }
 
@@ -122,7 +122,7 @@ public class CommandTestUtil {
         try {
             model.deletePerson(firstPerson);
         } catch (PersonNotFoundException pnfe) {
-            throw new AssertionError("person in filtered list must exist in model.", pnfe);
+            throw new AssertionError("Person in filtered list must exist in model.", pnfe);
         }
     }
 }
