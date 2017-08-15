@@ -2,16 +2,10 @@ package systemtests;
 
 import static systemtests.AppStateAsserts.verifyApplicationStartingStateIsCorrect;
 
-import java.time.Clock;
-import java.time.Instant;
-import java.time.ZoneId;
-import java.util.concurrent.TimeoutException;
-
 import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.testfx.api.FxToolkit;
+import org.junit.ClassRule;
 
 import guitests.guihandles.BrowserPanelHandle;
 import guitests.guihandles.CommandBoxHandle;
@@ -20,77 +14,39 @@ import guitests.guihandles.MainWindowHandle;
 import guitests.guihandles.PersonListPanelHandle;
 import guitests.guihandles.ResultDisplayHandle;
 import guitests.guihandles.StatusBarFooterHandle;
-import javafx.stage.Stage;
 import seedu.address.TestApp;
 import seedu.address.commons.core.EventsCenter;
-import seedu.address.testutil.TypicalPersons;
-import seedu.address.ui.StatusBarFooter;
 
 /**
- * A system test class for AddressBook, which sets up the {@code TestApp}, provides access
- * to handles of GUI components, provides clock injection and verifies that the starting state of the
- * application is correct.
+ * A system test class for AddressBook, which provides access to handles of GUI components, and
+ * verifies that the starting state of the application is correct.
  */
 public abstract class AddressBookSystemTest {
-    public static final Clock INJECTED_CLOCK = Clock.fixed(Instant.now(), ZoneId.systemDefault());
-    private static final Clock ORIGINAL_CLOCK = StatusBarFooter.getClock();
-
-    private Stage stage;
+    @ClassRule
+    public static ClockRule clockRule = new ClockRule();
 
     private MainWindowHandle mainWindowHandle;
     private TestApp testApp;
+    private SystemTestSetupHelper setupHelper;
 
     @BeforeClass
     public static void setupUpBeforeClass() {
-        initializeFxToolkit();
-
-        // provides us a way to predict expected time more easily, to prevent scenarios whereby
-        // a 1-second delay causes the verification to be wrong
-        StatusBarFooter.setClock(INJECTED_CLOCK);
-    }
-
-    private static void initializeFxToolkit() {
-        try {
-            FxToolkit.registerPrimaryStage();
-            FxToolkit.hideStage();
-        } catch (TimeoutException e) {
-            throw new AssertionError(e);
-        }
-    }
-
-    @AfterClass
-    public static void tearDownAfterClass() {
-        // restore original clock
-        StatusBarFooter.setClock(ORIGINAL_CLOCK);
+        SystemTestSetupHelper.initializeStage();
     }
 
     @Before
     public void setUp() {
-        setupApplication();
-
-        mainWindowHandle = new MainWindowHandle(stage);
-        mainWindowHandle.focus();
+        setupHelper = new SystemTestSetupHelper();
+        testApp = setupHelper.setupApplication();
+        mainWindowHandle = setupHelper.setupMainWindowHandle();
 
         verifyApplicationStartingStateIsCorrect(this);
     }
 
-    private void setupApplication() {
-        try {
-            FxToolkit.setupStage((stage) -> {
-                this.stage = stage;
-            });
-            FxToolkit.setupApplication(() -> testApp = new TestApp(TypicalPersons::getTypicalAddressBook,
-                    TestApp.SAVE_LOCATION_FOR_TESTING));
-            FxToolkit.showStage();
-        } catch (TimeoutException te) {
-            throw new AssertionError("Application takes too long to set up.");
-        }
-    }
-
     @After
     public void tearDown() throws Exception {
+        setupHelper.tearDownStage();
         EventsCenter.clearSubscribers();
-        FxToolkit.cleanupStages();
     }
 
     public CommandBoxHandle getCommandBox() {
