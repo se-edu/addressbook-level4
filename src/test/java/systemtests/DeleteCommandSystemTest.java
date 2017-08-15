@@ -20,6 +20,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.ReadOnlyPerson;
+import seedu.address.model.person.exceptions.PersonNotFoundException;
 
 public class DeleteCommandSystemTest extends AddressBookSystemTest {
 
@@ -27,7 +28,7 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
             String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, DeleteCommand.MESSAGE_USAGE);
 
     @Test
-    public void delete() throws Exception {
+    public void delete() {
         Model expectedModel = new ModelManager(new AddressBook(getTestApp().getModel().getAddressBook()),
                 new UserPrefs());
 
@@ -98,9 +99,13 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
      * Removes the {@code ReadOnlyPerson} at the specified {@code index} in {@code model}'s address book.
      * @return the removed person
      */
-    private ReadOnlyPerson removePerson(Model model, Index index) throws Exception {
+    private ReadOnlyPerson removePerson(Model model, Index index) {
         ReadOnlyPerson targetPerson = getPerson(model, index);
-        model.deletePerson(targetPerson);
+        try {
+            model.deletePerson(targetPerson);
+        } catch (PersonNotFoundException pnfe) {
+            throw new AssertionError("targetPerson is retrieved from model.");
+        }
         return targetPerson;
     }
 
@@ -113,8 +118,7 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
      * card remains unchanged.
      * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
-    private void assertCommandSuccess(String commandToRun, Model expectedModel, String expectedResultMessage)
-            throws Exception {
+    private void assertCommandSuccess(String commandToRun, Model expectedModel, String expectedResultMessage) {
         assertCommandSuccess(commandToRun, expectedModel, expectedResultMessage, null);
     }
 
@@ -125,7 +129,7 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
      * @see AddressBookSystemTest#assertSelectedCardChanged(Index)
      */
     private void assertCommandSuccess(String commandToRun, Model expectedModel, String expectedResultMessage,
-            Index expectedSelectedCardIndex) throws Exception {
+            Index expectedSelectedCardIndex) {
         executeCommand(commandToRun);
         assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);
 
@@ -147,7 +151,7 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
      * the browser url, selected card and status bar remain unchanged, and the command box has the error style.
      * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
-    private void assertCommandFailure(String commandToRun, String expectedResultMessage) throws Exception {
+    private void assertCommandFailure(String commandToRun, String expectedResultMessage) {
         Model expectedModel = new ModelManager(
                 new AddressBook(getTestApp().getModel().getAddressBook()), new UserPrefs());
 

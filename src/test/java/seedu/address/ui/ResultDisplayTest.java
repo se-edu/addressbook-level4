@@ -16,7 +16,7 @@ public class ResultDisplayTest extends GuiUnitTest {
     private ResultDisplayHandle resultDisplayHandle;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         ResultDisplay resultDisplay = new ResultDisplay();
         uiPartRule.setUiPart(resultDisplay);
 
@@ -25,7 +25,7 @@ public class ResultDisplayTest extends GuiUnitTest {
     }
 
     @Test
-    public void display() throws Exception {
+    public void display() {
         // default result text
         guiRobot.pauseForHuman();
         assertEquals("", resultDisplayHandle.getText());

@@ -44,7 +44,7 @@ public class StatusBarFooterTest extends GuiUnitTest {
     }
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         StatusBarFooter statusBarFooter = new StatusBarFooter(STUB_SAVE_LOCATION);
         uiPartRule.setUiPart(statusBarFooter);
 
@@ -52,7 +52,7 @@ public class StatusBarFooterTest extends GuiUnitTest {
     }
 
     @Test
-    public void display() throws Exception {
+    public void display() {
         // initial state
         assertStatusBarContent(RELATIVE_PATH + STUB_SAVE_LOCATION, SYNC_STATUS_INITIAL);
 

@@ -18,7 +18,7 @@ import seedu.address.testutil.EditPersonDescriptorBuilder;
 public class EditPersonDescriptorTest {
 
     @Test
-    public void equals() throws Exception {
+    public void equals() {
         // same values -> returns true
         EditPersonDescriptor descriptorWithSameValues = new EditPersonDescriptor(DESC_AMY);
         assertTrue(DESC_AMY.equals(descriptorWithSameValues));

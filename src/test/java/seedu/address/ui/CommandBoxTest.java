@@ -26,7 +26,7 @@ public class CommandBoxTest extends GuiUnitTest {
     private CommandBoxHandle commandBoxHandle;
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         Model model = new ModelManager();
         Logic logic = new LogicManager(model);
 
