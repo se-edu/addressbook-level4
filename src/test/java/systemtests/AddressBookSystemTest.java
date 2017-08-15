@@ -48,7 +48,7 @@ public abstract class AddressBookSystemTest {
     private ArrayList<String> errorStyleOfCommandBox;
 
     @BeforeClass
-    public static void setupUpBeforeClass() {
+    public static void setupBeforeClass() {
         SystemTestSetupHelper.initializeStage();
     }
 
