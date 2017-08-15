@@ -8,7 +8,6 @@ import static seedu.address.testutil.TestUtil.getLastIndex;
 import static seedu.address.testutil.TestUtil.getMidIndex;
 import static seedu.address.testutil.TestUtil.getPerson;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.address.ui.testutil.GuiTestAssert.assertListMatching;
 
 import org.junit.Test;
 
@@ -119,11 +118,10 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
         }
 
         assertCommandBoxShows("");
-        assertListMatching(getPersonListPanel(),
-                expectedModel.getAddressBook().getPersonList().toArray(new ReadOnlyPerson[0]));
         assertResultBoxShows(expectedResultMessage);
         assertSavedAddressBookEquals(expectedModel.getAddressBook());
         assertModelEquals(expectedModel);
+        assertPersonListPanelBounded();
         assertOnlySyncStatusChanged();
     }
 
