@@ -25,19 +25,25 @@ public class AddressBookBuilder {
 
     /**
      * Adds a new {@code Person} to the {@code AddressBook} that we are building.
-     * @throws DuplicatePersonException if the {@code person} already exists in the building Addressbook.
      */
-    public AddressBookBuilder withPerson(ReadOnlyPerson person) throws DuplicatePersonException {
-        addressBook.addPerson(person);
+    public AddressBookBuilder withPerson(ReadOnlyPerson person) {
+        try {
+            addressBook.addPerson(person);
+        } catch (DuplicatePersonException dpe) {
+            throw new AssertionError("person is expected to be unique.");
+        }
         return this;
     }
 
     /**
      * Parses {@code tagName} into a {@code Tag} and adds it to the {@code AddressBook} that we are building.
-     * @throws IllegalValueException if the {@code tagName} is invalid.
      */
-    public AddressBookBuilder withTag(String tagName) throws IllegalValueException {
-        addressBook.addTag(new Tag(tagName));
+    public AddressBookBuilder withTag(String tagName) {
+        try {
+            addressBook.addTag(new Tag(tagName));
+        } catch (IllegalValueException ive) {
+            throw new AssertionError("tagName is expected to be valid.");
+        }
         return this;
     }
 

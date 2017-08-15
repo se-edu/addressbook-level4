@@ -13,7 +13,11 @@ public class WebViewUtil {
     /**
      * Returns the {@code URL} of the currently loaded page in the {@code webView}.
      */
-    public static URL getLoadedUrl(WebView webView) throws MalformedURLException {
-        return new URL(webView.getEngine().getLocation());
+    public static URL getLoadedUrl(WebView webView) {
+        try {
+            return new URL(webView.getEngine().getLocation());
+        } catch (MalformedURLException mue) {
+            throw new AssertionError("webView's URL should be valid.", mue);
+        }
     }
 }

@@ -25,13 +25,17 @@ public class PersonBuilder {
 
     private Person person;
 
-    public PersonBuilder() throws IllegalValueException {
-        Name defaultName = new Name(DEFAULT_NAME);
-        Phone defaultPhone = new Phone(DEFAULT_PHONE);
-        Email defaultEmail = new Email(DEFAULT_EMAIL);
-        Address defaultAddress = new Address(DEFAULT_ADDRESS);
-        Set<Tag> defaultTags = SampleDataUtil.getTagSet(DEFAULT_TAGS);
-        this.person = new Person(defaultName, defaultPhone, defaultEmail, defaultAddress, defaultTags);
+    public PersonBuilder() {
+        try {
+            Name defaultName = new Name(DEFAULT_NAME);
+            Phone defaultPhone = new Phone(DEFAULT_PHONE);
+            Email defaultEmail = new Email(DEFAULT_EMAIL);
+            Address defaultAddress = new Address(DEFAULT_ADDRESS);
+            Set<Tag> defaultTags = SampleDataUtil.getTagSet(DEFAULT_TAGS);
+            this.person = new Person(defaultName, defaultPhone, defaultEmail, defaultAddress, defaultTags);
+        } catch (IllegalValueException ive) {
+            throw new AssertionError("default person's values are invalid.");
+        }
     }
 
     /**
@@ -43,46 +47,61 @@ public class PersonBuilder {
 
     /**
      * Sets the {@code Name} of the {@code Person} that we are building.
-     * @throws IllegalValueException if the {@code name} is invalid.
      */
-    public PersonBuilder withName(String name) throws IllegalValueException {
-        this.person.setName(new Name(name));
+    public PersonBuilder withName(String name) {
+        try {
+            this.person.setName(new Name(name));
+        } catch (IllegalValueException ive) {
+            throw new AssertionError("name is invalid.");
+        }
         return this;
     }
 
     /**
      * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Person} that we are building.
-     * @throws IllegalValueException if any of the {@code tags} is invalid.
      */
-    public PersonBuilder withTags(String ... tags) throws IllegalValueException {
-        this.person.setTags(SampleDataUtil.getTagSet(tags));
+    public PersonBuilder withTags(String ... tags) {
+        try {
+            this.person.setTags(SampleDataUtil.getTagSet(tags));
+        } catch (IllegalValueException ive) {
+            throw new AssertionError("tags are invalid.");
+        }
         return this;
     }
 
     /**
      * Sets the {@code Address} of the {@code Person} that we are building.
-     * @throws IllegalValueException if the {@code address} is invalid.
      */
-    public PersonBuilder withAddress(String address) throws IllegalValueException {
-        this.person.setAddress(new Address(address));
+    public PersonBuilder withAddress(String address) {
+        try {
+            this.person.setAddress(new Address(address));
+        } catch (IllegalValueException ive) {
+            throw new AssertionError("address is invalid.");
+        }
         return this;
     }
 
     /**
      * Sets the {@code Phone} of the {@code Person} that we are building.
-     * @throws IllegalValueException if the {@code phone} is invalid.
      */
-    public PersonBuilder withPhone(String phone) throws IllegalValueException {
-        this.person.setPhone(new Phone(phone));
+    public PersonBuilder withPhone(String phone) {
+        try {
+            this.person.setPhone(new Phone(phone));
+        } catch (IllegalValueException ive) {
+            throw new AssertionError("phone is invalid.");
+        }
         return this;
     }
 
     /**
      * Sets the {@code Email} of the {@code Person} that we are building.
-     * @throws IllegalValueException if the {@code email} is invalid.
      */
-    public PersonBuilder withEmail(String email) throws IllegalValueException {
-        this.person.setEmail(new Email(email));
+    public PersonBuilder withEmail(String email) {
+        try {
+            this.person.setEmail(new Email(email));
+        } catch (IllegalValueException ive) {
+            throw new AssertionError("email is invalid.");
+        }
         return this;
     }
 

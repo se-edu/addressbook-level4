@@ -18,6 +18,7 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.ReadOnlyPerson;
+import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 
 /**
@@ -75,10 +76,14 @@ public class CommandTestUtil {
      * - the {@code actualModel} matches {@code expectedModel}
      */
     public static void assertCommandSuccess(Command command, Model actualModel, String expectedMessage,
-            Model expectedModel) throws CommandException {
-        CommandResult result = command.execute();
-        assertEquals(expectedMessage, result.feedbackToUser);
-        assertEquals(expectedModel, actualModel);
+            Model expectedModel) {
+        try {
+            CommandResult result = command.execute();
+            assertEquals(expectedMessage, result.feedbackToUser);
+            assertEquals(expectedModel, actualModel);
+        } catch (CommandException ce) {
+            throw new AssertionError("execution of command should not fail.", ce);
+        }
     }
 
     /**
@@ -117,8 +122,12 @@ public class CommandTestUtil {
     /**
      * Deletes the first person in {@code model}'s filtered list from {@code model}'s address book.
      */
-    public static void deleteFirstPerson(Model model) throws Exception {
+    public static void deleteFirstPerson(Model model) {
         ReadOnlyPerson firstPerson = model.getFilteredPersonList().get(0);
-        model.deletePerson(firstPerson);
+        try {
+            model.deletePerson(firstPerson);
+        } catch (PersonNotFoundException pnfe) {
+            throw new AssertionError("person in filtered list must exist in model.", pnfe);
+        }
     }
 }

@@ -22,21 +22,21 @@ public class LogicManagerTest {
     private Logic logic = new LogicManager(model);
 
     @Test
-    public void execute_invalidCommandFormat_throwsParseException() throws Exception {
+    public void execute_invalidCommandFormat_throwsParseException() {
         String invalidCommand = "uicfhmowqewca";
         assertParseException(invalidCommand, MESSAGE_UNKNOWN_COMMAND);
         assertHistoryCorrect(invalidCommand);
     }
 
     @Test
-    public void execute_commandExecutionError_throwsCommandException() throws Exception {
+    public void execute_commandExecutionError_throwsCommandException() {
         String deleteCommand = "delete 9";
         assertCommandException(deleteCommand, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         assertHistoryCorrect(deleteCommand);
     }
 
     @Test
-    public void execute_validCommand_success() throws Exception {
+    public void execute_validCommand_success() {
         String listCommand = ListCommand.COMMAND_WORD;
         assertCommandSuccess(listCommand, ListCommand.MESSAGE_SUCCESS, model);
         assertHistoryCorrect(listCommand);
@@ -97,10 +97,14 @@ public class LogicManagerTest {
         assertEquals(expectedModel, model);
     }
 
-    private void assertHistoryCorrect(String... expectedCommands) throws Exception {
-        CommandResult result = logic.execute(HistoryCommand.COMMAND_WORD);
-        String expectedMessage = String.format(HistoryCommand.MESSAGE_SUCCESS,
-                String.join("\n", expectedCommands));
-        assertEquals(expectedMessage, result.feedbackToUser);
+    private void assertHistoryCorrect(String... expectedCommands) {
+        try {
+            CommandResult result = logic.execute(HistoryCommand.COMMAND_WORD);
+            String expectedMessage = String.format(HistoryCommand.MESSAGE_SUCCESS,
+                    String.join("\n", expectedCommands));
+            assertEquals(expectedMessage, result.feedbackToUser);
+        } catch (ParseException | CommandException e) {
+            throw new AssertionError("parsing and execution of command should succeed", e);
+        }
     }
 }

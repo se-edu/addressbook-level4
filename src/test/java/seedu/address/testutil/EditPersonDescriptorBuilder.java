@@ -26,7 +26,7 @@ public class EditPersonDescriptorBuilder {
     /**
      * Returns an {@code EditPersonDescriptor} with fields containing {@code person}'s details
      */
-    public EditPersonDescriptorBuilder(ReadOnlyPerson person) throws IllegalValueException {
+    public EditPersonDescriptorBuilder(ReadOnlyPerson person) {
         descriptor = new EditPersonDescriptor();
         descriptor.setName(person.getName());
         descriptor.setPhone(person.getPhone());
@@ -37,47 +37,62 @@ public class EditPersonDescriptorBuilder {
 
     /**
      * Sets the {@code Name} of the {@code EditPersonDescriptor} that we are building.
-     * @throws IllegalValueException if the {@code name} is invalid.
      */
-    public EditPersonDescriptorBuilder withName(String name) throws IllegalValueException {
-        ParserUtil.parseName(Optional.of(name)).ifPresent(descriptor::setName);
+    public EditPersonDescriptorBuilder withName(String name) {
+        try {
+            ParserUtil.parseName(Optional.of(name)).ifPresent(descriptor::setName);
+        } catch (IllegalValueException ive) {
+            throw new AssertionError("name is invalid.");
+        }
         return this;
     }
 
     /**
      * Sets the {@code Phone} of the {@code EditPersonDescriptor} that we are building.
-     * @throws IllegalValueException if the {@code phone} is invalid.
      */
-    public EditPersonDescriptorBuilder withPhone(String phone) throws IllegalValueException {
-        ParserUtil.parsePhone(Optional.of(phone)).ifPresent(descriptor::setPhone);
+    public EditPersonDescriptorBuilder withPhone(String phone) {
+        try {
+            ParserUtil.parsePhone(Optional.of(phone)).ifPresent(descriptor::setPhone);
+        } catch (IllegalValueException ive) {
+            throw new AssertionError("phone is invalid.");
+        }
         return this;
     }
 
     /**
      * Sets the {@code Email} of the {@code EditPersonDescriptor} that we are building.
-     * @throws IllegalValueException if the {@code email} is invalid.
      */
-    public EditPersonDescriptorBuilder withEmail(String email) throws IllegalValueException {
-        ParserUtil.parseEmail(Optional.of(email)).ifPresent(descriptor::setEmail);
+    public EditPersonDescriptorBuilder withEmail(String email) {
+        try {
+            ParserUtil.parseEmail(Optional.of(email)).ifPresent(descriptor::setEmail);
+        } catch (IllegalValueException ive) {
+            throw new AssertionError("email is invalid.");
+        }
         return this;
     }
 
     /**
      * Sets the {@code Address} of the {@code EditPersonDescriptor} that we are building.
-     * @throws IllegalValueException if the {@code address} is invalid.
      */
-    public EditPersonDescriptorBuilder withAddress(String address) throws IllegalValueException {
-        ParserUtil.parseAddress(Optional.of(address)).ifPresent(descriptor::setAddress);
+    public EditPersonDescriptorBuilder withAddress(String address) {
+        try {
+            ParserUtil.parseAddress(Optional.of(address)).ifPresent(descriptor::setAddress);
+        } catch (IllegalValueException ive) {
+            throw new AssertionError("address is invalid.");
+        }
         return this;
     }
 
     /**
      * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code EditPersonDescriptor}
      * that we are building.
-     * @throws IllegalValueException if any of the {@code tags} is invalid.
      */
-    public EditPersonDescriptorBuilder withTags(String... tags) throws IllegalValueException {
-        descriptor.setTags(ParserUtil.parseTags(Arrays.asList(tags)));
+    public EditPersonDescriptorBuilder withTags(String... tags) {
+        try {
+            descriptor.setTags(ParserUtil.parseTags(Arrays.asList(tags)));
+        } catch (IllegalValueException ive) {
+            throw new AssertionError("tags are invalid.");
+        }
         return this;
     }
 
