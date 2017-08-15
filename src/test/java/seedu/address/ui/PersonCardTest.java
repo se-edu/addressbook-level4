@@ -16,7 +16,7 @@ import seedu.address.testutil.PersonBuilder;
 public class PersonCardTest extends GuiUnitTest {
 
     @Test
-    public void display() throws Exception {
+    public void display() {
         // no tags
         Person personWithNoTags = new PersonBuilder().withTags(new String[0]).build();
         PersonCard personCard = new PersonCard(personWithNoTags, 1);
@@ -41,7 +41,7 @@ public class PersonCardTest extends GuiUnitTest {
     }
 
     @Test
-    public void equals() throws Exception {
+    public void equals() {
         Person person = new PersonBuilder().build();
         PersonCard personCard = new PersonCard(person, 0);
 
@@ -70,8 +70,7 @@ public class PersonCardTest extends GuiUnitTest {
      * Asserts that {@code personCard} displays the details of {@code expectedPerson} correctly and matches
      * {@code expectedId}.
      */
-    private void assertCardDisplay(PersonCard personCard, ReadOnlyPerson expectedPerson, int expectedId)
-            throws Exception {
+    private void assertCardDisplay(PersonCard personCard, ReadOnlyPerson expectedPerson, int expectedId) {
         guiRobot.pauseForHuman();
 
         PersonCardHandle personCardHandle = new PersonCardHandle(personCard.getRoot());

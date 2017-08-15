@@ -83,7 +83,7 @@ public class CollectionUtilTest {
     }
 
     @Test
-    public void elementsAreUnique() throws Exception {
+    public void elementsAreUnique() {
         // empty list
         assertAreUnique();
 
