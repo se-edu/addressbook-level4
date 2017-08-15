@@ -72,7 +72,7 @@ public abstract class AddressBookSystemTest {
         mainWindowHandle.focus();
 
         asserts = new AppStateAsserts(this);
-        asserts.verifyApplicationStartingStateIsCorrect();
+        asserts.assertApplicationStartingStateIsCorrect();
     }
 
     private void setupApplication() {
