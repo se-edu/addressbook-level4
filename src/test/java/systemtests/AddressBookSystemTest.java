@@ -68,10 +68,10 @@ public abstract class AddressBookSystemTest {
     public void setUp() {
         setupApplication();
 
-        asserts = new AppStateAsserts(this);
         mainWindowHandle = new MainWindowHandle(stage);
         mainWindowHandle.focus();
 
+        asserts = new AppStateAsserts(this);
         asserts.verifyApplicationStartingStateIsCorrect();
     }
 

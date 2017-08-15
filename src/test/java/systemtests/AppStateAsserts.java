@@ -10,12 +10,14 @@ import static seedu.address.ui.UiPart.FXML_FILE_FOLDER;
 import static seedu.address.ui.testutil.GuiTestAssert.assertListMatching;
 import static systemtests.AddressBookSystemTest.INJECTED_CLOCK;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 import guitests.guihandles.StatusBarFooterHandle;
 import seedu.address.MainApp;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.ui.CommandBox;
 
 /**
  * Contains assertion methods to verify the state of the application is as expected.
@@ -23,8 +25,19 @@ import seedu.address.model.ReadOnlyAddressBook;
 public class AppStateAsserts {
     private AddressBookSystemTest addressBookSystemTest;
 
+    private ArrayList<String> defaultStyleOfCommandBox;
+    private ArrayList<String> errorStyleOfCommandBox;
+
+    /**
+     * Throws {@code NullPointerException} if the command box of {@code addressBookSystemTest}
+     * isn't initialised.
+     */
     public AppStateAsserts(AddressBookSystemTest addressBookSystemTest) {
         this.addressBookSystemTest = addressBookSystemTest;
+
+        defaultStyleOfCommandBox = new ArrayList<>(addressBookSystemTest.getCommandBox().getStyleClass());
+        errorStyleOfCommandBox = new ArrayList<>(defaultStyleOfCommandBox);
+        errorStyleOfCommandBox.add(CommandBox.ERROR_STYLE_CLASS);
     }
 
     /**
@@ -64,6 +77,22 @@ public class AppStateAsserts {
      */
     public void assertCommandBoxShows(String expected) {
         assertEquals(expected, addressBookSystemTest.getCommandBox().getInput());
+    }
+
+    /**
+     * Asserts that the command box's style is the default style.
+     */
+    public void assertCommandBoxStyleDefault() {
+        // TODO: We can merge this with assertCommandBoxShows(String) if we disallow users to press enter with no input
+        assertEquals(defaultStyleOfCommandBox, addressBookSystemTest.getCommandBox().getStyleClass());
+    }
+
+    /**
+     * Asserts that the command box's style is the error style.
+     */
+    public void assertCommandBoxStyleError() {
+        // TODO: We can merge this with assertCommandBoxShows(String) if we disallow users to press enter with no input
+        assertEquals(errorStyleOfCommandBox, addressBookSystemTest.getCommandBox().getStyleClass());
     }
 
     /**
