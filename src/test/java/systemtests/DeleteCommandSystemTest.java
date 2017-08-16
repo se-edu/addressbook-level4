@@ -34,17 +34,21 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: delete the first person in the list, command with leading spaces and trailing spaces -> deleted */
         String command = "     " + DeleteCommand.COMMAND_WORD + "      " + INDEX_FIRST_PERSON.getOneBased() + "       ";
-        assertDeleteCommandSuccess(command, expectedModel, INDEX_FIRST_PERSON, false);
+        ReadOnlyPerson deletedPerson = removePerson(expectedModel, INDEX_FIRST_PERSON);
+        String expectedResultMessage = String.format(MESSAGE_DELETE_PERSON_SUCCESS, deletedPerson);
+        assertCommandSuccess(command, expectedModel, expectedResultMessage, false);
 
         /* Case: delete the last person in the list -> deleted */
         Model modelBeforeDeletingLast = new ModelManager(expectedModel.getAddressBook(), new UserPrefs());
         Index lastPersonIndex = getLastIndex(expectedModel);
         command = DeleteCommand.COMMAND_WORD + " " + String.valueOf(lastPersonIndex.getOneBased());
-        assertDeleteCommandSuccess(command, expectedModel, lastPersonIndex, false);
+        deletedPerson = removePerson(expectedModel, lastPersonIndex);
+        expectedResultMessage = String.format(MESSAGE_DELETE_PERSON_SUCCESS, deletedPerson);
+        assertCommandSuccess(command, expectedModel, expectedResultMessage, false);
 
         /* Case: undo deleting the last person in the list -> last person restored */
         command = UndoCommand.COMMAND_WORD;
-        String expectedResultMessage = UndoCommand.MESSAGE_SUCCESS;
+        expectedResultMessage = UndoCommand.MESSAGE_SUCCESS;
         assertCommandSuccess(command, modelBeforeDeletingLast, expectedResultMessage, false);
 
         /* Case: redo deleting the last person in the list -> last person deleted again */
@@ -55,13 +59,17 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
         /* Case: delete the middle person in the list -> deleted */
         Index middlePersonIndex = getMidIndex(expectedModel);
         command = DeleteCommand.COMMAND_WORD + " " + String.valueOf(middlePersonIndex.getOneBased());
-        assertDeleteCommandSuccess(command, expectedModel, middlePersonIndex, false);
+        deletedPerson = removePerson(expectedModel, middlePersonIndex);
+        expectedResultMessage = String.format(MESSAGE_DELETE_PERSON_SUCCESS, deletedPerson);
+        assertCommandSuccess(command, expectedModel, expectedResultMessage, false);
 
         /* Case: delete the selected person -> person list panel selects the person before the deleted person */
         Index selectedIndex = getMidIndex(expectedModel);
         getPersonListPanel().select(selectedIndex.getZeroBased());
         command = DeleteCommand.COMMAND_WORD + " " + String.valueOf(selectedIndex.getOneBased());
-        assertDeleteCommandSuccess(command, expectedModel, selectedIndex, true);
+        deletedPerson = removePerson(expectedModel, selectedIndex);
+        expectedResultMessage = String.format(MESSAGE_DELETE_PERSON_SUCCESS, deletedPerson);
+        assertCommandSuccess(command, expectedModel, expectedResultMessage, true);
 
         /* Case: invalid index (0) -> rejected */
         command = DeleteCommand.COMMAND_WORD + " 0";
@@ -87,19 +95,13 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
     }
 
     /**
-     * Asserts that after executing the {@code command}, the command box displays an empty string and
-     * it has the default style class, the result box displays {@code expectedResultMessage}, the model and storage
-     * contains the same person objects as {@code expectedModel}, the person list panel displays the persons in the
-     * model correctly and the status bar's sync status changes, the browser url and selected card changes depending
-     * on {@code browserUrlWillChange}, and the model and storage are modified accordingly.
+     * Removes the {@code ReadOnlyPerson} at the specified {@code index} in {@code model}'s address book.
+     * @return the removed person
      */
-    private void assertDeleteCommandSuccess(String command, Model expectedModel, Index index,
-            boolean browserUrlWillChange) throws Exception {
-        ReadOnlyPerson targetPerson = getPerson(expectedModel, index);
-        String expectedResultMessage = String.format(MESSAGE_DELETE_PERSON_SUCCESS, targetPerson);
-        expectedModel.deletePerson(targetPerson);
-
-        assertCommandSuccess(command, expectedModel, expectedResultMessage, browserUrlWillChange);
+    private ReadOnlyPerson removePerson(Model model, Index index) throws Exception {
+        ReadOnlyPerson targetPerson = getPerson(model, index);
+        model.deletePerson(targetPerson);
+        return targetPerson;
     }
 
     /**
