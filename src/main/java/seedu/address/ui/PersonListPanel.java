@@ -51,6 +51,9 @@ public class PersonListPanel extends UiPart<Region> {
                 });
     }
 
+    /**
+     * Highlights the {@code PersonCard} at the {@code index}.
+     */
     private void scrollTo(int index) {
         Platform.runLater(() -> {
             personListView.scrollTo(index);
@@ -64,6 +67,9 @@ public class PersonListPanel extends UiPart<Region> {
         scrollTo(event.targetIndex);
     }
 
+    /**
+     * A ListView item view that display the graphics of a {@code PersonCard}.
+     */
     class PersonListViewCell extends ListCell<PersonCard> {
 
         @Override

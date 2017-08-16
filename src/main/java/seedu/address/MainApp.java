@@ -80,6 +80,10 @@ public class MainApp extends Application {
         return applicationParameters.get(parameterName);
     }
 
+    /**
+     * Initialize a {@code ModelManager} with the {@code initialData} from
+     * {@code storage}'s AddressBook and {@code userPrefs}.
+     */
     private Model initModelManager(Storage storage, UserPrefs userPrefs) {
         Optional<ReadOnlyAddressBook> addressBookOptional;
         ReadOnlyAddressBook initialData;
@@ -104,6 +108,9 @@ public class MainApp extends Application {
         LogsCenter.init(config);
     }
 
+    /**
+     * Initializes a {@code Config} with the file at {@code configFilePath}.
+     */
     protected Config initConfig(String configFilePath) {
         Config initializedConfig;
         String configFilePathUsed;
@@ -135,6 +142,9 @@ public class MainApp extends Application {
         return initializedConfig;
     }
 
+    /**
+     * Initializes a {@code UserPrefs} with the file at {@code prefsFilePath} stored in {@code storage}.
+     */
     protected UserPrefs initPrefs(UserPrefsStorage storage) {
         String prefsFilePath = storage.getUserPrefsFilePath();
         logger.info("Using prefs file : " + prefsFilePath);

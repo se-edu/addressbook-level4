@@ -83,6 +83,9 @@ public class UiManager extends ComponentManager implements Ui {
         showAlertDialogAndWait(mainWindow.getPrimaryStage(), type, title, headerText, contentText);
     }
 
+    /**
+     * Shows an alert dialog with the given parameters and wait for user response.
+     */
     private static void showAlertDialogAndWait(Stage owner, AlertType type, String title, String headerText,
                                                String contentText) {
         final Alert alert = new Alert(type);
@@ -95,6 +98,9 @@ public class UiManager extends ComponentManager implements Ui {
         alert.showAndWait();
     }
 
+    /**
+     * Shows an alert dialog with the message of {@code e} and exits the application after user confirmation.
+     */
     private void showFatalErrorDialogAndShutdown(String title, Throwable e) {
         logger.severe(title + " " + e.getMessage() + StringUtil.getDetails(e));
         showAlertDialogAndWait(Alert.AlertType.ERROR, title, e.getMessage(), e.toString());
