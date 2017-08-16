@@ -52,7 +52,7 @@ public class PersonListPanel extends UiPart<Region> {
     }
 
     /**
-     * Highlights the {@code PersonCard} at the {@code index}.
+     * Scrolls to the {@code PersonCard} at the {@code index} and selects it.
      */
     private void scrollTo(int index) {
         Platform.runLater(() -> {
@@ -68,7 +68,7 @@ public class PersonListPanel extends UiPart<Region> {
     }
 
     /**
-     * A ListView item view that display the graphics of a {@code PersonCard}.
+     * Custom {@code ListCell} that displays the graphics of a {@code PersonCard}.
      */
     class PersonListViewCell extends ListCell<PersonCard> {
 

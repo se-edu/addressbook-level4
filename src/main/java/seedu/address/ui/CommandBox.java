@@ -16,7 +16,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
- * The Command Box of the App.
+ * The UI component that is responsible for receiving user command inputs.
  */
 public class CommandBox extends UiPart<Region> {
 
@@ -39,7 +39,7 @@ public class CommandBox extends UiPart<Region> {
     }
 
     /**
-     * Handles the key press event, {@code keyEvent}, of the Command Box.
+     * Handles {@code keyEvent}.
      */
     @FXML
     private void handleKeyPress(KeyEvent keyEvent) {

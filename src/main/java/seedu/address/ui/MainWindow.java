@@ -123,7 +123,7 @@ public class MainWindow extends UiPart<Region> {
     }
 
     /**
-     * Fill up all the placeholders of the Main Window.
+     * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
         browserPanel = new BrowserPanel();

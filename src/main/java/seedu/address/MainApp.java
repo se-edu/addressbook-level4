@@ -81,8 +81,9 @@ public class MainApp extends Application {
     }
 
     /**
-     * Initialize a {@code ModelManager} with the {@code initialData} from
-     * {@code storage}'s AddressBook and {@code userPrefs}.
+     * Returns a {@code ModelManager} with the data from {@code storage}'s address book and {@code userPrefs}. <br>
+     * The data from the sample address book will be used instead if {@code storage}'s address book is not found,
+     * or an empty address book will be used instead if {@code DataConversionException} or {@code IOException} occurred.
      */
     private Model initModelManager(Storage storage, UserPrefs userPrefs) {
         Optional<ReadOnlyAddressBook> addressBookOptional;
@@ -109,7 +110,9 @@ public class MainApp extends Application {
     }
 
     /**
-     * Initializes a {@code Config} with the file at {@code configFilePath}.
+     * Returns a {@code Config} using the file at {@code configFilePath}. <br>
+     * The default file path {@code Config#DEFAULT_CONFIG_FILE} will be used instead
+     * if the {@code configFilePath} is null.
      */
     protected Config initConfig(String configFilePath) {
         Config initializedConfig;
@@ -143,7 +146,8 @@ public class MainApp extends Application {
     }
 
     /**
-     * Initializes a {@code UserPrefs} with the file at {@code prefsFilePath} stored in {@code storage}.
+     * Returns a {@code UserPrefs} using the file at {@code prefsFilePath} stored in {@code storage}. <br>
+     * Returns the default {@code UserPrefs} if {@code DataConversionException} or {@code IOException} occurred.
      */
     protected UserPrefs initPrefs(UserPrefsStorage storage) {
         String prefsFilePath = storage.getUserPrefsFilePath();

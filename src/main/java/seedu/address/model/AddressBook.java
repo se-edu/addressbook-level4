@@ -61,7 +61,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Replace existing {@code UniquePersonList} and {@code UniqueTagList} with {@code newData}'s.
+     * Resets the existing data of this address book with {@code newData}.
      */
     public void resetData(ReadOnlyAddressBook newData) {
         requireNonNull(newData);
@@ -143,8 +143,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Removes a person, that is equivalent to {@code key}, from {@code UniquePersonList}.
-     * @throws PersonNotFoundException if an equivalent person is not found and deleted.
+     * Removes {@code key} from this address book.
+     * @throws PersonNotFoundException if the {@code key} is not in this address book.
      */
     public boolean removePerson(ReadOnlyPerson key) throws PersonNotFoundException {
         if (persons.remove(key)) {
