@@ -204,7 +204,7 @@ public abstract class AddressBookSystemTest {
         }
     }
 
-    public TestApp getTestApp() {
+    protected TestApp getTestApp() {
         return testApp;
     }
 }
