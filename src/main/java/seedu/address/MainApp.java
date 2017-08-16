@@ -80,6 +80,11 @@ public class MainApp extends Application {
         return applicationParameters.get(parameterName);
     }
 
+    /**
+     * Returns a {@code ModelManager} with the data from {@code storage}'s address book and {@code userPrefs}. <br>
+     * The data from the sample address book will be used instead if {@code storage}'s address book is not found,
+     * or an empty address book will be used instead if {@code DataConversionException} or {@code IOException} occurred.
+     */
     private Model initModelManager(Storage storage, UserPrefs userPrefs) {
         Optional<ReadOnlyAddressBook> addressBookOptional;
         ReadOnlyAddressBook initialData;
@@ -104,6 +109,11 @@ public class MainApp extends Application {
         LogsCenter.init(config);
     }
 
+    /**
+     * Returns a {@code Config} using the file at {@code configFilePath}. <br>
+     * The default file path {@code Config#DEFAULT_CONFIG_FILE} will be used instead
+     * if the {@code configFilePath} is null.
+     */
     protected Config initConfig(String configFilePath) {
         Config initializedConfig;
         String configFilePathUsed;
@@ -135,6 +145,10 @@ public class MainApp extends Application {
         return initializedConfig;
     }
 
+    /**
+     * Returns a {@code UserPrefs} using the file at {@code prefsFilePath} stored in {@code storage}. <br>
+     * Returns the default {@code UserPrefs} if {@code DataConversionException} or {@code IOException} occurred.
+     */
     protected UserPrefs initPrefs(UserPrefsStorage storage) {
         String prefsFilePath = storage.getUserPrefsFilePath();
         logger.info("Using prefs file : " + prefsFilePath);

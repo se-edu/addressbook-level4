@@ -39,6 +39,16 @@ public class HelpWindow extends UiPart<Region> {
         browser.getEngine().load(userGuideUrl);
     }
 
+    /**
+     * Shows the help window.
+     * @throws IllegalStateException if this method is called on a thread
+     *     other than the JavaFX Application Thread.
+     * @throws IllegalStateException if this method is called during
+     *     animation or layout processing.
+     * @throws IllegalStateException if this method is called on the
+     *     primary stage.
+     * @throws IllegalStateException if {@code dialogStage} is already showing.
+     */
     public void show() {
         logger.fine("Showing help page about the application.");
         dialogStage.showAndWait();
