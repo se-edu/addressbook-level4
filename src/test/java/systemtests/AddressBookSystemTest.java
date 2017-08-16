@@ -157,7 +157,6 @@ public abstract class AddressBookSystemTest {
      * Asserts that the command box's style is the default style.
      */
     protected void assertCommandBoxStyleDefault() {
-        // TODO: We can merge this with assertCommandBoxShows(String) if we disallow users to press enter with no input
         assertEquals(COMMAND_BOX_DEFAULT_STYLE, getCommandBox().getStyleClass());
     }
 
@@ -165,7 +164,6 @@ public abstract class AddressBookSystemTest {
      * Asserts that the command box's style is the error style.
      */
     protected void assertCommandBoxStyleError() {
-        // TODO: We can merge this with assertCommandBoxShows(String) if we disallow users to press enter with no input
         assertEquals(COMMAND_BOX_ERROR_STYLE, getCommandBox().getStyleClass());
     }
 
