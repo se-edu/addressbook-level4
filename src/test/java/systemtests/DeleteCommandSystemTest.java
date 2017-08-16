@@ -118,19 +118,15 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
         runCommand(commandToRun);
         if (browserUrlWillChange) {
             waitUntilBrowserLoaded(getBrowserPanel());
-            assertBrowserUrlChanged();
-            assertSelectedCardChanged();
+            assertBrowserUrlAndSelectedCardChanged();
         } else {
-            assertBrowserUrlUnchanged();
-            assertSelectedCardUnchanged();
+            assertBrowserUrlAndSelectedCardUnchanged();
         }
 
         assertCommandBoxShows("");
         assertCommandBoxStyleDefault();
         assertResultBoxShows(expectedResultMessage);
-        assertSavedAddressBookEquals(expectedModel.getAddressBook());
-        assertModelEquals(expectedModel);
-        assertPersonListPanelBounded();
+        assertModelMatches(expectedModel);
         assertOnlySyncStatusChanged();
     }
 
@@ -148,12 +144,9 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
 
         assertCommandBoxShows(commandToRun);
         assertCommandBoxStyleError();
-        assertBrowserUrlUnchanged();
-        assertSelectedCardUnchanged();
+        assertBrowserUrlAndSelectedCardUnchanged();
         assertResultBoxShows(expectedResultMessage);
-        assertSavedAddressBookEquals(expectedModel.getAddressBook());
-        assertModelEquals(expectedModel);
-        assertPersonListPanelBounded();
+        assertModelMatches(expectedModel);
         assertStatusBarUnchanged();
     }
 }
