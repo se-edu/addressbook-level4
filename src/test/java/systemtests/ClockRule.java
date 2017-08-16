@@ -17,11 +17,11 @@ import seedu.address.ui.StatusBarFooter;
  * @see Clock#fixed(Instant, ZoneId)
  */
 public class ClockRule implements TestRule {
-    private Clock injectedClock = Clock.fixed(Instant.now(), ZoneId.systemDefault());
+    private Clock injectedClock;
     private final Clock originalClock = StatusBarFooter.getClock();
 
     protected void before() {
-        StatusBarFooter.setClock(injectedClock);
+        setInjectedClockToCurrentTime();
     }
 
     protected void after() {

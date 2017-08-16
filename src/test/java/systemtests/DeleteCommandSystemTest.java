@@ -36,7 +36,7 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
         String command = "     " + DeleteCommand.COMMAND_WORD + "      " + INDEX_FIRST_PERSON.getOneBased() + "       ";
         ReadOnlyPerson deletedPerson = removePerson(expectedModel, INDEX_FIRST_PERSON);
         String expectedResultMessage = String.format(MESSAGE_DELETE_PERSON_SUCCESS, deletedPerson);
-        assertCommandSuccess(command, expectedModel, expectedResultMessage, false);
+        assertCommandSuccess(command, expectedModel, expectedResultMessage, false, null);
 
         /* Case: delete the last person in the list -> deleted */
         Model modelBeforeDeletingLast = new ModelManager(expectedModel.getAddressBook(), new UserPrefs());
@@ -44,32 +44,33 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
         command = DeleteCommand.COMMAND_WORD + " " + String.valueOf(lastPersonIndex.getOneBased());
         deletedPerson = removePerson(expectedModel, lastPersonIndex);
         expectedResultMessage = String.format(MESSAGE_DELETE_PERSON_SUCCESS, deletedPerson);
-        assertCommandSuccess(command, expectedModel, expectedResultMessage, false);
+        assertCommandSuccess(command, expectedModel, expectedResultMessage, false, null);
 
         /* Case: undo deleting the last person in the list -> last person restored */
         command = UndoCommand.COMMAND_WORD;
         expectedResultMessage = UndoCommand.MESSAGE_SUCCESS;
-        assertCommandSuccess(command, modelBeforeDeletingLast, expectedResultMessage, false);
+        assertCommandSuccess(command, modelBeforeDeletingLast, expectedResultMessage, false, null);
 
         /* Case: redo deleting the last person in the list -> last person deleted again */
         command = RedoCommand.COMMAND_WORD;
         expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
-        assertCommandSuccess(command, expectedModel, expectedResultMessage, false);
+        assertCommandSuccess(command, expectedModel, expectedResultMessage, false, null);
 
         /* Case: delete the middle person in the list -> deleted */
         Index middlePersonIndex = getMidIndex(expectedModel);
         command = DeleteCommand.COMMAND_WORD + " " + String.valueOf(middlePersonIndex.getOneBased());
         deletedPerson = removePerson(expectedModel, middlePersonIndex);
         expectedResultMessage = String.format(MESSAGE_DELETE_PERSON_SUCCESS, deletedPerson);
-        assertCommandSuccess(command, expectedModel, expectedResultMessage, false);
+        assertCommandSuccess(command, expectedModel, expectedResultMessage, false, null);
 
         /* Case: delete the selected person -> person list panel selects the person before the deleted person */
         Index selectedIndex = getMidIndex(expectedModel);
+        Index expectedIndex = Index.fromZeroBased(selectedIndex.getZeroBased() - 1);
         getPersonListPanel().select(selectedIndex.getZeroBased());
         command = DeleteCommand.COMMAND_WORD + " " + String.valueOf(selectedIndex.getOneBased());
         deletedPerson = removePerson(expectedModel, selectedIndex);
         expectedResultMessage = String.format(MESSAGE_DELETE_PERSON_SUCCESS, deletedPerson);
-        assertCommandSuccess(command, expectedModel, expectedResultMessage, true);
+        assertCommandSuccess(command, expectedModel, expectedResultMessage, true, expectedIndex);
 
         /* Case: invalid index (0) -> rejected */
         command = DeleteCommand.COMMAND_WORD + " 0";
@@ -108,24 +109,27 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
      * Executes {@code commandToRun} and verifies that the command box displays an empty string, the result display
      * box displays {@code expectedResultMessage} and the model related components equal to {@code expectedModel}.
      * These verifications are done by
-     * {@code AddressBookSystemTest#assertCommandExecution(String, String, String, Model)}. Also verifies that
+     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}. Also verifies that
      * the command box has the default style class, the status bar's sync status changes, the browser url and selected
-     * card changes depending on {@code browserUrlWillChange}.
-     * @see AddressBookSystemTest#assertCommandExecution(String, String, String, Model)
+     * card changes depending on {@code selectedCardWillChange}.
+     * @param expectedSelectedCardIndex if {@code selectedCardWillChange} is true, pass in the expected index of the
+     *                                  selected card. Else, pass in null.
+     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
+     * @see AddressBookSystemTest#assertSelectedCardChanged(Index)
      */
     private void assertCommandSuccess(String commandToRun, Model expectedModel, String expectedResultMessage,
-            boolean browserUrlWillChange) throws Exception {
-
-        assertCommandExecution(commandToRun, "", expectedResultMessage, expectedModel);
-        if (browserUrlWillChange) {
+            boolean selectedCardWillChange, Index expectedSelectedCardIndex) throws Exception {
+        executeCommand(commandToRun);
+        assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);
+        if (selectedCardWillChange) {
             waitUntilBrowserLoaded(getBrowserPanel());
-            assertBrowserUrlAndSelectedCardChanged();
+            assertSelectedCardChanged(expectedSelectedCardIndex);
         } else {
-            assertBrowserUrlAndSelectedCardUnchanged();
+            assertSelectedCardUnchanged();
         }
 
         assertCommandBoxStyleDefault();
-        assertOnlySyncStatusChanged();
+        assertStatusBarOnlySyncStatusChanged();
 
         clockRule.setInjectedClockToCurrentTime();
     }
@@ -134,17 +138,18 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
      * Executes {@code commandToRun} and verifies that the command box displays {@code commandToRun}, the result display
      * box displays {@code expectedResultMessage} and the model related components equal to the current model.
      * These verifications are done by
-     * {@code AddressBookSystemTest#assertCommandExecution(String, String, String, Model)}. Also verifies that
+     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}. Also verifies that
      * the browser url, selected card and status bar remain unchanged, and the command box has the error style.
-     * @see AddressBookSystemTest#assertCommandExecution(String, String, String, Model)
+     * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandFailure(String commandToRun, String expectedResultMessage) throws Exception {
         Model expectedModel = new ModelManager(
                 new AddressBook(getTestApp().getModel().getAddressBook()), new UserPrefs());
 
-        assertCommandExecution(commandToRun, commandToRun, expectedResultMessage, expectedModel);
+        executeCommand(commandToRun);
+        assertApplicationDisplaysExpected(commandToRun, expectedResultMessage, expectedModel);
+        assertSelectedCardUnchanged();
         assertCommandBoxStyleError();
-        assertBrowserUrlAndSelectedCardUnchanged();
         assertStatusBarUnchanged();
 
         clockRule.setInjectedClockToCurrentTime();
