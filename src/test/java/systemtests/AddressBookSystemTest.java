@@ -29,7 +29,6 @@ import seedu.address.MainApp;
 import seedu.address.TestApp;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.ui.CommandBox;
 
 /**
@@ -119,34 +118,22 @@ public abstract class AddressBookSystemTest {
     }
 
     /**
-     * Asserts that the browser's url is changed.
+     * Asserts that the browser's url and the selected card in the person list panel are changed.
      * @see BrowserPanelHandle#isUrlChanged()
-     */
-    protected void assertBrowserUrlChanged() throws Exception {
-        assertTrue(getBrowserPanel().isUrlChanged());
-    }
-
-    /**
-     * Asserts that the browser's url remain unchanged.
-     * @see BrowserPanelHandle#isUrlChanged()
-     */
-    protected void assertBrowserUrlUnchanged() throws Exception {
-        assertFalse(getBrowserPanel().isUrlChanged());
-    }
-
-    /**
-     * Asserts that the selected card in the person list panel is changed.
      * @see PersonListPanelHandle#isSelectedPersonCardChanged()
      */
-    protected void assertSelectedCardChanged() throws Exception {
+    protected void assertBrowserUrlAndSelectedCardChanged() throws Exception {
+        assertTrue(getBrowserPanel().isUrlChanged());
         assertTrue(getPersonListPanel().isSelectedPersonCardChanged());
     }
 
     /**
-     * Asserts that the selected card in the person list panel remains unchanged.
+     * Asserts that the browser's url and the selected card in the person list panel remain unchanged.
+     * @see BrowserPanelHandle#isUrlChanged()
      * @see PersonListPanelHandle#isSelectedPersonCardChanged()
      */
-    protected void assertSelectedCardUnchanged() throws Exception {
+    protected void assertBrowserUrlAndSelectedCardUnchanged() throws Exception {
+        assertFalse(getBrowserPanel().isUrlChanged());
         assertFalse(getPersonListPanel().isSelectedPersonCardChanged());
     }
 
@@ -181,25 +168,13 @@ public abstract class AddressBookSystemTest {
     }
 
     /**
-     * Asserts that the address book saved in the storage equals {@code expected}.
+     * Asserts that the address book saved in the storage, the current model and the displayed list in person list panel
+     * equals to the components in {@code expectedModel}.
      */
-    protected void assertSavedAddressBookEquals(ReadOnlyAddressBook expected) {
-        assertEquals(expected, getTestApp().getModel().getAddressBook());
-    }
-
-    /**
-     * Asserts that the current model equals {@code expected}.
-     */
-    protected void assertModelEquals(Model expected) {
-        assertEquals(expected, getTestApp().getModel());
-    }
-
-    /**
-     * Asserts that the person list panel displays the model's filtered list correctly; that is, the UI
-     * is correctly bounded to the Model.
-     */
-    protected void assertPersonListPanelBounded() throws Exception {
-        assertListMatching(getPersonListPanel(), getTestApp().getModel().getFilteredPersonList());
+    protected void assertModelComponents(Model expectedModel) throws Exception {
+        assertEquals(expectedModel, getTestApp().getModel());
+        assertEquals(expectedModel.getAddressBook(), getTestApp().getModel().getAddressBook());
+        assertListMatching(getPersonListPanel(), expectedModel.getFilteredPersonList());
     }
 
     /**
@@ -230,7 +205,7 @@ public abstract class AddressBookSystemTest {
         try {
             assertCommandBoxShows("");
             assertResultBoxShows("");
-            assertPersonListPanelBounded();
+            assertListMatching(getPersonListPanel(), getTestApp().getModel().getFilteredPersonList());
             assertEquals(MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_PAGE), getBrowserPanel().getLoadedUrl());
             assertEquals("./" + getTestApp().getStorageSaveLocation(), getStatusBarFooter().getSaveLocation());
             assertEquals(SYNC_STATUS_INITIAL, getStatusBarFooter().getSyncStatus());
