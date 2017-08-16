@@ -1,5 +1,8 @@
 package seedu.address.commons.events;
 
+/**
+ * The base class for all event classes.
+ */
 public abstract class BaseEvent {
 
     /**
