@@ -11,17 +11,14 @@ import seedu.address.testutil.TypicalPersons;
 /**
  * Contains helper methods that system tests require.
  */
-public class SystemTestSetup {
-    private static TestApp testApp;
-    private static MainWindowHandle mainWindowHandle;
-
-    // prevents construction
-    private SystemTestSetup() {}
+public class SystemTestSetupHelper {
+    private TestApp testApp;
+    private MainWindowHandle mainWindowHandle;
 
     /**
      * Sets up the {@code TestApp} and returns it.
      */
-    public static TestApp setupApplication() {
+    public TestApp setupApplication() {
         try {
             FxToolkit.setupApplication(() -> testApp = new TestApp(TypicalPersons::getTypicalAddressBook,
                     TestApp.SAVE_LOCATION_FOR_TESTING));
@@ -47,7 +44,7 @@ public class SystemTestSetup {
     /**
      * Encapsulates the stage initialized by {@code initializeStage} in a {@code MainWindowHandle} and returns it.
      */
-    public static MainWindowHandle setupMainWindowHandle() {
+    public MainWindowHandle setupMainWindowHandle() {
         try {
             FxToolkit.setupStage((stage) -> {
                 mainWindowHandle = new MainWindowHandle(stage);
@@ -64,7 +61,7 @@ public class SystemTestSetup {
     /**
      * Tears down existing stages.
      */
-    public static void tearDownStage() {
+    public void tearDownStage() {
         try {
             FxToolkit.cleanupStages();
         } catch (TimeoutException te) {

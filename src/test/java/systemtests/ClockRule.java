@@ -11,15 +11,15 @@ import org.junit.runners.model.Statement;
 import seedu.address.ui.StatusBarFooter;
 
 /**
- * Properly sets up and tears down a JavaFx stage for our testing purposes.
+ * Injects a fixed clock for testing purposes and restores the original clock after the tests finish.
+ * @see Clock#fixed(Instant, ZoneId)
  */
 public class ClockRule implements TestRule {
     public static final Clock INJECTED_CLOCK = Clock.fixed(Instant.now(), ZoneId.systemDefault());
     private static final Clock ORIGINAL_CLOCK = StatusBarFooter.getClock();
 
     protected void before() {
-        // provides us a way to predict expected time more easily, to prevent scenarios whereby
-        // a 1-second delay causes the verification to be wrong
+        // injects a clock that always return the specified timing, to make the timing predictable for testing purposes
         StatusBarFooter.setClock(INJECTED_CLOCK);
     }
 
