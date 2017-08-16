@@ -99,6 +99,9 @@ public class UniqueTagList implements Iterable<Tag> {
         return internalList.iterator();
     }
 
+    /**
+     * Returns the backing list as an {@code UnmodifiableObservableList}.
+     */
     public UnmodifiableObservableList<Tag> asObservableList() {
         assert CollectionUtil.elementsAreUnique(internalList);
         return new UnmodifiableObservableList<>(internalList);
@@ -112,6 +115,10 @@ public class UniqueTagList implements Iterable<Tag> {
                         && this.internalList.equals(((UniqueTagList) other).internalList));
     }
 
+    /**
+     * Returns true if the element in this list is equal to the elements in {@code other}.
+     * The elements do not have to be in the same order.
+     */
     public boolean equalsOrderInsensitive(UniqueTagList other) {
         assert CollectionUtil.elementsAreUnique(internalList);
         assert CollectionUtil.elementsAreUnique(other.internalList);

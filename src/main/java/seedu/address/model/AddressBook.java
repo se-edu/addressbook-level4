@@ -60,6 +60,9 @@ public class AddressBook implements ReadOnlyAddressBook {
         this.tags.setTags(tags);
     }
 
+    /**
+     * Resets the existing data of this {@code AddressBook} with {@code newData}.
+     */
     public void resetData(ReadOnlyAddressBook newData) {
         requireNonNull(newData);
         try {
@@ -139,6 +142,10 @@ public class AddressBook implements ReadOnlyAddressBook {
         persons.forEach(this::syncMasterTagListWith);
     }
 
+    /**
+     * Removes {@code key} from this {@code AddressBook}.
+     * @throws PersonNotFoundException if the {@code key} is not in this {@code AddressBook}.
+     */
     public boolean removePerson(ReadOnlyPerson key) throws PersonNotFoundException {
         if (persons.remove(key)) {
             return true;
