@@ -126,7 +126,7 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
         assertCommandBoxShows("");
         assertCommandBoxStyleDefault();
         assertResultBoxShows(expectedResultMessage);
-        assertModelComponents(expectedModel);
+        assertModelMatches(expectedModel);
         assertOnlySyncStatusChanged();
     }
 
@@ -146,7 +146,7 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
         assertCommandBoxStyleError();
         assertBrowserUrlAndSelectedCardUnchanged();
         assertResultBoxShows(expectedResultMessage);
-        assertModelComponents(expectedModel);
+        assertModelMatches(expectedModel);
         assertStatusBarUnchanged();
     }
 }

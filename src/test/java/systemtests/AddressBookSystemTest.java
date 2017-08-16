@@ -171,9 +171,9 @@ public abstract class AddressBookSystemTest {
      * Asserts that the address book saved in the storage, the current model and the displayed list in person list panel
      * equals to the components in {@code expectedModel}.
      */
-    protected void assertModelComponents(Model expectedModel) throws Exception {
+    protected void assertModelMatches(Model expectedModel) throws Exception {
         assertEquals(expectedModel, getTestApp().getModel());
-        assertEquals(expectedModel.getAddressBook(), getTestApp().getModel().getAddressBook());
+        assertEquals(expectedModel.getAddressBook(), getTestApp().readStorageAddressBook());
         assertListMatching(getPersonListPanel(), expectedModel.getFilteredPersonList());
     }
 

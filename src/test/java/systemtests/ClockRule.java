@@ -11,20 +11,19 @@ import org.junit.runners.model.Statement;
 import seedu.address.ui.StatusBarFooter;
 
 /**
- * Injects a fixed clock for testing purposes and restores the original clock after the tests finish.
- * @see Clock#fixed(Instant, ZoneId)
+ * This rule makes the time stamp in the status bar predictable during a test.
+ * Before the test starts, the rule replaces the clock in the status bar with a fixed clock.
+ * At the end of the test, the rule restores the original clock.
  */
 public class ClockRule implements TestRule {
     public static final Clock INJECTED_CLOCK = Clock.fixed(Instant.now(), ZoneId.systemDefault());
     private static final Clock ORIGINAL_CLOCK = StatusBarFooter.getClock();
 
     protected void before() {
-        // injects a clock that always return the specified timing, to make the timing predictable for testing purposes
         StatusBarFooter.setClock(INJECTED_CLOCK);
     }
 
     protected void after() {
-        // restore original clock
         StatusBarFooter.setClock(ORIGINAL_CLOCK);
     }
 
