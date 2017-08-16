@@ -14,6 +14,9 @@ import seedu.address.model.person.Phone;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.tag.Tag;
 
+/**
+ * Contain utility methods for populating AddressBook with sample data.
+ */
 public class SampleDataUtil {
     public static Person[] getSamplePersons() {
         try {

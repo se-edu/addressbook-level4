@@ -17,6 +17,10 @@ public class FileUtil {
         return file.exists() && file.isFile();
     }
 
+    /**
+     * Creates the file only if it does not exist.
+     * @throws IOException if the file or directory cannot be created.
+     */
     public static void createIfMissing(File file) throws IOException {
         if (!isFileExists(file)) {
             createFile(file);
