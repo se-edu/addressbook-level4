@@ -34,7 +34,7 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: delete the first person in the list, command with leading spaces and trailing spaces -> deleted */
         String command = "     " + DeleteCommand.COMMAND_WORD + "      " + INDEX_FIRST_PERSON.getOneBased() + "       ";
-        ReadOnlyPerson deletedPerson = remove(expectedModel, INDEX_FIRST_PERSON);
+        ReadOnlyPerson deletedPerson = removePerson(expectedModel, INDEX_FIRST_PERSON);
         String expectedResultMessage = String.format(MESSAGE_DELETE_PERSON_SUCCESS, deletedPerson);
         assertCommandSuccess(command, expectedModel, expectedResultMessage, false);
 
@@ -42,7 +42,7 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
         Model modelBeforeDeletingLast = new ModelManager(expectedModel.getAddressBook(), new UserPrefs());
         Index lastPersonIndex = getLastIndex(expectedModel);
         command = DeleteCommand.COMMAND_WORD + " " + String.valueOf(lastPersonIndex.getOneBased());
-        deletedPerson = remove(expectedModel, lastPersonIndex);
+        deletedPerson = removePerson(expectedModel, lastPersonIndex);
         expectedResultMessage = String.format(MESSAGE_DELETE_PERSON_SUCCESS, deletedPerson);
         assertCommandSuccess(command, expectedModel, expectedResultMessage, false);
 
@@ -59,7 +59,7 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
         /* Case: delete the middle person in the list -> deleted */
         Index middlePersonIndex = getMidIndex(expectedModel);
         command = DeleteCommand.COMMAND_WORD + " " + String.valueOf(middlePersonIndex.getOneBased());
-        deletedPerson = remove(expectedModel, middlePersonIndex);
+        deletedPerson = removePerson(expectedModel, middlePersonIndex);
         expectedResultMessage = String.format(MESSAGE_DELETE_PERSON_SUCCESS, deletedPerson);
         assertCommandSuccess(command, expectedModel, expectedResultMessage, false);
 
@@ -67,7 +67,7 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
         Index selectedIndex = getMidIndex(expectedModel);
         getPersonListPanel().select(selectedIndex.getZeroBased());
         command = DeleteCommand.COMMAND_WORD + " " + String.valueOf(selectedIndex.getOneBased());
-        deletedPerson = remove(expectedModel, selectedIndex);
+        deletedPerson = removePerson(expectedModel, selectedIndex);
         expectedResultMessage = String.format(MESSAGE_DELETE_PERSON_SUCCESS, deletedPerson);
         assertCommandSuccess(command, expectedModel, expectedResultMessage, true);
 
@@ -98,55 +98,49 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
      * Removes the {@code ReadOnlyPerson} at the specified {@code index} in {@code model}'s address book.
      * @return the removed person
      */
-    private ReadOnlyPerson remove(Model model, Index index) throws Exception {
+    private ReadOnlyPerson removePerson(Model model, Index index) throws Exception {
         ReadOnlyPerson targetPerson = getPerson(model, index);
         model.deletePerson(targetPerson);
         return targetPerson;
     }
 
     /**
-     * Asserts that after executing the command {@code commandToRun}, the command box displays an empty string and
-     * has the default style class, the result box displays {@code expectedResultMessage}, the model and storage
-     * contains the same person objects as {@code expectedModel}, the person list panel displays the persons in the
-     * model correctly, the status bar's sync status changes, the browser url and selected card changes depending
-     * on {@code browserUrlWillChange}.
+     * Apart from the assertions verified by
+     * {@code AddressBookSystemTest#assertCommandExecution(String, String, String, Model)}, also verifies that
+     * the command box has the default style class, the status bar's sync status changes, the browser url and selected
+     * card changes depending on {@code browserUrlWillChange}.
+     * @see AddressBookSystemTest#assertCommandExecution(String, String, String, Model)
      */
     private void assertCommandSuccess(String commandToRun, Model expectedModel, String expectedResultMessage,
             boolean browserUrlWillChange) throws Exception {
 
-        rememberStates();
-        runCommand(commandToRun);
+        assertCommandExecution(commandToRun, "", expectedResultMessage, expectedModel);
         if (browserUrlWillChange) {
             waitUntilBrowserLoaded(getBrowserPanel());
             assertBrowserUrlAndSelectedCardChanged();
         } else {
             assertBrowserUrlAndSelectedCardUnchanged();
         }
-
-        assertCommandBoxShows("");
         assertCommandBoxStyleDefault();
-        assertResultBoxShows(expectedResultMessage);
-        assertModelMatches(expectedModel);
         assertOnlySyncStatusChanged();
+
+        ClockRule.advanceClock();
     }
 
     /**
-     * Asserts that after executing the command {@code commandToRun}, the GUI components remain unchanged, except for
-     * the {@code ResultDisplay} displaying {@code expectedResultMessage} and the command box has the error style.
-     * The model and storage remains unchanged.
+     * Apart from the assertions verified by
+     * {@code AddressBookSystemTest#assertCommandExecution(String, String, String, Model)}, also verifies that
+     * the browser url, selected card and status bar remain unchanged, and the command box has the error style.
      */
     private void assertCommandFailure(String commandToRun, String expectedResultMessage) throws Exception {
         Model expectedModel = new ModelManager(
                 new AddressBook(getTestApp().getModel().getAddressBook()), new UserPrefs());
 
-        rememberStates();
-        runCommand(commandToRun);
-
-        assertCommandBoxShows(commandToRun);
+        assertCommandExecution(commandToRun, commandToRun, expectedResultMessage, expectedModel);
         assertCommandBoxStyleError();
         assertBrowserUrlAndSelectedCardUnchanged();
-        assertResultBoxShows(expectedResultMessage);
-        assertModelMatches(expectedModel);
         assertStatusBarUnchanged();
+
+        ClockRule.advanceClock();
     }
 }

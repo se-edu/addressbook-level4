@@ -8,10 +8,10 @@ import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_INITIAL;
 import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
 import static seedu.address.ui.UiPart.FXML_FILE_FOLDER;
 import static seedu.address.ui.testutil.GuiTestAssert.assertListMatching;
-import static systemtests.ClockRule.INJECTED_CLOCK;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 import org.junit.After;
 import org.junit.Before;
@@ -39,12 +39,13 @@ public abstract class AddressBookSystemTest {
     @ClassRule
     public static ClockRule clockRule = new ClockRule();
 
+    private static final List<String> COMMAND_BOX_DEFAULT_STYLE = Arrays.asList("text-input", "text-field");
+    private static final List<String> COMMAND_BOX_ERROR_STYLE =
+            Arrays.asList("text-input", "text-field", CommandBox.ERROR_STYLE_CLASS);
+
     private MainWindowHandle mainWindowHandle;
     private TestApp testApp;
     private SystemTestSetupHelper setupHelper;
-
-    private ArrayList<String> defaultStyleOfCommandBox;
-    private ArrayList<String> errorStyleOfCommandBox;
 
     @BeforeClass
     public static void setupBeforeClass() {
@@ -57,15 +58,7 @@ public abstract class AddressBookSystemTest {
         testApp = setupHelper.setupApplication();
         mainWindowHandle = setupHelper.setupMainWindowHandle();
 
-        initCommandBoxStyles();
-
         assertApplicationStartingStateIsCorrect();
-    }
-
-    private void initCommandBoxStyles() {
-        defaultStyleOfCommandBox = new ArrayList<>(getCommandBox().getStyleClass());
-        errorStyleOfCommandBox = new ArrayList<>(defaultStyleOfCommandBox);
-        errorStyleOfCommandBox.add(CommandBox.ERROR_STYLE_CLASS);
     }
 
     @After
@@ -99,9 +92,27 @@ public abstract class AddressBookSystemTest {
     }
 
     /**
+     * Remembers the current state and asserts that after executing {@code command}, the {@code CommandBox} displays
+     * {@code expectedCommandInput}, the {@code ResultDisplay} displays {@code expectedResultMessage}, the model and
+     * storage contains the same person objects as {@code expectedModel}, the person list panel displays the persons
+     * in the model correctly.
+     */
+    protected void assertCommandExecution(String command, String expectedCommandInput, String expectedResultMessage,
+            Model expectedModel) throws Exception {
+        rememberStates();
+        runCommand(command);
+
+        assertEquals(expectedCommandInput, getCommandBox().getInput());
+        assertEquals(expectedResultMessage, getResultDisplay().getText());
+        assertEquals(expectedModel, getTestApp().getModel());
+        assertEquals(expectedModel.getAddressBook(), getTestApp().readStorageAddressBook());
+        assertListMatching(getPersonListPanel(), expectedModel.getFilteredPersonList());
+    }
+
+    /**
      * Runs {@code command} in the application's {@code CommandBox}.
      */
-    public void runCommand(String command) {
+    private void runCommand(String command) {
         mainWindowHandle.getCommandBox().run(command);
     }
 
@@ -109,7 +120,7 @@ public abstract class AddressBookSystemTest {
      * Calls {@code BrowserPanelHandle}, {@code PersonListPanelHandle} and {@code StatusBarFooterHandle} to remember
      * their current state.
      */
-    protected void rememberStates() throws Exception {
+    private void rememberStates() throws Exception {
         StatusBarFooterHandle statusBarFooterHandle = getStatusBarFooter();
         getBrowserPanel().rememberUrl();
         statusBarFooterHandle.rememberSaveLocation();
@@ -138,18 +149,11 @@ public abstract class AddressBookSystemTest {
     }
 
     /**
-     * Asserts that the command box shows {@code expected}.
-     */
-    protected void assertCommandBoxShows(String expected) {
-        assertEquals(expected, getCommandBox().getInput());
-    }
-
-    /**
      * Asserts that the command box's style is the default style.
      */
     protected void assertCommandBoxStyleDefault() {
         // TODO: We can merge this with assertCommandBoxShows(String) if we disallow users to press enter with no input
-        assertEquals(defaultStyleOfCommandBox, getCommandBox().getStyleClass());
+        assertEquals(COMMAND_BOX_DEFAULT_STYLE, getCommandBox().getStyleClass());
     }
 
     /**
@@ -157,24 +161,7 @@ public abstract class AddressBookSystemTest {
      */
     protected void assertCommandBoxStyleError() {
         // TODO: We can merge this with assertCommandBoxShows(String) if we disallow users to press enter with no input
-        assertEquals(errorStyleOfCommandBox, getCommandBox().getStyleClass());
-    }
-
-    /**
-     * Asserts that the result box shows {@code expected}.
-     */
-    protected void assertResultBoxShows(String expected) {
-        assertEquals(expected, getResultDisplay().getText());
-    }
-
-    /**
-     * Asserts that the address book saved in the storage, the current model and the displayed list in person list panel
-     * equals to the components in {@code expectedModel}.
-     */
-    protected void assertModelMatches(Model expectedModel) throws Exception {
-        assertEquals(expectedModel, getTestApp().getModel());
-        assertEquals(expectedModel.getAddressBook(), getTestApp().readStorageAddressBook());
-        assertListMatching(getPersonListPanel(), expectedModel.getFilteredPersonList());
+        assertEquals(COMMAND_BOX_ERROR_STYLE, getCommandBox().getStyleClass());
     }
 
     /**
@@ -192,7 +179,7 @@ public abstract class AddressBookSystemTest {
      */
     protected void assertOnlySyncStatusChanged() {
         StatusBarFooterHandle handle = getStatusBarFooter();
-        String timestamp = new Date(INJECTED_CLOCK.millis()).toString();
+        String timestamp = new Date(ClockRule.getInjectedClock().millis()).toString();
         String expectedSyncStatus = String.format(SYNC_STATUS_UPDATED, timestamp);
         assertEquals(expectedSyncStatus, handle.getSyncStatus());
         assertFalse(handle.isSaveLocationChanged());
@@ -203,8 +190,8 @@ public abstract class AddressBookSystemTest {
      */
     private void assertApplicationStartingStateIsCorrect() {
         try {
-            assertCommandBoxShows("");
-            assertResultBoxShows("");
+            assertEquals("", getCommandBox().getInput());
+            assertEquals("", getResultDisplay().getText());
             assertListMatching(getPersonListPanel(), getTestApp().getModel().getFilteredPersonList());
             assertEquals(MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_PAGE), getBrowserPanel().getLoadedUrl());
             assertEquals("./" + getTestApp().getStorageSaveLocation(), getStatusBarFooter().getSaveLocation());
