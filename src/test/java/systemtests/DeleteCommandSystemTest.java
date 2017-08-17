@@ -1,7 +1,6 @@
 package systemtests;
 
 import static guitests.guihandles.WebViewUtil.waitUntilBrowserLoaded;
-import static org.junit.Assert.assertEquals;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS;
@@ -9,7 +8,6 @@ import static seedu.address.testutil.TestUtil.getLastIndex;
 import static seedu.address.testutil.TestUtil.getMidIndex;
 import static seedu.address.testutil.TestUtil.getPerson;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.address.ui.testutil.GuiTestAssert.assertListMatching;
 
 import org.junit.Test;
 
@@ -102,14 +100,18 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
     }
 
     /**
-     * Asserts that after executing the command {@code commandToRun}, the GUI components display what we expected,
-     * and the model and storage are modified accordingly.
+     * Executes {@code commandToRun} and verifies that the command box displays an empty string, the result display
+     * box displays {@code expectedResultMessage} and the model related components equal to {@code expectedModel}.
+     * These verifications are done by
+     * {@code AddressBookSystemTest#assertCommandExecution(String, String, String, Model)}. Also verifies that
+     * the command box has the default style class, the status bar's sync status changes, the browser url and selected
+     * card changes depending on {@code browserUrlWillChange}.
+     * @see AddressBookSystemTest#assertCommandExecution(String, String, String, Model)
      */
     private void assertCommandSuccess(String commandToRun, Model expectedModel, String expectedResultMessage,
             boolean browserUrlWillChange) throws Exception {
 
-        rememberStates();
-        runCommand(commandToRun);
+        assertCommandExecution(commandToRun, "", expectedResultMessage, expectedModel);
         if (browserUrlWillChange) {
             waitUntilBrowserLoaded(getBrowserPanel());
             assertBrowserUrlAndSelectedCardChanged();
@@ -117,33 +119,25 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
             assertBrowserUrlAndSelectedCardUnchanged();
         }
 
-        assertEquals("", getCommandBox().getInput());
-        assertListMatching(getPersonListPanel(),
-                expectedModel.getAddressBook().getPersonList().toArray(new ReadOnlyPerson[0]));
-        assertEquals(expectedResultMessage, getResultDisplay().getText());
-        assertEquals(expectedModel.getAddressBook(), getTestApp().readStorageAddressBook());
-        assertEquals(expectedModel, getTestApp().getModel());
         assertOnlySyncStatusChanged();
 
         clockRule.setInjectedClockToCurrentTime();
     }
 
     /**
-     * Asserts that after executing the command {@code commandToRun}, the GUI components remain unchanged, except for
-     * the {@code ResultDisplay} displaying {@code expectedResultMessage}. The model and storage remains unchanged.
+     * Executes {@code commandToRun} and verifies that the command box displays {@code commandToRun}, the result display
+     * box displays {@code expectedResultMessage} and the model related components equal to the current model.
+     * These verifications are done by
+     * {@code AddressBookSystemTest#assertCommandExecution(String, String, String, Model)}. Also verifies that
+     * the browser url, selected card and status bar remain unchanged, and the command box has the error style.
+     * @see AddressBookSystemTest#assertCommandExecution(String, String, String, Model)
      */
     private void assertCommandFailure(String commandToRun, String expectedResultMessage) throws Exception {
         Model expectedModel = new ModelManager(
                 new AddressBook(getTestApp().getModel().getAddressBook()), new UserPrefs());
 
-        rememberStates();
-        runCommand(commandToRun);
-
-        assertEquals(commandToRun, getCommandBox().getInput());
+        assertCommandExecution(commandToRun, commandToRun, expectedResultMessage, expectedModel);
         assertBrowserUrlAndSelectedCardUnchanged();
-        assertEquals(expectedResultMessage, getResultDisplay().getText());
-        assertEquals(expectedModel.getAddressBook(), getTestApp().readStorageAddressBook());
-        assertEquals(expectedModel, getTestApp().getModel());
         assertStatusBarUnchanged();
 
         clockRule.setInjectedClockToCurrentTime();
