@@ -8,7 +8,6 @@ import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_INITIAL;
 import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
 import static seedu.address.ui.UiPart.FXML_FILE_FOLDER;
 import static seedu.address.ui.testutil.GuiTestAssert.assertListMatching;
-import static systemtests.ClockRule.INJECTED_CLOCK;
 
 import java.util.Arrays;
 import java.util.Date;
@@ -180,7 +179,7 @@ public abstract class AddressBookSystemTest {
      */
     protected void assertOnlySyncStatusChanged() {
         StatusBarFooterHandle handle = getStatusBarFooter();
-        String timestamp = new Date(INJECTED_CLOCK.millis()).toString();
+        String timestamp = new Date(ClockRule.getInjectedClock().millis()).toString();
         String expectedSyncStatus = String.format(SYNC_STATUS_UPDATED, timestamp);
         assertEquals(expectedSyncStatus, handle.getSyncStatus());
         assertFalse(handle.isSaveLocationChanged());

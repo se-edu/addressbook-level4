@@ -123,6 +123,8 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
         }
         assertCommandBoxStyleDefault();
         assertOnlySyncStatusChanged();
+
+        ClockRule.advanceClock();
     }
 
     /**
@@ -138,5 +140,7 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
         assertCommandBoxStyleError();
         assertBrowserUrlAndSelectedCardUnchanged();
         assertStatusBarUnchanged();
+
+        ClockRule.advanceClock();
     }
 }

@@ -16,11 +16,11 @@ import seedu.address.ui.StatusBarFooter;
  * At the end of the test, the rule restores the original clock.
  */
 public class ClockRule implements TestRule {
-    public static final Clock INJECTED_CLOCK = Clock.fixed(Instant.now(), ZoneId.systemDefault());
+    private static Clock injectedClock = Clock.fixed(Instant.now(), ZoneId.systemDefault());
     private static final Clock ORIGINAL_CLOCK = StatusBarFooter.getClock();
 
     protected void before() {
-        StatusBarFooter.setClock(INJECTED_CLOCK);
+        StatusBarFooter.setClock(injectedClock);
     }
 
     protected void after() {
@@ -40,5 +40,14 @@ public class ClockRule implements TestRule {
                 }
             }
         };
+    }
+
+    public static Clock getInjectedClock() {
+        return injectedClock;
+    }
+
+    public static void advanceClock() {
+        injectedClock = Clock.fixed(Instant.now(), ZoneId.systemDefault());
+        StatusBarFooter.setClock(injectedClock);
     }
 }
