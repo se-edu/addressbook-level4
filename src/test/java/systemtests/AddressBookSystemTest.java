@@ -26,6 +26,7 @@ import guitests.guihandles.StatusBarFooterHandle;
 import seedu.address.MainApp;
 import seedu.address.TestApp;
 import seedu.address.commons.core.EventsCenter;
+import seedu.address.model.Model;
 
 /**
  * A system test class for AddressBook, which provides access to handles of GUI components, and
@@ -84,17 +85,32 @@ public abstract class AddressBookSystemTest {
     }
 
     /**
-     * Runs {@code command} in the application's {@code CommandBox}.
+     * Executes {@code command} in the application's {@code CommandBox}.
      */
-    public void runCommand(String command) {
+    protected void executeCommand(String command) throws Exception {
+        rememberStates();
         mainWindowHandle.getCommandBox().run(command);
+    }
+
+    /**
+     * Asserts that the {@code CommandBox} displays {@code expectedCommandInput}, the {@code ResultDisplay} displays
+     * {@code expectedResultMessage}, the model and storage contains the same person objects as {@code expectedModel}
+     * and the person list panel displays the persons in the model correctly.
+     */
+    protected void assertApplicationDisplaysExpected(String expectedCommandInput, String expectedResultMessage,
+            Model expectedModel) throws Exception {
+        assertEquals(expectedCommandInput, getCommandBox().getInput());
+        assertEquals(expectedResultMessage, getResultDisplay().getText());
+        assertEquals(expectedModel, getTestApp().getModel());
+        assertEquals(expectedModel.getAddressBook(), getTestApp().readStorageAddressBook());
+        assertListMatching(getPersonListPanel(), expectedModel.getFilteredPersonList());
     }
 
     /**
      * Calls {@code BrowserPanelHandle}, {@code PersonListPanelHandle} and {@code StatusBarFooterHandle} to remember
      * their current state.
      */
-    protected void rememberStates() throws Exception {
+    private void rememberStates() throws Exception {
         StatusBarFooterHandle statusBarFooterHandle = getStatusBarFooter();
         getBrowserPanel().rememberUrl();
         statusBarFooterHandle.rememberSaveLocation();
