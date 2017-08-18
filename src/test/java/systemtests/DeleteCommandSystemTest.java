@@ -119,6 +119,7 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
             assertBrowserUrlAndSelectedCardUnchanged();
         }
 
+        assertCommandBoxStyleDefault();
         assertOnlySyncStatusChanged();
 
         clockRule.setInjectedClockToCurrentTime();
@@ -137,6 +138,7 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
                 new AddressBook(getTestApp().getModel().getAddressBook()), new UserPrefs());
 
         assertCommandExecution(commandToRun, commandToRun, expectedResultMessage, expectedModel);
+        assertCommandBoxStyleError();
         assertBrowserUrlAndSelectedCardUnchanged();
         assertStatusBarUnchanged();
 
