@@ -127,6 +127,8 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
         assertEquals(expectedModel.getAddressBook(), getTestApp().readStorageAddressBook());
         assertEquals(expectedModel, getTestApp().getModel());
         assertOnlySyncStatusChanged(getStatusBarFooter(), clockRule.getInjectedClock());
+
+        clockRule.setInjectedClockToCurrentTime();
     }
 
     /**
@@ -147,5 +149,7 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
         assertEquals(expectedModel.getAddressBook(), getTestApp().readStorageAddressBook());
         assertEquals(expectedModel, getTestApp().getModel());
         assertStatusBarUnchanged(getStatusBarFooter());
+
+        clockRule.setInjectedClockToCurrentTime();
     }
 }
