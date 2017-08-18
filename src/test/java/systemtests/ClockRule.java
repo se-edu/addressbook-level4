@@ -46,4 +46,12 @@ public class ClockRule implements TestRule {
     public Clock getInjectedClock() {
         return injectedClock;
     }
+
+    /**
+     * Replaces the clock in the status bar with a fixed clock having the current time as its instance.
+     */
+    public void setInjectedClockToCurrentTime() {
+        injectedClock = Clock.fixed(Instant.now(), ZoneId.systemDefault());
+        StatusBarFooter.setClock(injectedClock);
+    }
 }
