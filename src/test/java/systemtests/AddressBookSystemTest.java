@@ -51,30 +51,8 @@ public abstract class AddressBookSystemTest {
     private SystemTestSetupHelper setupHelper;
 
     @BeforeClass
-    public static void setupUpBeforeClass() {
-        initializeFxToolkit();
-
-        // provides us a way to predict expected time more easily, to prevent scenarios whereby
-        // a 1-second delay causes the verification to be wrong
-        StatusBarFooter.setClock(INJECTED_CLOCK);
-    }
-
-    /**
-     * Initializes the application and the stage to be used in tests.
-     */
-    private static void initializeFxToolkit() {
-        try {
-            FxToolkit.registerPrimaryStage();
-            FxToolkit.hideStage();
-        } catch (TimeoutException e) {
-            throw new AssertionError(e);
-        }
-    }
-
-    @AfterClass
-    public static void tearDownAfterClass() {
-        // restore original clock
-        StatusBarFooter.setClock(ORIGINAL_CLOCK);
+    public static void setupBeforeClass() {
+        SystemTestSetupHelper.initializeStage();
     }
 
     @Before
