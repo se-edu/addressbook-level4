@@ -31,6 +31,10 @@ public class ArgumentTokenizerTest {
         assertTrue(argMultimap.getPreamble().isEmpty());
     }
 
+    /**
+     * Asserts all the arguments in {@code argMultimap} with {@code prefix} match the {@code expectedValues}
+     * and only the last value is returned upon using {@code ArgumentMultimap#getValue(prefix)} method.
+     */
     private void assertArgumentPresent(ArgumentMultimap argMultimap, Prefix prefix, String... expectedValues) {
 
         // Verify the last value is returned
