@@ -107,6 +107,10 @@ public class CollectionUtilTest {
         assertNotUnique(null, "a", "b", null);
     }
 
+    /**
+     * Asserts that {@code CollectionUtil#requireAllNonNull(objects)} throw {@code NullPointerException}
+     * if {@code objects} or any element of {@code objects} is null.
+     */
     private void assertNullPointerExceptionThrown(Object... objects) {
         try {
             requireAllNonNull(objects);
@@ -116,6 +120,10 @@ public class CollectionUtilTest {
         }
     }
 
+    /**
+     * Asserts that {@code CollectionUtil#requireAllNonNull(collection)} throw {@code NullPointerException}
+     * if {@code collection} or any element of {@code collection} is null.
+     */
     private void assertNullPointerExceptionThrown(Collection<?> collection) {
         try {
             requireAllNonNull(collection);
