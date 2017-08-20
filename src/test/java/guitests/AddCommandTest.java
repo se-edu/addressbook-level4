@@ -51,6 +51,10 @@ public class AddCommandTest extends AddressBookGuiTest {
         assertResultMessage(getResultDisplay(), Messages.MESSAGE_UNKNOWN_COMMAND);
     }
 
+    /**
+     * Asserts that the new card in person list panel contains the correct data of {@code personToAdd} and
+     * the person list panel contains the {@code expectedList}.
+     */
     private void assertAddSuccess(ReadOnlyPerson personToAdd, List<ReadOnlyPerson> expectedList) throws Exception {
         runCommand(PersonUtil.getAddCommand(personToAdd));
 
