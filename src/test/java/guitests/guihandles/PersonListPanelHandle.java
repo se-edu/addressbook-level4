@@ -41,16 +41,8 @@ public class PersonListPanelHandle extends NodeHandle<ListView<PersonCard>> {
     public boolean isAnyCardSelected() {
         List<PersonCard> selectedCardsList = getRootNode().getSelectionModel().getSelectedItems();
 
-    /**
-     *
-     */
-    public PersonCardHandle navigateToPerson(String name) {
-        guiRobot.sleep(500); //Allow a bit of time for the list to be updated
-        final Optional<ReadOnlyPerson> person = getListView().getItems().stream()
-                                                    .filter(p -> p.getName().fullName.equals(name))
-                                                    .findAny();
-        if (!person.isPresent()) {
-            throw new IllegalStateException("Name not found: " + name);
+        if (selectedCardsList.size() > 1) {
+            throw new AssertionError("Card list size expected 0 or 1.");
         }
 
         return !selectedCardsList.isEmpty();

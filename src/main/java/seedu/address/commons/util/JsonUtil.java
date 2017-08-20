@@ -111,7 +111,7 @@ public class JsonUtil {
     }
 
     /**
-     *
+     * Contains methods that retrieve logging level from serialized string.
      */
     private static class LevelDeserializer extends FromStringDeserializer<Level> {
 

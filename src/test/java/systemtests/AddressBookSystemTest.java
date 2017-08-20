@@ -49,6 +49,9 @@ public abstract class AddressBookSystemTest {
         StatusBarFooter.setClock(INJECTED_CLOCK);
     }
 
+    /**
+     * Initializes the application and the stage to be used in tests.
+     */
     private static void initializeFxToolkit() {
         try {
             FxToolkit.registerPrimaryStage();

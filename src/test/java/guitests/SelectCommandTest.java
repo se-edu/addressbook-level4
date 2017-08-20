@@ -14,9 +14,6 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.SelectCommand;
 
-/**
- *
- */
 public class SelectCommandTest extends AddressBookGuiTest {
 
 
@@ -57,12 +54,12 @@ public class SelectCommandTest extends AddressBookGuiTest {
     }
 
     /**
-     *
+     * Asserts that the selected card is the card at zero based {@code index}.
      */
-    private void assertPersonSelected(int index) {
-        assertEquals(personListPanel.getSelectedPersons().size(), 1);
-        ReadOnlyPerson selectedPerson = personListPanel.getSelectedPersons().get(0);
-        assertEquals(personListPanel.getPerson(index - 1), selectedPerson);
+    private void assertCardSelected(Index index) throws Exception {
+        PersonCardHandle expectedCard = getPersonListPanel().getPersonCardHandle(index.getZeroBased());
+        PersonCardHandle selectedCard = getPersonListPanel().getHandleToSelectedCard();
+        assertCardEquals(expectedCard, selectedCard);
         //TODO: confirm the correct page is loaded in the Browser Panel
     }
 

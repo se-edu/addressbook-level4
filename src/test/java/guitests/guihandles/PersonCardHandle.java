@@ -68,37 +68,4 @@ public class PersonCardHandle extends NodeHandle<Node> {
                 .map(Label::getText)
                 .collect(Collectors.toList());
     }
-
-    private Region getTagsContainer() {
-        return guiRobot.from(node).lookup(TAGS_FIELD_ID).query();
-    }
-
-    /**
-     *
-     */
-    public boolean isSamePerson(ReadOnlyPerson person) {
-        return getFullName().equals(person.getName().fullName)
-                && getPhone().equals(person.getPhone().value)
-                && getEmail().equals(person.getEmail().value)
-                && getAddress().equals(person.getAddress().value)
-                && getTags().equals(getTags(person.getTags()));
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (obj instanceof PersonCardHandle) {
-            PersonCardHandle handle = (PersonCardHandle) obj;
-            return getFullName().equals(handle.getFullName())
-                    && getPhone().equals(handle.getPhone())
-                    && getEmail().equals(handle.getEmail())
-                    && getAddress().equals(handle.getAddress())
-                    && getTags().equals(handle.getTags());
-        }
-        return super.equals(obj);
-    }
-
-    @Override
-    public String toString() {
-        return getFullName() + " " + getAddress();
-    }
 }

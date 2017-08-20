@@ -7,9 +7,6 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
-/**
- *
- */
 public class ArgumentTokenizerTest {
 
     private final Prefix unknownPrefix = new Prefix("--u");
@@ -35,7 +32,8 @@ public class ArgumentTokenizerTest {
     }
 
     /**
-     *
+     * Asserts all the arguments in {@code argMultimap} with {@code prefix} match the {@code expectedValues}
+     * and only the last value is returned upon using {@code ArgumentMultimap#getValue(prefix)} method.
      */
     private void assertArgumentPresent(ArgumentMultimap argMultimap, Prefix prefix, String... expectedValues) {
 

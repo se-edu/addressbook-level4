@@ -62,7 +62,8 @@ public class LogsCenter {
     }
 
     /**
-     *
+     * Adds the {@code consoleHandler} to the {@code logger}. <br>
+     * Creates the {@code consoleHandler} if it is null.
      */
     private static void addConsoleHandler(Logger logger) {
         if (consoleHandler == null) {
@@ -72,7 +73,7 @@ public class LogsCenter {
     }
 
     /**
-     *
+     * Remove all the handlers from {@code logger}.
      */
     private static void removeHandlers(Logger logger) {
         Handler[] handlers = logger.getHandlers();
@@ -82,7 +83,8 @@ public class LogsCenter {
     }
 
     /**
-     *
+     * Adds the {@code fileHandler} to the {@code logger}. <br>
+     * Creates {@code fileHandler} if it is null.
      */
     private static void addFileHandler(Logger logger) {
         try {
@@ -96,7 +98,8 @@ public class LogsCenter {
     }
 
     /**
-     *
+     * Creates a {@code fileHandler} for the log file.
+     * @throws IOException if there are problems opening the file.
      */
     private static FileHandler createFileHandler() throws IOException {
         FileHandler fileHandler = new FileHandler(LOG_FILE, MAX_FILE_SIZE_IN_BYTES, MAX_FILE_COUNT, true);

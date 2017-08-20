@@ -106,12 +106,10 @@ public abstract class AddressBookGuiTest {
         return TestApp.SAVE_LOCATION_FOR_TESTING;
     }
 
-    /**
-     *
-     */
-    public void raise(BaseEvent e) {
-        //JUnit doesn't run its test cases on the UI thread. Platform.runLater is used to post event on the UI thread.
-        Platform.runLater(() -> EventsCenter.getInstance().post(e));
+    @After
+    public void cleanup() throws Exception {
+        EventsCenter.clearSubscribers();
+        FxToolkit.cleanupStages();
     }
 
 }

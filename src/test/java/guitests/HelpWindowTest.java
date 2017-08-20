@@ -8,9 +8,6 @@ import org.junit.Test;
 import guitests.guihandles.HelpWindowHandle;
 import seedu.address.logic.commands.HelpCommand;
 
-/**
- *
- */
 public class HelpWindowTest extends AddressBookGuiTest {
 
     @Test

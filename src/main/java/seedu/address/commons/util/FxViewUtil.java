@@ -8,16 +8,6 @@ import javafx.stage.Stage;
 public class FxViewUtil {
 
     /**
-     *
-     */
-    public static void applyAnchorBoundaryParameters(Node node, double left, double right, double top, double bottom) {
-        AnchorPane.setBottomAnchor(node, bottom);
-        AnchorPane.setLeftAnchor(node, left);
-        AnchorPane.setRightAnchor(node, right);
-        AnchorPane.setTopAnchor(node, top);
-    }
-
-    /**
      * Sets the given image as the icon for the given stage.
      * @param iconSource e.g. {@code "/images/help_icon.png"}
      */

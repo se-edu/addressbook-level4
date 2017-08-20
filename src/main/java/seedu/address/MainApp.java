@@ -81,7 +81,9 @@ public class MainApp extends Application {
     }
 
     /**
-     *
+     * Returns a {@code ModelManager} with the data from {@code storage}'s address book and {@code userPrefs}. <br>
+     * The data from the sample address book will be used instead if {@code storage}'s address book is not found,
+     * or an empty address book will be used instead if errors occur when reading {@code storage}'s address book.
      */
     private Model initModelManager(Storage storage, UserPrefs userPrefs) {
         Optional<ReadOnlyAddressBook> addressBookOptional;
@@ -108,7 +110,9 @@ public class MainApp extends Application {
     }
 
     /**
-     *
+     * Returns a {@code Config} using the file at {@code configFilePath}. <br>
+     * The default file path {@code Config#DEFAULT_CONFIG_FILE} will be used instead
+     * if {@code configFilePath} is null.
      */
     protected Config initConfig(String configFilePath) {
         Config initializedConfig;
@@ -142,7 +146,9 @@ public class MainApp extends Application {
     }
 
     /**
-     *
+     * Returns a {@code UserPrefs} using the file at {@code storage}'s user prefs file path,
+     * or a new {@code UserPrefs} with default configuration if errors occur when
+     * reading from the file.
      */
     protected UserPrefs initPrefs(UserPrefsStorage storage) {
         String prefsFilePath = storage.getUserPrefsFilePath();
@@ -194,9 +200,6 @@ public class MainApp extends Application {
         System.exit(0);
     }
 
-    /**
-     *
-     */
     @Subscribe
     public void handleExitAppRequestEvent(ExitAppRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));

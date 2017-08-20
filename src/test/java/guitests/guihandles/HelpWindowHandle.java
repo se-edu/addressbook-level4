@@ -20,11 +20,10 @@ public class HelpWindowHandle extends StageHandle {
     }
 
     /**
-     *
+     * Returns true if a help window is currently present in the application.
      */
-    public void closeWindow() {
-        super.closeWindow();
-        guiRobot.sleep(500);
+    public static boolean isWindowPresent() {
+        return new GuiRobot().isWindowShown(HELP_WINDOW_TITLE);
     }
 
     /**

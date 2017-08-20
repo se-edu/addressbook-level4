@@ -97,33 +97,10 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void updateFilteredPersonList(Set<String> keywords) {
-        updateFilteredPersonList(new PredicateExpression(new NameQualifier(keywords)));
-    }
-
-    private void updateFilteredPersonList(Expression expression) {
-        filteredPersons.setPredicate(expression::satisfies);
-    }
-
-    //========== Inner classes/interfaces used for filtering =================================================
-
-    /**
-     *
-     */
-    interface Expression {
-        boolean satisfies(ReadOnlyPerson person);
-        String toString();
-    }
-
-    /**
-     *
-     */
-    private class PredicateExpression implements Expression {
-
-        private final Qualifier qualifier;
-
-        PredicateExpression(Qualifier qualifier) {
-            this.qualifier = qualifier;
+    public boolean equals(Object obj) {
+        // short circuit if same object
+        if (obj == this) {
+            return true;
         }
 
         // instanceof handles nulls
@@ -131,42 +108,10 @@ public class ModelManager extends ComponentManager implements Model {
             return false;
         }
 
-        @Override
-        public String toString() {
-            return qualifier.toString();
-        }
-    }
-
-    /**
-     *
-     */
-    interface Qualifier {
-        boolean run(ReadOnlyPerson person);
-        String toString();
-    }
-
-    /**
-     *
-     */
-    private class NameQualifier implements Qualifier {
-        private Set<String> nameKeyWords;
-
-        NameQualifier(Set<String> nameKeyWords) {
-            this.nameKeyWords = nameKeyWords;
-        }
-
-        @Override
-        public boolean run(ReadOnlyPerson person) {
-            return nameKeyWords.stream()
-                    .filter(keyword -> StringUtil.containsWordIgnoreCase(person.getName().fullName, keyword))
-                    .findAny()
-                    .isPresent();
-        }
-
-        @Override
-        public String toString() {
-            return "name=" + String.join(", ", nameKeyWords);
-        }
+        // state check
+        ModelManager other = (ModelManager) obj;
+        return addressBook.equals(other.addressBook)
+                && filteredPersons.equals(other.filteredPersons);
     }
 
 }

@@ -34,13 +34,7 @@ public class CommandBoxHandle extends NodeHandle<TextField> {
 
         guiRobot.type(KeyCode.ENTER);
 
-    /**
-     *
-     */
-    public HelpWindowHandle runHelpCommand() {
-        enterCommand("help");
-        pressEnter();
-        return new HelpWindowHandle(guiRobot, primaryStage);
+        return !getStyleClass().contains(CommandBox.ERROR_STYLE_CLASS);
     }
 
     /**

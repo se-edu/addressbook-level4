@@ -52,19 +52,25 @@ public class PersonListPanel extends UiPart<Region> {
     }
 
     /**
-     *
+     * Scrolls to the {@code PersonCard} at the {@code index} and selects it.
      */
-    public void scrollTo(int index) {
+    private void scrollTo(int index) {
         Platform.runLater(() -> {
             personListView.scrollTo(index);
             personListView.getSelectionModel().clearAndSelect(index);
         });
     }
 
+    @Subscribe
+    private void handleJumpToListRequestEvent(JumpToListRequestEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        scrollTo(event.targetIndex);
+    }
+
     /**
-     *
+     * Custom {@code ListCell} that displays the graphics of a {@code PersonCard}.
      */
-    class PersonListViewCell extends ListCell<ReadOnlyPerson> {
+    class PersonListViewCell extends ListCell<PersonCard> {
 
         @Override
         protected void updateItem(PersonCard person, boolean empty) {

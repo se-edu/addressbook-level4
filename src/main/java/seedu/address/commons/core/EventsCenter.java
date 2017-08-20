@@ -29,10 +29,7 @@ public class EventsCenter {
         instance = null;
     }
 
-    /**
-     *
-     */
-    public EventsCenter registerHandler(Object handler) {
+    public void registerHandler(Object handler) {
         eventBus.register(handler);
     }
 
