@@ -33,7 +33,7 @@ public class ArgumentTokenizerTest {
 
     /**
      * Asserts all the arguments in {@code argMultimap} with {@code prefix} match the {@code expectedValues}
-     * and only the last value is returned upon using {@code ArgumentMultimap#getValue(prefix)} method.
+     * and only the last value is returned upon calling {@code ArgumentMultimap#getValue(Prefix)}.
      */
     private void assertArgumentPresent(ArgumentMultimap argMultimap, Prefix prefix, String... expectedValues) {
 

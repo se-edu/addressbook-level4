@@ -98,7 +98,7 @@ public class LogsCenter {
     }
 
     /**
-     * Creates a {@code fileHandler} for the log file.
+     * Creates a {@code FileHandler} for the log file.
      * @throws IOException if there are problems opening the file.
      */
     private static FileHandler createFileHandler() throws IOException {
