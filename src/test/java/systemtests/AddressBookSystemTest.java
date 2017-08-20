@@ -2,13 +2,15 @@ package systemtests;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 import static seedu.address.ui.BrowserPanel.DEFAULT_PAGE;
+import static seedu.address.ui.BrowserPanel.GOOGLE_SEARCH_URL_PREFIX;
+import static seedu.address.ui.BrowserPanel.GOOGLE_SEARCH_URL_SUFFIX;
 import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_INITIAL;
 import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
 import static seedu.address.ui.UiPart.FXML_FILE_FOLDER;
 import static seedu.address.ui.testutil.GuiTestAssert.assertListMatching;
 
+import java.net.URL;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -28,6 +30,7 @@ import guitests.guihandles.StatusBarFooterHandle;
 import seedu.address.MainApp;
 import seedu.address.TestApp;
 import seedu.address.commons.core.EventsCenter;
+import seedu.address.commons.core.index.Index;
 import seedu.address.model.Model;
 import seedu.address.ui.CommandBox;
 
@@ -126,13 +129,18 @@ public abstract class AddressBookSystemTest {
     }
 
     /**
-     * Asserts that the browser's url and the selected card in the person list panel are changed.
+     * Asserts that the browser's url is changed to display the details of the person in the person list panel at
+     * {@code expectedSelectedCardIndex}, and only the card at {@code expectedSelectedCardIndex} is selected.
      * @see BrowserPanelHandle#isUrlChanged()
      * @see PersonListPanelHandle#isSelectedPersonCardChanged()
      */
-    protected void assertSelectedCardChanged() throws Exception {
-        assertTrue(getBrowserPanel().isUrlChanged());
-        assertTrue(getPersonListPanel().isSelectedPersonCardChanged());
+    protected void assertSelectedCardChanged(Index expectedSelectedCardIndex) throws Exception {
+        String selectedCardName = getPersonListPanel().getHandleToSelectedCard().getName();
+        URL expectedUrl = new URL(GOOGLE_SEARCH_URL_PREFIX + selectedCardName.replaceAll(" ", "+")
+                + GOOGLE_SEARCH_URL_SUFFIX);
+        assertEquals(expectedUrl, getBrowserPanel().getLoadedUrl());
+
+        assertEquals(expectedSelectedCardIndex.getZeroBased(), getPersonListPanel().getSelectedCardIndex());
     }
 
     /**
