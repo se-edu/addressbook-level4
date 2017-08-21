@@ -1,6 +1,5 @@
 package systemtests;
 
-import static guitests.guihandles.WebViewUtil.waitUntilBrowserLoaded;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
@@ -111,7 +110,6 @@ public class SelectCommandSystemTest extends AddressBookSystemTest {
         assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);
 
         if (currentSelectedCardIndex != expectedSelectedCardIndex.getZeroBased()) {
-            waitUntilBrowserLoaded(getBrowserPanel());
             assertSelectedCardChanged(expectedSelectedCardIndex);
         } else {
             assertSelectedCardUnchanged();
