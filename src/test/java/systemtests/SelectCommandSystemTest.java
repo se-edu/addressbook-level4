@@ -51,9 +51,6 @@ public class SelectCommandSystemTest extends AddressBookSystemTest {
         command = SelectCommand.COMMAND_WORD + " " + middleIndex.getOneBased();
         assertCommandSuccess(command, middleIndex);
 
-        /* Case: invalid index (size + 1) -> rejected */
-        assertCommandFailure(SelectCommand.COMMAND_WORD + " " + invalidIndex, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
-
         /* Case: select the current selected card -> selected */
         assertCommandSuccess(command, middleIndex);
 
@@ -75,14 +72,10 @@ public class SelectCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: mixed case command word -> rejected */
         assertCommandFailure("SeLeCt 1", MESSAGE_UNKNOWN_COMMAND);
-    }
 
-    @Test
-    public void selectPerson_emptyList() throws Exception {
+        /* Case: select from empty list -> rejected */
         executeCommand(ClearCommand.COMMAND_WORD);
-        assert getPersonListPanel().getListSize() == 0;
-
-        /* Case: invalid index (1) -> rejected */
+        assert getTestApp().getModel().getAddressBook().getPersonList().size() == 0;
         assertCommandFailure(SelectCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased(),
                 MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
@@ -92,10 +85,10 @@ public class SelectCommandSystemTest extends AddressBookSystemTest {
      * box displays the success message of executing select command with the {@code expectedSelectedCardIndex}
      * of the selected person, and the model related components equal to the current model.
      * These verifications are done by
-     * {@code AddressBookSystemTest#assertCommandExecution(String, String, String, Model)}. Also verifies that
-     * the command box has the default style class and the status bar remain unchanged. The resulting browser url and
-     * selected card will be verified if the current selected card and the card at {@code expectedSelectedCardIndex}
-     * are different.
+     * {@code AddressBookSystemTest#assertCommandExecution(String, String, String, Model)}.<br>
+     * Also verifies that the command box has the default style class and the status bar remain unchanged. The resulting
+     * browser url and selected card will be verified if the current selected card and the card at
+     * {@code expectedSelectedCardIndex} are different.
      * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      * @see AddressBookSystemTest#assertSelectedCardChanged(Index)
      */
@@ -125,8 +118,9 @@ public class SelectCommandSystemTest extends AddressBookSystemTest {
      * Executes {@code command} and verifies that the command box displays {@code command}, the result display
      * box displays {@code expectedResultMessage} and the model related components equal to the current model.
      * These verifications are done by
-     * {@code AddressBookSystemTest#assertCommandExecution(String, String, String, Model)}. Also verifies that
-     * the browser url, selected card and status bar remain unchanged, and the command box has the error style.
+     * {@code AddressBookSystemTest#assertCommandExecution(String, String, String, Model)}.<br>
+     * Also verifies that the browser url, selected card and status bar remain unchanged, and the command box has the
+     * error style.
      * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandFailure(String command, String expectedResultMessage) throws Exception {
@@ -135,9 +129,7 @@ public class SelectCommandSystemTest extends AddressBookSystemTest {
 
         executeCommand(command);
         assertApplicationDisplaysExpected(command, expectedResultMessage, expectedModel);
-
         assertSelectedCardUnchanged();
-
         assertCommandBoxStyleError();
         assertStatusBarUnchanged();
 
