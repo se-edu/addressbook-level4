@@ -35,8 +35,8 @@ import seedu.address.model.Model;
 import seedu.address.ui.CommandBox;
 
 /**
- * A system test class for AddressBook, which provides access to handles of GUI components, and
- * verifies that the starting state of the application is correct.
+ * A system test class for AddressBook, which provides access to handles of GUI components and helper methods
+ * for test verification.
  */
 public abstract class AddressBookSystemTest {
     @ClassRule
