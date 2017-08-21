@@ -1,17 +1,24 @@
 package systemtests;
 
-import static systemtests.AppStateAsserts.verifyApplicationStartingStateIsCorrect;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static seedu.address.ui.BrowserPanel.DEFAULT_PAGE;
+import static seedu.address.ui.BrowserPanel.GOOGLE_SEARCH_URL_PREFIX;
+import static seedu.address.ui.BrowserPanel.GOOGLE_SEARCH_URL_SUFFIX;
+import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_INITIAL;
+import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
+import static seedu.address.ui.UiPart.FXML_FILE_FOLDER;
+import static seedu.address.ui.testutil.GuiTestAssert.assertListMatching;
 
-import java.time.Clock;
-import java.time.Instant;
-import java.time.ZoneId;
-import java.util.concurrent.TimeoutException;
+import java.net.URL;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
 
 import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.testfx.api.FxToolkit;
+import org.junit.ClassRule;
 
 import guitests.guihandles.BrowserPanelHandle;
 import guitests.guihandles.CommandBoxHandle;
@@ -20,77 +27,47 @@ import guitests.guihandles.MainWindowHandle;
 import guitests.guihandles.PersonListPanelHandle;
 import guitests.guihandles.ResultDisplayHandle;
 import guitests.guihandles.StatusBarFooterHandle;
-import javafx.stage.Stage;
+import seedu.address.MainApp;
 import seedu.address.TestApp;
 import seedu.address.commons.core.EventsCenter;
-import seedu.address.testutil.TypicalPersons;
-import seedu.address.ui.StatusBarFooter;
+import seedu.address.commons.core.index.Index;
+import seedu.address.model.Model;
+import seedu.address.ui.CommandBox;
 
 /**
- * A system test class for AddressBook, which sets up the {@code TestApp}, provides access
- * to handles of GUI components, provides clock injection and verifies that the starting state of the
- * application is correct.
+ * A system test class for AddressBook, which provides access to handles of GUI components, and
+ * verifies that the starting state of the application is correct.
  */
 public abstract class AddressBookSystemTest {
-    public static final Clock INJECTED_CLOCK = Clock.fixed(Instant.now(), ZoneId.systemDefault());
-    private static final Clock ORIGINAL_CLOCK = StatusBarFooter.getClock();
+    @ClassRule
+    public static ClockRule clockRule = new ClockRule();
 
-    private Stage stage;
+    private static final List<String> COMMAND_BOX_DEFAULT_STYLE = Arrays.asList("text-input", "text-field");
+    private static final List<String> COMMAND_BOX_ERROR_STYLE =
+            Arrays.asList("text-input", "text-field", CommandBox.ERROR_STYLE_CLASS);
 
     private MainWindowHandle mainWindowHandle;
     private TestApp testApp;
+    private SystemTestSetupHelper setupHelper;
 
     @BeforeClass
-    public static void setupUpBeforeClass() {
-        initializeFxToolkit();
-
-        // provides us a way to predict expected time more easily, to prevent scenarios whereby
-        // a 1-second delay causes the verification to be wrong
-        StatusBarFooter.setClock(INJECTED_CLOCK);
-    }
-
-    private static void initializeFxToolkit() {
-        try {
-            FxToolkit.registerPrimaryStage();
-            FxToolkit.hideStage();
-        } catch (TimeoutException e) {
-            throw new AssertionError(e);
-        }
-    }
-
-    @AfterClass
-    public static void tearDownAfterClass() {
-        // restore original clock
-        StatusBarFooter.setClock(ORIGINAL_CLOCK);
+    public static void setupBeforeClass() {
+        SystemTestSetupHelper.initializeStage();
     }
 
     @Before
     public void setUp() {
-        setupApplication();
+        setupHelper = new SystemTestSetupHelper();
+        testApp = setupHelper.setupApplication();
+        mainWindowHandle = setupHelper.setupMainWindowHandle();
 
-        mainWindowHandle = new MainWindowHandle(stage);
-        mainWindowHandle.focus();
-
-        verifyApplicationStartingStateIsCorrect(this);
-    }
-
-    private void setupApplication() {
-        try {
-            FxToolkit.setupStage((stage) -> {
-                this.stage = stage;
-            });
-            FxToolkit.setupApplication(() -> testApp = new TestApp(TypicalPersons::getTypicalAddressBook,
-                    TestApp.SAVE_LOCATION_FOR_TESTING));
-            FxToolkit.showStage();
-        } catch (TimeoutException te) {
-            throw new AssertionError("Application takes too long to set up.");
-        }
+        assertApplicationStartingStateIsCorrect();
     }
 
     @After
     public void tearDown() throws Exception {
+        setupHelper.tearDownStage();
         EventsCenter.clearSubscribers();
-        FxToolkit.cleanupStages();
     }
 
     public CommandBoxHandle getCommandBox() {
@@ -118,13 +95,116 @@ public abstract class AddressBookSystemTest {
     }
 
     /**
-     * Runs {@code command} in the application's {@code CommandBox}.
+     * Executes {@code command} in the application's {@code CommandBox}.
      */
-    public void runCommand(String command) {
+    protected void executeCommand(String command) throws Exception {
+        rememberStates();
         mainWindowHandle.getCommandBox().run(command);
     }
 
-    public TestApp getTestApp() {
+    /**
+     * Asserts that the {@code CommandBox} displays {@code expectedCommandInput}, the {@code ResultDisplay} displays
+     * {@code expectedResultMessage}, the model and storage contains the same person objects as {@code expectedModel}
+     * and the person list panel displays the persons in the model correctly.
+     */
+    protected void assertApplicationDisplaysExpected(String expectedCommandInput, String expectedResultMessage,
+            Model expectedModel) throws Exception {
+        assertEquals(expectedCommandInput, getCommandBox().getInput());
+        assertEquals(expectedResultMessage, getResultDisplay().getText());
+        assertEquals(expectedModel, getTestApp().getModel());
+        assertEquals(expectedModel.getAddressBook(), getTestApp().readStorageAddressBook());
+        assertListMatching(getPersonListPanel(), expectedModel.getFilteredPersonList());
+    }
+
+    /**
+     * Calls {@code BrowserPanelHandle}, {@code PersonListPanelHandle} and {@code StatusBarFooterHandle} to remember
+     * their current state.
+     */
+    private void rememberStates() throws Exception {
+        StatusBarFooterHandle statusBarFooterHandle = getStatusBarFooter();
+        getBrowserPanel().rememberUrl();
+        statusBarFooterHandle.rememberSaveLocation();
+        statusBarFooterHandle.rememberSyncStatus();
+        getPersonListPanel().rememberSelectedPersonCard();
+    }
+
+    /**
+     * Asserts that the browser's url is changed to display the details of the person in the person list panel at
+     * {@code expectedSelectedCardIndex}, and only the card at {@code expectedSelectedCardIndex} is selected.
+     * @see BrowserPanelHandle#isUrlChanged()
+     * @see PersonListPanelHandle#isSelectedPersonCardChanged()
+     */
+    protected void assertSelectedCardChanged(Index expectedSelectedCardIndex) throws Exception {
+        String selectedCardName = getPersonListPanel().getHandleToSelectedCard().getName();
+        URL expectedUrl = new URL(GOOGLE_SEARCH_URL_PREFIX + selectedCardName.replaceAll(" ", "+")
+                + GOOGLE_SEARCH_URL_SUFFIX);
+        assertEquals(expectedUrl, getBrowserPanel().getLoadedUrl());
+
+        assertEquals(expectedSelectedCardIndex.getZeroBased(), getPersonListPanel().getSelectedCardIndex());
+    }
+
+    /**
+     * Asserts that the browser's url and the selected card in the person list panel remain unchanged.
+     * @see BrowserPanelHandle#isUrlChanged()
+     * @see PersonListPanelHandle#isSelectedPersonCardChanged()
+     */
+    protected void assertSelectedCardUnchanged() throws Exception {
+        assertFalse(getBrowserPanel().isUrlChanged());
+        assertFalse(getPersonListPanel().isSelectedPersonCardChanged());
+    }
+
+    /**
+     * Asserts that the command box's style is the default style.
+     */
+    protected void assertCommandBoxStyleDefault() {
+        assertEquals(COMMAND_BOX_DEFAULT_STYLE, getCommandBox().getStyleClass());
+    }
+
+    /**
+     * Asserts that the command box's style is the error style.
+     */
+    protected void assertCommandBoxStyleError() {
+        assertEquals(COMMAND_BOX_ERROR_STYLE, getCommandBox().getStyleClass());
+    }
+
+    /**
+     * Asserts that the entire status bar remains the same.
+     */
+    protected void assertStatusBarUnchanged() {
+        StatusBarFooterHandle handle = getStatusBarFooter();
+        assertFalse(handle.isSaveLocationChanged());
+        assertFalse(handle.isSyncStatusChanged());
+    }
+
+    /**
+     * Asserts that only the sync status in the status bar was changed to the timing of
+     * {@code ClockRule#getInjectedClock()}, while the save location remains the same.
+     */
+    protected void assertStatusBarUnchangedExceptSyncStatus() {
+        StatusBarFooterHandle handle = getStatusBarFooter();
+        String timestamp = new Date(clockRule.getInjectedClock().millis()).toString();
+        String expectedSyncStatus = String.format(SYNC_STATUS_UPDATED, timestamp);
+        assertEquals(expectedSyncStatus, handle.getSyncStatus());
+        assertFalse(handle.isSaveLocationChanged());
+    }
+
+    /**
+     * Asserts that the starting state of the application is correct.
+     */
+    private void assertApplicationStartingStateIsCorrect() {
+        try {
+            assertEquals("", getCommandBox().getInput());
+            assertEquals("", getResultDisplay().getText());
+            assertListMatching(getPersonListPanel(), getTestApp().getModel().getFilteredPersonList());
+            assertEquals(MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_PAGE), getBrowserPanel().getLoadedUrl());
+            assertEquals("./" + getTestApp().getStorageSaveLocation(), getStatusBarFooter().getSaveLocation());
+            assertEquals(SYNC_STATUS_INITIAL, getStatusBarFooter().getSyncStatus());
+        } catch (Exception e) {
+            throw new AssertionError("Starting state is wrong.", e);
+        }
+    }
+
+    protected TestApp getTestApp() {
         return testApp;
     }
 }
