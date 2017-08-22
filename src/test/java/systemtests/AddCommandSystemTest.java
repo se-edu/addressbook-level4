@@ -1,6 +1,5 @@
 package systemtests;
 
-import static guitests.guihandles.WebViewUtil.waitUntilBrowserLoaded;
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.BOB;
@@ -21,6 +20,7 @@ import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.CARL;
 import static seedu.address.testutil.TypicalPersons.HOON;
 import static seedu.address.testutil.TypicalPersons.IDA;
+import static seedu.address.testutil.TypicalPersons.KEYWORD_MATCHING_MEIER;
 
 import org.junit.Test;
 
@@ -31,15 +31,13 @@ import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
-import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
-import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.ReadOnlyPerson;
+import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.PersonUtil;
 
@@ -47,10 +45,11 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
 
     @Test
     public void add() throws Exception {
-        ModelManager model = new ModelManager(getTestApp().getModel().getAddressBook(), new UserPrefs());
+        Model model = getTestApp().getModel();
 
         /* Case: add a person without tags to a non-empty address book, command with leading spaces and trailing spaces
-        * -> added */
+         * -> added
+         */
         ReadOnlyPerson toAdd = HOON;
         String command = "   " + PersonUtil.getAddCommand(toAdd) + "   ";
         assertCommandSuccess(command, toAdd);
@@ -71,7 +70,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
 
         /* Case: filters the person list before adding -> added */
-        executeCommand(FindCommand.COMMAND_WORD + " Hoon");
+        executeCommand(FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MEIER);
         assert getTestApp().getModel().getFilteredPersonList().size()
                 < getTestApp().getModel().getAddressBook().getPersonList().size();
         toAdd = IDA;
@@ -93,7 +92,6 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: selects first card in the person list, add a person -> added, card selection remains unchanged */
         executeCommand(SelectCommand.COMMAND_WORD + " 1");
-        waitUntilBrowserLoaded(getBrowserPanel());
         assert getPersonListPanel().isAnyCardSelected();
         toAdd = CARL;
         command = PersonUtil.getAddCommand(toAdd);
@@ -134,10 +132,13 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
      * the browser url and selected card remains unchanged.
      * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
-    private void assertCommandSuccess(String command, ReadOnlyPerson toAdd) throws Exception {
-        Model expectedModel = new ModelManager(new AddressBook(getTestApp().getModel().getAddressBook()),
-                new UserPrefs());
-        expectedModel.addPerson(toAdd);
+    private void assertCommandSuccess(String command, ReadOnlyPerson toAdd) {
+        Model expectedModel = getTestApp().getModel();
+        try {
+            expectedModel.addPerson(toAdd);
+        } catch (DuplicatePersonException dpe) {
+            throw new IllegalArgumentException("toAdd already exists in the model.");
+        }
         String expectedResultMessage = String.format(AddCommand.MESSAGE_SUCCESS, toAdd);
 
         assertCommandSuccess(command, expectedModel, expectedResultMessage);
@@ -149,15 +150,12 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
      * {@code expectedModel}.
      * @see AddCommandSystemTest#assertCommandSuccess(String, ReadOnlyPerson)
      */
-    private void assertCommandSuccess(String command, Model expectedModel, String expectedResultMessage)
-            throws Exception {
+    private void assertCommandSuccess(String command, Model expectedModel, String expectedResultMessage) {
         executeCommand(command);
         assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);
         assertSelectedCardUnchanged();
-        assertCommandBoxStyleDefault();
+        assertCommandBoxShowsDefaultStyle();
         assertStatusBarUnchangedExceptSyncStatus();
-
-        clockRule.setInjectedClockToCurrentTime();
     }
 
     /**
@@ -169,16 +167,13 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
      * error style.
      * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
-    private void assertCommandFailure(String command, String expectedResultMessage) throws Exception {
-        Model expectedModel = new ModelManager(
-                new AddressBook(getTestApp().getModel().getAddressBook()), new UserPrefs());
+    private void assertCommandFailure(String command, String expectedResultMessage) {
+        Model expectedModel = getTestApp().getModel();
 
         executeCommand(command);
         assertApplicationDisplaysExpected(command, expectedResultMessage, expectedModel);
         assertSelectedCardUnchanged();
-        assertCommandBoxStyleError();
+        assertCommandBoxShowsErrorStyle();
         assertStatusBarUnchanged();
-
-        clockRule.setInjectedClockToCurrentTime();
     }
 }
