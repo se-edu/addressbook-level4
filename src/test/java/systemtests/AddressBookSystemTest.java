@@ -143,7 +143,7 @@ public abstract class AddressBookSystemTest {
      * of the previously selected person.
      * @see BrowserPanelHandle#isUrlChanged()
      */
-    protected void assertCardDeselected() throws Exception {
+    protected void assertCardDeselected() {
         assertFalse(getBrowserPanel().isUrlChanged());
         assertFalse(getPersonListPanel().isAnyCardSelected());
     }

@@ -1,7 +1,7 @@
 package systemtests;
 
-import static guitests.guihandles.WebViewUtil.waitUntilBrowserLoaded;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.address.testutil.TypicalPersons.KEYWORD_MATCHING_MEIER;
 
 import org.junit.Test;
 
@@ -10,26 +10,25 @@ import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
-import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-import seedu.address.model.UserPrefs;
-import seedu.address.testutil.TypicalPersons;
 
 public class ClearCommandSystemTest extends AddressBookSystemTest {
 
     @Test
-    public void clear() throws Exception {
+    public void clear() {
+        Model defaultModel = getTestApp().getModel();
+
         /* Case: clear non-empty address book, command with leading spaces and trailing alphanumeric characters and
-        * spaces -> cleared */
+         * spaces -> cleared
+         */
         assertCommandSuccess("   " + ClearCommand.COMMAND_WORD + " ab12   ");
         assertSelectedCardUnchanged();
 
         /* Case: undo clearing address book -> original address book restored */
         String command = UndoCommand.COMMAND_WORD;
         String expectedResultMessage = UndoCommand.MESSAGE_SUCCESS;
-        assertCommandSuccess(command,  expectedResultMessage,
-                new ModelManager(TypicalPersons.getTypicalAddressBook(), new UserPrefs()));
+        assertCommandSuccess(command,  expectedResultMessage, defaultModel);
         assertSelectedCardUnchanged();
 
         /* Case: redo clearing address book -> cleared */
@@ -42,13 +41,12 @@ public class ClearCommandSystemTest extends AddressBookSystemTest {
         executeCommand(UndoCommand.COMMAND_WORD); // restore the original address book
         executeCommand(SelectCommand.COMMAND_WORD + " 1");
         assert getPersonListPanel().isAnyCardSelected();
-        waitUntilBrowserLoaded(getBrowserPanel());
         assertCommandSuccess(ClearCommand.COMMAND_WORD);
         assertCardDeselected();
 
         /* Case: filters the person list before clearing -> entire address book cleared */
         executeCommand(UndoCommand.COMMAND_WORD); // restore the original address book
-        executeCommand(FindCommand.COMMAND_WORD + " Meier");
+        executeCommand(FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MEIER);
         assert getTestApp().getModel().getFilteredPersonList().size()
                 < getTestApp().getModel().getAddressBook().getPersonList().size();
         assertCommandSuccess(ClearCommand.COMMAND_WORD);
@@ -70,7 +68,7 @@ public class ClearCommandSystemTest extends AddressBookSystemTest {
      * Also verifies that the command box has the default style class and the status bar's sync status changes.
      * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
-    private void assertCommandSuccess(String command) throws Exception {
+    private void assertCommandSuccess(String command) {
         assertCommandSuccess(command, ClearCommand.MESSAGE_SUCCESS, new ModelManager());
     }
 
@@ -79,14 +77,11 @@ public class ClearCommandSystemTest extends AddressBookSystemTest {
      * {@code expectedResultMessage} and the model related components equal to {@code expectedModel}.
      * @see ClearCommandSystemTest#assertCommandSuccess(String)
      */
-    private void assertCommandSuccess(String command, String expectedResultMessage, Model expectedModel)
-            throws Exception {
+    private void assertCommandSuccess(String command, String expectedResultMessage, Model expectedModel) {
         executeCommand(command);
         assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);
-        assertCommandBoxStyleDefault();
+        assertCommandBoxShowsDefaultStyle();
         assertStatusBarUnchangedExceptSyncStatus();
-
-        clockRule.setInjectedClockToCurrentTime();
     }
 
     /**
@@ -98,16 +93,13 @@ public class ClearCommandSystemTest extends AddressBookSystemTest {
      * error style.
      * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
-    private void assertCommandFailure(String command, String expectedResultMessage) throws Exception {
-        Model expectedModel = new ModelManager(
-                new AddressBook(getTestApp().getModel().getAddressBook()), new UserPrefs());
+    private void assertCommandFailure(String command, String expectedResultMessage) {
+        Model expectedModel = getTestApp().getModel();
 
         executeCommand(command);
         assertApplicationDisplaysExpected(command, expectedResultMessage, expectedModel);
         assertSelectedCardUnchanged();
-        assertCommandBoxStyleError();
+        assertCommandBoxShowsErrorStyle();
         assertStatusBarUnchanged();
-
-        clockRule.setInjectedClockToCurrentTime();
     }
 }
