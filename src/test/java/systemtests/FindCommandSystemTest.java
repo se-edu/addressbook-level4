@@ -1,5 +1,6 @@
 package systemtests;
 
+import static guitests.guihandles.WebViewUtil.waitUntilBrowserLoaded;
 import static seedu.address.commons.core.Messages.MESSAGE_PERSONS_LISTED_OVERVIEW;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.testutil.TypicalPersons.BENSON;
@@ -17,7 +18,9 @@ import org.junit.Test;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.RedoCommand;
+import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -35,6 +38,7 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
         String command = "   " + FindCommand.COMMAND_WORD + " Meier   ";
         Model expectedModel = prepareModelFilteredList(BENSON, DANIEL);
         assertCommandSuccess(command, expectedModel);
+        assertSelectedCardUnchanged();
 
         /* Case: repeat previous find command where list is displaying the persons we are finding -> 2 persons found */
         command = FindCommand.COMMAND_WORD + " Meier";
@@ -52,6 +56,7 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
         command = FindCommand.COMMAND_WORD + " Benson Daniel";
         expectedModel = prepareModelFilteredList(BENSON, DANIEL);
         assertCommandSuccess(command, expectedModel);
+        assertSelectedCardUnchanged();
 
         /* Case: undo previous find command -> rejected */
         command = UndoCommand.COMMAND_WORD;
@@ -69,36 +74,62 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
         command = FindCommand.COMMAND_WORD + " Meier";
         expectedModel = prepareModelFilteredList(DANIEL);
         assertCommandSuccess(command, expectedModel);
+        assertSelectedCardUnchanged();
 
         /* Case: find person in list, command with name of different case -> 1 person found */
         command = FindCommand.COMMAND_WORD + " MeIeR";
         assertCommandSuccess(command, expectedModel);
+        assertSelectedCardUnchanged();
 
         /* Case: find person in list, command with part of name -> 0 persons found */
         command = FindCommand.COMMAND_WORD + " Mei";
         expectedModel = prepareModelFilteredList();
         assertCommandSuccess(command, expectedModel);
+        assertSelectedCardUnchanged();
 
         /* Case: find person not in list -> 0 persons found */
         command = FindCommand.COMMAND_WORD + " Mark";
         assertCommandSuccess(command, expectedModel);
+        assertSelectedCardUnchanged();
 
         /* Case: find phone number of person in list -> 0 persons found */
         command = FindCommand.COMMAND_WORD + " " + DANIEL.getPhone().value;
         assertCommandSuccess(command, expectedModel);
+        assertSelectedCardUnchanged();
 
         /* Case: find address of person in list -> 0 persons found */
         command = FindCommand.COMMAND_WORD + " " + DANIEL.getAddress().value;
         assertCommandSuccess(command, expectedModel);
+        assertSelectedCardUnchanged();
 
         /* Case: find email of person in list -> 0 persons found */
         command = FindCommand.COMMAND_WORD + " " + DANIEL.getEmail().value;
         assertCommandSuccess(command, expectedModel);
+        assertSelectedCardUnchanged();
 
         /* Case: find tags of person in list -> 0 persons found */
         List<Tag> tags = new ArrayList<>(DANIEL.getTags());
         command = FindCommand.COMMAND_WORD + " " + tags.get(0).tagName;
         assertCommandSuccess(command, expectedModel);
+        assertSelectedCardUnchanged();
+
+        /* Case: selects first person in list and finds another person in list -> 1 person found and card deselected */
+        executeCommand(ListCommand.COMMAND_WORD);
+        assert getPersonListPanel().getListSize() == 6;
+        executeCommand(SelectCommand.COMMAND_WORD + " 1");
+        assert !getPersonListPanel().getHandleToSelectedCard().getName().equals(DANIEL.getName().fullName);
+        waitUntilBrowserLoaded(getBrowserPanel());
+        command = FindCommand.COMMAND_WORD + " Daniel";
+        expectedModel = prepareModelFilteredList(DANIEL);
+        assertCommandSuccess(command, expectedModel);
+        assertCardDeselected();
+
+        /* Case: selects and finds the same person in list -> 1 person found and card deselected */
+        executeCommand(SelectCommand.COMMAND_WORD + " 1");
+        assert getPersonListPanel().getHandleToSelectedCard().getName().equals(DANIEL.getName().fullName);
+        waitUntilBrowserLoaded(getBrowserPanel());
+        assertCommandSuccess(command, expectedModel);
+        assertCardDeselected();
 
         /* Case: find person in empty list -> 0 persons found */
         executeCommand(ClearCommand.COMMAND_WORD);
@@ -106,6 +137,7 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
         command = FindCommand.COMMAND_WORD + " Meier";
         expectedModel = prepareModelFilteredList();
         assertCommandSuccess(command, expectedModel);
+        assertSelectedCardUnchanged();
 
         /* Case: mixed case command word -> rejected */
         command = "FiNd Meier";
@@ -119,8 +151,7 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
      * and the model related components equal to {@code expectedModel}.
      * These verifications are done by
      * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
-     * Also verifies that the status bar, browser url and selected card remain unchanged, and the command box has the
-     * default style class.
+     * Also verifies that the status bar remains unchanged, and the command box has the default style class.
      * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandSuccess(String command, Model expectedModel) throws Exception {
@@ -129,7 +160,6 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
 
         executeCommand(command);
         assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);
-        assertSelectedCardUnchanged();
         assertCommandBoxStyleDefault();
         assertStatusBarUnchanged();
 
