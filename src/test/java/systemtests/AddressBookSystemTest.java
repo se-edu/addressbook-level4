@@ -1,6 +1,5 @@
 package systemtests;
 
-import static guitests.guihandles.WebViewUtil.waitUntilBrowserLoaded;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static seedu.address.ui.BrowserPanel.DEFAULT_PAGE;
@@ -15,6 +14,8 @@ import java.net.URL;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
+import java.util.function.Predicate;
 
 import org.junit.After;
 import org.junit.Before;
@@ -33,6 +34,9 @@ import seedu.address.TestApp;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.index.Index;
 import seedu.address.model.Model;
+import seedu.address.model.ModelManager;
+import seedu.address.model.UserPrefs;
+import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.ui.CommandBox;
 
 /**
@@ -46,6 +50,8 @@ public abstract class AddressBookSystemTest {
     private static final List<String> COMMAND_BOX_DEFAULT_STYLE = Arrays.asList("text-input", "text-field");
     private static final List<String> COMMAND_BOX_ERROR_STYLE =
             Arrays.asList("text-input", "text-field", CommandBox.ERROR_STYLE_CLASS);
+
+    private static final Predicate<ReadOnlyPerson> PREDICATE_SHOW_NO_PERSONS = unused -> false;
 
     private MainWindowHandle mainWindowHandle;
     private TestApp testApp;
@@ -62,7 +68,6 @@ public abstract class AddressBookSystemTest {
         testApp = setupHelper.setupApplication();
         mainWindowHandle = setupHelper.setupMainWindowHandle();
 
-        waitUntilBrowserLoaded(getBrowserPanel());
         assertApplicationStartingStateIsCorrect();
     }
 
@@ -98,15 +103,28 @@ public abstract class AddressBookSystemTest {
 
     /**
      * Executes {@code command} in the application's {@code CommandBox}.
-     * Method returns after UI components have been updated.
      */
     protected void executeCommand(String command) throws Exception {
         rememberStates();
         mainWindowHandle.getCommandBox().run(command);
+    }
 
-        if (getBrowserPanel().getIsWebViewLoading()) {
-            waitUntilBrowserLoaded(getBrowserPanel());
-        }
+    /**
+     * Returns a {@code Model} backed by {@code TestApp}'s address book, displaying only {@code displayedPersons}.
+     */
+    protected Model prepareModelFilteredList(ReadOnlyPerson... displayedPersons) {
+        ModelManager model = new ModelManager(getTestApp().getModel().getAddressBook(), new UserPrefs());
+        Optional<Predicate<ReadOnlyPerson>> predicate =
+                Arrays.stream(displayedPersons).map(this::personEquals).reduce(Predicate::or);
+        model.updateFilteredPersonList(predicate.orElse(PREDICATE_SHOW_NO_PERSONS));
+        return model;
+    }
+
+    /**
+     * Returns a predicate that evaluates to true if this {@code ReadOnlyPerson} equals to {@code other}.
+     */
+    private Predicate<ReadOnlyPerson> personEquals(ReadOnlyPerson other) {
+        return person -> person.equals(other);
     }
 
     /**
@@ -140,7 +158,7 @@ public abstract class AddressBookSystemTest {
      * of the previously selected person.
      * @see BrowserPanelHandle#isUrlChanged()
      */
-    protected void assertCardDeselected() throws Exception {
+    protected void assertSelectedCardDeselected() throws Exception {
         assertFalse(getBrowserPanel().isUrlChanged());
         assertFalse(getPersonListPanel().isAnyCardSelected());
     }
@@ -168,6 +186,35 @@ public abstract class AddressBookSystemTest {
     protected void assertSelectedCardUnchanged() throws Exception {
         assertFalse(getBrowserPanel().isUrlChanged());
         assertFalse(getPersonListPanel().isSelectedPersonCardChanged());
+    }
+
+    /**
+     * @see AddressBookSystemTest#assertSelectedCardState(SelectedCardStatus, Index)
+     */
+    protected void assertSelectedCardState(SelectedCardStatus cardStatus) throws Exception {
+        assertSelectedCardState(cardStatus, null);
+    }
+
+    /**
+     * Calls the corresponding card selection verification methods depending on {@code cardStatus}.
+     * @see AddressBookSystemTest#assertSelectedCardChanged(Index)
+     * @see AddressBookSystemTest#assertSelectedCardDeselected()
+     * @see AddressBookSystemTest#assertSelectedCardUnchanged()
+     */
+    protected void assertSelectedCardState(SelectedCardStatus cardStatus, Index index) throws Exception {
+        switch (cardStatus) {
+        case UNCHANGED:
+            assertSelectedCardUnchanged();
+            break;
+        case DESELECTED:
+            assertSelectedCardDeselected();
+            break;
+        case CHANGED:
+            assertSelectedCardChanged(index);
+            break;
+        default:
+            assert false : "No other enum values";
+        }
     }
 
     /**

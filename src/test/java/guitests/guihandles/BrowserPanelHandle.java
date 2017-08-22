@@ -16,7 +16,6 @@ public class BrowserPanelHandle extends NodeHandle<Node> {
 
     public static final String BROWSER_ID = "#browser";
 
-    private boolean isWebViewLoading = false;
     private boolean isWebViewLoaded = false;
 
     private URL lastRememberedUrl;
@@ -27,10 +26,6 @@ public class BrowserPanelHandle extends NodeHandle<Node> {
         WebView webView = getChildNode(BROWSER_ID);
         WebEngine engine = webView.getEngine();
         new GuiRobot().interact(() -> engine.getLoadWorker().stateProperty().addListener((obs, oldState, newState) -> {
-            if (oldState == Worker.State.SUCCEEDED) { // we assume it is transiting from success state to running state
-                isWebViewLoading = true;
-            }
-
             if (newState == Worker.State.SUCCEEDED) {
                 isWebViewLoaded = true;
             }
@@ -65,13 +60,5 @@ public class BrowserPanelHandle extends NodeHandle<Node> {
 
     public void setIsWebViewLoaded(boolean isWebViewLoaded) {
         this.isWebViewLoaded = isWebViewLoaded;
-    }
-
-    public boolean getIsWebViewLoading() {
-        return isWebViewLoading;
-    }
-
-    public void setIsWebViewLoading(boolean isWebViewLoading) {
-        this.isWebViewLoading = isWebViewLoading;
     }
 }
