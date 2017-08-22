@@ -1,6 +1,5 @@
 package systemtests;
 
-import static guitests.guihandles.WebViewUtil.waitUntilBrowserLoaded;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static seedu.address.ui.BrowserPanel.DEFAULT_PAGE;
@@ -15,6 +14,8 @@ import java.net.URL;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
+import java.util.function.Predicate;
 
 import org.junit.After;
 import org.junit.Before;
@@ -33,11 +34,14 @@ import seedu.address.TestApp;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.index.Index;
 import seedu.address.model.Model;
+import seedu.address.model.ModelManager;
+import seedu.address.model.UserPrefs;
+import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.ui.CommandBox;
 
 /**
- * A system test class for AddressBook, which provides access to handles of GUI components and helper methods
- * for test verification.
+ * A system test class for AddressBook, which provides access to handles of GUI components, and
+ * verifies that the starting state of the application is correct.
  */
 public abstract class AddressBookSystemTest {
     @ClassRule
@@ -46,6 +50,8 @@ public abstract class AddressBookSystemTest {
     private static final List<String> COMMAND_BOX_DEFAULT_STYLE = Arrays.asList("text-input", "text-field");
     private static final List<String> COMMAND_BOX_ERROR_STYLE =
             Arrays.asList("text-input", "text-field", CommandBox.ERROR_STYLE_CLASS);
+
+    private static final Predicate<ReadOnlyPerson> PREDICATE_SHOW_NO_PERSONS = unused -> false;
 
     private MainWindowHandle mainWindowHandle;
     private TestApp testApp;
@@ -104,6 +110,24 @@ public abstract class AddressBookSystemTest {
     }
 
     /**
+     * Returns a {@code Model} backed by {@code TestApp}'s address book, displaying only {@code displayedPersons}.
+     */
+    protected Model prepareModelFilteredList(ReadOnlyPerson... displayedPersons) {
+        Model model = new ModelManager(getTestApp().getModel().getAddressBook(), new UserPrefs());
+        Optional<Predicate<ReadOnlyPerson>> predicate =
+                Arrays.stream(displayedPersons).map(this::personEquals).reduce(Predicate::or);
+        model.updateFilteredPersonList(predicate.orElse(PREDICATE_SHOW_NO_PERSONS));
+        return model;
+    }
+
+    /**
+     * Returns a predicate that evaluates to true if this {@code ReadOnlyPerson} equals to {@code other}.
+     */
+    private Predicate<ReadOnlyPerson> personEquals(ReadOnlyPerson other) {
+        return person -> person.equals(other);
+    }
+
+    /**
      * Asserts that the {@code CommandBox} displays {@code expectedCommandInput}, the {@code ResultDisplay} displays
      * {@code expectedResultMessage}, the model and storage contains the same person objects as {@code expectedModel}
      * and the person list panel displays the persons in the model correctly.
@@ -136,8 +160,6 @@ public abstract class AddressBookSystemTest {
      * @see PersonListPanelHandle#isSelectedPersonCardChanged()
      */
     protected void assertSelectedCardChanged(Index expectedSelectedCardIndex) throws Exception {
-        waitUntilBrowserLoaded(getBrowserPanel());
-
         String selectedCardName = getPersonListPanel().getHandleToSelectedCard().getName();
         URL expectedUrl = new URL(GOOGLE_SEARCH_URL_PREFIX + selectedCardName.replaceAll(" ", "+")
                 + GOOGLE_SEARCH_URL_SUFFIX);

@@ -1,5 +1,6 @@
 package systemtests;
 
+import static guitests.guihandles.WebViewUtil.waitUntilBrowserLoaded;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
@@ -11,27 +12,22 @@ import org.junit.Test;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.ClearCommand;
+import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
-import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
-import seedu.address.model.UserPrefs;
+import seedu.address.model.person.ReadOnlyPerson;
 
 public class SelectCommandSystemTest extends AddressBookSystemTest {
     @Test
-    public void select_nonEmptyList() throws Exception {
-        int invalidIndex = getTestApp().getModel().getFilteredPersonList().size() + 1;
-
-        /* Case: invalid index (size + 1) -> rejected */
-        assertCommandFailure(SelectCommand.COMMAND_WORD + " " + invalidIndex, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
-
-        /* Case: select the first card in the list, command with leading spaces and trailing spaces -> selected */
+    public void select() throws Exception {
+        /* Case: select the first card in the person list, command with leading spaces and trailing spaces
+        * -> selected */
         String command = "   " + SelectCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased() + "   ";
         assertCommandSuccess(command, INDEX_FIRST_PERSON);
 
-        /* Case: select the last card in the list -> selected */
+        /* Case: select the last card in the person list -> selected */
         Index personCount = Index.fromOneBased(getTypicalPersons().size());
         command = SelectCommand.COMMAND_WORD + " " + personCount.getOneBased();
         assertCommandSuccess(command, personCount);
@@ -46,13 +42,31 @@ public class SelectCommandSystemTest extends AddressBookSystemTest {
         expectedResultMessage = RedoCommand.MESSAGE_FAILURE;
         assertCommandFailure(command, expectedResultMessage);
 
-        /* Case: select the middle card in the list -> selected */
+        /* Case: select the middle card in the person list -> selected */
         Index middleIndex = Index.fromOneBased(personCount.getOneBased() / 2);
         command = SelectCommand.COMMAND_WORD + " " + middleIndex.getOneBased();
         assertCommandSuccess(command, middleIndex);
 
+        /* Case: invalid index (size + 1) -> rejected */
+        int invalidIndex = getTestApp().getModel().getFilteredPersonList().size() + 1;
+        assertCommandFailure(SelectCommand.COMMAND_WORD + " " + invalidIndex, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+
         /* Case: select the current selected card -> selected */
         assertCommandSuccess(command, middleIndex);
+
+        /* Case: filtered person list, select index in bounds of address book but out of bounds of person list
+        * -> rejected */
+        executeCommand(FindCommand.COMMAND_WORD + " Meier");
+        assert getTestApp().getModel().getFilteredPersonList().size()
+                < getTestApp().getModel().getAddressBook().getPersonList().size();
+        invalidIndex = getTestApp().getModel().getAddressBook().getPersonList().size();
+        assertCommandFailure(SelectCommand.COMMAND_WORD + " " + invalidIndex, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+
+        /* Case: filtered person list, select index in bounds of address book and person list -> selected */
+        Index validIndex = Index.fromOneBased(1);
+        assert validIndex.getZeroBased() < getTestApp().getModel().getFilteredPersonList().size();
+        command = SelectCommand.COMMAND_WORD + " " + validIndex.getOneBased();
+        assertCommandSuccess(command, validIndex);
 
         /* Case: invalid index (0) -> rejected */
         assertCommandFailure(SelectCommand.COMMAND_WORD + " " + 0,
@@ -73,7 +87,7 @@ public class SelectCommandSystemTest extends AddressBookSystemTest {
         /* Case: mixed case command word -> rejected */
         assertCommandFailure("SeLeCt 1", MESSAGE_UNKNOWN_COMMAND);
 
-        /* Case: select from empty list -> rejected */
+        /* Case: select from empty address book -> rejected */
         executeCommand(ClearCommand.COMMAND_WORD);
         assert getTestApp().getModel().getAddressBook().getPersonList().size() == 0;
         assertCommandFailure(SelectCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased(),
@@ -93,19 +107,20 @@ public class SelectCommandSystemTest extends AddressBookSystemTest {
      * @see AddressBookSystemTest#assertSelectedCardChanged(Index)
      */
     private void assertCommandSuccess(String command, Index expectedSelectedCardIndex) throws Exception {
-        Model expectedModel = new ModelManager(new AddressBook(getTestApp().getModel().getAddressBook()),
-                new UserPrefs());
+        Model expectedModel = prepareModelFilteredList(
+                getTestApp().getModel().getFilteredPersonList().toArray(new ReadOnlyPerson[0]));
         String expectedResultMessage = String.format(
                 MESSAGE_SELECT_PERSON_SUCCESS, expectedSelectedCardIndex.getOneBased());
-        int currentSelectedCardIndex = getPersonListPanel().getSelectedCardIndex();
+        int preExecutionSelectedCardIndex = getPersonListPanel().getSelectedCardIndex();
 
         executeCommand(command);
         assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);
 
-        if (currentSelectedCardIndex != expectedSelectedCardIndex.getZeroBased()) {
-            assertSelectedCardChanged(expectedSelectedCardIndex);
-        } else {
+        if (preExecutionSelectedCardIndex == expectedSelectedCardIndex.getZeroBased()) {
             assertSelectedCardUnchanged();
+        } else {
+            waitUntilBrowserLoaded(getBrowserPanel());
+            assertSelectedCardChanged(expectedSelectedCardIndex);
         }
 
         assertCommandBoxStyleDefault();
@@ -124,8 +139,8 @@ public class SelectCommandSystemTest extends AddressBookSystemTest {
      * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandFailure(String command, String expectedResultMessage) throws Exception {
-        Model expectedModel = new ModelManager(new AddressBook(getTestApp().getModel().getAddressBook()),
-                new UserPrefs());
+        Model expectedModel = prepareModelFilteredList(
+                getTestApp().getModel().getFilteredPersonList().toArray(new ReadOnlyPerson[0]));
 
         executeCommand(command);
         assertApplicationDisplaysExpected(command, expectedResultMessage, expectedModel);
