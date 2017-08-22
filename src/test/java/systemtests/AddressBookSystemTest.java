@@ -154,6 +154,16 @@ public abstract class AddressBookSystemTest {
     }
 
     /**
+     * Asserts that the previously selected card is now deselected and the browser's url remains displaying the details
+     * of the previously selected person.
+     * @see BrowserPanelHandle#isUrlChanged()
+     */
+    protected void assertSelectedCardDeselected() throws Exception {
+        assertFalse(getBrowserPanel().isUrlChanged());
+        assertFalse(getPersonListPanel().isAnyCardSelected());
+    }
+
+    /**
      * Asserts that the browser's url is changed to display the details of the person in the person list panel at
      * {@code expectedSelectedCardIndex}, and only the card at {@code expectedSelectedCardIndex} is selected.
      * @see BrowserPanelHandle#isUrlChanged()
@@ -176,6 +186,35 @@ public abstract class AddressBookSystemTest {
     protected void assertSelectedCardUnchanged() throws Exception {
         assertFalse(getBrowserPanel().isUrlChanged());
         assertFalse(getPersonListPanel().isSelectedPersonCardChanged());
+    }
+
+    /**
+     * @see AddressBookSystemTest#assertSelectedCardState(SelectedCardStatus, Index)
+     */
+    protected void assertSelectedCardState(SelectedCardStatus cardStatus) throws Exception {
+        assertSelectedCardState(cardStatus, null);
+    }
+
+    /**
+     * Calls the corresponding card selection verification methods depending on {@code cardStatus}.
+     * @see AddressBookSystemTest#assertSelectedCardChanged(Index)
+     * @see AddressBookSystemTest#assertSelectedCardDeselected()
+     * @see AddressBookSystemTest#assertSelectedCardUnchanged()
+     */
+    protected void assertSelectedCardState(SelectedCardStatus cardStatus, Index index) throws Exception {
+        switch (cardStatus) {
+        case UNCHANGED:
+            assertSelectedCardUnchanged();
+            break;
+        case DESELECTED:
+            assertSelectedCardDeselected();
+            break;
+        case CHANGED:
+            assertSelectedCardChanged(index);
+            break;
+        default:
+            assert false : "No other enum values";
+        }
     }
 
     /**
