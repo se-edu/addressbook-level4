@@ -13,7 +13,6 @@ import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.XmlUtil;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.UserPrefs;
 import seedu.address.storage.UserPrefsStorage;
@@ -90,13 +89,8 @@ public class TestApp extends MainApp {
         return storage.getAddressBookFilePath();
     }
 
-    /**
-     * Returns a defensive copy of the model.
-     */
     public Model getModel() {
-        Model copy = new ModelManager((model.getAddressBook()), new UserPrefs());
-        ModelHelper.setFilteredList(copy, model.getFilteredPersonList());
-        return copy;
+        return model;
     }
 
     @Override
