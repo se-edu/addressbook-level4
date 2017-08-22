@@ -1,12 +1,24 @@
 package systemtests;
 
+import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.BOB;
+import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_PHONE_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_TAG_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
+import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
 import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.BENSON;
 import static seedu.address.testutil.TypicalPersons.CARL;
 import static seedu.address.testutil.TypicalPersons.HOON;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import org.junit.Test;
 
@@ -33,7 +45,8 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         Model expectedModel = new ModelManager(new AddressBook(getTestApp().getModel().getAddressBook()),
                 new UserPrefs());
 
-        /* Case: add a person to a non-empty list, command with leading spaces and trailing spaces -> added */
+        /* Case: add a person without tags to a non-empty list, command with leading spaces and trailing spaces ->
+        * added */
         ReadOnlyPerson personToAdd = HOON;
         String command = "   " + PersonUtil.getAddCommand(personToAdd) + "   ";
         expectedModel.addPerson(personToAdd);
@@ -54,12 +67,10 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         expectedResultMessage = String.format(AddCommand.MESSAGE_SUCCESS, personToAdd);
         assertCommandSuccess(command, expectedModel, expectedResultMessage);
 
-        /* Case: add a person, command with parameters in random order -> added */
-        personToAdd = BENSON;
-        List<Tag> tags = new ArrayList<>(personToAdd.getTags());
-        command = AddCommand.COMMAND_WORD + " t/" + tags.get(0).tagName + " p/" + personToAdd.getPhone().value + " a/"
-                + personToAdd.getAddress().value + " n/" + personToAdd.getName().fullName + " t/" + tags.get(1).tagName
-                + " e/" + personToAdd.getEmail().value;
+        /* Case: add a person with tags, command with parameters in random order -> added */
+        personToAdd = BOB;
+        command = AddCommand.COMMAND_WORD + TAG_DESC_FRIEND + PHONE_DESC_BOB + ADDRESS_DESC_BOB + NAME_DESC_BOB
+                + TAG_DESC_HUSBAND + EMAIL_DESC_BOB;
         expectedModel.addPerson(personToAdd);
         expectedResultMessage = String.format(AddCommand.MESSAGE_SUCCESS, personToAdd);
         assertCommandSuccess(command, expectedModel, expectedResultMessage);
@@ -78,24 +89,25 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         assertCommandFailure(command, Messages.MESSAGE_UNKNOWN_COMMAND);
 
         /* Case: invalid name -> rejected */
-        command = AddCommand.COMMAND_WORD + " n/* p/111 e/test@example.com a/Block 121 Test Road t/test t/testing";
+        command = AddCommand.COMMAND_WORD + INVALID_NAME_DESC + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY;
         assertCommandFailure(command, Name.MESSAGE_NAME_CONSTRAINTS);
 
         /* Case: invalid phone -> rejected */
-        command = AddCommand.COMMAND_WORD + " n/Test p/test e/test@example.com a/Block 121 Test Road t/test t/testing";
+        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + INVALID_PHONE_DESC + EMAIL_DESC_AMY + ADDRESS_DESC_AMY;
         assertCommandFailure(command, Phone.MESSAGE_PHONE_CONSTRAINTS);
 
         /* Case: invalid email -> rejected */
-        command = AddCommand.COMMAND_WORD + " n/Test p/111 e/test a/Block 121 Test Road t/test t/testing";
+        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + INVALID_EMAIL_DESC + ADDRESS_DESC_AMY;
         assertCommandFailure(command, Email.MESSAGE_EMAIL_CONSTRAINTS);
 
         /* Case: invalid address -> rejected */
-        command = AddCommand.COMMAND_WORD + " n/Test p/111 e/test@example.com a/ t/test t/testing";
+        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + INVALID_ADDRESS_DESC;
         assertCommandFailure(command, Address.MESSAGE_ADDRESS_CONSTRAINTS);
 
         /* Case: invalid tag -> rejected */
-        command = AddCommand.COMMAND_WORD + " n/Test p/111 e/test@example.com a/ t/test t/***";
-        assertCommandFailure(command, Address.MESSAGE_ADDRESS_CONSTRAINTS);
+        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY
+                + INVALID_TAG_DESC;
+        assertCommandFailure(command, Tag.MESSAGE_TAG_CONSTRAINTS);
     }
 
     /**
