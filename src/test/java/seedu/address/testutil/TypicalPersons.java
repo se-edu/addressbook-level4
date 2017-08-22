@@ -14,6 +14,7 @@ import seedu.address.model.person.exceptions.DuplicatePersonException;
 public class TypicalPersons {
 
     public static final ReadOnlyPerson ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE, HOON, IDA;
+    public static final String MEIER = "Meier"; // search term used for filtering
 
     static {
         ALICE = new PersonBuilder().withName("Alice Pauline")
