@@ -129,11 +129,11 @@ public abstract class AddressBookSystemTest {
     }
 
     /**
-     * Asserts that the previously selected card is now unselected and the browser's url remains displaying the details
+     * Asserts that the previously selected card is now deselected and the browser's url remains displaying the details
      * of the previously selected person.
      * @see BrowserPanelHandle#isUrlChanged()
      */
-    protected void assertCardUnselected() throws Exception {
+    protected void assertCardDeselected() throws Exception {
         assertFalse(getBrowserPanel().isUrlChanged());
         assertFalse(getPersonListPanel().isAnyCardSelected());
     }

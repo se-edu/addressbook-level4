@@ -4,9 +4,12 @@ import static guitests.guihandles.WebViewUtil.waitUntilBrowserLoaded;
 import static seedu.address.commons.core.Messages.MESSAGE_PERSONS_LISTED_OVERVIEW;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.testutil.TypicalPersons.BENSON;
+import static seedu.address.testutil.TypicalPersons.CARL;
 import static seedu.address.testutil.TypicalPersons.DANIEL;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
 
@@ -23,22 +26,39 @@ import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.ReadOnlyPerson;
+import seedu.address.model.tag.Tag;
 
 public class FindCommandSystemTest extends AddressBookSystemTest {
+
+    private static final Predicate<ReadOnlyPerson> PREDICATE_SHOW_NO_PERSONS = unused -> false;
 
     @Test
     public void find() throws Exception {
         /* Case: find multiple persons in list, command with leading spaces and trailing spaces -> 2 persons found */
         String command = "   " + FindCommand.COMMAND_WORD + " Meier   ";
         String expectedResultMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 2);
-        Model expectedModel = prepareModel(BENSON, DANIEL);
+        Model expectedModel = prepareModelFilteredList(BENSON, DANIEL);
+        assertCommandSuccess(command, expectedModel, expectedResultMessage);
+        assertSelectedCardUnchanged();
+
+        /* Case: repeat previous find command where list is displaying the persons we are finding -> 2 persons found */
+        command = FindCommand.COMMAND_WORD + " Meier";
+        expectedResultMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 2);
+        expectedModel = prepareModelFilteredList(BENSON, DANIEL);
+        assertCommandSuccess(command, expectedModel, expectedResultMessage);
+        assertSelectedCardUnchanged();
+
+        /* Case: find person where list is not displaying the person we are finding -> 1 person found */
+        command = FindCommand.COMMAND_WORD + " Carl";
+        expectedResultMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 1);
+        expectedModel = prepareModelFilteredList(CARL);
         assertCommandSuccess(command, expectedModel, expectedResultMessage);
         assertSelectedCardUnchanged();
 
         /* Case: find multiple persons in list, command with two keywords -> 2 persons found */
-        command = FindCommand.COMMAND_WORD + " Benson Meier";
+        command = FindCommand.COMMAND_WORD + " Benson Daniel";
         expectedResultMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 2);
-        expectedModel = prepareModel(BENSON, DANIEL);
+        expectedModel = prepareModelFilteredList(BENSON, DANIEL);
         assertCommandSuccess(command, expectedModel, expectedResultMessage);
         assertSelectedCardUnchanged();
 
@@ -54,9 +74,10 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: find person in list after deleting 1 of them -> 1 person found */
         executeCommand(DeleteCommand.COMMAND_WORD + " 1");
+        assert !getTestApp().getModel().getAddressBook().getPersonList().contains(BENSON);
         command = FindCommand.COMMAND_WORD + " Meier";
         expectedResultMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 1);
-        expectedModel = prepareModel(DANIEL);
+        expectedModel = prepareModelFilteredList(DANIEL);
         assertCommandSuccess(command, expectedModel, expectedResultMessage);
         assertSelectedCardUnchanged();
 
@@ -68,7 +89,7 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
         /* Case: find person in list, command with part of name -> 0 persons found */
         command = FindCommand.COMMAND_WORD + " Mei";
         expectedResultMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 0);
-        expectedModel = prepareModel();
+        expectedModel = prepareModelFilteredList();
         assertCommandSuccess(command, expectedModel, expectedResultMessage);
         assertSelectedCardUnchanged();
 
@@ -77,55 +98,59 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
         assertCommandSuccess(command, expectedModel, expectedResultMessage);
         assertSelectedCardUnchanged();
 
-        /* Case: find phone number -> 0 persons found */
-        command = FindCommand.COMMAND_WORD + " " + BENSON.getPhone().value;
+        /* Case: find phone number of person in list -> 0 persons found */
+        command = FindCommand.COMMAND_WORD + " " + DANIEL.getPhone().value;
         assertCommandSuccess(command, expectedModel, expectedResultMessage);
         assertSelectedCardUnchanged();
 
-        /* Case: find address -> 0 persons found */
-        command = FindCommand.COMMAND_WORD + " " + BENSON.getAddress().value;
+        /* Case: find address of person in list -> 0 persons found */
+        command = FindCommand.COMMAND_WORD + " " + DANIEL.getAddress().value;
         assertCommandSuccess(command, expectedModel, expectedResultMessage);
         assertSelectedCardUnchanged();
 
-        /* Case: find address -> 0 persons found */
-        command = FindCommand.COMMAND_WORD + " " + BENSON.getEmail().value;
+        /* Case: find email of person in list -> 0 persons found */
+        command = FindCommand.COMMAND_WORD + " " + DANIEL.getEmail().value;
         assertCommandSuccess(command, expectedModel, expectedResultMessage);
         assertSelectedCardUnchanged();
 
-        /* Case: find tags -> 0 persons found */
-        command = FindCommand.COMMAND_WORD + " " + BENSON.getTags();
+        /* Case: find tags of person in list -> 0 persons found */
+        List<Tag> tags = new ArrayList<>(DANIEL.getTags());
+        command = FindCommand.COMMAND_WORD + " " + tags.get(0).tagName;
         assertCommandSuccess(command, expectedModel, expectedResultMessage);
         assertSelectedCardUnchanged();
 
-        /* Case: selects first person in list and finds another person in list -> 1 person found and no cards are
-        * selected */
+        /* Case: selects first person in list and finds another person in list -> 1 person found and card deselected */
         executeCommand(ListCommand.COMMAND_WORD);
         assert getPersonListPanel().getListSize() == 6;
         executeCommand(SelectCommand.COMMAND_WORD + " 1");
-        assert getPersonListPanel().getSelectedCardIndex() == 0;
+        assert !getPersonListPanel().getHandleToSelectedCard().getName().equals(DANIEL.getName().fullName);
         waitUntilBrowserLoaded(getBrowserPanel());
         command = FindCommand.COMMAND_WORD + " Daniel";
         expectedResultMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 1);
-        expectedModel = prepareModel(DANIEL);
+        expectedModel = prepareModelFilteredList(DANIEL);
         assertCommandSuccess(command, expectedModel, expectedResultMessage);
-        assertCardUnselected();
+        assertCardDeselected();
+
+        /* Case: selects and finds the same person in list -> 1 person found and card deselected */
+        executeCommand(SelectCommand.COMMAND_WORD + " 1");
+        assert getPersonListPanel().getHandleToSelectedCard().getName().equals(DANIEL.getName().fullName);
+        waitUntilBrowserLoaded(getBrowserPanel());
+        assertCommandSuccess(command, expectedModel, expectedResultMessage);
+        assertCardDeselected();
+
+        /* Case: find person in empty list -> 0 persons found */
+        executeCommand(ClearCommand.COMMAND_WORD);
+        assert getTestApp().getModel().getAddressBook().getPersonList().size() == 0;
+        command = FindCommand.COMMAND_WORD + " Meier";
+        expectedResultMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 0);
+        expectedModel = prepareModelFilteredList();
+        assertCommandSuccess(command, expectedModel, expectedResultMessage);
+        assertSelectedCardUnchanged();
 
         /* Case: mixed case command word -> rejected */
         command = "FiNd Meier";
         expectedResultMessage = MESSAGE_UNKNOWN_COMMAND;
         assertCommandFailure(command, expectedResultMessage);
-    }
-
-    @Test
-    public void find_emptyList() throws Exception {
-        executeCommand(ClearCommand.COMMAND_WORD);
-        assert getPersonListPanel().getListSize() == 0;
-
-        /* Case: find person not in list -> 0 persons found */
-        String command = FindCommand.COMMAND_WORD + " Meier";
-        String expectedResultMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 0);
-        Model expectedModel = prepareModel();
-        assertCommandSuccess(command, expectedModel, expectedResultMessage);
     }
 
     /**
@@ -157,7 +182,8 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
     private void assertCommandFailure(String command, String expectedResultMessage)
             throws Exception {
         Model expectedModel =
-                prepareModel(getTestApp().getModel().getFilteredPersonList().toArray(new ReadOnlyPerson[0]));
+                prepareModelFilteredList(
+                        getTestApp().getModel().getFilteredPersonList().toArray(new ReadOnlyPerson[0]));
 
         executeCommand(command);
         assertApplicationDisplaysExpected(command, expectedResultMessage, expectedModel);
@@ -171,11 +197,11 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
     /**
      * Returns a {@code Model} backed by {@code TestApp}'s address book, displaying only {@code displayedPersons}.
      */
-    private Model prepareModel(ReadOnlyPerson... displayedPersons) {
+    private Model prepareModelFilteredList(ReadOnlyPerson... displayedPersons) {
         ModelManager model = new ModelManager(getTestApp().getModel().getAddressBook(), new UserPrefs());
         Optional<Predicate<ReadOnlyPerson>> predicate =
                 Arrays.stream(displayedPersons).map(this::personEquals).reduce(Predicate::or);
-        model.updateFilteredPersonList(predicate.orElse(unused -> false));
+        model.updateFilteredPersonList(predicate.orElse(PREDICATE_SHOW_NO_PERSONS));
         return model;
     }
 
