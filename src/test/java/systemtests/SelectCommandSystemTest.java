@@ -1,11 +1,11 @@
 package systemtests;
 
-import static guitests.guihandles.WebViewUtil.waitUntilBrowserLoaded;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.commands.SelectCommand.MESSAGE_SELECT_PERSON_SUCCESS;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.address.testutil.TypicalPersons.MEIER;
 import static seedu.address.testutil.TypicalPersons.getTypicalPersons;
 
 import org.junit.Test;
@@ -17,11 +17,10 @@ import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
-import seedu.address.model.person.ReadOnlyPerson;
 
 public class SelectCommandSystemTest extends AddressBookSystemTest {
     @Test
-    public void select() throws Exception {
+    public void select() {
         /* Case: select the first card in the person list, command with leading spaces and trailing spaces
         * -> selected */
         String command = "   " + SelectCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased() + "   ";
@@ -56,7 +55,7 @@ public class SelectCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: filtered person list, select index in bounds of address book but out of bounds of person list
         * -> rejected */
-        executeCommand(FindCommand.COMMAND_WORD + " Meier");
+        executeCommand(FindCommand.COMMAND_WORD + " " + MEIER);
         assert getTestApp().getModel().getFilteredPersonList().size()
                 < getTestApp().getModel().getAddressBook().getPersonList().size();
         invalidIndex = getTestApp().getModel().getAddressBook().getPersonList().size();
@@ -99,16 +98,15 @@ public class SelectCommandSystemTest extends AddressBookSystemTest {
      * box displays the success message of executing select command with the {@code expectedSelectedCardIndex}
      * of the selected person, and the model related components equal to the current model.
      * These verifications are done by
-     * {@code AddressBookSystemTest#assertCommandExecution(String, String, String, Model)}.<br>
+     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
      * Also verifies that the command box has the default style class and the status bar remain unchanged. The resulting
      * browser url and selected card will be verified if the current selected card and the card at
      * {@code expectedSelectedCardIndex} are different.
      * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      * @see AddressBookSystemTest#assertSelectedCardChanged(Index)
      */
-    private void assertCommandSuccess(String command, Index expectedSelectedCardIndex) throws Exception {
-        Model expectedModel = prepareModelFilteredList(
-                getTestApp().getModel().getFilteredPersonList().toArray(new ReadOnlyPerson[0]));
+    private void assertCommandSuccess(String command, Index expectedSelectedCardIndex) {
+        Model expectedModel = prepareModelFilteredList(getTestApp().getModel().getFilteredPersonList());
         String expectedResultMessage = String.format(
                 MESSAGE_SELECT_PERSON_SUCCESS, expectedSelectedCardIndex.getOneBased());
         int preExecutionSelectedCardIndex = getPersonListPanel().getSelectedCardIndex();
@@ -119,35 +117,29 @@ public class SelectCommandSystemTest extends AddressBookSystemTest {
         if (preExecutionSelectedCardIndex == expectedSelectedCardIndex.getZeroBased()) {
             assertSelectedCardUnchanged();
         } else {
-            waitUntilBrowserLoaded(getBrowserPanel());
             assertSelectedCardChanged(expectedSelectedCardIndex);
         }
 
         assertCommandBoxStyleDefault();
         assertStatusBarUnchanged();
-
-        clockRule.setInjectedClockToCurrentTime();
     }
 
     /**
      * Executes {@code command} and verifies that the command box displays {@code command}, the result display
      * box displays {@code expectedResultMessage} and the model related components equal to the current model.
      * These verifications are done by
-     * {@code AddressBookSystemTest#assertCommandExecution(String, String, String, Model)}.<br>
+     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
      * Also verifies that the browser url, selected card and status bar remain unchanged, and the command box has the
      * error style.
      * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
-    private void assertCommandFailure(String command, String expectedResultMessage) throws Exception {
-        Model expectedModel = prepareModelFilteredList(
-                getTestApp().getModel().getFilteredPersonList().toArray(new ReadOnlyPerson[0]));
+    private void assertCommandFailure(String command, String expectedResultMessage) {
+        Model expectedModel = prepareModelFilteredList(getTestApp().getModel().getFilteredPersonList());
 
         executeCommand(command);
         assertApplicationDisplaysExpected(command, expectedResultMessage, expectedModel);
         assertSelectedCardUnchanged();
         assertCommandBoxStyleError();
         assertStatusBarUnchanged();
-
-        clockRule.setInjectedClockToCurrentTime();
     }
 }

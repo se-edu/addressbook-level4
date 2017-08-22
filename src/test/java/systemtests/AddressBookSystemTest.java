@@ -120,12 +120,19 @@ public abstract class AddressBookSystemTest {
     }
 
     /**
-     * Returns a {@code Model} backed by {@code TestApp}'s address book, displaying only {@code displayedPersons}.
+     * @see AddressBookSystemTest#prepareModelFilteredList(List)
      */
     protected Model prepareModelFilteredList(ReadOnlyPerson... displayedPersons) {
-        Model model = new ModelManager(getTestApp().getModel().getAddressBook(), new UserPrefs());
+        return prepareModelFilteredList(Arrays.asList(displayedPersons));
+    }
+
+    /**
+     * Returns a {@code Model} backed by {@code TestApp}'s address book, displaying only {@code displayedPersons}.
+     */
+    protected Model prepareModelFilteredList(List<ReadOnlyPerson> displayedPersons) {
+        ModelManager model = new ModelManager(getTestApp().getModel().getAddressBook(), new UserPrefs());
         Optional<Predicate<ReadOnlyPerson>> predicate =
-                Arrays.stream(displayedPersons).map(this::personEquals).reduce(Predicate::or);
+                displayedPersons.stream().map(this::personEquals).reduce(Predicate::or);
         model.updateFilteredPersonList(predicate.orElse(PREDICATE_SHOW_NO_PERSONS));
         return model;
     }
