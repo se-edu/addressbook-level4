@@ -17,7 +17,7 @@ public class ClearCommandSystemTest extends AddressBookSystemTest {
 
     @Test
     public void clear() {
-        Model defaultModel = getTestApp().getModel();
+        final Model defaultModel = getTestApp().getModel();
 
         /* Case: clear non-empty address book, command with leading spaces and trailing alphanumeric characters and
          * spaces -> cleared
@@ -38,14 +38,14 @@ public class ClearCommandSystemTest extends AddressBookSystemTest {
         assertSelectedCardUnchanged();
 
         /* Case: selects first card in person list and clears address book -> cleared and no card selected */
-        executeCommand(UndoCommand.COMMAND_WORD); // restore the original address book
+        executeCommand(UndoCommand.COMMAND_WORD); // restores the original address book
         executeCommand(SelectCommand.COMMAND_WORD + " 1");
         assert getPersonListPanel().isAnyCardSelected();
         assertCommandSuccess(ClearCommand.COMMAND_WORD);
-        assertCardDeselected();
+        assertSelectedCardDeselected();
 
         /* Case: filters the person list before clearing -> entire address book cleared */
-        executeCommand(UndoCommand.COMMAND_WORD); // restore the original address book
+        executeCommand(UndoCommand.COMMAND_WORD); // restores the original address book
         executeCommand(FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MEIER);
         assert getTestApp().getModel().getFilteredPersonList().size()
                 < getTestApp().getModel().getAddressBook().getPersonList().size();
