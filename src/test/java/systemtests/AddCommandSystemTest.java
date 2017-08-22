@@ -2,6 +2,7 @@ package systemtests;
 
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.AMY;
 import static seedu.address.logic.commands.CommandTestUtil.BOB;
 import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
@@ -46,20 +47,20 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
     @Test
     public void add() throws Exception {
         Model model = getTestApp().getModel();
-
         /* Case: add a person without tags to a non-empty address book, command with leading spaces and trailing spaces
          * -> added
          */
-        ReadOnlyPerson toAdd = HOON;
-        String command = "   " + PersonUtil.getAddCommand(toAdd) + "   ";
+        ReadOnlyPerson toAdd = AMY;
+        String command = "   " + AddCommand.COMMAND_WORD + "  " + NAME_DESC_AMY + "  " + PHONE_DESC_AMY + " "
+                + EMAIL_DESC_AMY + "   " + ADDRESS_DESC_AMY + "   " + TAG_DESC_FRIEND + " ";
         assertCommandSuccess(command, toAdd);
 
-        /* Case: undo adding Hoon to the list -> Hoon deleted */
+        /* Case: undo adding Amy to the list -> Amy deleted */
         command = UndoCommand.COMMAND_WORD;
         String expectedResultMessage = UndoCommand.MESSAGE_SUCCESS;
         assertCommandSuccess(command, model, expectedResultMessage);
 
-        /* Case: redo adding Hoon to the list -> Hoon added again */
+        /* Case: redo adding Amy to the list -> Amy added again */
         command = RedoCommand.COMMAND_WORD;
         model.addPerson(toAdd);
         expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
@@ -73,16 +74,12 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         executeCommand(FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MEIER);
         assert getTestApp().getModel().getFilteredPersonList().size()
                 < getTestApp().getModel().getAddressBook().getPersonList().size();
-        toAdd = IDA;
-        command = PersonUtil.getAddCommand(toAdd);
-        assertCommandSuccess(command, toAdd);
+        assertCommandSuccess(IDA);
 
         /* Case: add to empty address book -> added */
         executeCommand(ClearCommand.COMMAND_WORD);
         assert getTestApp().getModel().getAddressBook().getPersonList().size() == 0;
-        toAdd = ALICE;
-        command = "   " + PersonUtil.getAddCommand(toAdd) + "   ";
-        assertCommandSuccess(command, toAdd);
+        assertCommandSuccess(ALICE);
 
         /* Case: add a person with tags, command with parameters in random order -> added */
         toAdd = BOB;
@@ -90,12 +87,13 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
                 + TAG_DESC_HUSBAND + EMAIL_DESC_BOB;
         assertCommandSuccess(command, toAdd);
 
+        /* Case: add a person without tags -> added */
+        assertCommandSuccess(HOON);
+
         /* Case: selects first card in the person list, add a person -> added, card selection remains unchanged */
         executeCommand(SelectCommand.COMMAND_WORD + " 1");
         assert getPersonListPanel().isAnyCardSelected();
-        toAdd = CARL;
-        command = PersonUtil.getAddCommand(toAdd);
-        assertCommandSuccess(command, toAdd);
+        assertCommandSuccess(CARL);
 
         /* Case: invalid keyword -> rejected */
         command = "adds " + PersonUtil.getPersonDetails(toAdd);
@@ -124,13 +122,23 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
     }
 
     /**
-     * Executes {@code command} and verifies that the command box displays an empty string, the result display
-     * box displays the success message of executing {@code AddCommand} with the details of {@code toAdd}, and the
-     * model related components equal to the current model added with {@code toAdd}. These verifications are done by
+     * Executes the {@code AddCommand} that adds {@code toAdd} to the model and verifies that the command box displays
+     * an empty string, the result display box displays the success message of executing {@code AddCommand} with the
+     * details of {@code toAdd}, and the model related components equal to the current model added with {@code toAdd}.
+     * These verifications are done by
      * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
      * Also verifies that the command box has the default style class, the status bar's sync status changes,
      * the browser url and selected card remains unchanged.
      * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
+     */
+    private void assertCommandSuccess(ReadOnlyPerson toAdd) {
+        assertCommandSuccess(PersonUtil.getAddCommand(toAdd), toAdd);
+    }
+
+    /**
+     * Has the same functionality as {@code assertCommandSuccess(ReadOnlyPerson)}, except that {@code command} is
+     * executed instead.
+     * @see AddCommandSystemTest#assertCommandSuccess(ReadOnlyPerson)
      */
     private void assertCommandSuccess(String command, ReadOnlyPerson toAdd) {
         Model expectedModel = getTestApp().getModel();
