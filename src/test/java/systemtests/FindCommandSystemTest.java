@@ -31,23 +31,27 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
         * -> 2 persons found */
         String command = "   " + FindCommand.COMMAND_WORD + " Meier   ";
         Model expectedModel = prepareModelFilteredList(BENSON, DANIEL);
-        assertCommandSuccess(command, expectedModel, SelectedCardStatus.UNCHANGED);
+        assertCommandSuccess(command, expectedModel);
+        assertSelectedCardUnchanged();
 
         /* Case: repeat previous find command where person list is displaying the persons we are finding
         * -> 2 persons found */
         command = FindCommand.COMMAND_WORD + " Meier";
         expectedModel = prepareModelFilteredList(BENSON, DANIEL);
-        assertCommandSuccess(command, expectedModel, SelectedCardStatus.UNCHANGED);
+        assertCommandSuccess(command, expectedModel);
+        assertSelectedCardUnchanged();
 
         /* Case: find person where person list is not displaying the person we are finding -> 1 person found */
         command = FindCommand.COMMAND_WORD + " Carl";
         expectedModel = prepareModelFilteredList(CARL);
-        assertCommandSuccess(command, expectedModel, SelectedCardStatus.UNCHANGED);
+        assertCommandSuccess(command, expectedModel);
+        assertSelectedCardUnchanged();
 
         /* Case: find multiple persons in address book, command with two keywords -> 2 persons found */
         command = FindCommand.COMMAND_WORD + " Benson Daniel";
         expectedModel = prepareModelFilteredList(BENSON, DANIEL);
-        assertCommandSuccess(command, expectedModel, SelectedCardStatus.UNCHANGED);
+        assertCommandSuccess(command, expectedModel);
+        assertSelectedCardUnchanged();
 
         /* Case: undo previous find command -> rejected */
         command = UndoCommand.COMMAND_WORD;
@@ -64,37 +68,45 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
         assert !getTestApp().getModel().getAddressBook().getPersonList().contains(BENSON);
         command = FindCommand.COMMAND_WORD + " Meier";
         expectedModel = prepareModelFilteredList(DANIEL);
-        assertCommandSuccess(command, expectedModel, SelectedCardStatus.UNCHANGED);
+        assertCommandSuccess(command, expectedModel);
+        assertSelectedCardUnchanged();
 
         /* Case: find person in address book, command with name of different case -> 1 person found */
         command = FindCommand.COMMAND_WORD + " MeIeR";
-        assertCommandSuccess(command, expectedModel, SelectedCardStatus.UNCHANGED);
+        assertCommandSuccess(command, expectedModel);
+        assertSelectedCardUnchanged();
 
         /* Case: find person in address book, command with part of name -> 0 persons found */
         command = FindCommand.COMMAND_WORD + " Mei";
         expectedModel = prepareModelFilteredList();
-        assertCommandSuccess(command, expectedModel, SelectedCardStatus.UNCHANGED);
+        assertCommandSuccess(command, expectedModel);
+        assertSelectedCardUnchanged();
 
         /* Case: find person not in address book -> 0 persons found */
         command = FindCommand.COMMAND_WORD + " Mark";
-        assertCommandSuccess(command, expectedModel, SelectedCardStatus.UNCHANGED);
+        assertCommandSuccess(command, expectedModel);
+        assertSelectedCardUnchanged();
 
         /* Case: find phone number of person in address book -> 0 persons found */
         command = FindCommand.COMMAND_WORD + " " + DANIEL.getPhone().value;
-        assertCommandSuccess(command, expectedModel, SelectedCardStatus.UNCHANGED);
+        assertCommandSuccess(command, expectedModel);
+        assertSelectedCardUnchanged();
 
         /* Case: find address of person in address book -> 0 persons found */
         command = FindCommand.COMMAND_WORD + " " + DANIEL.getAddress().value;
-        assertCommandSuccess(command, expectedModel, SelectedCardStatus.UNCHANGED);
+        assertCommandSuccess(command, expectedModel);
+        assertSelectedCardUnchanged();
 
         /* Case: find email of person in address book -> 0 persons found */
         command = FindCommand.COMMAND_WORD + " " + DANIEL.getEmail().value;
-        assertCommandSuccess(command, expectedModel, SelectedCardStatus.UNCHANGED);
+        assertCommandSuccess(command, expectedModel);
+        assertSelectedCardUnchanged();
 
         /* Case: find tags of person in address book -> 0 persons found */
         List<Tag> tags = new ArrayList<>(DANIEL.getTags());
         command = FindCommand.COMMAND_WORD + " " + tags.get(0).tagName;
-        assertCommandSuccess(command, expectedModel, SelectedCardStatus.UNCHANGED);
+        assertCommandSuccess(command, expectedModel);
+        assertSelectedCardUnchanged();
 
         /* Case: selects first person and finds another person in address book
         * -> 1 person found and card deselected */
@@ -105,20 +117,23 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
         waitUntilBrowserLoaded(getBrowserPanel());
         command = FindCommand.COMMAND_WORD + " Daniel";
         expectedModel = prepareModelFilteredList(DANIEL);
-        assertCommandSuccess(command, expectedModel, SelectedCardStatus.DESELECTED);
+        assertCommandSuccess(command, expectedModel);
+        assertSelectedCardDeselected();
 
         /* Case: selects and finds the same person in address book -> 1 person found and card deselected */
         executeCommand(SelectCommand.COMMAND_WORD + " 1");
         assert getPersonListPanel().getHandleToSelectedCard().getName().equals(DANIEL.getName().fullName);
         waitUntilBrowserLoaded(getBrowserPanel());
-        assertCommandSuccess(command, expectedModel, SelectedCardStatus.DESELECTED);
+        assertCommandSuccess(command, expectedModel);
+        assertSelectedCardDeselected();
 
         /* Case: find person in empty address book -> 0 persons found */
         executeCommand(ClearCommand.COMMAND_WORD);
         assert getTestApp().getModel().getAddressBook().getPersonList().size() == 0;
         command = FindCommand.COMMAND_WORD + " Meier";
         expectedModel = prepareModelFilteredList();
-        assertCommandSuccess(command, expectedModel, SelectedCardStatus.UNCHANGED);
+        assertCommandSuccess(command, expectedModel);
+        assertSelectedCardUnchanged();
 
         /* Case: mixed case command word -> rejected */
         command = "FiNd Meier";
@@ -135,16 +150,13 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
      * Also verifies that the status bar remains unchanged, and the command box has the default style class, and the
      * selected card updated accordingly, depending on {@code cardStatus}.
      * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
-     * @see AddressBookSystemTest#assertSelectedCardState(SelectedCardStatus)
      */
-    private void assertCommandSuccess(String command, Model expectedModel, SelectedCardStatus cardStatus)
-            throws Exception {
+    private void assertCommandSuccess(String command, Model expectedModel) throws Exception {
         String expectedResultMessage = String.format(
                 MESSAGE_PERSONS_LISTED_OVERVIEW, expectedModel.getFilteredPersonList().size());
 
         executeCommand(command);
         assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);
-        assertSelectedCardState(cardStatus);
         assertCommandBoxStyleDefault();
         assertStatusBarUnchanged();
 

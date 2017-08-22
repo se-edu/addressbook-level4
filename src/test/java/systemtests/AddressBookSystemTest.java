@@ -189,35 +189,6 @@ public abstract class AddressBookSystemTest {
     }
 
     /**
-     * @see AddressBookSystemTest#assertSelectedCardState(SelectedCardStatus, Index)
-     */
-    protected void assertSelectedCardState(SelectedCardStatus cardStatus) throws Exception {
-        assertSelectedCardState(cardStatus, null);
-    }
-
-    /**
-     * Calls the corresponding card selection verification methods depending on {@code cardStatus}.
-     * @see AddressBookSystemTest#assertSelectedCardChanged(Index)
-     * @see AddressBookSystemTest#assertSelectedCardDeselected()
-     * @see AddressBookSystemTest#assertSelectedCardUnchanged()
-     */
-    protected void assertSelectedCardState(SelectedCardStatus cardStatus, Index index) throws Exception {
-        switch (cardStatus) {
-        case UNCHANGED:
-            assertSelectedCardUnchanged();
-            break;
-        case DESELECTED:
-            assertSelectedCardDeselected();
-            break;
-        case CHANGED:
-            assertSelectedCardChanged(index);
-            break;
-        default:
-            assert false : "No other enum values";
-        }
-    }
-
-    /**
      * Asserts that the command box's style is the default style.
      */
     protected void assertCommandBoxStyleDefault() {
