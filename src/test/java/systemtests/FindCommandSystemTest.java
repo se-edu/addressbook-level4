@@ -14,6 +14,8 @@ import org.junit.Test;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.RedoCommand;
+import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -29,16 +31,57 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
         Model expectedModel = prepareModel(BENSON, DANIEL);
         assertCommandSuccess(command, expectedModel, expectedResultMessage);
 
+        /* Case: find multiple persons in list, command with two keywords -> 2 persons found */
+        command = FindCommand.COMMAND_WORD + " Benson Meier";
+        expectedResultMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 2);
+        expectedModel = prepareModel(BENSON, DANIEL);
+        assertCommandSuccess(command, expectedModel, expectedResultMessage);
+
+        /* Case: undo previous find command -> rejected */
+        command = UndoCommand.COMMAND_WORD;
+        expectedResultMessage = UndoCommand.MESSAGE_FAILURE;
+        assertCommandFailure(command, expectedResultMessage);
+
+        /* Case: redo previous find command -> rejected */
+        command = RedoCommand.COMMAND_WORD;
+        expectedResultMessage = RedoCommand.MESSAGE_FAILURE;
+        assertCommandFailure(command, expectedResultMessage);
+
         /* Case: find person in list after deleting 1 of them -> 1 person found */
         executeCommand(DeleteCommand.COMMAND_WORD + " 1");
+        command = FindCommand.COMMAND_WORD + " Meier";
         expectedResultMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 1);
         expectedModel = prepareModel(DANIEL);
         assertCommandSuccess(command, expectedModel, expectedResultMessage);
 
-        /* Case: find person not in list -> 0 persons found */
-        command = FindCommand.COMMAND_WORD + " Mark";
+        /* Case: find person in list, command with name of different case -> 1 person found */
+        command = FindCommand.COMMAND_WORD + " MeIeR";
+        assertCommandSuccess(command, expectedModel, expectedResultMessage);
+
+        /* Case: find person in list, command with part of name -> 0 persons found */
+        command = FindCommand.COMMAND_WORD + " Mei";
         expectedResultMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 0);
         expectedModel = prepareModel();
+        assertCommandSuccess(command, expectedModel, expectedResultMessage);
+
+        /* Case: find person not in list -> 0 persons found */
+        command = FindCommand.COMMAND_WORD + " Mark";
+        assertCommandSuccess(command, expectedModel, expectedResultMessage);
+
+        /* Case: find phone number -> 0 persons found */
+        command = FindCommand.COMMAND_WORD + " " + BENSON.getPhone().value;
+        assertCommandSuccess(command, expectedModel, expectedResultMessage);
+
+        /* Case: find address -> 0 persons found */
+        command = FindCommand.COMMAND_WORD + " " + BENSON.getAddress().value;
+        assertCommandSuccess(command, expectedModel, expectedResultMessage);
+
+        /* Case: find address -> 0 persons found */
+        command = FindCommand.COMMAND_WORD + " " + BENSON.getEmail().value;
+        assertCommandSuccess(command, expectedModel, expectedResultMessage);
+
+        /* Case: find tags -> 0 persons found */
+        command = FindCommand.COMMAND_WORD + " " + BENSON.getTags();
         assertCommandSuccess(command, expectedModel, expectedResultMessage);
 
         /* Case: mixed case command word -> rejected */
