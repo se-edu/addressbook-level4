@@ -16,8 +16,6 @@ import java.net.URL;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
-import java.util.function.Predicate;
 
 import org.junit.After;
 import org.junit.Before;
@@ -36,9 +34,6 @@ import seedu.address.TestApp;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.index.Index;
 import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
-import seedu.address.model.UserPrefs;
-import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.ui.CommandBox;
 
 /**
@@ -52,8 +47,6 @@ public abstract class AddressBookSystemTest {
     private static final List<String> COMMAND_BOX_DEFAULT_STYLE = Arrays.asList("text-input", "text-field");
     private static final List<String> COMMAND_BOX_ERROR_STYLE =
             Arrays.asList("text-input", "text-field", CommandBox.ERROR_STYLE_CLASS);
-
-    private static final Predicate<ReadOnlyPerson> PREDICATE_SHOW_NO_PERSONS = unused -> false;
 
     private MainWindowHandle mainWindowHandle;
     private TestApp testApp;
@@ -117,31 +110,6 @@ public abstract class AddressBookSystemTest {
         mainWindowHandle.getCommandBox().run(command);
 
         waitUntilBrowserLoaded(getBrowserPanel());
-    }
-
-    /**
-     * @see AddressBookSystemTest#prepareModelFilteredList(List)
-     */
-    protected Model prepareModelFilteredList(ReadOnlyPerson... displayedPersons) {
-        return prepareModelFilteredList(Arrays.asList(displayedPersons));
-    }
-
-    /**
-     * Returns a {@code Model} backed by {@code TestApp}'s address book, displaying only {@code displayedPersons}.
-     */
-    protected Model prepareModelFilteredList(List<ReadOnlyPerson> displayedPersons) {
-        ModelManager model = new ModelManager(getTestApp().getModel().getAddressBook(), new UserPrefs());
-        Optional<Predicate<ReadOnlyPerson>> predicate =
-                displayedPersons.stream().map(this::personEquals).reduce(Predicate::or);
-        model.updateFilteredPersonList(predicate.orElse(PREDICATE_SHOW_NO_PERSONS));
-        return model;
-    }
-
-    /**
-     * Returns a predicate that evaluates to true if this {@code ReadOnlyPerson} equals to {@code other}.
-     */
-    private Predicate<ReadOnlyPerson> personEquals(ReadOnlyPerson other) {
-        return person -> person.equals(other);
     }
 
     /**
