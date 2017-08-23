@@ -23,6 +23,7 @@ public class WebViewUtil {
      */
     public static void waitUntilBrowserLoaded(BrowserPanelHandle browserPanelHandle) {
         new GuiRobot().waitForEvent(browserPanelHandle::getIsWebViewLoaded);
+        browserPanelHandle.setIsWebViewLoading(false);
         browserPanelHandle.setIsWebViewLoaded(false);
     }
 }
