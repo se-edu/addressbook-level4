@@ -1,5 +1,6 @@
 package seedu.address.ui;
 
+import static guitests.guihandles.WebViewUtil.waitUntilBrowserLoaded;
 import static org.junit.Assert.assertEquals;
 import static seedu.address.testutil.EventsUtil.postNow;
 import static seedu.address.testutil.TypicalPersons.ALICE;
@@ -13,7 +14,6 @@ import java.net.URL;
 import org.junit.Before;
 import org.junit.Test;
 
-import guitests.GuiRobot;
 import guitests.guihandles.BrowserPanelHandle;
 import seedu.address.MainApp;
 import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
@@ -45,7 +45,7 @@ public class BrowserPanelTest extends GuiUnitTest {
         URL expectedPersonUrl = new URL(GOOGLE_SEARCH_URL_PREFIX
                 + ALICE.getName().fullName.replaceAll(" ", "+") + GOOGLE_SEARCH_URL_SUFFIX);
 
-        new GuiRobot().waitForEvent(() -> browserPanelHandle.getIsWebViewLoaded());
+        waitUntilBrowserLoaded(browserPanelHandle);
         assertEquals(expectedPersonUrl, browserPanelHandle.getLoadedUrl());
     }
 }
