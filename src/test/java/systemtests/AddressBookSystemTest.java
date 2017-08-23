@@ -1,5 +1,6 @@
 package systemtests;
 
+import static guitests.guihandles.WebViewUtil.waitUntilBrowserLoaded;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static seedu.address.ui.BrowserPanel.DEFAULT_PAGE;
@@ -61,6 +62,7 @@ public abstract class AddressBookSystemTest {
         testApp = setupHelper.setupApplication();
         mainWindowHandle = setupHelper.setupMainWindowHandle();
 
+        waitUntilBrowserLoaded(getBrowserPanel());
         assertApplicationStartingStateIsCorrect();
     }
 
@@ -96,10 +98,15 @@ public abstract class AddressBookSystemTest {
 
     /**
      * Executes {@code command} in the application's {@code CommandBox}.
+     * Method returns after UI components have been updated.
      */
     protected void executeCommand(String command) throws Exception {
         rememberStates();
         mainWindowHandle.getCommandBox().run(command);
+
+        if (getBrowserPanel().getIsWebViewLoading()) {
+            waitUntilBrowserLoaded(getBrowserPanel());
+        }
     }
 
     /**

@@ -1,6 +1,5 @@
 package systemtests;
 
-import static guitests.guihandles.WebViewUtil.waitUntilBrowserLoaded;
 import static seedu.address.commons.core.Messages.MESSAGE_PERSONS_LISTED_OVERVIEW;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.testutil.TypicalPersons.BENSON;
@@ -124,7 +123,6 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
         assert getPersonListPanel().getListSize() == 6;
         executeCommand(SelectCommand.COMMAND_WORD + " 1");
         assert !getPersonListPanel().getHandleToSelectedCard().getName().equals(DANIEL.getName().fullName);
-        waitUntilBrowserLoaded(getBrowserPanel());
         command = FindCommand.COMMAND_WORD + " Daniel";
         expectedResultMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 1);
         expectedModel = prepareModelFilteredList(DANIEL);
@@ -134,7 +132,6 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
         /* Case: selects and finds the same person in list -> 1 person found and card deselected */
         executeCommand(SelectCommand.COMMAND_WORD + " 1");
         assert getPersonListPanel().getHandleToSelectedCard().getName().equals(DANIEL.getName().fullName);
-        waitUntilBrowserLoaded(getBrowserPanel());
         assertCommandSuccess(command, expectedModel, expectedResultMessage);
         assertCardDeselected();
 
