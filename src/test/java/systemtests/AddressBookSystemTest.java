@@ -102,17 +102,10 @@ public abstract class AddressBookSystemTest {
      */
     protected void executeCommand(String command) throws Exception {
         rememberStates();
-        executeCommandNow(command);
-
-        waitUntilBrowserLoaded(getBrowserPanel());
-    }
-
-    /**
-     * Updates the application's clock to the current time and executes {@code command}.
-     */
-    private void executeCommandNow(String command) {
         clockRule.setInjectedClockToCurrentTime();
         mainWindowHandle.getCommandBox().run(command);
+
+        waitUntilBrowserLoaded(getBrowserPanel());
     }
 
     /**
