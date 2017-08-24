@@ -102,6 +102,10 @@ public abstract class AddressBookSystemTest {
      */
     protected void executeCommand(String command) throws Exception {
         rememberStates();
+        // Injects a fixed clock before executing a command so that the time stamp shown in the status bar
+        // after each command is predictable and also different from the previous command.
+        clockRule.setInjectedClockToCurrentTime();
+
         mainWindowHandle.getCommandBox().run(command);
 
         waitUntilBrowserLoaded(getBrowserPanel());
