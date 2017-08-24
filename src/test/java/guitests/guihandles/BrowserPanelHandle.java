@@ -16,7 +16,6 @@ public class BrowserPanelHandle extends NodeHandle<Node> {
 
     public static final String BROWSER_ID = "#browser";
 
-    // This variable is a substitute for using Semaphore as Semaphore isn't taught in syllabus
     private boolean isWebViewLoaded = true;
 
     private URL lastRememberedUrl;
