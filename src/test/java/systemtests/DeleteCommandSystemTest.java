@@ -1,6 +1,5 @@
 package systemtests;
 
-import static guitests.guihandles.WebViewUtil.waitUntilBrowserLoaded;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS;
@@ -131,7 +130,6 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
         assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);
 
         if (expectedSelectedCardIndex != null) {
-            waitUntilBrowserLoaded(getBrowserPanel());
             assertSelectedCardChanged(expectedSelectedCardIndex);
         } else {
             assertSelectedCardUnchanged();
@@ -139,8 +137,6 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
 
         assertCommandBoxStyleDefault();
         assertStatusBarUnchangedExceptSyncStatus();
-
-        clockRule.setInjectedClockToCurrentTime();
     }
 
     /**
@@ -160,7 +156,5 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
         assertSelectedCardUnchanged();
         assertCommandBoxStyleError();
         assertStatusBarUnchanged();
-
-        clockRule.setInjectedClockToCurrentTime();
     }
 }

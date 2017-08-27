@@ -1,5 +1,6 @@
 package systemtests;
 
+import static guitests.guihandles.WebViewUtil.waitUntilBrowserLoaded;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static seedu.address.ui.BrowserPanel.DEFAULT_PAGE;
@@ -35,8 +36,8 @@ import seedu.address.model.Model;
 import seedu.address.ui.CommandBox;
 
 /**
- * A system test class for AddressBook, which provides access to handles of GUI components, and
- * verifies that the starting state of the application is correct.
+ * A system test class for AddressBook, which provides access to handles of GUI components and helper methods
+ * for test verification.
  */
 public abstract class AddressBookSystemTest {
     @ClassRule
@@ -61,6 +62,7 @@ public abstract class AddressBookSystemTest {
         testApp = setupHelper.setupApplication();
         mainWindowHandle = setupHelper.setupMainWindowHandle();
 
+        waitUntilBrowserLoaded(getBrowserPanel());
         assertApplicationStartingStateIsCorrect();
     }
 
@@ -96,10 +98,17 @@ public abstract class AddressBookSystemTest {
 
     /**
      * Executes {@code command} in the application's {@code CommandBox}.
+     * Method returns after UI components have been updated.
      */
     protected void executeCommand(String command) throws Exception {
         rememberStates();
+        // Injects a fixed clock before executing a command so that the time stamp shown in the status bar
+        // after each command is predictable and also different from the previous command.
+        clockRule.setInjectedClockToCurrentTime();
+
         mainWindowHandle.getCommandBox().run(command);
+
+        waitUntilBrowserLoaded(getBrowserPanel());
     }
 
     /**
