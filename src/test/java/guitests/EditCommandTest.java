@@ -36,7 +36,7 @@ import seedu.address.testutil.PersonBuilder;
 public class EditCommandTest extends AddressBookGuiTest {
 
     @Test
-    public void edit_allFieldsSpecified_success() throws Exception {
+    public void edit_allFieldsSpecified_success() {
         String detailsToEdit = PREFIX_NAME + "Bobby " + PREFIX_PHONE + "91234567 "
                 + PREFIX_EMAIL + "bobby@example.com "
                 + PREFIX_ADDRESS + "Block 123, Bobby Street 3 "
@@ -50,7 +50,7 @@ public class EditCommandTest extends AddressBookGuiTest {
     }
 
     @Test
-    public void edit_notAllFieldsSpecified_success() throws Exception {
+    public void edit_notAllFieldsSpecified_success() {
         String detailsToEdit = PREFIX_TAG + "sweetie "
                 + PREFIX_TAG + "bestie";
         Index addressBookIndex = INDEX_SECOND_PERSON;
@@ -62,7 +62,7 @@ public class EditCommandTest extends AddressBookGuiTest {
     }
 
     @Test
-    public void edit_clearTags_success() throws Exception {
+    public void edit_clearTags_success() {
         String detailsToEdit = PREFIX_TAG.getPrefix();
         Index addressBookIndex = INDEX_SECOND_PERSON;
 
@@ -73,7 +73,7 @@ public class EditCommandTest extends AddressBookGuiTest {
     }
 
     @Test
-    public void edit_findThenEdit_success() throws Exception {
+    public void edit_findThenEdit_success() {
         runCommand(FindCommand.COMMAND_WORD + " Carl");
 
         String detailsToEdit = PREFIX_NAME + "Carrle";
@@ -143,7 +143,7 @@ public class EditCommandTest extends AddressBookGuiTest {
      * @param editedPerson the expected person after editing the person's details
      */
     private void assertEditSuccess(Index filteredPersonListIndex, Index addressBookIndex,
-                                    String detailsToEdit, Person editedPerson) throws Exception {
+                                    String detailsToEdit, Person editedPerson) {
         runCommand(EditCommand.COMMAND_WORD + " "
                 + filteredPersonListIndex.getOneBased() + " " + detailsToEdit);
 

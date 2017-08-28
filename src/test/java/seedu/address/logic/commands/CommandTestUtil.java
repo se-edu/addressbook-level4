@@ -12,12 +12,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.ReadOnlyPerson;
+import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 
 /**
@@ -57,16 +57,12 @@ public class CommandTestUtil {
     public static final EditCommand.EditPersonDescriptor DESC_BOB;
 
     static {
-        try {
-            DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
-                    .withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY)
-                    .withTags(VALID_TAG_FRIEND).build();
-            DESC_BOB = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
-                    .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
-                    .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
-        } catch (IllegalValueException ive) {
-            throw new AssertionError("Method should not fail.");
-        }
+        DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
+                .withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY)
+                .withTags(VALID_TAG_FRIEND).build();
+        DESC_BOB = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB)
+                .withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
+                .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
     }
 
     /**
@@ -75,10 +71,14 @@ public class CommandTestUtil {
      * - the {@code actualModel} matches {@code expectedModel}
      */
     public static void assertCommandSuccess(Command command, Model actualModel, String expectedMessage,
-            Model expectedModel) throws CommandException {
-        CommandResult result = command.execute();
-        assertEquals(expectedMessage, result.feedbackToUser);
-        assertEquals(expectedModel, actualModel);
+            Model expectedModel) {
+        try {
+            CommandResult result = command.execute();
+            assertEquals(expectedMessage, result.feedbackToUser);
+            assertEquals(expectedModel, actualModel);
+        } catch (CommandException ce) {
+            throw new AssertionError("Execution of command should not fail.", ce);
+        }
     }
 
     /**
@@ -117,8 +117,12 @@ public class CommandTestUtil {
     /**
      * Deletes the first person in {@code model}'s filtered list from {@code model}'s address book.
      */
-    public static void deleteFirstPerson(Model model) throws Exception {
+    public static void deleteFirstPerson(Model model) {
         ReadOnlyPerson firstPerson = model.getFilteredPersonList().get(0);
-        model.deletePerson(firstPerson);
+        try {
+            model.deletePerson(firstPerson);
+        } catch (PersonNotFoundException pnfe) {
+            throw new AssertionError("Person in filtered list must exist in model.", pnfe);
+        }
     }
 }

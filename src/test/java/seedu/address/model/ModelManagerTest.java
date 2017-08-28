@@ -16,7 +16,7 @@ import seedu.address.testutil.AddressBookBuilder;
 public class ModelManagerTest {
 
     @Test
-    public void equals() throws Exception {
+    public void equals() {
         AddressBook addressBook = new AddressBookBuilder().withPerson(ALICE).withPerson(BENSON).build();
         AddressBook differentAddressBook = new AddressBook();
         UserPrefs userPrefs = new UserPrefs();
