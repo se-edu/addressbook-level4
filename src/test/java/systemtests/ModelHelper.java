@@ -1,5 +1,6 @@
 package systemtests;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
@@ -20,6 +21,13 @@ public class ModelHelper {
         Optional<Predicate<ReadOnlyPerson>> predicate =
                 toDisplay.stream().map(ModelHelper::getPredicateMatching).reduce(Predicate::or);
         model.updateFilteredPersonList(predicate.orElse(PREDICATE_MATCHING_NO_PERSONS));
+    }
+
+    /**
+     * @see ModelHelper#setFilteredList(Model, List)
+     */
+    public static void setFilteredList(Model model, ReadOnlyPerson... toDisplay) {
+        setFilteredList(model, Arrays.asList(toDisplay));
     }
 
     /**
