@@ -139,7 +139,7 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
             assertSelectedCardUnchanged();
         }
 
-        assertCommandBoxStyleDefault();
+        assertCommandBoxShowsDefaultStyle();
         assertStatusBarUnchangedExceptSyncStatus();
     }
 
@@ -152,13 +152,12 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
      * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandFailure(String commandToRun, String expectedResultMessage) {
-        Model expectedModel = new ModelManager(
-                new AddressBook(getTestApp().getModel().getAddressBook()), new UserPrefs());
+        Model expectedModel = getTestApp().getModel();
 
         executeCommand(commandToRun);
         assertApplicationDisplaysExpected(commandToRun, expectedResultMessage, expectedModel);
         assertSelectedCardUnchanged();
-        assertCommandBoxStyleError();
+        assertCommandBoxShowsErrorStyle();
         assertStatusBarUnchanged();
     }
 }

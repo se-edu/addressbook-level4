@@ -169,16 +169,16 @@ public abstract class AddressBookSystemTest {
     }
 
     /**
-     * Asserts that the command box's style is the default style.
+     * Asserts that the command box's shows the default style.
      */
-    protected void assertCommandBoxStyleDefault() {
+    protected void assertCommandBoxShowsDefaultStyle() {
         assertEquals(COMMAND_BOX_DEFAULT_STYLE, getCommandBox().getStyleClass());
     }
 
     /**
-     * Asserts that the command box's style is the error style.
+     * Asserts that the command box's shows the error style.
      */
-    protected void assertCommandBoxStyleError() {
+    protected void assertCommandBoxShowsErrorStyle() {
         assertEquals(COMMAND_BOX_ERROR_STYLE, getCommandBox().getStyleClass());
     }
 
