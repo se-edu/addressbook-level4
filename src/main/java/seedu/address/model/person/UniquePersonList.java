@@ -19,9 +19,9 @@ import seedu.address.model.person.exceptions.PersonNotFoundException;
  * @see Person#equals(Object)
  * @see CollectionUtil#elementsAreUnique(Collection)
  */
-public class UniquePersonList implements Iterable<ReadOnlyPerson> {
+public class UniquePersonList implements Iterable<Person> {
 
-    private final ObservableList<ReadOnlyPerson> internalList = FXCollections.observableArrayList();
+    private final ObservableList<Person> internalList = FXCollections.observableArrayList();
 
     /**
      * Returns true if the list contains an equivalent person as the given argument.
@@ -92,12 +92,12 @@ public class UniquePersonList implements Iterable<ReadOnlyPerson> {
         setPersons(replacement);
     }
 
-    public ObservableList<ReadOnlyPerson> asObservableList() {
+    public ObservableList<? extends ReadOnlyPerson> asObservableList() {
         return FXCollections.unmodifiableObservableList(internalList);
     }
 
     @Override
-    public Iterator<ReadOnlyPerson> iterator() {
+    public Iterator<Person> iterator() {
         return internalList.iterator();
     }
 

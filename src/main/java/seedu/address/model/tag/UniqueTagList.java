@@ -99,7 +99,7 @@ public class UniqueTagList implements Iterable<Tag> {
     }
 
     /**
-     * Returns the backing list as an {@code ReadOnlyListProperty}.
+     * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
     public ObservableList<Tag> asObservableList() {
         assert CollectionUtil.elementsAreUnique(internalList);

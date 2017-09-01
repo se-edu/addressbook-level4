@@ -24,7 +24,7 @@ public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final AddressBook addressBook;
-    private final FilteredList<ReadOnlyPerson> filteredPersons;
+    private final FilteredList<? extends ReadOnlyPerson> filteredPersons;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -87,7 +87,7 @@ public class ModelManager extends ComponentManager implements Model {
      * Return a list of {@code ReadOnlyPerson} backed by the internal list of {@code addressBook}
      */
     @Override
-    public ObservableList<ReadOnlyPerson> getFilteredPersonList() {
+    public ObservableList<? extends ReadOnlyPerson> getFilteredPersonList() {
         return FXCollections.unmodifiableObservableList(filteredPersons);
     }
 

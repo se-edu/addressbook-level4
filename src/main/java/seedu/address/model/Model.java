@@ -36,8 +36,8 @@ public interface Model {
     void updatePerson(ReadOnlyPerson target, ReadOnlyPerson editedPerson)
             throws DuplicatePersonException, PersonNotFoundException;
 
-    /** Returns the filtered person list as an {@code ReadOnlyListProperty<ReadOnlyPerson>} */
-    ObservableList<ReadOnlyPerson> getFilteredPersonList();
+    /** Returns the filtered person list as an {@code ObservableList<? extends ReadOnlyPerson>} */
+    ObservableList<? extends ReadOnlyPerson> getFilteredPersonList();
 
     /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.
