@@ -17,7 +17,7 @@ public class ModelHelper {
     /**
      * Updates {@code model}'s filtered list to display only {@code toDisplay}.
      */
-    public static void setFilteredList(Model model, List<ReadOnlyPerson> toDisplay) {
+    public static void setFilteredList(Model model, List<? extends ReadOnlyPerson> toDisplay) {
         Optional<Predicate<ReadOnlyPerson>> predicate =
                 toDisplay.stream().map(ModelHelper::getPredicateMatching).reduce(Predicate::or);
         model.updateFilteredPersonList(predicate.orElse(PREDICATE_MATCHING_NO_PERSONS));

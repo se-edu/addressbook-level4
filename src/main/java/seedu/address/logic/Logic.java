@@ -20,7 +20,7 @@ public interface Logic {
     CommandResult execute(String commandText) throws CommandException, ParseException;
 
     /** Returns the filtered list of persons */
-    ObservableList<ReadOnlyPerson> getFilteredPersonList();
+    ObservableList<? extends ReadOnlyPerson> getFilteredPersonList();
 
     /** Returns the list of input entered by the user, encapsulated in a {@code ListElementPointer} object */
     ListElementPointer getHistorySnapshot();

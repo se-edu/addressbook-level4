@@ -10,7 +10,6 @@ import java.util.Objects;
 import java.util.Set;
 
 import javafx.collections.ObservableList;
-import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.UniquePersonList;
@@ -169,13 +168,13 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     @Override
-    public ObservableList<ReadOnlyPerson> getPersonList() {
-        return new UnmodifiableObservableList<>(persons.asObservableList());
+    public ObservableList<? extends ReadOnlyPerson> getPersonList() {
+        return persons.asObservableList();
     }
 
     @Override
     public ObservableList<Tag> getTagList() {
-        return new UnmodifiableObservableList<>(tags.asObservableList());
+        return tags.asObservableList();
     }
 
     @Override
