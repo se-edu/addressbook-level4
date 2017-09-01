@@ -37,7 +37,7 @@ public interface Model {
             throws DuplicatePersonException, PersonNotFoundException;
 
     /** Returns an unmodifiable view of the filtered person list */
-    ObservableList<? extends ReadOnlyPerson> getFilteredPersonList();
+    ObservableList<ReadOnlyPerson> getFilteredPersonList();
 
     /**
      * Updates the filter of the filtered person list to filter by the given {@code predicate}.

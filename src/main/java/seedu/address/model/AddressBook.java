@@ -171,7 +171,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     @Override
-    public ObservableList<? extends ReadOnlyPerson> getPersonList() {
+    public ObservableList<ReadOnlyPerson> getPersonList() {
         return persons.asObservableList();
     }
 
