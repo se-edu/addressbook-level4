@@ -13,7 +13,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import seedu.address.commons.core.UnmodifiableObservableList;
+import javafx.collections.ObservableList;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.UndoRedoStack;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -124,7 +124,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public UnmodifiableObservableList<ReadOnlyPerson> getFilteredPersonList() {
+        public ObservableList<ReadOnlyPerson> getFilteredPersonList() {
             fail("This method should not be called.");
             return null;
         }
