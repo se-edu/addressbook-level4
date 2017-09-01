@@ -7,7 +7,6 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
@@ -93,8 +92,8 @@ public class UniquePersonList implements Iterable<Person> {
         setPersons(replacement);
     }
 
-    public UnmodifiableObservableList<ReadOnlyPerson> asObservableList() {
-        return new UnmodifiableObservableList<>(internalList);
+    public ObservableList<? extends ReadOnlyPerson> asObservableList() {
+        return FXCollections.unmodifiableObservableList(internalList);
     }
 
     @Override
