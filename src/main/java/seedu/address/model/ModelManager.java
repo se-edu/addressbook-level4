@@ -6,10 +6,11 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
@@ -83,11 +84,12 @@ public class ModelManager extends ComponentManager implements Model {
     //=========== Filtered Person List Accessors =============================================================
 
     /**
-     * Return a list of {@code ReadOnlyPerson} backed by the internal list of {@code addressBook}
+     * Returns an unmodifiable view of the list of {@code ReadOnlyPerson} backed by the internal list of
+     * {@code addressBook}
      */
     @Override
-    public UnmodifiableObservableList<ReadOnlyPerson> getFilteredPersonList() {
-        return new UnmodifiableObservableList<>(filteredPersons);
+    public ObservableList<ReadOnlyPerson> getFilteredPersonList() {
+        return FXCollections.unmodifiableObservableList(filteredPersons);
     }
 
     @Override
