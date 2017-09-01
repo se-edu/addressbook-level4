@@ -93,7 +93,7 @@ public class UniquePersonList implements Iterable<Person> {
         setPersons(replacement);
     }
 
-    public UnmodifiableObservableList<Person> asObservableList() {
+    public UnmodifiableObservableList<ReadOnlyPerson> asObservableList() {
         return new UnmodifiableObservableList<>(internalList);
     }
 
