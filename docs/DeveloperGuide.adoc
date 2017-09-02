@@ -415,8 +415,8 @@ We use https://travis-ci.org/[Travis CI] and https://www.appveyor.com/[AppVeyor]
 
 === Previewing Documentation
 
-See <<UsingGradle#rendering-asciidoc-files, UsingGradle.adoc>> to learn how to preview .adoc files locally.
-Alternatively, you can download the `AsciiDoc` plugin on `IntelliJ`, which allows you to preview the changes you have made to your .adoc files in real-time.
+See <<UsingGradle#rendering-asciidoc-files, UsingGradle.adoc>> to learn how to preview `.adoc` files locally.
+Alternatively, you can download the AsciiDoc plugin for IntelliJ, which allows you to preview the changes you have made to your `.adoc` files in real-time.
 
 === Publishing Documentation
 
