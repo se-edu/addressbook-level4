@@ -57,7 +57,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
     public void edit() throws Exception {
         Model model = getTestApp().getModel();
 
-        /*                                 Standard valid command operations                                          */
+        /* ------------------------------- Standard valid command operations ---------------------------------------- */
 
         /* Case: edit all fields, command with leading spaces, trailing spaces and multiple spaces between each field
          * -> edited
@@ -99,7 +99,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         editedPerson = new PersonBuilder(personToEdit).withTags().build();
         assertCommandSuccess(command, index, editedPerson);
 
-        /*                                 Filtered list operations                                                   */
+        /* ------------------------------- Filtered list operations ------------------------------------------------- */
 
         /* Case: filtered person list, edit index within bounds of address book and person list -> edited */
         executeCommand(FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MEIER);
@@ -120,7 +120,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + invalidIndex + NAME_DESC_BOB,
                 Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
 
-        /*                                   Card selection operations                                                */
+        /* --------------------------------- Card selection operations ---------------------------------------------- */
 
         /* Case: selects first card in the person list, edit a person -> edited, card selection remains unchanged but
          * browser url changes
@@ -137,7 +137,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         // browser's url is updated to reflect the new person's name
         assertCommandSuccess(command, index, AMY, index);
 
-        /*                                 Standard invalid command operations                                        */
+        /* ------------------------------- Standard invalid command operations -------------------------------------- */
 
         /* Case: invalid index (0) -> rejected */
         assertCommandFailure(EditCommand.COMMAND_WORD + " 0" + NAME_DESC_BOB,
