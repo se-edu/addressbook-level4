@@ -68,13 +68,11 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         Person editedPerson = new PersonBuilder().withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
                 .withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND).build();
         assertCommandSuccess(command, index, editedPerson);
-        assertSelectedCardUnchanged();
 
         /* Case: undo editing the last person in the list -> last person restored */
         command = UndoCommand.COMMAND_WORD;
         String expectedResultMessage = UndoCommand.MESSAGE_SUCCESS;
         assertCommandSuccess(command, model, expectedResultMessage);
-        assertSelectedCardUnchanged();
 
         /* Case: redo editing the last person in the list -> last person deleted again */
         command = RedoCommand.COMMAND_WORD;
@@ -82,13 +80,11 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         model.updatePerson(
                 getTestApp().getModel().getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased()), editedPerson);
         assertCommandSuccess(command, model, expectedResultMessage);
-        assertSelectedCardUnchanged();
 
         /* Case: edit existing person with own details -> edited */
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
                 + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         assertCommandSuccess(command, index, BOB);
-        assertSelectedCardUnchanged();
 
         /* Case: edit some fields -> edited */
         index = INDEX_FIRST_PERSON;
@@ -96,14 +92,12 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         ReadOnlyPerson personToEdit = getTestApp().getModel().getFilteredPersonList().get(index.getZeroBased());
         editedPerson = new PersonBuilder(personToEdit).withTags(VALID_TAG_FRIEND).build();
         assertCommandSuccess(command, index, editedPerson);
-        assertSelectedCardUnchanged();
 
         /* Case: clear tags -> cleared */
         index = INDEX_FIRST_PERSON;
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + " " + PREFIX_TAG.getPrefix();
         editedPerson = new PersonBuilder(personToEdit).withTags().build();
         assertCommandSuccess(command, index, editedPerson);
-        assertSelectedCardUnchanged();
 
         /*                                 Filtered list operations                                                   */
 
@@ -115,7 +109,6 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         personToEdit = getTestApp().getModel().getFilteredPersonList().get(index.getZeroBased());
         editedPerson = new PersonBuilder(personToEdit).withName(VALID_NAME_BOB).build();
         assertCommandSuccess(command, index, editedPerson);
-        assertSelectedCardUnchanged();
 
         /* Case: filtered person list, edit index within bounds of address book but out of bounds of person list
          * -> rejected
@@ -140,11 +133,9 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         assert getPersonListPanel().getSelectedCardIndex() == index.getZeroBased();
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
                 + ADDRESS_DESC_AMY + TAG_DESC_FRIEND;
-        assertCommandSuccess(command, index, AMY);
-
         // this can be misleading: card selection actually remains unchanged but the
         // browser's url is updated to reflect the new person's name
-        assertSelectedCardChanged(index);
+        assertCommandSuccess(command, index, AMY, index);
 
         /*                                 Standard invalid command operations                                        */
 
@@ -162,7 +153,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
                 Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
 
         /* Case: missing index -> rejected */
-        assertCommandFailure(EditCommand.COMMAND_WORD + " " + NAME_DESC_BOB,
+        assertCommandFailure(EditCommand.COMMAND_WORD + NAME_DESC_BOB,
                 String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
 
         /* Case: missing fields -> rejected */
@@ -205,25 +196,45 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
     }
 
     /**
-     * Performs the same verification as {@code assertCommandSuccess(String, Model, String)} except that the result
-     * display box displays the success message of executing {@code EditCommand} with the {@code editedPerson} and
-     * the model related components equal to the current model updated with {@code editedPerson} at {@code index}.
-     * @param index the index of the current model's filtered list
-     * @see EditCommandSystemTest#assertCommandSuccess(String, Model, String)
+     * Performs the same verification as {@code assertCommandSuccess(String, Index, ReadOnlyPerson, Index)} except that
+     * the browser url and selected card remain unchanged.
+     * @param toEdit the index of the current model's filtered list
+     * @see EditCommandSystemTest#assertCommandSuccess(String, Index, ReadOnlyPerson, Index)
      */
-    private void assertCommandSuccess(String command, Index index, ReadOnlyPerson editedPerson) {
+    private void assertCommandSuccess(String command, Index toEdit, ReadOnlyPerson editedPerson) {
+        assertCommandSuccess(command, toEdit, editedPerson, null);
+    }
+
+    /**
+     * Performs the same verification as {@code assertCommandSuccess(String, Model, String, Index)} except that the
+     * result display box displays the success message of executing {@code EditCommand} with the {@code editedPerson}
+     * and the model related components equal to the current model updated with {@code editedPerson} at {@code toEdit}.
+     * @param toEdit the index of the current model's filtered list.
+     * @see EditCommandSystemTest#assertCommandSuccess(String, Model, String, Index)
+     */
+    private void assertCommandSuccess(String command, Index toEdit, ReadOnlyPerson editedPerson,
+            Index expectedSelectedCardIndex) {
         Model expectedModel = getTestApp().getModel();
         try {
             expectedModel.updatePerson(
-                    expectedModel.getFilteredPersonList().get(index.getZeroBased()), editedPerson);
+                    expectedModel.getFilteredPersonList().get(toEdit.getZeroBased()), editedPerson);
             expectedModel.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         } catch (DuplicatePersonException | PersonNotFoundException e) {
             throw new IllegalArgumentException(
                     "editedPerson is a duplicate in expectedModel, or it isn't found in the model.");
         }
 
-        assertCommandSuccess(
-                command, expectedModel, String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson));
+        assertCommandSuccess(command, expectedModel,
+                String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson), expectedSelectedCardIndex);
+    }
+
+    /**
+     * Performs the same verification as {@code assertCommandSuccess(String, Model, String, Index)} except that the
+     * browser url and selected card remain unchanged.
+     * @see EditCommandSystemTest#assertCommandSuccess(String, Model, String, Index)
+     */
+    private void assertCommandSuccess(String command, Model expectedModel, String expectedResultMessage) {
+        assertCommandSuccess(command, expectedModel, expectedResultMessage, null);
     }
 
     /**
@@ -231,14 +242,22 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
      * box displays {@code expectedResultMessage} and the model related components equal to {@code expectedModel}.
      * These verifications are done by
      * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
-     * Also verifies that the command box has the default style class and the status bar's sync status changes.
+     * Also verifies that the command box has the default style class, status bar's sync status changes and the browser
+     * url and selected card update accordingly depending on the card at {@code expectedSelectedCardIndex}.
      * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
+     * @see AddressBookSystemTest#assertSelectedCardChanged(Index)
      */
-    private void assertCommandSuccess(String command, Model expectedModel, String expectedResultMessage) {
+    private void assertCommandSuccess(String command, Model expectedModel, String expectedResultMessage,
+            Index expectedSelectedCardIndex) {
         executeCommand(command);
         expectedModel.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);
         assertCommandBoxShowsDefaultStyle();
+        if (expectedSelectedCardIndex != null) {
+            assertSelectedCardChanged(expectedSelectedCardIndex);
+        } else {
+            assertSelectedCardUnchanged();
+        }
         assertStatusBarUnchangedExceptSyncStatus();
     }
 
