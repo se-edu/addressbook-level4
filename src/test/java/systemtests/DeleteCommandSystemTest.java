@@ -36,10 +36,7 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
         /* Case: delete the last person in the list -> deleted */
         Model modelBeforeDeletingLast = getTestApp().getModel();
         Index lastPersonIndex = getLastIndex(modelBeforeDeletingLast);
-        command = DeleteCommand.COMMAND_WORD + " " + String.valueOf(lastPersonIndex.getOneBased());
-        deletedPerson = removePerson(expectedModel, lastPersonIndex);
-        expectedResultMessage = String.format(MESSAGE_DELETE_PERSON_SUCCESS, deletedPerson);
-        assertCommandSuccess(command, expectedModel, expectedResultMessage);
+        assertCommandSuccess(lastPersonIndex);
 
         /* Case: undo deleting the last person in the list -> last person restored */
         command = UndoCommand.COMMAND_WORD;
@@ -53,12 +50,8 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
         assertCommandSuccess(command, modelBeforeDeletingLast, expectedResultMessage);
 
         /* Case: delete the middle person in the list -> deleted */
-        expectedModel = getTestApp().getModel();
-        Index middlePersonIndex = getMidIndex(expectedModel);
-        command = DeleteCommand.COMMAND_WORD + " " + String.valueOf(middlePersonIndex.getOneBased());
-        deletedPerson = removePerson(expectedModel, middlePersonIndex);
-        expectedResultMessage = String.format(MESSAGE_DELETE_PERSON_SUCCESS, deletedPerson);
-        assertCommandSuccess(command, expectedModel, expectedResultMessage);
+        Index middlePersonIndex = getMidIndex(getTestApp().getModel());
+        assertCommandSuccess(middlePersonIndex);
 
         /* Case: delete the selected person -> person list panel selects the person before the deleted person */
         Index selectedIndex = getMidIndex(expectedModel);
@@ -105,6 +98,20 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
             throw new AssertionError("targetPerson is retrieved from model.");
         }
         return targetPerson;
+    }
+
+    /**
+     * Deletes the person at {@code toDelete} by creating a default {@code DeleteCommand} using {@code toDelete} and
+     * performs the same verification as {@code assertCommandSuccess(String, Model, String)}.
+     * @see DeleteCommandSystemTest#assertCommandSuccess(String, Model, String)
+     */
+    private void assertCommandSuccess(Index toDelete) {
+        Model expectedModel = getTestApp().getModel();
+        ReadOnlyPerson deletedPerson = removePerson(expectedModel, toDelete);
+        String expectedResultMessage = String.format(MESSAGE_DELETE_PERSON_SUCCESS, deletedPerson);
+
+        assertCommandSuccess(
+                DeleteCommand.COMMAND_WORD + " " + toDelete.getOneBased(), expectedModel, expectedResultMessage);
     }
 
     /**
