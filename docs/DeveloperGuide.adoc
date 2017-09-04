@@ -720,18 +720,17 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 *Extensions*
 
-2a. The list is empty
+[none]
+* 2a. The list is empty.
++
+[none]
+** Use case ends.
 
-____
-Use case ends
-____
-
-3a. The given index is invalid
-
-____
-3a1. AddressBook shows an error message +
-Use case resumes at step 2
-____
+* 3a. The given index is invalid.
++
+[none]
+** 3a1. AddressBook shows an error message.
+** Use case resumes at step 2.
 
 {More to be added}
 
@@ -750,16 +749,16 @@ ____
 [[mainstream-os]]
 Mainstream OS
 
-____
+....
 Windows, Linux, Unix, OS-X
-____
+....
 
 [[private-contact-detail]]
 Private contact detail
 
-_____
+....
 A contact detail that is not meant to be shared with others
-_____
+....
 
 [appendix]
 == Product Survey
