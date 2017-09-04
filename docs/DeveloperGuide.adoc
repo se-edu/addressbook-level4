@@ -720,16 +720,17 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 *Extensions*
 
-2a. The list is empty
+[none]
+* 2a. The list is empty.
++
+[none]
+** Use case ends.
 
-[literal]
-Use case ends
-
-3a. The given index is invalid
-
-[literal]
-3a1. AddressBook shows an error message
-Use case resumes at step 2
+* 3a. The given index is invalid.
++
+[none]
+** 3a1. AddressBook shows an error message.
+** Use case resumes at step 2.
 
 {More to be added}
 
