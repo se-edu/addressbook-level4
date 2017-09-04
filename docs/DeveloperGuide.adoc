@@ -722,16 +722,14 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 2a. The list is empty
 
-____
+[literal]
 Use case ends
-____
 
 3a. The given index is invalid
 
-____
-3a1. AddressBook shows an error message +
+[literal]
+3a1. AddressBook shows an error message
 Use case resumes at step 2
-____
 
 {More to be added}
 
@@ -750,16 +748,14 @@ ____
 [[mainstream-os]]
 Mainstream OS
 
-____
+[literal]
 Windows, Linux, Unix, OS-X
-____
 
 [[private-contact-detail]]
 Private contact detail
 
-_____
+[literal]
 A contact detail that is not meant to be shared with others
-_____
 
 [appendix]
 == Product Survey
