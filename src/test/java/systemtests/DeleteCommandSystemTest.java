@@ -7,12 +7,15 @@ import static seedu.address.testutil.TestUtil.getLastIndex;
 import static seedu.address.testutil.TestUtil.getMidIndex;
 import static seedu.address.testutil.TestUtil.getPerson;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.address.testutil.TypicalPersons.KEYWORD_MATCHING_MEIER;
 
 import org.junit.Test;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.DeleteCommand;
+import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
@@ -53,8 +56,28 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
         Index middlePersonIndex = getMidIndex(getTestApp().getModel());
         assertCommandSuccess(middlePersonIndex);
 
+        /* Case: filtered person list, delete index within bounds of address book and person list -> deleted */
+        executeCommand(FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MEIER);
+        Index index = INDEX_FIRST_PERSON;
+        assert index.getZeroBased() < getTestApp().getModel().getFilteredPersonList().size();
+        assertCommandSuccess(index);
+
+        /* Case: filtered person list, delete index within bounds of address book but out of bounds of person list
+         * -> rejected
+         */
+        executeCommand(FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MEIER);
+        assert getTestApp().getModel().getFilteredPersonList().size()
+                < getTestApp().getModel().getAddressBook().getPersonList().size();
+        int invalidIndex = getTestApp().getModel().getAddressBook().getPersonList().size();
+        command = DeleteCommand.COMMAND_WORD + " " + invalidIndex;
+        assertCommandFailure(command, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+
         /* Case: delete the selected person -> person list panel selects the person before the deleted person */
-        Index selectedIndex = getMidIndex(expectedModel);
+        executeCommand(ListCommand.COMMAND_WORD);
+        assert getTestApp().getModel().getAddressBook().getPersonList().size()
+                == getTestApp().getModel().getFilteredPersonList().size();
+        expectedModel = getTestApp().getModel();
+        Index selectedIndex = getLastIndex(expectedModel);
         Index expectedIndex = Index.fromZeroBased(selectedIndex.getZeroBased() - 1);
         getPersonListPanel().select(selectedIndex.getZeroBased());
         command = DeleteCommand.COMMAND_WORD + " " + String.valueOf(selectedIndex.getOneBased());
