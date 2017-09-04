@@ -15,10 +15,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
-import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
-import seedu.address.model.ModelManager;
-import seedu.address.model.UserPrefs;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 
@@ -29,8 +26,7 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
 
     @Test
     public void delete() {
-        Model expectedModel = new ModelManager(new AddressBook(getTestApp().getModel().getAddressBook()),
-                new UserPrefs());
+        Model expectedModel = getTestApp().getModel();
 
         /* Case: delete the first person in the list, command with leading spaces and trailing spaces -> deleted */
         String command = "     " + DeleteCommand.COMMAND_WORD + "      " + INDEX_FIRST_PERSON.getOneBased() + "       ";
@@ -39,7 +35,7 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
         assertCommandSuccess(command, expectedModel, expectedResultMessage);
 
         /* Case: delete the last person in the list -> deleted */
-        Model modelBeforeDeletingLast = new ModelManager(expectedModel.getAddressBook(), new UserPrefs());
+        Model modelBeforeDeletingLast = getTestApp().getModel();
         Index lastPersonIndex = getLastIndex(expectedModel);
         command = DeleteCommand.COMMAND_WORD + " " + String.valueOf(lastPersonIndex.getOneBased());
         deletedPerson = removePerson(expectedModel, lastPersonIndex);
