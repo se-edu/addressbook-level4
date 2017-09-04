@@ -26,9 +26,8 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
 
     @Test
     public void delete() {
-        Model expectedModel = getTestApp().getModel();
-
         /* Case: delete the first person in the list, command with leading spaces and trailing spaces -> deleted */
+        Model expectedModel = getTestApp().getModel();
         String command = "     " + DeleteCommand.COMMAND_WORD + "      " + INDEX_FIRST_PERSON.getOneBased() + "       ";
         ReadOnlyPerson deletedPerson = removePerson(expectedModel, INDEX_FIRST_PERSON);
         String expectedResultMessage = String.format(MESSAGE_DELETE_PERSON_SUCCESS, deletedPerson);
@@ -36,7 +35,7 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: delete the last person in the list -> deleted */
         Model modelBeforeDeletingLast = getTestApp().getModel();
-        Index lastPersonIndex = getLastIndex(expectedModel);
+        Index lastPersonIndex = getLastIndex(modelBeforeDeletingLast);
         command = DeleteCommand.COMMAND_WORD + " " + String.valueOf(lastPersonIndex.getOneBased());
         deletedPerson = removePerson(expectedModel, lastPersonIndex);
         expectedResultMessage = String.format(MESSAGE_DELETE_PERSON_SUCCESS, deletedPerson);
@@ -49,10 +48,12 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: redo deleting the last person in the list -> last person deleted again */
         command = RedoCommand.COMMAND_WORD;
+        removePerson(modelBeforeDeletingLast, lastPersonIndex);
         expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
-        assertCommandSuccess(command, expectedModel, expectedResultMessage);
+        assertCommandSuccess(command, modelBeforeDeletingLast, expectedResultMessage);
 
         /* Case: delete the middle person in the list -> deleted */
+        expectedModel = getTestApp().getModel();
         Index middlePersonIndex = getMidIndex(expectedModel);
         command = DeleteCommand.COMMAND_WORD + " " + String.valueOf(middlePersonIndex.getOneBased());
         deletedPerson = removePerson(expectedModel, middlePersonIndex);
@@ -77,7 +78,8 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
         assertCommandFailure(command, MESSAGE_INVALID_DELETE_COMMAND_FORMAT);
 
         /* Case: invalid index (size + 1) -> rejected */
-        Index outOfBoundsIndex = Index.fromOneBased(expectedModel.getAddressBook().getPersonList().size() + 1);
+        Index outOfBoundsIndex = Index.fromOneBased(
+                getTestApp().getModel().getAddressBook().getPersonList().size() + 1);
         command = DeleteCommand.COMMAND_WORD + " " + String.valueOf(outOfBoundsIndex.getOneBased());
         assertCommandFailure(command, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
 
