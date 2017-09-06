@@ -9,7 +9,6 @@ import java.util.Set;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.commons.core.UnmodifiableObservableList;
 import seedu.address.commons.exceptions.DuplicateDataException;
 import seedu.address.commons.util.CollectionUtil;
 
@@ -100,11 +99,11 @@ public class UniqueTagList implements Iterable<Tag> {
     }
 
     /**
-     * Returns the backing list as an {@code UnmodifiableObservableList}.
+     * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
-    public UnmodifiableObservableList<Tag> asObservableList() {
+    public ObservableList<Tag> asObservableList() {
         assert CollectionUtil.elementsAreUnique(internalList);
-        return new UnmodifiableObservableList<>(internalList);
+        return FXCollections.unmodifiableObservableList(internalList);
     }
 
     @Override
