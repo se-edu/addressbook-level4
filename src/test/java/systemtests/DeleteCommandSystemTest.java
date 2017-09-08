@@ -138,12 +138,15 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
     }
 
     /**
-     * Executes {@code command} and verifies that the command box displays an empty string, the result display
-     * box displays {@code expectedResultMessage} and the model related components equal to {@code expectedModel}.
-     * These verifications are done by
-     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}. Also verifies that
-     * the command box has the default style class, the status bar's sync status changes, the browser url and selected
-     * card remains unchanged.
+     * Executes {@code command} and in addition,<br>
+     * 1. Asserts that the command box displays an empty string.<br>
+     * 2. Asserts that the result display box displays {@code expectedResultMessage}.<br>
+     * 3. Asserts that the model related components equal to {@code expectedModel}.<br>
+     * 4. Asserts that the browser url and selected card remains unchanged.<br>
+     * 5. Asserts that the status bar's sync status changes.<br>
+     * 6. Asserts that the command box has the default style class.<br>
+     * Verifications 1 to 3 are performed by
+     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.
      * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandSuccess(String command, Model expectedModel, String expectedResultMessage) {
@@ -172,11 +175,14 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
     }
 
     /**
-     * Executes {@code command} and verifies that the command box displays {@code command}, the result display
-     * box displays {@code expectedResultMessage} and the model related components equal to the current model.
-     * These verifications are done by
-     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}. Also verifies that
-     * the browser url, selected card and status bar remain unchanged, and the command box has the error style.
+     * Executes {@code command} and in addition,<br>
+     * 1. Asserts that the command box displays {@code command}.<br>
+     * 2. Asserts that result display box displays {@code expectedResultMessage}.<br>
+     * 3. Asserts that the model related components equal to the current model.<br>
+     * 4. Asserts that the browser url, selected card and status bar remain unchanged.<br>
+     * 5. Asserts that the command box has the error style.<br>
+     * Verifications 1 to 3 are performed by
+     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
      * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandFailure(String command, String expectedResultMessage) {
