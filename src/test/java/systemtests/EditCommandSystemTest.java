@@ -55,7 +55,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
 
     @Test
     public void edit() throws Exception {
-        Model model = getTestApp().getModel();
+        Model model = getModel();
 
         /* ----------------- Performing edit operation while an unfiltered list is being shown ---------------------- */
 
@@ -78,7 +78,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         command = RedoCommand.COMMAND_WORD;
         expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
         model.updatePerson(
-                getTestApp().getModel().getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased()), editedPerson);
+                getModel().getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased()), editedPerson);
         assertCommandSuccess(command, model, expectedResultMessage);
 
         /* Case: edit a person with new values same as existing values -> edited */
@@ -89,7 +89,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         /* Case: edit some fields -> edited */
         index = INDEX_FIRST_PERSON;
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + TAG_DESC_FRIEND;
-        ReadOnlyPerson personToEdit = getTestApp().getModel().getFilteredPersonList().get(index.getZeroBased());
+        ReadOnlyPerson personToEdit = getModel().getFilteredPersonList().get(index.getZeroBased());
         editedPerson = new PersonBuilder(personToEdit).withTags(VALID_TAG_FRIEND).build();
         assertCommandSuccess(command, index, editedPerson);
 
@@ -104,9 +104,9 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         /* Case: filtered person list, edit index within bounds of address book and person list -> edited */
         executeCommand(FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MEIER);
         index = INDEX_FIRST_PERSON;
-        assert index.getZeroBased() < getTestApp().getModel().getFilteredPersonList().size();
+        assert index.getZeroBased() < getModel().getFilteredPersonList().size();
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + " " + NAME_DESC_BOB;
-        personToEdit = getTestApp().getModel().getFilteredPersonList().get(index.getZeroBased());
+        personToEdit = getModel().getFilteredPersonList().get(index.getZeroBased());
         editedPerson = new PersonBuilder(personToEdit).withName(VALID_NAME_BOB).build();
         assertCommandSuccess(command, index, editedPerson);
 
@@ -114,9 +114,9 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
          * -> rejected
          */
         executeCommand(FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MEIER);
-        assert getTestApp().getModel().getFilteredPersonList().size()
-                < getTestApp().getModel().getAddressBook().getPersonList().size();
-        int invalidIndex = getTestApp().getModel().getAddressBook().getPersonList().size();
+        assert getModel().getFilteredPersonList().size()
+                < getModel().getAddressBook().getPersonList().size();
+        int invalidIndex = getModel().getAddressBook().getPersonList().size();
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + invalidIndex + NAME_DESC_BOB,
                 Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
 
@@ -126,8 +126,8 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
          * browser url changes
          */
         executeCommand(ListCommand.COMMAND_WORD);
-        assert getTestApp().getModel().getAddressBook().getPersonList().size()
-                == getTestApp().getModel().getFilteredPersonList().size();
+        assert getModel().getAddressBook().getPersonList().size()
+                == getModel().getFilteredPersonList().size();
         index = INDEX_FIRST_PERSON;
         executeCommand(SelectCommand.COMMAND_WORD + " " + index.getOneBased());
         assert getPersonListPanel().getSelectedCardIndex() == index.getZeroBased();
@@ -148,7 +148,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
                 String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
 
         /* Case: invalid index (size + 1) -> rejected */
-        invalidIndex = getTestApp().getModel().getFilteredPersonList().size() + 1;
+        invalidIndex = getModel().getFilteredPersonList().size() + 1;
         assertCommandFailure(EditCommand.COMMAND_WORD + " " + invalidIndex + NAME_DESC_BOB,
                 Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
 
@@ -182,9 +182,9 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: edit a person with new values same as another person's values -> rejected */
         executeCommand(PersonUtil.getAddCommand(BOB));
-        assert getTestApp().getModel().getAddressBook().getPersonList().contains(BOB);
+        assert getModel().getAddressBook().getPersonList().contains(BOB);
         index = INDEX_FIRST_PERSON;
-        assert !getTestApp().getModel().getFilteredPersonList().get(index.getZeroBased()).equals(BOB);
+        assert !getModel().getFilteredPersonList().get(index.getZeroBased()).equals(BOB);
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
                 + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PERSON);
@@ -215,7 +215,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
      */
     private void assertCommandSuccess(String command, Index toEdit, ReadOnlyPerson editedPerson,
             Index expectedSelectedCardIndex) {
-        Model expectedModel = getTestApp().getModel();
+        Model expectedModel = getModel();
         try {
             expectedModel.updatePerson(
                     expectedModel.getFilteredPersonList().get(toEdit.getZeroBased()), editedPerson);
@@ -278,7 +278,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
      * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandFailure(String command, String expectedResultMessage) {
-        Model expectedModel = getTestApp().getModel();
+        Model expectedModel = getModel();
 
         executeCommand(command);
         assertApplicationDisplaysExpected(command, expectedResultMessage, expectedModel);
