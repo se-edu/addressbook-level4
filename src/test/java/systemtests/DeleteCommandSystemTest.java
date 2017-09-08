@@ -29,6 +29,8 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
 
     @Test
     public void delete() {
+        /* ----------------- Performing delete operation while an unfiltered list is being shown -------------------- */
+
         /* Case: delete the first person in the list, command with leading spaces and trailing spaces -> deleted */
         Model expectedModel = getTestApp().getModel();
         String command = "     " + DeleteCommand.COMMAND_WORD + "      " + INDEX_FIRST_PERSON.getOneBased() + "       ";
@@ -56,6 +58,8 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
         Index middlePersonIndex = getMidIndex(getTestApp().getModel());
         assertCommandSuccess(middlePersonIndex);
 
+        /* ------------------ Performing delete operation while a filtered list is being shown ---------------------- */
+
         /* Case: filtered person list, delete index within bounds of address book and person list -> deleted */
         executeCommand(FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MEIER);
         Index index = INDEX_FIRST_PERSON;
@@ -72,6 +76,8 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
         command = DeleteCommand.COMMAND_WORD + " " + invalidIndex;
         assertCommandFailure(command, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
 
+        /* --------------------- Performing delete operation while a person card is selected ------------------------ */
+
         /* Case: delete the selected person -> person list panel selects the person before the deleted person */
         executeCommand(ListCommand.COMMAND_WORD);
         assert getTestApp().getModel().getAddressBook().getPersonList().size()
@@ -84,6 +90,8 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
         deletedPerson = removePerson(expectedModel, selectedIndex);
         expectedResultMessage = String.format(MESSAGE_DELETE_PERSON_SUCCESS, deletedPerson);
         assertCommandSuccess(command, expectedModel, expectedResultMessage, expectedIndex);
+
+        /* --------------------------------- Performing invalid delete operation ------------------------------------ */
 
         /* Case: invalid index (0) -> rejected */
         command = DeleteCommand.COMMAND_WORD + " 0";
