@@ -717,21 +717,22 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 2.  AddressBook shows a list of persons
 3.  User requests to delete a specific person in the list
 4.  AddressBook deletes the person
-5.  Use case ends.
++
+Use case ends.
 
 *Extensions*
 
 [none]
 * 2a. The list is empty.
 +
-[none]
-** Use case ends.
+Use case ends.
 
 * 3a. The given index is invalid.
 +
 [none]
 ** 3a1. AddressBook shows an error message.
-** Use case resumes at step 2.
++
+Use case resumes at step 2.
 
 {More to be added}
 
