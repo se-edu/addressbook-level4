@@ -30,7 +30,7 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
          * -> 2 persons found
          */
         String command = "   " + FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MEIER + "   ";
-        Model expectedModel = getTestApp().getModel();
+        Model expectedModel = getModel();
         ModelHelper.setFilteredList(expectedModel, BENSON, DANIEL); // first names of Benson and Daniel are "Meier"
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
@@ -83,9 +83,9 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: find same persons in address book after deleting 1 of them -> 1 person found */
         executeCommand(DeleteCommand.COMMAND_WORD + " 1");
-        assert !getTestApp().getModel().getAddressBook().getPersonList().contains(BENSON);
+        assert !getModel().getAddressBook().getPersonList().contains(BENSON);
         command = FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MEIER;
-        expectedModel = getTestApp().getModel();
+        expectedModel = getModel();
         ModelHelper.setFilteredList(expectedModel, DANIEL);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
@@ -145,9 +145,9 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: find person in empty address book -> 0 persons found */
         executeCommand(ClearCommand.COMMAND_WORD);
-        assert getTestApp().getModel().getAddressBook().getPersonList().size() == 0;
+        assert getModel().getAddressBook().getPersonList().size() == 0;
         command = FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MEIER;
-        expectedModel = getTestApp().getModel();
+        expectedModel = getModel();
         ModelHelper.setFilteredList(expectedModel, DANIEL);
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
@@ -187,7 +187,7 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
      * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandFailure(String command, String expectedResultMessage) {
-        Model expectedModel = getTestApp().getModel();
+        Model expectedModel = getModel();
 
         executeCommand(command);
         assertApplicationDisplaysExpected(command, expectedResultMessage, expectedModel);
