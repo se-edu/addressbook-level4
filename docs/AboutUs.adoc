@@ -1,5 +1,5 @@
 AddressBook - Level 4 was developed by the https://se-edu.github.io/docs/Team.html[se-edu] team. +
-The content below is a placeholder for future forks of the project.
+The dummy content given below serves as a placeholder to be used by future forks of the project.
 
 = About Us
 ifdef::env-github,env-browser[:outfilesuffix: .adoc]
@@ -11,18 +11,16 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 == Project Team
 
 === John Doe
-http://www.comp.nus.edu.sg/~damithch[[homepage]]https://github.com/damithc[[github]]link:team/johndoe.adoc[[portfolio]]
-
 image::damithc.jpg[width="150", align="left"]
+http://www.comp.nus.edu.sg/~damithch[[homepage]]https://github.com/damithc[[github]]link:team/johndoe.adoc[[portfolio]]
 
 Role: Project Advisor
 
 '''
 
 === John Roe
-http://github.com/lejolly[[github]]
-
 image::lejolly.jpg[width="150", align="left"]
+http://github.com/lejolly[[github]]
 
 Role: Team Lead +
 Responsibilities: UI
@@ -30,9 +28,8 @@ Responsibilities: UI
 '''
 
 === Johnny Doe
-http://github.com/yijinl[[github]]
-
 image::yijinl.jpg[width="150", align="left"]
+http://github.com/yijinl[[github]]
 
 Role: Developer +
 Responsibilities: Data
@@ -40,27 +37,17 @@ Responsibilities: Data
 '''
 
 === Johnny Roe
+image::m133225.jpg[width="150", align="left"]
 http://github.com/m133225[[github]]
 
-image::m133225.jpg[width="150", align="left"]
-
 Role: Developer +
-Responsibilities: Dev Ops
-
-'''
-
-=== Ben Meier
-https://github.com/ndt93[[github]]
-
-Role: Developer +
-Responsibilities: Threading
+Responsibilities: Dev Ops + Threading
 
 '''
 
 === Benson Meier
-http://github.com/yl-coder[[github]]
-
 image::yl_coder.jpg[width="150", align="left"]
+http://github.com/yl-coder[[github]]
 
 Role: Developer +
 Responsibilities: UI
