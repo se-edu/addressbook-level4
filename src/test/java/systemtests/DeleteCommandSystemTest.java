@@ -138,7 +138,7 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
     }
 
     /**
-     * Executes {@code commandToRun} and verifies that the command box displays an empty string, the result display
+     * Executes {@code command} and verifies that the command box displays an empty string, the result display
      * box displays {@code expectedResultMessage} and the model related components equal to {@code expectedModel}.
      * These verifications are done by
      * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}. Also verifies that
@@ -146,8 +146,8 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
      * card remains unchanged.
      * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
-    private void assertCommandSuccess(String commandToRun, Model expectedModel, String expectedResultMessage) {
-        assertCommandSuccess(commandToRun, expectedModel, expectedResultMessage, null);
+    private void assertCommandSuccess(String command, Model expectedModel, String expectedResultMessage) {
+        assertCommandSuccess(command, expectedModel, expectedResultMessage, null);
     }
 
     /**
@@ -156,9 +156,9 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
      * @see DeleteCommandSystemTest#assertCommandSuccess(String, Model, String)
      * @see AddressBookSystemTest#assertSelectedCardChanged(Index)
      */
-    private void assertCommandSuccess(String commandToRun, Model expectedModel, String expectedResultMessage,
+    private void assertCommandSuccess(String command, Model expectedModel, String expectedResultMessage,
             Index expectedSelectedCardIndex) {
-        executeCommand(commandToRun);
+        executeCommand(command);
         assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);
 
         if (expectedSelectedCardIndex != null) {
@@ -172,18 +172,18 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
     }
 
     /**
-     * Executes {@code commandToRun} and verifies that the command box displays {@code commandToRun}, the result display
+     * Executes {@code command} and verifies that the command box displays {@code command}, the result display
      * box displays {@code expectedResultMessage} and the model related components equal to the current model.
      * These verifications are done by
      * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}. Also verifies that
      * the browser url, selected card and status bar remain unchanged, and the command box has the error style.
      * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
-    private void assertCommandFailure(String commandToRun, String expectedResultMessage) {
+    private void assertCommandFailure(String command, String expectedResultMessage) {
         Model expectedModel = getTestApp().getModel();
 
-        executeCommand(commandToRun);
-        assertApplicationDisplaysExpected(commandToRun, expectedResultMessage, expectedModel);
+        executeCommand(command);
+        assertApplicationDisplaysExpected(command, expectedResultMessage, expectedModel);
         assertSelectedCardUnchanged();
         assertCommandBoxShowsErrorStyle();
         assertStatusBarUnchanged();
