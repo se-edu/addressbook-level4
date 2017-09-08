@@ -10,28 +10,59 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 == Project Team
 
-=== https://www.google.com.sg/search?safe=off&q=John+Doe&cad=h[John Doe]
-image::john_doe.jpg[width="150", align="left"]
+=== John Doe
+http://www.comp.nus.edu.sg/~damithch[[homepage]]https://github.com/damithc[[github]]link:team/johndoe.adoc[[portfolio]]
+
+image::damithc.jpg[width="150", align="left"]
 
 Role: Project Advisor
 
 '''
 
-=== https://www.google.com.sg/search?safe=off&q=John+Roe&cad=h[John Roe]
+=== John Roe
+http://github.com/lejolly[[github]]
 
-Role: Developer +
+image::lejolly.jpg[width="150", align="left"]
+
+Role: Team Lead +
 Responsibilities: UI
 
 '''
 
-=== https://www.google.com.sg/search?safe=off&q=Jane+Doe&cad=h[Jane Doe]
+=== Johnny Doe
+http://github.com/yijinl[[github]]
+
+image::yijinl.jpg[width="150", align="left"]
 
 Role: Developer +
 Responsibilities: Data
 
 '''
 
-=== https://www.google.com.sg/search?safe=off&q=Jane+Roe&cad=h[Jane Roe]
+=== Johnny Roe
+http://github.com/m133225[[github]]
+
+image::m133225.jpg[width="150", align="left"]
 
 Role: Developer +
-Responsibilities: Dev Ops + Threading
+Responsibilities: Dev Ops
+
+'''
+
+=== Ben Meier
+https://github.com/ndt93[[github]]
+
+Role: Developer +
+Responsibilities: Threading
+
+'''
+
+=== Benson Meier
+http://github.com/yl-coder[[github]]
+
+image::yl_coder.jpg[width="150", align="left"]
+
+Role: Developer +
+Responsibilities: UI
+
+'''
