@@ -1,3 +1,7 @@
+// These constants are declared to allow Asciidoc's parser to detect which bracket contains the URL.
+:opening-bracket: &#91;
+:closing-bracket: &#93;
+
 AddressBook - Level 4 was developed by the https://se-edu.github.io/docs/Team.html[se-edu] team. +
 The dummy content given below serves as a placeholder to be used by future forks of the project.
 
@@ -12,7 +16,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 === John Doe
 image::damithc.jpg[width="150", align="left"]
-http://www.comp.nus.edu.sg/~damithch[[homepage]]https://github.com/damithc[[github]]link:team/johndoe.adoc[[portfolio]]
+http://www.comp.nus.edu.sg/~damithch[{opening-bracket}homepage{closing-bracket}] https://github.com/damithc[{opening-bracket}github{closing-bracket}] link:team/johndoe.adoc[{opening-bracket}portfolio{closing-bracket}]
 
 Role: Project Advisor
 
@@ -20,7 +24,7 @@ Role: Project Advisor
 
 === John Roe
 image::lejolly.jpg[width="150", align="left"]
-http://github.com/lejolly[[github]]
+http://github.com/lejolly[{opening-bracket}github{closing-bracket}] link:team/johndoe.adoc[{opening-bracket}portfolio{closing-bracket}]
 
 Role: Team Lead +
 Responsibilities: UI
@@ -29,7 +33,7 @@ Responsibilities: UI
 
 === Johnny Doe
 image::yijinl.jpg[width="150", align="left"]
-http://github.com/yijinl[[github]]
+http://github.com/yijinl[{opening-bracket}github{closing-bracket}] link:team/johndoe.adoc[{opening-bracket}portfolio{closing-bracket}]
 
 Role: Developer +
 Responsibilities: Data
@@ -38,7 +42,7 @@ Responsibilities: Data
 
 === Johnny Roe
 image::m133225.jpg[width="150", align="left"]
-http://github.com/m133225[[github]]
+http://github.com/m133225[{opening-bracket}github{closing-bracket}] link:team/johndoe.adoc[{opening-bracket}portfolio{closing-bracket}]
 
 Role: Developer +
 Responsibilities: Dev Ops + Threading
@@ -47,7 +51,7 @@ Responsibilities: Dev Ops + Threading
 
 === Benson Meier
 image::yl_coder.jpg[width="150", align="left"]
-http://github.com/yl-coder[[github]]
+http://github.com/yl-coder[{opening-bracket}github{closing-bracket}] link:team/johndoe.adoc[{opening-bracket}portfolio{closing-bracket}]
 
 Role: Developer +
 Responsibilities: UI
