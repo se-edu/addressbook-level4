@@ -33,6 +33,8 @@ import seedu.address.MainApp;
 import seedu.address.TestApp;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.ListCommand;
 import seedu.address.model.Model;
 import seedu.address.ui.CommandBox;
 
@@ -110,6 +112,29 @@ public abstract class AddressBookSystemTest {
         mainWindowHandle.getCommandBox().run(command);
 
         waitUntilBrowserLoaded(getBrowserPanel());
+    }
+
+    /**
+     * Displays all persons in the address book.
+     */
+    protected void showAllPersons() {
+        executeCommand(ListCommand.COMMAND_WORD);
+        assert getModel().getAddressBook().getPersonList().size() == getModel().getFilteredPersonList().size();
+    }
+
+    /**
+     * Displays all persons with any parts of their names matching {@code keyword} (case-insensitive).
+     */
+    protected void showPersonsWithName(String keyword) {
+        executeCommand(FindCommand.COMMAND_WORD + " " + keyword);
+        assert getModel().getFilteredPersonList().size() < getModel().getAddressBook().getPersonList().size();
+    }
+
+    /**
+     * Selects the person at {@code index} of the displayed list.
+     */
+    protected void selectPerson(Index index) {
+        getPersonListPanel().select(index.getZeroBased());
     }
 
     /**
