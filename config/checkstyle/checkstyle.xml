@@ -224,6 +224,8 @@
       <property name="allowEmptyLoopBody" value="true"/>
     </module>
 
+    <module name="OneStatementPerLine"/>
+
     <module name="UpperEll">
       <!-- Checks that long constants are defined with an upper ell.-->
       <property name="severity" value="error"/>
