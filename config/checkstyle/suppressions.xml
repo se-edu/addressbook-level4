@@ -5,5 +5,14 @@
 "http://checkstyle.sourceforge.net/dtds/suppressions_1_1.dtd">
 
 <suppressions>
+  <!--
+  CODING CHECKS
+  -->
+  <suppress checks="MultipleVariableDeclarations"
+    files="[\\/]src[\\/]test[\\/]java[\\/]seedu[\\/]address[\\/]testutil[\\/]TypicalPersons\.java"/>
+
+  <!--
+  JAVADOC CHECKS
+  -->
   <suppress checks="JavadocType" files=".*Test\.java"/>
 </suppressions>
