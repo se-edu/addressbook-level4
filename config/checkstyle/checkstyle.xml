@@ -224,7 +224,8 @@
       <property name="allowEmptyLoopBody" value="true"/>
     </module>
 
-    <module name="OneStatementPerLine"/>
+    <!-- Checks that each variable declaration is in its own statement and on its own line. -->
+    <module name="MultipleVariableDeclarations"/>
 
     <module name="UpperEll">
       <!-- Checks that long constants are defined with an upper ell.-->
