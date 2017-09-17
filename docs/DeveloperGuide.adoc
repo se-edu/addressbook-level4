@@ -420,7 +420,13 @@ Alternatively, you can download the AsciiDoc plugin for IntelliJ, which allows y
 
 === Publishing Documentation
 
-See <<UsingGithubPages#, UsingGithubPages.adoc>> to learn how to use GitHub Pages to publish documentation to the project site.
+See <<UsingTravis#deploying-github-pages, UsingTravis.adoc>> to learn how to deploy GitHub Pages using Travis. +
+To verify that it works,
+
+.  Trigger Travis to regenerate documentation. To do so, you need to push a new commit to the master branch of the fork. +
+   Suggested change: Remove the codacy badge from `README`.
+.  Wait for Travis CI to finish running the build on your new commit.
+.  Go to the URL `\https://<your-username-or-organization-name>.github.io/addressbook-level4/`. You should see your `README` file displayed.
 
 === Making a Release
 
@@ -437,8 +443,8 @@ We use https://www.google.com/chrome/browser/desktop/[Google Chrome] for convert
 
 Here are the steps to convert the project documentation files to PDF format.
 
-.  Make sure you have set up GitHub Pages as described in <<UsingGithubPages#setting-up, UsingGithubPages.adoc>>.
-.  Using Chrome, go to the <<UsingGithubPages#viewing-the-project-site, GitHub Pages version>> of the documentation file. e.g. For <<UserGuide#, UserGuide.adoc>>, the URL will be `\https://<your-username-or-organization-name>.github.io/addressbook-level4/docs/UserGuide.html`.
+.  Make sure you have set up GitHub Pages as described in <<DeveloperGuide#publishing-documentation, Publishing Documentation>>.
+.  Using Chrome, go to the URL of the documentation file. e.g. For <<UserGuide#, UserGuide.adoc>>, the URL will be `\https://<your-username-or-organization-name>.github.io/addressbook-level4/docs/UserGuide.html`.
 .  Click on the `Print` option in Chrome's menu.
 .  Set the destination to `Save as PDF`, then click `Save` to save a copy of the file in PDF format. For best results, use the settings indicated in the screenshot below.
 
