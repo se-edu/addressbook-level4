@@ -420,13 +420,13 @@ Alternatively, you can download the AsciiDoc plugin for IntelliJ, which allows y
 
 === Publishing Documentation
 
-See <<UsingTravis#deploy-github-pages, UsingTravis.adoc>> to learn how to deploy GitHub Pages using Travis.
+See <<UsingTravis#deploy-github-pages, UsingTravis.adoc>> to learn how to deploy GitHub Pages using Travis. +
+To verify that it works,
 
-.  Go to your repository's `Settings -> Options -> GitHub Pages`.
-.  Ensure that the `Source` is set to `gh-pages branch`.
-.  Under `Theme Chooser`, click `Choose a theme` and select a theme of your choice.
-.  Go back to `Settings -> Options -> GitHub Pages`, you should see the message `Your site is ready to be published at \https://<your-username-or-organization-name>.github.io/addressbook-level4/.`
-.  Click the link and you will see your documentation on your GitHub pages.
+.  To trigger Travis to regenerate documentation, you need to push a new commit to the master branch of the fork. +
+   Suggested change: Remove the codacy badge from `README`.
+.  Wait for Travis CI to finish running the build on your new commit.
+.  Go to the URL \https://<your-username-or-organization-name>.github.io/addressbook-level4/. You should see your `README` file displayed.
 
 === Making a Release
 
@@ -443,7 +443,7 @@ We use https://www.google.com/chrome/browser/desktop/[Google Chrome] for convert
 
 Here are the steps to convert the project documentation files to PDF format.
 
-.  Make sure you have set up GitHub Pages as described in #publishing-documentation[Publishing Documentation].
+.  Make sure you have set up GitHub Pages as described in <<DeveloperGuide#publishing-documentation, Publishing Documentation>>.
 .  Using Chrome, go to the URL of the documentation file. e.g. For <<UserGuide#, UserGuide.adoc>>, the URL will be `\https://<your-username-or-organization-name>.github.io/addressbook-level4/docs/UserGuide.html`.
 .  Click on the `Print` option in Chrome's menu.
 .  Set the destination to `Save as PDF`, then click `Save` to save a copy of the file in PDF format. For best results, use the settings indicated in the screenshot below.
