@@ -422,6 +422,10 @@ Alternatively, you can download the AsciiDoc plugin for IntelliJ, which allows y
 
 See https://pages.github.com[GitHub Pages] to learn how to use GitHub Pages to publish documentation to the project site.
 
+.  Convert the AsciiDoc files in `docs` to HTML format, see <<UsingGradle#rendering-asciidoc-files, UsingGradle.adoc>>.
+.  Copy all the generated files and folders (E.g. HTML files and images folder) in `build/docs` and place it into the `project folder` that you have setup for GitHub Pages.
+.  Push it and you will be able to see your documentation on `\https://<your-username-or-organization-name>.github.io`
+
 === Making a Release
 
 Here are the steps to create a new release.
