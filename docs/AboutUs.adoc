@@ -1,56 +1,61 @@
 = About Us
-:relfileprefix: team/
 ifdef::env-github,env-browser[:outfilesuffix: .adoc]
 :imagesDir: images
 :stylesDir: stylesheets
 
-AddressBook - Level 4 was developed by the https://se-edu.github.io/docs/Team.html[se-edu] team. +
-The dummy content given below serves as a placeholder to be used by future forks of the project. +
-{empty} +
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
 == Project Team
 
-=== John Doe
+=== http://www.comp.nus.edu.sg/~damithch[Damith C. Rajapakse]
 image::damithc.jpg[width="150", align="left"]
-{empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/damithc[github]] [<<johndoe#, portfolio>>]
 
 Role: Project Advisor
 
 '''
 
-=== John Roe
+=== http://github.com/lejolly[Joshua Lee]
 image::lejolly.jpg[width="150", align="left"]
-{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
 
-Role: Team Lead +
+Role: Developer +
 Responsibilities: UI
 
 '''
 
-=== Johnny Doe
+=== http://github.com/yijinl[Leow Yijin]
 image::yijinl.jpg[width="150", align="left"]
-{empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Data
 
 '''
 
-=== Johnny Roe
+=== http://github.com/m133225[Martin Choo]
 image::m133225.jpg[width="150", align="left"]
-{empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Dev Ops + Threading
+Responsibilities: Dev Ops
 
 '''
 
-=== Benson Meier
+=== https://github.com/ndt93[Thien Nguyen]
+
+Role: Developer +
+Responsibilities: Threading
+
+'''
+
+=== http://github.com/yl-coder[You Liang]
 image::yl_coder.jpg[width="150", align="left"]
-{empty}[http://github.com/yl-coder[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
 Responsibilities: UI
 
 '''
+
+== Contributors
+
+We welcome contributions. See  <<ContactUs#, Contact Us>> page for more info.
+
+* https://github.com/se-edu/addressbook-level4/pulls?q=is%3Apr+author%3Aokkhoy[Akshay Narayan]
+* https://github.com/se-edu/addressbook-level4/pulls?q=is%3Apr+author%3Amauris[Sam Yong]
