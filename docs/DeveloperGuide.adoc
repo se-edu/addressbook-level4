@@ -426,7 +426,7 @@ To verify that it works,
 .  To trigger Travis to regenerate documentation, you need to push a new commit to the master branch of the fork. +
    Suggested change: Remove the codacy badge from `README`.
 .  Wait for Travis CI to finish running the build on your new commit.
-.  Go to the URL \https://<your-username-or-organization-name>.github.io/addressbook-level4/. You should see your `README` file displayed.
+.  Go to the URL `\https://<your-username-or-organization-name>.github.io/addressbook-level4/`. You should see your `README` file displayed.
 
 === Making a Release
 
