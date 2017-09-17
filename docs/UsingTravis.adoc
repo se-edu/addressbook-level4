@@ -58,8 +58,10 @@ image:travis_build.png[Travis build]
 
 .  Ensure that you have followed the steps above to set up Travis CI.
 .  On GitHub, create a new user account and give this account collaborator and admin access to the repo. +
-   Using this account, generate a personal access token https://github.com/settings/tokens/new[here]. +
-   *Personal access tokens are like passwords so make sure you keep them secret! If the personal access token is leaked, please delete it and generate a new one.*
+   Using this account, generate a personal access token https://github.com/settings/tokens/new[here].
++
+[NOTE]
+Personal access tokens are like passwords so make sure you keep them secret! If the personal access token is leaked, please delete it and generate a new one.
 +
 --
 * Add a description for the token (e.g. `Travis CI - deploy docs to gh-pages`)
