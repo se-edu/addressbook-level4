@@ -420,7 +420,7 @@ Alternatively, you can download the AsciiDoc plugin for IntelliJ, which allows y
 
 === Publishing Documentation
 
-See <<UsingTravis#deploy-github-pages, UsingTravis.adoc>> to learn how to deploy GitHub Pages using Travis. +
+See <<UsingTravis#deploying-github-pages, UsingTravis.adoc>> to learn how to deploy GitHub Pages using Travis. +
 To verify that it works,
 
 .  Trigger Travis to regenerate documentation. To do so, you need to push a new commit to the master branch of the fork. +
