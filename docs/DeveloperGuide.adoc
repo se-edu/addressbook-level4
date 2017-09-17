@@ -420,7 +420,7 @@ Alternatively, you can download the AsciiDoc plugin for IntelliJ, which allows y
 
 === Publishing Documentation
 
-See <<UsingGithubPages#, UsingGithubPages.adoc>> to learn how to use GitHub Pages to publish documentation to the project site.
+See https://pages.github.com[GitHub Pages] to learn how to use GitHub Pages to publish documentation to the project site.
 
 === Making a Release
 
