@@ -2,9 +2,9 @@ package guitests;
 
 import static seedu.address.ui.testutil.GuiTestAssert.assertListMatching;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Paths;
 
 import org.junit.Test;
 
@@ -32,11 +32,10 @@ public class SampleDataTest extends AddressBookGuiTest {
      * Deletes the file at {@code filePath} if it exists.
      */
     private void deleteFileIfExists(String filePath) {
-        File file = new File(filePath);
         try {
-            Files.deleteIfExists(file.toPath());
+            Files.deleteIfExists(Paths.get(filePath));
         } catch (IOException ioe) {
-            throw new AssertionError();
+            throw new AssertionError(ioe);
         }
     }
 
