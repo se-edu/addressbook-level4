@@ -1,6 +1,6 @@
 package systemtests;
 
-import static org.junit.Assume.assumeTrue;
+import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
@@ -21,7 +21,7 @@ import seedu.address.model.Model;
 public class SelectCommandSystemTest extends AddressBookSystemTest {
     @Test
     public void select() {
-        /* ----------------- Performing select operation while an unfiltered list is being shown -------------------- */
+        /* ------------------------ Perform select operation on the shown unfiltered list --------------------------- */
 
         /* Case: select the first card in the person list, command with leading spaces and trailing spaces
          * -> selected
@@ -52,7 +52,7 @@ public class SelectCommandSystemTest extends AddressBookSystemTest {
         /* Case: select the current selected card -> selected */
         assertCommandSuccess(command, middleIndex);
 
-        /* ------------------ Performing select operation while a filtered list is being shown ---------------------- */
+        /* ------------------------ Perform select operation on the shown filtered list ----------------------------- */
 
         /* Case: filtered person list, select index within bounds of address book but out of bounds of person list
          * -> rejected
@@ -63,11 +63,11 @@ public class SelectCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: filtered person list, select index within bounds of address book and person list -> selected */
         Index validIndex = Index.fromOneBased(1);
-        assumeTrue(validIndex.getZeroBased() < getModel().getFilteredPersonList().size());
+        assertTrue(validIndex.getZeroBased() < getModel().getFilteredPersonList().size());
         command = SelectCommand.COMMAND_WORD + " " + validIndex.getOneBased();
         assertCommandSuccess(command, validIndex);
 
-        /* --------------------------------- Performing invalid select operation ------------------------------------ */
+        /* ----------------------------------- Perform invalid select operation ------------------------------------- */
 
         /* Case: invalid index (0) -> rejected */
         assertCommandFailure(SelectCommand.COMMAND_WORD + " " + 0,
@@ -104,10 +104,10 @@ public class SelectCommandSystemTest extends AddressBookSystemTest {
      * 1. Asserts that the command box displays an empty string.<br>
      * 2. Asserts that the result display box displays the success message of executing select command with the
      * {@code expectedSelectedCardIndex} of the selected person.<br>
-     * 3. Asserts that the model related components equal to the current model.<br>
+     * 3. Asserts that the components that use model's data remain unchanged.<br>
      * 4. Asserts that the resulting browser url and selected card update accordingly depending on the card at
      * {@code expectedSelectedCardIndex}.<br>
-     * 5. Asserts that the status bar's sync status changes.<br>
+     * 5. Asserts that the status bar remains unchanged.<br>
      * 6. Asserts that the command box has the default style class.<br>
      * Verifications 1 to 3 are performed by
      * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
@@ -137,7 +137,7 @@ public class SelectCommandSystemTest extends AddressBookSystemTest {
      * Executes {@code command} and in addition,<br>
      * 1. Asserts that the command box displays {@code command}.<br>
      * 2. Asserts that result display box displays {@code expectedResultMessage}.<br>
-     * 3. Asserts that the model related components equal to the current model.<br>
+     * 3. Asserts that the components that use model's data remain unchanged.<br>
      * 4. Asserts that the browser url, selected card and status bar remain unchanged.<br>
      * 5. Asserts that the command box has the error style.<br>
      * Verifications 1 to 3 are performed by
