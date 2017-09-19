@@ -37,11 +37,9 @@ import static seedu.address.testutil.TypicalPersons.KEYWORD_MATCHING_MEIER;
 import org.junit.Test;
 
 import seedu.address.commons.core.Messages;
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.AddCommand;
-import seedu.address.logic.commands.ClearCommand;
-import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.RedoCommand;
-import seedu.address.logic.commands.SelectCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
 import seedu.address.model.person.Address;
@@ -110,8 +108,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         assertCommandSuccess(command, toAdd);
 
         /* Case: add to empty address book -> added */
-        executeCommand(ClearCommand.COMMAND_WORD);
-        assert getModel().getAddressBook().getPersonList().size() == 0;
+        deleteAllPersons();
         assertCommandSuccess(ALICE);
 
         /* Case: add a person with tags, command with parameters in random order -> added */
@@ -126,16 +123,13 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         /* -------------------------- Perform add operation on the shown filtered list ------------------------------ */
 
         /* Case: filters the person list before adding -> added */
-        executeCommand(FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MEIER);
-        assert getModel().getFilteredPersonList().size()
-                < getModel().getAddressBook().getPersonList().size();
+        showPersonsWithName(KEYWORD_MATCHING_MEIER);
         assertCommandSuccess(IDA);
 
         /* ------------------------ Perform add operation while a person card is selected --------------------------- */
 
         /* Case: selects first card in the person list, add a person -> added, card selection remains unchanged */
-        executeCommand(SelectCommand.COMMAND_WORD + " 1");
-        assert getPersonListPanel().isAnyCardSelected();
+        selectPerson(Index.fromOneBased(1));
         assertCommandSuccess(CARL);
 
         /* ----------------------------------- Perform invalid add operations --------------------------------------- */

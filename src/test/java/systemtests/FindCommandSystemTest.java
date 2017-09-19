@@ -13,7 +13,6 @@ import java.util.List;
 import org.junit.Test;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.RedoCommand;
@@ -142,8 +141,7 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
         assertSelectedCardDeselected();
 
         /* Case: find person in empty address book -> 0 persons found */
-        executeCommand(ClearCommand.COMMAND_WORD);
-        assert getModel().getAddressBook().getPersonList().size() == 0;
+        deleteAllPersons();
         command = FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MEIER;
         expectedModel = getModel();
         ModelHelper.setFilteredList(expectedModel, DANIEL);
