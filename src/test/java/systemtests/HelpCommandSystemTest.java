@@ -10,7 +10,7 @@ import guitests.guihandles.HelpWindowHandle;
 import seedu.address.logic.commands.HelpCommand;
 
 /**
- * TODO: This test is incomplete.
+ * TODO: This test is incomplete as it is missing test cases.
  */
 public class HelpCommandSystemTest extends AddressBookSystemTest {
     private static final String ERROR_MESSAGE = "ATTENTION!!!! : On some computers, this test may fail when run on "
