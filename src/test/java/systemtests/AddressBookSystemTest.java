@@ -76,6 +76,10 @@ public abstract class AddressBookSystemTest {
         EventsCenter.clearSubscribers();
     }
 
+    public MainWindowHandle getMainWindowHandle() {
+        return mainWindowHandle;
+    }
+
     public CommandBoxHandle getCommandBox() {
         return mainWindowHandle.getCommandBox();
     }
