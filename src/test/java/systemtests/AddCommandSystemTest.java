@@ -58,7 +58,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
     public void add() throws Exception {
         Model model = getModel();
 
-        /* ------------------ Performing add operation while an unfiltered list is being shown ---------------------- */
+        /* ------------------------ Perform add operations on the shown unfiltered list ----------------------------- */
 
         /* Case: add a person without tags to a non-empty address book, command with leading spaces and trailing spaces
          * -> added
@@ -120,19 +120,19 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         /* Case: add a person, missing tags -> added */
         assertCommandSuccess(HOON);
 
-        /* ------------------- Performing add operation while a filtered list is being shown ------------------------ */
+        /* -------------------------- Perform add operation on the shown filtered list ------------------------------ */
 
         /* Case: filters the person list before adding -> added */
         showPersonsWithName(KEYWORD_MATCHING_MEIER);
         assertCommandSuccess(IDA);
 
-        /* ---------------------- Performing add operation while a person card is selected -------------------------- */
+        /* ------------------------ Perform add operation while a person card is selected --------------------------- */
 
         /* Case: selects first card in the person list, add a person -> added, card selection remains unchanged */
         selectPerson(Index.fromOneBased(1));
         assertCommandSuccess(CARL);
 
-        /* ---------------------------------- Performing invalid add operation -------------------------------------- */
+        /* ----------------------------------- Perform invalid add operations --------------------------------------- */
 
         /* Case: add a duplicate person -> rejected */
         command = PersonUtil.getAddCommand(HOON);
@@ -188,15 +188,16 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
     }
 
     /**
-     * Executes the {@code AddCommand} that adds {@code toAdd} to the model and in addition,<br>
-     * 1. Asserts that the command box displays an empty string.<br>
-     * 2. Asserts that the result display box displays the success message of executing {@code AddCommand} with the
-     * details of {@code toAdd}.<br>
-     * 3. Asserts that the model related components equal to the current model added with {@code toAdd}.
-     * 4. Asserts that the browser url and selected card remain unchanged.<br>
-     * 5. Asserts that the status bar's sync status changes.<br>
-     * 6. Asserts that the command box has the default style class.<br>
-     * Verifications 1 to 3 are performed by
+     * Executes the {@code AddCommand} that adds {@code toAdd} to the model and asserts that the,<br>
+     * 1. Command box displays an empty string.<br>
+     * 2. Command box has the default style class.<br>
+     * 3. Result display box displays the success message of executing {@code AddCommand} with the details of
+     * {@code toAdd}.<br>
+     * 4. {@code Model}, {@code Storage} and {@code PersonListPanel} equal to the corresponding components in
+     * the current model added with {@code toAdd}.<br>
+     * 5. Browser url and selected card remain unchanged.<br>
+     * 6. Status bar's sync status changes.<br>
+     * Verifications 1, 3 and 4 are performed by
      * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
      * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
@@ -222,9 +223,11 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
     }
 
     /**
-     * Performs the same verification as {@code assertCommandSuccess(String, ReadOnlyPerson)} except,<br>
-     * 1. Asserts that the result display box displays {@code expectedResultMessage}.<br>
-     * 2. Asserts that the model related components equal to {@code expectedModel}.<br>
+     * Performs the same verification as {@code assertCommandSuccess(String, ReadOnlyPerson)} except asserts that
+     * the,<br>
+     * 1. Result display box displays {@code expectedResultMessage}.<br>
+     * 2. {@code Model}, {@code Storage} and {@code PersonListPanel} equal to the corresponding components in
+     * {@code expectedModel}.<br>
      * @see AddCommandSystemTest#assertCommandSuccess(String, ReadOnlyPerson)
      */
     private void assertCommandSuccess(String command, Model expectedModel, String expectedResultMessage) {
@@ -236,13 +239,13 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
     }
 
     /**
-     * Executes {@code command} and in addition,<br>
-     * 1. Asserts that the command box displays {@code command}.<br>
-     * 2. Asserts that the result display box displays {@code expectedResultMessage}.<br>
-     * 3. Asserts that the model related components equal to the current model.<br>
-     * 4. Asserts that the browser url, selected card and status bar remain unchanged.<br>
-     * 5. Asserts that the command box has the error style.<br>
-     * Verifications 1 to 3 are performed by
+     * Executes {@code command} and asserts that the,<br>
+     * 1. Command box displays {@code command}.<br>
+     * 2. Command box has the error style class.<br>
+     * 3. Result display box displays {@code expectedResultMessage}.<br>
+     * 4. {@code Model}, {@code Storage} and {@code PersonListPanel} remain unchanged.<br>
+     * 5. Browser url, selected card and status bar remain unchanged.<br>
+     * Verifications 1, 3 and 4 are performed by
      * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
      * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
