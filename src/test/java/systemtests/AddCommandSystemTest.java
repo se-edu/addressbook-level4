@@ -59,6 +59,9 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
     @Test
     public void add() throws Exception {
         Model model = getModel();
+
+        /* ------------------ Performing add operation while an unfiltered list is being shown ---------------------- */
+
         /* Case: add a person without tags to a non-empty address book, command with leading spaces and trailing spaces
          * -> added
          */
@@ -77,19 +80,6 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         model.addPerson(toAdd);
         expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
         assertCommandSuccess(command, model, expectedResultMessage);
-
-        /* Case: add a duplicate person -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY
-                + TAG_DESC_FRIEND;
-        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
-
-        /* Case: add a duplicate person except with different tags -> rejected */
-        // "friends" is an existing tag used in the default model, see TypicalPersons#ALICE
-        // This test will fail is a new tag that is not in the model is used, see the bug documented in
-        // AddressBook#addPerson(ReadOnlyPerson)
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY
-                + " " + PREFIX_TAG.getPrefix() + "friends";
-        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
 
         /* Case: add a person with all fields same as another person in the address book except name -> added */
         toAdd = new PersonBuilder().withName(VALID_NAME_BOB).withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY)
@@ -119,12 +109,6 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
                 + TAG_DESC_FRIEND;
         assertCommandSuccess(command, toAdd);
 
-        /* Case: filters the person list before adding -> added */
-        executeCommand(FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MEIER);
-        assert getModel().getFilteredPersonList().size()
-                < getModel().getAddressBook().getPersonList().size();
-        assertCommandSuccess(IDA);
-
         /* Case: add to empty address book -> added */
         executeCommand(ClearCommand.COMMAND_WORD);
         assert getModel().getAddressBook().getPersonList().size() == 0;
@@ -136,13 +120,36 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
                 + TAG_DESC_HUSBAND + EMAIL_DESC_BOB;
         assertCommandSuccess(command, toAdd);
 
+        /* Case: add a person, missing tags -> added */
+        assertCommandSuccess(HOON);
+
+        /* ------------------- Performing add operation while a filtered list is being shown ------------------------ */
+
+        /* Case: filters the person list before adding -> added */
+        executeCommand(FindCommand.COMMAND_WORD + " " + KEYWORD_MATCHING_MEIER);
+        assert getModel().getFilteredPersonList().size()
+                < getModel().getAddressBook().getPersonList().size();
+        assertCommandSuccess(IDA);
+
+        /* ---------------------- Performing add operation while a person card is selected -------------------------- */
+
         /* Case: selects first card in the person list, add a person -> added, card selection remains unchanged */
         executeCommand(SelectCommand.COMMAND_WORD + " 1");
         assert getPersonListPanel().isAnyCardSelected();
         assertCommandSuccess(CARL);
 
-        /* Case: add a person, missing tags -> added */
-        assertCommandSuccess(HOON);
+        /* ---------------------------------- Performing invalid add operation -------------------------------------- */
+
+        /* Case: add a duplicate person -> rejected */
+        command = PersonUtil.getAddCommand(HOON);
+        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
+
+        /* Case: add a duplicate person except with different tags -> rejected */
+        // "friends" is an existing tag used in the default model, see TypicalPersons#ALICE
+        // This test will fail is a new tag that is not in the model is used, see the bug documented in
+        // AddressBook#addPerson(ReadOnlyPerson)
+        command = PersonUtil.getAddCommand(HOON) + " " + PREFIX_TAG.getPrefix() + "friends";
+        assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
 
         /* Case: missing name -> rejected */
         command = AddCommand.COMMAND_WORD + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY;
