@@ -21,7 +21,7 @@ import seedu.address.model.Model;
 public class SelectCommandSystemTest extends AddressBookSystemTest {
     @Test
     public void select() {
-        /* ------------------------ Perform select operation on the shown unfiltered list --------------------------- */
+        /* ------------------------ Perform select operations on the shown unfiltered list -------------------------- */
 
         /* Case: select the first card in the person list, command with leading spaces and trailing spaces
          * -> selected
@@ -52,7 +52,7 @@ public class SelectCommandSystemTest extends AddressBookSystemTest {
         /* Case: select the current selected card -> selected */
         assertCommandSuccess(command, middleIndex);
 
-        /* ------------------------ Perform select operation on the shown filtered list ----------------------------- */
+        /* ------------------------ Perform select operations on the shown filtered list ---------------------------- */
 
         /* Case: filtered person list, select index within bounds of address book but out of bounds of person list
          * -> rejected
@@ -67,7 +67,7 @@ public class SelectCommandSystemTest extends AddressBookSystemTest {
         command = SelectCommand.COMMAND_WORD + " " + validIndex.getOneBased();
         assertCommandSuccess(command, validIndex);
 
-        /* ----------------------------------- Perform invalid select operation ------------------------------------- */
+        /* ----------------------------------- Perform invalid select operations ------------------------------------ */
 
         /* Case: invalid index (0) -> rejected */
         assertCommandFailure(SelectCommand.COMMAND_WORD + " " + 0,
@@ -104,9 +104,9 @@ public class SelectCommandSystemTest extends AddressBookSystemTest {
      * 1. Asserts that the command box displays an empty string.<br>
      * 2. Asserts that the result display box displays the success message of executing select command with the
      * {@code expectedSelectedCardIndex} of the selected person.<br>
-     * 3. Asserts that the components that use model's data remain unchanged.<br>
-     * 4. Asserts that the resulting browser url and selected card update accordingly depending on the card at
-     * {@code expectedSelectedCardIndex}.<br>
+     * 3. Asserts that {@code Model}, {@code Storage} and {@code PersonListPanel} remain unchanged.<br>
+     * 4. Asserts that selected card is at {@code expectedSelectedCardIndex} and the browser url is updated
+     * accordingly.<br>
      * 5. Asserts that the status bar remains unchanged.<br>
      * 6. Asserts that the command box has the default style class.<br>
      * Verifications 1 to 3 are performed by
@@ -137,9 +137,9 @@ public class SelectCommandSystemTest extends AddressBookSystemTest {
      * Executes {@code command} and in addition,<br>
      * 1. Asserts that the command box displays {@code command}.<br>
      * 2. Asserts that result display box displays {@code expectedResultMessage}.<br>
-     * 3. Asserts that the components that use model's data remain unchanged.<br>
+     * 3. Asserts that {@code Model}, {@code Storage} and {@code PersonListPanel} remain unchanged.<br>
      * 4. Asserts that the browser url, selected card and status bar remain unchanged.<br>
-     * 5. Asserts that the command box has the error style.<br>
+     * 5. Asserts that the command box has the error style class.<br>
      * Verifications 1 to 3 are performed by
      * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
      * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
