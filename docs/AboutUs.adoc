@@ -1,4 +1,4 @@
-= Bbout Us
+= BBout Us
 :relfileprefix: team/
 ifdef::env-github,env-browser[:outfilesuffix: .adoc]
 :imagesDir: images
