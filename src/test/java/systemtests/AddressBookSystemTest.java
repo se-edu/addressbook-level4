@@ -38,6 +38,7 @@ import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
+import seedu.address.model.util.SampleDataUtil;
 import seedu.address.testutil.TypicalPersons;
 import seedu.address.ui.CommandBox;
 
@@ -80,7 +81,10 @@ public abstract class AddressBookSystemTest {
 
     /**
      * Override this in child classes to set the initial local data.
-     * Return null to use the data in the file specified in {@link #getDataFileLocation()}
+     * If null is returned,
+     * 1. and the file in {@link #getDataFileLocation()} is an existing file, use the data in it.
+     * 2. and the file in {@link #getDataFileLocation()} is not an existing file, the initial data will be
+     *    {@link SampleDataUtil#getSampleAddressBook()}.
      */
     protected AddressBook getInitialData() {
         return TypicalPersons.getTypicalAddressBook();
