@@ -1,4 +1,4 @@
-package guitests;
+package systemtests;
 
 import static seedu.address.ui.testutil.GuiTestAssert.assertListMatching;
 
@@ -13,7 +13,7 @@ import seedu.address.model.person.Person;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.testutil.TestUtil;
 
-public class SampleDataTest extends AddressBookGuiTest {
+public class SampleDataTest extends AddressBookSystemTest {
     @Override
     protected AddressBook getInitialData() {
         // return null to force test app to load data from file only
