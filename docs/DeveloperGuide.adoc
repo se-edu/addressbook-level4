@@ -390,7 +390,7 @@ Tests can be found in the `./src/test/java` folder.
 
 We have two types of tests:
 
-.  *GUI Tests* - These are _System Tests_ that test the entire App by simulating user actions on the GUI. These are in the `guitests` package.
+.  *GUI Tests* - These are _unit tests_ targeting the individual components of the GUI and _system tests_ that test the entire App by simulating user actions on the GUI. These are in the `seedu.address.ui` and `systemtests` package.
 .  *Non-GUI Tests* - These are tests not involving the GUI. They include,
 ..  _Unit tests_ targeting the lowest level methods/classes. +
 e.g. `seedu.address.commons.StringUtilTest`
