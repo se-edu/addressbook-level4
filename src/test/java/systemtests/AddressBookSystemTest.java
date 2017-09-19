@@ -36,7 +36,10 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.SelectCommand;
+import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
+import seedu.address.model.util.SampleDataUtil;
+import seedu.address.testutil.TypicalPersons;
 import seedu.address.ui.CommandBox;
 
 /**
@@ -63,7 +66,7 @@ public abstract class AddressBookSystemTest {
     @Before
     public void setUp() {
         setupHelper = new SystemTestSetupHelper();
-        testApp = setupHelper.setupApplication();
+        testApp = setupHelper.setupApplication(this::getInitialData, getDataFileLocation());
         mainWindowHandle = setupHelper.setupMainWindowHandle();
 
         waitUntilBrowserLoaded(getBrowserPanel());
@@ -74,6 +77,24 @@ public abstract class AddressBookSystemTest {
     public void tearDown() throws Exception {
         setupHelper.tearDownStage();
         EventsCenter.clearSubscribers();
+    }
+
+    /**
+     * Override this in child classes to set the initial local data.
+     * If null is returned,
+     * 1. and the file in {@link #getDataFileLocation()} is an existing file, use the data in it.
+     * 2. and the file in {@link #getDataFileLocation()} is not an existing file, the initial data will be
+     *    {@link SampleDataUtil#getSampleAddressBook()}.
+     */
+    protected AddressBook getInitialData() {
+        return TypicalPersons.getTypicalAddressBook();
+    }
+
+    /**
+     * Override this in child classes to set the data file location.
+     */
+    protected String getDataFileLocation() {
+        return TestApp.SAVE_LOCATION_FOR_TESTING;
     }
 
     public MainWindowHandle getMainWindowHandle() {
