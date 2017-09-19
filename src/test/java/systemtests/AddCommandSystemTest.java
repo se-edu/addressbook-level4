@@ -187,13 +187,16 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
     }
 
     /**
-     * Executes the {@code AddCommand} that adds {@code toAdd} to the model and verifies that the command box displays
-     * an empty string, the result display box displays the success message of executing {@code AddCommand} with the
-     * details of {@code toAdd}, and the model related components equal to the current model added with {@code toAdd}.
-     * These verifications are done by
+     * Executes the {@code AddCommand} that adds {@code toAdd} to the model and in addition,<br>
+     * 1. Asserts that the command box displays an empty string.<br>
+     * 2. Asserts that the result display box displays the success message of executing {@code AddCommand} with the
+     * details of {@code toAdd}.<br>
+     * 3. Asserts that the model related components equal to the current model added with {@code toAdd}.
+     * 4. Asserts that the browser url and selected card remain unchanged.<br>
+     * 5. Asserts that the status bar's sync status changes.<br>
+     * 6. Asserts that the command box has the default style class.<br>
+     * Verifications 1 to 3 are performed by
      * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
-     * Also verifies that the command box has the default style class, the status bar's sync status changes,
-     * the browser url and selected card remains unchanged.
      * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandSuccess(ReadOnlyPerson toAdd) {
@@ -218,9 +221,9 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
     }
 
     /**
-     * Performs the same verification as {@code assertCommandSuccess(String, ReadOnlyPerson)} except that the result
-     * display box displays {@code expectedResultMessage} and the model related components equal to
-     * {@code expectedModel}.
+     * Performs the same verification as {@code assertCommandSuccess(String, ReadOnlyPerson)} except,<br>
+     * 1. Asserts that the result display box displays {@code expectedResultMessage}.<br>
+     * 2. Asserts that the model related components equal to {@code expectedModel}.<br>
      * @see AddCommandSystemTest#assertCommandSuccess(String, ReadOnlyPerson)
      */
     private void assertCommandSuccess(String command, Model expectedModel, String expectedResultMessage) {
@@ -232,12 +235,14 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
     }
 
     /**
-     * Executes {@code command} and verifies that the command box displays {@code command}, the result display
-     * box displays {@code expectedResultMessage} and the model related components equal to the current model.
-     * These verifications are done by
+     * Executes {@code command} and in addition,<br>
+     * 1. Asserts that the command box displays {@code command}.<br>
+     * 2. Asserts that the result display box displays {@code expectedResultMessage}.<br>
+     * 3. Asserts that the model related components equal to the current model.<br>
+     * 4. Asserts that the browser url, selected card and status bar remain unchanged.<br>
+     * 5. Asserts that the command box has the error style.<br>
+     * Verifications 1 to 3 are performed by
      * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
-     * Also verifies that the browser url, selected card and status bar remain unchanged, and the command box has the
-     * error style.
      * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandFailure(String command, String expectedResultMessage) {
