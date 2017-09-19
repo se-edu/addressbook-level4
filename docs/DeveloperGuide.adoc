@@ -425,9 +425,7 @@ To run tests in headless mode, open a console and run the command `gradlew clean
 
 We have two types of tests:
 
-.  *GUI Tests* - These are tests involving the GUI. They include,
-.. _System Tests_ that test the entire App by simulating user actions on the GUI. These are in the `systemtests` package.
-.. _Unit tests_ that test the individual components. These are in `seedu.address.ui` package.
+.  *GUI Tests* - These are _unit tests_ targeting the individual components of the GUI and _system tests_ that test the entire App by simulating user actions on the GUI. These are in the `seedu.address.ui` and `systemtests` package.
 .  *Non-GUI Tests* - These are tests not involving the GUI. They include,
 ..  _Unit tests_ targeting the lowest level methods/classes. +
 e.g. `seedu.address.commons.StringUtilTest`
