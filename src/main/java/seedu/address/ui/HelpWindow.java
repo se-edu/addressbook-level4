@@ -8,8 +8,8 @@ import javafx.scene.Scene;
 import javafx.scene.layout.Region;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
-import seedu.address.commons.core.Gradle;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.exceptions.DocsNotFoundException;
 import seedu.address.commons.util.FxViewUtil;
 
 /**
@@ -37,22 +37,13 @@ public class HelpWindow extends UiPart<Region> {
         dialogStage.setMaximized(true); //TODO: set a more appropriate initial size
         FxViewUtil.setStageIcon(dialogStage, ICON);
 
-        URL userGuideUrl = getUserGuideUrl();
-        browser.getEngine().load(userGuideUrl.toString());
-    }
-
-    /**
-     * Returns the {@code URL} of the file at {@code USERGUIDE_FILE_PATH}.
-     * Forces Gradle to build the file if it cannot be found.
-     */
-    private URL getUserGuideUrl() {
         URL userGuideUrl = getClass().getResource(USERGUIDE_FILE_PATH);
-        if (userGuideUrl == null) {
-            Gradle.buildResources();
-            userGuideUrl = getClass().getResource(USERGUIDE_FILE_PATH);
+        if (userGuideUrl != null) {
+            browser.getEngine().load(userGuideUrl.toString());
+        } else {
+            throw new DocsNotFoundException("UserGuide.html cannot be found. Run Gradle task 'processResources' to"
+                    + "create the missing file.");
         }
-
-        return userGuideUrl;
     }
 
     /**

@@ -30,7 +30,6 @@ allprojects {
         mavenCentral()
         maven { url "https://repo.eclipse.org/content/repositories/egit-releases/" }
         maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
-        maven { url 'https://repo.gradle.org/gradle/libs-releases' }
     }
 
     // This part is similar to global variables
@@ -44,7 +43,6 @@ allprojects {
         testFxVersion = '4.0.5-alpha'
         monocleVersion = '1.8.0_20'
         checkstyleVersion = '8.1'
-        toolingApiVersion = '4.2-rc-2'
 
         libDir = 'lib'
     }
@@ -75,10 +73,6 @@ allprojects {
             exclude group: "junit", module: "junit"
         }
         testCompile "org.testfx:openjfx-monocle:$monocleVersion"
-
-        compile "org.gradle:gradle-tooling-api:${toolingApiVersion}"
-        // The tooling API need an SLF4J implementation available at runtime, replace this with any other implementation
-        runtime 'org.slf4j:slf4j-simple:1.7.10'
     }
 
     sourceSets {
