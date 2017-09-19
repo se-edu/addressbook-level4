@@ -1,5 +1,6 @@
 package systemtests;
 
+import static org.junit.Assume.assumeTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
@@ -62,7 +63,7 @@ public class SelectCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: filtered person list, select index within bounds of address book and person list -> selected */
         Index validIndex = Index.fromOneBased(1);
-        assert validIndex.getZeroBased() < getModel().getFilteredPersonList().size();
+        assumeTrue(validIndex.getZeroBased() < getModel().getFilteredPersonList().size());
         command = SelectCommand.COMMAND_WORD + " " + validIndex.getOneBased();
         assertCommandSuccess(command, validIndex);
 
