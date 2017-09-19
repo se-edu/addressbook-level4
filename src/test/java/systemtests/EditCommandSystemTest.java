@@ -1,5 +1,7 @@
 package systemtests;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
@@ -101,7 +103,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         /* Case: filtered person list, edit index within bounds of address book and person list -> edited */
         showPersonsWithName(KEYWORD_MATCHING_MEIER);
         index = INDEX_FIRST_PERSON;
-        assert index.getZeroBased() < getModel().getFilteredPersonList().size();
+        assertTrue(index.getZeroBased() < getModel().getFilteredPersonList().size());
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + " " + NAME_DESC_BOB;
         personToEdit = getModel().getFilteredPersonList().get(index.getZeroBased());
         editedPerson = new PersonBuilder(personToEdit).withName(VALID_NAME_BOB).build();
@@ -174,9 +176,9 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: edit a person with new values same as another person's values -> rejected */
         executeCommand(PersonUtil.getAddCommand(BOB));
-        assert getModel().getAddressBook().getPersonList().contains(BOB);
+        assertTrue(getModel().getAddressBook().getPersonList().contains(BOB));
         index = INDEX_FIRST_PERSON;
-        assert !getModel().getFilteredPersonList().get(index.getZeroBased()).equals(BOB);
+        assertFalse(getModel().getFilteredPersonList().get(index.getZeroBased()).equals(BOB));
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
                 + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PERSON);
