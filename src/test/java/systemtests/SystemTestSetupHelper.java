@@ -1,12 +1,13 @@
 package systemtests;
 
 import java.util.concurrent.TimeoutException;
+import java.util.function.Supplier;
 
 import org.testfx.api.FxToolkit;
 
 import guitests.guihandles.MainWindowHandle;
 import seedu.address.TestApp;
-import seedu.address.testutil.TypicalPersons;
+import seedu.address.model.ReadOnlyAddressBook;
 
 /**
  * Contains helper methods that system tests require.
@@ -18,10 +19,9 @@ public class SystemTestSetupHelper {
     /**
      * Sets up the {@code TestApp} and returns it.
      */
-    public TestApp setupApplication() {
+    public TestApp setupApplication(Supplier<ReadOnlyAddressBook> addressBook, String saveFileLocation) {
         try {
-            FxToolkit.setupApplication(() -> testApp = new TestApp(TypicalPersons::getTypicalAddressBook,
-                    TestApp.SAVE_LOCATION_FOR_TESTING));
+            FxToolkit.setupApplication(() -> testApp = new TestApp(addressBook, saveFileLocation));
         } catch (TimeoutException te) {
             throw new AssertionError("Application takes too long to set up.");
         }
