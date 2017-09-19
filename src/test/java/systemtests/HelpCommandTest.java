@@ -1,14 +1,20 @@
-package guitests;
+package systemtests;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
+import guitests.GuiRobot;
 import guitests.guihandles.HelpWindowHandle;
 import seedu.address.logic.commands.HelpCommand;
 
-public class HelpWindowTest extends AddressBookGuiTest {
+/**
+ * TODO: This test is incomplete.
+ */
+public class HelpCommandTest extends AddressBookSystemTest {
+
+    private final GuiRobot guiRobot = new GuiRobot();
 
     @Test
     public void openHelpWindow() {
@@ -34,7 +40,7 @@ public class HelpWindowTest extends AddressBookGuiTest {
         assertHelpWindowOpen();
 
         //use command box
-        runCommand(HelpCommand.COMMAND_WORD);
+        executeCommand(HelpCommand.COMMAND_WORD);
         assertHelpWindowOpen();
     }
 
@@ -46,7 +52,7 @@ public class HelpWindowTest extends AddressBookGuiTest {
         guiRobot.pauseForHuman();
 
         new HelpWindowHandle(guiRobot.getStage(HelpWindowHandle.HELP_WINDOW_TITLE)).close();
-        mainWindowHandle.focus();
+        getMainWindowHandle().focus();
     }
 
     /**
