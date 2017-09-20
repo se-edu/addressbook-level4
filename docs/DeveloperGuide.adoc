@@ -50,12 +50,8 @@ Restart the IDE to complete the installation.
 . Locate the `build.gradle` file and select it. Click `OK`
 . Click `Open as Project`
 . Click `OK` to accept the default settings
-. Run the Gradle task `processResources` (see <<UsingGradle#running-gradle-commands, UsingGradle.adoc>> to learn how to execute Gradle's tasks). +
-This task will generate a HTML version of the User Guide (from the asciidoc version), to be used by the `HelpWindow`.
-. (Optional) You may want to use Gradle to execute tests. This automatically executes Gradle tasks such as `processResources` before running the tests.
-.. Go to `File` > `Settings` (Windows/Linux), or `IntelliJ IDEA` > `Preferences...` (macOS) +
-.. Select `Build, Execution, Deployment` > `Build Tools` > `Gradle` > `Runner` +
-.. Select `Gradle Test Runner` under `Run test using`
+. Open a console and run the command `gradlew processResources` (Mac/Linux: `./gradlew processResources`). It should finish with the `BUILD SUCCESSFUL` message. +
+This will generate all resources required by the application and tests.
 
 === Configuring Checkstyle-IDEA
 
@@ -410,7 +406,7 @@ e.g. `seedu.address.logic.LogicManagerTest`
 Thanks to the https://github.com/TestFX/TestFX[TestFX] library we use, our GUI tests can be run in the _headless_ mode. In the headless mode, GUI tests do not show up on the screen. That means the developer can do other things on the Computer while the tests are running. See <<UsingGradle#running-tests, UsingGradle.adoc>> to learn how to run tests in headless mode.
 
 === Troubleshooting Testing
-**Problem: `HelpWindowTest` fails.**
+**Problem: `HelpWindowTest` fails with a `NullPointerException`.**
 
 * Reason: One of its dependencies, `UserGuide.html` in `src/main/resources/docs` is missing.
 * Solution: Execute Gradle task `processResources`.
