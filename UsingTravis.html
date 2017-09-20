@@ -128,6 +128,116 @@
 </div>
 </div>
 <div class="sect1">
+<h2 id="deploying-github-pages"><a class="link" href="#deploying-github-pages">Deploying GitHub Pages</a></h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Ensure that you have followed the steps above to set up Travis CI.</p>
+</li>
+<li>
+<p>On GitHub, create a new user account and give this account collaborator and admin access to the repo.<br>
+Using this account, generate a personal access token <a href="https://github.com/settings/tokens/new">here</a>.</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Personal access tokens are like passwords so make sure you keep them secret! If the personal access token is leaked, please delete it and generate a new one.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+We use a new user account to generate the token for team projects to prevent team members from gaining access to other team members' repos.<br>
+If you are the only one with write access to the repo, you can use your own account to generate the token.
+</td>
+</tr>
+</table>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Add a description for the token. (e.g. <code>Travis CI - deploy docs to gh-pages</code>)</p>
+</li>
+<li>
+<p>Check the <code>public_repo</code> checkbox.</p>
+</li>
+<li>
+<p>Click <code>Generate Token</code> and copy your new personal access token.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>We will use this token to grant Travis access to the repo.</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="images/generate_token.png" alt="Generate token"></span></p>
+</div>
+</li>
+<li>
+<p>Head to the <a href="https://travis-ci.org/profile">Accounts</a> page, and find the switch for the forked repository.</p>
+<div class="paragraph">
+<p><span class="image"><img src="images/flick_repository_switch.png" alt="Activate the switch"></span></p>
+</div>
+</li>
+<li>
+<p>Click on the settings button next to the switch. In the Environment Variables section, add a new environment variable with</p>
+<div class="openblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>name: <code>GITHUB_TOKEN</code></p>
+</li>
+<li>
+<p>value: personal access token copied in step 1</p>
+</li>
+<li>
+<p>Display value in build log: <code>OFF</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="images/travis_add_token.png" alt="Travis add token"></span></p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<strong>Make sure you set <code>Display value in build log</code> to <code>OFF</code>.</strong><br>
+Otherwise, other people will be able to see the personal access token and thus have access this repo.<br>
+Similarly, make sure you <strong>do not print <code>$GITHUB_TOKEN</code> to the logs</strong> in Travis scripts as the logs are viewable by the public.
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>Now, whenever there&#8217;s a new commit to master branch, Travis will push the latest documentation to gh-pages branch.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="repository-wide-checks"><a class="link" href="#repository-wide-checks">Repository-wide checks</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
@@ -169,7 +279,7 @@
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-09-19 15:23:01 +00:00
+Last updated 2017-09-20 08:18:19 +00:00
 </div>
 </div>
 </body>

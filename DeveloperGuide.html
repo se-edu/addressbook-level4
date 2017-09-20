@@ -936,7 +936,22 @@ Alternatively, you can download the AsciiDoc plugin for IntelliJ, which allows y
 <div class="sect2">
 <h3 id="publishing-documentation"><a class="link" href="#publishing-documentation">5.4. Publishing Documentation</a></h3>
 <div class="paragraph">
-<p>See <a href="UsingGithubPages.html">UsingGithubPages.adoc</a> to learn how to use GitHub Pages to publish documentation to the project site.</p>
+<p>See <a href="UsingTravis.html#deploying-github-pages">UsingTravis.adoc</a> to learn how to deploy GitHub Pages using Travis.<br>
+To verify that it works,</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Trigger Travis to regenerate documentation. To do so, you need to push a new commit to the master branch of the fork.<br>
+Suggested change: Remove the codacy badge from <code>README</code>.</p>
+</li>
+<li>
+<p>Wait for Travis CI to finish running the build on your new commit.</p>
+</li>
+<li>
+<p>Go to the URL <code>https://&lt;your-username-or-organization-name&gt;.github.io/addressbook-level4/</code>. You should see your <code>README</code> file displayed.</p>
+</li>
+</ol>
 </div>
 </div>
 <div class="sect2">
@@ -972,10 +987,10 @@ Alternatively, you can download the AsciiDoc plugin for IntelliJ, which allows y
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Make sure you have set up GitHub Pages as described in <a href="UsingGithubPages.html#setting-up">UsingGithubPages.adoc</a>.</p>
+<p>Make sure you have set up GitHub Pages as described in <a href="#publishing-documentation">Publishing Documentation</a>.</p>
 </li>
 <li>
-<p>Using Chrome, go to the <a href="UsingGithubPages.html#viewing-the-project-site">GitHub Pages version</a> of the documentation file. e.g. For <a href="UserGuide.html">UserGuide.adoc</a>, the URL will be <code>https://&lt;your-username-or-organization-name&gt;.github.io/addressbook-level4/docs/UserGuide.html</code>.</p>
+<p>Using Chrome, go to the URL of the documentation file. e.g. For <a href="UserGuide.html">UserGuide.adoc</a>, the URL will be <code>https://&lt;your-username-or-organization-name&gt;.github.io/addressbook-level4/docs/UserGuide.html</code>.</p>
 </li>
 <li>
 <p>Click on the <code>Print</code> option in Chrome&#8217;s menu.</p>
@@ -1787,7 +1802,7 @@ for <code>RemarkCommandParser</code>.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-09-19 15:23:01 +00:00
+Last updated 2017-09-20 08:18:19 +00:00
 </div>
 </div>
 </body>
