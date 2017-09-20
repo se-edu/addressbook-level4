@@ -1,6 +1,5 @@
 package seedu.address.ui;
 
-import java.net.URL;
 import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
@@ -9,7 +8,6 @@ import javafx.scene.layout.Region;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.commons.exceptions.DocsNotFoundException;
 import seedu.address.commons.util.FxViewUtil;
 
 /**
@@ -37,13 +35,8 @@ public class HelpWindow extends UiPart<Region> {
         dialogStage.setMaximized(true); //TODO: set a more appropriate initial size
         FxViewUtil.setStageIcon(dialogStage, ICON);
 
-        URL userGuideUrl = getClass().getResource(USERGUIDE_FILE_PATH);
-        if (userGuideUrl != null) {
-            browser.getEngine().load(userGuideUrl.toString());
-        } else {
-            throw new DocsNotFoundException("UserGuide.html cannot be found. Run Gradle task 'processResources' to"
-                    + "create the missing file.");
-        }
+        String userGuideUrl = getClass().getResource(USERGUIDE_FILE_PATH).toString();
+        browser.getEngine().load(userGuideUrl);
     }
 
     /**
