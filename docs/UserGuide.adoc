@@ -10,6 +10,7 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
+:repoURL: https://github.com/se-edu/addressbook-level4
 
 By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
 
@@ -21,7 +22,7 @@ By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
 Having any Java 8 version is not enough. +
 This app will not work with earlier versions of Java 8.
 +
-.  Download the latest `addressbook.jar` from the link:../../../releases[releases] tab.
+.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your Address Book.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
@@ -43,10 +44,10 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters.
-* Items in `SQUARE_BRACKETS` are optional.
-* Items with `...` after them can have multiple instances.
-* Parameters can be in any order.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
+* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
+* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
+* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 ====
 
 === Viewing help : `help`
@@ -59,7 +60,7 @@ Adds a person to the address book +
 Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
 
 [TIP]
-Persons can have any number of tags (including 0)
+A person can have any number of tags (including 0)
 
 Examples:
 
@@ -91,7 +92,7 @@ Edits the phone number and email address of the 1st person to be `91234567` and 
 * `edit 2 n/Betsy Crower t/` +
 Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
 
-=== Finding all persons containing any keyword in their name: `find`
+=== Locating persons by name: `find`
 
 Finds persons whose names contain any of the given keywords. +
 Format: `find KEYWORD [MORE_KEYWORDS]`
@@ -101,15 +102,15 @@ Format: `find KEYWORD [MORE_KEYWORDS]`
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
 * Only the name is searched.
 * Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans` will match `Hans Bo`
+* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
 ****
 
 Examples:
 
 * `find John` +
-Returns `John Doe` but not `john`
+Returns `john` and `John Doe`
 * `find Betsy Tim John` +
-Returns Any person having names `Betsy`, `Tim`, or `John`
+Returns any person having names `Betsy`, `Tim`, or `John`
 
 === Deleting a person : `delete`
 
@@ -131,7 +132,7 @@ Deletes the 2nd person in the address book.
 `delete 1` +
 Deletes the 1st person in the results of the `find` command.
 
-=== Select a person : `select`
+=== Selecting a person : `select`
 
 Selects the person identified by the index number used in the last person listing. +
 Format: `select INDEX`
@@ -139,7 +140,7 @@ Format: `select INDEX`
 ****
 * Selects the person and loads the Google search page the person at the specified `INDEX`.
 * The index refers to the index number shown in the most recent listing.
-* The index *must be a positive integer* 1, 2, 3, ...
+* The index *must be a positive integer* `1, 2, 3, ...`
 ****
 
 Examples:
@@ -162,7 +163,7 @@ Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and 
 ====
 
 // tag::undoredo[]
-=== Undo previous command : `undo`
+=== Undoing previous command : `undo`
 
 Restores the address book to the state before the previous _undoable_ command was executed. +
 Format: `undo`
@@ -188,7 +189,7 @@ The `undo` command fails as there are no undoable commands executed previously.
 `undo` (reverses the `clear` command) +
 `undo` (reverses the `delete 1` command) +
 
-=== Redo the previously undone command : `redo`
+=== Redoing the previously undone command : `redo`
 
 Reverses the most recent `undo` command. +
 Format: `redo`
@@ -238,6 +239,8 @@ e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 123466
 * *Clear* : `clear`
 * *Delete* : `delete INDEX` +
 e.g. `delete 3`
+* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
+e.g. `edit 2 n/James Lee e/jameslee@example.com`
 * *Find* : `find KEYWORD [MORE_KEYWORDS]` +
 e.g. `find James Jake`
 * *List* : `list`
