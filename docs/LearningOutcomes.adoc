@@ -105,7 +105,7 @@ Note <<UsingGradle#, how the AddressBook app uses Gradle to automate build tasks
 
 === Exercise: Use gradle to run tasks
 
-* Use gradle to do these tasks (instructions are <<UsingGradle#, here>>) : Run all tests in headless mode, build the jar file.
+* Use gradle to do these tasks: Run all tests in headless mode, build the jar file.
 
 === Exercise: Use gradle to manage dependencies
 
