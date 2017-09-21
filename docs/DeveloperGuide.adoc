@@ -30,16 +30,9 @@ This app will not work with earlier versions of Java 8.
 [NOTE]
 IntelliJ by default has Gradle and JavaFx plugins installed. +
 Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plugins` to re-enable them.
-+
 
-. *CheckStyle-IDEA* plugin
-+
-[TIP]
-Install the plugin by going to `File` > `Settings` (Windows/Linux), or `IntelliJ IDEA` > `Preferences...` (macOS). +
-Select `Plugins`, press `Browse Repository`, and find the plugin. +
-Restart the IDE to complete the installation.
 
-=== Importing the project into IntelliJ
+=== Setting up the project in your computer
 
 . Fork this repo, and clone the fork to your computer
 . Open IntelliJ (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project dialog first)
@@ -53,46 +46,16 @@ Restart the IDE to complete the installation.
 . Open a console and run the command `gradlew processResources` (Mac/Linux: `./gradlew processResources`). It should finish with the `BUILD SUCCESSFUL` message. +
 This will generate all resources required by the application and tests.
 
-=== Configuring Checkstyle-IDEA
+=== Verifying the setup
 
-. Click `File` > `Settings...` > `Other Settings` > `Checkstyle`
-. Set `Scan Scope`  to `Only Java sources (including tests)`, so that the plugin will run checkstyle for our test source codes as well
-. Ensure that the `Checkstyle version` is set to `8.1`. This is the same version that we are using inside Gradle, so that you won't get any errors due to version incompatibility
-+
-image::checkstyle-idea-scan-scope.png[width="500"]
-. Click the plus sign under `Configuration File`
-. Enter an arbitrary description e.g. addressbook
-. Select `Use a local Checkstyle file`
-. Use the checkstyle configuration file found at `config/checkstyle/checkstyle.xml`
-. Click `Next` > `Finish`
-. Mark `Active` for the newly imported check configuration
-+
-image::checkstyle-idea-configuration.png[width="700"]
-. Click `OK`
+. Run the `seedu.address.MainApp` and try a few commands
+. link:#testing[Run the tests] to ensure they all pass.
 
-=== Troubleshooting Checkstyle-IDEA
+=== Configurations to do before writing code
 
-**Problem: When importing `checkstyle.xml`, Checkstyle-IDEA plugin complains that `The Checkstyle rules file could not be parsed. ... The file has been blacklisted for 60s.`**
+==== Configuring the coding style
 
-* Reason: `checkstyle.xml` is written for a particular version, but the plugin was not configured to the correct version.
-* Solution: Ensure that you have selected the correct `Checkstyle version`, that matches the version in `build.gradle`, as `checkstyle.xml` is written for Gradle's checkstyle.
-
-**Problem: After setting up `checkstyle.xml`, Checkstyle-IDEA plugin does not seem to highlight the errors / real-time scanning seems broken.**
-
-* Reason: The plugin may not immediately run after setting it up.
-* Solution: Restart the IDE.
-
-=== Updating documentation
-
-After forking the repo, links in the documentation will link to the wrong repo. You should replace the URL in the variable `repoURL` in DeveloperGuide.adoc with the URL of your fork.
-
-=== Coding style
-
-We follow https://github.com/oss-generic/process/blob/master/docs/CodingStandards.md[oss-generic coding standards].
-
-=== Configuring import statements
-
-IntelliJ uses a different import order from our coding style. To rectify this issue:
+This project follows https://github.com/oss-generic/process/blob/master/docs/CodingStandards.md[oss-generic coding standards]. IntelliJ's default style is mostly compliant with ours but it uses a different import order from ours. To rectify,
 
 . Go to `File` > `Settings...` (Windows/Linux), or `IntelliJ IDEA` > `Preferences...` (macOS)
 . Select `Editor` > `Code Style` > `Java`
@@ -100,6 +63,28 @@ IntelliJ uses a different import order from our coding style. To rectify this is
 
 * For `Class count to use import with '\*'` and `Names count to use static import with '*'`: Set to `999` to prevent IntelliJ from contracting the import statements
 * For `Import Layout`: The order is `import static all other imports`, `import java.\*`, `import javax.*`, `import org.\*`, `import com.*`, `import all other imports`. Add a `<blank line>` between each `import`
+
+Optionally, you can follow the <<UsingCheckstyle#, UsingCheckstyle.adoc>> document to configure Intellij to check style-compliance as you write code.
+
+==== Updating documentation to match your fork
+
+After forking the repo, links in the documentation will still point to the `se-edu/addressbook-level4` repo. If you plan to develop this as a separate product (i.e. instead of contributing to the `se-edu/addressbook-level4`) , you should replace the URL in the variable `repoURL` in `DeveloperGuide.adoc` and `UserGuide.adoc` with the URL of your fork.
+
+==== Setting up CI
+
+Set up Travis to perform Continuous Integration (CI) for your fork. See <<UsingTravis#, UsingTravis.adoc>> to learn how to set it up.
+
+Optionally, you can set up AppVeyor as a second CI (see <<UsingAppVeyor#, UsingAppVeyor.adoc>>).
+
+[NOTE]
+Having both Travis and AppVeyor ensures your App works on both Unix-based platforms and Windows-based platforms (Travis is Unix-based and AppVeyor is Windows-based)
+
+==== Getting started with coding
+
+When you are ready to start coding,
+
+1. Get some sense of the overall design by reading the link:#architecture[Architecture] section.
+2. Take a look at the section link:#suggested-programming-tasks-to-get-started[Suggested Programming Tasks to Get Started].
 
 == Design
 
@@ -230,6 +215,8 @@ The `Storage` component,
 Classes used by multiple components are in the `seedu.addressbook.commons` package.
 
 == Implementation
+
+This section describes some noteworthy details on how certain features are implemented.
 
 // tag::undoredo[]
 === Undo/Redo mechanism
@@ -377,22 +364,70 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 
 Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: `config.json`).
 
+== Documentation
+
+We use asciidoc for writing documentation.
+
+[NOTE]
+We chose asciidoc over Markdown because asciidoc, although a bit more complex than Markdown, provides more flexibility in formatting.
+
+=== Editing Documentation
+
+See <<UsingGradle#rendering-asciidoc-files, UsingGradle.adoc>> to learn how to render `.adoc` files locally to preview the end result of your edits.
+Alternatively, you can download the AsciiDoc plugin for IntelliJ, which allows you to preview the changes you have made to your `.adoc` files in real-time.
+
+=== Publishing Documentation
+
+See <<UsingTravis#deploying-github-pages, UsingTravis.adoc>> to learn how to deploy GitHub Pages using Travis.
+
+=== Converting Documentation to PDF format
+
+We use https://www.google.com/chrome/browser/desktop/[Google Chrome] for converting documentation to PDF format, as Chrome's PDF engine preserves hyperlinks used in webpages.
+
+Here are the steps to convert the project documentation files to PDF format.
+
+.  Follow the instructions in <<UsingGradle#rendering-asciidoc-files, UsingGradle.adoc>> to convert the AsciiDoc files in the `docs/` directory to HTML format.
+.  Go to your generated HTML files in the `build/docs` folder, right click on them and select `Open with` -> `Google Chrome`.
+.  Within Chrome, click on the `Print` option in Chrome's menu.
+.  Set the destination to `Save as PDF`, then click `Save` to save a copy of the file in PDF format. For best results, use the settings indicated in the screenshot below.
+
+image::chrome_save_as_pdf.png[width="300"]
+_Figure 5.6.1 : Saving documentation as PDF files in Chrome_
+
 == Testing
 
-Tests can be found in the `./src/test/java` folder.
+=== Running Tests
 
-*In IntelliJ*:
+There are three ways to run tests.
+
+[TIP]
+The most reliable way to run tests is the 3rd one. The first two methods might fail some GUI tests due to platform/resolution-specific idiosyncrasies.
+
+*Method 1: Using IntelliJ JUnit test runner*
 
 * To run all tests, right-click on the `src/test/java` folder and choose `Run 'All Tests'`
 * To run a subset of tests, you can right-click on a test package, test class, or a test and choose `Run 'ABC'`
 
-*Using Gradle*:
+*Method 2: Using Gradle*
 
-* See <<UsingGradle#, UsingGradle.adoc>> for how to run tests using Gradle.
+* Open a console and run the command `gradlew clean allTests` (Mac/Linux: `./gradlew clean allTests`)
+
+[NOTE]
+See <<UsingGradle#, UsingGradle.adoc>> for more info on how to run tests using Gradle.
+
+*Method 3: Using Gradle (headless)*
+
+Thanks to the https://github.com/TestFX/TestFX[TestFX] library we use, our GUI tests can be run in the _headless_ mode. In the headless mode, GUI tests do not show up on the screen. That means the developer can do other things on the Computer while the tests are running.
+
+To run tests in headless mode, open a console and run the command `gradlew clean headless allTests` (Mac/Linux: `./gradlew clean headless allTests`)
+
+=== Types of tests
 
 We have two types of tests:
 
-.  *GUI Tests* - These are _System Tests_ that test the entire App by simulating user actions on the GUI. These are in the `guitests` package.
+.  *GUI Tests* - These are tests involving the GUI. They include,
+.. _System Tests_ that test the entire App by simulating user actions on the GUI. These are in the `systemtests` package.
+.. _Unit tests_ that test the individual components. These are in `seedu.address.ui` package.
 .  *Non-GUI Tests* - These are tests not involving the GUI. They include,
 ..  _Unit tests_ targeting the lowest level methods/classes. +
 e.g. `seedu.address.commons.StringUtilTest`
@@ -401,9 +436,6 @@ e.g. `seedu.address.storage.StorageManagerTest`
 ..  Hybrids of unit and integration tests. These test are checking multiple code units as well as how the are connected together. +
 e.g. `seedu.address.logic.LogicManagerTest`
 
-=== Headless GUI Testing
-
-Thanks to the https://github.com/TestFX/TestFX[TestFX] library we use, our GUI tests can be run in the _headless_ mode. In the headless mode, GUI tests do not show up on the screen. That means the developer can do other things on the Computer while the tests are running. See <<UsingGradle#running-tests, UsingGradle.adoc>> to learn how to run tests in headless mode.
 
 === Troubleshooting Testing
 **Problem: `HelpWindowTest` fails with a `NullPointerException`.**
@@ -421,21 +453,6 @@ See <<UsingGradle#, UsingGradle.adoc>> to learn how to use Gradle for build auto
 
 We use https://travis-ci.org/[Travis CI] and https://www.appveyor.com/[AppVeyor] to perform _Continuous Integration_ on our projects. See <<UsingTravis#, UsingTravis.adoc>> and <<UsingAppVeyor#, UsingAppVeyor.adoc>> for more details.
 
-=== Previewing Documentation
-
-See <<UsingGradle#rendering-asciidoc-files, UsingGradle.adoc>> to learn how to preview `.adoc` files locally.
-Alternatively, you can download the AsciiDoc plugin for IntelliJ, which allows you to preview the changes you have made to your `.adoc` files in real-time.
-
-=== Publishing Documentation
-
-See <<UsingTravis#deploying-github-pages, UsingTravis.adoc>> to learn how to deploy GitHub Pages using Travis. +
-To verify that it works,
-
-.  Trigger Travis to regenerate documentation. To do so, you need to push a new commit to the master branch of the fork. +
-   Suggested change: Remove the codacy badge from `README`.
-.  Wait for Travis CI to finish running the build on your new commit.
-.  Go to the URL `\https://<your-username-or-organization-name>.github.io/addressbook-level4/`. You should see your `README` file displayed.
-
 === Making a Release
 
 Here are the steps to create a new release.
@@ -445,20 +462,6 @@ Here are the steps to create a new release.
 .  Tag the repo with the version number. e.g. `v0.1`
 .  https://help.github.com/articles/creating-releases/[Create a new release using GitHub] and upload the JAR file you created.
 
-=== Converting Documentation to PDF format
-
-We use https://www.google.com/chrome/browser/desktop/[Google Chrome] for converting documentation to PDF format, as Chrome's PDF engine preserves hyperlinks used in webpages.
-
-Here are the steps to convert the project documentation files to PDF format.
-
-.  Follow the instructions in <<UsingGradle#rendering-asciidoc-files, UsingGradle.adoc>> to convert the AsciiDoc files in the `docs/` directory to HTML format.
-.  Go to your generated HTML files in the `build/docs` folder, right click on them and select `Open with` -> `Google Chrome`.
-.  Within Chrome, click on the `Print` option in Chrome's menu.
-.  Set the destination to `Save as PDF`, then click `Save` to save a copy of the file in PDF format. For best results, use the settings indicated in the screenshot below.
-
-image::chrome_save_as_pdf.png[width="300"]
-_Figure 5.6.1 : Saving documentation as PDF files in Chrome_
-
 === Managing Dependencies
 
 A project often depends on third-party libraries. For example, Address Book depends on the http://wiki.fasterxml.com/JacksonHome[Jackson library] for XML parsing. Managing these _dependencies_ can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives. +
@@ -466,9 +469,13 @@ a. Include those libraries in the repo (this bloats the repo size) +
 b. Require developers to download those libraries manually (this creates extra work for developers)
 
 [appendix]
-== Getting Started in Writing Code
+== Suggested Programming Tasks to Get Started
 
-We have prepared some exercises for beginners of the codebase. There are two kinds of exercise: the first one (i.e. improving each component) is for learning one component at a time, and the second one (i.e. adding the remark command) is to learn how to implement an end-to-end feature across all components.
+Suggested path for new programmers:
+
+1. First, add small local-impact (i.e. the impact of the change does not go beyond the component) enhancements to one component at a time. Some suggestions are given in this section link:#improving-each-component[Improving a Component].
+
+2. Next, add a feature that touches multiple components to learn how to implement an end-to-end feature across all components. The section link:#creating-a-new-command-code-remark-code[Creating a new command: `remark`] explains how to go about adding such a feature.
 
 === Improving each component
 
@@ -476,6 +483,9 @@ Each individual exercise in this section is component-based (i.e. you would not 
 
 [discrete]
 ==== `Logic` component
+
+[TIP]
+Do take a look at the link:#logic-component[Design: Logic Component] section before attempting to modify the `Logic` component.
 
 . Add a shorthand equivalent alias for each of the individual commands. For example, besides typing `clear`, the user can also type `c` to remove all persons in the list.
 +
@@ -491,6 +501,9 @@ Each individual exercise in this section is component-based (i.e. you would not 
 [discrete]
 ==== `Model` component
 
+[TIP]
+Do take a look at the link:#model-component[Design: Model Component] section before attempting to modify the `Model` component.
+
 . Add a `removeTag(Tag)` method. The specified tag will be removed from everyone in the address book.
 +
 ****
@@ -504,6 +517,9 @@ Each individual exercise in this section is component-based (i.e. you would not 
 
 [discrete]
 ==== `Ui` component
+
+[TIP]
+Do take a look at the link:#ui-component[Design: UI Component] section before attempting to modify the `UI` component.
 
 . Use different colors for different tags inside person cards. For example, `friends` tags can be all in grey, and `colleagues` tags can be all in red.
 +
@@ -565,6 +581,9 @@ image::getting-started-ui-status-after.png[width="500"]
 
 [discrete]
 ==== `Storage` component
+
+[TIP]
+Do take a look at the link:#storage-component[Design: Storage Component] section before attempting to modify the `Storage` component.
 
 . Add a new method `backupAddressBook(ReadOnlyAddressBook)`, so that the address book can be saved in a fixed temporary location.
 +

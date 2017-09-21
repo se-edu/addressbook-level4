@@ -1,0 +1,40 @@
+= Using Checkstyle-IDEA
+:imagesDir: images
+:stylesDir: stylesheets
+:experimental:
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+endif::[]
+
+== Configuring Checkstyle-IDEA
+
+. Install the Checkstyle-IDEA plugin by going to `File` > `Settings` (Windows/Linux), or `IntelliJ IDEA` > `Preferences...` (macOS). +
+Select `Plugins`, press `Browse Repository`, and find the plugin. +
+Restart the IDE to complete the installation.
+. Click `File` > `Settings...` > `Other Settings` > `Checkstyle`
+. Set `Scan Scope`  to `Only Java sources (including tests)`, so that the plugin will run checkstyle for our test source codes as well
+. Ensure that the `Checkstyle version` is set to `8.1`. This is the same version that we are using inside Gradle, so that you won't get any errors due to version incompatibility
++
+image::checkstyle-idea-scan-scope.png[width="500"]
+. Click the plus sign under `Configuration File`
+. Enter an arbitrary description e.g. addressbook
+. Select `Use a local Checkstyle file`
+. Use the checkstyle configuration file found at `config/checkstyle/checkstyle.xml`
+. Click `Next` > `Finish`
+. Mark `Active` for the newly imported check configuration
++
+image::checkstyle-idea-configuration.png[width="700"]
+. Click `OK`
+
+== Troubleshooting Checkstyle-IDEA
+
+**Problem: When importing `checkstyle.xml`, Checkstyle-IDEA plugin complains that `The Checkstyle rules file could not be parsed. ... The file has been blacklisted for 60s.`**
+
+* Reason: `checkstyle.xml` is written for a particular version, but the plugin was not configured to the correct version.
+* Solution: Ensure that you have selected the correct `Checkstyle version`, that matches the version in `build.gradle`, as `checkstyle.xml` is written for Gradle's checkstyle.
+
+**Problem: After setting up `checkstyle.xml`, Checkstyle-IDEA plugin does not seem to highlight the errors / real-time scanning seems broken.**
+
+* Reason: The plugin may not immediately run after setting it up.
+* Solution: Restart the IDE.
