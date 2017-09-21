@@ -55,6 +55,7 @@
 <li><a href="#testing">4. Testing</a>
 <ul class="sectlevel2">
 <li><a href="#headless-gui-testing">4.1. Headless GUI Testing</a></li>
+<li><a href="#troubleshooting-testing">4.2. Troubleshooting Testing</a></li>
 </ul>
 </li>
 <li><a href="#dev-ops">5. Dev Ops</a>
@@ -175,6 +176,10 @@ Restart the IDE to complete the installation.
 </li>
 <li>
 <p>Click <code>OK</code> to accept the default settings</p>
+</li>
+<li>
+<p>Open a console and run the command <code>gradlew processResources</code> (Mac/Linux: <code>./gradlew processResources</code>). It should finish with the <code>BUILD SUCCESSFUL</code> message.<br>
+This will generate all resources required by the application and tests.</p>
 </li>
 </ol>
 </div>
@@ -907,6 +912,22 @@ e.g. <code>seedu.address.logic.LogicManagerTest</code></p>
 <h3 id="headless-gui-testing"><a class="link" href="#headless-gui-testing">4.1. Headless GUI Testing</a></h3>
 <div class="paragraph">
 <p>Thanks to the <a href="https://github.com/TestFX/TestFX">TestFX</a> library we use, our GUI tests can be run in the <em>headless</em> mode. In the headless mode, GUI tests do not show up on the screen. That means the developer can do other things on the Computer while the tests are running. See <a href="UsingGradle.html#running-tests">UsingGradle.adoc</a> to learn how to run tests in headless mode.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="troubleshooting-testing"><a class="link" href="#troubleshooting-testing">4.2. Troubleshooting Testing</a></h3>
+<div class="paragraph">
+<p><strong>Problem: <code>HelpWindowTest</code> fails with a <code>NullPointerException</code>.</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Reason: One of its dependencies, <code>UserGuide.html</code> in <code>src/main/resources/docs</code> is missing.</p>
+</li>
+<li>
+<p>Solution: Execute Gradle task <code>processResources</code>.</p>
+</li>
+</ul>
 </div>
 </div>
 </div>
@@ -1802,7 +1823,7 @@ for <code>RemarkCommandParser</code>.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-09-21 08:48:43 +00:00
+Last updated 2017-09-21 12:45:22 +00:00
 </div>
 </div>
 </body>
