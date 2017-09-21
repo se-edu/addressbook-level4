@@ -165,16 +165,15 @@ Consider the link:{repoURL}/src/test/java/seedu/address/storage/StorageManagerTe
 * Test methods `prefsReadSave()` and `addressBookReadSave()` are integration tests. Note how they simply test if The `StorageManager` class is correctly wired to its dependencies.
 * Test method `handleAddressBookChangedEvent_exceptionThrown_eventRaised()` is a unit test because it uses _dependency injection_ to isolate the SUT `StorageManager#handleAddressBookChangedEvent(...)` from its dependencies.
 
-Compare the above with link:{repoURL}/src/test/java/seedu/address/logic/LogicManagerTest.java[`LogicManagerTest`]. Many of the tests in that class (e.g. `execute_add_*` methods) tests are neither integration nor unit tests. They are a _integration + unit_ tests because they not only checks if the LogicManager is correctly wired to its dependencies, but also checks the working of its dependencies. For example, the following two lines test the the `LogicManager` but also the `Parser`.
+Compare the above with link:{repoURL}/src/test/java/seedu/address/logic/LogicManagerTest.java[`LogicManagerTest`]. Some of the tests in that class (e.g. `execute_*` methods) are neither integration nor unit tests. They are _integration + unit_ tests because they not only check if the LogicManager is correctly wired to its dependencies, but also checks the working of its dependencies. For example, the following two lines test the `LogicManager` but also the `Parser`.
 
 [source,java]
 ----
 @Test
-public void execute_add_invalidArgsFormat() throws Exception {
+public void execute_invalidCommandFormat_throwsParseException() {
     ...
-    assertCommandBehavior("add n/Valid Name 12345 e/valid@email.butNoPhonePrefix a/valid, address", expectedMessage);
-    assertCommandBehavior("add n/Valid Name p/12345 valid@email.butNoPrefix a/valid, address", expectedMessage);
-    ...
+    assertParseException(invalidCommand, MESSAGE_UNKNOWN_COMMAND);
+    assertHistoryCorrect(invalidCommand);
 }
 ----
 
