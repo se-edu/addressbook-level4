@@ -9,6 +9,10 @@ import guitests.guihandles.HelpWindowHandle;
 import seedu.address.logic.commands.HelpCommand;
 
 public class HelpWindowTest extends AddressBookGuiTest {
+    private static final String ERROR_MESSAGE = "ATTENTION!!!! : On some computers, this test may fail when run on "
+            + "non-headless mode as FxRobot#clickOn(Node, MouseButton...) clicks on the wrong location. We suspect "
+            + "that this is a bug with TestFX library that we are using. If this test fails, you have to run your "
+            + "tests on headless mode. See UsingGradle.adoc on how to do so.";
 
     @Test
     public void openHelpWindow() {
@@ -42,7 +46,7 @@ public class HelpWindowTest extends AddressBookGuiTest {
      * Asserts that the help window is open, and closes it after checking.
      */
     private void assertHelpWindowOpen() {
-        assertTrue(HelpWindowHandle.isWindowPresent());
+        assertTrue(ERROR_MESSAGE, HelpWindowHandle.isWindowPresent());
         guiRobot.pauseForHuman();
 
         new HelpWindowHandle(guiRobot.getStage(HelpWindowHandle.HELP_WINDOW_TITLE)).close();
@@ -53,7 +57,7 @@ public class HelpWindowTest extends AddressBookGuiTest {
      * Asserts that the help window isn't open.
      */
     private void assertHelpWindowNotOpen() {
-        assertFalse(HelpWindowHandle.isWindowPresent());
+        assertFalse(ERROR_MESSAGE, HelpWindowHandle.isWindowPresent());
     }
 
 }
