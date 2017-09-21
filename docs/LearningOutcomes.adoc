@@ -28,7 +28,7 @@ Note how the <<DeveloperGuide#architecture, Developer Guide>> describes the high
 
 == Use Event-Driven Programming `[LO-EventDriven]`
 
-Note how the <<DeveloperGuide#architecture, Developer Guide>> uses events to communicate with components without needing a direct coupling. Also note how the `EventsCenter` class acts as an event dispatcher to facilitate communication between event creators and event consumers.
+Note how the <<DeveloperGuide#architecture, Developer Guide>> uses events to communicate with components without needing a direct coupling. Also note how the link:{repoURL}/src/main/java/seedu/address/commons/core/index/EventsCenter.java[`EventsCenter.java`] acts as an event dispatcher to facilitate communication between event creators and event consumers.
 
 *Resources*
 
