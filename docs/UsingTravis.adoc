@@ -11,6 +11,7 @@ The current Travis CI set up performs the following things whenever someone push
 
 * Runs the `./gradlew clean headless allTests coverage coveralls -i` command (see <<UsingGradle#, UsingGradle>> for more details on what this command means).
 * Automatically retries the build up to 3 times if a task fails.
+* Renders documentation from asciidoc to html and automatically publishes them using GitHub Pages.
 * Runs additional link:#repository-wide-checks[repository-wide checks].
 
 If you would like to customise your travis build further, you can learn more about Travis from https://docs.travis-ci.com/[Travis CI Documentation].
@@ -54,7 +55,7 @@ image:travis_build.png[Travis build]
 .  If the build is successful, you should be able to check the coverage details of the tests at http://coveralls.io/[Coveralls]
 .  Update the link to the 'build status' badge at the top of the `README.adoc` to point to the build status of your own repo.
 
-== Deploying GitHub Pages
+== Enabling auto-publishing of documentation
 
 .  Ensure that you have followed the steps above to set up Travis CI.
 .  On GitHub, create a new user account and give this account collaborator and admin access to the repo. +
@@ -95,6 +96,13 @@ Otherwise, other people will be able to see the personal access token and thus h
 Similarly, make sure you *do not print `$GITHUB_TOKEN` to the logs* in Travis scripts as the logs are viewable by the public.
 
 .  Now, whenever there's a new commit to master branch, Travis will push the latest documentation to gh-pages branch.
+
+**To verify that it works,**
+
+.  Trigger Travis to regenerate documentation. To do so, you need to push a new commit to the master branch of the fork. +
+   Suggested change: Remove the codacy badge from `README`.
+.  Wait for Travis CI to finish running the build on your new commit.
+.  Go to the URL `\https://<your-username-or-organization-name>.github.io/addressbook-level4/`. You should see your `README` file displayed.
 
 == Repository-wide checks
 
