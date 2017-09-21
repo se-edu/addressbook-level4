@@ -109,7 +109,7 @@ Examples:
 * `find John` +
 Returns `john` and `John Doe`
 * `find Betsy Tim John` +
-Returns Any person having names `Betsy`, `Tim`, or `John`
+Returns any person having names `Betsy`, `Tim`, or `John`
 
 === Deleting a person : `delete`
 
