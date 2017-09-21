@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 1.5.3">
+<title>Using Checkstyle-IDEA</title>
+<link rel="stylesheet" href="stylesheets/gh-pages.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="stylesheets/coderay-asciidoctor.css">
+</head>
+<body class="article">
+<div id="header">
+<h1>Using Checkstyle-IDEA</h1>
+</div>
+<div id="content">
+<div class="sect1">
+<h2 id="configuring-checkstyle-idea"><a class="link" href="#configuring-checkstyle-idea">Configuring Checkstyle-IDEA</a></h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Install the Checkstyle-IDEA plugin by going to <code>File</code> &gt; <code>Settings</code> (Windows/Linux), or <code>IntelliJ IDEA</code> &gt; <code>Preferences&#8230;&#8203;</code> (macOS).<br>
+Select <code>Plugins</code>, press <code>Browse Repository</code>, and find the plugin.<br>
+Restart the IDE to complete the installation.</p>
+</li>
+<li>
+<p>Click <code>File</code> &gt; <code>Settings&#8230;&#8203;</code> &gt; <code>Other Settings</code> &gt; <code>Checkstyle</code></p>
+</li>
+<li>
+<p>Set <code>Scan Scope</code>  to <code>Only Java sources (including tests)</code>, so that the plugin will run checkstyle for our test source codes as well</p>
+</li>
+<li>
+<p>Ensure that the <code>Checkstyle version</code> is set to <code>8.1</code>. This is the same version that we are using inside Gradle, so that you won&#8217;t get any errors due to version incompatibility</p>
+<div class="imageblock">
+<div class="content">
+<img src="images/checkstyle-idea-scan-scope.png" alt="checkstyle idea scan scope" width="500">
+</div>
+</div>
+</li>
+<li>
+<p>Click the plus sign under <code>Configuration File</code></p>
+</li>
+<li>
+<p>Enter an arbitrary description e.g. addressbook</p>
+</li>
+<li>
+<p>Select <code>Use a local Checkstyle file</code></p>
+</li>
+<li>
+<p>Use the checkstyle configuration file found at <code>config/checkstyle/checkstyle.xml</code></p>
+</li>
+<li>
+<p>Click <code>Next</code> &gt; <code>Finish</code></p>
+</li>
+<li>
+<p>Mark <code>Active</code> for the newly imported check configuration</p>
+<div class="imageblock">
+<div class="content">
+<img src="images/checkstyle-idea-configuration.png" alt="checkstyle idea configuration" width="700">
+</div>
+</div>
+</li>
+<li>
+<p>Click <code>OK</code></p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="troubleshooting-checkstyle-idea"><a class="link" href="#troubleshooting-checkstyle-idea">Troubleshooting Checkstyle-IDEA</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><strong>Problem: When importing <code>checkstyle.xml</code>, Checkstyle-IDEA plugin complains that <code>The Checkstyle rules file could not be parsed. &#8230;&#8203; The file has been blacklisted for 60s.</code></strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Reason: <code>checkstyle.xml</code> is written for a particular version, but the plugin was not configured to the correct version.</p>
+</li>
+<li>
+<p>Solution: Ensure that you have selected the correct <code>Checkstyle version</code>, that matches the version in <code>build.gradle</code>, as <code>checkstyle.xml</code> is written for Gradle&#8217;s checkstyle.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Problem: After setting up <code>checkstyle.xml</code>, Checkstyle-IDEA plugin does not seem to highlight the errors / real-time scanning seems broken.</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Reason: The plugin may not immediately run after setting it up.</p>
+</li>
+<li>
+<p>Solution: Restart the IDE.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2017-09-21 14:20:08 +00:00
+</div>
+</div>
+</body>
+</html>

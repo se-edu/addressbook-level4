@@ -35,6 +35,9 @@
 <p>Automatically retries the build up to 3 times if a task fails.</p>
 </li>
 <li>
+<p>Renders documentation from asciidoc to html and automatically publishes them using GitHub Pages.</p>
+</li>
+<li>
 <p>Runs additional <a href="#repository-wide-checks">repository-wide checks</a>.</p>
 </li>
 </ul>
@@ -128,7 +131,7 @@
 </div>
 </div>
 <div class="sect1">
-<h2 id="deploying-github-pages"><a class="link" href="#deploying-github-pages">Deploying GitHub Pages</a></h2>
+<h2 id="enabling-auto-publishing-of-documentation"><a class="link" href="#enabling-auto-publishing-of-documentation">Enabling auto-publishing of documentation</a></h2>
 <div class="sectionbody">
 <div class="olist arabic">
 <ol class="arabic">
@@ -235,6 +238,23 @@ Similarly, make sure you <strong>do not print <code>$GITHUB_TOKEN</code> to the 
 </li>
 </ol>
 </div>
+<div class="paragraph">
+<p><strong>To verify that it works,</strong></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Trigger Travis to regenerate documentation. To do so, you need to push a new commit to the master branch of the fork.<br>
+Suggested change: Remove the codacy badge from <code>README</code>.</p>
+</li>
+<li>
+<p>Wait for Travis CI to finish running the build on your new commit.</p>
+</li>
+<li>
+<p>Go to the URL <code>https://&lt;your-username-or-organization-name&gt;.github.io/addressbook-level4/</code>. You should see your <code>README</code> file displayed.</p>
+</li>
+</ol>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -279,7 +299,7 @@ Similarly, make sure you <strong>do not print <code>$GITHUB_TOKEN</code> to the 
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-09-21 14:04:37 +00:00
+Last updated 2017-09-21 14:20:08 +00:00
 </div>
 </div>
 </body>

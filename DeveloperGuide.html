@@ -27,12 +27,9 @@
 <li><a href="#setting-up">1. Setting up</a>
 <ul class="sectlevel2">
 <li><a href="#prerequisites">1.1. Prerequisites</a></li>
-<li><a href="#importing-the-project-into-intellij">1.2. Importing the project into IntelliJ</a></li>
-<li><a href="#configuring-checkstyle-idea">1.3. Configuring Checkstyle-IDEA</a></li>
-<li><a href="#troubleshooting-checkstyle-idea">1.4. Troubleshooting Checkstyle-IDEA</a></li>
-<li><a href="#updating-documentation">1.5. Updating documentation</a></li>
-<li><a href="#coding-style">1.6. Coding style</a></li>
-<li><a href="#configuring-import-statements">1.7. Configuring import statements</a></li>
+<li><a href="#setting-up-the-project-in-your-computer">1.2. Setting up the project in your computer</a></li>
+<li><a href="#verifying-the-setup">1.3. Verifying the setup</a></li>
+<li><a href="#configurations-to-do-before-writing-code">1.4. Configurations to do before writing code</a></li>
 </ul>
 </li>
 <li><a href="#design">2. Design</a>
@@ -52,24 +49,29 @@
 <li><a href="#configuration">3.3. Configuration</a></li>
 </ul>
 </li>
-<li><a href="#testing">4. Testing</a>
+<li><a href="#documentation">4. Documentation</a>
 <ul class="sectlevel2">
-<li><a href="#headless-gui-testing">4.1. Headless GUI Testing</a></li>
-<li><a href="#troubleshooting-testing">4.2. Troubleshooting Testing</a></li>
+<li><a href="#editing-documentation">4.1. Editing Documentation</a></li>
+<li><a href="#publishing-documentation">4.2. Publishing Documentation</a></li>
+<li><a href="#converting-documentation-to-pdf-format">4.3. Converting Documentation to PDF format</a></li>
 </ul>
 </li>
-<li><a href="#dev-ops">5. Dev Ops</a>
+<li><a href="#testing">5. Testing</a>
 <ul class="sectlevel2">
-<li><a href="#build-automation">5.1. Build Automation</a></li>
-<li><a href="#continuous-integration">5.2. Continuous Integration</a></li>
-<li><a href="#previewing-documentation">5.3. Previewing Documentation</a></li>
-<li><a href="#publishing-documentation">5.4. Publishing Documentation</a></li>
-<li><a href="#making-a-release">5.5. Making a Release</a></li>
-<li><a href="#converting-documentation-to-pdf-format">5.6. Converting Documentation to PDF format</a></li>
-<li><a href="#managing-dependencies">5.7. Managing Dependencies</a></li>
+<li><a href="#running-tests">5.1. Running Tests</a></li>
+<li><a href="#types-of-tests">5.2. Types of tests</a></li>
+<li><a href="#troubleshooting-testing">5.3. Troubleshooting Testing</a></li>
 </ul>
 </li>
-<li><a href="#getting-started-in-writing-code">Appendix A: Getting Started in Writing Code</a>
+<li><a href="#dev-ops">6. Dev Ops</a>
+<ul class="sectlevel2">
+<li><a href="#build-automation">6.1. Build Automation</a></li>
+<li><a href="#continuous-integration">6.2. Continuous Integration</a></li>
+<li><a href="#making-a-release">6.3. Making a Release</a></li>
+<li><a href="#managing-dependencies">6.4. Managing Dependencies</a></li>
+</ul>
+</li>
+<li><a href="#suggested-programming-tasks-to-get-started">Appendix A: Suggested Programming Tasks to Get Started</a>
 <ul class="sectlevel2">
 <li><a href="#improving-each-component">A.1. Improving each component</a></li>
 <li><a href="#creating-a-new-command-code-remark-code">A.2. Creating a new command: <code>remark</code></a></li>
@@ -122,28 +124,11 @@ Do not disable them. If you have disabled them, go to <code>File</code> &gt; <co
 </table>
 </div>
 </li>
-<li>
-<p><strong>CheckStyle-IDEA</strong> plugin</p>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
-</td>
-<td class="content">
-Install the plugin by going to <code>File</code> &gt; <code>Settings</code> (Windows/Linux), or <code>IntelliJ IDEA</code> &gt; <code>Preferences&#8230;&#8203;</code> (macOS).<br>
-Select <code>Plugins</code>, press <code>Browse Repository</code>, and find the plugin.<br>
-Restart the IDE to complete the installation.
-</td>
-</tr>
-</table>
-</div>
-</li>
 </ol>
 </div>
 </div>
 <div class="sect2">
-<h3 id="importing-the-project-into-intellij"><a class="link" href="#importing-the-project-into-intellij">1.2. Importing the project into IntelliJ</a></h3>
+<h3 id="setting-up-the-project-in-your-computer"><a class="link" href="#setting-up-the-project-in-your-computer">1.2. Setting up the project in your computer</a></h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -185,97 +170,24 @@ This will generate all resources required by the application and tests.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="configuring-checkstyle-idea"><a class="link" href="#configuring-checkstyle-idea">1.3. Configuring Checkstyle-IDEA</a></h3>
+<h3 id="verifying-the-setup"><a class="link" href="#verifying-the-setup">1.3. Verifying the setup</a></h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Click <code>File</code> &gt; <code>Settings&#8230;&#8203;</code> &gt; <code>Other Settings</code> &gt; <code>Checkstyle</code></p>
+<p>Run the <code>seedu.address.MainApp</code> and try a few commands</p>
 </li>
 <li>
-<p>Set <code>Scan Scope</code>  to <code>Only Java sources (including tests)</code>, so that the plugin will run checkstyle for our test source codes as well</p>
-</li>
-<li>
-<p>Ensure that the <code>Checkstyle version</code> is set to <code>8.1</code>. This is the same version that we are using inside Gradle, so that you won&#8217;t get any errors due to version incompatibility</p>
-<div class="imageblock">
-<div class="content">
-<img src="images/checkstyle-idea-scan-scope.png" alt="checkstyle idea scan scope" width="500">
-</div>
-</div>
-</li>
-<li>
-<p>Click the plus sign under <code>Configuration File</code></p>
-</li>
-<li>
-<p>Enter an arbitrary description e.g. addressbook</p>
-</li>
-<li>
-<p>Select <code>Use a local Checkstyle file</code></p>
-</li>
-<li>
-<p>Use the checkstyle configuration file found at <code>config/checkstyle/checkstyle.xml</code></p>
-</li>
-<li>
-<p>Click <code>Next</code> &gt; <code>Finish</code></p>
-</li>
-<li>
-<p>Mark <code>Active</code> for the newly imported check configuration</p>
-<div class="imageblock">
-<div class="content">
-<img src="images/checkstyle-idea-configuration.png" alt="checkstyle idea configuration" width="700">
-</div>
-</div>
-</li>
-<li>
-<p>Click <code>OK</code></p>
+<p><a href="#testing">Run the tests</a> to ensure they all pass.</p>
 </li>
 </ol>
 </div>
 </div>
 <div class="sect2">
-<h3 id="troubleshooting-checkstyle-idea"><a class="link" href="#troubleshooting-checkstyle-idea">1.4. Troubleshooting Checkstyle-IDEA</a></h3>
+<h3 id="configurations-to-do-before-writing-code"><a class="link" href="#configurations-to-do-before-writing-code">1.4. Configurations to do before writing code</a></h3>
+<div class="sect3">
+<h4 id="configuring-the-coding-style"><a class="link" href="#configuring-the-coding-style">1.4.1. Configuring the coding style</a></h4>
 <div class="paragraph">
-<p><strong>Problem: When importing <code>checkstyle.xml</code>, Checkstyle-IDEA plugin complains that <code>The Checkstyle rules file could not be parsed. &#8230;&#8203; The file has been blacklisted for 60s.</code></strong></p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Reason: <code>checkstyle.xml</code> is written for a particular version, but the plugin was not configured to the correct version.</p>
-</li>
-<li>
-<p>Solution: Ensure that you have selected the correct <code>Checkstyle version</code>, that matches the version in <code>build.gradle</code>, as <code>checkstyle.xml</code> is written for Gradle&#8217;s checkstyle.</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p><strong>Problem: After setting up <code>checkstyle.xml</code>, Checkstyle-IDEA plugin does not seem to highlight the errors / real-time scanning seems broken.</strong></p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Reason: The plugin may not immediately run after setting it up.</p>
-</li>
-<li>
-<p>Solution: Restart the IDE.</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="updating-documentation"><a class="link" href="#updating-documentation">1.5. Updating documentation</a></h3>
-<div class="paragraph">
-<p>After forking the repo, links in the documentation will link to the wrong repo. You should replace the URL in the variable <code>repoURL</code> in DeveloperGuide.adoc with the URL of your fork.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="coding-style"><a class="link" href="#coding-style">1.6. Coding style</a></h3>
-<div class="paragraph">
-<p>We follow <a href="https://github.com/oss-generic/process/blob/master/docs/CodingStandards.md">oss-generic coding standards</a>.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="configuring-import-statements"><a class="link" href="#configuring-import-statements">1.7. Configuring import statements</a></h3>
-<div class="paragraph">
-<p>IntelliJ uses a different import order from our coding style. To rectify this issue:</p>
+<p>This project follows <a href="https://github.com/oss-generic/process/blob/master/docs/CodingStandards.md">oss-generic coding standards</a>. IntelliJ&#8217;s default style is mostly compliant with ours but it uses a different import order from ours. To rectify,</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -299,6 +211,53 @@ This will generate all resources required by the application and tests.</p>
 </div>
 </li>
 </ol>
+</div>
+<div class="paragraph">
+<p>Optionally, you can follow the <a href="UsingCheckstyle.html">UsingCheckstyle.adoc</a> document to configure Intellij to check style-compliance as you write code.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="updating-documentation-to-match-your-fork"><a class="link" href="#updating-documentation-to-match-your-fork">1.4.2. Updating documentation to match your fork</a></h4>
+<div class="paragraph">
+<p>After forking the repo, links in the documentation will still point to the <code>se-edu/addressbook-level4</code> repo. If you plan to develop this as a separate product (i.e. instead of contributing to the <code>se-edu/addressbook-level4</code>) , you should replace the URL in the variable <code>repoURL</code> in <code>DeveloperGuide.adoc</code> and <code>UserGuide.adoc</code> with the URL of your fork.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="setting-up-ci"><a class="link" href="#setting-up-ci">1.4.3. Setting up CI</a></h4>
+<div class="paragraph">
+<p>Set up Travis to perform Continuous Integration (CI) for your fork. See <a href="UsingTravis.html">UsingTravis.adoc</a> to learn how to set it up.</p>
+</div>
+<div class="paragraph">
+<p>Optionally, you can set up AppVeyor as a second CI (see <a href="UsingAppVeyor.html">UsingAppVeyor.adoc</a>).</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Having both Travis and AppVeyor ensures your App works on both Unix-based platforms and Windows-based platforms (Travis is Unix-based and AppVeyor is Windows-based)
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="getting-started-with-coding"><a class="link" href="#getting-started-with-coding">1.4.4. Getting started with coding</a></h4>
+<div class="paragraph">
+<p>When you are ready to start coding,</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Get some sense of the overall design by reading the <a href="#architecture">Architecture</a> section.</p>
+</li>
+<li>
+<p>Take a look at the section <a href="#suggested-programming-tasks-to-get-started">Suggested Programming Tasks to Get Started</a>.</p>
+</li>
+</ol>
+</div>
 </div>
 </div>
 </div>
@@ -608,6 +567,9 @@ Note how the event is propagated through the <code>EventsCenter</code> to the <c
 <div class="sect1">
 <h2 id="implementation"><a class="link" href="#implementation">3. Implementation</a></h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>This section describes some noteworthy details on how certain features are implemented.</p>
+</div>
 <div class="sect2">
 <h3 id="undo-redo-mechanism"><a class="link" href="#undo-redo-mechanism">3.1. Undo/Redo mechanism</a></h3>
 <div class="paragraph">
@@ -851,154 +813,38 @@ If the <code>redoStack</code> is empty, then there are no other commands left to
 </div>
 </div>
 <div class="sect1">
-<h2 id="testing"><a class="link" href="#testing">4. Testing</a></h2>
+<h2 id="documentation"><a class="link" href="#documentation">4. Documentation</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Tests can be found in the <code>./src/test/java</code> folder.</p>
+<p>We use asciidoc for writing documentation.</p>
 </div>
-<div class="paragraph">
-<p><strong>In IntelliJ</strong>:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>To run all tests, right-click on the <code>src/test/java</code> folder and choose <code>Run 'All Tests'</code></p>
-</li>
-<li>
-<p>To run a subset of tests, you can right-click on a test package, test class, or a test and choose <code>Run 'ABC'</code></p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p><strong>Using Gradle</strong>:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>See <a href="UsingGradle.html">UsingGradle.adoc</a> for how to run tests using Gradle.</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>We have two types of tests:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p><strong>GUI Tests</strong> - These are <em>System Tests</em> that test the entire App by simulating user actions on the GUI. These are in the <code>guitests</code> package.</p>
-</li>
-<li>
-<p><strong>Non-GUI Tests</strong> - These are tests not involving the GUI. They include,</p>
-<div class="olist loweralpha">
-<ol class="loweralpha" type="a">
-<li>
-<p><em>Unit tests</em> targeting the lowest level methods/classes.<br>
-e.g. <code>seedu.address.commons.StringUtilTest</code></p>
-</li>
-<li>
-<p><em>Integration tests</em> that are checking the integration of multiple code units (those code units are assumed to be working).<br>
-e.g. <code>seedu.address.storage.StorageManagerTest</code></p>
-</li>
-<li>
-<p>Hybrids of unit and integration tests. These test are checking multiple code units as well as how the are connected together.<br>
-e.g. <code>seedu.address.logic.LogicManagerTest</code></p>
-</li>
-</ol>
-</div>
-</li>
-</ol>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+We chose asciidoc over Markdown because asciidoc, although a bit more complex than Markdown, provides more flexibility in formatting.
+</td>
+</tr>
+</table>
 </div>
 <div class="sect2">
-<h3 id="headless-gui-testing"><a class="link" href="#headless-gui-testing">4.1. Headless GUI Testing</a></h3>
+<h3 id="editing-documentation"><a class="link" href="#editing-documentation">4.1. Editing Documentation</a></h3>
 <div class="paragraph">
-<p>Thanks to the <a href="https://github.com/TestFX/TestFX">TestFX</a> library we use, our GUI tests can be run in the <em>headless</em> mode. In the headless mode, GUI tests do not show up on the screen. That means the developer can do other things on the Computer while the tests are running. See <a href="UsingGradle.html#running-tests">UsingGradle.adoc</a> to learn how to run tests in headless mode.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="troubleshooting-testing"><a class="link" href="#troubleshooting-testing">4.2. Troubleshooting Testing</a></h3>
-<div class="paragraph">
-<p><strong>Problem: <code>HelpWindowTest</code> fails with a <code>NullPointerException</code>.</strong></p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Reason: One of its dependencies, <code>UserGuide.html</code> in <code>src/main/resources/docs</code> is missing.</p>
-</li>
-<li>
-<p>Solution: Execute Gradle task <code>processResources</code>.</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="dev-ops"><a class="link" href="#dev-ops">5. Dev Ops</a></h2>
-<div class="sectionbody">
-<div class="sect2">
-<h3 id="build-automation"><a class="link" href="#build-automation">5.1. Build Automation</a></h3>
-<div class="paragraph">
-<p>See <a href="UsingGradle.html">UsingGradle.adoc</a> to learn how to use Gradle for build automation.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="continuous-integration"><a class="link" href="#continuous-integration">5.2. Continuous Integration</a></h3>
-<div class="paragraph">
-<p>We use <a href="https://travis-ci.org/">Travis CI</a> and <a href="https://www.appveyor.com/">AppVeyor</a> to perform <em>Continuous Integration</em> on our projects. See <a href="UsingTravis.html">UsingTravis.adoc</a> and <a href="UsingAppVeyor.html">UsingAppVeyor.adoc</a> for more details.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="previewing-documentation"><a class="link" href="#previewing-documentation">5.3. Previewing Documentation</a></h3>
-<div class="paragraph">
-<p>See <a href="UsingGradle.html#rendering-asciidoc-files">UsingGradle.adoc</a> to learn how to preview <code>.adoc</code> files locally.
+<p>See <a href="UsingGradle.html#rendering-asciidoc-files">UsingGradle.adoc</a> to learn how to render <code>.adoc</code> files locally to preview the end result of your edits.
 Alternatively, you can download the AsciiDoc plugin for IntelliJ, which allows you to preview the changes you have made to your <code>.adoc</code> files in real-time.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="publishing-documentation"><a class="link" href="#publishing-documentation">5.4. Publishing Documentation</a></h3>
+<h3 id="publishing-documentation"><a class="link" href="#publishing-documentation">4.2. Publishing Documentation</a></h3>
 <div class="paragraph">
-<p>See <a href="UsingTravis.html#deploying-github-pages">UsingTravis.adoc</a> to learn how to deploy GitHub Pages using Travis.<br>
-To verify that it works,</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Trigger Travis to regenerate documentation. To do so, you need to push a new commit to the master branch of the fork.<br>
-Suggested change: Remove the codacy badge from <code>README</code>.</p>
-</li>
-<li>
-<p>Wait for Travis CI to finish running the build on your new commit.</p>
-</li>
-<li>
-<p>Go to the URL <code>https://&lt;your-username-or-organization-name&gt;.github.io/addressbook-level4/</code>. You should see your <code>README</code> file displayed.</p>
-</li>
-</ol>
+<p>See <a href="UsingTravis.html#deploying-github-pages">UsingTravis.adoc</a> to learn how to deploy GitHub Pages using Travis.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="making-a-release"><a class="link" href="#making-a-release">5.5. Making a Release</a></h3>
-<div class="paragraph">
-<p>Here are the steps to create a new release.</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Update the version number in <a href="https://github.com/se-edu/addressbook-level4/tree/master/src/main/java/seedu/address/MainApp.java"><code>MainApp.java</code></a>.</p>
-</li>
-<li>
-<p>Generate a JAR file <a href="UsingGradle.html#creating-the-jar-file">using Gradle</a>.</p>
-</li>
-<li>
-<p>Tag the repo with the version number. e.g. <code>v0.1</code></p>
-</li>
-<li>
-<p><a href="https://help.github.com/articles/creating-releases/">Create a new release using GitHub</a> and upload the JAR file you created.</p>
-</li>
-</ol>
-</div>
-</div>
-<div class="sect2">
-<h3 id="converting-documentation-to-pdf-format"><a class="link" href="#converting-documentation-to-pdf-format">5.6. Converting Documentation to PDF format</a></h3>
+<h3 id="converting-documentation-to-pdf-format"><a class="link" href="#converting-documentation-to-pdf-format">4.3. Converting Documentation to PDF format</a></h3>
 <div class="paragraph">
 <p>We use <a href="https://www.google.com/chrome/browser/desktop/">Google Chrome</a> for converting documentation to PDF format, as Chrome&#8217;s PDF engine preserves hyperlinks used in webpages.</p>
 </div>
@@ -1030,8 +876,172 @@ Suggested change: Remove the codacy badge from <code>README</code>.</p>
 <p><em>Figure 5.6.1 : Saving documentation as PDF files in Chrome</em></p>
 </div>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="testing"><a class="link" href="#testing">5. Testing</a></h2>
+<div class="sectionbody">
 <div class="sect2">
-<h3 id="managing-dependencies"><a class="link" href="#managing-dependencies">5.7. Managing Dependencies</a></h3>
+<h3 id="running-tests"><a class="link" href="#running-tests">5.1. Running Tests</a></h3>
+<div class="paragraph">
+<p>There are three ways to run tests.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+The most reliable way to run tests is the 3rd one. The first two methods might fail some GUI tests due to platform/resolution-specific idiosyncrasies.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p><strong>Method 1: Using IntelliJ JUnit test runner</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>To run all tests, right-click on the <code>src/test/java</code> folder and choose <code>Run 'All Tests'</code></p>
+</li>
+<li>
+<p>To run a subset of tests, you can right-click on a test package, test class, or a test and choose <code>Run 'ABC'</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Method 2: Using Gradle</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Open a console and run the command <code>gradlew clean allTests</code> (Mac/Linux: <code>./gradlew clean allTests</code>)</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+See <a href="UsingGradle.html">UsingGradle.adoc</a> for more info on how to run tests using Gradle.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p><strong>Method 3: Using Gradle (headless)</strong></p>
+</div>
+<div class="paragraph">
+<p>Thanks to the <a href="https://github.com/TestFX/TestFX">TestFX</a> library we use, our GUI tests can be run in the <em>headless</em> mode. In the headless mode, GUI tests do not show up on the screen. That means the developer can do other things on the Computer while the tests are running.</p>
+</div>
+<div class="paragraph">
+<p>To run tests in headless mode, open a console and run the command <code>gradlew clean headless allTests</code> (Mac/Linux: <code>./gradlew clean headless allTests</code>)</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="types-of-tests"><a class="link" href="#types-of-tests">5.2. Types of tests</a></h3>
+<div class="paragraph">
+<p>We have two types of tests:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>GUI Tests</strong> - These are tests involving the GUI. They include,</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p><em>System Tests</em> that test the entire App by simulating user actions on the GUI. These are in the <code>systemtests</code> package.</p>
+</li>
+<li>
+<p><em>Unit tests</em> that test the individual components. These are in <code>seedu.address.ui</code> package.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p><strong>Non-GUI Tests</strong> - These are tests not involving the GUI. They include,</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p><em>Unit tests</em> targeting the lowest level methods/classes.<br>
+e.g. <code>seedu.address.commons.StringUtilTest</code></p>
+</li>
+<li>
+<p><em>Integration tests</em> that are checking the integration of multiple code units (those code units are assumed to be working).<br>
+e.g. <code>seedu.address.storage.StorageManagerTest</code></p>
+</li>
+<li>
+<p>Hybrids of unit and integration tests. These test are checking multiple code units as well as how the are connected together.<br>
+e.g. <code>seedu.address.logic.LogicManagerTest</code></p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="troubleshooting-testing"><a class="link" href="#troubleshooting-testing">5.3. Troubleshooting Testing</a></h3>
+<div class="paragraph">
+<p><strong>Problem: <code>HelpWindowTest</code> fails with a <code>NullPointerException</code>.</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Reason: One of its dependencies, <code>UserGuide.html</code> in <code>src/main/resources/docs</code> is missing.</p>
+</li>
+<li>
+<p>Solution: Execute Gradle task <code>processResources</code>.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="dev-ops"><a class="link" href="#dev-ops">6. Dev Ops</a></h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="build-automation"><a class="link" href="#build-automation">6.1. Build Automation</a></h3>
+<div class="paragraph">
+<p>See <a href="UsingGradle.html">UsingGradle.adoc</a> to learn how to use Gradle for build automation.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="continuous-integration"><a class="link" href="#continuous-integration">6.2. Continuous Integration</a></h3>
+<div class="paragraph">
+<p>We use <a href="https://travis-ci.org/">Travis CI</a> and <a href="https://www.appveyor.com/">AppVeyor</a> to perform <em>Continuous Integration</em> on our projects. See <a href="UsingTravis.html">UsingTravis.adoc</a> and <a href="UsingAppVeyor.html">UsingAppVeyor.adoc</a> for more details.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="making-a-release"><a class="link" href="#making-a-release">6.3. Making a Release</a></h3>
+<div class="paragraph">
+<p>Here are the steps to create a new release.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Update the version number in <a href="https://github.com/se-edu/addressbook-level4/tree/master/src/main/java/seedu/address/MainApp.java"><code>MainApp.java</code></a>.</p>
+</li>
+<li>
+<p>Generate a JAR file <a href="UsingGradle.html#creating-the-jar-file">using Gradle</a>.</p>
+</li>
+<li>
+<p>Tag the repo with the version number. e.g. <code>v0.1</code></p>
+</li>
+<li>
+<p><a href="https://help.github.com/articles/creating-releases/">Create a new release using GitHub</a> and upload the JAR file you created.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="managing-dependencies"><a class="link" href="#managing-dependencies">6.4. Managing Dependencies</a></h3>
 <div class="paragraph">
 <p>A project often depends on third-party libraries. For example, Address Book depends on the <a href="http://wiki.fasterxml.com/JacksonHome">Jackson library</a> for XML parsing. Managing these <em>dependencies</em> can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives.<br>
 a. Include those libraries in the repo (this bloats the repo size)<br>
@@ -1041,10 +1051,20 @@ b. Require developers to download those libraries manually (this creates extra w
 </div>
 </div>
 <div class="sect1">
-<h2 id="getting-started-in-writing-code"><a class="link" href="#getting-started-in-writing-code">Appendix A: Getting Started in Writing Code</a></h2>
+<h2 id="suggested-programming-tasks-to-get-started"><a class="link" href="#suggested-programming-tasks-to-get-started">Appendix A: Suggested Programming Tasks to Get Started</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>We have prepared some exercises for beginners of the codebase. There are two kinds of exercise: the first one (i.e. improving each component) is for learning one component at a time, and the second one (i.e. adding the remark command) is to learn how to implement an end-to-end feature across all components.</p>
+<p>Suggested path for new programmers:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>First, add small local-impact (i.e. the impact of the change does not go beyond the component) enhancements to one component at a time. Some suggestions are given in this section <a href="#improving-each-component">Improving a Component</a>.</p>
+</li>
+<li>
+<p>Next, add a feature that touches multiple components to learn how to implement an end-to-end feature across all components. The section <a href="#creating-a-new-command-code-remark-code">Creating a new command: <code>remark</code></a> explains how to go about adding such a feature.</p>
+</li>
+</ol>
 </div>
 <div class="sect2">
 <h3 id="improving-each-component"><a class="link" href="#improving-each-component">A.1. Improving each component</a></h3>
@@ -1052,6 +1072,18 @@ b. Require developers to download those libraries manually (this creates extra w
 <p>Each individual exercise in this section is component-based (i.e. you would not need to modify the other components to get it to work).</p>
 </div>
 <h4 id="code-logic-code-component" class="discrete"><code>Logic</code> component</h4>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Do take a look at the <a href="#logic-component">Design: Logic Component</a> section before attempting to modify the <code>Logic</code> component.
+</td>
+</tr>
+</table>
+</div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -1094,6 +1126,18 @@ b. Require developers to download those libraries manually (this creates extra w
 </ol>
 </div>
 <h4 id="code-model-code-component" class="discrete"><code>Model</code> component</h4>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Do take a look at the <a href="#model-component">Design: Model Component</a> section before attempting to modify the <code>Model</code> component.
+</td>
+</tr>
+</table>
+</div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -1136,6 +1180,18 @@ b. Require developers to download those libraries manually (this creates extra w
 </ol>
 </div>
 <h4 id="code-ui-code-component" class="discrete"><code>Ui</code> component</h4>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Do take a look at the <a href="#ui-component">Design: UI Component</a> section before attempting to modify the <code>UI</code> component.
+</td>
+</tr>
+</table>
+</div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -1303,6 +1359,18 @@ b. Require developers to download those libraries manually (this creates extra w
 </ol>
 </div>
 <h4 id="code-storage-code-component" class="discrete"><code>Storage</code> component</h4>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Do take a look at the <a href="#storage-component">Design: Storage Component</a> section before attempting to modify the <code>Storage</code> component.
+</td>
+</tr>
+</table>
+</div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -1823,7 +1891,7 @@ for <code>RemarkCommandParser</code>.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-09-21 14:04:37 +00:00
+Last updated 2017-09-21 14:20:08 +00:00
 </div>
 </div>
 </body>
