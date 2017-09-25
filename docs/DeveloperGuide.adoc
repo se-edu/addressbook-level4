@@ -804,7 +804,7 @@ Use case resumes at step 2.
 
 1.  User requests an invalid action
 2.  AddressBook shows a error message
-3.  AddressBook shows suggestions on fixings of this error or warning occured
+3.  AddressBook shows suggestions on fixings of this error or warning occurred
 +
 Use case ends.
 
@@ -822,7 +822,7 @@ Use case ends.
 * 3a. The given suggestion is not a good fix
 +
 [none]
-** 3a1. AddressBook opt to redo this action 
+** 3a1. AddressBook opt to redo this action
 +
 Use case ends.
 
@@ -858,7 +858,7 @@ Private contact detail
 ....
 A contact detail that is not meant to be shared with others
 ....
-
+./gradlew clean
 [[Invalid-action]]
 Invalid-action
 
@@ -876,7 +876,7 @@ Author: Dong Shaocong
 
 Pros:
 
-* Beautiful interfaces 
+* Beautiful interfaces
 * Notes easy to remove, add, edit and move
 * Have attachments and update history for an event
 * Able to sync with different device for same account
