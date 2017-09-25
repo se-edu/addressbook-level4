@@ -18,3 +18,5 @@ classes/
 /bin/
 src/main/resources/docs/
 out/
+.classpath
+.project
