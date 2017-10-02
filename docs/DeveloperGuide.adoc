@@ -780,6 +780,99 @@ Use case ends.
 Use case resumes at step 2.
 
 [discrete]
+=== Use case: Add a new task
+
+*MSS*
+
+1.  User requests to add a task
+2.  AddressBook prompts to ask for task details
+3.  User inputs task details
+4.  AddressBook adds the task
++
+Use case ends.
+
+*Extensions*
+
+* 2a. The details is invalid.
++
+[none]
+** 2a1. AddressBook shows an error message.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: Edit hierarchy
+
+*MSS*
+
+1.  User requests to edit hierarchy
+2.  AddressBook prompts to ask for hierarchy details
+3.  User inputs hierarchy details
+4.  AddressBook update hierarchy
++
+Use case ends.
+
+*Extensions*
+
+* 2a. The details is invalid.
++
+[none]
+** 2a1. AddressBook shows an error message.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: View task details
+
+*MSS*
+
+1.  User requests to list tasks
+2.  AddressBook shows a list of persons
+3.  User requests to see a specific task details
+4.  AddressBook shows the details of a person
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The given index is invalid.
++
+[none]
+** 3a1. AddressBook shows an error message.
++
+Use case resumes at step 2.
+[discrete]
+=== Use case: View task details
+
+*MSS*
+
+1.  User requests to list tasks
+2.  AddressBook shows a list of persons
+3.  User requests to see a specific task details
+4.  AddressBook shows the details of a person
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The given index is invalid.
++
+[none]
+** 3a1. AddressBook shows an error message.
++
+Use case resumes at step 2.
+
+[discrete]
 === Use case: View task details
 
 *MSS*
