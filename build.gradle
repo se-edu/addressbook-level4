@@ -124,7 +124,7 @@ tasks.coveralls {
 
 class AddressBookTest extends Test {
     public AddressBookTest() {
-    	  forkEvery = 1
+        forkEvery = 1
         systemProperty 'testfx.setup.timeout', '60000'
 
         /*
