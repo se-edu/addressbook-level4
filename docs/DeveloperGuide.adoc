@@ -733,9 +733,17 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`*` |user with many persons in the address book |sort persons by name |locate a person easily
 
+|`*` |user|add new tasks with hierarchy |trace the tasks in the future
+
+|`*` |user|create hierarchy|organize the tasks in a logical classification
+
+|`*` |user|edit hierarchy|change the structure or name of the hierarchy
+
 |`*` |user with at least one task|view one task details|see the details and get the information of a task
 
 |`*` |user with too many tasks that create conflicts|get error and warnings on event conflicts|to manage task more efficiently without conflicts
+
+|`*` |user with tasks|receive email reminder for the tasks deadline|be reminded for upcoming events
 |=======================================================================
 
 {More to be added}
