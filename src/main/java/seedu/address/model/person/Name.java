@@ -14,10 +14,9 @@ public class Name {
             "Person names should only contain alphanumeric characters and spaces, and it should not be blank";
 
     /*
-     * The first character of the address must not be a whitespace,
-     * otherwise " " (a blank string) becomes a valid input.
+     * Matches unicode words separated with one space, e.g. "Charles Nguyễn 你好"
      */
-    public static final String NAME_VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
+    public static final String NAME_VALIDATION_REGEX = "[\\p{L}\\p{Digit}]+( [\\p{L}\\p{Digit}]+)*";
 
     public final String fullName;
 
