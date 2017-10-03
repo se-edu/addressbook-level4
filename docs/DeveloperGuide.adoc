@@ -759,9 +759,25 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`*` |user with many persons in the address book |sort persons by name |locate a person easily
 
+
+|`* * *` |user |add and remove tags |
+
+|`* * *` |user |sort my contacts in A-Z order |see my contacts easier
+
+|`* * *` |user |list contacts with specific tags |
+
+|`* * *` |careless user |see a comfirmation prompt after the 'clear' command |know if I really want to clear my contacts
+
+|`* *` |user |upload a picture for each of my contact |identify them easier
+
+|`* *` |user |add social media to contacts |
+
+|`* *` |user |access my contact's social media pages |
+=======
 |`*` |user |view two contacts at the same time |make a comparison of two persons' information similarities
 
 |`*` |user |view a list of recently edited contacts |quickly make changes to persons that I might have changed earlier
+
 |=======================================================================
 
 [appendix]
