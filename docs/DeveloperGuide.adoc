@@ -729,9 +729,25 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
 
+|`* * *` |user |use command shortcuts |achieve what I want in a shorter time
+
+|`* *` |user |batch update persons with the same tag |change their details easily
+
+|`* *` |forgetful user |be prompted when a new contact has similar details to an existing person |be warned that I might be adding identical persons twice
+
+|`* *` |user |add remarks to a person |
+
+|`* *` |user |remove remarks that were attached to a person |
+
+|`* *` |user |view statistics of how my contacts have changed over time |keep track on the progress of my social life
+
 |`* *` |user |hide link:#private-contact-detail[private contact details] by default |minimize chance of someone else seeing them by accident
 
 |`*` |user with many persons in the address book |sort persons by name |locate a person easily
+
+|`*` |user |view two contacts at the same time |make a comparison of two persons' information similarities
+
+|`*` |user |view a list of recently edited contacts |quickly make changes to persons that I might have changed earlier
 |=======================================================================
 
 {More to be added}
@@ -767,7 +783,55 @@ Use case ends.
 +
 Use case resumes at step 2.
 
-{More to be added}
+=== Use case: Add remark to person
+
+*MSS*
+
+1.  User requests to list persons
+2.  AddressBook shows a list of persons
+3.  User requests to add a remark to a specific person in the list
+4.  AddressBook adds the remark to the specific person
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The given index is invalid.
++
+[none]
+** 3a1. AddressBook shows an error message.
++
+Use case resumes at step 2.
+
+=== Use case: View remarks of person
+
+*MSS*
+
+1.  User requests to list persons
+2.  AddressBook shows a list of persons
+3.  User requests to view the remarks of a specific person in the list
+4.  AddressBook displays remarks of the specific person
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The given index is invalid.
++
+[none]
+** 3a1. AddressBook shows an error message.
++
+Use case resumes at step 2.
 
 [appendix]
 == Non Functional Requirements
@@ -775,8 +839,7 @@ Use case resumes at step 2.
 .  Should work on any link:#mainstream-os[mainstream OS] as long as it has Java `1.8.0_60` or higher installed.
 .  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-
-{More to be added}
+.  Should be initialised and ready for user input within 1 second
 
 [appendix]
 == Glossary
