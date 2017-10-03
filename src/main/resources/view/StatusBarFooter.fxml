@@ -10,5 +10,6 @@
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="100" />
   </columnConstraints>
   <StatusBar styleClass="anchor-pane" fx:id="syncStatus" />
-  <StatusBar styleClass="anchor-pane" fx:id="saveLocationStatus" GridPane.columnIndex="1" nodeOrientation="RIGHT_TO_LEFT" />
+  <StatusBar styleClass="anchor-pane" fx:id="totalPersons" GridPane.columnIndex="1" />
+  <StatusBar styleClass="anchor-pane" fx:id="saveLocationStatus" GridPane.columnIndex="2" nodeOrientation="RIGHT_TO_LEFT" />
 </GridPane>
