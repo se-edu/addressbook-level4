@@ -1,4 +1,4 @@
-= AddressBook Level 4 - Developer Guide
+﻿= AddressBook Level 4 - Developer Guide
 :toc:
 :toc-title:
 :toc-placement: preamble
@@ -766,6 +766,50 @@ Use case ends.
 ** 3a1. AddressBook shows an error message.
 +
 Use case resumes at step 2.
+
+[discrete]
+=== Use case: Undo
+
+*MSS*
+
+1.  User enters a command that modifies the list of people (e.g. add, delete, edit)
+2.  AddressBook performs the command
+3.  User enters the undo command
+4.  AddressBook reverses the modifying command
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 3a. No previous modifying command.
++
+[none]
+** 3a1. AddressBook shows an error message.
++
+Use case ends.
+
+[discrete]
+=== Use case: Redo
+
+*MSS*
+
+1.  User enters undo command
+2.  AddressBook reverses the last modifying command
+3.  User enters the redo command
+4.  AddressBook redoes the last modifying command that was undone
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 3a. Last command entered was not undo.
++
+[none]
+** 3a1. AddressBook shows an error message.
++
+Use case ends.
 
 {More to be added}
 
