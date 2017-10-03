@@ -729,7 +729,21 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
 
+|`* * *` |user |see my application's logo |easily identify the application
+
+|`* * *` |user |add a user with a non-alphabet name |add my friend with a non-alphabet name (e.g. Nguyễn)
+
 |`* * *` |user |use command shortcuts |achieve what I want in a shorter time
+
+|`* *` |user |put in phone numbers with dashes and spaces on it |copy-paste a number without having to strip the dashes/spaces
+
+|`* *` |user |adjust the text font size |see better if I have impaired sight
+
+|`* *` |user |search names by regex |search in a more powerful way
+
+|`* *` |user |batch undo/redo (e.g. `undo 3` undoes the last 3 commands) |undo many commands at once to get back to a previous state
+
+|`* *` |user |export my data in formats other than XML (say JSON, CSV) |import them to other 3rd-party apps
 
 |`* *` |user |batch update persons with the same tag |change their details easily
 
@@ -749,8 +763,6 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`*` |user |view a list of recently edited contacts |quickly make changes to persons that I might have changed earlier
 |=======================================================================
-
-{More to be added}
 
 [appendix]
 == Use Cases
