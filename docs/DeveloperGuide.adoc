@@ -830,7 +830,6 @@ relationship diagram
  |I can manage the clients better
 ||=======================================================================
 
-{More to be added}
 
 [appendix]
 == Use Cases
