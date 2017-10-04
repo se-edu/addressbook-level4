@@ -721,17 +721,38 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
-
-|`* * *` |user |add a new person |
-
-|`* * *` |user |delete a person |remove entries that I no longer need
-
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
-
-|`* *` |user |hide link:#private-contact-detail[private contact details] by default |minimize chance of someone else seeing them by accident
-
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |user |see my contacts while managing my address book |remember what I need to do without flipping back and forth
+|`* * *` |user |backup the contacts into a xml file |transfer my contact details with another user or load the existing details to another computer of mine
+|`* * *` |user |create new contacts in the address book |add more new contacts in the future
+|`* * *` |user |type commands that do not follow the format |use them without memorizing the formats
+|`* * *` |user |merge duplicate contacts |use my addressbook without clutter
+|`* * *` |user |group my contacts in more than one grouping |search my contacts easily by groups
+|`* * *` |user |filter and search contacts |display important contacts
+|`* * *` |user |update existing contacts from the address book |update existing contacts if they have changed their contact number or details
+|`* * *` |user |add a short description  |recall details about them
+|`* * *` |user |view all my contacts |organise my contacts easily
+|`* * *` |user |group my users |organize my address book
+|`* * *` |user |delete contacts from the address book |remove unwanted contacts
+|`* *` |user |be prompted about upcoming birthdays |prepare a gift for my friends
+|`* *` |user |see an aesthetically pleasing application |use the app daily and not get bored of it so quickly
+|`* *` |user |have ways to enter commands with shortcuts |update and traverse my address book quickly
+|`* *` |user |sync my contacts from my phone |skip adding users manually
+|`* *` |user |star my favourite contacts |quickly access my most important contacts
+|`* *` |user |easily input the commands as the systems learn the behaviour and common commands that I had in the past |auto-correct my words
+|`* *` |user |use link:#natural-language[natural language] to perform actions |use it without memorising the syntax of commands
+|`* *` |user |easily input commands into the link:#command-line-interface[Command Line Interface (CLI)] with the system prompting me with options of each command |easily input commands without having to refer to the user guide
+|`* *` |user |store my contact's birthday |know when to prepare a gift
+|`* *` |user |change the colour of the user interface design and the font colour |make it feel more personal
+|`* *` |user |add a photo to my contacts |visually identify my friends
+|`*` |user |see mutual friends |understand my social network better
+|`*` |user |use speech to input to the link:#command-line-interface[CLI] |use the app hands-free
+|`*` |user |see people whom I've not talked to recently, |reconnect with people whom I've not met in a while
+|`*` |user |access my friend's social media from the address book |stay up to date with their lives
+|`*` |user |select different language settings |navigate the user interface in my native language
+|`*` |user |view emergency contacts immediately with a single command, and these contacts are hidden and can't be deleted |easily find the relevant emergency contacts such as the contact for ambulance or police easily
+|`*` |user |see where my friends live on the map |visualise who lives near me
+|`*` |user |edit the layout of the UI |customise the layout to suit my needs
+|`*` |user |set a password to my address book |prevent other users from accessing my address book
 |=======================================================================
 
 {More to be added}
@@ -740,6 +761,33 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 == Use Cases
 
 (For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+
+[discrete]
+=== Use case: Add person
+
+*MSS*
+
+1.  User requests to add person
+2.  AddressBook adds the person with success message
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The format of person information given is invalid.
++
+[none]
+** 1a1. AddressBook shows an error message.
++
+Use case resumes at step 1.
+
+* 1b. The Address Book already contains person with the same details.
++
+[none]
+** 1b1. AddressBook shows an error message.
++
+Use case resumes at step 1.
 
 [discrete]
 === Use case: Delete person
@@ -767,19 +815,94 @@ Use case ends.
 +
 Use case resumes at step 2.
 
+[discrete]
+=== Use case: Find person
+
+*MSS*
+
+1.  User requests to find person by name
+2.  AddressBook shows a list of persons whose full name contains name provided
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+[discrete]
+=== Use case: Edit person
+
+*MSS*
+
+1.  User requests to list persons
+2.  AddressBook shows a list of persons
+3.  User request to edit person's information
+4.  AddressBook updates person's information with success message
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The given index is invalid.
++
+[none]
+** 3a1. AddressBook shows an error message.
++
+Use case resumes at step 2.
+
+* 3b. The format of new information given is not valid.
++
+[none]
+** 3b1. AddressBook shows an error message.
++
+Use case resumes at step 2.
+
+
 {More to be added}
 
 [appendix]
 == Non Functional Requirements
 
 .  Should work on any link:#mainstream-os[mainstream OS] as long as it has Java `1.8.0_60` or higher installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+.  Text to Speech and Speech to Text features should works on Windows 10.
+.  Speech to Text should work with any microphone enabled computer.
+.  Program should have a clean design, that is still readable with low brightness.
+.  Should encompass most point of possible failures.
+.  System should be modular, able to add, remove or improve features anytime without disruption.
+.  Should be user friendly, such that a young child can use it without any supervision.
+.  Should be portable and easily transferable.
+.  Should be able to hold up to 1000 persons without a noticeable link:#response-time[sluggishness] in performance for typical usage.
+.  A user with above link:#average-typing-speed[average typing speed] for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+
 
 {More to be added}
 
 [appendix]
 == Glossary
+
+[[average-typing-speed]]
+Average Typing Speed
+
+....
+40 words per minute
+....
+
+[[command-line-interface]]
+Command Line Interface (CLI)
+ +
+link:http://searchwindowsserver.techtarget.com/definition/command-line-interface-CLI[Full Definition]
+
+....
+A user interface to a computer's operating system or an application in which the user responds to a visual prompt by typing in a command on a specified line, receives a response back from the system, and then enters another command, and so forth.
+....
 
 [[mainstream-os]]
 Mainstream OS
@@ -788,12 +911,32 @@ Mainstream OS
 Windows, Linux, Unix, OS-X
 ....
 
+[[natural-language]]
+Natural Language
+ +
+link:http://whatis.techtarget.com/definition/natural-language[Full Definition]
+....
+In computing, natural language refers to a human language such as English, Russian, German, or Japanese as distinct from the typically artificial command or programming language with which one usually talks to a computer.
+....
+
 [[private-contact-detail]]
 Private contact detail
 
 ....
 A contact detail that is not meant to be shared with others
 ....
+
+[[response-time]]
+Sluggishness
+ +
+link:https://www.nngroup.com/articles/response-times-3-important-limits/[Response Times: The 3 Important Limits]
+
+....
+Respond time of greater than 1 second upon user input
+....
+
+
+
 
 [appendix]
 == Product Survey
