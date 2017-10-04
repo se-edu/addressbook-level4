@@ -86,7 +86,6 @@ public class XmlAddressBookStorage implements AddressBookStorage {
     public void backupAddressBook(ReadOnlyAddressBook addressBook, String filePath) throws IOException {
         requireNonNull(addressBook);
         requireNonNull(filePath);
-
         File file = new File(filePath);
         FileUtil.createIfMissing(file);
         XmlFileStorage.saveDataToFile(file, new XmlSerializableAddressBook(addressBook));
