@@ -879,15 +879,6 @@ Use case resumes at step 2.
 [appendix]
 == Glossary
 
-.  Events: Meetings and scheduled activities with clients
-.  Reminder: Pop-up message that reminds the user of an event or a need to
-follow up
-.  Priority: A special label applied to clients to differentiate clients with
-highest, medium and low priority
-.  Status: A special label applied to clients to differentiate clients that are
- potential leads, booked meeting, finished meeting and signed contract
-
-
 [[mainstream-os]]
 Mainstream OS
 
