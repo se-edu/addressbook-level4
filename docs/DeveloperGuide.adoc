@@ -714,60 +714,6 @@ We now have everything set up... but we still can't modify the remarks. Let's fi
 See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-by-step solution.
 
 [appendix]
-== Non Functional Requirements
-
-.  Should work on any link:#mainstream-os[mainstream OS] as long as it has Java `1.8.0_60` or higher installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-.  Should perform any command within 0.1 second
-.  Program size should not exceed 100 MB
-
-{More to be added}
-
-[appendix]
-== Glossary
-
-.  Events: Meetings and scheduled activities with clients
-.  Reminder: Pop-up message that reminds the user of an event or a need to
-follow up
-.  Priority: A special label applied to clients to differentiate clients with
-highest, medium and low priority
-.  Status: A special label applied to clients to differentiate clients that are
- potential leads, booked meeting, finished meeting and signed contract
-
-
-[[mainstream-os]]
-Mainstream OS
-
-....
-Windows, Linux, Unix, OS-X
-....
-
-[[private-contact-detail]]
-Private contact detail
-
-....
-A contact detail that is not meant to be shared with others
-....
-
-[appendix]
-== Product Survey
-
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
-
-[appendix]
 == User Stories
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
@@ -790,11 +736,101 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 information
  |do proper follow up
 
+|`* * *` |sales executive |be able to label clients with level of priority
+ |I know better which one to prioritise
 
- |=======================================================================
+|`* * *` |sales executive |be able to set the status of my client |I can better
+manage them
+
+|`* * *` |sales executive |add note to a client's contact |remember key details
+about this client
+
+|`* * *` |user who is prone to making mistakes |be able to undo any command that I
+previously made
+ |correct my own mistake
+
+|`* * *` |user who is prone to making mistakes |be able to redo any command that I
+previously undid
+ |correct my own mistake
+
+|`* * *` |sales executive |be able to add events |better manage my client
+meetings and events
+
+|`* * *` |sales executive |be able to edit events |better manage my client
+meetings and events
+
+|`* * *` |sales executive |be able to delete events |better manage my client
+meetings and events
+
+|`* * *` |sales executive |be able to query all my events |better manage my
+client
+meetings and events
+
+|`* * *` |sales executive |be reminded to follow up on clients after events
+|follow up on time
+
+|`* * *` |sales executive |receive notifications and reminders on upcoming
+events
+|can prepare in advance
+
+|`* * *` |sales executive |be warned when adding events that clash with my
+schedule |don't schedule clashing events
+
+|`* *` |sales executive |be able to associate events with clients
+|can better manage events related to specific clients
+
+|`* *` |sales executive |be able to disassociate events with clients
+|can update event relations with specific clients
+
+|`* *` |user who is particular about aesthetics|be able to change the font of
+the app
+|
+
+|`* *` |user who is particular about aesthetics|be able to change the color
+scheme of the app
+|
+
+|`* *` |user who has bad eyesight |be able to change the font size of the app
+|can see better
+
+|`* *` |sales executive |be able to check my schedule for the day|know what I
+need to do for the day
+
+|`* *` |sales executive |be able to view a list of my contacts with a specific
+tag
+ |can better manage my client information
+
+|`* *` |sales executive |be able to view a list of my contacts from a specific
+company|can better manage my client information
+
+|`* *` |sales executive |be able to view client's address on Google Maps in
+the app |I don't have to manually search for it in the browser
+
+|`* *` |sales executive |be able to directly send an email on clicking the
+email address in the app|can send email faster and more easily
+
+|`*` |sales executive |be able to upload images of my client |can remember how
+they look like
+
+|`*` |lazy user |the app to open on startup of my OS |
+
+|`*` |sales executive |be able to mass export client data |can share it with
+others
+
+|`*` |sales executive |be able to mass import client data |can quickly add
+contact into the app
+
+|`*` |forgetful user |be able to type shorter commands |
+
+|`*` |sales executive |be able to indicate the relationship between my contacts
+ |I can manage the clients better
+
+|`*` |sales executive |be able to see the relationship between my clients in a
+relationship diagram
+ |I can manage the clients better
+|=======================================================================
 
 {More to be added}
-
 
 [appendix]
 == Use Cases
@@ -829,3 +865,45 @@ Use case resumes at step 2.
 
 {More to be added}
 
+[appendix]
+== Non Functional Requirements
+
+.  Should work on any link:#mainstream-os[mainstream OS] as long as it has Java `1.8.0_60` or higher installed.
+.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+
+{More to be added}
+
+[appendix]
+== Glossary
+
+[[mainstream-os]]
+Mainstream OS
+
+....
+Windows, Linux, Unix, OS-X
+....
+
+[[private-contact-detail]]
+Private contact detail
+
+....
+A contact detail that is not meant to be shared with others
+....
+
+[appendix]
+== Product Survey
+
+*Product Name*
+
+Author: ...
+
+Pros:
+
+* ...
+* ...
+
+Cons:
+
+* ...
+* ...
