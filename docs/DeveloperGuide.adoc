@@ -844,43 +844,6 @@ the app
 scheme of the app
 |
 
-|`* *` |user who has bad eyesight |be able to change the font size of the app
-|can see better
-
-|`* *` |sales executive |be able to check my schedule for the day|know what I
-need to do for the day
-
-|`* *` |sales executive |be able to view a list of my contacts with a specific
-tag
- |can better manage my client information
-
-|`* *` |sales executive |be able to view a list of my contacts from a specific
-company|can better manage my client information
-
-|`* *` |sales executive |be able to view client's address on Google Maps in
-the app |I don't have to manually search for it in the browser
-
-|`* *` |sales executive |be able to directly send an email on clicking the
-email address in the app|can send email faster and more easily
-
-|`*` |sales executive |be able to upload images of my client |can remember how
-they look like
-
-|`*` |lazy user |the app to open on startup of my OS |
-
-|`*` |sales executive |be able to mass export client data |can share it with
-others
-
-|`*` |sales executive |be able to mass import client data |can quickly add
-contact into the app
-
-|`*` |forgetful user |be able to type shorter commands |
-
-|`*` |sales executive |be able to indicate the relationship between my contacts
- |I can manage the clients better
-
-|`*` |sales executive |be able to see the relationship between my clients in a
-relationship diagram|I can manage the clients better
  |=======================================================================
 
 {More to be added}
