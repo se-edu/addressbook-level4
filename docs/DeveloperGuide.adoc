@@ -828,8 +828,9 @@ contact into the app
 |`*` |sales executive |be able to see the relationship between my clients in a
 relationship diagram
  |I can manage the clients better
-||=======================================================================
+ |=======================================================================
 
+{More to be added}
 
 [appendix]
 == Use Cases
@@ -885,6 +886,7 @@ follow up
 highest, medium and low priority
 .  Status: A special label applied to clients to differentiate clients that are
  potential leads, booked meeting, finished meeting and signed contract
+
 
 [[mainstream-os]]
 Mainstream OS
