@@ -873,6 +873,13 @@ Use case resumes at step 2.
 == Non Functional Requirements
 
 .  Should work on any link:#mainstream-os[mainstream OS] as long as it has Java `1.8.0_60` or higher installed.
+.  Text to Speech and Speech to Text features should works on Windows 10.
+.  Speech to Text should work with any microphone enabled computer.
+.  Program should have a clean design, that is still readable with low brightness.
+.  Should encompass most point of possible failures.
+.  System should be modular, able to add, remove or improve features anytime without disruption.
+.  Should be user friendly, such that a young child can use it without any supervision.
+.  Should be portable and easily transferable.
 .  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 
