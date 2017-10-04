@@ -790,59 +790,6 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 information
  |do proper follow up
 
-|`* * *` |sales executive |be able to label clients with level of priority
- |I know better which one to prioritise
-
-|`* * *` |sales executive |be able to set the status of my client |I can better
-manage them
-
-|`* * *` |sales executive |add note to a client's contact |remember key details
-about this client
-
-|`* * *` |user who is prone to making mistakes |be able to undo any command that I
-previously made
- |correct my own mistake
-
-|`* * *` |user who is prone to making mistakes |be able to redo any command that I
-previously undid
- |correct my own mistake
-
-|`* * *` |sales executive |be able to add events |better manage my client
-meetings and events
-
-|`* * *` |sales executive |be able to edit events |better manage my client
-meetings and events
-
-|`* * *` |sales executive |be able to delete events |better manage my client
-meetings and events
-
-|`* * *` |sales executive |be able to query all my events |better manage my
-client
-meetings and events
-
-|`* * *` |sales executive |be reminded to follow up on clients after events
-|follow up on time
-
-|`* * *` |sales executive |receive notifications and reminders on upcoming
-events
-|can prepare in advance
-
-|`* * *` |sales executive |be warned when adding events that clash with my
-schedule |don't schedule clashing events
-
-|`* *` |sales executive |be able to associate events with clients
-|can better manage events related to specific clients
-
-|`* *` |sales executive |be able to disassociate events with clients
-|can update event relations with specific clients
-
-|`* *` |user who is particular about aesthetics|be able to change the font of
-the app
-|
-
-|`* *` |user who is particular about aesthetics|be able to change the color
-scheme of the app
-|
 
  |=======================================================================
 
