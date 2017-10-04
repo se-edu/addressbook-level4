@@ -729,12 +729,69 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
 
+|`* * *` |user |see my application's logo |easily identify the application
+
+|`* * *` |user |add a user with a non-alphabet name |add my friend with a non-alphabet name (e.g. Nguyễn)
+
+|`* * *` |user |use command shortcuts |achieve what I want in a shorter time
+
+|`* * *` |user |add and remove tags |
+
+|`* * *` |user |sort my contacts in A-Z order |see my contacts easier
+
+|`* * *` |user |list contacts with specific tags |
+
+|`* * *` |careless user |see a comfirmation prompt after the 'clear' command |know if I really want to clear my contacts
+
+|`* * *` |user |have a 'quickhelp' command available |view a condensed list of essential instructions
+
+|`* * *` |user |be able to store incomplete addressbook entries |add people to the addressbook even if I do not have all their contact details
+
+|`* * *` |user |store multiple email addresses or phone numbers for a single person |access all a contact's details in a single query
+
+|`* * *` |user |have the screen open at an appropriate size |avoid having to adjust screen sizes manually on each load
+=======
+|`* *` |user |put in phone numbers with dashes and spaces on it |copy-paste a number without having to strip the dashes/spaces
+
+|`* *` |user |adjust the text font size |see better if I have impaired sight
+
+|`* *` |user |search names by regex |search in a more powerful way
+
+|`* *` |user |batch undo/redo (e.g. `undo 3` undoes the last 3 commands) |undo many commands at once to get back to a previous state
+
+|`* *` |user |export my data in formats other than XML (say JSON, CSV) |import them to other 3rd-party apps
+
+|`* *` |user |batch update persons with the same tag |change their details easily
+
+|`* *` |forgetful user |be prompted when a new contact has similar details to an existing person |be warned that I might be adding identical persons twice
+
+|`* *` |user |add remarks to a person |
+
+|`* *` |user |remove remarks that were attached to a person |
+
+|`* *` |user |view statistics of how my contacts have changed over time |keep track on the progress of my social life
+
 |`* *` |user |hide link:#private-contact-detail[private contact details] by default |minimize chance of someone else seeing them by accident
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
-|=======================================================================
+|`* *` |new user |see usage instructions on load |avoid wasting time looking for the help function
 
-{More to be added}
+|`* *` |user |see my contacts' upcoming birthdays |so that I know if it is their birthday
+
+|`* *` |user |be able to import addressbook data from an external source |avoid having to key in each individual entry separately
+
+|`* *` |user |upload a picture for each of my contact |identify them easier
+
+|`* *` |user |add social media to contacts |
+
+|`* *` |user |access my contact's social media pages |
+=======
+|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+
+|`*` |user |view two contacts at the same time |make a comparison of two persons' information similarities
+
+|`*` |user |view a list of recently edited contacts |quickly make changes to persons that I might have changed earlier
+
+|=======================================================================
 
 [appendix]
 == Use Cases
@@ -767,7 +824,83 @@ Use case ends.
 +
 Use case resumes at step 2.
 
-{More to be added}
+=== Use case: Add remark to person
+
+*MSS*
+
+1.  User requests to list persons
+2.  AddressBook shows a list of persons
+3.  User requests to add a remark to a specific person in the list
+4.  AddressBook adds the remark to the specific person
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The given index is invalid.
++
+[none]
+** 3a1. AddressBook shows an error message.
++
+Use case resumes at step 2.
+
+=== Use case: View remarks of person
+
+*MSS*
+
+1.  User requests to list persons
+2.  AddressBook shows a list of persons
+3.  User requests to view the remarks of a specific person in the list
+4.  AddressBook displays remarks of the specific person
++
+Use case ends.
+
+*Extensions*
+
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The given index is invalid.
++
+
+** 3a1. AddressBook shows an error message.
++
+Use case resumes at step 2.
+
+=== Use case: Importing data from an external source
+
+*MSS*
+
+1.  User requests to import data from an external source
+2.  AddressBook prompts for the location of the data file
+3.  User enters data file location
+4.  AddressBook displays all contacts made available from data file
+5.  User chooses which contacts to import
+6.  AddressBook displays an updated list of persons
++
+Use case ends.
+
+*Extensions*
+
+* 3a. The given data file is of the wrong file type
++
+
+** 3a1. AddressBook shows an error message.
++
+Use case resumes at step 2.
+
+* 5a. The addressbook is full
++
+
+** 5a1. AddressBook shows an error message.
++
+Use case ends.
 
 [appendix]
 == Non Functional Requirements
@@ -775,8 +908,9 @@ Use case resumes at step 2.
 .  Should work on any link:#mainstream-os[mainstream OS] as long as it has Java `1.8.0_60` or higher installed.
 .  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-
-{More to be added}
+.  Should be initialised and ready for user input within 1 second
+.  Should require at most 1MB of memory
+.  Should still allow for addressbook viewing even without an internet connection
 
 [appendix]
 == Glossary
