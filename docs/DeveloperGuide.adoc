@@ -745,6 +745,15 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`* *` |user |list tasks by tag|see tasks by tag
 
 |`*` |user with many persons in the address book |sort persons by name |locate a person easily
+
+|`*` |user|add new tasks with hierarchy |trace the tasks in the future
+
+|`*` |user|edit hierarchy|change the structure or name of the hierarchy
+
+|`*` |user with at least one task|view one task details|see the details and get the information of a task
+
+|`*` |user with too many tasks that create conflicts|get error and warnings on event conflicts|to manage task more efficiently without conflicts
+
 |=======================================================================
 
 {More to be added}
@@ -779,96 +788,6 @@ Use case ends.
 ** 3a1. AddressBook shows an error message.
 +
 Use case resumes at step 2.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 +[discrete]
@@ -944,6 +863,155 @@ Use case resumes at step 2.
  +
  +Use case ends.
  +
+
+[discrete]
+=== Use case: Add a new task
+
+*MSS*
+
+1.  User requests to add a task
+2.  AddressBook prompts to ask for task details
+3.  User inputs task details
+4.  AddressBook adds the task
++
+Use case ends.
+
+*Extensions*
+
+* 2a. The details is invalid.
++
+[none]
+** 2a1. AddressBook shows an error message.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: Edit hierarchy
+
+*MSS*
+
+1.  User requests to edit hierarchy
+2.  AddressBook prompts to ask for hierarchy details
+3.  User inputs hierarchy details
+4.  AddressBook update hierarchy
++
+Use case ends.
+
+*Extensions*
+
+* 2a. The details is invalid.
++
+[none]
+** 2a1. AddressBook shows an error message.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: View task details
+
+*MSS*
+
+1.  User requests to list tasks
+2.  AddressBook shows a list of persons
+3.  User requests to see a specific task details
+4.  AddressBook shows the details of a person
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The given index is invalid.
++
+[none]
+** 3a1. AddressBook shows an error message.
++
+Use case resumes at step 2.
+[discrete]
+=== Use case: View task details
+
+*MSS*
+
+1.  User requests to list tasks
+2.  AddressBook shows a list of persons
+3.  User requests to see a specific task details
+4.  AddressBook shows the details of a person
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The given index is invalid.
++
+[none]
+** 3a1. AddressBook shows an error message.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: View task details
+
+*MSS*
+
+1.  User requests to list tasks
+2.  AddressBook shows a list of persons
+3.  User requests to see a specific task details
+4.  AddressBook shows the details of a person
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The given index is invalid.
++
+[none]
+** 3a1. AddressBook shows an error message.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: Invalid actions
+
+*MSS*
+
+1.  User requests an invalid action
+2.  AddressBook shows a error message
+3.  AddressBook shows suggestions on fixings of this error or warning occurred
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The error message is hard to understand
++
+[none]
+** 2a1. The user can choose to exit/restart the program
+** 2a2. The user can choose to redo this action
++
+Use case ends.
+
+* 3a. The given suggestion is not a good fix
++
+[none]
+** 3a1. AddressBook opt to redo this action
++
+Use case ends.
+
 {More to be added}
 
 [appendix]
@@ -952,6 +1020,11 @@ Use case resumes at step 2.
 .  Should work on any link:#mainstream-os[mainstream OS] as long as it has Java `1.8.0_60` or higher installed.
 .  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+.  Should be able to respond and update within 2s per actions
+.  Should give reasonable error messages and warnings
+.  Should try to give suggestions with valid reasons and logic
+.  Should have not very steep learning curve for a regular English-speaking person
+.  Should have detailed tutorials and documentation
 
 {More to be added}
 
@@ -971,20 +1044,31 @@ Private contact detail
 ....
 A contact detail that is not meant to be shared with others
 ....
+./gradlew clean
+[[Invalid-action]]
+Invalid-action
+
+....
+An action that will trigger warnings and error messages
+Eg.: Dangerous events, delete and clashing events
+....
 
 [appendix]
 == Product Survey
 
-*Product Name*
+*Trello*
 
-Author: ...
+Author: Dong Shaocong
 
 Pros:
 
-* ...
-* ...
+* Beautiful interfaces
+* Notes easy to remove, add, edit and move
+* Have attachments and update history for an event
+* Able to sync with different device for same account
+* Have a lot of power ups to choose including github
 
 Cons:
 
-* ...
-* ...
+* Not command line software, so not very friendly for developers and command line lovers
+* Unable to work offline and often clash with not so stable Internet connections
