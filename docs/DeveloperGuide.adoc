@@ -731,6 +731,19 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* *` |user |hide link:#private-contact-detail[private contact details] by default |minimize chance of someone else seeing them by accident
 
+
+
+
+
+
+
+
+|`* *` |user |list tasks by date |see tasks by date order
+
+|`* *` |user |list tasks by priority|see tasks by priority order
+
+|`* *` |user |list tasks by tag|see tasks by tag
+
 |`*` |user with many persons in the address book |sort persons by name |locate a person easily
 
 |`*` |user|add new tasks with hierarchy |trace the tasks in the future
@@ -775,6 +788,81 @@ Use case ends.
 ** 3a1. AddressBook shows an error message.
 +
 Use case resumes at step 2.
+
+
++[discrete]
+ +=== Use case: list tasks by date
+ +
+ +*MSS*
+ +
+ +1.  User requests to list tasks by date
+ +2.  AddressBook shows a list of tasks by date
+ +3.  User requests to see the tasks by date order
+ +4.  AddressBook shows the tasks by date
+ ++
+ +Use case ends.
+ +
+ +*Extensions*
+ +
+ +[none]
+ +* 2a. The task list is invalid.
+ ++
+ +[none]
+ +** 2a1. AddressBook shows an error message.
+ +** 2a2. AddressBook is empty.
+ ++
+ +Use case resumes at step 2.
+ +
+ +[discrete]
+ +=== Use case: list tasks by priority order
+ +
+ +*MSS*
+ +
+ +1.  User requests to list tasks by priority
+ +2.  AddressBook shows a list of tasks by priority
+ +3.  User requests to see the tasks by priority order
+ +4.  AddressBook shows the tasks by priority
+ ++
+ +Use case ends.
+ +
+ +*Extensions*
+ +
+ +[none]
+ +* 2a. The task list is invalid.
+ ++
+ +[none]
+ +** 2a1. AddressBook shows an error message.
+ +** 2a2. AddressBook is empty.
+ ++
+ +Use case resumes at step 2.
+ +
+ +Use case ends.
+ +
++[discrete]
+ +=== Use case: list tasks by tag
+ +
+ +*MSS*
+ +
+ +1.  User requests to list tasks by tag
+ +2.  AddressBook shows a list of tasks by tag
+ +3.  User requests to see the tasks by tag
+ +4.  AddressBook shows the tasks by tag
+ ++
+ +Use case ends.
+ +
+ +*Extensions*
+ +
+ +[none]
+ +* 2a. The task list is invalid.
+ ++
+ +[none]
+ +** 2a1. AddressBook shows an error message.
+ +** 2a2. AddressBook is empty.
+ ++
+ +Use case resumes at step 2.
+ +
+ +Use case ends.
+ +
 
 [discrete]
 === Use case: Add a new task
