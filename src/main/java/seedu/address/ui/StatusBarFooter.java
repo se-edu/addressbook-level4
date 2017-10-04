@@ -19,7 +19,7 @@ import seedu.address.commons.events.model.AddressBookChangedEvent;
  */
 public class StatusBarFooter extends UiPart<Region> {
 
-    public static final String SYNC_STATUS_INITIAL = "Not updated yet in this session";
+    public static final String SYNC_STATUS_INITIAL = "Not updated yet";
     public static final String SYNC_STATUS_UPDATED = "Last Updated: %s";
 
     /**
@@ -41,6 +41,8 @@ public class StatusBarFooter extends UiPart<Region> {
     @FXML
     private StatusBar totalPerson;
     @FXML
+    private StatusBar systemTime;
+    @FXML
     private StatusBar saveLocationStatus;
 
 
@@ -48,6 +50,7 @@ public class StatusBarFooter extends UiPart<Region> {
         super(FXML);
         setSyncStatus(SYNC_STATUS_INITIAL);
         setTotalPerson(totalPerson);
+        setClock();
         setSaveLocation("./" + saveLocation);
         registerAsAnEventHandler(this);
     }
@@ -71,7 +74,11 @@ public class StatusBarFooter extends UiPart<Region> {
     }
 
     private void setTotalPerson(int totalPerson) {
-        Platform.runLater(() ->this.totalPerson.setText(totalPerson + " Person(s) in total"));
+        Platform.runLater(() ->this.totalPerson.setText(totalPerson + " Person(s)"));
+    }
+
+    private void setClock() {
+        Platform.runLater(() ->this.systemTime.setText(clock.instant() + ""));
     }
 
     private void setSyncStatus(String status) {
