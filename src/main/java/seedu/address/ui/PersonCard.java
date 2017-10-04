@@ -17,7 +17,7 @@ import seedu.address.model.person.ReadOnlyPerson;
 public class PersonCard extends UiPart<Region> {
 
     private static final String FXML = "PersonListCard.fxml";
-    private ArrayList<String> colors = new ArrayList<String>(
+    private static ArrayList<String> colors = new ArrayList<String>(
         Arrays.asList("Tomato","Orange","DodgerBlue","MediumSeaGreen","SlateBlue","Violate","Maroon"));
     private static HashMap<String, String> tagColors = new HashMap<String, String>();
 
@@ -54,14 +54,15 @@ public class PersonCard extends UiPart<Region> {
         bindListeners(person);
     }
 
-    private String getColorForTag(String tagValue) {
-        if (!tagColors.containsKey(tagValue)) {
+    private static String getTagColor(String tagName) {
+        if (!tagColors.containsKey(tagName)) {
             String color = colors.get(0);
-            tagColors.put(tagValue, color);
+            tagColors.put(tagName, color);
             colors.remove(0);
+            colors.add(color);
         }
 
-        return tagColors.get(tagValue);
+        return tagColors.get(tagName);
     }
 
     /**
@@ -82,7 +83,7 @@ public class PersonCard extends UiPart<Region> {
     private void initTags(ReadOnlyPerson person) {
         person.getTags().forEach(tag -> {
             Label tagLabel = new Label(tag.tagName);
-            tagLabel.setStyle("-fx-background-color: " + getColorForTag(tag.tagName));
+            tagLabel.setStyle("-fx-background-color: " + getTagColor(tag.tagName));
             tags.getChildren().add(tagLabel);
         });
     }
