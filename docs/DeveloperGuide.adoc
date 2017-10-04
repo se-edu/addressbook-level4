@@ -727,9 +727,19 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |delete a person |remove entries that I no longer need
 
+|`* * *` |user |delete a task |untrack task that I no longer interested
+
+|`* * *` |user |mark a task as complete/incomplete |record my progress on doing tasks
+
 |`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
 
 |`* *` |user |hide link:#private-contact-detail[private contact details] by default |minimize chance of someone else seeing them by accident
+
+|`* *` |user |set a task to be recurring |avoid redundant work when adding recurring tasks
+
+|`* *` |user |edit a recurrence of a task |update a task recurrence status whe needed
+
+|`* *` |user |see tasks in certain range of time |focus on upcoming tasks
 
 |`*` |user with many persons in the address book |sort persons by name |locate a person easily
 |=======================================================================
