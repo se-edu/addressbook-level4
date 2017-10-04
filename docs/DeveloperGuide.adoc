@@ -871,11 +871,24 @@ Use case resumes at step 2.
 .  Should work on any link:#mainstream-os[mainstream OS] as long as it has Java `1.8.0_60` or higher installed.
 .  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+.  Should perform any command within 0.1 second
+.  Program size should not exceed 100 MB
 
 {More to be added}
 
 [appendix]
 == Glossary
+[width="59%",cols="22%,<78%",options="header",]
+|=======================================================================
+.  Events | Meetings and scheduled activities with clients
+.  Reminder | Pop-up message that reminds the user of an event or a need to
+follow up
+.  Priority | A special label applied to clients to differentiate clients with
+highest, medium and low priority
+.  Status | A special label applied to clients to differentiate clients that are
+ potential leads, booked meeting, finished meeting and signed contract
+||=======================================================================
+
 
 [[mainstream-os]]
 Mainstream OS
