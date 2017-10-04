@@ -721,17 +721,39 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
-
-|`* * *` |user |add a new person |
-
-|`* * *` |user |delete a person |remove entries that I no longer need
-
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
-
-|`* *` |user |hide link:#private-contact-detail[private contact details] by default |minimize chance of someone else seeing them by accident
-
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |user |see my contacts while managing my address book |remember what I need to do without flipping back and forth
+|`* * *` |user |backup the contacts into a xml file |transfer my contact details with another user or load the existing details to another computer of mine
+|`* * *` |user |backup the contacts into a xml file |transfer my contact details with another user or load the existing details to another computer of mine
+|`* * *` |user |create new contacts in the address book |add more new contacts in the future
+|`* * *` |user |type commands that do not follow the format |use them without memorizing the formats
+|`* * *` |user |merge duplicate contacts |use my addressbook without clutter
+|`* * *` |user |group my contacts in more than one grouping. |search my contacts easily by groups
+|`* * *` |user |filter and search contacts |display important contacts
+|`* * *` |user |update existing contacts from the address book. |update existing contacts if they have changed their contact number or details.
+|`* * *` |user |add a short description  |recall details about them.
+|`* * *` |user |view all my contacts |organise my contacts easily
+|`* * *` |user |group my users |organize my address book.
+|`* * *` |user |delete contacts from the address book. |remove unwanted contacts.
+|`* *` |user |I'm prompted about upcoming birthdays |prepare a gift for my friends
+|`* *` |user |the application is aesthetically pleasing |not get bored of the app so quickly
+|`* *` |user |I have ways to enter commands with shortcuts |update and traverse my address book quickly
+|`* *` |user |sync my contacts from my phone |skip adding users manually
+|`* *` |user |star my favourite contacts |quickly access my most important contacts
+|`* *` |user |easily input the commands as the systems learn the behaviour and common commands that I had in the past |autocorrect my words
+|`* *` |user |use natural language to perform actions |use it without memorising the syntax of commands
+|`* *` |user |easily input commands into the CLI with the system prompting me with options of each command |easily input commands without having to refer to the user guide
+|`* *` |user |store my contact's birthday |know when to prepare a gift
+|`* *` |user |change the colour of the user interface design and the font colour |make it feel more personal
+|`* *` |user |add a photo to my contacts |visually identify my friends
+|`*` |user |see mutual friends |understand my social network better
+|`*` |user |use speech text to input to the Command Line Interface |use the app hands-free
+|`*` |user |see people whom I've not talked to recently, |reconnect with people whom I've not met in a while
+|`*` |user |access my friend's social media from the address book |stay up to date with their lives
+|`*` |user |select different language setting. |navigate the user interface in my native language
+|`*` |user |view emergency contacts immediately with a single command, and these contacts are hidden and can't be deleted |easily all the emergency contacts such as the contact for ambulance or police easily
+|`*` |user |see where my friends live on the map |visualise who lives near me
+|`*` |user |edit the layout  of the UI |customise the layout to suit my needs
+|`*` |user |set a password to my address book |prevent other users from accessing my address book
 |=======================================================================
 
 {More to be added}
