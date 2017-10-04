@@ -55,6 +55,9 @@ public class StatusBarFooter extends UiPart<Region> {
         registerAsAnEventHandler(this);
     }
 
+    private void setClock() {
+        Platform.runLater(() ->this.systemTime.setText(clock.instant() + ""));
+    }
     /**
      * Sets the clock used to determine the current time.
      */
@@ -75,10 +78,6 @@ public class StatusBarFooter extends UiPart<Region> {
 
     private void setTotalPerson(int totalPerson) {
         Platform.runLater(() ->this.totalPerson.setText(totalPerson + " Person(s)"));
-    }
-
-    private void setClock() {
-        Platform.runLater(() ->this.systemTime.setText(clock.instant() + ""));
     }
 
     private void setSyncStatus(String status) {

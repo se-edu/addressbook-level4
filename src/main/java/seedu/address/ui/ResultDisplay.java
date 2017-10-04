@@ -37,7 +37,7 @@ public class ResultDisplay extends UiPart<Region> {
 
     @Subscribe
     private void handleNewResultAvailableEvent(NewResultAvailableEvent event) {
-        if (event.isError) {
+        if (event.checkError()) {
             setStyleToIndicateCommandFailure();
         } else {
             setStyleToDefault();
