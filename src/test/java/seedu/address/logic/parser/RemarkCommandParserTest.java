@@ -1,10 +1,11 @@
 package seedu.address.logic.parser;
 
-import org.junit.Test;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
+
+import org.junit.Test;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.RemarkCommand;
-import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 
 public class RemarkCommandParserTest {
 

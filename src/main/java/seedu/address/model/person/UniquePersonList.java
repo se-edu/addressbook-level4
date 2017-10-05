@@ -1,9 +1,10 @@
 package seedu.address.model.person;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.Iterator;
 import java.util.List;
 
-import static java.util.Objects.requireNonNull;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import org.fxmisc.easybind.EasyBind;

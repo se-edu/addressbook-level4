@@ -1,9 +1,9 @@
 package seedu.address.logic;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.LinkedList;
 import java.util.List;
-
-import static java.util.Objects.requireNonNull;
 
 /**
  * Stores the history of commands executed.

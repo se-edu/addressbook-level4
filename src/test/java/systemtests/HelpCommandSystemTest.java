@@ -1,9 +1,10 @@
 package systemtests;
 
-import guitests.GuiRobot;
-import guitests.guihandles.HelpWindowHandle;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+
+import guitests.GuiRobot;
+import guitests.guihandles.HelpWindowHandle;
 import org.junit.Test;
 import seedu.address.logic.commands.HelpCommand;
 

@@ -1,5 +1,7 @@
 package seedu.address.model;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -7,7 +9,6 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 
-import static java.util.Objects.requireNonNull;
 import javafx.collections.ObservableList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.ReadOnlyPerson;

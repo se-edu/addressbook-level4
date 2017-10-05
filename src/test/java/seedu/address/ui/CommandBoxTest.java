@@ -1,10 +1,11 @@
 package seedu.address.ui;
 
+import static org.junit.Assert.assertEquals;
+
 import java.util.ArrayList;
 
 import guitests.guihandles.CommandBoxHandle;
 import javafx.scene.input.KeyCode;
-import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 import seedu.address.logic.Logic;

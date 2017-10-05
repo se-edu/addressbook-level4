@@ -1,10 +1,10 @@
 package seedu.address.commons.util;
 
+import static seedu.address.commons.util.AppUtil.checkArgument;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-
-import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
  * Writes and reads files

@@ -1,10 +1,12 @@
 package seedu.address.storage;
 
-import java.io.IOException;
-
 import static junit.framework.TestCase.assertNotNull;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+
+import java.io.IOException;
+
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -14,7 +16,6 @@ import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.UserPrefs;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 import seedu.address.ui.testutil.EventsCollectorRule;
 
 public class StorageManagerTest {
