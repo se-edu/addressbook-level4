@@ -119,8 +119,9 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_remarkCommandWord_returnsRemarkCommand() throws Exception {
-        assertTrue(parser.parseCommand(RemarkCommand.COMMAND_WORD) instanceof RemarkCommand);
-        assertTrue(parser.parseCommand("remark 123") instanceof RemarkCommand);
+        assertTrue(parser.parseCommand(RemarkCommand.COMMAND_WORD
+                + " " + INDEX_FIRST_PERSON.getOneBased()
+                + " r/lmao") instanceof RemarkCommand);
     }
 
     @Test

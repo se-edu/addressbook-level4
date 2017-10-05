@@ -25,7 +25,7 @@ public class RemarkCommandParser implements Parser <RemarkCommand> {
         requireNonNull(args);
 
         String index;
-        String str = "";
+        String str = null;
 
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_REMARK);
@@ -42,6 +42,7 @@ public class RemarkCommandParser implements Parser <RemarkCommand> {
             ParserUtil.parseRemark(strOptional);
             if(strOptional.isPresent())
                 str = strOptional.get();
+            requireNonNull(str);
         } catch (IllegalValueException ive) {
             throw new ParseException(ive.getMessage(), ive);
         }

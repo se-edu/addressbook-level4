@@ -5,7 +5,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 public class RemarkCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = "remark";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + " index(integer) str(String)";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + " index(integer) r/str(String)";
 
     public final int INDEX;
 
