@@ -1,6 +1,10 @@
 package systemtests;
 
+import org.junit.Test;
+import seedu.address.commons.core.Messages;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.AddCommand;
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
@@ -25,22 +29,9 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.AMY;
-import static seedu.address.testutil.TypicalPersons.BOB;
-import static seedu.address.testutil.TypicalPersons.CARL;
-import static seedu.address.testutil.TypicalPersons.HOON;
-import static seedu.address.testutil.TypicalPersons.IDA;
-import static seedu.address.testutil.TypicalPersons.KEYWORD_MATCHING_MEIER;
-
-import org.junit.Test;
-
-import seedu.address.commons.core.Messages;
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import seedu.address.model.Model;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
@@ -51,6 +42,13 @@ import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.PersonUtil;
+import static seedu.address.testutil.TypicalPersons.ALICE;
+import static seedu.address.testutil.TypicalPersons.AMY;
+import static seedu.address.testutil.TypicalPersons.BOB;
+import static seedu.address.testutil.TypicalPersons.CARL;
+import static seedu.address.testutil.TypicalPersons.HOON;
+import static seedu.address.testutil.TypicalPersons.IDA;
+import static seedu.address.testutil.TypicalPersons.KEYWORD_MATCHING_MEIER;
 
 public class AddCommandSystemTest extends AddressBookSystemTest {
 
@@ -199,6 +197,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
      * 6. Status bar's sync status changes.<br>
      * Verifications 1, 3 and 4 are performed by
      * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     *
      * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandSuccess(ReadOnlyPerson toAdd) {
@@ -208,6 +207,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
     /**
      * Performs the same verification as {@code assertCommandSuccess(ReadOnlyPerson)}. Executes {@code command}
      * instead.
+     *
      * @see AddCommandSystemTest#assertCommandSuccess(ReadOnlyPerson)
      */
     private void assertCommandSuccess(String command, ReadOnlyPerson toAdd) {
@@ -228,6 +228,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
      * 1. Result display box displays {@code expectedResultMessage}.<br>
      * 2. {@code Model}, {@code Storage} and {@code PersonListPanel} equal to the corresponding components in
      * {@code expectedModel}.<br>
+     *
      * @see AddCommandSystemTest#assertCommandSuccess(String, ReadOnlyPerson)
      */
     private void assertCommandSuccess(String command, Model expectedModel, String expectedResultMessage) {
@@ -247,6 +248,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
      * 5. Browser url, selected card and status bar remain unchanged.<br>
      * Verifications 1, 3 and 4 are performed by
      * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     *
      * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
      */
     private void assertCommandFailure(String command, String expectedResultMessage) {

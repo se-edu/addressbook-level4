@@ -1,10 +1,9 @@
 package seedu.address.ui;
 
-import static java.util.Objects.requireNonNull;
-
 import java.io.IOException;
 import java.net.URL;
 
+import static java.util.Objects.requireNonNull;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Modality;
@@ -19,7 +18,9 @@ import seedu.address.commons.events.BaseEvent;
  */
 public abstract class UiPart<T> {
 
-    /** Resource folder where FXML files are stored. */
+    /**
+     * Resource folder where FXML files are stored.
+     */
     public static final String FXML_FILE_FOLDER = "/view/";
 
     private FXMLLoader fxmlLoader;
@@ -41,6 +42,7 @@ public abstract class UiPart<T> {
 
     /**
      * Constructs a UiPart using the specified FXML file within {@link #FXML_FILE_FOLDER}.
+     *
      * @see #UiPart(URL)
      */
     public UiPart(String fxmlFileName) {
@@ -56,6 +58,7 @@ public abstract class UiPart<T> {
 
     /**
      * Raises the event via {@link EventsCenter#post(BaseEvent)}
+     *
      * @param event
      */
     protected void raise(BaseEvent event) {
@@ -64,6 +67,7 @@ public abstract class UiPart<T> {
 
     /**
      * Registers the object as an event handler at the {@link EventsCenter}
+     *
      * @param handler usually {@code this}
      */
     protected void registerAsAnEventHandler(Object handler) {
@@ -72,9 +76,10 @@ public abstract class UiPart<T> {
 
     /**
      * Creates a modal dialog.
-     * @param title Title of the dialog.
+     *
+     * @param title       Title of the dialog.
      * @param parentStage The owner stage of the dialog.
-     * @param scene The scene that will contain the dialog.
+     * @param scene       The scene that will contain the dialog.
      * @return the created dialog, not yet made visible.
      */
     protected Stage createDialogStage(String title, Stage parentStage, Scene scene) {

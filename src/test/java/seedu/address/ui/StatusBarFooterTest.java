@@ -1,23 +1,21 @@
 package seedu.address.ui;
 
-import static org.junit.Assert.assertEquals;
-import static seedu.address.testutil.EventsUtil.postNow;
-import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_INITIAL;
-import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
-
 import java.time.Clock;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.util.Date;
 
+import guitests.guihandles.StatusBarFooterHandle;
 import org.junit.AfterClass;
+import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-
-import guitests.guihandles.StatusBarFooterHandle;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.model.AddressBook;
+import static seedu.address.testutil.EventsUtil.postNow;
+import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_INITIAL;
+import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
 
 public class StatusBarFooterTest extends GuiUnitTest {
 

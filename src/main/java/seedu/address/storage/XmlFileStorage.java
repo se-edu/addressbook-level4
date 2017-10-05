@@ -28,7 +28,7 @@ public class XmlFileStorage {
      * Returns address book in the file or an empty address book
      */
     public static XmlSerializableAddressBook loadDataFromSaveFile(File file) throws DataConversionException,
-                                                                            FileNotFoundException {
+            FileNotFoundException {
         try {
             return XmlUtil.getDataFromFile(file, XmlSerializableAddressBook.class);
         } catch (JAXBException e) {

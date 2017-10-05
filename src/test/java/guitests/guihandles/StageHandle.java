@@ -1,12 +1,11 @@
 package guitests.guihandles;
 
-import static java.util.Objects.requireNonNull;
-
 import java.util.Optional;
 import java.util.logging.Logger;
 
 import guitests.GuiRobot;
 import guitests.guihandles.exceptions.NodeNotFoundException;
+import static java.util.Objects.requireNonNull;
 import javafx.scene.Node;
 import javafx.stage.Stage;
 import seedu.address.commons.core.LogsCenter;

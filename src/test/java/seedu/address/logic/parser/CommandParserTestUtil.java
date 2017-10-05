@@ -2,7 +2,6 @@ package seedu.address.logic.parser;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
-
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.parser.exceptions.ParseException;
 

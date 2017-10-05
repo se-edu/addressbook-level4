@@ -1,16 +1,15 @@
 package seedu.address.commons.util;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 import org.junit.Test;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 public class CollectionUtilTest {
     @Test

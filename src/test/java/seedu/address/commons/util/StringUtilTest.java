@@ -1,13 +1,12 @@
 package seedu.address.commons.util;
 
+import java.io.FileNotFoundException;
+import java.util.Optional;
+
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-
-import java.io.FileNotFoundException;
-import java.util.Optional;
-
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -67,7 +66,7 @@ public class StringUtilTest {
     }
 
     private void assertExceptionThrown(Class<? extends Throwable> exceptionClass, String sentence, String word,
-            Optional<String> errorMessage) {
+                                       Optional<String> errorMessage) {
         thrown.expect(exceptionClass);
         errorMessage.ifPresent(message -> thrown.expectMessage(message));
         StringUtil.containsWordIgnoreCase(sentence, word);
@@ -146,7 +145,7 @@ public class StringUtilTest {
     @Test
     public void getDetails_exceptionGiven() {
         assertThat(StringUtil.getDetails(new FileNotFoundException("file not found")),
-                   containsString("java.io.FileNotFoundException: file not found"));
+                containsString("java.io.FileNotFoundException: file not found"));
     }
 
     @Test

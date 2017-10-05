@@ -1,13 +1,12 @@
 package seedu.address.storage;
 
-import static java.util.Objects.requireNonNull;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Optional;
 import java.util.logging.Logger;
 
+import static java.util.Objects.requireNonNull;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.util.FileUtil;
@@ -37,17 +36,18 @@ public class XmlAddressBookStorage implements AddressBookStorage {
 
     /**
      * Similar to {@link #readAddressBook()}
+     *
      * @param filePath location of the data. Cannot be null
      * @throws DataConversionException if the file is not in the correct format.
      */
     public Optional<ReadOnlyAddressBook> readAddressBook(String filePath) throws DataConversionException,
-                                                                                 FileNotFoundException {
+            FileNotFoundException {
         requireNonNull(filePath);
 
         File addressBookFile = new File(filePath);
 
         if (!addressBookFile.exists()) {
-            logger.info("AddressBook file "  + addressBookFile + " not found");
+            logger.info("AddressBook file " + addressBookFile + " not found");
             return Optional.empty();
         }
 
@@ -63,6 +63,7 @@ public class XmlAddressBookStorage implements AddressBookStorage {
 
     /**
      * Similar to {@link #saveAddressBook(ReadOnlyAddressBook)}
+     *
      * @param filePath location of the data. Cannot be null
      */
     public void saveAddressBook(ReadOnlyAddressBook addressBook, String filePath) throws IOException {
@@ -76,7 +77,7 @@ public class XmlAddressBookStorage implements AddressBookStorage {
 
     @Override
     public void backupAddressBook(ReadOnlyAddressBook
-                                              addressBook) throws IOException {
+                                          addressBook) throws IOException {
         saveAddressBook(addressBook, filePath + "-backup.xml");
     }
 

@@ -1,7 +1,6 @@
 package seedu.address.model.tag;
 
 import static java.util.Objects.requireNonNull;
-
 import seedu.address.commons.exceptions.IllegalValueException;
 
 /**

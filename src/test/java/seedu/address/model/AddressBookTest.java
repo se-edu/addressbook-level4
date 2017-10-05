@@ -1,31 +1,28 @@
 package seedu.address.model;
 
-import static org.junit.Assert.assertEquals;
-import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import static org.junit.Assert.assertEquals;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.tag.Tag;
+import static seedu.address.testutil.TypicalPersons.ALICE;
+import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 public class AddressBookTest {
 
+    private final AddressBook addressBook = new AddressBook();
     @Rule
     public ExpectedException thrown = ExpectedException.none();
-
-    private final AddressBook addressBook = new AddressBook();
 
     @Test
     public void constructor() {

@@ -1,7 +1,6 @@
 package seedu.address.commons.util;
 
 import static org.junit.Assert.assertNotNull;
-
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -10,7 +9,6 @@ public class AppUtilTest {
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
-
 
 
     @Test
@@ -42,6 +40,6 @@ public class AppUtilTest {
         String errorMessage = "error message";
         thrown.expect(IllegalArgumentException.class);
         thrown.expectMessage(errorMessage);
-        AppUtil.checkArgument(false,  errorMessage);
+        AppUtil.checkArgument(false, errorMessage);
     }
 }

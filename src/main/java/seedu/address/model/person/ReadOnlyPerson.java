@@ -13,14 +13,23 @@ import seedu.address.model.tag.UniqueTagList;
 public interface ReadOnlyPerson {
 
     ObjectProperty<Name> nameProperty();
+
     Name getName();
+
     ObjectProperty<Phone> phoneProperty();
+
     Phone getPhone();
+
     ObjectProperty<Email> emailProperty();
+
     Email getEmail();
+
     ObjectProperty<Address> addressProperty();
+
     Address getAddress();
+
     ObjectProperty<UniqueTagList> tagProperty();
+
     Set<Tag> getTags();
 
     /**

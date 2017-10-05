@@ -1,18 +1,16 @@
 package seedu.address.logic;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
-import static seedu.address.logic.UndoRedoStackUtil.prepareStack;
-
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.EmptyStackException;
 import java.util.List;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 import org.junit.Test;
-
+import static seedu.address.logic.UndoRedoStackUtil.prepareStack;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.RedoCommand;
@@ -167,7 +165,7 @@ public class UndoRedoStackTest {
         // different redoStack -> returns false
         UndoRedoStack differentRedoStack =
                 prepareStack(Arrays.asList(dummyUndoableCommandTwo, dummyUndoableCommandOne),
-                Collections.singletonList(dummyUndoableCommandTwo));
+                        Collections.singletonList(dummyUndoableCommandTwo));
         assertFalse(undoRedoStack.equals(differentRedoStack));
     }
 

@@ -1,21 +1,19 @@
 package seedu.address.ui;
 
+import guitests.guihandles.PersonCardHandle;
+import guitests.guihandles.PersonListPanelHandle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import static org.junit.Assert.assertEquals;
+import org.junit.Before;
+import org.junit.Test;
+import seedu.address.commons.events.ui.JumpToListRequestEvent;
+import seedu.address.model.person.ReadOnlyPerson;
 import static seedu.address.testutil.EventsUtil.postNow;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalPersons.getTypicalPersons;
 import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysPerson;
 import static seedu.address.ui.testutil.GuiTestAssert.assertCardEquals;
-
-import org.junit.Before;
-import org.junit.Test;
-
-import guitests.guihandles.PersonCardHandle;
-import guitests.guihandles.PersonListPanelHandle;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import seedu.address.commons.events.ui.JumpToListRequestEvent;
-import seedu.address.model.person.ReadOnlyPerson;
 
 public class PersonListPanelTest extends GuiUnitTest {
     private static final ObservableList<ReadOnlyPerson> TYPICAL_PERSONS =
