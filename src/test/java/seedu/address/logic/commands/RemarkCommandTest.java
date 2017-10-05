@@ -2,9 +2,11 @@ package seedu.address.logic.commands;
 
 import org.junit.Test;
 import seedu.address.logic.commands.exceptions.CommandException;
-
 import static org.junit.Assert.*;
 
+/**
+ *
+ */
 public class RemarkCommandTest {
     @Test
     public void execute_remark_success() throws CommandException {
