@@ -1,12 +1,12 @@
 {
-  "guiSettings" : {
-    "windowWidth" : 1000.0,
-    "windowHeight" : 500.0,
-    "windowCoordinates" : {
-      "x" : 300,
-      "y" : 100
+  "guiSettings": {
+    "windowWidth": 1000.0,
+    "windowHeight": 500.0,
+    "windowCoordinates": {
+      "x": 300,
+      "y": 100
     }
   },
-  "addressBookFilePath" : "addressbook.xml",
-  "addressBookName" : "TypicalAddressBookName"
+  "addressBookFilePath": "addressbook.xml",
+  "addressBookName": "TypicalAddressBookName"
 }

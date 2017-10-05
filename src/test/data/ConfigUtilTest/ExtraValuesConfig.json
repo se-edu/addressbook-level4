@@ -1,6 +1,6 @@
 {
-  "appTitle" : "Typical App Title",
-  "logLevel" : "INFO",
-  "userPrefsFilePath" : "C:\\preferences.json",
-  "extra" : "extra value"
+  "appTitle": "Typical App Title",
+  "logLevel": "INFO",
+  "userPrefsFilePath": "C:\\preferences.json",
+  "extra": "extra value"
 }

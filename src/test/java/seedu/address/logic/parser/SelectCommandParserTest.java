@@ -6,11 +6,11 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSucces
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
 import org.junit.Test;
-
 import seedu.address.logic.commands.SelectCommand;
 
 /**
  * Test scope: similar to {@code DeleteCommandParserTest}.
+ *
  * @see DeleteCommandParserTest
  */
 public class SelectCommandParserTest {

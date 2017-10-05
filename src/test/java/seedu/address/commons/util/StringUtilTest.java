@@ -67,7 +67,7 @@ public class StringUtilTest {
     }
 
     private void assertExceptionThrown(Class<? extends Throwable> exceptionClass, String sentence, String word,
-            Optional<String> errorMessage) {
+                                       Optional<String> errorMessage) {
         thrown.expect(exceptionClass);
         errorMessage.ifPresent(message -> thrown.expectMessage(message));
         StringUtil.containsWordIgnoreCase(sentence, word);
@@ -146,7 +146,7 @@ public class StringUtilTest {
     @Test
     public void getDetails_exceptionGiven() {
         assertThat(StringUtil.getDetails(new FileNotFoundException("file not found")),
-                   containsString("java.io.FileNotFoundException: file not found"));
+                containsString("java.io.FileNotFoundException: file not found"));
     }
 
     @Test

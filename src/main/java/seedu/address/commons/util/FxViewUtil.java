@@ -9,6 +9,7 @@ public class FxViewUtil {
 
     /**
      * Sets the given image as the icon for the given stage.
+     *
      * @param iconSource e.g. {@code "/images/help_icon.png"}
      */
     public static void setStageIcon(Stage stage, String iconSource) {

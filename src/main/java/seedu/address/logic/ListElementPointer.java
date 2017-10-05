@@ -60,6 +60,7 @@ public class ListElementPointer {
 
     /**
      * Returns the next element in the list and advances the cursor position.
+     *
      * @throws NoSuchElementException if there is no more next element in the list.
      */
     public String next() {
@@ -71,6 +72,7 @@ public class ListElementPointer {
 
     /**
      * Returns the previous element in the list and moves the cursor position backwards.
+     *
      * @throws NoSuchElementException if there is no more previous element in the list.
      */
     public String previous() {
@@ -82,6 +84,7 @@ public class ListElementPointer {
 
     /**
      * Returns the current element in the list.
+     *
      * @throws NoSuchElementException if the list is empty.
      */
     public String current() {

@@ -12,7 +12,6 @@ public class AppUtilTest {
     public ExpectedException thrown = ExpectedException.none();
 
 
-
     @Test
     public void getImage_exitingImage() {
         assertNotNull(AppUtil.getImage("/images/address_book_32.png"));
@@ -42,6 +41,6 @@ public class AppUtilTest {
         String errorMessage = "error message";
         thrown.expect(IllegalArgumentException.class);
         thrown.expectMessage(errorMessage);
-        AppUtil.checkArgument(false,  errorMessage);
+        AppUtil.checkArgument(false, errorMessage);
     }
 }

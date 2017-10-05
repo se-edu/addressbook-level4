@@ -17,7 +17,8 @@ public class XmlAdaptedTag {
      * Constructs an XmlAdaptedTag.
      * This is the no-arg constructor that is required by JAXB.
      */
-    public XmlAdaptedTag() {}
+    public XmlAdaptedTag() {
+    }
 
     /**
      * Converts a given Tag into this class for JAXB use.

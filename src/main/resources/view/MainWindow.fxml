@@ -11,62 +11,62 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<VBox xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.111">
+    <stylesheets>
+        <URL value="@DarkTheme.css"/>
+        <URL value="@Extensions.css"/>
+    </stylesheets>
 
-<VBox xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1">
-  <stylesheets>
-    <URL value="@DarkTheme.css" />
-    <URL value="@Extensions.css" />
-  </stylesheets>
+    <MenuBar fx:id="menuBar" VBox.vgrow="NEVER">
+        <Menu mnemonicParsing="false" text="File">
+            <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit"/>
+        </Menu>
+        <Menu mnemonicParsing="false" text="Help">
+            <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help"/>
+        </Menu>
+    </MenuBar>
 
-  <MenuBar fx:id="menuBar" VBox.vgrow="NEVER">
-    <Menu mnemonicParsing="false" text="File">
-      <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
-    </Menu>
-    <Menu mnemonicParsing="false" text="Help">
-      <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
-    </Menu>
-  </MenuBar>
-
-  <StackPane fx:id="commandBoxPlaceholder" styleClass="background" VBox.vgrow="NEVER">
-    <padding>
-      <Insets bottom="5" left="10" right="10" top="5" />
-    </padding>
-  </StackPane>
-
-  <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.4" VBox.vgrow="ALWAYS">
-    <VBox fx:id="personList" minWidth="340" prefWidth="340" SplitPane.resizableWithParent="false">
-      <padding>
-        <Insets bottom="10" left="10" right="10" top="10" />
-      </padding>
-         <AnchorPane minHeight="30.0" prefHeight="40.0" prefWidth="200.0">
-            <children>
-               <ButtonBar maxHeight="45.0" minHeight="30.0" prefHeight="40.0" prefWidth="320.0">
-                 <buttons>
-                   <Button mnemonicParsing="false" prefHeight="31.0" prefWidth="198.0" text="Contacts" />
-                     <Button mnemonicParsing="false" prefHeight="31.0" text="Events" />
-                 </buttons>
-                  <padding>
-                     <Insets right="15.0" />
-                  </padding>
-               </ButtonBar>
-            </children>
-         </AnchorPane>
-      <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS" />
-    </VBox>
-
-    <StackPane fx:id="browserPlaceholder" prefWidth="340">
-      <padding>
-        <Insets bottom="10" left="10" right="10" top="10" />
-      </padding>
+    <StackPane fx:id="commandBoxPlaceholder" styleClass="background" VBox.vgrow="NEVER">
+        <padding>
+            <Insets bottom="5" left="10" right="10" top="5"/>
+        </padding>
     </StackPane>
-  </SplitPane>
+
+    <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.4" VBox.vgrow="ALWAYS">
+        <VBox fx:id="personList" minWidth="340" prefWidth="340" SplitPane.resizableWithParent="false">
+            <padding>
+                <Insets bottom="10" left="10" right="10" top="10"/>
+            </padding>
+            <AnchorPane minHeight="30.0" prefHeight="40.0" prefWidth="200.0">
+                <children>
+                    <ButtonBar maxHeight="45.0" minHeight="30.0" prefHeight="40.0" prefWidth="320.0">
+                        <buttons>
+                            <Button mnemonicParsing="false" prefHeight="31.0" prefWidth="198.0" text="Contacts"/>
+                            <Button mnemonicParsing="false" prefHeight="31.0" text="Events"/>
+                        </buttons>
+                        <padding>
+                            <Insets right="15.0"/>
+                        </padding>
+                    </ButtonBar>
+                </children>
+            </AnchorPane>
+            <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+        </VBox>
+
+        <StackPane fx:id="browserPlaceholder" prefWidth="340">
+            <padding>
+                <Insets bottom="10" left="10" right="10" top="10"/>
+            </padding>
+        </StackPane>
+    </SplitPane>
 
 
-  <StackPane fx:id="resultDisplayPlaceholder" maxHeight="100" minHeight="100" prefHeight="100" styleClass="pane-with-border" VBox.vgrow="NEVER">
-    <padding>
-      <Insets bottom="5" left="10" right="10" top="5" />
-    </padding>
-  </StackPane>
+    <StackPane fx:id="resultDisplayPlaceholder" maxHeight="100" minHeight="100" prefHeight="100"
+               styleClass="pane-with-border" VBox.vgrow="NEVER">
+        <padding>
+            <Insets bottom="5" left="10" right="10" top="5"/>
+        </padding>
+    </StackPane>
 
-  <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
+    <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER"/>
 </VBox>

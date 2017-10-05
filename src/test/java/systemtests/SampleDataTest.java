@@ -7,7 +7,6 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 import org.junit.Test;
-
 import seedu.address.model.AddressBook;
 import seedu.address.model.person.Person;
 import seedu.address.model.util.SampleDataUtil;

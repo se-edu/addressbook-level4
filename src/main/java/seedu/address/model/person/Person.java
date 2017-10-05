@@ -46,10 +46,6 @@ public class Person implements ReadOnlyPerson {
                 source.getTags());
     }
 
-    public void setName(Name name) {
-        this.name.set(requireNonNull(name));
-    }
-
     @Override
     public ObjectProperty<Name> nameProperty() {
         return name;
@@ -60,8 +56,8 @@ public class Person implements ReadOnlyPerson {
         return name.get();
     }
 
-    public void setPhone(Phone phone) {
-        this.phone.set(requireNonNull(phone));
+    public void setName(Name name) {
+        this.name.set(requireNonNull(name));
     }
 
     @Override
@@ -74,8 +70,8 @@ public class Person implements ReadOnlyPerson {
         return phone.get();
     }
 
-    public void setEmail(Email email) {
-        this.email.set(requireNonNull(email));
+    public void setPhone(Phone phone) {
+        this.phone.set(requireNonNull(phone));
     }
 
     @Override
@@ -88,8 +84,8 @@ public class Person implements ReadOnlyPerson {
         return email.get();
     }
 
-    public void setAddress(Address address) {
-        this.address.set(requireNonNull(address));
+    public void setEmail(Email email) {
+        this.email.set(requireNonNull(email));
     }
 
     @Override
@@ -102,6 +98,10 @@ public class Person implements ReadOnlyPerson {
         return address.get();
     }
 
+    public void setAddress(Address address) {
+        this.address.set(requireNonNull(address));
+    }
+
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
@@ -111,15 +111,15 @@ public class Person implements ReadOnlyPerson {
         return Collections.unmodifiableSet(tags.get().toSet());
     }
 
-    public ObjectProperty<UniqueTagList> tagProperty() {
-        return tags;
-    }
-
     /**
      * Replaces this person's tags with the tags in the argument tag set.
      */
     public void setTags(Set<Tag> replacement) {
         tags.set(new UniqueTagList(replacement));
+    }
+
+    public ObjectProperty<UniqueTagList> tagProperty() {
+        return tags;
     }
 
     @Override

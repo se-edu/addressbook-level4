@@ -1,8 +1,7 @@
 package guitests.guihandles;
 
-import org.controlsfx.control.StatusBar;
-
 import javafx.scene.Node;
+import org.controlsfx.control.StatusBar;
 
 /**
  * A handle for the {@code StatusBarFooter} at the footer of the application.

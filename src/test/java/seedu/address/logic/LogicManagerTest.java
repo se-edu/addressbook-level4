@@ -7,7 +7,6 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ListCommand;
@@ -55,6 +54,7 @@ public class LogicManagerTest {
     /**
      * Executes the command, confirms that no exceptions are thrown and that the result message is correct.
      * Also confirms that {@code expectedModel} is as specified.
+     *
      * @see #assertCommandBehavior(Class, String, String, Model)
      */
     private void assertCommandSuccess(String inputCommand, String expectedMessage, Model expectedModel) {
@@ -63,6 +63,7 @@ public class LogicManagerTest {
 
     /**
      * Executes the command, confirms that a ParseException is thrown and that the result message is correct.
+     *
      * @see #assertCommandBehavior(Class, String, String, Model)
      */
     private void assertParseException(String inputCommand, String expectedMessage) {
@@ -71,6 +72,7 @@ public class LogicManagerTest {
 
     /**
      * Executes the command, confirms that a CommandException is thrown and that the result message is correct.
+     *
      * @see #assertCommandBehavior(Class, String, String, Model)
      */
     private void assertCommandException(String inputCommand, String expectedMessage) {
@@ -79,6 +81,7 @@ public class LogicManagerTest {
 
     /**
      * Executes the command, confirms that the exception is thrown and that the result message is correct.
+     *
      * @see #assertCommandBehavior(Class, String, String, Model)
      */
     private void assertCommandFailure(String inputCommand, Class<?> expectedException, String expectedMessage) {
@@ -89,11 +92,11 @@ public class LogicManagerTest {
     /**
      * Executes the command, confirms that the result message is correct and that the expected exception is thrown,
      * and also confirms that the following two parts of the LogicManager object's state are as expected:<br>
-     *      - the internal model manager data are same as those in the {@code expectedModel} <br>
-     *      - {@code expectedModel}'s address book was saved to the storage file.
+     * - the internal model manager data are same as those in the {@code expectedModel} <br>
+     * - {@code expectedModel}'s address book was saved to the storage file.
      */
     private void assertCommandBehavior(Class<?> expectedException, String inputCommand,
-                                           String expectedMessage, Model expectedModel) {
+                                       String expectedMessage, Model expectedModel) {
 
         try {
             CommandResult result = logic.execute(inputCommand);

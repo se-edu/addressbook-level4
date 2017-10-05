@@ -6,9 +6,8 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysPerson;
 
-import org.junit.Test;
-
 import guitests.guihandles.PersonCardHandle;
+import org.junit.Test;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.testutil.PersonBuilder;
@@ -18,7 +17,7 @@ public class PersonCardTest extends GuiUnitTest {
     @Test
     public void display() {
         // no tags
-        Person personWithNoTags = new PersonBuilder().withTags(new String[0]).build();
+        Person personWithNoTags = new PersonBuilder().withTags().build();
         PersonCard personCard = new PersonCard(personWithNoTags, 1);
         uiPartRule.setUiPart(personCard);
         assertCardDisplay(personCard, personWithNoTags, 1);
