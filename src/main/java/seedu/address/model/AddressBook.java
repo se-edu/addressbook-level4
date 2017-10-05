@@ -2,13 +2,7 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Set;
-import java.util.Iterator;
+import java.util.*;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.person.Person;
@@ -163,7 +157,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void removeTagFromAll(Tag tag) {
         Iterator<Person> iter = persons.iterator();
-        while (iter.hasNext()) {
+        while(iter.hasNext()) {
             iter.next().removeTag(tag);
         }
     }
