@@ -162,6 +162,10 @@ public class AddressBook implements ReadOnlyAddressBook {
         tags.add(t);
     }
 
+    public void clearTags() {
+        tags.clear();
+    }
+
     //// util methods
 
     @Override

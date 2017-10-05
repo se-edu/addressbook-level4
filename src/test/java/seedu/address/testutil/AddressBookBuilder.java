@@ -47,6 +47,13 @@ public class AddressBookBuilder {
         return this;
     }
 
+    public AddressBookBuilder removeTag(ReadOnlyPerson person) {
+        if (addressBook.getPersonList().equals(person)) {
+            addressBook.clearTags();
+        }
+        return this;
+    }
+
     public AddressBook build() {
         return addressBook;
     }
