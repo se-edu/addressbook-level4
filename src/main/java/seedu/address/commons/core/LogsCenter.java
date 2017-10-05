@@ -14,17 +14,17 @@ import seedu.address.commons.events.BaseEvent;
  * Configures and manages loggers and handlers, including their logging level
  * Named {@link Logger}s can be obtained from this class<br>
  * These loggers have been configured to output messages to the console and a {@code .log} file by default,
- *   at the {@code INFO} level. A new {@code .log} file with a new numbering will be created after the log
- *   file reaches 5MB big, up to a maximum of 5 files.<br>
+ * at the {@code INFO} level. A new {@code .log} file with a new numbering will be created after the log
+ * file reaches 5MB big, up to a maximum of 5 files.<br>
  */
 public class LogsCenter {
     private static final int MAX_FILE_COUNT = 5;
     private static final int MAX_FILE_SIZE_IN_BYTES = (int) (Math.pow(2, 20) * 5); // 5MB
     private static final String LOG_FILE = "addressbook.log";
     private static Level currentLogLevel = Level.INFO;
-    private static final Logger logger = LogsCenter.getLogger(LogsCenter.class);
     private static FileHandler fileHandler;
     private static ConsoleHandler consoleHandler;
+    private static final Logger logger = LogsCenter.getLogger(LogsCenter.class);
 
     /**
      * Initializes with a custom log level (specified in the {@code config} object)
@@ -99,6 +99,7 @@ public class LogsCenter {
 
     /**
      * Creates a {@code FileHandler} for the log file.
+     *
      * @throws IOException if there are problems opening the file.
      */
     private static FileHandler createFileHandler() throws IOException {

@@ -19,6 +19,7 @@ public class FileUtil {
 
     /**
      * Creates a file if it does not exist along with its missing parent directories.
+     *
      * @throws IOException if the file or directory cannot be created.
      */
     public static void createIfMissing(File file) throws IOException {
@@ -82,6 +83,7 @@ public class FileUtil {
 
     /**
      * Converts a string to a platform-specific file path
+     *
      * @param pathWithForwardSlash A String representing a file path but using '/' as the separator
      * @return {@code pathWithForwardSlash} but '/' replaced with {@code File.separator}
      */

@@ -99,7 +99,7 @@ task wrapper(type: Wrapper) {
 
 task coverage(type: JacocoReport) {
     sourceDirectories = files(allprojects.sourceSets.main.allSource.srcDirs)
-    classDirectories =  files(allprojects.sourceSets.main.output)
+    classDirectories = files(allprojects.sourceSets.main.output)
     executionData = files(allprojects.jacocoTestReport.executionData)
     afterEvaluate {
         classDirectories = files(classDirectories.files.collect {
@@ -123,8 +123,8 @@ tasks.coveralls {
 }
 
 class AddressBookTest extends Test {
-    public AddressBookTest() {
-    	  forkEvery = 1
+    AddressBookTest() {
+        forkEvery = 1
         systemProperty 'testfx.setup.timeout', '60000'
 
         /*
@@ -139,7 +139,7 @@ class AddressBookTest extends Test {
         }
     }
 
-    public void setHeadless() {
+    void setHeadless() {
         systemProperty 'java.awt.robot', 'true'
         systemProperty 'testfx.robot', 'glass'
         systemProperty 'testfx.headless', 'true'
@@ -192,13 +192,13 @@ asciidoctor {
     outputDir "${buildDir}/docs"
 
     attributes linkcss: true,
-               stylesheet: 'gh-pages.css',
-               'source-highlighter': 'coderay',
-               icons: 'font',
-               experimental: true,
-               sectlinks: true,
-               idprefix: '',  // for compatibility with GitHub preview
-               idseparator: '-'
+            stylesheet: 'gh-pages.css',
+            'source-highlighter': 'coderay',
+            icons: 'font',
+            experimental: true,
+            sectlinks: true,
+            idprefix: '',  // for compatibility with GitHub preview
+            idseparator: '-'
 }
 
 /*
@@ -215,7 +215,7 @@ asciidoctor.dependsOn copyStylesheets
 task deployOfflineDocs(type: Copy) {
     into('src/main/resources/docs')
 
-    from ("${asciidoctor.outputDir}/html5") {
+    from("${asciidoctor.outputDir}/html5") {
         include 'stylesheets/*'
         include 'images/*'
         include 'UserGuide.html'

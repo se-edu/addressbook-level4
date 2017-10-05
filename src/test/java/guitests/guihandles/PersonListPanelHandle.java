@@ -22,6 +22,7 @@ public class PersonListPanelHandle extends NodeHandle<ListView<PersonCard>> {
     /**
      * Returns a handle to the selected {@code PersonCardHandle}.
      * A maximum of 1 item can be selected at any time.
+     *
      * @throws AssertionError if no card is selected, or more than 1 card is selected.
      */
     public PersonCardHandle getHandleToSelectedCard() {

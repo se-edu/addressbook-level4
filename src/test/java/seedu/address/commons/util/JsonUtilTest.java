@@ -6,7 +6,6 @@ import java.io.File;
 import java.io.IOException;
 
 import org.junit.Test;
-
 import seedu.address.testutil.SerializableTestClass;
 import seedu.address.testutil.TestUtil;
 

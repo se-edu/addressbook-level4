@@ -12,7 +12,6 @@ import java.util.EmptyStackException;
 import java.util.List;
 
 import org.junit.Test;
-
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.RedoCommand;
@@ -167,7 +166,7 @@ public class UndoRedoStackTest {
         // different redoStack -> returns false
         UndoRedoStack differentRedoStack =
                 prepareStack(Arrays.asList(dummyUndoableCommandTwo, dummyUndoableCommandOne),
-                Collections.singletonList(dummyUndoableCommandTwo));
+                        Collections.singletonList(dummyUndoableCommandTwo));
         assertFalse(undoRedoStack.equals(differentRedoStack));
     }
 
