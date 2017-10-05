@@ -742,26 +742,6 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 (For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Add person
-
-*MSS*
-
-1.  User requests to add person with information
-2.  AddressBook adds the person
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 2a. The information inputted is in the wrong format.
-+
-[none]
-** 2a1. AddressBook shows an error message.
-+
-Use case ends.
-
-[discrete]
 === Use case: Delete person
 
 *MSS*
@@ -786,80 +766,6 @@ Use case ends.
 ** 3a1. AddressBook shows an error message.
 +
 Use case resumes at step 2.
-
-[discrete]
-=== Use case: Edit person
-
-*MSS*
-
-1.  User requests to edit person
-2.  AddressBook shows a list of information field to change
-3.  User requests to edit a specific information field
-4.  User enters new information for chosen field
-5.  AddressBook changes the information field for person to new information
-+
-Use case ends.
-
-*Extensions*
-[none]
-* 1a. The person requested to be edit does not exist.
-+
-[none]
-** 1a1. AddressBook shows an error message.
-+
-Use case ends.
-
-[none]
-* 1b. The AddressBook is empty.
-+
-[none]
-** 1b1. AddressBook shows an error message.
-+
-Use case ends.
-
-[none]
-* 3a. The information field selected is not on the list.
-+
-[none]
-** 3a1. AddressBook shows an error message.
-+
-Use case resumes at step 3.
-
-[none]
-* 4a. The information entered is of incorrect format.
-+
-[none]
-** 4a1. AddressBook shows an error message.
-+
-Use case resumes at step 4.
-
-[discrete]
-=== Use case: Query person
-
-*MSS*
-
-1.  User requests to query person
-2.  AddressBook displays the person's information
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 1a. The person requested to be queried does not exist in AddressBook
-+
-[none]
-** 1a1. AddressBook shows an error message.
-+
-Use case ends.
-
-[none]
-* 1b. The AddressBook is empty.
-+
-[none]
-** 1b1. AddressBook shows an error message.
-+
-Use case ends.
 
 [discrete]
 === Use case: Undo
