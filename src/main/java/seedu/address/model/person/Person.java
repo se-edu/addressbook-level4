@@ -129,6 +129,14 @@ public class Person implements ReadOnlyPerson {
                 && this.isSameStateAs((ReadOnlyPerson) other));
     }
 
+    /**
+     * Removes a tag from this person's list of tags if the list contains the tag.
+     * @param toRemove Tag to be removed
+     */
+    public void removeTag(Tag toRemove) {
+        tags.get().remove(toRemove);
+    }
+
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own

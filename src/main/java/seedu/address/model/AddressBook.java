@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -154,6 +155,17 @@ public class AddressBook implements ReadOnlyAddressBook {
             return true;
         } else {
             throw new PersonNotFoundException();
+        }
+    }
+
+    /**
+     * Removes a tag from all persons in the list if they have it
+     *@param tag Tag to be removed
+     */
+    public void removeTagFromAll(Tag tag) {
+        Iterator<Person> iter = persons.iterator();
+        while (iter.hasNext()) {
+            iter.next().removeTag(tag);
         }
     }
 
