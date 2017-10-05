@@ -33,10 +33,13 @@ import seedu.address.MainApp;
 import seedu.address.TestApp;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.SelectCommand;
+import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
+import seedu.address.testutil.TypicalPersons;
 import seedu.address.ui.CommandBox;
 
 /**
@@ -63,7 +66,7 @@ public abstract class AddressBookSystemTest {
     @Before
     public void setUp() {
         setupHelper = new SystemTestSetupHelper();
-        testApp = setupHelper.setupApplication();
+        testApp = setupHelper.setupApplication(this::getInitialData, getDataFileLocation());
         mainWindowHandle = setupHelper.setupMainWindowHandle();
 
         waitUntilBrowserLoaded(getBrowserPanel());
@@ -74,6 +77,24 @@ public abstract class AddressBookSystemTest {
     public void tearDown() throws Exception {
         setupHelper.tearDownStage();
         EventsCenter.clearSubscribers();
+    }
+
+    /**
+     * Returns the data to be loaded into the file in {@link #getDataFileLocation()}.
+     */
+    protected AddressBook getInitialData() {
+        return TypicalPersons.getTypicalAddressBook();
+    }
+
+    /**
+     * Returns the directory of the data file.
+     */
+    protected String getDataFileLocation() {
+        return TestApp.SAVE_LOCATION_FOR_TESTING;
+    }
+
+    public MainWindowHandle getMainWindowHandle() {
+        return mainWindowHandle;
     }
 
     public CommandBoxHandle getCommandBox() {
@@ -137,6 +158,14 @@ public abstract class AddressBookSystemTest {
     protected void selectPerson(Index index) {
         executeCommand(SelectCommand.COMMAND_WORD + " " + index.getOneBased());
         assert getPersonListPanel().getSelectedCardIndex() == index.getZeroBased();
+    }
+
+    /**
+     * Deletes all persons in the address book.
+     */
+    protected void deleteAllPersons() {
+        executeCommand(ClearCommand.COMMAND_WORD);
+        assert getModel().getAddressBook().getPersonList().size() == 0;
     }
 
     /**
