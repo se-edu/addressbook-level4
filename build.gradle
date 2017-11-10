@@ -180,6 +180,10 @@ asciidoctor {
     sourceDir 'docs'
     outputDir "${buildDir}/docs"
 
+    options = [
+        template_dirs: [file("${sourceDir}/templates")],
+    ]
+
     attributes = [
         linkcss: true,
         stylesheet: 'gh-pages.css',
@@ -190,6 +194,10 @@ asciidoctor {
         idprefix: '',  // for compatibility with GitHub preview
         idseparator: '-',
     ]
+
+    options['template_dirs'].each {
+        inputs.files fileTree(it)
+    }
 }
 
 // Copies stylesheets into the directory containing generated HTML files as
