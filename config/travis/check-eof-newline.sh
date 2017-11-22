@@ -3,6 +3,10 @@
 
 ret=0
 
+# Preserve filename with spaces by only splitting on newlines.
+IFS='
+'
+
 for filename in $(git grep --cached -I -l -e '' -- ':/'); do
     if [ "$(tail -c 1 "./$filename")" != '' ]; then
         line="$(wc -l "./$filename" | cut -d' ' -f1)"
