@@ -6,9 +6,6 @@ import java.io.IOException;
 import java.net.URL;
 
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
 import seedu.address.MainApp;
 import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.events.BaseEvent;
@@ -77,22 +74,6 @@ public abstract class UiPart<T> {
      */
     protected void registerAsAnEventHandler(Object handler) {
         EventsCenter.getInstance().registerHandler(handler);
-    }
-
-    /**
-     * Creates a modal dialog.
-     * @param title Title of the dialog.
-     * @param parentStage The owner stage of the dialog.
-     * @param scene The scene that will contain the dialog.
-     * @return the created dialog, not yet made visible.
-     */
-    protected Stage createDialogStage(String title, Stage parentStage, Scene scene) {
-        Stage dialogStage = new Stage();
-        dialogStage.setTitle(title);
-        dialogStage.initModality(Modality.WINDOW_MODAL);
-        dialogStage.initOwner(parentStage);
-        dialogStage.setScene(scene);
-        return dialogStage;
     }
 
     /**
