@@ -30,8 +30,8 @@ public class HelpWindow extends UiPart<Region> {
     public HelpWindow() {
         super(FXML);
         Scene scene = new Scene(getRoot());
-        //Null passed as the parent stage to make it non-modal.
-        dialogStage = createDialogStage(TITLE, null, scene);
+        dialogStage = new Stage();
+        dialogStage.setTitle(TITLE);
         dialogStage.setMaximized(true); //TODO: set a more appropriate initial size
         FxViewUtil.setStageIcon(dialogStage, ICON);
 
