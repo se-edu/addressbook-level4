@@ -22,21 +22,14 @@ public abstract class UiPart<T> {
     /** Resource folder where FXML files are stored. */
     public static final String FXML_FILE_FOLDER = "/view/";
 
-    private FXMLLoader fxmlLoader;
+    private final FXMLLoader fxmlLoader = new FXMLLoader();
 
     /**
      * Constructs a UiPart with the specified FXML file URL.
      * The FXML file must not specify the {@code fx:controller} attribute.
      */
     public UiPart(URL fxmlFileUrl) {
-        requireNonNull(fxmlFileUrl);
-        fxmlLoader = new FXMLLoader(fxmlFileUrl);
-        fxmlLoader.setController(this);
-        try {
-            fxmlLoader.load();
-        } catch (IOException e) {
-            throw new AssertionError(e);
-        }
+        loadFxmlFile(fxmlFileUrl, null);
     }
 
     /**
@@ -44,7 +37,23 @@ public abstract class UiPart<T> {
      * @see #UiPart(URL)
      */
     public UiPart(String fxmlFileName) {
-        this(fxmlFileName != null ? MainApp.class.getResource(FXML_FILE_FOLDER + fxmlFileName) : null);
+        this(getFxmlFileUrl(fxmlFileName));
+    }
+
+    /**
+     * Constructs a UiPart with the specified FXML file URL and root object.
+     * The FXML file must not specify the {@code fx:controller} attribute.
+     */
+    public UiPart(URL fxmlFileUrl, T root) {
+        loadFxmlFile(fxmlFileUrl, root);
+    }
+
+    /**
+     * Constructs a UiPart with the specified FXML file within {@link #FXML_FILE_FOLDER} and root object.
+     * @see #UiPart(URL, T)
+     */
+    public UiPart(String fxmlFileName, T root) {
+        this(getFxmlFileUrl(fxmlFileName), root);
     }
 
     /**
@@ -84,6 +93,33 @@ public abstract class UiPart<T> {
         dialogStage.initOwner(parentStage);
         dialogStage.setScene(scene);
         return dialogStage;
+    }
+
+    /**
+     * Loads the object hierarchy from a FXML document.
+     * @param location Location of the FXML document.
+     * @param root Specifies the root of the object hierarchy.
+     */
+    private void loadFxmlFile(URL location, T root) {
+        requireNonNull(location);
+        fxmlLoader.setLocation(location);
+        fxmlLoader.setController(this);
+        fxmlLoader.setRoot(root);
+        try {
+            fxmlLoader.load();
+        } catch (IOException e) {
+            throw new AssertionError(e);
+        }
+    }
+
+    /**
+     * Returns the FXML file URL for the specified FXML file name within {@link #FXML_FILE_FOLDER}.
+     */
+    private static URL getFxmlFileUrl(String fxmlFileName) {
+        requireNonNull(fxmlFileName);
+        String fxmlFileNameWithFolder = FXML_FILE_FOLDER + fxmlFileName;
+        URL fxmlFileUrl = MainApp.class.getResource(fxmlFileNameWithFolder);
+        return requireNonNull(fxmlFileUrl);
     }
 
 }
