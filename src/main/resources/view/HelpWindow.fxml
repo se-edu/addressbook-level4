@@ -1,8 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.Scene?>
 <?import javafx.scene.web.WebView?>
 
-<StackPane fx:id="helpWindowRoot" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-  <WebView fx:id="browser" />
-</StackPane>
+<fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+  <scene>
+    <Scene>
+      <WebView fx:id="browser" />
+    </Scene>
+  </scene>
+</fx:root>
