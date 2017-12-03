@@ -27,6 +27,16 @@ public class ListElementPointerTest {
     }
 
     @Test
+    public void constructor_defensiveCopy_backingListUnmodified() {
+        List<String> list = new ArrayList<>();
+        pointer = new ListElementPointer(list);
+        list.add(FIRST_ELEMENT);
+
+        ListElementPointer emptyPointer = new ListElementPointer(Collections.emptyList());
+        assertEquals(emptyPointer, pointer);
+    }
+
+    @Test
     public void emptyList() {
         pointer = new ListElementPointer(new ArrayList<>());
         assertCurrentFailure();
