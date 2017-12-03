@@ -1,5 +1,6 @@
 package seedu.address.logic;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -20,7 +21,7 @@ public class ListElementPointer {
      * The cursor points to the last element in {@code list}.
      */
     public ListElementPointer(List<String> list) {
-        this.list = list;
+        this.list = new ArrayList<>(list);
         index = this.list.size() - 1;
     }
 
