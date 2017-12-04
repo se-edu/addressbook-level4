@@ -5,10 +5,20 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
+import seedu.address.testutil.Assert;
+
 public class NameTest {
 
     @Test
+    public void constructor_null_throwsNullPointerException() {
+        Assert.assertThrows(NullPointerException.class, () -> new Name(null));
+    }
+
+    @Test
     public void isValidName() {
+        // null name
+        Assert.assertThrows(NullPointerException.class, () -> Name.isValidName(null));
+
         // invalid name
         assertFalse(Name.isValidName("")); // empty string
         assertFalse(Name.isValidName(" ")); // spaces only
