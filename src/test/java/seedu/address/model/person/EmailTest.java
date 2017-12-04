@@ -5,10 +5,20 @@ import static org.junit.Assert.assertTrue;
 
 import org.junit.Test;
 
+import seedu.address.testutil.Assert;
+
 public class EmailTest {
 
     @Test
+    public void constructor_null_throwsNullPointerException() {
+        Assert.assertThrows(NullPointerException.class, () -> new Email(null));
+    }
+
+    @Test
     public void isValidEmail() {
+        // null email
+        Assert.assertThrows(NullPointerException.class, () -> Email.isValidEmail(null));
+
         // blank email
         assertFalse(Email.isValidEmail("")); // empty string
         assertFalse(Email.isValidEmail(" ")); // spaces only
