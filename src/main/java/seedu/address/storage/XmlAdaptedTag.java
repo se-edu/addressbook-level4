@@ -20,6 +20,13 @@ public class XmlAdaptedTag {
     public XmlAdaptedTag() {}
 
     /**
+     * Constructs a {@code XmlAdaptedTag} with the given {@code tagName}.
+     */
+    public XmlAdaptedTag(String tagName) {
+        this.tagName = tagName;
+    }
+
+    /**
      * Converts a given Tag into this class for JAXB use.
      *
      * @param source future changes to this will not affect the created
