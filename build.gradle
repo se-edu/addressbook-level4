@@ -6,7 +6,6 @@
  */
 
 plugins {
-    id 'idea'
     id 'java'
     id 'jacoco'
     id 'checkstyle'
