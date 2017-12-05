@@ -69,17 +69,6 @@ dependencies {
     testCompile "org.testfx:openjfx-monocle:$monocleVersion"
 }
 
-sourceSets {
-    main {
-        java {
-            srcDir 'src/main/java'
-        }
-        resources {
-            srcDir 'src/main/resources'
-        }
-    }
-}
-
 shadowJar {
     archiveName = "addressbook.jar"
 
