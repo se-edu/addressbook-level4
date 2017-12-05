@@ -91,23 +91,64 @@ tasks.coveralls {
     onlyIf { System.env.'CI' }
 }
 
-class AddressBookTest extends Test {
-    public AddressBookTest() {
-        systemProperty 'testfx.setup.timeout', '60000'
+task(guiTests)
+task(nonGuiTests)
 
-        /*
-         * Prints the currently running test's name in the CI's build log,
-         * so that we can check if tests are being silently skipped or
-         * stalling the build.
-         */
-        if (System.env.'CI') {
-            beforeTest { descriptor ->
-                logger.lifecycle('Running test: ' + descriptor)
-            }
+// Run `test` task if `guiTests` or `nonGuiTests` is specified
+guiTests.dependsOn test
+nonGuiTests.dependsOn test
+
+task(allTests)
+
+// `allTests` implies both `guiTests` and `nonGuiTests`
+allTests.dependsOn guiTests
+allTests.dependsOn nonGuiTests
+
+test {
+    systemProperty 'testfx.setup.timeout', '60000'
+
+    /*
+     * Prints the currently running test's name in the CI's build log,
+     * so that we can check if tests are being silently skipped or
+     * stalling the build.
+     */
+    if (System.env.'CI') {
+        beforeTest { descriptor ->
+            logger.lifecycle('Running test: ' + descriptor)
         }
     }
 
-    public void setHeadless() {
+    jacoco {
+        destinationFile = new File("${buildDir}/jacoco/test.exec")
+    }
+
+    doFirst {
+        boolean runGuiTests = gradle.taskGraph.hasTask(guiTests)
+        boolean runNonGuiTests = gradle.taskGraph.hasTask(nonGuiTests)
+
+        if (!runGuiTests && !runNonGuiTests) {
+            runGuiTests = true;
+            runNonGuiTests = true;
+        }
+
+        if (runNonGuiTests) {
+            test.include 'seedu/address/**'
+        }
+
+        if (runGuiTests) {
+            test.include 'systemtests/**'
+            test.include 'seedu/address/ui/**'
+        }
+
+        if (!runGuiTests) {
+            test.exclude 'seedu/address/ui/**'
+        }
+    }
+}
+
+task headless << {
+    println "Setting headless mode properties."
+    test {
         systemProperty 'java.awt.robot', 'true'
         systemProperty 'testfx.robot', 'glass'
         systemProperty 'testfx.headless', 'true'
@@ -116,43 +157,8 @@ class AddressBookTest extends Test {
     }
 }
 
-task guiTests(type: AddressBookTest) {
-    include 'systemtests/**'
-    include 'seedu/address/ui/**'
-
-    jacoco {
-        destinationFile = new File("${buildDir}/jacoco/test.exec")
-    }
-}
-
-
-task nonGuiTests(type: AddressBookTest) {
-    include 'seedu/address/**'
-    exclude 'seedu/address/ui/**'
-
-    jacoco {
-        destinationFile = new File("${buildDir}/jacoco/test.exec")
-    }
-}
-
-// Test mode depends on whether headless task has been run
-task allTests(type: AddressBookTest) {
-    jacoco {
-        destinationFile = new File("${buildDir}/jacoco/test.exec")
-    }
-}
-
-task headless << {
-    println "Setting headless mode properties."
-    guiTests.setHeadless()
-    nonGuiTests.setHeadless()
-    allTests.setHeadless()
-}
-
 // Makes sure that headless properties are set before running tests
-nonGuiTests.mustRunAfter headless
-guiTests.mustRunAfter headless
-allTests.mustRunAfter headless
+test.mustRunAfter headless
 
 asciidoctor {
     backends 'html5'
