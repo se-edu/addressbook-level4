@@ -1,7 +1,6 @@
 = Travis CI
 :imagesDir: images
 :stylesDir: stylesheets
-ifdef::env-github,env-browser[:outfilesuffix: .adoc]
 
 https://travis-ci.org/[Travis CI] is a _Continuous Integration_ platform for GitHub projects.
 

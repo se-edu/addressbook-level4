@@ -6,7 +6,6 @@
 :sectnumlevels: 1
 :imagesDir: images
 :stylesDir: stylesheets
-ifdef::env-github,env-browser[:outfilesuffix: .adoc]
 :repoURL: https://github.com/se-edu/addressbook-level4/tree/master
 
 After studying this code and completing the corresponding exercises, you should be able to,
