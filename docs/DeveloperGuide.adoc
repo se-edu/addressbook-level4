@@ -49,7 +49,7 @@ This will generate all resources required by the application and tests.
 === Verifying the setup
 
 . Run the `seedu.address.MainApp` and try a few commands
-. link:#testing[Run the tests] to ensure they all pass.
+. <<Testing,Run the tests>> to ensure they all pass.
 
 === Configurations to do before writing code
 
@@ -83,11 +83,12 @@ Having both Travis and AppVeyor ensures your App works on both Unix-based platfo
 
 When you are ready to start coding,
 
-1. Get some sense of the overall design by reading the link:#architecture[Architecture] section.
-2. Take a look at the section link:#suggested-programming-tasks-to-get-started[Suggested Programming Tasks to Get Started].
+1. Get some sense of the overall design by reading <<Design-Architecture>>.
+2. Take a look at <<GetStartedProgramming>>.
 
 == Design
 
+[[Design-Architecture]]
 === Architecture
 
 image::Architecture.png[width="600"]
@@ -103,17 +104,17 @@ The `.pptx` files used to create diagrams in this document can be found in the l
 * At app launch: Initializes the components in the correct sequence, and connects them up with each other.
 * At shut down: Shuts down the components and invokes cleanup method where necessary.
 
-link:#common-classes[*`Commons`*] represents a collection of classes used by multiple other components. Two of those classes play important roles at the architecture level.
+<<Design-Commons,*`Commons`*>> represents a collection of classes used by multiple other components. Two of those classes play important roles at the architecture level.
 
 * `EventsCenter` : This class (written using https://github.com/google/guava/wiki/EventBusExplained[Google's Event Bus library]) is used by components to communicate with other components using events (i.e. a form of _Event Driven_ design)
 * `LogsCenter` : Used by many classes to write log messages to the App's log file.
 
 The rest of the App consists of four components.
 
-* link:#ui-component[*`UI`*] : The UI of the App.
-* link:#logic-component[*`Logic`*] : The command executor.
-* link:#model-component[*`Model`*] : Holds the data of the App in-memory.
-* link:#storage-component[*`Storage`*] : Reads data from, and writes data to, the hard disk.
+* <<Design-Ui,*`UI`*>>: The UI of the App.
+* <<Design-Logic,*`Logic`*>>: The command executor.
+* <<Design-Model,*`Model`*>>: Holds the data of the App in-memory.
+* <<Design-Storage,*`Storage`*>>: Reads data from, and writes data to, the hard disk.
 
 Each of the four components
 
@@ -146,6 +147,7 @@ Note how the event is propagated through the `EventsCenter` to the `Storage` and
 
 The sections below give more details of each component.
 
+[[Design-Ui]]
 === UI component
 
 image::UiClassDiagram.png[width="800"]
@@ -163,6 +165,7 @@ The `UI` component,
 * Binds itself to some data in the `Model` so that the UI can auto-update when data in the `Model` change.
 * Responds to events raised from various parts of the App and updates the UI accordingly.
 
+[[Design-Logic]]
 === Logic component
 
 image::LogicClassDiagram.png[width="800"]
@@ -184,6 +187,7 @@ Given below is the Sequence Diagram for interactions within the `Logic` componen
 image::DeletePersonSdForLogic.png[width="800"]
 _Figure 2.3.1 : Interactions Inside the Logic Component for the `delete 1` Command_
 
+[[Design-Model]]
 === Model component
 
 image::ModelClassDiagram.png[width="800"]
@@ -198,6 +202,7 @@ The `Model`,
 * exposes an unmodifiable `ObservableList<ReadOnlyPerson>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
+[[Design-Storage]]
 === Storage component
 
 image::StorageClassDiagram.png[width="800"]
@@ -210,6 +215,7 @@ The `Storage` component,
 * can save `UserPref` objects in json format and read it back.
 * can save the Address Book data in xml format and read it back.
 
+[[Design-Commons]]
 === Common classes
 
 Classes used by multiple components are in the `seedu.addressbook.commons` package.
@@ -349,7 +355,7 @@ image::UndoRedoActivityDiagram.png[width="200"]
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
 
-* The logging level can be controlled using the `logLevel` setting in the configuration file (See link:#configuration[Configuration])
+* The logging level can be controlled using the `logLevel` setting in the configuration file (See <<Implementation-Configuration>>)
 * The `Logger` for a class can be obtained using `LogsCenter.getLogger(Class)` which will log messages according to the specified logging level
 * Currently log messages are output through: `Console` and to a `.log` file.
 
@@ -360,6 +366,7 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 * `INFO` : Information showing the noteworthy actions by the App
 * `FINE` : Details that is not usually noteworthy but may be useful in debugging e.g. print the actual list instead of just its size
 
+[[Implementation-Configuration]]
 === Configuration
 
 Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: `config.json`).
@@ -394,6 +401,7 @@ Here are the steps to convert the project documentation files to PDF format.
 image::chrome_save_as_pdf.png[width="300"]
 _Figure 5.6.1 : Saving documentation as PDF files in Chrome_
 
+[[Testing]]
 == Testing
 
 === Running Tests
@@ -468,15 +476,17 @@ A project often depends on third-party libraries. For example, Address Book depe
 a. Include those libraries in the repo (this bloats the repo size) +
 b. Require developers to download those libraries manually (this creates extra work for developers)
 
+[[GetStartedProgramming]]
 [appendix]
 == Suggested Programming Tasks to Get Started
 
 Suggested path for new programmers:
 
-1. First, add small local-impact (i.e. the impact of the change does not go beyond the component) enhancements to one component at a time. Some suggestions are given in this section link:#improving-each-component[Improving a Component].
+1. First, add small local-impact (i.e. the impact of the change does not go beyond the component) enhancements to one component at a time. Some suggestions are given in <<GetStartedProgramming-EachComponent>>.
 
-2. Next, add a feature that touches multiple components to learn how to implement an end-to-end feature across all components. The section link:#creating-a-new-command-code-remark-code[Creating a new command: `remark`] explains how to go about adding such a feature.
+2. Next, add a feature that touches multiple components to learn how to implement an end-to-end feature across all components. <<GetStartedProgramming-RemarkCommand>> explains how to go about adding such a feature.
 
+[[GetStartedProgramming-EachComponent]]
 === Improving each component
 
 Each individual exercise in this section is component-based (i.e. you would not need to modify the other components to get it to work).
@@ -485,7 +495,7 @@ Each individual exercise in this section is component-based (i.e. you would not 
 ==== `Logic` component
 
 [TIP]
-Do take a look at the link:#logic-component[Design: Logic Component] section before attempting to modify the `Logic` component.
+Do take a look at <<Design-Logic>> before attempting to modify the `Logic` component.
 
 . Add a shorthand equivalent alias for each of the individual commands. For example, besides typing `clear`, the user can also type `c` to remove all persons in the list.
 +
@@ -502,7 +512,7 @@ Do take a look at the link:#logic-component[Design: Logic Component] section bef
 ==== `Model` component
 
 [TIP]
-Do take a look at the link:#model-component[Design: Model Component] section before attempting to modify the `Model` component.
+Do take a look at <<Design-Model>> before attempting to modify the `Model` component.
 
 . Add a `removeTag(Tag)` method. The specified tag will be removed from everyone in the address book.
 +
@@ -519,7 +529,7 @@ Do take a look at the link:#model-component[Design: Model Component] section bef
 ==== `Ui` component
 
 [TIP]
-Do take a look at the link:#ui-component[Design: UI Component] section before attempting to modify the `UI` component.
+Do take a look at <<Design-Ui>> before attempting to modify the `UI` component.
 
 . Use different colors for different tags inside person cards. For example, `friends` tags can be all in grey, and `colleagues` tags can be all in red.
 +
@@ -583,7 +593,7 @@ image::getting-started-ui-status-after.png[width="500"]
 ==== `Storage` component
 
 [TIP]
-Do take a look at the link:#storage-component[Design: Storage Component] section before attempting to modify the `Storage` component.
+Do take a look at <<Design-Storage>> before attempting to modify the `Storage` component.
 
 . Add a new method `backupAddressBook(ReadOnlyAddressBook)`, so that the address book can be saved in a fixed temporary location.
 +
@@ -595,6 +605,7 @@ Do take a look at the link:#storage-component[Design: Storage Component] section
 ** See this https://github.com/se-edu/addressbook-level4/pull/594/files[PR] for the full solution.
 ****
 
+[[GetStartedProgramming-RemarkCommand]]
 === Creating a new command: `remark`
 
 By creating this command, you will get a chance to learn how to implement a feature end-to-end, touching all major components of the app.
@@ -729,7 +740,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
 
-|`* *` |user |hide link:#private-contact-detail[private contact details] by default |minimize chance of someone else seeing them by accident
+|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
 
 |`*` |user with many persons in the address book |sort persons by name |locate a person easily
 |=======================================================================
@@ -772,7 +783,7 @@ Use case resumes at step 2.
 [appendix]
 == Non Functional Requirements
 
-.  Should work on any link:#mainstream-os[mainstream OS] as long as it has Java `1.8.0_60` or higher installed.
+.  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `1.8.0_60` or higher installed.
 .  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 
