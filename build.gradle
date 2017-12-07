@@ -26,12 +26,6 @@ repositories {
     maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
 }
 
-// This part is similar to global variables
-// Access them by using double-quoted strings (GStrings) and referencing by $ e.g. "Variable contains $Variable"
-project.ext {
-    libDir = 'lib'
-}
-
 checkstyle {
     toolVersion = '8.1'
 }
