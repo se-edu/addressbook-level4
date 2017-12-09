@@ -9,8 +9,10 @@ import javafx.application.Platform;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.scene.layout.Region;
+import javafx.scene.layout.StackPane;
 import javafx.scene.web.WebView;
 import seedu.address.MainApp;
+import seedu.address.commons.core.EventsCenter;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
 import seedu.address.model.person.ReadOnlyPerson;
@@ -29,16 +31,27 @@ public class BrowserPanel extends UiPart<Region> {
     private final Logger logger = LogsCenter.getLogger(this.getClass());
 
     @FXML
+    private StackPane stackPane;
+
+    @FXML
     private WebView browser;
 
     public BrowserPanel() {
         super(FXML);
+        EventsCenter.getInstance().registerHandler(this);
+    }
 
+    @FXML
+    public void initialize() {
         // To prevent triggering events for typing inside the loaded Web page.
-        getRoot().setOnKeyPressed(Event::consume);
+        stackPane.setOnKeyPressed(Event::consume);
 
         loadDefaultPage();
-        registerAsAnEventHandler(this);
+    }
+
+    @Override
+    public Region getRoot() {
+        return stackPane;
     }
 
     private void loadPersonPage(ReadOnlyPerson person) {
