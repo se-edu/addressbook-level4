@@ -5,6 +5,7 @@
 :sectnums:
 :imagesDir: images
 :stylesDir: stylesheets
+:xrefstyle: full
 :experimental:
 ifdef::env-github[]
 :tip-caption: :bulb:
@@ -37,8 +38,9 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * **`delete`**`3` : deletes the 3rd contact shown in the current list
 * *`exit`* : exits the app
 
-.  Refer to the link:#features[Features] section below for details of each command.
+.  Refer to <<Features>> for details of each command.
 
+[[Features]]
 == Features
 
 ====
