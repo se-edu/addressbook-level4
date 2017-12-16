@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<fx:root type="seedu.address.ui.TestFxmlObject" xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml">
+    <text>Hello World!</text>
+</fx:root>

@@ -6,6 +6,7 @@ import java.util.function.Supplier;
 import org.testfx.api.FxToolkit;
 
 import guitests.guihandles.MainWindowHandle;
+import javafx.stage.Stage;
 import seedu.address.TestApp;
 import seedu.address.model.ReadOnlyAddressBook;
 
@@ -17,10 +18,11 @@ public class SystemTestSetupHelper {
     private MainWindowHandle mainWindowHandle;
 
     /**
-     * Sets up the {@code TestApp} and returns it.
+     * Sets up a new {@code TestApp} and returns it.
      */
     public TestApp setupApplication(Supplier<ReadOnlyAddressBook> addressBook, String saveFileLocation) {
         try {
+            FxToolkit.registerStage(Stage::new);
             FxToolkit.setupApplication(() -> testApp = new TestApp(addressBook, saveFileLocation));
         } catch (TimeoutException te) {
             throw new AssertionError("Application takes too long to set up.");
@@ -30,9 +32,9 @@ public class SystemTestSetupHelper {
     }
 
     /**
-     * Initializes the stage to be used by the tests.
+     * Initializes TestFX.
      */
-    public static void initializeStage() {
+    public static void initialize() {
         try {
             FxToolkit.registerPrimaryStage();
             FxToolkit.hideStage();
@@ -42,7 +44,7 @@ public class SystemTestSetupHelper {
     }
 
     /**
-     * Encapsulates the stage initialized by {@code initializeStage} in a {@code MainWindowHandle} and returns it.
+     * Encapsulates the primary stage of {@code TestApp} in a {@code MainWindowHandle} and returns it.
      */
     public MainWindowHandle setupMainWindowHandle() {
         try {
