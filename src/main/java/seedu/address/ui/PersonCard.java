@@ -1,6 +1,5 @@
 package seedu.address.ui;
 
-import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
@@ -44,26 +43,10 @@ public class PersonCard extends UiPart<Region> {
         super(FXML);
         this.person = person;
         id.setText(displayedIndex + ". ");
-        initTags(person);
-        bindListeners(person);
-    }
-
-    /**
-     * Binds the individual UI elements to observe their respective {@code Person} properties
-     * so that they will be notified of any changes.
-     */
-    private void bindListeners(ReadOnlyPerson person) {
-        name.textProperty().bind(Bindings.convert(person.nameProperty()));
-        phone.textProperty().bind(Bindings.convert(person.phoneProperty()));
-        address.textProperty().bind(Bindings.convert(person.addressProperty()));
-        email.textProperty().bind(Bindings.convert(person.emailProperty()));
-        person.tagProperty().addListener((observable, oldValue, newValue) -> {
-            tags.getChildren().clear();
-            person.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
-        });
-    }
-
-    private void initTags(ReadOnlyPerson person) {
+        name.setText(person.getName().fullName);
+        phone.setText(person.getPhone().value);
+        address.setText(person.getAddress().value);
+        email.setText(person.getEmail().value);
         person.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
 
