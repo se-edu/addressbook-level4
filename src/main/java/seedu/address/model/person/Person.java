@@ -1,6 +1,5 @@
 package seedu.address.model.person;
 
-import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Collections;
@@ -18,12 +17,12 @@ import seedu.address.model.tag.UniqueTagList;
  */
 public class Person implements ReadOnlyPerson {
 
-    private ObjectProperty<Name> name;
-    private ObjectProperty<Phone> phone;
-    private ObjectProperty<Email> email;
-    private ObjectProperty<Address> address;
+    private final ObjectProperty<Name> name;
+    private final ObjectProperty<Phone> phone;
+    private final ObjectProperty<Email> email;
+    private final ObjectProperty<Address> address;
 
-    private ObjectProperty<UniqueTagList> tags;
+    private final ObjectProperty<UniqueTagList> tags;
 
     /**
      * Every field must be present and not null.
@@ -46,10 +45,6 @@ public class Person implements ReadOnlyPerson {
                 source.getTags());
     }
 
-    public void setName(Name name) {
-        this.name.set(requireNonNull(name));
-    }
-
     @Override
     public ObjectProperty<Name> nameProperty() {
         return name;
@@ -58,10 +53,6 @@ public class Person implements ReadOnlyPerson {
     @Override
     public Name getName() {
         return name.get();
-    }
-
-    public void setPhone(Phone phone) {
-        this.phone.set(requireNonNull(phone));
     }
 
     @Override
@@ -74,10 +65,6 @@ public class Person implements ReadOnlyPerson {
         return phone.get();
     }
 
-    public void setEmail(Email email) {
-        this.email.set(requireNonNull(email));
-    }
-
     @Override
     public ObjectProperty<Email> emailProperty() {
         return email;
@@ -86,10 +73,6 @@ public class Person implements ReadOnlyPerson {
     @Override
     public Email getEmail() {
         return email.get();
-    }
-
-    public void setAddress(Address address) {
-        this.address.set(requireNonNull(address));
     }
 
     @Override
@@ -113,13 +96,6 @@ public class Person implements ReadOnlyPerson {
 
     public ObjectProperty<UniqueTagList> tagProperty() {
         return tags;
-    }
-
-    /**
-     * Replaces this person's tags with the tags in the argument tag set.
-     */
-    public void setTags(Set<Tag> replacement) {
-        tags.set(new UniqueTagList(replacement));
     }
 
     @Override
