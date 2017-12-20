@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.person.Person;
@@ -64,14 +65,16 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void resetData(ReadOnlyAddressBook newData) {
         requireNonNull(newData);
+        setTags(new HashSet<>(newData.getTagList()));
+        List<Person> syncedPersonList = newData.getPersonList().stream()
+                .map(this::syncWithMasterTagList)
+                .collect(Collectors.toList());
+
         try {
-            setPersons(newData.getPersonList());
+            setPersons(syncedPersonList);
         } catch (DuplicatePersonException e) {
             throw new AssertionError("AddressBooks should not have duplicate persons");
         }
-
-        setTags(new HashSet<>(newData.getTagList()));
-        syncMasterTagListWith(persons);
     }
 
     //// person-level operations
@@ -84,12 +87,11 @@ public class AddressBook implements ReadOnlyAddressBook {
      * @throws DuplicatePersonException if an equivalent person already exists.
      */
     public void addPerson(ReadOnlyPerson p) throws DuplicatePersonException {
-        Person newPerson = new Person(p);
-        syncMasterTagListWith(newPerson);
+        Person person = syncWithMasterTagList(p);
         // TODO: the tags master list will be updated even though the below line fails.
         // This can cause the tags master list to have additional tags that are not tagged to any person
         // in the person list.
-        persons.add(newPerson);
+        persons.add(person);
     }
 
     /**
@@ -100,14 +102,13 @@ public class AddressBook implements ReadOnlyAddressBook {
      *      another existing person in the list.
      * @throws PersonNotFoundException if {@code target} could not be found in the list.
      *
-     * @see #syncMasterTagListWith(Person)
+     * @see #syncWithMasterTagList(ReadOnlyPerson)
      */
     public void updatePerson(ReadOnlyPerson target, ReadOnlyPerson editedReadOnlyPerson)
             throws DuplicatePersonException, PersonNotFoundException {
         requireNonNull(editedReadOnlyPerson);
 
-        Person editedPerson = new Person(editedReadOnlyPerson);
-        syncMasterTagListWith(editedPerson);
+        Person editedPerson = syncWithMasterTagList(editedReadOnlyPerson);
         // TODO: the tags master list will be updated even though the below line fails.
         // This can cause the tags master list to have additional tags that are not tagged to any person
         // in the person list.
@@ -115,11 +116,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Ensures that every tag in this person:
-     *  - exists in the master list {@link #tags}
-     *  - points to a Tag object in the master list
+     *  Updates the master tag list to include tags in {@code person} that are not in the list.
+     *  @return a copy of this {@code person} such that every tag in this person points to a Tag object in the master
+     *  list.
      */
-    private void syncMasterTagListWith(Person person) {
+    private Person syncWithMasterTagList(ReadOnlyPerson person) {
         final UniqueTagList personTags = new UniqueTagList(person.getTags());
         tags.mergeFrom(personTags);
 
@@ -131,17 +132,8 @@ public class AddressBook implements ReadOnlyAddressBook {
         // Rebuild the list of person tags to point to the relevant tags in the master tag list.
         final Set<Tag> correctTagReferences = new HashSet<>();
         personTags.forEach(tag -> correctTagReferences.add(masterTagObjects.get(tag)));
-        person.setTags(correctTagReferences);
-    }
-
-    /**
-     * Ensures that every tag in these persons:
-     *  - exists in the master list {@link #tags}
-     *  - points to a Tag object in the master list
-     *  @see #syncMasterTagListWith(Person)
-     */
-    private void syncMasterTagListWith(UniquePersonList persons) {
-        persons.forEach(this::syncMasterTagListWith);
+        return new Person(
+                person.getName(), person.getPhone(), person.getEmail(), person.getAddress(), correctTagReferences);
     }
 
     /**
