@@ -12,7 +12,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.person.ReadOnlyPerson;
+import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 
 public class UndoableCommandTest {
@@ -55,7 +55,7 @@ public class UndoableCommandTest {
 
         @Override
         public CommandResult executeUndoableCommand() throws CommandException {
-            ReadOnlyPerson personToDelete = model.getFilteredPersonList().get(0);
+            Person personToDelete = model.getFilteredPersonList().get(0);
             try {
                 model.deletePerson(personToDelete);
             } catch (PersonNotFoundException pnfe) {

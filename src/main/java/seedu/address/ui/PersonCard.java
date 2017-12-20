@@ -6,7 +6,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
-import seedu.address.model.person.ReadOnlyPerson;
+import seedu.address.model.person.Person;
 
 /**
  * An UI component that displays information of a {@code Person}.
@@ -23,7 +23,7 @@ public class PersonCard extends UiPart<Region> {
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
      */
 
-    public final ReadOnlyPerson person;
+    public final Person person;
 
     @FXML
     private HBox cardPane;
@@ -40,7 +40,7 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private FlowPane tags;
 
-    public PersonCard(ReadOnlyPerson person, int displayedIndex) {
+    public PersonCard(Person person, int displayedIndex) {
         super(FXML);
         this.person = person;
         id.setText(displayedIndex + ". ");
@@ -52,7 +52,7 @@ public class PersonCard extends UiPart<Region> {
      * Binds the individual UI elements to observe their respective {@code Person} properties
      * so that they will be notified of any changes.
      */
-    private void bindListeners(ReadOnlyPerson person) {
+    private void bindListeners(Person person) {
         name.textProperty().bind(Bindings.convert(person.nameProperty()));
         phone.textProperty().bind(Bindings.convert(person.phoneProperty()));
         address.textProperty().bind(Bindings.convert(person.addressProperty()));
@@ -63,7 +63,7 @@ public class PersonCard extends UiPart<Region> {
         });
     }
 
-    private void initTags(ReadOnlyPerson person) {
+    private void initTags(Person person) {
         person.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
     }
 

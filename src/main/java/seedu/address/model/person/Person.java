@@ -15,7 +15,7 @@ import seedu.address.model.tag.UniqueTagList;
  * Represents a Person in the address book.
  * Guarantees: details are present and not null, field values are validated.
  */
-public class Person implements ReadOnlyPerson {
+public class Person {
 
     private final ObjectProperty<Name> name;
     private final ObjectProperty<Phone> phone;
@@ -38,49 +38,41 @@ public class Person implements ReadOnlyPerson {
     }
 
     /**
-     * Creates a copy of the given ReadOnlyPerson.
+     * Creates a copy of the given Person.
      */
-    public Person(ReadOnlyPerson source) {
+    public Person(Person source) {
         this(source.getName(), source.getPhone(), source.getEmail(), source.getAddress(),
                 source.getTags());
     }
 
-    @Override
     public ObjectProperty<Name> nameProperty() {
         return name;
     }
 
-    @Override
     public Name getName() {
         return name.get();
     }
 
-    @Override
     public ObjectProperty<Phone> phoneProperty() {
         return phone;
     }
 
-    @Override
     public Phone getPhone() {
         return phone.get();
     }
 
-    @Override
     public ObjectProperty<Email> emailProperty() {
         return email;
     }
 
-    @Override
     public Email getEmail() {
         return email.get();
     }
 
-    @Override
     public ObjectProperty<Address> addressProperty() {
         return address;
     }
 
-    @Override
     public Address getAddress() {
         return address.get();
     }
@@ -89,7 +81,6 @@ public class Person implements ReadOnlyPerson {
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */
-    @Override
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(tags.get().toSet());
     }
@@ -100,9 +91,19 @@ public class Person implements ReadOnlyPerson {
 
     @Override
     public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof ReadOnlyPerson // instanceof handles nulls
-                && this.isSameStateAs((ReadOnlyPerson) other));
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof Person)) {
+            return false;
+        }
+
+        Person otherPerson = (Person) other;
+        return otherPerson.getName().equals(this.getName())
+                && otherPerson.getPhone().equals(this.getPhone())
+                && otherPerson.getEmail().equals(this.getEmail())
+                && otherPerson.getAddress().equals(this.getAddress());
     }
 
     @Override
@@ -113,7 +114,17 @@ public class Person implements ReadOnlyPerson {
 
     @Override
     public String toString() {
-        return getAsText();
+        final StringBuilder builder = new StringBuilder();
+        builder.append(getName())
+                .append(" Phone: ")
+                .append(getPhone())
+                .append(" Email: ")
+                .append(getEmail())
+                .append(" Address: ")
+                .append(getAddress())
+                .append(" Tags: ");
+        getTags().forEach(builder::append);
+        return builder.toString();
     }
 
 }

@@ -9,7 +9,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 
 /**
@@ -40,9 +39,9 @@ public class AddCommand extends UndoableCommand {
     private final Person toAdd;
 
     /**
-     * Creates an AddCommand to add the specified {@code ReadOnlyPerson}
+     * Creates an AddCommand to add the specified {@code Person}
      */
-    public AddCommand(ReadOnlyPerson person) {
+    public AddCommand(Person person) {
         toAdd = new Person(person);
     }
 
