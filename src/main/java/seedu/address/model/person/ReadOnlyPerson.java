@@ -2,9 +2,7 @@ package seedu.address.model.person;
 
 import java.util.Set;
 
-import javafx.beans.property.ObjectProperty;
 import seedu.address.model.tag.Tag;
-import seedu.address.model.tag.UniqueTagList;
 
 /**
  * A read-only immutable interface for a Person in the addressbook.
@@ -12,15 +10,10 @@ import seedu.address.model.tag.UniqueTagList;
  */
 public interface ReadOnlyPerson {
 
-    ObjectProperty<Name> nameProperty();
     Name getName();
-    ObjectProperty<Phone> phoneProperty();
     Phone getPhone();
-    ObjectProperty<Email> emailProperty();
     Email getEmail();
-    ObjectProperty<Address> addressProperty();
     Address getAddress();
-    ObjectProperty<UniqueTagList> tagProperty();
     Set<Tag> getTags();
 
     /**
