@@ -2,7 +2,7 @@ package seedu.address.testutil;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.AddressBook;
-import seedu.address.model.person.ReadOnlyPerson;
+import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.tag.Tag;
 
@@ -26,7 +26,7 @@ public class AddressBookBuilder {
     /**
      * Adds a new {@code Person} to the {@code AddressBook} that we are building.
      */
-    public AddressBookBuilder withPerson(ReadOnlyPerson person) {
+    public AddressBookBuilder withPerson(Person person) {
         try {
             addressBook.addPerson(person);
         } catch (DuplicatePersonException dpe) {
