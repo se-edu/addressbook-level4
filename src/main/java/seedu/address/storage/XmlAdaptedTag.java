@@ -20,6 +20,13 @@ public class XmlAdaptedTag {
     public XmlAdaptedTag() {}
 
     /**
+     * Constructs a {@code XmlAdaptedTag} with the given {@code tagName}.
+     */
+    public XmlAdaptedTag(String tagName) {
+        this.tagName = tagName;
+    }
+
+    /**
      * Converts a given Tag into this class for JAXB use.
      *
      * @param source future changes to this will not affect the created
@@ -34,6 +41,9 @@ public class XmlAdaptedTag {
      * @throws IllegalValueException if there were any data constraints violated in the adapted person
      */
     public Tag toModelType() throws IllegalValueException {
+        if (!Tag.isValidTagName(tagName)) {
+            throw new IllegalValueException(Tag.MESSAGE_TAG_CONSTRAINTS);
+        }
         return new Tag(tagName);
     }
 

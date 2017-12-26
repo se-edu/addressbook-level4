@@ -2,7 +2,6 @@ package seedu.address.testutil;
 
 import java.util.Set;
 
-import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -26,16 +25,12 @@ public class PersonBuilder {
     private Person person;
 
     public PersonBuilder() {
-        try {
-            Name defaultName = new Name(DEFAULT_NAME);
-            Phone defaultPhone = new Phone(DEFAULT_PHONE);
-            Email defaultEmail = new Email(DEFAULT_EMAIL);
-            Address defaultAddress = new Address(DEFAULT_ADDRESS);
-            Set<Tag> defaultTags = SampleDataUtil.getTagSet(DEFAULT_TAGS);
-            this.person = new Person(defaultName, defaultPhone, defaultEmail, defaultAddress, defaultTags);
-        } catch (IllegalValueException ive) {
-            throw new AssertionError("Default person's values are invalid.");
-        }
+        Name defaultName = new Name(DEFAULT_NAME);
+        Phone defaultPhone = new Phone(DEFAULT_PHONE);
+        Email defaultEmail = new Email(DEFAULT_EMAIL);
+        Address defaultAddress = new Address(DEFAULT_ADDRESS);
+        Set<Tag> defaultTags = SampleDataUtil.getTagSet(DEFAULT_TAGS);
+        this.person = new Person(defaultName, defaultPhone, defaultEmail, defaultAddress, defaultTags);
     }
 
     /**
@@ -49,11 +44,7 @@ public class PersonBuilder {
      * Sets the {@code Name} of the {@code Person} that we are building.
      */
     public PersonBuilder withName(String name) {
-        try {
-            this.person.setName(new Name(name));
-        } catch (IllegalValueException ive) {
-            throw new IllegalArgumentException("name is expected to be unique.");
-        }
+        this.person.setName(new Name(name));
         return this;
     }
 
@@ -61,11 +52,7 @@ public class PersonBuilder {
      * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Person} that we are building.
      */
     public PersonBuilder withTags(String ... tags) {
-        try {
-            this.person.setTags(SampleDataUtil.getTagSet(tags));
-        } catch (IllegalValueException ive) {
-            throw new IllegalArgumentException("tags are expected to be unique.");
-        }
+        this.person.setTags(SampleDataUtil.getTagSet(tags));
         return this;
     }
 
@@ -73,11 +60,7 @@ public class PersonBuilder {
      * Sets the {@code Address} of the {@code Person} that we are building.
      */
     public PersonBuilder withAddress(String address) {
-        try {
-            this.person.setAddress(new Address(address));
-        } catch (IllegalValueException ive) {
-            throw new IllegalArgumentException("address is expected to be unique.");
-        }
+        this.person.setAddress(new Address(address));
         return this;
     }
 
@@ -85,11 +68,7 @@ public class PersonBuilder {
      * Sets the {@code Phone} of the {@code Person} that we are building.
      */
     public PersonBuilder withPhone(String phone) {
-        try {
-            this.person.setPhone(new Phone(phone));
-        } catch (IllegalValueException ive) {
-            throw new IllegalArgumentException("phone is expected to be unique.");
-        }
+        this.person.setPhone(new Phone(phone));
         return this;
     }
 
@@ -97,11 +76,7 @@ public class PersonBuilder {
      * Sets the {@code Email} of the {@code Person} that we are building.
      */
     public PersonBuilder withEmail(String email) {
-        try {
-            this.person.setEmail(new Email(email));
-        } catch (IllegalValueException ive) {
-            throw new IllegalArgumentException("email is expected to be unique.");
-        }
+        this.person.setEmail(new Email(email));
         return this;
     }
 
