@@ -1,0 +1,36 @@
+# CircleCI configuration file
+# For more details see https://circleci.com/docs/2.0/
+
+version: 2
+jobs:
+  build:
+    docker:
+      - image: openjdk:8-jdk
+    working_directory: ~/project
+    steps:
+      - checkout
+      - run:
+          name: Setup environment variables
+          command: echo 'export TERM=dumb' >>"$BASH_ENV"
+      - restore_cache:
+          keys:
+            # Increment the version number e.g. v2-gradle-cache-...
+            # to force the caches to be "invalidated".
+            - v1-gradle-cache-{{ checksum "build.gradle" }}
+            - v1-gradle-cache-
+      - run:
+          name: Build documentation
+          command: ./gradlew clean asciidoctor
+      - store_artifacts:
+          path: ~/project/build/docs/html5
+          destination: docs
+      - run:
+          name: Cleanup for save_cache
+          command: >-
+            rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
+            rm -fr $HOME/.gradle/caches/*/plugin-resolution/
+      - save_cache:
+          key: v1-gradle-cache-{{ checksum "build.gradle" }}
+          paths:
+            - ~/.gradle/caches
+            - ~/.gradle/wrapper
