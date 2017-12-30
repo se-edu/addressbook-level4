@@ -728,6 +728,10 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 [appendix]
 == User Stories
 
+*Target user profile* : Has a need to manage a significant number of contacts using a desktop app. Can type fast. Prefers typing over mouse input. Experienced with CLI apps.
+
+*Value proposition*: Able to manage contacts faster than a typical mouse/GUI driven app.
+
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
 
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
