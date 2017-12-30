@@ -308,7 +308,7 @@ image::UndoRedoNewCommand3StackDiagram.png[width="800"]
 
 The following activity diagram summarize what happens inside the `UndoRedoStack` when a user executes a new command:
 
-image::UndoRedoActivityDiagram.png[width="200"]
+image::UndoRedoActivityDiagram.png[width="650"]
 
 ==== Design Considerations
 
