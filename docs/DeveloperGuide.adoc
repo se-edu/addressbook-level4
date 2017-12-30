@@ -815,3 +815,48 @@ Cons:
 
 * ...
 * ...
+
+[appendix]
+== Instructions for Manual Testing
+
+Given below are instructions to test the app manually.
+
+[NOTE]
+Note that these instructions are a starting point only; testers are expected to do more _exploratory_ testing.
+
+=== Launch and Shutdown
+
+. Initial launch
+
+.. Download the jar file and copy into an empty folder
+.. Double-click the jar file +
+   Expected: Shows the GUI with a set of sample contacts. The Window size may not be optimum.
+
+. Saving Window preference
+
+.. Resize the Window to an optimum size. Move the Window to a different location. Close the window.
+.. Re-launch the app by double-clicking the jar file. +
+   Expected: the most recent Window size and location is retained.
+
+_{ more test cases ... }_
+
+=== Deleting a person
+
+. Deleting a contact
+
+.. Command: `delete 1` +
+   Expected: first contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated
+.. Command: `delete 0` +
+   Expected: error message shown. no contact is deleted. status bar remains the same.
+.. Other incorrect delete commands to try: `delete`, `delete 45` _{give more}_ +
+   Expected: similar to previous
+
+_{ more test cases ... }_
+
+=== Saving data
+
+. Dealing with missing/corrupted data files
+
+.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
+
+_{ more test cases ... }_
