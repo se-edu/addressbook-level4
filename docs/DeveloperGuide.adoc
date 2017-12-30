@@ -734,6 +734,19 @@ We now have everything set up... but we still can't modify the remarks. Let's fi
 See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-by-step solution.
 
 [appendix]
+== Product Scope
+
+*Target user profile*:
+
+* has a need to manage a significant number of contacts
+* prefer desktop apps over other types
+* can type fast
+* prefers typing over mouse input
+* is reasonably comfortable using CLI apps
+
+*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+
+[appendix]
 == User Stories
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
