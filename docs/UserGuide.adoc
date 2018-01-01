@@ -46,7 +46,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 *Command Format*
 
-* Some commands may have an alias, which you can also use to execute the command e.g. for `add`, its alias is `a`, so you can either type `add n/John Doe` or `a n/John Doe`.
+* Some commands have an alias, which you can also use to execute the command e.g. to add a person to the address book, you can type either `add n/John Doe` or `a n/John Doe`.
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
 * Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
@@ -143,6 +143,7 @@ Deletes the 1st person in the results of the `find` command.
 === Selecting a person : `select`
 
 Selects the person identified by the index number used in the last person listing. +
+Alias: `s` +
 Format: `select INDEX`
 
 ****
