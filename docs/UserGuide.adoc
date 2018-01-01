@@ -142,7 +142,7 @@ Deletes the 1st person in the results of the `find` command.
 
 === Selecting a person : `select`
 
-Selects the person identified by the index number used in the last person listing. +
+Selects the person identified by the index number used in the displayed person list. +
 Alias: `s` +
 Format: `select INDEX`
 
