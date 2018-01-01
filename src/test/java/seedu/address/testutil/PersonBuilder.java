@@ -28,15 +28,11 @@ public class PersonBuilder {
     private Set<Tag> tags;
 
     public PersonBuilder() {
-        try {
-            name = new Name(DEFAULT_NAME);
-            phone = new Phone(DEFAULT_PHONE);
-            email = new Email(DEFAULT_EMAIL);
-            address = new Address(DEFAULT_ADDRESS);
-            tags = SampleDataUtil.getTagSet(DEFAULT_TAGS);
-        } catch (IllegalValueException ive) {
-            throw new AssertionError("Default person's values are invalid.");
-        }
+        name = new Name(DEFAULT_NAME);
+        phone = new Phone(DEFAULT_PHONE);
+        email = new Email(DEFAULT_EMAIL);
+        address = new Address(DEFAULT_ADDRESS);
+        tags = SampleDataUtil.getTagSet(DEFAULT_TAGS);
     }
 
     /**
@@ -54,11 +50,7 @@ public class PersonBuilder {
      * Sets the {@code Name} of the {@code Person} that we are building.
      */
     public PersonBuilder withName(String name) {
-        try {
-            this.name = new Name(name);
-        } catch (IllegalValueException ive) {
-            throw new IllegalArgumentException("name is expected to be unique.");
-        }
+        this.name = new Name(name);
         return this;
     }
 
@@ -66,11 +58,7 @@ public class PersonBuilder {
      * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Person} that we are building.
      */
     public PersonBuilder withTags(String ... tags) {
-        try {
-            this.tags = SampleDataUtil.getTagSet(tags);
-        } catch (IllegalValueException ive) {
-            throw new IllegalArgumentException("tags are expected to be unique.");
-        }
+        this.tags = SampleDataUtil.getTagSet(tags);
         return this;
     }
 
@@ -78,11 +66,7 @@ public class PersonBuilder {
      * Sets the {@code Address} of the {@code Person} that we are building.
      */
     public PersonBuilder withAddress(String address) {
-        try {
-            this.address = new Address(address);
-        } catch (IllegalValueException ive) {
-            throw new IllegalArgumentException("address is expected to be unique.");
-        }
+        this.address = new Address(address);
         return this;
     }
 
@@ -90,11 +74,7 @@ public class PersonBuilder {
      * Sets the {@code Phone} of the {@code Person} that we are building.
      */
     public PersonBuilder withPhone(String phone) {
-        try {
-            this.phone = new Phone(phone);
-        } catch (IllegalValueException ive) {
-            throw new IllegalArgumentException("phone is expected to be unique.");
-        }
+        this.phone = new Phone(phone);
         return this;
     }
 
@@ -102,11 +82,7 @@ public class PersonBuilder {
      * Sets the {@code Email} of the {@code Person} that we are building.
      */
     public PersonBuilder withEmail(String email) {
-        try {
-            this.email = new Email(email);
-        } catch (IllegalValueException ive) {
-            throw new IllegalArgumentException("email is expected to be unique.");
-        }
+        this.email = new Email(email);
         return this;
     }
 

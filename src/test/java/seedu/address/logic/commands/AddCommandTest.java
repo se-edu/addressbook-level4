@@ -157,7 +157,7 @@ public class AddCommandTest {
 
         @Override
         public void addPerson(Person person) throws DuplicatePersonException {
-            personsAdded.add(new Person(person));
+            personsAdded.add(person);
         }
 
         @Override

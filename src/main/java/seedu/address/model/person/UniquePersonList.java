@@ -5,8 +5,6 @@ import static java.util.Objects.requireNonNull;
 import java.util.Iterator;
 import java.util.List;
 
-import org.fxmisc.easybind.EasyBind;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.CollectionUtil;
@@ -24,8 +22,6 @@ import seedu.address.model.person.exceptions.PersonNotFoundException;
 public class UniquePersonList implements Iterable<Person> {
 
     private final ObservableList<Person> internalList = FXCollections.observableArrayList();
-    // used by asObservableList()
-    private final ObservableList<Person> mappedList = EasyBind.map(internalList, (person) -> person);
 
     /**
      * Returns true if the list contains an equivalent person as the given argument.
@@ -45,7 +41,7 @@ public class UniquePersonList implements Iterable<Person> {
         if (contains(toAdd)) {
             throw new DuplicatePersonException();
         }
-        internalList.add(new Person(toAdd));
+        internalList.add(toAdd);
     }
 
     /**
@@ -67,7 +63,7 @@ public class UniquePersonList implements Iterable<Person> {
             throw new DuplicatePersonException();
         }
 
-        internalList.set(index, new Person(editedPerson));
+        internalList.set(index, editedPerson);
     }
 
     /**
@@ -91,7 +87,7 @@ public class UniquePersonList implements Iterable<Person> {
     public void setPersons(List<Person> persons) throws DuplicatePersonException {
         final UniquePersonList replacement = new UniquePersonList();
         for (final Person person : persons) {
-            replacement.add(new Person(person));
+            replacement.add(person);
         }
         setPersons(replacement);
     }
@@ -100,7 +96,7 @@ public class UniquePersonList implements Iterable<Person> {
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
     public ObservableList<Person> asObservableList() {
-        return FXCollections.unmodifiableObservableList(mappedList);
+        return FXCollections.unmodifiableObservableList(internalList);
     }
 
     @Override

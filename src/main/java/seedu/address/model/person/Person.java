@@ -6,75 +6,48 @@ import java.util.Collections;
 import java.util.Objects;
 import java.util.Set;
 
-import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 
 /**
  * Represents a Person in the address book.
- * Guarantees: details are present and not null, field values are validated.
+ * Guarantees: details are present and not null, field values are validated, immutability.
  */
 public class Person {
 
-    private final ObjectProperty<Name> name;
-    private final ObjectProperty<Phone> phone;
-    private final ObjectProperty<Email> email;
-    private final ObjectProperty<Address> address;
+    private final Name name;
+    private final Phone phone;
+    private final Email email;
+    private final Address address;
 
-    private final ObjectProperty<UniqueTagList> tags;
+    private final UniqueTagList tags;
 
     /**
      * Every field must be present and not null.
      */
     public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
         requireAllNonNull(name, phone, email, address, tags);
-        this.name = new SimpleObjectProperty<>(name);
-        this.phone = new SimpleObjectProperty<>(phone);
-        this.email = new SimpleObjectProperty<>(email);
-        this.address = new SimpleObjectProperty<>(address);
-        // protect internal tags from changes in the arg list
-        this.tags = new SimpleObjectProperty<>(new UniqueTagList(tags));
-    }
-
-    /**
-     * Creates a copy of the given Person.
-     */
-    public Person(Person source) {
-        this(source.getName(), source.getPhone(), source.getEmail(), source.getAddress(),
-                source.getTags());
-    }
-
-    public ObjectProperty<Name> nameProperty() {
-        return name;
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.address = address;
+        this.tags = new UniqueTagList(tags);
     }
 
     public Name getName() {
-        return name.get();
-    }
-
-    public ObjectProperty<Phone> phoneProperty() {
-        return phone;
+        return name;
     }
 
     public Phone getPhone() {
-        return phone.get();
-    }
-
-    public ObjectProperty<Email> emailProperty() {
-        return email;
+        return phone;
     }
 
     public Email getEmail() {
-        return email.get();
-    }
-
-    public ObjectProperty<Address> addressProperty() {
-        return address;
+        return email;
     }
 
     public Address getAddress() {
-        return address.get();
+        return address;
     }
 
     /**
@@ -82,11 +55,7 @@ public class Person {
      * if modification is attempted.
      */
     public Set<Tag> getTags() {
-        return Collections.unmodifiableSet(tags.get().toSet());
-    }
-
-    public ObjectProperty<UniqueTagList> tagProperty() {
-        return tags;
+        return Collections.unmodifiableSet(tags.toSet());
     }
 
     @Override
