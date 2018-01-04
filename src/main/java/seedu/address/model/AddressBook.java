@@ -111,7 +111,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         // TODO: the tags master list will be updated even though the below line fails.
         // This can cause the tags master list to have additional tags that are not tagged to any person
         // in the person list.
-        persons.setPerson(target, editedPerson);
+        persons.setPerson(target, syncedEditedPerson);
         removeUnusedTags();
     }
 
@@ -134,7 +134,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Returns true if any {@code Person} in {@code persons} is using {@code tag}.
      */
     private boolean isTagUsed(Tag tag) {
-        for (ReadOnlyPerson person : persons) {
+        for (Person person : persons) {
             if (person.getTags().contains(tag)) {
                 return true;
             }
@@ -186,7 +186,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Removes {@code tag} from {@code person} in this {@code AddressBook}.
      * @throws PersonNotFoundException if the {@code person} is not in this {@code AddressBook}.
      */
-    private void removeTagFromPerson(Tag tag, ReadOnlyPerson person) throws PersonNotFoundException {
+    private void removeTagFromPerson(Tag tag, Person person) throws PersonNotFoundException {
         Set<Tag> newTags = new HashSet<>(person.getTags());
 
         if (newTags.remove(tag)) {
@@ -207,7 +207,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void removeTag(Tag tag) {
         try {
-            for (ReadOnlyPerson person : persons) {
+            for (Person person : persons) {
                 removeTagFromPerson(tag, person);
             }
         } catch (PersonNotFoundException pnfe) {
