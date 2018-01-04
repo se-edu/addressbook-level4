@@ -210,6 +210,19 @@ public class AddressBook implements ReadOnlyAddressBook {
         }
     }
 
+    /**
+     * Removes {@code tag} in this {@code AddressBook}.
+     */
+    public void removeTag(Tag tag) {
+        try {
+            for (ReadOnlyPerson person : persons) {
+                removeTagFromPerson(tag, person);
+            }
+        } catch (PersonNotFoundException pnfe) {
+            throw new AssertionError("Impossible: original person is obtained from the address book.");
+        }
+    }
+
     //// util methods
 
     @Override
