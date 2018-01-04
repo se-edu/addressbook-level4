@@ -2,13 +2,16 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
+import seedu.address.model.tag.Tag;
 
 /**
  * Wraps all data at the address-book level
@@ -80,44 +83,7 @@ public class AddressBook implements ReadOnlyAddressBook {
             throws DuplicatePersonException, PersonNotFoundException {
         requireNonNull(editedPerson);
 
-        Person syncedEditedPerson = syncWithMasterTagList(editedPerson);
-        // TODO: the tags master list will be updated even though the below line fails.
-        // This can cause the tags master list to have additional tags that are not tagged to any person
-        // in the person list.
-        persons.setPerson(target, syncedEditedPerson);
-        removeUnusedTags();
-    }
-
-    /**
-     * Removes all {@code Tag}s that are not used by any {@code Person} in this {@code AddressBook}.
-     */
-    private void removeUnusedTags() {
-        Set<Tag> tagsInPersons = persons.asObservableList().stream()
-                .map(Person::getTags)
-                .flatMap(Set::stream)
-                .collect(Collectors.toSet());
-        tags.setTags(tagsInPersons);
-    }
-
-    /**
-     *  Updates the master tag list to include tags in {@code person} that are not in the list.
-     *  @return a copy of this {@code person} such that every tag in this person points to a Tag object in the master
-     *  list.
-     */
-    private Person syncWithMasterTagList(Person person) {
-        final UniqueTagList personTags = new UniqueTagList(person.getTags());
-        tags.mergeFrom(personTags);
-
-        // Create map with values = tag object references in the master list
-        // used for checking person tag references
-        final Map<Tag, Tag> masterTagObjects = new HashMap<>();
-        tags.forEach(tag -> masterTagObjects.put(tag, tag));
-
-        // Rebuild the list of person tags to point to the relevant tags in the master tag list.
-        final Set<Tag> correctTagReferences = new HashSet<>();
-        personTags.forEach(tag -> correctTagReferences.add(masterTagObjects.get(tag)));
-        return new Person(
-                person.getName(), person.getPhone(), person.getEmail(), person.getAddress(), correctTagReferences);
+        persons.setPerson(target, editedPerson);
     }
 
     /**

@@ -84,7 +84,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void deleteTag(Tag tag) {
-        addressBook.removeTag(tag);
+        versionedAddressBook.removeTag(tag);
     }
 
     //=========== Filtered Person List Accessors =============================================================

@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import static org.junit.Assert.assertEquals;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_UNUSED;
@@ -68,22 +69,6 @@ public class AddressBookTest {
     public void getPersonList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
         addressBook.getPersonList().remove(0);
-    }
-
-    @Test
-    public void getTagList_modifyList_throwsUnsupportedOperationException() {
-        thrown.expect(UnsupportedOperationException.class);
-        addressBook.getTagList().remove(0);
-    }
-
-    @Test
-    public void updatePerson_detailsChanged_personsAndTagsListUpdated() throws Exception {
-        AddressBook addressBookUpdatedToAmy = new AddressBookBuilder().withPerson(BOB).build();
-        addressBookUpdatedToAmy.updatePerson(BOB, AMY);
-
-        AddressBook expectedAddressBook = new AddressBookBuilder().withPerson(AMY).build();
-
-        assertEquals(expectedAddressBook, addressBookUpdatedToAmy);
     }
 
     @Test
