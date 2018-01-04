@@ -6,6 +6,7 @@ import javafx.collections.ObservableList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
+import seedu.address.model.tag.Tag;
 
 /**
  * The API of the Model component.
@@ -45,28 +46,6 @@ public interface Model {
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
 
-    /**
-     * Returns true if the model has previous address book states to restore.
-     */
-    boolean canUndoAddressBook();
-
-    /**
-     * Returns true if the model has undone address book states to restore.
-     */
-    boolean canRedoAddressBook();
-
-    /**
-     * Restores the model's address book to its previous state.
-     */
-    void undoAddressBook();
-
-    /**
-     * Restores the model's address book to its previously undone state.
-     */
-    void redoAddressBook();
-
-    /**
-     * Saves the current address book state for undo/redo.
-     */
-    void commitAddressBook();
+    /** Removes the given {@code tag} from all {@code Person}s. */
+    void deleteTag(Tag tag);
 }
