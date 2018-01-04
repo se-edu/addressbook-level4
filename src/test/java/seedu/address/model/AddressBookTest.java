@@ -1,6 +1,9 @@
 package seedu.address.model;
 
 import static org.junit.Assert.assertEquals;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_UNUSED;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.AMY;
 import static seedu.address.testutil.TypicalPersons.BOB;
@@ -22,6 +25,7 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.AddressBookBuilder;
+import seedu.address.testutil.PersonBuilder;
 
 public class AddressBookTest {
 
@@ -78,6 +82,29 @@ public class AddressBookTest {
         addressBook.updatePerson(BOB, AMY);
 
         AddressBook expectedAddressBook = new AddressBookBuilder().withPerson(AMY).build();
+
+        assertEquals(expectedAddressBook, addressBook);
+    }
+
+    @Test
+    public void removeTagFromPerson_nonExistentTag_samePerson() throws Exception {
+        addressBook.addPerson(AMY);
+        addressBook.removeTagFromPerson(new Tag(VALID_TAG_UNUSED), AMY);
+
+        AddressBook expectedAddressBook = new AddressBookBuilder().withPerson(AMY).build();
+
+        assertEquals(expectedAddressBook, addressBook);
+    }
+
+    @Test
+    public void removeTagFromPerson_tagUsedByMultiplePersons_personUpdated() throws Exception {
+        addressBook.addPerson(AMY);
+        addressBook.addPerson(BOB);
+        addressBook.removeTagFromPerson(new Tag(VALID_TAG_FRIEND), BOB);
+
+        Person bobWithoutFriendTag = new PersonBuilder(BOB).withTags(VALID_TAG_HUSBAND).build();
+        AddressBook expectedAddressBook = new AddressBookBuilder().withPerson(AMY).withPerson(bobWithoutFriendTag)
+                .build();
 
         assertEquals(expectedAddressBook, addressBook);
     }
