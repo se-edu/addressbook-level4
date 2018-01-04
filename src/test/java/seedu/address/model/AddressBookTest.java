@@ -1,6 +1,9 @@
 package seedu.address.model;
 
 import static org.junit.Assert.assertEquals;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_UNUSED;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.AMY;
 import static seedu.address.testutil.TypicalPersons.BOB;
@@ -20,8 +23,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.ReadOnlyPerson;
+import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.model.tag.Tag;
 import seedu.address.testutil.AddressBookBuilder;
+import seedu.address.testutil.PersonBuilder;
 
 public class AddressBookTest {
 
@@ -29,6 +34,9 @@ public class AddressBookTest {
     public ExpectedException thrown = ExpectedException.none();
 
     private final AddressBook addressBook = new AddressBook();
+    private final AddressBook addressBookWithAmy = new AddressBookBuilder().withPerson(AMY).build();
+    private final AddressBook addressBookWithBobAndAmy = new AddressBookBuilder().withPerson(BOB)
+            .withPerson(AMY).build();
 
     @Test
     public void constructor() {
@@ -80,6 +88,32 @@ public class AddressBookTest {
         AddressBook expectedAddressBook = new AddressBookBuilder().withPerson(AMY).build();
 
         assertEquals(expectedAddressBook, addressBookWithBob);
+    }
+
+    @Test
+    public void removeTagFromPerson_nonExistentPerson_throwsPersonNotFoundException() throws Exception {
+        thrown.expect(PersonNotFoundException.class);
+        addressBookWithAmy.removeTagFromPerson(new Tag(VALID_TAG_FRIEND), BOB);
+    }
+
+    @Test
+    public void removeTagFromPerson_nonExistentTag_samePerson() throws Exception {
+        addressBookWithAmy.removeTagFromPerson(new Tag(VALID_TAG_UNUSED), AMY);
+
+        AddressBook expectedAddressBook = new AddressBookBuilder().withPerson(AMY).build();
+
+        assertEquals(expectedAddressBook, addressBookWithAmy);
+    }
+
+    @Test
+    public void removeTagFromPerson_tagUsedByMultiplePersons_personUpdated() throws Exception {
+        addressBookWithBobAndAmy.removeTagFromPerson(new Tag(VALID_TAG_FRIEND), BOB);
+
+        Person bobWithoutFriendTag = new PersonBuilder(BOB).withTags(VALID_TAG_HUSBAND).build();
+        AddressBook expectedAddressBook = new AddressBookBuilder().withPerson(bobWithoutFriendTag).withPerson(AMY)
+                .build();
+
+        assertEquals(expectedAddressBook, addressBookWithBobAndAmy);
     }
 
     /**
