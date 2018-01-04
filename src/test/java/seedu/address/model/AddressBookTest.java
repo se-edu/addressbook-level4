@@ -116,6 +116,28 @@ public class AddressBookTest {
         assertEquals(expectedAddressBook, addressBookWithBobAndAmy);
     }
 
+    @Test
+    public void removeTag_nonExistentTag_sameAddressBook() throws Exception {
+        addressBookWithBobAndAmy.removeTag(new Tag(VALID_TAG_UNUSED));
+
+        AddressBook expectedAddressBook = new AddressBookBuilder().withPerson(BOB).withPerson(AMY).build();
+
+        assertEquals(expectedAddressBook, addressBookWithBobAndAmy);
+    }
+
+    @Test
+    public void removeTag_tagUsedByMultiplePersons_tagRemoved() throws Exception {
+        addressBookWithBobAndAmy.removeTag(new Tag(VALID_TAG_FRIEND));
+
+        Person amyWithoutFriendTag = new PersonBuilder(AMY).withTags().build();
+        Person bobWithoutFriendTag = new PersonBuilder(BOB).withTags(VALID_TAG_HUSBAND).build();
+
+        AddressBook expectedAddressBook = new AddressBookBuilder().withPerson(bobWithoutFriendTag)
+                .withPerson(amyWithoutFriendTag).build();
+
+        assertEquals(expectedAddressBook, addressBookWithBobAndAmy);
+    }
+
     /**
      * A stub ReadOnlyAddressBook whose persons and tags lists can violate interface constraints.
      */
