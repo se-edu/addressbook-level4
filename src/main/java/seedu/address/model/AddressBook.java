@@ -100,9 +100,8 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     /**
      * Removes {@code tag} from {@code person} in this {@code AddressBook}.
-     * @throws PersonNotFoundException if the {@code person} is not in this {@code AddressBook}.
      */
-    private void removeTagFromPerson(Tag tag, Person person) throws PersonNotFoundException {
+    private void removeTagFromPerson(Tag tag, Person person) {
         Set<Tag> newTags = new HashSet<>(person.getTags());
 
         if (!newTags.remove(tag)) {
@@ -117,6 +116,8 @@ public class AddressBook implements ReadOnlyAddressBook {
         } catch (DuplicatePersonException dpe) {
             throw new AssertionError("Modifying a person's tags only should not result in a duplicate. "
                     + "See Person#equals(Object).");
+        } catch (PersonNotFoundException pnfe) {
+            throw new AssertionError("Original person must be obtained from the address book.");
         }
     }
 
@@ -124,12 +125,8 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Removes {@code tag} from all persons in this {@code AddressBook}.
      */
     public void removeTag(Tag tag) {
-        try {
-            for (Person person : persons) {
-                removeTagFromPerson(tag, person);
-            }
-        } catch (PersonNotFoundException pnfe) {
-            throw new AssertionError("Impossible: original person is obtained from the address book.");
+        for (Person person : persons) {
+            removeTagFromPerson(tag, person);
         }
     }
 
