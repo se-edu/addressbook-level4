@@ -9,8 +9,6 @@ import java.util.Set;
 import javafx.collections.ObservableList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
-import seedu.address.model.person.exceptions.DuplicatePersonException;
-import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -111,23 +109,14 @@ public class AddressBook implements ReadOnlyAddressBook {
         Person newPerson =
                 new Person(person.getName(), person.getPhone(), person.getEmail(), person.getAddress(), newTags);
 
-        try {
-            updatePerson(person, newPerson);
-        } catch (DuplicatePersonException dpe) {
-            throw new AssertionError("Modifying a person's tags only should not result in a duplicate. "
-                    + "See Person#equals(Object).");
-        } catch (PersonNotFoundException pnfe) {
-            throw new AssertionError("Original person must be obtained from the address book.");
-        }
+        updatePerson(person, newPerson);
     }
 
     /**
      * Removes {@code tag} from all persons in this {@code AddressBook}.
      */
     public void removeTag(Tag tag) {
-        for (Person person : persons) {
-            removeTagFromPerson(tag, person);
-        }
+        persons.forEach(person -> removeTagFromPerson(tag, person));
     }
 
     //// util methods
