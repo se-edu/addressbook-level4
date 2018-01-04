@@ -312,45 +312,52 @@ image::UndoRedoActivityDiagram.png[width="650"]
 
 ==== Design Considerations
 
-**Aspect:** Implementation of `UndoableCommand` +
-**Alternative 1 (current choice):** Add a new abstract method `executeUndoableCommand()` +
-**Pros:** We will not lose any undone/redone functionality as it is now part of the default behaviour. Classes that deal with `Command` do not have to know that `executeUndoableCommand()` exist. +
-**Cons:** Hard for new developers to understand the template pattern. +
-**Alternative 2:** Just override `execute()` +
-**Pros:** Does not involve the template pattern, easier for new developers to understand. +
-**Cons:** Classes that inherit from `UndoableCommand` must remember to call `super.execute()`, or lose the ability to undo/redo.
+===== Aspect: Implementation of `UndoableCommand`
 
----
+* **Alternative 1 (current choice):** Add a new abstract method `executeUndoableCommand()`
+** Pros: We will not lose any undone/redone functionality as it is now part of the default behaviour. Classes that deal with `Command` do not have to know that `executeUndoableCommand()` exist.
+** Cons: Hard for new developers to understand the template pattern.
+* **Alternative 2:** Just override `execute()`
+** Pros: Does not involve the template pattern, easier for new developers to understand.
+** Cons: Classes that inherit from `UndoableCommand` must remember to call `super.execute()`, or lose the ability to undo/redo.
 
-**Aspect:** How undo & redo executes +
-**Alternative 1 (current choice):** Saves the entire address book. +
-**Pros:** Easy to implement. +
-**Cons:** May have performance issues in terms of memory usage. +
-**Alternative 2:** Individual command knows how to undo/redo by itself. +
-**Pros:** Will use less memory (e.g. for `delete`, just save the person being deleted). +
-**Cons:** We must ensure that the implementation of each individual command are correct.
+===== Aspect: How undo & redo executes
 
----
+* **Alternative 1 (current choice):** Saves the entire address book.
+** Pros: Easy to implement.
+** Cons: May have performance issues in terms of memory usage.
+* **Alternative 2:** Individual command knows how to undo/redo by itself.
+** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
+** Cons: We must ensure that the implementation of each individual command are correct.
 
-**Aspect:** Type of commands that can be undone/redone +
-**Alternative 1 (current choice):** Only include commands that modifies the address book (`add`, `clear`, `edit`). +
-**Pros:** We only revert changes that are hard to change back (the view can easily be re-modified as no data are lost). +
-**Cons:** User might think that undo also applies when the list is modified (undoing filtering for example), only to realize that it does not do that, after executing `undo`. +
-**Alternative 2:** Include all commands. +
-**Pros:** Might be more intuitive for the user. +
-**Cons:** User have no way of skipping such commands if he or she just want to reset the state of the address book and not the view. +
+
+===== Aspect: Type of commands that can be undone/redone
+
+* **Alternative 1 (current choice):** Only include commands that modifies the address book (`add`, `clear`, `edit`).
+** Pros: We only revert changes that are hard to change back (the view can easily be re-modified as no data are * lost).
+** Cons: User might think that undo also applies when the list is modified (undoing filtering for example), * only to realize that it does not do that, after executing `undo`.
+* **Alternative 2:** Include all commands.
+** Pros: Might be more intuitive for the user.
+** Cons: User have no way of skipping such commands if he or she just want to reset the state of the address * book and not the view.
 **Additional Info:** See our discussion  https://github.com/se-edu/addressbook-level4/issues/390#issuecomment-298936672[here].
 
----
 
-**Aspect:** Data structure to support the undo/redo commands +
-**Alternative 1 (current choice):** Use separate stack for undo and redo +
-**Pros:** Easy to understand for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project. +
-**Cons:** Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `UndoRedoStack`. +
-**Alternative 2:** Use `HistoryManager` for undo/redo +
-**Pros:** We do not need to maintain a separate stack, and just reuse what is already in the codebase. +
-**Cons:** Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things. +
+===== Aspect: Data structure to support the undo/redo commands
+
+* **Alternative 1 (current choice):** Use separate stack for undo and redo
+** Pros: Easy to understand for new Computer Science student undergraduates to understand, who are likely to be * the new incoming developers of our project.
+** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update * both `HistoryManager` and `UndoRedoStack`.
+* **Alternative 2:** Use `HistoryManager` for undo/redo
+** Pros: We do not need to maintain a separate stack, and just reuse what is already in the codebase.
+** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two * different things.
 // end::undoredo[]
+
+// tag::dataencryption[]
+=== [Proposed] Data Encryption
+
+_{Explain here how the data encryption feature will be implemented}_
+
+// end::dataencryption[]
 
 === Logging
 
@@ -746,7 +753,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`*` |user with many persons in the address book |sort persons by name |locate a person easily
 |=======================================================================
 
-{More to be added}
+_{More to be added}_
 
 [appendix]
 == Use Cases
@@ -779,7 +786,7 @@ Use case ends.
 +
 Use case resumes at step 2.
 
-{More to be added}
+_{More to be added}_
 
 [appendix]
 == Non Functional Requirements
@@ -788,7 +795,7 @@ Use case resumes at step 2.
 .  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 
-{More to be added}
+_{More to be added}_
 
 [appendix]
 == Glossary
