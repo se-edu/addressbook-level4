@@ -119,28 +119,11 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Removes all {@code Tag}s that are not used by any {@code Person} in this {@code AddressBook}.
      */
     private void removeUnusedTags() {
-        Set<Tag> tagsInUse = new HashSet<>();
-
-        for (Tag tag : tags) {
-            if (isTagUsed(tag)) {
-                tagsInUse.add(tag);
-            }
-        }
-
-        tags.setTags(tagsInUse);
-    }
-
-    /**
-     * Returns true if any {@code Person} in {@code persons} is using {@code tag}.
-     */
-    private boolean isTagUsed(Tag tag) {
-        for (Person person : persons) {
-            if (person.getTags().contains(tag)) {
-                return true;
-            }
-        }
-
-        return false;
+        Set<Tag> tagsInPersons = persons.asObservableList().stream()
+                .map(Person::getTags)
+                .flatMap(Set::stream)
+                .collect(Collectors.toSet());
+        tags.setTags(tagsInPersons);
     }
 
     /**
@@ -190,8 +173,8 @@ public class AddressBook implements ReadOnlyAddressBook {
         Set<Tag> newTags = new HashSet<>(person.getTags());
 
         if (newTags.remove(tag)) {
-            Person newPerson = new Person(person.getName(), person.getPhone(), person.getEmail(), person.getAddress(),
-                    newTags);
+            Person newPerson =
+                    new Person(person.getName(), person.getPhone(), person.getEmail(), person.getAddress(), newTags);
 
             try {
                 updatePerson(person, newPerson);
@@ -203,7 +186,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Removes {@code tag} in this {@code AddressBook}.
+     * Removes {@code tag} from all persons in this {@code AddressBook}.
      */
     public void removeTag(Tag tag) {
         try {
