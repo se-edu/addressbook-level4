@@ -36,14 +36,14 @@ public class ModelManagerTest {
     }
 
     @Test
-    public void deleteTag_nonExistentTag_sameAddressBook() throws Exception {
+    public void deleteTag_nonExistentTag_modelUnchanged() throws Exception {
         AddressBook addressBook = new AddressBookBuilder().withPerson(AMY).withPerson(BOB).build();
         UserPrefs userPrefs = new UserPrefs();
 
         ModelManager modelManager = new ModelManager(addressBook, userPrefs);
         modelManager.deleteTag(new Tag(VALID_TAG_UNUSED));
 
-        assertEquals(modelManager, new ModelManager(addressBook, userPrefs));
+        assertEquals(new ModelManager(addressBook, userPrefs), modelManager);
     }
 
     @Test
@@ -60,7 +60,7 @@ public class ModelManagerTest {
         AddressBook expectedAddressBook = new AddressBookBuilder().withPerson(amyWithoutFriendTag)
                 .withPerson(bobWithoutFriendTag).build();
 
-        assertEquals(modelManager, new ModelManager(expectedAddressBook, userPrefs));
+        assertEquals(new ModelManager(expectedAddressBook, userPrefs), modelManager);
     }
 
     @Test

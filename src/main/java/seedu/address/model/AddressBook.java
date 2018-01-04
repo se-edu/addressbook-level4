@@ -119,19 +119,19 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Removes all {@code Tag}s that are not used by any {@code Person} in this {@code AddressBook}.
      */
     private void removeUnusedTags() {
-        Set<Tag> tagsInUse = new HashSet<Tag>();
+        Set<Tag> tagsInUse = new HashSet<>();
 
-        tags.forEach(tag -> {
+        for (Tag tag : tags) {
             if (isTagUsed(tag)) {
                 tagsInUse.add(tag);
             }
-        });
+        }
 
         tags.setTags(tagsInUse);
     }
 
     /**
-     * Returns whether any {@code Person} in this {@code AddressBook} is still using {@code tag}.
+     * Returns true if any {@code Person} in {@code persons} is using {@code tag}.
      */
     private boolean isTagUsed(Tag tag) {
         for (ReadOnlyPerson person : persons) {
@@ -193,26 +193,33 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     /**
      * Removes {@code tag} from {@code person} in this {@code AddressBook}.
-     * @throws DuplicatePersonException if removing the tag causes the {@code person} to be equivalent to another
-     *      existing person in the list.
      * @throws PersonNotFoundException if the {@code person} is not in this {@code AddressBook}.
      */
-    public void removeTagFromPerson(Tag tag, ReadOnlyPerson person) throws DuplicatePersonException,
-            PersonNotFoundException {
+    public void removeTagFromPerson(Tag tag, ReadOnlyPerson person) throws PersonNotFoundException {
         Set<Tag> newTags = new HashSet<>(person.getTags());
-        newTags.remove(tag);
 
-        Person newPerson = new Person(person.getName(), person.getPhone(), person.getEmail(), person.getAddress(),
-                newTags);
-        updatePerson(person, newPerson);
+        if (newTags.remove(tag)) {
+            Person newPerson = new Person(person.getName(), person.getPhone(), person.getEmail(), person.getAddress(),
+                    newTags);
+
+            try {
+                updatePerson(person, newPerson);
+            } catch (DuplicatePersonException dpe) {
+                throw new AssertionError("Modifying a person's tags only should not result in a duplicate.");
+            }
+        }
     }
 
     /**
      * Removes {@code tag} in this {@code AddressBook}.
      */
-    public void removeTag(Tag tag) throws DuplicatePersonException, PersonNotFoundException {
-        for (ReadOnlyPerson person : persons) {
-            removeTagFromPerson(tag, person);
+    public void removeTag(Tag tag) {
+        try {
+            for (ReadOnlyPerson person : persons) {
+                removeTagFromPerson(tag, person);
+            }
+        } catch (PersonNotFoundException pnfe) {
+            throw new AssertionError("Impossible: original person is obtained from the address book.");
         }
     }
 
