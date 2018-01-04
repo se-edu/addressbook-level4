@@ -112,6 +112,35 @@ public class AddressBook implements ReadOnlyAddressBook {
         // This can cause the tags master list to have additional tags that are not tagged to any person
         // in the person list.
         persons.setPerson(target, editedPerson);
+        removeUnusedTags();
+    }
+
+    /**
+     * Removes all {@code Tag}s that are not used by any {@code Person} in this {@code AddressBook}.
+     */
+    private void removeUnusedTags() {
+        Set<Tag> tagsInUse = new HashSet<Tag>();
+
+        tags.forEach(tag -> {
+            if (isTagUsed(tag)) {
+                tagsInUse.add(tag);
+            }
+        });
+
+        tags.setTags(tagsInUse);
+    }
+
+    /**
+     * Returns whether any {@code Person} in this {@code AddressBook} is still using {@code tag}.
+     */
+    private boolean isTagUsed(Tag tag) {
+        for (ReadOnlyPerson person : persons) {
+            if (person.getTags().contains(tag)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**
