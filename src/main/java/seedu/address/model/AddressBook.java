@@ -207,6 +207,15 @@ public class AddressBook implements ReadOnlyAddressBook {
         updatePerson(person, newPerson);
     }
 
+    /**
+     * Removes {@code tag} in this {@code AddressBook}.
+     */
+    public void removeTag(Tag tag) throws DuplicatePersonException, PersonNotFoundException {
+        for (ReadOnlyPerson person : persons) {
+            removeTagFromPerson(tag, person);
+        }
+    }
+
     //// util methods
 
     @Override
