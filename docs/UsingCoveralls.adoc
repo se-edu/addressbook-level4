@@ -11,11 +11,7 @@ Currently, Coveralls supports Travis CI and not AppVeyor as of yet.
 == Setting up Coveralls
 
 .  Fork the repo to your own organization.
-.  Go to https://coveralls.io/ and click `SIGN IN`.
-+
-image:coveralls/signing_in_1.png[Sign in]
-+
-Then click on `GITHUB SIGN IN` and enter your GitHub account details if needed.
+.  Go to https://coveralls.io/ and click `SIGN IN`. Then click on `GITHUB SIGN IN` and enter your GitHub account details if needed.
 +
 image:coveralls/signing_in_2.png[GitHub sign in]
 +
@@ -77,8 +73,6 @@ Copy and paste the asciidoc code to your `README.adoc` file at the top ensuring 
 .  You can now see the coverage report for your project after each Travis build by clicking on the coverage badge.
 +
 image:coveralls/coverage_report_1.png[Coverage Report Summary]
-+
-image:coveralls/coverage_report_2.png[Coverage Details]
 
 == Disabling Coveralls Automatic Comments on Pull Requests
 
@@ -86,8 +80,6 @@ Coveralls automatically comments on the coverage status of the pull requests in 
 
 .  Click on `Settings`.
 +
-image:coveralls/project_settings.png[Project settings]
-+
-.  Then click on checkbox beside `LEAVE COMMENTS?` to disable it.
+.  Click on checkbox beside `LEAVE COMMENTS?` to disable it. Then click on `SAVE CHANGES`.
 +
 image:coveralls/disable_comments.png[Disable comments]
