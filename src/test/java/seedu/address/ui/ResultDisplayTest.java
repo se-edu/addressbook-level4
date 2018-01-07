@@ -20,8 +20,8 @@ public class ResultDisplayTest extends GuiUnitTest {
     private static final NewResultAvailableEvent NEW_RESULT_FAILURE_EVENT_STUB =
             new NewResultAvailableEvent("failure", false);
 
-    private ArrayList<String> defaultStyleOfResultDisplay;
-    private ArrayList<String> errorStyleOfResultDisplay;
+    private List<String> defaultStyleOfResultDisplay;
+    private List<String> errorStyleOfResultDisplay;
 
     private ResultDisplayHandle resultDisplayHandle;
 
@@ -53,8 +53,8 @@ public class ResultDisplayTest extends GuiUnitTest {
 
     /**
      * Posts the {@code event} to the {@code EventsCenter}, then verifies that <br>
-     *      - the text matches the event message <br>
-     *      - the result display's style is the same as {@code defaultStyleOfResultDisplay} for successful message,
+     *      - the text on the result display matches the {@code event}'s message <br>
+     *      - the result display's style is the same as {@code defaultStyleOfResultDisplay} if event is successful,
      *        {@code errorStyleOfResultDisplay} otherwise.
      */
     private void assertResultDisplay(NewResultAvailableEvent event) {

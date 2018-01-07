@@ -42,7 +42,7 @@ public class ResultDisplay extends UiPart<Region> {
             displayed.setValue(event.message);
 
             if (event.isSuccessful) {
-                setStyleToDefault();
+                setStyleToIndicateCommandSuccess();
             } else {
                 setStyleToIndicateCommandFailure();
             }
@@ -52,7 +52,7 @@ public class ResultDisplay extends UiPart<Region> {
     /**
      * Sets the {@code ResultDisplay} style to use the default style.
      */
-    private void setStyleToDefault() {
+    private void setStyleToIndicateCommandSuccess() {
         resultDisplay.getStyleClass().remove(ERROR_STYLE_CLASS);
     }
 

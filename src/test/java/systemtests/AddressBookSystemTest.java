@@ -55,10 +55,8 @@ public abstract class AddressBookSystemTest {
     private static final List<String> COMMAND_BOX_ERROR_STYLE =
             Arrays.asList("text-input", "text-field", CommandBox.ERROR_STYLE_CLASS);
 
-    private static final List<String> RESULT_DISPLAY_DEFAULT_STYLE =
-            Arrays.asList("text-input", "text-area", "result-display");
-    private static final List<String> RESULT_DISPLAY_ERROR_STYLE =
-            Arrays.asList("text-input", "text-area", "result-display", ResultDisplay.ERROR_STYLE_CLASS);
+    private List<String> defaultStyleOfResultDisplay;
+    private List<String> errorStyleOfResultDisplay;
 
     private MainWindowHandle mainWindowHandle;
     private TestApp testApp;
@@ -74,6 +72,11 @@ public abstract class AddressBookSystemTest {
         setupHelper = new SystemTestSetupHelper();
         testApp = setupHelper.setupApplication(this::getInitialData, getDataFileLocation());
         mainWindowHandle = setupHelper.setupMainWindowHandle();
+
+        defaultStyleOfResultDisplay = mainWindowHandle.getResultDisplay().getStyleClass();
+
+        errorStyleOfResultDisplay = mainWindowHandle.getResultDisplay().getStyleClass();
+        errorStyleOfResultDisplay.add(ResultDisplay.ERROR_STYLE_CLASS);
 
         waitUntilBrowserLoaded(getBrowserPanel());
         assertApplicationStartingStateIsCorrect();
@@ -245,7 +248,7 @@ public abstract class AddressBookSystemTest {
      */
     protected void assertCommandBoxAndResultDisplayShowsDefaultStyle() {
         assertEquals(COMMAND_BOX_DEFAULT_STYLE, getCommandBox().getStyleClass());
-        assertEquals(RESULT_DISPLAY_DEFAULT_STYLE, getResultDisplay().getStyleClass());
+        assertEquals(defaultStyleOfResultDisplay, getResultDisplay().getStyleClass());
     }
 
     /**
@@ -253,7 +256,7 @@ public abstract class AddressBookSystemTest {
      */
     protected void assertCommandBoxAndResultDisplayShowsErrorStyle() {
         assertEquals(COMMAND_BOX_ERROR_STYLE, getCommandBox().getStyleClass());
-        assertEquals(RESULT_DISPLAY_ERROR_STYLE, getResultDisplay().getStyleClass());
+        assertEquals(errorStyleOfResultDisplay, getResultDisplay().getStyleClass());
     }
 
     /**
