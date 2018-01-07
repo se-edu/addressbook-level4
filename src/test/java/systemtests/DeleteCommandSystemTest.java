@@ -174,7 +174,7 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
         }
 
         assertCommandBoxShowsDefaultStyle();
-        assertStatusBarUnchangedExceptSyncStatus();
+        assertStatusBarUnchangedExceptSyncStatusAndTotalPersons(expectedModel.getAddressBook().getPersonList().size());
     }
 
     /**
