@@ -263,29 +263,31 @@ public abstract class AddressBookSystemTest {
 
     /**
      * Asserts that only the sync status in the status bar was changed to the timing of
-     * {@code ClockRule#getInjectedClock()}, while the save location remains the same.
+     * {@code ClockRule#getInjectedClock()}, while the save location and the total person
+     * list remains the same.
      */
     protected void assertStatusBarUnchangedExceptSyncStatus() {
         StatusBarFooterHandle handle = getStatusBarFooter();
         String timestamp = new Date(clockRule.getInjectedClock().millis()).toString();
         String expectedSyncStatus = String.format(SYNC_STATUS_UPDATED, timestamp);
         assertEquals(expectedSyncStatus, handle.getSyncStatus());
-        assertFalse(handle.isTotalPersonsStatusChanged());
         assertFalse(handle.isSaveLocationChanged());
+        assertFalse(handle.isTotalPersonsStatusChanged());
     }
 
     /**
      * Asserts that only the sync status in the status bar was changed to the timing of
-     * {@code ClockRule#getInjectedClock()}, total persons was changed to
-     * {@code totalPersons}, while the save location remains the same.
+     * {@code ClockRule#getInjectedClock()}, total persons was changed to match the total
+     * number of persons in the address book, while the save location remains the same.
      */
-    protected void assertStatusBarUnchangedExceptSyncStatusAndTotalPersons(int totalPersons) {
+    protected void assertStatusBarUnchangedExceptSyncStatusAndTotalPersons() {
         StatusBarFooterHandle handle = getStatusBarFooter();
 
         String timestamp = new Date(clockRule.getInjectedClock().millis()).toString();
         String expectedSyncStatus = String.format(SYNC_STATUS_UPDATED, timestamp);
         assertEquals(expectedSyncStatus, handle.getSyncStatus());
 
+        final int totalPersons = testApp.getModel().getAddressBook().getPersonList().size();
         assertEquals(String.format(TOTAL_PERSONS_STATUS, totalPersons), handle.getTotalPersonsStatus());
 
         assertFalse(handle.isSaveLocationChanged());
