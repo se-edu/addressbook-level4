@@ -9,6 +9,7 @@ import static seedu.address.ui.BrowserPanel.GOOGLE_SEARCH_URL_PREFIX;
 import static seedu.address.ui.BrowserPanel.GOOGLE_SEARCH_URL_SUFFIX;
 import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_INITIAL;
 import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
+import static seedu.address.ui.StatusBarFooter.TOTAL_PERSONS_STATUS;
 import static seedu.address.ui.UiPart.FXML_FILE_FOLDER;
 import static seedu.address.ui.testutil.GuiTestAssert.assertListMatching;
 
@@ -191,6 +192,7 @@ public abstract class AddressBookSystemTest {
         StatusBarFooterHandle statusBarFooterHandle = getStatusBarFooter();
         getBrowserPanel().rememberUrl();
         statusBarFooterHandle.rememberSaveLocation();
+        statusBarFooterHandle.rememberTotalPersonsStatus();
         statusBarFooterHandle.rememberSyncStatus();
         getPersonListPanel().rememberSelectedPersonCard();
     }
@@ -255,18 +257,39 @@ public abstract class AddressBookSystemTest {
     protected void assertStatusBarUnchanged() {
         StatusBarFooterHandle handle = getStatusBarFooter();
         assertFalse(handle.isSaveLocationChanged());
+        assertFalse(handle.isTotalPersonsStatusChanged());
         assertFalse(handle.isSyncStatusChanged());
     }
 
     /**
      * Asserts that only the sync status in the status bar was changed to the timing of
-     * {@code ClockRule#getInjectedClock()}, while the save location remains the same.
+     * {@code ClockRule#getInjectedClock()}, while the save location and the total person
+     * list remains the same.
      */
     protected void assertStatusBarUnchangedExceptSyncStatus() {
         StatusBarFooterHandle handle = getStatusBarFooter();
         String timestamp = new Date(clockRule.getInjectedClock().millis()).toString();
         String expectedSyncStatus = String.format(SYNC_STATUS_UPDATED, timestamp);
         assertEquals(expectedSyncStatus, handle.getSyncStatus());
+        assertFalse(handle.isSaveLocationChanged());
+        assertFalse(handle.isTotalPersonsStatusChanged());
+    }
+
+    /**
+     * Asserts that only the sync status in the status bar was changed to the timing of
+     * {@code ClockRule#getInjectedClock()}, total persons was changed to match the total
+     * number of persons in the address book, while the save location remains the same.
+     */
+    protected void assertStatusBarUnchangedExceptSyncStatusAndTotalPersons() {
+        StatusBarFooterHandle handle = getStatusBarFooter();
+
+        String timestamp = new Date(clockRule.getInjectedClock().millis()).toString();
+        String expectedSyncStatus = String.format(SYNC_STATUS_UPDATED, timestamp);
+        assertEquals(expectedSyncStatus, handle.getSyncStatus());
+
+        final int totalPersons = testApp.getModel().getAddressBook().getPersonList().size();
+        assertEquals(String.format(TOTAL_PERSONS_STATUS, totalPersons), handle.getTotalPersonsStatus());
+
         assertFalse(handle.isSaveLocationChanged());
     }
 
@@ -281,6 +304,8 @@ public abstract class AddressBookSystemTest {
             assertEquals(MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_PAGE), getBrowserPanel().getLoadedUrl());
             assertEquals("./" + testApp.getStorageSaveLocation(), getStatusBarFooter().getSaveLocation());
             assertEquals(SYNC_STATUS_INITIAL, getStatusBarFooter().getSyncStatus());
+            assertEquals(String.format(TOTAL_PERSONS_STATUS, getModel().getAddressBook().getPersonList().size()),
+                    getStatusBarFooter().getTotalPersonsStatus());
         } catch (Exception e) {
             throw new AssertionError("Starting state is wrong.", e);
         }
