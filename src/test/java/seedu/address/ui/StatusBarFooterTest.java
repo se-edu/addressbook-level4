@@ -61,12 +61,12 @@ public class StatusBarFooterTest extends GuiUnitTest {
     @Test
     public void display() {
         // initial state
-        assertStatusBarContent(RELATIVE_PATH + STUB_SAVE_LOCATION, SYNC_STATUS_INITIAL,
+        assertStatusBarContent(RELATIVE_PATH.resolve(STUB_SAVE_LOCATION).toString(), SYNC_STATUS_INITIAL,
                 String.format(TOTAL_PERSONS_STATUS, INITIAL_TOTAL_PERSONS));
 
         // after address book is updated
         postNow(EVENT_STUB);
-        assertStatusBarContent(RELATIVE_PATH + STUB_SAVE_LOCATION,
+        assertStatusBarContent(RELATIVE_PATH.resolve(STUB_SAVE_LOCATION).toString(),
                 String.format(SYNC_STATUS_UPDATED, new Date(injectedClock.millis()).toString()),
                 String.format(TOTAL_PERSONS_STATUS, EVENT_STUB.data.getPersonList().size()));
     }
