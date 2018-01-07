@@ -1,24 +1,32 @@
 package seedu.address.ui;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 
 import guitests.guihandles.CommandBoxHandle;
 import javafx.scene.input.KeyCode;
+import seedu.address.commons.events.ui.NewResultAvailableEvent;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
+import seedu.address.ui.testutil.EventsCollectorRule;
 
 public class CommandBoxTest extends GuiUnitTest {
 
     private static final String COMMAND_THAT_SUCCEEDS = ListCommand.COMMAND_WORD;
     private static final String COMMAND_THAT_FAILS = "invalid command";
+
+    @Rule
+    public final EventsCollectorRule eventsCollectorRule = new EventsCollectorRule();
 
     private ArrayList<String> defaultStyleOfCommandBox;
     private ArrayList<String> errorStyleOfCommandBox;
@@ -127,22 +135,38 @@ public class CommandBoxTest extends GuiUnitTest {
 
     /**
      * Runs a command that fails, then verifies that <br>
+     *      - {@code NewResultAvailableEvent} is posted
      *      - the text remains <br>
      *      - the command box's style is the same as {@code errorStyleOfCommandBox}.
      */
     private void assertBehaviorForFailedCommand() {
+        eventsCollectorRule.eventsCollector.reset();
+
         commandBoxHandle.run(COMMAND_THAT_FAILS);
+
+        assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof NewResultAvailableEvent);
+        assertFalse(((NewResultAvailableEvent) eventsCollectorRule.eventsCollector.getMostRecent()).isSuccessful);
+        assertTrue(eventsCollectorRule.eventsCollector.getSize() == 1);
+
         assertEquals(COMMAND_THAT_FAILS, commandBoxHandle.getInput());
         assertEquals(errorStyleOfCommandBox, commandBoxHandle.getStyleClass());
     }
 
     /**
      * Runs a command that succeeds, then verifies that <br>
+     *      - {@code NewResultAvailableEvent} is posted
      *      - the text is cleared <br>
      *      - the command box's style is the same as {@code defaultStyleOfCommandBox}.
      */
     private void assertBehaviorForSuccessfulCommand() {
+        eventsCollectorRule.eventsCollector.reset();
+
         commandBoxHandle.run(COMMAND_THAT_SUCCEEDS);
+
+        assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof NewResultAvailableEvent);
+        assertTrue(((NewResultAvailableEvent) eventsCollectorRule.eventsCollector.getMostRecent()).isSuccessful);
+        assertTrue(eventsCollectorRule.eventsCollector.getSize() == 1);
+
         assertEquals("", commandBoxHandle.getInput());
         assertEquals(defaultStyleOfCommandBox, commandBoxHandle.getStyleClass());
     }
