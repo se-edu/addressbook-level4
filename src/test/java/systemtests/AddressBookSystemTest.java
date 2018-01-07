@@ -274,11 +274,11 @@ public abstract class AddressBookSystemTest {
     }
 
     /**
-     * Asserts that only the sync status in the status bar was changed to the timing of
-     * {@code ClockRule#getInjectedClock()}, total persons was changed to match the total
+     * Asserts that the sync status in the status bar was changed to the timing of
+     * {@code ClockRule#getInjectedClock()}, and total persons was changed to match the total
      * number of persons in the address book, while the save location remains the same.
      */
-    protected void assertStatusBarUnchangedExceptSyncStatusAndTotalPersons() {
+    protected void assertStatusBarChangedExceptSaveLocation() {
         StatusBarFooterHandle handle = getStatusBarFooter();
 
         String timestamp = new Date(clockRule.getInjectedClock().millis()).toString();
