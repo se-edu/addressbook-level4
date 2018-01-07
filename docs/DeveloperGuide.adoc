@@ -523,7 +523,9 @@ Do take a look at <<Design-Logic>> before attempting to modify the `Logic` compo
 ** link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] is responsible for analyzing command words.
 * Solution
 ** Modify the switch statement in link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser#parseCommand(String)`] such that both the proper command word and alias can be used to execute the same intended command.
-** See this https://github.com/se-edu/addressbook-level4/pull/590/files[PR] for the full solution.
+** Add new tests for each of the aliases that you have added.
+** Update the user guide to document the new aliases.
+** See this https://github.com/se-edu/addressbook-level4/pull/785[PR] for the full solution.
 ****
 
 [discrete]
