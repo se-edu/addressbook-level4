@@ -101,6 +101,14 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
+    public Predicate<Person> getFilteredPersonListPredicate() {
+        Predicate<Person> toReturn = (Predicate<Person>) filteredPersons.getPredicate();
+        assert toReturn != null;
+        return toReturn;
+    }
+
+    @Override
     public boolean equals(Object obj) {
         // short circuit if same object
         if (obj == this) {
