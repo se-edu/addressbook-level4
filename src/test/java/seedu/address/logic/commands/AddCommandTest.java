@@ -150,13 +150,17 @@ public class AddCommandTest {
             throw new DuplicatePersonException();
         }
 
+        /* ---------------These methods below are called prior to calling addPerson(ReadOnlyPerson)--------- */
+
         @Override
         public ReadOnlyAddressBook getAddressBook() {
             return new AddressBook();
         }
 
         @Override
-        public Predicate<ReadOnlyPerson> getFilteredPersonListPredicate() { return PREDICATE_SHOW_ALL_PERSONS; }
+        public Predicate<ReadOnlyPerson> getFilteredPersonListPredicate() {
+            return PREDICATE_SHOW_ALL_PERSONS;
+        }
     }
 
     /**
@@ -170,13 +174,17 @@ public class AddCommandTest {
             personsAdded.add(new Person(person));
         }
 
+        /* ---------------These methods below are called prior to calling addPerson(ReadOnlyPerson)--------- */
+
         @Override
         public ReadOnlyAddressBook getAddressBook() {
             return new AddressBook();
         }
 
         @Override
-        public Predicate<ReadOnlyPerson> getFilteredPersonListPredicate() { return PREDICATE_SHOW_ALL_PERSONS; }
+        public Predicate<ReadOnlyPerson> getFilteredPersonListPredicate() {
+            return PREDICATE_SHOW_ALL_PERSONS;
+        }
     }
 
 }

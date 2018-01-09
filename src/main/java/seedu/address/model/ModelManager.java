@@ -93,6 +93,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    @SuppressWarnings("unchecked")
     public Predicate<ReadOnlyPerson> getFilteredPersonListPredicate() {
         return (Predicate<ReadOnlyPerson>) filteredPersons.getPredicate();
     }
