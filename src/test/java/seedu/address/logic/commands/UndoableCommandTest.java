@@ -36,7 +36,13 @@ public class UndoableCommandTest {
     }
 
     @Test
-    public void redo() {
+    public void redo() throws Exception {
+        // run the command once to save the states
+        dummyCommand.execute();
+
+        // revert back to original state
+        dummyCommand.undo();
+
         showFirstPersonOnly(model);
 
         // redo() should cause the model's filtered list to show all persons

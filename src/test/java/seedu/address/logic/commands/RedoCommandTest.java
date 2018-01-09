@@ -34,12 +34,24 @@ public class RedoCommandTest {
     }
 
     @Test
-    public void execute() {
-        UndoRedoStack undoRedoStack = prepareStack(
+    public void execute() throws Exception {
+        UndoRedoStack undoRedoStackOne = prepareStack(
+                Arrays.asList(deleteCommandOne, deleteCommandTwo), Collections.emptyList());
+        UndoRedoStack undoRedoStackTwo = prepareStack(
                 Collections.emptyList(), Arrays.asList(deleteCommandTwo, deleteCommandOne));
+        UndoCommand undoCommand = new UndoCommand();
         RedoCommand redoCommand = new RedoCommand();
-        redoCommand.setData(model, EMPTY_COMMAND_HISTORY, undoRedoStack);
+        undoCommand.setData(model, EMPTY_COMMAND_HISTORY, undoRedoStackOne);
+        redoCommand.setData(model, EMPTY_COMMAND_HISTORY, undoRedoStackTwo);
         Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+
+        // run the commands first to save their states
+        deleteCommandOne.execute();
+        deleteCommandTwo.execute();
+
+        // revert back to original state
+        undoCommand.execute();
+        undoCommand.execute();
 
         // multiple commands in redoStack
         deleteFirstPerson(expectedModel);
