@@ -1,10 +1,14 @@
 package seedu.address.testutil;
 
+import static seedu.address.logic.commands.UndoableCommand.PREVIOUS_PREDICATE_FIELD_NAME;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+
 import java.io.File;
 import java.io.IOException;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.FileUtil;
+import seedu.address.logic.commands.UndoableCommand;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 
@@ -50,5 +54,15 @@ public class TestUtil {
      */
     public static Person getPerson(Model model, Index index) {
         return model.getFilteredPersonList().get(index.getZeroBased());
+    }
+
+    /**
+     * Set up each {@code UndoableCommand} to be executed in {@code UndoableCommand#redo()}
+     */
+    public static void prepareRedo(UndoableCommand... commandsToRedo) throws Exception {
+        for (UndoableCommand commandToRedo: commandsToRedo) {
+            ReflectionUtil.setPrivateField(commandToRedo.getClass().getSuperclass(), PREVIOUS_PREDICATE_FIELD_NAME,
+                    commandToRedo, PREDICATE_SHOW_ALL_PERSONS);
+        }
     }
 }
