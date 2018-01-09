@@ -24,23 +24,21 @@ public class DeleteCommand extends UndoableCommand {
 
     private final Index targetIndex;
 
-    private ReadOnlyPerson personToDelete;
-    private boolean isFirstExecution;
-
     public DeleteCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
-        personToDelete = null;
-        isFirstExecution = true;
     }
 
 
     @Override
     public CommandResult executeUndoableCommand() throws CommandException {
 
-        if (isFirstExecution) {
-            preprocessDeleteCommand();
-            isFirstExecution = false;
+        List<ReadOnlyPerson> lastShownList = model.getFilteredPersonList();
+
+        if (targetIndex.getZeroBased() >= lastShownList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
+
+        ReadOnlyPerson personToDelete = lastShownList.get(targetIndex.getZeroBased());
 
         try {
             model.deletePerson(personToDelete);
@@ -56,20 +54,5 @@ public class DeleteCommand extends UndoableCommand {
         return other == this // short circuit if same object
                 || (other instanceof DeleteCommand // instanceof handles nulls
                 && this.targetIndex.equals(((DeleteCommand) other).targetIndex)); // state check
-    }
-
-    /**
-     * Preprocess the command before its first execution by finding and storing
-     * the {@code personToDelete}
-     */
-    private void preprocessDeleteCommand() throws CommandException {
-
-        List<ReadOnlyPerson> lastShownList = model.getFilteredPersonList();
-
-        if (targetIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
-        }
-
-        personToDelete = lastShownList.get(targetIndex.getZeroBased());
     }
 }
