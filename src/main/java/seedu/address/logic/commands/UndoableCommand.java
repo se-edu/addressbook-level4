@@ -4,15 +4,19 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
+import java.util.function.Predicate;
+
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.person.ReadOnlyPerson;
 
 /**
  * Represents a command which can be undone and redone.
  */
 public abstract class UndoableCommand extends Command {
     private ReadOnlyAddressBook previousAddressBook;
+    private Predicate<ReadOnlyPerson> previousPredicate;
 
     protected abstract CommandResult executeUndoableCommand() throws CommandException;
 
@@ -22,6 +26,26 @@ public abstract class UndoableCommand extends Command {
     private void saveAddressBookSnapshot() {
         requireNonNull(model);
         this.previousAddressBook = new AddressBook(model.getAddressBook());
+    }
+
+    /**
+     * Stores the predicate used in {@code model#filteredPersons}.
+     */
+    private void savePredicateSnapshot() {
+        previousPredicate = model.getFilteredPersonListPredicate();
+    }
+
+    /**
+     * Returns the previousPredicate stored.
+     * Returns a default predicate to show all persons
+     * if previousPredicate is null.
+     */
+    private Predicate<ReadOnlyPerson> getPreviousPredicate() {
+        if (previousPredicate == null) {
+            return PREDICATE_SHOW_ALL_PERSONS;
+        } else {
+            return previousPredicate;
+        }
     }
 
     /**
@@ -36,12 +60,15 @@ public abstract class UndoableCommand extends Command {
     }
 
     /**
-     * Executes the command and updates the filtered person
-     * list to show all persons.
+     * Reverts the filtered person list to its previous view
+     * before executing the command.
+     * Updates the filtered person list to show all persons
+     * after execution completes.
      */
     protected final void redo() {
         requireNonNull(model);
         try {
+            model.updateFilteredPersonList(getPreviousPredicate());
             executeUndoableCommand();
         } catch (CommandException ce) {
             throw new AssertionError("The command has been successfully executed previously; "
@@ -53,6 +80,7 @@ public abstract class UndoableCommand extends Command {
     @Override
     public final CommandResult execute() throws CommandException {
         saveAddressBookSnapshot();
+        savePredicateSnapshot();
         return executeUndoableCommand();
     }
 }
