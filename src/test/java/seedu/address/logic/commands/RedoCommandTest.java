@@ -4,6 +4,7 @@ import static seedu.address.logic.UndoRedoStackUtil.prepareStack;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.deleteFirstPerson;
+import static seedu.address.testutil.TestUtil.prepareRedo;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
@@ -34,12 +35,13 @@ public class RedoCommandTest {
     }
 
     @Test
-    public void execute() {
+    public void execute() throws Exception {
         UndoRedoStack undoRedoStack = prepareStack(
                 Collections.emptyList(), Arrays.asList(deleteCommandTwo, deleteCommandOne));
         RedoCommand redoCommand = new RedoCommand();
         redoCommand.setData(model, EMPTY_COMMAND_HISTORY, undoRedoStack);
         Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        prepareRedo(expectedModel, deleteCommandOne, deleteCommandTwo);
 
         // multiple commands in redoStack
         deleteFirstPerson(expectedModel);
