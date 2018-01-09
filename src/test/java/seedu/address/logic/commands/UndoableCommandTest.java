@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 import static seedu.address.logic.commands.CommandTestUtil.deleteFirstPerson;
 import static seedu.address.logic.commands.CommandTestUtil.showFirstPersonOnly;
+import static seedu.address.testutil.TestUtil.prepareRedo;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.Test;
@@ -36,7 +37,9 @@ public class UndoableCommandTest {
     }
 
     @Test
-    public void redo() {
+    public void redo() throws Exception {
+        prepareRedo(model, dummyCommand);
+
         showFirstPersonOnly(model);
 
         // redo() should cause the model's filtered list to show all persons
