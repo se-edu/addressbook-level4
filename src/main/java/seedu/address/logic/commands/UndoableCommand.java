@@ -15,8 +15,6 @@ import seedu.address.model.person.Person;
  * Represents a command which can be undone and redone.
  */
 public abstract class UndoableCommand extends Command {
-    public static final String PREVIOUS_PREDICATE_FIELD_NAME = "previousPredicate";
-
     private ReadOnlyAddressBook previousAddressBook;
     private Predicate<Person> previousPredicate;
 
@@ -31,7 +29,7 @@ public abstract class UndoableCommand extends Command {
     }
 
     /**
-     * Stores the predicate used in {@code model#filteredPersons}.
+     * Stores the predicate used by {@code model#filteredPersons}.
      */
     private void savePredicateSnapshot() {
         previousPredicate = model.getFilteredPersonListPredicate();
@@ -58,6 +56,7 @@ public abstract class UndoableCommand extends Command {
             // Restore the previous view of the filtered person list to ensure that the command is executed on the
             // correct {@code Person}
             model.updateFilteredPersonList(previousPredicate);
+
             executeUndoableCommand();
         } catch (CommandException ce) {
             throw new AssertionError("The command has been successfully executed previously; "

@@ -3,8 +3,8 @@ package seedu.address.logic.commands;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 import static seedu.address.logic.commands.CommandTestUtil.deleteFirstPerson;
+import static seedu.address.logic.commands.CommandTestUtil.initPredicate;
 import static seedu.address.logic.commands.CommandTestUtil.showFirstPersonOnly;
-import static seedu.address.testutil.TestUtil.prepareRedo;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.Test;
@@ -38,7 +38,7 @@ public class UndoableCommandTest {
 
     @Test
     public void redo() throws Exception {
-        prepareRedo(dummyCommand);
+        initPredicate(dummyCommand);
 
         showFirstPersonOnly(model);
 

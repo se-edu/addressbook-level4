@@ -40,8 +40,8 @@ public interface Model {
     ObservableList<Person> getFilteredPersonList();
 
     /**
-     * Returns the predicate used in the filtered person list
-     * Guarantees: predicate returned is non-null
+     * Returns the predicate used in the filtered person list.
+     * @return: a non-null predicate.
      */
     Predicate<Person> getFilteredPersonListPredicate();
 

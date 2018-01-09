@@ -8,10 +8,11 @@ import java.lang.reflect.Field;
 public class ReflectionUtil {
 
     /**
-     * Set the targetObject's private fieldName field to the targetValue
+     * Set the {@code targetObject}'s private {@code fieldName} field specified in {@code targetClass} to the
+     * {@code targetValue}
      */
-    public static void setPrivateField(Class targetClass, String fieldName, Object targetObject, Object targetValue)
-            throws Exception {
+    public static void setPrivateField(Class targetClass, Object targetObject, String fieldName, Object targetValue)
+            throws NoSuchFieldException, IllegalAccessException {
         Field field = targetClass.getDeclaredField(fieldName);
         field.setAccessible(true);
         field.set(targetObject, targetValue);

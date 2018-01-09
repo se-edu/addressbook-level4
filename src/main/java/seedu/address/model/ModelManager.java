@@ -37,7 +37,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         this.addressBook = new AddressBook(addressBook);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
-        // Sets a default predicate as null predicates are not dealt with
+        // Replace the default null predicate with a show all person predicate
         filteredPersons.setPredicate(PREDICATE_SHOW_ALL_PERSONS);
     }
 
