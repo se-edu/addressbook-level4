@@ -150,7 +150,7 @@ public class AddCommandTest {
             throw new DuplicatePersonException();
         }
 
-        /* ---------------These methods below are called prior to calling addPerson(ReadOnlyPerson)--------- */
+        /* ------------ These methods below are called prior to calling addPerson(ReadOnlyPerson) ------------------- */
 
         @Override
         public ReadOnlyAddressBook getAddressBook() {
@@ -174,7 +174,7 @@ public class AddCommandTest {
             personsAdded.add(new Person(person));
         }
 
-        /* ---------------These methods below are called prior to calling addPerson(ReadOnlyPerson)--------- */
+        /* ------------ These methods below are called prior to calling addPerson(ReadOnlyPerson) ------------------- */
 
         @Override
         public ReadOnlyAddressBook getAddressBook() {

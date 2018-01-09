@@ -36,19 +36,6 @@ public abstract class UndoableCommand extends Command {
     }
 
     /**
-     * Returns the previousPredicate stored.
-     * Returns a default predicate to show all persons
-     * if previousPredicate is null.
-     */
-    private Predicate<ReadOnlyPerson> getPreviousPredicate() {
-        if (previousPredicate == null) {
-            return PREDICATE_SHOW_ALL_PERSONS;
-        } else {
-            return previousPredicate;
-        }
-    }
-
-    /**
      * Reverts the AddressBook to the state before this command
      * was executed and updates the filtered person list to
      * show all persons.
@@ -60,15 +47,15 @@ public abstract class UndoableCommand extends Command {
     }
 
     /**
-     * Reverts the filtered person list to its previous view
-     * before executing the command.
-     * Updates the filtered person list to show all persons
-     * after execution completes.
+     * Executes the command and updates the filtered person
+     * list to show all persons.
      */
     protected final void redo() {
         requireNonNull(model);
         try {
-            model.updateFilteredPersonList(getPreviousPredicate());
+            // restore filtered person list to the same previous view to ensure command executes itself on the same
+            // correct {@code Person} as before
+            model.updateFilteredPersonList(previousPredicate);
             executeUndoableCommand();
         } catch (CommandException ce) {
             throw new AssertionError("The command has been successfully executed previously; "

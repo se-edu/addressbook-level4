@@ -4,10 +4,12 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.commands.DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import static seedu.address.testutil.TestUtil.getLastIndex;
 import static seedu.address.testutil.TestUtil.getMidIndex;
 import static seedu.address.testutil.TestUtil.getPerson;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.address.testutil.TypicalPersons.KEYWORD_MATCHING_FIONA;
 import static seedu.address.testutil.TypicalPersons.KEYWORD_MATCHING_MEIER;
 
 import org.junit.Test;
@@ -61,7 +63,8 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: filtered person list, delete index within bounds of address book and person list -> deleted */
         Model modelBeforeDeletingFirstFiltered = getModel();
-        showPersonsWithName(KEYWORD_MATCHING_MEIER);
+        showPersonsWithName(KEYWORD_MATCHING_FIONA);
+        Model modelAfterDeletingFirstFiltered = getModel();
         Index index = INDEX_FIRST_PERSON;
         assertTrue(index.getZeroBased() < getModel().getFilteredPersonList().size());
         assertCommandSuccess(index);
@@ -73,9 +76,10 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: redo deleting the first person in the filtered list -> first person in filtered list deleted again */
         command = RedoCommand.COMMAND_WORD;
-        removePerson(modelBeforeDeletingFirstFiltered, index);
+        removePerson(modelAfterDeletingFirstFiltered, index);
+        modelAfterDeletingFirstFiltered.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
-        assertCommandSuccess(command, modelBeforeDeletingFirstFiltered, expectedResultMessage);
+        assertCommandSuccess(command, modelAfterDeletingFirstFiltered, expectedResultMessage);
 
         /* Case: filtered person list, delete index within bounds of address book but out of bounds of person list
          * -> rejected
