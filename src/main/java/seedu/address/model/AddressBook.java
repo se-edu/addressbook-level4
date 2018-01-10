@@ -66,7 +66,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(newData);
         setTags(new HashSet<>(newData.getTagList()));
         List<Person> syncedPersonList = newData.getPersonList().stream()
-                .map(this::syncMasterTagListWith)
+                .map(this::syncWithMasterTagList)
                 .collect(Collectors.toList());
 
         try {
@@ -86,7 +86,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * @throws DuplicatePersonException if an equivalent person already exists.
      */
     public void addPerson(Person p) throws DuplicatePersonException {
-        Person person = syncMasterTagListWith(p);
+        Person person = syncWithMasterTagList(p);
         // TODO: the tags master list will be updated even though the below line fails.
         // This can cause the tags master list to have additional tags that are not tagged to any person
         // in the person list.
@@ -101,13 +101,13 @@ public class AddressBook implements ReadOnlyAddressBook {
      *      another existing person in the list.
      * @throws PersonNotFoundException if {@code target} could not be found in the list.
      *
-     * @see #syncMasterTagListWith(Person)
+     * @see #syncWithMasterTagList(Person)
      */
     public void updatePerson(Person target, Person editedPerson)
             throws DuplicatePersonException, PersonNotFoundException {
         requireNonNull(editedPerson);
 
-        Person syncedEditedPerson = syncMasterTagListWith(editedPerson);
+        Person syncedEditedPerson = syncWithMasterTagList(editedPerson);
         // TODO: the tags master list will be updated even though the below line fails.
         // This can cause the tags master list to have additional tags that are not tagged to any person
         // in the person list.
@@ -115,11 +115,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Returns a copy of this {@code person} such that every tag in this person:
-     *  - exists in the master list {@link #tags}
-     *  - points to a Tag object in the master list
+     *  Updates the master tag list to include tags in {@code person} that are not in the list.
+     *  @return a copy of this {@code person} such that every tag in this person points to a Tag object in the master
+     *  list.
      */
-    private Person syncMasterTagListWith(Person person) {
+    private Person syncWithMasterTagList(Person person) {
         final UniqueTagList personTags = new UniqueTagList(person.getTags());
         tags.mergeFrom(personTags);
 
