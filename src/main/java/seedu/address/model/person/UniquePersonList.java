@@ -1,6 +1,7 @@
 package seedu.address.model.person;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
 import java.util.List;
@@ -41,7 +42,7 @@ public class UniquePersonList implements Iterable<Person> {
         if (contains(toAdd)) {
             throw new DuplicatePersonException();
         }
-        internalList.add(new Person(toAdd));
+        internalList.add(toAdd);
     }
 
     /**
@@ -63,7 +64,7 @@ public class UniquePersonList implements Iterable<Person> {
             throw new DuplicatePersonException();
         }
 
-        internalList.set(index, new Person(editedPerson));
+        internalList.set(index, editedPerson);
     }
 
     /**
@@ -85,9 +86,10 @@ public class UniquePersonList implements Iterable<Person> {
     }
 
     public void setPersons(List<Person> persons) throws DuplicatePersonException {
+        requireAllNonNull(persons);
         final UniquePersonList replacement = new UniquePersonList();
         for (final Person person : persons) {
-            replacement.add(new Person(person));
+            replacement.add(person);
         }
         setPersons(replacement);
     }

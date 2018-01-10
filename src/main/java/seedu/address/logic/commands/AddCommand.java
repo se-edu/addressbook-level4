@@ -42,7 +42,8 @@ public class AddCommand extends UndoableCommand {
      * Creates an AddCommand to add the specified {@code Person}
      */
     public AddCommand(Person person) {
-        toAdd = new Person(person);
+        requireNonNull(person);
+        toAdd = person;
     }
 
     @Override
