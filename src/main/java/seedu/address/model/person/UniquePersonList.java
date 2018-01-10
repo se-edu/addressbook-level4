@@ -25,12 +25,12 @@ public class UniquePersonList implements Iterable<Person> {
 
     private final ObservableList<Person> internalList = FXCollections.observableArrayList();
     // used by asObservableList()
-    private final ObservableList<ReadOnlyPerson> mappedList = EasyBind.map(internalList, (person) -> person);
+    private final ObservableList<Person> mappedList = EasyBind.map(internalList, (person) -> person);
 
     /**
      * Returns true if the list contains an equivalent person as the given argument.
      */
-    public boolean contains(ReadOnlyPerson toCheck) {
+    public boolean contains(Person toCheck) {
         requireNonNull(toCheck);
         return internalList.contains(toCheck);
     }
@@ -40,7 +40,7 @@ public class UniquePersonList implements Iterable<Person> {
      *
      * @throws DuplicatePersonException if the person to add is a duplicate of an existing person in the list.
      */
-    public void add(ReadOnlyPerson toAdd) throws DuplicatePersonException {
+    public void add(Person toAdd) throws DuplicatePersonException {
         requireNonNull(toAdd);
         if (contains(toAdd)) {
             throw new DuplicatePersonException();
@@ -54,7 +54,7 @@ public class UniquePersonList implements Iterable<Person> {
      * @throws DuplicatePersonException if the replacement is equivalent to another existing person in the list.
      * @throws PersonNotFoundException if {@code target} could not be found in the list.
      */
-    public void setPerson(ReadOnlyPerson target, ReadOnlyPerson editedPerson)
+    public void setPerson(Person target, Person editedPerson)
             throws DuplicatePersonException, PersonNotFoundException {
         requireNonNull(editedPerson);
 
@@ -75,7 +75,7 @@ public class UniquePersonList implements Iterable<Person> {
      *
      * @throws PersonNotFoundException if no such person could be found in the list.
      */
-    public boolean remove(ReadOnlyPerson toRemove) throws PersonNotFoundException {
+    public boolean remove(Person toRemove) throws PersonNotFoundException {
         requireNonNull(toRemove);
         final boolean personFoundAndDeleted = internalList.remove(toRemove);
         if (!personFoundAndDeleted) {
@@ -88,9 +88,9 @@ public class UniquePersonList implements Iterable<Person> {
         this.internalList.setAll(replacement.internalList);
     }
 
-    public void setPersons(List<? extends ReadOnlyPerson> persons) throws DuplicatePersonException {
+    public void setPersons(List<Person> persons) throws DuplicatePersonException {
         final UniquePersonList replacement = new UniquePersonList();
-        for (final ReadOnlyPerson person : persons) {
+        for (final Person person : persons) {
             replacement.add(new Person(person));
         }
         setPersons(replacement);
@@ -99,7 +99,7 @@ public class UniquePersonList implements Iterable<Person> {
     /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
      */
-    public ObservableList<ReadOnlyPerson> asObservableList() {
+    public ObservableList<Person> asObservableList() {
         return FXCollections.unmodifiableObservableList(mappedList);
     }
 
