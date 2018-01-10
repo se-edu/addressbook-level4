@@ -35,14 +35,6 @@ public class Person {
         this.tags = new UniqueTagList(tags);
     }
 
-    /**
-     * Creates a copy of the given Person.
-     */
-    public Person(Person source) {
-        this(source.getName(), source.getPhone(), source.getEmail(), source.getAddress(),
-                source.getTags());
-    }
-
     public Name getName() {
         return name;
     }
