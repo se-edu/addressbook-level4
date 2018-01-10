@@ -48,7 +48,7 @@ public class AddressBookTest {
     @Test
     public void resetData_withDuplicatePersons_throwsAssertionError() {
         // Repeat ALICE twice
-        List<Person> newPersons = Arrays.asList(new Person(ALICE), new Person(ALICE));
+        List<Person> newPersons = Arrays.asList(ALICE, ALICE);
         List<Tag> newTags = new ArrayList<>(ALICE.getTags());
         AddressBookStub newData = new AddressBookStub(newPersons, newTags);
 
