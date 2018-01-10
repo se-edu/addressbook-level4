@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import javafx.scene.control.ListView;
-import seedu.address.model.person.ReadOnlyPerson;
+import seedu.address.model.person.Person;
 import seedu.address.ui.PersonCard;
 
 /**
@@ -57,7 +57,7 @@ public class PersonListPanelHandle extends NodeHandle<ListView<PersonCard>> {
     /**
      * Navigates the listview to display and select the person.
      */
-    public void navigateToCard(ReadOnlyPerson person) {
+    public void navigateToCard(Person person) {
         List<PersonCard> cards = getRootNode().getItems();
         Optional<PersonCard> matchingCard = cards.stream().filter(card -> card.person.equals(person)).findFirst();
 
@@ -82,7 +82,7 @@ public class PersonListPanelHandle extends NodeHandle<ListView<PersonCard>> {
     /**
      * Returns the {@code PersonCardHandle} of the specified {@code person} in the list.
      */
-    public PersonCardHandle getPersonCardHandle(ReadOnlyPerson person) {
+    public PersonCardHandle getPersonCardHandle(Person person) {
         Optional<PersonCardHandle> handle = getRootNode().getItems().stream()
                 .filter(card -> card.person.equals(person))
                 .map(card -> new PersonCardHandle(card.getRoot()))

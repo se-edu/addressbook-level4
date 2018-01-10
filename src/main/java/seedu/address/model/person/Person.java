@@ -13,7 +13,7 @@ import seedu.address.model.tag.UniqueTagList;
  * Represents a Person in the address book.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Person implements ReadOnlyPerson {
+public class Person {
 
     private final Name name;
     private final Phone phone;
@@ -36,29 +36,25 @@ public class Person implements ReadOnlyPerson {
     }
 
     /**
-     * Creates a copy of the given ReadOnlyPerson.
+     * Creates a copy of the given Person.
      */
-    public Person(ReadOnlyPerson source) {
+    public Person(Person source) {
         this(source.getName(), source.getPhone(), source.getEmail(), source.getAddress(),
                 source.getTags());
     }
 
-    @Override
     public Name getName() {
         return name;
     }
 
-    @Override
     public Phone getPhone() {
         return phone;
     }
 
-    @Override
     public Email getEmail() {
         return email;
     }
 
-    @Override
     public Address getAddress() {
         return address;
     }
@@ -67,7 +63,6 @@ public class Person implements ReadOnlyPerson {
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
      */
-    @Override
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(tags.toSet());
     }
