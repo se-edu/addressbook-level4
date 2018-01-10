@@ -43,13 +43,6 @@ public class PersonCard extends UiPart<Region> {
         super(FXML);
         this.person = person;
         id.setText(displayedIndex + ". ");
-        initPersonDetails(person);
-    }
-
-    /**
-     * Initialises the {@code Label}s with details of {@code person}.
-     */
-    private void initPersonDetails(Person person) {
         name.setText(person.getName().fullName);
         phone.setText(person.getPhone().value);
         address.setText(person.getAddress().value);

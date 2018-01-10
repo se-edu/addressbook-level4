@@ -1,5 +1,6 @@
 package seedu.address.testutil;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import seedu.address.model.person.Address;
@@ -43,7 +44,7 @@ public class PersonBuilder {
         phone = personToCopy.getPhone();
         email = personToCopy.getEmail();
         address = personToCopy.getAddress();
-        tags = personToCopy.getTags();
+        tags = new HashSet<>(personToCopy.getTags());
     }
 
     /**

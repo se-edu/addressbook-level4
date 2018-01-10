@@ -11,7 +11,7 @@ import seedu.address.model.tag.UniqueTagList;
 
 /**
  * Represents a Person in the address book.
- * Guarantees: details are present and not null, field values are validated, immutability.
+ * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Person {
 
@@ -31,6 +31,7 @@ public class Person {
         this.phone = phone;
         this.email = email;
         this.address = address;
+        // protect internal tags from changes in the arg list
         this.tags = new UniqueTagList(tags);
     }
 
