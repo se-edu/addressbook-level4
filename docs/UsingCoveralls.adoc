@@ -3,26 +3,20 @@
 :stylesDir: stylesheets
 
 https://coveralls.io/[Coveralls] is a web service that tracks code coverage over time for GitHub projects.
-
 Coveralls requires Travis CI to be set up beforehand as Travis sends the coverage report from the latest build to Coveralls.
-
-Currently, Coveralls supports Travis CI and not AppVeyor as of yet.
+If you have not set up Travis CI, see <<UsingTravis#, UsingTravis.adoc>>. Currently, Coveralls supports Travis CI and not AppVeyor.
 
 == Setting up Coveralls
 
 .  Fork the repo to your own organization.
-.  Go to https://coveralls.io/ and click `SIGN IN`. Then click on `GITHUB SIGN IN` and enter your GitHub account details if needed.
+.  Go to https://coveralls.io/ and click `SIGN IN`. Then click `GITHUB SIGN IN` and enter your GitHub account details if needed.
 +
-image:coveralls/signing_in_2.png[GitHub sign in]
-+
-.  After logging in, you will be brought to the `Your Repositories` page. Click on `ADD REPOS`.
-+
-image:coveralls/add_repos_1.png[Add repos]
+.  After logging in, you will be brought to the `Your Repositories` page. On the site's navigation bar, click https://coveralls.io/repos/new[ADD REPOS].
 +
 .  Find the switch for the forked repository.
 * If the organization is not shown, click `GITHUB SETTINGS` as shown below:
 +
-image:coveralls/add_repos_2.png[GitHub settings]
+image:coveralls/github_settings.png[GitHub settings]
 +
 This should bring you to a GitHub page that manages the access of third-party applications. Depending on whether you are the owner of the repository, you can either grant access
 +
@@ -41,10 +35,10 @@ image:coveralls/sync_repos.png[Sync repos]
 +
 image:coveralls/flick_repository_switch.png[Activate the switch]
 +
-.  Update the link to the "coverage status" badge at the top of `README.adoc` to point to the Coveralls coverage status of your own repo.
-* To find your coverage status badge URL, first go to your project details by clicking on `DETAILS` in the image above.
+.  Update the link to the `Coverage Status` badge at the top of `README.adoc` to point to the Coveralls `Coverage Status` of your own repo.
+* To find your coverage status badge URL, first go to your project details by clicking `DETAILS` in the image above.
 +
-* Then go to the `BADGE YOUR REPO` section at the bottom of your project details and click on `EMBED`.
+* Then go to the `BADGE YOUR REPO` section at the bottom of your project details and click `EMBED`.
 +
 * As Coveralls does not provide asciidoc code for the badge, we will have to create our own. Start by copying the markdown code provided:
 +
@@ -68,7 +62,7 @@ The asciidoc code should look similar to:
 https://coveralls.io/github/damithc/addressbook-level4?branch=master[image:https://coveralls.io/repos/github/damithc/addressbook-level4/badge.svg?branch=master[Coverage Status]]
 ----
 +
-Copy and paste the asciidoc code to your `README.adoc` file at the top ensuring that the previous `Coverage Status` asciicode has been replaced.
+Replace the existing asciidoc code at the top of your <<README#, README.adoc>> with the asciidoc code that you have generated in the previous step.
 +
 .  You can now see the coverage report for your project after each Travis build by clicking on the coverage badge.
 +
@@ -78,8 +72,8 @@ image:coveralls/coverage_report_1.png[Coverage Report Summary]
 
 Coveralls automatically comments on the coverage status of the pull requests in GitHub. If it's a hindrance, you can disable it in the settings of your project in Coveralls:
 
-.  Click on `Settings`.
+.  Click `Settings`.
 +
-.  Click on checkbox beside `LEAVE COMMENTS?` to disable it. Then click on `SAVE CHANGES`.
+.  Uncheck the `LEAVE COMMENTS?` checkbox. Then click `SAVE CHANGES`.
 +
-image:coveralls/disable_comments.png[Disable comments]
+image:coveralls/disable_comments.png[Disable comments, width = 942]
