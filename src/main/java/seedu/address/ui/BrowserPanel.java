@@ -13,7 +13,7 @@ import javafx.scene.web.WebView;
 import seedu.address.MainApp;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
-import seedu.address.model.person.ReadOnlyPerson;
+import seedu.address.model.person.Person;
 
 /**
  * The Browser Panel of the App.
@@ -41,7 +41,7 @@ public class BrowserPanel extends UiPart<Region> {
         registerAsAnEventHandler(this);
     }
 
-    private void loadPersonPage(ReadOnlyPerson person) {
+    private void loadPersonPage(Person person) {
         loadPage(GOOGLE_SEARCH_URL_PREFIX + person.getName().fullName.replaceAll(" ", "+")
                 + GOOGLE_SEARCH_URL_SUFFIX);
     }
