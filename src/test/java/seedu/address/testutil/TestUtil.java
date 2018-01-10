@@ -6,7 +6,7 @@ import java.io.IOException;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.model.Model;
-import seedu.address.model.person.ReadOnlyPerson;
+import seedu.address.model.person.Person;
 
 /**
  * A utility class for test cases.
@@ -48,7 +48,7 @@ public class TestUtil {
     /**
      * Returns the person in the {@code model}'s person list at {@code index}.
      */
-    public static ReadOnlyPerson getPerson(Model model, Index index) {
+    public static Person getPerson(Model model, Index index) {
         return model.getAddressBook().getPersonList().get(index.getZeroBased());
     }
 }
