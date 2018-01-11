@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
@@ -55,7 +56,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void resetData(ReadOnlyAddressBook newData) {
         requireNonNull(newData);
-        setTags(new HashSet<>(newData.getTagList()));
+        tags.setTags(new HashSet<>(newData.getTagList()));
         List<Person> syncedPersonList = newData.getPersonList().stream()
                 .map(this::syncWithMasterTagList)
                 .collect(Collectors.toList());
@@ -65,9 +66,6 @@ public class AddressBook implements ReadOnlyAddressBook {
         } catch (DuplicatePersonException e) {
             throw new AssertionError("AddressBooks should not have duplicate persons");
         }
-
-        tags.setTags(new HashSet<>(newData.getTagList()));
-        syncMasterTagListWith(persons);
     }
 
     //// person-level operations
