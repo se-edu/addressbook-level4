@@ -8,6 +8,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -135,12 +136,16 @@ public class EditCommand extends UndoableCommand {
 
         public EditPersonDescriptor() {}
 
+        /**
+         * Copy constructor.
+         * A defensive copy of {@code tags} is used internally.
+         */
         public EditPersonDescriptor(EditPersonDescriptor toCopy) {
             this.name = toCopy.name;
             this.phone = toCopy.phone;
             this.email = toCopy.email;
             this.address = toCopy.address;
-            this.tags = toCopy.tags;
+            setTags(toCopy.tags);
         }
 
         /**
@@ -182,8 +187,12 @@ public class EditCommand extends UndoableCommand {
             return Optional.ofNullable(address);
         }
 
+        /**
+         * Sets {@code tags} to this object's {@code tags}.
+         * A defensive copy of {@code tags} is used internally.
+         */
         public void setTags(Set<Tag> tags) {
-            this.tags = tags;
+            this.tags = (tags != null) ? new HashSet<>(tags) : null;
         }
 
         public Optional<Set<Tag>> getTags() {
