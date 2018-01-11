@@ -51,11 +51,11 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     //// list overwrite operations
 
-    public void setPersons(List<? extends ReadOnlyPerson> persons) throws DuplicatePersonException {
+    private void setPersons(List<? extends ReadOnlyPerson> persons) throws DuplicatePersonException {
         this.persons.setPersons(persons);
     }
 
-    public void setTags(Set<Tag> tags) {
+    private void setTags(Set<Tag> tags) {
         this.tags.setTags(tags);
     }
 
