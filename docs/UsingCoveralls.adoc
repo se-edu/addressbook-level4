@@ -8,7 +8,6 @@ If you have not set up Travis CI, see <<UsingTravis#, UsingTravis.adoc>>. Curren
 
 == Setting up Coveralls
 
-.  Fork the repo to your own organization.
 .  Go to https://coveralls.io/ and click `SIGN IN`. Then click `GITHUB SIGN IN` and enter your GitHub account details if needed.
 +
 .  After logging in, you will be brought to the `Your Repositories` page. On the site's navigation bar, click https://coveralls.io/repos/new[ADD REPOS].
@@ -59,7 +58,7 @@ Convert it to the asciidoc format as follows:
 The asciidoc code should look similar to:
 +
 ----
-https://coveralls.io/github/damithc/addressbook-level4?branch=master[image:https://coveralls.io/repos/github/damithc/addressbook-level4/badge.svg?branch=master[Coverage Status]]
+https://coveralls.io/github/your-org-name/your-repo-name?branch=master[image:https://coveralls.io/repos/github/your-org-name/your-repo-name/badge.svg?branch=master[Coverage Status]]
 ----
 +
 Replace the existing asciidoc code at the top of your <<README#, README.adoc>> with the asciidoc code that you have generated in the previous step.
