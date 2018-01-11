@@ -138,8 +138,8 @@ public class EditCommand extends UndoableCommand {
         public EditPersonDescriptor() {}
 
         /**
-         * Creates a defensive copy of {@code toCopy#tags} before assignment.
-         * Other fields are not defensively copied as they are immutable.
+         * Copy constructor.
+         * A defensive copy of {@code tags} is used internally.
          */
         public EditPersonDescriptor(EditPersonDescriptor toCopy) {
             setName(toCopy.name);
@@ -189,12 +189,18 @@ public class EditCommand extends UndoableCommand {
         }
 
         /**
-         * Creates a defensive copy of {@code tags} before assignment.
+         * Sets {@code tags} to this object's {@code tags}.
+         * A defensive copy of {@code tags} is used internally.
          */
         public void setTags(Set<Tag> tags) {
             this.tags = (tags != null) ? new HashSet<>(tags) : null;
         }
 
+        /**
+         * Returns an unmodifiable tag set, which throws {@code UnsupportedOperationException}
+         * if modification is attempted.
+         * Returns {@code Optional#empty()} if {@code tags} is null.
+         */
         public Optional<Set<Tag>> getTags() {
             return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
         }
