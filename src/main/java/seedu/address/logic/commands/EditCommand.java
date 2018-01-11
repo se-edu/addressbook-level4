@@ -50,8 +50,12 @@ public class EditCommand extends UndoableCommand {
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
 
-    private final Index index;
+    private final Index targetIndex;
     private final EditPersonDescriptor editPersonDescriptor;
+
+    private ReadOnlyPerson personToEdit;
+    private boolean isFirstExecution;
+
 
     /**
      * @param index of the person in the filtered person list to edit
@@ -61,19 +65,20 @@ public class EditCommand extends UndoableCommand {
         requireNonNull(index);
         requireNonNull(editPersonDescriptor);
 
-        this.index = index;
         this.editPersonDescriptor = new EditPersonDescriptor(editPersonDescriptor);
+        targetIndex = index;
+        isFirstExecution = true;
+        personToEdit = null;
     }
 
     @Override
     public CommandResult executeUndoableCommand() throws CommandException {
-        List<ReadOnlyPerson> lastShownList = model.getFilteredPersonList();
 
-        if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        if (isFirstExecution) {
+            preprocessEditCommand();
+            isFirstExecution = false;
         }
 
-        ReadOnlyPerson personToEdit = lastShownList.get(index.getZeroBased());
         Person editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
 
         try {
@@ -104,6 +109,21 @@ public class EditCommand extends UndoableCommand {
         return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags);
     }
 
+    /**
+     * Preprocess the command before its first execution by finding and storing
+     * the {@code personToEdit}
+     */
+    private void preprocessEditCommand() throws CommandException {
+
+        List<ReadOnlyPerson> lastShownList = model.getFilteredPersonList();
+
+        if (targetIndex.getZeroBased() >= lastShownList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        }
+
+        personToEdit = lastShownList.get(targetIndex.getZeroBased());
+    }
+
     @Override
     public boolean equals(Object other) {
         // short circuit if same object
@@ -118,7 +138,7 @@ public class EditCommand extends UndoableCommand {
 
         // state check
         EditCommand e = (EditCommand) other;
-        return index.equals(e.index)
+        return targetIndex.equals(e.targetIndex)
                 && editPersonDescriptor.equals(e.editPersonDescriptor);
     }
 

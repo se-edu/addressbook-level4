@@ -130,12 +130,6 @@ public class AddCommandTest {
         }
 
         @Override
-        public Predicate<ReadOnlyPerson> getFilteredPersonListPredicate() {
-            fail("This method should not be called.");
-            return null;
-        }
-
-        @Override
         public void updateFilteredPersonList(Predicate<ReadOnlyPerson> predicate) {
             fail("This method should not be called.");
         }
@@ -154,9 +148,6 @@ public class AddCommandTest {
         public ReadOnlyAddressBook getAddressBook() {
             return new AddressBook();
         }
-
-        @Override
-        public Predicate<ReadOnlyPerson> getFilteredPersonListPredicate() { return PREDICATE_SHOW_ALL_PERSONS; }
     }
 
     /**
@@ -174,9 +165,6 @@ public class AddCommandTest {
         public ReadOnlyAddressBook getAddressBook() {
             return new AddressBook();
         }
-
-        @Override
-        public Predicate<ReadOnlyPerson> getFilteredPersonListPredicate() { return PREDICATE_SHOW_ALL_PERSONS; }
     }
 
 }

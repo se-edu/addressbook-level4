@@ -1,5 +1,6 @@
 package seedu.address.model;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.function.Predicate;
@@ -92,12 +93,8 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public Predicate<ReadOnlyPerson> getFilteredPersonListPredicate() {
-        return (Predicate<ReadOnlyPerson>) filteredPersons.getPredicate();
-    }
-
-    @Override
     public void updateFilteredPersonList(Predicate<ReadOnlyPerson> predicate) {
+        requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
     }
 
