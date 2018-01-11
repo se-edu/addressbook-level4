@@ -1,5 +1,7 @@
 package seedu.address.ui;
 
+import static guitests.guihandles.BrowserPanelHandle.GOOGLE_TOO_MUCH_TRAFFIC_ERROR_MESSAGE;
+import static guitests.guihandles.BrowserPanelHandle.GOOGLE_TOO_MUCH_TRAFFIC_URL_PREFIX;
 import static guitests.guihandles.WebViewUtil.waitUntilBrowserLoaded;
 import static org.junit.Assert.assertEquals;
 import static seedu.address.testutil.EventsUtil.postNow;
@@ -46,6 +48,11 @@ public class BrowserPanelTest extends GuiUnitTest {
                 + ALICE.getName().fullName.replaceAll(" ", "+") + GOOGLE_SEARCH_URL_SUFFIX);
 
         waitUntilBrowserLoaded(browserPanelHandle);
-        assertEquals(expectedPersonUrl, browserPanelHandle.getLoadedUrl());
+        URL actualUrl = browserPanelHandle.getLoadedUrl();
+        if (actualUrl.toString().startsWith(GOOGLE_TOO_MUCH_TRAFFIC_URL_PREFIX)) {
+            System.out.println(this.getClass().getSimpleName() + ": " + GOOGLE_TOO_MUCH_TRAFFIC_ERROR_MESSAGE);
+        } else {
+            assertEquals(expectedPersonUrl, actualUrl);
+        }
     }
 }

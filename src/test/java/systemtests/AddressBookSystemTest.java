@@ -1,5 +1,7 @@
 package systemtests;
 
+import static guitests.guihandles.BrowserPanelHandle.GOOGLE_TOO_MUCH_TRAFFIC_ERROR_MESSAGE;
+import static guitests.guihandles.BrowserPanelHandle.GOOGLE_TOO_MUCH_TRAFFIC_URL_PREFIX;
 import static guitests.guihandles.WebViewUtil.waitUntilBrowserLoaded;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -219,7 +221,13 @@ public abstract class AddressBookSystemTest {
         } catch (MalformedURLException mue) {
             throw new AssertionError("URL expected to be valid.");
         }
-        assertEquals(expectedUrl, getBrowserPanel().getLoadedUrl());
+
+        URL actualUrl = getBrowserPanel().getLoadedUrl();
+        if (actualUrl.toString().startsWith(GOOGLE_TOO_MUCH_TRAFFIC_URL_PREFIX)) {
+            System.out.println(this.getClass().getSimpleName() + ": " + GOOGLE_TOO_MUCH_TRAFFIC_ERROR_MESSAGE);
+        } else {
+            assertEquals(expectedUrl, actualUrl);
+        }
 
         assertEquals(expectedSelectedCardIndex.getZeroBased(), getPersonListPanel().getSelectedCardIndex());
     }
