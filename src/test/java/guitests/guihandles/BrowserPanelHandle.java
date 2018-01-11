@@ -14,6 +14,9 @@ import javafx.scene.web.WebView;
 public class BrowserPanelHandle extends NodeHandle<Node> {
 
     public static final String BROWSER_ID = "#browser";
+    public static final String GOOGLE_TOO_MUCH_TRAFFIC_URL_PREFIX = "https://ipv4.google.com/sorry/";
+    public static final String GOOGLE_TOO_MUCH_TRAFFIC_ERROR_MESSAGE = "Google has detected too much traffic from "
+            + "your network, thus the expected web page is not loaded.";
 
     private boolean isWebViewLoaded = true;
     private boolean isLoadingFailed = false;
