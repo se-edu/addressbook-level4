@@ -34,38 +34,12 @@ image:coveralls/sync_repos.png[Sync repos]
 +
 image:coveralls/flick_repository_switch.png[Activate the switch]
 +
-.  Update the link to the `Coverage Status` badge at the top of `README.adoc` to point to the Coveralls `Coverage Status` of your own repo.
-* To find your coverage status badge URL, first go to your project details by clicking `DETAILS` in the image above.
+.  Update the link of the `Coverage Status` badge at the top of your <<README#, README.adoc>> to point to that of your own repo by replacing the outlined areas with `your-org-name/your-repo-name`.
 +
-* Then go to the `BADGE YOUR REPO` section at the bottom of your project details and click `EMBED`.
+image:coveralls/coverage_asciidoc_code.png[]
 +
-* As Coveralls does not provide asciidoc code for the badge, we will have to create our own. Start by copying the markdown code provided:
-+
-image:coveralls/badge_repo.png[Embed dropdown menu]
-+
-The markdown code should be in this format:
-+
-----
-[![Coverage Status](<link to image>)](<link to project>)
-----
-+
-Convert it to the asciidoc format as follows:
-+
-----
-<link to project>[image:<link to image>[Coverage Status]]
-----
-+
-The asciidoc code should look similar to:
-+
-----
-https://coveralls.io/github/your-org-name/your-repo-name?branch=master[image:https://coveralls.io/repos/github/your-org-name/your-repo-name/badge.svg?branch=master[Coverage Status]]
-----
-+
-Replace the existing asciidoc code at the top of your <<README#, README.adoc>> with the asciidoc code that you have generated in the previous step.
-+
-.  You can now see the coverage report for your project after each Travis build by clicking on the coverage badge.
-+
-image:coveralls/coverage_report_1.png[Coverage Report Summary]
+.  You can now see the coverage report for your project after each Travis build by clicking on the `Coverage Status` badge.
+
 
 == Disabling Coveralls Automatic Comments on Pull Requests
 
