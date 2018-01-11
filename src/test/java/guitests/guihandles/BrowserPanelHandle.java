@@ -16,6 +16,7 @@ public class BrowserPanelHandle extends NodeHandle<Node> {
     public static final String BROWSER_ID = "#browser";
 
     private boolean isWebViewLoaded = true;
+    private boolean isLoadingFailed = false;
 
     private URL lastRememberedUrl;
 
@@ -27,8 +28,11 @@ public class BrowserPanelHandle extends NodeHandle<Node> {
         new GuiRobot().interact(() -> engine.getLoadWorker().stateProperty().addListener((obs, oldState, newState) -> {
             if (newState == Worker.State.RUNNING) {
                 isWebViewLoaded = false;
+                isLoadingFailed = false;
             } else if (newState == Worker.State.SUCCEEDED) {
                 isWebViewLoaded = true;
+            } else if (newState == Worker.State.FAILED) {
+                isLoadingFailed = true;
             }
         }));
     }
@@ -56,9 +60,12 @@ public class BrowserPanelHandle extends NodeHandle<Node> {
     }
 
     /**
-     * Returns true if the browser is done loading a page, or if this browser has yet to load any page.
+     * Returns true if:
+     * 1. The browser is done loading a page
+     * 2. The browser has yet to load any page.
+     * 3. The browser tried to load a page and failed.
      */
-    public boolean isLoaded() {
-        return isWebViewLoaded;
+    public boolean isLoadingAttemptCompleted() {
+        return isWebViewLoaded || isLoadingFailed;
     }
 }
