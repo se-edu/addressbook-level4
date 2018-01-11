@@ -137,6 +137,10 @@ public class EditCommand extends UndoableCommand {
 
         public EditPersonDescriptor() {}
 
+        /**
+         * Creates a defensive copy of {@code toCopy#tags} before assignment.
+         * Other fields are not defensively copied as they are immutable.
+         */
         public EditPersonDescriptor(EditPersonDescriptor toCopy) {
             setName(toCopy.name);
             setPhone(toCopy.phone);
@@ -184,6 +188,9 @@ public class EditCommand extends UndoableCommand {
             return Optional.ofNullable(address);
         }
 
+        /**
+         * Creates a defensive copy of {@code tags} before assignment.
+         */
         public void setTags(Set<Tag> tags) {
             this.tags = (tags != null) ? new HashSet<>(tags) : null;
         }
