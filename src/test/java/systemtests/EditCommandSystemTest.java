@@ -101,6 +101,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         /* ------------------ Performing edit operation while a filtered list is being shown ------------------------ */
 
         /* Case: filtered person list, edit index within bounds of address book and person list -> edited */
+        model  = getModel();
         showPersonsWithName(KEYWORD_MATCHING_MEIER);
         index = INDEX_FIRST_PERSON;
         assertTrue(index.getZeroBased() < getModel().getFilteredPersonList().size());
@@ -108,6 +109,17 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         personToEdit = getModel().getFilteredPersonList().get(index.getZeroBased());
         editedPerson = new PersonBuilder(personToEdit).withName(VALID_NAME_BOB).build();
         assertCommandSuccess(command, index, editedPerson);
+
+        /* Case: undo editing the first person in the filtered list -> first person in filtered list restored */
+        command = UndoCommand.COMMAND_WORD;
+        expectedResultMessage = UndoCommand.MESSAGE_SUCCESS;
+        assertCommandSuccess(command, model, expectedResultMessage);
+
+        /* Case: redo editing the first person in the filtered list -> first person in filtered list edited again */
+        command = RedoCommand.COMMAND_WORD;
+        expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
+        model.updatePerson(personToEdit, editedPerson);
+        assertCommandSuccess(command, model, expectedResultMessage);
 
         /* Case: filtered person list, edit index within bounds of address book but out of bounds of person list
          * -> rejected
