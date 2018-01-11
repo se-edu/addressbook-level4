@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
@@ -51,14 +50,6 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     //// list overwrite operations
 
-    private void setPersons(List<? extends ReadOnlyPerson> persons) throws DuplicatePersonException {
-        this.persons.setPersons(persons);
-    }
-
-    private void setTags(Set<Tag> tags) {
-        this.tags.setTags(tags);
-    }
-
     /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
@@ -70,10 +61,13 @@ public class AddressBook implements ReadOnlyAddressBook {
                 .collect(Collectors.toList());
 
         try {
-            setPersons(syncedPersonList);
+            persons.setPersons(newData.getPersonList());
         } catch (DuplicatePersonException e) {
             throw new AssertionError("AddressBooks should not have duplicate persons");
         }
+
+        tags.setTags(new HashSet<>(newData.getTagList()));
+        syncMasterTagListWith(persons);
     }
 
     //// person-level operations
