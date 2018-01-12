@@ -130,7 +130,7 @@ Note <<UsingTravis#, how the AddressBook app uses Travis to perform Continuous I
 
 == Use Code Coverage `[LO-CodeCoverage]`
 
-Note how our CI server <<UsingTravis#, Travis uses Coveralls to report code coverage>>. (https://coveralls.io/github/se-edu/addressbook-level4?branch=master[image:https://coveralls.io/repos/github/se-edu/addressbook-level4/badge.svg?branch=master[Coverage Status]]) After setting up Coveralls for your project, you can visit Coveralls website to find details about the coverage of code pushed to your repo. https://coveralls.io/github/se-edu/addressbook-level4?branch=master[Here] is an example.
+Note how our CI server <<UsingTravis#, Travis uses Coveralls to report code coverage>>. (https://coveralls.io/github/se-edu/addressbook-level4?branch=master[image:https://coveralls.io/repos/github/se-edu/addressbook-level4/badge.svg?branch=master[Coverage Status]]) After <<UsingCoveralls#, setting up Coveralls>> for your project, you can visit Coveralls website to find details about the coverage of code pushed to your repo. https://coveralls.io/github/se-edu/addressbook-level4?branch=master[Here] is an example.
 
 *Resources*
 
