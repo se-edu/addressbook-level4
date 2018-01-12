@@ -39,7 +39,8 @@ image:coveralls/flick_repository_switch.png[Activate the switch]
 image:coveralls/coverage_asciidoc_code.png[Coverage Status Badge]
 +
 .  You can now see the coverage report for your project after each Travis build by clicking on the `Coverage Status` badge.
-image:coveralls/coverage_report_1.png[Coverage Report Summary]
++
+image:coveralls/coverage_report.png[Coverage Report Summary]
 
 == Disabling Coveralls Automatic Comments on Pull Requests
 
