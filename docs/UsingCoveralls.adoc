@@ -36,10 +36,10 @@ image:coveralls/flick_repository_switch.png[Activate the switch]
 +
 .  Update the link of the `Coverage Status` badge at the top of your <<README#, README.adoc>> to point to that of your own repo by replacing the outlined areas with `your-org-name/your-repo-name`.
 +
-image:coveralls/coverage_asciidoc_code.png[]
+image:coveralls/coverage_asciidoc_code.png[Coverage Status Badge]
 +
 .  You can now see the coverage report for your project after each Travis build by clicking on the `Coverage Status` badge.
-
+image:coveralls/coverage_report_1.png[Coverage Report Summary]
 
 == Disabling Coveralls Automatic Comments on Pull Requests
 
