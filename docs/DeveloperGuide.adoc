@@ -73,8 +73,11 @@ After forking the repo, links in the documentation will still point to the `se-e
 ==== Setting up CI
 
 Set up Travis to perform Continuous Integration (CI) for your fork. See <<UsingTravis#, UsingTravis.adoc>> to learn how to set it up.
+
+After setting up Travis, you can optionally set up coverage reporting for your team fork (see <<UsingCoveralls#, UsingCoveralls.adoc>>).
+
 [NOTE]
-After setting up Travis, you can optionally set up coverage reporting for your team fork. This would be useful for your team repository when hosting the final version of your code but not that useful for your personal fork. See <<UsingCoveralls#, UsingCoveralls.adoc>> for details on how to set it up.
+This would be useful for your team repository when hosting the final version of your code but not that useful for your personal fork.
 
 Optionally, you can set up AppVeyor as a second CI (see <<UsingAppVeyor#, UsingAppVeyor.adoc>>).
 
