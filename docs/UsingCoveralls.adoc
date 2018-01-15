@@ -4,7 +4,7 @@
 
 https://coveralls.io/[Coveralls] is a web service that tracks code coverage over time for GitHub projects.
 Coveralls requires Travis CI to be set up beforehand as Travis sends the coverage report from the latest build to Coveralls.
-If you have not set up Travis CI, see <<UsingTravis#, UsingTravis.adoc>>. Currently, Coveralls supports Travis CI and not AppVeyor.
+If you have not set up Travis CI, see <<UsingTravis#, UsingTravis.adoc>>. Currently, Coveralls supports Travis CI but not AppVeyor.
 
 == Setting up Coveralls
 
