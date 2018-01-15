@@ -137,10 +137,10 @@ public class EditCommand extends UndoableCommand {
         public EditPersonDescriptor() {}
 
         public EditPersonDescriptor(EditPersonDescriptor toCopy) {
-            this.name = toCopy.name;
-            this.phone = toCopy.phone;
-            this.email = toCopy.email;
-            this.address = toCopy.address;
+            setName(toCopy.name);
+            setPhone(toCopy.phone);
+            setEmail(toCopy.email);
+            setAddress(toCopy.address);
             setTags(toCopy.tags);
         }
 
