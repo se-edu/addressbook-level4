@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 1.5.6.1">
+<title>Using Coveralls</title>
+<link rel="stylesheet" href="stylesheets/gh-pages.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+<link rel="stylesheet" href="stylesheets/coderay-asciidoctor.css">
+</head>
+<body class="article">
+<div id="header">
+<h1>Using Coveralls</h1>
+</div>
+<div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="https://coveralls.io/">Coveralls</a> is a web service that tracks code coverage over time for GitHub projects.
+Coveralls requires Travis CI to be set up beforehand as Travis sends the coverage report from the latest build to Coveralls.
+If you have not set up Travis CI, see <a href="UsingTravis.html">UsingTravis.adoc</a>. Currently, Coveralls supports Travis CI but not AppVeyor.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="setting-up-coveralls"><a class="link" href="#setting-up-coveralls">Setting up Coveralls</a></h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Go to <a href="https://coveralls.io/" class="bare">https://coveralls.io/</a> and click <code>SIGN IN</code>. Then click <code>GITHUB SIGN IN</code> and enter your GitHub account details if needed.</p>
+</li>
+<li>
+<p>After logging in, you will be brought to the <code>Your Repositories</code> page. On the site&#8217;s navigation bar, click <a href="https://coveralls.io/repos/new">ADD REPOS</a>.</p>
+</li>
+<li>
+<p>Find the switch for the forked repository.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>If the organization is not shown, click <code>GITHUB SETTINGS</code> as shown below:</p>
+<div class="paragraph">
+<p><span class="image"><img src="images/coveralls/github_settings.png" alt="GitHub settings"></span></p>
+</div>
+<div class="paragraph">
+<p>This should bring you to a GitHub page that manages the access of third-party applications. Depending on whether you are the owner of the repository, you can either grant access</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="images/grant_access.png" alt="Grant Access"></span></p>
+</div>
+<div class="paragraph">
+<p>or request access</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="images/request_access.png" alt="Request Access"></span></p>
+</div>
+<div class="paragraph">
+<p>to Coveralls so that it can access your repository.</p>
+</div>
+</li>
+<li>
+<p>If your repository cannot be found, click <code>SYNC REPOS</code>.</p>
+<div class="paragraph">
+<p><span class="image"><img src="images/coveralls/sync_repos.png" alt="Sync repos"></span></p>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Activate the switch.</p>
+<div class="paragraph">
+<p><span class="image"><img src="images/coveralls/flick_repository_switch.png" alt="Activate the switch"></span></p>
+</div>
+</li>
+<li>
+<p>Update the link of the <code>Coverage Status</code> badge at the top of your <a href="README.html">README.adoc</a> to point to that of your own repo by replacing the outlined areas with <code>your-org-name/your-repo-name</code>.</p>
+<div class="paragraph">
+<p><span class="image"><img src="images/coveralls/coverage_asciidoc_code.png" alt="Coverage Status Badge"></span></p>
+</div>
+</li>
+<li>
+<p>You can now see the coverage report for your project after each Travis build by clicking on the <code>Coverage Status</code> badge.</p>
+<div class="paragraph">
+<p><span class="image"><img src="images/coveralls/coverage_report.png" alt="Coverage Report Summary"></span></p>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="disabling-coveralls-automatic-comments-on-pull-requests"><a class="link" href="#disabling-coveralls-automatic-comments-on-pull-requests">Disabling Coveralls Automatic Comments on Pull Requests</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Coveralls automatically comments on the coverage status of the pull requests in GitHub. If it&#8217;s a hindrance, you can disable it in the settings of your project in Coveralls:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Click <code>Settings</code>.</p>
+</li>
+<li>
+<p>Uncheck the <code>LEAVE COMMENTS?</code> checkbox. Then click <code>SAVE CHANGES</code>.</p>
+<div class="paragraph">
+<p><span class="image"><img src="images/coveralls/disable_comments.png" alt="Disable comments" width="942"></span></p>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2018-01-17 06:49:22 UTC
+</div>
+</div>
+</body>
+</html>
