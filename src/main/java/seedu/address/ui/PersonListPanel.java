@@ -15,7 +15,7 @@ import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.commons.events.ui.PersonPanelSelectionChangedEvent;
-import seedu.address.model.person.ReadOnlyPerson;
+import seedu.address.model.person.Person;
 
 /**
  * Panel containing the list of persons.
@@ -27,13 +27,13 @@ public class PersonListPanel extends UiPart<Region> {
     @FXML
     private ListView<PersonCard> personListView;
 
-    public PersonListPanel(ObservableList<ReadOnlyPerson> personList) {
+    public PersonListPanel(ObservableList<Person> personList) {
         super(FXML);
         setConnections(personList);
         registerAsAnEventHandler(this);
     }
 
-    private void setConnections(ObservableList<ReadOnlyPerson> personList) {
+    private void setConnections(ObservableList<Person> personList) {
         ObservableList<PersonCard> mappedList = EasyBind.map(
                 personList, (person) -> new PersonCard(person, personList.indexOf(person) + 1));
         personListView.setItems(mappedList);

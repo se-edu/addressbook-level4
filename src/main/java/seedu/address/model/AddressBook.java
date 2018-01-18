@@ -8,10 +8,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.ReadOnlyPerson;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
@@ -51,7 +51,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     //// list overwrite operations
 
-    public void setPersons(List<? extends ReadOnlyPerson> persons) throws DuplicatePersonException {
+    public void setPersons(List<Person> persons) throws DuplicatePersonException {
         this.persons.setPersons(persons);
     }
 
@@ -64,14 +64,16 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void resetData(ReadOnlyAddressBook newData) {
         requireNonNull(newData);
+        setTags(new HashSet<>(newData.getTagList()));
+        List<Person> syncedPersonList = newData.getPersonList().stream()
+                .map(this::syncWithMasterTagList)
+                .collect(Collectors.toList());
+
         try {
-            setPersons(newData.getPersonList());
+            setPersons(syncedPersonList);
         } catch (DuplicatePersonException e) {
             throw new AssertionError("AddressBooks should not have duplicate persons");
         }
-
-        setTags(new HashSet<>(newData.getTagList()));
-        syncMasterTagListWith(persons);
     }
 
     //// person-level operations
@@ -83,43 +85,41 @@ public class AddressBook implements ReadOnlyAddressBook {
      *
      * @throws DuplicatePersonException if an equivalent person already exists.
      */
-    public void addPerson(ReadOnlyPerson p) throws DuplicatePersonException {
-        Person newPerson = new Person(p);
-        syncMasterTagListWith(newPerson);
+    public void addPerson(Person p) throws DuplicatePersonException {
+        Person person = syncWithMasterTagList(p);
         // TODO: the tags master list will be updated even though the below line fails.
         // This can cause the tags master list to have additional tags that are not tagged to any person
         // in the person list.
-        persons.add(newPerson);
+        persons.add(person);
     }
 
     /**
-     * Replaces the given person {@code target} in the list with {@code editedReadOnlyPerson}.
-     * {@code AddressBook}'s tag list will be updated with the tags of {@code editedReadOnlyPerson}.
+     * Replaces the given person {@code target} in the list with {@code editedPerson}.
+     * {@code AddressBook}'s tag list will be updated with the tags of {@code editedPerson}.
      *
      * @throws DuplicatePersonException if updating the person's details causes the person to be equivalent to
      *      another existing person in the list.
      * @throws PersonNotFoundException if {@code target} could not be found in the list.
      *
-     * @see #syncMasterTagListWith(Person)
+     * @see #syncWithMasterTagList(Person)
      */
-    public void updatePerson(ReadOnlyPerson target, ReadOnlyPerson editedReadOnlyPerson)
+    public void updatePerson(Person target, Person editedPerson)
             throws DuplicatePersonException, PersonNotFoundException {
-        requireNonNull(editedReadOnlyPerson);
+        requireNonNull(editedPerson);
 
-        Person editedPerson = new Person(editedReadOnlyPerson);
-        syncMasterTagListWith(editedPerson);
+        Person syncedEditedPerson = syncWithMasterTagList(editedPerson);
         // TODO: the tags master list will be updated even though the below line fails.
         // This can cause the tags master list to have additional tags that are not tagged to any person
         // in the person list.
-        persons.setPerson(target, editedPerson);
+        persons.setPerson(target, syncedEditedPerson);
     }
 
     /**
-     * Ensures that every tag in this person:
-     *  - exists in the master list {@link #tags}
-     *  - points to a Tag object in the master list
+     *  Updates the master tag list to include tags in {@code person} that are not in the list.
+     *  @return a copy of this {@code person} such that every tag in this person points to a Tag object in the master
+     *  list.
      */
-    private void syncMasterTagListWith(Person person) {
+    private Person syncWithMasterTagList(Person person) {
         final UniqueTagList personTags = new UniqueTagList(person.getTags());
         tags.mergeFrom(personTags);
 
@@ -131,24 +131,15 @@ public class AddressBook implements ReadOnlyAddressBook {
         // Rebuild the list of person tags to point to the relevant tags in the master tag list.
         final Set<Tag> correctTagReferences = new HashSet<>();
         personTags.forEach(tag -> correctTagReferences.add(masterTagObjects.get(tag)));
-        person.setTags(correctTagReferences);
-    }
-
-    /**
-     * Ensures that every tag in these persons:
-     *  - exists in the master list {@link #tags}
-     *  - points to a Tag object in the master list
-     *  @see #syncMasterTagListWith(Person)
-     */
-    private void syncMasterTagListWith(UniquePersonList persons) {
-        persons.forEach(this::syncMasterTagListWith);
+        return new Person(
+                person.getName(), person.getPhone(), person.getEmail(), person.getAddress(), correctTagReferences);
     }
 
     /**
      * Removes {@code key} from this {@code AddressBook}.
      * @throws PersonNotFoundException if the {@code key} is not in this {@code AddressBook}.
      */
-    public boolean removePerson(ReadOnlyPerson key) throws PersonNotFoundException {
+    public boolean removePerson(Person key) throws PersonNotFoundException {
         if (persons.remove(key)) {
             return true;
         } else {
@@ -171,7 +162,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     @Override
-    public ObservableList<ReadOnlyPerson> getPersonList() {
+    public ObservableList<Person> getPersonList() {
         return persons.asObservableList();
     }
 
