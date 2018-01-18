@@ -8,6 +8,8 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -133,12 +135,16 @@ public class EditCommand extends UndoableCommand {
 
         public EditPersonDescriptor() {}
 
+        /**
+         * Copy constructor.
+         * A defensive copy of {@code tags} is used internally.
+         */
         public EditPersonDescriptor(EditPersonDescriptor toCopy) {
-            this.name = toCopy.name;
-            this.phone = toCopy.phone;
-            this.email = toCopy.email;
-            this.address = toCopy.address;
-            this.tags = toCopy.tags;
+            setName(toCopy.name);
+            setPhone(toCopy.phone);
+            setEmail(toCopy.email);
+            setAddress(toCopy.address);
+            setTags(toCopy.tags);
         }
 
         /**
@@ -180,12 +186,21 @@ public class EditCommand extends UndoableCommand {
             return Optional.ofNullable(address);
         }
 
+        /**
+         * Sets {@code tags} to this object's {@code tags}.
+         * A defensive copy of {@code tags} is used internally.
+         */
         public void setTags(Set<Tag> tags) {
-            this.tags = tags;
+            this.tags = (tags != null) ? new HashSet<>(tags) : null;
         }
 
+        /**
+         * Returns an unmodifiable tag set, which throws {@code UnsupportedOperationException}
+         * if modification is attempted.
+         * Returns {@code Optional#empty()} if {@code tags} is null.
+         */
         public Optional<Set<Tag>> getTags() {
-            return Optional.ofNullable(tags);
+            return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
         }
 
         @Override
