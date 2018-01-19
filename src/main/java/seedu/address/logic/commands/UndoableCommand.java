@@ -15,6 +15,8 @@ import seedu.address.model.person.Person;
  * Represents a command which can be undone and redone.
  */
 public abstract class UndoableCommand extends Command {
+    public static final String PREVIOUS_PREDICATE_FIELD_NAME = "previousPredicate";
+
     private ReadOnlyAddressBook previousAddressBook;
     private Predicate<Person> previousPredicate;
 

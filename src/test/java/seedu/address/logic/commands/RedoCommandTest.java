@@ -41,7 +41,7 @@ public class RedoCommandTest {
         RedoCommand redoCommand = new RedoCommand();
         redoCommand.setData(model, EMPTY_COMMAND_HISTORY, undoRedoStack);
         Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-        prepareRedo(expectedModel, deleteCommandOne, deleteCommandTwo);
+        prepareRedo(deleteCommandOne, deleteCommandTwo);
 
         // multiple commands in redoStack
         deleteFirstPerson(expectedModel);
