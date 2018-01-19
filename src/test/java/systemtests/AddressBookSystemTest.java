@@ -206,7 +206,7 @@ public abstract class AddressBookSystemTest {
 
     /**
      * Asserts that the no card is selected and the browser's url is that of the default page
-     * @see BrowserPanelHandle#isUrlChanged()
+     * @see BrowserPanelHandle#getLoadedUrl()
      */
     protected void assertBrowserPanelClear() {
         assertEquals(getBrowserPanel().getLoadedUrl(),
