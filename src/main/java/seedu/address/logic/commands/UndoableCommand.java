@@ -9,14 +9,16 @@ import java.util.function.Predicate;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.person.ReadOnlyPerson;
+import seedu.address.model.person.Person;
 
 /**
  * Represents a command which can be undone and redone.
  */
 public abstract class UndoableCommand extends Command {
+    public static final String PREVIOUS_PREDICATE_FIELD_NAME = "previousPredicate";
+
     private ReadOnlyAddressBook previousAddressBook;
-    private Predicate<ReadOnlyPerson> previousPredicate;
+    private Predicate<Person> previousPredicate;
 
     protected abstract CommandResult executeUndoableCommand() throws CommandException;
 
@@ -53,8 +55,8 @@ public abstract class UndoableCommand extends Command {
     protected final void redo() {
         requireNonNull(model);
         try {
-            // restore filtered person list to the same previous view to ensure command executes itself on the same
-            // correct {@code Person} as before
+            // Restore the previous view of the filtered person list to ensure that the command is executed on the
+            // correct {@code Person}
             model.updateFilteredPersonList(previousPredicate);
             executeUndoableCommand();
         } catch (CommandException ce) {

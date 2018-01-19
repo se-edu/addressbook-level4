@@ -1,5 +1,6 @@
 package systemtests;
 
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
@@ -62,10 +63,13 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
         /* ------------------ Performing delete operation while a filtered list is being shown ---------------------- */
 
         /* Case: filtered person list, delete index within bounds of address book and person list -> deleted */
+        Index index = INDEX_FIRST_PERSON;
         Model modelBeforeDeletingFirstFiltered = getModel();
         showPersonsWithName(KEYWORD_MATCHING_FIONA);
+        Person firstPersonAddressBook = getModel().getAddressBook().getPersonList().get(index.getZeroBased());
+        Person firstPersonFilteredList = getModel().getFilteredPersonList().get(index.getZeroBased());
+        assertNotEquals(firstPersonAddressBook, firstPersonFilteredList);
         Model modelAfterDeletingFirstFiltered = getModel();
-        Index index = INDEX_FIRST_PERSON;
         assertTrue(index.getZeroBased() < getModel().getFilteredPersonList().size());
         assertCommandSuccess(index);
 

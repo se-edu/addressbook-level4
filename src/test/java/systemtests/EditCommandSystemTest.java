@@ -1,6 +1,7 @@
 package systemtests;
 
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
@@ -100,9 +101,12 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         /* ------------------ Performing edit operation while a filtered list is being shown ------------------------ */
 
         /* Case: filtered person list, edit index within bounds of address book and person list -> edited */
-        showPersonsWithName(KEYWORD_MATCHING_MEIER);
-        model  = getModel();
         index = INDEX_FIRST_PERSON;
+        showPersonsWithName(KEYWORD_MATCHING_MEIER);
+        Person firstPersonAddressBook = getModel().getAddressBook().getPersonList().get(index.getZeroBased());
+        Person firstPersonFilteredList = getModel().getFilteredPersonList().get(index.getZeroBased());
+        assertNotEquals(firstPersonAddressBook, firstPersonFilteredList);
+        model  = getModel();
         assertTrue(index.getZeroBased() < getModel().getFilteredPersonList().size());
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + " " + NAME_DESC_BOB;
         personToEdit = getModel().getFilteredPersonList().get(index.getZeroBased());

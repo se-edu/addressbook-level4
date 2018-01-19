@@ -37,7 +37,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         this.addressBook = new AddressBook(addressBook);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
-        // set a show all person as default predicate to prevent filteredPersons having a null value predicate
+        // Sets a default predicate as null predicates are not dealt with
         filteredPersons.setPredicate(PREDICATE_SHOW_ALL_PERSONS);
     }
 
@@ -95,18 +95,17 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    @SuppressWarnings("unchecked")
-    public Predicate<ReadOnlyPerson> getFilteredPersonListPredicate() {
-        Predicate<ReadOnlyPerson> toReturn = (Predicate<ReadOnlyPerson>) filteredPersons.getPredicate();
-        // the predicate set inside filteredPersons should never be null
-        assert toReturn != null;
-        return toReturn;
+    public void updateFilteredPersonList(Predicate<Person> predicate) {
+        requireNonNull(predicate);
+        filteredPersons.setPredicate(predicate);
     }
 
     @Override
-    public void updateFilteredPersonList(Predicate<ReadOnlyPerson> predicate) {
-        requireNonNull(predicate);
-        filteredPersons.setPredicate(predicate);
+    @SuppressWarnings("unchecked")
+    public Predicate<Person> getFilteredPersonListPredicate() {
+        Predicate<Person> toReturn = (Predicate<Person>) filteredPersons.getPredicate();
+        assert toReturn != null;
+        return toReturn;
     }
 
     @Override

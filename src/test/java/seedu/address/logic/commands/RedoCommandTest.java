@@ -4,6 +4,7 @@ import static seedu.address.logic.UndoRedoStackUtil.prepareStack;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.deleteFirstPerson;
+import static seedu.address.testutil.TestUtil.prepareRedo;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
@@ -35,23 +36,12 @@ public class RedoCommandTest {
 
     @Test
     public void execute() throws Exception {
-        UndoRedoStack undoRedoStackOne = prepareStack(
-                Arrays.asList(deleteCommandOne, deleteCommandTwo), Collections.emptyList());
-        UndoRedoStack undoRedoStackTwo = prepareStack(
+        UndoRedoStack undoRedoStack = prepareStack(
                 Collections.emptyList(), Arrays.asList(deleteCommandTwo, deleteCommandOne));
-        UndoCommand undoCommand = new UndoCommand();
         RedoCommand redoCommand = new RedoCommand();
-        undoCommand.setData(model, EMPTY_COMMAND_HISTORY, undoRedoStackOne);
-        redoCommand.setData(model, EMPTY_COMMAND_HISTORY, undoRedoStackTwo);
+        redoCommand.setData(model, EMPTY_COMMAND_HISTORY, undoRedoStack);
         Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-
-        // run the commands first to save their states
-        deleteCommandOne.execute();
-        deleteCommandTwo.execute();
-
-        // revert back to original state
-        undoCommand.execute();
-        undoCommand.execute();
+        prepareRedo(deleteCommandOne, deleteCommandTwo);
 
         // multiple commands in redoStack
         deleteFirstPerson(expectedModel);

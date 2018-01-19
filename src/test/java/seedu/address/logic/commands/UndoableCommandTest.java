@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 import static seedu.address.logic.commands.CommandTestUtil.deleteFirstPerson;
 import static seedu.address.logic.commands.CommandTestUtil.showFirstPersonOnly;
+import static seedu.address.testutil.TestUtil.prepareRedo;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.Test;
@@ -37,11 +38,7 @@ public class UndoableCommandTest {
 
     @Test
     public void redo() throws Exception {
-        // run the command once to save the states
-        dummyCommand.execute();
-
-        // revert back to original state
-        dummyCommand.undo();
+        prepareRedo(dummyCommand);
 
         showFirstPersonOnly(model);
 

@@ -1,10 +1,14 @@
 package seedu.address.testutil;
 
+import static seedu.address.logic.commands.UndoableCommand.PREVIOUS_PREDICATE_FIELD_NAME;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
+
 import java.io.File;
 import java.io.IOException;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.FileUtil;
+import seedu.address.logic.commands.UndoableCommand;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 
@@ -32,23 +36,33 @@ public class TestUtil {
     }
 
     /**
-     * Returns the middle index of the person in the {@code model}'s person list.
+     * Returns the middle index of the person in the {@code model}'s filtered person list.
      */
     public static Index getMidIndex(Model model) {
         return Index.fromOneBased(model.getFilteredPersonList().size() / 2);
     }
 
     /**
-     * Returns the last index of the person in the {@code model}'s person list.
+     * Returns the last index of the person in the {@code model}'s filtered person list.
      */
     public static Index getLastIndex(Model model) {
         return Index.fromOneBased(model.getFilteredPersonList().size());
     }
 
     /**
-     * Returns the person in the {@code model}'s person list at {@code index}.
+     * Returns the person in the {@code model}'s filtered person list at {@code index}.
      */
-    public static ReadOnlyPerson getPerson(Model model, Index index) {
+    public static Person getPerson(Model model, Index index) {
         return model.getFilteredPersonList().get(index.getZeroBased());
+    }
+
+    /**
+     * Set up each {@code UndoableCommand} to be executed in {@code UndoableCommand#redo()}
+     */
+    public static void prepareRedo(UndoableCommand... commandsToRedo) throws Exception {
+        for (UndoableCommand commandToRedo: commandsToRedo) {
+            ReflectionUtil.setPrivateField(commandToRedo.getClass().getSuperclass(), PREVIOUS_PREDICATE_FIELD_NAME,
+                    commandToRedo, PREDICATE_SHOW_ALL_PERSONS);
+        }
     }
 }
