@@ -177,7 +177,6 @@
     <module name="LineLength">
       <!-- Checks if a line is too long. -->
       <property name="max" value="120"/>
-      <property name="severity" value="error"/>
     </module>
 
     <module name="LeftCurly">
@@ -231,7 +230,6 @@
 
     <module name="UpperEll">
       <!-- Checks that long constants are defined with an upper ell.-->
-      <property name="severity" value="error"/>
     </module>
 
     <module name="FallThrough">
@@ -242,7 +240,6 @@
       -->
       <property name="reliefPattern"
        value="fall through|Fall through|fallthru|Fallthru|falls through|Falls through|fallthrough|Fallthrough|No break|NO break|no break|continue on"/>
-      <property name="severity" value="error"/>
     </module>
 
     <module name="MissingSwitchDefault"/>
@@ -309,7 +306,6 @@
       <property name="allowEmptyLoops" value="true" />
       <!-- Allow empty lambdas e.g. () -> {} -->
       <property name="allowEmptyLambdas" value="true" />
-      <property name="severity" value="error"/>
     </module>
 
     <module name="WhitespaceAfter">
@@ -322,7 +318,6 @@
       <property name="tokens" value="BNOT, DEC, DOT, INC, LNOT, UNARY_MINUS,
         UNARY_PLUS"/>
       <property name="allowLineBreaks" value="true"/>
-      <property name="severity" value="error"/>
     </module>
 
     <!-- No trailing whitespace -->
@@ -373,7 +368,6 @@
       <!-- Checks that there is no whitespace before various unary operators. Linebreaks are allowed. -->
       <property name="tokens" value="SEMI, DOT, POST_DEC, POST_INC"/>
       <property name="allowLineBreaks" value="true"/>
-      <property name="severity" value="error"/>
     </module>
 
     <module name="ParenPad">
