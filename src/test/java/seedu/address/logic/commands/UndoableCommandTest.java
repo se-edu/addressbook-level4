@@ -38,7 +38,7 @@ public class UndoableCommandTest {
 
     @Test
     public void redo() throws Exception {
-        prepareRedo(model, dummyCommand);
+        prepareRedo(dummyCommand);
 
         showFirstPersonOnly(model);
 

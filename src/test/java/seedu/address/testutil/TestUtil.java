@@ -1,17 +1,13 @@
 package seedu.address.testutil;
 
-import static seedu.address.logic.UndoRedoStackUtil.prepareStack;
+import static seedu.address.logic.commands.UndoableCommand.PREVIOUS_PREDICATE_FIELD_NAME;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.Collections;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.FileUtil;
-import seedu.address.logic.CommandHistory;
-import seedu.address.logic.UndoRedoStack;
-import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.commands.UndoableCommand;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
@@ -63,17 +59,10 @@ public class TestUtil {
     /**
      * Set up each {@code UndoableCommand} to be executed in {@code UndoableCommand#redo()}
      */
-    public static void prepareRedo(Model model, UndoableCommand... commandsToRedo) throws Exception {
+    public static void prepareRedo(UndoableCommand... commandsToRedo) throws Exception {
         for (UndoableCommand commandToRedo: commandsToRedo) {
-            commandToRedo.execute();
-        }
-
-        UndoRedoStack undoRedoStack = prepareStack(Arrays.asList(commandsToRedo), Collections.emptyList());
-        UndoCommand undoCommand = new UndoCommand();
-        undoCommand.setData(model, new CommandHistory(), undoRedoStack);
-
-        for (int i = 0; i < commandsToRedo.length; i++) {
-            undoCommand.execute();
+            ReflectionUtil.setPrivateField(commandToRedo.getClass().getSuperclass(), PREVIOUS_PREDICATE_FIELD_NAME,
+                    commandToRedo, PREDICATE_SHOW_ALL_PERSONS);
         }
     }
 }
