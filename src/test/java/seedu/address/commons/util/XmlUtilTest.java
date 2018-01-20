@@ -85,7 +85,7 @@ public class XmlUtilTest {
     }
 
     @Test
-    public void xmlAdaptedPersonFromFile_fileWithinvalidPersonField_validResult() throws Exception {
+    public void xmlAdaptedPersonFromFile_fileWithInvalidPersonField_validResult() throws Exception {
         XmlAdaptedPerson actualPerson = XmlUtil.getDataFromFile(
                 INVALID_PERSON_FIELD_FILE, XmlAdaptedPersonWithRootElement.class);
         XmlAdaptedPerson expectedPerson = new XmlAdaptedPerson(
@@ -94,7 +94,7 @@ public class XmlUtilTest {
     }
 
     @Test
-    public void xmlAdaptedPersonFromFile_fileWithvalidPerson_validResult() throws Exception {
+    public void xmlAdaptedPersonFromFile_fileWithValidPerson_validResult() throws Exception {
         XmlAdaptedPerson actualPerson = XmlUtil.getDataFromFile(
                 VALID_PERSON_FILE, XmlAdaptedPersonWithRootElement.class);
         XmlAdaptedPerson expectedPerson = new XmlAdaptedPerson(
