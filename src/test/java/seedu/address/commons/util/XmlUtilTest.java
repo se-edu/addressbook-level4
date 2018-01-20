@@ -32,9 +32,9 @@ public class XmlUtilTest {
     private static final File EMPTY_FILE = new File(TEST_DATA_FOLDER + "empty.xml");
     private static final File MISSING_FILE = new File(TEST_DATA_FOLDER + "missing.xml");
     private static final File VALID_FILE = new File(TEST_DATA_FOLDER + "validAddressBook.xml");
-    private static final File MISSING_FIELD_PERSON_FILE = new File(TEST_DATA_FOLDER + "missingFieldInXml.xml");
-    private static final File INVALID_FIELD_PERSON_FILE = new File(TEST_DATA_FOLDER + "invalidFieldInXml.xml");
-    private static final File VALID_PERSON_FILE = new File(TEST_DATA_FOLDER + "validPersonInXml.xml");
+    private static final File MISSING_PERSON_FIELD_FILE = new File(TEST_DATA_FOLDER + "missingPersonField.xml");
+    private static final File INVALID_PERSON_FIELD_FILE = new File(TEST_DATA_FOLDER + "invalidPersonField.xml");
+    private static final File VALID_PERSON_FILE = new File(TEST_DATA_FOLDER + "validPerson.xml");
     private static final File TEMP_FILE = new File(TestUtil.getFilePathInSandboxFolder("tempAddressBook.xml"));
 
     @Rule
@@ -72,22 +72,24 @@ public class XmlUtilTest {
     }
 
     @Test
-    public void toModelTypeXmlAdaptedPersonFromFile_missingFieldInXml_throwsIllegalValueException() throws Exception {
-        XmlAdaptedPerson dataFromFile = XmlUtil.getDataFromFile(MISSING_FIELD_PERSON_FILE, XmlAdaptedPersonRoot.class);
+    public void toModelTypeXmlAdaptedPersonFromFile_missingPersonFieldFile_throwsIllegalValueException()
+            throws Exception {
+        XmlAdaptedPerson dataFromFile = XmlUtil.getDataFromFile(MISSING_PERSON_FIELD_FILE, XmlAdaptedPersonStub.class);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName());
         Assert.assertThrows(IllegalValueException.class, expectedMessage, dataFromFile::toModelType);
     }
 
     @Test
-    public void toModelTypeXmlAdaptedPersonFromFile_invalidFieldInXml_throwsIllegalValueException() throws Exception {
-        XmlAdaptedPerson dataFromFile = XmlUtil.getDataFromFile(INVALID_FIELD_PERSON_FILE, XmlAdaptedPersonRoot.class);
+    public void toModelTypeXmlAdaptedPersonFromFile_invalidPersonFieldFile_throwsIllegalValueException()
+            throws Exception {
+        XmlAdaptedPerson dataFromFile = XmlUtil.getDataFromFile(INVALID_PERSON_FIELD_FILE, XmlAdaptedPersonStub.class);
         String expectedMessage = Phone.MESSAGE_PHONE_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, dataFromFile::toModelType);
     }
 
     @Test
-    public void toModelTypeXmlAdaptedPersonFromFile_validPersonInXml_validResult() throws Exception {
-        XmlAdaptedPerson dataFromFile = XmlUtil.getDataFromFile(VALID_PERSON_FILE, XmlAdaptedPersonRoot.class);
+    public void toModelTypeXmlAdaptedPersonFromFile_validPersonFile_validResult() throws Exception {
+        XmlAdaptedPerson dataFromFile = XmlUtil.getDataFromFile(VALID_PERSON_FILE, XmlAdaptedPersonStub.class);
         Person person = new Person(BENSON.getName(), BENSON.getPhone(), BENSON.getEmail(), BENSON.getAddress(),
                 BENSON.getTags());
         assertEquals(person, dataFromFile.toModelType());
@@ -128,6 +130,9 @@ public class XmlUtilTest {
         assertEquals(dataToWrite, dataFromFile);
     }
 
+    /**
+     * Helper class with XmlRootElement for reading of {@code XmlAdaptedPerson} from .xml files
+     */
     @XmlRootElement(name = "person")
-    static class XmlAdaptedPersonRoot extends XmlAdaptedPerson {}
+    static class XmlAdaptedPersonStub extends XmlAdaptedPerson {}
 }

@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Set;
 
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.person.Address;
@@ -19,7 +18,6 @@ import seedu.address.model.tag.Tag;
 /**
  * JAXB-friendly version of the Person.
  */
-@XmlRootElement(name = "person")
 public class XmlAdaptedPerson {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Person's %s field is missing!";

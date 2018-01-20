@@ -23,20 +23,22 @@ public class Assert {
             callable.call();
         } catch (Throwable actualException) {
             String errorMessage;
-            if (actualException.getClass().isAssignableFrom(expectedException)) {
-                if (expectedMessage == null || actualException.getMessage().equals(expectedMessage)) {
-                    return;
-                }
+
+            if (!actualException.getClass().isAssignableFrom(expectedException)) {
+                errorMessage = String.format("Expected exception thrown: %s, actual: %s",
+                        expectedException.getName(), actualException.getClass().getName());
+            } else if (expectedMessage != null && !actualException.getMessage().equals(expectedMessage) ) {
                 errorMessage = String.format("Expected message thrown: %s, actual: %s", expectedMessage,
                         actualException.getMessage());
             } else {
-                errorMessage = String.format("Expected exception thrown: %s, actual: %s",
-                        expectedException.getName(), actualException.getClass().getName());
+                return;
             }
+
             throw new AssertionFailedError(errorMessage);
         }
-        throw new AssertionFailedError(
-                String.format("Expected %s to be thrown, but nothing was thrown.", expectedException.getName()));
+
+        throw new AssertionFailedError(String.format("Expected %s to be thrown, but nothing was thrown.",
+                expectedException.getName()));
 
     }
 
