@@ -2,13 +2,14 @@ package seedu.address.storage;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.AddressBook;
+import seedu.address.commons.util.CollectionUtil;
 import seedu.address.model.ReadOnlyAddressBook;
 
 /**
@@ -41,20 +42,22 @@ public class XmlSerializableAddressBook {
     }
 
     /**
-     * Converts this addressbook into the model's {@code AddressBook} object.
-     *
-     * @throws IllegalValueException if there were any data constraints violated or duplicates in the
-     * {@code XmlAdaptedPerson} or {@code XmlAdaptedTag}.
+     * Returns an unmodifiable view of the {@code XmlAdaptedPerson} converted to {@code Person} list.
+     * @return: an unmodifiable view of the person list with no null values or duplicates
      */
-    public AddressBook toModelType() throws IllegalValueException {
-        AddressBook addressBook = new AddressBook();
-        for (XmlAdaptedTag t : tags) {
-            addressBook.addTag(t.toModelType());
-        }
-        for (XmlAdaptedPerson p : persons) {
-            addressBook.addPerson(p.toModelType());
-        }
-        return addressBook;
+    @Override
+    public ObservableList<Person> getPersonList() {
+        final ObservableList<Person> persons = this.persons.stream().map(p -> {
+            try {
+                return p.toModelType();
+            } catch (IllegalValueException e) {
+                e.printStackTrace();
+                //TODO: better error handling
+                return null;
+            }
+        }).filter(Objects::nonNull).collect(Collectors.toCollection(FXCollections::observableArrayList));
+        assert CollectionUtil.elementsAreUnique(persons);
+        return FXCollections.unmodifiableObservableList(persons);
     }
 
     @Override

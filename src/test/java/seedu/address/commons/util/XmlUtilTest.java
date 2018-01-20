@@ -23,6 +23,7 @@ public class XmlUtilTest {
     private static final File EMPTY_FILE = new File(TEST_DATA_FOLDER + "empty.xml");
     private static final File MISSING_FILE = new File(TEST_DATA_FOLDER + "missing.xml");
     private static final File VALID_FILE = new File(TEST_DATA_FOLDER + "validAddressBook.xml");
+    private static final File ILLEGAL_VALUES_FILE = new File(TEST_DATA_FOLDER + "illegalValuesAddressBook.xml");
     private static final File TEMP_FILE = new File(TestUtil.getFilePathInSandboxFolder("tempAddressBook.xml"));
 
     @Rule
@@ -56,6 +57,14 @@ public class XmlUtilTest {
     public void getDataFromFile_validFile_validResult() throws Exception {
         AddressBook dataFromFile = XmlUtil.getDataFromFile(VALID_FILE, XmlSerializableAddressBook.class).toModelType();
         assertEquals(9, dataFromFile.getPersonList().size());
+        assertEquals(0, dataFromFile.getTagList().size());
+    }
+
+    @Test
+    public void getDataFromFile_nullValuesFile_validResult() throws Exception {
+        XmlSerializableAddressBook dataFromFile = XmlUtil.getDataFromFile(ILLEGAL_VALUES_FILE,
+                XmlSerializableAddressBook.class);
+        assertEquals(1, dataFromFile.getPersonList().size());
         assertEquals(0, dataFromFile.getTagList().size());
     }
 
