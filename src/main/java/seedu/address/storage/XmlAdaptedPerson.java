@@ -20,7 +20,7 @@ import seedu.address.model.tag.Tag;
  */
 public class XmlAdaptedPerson {
 
-    private static final String MISSING_FIELD_MESSAGE_FORMAT = "Missing %s Field!";
+    private static final String MISSING_FIELD_MESSAGE_FORMAT = "Person's %s field is missing!";
 
     @XmlElement(required = true)
     private String name;
