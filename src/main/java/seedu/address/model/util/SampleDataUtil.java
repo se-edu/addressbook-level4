@@ -1,5 +1,6 @@
 package seedu.address.model.util;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -57,9 +58,8 @@ public class SampleDataUtil {
      */
     public static Set<Tag> getTagSet(String... strings) {
         HashSet<Tag> tags = new HashSet<>();
-        for (String s : strings) {
-            tags.add(new Tag(s));
-        }
+        Arrays.stream(strings)
+              .forEach(s -> tags.add(new Tag(s)));
 
         return tags;
     }
