@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.person.Address;
@@ -18,9 +19,10 @@ import seedu.address.model.tag.Tag;
 /**
  * JAXB-friendly version of the Person.
  */
+@XmlRootElement(name = "person")
 public class XmlAdaptedPerson {
 
-    private static final String MISSING_FIELD_MESSAGE_FORMAT = "Person's %s field is missing!";
+    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Person's %s field is missing!";
 
     @XmlElement(required = true)
     private String name;
@@ -81,7 +83,7 @@ public class XmlAdaptedPerson {
         }
 
         if (this.name == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "Name"));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
         }
         if (!Name.isValidName(this.name)) {
             throw new IllegalValueException(Name.MESSAGE_NAME_CONSTRAINTS);
@@ -89,7 +91,7 @@ public class XmlAdaptedPerson {
         final Name name = new Name(this.name);
 
         if (this.phone == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "Phone"));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Phone.class.getSimpleName()));
         }
         if (!Phone.isValidPhone(this.phone)) {
             throw new IllegalValueException(Phone.MESSAGE_PHONE_CONSTRAINTS);
@@ -97,7 +99,7 @@ public class XmlAdaptedPerson {
         final Phone phone = new Phone(this.phone);
 
         if (this.email == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "Email"));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Email.class.getSimpleName()));
         }
         if (!Email.isValidEmail(this.email)) {
             throw new IllegalValueException(Email.MESSAGE_EMAIL_CONSTRAINTS);
@@ -105,7 +107,7 @@ public class XmlAdaptedPerson {
         final Email email = new Email(this.email);
 
         if (this.address == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "Address"));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName()));
         }
         if (!Address.isValidAddress(this.address)) {
             throw new IllegalValueException(Address.MESSAGE_ADDRESS_CONSTRAINTS);
