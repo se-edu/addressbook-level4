@@ -7,6 +7,7 @@ import java.io.FileNotFoundException;
 
 import javax.xml.bind.JAXBException;
 
+import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -23,6 +24,7 @@ public class XmlUtilTest {
     private static final File EMPTY_FILE = new File(TEST_DATA_FOLDER + "empty.xml");
     private static final File MISSING_FILE = new File(TEST_DATA_FOLDER + "missing.xml");
     private static final File VALID_FILE = new File(TEST_DATA_FOLDER + "validAddressBook.xml");
+    private static final File NULL_VALUES_FILE = new File(TEST_DATA_FOLDER + "nullValuesAddressBook.xml");
     private static final File TEMP_FILE = new File(TestUtil.getFilePathInSandboxFolder("tempAddressBook.xml"));
 
     @Rule
@@ -56,6 +58,15 @@ public class XmlUtilTest {
     public void getDataFromFile_validFile_validResult() throws Exception {
         XmlSerializableAddressBook dataFromFile = XmlUtil.getDataFromFile(VALID_FILE, XmlSerializableAddressBook.class);
         assertEquals(9, dataFromFile.getPersonList().size());
+        assertEquals(0, dataFromFile.getTagList().size());
+    }
+
+    @Test
+    public void getDataFromFile_nullValuesFile_validResult() throws Exception {
+        XmlSerializableAddressBook dataFromFile = XmlUtil.getDataFromFile(NULL_VALUES_FILE,
+                XmlSerializableAddressBook.class);
+        dataFromFile.getPersonList().stream().forEach(Assert::assertNotNull);
+        assertEquals(5, dataFromFile.getPersonList().size());
         assertEquals(0, dataFromFile.getTagList().size());
     }
 

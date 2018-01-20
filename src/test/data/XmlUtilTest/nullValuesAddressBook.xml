@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- AddressBook save file which contains person with missing parameters for each field -->
+<addressbook>
+    <persons>
+        <name>Hans Muster</name>
+        <phone isPrivate="false">9482424</phone>
+        <email isPrivate="false">hans@example.com</email>
+        <address isPrivate="false">4th street</address>
+    </persons>
+    <!-- Missing Name field -->
+    <persons>
+        <phone isPrivate="false">87249245</phone>
+        <email isPrivate="false">ruth@example.com</email>
+        <address isPrivate="false">81th street</address>
+    </persons>
+    <persons>
+        <name>Lydia Kunz</name>
+        <phone isPrivate="false">9482427</phone>
+        <email isPrivate="false">lydia@example.com</email>
+        <address isPrivate="false">little tokyo</address>
+    </persons>
+    <!-- Missing Phone field -->
+    <persons>
+        <name>Heinz Kurz</name>
+        <email isPrivate="false">heinz@example.com</email>
+        <address isPrivate="false">wall street</address>
+    </persons>
+    <persons>
+        <name>Anna Best</name>
+        <phone isPrivate="false">9482442</phone>
+        <email isPrivate="false">anna@example.com</email>
+        <address isPrivate="false">4th street</address>
+    </persons>
+    <!-- Missing Email field -->
+    <persons>
+        <name>Cornelia Meier</name>
+        <phone isPrivate="false">87652533</phone>
+        <address isPrivate="false">10th street</address>
+    </persons>
+    <persons>
+        <name>Stefan Meier</name>
+        <phone isPrivate="false">8482424</phone>
+        <email isPrivate="false">stefan@example.com</email>
+        <address isPrivate="false">little india</address>
+    </persons>
+    <!-- Missing Address field -->
+    <persons>
+        <name>Werner Meyer</name>
+        <phone isPrivate="false">9482224</phone>
+        <email isPrivate="false">werner@example.com</email>
+    </persons>
+    <persons>
+        <name>Martin Mueller</name>
+        <phone isPrivate="false">8482131</phone>
+        <email isPrivate="false">hans@example.com</email>
+        <address isPrivate="false">chicago ave</address>
+    </persons>
+</addressbook>
