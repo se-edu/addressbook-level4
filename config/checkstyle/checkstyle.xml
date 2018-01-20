@@ -76,8 +76,7 @@
     -->
     <module name="UnusedImports"/>
 
-    <module name="AvoidStarImport">
-    </module>
+    <module name="AvoidStarImport"/>
 
     <!--
     NAMING CHECKS
@@ -120,11 +119,6 @@
     <module name="MemberName">
       <!-- Validates non-static members against the supplied expression. -->
       <metadata name="altname" value="MemberName"/>
-      <property name="applyToPublic" value="true"/>
-      <property name="applyToProtected" value="true"/>
-      <property name="applyToPackage" value="true"/>
-      <property name="applyToPrivate" value="true"/>
-      <property name="format" value="^[a-z][a-zA-Z0-9]*$"/>
       <property name="severity" value="warning"/>
     </module>
 
@@ -190,7 +184,6 @@
         else
       </pre>
       -->
-      <property name="option" value="same"/>
       <property name="severity" value="warning"/>
     </module>
 
