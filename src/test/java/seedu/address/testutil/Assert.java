@@ -28,8 +28,8 @@ public class Assert {
                 errorMessage = String.format("Expected exception thrown: %s, actual: %s",
                         expectedException.getName(), actualException.getClass().getName());
             } else if (expectedMessage != null && !actualException.getMessage().equals(expectedMessage) ) {
-                errorMessage = String.format("Expected message thrown: %s, actual: %s", expectedMessage,
-                        actualException.getMessage());
+                errorMessage = String.format(
+                        "Expected message thrown: %s, actual: %s", expectedMessage, actualException.getMessage());
             } else {
                 return;
             }
@@ -37,9 +37,8 @@ public class Assert {
             throw new AssertionFailedError(errorMessage);
         }
 
-        throw new AssertionFailedError(String.format("Expected %s to be thrown, but nothing was thrown.",
-                expectedException.getName()));
-
+        throw new AssertionFailedError(String.format(
+                "Expected %s to be thrown, but nothing was thrown.", expectedException.getName()));
     }
 
     /**
