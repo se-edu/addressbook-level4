@@ -1,7 +1,9 @@
 package seedu.address.logic.parser;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Tokenizes arguments string of the form: {@code preamble <prefix>value <prefix>value ...}<br>
@@ -34,13 +36,9 @@ public class ArgumentTokenizer {
      * @return           List of zero-based prefix positions in the given arguments string
      */
     private static List<PrefixPosition> findAllPrefixPositions(String argsString, Prefix... prefixes) {
-        List<PrefixPosition> positions = new ArrayList<>();
-
-        for (Prefix prefix : prefixes) {
-            positions.addAll(findPrefixPositions(argsString, prefix));
-        }
-
-        return positions;
+        return Arrays.stream(prefixes)
+                .flatMap(prefix -> findPrefixPositions(argsString, prefix).stream())
+                .collect(Collectors.toList());
     }
 
     /**
