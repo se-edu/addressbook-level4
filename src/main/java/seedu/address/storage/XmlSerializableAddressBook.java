@@ -2,6 +2,7 @@ package seedu.address.storage;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import javax.xml.bind.annotation.XmlElement;
@@ -53,7 +54,7 @@ public class XmlSerializableAddressBook implements ReadOnlyAddressBook {
                 //TODO: better error handling
                 return null;
             }
-        }).collect(Collectors.toCollection(FXCollections::observableArrayList));
+        }).filter(Objects::nonNull).collect(Collectors.toCollection(FXCollections::observableArrayList));
         return FXCollections.unmodifiableObservableList(persons);
     }
 
