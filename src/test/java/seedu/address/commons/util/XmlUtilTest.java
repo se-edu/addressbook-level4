@@ -76,28 +76,30 @@ public class XmlUtilTest {
     }
 
     @Test
-    public void xmlAdaptedPersonFromFile_missingPersonFieldFile_validResult() throws Exception {
-        XmlAdaptedPerson dataFromFile = XmlUtil.getDataFromFile(
+    public void xmlAdaptedPersonFromFile_fileWithMissingPersonField_validResult() throws Exception {
+        XmlAdaptedPerson actualPerson = XmlUtil.getDataFromFile(
                 MISSING_PERSON_FIELD_FILE, XmlAdaptedPersonWithRootElement.class);
-        XmlAdaptedPerson person = new XmlAdaptedPerson(null, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
-        assertEquals(dataFromFile, person);
+        XmlAdaptedPerson expectedPerson = new XmlAdaptedPerson(
+                null, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
+        assertEquals(expectedPerson, actualPerson);
     }
 
     @Test
-    public void xmlAdaptedPersonFromFile_invalidPersonFieldFile_validResult() throws Exception {
-        XmlAdaptedPerson dataFromFile = XmlUtil.getDataFromFile(
+    public void xmlAdaptedPersonFromFile_fileWithinvalidPersonField_validResult() throws Exception {
+        XmlAdaptedPerson actualPerson = XmlUtil.getDataFromFile(
                 INVALID_PERSON_FIELD_FILE, XmlAdaptedPersonWithRootElement.class);
-        XmlAdaptedPerson person = new XmlAdaptedPerson(
+        XmlAdaptedPerson expectedPerson = new XmlAdaptedPerson(
                 VALID_NAME, INVALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
-        assertEquals(dataFromFile, person);
+        assertEquals(expectedPerson, actualPerson);
     }
 
     @Test
-    public void xmlAdaptedPersonFromFile_validPersonFile_validResult() throws Exception {
-        XmlAdaptedPerson dataFromFile = XmlUtil.getDataFromFile(
+    public void xmlAdaptedPersonFromFile_fileWithvalidPerson_validResult() throws Exception {
+        XmlAdaptedPerson actualPerson = XmlUtil.getDataFromFile(
                 VALID_PERSON_FILE, XmlAdaptedPersonWithRootElement.class);
-        XmlAdaptedPerson person = new XmlAdaptedPerson(VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
-        assertEquals(dataFromFile, person);
+        XmlAdaptedPerson expectedPerson = new XmlAdaptedPerson(
+                VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
+        assertEquals(expectedPerson, actualPerson);
     }
 
     @Test
