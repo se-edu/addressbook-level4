@@ -1,7 +1,8 @@
 package seedu.address.model.util;
 
-import java.util.HashSet;
+import java.util.Arrays;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
@@ -56,12 +57,9 @@ public class SampleDataUtil {
      * Returns a tag set containing the list of strings given.
      */
     public static Set<Tag> getTagSet(String... strings) {
-        HashSet<Tag> tags = new HashSet<>();
-        for (String s : strings) {
-            tags.add(new Tag(s));
-        }
-
-        return tags;
+        return Arrays.stream(strings)
+                .map(Tag::new)
+                .collect(Collectors.toSet());
     }
 
 }
