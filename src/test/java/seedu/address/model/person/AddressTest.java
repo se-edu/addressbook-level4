@@ -22,10 +22,8 @@ public class AddressTest {
 
     @Test
     public void isValidAddress() {
-        // null address
-        Assert.assertThrows(NullPointerException.class, () -> Address.isValidAddress(null));
-
         // invalid addresses
+        assertFalse(Address.isValidAddress(null)); // null string
         assertFalse(Address.isValidAddress("")); // empty string
         assertFalse(Address.isValidAddress(" ")); // spaces only
 
