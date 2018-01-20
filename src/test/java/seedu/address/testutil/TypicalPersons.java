@@ -65,13 +65,13 @@ public class TypicalPersons {
      */
     public static AddressBook getTypicalAddressBook() {
         AddressBook ab = new AddressBook();
-        getTypicalPersons().forEach(person -> {
+        for (Person person : getTypicalPersons()) {
             try {
                 ab.addPerson(person);
             } catch (DuplicatePersonException e) {
                 throw new AssertionError("not possible");
             }
-        });
+        }
         return ab;
     }
 

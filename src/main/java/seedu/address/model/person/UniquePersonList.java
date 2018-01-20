@@ -87,11 +87,11 @@ public class UniquePersonList implements Iterable<Person> {
 
     public void setPersons(List<Person> persons) throws DuplicatePersonException {
         requireAllNonNull(persons);
-        final UniquePersonList replacement = new UniquePersonList();
-        for (final Person person : persons) {
-            replacement.add(person);
+        if (!CollectionUtil.elementsAreUnique(persons)) {
+            throw new DuplicatePersonException();
         }
-        setPersons(replacement);
+
+        this.internalList.setAll(persons);
     }
 
     /**

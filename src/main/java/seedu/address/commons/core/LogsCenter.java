@@ -77,7 +77,7 @@ public class LogsCenter {
      */
     private static void removeHandlers(Logger logger) {
         Arrays.stream(logger.getHandlers())
-              .forEach(logger::removeHandler);
+                .forEach(logger::removeHandler);
     }
 
     /**

@@ -63,8 +63,8 @@ public class XmlAdaptedPerson {
         email = source.getEmail().value;
         address = source.getAddress().value;
         tagged = source.getTags().stream()
-                                 .map(XmlAdaptedTag::new)
-                                 .collect(Collectors.toList());
+                .map(XmlAdaptedTag::new)
+                .collect(Collectors.toList());
     }
 
     /**
