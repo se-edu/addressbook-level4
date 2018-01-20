@@ -22,8 +22,10 @@ public class NameTest {
 
     @Test
     public void isValidName() {
+        // null name
+        Assert.assertThrows(NullPointerException.class, () -> Name.isValidName(null));
+
         // invalid name
-        assertFalse(Name.isValidName(null)); // null string
         assertFalse(Name.isValidName("")); // empty string
         assertFalse(Name.isValidName(" ")); // spaces only
         assertFalse(Name.isValidName("^")); // only non-alphanumeric characters

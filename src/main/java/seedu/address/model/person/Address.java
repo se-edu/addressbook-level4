@@ -32,10 +32,10 @@ public class Address {
     }
 
     /**
-     * Returns true if a given string is not null and is a valid person email.
+     * Returns true if a given string is a valid person email.
      */
     public static boolean isValidAddress(String test) {
-        return test != null && test.matches(ADDRESS_VALIDATION_REGEX);
+        return test.matches(ADDRESS_VALIDATION_REGEX);
     }
 
     @Override

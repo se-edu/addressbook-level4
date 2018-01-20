@@ -22,8 +22,10 @@ public class EmailTest {
 
     @Test
     public void isValidEmail() {
+        // null email
+        Assert.assertThrows(NullPointerException.class, () -> Email.isValidEmail(null));
+
         // blank email
-        assertFalse(Email.isValidEmail(null)); // null string
         assertFalse(Email.isValidEmail("")); // empty string
         assertFalse(Email.isValidEmail(" ")); // spaces only
 

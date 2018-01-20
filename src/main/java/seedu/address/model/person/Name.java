@@ -32,10 +32,10 @@ public class Name {
     }
 
     /**
-     * Returns true if a given string is not null and is a valid person name.
+     * Returns true if a given string is a valid person name.
      */
     public static boolean isValidName(String test) {
-        return test != null && test.matches(NAME_VALIDATION_REGEX);
+        return test.matches(NAME_VALIDATION_REGEX);
     }
 
 
