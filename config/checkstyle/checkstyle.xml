@@ -216,9 +216,8 @@
 
     <module name="OneStatementPerLine"/>
 
-    <module name="UpperEll">
-      <!-- Checks that long constants are defined with an upper ell.-->
-    </module>
+    <!-- Checks that long constants are defined with an upper ell.-->
+    <module name="UpperEll" />
 
     <module name="FallThrough">
       <!-- Warn about falling through to the next case statement.  Similar to
