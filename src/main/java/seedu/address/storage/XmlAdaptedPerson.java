@@ -78,22 +78,22 @@ public class XmlAdaptedPerson {
             personTags.add(tag.toModelType());
         }
 
-        if (this.name == null || !Name.isValidName(this.name)) {
+        if (!Name.isValidName(this.name)) {
             throw new IllegalValueException(Name.MESSAGE_NAME_CONSTRAINTS);
         }
         final Name name = new Name(this.name);
 
-        if (this.phone == null || !Phone.isValidPhone(this.phone)) {
+        if (!Phone.isValidPhone(this.phone)) {
             throw new IllegalValueException(Phone.MESSAGE_PHONE_CONSTRAINTS);
         }
         final Phone phone = new Phone(this.phone);
 
-        if (this.email == null || !Email.isValidEmail(this.email)) {
+        if (!Email.isValidEmail(this.email)) {
             throw new IllegalValueException(Email.MESSAGE_EMAIL_CONSTRAINTS);
         }
         final Email email = new Email(this.email);
 
-        if (this.address == null || !Address.isValidAddress(this.address)) {
+        if (!Address.isValidAddress(this.address)) {
             throw new IllegalValueException(Address.MESSAGE_ADDRESS_CONSTRAINTS);
         }
         final Address address = new Address(this.address);

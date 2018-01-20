@@ -11,6 +11,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.commons.util.CollectionUtil;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
@@ -44,6 +45,10 @@ public class XmlSerializableAddressBook implements ReadOnlyAddressBook {
         tags.addAll(src.getTagList().stream().map(XmlAdaptedTag::new).collect(Collectors.toList()));
     }
 
+    /**
+     * Returns an unmodifiable view of the {@code XmlAdaptedPerson} converted to {@code Person} list.
+     * @return: an unmodifiable view of the person list with no null values or duplicates
+     */
     @Override
     public ObservableList<Person> getPersonList() {
         final ObservableList<Person> persons = this.persons.stream().map(p -> {
@@ -55,6 +60,7 @@ public class XmlSerializableAddressBook implements ReadOnlyAddressBook {
                 return null;
             }
         }).filter(Objects::nonNull).collect(Collectors.toCollection(FXCollections::observableArrayList));
+        assert CollectionUtil.elementsAreUnique(persons);
         return FXCollections.unmodifiableObservableList(persons);
     }
 

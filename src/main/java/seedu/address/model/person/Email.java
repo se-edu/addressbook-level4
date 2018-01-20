@@ -27,10 +27,10 @@ public class Email {
     }
 
     /**
-     * Returns if a given string is a valid person email.
+     * Returns true if a given string is not null and is a valid person email.
      */
     public static boolean isValidEmail(String test) {
-        return test.matches(EMAIL_VALIDATION_REGEX);
+        return test != null && test.matches(EMAIL_VALIDATION_REGEX);
     }
 
     @Override
