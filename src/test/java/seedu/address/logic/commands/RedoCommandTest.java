@@ -1,11 +1,10 @@
 package seedu.address.logic.commands;
 
+import static org.junit.Assert.fail;
 import static seedu.address.logic.UndoRedoStackUtil.prepareStack;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.deleteFirstPerson;
-import static seedu.address.logic.commands.CommandTestUtil.initPredicate;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.util.Arrays;
@@ -16,32 +15,34 @@ import org.junit.Test;
 
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.UndoRedoStack;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.exceptions.PersonNotFoundException;
 
 public class RedoCommandTest {
     private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();
     private static final UndoRedoStack EMPTY_STACK = new UndoRedoStack();
 
     private final Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-    private final DeleteCommand deleteCommandOne = new DeleteCommand(INDEX_FIRST_PERSON);
-    private final DeleteCommand deleteCommandTwo = new DeleteCommand(INDEX_FIRST_PERSON);
+    private final DummyCommand dummyCommandOne = new DummyCommand(model);
+    private final DummyCommand dummyCommandTwo = new DummyCommand(model);
 
     @Before
     public void setUp() {
-        deleteCommandOne.setData(model, EMPTY_COMMAND_HISTORY, EMPTY_STACK);
-        deleteCommandTwo.setData(model, EMPTY_COMMAND_HISTORY, EMPTY_STACK);
+        dummyCommandOne.setData(model, EMPTY_COMMAND_HISTORY, EMPTY_STACK);
+        dummyCommandTwo.setData(model, EMPTY_COMMAND_HISTORY, EMPTY_STACK);
     }
 
     @Test
-    public void execute() throws Exception {
+    public void execute() {
         UndoRedoStack undoRedoStack = prepareStack(
-                Collections.emptyList(), Arrays.asList(deleteCommandTwo, deleteCommandOne));
+                Collections.emptyList(), Arrays.asList(dummyCommandTwo, dummyCommandOne));
         RedoCommand redoCommand = new RedoCommand();
         redoCommand.setData(model, EMPTY_COMMAND_HISTORY, undoRedoStack);
         Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-        initPredicate(deleteCommandOne, deleteCommandTwo);
 
         // multiple commands in redoStack
         deleteFirstPerson(expectedModel);
@@ -53,5 +54,25 @@ public class RedoCommandTest {
 
         // no command in redoStack
         assertCommandFailure(redoCommand, model, RedoCommand.MESSAGE_FAILURE);
+    }
+
+    /**
+     * Deletes the first person in the model's filtered list.
+     */
+    class DummyCommand extends UndoableCommand {
+        DummyCommand(Model model) {
+            this.model = model;
+        }
+
+        @Override
+        public CommandResult executeUndoableCommand() throws CommandException {
+            Person personToDelete = model.getFilteredPersonList().get(0);
+            try {
+                model.deletePerson(personToDelete);
+            } catch (PersonNotFoundException pnfe) {
+                fail("Impossible: personToDelete was retrieved from model.");
+            }
+            return new CommandResult("");
+        }
     }
 }

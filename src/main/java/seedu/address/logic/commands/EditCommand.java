@@ -54,6 +54,9 @@ public class EditCommand extends UndoableCommand {
     private final Index index;
     private final EditPersonDescriptor editPersonDescriptor;
 
+    private Person personToEdit;
+    private Person editedPerson;
+
     /**
      * @param index of the person in the filtered person list to edit
      * @param editPersonDescriptor details to edit the person with
@@ -64,18 +67,14 @@ public class EditCommand extends UndoableCommand {
 
         this.index = index;
         this.editPersonDescriptor = new EditPersonDescriptor(editPersonDescriptor);
+        personToEdit = null;
     }
 
     @Override
     public CommandResult executeUndoableCommand() throws CommandException {
-        List<Person> lastShownList = model.getFilteredPersonList();
-
-        if (index.getZeroBased() >= lastShownList.size()) {
+        if (personToEdit == null) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
-
-        Person personToEdit = lastShownList.get(index.getZeroBased());
-        Person editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
 
         try {
             model.updatePerson(personToEdit, editedPerson);
@@ -86,6 +85,16 @@ public class EditCommand extends UndoableCommand {
         }
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedPerson));
+    }
+
+    @Override
+    protected void preprocessUndoableCommand() {
+        List<Person> lastShownList = model.getFilteredPersonList();
+
+        if (index.getZeroBased() < lastShownList.size()) {
+            personToEdit = lastShownList.get(index.getZeroBased());
+            editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
+        }
     }
 
     /**

@@ -130,12 +130,6 @@ public class AddCommandTest {
         }
 
         @Override
-        public Predicate<Person> getFilteredPersonListPredicate() {
-            fail("This method should not be called.");
-            return null;
-        }
-
-        @Override
         public void updateFilteredPersonList(Predicate<Person> predicate) {
             fail("This method should not be called.");
         }
@@ -150,16 +144,9 @@ public class AddCommandTest {
             throw new DuplicatePersonException();
         }
 
-        /* ------------ These methods below are called prior to calling addPerson(ReadOnlyPerson) ------------------- */
-
         @Override
         public ReadOnlyAddressBook getAddressBook() {
             return new AddressBook();
-        }
-
-        @Override
-        public Predicate<Person> getFilteredPersonListPredicate() {
-            return PREDICATE_SHOW_ALL_PERSONS;
         }
     }
 
@@ -175,16 +162,9 @@ public class AddCommandTest {
             personsAdded.add(person);
         }
 
-        /* ------------ These methods below are called prior to calling addPerson(ReadOnlyPerson) ------------------- */
-
         @Override
         public ReadOnlyAddressBook getAddressBook() {
             return new AddressBook();
-        }
-
-        @Override
-        public Predicate<Person> getFilteredPersonListPredicate() {
-            return PREDICATE_SHOW_ALL_PERSONS;
         }
     }
 

@@ -7,7 +7,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -20,7 +19,6 @@ import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
-import seedu.address.testutil.ReflectionUtil;
 
 /**
  * Contains helper methods for testing commands.
@@ -57,8 +55,6 @@ public class CommandTestUtil {
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
-
-    public static final String PREVIOUS_PREDICATE_FIELD_NAME = "previousPredicate";
 
     public static final EditCommand.EditPersonDescriptor DESC_AMY;
     public static final EditCommand.EditPersonDescriptor DESC_BOB;
@@ -132,15 +128,4 @@ public class CommandTestUtil {
             throw new AssertionError("Person in filtered list must exist in model.", pnfe);
         }
     }
-
-    /**
-     * Set up each {@code UndoableCommand} to be executed in {@code UndoableCommand#redo()}
-     */
-    public static void initPredicate(UndoableCommand... commandsToRedo) throws Exception {
-        for (UndoableCommand commandToRedo: commandsToRedo) {
-            ReflectionUtil.setPrivateField(commandToRedo.getClass().getSuperclass(), commandToRedo,
-                    PREVIOUS_PREDICATE_FIELD_NAME, PREDICATE_SHOW_ALL_PERSONS);
-        }
-    }
-
 }

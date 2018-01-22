@@ -4,19 +4,15 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
-import java.util.function.Predicate;
-
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.person.Person;
 
 /**
  * Represents a command which can be undone and redone.
  */
 public abstract class UndoableCommand extends Command {
     private ReadOnlyAddressBook previousAddressBook;
-    private Predicate<Person> previousPredicate;
 
     protected abstract CommandResult executeUndoableCommand() throws CommandException;
 
@@ -29,11 +25,10 @@ public abstract class UndoableCommand extends Command {
     }
 
     /**
-     * Stores the predicate used by {@code model#filteredPersons}.
+     * Preprocess the UndoableCommand if necessary.
+     * UndoableCommands that require this preprocessing step should override this method.
      */
-    private void savePredicateSnapshot() {
-        previousPredicate = model.getFilteredPersonListPredicate();
-    }
+    protected void preprocessUndoableCommand() {}
 
     /**
      * Reverts the AddressBook to the state before this command
@@ -53,10 +48,6 @@ public abstract class UndoableCommand extends Command {
     protected final void redo() {
         requireNonNull(model);
         try {
-            // Restore the previous view of the filtered person list to ensure that the command is executed on the
-            // correct {@code Person}
-            model.updateFilteredPersonList(previousPredicate);
-
             executeUndoableCommand();
         } catch (CommandException ce) {
             throw new AssertionError("The command has been successfully executed previously; "
@@ -68,7 +59,7 @@ public abstract class UndoableCommand extends Command {
     @Override
     public final CommandResult execute() throws CommandException {
         saveAddressBookSnapshot();
-        savePredicateSnapshot();
+        preprocessUndoableCommand();
         return executeUndoableCommand();
     }
 }
