@@ -5,10 +5,12 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showFirstPersonOnly;
+import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
+import org.junit.Before;
 import org.junit.Test;
 
 import seedu.address.commons.core.Messages;
@@ -21,11 +23,21 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Person;
 
 /**
- * Contains integration tests (interaction with the Model) and unit tests for {@code DeleteCommand}.
+ * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
+ * {@code DeleteCommand}.
  */
 public class DeleteCommandTest {
 
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private UndoCommand undoCommand = new UndoCommand();
+    private RedoCommand redoCommand = new RedoCommand();
+    private UndoRedoStack undoRedoStack = new UndoRedoStack();
+
+    @Before
+    public void setUp() {
+        undoCommand.setData(model, new CommandHistory(), undoRedoStack);
+        redoCommand.setData(model, new CommandHistory(), undoRedoStack);
+    }
 
     @Test
     public void execute_validIndexUnfilteredList_success() throws Exception {
@@ -34,10 +46,22 @@ public class DeleteCommandTest {
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, personToDelete);
 
-        ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
-        expectedModel.deletePerson(personToDelete);
+        ModelManager expectedModelBeforeDeleting = new ModelManager(model.getAddressBook(), new UserPrefs());
+        ModelManager expectedModelAfterDeleting = new ModelManager(model.getAddressBook(), new UserPrefs());
+        expectedModelAfterDeleting.deletePerson(personToDelete);
 
-        assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModelAfterDeleting);
+
+        // deleteCommand succeeded, pushed into undoRedoStaack
+        undoRedoStack.push(deleteCommand);
+
+        // ensure list shows all persons after undo
+        expectedModelBeforeDeleting.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        assertCommandSuccess(undoCommand, model, UndoCommand.MESSAGE_SUCCESS, expectedModelBeforeDeleting);
+
+        // ensure list shows all persons after redo
+        expectedModelAfterDeleting.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        assertCommandSuccess(redoCommand, model, RedoCommand.MESSAGE_SUCCESS, expectedModelAfterDeleting);
     }
 
     @Test
@@ -46,6 +70,10 @@ public class DeleteCommandTest {
         DeleteCommand deleteCommand = prepareCommand(outOfBoundIndex);
 
         assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+
+        // deleteCommand failed, not pushed into undoRedoStack
+        assertCommandFailure(undoCommand, model, UndoCommand.MESSAGE_FAILURE);
+        assertCommandFailure(redoCommand, model, RedoCommand.MESSAGE_FAILURE);
     }
 
     @Test
@@ -57,11 +85,23 @@ public class DeleteCommandTest {
 
         String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, personToDelete);
 
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
-        expectedModel.deletePerson(personToDelete);
-        showNoPerson(expectedModel);
+        Model expectedModelBeforeDeletingFirst = new ModelManager(model.getAddressBook(), new UserPrefs());
+        Model expectedModelAfterDeletingFirst = new ModelManager(model.getAddressBook(), new UserPrefs());
+        expectedModelAfterDeletingFirst.deletePerson(personToDelete);
+        showNoPerson(expectedModelAfterDeletingFirst);
 
-        assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModelAfterDeletingFirst);
+
+        // deleteCommand succeeded, pushed into undoRedoStaack
+        undoRedoStack.push(deleteCommand);
+
+        // ensure list shows all persons after undo
+        expectedModelBeforeDeletingFirst.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        assertCommandSuccess(undoCommand, model, UndoCommand.MESSAGE_SUCCESS, expectedModelBeforeDeletingFirst);
+
+        // ensure list shows all persons after redo
+        expectedModelAfterDeletingFirst.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        assertCommandSuccess(redoCommand, model, RedoCommand.MESSAGE_SUCCESS, expectedModelAfterDeletingFirst);
     }
 
     @Test
@@ -75,6 +115,10 @@ public class DeleteCommandTest {
         DeleteCommand deleteCommand = prepareCommand(outOfBoundIndex);
 
         assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+
+        // deleteCommand failed, not pushed into undoRedoStack
+        assertCommandFailure(undoCommand, model, UndoCommand.MESSAGE_FAILURE);
+        assertCommandFailure(redoCommand, model, RedoCommand.MESSAGE_FAILURE);
     }
 
     @Test

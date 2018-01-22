@@ -24,6 +24,8 @@ public class DeleteCommand extends UndoableCommand {
 
     private final Index targetIndex;
 
+    private Person personToDelete;
+
     public DeleteCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
     }
@@ -31,15 +33,6 @@ public class DeleteCommand extends UndoableCommand {
 
     @Override
     public CommandResult executeUndoableCommand() throws CommandException {
-
-        List<Person> lastShownList = model.getFilteredPersonList();
-
-        if (targetIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
-        }
-
-        Person personToDelete = lastShownList.get(targetIndex.getZeroBased());
-
         try {
             model.deletePerson(personToDelete);
         } catch (PersonNotFoundException pnfe) {
@@ -47,6 +40,17 @@ public class DeleteCommand extends UndoableCommand {
         }
 
         return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, personToDelete));
+    }
+
+    @Override
+    protected void preprocessUndoableCommand() throws CommandException {
+        List<Person> lastShownList = model.getFilteredPersonList();
+
+        if (targetIndex.getZeroBased() >= lastShownList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        }
+
+        personToDelete = lastShownList.get(targetIndex.getZeroBased());
     }
 
     @Override
