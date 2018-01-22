@@ -1,31 +1,48 @@
 package seedu.address.logic.commands;
 
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showFirstPersonOnly;
+import static seedu.address.logic.commands.CommandTestUtil.showSecondPersonOnly;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
+import java.util.Collections;
+
+import org.junit.Before;
 import org.junit.Test;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.UndoRedoStack;
+import seedu.address.logic.UndoRedoStackUtil;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Person;
 
 /**
- * Contains integration tests (interaction with the Model) and unit tests for {@code DeleteCommand}.
+ * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
+ * {@code DeleteCommand}.
  */
 public class DeleteCommandTest {
 
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private UndoCommand undoCommand = new UndoCommand();
+    private RedoCommand redoCommand = new RedoCommand();
+    private UndoRedoStack undoRedoStack = UndoRedoStackUtil.prepareStack(Collections.emptyList(),
+            Collections.emptyList());
+
+    @Before
+    public void setUpForUndoRedo() {
+        undoCommand.setData(model, new CommandHistory(), undoRedoStack);
+        redoCommand.setData(model, new CommandHistory(), undoRedoStack);
+    }
 
     @Test
     public void execute_validIndexUnfilteredList_success() throws Exception {
@@ -78,7 +95,26 @@ public class DeleteCommandTest {
     }
 
     @Test
-    public void equals() {
+    public void undoRedo_filteredList_samePersonDeleted() throws Exception {
+        showSecondPersonOnly(model);
+
+        Person personToDelete = model.getFilteredPersonList().get(0);
+        DeleteCommand deleteCommand = prepareCommand(INDEX_FIRST_PERSON);
+        ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+
+        // deleteCommand success, command gets pushed into undoRedoStack
+        deleteCommand.execute();
+        undoRedoStack.push(deleteCommand);
+
+        assertCommandSuccess(undoCommand, model, UndoCommand.MESSAGE_SUCCESS, expectedModel);
+
+        expectedModel.deletePerson(personToDelete);
+        assertNotEquals(personToDelete, model.getFilteredPersonList().get(0));
+        assertCommandSuccess(redoCommand, model, RedoCommand.MESSAGE_SUCCESS, expectedModel);
+    }
+
+    @Test
+    public void equals() throws Exception {
         DeleteCommand deleteFirstCommand = new DeleteCommand(INDEX_FIRST_PERSON);
         DeleteCommand deleteSecondCommand = new DeleteCommand(INDEX_SECOND_PERSON);
 
@@ -88,6 +124,12 @@ public class DeleteCommandTest {
         // same values -> returns true
         DeleteCommand deleteFirstCommandCopy = new DeleteCommand(INDEX_FIRST_PERSON);
         assertTrue(deleteFirstCommand.equals(deleteFirstCommandCopy));
+
+        // command preprocessed -> returns false
+        deleteFirstCommand.setData(model, new CommandHistory(), new UndoRedoStack());
+        deleteFirstCommandCopy.setData(model, new CommandHistory(), new UndoRedoStack());
+        deleteFirstCommandCopy.preprocessUndoableCommand();
+        assertFalse(deleteFirstCommand.equals(deleteFirstCommandCopy));
 
         // different types -> returns false
         assertFalse(deleteFirstCommand.equals(1));
