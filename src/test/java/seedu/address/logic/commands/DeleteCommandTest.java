@@ -1,13 +1,18 @@
 package seedu.address.logic.commands;
 
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.logic.commands.CommandTestUtil.prepareRedoCommand;
+import static seedu.address.logic.commands.CommandTestUtil.prepareUndoCommand;
 import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+
+import java.util.Collections;
 
 import org.junit.Test;
 
@@ -15,13 +20,15 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.UndoRedoStack;
+import seedu.address.logic.UndoRedoStackUtil;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Person;
 
 /**
- * Contains integration tests (interaction with the Model) and unit tests for {@code DeleteCommand}.
+ * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for
+ * {@code DeleteCommand}.
  */
 public class DeleteCommandTest {
 
@@ -77,17 +84,45 @@ public class DeleteCommandTest {
         assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
+    /**
+     * Delete a {@code Person} with different indexing from the unfiltered list to ensure {@code RedoCommand} deletes
+     * by {@code Person} and not by {@code Index} during re-execution.
+     */
     @Test
-    public void equals() {
-        DeleteCommand deleteFirstCommand = new DeleteCommand(INDEX_FIRST_PERSON);
-        DeleteCommand deleteSecondCommand = new DeleteCommand(INDEX_SECOND_PERSON);
+    public void undoRedo_filteredList_samePersonDeleted() throws Exception {
+        UndoRedoStack undoRedoStack = UndoRedoStackUtil.prepareStack(Collections.emptyList(), Collections.emptyList());
+        UndoCommand undoCommand = prepareUndoCommand(model, undoRedoStack);
+        RedoCommand redoCommand = prepareRedoCommand(model, undoRedoStack);
+        DeleteCommand deleteCommand = prepareCommand(INDEX_FIRST_PERSON);
+        ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+
+        showPersonAtIndex(model, INDEX_SECOND_PERSON);
+        Person personToDelete = model.getFilteredPersonList().get(0);
+        deleteCommand.execute();
+        undoRedoStack.push(deleteCommand);
+
+        assertCommandSuccess(undoCommand, model, UndoCommand.MESSAGE_SUCCESS, expectedModel);
+
+        expectedModel.deletePerson(personToDelete);
+        assertNotEquals(personToDelete, model.getFilteredPersonList().get(0));
+        assertCommandSuccess(redoCommand, model, RedoCommand.MESSAGE_SUCCESS, expectedModel);
+    }
+
+    @Test
+    public void equals() throws Exception {
+        DeleteCommand deleteFirstCommand = prepareCommand(INDEX_FIRST_PERSON);
+        DeleteCommand deleteSecondCommand = prepareCommand(INDEX_SECOND_PERSON);
 
         // same object -> returns true
         assertTrue(deleteFirstCommand.equals(deleteFirstCommand));
 
         // same values -> returns true
-        DeleteCommand deleteFirstCommandCopy = new DeleteCommand(INDEX_FIRST_PERSON);
+        DeleteCommand deleteFirstCommandCopy = prepareCommand(INDEX_FIRST_PERSON);
         assertTrue(deleteFirstCommand.equals(deleteFirstCommandCopy));
+
+        // command preprocessed -> returns false
+        deleteFirstCommandCopy.preprocessUndoableCommand();
+        assertFalse(deleteFirstCommand.equals(deleteFirstCommandCopy));
 
         // different types -> returns false
         assertFalse(deleteFirstCommand.equals(1));
