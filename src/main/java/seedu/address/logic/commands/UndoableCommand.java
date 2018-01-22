@@ -24,6 +24,8 @@ public abstract class UndoableCommand extends Command {
         this.previousAddressBook = new AddressBook(model.getAddressBook());
     }
 
+    protected void preprocessUndoableCommand() throws CommandException {}
+
     /**
      * Reverts the AddressBook to the state before this command
      * was executed and updates the filtered person list to
@@ -53,6 +55,7 @@ public abstract class UndoableCommand extends Command {
     @Override
     public final CommandResult execute() throws CommandException {
         saveAddressBookSnapshot();
+        preprocessUndoableCommand();
         return executeUndoableCommand();
     }
 }
