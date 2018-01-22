@@ -24,6 +24,8 @@ public class DeleteCommand extends UndoableCommand {
 
     private final Index targetIndex;
 
+    private Person personToDelete;
+
     public DeleteCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
     }
@@ -31,15 +33,6 @@ public class DeleteCommand extends UndoableCommand {
 
     @Override
     public CommandResult executeUndoableCommand() throws CommandException {
-
-        List<Person> lastShownList = model.getFilteredPersonList();
-
-        if (targetIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
-        }
-
-        Person personToDelete = lastShownList.get(targetIndex.getZeroBased());
-
         try {
             model.deletePerson(personToDelete);
         } catch (PersonNotFoundException pnfe) {
@@ -50,9 +43,32 @@ public class DeleteCommand extends UndoableCommand {
     }
 
     @Override
+    protected void preprocessUndoableCommand() throws CommandException {
+        List<Person> lastShownList = model.getFilteredPersonList();
+
+        if (targetIndex.getZeroBased() >= lastShownList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        }
+
+        personToDelete = lastShownList.get(targetIndex.getZeroBased());
+    }
+
+    @Override
     public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof DeleteCommand // instanceof handles nulls
-                && this.targetIndex.equals(((DeleteCommand) other).targetIndex)); // state check
+        // short circuit if same object
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(other instanceof DeleteCommand)) {
+            return false;
+        }
+
+        // state check
+        DeleteCommand d = (DeleteCommand) other;
+        return targetIndex.equals(d.targetIndex)
+                && ((personToDelete == null && d.personToDelete == null)
+                    || (personToDelete != null && d.personToDelete != null && personToDelete.equals(d.personToDelete)));
     }
 }
