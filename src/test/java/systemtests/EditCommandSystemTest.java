@@ -101,8 +101,8 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         /* ------------------ Performing edit operation while a filtered list is being shown ------------------------ */
 
         /* Case: filtered person list, edit index within bounds of address book and person list -> edited */
-        index = INDEX_FIRST_PERSON;
         showPersonsWithName(KEYWORD_MATCHING_MEIER);
+        index = INDEX_FIRST_PERSON;
         Person firstPersonAddressBook = getModel().getAddressBook().getPersonList().get(index.getZeroBased());
         Person firstPersonFilteredList = getModel().getFilteredPersonList().get(index.getZeroBased());
         assertNotEquals(firstPersonAddressBook, firstPersonFilteredList);

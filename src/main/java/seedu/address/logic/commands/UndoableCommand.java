@@ -28,7 +28,7 @@ public abstract class UndoableCommand extends Command {
      * Preprocess the UndoableCommand if necessary.
      * UndoableCommands that require this preprocessing step should override this method.
      */
-    protected void preprocessUndoableCommand() {}
+    protected void preprocessUndoableCommand() throws CommandException {}
 
     /**
      * Reverts the AddressBook to the state before this command
