@@ -27,7 +27,6 @@
 
   <module name="SuppressionFilter">
     <property name="file" value="config/checkstyle/suppressions.xml"/>
-    <property name="optional" value="false"/>
   </module>
 
 
@@ -61,7 +60,6 @@
         <property name="specialImportsRegExp" value="^org\."/>
         <property name="thirdPartyPackageRegExp" value="^com\."/>
         <property name="sortImportsInGroupAlphabetically" value="true"/>
-        <property name="separateLineBetweenGroups" value="true"/>
     </module>
 
     <!-- Checks for redundant import statements.
@@ -78,10 +76,7 @@
     -->
     <module name="UnusedImports"/>
 
-    <module name="AvoidStarImport">
-      <property name="allowClassImports" value="false"/>
-      <property name="allowStaticMemberImports" value="false"/>
-    </module>
+    <module name="AvoidStarImport"/>
 
     <!--
     NAMING CHECKS
@@ -108,9 +103,6 @@
     <module name="ConstantName">
       <!-- Validates non-private, static, final fields against the expression "^[A-Z][A-Z0-9]*(_[A-Z0-9]+)*$". -->
       <metadata name="altname" value="ConstantName"/>
-      <property name="applyToPublic" value="true"/>
-      <property name="applyToProtected" value="true"/>
-      <property name="applyToPackage" value="true"/>
       <property name="applyToPrivate" value="false"/>
       <message key="name.invalidPattern"
                value="Variable ''{0}'' should be in ALL_CAPS (if it is a constant) or be private (otherwise)."/>
@@ -120,10 +112,6 @@
     <module name="StaticVariableName">
       <!-- Validates static, non-final fields against the supplied expression. -->
       <metadata name="altname" value="StaticVariableName"/>
-      <property name="applyToPublic" value="true"/>
-      <property name="applyToProtected" value="true"/>
-      <property name="applyToPackage" value="true"/>
-      <property name="applyToPrivate" value="true"/>
       <property name="format" value="^[a-z][a-zA-Z0-9]*_?$"/>
       <property name="severity" value="warning"/>
     </module>
@@ -131,10 +119,6 @@
     <module name="MemberName">
       <!-- Validates non-static members against the supplied expression. -->
       <metadata name="altname" value="MemberName"/>
-      <property name="applyToPublic" value="true"/>
-      <property name="applyToProtected" value="true"/>
-      <property name="applyToPackage" value="true"/>
-      <property name="applyToPrivate" value="true"/>
       <property name="format" value="^[a-z][a-zA-Z0-9]*$"/>
       <property name="severity" value="warning"/>
     </module>
@@ -177,7 +161,6 @@
     <module name="LineLength">
       <!-- Checks if a line is too long. -->
       <property name="max" value="120"/>
-      <property name="severity" value="error"/>
     </module>
 
     <module name="LeftCurly">
@@ -202,13 +185,11 @@
         else
       </pre>
       -->
-      <property name="option" value="same"/>
       <property name="severity" value="warning"/>
     </module>
 
     <!-- Checks for braces around loop blocks -->
     <module name="NeedBraces">
-      <property name="tokens" value="LITERAL_FOR, LITERAL_WHILE, LITERAL_DO, LITERAL_IF, LITERAL_ELSE"/>
       <!--
       if (true) return 1; // Not allowed
 
@@ -229,10 +210,8 @@
 
     <module name="OneStatementPerLine"/>
 
-    <module name="UpperEll">
-      <!-- Checks that long constants are defined with an upper ell.-->
-      <property name="severity" value="error"/>
-    </module>
+    <!-- Checks that long constants are defined with an upper ell.-->
+    <module name="UpperEll" />
 
     <module name="FallThrough">
       <!-- Warn about falling through to the next case statement.  Similar to
@@ -242,7 +221,6 @@
       -->
       <property name="reliefPattern"
        value="fall through|Fall through|fallthru|Fallthru|falls through|Falls through|fallthrough|Fallthrough|No break|NO break|no break|continue on"/>
-      <property name="severity" value="error"/>
     </module>
 
     <module name="MissingSwitchDefault"/>
@@ -309,7 +287,6 @@
       <property name="allowEmptyLoops" value="true" />
       <!-- Allow empty lambdas e.g. () -> {} -->
       <property name="allowEmptyLambdas" value="true" />
-      <property name="severity" value="error"/>
     </module>
 
     <module name="WhitespaceAfter">
@@ -322,7 +299,6 @@
       <property name="tokens" value="BNOT, DEC, DOT, INC, LNOT, UNARY_MINUS,
         UNARY_PLUS"/>
       <property name="allowLineBreaks" value="true"/>
-      <property name="severity" value="error"/>
     </module>
 
     <!-- No trailing whitespace -->
@@ -373,7 +349,6 @@
       <!-- Checks that there is no whitespace before various unary operators. Linebreaks are allowed. -->
       <property name="tokens" value="SEMI, DOT, POST_DEC, POST_INC"/>
       <property name="allowLineBreaks" value="true"/>
-      <property name="severity" value="error"/>
     </module>
 
     <module name="ParenPad">
