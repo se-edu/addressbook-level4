@@ -27,6 +27,6 @@ public class WebViewUtil {
      * regardless whether the load is successful or not.
      */
     public static void waitUntilBrowserLoaded(BrowserPanelHandle browserPanelHandle) {
-        new GuiRobot().waitForEvent(browserPanelHandle::isLoadingAttemptCompleted);
+        new GuiRobot().waitForEvent(browserPanelHandle::isNoLoadingInProgress);
     }
 }
