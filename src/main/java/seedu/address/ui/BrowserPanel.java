@@ -23,6 +23,7 @@ public class BrowserPanel extends UiPart<Region> {
     public static final String DEFAULT_PAGE = "default.html";
     public static final String GOOGLE_SEARCH_URL_PREFIX = "https://www.google.com.sg/search?safe=off&q=";
     public static final String GOOGLE_SEARCH_URL_SUFFIX = "&cad=h";
+    public static final String PLACEHOLDER_URL = "http://www.comp.nus.edu.sg/~seer/search.html?name=";
 
     private static final String FXML = "BrowserPanel.fxml";
 
@@ -42,8 +43,7 @@ public class BrowserPanel extends UiPart<Region> {
     }
 
     private void loadPersonPage(Person person) {
-        loadPage(GOOGLE_SEARCH_URL_PREFIX + person.getName().fullName.replaceAll(" ", "+")
-                + GOOGLE_SEARCH_URL_SUFFIX);
+        loadPage(PLACEHOLDER_URL + person.getName().fullName);
     }
 
     public void loadPage(String url) {
