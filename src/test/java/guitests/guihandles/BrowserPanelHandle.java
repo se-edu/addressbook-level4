@@ -59,13 +59,12 @@ public class BrowserPanelHandle extends NodeHandle<Node> {
 
     /**
      * Returns true if the browser is currently not loading i.e.:
-     * 1. The browser is done loading a page
+     * 1. The browser is done loading a page.
      * 2. The browser has yet to load any page.
      * 3. The browser tried to load a page and failed.
      */
     public boolean isNoLoadingInProgress() {
-        return browserState == BrowserState.LOADED || browserState == BrowserState.READY
-                || browserState == BrowserState.FAILED;
+        return browserState != BrowserState.LOADING;
     }
 
     /**
