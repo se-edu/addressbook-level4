@@ -21,8 +21,6 @@ import seedu.address.model.person.Person;
 public class BrowserPanel extends UiPart<Region> {
 
     public static final String DEFAULT_PAGE = "default.html";
-    public static final String GOOGLE_SEARCH_URL_PREFIX = "https://www.google.com.sg/search?safe=off&q=";
-    public static final String GOOGLE_SEARCH_URL_SUFFIX = "&cad=h";
     public static final String DUMMY_URL = "https://se-edu.github.io/addressbook-level4/DummySearchPage.html?name=";
 
     private static final String FXML = "BrowserPanel.fxml";
