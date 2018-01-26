@@ -1,13 +1,9 @@
 package systemtests;
 
-import static guitests.guihandles.BrowserPanelHandle.GOOGLE_TOO_MUCH_TRAFFIC_ERROR_MESSAGE;
-import static guitests.guihandles.BrowserPanelHandle.GOOGLE_TOO_MUCH_TRAFFIC_URL_PREFIX;
 import static guitests.guihandles.WebViewUtil.waitUntilBrowserLoaded;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static seedu.address.ui.BrowserPanel.DEFAULT_PAGE;
-import static seedu.address.ui.BrowserPanel.GOOGLE_SEARCH_URL_PREFIX;
-import static seedu.address.ui.BrowserPanel.GOOGLE_SEARCH_URL_SUFFIX;
 import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_INITIAL;
 import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
 import static seedu.address.ui.UiPart.FXML_FILE_FOLDER;
@@ -42,6 +38,7 @@ import seedu.address.logic.commands.SelectCommand;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.testutil.TypicalPersons;
+import seedu.address.ui.BrowserPanel;
 import seedu.address.ui.CommandBox;
 
 /**
@@ -213,21 +210,13 @@ public abstract class AddressBookSystemTest {
      * @see PersonListPanelHandle#isSelectedPersonCardChanged()
      */
     protected void assertSelectedCardChanged(Index expectedSelectedCardIndex) {
-        String selectedCardName = getPersonListPanel().getHandleToSelectedCard().getName();
         URL expectedUrl;
         try {
-            expectedUrl = new URL(GOOGLE_SEARCH_URL_PREFIX + selectedCardName.replaceAll(" ", "+")
-                    + GOOGLE_SEARCH_URL_SUFFIX);
+            expectedUrl = new URL(BrowserPanel.PLACEHOLDER_URL);
         } catch (MalformedURLException mue) {
             throw new AssertionError("URL expected to be valid.");
         }
-
-        URL actualUrl = getBrowserPanel().getLoadedUrl();
-        if (actualUrl.toString().startsWith(GOOGLE_TOO_MUCH_TRAFFIC_URL_PREFIX)) {
-            System.out.println(this.getClass().getSimpleName() + ": " + GOOGLE_TOO_MUCH_TRAFFIC_ERROR_MESSAGE);
-        } else {
-            assertEquals(expectedUrl, actualUrl);
-        }
+        assertEquals(expectedUrl, getBrowserPanel().getLoadedUrl());
 
         assertEquals(expectedSelectedCardIndex.getZeroBased(), getPersonListPanel().getSelectedCardIndex());
     }

@@ -14,12 +14,8 @@ import javafx.scene.web.WebView;
 public class BrowserPanelHandle extends NodeHandle<Node> {
 
     public static final String BROWSER_ID = "#browser";
-    public static final String GOOGLE_TOO_MUCH_TRAFFIC_URL_PREFIX = "https://ipv4.google.com/sorry/";
-    public static final String GOOGLE_TOO_MUCH_TRAFFIC_ERROR_MESSAGE = "Google has detected too much traffic from "
-            + "your network, thus the expected web page is not loaded.";
 
-    private boolean isWebViewLoaded = true;
-    private boolean isLoadingFailed = false;
+    private BrowserState browserState = BrowserState.READY;
 
     private URL lastRememberedUrl;
 
@@ -30,12 +26,11 @@ public class BrowserPanelHandle extends NodeHandle<Node> {
         WebEngine engine = webView.getEngine();
         new GuiRobot().interact(() -> engine.getLoadWorker().stateProperty().addListener((obs, oldState, newState) -> {
             if (newState == Worker.State.RUNNING) {
-                isWebViewLoaded = false;
-                isLoadingFailed = false;
+                browserState = BrowserState.LOADING;
             } else if (newState == Worker.State.SUCCEEDED) {
-                isWebViewLoaded = true;
+                browserState = BrowserState.LOADED;
             } else if (newState == Worker.State.FAILED) {
-                isLoadingFailed = true;
+                browserState = BrowserState.FAILED;
             }
         }));
     }
@@ -69,6 +64,14 @@ public class BrowserPanelHandle extends NodeHandle<Node> {
      * 3. The browser tried to load a page and failed.
      */
     public boolean isLoadingAttemptCompleted() {
-        return isWebViewLoaded || isLoadingFailed;
+        return browserState == BrowserState.LOADED || browserState == BrowserState.READY
+                || browserState == BrowserState.FAILED;
+    }
+
+    /**
+     * Represents a possible loading state of the {@code BrowserPanel}.
+     */
+    private enum BrowserState {
+        READY, LOADED, LOADING, FAILED
     }
 }
