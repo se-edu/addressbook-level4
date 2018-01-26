@@ -15,7 +15,7 @@ public class BrowserPanelHandle extends NodeHandle<Node> {
 
     public static final String BROWSER_ID = "#browser";
 
-    private BrowserState browserState = BrowserState.READY;
+    private boolean isWebViewLoaded = true;
 
     private URL lastRememberedUrl;
 
@@ -26,11 +26,9 @@ public class BrowserPanelHandle extends NodeHandle<Node> {
         WebEngine engine = webView.getEngine();
         new GuiRobot().interact(() -> engine.getLoadWorker().stateProperty().addListener((obs, oldState, newState) -> {
             if (newState == Worker.State.RUNNING) {
-                browserState = BrowserState.LOADING;
+                isWebViewLoaded = false;
             } else if (newState == Worker.State.SUCCEEDED) {
-                browserState = BrowserState.LOADED;
-            } else if (newState == Worker.State.FAILED) {
-                browserState = BrowserState.FAILED;
+                isWebViewLoaded = true;
             }
         }));
     }
@@ -58,19 +56,9 @@ public class BrowserPanelHandle extends NodeHandle<Node> {
     }
 
     /**
-     * Returns true if the browser is currently not loading i.e.:
-     * 1. The browser is done loading a page.
-     * 2. The browser has yet to load any page.
-     * 3. The browser tried to load a page and failed.
+     * Returns true if the browser is done loading a page, or if this browser has yet to load any page.
      */
-    public boolean isNoLoadingInProgress() {
-        return browserState != BrowserState.LOADING;
-    }
-
-    /**
-     * Represents a possible loading state of the {@code BrowserPanel}.
-     */
-    private enum BrowserState {
-        READY, LOADED, LOADING, FAILED
+    public boolean isLoaded() {
+        return isWebViewLoaded;
     }
 }
