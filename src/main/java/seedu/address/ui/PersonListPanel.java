@@ -46,7 +46,7 @@ public class PersonListPanel extends UiPart<Region> {
                 .addListener((observable, oldValue, newValue) -> {
                     if (newValue != null) {
                         logger.fine("Selection in person list panel changed to : '" + newValue + "'");
-                        raise(new PersonPanelSelectionChangedEvent());
+                        raise(new PersonPanelSelectionChangedEvent(newValue));
                     }
                 });
     }
