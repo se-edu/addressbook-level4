@@ -1,0 +1,23 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Dummy Search Page</title>
+		<script type="text/javascript">
+		function getJsonFromUrl() {
+  			var query = location.search.substr(1);
+  			var result = {};
+  			query.split("&").forEach(function(part) {
+    			var item = part.split("=");
+    			result[item[0]] = decodeURIComponent(item[1]);
+  			});
+  			return result;
+		}
+
+		document.addEventListener("DOMContentLoaded", function(event) {
+    		document.getElementById("name").innerHTML=getJsonFromUrl().name;
+  		});
+	</script>
+	</head>
+	<body>Hi <span id="name"></span>: This is a placeholder page for se-edu/addressbook-level4</body>
+</html>
