@@ -55,8 +55,20 @@ public class DeleteCommand extends UndoableCommand {
 
     @Override
     public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof DeleteCommand // instanceof handles nulls
-                && this.targetIndex.equals(((DeleteCommand) other).targetIndex)); // state check
+        // short circuit if same object
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(other instanceof DeleteCommand)) {
+            return false;
+        }
+
+        // state check
+        DeleteCommand d = (DeleteCommand) other;
+        return targetIndex.equals(d.targetIndex)
+                && ((personToDelete == null && d.personToDelete == null)
+                    || (personToDelete != null && d.personToDelete != null && personToDelete.equals(d.personToDelete)));
     }
 }

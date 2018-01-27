@@ -1,7 +1,6 @@
 package systemtests;
 
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
@@ -103,26 +102,11 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         /* Case: filtered person list, edit index within bounds of address book and person list -> edited */
         showPersonsWithName(KEYWORD_MATCHING_MEIER);
         index = INDEX_FIRST_PERSON;
-        Person firstPersonAddressBook = getModel().getAddressBook().getPersonList().get(index.getZeroBased());
-        Person firstPersonFilteredList = getModel().getFilteredPersonList().get(index.getZeroBased());
-        assertNotEquals(firstPersonAddressBook, firstPersonFilteredList);
-        model  = getModel();
         assertTrue(index.getZeroBased() < getModel().getFilteredPersonList().size());
         command = EditCommand.COMMAND_WORD + " " + index.getOneBased() + " " + NAME_DESC_BOB;
         personToEdit = getModel().getFilteredPersonList().get(index.getZeroBased());
         editedPerson = new PersonBuilder(personToEdit).withName(VALID_NAME_BOB).build();
         assertCommandSuccess(command, index, editedPerson);
-
-        /* Case: undo editing the first person in the filtered list -> first person in filtered list restored */
-        command = UndoCommand.COMMAND_WORD;
-        expectedResultMessage = UndoCommand.MESSAGE_SUCCESS;
-        assertCommandSuccess(command, model, expectedResultMessage);
-
-        /* Case: redo editing the first person in the filtered list -> first person in filtered list edited again */
-        command = RedoCommand.COMMAND_WORD;
-        expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
-        model.updatePerson(personToEdit, editedPerson);
-        assertCommandSuccess(command, model, expectedResultMessage);
 
         /* Case: filtered person list, edit index within bounds of address book but out of bounds of person list
          * -> rejected
