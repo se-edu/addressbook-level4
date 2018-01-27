@@ -151,6 +151,53 @@ public class EditCommandTest {
     }
 
     @Test
+    public void undoRedo_editCommandSuccess_success() throws Exception {
+        UndoCommand undoCommand = new UndoCommand();
+        RedoCommand redoCommand = new RedoCommand();
+        UndoRedoStack undoRedoStack = new UndoRedoStack();
+        undoCommand.setData(model, new CommandHistory(), undoRedoStack);
+        redoCommand.setData(model, new CommandHistory(), undoRedoStack);
+
+        Person editedPerson = new PersonBuilder().build();
+        Person personToEdit = model.getFilteredPersonList().get(0);
+        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(editedPerson).build();
+        EditCommand editCommand = prepareCommand(INDEX_FIRST_PERSON, descriptor);
+
+        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
+
+        Model expectedModelBeforeEdit = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModelAfterEdit = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        expectedModelAfterEdit.updatePerson(personToEdit, editedPerson);
+
+        // editCommand success, command gets pushed into undoRedoStack
+        assertCommandSuccess(editCommand, model, expectedMessage, expectedModelAfterEdit);
+        undoRedoStack.push(editCommand);
+
+        assertCommandSuccess(undoCommand, model, UndoCommand.MESSAGE_SUCCESS, expectedModelBeforeEdit);
+        assertCommandSuccess(redoCommand, model, RedoCommand.MESSAGE_SUCCESS, expectedModelAfterEdit);
+    }
+
+    @Test
+    public void undoRedo_editCommandFail_failure() {
+        UndoCommand undoCommand = new UndoCommand();
+        RedoCommand redoCommand = new RedoCommand();
+        UndoRedoStack undoRedoStack = new UndoRedoStack();
+        undoCommand.setData(model, new CommandHistory(), undoRedoStack);
+        redoCommand.setData(model, new CommandHistory(), undoRedoStack);
+
+        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
+        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build();
+        EditCommand editCommand = prepareCommand(outOfBoundIndex, descriptor);
+
+        // editCommand failed, command not pushed into undoRedoStack
+        assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+
+        // no commands in undoRedoStack, undoCommand and redoCommand fail
+        assertCommandFailure(undoCommand, model, UndoCommand.MESSAGE_FAILURE);
+        assertCommandFailure(redoCommand, model, RedoCommand.MESSAGE_FAILURE);
+    }
+
+    @Test
     public void undoRedo_filteredList_samePersonEdited() throws Exception {
         showSecondPersonOnly(model);
         UndoCommand undoCommand = new UndoCommand();
