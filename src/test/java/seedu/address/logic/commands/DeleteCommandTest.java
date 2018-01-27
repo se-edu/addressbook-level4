@@ -81,6 +81,43 @@ public class DeleteCommandTest {
         assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
+    @Test
+    public void executeUndoRedo_validIndexUnfilteredList_success() throws Exception {
+        UndoRedoStack undoRedoStack = new UndoRedoStack();
+        UndoCommand undoCommand = prepareUndoCommand(model, undoRedoStack);
+        RedoCommand redoCommand = prepareRedoCommand(model, undoRedoStack);
+        Person personToDelete = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        DeleteCommand deleteCommand = prepareCommand(INDEX_FIRST_PERSON);
+        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+
+        // delete -> first person deleted
+        deleteCommand.execute();
+        undoRedoStack.push(deleteCommand);
+
+        // undo -> reverts addressbook back to previous state and filtered person list to show all persons
+        assertCommandSuccess(undoCommand, model, UndoCommand.MESSAGE_SUCCESS, expectedModel);
+
+        // redo -> same first person deleted again
+        expectedModel.deletePerson(personToDelete);
+        assertCommandSuccess(redoCommand, model, RedoCommand.MESSAGE_SUCCESS, expectedModel);
+    }
+
+    @Test
+    public void executeUndoRedo_invalidIndexUnfilteredList_failure() {
+        UndoRedoStack undoRedoStack = new UndoRedoStack();
+        UndoCommand undoCommand = prepareUndoCommand(model, undoRedoStack);
+        RedoCommand redoCommand = prepareRedoCommand(model, undoRedoStack);
+        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
+        DeleteCommand deleteCommand = prepareCommand(outOfBoundIndex);
+
+        // execution failed -> deleteCommand not pushed into undoRedoStack
+        assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+
+        // no commands in undoRedoStack -> undoCommand and redoCommand fail
+        assertCommandFailure(undoCommand, model, UndoCommand.MESSAGE_FAILURE);
+        assertCommandFailure(redoCommand, model, RedoCommand.MESSAGE_FAILURE);
+    }
+
     /**
      * Deletes a {@code Person} with different indexing from the unfiltered list to ensure {@code RedoCommand} deletes
      * by {@code Person} and not by {@code Index} during re-execution.
