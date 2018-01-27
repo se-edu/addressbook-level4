@@ -119,8 +119,11 @@ public class DeleteCommandTest {
     }
 
     /**
-     * Deletes a {@code Person} with different indexing from the unfiltered list to ensure {@code RedoCommand} deletes
-     * by {@code Person} and not by {@code Index} during re-execution.
+     * 1. Deletes a {@code Person} from a filtered list.
+     * 2. Undo the deletion.
+     * 3. The unfiltered list should be shown now. Verify that the index of the previously deleted person in the
+     * unfiltered list is different from the index at the filtered list.
+     * 4. Redo the deletion. This ensures {@code RedoCommand} deletes the person object regardless of indexing.
      */
     @Test
     public void executeUndoRedo_validIndexFilteredList_samePersonDeleted() throws Exception {
@@ -157,7 +160,7 @@ public class DeleteCommandTest {
         DeleteCommand deleteFirstCommandCopy = prepareCommand(INDEX_FIRST_PERSON);
         assertTrue(deleteFirstCommand.equals(deleteFirstCommandCopy));
 
-        // command preprocessed -> returns false
+        // one command preprocessed when previously equal -> returns false
         deleteFirstCommandCopy.preprocessUndoableCommand();
         assertFalse(deleteFirstCommand.equals(deleteFirstCommandCopy));
 
