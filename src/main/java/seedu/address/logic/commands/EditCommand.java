@@ -11,6 +11,7 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 
@@ -126,8 +127,7 @@ public class EditCommand extends UndoableCommand {
         EditCommand e = (EditCommand) other;
         return index.equals(e.index)
                 && editPersonDescriptor.equals(e.editPersonDescriptor)
-                && ((personToEdit == null && e.personToEdit == null)
-                    || (personToEdit != null && e.personToEdit != null && personToEdit.equals(e.personToEdit)));
+                && Objects.equals(personToEdit, e.personToEdit);
     }
 
     /**

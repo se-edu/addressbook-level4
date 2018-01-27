@@ -24,6 +24,10 @@ public abstract class UndoableCommand extends Command {
         this.previousAddressBook = new AddressBook(model.getAddressBook());
     }
 
+    /**
+     * Called before executing the {@code UndoableCommand}
+     * {@code UndoableCommand}s that require this preprocessing step should override this method.
+     */
     protected void preprocessUndoableCommand() throws CommandException {}
 
     /**

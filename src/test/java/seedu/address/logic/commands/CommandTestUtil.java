@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
@@ -12,6 +13,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import seedu.address.commons.core.index.Index;
+import seedu.address.logic.CommandHistory;
+import seedu.address.logic.UndoRedoStack;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
@@ -107,21 +111,13 @@ public class CommandTestUtil {
     }
 
     /**
-     * Updates {@code model}'s filtered list to show only the first person in the {@code model}'s address book.
+     * Updates {@code model}'s filtered list to show only the person at the given {@code targetIndex} in the
+     * {@code model}'s address book.
      */
-    public static void showFirstPersonOnly(Model model) {
-        Person person = model.getAddressBook().getPersonList().get(0);
-        final String[] splitName = person.getName().fullName.split("\\s+");
-        model.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
+    public static void showPersonAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getOneBased() < model.getFilteredPersonList().size());
 
-        assert model.getFilteredPersonList().size() == 1;
-    }
-
-    /**
-     * Updates {@code model}'s filtered list to show only the second person in the {@code model}'s address book.
-     */
-    public static void showSecondPersonOnly(Model model) {
-        Person person = model.getAddressBook().getPersonList().get(1);
+        Person person = model.getAddressBook().getPersonList().get(targetIndex.getZeroBased());
         final String[] splitName = person.getName().fullName.split("\\s+");
         model.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
@@ -138,5 +134,23 @@ public class CommandTestUtil {
         } catch (PersonNotFoundException pnfe) {
             throw new AssertionError("Person in filtered list must exist in model.", pnfe);
         }
+    }
+
+    /**
+     * Returns an {@code UndoCommand} with the given {@code Model} and {@code UndoRedoStack} set.
+     */
+    public static UndoCommand prepareUndoCommand(Model model, UndoRedoStack undoRedoStack) {
+        UndoCommand undoCommand = new UndoCommand();
+        undoCommand.setData(model, new CommandHistory(), undoRedoStack);
+        return undoCommand;
+    }
+
+    /**
+     * Returns a {@code RedoCommand} with the given {@code Model} and {@code UndoRedoStack} set.
+     */
+    public static RedoCommand prepareRedoCommand(Model model, UndoRedoStack undoRedoStack) {
+        RedoCommand redoCommand = new RedoCommand();
+        redoCommand.setData(model, new CommandHistory(), undoRedoStack);
+        return redoCommand;
     }
 }

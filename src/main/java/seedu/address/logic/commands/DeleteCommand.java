@@ -1,6 +1,9 @@
 package seedu.address.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.List;
+import java.util.Objects;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
@@ -32,7 +35,8 @@ public class DeleteCommand extends UndoableCommand {
 
 
     @Override
-    public CommandResult executeUndoableCommand() throws CommandException {
+    public CommandResult executeUndoableCommand() {
+        requireNonNull(personToDelete);
         try {
             model.deletePerson(personToDelete);
         } catch (PersonNotFoundException pnfe) {
@@ -55,20 +59,9 @@ public class DeleteCommand extends UndoableCommand {
 
     @Override
     public boolean equals(Object other) {
-        // short circuit if same object
-        if (other == this) {
-            return true;
-        }
-
-        // instanceof handles nulls
-        if (!(other instanceof DeleteCommand)) {
-            return false;
-        }
-
-        // state check
-        DeleteCommand d = (DeleteCommand) other;
-        return targetIndex.equals(d.targetIndex)
-                && ((personToDelete == null && d.personToDelete == null)
-                    || (personToDelete != null && d.personToDelete != null && personToDelete.equals(d.personToDelete)));
+        return other == this // short circuit if same object
+                || (other instanceof DeleteCommand // instanceof handles nulls
+                && this.targetIndex.equals(((DeleteCommand) other).targetIndex) // state check
+                && Objects.equals(this.personToDelete, ((DeleteCommand) other).personToDelete));
     }
 }
