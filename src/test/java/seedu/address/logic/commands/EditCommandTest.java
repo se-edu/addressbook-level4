@@ -12,17 +12,20 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showFirstPersonOnly;
 import static seedu.address.logic.commands.CommandTestUtil.showSecondPersonOnly;
-import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
+import java.util.Collections;
+
+import org.junit.Before;
 import org.junit.Test;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.UndoRedoStack;
+import seedu.address.logic.UndoRedoStackUtil;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
@@ -33,11 +36,21 @@ import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.PersonBuilder;
 
 /**
- * Contains integration tests (interaction with the Model) and unit tests for EditCommand.
+ * Contains integration tests (interaction with the Model, UndoCommand and RedoCommand) and unit tests for EditCommand.
  */
 public class EditCommandTest {
 
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private UndoCommand undoCommand = new UndoCommand();
+    private RedoCommand redoCommand = new RedoCommand();
+    private UndoRedoStack undoRedoStack = UndoRedoStackUtil.prepareStack(Collections.emptyList(),
+            Collections.emptyList());
+
+    @Before
+    public void setUpForUndoRedo() {
+        undoCommand.setData(model, new CommandHistory(), undoRedoStack);
+        redoCommand.setData(model, new CommandHistory(), undoRedoStack);
+    }
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() throws Exception {
@@ -151,40 +164,25 @@ public class EditCommandTest {
     }
 
     @Test
-    public void undoRedo_editCommandSuccess_success() throws Exception {
-        UndoCommand undoCommand = new UndoCommand();
-        RedoCommand redoCommand = new RedoCommand();
-        UndoRedoStack undoRedoStack = new UndoRedoStack();
-        undoCommand.setData(model, new CommandHistory(), undoRedoStack);
-        redoCommand.setData(model, new CommandHistory(), undoRedoStack);
-
+    public void undoRedo_editCommandSuccessUnfilteredList_success() throws Exception {
         Person editedPerson = new PersonBuilder().build();
         Person personToEdit = model.getFilteredPersonList().get(0);
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(editedPerson).build();
         EditCommand editCommand = prepareCommand(INDEX_FIRST_PERSON, descriptor);
-
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
-
-        Model expectedModelBeforeEdit = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
-        Model expectedModelAfterEdit = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
-        expectedModelAfterEdit.updatePerson(personToEdit, editedPerson);
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
 
         // editCommand success, command gets pushed into undoRedoStack
-        assertCommandSuccess(editCommand, model, expectedMessage, expectedModelAfterEdit);
+        editCommand.execute();
         undoRedoStack.push(editCommand);
 
-        assertCommandSuccess(undoCommand, model, UndoCommand.MESSAGE_SUCCESS, expectedModelBeforeEdit);
-        assertCommandSuccess(redoCommand, model, RedoCommand.MESSAGE_SUCCESS, expectedModelAfterEdit);
+        assertCommandSuccess(undoCommand, model, UndoCommand.MESSAGE_SUCCESS, expectedModel);
+
+        expectedModel.updatePerson(personToEdit, editedPerson);
+        assertCommandSuccess(redoCommand, model, RedoCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test
-    public void undoRedo_editCommandFail_failure() {
-        UndoCommand undoCommand = new UndoCommand();
-        RedoCommand redoCommand = new RedoCommand();
-        UndoRedoStack undoRedoStack = new UndoRedoStack();
-        undoCommand.setData(model, new CommandHistory(), undoRedoStack);
-        redoCommand.setData(model, new CommandHistory(), undoRedoStack);
-
+    public void undoRedo_editCommandFailUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build();
         EditCommand editCommand = prepareCommand(outOfBoundIndex, descriptor);
@@ -200,37 +198,22 @@ public class EditCommandTest {
     @Test
     public void undoRedo_filteredList_samePersonEdited() throws Exception {
         showSecondPersonOnly(model);
-        UndoCommand undoCommand = new UndoCommand();
-        RedoCommand redoCommand = new RedoCommand();
-        UndoRedoStack undoRedoStack = new UndoRedoStack();
-        undoCommand.setData(model, new CommandHistory(), undoRedoStack);
-        redoCommand.setData(model, new CommandHistory(), undoRedoStack);
 
         Person editedPerson = new PersonBuilder().build();
         Person personToEdit = model.getFilteredPersonList().get(0);
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(editedPerson).build();
         EditCommand editCommand = prepareCommand(INDEX_FIRST_PERSON, descriptor);
-
-        String expectedMessage = String.format(EditCommand.MESSAGE_EDIT_PERSON_SUCCESS, editedPerson);
-
-        Model expectedModelBeforeEdit = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
-        Model expectedModelAfterEdit = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
-        expectedModelAfterEdit.updatePerson(personToEdit, editedPerson);
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
 
         // editCommand success, command gets pushed into undoRedoStack
-        assertCommandSuccess(editCommand, model, expectedMessage, expectedModelAfterEdit);
+        editCommand.execute();
         undoRedoStack.push(editCommand);
 
-        // list to show all persons after undoCommand successfully execute
-        expectedModelBeforeEdit.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-        assertCommandSuccess(undoCommand, model, UndoCommand.MESSAGE_SUCCESS, expectedModelBeforeEdit);
+        assertCommandSuccess(undoCommand, model, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
-        // list to show all persons after redoCommand successfully execute
-        expectedModelAfterEdit.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-
-        // ensure personToEdit is different from first person in the unfiltered list
+        expectedModel.updatePerson(personToEdit, editedPerson);
         assertNotEquals(model.getFilteredPersonList().get(0), personToEdit);
-        assertCommandSuccess(redoCommand, model, RedoCommand.MESSAGE_SUCCESS, expectedModelAfterEdit);
+        assertCommandSuccess(redoCommand, model, RedoCommand.MESSAGE_SUCCESS, expectedModel);
     }
 
     @Test
@@ -246,6 +229,7 @@ public class EditCommandTest {
         assertTrue(standardCommand.equals(standardCommand));
 
         // command preprocessed -> returns false
+        standardCommand.setData(model, new CommandHistory(), new UndoRedoStack());
         commandWithSameValues.setData(model, new CommandHistory(), new UndoRedoStack());
         commandWithSameValues.preprocessUndoableCommand();
         assertFalse(standardCommand.equals(commandWithSameValues));
