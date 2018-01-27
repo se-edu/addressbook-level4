@@ -25,7 +25,7 @@ public abstract class UndoableCommand extends Command {
     }
 
     /**
-     * Called before executing the {@code UndoableCommand}
+     * This method is called before the execution of {@code UndoableCommand}.
      * {@code UndoableCommand}s that require this preprocessing step should override this method.
      */
     protected void preprocessUndoableCommand() throws CommandException {}

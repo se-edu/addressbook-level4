@@ -115,9 +115,9 @@ public class CommandTestUtil {
      * {@code model}'s address book.
      */
     public static void showPersonAtIndex(Model model, Index targetIndex) {
-        assertTrue(targetIndex.getOneBased() < model.getFilteredPersonList().size());
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredPersonList().size());
 
-        Person person = model.getAddressBook().getPersonList().get(targetIndex.getZeroBased());
+        Person person = model.getFilteredPersonList().get(targetIndex.getZeroBased());
         final String[] splitName = person.getName().fullName.split("\\s+");
         model.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
@@ -137,7 +137,7 @@ public class CommandTestUtil {
     }
 
     /**
-     * Returns an {@code UndoCommand} with the given {@code Model} and {@code UndoRedoStack} set.
+     * Returns an {@code UndoCommand} with the given {@code model} and {@code undoRedoStack} set.
      */
     public static UndoCommand prepareUndoCommand(Model model, UndoRedoStack undoRedoStack) {
         UndoCommand undoCommand = new UndoCommand();
@@ -146,7 +146,7 @@ public class CommandTestUtil {
     }
 
     /**
-     * Returns a {@code RedoCommand} with the given {@code Model} and {@code UndoRedoStack} set.
+     * Returns a {@code RedoCommand} with the given {@code model} and {@code undoRedoStack} set.
      */
     public static RedoCommand prepareRedoCommand(Model model, UndoRedoStack undoRedoStack) {
         RedoCommand redoCommand = new RedoCommand();

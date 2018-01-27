@@ -12,15 +12,12 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
-import java.util.Collections;
-
 import org.junit.Test;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.UndoRedoStack;
-import seedu.address.logic.UndoRedoStackUtil;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -85,13 +82,13 @@ public class DeleteCommandTest {
     }
 
     @Test
-    public void undoRedo_deleteCommandSuccessUnfilteredList_success() throws Exception {
-        UndoRedoStack undoRedoStack = UndoRedoStackUtil.prepareStack(Collections.emptyList(), Collections.emptyList());
+    public void executeUndoRedo_validIndexUnfilteredList_success() throws Exception {
+        UndoRedoStack undoRedoStack = new UndoRedoStack();
         UndoCommand undoCommand = prepareUndoCommand(model, undoRedoStack);
         RedoCommand redoCommand = prepareRedoCommand(model, undoRedoStack);
         Person personToDelete = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         DeleteCommand deleteCommand = prepareCommand(INDEX_FIRST_PERSON);
-        ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
 
         // delete -> first person deleted
         deleteCommand.execute();
@@ -106,28 +103,28 @@ public class DeleteCommandTest {
     }
 
     @Test
-    public void undoRedo_deleteCommandFailureUnfilteredList_failure() {
-        UndoRedoStack undoRedoStack = UndoRedoStackUtil.prepareStack(Collections.emptyList(), Collections.emptyList());
+    public void executeUndoRedo_invalidIndexUnfilteredList_failure() {
+        UndoRedoStack undoRedoStack = new UndoRedoStack();
         UndoCommand undoCommand = prepareUndoCommand(model, undoRedoStack);
         RedoCommand redoCommand = prepareRedoCommand(model, undoRedoStack);
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
         DeleteCommand deleteCommand = prepareCommand(outOfBoundIndex);
 
-        // deleteCommand failed, command not pushed into undoRedoStack
+        // execution failed -> deleteCommand not pushed into undoRedoStack
         assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
 
-        // no commands in undoRedoStack, undoCommand and redoCommand fail
+        // no commands in undoRedoStack -> undoCommand and redoCommand fail
         assertCommandFailure(undoCommand, model, UndoCommand.MESSAGE_FAILURE);
         assertCommandFailure(redoCommand, model, RedoCommand.MESSAGE_FAILURE);
     }
 
     /**
-     * Delete a {@code Person} with different indexing from the unfiltered list to ensure {@code RedoCommand} deletes
+     * Deletes a {@code Person} with different indexing from the unfiltered list to ensure {@code RedoCommand} deletes
      * by {@code Person} and not by {@code Index} during re-execution.
      */
     @Test
-    public void undoRedo_filteredList_samePersonDeleted() throws Exception {
-        UndoRedoStack undoRedoStack = UndoRedoStackUtil.prepareStack(Collections.emptyList(), Collections.emptyList());
+    public void executeUndoRedo_validIndexFilteredList_samePersonDeleted() throws Exception {
+        UndoRedoStack undoRedoStack = new UndoRedoStack();
         UndoCommand undoCommand = prepareUndoCommand(model, undoRedoStack);
         RedoCommand redoCommand = prepareRedoCommand(model, undoRedoStack);
         DeleteCommand deleteCommand = prepareCommand(INDEX_FIRST_PERSON);
@@ -135,7 +132,7 @@ public class DeleteCommandTest {
 
         showPersonAtIndex(model, INDEX_SECOND_PERSON);
         Person personToDelete = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
-        // delete -> deletes second person in unfiltered person list/first person in filtered person list
+        // delete -> deletes second person in unfiltered person list / first person in filtered person list
         deleteCommand.execute();
         undoRedoStack.push(deleteCommand);
 
