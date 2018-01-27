@@ -81,6 +81,50 @@ public class DeleteCommandTest {
     }
 
     @Test
+    public void undoRedo_deleteCommandSuccess_success() throws Exception {
+        UndoCommand undoCommand = new UndoCommand();
+        RedoCommand redoCommand = new RedoCommand();
+        UndoRedoStack undoRedoStack = new UndoRedoStack();
+        undoCommand.setData(model, new CommandHistory(), undoRedoStack);
+        redoCommand.setData(model, new CommandHistory(), undoRedoStack);
+
+        Person personToDelete = model.getFilteredPersonList().get(0);
+        DeleteCommand deleteCommand = prepareCommand(INDEX_FIRST_PERSON);
+
+        String expectedMessage = String.format(DeleteCommand.MESSAGE_DELETE_PERSON_SUCCESS, personToDelete);
+
+        ModelManager expectedModelBeforeDeleting = new ModelManager(model.getAddressBook(), new UserPrefs());
+        ModelManager expectedModelAfterDeleting = new ModelManager(model.getAddressBook(), new UserPrefs());
+        expectedModelAfterDeleting.deletePerson(personToDelete);
+
+        // deleteCommand success, command gets pushed into undoRedoStack
+        assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModelAfterDeleting);
+        undoRedoStack.push(deleteCommand);
+
+        assertCommandSuccess(undoCommand, model, UndoCommand.MESSAGE_SUCCESS, expectedModelBeforeDeleting);
+        assertCommandSuccess(redoCommand, model, RedoCommand.MESSAGE_SUCCESS, expectedModelAfterDeleting);
+    }
+
+    @Test
+    public void undoRedo_deleteCommandFailure_failure() {
+        UndoCommand undoCommand = new UndoCommand();
+        RedoCommand redoCommand = new RedoCommand();
+        UndoRedoStack undoRedoStack = new UndoRedoStack();
+        undoCommand.setData(model, new CommandHistory(), undoRedoStack);
+        redoCommand.setData(model, new CommandHistory(), undoRedoStack);
+
+        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
+        DeleteCommand deleteCommand = prepareCommand(outOfBoundIndex);
+
+        // deleteCommand failed, command not pushed into undoRedoStack
+        assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+
+        // no commands in undoRedoStack, undoCommand and redoCommand fail
+        assertCommandFailure(undoCommand, model, UndoCommand.MESSAGE_FAILURE);
+        assertCommandFailure(redoCommand, model, RedoCommand.MESSAGE_FAILURE);
+    }
+
+    @Test
     public void undoRedo_filteredList_samePersonDeleted() throws Exception {
         showSecondPersonOnly(model);
         UndoCommand undoCommand = new UndoCommand();
