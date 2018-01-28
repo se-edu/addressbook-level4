@@ -5,18 +5,22 @@
         <phone isPrivate="false">9482424</phone>
         <email isPrivate="false">hans@example.com</email>
         <address isPrivate="false">4th street</address>
+        <tagged>friends</tagged>
     </persons>
     <persons>
         <name>Ruth Mueller</name>
         <phone isPrivate="false">87249245</phone>
         <email isPrivate="false">ruth@example.com</email>
         <address isPrivate="false">81th street</address>
+        <tagged>owesMoney</tagged>
+        <tagged>friends</tagged>
     </persons>
     <persons>
         <name>Heinz Kurz</name>
         <phone isPrivate="false">95352563</phone>
         <email isPrivate="false">heinz@example.com</email>
         <address isPrivate="false">wall street</address>
+        <tagged>husband</tagged>
     </persons>
     <persons>
         <name>Cornelia Meier</name>
@@ -41,6 +45,7 @@
         <phone isPrivate="false">9482442</phone>
         <email isPrivate="false">anna@example.com</email>
         <address isPrivate="false">4th street</address>
+        <tagged>classmate</tagged>
     </persons>
     <persons>
         <name>Stefan Meier</name>
@@ -53,5 +58,11 @@
         <phone isPrivate="false">8482131</phone>
         <email isPrivate="false">hans@example.com</email>
         <address isPrivate="false">chicago ave</address>
+        <tagged>family</tagged>
     </persons>
+    <tags>friends</tags>
+    <tags>owesMoney</tags>
+    <tags>husband</tags>
+    <tags>classmate</tags>
+    <tags>family</tags>
 </addressbook>
