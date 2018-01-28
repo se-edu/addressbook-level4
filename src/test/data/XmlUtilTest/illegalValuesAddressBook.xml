@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- AddressBook save file which contains person with Missing or Invalid parameters for each Field -->
+<addressbook>
+    <!-- Valid Person with no missing Fields -->
+    <persons>
+        <name>Hans Muster</name>
+        <phone isPrivate="false">9482424</phone>
+        <email isPrivate="false">hans@example.com</email>
+        <address isPrivate="false">4th street</address>
+    </persons>
+    <!-- Invalid person with Invalid Name field -->
+    <persons>
+        <name>Ha!ns Mu@ster</name>
+        <phone isPrivate="false">9482424</phone>
+        <email isPrivate="false">hans@example.com</email>
+        <address isPrivate="false">4th street</address>
+    </persons>
+    <!-- Invalid person with Invalid Phone field -->
+    <persons>
+        <name>Hans Muster</name>
+        <phone isPrivate="false">9482asd424</phone>
+        <email isPrivate="false">hans@example.com</email>
+        <address isPrivate="false">4th street</address>
+    </persons>
+    <!-- Invalid person with Invalid Email field -->
+    <persons>
+        <name>Hans Muster</name>
+        <phone isPrivate="false">9482424</phone>
+        <email isPrivate="false">ha-_n!sexample.com</email>
+        <address isPrivate="false">4th street</address>
+    </persons>
+    <!-- Invalid person with Invalid Address field -->
+    <persons>
+        <name>Hans Muster</name>
+        <phone isPrivate="false">9482424</phone>
+        <email isPrivate="false">hans@example.com</email>
+        <address isPrivate="false"> </address>
+    </persons>
+</addressbook>
