@@ -61,6 +61,18 @@ public class XmlAddressBookStorageTest {
     }
 
     @Test
+    public void readAddressBook_illegalPersonAddressBook_throwDataConversionException() throws Exception {
+        thrown.expect(DataConversionException.class);
+        readAddressBook("illegalPersonAddressBook.xml");
+    }
+
+    @Test
+    public void readAddressBook_illegalAndValidPersonAddressBook_throwDataConversionException() throws Exception {
+        thrown.expect(DataConversionException.class);
+        readAddressBook("illegalAndValidPersonAddressBook.xml");
+    }
+
+    @Test
     public void readAndSaveAddressBook_allInOrder_success() throws Exception {
         String filePath = testFolder.getRoot().getPath() + "TempAddressBook.xml";
         AddressBook original = getTypicalAddressBook();
