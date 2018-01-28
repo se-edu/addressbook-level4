@@ -10,6 +10,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
@@ -41,6 +42,23 @@ public class XmlSerializableAddressBook implements ReadOnlyAddressBook {
         this();
         persons.addAll(src.getPersonList().stream().map(XmlAdaptedPerson::new).collect(Collectors.toList()));
         tags.addAll(src.getTagList().stream().map(XmlAdaptedTag::new).collect(Collectors.toList()));
+    }
+
+    /**
+     * Converts this jaxb-friendly adapted addressbook into the model's {@code AddressBook} object.
+     *
+     * @throws IllegalValueException if there were any data constraints violated in the {@code XmlAdaptedPerson}
+     * or {@code XmlAdaptedTag}
+     */
+    public AddressBook toModelType() throws IllegalValueException {
+        AddressBook modelAddressBook = new AddressBook();
+        for (XmlAdaptedTag t: tags) {
+            modelAddressBook.addTag(t.toModelType());
+        }
+        for (XmlAdaptedPerson p: persons) {
+            modelAddressBook.addPerson(p.toModelType());
+        }
+        return modelAddressBook;
     }
 
     @Override
