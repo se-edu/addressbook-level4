@@ -10,6 +10,7 @@ import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.model.ReadOnlyAddressBook;
 
@@ -51,7 +52,15 @@ public class XmlAddressBookStorage implements AddressBookStorage {
             return Optional.empty();
         }
 
-        ReadOnlyAddressBook addressBookOptional = XmlFileStorage.loadDataFromSaveFile(new File(filePath));
+        XmlSerializableAddressBook xmlAddressBook = XmlFileStorage.loadDataFromSaveFile(new File(filePath));
+        ReadOnlyAddressBook addressBookOptional;
+        try {
+            addressBookOptional = xmlAddressBook.toModelType();
+        } catch (IllegalValueException ive) {
+            logger.info("Illegal values found in " + addressBookFile
+                    + ": " + ive.getMessage());
+            throw new DataConversionException(ive);
+        }
 
         return Optional.of(addressBookOptional);
     }
