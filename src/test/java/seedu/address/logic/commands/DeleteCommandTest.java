@@ -95,6 +95,35 @@ public class DeleteCommandTest {
     }
 
     @Test
+    public void undoRedo_deleteCommandSuccessUnfilteredList_success() throws Exception {
+        Person personToDelete = model.getFilteredPersonList().get(0);
+        DeleteCommand deleteCommand = prepareCommand(INDEX_FIRST_PERSON);
+        ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+
+        // deleteCommand success, command gets pushed into undoRedoStack
+        deleteCommand.execute();
+        undoRedoStack.push(deleteCommand);
+
+        assertCommandSuccess(undoCommand, model, UndoCommand.MESSAGE_SUCCESS, expectedModel);
+
+        expectedModel.deletePerson(personToDelete);
+        assertCommandSuccess(redoCommand, model, RedoCommand.MESSAGE_SUCCESS, expectedModel);
+    }
+
+    @Test
+    public void undoRedo_deleteCommandFailureUnfilteredList_failure() {
+        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
+        DeleteCommand deleteCommand = prepareCommand(outOfBoundIndex);
+
+        // deleteCommand failed, command not pushed into undoRedoStack
+        assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+
+        // no commands in undoRedoStack, undoCommand and redoCommand fail
+        assertCommandFailure(undoCommand, model, UndoCommand.MESSAGE_FAILURE);
+        assertCommandFailure(redoCommand, model, RedoCommand.MESSAGE_FAILURE);
+    }
+
+    @Test
     public void undoRedo_filteredList_samePersonDeleted() throws Exception {
         showSecondPersonOnly(model);
 
