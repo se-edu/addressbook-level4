@@ -37,8 +37,8 @@ public class PersonListPanelTest extends GuiUnitTest {
 
     private static final Logger logger = LogsCenter.getLogger(PersonListPanelTest.class);
 
-    private static final int TEST_TIMEOUT = 6000;
-    private static final int CARD_CREATION_AND_DELETION_TIMEOUT = 2000;
+    private static final int TEST_TIMEOUT = 8000;
+    private static final int CARD_CREATION_AND_DELETION_TIMEOUT = 2500;
     private static final int LIST_CREATION_TIMEOUT = TEST_TIMEOUT - CARD_CREATION_AND_DELETION_TIMEOUT;
 
     private PersonListPanelHandle personListPanelHandle;
