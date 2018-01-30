@@ -37,6 +37,10 @@ public class PersonListPanelTest extends GuiUnitTest {
 
     private static final Logger logger = LogsCenter.getLogger(PersonListPanelTest.class);
 
+    private static final int TEST_TIMEOUT = 6000;
+    private static final int CARD_CREATION_AND_DELETION_TIMEOUT = 2000;
+    private static final int LIST_CREATION_TIMEOUT = TEST_TIMEOUT - CARD_CREATION_AND_DELETION_TIMEOUT;
+
     private PersonListPanelHandle personListPanelHandle;
 
     @Test
@@ -74,21 +78,22 @@ public class PersonListPanelTest extends GuiUnitTest {
      */
     // Causes test to fail-fast; guiRobot#interact(Runnable) only returns after the Runnable completes execution.
     // If guiRobot#interact(Runnable) takes very long to complete execution, the test will stall for a long time.
-    @Test(timeout = 6000)
+    @Test(timeout = TEST_TIMEOUT)
     public void performanceTest() throws Exception {
         ObservableList<Person> backingList = createBackingList(10000);
 
         Stopwatch stopwatch = Stopwatch.createStarted();
         initUi(backingList);
         guiRobot.interact(backingList::clear);
-        if (stopwatch.elapsed(TimeUnit.MILLISECONDS) >= 2000) {
+        if (stopwatch.elapsed(TimeUnit.MILLISECONDS) >= CARD_CREATION_AND_DELETION_TIMEOUT) {
             fail("Creation and deletion of person cards exceeded time limit");
         }
     }
 
     /**
      * Returns a list of persons containing {@code personCount} persons that is used to populate the
-     * {@code PersonListPanel}.
+     * {@code PersonListPanel}. Logs the time taken for method execution if it finishes before
+     * {@code LIST_CREATION_TIMEOUT}.
      *
      * @throws AssertionError if this method takes too long to execute.
      */
@@ -103,7 +108,7 @@ public class PersonListPanelTest extends GuiUnitTest {
 
         long createListTime = stopwatch.elapsed(TimeUnit.MILLISECONDS);
         String createListMessage = "List creation took: " + createListTime + "ms. ";
-        if (createListTime >= 4000) {
+        if (createListTime >= LIST_CREATION_TIMEOUT) {
             fail(createListMessage + "Time limit exceeded.");
         } else {
             logger.info(createListMessage + "Continuing test.");
