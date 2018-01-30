@@ -85,11 +85,11 @@ public class PersonListPanelTest extends GuiUnitTest {
         }
         builder.append("</addressbook>\n");
 
-        File manyPersonsFile = new File(TEST_DATA_FOLDER + "9999persons.xml");
-        FileUtil.createFile(manyPersonsFile);
-        FileUtil.writeToFile(manyPersonsFile, builder.toString());
-        manyPersonsFile.deleteOnExit();
-        return manyPersonsFile;
+        File fileWith10000Persons = new File(TEST_DATA_FOLDER + "10000persons.xml");
+        FileUtil.createFile(fileWith10000Persons);
+        FileUtil.writeToFile(fileWith10000Persons, builder.toString());
+        fileWith10000Persons.deleteOnExit();
+        return fileWith10000Persons;
     }
 
     /**
