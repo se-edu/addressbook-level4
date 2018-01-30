@@ -58,7 +58,7 @@ public class PersonListPanelTest extends GuiUnitTest {
 
     @Test(timeout = 5500)
     public void performanceTest() throws Exception {
-        File xmlFile = createManyPersonsXmlFile();
+        File xmlFile = createXmlFileWithPersons(10000);
         XmlSerializableAddressBook xmlAddressBook =
                 XmlUtil.getDataFromFile(xmlFile, XmlSerializableAddressBook.class);
         ObservableList<Person> personList =
@@ -69,13 +69,13 @@ public class PersonListPanelTest extends GuiUnitTest {
     }
 
     /**
-     * Creates a .xml file containing 10000 persons. This file will be deleted when the JVM terminates.
+     * Creates a .xml file containing {@code personCount} persons. This file will be deleted when the JVM terminates.
      */
-    private File createManyPersonsXmlFile() throws Exception {
+    private File createXmlFileWithPersons(int personCount) throws Exception {
         StringBuilder builder = new StringBuilder();
         builder.append("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n");
         builder.append("<addressbook>\n");
-        for (int i = 0; i < 10000; i++) {
+        for (int i = 0; i < personCount; i++) {
             builder.append("<persons>\n");
             builder.append("<name>a</name>\n");
             builder.append("<phone>").append(i).append("00</phone>\n");
@@ -85,11 +85,11 @@ public class PersonListPanelTest extends GuiUnitTest {
         }
         builder.append("</addressbook>\n");
 
-        File fileWith10000Persons = new File(TEST_DATA_FOLDER + "10000persons.xml");
-        FileUtil.createFile(fileWith10000Persons);
-        FileUtil.writeToFile(fileWith10000Persons, builder.toString());
-        fileWith10000Persons.deleteOnExit();
-        return fileWith10000Persons;
+        File manyPersonsFile = new File(TEST_DATA_FOLDER + "manyPersons.xml");
+        FileUtil.createFile(manyPersonsFile);
+        FileUtil.writeToFile(manyPersonsFile, builder.toString());
+        manyPersonsFile.deleteOnExit();
+        return manyPersonsFile;
     }
 
     /**
