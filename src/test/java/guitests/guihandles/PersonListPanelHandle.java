@@ -26,7 +26,7 @@ public class PersonListPanelHandle extends NodeHandle<ListView<Person>> {
      * Returns a handle to the selected {@code PersonCardHandle}.
      * A maximum of 1 item can be selected at any time.
      * @throws AssertionError if no card is selected, or more than 1 card is selected.
-     * @throws IllegalStateException if the selected card is currently not in view.
+     * @throws IllegalStateException if the selected card is currently not in the scene graph.
      */
     public PersonCardHandle getHandleToSelectedCard() {
         List<Person> selectedPersonList = getRootNode().getSelectionModel().getSelectedItems();
@@ -35,7 +35,7 @@ public class PersonListPanelHandle extends NodeHandle<ListView<Person>> {
             throw new AssertionError("Person list size expected 1.");
         }
 
-        return getVisibleCardNodes().stream()
+        return getAllCardNodes().stream()
                 .map(PersonCardHandle::new)
                 .filter(handle -> handle.equals(selectedPersonList.get(0)))
                 .findFirst()
@@ -99,10 +99,10 @@ public class PersonListPanelHandle extends NodeHandle<ListView<Person>> {
 
     /**
      * Returns the person card handle of a person associated with the {@code index} in the list.
-     * @throws IllegalStateException if the selected card is currently not in view.
+     * @throws IllegalStateException if the selected card is currently not in the scene graph.
      */
     public PersonCardHandle getPersonCardHandle(int index) {
-        return getVisibleCardNodes().stream()
+        return getAllCardNodes().stream()
                 .map(PersonCardHandle::new)
                 .filter(handle -> handle.equals(getPerson(index)))
                 .findFirst()
@@ -113,7 +113,12 @@ public class PersonListPanelHandle extends NodeHandle<ListView<Person>> {
         return getRootNode().getItems().get(index);
     }
 
-    private Set<Node> getVisibleCardNodes() {
+    /**
+     * Returns all card nodes in the scene graph.
+     * Card nodes that are visible in the listview are definitely in the scene graph, while some nodes that are not
+     * visible in the listview may also be in the scene graph.
+     */
+    private Set<Node> getAllCardNodes() {
         return guiRobot.lookup(CARD_PANE_ID).queryAll();
     }
 
