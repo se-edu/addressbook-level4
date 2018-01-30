@@ -59,6 +59,6 @@ public class HelpWindow extends UiPart<Stage> {
      */
     public void show() {
         logger.fine("Showing help page about the application.");
-        getRoot().showAndWait();
+        getRoot().show();
     }
 }
