@@ -56,7 +56,7 @@ public class PersonListPanelTest extends GuiUnitTest {
         assertCardEquals(expectedPerson, selectedPerson);
     }
 
-    @Test
+    @Test(timeout = 5500)
     public void performanceTest() throws Exception {
         File xmlFile = createManyPersonsXmlFile();
         XmlSerializableAddressBook xmlAddressBook =
@@ -64,14 +64,8 @@ public class PersonListPanelTest extends GuiUnitTest {
         ObservableList<Person> personList =
                 FXCollections.observableArrayList(xmlAddressBook.toModelType().getPersonList());
 
-        // Initializes the PersonListPanel with 10000 persons and deletes all the persons
-        new Thread(() -> {
-            initUi(personList);
-            guiRobot.interact(personList::clear);
-        }).start();
-
-        // Verifies that personList is initialized and cleared in 2000ms
-        guiRobot.waitForEvent(personList::isEmpty, 2000);
+        initUi(personList);
+        guiRobot.interact(personList::clear);
     }
 
     /**

@@ -29,15 +29,15 @@ public class PersonListPanelHandle extends NodeHandle<ListView<Person>> {
      * @throws IllegalStateException if the selected card is currently not in view.
      */
     public PersonCardHandle getHandleToSelectedCard() {
-        List<Person> personList = getRootNode().getSelectionModel().getSelectedItems();
+        List<Person> selectedPersonList = getRootNode().getSelectionModel().getSelectedItems();
 
-        if (personList.size() != 1) {
+        if (selectedPersonList.size() != 1) {
             throw new AssertionError("Person list size expected 1.");
         }
 
         return getVisibleCardNodes().stream()
                 .map(PersonCardHandle::new)
-                .filter(handle -> handle.equals(personList.get(0)))
+                .filter(handle -> handle.equals(selectedPersonList.get(0)))
                 .findFirst()
                 .orElseThrow(IllegalStateException::new);
     }
