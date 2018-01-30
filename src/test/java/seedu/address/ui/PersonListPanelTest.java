@@ -32,7 +32,6 @@ public class PersonListPanelTest extends GuiUnitTest {
     private static final JumpToListRequestEvent JUMP_TO_SECOND_EVENT = new JumpToListRequestEvent(INDEX_SECOND_PERSON);
 
     private static final String TEST_DATA_FOLDER = FileUtil.getPath("src/test/data/PersonListPanelTest/");
-    private static final File MANY_PERSONS_FILE = new File(TEST_DATA_FOLDER + "9999persons.xml");
 
     private PersonListPanelHandle personListPanelHandle;
 
@@ -63,19 +62,42 @@ public class PersonListPanelTest extends GuiUnitTest {
 
     @Test
     public void performanceTest() throws Exception {
+        File xmlFile = createManyPersonsXmlFile();
         XmlSerializableAddressBook xmlAddressBook =
-                XmlUtil.getDataFromFile(MANY_PERSONS_FILE, XmlSerializableAddressBook.class);
+                XmlUtil.getDataFromFile(xmlFile, XmlSerializableAddressBook.class);
         ObservableList<Person> personList =
                 FXCollections.observableArrayList(xmlAddressBook.toModelType().getPersonList());
-        Stopwatch stopwatch = Stopwatch.createStarted();
 
+        Stopwatch stopwatch = Stopwatch.createStarted();
         setUp(personList);
-        guiRobot.pauseForHuman();
         guiRobot.interact(personList::clear);
-        guiRobot.pauseForHuman();
-        if (stopwatch.elapsed(TimeUnit.MILLISECONDS) >= 2500) {
+        if (stopwatch.elapsed(TimeUnit.MILLISECONDS) >= 2000) {
             fail();
         }
+    }
+
+    /**
+     * Creates a .xml file containing 10000 persons. This file will be deleted when the JVM terminates.
+     */
+    private File createManyPersonsXmlFile() throws Exception {
+        StringBuilder builder = new StringBuilder();
+        builder.append("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n");
+        builder.append("<addressbook>\n");
+        for (int i = 0; i < 10000; i++) {
+            builder.append("<persons>\n");
+            builder.append("<name>a</name>\n");
+            builder.append("<phone>").append(i).append("00</phone>\n");
+            builder.append("<email>a@aa</email>\n");
+            builder.append("<address>a</address>\n");
+            builder.append("</persons>\n");
+        }
+        builder.append("</addressbook>\n");
+
+        File manyPersonsFile = new File(TEST_DATA_FOLDER + "9999persons.xml");
+        FileUtil.createFile(manyPersonsFile);
+        FileUtil.writeToFile(manyPersonsFile, builder.toString());
+        manyPersonsFile.deleteOnExit();
+        return manyPersonsFile;
     }
 
     /**
