@@ -1,7 +1,6 @@
 package seedu.address.ui;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
 import static seedu.address.testutil.EventsUtil.postNow;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalPersons.getTypicalPersons;
@@ -9,11 +8,8 @@ import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysPerson;
 import static seedu.address.ui.testutil.GuiTestAssert.assertCardEquals;
 
 import java.io.File;
-import java.util.concurrent.TimeUnit;
 
 import org.junit.Test;
-
-import com.google.common.base.Stopwatch;
 
 import guitests.guihandles.PersonCardHandle;
 import guitests.guihandles.PersonListPanelHandle;
@@ -31,13 +27,13 @@ public class PersonListPanelTest extends GuiUnitTest {
 
     private static final JumpToListRequestEvent JUMP_TO_SECOND_EVENT = new JumpToListRequestEvent(INDEX_SECOND_PERSON);
 
-    private static final String TEST_DATA_FOLDER = FileUtil.getPath("src/test/data/PersonListPanelTest/");
+    private static final String TEST_DATA_FOLDER = FileUtil.getPath("src/test/data/sandbox/");
 
     private PersonListPanelHandle personListPanelHandle;
 
     @Test
     public void display() {
-        setUp(TYPICAL_PERSONS);
+        initUi(TYPICAL_PERSONS);
 
         for (int i = 0; i < TYPICAL_PERSONS.size(); i++) {
             personListPanelHandle.navigateToCard(TYPICAL_PERSONS.get(i));
@@ -51,7 +47,7 @@ public class PersonListPanelTest extends GuiUnitTest {
 
     @Test
     public void handleJumpToListRequestEvent() {
-        setUp(TYPICAL_PERSONS);
+        initUi(TYPICAL_PERSONS);
         postNow(JUMP_TO_SECOND_EVENT);
         guiRobot.pauseForHuman();
 
@@ -68,12 +64,14 @@ public class PersonListPanelTest extends GuiUnitTest {
         ObservableList<Person> personList =
                 FXCollections.observableArrayList(xmlAddressBook.toModelType().getPersonList());
 
-        Stopwatch stopwatch = Stopwatch.createStarted();
-        setUp(personList);
-        guiRobot.interact(personList::clear);
-        if (stopwatch.elapsed(TimeUnit.MILLISECONDS) >= 2000) {
-            fail();
-        }
+        // Initializes the PersonListPanel with 10000 persons and deletes all the persons
+        new Thread(() -> {
+            initUi(personList);
+            guiRobot.interact(personList::clear);
+        }).start();
+
+        // Verifies that personList is initialized and cleared in 2000ms
+        guiRobot.waitForEvent(personList::isEmpty, 2000);
     }
 
     /**
@@ -102,8 +100,9 @@ public class PersonListPanelTest extends GuiUnitTest {
 
     /**
      * Initializes {@code personListPanelHandle} with a {@code PersonListPanel} backed by {@code backingList}.
+     * Also shows the {@code Stage} that displays only {@code PersonListPanel}.
      */
-    private void setUp(ObservableList<Person> backingList) {
+    private void initUi(ObservableList<Person> backingList) {
         PersonListPanel personListPanel = new PersonListPanel(backingList);
         uiPartRule.setUiPart(personListPanel);
 
