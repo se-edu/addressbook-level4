@@ -71,13 +71,16 @@ public class PersonListPanelTest extends GuiUnitTest {
     /**
      * Verifies that creating and deleting large number of persons in {@code PersonListPanel} does not take too long
      * to execute.
-     * 1. If {@code TestTimedOutException} is thrown before the logs are printed, then the failure occurs during the
-     * preparation of the test (creating the xml file containing the large number of persons).
-     * 2. If {@code TestTimedOutException} is thrown after the logs are printed, then the failure occurs during the
-     * creation and deletion of the person cards.
+     * <ol>
+     *     <li>If {@code TestTimedOutException} is thrown before the logs are printed, then the failure occurs during
+     *         the preparation of the test (creating the xml file containing the large number of persons).</li>
+     *     <li>If {@code TestTimedOutException} is thrown after the logs are printed, then the failure occurs during
+     *         the creation and deletion of the person cards.</li>
+     * </ol>
      */
-    // Causes test to fail-fast; guiRobot#interact(Runnable) only returns after the Runnable completes execution.
-    // If guiRobot#interact(Runnable) takes very long to complete execution, the test will stall for a long time.
+    // The timeout makes the test fail fast. Without it, the test can stall for a long time if
+    // guiRobot#interact(Runnable) takes very long to complete execution because guiRobot#interact(Runnable) only
+    // returns after the Runnable completes execution.
     @Test(timeout = TEST_TIMEOUT)
     public void performanceTest() throws Exception {
         ObservableList<Person> backingList = createBackingList(10000);
