@@ -5,6 +5,8 @@ import static org.junit.Assert.fail;
 import static seedu.address.testutil.EventsUtil.postNow;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalPersons.getTypicalPersons;
+import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysPerson;
+import static seedu.address.ui.testutil.GuiTestAssert.assertCardEquals;
 
 import java.io.File;
 import java.util.concurrent.TimeUnit;
@@ -13,6 +15,7 @@ import org.junit.Test;
 
 import com.google.common.base.Stopwatch;
 
+import guitests.guihandles.PersonCardHandle;
 import guitests.guihandles.PersonListPanelHandle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -40,10 +43,10 @@ public class PersonListPanelTest extends GuiUnitTest {
         for (int i = 0; i < TYPICAL_PERSONS.size(); i++) {
             personListPanelHandle.navigateToCard(TYPICAL_PERSONS.get(i));
             Person expectedPerson = TYPICAL_PERSONS.get(i);
-            Person actualPerson = personListPanelHandle.getPerson(i);
+            PersonCardHandle actualCard = personListPanelHandle.getPersonCardHandle(i);
 
-            assertEquals(expectedPerson, actualPerson);
-            // Because we do not have the actual card, we cannot compare the index on the card
+            assertCardDisplaysPerson(expectedPerson, actualCard);
+            assertEquals(Integer.toString(i + 1) + ". ", actualCard.getId());
         }
     }
 
@@ -53,16 +56,17 @@ public class PersonListPanelTest extends GuiUnitTest {
         postNow(JUMP_TO_SECOND_EVENT);
         guiRobot.pauseForHuman();
 
-        Person expectedPerson = personListPanelHandle.getPerson(INDEX_SECOND_PERSON.getZeroBased());
-        Person selectedPerson = personListPanelHandle.getSelectedPerson();
-        assertEquals(expectedPerson, selectedPerson);
+        PersonCardHandle expectedPerson = personListPanelHandle.getPersonCardHandle(INDEX_SECOND_PERSON.getZeroBased());
+        PersonCardHandle selectedPerson = personListPanelHandle.getHandleToSelectedCard();
+        assertCardEquals(expectedPerson, selectedPerson);
     }
 
     @Test
     public void performanceTest() throws Exception {
         XmlSerializableAddressBook xmlAddressBook =
                 XmlUtil.getDataFromFile(MANY_PERSONS_FILE, XmlSerializableAddressBook.class);
-        ObservableList<Person> personList = FXCollections.observableArrayList(xmlAddressBook.getPersonList());
+        ObservableList<Person> personList =
+                FXCollections.observableArrayList(xmlAddressBook.toModelType().getPersonList());
         Stopwatch stopwatch = Stopwatch.createStarted();
 
         setUp(personList);

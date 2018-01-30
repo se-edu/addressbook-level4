@@ -2,7 +2,9 @@ package guitests.guihandles;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
+import javafx.scene.Node;
 import javafx.scene.control.ListView;
 import seedu.address.model.person.Person;
 
@@ -11,6 +13,8 @@ import seedu.address.model.person.Person;
  */
 public class PersonListPanelHandle extends NodeHandle<ListView<Person>> {
     public static final String PERSON_LIST_VIEW_ID = "#personListView";
+
+    private static final String CARD_PANE_ID = "#cardPane";
 
     private Optional<Person> lastRememberedSelectedPersonCard;
 
@@ -22,15 +26,20 @@ public class PersonListPanelHandle extends NodeHandle<ListView<Person>> {
      * Returns a handle to the selected {@code PersonCardHandle}.
      * A maximum of 1 item can be selected at any time.
      * @throws AssertionError if no card is selected, or more than 1 card is selected.
+     * @throws IllegalStateException if the selected card is currently not in view.
      */
-    public Person getSelectedPerson() {
+    public PersonCardHandle getHandleToSelectedCard() {
         List<Person> personList = getRootNode().getSelectionModel().getSelectedItems();
 
         if (personList.size() != 1) {
             throw new AssertionError("Person list size expected 1.");
         }
 
-        return personList.get(0);
+        return getVisibleCardNodes().stream()
+                .map(PersonCardHandle::new)
+                .filter(handle -> handle.equals(personList.get(0)))
+                .findFirst()
+                .orElseThrow(IllegalStateException::new);
     }
 
     /**
@@ -54,7 +63,7 @@ public class PersonListPanelHandle extends NodeHandle<ListView<Person>> {
     }
 
     /**
-     * Navigates the listview to display and select the {@code person}.
+     * Navigates the listview to display {@code person}.
      */
     public void navigateToCard(Person person) {
         if (!getRootNode().getItems().contains(person)) {
@@ -63,7 +72,20 @@ public class PersonListPanelHandle extends NodeHandle<ListView<Person>> {
 
         guiRobot.interact(() -> {
             getRootNode().scrollTo(person);
-            getRootNode().getSelectionModel().select(person);
+        });
+        guiRobot.pauseForHuman();
+    }
+
+    /**
+     * Navigates the listview to {@code index}.
+     */
+    public void navigateToCard(int index) {
+        if (index < 0 || index >= getRootNode().getItems().size()) {
+            throw new IllegalArgumentException("Index is out of bounds.");
+        }
+
+        guiRobot.interact(() -> {
+            getRootNode().scrollTo(index);
         });
         guiRobot.pauseForHuman();
     }
@@ -76,10 +98,23 @@ public class PersonListPanelHandle extends NodeHandle<ListView<Person>> {
     }
 
     /**
-     * Returns the person at the specified {@code index} in the list.
+     * Returns the person card handle of a person associated with the {@code index} in the list.
+     * @throws IllegalStateException if the selected card is currently not in view.
      */
-    public Person getPerson(int index) {
+    public PersonCardHandle getPersonCardHandle(int index) {
+        return getVisibleCardNodes().stream()
+                .map(PersonCardHandle::new)
+                .filter(handle -> handle.equals(getPerson(index)))
+                .findFirst()
+                .orElseThrow(IllegalStateException::new);
+    }
+
+    private Person getPerson(int index) {
         return getRootNode().getItems().get(index);
+    }
+
+    private Set<Node> getVisibleCardNodes() {
+        return guiRobot.lookup(CARD_PANE_ID).queryAll();
     }
 
     /**

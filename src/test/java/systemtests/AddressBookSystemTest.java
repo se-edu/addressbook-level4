@@ -212,8 +212,8 @@ public abstract class AddressBookSystemTest {
      * @see PersonListPanelHandle#isSelectedPersonCardChanged()
      */
     protected void assertSelectedCardChanged(Index expectedSelectedCardIndex) {
-        int expectedZeroBasedIndex = expectedSelectedCardIndex.getZeroBased();
-        String selectedCardName = getPersonListPanel().getPerson(expectedZeroBasedIndex).getName().fullName;
+        getPersonListPanel().navigateToCard(getPersonListPanel().getSelectedCardIndex());
+        String selectedCardName = getPersonListPanel().getHandleToSelectedCard().getName();
         URL expectedUrl;
         try {
             expectedUrl = new URL(GOOGLE_SEARCH_URL_PREFIX + selectedCardName.replaceAll(" ", "+")
@@ -223,7 +223,7 @@ public abstract class AddressBookSystemTest {
         }
         assertEquals(expectedUrl, getBrowserPanel().getLoadedUrl());
 
-        assertEquals(expectedZeroBasedIndex, getPersonListPanel().getSelectedCardIndex());
+        assertEquals(expectedSelectedCardIndex.getZeroBased(), getPersonListPanel().getSelectedCardIndex());
     }
 
     /**
