@@ -2,8 +2,6 @@ package seedu.address.ui;
 
 import java.util.logging.Logger;
 
-import org.fxmisc.easybind.EasyBind;
-
 import com.google.common.eventbus.Subscribe;
 
 import javafx.application.Platform;
@@ -25,7 +23,7 @@ public class PersonListPanel extends UiPart<Region> {
     private final Logger logger = LogsCenter.getLogger(PersonListPanel.class);
 
     @FXML
-    private ListView<PersonCard> personListView;
+    private ListView<Person> personListView;
 
     public PersonListPanel(ObservableList<Person> personList) {
         super(FXML);
@@ -34,9 +32,7 @@ public class PersonListPanel extends UiPart<Region> {
     }
 
     private void setConnections(ObservableList<Person> personList) {
-        ObservableList<PersonCard> mappedList = EasyBind.map(
-                personList, (person) -> new PersonCard(person, personList.indexOf(person) + 1));
-        personListView.setItems(mappedList);
+        personListView.setItems(personList);
         personListView.setCellFactory(listView -> new PersonListViewCell());
         setEventHandlerForSelectionChangeEvent();
     }
@@ -70,17 +66,16 @@ public class PersonListPanel extends UiPart<Region> {
     /**
      * Custom {@code ListCell} that displays the graphics of a {@code PersonCard}.
      */
-    class PersonListViewCell extends ListCell<PersonCard> {
-
+    class PersonListViewCell extends ListCell<Person> {
         @Override
-        protected void updateItem(PersonCard person, boolean empty) {
+        protected void updateItem(Person person, boolean empty) {
             super.updateItem(person, empty);
 
             if (empty || person == null) {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(person.getRoot());
+                setGraphic(new PersonCard(person, getIndex() + 1).getRoot());
             }
         }
     }

@@ -4,13 +4,10 @@ import static org.junit.Assert.assertEquals;
 import static seedu.address.testutil.EventsUtil.postNow;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalPersons.getTypicalPersons;
-import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysPerson;
-import static seedu.address.ui.testutil.GuiTestAssert.assertCardEquals;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import guitests.guihandles.PersonCardHandle;
 import guitests.guihandles.PersonListPanelHandle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -39,10 +36,10 @@ public class PersonListPanelTest extends GuiUnitTest {
         for (int i = 0; i < TYPICAL_PERSONS.size(); i++) {
             personListPanelHandle.navigateToCard(TYPICAL_PERSONS.get(i));
             Person expectedPerson = TYPICAL_PERSONS.get(i);
-            PersonCardHandle actualCard = personListPanelHandle.getPersonCardHandle(i);
+            Person actualPerson = personListPanelHandle.getPerson(i);
 
-            assertCardDisplaysPerson(expectedPerson, actualCard);
-            assertEquals(Integer.toString(i + 1) + ". ", actualCard.getId());
+            assertEquals(expectedPerson, actualPerson);
+            // Because we do not have the actual card, we cannot compare the index on the card
         }
     }
 
@@ -51,8 +48,8 @@ public class PersonListPanelTest extends GuiUnitTest {
         postNow(JUMP_TO_SECOND_EVENT);
         guiRobot.pauseForHuman();
 
-        PersonCardHandle expectedCard = personListPanelHandle.getPersonCardHandle(INDEX_SECOND_PERSON.getZeroBased());
-        PersonCardHandle selectedCard = personListPanelHandle.getHandleToSelectedCard();
-        assertCardEquals(expectedCard, selectedCard);
+        Person expectedPerson = personListPanelHandle.getPerson(INDEX_SECOND_PERSON.getZeroBased());
+        Person selectedPerson = personListPanelHandle.getSelectedPerson();
+        assertEquals(expectedPerson, selectedPerson);
     }
 }
