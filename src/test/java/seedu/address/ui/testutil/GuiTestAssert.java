@@ -15,18 +15,6 @@ import seedu.address.model.person.Person;
  */
 public class GuiTestAssert {
     /**
-     * Asserts that {@code actualCard} displays the same values as {@code expectedCard}.
-     */
-    public static void assertCardEquals(PersonCardHandle expectedCard, PersonCardHandle actualCard) {
-        assertEquals(expectedCard.getId(), actualCard.getId());
-        assertEquals(expectedCard.getAddress(), actualCard.getAddress());
-        assertEquals(expectedCard.getEmail(), actualCard.getEmail());
-        assertEquals(expectedCard.getName(), actualCard.getName());
-        assertEquals(expectedCard.getPhone(), actualCard.getPhone());
-        assertEquals(expectedCard.getTags(), actualCard.getTags());
-    }
-
-    /**
      * Asserts that {@code actualCard} displays the details of {@code expectedPerson}.
      */
     public static void assertCardDisplaysPerson(Person expectedPerson, PersonCardHandle actualCard) {
@@ -44,7 +32,7 @@ public class GuiTestAssert {
      */
     public static void assertListMatching(PersonListPanelHandle personListPanelHandle, Person... persons) {
         for (int i = 0; i < persons.length; i++) {
-            assertCardDisplaysPerson(persons[i], personListPanelHandle.getPersonCardHandle(i));
+            assertEquals(persons[i], personListPanelHandle.getPerson(i));
         }
     }
 
