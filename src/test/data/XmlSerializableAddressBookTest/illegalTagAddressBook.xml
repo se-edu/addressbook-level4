@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!-- AddressBook save file which contains 1 invalid tag -->
+<addressbook>
+    <!-- Valid Person -->
+    <persons>
+        <name>Hans Muster</name>
+        <phone isPrivate="false">9482424</phone>
+        <email isPrivate="false">hans@example.com</email>
+        <address isPrivate="false">4th street</address>
+        <tagged>friends</tagged>
+    </persons>
+    <!-- Invalid tag -->
+    <tags>frie!nds</tags>
+</addressbook>

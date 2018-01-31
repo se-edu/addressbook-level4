@@ -47,14 +47,14 @@ public class XmlSerializableAddressBook {
      * {@code XmlAdaptedPerson} or {@code XmlAdaptedTag}.
      */
     public AddressBook toModelType() throws IllegalValueException {
-        AddressBook modelAddressBook = new AddressBook();
+        AddressBook addressBook = new AddressBook();
         for (XmlAdaptedTag t : tags) {
-            modelAddressBook.addTag(t.toModelType());
+            addressBook.addTag(t.toModelType());
         }
         for (XmlAdaptedPerson p : persons) {
-            modelAddressBook.addPerson(p.toModelType());
+            addressBook.addPerson(p.toModelType());
         }
-        return modelAddressBook;
+        return addressBook;
     }
 
     @Override
@@ -67,8 +67,7 @@ public class XmlSerializableAddressBook {
             return false;
         }
 
-        XmlSerializableAddressBook x = (XmlSerializableAddressBook) other;
-        return persons.equals(x.persons)
-                && tags.equals(x.tags);
+        XmlSerializableAddressBook otherAb = (XmlSerializableAddressBook) other;
+        return persons.equals(otherAb.persons) && tags.equals(otherAb.tags);
     }
 }

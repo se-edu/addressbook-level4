@@ -112,11 +112,11 @@ public class XmlAdaptedPerson {
             return false;
         }
 
-        XmlAdaptedPerson x = (XmlAdaptedPerson) other;
-        return name.equals(x.name)
-                && phone.equals(x.phone)
-                && email.equals(x.email)
-                && address.equals(x.address)
-                && tagged.equals(x.tagged);
+        XmlAdaptedPerson otherPerson = (XmlAdaptedPerson) other;
+        return name.equals(otherPerson.name)
+                && phone.equals(otherPerson.phone)
+                && email.equals(otherPerson.email)
+                && address.equals(otherPerson.address)
+                && tagged.equals(otherPerson.tagged);
     }
 }
