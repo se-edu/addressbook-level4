@@ -56,4 +56,19 @@ public class XmlSerializableAddressBook {
         }
         return modelAddressBook;
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof XmlSerializableAddressBook)) {
+            return false;
+        }
+
+        XmlSerializableAddressBook x = (XmlSerializableAddressBook) other;
+        return persons.equals(x.persons)
+                && tags.equals(x.tags);
+    }
 }
