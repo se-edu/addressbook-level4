@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<!-- AddressBook save file which contains 1 valid person and 1 person with invalid parameters -->
 <addressbook>
     <!-- Valid Person -->
     <persons>
