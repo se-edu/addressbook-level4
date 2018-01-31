@@ -8,7 +8,7 @@
         <email isPrivate="false">hans@example.com</email>
         <address isPrivate="false">4th street</address>
     </persons>
-    <!-- Invalid person with invalid phone field -->
+    <!-- Person with invalid phone field -->
     <persons>
         <name>Hans Muster</name>
         <phone isPrivate="false">948asdf2424</phone>

@@ -61,15 +61,15 @@ public class XmlAddressBookStorageTest {
     }
 
     @Test
-    public void readAddressBook_illegalPersonAddressBook_throwDataConversionException() throws Exception {
+    public void readAddressBook_invalidPersonAddressBook_throwDataConversionException() throws Exception {
         thrown.expect(DataConversionException.class);
-        readAddressBook("illegalPersonAddressBook.xml");
+        readAddressBook("invalidPersonAddressBook.xml");
     }
 
     @Test
-    public void readAddressBook_illegalAndValidPersonAddressBook_throwDataConversionException() throws Exception {
+    public void readAddressBook_invalidAndValidPersonAddressBook_throwDataConversionException() throws Exception {
         thrown.expect(DataConversionException.class);
-        readAddressBook("illegalAndValidPersonAddressBook.xml");
+        readAddressBook("invalidAndValidPersonAddressBook.xml");
     }
 
     @Test
