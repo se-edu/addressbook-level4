@@ -25,7 +25,8 @@ public class XmlSerializableAddressBookTest {
 
     @Test
     public void toModelType_typicalPersonsFile_success() throws Exception {
-        XmlSerializableAddressBook dataFromFile = XmlUtil.getDataFromFile(TYPICAL_PERSONS_FILE, XmlSerializableAddressBook.class);
+        XmlSerializableAddressBook dataFromFile = XmlUtil.getDataFromFile(TYPICAL_PERSONS_FILE,
+                XmlSerializableAddressBook.class);
         AddressBook modelAddressBook = dataFromFile.toModelType();
         AddressBook typicalPersonsAddressBook = TypicalPersons.getTypicalAddressBook();
 
