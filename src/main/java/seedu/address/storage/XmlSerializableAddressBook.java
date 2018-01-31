@@ -89,4 +89,20 @@ public class XmlSerializableAddressBook implements ReadOnlyAddressBook {
         return FXCollections.unmodifiableObservableList(tags);
     }
 
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof XmlSerializableAddressBook)) {
+            return false;
+        }
+
+        try {
+            return toModelType().equals(((XmlSerializableAddressBook) other).toModelType());
+        } catch (IllegalValueException ive) {
+            return false;
+        }
+    }
 }
