@@ -594,7 +594,11 @@ image::getting-started-ui-result-after.png[width="200"]
 * Solution
 ** Modify link:{repoURL}/src/main/java/seedu/address/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] 's constructor so that users of the event can indicate whether an error has occurred.
 ** Modify link:{repoURL}/src/main/java/seedu/address/ui/ResultDisplay.java[`ResultDisplay#handleNewResultAvailableEvent(event)`] to react to this event appropriately.
-** See this https://github.com/se-edu/addressbook-level4/pull/593/files[PR] for the full solution.
+** You can write two different kinds of tests to ensure that the functionality works
+*** First, the unit tests for `ResultDisplay` can be modified to include verification of the color.
+*** Secondly, the system tests link:{repoURL}/src/test/java/systemtests/AddressBookSystemTest.java[`AddressBookSystemTest#assertCommandBoxShowsDefaultStyle() and AddressBookSystemTest#assertCommandBoxShowsErrorStyle()`] to include verification for `ResultDisplay` as well.
+** See this https://github.com/se-edu/addressbook-level4/pull/799[PR] for the full solution.
+*** Do read the commits one at a time if you feel overwhelmed.
 ****
 
 . Modify the link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] to show the total number of people in the address book.
