@@ -92,20 +92,6 @@ public class XmlAddressBookStorageTest {
         saveAddressBook(null, "SomeFile.xml");
     }
 
-    @Test
-    public void getPersonList_modifyList_throwsUnsupportedOperationException() {
-        XmlSerializableAddressBook addressBook = new XmlSerializableAddressBook();
-        thrown.expect(UnsupportedOperationException.class);
-        addressBook.getPersonList().remove(0);
-    }
-
-    @Test
-    public void getTagList_modifyList_throwsUnsupportedOperationException() {
-        XmlSerializableAddressBook addressBook = new XmlSerializableAddressBook();
-        thrown.expect(UnsupportedOperationException.class);
-        addressBook.getTagList().remove(0);
-    }
-
     /**
      * Saves {@code addressBook} at the specified {@code filePath}.
      */
