@@ -47,4 +47,16 @@ public class XmlAdaptedTag {
         return new Tag(tagName);
     }
 
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof XmlAdaptedTag)) {
+            return false;
+        }
+
+        return tagName.equals(((XmlAdaptedTag) other).tagName);
+    }
 }
