@@ -53,16 +53,12 @@ public class XmlAddressBookStorage implements AddressBookStorage {
         }
 
         XmlSerializableAddressBook xmlAddressBook = XmlFileStorage.loadDataFromSaveFile(new File(filePath));
-        ReadOnlyAddressBook addressBookOptional;
         try {
-            addressBookOptional = xmlAddressBook.toModelType();
+            return Optional.of(xmlAddressBook.toModelType());
         } catch (IllegalValueException ive) {
-            logger.info("Illegal values found in " + addressBookFile
-                    + ": " + ive.getMessage());
+            logger.info("Illegal values found in " + addressBookFile + ": " + ive.getMessage());
             throw new DataConversionException(ive);
         }
-
-        return Optional.of(addressBookOptional);
     }
 
     @Override

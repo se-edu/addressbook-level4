@@ -54,7 +54,9 @@ public class XmlUtilTest {
 
     @Test
     public void getDataFromFile_validFile_validResult() throws Exception {
-        XmlUtil.getDataFromFile(VALID_FILE, XmlSerializableAddressBook.class);
+        XmlSerializableAddressBook dataFromFile = XmlUtil.getDataFromFile(VALID_FILE, XmlSerializableAddressBook.class);
+        assertEquals(9, dataFromFile.toModelType().getPersonList().size());
+        assertEquals(5, dataFromFile.toModelType().getTagList().size());
     }
 
     @Test

@@ -12,23 +12,28 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.XmlUtil;
 import seedu.address.model.AddressBook;
+import seedu.address.testutil.TypicalPersons;
 
 public class XmlSerializableAddressBookTest {
 
-    private static final String TEST_DATA_FOLDER = FileUtil.getPath("src/test/data/XmlUtilTest/");
-    private static final File VALID_FILE = new File(TEST_DATA_FOLDER + "validAddressBook.xml");
+    private static final String TEST_DATA_FOLDER = FileUtil.getPath("src/test/data/XmlSerializableAddressBookTest/");
+    private static final File TYPICAL_PERSONS_FILE = new File(TEST_DATA_FOLDER + "typicalPersonsAddressBook.xml");
     private static final File ILLEGAL_VALUES_FILE = new File(TEST_DATA_FOLDER + "illegalValuesAddressBook.xml");
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
     @Test
-    public void toModelType_validFile_success() throws Exception {
-        XmlSerializableAddressBook dataFromFile = XmlUtil.getDataFromFile(VALID_FILE, XmlSerializableAddressBook.class);
+    public void toModelType_typicalPersonsFile_success() throws Exception {
+        XmlSerializableAddressBook dataFromFile = XmlUtil.getDataFromFile(TYPICAL_PERSONS_FILE,
+                XmlSerializableAddressBook.class);
         AddressBook modelAddressBook = dataFromFile.toModelType();
+        AddressBook typicalPersonsAddressBook = TypicalPersons.getTypicalAddressBook();
 
-        assertEquals(9, modelAddressBook.getPersonList().size());
-        assertEquals(0, modelAddressBook.getTagList().size());
+        assertEquals(7, modelAddressBook.getPersonList().size());
+        assertEquals(2, modelAddressBook.getTagList().size());
+
+        assertEquals(modelAddressBook, typicalPersonsAddressBook);
     }
 
     @Test

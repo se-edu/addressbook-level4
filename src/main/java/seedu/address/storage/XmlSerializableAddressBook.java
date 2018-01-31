@@ -41,17 +41,17 @@ public class XmlSerializableAddressBook {
     }
 
     /**
-     * Converts this jaxb-friendly adapted addressbook into the model's {@code AddressBook} object.
+     * Converts this addressbook into the model's {@code AddressBook} object.
      *
-     * @throws IllegalValueException if there were any data constraints violated in the {@code XmlAdaptedPerson}
-     * or {@code XmlAdaptedTag}
+     * @throws IllegalValueException if there were any data constraints violated or duplicates in the
+     * {@code XmlAdaptedPerson} or {@code XmlAdaptedTag}.
      */
     public AddressBook toModelType() throws IllegalValueException {
         AddressBook modelAddressBook = new AddressBook();
-        for (XmlAdaptedTag t: tags) {
+        for (XmlAdaptedTag t : tags) {
             modelAddressBook.addTag(t.toModelType());
         }
-        for (XmlAdaptedPerson p: persons) {
+        for (XmlAdaptedPerson p : persons) {
             modelAddressBook.addPerson(p.toModelType());
         }
         return modelAddressBook;
@@ -67,10 +67,8 @@ public class XmlSerializableAddressBook {
             return false;
         }
 
-        try {
-            return toModelType().equals(((XmlSerializableAddressBook) other).toModelType());
-        } catch (IllegalValueException ive) {
-            return false;
-        }
+        XmlSerializableAddressBook x = (XmlSerializableAddressBook) other;
+        return persons.equals(x.persons)
+                && tags.equals(x.tags);
     }
 }
