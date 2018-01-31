@@ -55,8 +55,8 @@ public class XmlUtilTest {
     @Test
     public void getDataFromFile_validFile_validResult() throws Exception {
         XmlSerializableAddressBook dataFromFile = XmlUtil.getDataFromFile(VALID_FILE, XmlSerializableAddressBook.class);
-        assertEquals(9, dataFromFile.getPersonList().size());
-        assertEquals(5, dataFromFile.getTagList().size());
+        assertEquals(9, dataFromFile.toModelType().getPersonList().size());
+        assertEquals(5, dataFromFile.toModelType().getTagList().size());
     }
 
     @Test
@@ -83,7 +83,7 @@ public class XmlUtilTest {
         XmlSerializableAddressBook dataToWrite = new XmlSerializableAddressBook(new AddressBook());
         XmlUtil.saveDataToFile(TEMP_FILE, dataToWrite);
         XmlSerializableAddressBook dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE, XmlSerializableAddressBook.class);
-        assertEquals((new AddressBook(dataToWrite)).toString(), (new AddressBook(dataFromFile)).toString());
+        assertEquals(dataToWrite.toModelType().toString(), dataFromFile.toModelType().toString());
         //TODO: use equality instead of string comparisons
 
         AddressBookBuilder builder = new AddressBookBuilder(new AddressBook());
@@ -92,6 +92,6 @@ public class XmlUtilTest {
 
         XmlUtil.saveDataToFile(TEMP_FILE, dataToWrite);
         dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE, XmlSerializableAddressBook.class);
-        assertEquals((new AddressBook(dataToWrite)).toString(), (new AddressBook(dataFromFile)).toString());
+        assertEquals(dataToWrite.toModelType().toString(), dataFromFile.toModelType().toString());
     }
 }
