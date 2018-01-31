@@ -101,4 +101,22 @@ public class XmlAdaptedPerson {
         final Set<Tag> tags = new HashSet<>(personTags);
         return new Person(name, phone, email, address, tags);
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof XmlAdaptedPerson)) {
+            return false;
+        }
+
+        XmlAdaptedPerson otherPerson = (XmlAdaptedPerson) other;
+        return name.equals(otherPerson.name)
+                && phone.equals(otherPerson.phone)
+                && email.equals(otherPerson.email)
+                && address.equals(otherPerson.address)
+                && tagged.equals(otherPerson.tagged);
+    }
 }
