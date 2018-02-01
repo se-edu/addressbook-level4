@@ -205,6 +205,16 @@ public abstract class AddressBookSystemTest {
     }
 
     /**
+     * Asserts that the no card is selected and the browser's url is that of the default page
+     * @see BrowserPanelHandle#getLoadedUrl()
+     */
+    protected void assertBrowserPanelClear() {
+        assertEquals(getBrowserPanel().getLoadedUrl(),
+                MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_PAGE));
+        assertFalse(getPersonListPanel().isAnyCardSelected());
+    }
+
+    /**
      * Asserts that the browser's url is changed to display the details of the person in the person list panel at
      * {@code expectedSelectedCardIndex}, and only the card at {@code expectedSelectedCardIndex} is selected.
      * @see BrowserPanelHandle#isUrlChanged()

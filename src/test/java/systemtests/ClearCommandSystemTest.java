@@ -40,7 +40,7 @@ public class ClearCommandSystemTest extends AddressBookSystemTest {
         executeCommand(UndoCommand.COMMAND_WORD); // restores the original address book
         selectPerson(Index.fromOneBased(1));
         assertCommandSuccess(ClearCommand.COMMAND_WORD);
-        assertSelectedCardDeselected();
+        assertBrowserPanelClear();
 
         /* Case: filters the person list before clearing -> entire address book cleared */
         executeCommand(UndoCommand.COMMAND_WORD); // restores the original address book
