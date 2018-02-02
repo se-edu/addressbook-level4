@@ -2,11 +2,13 @@ package systemtests;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
 import org.junit.Test;
 
 import guitests.GuiRobot;
 import guitests.guihandles.HelpWindowHandle;
+import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.HelpCommand;
 
 /**
@@ -46,6 +48,12 @@ public class HelpCommandSystemTest extends AddressBookSystemTest {
         //use command box
         executeCommand(HelpCommand.COMMAND_WORD);
         assertHelpWindowOpen();
+
+        //use command box and execute delete command
+        executeCommand(HelpCommand.COMMAND_WORD);
+        getMainWindowHandle().focus();
+        executeCommand(DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
+        assertStatusBarUnchangedExceptSyncStatus();
     }
 
     /**
