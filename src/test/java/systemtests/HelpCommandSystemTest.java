@@ -2,14 +2,14 @@ package systemtests;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
 import org.junit.Test;
 
 import guitests.GuiRobot;
 import guitests.guihandles.HelpWindowHandle;
-import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.ListCommand;
+import seedu.address.model.Model;
 
 /**
  * TODO: This test is incomplete as it is missing test cases.
@@ -49,11 +49,10 @@ public class HelpCommandSystemTest extends AddressBookSystemTest {
         executeCommand(HelpCommand.COMMAND_WORD);
         assertHelpWindowOpen();
 
-        //use command box and execute delete command
+        //use command box to open help window and then execute list command
         executeCommand(HelpCommand.COMMAND_WORD);
         getMainWindowHandle().focus();
-        executeCommand(DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
-        assertStatusBarUnchangedExceptSyncStatus();
+        assertListCommandSuccess(ListCommand.COMMAND_WORD, getModel(), ListCommand.MESSAGE_SUCCESS);
     }
 
     /**
@@ -72,6 +71,26 @@ public class HelpCommandSystemTest extends AddressBookSystemTest {
      */
     private void assertHelpWindowNotOpen() {
         assertFalse(ERROR_MESSAGE, HelpWindowHandle.isWindowPresent());
+    }
+
+    /**
+     * Executes the {@code ListCommand} that lists all persons and asserts that the,<br>
+     * 1. Command box displays an empty string.<br>
+     * 2. Command box has the default style class.<br>
+     * 3. Result display box displays the success message of executing {@code ListCommand}.<br>
+     * 4. {@code Model}, {@code Storage} and {@code PersonListPanel} equal to the corresponding components in
+     * the current model.<br>
+     * 5. Browser url and selected card remain unchanged.<br>
+     * 6. Status bar remains unchanged.<br>
+     * Verifications 1, 3 and 4 are performed by
+     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
+     */
+    private void assertListCommandSuccess(String command, Model expectedModel, String expectedResultMessage) {
+        executeCommand(command);
+        assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);
+        assertSelectedCardUnchanged();
+        assertCommandBoxShowsDefaultStyle();
+        assertStatusBarUnchanged();
     }
 
 }
