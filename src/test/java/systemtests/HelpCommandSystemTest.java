@@ -1,15 +1,19 @@
 package systemtests;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.address.ui.testutil.GuiTestAssert.assertListMatching;
 
 import org.junit.Test;
 
 import guitests.GuiRobot;
 import guitests.guihandles.HelpWindowHandle;
+import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.HelpCommand;
-import seedu.address.logic.commands.ListCommand;
-import seedu.address.model.Model;
+import seedu.address.logic.commands.SelectCommand;
+import seedu.address.ui.BrowserPanel;
 
 /**
  * TODO: This test is incomplete as it is missing test cases.
@@ -49,10 +53,10 @@ public class HelpCommandSystemTest extends AddressBookSystemTest {
         executeCommand(HelpCommand.COMMAND_WORD);
         assertHelpWindowOpen();
 
-        //use command box to open help window and then execute list command
+        //use command box to open help window and then assert that the UI has been updated
         executeCommand(HelpCommand.COMMAND_WORD);
         getMainWindowHandle().focus();
-        assertListCommandSuccess(ListCommand.COMMAND_WORD, getModel(), ListCommand.MESSAGE_SUCCESS);
+        assertUiUpdated();
     }
 
     /**
@@ -74,23 +78,24 @@ public class HelpCommandSystemTest extends AddressBookSystemTest {
     }
 
     /**
-     * Executes the {@code ListCommand} that lists all persons and asserts that the,<br>
+     * After execution of multiple commands, asserts that the,<br>
      * 1. Command box displays an empty string.<br>
      * 2. Command box has the default style class.<br>
-     * 3. Result display box displays the success message of executing {@code ListCommand}.<br>
-     * 4. {@code Model}, {@code Storage} and {@code PersonListPanel} equal to the corresponding components in
+     * 3. Result display box is not empty.<br>
+     * 4. BrowserPanel does not show the default page.<br>
+     * 5. Status bar sync status changes.<br>
+     * 6.{@code PersonListPanel} equals to the corresponding components in
      * the current model.<br>
-     * 5. Browser url and selected card remain unchanged.<br>
-     * 6. Status bar remains unchanged.<br>
-     * Verifications 1, 3 and 4 are performed by
-     * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
      */
-    private void assertListCommandSuccess(String command, Model expectedModel, String expectedResultMessage) {
-        executeCommand(command);
-        assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);
-        assertSelectedCardUnchanged();
+    private void assertUiUpdated() {
+        executeCommand(SelectCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
+        executeCommand(DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
+        assertEquals("", getCommandBox().getInput());
         assertCommandBoxShowsDefaultStyle();
-        assertStatusBarUnchanged();
+        assertFalse(getResultDisplay().getText().isEmpty());
+        assertFalse(getBrowserPanel().getLoadedUrl().equals(BrowserPanel.DEFAULT_PAGE));
+        assertStatusBarUnchangedExceptSyncStatus();
+        assertListMatching(getPersonListPanel(), getModel().getFilteredPersonList());
     }
 
 }
