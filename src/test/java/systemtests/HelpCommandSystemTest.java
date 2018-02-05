@@ -14,6 +14,7 @@ import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.ui.BrowserPanel;
+import seedu.address.ui.StatusBarFooter;
 
 /**
  * TODO: This test is incomplete as it is missing test cases.
@@ -56,7 +57,7 @@ public class HelpCommandSystemTest extends AddressBookSystemTest {
         //use command box to open help window and then assert that the UI has been updated
         executeCommand(HelpCommand.COMMAND_WORD);
         getMainWindowHandle().focus();
-        assertUiUpdated();
+        assertUiUpdatesWhileHelpWindowOpened();
     }
 
     /**
@@ -78,23 +79,22 @@ public class HelpCommandSystemTest extends AddressBookSystemTest {
     }
 
     /**
-     * After execution of multiple commands, asserts that the,<br>
+     * Executes multiple commands to ensure that all UI components update and then asserts that the,<br>
      * 1. Command box displays an empty string.<br>
      * 2. Command box has the default style class.<br>
      * 3. Result display box is not empty.<br>
-     * 4. BrowserPanel does not show the default page.<br>
-     * 5. Status bar sync status changes.<br>
-     * 6.{@code PersonListPanel} equals to the corresponding components in
-     * the current model.<br>
+     * 4. Browser panel does not show the default page.<br>
+     * 5. Status bar updates.<br>
+     * 6. Person list panel equals to the corresponding components in the current model.<br>
      */
-    private void assertUiUpdated() {
+    private void assertUiUpdatesWhileHelpWindowOpened() {
         executeCommand(SelectCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
         executeCommand(DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
         assertEquals("", getCommandBox().getInput());
         assertCommandBoxShowsDefaultStyle();
         assertFalse(getResultDisplay().getText().isEmpty());
         assertFalse(getBrowserPanel().getLoadedUrl().equals(BrowserPanel.DEFAULT_PAGE));
-        assertStatusBarUnchangedExceptSyncStatus();
+        assertFalse(getStatusBarFooter().getSyncStatus().equals(StatusBarFooter.SYNC_STATUS_INITIAL));
         assertListMatching(getPersonListPanel(), getModel().getFilteredPersonList());
     }
 
