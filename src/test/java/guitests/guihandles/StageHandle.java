@@ -1,5 +1,6 @@
 package guitests.guihandles;
 
+import static org.junit.Assert.assertFalse;
 import static java.util.Objects.requireNonNull;
 
 import java.util.Optional;
@@ -29,7 +30,7 @@ public abstract class StageHandle {
      */
     public void close() {
         guiRobot.interact(stage::close);
-        assert !stage.isShowing();
+        assertFalse(stage.isShowing());
     }
 
     /**
