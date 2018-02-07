@@ -3,6 +3,7 @@ package systemtests;
 import static guitests.guihandles.WebViewUtil.waitUntilBrowserLoaded;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static seedu.address.ui.BrowserPanel.DEFAULT_PAGE;
 import static seedu.address.ui.BrowserPanel.GOOGLE_SEARCH_URL_PREFIX;
 import static seedu.address.ui.BrowserPanel.GOOGLE_SEARCH_URL_SUFFIX;
@@ -141,7 +142,7 @@ public abstract class AddressBookSystemTest {
      */
     protected void showAllPersons() {
         executeCommand(ListCommand.COMMAND_WORD);
-        assert getModel().getAddressBook().getPersonList().size() == getModel().getFilteredPersonList().size();
+        assertEquals(getModel().getAddressBook().getPersonList().size(), getModel().getFilteredPersonList().size());
     }
 
     /**
@@ -149,7 +150,7 @@ public abstract class AddressBookSystemTest {
      */
     protected void showPersonsWithName(String keyword) {
         executeCommand(FindCommand.COMMAND_WORD + " " + keyword);
-        assert getModel().getFilteredPersonList().size() < getModel().getAddressBook().getPersonList().size();
+        assertTrue(getModel().getFilteredPersonList().size() < getModel().getAddressBook().getPersonList().size());
     }
 
     /**
@@ -157,7 +158,7 @@ public abstract class AddressBookSystemTest {
      */
     protected void selectPerson(Index index) {
         executeCommand(SelectCommand.COMMAND_WORD + " " + index.getOneBased());
-        assert getPersonListPanel().getSelectedCardIndex() == index.getZeroBased();
+        assertEquals(index.getZeroBased(), getPersonListPanel().getSelectedCardIndex());
     }
 
     /**
@@ -165,7 +166,7 @@ public abstract class AddressBookSystemTest {
      */
     protected void deleteAllPersons() {
         executeCommand(ClearCommand.COMMAND_WORD);
-        assert getModel().getAddressBook().getPersonList().size() == 0;
+        assertEquals(0, getModel().getAddressBook().getPersonList().size());
     }
 
     /**
