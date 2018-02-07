@@ -9,9 +9,17 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Email {
 
-    public static final String MESSAGE_EMAIL_CONSTRAINTS =
-            "Person emails should be 2 alphanumeric/period strings separated by '@'";
-    public static final String EMAIL_VALIDATION_REGEX = "[\\w\\.]+@[\\w\\.]+";
+    public static final String MESSAGE_EMAIL_CONSTRAINTS = "Person emails should follow the following constraints:\n"
+            + "The local part should only contain alphanumeric characters and the following special characters "
+            + "excluding the parentheses, (!#$%&'*+/=?`{|}~^.-) . This is followed by a '@' and then a domain name.\n "
+            + "The domain name must be at least 2 characters long and must start and end with alphanumeric characters. "
+            + "The characters in between can be alphanumeric characters, a period or a hyphen.";
+    private static final String LOCAL_PART_REGEX = "^[\\w!#$%&'*+/=?`{|}~^.-]+"; // alphanumeric and special characters
+    private static final String DOMAIN_START_REGEX = "[^\\W_]"; // alphanumeric characters except underscore
+    private static final String DOMAIN_MIDDLE_REGEX = "[a-zA-Z0-9.-]*"; // alphanumeric and period and hyphen
+    private static final String DOMAIN_END_REGEX = "[^\\W_]$";
+    public static final String EMAIL_VALIDATION_REGEX = LOCAL_PART_REGEX + "@"
+            + DOMAIN_START_REGEX + DOMAIN_MIDDLE_REGEX + DOMAIN_END_REGEX;
 
     public final String value;
 
