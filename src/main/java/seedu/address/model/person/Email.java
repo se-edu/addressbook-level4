@@ -15,11 +15,11 @@ public class Email {
             + "The domain name must be at least 2 characters long and must start and end with alphanumeric characters. "
             + "The characters in between can be alphanumeric characters, a period or a hyphen.";
     private static final String LOCAL_PART_REGEX = "^[\\w!#$%&'*+/=?`{|}~^.-]+"; // alphanumeric and special characters
-    private static final String DOMAIN_START_REGEX = "[^\\W_]"; // alphanumeric characters except underscore
+    private static final String DOMAIN_FIRST_CHARACTER_REGEX = "[^\\W_]"; // alphanumeric characters except underscore
     private static final String DOMAIN_MIDDLE_REGEX = "[a-zA-Z0-9.-]*"; // alphanumeric and period and hyphen
-    private static final String DOMAIN_END_REGEX = "[^\\W_]$";
+    private static final String DOMAIN_LAST_CHARACTER_REGEX = "[^\\W_]$";
     public static final String EMAIL_VALIDATION_REGEX = LOCAL_PART_REGEX + "@"
-            + DOMAIN_START_REGEX + DOMAIN_MIDDLE_REGEX + DOMAIN_END_REGEX;
+            + DOMAIN_FIRST_CHARACTER_REGEX + DOMAIN_MIDDLE_REGEX + DOMAIN_LAST_CHARACTER_REGEX;
 
     public final String value;
 
