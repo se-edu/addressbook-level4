@@ -114,6 +114,6 @@ public class DeleteCommandTest {
     private void showNoPerson(Model model) {
         model.updateFilteredPersonList(p -> false);
 
-        assert model.getFilteredPersonList().isEmpty();
+        assertTrue(model.getFilteredPersonList().isEmpty());
     }
 }
