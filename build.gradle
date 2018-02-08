@@ -196,7 +196,13 @@ task deployOfflineDocs(type: Copy) {
     }
 }
 
+task generateTestDocument(type: Exec) {
+    workingDir './src/test/data/PersonListPanelTest/'
+    commandLine 'python', 'generate9999persons.py'
+}
+
 deployOfflineDocs.dependsOn asciidoctor
 processResources.dependsOn deployOfflineDocs
+processResources.dependsOn generateTestDocument
 
 defaultTasks 'clean', 'headless', 'allTests', 'coverage', 'asciidoctor'
