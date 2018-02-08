@@ -55,7 +55,7 @@ public class PersonListPanelHandle extends NodeHandle<ListView<PersonCard>> {
     }
 
     /**
-     * Navigates the listview to display and select the person.
+     * Navigates the listview to display {@code person}.
      */
     public void navigateToCard(Person person) {
         List<PersonCard> cards = getRootNode().getItems();
@@ -67,7 +67,6 @@ public class PersonListPanelHandle extends NodeHandle<ListView<PersonCard>> {
 
         guiRobot.interact(() -> {
             getRootNode().scrollTo(matchingCard.get());
-            getRootNode().getSelectionModel().select(matchingCard.get());
         });
         guiRobot.pauseForHuman();
     }
