@@ -61,6 +61,18 @@ public class XmlAddressBookStorageTest {
     }
 
     @Test
+    public void readAddressBook_invalidPersonAddressBook_throwDataConversionException() throws Exception {
+        thrown.expect(DataConversionException.class);
+        readAddressBook("invalidPersonAddressBook.xml");
+    }
+
+    @Test
+    public void readAddressBook_invalidAndValidPersonAddressBook_throwDataConversionException() throws Exception {
+        thrown.expect(DataConversionException.class);
+        readAddressBook("invalidAndValidPersonAddressBook.xml");
+    }
+
+    @Test
     public void readAndSaveAddressBook_allInOrder_success() throws Exception {
         String filePath = testFolder.getRoot().getPath() + "TempAddressBook.xml";
         AddressBook original = getTypicalAddressBook();
@@ -90,20 +102,6 @@ public class XmlAddressBookStorageTest {
     public void saveAddressBook_nullAddressBook_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         saveAddressBook(null, "SomeFile.xml");
-    }
-
-    @Test
-    public void getPersonList_modifyList_throwsUnsupportedOperationException() {
-        XmlSerializableAddressBook addressBook = new XmlSerializableAddressBook();
-        thrown.expect(UnsupportedOperationException.class);
-        addressBook.getPersonList().remove(0);
-    }
-
-    @Test
-    public void getTagList_modifyList_throwsUnsupportedOperationException() {
-        XmlSerializableAddressBook addressBook = new XmlSerializableAddressBook();
-        thrown.expect(UnsupportedOperationException.class);
-        addressBook.getTagList().remove(0);
     }
 
     /**
