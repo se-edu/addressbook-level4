@@ -51,26 +51,18 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     //// list overwrite operations
 
-    public void setPersons(List<Person> persons) throws DuplicatePersonException {
-        this.persons.setPersons(persons);
-    }
-
-    public void setTags(Set<Tag> tags) {
-        this.tags.setTags(tags);
-    }
-
     /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
      */
     public void resetData(ReadOnlyAddressBook newData) {
         requireNonNull(newData);
-        setTags(new HashSet<>(newData.getTagList()));
+        tags.setTags(new HashSet<>(newData.getTagList()));
         List<Person> syncedPersonList = newData.getPersonList().stream()
                 .map(this::syncWithMasterTagList)
                 .collect(Collectors.toList());
 
         try {
-            setPersons(syncedPersonList);
+            persons.setPersons(newData.getPersonList());
         } catch (DuplicatePersonException e) {
             throw new AssertionError("AddressBooks should not have duplicate persons");
         }
