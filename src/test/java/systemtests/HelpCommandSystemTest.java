@@ -54,7 +54,8 @@ public class HelpCommandSystemTest extends AddressBookSystemTest {
         executeCommand(HelpCommand.COMMAND_WORD);
         assertHelpWindowOpen();
 
-        //assert that an open help window does not block subsequent UI events
+        //assert that an open help window does not block subsequent UI events.
+        //the execution of SelectCommand and DeleteCommand should update all UI components.
         executeCommand(HelpCommand.COMMAND_WORD);
         getMainWindowHandle().focus();
         executeCommand(SelectCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
