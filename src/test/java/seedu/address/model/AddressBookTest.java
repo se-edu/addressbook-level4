@@ -29,7 +29,6 @@ public class AddressBookTest {
     @Test
     public void constructor() {
         assertEquals(Collections.emptyList(), addressBook.getPersonList());
-        assertEquals(Collections.emptyList(), addressBook.getTagList());
     }
 
     @Test
@@ -62,12 +61,6 @@ public class AddressBookTest {
         addressBook.getPersonList().remove(0);
     }
 
-    @Test
-    public void getTagList_modifyList_throwsUnsupportedOperationException() {
-        thrown.expect(UnsupportedOperationException.class);
-        addressBook.getTagList().remove(0);
-    }
-
     /**
      * A stub ReadOnlyAddressBook whose persons and tags lists can violate interface constraints.
      */
@@ -77,17 +70,11 @@ public class AddressBookTest {
 
         AddressBookStub(Collection<Person> persons, Collection<? extends Tag> tags) {
             this.persons.setAll(persons);
-            this.tags.setAll(tags);
         }
 
         @Override
         public ObservableList<Person> getPersonList() {
             return persons;
-        }
-
-        @Override
-        public ObservableList<Tag> getTagList() {
-            return tags;
         }
     }
 
