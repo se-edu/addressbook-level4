@@ -1,13 +1,20 @@
 package systemtests;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.address.ui.testutil.GuiTestAssert.assertListMatching;
 
 import org.junit.Test;
 
 import guitests.GuiRobot;
 import guitests.guihandles.HelpWindowHandle;
+import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.SelectCommand;
+import seedu.address.ui.BrowserPanel;
+import seedu.address.ui.StatusBarFooter;
 
 /**
  * TODO: This test is incomplete as it is missing test cases.
@@ -46,6 +53,14 @@ public class HelpCommandSystemTest extends AddressBookSystemTest {
         //use command box
         executeCommand(HelpCommand.COMMAND_WORD);
         assertHelpWindowOpen();
+
+        //assert that an open help window does not block subsequent UI events.
+        //the execution of SelectCommand and DeleteCommand should update all UI components.
+        executeCommand(HelpCommand.COMMAND_WORD);
+        getMainWindowHandle().focus();
+        executeCommand(SelectCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
+        executeCommand(DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
+        assertUiUpdatesWhileHelpWindowOpened();
     }
 
     /**
@@ -64,6 +79,24 @@ public class HelpCommandSystemTest extends AddressBookSystemTest {
      */
     private void assertHelpWindowNotOpen() {
         assertFalse(ERROR_MESSAGE, HelpWindowHandle.isWindowPresent());
+    }
+
+    /**
+     * To verify that all UI components are updated, we assert that the,<br>
+     * 1. Command box displays an empty string.<br>
+     * 2. Command box has the default style class.<br>
+     * 3. Result display box is not empty.<br>
+     * 4. Browser panel does not show the default page.<br>
+     * 5. Status bar updates.<br>
+     * 6. Person list panel equals to the corresponding components in the current model.
+     */
+    private void assertUiUpdatesWhileHelpWindowOpened() {
+        assertEquals("", getCommandBox().getInput());
+        assertCommandBoxShowsDefaultStyle();
+        assertFalse(getResultDisplay().getText().isEmpty());
+        assertFalse(getBrowserPanel().getLoadedUrl().equals(BrowserPanel.DEFAULT_PAGE));
+        assertFalse(getStatusBarFooter().getSyncStatus().equals(StatusBarFooter.SYNC_STATUS_INITIAL));
+        assertListMatching(getPersonListPanel(), getModel().getFilteredPersonList());
     }
 
 }
