@@ -54,9 +54,11 @@ public class HelpCommandSystemTest extends AddressBookSystemTest {
         executeCommand(HelpCommand.COMMAND_WORD);
         assertHelpWindowOpen();
 
-        //use command box to open help window and then assert that the UI has been updated
+        //assert that an open help window does not block subsequent UI events
         executeCommand(HelpCommand.COMMAND_WORD);
         getMainWindowHandle().focus();
+        executeCommand(SelectCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
+        executeCommand(DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
         assertUiUpdatesWhileHelpWindowOpened();
     }
 
@@ -79,17 +81,15 @@ public class HelpCommandSystemTest extends AddressBookSystemTest {
     }
 
     /**
-     * Executes multiple commands to ensure that all UI components update and then asserts that the,<br>
+     * To verify that all UI components are updated, we assert that the,<br>
      * 1. Command box displays an empty string.<br>
      * 2. Command box has the default style class.<br>
      * 3. Result display box is not empty.<br>
      * 4. Browser panel does not show the default page.<br>
      * 5. Status bar updates.<br>
-     * 6. Person list panel equals to the corresponding components in the current model.<br>
+     * 6. Person list panel equals to the corresponding components in the current model.
      */
     private void assertUiUpdatesWhileHelpWindowOpened() {
-        executeCommand(SelectCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
-        executeCommand(DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
         assertEquals("", getCommandBox().getInput());
         assertCommandBoxShowsDefaultStyle();
         assertFalse(getResultDisplay().getText().isEmpty());
