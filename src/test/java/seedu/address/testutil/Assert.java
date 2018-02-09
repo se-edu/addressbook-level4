@@ -11,18 +11,34 @@ public class Assert {
      * Asserts that the {@code callable} throws the {@code expected} Exception.
      */
     public static void assertThrows(Class<? extends Throwable> expected, VoidCallable callable) {
+        assertThrows(expected, null, callable);
+    }
+
+    /**
+     * Asserts that the {@code callable} throws the {@code expectedException} and the {@code expectedMessage}.
+     */
+    public static void assertThrows(Class<? extends Throwable> expectedException, String expectedMessage,
+                                    VoidCallable callable) {
         try {
             callable.call();
         } catch (Throwable actualException) {
-            if (actualException.getClass().isAssignableFrom(expected)) {
+            String errorMessage;
+
+            if (!actualException.getClass().isAssignableFrom(expectedException)) {
+                errorMessage = String.format("Expected exception thrown: %s, actual: %s",
+                        expectedException.getName(), actualException.getClass().getName());
+            } else if (expectedMessage != null && !actualException.getMessage().equals(expectedMessage) ) {
+                errorMessage = String.format(
+                        "Expected message thrown: %s, actual: %s", expectedMessage, actualException.getMessage());
+            } else {
                 return;
             }
-            String message = String.format("Expected thrown: %s, actual: %s", expected.getName(),
-                    actualException.getClass().getName());
-            throw new AssertionFailedError(message);
+
+            throw new AssertionFailedError(errorMessage);
         }
-        throw new AssertionFailedError(
-                String.format("Expected %s to be thrown, but nothing was thrown.", expected.getName()));
+
+        throw new AssertionFailedError(String.format(
+                "Expected %s to be thrown, but nothing was thrown.", expectedException.getName()));
     }
 
     /**
