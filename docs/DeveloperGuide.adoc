@@ -634,9 +634,9 @@ Do take a look at <<Design-Storage>> before attempting to modify the `Storage` c
 ****
 * Hint
 ** Add the API method in link:{repoURL}/src/main/java/seedu/address/storage/AddressBookStorage.java[`AddressBookStorage`] interface.
-** Implement the logic in link:{repoURL}/src/main/java/seedu/address/storage/StorageManager.java[`StorageManager`] class.
+** Implement the logic in link:{repoURL}/src/main/java/seedu/address/storage/StorageManager.java[`StorageManager`] and link:{repoURL}/src/main/java/seedu/address/storage/XmlAddressBookStorage.java[`XmlAddressBookStorage`] class.
 * Solution
-** See this https://github.com/se-edu/addressbook-level4/pull/594/files[PR] for the full solution.
+** See this https://github.com/se-edu/addressbook-level4/pull/594[PR] for the full solution.
 ****
 
 [[GetStartedProgramming-RemarkCommand]]
