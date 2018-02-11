@@ -19,8 +19,6 @@ public class XmlSerializableAddressBook {
 
     @XmlElement
     private List<XmlAdaptedPerson> persons;
-    @XmlElement
-    private List<XmlAdaptedTag> tags;
 
     /**
      * Creates an empty XmlSerializableAddressBook.
@@ -28,7 +26,6 @@ public class XmlSerializableAddressBook {
      */
     public XmlSerializableAddressBook() {
         persons = new ArrayList<>();
-        tags = new ArrayList<>();
     }
 
     /**
@@ -64,6 +61,6 @@ public class XmlSerializableAddressBook {
         }
 
         XmlSerializableAddressBook otherAb = (XmlSerializableAddressBook) other;
-        return persons.equals(otherAb.persons) && tags.equals(otherAb.tags);
+        return persons.equals(otherAb.persons);
     }
 }
