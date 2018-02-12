@@ -71,8 +71,6 @@ public class HelpCommandSystemTest extends AddressBookSystemTest {
         // note: the select command tested above does not update the status bar
         executeCommand(DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
         assertFalse(getStatusBarFooter().getSyncStatus().equals(StatusBarFooter.SYNC_STATUS_INITIAL));
-
-        //TODO: More tests to be added.
     }
 
     /**
