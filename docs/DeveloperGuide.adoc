@@ -208,6 +208,17 @@ The `Model`,
 * exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
+==== Design Considerations
+
+===== Aspect: Implementation of `UniqueTagList`
+
+* **Alternative 1 (current choice):** Each Person manages their own `UniqueTagList`
+** Pros: Easier for new developers to understand.
+** Cons: Tags are duplicated many times.
+* **Alternative 2:** AddressBook has one `UniqueTagList`, each person has a list of tags which points to objects in this list.
+** Pros: Easy to edit tags across the board.
+** Cons: Hard to sync tags with master tag list when adding, editing, or removing people and tags.
+
 [[Design-Storage]]
 === Storage component
 
@@ -553,7 +564,7 @@ Do take a look at <<Design-Model>> before attempting to modify the `Model` compo
 ** Add a new API method `deleteTag(Tag)` in link:{repoURL}/src/main/java/seedu/address/model/ModelManager.java[`ModelManager`]. Your link:{repoURL}/src/main/java/seedu/address/model/ModelManager.java[`ModelManager`] should call `AddressBook#removeTag(Tag)`.
 ** Add new tests for each of the new public methods that you have added.
 ** See this https://github.com/se-edu/addressbook-level4/pull/790[PR] for the full solution.
-*** The current codebase has a flaw in tags management. Tags no longer in use by anyone may still exist on the link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`]. This may cause some tests to fail. See issue  https://github.com/se-edu/addressbook-level4/issues/753[`#753`] for more information about this flaw.
+*** The previous codebase had a flaw in tags management. Tags no longer in use by anyone may still exist on the link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`]. This may cause some tests to fail. See issue  https://github.com/se-edu/addressbook-level4/issues/753[`#753`] for more information about this flaw.
 *** The solution PR has a temporary fix for the flaw mentioned above in its first commit.
 ****
 
