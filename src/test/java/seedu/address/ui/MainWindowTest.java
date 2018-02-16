@@ -25,53 +25,47 @@ public class MainWindowTest extends GuiUnitTest {
     public final EventsCollectorRule eventsCollectorRule = new EventsCollectorRule();
 
     private MainWindow mainWindow;
-    private MainWindowHandleUnit mainWindowHandle;
+    private EmptyMainWindowHandle mainWindowHandle;
     private Stage stage;
 
     @Before
     public void setUp() throws Exception {
         FxToolkit.setupStage(stage -> {
             this.stage = stage;
-            mainWindow = prepareMainWindow(stage);
+            mainWindow = new MainWindow(stage, new Config(), new UserPrefs(), new LogicManager(new ModelManager()));
+            mainWindowHandle = new EmptyMainWindowHandle(stage);
+
             stage.setScene(mainWindow.getRoot().getScene());
-            mainWindowHandle = new MainWindowHandleUnit(stage);
             mainWindowHandle.focus();
         });
         FxToolkit.showStage();
     }
 
     @Test
-    public void exit_menuBarExitButton_exitAppRequestEventPosted() {
+    public void close_menuBarExitButton_exitAppRequestEventPosted() {
         mainWindowHandle.clickOnMenuExitButton();
         assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof ExitAppRequestEvent);
         assertTrue(eventsCollectorRule.eventsCollector.getSize() == 1);
     }
 
     @Test
-    public void exit_externalRequest_exitAppRequestEventPosted() {
+    public void close_externalRequest_exitAppRequestEventPosted() {
         mainWindowHandle.closeMainWindowExternally();
         assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof ExitAppRequestEvent);
         assertTrue(eventsCollectorRule.eventsCollector.getSize() == 1);
     }
 
     /**
-     * Returns a default {@code MainWindow} with the given {@code stage} and default values for its other parameters.
+     * Provides a handle for {@code MainWindow}. The components in {@code MainWindow} are not initialized.
      */
-    private MainWindow prepareMainWindow(Stage stage) {
-        return new MainWindow(stage, new Config(), new UserPrefs(), new LogicManager(new ModelManager()));
-    }
+    private class EmptyMainWindowHandle extends StageHandle {
 
-    /**
-     * {@code MainWindow} unit test class without any other components to test closing of the {@code MainWindow}.
-     */
-    private class MainWindowHandleUnit extends StageHandle {
-
-        private MainWindowHandleUnit(Stage stage) {
+        private EmptyMainWindowHandle(Stage stage) {
             super(stage);
         }
 
         /**
-         * Closes the {@code MainWindow} using its menu bar.
+         * Closes the {@code MainWindow} by clicking on the menu bar's exit button.
          */
         private void clickOnMenuExitButton() {
             guiRobot.clickOn("File");
@@ -79,8 +73,8 @@ public class MainWindowTest extends GuiUnitTest {
         }
 
         /**
-         * Simulate an external request to close the {@code MainWindow} (e.g pressing the 'X' button on the
-         * {@code MainWindow} or closing the app through the taskbar).
+         * Closes the {@code MainWindow} through an external request {@code MainWindow} (e.g pressing the 'X' button on
+         * the {@code MainWindow} or closing the app through the taskbar).
          */
         private void closeMainWindowExternally() {
             guiRobot.interact(() -> stage.fireEvent(new WindowEvent(stage, WindowEvent.WINDOW_CLOSE_REQUEST)));
