@@ -84,6 +84,10 @@ Optionally, you can set up AppVeyor as a second CI (see <<UsingAppVeyor#, UsingA
 [NOTE]
 Having both Travis and AppVeyor ensures your App works on both Unix-based platforms and Windows-based platforms (Travis is Unix-based and AppVeyor is Windows-based)
 
+==== Setting up CD
+Set up Netlify to perform Continuous Deployment (CD) for your fork. See <<UsingNetlify#, UsingNetlify.adoc>> to learn how to set it up.
+
+
 ==== Getting started with coding
 
 When you are ready to start coding,

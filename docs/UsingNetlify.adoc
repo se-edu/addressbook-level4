@@ -1,0 +1,44 @@
+= Using Netlify
+:imagesDir: images
+:stylesDir: stylesheets
+
+https://www.netlify.com/[Netlify] is an all-in-one hosting platform for deploying and automating modern static websites.
+Furthermore, with the aid of build tools such as Gradle, Netlify provides a smoother experience for continuous deployment.
+One of the ways this can be done is by using Netlify's https://www.netlify.com/blog/2016/07/20/introducing-deploy-previews-in-netlify/[Deploy Previews]
+feature, which allows previewing of changes to documentation whenever a pull request is made.
+
+== Setting up Netlify
+.  Fork the repository to your own organization.
++
+.  Go to https://www.netlify.com/ and click `Sign Up`. Then click `GITHUB SIGN IN` and enter your GitHub account details if needed.
++
+. After logging in, click `New site from Git`.
++
+. You will then be brought to the setup page. Click `GitHub` to link your repository to Netlify.
+* Depending on whether you are the owner of the repository, you can either grant or request access to Netlify so that it can access your repository
+and build your documentation.
++
+image:netlify/grant_or_request_access.png[Grant or request access, width = 942]
+* After granting or requesting access to your repository, click `Authorize netlify`.
++
+. Pick your repository from the list.
++
+image:netlify/select_repo.png[Select repo, width = 942]
++
+. Fill out the details **exactly** as shown in the image below and then click `Deploy site`.
++
+image:netlify/deploy_settings.png[Depoly settings, width = 942]
++
+. Once Netlify is done building your project, you can now preview the changes to your documentation whenever a pull request is made by clicking
+the `Details` hyperlink next to the Netlify test status.
++
+image:netlify/netlify_details.png[Netlify details link, width = 942]
+
+== Changing the site name of your project
+If you don't like the temporary site name given by Netlify, you can change it as follows:
+
+. Click on `Settings`.
++
+. Then click `Change site name` and fill in your desired site name.
++
+image:netlify/change_site_name.png[Change site name, width = 942]
