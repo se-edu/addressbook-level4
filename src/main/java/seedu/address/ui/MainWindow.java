@@ -71,6 +71,7 @@ public class MainWindow extends UiPart<Stage> {
         setWindowDefaultSize(prefs);
 
         setAccelerators();
+        setCloseButtonEvent();
         registerAsAnEventHandler(this);
     }
 
@@ -109,6 +110,16 @@ public class MainWindow extends UiPart<Stage> {
                 menuItem.getOnAction().handle(new ActionEvent());
                 event.consume();
             }
+        });
+    }
+
+    /**
+     * Sets an event handler for the app to stop when the {@code MainWindow}'s close button is pressed.
+     */
+    private void setCloseButtonEvent() {
+        getPrimaryStage().setOnCloseRequest(event -> {
+            logger.info("Closing app via close button or other external methods.");
+            handleExit();
         });
     }
 
