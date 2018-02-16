@@ -18,9 +18,9 @@ import seedu.address.model.UserPrefs;
 import seedu.address.ui.testutil.EventsCollectorRule;
 
 /**
- * Contains test for closing of the {@code MainWindow}.
+ * Contains tests for closing of the {@code MainWindow}.
  */
-public class MainWindowTest extends GuiUnitTest {
+public class MainWindowCloseTest extends GuiUnitTest {
     @Rule
     public final EventsCollectorRule eventsCollectorRule = new EventsCollectorRule();
 
@@ -56,7 +56,7 @@ public class MainWindowTest extends GuiUnitTest {
     }
 
     /**
-     * Provides a handle for {@code MainWindow}. The components in {@code MainWindow} are not initialized.
+     * A handle for an empty {@code MainWindow}. The components in {@code MainWindow} are not initialized.
      */
     private class EmptyMainWindowHandle extends StageHandle {
 
