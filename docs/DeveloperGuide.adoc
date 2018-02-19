@@ -85,8 +85,12 @@ Optionally, you can set up AppVeyor as a second CI (see <<UsingAppVeyor#, UsingA
 Having both Travis and AppVeyor ensures your App works on both Unix-based platforms and Windows-based platforms (Travis is Unix-based and AppVeyor is Windows-based)
 
 ==== Setting up CD
-Set up Netlify to perform Continuous Deployment (CD) for the documentation on your fork. See <<UsingNetlify#, UsingNetlify.adoc>> to learn how to set it up.
+Optionally, you can set up Netlify to perform Continuous Deployment (CD) for previewing the results of the changes to documentation whenever a pull request is made.
+See <<UsingNetlify#, UsingNetlify.adoc>> to learn how to set it up.
 
+[NOTE]
+If a pull request has any changes to asciidoc files, Netlify shows a preview of how the HTML version of those asciidoc files will look like when the pull request is merged.
+This can be useful to confirm that the pull request's changes to the product website are as expected.
 
 ==== Getting started with coding
 
