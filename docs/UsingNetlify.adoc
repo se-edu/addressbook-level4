@@ -1,0 +1,49 @@
+= Using Netlify
+:imagesDir: images
+:stylesDir: stylesheets
+
+https://www.netlify.com/[Netlify] is an automated hosting platform for deploying static websites. With the aid of build tools such as Gradle, Netlify provides a smoother experience for previewing documentation. This can be done by using Netlify's https://www.netlify.com/blog/2016/07/20/introducing-deploy-previews-in-netlify/[Deploy Previews] feature, which shows a preview of the updated documentation whenever a pull request is made.
+
+== Setting up Netlify
+. Fork the repository to your own organization.
++
+. Go to https://www.netlify.com/ and click `Sign Up`. Next, click `GITHUB SIGN IN`, enter your GitHub account details and authorize netlify.
++
+. After logging in, click `New site from Git`.
++
+. You will then be brought to the setup page. Click `GitHub` to link your repository to Netlify.
+* Depending on whether you are the owner of the repository, you can either grant or request access to Netlify so that it can access your repository and build your documentation.
++
+image:netlify/grant_or_request_access.png[Grant or request access, width = 630]
+* After granting or requesting access to your repository, click `Authorize netlify`.
++
+. Pick your repository from the list.
++
+. Fill out the details as follows and then click `Deploy site`.
+* Branch to deploy: select `master` branch
+* Build command: `./gradlew asciidoctor`
++
+[NOTE]
+The build command is the command that builds the documentation into HTML format.
++
+* Publish directory: `build/docs/html5`
+[NOTE]
+The publish directory is the directory in which the built HTML documentation resides.
++
+. Once Netlify has completed building your project, you can now:
+* View your main branch's deployed documentation on the site name given by Netlify (customizable as shown <<Changing the site name of your project, below>>).
++
+image:netlify/temp_site_name.png[Temporary site name, width = 630]
++
+* Preview the updated documentation whenever a pull request is made by clicking the `Details` hyperlink next to the Netlify test status.
++
+image:netlify/netlify_details.png[Netlify details link, width = 630]
+
+== Changing the site name of your project
+If you don't like the site name given by Netlify, you can change it as follows:
+
+. Click on `Settings`.
++
+. Then click `Change site name` and fill in your desired site name.
++
+image:netlify/change_site_name.png[Change site name, width = 630]
