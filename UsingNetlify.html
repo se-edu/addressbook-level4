@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 1.5.6.1">
+<title>Using Netlify</title>
+<link rel="stylesheet" href="stylesheets/gh-pages.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
+<link rel="stylesheet" href="stylesheets/coderay-asciidoctor.css">
+</head>
+<body class="article">
+<div id="header">
+<h1>Using Netlify</h1>
+</div>
+<div id="content">
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="https://www.netlify.com/">Netlify</a> is an automated hosting platform for deploying static websites. With the aid of build tools such as Gradle, Netlify provides a smoother experience for previewing documentation. This can be done by using Netlify&#8217;s <a href="https://www.netlify.com/blog/2016/07/20/introducing-deploy-previews-in-netlify/">Deploy Previews</a> feature, which shows a preview of the updated documentation whenever a pull request is made.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="setting-up-netlify"><a class="link" href="#setting-up-netlify">Setting up Netlify</a></h2>
+<div class="sectionbody">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Fork the repository to your own organization.</p>
+</li>
+<li>
+<p>Go to <a href="https://www.netlify.com/" class="bare">https://www.netlify.com/</a> and click <code>Sign Up</code>. Next, click <code>GITHUB SIGN IN</code>, enter your GitHub account details and authorize netlify.</p>
+</li>
+<li>
+<p>After logging in, click <code>New site from Git</code>.</p>
+</li>
+<li>
+<p>You will then be brought to the setup page. Click <code>GitHub</code> to link your repository to Netlify.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Depending on whether you are the owner of the repository, you can either grant or request access to Netlify so that it can access your repository and build your documentation.</p>
+<div class="paragraph">
+<p><span class="image"><img src="images/netlify/grant_or_request_access.png" alt="Grant or request access" width="630"></span></p>
+</div>
+</li>
+<li>
+<p>After granting or requesting access to your repository, click <code>Authorize netlify</code>.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Pick your repository from the list.</p>
+</li>
+<li>
+<p>Fill out the details as follows and then click <code>Deploy site</code>.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Branch to deploy: select <code>master</code> branch</p>
+</li>
+<li>
+<p>Build command: <code>./gradlew asciidoctor</code></p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The build command is the command that builds the documentation into HTML format.
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>Publish directory: <code>build/docs/html5</code></p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The publish directory is the directory in which the built HTML documentation resides.
+</td>
+</tr>
+</table>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Once Netlify has completed building your project, you can now:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>View your main branch&#8217;s deployed documentation on the site name given by Netlify (customizable as shown <a href="#changing-the-site-name-of-your-project">below</a>).</p>
+<div class="paragraph">
+<p><span class="image"><img src="images/netlify/temp_site_name.png" alt="Temporary site name" width="630"></span></p>
+</div>
+</li>
+<li>
+<p>Preview the updated documentation whenever a pull request is made by clicking the <code>Details</code> hyperlink next to the Netlify test status.</p>
+<div class="paragraph">
+<p><span class="image"><img src="images/netlify/netlify_details.png" alt="Netlify details link" width="630"></span></p>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="changing-the-site-name-of-your-project"><a class="link" href="#changing-the-site-name-of-your-project">Changing the site name of your project</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>If you don&#8217;t like the site name given by Netlify, you can change it as follows:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Click on <code>Settings</code>.</p>
+</li>
+<li>
+<p>Then click <code>Change site name</code> and fill in your desired site name.</p>
+<div class="paragraph">
+<p><span class="image"><img src="images/netlify/change_site_name.png" alt="Change site name" width="630"></span></p>
+</div>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2018-02-21 11:36:48 UTC
+</div>
+</div>
+</body>
+</html>
