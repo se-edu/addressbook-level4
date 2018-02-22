@@ -5,6 +5,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.Arrays;
 
 /**
  * Helper functions for handling strings.
@@ -33,12 +34,8 @@ public class StringUtil {
         String preppedSentence = sentence;
         String[] wordsInPreppedSentence = preppedSentence.split("\\s+");
 
-        for (String wordInSentence: wordsInPreppedSentence) {
-            if (wordInSentence.equalsIgnoreCase(preppedWord)) {
-                return true;
-            }
-        }
-        return false;
+        return Arrays.stream(wordsInPreppedSentence)
+                .anyMatch(preppedWord::equalsIgnoreCase);
     }
 
     /**
