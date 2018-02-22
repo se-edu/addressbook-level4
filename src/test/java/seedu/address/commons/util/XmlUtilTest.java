@@ -1,6 +1,13 @@
 package seedu.address.commons.util;
 
 import static org.junit.Assert.assertEquals;
+import static seedu.address.testutil.TypicalPersons.ALICE;
+import static seedu.address.testutil.TypicalPersons.BENSON;
+import static seedu.address.testutil.TypicalPersons.CARL;
+import static seedu.address.testutil.TypicalPersons.DANIEL;
+import static seedu.address.testutil.TypicalPersons.ELLE;
+import static seedu.address.testutil.TypicalPersons.FIONA;
+import static seedu.address.testutil.TypicalPersons.GEORGE;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -32,6 +39,7 @@ public class XmlUtilTest {
     private static final File INVALID_PERSON_FIELD_FILE = new File(TEST_DATA_FOLDER + "invalidPersonField.xml");
     private static final File VALID_PERSON_FILE = new File(TEST_DATA_FOLDER + "validPerson.xml");
     private static final File TEMP_FILE = new File(TestUtil.getFilePathInSandboxFolder("tempAddressBook.xml"));
+    private static final File TYPICAL_PERSON_FILE = new File(TEST_DATA_FOLDER + "typicalPersonsAddressBook.xml");
 
     private static final String INVALID_PHONE = "9482asf424";
 
@@ -70,8 +78,19 @@ public class XmlUtilTest {
 
     @Test
     public void getDataFromFile_validFile_validResult() throws Exception {
-        AddressBook dataFromFile = XmlUtil.getDataFromFile(VALID_FILE, XmlSerializableAddressBook.class).toModelType();
-        assertEquals(9, dataFromFile.getPersonList().size());
+        AddressBook dataFromFile = XmlUtil
+                .getDataFromFile(TYPICAL_PERSON_FILE, XmlSerializableAddressBook.class)
+                .toModelType();
+        AddressBook expectedXmlAddressBook = new AddressBookBuilder()
+                .withPerson(ALICE)
+                .withPerson(BENSON)
+                .withPerson(CARL)
+                .withPerson(DANIEL)
+                .withPerson(ELLE)
+                .withPerson(FIONA)
+                .withPerson(GEORGE)
+                .build();
+        assertEquals(expectedXmlAddressBook, dataFromFile);
     }
 
     @Test

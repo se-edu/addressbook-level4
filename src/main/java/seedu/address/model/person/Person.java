@@ -22,7 +22,7 @@ public class Person {
     private final Email email;
     private final Address address;
 
-    private final ObservableList<Tag> tags = FXCollections.observableArrayList();
+    private final ObservableList<Tag> tagList = FXCollections.observableArrayList();
     /**
      * Every field must be present and not null.
      */
@@ -33,7 +33,7 @@ public class Person {
         this.email = email;
         this.address = address;
         // protect internal tags from changes in the arg list
-        this.tags.addAll(tags);
+        this.tagList.addAll(tags);
     }
 
     public Name getName() {
@@ -57,7 +57,7 @@ public class Person {
      * if modification is attempted.
      */
     public Set<Tag> getTags() {
-        return Collections.unmodifiableSet(new HashSet<>(tags));
+        return Collections.unmodifiableSet(new HashSet<>(tagList));
     }
 
     @Override
@@ -80,7 +80,7 @@ public class Person {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(name, phone, email, address, tagList);
     }
 
     @Override
