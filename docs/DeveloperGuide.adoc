@@ -208,17 +208,6 @@ The `Model`,
 * exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
-==== Design Considerations
-
-===== Aspect: Implementation of `UniqueTagList`
-
-* **Alternative 1 (current choice):** Each Person manages their own `UniqueTagList`
-** Pros: Easier for new developers to understand.
-** Cons: Tags are duplicated many times.
-* **Alternative 2:** AddressBook has one `UniqueTagList`, each person has a list of tags which points to objects in this list.
-** Pros: Easy to edit tags across the board.
-** Cons: Hard to sync tags with master tag list when adding, editing, or removing people and tags.
-
 [[Design-Storage]]
 === Storage component
 

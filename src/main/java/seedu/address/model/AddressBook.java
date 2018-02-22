@@ -50,10 +50,9 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void resetData(ReadOnlyAddressBook newData) {
         requireNonNull(newData);
-        List<Person> syncedPersonList = newData.getPersonList();
 
         try {
-            setPersons(syncedPersonList);
+            setPersons(newData.getPersonList());
         } catch (DuplicatePersonException e) {
             throw new AssertionError("AddressBooks should not have duplicate persons");
         }
@@ -118,7 +117,6 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     @Override
     public int hashCode() {
-        // use this method for custom fields hashing instead of implementing your own
         return persons.hashCode();
     }
 }
