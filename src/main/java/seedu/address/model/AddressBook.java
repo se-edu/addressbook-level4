@@ -139,9 +139,8 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Removes {@code key} from this {@code AddressBook}.
      * @throws PersonNotFoundException if the {@code key} is not in this {@code AddressBook}.
      */
-    public boolean removePerson(Person key) throws PersonNotFoundException {
+    public void removePerson(Person key) throws PersonNotFoundException {
         persons.remove(key);
-        return true;
     }
 
     //// tag-level operations
