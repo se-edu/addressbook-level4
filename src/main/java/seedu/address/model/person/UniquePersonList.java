@@ -74,8 +74,7 @@ public class UniquePersonList implements Iterable<Person> {
      */
     public void remove(Person toRemove) throws PersonNotFoundException {
         requireNonNull(toRemove);
-        final boolean personFoundAndDeleted = internalList.remove(toRemove);
-        if (!personFoundAndDeleted) {
+        if (!internalList.remove(toRemove)) {
             throw new PersonNotFoundException();
         }
     }
