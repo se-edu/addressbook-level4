@@ -63,7 +63,7 @@ shadowJar {
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '2.12'
+    gradleVersion = '4.6'
 }
 
 task coverage(type: JacocoReport) {
