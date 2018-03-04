@@ -55,7 +55,7 @@ import seedu.address.testutil.PersonUtil;
 public class AddCommandSystemTest extends AddressBookSystemTest {
 
     @Test
-    public void addWord() throws Exception {
+    public void add() throws Exception {
         Model model = getModel();
 
         /* ------------------------ Perform add operations on the shown unfiltered list ----------------------------- */
