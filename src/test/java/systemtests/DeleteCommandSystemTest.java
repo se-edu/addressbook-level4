@@ -112,6 +112,92 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
         assertCommandFailure("DelETE 1", MESSAGE_UNKNOWN_COMMAND);
     }
 
+    @Test
+    public void deleteAlias() {
+        /* ----------------- Performing delete operation while an unfiltered list is being shown -------------------- */
+
+        /* Case: delete the first person in the list, command with leading spaces and trailing spaces -> deleted */
+        Model expectedModel = getModel();
+        String command = "     " + DeleteCommand.COMMAND_ALIAS + "      " + INDEX_FIRST_PERSON.getOneBased() + "       ";
+        Person deletedPerson = removePerson(expectedModel, INDEX_FIRST_PERSON);
+        String expectedResultMessage = String.format(MESSAGE_DELETE_PERSON_SUCCESS, deletedPerson);
+        assertCommandSuccess(command, expectedModel, expectedResultMessage);
+
+        /* Case: delete the last person in the list -> deleted */
+        Model modelBeforeDeletingLast = getModel();
+        Index lastPersonIndex = getLastIndex(modelBeforeDeletingLast);
+        assertCommandSuccess(lastPersonIndex);
+
+        /* Case: undo deleting the last person in the list -> last person restored */
+        command = UndoCommand.COMMAND_ALIAS;
+        expectedResultMessage = UndoCommand.MESSAGE_SUCCESS;
+        assertCommandSuccess(command, modelBeforeDeletingLast, expectedResultMessage);
+
+        /* Case: redo deleting the last person in the list -> last person deleted again */
+        command = RedoCommand.COMMAND_ALIAS;
+        removePerson(modelBeforeDeletingLast, lastPersonIndex);
+        expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
+        assertCommandSuccess(command, modelBeforeDeletingLast, expectedResultMessage);
+
+        /* Case: delete the middle person in the list -> deleted */
+        Index middlePersonIndex = getMidIndex(getModel());
+        assertCommandSuccess(middlePersonIndex);
+
+        /* ------------------ Performing delete operation while a filtered list is being shown ---------------------- */
+
+        /* Case: filtered person list, delete index within bounds of address book and person list -> deleted */
+        showPersonsWithName(KEYWORD_MATCHING_MEIER);
+        Index index = INDEX_FIRST_PERSON;
+        assertTrue(index.getZeroBased() < getModel().getFilteredPersonList().size());
+        assertCommandSuccess(index);
+
+        /* Case: filtered person list, delete index within bounds of address book but out of bounds of person list
+         * -> rejected
+         */
+        showPersonsWithName(KEYWORD_MATCHING_MEIER);
+        int invalidIndex = getModel().getAddressBook().getPersonList().size();
+        command = DeleteCommand.COMMAND_ALIAS + " " + invalidIndex;
+        assertCommandFailure(command, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+
+        /* --------------------- Performing delete operation while a person card is selected ------------------------ */
+
+        /* Case: delete the selected person -> person list panel selects the person before the deleted person */
+        showAllPersons();
+        expectedModel = getModel();
+        Index selectedIndex = getLastIndex(expectedModel);
+        Index expectedIndex = Index.fromZeroBased(selectedIndex.getZeroBased() - 1);
+        selectPerson(selectedIndex);
+        command = DeleteCommand.COMMAND_ALIAS + " " + selectedIndex.getOneBased();
+        deletedPerson = removePerson(expectedModel, selectedIndex);
+        expectedResultMessage = String.format(MESSAGE_DELETE_PERSON_SUCCESS, deletedPerson);
+        assertCommandSuccess(command, expectedModel, expectedResultMessage, expectedIndex);
+
+        /* --------------------------------- Performing invalid delete operation ------------------------------------ */
+
+        /* Case: invalid index (0) -> rejected */
+        command = DeleteCommand.COMMAND_ALIAS + " 0";
+        assertCommandFailure(command, MESSAGE_INVALID_DELETE_COMMAND_FORMAT);
+
+        /* Case: invalid index (-1) -> rejected */
+        command = DeleteCommand.COMMAND_ALIAS + " -1";
+        assertCommandFailure(command, MESSAGE_INVALID_DELETE_COMMAND_FORMAT);
+
+        /* Case: invalid index (size + 1) -> rejected */
+        Index outOfBoundsIndex = Index.fromOneBased(
+                getModel().getAddressBook().getPersonList().size() + 1);
+        command = DeleteCommand.COMMAND_ALIAS + " " + outOfBoundsIndex.getOneBased();
+        assertCommandFailure(command, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+
+        /* Case: invalid arguments (alphabets) -> rejected */
+        assertCommandFailure(DeleteCommand.COMMAND_ALIAS + " abc", MESSAGE_INVALID_DELETE_COMMAND_FORMAT);
+
+        /* Case: invalid arguments (extra argument) -> rejected */
+        assertCommandFailure(DeleteCommand.COMMAND_ALIAS + " 1 abc", MESSAGE_INVALID_DELETE_COMMAND_FORMAT);
+
+        /* Case: mixed case command word -> rejected */
+        assertCommandFailure("DelETE 1", MESSAGE_UNKNOWN_COMMAND);
+    }
+
     /**
      * Removes the {@code Person} at the specified {@code index} in {@code model}'s address book.
      * @return the removed person
@@ -137,7 +223,7 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
         String expectedResultMessage = String.format(MESSAGE_DELETE_PERSON_SUCCESS, deletedPerson);
 
         assertCommandSuccess(
-                DeleteCommand.COMMAND_WORD + " " + toDelete.getOneBased(), expectedModel, expectedResultMessage);
+                DeleteCommand.COMMAND_ALIAS + " " + toDelete.getOneBased(), expectedModel, expectedResultMessage);
     }
 
     /**
