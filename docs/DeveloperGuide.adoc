@@ -10,9 +10,9 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4/tree/master
+:repoURL: https://github.com/CS2103JAN2018-W09-B4/addressbook-level4/tree/master
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `W09-B4`      Since: `Jun 2016`      Licence: `MIT`
 
 == Setting up
 
@@ -781,14 +781,11 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 == Product Scope
 
 *Target user profile*:
+* has the need for flashcards
+* has a significant amount of material to memorise
+* have vast amount of different subjects to schedule
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
-* can type fast
-* prefers typing over mouse input
-* is reasonably comfortable using CLI apps
-
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: helps user memorise facts better.
 
 [appendix]
 == User Stories
@@ -852,6 +849,7 @@ _{More to be added}_
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `1.8.0_60` or higher installed.
 .  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+.  Should be portable between different systems
 
 _{More to be added}_
 
