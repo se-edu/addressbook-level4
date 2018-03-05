@@ -809,6 +809,28 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
 
 |`*` |user with many persons in the address book |sort persons by name |locate a person easily
+
+|`*` |manager |add a reminder |use 'reminder' command to show reminder on the User Interface
+
+|`* *` |manager |organise a meeting/event | put the event on every employee's timetable
+
+|`* *` |manager |make an announcement | send notification to some employees
+
+|`* * *`|manager |see the progress and schedule of all departments
+
+|`* * *`|manager |allocate work to employees instantly
+
+|`* * *`|manager |receive the feedback from employees
+
+|`* * *`|manager |update his own schedule |make plans according to current situation
+
+|`* * *`|manager |see a employee's daily progress of work specifically
+
+|`* * *` |manager |move an employee to another department| update his department info
+
+|`* * *` |manager |add some notes on some events or employees, which will be visible to manager only
+
+
 |=======================================================================
 
 _{More to be added}_
