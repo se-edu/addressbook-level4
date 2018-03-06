@@ -1,6 +1,9 @@
 package seedu.address.logic.commands;
 
 import seedu.address.logic.LogicManager;
+import seedu.address.model.person.HideAllPersonPredicate;
+
+
 
 public class KnockCommand extends Command{
 
@@ -12,6 +15,8 @@ public class KnockCommand extends Command{
 
     private static String password;
 
+    private final HideAllPersonPredicate predicate = new HideAllPersonPredicate();
+
     public KnockCommand() {
         this.password = null;
     }
@@ -22,7 +27,11 @@ public class KnockCommand extends Command{
 
     @Override
     public CommandResult execute() {
+        model.updateFilteredPersonList(predicate);
         LogicManager.isKnocked = true;
+        if (password != null) {
+            LogicManager.password = password;
+        }
         return new CommandResult(MESSAGE_SUCCESS);
     }
 
