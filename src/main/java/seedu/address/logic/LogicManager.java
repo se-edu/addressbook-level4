@@ -7,6 +7,7 @@ import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.UnknockCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -23,22 +24,43 @@ public class LogicManager extends ComponentManager implements Logic {
     private final CommandHistory history;
     private final AddressBookParser addressBookParser;
     private final UndoRedoStack undoRedoStack;
+    public static String password;
+    public static boolean isKnocked;
 
     public LogicManager(Model model) {
         this.model = model;
         history = new CommandHistory();
         addressBookParser = new AddressBookParser();
         undoRedoStack = new UndoRedoStack();
+        isKnocked = false;
     }
 
     @Override
     public CommandResult execute(String commandText) throws CommandException, ParseException {
         logger.info("----------------[USER COMMAND][" + commandText + "]");
         try {
-            Command command = addressBookParser.parseCommand(commandText);
-            command.setData(model, history, undoRedoStack);
-            CommandResult result = command.execute();
-            undoRedoStack.push(command);
+            Command command;
+            CommandResult result = new CommandResult("");
+            if (isKnocked) {
+                command = addressBookParser.parseCommand(commandText);
+                if (command instanceof UnknockCommand) {
+                    UnknockCommand unknockCommand = (UnknockCommand) command;
+                    if (unknockCommand.getPassword().compareTo(password) == 0) {
+                        isKnocked = false;
+                        result = new CommandResult(UnknockCommand.MESSAGE_SUCCESS);
+                    } else {
+                        result = new CommandResult("incorrect unknock password!");
+                    }
+                } else {
+                    result = new CommandResult("Addressbook has been knocked, please unknock it first!");
+                }
+            } else {
+                command = addressBookParser.parseCommand(commandText);
+                command.setData(model, history, undoRedoStack);
+                result = command.execute();
+                undoRedoStack.push(command);
+
+            }
             return result;
         } finally {
             history.add(commandText);
@@ -53,5 +75,13 @@ public class LogicManager extends ComponentManager implements Logic {
     @Override
     public ListElementPointer getHistorySnapshot() {
         return new ListElementPointer(history.getHistory());
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
