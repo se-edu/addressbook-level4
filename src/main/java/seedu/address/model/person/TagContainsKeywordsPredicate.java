@@ -18,17 +18,17 @@ public class TagContainsKeywordsPredicate implements Predicate<Person> {
 
     @Override
     public boolean test(Person person) {
-        Iterator tagsIterator = person.getTags().iterator();
+        Iterator tagsSetIterator = person.getTags().iterator();
         StringBuilder sb = new StringBuilder();
-        sb.append(tagsIterator.next());
-        while (tagsIterator.hasNext()) {
-            sb.append(" " + tagsIterator.next());
+        sb.append(tagsSetIterator.next());
+        while (tagsSetIterator.hasNext()) {
+            sb.append(" " + tagsSetIterator.next());
         }
-        String tagListSeparateBySpace = sb.toString()
+        String tagStringList = sb.toString()
                 .replace("[", "")
                 .replace("]", "");
         return keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(tagListSeparateBySpace, keyword));
+                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(tagStringList, keyword));
     }
 
     @Override
