@@ -855,6 +855,53 @@ Use case ends.
 +
 Use case resumes at step 2.
 
+
+Use case: Lock the addressbook
+*MSS*
+1. User requests to lock the addressbook by entering "lock" and password
+2. AddressBook is locked unless user unlocks it.
++
+Use case ends.
+
+*Extensions*
+
+* 2a. When addressbook is locked, user are required to unlock the addressbook before any instruction.
++
+Use case ends.
+
+
+Use case: Unlock the addressbook
+1. User requests to unlock the addressbook by entering "unlock" and the password set earlier
+2. AddressBook unlocked. Use case ends.
+*Extensions*
+* 1a. The given password is incorrect, which means different from the one set earlier
+** 1a1. Addressbook shows an error message and requires to re-enter password
++
+Use case resumes at step 1
+
+
+Use case: Change an employee's rating
+1. User requests to list employees
+2. AddressBook shows a list of employees
+3. User requests to change the rating of one of the employees from the list
+4. AddressBook changes the rating of the employee.
++
+Use case ends.
+*Extensions*
+* 3a. The employee does not exist in addressbook.
+** 3a1. AddressBook shows an error message.
+Use case resumes at step 2.
+* 3b. The rate is out of bound.
+** 3b1. AddressBook shows an error message
++
+Use case resumes at step 2.
+
+
+Use case: Change the window scheme/theme/skin
+1. User requests to change the scheme/theme/skin on the User Interface
+2. AddressBook changes the scheme/theme/skin
++
+Use case ends.
 _{More to be added}_
 
 [appendix]
