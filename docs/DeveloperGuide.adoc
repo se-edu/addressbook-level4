@@ -868,6 +868,12 @@ _{More to be added}_
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `1.8.0_60` or higher installed.
 .  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+.  Users should prefer typing over mouse input or other input methods.
+.  Users should be comfortable using CLI apps.
+.  The app should not have flow flaws when running.
+.  The app may utilise third party libraries, API and plug-ins.
+.  The app should be able to access the Internet.
+.  The app should be able to perform basic commands without internet access.
 
 _{More to be added}_
 
