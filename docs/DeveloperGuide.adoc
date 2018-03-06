@@ -809,30 +809,22 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
 
 |`*` |user with many persons in the address book |sort persons by name |locate a person easily
-4.1+|<newly added user stories starts from here>
-|`* * *`| offline user| access personal information| obtain contact information of a person
-|`* * *`| user| have a timetable| have an overview of all tasks assigned to me
-|`* * *`| user| add event to timetable| update my timetable
-|`* * *`| user| edit an event to timetable| update my timetable
-|`* * *`| user| filter profiles with tags| do collective operations easily
-|`* * *`| user| have the latest updated information| perform operations correctly
-|`* * *`| manager| tag profiles| categorize people
-|`* * *`| manager| remove tags| remove tags that are no longer relevant
-|`* * *`| manager| rate a user| record the performances of my team member
-|`* * *`| HR manager| edit profiles| update information when an employee's status is changed
-|`* * *`| HR manager| add profiles| add a person when a new employee enters the company
-|`* * *`| HR manager| delete profiles| remove a person when he leaves the company
-|`* *`| user| start composing an email with a single click| send an email to a specific person faster
-|`* *`|user | receive notifications| be reminded of my events
-|`*`|user | view the list of all my events| have a clear to-do-list
-|`* *`| manager| add tasks to others' timetable| assign task to my team
-|`*`| user| export a list of people into excel sheet| do collective operations easily on other platform
-|`*`|user | login| personalized privileges
-|`*`| manager| send notification to other users| remind my subordinates of timing for a job
-|`*`| Account department employee| view the salary of a person| disburse the correct amount of pay to him
-|`*`| Account department employee| filter profiles with a salary range| make collective operations regarding salary
 
+|`* * *` |user |add notes on a timetable entry or on a person |
 
+|`*` |user |see timetable entries happening in other departments |be aware of the progress of other departments
+
+|`*` |user |view to-do-list |see my own upcoming jobs/events
+
+|`* * *`|user |edit a timetable entry |update timetable entry information
+
+|`* * *`|user |delete a timetable entry |
+
+|`* *`|user |start composing an email with a command |send an email to a specific person faster
+
+|`*`|user |export a list of people into excel sheet |do collective operations easily on other platform
+
+|`*`|user |login |have personalized privileges/window scheme
 
 |=======================================================================
 
