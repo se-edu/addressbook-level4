@@ -860,6 +860,156 @@ Use case ends.
 +
 Use case resumes at step 2.
 
+[discrete]
+=== Use case: edit timetable entry
+*MSS*
+
+1. User requests to list all persons.
+2. User requests to view the timetable of a person.
+3. AddressBook shows the timetable of that person.
+4. User requests to update the information of an entry in the timetable.
+5. AddressBook updates the new information for that timetable entry.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The list is empty.
++
+Use case ends.
+
+* 2a. The given index is invalid.
++
+[none]
+** 2a1. AddressBook shows an error message.
++
+Use case resumes at step 2.
+
+* 2b. The person has no timetable entry.
++
+Use case ends.
+
+* 4a. The event name provided by user doesn't exist.
++
+[none]
+** 4a1. AddressBook shows an error message
++
+Use case resumes at step 2.
+
+* 4b. The new information given by user doesn't follow command format
+[none]
+** 4b1. AddressBook shows an error message
+
+** Use case resumes at step 2.
+
+* 5a. AddressBook couldn't write to save file.
+[none]
+** 5a1. AddressBook shows error message and requests user to resolve the error.
+** 5a2. User resolves the error.
+** Use case resumes at step 5.
+
+[discrete]
+=== Use case: delete a timetable entry
+*MSS*
+
+1. User requests to list all persons.
+2. User requests to view the timetable of a person.
+3. AddressBook shows the timetable of that person.
+4. User requests to delete an entry in that person's timetable.
+5. AddressBook deletes the timetable entry.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The list is empty.
++
+[none]
+Use case ends.
+
+* 2a. The given index is invalid.
+[none]
+** 2a1. AddressBook shows an error message.
+** Use case resumes at step 2.
+* 2b. The person has no timetable entry.
+* Use case ends.
+* 4a. The event name provided by user doesn't exist.
+[none]
+** 4a1. AddressBook shows an error message
+** Use case resumes at step 2.
+* 5a. AddressBook couldn't write to save file.
+[none]
+** 5a1. AddressBook shows error message and requests user to resolve the error.
+** 5a2. User resolves the error.
+** Use case resumes at step 5.
+
+[discrete]
+=== Use case: start composing email
+*MSS*
+
+1. User requests to list all persons.
+2. User requests to email a person in the list.
+3. AddressBook opens up a webpage for composing email to that person.
++
+Use case ends.
+
+*Extensions*
+[none]
+* 1a. The list is empty.
+* Use case ends.
+* 2a. The given index is invalid.
+[none]
+** 2a1. AddressBook shows an error message.
+** Use case resumes at step 2.
+* 3a. The computer has no access to internet.
+[none]
+** 3a1. AddressBook shows error message.
+** Use case ends.
+
+[discrete]
+=== Use case: export a list of people as Excel spreadsheet
+*MSS*
+
+1. User requests to list all persons, or perform a search.
+2. User requests to export the list of persons as excel sheet and save it in a save file path.
+3. AddressBook exports the list of persons as excel sheet.
++
+Use case ends.
+
+*Extensions*
+[none]
+* 1a. The list is empty.
+* Use case ends.
+* 2a. The given save file path is invalid.
+[none]
+** 2a1. AddressBook shows an error message.
+** Use case resumes at step 2.
+* 3a. AddressBook couldn't write to save file.
+[none]
+** 3a1. AddressBook shows error message and requests user to resolve the error.
+** 3a2. User resolves the error.
+** Use case ends.
+
+[discrete]
+=== Use case: login
+*MSS*
+
+1. User starts the AddressBook program.
+2. AddressBook requests user to enter username and password.
+3. User enters his username and password
+4. AddressBook shows the content.
++
+Use case ends.
+
+*Extensions*
+[none]
+* 3a. The user enters an invalid username or wrong password.
+[none]
+** 3a1. AddressBook shows an error message.
+** Use case resumes at step 1.
+
 _{More to be added}_
 
 [appendix]
