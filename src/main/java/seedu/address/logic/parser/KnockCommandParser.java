@@ -18,13 +18,8 @@ public class KnockCommandParser implements Parser<KnockCommand> {
      */
     public KnockCommand parse(String args) throws ParseException {
         String trimmedArgs = args.trim();
-        if (trimmedArgs.isEmpty()) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, KnockCommand.MESSAGE_USAGE));
-        }
 
-        String[] inputs = trimmedArgs.split("\\s+");
 
-        return inputs.length == 2? new KnockCommand(inputs[1]) : new KnockCommand();
+        return trimmedArgs.isEmpty()? new KnockCommand() : new KnockCommand(trimmedArgs);
     }
 }

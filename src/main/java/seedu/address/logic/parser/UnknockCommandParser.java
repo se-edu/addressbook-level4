@@ -18,12 +18,11 @@ public class UnknockCommandParser implements Parser<UnknockCommand>{
      */
     public UnknockCommand parse(String args) throws ParseException {
         String trimmedArgs = args.trim();
-        String[] inputs = trimmedArgs.split("\\s+");
-        if (trimmedArgs.isEmpty() || inputs.length != 2) {
+        if (trimmedArgs.isEmpty()) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, UnknockCommand.MESSAGE_USAGE));
         }
 
-        return new UnknockCommand(inputs[1]);
+        return new UnknockCommand(trimmedArgs);
     }
 }
