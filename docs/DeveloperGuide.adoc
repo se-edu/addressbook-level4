@@ -808,28 +808,17 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`*` |user |unlock the addressbook |continue to use the app after leaving it locked
 
-|`*` |manager |add a reminder |use 'reminder' command to show reminder on the User Interface
+|`* *` |user |mass adding timetable entry to many employees' timetable at once
 
-|`* *` |manager |organise a meeting/event | put the event on every employee's timetable
+|`* *` |user |be notified for any deadline for the timetable entry of my employees
 
-|`* *` |manager |make an announcement | send notification to some employees
+|`* *` |user |export my addressbook | share information with another user
 
-|`* * *`|manager |see the progress and schedule of all departments
+|`* *` |user |import addressbook | obtain information from another user
 
-|`* * *`|manager |allocate work to employees instantly
-
-|`* * *`|manager |receive the feedback from employees
-
-|`* * *`|manager |update his own schedule |make plans according to current situation
-
-|`* * *`|manager |see a employee's daily progress of work specifically
-
-|`* * *` |manager |move an employee to another department| update his department info
-
-|`* * *` |manager |add some notes on some events or employees, which will be visible to manager only
-
+|`*` |user |write a review to an employee that has ever worked below me
 
 |=======================================================================
 
