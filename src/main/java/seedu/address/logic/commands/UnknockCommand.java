@@ -12,10 +12,6 @@ public class UnknockCommand extends Command{
 
     private static String password;
 
-    public UnknockCommand() {
-        this.password = null;
-    }
-
     public UnknockCommand(String keyword) {
         this.password = keyword;
     }
