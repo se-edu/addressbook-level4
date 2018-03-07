@@ -801,7 +801,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` |user |add a new lead to either Leads or Contacts|organise my sales targets better for future sales decisions
+|`* * *` |user |add a new Lead or Contact|organise my sales targets better for future decisions
 
 |`* * *` |user |delete a person |remove entries that I no longer need
 
