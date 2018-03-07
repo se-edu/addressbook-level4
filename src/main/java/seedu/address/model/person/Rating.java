@@ -56,16 +56,21 @@ public class Rating {
     }
 
     public String getRatingDisplay() {
-        if(value == -1)
+        if (value == -1) {
             return INVALID_RATING_DISPLAY;
-        else
+        } else {
             return convertRatingToStars(value);
+        }
     }
 
+    /**
+     * Converts numerical rating into respective number of stars
+     */
     private String convertRatingToStars(int rating) {
         StringBuilder sb = new StringBuilder();
-        while(rating-- > 0)
+        while (rating-- > 0) {
             sb.append(RATING_DISPLAY);
+        }
         return sb.toString();
     }
 }

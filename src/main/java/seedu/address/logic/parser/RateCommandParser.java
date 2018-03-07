@@ -30,9 +30,9 @@ public class RateCommandParser implements Parser<RateCommand> {
     public RateCommand parse(String args) throws ParseException {
         requireNonNull(args);
         Scanner sc = new Scanner(args);
-        if (!sc.hasNextInt())
+        if (!sc.hasNextInt()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RateCommand.MESSAGE_USAGE));
-
+        }
         Index index;
         try {
             index = ParserUtil.parseIndex(((Integer) sc.nextInt()).toString());
@@ -40,9 +40,9 @@ public class RateCommandParser implements Parser<RateCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RateCommand.MESSAGE_USAGE));
         }
 
-        if (!sc.hasNextInt())
+        if (!sc.hasNextInt()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, RateCommand.MESSAGE_USAGE));
-
+        }
         Integer rating = sc.nextInt();
 
         RateCommand.EditPersonDescriptor editPersonDescriptor = new RateCommand.EditPersonDescriptor();

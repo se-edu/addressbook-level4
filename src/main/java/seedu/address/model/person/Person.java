@@ -63,8 +63,9 @@ public class Person {
     public Rating getRating() {
         return rating;
     }
-
-    public String getRatingDisplay() { return rating.getRatingDisplay();}
+    public String getRatingDisplay() {
+        return rating.getRatingDisplay();
+    }
 
     public Address getAddress() {
         return address;
