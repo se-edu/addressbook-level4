@@ -9,8 +9,7 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.NameContainsKeywordsPredicate;
-import seedu.address.model.person.TagContainsKeywordsPredicate;
+import seedu.address.model.person.ContainKeywordsPredicate;
 
 /**
  * Parses input arguments and creates a new FindCommand object
@@ -32,15 +31,17 @@ public class FindCommandParser implements Parser<FindCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         }
 
+        String[] nameKeywords = new String[0];
+        String[] tagKeywords = new String[0];
+
         if (arePrefixesPresent(argMultimap, PREFIX_NAME)) {
-            String[] nameKeywords = argMultimap.getValue(PREFIX_NAME).get().split("\\s+");
-            return new FindCommand(new NameContainsKeywordsPredicate(Arrays.asList(nameKeywords)));
-        } else if (arePrefixesPresent(argMultimap, PREFIX_TAG)) {
-            String[] tagKeywords = argMultimap.getValue(PREFIX_TAG).get().split("\\s+");
-            return new FindCommand(new TagContainsKeywordsPredicate(Arrays.asList(tagKeywords)));
-        } else {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+            nameKeywords = argMultimap.getValue(PREFIX_NAME).get().split("\\s+");
         }
+        if (arePrefixesPresent(argMultimap, PREFIX_TAG)) {
+            tagKeywords = argMultimap.getValue(PREFIX_TAG).get().split("\\s+");
+        }
+
+        return new FindCommand(new ContainKeywordsPredicate(Arrays.asList(nameKeywords), Arrays.asList(tagKeywords)));
     }
 
     /**
