@@ -153,7 +153,7 @@ public class AddressBook implements ReadOnlyAddressBook {
             updatePerson(person, newPerson);
         } catch (DuplicatePersonException dpe){
             throw new AssertionError("tag modification should not cause duplicate person");
-        } catch (PersonNotFoundException) {
+        } catch (PersonNotFoundException pnfe) {
             throw new AssertionError("target person does not exists.");
         }
     }
