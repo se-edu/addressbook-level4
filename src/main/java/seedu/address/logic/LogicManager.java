@@ -59,7 +59,7 @@ public class LogicManager extends ComponentManager implements Logic {
                 result = command.execute();
                 if (command instanceof LockCommand) {
                     isKnocked = true;
-                    if (password != null) {
+                    if (((LockCommand) command).getPassword() != null) {
                         password = ((LockCommand) command).getPassword();
                     }
                 }
