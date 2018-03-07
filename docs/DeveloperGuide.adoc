@@ -903,7 +903,7 @@ Use case ends.
 +
 Use case resumes at step 2.
 
-
+[discrete]
 == Use case: Add person
 
 *MSS*
@@ -931,7 +931,7 @@ Use case ends.
 +
 Use case ends.
 
-
+[discrete]
 == Use case: Edit person
 
 *MSS*
@@ -960,7 +960,7 @@ Use case ends.
 +
 Use case ends.
 
-
+[discrete]
 == Use case: Add Appointment
 
 *MSS*
@@ -988,7 +988,7 @@ Use case ends.
 +
 Use case ends.
 
-
+[discrete]
 == Use case: Delete Appointment
 
 *MSS*
@@ -1014,7 +1014,7 @@ Use case ends.
 +
 Use case resumes at step 2.
 
-
+[discrete]
 == Use case: View Commission from Client
 
 *MSS*
@@ -1034,6 +1034,7 @@ Use case ends.
 +
 Use case ends.
 
+[discrete]
 == Use case: View Total Commission
 
 *MSS*
