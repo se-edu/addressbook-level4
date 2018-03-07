@@ -795,20 +795,79 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
 
+
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` |user |add a new person |
+|`* * *` |user |add a new client | track the client
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |user |add multiple client | track the number of clients I have
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |user |remove my client | remove entries that I no longer need
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |user |add the appointment date I have with my client |keep track of the next meet up
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |user |sort the client based on different category |directly get the type of data I want
+
+|`* * *` |user |add my client’s personal detail  |know more about them
+
+|`* * *` |user |update my client's personal detail |keep their information up to date
+
+|`* * *` |user |search for a single client  |narrow down to the client I am interested in in that time
+
+|`* * *` |user |clear the address book |start on a clean slate
+
+|`* * *` |user |exit my application |exit the application once I am done with it
+
+|`* * *` |user |add remarks of my client |remember my personal comment of the client
+
+|`* * *` |user |add the insurance plans that my clients are committed |track what plans he/she has
+
+|`* * *` |user |search for my clients based on their plan’s maturity dates |offer a renewal plan
+
+|`* * *` |user |add in the monthly premium paid by my client |calculate my commission
+
+|`* * *` |user |add in how much commission rate I am getting off my client’s insurance plan|calculate my commission
+
+|`* * *` |user |view the commission I get off a client |see how much I am earning off them
+
+|`* * *` |user |view the total commission I am getting |view my total earning
+
+|`* * *` |user |view appointment on the calendar |have a more organized view of my schedule and at the same time plan for future appointment
+
+|`* *` |user |check the history of my command |know what I have done
+
+|`* *` |user |undo the previous command |retrieve lost information caused by accidents
+
+|`* *` |user |redo the undo actions |trace what I have undid.
+
+|`* *` |user |create a new address book |use it for other purposes
+
+|`* *` |user |duplicate my address book |export the address book
+
+|`* *` |user |hide some of my client's information |minimize the leak of my client's information
+
+|`* *` |user |sort persons by name (by default) |view the address book in an organized manner
+
+|`* *` |user |receive notification of my client's birthday |keep in touch with my clients
+
+|`* *` |user |receive notification 3 day prior to my client's appointment date |ensure that I will not miss it
+
+|`* *` |user |add in password access to my address book |be viewed/edited only by allowed users
+
+|`* *` |user |change my password |further secure my address book
+
+|`* *` |user |forget password |have a backup plan
+
+|`*` |user |encrypt the data |feel safer for my client's data
+
+|`*` |user |request access to other address book |seek potential customer from leaving colleague
+
+|`*` |user |upload my client's info on social network |protect myself against cyber bullying or defaming
+
+
 |=======================================================================
 
 _{More to be added}_
