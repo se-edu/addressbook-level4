@@ -4,8 +4,7 @@ package seedu.address.logic.commands;
  * Sorts all persons in the addressbook .
  */
 
-public class SortCommand extends Command{
-
+public class SortCommand extends Command {
 
     public static final String COMMAND_WORD = "sort";
 

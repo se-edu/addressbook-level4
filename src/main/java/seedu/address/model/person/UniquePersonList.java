@@ -4,9 +4,10 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Comparator;
+
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -119,9 +120,9 @@ public class UniquePersonList implements Iterable<Person> {
      */
     public void sort(){
         Collections.sort(internalList, new Comparator<Person>() {
-             public int compare(Person p1, Person p2) {
-                  int num = p1.getName().toString().compareTo(p2.getName().toString());
-                  return num;
+            public int compare(Person p1, Person p2) {
+                int num = p1.getName().toString().compareTo(p2.getName().toString());
+                return num;
              }
         });
     }
