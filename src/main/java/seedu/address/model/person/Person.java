@@ -19,6 +19,7 @@ public class Person {
     private final Phone phone;
     private final Email email;
     private final Address address;
+    private Rating rating;
 
     private final UniqueTagList tags;
 
@@ -33,6 +34,7 @@ public class Person {
         this.address = address;
         // protect internal tags from changes in the arg list
         this.tags = new UniqueTagList(tags);
+        this.rating = new Rating();
     }
 
     public Name getName() {
@@ -97,4 +99,7 @@ public class Person {
         return builder.toString();
     }
 
+    public void setRating(int newRating) {
+        rating.set(newRating);
+    }
 }
