@@ -8,7 +8,6 @@ import java.util.Objects;
 import java.util.Set;
 
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -22,7 +21,8 @@ public class Person {
     private final Email email;
     private final Address address;
 
-    private final ObservableList<Tag> tagList = FXCollections.observableArrayList();
+
+    private final Set<Tag> tagList = FXCollections.observableSet();
     /**
      * Every field must be present and not null.
      */
@@ -33,7 +33,7 @@ public class Person {
         this.email = email;
         this.address = address;
         // protect internal tags from changes in the arg list
-        this.tagList.addAll(tags);
+        tagList.addAll(tags);
     }
 
     public Name getName() {

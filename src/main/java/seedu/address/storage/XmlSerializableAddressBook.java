@@ -59,7 +59,6 @@ public class XmlSerializableAddressBook {
         if (!(other instanceof XmlSerializableAddressBook)) {
             return false;
         }
-
         return persons.equals(((XmlSerializableAddressBook) other).persons);
     }
 }
