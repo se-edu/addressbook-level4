@@ -185,4 +185,8 @@ public class AddressBook implements ReadOnlyAddressBook {
         // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(persons, tags);
     }
+    /** sort the existing persons */
+    public void sortPersons() {
+        persons.sort();
+    }
 }

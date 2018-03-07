@@ -26,6 +26,9 @@ public interface Model {
     /** Adds the given person */
     void addPerson(Person person) throws DuplicatePersonException;
 
+    /** Sort existing persons */
+    void sortPersons();
+
     /**
      * Replaces the given person {@code target} with {@code editedPerson}.
      *
