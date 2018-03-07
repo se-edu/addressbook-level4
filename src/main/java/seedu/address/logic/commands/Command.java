@@ -5,6 +5,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.UndoRedoStack;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.ReadOnlyAddressBook;
 
 /**
  * Represents a command with hidden internal logic and the ability to be executed.
@@ -23,6 +24,17 @@ public abstract class Command {
     public static String getMessageForPersonListShownSummary(int displaySize) {
         return String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, displaySize);
     }
+
+    /**
+     * Constructs a feedback message to summarise an operation that displayed a sorted list of persons.
+     *
+     * @param displaySize used to generate summary
+     * @return summary message for persons displayed
+     */
+    public static String getMessageForPersonSortShownSummary(int displaySize) {
+        return String.format(Messages.MESSAGE_PERSONS_SORTED_OVERVIEW, displaySize);
+    }
+
 
     /**
      * Executes the command and returns the result message.

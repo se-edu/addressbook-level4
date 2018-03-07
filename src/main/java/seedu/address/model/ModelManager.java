@@ -81,6 +81,10 @@ public class ModelManager extends ComponentManager implements Model {
         indicateAddressBookChanged();
     }
 
+    public void sortPersons(){
+        addressBook.sort();
+    }
+
     //=========== Filtered Person List Accessors =============================================================
 
     /**
