@@ -800,45 +800,45 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *`|user |add a new employee |
-
-|`* * *`|user |sort employee by name |locate an employee easily
-
-|`* * *`|user |search employees by specific criteria |
-
 |`* * *`|new user |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *`|user |add a new person |
-
-|`* * *`|user |delete a person |remove entries that I no longer need
-
-|`* * *`|user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *`|user |add a new employee |
 
 |`* * *`|user |each employee has his/her dedicated timetable | trace progress of that person
 
 |`* * *`|user |add a timetable entry on anyone's timetable |
 
+|`* * *`|user |edit a timetable entry |update timetable entry information
+
+|`* * *`|user |delete a timetable entry |
+
 |`* * *`|user |give employees a rating |evaluate their performance
 
 |`* * *`|user |change employees' rating |
+
+|`* * *`|user |add notes on a timetable entry or on a person |
+
+|`* * *`|user |search employees by specific criteria |
+
+|`* * *`|user |sort employee by name |locate an employee easily
 
 |`* * *`|user |sort the employees by their rating |give them bonus salaries accordingly
 
 |`* * *`|user |sort the employees by their salaries |see their salary conditions
 
-|`* * *`|user |add notes on a timetable entry or on a person |
-
-|`* * *`|user |edit a timetable entry |update timetable entry information
-
-|`* * *`|user |delete a timetable entry |
+|`* *`|user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
 
 |`* *`|user |have my own timetable |manage my own time
 
-|`* *`|user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
-
 |`* *`|user |start composing an email with a command |send an email to a specific person faster
 
-|`*`|user with many persons in the address book |sort persons by name |locate a person easily
+|`* *`|user |mass adding timetable entry to many employees' timetable at once |
+
+|`* *`|user |be notified for any deadline for the timetable entry of my employees |
+
+|`* *`|user |export my addressbook |share information with another user
+
+|`* *`|user |import addressbook |obtain information from another user
 
 |`*`|user |see timetable entries happening in other departments |be aware of the progress of other departments
 
@@ -854,20 +854,13 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`*`|user |lock the addressbook |leave my app open while making unauthorized people cannot access it
 
-|`*` |user |unlock the addressbook |continue to use the app after leaving it locked
+|`*`|user |unlock the addressbook |continue to use the app after leaving it locked
 
-|`* *` |user |mass adding timetable entry to many employees' timetable at once
-
-|`* *` |user |be notified for any deadline for the timetable entry of my employees
-
-|`* *` |user |export my addressbook | share information with another user
-
-|`* *` |user |import addressbook | obtain information from another user
-
-|`*` |user |write a review to an employee that has ever worked below me
+|`*`|user |write a review to an employee that has ever worked below me
 |=======================================================================
 
 _{More to be added}_
+
 [appendix]
 == Use Cases
 
@@ -878,9 +871,9 @@ _{More to be added}_
 
 *MSS*
 
-1. user requests to list employees
+1. User requests to list employees
 2. AddressBook shows a list of employees
-3. user requests to add a entry to an employee's timetable
+3. User requests to add a entry to an employee's timetable
 4. AddressBook adds the entry
 +
 Use case ends.
@@ -899,17 +892,14 @@ Use case ends.
 +
 Use case resumes at step 2.
 
-
-
-
 [discrete]
 === Use case: Give employees a rating
 
 *MSS*
 
-1. user requests to list employees
+1. User requests to list employees
 2. AddressBook shows a list of employees
-3. user requests to give an employee a rating
+3. User requests to give an employee a rating
 4. AddressBook add the rating
 
 +
@@ -948,7 +938,7 @@ Use case ends.
 
 *MSS*
 
-1. user requests to list employees sorted by their ratings
+1. User requests to list employees sorted by their ratings
 2. AdressBook accesses the list of all employees
 3. AddressBook sorts the employees in the list by their ratings
 4. AddressBook shows the sorted list
@@ -1053,7 +1043,6 @@ Use case ends.
 ** 1a1. AddressBook shows an error message.
 +
 Use case ends.
-
 
 [discrete]
 === Use case: edit timetable entry
@@ -1205,47 +1194,66 @@ Use case ends.
 ** 3a1. AddressBook shows an error message.
 ** Use case resumes at step 1.
 
-Use case: Lock the addressbook
+[discrete]
+=== Use case: Lock the addressbook
 *MSS*
+
 1. User requests to lock the addressbook by entering "lock" and password
 2. AddressBook is locked unless user unlocks it.
+[none]
 * 2a. When addressbook is locked, user are required to unlock the addressbook before any instruction.
 +
 Use case ends.
-Use case: Unlock the addressbook
+
+[discrete]
+=== Use case: Unlock the addressbook
+*MSS*
+
 1. User requests to unlock the addressbook by entering "unlock" and the password set earlier
 2. AddressBook unlocked. Use case ends.
+
 *Extensions*
+[none]
 * 1a. The given password is incorrect, which means different from the one set earlier
+[none]
 ** 1a1. Addressbook shows an error message and requires to re-enter password
 +
 Use case resumes at step 1
 
+[discrete]
+=== Use case: Change an employee's rating
+*MSS*
 
-Use case: Change an employee's rating
 1. User requests to list employees
 2. AddressBook shows a list of employees
 3. User requests to change the rating of one of the employees from the list
 4. AddressBook changes the rating of the employee.
 +
 Use case ends.
+
 *Extensions*
+
+[none]
 * 3a. The employee does not exist in addressbook.
+[none]
 ** 3a1. AddressBook shows an error message.
 Use case resumes at step 2.
 * 3b. The rate is out of bound.
+[none]
 ** 3b1. AddressBook shows an error message
 +
 Use case resumes at step 2.
 
+[discrete]
+=== Use case: Change the window scheme/theme/skin
+*MSS*
 
-Use case: Change the window scheme/theme/skin
 1. User requests to change the scheme/theme/skin on the User Interface
 2. AddressBook changes the scheme/theme/skin
 +
 Use case ends.
-_{More to be added}_
 
+_{More to be added}_
 
 [appendix]
 == Non Functional Requirements
@@ -1260,10 +1268,10 @@ _{More to be added}_
 .  Should not consume memory more than 2GB
 .  Should be able to be run easily by non-technical user
 .  The save file of the app should be cross-compatible
-.  the app should be used only by one user.
-.  only the owner can view the data in the app
-.  the app should be able to response the command within 500ms
-.  the app should be able to apply to people who are generally managing <=200 other people
+.  The app should be used only by one user.
+.  Only the owner can view the data in the app
+.  The app should be able to response the command within 500ms
+.  The app should be able to apply to people who are generally managing <=200 other people
 .  Users should prefer typing over mouse input or other input methods.
 .  Users should be comfortable using CLI apps.
 .  The app should not have flow flaws when running.
@@ -1275,7 +1283,6 @@ _{More to be added}_
 .  Should be easy to use by new users
 .  This application should be stable and maintainable
 .  This application is open source
-
 
 _{More to be added}_
 
