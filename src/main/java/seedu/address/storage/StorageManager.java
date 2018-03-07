@@ -77,6 +77,7 @@ public class StorageManager extends ComponentManager implements Storage {
         addressBookStorage.saveAddressBook(addressBook, filePath);
     }
 
+    @Override
     public void backupAddressBook(ReadOnlyAddressBook addressBook) throws IOException {
         logger.fine("Attempting to write to an offline backup data file: ");
         addressBookStorage.backupAddressBook(addressBook);
