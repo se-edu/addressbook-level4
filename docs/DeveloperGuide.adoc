@@ -903,6 +903,146 @@ Use case ends.
 +
 Use case resumes at step 2.
 
+
+== Use case: Add person
+
+*MSS*
+
+1. User request to add person by specifying their details
+2. AddressBook adds the person
+3. AddressBook shows success message
++
+Use case ends.
+
+*Extensions*
+
+[none]
+*2a. Person already exists in AddressBook.
++
+[none]
+**2a1. AddressBook shows error message.
++
+Use case ends.
+
+*2b. The given input is invalid.
++
+[none]
+**2a1. AddressBook shows error message.
++
+Use case ends.
+
+
+== Use case: Edit person
+
+*MSS*
+1. User requests to edit person by entering person’s name and new parameter(s)
+2. AddressBook shows confirm message.
+3. User confirms to edit the Person.
+4. AddressBook edits the Person’s given parameter(s).
+5. AddressBook shows the edited person entry.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+*2a. Person does not exist in the AddressBook.
++
+[none]
+**2a1. AddressBook shows error message.
++
+Use case ends.
+
+*2b. The given input is invalid.
++
+[none]
+**2a1. AddressBook shows error message.
++
+Use case ends.
+
+
+== Use case: Add Appointment
+
+*MSS*
+
+1. User requests to add appointment with person by entering person's name and appointment date and time.
+2. AddressBook adds the appointment.
+3. AddressBook shows the added appointment entry
++
+Use case ends.
+
+*Extensions*
+
+[none]
+*2a. Person does not exist in the AddressBook.
++
+[none]
+**2a1. AddressBook shows error message.
++
+Use case ends.
+
+*2b. The given date is invalid.
++
+[none]
+**2a1. AddressBook shows error message.
++
+Use case ends.
+
+
+== Use case: Delete Appointment
+
+*MSS*
+
+1. User requests to delete appointment with person by entering person's name.
+2. AddressBook shows list of appointments.
+3. User requests to delete a specific appointment in the list.
+4. AddressBook deletes the appointment.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The given index is invalid.
++
+[none]
+** 3a1. AddressBook shows an error message.
++
+Use case resumes at step 2.
+
+
+== Use case: View Commission from Client
+
+*MSS*
+
+1. User requests to view commission of client by entering person's name.
+2. AddressBook shows commission earned from client.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+*2a. Person does not exist in the AddressBook.
++
+[none]
+**2a1. AddressBook shows error message.
++
+Use case ends.
+
+== Use case: View Total Commission
+
+*MSS*
+
+1. User requests to view total commission.
+2. AddressBook shows total commission.
++
+Use case ends.
+
 _{More to be added}_
 
 [appendix]
