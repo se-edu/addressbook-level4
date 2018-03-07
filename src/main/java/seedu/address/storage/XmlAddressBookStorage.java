@@ -82,11 +82,9 @@ public class XmlAddressBookStorage implements AddressBookStorage {
     /**
      * Similar to {@link #saveAddressBook(ReadOnlyAddressBook)}
      * @param addressBook of the data. Cannot be null
-     * @param filePath location of the data. Cannot be null
      */
     public void backupAddressBook(ReadOnlyAddressBook addressBook) throws IOException {
         requireNonNull(addressBook);
-        requireNonNull(filePath);
         saveAddressBook(addressBook, filePath + ".backup");
     }
 
