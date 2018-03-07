@@ -37,6 +37,17 @@ public class Person {
         this.rating = new Rating();
     }
 
+    public Person(Name name, Phone phone, Email email, Address address, Rating rating, Set<Tag> tags) {
+        requireAllNonNull(name, phone, email, address, tags);
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.address = address;
+        // protect internal tags from changes in the arg list
+        this.tags = new UniqueTagList(tags);
+        this.rating = rating;
+    }
+
     public Name getName() {
         return name;
     }
@@ -47,6 +58,10 @@ public class Person {
 
     public Email getEmail() {
         return email;
+    }
+
+    public Rating getRating() {
+        return rating;
     }
 
     public Address getAddress() {
@@ -99,7 +114,7 @@ public class Person {
         return builder.toString();
     }
 
-    public void setRating(int newRating) {
-        rating.set(newRating);
+    public void setRating(String newRating) {
+        rating = new Rating(newRating);
     }
 }

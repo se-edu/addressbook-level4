@@ -8,14 +8,14 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Rating {
     public static final String MESSAGE_RATING_CONSTRAINTS = "Rating must be an integer";
-    public static final String RATING_VALIDATION_REGEX = "[0-9]+";
-    private Integer ratingValue;
+    public static final String RATING_VALIDATION_REGEX = "-?\\d*";
+    public final Integer value;
 
     /**
      * Constructs a {@code Rating} for a new person who hasn't been assigned a rating.
      */
     public Rating() {
-        ratingValue = -1;
+        value = -1;
     }
 
     /**
@@ -25,30 +25,30 @@ public class Rating {
      */
     public Rating(String rating) {
         checkArgument(isValidRating(rating), MESSAGE_RATING_CONSTRAINTS);
-        ratingValue = Integer.parseInt(rating);
+        value = Integer.parseInt(rating);
     }
 
     /**
      * Returns true if a given string is a valid person rating.
      */
-    public boolean isValidRating(String test) {
+    public static boolean isValidRating(String test) {
         return test.matches(RATING_VALIDATION_REGEX);
     }
 
     @Override
     public String toString() {
-        return ratingValue.toString();
+        return value.toString();
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Rating) // instanceof handles nulls
-                && this.ratingValue == ((Rating) other).ratingValue; // state check
+                && this.value == ((Rating) other).value; // state check
     }
 
     @Override
     public int hashCode() {
-        return ratingValue.hashCode();
+        return value.hashCode();
     }
 }
