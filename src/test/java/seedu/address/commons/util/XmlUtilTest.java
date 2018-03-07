@@ -21,18 +21,19 @@ import seedu.address.storage.XmlSerializableAddressBook;
 import seedu.address.testutil.AddressBookBuilder;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.TestUtil;
+import seedu.address.testutil.TypicalPersons;
 
 public class XmlUtilTest {
 
-    private static final String TEST_DATA_FOLDER = FileUtil.getPath("src/test/data/XmlUtilTest/");
-    private static final File EMPTY_FILE = new File(TEST_DATA_FOLDER + "empty.xml");
-    private static final File MISSING_FILE = new File(TEST_DATA_FOLDER + "missing.xml");
-    private static final File VALID_FILE = new File(TEST_DATA_FOLDER + "validAddressBook.xml");
-    private static final File MISSING_PERSON_FIELD_FILE = new File(TEST_DATA_FOLDER + "missingPersonField.xml");
-    private static final File INVALID_PERSON_FIELD_FILE = new File(TEST_DATA_FOLDER + "invalidPersonField.xml");
-    private static final File VALID_PERSON_FILE = new File(TEST_DATA_FOLDER + "validPerson.xml");
+    private static final String COMMON_TEST_DATA_FOLDER = FileUtil.getPath("src/test/data/XmlTest/");
+    private static final String UNIQUE_TEST_DATA_FOLDER = FileUtil.getPath("src/test/data/XmlUtilTest/");
+    private static final File TYPICAL_PERSON_FILE = new File(COMMON_TEST_DATA_FOLDER + "typicalPersonsAddressBook.xml");
+    private static final File EMPTY_FILE = new File(UNIQUE_TEST_DATA_FOLDER + "empty.xml");
+    private static final File MISSING_FILE = new File(UNIQUE_TEST_DATA_FOLDER + "missing.xml");
+    private static final File MISSING_PERSON_FIELD_FILE = new File(UNIQUE_TEST_DATA_FOLDER + "missingPersonField.xml");
+    private static final File INVALID_PERSON_FIELD_FILE = new File(UNIQUE_TEST_DATA_FOLDER + "invalidPersonField.xml");
+    private static final File VALID_PERSON_FILE = new File(UNIQUE_TEST_DATA_FOLDER + "validPerson.xml");
     private static final File TEMP_FILE = new File(TestUtil.getFilePathInSandboxFolder("tempAddressBook.xml"));
-
     private static final String INVALID_PHONE = "9482asf424";
 
     private static final String VALID_NAME = "Hans Muster";
@@ -53,7 +54,7 @@ public class XmlUtilTest {
     @Test
     public void getDataFromFile_nullClass_throwsNullPointerException() throws Exception {
         thrown.expect(NullPointerException.class);
-        XmlUtil.getDataFromFile(VALID_FILE, null);
+        XmlUtil.getDataFromFile(TYPICAL_PERSON_FILE, null);
     }
 
     @Test
@@ -70,9 +71,11 @@ public class XmlUtilTest {
 
     @Test
     public void getDataFromFile_validFile_validResult() throws Exception {
-        AddressBook dataFromFile = XmlUtil.getDataFromFile(VALID_FILE, XmlSerializableAddressBook.class).toModelType();
-        assertEquals(9, dataFromFile.getPersonList().size());
-        assertEquals(0, dataFromFile.getTagList().size());
+        XmlSerializableAddressBook dataFromFile = XmlUtil
+                .getDataFromFile(TYPICAL_PERSON_FILE, XmlSerializableAddressBook.class);
+        XmlSerializableAddressBook expectedXmlAddressBook =
+                new XmlSerializableAddressBook(TypicalPersons.getTypicalAddressBook());
+        assertEquals(expectedXmlAddressBook, dataFromFile);
     }
 
     @Test
@@ -111,7 +114,7 @@ public class XmlUtilTest {
     @Test
     public void saveDataToFile_nullClass_throwsNullPointerException() throws Exception {
         thrown.expect(NullPointerException.class);
-        XmlUtil.saveDataToFile(VALID_FILE, null);
+        XmlUtil.saveDataToFile(TYPICAL_PERSON_FILE, null);
     }
 
     @Test
@@ -130,7 +133,7 @@ public class XmlUtilTest {
 
         AddressBookBuilder builder = new AddressBookBuilder(new AddressBook());
         dataToWrite = new XmlSerializableAddressBook(
-                builder.withPerson(new PersonBuilder().build()).withTag("Friends").build());
+                builder.withPerson(new PersonBuilder().build()).build());
 
         XmlUtil.saveDataToFile(TEMP_FILE, dataToWrite);
         dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE, XmlSerializableAddressBook.class);
