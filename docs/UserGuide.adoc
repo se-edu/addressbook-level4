@@ -13,6 +13,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/CS2103JAN2018-W15-B1/main
 
+
 By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
 
 == Introduction
@@ -217,6 +218,43 @@ The `redo` command fails as there are no `undo` commands executed previously.
 `redo` (reapplies the `delete 1` command) +
 `redo` (reapplies the `clear` command) +
 // end::undoredo[]
+
+=== Lock the AddressBook: `lock`
+
+Lock the address book +
+Format: `lock [PASSWORD]`
+
+****
+* Lock the address book with the specified PASSWORD.
+* If PASSWORD is not provided, then no password for this lock.
+* The PASSWORD is a String that can contain any character.
+****
+
+Examples:
+
+* `lock 123` +
+Lock the address book with password: 123
+* `lock` +
+Lock the address book without password
+
+
+=== Lock the AddressBook: `unlock`
+
+Unlock the address book +
+Format: `unlock [PASSWORD]`
+
+****
+* Unlock the address book with the PASSWORD if last lock command provided a password.
+* If no password needed, just enter unlock.
+* The PASSWORD is a String that can contain any character.
+****
+
+Examples:
+
+* `unlock 123` +
+Unlock the address book with password: 123 (the last lock command provided)
+* `unlock` +
+Unlock the address book, which is locked without password.
 
 === Clearing all entries : `clear`
 
