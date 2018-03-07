@@ -917,17 +917,17 @@ Use case ends.
 *Extensions*
 
 [none]
-*2a. Person already exists in AddressBook.
+* 2a. Person already exists in AddressBook.
 +
 [none]
-**2a1. AddressBook shows error message.
+** 2a1. AddressBook shows error message.
 +
 Use case ends.
 
-*2b. The given input is invalid.
+* 3a. The given input is invalid.
 +
 [none]
-**2a1. AddressBook shows error message.
+** 3a1. AddressBook shows error message.
 +
 Use case ends.
 
@@ -946,17 +946,17 @@ Use case ends.
 *Extensions*
 
 [none]
-*2a. Person does not exist in the AddressBook.
+* 2a. Person does not exist in the AddressBook.
 +
 [none]
-**2a1. AddressBook shows error message.
+** 2a1. AddressBook shows error message.
 +
 Use case ends.
 
-*2b. The given input is invalid.
+* 3a. The given input is invalid.
 +
 [none]
-**2a1. AddressBook shows error message.
+** 3a1. AddressBook shows error message.
 +
 Use case ends.
 
@@ -974,17 +974,17 @@ Use case ends.
 *Extensions*
 
 [none]
-*2a. Person does not exist in the AddressBook.
+* 2a. Person does not exist in the AddressBook.
 +
 [none]
-**2a1. AddressBook shows error message.
+** 2a1. AddressBook shows error message.
 +
 Use case ends.
 
-*2b. The given date is invalid.
+* 3a. The given date is invalid.
 +
 [none]
-**2a1. AddressBook shows error message.
+** 3a1. AddressBook shows error message.
 +
 Use case ends.
 
@@ -1027,10 +1027,10 @@ Use case ends.
 *Extensions*
 
 [none]
-*2a. Person does not exist in the AddressBook.
+* 2a. Person does not exist in the AddressBook.
 +
 [none]
-**2a1. AddressBook shows error message.
+** 2a1. AddressBook shows error message.
 +
 Use case ends.
 
