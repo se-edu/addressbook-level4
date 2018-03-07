@@ -10,7 +10,7 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4/tree/master
+:repoURL: https://github.com/crizyli/main
 
 By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
 
@@ -806,21 +806,33 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |user |each employee has his/her dedicated timetable | trace progress of that person
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |user |add a timetable entry on anyone's timetable |
+
+|`* * *` |user |give employees a rating |evaluate their performance
+
+|`* * *` |user |change employees' rating |
+
+|`* * *` |user |sort the employees by their rating |give them bonus salaries accordingly
+
+|`* * *` |user |sort the employees by their salaries |see their salary conditions
 
 |`* * *` |user |add notes on a timetable entry or on a person |
-
-|`*` |user |see timetable entries happening in other departments |be aware of the progress of other departments
-
-|`*` |user |view to-do-list |see my own upcoming jobs/events
 
 |`* * *`|user |edit a timetable entry |update timetable entry information
 
 |`* * *`|user |delete a timetable entry |
 
+|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+
 |`* *`|user |start composing an email with a command |send an email to a specific person faster
+
+|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+
+|`*` |user |see timetable entries happening in other departments |be aware of the progress of other departments
+
+|`*` |user |view to-do-list |see my own upcoming jobs/events
 
 |`*`|user |export a list of people into excel sheet |do collective operations easily on other platform
 
@@ -859,6 +871,92 @@ Use case ends.
 ** 3a1. AddressBook shows an error message.
 +
 Use case resumes at step 2.
+
+[discrete]
+=== Use case: Add a timetable entry on anyone's timetable
+
+*MSS*
+
+1. user requests to list employees
+2. AddressBook shows a list of employees
+3. user requests to add a entry to an employee's timetable
+4. AddressBook adds the entry
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The given index is invalid.
++
+[none]
+** 3a1. AddressBook shows an error message.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: Give employees a rating
+
+*MSS*
+
+1. user requests to list employees
+2. AddressBook shows a list of employees
+3. user requests to give an employee a rating
+4. AddressBook add the rating
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The given index is invalid.
++
+[none]
+** 3a1. AddressBook shows an error message.
++
+Use case resumes at step 2.
+
+* 3b. The given rating is not an integer.
++
+[none]
+** 3b1. AddressBook shows an error message.
++
+Use case resumes at step 2.
+
+* 4a. The person has already been rated.
++
+[none]
+** 4a1. AddressBook updates the rating for the person with the new rating.
++
+Use case ends.
+
+[discrete]
+=== Use case: Sort the employees by their rating
+
+*MSS*
+
+1. user requests to list employees sorted by their ratings
+2. AdressBook accesses the list of all employees
+3. AddressBook sorts the employees in the list by their ratings
+4. AddressBook shows the sorted list
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
 
 [discrete]
 === Use case: edit timetable entry
@@ -1018,6 +1116,10 @@ _{More to be added}_
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `1.8.0_60` or higher installed.
 .  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+.  the app should be used only by one user.
+.  only the owner can view the data in the app
+.  the app should be able to response the command within 500ms
+.  the app should be able to apply to people who are generally managing <=200 other people
 .  Users should prefer typing over mouse input or other input methods.
 .  Users should be comfortable using CLI apps.
 .  The app should not have flow flaws when running.
