@@ -806,7 +806,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *`|user |each employee has his/her dedicated timetable | trace progress of that person
 
-|`* * *`|user |add a timetable entry on anyone's timetable | assign jobs to employees 
+|`* * *`|user |add a timetable entry on anyone's timetable | assign jobs to employees
 
 |`* * *`|user |edit a timetable entry |update timetable entry information
 
@@ -814,7 +814,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *`|user |give employees a rating |evaluate their performance
 
-|`* * *`|user |change employees' rating | update my rarting record when the performance of an employee improves or 
+|`* * *`|user |change employees' rating | update my rarting record when the performance of an employee changes
 
 |`* * *`|user |add notes on a timetable entry or on a person | include more details about the entry
 
