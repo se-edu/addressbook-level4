@@ -1,7 +1,5 @@
 package seedu.address.logic.parser;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-
 import seedu.address.logic.commands.UnlockCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -18,6 +16,6 @@ public class UnlockCommandParser implements Parser<UnlockCommand> {
     public UnlockCommand parse(String args) throws ParseException {
         String trimmedArgs = args.trim();
 
-        return trimmedArgs.isEmpty()? new UnlockCommand("nopassword") : new UnlockCommand(trimmedArgs);
+        return trimmedArgs.isEmpty() ? new UnlockCommand("nopassword") : new UnlockCommand(trimmedArgs);
     }
 }
