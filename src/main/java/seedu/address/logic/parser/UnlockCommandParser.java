@@ -1,11 +1,14 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+
 import seedu.address.logic.commands.UnlockCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-
-public class UnlockCommandParser implements Parser<UnlockCommand>{
+/**
+ * Parses arguments for the UnlockCommand'
+ */
+public class UnlockCommandParser implements Parser<UnlockCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the FindCommand

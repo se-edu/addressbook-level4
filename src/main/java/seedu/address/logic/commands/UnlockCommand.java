@@ -1,8 +1,9 @@
 package seedu.address.logic.commands;
 
-import seedu.address.logic.LogicManager;
-
-public class UnlockCommand extends Command{
+/**
+ * Unlocks the addressbook
+ */
+public class UnlockCommand extends Command {
 
     public static final String COMMAND_WORD = "unlock";
 
@@ -18,7 +19,6 @@ public class UnlockCommand extends Command{
 
     @Override
     public CommandResult execute() {
-        LogicManager.isKnocked = false;
         return new CommandResult(MESSAGE_SUCCESS);
     }
 

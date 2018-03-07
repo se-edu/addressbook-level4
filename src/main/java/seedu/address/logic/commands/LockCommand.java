@@ -1,11 +1,12 @@
 package seedu.address.logic.commands;
 
-import seedu.address.logic.LogicManager;
 import seedu.address.model.person.HideAllPersonPredicate;
 
 
-
-public class LockCommand extends Command{
+/**
+ * Locks the app with a password
+ * */
+public class LockCommand extends Command {
 
     public static final String COMMAND_WORD = "lock";
 
@@ -28,10 +29,6 @@ public class LockCommand extends Command{
     @Override
     public CommandResult execute() {
         model.updateFilteredPersonList(predicate);
-        LogicManager.isKnocked = true;
-        if (password != null) {
-            LogicManager.password = password;
-        }
         return new CommandResult(MESSAGE_SUCCESS);
     }
 

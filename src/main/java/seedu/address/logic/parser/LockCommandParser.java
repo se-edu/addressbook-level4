@@ -3,6 +3,9 @@ package seedu.address.logic.parser;
 import seedu.address.logic.commands.LockCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
+/**
+ * Parse arguments for LockCommand
+ */
 public class LockCommandParser implements Parser<LockCommand> {
 
     /**
@@ -14,6 +17,6 @@ public class LockCommandParser implements Parser<LockCommand> {
         String trimmedArgs = args.trim();
 
 
-        return trimmedArgs.isEmpty()? new LockCommand() : new LockCommand(trimmedArgs);
+        return trimmedArgs.isEmpty() ? new LockCommand() : new LockCommand(trimmedArgs);
     }
 }
