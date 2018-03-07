@@ -802,29 +802,29 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *`|new user |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *`|user |add a new employee |
+|`* * *`|user |add a new person | include employees that have just entered the company
 
 |`* * *`|user |each employee has his/her dedicated timetable | trace progress of that person
 
-|`* * *`|user |add a timetable entry on anyone's timetable |
+|`* * *`|user |add a timetable entry on anyone's timetable | assign jobs to employees 
 
 |`* * *`|user |edit a timetable entry |update timetable entry information
 
-|`* * *`|user |delete a timetable entry |
+|`* * *`|user |delete a timetable entry | remove a job or event that is canceled
 
 |`* * *`|user |give employees a rating |evaluate their performance
 
-|`* * *`|user |change employees' rating |
+|`* * *`|user |change employees' rating | update my rarting record when the performance of an employee improves or 
 
-|`* * *`|user |add notes on a timetable entry or on a person |
+|`* * *`|user |add notes on a timetable entry or on a person | include more details about the entry
 
-|`* * *`|user |search employees by specific criteria |
+|`* * *`|user |search employees by specific criteria | search employees more easily
 
-|`* * *`|user |sort employee by name |locate an employee easily
+|`* *`|user |sort employee by name |locate an employee easily
 
-|`* * *`|user |sort the employees by their rating |give them bonus salaries accordingly
+|`* *`|user |sort the employees by their rating |give them bonus salaries accordingly
 
-|`* * *`|user |sort the employees by their salaries |see their salary conditions
+|`* *`|user |sort the employees by their salaries |see their salary conditions
 
 |`* *`|user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
 
@@ -832,9 +832,9 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* *`|user |start composing an email with a command |send an email to a specific person faster
 
-|`* *`|user |mass adding timetable entry to many employees' timetable at once |
+|`* *`|user |mass adding timetable entry to many employees' timetable at once | save time by not having to add the event to person by person
 
-|`* *`|user |be notified for any deadline for the timetable entry of my employees |
+|`* *`|user |be notified for any deadline for the timetable entry of my employees | be aware of employees who are late in submitting their work
 
 |`* *`|user |export my addressbook |share information with another user
 
@@ -848,7 +848,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`*`|user |login |have personalized privileges/window scheme
 
-|`*`|user |change the window scheme/theme/skin |
+|`*`|user |change the window scheme/theme/skin | have personalised experience in the app
 
 |`*`|user |know employees' location |search their location on the map
 
@@ -856,7 +856,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`*`|user |unlock the addressbook |continue to use the app after leaving it locked
 
-|`*`|user |write a review to an employee that has ever worked below me
+|`*`|user |write a review to an employee that has ever worked below me| information his/her current manager of his/her performance
 |=======================================================================
 
 _{More to be added}_
