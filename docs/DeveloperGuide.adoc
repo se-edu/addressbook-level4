@@ -852,6 +852,18 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`*`|user |know employees' location |search their location on the map
 
 |`*`|user |lock the addressbook |leave my app open while making unauthorized people cannot access it
+
+|`*` |user |unlock the addressbook |continue to use the app after leaving it locked
+
+|`* *` |user |mass adding timetable entry to many employees' timetable at once
+
+|`* *` |user |be notified for any deadline for the timetable entry of my employees
+
+|`* *` |user |export my addressbook | share information with another user
+
+|`* *` |user |import addressbook | obtain information from another user
+
+|`*` |user |write a review to an employee that has ever worked below me
 |=======================================================================
 
 _{More to be added}_
@@ -886,6 +898,9 @@ Use case ends.
 +
 Use case resumes at step 2.
 
+
+
+
 [discrete]
 === Use case: Give employees a rating
 
@@ -895,6 +910,7 @@ Use case resumes at step 2.
 2. AddressBook shows a list of employees
 3. user requests to give an employee a rating
 4. AddressBook add the rating
+
 +
 Use case ends.
 
@@ -1188,7 +1204,47 @@ Use case ends.
 ** 3a1. AddressBook shows an error message.
 ** Use case resumes at step 1.
 
+Use case: Lock the addressbook
+*MSS*
+1. User requests to lock the addressbook by entering "lock" and password
+2. AddressBook is locked unless user unlocks it.
+* 2a. When addressbook is locked, user are required to unlock the addressbook before any instruction.
++
+Use case ends.
+Use case: Unlock the addressbook
+1. User requests to unlock the addressbook by entering "unlock" and the password set earlier
+2. AddressBook unlocked. Use case ends.
+*Extensions*
+* 1a. The given password is incorrect, which means different from the one set earlier
+** 1a1. Addressbook shows an error message and requires to re-enter password
++
+Use case resumes at step 1
+
+
+Use case: Change an employee's rating
+1. User requests to list employees
+2. AddressBook shows a list of employees
+3. User requests to change the rating of one of the employees from the list
+4. AddressBook changes the rating of the employee.
++
+Use case ends.
+*Extensions*
+* 3a. The employee does not exist in addressbook.
+** 3a1. AddressBook shows an error message.
+Use case resumes at step 2.
+* 3b. The rate is out of bound.
+** 3b1. AddressBook shows an error message
++
+Use case resumes at step 2.
+
+
+Use case: Change the window scheme/theme/skin
+1. User requests to change the scheme/theme/skin on the User Interface
+2. AddressBook changes the scheme/theme/skin
++
+Use case ends.
 _{More to be added}_
+
 
 [appendix]
 == Non Functional Requirements
@@ -1213,6 +1269,12 @@ _{More to be added}_
 .  The app may utilise third party libraries, API and plug-ins.
 .  The app should be able to access the Internet.
 .  The app should be able to perform basic commands without internet access.
+.  Can type fast
+.  This application should work well both on 32-bit and 64-bit environments.
+.  Should be easy to use by new users
+.  This application should be stable and maintainable
+.  This application is open source
+
 
 _{More to be added}_
 
