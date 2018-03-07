@@ -1,13 +1,12 @@
 package seedu.address.model.person;
 
-import seedu.address.commons.util.StringUtil;
-
-import java.util.List;
 import java.util.function.Predicate;
 
-import javax.swing.*;
+/**
+* For hiding persons during lock
+*/
 
-public class HideAllPersonPredicate implements Predicate<Person>{
+public class HideAllPersonPredicate implements Predicate<Person> {
 
     public HideAllPersonPredicate() {}
 
