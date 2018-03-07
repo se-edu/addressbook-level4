@@ -782,13 +782,14 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
+* has a need to keep track of a significant number of employees
+* need to assign work to employees and keep track of it
 * prefer desktop apps over other types
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: keep track of employees and their work easily through a single app
 
 [appendix]
 == User Stories
@@ -798,15 +799,59 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *`|user |add a new employee |
 
-|`* * *` |user |add a new person |
+|`* * *`|user |sort employee by name |locate an employee easily
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *`|user |search employees by specific criteria |
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *`|new user |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *`|user |add a new person |
+
+|`* * *`|user |delete a person |remove entries that I no longer need
+
+|`* * *`|user |find a person by name |locate details of persons without having to go through the entire list
+
+|`* * *`|user |each employee has his/her dedicated timetable | trace progress of that person
+
+|`* * *`|user |add a timetable entry on anyone's timetable |
+
+|`* * *`|user |give employees a rating |evaluate their performance
+
+|`* * *`|user |change employees' rating |
+
+|`* * *`|user |sort the employees by their rating |give them bonus salaries accordingly
+
+|`* * *`|user |sort the employees by their salaries |see their salary conditions
+
+|`* * *`|user |add notes on a timetable entry or on a person |
+
+|`* * *`|user |edit a timetable entry |update timetable entry information
+
+|`* * *`|user |delete a timetable entry |
+
+|`* *`|user |have my own timetable |manage my own time
+
+|`* *`|user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+
+|`* *`|user |start composing an email with a command |send an email to a specific person faster
+
+|`*`|user with many persons in the address book |sort persons by name |locate a person easily
+
+|`*`|user |see timetable entries happening in other departments |be aware of the progress of other departments
+
+|`*`|user |view to-do-list |see my own upcoming jobs/events
+
+|`*`|user |export a list of people into excel sheet |do collective operations easily on other platform
+
+|`*`|user |login |have personalized privileges/window scheme
+
+|`*`|user |change the window scheme/theme/skin |
+
+|`*`|user |know employees' location |search their location on the map
+
+|`*`|user |lock the addressbook |leave my app open while making unauthorized people cannot access it
 
 |`*` |user |unlock the addressbook |continue to use the app after leaving it locked
 
@@ -819,25 +864,23 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`* *` |user |import addressbook | obtain information from another user
 
 |`*` |user |write a review to an employee that has ever worked below me
-
 |=======================================================================
 
 _{More to be added}_
-
 [appendix]
 == Use Cases
 
 (For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: Add a timetable entry on anyone's timetable
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1. user requests to list employees
+2. AddressBook shows a list of employees
+3. user requests to add a entry to an employee's timetable
+4. AddressBook adds the entry
 +
 Use case ends.
 
@@ -856,20 +899,318 @@ Use case ends.
 Use case resumes at step 2.
 
 
-Use case: Lock the addressbook
+
+
+[discrete]
+=== Use case: Give employees a rating
+
 *MSS*
-1. User requests to lock the addressbook by entering "lock" and password
-2. AddressBook is locked unless user unlocks it.
+
+1. user requests to list employees
+2. AddressBook shows a list of employees
+3. user requests to give an employee a rating
+4. AddressBook add the rating
+
 +
 Use case ends.
 
 *Extensions*
 
-* 2a. When addressbook is locked, user are required to unlock the addressbook before any instruction.
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The given index is invalid.
++
+[none]
+** 3a1. AddressBook shows an error message.
++
+Use case resumes at step 2.
+
+* 3b. The given rating is not an integer.
++
+[none]
+** 3b1. AddressBook shows an error message.
++
+Use case resumes at step 2.
+
+* 4a. The person has already been rated.
++
+[none]
+** 4a1. AddressBook updates the rating for the person with the new rating.
++
+Use case ends.
+
+[discrete]
+=== Use case: Sort the employees by their rating
+
+*MSS*
+
+1. user requests to list employees sorted by their ratings
+2. AdressBook accesses the list of all employees
+3. AddressBook sorts the employees in the list by their ratings
+4. AddressBook shows the sorted list
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+[discrete]
+=== Use Case: Mass adding timetable entry to many employees' timetable at once
+
+*MSS*
+
+1. User requests to list all employees
+2. AddressBook shows a list of all employees
+3. User requests to add timetable entry to many employees
+4. AddressBook add the entry to many employees
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The index range given is invalid.
++
+[none]
+** 3a1. AddressBook shows an error message.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use Case: Write a review to an employee that has ever worked below me
+
+*MSS*
+
+1. User requests to list all employees
+2. AddressBook shows a list of all employees
+3. User requests to add review to an employee
+4. AddressBook add the review to the employee
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The index given is invalid.
++
+[none]
+** 3a1. AddressBook shows an error message.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use Case: Export AddressBook
+
+*MSS*
+
+1. User requests export AddressBook into a directory
+2. AddressBook export the AddressBook data in a file to the directory specified
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The directory is invalid.
++
+[none]
+** 1a1. AddressBook shows an error message.
++
+Use case ends.
+
+[discrete]
+=== Use Case: Import AddressBook
+
+*MSS*
+
+1. User requests import AddressBook file from a directory
+2. AddressBook import the AddressBook data from the file in the directory specified
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The directory is invalid.
++
+[none]
+** 1a1. AddressBook shows an error message.
 +
 Use case ends.
 
 
+[discrete]
+=== Use case: edit timetable entry
+*MSS*
+
+1. User requests to list all persons.
+2. User requests to view the timetable of a person.
+3. AddressBook shows the timetable of that person.
+4. User requests to update the information of an entry in the timetable.
+5. AddressBook updates the new information for that timetable entry.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The list is empty.
++
+Use case ends.
+
+* 2a. The given index is invalid.
++
+[none]
+** 2a1. AddressBook shows an error message.
++
+Use case resumes at step 2.
+
+* 2b. The person has no timetable entry.
++
+Use case ends.
+
+* 4a. The event name provided by user doesn't exist.
++
+[none]
+** 4a1. AddressBook shows an error message
++
+Use case resumes at step 2.
+
+* 4b. The new information given by user doesn't follow command format
+[none]
+** 4b1. AddressBook shows an error message
+
+** Use case resumes at step 2.
+
+* 5a. AddressBook couldn't write to save file.
+[none]
+** 5a1. AddressBook shows error message and requests user to resolve the error.
+** 5a2. User resolves the error.
+** Use case resumes at step 5.
+
+[discrete]
+=== Use case: delete a timetable entry
+*MSS*
+
+1. User requests to list all persons.
+2. User requests to view the timetable of a person.
+3. AddressBook shows the timetable of that person.
+4. User requests to delete an entry in that person's timetable.
+5. AddressBook deletes the timetable entry.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. The list is empty.
++
+[none]
+Use case ends.
+
+* 2a. The given index is invalid.
+[none]
+** 2a1. AddressBook shows an error message.
+** Use case resumes at step 2.
+* 2b. The person has no timetable entry.
+* Use case ends.
+* 4a. The event name provided by user doesn't exist.
+[none]
+** 4a1. AddressBook shows an error message
+** Use case resumes at step 2.
+* 5a. AddressBook couldn't write to save file.
+[none]
+** 5a1. AddressBook shows error message and requests user to resolve the error.
+** 5a2. User resolves the error.
+** Use case resumes at step 5.
+
+[discrete]
+=== Use case: start composing email
+*MSS*
+
+1. User requests to list all persons.
+2. User requests to email a person in the list.
+3. AddressBook opens up a webpage for composing email to that person.
++
+Use case ends.
+
+*Extensions*
+[none]
+* 1a. The list is empty.
+* Use case ends.
+* 2a. The given index is invalid.
+[none]
+** 2a1. AddressBook shows an error message.
+** Use case resumes at step 2.
+* 3a. The computer has no access to internet.
+[none]
+** 3a1. AddressBook shows error message.
+** Use case ends.
+
+[discrete]
+=== Use case: export a list of people as Excel spreadsheet
+*MSS*
+
+1. User requests to list all persons, or perform a search.
+2. User requests to export the list of persons as excel sheet and save it in a save file path.
+3. AddressBook exports the list of persons as excel sheet.
++
+Use case ends.
+
+*Extensions*
+[none]
+* 1a. The list is empty.
+* Use case ends.
+* 2a. The given save file path is invalid.
+[none]
+** 2a1. AddressBook shows an error message.
+** Use case resumes at step 2.
+* 3a. AddressBook couldn't write to save file.
+[none]
+** 3a1. AddressBook shows error message and requests user to resolve the error.
+** 3a2. User resolves the error.
+** Use case ends.
+
+[discrete]
+=== Use case: login
+*MSS*
+
+1. User starts the AddressBook program.
+2. AddressBook requests user to enter username and password.
+3. User enters his username and password
+4. AddressBook shows the content.
++
+Use case ends.
+
+*Extensions*
+[none]
+* 3a. The user enters an invalid username or wrong password.
+[none]
+** 3a1. AddressBook shows an error message.
+** Use case resumes at step 1.
+
+Use case: Lock the addressbook
+*MSS*
+1. User requests to lock the addressbook by entering "lock" and password
+2. AddressBook is locked unless user unlocks it.
+* 2a. When addressbook is locked, user are required to unlock the addressbook before any instruction.
++
+Use case ends.
 Use case: Unlock the addressbook
 1. User requests to unlock the addressbook by entering "unlock" and the password set earlier
 2. AddressBook unlocked. Use case ends.
@@ -904,17 +1245,36 @@ Use case: Change the window scheme/theme/skin
 Use case ends.
 _{More to be added}_
 
+
 [appendix]
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `1.8.0_60` or higher installed.
 .  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+.  The app should be used only by one user.
+.  Only the owner can view the data in the app
+.  The app should be able to response the command within 500ms
+.  The app should be able to apply to people who are generally managing <=200 other people
+.  Should not consume memory more than 2GB
+.  Should be able to be run easily by non-technical user
+.  The save file of the app should be cross-compatible
+.  the app should be used only by one user.
+.  only the owner can view the data in the app
+.  the app should be able to response the command within 500ms
+.  the app should be able to apply to people who are generally managing <=200 other people
+.  Users should prefer typing over mouse input or other input methods.
+.  Users should be comfortable using CLI apps.
+.  The app should not have flow flaws when running.
+.  The app may utilise third party libraries, API and plug-ins.
+.  The app should be able to access the Internet.
+.  The app should be able to perform basic commands without internet access.
 .  Can type fast
 .  This application should work well both on 32-bit and 64-bit environments.
 .  Should be easy to use by new users
 .  This application should be stable and maintainable
 .  This application is open source
+
 
 _{More to be added}_
 
