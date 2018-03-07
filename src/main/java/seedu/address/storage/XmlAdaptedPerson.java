@@ -138,7 +138,7 @@ public class XmlAdaptedPerson {
         final Address address = new Address(this.address);
 
         if (this.rating == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName()));
+            this.rating = (new Rating()).toString();
         }
         if (!Rating.isValidRating(this.rating)) {
             throw new IllegalValueException(Rating.MESSAGE_RATING_CONSTRAINTS);
