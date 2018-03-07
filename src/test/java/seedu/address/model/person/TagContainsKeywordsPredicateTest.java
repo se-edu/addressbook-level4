@@ -40,9 +40,12 @@ public class TagContainsKeywordsPredicateTest {
 
     @Test
     public void test_tagContainsKeywords_returnsTrue() {
+        // Zero keywords
+        TagContainsKeywordsPredicate predicate = new TagContainsKeywordsPredicate(Collections.emptyList());
+        assertTrue(predicate.test(new PersonBuilder().withTags("Friends").build()));
+
         // One keyword
-        TagContainsKeywordsPredicate predicate =
-                new TagContainsKeywordsPredicate(Collections.singletonList("Friends"));
+        predicate = new TagContainsKeywordsPredicate(Collections.singletonList("Friends"));
         assertTrue(predicate.test(new PersonBuilder().withTags("Friends", "Colleagues").build()));
 
         // Multiple keywords
@@ -60,12 +63,8 @@ public class TagContainsKeywordsPredicateTest {
 
     @Test
     public void test_nameDoesNotContainKeywords_returnsFalse() {
-        // Zero keywords
-        TagContainsKeywordsPredicate predicate = new TagContainsKeywordsPredicate(Collections.emptyList());
-        assertFalse(predicate.test(new PersonBuilder().withTags("Friends").build()));
-
         // Non-matching keyword
-        predicate = new TagContainsKeywordsPredicate(Arrays.asList("Friends"));
+        TagContainsKeywordsPredicate predicate = new TagContainsKeywordsPredicate(Arrays.asList("Friends"));
         assertFalse(predicate.test(new PersonBuilder().withTags("Enemy", "Nemesis").build()));
 
         // Keywords match name, phone, email and address, but does not match tag
