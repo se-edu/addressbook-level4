@@ -142,6 +142,8 @@ public abstract class AddressBookSystemTest {
     protected void showAllPersons() {
         executeCommand(ListCommand.COMMAND_WORD);
         assertEquals(getModel().getAddressBook().getPersonList().size(), getModel().getFilteredPersonList().size());
+        executeCommand(ListCommand.COMMAND_ALIAS);
+        assertEquals(getModel().getAddressBook().getPersonList().size(), getModel().getFilteredPersonList().size());
     }
 
     /**
@@ -149,6 +151,8 @@ public abstract class AddressBookSystemTest {
      */
     protected void showPersonsWithName(String keyword) {
         executeCommand(FindCommand.COMMAND_WORD + " " + keyword);
+        assertTrue(getModel().getFilteredPersonList().size() < getModel().getAddressBook().getPersonList().size());
+        executeCommand(FindCommand.COMMAND_ALIAS + " " + keyword);
         assertTrue(getModel().getFilteredPersonList().size() < getModel().getAddressBook().getPersonList().size());
     }
 
@@ -158,6 +162,8 @@ public abstract class AddressBookSystemTest {
     protected void selectPerson(Index index) {
         executeCommand(SelectCommand.COMMAND_WORD + " " + index.getOneBased());
         assertEquals(index.getZeroBased(), getPersonListPanel().getSelectedCardIndex());
+        executeCommand(SelectCommand.COMMAND_ALIAS + " " + index.getOneBased());
+        assertEquals(index.getZeroBased(), getPersonListPanel().getSelectedCardIndex());
     }
 
     /**
@@ -165,6 +171,8 @@ public abstract class AddressBookSystemTest {
      */
     protected void deleteAllPersons() {
         executeCommand(ClearCommand.COMMAND_WORD);
+        assertEquals(0, getModel().getAddressBook().getPersonList().size());
+        executeCommand(ClearCommand.COMMAND_ALIAS);
         assertEquals(0, getModel().getAddressBook().getPersonList().size());
     }
 

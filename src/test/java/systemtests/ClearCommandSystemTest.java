@@ -56,6 +56,48 @@ public class ClearCommandSystemTest extends AddressBookSystemTest {
         assertCommandFailure("ClEaR", MESSAGE_UNKNOWN_COMMAND);
     }
 
+    @Test
+    public void clearAlias() {
+        final Model defaultModel = getModel();
+
+        /* Case: clear non-empty address book, command with leading spaces and trailing alphanumeric characters and
+         * spaces -> cleared
+         */
+        assertCommandSuccess("   " + ClearCommand.COMMAND_ALIAS + " ab12   ");
+        assertSelectedCardUnchanged();
+
+        /* Case: undo clearing address book -> original address book restored */
+        String command = UndoCommand.COMMAND_ALIAS;
+        String expectedResultMessage = UndoCommand.MESSAGE_SUCCESS;
+        assertCommandSuccess(command,  expectedResultMessage, defaultModel);
+        assertSelectedCardUnchanged();
+
+        /* Case: redo clearing address book -> cleared */
+        command = RedoCommand.COMMAND_ALIAS;
+        expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
+        assertCommandSuccess(command, expectedResultMessage, new ModelManager());
+        assertSelectedCardUnchanged();
+
+        /* Case: selects first card in person list and clears address book -> cleared and no card selected */
+        executeCommand(UndoCommand.COMMAND_ALIAS); // restores the original address book
+        selectPerson(Index.fromOneBased(1));
+        assertCommandSuccess(ClearCommand.COMMAND_ALIAS);
+        assertSelectedCardDeselected();
+
+        /* Case: filters the person list before clearing -> entire address book cleared */
+        executeCommand(UndoCommand.COMMAND_ALIAS); // restores the original address book
+        showPersonsWithName(KEYWORD_MATCHING_MEIER);
+        assertCommandSuccess(ClearCommand.COMMAND_ALIAS);
+        assertSelectedCardUnchanged();
+
+        /* Case: clear empty address book -> cleared */
+        assertCommandSuccess(ClearCommand.COMMAND_ALIAS);
+        assertSelectedCardUnchanged();
+
+        /* Case: mixed case command word -> rejected */
+        assertCommandFailure("ClEaR", MESSAGE_UNKNOWN_COMMAND);
+    }
+
     /**
      * Executes {@code command} and verifies that the command box displays an empty string, the result display
      * box displays {@code ClearCommand#MESSAGE_SUCCESS} and the model related components equal to an empty model.
