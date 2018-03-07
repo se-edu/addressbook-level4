@@ -61,6 +61,8 @@ public class LogicManager extends ComponentManager implements Logic {
                     isKnocked = true;
                     if (((LockCommand) command).getPassword() != null) {
                         password = ((LockCommand) command).getPassword();
+                    } else {
+                        password = "nopassword";
                     }
                 }
                 undoRedoStack.push(command);
