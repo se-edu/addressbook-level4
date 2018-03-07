@@ -7,7 +7,7 @@ import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.UnknockCommand;
+import seedu.address.logic.commands.UnlockCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -43,16 +43,16 @@ public class LogicManager extends ComponentManager implements Logic {
             CommandResult result = new CommandResult("");
             if (isKnocked) {
                 command = addressBookParser.parseCommand(commandText);
-                if (command instanceof UnknockCommand) {
-                    UnknockCommand unknockCommand = (UnknockCommand) command;
+                if (command instanceof UnlockCommand) {
+                    UnlockCommand unknockCommand = (UnlockCommand) command;
                     if (unknockCommand.getPassword().compareTo(password) == 0) {
                         isKnocked = false;
-                        result = new CommandResult(UnknockCommand.MESSAGE_SUCCESS);
+                        result = new CommandResult(UnlockCommand.MESSAGE_SUCCESS);
                     } else {
-                        result = new CommandResult("incorrect unknock password!");
+                        result = new CommandResult("incorrect unlock password!");
                     }
                 } else {
-                    result = new CommandResult("Addressbook has been knocked, please unknock it first!");
+                    result = new CommandResult("Addressbook has been locked, please unlock it first!");
                 }
             } else {
                 command = addressBookParser.parseCommand(commandText);

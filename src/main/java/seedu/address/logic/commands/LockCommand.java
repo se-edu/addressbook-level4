@@ -5,23 +5,23 @@ import seedu.address.model.person.HideAllPersonPredicate;
 
 
 
-public class KnockCommand extends Command{
+public class LockCommand extends Command{
 
-    public static final String COMMAND_WORD = "knock";
+    public static final String COMMAND_WORD = "lock";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Knock the address book. ";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Lock the address book. ";
 
-    public static final String MESSAGE_SUCCESS = "Address book has been knocked!";
+    public static final String MESSAGE_SUCCESS = "Address book has been locked!";
 
     private static String password;
 
     private final HideAllPersonPredicate predicate = new HideAllPersonPredicate();
 
-    public KnockCommand() {
+    public LockCommand() {
         this.password = null;
     }
 
-    public KnockCommand(String keyword) {
+    public LockCommand(String keyword) {
         this.password = keyword;
     }
 

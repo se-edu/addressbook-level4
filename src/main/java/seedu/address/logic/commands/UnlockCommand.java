@@ -2,17 +2,17 @@ package seedu.address.logic.commands;
 
 import seedu.address.logic.LogicManager;
 
-public class UnknockCommand extends Command{
+public class UnlockCommand extends Command{
 
-    public static final String COMMAND_WORD = "unknock";
+    public static final String COMMAND_WORD = "unlock";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Knock the address book. ";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Unlock the address book. ";
 
-    public static final String MESSAGE_SUCCESS = "Address book has been unknocked!";
+    public static final String MESSAGE_SUCCESS = "Address book has been unlocked!";
 
     private static String password;
 
-    public UnknockCommand(String keyword) {
+    public UnlockCommand(String keyword) {
         this.password = keyword;
     }
 
