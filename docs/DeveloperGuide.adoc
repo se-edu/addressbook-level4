@@ -935,6 +935,7 @@ Use case ends.
 == Use case: Edit person
 
 *MSS*
+
 1. User requests to edit person by entering person’s name and new parameter(s)
 2. AddressBook shows confirm message.
 3. User confirms to edit the Person.
