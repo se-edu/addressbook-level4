@@ -64,6 +64,8 @@ public class Person {
         return rating;
     }
 
+    public String getRatingDisplay() { return rating.getRatingDisplay();}
+
     public Address getAddress() {
         return address;
     }
@@ -110,7 +112,7 @@ public class Person {
                 .append(" Address: ")
                 .append(getAddress())
                 .append(" Rating: ")
-                .append(getRating())
+                .append(getRatingDisplay())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();

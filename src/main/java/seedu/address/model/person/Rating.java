@@ -9,6 +9,9 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Rating {
     public static final String MESSAGE_RATING_CONSTRAINTS = "Rating must be an integer";
     public static final String RATING_VALIDATION_REGEX = "-?\\d*";
+    private static final String INVALID_RATING_DISPLAY = "-";
+    private static final String RATING_DISPLAY = "*";
+
     public final Integer value;
 
     /**
@@ -50,5 +53,19 @@ public class Rating {
     @Override
     public int hashCode() {
         return value.hashCode();
+    }
+
+    public String getRatingDisplay() {
+        if(value == -1)
+            return INVALID_RATING_DISPLAY;
+        else
+            return convertRatingToStars(value);
+    }
+
+    private String convertRatingToStars(int rating) {
+        StringBuilder sb = new StringBuilder();
+        while(rating-- > 0)
+            sb.append(RATING_DISPLAY);
+        return sb.toString();
     }
 }
