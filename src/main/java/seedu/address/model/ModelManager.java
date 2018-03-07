@@ -82,7 +82,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     public void sortPersons(){
-        addressBook.sort();
+        addressBook.sortPersons();
     }
 
     //=========== Filtered Person List Accessors =============================================================
