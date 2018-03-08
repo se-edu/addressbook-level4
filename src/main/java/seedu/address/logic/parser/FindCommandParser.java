@@ -5,6 +5,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.FindCommand;
@@ -31,17 +32,14 @@ public class FindCommandParser implements Parser<FindCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         }
 
-        String[] nameKeywords = new String[0];
-        String[] tagKeywords = new String[0];
+        List<String> nameKeywords = argMultimap.getAllValues(PREFIX_NAME);
+        List<String> tagKeywords = argMultimap.getAllValues(PREFIX_TAG);
 
-        if (arePrefixesPresent(argMultimap, PREFIX_NAME)) {
-            nameKeywords = argMultimap.getValue(PREFIX_NAME).get().split("\\s+");
-        }
-        if (arePrefixesPresent(argMultimap, PREFIX_TAG)) {
-            tagKeywords = argMultimap.getValue(PREFIX_TAG).get().split("\\s+");
+        if (nameKeywords.contains("") || tagKeywords.contains("")) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         }
 
-        return new FindCommand(new ContainKeywordsPredicate(Arrays.asList(nameKeywords), Arrays.asList(tagKeywords)));
+        return new FindCommand(new ContainKeywordsPredicate(nameKeywords, tagKeywords));
     }
 
     /**
