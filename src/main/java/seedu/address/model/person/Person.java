@@ -16,6 +16,7 @@ import seedu.address.model.tag.UniqueTagList;
 public class Person {
 
     private final Name name;
+    private final Age age;
     private final Phone phone;
     private final Email email;
     private final Address address;
@@ -28,6 +29,7 @@ public class Person {
     public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
         requireAllNonNull(name, phone, email, address, tags);
         this.name = name;
+        this.age = new Age(12);
         this.phone = phone;
         this.email = email;
         this.address = address;
@@ -38,6 +40,8 @@ public class Person {
     public Name getName() {
         return name;
     }
+
+    public Age getAge() { return age; }
 
     public Phone getPhone() {
         return phone;
