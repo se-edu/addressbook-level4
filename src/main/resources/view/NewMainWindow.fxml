@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import com.jfoenix.controls.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.Image?>
+<?import java.net.URL?>
+
+<fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+         minWidth="450" minHeight="600">
+    <icons>
+        <Image url="@/images/address_book_32.png" />
+    </icons>
+    <scene>
+        <Scene>
+            <stylesheets>
+                <URL value="@DarkTheme.css" />
+                <URL value="@Extensions.css" />
+            </stylesheets>
+
+
+            <AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="background" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+                <children>
+
+                    <StackPane fx:id="commandBoxPlaceholder" layoutX="250.0" layoutY="300.0" prefHeight="53.0" prefWidth="336.0" styleClass="pane-with-border" AnchorPane.bottomAnchor="90.0" AnchorPane.leftAnchor="254.0" AnchorPane.rightAnchor="10.0">
+                        <padding>
+                            <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+                        </padding></StackPane>
+
+                    <StackPane fx:id="resultDisplayPlaceholder" layoutX="264.0" layoutY="330.0" prefHeight="53.0" prefWidth="336.0" styleClass="pane-with-border" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="254.0" AnchorPane.rightAnchor="10.0">
+                        <padding>
+                            <Insets bottom="5.0" left="10.0" right="10.0" top="5.0" />
+                        </padding></StackPane>
+
+                    <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.42" layoutX="7.0" layoutY="7.0" prefHeight="264.0" prefWidth="600.0" AnchorPane.bottomAnchor="150.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <items>
+                            <VBox fx:id="personList" prefHeight="262.0" prefWidth="293.0" SplitPane.resizableWithParent="false">
+                                <padding>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                </padding>
+                                <children>
+                                    <StackPane fx:id="personListPanelPlaceholder" prefHeight="242.0" prefWidth="228.0" VBox.vgrow="ALWAYS" />
+                                </children>
+                            </VBox>
+
+                            <StackPane fx:id="browserPlaceholder" prefHeight="150.0" prefWidth="200.0">
+                                <padding>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                </padding>
+                            </StackPane>
+                        </items>
+                    </SplitPane>
+
+
+
+                    <JFXDrawer fx:id="menuDrawer" defaultDrawerSize="200.0" direction="RIGHT" layoutX="490.0" layoutY="10.0" prefHeight="87.0" prefWidth="100.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="40.0" />
+                    <JFXHamburger fx:id="menuButton" layoutX="556.0" layoutY="14.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0" />
+
+                    <StackPane fx:id="statusbarPlaceholder" layoutY="264.0" prefHeight="20.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                </children>
+            </AnchorPane>
+        </Scene>
+    </scene>
+</fx:root>
