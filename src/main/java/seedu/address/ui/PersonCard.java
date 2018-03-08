@@ -69,7 +69,7 @@ public class PersonCard extends UiPart<Region> {
         person.getTags().forEach(tag -> {
             Label tagLabel = new Label(tag.tagName);
             String labelBackgroundColor = getTagColorStyleFor(tag.tagName);
-            tagLabel.setStyle("-fx-background-color: " + labelBackgroundColor + ";");
+            UiUtil.setLabelBackgroundColor(tagLabel, labelBackgroundColor);
             tags.getChildren().add(tagLabel);
         });
     }
