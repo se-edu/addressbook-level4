@@ -10,31 +10,31 @@ import org.junit.Test;
 public class UiUtilTest {
 
     @Test
-    public void convertHexStringToValidColorCode() {
+    public void convertStringToValidColorCode() {
 
         // empty string
         assertTrue(Pattern.matches(UiUtil.HEX_COLOR_REGEX,
-                UiUtil.convertHexStringToValidColorCode("")));
+                UiUtil.convertStringToValidColorCode("")));
 
-        // valid hexadecimal color code
+        // valid hexadecimal
         assertTrue(Pattern.matches(UiUtil.HEX_COLOR_REGEX,
-                UiUtil.convertHexStringToValidColorCode("01fb45")));
+                UiUtil.convertStringToValidColorCode("01fb45")));
 
-        // valid hexadecimal color code with whitespace
+        // valid hexadecimal with whitespace
         assertTrue(Pattern.matches(UiUtil.HEX_COLOR_REGEX,
-                UiUtil.convertHexStringToValidColorCode("  cd  eff  f")));
+                UiUtil.convertStringToValidColorCode("  cd  eff  f")));
 
-        // invalid hexadecimal color code valid hexadecimal number
+        // valid hexadecimal with varying lengths
         assertTrue(Pattern.matches(UiUtil.HEX_COLOR_REGEX,
-                UiUtil.convertHexStringToValidColorCode("1a2b")));
+                UiUtil.convertStringToValidColorCode("1a2b")));
         assertTrue(Pattern.matches(UiUtil.HEX_COLOR_REGEX,
-                UiUtil.convertHexStringToValidColorCode("1a2bfc124ab")));
+                UiUtil.convertStringToValidColorCode("1a2bfc124ab")));
 
-        // invalid hexadecimal color code with random whitespace
+        // valid hexadecimal with varying lengths and with random whitespace
         assertTrue(Pattern.matches(UiUtil.HEX_COLOR_REGEX,
-                UiUtil.convertHexStringToValidColorCode("  1  a  2b ")));
+                UiUtil.convertStringToValidColorCode("  1  a  2b ")));
         assertTrue(Pattern.matches(UiUtil.HEX_COLOR_REGEX,
-                UiUtil.convertHexStringToValidColorCode(" 1a2 bfc12  4ab ")));
+                UiUtil.convertStringToValidColorCode(" 1a2 bfc12  4ab ")));
     }
 }
 //@@author RyanAngJY

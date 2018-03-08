@@ -8,5 +8,6 @@ public class CssSyntax {
 
     /* Prefix definitions */
     public static final String CSS_PROPERTY_BACKGROUND_COLOR = "-fx-background-color: ";
+    public static final String CSS_PROPERTY_TEXT_COLOR = "-fx-text-fill: ";
 }
 //@@author RyanAngJY
