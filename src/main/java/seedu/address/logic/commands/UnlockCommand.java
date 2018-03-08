@@ -1,5 +1,7 @@
 package seedu.address.logic.commands;
 
+import seedu.address.logic.LogicManager;
+
 /**
  * Unlocks the addressbook
  */
@@ -11,7 +13,9 @@ public class UnlockCommand extends Command {
 
     public static final String MESSAGE_SUCCESS = "Address book has been unlocked!";
 
-    private static String password;
+    public static final String MESSAGE_INCORRECT_PASSWORD = "Incorrect unlock password!";
+
+    private String password;
 
     public UnlockCommand(String keyword) {
         this.password = keyword;
@@ -19,10 +23,22 @@ public class UnlockCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        return new CommandResult(MESSAGE_SUCCESS);
+        if (this.password.compareTo(LogicManager.getPassword()) == 0) {
+            LogicManager.unLock();
+            return new CommandResult(MESSAGE_SUCCESS);
+        } else {
+            return new CommandResult(MESSAGE_INCORRECT_PASSWORD);
+        }
     }
 
-    public static String getPassword() {
+    public String getPassword() {
         return password;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof UnlockCommand // instanceof handles nulls
+                && this.password.equals(((UnlockCommand) other).getPassword())); // state check
     }
 }
