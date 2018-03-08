@@ -6,7 +6,10 @@ import org.junit.Test;
 
 import seedu.address.logic.commands.UnlockCommand;
 
-
+/**
+ * Test scope: similar to {@code UnlockCommandParserTest}.
+ * @see UnlockCommandParserTest
+ */
 public class UnlockCommandParserTest {
 
     private UnlockCommandParser parser = new UnlockCommandParser();

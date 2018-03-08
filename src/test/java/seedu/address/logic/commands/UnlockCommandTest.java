@@ -46,6 +46,9 @@ public class UnlockCommandTest {
     @Test
     public void unlockSuccess() {
 
+        LockCommand testLockCommand = new LockCommand("1234");
+        testLockCommand.setData(model, new CommandHistory(), new UndoRedoStack());
+        testLockCommand.execute();
         UnlockCommand testUnlockCommand = new UnlockCommand("1234");
         testUnlockCommand.setData(model, new CommandHistory(), new UndoRedoStack());
         String expectedMessage = UnlockCommand.MESSAGE_SUCCESS;
@@ -54,6 +57,18 @@ public class UnlockCommandTest {
         assertEquals(expectedMessage, commandResult.feedbackToUser);
     }
 
+    @Test
+    public void unlockFail() {
 
+        LockCommand testLockCommand = new LockCommand("123");
+        testLockCommand.setData(model, new CommandHistory(), new UndoRedoStack());
+        testLockCommand.execute();
+        UnlockCommand testUnlockCommand = new UnlockCommand("1234");
+        testUnlockCommand.setData(model, new CommandHistory(), new UndoRedoStack());
+        String expectedMessage = UnlockCommand.MESSAGE_INCORRECT_PASSWORD;
+        CommandResult commandResult = testUnlockCommand.execute();
+
+        assertEquals(expectedMessage, commandResult.feedbackToUser);
+    }
 
 }

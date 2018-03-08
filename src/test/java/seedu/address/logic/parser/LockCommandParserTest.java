@@ -6,7 +6,10 @@ import org.junit.Test;
 
 import seedu.address.logic.commands.LockCommand;
 
-
+/**
+ * Test scope: similar to {@code LockCommandParserTest}.
+ * @see LockCommandParserTest
+ */
 public class LockCommandParserTest {
 
     private LockCommandParser parser = new LockCommandParser();
