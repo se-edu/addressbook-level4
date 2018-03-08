@@ -1057,12 +1057,20 @@ _{More to be added}_
 .  Should be able to be used with any OS.
 .  Should allow the user to not have to use their mouse.
 .  Should be secure from users trying to enter malicious commands.
-
-_{More to be added}_
+.  Should be intuitive for any user that has experience using an address book (i.e add,delete,sort,list)
+.  Should be able to respond to queries from users within 1 second
+.  Should be able to export database to a spreadsheet .csv format
+.  Should be able to assist the user in better managing his client database by providing a dashboard view of his client information
+.  Should be able to work without an internet connection
 
 [appendix]
 == Glossary
-
+User
+.  An User is defined as the insurance agent.
+Mainstream OS
+.  A mainstream OS includes Windows, Linux, Unix and OS-X
+Client Information
+.  Client Information includes all personal details and metrics.
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
