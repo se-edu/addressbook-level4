@@ -782,7 +782,8 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
+* Salespeople
+* has a need to manage a significant number of people into either Leads or Contacts
 * prefer desktop apps over other types
 * can type fast
 * prefers typing over mouse input
@@ -800,7 +801,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` |user |add a new person |
+|`* * *` |user |add a new Lead or Contact|organise my sales targets better for future decisions
 
 |`* * *` |user |delete a person |remove entries that I no longer need
 
