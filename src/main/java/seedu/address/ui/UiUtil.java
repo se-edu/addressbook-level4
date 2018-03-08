@@ -14,13 +14,13 @@ import javafx.scene.control.Label;
 public class UiUtil {
 
     public static final String HEX_REGEX = "[A-Fa-f0-9]*";
+    public static final String HEX_COLOR_BLACK = "#000000";
+    public static final String HEX_COLOR_WHITE = "#FFFFFF";
 
     public static final String HEX_COLOR_REGEX = "#([A-Fa-f0-9]{6})";
     private static final char HEX_COLOR_PREFIX = '#';
     private static final String HEX_COLOR_BUFFER = "000000";
     private static final int HEX_COLOR_LENGTH = 6;
-    private static final String HEX_COLOR_BLACK = "#000000";
-    private static final String HEX_COLOR_WHITE = "#FFFFFF";
 
     private static final String NEUTRAL_COLOR_DENSITY = "88";
 
