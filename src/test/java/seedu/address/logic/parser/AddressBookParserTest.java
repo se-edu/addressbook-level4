@@ -8,7 +8,6 @@ import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -79,10 +78,15 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_find() throws Exception {
-        List<String> keywords = Arrays.asList("foo", "bar", "baz");
+        List<String> nameKeywords = Arrays.asList("foo", "bar", "baz");
+        List<String> tagKeywords = Arrays.asList("friend", "family");
         FindCommand command = (FindCommand) parser.parseCommand(
-                FindCommand.COMMAND_WORD + " n/" + keywords.stream().collect(Collectors.joining(" ")));
-        assertEquals(new FindCommand(new ContainKeywordsPredicate(keywords, Collections.emptyList())), command);
+                FindCommand.COMMAND_WORD
+                        + " n/"
+                        + nameKeywords.stream().collect(Collectors.joining(" n/"))
+                        + " t/"
+                        + tagKeywords.stream().collect(Collectors.joining(" t/")));
+        assertEquals(new FindCommand(new ContainKeywordsPredicate(nameKeywords, tagKeywords)), command);
     }
 
     @Test
