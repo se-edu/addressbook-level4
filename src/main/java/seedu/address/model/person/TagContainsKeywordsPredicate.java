@@ -29,7 +29,7 @@ public class TagContainsKeywordsPredicate implements Predicate<Person> {
                 .replace("]", "");
         return keywords.isEmpty()
                 ||  keywords.stream()
-                .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(tagStringList, keyword));
+                .anyMatch(keyword -> StringUtil.containsWordsIgnoreCase(tagStringList, keyword));
     }
 
     @Override
