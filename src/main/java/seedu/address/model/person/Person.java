@@ -22,6 +22,7 @@ public class Person {
     private final Address address;
 
     private final UniqueTagList tags;
+    private final Income income;
 
     /**
      * Every field must be present and not null.
@@ -35,6 +36,7 @@ public class Person {
         this.address = address;
         // protect internal tags from changes in the arg list
         this.tags = new UniqueTagList(tags);
+        this.income = new Income(29000);
     }
 
     public Name getName() {
@@ -53,6 +55,10 @@ public class Person {
 
     public Address getAddress() {
         return address;
+    }
+
+    public Income getIncome() {
+        return this.income;
     }
 
     /**
