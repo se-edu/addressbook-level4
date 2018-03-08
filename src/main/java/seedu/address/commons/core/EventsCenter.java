@@ -14,6 +14,9 @@ public class EventsCenter {
     private static EventsCenter instance;
     private final EventBus eventBus;
 
+    /**
+     * Private constructor to create global singleton
+     */
     private EventsCenter() {
         eventBus = new EventBus();
     }

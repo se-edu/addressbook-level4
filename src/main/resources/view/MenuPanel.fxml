@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import com.jfoenix.controls.*?>
+
+<VBox fx:id="menuVbox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="175.0" prefWidth="120.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <JFXButton onAction="#handleExit" prefHeight="88.0" prefWidth="220.0" ripplerFill="#ff5a00" style="-fx-background-color: orange;" text="Exit" VBox.vgrow="NEVER" />
+      <JFXButton fx:id="helpMenuItem" onAction="#handleHelp" prefHeight="85.0" prefWidth="173.0" style="-fx-background-color: grey;" text="Help" textFill="WHITE" VBox.vgrow="NEVER" />
+      <JFXButton fx:id="closeMenuButton" layoutX="10.0" layoutY="10.0" prefHeight="88.0" prefWidth="220.0" ripplerFill="#ff5a00" style="-fx-background-color: orange;" text="Close" VBox.vgrow="NEVER" />
+   </children>
+</VBox>
