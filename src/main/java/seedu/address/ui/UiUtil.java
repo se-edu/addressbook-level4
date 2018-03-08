@@ -10,7 +10,7 @@ import javafx.scene.control.Label;
  */
 public class UiUtil {
 
-    private static final String HEX_COLOR_PREFIX = "#";
+    private static final char HEX_COLOR_PREFIX = '#';
     private static final String HEX_COLOR_BUFFER = "000000";
     private static final int HEX_COLOR_LENGTH = 7;
 
@@ -37,7 +37,8 @@ public class UiUtil {
      */
     public static void setLabelBackgroundColor(Label label, String color) {
         assert HEX_COLOR_LENGTH == color.length();
-        assert HEX_COLOR_PREFIX.equals(color.charAt(0));
+        assert HEX_COLOR_PREFIX == color.charAt(0);
+
         label.setStyle(CSS_PROPERTY_BACKGROUND_COLOR + color + ";");
     }
 }
