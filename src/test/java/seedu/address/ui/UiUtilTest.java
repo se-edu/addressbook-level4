@@ -62,4 +62,4 @@ public class UiUtilTest {
         assertTrue(HEX_COLOR_WHITE.equals(UiUtil.getMatchingColorFromGivenColor(DARK_COLOR_CODE)));
     }
 }
-//@@author RyanAngJY
+//@@author
