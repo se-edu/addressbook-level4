@@ -16,11 +16,13 @@ import seedu.address.model.tag.UniqueTagList;
 public class Person {
 
     private final Name name;
+    private final Age age;
     private final Phone phone;
     private final Email email;
     private final Address address;
 
     private final UniqueTagList tags;
+    private final Income income;
 
     /**
      * Every field must be present and not null.
@@ -28,16 +30,20 @@ public class Person {
     public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
         requireAllNonNull(name, phone, email, address, tags);
         this.name = name;
+        this.age = new Age(12);
         this.phone = phone;
         this.email = email;
         this.address = address;
         // protect internal tags from changes in the arg list
         this.tags = new UniqueTagList(tags);
+        this.income = new Income(29000);
     }
 
     public Name getName() {
         return name;
     }
+
+    public Age getAge() { return age; }
 
     public Phone getPhone() {
         return phone;
@@ -49,6 +55,10 @@ public class Person {
 
     public Address getAddress() {
         return address;
+    }
+
+    public Income getIncome() {
+        return this.income;
     }
 
     /**
