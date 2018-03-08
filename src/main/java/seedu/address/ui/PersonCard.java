@@ -47,8 +47,40 @@ public class PersonCard extends UiPart<Region> {
         phone.setText(person.getPhone().value);
         address.setText(person.getAddress().value);
         email.setText(person.getEmail().value);
-        person.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+        initTags(person);
     }
+
+    //@@author RyanAngJY
+    /**
+     * Returns the color style for {@code tagName}'s label.
+     */
+    private String getTagColorStyleFor(String tagName) {
+        // we use the hash code of the tag name to generate a random color, so that the color remain consistent
+        // between different runs of the program while still making it random enough between tags.
+        String hexHashCode = convertIntToHexString(tagName.hashCode());
+        String hexColorCode = convertHexToValidColorCode(hexHashCode);
+        return hexColorCode;
+    }
+
+    private String convertIntToHexString(int integer) {
+        return Integer.toHexString(integer);
+    }
+
+    private String convertHexToValidColorCode(String hexString) {
+        return "666666";
+    }
+
+    /**
+     * Creates the tag labels for {@code person}.
+     */
+    private void initTags(Person person) {
+        person.getTags().forEach(tag -> {
+            Label tagLabel = new Label(tag.tagName);
+            tagLabel.getStyleClass().add(getTagColorStyleFor(tag.tagName));
+            tags.getChildren().add(tagLabel);
+        });
+    }
+    //@@author RyanAngJY
 
     @Override
     public boolean equals(Object other) {
