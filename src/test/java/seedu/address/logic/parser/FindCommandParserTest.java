@@ -26,15 +26,15 @@ public class FindCommandParserTest {
         // no leading and trailing whitespaces
         FindCommand expectedFindByNameCommand =
                 new FindCommand(new ContainKeywordsPredicate(Arrays.asList("Alice", "Bob"), Collections.emptyList()));
-        assertParseSuccess(parser, " n/Alice Bob", expectedFindByNameCommand);
+        assertParseSuccess(parser, " n/Alice n/Bob", expectedFindByNameCommand);
 
         // multiple whitespaces between keywords
-        assertParseSuccess(parser, " \n n/Alice \n \t Bob  \t", expectedFindByNameCommand);
+        assertParseSuccess(parser, " \n n/Alice \n \t n/Bob  \t", expectedFindByNameCommand);
 
         // parse PREFIX_TAG
         FindCommand expectedFindByTagCommand =
                 new FindCommand(new ContainKeywordsPredicate(Collections.emptyList(), Arrays.asList("Alice", "Bob")));
-        assertParseSuccess(parser, " t/Alice Bob", expectedFindByTagCommand);
+        assertParseSuccess(parser, " t/Alice t/Bob", expectedFindByTagCommand);
     }
 
 }
