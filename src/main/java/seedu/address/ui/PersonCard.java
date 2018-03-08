@@ -55,19 +55,11 @@ public class PersonCard extends UiPart<Region> {
      * Returns the color style for {@code tagName}'s label.
      */
     private String getTagColorStyleFor(String tagName) {
-        // we use the hash code of the tag name to generate a random color, so that the color remain consistent
-        // between different runs of the program while still making it random enough between tags.
-        String hexHashCode = convertIntToHexString(tagName.hashCode());
-        String hexColorCode = convertHexToValidColorCode(hexHashCode);
-        return hexColorCode;
-    }
-
-    private String convertIntToHexString(int integer) {
-        return Integer.toHexString(integer);
-    }
-
-    private String convertHexToValidColorCode(String hexString) {
-        return "666666";
+        // the hash code of the tag name is used to generate a random color for each tag,
+        // color remains consistent between different runs of the program since hash code does not change
+        String hexadecimalHashCode = UiUtil.convertIntToHexadecimalString(tagName.hashCode());
+        String hexadecimalColorCode = UiUtil.convertHexStringToValidColorCode(hexadecimalHashCode);
+        return hexadecimalColorCode;
     }
 
     /**
@@ -76,7 +68,8 @@ public class PersonCard extends UiPart<Region> {
     private void initTags(Person person) {
         person.getTags().forEach(tag -> {
             Label tagLabel = new Label(tag.tagName);
-            tagLabel.getStyleClass().add(getTagColorStyleFor(tag.tagName));
+            String labelBackgroundColor = getTagColorStyleFor(tag.tagName);
+            tagLabel.setStyle("-fx-background-color: " + labelBackgroundColor + ";");
             tags.getChildren().add(tagLabel);
         });
     }
