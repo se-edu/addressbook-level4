@@ -871,7 +871,7 @@ Use Case ends.
 [none]
 ** *a1 TC requests confirmation of the cancelation.
 ** *a2. User confirms the cancellation.
-       	Use case ends.
+** Use case ends.
 
 * 5a. Name is not found
 +
@@ -940,7 +940,7 @@ Use case ends.
 ** *a2. User confirms the cancellation.
 ** Use case ends.
 
-*    2a. The name is already inside the tutee list.
+* 2a. The name is already inside the tutee list.
 +
 [none]
 ** 2a1. TC indicates that the name is already inside the tutee list.
@@ -950,11 +950,11 @@ Use case ends.
 === Use case: UC05 - Viewing schedule within a date range
 *MSS*
 
-1. User requests to view schedule
+1. User requests to view schedule.
 2. TC requests a date range.
 3. User provides the desired date range.
 4. TC lists all schedule within the date range.
-5. User chooses to close the list
+5. User chooses to close the list.
 +
 Use Case ends.
 
@@ -968,7 +968,14 @@ Use Case ends.
 ** 3a2. User provides the date range.
 ** Use case resumes from step 4.
 
-* 4a. No schedule within the time range
+* *a. At any time, user can cancel adding the schedule.
+[none]
+** *a1 TC requests confirmation of the cancelation.
+** *a2. User confirms the cancellation.
+** Use case ends.
+
+
+* 4a. No schedule is created within the date range.
 [none]
 **	4a1. TC reports that no schedule exists within the time range.
 **	4a2. User acknowledges.
