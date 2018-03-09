@@ -13,35 +13,28 @@ import seedu.address.model.tag.UniqueTagList;
  * Represents a Person in the address book.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Person {
+public class Lead extends Person {
 
     private final Name name;
     private final Phone phone;
     private final Email email;
     private final Address address;
+    private final Type type;
 
     private final UniqueTagList tags;
 
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
+    public Lead(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
         requireAllNonNull(name, phone, email, address, tags);
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
+        this.type = new Type("Lead");
         // protect internal tags from changes in the arg list
         this.tags = new UniqueTagList(tags);
-    }
-
-    protected Person() {
-        this.name = null;
-        this.phone = null;
-        this.email = null;
-        this.address = null;
-        // protect internal tags from changes in the arg list
-        this.tags = new UniqueTagList();
     }
 
     public Name getName() {
@@ -60,6 +53,8 @@ public class Person {
         return address;
     }
 
+    public Type getType() { return type; }
+
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
      * if modification is attempted.
@@ -74,11 +69,11 @@ public class Person {
             return true;
         }
 
-        if (!(other instanceof Person)) {
+        if (!(other instanceof Lead)) {
             return false;
         }
 
-        Person otherPerson = (Person) other;
+        Lead otherPerson = (Lead) other;
         return otherPerson.getName().equals(this.getName())
                 && otherPerson.getPhone().equals(this.getPhone())
                 && otherPerson.getEmail().equals(this.getEmail())
@@ -95,6 +90,8 @@ public class Person {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
+                .append(" Type: ")
+                .append(getType())
                 .append(" Phone: ")
                 .append(getPhone())
                 .append(" Email: ")
