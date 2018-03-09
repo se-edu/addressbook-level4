@@ -47,13 +47,13 @@ public class GuiTestAssert {
     }
     /**
      * Return the color style for {@code tagName}'s label.
-     *  "yellow", "blue", "red", "green", "orange", "purple", "grey"
      * @see PersonCard#getTagColorStyleFor(String)
      */
 
     private static String getTagColorStyleFor(String tagName){
         switch(tagName){
             case "friends":
+            case "friend":
                 return "yellow";
 
             case "teacher":
@@ -61,9 +61,11 @@ public class GuiTestAssert {
                 return "blue";
 
             case "family":
+            case "husband":
                 return "green";
 
             case "enemy":
+            case "owesMoney":
                 return "red";
 
             case "boyfriend":

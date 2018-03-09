@@ -54,6 +54,7 @@ public class PersonCard extends UiPart<Region> {
     private String getTagColorStyleFor(String tag) {
         switch (tag) {
             case "friends":
+            case "friend":
                 return TAG_COLOR_STYLES[0];
 
             case "teacher":
@@ -61,9 +62,11 @@ public class PersonCard extends UiPart<Region> {
                 return TAG_COLOR_STYLES[1];
 
             case "family":
+            case "husband":
                 return TAG_COLOR_STYLES[3];
 
             case "enemy":
+            case "owesMoney":
                 return TAG_COLOR_STYLES[2];
 
             case "boyfriend":
