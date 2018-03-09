@@ -60,9 +60,9 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 Format: `help`
 
-=== Log in to LinkedIn : 'linkedInLogin'
+=== Log in to LinkedIn : 'linkedin_login'
 
-Format: 'linkedInLogin'
+Format: 'linkedin_login'
 
 [Tip]
 A LinkedIn Login is required if you want to synchronize your CRM Book with your LinkedIn Account
