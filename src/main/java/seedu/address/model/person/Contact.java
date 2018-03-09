@@ -69,11 +69,11 @@ public class Contact extends Person {
             return true;
         }
 
-        if (!(other instanceof Person)) {
+        if (!(other instanceof Contact)) {
             return false;
         }
 
-        Person otherPerson = (Person) other;
+        Contact otherPerson = (Contact) other;
         return otherPerson.getName().equals(this.getName())
                 && otherPerson.getPhone().equals(this.getPhone())
                 && otherPerson.getEmail().equals(this.getEmail())

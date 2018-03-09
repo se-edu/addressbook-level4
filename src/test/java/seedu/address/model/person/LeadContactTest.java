@@ -37,9 +37,9 @@ public class LeadContactTest {
         Type type2 = test2.getType();
         String string2 = test2.toString();
 
-        assertTrue(test1.equals(test2));
+        assertFalse(test1.equals(test2));
         assertFalse(type == type2);
-        assertTrue(string1.equals("test Type: Contact Phone: 12345678 Email: what@gmail.com Address: 123 abc Tags: "));
-        assertTrue(string2.equals("test Type: Lead Phone: 12345678 Email: what@gmail.com Address: 123 abc Tags: "));
+        assertTrue(string1.equals("test Type: Contact Phone: 12345678 Email: what@gmail.com Address: 123 abc Tags: [friends]"));
+        assertTrue(string2.equals("test Type: Lead Phone: 12345678 Email: what@gmail.com Address: 123 abc Tags: [friends]"));
     }
 }

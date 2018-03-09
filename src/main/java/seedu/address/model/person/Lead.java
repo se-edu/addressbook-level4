@@ -69,11 +69,11 @@ public class Lead extends Person {
             return true;
         }
 
-        if (!(other instanceof Person)) {
+        if (!(other instanceof Lead)) {
             return false;
         }
 
-        Person otherPerson = (Person) other;
+        Lead otherPerson = (Lead) other;
         return otherPerson.getName().equals(this.getName())
                 && otherPerson.getPhone().equals(this.getPhone())
                 && otherPerson.getEmail().equals(this.getEmail())
