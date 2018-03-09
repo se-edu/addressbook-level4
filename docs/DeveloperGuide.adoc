@@ -875,7 +875,7 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `ClientBook` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
 === Use case: Delete person
@@ -883,9 +883,9 @@ _{More to be added}_
 *MSS*
 
 1.  User requests to list persons
-2.  AddressBook shows a list of persons
+2.  ClientBook shows a list of persons
 3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+4.  ClientBook deletes the person
 +
 Use case ends.
 
@@ -899,7 +899,7 @@ Use case ends.
 * 3a. The given index is invalid.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3a1. ClientBook shows an error message.
 +
 Use case resumes at step 2.
 
@@ -909,25 +909,25 @@ Use case resumes at step 2.
 *MSS*
 
 1. User request to add person by specifying their details
-2. AddressBook adds the person
-3. AddressBook shows success message
+2. ClientBook adds the person
+3. ClientBook shows success message
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. Person already exists in AddressBook.
+* 2a. Person already exists in ClientBook.
 +
 [none]
-** 2a1. AddressBook shows error message.
+** 2a1. ClientBook shows error message.
 +
 Use case ends.
 
 * 3a. The given input is invalid.
 +
 [none]
-** 3a1. AddressBook shows error message.
+** 3a1. ClientBook shows error message.
 +
 Use case ends.
 
@@ -937,27 +937,27 @@ Use case ends.
 *MSS*
 
 1. User requests to edit person by entering person’s name and new parameter(s)
-2. AddressBook shows confirm message.
+2. ClientBook shows confirm message.
 3. User confirms to edit the Person.
-4. AddressBook edits the Person’s given parameter(s).
-5. AddressBook shows the edited person entry.
+4. ClientBook edits the Person’s given parameter(s).
+5. ClientBook shows the edited person entry.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. Person does not exist in the AddressBook.
+* 2a. Person does not exist in the ClientBook.
 +
 [none]
-** 2a1. AddressBook shows error message.
+** 2a1. ClientBook shows error message.
 +
 Use case ends.
 
 * 3a. The given input is invalid.
 +
 [none]
-** 3a1. AddressBook shows error message.
+** 3a1. ClientBook shows error message.
 +
 Use case ends.
 
@@ -967,25 +967,25 @@ Use case ends.
 *MSS*
 
 1. User requests to add appointment with person by entering person's name and appointment date and time.
-2. AddressBook adds the appointment.
-3. AddressBook shows the added appointment entry
+2. ClientBook adds the appointment.
+3. ClientBook shows the added appointment entry
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. Person does not exist in the AddressBook.
+* 2a. Person does not exist in the ClientBook.
 +
 [none]
-** 2a1. AddressBook shows error message.
+** 2a1. ClientBook shows error message.
 +
 Use case ends.
 
 * 3a. The given date is invalid.
 +
 [none]
-** 3a1. AddressBook shows error message.
+** 3a1. ClientBook shows error message.
 +
 Use case ends.
 
@@ -995,9 +995,9 @@ Use case ends.
 *MSS*
 
 1. User requests to delete appointment with person by entering person's name.
-2. AddressBook shows list of appointments.
+2. ClientBook shows list of appointments.
 3. User requests to delete a specific appointment in the list.
-4. AddressBook deletes the appointment.
+4. ClientBook deletes the appointment.
 +
 Use case ends.
 
@@ -1011,7 +1011,7 @@ Use case ends.
 * 3a. The given index is invalid.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3a1. ClientBook shows an error message.
 +
 Use case resumes at step 2.
 
@@ -1021,17 +1021,17 @@ Use case resumes at step 2.
 *MSS*
 
 1. User requests to view commission of client by entering person's name.
-2. AddressBook shows commission earned from client.
+2. ClientBook shows commission earned from client.
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. Person does not exist in the AddressBook.
+* 2a. Person does not exist in the ClientBook.
 +
 [none]
-** 2a1. AddressBook shows error message.
+** 2a1. ClientBook shows error message.
 +
 Use case ends.
 
