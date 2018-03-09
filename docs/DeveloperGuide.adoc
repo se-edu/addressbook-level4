@@ -799,17 +799,32 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *` |new salesperson |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` |user |add a new Lead or Contact|organise my sales targets better for future decisions
+|`* * *` |salesperson |add a new Lead|keep track of who I am selling to
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |salesperson |add a new Account|keep track of my accounts
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |salesperson |convert a Lead to a Contact|know who I have successfully sold to in the past
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |salesperson |remove duplicate leads, contacts and accounts|not have redundant data in my CRM
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |salesperson |login to LinkedIn|Sync my LinkedIn contacts
+
+|`* * *` |salesperson |sync with LinkedIn|Know which of my contacts has changed companies
+
+|`* *` |new salesperson |bulk import leads|populate my CRM-Book
+
+|`* *` |salesperson |find a lead or contact by name |locate details of persons without having to go through the entire list
+
+|`* *` |salesperson |find an account by name |locate details of accounts without having to go through the entire list
+
+|`* *` |salesperson |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+
+|`*` |salesperson |see my calendar |schedule meetings without conflicting
+
+|`*` |salesperson |schedule a meeting using zoom |schedule meetings easily and with a link other salespeople can use
+
 |=======================================================================
 
 _{More to be added}_
