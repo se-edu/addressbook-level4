@@ -15,7 +15,7 @@ public class LinkedInLoginCommand extends UndoableCommand{
     /**
      * Creates a LinkedInLogin log a Salesperson in to LinkedIn
      */
-    public LinkedInLoginCommand(String username, String password) {
+    public LinkedInLoginCommand() {
 
     }
 
