@@ -60,6 +60,21 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 Format: `help`
 
+=== Log in to LinkedIn : 'linkedInLogin'
+
+Format: 'linkedInLogin'
+
+[Tip]
+A LinkedIn Login is required if you want to synchronize your CRM Book with your LinkedIn Account
+If this is your first login, a synchronization will also take place.
+
+=== Update from LinkedIn : 'updateLinkedIn'
+
+Format: 'updateLinkedIn'
+
+[Tip]
+Updating from LinkedIn will synchronize your CRM Book with your LinkedIn Account and highlight all changes since the last synchonization
+
 === Adding a person: `add`
 
 Adds a person to the address book +
