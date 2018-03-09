@@ -59,6 +59,17 @@ public class Person {
         return Collections.unmodifiableSet(tags.toSet());
     }
 
+    /**
+     * Returns true if both persons have the same identity fields (name and (phone or email)).
+     */
+    public boolean isSamePerson(Person otherPerson) {
+        return (otherPerson == this)
+                || (otherPerson != null
+                    && otherPerson.getName().equals(this.getName())
+                    && (otherPerson.getPhone().equals(this.getPhone())
+                        || otherPerson.getEmail().equals(this.getEmail())));
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
