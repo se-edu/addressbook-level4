@@ -22,7 +22,7 @@ public class LinkedInLoginCommandTest {
      * does nothing for now but will eventually log a user in to LinkedIn.
      */
     private LinkedInLoginCommand prepareCommand(Model model) {
-        LinkedInLoginCommand command = new LinkedInLoginCommand ();
+        LinkedInLoginCommand command = new LinkedInLoginCommand();
         command.setData(model, new CommandHistory(), new UndoRedoStack());
         return command;
     }
