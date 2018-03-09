@@ -1,4 +1,4 @@
-= AddressBook Level 4 - Developer Guide
+= CRM Book - Developer Guide
 :toc:
 :toc-title:
 :toc-placement: preamble
@@ -10,7 +10,7 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4/tree/master
+:repoURL: https://github.com/CS2103JAN2018-F11-B1/main
 
 By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
 
