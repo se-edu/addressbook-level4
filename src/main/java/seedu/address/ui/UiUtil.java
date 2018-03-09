@@ -33,16 +33,16 @@ public class UiUtil {
     }
 
     /**
-     * Returns a valid CSS hexadecimal color code that is as similar 
+     * Returns a valid CSS hexadecimal color code that is as similar
      * as possible to the given string (eg. #f23b21).
      */
-    public static String convertStringToValidColorCode(String String) {
-        String = removeAllWhitespaceInString(String);
+    public static String convertStringToValidColorCode(String string) {
+        string = removeAllWhitespaceInString(string);
 
         // HEX_COLOR_BUFFER ensures that the returned value has at least 6 hexadecimal digits
-        String extendedHexString = String.concat(HEX_COLOR_BUFFER);
+        String extendedHexString = string.concat(HEX_COLOR_BUFFER);
 
-        if (Pattern.matches(HEX_REGEX, String)) {
+        if (Pattern.matches(HEX_REGEX, string)) {
             return HEX_COLOR_PREFIX + extendedHexString.substring(0, HEX_COLOR_LENGTH);
         } else {
             return HEX_COLOR_WHITE;
