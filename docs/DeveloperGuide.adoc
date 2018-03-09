@@ -816,7 +816,7 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `Tuition Connect AddressBook (TC)` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
 === Use case: UC01-Delete person
@@ -824,9 +824,9 @@ _{More to be added}_
 *MSS*
 
 1.  User requests to list persons
-2.  AddressBook shows a list of persons
+2.  TC shows a list of persons
 3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+4.  TC deletes the person
 +
 Use case ends.
 
@@ -840,7 +840,7 @@ Use case ends.
 * 3a. The given index is invalid.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3a1. TC shows an error message.
 +
 Use case resumes at step 2.
 
@@ -853,6 +853,7 @@ Use case resumes at step 2.
 4. TC asks the name of the tutee
 5. User types the name of the tutee
 6. TC confirms that process is done.
++
 Use Case ends.
 
 *Extensions*
@@ -893,9 +894,10 @@ Use Case ends.
 2. TC asks whether user wants to add a personal schedule or to **add a tuition schedule(UC02)**.
 3. User chooses personal schedule
 4. TC prompts user to fill in a description.
-5. User confirms the schedule after filling in the description.
+5. User fills in the description.
 6. TC confirms that process is done.
-      Use Case ends.
++
+Use Case ends.
 
 *Extension*
 
@@ -919,6 +921,7 @@ Use Case ends.
 
 1. User requests to set a contact as a new tutee by providing the tutee’s name
 2. TC confirms that the process is done.
++
 Use case ends.
 
 *Extensions*
@@ -952,6 +955,7 @@ Use case ends.
 3. User provides the desired date range.
 4. TC lists all schedule within the date range.
 5. User chooses to close the list
++
 Use Case ends.
 
 *Extensions*
