@@ -1,3 +1,4 @@
+
 = AddressBook Level 4 - Developer Guide
 :toc:
 :toc-title:
@@ -798,17 +799,59 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *` |Home cook |Add a text recipe |Store my favourite recipes
 
-|`* * *` |user |add a new person |
+|`* * *` |Home cook |Delete a recipe |Remove recipes which I do not want
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |Home cook |Find a recipe by name |Locate a recipe without having to search through my entire recipe list
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |Home cook |Find a recipe by ingredient |Locate recipes that can be cooked with the ingredients I have
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |Home cook |Edit a recipe |Tweak the stored recipes to my liking
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |Home cook |Sort recipes by name |Locate a recipe easily
+
+|`* * *` |Home cook |List all my recipes |Browse through my recipes
+
+|`* * *` |Home cook |Select a recipe |Look at the details of the recipe
+
+|`* * *` |Home cook |Add an image to recipe |See what my product is supposed to look like
+
+|`* * *` |Home cook |Favorite a recipe |Have easy access to the recipes of all my favourite food
+
+|`* * *` |SNS user + cook |Share a recipe |Show an interesting recipe with my friends
+
+|`* * *` |Home cook |Save my files online |Have access to my recipes as long as I have Internet
+
+|`* *` |Home cook |Add a video to recipe |Store my favourite cooking tutorials from YouTube
+
+|`* *` |Home cook |Find a recipe by cuisine |Locate recipes that are of a particular cuisine without having to search through my entire recipe list
+
+|`* *` |Home cook |Rate recipes according to difficulty level |Better categorize my list of recipes
+
+|`* *` |User |Export my recipes to a file |Have a backup to transfer to another device
+
+|`* *` |Returning user |Import recipes from exported lib |Have all my recipes without inputting everything again
+
+|`* *` |Clumsy user |Undo an action |Revert the book to its prior state when I do something wrong with the book
+
+|`*` |User |See instructions |Refer to the instructions when I forget how to use the app
+
+|`*` |Home cook |Filter recipes by cooking time |Decide on recipes based on my time constraint
+
+|`*` |Home cook |Sort recipes by cooking time |See which recipes take longest / shortest to make
+
+|`*` |Home cook |Filter recipes by difficulty level |Easily locate recipes based on my cooking proficiency
+
+|`*` |Lazy user |Import recipes from internet |Have my recipes without manually typing out everything
+
+|`*` |Adventurous cook |Get a random recipe |Get a recipe when I don’t know what to make
+
+|`*` |Bodybuilder + Cook |Get energy info of a recipe |Know which dish has more calories than the amount I burn a day
+
+|`*` |Health-conscious cook |Find a recipe by healthiness rating |Be aware of what kind of food I am eating so that I can take better care of my health
+
+|`*` |Home cook |Customise my UI |Have a personalised look to my RecipeBook
 |=======================================================================
 
 _{More to be added}_
@@ -816,17 +859,17 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `RecipeBook` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: Add a video to recipe
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  User requests to list recipes
+2.  RecipeBook shows a list of recipes
+3.  User requests to add a video URL to a specific recipe in the list
+4.  RecipeBook updates recipe to show an embedded video when recipe is selected
 +
 Use case ends.
 
@@ -837,12 +880,31 @@ Use case ends.
 +
 Use case ends.
 
-* 3a. The given index is invalid.
+* 3a. The given URL is invalid.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3a1. RecipeBook shows an error message.
 +
 Use case resumes at step 2.
+
+[discrete]
+=== Use case: Searching for a specific type of food
+
+*MSS*
+
+1.  User types find “chicken”
+2.  RecipeBook shows a list of recipes that contain chicken
+3.  User clicks on a particular recipe
+4.  RecipeBook displays full recipe and details on the main area
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
 
 _{More to be added}_
 
