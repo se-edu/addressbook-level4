@@ -808,7 +808,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |tutor |list schedule I have in certain month |check and prepare myself in advance
 
-|`* * *` |tutor |add a new tuition schedule |
+|`* * *` |tutor |add a new tuition schedule |so that I can compile my tuition schedule
 
 |`* * *` |user |delete a schedule in the calendar |update my calender
 
@@ -842,7 +842,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* *` |tutor |add subject grade of the students |keep track of his progress
 
-|`* *` |tutor |list students coming from the same school |
+|`* *` |tutor |list students coming from the same school |so that I can gather and spread useful information among these students.
 
 |`* *` |tutor |list students based on their grades |give more tuition to students who are doing badly
 
@@ -850,7 +850,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`*` |user with many persons in the address book |sort persons by name |locate a person easily
 
-|`*` |tutor |take note of the name of school teachers |
+|`*` |tutor |take note of the name of my student's school teachers |adjust my teaching according to the school teacher.
 
 |`*` |tutor |insert my student's photo |
 |=======================================================================
