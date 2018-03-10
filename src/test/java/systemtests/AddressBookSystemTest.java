@@ -153,14 +153,6 @@ public abstract class AddressBookSystemTest {
     }
 
     /**
-     * Displays all persons in the address book using the alias.
-     */
-    protected void showAllPersons() {
-        executeCommand(ListCommand.COMMAND_ALIAS);
-        assertEquals(getModel().getAddressBook().getPersonList().size(), getModel().getFilteredPersonList().size());
-    }
-
-    /**
      * Selects the person at {@code index} of the displayed list.
      */
     protected void selectPerson(Index index) {
