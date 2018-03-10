@@ -816,17 +816,17 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `Tuition Connect AddressBook (TC)` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: UC01-Delete person
 
 *MSS*
 
 1.  User requests to list persons
-2.  AddressBook shows a list of persons
+2.  TC shows a list of persons
 3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+4.  TC deletes the person
 +
 Use case ends.
 
@@ -840,9 +840,146 @@ Use case ends.
 * 3a. The given index is invalid.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3a1. TC shows an error message.
 +
 Use case resumes at step 2.
+
+=== Use case: UC02 - Add a tuition schedule
+*MSS*
+
+1. User adds a schedule by providing the time (date & duration)
+2. TC asks whether user wants to *add a personal schedule(UC03)* or a tuition schedule.
+3. User chooses tuition schedule
+4. TC asks the name of the tutee
+5. User types the name of the tutee
+6. TC confirms that process is done.
++
+Use Case ends.
+
+*Extensions*
+
+[none]
+* 1a. Clashing schedule
++
+[none]
+** 1a1. TC reports that schedule clashes and requests a new timing.
+** 1a2. User enters a new schedule
+** Steps 1a1.-1a2. are repeated until there is no clash.
+** Use case resumes from Step 2.
+
+* *a. At any time, user can cancel adding the schedule.
+[none]
+** *a1 TC requests confirmation of the cancelation.
+** *a2. User confirms the cancellation.
+** Use case ends.
+
+* 5a. Name is not found
++
+[none]
+** 5a1. TC requests user to retype the tutee’s name.
+** 5a2. User retypes the tutee’s name.
+** Steps 5a1.-5a2. are repeated until a valid name is provided.
+** Use case resumes from Step 6.
+
+* *a. At any time, user can cancel adding the schedule.
+[none]
+** *a1 TC requests confirmation of the cancelation.
+** *a2. User confirms the cancellation.
+       	Use case ends.
+
+=== Use case: UC03 - Add a personal schedule
+*MSS*
+
+1. User adds a schedule by providing the time (date & duration)
+2. TC asks whether user wants to add a personal schedule or to **add a tuition schedule(UC02)**.
+3. User chooses personal schedule
+4. TC prompts user to fill in a description.
+5. User fills in the description.
+6. TC confirms that process is done.
++
+Use Case ends.
+
+*Extension*
+
+[none]
+* 1a. Clashing schedule
++
+[none]
+** 1a1. TC reports that schedule clashes and requests a new timing.
+** 1a2. User enters a new schedule
+** Steps 1a1.-1a2. are repeated until there is no clash.
+** Use case resumes from Step 2.
+
+* *a. At any time, user can cancel adding the schedule.
+[none]
+** *a1 TC requests confirmation of the cancelation.
+** *a2. User confirms the cancellation.
+** Use case ends.
+
+=== Use case: UC04 - Set a contact as a tutee
+*MSS*
+
+1. User requests to set a contact as a new tutee by providing the tutee’s name
+2. TC confirms that the process is done.
++
+Use case ends.
+
+*Extensions*
+[none]
+* 1a. The name does not exist in address book
++
+[none]
+** 1a1. TC requests user to retype the tutee’s name.
+** 1a2. User types in the name.
+** Steps 1a1.- 1a2. are repeated until a valid name is provided.
+** Use case resumes from Step 2.
+
+* *a. At any time, user can cancel the request.
+[none]
+** *a1 TC requests confirmation of the cancelation.
+** *a2. User confirms the cancellation.
+** Use case ends.
+
+* 2a. The name is already inside the tutee list.
++
+[none]
+** 2a1. TC indicates that the name is already inside the tutee list.
+** 2a2.  User confirms the message.
+** Use case ends.
+
+=== Use case: UC05 - Viewing schedule within a date range
+*MSS*
+
+1. User requests to view schedule.
+2. TC requests a date range.
+3. User provides the desired date range.
+4. TC lists all schedule within the date range.
+5. User chooses to close the list.
++
+Use Case ends.
+
+*Extensions*
+
+[none]
+* 3a. Invalid date range format is given.
++
+[none]
+** 3a1. TC requests a valid date range input.
+** 3a2. User provides the date range.
+** Use case resumes from step 4.
+
+* *a. At any time, user can cancel adding the schedule.
+[none]
+** *a1 TC requests confirmation of the cancelation.
+** *a2. User confirms the cancellation.
+** Use case ends.
+
+
+* 4a. No schedule is created within the date range.
+[none]
+**	4a1. TC reports that no schedule exists within the time range.
+**	4a2. User acknowledges.
+**	Use case ends.
 
 _{More to be added}_
 
