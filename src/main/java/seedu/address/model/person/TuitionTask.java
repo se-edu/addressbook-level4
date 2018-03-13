@@ -17,7 +17,7 @@ public class TuitionTask implements Task {
                     + ", the person involved must already be inside the contact list\n"
                     + ", Date can only contain numbers in the format of dd/mm/yyyy\n"
                     + ", Time must in the format of HH:mm\n"
-                    + " and Duration must be in hours.";
+                    + " and Duration must be the format of 01h30m";
 
     private String person;
     private String description;
@@ -34,8 +34,8 @@ public class TuitionTask implements Task {
         this.description = description;
     }
 
-    public String getTaskDateTime() {
-        return taskDateTime.format(formatter);
+    public LocalDateTime getTaskDateTime() {
+        return taskDateTime;
     }
 
     public String getPerson() {
