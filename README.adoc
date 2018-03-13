@@ -1,11 +1,7 @@
-= Address Book (Level 4)
+= CRM Book
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
-https://travis-ci.org/se-edu/addressbook-level4[image:https://travis-ci.org/se-edu/addressbook-level4.svg?branch=master[Build Status]]
-https://ci.appveyor.com/project/damithc/addressbook-level4[image:https://ci.appveyor.com/api/projects/status/3boko2x2vr5cc3w2?svg=true[Build status]]
-https://coveralls.io/github/se-edu/addressbook-level4?branch=master[image:https://coveralls.io/repos/github/se-edu/addressbook-level4/badge.svg?branch=master[Coverage Status]]
-https://www.codacy.com/app/damith/addressbook-level4?utm_source=github.com&utm_medium=referral&utm_content=se-edu/addressbook-level4&utm_campaign=Badge_Grade[image:https://api.codacy.com/project/badge/Grade/fc0b7775cf7f4fdeaf08776f3d8e364a[Codacy Badge]]
-https://gitter.im/se-edu/Lobby[image:https://badges.gitter.im/se-edu/Lobby.svg[Gitter chat]]
+https://travis-ci.org/CS2103JAN2018-F11-B1/[image:https://travis-ci.org/CS2103JAN2018-F11-B1/main.svg?branch=master[Build Status]]
 
 ifdef::env-github[]
 image::docs/images/Ui.png[width="600"]
@@ -15,7 +11,7 @@ ifndef::env-github[]
 image::images/Ui.png[width="600"]
 endif::[]
 
-* This is a desktop Address Book application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
+* This is a desktop Customer Relationship Manager (CRM) application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
 * It is a Java sample application intended for students learning Software Engineering while using Java as the main programming language.
 * It is *written in OOP fashion*. It provides a *reasonably well-written* code example that is *significantly bigger* (around 6 KLoC)than what students usually write in beginner-level SE modules.
 * What's different from https://github.com/se-edu/addressbook-level3[level 3]:

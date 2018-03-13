@@ -60,9 +60,9 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 Format: `help`
 
-=== Log in to LinkedIn : 'linkedInLogin'
+=== Log in to LinkedIn : 'linkedin_login'
 
-Format: 'linkedInLogin'
+Format: 'linkedin_login'
 
 [Tip]
 A LinkedIn Login is required if you want to synchronize your CRM Book with your LinkedIn Account
@@ -78,7 +78,7 @@ Updating from LinkedIn will synchronize your CRM Book with your LinkedIn Account
 === Adding a person: `a or add`
 
 Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`, `a n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+Format: `a n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` or `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
 
 [TIP]
 A person can have any number of tags (including 0)
@@ -89,10 +89,10 @@ Examples:
 * `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
 * `a n/Jake Tan t/friend e/jaketan@example.com a/Simei Street 1, block 999, #09-09 p/1234567`
 
-=== Listing all persons : `list`
+=== Listing all persons : `l or list`
 
 Shows a list of all persons in the address book. +
-Format: `list`
+Format: `list`, `l`
 
 === Editing a person : `edit`
 
@@ -202,7 +202,7 @@ Examples:
 `undo` (reverses the `delete 1` command) +
 
 * `select 1` +
-`list` +
+`l` +
 `undo` +
 The `undo` command fails as there are no undoable commands executed previously.
 
@@ -262,16 +262,16 @@ _{explain how the user can enable/disable data encryption}_
 
 == Command Summary
 
-* *Add* `a n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`, `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`, `a n/Jake Lee p/90909090 e/jakelee@gmail.com a/999, Tampines Rd, 987098 t/friend`
-* *Clear* : `c`, `clear`
+* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` + or `a n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+e.g. `a n/John Tan p/99991111 e/johntan@example.com a/123, Tampines Rd, 54321 t/colleague`
+* *Clear* : `c` or `clear`
 * *Delete* : `delete INDEX` +
 e.g. `delete 3`
 * *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
 e.g. `edit 2 n/James Lee e/jameslee@example.com`
 * *Find* : `find KEYWORD [MORE_KEYWORDS]` +
 e.g. `find James Jake`
-* *List* : `list`
+* *List* : `list`, l`
 * *Help* : `help`
 * *Select* : `select INDEX` +
 e.g.`select 2`
