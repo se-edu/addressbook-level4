@@ -6,14 +6,17 @@ import java.time.format.DateTimeParseException;
 import java.time.format.ResolverStyle;
 import java.util.ArrayList;
 
+import seedu.address.model.Schedule;
+import seedu.address.model.Task;
 import seedu.address.model.person.exceptions.DurationParseException;
 
 
+
 /**
- * Represents all the tasks that the person has
- * Clashes of date and time is not allowed
+ * Represents the tuition schedule of the person
  */
-public class Schedule {
+public class TuitionSchedule implements Schedule {
+
     private static final String MESSAGE_INVALID_DURATION = "The duration format is invalid";
     private static final String MESSAGE_INVALID_DATE_TIME = "The input date and time is invalid";
     private static final int LENGTH_OF_DATE_TIME = 16;
@@ -30,7 +33,6 @@ public class Schedule {
             .withResolverStyle(ResolverStyle.STRICT);
     private String stringDateTime;
     private LocalDateTime taskDateTime;
-    private ArrayList<Task> privateTaskList = new ArrayList<>();
     private ArrayList<Task> tuitionTaskList = new ArrayList<>();
 
     /**
@@ -38,37 +40,19 @@ public class Schedule {
      *
      * @param person with the schedule to be created
      */
-    public Schedule(String person) {
+    public TuitionSchedule(String person) {
         this.person = person;
     }
-
-    /**
-     * Adds a new private task to the schedule
-     *
-     * @param task to be added
-     */
-    public void addPrivateTask(String task) {
-        try {
-            parseTask(task.trim());
-            Task newTask = new Task(person, taskDateTime, duration, description);
-            privateTaskList.add(newTask);
-        } catch (DateTimeParseException dtpe) {
-            System.out.println(MESSAGE_INVALID_DATE_TIME);
-        } catch (DurationParseException dpe) {
-            System.out.println(dpe.getMessage());
-        }
-    }
-
 
     /**
      * Adds a new tuition task to the schedule
      *
      * @param task to be added
      */
-    public void addTuitionTask(String task) {
+    public void addTask(String task) {
         try {
             parseTask(task.trim());
-            Task newTask = new Task(person, taskDateTime, duration, description);
+            TuitionTask newTask = new TuitionTask(person, taskDateTime, duration, description);
             tuitionTaskList.add(newTask);
         } catch (DateTimeParseException dtpe) {
             System.out.println(MESSAGE_INVALID_DATE_TIME);
@@ -78,7 +62,7 @@ public class Schedule {
     }
 
     /**
-     * Parses the task into date, time, duration and message
+     * Parses the task into date, time, duration and description
      *
      * @param task to be parsed
      */
