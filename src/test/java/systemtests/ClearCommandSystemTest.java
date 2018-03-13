@@ -30,8 +30,7 @@ public class ClearCommandSystemTest extends AddressBookSystemTest {
         assertCommandSuccess(command,  expectedResultMessage, defaultModel);
         assertSelectedCardUnchanged();
 
-        /* Case: clear non-empty address book using alias, command with leading spaces and trailing alphanumeric characters and
-         * spaces -> cleared
+        /* Case: clear non-empty address book using alias -> cleared
          */
         assertCommandSuccess("   " + ClearCommand.COMMAND_ALIAS + " ab12   ");
         assertSelectedCardUnchanged();
