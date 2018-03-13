@@ -15,6 +15,7 @@ import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
+import seedu.address.logic.commands.LinkedInLoginCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
@@ -48,7 +49,11 @@ public class AddressBookParser {
         final String arguments = matcher.group("arguments");
         switch (commandWord) {
 
+        case LinkedInLoginCommand.COMMAND_WORD:
+            return new LinkedInLoginCommand();
+
         case AddCommand.COMMAND_WORD:
+        case AddCommand.COMMAND_ALIAS:
             return new AddCommandParser().parse(arguments);
 
         case EditCommand.COMMAND_WORD:
@@ -68,6 +73,7 @@ public class AddressBookParser {
             return new FindCommandParser().parse(arguments);
 
         case ListCommand.COMMAND_WORD:
+        case ListCommand.COMMAND_ALIAS:
             return new ListCommand();
 
         case HistoryCommand.COMMAND_WORD:
