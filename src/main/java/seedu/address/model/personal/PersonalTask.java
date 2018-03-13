@@ -34,8 +34,8 @@ public class PersonalTask implements Task {
             this.description = description;
         }
 
-    public String getTaskDateTime() {
-        return taskDateTime.format(formatter);
+    public LocalDateTime getTaskDateTime() {
+        return taskDateTime;
     }
 
     public String getDescription() {

@@ -7,7 +7,6 @@ import java.time.format.ResolverStyle;
 import java.util.ArrayList;
 
 import seedu.address.model.Schedule;
-import seedu.address.model.Task;
 import seedu.address.model.person.exceptions.DurationParseException;
 import seedu.address.model.person.exceptions.TimingClashException;
 
@@ -23,7 +22,7 @@ public class PersonalSchedule implements Schedule {
     private static final int INDEX_OF_START_OF_DURATION = LENGTH_OF_DATE_TIME + 1;
     private static final int INVALID_INDEX = -1;
     private static final String NO_DESCRIPTION = "";
-    private static final String DURATION_VALIDATION_REGEX = "\\d*\\.??\\d*";
+    private static final String DURATION_VALIDATION_REGEX = "([0-9]|1[0-9]|2[0-3])\\b(h)\\b([0-5][0-9])\\b(h)\\b";
 
     private String duration;
     private String description;
@@ -32,7 +31,7 @@ public class PersonalSchedule implements Schedule {
             .withResolverStyle(ResolverStyle.STRICT);
     private String stringDateTime;
     private LocalDateTime taskDateTime;
-    private ArrayList<Task> personalTaskList = new ArrayList<>();
+    private ArrayList<PersonalTask> personalTaskList = new ArrayList<>();
 
     /**
      * Creates a schedule for the person*
@@ -109,7 +108,7 @@ public class PersonalSchedule implements Schedule {
             parsedDuration = task.substring(INDEX_OF_START_OF_DURATION,
                     indexOfEndOfDuration - INDEX_OF_START_OF_DURATION);
         }
-        if (!parsedDuration.trim().matches(DURATION_VALIDATION_REGEX)) {
+        if (!parsedDuration.matches(DURATION_VALIDATION_REGEX)) {
             throw new DurationParseException(MESSAGE_INVALID_DURATION);
         }
         return parsedDuration;
@@ -136,26 +135,47 @@ public class PersonalSchedule implements Schedule {
      * @throws TimingClashException if there is a timing clash
      */
     private void checkClashes() throws TimingClashException {
-        int indexOfDelimInDuration = duration.indexOf(".");
-        int minutesInDuration;
-        int hoursInDuration;
+        LocalDateTime taskEndTime = getTaskEndTime(duration, taskDateTime);
 
-        if (indexOfDelimInDuration == INVALID_INDEX) {
-            minutesInDuration = 0;
-            hoursInDuration = Integer.parseInt(duration);
-        } else {
-            minutesInDuration = convertHourToMinutes(duration.substring(indexOfDelimInDuration));
-            hoursInDuration = Integer.parseInt(duration.substring(0, indexOfDelimInDuration));
+        for (PersonalTask recordedTask : personalTaskList) {
+            if (isTimeClash(taskEndTime, recordedTask)) {
+                throw new TimingClashException(MESSAGE_TASK_TIMING_CLASHES);
+            }
         }
-
-        LocalDateTime taskEndTime = taskDateTime;
-        taskEndTime.plusMinutes(minutesInDuration);
-        taskEndTime.plusHours(hoursInDuration);
     }
 
-    private int convertHourToMinutes(String fractionalMinute) {
-        int minutes = ((Integer.parseInt(fractionalMinute)) / 10) * 60;
-        return minutes;
+    /**
+     * Returns date and time when the task ends
+     */
+    private LocalDateTime getTaskEndTime(String duration, LocalDateTime startDateTime) {
+        int indexOfHourDelimiter = duration.indexOf("h");
+        int indexOfFirstMinuteDigit = indexOfHourDelimiter + 1;
+        int hoursInDuration = Integer.parseInt(duration.substring(0, indexOfHourDelimiter));
+        int minutesInDuration = Integer.parseInt(duration.substring(indexOfFirstMinuteDigit));
+
+        LocalDateTime taskEndTime;
+        taskEndTime = startDateTime.plusHours(hoursInDuration).plusMinutes(minutesInDuration);
+        return taskEndTime;
+    }
+
+    /**
+     * Checks if the new task date and time clashes with a task in the schedule
+     *
+     * @param taskEndTime End time of the new task
+     * @param recordedTask Task that is already in the schedule
+     * @return true if no clash
+     *         false if clashes
+     */
+    private boolean isTimeClash(LocalDateTime taskEndTime, PersonalTask recordedTask) {
+        LocalDateTime startTimeOfTaskInSchedule = recordedTask.getTaskDateTime();
+        String duration = recordedTask.getDuration();
+        LocalDateTime endTimeOfTaskInSchedule = getTaskEndTime(duration, startTimeOfTaskInSchedule);
+
+        if (taskEndTime.isBefore(startTimeOfTaskInSchedule) || taskDateTime.isAfter(endTimeOfTaskInSchedule)) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
 }
