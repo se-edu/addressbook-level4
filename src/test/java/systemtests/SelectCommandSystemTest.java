@@ -97,6 +97,85 @@ public class SelectCommandSystemTest extends AddressBookSystemTest {
                 MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
+    @Test
+    public void selectAlias() {
+        /* ------------------------ Perform select operations on the shown unfiltered list -------------------------- */
+
+        /* Case: select the first card in the person list, command with leading spaces and trailing spaces
+         * -> selected
+         */
+        String command = "   " + SelectCommand.COMMAND_ALIAS + " " + INDEX_FIRST_PERSON.getOneBased() + "   ";
+        assertCommandSuccess(command, INDEX_FIRST_PERSON);
+
+        /* Case: select the last card in the person list -> selected */
+        Index personCount = Index.fromOneBased(getTypicalPersons().size());
+        command = SelectCommand.COMMAND_ALIAS + " " + personCount.getOneBased();
+        assertCommandSuccess(command, personCount);
+
+        /* Case: undo previous selection -> rejected */
+        command = UndoCommand.COMMAND_ALIAS;
+        String expectedResultMessage = UndoCommand.MESSAGE_FAILURE;
+        assertCommandFailure(command, expectedResultMessage);
+
+        /* Case: redo selecting last card in the list -> rejected */
+        command = RedoCommand.COMMAND_ALIAS;
+        expectedResultMessage = RedoCommand.MESSAGE_FAILURE;
+        assertCommandFailure(command, expectedResultMessage);
+
+        /* Case: select the middle card in the person list -> selected */
+        Index middleIndex = Index.fromOneBased(personCount.getOneBased() / 2);
+        command = SelectCommand.COMMAND_ALIAS + " " + middleIndex.getOneBased();
+        assertCommandSuccess(command, middleIndex);
+
+        /* Case: select the current selected card -> selected */
+        assertCommandSuccess(command, middleIndex);
+
+        /* ------------------------ Perform select operations on the shown filtered list ---------------------------- */
+
+        /* Case: filtered person list, select index within bounds of address book but out of bounds of person list
+         * -> rejected
+         */
+        showPersonsWithName(KEYWORD_MATCHING_MEIER);
+        int invalidIndex = getModel().getAddressBook().getPersonList().size();
+        assertCommandFailure(SelectCommand.COMMAND_ALIAS + " " + invalidIndex, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+
+        /* Case: filtered person list, select index within bounds of address book and person list -> selected */
+        Index validIndex = Index.fromOneBased(1);
+        assertTrue(validIndex.getZeroBased() < getModel().getFilteredPersonList().size());
+        command = SelectCommand.COMMAND_ALIAS + " " + validIndex.getOneBased();
+        assertCommandSuccess(command, validIndex);
+
+        /* ----------------------------------- Perform invalid select operations ------------------------------------ */
+
+        /* Case: invalid index (0) -> rejected */
+        assertCommandFailure(SelectCommand.COMMAND_ALIAS + " " + 0,
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE));
+
+        /* Case: invalid index (-1) -> rejected */
+        assertCommandFailure(SelectCommand.COMMAND_ALIAS + " " + -1,
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE));
+
+        /* Case: invalid index (size + 1) -> rejected */
+        invalidIndex = getModel().getFilteredPersonList().size() + 1;
+        assertCommandFailure(SelectCommand.COMMAND_ALIAS + " " + invalidIndex, MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+
+        /* Case: invalid arguments (alphabets) -> rejected */
+        assertCommandFailure(SelectCommand.COMMAND_ALIAS + " abc",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE));
+
+        /* Case: invalid arguments (extra argument) -> rejected */
+        assertCommandFailure(SelectCommand.COMMAND_ALIAS + " 1 abc",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, SelectCommand.MESSAGE_USAGE));
+
+        /* Case: mixed case command word -> rejected */
+        assertCommandFailure("SeLeCt 1", MESSAGE_UNKNOWN_COMMAND);
+
+        /* Case: select from empty address book -> rejected */
+        deleteAllPersons();
+        assertCommandFailure(SelectCommand.COMMAND_ALIAS + " " + INDEX_FIRST_PERSON.getOneBased(),
+                MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+    }
+
     /**
      * Executes {@code command} and asserts that the,<br>
      * 1. Command box displays an empty string.<br>

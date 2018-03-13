@@ -136,6 +136,29 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Removes {@code Tag} from a particular {@code Person}.
+     * @throws PersonNotFoundException if {@code Person} does not exist.
+     */
+    public void removeTagFromPerson(Tag tag, Person person) {
+        Set<Tag> newTags = new HashSet<>(person.getTags());
+
+        if (!newTags.remove(tag)) {
+            return;
+        }
+
+        Person newPerson =
+                new Person(person.getName(), person.getPhone(), person.getEmail(), person.getAddress(), newTags);
+
+        try {
+            updatePerson(person, newPerson);
+        } catch (DuplicatePersonException dpe) {
+            throw new AssertionError("tag modification should not cause duplicate person");
+        } catch (PersonNotFoundException pnfe) {
+            throw new AssertionError("target person does not exist.");
+        }
+    }
+
+    /**
      * Removes {@code key} from this {@code AddressBook}.
      * @throws PersonNotFoundException if the {@code key} is not in this {@code AddressBook}.
      */

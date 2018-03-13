@@ -188,6 +188,147 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
         assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PERSON);
     }
 
+    @Test
+    public void editAlias() throws Exception {
+        Model model = getModel();
+
+        /* ----------------- Performing edit operation while an unfiltered list is being shown ---------------------- */
+
+        /* Case: edit all fields, command with leading spaces, trailing spaces and multiple spaces between each field
+         * -> edited
+         */
+        Index index = INDEX_FIRST_PERSON;
+        String command = " " + EditCommand.COMMAND_ALIAS + "  " + index.getOneBased() + "  " + NAME_DESC_BOB + "  "
+                + PHONE_DESC_BOB + " " + EMAIL_DESC_BOB + "  " + ADDRESS_DESC_BOB + " " + TAG_DESC_HUSBAND + " ";
+        Person editedPerson = new PersonBuilder().withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
+                .withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND).build();
+        assertCommandSuccess(command, index, editedPerson);
+
+        /* Case: undo editing the last person in the list -> last person restored */
+        command = UndoCommand.COMMAND_ALIAS;
+        String expectedResultMessage = UndoCommand.MESSAGE_SUCCESS;
+        assertCommandSuccess(command, model, expectedResultMessage);
+
+        /* Case: redo editing the last person in the list -> last person edited again */
+        command = RedoCommand.COMMAND_ALIAS;
+        expectedResultMessage = RedoCommand.MESSAGE_SUCCESS;
+        model.updatePerson(
+                getModel().getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased()), editedPerson);
+        assertCommandSuccess(command, model, expectedResultMessage);
+
+        /* Case: edit a person with new values same as existing values -> edited */
+        command = EditCommand.COMMAND_ALIAS + " " + index.getOneBased()
+                + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
+                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
+        assertCommandSuccess(command, index, BOB);
+
+        /* Case: edit some fields -> edited */
+        index = INDEX_FIRST_PERSON;
+        command = EditCommand.COMMAND_ALIAS + " " + index.getOneBased() + TAG_DESC_FRIEND;
+        Person personToEdit = getModel().getFilteredPersonList().get(index.getZeroBased());
+        editedPerson = new PersonBuilder(personToEdit).withTags(VALID_TAG_FRIEND).build();
+        assertCommandSuccess(command, index, editedPerson);
+
+        /* Case: clear tags -> cleared */
+        index = INDEX_FIRST_PERSON;
+        command = EditCommand.COMMAND_ALIAS + " " + index.getOneBased() + " " + PREFIX_TAG.getPrefix();
+        editedPerson = new PersonBuilder(personToEdit).withTags().build();
+        assertCommandSuccess(command, index, editedPerson);
+
+        /* ------------------ Performing edit operation while a filtered list is being shown ------------------------ */
+
+        /* Case: filtered person list, edit index within bounds of address book and person list -> edited */
+        showPersonsWithName(KEYWORD_MATCHING_MEIER);
+        index = INDEX_FIRST_PERSON;
+        assertTrue(index.getZeroBased() < getModel().getFilteredPersonList().size());
+        command = EditCommand.COMMAND_ALIAS + " " + index.getOneBased() + " " + NAME_DESC_BOB;
+        personToEdit = getModel().getFilteredPersonList().get(index.getZeroBased());
+        editedPerson = new PersonBuilder(personToEdit).withName(VALID_NAME_BOB).build();
+        assertCommandSuccess(command, index, editedPerson);
+
+        /* Case: filtered person list, edit index within bounds of address book but out of bounds of person list
+         * -> rejected
+         */
+        showPersonsWithName(KEYWORD_MATCHING_MEIER);
+        int invalidIndex = getModel().getAddressBook().getPersonList().size();
+        assertCommandFailure(EditCommand.COMMAND_ALIAS + " " + invalidIndex + NAME_DESC_BOB,
+                Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+
+        /* --------------------- Performing edit operation while a person card is selected -------------------------- */
+
+        /* Case: selects first card in the person list, edit a person -> edited, card selection remains unchanged but
+         * browser url changes
+         */
+        showAllPersons();
+        index = INDEX_FIRST_PERSON;
+        selectPerson(index);
+        command = EditCommand.COMMAND_ALIAS + " " + index.getOneBased()
+                + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY
+                + ADDRESS_DESC_AMY + TAG_DESC_FRIEND;
+        // this can be misleading: card selection actually remains unchanged but the
+        // browser's url is updated to reflect the new person's name
+        assertCommandSuccess(command, index, AMY, index);
+
+        /* --------------------------------- Performing invalid edit operation -------------------------------------- */
+
+        /* Case: invalid index (0) -> rejected */
+        assertCommandFailure(EditCommand.COMMAND_ALIAS + " 0" + NAME_DESC_BOB,
+                String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+
+        /* Case: invalid index (-1) -> rejected */
+        assertCommandFailure(EditCommand.COMMAND_ALIAS + " -1" + NAME_DESC_BOB,
+                String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+
+        /* Case: invalid index (size + 1) -> rejected */
+        invalidIndex = getModel().getFilteredPersonList().size() + 1;
+        assertCommandFailure(EditCommand.COMMAND_ALIAS + " " + invalidIndex + NAME_DESC_BOB,
+                Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+
+        /* Case: missing index -> rejected */
+        assertCommandFailure(EditCommand.COMMAND_ALIAS + NAME_DESC_BOB,
+                String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE));
+
+        /* Case: missing all fields -> rejected */
+        assertCommandFailure(EditCommand.COMMAND_ALIAS + " " + INDEX_FIRST_PERSON.getOneBased(),
+                EditCommand.MESSAGE_NOT_EDITED);
+
+        /* Case: invalid name -> rejected */
+        assertCommandFailure(EditCommand.COMMAND_ALIAS + " " + INDEX_FIRST_PERSON.getOneBased() + INVALID_NAME_DESC,
+                Name.MESSAGE_NAME_CONSTRAINTS);
+
+        /* Case: invalid phone -> rejected */
+        assertCommandFailure(EditCommand.COMMAND_ALIAS + " " + INDEX_FIRST_PERSON.getOneBased() + INVALID_PHONE_DESC,
+                Phone.MESSAGE_PHONE_CONSTRAINTS);
+
+        /* Case: invalid email -> rejected */
+        assertCommandFailure(EditCommand.COMMAND_ALIAS + " " + INDEX_FIRST_PERSON.getOneBased() + INVALID_EMAIL_DESC,
+                Email.MESSAGE_EMAIL_CONSTRAINTS);
+
+        /* Case: invalid address -> rejected */
+        assertCommandFailure(EditCommand.COMMAND_ALIAS + " " + INDEX_FIRST_PERSON.getOneBased() + INVALID_ADDRESS_DESC,
+                Address.MESSAGE_ADDRESS_CONSTRAINTS);
+
+        /* Case: invalid tag -> rejected */
+        assertCommandFailure(EditCommand.COMMAND_ALIAS + " " + INDEX_FIRST_PERSON.getOneBased() + INVALID_TAG_DESC,
+                Tag.MESSAGE_TAG_CONSTRAINTS);
+
+        /* Case: edit a person with new values same as another person's values -> rejected */
+        executeCommand(PersonUtil.getAddCommand(BOB));
+        assertTrue(getModel().getAddressBook().getPersonList().contains(BOB));
+        index = INDEX_FIRST_PERSON;
+        assertFalse(getModel().getFilteredPersonList().get(index.getZeroBased()).equals(BOB));
+        command = EditCommand.COMMAND_ALIAS + " " + index.getOneBased()
+                + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
+                + ADDRESS_DESC_BOB + TAG_DESC_FRIEND + TAG_DESC_HUSBAND;
+        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PERSON);
+
+        /* Case: edit a person with new values same as another person's values but with different tags -> rejected */
+        command = EditCommand.COMMAND_ALIAS + " " + index.getOneBased()
+                + NAME_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
+                + ADDRESS_DESC_BOB + TAG_DESC_HUSBAND;
+        assertCommandFailure(command, EditCommand.MESSAGE_DUPLICATE_PERSON);
+    }
+
     /**
      * Performs the same verification as {@code assertCommandSuccess(String, Index, Person, Index)} except that
      * the browser url and selected card remain unchanged.
