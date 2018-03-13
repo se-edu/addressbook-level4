@@ -52,9 +52,9 @@ public class Lead extends Person {
     public Address getAddress() {
         return address;
     }
-
+    
     public Type getType() {
-    	return type;
+        return type;
     }
 
     /**

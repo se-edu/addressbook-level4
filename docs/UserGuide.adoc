@@ -72,7 +72,7 @@ If this is your first login, a synchronization will also take place.
 
 Format: 'updateLinkedIn'
 
-[Tip]
+[TIP]
 Updating from LinkedIn will synchronize your CRM Book with your LinkedIn Account and highlight all changes since the last synchonization
 
 === Adding a person: `a or add`
