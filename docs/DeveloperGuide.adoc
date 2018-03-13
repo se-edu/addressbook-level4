@@ -863,7 +863,7 @@ _{More to be added}_
 (For all use cases below, the *System* is the `Tuition Connect AddressBook (TC)` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: UC01-Delete person
+=== Use case: UC01 - Delete person
 
 *MSS*
 
