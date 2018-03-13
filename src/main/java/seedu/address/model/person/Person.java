@@ -6,7 +6,6 @@ import java.util.Collections;
 import java.util.Objects;
 import java.util.Set;
 
-import seedu.address.model.Schedule;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 
@@ -20,7 +19,6 @@ public class Person {
     private final Phone phone;
     private final Email email;
     private final Address address;
-    private Schedule schedule;
 
     private final UniqueTagList tags;
 
@@ -35,7 +33,6 @@ public class Person {
         this.address = address;
         // protect internal tags from changes in the arg list
         this.tags = new UniqueTagList(tags);
-        this.schedule = new TuitionSchedule(name.toString());
     }
 
     public Name getName() {
@@ -52,10 +49,6 @@ public class Person {
 
     public Address getAddress() {
         return address;
-    }
-
-    public Schedule getSchedule() {
-        return schedule;
     }
 
     /**
