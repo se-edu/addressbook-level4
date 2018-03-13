@@ -855,8 +855,6 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`*` |tutor |insert my student's photo |
 |=======================================================================
 
-_{More to be added}_
-
 [appendix]
 == Use Cases
 
@@ -1025,8 +1023,6 @@ Use Case ends.
 **	4a2. User acknowledges.
 **	Use case ends.
 
-_{More to be added}_
-
 [appendix]
 == Non Functional Requirements
 
@@ -1042,9 +1038,6 @@ _{More to be added}_
 .  The app may utilise third party libraries, API and plug-ins.
 .  The app should be able to access the Internet.
 .  The app should be able to perform basic commands without internet access.
-
-
-_{More to be added}_
 
 [appendix]
 == Glossary
