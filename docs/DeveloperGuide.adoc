@@ -871,7 +871,7 @@ Use Case ends.
 [none]
 ** *a1 TC requests confirmation of the cancelation.
 ** *a2. User confirms the cancellation.
-** Use case ends.
+       	Use case ends.
 
 * 5a. Name is not found
 +
@@ -940,7 +940,7 @@ Use case ends.
 ** *a2. User confirms the cancellation.
 ** Use case ends.
 
-* 2a. The name is already inside the tutee list.
+*    2a. The name is already inside the tutee list.
 +
 [none]
 ** 2a1. TC indicates that the name is already inside the tutee list.
