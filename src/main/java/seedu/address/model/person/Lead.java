@@ -53,7 +53,7 @@ public class Lead extends Person {
         return address;
     }
 
-    public Type getType() { 
+    public Type getType() {
     	return type;
     }
 
