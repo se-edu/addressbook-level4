@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import static org.junit.Assert.assertEquals;
+import static seedu.address.testutil.PersonBuilder.DEFAULT_TAGS;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
@@ -18,6 +19,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
+
+import seedu.address.testutil.PersonBuilder;
 
 public class AddressBookTest {
 
@@ -66,6 +69,17 @@ public class AddressBookTest {
     public void getTagList_modifyList_throwsUnsupportedOperationException() {
         thrown.expect(UnsupportedOperationException.class);
         addressBook.getTagList().remove(0);
+    }
+
+    @Test
+    public void removeTag_existingTag_tagRemoved() throws Exception {
+        Person person = new PersonBuilder().build();
+        addressBook.addPerson(person);
+        addressBook.removeTagFromPerson(new Tag(DEFAULT_TAGS), person);
+
+        Person expectedPerson = new PersonBuilder().withTags().build();
+
+        assertEquals(person, expectedPerson);
     }
 
     /**
