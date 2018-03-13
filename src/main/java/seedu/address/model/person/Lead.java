@@ -48,7 +48,11 @@ public class Lead extends Person {
     public Email getEmail() {
         return email;
     }
-
+    
+    public Type getType() {
+        return type;
+    }
+    
     public Address getAddress() {
         return address;
     }
