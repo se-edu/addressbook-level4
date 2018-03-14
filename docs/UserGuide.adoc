@@ -217,6 +217,10 @@ The `redo` command fails as there are no `undo` commands executed previously.
 `redo` (reapplies the `delete 1` command) +
 `redo` (reapplies the `clear` command) +
 // end::undoredo[]
+=== Sorting all entries : `sort`
+
+Sort all entries from the address book by given condition in lexicographical order. +
+Format: `sort`
 
 === Clearing all entries : `clear`
 
