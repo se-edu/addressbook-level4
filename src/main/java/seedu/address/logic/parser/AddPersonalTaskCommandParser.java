@@ -1,33 +1,28 @@
 package seedu.address.logic.parser;
 
-import seedu.address.commons.core.index.Index;
-import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.logic.commands.AddTuitionTaskCommand;
+import seedu.address.logic.commands.AddPersonalTaskCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 import seedu.address.model.Schedule;
-import seedu.address.model.person.TuitionTask;
 import seedu.address.model.person.exceptions.DurationParseException;
 import seedu.address.model.person.exceptions.TimingClashException;
+import seedu.address.model.personal.PersonalTask;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.format.ResolverStyle;
-import java.util.regex.PatternSyntaxException;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 /**
- * Parses input arguments and creates a new AddTuitionTaskCommand object
+ * Parses input arguments and creates a new AddPersonalTaskCommand object.
  */
-public class AddTuitionTaskCommandParser {
+public class AddPersonalTaskCommandParser {
 
     private static final String MESSAGE_TASK_TIMING_CLASHES = "This task clashes with another task";
     private static final String MESSAGE_INVALID_DATE_TIME = "The input date and time is invalid";
     private static final String MESSAGE_INVALID_DURATION = "The duration format is invalid";
-    private static final int INDEX_OF_PERSON_INDEX = 0;
-    private static final int INDEX_OF_TASK = 1;
     private static final int LENGTH_OF_DATE_TIME = 16;
     private static final int INDEX_OF_START_OF_DURATION = LENGTH_OF_DATE_TIME + 1;
     private static final int INVALID_INDEX = -1;
@@ -47,27 +42,18 @@ public class AddTuitionTaskCommandParser {
      * and returns an AddTuitionTaskCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public AddTuitionTaskCommand parse(String args) throws ParseException {
-        String[] userInput = args.trim().split("\\s", 2);
+    public AddPersonalTaskCommand parse(String task) throws ParseException {
         try {
-            Index index = ParserUtil.parseIndex(userInput[INDEX_OF_PERSON_INDEX]);
-            this.parseTask(userInput[INDEX_OF_TASK].trim());
-            return new AddTuitionTaskCommand(
-                    new TuitionTask("dummy", taskDateTime, duration, description), index);
+            this.parseTask(task.trim());
+            return new AddPersonalTaskCommand(new PersonalTask(taskDateTime, duration, description));
         } catch (DateTimeParseException dtpe) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTuitionTaskCommand.MESSAGE_USAGE));
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddPersonalTaskCommand.MESSAGE_USAGE));
         } catch (DurationParseException dpe) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTuitionTaskCommand.MESSAGE_USAGE));
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddPersonalTaskCommand.MESSAGE_USAGE));
         } catch (TimingClashException tce) {
             System.out.println(MESSAGE_TASK_TIMING_CLASHES);
-        } catch (PatternSyntaxException pse) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTuitionTaskCommand.MESSAGE_USAGE));
-        } catch (IllegalValueException ive) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTuitionTaskCommand.MESSAGE_USAGE));
         }
         return null; //still unsure how to handle
     }
