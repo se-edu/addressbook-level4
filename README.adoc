@@ -12,6 +12,8 @@ endif::[]
 * This is a desktop application for private tutors. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
 * For Tutors:
 . Provides easy management of task with the aid of a schedule.
+. Has a calendar that makes viewing of task easier.
+. Able to add, delete, edit any tuition or personal task into the schedule.
 . Easily sort and group students by certain information.
 . Has a log book that summarises the week for you.
 
