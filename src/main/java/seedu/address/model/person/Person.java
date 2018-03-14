@@ -13,7 +13,7 @@ import seedu.address.model.tag.UniqueTagList;
  * Represents a Person in the address book.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Person {
+public class Person implements Comparable<Person>{
 
     private final Name name;
     private final Phone phone;
@@ -95,6 +95,11 @@ public class Person {
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
+    }
+
+    @Override
+    public int compareTo(Person nextPerson) {
+        return name.toString().compareTo(nextPerson.getName().toString());
     }
 
 }

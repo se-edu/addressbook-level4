@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Collections;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -113,6 +114,12 @@ public class UniquePersonList implements Iterable<Person> {
                         && this.internalList.equals(((UniquePersonList) other).internalList));
     }
 
+    /**
+     * Sorts all person in the list according to lexographical order
+     */
+    public void sort(){
+        Collections.sort(internalList);
+    }
     @Override
     public int hashCode() {
         return internalList.hashCode();
