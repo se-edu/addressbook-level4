@@ -52,6 +52,13 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 [[Features]]
 == Features
 
+* Coming in v2.0: Identify if a lead to be added is already in the CRM application. This is a viable feature as leads from different parts of the world
+have different ways of adding the same lead into the CRM application. For instance, certain leads may add a lead in the order of last name-first name
+rather than first name-last name. The CRM application will prompt the user that the lead to be added is a duplicate.
+
+* Group leads from different companies that share the same parent company under a category named after the parent company.
+Example: Leads from Skype and Nokia can be categorised under a group called Microsoft.
+
 ====
 *Command Format*
 
