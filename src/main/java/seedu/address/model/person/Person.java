@@ -20,7 +20,7 @@ public class Person {
     private final Phone phone;
     private final Email email;
     private final Address address;
-    private Schedule schedule;
+    private TuitionSchedule schedule;
 
     private final UniqueTagList tags;
 
@@ -54,7 +54,7 @@ public class Person {
         return address;
     }
 
-    public Schedule getSchedule() {
+    public TuitionSchedule getTuitionSchedule() {
         return schedule;
     }
 

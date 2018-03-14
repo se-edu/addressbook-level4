@@ -48,7 +48,7 @@ public class Schedule implements ScheduleAPI {
     /**
      * Returns date and time when the task ends
      */
-    private LocalDateTime getTaskEndTime(String duration, LocalDateTime startDateTime) {
+    private static LocalDateTime getTaskEndTime(String duration, LocalDateTime startDateTime) {
         int indexOfHourDelimiter = duration.indexOf("h");
         int indexOfFirstMinuteDigit = indexOfHourDelimiter + 1;
         int hoursInDuration = Integer.parseInt(duration.substring(0, indexOfHourDelimiter));
@@ -67,7 +67,7 @@ public class Schedule implements ScheduleAPI {
      * @return true if no clash
      * false if clashes
      */
-    private boolean isTimeClash(LocalDateTime taskDateTime, LocalDateTime taskEndTime, Task recordedTask) {
+    private static boolean isTimeClash(LocalDateTime taskDateTime, LocalDateTime taskEndTime, Task recordedTask) {
         LocalDateTime startTimeOfTaskInSchedule = recordedTask.getTaskDateTime();
         String duration = recordedTask.getDuration();
         LocalDateTime endTimeOfTaskInSchedule = getTaskEndTime(duration, startTimeOfTaskInSchedule);

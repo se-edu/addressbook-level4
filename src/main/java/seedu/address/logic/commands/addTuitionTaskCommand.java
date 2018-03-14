@@ -1,19 +1,12 @@
 package seedu.address.logic.commands;
 
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DURATION;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_REMARK;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_START_TIME;
-
 import static java.util.Objects.requireNonNull;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
-import seedu.address.model.Schedule;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.TuitionSchedule;
 import seedu.address.model.person.TuitionTask;
-import seedu.address.model.person.exceptions.TimingClashException;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 
@@ -36,13 +29,12 @@ public class AddTuitionTaskCommand extends UndoableCommand {
             + "DURATION(HhMm) " + "(space) "
             + "REMARK";
 
-    public static final String MESSAGE_SUCCESS = "New schedule added.";
-    private static final String MESSAGE_TASK_TIMING_CLASHES = "This task clashes with another task";
+    public static final String MESSAGE_SUCCESS = "New tuition task added.";
 
     private final TuitionTask toAdd;
     private final Index targetIndex;
 
-    private Schedule tuitionSchedule = null; // will be assigned
+    private TuitionSchedule tuitionSchedule = null; // will be assigned
     private Person associatedPerson;
 
     /**
@@ -65,8 +57,8 @@ public class AddTuitionTaskCommand extends UndoableCommand {
     //Question : does this agree with SLAB?
     protected void preprocessUndoableCommand() throws CommandException {
         findAssociatedPerson();
-        assert(associatedPerson.getSchedule() != null);
-        tuitionSchedule = associatedPerson.getSchedule();
+        assert(associatedPerson.getTuitionSchedule() != null);
+        tuitionSchedule = associatedPerson.getTuitionSchedule();
     }
 
     /**

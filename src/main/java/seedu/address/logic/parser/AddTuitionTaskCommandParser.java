@@ -5,8 +5,8 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.AddTuitionTaskCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
+import seedu.address.model.Schedule;
 import seedu.address.model.person.TuitionTask;
-import seedu.address.model.person.TuitionSchedule;
 import seedu.address.model.person.exceptions.DurationParseException;
 import seedu.address.model.person.exceptions.TimingClashException;
 
@@ -48,7 +48,6 @@ public class AddTuitionTaskCommandParser {
      */
     public AddTuitionTaskCommand parse(String args) throws ParseException {
         String[] userInput = args.trim().split("\\s", 2);
-
         try {
             Index index = ParserUtil.parseIndex(userInput[INDEX_OF_PERSON_INDEX]);
             this.parseTask(userInput[INDEX_OF_TASK].trim());
@@ -69,6 +68,7 @@ public class AddTuitionTaskCommandParser {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTuitionTaskCommand.MESSAGE_USAGE));
         }
+        return null; //still unsure how to handle
     }
 
     /**
@@ -85,7 +85,7 @@ public class AddTuitionTaskCommandParser {
             stringDateTime = parseDateTime(task);
             taskDateTime = LocalDateTime.parse(stringDateTime, formatter);
             duration = parseDuration(task);
-            TuitionSchedule.checkClashes(taskDateTime, duration);
+            Schedule.checkClashes(taskDateTime, duration);
         } catch (DateTimeParseException dtpe) {
             throw new DateTimeParseException(MESSAGE_INVALID_DATE_TIME, dtpe.getParsedString(), dtpe.getErrorIndex());
         } catch (DurationParseException dpe) {

@@ -1,13 +1,6 @@
 package seedu.address.model.personal;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.time.format.ResolverStyle;
 import java.util.ArrayList;
-
-import seedu.address.model.person.exceptions.DurationParseException;
-import seedu.address.model.person.exceptions.TimingClashException;
 
 import seedu.address.model.Schedule;
 
@@ -16,7 +9,7 @@ import seedu.address.model.Schedule;
  */
 public class PersonalSchedule extends Schedule {
 
-    private static ArrayList<PersonalTask> personalTaskList = new ArrayList<>();
+    public static ArrayList<PersonalTask> personalTaskList = new ArrayList<>();
 
     public PersonalSchedule() {
     }
