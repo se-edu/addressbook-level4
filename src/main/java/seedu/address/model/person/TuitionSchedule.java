@@ -15,7 +15,6 @@ import seedu.address.model.person.exceptions.TimingClashException;
 public class TuitionSchedule implements Schedule {
 
     private static final String MESSAGE_TASK_TIMING_CLASHES = "This task clashes with another task";
-    private static final String MESSAGE_INVALID_DATE_TIME = "The input date and time is invalid";
 
     private String person;
     private ArrayList<TuitionTask> tuitionTaskList = new ArrayList<>();
@@ -34,16 +33,8 @@ public class TuitionSchedule implements Schedule {
      *
      * @param task to be added
      */
-    public void addTask(TuitionTask newTask) {
-        try {
+    public void addTask(TuitionTask newTask){
             tuitionTaskList.add(newTask);
-        } catch (DateTimeParseException dtpe) {
-            System.out.println(MESSAGE_INVALID_DATE_TIME);
-        } catch (DurationParseException dpe) {
-            System.out.println(dpe.getMessage());
-        } catch (TimingClashException tce) {
-            System.out.println(MESSAGE_TASK_TIMING_CLASHES);
-        }
     }
 
     /**
