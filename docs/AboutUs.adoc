@@ -27,12 +27,12 @@ Responsibilities: UI
 
 '''
 
-=== Johnny Doe
-image::yijinl.jpg[width="150", align="left"]
-{empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
+=== Sheikh Umar
+image::sheikh-umar.png[width="150", align="left"]
+{empty}[https://github.com/Sheikh-Umar[github]] [<<johndoe#, portfolio>>]
 
-Role: Developer +
-Responsibilities: Data
+Role: Documentation + Deliverables and deadlines
+Responsibilities: Smart Duplicate detection + Data Enrichment + UI
 
 '''
 
