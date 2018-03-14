@@ -276,7 +276,10 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
         command = "FiNd Meier";
         assertCommandFailure(command, MESSAGE_UNKNOWN_COMMAND);
 
-
+        /* Case: find phone number of person in address book -> 0 persons found */
+        command = FindCommand.COMMAND_ALIAS + " " + BENSON.getPhone().value;
+        assertCommandSuccess(command, expectedModel);
+        assertSelectedCardUnchanged();
     }
 
     /**
