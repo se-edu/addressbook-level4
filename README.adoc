@@ -11,13 +11,12 @@ ifndef::env-github[]
 image::images/Ui.png[width="600"]
 endif::[]
 
-* This is a desktop Customer Relationship Manager (CRM) application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
-* It is a Java sample application intended for students learning Software Engineering while using Java as the main programming language.
-* It is *written in OOP fashion*. It provides a *reasonably well-written* code example that is *significantly bigger* (around 6 KLoC)than what students usually write in beginner-level SE modules.
-* What's different from https://github.com/se-edu/addressbook-level3[level 3]:
-** A more sophisticated GUI that includes a list  panel and an in-built Browser.
-** More test cases, including automated GUI testing.
-** Support for _Build Automation_ using Gradle and for _Continuous Integration_ using Travis CI.
+* This is a desktop Customer Relationship Manager (CRM) application. It has a GUI but most of the user interactions happen
+using a CLI (Command Line Interface).
+* It is a Java sample application specifically catered for salespeople to help them categorise leads more optimally.
+* This application addresses the needs of salespeople, namely: categorise leads and contacts to know potential sales targets and list of leads from past sales transactions,
+ port in their LinkedIn profile, and identifies potential duplicate entries to cater to the different styles of salespeople around the world.
+* In summary, this CRM application is a viable form of assistance to manage leads more optimally for future sales decisions.
 
 == Site Map
 
@@ -29,8 +28,6 @@ endif::[]
 
 == Acknowledgements
 
-* Some parts of this sample application were inspired by the excellent http://code.makery.ch/library/javafx-8-tutorial/[Java FX tutorial] by
-_Marco Jakob_.
-* Libraries used: https://github.com/TomasMikula/EasyBind[EasyBind], https://github.com/TestFX/TestFX[TextFX], https://bitbucket.org/controlsfx/controlsfx/[ControlsFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/google/guava[Guava], https://github.com/junit-team/junit4[JUnit4]
+* The original source of the code is the AddressBook-level4 project created by the SE-EDU initiative at https://github.com/se-edu/
 
 == Licence : link:LICENSE[MIT]
