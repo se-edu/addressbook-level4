@@ -120,6 +120,7 @@ public class UniquePersonList implements Iterable<Person> {
     public void sort(){
         Collections.sort(internalList);
     }
+
     @Override
     public int hashCode() {
         return internalList.hashCode();
