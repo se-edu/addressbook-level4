@@ -52,7 +52,8 @@ public class AddTuitionTaskCommandParser {
         try {
             Index index = ParserUtil.parseIndex(userInput[INDEX_OF_PERSON_INDEX]);
             this.parseTask(userInput[INDEX_OF_TASK].trim());
-
+            return new AddTuitionTaskCommand(
+                    new TuitionTask("dummy", taskDateTime, duration, description), index);
         } catch (DateTimeParseException dtpe) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTuitionTaskCommand.MESSAGE_USAGE));
@@ -68,7 +69,6 @@ public class AddTuitionTaskCommandParser {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTuitionTaskCommand.MESSAGE_USAGE));
         }
-        return new AddTuitionTaskCommand(new TuitionTask("dummy", taskDateTime, duration, description));
     }
 
     /**

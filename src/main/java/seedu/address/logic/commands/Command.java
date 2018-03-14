@@ -12,7 +12,6 @@ import seedu.address.model.Schedule;
  */
 public abstract class Command {
     protected Model model;
-    protected Schedule schedule;
     protected CommandHistory history;
     protected UndoRedoStack undoRedoStack;
 
