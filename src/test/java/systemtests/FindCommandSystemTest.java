@@ -41,11 +41,6 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find phone number of person in address book -> 0 persons found */
-       // command = FindCommand.COMMAND_WORD + " " + DANIEL.getEmail().value;
-      //  assertCommandSuccess(command, expectedModel);
-        //assertSelectedCardUnchanged();
-
         /* Case: find person where person list is not displaying the person we are finding -> 1 person found */
         command = FindCommand.COMMAND_WORD + " Carl";
         ModelHelper.setFilteredList(expectedModel, CARL);
@@ -242,10 +237,7 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
-        /* Case: find phone number of person in address book -> 0 persons found */
-        command = FindCommand.COMMAND_ALIAS + " " + BENSON.getPhone().value;
-        assertCommandSuccess(command, expectedModel);
-        assertSelectedCardUnchanged();
+
 
         /* Case: find address of person in address book -> 0 persons found */
         command = FindCommand.COMMAND_ALIAS + " " + DANIEL.getAddress().value;
@@ -283,6 +275,11 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
         /* Case: mixed case command word -> rejected */
         command = "FiNd Meier";
         assertCommandFailure(command, MESSAGE_UNKNOWN_COMMAND);
+
+        /* Case: find phone number of person in address book -> 0 persons found */
+        command = FindCommand.COMMAND_ALIAS + " " + BENSON.getPhone().value;
+        assertCommandSuccess(command, expectedModel);
+        assertSelectedCardUnchanged();
     }
 
     /**
