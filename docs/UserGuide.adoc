@@ -17,7 +17,12 @@ By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
 
 == Introduction
 
-CRM Book is for those who *prefer to use a desktop app for managing their Leads, Contacts, and Accounts*. More importantly, CRM Book is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, CRM Book can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+CRM Book application aims to assist salespeople in managing the information of leads and contacts
+more optimally for future sales decisions. Unique features of this application include identifying if a lead to be added in is a duplicate,
+booking a digital conference with other leads through Zoom, and converting a Lead to a Contact after a sales transaction.
+*More importantly, CRM Book is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast,
+CRM Book can get your contact management tasks done faster than traditional GUI apps.
+Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 
