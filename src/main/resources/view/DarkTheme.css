@@ -342,10 +342,44 @@
 }
 
 #tags .label {
-    -fx-text-fill: white;
-    -fx-background-color: #3e7b91;
     -fx-padding: 1 3 1 3;
     -fx-border-radius: 2;
     -fx-background-radius: 2;
     -fx-font-size: 11;
 }
+
+#tags .yellow {
+    -fx-text-fill: black;
+    -fx-background-color: yellow;
+    }
+
+#tags .blue {
+    -fx-text-fill: white;
+    -fx-background-color: blue;
+    }
+
+#tags .red {
+    -fx-text-fill: black;
+    -fx-background-color: red;
+    }
+
+#tags .green {
+    -fx-text-fill: black;
+    -fx-background-color: green;
+    }
+
+#tags .orange {
+    -fx-text-fill: black;
+    -fx-background-color: orange;
+    }
+
+#tags .purple {
+    -fx-text-fill: white;
+    -fx-background-color: purple;
+    }
+
+#tags .grey {
+    -fx-text-fill: black;
+    -fx-background-color: grey;
+    }
+    
