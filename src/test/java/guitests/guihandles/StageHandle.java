@@ -44,6 +44,13 @@ public abstract class StageHandle {
     }
 
     /**
+     * Returns true if we are currently focusing on the this stage.
+     */
+    public boolean isFocused() {
+        return stage.isFocused();
+    }
+
+    /**
      * Retrieves the {@code query} node owned by the {@code stage}.
      *
      * @param query name of the CSS selector for the node to retrieve.
