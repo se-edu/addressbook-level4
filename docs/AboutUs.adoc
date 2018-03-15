@@ -10,8 +10,8 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 == Project Team
 
 === Eka Buyung Lienadi
-image::yijinl.jpg[width="150", align="left"]
-{empty}[http://github.com/yungyung04[github]] [<<johndoe#, portfolio>>]
+image::yungyung04.jpg[width="150", align="left"]
+{empty}[http://github.com/yungyung04[github]]
 
 Role: Team Lead +
 Responsibilities: Storage + Scheduling and Tracking
