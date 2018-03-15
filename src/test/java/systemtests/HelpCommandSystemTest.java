@@ -12,6 +12,7 @@ import org.junit.Test;
 
 import guitests.GuiRobot;
 import guitests.guihandles.HelpWindowHandle;
+import javafx.stage.Stage;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.SelectCommand;
@@ -85,6 +86,21 @@ public class HelpCommandSystemTest extends AddressBookSystemTest {
         executeCommand(HelpCommand.COMMAND_WORD);
         // assert that only 1 help window is open even with multiple commands to open the help window
         assertEquals(1, guiRobot.getNumberOfWindowsShown(HELP_WINDOW_TITLE));
+    }
+
+    @Test
+    public void help_helpWindowNotFocused_helpWindowFocused() {
+        getMainMenu().openHelpWindowUsingAccelerator();
+        Stage helpWindowStage = guiRobot.getStage(HELP_WINDOW_TITLE);
+
+        // assert command to open help window focuses on the open help window
+        getMainWindowHandle().focus();
+        getMainMenu().openHelpWindowUsingAccelerator();
+        assertTrue(helpWindowStage.isFocused());
+
+        getMainWindowHandle().focus();
+        executeCommand(HelpCommand.COMMAND_WORD);
+        assertTrue(helpWindowStage.isFocused());
     }
 
     /**
