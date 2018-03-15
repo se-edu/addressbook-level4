@@ -12,9 +12,12 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.model.person.Contact;
+import seedu.address.model.person.Lead;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
+import seedu.address.model.person.exceptions.PersonWrongType;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -81,6 +84,14 @@ public class ModelManager extends ComponentManager implements Model {
         indicateAddressBookChanged();
     }
 
+    @Override
+    public void convertPerson(Lead lead, Contact contact)
+            throws DuplicatePersonException, PersonNotFoundException, PersonWrongType {
+        requireAllNonNull(lead, contact);
+
+        addressBook.updatePerson(lead, contact);
+        indicateAddressBookChanged();
+    }
     //=========== Filtered Person List Accessors =============================================================
 
     /**

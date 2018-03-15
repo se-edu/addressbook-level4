@@ -3,9 +3,12 @@ package seedu.address.model;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.person.Contact;
+import seedu.address.model.person.Lead;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
+import seedu.address.model.person.exceptions.PersonWrongType;
 
 /**
  * The API of the Model component.
@@ -35,6 +38,15 @@ public interface Model {
      */
     void updatePerson(Person target, Person editedPerson)
             throws DuplicatePersonException, PersonNotFoundException;
+
+    /**
+     * Replaces the given person {@code target} with {@code contact}.
+     *
+     * @throws PersonNotFoundException if {@code target} could not be found in the list.
+     * @throws PersonWrongType if {@code target} is not a lead
+     */
+    public void convertPerson(Lead lead, Contact contact)
+            throws DuplicatePersonException, PersonNotFoundException, PersonWrongType;
 
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();

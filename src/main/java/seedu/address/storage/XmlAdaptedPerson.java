@@ -10,10 +10,13 @@ import javax.xml.bind.annotation.XmlElement;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.person.Address;
+import seedu.address.model.person.Contact;
 import seedu.address.model.person.Email;
+import seedu.address.model.person.Lead;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Type;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -31,6 +34,8 @@ public class XmlAdaptedPerson {
     private String email;
     @XmlElement(required = true)
     private String address;
+    @XmlElement(required = true)
+    private String type;
 
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
@@ -49,6 +54,7 @@ public class XmlAdaptedPerson {
         this.phone = phone;
         this.email = email;
         this.address = address;
+        this.type = null;
         if (tagged != null) {
             this.tagged = new ArrayList<>(tagged);
         }
@@ -64,6 +70,7 @@ public class XmlAdaptedPerson {
         phone = source.getPhone().value;
         email = source.getEmail().value;
         address = source.getAddress().value;
+        type = source.getType().value;
         tagged = new ArrayList<>();
         for (Tag tag : source.getTags()) {
             tagged.add(new XmlAdaptedTag(tag));
@@ -113,7 +120,21 @@ public class XmlAdaptedPerson {
         }
         final Address address = new Address(this.address);
 
+        if (this.type == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Type.class.getSimpleName()));
+        }
+        if (!Type.isValidType(this.type)) {
+            throw new IllegalValueException(Type.MESSAGE_ADDRESS_CONSTRAINTS);
+        }
+        final Type type = new Type(this.type);
+
         final Set<Tag> tags = new HashSet<>(personTags);
+        if (type.value.equals("Lead")) {
+            return new Lead(name, phone, email, address, tags);
+        }
+        if (type.value.equals("Contact")) {
+            return new Contact(name, phone, email, address, tags);
+        }
         return new Person(name, phone, email, address, tags);
     }
 

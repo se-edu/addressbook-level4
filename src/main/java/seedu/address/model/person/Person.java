@@ -15,12 +15,13 @@ import seedu.address.model.tag.UniqueTagList;
  */
 public class Person {
 
-    private final Name name;
-    private final Phone phone;
-    private final Email email;
-    private final Address address;
+    protected Name name;
+    protected Phone phone;
+    protected Email email;
+    protected Address address;
+    protected Type type;
 
-    private final UniqueTagList tags;
+    protected UniqueTagList tags;
 
     /**
      * Every field must be present and not null.
@@ -33,6 +34,7 @@ public class Person {
         this.address = address;
         // protect internal tags from changes in the arg list
         this.tags = new UniqueTagList(tags);
+        this.type = null;
     }
 
     protected Person() {
@@ -42,6 +44,7 @@ public class Person {
         this.address = null;
         // protect internal tags from changes in the arg list
         this.tags = new UniqueTagList();
+        this.type = null;
     }
 
     public Name getName() {
@@ -58,6 +61,10 @@ public class Person {
 
     public Address getAddress() {
         return address;
+    }
+
+    public Type getType() {
+        return type;
     }
 
     /**
@@ -106,4 +113,19 @@ public class Person {
         return builder.toString();
     }
 
+    /**
+     * Returns a Lead with the same data as the Person.
+     */
+    public Lead toLead() {
+        Lead lead = new Lead(this.name, this.phone, this.email, this.address, this.getTags());
+        return lead;
+    }
+
+    /**
+     * Returns a Contact with the same data as the Person.
+     */
+    public Contact toContact() {
+        Contact contact = new Contact(this.name, this.phone, this.email, this.address, this.getTags());
+        return contact;
+    }
 }
