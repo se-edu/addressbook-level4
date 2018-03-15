@@ -75,9 +75,16 @@ public class GuiRobot extends FxRobot {
      * Returns true if the window with {@code stageTitle} is currently open.
      */
     public boolean isWindowShown(String stageTitle) {
-        return listTargetWindows().stream()
+        return getNumberOfWindowsShown(stageTitle) >= 1;
+    }
+
+    /**
+     * Returns the number of windows with {@code stageTitle} that are currently open.
+     */
+    public int getNumberOfWindowsShown(String stageTitle) {
+        return (int) listTargetWindows().stream()
                 .filter(window -> window instanceof Stage && ((Stage) window).getTitle().equals(stageTitle))
-                .count() >= 1;
+                .count();
     }
 
     /**
