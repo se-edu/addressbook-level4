@@ -8,13 +8,11 @@ import java.util.ArrayList;
 /**
  * Wraps the data of all existing tasks.
  */
-public class Schedule implements ScheduleAPI {
+public class Schedule {
 
     private static final String MESSAGE_TASK_TIMING_CLASHES = "This task clashes with another task";
 
     protected static ArrayList<Task> taskList = new ArrayList<>();
-
-    public Schedule() {};
 
     /**
      * Adds a new task to the schedule
@@ -73,10 +71,6 @@ public class Schedule implements ScheduleAPI {
         String duration = recordedTask.getDuration();
         LocalDateTime endTimeOfTaskInSchedule = getTaskEndTime(duration, startTimeOfTaskInSchedule);
 
-        if (taskEndTime.isBefore(startTimeOfTaskInSchedule) || taskDateTime.isAfter(endTimeOfTaskInSchedule)) {
-            return false;
-        } else {
-            return true;
-        }
+        return !(taskEndTime.isBefore(startTimeOfTaskInSchedule) || taskDateTime.isAfter(endTimeOfTaskInSchedule));
     }
 }
