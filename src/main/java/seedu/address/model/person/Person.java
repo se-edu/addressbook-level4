@@ -15,11 +15,13 @@ import seedu.address.model.tag.UniqueTagList;
  */
 public class Person {
 
+    // Identity fields
     private final Name name;
     private final Phone phone;
     private final Email email;
-    private final Address address;
 
+    // Data fields
+    private final Address address;
     private final UniqueTagList tags;
 
     /**
@@ -59,6 +61,22 @@ public class Person {
         return Collections.unmodifiableSet(tags.toSet());
     }
 
+    /**
+     * Returns true if both persons have the same identity fields.
+     * This defines a weaker notion of equality between two persons.
+     */
+    public boolean isSamePerson(Person otherPerson) {
+        return (otherPerson == this)
+                || (otherPerson != null
+                    && otherPerson.getName().equals(this.getName())
+                    && (otherPerson.getPhone().equals(this.getPhone())
+                        || otherPerson.getEmail().equals(this.getEmail())));
+    }
+
+    /**
+     * Returns true if both persons have the same identity and data fields.
+     * This defines a stronger notion of equality between two persons.
+     */
     @Override
     public boolean equals(Object other) {
         if (other == this) {
