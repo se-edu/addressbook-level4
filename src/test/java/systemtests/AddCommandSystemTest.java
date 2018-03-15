@@ -125,19 +125,19 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         command = PersonUtil.getAddCommand(HOON);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
 
-        /* Case: add a person with all fields same as another person in the address book except phone -> rejected */
+        /* Case: add a duplicate person except with different phone -> rejected */
         toAdd = new PersonBuilder().withName(VALID_NAME_AMY).withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_AMY)
                 .withAddress(VALID_ADDRESS_AMY).withTags(VALID_TAG_FRIEND).build();
         command = PersonUtil.getAddCommand(toAdd);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
 
-        /* Case: add a person with all fields same as another person in the address book except email -> rejected */
+        /* Case: add a duplicate person except with different email -> rejected */
         toAdd = new PersonBuilder().withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_BOB)
                 .withAddress(VALID_ADDRESS_AMY).withTags(VALID_TAG_FRIEND).build();
         command = PersonUtil.getAddCommand(toAdd);
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
 
-        /* Case: add a person with all fields same as another person in the address book except address -> rejected */
+        /* Case: add a duplicate person except with different address -> rejected */
         toAdd = new PersonBuilder().withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY).withEmail(VALID_EMAIL_AMY)
                 .withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_FRIEND).build();
         command = PersonUtil.getAddCommand(toAdd);

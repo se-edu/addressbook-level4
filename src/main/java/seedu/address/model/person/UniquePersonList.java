@@ -14,6 +14,7 @@ import seedu.address.model.person.exceptions.PersonNotFoundException;
 
 /**
  * A list of persons that enforces uniqueness between its elements and does not allow nulls.
+ * A person is considered unique by comparing using {@link Person#isSamePerson}.
  *
  * Supports a minimal set of list operations.
  *
@@ -25,8 +26,7 @@ public class UniquePersonList implements Iterable<Person> {
     private final ObservableList<Person> internalList = FXCollections.observableArrayList();
 
     /**
-     * Checks if the list contains an equivalent person as the given argument.
-     * The {@link Person#isSamePerson} method is used for this comparison, which defines a weaker notion of equality.
+     * Returns true if the list contains an equivalent person as the given argument.
      */
     public boolean contains(Person toCheck) {
         requireNonNull(toCheck);
@@ -37,8 +37,6 @@ public class UniquePersonList implements Iterable<Person> {
      * Adds a person to the list.
      *
      * @throws DuplicatePersonException if the person to add is a duplicate of an existing person in the list.
-     * The @link{ReadOnlyPerson#isSamePerson} method is used for this comparison, which defines a weaker notion of
-     * equality.
      */
     public void add(Person toAdd) throws DuplicatePersonException {
         requireNonNull(toAdd);
