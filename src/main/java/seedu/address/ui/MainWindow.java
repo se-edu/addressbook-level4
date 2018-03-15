@@ -38,6 +38,7 @@ public class MainWindow extends UiPart<Stage> {
     private PersonListPanel personListPanel;
     private Config config;
     private UserPrefs prefs;
+    private HelpWindow helpWindow;
 
     @FXML
     private StackPane browserPlaceholder;
@@ -72,6 +73,8 @@ public class MainWindow extends UiPart<Stage> {
 
         setAccelerators();
         registerAsAnEventHandler(this);
+
+        helpWindow = new HelpWindow();
     }
 
     public Stage getPrimaryStage() {
@@ -165,7 +168,6 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     public void handleHelp() {
-        HelpWindow helpWindow = new HelpWindow();
         helpWindow.show();
     }
 
