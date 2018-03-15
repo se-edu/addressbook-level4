@@ -20,21 +20,27 @@ public class AddTuitionTaskCommand extends UndoableCommand {
 
     private static final String INDEX_TARGET_PERSON =
             "last shown index of person that is associated with the task (space)";
-
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a tuition (task) into the schedule. "
+    private static final String SPACE = "(space) ";
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a tuition (task) into the schedule.\n"
             + "Parameters: "
-            + INDEX_TARGET_PERSON
-            + "DATE(dd/mm/yyyy) " + "(space) "
-            + "START TIME(hh:mm) " + "(space) "
-            + "DURATION(HhMm) " + "(space) "
-            + "REMARK";
+            + INDEX_TARGET_PERSON + " "
+            + "Date(dd/mm/yyyy) " + SPACE
+            + "Start time(hh:mm) " + SPACE
+            + "Duration(XXhXXm) " + SPACE
+            + "Description.\n"
+            + "Example: " + COMMAND_WORD + " "
+            + "1 "
+            + "10/12/2018 "
+            + "12:30 "
+            + "1h30m"
+            + "Calculus homework page 24.";
 
     public static final String MESSAGE_SUCCESS = "New tuition task added.";
 
     private final TuitionTask toAdd;
     private final Index targetIndex;
 
-    private TuitionSchedule tuitionSchedule = null; // will be assigned
+    private TuitionSchedule tuitionSchedule;
     private Person associatedPerson;
 
     /**
@@ -47,14 +53,13 @@ public class AddTuitionTaskCommand extends UndoableCommand {
     }
 
     @Override
-    public CommandResult executeUndoableCommand() throws CommandException {
+    public CommandResult executeUndoableCommand() {
         requireNonNull(tuitionSchedule);
         tuitionSchedule.addTask(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 
     @Override
-    //Question : does this agree with SLAB?
     protected void preprocessUndoableCommand() throws CommandException {
         findAssociatedPerson();
         assert(associatedPerson.getTuitionSchedule() != null);
