@@ -81,6 +81,13 @@ public class GuiRobot extends FxRobot {
     }
 
     /**
+     * Returns the number of windows with {@code stageTitle} currently open.
+     */
+    public int getNumberOfWindowShown(String stageTitle) {
+        return (int) listTargetWindows().stream()
+                .filter(window -> window instanceof Stage && ((Stage) window).getTitle().equals(stageTitle)).count();
+    }
+    /**
      * Returns the first stage, ordered by proximity to the current target window, with the stage title.
      * The order that the windows are searched are as follows (proximity): current target window,
      * children of the target window, rest of the windows.

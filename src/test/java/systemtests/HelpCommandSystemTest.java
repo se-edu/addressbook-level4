@@ -1,5 +1,6 @@
 package systemtests;
 
+import static guitests.guihandles.HelpWindowHandle.HELP_WINDOW_TITLE;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
@@ -55,6 +56,14 @@ public class HelpCommandSystemTest extends AddressBookSystemTest {
         executeCommand(HelpCommand.COMMAND_WORD);
         assertHelpWindowOpen();
 
+        // check that only 1 help window will be opened even with multiple commands
+        getMainMenu().openHelpWindowUsingMenu();
+        getMainWindowHandle().focus();
+        getMainMenu().openHelpWindowUsingAccelerator();
+        getMainWindowHandle().focus();
+        executeCommand(HelpCommand.COMMAND_WORD);
+        assertEquals(1, guiRobot.getNumberOfWindowShown(HELP_WINDOW_TITLE));
+
         // open help window and give it focus
         executeCommand(HelpCommand.COMMAND_WORD);
         getMainWindowHandle().focus();
@@ -80,7 +89,7 @@ public class HelpCommandSystemTest extends AddressBookSystemTest {
         assertTrue(ERROR_MESSAGE, HelpWindowHandle.isWindowPresent());
         guiRobot.pauseForHuman();
 
-        new HelpWindowHandle(guiRobot.getStage(HelpWindowHandle.HELP_WINDOW_TITLE)).close();
+        new HelpWindowHandle(guiRobot.getStage(HELP_WINDOW_TITLE)).close();
         getMainWindowHandle().focus();
     }
 
