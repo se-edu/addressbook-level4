@@ -1,4 +1,4 @@
-= AddressBook Level 4 - User Guide
+= CRM Book - User Guide
 :toc:
 :toc-title:
 :toc-placement: preamble
@@ -11,15 +11,16 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4
-
+:repoURL: https://github.com/CS2103JAN2018-F11-B1/main
 By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
 
 == Introduction
 
 CRM Book application aims to assist salespeople in managing the information of leads and contacts
-more optimally for future sales decisions. Unique features of this application include identifying if a lead to be added in is a duplicate,
-booking a digital conference with other leads through Zoom, and converting a Lead to a Contact after a sales transaction.
+more optimally for future sales decisions.
+Unique features of this application include identifying if a lead to be added in is a duplicate,
+scheduling appointments with Leads through the Calander, converting a Lead to a Contact after a sales transaction, and integrating LinkedIn to allow
+a salesperson to know if one of their contacts changed companies.
 *More importantly, CRM Book is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast,
 CRM Book can get your contact management tasks done faster than traditional GUI apps.
 Interested? Jump to the <<Quick Start>> to get started. Enjoy!
@@ -52,9 +53,15 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 [[Features]]
 == Features
 
-* Coming in v2.0: Identify if a lead to be added is already in the CRM application. This is a viable feature as leads from different parts of the world
-have different ways of adding the same lead into the CRM application. For instance, certain leads may add a lead in the order of last name-first name
-rather than first name-last name. The CRM application will prompt the user that the lead to be added is a duplicate.
+* In v 1.2: Able to add leads into CRM book and convert leads into contacts. Able to do some smart deduplication detection. Able to start process of LinkedIn Integration
+
+* In v 1.3: Introduce calander for meetings. Smarter deduplication detection. Able to fully authenticate linkedIn, and link contacts to linkedIn
+
+* In v 1.4: Able to book meetings using the calander. Deduplication becomes even smarter. CRM Book will alert you if a contact switches companies.
+
+* In v 1.5: ...
+
+* Coming in v2.0: Functional CRM, with Leads, Contacts, and Accounts. Events (such as meetings) play a role in alerting salesperson if a person needs to be reached out to. Full smart deduplication detection, and also data enrichment. Full LinkedIn integration. Google Maps integration to show a salesperson how to get to a lead's office.
 
 * Group leads from different companies that share the same parent company under a category named after the parent company.
 Example: Leads from Skype and Nokia can be categorised under a group called Microsoft.
@@ -72,7 +79,7 @@ Example: Leads from Skype and Nokia can be categorised under a group called Micr
 
 Format: `help`
 
-=== Log in to LinkedIn : 'linkedin_login'
+=== Log in to LinkedIn : 'linkedin_login' (Half implemented)
 
 Format: 'linkedin_login'
 
@@ -80,7 +87,7 @@ Format: 'linkedin_login'
 A LinkedIn Login is required if you want to synchronize your CRM Book with your LinkedIn Account
 If this is your first login, a synchronization will also take place.
 
-=== Update from LinkedIn : 'updateLinkedIn'
+=== Update from LinkedIn : 'updateLinkedIn' (IN PROGRESS)
 
 Format: 'updateLinkedIn'
 
@@ -290,3 +297,4 @@ e.g.`select 2`
 * *History* : `history`
 * *Undo* : `undo`
 * *Redo* : `redo`
+* *Linkedin_login* : 'linkedin_login'

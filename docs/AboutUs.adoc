@@ -10,20 +10,12 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 == Project Team
 
-=== John Doe
-image::damithc.jpg[width="150", align="left"]
-{empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/damithc[github]] [<<johndoe#, portfolio>>]
+=== David Ten
+image::davidTen.jpg[width="150", align="left"]
+{empty}[https://github.com/davidten[github]]
 
-Role: Project Advisor
-
-'''
-
-=== John Roe
-image::lejolly.jpg[width="150", align="left"]
-{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
-
-Role: Team Lead +
-Responsibilities: UI
+Role: Team Lead + Scheduling and Tracking + CRM Expert
+Responsibilities: LinkedIn Integration
 
 '''
 
@@ -42,14 +34,5 @@ image::WoodyLau.jpg[width="150", align="left"]
 
 Role: Developer + Git Expert + Integration
 Responsibilities: Lead, Contact and Account Objects. Calendar and Meeting Scheduling.
-
-'''
-
-=== Benson Meier
-image::yl_coder.jpg[width="150", align="left"]
-{empty}[http://github.com/yl-coder[github]] [<<johndoe#, portfolio>>]
-
-Role: Developer +
-Responsibilities: UI
 
 '''
