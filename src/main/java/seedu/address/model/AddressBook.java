@@ -171,6 +171,10 @@ public class AddressBook implements ReadOnlyAddressBook {
         return tags.asObservableList();
     }
 
+    public int getAddressBookSize() {
+        return persons.asObservableList().size();
+    }
+
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
