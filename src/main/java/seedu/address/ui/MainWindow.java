@@ -164,7 +164,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Opens the help window or focus on it if already opened.
+     * Opens the help window or focuses on it if it's already opened.
      */
     @FXML
     public void handleHelp() {

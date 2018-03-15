@@ -1,5 +1,6 @@
 package systemtests;
 
+import static guitests.guihandles.HelpWindowHandle.HELP_WINDOW_TITLE;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
@@ -55,6 +56,18 @@ public class HelpCommandSystemTest extends AddressBookSystemTest {
         executeCommand(HelpCommand.COMMAND_WORD);
         assertHelpWindowOpen();
 
+        // check that if help window is open when command is given, we will focus on the opened help window
+        getMainMenu().openHelpWindowUsingMenu();
+        getMainWindowHandle().focus();
+        getMainMenu().openHelpWindowUsingAccelerator();
+        assertTrue(new HelpWindowHandle(guiRobot.getStage(HELP_WINDOW_TITLE)).isFocused());
+        getMainWindowHandle().focus();
+        executeCommand(HelpCommand.COMMAND_WORD);
+        assertTrue(new HelpWindowHandle(guiRobot.getStage(HELP_WINDOW_TITLE)).isFocused());
+
+        // check that only 1 help window will be opened even with multiple commands
+        assertEquals(1, guiRobot.getNumberOfWindowShown(HELP_WINDOW_TITLE));
+
         // open help window and give it focus
         executeCommand(HelpCommand.COMMAND_WORD);
         getMainWindowHandle().focus();
@@ -73,6 +86,12 @@ public class HelpCommandSystemTest extends AddressBookSystemTest {
         assertNotEquals(StatusBarFooter.SYNC_STATUS_INITIAL, getStatusBarFooter().getSyncStatus());
     }
 
+    @Test
+    public void helpWindowIsShowing() {
+        getMainMenu().openHelpWindowUsingAccelerator();
+
+    }
+
     /**
      * Asserts that the help window is open, and closes it after checking.
      */
@@ -80,7 +99,7 @@ public class HelpCommandSystemTest extends AddressBookSystemTest {
         assertTrue(ERROR_MESSAGE, HelpWindowHandle.isWindowPresent());
         guiRobot.pauseForHuman();
 
-        new HelpWindowHandle(guiRobot.getStage(HelpWindowHandle.HELP_WINDOW_TITLE)).close();
+        new HelpWindowHandle(guiRobot.getStage(HELP_WINDOW_TITLE)).close();
         getMainWindowHandle().focus();
     }
 

@@ -6,6 +6,7 @@ import java.util.function.BooleanSupplier;
 import org.testfx.api.FxRobot;
 
 import guitests.guihandles.exceptions.StageNotFoundException;
+import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 
 /**
@@ -37,6 +38,14 @@ public class GuiRobot extends FxRobot {
         }
 
         sleep(PAUSE_FOR_HUMAN_DELAY_MILLISECONDS);
+    }
+
+    /**
+     * Remove focus from the {@code Stage}.
+     */
+    public void removeFocus() {
+        press(KeyCode.ALT, KeyCode.TAB);
+        release(KeyCode.ALT, KeyCode.TAB);
     }
 
     /**
@@ -80,6 +89,13 @@ public class GuiRobot extends FxRobot {
                 .count() >= 1;
     }
 
+    /**
+     * Returns the number of windows with {@code stageTitle} currently open.
+     */
+    public int getNumberOfWindowShown(String stageTitle) {
+        return (int) listTargetWindows().stream()
+                .filter(window -> window instanceof Stage && ((Stage) window).getTitle().equals(stageTitle)).count();
+    }
     /**
      * Returns the first stage, ordered by proximity to the current target window, with the stage title.
      * The order that the windows are searched are as follows (proximity): current target window,

@@ -70,7 +70,7 @@ public class HelpWindow extends UiPart<Stage> {
     }
 
     /**
-     * Focus on the help window.
+     * Focuses on the help window.
      */
     public void focus() {
         getRoot().requestFocus();
