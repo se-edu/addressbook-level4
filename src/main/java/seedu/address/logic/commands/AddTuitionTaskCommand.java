@@ -16,14 +16,15 @@ import java.util.List;
  * Adds a tuition (task) into the schedule.
  */
 public class AddTuitionTaskCommand extends UndoableCommand {
+    private static final String INDEX_TARGET_PERSON =
+            "last shown index of person that is associated with the task ";
+    private static final String SPACE = "(space) ";
+
     public static final String COMMAND_WORD = "addTuition";
 
-    private static final String INDEX_TARGET_PERSON =
-            "last shown index of person that is associated with the task (space)";
-    private static final String SPACE = "(space) ";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a tuition (task) into the schedule.\n"
             + "Parameters: "
-            + INDEX_TARGET_PERSON + " "
+            + INDEX_TARGET_PERSON + SPACE
             + "Date(dd/mm/yyyy) " + SPACE
             + "Start time(hh:mm) " + SPACE
             + "Duration(XXhXXm) " + SPACE

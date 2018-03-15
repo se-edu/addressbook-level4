@@ -2,7 +2,6 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.personal.PersonalSchedule;
 import seedu.address.model.personal.PersonalTask;
 
@@ -10,14 +9,20 @@ import seedu.address.model.personal.PersonalTask;
  * Adds a personal task into the schedule.
  */
 public class AddPersonalTaskCommand extends UndoableCommand {
-    public static final String COMMAND_WORD = "addTask";
+    private static final String SPACE = "(space) ";
 
+    public static final String COMMAND_WORD = "addTask";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a personal task into the schedule. "
             + "Parameters: "
-            + "DATE(dd/mm/yyyy) " + "(space) "
-            + "START TIME(hh:mm) " + "(space) "
-            + "DURATION(HhMm) " + "(space) "
-            + "REMARK";
+            + "Date(dd/mm/yyyy) " + SPACE
+            + "Start time(hh:mm) " + SPACE
+            + "Duration(XXhXXm) " + SPACE
+            + "Description.\n"
+            + "Example: " + COMMAND_WORD + " "
+            + "10/12/2018 "
+            + "12:30 "
+            + "1h30m"
+            + "Calculus homework page 24.";
 
     public static final String MESSAGE_SUCCESS = "New personal task added.";
 
@@ -32,7 +37,7 @@ public class AddPersonalTaskCommand extends UndoableCommand {
     }
 
     @Override
-    public CommandResult executeUndoableCommand() throws CommandException {
+    public CommandResult executeUndoableCommand() {
         new PersonalSchedule().addTask(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
