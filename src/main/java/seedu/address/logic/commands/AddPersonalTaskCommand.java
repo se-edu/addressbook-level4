@@ -12,7 +12,7 @@ public class AddPersonalTaskCommand extends UndoableCommand {
     private static final String SPACE = "(space) ";
 
     public static final String COMMAND_WORD = "addTask";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a personal task into the schedule. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a personal task into the schedule.\n"
             + "Parameters: "
             + "Date(dd/mm/yyyy) " + SPACE
             + "Start time(hh:mm) " + SPACE

@@ -28,13 +28,13 @@ public class AddTuitionTaskCommandParser {
     private static final String MESSAGE_INVALID_INPUT_FORMAT = "The input format is invalid";
     private static final String DURATION_VALIDATION_REGEX = "([0-9]|1[0-9]|2[0-3])h([0-5][0-9]|[0-9])m";
     private static final int MINIMUM_AMOUNT_OF_TASK_PARAMETER = 3;
+    private static final int MAXIMUM_AMOUNT_OF_TASK_PARAMETER = 4;
     private static final int INDEX_OF_PERSON_INDEX = 0;
     private static final int INDEX_OF_TASK = 1;
-    public static final int INDEX_OF_DESCRIPTION = 3;
-    public static final int MAXIMUM_AMOUNT_OF_TASK_PARAMETER = 4;
-    public static final int INDEX_OF_DATE = 0;
-    public static final int INDEX_OF_TIME = 1;
-    public static final int INDEX_OF_DURATION = 2;
+    private static final int INDEX_OF_DESCRIPTION = 3;
+    private static final int INDEX_OF_DATE = 0;
+    private static final int INDEX_OF_TIME = 1;
+    private static final int INDEX_OF_DURATION = 2;
 
     private static String duration;
     private static String description;
@@ -60,7 +60,8 @@ public class AddTuitionTaskCommandParser {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTuitionTaskCommand.MESSAGE_USAGE));
         } catch (TimingClashException tce) {
-            System.out.println(MESSAGE_TASK_TIMING_CLASHES);
+            //not a ParseException. Sshould be handled in future milestone.
+            throw new ParseException(MESSAGE_TASK_TIMING_CLASHES);
         } catch (PatternSyntaxException pse) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTuitionTaskCommand.MESSAGE_USAGE));
