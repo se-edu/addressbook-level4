@@ -41,7 +41,7 @@ public class GuiRobot extends FxRobot {
     }
 
     /**
-     * Removes focus from the current stage that is in focus.
+     * Removes focus from the current stage.
      */
     public void removeFocus() {
         press(KeyCode.ALT, KeyCode.TAB);
@@ -84,9 +84,7 @@ public class GuiRobot extends FxRobot {
      * Returns true if the window with {@code stageTitle} is currently open.
      */
     public boolean isWindowShown(String stageTitle) {
-        return listTargetWindows().stream()
-                .filter(window -> window instanceof Stage && ((Stage) window).getTitle().equals(stageTitle))
-                .count() >= 1;
+        return getNumberOfWindowsShown(stageTitle) >= 1;
     }
 
     /**
@@ -94,7 +92,8 @@ public class GuiRobot extends FxRobot {
      */
     public int getNumberOfWindowsShown(String stageTitle) {
         return (int) listTargetWindows().stream()
-                .filter(window -> window instanceof Stage && ((Stage) window).getTitle().equals(stageTitle)).count();
+                .filter(window -> window instanceof Stage && ((Stage) window).getTitle().equals(stageTitle))
+                .count();
     }
     /**
      * Returns the first stage, ordered by proximity to the current target window, with the stage title.

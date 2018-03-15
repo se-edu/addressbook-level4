@@ -77,19 +77,19 @@ public class HelpCommandSystemTest extends AddressBookSystemTest {
 
     @Test
     public void help_multipleCommands_oneHelpWindowOpen() {
-        // execute multiple commands to open help window
         getMainMenu().openHelpWindowUsingMenu();
-        // focus on main window so that command to open help window will trigger
+
         getMainWindowHandle().focus();
         getMainMenu().openHelpWindowUsingAccelerator();
+
         getMainWindowHandle().focus();
         executeCommand(HelpCommand.COMMAND_WORD);
-        // assert that only 1 help window is open even with multiple commands to open the help window
+
         assertEquals(1, guiRobot.getNumberOfWindowsShown(HELP_WINDOW_TITLE));
     }
 
     @Test
-    public void help_helpWindowNotFocused_helpWindowFocused() {
+    public void help_helpWindowOutOfFocus_focusOnHelpWindow() {
         getMainMenu().openHelpWindowUsingAccelerator();
         Stage helpWindowStage = guiRobot.getStage(HELP_WINDOW_TITLE);
 
