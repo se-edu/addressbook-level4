@@ -53,7 +53,9 @@ public class Lead extends Person {
         return address;
     }
 
-    public Type getType() { return type; }
+    public Type getType() {
+        return type;
+    }
 
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
