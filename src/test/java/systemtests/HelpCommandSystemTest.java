@@ -56,12 +56,16 @@ public class HelpCommandSystemTest extends AddressBookSystemTest {
         executeCommand(HelpCommand.COMMAND_WORD);
         assertHelpWindowOpen();
 
-        // check that only 1 help window will be opened even with multiple commands
+        // check that if help window is open when command is given, we will focus on the opened help window
         getMainMenu().openHelpWindowUsingMenu();
         getMainWindowHandle().focus();
         getMainMenu().openHelpWindowUsingAccelerator();
+        assertTrue(new HelpWindowHandle(guiRobot.getStage(HELP_WINDOW_TITLE)).isFocused());
         getMainWindowHandle().focus();
         executeCommand(HelpCommand.COMMAND_WORD);
+        assertTrue(new HelpWindowHandle(guiRobot.getStage(HELP_WINDOW_TITLE)).isFocused());
+
+        // check that only 1 help window will be opened even with multiple commands
         assertEquals(1, guiRobot.getNumberOfWindowShown(HELP_WINDOW_TITLE));
 
         // open help window and give it focus
@@ -80,6 +84,12 @@ public class HelpCommandSystemTest extends AddressBookSystemTest {
         // note: the select command tested above does not update the status bar
         executeCommand(DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
         assertNotEquals(StatusBarFooter.SYNC_STATUS_INITIAL, getStatusBarFooter().getSyncStatus());
+    }
+
+    @Test
+    public void helpWindowIsShowing() {
+        getMainMenu().openHelpWindowUsingAccelerator();
+
     }
 
     /**

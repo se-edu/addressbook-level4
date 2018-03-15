@@ -6,6 +6,7 @@ import java.util.function.BooleanSupplier;
 import org.testfx.api.FxRobot;
 
 import guitests.guihandles.exceptions.StageNotFoundException;
+import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 
 /**
@@ -37,6 +38,14 @@ public class GuiRobot extends FxRobot {
         }
 
         sleep(PAUSE_FOR_HUMAN_DELAY_MILLISECONDS);
+    }
+
+    /**
+     * Remove focus from the {@code Stage}.
+     */
+    public void removeFocus() {
+        press(KeyCode.ALT, KeyCode.TAB);
+        release(KeyCode.ALT, KeyCode.TAB);
     }
 
     /**
