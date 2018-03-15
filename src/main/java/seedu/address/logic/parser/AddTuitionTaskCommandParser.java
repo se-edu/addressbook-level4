@@ -27,14 +27,15 @@ public class AddTuitionTaskCommandParser {
     private static final String MESSAGE_INVALID_DATE_TIME = "The input date and time is invalid";
     private static final String MESSAGE_INVALID_DURATION = "The duration format is invalid";
     private static final String MESSAGE_INVALID_INPUT_FORMAT = "The input format is invalid";
-    private static final int MINIMUM_INPUTTED_PARAMETER = 3;
+    private static final String DURATION_VALIDATION_REGEX = "([0-9]|1[0-9]|2[0-3])h([0-5][0-9])m";
+    private static final int MINIMUM_AMOUNT_OF_TASK_PARAMETER = 3;
     private static final int INDEX_OF_PERSON_INDEX = 0;
     private static final int INDEX_OF_TASK = 1;
-    private static final int LENGTH_OF_DATE_TIME = 16;
-    private static final int INDEX_OF_START_OF_DURATION = LENGTH_OF_DATE_TIME + 1;
-    private static final int INVALID_INDEX = -1;
-    private static final String NO_DESCRIPTION = "";
-    private static final String DURATION_VALIDATION_REGEX = "([0-9]|1[0-9]|2[0-3])\\b(h)\\b([0-5][0-9])\\b(h)\\b";
+    public static final int INDEX_OF_DESCRIPTION = 3;
+    public static final int MAXIMUM_AMOUNT_OF_TASK_PARAMETER = 4;
+    public static final int INDEX_OF_DATE = 0;
+    public static final int INDEX_OF_TIME = 1;
+    public static final int INDEX_OF_DURATION = 2;
 
     private static String duration;
     private static String description;
@@ -85,14 +86,14 @@ public class AddTuitionTaskCommandParser {
     public static void parseTask(String task) throws DateTimeParseException,
             DurationParseException, TimingClashException, IllegalValueException {
 
-        if (!canPassInitialCheck(task)) {
+        String[] arguments = task.split("\\s", 4);
+        if (!canPassInitialCheck(arguments)) {
             throw new IllegalValueException(MESSAGE_INVALID_INPUT_FORMAT);
         }
+        parseDescription(arguments);
         try {
-            description = parseDescription(task);
-            stringDateTime = parseDateTime(task);
-            taskDateTime = LocalDateTime.parse(stringDateTime, formatter);
-            duration = parseDuration(task);
+            parseDateTime(arguments);
+            parseDuration(arguments);
             Schedule.checkClashes(taskDateTime, duration);
         } catch (DateTimeParseException dtpe) {
             throw new DateTimeParseException(MESSAGE_INVALID_DATE_TIME, dtpe.getParsedString(), dtpe.getErrorIndex());
@@ -103,61 +104,47 @@ public class AddTuitionTaskCommandParser {
         }
     }
 
-    private static boolean canPassInitialCheck(String task) {
-        String[] arguments = task.split("\\s", 4);
-        return arguments.length >= MINIMUM_INPUTTED_PARAMETER;
+    /**
+     * Parses task into its description.
+     *
+     * @param arguments consist the components of task.
+     */
+    private static void parseDescription(String[] arguments) {
+        if (hasDescription(arguments)) {
+            description = arguments[INDEX_OF_DESCRIPTION];
+        }
+    }
+
+    private static boolean hasDescription(String[] arguments) {
+        return arguments.length == MAXIMUM_AMOUNT_OF_TASK_PARAMETER;
+    }
+
+    private static boolean canPassInitialCheck(String[] arguments) {
+        return arguments.length >= MINIMUM_AMOUNT_OF_TASK_PARAMETER;
     }
 
     /**
      * Parses task into its date and time.
      *
-     * @param task to be parsed
-     * @return date and time of the task
+     * @param arguments consist the components of task.
+     * @throws DateTimeParseException if the input is invalid
      */
-    private static String parseDateTime(String task) throws IllegalValueException {
-        try {
-            return task.substring(0, LENGTH_OF_DATE_TIME);
-        } catch (IndexOutOfBoundsException iobe) {
-            throw new IllegalValueException(iobe.getMessage());
-        }
+    private static void parseDateTime(String[] arguments) {
+        stringDateTime = arguments[INDEX_OF_DATE] + " " + arguments[INDEX_OF_TIME];
+        System.out.println(stringDateTime);
+        taskDateTime = LocalDateTime.parse(stringDateTime, formatter);
     }
 
     /**
      * Parses task into its duration
      *
-     * @param task to be parsed
-     * @return duration of the task
+     * @param duration to be parsed
      * @throws DurationParseException if duration format is invalid
      */
-    private static String parseDuration(String task) throws DurationParseException {
-        int indexOfEndOfDuration = task.indexOf(" ", INDEX_OF_START_OF_DURATION);
-        String parsedDuration;
-        if (indexOfEndOfDuration == INVALID_INDEX) {
-            parsedDuration = task.substring(INDEX_OF_START_OF_DURATION);
-        } else {
-            parsedDuration = task.substring(INDEX_OF_START_OF_DURATION, //runtime error given a valid input
-                    indexOfEndOfDuration - INDEX_OF_START_OF_DURATION);
-        }
-        if (!parsedDuration.trim().matches(DURATION_VALIDATION_REGEX)) {
+    private static void parseDuration(String[] arguments) throws DurationParseException {
+            duration = arguments[INDEX_OF_DURATION];
+        if (!duration.matches(DURATION_VALIDATION_REGEX)) {
             throw new DurationParseException(MESSAGE_INVALID_DURATION);
         }
-        return parsedDuration;
     }
-
-    /**
-     * Parses task into description
-     *
-     * @param task to be parsed
-     * @return description of the task
-     */
-    private static String parseDescription(String task) {
-        int indexOfEndOfDuration = task.indexOf(" ", INDEX_OF_START_OF_DURATION);
-        if (indexOfEndOfDuration == INVALID_INDEX) {
-            return NO_DESCRIPTION;
-        } else {
-            return task.substring(indexOfEndOfDuration).trim();
-        }
-    }
-
-
 }
