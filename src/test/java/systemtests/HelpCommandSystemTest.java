@@ -12,6 +12,7 @@ import org.junit.Test;
 
 import guitests.GuiRobot;
 import guitests.guihandles.HelpWindowHandle;
+import javafx.stage.Stage;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.SelectCommand;
@@ -56,18 +57,6 @@ public class HelpCommandSystemTest extends AddressBookSystemTest {
         executeCommand(HelpCommand.COMMAND_WORD);
         assertHelpWindowOpen();
 
-        // check that if help window is open when command is given, we will focus on the opened help window
-        getMainMenu().openHelpWindowUsingMenu();
-        getMainWindowHandle().focus();
-        getMainMenu().openHelpWindowUsingAccelerator();
-        assertTrue(new HelpWindowHandle(guiRobot.getStage(HELP_WINDOW_TITLE)).isFocused());
-        getMainWindowHandle().focus();
-        executeCommand(HelpCommand.COMMAND_WORD);
-        assertTrue(new HelpWindowHandle(guiRobot.getStage(HELP_WINDOW_TITLE)).isFocused());
-
-        // check that only 1 help window will be opened even with multiple commands
-        assertEquals(1, guiRobot.getNumberOfWindowShown(HELP_WINDOW_TITLE));
-
         // open help window and give it focus
         executeCommand(HelpCommand.COMMAND_WORD);
         getMainWindowHandle().focus();
@@ -87,9 +76,31 @@ public class HelpCommandSystemTest extends AddressBookSystemTest {
     }
 
     @Test
-    public void helpWindowIsShowing() {
+    public void help_multipleCommands_oneHelpWindowOpen() {
+        // execute multiple commands to open help window
+        getMainMenu().openHelpWindowUsingMenu();
+        // focus on main window so that command to open help window will trigger
+        getMainWindowHandle().focus();
         getMainMenu().openHelpWindowUsingAccelerator();
+        getMainWindowHandle().focus();
+        executeCommand(HelpCommand.COMMAND_WORD);
+        // assert that only 1 help window is open even with multiple commands to open the help window
+        assertEquals(1, guiRobot.getNumberOfWindowsShown(HELP_WINDOW_TITLE));
+    }
 
+    @Test
+    public void help_helpWindowNotFocused_helpWindowFocused() {
+        getMainMenu().openHelpWindowUsingAccelerator();
+        Stage helpWindowStage = guiRobot.getStage(HELP_WINDOW_TITLE);
+
+        // assert command to open help window focuses on the open help window
+        getMainWindowHandle().focus();
+        getMainMenu().openHelpWindowUsingAccelerator();
+        assertTrue(helpWindowStage.isFocused());
+
+        getMainWindowHandle().focus();
+        executeCommand(HelpCommand.COMMAND_WORD);
+        assertTrue(helpWindowStage.isFocused());
     }
 
     /**

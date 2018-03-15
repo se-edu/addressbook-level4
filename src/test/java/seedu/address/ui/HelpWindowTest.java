@@ -34,16 +34,19 @@ public class HelpWindowTest extends GuiUnitTest {
     }
 
     @Test
-    public void isShowing() {
-        // newly created instance of {@code HelpWindow} does not show at first.
-        assertFalse(helpWindow.isShowing());
-
+    public void isShowing_helpWindowIsShowing_true() {
         guiRobot.interact(() -> helpWindow.show());
         assertTrue(helpWindow.isShowing());
     }
 
     @Test
-    public void focus() {
+    public void isShowing_helpWindowIsHiding_false() {
+        guiRobot.interact(() -> helpWindow.getRoot().hide());
+        assertFalse(helpWindow.isShowing());
+    }
+
+    @Test
+    public void focus_helpWindowNotFocused_focused() {
         guiRobot.interact(() -> helpWindow.show());
         guiRobot.removeFocus();
         assertFalse(helpWindow.getRoot().isFocused());

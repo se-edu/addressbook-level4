@@ -44,7 +44,7 @@ public abstract class StageHandle {
     }
 
     /**
-     * Returns true if we are currently focusing on the {@code Stage}.
+     * Returns true if we are currently focusing on the this stage.
      */
     public boolean isFocused() {
         return stage.isFocused();
