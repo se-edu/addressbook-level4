@@ -862,7 +862,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 (For all use cases below, the *System* is the `TuitionConnect Application (TC)` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: UC01-Delete person
+=== Use case: UC01 - Delete person
 
 *MSS*
 
