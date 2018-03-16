@@ -858,7 +858,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `Tuition Connect AddressBook (TC)` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `TuitionConnect Application (TC)` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
 === Use case: UC01 - Delete person
@@ -1016,14 +1016,12 @@ Use Case ends.
 ** *a2. User confirms the cancellation.
 ** Use case ends.
 
-
 * 4a. No schedule is created within the date range.
 [none]
 **	4a1. TC reports that no schedule exists within the time range.
 **	4a2. User acknowledges.
 **	Use case ends.
 
-_{More to be added}_
 
 [appendix]
 == Non Functional Requirements
@@ -1040,6 +1038,7 @@ _{More to be added}_
 .  The app may utilise third party libraries, API and plug-ins.
 .  The app should be able to access the Internet.
 .  The app should be able to perform basic commands without internet access.
+
 
 [appendix]
 == Glossary
