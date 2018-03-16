@@ -74,7 +74,7 @@ public class AddPersonalTaskCommandParser {
     public static void parseTask(String task) throws DateTimeParseException,
             DurationParseException, TimingClashException, IllegalValueException {
 
-        String[] arguments = task.split("\\s", 4);
+        String[] arguments = task.split("\\s", MAXIMUM_AMOUNT_OF_TASK_PARAMETER);
         if (!canPassInitialCheck(arguments)) {
             throw new IllegalValueException(MESSAGE_INVALID_INPUT_FORMAT);
         }

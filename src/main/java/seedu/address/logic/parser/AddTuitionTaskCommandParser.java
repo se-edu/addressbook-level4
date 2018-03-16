@@ -36,6 +36,7 @@ public class AddTuitionTaskCommandParser {
     private static final int INDEX_OF_DATE = 0;
     private static final int INDEX_OF_TIME = 1;
     private static final int INDEX_OF_DURATION = 2;
+    private static final int LIMIT_OF_USER_INPUT_SPLIT = 2;
 
     private static String duration;
     private static String description;
@@ -50,7 +51,7 @@ public class AddTuitionTaskCommandParser {
      * @throws ParseException if the user input does not conform the expected format
      */
     public AddTuitionTaskCommand parse(String args) throws ParseException {
-        String[] userInput = args.trim().split("\\s", 2);
+        String[] userInput = args.trim().split("\\s", LIMIT_OF_USER_INPUT_SPLIT);
         try {
             personIndex = ParserUtil.parseIndex(userInput[INDEX_OF_PERSON_INDEX]);
             this.parseTask(userInput[INDEX_OF_TASK].trim());
@@ -85,7 +86,7 @@ public class AddTuitionTaskCommandParser {
     public static void parseTask(String task) throws DateTimeParseException,
             DurationParseException, TimingClashException, IllegalValueException {
 
-        String[] arguments = task.split("\\s", 4);
+        String[] arguments = task.split("\\s", MAXIMUM_AMOUNT_OF_TASK_PARAMETER);
         if (!canPassInitialCheck(arguments)) {
             throw new IllegalValueException(MESSAGE_INVALID_INPUT_FORMAT);
         }
@@ -136,7 +137,6 @@ public class AddTuitionTaskCommandParser {
      */
     private static void parseDateTime(String[] arguments) {
         stringDateTime = arguments[INDEX_OF_DATE] + " " + arguments[INDEX_OF_TIME];
-        System.out.println(stringDateTime);
         taskDateTime = LocalDateTime.parse(stringDateTime, formatter);
     }
 
