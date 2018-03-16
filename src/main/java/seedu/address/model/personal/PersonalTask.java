@@ -29,10 +29,10 @@ public class PersonalTask implements Task {
      * @param description description of the task
      */
     public PersonalTask(LocalDateTime taskDateTime, String duration, String description) {
-            this.taskDateTime = taskDateTime;
-            this.duration = duration;
-            this.description = description;
-        }
+        this.taskDateTime = taskDateTime;
+        this.duration = duration;
+        this.description = description;
+    }
 
     public LocalDateTime getTaskDateTime() {
         return taskDateTime;

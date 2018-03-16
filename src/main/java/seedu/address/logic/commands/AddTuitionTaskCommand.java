@@ -2,32 +2,30 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.List;
+
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
-import seedu.address.model.person.Person;
-import seedu.address.model.person.TuitionSchedule;
-import seedu.address.model.person.TuitionTask;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 
-import java.util.List;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.TuitionSchedule;
+import seedu.address.model.person.TuitionTask;
 
 /**
  * Adds a tuition (task) into the schedule.
  */
 public class AddTuitionTaskCommand extends UndoableCommand {
-    private static final String INDEX_TARGET_PERSON =
-            "last shown index of person that is associated with the task ";
-    private static final String SPACE = "(space) ";
 
     public static final String COMMAND_WORD = "addTuition";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a tuition (task) into the schedule.\n"
             + "Parameters: "
-            + INDEX_TARGET_PERSON + SPACE
-            + "Date(dd/mm/yyyy) " + SPACE
-            + "Start time(hh:mm) " + SPACE
-            + "Duration(XXhXXm) " + SPACE
+            + "last shown index of person associated with tuition" + "(space) "
+            + "Date(dd/mm/yyyy) " + "(space) "
+            + "Start time(hh:mm) " + "(space) "
+            + "Duration(XXhXXm) " + "(space) "
             + "Description.\n"
             + "Example: " + COMMAND_WORD + " "
             + "1 "
@@ -37,6 +35,8 @@ public class AddTuitionTaskCommand extends UndoableCommand {
             + "Calculus homework page 24.";
 
     public static final String MESSAGE_SUCCESS = "New tuition task added.";
+
+    private static final String SPACE = "(space) ";
 
     private final TuitionTask toAdd;
     private final Index targetIndex;
@@ -70,7 +70,7 @@ public class AddTuitionTaskCommand extends UndoableCommand {
     /**
      * Locates {@code Person} that will be associated with the tuition task.
      *
-     * @throws commandException if invalid person index was given.
+     * @throw commandException if invalid person index was given.
      */
     private void findAssociatedPerson() throws CommandException {
         List<Person> lastShownList = model.getFilteredPersonList();

@@ -1,5 +1,11 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.AddPersonalTaskCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -9,11 +15,6 @@ import seedu.address.model.person.exceptions.DurationParseException;
 import seedu.address.model.person.exceptions.TimingClashException;
 import seedu.address.model.personal.PersonalTask;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 /**
  * Parses input arguments and creates a new AddPersonalTaskCommand object.

@@ -1,25 +1,19 @@
 package seedu.address.model;
 
-import seedu.address.model.person.exceptions.TimingClashException;
-
 import java.time.LocalDateTime;
+
 import java.util.ArrayList;
+
+import seedu.address.model.person.exceptions.TimingClashException;
 
 /**
  * Wraps the data of all existing tasks.
  */
 public class Schedule {
 
-    private static final String MESSAGE_TASK_TIMING_CLASHES = "This task clashes with another task";
-
     protected static ArrayList<Task> taskList = new ArrayList<>();
 
-    /**
-     * Adds a new task to the schedule
-     */
-    protected void addTask(String task){
-        System.out.println("This method should not be called");
-    }
+    private static final String MESSAGE_TASK_TIMING_CLASHES = "This task clashes with another task";
 
     /**
      * Returns a list of all existing tasks.

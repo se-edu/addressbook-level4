@@ -1,5 +1,13 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
+import java.util.regex.PatternSyntaxException;
+
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.AddTuitionTaskCommand;
@@ -9,13 +17,6 @@ import seedu.address.model.Schedule;
 import seedu.address.model.person.TuitionTask;
 import seedu.address.model.person.exceptions.DurationParseException;
 import seedu.address.model.person.exceptions.TimingClashException;
-
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.util.regex.PatternSyntaxException;
-
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 /**
  * Parses input arguments and creates a new AddTuitionTaskCommand object
@@ -146,7 +147,7 @@ public class AddTuitionTaskCommandParser {
      * @throws DurationParseException if duration format is invalid
      */
     private static void parseDuration(String[] arguments) throws DurationParseException {
-            duration = arguments[INDEX_OF_DURATION];
+        duration = arguments[INDEX_OF_DURATION];
         if (!duration.matches(DURATION_VALIDATION_REGEX)) {
             throw new DurationParseException(MESSAGE_INVALID_DURATION);
         }

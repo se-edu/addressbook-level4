@@ -9,21 +9,19 @@ import seedu.address.model.personal.PersonalTask;
  * Adds a personal task into the schedule.
  */
 public class AddPersonalTaskCommand extends UndoableCommand {
-    private static final String SPACE = "(space) ";
 
     public static final String COMMAND_WORD = "addTask";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a personal task into the schedule.\n"
             + "Parameters: "
-            + "Date(dd/mm/yyyy) " + SPACE
-            + "Start time(hh:mm) " + SPACE
-            + "Duration(XXhXXm) " + SPACE
+            + "Date(dd/mm/yyyy) " + "(space) "
+            + "Start time(hh:mm) " + "(space) "
+            + "Duration(XXhXXm) " + "(space) "
             + "Description.\n"
             + "Example: " + COMMAND_WORD + " "
             + "10/12/2018 "
             + "12:30 "
-            + "1h30m"
+            + "1h30m "
             + "Calculus homework page 24.";
-
     public static final String MESSAGE_SUCCESS = "New personal task added.";
 
     private final PersonalTask toAdd;

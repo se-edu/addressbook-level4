@@ -9,7 +9,7 @@ import seedu.address.model.Schedule;
  */
 public class PersonalSchedule extends Schedule {
 
-    public static ArrayList<PersonalTask> personalTaskList = new ArrayList<>();
+    private static ArrayList<PersonalTask> personalTaskList = new ArrayList<>();
 
     /**
      * Creates a schedule for the person*
@@ -20,11 +20,11 @@ public class PersonalSchedule extends Schedule {
     /**
      * Adds a new private task.
      *
-     * @param task to be added
+     * @param newTask to be added
      */
     public void addTask(PersonalTask newTask) {
-            personalTaskList.add(newTask);
-            taskList.add(newTask);
+        personalTaskList.add(newTask);
+        taskList.add(newTask);
     }
 
 }

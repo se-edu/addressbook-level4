@@ -26,11 +26,11 @@ public class TuitionSchedule extends Schedule {
     /**
      * Adds a new tuition task to the schedule
      *
-     * @param task to be added
+     * @param newTask to be added
      */
-    public void addTask(TuitionTask newTask){
-            tuitionTaskList.add(newTask);
-            taskList.add(newTask); // potential error
+    public void addTask(TuitionTask newTask) {
+        tuitionTaskList.add(newTask);
+        taskList.add(newTask); // potential error
     }
 
 
