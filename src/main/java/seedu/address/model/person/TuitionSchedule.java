@@ -30,7 +30,7 @@ public class TuitionSchedule extends Schedule {
      */
     public void addTask(TuitionTask newTask) {
         tuitionTaskList.add(newTask);
-        taskList.add(newTask); // potential error
+        taskList.add(newTask);
     }
 
 

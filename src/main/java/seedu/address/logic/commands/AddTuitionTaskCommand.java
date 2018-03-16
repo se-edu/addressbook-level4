@@ -36,8 +36,6 @@ public class AddTuitionTaskCommand extends UndoableCommand {
 
     public static final String MESSAGE_SUCCESS = "New tuition task added.";
 
-    private static final String SPACE = "(space) ";
-
     private final TuitionTask toAdd;
     private final Index targetIndex;
 
