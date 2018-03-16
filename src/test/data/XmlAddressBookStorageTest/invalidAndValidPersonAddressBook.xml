@@ -3,15 +3,15 @@
     <!-- Valid Person -->
     <persons>
         <name>Hans Muster</name>
-        <phone isPrivate="false">9482424</phone>
-        <email isPrivate="false">hans@example.com</email>
-        <address isPrivate="false">4th street</address>
+        <phone>9482424</phone>
+        <email>hans@example.com</email>
+        <address>4th street</address>
     </persons>
     <!-- Person with invalid phone field -->
     <persons>
         <name>Hans Muster</name>
-        <phone isPrivate="false">948asdf2424</phone>
-        <email isPrivate="false">hans@example.com</email>
-        <address isPrivate="false">4th street</address>
+        <phone>948asdf2424</phone>
+        <email>hans@example.com</email>
+        <address>4th street</address>
     </persons>
 </addressbook>
