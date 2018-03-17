@@ -36,7 +36,6 @@ public class AddPersonalTaskCommandParser {
     private static String duration;
     private static String description;
     private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-    private static String stringDateTime;
     private static LocalDateTime taskDateTime;
 
     /**
@@ -46,13 +45,12 @@ public class AddPersonalTaskCommandParser {
      */
     public AddPersonalTaskCommand parse(String task) throws ParseException {
         try {
-            this.parseTask(task.trim());
+            parseTask(task.trim());
         } catch (DateTimeParseException dtpe) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddPersonalTaskCommand.MESSAGE_USAGE));
+            throw new ParseException(dtpe.getMessage() + "\n"
+                    + AddPersonalTaskCommand.MESSAGE_USAGE);
         } catch (DurationParseException dpe) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddPersonalTaskCommand.MESSAGE_USAGE));
+            throw new ParseException(dpe.getMessage());
         } catch (TimingClashException tce) {
             //not a ParseException. Should be handled in future milestone.
             throw new ParseException(MESSAGE_TASK_TIMING_CLASHES);
@@ -71,7 +69,7 @@ public class AddPersonalTaskCommandParser {
      * @throws DurationParseException if duration format is invalid
      * @throws TimingClashException   if there is a timing clash
      */
-    public static void parseTask(String task) throws DateTimeParseException,
+    private static void parseTask(String task) throws DateTimeParseException,
             DurationParseException, TimingClashException, IllegalValueException {
 
         String[] arguments = task.split("\\s", MAXIMUM_AMOUNT_OF_TASK_PARAMETER);
@@ -124,7 +122,7 @@ public class AddPersonalTaskCommandParser {
      * @throws DateTimeParseException if the input is invalid
      */
     private static void parseDateTime(String[] arguments) {
-        stringDateTime = arguments[INDEX_OF_DATE] + " " + arguments[INDEX_OF_TIME];
+        String stringDateTime = arguments[INDEX_OF_DATE] + " " + arguments[INDEX_OF_TIME];
         System.out.println(stringDateTime);
         taskDateTime = LocalDateTime.parse(stringDateTime, formatter);
     }

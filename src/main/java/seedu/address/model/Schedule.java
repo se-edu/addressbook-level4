@@ -42,10 +42,10 @@ public class Schedule {
      */
     private static LocalDateTime getTaskEndTime(String duration, LocalDateTime startDateTime) {
         int indexOfHourDelimiter = duration.indexOf("h");
-        int indexOfMinuteDelimeter = duration.indexOf("m");
+        int indexOfMinuteDelimiter = duration.indexOf("m");
         int indexOfFirstMinuteDigit = indexOfHourDelimiter + 1;
         int hoursInDuration = Integer.parseInt(duration.substring(0, indexOfHourDelimiter));
-        int minutesInDuration = Integer.parseInt(duration.substring(indexOfFirstMinuteDigit, indexOfMinuteDelimeter));
+        int minutesInDuration = Integer.parseInt(duration.substring(indexOfFirstMinuteDigit, indexOfMinuteDelimiter));
 
         LocalDateTime taskEndTime;
         taskEndTime = startDateTime.plusHours(hoursInDuration).plusMinutes(minutesInDuration);

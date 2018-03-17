@@ -13,9 +13,9 @@ public class AddPersonalTaskCommand extends UndoableCommand {
     public static final String COMMAND_WORD = "addTask";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a personal task into the schedule.\n"
             + "Parameters: "
-            + "Date(dd/mm/yyyy) " + "(space) "
-            + "Start time(hh:mm) " + "(space) "
-            + "Duration(XXhXXm) " + "(space) "
+            + "Date(dd/mm/yyyy) "
+            + "Start time(hh:mm) "
+            + "Duration(XXhXXm) "
             + "Description.\n"
             + "Example: " + COMMAND_WORD + " "
             + "10/12/2018 "
