@@ -855,14 +855,13 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`*` |tutor |insert my student's photo |
 |=======================================================================
 
-
 [appendix]
 == Use Cases
 
 (For all use cases below, the *System* is the `TuitionConnect Application (TC)` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: UC01-Delete person
+=== Use case: UC01 - Delete person
 
 *MSS*
 
@@ -1016,7 +1015,6 @@ Use Case ends.
 ** *a1 TC requests confirmation of the cancelation.
 ** *a2. User confirms the cancellation.
 ** Use case ends.
-
 
 * 4a. No schedule is created within the date range.
 [none]

@@ -9,9 +9,9 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 == Project Team
 
-=== Johnny Doe
-image::yijinl.jpg[width="150", align="left"]
-{empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
+=== Eka Buyung Lienadi
+image::yungyung04.jpg[width="150", align="left"]
+{empty}[http://github.com/yungyung04[github]]
 
 Role: Team Lead +
 Responsibilities: Storage + Scheduling and Tracking
@@ -27,18 +27,18 @@ Responsibilities: UI + Code Quality
 
 '''
 
-=== Johnny Roe
-image::m133225.jpg[width="150", align="left"]
-{empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
+=== Raymond Zheng
+image::raymond511.png[width="150", align="left"]
+{empty}[http://github.com/raymond511[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Model + Testing
 
 '''
 
-=== Benson Meier
+=== Shakra Anas
 image::yl_coder.jpg[width="150", align="left"]
-{empty}[http://github.com/yl-coder[github]] [<<johndoe#, portfolio>>]
+{empty}[http://github.com/a-shakra[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
 Responsibilities: Logic + Integration
