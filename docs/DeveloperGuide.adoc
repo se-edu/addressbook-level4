@@ -855,7 +855,6 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |`*` |tutor |insert my student's photo |
 |=======================================================================
 
-
 [appendix]
 == Use Cases
 
