@@ -27,7 +27,7 @@ public class AddTuitionTaskCommandParserTest {
     private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/mm/uuuu HH:mm");
 
     @Test
-    public void parse_validArgs_returnsAddTuitionTaskCommand() {
+    public void parse_validArgs_success() {
         // With description
         LocalDateTime taskDateTime = LocalDateTime.parse(VALID_DATE_TIME, formatter);
         TuitionTask tuition = new TuitionTask("dummy", taskDateTime, VALID_DURATION, VALID_TASK_DESC);

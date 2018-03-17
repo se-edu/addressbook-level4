@@ -27,7 +27,7 @@ public class ScheduleTest {
     }
 
     @Test
-    public void isTaskClash_clashes_false() {
+    public void isTaskClash_invalidTaskDateAndTime_false() {
         createTaskList();
 
         // New task is on another day
@@ -41,7 +41,7 @@ public class ScheduleTest {
     }
 
     @Test
-    public void isTaskClash_clashes_true() {
+    public void isTaskClash_validTaskDateAndTime_true() {
         createTaskList();
 
         // New task starts at the same time as an existing task

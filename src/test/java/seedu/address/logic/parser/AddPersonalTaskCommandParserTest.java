@@ -27,7 +27,7 @@ public class AddPersonalTaskCommandParserTest {
             .withResolverStyle(ResolverStyle.STRICT);
 
     @Test
-    public void parse_validArgs_returnsAddPersonalTaskCommand() {
+    public void parse_validArgs_success() {
         // With description
         LocalDateTime taskDateTime = LocalDateTime.parse(VALID_DATE_TIME, formatter);
         PersonalTask personalTask = new PersonalTask(taskDateTime, VALID_DURATION, VALID_TASK_DESC);

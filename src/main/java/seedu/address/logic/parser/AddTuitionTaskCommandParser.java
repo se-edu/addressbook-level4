@@ -97,7 +97,7 @@ public class AddTuitionTaskCommandParser implements Parser<AddTuitionTaskCommand
         try {
             parseDateTime(arguments);
             parseDuration(arguments);
-            Schedule.isTaskClash(taskDateTime, duration);
+            isTaskClash(taskDateTime, duration);
         } catch (DateTimeParseException dtpe) {
             throw new DateTimeParseException(MESSAGE_INVALID_DATE_TIME, dtpe.getParsedString(), dtpe.getErrorIndex());
         } catch (DurationParseException dpe) {
