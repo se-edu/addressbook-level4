@@ -12,7 +12,7 @@ import seedu.address.model.person.TuitionTask;
 import seedu.address.model.personal.PersonalTask;
 
 public class ScheduleTest {
-    private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+    private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/uuuu HH:mm");
 
     /**
      * Generates a list of existing tasks

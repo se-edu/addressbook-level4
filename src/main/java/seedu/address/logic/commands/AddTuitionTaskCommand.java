@@ -31,7 +31,7 @@ public class AddTuitionTaskCommand extends UndoableCommand {
             + "1 "
             + "10/12/2018 "
             + "12:30 "
-            + "1h30m"
+            + "1h30m "
             + "Calculus homework page 24.";
 
     public static final String MESSAGE_SUCCESS = "New tuition task added.";
