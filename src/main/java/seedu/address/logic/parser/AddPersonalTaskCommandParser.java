@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.model.Schedule.isTaskClash;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -10,7 +11,6 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.AddPersonalTaskCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
-import seedu.address.model.Schedule;
 import seedu.address.model.person.exceptions.DurationParseException;
 import seedu.address.model.person.exceptions.TimingClashException;
 import seedu.address.model.personal.PersonalTask;
@@ -80,13 +80,14 @@ public class AddPersonalTaskCommandParser {
         try {
             parseDateTime(arguments);
             parseDuration(arguments);
-            Schedule.checkClashes(taskDateTime, duration);
+            isTaskClash(taskDateTime, duration);
         } catch (DateTimeParseException dtpe) {
             throw new DateTimeParseException(MESSAGE_INVALID_DATE_TIME, dtpe.getParsedString(), dtpe.getErrorIndex());
         } catch (DurationParseException dpe) {
             throw new DurationParseException(dpe.getMessage());
-        } catch (TimingClashException tce) {
-            throw new TimingClashException(tce.getMessage());
+        }
+        if (isTaskClash(taskDateTime, duration)) {
+            throw new TimingClashException(MESSAGE_TASK_TIMING_CLASHES);
         }
     }
 

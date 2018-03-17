@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 
 import java.util.ArrayList;
 
-import seedu.address.model.person.exceptions.TimingClashException;
 
 /**
  * Wraps the data of all existing tasks.
@@ -12,9 +11,6 @@ import seedu.address.model.person.exceptions.TimingClashException;
 public class Schedule {
 
     protected static ArrayList<Task> taskList = new ArrayList<>();
-
-    private static final String MESSAGE_TASK_TIMING_CLASHES = "This task clashes with another task";
-
     /**
      * Returns a list of all existing tasks.
      */
@@ -25,16 +21,18 @@ public class Schedule {
     /**
      * Checks for any clashes in the task timing in schedule
      *
-     * @throws TimingClashException if there is a timing clash
+     *  @return true if there is a clash
+     *          false if there is no clash
      */
-    public static void checkClashes(LocalDateTime taskDateTime, String duration) throws TimingClashException {
+    public static boolean isTaskClash(LocalDateTime taskDateTime, String duration) {
         LocalDateTime taskEndTime = getTaskEndTime(duration, taskDateTime);
 
         for (Task recordedTask : taskList) {
             if (isTimeClash(taskDateTime, taskEndTime, recordedTask)) {
-                throw new TimingClashException(MESSAGE_TASK_TIMING_CLASHES);
+                return true;
             }
         }
+        return false;
     }
 
     /**
@@ -57,14 +55,15 @@ public class Schedule {
      *
      * @param taskEndTime  End time of the new task
      * @param recordedTask Task that is already in the schedule
-     * @return true if no clash
-     * false if clashes
+     * @return true if clashes
+     * false if no clashes
      */
     private static boolean isTimeClash(LocalDateTime taskDateTime, LocalDateTime taskEndTime, Task recordedTask) {
         LocalDateTime startTimeOfTaskInSchedule = recordedTask.getTaskDateTime();
         String duration = recordedTask.getDuration();
         LocalDateTime endTimeOfTaskInSchedule = getTaskEndTime(duration, startTimeOfTaskInSchedule);
 
-        return !(taskEndTime.isBefore(startTimeOfTaskInSchedule) || taskDateTime.isAfter(endTimeOfTaskInSchedule));
+        return !(taskEndTime.isBefore(startTimeOfTaskInSchedule) || taskDateTime.isAfter(endTimeOfTaskInSchedule))
+                && !(taskEndTime.equals(startTimeOfTaskInSchedule) || taskDateTime.equals(endTimeOfTaskInSchedule));
     }
 }
