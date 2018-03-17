@@ -790,6 +790,57 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 
 *Value proposition*: manage contacts faster than a typical mouse/GUI driven app
 
+=== Feature Contribution
+
+. *AddTuteeCommand* [Major Enhancement]
+
+As the user of this application is the tutor, he or she will need to add the tutees' contact details.
+Furthermore, tutee contacts should not be mixed with the non-tutee contacts so that all the contacts are organized and can be managed easily.
+Therefore, AddTuteeCommand is used to add only the tutees' contact details
+
+The AddTuteeCommand is an extension of the Undoable Command, which is part of the Logic Component.
+As this command involves the altering of the application's state, the ability to undo and redo will make this command more user-friendly and efficient.
+(e.g list command + delete command vs undo command).
+
+image::LogicCommandClassDiagram.png[width="800"]
+
+From the diagram shown above, instead of extending abstract Command class directly, AddTuteeCommand will extend the abstract Undoable Command class like clearCommand and AddCommand.
+This allows AddTuteeCommand to use or override the state saving codes inside the Undoable Command class as shown below.
+
+[source,java]
+----
+public abstract class UndoableCommand extends Command {
+    @Override
+    public CommandResult execute() {
+        // ... undo logic ...
+
+        executeUndoableCommand();
+    }
+}
+
+public class AddTuteeCommand extends UndoableCommand {
+    @Override
+    public CommandResult executeUndoableCommand() {
+        // ... add tutee logic ...
+    }
+}
+----
+
+The following sequence diagram shows how the addtutee operation works:
+
+image::AddTuteeCommandSequenceDiagram.png[width="800"]
+
+[NOTE]
+If there is already someone, either tutee or non tutee, in the contact list, DuplicatePersonException will be thrown.
+
+*Alternatives*
+
+. Modify the current AddCommand:
+
+The AddCommand will be able to read 2 different user inputs, either "add n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 t/friends t/owesMoney"
+or "add tutee n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 s/Science g/B+ edu/Secondary sch/HelloWord Secondary School".
+The input string will be parsed at AddCommandParser. Tutee and non-tutee contacts will then be added similarly as the AddTuteeCommand and the original AddCommand.
+
 [appendix]
 == User Stories
 
@@ -812,9 +863,9 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |delete a schedule in the calendar |update my calender
 
-|`* * *` |tutor |tag the students with their current education level |adjust my teaching accordingly
+|`* * *` |tutor |tag the tutee with their current education level |adjust my teaching accordingly
 
-|`* * *` |tutor |edit student's details |stay updated
+|`* * *` |tutor |edit tutee's details |stay updated
 
 |`* * *` |user |edit a schedule |update my calendar
 
@@ -824,7 +875,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |add my personal schedule to the calendar |prevent any schedule from clashing
 
-|`* * *` |tutor |categorize a contact as my student |separate my student from my personal contact lists
+|`* * *` |tutor |categorize a contact as my tutee |separate my tutee from my personal contact lists
 
 |`* *` |tutor |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
 
@@ -836,23 +887,23 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* *` |tutor |track the tuition payment |know who has not paid
 
-|`* *` |tutor |integrate my calendar with the school's calendar |prevent clashes between tuition schedule and students' school commitment
+|`* *` |tutor |integrate my calendar with the school's calendar |prevent clashes between tuition schedule and tutees' school commitment
 
-|`* *` |tutor with many students |send messages to all students that meet a certain description |inform students together and not one by one
+|`* *` |tutor with many tutees |send messages to all tutees that meet a certain description |inform tutees together and not one by one
 
-|`* *` |tutor |add subject grade of the students |keep track of his progress
+|`* *` |tutor |add subject grade of the tutees |keep track of his progress
 
-|`* *` |tutor |list students coming from the same school |so that I can gather and spread useful information among these students.
+|`* *` |tutor |list tutees coming from the same school |so that I can gather and spread useful information among these students.
 
-|`* *` |tutor |list students based on their grades |give more tuition to students who are doing badly
+|`* *` |tutor |list tutees based on their grades |give more tuition to tutees who are doing badly
 
-|`* *` |tutor |give assignments(done and to-be-done) to a student |track his work and progress easily
+|`* *` |tutor |give assignments(done and to-be-done) to a tutee |track his work and progress easily
 
 |`*` |user with many persons in the address book |sort persons by name |locate a person easily
 
-|`*` |tutor |take note of the name of my student's school teachers |adjust my teaching according to the school teacher.
+|`*` |tutor |take note of the name of my tutee's school teachers |adjust my teaching according to the school teacher.
 
-|`*` |tutor |insert my student's photo |
+|`*` |tutor |insert my tutee's photo |
 |=======================================================================
 
 [appendix]
