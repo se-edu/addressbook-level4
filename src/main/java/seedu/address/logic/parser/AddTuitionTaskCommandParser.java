@@ -51,7 +51,7 @@ public class AddTuitionTaskCommandParser implements Parser<AddTuitionTaskCommand
      * @throws ParseException if the user input does not conform the expected format
      */
     public AddTuitionTaskCommand parse(String args) throws ParseException {
-        if (!args.matches(INPUT_FORMAT_VALIDATION_REGEX)) {
+        if (!args.trim().matches(INPUT_FORMAT_VALIDATION_REGEX)) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTuitionTaskCommand.MESSAGE_USAGE));
         }
