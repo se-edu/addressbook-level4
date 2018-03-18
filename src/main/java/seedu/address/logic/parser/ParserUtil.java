@@ -171,7 +171,7 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String email} into an {@code Subject}.
+     * Parses a {@code String subject} into an {@code Subject}.
      * Leading and trailing whitespaces will be trimmed.
      *
      * @throws IllegalValueException if the given {@code subject} is invalid.
