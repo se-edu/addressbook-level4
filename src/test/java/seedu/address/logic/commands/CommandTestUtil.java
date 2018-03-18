@@ -39,7 +39,7 @@ public class CommandTestUtil {
     public static final String VALID_ADDRESS_BOB = "Block 123, Bobby Street 3";
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
-    public static final String VALID_DATE_TIME = "11/01/2011 11:11";
+    public static final String VALID_DATE_TIME = "21/01/2011 11:11";
     public static final String VALID_DURATION = "1h11m";
     public static final String VALID_TASK_DESC = "tuition homework";
     public static final String VALID_EMPTY_TASK_DESC = "";

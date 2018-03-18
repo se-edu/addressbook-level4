@@ -22,7 +22,7 @@ public class AddTuitionTaskCommand extends UndoableCommand {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a tuition (task) into the schedule.\n"
             + "Parameters: "
-            + "last shown index of person associated with tuition" + "(space) "
+            + "last shown index of person associated with tuition"
             + "Date(dd/mm/yyyy) "
             + "Start time(hh:mm) "
             + "Duration(XXhXXm) "
