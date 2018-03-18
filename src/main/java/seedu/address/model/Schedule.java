@@ -28,7 +28,14 @@ public class Schedule {
         LocalDateTime taskEndTime = getTaskEndTime(duration, taskDateTime);
 
         for (Task recordedTask : taskList) {
-            if (isTimeClash(taskDateTime, taskEndTime, recordedTask)) {
+            LocalDateTime startTimeOfTaskInSchedule = recordedTask.getTaskDateTime();
+            String durationOfTaskInSchedule = recordedTask.getDuration();
+            LocalDateTime endTimeOfTaskInSchedule = getTaskEndTime(durationOfTaskInSchedule, startTimeOfTaskInSchedule);
+            boolean isClash = !(taskEndTime.isBefore(startTimeOfTaskInSchedule)
+                    || taskDateTime.isAfter(endTimeOfTaskInSchedule))
+                    && !(taskEndTime.equals(startTimeOfTaskInSchedule)
+                    || taskDateTime.equals(endTimeOfTaskInSchedule));
+            if (isClash) {
                 return true;
             }
         }
@@ -50,20 +57,4 @@ public class Schedule {
         return taskEndTime;
     }
 
-    /**
-     * Checks if the new task date and time clashes with a task in the schedule
-     *
-     * @param taskEndTime  End time of the new task
-     * @param recordedTask Task that is already in the schedule
-     * @return true if clashes
-     * false if no clashes
-     */
-    private static boolean isTimeClash(LocalDateTime taskDateTime, LocalDateTime taskEndTime, Task recordedTask) {
-        LocalDateTime startTimeOfTaskInSchedule = recordedTask.getTaskDateTime();
-        String duration = recordedTask.getDuration();
-        LocalDateTime endTimeOfTaskInSchedule = getTaskEndTime(duration, startTimeOfTaskInSchedule);
-
-        return !(taskEndTime.isBefore(startTimeOfTaskInSchedule) || taskDateTime.isAfter(endTimeOfTaskInSchedule))
-                && !(taskEndTime.equals(startTimeOfTaskInSchedule) || taskDateTime.equals(endTimeOfTaskInSchedule));
-    }
 }
