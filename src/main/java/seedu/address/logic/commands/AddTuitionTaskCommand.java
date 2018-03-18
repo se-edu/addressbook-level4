@@ -22,16 +22,16 @@ public class AddTuitionTaskCommand extends UndoableCommand {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a tuition (task) into the schedule.\n"
             + "Parameters: "
-            + "last shown index of person associated with tuition" + "(space) "
-            + "Date(dd/mm/yyyy) " + "(space) "
-            + "Start time(hh:mm) " + "(space) "
-            + "Duration(XXhXXm) " + "(space) "
+            + "last shown index of person associated with tuition"
+            + "Date(dd/mm/yyyy) "
+            + "Start time(hh:mm) "
+            + "Duration(XXhXXm) "
             + "Description.\n"
             + "Example: " + COMMAND_WORD + " "
             + "1 "
             + "10/12/2018 "
             + "12:30 "
-            + "1h30m"
+            + "1h30m "
             + "Calculus homework page 24.";
 
     public static final String MESSAGE_SUCCESS = "New tuition task added.";

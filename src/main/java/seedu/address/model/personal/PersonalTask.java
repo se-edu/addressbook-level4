@@ -19,7 +19,7 @@ public class PersonalTask implements Task {
     private String duration;
     private LocalDateTime taskDateTime;
 
-    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/mm/dd HH:mm");
+    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/mm/uuuu HH:mm");
 
     /**
      * Creates a personal task
