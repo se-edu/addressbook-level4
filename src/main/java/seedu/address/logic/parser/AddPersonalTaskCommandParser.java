@@ -116,7 +116,6 @@ public class AddPersonalTaskCommandParser implements Parser<AddPersonalTaskComma
      */
     private static void parseDateTime(String[] arguments) {
         String stringDateTime = arguments[INDEX_OF_DATE] + " " + arguments[INDEX_OF_TIME];
-        System.out.println(stringDateTime);
         taskDateTime = LocalDateTime.parse(stringDateTime, formatter);
     }
 
