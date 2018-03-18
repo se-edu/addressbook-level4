@@ -1,4 +1,4 @@
-= AddressBook Level 4 - User Guide
+= TuitionConnect (TC) - User Guide
 :toc:
 :toc-title:
 :toc-placement: preamble
@@ -13,11 +13,11 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/CS2103JAN2018-T11-B1/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team MarvelousBook`      Since: `Feb 2018`      Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 4 (AB4) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB4 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB4 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+TuitionConnect (TC) is for those who *prefer to use a desktop app for managing contacts*. More importantly, TC is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, TC can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 
@@ -77,6 +77,21 @@ Examples:
 * `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
 * `a n/Dickson ee p/91234567 e/dickson@exmaple.com a/Dickson street, block 456, #02-02`
 
+=== Adding a tutee: `addtutee`
+Adds a tutee to the address book +
+Using Command Word: +
+Format: `addtutee n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS s/SUBJECT g/GRADE edu/EDUCATION_LEVEL sch/SCHOOL [t/TAG]...`
+
+[TIP]
+A tutee can have any number of tags (including 0)
+
+Examples:
+
+* `addtutee n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 s/Economics g/B+ edu/junior college sch/Victoria Junior College`
+* `addtutee n/Betsy Crowe s/Mathematics g/C e/betsycrowe@example.com a/Newgate Town p/1234567 t/owesMoney sch/Victoria Institution edu/secondary`
+* `addtutee n/Dickson ee p/91234567 e/dickson@exmaple.com a/Dickson street, block 456, #02-02 s/english g/f edu/primary sch/Newgate Primary School`
+
+
 === Listing all persons : `list`
 
 Shows a list of all persons in the address book. +
@@ -109,8 +124,6 @@ Edits the phone number and email address of the 1st person to be `91234567` and 
 Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
 
 === Locating persons by name or number: `find`
-
-=======
 
 Finds persons whose names or numebers contain any of the given keywords. +
 Using Command Word: +
@@ -266,6 +279,28 @@ Format: `exit`
 
 Address book data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
+
+=== Complete task `[coming in v1.2]`
+Marks a task as completed. If the task is tuition, fees will automatically be added to the tutee's fee balance.
+
+=== Edit task `[coming in v1.2]`
+Edits date, time, duration or description of an existing task.
+
+=== Delete task `[coming in v1.2]`
+Deletes an existing task.
+
+=== View task `[coming in v1.2]`
+Views a list of tasks.
+
+=== View sort `[coming in v1.2]`
+Views a sorted list of people or task based on a user specified sorting criterion.
+
+=== View calender `[coming in v1.3]`
+Views the calender, which will display the month or week based on the user input.
+When viewing in week, timeline of each day of the week will be shown and task in a specific time slot will be shown.
+
+=== Update tutee fees `[coming in v1.3]`
+Updates the remaining balance of the fees of a specific tutee after he or she has paid.
 
 // tag::dataencryption[]
 === Encrypting data files `[coming in v2.0]`
