@@ -80,7 +80,6 @@ public class AddPersonalTaskCommandParser implements Parser<AddPersonalTaskComma
         try {
             parseDateTime(arguments);
             parseDuration(arguments);
-            isTaskClash(taskDateTime, duration);
         } catch (DateTimeParseException dtpe) {
             throw new DateTimeParseException(MESSAGE_INVALID_DATE_TIME, dtpe.getParsedString(), dtpe.getErrorIndex());
         } catch (DurationParseException dpe) {
