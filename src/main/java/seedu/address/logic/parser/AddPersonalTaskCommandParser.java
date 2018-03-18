@@ -98,6 +98,8 @@ public class AddPersonalTaskCommandParser implements Parser<AddPersonalTaskComma
     private static void parseDescription(String[] arguments) {
         if (hasDescription(arguments)) {
             description = arguments[INDEX_OF_DESCRIPTION];
+        } else {
+            description = "";
         }
     }
 
