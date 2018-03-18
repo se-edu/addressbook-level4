@@ -1,8 +1,6 @@
 package seedu.address.model.personal;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.ResolverStyle;
 
 import seedu.address.model.Task;
 

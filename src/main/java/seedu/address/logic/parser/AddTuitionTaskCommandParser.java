@@ -18,9 +18,9 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.AddTuitionTaskCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
-import seedu.address.model.tutee.TuitionTask;
 import seedu.address.model.person.exceptions.DurationParseException;
 import seedu.address.model.person.exceptions.TimingClashException;
+import seedu.address.model.tutee.TuitionTask;
 
 /**
  * Parses input arguments and creates a new AddTuitionTaskCommand object
