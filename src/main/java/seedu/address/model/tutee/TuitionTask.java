@@ -1,8 +1,9 @@
-package seedu.address.model.person;
+package seedu.address.model.tutee;
 
 import java.time.LocalDateTime;
 
 import java.time.format.DateTimeFormatter;
+import java.time.format.ResolverStyle;
 
 import seedu.address.model.Task;
 
@@ -24,7 +25,8 @@ public class TuitionTask implements Task {
     private String duration;
     private LocalDateTime taskDateTime;
 
-    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/mm/uuuu HH:mm");
+    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/mm/uuuu HH:mm")
+            .withResolverStyle(ResolverStyle.STRICT);
 
 
     public TuitionTask(String person, LocalDateTime taskDateTime, String duration, String description) {

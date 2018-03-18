@@ -8,7 +8,7 @@ import java.time.format.DateTimeFormatter;
 
 import org.junit.Test;
 
-import seedu.address.model.person.TuitionTask;
+import seedu.address.model.tutee.TuitionTask;
 import seedu.address.model.personal.PersonalTask;
 
 public class ScheduleTest {

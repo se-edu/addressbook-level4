@@ -1,9 +1,13 @@
-package seedu.address.model.person;
+package seedu.address.model.tutee;
 
-import java.util.Collections;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.address.model.person.Address;
+import seedu.address.model.person.Email;
+import seedu.address.model.person.Name;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -12,41 +16,42 @@ import seedu.address.model.tag.Tag;
  */
 public class Tutee extends Person {
     private TuitionSchedule schedule;
+    private Subject subject;
+    private Grade grade;
+    private EducationLevel educationLevel;
+    private School school;
 
     /**
      * Every field must be present and not null.
      */
-    public Tutee(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
+    public Tutee(Name name, Phone phone, Email email, Address address, Subject subject,
+                 Grade grade, EducationLevel educationLevel, School school, Set<Tag> tags) {
         super(name, phone, email, address, tags);
+        this.subject = subject;
+        this.grade = grade;
+        this.educationLevel = educationLevel;
+        this.school = school;
         this.schedule = new TuitionSchedule(name.toString());
-    }
-
-    public Name getName() {
-        return name;
-    }
-
-    public Phone getPhone() {
-        return phone;
-    }
-
-    public Email getEmail() {
-        return email;
-    }
-
-    public Address getAddress() {
-        return address;
     }
 
     public TuitionSchedule getTuitionSchedule() {
         return schedule;
     }
 
-    /**
-     * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
-     * if modification is attempted.
-     */
-    public Set<Tag> getTags() {
-        return Collections.unmodifiableSet(tags.toSet());
+    public Subject getSubject() {
+        return subject;
+    }
+
+    public Grade getGrade() {
+        return grade;
+    }
+
+    public EducationLevel getEducationLevel() {
+        return educationLevel;
+    }
+
+    public School getSchool() {
+        return school;
     }
 
     @Override
@@ -69,7 +74,7 @@ public class Tutee extends Person {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(name, phone, email, address, subject, grade, educationLevel, school, tags);
     }
 
     @Override
@@ -82,6 +87,14 @@ public class Tutee extends Person {
                 .append(getEmail())
                 .append(" Address: ")
                 .append(getAddress())
+                .append(" Subject: ")
+                .append(getSubject())
+                .append(" Grade ")
+                .append(getGrade())
+                .append(" Education Level: ")
+                .append(getEducationLevel())
+                .append(" School: ")
+                .append(getSchool())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
