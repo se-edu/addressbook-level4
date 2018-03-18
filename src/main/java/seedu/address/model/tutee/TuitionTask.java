@@ -25,10 +25,14 @@ public class TuitionTask implements Task {
     private String duration;
     private LocalDateTime taskDateTime;
 
-    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/mm/uuuu HH:mm")
-            .withResolverStyle(ResolverStyle.STRICT);
-
-
+    /**
+     * Creates a tuition task
+     *
+     * @param person person involves in the task
+     * @param taskDateTime date and time of the task
+     * @param duration duration of the task
+     * @param description description of the task
+     */
     public TuitionTask(String person, LocalDateTime taskDateTime, String duration, String description) {
         this.person = person;
         this.taskDateTime = taskDateTime;
