@@ -20,7 +20,7 @@ import java.time.format.ResolverStyle;
 import org.junit.Test;
 
 import seedu.address.logic.commands.AddTuitionTaskCommand;
-import seedu.address.model.person.TuitionTask;
+import seedu.address.model.tutee.TuitionTask;
 
 public class AddTuitionTaskCommandParserTest {
     private AddTuitionTaskCommandParser parser = new AddTuitionTaskCommandParser();
