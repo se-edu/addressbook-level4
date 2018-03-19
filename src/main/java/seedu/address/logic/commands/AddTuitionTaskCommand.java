@@ -10,9 +10,8 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 
 import seedu.address.model.person.Person;
-import seedu.address.model.tutee.TuitionSchedule;
-import seedu.address.model.tutee.TuitionTask;
-import seedu.address.model.tutee.Tutee;
+import seedu.address.model.person.TuitionSchedule;
+import seedu.address.model.person.TuitionTask;
 
 /**
  * Adds a tuition (task) into the schedule.
@@ -23,7 +22,7 @@ public class AddTuitionTaskCommand extends UndoableCommand {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a tuition (task) into the schedule.\n"
             + "Parameters: "
-            + "last shown index of person associated with tuition" + "(space) "
+            + "last shown index of person associated with tuition"
             + "Date(dd/mm/yyyy) "
             + "Start time(hh:mm) "
             + "Duration(XXhXXm) "
@@ -41,7 +40,7 @@ public class AddTuitionTaskCommand extends UndoableCommand {
     private final Index targetIndex;
 
     private TuitionSchedule tuitionSchedule;
-    private Tutee associatedPerson;
+    private Person associatedPerson;
 
     /**
      * Creates an AddTuition to add the specified {@code Task} which is associated to {@code Person}.
@@ -78,7 +77,7 @@ public class AddTuitionTaskCommand extends UndoableCommand {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
-        associatedPerson = (Tutee) lastShownList.get(targetIndex.getZeroBased());
+        associatedPerson = lastShownList.get(targetIndex.getZeroBased());
     }
 
     @Override

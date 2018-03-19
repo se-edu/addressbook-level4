@@ -18,9 +18,9 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.AddTuitionTaskCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
+import seedu.address.model.person.TuitionTask;
 import seedu.address.model.person.exceptions.DurationParseException;
 import seedu.address.model.person.exceptions.TimingClashException;
-import seedu.address.model.tutee.TuitionTask;
 
 /**
  * Parses input arguments and creates a new AddTuitionTaskCommand object
@@ -51,7 +51,7 @@ public class AddTuitionTaskCommandParser implements Parser<AddTuitionTaskCommand
      * @throws ParseException if the user input does not conform the expected format
      */
     public AddTuitionTaskCommand parse(String args) throws ParseException {
-        if (!args.trim().matches(INPUT_FORMAT_VALIDATION_REGEX)) {
+        if (!args.matches(INPUT_FORMAT_VALIDATION_REGEX)) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTuitionTaskCommand.MESSAGE_USAGE));
         }

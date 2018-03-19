@@ -15,11 +15,13 @@ import seedu.address.model.tag.UniqueTagList;
  */
 public class Person {
 
-    protected final Name name;
-    protected final Phone phone;
-    protected final Email email;
-    protected final Address address;
-    protected final UniqueTagList tags;
+    private final Name name;
+    private final Phone phone;
+    private final Email email;
+    private final Address address;
+    private TuitionSchedule schedule;
+
+    private final UniqueTagList tags;
 
     /**
      * Every field must be present and not null.
@@ -32,6 +34,7 @@ public class Person {
         this.address = address;
         // protect internal tags from changes in the arg list
         this.tags = new UniqueTagList(tags);
+        this.schedule = new TuitionSchedule(name.toString());
     }
 
     public Name getName() {
@@ -48,6 +51,10 @@ public class Person {
 
     public Address getAddress() {
         return address;
+    }
+
+    public TuitionSchedule getTuitionSchedule() {
+        return schedule;
     }
 
     /**
