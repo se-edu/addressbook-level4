@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Tutee's email in the address book.
+ * Represents a Tutee's education level in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidEducationLevel(String)}
  */
 public class EducationLevel {

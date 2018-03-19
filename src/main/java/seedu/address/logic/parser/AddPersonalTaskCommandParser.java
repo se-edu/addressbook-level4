@@ -40,7 +40,7 @@ public class AddPersonalTaskCommandParser implements Parser<AddPersonalTaskComma
     private static LocalDateTime taskDateTime;
 
     /**
-     * Parses the given {@code String} of arguments in the context of the AddTuitionTaskCommand
+     * Parses the given {@code String} of arguments in the context of the AddPersonalTaskCommand
      * and returns an AddPersonalTaskCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
@@ -116,7 +116,6 @@ public class AddPersonalTaskCommandParser implements Parser<AddPersonalTaskComma
      */
     private static void parseDateTime(String[] arguments) {
         String stringDateTime = arguments[INDEX_OF_DATE] + " " + arguments[INDEX_OF_TIME];
-        System.out.println(stringDateTime);
         taskDateTime = LocalDateTime.parse(stringDateTime, formatter);
     }
 
