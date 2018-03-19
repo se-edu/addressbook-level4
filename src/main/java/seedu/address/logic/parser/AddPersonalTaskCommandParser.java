@@ -45,7 +45,7 @@ public class AddPersonalTaskCommandParser implements Parser<AddPersonalTaskComma
      * @throws ParseException if the user input does not conform the expected format
      */
     public AddPersonalTaskCommand parse(String task) throws ParseException {
-        if (!task.matches(INPUT_FORMAT_VALIDATION_REGEX)) {
+        if (!task.trim().matches(INPUT_FORMAT_VALIDATION_REGEX)) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddPersonalTaskCommand.MESSAGE_USAGE));
         }
