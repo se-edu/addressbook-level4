@@ -1,4 +1,8 @@
+<<<<<<< HEAD
+= TuitionConnect - User Guide
+=======
 = TuitionConnect (TC) - User Guide
+>>>>>>> 58ffc0c220cddca68ac2bfcc9faa4a6478744261
 :toc:
 :toc-title:
 :toc-placement: preamble
@@ -17,7 +21,11 @@ By: `Team MarvelousBook`      Since: `Feb 2018`      Licence: `MIT`
 
 == Introduction
 
+<<<<<<< HEAD
+TuitionConnect (AB4) is for those who *prefer to use a desktop app for managing contacts*. More importantly, TC is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, TC can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+=======
 TuitionConnect (TC) is for those who *prefer to use a desktop app for managing contacts*. More importantly, TC is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, TC can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+>>>>>>> 58ffc0c220cddca68ac2bfcc9faa4a6478744261
 
 == Quick Start
 
