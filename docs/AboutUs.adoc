@@ -37,7 +37,7 @@ Responsibilities: Model + Testing
 '''
 
 === Anas Shakra
-image::Photo.jpg[width="150", align="left"]
+image::a-shakra.jpg[width="150", align="left"]
 {empty}[http://github.com/a-shakra[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
