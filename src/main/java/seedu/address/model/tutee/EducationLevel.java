@@ -23,7 +23,7 @@ public class EducationLevel {
     public EducationLevel(String educationLevel) {
         requireNonNull(educationLevel);
         checkArgument(isValidEducationLevel(educationLevel), MESSAGE_EDUCATION_LEVEL_CONSTRAINTS);
-        this.educationLevel = educationLevel.toLowerCase();
+        this.educationLevel = educationLevel;
     }
 
     /**
