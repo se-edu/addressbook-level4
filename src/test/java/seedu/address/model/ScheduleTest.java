@@ -8,8 +8,8 @@ import java.time.format.DateTimeFormatter;
 
 import org.junit.Test;
 
-import seedu.address.model.person.TuitionTask;
 import seedu.address.model.personal.PersonalTask;
+import seedu.address.model.tutee.TuitionTask;
 
 public class ScheduleTest {
     private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/uuuu HH:mm");
