@@ -1,4 +1,4 @@
-package seedu.address.model.tutee;
+package seedu.address.model.person;
 
 import java.util.ArrayList;
 
