@@ -1,6 +1,7 @@
 package seedu.address.model.personal;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import seedu.address.model.Task;
 
@@ -17,6 +18,8 @@ public class PersonalTask implements Task {
     private String description;
     private String duration;
     private LocalDateTime taskDateTime;
+
+    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/mm/uuuu HH:mm");
 
     /**
      * Creates a personal task
