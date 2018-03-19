@@ -45,7 +45,7 @@ public class AddPersonalTaskCommandParser implements Parser<AddPersonalTaskComma
      * @throws ParseException if the user input does not conform the expected format
      */
     public AddPersonalTaskCommand parse(String task) throws ParseException {
-        if (!task.matches(INPUT_FORMAT_VALIDATION_REGEX)) {
+        if (!task.trim().matches(INPUT_FORMAT_VALIDATION_REGEX)) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddPersonalTaskCommand.MESSAGE_USAGE));
         }
@@ -98,6 +98,8 @@ public class AddPersonalTaskCommandParser implements Parser<AddPersonalTaskComma
     private static void parseDescription(String[] arguments) {
         if (hasDescription(arguments)) {
             description = arguments[INDEX_OF_DESCRIPTION];
+        } else {
+            description = "";
         }
     }
 
@@ -116,7 +118,6 @@ public class AddPersonalTaskCommandParser implements Parser<AddPersonalTaskComma
      */
     private static void parseDateTime(String[] arguments) {
         String stringDateTime = arguments[INDEX_OF_DATE] + " " + arguments[INDEX_OF_TIME];
-        System.out.println(stringDateTime);
         taskDateTime = LocalDateTime.parse(stringDateTime, formatter);
     }
 
