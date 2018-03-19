@@ -852,7 +852,7 @@ The AddCommand will be able to read 2 different user inputs, either "add n/John 
 or "add tutee n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 s/Science g/B+ edu/Secondary sch/HelloWord Secondary School".
 The input string will be parsed at AddCommandParser. Tutee and non-tutee contacts will then be added similarly as the AddTuteeCommand and the original AddCommand.
 
-*Buyung*
+*Buyung*:
 
 . *ViewFiltered & View Sort* [Major Enhancement]
 This command lets tutors to view a filtered list of their stored tasks. As there are 2 kinds of tasks implemented in Tuition Connect,
@@ -872,7 +872,7 @@ By having this command, tutors are able to locate their desired tasks easily.
 Within future version, this command would have a sorting capability. The filtered tutee
 shall be displayed after their name is sorted lexicographically.
 
-*Anas*
+*Anas*:
 
 . *CompleteCommand* [Major Enhancement]
 
