@@ -1,4 +1,4 @@
-= AddressBook Level 4 - Developer Guide
+= TuitionConnect (TC) - Developer Guide
 :toc:
 :toc-title:
 :toc-placement: preamble
@@ -12,7 +12,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/CS2103JAN2018-T11-B1/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team MarvelousBook`      Since: `Feb 2018`      Licence: `MIT`
 
 == Setting up
 
