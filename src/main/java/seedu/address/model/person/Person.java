@@ -15,12 +15,11 @@ import seedu.address.model.tag.UniqueTagList;
  */
 public class Person {
 
-    private final Name name;
-    private final Phone phone;
-    private final Email email;
-    private final Address address;
-
-    private final UniqueTagList tags;
+    protected final Name name;
+    protected final Phone phone;
+    protected final Email email;
+    protected final Address address;
+    protected final UniqueTagList tags;
 
     /**
      * Every field must be present and not null.

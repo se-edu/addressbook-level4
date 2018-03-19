@@ -1,4 +1,4 @@
-= AddressBook Level 4 - Developer Guide
+= TuitionConnect (TC) - Developer Guide
 :toc:
 :toc-title:
 :toc-placement: preamble
@@ -10,9 +10,9 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4/tree/master
+:repoURL: https://github.com/CS2103JAN2018-T11-B1/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team MarvelousBook`      Since: `Feb 2018`      Licence: `MIT`
 
 == Setting up
 
@@ -790,6 +790,57 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 
 *Value proposition*: manage contacts faster than a typical mouse/GUI driven app
 
+=== Feature Contribution
+
+. *AddTuteeCommand* [Major Enhancement]
+
+As the user of this application is the tutor, he or she will need to add the tutees' contact details.
+Furthermore, tutee contacts should not be mixed with the non-tutee contacts so that all the contacts are organized and can be managed easily.
+Therefore, AddTuteeCommand is used to add only the tutees' contact details
+
+The AddTuteeCommand is an extension of the Undoable Command, which is part of the Logic Component.
+As this command involves the altering of the application's state, the ability to undo and redo will make this command more user-friendly and efficient.
+(e.g list command + delete command vs undo command).
+
+image::LogicCommandClassDiagram.png[width="800"]
+
+From the diagram shown above, instead of extending abstract Command class directly, AddTuteeCommand will extend the abstract Undoable Command class like clearCommand and AddCommand.
+This allows AddTuteeCommand to use or override the state saving codes inside the Undoable Command class as shown below.
+
+[source,java]
+----
+public abstract class UndoableCommand extends Command {
+    @Override
+    public CommandResult execute() {
+        // ... undo logic ...
+
+        executeUndoableCommand();
+    }
+}
+
+public class AddTuteeCommand extends UndoableCommand {
+    @Override
+    public CommandResult executeUndoableCommand() {
+        // ... add tutee logic ...
+    }
+}
+----
+
+The following sequence diagram shows how the addtutee operation works:
+
+image::AddTuteeCommandSequenceDiagram.png[width="800"]
+
+[NOTE]
+If there is already someone, either tutee or non tutee, in the contact list, DuplicatePersonException will be thrown.
+
+*Alternatives*
+
+. Modify the current AddCommand:
+
+The AddCommand will be able to read 2 different user inputs, either "add n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 t/friends t/owesMoney"
+or "add tutee n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 s/Science g/B+ edu/Secondary sch/HelloWord Secondary School".
+The input string will be parsed at AddCommandParser. Tutee and non-tutee contacts will then be added similarly as the AddTuteeCommand and the original AddCommand.
+
 [appendix]
 == User Stories
 
@@ -806,27 +857,69 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |tutor |list schedule I have in certain month |check and prepare myself in advance
+
+|`* * *` |tutor |add a new tuition schedule |so that I can compile my tuition schedule
+
+|`* * *` |user |delete a schedule in the calendar |update my calender
+
+|`* * *` |tutor |tag the tutee with their current education level |adjust my teaching accordingly
+
+|`* * *` |tutor |edit tutee's details |stay updated
+
+|`* * *` |user |edit a schedule |update my calendar
+
+|`* * *` |user |open the calender |check on my schedule
+
+|`* * *` |user |submit feedback to the developers of the application |this application can be further improved
+
+|`* * *` |user |add my personal schedule to the calendar |prevent any schedule from clashing
+
+|`* * *` |tutor |categorize a contact as my tutee |separate my tutee from my personal contact lists
+
+|`* *` |tutor |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+
+|`* *` |tutor |measure the retention rate of my tutoring service |improve on myself and use it as my tuition credential
+
+|`* *` |user |track my work hours over a specific interval of time |maintain a good work life balance
+
+|`* *` |user |receive payments for my services electronically |receive payment more conveniently
+
+|`* *` |tutor |track the tuition payment |know who has not paid
+
+|`* *` |tutor |integrate my calendar with the school's calendar |prevent clashes between tuition schedule and tutees' school commitment
+
+|`* *` |tutor with many tutees |send messages to all tutees that meet a certain description |inform tutees together and not one by one
+
+|`* *` |tutor |add subject grade of the tutees |keep track of his progress
+
+|`* *` |tutor |list tutees coming from the same school |so that I can gather and spread useful information among these students.
+
+|`* *` |tutor |list tutees based on their grades |give more tuition to tutees who are doing badly
+
+|`* *` |tutor |give assignments(done and to-be-done) to a tutee |track his work and progress easily
 
 |`*` |user with many persons in the address book |sort persons by name |locate a person easily
-|=======================================================================
 
-_{More to be added}_
+|`*` |tutor |take note of the name of my tutee's school teachers |adjust my teaching according to the school teacher.
+
+|`*` |tutor |insert my tutee's photo |
+|=======================================================================
 
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `TuitionConnect Application (TC)` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: UC01 - Delete person
 
 *MSS*
 
 1.  User requests to list persons
-2.  AddressBook shows a list of persons
+2.  TC shows a list of persons
 3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+4.  TC deletes the person
 +
 Use case ends.
 
@@ -840,11 +933,146 @@ Use case ends.
 * 3a. The given index is invalid.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3a1. TC shows an error message.
 +
 Use case resumes at step 2.
 
-_{More to be added}_
+=== Use case: UC02 - Add a tuition schedule
+*MSS*
+
+1. User adds a schedule by providing the time (date & duration)
+2. TC asks whether user wants to *add a personal schedule(UC03)* or a tuition schedule.
+3. User chooses tuition schedule
+4. TC asks the name of the tutee
+5. User types the name of the tutee
+6. TC confirms that process is done.
++
+Use Case ends.
+
+*Extensions*
+
+[none]
+* 1a. Clashing schedule
++
+[none]
+** 1a1. TC reports that schedule clashes and requests a new timing.
+** 1a2. User enters a new schedule
+** Steps 1a1.-1a2. are repeated until there is no clash.
+** Use case resumes from Step 2.
+
+* *a. At any time, user can cancel adding the schedule.
+[none]
+** *a1 TC requests confirmation of the cancelation.
+** *a2. User confirms the cancellation.
+** Use case ends.
+
+* 5a. Name is not found
++
+[none]
+** 5a1. TC requests user to retype the tutee’s name.
+** 5a2. User retypes the tutee’s name.
+** Steps 5a1.-5a2. are repeated until a valid name is provided.
+** Use case resumes from Step 6.
+
+* *a. At any time, user can cancel adding the schedule.
+[none]
+** *a1 TC requests confirmation of the cancelation.
+** *a2. User confirms the cancellation.
+       	Use case ends.
+
+=== Use case: UC03 - Add a personal schedule
+*MSS*
+
+1. User adds a schedule by providing the time (date & duration)
+2. TC asks whether user wants to add a personal schedule or to **add a tuition schedule(UC02)**.
+3. User chooses personal schedule
+4. TC prompts user to fill in a description.
+5. User fills in the description.
+6. TC confirms that process is done.
++
+Use Case ends.
+
+*Extension*
+
+[none]
+* 1a. Clashing schedule
++
+[none]
+** 1a1. TC reports that schedule clashes and requests a new timing.
+** 1a2. User enters a new schedule
+** Steps 1a1.-1a2. are repeated until there is no clash.
+** Use case resumes from Step 2.
+
+* *a. At any time, user can cancel adding the schedule.
+[none]
+** *a1 TC requests confirmation of the cancelation.
+** *a2. User confirms the cancellation.
+** Use case ends.
+
+=== Use case: UC04 - Set a contact as a tutee
+*MSS*
+
+1. User requests to set a contact as a new tutee by providing the tutee’s name
+2. TC confirms that the process is done.
++
+Use case ends.
+
+*Extensions*
+[none]
+* 1a. The name does not exist in address book
++
+[none]
+** 1a1. TC requests user to retype the tutee’s name.
+** 1a2. User types in the name.
+** Steps 1a1.- 1a2. are repeated until a valid name is provided.
+** Use case resumes from Step 2.
+
+* *a. At any time, user can cancel the request.
+[none]
+** *a1 TC requests confirmation of the cancelation.
+** *a2. User confirms the cancellation.
+** Use case ends.
+
+* 2a. The name is already inside the tutee list.
++
+[none]
+** 2a1. TC indicates that the name is already inside the tutee list.
+** 2a2.  User confirms the message.
+** Use case ends.
+
+=== Use case: UC05 - Viewing schedule within a date range
+*MSS*
+
+1. User requests to view schedule.
+2. TC requests a date range.
+3. User provides the desired date range.
+4. TC lists all schedule within the date range.
+5. User chooses to close the list.
++
+Use Case ends.
+
+*Extensions*
+
+[none]
+* 3a. Invalid date range format is given.
++
+[none]
+** 3a1. TC requests a valid date range input.
+** 3a2. User provides the date range.
+** Use case resumes from step 4.
+
+* *a. At any time, user can cancel adding the schedule.
+[none]
+** *a1 TC requests confirmation of the cancelation.
+** *a2. User confirms the cancellation.
+** Use case ends.
+
+* 4a. No schedule is created within the date range.
+[none]
+**	4a1. TC reports that no schedule exists within the time range.
+**	4a2. User acknowledges.
+**	Use case ends.
+
 
 [appendix]
 == Non Functional Requirements
@@ -852,8 +1080,16 @@ _{More to be added}_
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `1.8.0_60` or higher installed.
 .  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+.  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `1.8.0_60` or higher installed.
+.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+.  Users should prefer typing over mouse input or other input methods.
+.  Users should be comfortable using CLI apps.
+.  The app should not have flow flaws when running.
+.  The app may utilise third party libraries, API and plug-ins.
+.  The app should be able to access the Internet.
+.  The app should be able to perform basic commands without internet access.
 
-_{More to be added}_
 
 [appendix]
 == Glossary

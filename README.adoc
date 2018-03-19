@@ -1,40 +1,34 @@
-= Address Book (Level 4)
+= TuitionConnect (TC)
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
-https://travis-ci.org/se-edu/addressbook-level4[image:https://travis-ci.org/se-edu/addressbook-level4.svg?branch=master[Build Status]]
-https://ci.appveyor.com/project/damithc/addressbook-level4[image:https://ci.appveyor.com/api/projects/status/3boko2x2vr5cc3w2?svg=true[Build status]]
-https://coveralls.io/github/se-edu/addressbook-level4?branch=master[image:https://coveralls.io/repos/github/se-edu/addressbook-level4/badge.svg?branch=master[Coverage Status]]
-https://www.codacy.com/app/damith/addressbook-level4?utm_source=github.com&utm_medium=referral&utm_content=se-edu/addressbook-level4&utm_campaign=Badge_Grade[image:https://api.codacy.com/project/badge/Grade/fc0b7775cf7f4fdeaf08776f3d8e364a[Codacy Badge]]
-https://gitter.im/se-edu/Lobby[image:https://badges.gitter.im/se-edu/Lobby.svg[Gitter chat]]
-
-ifdef::env-github[]
-image::docs/images/Ui.png[width="600"]
-endif::[]
+https://travis-ci.org/CS2103JAN2018-T11-B1/main[image:https://travis-ci.org/se-edu/addressbook-level4.svg?branch=master[Build Status]]
+https://coveralls.io/github/CS2103JAN2018-T11-B1/main?branch=master[image:https://coveralls.io/repos/github/CS2103JAN2018-T11-B1/main/badge.svg?branch=master[Coverage Status]]
+https://www.codacy.com/app/raymond511/main?utm_source=github.com&utm_medium=referral&utm_content=CS2103JAN2018-T11-B1/main&utm_campaign=Badge_Grade[image:https://api.codacy.com/project/badge/Grade/33b29d9ef2d3479c9b6bce03289421b1[Codacy Badge]]
 
 ifndef::env-github[]
-image::images/Ui.png[width="600"]
+image::images/ui-mockup.png[width="600"]
 endif::[]
 
-* This is a desktop Address Book application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
-* It is a Java sample application intended for students learning Software Engineering while using Java as the main programming language.
-* It is *written in OOP fashion*. It provides a *reasonably well-written* code example that is *significantly bigger* (around 6 KLoC)than what students usually write in beginner-level SE modules.
-* What's different from https://github.com/se-edu/addressbook-level3[level 3]:
-** A more sophisticated GUI that includes a list  panel and an in-built Browser.
-** More test cases, including automated GUI testing.
-** Support for _Build Automation_ using Gradle and for _Continuous Integration_ using Travis CI.
+* This is a desktop application for private tutors. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
+* For Tutors:
+. Provides easy management of task with the aid of a schedule.
+. Has a calendar that makes viewing of task easier.
+. Able to add, delete, edit any tuition or personal task into the schedule.
+. Easily sort and group students by certain information.
+. Has a log book that summarises the week for you.
 
 == Site Map
 
 * <<UserGuide#, User Guide>>
 * <<DeveloperGuide#, Developer Guide>>
-* <<LearningOutcomes#, Learning Outcomes>>
 * <<AboutUs#, About Us>>
 * <<ContactUs#, Contact Us>>
 
 == Acknowledgements
 
-* Some parts of this sample application were inspired by the excellent http://code.makery.ch/library/javafx-8-tutorial/[Java FX tutorial] by
+* Some parts of this application were inspired by the excellent http://code.makery.ch/library/javafx-8-tutorial/[Java FX tutorial] by
 _Marco Jakob_.
 * Libraries used: https://github.com/TomasMikula/EasyBind[EasyBind], https://github.com/TestFX/TestFX[TextFX], https://bitbucket.org/controlsfx/controlsfx/[ControlsFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/google/guava[Guava], https://github.com/junit-team/junit4[JUnit4]
+* This application is a morphed of the AddressBook-Level4 project created by SE-EDU initiative at https://github.com/se-edu/
 
 == Licence : link:LICENSE[MIT]
