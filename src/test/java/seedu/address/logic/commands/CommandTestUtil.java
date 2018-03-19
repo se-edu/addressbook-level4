@@ -83,7 +83,7 @@ public class CommandTestUtil {
     public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
     public static final String INVALID_SUBJECT_DESC = " " + PREFIX_SUBJECT + "economics1"; // '1' not allowed in subject
     public static final String INVALID_GRADE_DESC = " " + PREFIX_GRADE + "+B"; // should start with alphabet
-    // only primary, secondary and junior college are valid
+    // only 'primary', 'secondary' and 'junior college' are valid
     public static final String INVALID_EDUCATION_LEVEL = " " + PREFIX_EDUCATION_LEVEL + "university";
     public static final String INVALID_SCHOOL = " " + PREFIX_SCHOOL + "hanyang@1"; // should only be alphabetic
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
