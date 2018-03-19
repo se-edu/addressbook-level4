@@ -852,6 +852,54 @@ The AddCommand will be able to read 2 different user inputs, either "add n/John 
 or "add tutee n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 s/Science g/B+ edu/Secondary sch/HelloWord Secondary School".
 The input string will be parsed at AddCommandParser. Tutee and non-tutee contacts will then be added similarly as the AddTuteeCommand and the original AddCommand.
 
+=== Feature Contribution
+
+. *CompleteCommand* [Major Enhancement]
+
+An important feature for the tutor is the ability to manage financial records that pertain to his/her work.
+To that end, the CompleteCommand functionality is implemented. This feature allows the user to update the amount
+of work completed and the financial compensation he/she is entitled based on the units of work completed.
+
+The CompleteCommand is an extension of the Undoable Command, which is part of the logic component.
+Much like many other commands in this application, the CompleteCommand was chosen to extend the undoable command, instead of the command, class in order
+to provide users with the flexibility to undo any unwanted commands. In summary, the CompleteCommand will extend the undoable command class which, itself,
+extends the command class.
+
+
+
+[source,java]
+----
+public abstract class UndoableCommand extends Command {
+    @Override
+    public CommandResult execute() {
+        // ... undo logic ...
+
+        executeUndoableCommand();
+    }
+}
+
+public class CompleteCommand extends UndoableCommand {
+    @Override
+    public CommandResult executeUndoableCommand() {
+        // ... add Complete logic ...
+    }
+}
+----
+
+Note: The above snippet will be updated when the complete code for this command is completed.
+
+The following diagram demonstrates the functioning of the CompleteCommand operation:
+
+image::LogicCompleteCommandClassDiagram.jpg[width="800"]
+
+Essentially, the complete command will work by receiving an object of type task as its parameter and "marking" this task as completed.
+
+. *ViewTutee* [Minor(?) Enhancement]
+
+This feature allows the tutor to look at his/her current list of students. The idea behind this feature is for it to allow the tutor to
+see all the potential subscribers to his/her lessons and, by doing so, allowing them to associate these tutees with user-generated tasks.
+This feature is inspired by the "resources" concept in Microsoft Project whereby a "resource" is assigned to a work task.
+
 [appendix]
 == User Stories
 
