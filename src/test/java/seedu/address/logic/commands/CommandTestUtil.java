@@ -4,9 +4,13 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_EDUCATION_LEVEL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_GRADE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SCHOOL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SUBJECT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.util.ArrayList;
@@ -39,6 +43,20 @@ public class CommandTestUtil {
     public static final String VALID_ADDRESS_BOB = "Block 123, Bobby Street 3";
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
+    public static final String VALID_DATE_TIME = "21/01/2011 11:11";
+    public static final String VALID_DURATION = "1h11m";
+    public static final String VALID_TASK_DESC = "tuition homework";
+    public static final String VALID_EMPTY_TASK_DESC = "";
+    public static final String VALID_TASK_WITHOUT_DESC = VALID_DATE_TIME + " " + VALID_DURATION;
+    public static final String VALID_TASK_WITH_DESC = VALID_TASK_WITHOUT_DESC + " " + VALID_TASK_DESC;
+    public static final String VALID_SUBJECT_AMY = "economics";
+    public static final String VALID_SUBJECT_BOB = "mathematics";
+    public static final String VALID_GRADE_AMY = "B+";
+    public static final String VALID_GRADE_BOB = "A1";
+    public static final String VALID_EDUCATION_LEVEL_AMY = "secondary";
+    public static final String VALID_EDUCATION_LEVEL_BOB = "junior college";
+    public static final String VALID_SCHOOL_AMY = "nan hua high school";
+    public static final String VALID_SCHOOL_BOB = "victoria junior college";
 
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
@@ -48,6 +66,14 @@ public class CommandTestUtil {
     public static final String EMAIL_DESC_BOB = " " + PREFIX_EMAIL + VALID_EMAIL_BOB;
     public static final String ADDRESS_DESC_AMY = " " + PREFIX_ADDRESS + VALID_ADDRESS_AMY;
     public static final String ADDRESS_DESC_BOB = " " + PREFIX_ADDRESS + VALID_ADDRESS_BOB;
+    public static final String SUBJECT_DESC_AMY = " " + PREFIX_SUBJECT + VALID_SUBJECT_AMY;
+    public static final String SUBJECT_DESC_BOB = " " + PREFIX_SUBJECT + VALID_SUBJECT_BOB;
+    public static final String GRADE_DESC_AMY = " " + PREFIX_GRADE + VALID_GRADE_AMY;
+    public static final String GRADE_DESC_BOB = " " + PREFIX_GRADE + VALID_GRADE_BOB;
+    public static final String EDUCATION_LEVEL_DESC_AMY = " " + PREFIX_EDUCATION_LEVEL + VALID_EDUCATION_LEVEL_AMY;
+    public static final String EDUCATION_LEVEL_DESC_BOB = " " + PREFIX_EDUCATION_LEVEL + VALID_EDUCATION_LEVEL_BOB;
+    public static final String SCHOOL_DESC_AMY = " " + PREFIX_SCHOOL + VALID_SCHOOL_AMY;
+    public static final String SCHOOL_DESC_BOB = " " + PREFIX_SCHOOL + VALID_SCHOOL_BOB;
     public static final String TAG_DESC_FRIEND = " " + PREFIX_TAG + VALID_TAG_FRIEND;
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_TAG + VALID_TAG_HUSBAND;
 
@@ -55,6 +81,11 @@ public class CommandTestUtil {
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
     public static final String INVALID_EMAIL_DESC = " " + PREFIX_EMAIL + "bob!yahoo"; // missing '@' symbol
     public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
+    public static final String INVALID_SUBJECT_DESC = " " + PREFIX_SUBJECT + "economics1"; // '1' not allowed in subject
+    public static final String INVALID_GRADE_DESC = " " + PREFIX_GRADE + "+B"; // should start with alphabet
+    // only 'primary', 'secondary' and 'junior college' are valid
+    public static final String INVALID_EDUCATION_LEVEL = " " + PREFIX_EDUCATION_LEVEL + "university";
+    public static final String INVALID_SCHOOL = " " + PREFIX_SCHOOL + "hanyang@1"; // should only be alphabetic
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";

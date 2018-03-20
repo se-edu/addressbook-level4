@@ -23,6 +23,7 @@ import seedu.address.model.tag.Tag;
 
 public class FindCommandSystemTest extends AddressBookSystemTest {
 
+
     @Test
     public void find() {
         /* Case: find multiple persons in address book, command with leading spaces and trailing spaces
