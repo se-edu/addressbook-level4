@@ -795,7 +795,7 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 *Raymond*:
 
 . *Support for Tasks (Major)*:
-.. *Delete task command*: Allows tutors to delete tasks. 
+.. *Delete task command*: Allows tutors to delete tasks.
 .. *Edit task command*: Tutors are allowed to edit their tasks, if necessary.
 .. *View task command*: Tutors are able to view their own task.
 
@@ -806,8 +806,8 @@ With this added support for tasks, tutors will be able to customise their schedu
 . *AddTuteeCommand* [Major Enhancement]
 
 As the user of this application is the tutor, he or she will need to add the tutees' contact details.
-Furthermore, tutee contacts should not be mixed with the non-tutee contacts so that all the contacts are organized and can be managed easily.
-Therefore, AddTuteeCommand is used to add only the tutees' contact details.
+Furthermore, tutee contacts should not be mixed with the non-tutee contacts so that all the contacts are organized and can be managed easily. Therefore, AddTuteeCommand is used to add only the tutees' contact details.
+
 
 The AddTuteeCommand is an extension of the Undoable Command, which is part of the Logic Component.
 As this command involves the altering of the application's state, the ability to undo and redo will make this command more user-friendly and efficient.

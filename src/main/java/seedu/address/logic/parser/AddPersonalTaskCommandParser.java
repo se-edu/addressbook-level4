@@ -40,7 +40,7 @@ public class AddPersonalTaskCommandParser implements Parser<AddPersonalTaskComma
     private static LocalDateTime taskDateTime;
 
     /**
-     * Parses the given {@code String} of arguments in the context of the AddTuitionTaskCommand
+     * Parses the given {@code String} of arguments in the context of the AddPersonalTaskCommand
      * and returns an AddPersonalTaskCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
