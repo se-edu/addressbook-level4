@@ -1,7 +1,7 @@
 package seedu.address.model.tutee;
 
 import java.util.ArrayList;
-import seedu.address.commons.core.index.Index;
+
 import seedu.address.model.Schedule;
 
 
