@@ -30,15 +30,15 @@ public class DeleteTuitionTaskCommand extends UndoableCommand {
     public static final String MESSAGE_SUCCESS = "Tuition task deleted.";
 
     private final Index targetIndex;
-    private final Index taskIndex;
-
+    private final int taskIndex;
+    private TuitionTask tuitionTaskToDelete;
     private TuitionSchedule tuitionSchedule;
     private Tutee associatedPerson;
 
     /**
      * Deletes a TuitionTask {@code Task} which is associated to {@code Person}.
      */
-    public DeleteTuitionTaskCommand(Index indexOfAssociatedPerson, Index indexOfTuitionTask) {
+    public DeleteTuitionTaskCommand(Index indexOfAssociatedPerson, int indexOfTuitionTask) {
         targetIndex = indexOfAssociatedPerson;
         taskIndex = indexOfTuitionTask;
     }
@@ -46,8 +46,8 @@ public class DeleteTuitionTaskCommand extends UndoableCommand {
     @Override
     public CommandResult executeUndoableCommand() {
         requireNonNull(tuitionSchedule);
-        tuitionSchedule.deleteTask(taskIndex);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, taskIndex));
+        tuitionTaskToDelete = tuitionSchedule.deleteTask(taskIndex);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, tuitionTaskToDelete));
     }
 
     @Override
@@ -75,7 +75,6 @@ public class DeleteTuitionTaskCommand extends UndoableCommand {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof DeleteTuitionTaskCommand // instanceof handles nulls
-                && targetIndex.equals(((DeleteTuitionTaskCommand) other).targetIndex)
-                && taskIndex.equals(((DeleteTuitionTaskCommand) other).taskIndex));
+                && targetIndex.equals(((DeleteTuitionTaskCommand) other).targetIndex));
     }
 }
