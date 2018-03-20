@@ -1,8 +1,6 @@
 package seedu.address.model.tutee;
 
 import java.util.ArrayList;
-import java.util.Collections;
-
 import seedu.address.commons.core.index.Index;
 import seedu.address.model.Schedule;
 

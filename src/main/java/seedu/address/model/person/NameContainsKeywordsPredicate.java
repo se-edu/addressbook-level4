@@ -20,7 +20,7 @@ public class NameContainsKeywordsPredicate implements Predicate<Person> {
         boolean result = false;
         if (keywords.stream()
             .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getName().fullName, keyword)) == true
-            || keywords.stream()
+            && keywords.stream()
             .anyMatch(keyword -> StringUtil.containsWordIgnoreCase(person.getPhone().toString(), keyword)) == true) {
             result = true;
         }
