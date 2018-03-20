@@ -117,8 +117,17 @@ public class UniquePersonList implements Iterable<Person> {
     /**
      * Sorts all person in the list according to lexographical order
      */
-    public void sort(){
-        Collections.sort(internalList);
+    public void sortPersons(){
+
+        Collections.sort(internalList, new ReadOnlyPersonComparator() );
+        UniquePersonList replacement = new UniquePersonList();
+        try{
+            replacement.setPersons(internalList);
+        }catch(DuplicatePersonException e){
+            e.getMessage();
+        }
+
+        setPersons(replacement);
     }
 
     @Override
