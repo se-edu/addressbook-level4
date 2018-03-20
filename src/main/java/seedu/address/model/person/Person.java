@@ -66,11 +66,16 @@ public class Person {
      * This defines a weaker notion of equality between two persons.
      */
     public boolean isSamePerson(Person otherPerson) {
-        return (otherPerson == this)
-                || (otherPerson != null
-                    && otherPerson.getName().equals(this.getName())
-                    && (otherPerson.getPhone().equals(this.getPhone())
-                        || otherPerson.getEmail().equals(this.getEmail())));
+        if (otherPerson == this) {
+            return true;
+        }
+
+        if (otherPerson == null) {
+            return false;
+        }
+
+        return otherPerson.getName().equals(this.getName())
+                && (otherPerson.getPhone().equals(this.getPhone()) || otherPerson.getEmail().equals(this.getEmail()));
     }
 
     /**
