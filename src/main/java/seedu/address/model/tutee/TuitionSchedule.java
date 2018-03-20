@@ -1,7 +1,9 @@
 package seedu.address.model.tutee;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
+import seedu.address.commons.core.index.Index;
 import seedu.address.model.Schedule;
 
 
@@ -31,6 +33,20 @@ public class TuitionSchedule extends Schedule {
     public void addTask(TuitionTask newTask) {
         tuitionTaskList.add(newTask);
         taskList.add(newTask);
+    }
+
+    /**
+     * Deletes a tuition task from schedule
+     *
+     * @param deleteTask to remove task from TuitionTaskList and taskList
+     */
+    public void deleteTask(Index deleteTask) {
+        tuitionTaskList.remove(deleteTask);
+        taskList.remove(deleteTask);
+    }
+
+    public ArrayList<TuitionTask> getTuitionSchedule() {
+        return tuitionTaskList;
     }
 
 
