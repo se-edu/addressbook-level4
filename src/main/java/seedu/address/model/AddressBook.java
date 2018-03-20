@@ -188,7 +188,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Sorts all persons from the address book.
      */
 
-    public void sort() {
-        persons.sort();
+    public void sortedPersonsList(){
+        persons.sortPersons();
     }
 }
