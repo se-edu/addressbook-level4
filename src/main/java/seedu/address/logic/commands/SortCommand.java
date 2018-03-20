@@ -11,8 +11,7 @@ public class SortCommand extends Command {
 
     public static final String COMMAND_WORD = "sort";
 
-    public static final String MESSAGE_SUCCESS = "sorted all persons";
-
+    public static final String MESSAGE_SUCCESS = "Sorted all persons";
 
     @Override
     public CommandResult execute() {
