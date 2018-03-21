@@ -45,11 +45,11 @@ Responsibilities: Dev Ops + Threading
 
 '''
 
-=== Kion Shi Rong
-image::cambioforma.jpg[width="150", align="left"]
-{empty}[http://github.com/cambioforma[github]]
+=== Benson Meier
+image::yl_coder.jpg[width="150", align="left"]
+{empty}[http://github.com/yl-coder[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Logic
+Responsibilities: UI
 
 '''
