@@ -52,24 +52,31 @@ public class PersonCard extends UiPart<Region> {
     }
 
     private String getTagColorStyleFor(String tag) {
-        switch (tag) {
 
-        case "Life":
+        if (tag.equals("Life")) {
             return TAG_COLOR_STYLES[0];//yellow
-
-        case "Saving":
-            return TAG_COLOR_STYLES[1];//blue
-
-        case "Health":
-            return TAG_COLOR_STYLES[2];//red
-
-        case "General":
-            return TAG_COLOR_STYLES[4];//orange
-
-        default:
-            return "";
         }
+
+        if (tag.equals("Saving")) {
+            return TAG_COLOR_STYLES[1];//blue
+        }
+
+        if (tag.equals("Health")) {
+            return TAG_COLOR_STYLES[2];//red
+        }
+
+        if (tag.equals("General")) {
+            return TAG_COLOR_STYLES[4];//orange
+        }
+
+        if (Integer.parseInt(tag) > 1000) {
+            return TAG_COLOR_STYLES[3];//green
+        }
+
+        return "";
     }
+
+
     /**
      * Creates the tag labels for {@code person}.
      */
