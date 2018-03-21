@@ -37,7 +37,7 @@ public class PersonListPanelTest extends GuiUnitTest {
 
     private static final Logger logger = LogsCenter.getLogger(PersonListPanelTest.class);
 
-    private static final int TEST_TIMEOUT = 12000;
+    private static final int TEST_TIMEOUT = 8000;
     private static final int CARD_CREATION_AND_DELETION_TIMEOUT = 2500;
     private static final int LIST_CREATION_TIMEOUT = TEST_TIMEOUT - CARD_CREATION_AND_DELETION_TIMEOUT;
 
@@ -129,9 +129,9 @@ public class PersonListPanelTest extends GuiUnitTest {
         builder.append("<addressbook>\n");
         for (int i = 0; i < personCount; i++) {
             builder.append("<persons>\n");
-            builder.append("<name>a</name>\n");
-            builder.append("<phone>").append(i).append("00</phone>\n");
-            builder.append("<email>").append(i).append("a@aa</email>\n");
+            builder.append("<name>").append(i).append("a</name>\n");
+            builder.append("<phone>000</phone>\n");
+            builder.append("<email>a@aa</email>\n");
             builder.append("<address>a</address>\n");
             builder.append("</persons>\n");
         }
