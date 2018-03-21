@@ -19,18 +19,34 @@ public class Person {
     private final Phone phone;
     private final Email email;
     private final Address address;
+    private final Birthday birthday;
+    private final Appointment appointment;
 
     private final UniqueTagList tags;
 
     /**
      * Every field must be present and not null.
      */
+    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags, Birthday birthday, Appointment appointment) {
+        requireAllNonNull(name, phone, email, address, tags, birthday);
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.address = address;
+        this.birthday = birthday;
+        this.appointment = appointment;
+        // protect internal tags from changes in the arg list
+        this.tags = new UniqueTagList(tags);
+    }
+
     public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
         requireAllNonNull(name, phone, email, address, tags);
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
+        this.birthday = new Birthday("00-00-0000");
+        this.appointment = new Appointment("00-00-0000");
         // protect internal tags from changes in the arg list
         this.tags = new UniqueTagList(tags);
     }
@@ -49,6 +65,14 @@ public class Person {
 
     public Address getAddress() {
         return address;
+    }
+
+    public Birthday getBirthday() {
+        return birthday;
+    }
+
+    public Appointment getAppointment() {
+        return appointment;
     }
 
     /**
@@ -73,13 +97,14 @@ public class Person {
         return otherPerson.getName().equals(this.getName())
                 && otherPerson.getPhone().equals(this.getPhone())
                 && otherPerson.getEmail().equals(this.getEmail())
-                && otherPerson.getAddress().equals(this.getAddress());
+                && otherPerson.getAddress().equals(this.getAddress())
+                && otherPerson.getBirthday().equals(this.getBirthday());
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(name, phone, email, address, tags, birthday, appointment);
     }
 
     @Override
