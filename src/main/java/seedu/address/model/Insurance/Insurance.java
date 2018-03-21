@@ -5,6 +5,10 @@ import seedu.address.model.tag.Tag;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+/**
+ * Represents a Insurance plan in reInsurance.
+ * Guarantees: immutable; commission is valid as declared in {@link #isValidCommission(String)}
+ */
 public class Insurance extends Tag {
 
     public static final String MESSAGE_COMMISSION_CONSTRAINTS =
