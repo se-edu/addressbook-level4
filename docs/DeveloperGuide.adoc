@@ -912,9 +912,9 @@ _{More to be added}_
 *MSS*
 
 1.  User requests to list persons
-2.  ClientBook shows a list of persons
+2.  reInsurance shows a list of persons
 3.  User requests to delete a specific person in the list
-4.  ClientBook deletes the person
+4.  reInsurance deletes the person
 +
 Use case ends.
 
