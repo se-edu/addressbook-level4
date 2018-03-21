@@ -10,6 +10,9 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.StringUtil;
+import seedu.address.logic.commands.ExportCommand;
+import seedu.address.model.export.ExportType;
+import seedu.address.model.export.exceptions.IncorrectExportTypeException;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -29,6 +32,7 @@ public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
     public static final String MESSAGE_INSUFFICIENT_PARTS = "Number of parts must be more than 1.";
+    public static final String MESSAGE_INVALID_EXPORT_TYPE = "Specified argument is not a valid export type";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -164,5 +168,14 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
+    }
+
+    public static ExportType parseExportType(String exportType) throws IllegalArgumentException {
+        requireNonNull(exportType);
+        String trimmedExportType = exportType.trim().toUpperCase();
+        if (!ExportType.isValidExportType(trimmedExportType)) {
+            throw new IncorrectExportTypeException();
+        }
+        return ExportType.valueOf(trimmedExportType);
     }
 }
