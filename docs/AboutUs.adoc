@@ -36,15 +36,6 @@ Responsibilities: Data
 
 '''
 
-=== Johnny Roe
-image::m133225.jpg[width="150", align="left"]
-{empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
-
-Role: Developer +
-Responsibilities: Dev Ops + Threading
-
-'''
-
 === Jeremy Lee Jun Wei
 image::Sebry9.jpg[width="150", align="left"]
 {empty}[https://github.com/Sebry9[github]]
@@ -53,3 +44,5 @@ Role: Developer +
 Responsibilities: UI
 
 '''
+
+
