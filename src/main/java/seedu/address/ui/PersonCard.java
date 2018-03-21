@@ -13,7 +13,8 @@ import seedu.address.model.person.Person;
 public class PersonCard extends UiPart<Region> {
 
     private static final String FXML = "PersonListCard.fxml";
-
+    private static final String[] TAG_COLOR_STYLES =
+            { "yellow", "blue", "red", "green", "orange", "purple", "grey"};
     /**
      * Note: Certain keywords such as "location" and "resources" are reserved keywords in JavaFX.
      * As a consequence, UI elements' variable names cannot be set to such keywords
@@ -47,7 +48,50 @@ public class PersonCard extends UiPart<Region> {
         phone.setText(person.getPhone().value);
         address.setText(person.getAddress().value);
         email.setText(person.getEmail().value);
-        person.getTags().forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+        startTag(person);
+    }
+
+    private String getTagColorStyleFor(String tag) {
+        switch (tag) {
+            case "friends":
+            case "friend":
+                return TAG_COLOR_STYLES[0];
+
+            case "teacher":
+            case "classmates":
+                return TAG_COLOR_STYLES[1];
+
+            case "family":
+            case "husband":
+                return TAG_COLOR_STYLES[3];
+
+            case "enemy":
+            case "owesMoney":
+                return TAG_COLOR_STYLES[2];
+
+            case "boyfriend":
+            case "girlfriend":
+                return TAG_COLOR_STYLES[5];
+
+            case "grandparent":
+            case "neighbours":
+                return TAG_COLOR_STYLES[6];
+
+            case "colleagues":
+                return TAG_COLOR_STYLES[4];
+            default:
+                return "";
+        }
+    }
+    /**
+     * Creates the tag labels for {@code person}.
+     */
+    private void startTag(Person person) {
+        person.getTags().forEach(tag -> {
+            Label tagLabel = new Label(tag.tagName);
+            tagLabel.getStyleClass().add(getTagColorStyleFor(tag.tagName));
+            tags.getChildren().add(tagLabel);
+        });
     }
 
     @Override
