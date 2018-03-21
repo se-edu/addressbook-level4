@@ -72,6 +72,35 @@ public class PersonCard extends UiPart<Region> {
         if (Integer.parseInt(tag) > 1000) {
             return TAG_COLOR_STYLES[3]; //green
         }
+        switch(tag) {
+        case "friends":
+        case "friend":
+            return TAG_COLOR_STYLES[0];
+
+        case "teacher":
+        case "classmates":
+            return TAG_COLOR_STYLES[1];
+
+        case "family":
+        case "husband":
+            return TAG_COLOR_STYLES[3];
+
+        case "enemy":
+        case "owesMoney":
+            return TAG_COLOR_STYLES[2];
+
+        case "boyfriend":
+        case "girlfriend":
+            return TAG_COLOR_STYLES[5];
+
+        case "grandparent":
+        case "neighbours":
+            return TAG_COLOR_STYLES[6];
+
+        case "colleagues":
+            return TAG_COLOR_STYLES[4];
+
+        }
 
         return "";
     }
