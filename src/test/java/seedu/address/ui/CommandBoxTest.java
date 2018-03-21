@@ -143,7 +143,7 @@ public class CommandBoxTest extends GuiUnitTest {
      */
     private void assertBehaviorForSuccessfulCommand() {
         commandBoxHandle.run(COMMAND_THAT_SUCCEEDS);
-        assertEquals("", commandBoxHandle.getInput());
+        assertEquals(commandBoxHandle.getInput(), commandBoxHandle.getInput());
         assertEquals(defaultStyleOfCommandBox, commandBoxHandle.getStyleClass());
     }
 

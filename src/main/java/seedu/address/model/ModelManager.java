@@ -12,6 +12,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.model.export.ExportType;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
@@ -99,6 +100,11 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public void export(ExportType typeToExport) {
+
+    }
+
+    @Override
     public boolean equals(Object obj) {
         // short circuit if same object
         if (obj == this) {
@@ -117,7 +123,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public ObservableList<Person> sortFilteredPersonList(ObservableList<Person> personsList){
+    public ObservableList<Person> sortFilteredPersonList(ObservableList<Person> personsList) {
 
         addressBook.sortedPersonsList();
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);

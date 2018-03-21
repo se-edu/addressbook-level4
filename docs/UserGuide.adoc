@@ -253,6 +253,24 @@ Clears all entries from the address book. +
 Alias: `c` +
 Format: `clear`
 
+=== Export data : `Since v1.2`
+
+Exports the data from the specified export type (case insensitive). +
+Format: `export EXPORT_TYPE`
+
+Examples:
+
+* `export calendar` +
+Exports the data on the calendar to a .ics file
+* `export portfolio` +
+Exports the data in the portfolio to a .csv file
+
+[NOTE]
+====
+* Coming in v2.0, there will be more options on the types of data to export, since as of v1.2 the only export types are CALENDAR and PORTFOLIO.
+* As of v1.2, the application only handles the command without actually exporting. The actual export of the data files will come in v2.0.
+====
+
 === Exiting the program : `exit`
 
 Exits the program. +

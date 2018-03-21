@@ -456,6 +456,33 @@ _{Explain here how the data encryption feature will be implemented}_
 
 // end::dataencryption[]
 
+=== Exporting
+
+We are creating export functionality so that the users of the application can take the data that is being locally stored and download it onto their personal computer.
+There will be various types of data to export with different ways to export (i.e. file types).
+
+*Since v1.2*
+
+* The application will handle the `export` command with one argument (Format: `export EXPORT_TYPE`).
+* The application simply catches the command but does not exporting at the moment.
+* The export types are from an enum class at `seedu.address.model.export.ExportType`.
+* To add another export type to be caught by the user's input, simply add another value to the enum class mentioned above.
+
+*Coming in v2.0*
+
+* Currently, the `export(ExportType)` function is included in `seedu.address.model.Model` interface. However, the implementation is yet to come.
+* The `export` function will need to be abstracted out in a way that it can handle all the types of exports allowed by the command.
+* The export file type should be controlled by the arguments of the command.
+** Example: `export portfolio csv`
+*** Should download a portfolio as a csv file onto the user's computer
+* The export of the calendar can be automatically sent to the user's google calendar. This should be implemented in a way that makes use of the Google Calendar API.
+* Add another argument for specifying the output file name
+
+==== Alternate Implementation Ideas
+
+* Separate the export functionality away from the rest of the commands.
+* Create a button that exports the data for the user
+
 === Logging
 
 We are using `java.util.logging` package for logging. The `LogsCenter` class is used to manage the logging levels and logging destinations.
@@ -936,7 +963,9 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* *` |user |create a new address book |use it for other purposes
 
-|`* *` |user |duplicate my address book |export the address book
+|`* *` |user |export a portfolio of my clients |can use the data of the application elsewhere
+
+|`* *` |user |export a calendar of my appointments and client birthdays |can use the data on a calendar outside of the application
 
 |`* *` |user |hide some of my client's information |minimize the leak of my client's information
 
@@ -974,9 +1003,9 @@ _{More to be added}_
 *MSS*
 
 1.  User requests to list persons
-2.  ClientBook shows a list of persons
+2.  reInsurance shows a list of persons
 3.  User requests to delete a specific person in the list
-4.  ClientBook deletes the person
+4.  reInsurance deletes the person
 +
 Use case ends.
 
@@ -1150,7 +1179,8 @@ _{More to be added}_
 .  Should be secure from users trying to enter malicious commands.
 .  Should be intuitive for any user that has experience using an address book (i.e add,delete,sort,list)
 .  Should be able to respond to queries from users within 1 second
-.  Should be able to export database to a spreadsheet .csv format
+.  Should be able to export portfolio of clients to a .csv file
+.  Should be able to export calendar of appointments and client birthdays to a .ics file
 .  Should be able to assist the user in better managing his client database by providing a dashboard view of his client information
 .  Should be able to work without an internet connection
 

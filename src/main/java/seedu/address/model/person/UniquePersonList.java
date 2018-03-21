@@ -3,9 +3,9 @@ package seedu.address.model.person;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Collections;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -117,13 +117,13 @@ public class UniquePersonList implements Iterable<Person> {
     /**
      * Sorts all person in the list according to lexographical order
      */
-    public void sortPersons(){
+    public void sortPersons() {
 
-        Collections.sort(internalList, new ReadOnlyPersonComparator() );
+        Collections.sort(internalList, new ReadOnlyPersonComparator());
         UniquePersonList replacement = new UniquePersonList();
-        try{
+        try {
             replacement.setPersons(internalList);
-        }catch(DuplicatePersonException e){
+        } catch (DuplicatePersonException e) {
             e.getMessage();
         }
 

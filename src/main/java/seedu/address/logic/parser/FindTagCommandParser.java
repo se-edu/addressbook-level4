@@ -6,7 +6,6 @@ import java.util.Arrays;
 
 import seedu.address.logic.commands.FindTagCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.PersonContainsTagsPredicate;
 
 /**

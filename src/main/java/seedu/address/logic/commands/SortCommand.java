@@ -1,10 +1,10 @@
 package seedu.address.logic.commands;
 
+import javafx.collections.ObservableList;
+
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.person.Person;
-
-import javafx.collections.ObservableList;
 
 /**
  * Sorts all persons in the address book to the user.
@@ -21,7 +21,7 @@ public class SortCommand extends UndoableCommand {
     public CommandResult executeUndoableCommand() throws CommandException {
 
         ObservableList<Person> shownList = model.getFilteredPersonList();
-        if(shownList.isEmpty()){
+        if (shownList.isEmpty()) {
             throw new CommandException(Messages.MESSAGE_PERSON_LIST_EMPTY);
         }
         model.sortFilteredPersonList(shownList);
