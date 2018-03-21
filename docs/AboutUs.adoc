@@ -16,12 +16,12 @@ Role: Software Engineer
 
 '''
 
-=== John Roe
-image::lejolly.jpg[width="150", align="left"]
-{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
+=== Kion Shi Rong
+image::cambioforma.png[width="150", align="left"]
+{empty}[http://github.com/cambioforma[github]]
 
-Role: Team Lead +
-Responsibilities: UI
+Role: Developer +
+Responsibilities: Logic
 
 '''
 
@@ -34,20 +34,12 @@ Responsibilities: Data
 
 '''
 
-=== Johnny Roe
-image::m133225.jpg[width="150", align="left"]
-{empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
+=== Jeremy Lee Jun Wei
+image::Sebry9.jpg[width="150", align="left"]
+{empty}[https://github.com/Sebry9[github]]
 
 Role: Developer +
-Responsibilities: Dev Ops + Threading
+Responsibilities: UI
 
 '''
 
-=== Kion Shi Rong
-image::cambioforma.png[width="150", align="left"]
-{empty}[http://github.com/cambioforma[github]]
-
-Role: Developer +
-Responsibilities: Logic
-
-'''
