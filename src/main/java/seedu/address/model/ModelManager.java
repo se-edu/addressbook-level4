@@ -116,4 +116,13 @@ public class ModelManager extends ComponentManager implements Model {
                 && filteredPersons.equals(other.filteredPersons);
     }
 
+    @Override
+    public ObservableList<Person> sortFilteredPersonList(ObservableList<Person> personsList){
+
+        addressBook.sortedPersonsList();
+        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        indicateAddressBookChanged();
+
+        return personsList;
+    }
 }

@@ -6,7 +6,6 @@ import javafx.collections.ObservableList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
-
 /**
  * The API of the Model component.
  */
@@ -45,4 +44,5 @@ public interface Model {
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
 
+    ObservableList<Person> sortFilteredPersonList(ObservableList<Person> unSortedList);
 }
