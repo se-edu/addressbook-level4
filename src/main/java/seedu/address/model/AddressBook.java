@@ -49,6 +49,10 @@ public class AddressBook implements ReadOnlyAddressBook {
         resetData(toBeCopied);
     }
 
+    public int getAddressBookSize() {
+        return this.persons.asObservableList().size();
+    }
+
     //// list overwrite operations
 
     public void setPersons(List<Person> persons) throws DuplicatePersonException {

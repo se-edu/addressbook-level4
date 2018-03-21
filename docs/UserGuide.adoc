@@ -78,6 +78,11 @@ Examples:
 Shows a list of all persons in the address book. +
 Format: `list`
 
+=== Getting count of address book size : `count`
+
+Returns a number of the size of the address book
+Format: `count`
+
 === Editing a person : `edit`
 
 Edits an existing person in the address book. +
