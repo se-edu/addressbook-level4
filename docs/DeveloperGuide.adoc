@@ -358,6 +358,51 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two * different things.
 // end::undoredo[]
 
+// tag::appointments[]
+=== Notifications with Clients
+==== Current Implementation
+The idea for this feature is to allow users to recieve notifications for matters regarding their clients.
+This is so that the user will be able to be reminded of matters regarding their many clients and not lose track of events.
+A calendar view also provided so that it is easier for the user to have a good overview of the upcoming events as well as events in the month.
+
+Appointments and Birthdays will be created as a class on it's own. It is then added as an attribute of the person class.
+The calendar view will then check all persons for any appointments and birthday and display them accordingly.
+It will then trigger a notification when it is the day of the event.
+
+Appointments prefix "d/" has been added to the add command so that users can add appointments with the person.
+Birthday prefix "b/" has been added to the add command so that users can add the birthday of clients.
+
+==== Design Considerations
+
+===== Aspect: Implementation of Appointments (Since v1.2)
+
+* **Alternative 1 (current choice): ** Implementation of Appointments as an attribute of Person
+** Pros: Appointments are merged with existing commands as a prefix
+** Cons: Unable to add more attributes to appointment without breaking current convension
+* **Alternative 2:** Implementation of Appointments as class with Person as an attribute
+** Pros: Other attributes can be added to appointments e.g Location
+** Cons: A lot of restructuring of existing code required
+
+
+===== Aspect: Implementation of viewing Appointments (Coming in V2.0)
+
+* **Alternative 1 (current choice): ** Implementation View as Calendar View
+** Pros: Easy to have an overview for the current month
+** Cons: Requires more display space and limits views by month
+* **Alternative 2:** Implementation of View as List
+** Pros: Easy to integrate with current set up and can view more information in a smaller space
+** Cons: Have to read each date of each event to get a general feel of the upcoming events
+
+
+===== Aspect: Implementation of Notifications (Coming in v2.0)
+
+* **Alternative 1 (current choice): ** Implementation of Notifications as a side panel
+** Pros: Notifications are neatly organised and easily reviewed
+** Cons: Notifications might be missed if user does not review them
+* **Alternative 2:** Implementation of Notifications as a Popup Alert
+** Pros: Requires user interaction therefore it ensures that user has been notified
+** Cons: Pop ups might be unwelcomed as they can interupt current user tasks
+// end::appointments[]
 
 // tag::sort[]
 === Sort command
@@ -413,7 +458,7 @@ The following sequence diagram shows how the group feature is being implemented.
 
 // tag::dataencryption[]
 === [Proposed] Top Insurance Commission tag
-=== Intro
+==== Intro
 
 Trying to create a case where the condition if a particular client's current insurance plan is within the top 5 position, it will be highlighted in read
 
