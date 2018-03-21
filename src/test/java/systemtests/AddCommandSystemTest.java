@@ -73,6 +73,16 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         String expectedResultMessage = UndoCommand.MESSAGE_SUCCESS;
         assertCommandSuccess(command, model, expectedResultMessage);
 
+        /* Case: add a person with Alias command "a" -> added */
+        toAdd = AMY;
+        command = "   " + AddCommand.COMMAND_WORD_ALIAS + "  " + NAME_DESC_AMY + "  " + PHONE_DESC_AMY + " "
+                + EMAIL_DESC_AMY + "   " + ADDRESS_DESC_AMY + "   " + TAG_DESC_FRIEND + " ";
+        assertCommandSuccess(command, toAdd);
+
+        /* Case: Undo adding Amy with Alias command "u" -> Amy deleted */
+        command = UndoCommand.COMMAND_WORD_ALIAS;
+        assertCommandSuccess(command, model, expectedResultMessage);
+
         /* Case: redo adding Amy to the list -> Amy added again */
         command = RedoCommand.COMMAND_WORD;
         model.addPerson(toAdd);

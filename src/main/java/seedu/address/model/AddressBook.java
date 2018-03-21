@@ -49,6 +49,10 @@ public class AddressBook implements ReadOnlyAddressBook {
         resetData(toBeCopied);
     }
 
+    public int getAddressBookSize() {
+        return this.persons.asObservableList().size();
+    }
+
     //// list overwrite operations
 
     public void setPersons(List<Person> persons) throws DuplicatePersonException {
@@ -171,10 +175,6 @@ public class AddressBook implements ReadOnlyAddressBook {
         return tags.asObservableList();
     }
 
-    public int getAddressBookSize() {
-        return persons.asObservableList().size();
-    }
-
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
@@ -187,5 +187,12 @@ public class AddressBook implements ReadOnlyAddressBook {
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(persons, tags);
+    }
+
+    /**
+     * Sorts all persons from the address book.
+     */
+    public void sortedPersonsList() {
+        persons.sortPersons();
     }
 }
