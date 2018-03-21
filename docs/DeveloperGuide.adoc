@@ -845,7 +845,9 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* *` |user |create a new address book |use it for other purposes
 
-|`* *` |user |duplicate my address book |export the address book
+|`* *` |user |export a portfolio of my clients |can use the data of the application elsewhere
+
+|`* *` |user |export a calendar of my appointments and client birthdays |can use the data on a calendar outside of the application
 
 |`* *` |user |hide some of my client's information |minimize the leak of my client's information
 
@@ -1059,7 +1061,8 @@ _{More to be added}_
 .  Should be secure from users trying to enter malicious commands.
 .  Should be intuitive for any user that has experience using an address book (i.e add,delete,sort,list)
 .  Should be able to respond to queries from users within 1 second
-.  Should be able to export database to a spreadsheet .csv format
+.  Should be able to export portfolio of clients to a .csv file
+.  Should be able to export calendar of appointments and client birthdays to a .ics file
 .  Should be able to assist the user in better managing his client database by providing a dashboard view of his client information
 .  Should be able to work without an internet connection
 
