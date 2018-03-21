@@ -45,9 +45,9 @@ Responsibilities: Dev Ops + Threading
 
 '''
 
-=== Benson Meier
-image::yl_coder.jpg[width="150", align="left"]
-{empty}[http://github.com/yl-coder[github]] [<<johndoe#, portfolio>>]
+=== Jeremy Lee Jun Wei
+image::Sebry9.jpg[width="150", align="left"]
+{empty}[https://github.com/Sebry9[github]]
 
 Role: Developer +
 Responsibilities: UI
