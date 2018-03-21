@@ -1,9 +1,9 @@
 package seedu.address.model.Insurance;
 
-import seedu.address.model.tag.Tag;
-
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
+
+import seedu.address.model.tag.Tag;
 
 /**
  * Represents a Insurance plan in reInsurance.
