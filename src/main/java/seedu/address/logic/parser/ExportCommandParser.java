@@ -1,13 +1,16 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+
 import seedu.address.logic.commands.ExportCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 import seedu.address.model.export.ExportType;
 import seedu.address.model.export.exceptions.IncorrectExportTypeException;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-
+/**
+ * Parses input for correctly formatted export command
+ */
 public class ExportCommandParser implements Parser<ExportCommand> {
 
     /**

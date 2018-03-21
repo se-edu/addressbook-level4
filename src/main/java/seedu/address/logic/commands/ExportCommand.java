@@ -4,7 +4,10 @@ import static java.util.Objects.requireNonNull;
 
 import seedu.address.model.export.ExportType;
 
-public class ExportCommand extends UndoableCommand{
+/**
+ * Export different types of data from the application to the user
+ */
+public class ExportCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = "export";
 
@@ -17,7 +20,9 @@ public class ExportCommand extends UndoableCommand{
 
     private ExportType typeToExport;
 
-    public ExportCommand(ExportType typeToExport) {this.typeToExport = typeToExport;}
+    public ExportCommand(ExportType typeToExport) {
+        this.typeToExport = typeToExport;
+    }
 
     @Override
     protected CommandResult executeUndoableCommand() {

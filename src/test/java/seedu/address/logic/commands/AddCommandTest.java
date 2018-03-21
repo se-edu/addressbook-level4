@@ -139,6 +139,11 @@ public class AddCommandTest {
         public void export(ExportType typeToExport) {
 
         }
+
+        @Override
+        public ObservableList<Person> sortFilteredPersonList(ObservableList<Person> unSortedList) {
+            return null;
+        }
     }
 
     /**

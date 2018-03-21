@@ -19,7 +19,6 @@ public class Person {
     private final Phone phone;
     private final Email email;
     private final Address address;
-
     private final UniqueTagList tags;
 
     /**
@@ -96,5 +95,4 @@ public class Person {
         getTags().forEach(builder::append);
         return builder.toString();
     }
-
 }

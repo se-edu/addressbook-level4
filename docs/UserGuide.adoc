@@ -78,6 +78,11 @@ Examples:
 Shows a list of all persons in the address book. +
 Format: `list`
 
+=== Getting count of address book size : `count`
+
+Returns a number of the size of the address book
+Format: `count`
+
 === Editing a person : `edit`
 
 Edits an existing person in the address book. +
@@ -117,6 +122,26 @@ Examples:
 Returns `john` and `John Doe`
 * `find Betsy Tim John` +
 Returns any person having names `Betsy`, `Tim`, or `John`
+
+=== Locating persons by tag: `findtag`
+
+Finds persons whose names contain any of the given tags. +
+Format: `findtag KEYWORD [MORE_KEYWORDS]`
+
+****
+* The search is case insensitive. e.g `friends` will match `Friends`
+* The order of the tags does not matter. e.g. `Friends Colleagues` will match `Colleagues Friends`
+* Only the tag is searched.
+* Only full words will be matched e.g. `Friend` will not match `Friends`
+* Persons matching at least one tag will be returned (i.e. `OR` search).
+****
+
+Examples:
+
+* `find Friends` +
+Returns any person having tag `Friends`
+* `find Friends Colleagues Neighbours` +
+Returns any person having tags `Friends`, `Colleagues`, or `Neighbours`
 
 === Deleting a person : `delete`
 
@@ -217,6 +242,10 @@ The `redo` command fails as there are no `undo` commands executed previously.
 `redo` (reapplies the `delete 1` command) +
 `redo` (reapplies the `clear` command) +
 // end::undoredo[]
+=== Sorting all entries : `sort`
+
+Sort all entries from the address book by given condition in lexicographical order. +
+Format: `sort`
 
 === Clearing all entries : `clear`
 
