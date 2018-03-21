@@ -3,10 +3,10 @@ package seedu.address.model;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.export.ExportType;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
-
 /**
  * The API of the Model component.
  */
@@ -45,4 +45,8 @@ public interface Model {
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
 
+    /** Exports the specified type */
+    void export(ExportType typeToExport);
+
+    ObservableList<Person> sortFilteredPersonList(ObservableList<Person> unSortedList);
 }
