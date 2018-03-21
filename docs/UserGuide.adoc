@@ -1,4 +1,4 @@
-= AddressBook Level 4 - User Guide
+= reInsurance - User Guide
 :toc:
 :toc-title:
 :toc-placement: preamble
@@ -17,7 +17,7 @@ By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
 
 == Introduction
 
-AddressBook Level 4 (AB4) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB4 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB4 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+reInsurance is for those who *prefer to use a desktop app for managing contacts*. More importantly, reInsurance is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, reInsurance can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 
@@ -28,7 +28,7 @@ Having any Java 8 version is not enough. +
 This app will not work with earlier versions of Java 8.
 +
 .  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
+.  Copy the file to the folder you want to use as the home folder for your reInsurance application.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
@@ -38,7 +38,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
 * *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
+* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the reInsurance address book.
 * **`delete`**`3` : deletes the 3rd contact shown in the current list
 * *`exit`* : exits the app
 
@@ -58,12 +58,12 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 === Viewing help : `help`
 
-Format: `help`
+Format: `help`, Alias: `h`
 
 === Adding a person: `add`
 
 Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` Alias: `a`
 
 [TIP]
 A person can have any number of tags (including 0)
@@ -76,12 +76,17 @@ Examples:
 === Listing all persons : `list`
 
 Shows a list of all persons in the address book. +
-Format: `list`
+Format: `list` Alias: `l`
+
+=== Getting count of address book size : `count`
+
+Returns a number of the size of the address book
+Format: `count`
 
 === Editing a person : `edit`
 
 Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...` Alias: `e`
 
 ****
 * Edits the person at the specified `INDEX`. The index refers to the index number shown in the last person listing. The index *must be a positive integer* 1, 2, 3, ...
@@ -101,7 +106,7 @@ Edits the name of the 2nd person to be `Betsy Crower` and clears all existing ta
 === Locating persons by name: `find`
 
 Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Format: `find KEYWORD [MORE_KEYWORDS]` Alias: `f`
 
 ****
 * The search is case insensitive. e.g `hans` will match `Hans`
@@ -118,10 +123,30 @@ Returns `john` and `John Doe`
 * `find Betsy Tim John` +
 Returns any person having names `Betsy`, `Tim`, or `John`
 
+=== Locating persons by tag: `findtag`
+
+Finds persons whose names contain any of the given tags. +
+Format: `findtag KEYWORD [MORE_KEYWORDS]`
+
+****
+* The search is case insensitive. e.g `friends` will match `Friends`
+* The order of the tags does not matter. e.g. `Friends Colleagues` will match `Colleagues Friends`
+* Only the tag is searched.
+* Only full words will be matched e.g. `Friend` will not match `Friends`
+* Persons matching at least one tag will be returned (i.e. `OR` search).
+****
+
+Examples:
+
+* `find Friends` +
+Returns any person having tag `Friends`
+* `find Friends Colleagues Neighbours` +
+Returns any person having tags `Friends`, `Colleagues`, or `Neighbours`
+
 === Deleting a person : `delete`
 
 Deletes the specified person from the address book. +
-Format: `delete INDEX`
+Format: `delete INDEX` Alias: `d`
 
 ****
 * Deletes the person at the specified `INDEX`.
@@ -141,7 +166,7 @@ Deletes the 1st person in the results of the `find` command.
 === Selecting a person : `select`
 
 Selects the person identified by the index number used in the last person listing. +
-Format: `select INDEX`
+Format: `select INDEX` Alias: `s`
 
 ****
 * Selects the person and loads the Google search page the person at the specified `INDEX`.
@@ -172,7 +197,7 @@ Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and 
 === Undoing previous command : `undo`
 
 Restores the address book to the state before the previous _undoable_ command was executed. +
-Format: `undo`
+Format: `undo` Alias: `u`
 
 [NOTE]
 ====
@@ -198,7 +223,7 @@ The `undo` command fails as there are no undoable commands executed previously.
 === Redoing the previously undone command : `redo`
 
 Reverses the most recent `undo` command. +
-Format: `redo`
+Format: `redo` Alias: `r`
 
 Examples:
 
@@ -217,11 +242,34 @@ The `redo` command fails as there are no `undo` commands executed previously.
 `redo` (reapplies the `delete 1` command) +
 `redo` (reapplies the `clear` command) +
 // end::undoredo[]
+=== Sorting all entries : `sort`
+
+Sort all entries from the address book by given condition in lexicographical order. +
+Format: `sort`
 
 === Clearing all entries : `clear`
 
 Clears all entries from the address book. +
-Format: `clear`
+Alias: `c` +
+Format: `clear` Alias: `c`
+
+=== Export data : `Since v1.2`
+
+Exports the data from the specified export type (case insensitive). +
+Format: `export EXPORT_TYPE`
+
+Examples:
+
+* `export calendar` +
+Exports the data on the calendar to a .ics file
+* `export portfolio` +
+Exports the data in the portfolio to a .csv file
+
+[NOTE]
+====
+* Coming in v2.0, there will be more options on the types of data to export, since as of v1.2 the only export types are CALENDAR and PORTFOLIO.
+* As of v1.2, the application only handles the command without actually exporting. The actual export of the data files will come in v2.0.
+====
 
 === Exiting the program : `exit`
 
@@ -230,7 +278,7 @@ Format: `exit`
 
 === Saving the data
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
+reInsurance data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
 // tag::dataencryption[]
@@ -242,7 +290,7 @@ _{explain how the user can enable/disable data encryption}_
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous reInsurance folder.
 
 == Command Summary
 

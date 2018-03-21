@@ -1,4 +1,4 @@
-= AddressBook Level 4 - Developer Guide
+= reInsurance - Developer Guide
 :toc:
 :toc-title:
 :toc-placement: preamble
@@ -140,7 +140,7 @@ The _Sequence Diagram_ below shows how the components interact for the scenario 
 image::SDforDeletePerson.png[width="800"]
 
 [NOTE]
-Note how the `Model` simply raises a `AddressBookChangedEvent` when the Address Book data are changed, instead of asking the `Storage` to save the updates to the hard disk.
+Note how the `Model` simply raises a `AddressBookChangedEvent` when the reInsurance data are changed, instead of asking the `Storage` to save the updates to the hard disk.
 
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time.
 
@@ -204,7 +204,7 @@ image::ModelClassDiagram.png[width="800"]
 The `Model`,
 
 * stores a `UserPref` object that represents the user's preferences.
-* stores the Address Book data.
+* stores the reInsurance data.
 * exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
@@ -219,7 +219,7 @@ image::StorageClassDiagram.png[width="800"]
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in xml format and read it back.
+* can save the reInsurance data in xml format and read it back.
 
 [[Design-Commons]]
 === Common classes
@@ -358,12 +358,130 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two * different things.
 // end::undoredo[]
 
+
+// tag::sort[]
+=== Sort command
+==== Current Implementation
+The sort command allows the users to sort their clients according to the lexicographical order of their name. It is facilitated by a custom comparator. The sort command would be implemented as an not undoable command.
+
+The following sequence diagram shows how the sortCommand operation works. In the sequence diagram, the sortCommand is passed to the AddressBookParser, which executes the parseCommand method. The Model then executes the sortedFilteredPersonList,  which sorts the internalList using a comparator.
+
+Suppose that the user has a list of clients in the application as shown in the diagram below, after executing the command, the list of clients will be as follows.
+
+====Design Consideration
+
+=====Aspect: Implementation of SortCommand
+
+* **Alternative 1 (Current): Implementation of SortCommand as a command that is not undoable
+** Pros: The SortCommand will be easier for developers to implement this way.
+** Cons: Users that wish to revert the changes made might not be able to do so and this will decrease the usability of the program.
+* **Alternative 2 (Prospective):** Implementation of SortCommand as a undoable command
+** Pros: Users that wish to revert the changes made will be able to do so, thus increasing the usability of the program.
+** Cons: The SortCommand will be harder for developers to implement.
+
+=====Aspect: Parameters of the SortCommand
+
+* **Alternative 1 (Current): Implementation of SortCommand as a command that only allows users to sort clients according to their names in lexicographical order.
+** Pros: The SortCommand will be easier for developers to implement as it only needs to sort the names of the internalList.
+** Cons: Usability is low as the client might wish to sort clients according to their commissions earned.
+* **Alternative 2 (Prospective):** Implementation of SortCommand as a command that allows users to sort clients according to multiple parameters such as commission
+** Pros: This will allow the user to have a more organised view of all data in the program.
+** Cons: Although this might increase usability, the usability might actually decrease as the user will need to remember more commands for the SortCommand, which might not be ideal since this is a command line style address book.
+
+// end::sort[]
+
+// tag::group[]
+===Group feature
+
+====Current Implementation
+The Group feature will allow users to group their clients according to a specified group. Users will be required to add their clients to a group when adding a new user. Users can change the grouping of their clients later on if they wish to do so.
+
+The following sequence diagram shows how the group feature is being implemented.
+
+====Design Consideration
+
+=====Aspect: Implementation of Group
+
+* ** Alternative 1: Requires users to specify the group of the client when adding a new client
+** Pros: It will easier for developers to implement this way.
+** Cons: Users of the application might not know which group to place the clients into when adding a new client.
+* ** Alternative 2:** Allow users to add the group of the client after they have added a new client
+** Pros: Users will have time to decide how to group their clients after a period of time. i.e If the user wants to group their clients according to their commissions paid, it can only be done so after the client has been with the user for a period of time.
+** Cons: Some clients might not have any groupings. Developer will need an extra command to list those clients without any groupings.
+
+// end::group[]
+
 // tag::dataencryption[]
+=== [Proposed] Top Insurance Commission tag
+=== Intro
+
+Trying to create a case where the condition if a particular client's current insurance plan is within the top 5 position, it will be highlighted in read
+
+Suppose that a new client is added into the application, the commission that the agent is getting off that client will be stored and the top 5 commission will be re-evaluated.
+To do this, a commission storage will be created to store existing commission, a total commission method will also be created.
+
+
+==== Design Considerations
+
+===== Aspect: Implementation of Insurance tag
+
+ *  **Alternative 1(current choice):** Create an Insurance class with 3 child classes, namely, Insurance name, Commission and Premium.
+ ** Pros: Clearer and neater distinction between tags and insurance plan.
+ ** Cons: Harder to implement and possibly of a overlapping test cases.
+ *  **Alternative 2:** Let insurance be under a special tag class and create subsequent child classes.
+ ** Pros: Easier to implement and direct.
+ ** Cons: Harder to handle error (unsure of what cause the bug).
+
+===== Asepect: Calculating the top commission
+
+ * **Alternative 1(current choice):** Create a storage to store all current commission, and sort it, take note of the 5th position and save it, any client above this value will have commission highlighted then update 5th possible accordingly.
+ ** Pros: Contained within storage, easier to update the top 5 commission.
+ ** Cons: May have a case where there's more than 5 client that satisfy the condition (cases where multiple client of same commission)
+ * **Alternative 2:** Same as alternative 1, but instead tag this commission to the client once it is sorted.
+ ** Pros: Distinction of which client is top when display, reduce the calling of storage class.
+ ** Cons: Changing the tag when client is no longer top 5 may require calling of multiple function, increasing dependency thus not as good.
+
+===== Aspect: Way for UI to identify top 5 client.
+ * **Alternative 1(current choice):** Extract requirement of commission amount to be top 5 from storage and highlight any int above that.
+ ** Pros: TBC
+ ** Cons: TBC
+ * **Alternative 2:** give a hidden tag to client that is within top 5, highlight accordingly.
+ ** Pros: TBC
+ ** Cons: TBC
+
+
 === [Proposed] Data Encryption
 
 _{Explain here how the data encryption feature will be implemented}_
 
 // end::dataencryption[]
+
+=== Exporting
+
+We are creating export functionality so that the users of the application can take the data that is being locally stored and download it onto their personal computer.
+There will be various types of data to export with different ways to export (i.e. file types).
+
+*Since v1.2*
+
+* The application will handle the `export` command with one argument (Format: `export EXPORT_TYPE`).
+* The application simply catches the command but does not exporting at the moment.
+* The export types are from an enum class at `seedu.address.model.export.ExportType`.
+* To add another export type to be caught by the user's input, simply add another value to the enum class mentioned above.
+
+*Coming in v2.0*
+
+* Currently, the `export(ExportType)` function is included in `seedu.address.model.Model` interface. However, the implementation is yet to come.
+* The `export` function will need to be abstracted out in a way that it can handle all the types of exports allowed by the command.
+* The export file type should be controlled by the arguments of the command.
+** Example: `export portfolio csv`
+*** Should download a portfolio as a csv file onto the user's computer
+* The export of the calendar can be automatically sent to the user's google calendar. This should be implemented in a way that makes use of the Google Calendar API.
+* Add another argument for specifying the output file name
+
+==== Alternate Implementation Ideas
+
+* Separate the export functionality away from the rest of the commands.
+* Create a button that exports the data for the user
 
 === Logging
 
@@ -493,7 +611,7 @@ Here are the steps to create a new release.
 
 === Managing Dependencies
 
-A project often depends on third-party libraries. For example, Address Book depends on the http://wiki.fasterxml.com/JacksonHome[Jackson library] for XML parsing. Managing these _dependencies_ can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives. +
+A project often depends on third-party libraries. For example, reInsurance depends on the http://wiki.fasterxml.com/JacksonHome[Jackson library] for XML parsing. Managing these _dependencies_ can be automated using Gradle. For example, Gradle can download the dependencies automatically, which is better than these alternatives. +
 a. Include those libraries in the repo (this bloats the repo size) +
 b. Require developers to download those libraries manually (this creates extra work for developers)
 
@@ -795,20 +913,81 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 
 Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
 
+
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` |user |add a new person |
+|`* * *` |user |add a new client | track the client
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |user |add multiple client | track the number of clients I have
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |user |remove my client | remove entries that I no longer need
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |user |add the appointment date I have with my client |keep track of the next meet up
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |user |sort the client based on different category |directly get the type of data I want
+
+|`* * *` |user |add my client’s personal detail  |know more about them
+
+|`* * *` |user |update my client's personal detail |keep their information up to date
+
+|`* * *` |user |search for a single client  |narrow down to the client I am interested in in that time
+
+|`* * *` |user |clear the address book |start on a clean slate
+
+|`* * *` |user |exit my application |exit the application once I am done with it
+
+|`* * *` |user |add remarks of my client |remember my personal comment of the client
+
+|`* * *` |user |add the insurance plans that my clients are committed |track what plans he/she has
+
+|`* * *` |user |search for my clients based on their plan’s maturity dates |offer a renewal plan
+
+|`* * *` |user |add in the monthly premium paid by my client |calculate my commission
+
+|`* * *` |user |add in how much commission rate I am getting off my client’s insurance plan|calculate my commission
+
+|`* * *` |user |view the commission I get off a client |see how much I am earning off them
+
+|`* * *` |user |view the total commission I am getting |view my total earning
+
+|`* * *` |user |view appointment on the calendar |have a more organized view of my schedule and at the same time plan for future appointment
+
+|`* *` |user |check the history of my command |know what I have done
+
+|`* *` |user |undo the previous command |retrieve lost information caused by accidents
+
+|`* *` |user |redo the undo actions |trace what I have undid.
+
+|`* *` |user |create a new address book |use it for other purposes
+
+|`* *` |user |export a portfolio of my clients |can use the data of the application elsewhere
+
+|`* *` |user |export a calendar of my appointments and client birthdays |can use the data on a calendar outside of the application
+
+|`* *` |user |hide some of my client's information |minimize the leak of my client's information
+
+|`* *` |user |sort persons by name (by default) |view the address book in an organized manner
+
+|`* *` |user |receive notification of my client's birthday |keep in touch with my clients
+
+|`* *` |user |receive notification 3 day prior to my client's appointment date |ensure that I will not miss it
+
+|`* *` |user |add in password access to my address book |be viewed/edited only by allowed users
+
+|`* *` |user |change my password |further secure my address book
+
+|`* *` |user |forget password |have a backup plan
+
+|`*` |user |encrypt the data |feel safer for my client's data
+
+|`*` |user |request access to other address book |seek potential customer from leaving colleague
+
+|`*` |user |upload my client's info on social network |protect myself against cyber bullying or defaming
+
+
 |=======================================================================
 
 _{More to be added}_
@@ -816,7 +995,7 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `ClientBook` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
 === Use case: Delete person
@@ -824,9 +1003,9 @@ _{More to be added}_
 *MSS*
 
 1.  User requests to list persons
-2.  AddressBook shows a list of persons
+2.  reInsurance shows a list of persons
 3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+4.  reInsurance deletes the person
 +
 Use case ends.
 
@@ -840,9 +1019,151 @@ Use case ends.
 * 3a. The given index is invalid.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3a1. ClientBook shows an error message.
 +
 Use case resumes at step 2.
+
+[discrete]
+== Use case: Add person
+
+*MSS*
+
+1. User request to add person by specifying their details
+2. ClientBook adds the person
+3. ClientBook shows success message
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. Person already exists in ClientBook.
++
+[none]
+** 2a1. ClientBook shows error message.
++
+Use case ends.
+
+* 3a. The given input is invalid.
++
+[none]
+** 3a1. ClientBook shows error message.
++
+Use case ends.
+
+[discrete]
+== Use case: Edit person
+
+*MSS*
+
+1. User requests to edit person by entering person’s name and new parameter(s)
+2. ClientBook shows confirm message.
+3. User confirms to edit the Person.
+4. ClientBook edits the Person’s given parameter(s).
+5. ClientBook shows the edited person entry.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. Person does not exist in the ClientBook.
++
+[none]
+** 2a1. ClientBook shows error message.
++
+Use case ends.
+
+* 3a. The given input is invalid.
++
+[none]
+** 3a1. ClientBook shows error message.
++
+Use case ends.
+
+[discrete]
+== Use case: Add Appointment
+
+*MSS*
+
+1. User requests to add appointment with person by entering person's name and appointment date and time.
+2. ClientBook adds the appointment.
+3. ClientBook shows the added appointment entry
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. Person does not exist in the ClientBook.
++
+[none]
+** 2a1. ClientBook shows error message.
++
+Use case ends.
+
+* 3a. The given date is invalid.
++
+[none]
+** 3a1. ClientBook shows error message.
++
+Use case ends.
+
+[discrete]
+== Use case: Delete Appointment
+
+*MSS*
+
+1. User requests to delete appointment with person by entering person's name.
+2. ClientBook shows list of appointments.
+3. User requests to delete a specific appointment in the list.
+4. ClientBook deletes the appointment.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The given index is invalid.
++
+[none]
+** 3a1. ClientBook shows an error message.
++
+Use case resumes at step 2.
+
+[discrete]
+== Use case: View Commission from Client
+
+*MSS*
+
+1. User requests to view commission of client by entering person's name.
+2. ClientBook shows commission earned from client.
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 2a. Person does not exist in the ClientBook.
++
+[none]
+** 2a1. ClientBook shows error message.
++
+Use case ends.
+
+[discrete]
+== Use case: View Total Commission
+
+*MSS*
+
+1. User requests to view total commission.
+2. AddressBook shows total commission.
++
+Use case ends.
 
 _{More to be added}_
 
@@ -852,12 +1173,25 @@ _{More to be added}_
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `1.8.0_60` or higher installed.
 .  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-
-_{More to be added}_
+.  Should come with open source code.
+.  Should be able to be used with any OS.
+.  Should allow the user to not have to use their mouse.
+.  Should be secure from users trying to enter malicious commands.
+.  Should be intuitive for any user that has experience using an address book (i.e add,delete,sort,list)
+.  Should be able to respond to queries from users within 1 second
+.  Should be able to export portfolio of clients to a .csv file
+.  Should be able to export calendar of appointments and client birthdays to a .ics file
+.  Should be able to assist the user in better managing his client database by providing a dashboard view of his client information
+.  Should be able to work without an internet connection
 
 [appendix]
 == Glossary
-
+User
+.  An User is defined as the insurance agent.
+Mainstream OS
+.  A mainstream OS includes Windows, Linux, Unix and OS-X
+Client Information
+.  Client Information includes all personal details and metrics.
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 

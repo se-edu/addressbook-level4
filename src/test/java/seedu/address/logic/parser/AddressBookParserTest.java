@@ -66,6 +66,7 @@ public class AddressBookParserTest {
     public void parseCommandAlias_clear() throws Exception {
         assertTrue(parser.parseCommand(ClearCommand.COMMAND_WORD_ALIAS) instanceof ClearCommand);
         assertTrue(parser.parseCommand(ClearCommand.COMMAND_WORD_ALIAS + " 3") instanceof ClearCommand);
+
     }
 
     @Test
