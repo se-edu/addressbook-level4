@@ -359,6 +359,44 @@ image::UndoRedoActivityDiagram.png[width="650"]
 // end::undoredo[]
 
 // tag::dataencryption[]
+=== [Proposed] Top Insurance Commission tag
+=== Intro
+
+Trying to create a case where the condition if a particular client's current insurance plan is within the top 5 position, it will be highlighted in read
+
+Suppose that a new client is added into the application, the commission that the agent is getting off that client will be stored and the top 5 commission will be re-evaluated.
+To do this, a commission storage will be created to store existing commission, a total commission method will also be created.
+
+
+==== Design Considerations
+
+===== Aspect: Implementation of Insurance tag
+
+ *  **Alternative 1(current choice):** Create an Insurance class with 3 child classes, namely, Insurance name, Commission and Premium.
+ ** Pros: Clearer and neater distinction between tags and insurance plan.
+ ** Cons: Harder to implement and possibly of a overlapping test cases.
+ *  **Alternative 2:** Let insurance be under a special tag class and create subsequent child classes.
+ ** Pros: Easier to implement and direct.
+ ** Cons: Harder to handle error (unsure of what cause the bug).
+
+===== Asepect: Calculating the top commission
+
+ * **Alternative 1(current choice):** Create a storage to store all current commission, and sort it, take note of the 5th position and save it, any client above this value will have commission highlighted then update 5th possible accordingly.
+ ** Pros: Contained within storage, easier to update the top 5 commission.
+ ** Cons: May have a case where there's more than 5 client that satisfy the condition (cases where multiple client of same commission)
+ * **Alternative 2:** Same as alternative 1, but instead tag this commission to the client once it is sorted.
+ ** Pros: Distinction of which client is top when display, reduce the calling of storage class.
+ ** Cons: Changing the tag when client is no longer top 5 may require calling of multiple function, increasing dependency thus not as good.
+
+===== Aspect: Way for UI to identify top 5 client.
+ * **Alternative 1(current choice):** Extract requirement of commission amount to be top 5 from storage and highlight any int above that.
+ ** Pros: TBC
+ ** Cons: TBC
+ * **Alternative 2:** give a hidden tag to client that is within top 5, highlight accordingly.
+ ** Pros: TBC
+ ** Cons: TBC
+
+
 === [Proposed] Data Encryption
 
 _{Explain here how the data encryption feature will be implemented}_
