@@ -404,12 +404,129 @@ Birthday prefix "b/" has been added to the add command so that users can add the
 ** Cons: Pop ups might be unwelcomed as they can interupt current user tasks
 // end::appointments[]
 
+// tag::sort[]
+=== Sort command
+==== Current Implementation
+The sort command allows the users to sort their clients according to the lexicographical order of their name. It is facilitated by a custom comparator. The sort command would be implemented as an not undoable command.
+
+The following sequence diagram shows how the sortCommand operation works. In the sequence diagram, the sortCommand is passed to the AddressBookParser, which executes the parseCommand method. The Model then executes the sortedFilteredPersonList,  which sorts the internalList using a comparator.
+
+Suppose that the user has a list of clients in the application as shown in the diagram below, after executing the command, the list of clients will be as follows.
+
+====Design Consideration
+
+=====Aspect: Implementation of SortCommand
+
+* **Alternative 1 (Current): Implementation of SortCommand as a command that is not undoable
+** Pros: The SortCommand will be easier for developers to implement this way.
+** Cons: Users that wish to revert the changes made might not be able to do so and this will decrease the usability of the program.
+* **Alternative 2 (Prospective):** Implementation of SortCommand as a undoable command
+** Pros: Users that wish to revert the changes made will be able to do so, thus increasing the usability of the program.
+** Cons: The SortCommand will be harder for developers to implement.
+
+=====Aspect: Parameters of the SortCommand
+
+* **Alternative 1 (Current): Implementation of SortCommand as a command that only allows users to sort clients according to their names in lexicographical order.
+** Pros: The SortCommand will be easier for developers to implement as it only needs to sort the names of the internalList.
+** Cons: Usability is low as the client might wish to sort clients according to their commissions earned.
+* **Alternative 2 (Prospective):** Implementation of SortCommand as a command that allows users to sort clients according to multiple parameters such as commission
+** Pros: This will allow the user to have a more organised view of all data in the program.
+** Cons: Although this might increase usability, the usability might actually decrease as the user will need to remember more commands for the SortCommand, which might not be ideal since this is a command line style address book.
+
+// end::sort[]
+
+// tag::group[]
+===Group feature
+
+====Current Implementation
+The Group feature will allow users to group their clients according to a specified group. Users will be required to add their clients to a group when adding a new user. Users can change the grouping of their clients later on if they wish to do so.
+
+The following sequence diagram shows how the group feature is being implemented.
+
+====Design Consideration
+
+=====Aspect: Implementation of Group
+
+* ** Alternative 1: Requires users to specify the group of the client when adding a new client
+** Pros: It will easier for developers to implement this way.
+** Cons: Users of the application might not know which group to place the clients into when adding a new client.
+* ** Alternative 2:** Allow users to add the group of the client after they have added a new client
+** Pros: Users will have time to decide how to group their clients after a period of time. i.e If the user wants to group their clients according to their commissions paid, it can only be done so after the client has been with the user for a period of time.
+** Cons: Some clients might not have any groupings. Developer will need an extra command to list those clients without any groupings.
+
+// end::group[]
+
 // tag::dataencryption[]
+=== [Proposed] Top Insurance Commission tag
+==== Intro
+
+Trying to create a case where the condition if a particular client's current insurance plan is within the top 5 position, it will be highlighted in read
+
+Suppose that a new client is added into the application, the commission that the agent is getting off that client will be stored and the top 5 commission will be re-evaluated.
+To do this, a commission storage will be created to store existing commission, a total commission method will also be created.
+
+
+==== Design Considerations
+
+===== Aspect: Implementation of Insurance tag
+
+ *  **Alternative 1(current choice):** Create an Insurance class with 3 child classes, namely, Insurance name, Commission and Premium.
+ ** Pros: Clearer and neater distinction between tags and insurance plan.
+ ** Cons: Harder to implement and possibly of a overlapping test cases.
+ *  **Alternative 2:** Let insurance be under a special tag class and create subsequent child classes.
+ ** Pros: Easier to implement and direct.
+ ** Cons: Harder to handle error (unsure of what cause the bug).
+
+===== Asepect: Calculating the top commission
+
+ * **Alternative 1(current choice):** Create a storage to store all current commission, and sort it, take note of the 5th position and save it, any client above this value will have commission highlighted then update 5th possible accordingly.
+ ** Pros: Contained within storage, easier to update the top 5 commission.
+ ** Cons: May have a case where there's more than 5 client that satisfy the condition (cases where multiple client of same commission)
+ * **Alternative 2:** Same as alternative 1, but instead tag this commission to the client once it is sorted.
+ ** Pros: Distinction of which client is top when display, reduce the calling of storage class.
+ ** Cons: Changing the tag when client is no longer top 5 may require calling of multiple function, increasing dependency thus not as good.
+
+===== Aspect: Way for UI to identify top 5 client.
+ * **Alternative 1(current choice):** Extract requirement of commission amount to be top 5 from storage and highlight any int above that.
+ ** Pros: TBC
+ ** Cons: TBC
+ * **Alternative 2:** give a hidden tag to client that is within top 5, highlight accordingly.
+ ** Pros: TBC
+ ** Cons: TBC
+
+
 === [Proposed] Data Encryption
 
 _{Explain here how the data encryption feature will be implemented}_
 
 // end::dataencryption[]
+
+=== Exporting
+
+We are creating export functionality so that the users of the application can take the data that is being locally stored and download it onto their personal computer.
+There will be various types of data to export with different ways to export (i.e. file types).
+
+*Since v1.2*
+
+* The application will handle the `export` command with one argument (Format: `export EXPORT_TYPE`).
+* The application simply catches the command but does not exporting at the moment.
+* The export types are from an enum class at `seedu.address.model.export.ExportType`.
+* To add another export type to be caught by the user's input, simply add another value to the enum class mentioned above.
+
+*Coming in v2.0*
+
+* Currently, the `export(ExportType)` function is included in `seedu.address.model.Model` interface. However, the implementation is yet to come.
+* The `export` function will need to be abstracted out in a way that it can handle all the types of exports allowed by the command.
+* The export file type should be controlled by the arguments of the command.
+** Example: `export portfolio csv`
+*** Should download a portfolio as a csv file onto the user's computer
+* The export of the calendar can be automatically sent to the user's google calendar. This should be implemented in a way that makes use of the Google Calendar API.
+* Add another argument for specifying the output file name
+
+==== Alternate Implementation Ideas
+
+* Separate the export functionality away from the rest of the commands.
+* Create a button that exports the data for the user
 
 === Logging
 
@@ -891,7 +1008,9 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* *` |user |create a new address book |use it for other purposes
 
-|`* *` |user |duplicate my address book |export the address book
+|`* *` |user |export a portfolio of my clients |can use the data of the application elsewhere
+
+|`* *` |user |export a calendar of my appointments and client birthdays |can use the data on a calendar outside of the application
 
 |`* *` |user |hide some of my client's information |minimize the leak of my client's information
 
@@ -929,9 +1048,9 @@ _{More to be added}_
 *MSS*
 
 1.  User requests to list persons
-2.  ClientBook shows a list of persons
+2.  reInsurance shows a list of persons
 3.  User requests to delete a specific person in the list
-4.  ClientBook deletes the person
+4.  reInsurance deletes the person
 +
 Use case ends.
 
@@ -1105,7 +1224,8 @@ _{More to be added}_
 .  Should be secure from users trying to enter malicious commands.
 .  Should be intuitive for any user that has experience using an address book (i.e add,delete,sort,list)
 .  Should be able to respond to queries from users within 1 second
-.  Should be able to export database to a spreadsheet .csv format
+.  Should be able to export portfolio of clients to a .csv file
+.  Should be able to export calendar of appointments and client birthdays to a .ics file
 .  Should be able to assist the user in better managing his client database by providing a dashboard view of his client information
 .  Should be able to work without an internet connection
 

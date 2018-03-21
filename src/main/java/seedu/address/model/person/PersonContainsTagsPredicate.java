@@ -4,7 +4,6 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.function.Predicate;
 
-import seedu.address.commons.util.StringUtil;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 
@@ -27,7 +26,7 @@ public class PersonContainsTagsPredicate implements Predicate<Person> {
             String keyword = i.next();
             UniqueTagList personTagList = new UniqueTagList(person.getTags());
             Tag keyTag = new Tag(keyword);
-            if(personTagList.contains(keyTag)) {
+            if (personTagList.contains(keyTag)) {
                 return true;
             }
         }
