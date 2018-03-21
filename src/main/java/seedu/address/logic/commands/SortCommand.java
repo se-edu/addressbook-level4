@@ -9,7 +9,7 @@ import javafx.collections.ObservableList;
 /**
  * Sorts all persons in the address book to the user.
  */
-public class SortCommand extends Command {
+public class SortCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = "sort";
 
@@ -18,7 +18,7 @@ public class SortCommand extends Command {
     public SortCommand(){
     }
     @Override
-    public CommandResult execute() throws CommandException {
+    public CommandResult executeUndoableCommand() throws CommandException {
 
         ObservableList<Person> shownList = model.getFilteredPersonList();
         if(shownList.isEmpty()){
