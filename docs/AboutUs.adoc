@@ -27,9 +27,9 @@ Responsibilities: UI
 
 '''
 
-=== Johnny Doe
-image::yijinl.jpg[width="150", align="left"]
-{empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
+=== Lim Zheng Kai
+image::zhengkai.jpeg[width="150", align="left"]
+{empty}[https://github.com/limzk1994[github]]
 
 Role: Developer +
 Responsibilities: Data
