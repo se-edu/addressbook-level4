@@ -33,6 +33,27 @@ public class TuitionSchedule extends Schedule {
         taskList.add(newTask);
     }
 
+    /**
+     * Deletes a tuition task from schedule
+     * Returns the tuition task to be deleted
+     *
+     * @param deleteTask to remove task from TuitionTaskList and taskList
+     */
+    public TuitionTask deleteTask(int deleteTask) {
+        TuitionTask task = tuitionTaskList.get(deleteTask);
+        tuitionTaskList.remove(deleteTask);
+        taskList.remove(deleteTask);
+        return task;
+    }
+
+    /**
+     * Returns an arraylist of TuitionTask
+     *
+     */
+    public ArrayList<TuitionTask> getTuitionSchedule() {
+        return tuitionTaskList;
+    }
+
 
 
 }

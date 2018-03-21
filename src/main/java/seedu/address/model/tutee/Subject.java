@@ -10,8 +10,8 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Subject {
 
     public static final String MESSAGE_SUBJECT_CONSTRAINTS =
-            "Subject should only contain alphabetic characters and spaces";
-    public static final String SUBJECT_VALIDATION_REGEX = "[\\p{Alpha}]*";
+            "Subject should only contain alphabetic characters and spaces, and it should not be blank";
+    public static final String SUBJECT_VALIDATION_REGEX = "[\\p{Alpha}][\\p{Alpha} ]*";
 
     public final String subject;
 
