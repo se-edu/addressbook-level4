@@ -16,6 +16,7 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.tutee.Tutee;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -26,6 +27,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final AddressBook addressBook;
     private final FilteredList<Person> filteredPersons;
+    private FilteredList<Tutee> filteredTutees;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -38,6 +40,12 @@ public class ModelManager extends ComponentManager implements Model {
 
         this.addressBook = new AddressBook(addressBook);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+
+        for (Person tutee: filteredPersons) {
+            if (tutee instanceof Tutee) {
+                filteredTutees.add(((Tutee) tutee));
+            }
+        }
     }
 
     public ModelManager() {
@@ -123,4 +131,31 @@ public class ModelManager extends ComponentManager implements Model {
                 && filteredPersons.equals(other.filteredPersons);
     }
 
+    //=========== Filtered Tutee List Accessors =============================================================
+
+    /**
+     * Returns an unmodifiable view of the list of {@code Person} which is an instance of {@code Tutee}
+     * backed by the internal list of {@code addressBook}
+     */
+    /**
+    @Override
+    public void updateFIlteredTuteeList(String category, String[] keywords) {
+        for (Person person : filteredPersons) {
+            if (person instanceof Tutee) {
+                for (String keyword : keywords) {
+                    switch category {
+                        case "grade":
+                            if (keyword == ((Tutee) person).getGrade()) {
+
+                            }
+                    }
+                }
+            }
+        }
+    }
+    */
+    public void updateFilteredTuteeList(Predicate<Tutee> predicate) {
+        requireNonNull(predicate);
+        filteredTutees.setPredicate(predicate);
+    }
 }
