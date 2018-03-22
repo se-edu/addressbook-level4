@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import java.util.Arrays;
 import java.util.function.Predicate;
 
+import seedu.address.model.person.Person;
 import seedu.address.model.tutee.GradeContainsKeywordsPredicate;
 import seedu.address.model.tutee.Tutee;
 
@@ -31,7 +32,7 @@ public class ViewSortCommand extends Command {
 
     private final String category;
     private final String[] keywords;
-    private Predicate<Tutee> predicate;
+    private Predicate<Person> predicate;
 
     public ViewSortCommand(String category, String[] keywords) {
         this.category = category;
@@ -45,7 +46,7 @@ public class ViewSortCommand extends Command {
             break;
         case CATEGORY_GRADE:
             predicate = new GradeContainsKeywordsPredicate(Arrays.asList(keywords));
-            model.updateFilteredTuteeList(predicate);
+            model.updateFilteredPersonList(predicate);
             break;
         case CATEGORY_SCHOOL:
             break;

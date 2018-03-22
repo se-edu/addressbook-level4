@@ -47,11 +47,11 @@ public interface Model {
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
 
-    /**
-     * Updates the filter of the filtered tutee list to filter by the given {@code predicate}.
-     * @throws NullPointerException if {@code predicate} is null.
-     */
-    void updateFilteredTuteeList(Predicate<Tutee> predicate);
+    ///**
+     //* Updates the filter of the filtered tutee list to filter by the given {@code predicate}.
+     //* @throws NullPointerException if {@code predicate} is null.
+     //*/
+    //void updateFilteredTuteeList(String category, String[] keywords);
 
     /**
      * Removes the given {@code tag} from the specified {@code person}.

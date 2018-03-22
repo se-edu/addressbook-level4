@@ -26,7 +26,7 @@ public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final AddressBook addressBook;
-    private final FilteredList<Person> filteredPersons;
+    private FilteredList<Person> filteredPersons;
     private FilteredList<Tutee> filteredTutees;
 
     /**
@@ -40,12 +40,13 @@ public class ModelManager extends ComponentManager implements Model {
 
         this.addressBook = new AddressBook(addressBook);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+        filteredTutees = new FilteredList<>(this.addressBook.getTuteeList());
 
-        for (Person tutee: filteredPersons) {
-            if (tutee instanceof Tutee) {
-                filteredTutees.add(((Tutee) tutee));
-            }
-        }
+        //for (Person tutee: filteredPersons) {
+        //    if (tutee instanceof Tutee) {
+        //        filteredTutees.add((Tutee) tutee);
+        //    }
+        //}
     }
 
     public ModelManager() {
@@ -154,8 +155,8 @@ public class ModelManager extends ComponentManager implements Model {
         }
     }
     */
-    public void updateFilteredTuteeList(Predicate<Tutee> predicate) {
-        requireNonNull(predicate);
-        filteredTutees.setPredicate(predicate);
-    }
+    //public void updateFilteredTuteeList(Predicate<Tutee> predicate) {
+    //    requireNonNull(predicate);
+    //    filteredTutees.setPredicate(predicate);
+    //}
 }
