@@ -70,12 +70,10 @@ public class Person {
             return true;
         }
 
-        if (otherPerson == null) {
-            return false;
-        }
-
-        return otherPerson.getName().equals(this.getName())
+        return otherPerson != null
+                && otherPerson.getName().equals(this.getName())
                 && (otherPerson.getPhone().equals(this.getPhone()) || otherPerson.getEmail().equals(this.getEmail()));
+
     }
 
     /**
