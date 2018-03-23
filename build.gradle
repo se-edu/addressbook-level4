@@ -56,9 +56,6 @@ dependencies {
     compile group: 'javax.activation', name: 'activation', version: '1.1.1'
 
     testCompile group: 'junit', name: 'junit', version: '4.12'
-    testRuntimeOnly group:'org.junit.vintage', name:'junit-vintage-engine', version: jUnitVersion
-    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: jUnitVersion
-    testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: jUnitVersion
     testCompile group: 'org.testfx', name: 'testfx-core', version: testFxVersion, {
         exclude group: 'org.testfx', module: 'testfx-internal-java8'
     }
@@ -67,8 +64,12 @@ dependencies {
         exclude group: 'junit', module: 'junit'
     }
 
+    testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: jUnitVersion
+
     testRuntime group: 'org.testfx', name: 'testfx-internal-java9', version: testFxVersion
     testRuntime group: 'org.testfx', name: 'openjfx-monocle', version: 'jdk-9+181'
+    testRuntimeOnly group:'org.junit.vintage', name:'junit-vintage-engine', version: jUnitVersion
+    testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: jUnitVersion
 }
 
 shadowJar {
