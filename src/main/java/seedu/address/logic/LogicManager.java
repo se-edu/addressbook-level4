@@ -7,9 +7,13 @@ import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.RedoCommand;
+import seedu.address.logic.commands.UndoCommand;
+import seedu.address.logic.commands.UndoableCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 
@@ -29,6 +33,7 @@ public class LogicManager extends ComponentManager implements Logic {
         history = new CommandHistory();
         addressBookParser = new AddressBookParser();
         undoRedoStack = new UndoRedoStack();
+        undoRedoStack.push(new AddressBook(model.getAddressBook()));
     }
 
     @Override
@@ -38,7 +43,7 @@ public class LogicManager extends ComponentManager implements Logic {
             Command command = addressBookParser.parseCommand(commandText);
             command.setData(model, history, undoRedoStack);
             CommandResult result = command.execute();
-            undoRedoStack.push(command);
+            updateUndoRedoStack(command);
             return result;
         } finally {
             history.add(commandText);
@@ -53,5 +58,15 @@ public class LogicManager extends ComponentManager implements Logic {
     @Override
     public ListElementPointer getHistorySnapshot() {
         return new ListElementPointer(history.getHistory());
+    }
+
+    private void updateUndoRedoStack(Command command) {
+        if (!(command instanceof RedoCommand) && !(command instanceof UndoCommand)) {
+            undoRedoStack.clearRedoStack();
+        }
+
+        if (command instanceof UndoableCommand) {
+            undoRedoStack.push(model.getAddressBook());
+        }
     }
 }
