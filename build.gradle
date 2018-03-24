@@ -143,8 +143,8 @@ test {
         boolean runNonGuiTests = gradle.taskGraph.hasTask(nonGuiTests)
 
         if (!runGuiTests && !runNonGuiTests) {
-            runGuiTests = true;
-            runNonGuiTests = true;
+            runGuiTests = true
+            runNonGuiTests = true
         }
 
         if (runNonGuiTests) {
