@@ -181,14 +181,16 @@ asciidoctor {
     sourceDir 'docs'
     outputDir "${buildDir}/docs"
 
-    attributes linkcss: true,
-               stylesheet: 'gh-pages.css',
-               'source-highlighter': 'coderay',
-               icons: 'font',
-               experimental: true,
-               sectlinks: true,
-               idprefix: '',  // for compatibility with GitHub preview
-               idseparator: '-'
+    attributes = [
+        linkcss: true,
+        stylesheet: 'gh-pages.css',
+        'source-highlighter': 'coderay',
+        icons: 'font',
+        experimental: true,
+        sectlinks: true,
+        idprefix: '',  // for compatibility with GitHub preview
+        idseparator: '-',
+    ]
 }
 
 /*
