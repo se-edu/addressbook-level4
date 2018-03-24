@@ -153,6 +153,7 @@ public class EditCommandTest {
     @Test
     public void executeUndoRedo_validIndexUnfilteredList_success() throws Exception {
         UndoRedoStack undoRedoStack = new UndoRedoStack();
+        undoRedoStack.push(new AddressBook(model.getAddressBook()));
         UndoCommand undoCommand = prepareUndoCommand(model, undoRedoStack);
         RedoCommand redoCommand = prepareRedoCommand(model, undoRedoStack);
         Person editedPerson = new PersonBuilder().build();
@@ -163,7 +164,7 @@ public class EditCommandTest {
 
         // edit -> first person edited
         editCommand.execute();
-        undoRedoStack.push(editCommand);
+        undoRedoStack.push(new AddressBook(model.getAddressBook()));
 
         // undo -> reverts addressbook back to previous state and filtered person list to show all persons
         assertCommandSuccess(undoCommand, model, UndoCommand.MESSAGE_SUCCESS, expectedModel);
@@ -176,6 +177,7 @@ public class EditCommandTest {
     @Test
     public void executeUndoRedo_invalidIndexUnfilteredList_failure() {
         UndoRedoStack undoRedoStack = new UndoRedoStack();
+        undoRedoStack.push(new AddressBook(model.getAddressBook()));
         UndoCommand undoCommand = prepareUndoCommand(model, undoRedoStack);
         RedoCommand redoCommand = prepareRedoCommand(model, undoRedoStack);
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
@@ -200,6 +202,7 @@ public class EditCommandTest {
     @Test
     public void executeUndoRedo_validIndexFilteredList_samePersonEdited() throws Exception {
         UndoRedoStack undoRedoStack = new UndoRedoStack();
+        undoRedoStack.push(new AddressBook(model.getAddressBook()));
         UndoCommand undoCommand = prepareUndoCommand(model, undoRedoStack);
         RedoCommand redoCommand = prepareRedoCommand(model, undoRedoStack);
         Person editedPerson = new PersonBuilder().build();
@@ -211,7 +214,7 @@ public class EditCommandTest {
         Person personToEdit = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         // edit -> edits second person in unfiltered person list / first person in filtered person list
         editCommand.execute();
-        undoRedoStack.push(editCommand);
+        undoRedoStack.push(new AddressBook(model.getAddressBook()));
 
         // undo -> reverts addressbook back to previous state and filtered person list to show all persons
         assertCommandSuccess(undoCommand, model, UndoCommand.MESSAGE_SUCCESS, expectedModel);
