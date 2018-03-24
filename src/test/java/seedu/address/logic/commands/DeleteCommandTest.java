@@ -144,7 +144,7 @@ public class DeleteCommandTest {
     }
 
     @Test
-    public void equals() throws Exception {
+    public void equals() {
         DeleteCommand deleteFirstCommand = prepareCommand(INDEX_FIRST_PERSON);
         DeleteCommand deleteSecondCommand = prepareCommand(INDEX_SECOND_PERSON);
 
@@ -154,10 +154,6 @@ public class DeleteCommandTest {
         // same values -> returns true
         DeleteCommand deleteFirstCommandCopy = prepareCommand(INDEX_FIRST_PERSON);
         assertTrue(deleteFirstCommand.equals(deleteFirstCommandCopy));
-
-        // one command preprocessed when previously equal -> returns false
-        deleteFirstCommandCopy.preprocessUndoableCommand();
-        assertFalse(deleteFirstCommand.equals(deleteFirstCommandCopy));
 
         // different types -> returns false
         assertFalse(deleteFirstCommand.equals(1));
