@@ -162,8 +162,8 @@ public class EditCommandTest {
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
 
         // edit -> first person edited
+        undoRedoStack.push(new AddressBook(model.getAddressBook()));
         editCommand.execute();
-        undoRedoStack.push(editCommand);
 
         // undo -> reverts addressbook back to previous state and filtered person list to show all persons
         assertCommandSuccess(undoCommand, model, UndoCommand.MESSAGE_SUCCESS, expectedModel);
@@ -210,8 +210,8 @@ public class EditCommandTest {
         showPersonAtIndex(model, INDEX_SECOND_PERSON);
         Person personToEdit = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         // edit -> edits second person in unfiltered person list / first person in filtered person list
+        undoRedoStack.push(new AddressBook(model.getAddressBook()));
         editCommand.execute();
-        undoRedoStack.push(editCommand);
 
         // undo -> reverts addressbook back to previous state and filtered person list to show all persons
         assertCommandSuccess(undoCommand, model, UndoCommand.MESSAGE_SUCCESS, expectedModel);

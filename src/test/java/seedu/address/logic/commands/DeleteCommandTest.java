@@ -18,6 +18,7 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.UndoRedoStack;
+import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -91,8 +92,8 @@ public class DeleteCommandTest {
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
 
         // delete -> first person deleted
+        undoRedoStack.push(new AddressBook(model.getAddressBook()));
         deleteCommand.execute();
-        undoRedoStack.push(deleteCommand);
 
         // undo -> reverts addressbook back to previous state and filtered person list to show all persons
         assertCommandSuccess(undoCommand, model, UndoCommand.MESSAGE_SUCCESS, expectedModel);
@@ -136,8 +137,8 @@ public class DeleteCommandTest {
         showPersonAtIndex(model, INDEX_SECOND_PERSON);
         Person personToDelete = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         // delete -> deletes second person in unfiltered person list / first person in filtered person list
+        undoRedoStack.push(new AddressBook(model.getAddressBook()));
         deleteCommand.execute();
-        undoRedoStack.push(deleteCommand);
 
         // undo -> reverts addressbook back to previous state and filtered person list to show all persons
         assertCommandSuccess(undoCommand, model, UndoCommand.MESSAGE_SUCCESS, expectedModel);
