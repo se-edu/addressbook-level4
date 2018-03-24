@@ -7,6 +7,9 @@ import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.RedoCommand;
+import seedu.address.logic.commands.UndoCommand;
+import seedu.address.logic.commands.UndoableCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -28,7 +31,7 @@ public class LogicManager extends ComponentManager implements Logic {
         this.model = model;
         history = new CommandHistory();
         addressBookParser = new AddressBookParser();
-        undoRedoStack = new UndoRedoStack();
+        undoRedoStack = new UndoRedoStack(model.getAddressBook());
     }
 
     @Override
@@ -38,7 +41,11 @@ public class LogicManager extends ComponentManager implements Logic {
             Command command = addressBookParser.parseCommand(commandText);
             command.setData(model, history, undoRedoStack);
             CommandResult result = command.execute();
-            undoRedoStack.push(command);
+            if (command instanceof UndoableCommand) {
+                undoRedoStack.push(model.getAddressBook());
+            } else if (!(command instanceof RedoCommand) && !(command instanceof UndoCommand)) {
+                undoRedoStack.clearRedoStack();
+            }
             return result;
         } finally {
             history.add(commandText);
