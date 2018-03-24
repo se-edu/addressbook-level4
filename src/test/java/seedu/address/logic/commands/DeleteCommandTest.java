@@ -83,7 +83,7 @@ public class DeleteCommandTest {
 
     @Test
     public void executeUndoRedo_validIndexUnfilteredList_success() throws Exception {
-        UndoRedoStack undoRedoStack = new UndoRedoStack();
+        UndoRedoStack undoRedoStack = new UndoRedoStack(model.getAddressBook());
         UndoCommand undoCommand = prepareUndoCommand(model, undoRedoStack);
         RedoCommand redoCommand = prepareRedoCommand(model, undoRedoStack);
         Person personToDelete = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
@@ -92,7 +92,7 @@ public class DeleteCommandTest {
 
         // delete -> first person deleted
         deleteCommand.execute();
-        undoRedoStack.push(deleteCommand);
+        undoRedoStack.push(model.getAddressBook());
 
         // undo -> reverts addressbook back to previous state and filtered person list to show all persons
         assertCommandSuccess(undoCommand, model, UndoCommand.MESSAGE_SUCCESS, expectedModel);
@@ -104,7 +104,7 @@ public class DeleteCommandTest {
 
     @Test
     public void executeUndoRedo_invalidIndexUnfilteredList_failure() {
-        UndoRedoStack undoRedoStack = new UndoRedoStack();
+        UndoRedoStack undoRedoStack = new UndoRedoStack(model.getAddressBook());
         UndoCommand undoCommand = prepareUndoCommand(model, undoRedoStack);
         RedoCommand redoCommand = prepareRedoCommand(model, undoRedoStack);
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
@@ -127,7 +127,7 @@ public class DeleteCommandTest {
      */
     @Test
     public void executeUndoRedo_validIndexFilteredList_samePersonDeleted() throws Exception {
-        UndoRedoStack undoRedoStack = new UndoRedoStack();
+        UndoRedoStack undoRedoStack = new UndoRedoStack(model.getAddressBook());
         UndoCommand undoCommand = prepareUndoCommand(model, undoRedoStack);
         RedoCommand redoCommand = prepareRedoCommand(model, undoRedoStack);
         DeleteCommand deleteCommand = prepareCommand(INDEX_FIRST_PERSON);
@@ -137,7 +137,7 @@ public class DeleteCommandTest {
         Person personToDelete = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         // delete -> deletes second person in unfiltered person list / first person in filtered person list
         deleteCommand.execute();
-        undoRedoStack.push(deleteCommand);
+        undoRedoStack.push(model.getAddressBook());
 
         // undo -> reverts addressbook back to previous state and filtered person list to show all persons
         assertCommandSuccess(undoCommand, model, UndoCommand.MESSAGE_SUCCESS, expectedModel);

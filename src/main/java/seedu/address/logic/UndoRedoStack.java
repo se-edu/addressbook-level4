@@ -2,67 +2,71 @@ package seedu.address.logic;
 
 import java.util.Stack;
 
-import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.RedoCommand;
-import seedu.address.logic.commands.UndoCommand;
-import seedu.address.logic.commands.UndoableCommand;
+import seedu.address.model.AddressBook;
+import seedu.address.model.ReadOnlyAddressBook;
 
 /**
- * Maintains the undo-stack (the stack of commands that can be undone) and the redo-stack (the stack of
- * commands that can be undone).
+ * Maintains the undo-stack (the stack of address book states that can be undone) and the redo-stack (the stack of
+ * address book states that can be redone).
  */
 public class UndoRedoStack {
-    private Stack<UndoableCommand> undoStack;
-    private Stack<UndoableCommand> redoStack;
+    private Stack<ReadOnlyAddressBook> undoStack;
+    private Stack<ReadOnlyAddressBook> redoStack;
 
-    public UndoRedoStack() {
+    public UndoRedoStack(ReadOnlyAddressBook initialState) {
         undoStack = new Stack<>();
         redoStack = new Stack<>();
+        undoStack.push(new AddressBook(initialState));
+    }
+
+    public UndoRedoStack() {
+        this(new AddressBook());
     }
 
     /**
-     * Pushes {@code command} onto the undo-stack if it is of type {@code UndoableCommand}. Clears the redo-stack
-     * if {@code command} is not of type {@code UndoCommand} or {@code RedoCommand}.
+     * Pushes the {@code currentAddressBookState} onto the undo-stack, and clears the redo-stack.
      */
-    public void push(Command command) {
-        if (!(command instanceof UndoCommand) && !(command instanceof RedoCommand)) {
-            redoStack.clear();
-        }
-
-        if (!(command instanceof UndoableCommand)) {
-            return;
-        }
-
-        undoStack.add((UndoableCommand) command);
+    public void push(ReadOnlyAddressBook currentAddressBookState) {
+        clearRedoStack();
+        undoStack.push(new AddressBook(currentAddressBookState));
     }
 
     /**
-     * Pops and returns the next {@code UndoableCommand} to be undone in the stack.
+     * Pops the next {@code toPop} address book from the undo-stack and pushes the it into the redo-stack, and returns
+     * the new top of the undo-stack.
      */
-    public UndoableCommand popUndo() {
-        UndoableCommand toUndo = undoStack.pop();
-        redoStack.push(toUndo);
-        return toUndo;
+    public ReadOnlyAddressBook popUndo() {
+        ReadOnlyAddressBook toPop = undoStack.pop();
+        redoStack.push(toPop);
+        return undoStack.peek();
     }
 
     /**
-     * Pops and returns the next {@code UndoableCommand} to be redone in the stack.
+     * Pops and returns the next {@code toPop} address book from the redo-stack, and pushes the {@code toPop}
+     * address book into the undo-stack.
      */
-    public UndoableCommand popRedo() {
-        UndoableCommand toRedo = redoStack.pop();
-        undoStack.push(toRedo);
-        return toRedo;
+    public ReadOnlyAddressBook popRedo() {
+        ReadOnlyAddressBook toPop = redoStack.pop();
+        undoStack.push(toPop);
+        return toPop;
     }
 
     /**
-     * Returns true if there are more commands that can be undone.
+     * Clears the redo-stack.
+     */
+    public void clearRedoStack() {
+        redoStack.clear();
+    }
+
+    /**
+     * Returns true if there are more previous address book states to be restored.
      */
     public boolean canUndo() {
-        return !undoStack.empty();
+        return undoStack.size() > 1;
     }
 
     /**
-     * Returns true if there are more commands that can be redone.
+     * Returns true if there are more previously undone address book states to be restored.
      */
     public boolean canRedo() {
         return !redoStack.empty();
