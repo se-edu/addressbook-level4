@@ -16,7 +16,6 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.model.tag.Tag;
-import seedu.address.model.tutee.Tutee;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -88,8 +87,6 @@ public class ModelManager extends ComponentManager implements Model {
         assert(tag != null && person != null);
         addressBook.removeTagFromPerson(tag, person);
     }
-
-    //=========== Filtered Person List Accessors =============================================================
 
     /**
      * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of

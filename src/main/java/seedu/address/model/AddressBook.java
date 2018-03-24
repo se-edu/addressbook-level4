@@ -72,7 +72,6 @@ public class AddressBook implements ReadOnlyAddressBook {
 
         try {
             setPersons(syncedPersonList);
-            setTutees(syncedPersonList);
         } catch (DuplicatePersonException e) {
             throw new AssertionError("AddressBooks should not have duplicate persons");
         }
@@ -135,7 +134,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         personTags.forEach(tag -> correctTagReferences.add(masterTagObjects.get(tag)));
 
         if (person instanceof Tutee) {
-            return new Tutee( person.getName(), person.getPhone(), person.getEmail(), person.getAddress(),
+            return new Tutee(person.getName(), person.getPhone(), person.getEmail(), person.getAddress(),
                     ((Tutee) person).getSubject(), ((Tutee) person).getGrade(),
                     ((Tutee) person).getEducationLevel(),
                     ((Tutee) person).getSchool(), correctTagReferences);

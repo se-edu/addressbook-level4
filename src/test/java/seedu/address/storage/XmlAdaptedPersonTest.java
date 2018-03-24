@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 import static seedu.address.storage.XmlAdaptedPerson.MISSING_FIELD_MESSAGE_FORMAT;
 import static seedu.address.testutil.TypicalPersons.BENSON;
 import static seedu.address.testutil.TypicalTutees.ALICETUTEE;
-import static seedu.address.testutil.TypicalTutees.CARLTUTEE;
 
 import java.util.ArrayList;
 import java.util.List;
