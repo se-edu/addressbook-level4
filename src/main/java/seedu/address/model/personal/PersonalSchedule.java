@@ -11,10 +11,8 @@ public class PersonalSchedule extends Schedule {
 
     private static ArrayList<PersonalTask> personalTaskList = new ArrayList<>();
 
-    /**
-     * Creates a schedule for the person*
-     */
-    public PersonalSchedule() {
+    public static ArrayList<PersonalTask> getPersonalTaskList() {
+        return personalTaskList;
     }
 
     /**
@@ -26,5 +24,4 @@ public class PersonalSchedule extends Schedule {
         personalTaskList.add(newTask);
         taskList.add(newTask);
     }
-
 }
