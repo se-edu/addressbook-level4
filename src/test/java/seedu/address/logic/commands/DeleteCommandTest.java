@@ -106,11 +106,12 @@ public class DeleteCommandTest {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
         DeleteCommand deleteCommand = prepareCommand(outOfBoundIndex);
 
-        // execution failed -> deleteCommand not pushed into undoRedoStack
+        // execution failed -> address book not pushed into undoRedoStack
         assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
 
-        // no commands in undoRedoStack -> undoCommand and redoCommand fail
+        // single address book in undo stack -> undoCommand fail
         assertCommandFailure(undoCommand, model, UndoCommand.MESSAGE_FAILURE);
+        // no address book in redo stack -> redoCommand fail
         assertCommandFailure(redoCommand, model, RedoCommand.MESSAGE_FAILURE);
     }
 

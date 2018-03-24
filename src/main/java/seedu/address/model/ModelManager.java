@@ -129,8 +129,6 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     /**
-     * Called whenever there is a need to update the {@code undoRedoCareTaker} due to a change in the address book
-     * state not caused by {@code undo} or {@code redo}.
      * Pushes the current state into the {@code undoRedoStack} undo-stack for tracking.
      */
     private void updateCareTaker() {

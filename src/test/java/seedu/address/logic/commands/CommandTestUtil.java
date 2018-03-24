@@ -136,7 +136,7 @@ public class CommandTestUtil {
     }
 
     /**
-     * Returns an {@code UndoCommand} with the given {@code model} set.
+     * Returns an {@code UndoCommand} with the given {@code model}.
      */
     public static UndoCommand prepareUndoCommand(Model model) {
         UndoCommand undoCommand = new UndoCommand();
@@ -145,7 +145,7 @@ public class CommandTestUtil {
     }
 
     /**
-     * Returns a {@code RedoCommand} with the given {@code model} set.
+     * Returns a {@code RedoCommand} with the given {@code model}.
      */
     public static RedoCommand prepareRedoCommand(Model model) {
         RedoCommand redoCommand = new RedoCommand();

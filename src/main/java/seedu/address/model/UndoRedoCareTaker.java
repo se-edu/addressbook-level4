@@ -19,8 +19,7 @@ public class UndoRedoCareTaker {
     }
 
     /**
-     * Adds the {@code newState} to end of the list and clears any redundant address book states if there are changes
-     * to the address book.
+     * Adds the {@code newState} to end of the list and clears any redundant address book states.
      */
     public void addNewState(ReadOnlyAddressBook newState) {
         removeRedundantStates();
@@ -28,9 +27,6 @@ public class UndoRedoCareTaker {
         currentStatePointer++;
     }
 
-    /**
-     * Remove all address book states that are no longer needed.
-     */
     private void removeRedundantStates() {
         addressBookStateList.subList(currentStatePointer + 1, addressBookStateList.size()).clear();
     }
@@ -38,7 +34,10 @@ public class UndoRedoCareTaker {
     /**
      * Returns the previous address book state in the list.
      */
-    public ReadOnlyAddressBook undo() {
+    public ReadOnlyAddressBook undo() throws NoUndoableStateException {
+        if (!canUndo()) {
+            throw new NoUndoableStateException();
+        }
         currentStatePointer--;
         return addressBookStateList.get(currentStatePointer);
     }
@@ -46,7 +45,10 @@ public class UndoRedoCareTaker {
     /**
      * Returns the next address book state in the list.
      */
-    public ReadOnlyAddressBook redo() {
+    public ReadOnlyAddressBook redo() throws NoRedoableStateException  {
+        if (!canRedo()) {
+            throw new NoRedoableStateException();
+        }
         currentStatePointer++;
         return addressBookStateList.get(currentStatePointer);
     }
@@ -82,5 +84,23 @@ public class UndoRedoCareTaker {
         // state check
         return addressBookStateList.equals(otherUndoRedoCareTaker.addressBookStateList)
                 && currentStatePointer == otherUndoRedoCareTaker.currentStatePointer;
+    }
+
+    /**
+     * Signals a {@code RunTimeError} caused by trying to {@code undo} when there no more undoable address book states.
+     */
+    public static class NoUndoableStateException extends RuntimeException {
+        private NoUndoableStateException() {
+            super("Current state pointer at start of care taker list, unable to undo.");
+        }
+    }
+
+    /**
+     * Signals a {@code RunTimeError} caused by trying to {@code redo} when there no more redoable address book states.
+     */
+    public static class NoRedoableStateException extends RuntimeException {
+        private NoRedoableStateException() {
+            super("Current state pointer at end of care taker list, unnable to redo.");
+        }
     }
 }
