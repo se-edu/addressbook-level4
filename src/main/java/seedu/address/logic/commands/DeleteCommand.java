@@ -1,7 +1,5 @@
 package seedu.address.logic.commands;
 
-import static java.util.Objects.requireNonNull;
-
 import java.util.List;
 import java.util.Objects;
 
@@ -14,7 +12,7 @@ import seedu.address.model.person.exceptions.PersonNotFoundException;
 /**
  * Deletes a person identified using it's last displayed index from the address book.
  */
-public class DeleteCommand extends UndoableCommand {
+public class DeleteCommand extends Command {
 
     public static final String COMMAND_WORD = "delete";
 
@@ -33,10 +31,9 @@ public class DeleteCommand extends UndoableCommand {
         this.targetIndex = targetIndex;
     }
 
-
     @Override
-    public CommandResult executeUndoableCommand() {
-        requireNonNull(personToDelete);
+    public CommandResult execute() throws CommandException {
+        preprocessDeleteCommand();
         try {
             model.deletePerson(personToDelete);
         } catch (PersonNotFoundException pnfe) {
@@ -46,8 +43,10 @@ public class DeleteCommand extends UndoableCommand {
         return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, personToDelete));
     }
 
-    @Override
-    protected void preprocessUndoableCommand() throws CommandException {
+    /**
+     * This method is called before the execution of {@code DeleteCommand}.
+     */
+    private void preprocessDeleteCommand() throws CommandException {
         List<Person> lastShownList = model.getFilteredPersonList();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
@@ -55,6 +54,11 @@ public class DeleteCommand extends UndoableCommand {
         }
 
         personToDelete = lastShownList.get(targetIndex.getZeroBased());
+    }
+
+    @Override
+    public boolean isUndoable() {
+        return true;
     }
 
     @Override

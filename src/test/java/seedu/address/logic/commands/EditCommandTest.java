@@ -223,7 +223,7 @@ public class EditCommandTest {
     }
 
     @Test
-    public void equals() throws Exception {
+    public void equals() {
         final EditCommand standardCommand = prepareCommand(INDEX_FIRST_PERSON, DESC_AMY);
 
         // same values -> returns true
@@ -233,10 +233,6 @@ public class EditCommandTest {
 
         // same object -> returns true
         assertTrue(standardCommand.equals(standardCommand));
-
-        // one command preprocessed when previously equal -> returns false
-        commandWithSameValues.preprocessUndoableCommand();
-        assertFalse(standardCommand.equals(commandWithSameValues));
 
         // null -> returns false
         assertFalse(standardCommand.equals(null));
