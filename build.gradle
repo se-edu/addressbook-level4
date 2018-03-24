@@ -165,11 +165,13 @@ test {
 task headless << {
     println "Setting headless mode properties."
     test {
-        systemProperty 'java.awt.robot', 'true'
-        systemProperty 'testfx.robot', 'glass'
-        systemProperty 'testfx.headless', 'true'
-        systemProperty 'prism.order', 'sw'
-        systemProperty 'prism.text', 't2k'
+        systemProperties = [
+            'java.awt.robot': 'true',
+            'testfx.robot': 'glass',
+            'testfx.headless': 'true',
+            'prism.order': 'sw',
+            'prism.text': 't2k',
+        ]
     }
 }
 
