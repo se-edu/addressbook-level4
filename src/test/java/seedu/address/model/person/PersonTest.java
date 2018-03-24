@@ -6,6 +6,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BOB;
 
@@ -15,61 +16,65 @@ import seedu.address.testutil.PersonBuilder;
 
 public class PersonTest {
 
-    private Person person1 = ALICE;
-    private Person person2 = BOB;
-
     @Test
     public void isSamePerson() {
         // same object -> returns true
-        assertTrue(person1.isSamePerson(person1));
+        assertTrue(ALICE.isSamePerson(ALICE));
 
         // null -> returns false
-        assertFalse(person1.isSamePerson(null));
+        assertFalse(ALICE.isSamePerson(null));
 
-        // different person -> returns false
-        assertFalse(person1.isSamePerson(person2));
+        // different phone and email -> returns false
+        Person editedAlice = new PersonBuilder(ALICE).withPhone(VALID_PHONE_BOB).withEmail(VALID_EMAIL_BOB).build();
+        assertFalse(ALICE.isSamePerson(editedAlice));
 
-        // same attributes except for name -> returns false
-        Person person3 = new PersonBuilder(ALICE).withName(VALID_NAME_BOB).build();
-        assertFalse(person1.isSamePerson(person3));
+        // different name -> returns false
+        editedAlice = new PersonBuilder(ALICE).withName(VALID_NAME_BOB).build();
+        assertFalse(ALICE.isSamePerson(editedAlice));
 
-        // same attributes except for phone -> returns true
-        person3 = new PersonBuilder(ALICE).withPhone(VALID_PHONE_BOB).build();
-        assertTrue(person1.isSamePerson(person3));
+        // same name, same phone, different attributes -> returns true
+        editedAlice = new PersonBuilder(ALICE).withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB)
+                .withTags(VALID_TAG_HUSBAND).build();
+        assertTrue(ALICE.isSamePerson(editedAlice));
 
-        // same attributes except for email -> returns true
-        person3 = new PersonBuilder(ALICE).withEmail(VALID_EMAIL_BOB).build();
-        assertTrue(person1.isSamePerson(person3));
+        // same name, same email, different attributes -> returns true
+        editedAlice = new PersonBuilder(ALICE).withPhone(VALID_PHONE_BOB).withAddress(VALID_ADDRESS_BOB)
+                .withTags(VALID_TAG_HUSBAND).build();
+        assertTrue(ALICE.isSamePerson(editedAlice));
     }
 
     @Test
     public void equals() {
         // same object -> returns true
-        assertTrue(person1.equals(person1));
+        assertTrue(ALICE.equals(ALICE));
 
         // null -> returns false
-        assertFalse(person1.equals(null));
+        assertFalse(ALICE.equals(null));
 
         // different types -> returns false
-        assertFalse(person1.equals(5));
+        assertFalse(ALICE.equals(5));
 
         // different person -> returns false
-        assertFalse(person1.equals(person2));
+        assertFalse(ALICE.equals(BOB));
 
-        // same attributes except for name -> returns false
-        Person person3 = new PersonBuilder(ALICE).withName(VALID_NAME_BOB).build();
-        assertFalse(person1.equals(person3));
+        // different name -> returns false
+        Person editedAlice = new PersonBuilder(ALICE).withName(VALID_NAME_BOB).build();
+        assertFalse(ALICE.equals(editedAlice));
 
-        // same attributes except for phone -> returns false
-        person3 = new PersonBuilder(ALICE).withPhone(VALID_PHONE_BOB).build();
-        assertFalse(person1.equals(person3));
+        // different phone -> returns false
+        editedAlice = new PersonBuilder(ALICE).withPhone(VALID_PHONE_BOB).build();
+        assertFalse(ALICE.equals(editedAlice));
 
-        // same attributes except for email -> returns false
-        person3 = new PersonBuilder(ALICE).withEmail(VALID_EMAIL_BOB).build();
-        assertFalse(person1.equals(person3));
+        // different email -> returns false
+        editedAlice = new PersonBuilder(ALICE).withEmail(VALID_EMAIL_BOB).build();
+        assertFalse(ALICE.equals(editedAlice));
 
-        // same attributes except for address -> returns false
-        person3 = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).build();
-        assertFalse(person1.equals(person3));
+        // different address -> returns false
+        editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).build();
+        assertFalse(ALICE.equals(editedAlice));
+
+        // different tags -> returns true
+        editedAlice = new PersonBuilder(ALICE).withTags(VALID_TAG_HUSBAND).build();
+        assertTrue(ALICE.equals(editedAlice));
     }
 }
