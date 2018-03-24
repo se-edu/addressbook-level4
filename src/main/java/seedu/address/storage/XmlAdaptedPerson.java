@@ -55,7 +55,14 @@ public class XmlAdaptedPerson {
     public XmlAdaptedPerson() {}
 
     /**
-     * Constructs an {@code XmlAdaptedPerson} with the given person details.
+     * Constructs an {@code XmlAdaptedPerson} with given person details.
+     */
+    public XmlAdaptedPerson(String name, String phone, String email, String address, List<XmlAdaptedTag> tagged) {
+        this(name, phone, email, address, null, null, null, null, tagged);
+    }
+
+    /**
+     * Constructs an {@code XmlAdaptedPerson} with the given tutee details.
      */
     public XmlAdaptedPerson(String name, String phone, String email, String address, String subject, String grade,
                             String educationLevel, String school, List<XmlAdaptedTag> tagged) {
@@ -172,7 +179,7 @@ public class XmlAdaptedPerson {
                         String.format(MISSING_FIELD_MESSAGE_FORMAT, School.class.getSimpleName()));
             }
             if (!School.isValidSchool(this.school)) {
-                throw new IllegalValueException(Name.MESSAGE_NAME_CONSTRAINTS);
+                throw new IllegalValueException(School.MESSAGE_SCHOOL_CONSTRAINTS);
             }
             final School school = new School(this.school);
 
