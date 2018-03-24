@@ -1,9 +1,8 @@
 package seedu.address.logic;
 
-import java.util.Collections;
 import java.util.List;
 
-import seedu.address.logic.commands.UndoableCommand;
+import seedu.address.model.ReadOnlyAddressBook;
 
 /**
  * Contains helper methods for testing {@code UndoRedoStack}.
@@ -15,14 +14,13 @@ public class UndoRedoStackUtil {
      * will be the bottommost element in the respective stack in {@code undoRedoStack}, while the last element will
      * be the topmost element.
      */
-    public static UndoRedoStack prepareStack(List<UndoableCommand> undoElements,
-                                             List<UndoableCommand> redoElements) {
+    public static UndoRedoStack prepareStack(List<ReadOnlyAddressBook> undoElements,
+                                             List<ReadOnlyAddressBook> redoElements) {
         UndoRedoStack undoRedoStack = new UndoRedoStack();
         undoElements.forEach(undoRedoStack::push);
 
-        Collections.reverse(redoElements);
         redoElements.forEach(undoRedoStack::push);
-        redoElements.forEach(unused -> undoRedoStack.popUndo());
+        redoElements.forEach(undoRedoStack::popUndo);
 
         return undoRedoStack;
     }

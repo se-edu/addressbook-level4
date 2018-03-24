@@ -7,10 +7,15 @@ import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.RedoCommand;
+import seedu.address.logic.commands.UndoCommand;
+import seedu.address.logic.commands.UndoableCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
+import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.person.Person;
 
 /**
@@ -37,8 +42,13 @@ public class LogicManager extends ComponentManager implements Logic {
         try {
             Command command = addressBookParser.parseCommand(commandText);
             command.setData(model, history, undoRedoStack);
+            ReadOnlyAddressBook previousAddressBookState = new AddressBook(model.getAddressBook());
             CommandResult result = command.execute();
-            undoRedoStack.push(command);
+            if (command instanceof UndoableCommand) {
+                undoRedoStack.push(previousAddressBookState);
+            } else if (!(command instanceof RedoCommand) && !(command instanceof UndoCommand)) {
+                undoRedoStack.clearRedoStack();
+            }
             return result;
         } finally {
             history.add(commandText);
