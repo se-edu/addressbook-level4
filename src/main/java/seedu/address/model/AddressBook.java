@@ -18,7 +18,6 @@ import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.tutee.Tutee;
-import seedu.address.model.tutee.UniqueTuteeList;
 
 /**
  * Wraps all data at the address-book level
@@ -28,7 +27,6 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePersonList persons;
     private final UniqueTagList tags;
-    private final UniqueTuteeList tutees;
 
     /*
      * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
@@ -40,7 +38,6 @@ public class AddressBook implements ReadOnlyAddressBook {
     {
         persons = new UniquePersonList();
         tags = new UniqueTagList();
-        tutees = new UniqueTuteeList();
     }
 
     public AddressBook() {}
@@ -79,10 +76,6 @@ public class AddressBook implements ReadOnlyAddressBook {
         } catch (DuplicatePersonException e) {
             throw new AssertionError("AddressBooks should not have duplicate persons");
         }
-    }
-
-    private void setTutees(List<Person> persons) throws DuplicatePersonException {
-        this.tutees.setTutees(persons);
     }
 
     //// person-level operations
@@ -204,10 +197,6 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public ObservableList<Person> getPersonList() {
         return persons.asObservableList();
-    }
-
-    public ObservableList<Tutee> getTuteeList() {
-        return tutees.asObservableList();
     }
 
     @Override
