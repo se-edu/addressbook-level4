@@ -31,7 +31,7 @@ import seedu.address.model.tag.Tag;
 /**
  * Edits the details of an existing person in the address book.
  */
-public class EditCommand extends UndoableCommand {
+public class EditCommand extends Command {
 
     public static final String COMMAND_WORD = "edit";
 
@@ -71,7 +71,8 @@ public class EditCommand extends UndoableCommand {
     }
 
     @Override
-    public CommandResult executeUndoableCommand() throws CommandException {
+    public CommandResult execute() throws CommandException {
+        preprocessEditCommand();
         try {
             model.updatePerson(personToEdit, editedPerson);
         } catch (DuplicatePersonException dpe) {
@@ -83,8 +84,10 @@ public class EditCommand extends UndoableCommand {
         return new CommandResult(String.format(MESSAGE_EDIT_PERSON_SUCCESS, editedPerson));
     }
 
-    @Override
-    protected void preprocessUndoableCommand() throws CommandException {
+    /**
+     * This method is called before the execution of {@code EditCommand}.
+     */
+    private void preprocessEditCommand() throws CommandException {
         List<Person> lastShownList = model.getFilteredPersonList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
@@ -93,6 +96,11 @@ public class EditCommand extends UndoableCommand {
 
         personToEdit = lastShownList.get(index.getZeroBased());
         editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
+    }
+
+    @Override
+    public boolean isUndoable() {
+        return true;
     }
 
     /**

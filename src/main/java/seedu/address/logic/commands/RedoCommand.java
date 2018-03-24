@@ -32,6 +32,11 @@ public class RedoCommand extends Command {
     }
 
     @Override
+    public boolean isUndoable() {
+        return false;
+    }
+
+    @Override
     public void setData(Model model, CommandHistory commandHistory, UndoRedoStack undoRedoStack) {
         this.model = model;
         this.undoRedoStack = undoRedoStack;

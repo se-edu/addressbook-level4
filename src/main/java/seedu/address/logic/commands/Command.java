@@ -33,6 +33,11 @@ public abstract class Command {
     public abstract CommandResult execute() throws CommandException;
 
     /**
+     * Returns true if the {@code Command} is undoable.
+     */
+    public abstract boolean isUndoable();
+
+    /**
      * Provides any needed dependencies to the command.
      * Commands making use of any of these should override this method to gain
      * access to the dependencies.
