@@ -121,7 +121,7 @@ test {
      */
     if (System.env.'CI') {
         beforeTest { descriptor ->
-            logger.lifecycle('Running test: ' + descriptor)
+            logger.lifecycle('Running test: ' + descriptor.toString())
         }
     }
 
