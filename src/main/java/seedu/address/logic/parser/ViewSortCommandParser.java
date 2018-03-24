@@ -20,12 +20,14 @@ public class ViewSortCommandParser implements Parser<ViewSortCommand> {
     private static final String CATEGORY_GRADE = "grade";
     private static final String CATEGORY_SCHOOL = "school";
     private static final String CATEGORY_SUBJECT = "subject";
+    private static final String CATEGORY_EDUCATION_LEVEL = "level";
     private static final int EXPECTED_AMOUNT_OF_PARAMETERS = 2;
     private static final int INDEX_OF_FILTER_CATEGORY = 0;
     private static final int INDEX_OF_KEYWORDS = 1;
 
     private List<String> validCategories =
-            new ArrayList<>(Arrays.asList(CATEGORY_MONTH, CATEGORY_GRADE, CATEGORY_SCHOOL, CATEGORY_SUBJECT));
+            new ArrayList<>(Arrays.asList(
+                    CATEGORY_MONTH, CATEGORY_EDUCATION_LEVEL, CATEGORY_GRADE, CATEGORY_SCHOOL, CATEGORY_SUBJECT));
 
     /**
      * Parses the given {@code String} of arguments in the context of the ViewSortCommand
