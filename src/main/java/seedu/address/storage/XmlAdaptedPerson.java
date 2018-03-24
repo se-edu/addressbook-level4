@@ -15,7 +15,6 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
-import seedu.address.model.tutee.Tutee;
 
 /**
  * JAXB-friendly version of the Person.
@@ -32,14 +31,7 @@ public class XmlAdaptedPerson {
     private String email;
     @XmlElement(required = true)
     private String address;
-    @XmlElement(required = true)
-    private String subject;
-    @XmlElement(required = true)
-    private String grade;
-    @XmlElement(required = true)
-    private String educationLevel;
-    @XmlElement(required = true)
-    private String school;
+
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
 
@@ -62,21 +54,6 @@ public class XmlAdaptedPerson {
         }
     }
 
-    public XmlAdaptedPerson(String name, String phone, String email, String address, String subject, String grade,
-                            String educationLevel, String school, List<XmlAdaptedTag> tagged) {
-        this.name = name;
-        this.phone = phone;
-        this.email = email;
-        this.address = address;
-        this.subject = subject;
-        this.grade = grade;
-        this.educationLevel = educationLevel;
-        this.school = school;
-        if (tagged != null) {
-            this.tagged = new ArrayList<>(tagged);
-        }
-    }
-
     /**
      * Converts a given Person into this class for JAXB use.
      *
@@ -90,12 +67,6 @@ public class XmlAdaptedPerson {
         tagged = new ArrayList<>();
         for (Tag tag : source.getTags()) {
             tagged.add(new XmlAdaptedTag(tag));
-        }
-        if (source instanceof Tutee) {
-            subject = ((Tutee) source).getSubject().subject;
-            grade = ((Tutee) source).getGrade().grade;
-            educationLevel = ((Tutee) source).getEducationLevel().educationLevel;
-            school = ((Tutee) source).getSchool().school;
         }
     }
 
