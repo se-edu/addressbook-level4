@@ -5,6 +5,8 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import static seedu.address.logic.UndoRedoStackUtil.prepareStack;
+import static seedu.address.testutil.TypicalPersons.AMY;
+import static seedu.address.testutil.TypicalPersons.BOB;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -13,75 +15,27 @@ import java.util.List;
 
 import org.junit.Test;
 
-import seedu.address.logic.commands.Command;
-import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.RedoCommand;
-import seedu.address.logic.commands.UndoCommand;
-import seedu.address.logic.commands.UndoableCommand;
+import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.testutil.AddressBookBuilder;
 
 public class UndoRedoStackTest {
-    private final DummyCommand dummyCommandOne = new DummyCommand();
-    private final DummyUndoableCommand dummyUndoableCommandOne = new DummyUndoableCommand();
-    private final DummyUndoableCommand dummyUndoableCommandTwo = new DummyUndoableCommand();
+    private final ReadOnlyAddressBook addressBookWithAmy = new AddressBookBuilder().withPerson(AMY).build();
+    private final ReadOnlyAddressBook addressBookWithBob = new AddressBookBuilder().withPerson(BOB).build();
+    private final ReadOnlyAddressBook emptyAddressBook = new AddressBookBuilder().build();
 
     private UndoRedoStack undoRedoStack = new UndoRedoStack();
 
     @Test
-    public void push_nonUndoableCommand_redoStackClearedAndCommandNotAdded() {
-        // non-empty redoStack
-        undoRedoStack = prepareStack(Collections.singletonList(dummyUndoableCommandOne),
-                Arrays.asList(dummyUndoableCommandOne, dummyUndoableCommandTwo));
-        undoRedoStack.push(dummyCommandOne);
-        assertStackStatus(Collections.singletonList(dummyUndoableCommandOne), Collections.emptyList());
+    public void push() {
+        // empty undoRedoStack
+        undoRedoStack = prepareStack(Collections.singletonList(emptyAddressBook), Collections.emptyList());
+        undoRedoStack.push(addressBookWithAmy);
+        assertStackStatus(Arrays.asList(emptyAddressBook, addressBookWithAmy), Collections.emptyList());
 
-        // empty redoStack
-        undoRedoStack.push(dummyCommandOne);
-        assertStackStatus(Collections.singletonList(dummyUndoableCommandOne), Collections.emptyList());
-    }
-
-    @Test
-    public void push_undoableCommand_redoStackClearedAndCommandAdded() {
-        // non-empty redoStack
-        undoRedoStack = prepareStack(Collections.singletonList(dummyUndoableCommandOne),
-                Arrays.asList(dummyUndoableCommandOne, dummyUndoableCommandTwo));
-        undoRedoStack.push(dummyUndoableCommandOne);
-        assertStackStatus(Arrays.asList(dummyUndoableCommandOne, dummyUndoableCommandOne),
+        // non-empty undoRedoStack
+        undoRedoStack.push(addressBookWithBob);
+        assertStackStatus(Arrays.asList(emptyAddressBook, addressBookWithAmy, addressBookWithBob),
                 Collections.emptyList());
-
-        // empty redoStack
-        undoRedoStack.push(dummyUndoableCommandOne);
-        assertStackStatus(Arrays.asList(dummyUndoableCommandOne, dummyUndoableCommandOne, dummyUndoableCommandOne),
-                Collections.emptyList());
-    }
-
-    @Test
-    public void push_undoCommand_stackRemainsUnchanged() {
-        // non-empty redoStack
-        undoRedoStack = prepareStack(Collections.singletonList(dummyUndoableCommandOne),
-                Arrays.asList(dummyUndoableCommandOne, dummyUndoableCommandTwo));
-        undoRedoStack.push(new UndoCommand());
-        assertStackStatus(Collections.singletonList(dummyUndoableCommandOne),
-                Arrays.asList(dummyUndoableCommandOne, dummyUndoableCommandTwo));
-
-        // empty redoStack
-        undoRedoStack = prepareStack(Collections.singletonList(dummyUndoableCommandOne), Collections.emptyList());
-        undoRedoStack.push(new UndoCommand());
-        assertStackStatus(Collections.singletonList(dummyUndoableCommandOne), Collections.emptyList());
-    }
-
-    @Test
-    public void push_redoCommand_stackRemainsUnchanged() {
-        // non-empty redoStack
-        undoRedoStack = prepareStack(Collections.singletonList(dummyUndoableCommandOne),
-                Arrays.asList(dummyUndoableCommandOne, dummyUndoableCommandTwo));
-        undoRedoStack.push(new RedoCommand());
-        assertStackStatus(Collections.singletonList(dummyUndoableCommandOne),
-                Arrays.asList(dummyUndoableCommandOne, dummyUndoableCommandTwo));
-
-        // empty redoStack
-        undoRedoStack = prepareStack(Collections.singletonList(dummyUndoableCommandOne), Collections.emptyList());
-        undoRedoStack.push(new RedoCommand());
-        assertStackStatus(Collections.singletonList(dummyUndoableCommandOne), Collections.emptyList());
     }
 
     @Test
@@ -89,8 +43,12 @@ public class UndoRedoStackTest {
         // empty undo stack
         assertFalse(undoRedoStack.canUndo());
 
+        // undo stack with single address book
+        undoRedoStack = prepareStack(Collections.singletonList(addressBookWithAmy), Collections.emptyList());
+        assertFalse(undoRedoStack.canUndo());
+
         // non-empty undo stack
-        undoRedoStack = prepareStack(Collections.singletonList(dummyUndoableCommandOne), Collections.emptyList());
+        undoRedoStack = prepareStack(Arrays.asList(addressBookWithAmy, addressBookWithBob), Collections.emptyList());
         assertTrue(undoRedoStack.canUndo());
     }
 
@@ -100,54 +58,63 @@ public class UndoRedoStackTest {
         assertFalse(undoRedoStack.canRedo());
 
         // non-empty redo stack
-        undoRedoStack = prepareStack(Collections.emptyList(), Collections.singletonList(dummyUndoableCommandOne));
+        undoRedoStack = prepareStack(Collections.singletonList(emptyAddressBook),
+                Collections.singletonList(addressBookWithAmy));
         assertTrue(undoRedoStack.canRedo());
     }
 
     @Test
     public void popUndo() {
-        undoRedoStack = prepareStack(Arrays.asList(dummyUndoableCommandOne, dummyUndoableCommandTwo),
+        undoRedoStack = prepareStack(Arrays.asList(emptyAddressBook, addressBookWithAmy, addressBookWithBob),
                 Collections.emptyList());
 
-        // multiple commands in undoStack
-        assertPopUndoSuccess(dummyUndoableCommandTwo, Collections.singletonList(dummyUndoableCommandOne),
-                Collections.singletonList(dummyUndoableCommandTwo));
+        // multiple address books in undo stack
+        assertPopUndoSuccess(addressBookWithAmy, Arrays.asList(emptyAddressBook, addressBookWithAmy),
+                Collections.singletonList(addressBookWithBob));
+        assertPopUndoSuccess(emptyAddressBook, Collections.singletonList(emptyAddressBook),
+                Arrays.asList(addressBookWithBob, addressBookWithAmy));
 
-        // single command in undoStack
-        assertPopUndoSuccess(dummyUndoableCommandOne, Collections.emptyList(),
-                Arrays.asList(dummyUndoableCommandTwo, dummyUndoableCommandOne));
-
-        // no command in undoStack
-        assertPopUndoFailure(Collections.emptyList(),
-                Arrays.asList(dummyUndoableCommandTwo, dummyUndoableCommandOne));
+        // single address book in undo stack
+        assertPopUndoFailure(Collections.singletonList(emptyAddressBook),
+                Arrays.asList(addressBookWithBob, addressBookWithAmy));
     }
 
     @Test
     public void popRedo() {
-        undoRedoStack = prepareStack(Collections.emptyList(),
-                Arrays.asList(dummyUndoableCommandOne, dummyUndoableCommandTwo));
+        undoRedoStack = prepareStack(Collections.singletonList(emptyAddressBook),
+                Arrays.asList(addressBookWithAmy, addressBookWithBob));
 
-        // multiple commands in redoStack
-        assertPopRedoSuccess(dummyUndoableCommandTwo, Collections.singletonList(dummyUndoableCommandTwo),
-                Collections.singletonList(dummyUndoableCommandOne));
+        // multiple address books in redo stack
+        assertPopRedoSuccess(addressBookWithBob, Arrays.asList(emptyAddressBook, addressBookWithBob),
+                Collections.singletonList(addressBookWithAmy));
 
-        // single command in redoStack
-        assertPopRedoSuccess(dummyUndoableCommandOne,
-                Arrays.asList(dummyUndoableCommandTwo, dummyUndoableCommandOne), Collections.emptyList());
+        // single address book in redo stack
+        assertPopRedoSuccess(addressBookWithAmy,
+                Arrays.asList(emptyAddressBook, addressBookWithBob, addressBookWithAmy), Collections.emptyList());
 
-        // no command in redoStack
-        assertPopRedoFailure(Arrays.asList(dummyUndoableCommandTwo, dummyUndoableCommandOne),
+        // no address book in redoStack
+        assertPopRedoFailure(Arrays.asList(emptyAddressBook, addressBookWithBob, addressBookWithAmy),
                 Collections.emptyList());
     }
 
     @Test
+    public void clearRedoStack() {
+        undoRedoStack = prepareStack(Collections.singletonList(emptyAddressBook),
+                Arrays.asList(addressBookWithAmy, addressBookWithBob));
+        assertTrue(undoRedoStack.canRedo());
+
+        undoRedoStack.clearRedoStack();
+        assertFalse(undoRedoStack.canRedo());
+    }
+
+    @Test
     public void equals() {
-        undoRedoStack = prepareStack(Arrays.asList(dummyUndoableCommandTwo, dummyUndoableCommandOne),
-                Arrays.asList(dummyUndoableCommandOne, dummyUndoableCommandTwo));
+        undoRedoStack = prepareStack(Arrays.asList(addressBookWithAmy, addressBookWithBob),
+                Arrays.asList(addressBookWithBob, addressBookWithAmy));
 
         // same values -> returns true
-        UndoRedoStack copy = prepareStack(Arrays.asList(dummyUndoableCommandTwo, dummyUndoableCommandOne),
-                Arrays.asList(dummyUndoableCommandOne, dummyUndoableCommandTwo));
+        UndoRedoStack copy = prepareStack(Arrays.asList(addressBookWithAmy, addressBookWithBob),
+                Arrays.asList(addressBookWithBob, addressBookWithAmy));
         assertTrue(undoRedoStack.equals(copy));
 
         // same object -> returns true
@@ -160,61 +127,67 @@ public class UndoRedoStackTest {
         assertFalse(undoRedoStack.equals(1));
 
         // different undoStack -> returns false
-        UndoRedoStack differentUndoStack = prepareStack(Collections.singletonList(dummyUndoableCommandTwo),
-                Arrays.asList(dummyUndoableCommandOne, dummyUndoableCommandTwo));
+        UndoRedoStack differentUndoStack = prepareStack(Collections.singletonList(addressBookWithBob),
+                Arrays.asList(addressBookWithBob, addressBookWithAmy));
         assertFalse(undoRedoStack.equals(differentUndoStack));
 
         // different redoStack -> returns false
         UndoRedoStack differentRedoStack =
-                prepareStack(Arrays.asList(dummyUndoableCommandTwo, dummyUndoableCommandOne),
-                Collections.singletonList(dummyUndoableCommandTwo));
+                prepareStack(Arrays.asList(addressBookWithAmy, addressBookWithBob),
+                Collections.singletonList(addressBookWithBob));
         assertFalse(undoRedoStack.equals(differentRedoStack));
     }
 
     /**
-     * Asserts that the result of {@code undoRedoStack#popUndo()} equals {@code expectedCommand}.
+     * Asserts that the result of {@code undoRedoStack#popUndo(ReadOnlyAddressBook)} equals {@code expectedAddressBook}.
      * Also asserts that the content of the {@code undoRedoStack#undoStack} equals {@code undoElements},
      * and {@code undoRedoStack#redoStack} equals {@code redoElements}.
      */
-    private void assertPopUndoSuccess(UndoableCommand expectedCommand, List<UndoableCommand> expectedUndoElements,
-                                      List<UndoableCommand> expectedRedoElements) {
-        assertEquals(expectedCommand, undoRedoStack.popUndo());
+    private void assertPopUndoSuccess(ReadOnlyAddressBook expectedAddressBook,
+                                      List<ReadOnlyAddressBook> expectedUndoElements,
+                                      List<ReadOnlyAddressBook> expectedRedoElements) {
+        assertEquals(expectedAddressBook, undoRedoStack.popUndo());
         assertStackStatus(expectedUndoElements, expectedRedoElements);
     }
 
     /**
-     * Asserts that the result of {@code undoRedoStack#popRedo()} equals {@code expectedCommand}.
+     * Asserts that the result of {@code undoRedoStack#popRedo(ReadOnlyAddressBook)} equals {@code expectedAddressBook}.
      * Also asserts that the content of the {@code undoRedoStack#undoStack} equals {@code undoElements},
      * and {@code undoRedoStack#redoStack} equals {@code redoElements}.
      */
-    private void assertPopRedoSuccess(UndoableCommand expectedCommand, List<UndoableCommand> expectedUndoElements,
-                                      List<UndoableCommand> expectedRedoElements) {
-        assertEquals(expectedCommand, undoRedoStack.popRedo());
+    private void assertPopRedoSuccess(ReadOnlyAddressBook expectedAddressBook,
+                                      List<ReadOnlyAddressBook> expectedUndoElements,
+                                      List<ReadOnlyAddressBook> expectedRedoElements) {
+        assertEquals(expectedAddressBook, undoRedoStack.popRedo());
         assertStackStatus(expectedUndoElements, expectedRedoElements);
     }
 
     /**
-     * Asserts that the execution of {@code undoRedoStack#popUndo()} fails and {@code EmptyStackException} is thrown.
+     * Asserts that the execution of {@code undoRedoStack#popUndo(ReadOnlyAddressBook)} fails and
+     * {@code EmptyStackException} is thrown.
      * Also asserts that the content of the {@code undoRedoStack#undoStack} equals {@code undoElements},
      * and {@code undoRedoStack#redoStack} equals {@code redoElements}.
      */
-    private void assertPopUndoFailure(List<UndoableCommand> expectedUndoElements,
-                                      List<UndoableCommand> expectedRedoElements) {
+    private void assertPopUndoFailure(List<ReadOnlyAddressBook> expectedUndoElements,
+                                      List<ReadOnlyAddressBook> expectedRedoElements) {
         try {
             undoRedoStack.popUndo();
             fail("The expected EmptyStackException was not thrown.");
         } catch (EmptyStackException ese) {
+            // push back initial empty address book back into undo-stack
+            undoRedoStack.popRedo();
             assertStackStatus(expectedUndoElements, expectedRedoElements);
         }
     }
 
     /**
-     * Asserts that the execution of {@code undoRedoStack#popRedo()} fails and {@code EmptyStackException} is thrown.
+     * Asserts that the execution of {@code undoRedoStack#popRedo(ReadOnlyAddressBook)} fails and
+     * {@code EmptyStackException} is thrown.
      * Also asserts that the content of the {@code undoRedoStack#undoStack} equals {@code undoElements},
      * and {@code undoRedoStack#redoStack} equals {@code redoElements}.
      */
-    private void assertPopRedoFailure(List<UndoableCommand> expectedUndoElements,
-                                      List<UndoableCommand> expectedRedoElements) {
+    private void assertPopRedoFailure(List<ReadOnlyAddressBook> expectedUndoElements,
+                                      List<ReadOnlyAddressBook> expectedRedoElements) {
         try {
             undoRedoStack.popRedo();
             fail("The expected EmptyStackException was not thrown.");
@@ -227,21 +200,7 @@ public class UndoRedoStackTest {
      * Asserts that {@code undoRedoStack#undoStack} equals {@code undoElements}, and {@code undoRedoStack#redoStack}
      * equals {@code redoElements}.
      */
-    private void assertStackStatus(List<UndoableCommand> undoElements, List<UndoableCommand> redoElements) {
+    private void assertStackStatus(List<ReadOnlyAddressBook> undoElements, List<ReadOnlyAddressBook> redoElements) {
         assertEquals(prepareStack(undoElements, redoElements), undoRedoStack);
-    }
-
-    class DummyCommand extends Command {
-        @Override
-        public CommandResult execute() {
-            return new CommandResult("");
-        }
-    }
-
-    class DummyUndoableCommand extends UndoableCommand {
-        @Override
-        public CommandResult executeUndoableCommand() {
-            return new CommandResult("");
-        }
     }
 }
