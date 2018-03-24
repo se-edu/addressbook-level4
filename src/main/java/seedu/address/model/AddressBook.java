@@ -17,6 +17,7 @@ import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
+import seedu.address.model.tutee.Tutee;
 
 /**
  * Wraps all data at the address-book level
@@ -131,8 +132,17 @@ public class AddressBook implements ReadOnlyAddressBook {
         // Rebuild the list of person tags to point to the relevant tags in the master tag list.
         final Set<Tag> correctTagReferences = new HashSet<>();
         personTags.forEach(tag -> correctTagReferences.add(masterTagObjects.get(tag)));
-        return new Person(
-                person.getName(), person.getPhone(), person.getEmail(), person.getAddress(), correctTagReferences);
+
+        if (person instanceof Tutee) {
+            return new Tutee(
+                    person.getName(), person.getPhone(), person.getEmail(), person.getAddress(), (
+                            (Tutee) person).getSubject(), ((Tutee) person).getGrade(), (
+                                    (Tutee) person).getEducationLevel(), (
+                                    (Tutee) person).getSchool(), correctTagReferences);
+        } else {
+            return new Person(
+                    person.getName(), person.getPhone(), person.getEmail(), person.getAddress(), correctTagReferences);
+        }
     }
 
     /**
