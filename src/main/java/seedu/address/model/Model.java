@@ -51,7 +51,7 @@ public interface Model {
     boolean hasUndoableStates();
 
     /**
-     * Returns true if the model has previously undone address book states to restore.
+     * Returns true if the model has undone address book states to restore.
      */
     boolean hasRedoableStates();
 
@@ -61,7 +61,7 @@ public interface Model {
     void undo();
 
     /**
-     * Restores the model's address book to its previous undone state.
+     * Restores the model's address book to its latest undone state.
      */
     void redo();
 }

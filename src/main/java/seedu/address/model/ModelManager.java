@@ -25,7 +25,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final AddressBook addressBook;
     private final FilteredList<Person> filteredPersons;
-    private final AddressBookCareTaker addressBookCareTaker;
+    private final UndoRedoCareTaker undoRedoCareTaker;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -38,7 +38,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         this.addressBook = new AddressBook(addressBook);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
-        addressBookCareTaker = new AddressBookCareTaker(new AddressBook(getAddressBook()));
+        undoRedoCareTaker = new UndoRedoCareTaker(getAddressBook());
     }
 
     public ModelManager() {
@@ -49,6 +49,7 @@ public class ModelManager extends ComponentManager implements Model {
     public void resetData(ReadOnlyAddressBook newData) {
         addressBook.resetData(newData);
         indicateAddressBookChanged();
+        updateCareTaker();
     }
 
     @Override
@@ -59,13 +60,13 @@ public class ModelManager extends ComponentManager implements Model {
     /** Raises an event to indicate the model has changed */
     private void indicateAddressBookChanged() {
         raise(new AddressBookChangedEvent(addressBook));
-        addressBookCareTaker.addNewState(new AddressBook(addressBook));
     }
 
     @Override
     public synchronized void deletePerson(Person target) throws PersonNotFoundException {
         addressBook.removePerson(target);
         indicateAddressBookChanged();
+        updateCareTaker();
     }
 
     @Override
@@ -73,6 +74,7 @@ public class ModelManager extends ComponentManager implements Model {
         addressBook.addPerson(person);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         indicateAddressBookChanged();
+        updateCareTaker();
     }
 
     @Override
@@ -82,6 +84,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         addressBook.updatePerson(target, editedPerson);
         indicateAddressBookChanged();
+        updateCareTaker();
     }
 
     //=========== Filtered Person List Accessors =============================================================
@@ -105,22 +108,33 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public boolean hasUndoableStates() {
-        return addressBookCareTaker.canUndo();
+        return undoRedoCareTaker.canUndo();
     }
 
     @Override
     public boolean hasRedoableStates() {
-        return addressBookCareTaker.canRedo();
+        return undoRedoCareTaker.canRedo();
     }
 
     @Override
     public void undo() {
-        resetData(addressBookCareTaker.getUndoState());
+        addressBook.resetData(undoRedoCareTaker.undo());
+        indicateAddressBookChanged();
     }
 
     @Override
     public void redo() {
-        resetData(addressBookCareTaker.getRedoState());
+        addressBook.resetData(undoRedoCareTaker.redo());
+        indicateAddressBookChanged();
+    }
+
+    /**
+     * Called whenever there is a need to update the {@code undoRedoCareTaker} due to a change in the address book
+     * state not caused by {@code undo} or {@code redo}.
+     * Pushes the current state into the {@code undoRedoCareTaker} undo-stack for tracking.
+     */
+    private void updateCareTaker() {
+        undoRedoCareTaker.addNewState(addressBook);
     }
 
     @Override
