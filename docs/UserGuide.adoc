@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-= TuitionConnect - User Guide
-=======
 = TuitionConnect (TC) - User Guide
->>>>>>> 58ffc0c220cddca68ac2bfcc9faa4a6478744261
 :toc:
 :toc-title:
 :toc-placement: preamble
@@ -21,11 +17,7 @@ By: `Team MarvelousBook`      Since: `Feb 2018`      Licence: `MIT`
 
 == Introduction
 
-<<<<<<< HEAD
-TuitionConnect (AB4) is for those who *prefer to use a desktop app for managing contacts*. More importantly, TC is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, TC can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
-=======
 TuitionConnect (TC) is for those who *prefer to use a desktop app for managing contacts*. More importantly, TC is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, TC can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
->>>>>>> 58ffc0c220cddca68ac2bfcc9faa4a6478744261
 
 == Quick Start
 
@@ -288,16 +280,10 @@ Format: `exit`
 Address book data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
-=== Complete task `[coming in v1.2]`
-Marks a task as completed. If the task is tuition, fees will automatically be added to the tutee's fee balance.
-
-=== Edit task `[coming in v1.2]`
-Edits date, time, duration or description of an existing task.
-
-=== Delete task `[coming in v1.2]`
+=== Delete task `[coming in v1.3]`
 Deletes an existing task.
 
-=== View task `[coming in v1.2]`
+=== View task `[coming in v1.3]`
 Views a list of tasks.
 
 === View sort `[coming in v1.2]`
@@ -307,8 +293,14 @@ Views a sorted list of people or task based on a user specified sorting criterio
 Views the calender, which will display the month or week based on the user input.
 When viewing in week, timeline of each day of the week will be shown and task in a specific time slot will be shown.
 
-=== Update tutee fees `[coming in v1.3]`
+=== Update tutee fees `[coming in v1.4]`
 Updates the remaining balance of the fees of a specific tutee after he or she has paid.
+
+=== Complete task `[coming in v2.0]`
+Marks a task as completed. If the task is tuition, fees will automatically be added to the tutee's fee balance.
+
+=== Edit task `[coming in v2.0]`
+Edits date, time, duration or description of an existing task.
 
 // tag::dataencryption[]
 === Encrypting data files `[coming in v2.0]`
@@ -326,6 +318,8 @@ _{explain how the user can enable/disable data encryption}_
 Using Command Word: +
 * *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
 e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague` +
+* *Add Tutee* `addtutee n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS s/SUBJECT g/GRADE edu/EDUCATION_LEVEL sch/SCHOOL [t/TAG]...` +
+e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 s/Mathematics g/A edu/junior college sch/National Junior College t/priority` +
 * *Clear* : `clear` +
 * *Delete* : `delete INDEX` +
 e.g. `delete 3` +

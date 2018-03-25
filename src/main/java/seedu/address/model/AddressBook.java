@@ -134,10 +134,10 @@ public class AddressBook implements ReadOnlyAddressBook {
         personTags.forEach(tag -> correctTagReferences.add(masterTagObjects.get(tag)));
 
         if (person instanceof Tutee) {
-            return new Tutee(person.getName(), person.getPhone(), person.getEmail(), person.getAddress(),
-                    ((Tutee) person).getSubject(), ((Tutee) person).getGrade(),
-                    ((Tutee) person).getEducationLevel(),
-                    ((Tutee) person).getSchool(), correctTagReferences);
+            return new Tutee(person.getName(), person.getPhone(), person.getEmail(), person.getAddress(), (
+                    (Tutee) person).getSubject(), ((Tutee) person).getGrade(), (
+                    (Tutee) person).getEducationLevel(), (
+                    (Tutee) person).getSchool(), correctTagReferences);
         } else {
             return new Person(
                     person.getName(), person.getPhone(), person.getEmail(), person.getAddress(), correctTagReferences);
