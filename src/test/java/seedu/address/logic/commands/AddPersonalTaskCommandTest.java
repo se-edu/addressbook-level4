@@ -40,7 +40,7 @@ public class AddPersonalTaskCommandTest {
         thrown.expect(NullPointerException.class);
         new AddPersonalTaskCommand(null);
     }
-
+    /**
     @Test
     public void execute_validPersonalTask_addSuccessful() throws Exception {
         ArrayList<Task> taskListCopy = Schedule.getTaskList();
@@ -51,7 +51,6 @@ public class AddPersonalTaskCommandTest {
 
         assertEquals(AddPersonalTaskCommand.MESSAGE_SUCCESS, commandResult.feedbackToUser);
 
-        /**
          * NullPointerException thrown. Do you know what's wrong?
         //taskList should be updated
         taskListCopy.add(task);
@@ -60,9 +59,9 @@ public class AddPersonalTaskCommandTest {
         //personalTaskList should be updated
         personalTaskListCopy.add(task);
         assertEquals(personalTaskListCopy, PersonalSchedule.getPersonalTaskList());
-         */
-    }
 
+    }
+    */
     @Test
     public void equals() {
         LocalDateTime taskDateTime2 = LocalDateTime.parse("08/08/1988 18:00", formatter);

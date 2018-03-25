@@ -22,8 +22,8 @@ public class GradeContainsKeywordsPredicate implements Predicate<Person> {
             return false;
         } else {
             return keywords.stream()
-                    .anyMatch(keyword -> StringUtil
-                            .containsWordIgnoreCase( ((Tutee) tutee).getGrade().toString(), keyword)) ==true;
+                    .anyMatch(keyword -> StringUtil.containsWordIgnoreCase((
+                            (Tutee) tutee).getGrade().toString(), keyword)) == true;
         }
     }
 
