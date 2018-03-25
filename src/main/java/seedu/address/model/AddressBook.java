@@ -17,6 +17,7 @@ import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
+import seedu.address.model.tutee.Tutee;
 
 /**
  * Wraps all data at the address-book level
@@ -26,7 +27,6 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePersonList persons;
     private final UniqueTagList tags;
-    private final UniqueTuteeList tutees;
 
     /*
      * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
@@ -38,7 +38,6 @@ public class AddressBook implements ReadOnlyAddressBook {
     {
         persons = new UniquePersonList();
         tags = new UniqueTagList();
-        tutees = new UniqueTuteeList();
     }
 
     public AddressBook() {}
@@ -73,14 +72,9 @@ public class AddressBook implements ReadOnlyAddressBook {
 
         try {
             setPersons(syncedPersonList);
-            setTutees(syncedPersonList);
         } catch (DuplicatePersonException e) {
             throw new AssertionError("AddressBooks should not have duplicate persons");
         }
-    }
-
-    private void setTutees(List<Person> persons) throws DuplicatePersonException {
-        this.tutees.setTutees(persons);
     }
 
     //// person-level operations
@@ -138,8 +132,16 @@ public class AddressBook implements ReadOnlyAddressBook {
         // Rebuild the list of person tags to point to the relevant tags in the master tag list.
         final Set<Tag> correctTagReferences = new HashSet<>();
         personTags.forEach(tag -> correctTagReferences.add(masterTagObjects.get(tag)));
-        return new Person(
-                person.getName(), person.getPhone(), person.getEmail(), person.getAddress(), correctTagReferences);
+
+        if (person instanceof Tutee) {
+            return new Tutee(person.getName(), person.getPhone(), person.getEmail(), person.getAddress(),
+                    ((Tutee) person).getSubject(), ((Tutee) person).getGrade(),
+                    ((Tutee) person).getEducationLevel(),
+                    ((Tutee) person).getSchool(), correctTagReferences);
+        } else {
+            return new Person(
+                    person.getName(), person.getPhone(), person.getEmail(), person.getAddress(), correctTagReferences);
+        }
     }
 
     /**
@@ -194,10 +196,6 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public ObservableList<Person> getPersonList() {
         return persons.asObservableList();
-    }
-
-    public ObservableList<Tutee> getTuteeList() {
-        return tutees.asObservableList();
     }
 
     @Override

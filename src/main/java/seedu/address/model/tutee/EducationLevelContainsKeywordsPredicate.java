@@ -7,12 +7,12 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.model.person.Person;
 
 /**
- * Tests that a {@code Tutee}'s {@code School} matches any of the keywords given.
+ * Tests that a {@code Tutee}'s {@code Education Level} matches any of the keywords given.
  */
-public class SchoolContainsKeywordsPredicate implements Predicate<Person> {
+public class EducationLevelContainsKeywordsPredicate implements Predicate<Person> {
     private final List<String> keywords;
 
-    public SchoolContainsKeywordsPredicate(List<String> keywords) {
+    public EducationLevelContainsKeywordsPredicate(List<String> keywords) {
         this.keywords = keywords;
     }
 
@@ -23,14 +23,14 @@ public class SchoolContainsKeywordsPredicate implements Predicate<Person> {
         } else {
             return keywords.stream()
                     .anyMatch(keyword -> StringUtil.containsWordIgnoreCase((
-                            (Tutee) tutee).getSchool().toString(), keyword)) == true;
+                            (Tutee) tutee).getEducationLevel().toString(), keyword)) == true;
         }
     }
 
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof SchoolContainsKeywordsPredicate // instanceof handles nulls
-                && this.keywords.equals(((SchoolContainsKeywordsPredicate) other).keywords)); // state check
+                || (other instanceof EducationLevelContainsKeywordsPredicate // instanceof handles nulls
+                && this.keywords.equals(((EducationLevelContainsKeywordsPredicate) other).keywords)); // state check
     }
 }
