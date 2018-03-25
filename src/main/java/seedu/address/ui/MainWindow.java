@@ -38,6 +38,10 @@ public class MainWindow extends UiPart<Stage> {
     private PersonListPanel personListPanel;
     private Config config;
     private UserPrefs prefs;
+    private CalendarPanel calendarPanel;
+
+    @FXML
+    private StackPane calendarPlaceholder;
 
     @FXML
     private StackPane browserPlaceholder;
@@ -116,6 +120,9 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
+        calendarPanel = new CalendarPanel();
+        calendarPlaceholder.getChildren().add(calendarPanel.getRoot());
+
         browserPanel = new BrowserPanel();
         browserPlaceholder.getChildren().add(browserPanel.getRoot());
 
