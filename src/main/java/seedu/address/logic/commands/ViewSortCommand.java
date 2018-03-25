@@ -8,6 +8,13 @@ import seedu.address.model.tutee.EducationLevelContainsKeywordsPredicate;
 import seedu.address.model.tutee.GradeContainsKeywordsPredicate;
 import seedu.address.model.tutee.SchoolContainsKeywordsPredicate;
 import seedu.address.model.tutee.SubjectContainsKeywordsPredicate;
+import seedu.address.model.tutee.TuteeSortUtil;
+
+import static seedu.address.model.tutee.TuteeSortUtil.CATEGORY_EDUCATION_LEVEL;
+import static seedu.address.model.tutee.TuteeSortUtil.CATEGORY_GRADE;
+import static seedu.address.model.tutee.TuteeSortUtil.CATEGORY_MONTH;
+import static seedu.address.model.tutee.TuteeSortUtil.CATEGORY_SCHOOL;
+import static seedu.address.model.tutee.TuteeSortUtil.CATEGORY_SUBJECT;
 
 /**
  * Views a sorted person or task list that suits the specified category.
@@ -16,12 +23,6 @@ public class ViewSortCommand extends Command {
     public static final String COMMAND_WORD = "viewSort";
 
     public static final String MESSAGE_SUCCESS = "Sorted all persons";
-
-    private static final String CATEGORY_MONTH = "month";
-    private static final String CATEGORY_EDUCATION_LEVEL = "level";
-    private static final String CATEGORY_GRADE = "grade";
-    private static final String CATEGORY_SCHOOL = "school";
-    private static final String CATEGORY_SUBJECT = "subject";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": view a sorted person or task list that suits the specified category\n"

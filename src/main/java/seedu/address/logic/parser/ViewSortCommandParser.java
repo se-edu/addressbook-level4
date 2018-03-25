@@ -2,6 +2,11 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_FILTER_CATEGORY;
+import static seedu.address.model.tutee.TuteeSortUtil.CATEGORY_EDUCATION_LEVEL;
+import static seedu.address.model.tutee.TuteeSortUtil.CATEGORY_GRADE;
+import static seedu.address.model.tutee.TuteeSortUtil.CATEGORY_MONTH;
+import static seedu.address.model.tutee.TuteeSortUtil.CATEGORY_SCHOOL;
+import static seedu.address.model.tutee.TuteeSortUtil.CATEGORY_SUBJECT;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -16,11 +21,6 @@ import seedu.address.logic.parser.exceptions.ParseException;
  */
 public class ViewSortCommandParser implements Parser<ViewSortCommand> {
 
-    private static final String CATEGORY_MONTH = "month";
-    private static final String CATEGORY_GRADE = "grade";
-    private static final String CATEGORY_SCHOOL = "school";
-    private static final String CATEGORY_SUBJECT = "subject";
-    private static final String CATEGORY_EDUCATION_LEVEL = "level";
     private static final int EXPECTED_AMOUNT_OF_PARAMETERS = 2;
     private static final int INDEX_OF_FILTER_CATEGORY = 0;
     private static final int INDEX_OF_KEYWORDS = 1;
