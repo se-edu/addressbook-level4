@@ -5,14 +5,17 @@ import static org.junit.Assert.assertTrue;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.ResolverStyle;
 
 import org.junit.Test;
 
 import seedu.address.model.personal.PersonalTask;
 import seedu.address.model.tutee.TuitionTask;
 
+//@@author ChoChihTun
 public class ScheduleTest {
-    private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/uuuu HH:mm");
+    private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/uuuu HH:mm")
+            .withResolverStyle(ResolverStyle.STRICT);
 
     /**
      * Generates a list of existing tasks
