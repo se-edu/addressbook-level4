@@ -15,28 +15,34 @@ import java.util.List;
 
 import org.junit.Test;
 
-import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.testutil.AddressBookBuilder;
 
 public class UndoRedoStackTest {
     private final ReadOnlyAddressBook addressBookWithAmy = new AddressBookBuilder().withPerson(AMY).build();
     private final ReadOnlyAddressBook addressBookWithBob = new AddressBookBuilder().withPerson(BOB).build();
+    private final ReadOnlyAddressBook emptyAddressBook = new AddressBookBuilder().build();
 
     private UndoRedoStack undoRedoStack = new UndoRedoStack();
 
     @Test
-    public void push_addressBook_redoStackClearedAndAddressBookAdded() {
+    public void push_addressBookNotEqualTopOfUndoStack_redoStackClearedAndAddressBookAdded() {
+        // non-empty redoStack
+        undoRedoStack = prepareStack(Collections.singletonList(addressBookWithBob),
+                Arrays.asList(addressBookWithBob, addressBookWithAmy));
+        undoRedoStack.push(addressBookWithAmy);
+        assertStackStatus(Arrays.asList(addressBookWithBob, addressBookWithAmy),
+                Collections.emptyList());
+    }
+
+    @Test
+    public void push_addressBookEqualTopOfUndoStack_addressBookNotAdded() {
         // non-empty redoStack
         undoRedoStack = prepareStack(Collections.singletonList(addressBookWithBob),
                 Arrays.asList(addressBookWithBob, addressBookWithAmy));
         undoRedoStack.push(addressBookWithBob);
-        assertStackStatus(Arrays.asList(addressBookWithBob, addressBookWithBob), Collections.emptyList());
-
-        // empty redoStack
-        undoRedoStack.push(addressBookWithAmy);
-        assertStackStatus(Arrays.asList(addressBookWithBob, addressBookWithBob, addressBookWithAmy),
-                Collections.emptyList());
+        assertStackStatus(Collections.singletonList(addressBookWithBob),
+                Arrays.asList(addressBookWithBob, addressBookWithAmy));
     }
 
     @Test
@@ -65,16 +71,15 @@ public class UndoRedoStackTest {
                 Collections.emptyList());
 
         // multiple address books in undoStack
-        assertPopUndoSuccess(addressBookWithBob, Collections.singletonList(addressBookWithAmy),
+        assertPopUndoSuccess(addressBookWithAmy, Collections.singletonList(addressBookWithAmy),
                 Collections.singletonList(addressBookWithBob));
 
         // single address book in undoStack
-        assertPopUndoSuccess(addressBookWithAmy, Collections.emptyList(),
+        assertPopUndoSuccess(emptyAddressBook, Collections.emptyList(),
                 Arrays.asList(addressBookWithBob, addressBookWithAmy));
 
         // no address book in undoStack
-        assertPopUndoFailure(Collections.emptyList(),
-                Arrays.asList(addressBookWithBob, addressBookWithAmy));
+        assertPopUndoFailure(Collections.emptyList(), Arrays.asList(addressBookWithBob, addressBookWithAmy));
     }
 
     @Test
@@ -91,8 +96,7 @@ public class UndoRedoStackTest {
                 Arrays.asList(addressBookWithBob, addressBookWithAmy), Collections.emptyList());
 
         // no address book in redoStack
-        assertPopRedoFailure(Arrays.asList(addressBookWithBob, addressBookWithAmy),
-                Collections.emptyList());
+        assertPopRedoFailure(Arrays.asList(addressBookWithBob, addressBookWithAmy), Collections.emptyList());
     }
 
     @Test
@@ -134,7 +138,7 @@ public class UndoRedoStackTest {
     private void assertPopUndoSuccess(ReadOnlyAddressBook expectedAddressBook,
                                       List<ReadOnlyAddressBook> expectedUndoElements,
                                       List<ReadOnlyAddressBook> expectedRedoElements) {
-        assertEquals(expectedAddressBook, undoRedoStack.popUndo(expectedAddressBook));
+        assertEquals(expectedAddressBook, undoRedoStack.popUndo());
         assertStackStatus(expectedUndoElements, expectedRedoElements);
     }
 
@@ -146,7 +150,7 @@ public class UndoRedoStackTest {
     private void assertPopRedoSuccess(ReadOnlyAddressBook expectedAddressBook,
                                       List<ReadOnlyAddressBook> expectedUndoElements,
                                       List<ReadOnlyAddressBook> expectedRedoElements) {
-        assertEquals(expectedAddressBook, undoRedoStack.popRedo(expectedAddressBook));
+        assertEquals(expectedAddressBook, undoRedoStack.popRedo());
         assertStackStatus(expectedUndoElements, expectedRedoElements);
     }
 
@@ -159,9 +163,11 @@ public class UndoRedoStackTest {
     private void assertPopUndoFailure(List<ReadOnlyAddressBook> expectedUndoElements,
                                       List<ReadOnlyAddressBook> expectedRedoElements) {
         try {
-            undoRedoStack.popUndo(new AddressBook());
+            undoRedoStack.popUndo();
             fail("The expected EmptyStackException was not thrown.");
         } catch (EmptyStackException ese) {
+            // push back initial empty address book back into undo-stack
+            undoRedoStack.popRedo();
             assertStackStatus(expectedUndoElements, expectedRedoElements);
         }
     }
@@ -175,7 +181,7 @@ public class UndoRedoStackTest {
     private void assertPopRedoFailure(List<ReadOnlyAddressBook> expectedUndoElements,
                                       List<ReadOnlyAddressBook> expectedRedoElements) {
         try {
-            undoRedoStack.popRedo(new AddressBook());
+            undoRedoStack.popRedo();
             fail("The expected EmptyStackException was not thrown.");
         } catch (EmptyStackException ese) {
             assertStackStatus(expectedUndoElements, expectedRedoElements);

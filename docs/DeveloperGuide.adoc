@@ -171,9 +171,6 @@ The `UI` component,
 .Structure of the Logic Component
 image::LogicClassDiagram.png[width="800"]
 
-.Structure of Commands in the Logic Component. This diagram shows finer details concerning `XYZCommand` and `Command` in <<fig-LogicClassDiagram>>
-image::LogicCommandClassDiagram.png[width="800"]
-
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
@@ -228,11 +225,11 @@ This section describes some noteworthy details on how certain features are imple
 === Undo/Redo feature
 ==== Current Implementation
 
-The undo/redo mechanism is facilitated by an `UndoRedoStack`, which resides inside `LogicManager`. It supports undoing and redoing of commands that modifies the state of the address book (e.g. `add`, `edit`). Such commands will return `true` for `Command#isUndoable()`.
+The undo/redo mechanism is facilitated by an `UndoRedoStack`, which resides inside `ModelManager`. It supports undoing and redoing of commands that modifies the state of the address book (e.g. `add`, `edit`).
 
-Suppose that the user has just launched the application. The `UndoRedoStack` will be empty at the beginning.
+Suppose that the user has just launched the application. The `UndoRedoStack` will be initialised with the initial address book state at the beginning.
 
-The user executes a new `Command` that is undoable, `delete 5`, to delete the 5th person in the address book. The current state of the address book is saved before the `delete 5` command executes, which is then pushed onto the `undoStack`.
+The user executes a new `Command` that modifies the address book, `delete 5`, to delete the 5th person in the address book. The current state of the address book after the `delete 5` command executes is saved and pushed onto the `undoStack`.
 
 image::UndoRedoStartingStackDiagram.png[width="800"]
 
@@ -245,12 +242,12 @@ If a command fails its execution, the address book state will not be pushed to t
 
 The user now decides that adding the person was a mistake, and decides to undo that action using `undo`.
 
-We will save the current address book state and push it into the `redoStack`. We will also pop and restore the address book to the state before the `add` command executed.
+We will pop the top address book state and push it into the `redoStack`, and then restore the address book to the new top of the `undoStack`.
 
 image::UndoRedoExecuteUndoStackDiagram.png[width="800"]
 
 [NOTE]
-If the `undoStack` is empty, then there are no other commands left to be undone, and an `Exception` will be thrown when popping the `undoStack`.
+If the `undoStack` is of size 1, containing only the initial address book state, then there are no other commands left to be undone, and an `Exception` will be thrown when popping the `undoStack`.
 
 The following sequence diagram shows how the undo operation works:
 
@@ -265,7 +262,7 @@ The user now decides to execute a new command, `clear`. As before, the address b
 
 image::UndoRedoNewCommand2StackDiagram.png[width="800"]
 
-Commands that are not undoable are not added into the `undoStack`. For example, `list`, which returns `false` for `Command#isUndoable()`, will not be added after execution:
+Commands that do not modify the address book will not save the address book state into the `undoStack`. For example, `list` will not add the address book state after execution:
 
 image::UndoRedoNewCommand3StackDiagram.png[width="800"]
 
@@ -623,12 +620,12 @@ Let's start by teaching the application how to parse a `remark` command. We will
 
 **Main:**
 
-. Add a `RemarkCommand` that extends link:{repoURL}/src/main/java/seedu/address/logic/commands/UndoableCommand.java[`UndoableCommand`]. Upon execution, it should just throw an `Exception`.
+. Add a `RemarkCommand` that extends link:{repoURL}/src/main/java/seedu/address/logic/commands/Command.java[`Command`]. Upon execution, it should just throw an `Exception`.
 . Modify link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] to accept a `RemarkCommand`.
 
 **Tests:**
 
-. Add `RemarkCommandTest` that tests that `executeUndoableCommand()` throws an Exception.
+. Add `RemarkCommandTest` that tests that `execute()` throws an Exception.
 . Add new test method to link:{repoURL}/src/test/java/seedu/address/logic/parser/AddressBookParserTest.java[`AddressBookParserTest`], which tests that typing "remark" returns an instance of `RemarkCommand`.
 
 ===== [Step 2] Logic: Teach the app to accept 'remark' arguments

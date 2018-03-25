@@ -98,11 +98,6 @@ public class EditCommand extends Command {
         editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
     }
 
-    @Override
-    public boolean isUndoable() {
-        return true;
-    }
-
     /**
      * Creates and returns a {@code Person} with the details of {@code personToEdit}
      * edited with {@code editPersonDescriptor}.

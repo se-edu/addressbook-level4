@@ -2,7 +2,6 @@ package seedu.address.logic.commands;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.logic.CommandHistory;
-import seedu.address.logic.UndoRedoStack;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
@@ -12,7 +11,6 @@ import seedu.address.model.Model;
 public abstract class Command {
     protected Model model;
     protected CommandHistory history;
-    protected UndoRedoStack undoRedoStack;
 
     /**
      * Constructs a feedback message to summarise an operation that displayed a listing of persons.
@@ -33,16 +31,11 @@ public abstract class Command {
     public abstract CommandResult execute() throws CommandException;
 
     /**
-     * Returns true if the {@code Command} is undoable.
-     */
-    public abstract boolean isUndoable();
-
-    /**
      * Provides any needed dependencies to the command.
      * Commands making use of any of these should override this method to gain
      * access to the dependencies.
      */
-    public void setData(Model model, CommandHistory history, UndoRedoStack undoRedoStack) {
+    public void setData(Model model, CommandHistory history) {
         this.model = model;
     }
 }

@@ -2,6 +2,7 @@ package seedu.address.logic;
 
 import java.util.Stack;
 
+import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 
 /**
@@ -12,37 +13,47 @@ public class UndoRedoStack {
     private Stack<ReadOnlyAddressBook> undoStack;
     private Stack<ReadOnlyAddressBook> redoStack;
 
-    public UndoRedoStack() {
+    public UndoRedoStack(ReadOnlyAddressBook initialState) {
         undoStack = new Stack<>();
         redoStack = new Stack<>();
+        undoStack.push(new AddressBook(initialState));
+    }
+
+    public UndoRedoStack() {
+        this(new AddressBook());
     }
 
     /**
-     * Pushes the {@code previousAddressBookState} onto the undo-stack, and clears the redo-stack.
+     * Pushes the {@code currentAddressBookState} onto the undo-stack, and clears the redo-stack if the latest top
+     * address book state in undoStack is different from {@code currentAddressBookState}.
      */
-    public void push(ReadOnlyAddressBook previousAddressBookState) {
-        clearRedoStack();
-        undoStack.push(previousAddressBookState);
+    public void push(ReadOnlyAddressBook currentAddressBookState) {
+        if (undoStack.peek().equals(currentAddressBookState)) {
+            return;
+        }
+
+        redoStack.clear();
+        undoStack.push(new AddressBook(currentAddressBookState));
     }
 
     /**
-     * Pops and returns the next {@code toRestore} address book from the undo-stack, and pushes the {@code toSave}
-     * address book into the redo-stack.
+     * Pops the next {@code toPop} address book from the undo-stack and pushes the it into the redo-stack, and returns
+     * the new top of the undo-stack.
      */
-    public ReadOnlyAddressBook popUndo(ReadOnlyAddressBook toSave) {
-        ReadOnlyAddressBook toRestore = undoStack.pop();
-        redoStack.push(toSave);
-        return toRestore;
+    public ReadOnlyAddressBook popUndo() {
+        ReadOnlyAddressBook toPop = undoStack.pop();
+        redoStack.push(toPop);
+        return undoStack.peek();
     }
 
     /**
-     * Pops and returns the next {@code toRestore} address book from the redo-stack, and pushes the {@code toSave}
+     * Pops and returns the next {@code toPop} address book from the redo-stack, and pushes the {@code toPop}
      * address book into the undo-stack.
      */
-    public ReadOnlyAddressBook popRedo(ReadOnlyAddressBook toSave) {
-        ReadOnlyAddressBook toRestore = redoStack.pop();
-        undoStack.push(toSave);
-        return toRestore;
+    public ReadOnlyAddressBook popRedo() {
+        ReadOnlyAddressBook toPop = redoStack.pop();
+        undoStack.push(toPop);
+        return toPop;
     }
 
     /**
@@ -53,14 +64,14 @@ public class UndoRedoStack {
     }
 
     /**
-     * Returns true if there are more address book states to be restored.
+     * Returns true if there are more previous address book states to be restored.
      */
     public boolean canUndo() {
-        return !undoStack.empty();
+        return undoStack.size() > 1;
     }
 
     /**
-     * Returns true if there are more address book states to be restored.
+     * Returns true if there are more previously undone address book states to be restored.
      */
     public boolean canRedo() {
         return !redoStack.empty();

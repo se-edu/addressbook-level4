@@ -1,13 +1,9 @@
 package seedu.address.logic.commands;
 
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+import static java.util.Objects.requireNonNull;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
-import seedu.address.logic.CommandHistory;
-import seedu.address.logic.UndoRedoStack;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.AddressBook;
-import seedu.address.model.Model;
 
 /**
  * Undo the previous {@code UndoableCommand}.
@@ -20,25 +16,14 @@ public class UndoCommand extends Command {
 
     @Override
     public CommandResult execute() throws CommandException {
-        requireAllNonNull(model, undoRedoStack);
+        requireNonNull(model);
 
-        if (!undoRedoStack.canUndo()) {
+        if (!model.hasUndoableStates()) {
             throw new CommandException(MESSAGE_FAILURE);
         }
 
-        model.resetData(undoRedoStack.popUndo(new AddressBook(model.getAddressBook())));
+        model.restorePreviousState();
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         return new CommandResult(MESSAGE_SUCCESS);
-    }
-
-    @Override
-    public boolean isUndoable() {
-        return false;
-    }
-
-    @Override
-    public void setData(Model model, CommandHistory commandHistory, UndoRedoStack undoRedoStack) {
-        this.model = model;
-        this.undoRedoStack = undoRedoStack;
     }
 }

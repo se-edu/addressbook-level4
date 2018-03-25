@@ -1,5 +1,6 @@
 package seedu.address.logic;
 
+import java.util.Collections;
 import java.util.List;
 
 import seedu.address.model.ReadOnlyAddressBook;
@@ -19,8 +20,9 @@ public class UndoRedoStackUtil {
         UndoRedoStack undoRedoStack = new UndoRedoStack();
         undoElements.forEach(undoRedoStack::push);
 
+        Collections.reverse(redoElements);
         redoElements.forEach(undoRedoStack::push);
-        redoElements.forEach(undoRedoStack::popUndo);
+        redoElements.forEach(unused -> undoRedoStack.popUndo());
 
         return undoRedoStack;
     }
