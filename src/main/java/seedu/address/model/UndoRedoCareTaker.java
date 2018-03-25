@@ -5,7 +5,7 @@ import java.util.List;
 
 /**
  * Maintains a list of all address book states the app previously was in.
- * This class is based on the `CareTaker`class in the `Memento` design pattern.
+ * This class is based on the `Care Taker`class in the `Memento` design pattern.
  * @see <a href="https://www.tutorialspoint.com/design_pattern/memento_pattern.htm">Memento design pattern tutorial</a>
  */
 public class UndoRedoCareTaker {
@@ -31,7 +31,7 @@ public class UndoRedoCareTaker {
     /**
      * Remove all address book states that are no longer needed.
      */
-    public void removeRedundantStates() {
+    private void removeRedundantStates() {
         addressBookStateList.subList(currentStatePointer + 1, addressBookStateList.size()).clear();
     }
 

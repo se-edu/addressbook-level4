@@ -42,17 +42,6 @@ public class UndoRedoCareTakerTest {
     }
 
     @Test
-    public void removeRedunantStates() {
-        // multiple address book states
-        undoRedoCareTaker = prepareCareTakerList(Arrays.asList(addressBookWithAmy, addressBookWithBob));
-
-        // current pointer to left by 1, last address book state removed
-        shiftCurrentStatePointerLeftWards(undoRedoCareTaker, 1);
-        undoRedoCareTaker.removeRedundantStates();
-        assertCareTakerStatus(Collections.singletonList(addressBookWithAmy));
-    }
-
-    @Test
     public void canUndo() {
         // initial care taker list
         assertFalse(undoRedoCareTaker.canUndo());

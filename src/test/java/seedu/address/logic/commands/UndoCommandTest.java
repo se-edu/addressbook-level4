@@ -3,10 +3,8 @@ package seedu.address.logic.commands;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.deleteFirstPerson;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
-import org.junit.Before;
 import org.junit.Test;
 
 import seedu.address.logic.CommandHistory;
@@ -18,21 +16,13 @@ public class UndoCommandTest {
     private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();
 
     private final Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-    private final DeleteCommand deleteCommandOne = new DeleteCommand(INDEX_FIRST_PERSON);
-    private final DeleteCommand deleteCommandTwo = new DeleteCommand(INDEX_FIRST_PERSON);
-
-    @Before
-    public void setUp() {
-        deleteCommandOne.setData(model, EMPTY_COMMAND_HISTORY);
-        deleteCommandTwo.setData(model, EMPTY_COMMAND_HISTORY);
-    }
 
     @Test
-    public void execute() throws Exception {
+    public void execute() {
         UndoCommand undoCommand = new UndoCommand();
         undoCommand.setData(model, EMPTY_COMMAND_HISTORY);
-        deleteCommandOne.execute();
-        deleteCommandTwo.execute();
+        deleteFirstPerson(model);
+        deleteFirstPerson(model);
 
         // multiple address books in undoStack
         Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
