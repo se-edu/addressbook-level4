@@ -1,7 +1,6 @@
 package seedu.address.logic.commands;
 
 import java.util.List;
-import java.util.Objects;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
@@ -25,15 +24,20 @@ public class DeleteCommand extends Command {
 
     private final Index targetIndex;
 
-    private Person personToDelete;
-
     public DeleteCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
     }
 
     @Override
     public CommandResult execute() throws CommandException {
-        preprocessDeleteCommand();
+        List<Person> lastShownList = model.getFilteredPersonList();
+
+        if (targetIndex.getZeroBased() >= lastShownList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        }
+
+        Person personToDelete = lastShownList.get(targetIndex.getZeroBased());
+
         try {
             model.deletePerson(personToDelete);
         } catch (PersonNotFoundException pnfe) {
@@ -43,24 +47,10 @@ public class DeleteCommand extends Command {
         return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, personToDelete));
     }
 
-    /**
-     * This method is called before the execution of {@code DeleteCommand}.
-     */
-    private void preprocessDeleteCommand() throws CommandException {
-        List<Person> lastShownList = model.getFilteredPersonList();
-
-        if (targetIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
-        }
-
-        personToDelete = lastShownList.get(targetIndex.getZeroBased());
-    }
-
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof DeleteCommand // instanceof handles nulls
-                && this.targetIndex.equals(((DeleteCommand) other).targetIndex) // state check
-                && Objects.equals(this.personToDelete, ((DeleteCommand) other).personToDelete));
+                && this.targetIndex.equals(((DeleteCommand) other).targetIndex)); // state check
     }
 }

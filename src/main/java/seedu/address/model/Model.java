@@ -58,10 +58,10 @@ public interface Model {
     /**
      * Restores the model's address book to its previous state.
      */
-    void restorePreviousState();
+    void undo();
 
     /**
      * Restores the model's address book to its previous undone state.
      */
-    void restorePreviousUndoneState();
+    void redo();
 }

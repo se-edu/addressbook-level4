@@ -22,7 +22,7 @@ public class RedoCommand extends Command {
             throw new CommandException(MESSAGE_FAILURE);
         }
 
-        model.restorePreviousUndoneState();
+        model.redo();
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         return new CommandResult(MESSAGE_SUCCESS);
     }

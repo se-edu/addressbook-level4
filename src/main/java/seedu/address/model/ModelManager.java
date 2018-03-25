@@ -12,7 +12,6 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
-import seedu.address.logic.UndoRedoStack;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
@@ -26,7 +25,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final AddressBook addressBook;
     private final FilteredList<Person> filteredPersons;
-    private final UndoRedoStack undoRedoStack;
+    private final AddressBookCareTaker addressBookCareTaker;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -39,7 +38,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         this.addressBook = new AddressBook(addressBook);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
-        undoRedoStack = new UndoRedoStack(getAddressBook());
+        addressBookCareTaker = new AddressBookCareTaker(new AddressBook(getAddressBook()));
     }
 
     public ModelManager() {
@@ -60,7 +59,7 @@ public class ModelManager extends ComponentManager implements Model {
     /** Raises an event to indicate the model has changed */
     private void indicateAddressBookChanged() {
         raise(new AddressBookChangedEvent(addressBook));
-        undoRedoStack.push(getAddressBook());
+        addressBookCareTaker.addNewState(new AddressBook(addressBook));
     }
 
     @Override
@@ -106,22 +105,22 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public boolean hasUndoableStates() {
-        return undoRedoStack.canUndo();
+        return addressBookCareTaker.canUndo();
     }
 
     @Override
     public boolean hasRedoableStates() {
-        return undoRedoStack.canRedo();
+        return addressBookCareTaker.canRedo();
     }
 
     @Override
-    public void restorePreviousState() {
-        resetData(undoRedoStack.popUndo());
+    public void undo() {
+        resetData(addressBookCareTaker.getUndoState());
     }
 
     @Override
-    public void restorePreviousUndoneState() {
-        resetData(undoRedoStack.popRedo());
+    public void redo() {
+        resetData(addressBookCareTaker.getRedoState());
     }
 
     @Override

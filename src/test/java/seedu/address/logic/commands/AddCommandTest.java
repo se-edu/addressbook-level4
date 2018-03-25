@@ -146,12 +146,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public void restorePreviousState() {
+        public void undo() {
             fail("This method should not be called.");
         }
 
         @Override
-        public void restorePreviousUndoneState() {
+        public void redo() {
             fail("This method should not be called.");
         }
     }
