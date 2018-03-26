@@ -11,7 +11,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.commands.ChangeCommand;
-import seedu.address.logic.parser.exceptions.SameViewPageException;
+import seedu.address.logic.parser.exceptions.SameTimeUnitException;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -272,20 +272,20 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String viewPage} into an {@code String} and returns it.
+     * Parses a {@code String timeUnit} into an {@code String} and returns it.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws IllegalValueException if the given {@code viewPage} is invalid.
+     * @throws IllegalValueException if the given {@code timeUnit} is invalid.
      */
-    public static String parseViewPage(String viewPage) throws IllegalValueException, SameViewPageException {
-        requireNonNull(viewPage);
-        String trimmedViewPage = viewPage.trim();
-        if (!ChangeCommandParser.isValidViewPage(trimmedViewPage)) {
+    public static String parseTimeUnit(String timeUnit) throws IllegalValueException, SameTimeUnitException {
+        requireNonNull(timeUnit);
+        String trimmedTimeUnit = timeUnit.trim();
+        if (!ChangeCommandParser.isValidTimeUnit(trimmedTimeUnit)) {
             throw new IllegalValueException(ChangeCommand.MESSAGE_CONSTRAINT);
         }
-        if (ChangeCommandParser.isViewPageClash(trimmedViewPage)) {
-            throw new SameViewPageException(ChangeCommand.MESSAGE_SAME_VIEW);
+        if (ChangeCommandParser.isTimeUnitClash(trimmedTimeUnit)) {
+            throw new SameTimeUnitException(ChangeCommand.MESSAGE_SAME_VIEW);
         }
-        return trimmedViewPage;
+        return trimmedTimeUnit;
     }
 }

@@ -16,7 +16,7 @@ public class CalendarPanel extends UiPart<Region> {
 
     private static final String FXML = "CalendarPanel.fxml";
     private static final char DAY = 'd';
-    private  static final char WEEK = 'w';
+    private static final char WEEK = 'w';
     private static final char MONTH = 'm';
     private static final char YEAR = 'y';
 
@@ -44,10 +44,10 @@ public class CalendarPanel extends UiPart<Region> {
 
     /**
      * Changes the view page of the calendar
-     * @param viewPage the view page to be changed into
+     * @param timeUnit the view page time unit to be changed into
      */
-    public static void changeViewPage(char viewPage) {
-        switch(viewPage) {
+    public static void changeViewPage(char timeUnit) {
+        switch(timeUnit) {
         case DAY:
             calendarView.showDayPage();
             return;
