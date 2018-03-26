@@ -15,6 +15,10 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.tutee.EducationLevel;
+import seedu.address.model.tutee.Grade;
+import seedu.address.model.tutee.School;
+import seedu.address.model.tutee.Subject;
 import seedu.address.model.tutee.Tutee;
 
 /**
@@ -40,6 +44,7 @@ public class XmlAdaptedPerson {
     private String educationLevel;
     @XmlElement(required = true)
     private String school;
+
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
 
@@ -50,18 +55,15 @@ public class XmlAdaptedPerson {
     public XmlAdaptedPerson() {}
 
     /**
-     * Constructs an {@code XmlAdaptedPerson} with the given person details.
+     * Constructs an {@code XmlAdaptedPerson} with given person details.
      */
     public XmlAdaptedPerson(String name, String phone, String email, String address, List<XmlAdaptedTag> tagged) {
-        this.name = name;
-        this.phone = phone;
-        this.email = email;
-        this.address = address;
-        if (tagged != null) {
-            this.tagged = new ArrayList<>(tagged);
-        }
+        this(name, phone, email, address, null, null, null, null, tagged);
     }
 
+    /**
+     * Constructs an {@code XmlAdaptedPerson} with the given tutee details.
+     */
     public XmlAdaptedPerson(String name, String phone, String email, String address, String subject, String grade,
                             String educationLevel, String school, List<XmlAdaptedTag> tagged) {
         this.name = name;
@@ -143,7 +145,52 @@ public class XmlAdaptedPerson {
         final Address address = new Address(this.address);
 
         final Set<Tag> tags = new HashSet<>(personTags);
-        return new Person(name, phone, email, address, tags);
+
+        if (isTutee(personTags)) {
+            if (this.subject == null) {
+                throw new IllegalValueException(
+                        String.format(MISSING_FIELD_MESSAGE_FORMAT, Subject.class.getSimpleName()));
+            }
+            if (!Subject.isValidSubject(this.subject)) {
+                throw new IllegalValueException(Subject.MESSAGE_SUBJECT_CONSTRAINTS);
+            }
+            final Subject subject = new Subject(this.subject);
+
+            if (this.grade == null) {
+                throw new IllegalValueException(
+                        String.format(MISSING_FIELD_MESSAGE_FORMAT, Grade.class.getSimpleName()));
+            }
+            if (!Grade.isValidGrade(this.grade)) {
+                throw new IllegalValueException(Grade.MESSAGE_GRADE_CONSTRAINTS);
+            }
+            final Grade grade = new Grade(this.grade);
+
+            if (this.educationLevel == null) {
+                throw new IllegalValueException(
+                        String.format(MISSING_FIELD_MESSAGE_FORMAT, EducationLevel.class.getSimpleName()));
+            }
+            if (!EducationLevel.isValidEducationLevel(this.educationLevel)) {
+                throw new IllegalValueException(EducationLevel.MESSAGE_EDUCATION_LEVEL_CONSTRAINTS);
+            }
+            final EducationLevel educationLevel = new EducationLevel(this.educationLevel);
+
+            if (this.school == null) {
+                throw new IllegalValueException(
+                        String.format(MISSING_FIELD_MESSAGE_FORMAT, School.class.getSimpleName()));
+            }
+            if (!School.isValidSchool(this.school)) {
+                throw new IllegalValueException(School.MESSAGE_SCHOOL_CONSTRAINTS);
+            }
+            final School school = new School(this.school);
+
+            return new Tutee(name, phone, email, address, subject, grade, educationLevel, school, tags);
+        } else {
+            return new Person(name, phone, email, address, tags);
+        }
+    }
+
+    private boolean isTutee(List<Tag> personTags) {
+        return personTags.contains(new Tag("Tutee"));
     }
 
     @Override

@@ -23,6 +23,7 @@ import seedu.address.model.tag.Tag;
 
 public class FindCommandSystemTest extends AddressBookSystemTest {
 
+
     @Test
     public void find() {
         /* Case: find multiple persons in address book, command with leading spaces and trailing spaces
@@ -108,12 +109,6 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: find person not in address book -> 0 persons found */
         command = FindCommand.COMMAND_WORD + " Mark";
-        assertCommandSuccess(command, expectedModel);
-        assertSelectedCardUnchanged();
-
-
-        /* Case: find phone number of person in address book -> 0 persons found */
-        command = FindCommand.COMMAND_WORD + " " + BENSON.getPhone().value;
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
@@ -242,6 +237,8 @@ public class FindCommandSystemTest extends AddressBookSystemTest {
         command = FindCommand.COMMAND_ALIAS + " Mark";
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
+
+
 
         /* Case: find address of person in address book -> 0 persons found */
         command = FindCommand.COMMAND_ALIAS + " " + DANIEL.getAddress().value;
