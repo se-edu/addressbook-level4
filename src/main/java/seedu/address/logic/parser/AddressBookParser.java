@@ -10,6 +10,7 @@ import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.commands.AddPersonalTaskCommand;
 import seedu.address.logic.commands.AddTuitionTaskCommand;
 import seedu.address.logic.commands.AddTuteeCommand;
+import seedu.address.logic.commands.ChangeCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.DeleteCommand;
@@ -111,6 +112,9 @@ public class AddressBookParser {
 
         case ViewSortCommand.COMMAND_WORD:
             return new ViewSortCommandParser().parse(arguments);
+
+        case ChangeCommand.COMMAND_WORD:
+            return new ChangeCommandParser().parse(arguments);
 
         default:
             throw new ParseException(MESSAGE_UNKNOWN_COMMAND);
