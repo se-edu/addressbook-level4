@@ -7,7 +7,6 @@ import java.util.Objects;
 import java.util.Set;
 
 import seedu.address.model.tag.Tag;
-import seedu.address.model.tag.UniqueTagList;
 
 /**
  * Represents a Person in the address book.
@@ -20,8 +19,7 @@ public class Person {
     private final Email email;
     private final Address address;
 
-    private final UniqueTagList tags;
-
+    private final Set<Tag> tags;
     /**
      * Every field must be present and not null.
      */
@@ -31,8 +29,7 @@ public class Person {
         this.phone = phone;
         this.email = email;
         this.address = address;
-        // protect internal tags from changes in the arg list
-        this.tags = new UniqueTagList(tags);
+        this.tags = tags;
     }
 
     public Name getName() {
@@ -56,7 +53,7 @@ public class Person {
      * if modification is attempted.
      */
     public Set<Tag> getTags() {
-        return Collections.unmodifiableSet(tags.toSet());
+        return Collections.unmodifiableSet(tags);
     }
 
     @Override
