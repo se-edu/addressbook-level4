@@ -5,6 +5,7 @@ package seedu.address.model.tutee;
  */
 public class TuteeSortUtil {
 
+    public static final String CATEGORY_NAME = "name";
     public static final String CATEGORY_MONTH = "month";
     public static final String CATEGORY_EDUCATION_LEVEL = "level";
     public static final String CATEGORY_GRADE = "grade";
