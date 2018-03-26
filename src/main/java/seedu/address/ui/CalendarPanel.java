@@ -15,9 +15,13 @@ import javafx.scene.layout.Region;
 public class CalendarPanel extends UiPart<Region> {
 
     private static final String FXML = "CalendarPanel.fxml";
+    private static final char DAY = 'd';
+    private  static final char WEEK = 'w';
+    private static final char MONTH = 'm';
+    private static final char YEAR = 'y';
 
     @FXML
-    private CalendarView calendarView = new CalendarView();
+    private static CalendarView calendarView = new CalendarView();
 
     public CalendarPanel() {
         super(FXML);
@@ -37,6 +41,27 @@ public class CalendarPanel extends UiPart<Region> {
         calendarView.setShowPageToolBarControls(false);
         calendarView.setShowSearchField(false);
         calendarView.setShowSearchResultsTray(false);
+    }
+
+    /**
+     * Changes the view page of the calendar
+     * @param viewPage the view page to be changed into
+     */
+    public static void changeViewPage(char viewPage) {
+        switch(viewPage) {
+        case DAY:
+            calendarView.showDayPage();
+            return;
+        case WEEK:
+            calendarView.showWeekPage();
+            return;
+        case MONTH:
+            calendarView.showMonthPage();
+            return;
+        case YEAR:
+            calendarView.showYearPage();
+            return;
+        }
     }
 
     @Override
