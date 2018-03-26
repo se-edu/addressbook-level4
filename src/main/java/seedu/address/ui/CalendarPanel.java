@@ -40,7 +40,6 @@ public class CalendarPanel extends UiPart<Region> {
         calendarView.setShowPrintButton(false);
         calendarView.setShowPageToolBarControls(false);
         calendarView.setShowSearchField(false);
-        calendarView.setShowSearchResultsTray(false);
     }
 
     /**
