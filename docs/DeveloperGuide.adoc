@@ -202,6 +202,9 @@ The `Model`,
 * exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
+[NOTE]
+As a more OOP model, we can store a Tag list in Address Book, which Persons can reference. This would allow Address Book to only require one Tag object per unique Tag, instead of each Person needing their own Tag object.
+
 [[Design-Storage]]
 === Storage component
 
