@@ -2,12 +2,12 @@ package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_FILTER_CATEGORY;
-import static seedu.address.model.tutee.TuteeSortUtil.CATEGORY_EDUCATION_LEVEL;
-import static seedu.address.model.tutee.TuteeSortUtil.CATEGORY_GRADE;
-import static seedu.address.model.tutee.TuteeSortUtil.CATEGORY_MONTH;
-import static seedu.address.model.tutee.TuteeSortUtil.CATEGORY_NAME;
-import static seedu.address.model.tutee.TuteeSortUtil.CATEGORY_SCHOOL;
-import static seedu.address.model.tutee.TuteeSortUtil.CATEGORY_SUBJECT;
+import static seedu.address.model.person.PersonSortUtil.CATEGORY_EDUCATION_LEVEL;
+import static seedu.address.model.person.PersonSortUtil.CATEGORY_GRADE;
+import static seedu.address.model.person.PersonSortUtil.CATEGORY_MONTH;
+import static seedu.address.model.person.PersonSortUtil.CATEGORY_NAME;
+import static seedu.address.model.person.PersonSortUtil.CATEGORY_SCHOOL;
+import static seedu.address.model.person.PersonSortUtil.CATEGORY_SUBJECT;
 
 import java.util.ArrayList;
 import java.util.Arrays;

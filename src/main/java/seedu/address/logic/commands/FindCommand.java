@@ -1,11 +1,11 @@
 package seedu.address.logic.commands;
 
-import static seedu.address.model.tutee.TuteeSortUtil.CATEGORY_EDUCATION_LEVEL;
-import static seedu.address.model.tutee.TuteeSortUtil.CATEGORY_GRADE;
-import static seedu.address.model.tutee.TuteeSortUtil.CATEGORY_MONTH;
-import static seedu.address.model.tutee.TuteeSortUtil.CATEGORY_NAME;
-import static seedu.address.model.tutee.TuteeSortUtil.CATEGORY_SCHOOL;
-import static seedu.address.model.tutee.TuteeSortUtil.CATEGORY_SUBJECT;
+import static seedu.address.model.person.PersonSortUtil.CATEGORY_EDUCATION_LEVEL;
+import static seedu.address.model.person.PersonSortUtil.CATEGORY_GRADE;
+import static seedu.address.model.person.PersonSortUtil.CATEGORY_MONTH;
+import static seedu.address.model.person.PersonSortUtil.CATEGORY_NAME;
+import static seedu.address.model.person.PersonSortUtil.CATEGORY_SCHOOL;
+import static seedu.address.model.person.PersonSortUtil.CATEGORY_SUBJECT;
 
 import java.util.Arrays;
 import java.util.function.Predicate;
@@ -18,8 +18,7 @@ import seedu.address.model.tutee.SchoolContainsKeywordsPredicate;
 import seedu.address.model.tutee.SubjectContainsKeywordsPredicate;
 
 /**
- * Finds and lists all persons in address book whose filter category contains any of the argument keywords.
- * Keyword matching is case sensitive.
+ * Finds and lists either all persons or tasks in address book depending on the specified filter category.
  */
 public class FindCommand extends Command {
     public static final String COMMAND_WORD = "find";
@@ -77,6 +76,6 @@ public class FindCommand extends Command {
             // invalid category should be detected in parser
             assert (false);
         }
-        return new CommandResult(getMessageForPersonListShownSummary(model.getFilteredPersonList().size()));
+        return new CommandResult(getMessageForPersonListShownSummary(model.getSortedAndFilteredPersonList().size()));
     }
 }
