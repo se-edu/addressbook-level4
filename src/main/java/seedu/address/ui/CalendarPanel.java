@@ -61,6 +61,8 @@ public class CalendarPanel extends UiPart<Region> {
         case YEAR:
             calendarView.showYearPage();
             return;
+        default:
+            assert(false);
         }
     }
 
