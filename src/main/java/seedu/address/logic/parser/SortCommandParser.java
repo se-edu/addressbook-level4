@@ -1,15 +1,6 @@
 package seedu.address.logic.parser;
 
-import seedu.address.logic.commands.FindCommand;
-import seedu.address.logic.commands.SortCommand;
-import seedu.address.logic.parser.exceptions.ParseException;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_FILTER_CATEGORY;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_SORTER_CATEGORY;
 import static seedu.address.model.person.PersonSortUtil.CATEGORY_EDUCATION_LEVEL;
 import static seedu.address.model.person.PersonSortUtil.CATEGORY_GRADE;
@@ -18,7 +9,15 @@ import static seedu.address.model.person.PersonSortUtil.CATEGORY_NAME;
 import static seedu.address.model.person.PersonSortUtil.CATEGORY_SCHOOL;
 import static seedu.address.model.person.PersonSortUtil.CATEGORY_SUBJECT;
 
-public class SortCommandParser implements Parser<SortCommand>{
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+import seedu.address.logic.commands.SortCommand;
+import seedu.address.logic.parser.exceptions.ParseException;
+
+
+public class SortCommandParser implements Parser<SortCommand> {
 
     private static final String SORT_CATEGORY_VALIDATION_REGEX = "\\p{Alpha}+";
 

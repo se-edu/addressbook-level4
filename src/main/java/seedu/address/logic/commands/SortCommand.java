@@ -1,16 +1,15 @@
 package seedu.address.logic.commands;
 
-import seedu.address.model.person.Person;
-import seedu.address.model.person.PersonSortUtil;
-
-
-import java.util.Comparator;
-
 import static seedu.address.model.person.PersonSortUtil.CATEGORY_EDUCATION_LEVEL;
 import static seedu.address.model.person.PersonSortUtil.CATEGORY_GRADE;
 import static seedu.address.model.person.PersonSortUtil.CATEGORY_NAME;
 import static seedu.address.model.person.PersonSortUtil.CATEGORY_SCHOOL;
 import static seedu.address.model.person.PersonSortUtil.CATEGORY_SUBJECT;
+
+import java.util.Comparator;
+
+import seedu.address.model.person.Person;
+import seedu.address.model.person.PersonSortUtil;
 
 /**
  * Sorts and lists all persons in address book lexicographically by the given sorting category.
@@ -20,7 +19,7 @@ import static seedu.address.model.person.PersonSortUtil.CATEGORY_SUBJECT;
 public class SortCommand extends Command {
     public static final String COMMAND_WORD = "sort";
 
-    public static final String MESSAGE_SUCCESS = "All person sorted";
+    public static final String MESSAGE_SUCCESS = "sorted successfully";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": sorts and lists all person that suit the sorting category\n"
@@ -57,11 +56,13 @@ public class SortCommand extends Command {
         case CATEGORY_SCHOOL:
             break;
         case CATEGORY_SUBJECT:
+            model.sortFilteredPersonList(comparator);
             break;
         default:
             // invalid category should be detected in parser
             assert (false);
         }
-        return new CommandResult(getMessageForPersonListShownSummary(model.getSortedAndFilteredPersonList().size()));
+        return new CommandResult(MESSAGE_SUCCESS + "\n"
+                + getMessageForPersonListShownSummary(model.getSortedAndFilteredPersonList().size()));
     }
 }

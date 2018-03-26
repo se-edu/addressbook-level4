@@ -105,7 +105,6 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
-        sortedPerson = new SortedList<>(filteredPersons);
     }
 
     @Override
@@ -128,6 +127,6 @@ public class ModelManager extends ComponentManager implements Model {
         // state check
         ModelManager other = (ModelManager) obj;
         return addressBook.equals(other.addressBook)
-                && filteredPersons.equals(other.filteredPersons);
+                && sortedPerson.equals(other.sortedPerson);
     }
 }
