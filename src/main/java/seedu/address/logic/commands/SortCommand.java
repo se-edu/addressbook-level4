@@ -12,8 +12,8 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.PersonSortUtil;
 
 /**
- * Sorts and lists all persons in address book lexicographically by the given sorting category.
- * Since tutee contains specific information such as grades,
+ * Sorts all persons from the last shown list lexicographically according to the specified sorting category.
+ * Since tutee contains specific information such as grade,
  * a Person who is not a tutee will be listed last when such information is selected to be the sorting category.
  */
 public class SortCommand extends Command {
@@ -22,17 +22,17 @@ public class SortCommand extends Command {
     public static final String MESSAGE_SUCCESS = "sorted successfully";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": sorts and lists all person that suit the sorting category\n"
-            + "Since tutee contains specific information such as grades and school, \n"
+            + ": sorts all visible persons lexicographically according to the specified sorting category.\n"
+            + "Since tutee contains tutee-specific information such as grades and school, \n"
             + "Person who are not Tutees will be listed last "
             + "when such information is selected as the sorting category."
             + "Parameters: sort_category\n"
             + "Choice of sort_categories: "
-            + CATEGORY_NAME + ", "
-            + CATEGORY_EDUCATION_LEVEL + ", "
-            + CATEGORY_GRADE + ", "
-            + CATEGORY_SCHOOL + ", "
-            + CATEGORY_SUBJECT + "\n"
+            + CATEGORY_NAME + "\n"
+            + CATEGORY_EDUCATION_LEVEL + "[Tutee specific]\n"
+            + CATEGORY_GRADE + "[Tutee specific]\n"
+            + CATEGORY_SCHOOL + "[Tutee specific]\n"
+            + CATEGORY_SUBJECT + "[Tutee specific]\n"
             + "Example: " + COMMAND_WORD + " " + CATEGORY_GRADE;
 
     private final String category;
@@ -45,24 +45,14 @@ public class SortCommand extends Command {
 
     @Override
     public CommandResult execute() {
-        switch (category) {
-        case CATEGORY_NAME:
-            model.sortFilteredPersonList(comparator);
-            break;
-        case CATEGORY_EDUCATION_LEVEL:
-            break;
-        case CATEGORY_GRADE:
-            break;
-        case CATEGORY_SCHOOL:
-            break;
-        case CATEGORY_SUBJECT:
-            model.sortFilteredPersonList(comparator);
-            break;
-        default:
-            // invalid category should be detected in parser
-            assert (false);
-        }
-        return new CommandResult(MESSAGE_SUCCESS + "\n"
-                + getMessageForPersonListShownSummary(model.getSortedAndFilteredPersonList().size()));
+        model.sortFilteredPersonList(comparator);
+        return new CommandResult(MESSAGE_SUCCESS);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof SortCommand // instanceof handles nulls
+                && category.equals(((SortCommand) other).category));
     }
 }

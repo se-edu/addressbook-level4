@@ -4,7 +4,6 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_SORTER_CATEGORY;
 import static seedu.address.model.person.PersonSortUtil.CATEGORY_EDUCATION_LEVEL;
 import static seedu.address.model.person.PersonSortUtil.CATEGORY_GRADE;
-import static seedu.address.model.person.PersonSortUtil.CATEGORY_MONTH;
 import static seedu.address.model.person.PersonSortUtil.CATEGORY_NAME;
 import static seedu.address.model.person.PersonSortUtil.CATEGORY_SCHOOL;
 import static seedu.address.model.person.PersonSortUtil.CATEGORY_SUBJECT;
@@ -16,14 +15,16 @@ import java.util.List;
 import seedu.address.logic.commands.SortCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
-
+/**
+ * Parses input arguments and creates a new SortCommand object
+ */
 public class SortCommandParser implements Parser<SortCommand> {
 
     private static final String SORT_CATEGORY_VALIDATION_REGEX = "\\p{Alpha}+";
 
     private List<String> validCategories =
-            new ArrayList<>(Arrays.asList(CATEGORY_NAME, CATEGORY_MONTH,
-                    CATEGORY_EDUCATION_LEVEL, CATEGORY_GRADE, CATEGORY_SCHOOL, CATEGORY_SUBJECT));
+            new ArrayList<>(Arrays.asList(CATEGORY_NAME, CATEGORY_EDUCATION_LEVEL,
+                    CATEGORY_GRADE, CATEGORY_SCHOOL, CATEGORY_SUBJECT));
 
     /**
      * Parses the given {@code String} of arguments in the context of the SortCommand
