@@ -18,7 +18,6 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.logic.commands.ChangeCommand;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -403,18 +402,13 @@ public class ParserUtilTest {
 
     @Test
     public void parseTimeUnit_validValueWithoutWhitespace_returnsTimeUnit() throws Exception {
-        String initialTimeUnit = ChangeCommand.getTimeUnit();
-        ChangeCommand expectedTimeUnit = new ChangeCommand(VALID_TIME_UNIT);
-        ChangeCommand changeToInitialTimeUnit = new ChangeCommand(initialTimeUnit); // Change to initial time unit
-        assertEquals(expectedTimeUnit, new ChangeCommand(ParserUtil.parseTimeUnit(VALID_TIME_UNIT)));
+        String expectedTimeUnit = VALID_TIME_UNIT;
+        assertEquals(expectedTimeUnit, ParserUtil.parseTimeUnit(VALID_TIME_UNIT));
     }
 
     @Test
     public void parseTimeUnit_validValueWithWhitespace_returnsTrimmedTimeUnit() throws Exception {
-        String initialTimeUnit = ChangeCommand.getTimeUnit();
         String timeUnitWithWhitespace = WHITESPACE + VALID_TIME_UNIT + WHITESPACE;
-        ChangeCommand expectedTimeUnit = new ChangeCommand(VALID_TIME_UNIT);
-        ChangeCommand changeToInitialTimeUnit = new ChangeCommand(initialTimeUnit); // Change to initial time unit
-        assertEquals(expectedTimeUnit, new ChangeCommand(ParserUtil.parseTimeUnit(timeUnitWithWhitespace)));
+        assertEquals(VALID_TIME_UNIT, ParserUtil.parseTimeUnit(timeUnitWithWhitespace));
     }
 }
