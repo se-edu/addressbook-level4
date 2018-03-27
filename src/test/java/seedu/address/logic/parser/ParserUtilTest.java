@@ -40,7 +40,7 @@ public class ParserUtilTest {
     private static final String INVALID_GRADE = "+B";
     private static final String INVALID_EDUCATIONAL_LEVEL = "University";
     private static final String INVALID_SCHOOL = "school12";
-    private static final String INVALID_TIME_UNIT = "day";
+    private static final String INVALID_TIME_UNIT = "year";
 
     private static final String VALID_NAME = "Rachel Walker";
     private static final String VALID_PHONE = "123456";
@@ -52,7 +52,7 @@ public class ParserUtilTest {
     private static final String VALID_GRADE = "B+";
     private static final String VALID_EDUCATIONAL_LEVEL = "primary";
     private static final String VALID_SCHOOL = "valid primary school";
-    private static final String VALID_TIME_UNIT = "d";
+    private static final String VALID_TIME_UNIT = "y";
 
     private static final String WHITESPACE = " \t\r\n";
 
@@ -403,14 +403,18 @@ public class ParserUtilTest {
 
     @Test
     public void parseTimeUnit_validValueWithoutWhitespace_returnsTimeUnit() throws Exception {
+        String initialTimeUnit = ChangeCommand.getTimeUnit();
         ChangeCommand expectedTimeUnit = new ChangeCommand(VALID_TIME_UNIT);
-        assertEquals(expectedTimeUnit, ParserUtil.parseTimeUnit(VALID_TIME_UNIT));
+        ChangeCommand changeToInitialTimeUnit = new ChangeCommand(initialTimeUnit); // Change to initial time unit
+        assertEquals(expectedTimeUnit, new ChangeCommand(ParserUtil.parseTimeUnit(VALID_TIME_UNIT)));
     }
 
     @Test
     public void parseTimeUnit_validValueWithWhitespace_returnsTrimmedTimeUnit() throws Exception {
+        String initialTimeUnit = ChangeCommand.getTimeUnit();
         String timeUnitWithWhitespace = WHITESPACE + VALID_TIME_UNIT + WHITESPACE;
         ChangeCommand expectedTimeUnit = new ChangeCommand(VALID_TIME_UNIT);
-        assertEquals(expectedTimeUnit, ParserUtil.parseTimeUnit(timeUnitWithWhitespace));
+        ChangeCommand changeToInitialTimeUnit = new ChangeCommand(initialTimeUnit); // Change to initial time unit
+        assertEquals(expectedTimeUnit, new ChangeCommand(ParserUtil.parseTimeUnit(timeUnitWithWhitespace)));
     }
 }
