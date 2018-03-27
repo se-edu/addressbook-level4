@@ -11,6 +11,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.person.Address;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
@@ -27,6 +28,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePersonList persons;
     private final UniqueTagList tags;
+    private final UniqueTaskList tasks;
 
     /*
      * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
@@ -38,6 +40,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     {
         persons = new UniquePersonList();
         tags = new UniqueTagList();
+        tasks = new UniqueTaskList();
     }
 
     public AddressBook() {}
@@ -60,12 +63,20 @@ public class AddressBook implements ReadOnlyAddressBook {
         this.tags.setTags(tags);
     }
 
+    public void setTasks(List<Task> tasks)
+    {
+        this.tasks.setTasks(tasks);
+    }
+
     /**
      * Resets the existing data of this {@code AddressBook} with {@code newData}.
+     * ---Not modified for tasks yet!!!!!!
      */
     public void resetData(ReadOnlyAddressBook newData) {
         requireNonNull(newData);
         setTags(new HashSet<>(newData.getTagList()));
+        List<Task> taskList = newData.getTaskList().stream().collect(Collectors.toList());
+        setTasks(taskList);
         List<Person> syncedPersonList = newData.getPersonList().stream()
                 .map(this::syncWithMasterTagList)
                 .collect(Collectors.toList());
@@ -113,6 +124,22 @@ public class AddressBook implements ReadOnlyAddressBook {
         // This can cause the tags master list to have additional tags that are not tagged to any person
         // in the person list.
         persons.setPerson(target, syncedEditedPerson);
+    }
+
+    /**
+     * Adds a task to the address book.
+     *
+     */
+
+    public void addTask(Task t)  {
+        tasks.add(t);
+
+    }
+
+    public void updateTask(Task target, Task editedTask)
+    {
+        requireNonNull(editedTask);
+        tasks.setTask(target,editedTask);
     }
 
     /**
@@ -179,6 +206,17 @@ public class AddressBook implements ReadOnlyAddressBook {
         }
     }
 
+    public boolean removeTask(Task key)
+    {
+        if (tasks.remove(key))
+        {
+            return true;
+        } else {
+            System.out.println("Didn't work");
+            return false;
+        }
+    }
+
     //// tag-level operations
 
     public void addTag(Tag t) throws UniqueTagList.DuplicateTagException {
@@ -189,7 +227,8 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     @Override
     public String toString() {
-        return persons.asObservableList().size() + " persons, " + tags.asObservableList().size() +  " tags";
+        return persons.asObservableList().size() + " persons, " + tags.asObservableList().size() +  " tags, " +
+                tasks.asObservableList().size() + " tasks";
         // TODO: refine later
     }
 
@@ -204,10 +243,14 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     @Override
+    public ObservableList<Task> getTaskList() { return tasks.asObservableList();}
+
+    @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddressBook // instanceof handles nulls
                 && this.persons.equals(((AddressBook) other).persons)
+                && this.tasks.equals(((AddressBook) other).tasks)
                 && this.tags.equalsOrderInsensitive(((AddressBook) other).tags));
     }
 
