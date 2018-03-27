@@ -56,7 +56,7 @@ public class UndoableCommandTest {
 
         @Override
         public CommandResult executeUndoableCommand() throws CommandException {
-            Person personToDelete = model.getSortedAndFilteredPersonList().get(0);
+            Person personToDelete = model.getFilteredPersonList().get(0);
             try {
                 model.deletePerson(personToDelete);
             } catch (PersonNotFoundException pnfe) {

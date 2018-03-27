@@ -23,7 +23,7 @@ public class ModelManagerTest {
     public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
         ModelManager modelManager = new ModelManager();
         thrown.expect(UnsupportedOperationException.class);
-        modelManager.getSortedAndFilteredPersonList().remove(0);
+        modelManager.getFilteredPersonList().remove(0);
     }
 
     @Test

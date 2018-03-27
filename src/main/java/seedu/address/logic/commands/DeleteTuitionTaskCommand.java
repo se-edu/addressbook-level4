@@ -63,7 +63,7 @@ public class DeleteTuitionTaskCommand extends UndoableCommand {
      * @throw commandException if invalid person index was given.
      */
     private void findAssociatedPerson() throws CommandException {
-        List<Person> lastShownList = model.getSortedAndFilteredPersonList();
+        List<Person> lastShownList = model.getFilteredPersonList();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);

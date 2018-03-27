@@ -77,7 +77,7 @@ public class FindCommand extends Command {
             assert (false);
         }
         return new CommandResult(MESSAGE_SUCCESS + "\n"
-                + getMessageForPersonListShownSummary(model.getSortedAndFilteredPersonList().size()));
+                + getMessageForPersonListShownSummary(model.getFilteredPersonList().size()));
     }
 
     @Override

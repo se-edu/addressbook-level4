@@ -129,7 +129,7 @@ public class CommandTestUtil {
         // we are unable to defensively copy the model for comparison later, so we can
         // only do so by copying its components.
         AddressBook expectedAddressBook = new AddressBook(actualModel.getAddressBook());
-        List<Person> expectedFilteredList = new ArrayList<>(actualModel.getSortedAndFilteredPersonList());
+        List<Person> expectedFilteredList = new ArrayList<>(actualModel.getFilteredPersonList());
 
         try {
             command.execute();
@@ -137,7 +137,7 @@ public class CommandTestUtil {
         } catch (CommandException e) {
             assertEquals(expectedMessage, e.getMessage());
             assertEquals(expectedAddressBook, actualModel.getAddressBook());
-            assertEquals(expectedFilteredList, actualModel.getSortedAndFilteredPersonList());
+            assertEquals(expectedFilteredList, actualModel.getFilteredPersonList());
         }
     }
 
@@ -146,20 +146,20 @@ public class CommandTestUtil {
      * {@code model}'s address book.
      */
     public static void showPersonAtIndex(Model model, Index targetIndex) {
-        assertTrue(targetIndex.getZeroBased() < model.getSortedAndFilteredPersonList().size());
+        assertTrue(targetIndex.getZeroBased() < model.getFilteredPersonList().size());
 
-        Person person = model.getSortedAndFilteredPersonList().get(targetIndex.getZeroBased());
+        Person person = model.getFilteredPersonList().get(targetIndex.getZeroBased());
         final String[] splitName = person.getName().fullName.split("\\s+");
         model.updateFilteredPersonList(new NameContainsKeywordsPredicate(Arrays.asList(splitName[0])));
 
-        assertEquals(1, model.getSortedAndFilteredPersonList().size());
+        assertEquals(1, model.getFilteredPersonList().size());
     }
 
     /**
      * Deletes the first person in {@code model}'s filtered list from {@code model}'s address book.
      */
     public static void deleteFirstPerson(Model model) {
-        Person firstPerson = model.getSortedAndFilteredPersonList().get(0);
+        Person firstPerson = model.getFilteredPersonList().get(0);
         try {
             model.deletePerson(firstPerson);
         } catch (PersonNotFoundException pnfe) {

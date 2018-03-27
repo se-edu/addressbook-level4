@@ -97,7 +97,7 @@ public class ModelManager extends ComponentManager implements Model {
      * {@code addressBook}
      */
     @Override
-    public ObservableList<Person> getSortedAndFilteredPersonList() {
+    public ObservableList<Person> getFilteredPersonList() {
         return FXCollections.unmodifiableObservableList(sortedPerson);
     }
 
