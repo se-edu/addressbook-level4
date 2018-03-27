@@ -17,13 +17,13 @@ public class EducationLevelContainsKeywordsPredicate implements Predicate<Person
     }
 
     @Override
-    public boolean test(Person tutee) {
-        if (!(tutee instanceof Tutee)) {
+    public boolean test(Person person) {
+        if (!(person instanceof Tutee)) {
             return false;
         } else {
             return keywords.stream()
                     .anyMatch(keyword -> StringUtil.containsWordIgnoreCase((
-                            (Tutee) tutee).getEducationLevel().toString(), keyword)) == true;
+                            (Tutee) person).getEducationLevel().toString(), keyword)) == true;
         }
     }
 
