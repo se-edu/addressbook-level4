@@ -136,11 +136,11 @@ Format: `f CATEGORY KEYWORD [MORE_KEYWORDS]` +
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
 * There are 5 categories to pick:
 ** 1. name
-** 2. edu_level*
+** 2. edu* (for education level)
 ** 3. grade*
 ** 4. school*
 ** 5. subject*
-** *) categories marked with * are only owned by tutees.
+* Categories marked with * are only owned by tutees.
 * Only full words will be matched e.g. `Han` will not match `Hans`
 * Persons matching at least one keyword will be returned (i.e. `OR` search).
  e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`

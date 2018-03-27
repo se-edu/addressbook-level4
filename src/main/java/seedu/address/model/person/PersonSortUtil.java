@@ -10,7 +10,7 @@ import seedu.address.model.tutee.Tutee;
 public class PersonSortUtil {
     public static final String CATEGORY_NAME = "name";
     public static final String CATEGORY_MONTH = "month";
-    public static final String CATEGORY_EDUCATION_LEVEL = "level";
+    public static final String CATEGORY_EDUCATION_LEVEL = "edu";
     public static final String CATEGORY_GRADE = "grade";
     public static final String CATEGORY_SCHOOL = "school";
     public static final String CATEGORY_SUBJECT = "subject";
