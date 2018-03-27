@@ -4,13 +4,26 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_PERSONS_LISTED_OVERVIEW;
-import static seedu.address.testutil.TypicalPersons.CARL;
-import static seedu.address.testutil.TypicalPersons.ELLE;
-import static seedu.address.testutil.TypicalPersons.FIONA;
-import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EDUCATION_LEVEL_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_GRADE_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_GRADE_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_SCHOOL_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_SUBJECT_BOB;
+
+import static seedu.address.model.person.PersonSortUtil.CATEGORY_EDUCATION_LEVEL;
+import static seedu.address.model.person.PersonSortUtil.CATEGORY_GRADE;
+import static seedu.address.model.person.PersonSortUtil.CATEGORY_NAME;
+import static seedu.address.model.person.PersonSortUtil.CATEGORY_SCHOOL;
+import static seedu.address.model.person.PersonSortUtil.CATEGORY_SUBJECT;
+
+import static seedu.address.testutil.TypicalTutees.ALICETUTEE;
+import static seedu.address.testutil.TypicalTutees.AMYTUTEE;
+import static seedu.address.testutil.TypicalTutees.BOBTUTEE;
+import static seedu.address.testutil.TypicalTutees.getTypicalAddressBook;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import org.junit.Test;
@@ -21,64 +34,92 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code FindCommand}.
  */
 public class FindCommandTest {
+    private static final int INDEX_FIRST_ELEMENT = 0;
+    private static final int INDEX_SECOND_ELEMENT = 1;
+
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+
+    private final String[] firstNameKeywords = {VALID_NAME_BOB.split("\\s+")[INDEX_FIRST_ELEMENT],
+            VALID_NAME_AMY.split("\\s+")[INDEX_SECOND_ELEMENT]};
+    private final String[] secondNameKeywords = {VALID_NAME_BOB.split("\\s+")[INDEX_FIRST_ELEMENT]};
+
+    private final FindCommand findFirstName = new FindCommand(CATEGORY_NAME, firstNameKeywords);
+    private final FindCommand findSecondName = new FindCommand(CATEGORY_NAME, secondNameKeywords);
 
     @Test
     public void equals() {
-        NameContainsKeywordsPredicate firstPredicate =
-                new NameContainsKeywordsPredicate(Collections.singletonList("first"));
-        NameContainsKeywordsPredicate secondPredicate =
-                new NameContainsKeywordsPredicate(Collections.singletonList("second"));
-
-        FindCommand findFirstCommand = new FindCommand(firstPredicate);
-        FindCommand findSecondCommand = new FindCommand(secondPredicate);
-
         // same object -> returns true
-        assertTrue(findFirstCommand.equals(findFirstCommand));
+        assertTrue(findFirstName.equals(findFirstName));
 
         // same values -> returns true
-        FindCommand findFirstCommandCopy = new FindCommand(firstPredicate);
-        assertTrue(findFirstCommand.equals(findFirstCommandCopy));
+        FindCommand findFirstCommandCopy = new FindCommand(CATEGORY_NAME, firstNameKeywords);
+        assertTrue(findFirstName.equals(findFirstCommandCopy));
 
         // different types -> returns false
-        assertFalse(findFirstCommand.equals(1));
+        assertFalse(findFirstName.equals(1));
 
         // null -> returns false
-        assertFalse(findFirstCommand.equals(null));
+        assertFalse(findFirstName.equals(null));
 
         // different person -> returns false
-        assertFalse(findFirstCommand.equals(findSecondCommand));
+        assertFalse(findFirstName.equals(findSecondName));
     }
 
     @Test
-    public void execute_zeroKeywords_noPersonFound() {
-        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 0);
-        FindCommand command = prepareCommand(" ");
-        assertCommandSuccess(command, expectedMessage, Collections.emptyList());
+    public void execute_findName_foundSuccessfully() {
+        //multiple keywords
+        findFirstName.setData(model, new CommandHistory(), new UndoRedoStack());
+        String expectedMessage = String.format(FindCommand.MESSAGE_SUCCESS + "\n" + MESSAGE_PERSONS_LISTED_OVERVIEW, 2);
+        assertCommandSuccess(findFirstName, expectedMessage, Arrays.asList(AMYTUTEE, BOBTUTEE));
+
+        //single keyword
+        findSecondName.setData(model, new CommandHistory(), new UndoRedoStack());
+        expectedMessage = String.format(FindCommand.MESSAGE_SUCCESS + "\n" + MESSAGE_PERSONS_LISTED_OVERVIEW, 1);
+        assertCommandSuccess(findSecondName, expectedMessage, Arrays.asList(BOBTUTEE));
     }
 
     @Test
-    public void execute_multipleKeywords_multiplePersonsFound() {
-        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 3);
-        FindCommand command = prepareCommand("Kurz Elle Kunz");
-        assertCommandSuccess(command, expectedMessage, Arrays.asList(CARL, ELLE, FIONA));
+    public void execute_findEducatonLevel_foundSuccessfully() {
+        String[] educationLevelKeywords = {VALID_EDUCATION_LEVEL_AMY};
+        FindCommand findEducationLevel = new FindCommand(CATEGORY_EDUCATION_LEVEL, educationLevelKeywords);
+        findEducationLevel.setData(model, new CommandHistory(), new UndoRedoStack());
+        String expectedMessage = String.format(FindCommand.MESSAGE_SUCCESS + "\n" + MESSAGE_PERSONS_LISTED_OVERVIEW, 2);
+        //Alice and Amy have the same education level
+        assertCommandSuccess(findEducationLevel, expectedMessage, Arrays.asList(ALICETUTEE, AMYTUTEE));
     }
 
-    /**
-     * Parses {@code userInput} into a {@code FindCommand}.
-     */
-    private FindCommand prepareCommand(String userInput) {
-        FindCommand command =
-                new FindCommand(new NameContainsKeywordsPredicate(Arrays.asList(userInput.split("\\s+"))));
-        command.setData(model, new CommandHistory(), new UndoRedoStack());
-        return command;
+    @Test
+    public void execute_findGrade_foundSuccessfully() {
+        String[] gradeKeywords = {VALID_GRADE_AMY, VALID_GRADE_BOB};
+        FindCommand findGrade = new FindCommand(CATEGORY_GRADE, gradeKeywords);
+        findGrade.setData(model, new CommandHistory(), new UndoRedoStack());
+        String expectedMessage = String.format(FindCommand.MESSAGE_SUCCESS + "\n" + MESSAGE_PERSONS_LISTED_OVERVIEW, 2);
+        assertCommandSuccess(findGrade, expectedMessage, Arrays.asList(AMYTUTEE, BOBTUTEE));
+    }
+
+    @Test
+    public void execute_findSchool_foundSuccessfully() {
+        String[] schoolKeywords = {VALID_SCHOOL_AMY.split("\\s+")[INDEX_FIRST_ELEMENT]};
+        FindCommand findSchool = new FindCommand(CATEGORY_SCHOOL, schoolKeywords);
+        findSchool.setData(model, new CommandHistory(), new UndoRedoStack());
+        String expectedMessage = String.format(FindCommand.MESSAGE_SUCCESS + "\n" + MESSAGE_PERSONS_LISTED_OVERVIEW, 1);
+        assertCommandSuccess(findSchool, expectedMessage, Arrays.asList(AMYTUTEE));
+    }
+
+    @Test
+    public void execute_findSubject_foundSuccessfully() {
+        String[] subjectKeywords = {VALID_SUBJECT_BOB};
+        FindCommand findSubject = new FindCommand(CATEGORY_SUBJECT, subjectKeywords);
+        findSubject.setData(model, new CommandHistory(), new UndoRedoStack());
+        String expectedMessage = String.format(FindCommand.MESSAGE_SUCCESS + "\n" + MESSAGE_PERSONS_LISTED_OVERVIEW, 2);
+        //Alice and Bob learn the same subject.
+        assertCommandSuccess(findSubject, expectedMessage, Arrays.asList(ALICETUTEE, BOBTUTEE));
     }
 
     /**
