@@ -1,4 +1,25 @@
 # ChoChihTun
+###### \java\guitests\guihandles\CalendarPanelHandle.java
+``` java
+/**
+ * A handler for the {@code CalendarPanel} of the UI
+ */
+public class CalendarPanelHandle extends NodeHandle<Node> {
+
+    public static final String CALENDAR_PANEL_ID = "#calendarPlaceholder";
+
+    private CalendarPanel calendarPanel;
+
+    public CalendarPanelHandle(Node calendarPanelNode) {
+        super(calendarPanelNode);
+        calendarPanel = new CalendarPanel();
+    }
+
+    public PageBase getDefaultCalendarViewPage() {
+        return calendarPanel.getRoot().getDayPage();
+    }
+}
+```
 ###### \java\seedu\address\logic\commands\AddTuteeCommandTest.java
 ``` java
 public class AddTuteeCommandTest {
@@ -441,6 +462,89 @@ public class AddTuteeCommandParserTest {
     }
 }
 ```
+###### \java\seedu\address\logic\parser\ChangeCommandParserTest.java
+``` java
+public class ChangeCommandParserTest {
+
+    private ChangeCommandParser parser = new ChangeCommandParser();
+    private ChangeCommand changeCommand = new ChangeCommand(DAY); // Set an initial time unit to check against
+
+    @Test
+    public void parse_validArgs_returnsChangeCommand() throws Exception {
+        // get the initial time unit, "d"
+        String initialTimeUnit = ChangeCommand.getTimeUnit();
+
+        // Change time unit to w
+        ChangeCommand expectedTimeUnit = new ChangeCommand(WEEK);
+        ChangeCommand changeToInitialTimeUnit = new ChangeCommand(initialTimeUnit); // Change to initial time unit
+        assertEquals(expectedTimeUnit, new ChangeCommand(WEEK));
+
+        // Change time unit to m
+        expectedTimeUnit = new ChangeCommand(MONTH);
+        changeToInitialTimeUnit = new ChangeCommand(initialTimeUnit); // Change to initial time unit
+        assertEquals(expectedTimeUnit, new ChangeCommand(MONTH));
+
+        // Change time unit to y
+        expectedTimeUnit = new ChangeCommand(YEAR);
+        changeToInitialTimeUnit = new ChangeCommand(initialTimeUnit); // Change to initial time unit
+        assertEquals(expectedTimeUnit, new ChangeCommand(YEAR));
+    }
+
+    @Test
+    public void parse_invalidArgs_throwsParseException() {
+        assertParseFailure(parser, "a", String.format(MESSAGE_INVALID_COMMAND_FORMAT, ChangeCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "D", String.format(MESSAGE_INVALID_COMMAND_FORMAT, ChangeCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "@", String.format(MESSAGE_INVALID_COMMAND_FORMAT, ChangeCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "1", String.format(MESSAGE_INVALID_COMMAND_FORMAT, ChangeCommand.MESSAGE_USAGE));
+        assertParseFailure(parser, "", String.format(MESSAGE_INVALID_COMMAND_FORMAT, ChangeCommand.MESSAGE_USAGE));
+    }
+
+
+    @Before
+    public void isValidTimeUnit() {
+        // null time unit
+        Assert.assertThrows(NullPointerException.class, () -> ChangeCommandParser.isValidTimeUnit(null));
+
+        // invalid time unit
+        assertFalse(ChangeCommandParser.isValidTimeUnit("")); // empty string
+        assertFalse(ChangeCommandParser.isValidTimeUnit(" ")); // space only
+        assertFalse(ChangeCommandParser.isValidTimeUnit("#")); // special characters
+        assertFalse(ChangeCommandParser.isValidTimeUnit("day")); // full time unit name
+        assertFalse(ChangeCommandParser.isValidTimeUnit("1")); // numbers
+        assertFalse(ChangeCommandParser.isValidTimeUnit("a")); // contains invalid alphabets
+        assertFalse(ChangeCommandParser.isValidTimeUnit("D")); // Capital
+        assertFalse(ChangeCommandParser.isValidTimeUnit(" d ")); // contains space
+
+        // valid time unit
+        assertTrue(ChangeCommandParser.isValidTimeUnit(DAY)); // day
+        assertTrue(ChangeCommandParser.isValidTimeUnit(WEEK)); // week
+        assertTrue(ChangeCommandParser.isValidTimeUnit(MONTH)); // month
+        assertTrue(ChangeCommandParser.isValidTimeUnit(YEAR)); // year
+    }
+
+    @Test
+    public void isTimeUnitClash() {
+        // All time units' validity are checked in isValidTimeUnit()
+
+        // There is a clash of time unit
+        assertTrue(ChangeCommandParser.isTimeUnitClash("d"));
+
+        // No clash in time unit
+        assertFalse(ChangeCommandParser.isTimeUnitClash("w"));
+        assertFalse(ChangeCommandParser.isTimeUnitClash("m"));
+        assertFalse(ChangeCommandParser.isTimeUnitClash("y"));
+
+        // change current time unit to w
+        changeCommand = new ChangeCommand("w");
+
+        // There is a clash of time unit for w now
+        assertTrue(ChangeCommandParser.isTimeUnitClash("w"));
+
+        // d is no longer clash
+        assertFalse(ChangeCommandParser.isTimeUnitClash("d"));
+    }
+}
+```
 ###### \java\seedu\address\model\ScheduleTest.java
 ``` java
 public class ScheduleTest {
@@ -800,6 +904,18 @@ public class TuteeUtil {
     }
 }
 ```
+###### \java\seedu\address\testutil\TypicalCalendarView.java
+``` java
+/**
+ * A utility class containing a list of calendar view time unit to be used in tests.
+ */
+public class TypicalCalendarView {
+    public static final String DAY = "d";
+    public static final String WEEK = "w";
+    public static final String MONTH = "m";
+    public static final String YEAR = "y";
+}
+```
 ###### \java\seedu\address\testutil\TypicalTutees.java
 ``` java
 /**
@@ -854,6 +970,32 @@ public class TypicalTutees {
 
     public static List<Person> getTypicalPersons() {
         return new ArrayList<>(Arrays.asList(ALICETUTEE, CARLTUTEE));
+    }
+}
+```
+###### \java\seedu\address\ui\CalendarPanelTest.java
+``` java
+public class CalendarPanelTest extends GuiUnitTest {
+
+    private CalendarPanel calendarPanel;
+    private CalendarPanelHandle calendarPanelHandle;
+
+    @Before
+    public void setUp() {
+        calendarPanel = new CalendarPanel();
+        guiRobot.interact(() -> calendarPanel = new CalendarPanel());
+        uiPartRule.setUiPart(calendarPanel);
+
+        calendarPanelHandle = new CalendarPanelHandle(calendarPanel.getRoot());
+    }
+
+    @Test
+    public void display() {
+        // calendar view page is not null
+        assertNotNull(calendarPanel.getRoot());
+
+        // default view page of calendar
+        assertEquals(calendarPanel.getRoot().getSelectedPage(), calendarPanelHandle.getDefaultCalendarViewPage());
     }
 }
 ```

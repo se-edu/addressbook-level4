@@ -22,6 +22,7 @@ import org.junit.BeforeClass;
 import org.junit.ClassRule;
 
 import guitests.guihandles.BrowserPanelHandle;
+import guitests.guihandles.CalendarPanelHandle;
 import guitests.guihandles.CommandBoxHandle;
 import guitests.guihandles.MainMenuHandle;
 import guitests.guihandles.MainWindowHandle;
@@ -111,6 +112,10 @@ public abstract class AddressBookSystemTest {
 
     public BrowserPanelHandle getBrowserPanel() {
         return mainWindowHandle.getBrowserPanel();
+    }
+
+    public CalendarPanelHandle getCalendarPanel() {
+        return mainWindowHandle.getCalendarPanel();
     }
 
     public StatusBarFooterHandle getStatusBarFooter() {

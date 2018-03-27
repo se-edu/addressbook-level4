@@ -64,6 +64,55 @@ public class AddTuteeCommand extends UndoableCommand {
 }
 
 ```
+###### \java\seedu\address\logic\commands\ChangeCommand.java
+``` java
+/**
+ * Changes the Calendar Time Unit View of the Application
+ */
+public class ChangeCommand extends Command {
+    public static final String COMMAND_WORD = "change";
+
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Changes the calendar view "
+            + "Parameters: "
+            + "TIME_UNIT (Only d, w, m or y) "
+            + "Example: " + COMMAND_WORD + " d";
+    public static final String MESSAGE_CONSTRAINT = "Time unit can only be d, w, m or y for day, week, month and year"
+            + " respectively";
+
+    public static final String MESSAGE_SUCCESS = "Calendar view changed";
+    public static final String MESSAGE_SAME_VIEW = "Calendar is already in the requested view";
+    private static final int INDEX_OF_TIME_UNIT = 0;
+    private static final String INITIAL_TIME_UNIT = "d";
+
+    private static String timeUnit = INITIAL_TIME_UNIT;
+
+    /**
+     * Creates an ChangeCommand to change calendar into the specified view page time unit {@code timeUnit}
+     */
+    public ChangeCommand(String timeUnit) {
+        requireNonNull(timeUnit);
+        this.timeUnit = timeUnit;
+    }
+
+    public static String getTimeUnit() {
+        return timeUnit;
+    }
+
+    @Override
+    public CommandResult execute() {
+        CalendarPanel.changeViewPage(timeUnit.charAt(INDEX_OF_TIME_UNIT));
+        return new CommandResult(String.format(MESSAGE_SUCCESS));
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof ChangeCommand // instanceof handles nulls
+                && timeUnit.equals(((ChangeCommand) other).timeUnit));
+    }
+
+}
+```
 ###### \java\seedu\address\logic\parser\AddTuteeCommandParser.java
 ``` java
 /**
@@ -115,6 +164,74 @@ public class AddTuteeCommandParser implements Parser<AddTuteeCommand> {
     private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
         return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
+}
+```
+###### \java\seedu\address\logic\parser\ChangeCommandParser.java
+``` java
+/**
+ * Parses input arguments and creates a new ChangeCommand object
+ */
+public class ChangeCommandParser implements Parser<ChangeCommand> {
+    private static final String DAY = "d";
+    private static final String WEEK = "w";
+    private static final String MONTH = "m";
+    private static final String YEAR = "y";
+
+    /**
+     * Parses the given {@code String} of arguments in the context of the ChangeCommand
+     * and returns an ChangeCommand object for execution.
+     *
+     * @throws ParseException if the user input does not conform the expected format
+     */
+    public ChangeCommand parse(String args) throws ParseException {
+        try {
+            String timeUnit = ParserUtil.parseTimeUnit(args);
+            return new ChangeCommand(timeUnit);
+        } catch (IllegalValueException ive) {
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, ChangeCommand.MESSAGE_USAGE));
+        } catch (SameTimeUnitException svpe) {
+            throw new ParseException(svpe.getMessage());
+        }
+    }
+
+    /**
+     * Checks if the user input view page time unit is valid
+     *
+     * @param trimmedTimeUnit to be checked
+     * @return true if view page time unit is valid
+     *          false if the view page time unit is invalid
+     */
+    public static boolean isValidTimeUnit(String trimmedTimeUnit) {
+        return (trimmedTimeUnit.equals(DAY)
+            || trimmedTimeUnit.equals(WEEK)
+            || trimmedTimeUnit.equals(MONTH)
+            || trimmedTimeUnit.equals(YEAR));
+    }
+
+    /**
+     * Checks if the new view page time unit clashes with the current time unit
+     *
+     * @param timeUnit to be checked
+     * @return true if the view page time unit clashes with the current time unit
+     *          false if there is no clash
+     */
+    public static boolean isTimeUnitClash(String timeUnit) {
+        String currentViewPage = ChangeCommand.getTimeUnit();
+        return (timeUnit.equals(currentViewPage));
+    }
+}
+```
+###### \java\seedu\address\logic\parser\exceptions\SameTimeUnitException.java
+``` java
+/**
+ * Signals that the input calendar view page time unit clashes with current time unit
+ */
+public class SameTimeUnitException extends Exception {
+    public SameTimeUnitException(String message) {
+        super(message);
+    }
+
 }
 ```
 ###### \java\seedu\address\logic\parser\ParserUtil.java
@@ -217,6 +334,23 @@ public class AddTuteeCommandParser implements Parser<AddTuteeCommand> {
         return grade.isPresent() ? Optional.of(parseGrade(grade.get())) : Optional.empty();
     }
 
+    /**
+     * Parses a {@code String timeUnit} into an {@code String} and returns it.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws IllegalValueException if the given {@code timeUnit} is invalid.
+     */
+    public static String parseTimeUnit(String timeUnit) throws IllegalValueException, SameTimeUnitException {
+        requireNonNull(timeUnit);
+        String trimmedTimeUnit = timeUnit.trim();
+        if (!ChangeCommandParser.isValidTimeUnit(trimmedTimeUnit)) {
+            throw new IllegalValueException(ChangeCommand.MESSAGE_CONSTRAINT);
+        }
+        if (ChangeCommandParser.isTimeUnitClash(trimmedTimeUnit)) {
+            throw new SameTimeUnitException(ChangeCommand.MESSAGE_SAME_VIEW);
+        }
+        return trimmedTimeUnit;
+    }
 }
 ```
 ###### \java\seedu\address\model\person\exceptions\DurationParseException.java
@@ -699,9 +833,13 @@ public class Tutee extends Person {
 public class CalendarPanel extends UiPart<Region> {
 
     private static final String FXML = "CalendarPanel.fxml";
+    private static final char DAY = 'd';
+    private static final char WEEK = 'w';
+    private static final char MONTH = 'm';
+    private static final char YEAR = 'y';
 
     @FXML
-    private CalendarView calendarView = new CalendarView();
+    private static CalendarView calendarView = new CalendarView();
 
     public CalendarPanel() {
         super(FXML);
@@ -720,7 +858,29 @@ public class CalendarPanel extends UiPart<Region> {
         calendarView.setShowPrintButton(false);
         calendarView.setShowPageToolBarControls(false);
         calendarView.setShowSearchField(false);
-        calendarView.setShowSearchResultsTray(false);
+    }
+
+    /**
+     * Changes the view page of the calendar
+     * @param timeUnit the view page time unit to be changed into
+     */
+    public static void changeViewPage(char timeUnit) {
+        switch(timeUnit) {
+        case DAY:
+            calendarView.showDayPage();
+            return;
+        case WEEK:
+            calendarView.showWeekPage();
+            return;
+        case MONTH:
+            calendarView.showMonthPage();
+            return;
+        case YEAR:
+            calendarView.showYearPage();
+            return;
+        default:
+            assert(false);
+        }
     }
 
     @Override

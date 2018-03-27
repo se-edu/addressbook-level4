@@ -5,6 +5,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
+import static seedu.address.testutil.TypicalCalendarView.DAY;
 import static seedu.address.testutil.TypicalCalendarView.MONTH;
 import static seedu.address.testutil.TypicalCalendarView.WEEK;
 import static seedu.address.testutil.TypicalCalendarView.YEAR;
@@ -15,14 +16,15 @@ import org.junit.Test;
 import seedu.address.logic.commands.ChangeCommand;
 import seedu.address.testutil.Assert;
 
+//@@author ChoChihTun
 public class ChangeCommandParserTest {
 
     private ChangeCommandParser parser = new ChangeCommandParser();
-    private ChangeCommand changeCommand = new ChangeCommand("d"); // Set an initial time unit to check against
+    private ChangeCommand changeCommand = new ChangeCommand(DAY); // Set an initial time unit to check against
 
     @Test
     public void parse_validArgs_returnsChangeCommand() throws Exception {
-        // Set initial time unit to d
+        // get the initial time unit, "d"
         String initialTimeUnit = ChangeCommand.getTimeUnit();
 
         // Change time unit to w
@@ -67,10 +69,10 @@ public class ChangeCommandParserTest {
         assertFalse(ChangeCommandParser.isValidTimeUnit(" d ")); // contains space
 
         // valid time unit
-        assertTrue(ChangeCommandParser.isValidTimeUnit("d")); // day
-        assertTrue(ChangeCommandParser.isValidTimeUnit("w")); // week
-        assertTrue(ChangeCommandParser.isValidTimeUnit("m")); // month
-        assertTrue(ChangeCommandParser.isValidTimeUnit("y")); // year
+        assertTrue(ChangeCommandParser.isValidTimeUnit(DAY)); // day
+        assertTrue(ChangeCommandParser.isValidTimeUnit(WEEK)); // week
+        assertTrue(ChangeCommandParser.isValidTimeUnit(MONTH)); // month
+        assertTrue(ChangeCommandParser.isValidTimeUnit(YEAR)); // year
     }
 
     @Test
