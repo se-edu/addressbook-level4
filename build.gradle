@@ -23,7 +23,7 @@ targetCompatibility = JavaVersion.VERSION_1_9
 
 repositories {
     mavenCentral()
-    maven { url = "https://oss.sonatype.org/content/repositories/snapshots/" }
+    maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
 }
 
 checkstyle {
@@ -32,8 +32,8 @@ checkstyle {
 
 jacocoTestReport {
     reports {
-        xml.enabled = false
-        csv.enabled = false
+        xml.enabled false
+        csv.enabled false
         html.setDestination(file("${buildDir}/jacocoHtml"))
     }
 }
