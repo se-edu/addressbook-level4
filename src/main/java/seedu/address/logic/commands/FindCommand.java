@@ -76,6 +76,31 @@ public class FindCommand extends Command {
             // invalid category should be detected in parser
             assert (false);
         }
-        return new CommandResult(getMessageForPersonListShownSummary(model.getSortedAndFilteredPersonList().size()));
+        return new CommandResult(MESSAGE_SUCCESS + "\n"
+                + getMessageForPersonListShownSummary(model.getSortedAndFilteredPersonList().size()));
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof FindCommand // instanceof handles nulls
+                && category.equals(((FindCommand) other).category)
+                && hasSameValue(keywords, ((FindCommand) other).keywords));
+    }
+
+    /**
+     * Returns true if both the given arrays of String contain the same elements.
+     */
+    private boolean hasSameValue(String[] firstKeywords, String[] secondKeywords) {
+        if (firstKeywords.length != secondKeywords.length) {
+            return false;
+        }
+
+        for (int i = 0; i < firstKeywords.length; i++) {
+            if (!firstKeywords[i].equals(secondKeywords[i])) {
+                return false;
+            }
+        }
+        return true;
     }
 }

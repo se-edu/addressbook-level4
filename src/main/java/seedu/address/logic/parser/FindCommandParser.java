@@ -31,8 +31,8 @@ public class FindCommandParser implements Parser<FindCommand> {
                     CATEGORY_EDUCATION_LEVEL, CATEGORY_GRADE, CATEGORY_SCHOOL, CATEGORY_SUBJECT));
 
     /**
-     * Parses the given {@code String} of arguments in the context of the ViewSortCommand
-     * and returns an ViewSortCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the FindCommand
+     * and returns a FindCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
     public FindCommand parse(String args) throws ParseException {
