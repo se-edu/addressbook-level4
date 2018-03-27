@@ -23,7 +23,7 @@ public class EducationLevelContainsKeywordsPredicate implements Predicate<Person
         } else {
             return keywords.stream()
                     .anyMatch(keyword -> StringUtil.containsWordIgnoreCase((
-                            (Tutee) person).getEducationLevel().toString(), keyword)) == true;
+                            (Tutee) person).getEducationLevel().toString(), keyword));
         }
     }
 

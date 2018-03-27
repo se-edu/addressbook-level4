@@ -23,7 +23,7 @@ public class SubjectContainsKeywordsPredicate implements Predicate<Person> {
         } else {
             return keywords.stream()
                     .anyMatch(keyword -> StringUtil.containsWordIgnoreCase((
-                            (Tutee) person).getSubject().toString(), keyword)) == true;
+                            (Tutee) person).getSubject().toString(), keyword));
         }
     }
 

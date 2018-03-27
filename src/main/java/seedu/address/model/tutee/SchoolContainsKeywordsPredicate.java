@@ -23,7 +23,7 @@ public class SchoolContainsKeywordsPredicate implements Predicate<Person> {
         } else {
             return keywords.stream()
                     .anyMatch(keyword -> StringUtil.containsWordIgnoreCase((
-                            (Tutee) person).getSchool().toString(), keyword)) == true;
+                            (Tutee) person).getSchool().toString(), keyword));
         }
     }
 

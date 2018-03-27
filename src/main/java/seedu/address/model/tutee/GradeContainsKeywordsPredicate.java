@@ -23,7 +23,7 @@ public class GradeContainsKeywordsPredicate implements Predicate<Person> {
         } else {
             return keywords.stream()
                     .anyMatch(keyword -> StringUtil.containsWordIgnoreCase((
-                            (Tutee) person).getGrade().toString(), keyword)) == true;
+                            (Tutee) person).getGrade().toString(), keyword));
         }
     }
 
