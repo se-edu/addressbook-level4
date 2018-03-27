@@ -123,29 +123,65 @@ Edits the phone number and email address of the 1st person to be `91234567` and 
 * `e 2 n/Betsy Crower t/` +
 Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
 
-=== Locating persons by name or number: `find`
+=== Locating persons by category: `find`
 
-Finds persons whose names or numebers contain any of the given keywords. +
+Finds persons or tutees whose specified category contain any of the given keywords. +
 Using Command Word: +
-Format: `find KEYWORD [MORE_KEYWORDS]` +
+Format: `find CATEGORY KEYWORD [MORE_KEYWORDS]` +
 Using Command Alias: +
-Format: `f KEYWORD [MORE_KEYWORDS]` +
+Format: `f CATEGORY KEYWORD [MORE_KEYWORDS]` +
 
 ****
 * The search is case insensitive. e.g `hans` will match `Hans`
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name and the number is searched.
-* A match is displayed only when the number is entered correctly and in full.
+* There are 5 categories to pick:
+** 1. name
+** 2. edu_level*
+** 3. grade*
+** 4. school*
+** 5. subject*
+** *) categories marked with * are only owned by tutees.
 * Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+* Persons matching at least one keyword will be returned (i.e. `OR` search).
+ e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
 ****
 
 Examples:
 
-* `find John` +
-Returns `john` and `John Doe`
-* `f Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
+* `find Name John` +
+Lists `john` and `John Doe`
+* `f name Betsy Tim John` +
+Lists any person having names `Betsy`, `Tim`, or `John`
+* `find grade B B+` +
+Lists all tutee with grade `B` and `B+`
+
+=== Sorting persons by category: `sort`
+
+Sorts your displayed contact list according to a category in an ascending order (lexicographically). +
+Using Command Word: +
+Format: `sort CATEGORY` +
+
+****
+* Sorting category types is case insensitive.
+ e.g both `sort name` and `sort Name` works fine.
+* The sorting is case insensitive.
+ e.g In a case where `sort name` is writeen, `angel' is diplayed before 'Ben'.
+* The displayed contact list will be sorted; not the entire contact list.
+* There are 5 categories to pick:
+** 1. name
+** 2. edu_level*
+** 3. grade*
+** 4. school*
+** 5. subject*
+* Categories marked with * are only owned by tutees. If one of them is selected, all non-tutees will be displayed
+ last after their names are sorted lexicographically.
+
+****
+
+Examples:
+
+* `sort Name` +
+sorts by name lexicographically.
 
 === Deleting a person : `delete`
 
