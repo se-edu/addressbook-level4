@@ -156,11 +156,13 @@ test {
 task headless << {
     println "Setting headless mode properties."
     test {
-        systemProperties = ['java.awt.robot': 'true',
-                            'testfx.robot': 'glass',
-                            'testfx.headless': 'true',
-                            'prism.order': 'sw',
-                            'prism.text': 't2k']
+        systemProperties = [
+            'java.awt.robot': 'true',
+            'testfx.robot': 'glass',
+            'testfx.headless': 'true',
+            'prism.order': 'sw',
+            'prism.text': 't2k',
+        ]
     }
 }
 
@@ -172,14 +174,16 @@ asciidoctor {
     sourceDir 'docs'
     outputDir "${buildDir}/docs"
 
-    attributes = [linkcss: true,
-                  stylesheet: 'gh-pages.css',
-                  'source-highlighter': 'coderay',
-                  icons: 'font',
-                  experimental: true,
-                  sectlinks: true,
-                  idprefix: '',  // for compatibility with GitHub preview
-                  idseparator: '-']
+    attributes = [
+        linkcss: true,
+        stylesheet: 'gh-pages.css',
+        'source-highlighter': 'coderay',
+        icons: 'font',
+        experimental: true,
+        sectlinks: true,
+        idprefix: '',  // for compatibility with GitHub preview
+        idseparator: '-',
+    ]
 }
 
 /*
