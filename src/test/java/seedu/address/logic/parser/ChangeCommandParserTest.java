@@ -30,17 +30,17 @@ public class ChangeCommandParserTest {
         // Change time unit to w
         ChangeCommand expectedTimeUnit = new ChangeCommand(WEEK);
         ChangeCommand changeToInitialTimeUnit = new ChangeCommand(initialTimeUnit); // Change to initial time unit
-        assertEquals(expectedTimeUnit, new ChangeCommand(WEEK));
+        assertEquals(expectedTimeUnit, parser.parse(WEEK));
 
         // Change time unit to m
         expectedTimeUnit = new ChangeCommand(MONTH);
         changeToInitialTimeUnit = new ChangeCommand(initialTimeUnit); // Change to initial time unit
-        assertEquals(expectedTimeUnit, new ChangeCommand(MONTH));
+        assertEquals(expectedTimeUnit, parser.parse(MONTH));
 
         // Change time unit to y
         expectedTimeUnit = new ChangeCommand(YEAR);
         changeToInitialTimeUnit = new ChangeCommand(initialTimeUnit); // Change to initial time unit
-        assertEquals(expectedTimeUnit, new ChangeCommand(YEAR));
+        assertEquals(expectedTimeUnit, parser.parse(YEAR));
     }
 
     @Test
@@ -52,6 +52,10 @@ public class ChangeCommandParserTest {
         assertParseFailure(parser, "", String.format(MESSAGE_INVALID_COMMAND_FORMAT, ChangeCommand.MESSAGE_USAGE));
     }
 
+    @Test
+    public void parse_invalidArgs_throwsSameTimeUnitException() {
+        assertParseFailure(parser, "d", String.format(ChangeCommand.MESSAGE_SAME_VIEW));
+    }
 
     @Before
     public void isValidTimeUnit() {
