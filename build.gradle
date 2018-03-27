@@ -2,7 +2,7 @@
  * Gradle Configuration File
  *
  * For more details take a look at the Java Quickstart chapter in the Gradle
- * user guide available at http://gradle.org/docs/2.2.1/userguide/tutorial_java_projects.html
+ * user guide available at http://gradle.org/docs/4.6/userguide/tutorial_java_projects.html
  */
 
 plugins {
@@ -32,9 +32,9 @@ checkstyle {
 
 jacocoTestReport {
     reports {
-        xml.enabled false
-        csv.enabled false
-        html.destination "${buildDir}/jacocoHtml"
+        xml.enabled = false
+        csv.enabled = false
+        html.destination file("${buildDir}/jacocoHtml")
     }
 }
 
@@ -74,9 +74,9 @@ task wrapper(type: Wrapper) {
 }
 
 task coverage(type: JacocoReport) {
-    sourceDirectories = files(allprojects.sourceSets.main.allSource.srcDirs)
-    classDirectories =  files(allprojects.sourceSets.main.output)
-    executionData = files(allprojects.jacocoTestReport.executionData)
+    sourceDirectories = files(sourceSets.main.allSource.srcDirs)
+    classDirectories =  files(sourceSets.main.output)
+    executionData = files(jacocoTestReport.executionData)
     afterEvaluate {
         classDirectories = files(classDirectories.files.collect {
             fileTree(dir: it, exclude: ['**/*.jar'])
@@ -89,7 +89,7 @@ task coverage(type: JacocoReport) {
 }
 
 coveralls {
-    sourceDirs = allprojects.sourceSets.main.allSource.srcDirs.flatten()
+    sourceDirs = sourceSets.main.allSource.srcDirs.absolutePath
     jacocoReportPath = "${buildDir}/reports/jacoco/coverage/coverage.xml"
 }
 
@@ -121,7 +121,7 @@ test {
      */
     if (System.env.'CI') {
         beforeTest { descriptor ->
-            logger.lifecycle('Running test: ' + descriptor)
+            logger.lifecycle('Running test: ' + descriptor.toString())
         }
     }
 
@@ -134,8 +134,8 @@ test {
         boolean runNonGuiTests = gradle.taskGraph.hasTask(nonGuiTests)
 
         if (!runGuiTests && !runNonGuiTests) {
-            runGuiTests = true;
-            runNonGuiTests = true;
+            runGuiTests = true
+            runNonGuiTests = true
         }
 
         if (runNonGuiTests) {
@@ -156,11 +156,11 @@ test {
 task headless << {
     println "Setting headless mode properties."
     test {
-        systemProperty 'java.awt.robot', 'true'
-        systemProperty 'testfx.robot', 'glass'
-        systemProperty 'testfx.headless', 'true'
-        systemProperty 'prism.order', 'sw'
-        systemProperty 'prism.text', 't2k'
+        systemProperties = ['java.awt.robot': 'true',
+                            'testfx.robot': 'glass',
+                            'testfx.headless': 'true',
+                            'prism.order': 'sw',
+                            'prism.text': 't2k']
     }
 }
 
@@ -172,14 +172,14 @@ asciidoctor {
     sourceDir 'docs'
     outputDir "${buildDir}/docs"
 
-    attributes linkcss: true,
-               stylesheet: 'gh-pages.css',
-               'source-highlighter': 'coderay',
-               icons: 'font',
-               experimental: true,
-               sectlinks: true,
-               idprefix: '',  // for compatibility with GitHub preview
-               idseparator: '-'
+    attributes = [linkcss: true,
+                  stylesheet: 'gh-pages.css',
+                  'source-highlighter': 'coderay',
+                  icons: 'font',
+                  experimental: true,
+                  sectlinks: true,
+                  idprefix: '',  // for compatibility with GitHub preview
+                  idseparator: '-']
 }
 
 /*
