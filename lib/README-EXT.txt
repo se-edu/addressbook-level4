@@ -16,4 +16,3 @@ by CalendarFX. The framework can not work without these.
 - license4j-1.4.0.jar
 
   Support for licensing keys.
-  
