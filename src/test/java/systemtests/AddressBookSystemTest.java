@@ -22,6 +22,7 @@ import org.junit.BeforeClass;
 import org.junit.ClassRule;
 
 import guitests.guihandles.BrowserPanelHandle;
+import guitests.guihandles.CalendarPanelHandle;
 import guitests.guihandles.CommandBoxHandle;
 import guitests.guihandles.MainMenuHandle;
 import guitests.guihandles.MainWindowHandle;
@@ -71,6 +72,9 @@ public abstract class AddressBookSystemTest {
 
         waitUntilBrowserLoaded(getBrowserPanel());
         assertApplicationStartingStateIsCorrect();
+
+        assertStartingCalendarViewPageIsCorrect();
+
     }
 
     @After
@@ -111,6 +115,10 @@ public abstract class AddressBookSystemTest {
 
     public BrowserPanelHandle getBrowserPanel() {
         return mainWindowHandle.getBrowserPanel();
+    }
+
+    public CalendarPanelHandle getCalendarPanel() {
+        return mainWindowHandle.getCalendarPanel();
     }
 
     public StatusBarFooterHandle getStatusBarFooter() {
@@ -291,6 +299,15 @@ public abstract class AddressBookSystemTest {
             throw new AssertionError("Starting state is wrong.", e);
         }
     }
+
+    //@@author ChoChihTun
+    /**
+     * Asserts that the starting calendar view of the application is correct.
+     */
+    private void assertStartingCalendarViewPageIsCorrect() {
+        assertEquals(getCalendarPanel().getDefaultCalendarViewPage(), getCalendarPanel().getCurrentCalendarViewPage());
+    }
+    //@@author
 
     /**
      * Returns a defensive copy of the current model.

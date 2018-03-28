@@ -18,3 +18,7 @@
 .tooltip-text {
     -fx-text-fill: white;
 }
+
+#calendarPlaceholder {
+    -fx-background-color: #ffffff;
+}
