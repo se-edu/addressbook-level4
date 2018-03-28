@@ -6,6 +6,11 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.Task;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
+import java.time.format.SignStyle;
+import java.time.temporal.ChronoField;
+import java.util.Formatter;
 
 /**
  * An UI component that displays information of a {@code Task}.
@@ -46,7 +51,12 @@ public class TaskCard extends UiPart<Region> {
         description.setText(task.getDescription());
         duration.setText(task.getDuration());
         taskDateAndTime.setText("55");
-        //taskDateAndTime.setText(task.getTaskDateTime().toString());
+        // DateTimeFormatterBuilder b = new DateTimeFormatterBuilder();
+        //DateTimeFormatter formatter = b.appendValue(ChronoField.YEAR_OF_ERA, 4, 4, SignStyle.EXCEEDS_PAD).appendPattern("dd/MM/yyyy HH:mm").toFormatter();
+        //taskDateAndTime.setText(task.getTaskDateTime().format(formatter));
+      //  LocalDateTime l = task.getTaskDateTime();
+       // String s = l.toString();
+       // taskDateAndTime.setText(s);
     }
 
     @Override
