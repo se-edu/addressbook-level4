@@ -2,17 +2,13 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
-import seedu.address.model.tag.Tag;
 
 /**
  * Wraps all data at the address-book level
@@ -106,14 +102,6 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public ObservableList<Person> getPersonList() {
         return persons.asObservableList();
-    }
-
-    @Override
-    public ObservableList<Tag> getTagList() {
-        Set<Tag> tagSet = new HashSet<>();
-        persons.forEach(person -> tagSet.addAll(person.getTags()));
-        ObservableList<Tag> tagList = FXCollections.observableArrayList(tagSet);
-        return FXCollections.unmodifiableObservableList(tagList);
     }
 
     @Override
