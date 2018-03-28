@@ -24,7 +24,7 @@ public class ChangeCommandParserTest {
 
     @Test
     public void parse_validArgs_returnsChangeCommand() throws Exception {
-        // get the initial time unit, "d"
+        // get the initial time unit, d
         String initialTimeUnit = ChangeCommand.getTimeUnit();
 
         // Change time unit to w
@@ -53,7 +53,7 @@ public class ChangeCommandParserTest {
     }
 
     @Test
-    public void parse_invalidArgs_throwsSameTimeUnitException() {
+    public void parse_sameViewPageTimeUnit_throwsSameTimeUnitException() {
         assertParseFailure(parser, "d", String.format(ChangeCommand.MESSAGE_SAME_VIEW));
     }
 
