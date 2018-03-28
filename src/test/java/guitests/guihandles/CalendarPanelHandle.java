@@ -23,4 +23,8 @@ public class CalendarPanelHandle extends NodeHandle<Node> {
     public PageBase getDefaultCalendarViewPage() {
         return calendarPanel.getRoot().getDayPage();
     }
+
+    public PageBase getCurrentCalendarViewPage() {
+        return calendarPanel.getRoot().getSelectedPage();
+    }
 }

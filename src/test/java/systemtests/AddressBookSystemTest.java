@@ -72,6 +72,9 @@ public abstract class AddressBookSystemTest {
 
         waitUntilBrowserLoaded(getBrowserPanel());
         assertApplicationStartingStateIsCorrect();
+
+        assertStartingCalendarViewPageIsCorrect();
+
     }
 
     @After
@@ -296,6 +299,15 @@ public abstract class AddressBookSystemTest {
             throw new AssertionError("Starting state is wrong.", e);
         }
     }
+
+    //@@author ChoChihTun
+    /**
+     * Asserts that the starting calendar view of the application is correct.
+     */
+    private void assertStartingCalendarViewPageIsCorrect() {
+        assertEquals(getCalendarPanel().getDefaultCalendarViewPage(), getCalendarPanel().getCurrentCalendarViewPage());
+    }
+    //@@author
 
     /**
      * Returns a defensive copy of the current model.
