@@ -93,7 +93,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public synchronized void updateTask(Task target, Task editedTask)
+    public void updateTask(Task target, Task editedTask)
     {
         requireAllNonNull(target, editedTask);
         addressBook.updateTask(target, editedTask);
