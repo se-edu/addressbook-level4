@@ -169,7 +169,7 @@ Format: `sort CATEGORY` +
 * The displayed contact list will be sorted; not the entire contact list.
 * There are 5 categories to pick:
 ** 1. name
-** 2. edu_level*
+** 2. edu*
 ** 3. grade*
 ** 4. school*
 ** 5. subject*

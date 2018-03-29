@@ -2,6 +2,7 @@ package seedu.address.model.personal;
 
 import java.time.LocalDateTime;
 
+import seedu.address.logic.commands.AddPersonalTaskCommand;
 import seedu.address.model.Task;
 
 //@@author ChoChihTun
@@ -42,5 +43,14 @@ public class PersonalTask implements Task {
 
     public String getDuration() {
         return duration;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof PersonalTask // instanceof handles nulls
+                && taskDateTime.equals(((PersonalTask) other).taskDateTime)
+                && duration.equals(((PersonalTask) other).duration)
+                && description.equals(((PersonalTask) other).description));
     }
 }

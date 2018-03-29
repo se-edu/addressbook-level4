@@ -1,7 +1,11 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_DURATION;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.ResolverStyle;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Optional;
@@ -16,11 +20,14 @@ import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.exceptions.DurationParseException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tutee.EducationLevel;
 import seedu.address.model.tutee.Grade;
 import seedu.address.model.tutee.School;
 import seedu.address.model.tutee.Subject;
+
+import java.time.format.DateTimeParseException;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -35,6 +42,7 @@ public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
     public static final String MESSAGE_INSUFFICIENT_PARTS = "Number of parts must be more than 1.";
+    public static final int INDEX_DIFFERENCE = 1;
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -287,5 +295,52 @@ public class ParserUtil {
             throw new SameTimeUnitException(ChangeCommand.MESSAGE_SAME_VIEW);
         }
         return trimmedTimeUnit;
+    }
+
+    /**
+     * Parses a {@code String dateTime} into an {@code LocalDateTime}.
+     *
+     * @throws DateTimeParseException if the given {@code stringDateTime} is invalid.
+     */
+    public static LocalDateTime parseDateTime(String stringDateTime) throws DateTimeParseException {
+        requireNonNull(stringDateTime);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/uuuu HH:mm")
+                .withResolverStyle(ResolverStyle.STRICT);
+        return LocalDateTime.parse(stringDateTime, formatter);
+    }
+
+    /**
+     * Checks if the given duration is valid.
+     *
+     * @throws DurationParseException if the given {@code duration} is invalid.
+     */
+    public static String parseDuration(String duration) throws DurationParseException {
+        requireNonNull(duration);
+        String durationValidationRegex = "([0-9]|1[0-9]|2[0-3])h([0-5][0-9]|[0-9])m";
+        if (!duration.matches(durationValidationRegex)) {
+            throw new DurationParseException(MESSAGE_INVALID_DURATION);
+        }
+        return duration;
+    }
+
+    /**
+     * Returns the description if it exists in the user input.
+     * Returns empty string otherwise.
+     */
+    public static String parseDescription(String[] userInputs, int maximumParametersGiven) {
+        if (isEmptyDescription(userInputs, maximumParametersGiven)) {
+            return "";
+        } else {
+            int descriptionIndex = maximumParametersGiven - INDEX_DIFFERENCE;
+            String description = userInputs[descriptionIndex];
+            return description;
+        }
+    }
+
+    /**
+     * Returns true if a given task contains a description.
+     */
+    private static boolean isEmptyDescription(String[] arguments, int maximumParameterssGiven) {
+        return arguments.length < maximumParameterssGiven;
     }
 }

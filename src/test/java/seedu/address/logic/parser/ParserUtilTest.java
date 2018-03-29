@@ -5,8 +5,14 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
+import static seedu.address.logic.parser.ParserUtil.parseDateTime;
+import static seedu.address.logic.parser.ParserUtil.parseDuration;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.format.ResolverStyle;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
@@ -22,6 +28,7 @@ import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.exceptions.DurationParseException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tutee.EducationLevel;
 import seedu.address.model.tutee.Grade;
@@ -40,6 +47,10 @@ public class ParserUtilTest {
     private static final String INVALID_EDUCATIONAL_LEVEL = "University";
     private static final String INVALID_SCHOOL = "school12";
     private static final String INVALID_TIME_UNIT = "year";
+    private static final String INVALID_DATE_END_OF_FEBRUARY = "29/02/2018";
+    private static final String INVALID_DATE_END_OF_APRIL = "31/04/2018";
+    private static final String INVALID_TIME = " 25:00";
+    private static final String INVALID_DURATION = "1.5h";
 
     private static final String VALID_NAME = "Rachel Walker";
     private static final String VALID_PHONE = "123456";
@@ -52,8 +63,16 @@ public class ParserUtilTest {
     private static final String VALID_EDUCATIONAL_LEVEL = "primary";
     private static final String VALID_SCHOOL = "valid primary school";
     private static final String VALID_TIME_UNIT = "y";
+    private static final String VALID_DATE = "25/04/2018";
+    private static final String VALID_DATE_LEAP_YEAR = "29/02/2020";
+    private static final String VALID_TIME = "08:01";
+    private static final String VALID_DURATION = "1h30m";
+    private static final String VALID_DESCRIPTION = "homework";
+    private static final String VALID_TASK_WITHOUT_DESCRIPTION = VALID_DATE + " " + VALID_TIME + " " + VALID_DURATION;
+    private static final String VALID_TASK_WITH_DESCRIPTION = VALID_TASK_WITHOUT_DESCRIPTION + " " + VALID_DESCRIPTION;
 
     private static final String WHITESPACE = " \t\r\n";
+    private static final int MAXIMUM_AMOUNT_OF_PARAMETERS = 4;
 
     @Rule
     public final ExpectedException thrown = ExpectedException.none();
@@ -410,5 +429,61 @@ public class ParserUtilTest {
     public void parseTimeUnit_validValueWithWhitespace_returnsTrimmedTimeUnit() throws Exception {
         String timeUnitWithWhitespace = WHITESPACE + VALID_TIME_UNIT + WHITESPACE;
         assertEquals(VALID_TIME_UNIT, ParserUtil.parseTimeUnit(timeUnitWithWhitespace));
+    }
+
+    //author @@yungyung04
+    @Test
+    public void parseDateTime_invalidInput_throwsDateTimeParseException() {
+        //null date and time
+        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseDateTime(null));
+
+        //invalid date
+        Assert.assertThrows(DateTimeParseException.class, ()
+                -> ParserUtil.parseDateTime(INVALID_DATE_END_OF_FEBRUARY + VALID_TIME));
+
+        Assert.assertThrows(DateTimeParseException.class, ()
+                -> ParserUtil.parseDateTime(INVALID_DATE_END_OF_APRIL + VALID_TIME));
+
+        //invalid time
+        Assert.assertThrows(DateTimeParseException.class, ()
+                -> ParserUtil.parseDateTime(VALID_DATE + INVALID_TIME));
+    }
+
+    @Test
+    public void parseDateTime_validInput_parsedSuccessfully() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/uuuu HH:mm")
+                .withResolverStyle(ResolverStyle.STRICT);
+        LocalDateTime expectedDateTime = LocalDateTime.parse(VALID_DATE + " " + VALID_TIME, formatter);
+
+        assertEquals(expectedDateTime, parseDateTime(VALID_DATE + " " + VALID_TIME));
+    }
+
+    @Test
+    public void parseDuration_invalidInput_throwsDateTimeParseException() {
+        //null duration
+        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseDuration(null));
+
+        //invalid duration
+        Assert.assertThrows(DurationParseException.class, ()
+                -> ParserUtil.parseDuration(INVALID_DURATION));
+    }
+
+    @Test
+    public void parseDuration_validInput_parsedSuccessfully() throws Exception {
+        String expectedDuration = VALID_DURATION;
+        assertEquals(expectedDuration, parseDuration(VALID_DURATION));
+    }
+
+    @Test
+    public void parseDescription_noDescriptionWithinInput_returnsEmptyString() {
+        //user input without description
+        String[] validInputs = VALID_TASK_WITHOUT_DESCRIPTION.split("\\s+", MAXIMUM_AMOUNT_OF_PARAMETERS);
+        String expectedDescription = "";
+        assertEquals(expectedDescription, ParserUtil.parseDescription(validInputs, MAXIMUM_AMOUNT_OF_PARAMETERS));
+
+        //user input with description
+        validInputs = VALID_TASK_WITH_DESCRIPTION.split("\\s+", MAXIMUM_AMOUNT_OF_PARAMETERS);
+        expectedDescription = VALID_DESCRIPTION;
+        assertEquals(expectedDescription, ParserUtil.parseDescription(validInputs, MAXIMUM_AMOUNT_OF_PARAMETERS));
     }
 }
