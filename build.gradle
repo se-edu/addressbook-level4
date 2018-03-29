@@ -55,9 +55,6 @@ dependencies {
         exclude group: 'org.testfx', module: 'testfx-internal-java8'
     }
     testImplementation group: 'org.testfx', name: 'testfx-junit', version: testFxVersion
-    testImplementation group: 'org.testfx', name: 'testfx-legacy', version: '4.0.8-alpha', {
-        exclude group: 'junit', module: 'junit'
-    }
 
     testRuntimeOnly group: 'org.testfx', name: 'testfx-internal-java9', version: testFxVersion
     testRuntimeOnly group: 'org.testfx', name: 'openjfx-monocle', version: 'jdk-9+181'
@@ -158,11 +155,10 @@ task headless {
         println "Setting headless mode properties."
         test {
             systemProperties = [
-                    'java.awt.robot': 'true',
-                    'testfx.robot': 'glass',
-                    'testfx.headless': 'true',
-                    'prism.order': 'sw',
-                    'prism.text': 't2k',
+                'testfx.robot': 'glass',
+                'testfx.headless': 'true',
+                'prism.order': 'sw',
+                'prism.text': 't2k',
             ]
         }
     }
