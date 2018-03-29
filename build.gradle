@@ -60,9 +60,6 @@ dependencies {
         exclude group: 'org.testfx', module: 'testfx-internal-java8'
     }
     testImplementation group: 'org.testfx', name: 'testfx-junit', version: testFxVersion
-    testImplementation group: 'org.testfx', name: 'testfx-legacy', version: '4.0.8-alpha', {
-        exclude group: 'junit', module: 'junit'
-    }
 
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: jUnitVersion
 
