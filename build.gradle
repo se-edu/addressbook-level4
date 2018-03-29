@@ -55,9 +55,6 @@ dependencies {
         exclude group: 'org.testfx', module: 'testfx-internal-java8'
     }
     testCompile group: 'org.testfx', name: 'testfx-junit', version: testFxVersion
-    testCompile group: 'org.testfx', name: 'testfx-legacy', version: '4.0.8-alpha', {
-        exclude group: 'junit', module: 'junit'
-    }
 
     testRuntime group: 'org.testfx', name: 'testfx-internal-java9', version: testFxVersion
     testRuntime group: 'org.testfx', name: 'openjfx-monocle', version: 'jdk-9+181'
