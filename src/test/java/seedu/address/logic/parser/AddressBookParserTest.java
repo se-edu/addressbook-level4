@@ -5,11 +5,8 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.address.model.person.PersonSortUtil.CATEGORY_NAME;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-
-import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -27,9 +24,9 @@ import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
+import seedu.address.logic.commands.SortCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.PersonBuilder;
@@ -88,14 +85,21 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_find() throws Exception {
-        List<String> keywords = Arrays.asList("foo", "bar", "baz");
+        String[] keywords = {"foo", "bar", "baz"};
         FindCommand commandWord = (FindCommand) parser.parseCommand(
-                FindCommand.COMMAND_WORD + " " + keywords.stream().collect(Collectors.joining(" ")));
-        assertEquals(new FindCommand(new NameContainsKeywordsPredicate(keywords)), commandWord);
+                FindCommand.COMMAND_WORD + " " + CATEGORY_NAME + " foo bar baz");
+        assertEquals(new FindCommand(CATEGORY_NAME, keywords), commandWord);
 
         FindCommand commandAlias = (FindCommand) parser.parseCommand(
-                FindCommand.COMMAND_ALIAS + " " + keywords.stream().collect(Collectors.joining(" ")));
-        assertEquals(new FindCommand(new NameContainsKeywordsPredicate(keywords)), commandAlias);
+                FindCommand.COMMAND_ALIAS + " " + CATEGORY_NAME + " foo bar baz");
+        assertEquals(new FindCommand(CATEGORY_NAME, keywords), commandAlias);
+    }
+
+    @Test
+    public void parseCommand_sort() throws Exception {
+        SortCommand commandWord = (SortCommand) parser.parseCommand(
+                SortCommand.COMMAND_WORD + " " + CATEGORY_NAME);
+        assertEquals(new SortCommand(CATEGORY_NAME), commandWord);
     }
 
     @Test

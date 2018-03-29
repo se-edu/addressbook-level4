@@ -3,12 +3,14 @@ package seedu.address.model;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Comparator;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
@@ -27,6 +29,7 @@ public class ModelManager extends ComponentManager implements Model {
     private final AddressBook addressBook;
     private FilteredList<Person> filteredPersons;
     private FilteredList<Task> filteredTasks;
+    private SortedList<Person> sortedPerson;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -40,6 +43,7 @@ public class ModelManager extends ComponentManager implements Model {
         this.addressBook = new AddressBook(addressBook);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
         filteredTasks = new FilteredList<>(this.addressBook.getTaskList());
+        sortedPerson = new SortedList<>(filteredPersons);
     }
 
     public ModelManager() {
@@ -130,7 +134,7 @@ public class ModelManager extends ComponentManager implements Model {
      */
     @Override
     public ObservableList<Person> getFilteredPersonList() {
-        return FXCollections.unmodifiableObservableList(filteredPersons);
+        return FXCollections.unmodifiableObservableList(sortedPerson);
     }
 
     @Override
@@ -139,6 +143,11 @@ public class ModelManager extends ComponentManager implements Model {
         filteredPersons.setPredicate(predicate);
     }
 
+
+    @Override
+    public void sortFilteredPersonList(Comparator<Person> comparator) {
+        sortedPerson.setComparator(comparator);
+    }
 
     @Override
     public boolean equals(Object obj) {
@@ -158,5 +167,6 @@ public class ModelManager extends ComponentManager implements Model {
         return addressBook.equals(other.addressBook)
                 && filteredPersons.equals(other.filteredPersons)
                 && filteredTasks.equals(other.filteredTasks);
+                && sortedPerson.equals(other.sortedPerson);
     }
 }

@@ -1,5 +1,6 @@
 package seedu.address.model;
 
+import java.util.Comparator;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -61,4 +62,9 @@ public interface Model {
      * Removes the given {@code tag} from the specified {@code person}.
      */
     void deleteTag(Tag tag, Person person);
+
+    /**
+     * Sorts the list of person according to the given comparator
+     */
+    void sortFilteredPersonList (Comparator<Person> comparator);
 }
