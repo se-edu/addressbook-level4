@@ -8,6 +8,7 @@ import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.function.Predicate;
 
 import org.junit.Rule;
@@ -29,6 +30,7 @@ import seedu.address.model.tag.Tag;
 import seedu.address.model.tutee.Tutee;
 import seedu.address.testutil.TuteeBuilder;
 
+//@@author ChoChihTun
 public class AddTuteeCommandTest {
 
     @Rule
@@ -166,6 +168,11 @@ public class AddTuteeCommandTest {
         @Override
         public void deleteTag(Tag tag, Person person) {
             fail("deleteTag should not be called when adding Person.");
+        }
+
+        @Override
+        public void sortFilteredPersonList(Comparator<Person> comparator) {
+            fail("This method should not be called.");
         }
     }
 
