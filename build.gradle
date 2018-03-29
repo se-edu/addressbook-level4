@@ -155,7 +155,6 @@ task headless {
         println "Setting headless mode properties."
         test {
             systemProperties = [
-                'java.awt.robot': 'true',
                 'testfx.robot': 'glass',
                 'testfx.headless': 'true',
                 'prism.order': 'sw',
