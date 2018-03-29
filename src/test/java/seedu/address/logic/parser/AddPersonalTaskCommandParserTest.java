@@ -12,14 +12,15 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TASK_WITH_DESC;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.ResolverStyle;
+
 import org.junit.Test;
 
 import seedu.address.logic.commands.AddPersonalTaskCommand;
 import seedu.address.model.personal.PersonalTask;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.ResolverStyle;
 
 public class AddPersonalTaskCommandParserTest {
     private AddPersonalTaskCommandParser parser = new AddPersonalTaskCommandParser();
