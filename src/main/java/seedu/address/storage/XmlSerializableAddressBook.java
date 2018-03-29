@@ -58,7 +58,7 @@ public class XmlSerializableAddressBook {
         for (XmlAdaptedPerson p : persons) {
             addressBook.addPerson(p.toModelType());
         }
-        for (XmlAdaptedTask t: tasks){
+        for (XmlAdaptedTask t: tasks) {
             addressBook.addTask(t.toModelType());
         }
         return addressBook;
