@@ -21,6 +21,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.Task;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
@@ -103,6 +104,32 @@ public class AddCommandTest {
         }
 
         @Override
+        public void addTask(Task task) {
+            fail("This method should not be called");
+        }
+
+        @Override
+        public void deleteTask(Task task) {
+            fail("This method should not be called");
+        }
+
+        @Override
+        public void updateTask(Task task, Task editedTask) {
+            fail("This method should not be called");
+        }
+
+        @Override
+        public ObservableList<Task> getFilteredTaskList() {
+            fail("This method should not be called.");
+            return null;
+        }
+
+        @Override
+        public void updateFilteredTaskList(Predicate<Task> predicate) {
+            fail("This method should not be called.");
+        }
+
+        @Override
         public void resetData(ReadOnlyAddressBook newData) {
             fail("This method should not be called.");
         }
@@ -118,17 +145,22 @@ public class AddCommandTest {
             fail("This method should not be called.");
         }
 
+
+
         @Override
         public void updatePerson(Person target, Person editedPerson)
                 throws DuplicatePersonException {
             fail("This method should not be called.");
         }
 
+
+
         @Override
         public ObservableList<Person> getFilteredPersonList() {
             fail("This method should not be called.");
             return null;
         }
+
 
         @Override
         public void updateFilteredPersonList(Predicate<Person> predicate) {
