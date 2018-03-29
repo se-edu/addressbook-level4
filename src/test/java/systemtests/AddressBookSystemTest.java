@@ -4,6 +4,7 @@ import static guitests.guihandles.WebViewUtil.waitUntilBrowserLoaded;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static seedu.address.model.person.PersonSortUtil.CATEGORY_NAME;
 import static seedu.address.ui.BrowserPanel.DEFAULT_PAGE;
 import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_INITIAL;
 import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
@@ -22,6 +23,7 @@ import org.junit.BeforeClass;
 import org.junit.ClassRule;
 
 import guitests.guihandles.BrowserPanelHandle;
+import guitests.guihandles.CalendarPanelHandle;
 import guitests.guihandles.CommandBoxHandle;
 import guitests.guihandles.MainMenuHandle;
 import guitests.guihandles.MainWindowHandle;
@@ -71,6 +73,9 @@ public abstract class AddressBookSystemTest {
 
         waitUntilBrowserLoaded(getBrowserPanel());
         assertApplicationStartingStateIsCorrect();
+
+        assertStartingCalendarViewPageIsCorrect();
+
     }
 
     @After
@@ -113,6 +118,10 @@ public abstract class AddressBookSystemTest {
         return mainWindowHandle.getBrowserPanel();
     }
 
+    public CalendarPanelHandle getCalendarPanel() {
+        return mainWindowHandle.getCalendarPanel();
+    }
+
     public StatusBarFooterHandle getStatusBarFooter() {
         return mainWindowHandle.getStatusBarFooter();
     }
@@ -141,19 +150,23 @@ public abstract class AddressBookSystemTest {
      */
     protected void showAllPersons() {
         executeCommand(ListCommand.COMMAND_WORD);
-        assertEquals(getModel().getAddressBook().getPersonList().size(), getModel().getFilteredPersonList().size());
+        assertEquals(getModel().getAddressBook().getPersonList().size(),
+                getModel().getFilteredPersonList().size());
         executeCommand(ListCommand.COMMAND_ALIAS);
-        assertEquals(getModel().getAddressBook().getPersonList().size(), getModel().getFilteredPersonList().size());
+        assertEquals(getModel().getAddressBook().getPersonList().size(),
+                getModel().getFilteredPersonList().size());
     }
 
     /**
      * Displays all persons with any parts of their names matching {@code keyword} (case-insensitive).
      */
     protected void showPersonsWithName(String keyword) {
-        executeCommand(FindCommand.COMMAND_WORD + " " + keyword);
-        assertTrue(getModel().getFilteredPersonList().size() < getModel().getAddressBook().getPersonList().size());
-        executeCommand(FindCommand.COMMAND_ALIAS + " " + keyword);
-        assertTrue(getModel().getFilteredPersonList().size() < getModel().getAddressBook().getPersonList().size());
+        executeCommand(FindCommand.COMMAND_WORD + " " + CATEGORY_NAME + " " + keyword);
+        assertTrue(getModel().getFilteredPersonList().size()
+                < getModel().getAddressBook().getPersonList().size());
+        executeCommand(FindCommand.COMMAND_ALIAS + " " + CATEGORY_NAME + " " + keyword);
+        assertTrue(getModel().getFilteredPersonList().size()
+                < getModel().getAddressBook().getPersonList().size());
     }
 
     /**
@@ -291,6 +304,15 @@ public abstract class AddressBookSystemTest {
             throw new AssertionError("Starting state is wrong.", e);
         }
     }
+
+    //@@author ChoChihTun
+    /**
+     * Asserts that the starting calendar view of the application is correct.
+     */
+    private void assertStartingCalendarViewPageIsCorrect() {
+        assertEquals(getCalendarPanel().getDefaultCalendarViewPage(), getCalendarPanel().getCurrentCalendarViewPage());
+    }
+    //@@author
 
     /**
      * Returns a defensive copy of the current model.

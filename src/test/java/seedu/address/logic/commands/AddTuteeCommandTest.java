@@ -8,6 +8,7 @@ import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.function.Predicate;
 
 import org.junit.Rule;
@@ -21,6 +22,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.Task;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
@@ -28,6 +30,7 @@ import seedu.address.model.tag.Tag;
 import seedu.address.model.tutee.Tutee;
 import seedu.address.testutil.TuteeBuilder;
 
+//@@author ChoChihTun
 public class AddTuteeCommandTest {
 
     @Rule
@@ -104,6 +107,32 @@ public class AddTuteeCommandTest {
         }
 
         @Override
+        public void addTask(Task task) {
+            fail("This method should not be called");
+        }
+
+        @Override
+        public void deleteTask(Task task) {
+            fail("This method should not be called");
+        }
+
+        @Override
+        public void updateTask(Task task, Task editedTask) {
+            fail("This method should not be called");
+        }
+
+        @Override
+        public ObservableList<Task> getFilteredTaskList() {
+            fail("This method should not be called.");
+            return null;
+        }
+
+        @Override
+        public void updateFilteredTaskList(Predicate<Task> predicate) {
+            fail("This method should not be called.");
+        }
+
+        @Override
         public void resetData(ReadOnlyAddressBook newData) {
             fail("This method should not be called.");
         }
@@ -139,6 +168,11 @@ public class AddTuteeCommandTest {
         @Override
         public void deleteTag(Tag tag, Person person) {
             fail("deleteTag should not be called when adding Person.");
+        }
+
+        @Override
+        public void sortFilteredPersonList(Comparator<Person> comparator) {
+            fail("This method should not be called.");
         }
     }
 

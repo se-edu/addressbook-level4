@@ -1,5 +1,6 @@
 package seedu.address.model;
 
+import java.util.Comparator;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
@@ -14,6 +15,7 @@ import seedu.address.model.tag.Tag;
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    Predicate<Task> PREDICATE_SHOW_ALL_TASKS = unused -> true;
 
     /** Clears existing backing model and replaces with the provided new data. */
     void resetData(ReadOnlyAddressBook newData);
@@ -46,8 +48,23 @@ public interface Model {
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
 
+    void addTask(Task target);
+
+    void updateTask(Task target, Task editedTask);
+
+    void deleteTask(Task target);
+
+    ObservableList<Task> getFilteredTaskList();
+
+    void updateFilteredTaskList(Predicate<Task> predicate);
+
     /**
      * Removes the given {@code tag} from the specified {@code person}.
      */
     void deleteTag(Tag tag, Person person);
+
+    /**
+     * Sorts the list of person according to the given comparator
+     */
+    void sortFilteredPersonList (Comparator<Person> comparator);
 }

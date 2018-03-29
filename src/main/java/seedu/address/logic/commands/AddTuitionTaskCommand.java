@@ -56,6 +56,7 @@ public class AddTuitionTaskCommand extends UndoableCommand {
     public CommandResult executeUndoableCommand() {
         requireNonNull(tuitionSchedule);
         tuitionSchedule.addTask(toAdd);
+        model.addTask(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 
