@@ -37,6 +37,7 @@ public class AddPersonalTaskCommand extends UndoableCommand {
     @Override
     public CommandResult executeUndoableCommand() {
         new PersonalSchedule().addTask(toAdd);
+        model.addTask(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 

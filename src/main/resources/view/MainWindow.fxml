@@ -47,19 +47,34 @@
         </StackPane>
 
         <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.4" VBox.vgrow="ALWAYS">
-          <VBox fx:id="personList" minWidth="340" prefWidth="340" SplitPane.resizableWithParent="false">
-            <padding>
-              <Insets top="10" right="10" bottom="10" left="10" />
-            </padding>
-            <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
-          </VBox>
 
-          <StackPane fx:id="browserPlaceholder" prefWidth="340" >
+            <VBox fx:id="personList" minWidth="340" prefWidth="340" SplitPane.resizableWithParent="false">
+                <padding>
+                    <Insets top="10" right="10" bottom="10" left="10" />
+                </padding>
+                <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+            </VBox>
+
+            <VBox fx:id="taskList" minWidth="340" prefWidth="340" SplitPane.resizableWithParent="false">
+                <padding>
+                    <Insets top="10" right="10" bottom="10" left="10" />
+                </padding>
+                <StackPane fx:id="taskListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+            </VBox>
+          <StackPane fx:id="browserPlaceholder" minWidth="150" prefWidth="100" >
             <padding>
               <Insets top="10" right="10" bottom="10" left="10" />
             </padding>
           </StackPane>
-        </SplitPane>
+
+          <!-- @@author ChoChihTun -->
+          <StackPane fx:id="calendarPlaceholder" minWidth="460" prefWidth="460">
+            <padding>
+              <Insets bottom="10" left="10" right="10" top="10" />
+            </padding>
+          </StackPane>
+         </SplitPane>
+         <!-- @@author -->
 
         <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
       </VBox>

@@ -28,6 +28,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final AddressBook addressBook;
     private FilteredList<Person> filteredPersons;
+    private FilteredList<Task> filteredTasks;
     private SortedList<Person> sortedPerson;
 
     /**
@@ -41,6 +42,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         this.addressBook = new AddressBook(addressBook);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+        filteredTasks = new FilteredList<>(this.addressBook.getTaskList());
         sortedPerson = new SortedList<>(filteredPersons);
     }
 
@@ -87,6 +89,40 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+
+    public synchronized void addTask(Task aTask) {
+        addressBook.addTask(aTask);
+        updateFilteredTaskList(PREDICATE_SHOW_ALL_TASKS); //Change to new predicate?
+        indicateAddressBookChanged();
+    }
+
+    @Override
+    public void updateTask(Task target, Task editedTask)
+    {
+        requireAllNonNull(target, editedTask);
+        addressBook.updateTask(target, editedTask);
+        indicateAddressBookChanged();
+    }
+
+    @Override
+    public synchronized void deleteTask(Task target){
+        addressBook.removeTask(target);
+        indicateAddressBookChanged();
+    }
+
+    @Override
+    public ObservableList<Task> getFilteredTaskList() {
+        return FXCollections.unmodifiableObservableList(filteredTasks);
+    }
+
+    @Override
+    public void updateFilteredTaskList(Predicate<Task> predicate)
+    {
+        requireNonNull(predicate);
+        filteredTasks.setPredicate(predicate);
+    }
+
+    @Override
     public void deleteTag(Tag tag, Person person) {
         assert(tag != null && person != null);
         addressBook.removeTagFromPerson(tag, person);
@@ -107,6 +143,7 @@ public class ModelManager extends ComponentManager implements Model {
         filteredPersons.setPredicate(predicate);
     }
 
+
     @Override
     public void sortFilteredPersonList(Comparator<Person> comparator) {
         sortedPerson.setComparator(comparator);
@@ -124,9 +161,12 @@ public class ModelManager extends ComponentManager implements Model {
             return false;
         }
 
+
         // state check
         ModelManager other = (ModelManager) obj;
         return addressBook.equals(other.addressBook)
+                && filteredPersons.equals(other.filteredPersons)
+                && filteredTasks.equals(other.filteredTasks)
                 && sortedPerson.equals(other.sortedPerson);
     }
 }

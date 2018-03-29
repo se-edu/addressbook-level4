@@ -229,6 +229,34 @@ Selects the 2nd person in the address book.
 `s 1` +
 Selects the 1st person in the results of the `f` command.
 
+=== Changing calendar view page time unit: `change`
+
+Changes the calendar's view page into the time unit specified by you.
+Using Command Word: +
+Format: `change TIME_UNIT`
+
+[width="59%",cols="22%,<23%",options="header",]
+|=======================================================================
+|Time Unit |Description
+|d |Day
+|w |Week
+|m |Month
+|y |Year
+|=======================================================================
+
+[NOTE]
+====
+* Default view page time unit is d.
+* Command fails if current view page time unit is same as the user input time unit.
+====
+
+Examples:
+
+* `change d` (command fails as current calendar view is already in day)
+* `change w` (changes calendar view to week)
+* `change m` (changes calendar view to month)
+* `change y` (changes calendar view to year)
+
 === Listing entered commands : `history`
 
 Lists all the commands that you have entered in reverse chronological order. +
@@ -325,10 +353,6 @@ Views a list of tasks.
 === View sort `[coming in v1.2]`
 Views a sorted list of people or task based on a user specified sorting criterion.
 
-=== View calender `[coming in v1.3]`
-Views the calender, which will display the month or week based on the user input.
-When viewing in week, timeline of each day of the week will be shown and task in a specific time slot will be shown.
-
 === Update tutee fees `[coming in v1.4]`
 Updates the remaining balance of the fees of a specific tutee after he or she has paid.
 
@@ -367,6 +391,8 @@ e.g. `find James Jake` +
 * *Help* : `help` +
 * *Select* : `select INDEX` +
 e.g.`select 2` +
+* *Change* : `change TIME_UNIT` +
+e.g. `change w` +
 * *History* : `history` +
 * *Undo* : `undo` +
 * *Redo* : `redo` +

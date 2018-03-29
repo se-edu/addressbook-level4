@@ -21,4 +21,6 @@ public interface ReadOnlyAddressBook {
      */
     ObservableList<Tag> getTagList();
 
+    ObservableList<Task> getTaskList();
+
 }
