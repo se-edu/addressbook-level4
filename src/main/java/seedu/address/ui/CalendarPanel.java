@@ -50,8 +50,6 @@ public class CalendarPanel extends UiPart<Region> {
     private void setupCalendar() {
         source.getCalendars().add(calendar);
         calendarView.getCalendarSources().add(source);
-        addTask2();
-        addTask1();
     }
 
     /**
