@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -55,9 +56,9 @@ public class JsonUtil {
      * @throws DataConversionException if the file format is not as expected.
      */
     public static <T> Optional<T> readJsonFile(
-            String filePath, Class<T> classOfObjectToDeserialize) throws DataConversionException {
+            Path filePath, Class<T> classOfObjectToDeserialize) throws DataConversionException {
         requireNonNull(filePath);
-        File file = new File(filePath);
+        File file = filePath.toFile();
 
         if (!file.exists()) {
             logger.info("Json file "  + file + " not found");
@@ -83,11 +84,11 @@ public class JsonUtil {
      * @param filePath cannot be null
      * @throws IOException if there was an error during writing to the file
      */
-    public static <T> void saveJsonFile(T jsonFile, String filePath) throws IOException {
+    public static <T> void saveJsonFile(T jsonFile, Path filePath) throws IOException {
         requireNonNull(filePath);
         requireNonNull(jsonFile);
 
-        serializeObjectToJsonFile(new File(filePath), jsonFile);
+        serializeObjectToJsonFile(filePath.toFile(), jsonFile);
     }
 
 

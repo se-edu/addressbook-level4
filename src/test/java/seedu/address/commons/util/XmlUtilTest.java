@@ -4,6 +4,8 @@ import static org.junit.Assert.assertEquals;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Collections;
 import java.util.List;
 
@@ -24,14 +26,14 @@ import seedu.address.testutil.TestUtil;
 
 public class XmlUtilTest {
 
-    private static final String TEST_DATA_FOLDER = FileUtil.getPath("src/test/data/XmlUtilTest/");
-    private static final File EMPTY_FILE = new File(TEST_DATA_FOLDER + "empty.xml");
-    private static final File MISSING_FILE = new File(TEST_DATA_FOLDER + "missing.xml");
-    private static final File VALID_FILE = new File(TEST_DATA_FOLDER + "validAddressBook.xml");
-    private static final File MISSING_PERSON_FIELD_FILE = new File(TEST_DATA_FOLDER + "missingPersonField.xml");
-    private static final File INVALID_PERSON_FIELD_FILE = new File(TEST_DATA_FOLDER + "invalidPersonField.xml");
-    private static final File VALID_PERSON_FILE = new File(TEST_DATA_FOLDER + "validPerson.xml");
-    private static final File TEMP_FILE = new File(TestUtil.getFilePathInSandboxFolder("tempAddressBook.xml"));
+    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "XmlUtilTest");
+    private static final File EMPTY_FILE = TEST_DATA_FOLDER.resolve("empty.xml").toFile();
+    private static final File MISSING_FILE = TEST_DATA_FOLDER.resolve("missing.xml").toFile();
+    private static final File VALID_FILE = TEST_DATA_FOLDER.resolve("validAddressBook.xml").toFile();
+    private static final File MISSING_PERSON_FIELD_FILE = TEST_DATA_FOLDER.resolve("missingPersonField.xml").toFile();
+    private static final File INVALID_PERSON_FIELD_FILE = TEST_DATA_FOLDER.resolve("invalidPersonField.xml").toFile();
+    private static final File VALID_PERSON_FILE = TEST_DATA_FOLDER.resolve("validPerson.xml").toFile();
+    private static final File TEMP_FILE = TestUtil.getFilePathInSandboxFolder("tempAddressBook.xml").toFile();
 
     private static final String INVALID_PHONE = "9482asf424";
 
