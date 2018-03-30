@@ -1,6 +1,8 @@
 package seedu.address;
 
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Map;
 import java.util.Optional;
 import java.util.logging.Logger;
@@ -116,13 +118,13 @@ public class MainApp extends Application {
      */
     protected Config initConfig(String configFilePath) {
         Config initializedConfig;
-        String configFilePathUsed;
+        Path configFilePathUsed;
 
         configFilePathUsed = Config.DEFAULT_CONFIG_FILE;
 
         if (configFilePath != null) {
             logger.info("Custom Config file specified " + configFilePath);
-            configFilePathUsed = configFilePath;
+            configFilePathUsed = Paths.get(configFilePath);
         }
 
         logger.info("Using config file : " + configFilePathUsed);
@@ -151,7 +153,7 @@ public class MainApp extends Application {
      * reading from the file.
      */
     protected UserPrefs initPrefs(UserPrefsStorage storage) {
-        String prefsFilePath = storage.getUserPrefsFilePath();
+        Path prefsFilePath = storage.getUserPrefsFilePath();
         logger.info("Using prefs file : " + prefsFilePath);
 
         UserPrefs initializedPrefs;

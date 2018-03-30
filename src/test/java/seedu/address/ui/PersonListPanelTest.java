@@ -9,6 +9,8 @@ import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysPerson;
 import static seedu.address.ui.testutil.GuiTestAssert.assertCardEquals;
 
 import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
@@ -33,7 +35,7 @@ public class PersonListPanelTest extends GuiUnitTest {
 
     private static final JumpToListRequestEvent JUMP_TO_SECOND_EVENT = new JumpToListRequestEvent(INDEX_SECOND_PERSON);
 
-    private static final String TEST_DATA_FOLDER = FileUtil.getPath("src/test/data/sandbox/");
+    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "sandbox");
 
     private static final Logger logger = LogsCenter.getLogger(PersonListPanelTest.class);
 
@@ -137,7 +139,7 @@ public class PersonListPanelTest extends GuiUnitTest {
         }
         builder.append("</addressbook>\n");
 
-        File manyPersonsFile = new File(TEST_DATA_FOLDER + "manyPersons.xml");
+        File manyPersonsFile = TEST_DATA_FOLDER.resolve("manyPersons.xml").toFile();
         FileUtil.createFile(manyPersonsFile);
         FileUtil.writeToFile(manyPersonsFile, builder.toString());
         manyPersonsFile.deleteOnExit();
