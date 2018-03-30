@@ -64,14 +64,14 @@ public class XmlAdaptedTask {
     public Task toModelType() throws IllegalValueException {
 
         if (this.description == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Task.MESSAGE_DESCRIPTION_CONSTRAINTS));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Task.MESSAGE_DESCRIPTION_CONSTRAINTS));
         }
         if (this.duration == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Task.MESSAGE_DURATION_CONSTRAINTS));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Task.MESSAGE_DURATION_CONSTRAINTS));
         }
         // Look into putting a test for localdateandtime. Can't use timingclash function with a string.
-
-        return new PersonalTask(placeholder,duration,description);
+        return new PersonalTask(placeholder, duration, description);
     }
-
 }
