@@ -47,8 +47,7 @@ public class BrowserPanel extends UiPart<Region> {
         loadPage(SEARCH_PAGE_URL + person.getName().fullName);
     }
 
-    private void loadTaskPage(Task task)
-    {
+    private void loadTaskPage(Task task) {
         loadPage(SEARCH_PAGE_URL + task.getDescription());
     }
 
