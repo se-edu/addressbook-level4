@@ -70,6 +70,7 @@ public class MainWindow extends UiPart<Stage> {
 
         // Set dependencies
         this.primaryStage = primaryStage;
+        primaryStage.setMaximized(true);
         this.logic = logic;
         this.config = config;
         this.prefs = prefs;
