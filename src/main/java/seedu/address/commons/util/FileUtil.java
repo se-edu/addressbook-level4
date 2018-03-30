@@ -1,7 +1,5 @@
 package seedu.address.commons.util;
 
-import static seedu.address.commons.util.AppUtil.checkArgument;
-
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -78,16 +76,6 @@ public class FileUtil {
      */
     public static void writeToFile(File file, String content) throws IOException {
         Files.write(file.toPath(), content.getBytes(CHARSET));
-    }
-
-    /**
-     * Converts a string to a platform-specific file path
-     * @param pathWithForwardSlash A String representing a file path but using '/' as the separator
-     * @return {@code pathWithForwardSlash} but '/' replaced with {@code File.separator}
-     */
-    public static String getPath(String pathWithForwardSlash) {
-        checkArgument(pathWithForwardSlash.contains("/"));
-        return pathWithForwardSlash.replace("/", File.separator);
     }
 
 }
