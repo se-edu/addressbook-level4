@@ -3,6 +3,9 @@ package seedu.address.commons.events.ui;
 import seedu.address.commons.events.BaseEvent;
 import seedu.address.ui.TaskCard;
 
+/**
+ * Represents a selection change in the Person List Panel
+ */
 public class TaskPanelSelectionChangedEvent extends BaseEvent {
 
     private final TaskCard newSelection;

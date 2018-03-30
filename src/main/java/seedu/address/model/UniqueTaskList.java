@@ -9,7 +9,12 @@ import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
-
+/**
+ * A list of tasks that enforces uniqueness between its elements and does not allow nulls.
+ *
+ * Supports a minimal set of list operations.
+ *
+ */
 public class UniqueTaskList implements Iterable<Task> {
 
     private final ObservableList<Task> internalList = FXCollections.observableArrayList();
@@ -43,8 +48,7 @@ public class UniqueTaskList implements Iterable<Task> {
      *
      */
 
-    public void setTask(Task target, Task editedTask)
-    {
+    public void setTask(Task target, Task editedTask) {
         requireNonNull(editedTask);
 
         int index = internalList.indexOf(target);
@@ -63,7 +67,7 @@ public class UniqueTaskList implements Iterable<Task> {
      * Removes the equivalent task from the list.
      *
      */
-    public boolean remove(Task toRemove) /*throws PersonNotFoundException */{
+    public boolean remove(Task toRemove) {
         requireNonNull(toRemove);
         final boolean taskFoundAndDeleted = internalList.remove(toRemove);
         if (!taskFoundAndDeleted) {

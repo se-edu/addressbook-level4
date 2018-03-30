@@ -11,7 +11,6 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import javafx.collections.ObservableList;
-import seedu.address.model.person.Address;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
@@ -63,8 +62,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         this.tags.setTags(tags);
     }
 
-    public void setTasks(List<Task> tasks)
-    {
+    public void setTasks(List<Task> tasks) {
         this.tasks.setTasks(tasks);
     }
 
@@ -135,11 +133,13 @@ public class AddressBook implements ReadOnlyAddressBook {
         tasks.add(t);
 
     }
-
-    public void updateTask(Task target, Task editedTask)
-    {
+    /**
+     * Updates a task to the address book.
+     *
+     */
+    public void updateTask(Task target, Task editedTask)    {
         requireNonNull(editedTask);
-        tasks.setTask(target,editedTask);
+        tasks.setTask(target, editedTask);
     }
 
     /**
@@ -205,11 +205,12 @@ public class AddressBook implements ReadOnlyAddressBook {
             throw new PersonNotFoundException();
         }
     }
-
-    public boolean removeTask(Task key)
-    {
-        if (tasks.remove(key))
-        {
+    /**
+     * Removes a task from the address book.
+     *
+     */
+    public boolean removeTask(Task key)    {
+        if (tasks.remove(key))        {
             return true;
         } else {
             System.out.println("Didn't work");
@@ -227,8 +228,8 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     @Override
     public String toString() {
-        return persons.asObservableList().size() + " persons, " + tags.asObservableList().size() +  " tags, " +
-                tasks.asObservableList().size() + " tasks";
+        return persons.asObservableList().size() + " persons, " + tags.asObservableList().size() +  " tags, "
+                + tasks.asObservableList().size() + " tasks";
         // TODO: refine later
     }
 
@@ -243,7 +244,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     @Override
-    public ObservableList<Task> getTaskList() { return tasks.asObservableList();}
+    public ObservableList<Task> getTaskList() { return tasks.asObservableList(); }
 
     @Override
     public boolean equals(Object other) {
