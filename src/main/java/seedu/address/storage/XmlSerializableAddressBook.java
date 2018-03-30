@@ -58,7 +58,7 @@ public class XmlSerializableAddressBook {
         for (XmlAdaptedPerson p : persons) {
             addressBook.addPerson(p.toModelType());
         }
-        for (XmlAdaptedTask t: tasks){
+        for (XmlAdaptedTask t: tasks) {
             addressBook.addTask(t.toModelType());
         }
         return addressBook;
@@ -69,6 +69,7 @@ public class XmlSerializableAddressBook {
         if (other == this) {
             return true;
         }
+
 
         if (!(other instanceof XmlSerializableAddressBook)) {
             return false;

@@ -105,7 +105,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public synchronized void deleteTask(Task target){
+    public synchronized void deleteTask(Task target) {
         addressBook.removeTask(target);
         indicateAddressBookChanged();
     }
@@ -166,7 +166,7 @@ public class ModelManager extends ComponentManager implements Model {
         ModelManager other = (ModelManager) obj;
         return addressBook.equals(other.addressBook)
                 && filteredPersons.equals(other.filteredPersons)
-                && filteredTasks.equals(other.filteredTasks)
-                && sortedPerson.equals(other.sortedPerson);
+                && filteredTasks.equals(other.filteredTasks);
+        //&& sortedPerson.equals(other.sortedPerson);
     }
 }
