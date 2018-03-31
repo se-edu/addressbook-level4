@@ -12,13 +12,13 @@ public class TuitionTask implements Task {
 
 
     public static final String MESSAGE_TASK_CONSTRAINT =
-                    "Task can only be tuition\n"
+            "Task can only be tuition\n"
                     + ", the person involved must already be inside the contact list\n"
                     + ", Date can only contain numbers in the format of dd/mm/yyyy\n"
                     + ", Time must in the format of HH:mm\n"
                     + " and Duration must be the format of 01h30m";
 
-    private String person;
+    private Tutee tutee;
     private String description;
     private String duration;
     private LocalDateTime taskDateTime;
@@ -26,13 +26,13 @@ public class TuitionTask implements Task {
     /**
      * Creates a tuition task
      *
-     * @param person person involves in the task
+     * @param tutee        tutee involved in the task
      * @param taskDateTime date and time of the task
-     * @param duration duration of the task
-     * @param description description of the task
+     * @param duration     duration of the task
+     * @param description  description of the task
      */
-    public TuitionTask(String person, LocalDateTime taskDateTime, String duration, String description) {
-        this.person = person;
+    public TuitionTask(Tutee tutee, LocalDateTime taskDateTime, String duration, String description) {
+        this.tutee = tutee;
         this.taskDateTime = taskDateTime;
         this.duration = duration;
         this.description = description;
@@ -42,8 +42,8 @@ public class TuitionTask implements Task {
         return taskDateTime;
     }
 
-    public String getPerson() {
-        return person;
+    public Tutee getTutee() {
+        return tutee;
     }
 
     public String getDescription() {
@@ -53,4 +53,23 @@ public class TuitionTask implements Task {
     public String getDuration() {
         return duration;
     }
+
+    @Override
+    public String toString() {
+        return "Tuition task with description " + description + " on " + Integer.toString(taskDateTime.getDayOfMonth())
+                + " " + taskDateTime.getMonth().name() + " " + Integer.toString(taskDateTime.getYear());
+    }
+
+    /**
+     * fixes the test but has conflict with Task card
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof TuitionTask // instanceof handles nulls
+                && tutee.equals(((TuitionTask) other).tutee)
+                && taskDateTime.equals(((TuitionTask) other).taskDateTime)
+                && duration.equals(((TuitionTask) other).duration)
+                && description.equals(((TuitionTask) other).description));
+    }
+    */
 }

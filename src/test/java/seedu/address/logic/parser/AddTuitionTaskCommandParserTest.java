@@ -4,15 +4,21 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_DATE_TIME;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_DURATION;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
+import static seedu.address.testutil.TypicalTutees.getTypicalAddressBook;
 
 import org.junit.Test;
 
 import seedu.address.logic.commands.AddTuitionTaskCommand;
+import seedu.address.model.Model;
+import seedu.address.model.ModelManager;
+import seedu.address.model.UserPrefs;
 
 public class AddTuitionTaskCommandParserTest {
     private AddTuitionTaskCommandParser parser = new AddTuitionTaskCommandParser();
 
     //@@author ChoChihTun
+    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+
     @Test
     public void parse_invalidArgs_throwsParseException() {
         // Invalid format

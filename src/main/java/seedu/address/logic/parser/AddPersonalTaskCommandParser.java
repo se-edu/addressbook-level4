@@ -71,6 +71,4 @@ public class AddPersonalTaskCommandParser implements Parser<AddPersonalTaskComma
             throw new TimingClashException(MESSAGE_TASK_TIMING_CLASHES);
         }
     }
-
-
 }

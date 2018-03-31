@@ -5,6 +5,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_DURATION;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.time.format.ResolverStyle;
 import java.util.Collection;
 import java.util.HashSet;
@@ -27,8 +28,6 @@ import seedu.address.model.tutee.Grade;
 import seedu.address.model.tutee.School;
 import seedu.address.model.tutee.Subject;
 
-import java.time.format.DateTimeParseException;
-
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
  * {@code ParserUtil} contains methods that take in {@code Optional} as parameters. However, it goes against Java's
@@ -42,7 +41,6 @@ public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
     public static final String MESSAGE_INSUFFICIENT_PARTS = "Number of parts must be more than 1.";
-    public static final int INDEX_DIFFERENCE = 1;
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -331,10 +329,13 @@ public class ParserUtil {
         if (isEmptyDescription(userInputs, maximumParametersGiven)) {
             return "";
         } else {
-            int descriptionIndex = maximumParametersGiven - INDEX_DIFFERENCE;
-            String description = userInputs[descriptionIndex];
+            String description = userInputs[getLastIndex(userInputs)];
             return description;
         }
+    }
+
+    private static int getLastIndex(String[] userInputs) {
+        return userInputs.length - 1;
     }
 
     /**

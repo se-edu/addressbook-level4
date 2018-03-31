@@ -438,15 +438,15 @@ public class ParserUtilTest {
         Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseDateTime(null));
 
         //invalid date
-        Assert.assertThrows(DateTimeParseException.class, ()
-                -> ParserUtil.parseDateTime(INVALID_DATE_END_OF_FEBRUARY + VALID_TIME));
+        Assert.assertThrows(DateTimeParseException.class, () -> ParserUtil
+                .parseDateTime(INVALID_DATE_END_OF_FEBRUARY + VALID_TIME));
 
-        Assert.assertThrows(DateTimeParseException.class, ()
-                -> ParserUtil.parseDateTime(INVALID_DATE_END_OF_APRIL + VALID_TIME));
+        Assert.assertThrows(DateTimeParseException.class, () -> ParserUtil
+                .parseDateTime(INVALID_DATE_END_OF_APRIL + VALID_TIME));
 
         //invalid time
-        Assert.assertThrows(DateTimeParseException.class, ()
-                -> ParserUtil.parseDateTime(VALID_DATE + INVALID_TIME));
+        Assert.assertThrows(DateTimeParseException.class, () -> ParserUtil
+                .parseDateTime(VALID_DATE + INVALID_TIME));
     }
 
     @Test
@@ -464,8 +464,8 @@ public class ParserUtilTest {
         Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseDuration(null));
 
         //invalid duration
-        Assert.assertThrows(DurationParseException.class, ()
-                -> ParserUtil.parseDuration(INVALID_DURATION));
+        Assert.assertThrows(DurationParseException.class, () -> ParserUtil
+                .parseDuration(INVALID_DURATION));
     }
 
     @Test

@@ -2,7 +2,6 @@ package seedu.address.model.personal;
 
 import java.time.LocalDateTime;
 
-import seedu.address.logic.commands.AddPersonalTaskCommand;
 import seedu.address.model.Task;
 
 //@@author ChoChihTun
@@ -46,11 +45,22 @@ public class PersonalTask implements Task {
     }
 
     @Override
+    public String toString() {
+        return "Personal task with description " + description + " on " + Integer.toString(taskDateTime.getDayOfMonth())
+                + " " + taskDateTime.getMonth().name() + " " + Integer.toString(taskDateTime.getYear());
+    }
+
+    /**
+     * this fixes the valid args test, but has conflict with Task card
+    @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof PersonalTask // instanceof handles nulls
-                && taskDateTime.equals(((PersonalTask) other).taskDateTime)
+                && taskDateTime.getDayOfMonth() == ((PersonalTask) other).taskDateTime.getDayOfMonth()
+                && taskDateTime.getHour() == ((PersonalTask) other).taskDateTime.getHour()
+                && taskDateTime.getMinute() == ((PersonalTask) other).taskDateTime.getMinute()
                 && duration.equals(((PersonalTask) other).duration)
                 && description.equals(((PersonalTask) other).description));
     }
+    */
 }
