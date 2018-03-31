@@ -65,7 +65,7 @@ public class CollectionUtilTest {
         assertNullPointerExceptionNotThrown(Collections.emptyList());
 
         // list with all non-null elements
-        assertNullPointerExceptionNotThrown(Arrays.asList(new Object(), "ham", new Integer(1)));
+        assertNullPointerExceptionNotThrown(Arrays.asList(new Object(), "ham", Integer.valueOf(1)));
         assertNullPointerExceptionNotThrown(Arrays.asList(new Object()));
 
         // confirms nulls inside nested lists are not considered
@@ -101,8 +101,8 @@ public class CollectionUtilTest {
         assertNotUnique("abc", "abc");
         assertNotUnique("abc", "", "abc", "ABC");
         assertNotUnique("", "abc", "a", "abc");
-        assertNotUnique(1, new Integer(1));
-        assertNotUnique(null, 1, new Integer(1));
+        assertNotUnique(1, Integer.valueOf(1));
+        assertNotUnique(null, 1, Integer.valueOf(1));
         assertNotUnique(null, null);
         assertNotUnique(null, "a", "b", null);
     }
