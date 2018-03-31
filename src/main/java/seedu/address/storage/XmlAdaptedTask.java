@@ -1,27 +1,33 @@
 package seedu.address.storage;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.ResolverStyle;
 
 import javax.xml.bind.annotation.XmlElement;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.Task;
 import seedu.address.model.personal.PersonalTask;
+import seedu.address.model.tutee.TuitionTask;
 
 /**
- * JAXB-friendly version of the Person.
+ * JAXB-friendly version of the Task.
  */
 public class XmlAdaptedTask {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Task's %s field is missing!";
-    private LocalDateTime placeholder;
+    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/uuuu HH:mm")
+            .withResolverStyle(ResolverStyle.STRICT);
 
+    @XmlElement(required = true)
+    private String name;
     @XmlElement(required = true)
     private String description;
     @XmlElement(required = true)
     private String duration;
     @XmlElement(required = true)
-    private String dateandtime;
+    private String dateAndTime;
     /*
     @XmlElement
     private List<XmlAdaptedTag> tagged = new ArrayList<>();
@@ -33,24 +39,32 @@ public class XmlAdaptedTask {
     public XmlAdaptedTask() {}
 
     /**
-     * Constructs an {@code XmlAdaptedTask} with given task details.
+     * Constructs an {@code XmlAdaptedTask} with given personal task details.
      */
-    public XmlAdaptedTask(String description, String duration, LocalDateTime dateandtime) {
+    public XmlAdaptedTask(String description, String duration, LocalDateTime dateAndTime) {
         this.description = description;
         this.duration = duration;
-        this.dateandtime = dateandtime.toString();
-        this.placeholder = dateandtime;
+        this.dateAndTime = dateAndTime.toString();
+    }
+
+    public XmlAdaptedTask(String name, String description, String duration, LocalDateTime dateAndTime) {
+        this.name = name;
+        this.description = description;
+        this.duration = duration;
+        this.dateAndTime = dateAndTime.format(formatter);
     }
 
     /**
      * Converts a given Task into this class for JAXB use.
      *
-     *
      */
     public XmlAdaptedTask(Task source) {
         description = source.getDescription();
         duration = source.getDuration();
-        dateandtime = source.getTaskDateTime().toString();
+        dateAndTime = source.getTaskDateTime().format(formatter);
+        if (source instanceof TuitionTask) {
+            name = ((TuitionTask) source).getPerson();
+        }
     }
 
     /**
@@ -62,7 +76,7 @@ public class XmlAdaptedTask {
      */
 
     public Task toModelType() throws IllegalValueException {
-
+        LocalDateTime taskDateTime = LocalDateTime.parse(dateAndTime, formatter);
         if (this.description == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     Task.MESSAGE_DESCRIPTION_CONSTRAINTS));
@@ -71,7 +85,14 @@ public class XmlAdaptedTask {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     Task.MESSAGE_DURATION_CONSTRAINTS));
         }
-        // Look into putting a test for localdateandtime. Can't use timingclash function with a string.
-        return new PersonalTask(placeholder, duration, description);
+        if (this.dateAndTime == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Task.MESSAGE_DATETIME_CONSTRAINTS));
+        }
+        if (this.name == null) {
+            return new PersonalTask(taskDateTime, duration, description);
+        } else {
+            return new TuitionTask(name, taskDateTime, duration, description);
+        }
     }
 }
