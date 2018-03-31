@@ -3,7 +3,6 @@ package guitests.guihandles;
 import javafx.collections.ObservableList;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
-import seedu.address.ui.CommandBox;
 
 /**
  * A handle to the {@code CommandBox} in the GUI.
@@ -25,16 +24,13 @@ public class CommandBoxHandle extends NodeHandle<TextField> {
 
     /**
      * Enters the given command in the Command Box and presses enter.
-     * @return true if the command succeeded, false otherwise.
      */
-    public boolean run(String command) {
+    public void run(String command) {
         click();
         guiRobot.interact(() -> getRootNode().setText(command));
         guiRobot.pauseForHuman();
 
         guiRobot.type(KeyCode.ENTER);
-
-        return !getStyleClass().contains(CommandBox.ERROR_STYLE_CLASS);
     }
 
     /**
