@@ -132,7 +132,7 @@
     -fx-text-fill: #010504;
 }
 
-.anchor-pane {
+.stack-pane {
      -fx-background-color: derive(#1d1d1d, 20%);
 }
 
@@ -179,7 +179,7 @@
     -fx-border-width: 1px;
 }
 
-.grid-pane .anchor-pane {
+.grid-pane .stack-pane {
     -fx-background-color: derive(#1d1d1d, 30%);
 }
 
