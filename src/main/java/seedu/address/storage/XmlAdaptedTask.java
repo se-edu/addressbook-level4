@@ -28,10 +28,7 @@ public class XmlAdaptedTask {
     private String duration;
     @XmlElement(required = true)
     private String dateAndTime;
-    /*
-    @XmlElement
-    private List<XmlAdaptedTag> tagged = new ArrayList<>();
-    */
+
     /**
      * Constructs an XmlAdaptedTask.
      * This is the no-arg constructor that is required by JAXB.

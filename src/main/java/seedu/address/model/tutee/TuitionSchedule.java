@@ -12,7 +12,6 @@ import seedu.address.ui.CalendarPanel;
  */
 public class TuitionSchedule extends Schedule {
 
-
     private String personName;
     private ArrayList<TuitionTask> tuitionTaskList = new ArrayList<>();
 

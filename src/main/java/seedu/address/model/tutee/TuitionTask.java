@@ -13,7 +13,6 @@ import seedu.address.model.Task;
  */
 public class TuitionTask implements Task {
 
-
     public static final String MESSAGE_TASK_CONSTRAINT =
                     "Task can only be tuition\n"
                     + ", the person involved must already be inside the contact list\n"
