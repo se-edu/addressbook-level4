@@ -5,8 +5,12 @@ https://travis-ci.org/CS2103JAN2018-T11-B1/main[image:https://travis-ci.org/se-e
 https://coveralls.io/github/CS2103JAN2018-T11-B1/main?branch=master[image:https://coveralls.io/repos/github/CS2103JAN2018-T11-B1/main/badge.svg?branch=master[Coverage Status]]
 https://www.codacy.com/app/raymond511/main?utm_source=github.com&utm_medium=referral&utm_content=CS2103JAN2018-T11-B1/main&utm_campaign=Badge_Grade[image:https://api.codacy.com/project/badge/Grade/33b29d9ef2d3479c9b6bce03289421b1[Codacy Badge]]
 
-ifndef::env-github[]
+ifdef::env-github[]
 image::docs/images/Ui.png[width="600"]
+endif::[]
+
+ifndef::env-github[]
+image::images/Ui.png[width="600"]
 endif::[]
 
 * This is a desktop application for private tutors. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
