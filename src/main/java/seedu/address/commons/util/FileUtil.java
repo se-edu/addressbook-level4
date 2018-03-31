@@ -13,12 +13,16 @@ public class FileUtil {
 
     private static final String CHARSET = "UTF-8";
 
+    public static boolean isFileExists(File file) {
+        return file.exists() && file.isFile();
+    }
+
     /**
      * Creates a file if it does not exist along with its missing parent directories.
      * @throws IOException if the file or directory cannot be created.
      */
     public static void createIfMissing(File file) throws IOException {
-        if (!file.isFile()) {
+        if (!isFileExists(file)) {
             createFile(file);
         }
     }

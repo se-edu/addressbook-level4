@@ -25,17 +25,16 @@ public class FindCommand extends Command {
     /**
      * Constructs a feedback message to summarise an operation that displayed a listing of persons.
      *
-     * @param displaySize used to generate summary
      * @return summary message for persons displayed
      */
-    private static String getMessageForPersonListShownSummary(int displaySize) {
-        return String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, displaySize);
+    private String getMessageForPersonListShownSummary() {
+        return String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getFilteredPersonList().size());
     }
 
     @Override
     public CommandResult execute() {
         model.updateFilteredPersonList(predicate);
-        return new CommandResult(getMessageForPersonListShownSummary(model.getFilteredPersonList().size()));
+        return new CommandResult(getMessageForPersonListShownSummary());
     }
 
     @Override

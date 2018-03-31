@@ -32,7 +32,7 @@ public class XmlUtil {
         requireNonNull(file);
         requireNonNull(classToConvert);
 
-        if (!file.isFile()) {
+        if (!FileUtil.isFileExists(file)) {
             throw new FileNotFoundException("File not found : " + file.getAbsolutePath());
         }
 
