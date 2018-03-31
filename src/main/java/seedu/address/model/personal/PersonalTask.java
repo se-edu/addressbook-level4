@@ -6,7 +6,6 @@ import com.calendarfx.model.Entry;
 import com.calendarfx.model.Interval;
 
 import seedu.address.model.Task;
-import seedu.address.ui.CalendarPanel;
 
 //@@author ChoChihTun
 /**
@@ -36,7 +35,6 @@ public class PersonalTask implements Task {
         this.duration = duration;
         this.description = description;
         this.entry = createCalendarEntry();
-        CalendarPanel.addEntry(entry);
     }
 
     /**
@@ -81,6 +79,10 @@ public class PersonalTask implements Task {
         int startOfMinutesIndex = duration.indexOf("h") + 1;
         int indexOfMinuteDelimiter = duration.indexOf("m");
         return Integer.parseInt(duration.substring(startOfMinutesIndex, indexOfMinuteDelimiter));
+    }
+
+    public Entry getEntry() {
+        return entry;
     }
 
     public LocalDateTime getTaskDateTime() {

@@ -6,7 +6,6 @@ import com.calendarfx.model.Entry;
 import com.calendarfx.model.Interval;
 
 import seedu.address.model.Task;
-import seedu.address.ui.CalendarPanel;
 
 //@@author ChoChihTun
 /**
@@ -44,7 +43,6 @@ public class TuitionTask implements Task {
         this.duration = duration;
         this.description = description;
         this.entry = createCalendarEntry();
-        CalendarPanel.addEntry(entry);
     }
 
     /**
@@ -55,7 +53,7 @@ public class TuitionTask implements Task {
     private Entry createCalendarEntry() {
         LocalDateTime endDateTime = getTaskEndTime();
         Interval interval = new Interval(taskDateTime, endDateTime);
-        Entry entry = new Entry(String.format(TUITION_TITLE, person));
+        Entry entry = new Entry(getTuitionTitle());
         entry.setInterval(interval);
         return entry;
     }
@@ -91,6 +89,10 @@ public class TuitionTask implements Task {
         return Integer.parseInt(duration.substring(startOfMinutesIndex, indexOfMinuteDelimiter));
     }
 
+    public Entry getEntry() {
+        return entry;
+    }
+
     public LocalDateTime getTaskDateTime() {
         return taskDateTime;
     }
@@ -105,5 +107,9 @@ public class TuitionTask implements Task {
 
     public String getDuration() {
         return duration;
+    }
+
+    public String getTuitionTitle() {
+        return String.format(TUITION_TITLE, person);
     }
 }

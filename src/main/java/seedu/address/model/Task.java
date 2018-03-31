@@ -2,6 +2,8 @@ package seedu.address.model;
 
 import java.time.LocalDateTime;
 
+import com.calendarfx.model.Entry;
+
 /**
  * Represents a task that person has
  */
@@ -20,4 +22,5 @@ public interface Task {
 
     String getDuration();
 
+    Entry getEntry();
 }

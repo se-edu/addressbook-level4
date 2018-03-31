@@ -2,7 +2,10 @@ package seedu.address.model.tutee;
 
 import java.util.ArrayList;
 
+import com.calendarfx.model.Entry;
+
 import seedu.address.model.Schedule;
+import seedu.address.ui.CalendarPanel;
 
 /**
  * Represents the tuition schedule of the person
@@ -30,6 +33,9 @@ public class TuitionSchedule extends Schedule {
     public void addTask(TuitionTask newTask) {
         tuitionTaskList.add(newTask);
         taskList.add(newTask);
+        Entry entry = newTask.getEntry();
+        CalendarPanel.addEntry(entry);
+
     }
 
     /**
