@@ -1,15 +1,11 @@
 package seedu.address.ui;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.ResolverStyle;
 
 import com.calendarfx.model.Calendar;
 import com.calendarfx.model.CalendarSource;
 import com.calendarfx.model.Entry;
-import com.calendarfx.model.Interval;
 import com.calendarfx.view.CalendarView;
 
 import javafx.fxml.FXML;
@@ -28,8 +24,7 @@ public class CalendarPanel extends UiPart<Region> {
     private static final char YEAR = 'y';
     private static CalendarSource source = new CalendarSource("Schedule");
     private static Calendar calendar = new Calendar("Task");
-    private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/uuuu HH:mm")
-            .withResolverStyle(ResolverStyle.STRICT);
+
     @FXML
     private static CalendarView calendarView = new CalendarView();
 
@@ -86,38 +81,21 @@ public class CalendarPanel extends UiPart<Region> {
     }
 
     /**
-     * Test add task 1
-     */
-    public static void addTask1() {
-        LocalDateTime startDateTime;
-        startDateTime = LocalDateTime.parse("30/03/2018 22:30", formatter);
-        LocalDateTime endDateTime = startDateTime.plusHours(1);
-        Interval interval = new Interval(startDateTime, endDateTime);
-        Entry entry = new Entry("Tuition1");
-        entry.setInterval(interval);
-        calendar.addEntry(entry);
-    }
-
-    /**
-     * Test add task 2
-     */
-    public static void addTask2() {
-        LocalDateTime startDateTime;
-        startDateTime = LocalDateTime.parse("30/03/2018 22:30", formatter);
-        LocalDateTime endDateTime = startDateTime.plusHours(1);
-        Interval interval = new Interval(startDateTime, endDateTime);
-        Entry entry = new Entry("Tuition2");
-        entry.setInterval(interval);
-        calendar.addEntry(entry);
-    }
-
-    /**
-     * Deletes a task from the calendar's schedule
+     * Adds a task entry to the calendar
      *
-     * @param task to be deleted
+     * @param entry to be added to calendar
      */
-    public static void deleteTask(Entry task) {
-        calendar.removeEntry(task);
+    public static void addEntry(Entry entry) {
+        calendar.addEntry(entry);
+    }
+
+    /**
+     * Deletes a task entry from the calendar's schedule
+     *
+     * @param entry to be deleted
+     */
+    public static void deleteTask(Entry entry) {
+        calendar.removeEntry(entry);
     }
 
     @Override
