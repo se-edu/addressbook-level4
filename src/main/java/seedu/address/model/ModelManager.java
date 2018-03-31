@@ -18,6 +18,7 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.task.exceptions.TaskNotFoundException;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -97,15 +98,14 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void updateTask(Task target, Task editedTask)
-    {
+    public void updateTask(Task target, Task editedTask) {
         requireAllNonNull(target, editedTask);
         addressBook.updateTask(target, editedTask);
         indicateAddressBookChanged();
     }
 
     @Override
-    public synchronized void deleteTask(Task target) {
+    public synchronized void deleteTask(Task target) throws TaskNotFoundException {
         addressBook.removeTask(target);
         indicateAddressBookChanged();
     }
@@ -116,8 +116,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void updateFilteredTaskList(Predicate<Task> predicate)
-    {
+    public void updateFilteredTaskList(Predicate<Task> predicate) {
         requireNonNull(predicate);
         filteredTasks.setPredicate(predicate);
     }
@@ -143,7 +142,6 @@ public class ModelManager extends ComponentManager implements Model {
         filteredPersons.setPredicate(predicate);
     }
 
-
     @Override
     public void sortFilteredPersonList(Comparator<Person> comparator) {
         sortedPerson.setComparator(comparator);
@@ -166,7 +164,7 @@ public class ModelManager extends ComponentManager implements Model {
         ModelManager other = (ModelManager) obj;
         return addressBook.equals(other.addressBook)
                 && filteredPersons.equals(other.filteredPersons)
-                && filteredTasks.equals(other.filteredTasks);
-        //&& sortedPerson.equals(other.sortedPerson);
+                && filteredTasks.equals(other.filteredTasks)
+                && sortedPerson.equals(other.sortedPerson);
     }
 }

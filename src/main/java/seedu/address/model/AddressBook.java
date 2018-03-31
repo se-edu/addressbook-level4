@@ -17,6 +17,7 @@ import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
+import seedu.address.model.task.exceptions.TaskNotFoundException;
 import seedu.address.model.tutee.Tutee;
 
 /**
@@ -207,9 +208,9 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
     /**
      * Removes a task from the address book.
-     *
+     * @throws TaskNotFoundException if the {@code key} is not in this {@code AddressBook}.
      */
-    public boolean removeTask(Task key)    {
+    public boolean removeTask(Task key) throws TaskNotFoundException {
         if (tasks.remove(key))        {
             return true;
         } else {
@@ -244,7 +245,9 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     @Override
-    public ObservableList<Task> getTaskList() { return tasks.asObservableList(); }
+    public ObservableList<Task> getTaskList() {
+        return tasks.asObservableList();
+    }
 
     @Override
     public boolean equals(Object other) {

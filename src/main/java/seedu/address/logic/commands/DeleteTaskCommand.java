@@ -9,72 +9,67 @@ import seedu.address.commons.core.index.Index;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 
-import seedu.address.model.person.Person;
-import seedu.address.model.tutee.TuitionSchedule;
+import seedu.address.model.Task;
+import seedu.address.model.task.exceptions.TaskNotFoundException;
 import seedu.address.model.tutee.TuitionTask;
-import seedu.address.model.tutee.Tutee;
 
 /**
- * Adds a tuition (task) into the schedule.
+ * Deletes a task from the schedule.
  */
-public class DeleteTuitionTaskCommand extends UndoableCommand {
+public class DeleteTaskCommand extends UndoableCommand {
 
-    public static final String COMMAND_WORD = "deleteTuition";
+    public static final String COMMAND_WORD = "deletetask";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Deletes a tuition (task) from the schedule.\n"
+    public static final String MESSAGE_USAGE =
+            COMMAND_WORD + ": Deletes a tuition or personal task from the schedule.\n"
             + "Parameters: "
-            + "INDEX (must be a positive integer) of Tutee \n"
-            + "INDEX (must be a positive integer) of Task"
-            + "Example: " + COMMAND_WORD + " 1" + " 1";
+            + "index of Task"
+            + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_SUCCESS = "Tuition task deleted.";
+    public static final String MESSAGE_SUCCESS = "Deleted task : %1$s";
 
     private final Index targetIndex;
-    private final int taskIndex;
-    private TuitionTask tuitionTaskToDelete;
-    private TuitionSchedule tuitionSchedule;
-    private Tutee associatedPerson;
+    private Task toDelete;
 
-    /**
-     * Deletes a TuitionTask {@code Task} which is associated to {@code Person}.
-     */
-    public DeleteTuitionTaskCommand(Index indexOfAssociatedPerson, int indexOfTuitionTask) {
-        targetIndex = indexOfAssociatedPerson;
-        taskIndex = indexOfTuitionTask;
+    public DeleteTaskCommand(Index indexOfTask) {
+        targetIndex = indexOfTask;
     }
 
     @Override
     public CommandResult executeUndoableCommand() {
-        requireNonNull(tuitionSchedule);
-        tuitionTaskToDelete = tuitionSchedule.deleteTask(taskIndex);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, tuitionTaskToDelete));
+        requireNonNull(toDelete);
+        try {
+            model.deleteTask(toDelete);
+        } catch (TaskNotFoundException tnfe) {
+            throw new AssertionError("The target person cannot be missing");
+        }
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toDelete.toString()));
     }
 
     @Override
     protected void preprocessUndoableCommand() throws CommandException {
-        findAssociatedPerson();
-        assert(associatedPerson.getTuitionSchedule() != null);
-        tuitionSchedule = associatedPerson.getTuitionSchedule();
-    }
-
-    /**
-     * Locates {@code Person} that will be associated with the tuition task.
-     *
-     * @throw commandException if invalid person index was given.
-     */
-    private void findAssociatedPerson() throws CommandException {
-        List<Person> lastShownList = model.getFilteredPersonList();
-
-        if (targetIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        toDelete = getAssociatedTask();
+        if (toDelete instanceof TuitionTask) {
+            //throw exceptions if tuition is not marked as resolved yet. Why? if it is unresolved, the fee is not
+            //recorded as bill yet.
         }
 
-        associatedPerson = (Tutee) lastShownList.get(targetIndex.getZeroBased());
     }
+
+    private Task getAssociatedTask() throws CommandException {
+        List<Task> lastShownTaskList = model.getFilteredTaskList();
+
+        if (targetIndex.getZeroBased() >= lastShownTaskList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_TASK_DISPLAYED_INDEX);
+        }
+
+        return lastShownTaskList.get(targetIndex.getZeroBased());
+    }
+
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof DeleteTuitionTaskCommand // instanceof handles nulls
-                && targetIndex.equals(((DeleteTuitionTaskCommand) other).targetIndex));
+                || (other instanceof DeleteTaskCommand // instanceof handles nulls
+                && targetIndex.equals(((DeleteTaskCommand) other).targetIndex));
     }
 }
