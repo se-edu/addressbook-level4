@@ -1,5 +1,6 @@
 package seedu.address.logic.commands;
 
+import seedu.address.commons.core.Messages;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 
 /**
@@ -19,6 +20,16 @@ public class FindCommand extends Command {
 
     public FindCommand(NameContainsKeywordsPredicate predicate) {
         this.predicate = predicate;
+    }
+
+    /**
+     * Constructs a feedback message to summarise an operation that displayed a listing of persons.
+     *
+     * @param displaySize used to generate summary
+     * @return summary message for persons displayed
+     */
+    private static String getMessageForPersonListShownSummary(int displaySize) {
+        return String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, displaySize);
     }
 
     @Override
