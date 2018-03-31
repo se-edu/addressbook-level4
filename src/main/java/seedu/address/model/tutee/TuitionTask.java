@@ -2,7 +2,11 @@ package seedu.address.model.tutee;
 
 import java.time.LocalDateTime;
 
+import com.calendarfx.model.Entry;
+import com.calendarfx.model.Interval;
+
 import seedu.address.model.Task;
+import seedu.address.ui.CalendarPanel;
 
 //@@author ChoChihTun
 /**
@@ -18,10 +22,13 @@ public class TuitionTask implements Task {
                     + ", Time must in the format of HH:mm\n"
                     + " and Duration must be the format of 01h30m";
 
+    private static final String TUITION_TITLE = "Tuition with %1$s";
+
     private String person;
     private String description;
     private String duration;
     private LocalDateTime taskDateTime;
+    private Entry entry;
 
     /**
      * Creates a tuition task
@@ -36,6 +43,52 @@ public class TuitionTask implements Task {
         this.taskDateTime = taskDateTime;
         this.duration = duration;
         this.description = description;
+        this.entry = createCalendarEntry();
+        CalendarPanel.addEntry(entry);
+    }
+
+    /**
+     * Creates an entry to be entered into the calendar
+     *
+     * @return Calendar entry
+     */
+    private Entry createCalendarEntry() {
+        LocalDateTime endDateTime = getTaskEndTime();
+        Interval interval = new Interval(taskDateTime, endDateTime);
+        Entry entry = new Entry(String.format(TUITION_TITLE, person));
+        entry.setInterval(interval);
+        return entry;
+    }
+
+    /**
+     * Returns the end time of the task
+     */
+    private LocalDateTime getTaskEndTime() {
+        int hoursInDuration = parseHours();
+        int minutesInDuration = parseMinutes();
+        LocalDateTime endDateTime = taskDateTime.plusHours(hoursInDuration).plusMinutes(minutesInDuration);
+        return endDateTime;
+    }
+
+    /**
+     * Parses hour component out of duration
+     *
+     * @return number of hours in the duration
+     */
+    private int parseHours() {
+        int indexOfHourDelimiter = duration.indexOf("h");
+        return Integer.parseInt(duration.substring(0, indexOfHourDelimiter));
+    }
+
+    /**
+     * Parses minute component out of duration
+     *
+     * @return number of minutes in the duration
+     */
+    private int parseMinutes() {
+        int startOfMinutesIndex = duration.indexOf("h") + 1;
+        int indexOfMinuteDelimiter = duration.indexOf("m");
+        return Integer.parseInt(duration.substring(startOfMinutesIndex, indexOfMinuteDelimiter));
     }
 
     public LocalDateTime getTaskDateTime() {

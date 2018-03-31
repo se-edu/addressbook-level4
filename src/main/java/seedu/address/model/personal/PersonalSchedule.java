@@ -16,7 +16,7 @@ public class PersonalSchedule extends Schedule {
     }
 
     /**
-     * Adds a new private task.
+     * Adds a new personal task.
      *
      * @param newTask to be added
      */

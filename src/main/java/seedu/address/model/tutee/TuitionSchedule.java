@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import seedu.address.model.Schedule;
 
-
 /**
  * Represents the tuition schedule of the person
  */
