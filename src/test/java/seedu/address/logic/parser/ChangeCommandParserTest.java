@@ -5,10 +5,6 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
-import static seedu.address.testutil.TypicalCalendarView.DAY;
-import static seedu.address.testutil.TypicalCalendarView.MONTH;
-import static seedu.address.testutil.TypicalCalendarView.WEEK;
-import static seedu.address.testutil.TypicalCalendarView.YEAR;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -18,9 +14,13 @@ import seedu.address.testutil.Assert;
 
 //@@author ChoChihTun
 public class ChangeCommandParserTest {
-
+    private static final String DAY = "d";
+    private static final String WEEK = "w";
+    private static final String MONTH = "m";
+    private static final String YEAR = "y";
     private ChangeCommandParser parser = new ChangeCommandParser();
     private ChangeCommand changeCommand = new ChangeCommand(DAY); // Set an initial time unit to check against
+
 
     @Test
     public void parse_validArgs_returnsChangeCommand() throws Exception {
