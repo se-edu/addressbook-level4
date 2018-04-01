@@ -22,7 +22,7 @@ public class SystemTestSetupHelper {
      */
     public TestApp setupApplication(Supplier<ReadOnlyAddressBook> addressBook, String saveFileLocation) {
         try {
-            FxToolkit.registerStage(Stage::new);
+            FxToolkit.registerStage(Stage::new).setMaximized(true);
             FxToolkit.setupApplication(() -> testApp = new TestApp(addressBook, saveFileLocation));
         } catch (TimeoutException te) {
             throw new AssertionError("Application takes too long to set up.");

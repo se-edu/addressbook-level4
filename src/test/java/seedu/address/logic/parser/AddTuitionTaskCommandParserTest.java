@@ -17,7 +17,6 @@ public class AddTuitionTaskCommandParserTest {
     private AddTuitionTaskCommandParser parser = new AddTuitionTaskCommandParser();
 
     //@@author ChoChihTun
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
     @Test
     public void parse_invalidArgs_throwsParseException() {

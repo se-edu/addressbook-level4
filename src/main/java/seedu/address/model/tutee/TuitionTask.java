@@ -26,10 +26,10 @@ public class TuitionTask implements Task {
     /**
      * Creates a tuition task
      *
-     * @param tutee        tutee involved in the task
+     * @param tutee tutee involved in the task
      * @param taskDateTime date and time of the task
-     * @param duration     duration of the task
-     * @param description  description of the task
+     * @param duration duration of the task
+     * @param description description of the task
      */
     public TuitionTask(Tutee tutee, LocalDateTime taskDateTime, String duration, String description) {
         this.tutee = tutee;
