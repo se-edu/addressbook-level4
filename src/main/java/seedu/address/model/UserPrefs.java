@@ -1,5 +1,7 @@
 package seedu.address.model;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Objects;
 
 import seedu.address.commons.core.GuiSettings;
@@ -10,7 +12,7 @@ import seedu.address.commons.core.GuiSettings;
 public class UserPrefs {
 
     private GuiSettings guiSettings;
-    private String addressBookFilePath = "data/addressbook.xml";
+    private Path addressBookFilePath = Paths.get("data" , "addressbook.xml");
     private String addressBookName = "MyAddressBook";
 
     public UserPrefs() {
@@ -29,11 +31,11 @@ public class UserPrefs {
         guiSettings = new GuiSettings(width, height, x, y);
     }
 
-    public String getAddressBookFilePath() {
+    public Path getAddressBookFilePath() {
         return addressBookFilePath;
     }
 
-    public void setAddressBookFilePath(String addressBookFilePath) {
+    public void setAddressBookFilePath(Path addressBookFilePath) {
         this.addressBookFilePath = addressBookFilePath;
     }
 
