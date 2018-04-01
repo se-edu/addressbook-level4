@@ -36,16 +36,16 @@ public class TaskCard extends UiPart<Region> {
     @FXML
     private Label duration;
     @FXML
-    private Label description;
+    private Label cardTitle;
 
     public TaskCard(Task task, int displayedIndex) {
         super(FXML);
         this.task = task;
         id.setText(displayedIndex + ". ");
         if (task instanceof TuitionTask) {
-            description.setText(((TuitionTask) task).getTuitionTitle());
+            cardTitle.setText(((TuitionTask) task).getTuitionTitle());
         } else {
-            description.setText(task.getDescription());
+            cardTitle.setText(task.getDescription());
         }
         duration.setText(task.getDuration());
         taskDateAndTime.setText(task.getTaskDateTime().format(formatter));
