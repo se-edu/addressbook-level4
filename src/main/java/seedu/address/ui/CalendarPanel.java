@@ -34,6 +34,7 @@ public class CalendarPanel extends UiPart<Region> {
         calendarView.setRequestedTime(LocalTime.now());
         calendarView.setToday(LocalDate.now());
         calendarView.setTime(LocalTime.now());
+        calendarView.setScaleX(0.95);
         calendarView.showDayPage();
         disableViews();
         setupCalendar();
