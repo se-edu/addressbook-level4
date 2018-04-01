@@ -31,4 +31,24 @@ public class CalendarPanelTest extends GuiUnitTest {
         // default view page of calendar
         assertEquals(calendarPanel.getRoot().getSelectedPage(), calendarPanelHandle.getDefaultCalendarViewPage());
     }
+
+    @Test
+    public void changeViewPage_validArg_success() {
+        // view page changes to week
+        CalendarPanel.changeViewPage('w');
+        assertEquals(calendarPanelHandle.getCurrentCalendarViewPage(), calendarPanelHandle.getWeekViewPage());
+
+        // view page changes to month
+        CalendarPanel.changeViewPage('m');
+        assertEquals(calendarPanelHandle.getCurrentCalendarViewPage(), calendarPanelHandle.getMonthViewPage());
+
+        // view page changes to year
+        CalendarPanel.changeViewPage('y');
+        assertEquals(calendarPanelHandle.getCurrentCalendarViewPage(), calendarPanelHandle.getYearViewPage());
+
+        // view page changes to day (default)
+        CalendarPanel.changeViewPage('d');
+        assertEquals(calendarPanelHandle.getCurrentCalendarViewPage(),
+                calendarPanelHandle.getDefaultCalendarViewPage());
+    }
 }

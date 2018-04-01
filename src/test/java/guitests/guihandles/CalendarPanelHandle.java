@@ -24,6 +24,19 @@ public class CalendarPanelHandle extends NodeHandle<Node> {
         return calendarPanel.getRoot().getDayPage();
     }
 
+    public PageBase getWeekViewPage() {
+        return calendarPanel.getRoot().getWeekPage();
+    }
+
+    public PageBase getMonthViewPage() {
+        return calendarPanel.getRoot().getMonthPage();
+    }
+
+    public PageBase getYearViewPage() {
+        return calendarPanel.getRoot().getYearPage();
+    }
+
+
     public PageBase getCurrentCalendarViewPage() {
         return calendarPanel.getRoot().getSelectedPage();
     }

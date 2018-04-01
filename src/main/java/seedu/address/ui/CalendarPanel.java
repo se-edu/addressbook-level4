@@ -76,7 +76,7 @@ public class CalendarPanel extends UiPart<Region> {
             calendarView.showYearPage();
             return;
         default:
-            assert(false);
+            assert(false); // Should never enter here
         }
     }
 
