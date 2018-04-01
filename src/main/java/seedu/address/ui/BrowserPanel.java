@@ -23,8 +23,7 @@ import seedu.address.model.person.Person;
 public class BrowserPanel extends UiPart<Region> {
 
     public static final String DEFAULT_PAGE = "default.html";
-    public static final String SEARCH_PAGE_URL =
-            "http://www.google.com.sg/search?q=";
+    public static final String SEARCH_PAGE_URL = "http://www.google.com.sg/search?q=";
 
     private static final String FXML = "BrowserPanel.fxml";
 
