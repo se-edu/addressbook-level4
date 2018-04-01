@@ -391,6 +391,7 @@ public class PersonalTask implements Task {
     private String description;
     private String duration;
     private LocalDateTime taskDateTime;
+    private Entry entry;
 
     /**
      * Creates a personal task
@@ -403,6 +404,55 @@ public class PersonalTask implements Task {
         this.taskDateTime = taskDateTime;
         this.duration = duration;
         this.description = description;
+        this.entry = createCalendarEntry();
+    }
+
+    /**
+     * Creates an entry to be entered into the calendar
+     *
+     * @return Calendar entry
+     */
+    private Entry createCalendarEntry() {
+        LocalDateTime endDateTime = getTaskEndTime();
+        Interval interval = new Interval(taskDateTime, endDateTime);
+        Entry entry = new Entry(description);
+        entry.setInterval(interval);
+        return entry;
+    }
+
+    /**
+     * Returns the end time of the task
+     */
+    private LocalDateTime getTaskEndTime() {
+        int hoursInDuration = parseHours();
+        int minutesInDuration = parseMinutes();
+        LocalDateTime endDateTime = taskDateTime.plusHours(hoursInDuration).plusMinutes(minutesInDuration);
+        return endDateTime;
+    }
+
+    /**
+     * Parses hour component out of duration
+     *
+     * @return number of hours in the duration
+     */
+    private int parseHours() {
+        int indexOfHourDelimiter = duration.indexOf("h");
+        return Integer.parseInt(duration.substring(0, indexOfHourDelimiter));
+    }
+
+    /**
+     * Parses minute component out of duration
+     *
+     * @return number of minutes in the duration
+     */
+    private int parseMinutes() {
+        int startOfMinutesIndex = duration.indexOf("h") + 1;
+        int indexOfMinuteDelimiter = duration.indexOf("m");
+        return Integer.parseInt(duration.substring(startOfMinutesIndex, indexOfMinuteDelimiter));
+    }
+
+    public Entry getEntry() {
+        return entry;
     }
 
     public LocalDateTime getTaskDateTime() {
@@ -686,7 +736,6 @@ public class Subject {
  */
 public class TuitionTask implements Task {
 
-
     public static final String MESSAGE_TASK_CONSTRAINT =
                     "Task can only be tuition\n"
                     + ", the person involved must already be inside the contact list\n"
@@ -694,10 +743,13 @@ public class TuitionTask implements Task {
                     + ", Time must in the format of HH:mm\n"
                     + " and Duration must be the format of 01h30m";
 
+    private static final String TUITION_TITLE = "Tuition with %1$s";
+
     private String person;
     private String description;
     private String duration;
     private LocalDateTime taskDateTime;
+    private Entry entry;
 
     /**
      * Creates a tuition task
@@ -712,6 +764,55 @@ public class TuitionTask implements Task {
         this.taskDateTime = taskDateTime;
         this.duration = duration;
         this.description = description;
+        this.entry = createCalendarEntry();
+    }
+
+    /**
+     * Creates an entry to be entered into the calendar
+     *
+     * @return Calendar entry
+     */
+    private Entry createCalendarEntry() {
+        LocalDateTime endDateTime = getTaskEndTime();
+        Interval interval = new Interval(taskDateTime, endDateTime);
+        Entry entry = new Entry(getTuitionTitle());
+        entry.setInterval(interval);
+        return entry;
+    }
+
+    /**
+     * Returns the end time of the task
+     */
+    private LocalDateTime getTaskEndTime() {
+        int hoursInDuration = parseHours();
+        int minutesInDuration = parseMinutes();
+        LocalDateTime endDateTime = taskDateTime.plusHours(hoursInDuration).plusMinutes(minutesInDuration);
+        return endDateTime;
+    }
+
+    /**
+     * Parses hour component out of duration
+     *
+     * @return number of hours in the duration
+     */
+    private int parseHours() {
+        int indexOfHourDelimiter = duration.indexOf("h");
+        return Integer.parseInt(duration.substring(0, indexOfHourDelimiter));
+    }
+
+    /**
+     * Parses minute component out of duration
+     *
+     * @return number of minutes in the duration
+     */
+    private int parseMinutes() {
+        int startOfMinutesIndex = duration.indexOf("h") + 1;
+        int indexOfMinuteDelimiter = duration.indexOf("m");
+        return Integer.parseInt(duration.substring(startOfMinutesIndex, indexOfMinuteDelimiter));
+    }
+
+    public Entry getEntry() {
+        return entry;
     }
 
     public LocalDateTime getTaskDateTime() {
@@ -728,6 +829,10 @@ public class TuitionTask implements Task {
 
     public String getDuration() {
         return duration;
+    }
+
+    public String getTuitionTitle() {
+        return String.format(TUITION_TITLE, person);
     }
 }
 ```
@@ -837,9 +942,12 @@ public class CalendarPanel extends UiPart<Region> {
     private static final char WEEK = 'w';
     private static final char MONTH = 'm';
     private static final char YEAR = 'y';
+    private static CalendarSource source = new CalendarSource("Schedule");
+    private static Calendar calendar = new Calendar("Task");
 
     @FXML
     private static CalendarView calendarView = new CalendarView();
+
 
     public CalendarPanel() {
         super(FXML);
@@ -848,10 +956,19 @@ public class CalendarPanel extends UiPart<Region> {
         calendarView.setTime(LocalTime.now());
         calendarView.showDayPage();
         disableViews();
+        setupCalendar();
     }
 
     /**
-     * Remove unnecessary buttons from interface
+     * Initialises the calendar
+     */
+    private void setupCalendar() {
+        source.getCalendars().add(calendar);
+        calendarView.getCalendarSources().add(source);
+    }
+
+    /**
+     * Removes unnecessary buttons from interface
      */
     private void disableViews() {
         calendarView.setShowAddCalendarButton(false);
@@ -879,8 +996,26 @@ public class CalendarPanel extends UiPart<Region> {
             calendarView.showYearPage();
             return;
         default:
-            assert(false);
+            assert(false); // Should never enter here
         }
+    }
+
+    /**
+     * Adds a task entry to the calendar
+     *
+     * @param entry to be added to calendar
+     */
+    public static void addEntry(Entry entry) {
+        calendar.addEntry(entry);
+    }
+
+    /**
+     * Deletes a task entry from the calendar's schedule
+     *
+     * @param entry to be deleted
+     */
+    public static void deleteTask(Entry entry) {
+        calendar.removeEntry(entry);
     }
 
     @Override
@@ -899,7 +1034,7 @@ public class CalendarPanel extends UiPart<Region> {
 ```
 ###### \resources\view\MainWindow.fxml
 ``` fxml
-          <StackPane fx:id="calendarPlaceholder" prefWidth="540">
+          <StackPane fx:id="calendarPlaceholder" minWidth="460" prefWidth="460">
             <padding>
               <Insets bottom="10" left="10" right="10" top="10" />
             </padding>

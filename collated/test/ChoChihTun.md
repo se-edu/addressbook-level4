@@ -18,6 +18,23 @@ public class CalendarPanelHandle extends NodeHandle<Node> {
     public PageBase getDefaultCalendarViewPage() {
         return calendarPanel.getRoot().getDayPage();
     }
+
+    public PageBase getWeekViewPage() {
+        return calendarPanel.getRoot().getWeekPage();
+    }
+
+    public PageBase getMonthViewPage() {
+        return calendarPanel.getRoot().getMonthPage();
+    }
+
+    public PageBase getYearViewPage() {
+        return calendarPanel.getRoot().getYearPage();
+    }
+
+
+    public PageBase getCurrentCalendarViewPage() {
+        return calendarPanel.getRoot().getSelectedPage();
+    }
 }
 ```
 ###### \java\seedu\address\logic\commands\AddTuteeCommandTest.java
@@ -98,6 +115,32 @@ public class AddTuteeCommandTest {
         }
 
         @Override
+        public void addTask(Task task) {
+            fail("This method should not be called");
+        }
+
+        @Override
+        public void deleteTask(Task task) {
+            fail("This method should not be called");
+        }
+
+        @Override
+        public void updateTask(Task task, Task editedTask) {
+            fail("This method should not be called");
+        }
+
+        @Override
+        public ObservableList<Task> getFilteredTaskList() {
+            fail("This method should not be called.");
+            return null;
+        }
+
+        @Override
+        public void updateFilteredTaskList(Predicate<Task> predicate) {
+            fail("This method should not be called.");
+        }
+
+        @Override
         public void resetData(ReadOnlyAddressBook newData) {
             fail("This method should not be called.");
         }
@@ -133,6 +176,11 @@ public class AddTuteeCommandTest {
         @Override
         public void deleteTag(Tag tag, Person person) {
             fail("deleteTag should not be called when adding Person.");
+        }
+
+        @Override
+        public void sortFilteredPersonList(Comparator<Person> comparator) {
+            fail("This method should not be called.");
         }
     }
 
@@ -465,29 +513,33 @@ public class AddTuteeCommandParserTest {
 ###### \java\seedu\address\logic\parser\ChangeCommandParserTest.java
 ``` java
 public class ChangeCommandParserTest {
-
+    private static final String DAY = "d";
+    private static final String WEEK = "w";
+    private static final String MONTH = "m";
+    private static final String YEAR = "y";
     private ChangeCommandParser parser = new ChangeCommandParser();
     private ChangeCommand changeCommand = new ChangeCommand(DAY); // Set an initial time unit to check against
 
+
     @Test
     public void parse_validArgs_returnsChangeCommand() throws Exception {
-        // get the initial time unit, "d"
+        // get the initial time unit, d
         String initialTimeUnit = ChangeCommand.getTimeUnit();
 
         // Change time unit to w
         ChangeCommand expectedTimeUnit = new ChangeCommand(WEEK);
         ChangeCommand changeToInitialTimeUnit = new ChangeCommand(initialTimeUnit); // Change to initial time unit
-        assertEquals(expectedTimeUnit, new ChangeCommand(WEEK));
+        assertEquals(expectedTimeUnit, parser.parse(WEEK));
 
         // Change time unit to m
         expectedTimeUnit = new ChangeCommand(MONTH);
         changeToInitialTimeUnit = new ChangeCommand(initialTimeUnit); // Change to initial time unit
-        assertEquals(expectedTimeUnit, new ChangeCommand(MONTH));
+        assertEquals(expectedTimeUnit, parser.parse(MONTH));
 
         // Change time unit to y
         expectedTimeUnit = new ChangeCommand(YEAR);
         changeToInitialTimeUnit = new ChangeCommand(initialTimeUnit); // Change to initial time unit
-        assertEquals(expectedTimeUnit, new ChangeCommand(YEAR));
+        assertEquals(expectedTimeUnit, parser.parse(YEAR));
     }
 
     @Test
@@ -499,6 +551,10 @@ public class ChangeCommandParserTest {
         assertParseFailure(parser, "", String.format(MESSAGE_INVALID_COMMAND_FORMAT, ChangeCommand.MESSAGE_USAGE));
     }
 
+    @Test
+    public void parse_sameViewPageTimeUnit_throwsSameTimeUnitException() {
+        assertParseFailure(parser, "d", String.format(ChangeCommand.MESSAGE_SAME_VIEW));
+    }
 
     @Before
     public void isValidTimeUnit() {
@@ -542,6 +598,33 @@ public class ChangeCommandParserTest {
 
         // d is no longer clash
         assertFalse(ChangeCommandParser.isTimeUnitClash("d"));
+    }
+}
+```
+###### \java\seedu\address\model\personal\PersonalTaskTest.java
+``` java
+public class PersonalTaskTest {
+
+    @BeforeClass
+    public static void setupBeforeClass() {
+        new TypicalCalendarEntries();
+    }
+
+    @Test
+    public void constructor_validArgs_success() {
+        PersonalTask personalTask = new PersonalTask(VALID_START_DATE_TIME,
+                VALID_DURATION, VALID_DESCRIPTION);
+        Entry actualEntry = personalTask.getEntry();
+        Entry expectedEntry = getPersonalEntry();
+
+        // To match the ID of the same entry
+        actualEntry.setId("0");
+        expectedEntry.setId("0");
+
+        assertEquals(VALID_START_DATE_TIME, personalTask.getTaskDateTime());
+        assertEquals(VALID_DURATION, personalTask.getDuration());
+        assertEquals(VALID_DESCRIPTION, personalTask.getDescription());
+        assertEquals(expectedEntry, actualEntry);
     }
 }
 ```
@@ -749,6 +832,34 @@ public class SubjectTest {
 
 }
 ```
+###### \java\seedu\address\model\tutee\TuitionTaskTest.java
+``` java
+public class TuitionTaskTest {
+
+    @BeforeClass
+    public static void setupBeforeClass() {
+        new TypicalCalendarEntries();
+    }
+
+    @Test
+    public void constructor_validArgs_success() {
+        TuitionTask tuitionTask = new TuitionTask(VALID_NAME, VALID_START_DATE_TIME,
+                VALID_DURATION, VALID_DESCRIPTION);
+        Entry actualEntry = tuitionTask.getEntry();
+        Entry expectedEntry = getTuitionEntry();
+
+        // To match the ID of the same entry
+        actualEntry.setId("0");
+        expectedEntry.setId("0");
+
+        assertEquals(VALID_NAME, tuitionTask.getPerson());
+        assertEquals(VALID_START_DATE_TIME, tuitionTask.getTaskDateTime());
+        assertEquals(VALID_DURATION, tuitionTask.getDuration());
+        assertEquals(VALID_DESCRIPTION, tuitionTask.getDescription());
+        assertEquals(expectedEntry, actualEntry);
+    }
+}
+```
 ###### \java\seedu\address\testutil\TuteeBuilder.java
 ``` java
 /**
@@ -904,16 +1015,65 @@ public class TuteeUtil {
     }
 }
 ```
-###### \java\seedu\address\testutil\TypicalCalendarView.java
+###### \java\seedu\address\testutil\TypicalCalendarEntries.java
 ``` java
 /**
- * A utility class containing a list of calendar view time unit to be used in tests.
+ * A utility class containing a list of {@code Entry} objects to be used in tests.
  */
-public class TypicalCalendarView {
-    public static final String DAY = "d";
-    public static final String WEEK = "w";
-    public static final String MONTH = "m";
-    public static final String YEAR = "y";
+public class TypicalCalendarEntries {
+    public static final String VALID_NAME = "Jason";
+    public static final String VALID_DURATION = "1h30m";
+    public static final String VALID_DESCRIPTION = "homework 1";
+
+    private static final String VALID_STRING_START_DATE_TIME = "01/04/2018 11:00";
+    private static final String VALID_STRING_END_DATE_TIME = "01/04/2018 12:30";
+    private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/uuuu HH:mm")
+            .withResolverStyle(ResolverStyle.STRICT);
+
+    public static final LocalDateTime VALID_START_DATE_TIME =
+            LocalDateTime.parse(VALID_STRING_START_DATE_TIME, formatter);
+    public static final LocalDateTime VALID_END_DATE_TIME =
+            LocalDateTime.parse(VALID_STRING_END_DATE_TIME, formatter);
+    private static Entry validTuitionEntry;
+    private static Entry validPersonalEntry;
+
+    /**
+     * Creates valid calendar entry
+     *
+     */
+    public TypicalCalendarEntries() {
+        Interval interval = new Interval(VALID_START_DATE_TIME, VALID_END_DATE_TIME);
+        createTuitionEntry(interval);
+        createPersonalEntry(interval);
+    }
+
+    /**
+     * Creates a valid tuition calendar entry
+     *
+     * @param interval of the entry
+     */
+    private void createTuitionEntry(Interval interval) {
+        validTuitionEntry = new Entry(VALID_NAME);
+        validTuitionEntry.setInterval(interval);
+    }
+
+    /**
+     * Creates a valid personal calendar entry
+     *
+     * @param interval of the entry
+     */
+    private void createPersonalEntry(Interval interval) {
+        validPersonalEntry = new Entry(VALID_DESCRIPTION);
+        validPersonalEntry.setInterval(interval);
+    }
+
+    public static Entry getTuitionEntry() {
+        return validTuitionEntry;
+    }
+
+    public static Entry getPersonalEntry() {
+        return validPersonalEntry;
+    }
 }
 ```
 ###### \java\seedu\address\testutil\TypicalTutees.java
@@ -969,7 +1129,8 @@ public class TypicalTutees {
     }
 
     public static List<Person> getTypicalPersons() {
-        return new ArrayList<>(Arrays.asList(ALICETUTEE, CARLTUTEE));
+
+        return new ArrayList<>(Arrays.asList(ALICETUTEE, AMYTUTEE, BOBTUTEE, DANIEL));
     }
 }
 ```
@@ -996,8 +1157,34 @@ public class CalendarPanelTest extends GuiUnitTest {
 
         // default view page of calendar
         assertEquals(calendarPanel.getRoot().getSelectedPage(), calendarPanelHandle.getDefaultCalendarViewPage());
+
+        // view page changes to week
+        CalendarPanel.changeViewPage('w');
+        assertEquals(calendarPanelHandle.getCurrentCalendarViewPage(), calendarPanelHandle.getWeekViewPage());
+
+        // view page changes to month
+        CalendarPanel.changeViewPage('m');
+        assertEquals(calendarPanelHandle.getCurrentCalendarViewPage(), calendarPanelHandle.getMonthViewPage());
+
+        // view page changes to year
+        CalendarPanel.changeViewPage('y');
+        assertEquals(calendarPanelHandle.getCurrentCalendarViewPage(), calendarPanelHandle.getYearViewPage());
+
+        // view page changes to day (default)
+        CalendarPanel.changeViewPage('d');
+        assertEquals(calendarPanelHandle.getCurrentCalendarViewPage(),
+                calendarPanelHandle.getDefaultCalendarViewPage());
     }
 }
+```
+###### \java\systemtests\AddressBookSystemTest.java
+``` java
+    /**
+     * Asserts that the starting calendar view of the application is correct.
+     */
+    private void assertStartingCalendarViewPageIsCorrect() {
+        assertEquals(getCalendarPanel().getDefaultCalendarViewPage(), getCalendarPanel().getCurrentCalendarViewPage());
+    }
 ```
 ###### \java\systemtests\AddTuteeCommandSystemTest.java
 ``` java
