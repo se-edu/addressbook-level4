@@ -2,7 +2,6 @@ package seedu.address.commons.util;
 
 import static org.junit.Assert.assertEquals;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -27,13 +26,13 @@ import seedu.address.testutil.TestUtil;
 public class XmlUtilTest {
 
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "XmlUtilTest");
-    private static final File EMPTY_FILE = TEST_DATA_FOLDER.resolve("empty.xml").toFile();
-    private static final File MISSING_FILE = TEST_DATA_FOLDER.resolve("missing.xml").toFile();
-    private static final File VALID_FILE = TEST_DATA_FOLDER.resolve("validAddressBook.xml").toFile();
-    private static final File MISSING_PERSON_FIELD_FILE = TEST_DATA_FOLDER.resolve("missingPersonField.xml").toFile();
-    private static final File INVALID_PERSON_FIELD_FILE = TEST_DATA_FOLDER.resolve("invalidPersonField.xml").toFile();
-    private static final File VALID_PERSON_FILE = TEST_DATA_FOLDER.resolve("validPerson.xml").toFile();
-    private static final File TEMP_FILE = TestUtil.getFilePathInSandboxFolder("tempAddressBook.xml").toFile();
+    private static final Path EMPTY_FILE = TEST_DATA_FOLDER.resolve("empty.xml");
+    private static final Path MISSING_FILE = TEST_DATA_FOLDER.resolve("missing.xml");
+    private static final Path VALID_FILE = TEST_DATA_FOLDER.resolve("validAddressBook.xml");
+    private static final Path MISSING_PERSON_FIELD_FILE = TEST_DATA_FOLDER.resolve("missingPersonField.xml");
+    private static final Path INVALID_PERSON_FIELD_FILE = TEST_DATA_FOLDER.resolve("invalidPersonField.xml");
+    private static final Path VALID_PERSON_FILE = TEST_DATA_FOLDER.resolve("validPerson.xml");
+    private static final Path TEMP_FILE = TestUtil.getFilePathInSandboxFolder("tempAddressBook.xml");
 
     private static final String INVALID_PHONE = "9482asf424";
 
@@ -124,7 +123,7 @@ public class XmlUtilTest {
 
     @Test
     public void saveDataToFile_validFile_dataSaved() throws Exception {
-        TEMP_FILE.createNewFile();
+        TEMP_FILE.toFile().createNewFile();
         XmlSerializableAddressBook dataToWrite = new XmlSerializableAddressBook(new AddressBook());
         XmlUtil.saveDataToFile(TEMP_FILE, dataToWrite);
         XmlSerializableAddressBook dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE, XmlSerializableAddressBook.class);

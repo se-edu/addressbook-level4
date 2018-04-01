@@ -18,7 +18,7 @@ import seedu.address.model.UserPrefs;
 
 public class JsonUserPrefsStorageTest {
 
-    private static final Path TEST_DATA_FOLDER = Paths.get(".", "src", "test", "data", "JsonUserPrefsStorageTest");
+    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonUserPrefsStorageTest");
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -32,27 +32,27 @@ public class JsonUserPrefsStorageTest {
         readUserPrefs(null);
     }
 
-    private Optional<UserPrefs> readUserPrefs(Path userPrefsFileInTestDataFolder) throws DataConversionException {
+    private Optional<UserPrefs> readUserPrefs(String userPrefsFileInTestDataFolder) throws DataConversionException {
         Path prefsFilePath = addToTestDataPathIfNotNull(userPrefsFileInTestDataFolder);
         return new JsonUserPrefsStorage(prefsFilePath).readUserPrefs(prefsFilePath);
     }
 
     @Test
     public void readUserPrefs_missingFile_emptyResult() throws DataConversionException {
-        assertFalse(readUserPrefs(Paths.get("NonExistentFile.json")).isPresent());
+        assertFalse(readUserPrefs("NonExistentFile.json").isPresent());
     }
 
     @Test
     public void readUserPrefs_notJsonFormat_exceptionThrown() throws DataConversionException {
         thrown.expect(DataConversionException.class);
-        readUserPrefs(Paths.get("NotJsonFormatUserPrefs.json"));
+        readUserPrefs("NotJsonFormatUserPrefs.json");
 
         /* IMPORTANT: Any code below an exception-throwing line (like the one above) will be ignored.
          * That means you should not have more than one exception test in one method
          */
     }
 
-    private Path addToTestDataPathIfNotNull(Path userPrefsFileInTestDataFolder) {
+    private Path addToTestDataPathIfNotNull(String userPrefsFileInTestDataFolder) {
         return userPrefsFileInTestDataFolder != null
                 ? TEST_DATA_FOLDER.resolve(userPrefsFileInTestDataFolder)
                 : null;
@@ -61,20 +61,20 @@ public class JsonUserPrefsStorageTest {
     @Test
     public void readUserPrefs_fileInOrder_successfullyRead() throws DataConversionException {
         UserPrefs expected = getTypicalUserPrefs();
-        UserPrefs actual = readUserPrefs(Paths.get("TypicalUserPref.json")).get();
+        UserPrefs actual = readUserPrefs("TypicalUserPref.json").get();
         assertEquals(expected, actual);
     }
 
     @Test
     public void readUserPrefs_valuesMissingFromFile_defaultValuesUsed() throws DataConversionException {
-        UserPrefs actual = readUserPrefs(Paths.get("EmptyUserPrefs.json")).get();
+        UserPrefs actual = readUserPrefs("EmptyUserPrefs.json").get();
         assertEquals(new UserPrefs(), actual);
     }
 
     @Test
     public void readUserPrefs_extraValuesInFile_extraValuesIgnored() throws DataConversionException {
         UserPrefs expected = getTypicalUserPrefs();
-        UserPrefs actual = readUserPrefs(Paths.get("ExtraValuesUserPref.json")).get();
+        UserPrefs actual = readUserPrefs("ExtraValuesUserPref.json").get();
 
         assertEquals(expected, actual);
     }
@@ -90,7 +90,7 @@ public class JsonUserPrefsStorageTest {
     @Test
     public void savePrefs_nullPrefs_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        saveUserPrefs(null, Paths.get("SomeFile.json"));
+        saveUserPrefs(null, "SomeFile.json");
     }
 
     @Test
@@ -102,7 +102,7 @@ public class JsonUserPrefsStorageTest {
     /**
      * Saves {@code userPrefs} at the specified {@code prefsFileInTestDataFolder} filepath.
      */
-    private void saveUserPrefs(UserPrefs userPrefs, Path prefsFileInTestDataFolder) {
+    private void saveUserPrefs(UserPrefs userPrefs, String prefsFileInTestDataFolder) {
         try {
             new JsonUserPrefsStorage(addToTestDataPathIfNotNull(prefsFileInTestDataFolder))
                     .saveUserPrefs(userPrefs);

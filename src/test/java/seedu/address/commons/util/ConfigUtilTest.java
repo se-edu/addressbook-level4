@@ -19,7 +19,7 @@ import seedu.address.commons.exceptions.DataConversionException;
 
 public class ConfigUtilTest {
 
-    private static final Path TEST_DATA_FOLDER = Paths.get(".", "src", "test", "data", "ConfigUtilTest");
+    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "ConfigUtilTest");
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -35,14 +35,14 @@ public class ConfigUtilTest {
 
     @Test
     public void read_missingFile_emptyResult() throws DataConversionException {
-        assertFalse(read(Paths.get("NonExistentFile.json")).isPresent());
+        assertFalse(read("NonExistentFile.json").isPresent());
     }
 
     @Test
     public void read_notJsonFormat_exceptionThrown() throws DataConversionException {
 
         thrown.expect(DataConversionException.class);
-        read(Paths.get("NotJsonFormatConfig.json"));
+        read("NotJsonFormatConfig.json");
 
         /* IMPORTANT: Any code below an exception-throwing line (like the one above) will be ignored.
          * That means you should not have more than one exception test in one method
@@ -54,20 +54,20 @@ public class ConfigUtilTest {
 
         Config expected = getTypicalConfig();
 
-        Config actual = read(Paths.get("TypicalConfig.json")).get();
+        Config actual = read("TypicalConfig.json").get();
         assertEquals(expected, actual);
     }
 
     @Test
     public void read_valuesMissingFromFile_defaultValuesUsed() throws DataConversionException {
-        Config actual = read(Paths.get("EmptyConfig.json")).get();
+        Config actual = read("EmptyConfig.json").get();
         assertEquals(new Config(), actual);
     }
 
     @Test
     public void read_extraValuesInFile_extraValuesIgnored() throws DataConversionException {
         Config expected = getTypicalConfig();
-        Config actual = read(Paths.get("ExtraValuesConfig.json")).get();
+        Config actual = read("ExtraValuesConfig.json").get();
 
         assertEquals(expected, actual);
     }
@@ -80,7 +80,7 @@ public class ConfigUtilTest {
         return config;
     }
 
-    private Optional<Config> read(Path configFileInTestDataFolder) throws DataConversionException {
+    private Optional<Config> read(String configFileInTestDataFolder) throws DataConversionException {
         Path configFilePath = addToTestDataPathIfNotNull(configFileInTestDataFolder);
         return ConfigUtil.readConfig(configFilePath);
     }
@@ -88,7 +88,7 @@ public class ConfigUtilTest {
     @Test
     public void save_nullConfig_throwsNullPointerException() throws IOException {
         thrown.expect(NullPointerException.class);
-        save(null, Paths.get("SomeFile.json"));
+        save(null, "SomeFile.json");
     }
 
     @Test
@@ -116,12 +116,12 @@ public class ConfigUtilTest {
         assertEquals(original, readBack);
     }
 
-    private void save(Config config, Path configFileInTestDataFolder) throws IOException {
+    private void save(Config config, String configFileInTestDataFolder) throws IOException {
         Path configFilePath = addToTestDataPathIfNotNull(configFileInTestDataFolder);
         ConfigUtil.saveConfig(config, configFilePath);
     }
 
-    private Path addToTestDataPathIfNotNull(Path configFileInTestDataFolder) {
+    private Path addToTestDataPathIfNotNull(String configFileInTestDataFolder) {
         return configFileInTestDataFolder != null
                                   ? TEST_DATA_FOLDER.resolve(configFileInTestDataFolder)
                                   : null;

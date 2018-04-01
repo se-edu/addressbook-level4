@@ -1,8 +1,8 @@
 package seedu.address;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.util.Optional;
 import java.util.function.Supplier;
 
 import javafx.stage.Screen;
@@ -53,7 +53,7 @@ public class TestApp extends MainApp {
     }
 
     @Override
-    protected Config initConfig(String configFilePath) {
+    protected Config initConfig(Optional<Path> configFilePath) {
         Config config = super.initConfig(configFilePath);
         config.setAppTitle(APP_TITLE);
         config.setUserPrefsFilePath(DEFAULT_PREF_FILE_LOCATION_FOR_TESTING);
@@ -112,11 +112,10 @@ public class TestApp extends MainApp {
     /**
      * Creates an XML file at the {@code filePath} with the {@code data}.
      */
-    private <T> void createDataFileWithData(T data, Path filePath) {
+    private <T> void createDataFileWithData(T data, Path saveFilePathForTesting) {
         try {
-            File saveFileForTesting = filePath.toFile();
-            FileUtil.createIfMissing(saveFileForTesting);
-            XmlUtil.saveDataToFile(saveFileForTesting, data);
+            FileUtil.createIfMissing(saveFilePathForTesting);
+            XmlUtil.saveDataToFile(saveFilePathForTesting, data);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

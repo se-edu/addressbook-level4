@@ -77,9 +77,11 @@ public class MainApp extends Application {
         initEventsCenter();
     }
 
-    private String getApplicationParameter(String parameterName) {
+    private Optional<Path> getApplicationParameter(String parameterName) {
         Map<String, String> applicationParameters = getParameters().getNamed();
-        return applicationParameters.get(parameterName);
+        return applicationParameters.get(parameterName) == null
+                ? Optional.empty()
+                : Optional.of(Paths.get(applicationParameters.get(parameterName)));
     }
 
     /**
@@ -116,15 +118,15 @@ public class MainApp extends Application {
      * The default file path {@code Config#DEFAULT_CONFIG_FILE} will be used instead
      * if {@code configFilePath} is null.
      */
-    protected Config initConfig(String configFilePath) {
+    protected Config initConfig(Optional<Path> configFilePath) {
         Config initializedConfig;
         Path configFilePathUsed;
 
         configFilePathUsed = Config.DEFAULT_CONFIG_FILE;
 
-        if (configFilePath != null) {
-            logger.info("Custom Config file specified " + configFilePath);
-            configFilePathUsed = Paths.get(configFilePath);
+        if (configFilePath.isPresent()) {
+            logger.info("Custom Config file specified " + configFilePath.get());
+            configFilePathUsed = configFilePath.get();
         }
 
         logger.info("Using config file : " + configFilePathUsed);

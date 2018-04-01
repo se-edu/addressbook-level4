@@ -32,12 +32,12 @@ public class StorageManagerTest {
 
     @Before
     public void setUp() {
-        XmlAddressBookStorage addressBookStorage = new XmlAddressBookStorage(getTempFilePath(Paths.get("ab")));
-        JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath(Paths.get("prefs")));
+        XmlAddressBookStorage addressBookStorage = new XmlAddressBookStorage(getTempFilePath("ab"));
+        JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
         storageManager = new StorageManager(addressBookStorage, userPrefsStorage);
     }
 
-    private Path getTempFilePath(Path fileName) {
+    private Path getTempFilePath(String fileName) {
         return testFolder.getRoot().toPath().resolve(fileName);
     }
 

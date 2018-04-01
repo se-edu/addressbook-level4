@@ -2,8 +2,8 @@ package seedu.address.commons.util;
 
 import static java.util.Objects.requireNonNull;
 
-import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Optional;
 import java.util.logging.Level;
@@ -39,11 +39,11 @@ public class JsonUtil {
                     .addSerializer(Level.class, new ToStringSerializer())
                     .addDeserializer(Level.class, new LevelDeserializer(Level.class)));
 
-    static <T> void serializeObjectToJsonFile(File jsonFile, T objectToSerialize) throws IOException {
+    static <T> void serializeObjectToJsonFile(Path jsonFile, T objectToSerialize) throws IOException {
         FileUtil.writeToFile(jsonFile, toJsonString(objectToSerialize));
     }
 
-    static <T> T deserializeObjectFromJsonFile(File jsonFile, Class<T> classOfObjectToDeserialize)
+    static <T> T deserializeObjectFromJsonFile(Path jsonFile, Class<T> classOfObjectToDeserialize)
             throws IOException {
         return fromJsonString(FileUtil.readFromFile(jsonFile), classOfObjectToDeserialize);
     }
@@ -58,19 +58,18 @@ public class JsonUtil {
     public static <T> Optional<T> readJsonFile(
             Path filePath, Class<T> classOfObjectToDeserialize) throws DataConversionException {
         requireNonNull(filePath);
-        File file = filePath.toFile();
 
-        if (!file.exists()) {
-            logger.info("Json file "  + file + " not found");
+        if (!Files.exists(filePath)) {
+            logger.info("Json file "  + filePath + " not found");
             return Optional.empty();
         }
 
         T jsonFile;
 
         try {
-            jsonFile = deserializeObjectFromJsonFile(file, classOfObjectToDeserialize);
+            jsonFile = deserializeObjectFromJsonFile(filePath, classOfObjectToDeserialize);
         } catch (IOException e) {
-            logger.warning("Error reading from jsonFile file " + file + ": " + e);
+            logger.warning("Error reading from jsonFile file " + filePath + ": " + e);
             throw new DataConversionException(e);
         }
 
@@ -88,7 +87,7 @@ public class JsonUtil {
         requireNonNull(filePath);
         requireNonNull(jsonFile);
 
-        serializeObjectToJsonFile(filePath.toFile(), jsonFile);
+        serializeObjectToJsonFile(filePath, jsonFile);
     }
 
 
