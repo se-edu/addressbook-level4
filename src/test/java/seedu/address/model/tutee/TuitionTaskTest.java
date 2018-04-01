@@ -10,6 +10,8 @@ import static seedu.address.testutil.TypicalCalendarEntries.getTuitionEntry;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
+import com.calendarfx.model.Entry;
+
 import seedu.address.testutil.TypicalCalendarEntries;
 
 //@@author ChoChihTun
@@ -24,11 +26,17 @@ public class TuitionTaskTest {
     public void constructor_validArgs_success() {
         TuitionTask tuitionTask = new TuitionTask(VALID_NAME, VALID_START_DATE_TIME,
                 VALID_DURATION, VALID_DESCRIPTION);
+        Entry actualEntry = tuitionTask.getEntry();
+        Entry expectedEntry = getTuitionEntry();
+
+        // To match the ID of the same entry
+        actualEntry.setId("0");
+        expectedEntry.setId("0");
 
         assertEquals(VALID_NAME, tuitionTask.getPerson());
         assertEquals(VALID_START_DATE_TIME, tuitionTask.getTaskDateTime());
         assertEquals(VALID_DURATION, tuitionTask.getDuration());
         assertEquals(VALID_DESCRIPTION, tuitionTask.getDescription());
-        assertEquals(getTuitionEntry(), tuitionTask.getEntry());
+        assertEquals(expectedEntry, actualEntry);
     }
 }

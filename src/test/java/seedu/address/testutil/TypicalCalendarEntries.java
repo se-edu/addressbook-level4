@@ -36,16 +36,6 @@ public class TypicalCalendarEntries {
         Interval interval = new Interval(VALID_START_DATE_TIME, VALID_END_DATE_TIME);
         createTuitionEntry(interval);
         createPersonalEntry(interval);
-        setEntryId();
-    }
-
-    /**
-     * Matches ID of same entry in task constructor to remove unique entry ID
-     *
-     */
-    private void setEntryId() {
-        validTuitionEntry.setId("14");
-        validPersonalEntry.setId("5");
     }
 
     /**
