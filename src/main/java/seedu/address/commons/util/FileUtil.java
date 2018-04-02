@@ -2,9 +2,9 @@ package seedu.address.commons.util;
 
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 
 /**
  * Writes and reads files
@@ -13,15 +13,15 @@ public class FileUtil {
 
     private static final String CHARSET = "UTF-8";
 
-    public static boolean isFileExists(File file) {
-        return file.exists() && file.isFile();
+    public static boolean isFileExists(Path filePath) {
+        return Files.exists(filePath) && Files.isRegularFile(filePath);
     }
 
     /**
      * Creates a file if it does not exist along with its missing parent directories.
      * @throws IOException if the file or directory cannot be created.
      */
-    public static void createIfMissing(File file) throws IOException {
+    public static void createIfMissing(Path file) throws IOException {
         if (!isFileExists(file)) {
             createFile(file);
         }
@@ -62,14 +62,15 @@ public class FileUtil {
 
         if (parentDir != null) {
             createDirs(parentDir);
+            Files.createFile(file);
         }
     }
 
     /**
      * Assumes file exists
      */
-    public static String readFromFile(File file) throws IOException {
-        return new String(Files.readAllBytes(file.toPath()), CHARSET);
+    public static String readFromFile(Path filePath) throws IOException {
+        return new String(Files.readAllBytes(filePath), CHARSET);
     }
 
     /**
@@ -88,6 +89,8 @@ public class FileUtil {
     public static String getPath(String pathWithForwardSlash) {
         checkArgument(pathWithForwardSlash.contains("/"));
         return pathWithForwardSlash.replace("/", File.separator);
+    public static void writeToFile(Path filePath, String content) throws IOException {
+        Files.write(filePath, content.getBytes(CHARSET));
     }
 
 }
