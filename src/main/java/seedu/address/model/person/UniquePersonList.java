@@ -72,13 +72,11 @@ public class UniquePersonList implements Iterable<Person> {
      *
      * @throws PersonNotFoundException if no such person could be found in the list.
      */
-    public boolean remove(Person toRemove) throws PersonNotFoundException {
+    public void remove(Person toRemove) throws PersonNotFoundException {
         requireNonNull(toRemove);
-        final boolean personFoundAndDeleted = internalList.remove(toRemove);
-        if (!personFoundAndDeleted) {
+        if (!internalList.remove(toRemove)) {
             throw new PersonNotFoundException();
         }
-        return personFoundAndDeleted;
     }
 
     public void setPersons(UniquePersonList replacement) {
@@ -87,11 +85,11 @@ public class UniquePersonList implements Iterable<Person> {
 
     public void setPersons(List<Person> persons) throws DuplicatePersonException {
         requireAllNonNull(persons);
-        final UniquePersonList replacement = new UniquePersonList();
-        for (final Person person : persons) {
-            replacement.add(person);
+        if (!CollectionUtil.elementsAreUnique(persons)) {
+            throw new DuplicatePersonException();
         }
-        setPersons(replacement);
+
+        this.internalList.setAll(persons);
     }
 
     /**

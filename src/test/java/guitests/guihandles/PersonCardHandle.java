@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Region;
+import seedu.address.model.person.Person;
 
 /**
  * Provides a handle to a person card in the person list panel.
@@ -67,5 +68,15 @@ public class PersonCardHandle extends NodeHandle<Node> {
                 .stream()
                 .map(Label::getText)
                 .collect(Collectors.toList());
+    }
+
+    /**
+     * Returns true if this handle contains {@code person}.
+     */
+    public boolean equals(Person person) {
+        return getName().equals(person.getName().fullName)
+                && getAddress().equals(person.getAddress().value)
+                && getPhone().equals(person.getPhone().value)
+                && getEmail().equals(person.getEmail().value);
     }
 }
