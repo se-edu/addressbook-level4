@@ -59,7 +59,9 @@ public class MainApp extends Application {
         logger.info("=============================[ Initializing AddressBook ]===========================");
         super.init();
 
-        config = initConfig(getApplicationParameter("config"));
+        config = getApplicationParameter("config") != null
+                ? initConfig(Paths.get(getApplicationParameter("config")))
+                : initConfig(null);
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         userPrefs = initPrefs(userPrefsStorage);
@@ -77,11 +79,9 @@ public class MainApp extends Application {
         initEventsCenter();
     }
 
-    private Optional<Path> getApplicationParameter(String parameterName) {
+    private String getApplicationParameter(String parameterName) {
         Map<String, String> applicationParameters = getParameters().getNamed();
-        return applicationParameters.get(parameterName) == null
-                ? Optional.empty()
-                : Optional.of(Paths.get(applicationParameters.get(parameterName)));
+        return applicationParameters.get(parameterName);
     }
 
     /**
@@ -118,15 +118,15 @@ public class MainApp extends Application {
      * The default file path {@code Config#DEFAULT_CONFIG_FILE} will be used instead
      * if {@code configFilePath} is null.
      */
-    protected Config initConfig(Optional<Path> configFilePath) {
+    protected Config initConfig(Path configFilePath) {
         Config initializedConfig;
         Path configFilePathUsed;
 
         configFilePathUsed = Config.DEFAULT_CONFIG_FILE;
 
-        if (configFilePath.isPresent()) {
-            logger.info("Custom Config file specified " + configFilePath.get());
-            configFilePathUsed = configFilePath.get();
+        if (configFilePath != null) {
+            logger.info("Custom Config file specified " + configFilePath);
+            configFilePathUsed = configFilePath;
         }
 
         logger.info("Using config file : " + configFilePathUsed);

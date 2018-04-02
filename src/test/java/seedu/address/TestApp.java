@@ -2,7 +2,6 @@ package seedu.address;
 
 import java.io.IOException;
 import java.nio.file.Path;
-import java.util.Optional;
 import java.util.function.Supplier;
 
 import javafx.stage.Screen;
@@ -53,7 +52,7 @@ public class TestApp extends MainApp {
     }
 
     @Override
-    protected Config initConfig(Optional<Path> configFilePath) {
+    protected Config initConfig(Path configFilePath) {
         Config config = super.initConfig(configFilePath);
         config.setAppTitle(APP_TITLE);
         config.setUserPrefsFilePath(DEFAULT_PREF_FILE_LOCATION_FOR_TESTING);
