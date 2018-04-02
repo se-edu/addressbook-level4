@@ -1,6 +1,7 @@
 package seedu.address.storage;
 
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.Optional;
 
 import seedu.address.commons.events.model.AddressBookChangedEvent;
@@ -21,7 +22,7 @@ public interface Storage extends AddressBookStorage, UserPrefsStorage {
     void saveUserPrefs(UserPrefs userPrefs) throws IOException;
 
     @Override
-    String getAddressBookFilePath();
+    Path getAddressBookFilePath();
 
     @Override
     Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException, IOException;
