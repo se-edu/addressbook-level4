@@ -5,6 +5,7 @@ import java.util.List;
 
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.UndoRedoStack;
 
 /**
  * Contains helper methods for testing {@code UndoRedoStack}.

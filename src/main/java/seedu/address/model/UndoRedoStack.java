@@ -1,4 +1,4 @@
-package seedu.address.logic;
+package seedu.address.model;
 
 import java.util.Stack;
 
@@ -18,10 +18,15 @@ public class UndoRedoStack {
     }
 
     /**
-     * Pushes the {@code currentAddressBookState} onto the undo-stack, and clears the redo-stack.
+     * Pushes the {@code currentAddressBookState} onto the undo-stack, and clears the redo-stack if the latest top
+     * address book state in undoStack is different from {@code currentAddressBookState}.
      */
     public void push(ReadOnlyAddressBook currentAddressBookState) {
-        clearRedoStack();
+        if (!undoStack.empty() && undoStack.peek().equals(currentAddressBookState)) {
+            return;
+        }
+
+        redoStack.clear();
         undoStack.push(currentAddressBookState);
     }
 
@@ -43,13 +48,6 @@ public class UndoRedoStack {
         ReadOnlyAddressBook toPop = redoStack.pop();
         undoStack.push(toPop);
         return toPop;
-    }
-
-    /**
-     * Clears the redo-stack.
-     */
-    public void clearRedoStack() {
-        redoStack.clear();
     }
 
     /**
