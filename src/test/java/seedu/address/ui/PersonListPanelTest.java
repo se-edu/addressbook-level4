@@ -1,7 +1,9 @@
 package seedu.address.ui;
 
+import static java.time.Duration.ofMillis;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
 import static seedu.address.testutil.EventsUtil.postNow;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalPersons.getTypicalPersons;
@@ -38,8 +40,8 @@ public class PersonListPanelTest extends GuiUnitTest {
     private static final Logger logger = LogsCenter.getLogger(PersonListPanelTest.class);
 
     private static final int TEST_TIMEOUT = 8000;
-    private static final int CARD_CREATION_AND_DELETION_TIMEOUT = 2500;
-    private static final int LIST_CREATION_TIMEOUT = TEST_TIMEOUT - CARD_CREATION_AND_DELETION_TIMEOUT;
+    private static final long CARD_CREATION_AND_DELETION_TIMEOUT = 2500;
+    private static final long LIST_CREATION_TIMEOUT = TEST_TIMEOUT - CARD_CREATION_AND_DELETION_TIMEOUT;
 
     private PersonListPanelHandle personListPanelHandle;
 
@@ -72,25 +74,20 @@ public class PersonListPanelTest extends GuiUnitTest {
      * Verifies that creating and deleting large number of persons in {@code PersonListPanel} does not take too long
      * to execute.
      * <ol>
-     *     <li>If {@code TestTimedOutException} is thrown before the logs are printed, then the failure occurs during
-     *         the preparation of the test (creating the xml file containing the large number of persons).</li>
-     *     <li>If {@code TestTimedOutException} is thrown after the logs are printed, then the failure occurs during
-     *         the creation and deletion of the person cards.</li>
+     *     <li>If {@code AssertionError} is thrown, then the failure occurs during the preparation of the test
+     *     (creating the xml file containing the large number of persons).</li>
+     *     <li>If {@code AssertionFailedError} is thrown, then the failure occurs during the creation and deletion of
+     *     the person cards.</li>
      * </ol>
      */
-    // The timeout makes the test fail fast. Without it, the test can stall for a long time if
-    // guiRobot#interact(Runnable) takes very long to complete execution because guiRobot#interact(Runnable) only
-    // returns after the Runnable completes execution.
-    @Test(timeout = TEST_TIMEOUT)
+    @Test
     public void performanceTest() throws Exception {
         ObservableList<Person> backingList = createBackingList(10000);
-
-        Stopwatch stopwatch = Stopwatch.createStarted();
         initUi(backingList);
-        guiRobot.interact(backingList::clear);
-        if (stopwatch.elapsed(TimeUnit.MILLISECONDS) >= CARD_CREATION_AND_DELETION_TIMEOUT) {
-            fail("Creation and deletion of person cards exceeded time limit");
-        }
+
+        assertTimeoutPreemptively(
+                ofMillis(CARD_CREATION_AND_DELETION_TIMEOUT), () -> guiRobot.interact(backingList::clear),
+                "Creation and deletion of person cards exceeded time limit");
     }
 
     /**
