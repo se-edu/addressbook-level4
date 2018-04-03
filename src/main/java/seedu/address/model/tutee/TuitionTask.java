@@ -18,7 +18,8 @@ public class TuitionTask implements Task {
                     + ", Time must in the format of HH:mm\n"
                     + " and Duration must be the format of 01h30m";
 
-    private Tutee tutee;
+    //private Tutee tutee;
+    private String tutee;
     private String description;
     private String duration;
     private LocalDateTime taskDateTime;
@@ -31,7 +32,7 @@ public class TuitionTask implements Task {
      * @param duration duration of the task
      * @param description description of the task
      */
-    public TuitionTask(Tutee tutee, LocalDateTime taskDateTime, String duration, String description) {
+    public TuitionTask(String tutee, LocalDateTime taskDateTime, String duration, String description) {
         this.tutee = tutee;
         this.taskDateTime = taskDateTime;
         this.duration = duration;
@@ -42,7 +43,7 @@ public class TuitionTask implements Task {
         return taskDateTime;
     }
 
-    public Tutee getTutee() {
+    public String getPerson() {
         return tutee;
     }
 
@@ -56,8 +57,21 @@ public class TuitionTask implements Task {
 
     @Override
     public String toString() {
-        return "Tuition task with description " + description + " on " + Integer.toString(taskDateTime.getDayOfMonth())
-                + " " + taskDateTime.getMonth().name() + " " + Integer.toString(taskDateTime.getYear());
+        if (hasDescription()) {
+            return "Tuition task with description " + description + " on "
+                    + Integer.toString(taskDateTime.getDayOfMonth()) + " " + taskDateTime.getMonth().name()
+                    + " " + Integer.toString(taskDateTime.getYear());
+        } else {
+            return "Tuition task without description on " + Integer.toString(taskDateTime.getDayOfMonth())
+                    + " " + taskDateTime.getMonth().name() + " " + Integer.toString(taskDateTime.getYear());
+        }
+    }
+
+    /**
+     * Returns true if the tuition task contains a non-empty description.
+     */
+    private boolean hasDescription() {
+        return description != "";
     }
 
     /**

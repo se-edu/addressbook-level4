@@ -11,22 +11,22 @@ import org.junit.Test;
 
 import seedu.address.model.personal.PersonalTask;
 import seedu.address.model.tutee.TuitionTask;
-import seedu.address.model.tutee.Tutee;
-import seedu.address.testutil.TuteeBuilder;
+//import seedu.address.model.tutee.Tutee;
+//import seedu.address.testutil.TuteeBuilder;
 
 //@@author ChoChihTun
 public class ScheduleTest {
     private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/uuuu HH:mm")
             .withResolverStyle(ResolverStyle.STRICT);
 
-    private static Tutee tutee = new TuteeBuilder().build();
+    //private static Tutee tutee = new TuteeBuilder().build();
 
     /**
      * Generates a list of existing tasks
      */
     private static void createTaskList() {
-        Schedule.taskList.add(new TuitionTask(
-                tutee, LocalDateTime.parse("11/01/2011 22:00", formatter), "1h30m", "tuition 1"));
+        Schedule.taskList.add(new TuitionTask(/*tutee*/"Anne",
+                LocalDateTime.parse("11/01/2011 22:00", formatter), "1h30m", "tuition 1"));
         Schedule.taskList.add(new PersonalTask(
                 LocalDateTime.parse("15/01/2011 22:00", formatter), "2h30m", "personal task 1"));
         Schedule.taskList.add(new PersonalTask(

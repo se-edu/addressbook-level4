@@ -100,9 +100,17 @@ Format: `list` +
 Using Command Alias: +
 Format: `l`
 
+=== Listing all tutees : `listtutee`
+
+Shows a list of all tutees in the address book. +
+Using Command Word: +
+Format: `list` +
+Using Command Alias: +
+Format: `l`
+
 === Editing a person : `edit`
 
-Edits an existing person in the address book. +
+Edits an existing person's detail in the address book. +
 Using Command Word: +
 Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
 Using Comamnd Alias: +
@@ -114,6 +122,7 @@ Format: `e INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
 * You can remove all the person's tags by typing `t/` without specifying any tags after it.
+* This command is able to edit the general details of a tutee but is unable to edit tutee's specific details, namely : Education Level, Grade, School and Subject.
 ****
 
 Examples:
@@ -236,7 +245,7 @@ Using Command Word: +
 Format: `addtuition TUTEE_INDEX DATE TIME DURATION [DESCRIPTION] +
 
 ****
-*INTRODUCTION*
+*CONCEPT INTRODUCTION*
 
 There are 2 different kinds of task recognized by Tuition Connect. Tuition (task) is always associated with a tutee
 and a tuition fee (tuition fee is coming soon on v2.0)
@@ -293,7 +302,7 @@ Using Command Word: +
 Format: `addtask DATE TIME DURATION [DESCRIPTION]+
 
 ****
-*INTRODUCTION*
+*CONCEPT INTRODUCTION*
 
 There are 2 different kinds of task recognized by Tuition Connect. Personal task is any agenda that is not a tuition.
 ****
@@ -477,14 +486,15 @@ e.g. `find name Jake Doe` +
 * *Sort* : sort CATEGORY +
 e.g. `sort grade`
 * *List* : `list` +
+* *List Tutee* : 'listtutee' +
 * *Help* : `help` +
 * *Select* : `select INDEX` +
 e.g.`select 2` +
-* *AddTuition* : `addtuition TUTEE_INDEX DATE TIME DURATION [DESCRIPTION] +
+* *Add Tuition* : `addtuition TUTEE_INDEX DATE TIME DURATION [DESCRIPTION] +
 e.g. `addtuition 1 10/05/2018 12:00 1h30m Calculus homework page 24`
-* *AddTask* : 'add DATE TIME DURATION [DESCRIPTION] +
+* *Add Task* : 'add DATE TIME DURATION [DESCRIPTION] +
 e.g. 'addtask 10/05/2018 12:00 1h30m Going out with friends`
-* *Deletetask* : 'delete TASK_INDEX` +
+* *Delete Task* : 'delete TASK_INDEX` +
 e.g. 'delete 1' +
 * *Change* : `change TIME_UNIT` +
 e.g. `change w` +

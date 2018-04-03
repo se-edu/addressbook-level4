@@ -431,7 +431,7 @@ public class ParserUtilTest {
         assertEquals(VALID_TIME_UNIT, ParserUtil.parseTimeUnit(timeUnitWithWhitespace));
     }
 
-    //author @@yungyung04
+    //@@author yungyung04
     @Test
     public void parseDateTime_invalidInput_throwsDateTimeParseException() {
         //null date and time

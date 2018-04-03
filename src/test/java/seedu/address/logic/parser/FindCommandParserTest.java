@@ -21,6 +21,7 @@ import org.junit.Test;
 
 import seedu.address.logic.commands.FindCommand;
 
+//@@author yungyung04
 public class FindCommandParserTest {
     private static final int INDEX_FIRST_ELEMENT = 0;
     public static final String VALID_FIRST_NAME_BOB = VALID_NAME_BOB.toLowerCase().split("\\s+")[INDEX_FIRST_ELEMENT];

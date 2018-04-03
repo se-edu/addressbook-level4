@@ -15,6 +15,8 @@ import seedu.address.model.tutee.TuitionSchedule;
 import seedu.address.model.tutee.TuitionTask;
 import seedu.address.model.tutee.Tutee;
 
+//@@author yungyung04
+
 /**
  * Adds a tuition (task) into the schedule.
  */
@@ -45,7 +47,8 @@ public class AddTuitionTaskCommand extends UndoableCommand {
 
     private TuitionTask toAdd;
     private TuitionSchedule tuitionSchedule;
-    private Tutee associatedTutee;
+    //private Tutee associatedTutee;
+    private String associatedTutee;
 
     /**
      * Creates an AddTuition to add the specified {@code Task} which is associated to {@code Tutee}.
@@ -69,9 +72,11 @@ public class AddTuitionTaskCommand extends UndoableCommand {
 
     @Override
     protected void preprocessUndoableCommand() throws CommandException {
-        associatedTutee = getAssociatedTutee();
-        requireNonNull(associatedTutee.getTuitionSchedule());
-        tuitionSchedule = associatedTutee.getTuitionSchedule();
+        associatedTutee = getAssociatedTutee().getName().fullName;
+        //associatedTutee = getAssociatedTutee();
+        //requireNonNull(associatedTutee.getTuitionSchedule());
+        //tuitionSchedule = associatedTutee.getTuitionSchedule();
+        tuitionSchedule = getAssociatedTutee().getTuitionSchedule();
         toAdd = new TuitionTask(associatedTutee, taskdateTime, duration, description);
     }
 

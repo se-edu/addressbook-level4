@@ -46,8 +46,21 @@ public class PersonalTask implements Task {
 
     @Override
     public String toString() {
-        return "Personal task with description " + description + " on " + Integer.toString(taskDateTime.getDayOfMonth())
-                + " " + taskDateTime.getMonth().name() + " " + Integer.toString(taskDateTime.getYear());
+        if (hasDescription()) {
+            return "Personal task with description " + description + " on "
+                    + Integer.toString(taskDateTime.getDayOfMonth()) + " "
+                    + taskDateTime.getMonth().name() + " " + Integer.toString(taskDateTime.getYear());
+        } else {
+            return "Personal task without description on " + Integer.toString(taskDateTime.getDayOfMonth())
+                    + " " + taskDateTime.getMonth().name() + " " + Integer.toString(taskDateTime.getYear());
+        }
+    }
+
+    /**
+     * Returns true if the tuition task contains a non-empty description.
+     */
+    private boolean hasDescription() {
+        return description != "";
     }
 
     /**
