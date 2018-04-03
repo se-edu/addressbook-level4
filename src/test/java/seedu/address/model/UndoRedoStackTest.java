@@ -1,10 +1,10 @@
-package seedu.address.logic;
+package seedu.address.model;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
-import static seedu.address.logic.UndoRedoStackUtil.prepareStack;
+import static seedu.address.model.UndoRedoStackUtil.prepareStack;
 import static seedu.address.testutil.TypicalPersons.AMY;
 import static seedu.address.testutil.TypicalPersons.BOB;
 
@@ -15,7 +15,6 @@ import java.util.List;
 
 import org.junit.Test;
 
-import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.testutil.AddressBookBuilder;
 
 public class UndoRedoStackTest {
@@ -62,15 +61,15 @@ public class UndoRedoStackTest {
         undoRedoStack = prepareStack(Arrays.asList(addressBookWithAmy, addressBookWithBob),
                 Collections.emptyList());
 
-        // multiple address books in undoStack
+        // multiple address books in undo stack
         assertPopUndoSuccess(addressBookWithAmy, Collections.singletonList(addressBookWithAmy),
                 Collections.singletonList(addressBookWithBob));
 
-        // single address book in undoStack
+        // 2 address books in undo stack
         assertPopUndoSuccess(emptyAddressBook, Collections.emptyList(),
                 Arrays.asList(addressBookWithBob, addressBookWithAmy));
 
-        // no address book in undoStack
+        // single empty address book in undo stack
         assertPopUndoFailure(Collections.emptyList(), Arrays.asList(addressBookWithBob, addressBookWithAmy));
     }
 
@@ -79,26 +78,16 @@ public class UndoRedoStackTest {
         undoRedoStack = prepareStack(Collections.emptyList(),
                 Arrays.asList(addressBookWithAmy, addressBookWithBob));
 
-        // multiple address books in redoStack
+        // multiple address books in redo stack
         assertPopRedoSuccess(addressBookWithBob, Collections.singletonList(addressBookWithBob),
                 Collections.singletonList(addressBookWithAmy));
 
-        // single address book in redoStack
+        // single address book in redo stack
         assertPopRedoSuccess(addressBookWithAmy,
                 Arrays.asList(addressBookWithBob, addressBookWithAmy), Collections.emptyList());
 
-        // no address book in redoStack
+        // no address book in redo stack
         assertPopRedoFailure(Arrays.asList(addressBookWithBob, addressBookWithAmy), Collections.emptyList());
-    }
-
-    @Test
-    public void clearRedoStack() {
-        undoRedoStack = prepareStack(Collections.emptyList(),
-                Arrays.asList(addressBookWithAmy, addressBookWithBob));
-        assertTrue(undoRedoStack.canRedo());
-
-        undoRedoStack.clearRedoStack();
-        assertFalse(undoRedoStack.canRedo());
     }
 
     @Test
