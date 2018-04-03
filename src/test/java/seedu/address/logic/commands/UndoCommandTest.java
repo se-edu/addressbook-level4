@@ -5,16 +5,10 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.deleteFirstPerson;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
-import java.util.Arrays;
-import java.util.Collections;
-
 import org.junit.Before;
 import org.junit.Test;
 
 import seedu.address.logic.CommandHistory;
-import seedu.address.logic.UndoRedoStack;
-import seedu.address.logic.UndoRedoStackUtil;
-import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -24,39 +18,27 @@ public class UndoCommandTest {
 
     private final Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
-    private UndoRedoStack undoRedoStack;
-
     @Before
     public void setUp() {
-        Model setUpModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-        AddressBook initialAddressBook = new AddressBook(setUpModel.getAddressBook());
-
-        deleteFirstPerson(setUpModel);
-        AddressBook secondAddressBookToUndo = new AddressBook(setUpModel.getAddressBook());
-
-        deleteFirstPerson(setUpModel);
-        AddressBook firstAddressBookToUndo = new AddressBook(setUpModel.getAddressBook());
-
-        undoRedoStack = UndoRedoStackUtil.prepareStack(
-                Arrays.asList(initialAddressBook, secondAddressBookToUndo, firstAddressBookToUndo),
-                Collections.emptyList());
+        deleteFirstPerson(model);
+        deleteFirstPerson(model);
     }
 
     @Test
     public void execute() {
         UndoCommand undoCommand = new UndoCommand();
-        undoCommand.setData(model, EMPTY_COMMAND_HISTORY, undoRedoStack);
+        undoCommand.setData(model, EMPTY_COMMAND_HISTORY);
 
         // multiple address books in undoStack
         Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
         deleteFirstPerson(expectedModel);
         assertCommandSuccess(undoCommand, model, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
-        // single address book in undoStack
+        // multiple address books in undoStack
         expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
         assertCommandSuccess(undoCommand, model, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
-        // no address book in undoStack
+        // single address book in undoStack
         assertCommandFailure(undoCommand, model, UndoCommand.MESSAGE_FAILURE);
     }
 }
