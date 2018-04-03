@@ -928,59 +928,67 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` |user |add a new person |
+|`* * *` |user |add a new person |update my list of contacts
 
 |`* * *` |user |delete a person |remove entries that I no longer need
 
 |`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
 
-|`* * *` |tutor |list schedule I have in certain month |check and prepare myself in advance
+|`* * *` |tutor |add a new tuition |so that I can compile my tuition schedule
 
-|`* * *` |tutor |add a new tuition schedule |so that I can compile my tuition schedule
+|`* * *` |user |add my personal task to the calendar |prevent any task from clashing
 
-|`* * *` |user |delete a schedule in the calendar |update my calender
+|`* * *` |user |delete a task in the calendar |update my calender
 
-|`* * *` |tutor |tag the tutee with their current education level |adjust my teaching accordingly
+|`* * *` |user |edit a task in the calendar |update my calendar
+
+|`* * *` |tutor |list tasks I have in certain month |check and prepare myself in advance
+
+|`* * *` |tutor |add a contact as my tutee |separate my tutee from my personal contact lists
+
+|`* * *` |tutor |add subject grade of the tutees |keep track of his progress
+
+|`* * *` |tutor |add tutee's current education level |adjust my teaching accordingly
 
 |`* * *` |tutor |edit tutee's details |stay updated
 
-|`* * *` |user |edit a schedule |update my calendar
+|`* * *` |user |use a calendar |manage my schedule effectively
 
-|`* * *` |user |open the calender |check on my schedule
+|`* * *` |user |have a calender on application main window |view my schedule easily
 
-|`* * *` |user |submit feedback to the developers of the application |this application can be further improved
+|`* * *` |tutor |change the calendar view page |view my schedule in terms of day, month, week or year
 
-|`* * *` |user |add my personal schedule to the calendar |prevent any schedule from clashing
+|`* *` |tutor |sort my contact list by various categories |locate my contacts that have same characteristics easily
 
-|`* * *` |tutor |categorize a contact as my tutee |separate my tutee from my personal contact lists
+|`* *` |tutor |list tutees who are learning same subject |determine the amount of tuition material copies to be printed
 
-|`* *` |tutor |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
-
-|`* *` |tutor |measure the retention rate of my tutoring service |improve on myself and use it as my tuition credential
-
-|`* *` |user |track my work hours over a specific interval of time |maintain a good work life balance
-
-|`* *` |user |receive payments for my services electronically |receive payment more conveniently
-
-|`* *` |tutor |track the tuition payment |know who has not paid
-
-|`* *` |tutor |integrate my calendar with the school's calendar |prevent clashes between tuition schedule and tutees' school commitment
-
-|`* *` |tutor with many tutees |send messages to all tutees that meet a certain description |inform tutees together and not one by one
-
-|`* *` |tutor |add subject grade of the tutees |keep track of his progress
+|`* *` |tutor |list tutees with same education level |navigate within TuitionConnect easily
 
 |`* *` |tutor |list tutees coming from the same school |so that I can gather and spread useful information among these students.
 
 |`* *` |tutor |list tutees based on their grades |give more tuition to tutees who are doing badly
 
-|`* *` |tutor |give assignments(done and to-be-done) to a tutee |track his work and progress easily
+|`* *` |tutor with many tutees |send messages to all tutee with same description |disperse messages easily
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* *` |user |submit feedback to the developers of the application |this application can be further improved
+
+|`* *` |tutor |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+
+|`* *` |user |track my work hours over a specific interval of time |maintain a good work life balance
+
+|`* *` |tutor |track the tuition payment |know who has not paid
+
+|`* *` |tutor |add assignments(done and to-be-done) to a tutee |track his work and progress easily
+
+|`*` |tutor |measure the retention rate of my tutoring service |improve on myself and use it as my tuition credential
+
+|`*` |user |receive payments for my services electronically |receive payment more conveniently
 
 |`*` |tutor |take note of the name of my tutee's school teachers |adjust my teaching according to the school teacher.
 
-|`*` |tutor |insert my tutee's photo |
+|`*` |tutor |insert my tutee's photo |recognise new students easily
+
+|`*` |tutor |delete all finished task |remove them permanently
 |=======================================================================
 
 [appendix]
