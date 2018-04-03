@@ -1,8 +1,6 @@
-package seedu.address.logic;
+package seedu.address.model;
 
 import java.util.Stack;
-
-import seedu.address.model.ReadOnlyAddressBook;
 
 /**
  * Maintains the undo-stack (the stack of address book states that can be undone) and the redo-stack (the stack of
@@ -45,6 +43,7 @@ public class UndoRedoStack {
     }
 
     /**
+<<<<<<< HEAD:src/main/java/seedu/address/logic/UndoRedoStack.java
      * Clears the redo-stack.
      */
     public void clearRedoStack() {
@@ -53,6 +52,9 @@ public class UndoRedoStack {
 
     /**
      * Returns true if {@code popUndo()} has an address book state to return.
+=======
+     * Returns true if {@code popUndo()} has an address book state to return
+>>>>>>> 46d1661... Move undoRedoStack from LogicManager to Model:src/main/java/seedu/address/model/UndoRedoStack.java
      */
     public boolean canUndo() {
         return undoStack.size() > 1;

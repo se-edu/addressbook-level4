@@ -1,10 +1,10 @@
-package seedu.address.logic;
+package seedu.address.model;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
-import static seedu.address.logic.UndoRedoStackUtil.prepareStack;
+import static seedu.address.model.UndoRedoStackUtil.prepareStack;
 import static seedu.address.testutil.TypicalPersons.AMY;
 import static seedu.address.testutil.TypicalPersons.BOB;
 
@@ -15,7 +15,6 @@ import java.util.List;
 
 import org.junit.Test;
 
-import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.testutil.AddressBookBuilder;
 
 public class UndoRedoStackTest {
