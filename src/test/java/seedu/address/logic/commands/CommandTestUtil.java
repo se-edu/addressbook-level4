@@ -15,7 +15,6 @@ import java.util.List;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
-import seedu.address.logic.UndoRedoStack;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
@@ -137,20 +136,20 @@ public class CommandTestUtil {
     }
 
     /**
-     * Returns an {@code UndoCommand} with the given {@code model} and {@code undoRedoStack} set.
+     * Returns an {@code UndoCommand} with the given {@code model} set.
      */
-    public static UndoCommand prepareUndoCommand(Model model, UndoRedoStack undoRedoStack) {
+    public static UndoCommand prepareUndoCommand(Model model) {
         UndoCommand undoCommand = new UndoCommand();
-        undoCommand.setData(model, new CommandHistory(), undoRedoStack);
+        undoCommand.setData(model, new CommandHistory());
         return undoCommand;
     }
 
     /**
-     * Returns a {@code RedoCommand} with the given {@code model} and {@code undoRedoStack} set.
+     * Returns a {@code RedoCommand} with the given {@code model} set.
      */
-    public static RedoCommand prepareRedoCommand(Model model, UndoRedoStack undoRedoStack) {
+    public static RedoCommand prepareRedoCommand(Model model) {
         RedoCommand redoCommand = new RedoCommand();
-        redoCommand.setData(model, new CommandHistory(), undoRedoStack);
+        redoCommand.setData(model, new CommandHistory());
         return redoCommand;
     }
 }
