@@ -954,6 +954,7 @@ public class CalendarPanel extends UiPart<Region> {
         calendarView.setRequestedTime(LocalTime.now());
         calendarView.setToday(LocalDate.now());
         calendarView.setTime(LocalTime.now());
+        calendarView.setScaleX(0.95);
         calendarView.showDayPage();
         disableViews();
         setupCalendar();
@@ -1034,10 +1035,11 @@ public class CalendarPanel extends UiPart<Region> {
 ```
 ###### \resources\view\MainWindow.fxml
 ``` fxml
-          <StackPane fx:id="calendarPlaceholder" minWidth="460" prefWidth="460">
-            <padding>
-              <Insets bottom="10" left="10" right="10" top="10" />
-            </padding>
-          </StackPane>
-         </SplitPane>
+                  <StackPane fx:id="calendarPlaceholder" minWidth="50.0" prefHeight="687.0" prefWidth="50">
+                      <padding>
+                          <Insets bottom="10" left="-5" right="-5" top="10" />
+                      </padding>
+                  </StackPane>
+              </items>
+          </SplitPane>
 ```
