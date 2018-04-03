@@ -5,16 +5,10 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.deleteFirstPerson;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
-import java.util.Arrays;
-import java.util.Collections;
-
 import org.junit.Before;
 import org.junit.Test;
 
 import seedu.address.logic.CommandHistory;
-import seedu.address.logic.UndoRedoStack;
-import seedu.address.logic.UndoRedoStackUtil;
-import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -24,27 +18,18 @@ public class RedoCommandTest {
 
     private final Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
-    private UndoRedoStack undoRedoStack;
-
     @Before
     public void setUp() {
-        Model setUpModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-        AddressBook initialAddressBook = new AddressBook(setUpModel.getAddressBook());
-
-        deleteFirstPerson(setUpModel);
-        AddressBook firstAddressBookToRedo = new AddressBook(setUpModel.getAddressBook());
-
-        deleteFirstPerson(setUpModel);
-        AddressBook secondAddressBookToRedo = new AddressBook(setUpModel.getAddressBook());
-
-        undoRedoStack = UndoRedoStackUtil.prepareStack(Collections.singletonList(initialAddressBook),
-                Arrays.asList(secondAddressBookToRedo, firstAddressBookToRedo));
+        deleteFirstPerson(model);
+        deleteFirstPerson(model);
+        model.undo();
+        model.undo();
     }
 
     @Test
     public void execute() {
         RedoCommand redoCommand = new RedoCommand();
-        redoCommand.setData(model, EMPTY_COMMAND_HISTORY, undoRedoStack);
+        redoCommand.setData(model, EMPTY_COMMAND_HISTORY);
         Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
         // multiple address books in redoStack

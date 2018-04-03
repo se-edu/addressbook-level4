@@ -263,11 +263,11 @@ The redo does the exact opposite (pops from `redoStack`, push to `undoStack`, an
 [NOTE]
 If the `redoStack` is empty, then there are no other commands left to be redone, and an `Exception` will be thrown when popping the `redoStack`.
 
-The user now decides to execute a new command, `clear`. As before, the address book state will be pushed into the `undoStack`. This time the `redoStack` is no longer empty. It will be purged as it no longer make sense to redo the `add n/David` command (this is the behavior that most modern desktop applications follow).
+Commands that do not modify the address book will not save the address book state into the `undoStack` or clear the `redoStack`. For example, `list` will not add or remove the address book states after execution:
 
 image::UndoRedoNewCommand2StackDiagram.png[width="800"]
 
-Commands that do not modify the address book will not save the address book state into the `undoStack`. For example, `list` will not add the address book state after execution:
+The user now decides to execute a new command, `clear`. As before, the address book state will be pushed into the `undoStack`. This time the `redoStack` is no longer empty. It will be purged as it no longer make sense to redo the `add n/David` command (this is the behavior that most modern desktop applications follow).
 
 image::UndoRedoNewCommand3StackDiagram.png[width="800"]
 
