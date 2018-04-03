@@ -1,10 +1,7 @@
-package seedu.address.logic;
+package seedu.address.model;
 
 import java.util.Collections;
 import java.util.List;
-
-import seedu.address.model.AddressBook;
-import seedu.address.model.ReadOnlyAddressBook;
 
 /**
  * Contains helper methods for testing {@code UndoRedoStack}.
