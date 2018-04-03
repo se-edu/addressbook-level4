@@ -24,10 +24,15 @@ public class UndoRedoStack {
     }
 
     /**
-     * Pushes the {@code currentAddressBookState} onto the undo-stack, and clears the redo-stack.
+     * Pushes the {@code currentAddressBookState} onto the undo-stack, and clears the redo-stack if the latest top
+     * address book state in undoStack is different from {@code currentAddressBookState}.
      */
     public void push(ReadOnlyAddressBook currentAddressBookState) {
-        clearRedoStack();
+        if (undoStack.peek().equals(currentAddressBookState)) {
+            return;
+        }
+
+        redoStack.clear();
         undoStack.push(new AddressBook(currentAddressBookState));
     }
 
