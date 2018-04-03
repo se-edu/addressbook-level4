@@ -16,6 +16,7 @@ import java.util.List;
 import org.junit.Test;
 
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.UndoRedoStack;
 import seedu.address.testutil.AddressBookBuilder;
 
 public class UndoRedoStackTest {
@@ -26,18 +27,23 @@ public class UndoRedoStackTest {
     private UndoRedoStack undoRedoStack = new UndoRedoStack();
 
     @Test
-    public void push_addressBook_redoStackClearedAndAddressBookAdded() {
+    public void push_addressBookNotEqualTopOfUndoStack_redoStackClearedAndAddressBookAdded() {
+        // non-empty redoStack
+        undoRedoStack = prepareStack(Collections.singletonList(addressBookWithBob),
+                Arrays.asList(addressBookWithBob, addressBookWithAmy));
+        undoRedoStack.push(addressBookWithAmy);
+        assertStackStatus(Arrays.asList(addressBookWithBob, addressBookWithAmy),
+                Collections.emptyList());
+    }
+
+    @Test
+    public void push_addressBookEqualTopOfUndoStack_addressBookNotAdded() {
         // non-empty redoStack
         undoRedoStack = prepareStack(Collections.singletonList(addressBookWithBob),
                 Arrays.asList(addressBookWithBob, addressBookWithAmy));
         undoRedoStack.push(addressBookWithBob);
-        assertStackStatus(Arrays.asList(addressBookWithBob, addressBookWithBob),
-                Collections.emptyList());
-
-        // empty redoStack
-        undoRedoStack.push(addressBookWithAmy);
-        assertStackStatus(Arrays.asList(addressBookWithBob, addressBookWithBob, addressBookWithAmy),
-                Collections.emptyList());
+        assertStackStatus(Collections.singletonList(addressBookWithBob),
+                Arrays.asList(addressBookWithBob, addressBookWithAmy));
     }
 
     @Test
@@ -92,16 +98,6 @@ public class UndoRedoStackTest {
 
         // no address book in redoStack
         assertPopRedoFailure(Arrays.asList(addressBookWithBob, addressBookWithAmy), Collections.emptyList());
-    }
-
-    @Test
-    public void clearRedoStack() {
-        undoRedoStack = prepareStack(Collections.emptyList(),
-                Arrays.asList(addressBookWithAmy, addressBookWithBob));
-        assertTrue(undoRedoStack.canRedo());
-
-        undoRedoStack.clearRedoStack();
-        assertFalse(undoRedoStack.canRedo());
     }
 
     @Test
