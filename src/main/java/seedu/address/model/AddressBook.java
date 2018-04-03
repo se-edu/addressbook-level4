@@ -18,6 +18,7 @@ import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.tutee.Tutee;
+import seedu.address.ui.CalendarPanel;
 
 /**
  * Wraps all data at the address-book level
@@ -131,7 +132,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     public void addTask(Task t)  {
         tasks.add(t);
-
+        CalendarPanel.addEntry(t.getEntry());
     }
     /**
      * Updates a task to the address book.
@@ -244,7 +245,9 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     @Override
-    public ObservableList<Task> getTaskList() { return tasks.asObservableList(); }
+    public ObservableList<Task> getTaskList() {
+        return tasks.asObservableList();
+    }
 
     @Override
     public boolean equals(Object other) {

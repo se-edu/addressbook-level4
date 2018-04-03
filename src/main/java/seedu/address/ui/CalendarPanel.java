@@ -3,6 +3,9 @@ package seedu.address.ui;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
+import com.calendarfx.model.Calendar;
+import com.calendarfx.model.CalendarSource;
+import com.calendarfx.model.Entry;
 import com.calendarfx.view.CalendarView;
 
 import javafx.fxml.FXML;
@@ -19,21 +22,34 @@ public class CalendarPanel extends UiPart<Region> {
     private static final char WEEK = 'w';
     private static final char MONTH = 'm';
     private static final char YEAR = 'y';
+    private static CalendarSource source = new CalendarSource("Schedule");
+    private static Calendar calendar = new Calendar("Task");
 
     @FXML
     private static CalendarView calendarView = new CalendarView();
+
 
     public CalendarPanel() {
         super(FXML);
         calendarView.setRequestedTime(LocalTime.now());
         calendarView.setToday(LocalDate.now());
         calendarView.setTime(LocalTime.now());
+        calendarView.setScaleX(0.95);
         calendarView.showDayPage();
         disableViews();
+        setupCalendar();
     }
 
     /**
-     * Remove unnecessary buttons from interface
+     * Initialises the calendar
+     */
+    private void setupCalendar() {
+        source.getCalendars().add(calendar);
+        calendarView.getCalendarSources().add(source);
+    }
+
+    /**
+     * Removes unnecessary buttons from interface
      */
     private void disableViews() {
         calendarView.setShowAddCalendarButton(false);
@@ -61,8 +77,26 @@ public class CalendarPanel extends UiPart<Region> {
             calendarView.showYearPage();
             return;
         default:
-            assert(false);
+            assert(false); // Should never enter here
         }
+    }
+
+    /**
+     * Adds a task entry to the calendar
+     *
+     * @param entry to be added to calendar
+     */
+    public static void addEntry(Entry entry) {
+        calendar.addEntry(entry);
+    }
+
+    /**
+     * Deletes a task entry from the calendar's schedule
+     *
+     * @param entry to be deleted
+     */
+    public static void deleteTask(Entry entry) {
+        calendar.removeEntry(entry);
     }
 
     @Override
