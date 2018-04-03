@@ -19,9 +19,7 @@ public class TuitionTask implements Task {
                     + ", Date can only contain numbers in the format of dd/mm/yyyy\n"
                     + ", Time must in the format of HH:mm\n"
                     + " and Duration must be the format of 01h30m";
-
-    //private Tutee tutee;
-    private static final String TUITION_TITLE = "Tuition with %1$s";  
+    private static final String TUITION_TITLE = "Tuition with %1$s"; //private Tutee tutee;
     private String tutee;
     private String description;
     private String duration;
@@ -139,7 +137,6 @@ public class TuitionTask implements Task {
                 && description.equals(((TuitionTask) other).description));
     }
     */
-  
     public String getTuitionTitle() {
         return String.format(TUITION_TITLE, tutee);
     }
