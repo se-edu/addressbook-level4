@@ -1,10 +1,10 @@
 package seedu.address.model.task;
 
-import seedu.address.commons.util.StringUtil;
-import seedu.address.model.Task;
-
 import java.util.List;
 import java.util.function.Predicate;
+
+import seedu.address.commons.util.StringUtil;
+import seedu.address.model.Task;
 
 //@@author yungyung04
 /**
@@ -28,7 +28,7 @@ public class MonthContainsKeywordsPredicate implements Predicate<Task> {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof seedu.address.model.task.MonthContainsKeywordsPredicate // instanceof handles nulls
-                && this.keywords.
-                equals(((seedu.address.model.task.MonthContainsKeywordsPredicate) other).keywords)); // state check
+                && this.keywords
+                .equals(((seedu.address.model.task.MonthContainsKeywordsPredicate) other).keywords)); // state check
     }
 }
