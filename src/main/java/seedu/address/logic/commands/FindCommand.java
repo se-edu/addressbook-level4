@@ -7,11 +7,15 @@ import static seedu.address.model.person.PersonSortUtil.CATEGORY_NAME;
 import static seedu.address.model.person.PersonSortUtil.CATEGORY_SCHOOL;
 import static seedu.address.model.person.PersonSortUtil.CATEGORY_SUBJECT;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.function.Predicate;
 
+import seedu.address.model.Task;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
+import seedu.address.model.task.MonthContainsKeywordsPredicate;
 import seedu.address.model.tutee.EducationLevelContainsKeywordsPredicate;
 import seedu.address.model.tutee.GradeContainsKeywordsPredicate;
 import seedu.address.model.tutee.SchoolContainsKeywordsPredicate;
@@ -41,7 +45,8 @@ public class FindCommand extends Command {
 
     private final String category;
     private final String[] keywords;
-    private Predicate<Person> predicate;
+    private Predicate<Person> personPredicate;
+    private Predicate<Task> taskPredicate;
 
     public FindCommand(String category, String[] keywords) {
         this.category = category;
@@ -52,29 +57,31 @@ public class FindCommand extends Command {
     public CommandResult execute() {
         switch (category) {
         case CATEGORY_NAME:
-            predicate = new NameContainsKeywordsPredicate(Arrays.asList(keywords));
-            model.updateFilteredPersonList(predicate);
+            personPredicate = new NameContainsKeywordsPredicate(Arrays.asList(keywords));
+            model.updateFilteredPersonList(personPredicate);
             break;
         case CATEGORY_MONTH:
+            taskPredicate = new MonthContainsKeywordsPredicate(Arrays.asList(keywords));
+            model.updateFilteredTaskList(taskPredicate);
             break;
         case CATEGORY_EDUCATION_LEVEL:
-            predicate = new EducationLevelContainsKeywordsPredicate(Arrays.asList(keywords));
-            model.updateFilteredPersonList(predicate);
+            personPredicate = new EducationLevelContainsKeywordsPredicate(Arrays.asList(keywords));
+            model.updateFilteredPersonList(personPredicate);
             break;
         case CATEGORY_GRADE:
-            predicate = new GradeContainsKeywordsPredicate(Arrays.asList(keywords));
-            model.updateFilteredPersonList(predicate);
+            personPredicate = new GradeContainsKeywordsPredicate(Arrays.asList(keywords));
+            model.updateFilteredPersonList(personPredicate);
             break;
         case CATEGORY_SCHOOL:
-            predicate = new SchoolContainsKeywordsPredicate(Arrays.asList(keywords));
-            model.updateFilteredPersonList(predicate);
+            personPredicate = new SchoolContainsKeywordsPredicate(Arrays.asList(keywords));
+            model.updateFilteredPersonList(personPredicate);
             break;
         case CATEGORY_SUBJECT:
-            predicate = new SubjectContainsKeywordsPredicate(Arrays.asList(keywords));
-            model.updateFilteredPersonList(predicate);
+            personPredicate = new SubjectContainsKeywordsPredicate(Arrays.asList(keywords));
+            model.updateFilteredPersonList(personPredicate);
             break;
         default:
-            // invalid category should be detected in parser
+            // invalid category should be detected in parser instead
             assert (false);
         }
         return new CommandResult(MESSAGE_SUCCESS + "\n"
