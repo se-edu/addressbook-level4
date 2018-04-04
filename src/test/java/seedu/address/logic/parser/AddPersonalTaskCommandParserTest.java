@@ -9,10 +9,16 @@ import org.junit.Test;
 
 import seedu.address.logic.commands.AddPersonalTaskCommand;
 
+
 public class AddPersonalTaskCommandParserTest {
     private AddPersonalTaskCommandParser parser = new AddPersonalTaskCommandParser();
 
     //@@author ChoChihTun
+
+    //private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/uuuu HH:mm")
+    //        .withResolverStyle(ResolverStyle.STRICT);
+
+
     @Test
     public void parse_invalidArgs_throwsParseException() {
         // Invalid format
@@ -59,4 +65,27 @@ public class AddPersonalTaskCommandParserTest {
         assertParseFailure(parser, "11/01/2018 11:11 24h0m Outing with friends",
                 MESSAGE_INVALID_DURATION + "\n" + AddPersonalTaskCommand.MESSAGE_USAGE);
     }
+
+    /**
+    @Test
+    public void parse_validArgs_success() {
+        // With description
+        LocalDateTime taskDateTime = LocalDateTime.parse(VALID_DATE_TIME, formatter);
+        PersonalTask personalTask = new PersonalTask(taskDateTime, VALID_DURATION, VALID_TASK_DESC);
+        assertParseSuccess(parser, VALID_TASK_WITH_DESC,
+                new AddPersonalTaskCommand(personalTask));
+
+        // Without description
+        personalTask = new PersonalTask(taskDateTime, VALID_DURATION, VALID_EMPTY_TASK_DESC);
+        assertParseSuccess(parser, VALID_TASK_WITHOUT_DESC,
+                new AddPersonalTaskCommand(personalTask));
+
+        // Check leap year
+        personalTask = new PersonalTask(LocalDateTime.parse("29/02/2016 11:20", formatter),
+                VALID_DURATION, VALID_EMPTY_TASK_DESC);
+        assertParseSuccess(parser, "29/02/2016 11:20 1h11m",
+                new AddPersonalTaskCommand(personalTask));
+    }
+    */
+
 }

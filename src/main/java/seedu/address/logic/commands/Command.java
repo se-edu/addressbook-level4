@@ -25,6 +25,16 @@ public abstract class Command {
     }
 
     /**
+     * Constructs a feedback message to summarise an operation that displayed a listing of tasks.
+     *
+     * @param displaySize used to generate summary
+     * @return summary message for tasks displayed
+     */
+    public static String getMessageForTaskListShownSummary(int displaySize) {
+        return String.format(Messages.MESSAGE_TASK_LISTED_OVERVIEW, displaySize);
+    }
+
+    /**
      * Executes the command and returns the result message.
      *
      * @return feedback message of the operation result for display

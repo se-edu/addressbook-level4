@@ -18,7 +18,7 @@ import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.logic.commands.ExitCommand;
-import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.FindPersonCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ListCommand;
@@ -86,13 +86,13 @@ public class AddressBookParserTest {
     @Test
     public void parseCommand_find() throws Exception {
         String[] keywords = {"foo", "bar", "baz"};
-        FindCommand commandWord = (FindCommand) parser.parseCommand(
-                FindCommand.COMMAND_WORD + " " + CATEGORY_NAME + " foo bar baz");
-        assertEquals(new FindCommand(CATEGORY_NAME, keywords), commandWord);
+        FindPersonCommand commandWord = (FindPersonCommand) parser.parseCommand(
+                FindPersonCommand.COMMAND_WORD + " " + CATEGORY_NAME + " foo bar baz");
+        assertEquals(new FindPersonCommand(CATEGORY_NAME, keywords), commandWord);
 
-        FindCommand commandAlias = (FindCommand) parser.parseCommand(
-                FindCommand.COMMAND_ALIAS + " " + CATEGORY_NAME + " foo bar baz");
-        assertEquals(new FindCommand(CATEGORY_NAME, keywords), commandAlias);
+        FindPersonCommand commandAlias = (FindPersonCommand) parser.parseCommand(
+                FindPersonCommand.COMMAND_ALIAS + " " + CATEGORY_NAME + " foo bar baz");
+        assertEquals(new FindPersonCommand(CATEGORY_NAME, keywords), commandAlias);
     }
 
     @Test

@@ -8,6 +8,8 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.task.exceptions.TaskNotFoundException;
+import seedu.address.model.tutee.Tutee;
 
 /**
  * The API of the Model component.
@@ -16,6 +18,9 @@ public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
     Predicate<Task> PREDICATE_SHOW_ALL_TASKS = unused -> true;
+
+    /** {@code Predicate} that evaluates to true if an parent object is an instance of the subclass object*/
+    Predicate<Person> PREDICATE_SHOW_ALL_TUTEES = person -> person instanceof Tutee;
 
     /** Clears existing backing model and replaces with the provided new data. */
     void resetData(ReadOnlyAddressBook newData);
@@ -52,7 +57,7 @@ public interface Model {
 
     void updateTask(Task target, Task editedTask);
 
-    void deleteTask(Task target);
+    void deleteTask(Task target) throws TaskNotFoundException;
 
     ObservableList<Task> getFilteredTaskList();
 
