@@ -15,6 +15,7 @@ Restart the IDE to complete the installation.
 . Click `File` > `Settings...` > `Other Settings` > `Checkstyle`
 . Set `Scan Scope`  to `Only Java sources (including tests)`, so that the plugin will run checkstyle for our test source codes as well
 . Ensure that the `Checkstyle version` is set to `8.1`. This is the same version that we are using inside Gradle, so that you won't get any errors due to version incompatibility
+ * If `Checkstyle version` is not set to `8.1`, set it to version `8.1` and click `Apply`
 +
 image::checkstyle-idea-scan-scope.png[width="500"]
 . Click the plus sign under `Configuration File`
