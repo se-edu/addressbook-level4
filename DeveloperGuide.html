@@ -523,6 +523,20 @@ Note how the event is propagated through the <code>EventsCenter</code> to the <c
 </li>
 </ul>
 </div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+As a more OOP model, we can store a <code>Tag</code> list in <code>Address Book</code>, which <code>Person</code> can reference. This would allow <code>Address Book</code> to only require one <code>Tag</code> object per unique <code>Tag</code>, instead of each <code>Person</code> needing their own <code>Tag</code> object. An example of how such a model may look like is given below.<br>
+<br>
+<span class="image"><img src="images/ModelClassBetterOopDiagram.png" alt="ModelClassBetterOopDiagram" width="800"></span>
+</td>
+</tr>
+</table>
+</div>
 </div>
 <div class="sect2">
 <h3 id="Design-Storage"><a class="link" href="#Design-Storage">2.5. Storage component</a></h3>
@@ -1294,16 +1308,6 @@ Do take a look at <a href="#Design-Model">Section 2.4, &#8220;Model component&#8
 </li>
 <li>
 <p>See this <a href="https://github.com/se-edu/addressbook-level4/pull/790">PR</a> for the full solution.</p>
-<div class="ulist">
-<ul>
-<li>
-<p>The current codebase has a flaw in tags management. Tags no longer in use by anyone may still exist on the <a href="https://github.com/se-edu/addressbook-level4/tree/master/src/main/java/seedu/address/model/AddressBook.java"><code>AddressBook</code></a>. This may cause some tests to fail. See issue  <a href="https://github.com/se-edu/addressbook-level4/issues/753"><code>#753</code></a> for more information about this flaw.</p>
-</li>
-<li>
-<p>The solution PR has a temporary fix for the flaw mentioned above in its first commit.</p>
-</li>
-</ul>
-</div>
 </li>
 </ul>
 </div>
@@ -2224,7 +2228,7 @@ Expected: Similar to previous.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2018-04-04 11:32:12 UTC
+Last updated 2018-04-04 12:37:38 UTC
 </div>
 </div>
 </body>
