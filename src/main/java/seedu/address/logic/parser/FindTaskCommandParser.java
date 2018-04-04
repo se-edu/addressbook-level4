@@ -30,12 +30,17 @@ public class FindTaskCommandParser implements Parser<FindTaskCommand> {
     private static final int INDEX_OF_FILTER_CATEGORY = 0;
     private static final int INDEX_OF_INPUT_TYPE = 1;
     private static final int INDEX_OF_KEYWORDS = 2;
+    private static final int INDEX_OF_FIRST_KEYWORD = 0;
+    private static final int INDEX_OF_SECOND_KEYWORD = 1;
     private static final int MONTH_WITH_MMM_FORMAT_CHARACTER_LENGTH = 3;
     private static final int EXPECTED_AMOUNT_OF_MONTHS = 2;
     private static final int MONTH_WITH_MM_FORMAT_CHARACTER_LENGTH = 2;
+    private static final int AMOUNT_OF_MONTHS = 12;
+    private static final String INPUT_TYPE_NAMELY = "namely";
+    private static final String INPUT_TYPE_BETWEEN = "between";
 
     private List<String> validCategories = new ArrayList<>(Arrays.asList(CATEGORY_MONTH, CATEGORY_DURATION));
-    private List<String> validMonthInputTypes = new ArrayList<>(Arrays.asList("exact", "range"));
+    private List<String> validMonthInputTypes = new ArrayList<>(Arrays.asList(INPUT_TYPE_NAMELY, INPUT_TYPE_BETWEEN));
 
     /**
      * Parses the given {@code String} of arguments in the context of the FindTaskCommand
@@ -72,12 +77,12 @@ public class FindTaskCommandParser implements Parser<FindTaskCommand> {
             }
 
             if (inputType.equals("range")) {
-                if (!isValidMonthRange(months)) {
+                if (!isValidMonthBoundary(months)) {
                     throw new ParseException(MESSAGE_INVALID_MONTH_RANGE_FORMAT);
                 }
-                months = getEntireMonthKeywords(months);
+                months = getAllMonthsBetweenBoundaries(months[INDEX_OF_FIRST_KEYWORD], months[INDEX_OF_SECOND_KEYWORD]);
             }
-            keywords = getMonthsAsStrings(months);
+            keywords = convertIntoStrings(months);
             break;
         default:
             System.out.println("should never be called");
@@ -85,35 +90,55 @@ public class FindTaskCommandParser implements Parser<FindTaskCommand> {
         return new FindTaskCommand(filterCategory, keywords);
     }
 
-    private String[] getMonthsAsStrings(int[] months) {
-        String[] keywords = new String[months.length];
-        for (int i = 0; i < months.length; i++) {
-            keywords[i] = Integer.toString(months[i]);
+    /**
+     * Converts an array of integer into an array of String with the same value.
+     */
+    private String[] convertIntoStrings(int[] integers) {
+        String[] strings = new String[integers.length];
+        for (int i = 0; i < integers.length; i++) {
+            strings[i] = Integer.toString(integers[i]);
         }
-        return keywords;
+        return strings;
     }
 
-    private int[] getEntireMonthKeywords(int[] months) {
-        int firstMonthIndex = 0;
-        int secondMonthIndex = 1;
-        int monthRangeSize = months[secondMonthIndex] - months[firstMonthIndex] + 1;
-        int[] monthsWithinRange = new int[monthRangeSize];
+    /**
+     * Returns all months given two month boundaries.
+     */
+    private int[] getAllMonthsBetweenBoundaries(int lowerBoundary, int upperBoundary) {
+        int monthDifference;
+        int[] monthsWithinRange;
 
-        for (int i = 0; i < monthRangeSize; i++) {
-            monthsWithinRange[i] = months[firstMonthIndex] + i;
+        if (lowerBoundary < upperBoundary) {
+            monthDifference = upperBoundary - lowerBoundary + 1;
+            monthsWithinRange = new int[monthDifference];
+            for (int i = 0; i < monthDifference; i++) {
+                monthsWithinRange[i] = lowerBoundary + i;
+            }
+        } else {
+            monthDifference = upperBoundary + AMOUNT_OF_MONTHS + 1 - lowerBoundary;
+            monthsWithinRange = new int[monthDifference];
+            for (int i = 0; i < monthDifference; i++) {
+                if (lowerBoundary + i <= AMOUNT_OF_MONTHS) {
+                    monthsWithinRange[i] = lowerBoundary + i;
+                } else {
+                    monthsWithinRange[i] = lowerBoundary - AMOUNT_OF_MONTHS;
+                }
+            }
         }
         return monthsWithinRange;
     }
 
-    private boolean isValidMonthRange(int[] months) {
-        int firstMonthIndex = 0;
-        int secondMonthIndex = 1;
-        return months.length == EXPECTED_AMOUNT_OF_MONTHS && months[firstMonthIndex] < months[secondMonthIndex];
+    /**
+     * Returns true if the given months are valid boundaries.
+     */
+    private boolean isValidMonthBoundary(int[] months) {
+        return months.length == EXPECTED_AMOUNT_OF_MONTHS
+                && months[INDEX_OF_FIRST_KEYWORD] != months[INDEX_OF_SECOND_KEYWORD];
     }
 
     /**
-     * will add comment later
-     * @throws DateTimeParseException
+     * Parses given {@code String[] months} into their integer representation.
+     * @throws DateTimeParseException if any of the given month is invalid.
      */
     private int[] parseMonthsAsInteger(String[] keywords) throws DateTimeParseException {
         DateTimeFormatter formatDigitMonth = new DateTimeFormatterBuilder().parseCaseInsensitive()
