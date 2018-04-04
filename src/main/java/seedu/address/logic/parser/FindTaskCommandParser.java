@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Locale;
 
 import seedu.address.logic.commands.FindTaskCommand;
+import seedu.address.logic.parser.exceptions.InvalidBoundariesException;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 //@@author yungyung04
@@ -66,28 +67,36 @@ public class FindTaskCommandParser implements Parser<FindTaskCommand> {
 
         switch (filterCategory) {
         case CATEGORY_MONTH:
-            if (!validMonthInputTypes.contains(inputType)) {
-                throw new ParseException(String.format(MESSAGE_INVALID_INPUT_TYPES, FindTaskCommand.MESSAGE_USAGE));
-            }
-
             try {
-                months = parseMonthsAsInteger(keywords);
+                keywords = parseMonthKeywords(inputType, keywords);
             } catch (DateTimeParseException dtpe) {
-                throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindTaskCommand.MESSAGE_USAGE));
+                throw new ParseException(String.format(MESSAGE_INVALID_INPUT_TYPES, FindTaskCommand.MESSAGE_USAGE));
+            } catch (InvalidBoundariesException ibe) {
+                throw new ParseException(MESSAGE_INVALID_MONTH_RANGE_FORMAT);
             }
-
-            if (inputType.equals("range")) {
-                if (!isValidMonthBoundary(months)) {
-                    throw new ParseException(MESSAGE_INVALID_MONTH_RANGE_FORMAT);
-                }
-                months = getAllMonthsBetweenBoundaries(months[INDEX_OF_FIRST_KEYWORD], months[INDEX_OF_SECOND_KEYWORD]);
-            }
-            keywords = convertIntoStrings(months);
             break;
         default:
-            System.out.println("should never be called");
+            assert (false); // should never be called
         }
         return new FindTaskCommand(filterCategory, keywords);
+    }
+
+    private String[] parseMonthKeywords(String inputType, String[] keywords) throws ParseException,
+            DateTimeParseException, InvalidBoundariesException {
+        int[] months;
+        if (!validMonthInputTypes.contains(inputType)) {
+            throw new ParseException(String.format(MESSAGE_INVALID_INPUT_TYPES, FindTaskCommand.MESSAGE_USAGE));
+        }
+            months = parseMonthsAsInteger(keywords);
+
+        if (inputType.equals(INPUT_TYPE_BETWEEN)) {
+            if (!hasValidMonthBoundaries(months)) {
+                throw new InvalidBoundariesException();
+            }
+            months = getAllMonthsBetweenBoundaries(months[INDEX_OF_FIRST_KEYWORD], months[INDEX_OF_SECOND_KEYWORD]);
+        }
+        keywords = convertIntoStrings(months);
+        return keywords;
     }
 
     /**
@@ -121,7 +130,7 @@ public class FindTaskCommandParser implements Parser<FindTaskCommand> {
                 if (lowerBoundary + i <= AMOUNT_OF_MONTHS) {
                     monthsWithinRange[i] = lowerBoundary + i;
                 } else {
-                    monthsWithinRange[i] = lowerBoundary - AMOUNT_OF_MONTHS;
+                    monthsWithinRange[i] = lowerBoundary + i - AMOUNT_OF_MONTHS;
                 }
             }
         }
@@ -131,7 +140,7 @@ public class FindTaskCommandParser implements Parser<FindTaskCommand> {
     /**
      * Returns true if the given months are valid boundaries.
      */
-    private boolean isValidMonthBoundary(int[] months) {
+    private boolean hasValidMonthBoundaries(int[] months) {
         return months.length == EXPECTED_AMOUNT_OF_MONTHS
                 && months[INDEX_OF_FIRST_KEYWORD] != months[INDEX_OF_SECOND_KEYWORD];
     }
