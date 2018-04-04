@@ -13,6 +13,7 @@ public class AddTuitionTaskCommandParserTest {
     private AddTuitionTaskCommandParser parser = new AddTuitionTaskCommandParser();
 
     //@@author ChoChihTun
+
     @Test
     public void parse_invalidArgs_throwsParseException() {
         // Invalid format

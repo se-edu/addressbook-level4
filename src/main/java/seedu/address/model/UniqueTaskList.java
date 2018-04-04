@@ -8,6 +8,7 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.model.task.exceptions.TaskNotFoundException;
 
 /**
  * A list of tasks that enforces uniqueness between its elements and does not allow nulls.
@@ -67,12 +68,11 @@ public class UniqueTaskList implements Iterable<Task> {
      * Removes the equivalent task from the list.
      *
      */
-    public boolean remove(Task toRemove) {
+    public boolean remove(Task toRemove) throws TaskNotFoundException {
         requireNonNull(toRemove);
         final boolean taskFoundAndDeleted = internalList.remove(toRemove);
         if (!taskFoundAndDeleted) {
-            System.out.println("Place Holder");
-            //throw new PersonNotFoundException();
+            throw new TaskNotFoundException();
         }
         return taskFoundAndDeleted;
     }
