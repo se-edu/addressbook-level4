@@ -70,7 +70,6 @@ public class XmlSerializableAddressBook {
             return true;
         }
 
-
         if (!(other instanceof XmlSerializableAddressBook)) {
             return false;
         }
