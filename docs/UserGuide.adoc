@@ -342,13 +342,13 @@ Changes the calendar's view page into the time unit specified by you.
 Using Command Word: +
 Format: `change TIME_UNIT`
 
-[width="59%",cols="22%,<23%",options="header",]
+[width="59%",cols="22%,<23%, 50%",options="header",]
 |=======================================================================
-|Time Unit |Description
-|d |Day
-|w |Week
-|m |Month
-|y |Year
+|Time Unit |User input |Description
+|Day |d |View the calendar in day
+|Week |w |View the calendar in week
+|Month |m |View the calendar in month
+|Year |y |View the calendar in year
 |=======================================================================
 
 [NOTE]
@@ -451,13 +451,7 @@ Format: `exit`
 Address book data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
-=== Delete task `[coming in v1.3]`
-Deletes an existing task.
-
-=== View task `[coming in v1.3]`
-Views a list of tasks.
-
-=== Update tutee fees `[coming in v1.4]`
+=== Update tutee fees `[coming in v2.0]`
 Updates the remaining balance of the fees of a specific tutee after he or she has paid.
 
 === Complete task `[coming in v2.0]`
@@ -465,6 +459,9 @@ Marks a task as completed. If the task is tuition, fees will automatically be ad
 
 === Edit task `[coming in v2.0]`
 Edits date, time, duration or description of an existing task.
+
+=== View contact address on map `[coming in v2.0]`
+View the location of a specific contact's address on google map.
 
 // tag::dataencryption[]
 === Encrypting data files `[coming in v2.0]`
