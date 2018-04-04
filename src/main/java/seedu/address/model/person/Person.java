@@ -3,11 +3,11 @@ package seedu.address.model.person;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
 import seedu.address.model.tag.Tag;
-import seedu.address.model.tag.UniqueTagList;
 
 /**
  * Represents a Person in the address book.
@@ -20,7 +20,7 @@ public class Person {
     private final Email email;
     private final Address address;
 
-    private final UniqueTagList tags;
+    private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
@@ -31,8 +31,7 @@ public class Person {
         this.phone = phone;
         this.email = email;
         this.address = address;
-        // protect internal tags from changes in the arg list
-        this.tags = new UniqueTagList(tags);
+        this.tags.addAll(tags);
     }
 
     public Name getName() {
@@ -56,7 +55,7 @@ public class Person {
      * if modification is attempted.
      */
     public Set<Tag> getTags() {
-        return Collections.unmodifiableSet(tags.toSet());
+        return Collections.unmodifiableSet(tags);
     }
 
     @Override
