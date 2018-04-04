@@ -96,4 +96,37 @@ public class PersonalTask implements Task {
     public String getDuration() {
         return duration;
     }
+
+    @Override
+    public String toString() {
+        if (hasDescription()) {
+            return "Personal task with description " + description + " on "
+                    + Integer.toString(taskDateTime.getDayOfMonth()) + " "
+                    + taskDateTime.getMonth().name() + " " + Integer.toString(taskDateTime.getYear());
+        } else {
+            return "Personal task without description on " + Integer.toString(taskDateTime.getDayOfMonth())
+                    + " " + taskDateTime.getMonth().name() + " " + Integer.toString(taskDateTime.getYear());
+        }
+    }
+
+    /**
+     * Returns true if the tuition task contains a non-empty description.
+     */
+    private boolean hasDescription() {
+        return description != "";
+    }
+
+    /**
+     * this fixes the valid args test, but has conflict with Task card
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof PersonalTask // instanceof handles nulls
+                && taskDateTime.getDayOfMonth() == ((PersonalTask) other).taskDateTime.getDayOfMonth()
+                && taskDateTime.getHour() == ((PersonalTask) other).taskDateTime.getHour()
+                && taskDateTime.getMinute() == ((PersonalTask) other).taskDateTime.getMinute()
+                && duration.equals(((PersonalTask) other).duration)
+                && description.equals(((PersonalTask) other).description));
+    }
+    */
 }

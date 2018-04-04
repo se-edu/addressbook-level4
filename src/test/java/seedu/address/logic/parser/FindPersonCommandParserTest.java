@@ -19,12 +19,13 @@ import static seedu.address.model.person.PersonSortUtil.CATEGORY_SUBJECT;
 
 import org.junit.Test;
 
-import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.FindPersonCommand;
 
-public class FindCommandParserTest {
+//@@author yungyung04
+public class FindPersonCommandParserTest {
     private static final int INDEX_FIRST_ELEMENT = 0;
     public static final String VALID_FIRST_NAME_BOB = VALID_NAME_BOB.toLowerCase().split("\\s+")[INDEX_FIRST_ELEMENT];
-    private FindCommandParser parser = new FindCommandParser();
+    private FindPersonCommandParser parser = new FindPersonCommandParser();
 
     private final String[] nameKeywords = {VALID_FIRST_NAME_BOB};
     private final String[] educationLevelKeywords = {VALID_EDUCATION_LEVEL_AMY.toLowerCase()};
@@ -38,39 +39,40 @@ public class FindCommandParserTest {
     public void parse_invalidArg_throwsParseException() {
         //empty input
         assertParseFailure(parser, "     ",
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindPersonCommand.MESSAGE_USAGE));
 
         //not enough arguments
         assertParseFailure(parser, CATEGORY_GRADE,
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindPersonCommand.MESSAGE_USAGE));
 
         //invalid category
         assertParseFailure(parser, invalidCategory + " " + schoolKeywords[INDEX_FIRST_ELEMENT],
-                String.format(MESSAGE_INVALID_FILTER_CATEGORY, FindCommand.MESSAGE_USAGE));
+                String.format(MESSAGE_INVALID_FILTER_CATEGORY, FindPersonCommand.MESSAGE_USAGE));
     }
 
     @Test
     public void parse_validArgs_returnsFindCommand() {
         // filter by name using a single keyword
-        FindCommand expectedFindName = new FindCommand(CATEGORY_NAME, nameKeywords);
+        FindPersonCommand expectedFindName = new FindPersonCommand(CATEGORY_NAME, nameKeywords);
         assertParseSuccess(parser, CATEGORY_NAME + " Bob", expectedFindName);
 
         // filter by education level using a single keyword
-        FindCommand expectedFindEducatonLevel = new FindCommand(CATEGORY_EDUCATION_LEVEL, educationLevelKeywords);
+        FindPersonCommand expectedFindEducatonLevel =
+                new FindPersonCommand(CATEGORY_EDUCATION_LEVEL, educationLevelKeywords);
         assertParseSuccess(parser,
                 CATEGORY_EDUCATION_LEVEL + " " + VALID_EDUCATION_LEVEL_AMY, expectedFindEducatonLevel);
 
         // filter by grade using 2 different keywords
-        FindCommand expectedFindGrade = new FindCommand(CATEGORY_GRADE, gradeKeywords);
+        FindPersonCommand expectedFindGrade = new FindPersonCommand(CATEGORY_GRADE, gradeKeywords);
         assertParseSuccess(parser, CATEGORY_GRADE + " " + VALID_GRADE_AMY
                 + " " + VALID_GRADE_BOB, expectedFindGrade);
 
         // filter by school using multiple keywords from a single school
-        FindCommand expectedFindSchool = new FindCommand(CATEGORY_SCHOOL, schoolKeywords);
+        FindPersonCommand expectedFindSchool = new FindPersonCommand(CATEGORY_SCHOOL, schoolKeywords);
         assertParseSuccess(parser, CATEGORY_SCHOOL + " " + VALID_SCHOOL_AMY, expectedFindSchool);
 
         // filter by subject using 2 different keywords
-        FindCommand expectedFindSubject = new FindCommand(CATEGORY_SUBJECT, subjectKeywords);
+        FindPersonCommand expectedFindSubject = new FindPersonCommand(CATEGORY_SUBJECT, subjectKeywords);
         assertParseSuccess(parser, CATEGORY_SUBJECT + " " + VALID_SUBJECT_AMY
                 + " " + VALID_SUBJECT_BOB, expectedFindSubject);
 
