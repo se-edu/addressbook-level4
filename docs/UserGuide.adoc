@@ -334,13 +334,13 @@ Changes the calendar's view page into the time unit specified by you.
 Using Command Word: +
 Format: `change TIME_UNIT`
 
-[width="59%",cols="22%,<23%",options="header",]
+[width="59%",cols="22%,<23%, 50%",options="header",]
 |=======================================================================
-|Time Unit |Description
-|d |Day
-|w |Week
-|m |Month
-|y |Year
+|Time Unit |User input |Description
+|Day |d |View the calendar in day
+|Week |w |View the calendar in week
+|Month |m |View the calendar in month
+|Year |y |View the calendar in year
 |=======================================================================
 
 [NOTE]
