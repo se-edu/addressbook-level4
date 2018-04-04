@@ -100,6 +100,14 @@ Format: `list` +
 Using Command Alias: +
 Format: `l`
 
+=== Listing all tasks : `listTask`
+
+Shows a list of all tasks in the address book. +
+Using Command Word: +
+Format: `listTask` +
+Using Command Alias: +
+Format: `lt`
+
 === Listing all tutees : `listtutee`
 
 Shows a list of all tutees in the address book. +
