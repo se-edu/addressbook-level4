@@ -11,9 +11,9 @@ public class UniquePersonListTest {
     public ExpectedException thrown = ExpectedException.none();
 
     @Test
-    public void asObservableList_modifyList_throwsUnsupportedOperationException() {
+    public void asUnmodifiableObservableList_modifyList_throwsUnsupportedOperationException() {
         UniquePersonList uniquePersonList = new UniquePersonList();
         thrown.expect(UnsupportedOperationException.class);
-        uniquePersonList.asObservableList().remove(0);
+        uniquePersonList.asUnmodifiableObservableList().remove(0);
     }
 }
