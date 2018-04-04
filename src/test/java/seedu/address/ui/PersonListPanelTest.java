@@ -61,8 +61,8 @@ public class PersonListPanelTest extends GuiUnitTest {
     }
 
     /**
-     * Verifies that creating and deleting large number of persons in {@code PersonListPanel} does not take too long
-     * to execute.
+     * Verifies that creating and deleting large number of persons in {@code PersonListPanel} requires lesser than
+     * {@code CARD_CREATION_AND_DELETION_TIMEOUT} milliseconds to execute.
      */
     @Test
     public void performanceTest() throws Exception {
