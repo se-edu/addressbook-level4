@@ -81,13 +81,19 @@ public class FindTaskCommandParser implements Parser<FindTaskCommand> {
         return new FindTaskCommand(filterCategory, keywords);
     }
 
+    /**
+     * Parses month keywords into the required form for the purpose of creating a FindTaskCommand
+     * @throws ParseException if the given input type is not recognized.
+     * @throws DateTimeParseException if any of the keywords given is an invalid month
+     * @throws InvalidBoundariesException if the given keywords are invalid boundary values
+     */
     private String[] parseMonthKeywords(String inputType, String[] keywords) throws ParseException,
             DateTimeParseException, InvalidBoundariesException {
         int[] months;
         if (!validMonthInputTypes.contains(inputType)) {
             throw new ParseException(String.format(MESSAGE_INVALID_INPUT_TYPES, FindTaskCommand.MESSAGE_USAGE));
         }
-            months = parseMonthsAsInteger(keywords);
+        months = parseMonthsAsInteger(keywords);
 
         if (inputType.equals(INPUT_TYPE_BETWEEN)) {
             if (!hasValidMonthBoundaries(months)) {

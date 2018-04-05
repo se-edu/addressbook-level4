@@ -19,6 +19,8 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_SUBJECT_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 
+import static seedu.address.testutil.TypicalPersons.BENSON;
+import static seedu.address.testutil.TypicalPersons.CARL;
 import static seedu.address.testutil.TypicalPersons.DANIEL;
 
 import java.util.ArrayList;
@@ -83,6 +85,6 @@ public class TypicalTutees {
 
     public static List<Person> getTypicalPersons() {
 
-        return new ArrayList<>(Arrays.asList(ALICETUTEE, AMYTUTEE, BOBTUTEE, DANIEL));
+        return new ArrayList<>(Arrays.asList(ALICETUTEE, BENSON, CARL, DANIEL, AMYTUTEE, BOBTUTEE));
     }
 }

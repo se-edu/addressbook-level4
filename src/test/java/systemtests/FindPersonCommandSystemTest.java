@@ -3,11 +3,18 @@ package systemtests;
 import static org.junit.Assert.assertFalse;
 import static seedu.address.commons.core.Messages.MESSAGE_PERSONS_LISTED_OVERVIEW;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.address.model.person.PersonSortUtil.CATEGORY_EDUCATION_LEVEL;
+import static seedu.address.model.person.PersonSortUtil.CATEGORY_GRADE;
 import static seedu.address.model.person.PersonSortUtil.CATEGORY_NAME;
+import static seedu.address.model.person.PersonSortUtil.CATEGORY_SCHOOL;
+import static seedu.address.model.person.PersonSortUtil.CATEGORY_SUBJECT;
 import static seedu.address.testutil.TypicalPersons.BENSON;
 import static seedu.address.testutil.TypicalPersons.CARL;
 import static seedu.address.testutil.TypicalPersons.DANIEL;
 import static seedu.address.testutil.TypicalPersons.KEYWORD_MATCHING_MEIER;
+import static seedu.address.testutil.TypicalTutees.ALICETUTEE;
+import static seedu.address.testutil.TypicalTutees.AMYTUTEE;
+import static seedu.address.testutil.TypicalTutees.BOBTUTEE;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -127,6 +134,33 @@ public class FindPersonCommandSystemTest extends AddressBookSystemTest {
         /* Case: find tags of person in address book -> 0 persons found */
         List<Tag> tags = new ArrayList<>(DANIEL.getTags());
         command = FindPersonCommand.COMMAND_WORD + " " + CATEGORY_NAME + " " + tags.get(0).tagName;
+        assertCommandSuccess(command, expectedModel);
+        assertSelectedCardUnchanged();
+
+        /* Case: find education level of tutee in address book -> 2 persons found */
+        // Alice and Amy have the same education level
+        ModelHelper.setFilteredList(expectedModel, ALICETUTEE, AMYTUTEE);
+        command = FindPersonCommand.COMMAND_WORD + " " + CATEGORY_EDUCATION_LEVEL + " "
+                + ALICETUTEE.getEducationLevel().toString();
+        assertCommandSuccess(command, expectedModel);
+        assertSelectedCardUnchanged();
+
+        /* Case: find school of tutee in address book -> 1 persons found */
+        // Alice and Amy go to the same school.
+        command = FindPersonCommand.COMMAND_WORD + " " + CATEGORY_SCHOOL + " " + ALICETUTEE.getSchool().toString();
+        assertCommandSuccess(command, expectedModel);
+        assertSelectedCardUnchanged();
+
+        /* Case: find grade of tutee in address book -> 1 persons found */
+        ModelHelper.setFilteredList(expectedModel, ALICETUTEE);
+        command = FindPersonCommand.COMMAND_WORD + " " + CATEGORY_GRADE + " " + ALICETUTEE.getGrade().toString();
+        assertCommandSuccess(command, expectedModel);
+        assertSelectedCardUnchanged();
+
+        /* Case: find subject of tutee in address book -> 2 persons found */
+        //Bob and Alice learn the same subject
+        ModelHelper.setFilteredList(expectedModel, ALICETUTEE, BOBTUTEE);
+        command = FindPersonCommand.COMMAND_WORD + " " + CATEGORY_SUBJECT + " " + ALICETUTEE.getSubject().toString();
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
@@ -259,6 +293,33 @@ public class FindPersonCommandSystemTest extends AddressBookSystemTest {
         /* Case: find tags of person in address book -> 0 persons found */
         List<Tag> tags = new ArrayList<>(DANIEL.getTags());
         command = FindPersonCommand.COMMAND_ALIAS + " " + CATEGORY_NAME + " " + tags.get(0).tagName;
+        assertCommandSuccess(command, expectedModel);
+        assertSelectedCardUnchanged();
+
+        /* Case: find education level of tutee in address book -> 2 persons found */
+        // Alice and Amy have the same education level
+        ModelHelper.setFilteredList(expectedModel, ALICETUTEE, AMYTUTEE);
+        command = FindPersonCommand.COMMAND_ALIAS + " " + CATEGORY_EDUCATION_LEVEL + " "
+                + ALICETUTEE.getEducationLevel().toString();
+        assertCommandSuccess(command, expectedModel);
+        assertSelectedCardUnchanged();
+
+        /* Case: find school of tutee in address book -> 1 persons found */
+        // Alice and Amy go to the same school.
+        command = FindPersonCommand.COMMAND_ALIAS + " " + CATEGORY_SCHOOL + " " + ALICETUTEE.getSchool().toString();
+        assertCommandSuccess(command, expectedModel);
+        assertSelectedCardUnchanged();
+
+        /* Case: find grade of tutee in address book -> 1 persons found */
+        ModelHelper.setFilteredList(expectedModel, ALICETUTEE);
+        command = FindPersonCommand.COMMAND_ALIAS + " " + CATEGORY_GRADE + " " + ALICETUTEE.getGrade().toString();
+        assertCommandSuccess(command, expectedModel);
+        assertSelectedCardUnchanged();
+
+        /* Case: find subject of tutee in address book -> 2 persons found */
+        //Bob and Alice learn the same subject
+        ModelHelper.setFilteredList(expectedModel, ALICETUTEE, BOBTUTEE);
+        command = FindPersonCommand.COMMAND_ALIAS + " " + CATEGORY_SUBJECT + " " + ALICETUTEE.getSubject().toString();
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
