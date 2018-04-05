@@ -1,134 +1,174 @@
-package seedu.address.storage;
+# yungyung04
+###### \java\seedu\address\logic\parser\FindPersonCommandParserTest.java
+``` java
+public class FindPersonCommandParserTest {
+    private static final int INDEX_FIRST_ELEMENT = 0;
+    public static final String VALID_FIRST_NAME_BOB = VALID_NAME_BOB.toLowerCase().split("\\s+")[INDEX_FIRST_ELEMENT];
+    private FindPersonCommandParser parser = new FindPersonCommandParser();
 
-import static org.junit.Assert.assertEquals;
-import static seedu.address.storage.XmlAdaptedPerson.MISSING_FIELD_MESSAGE_FORMAT;
-import static seedu.address.testutil.TypicalPersons.BENSON;
-import static seedu.address.testutil.TypicalTutees.ALICETUTEE;
+    private final String[] nameKeywords = {VALID_FIRST_NAME_BOB};
+    private final String[] educationLevelKeywords = {VALID_EDUCATION_LEVEL_AMY.toLowerCase()};
+    private final String[] gradeKeywords = {VALID_GRADE_AMY.toLowerCase(), VALID_GRADE_BOB.toLowerCase()};
+    private final String[] schoolKeywords = VALID_SCHOOL_AMY.toLowerCase().split("\\s+");
+    private final String[] subjectKeywords = {VALID_SUBJECT_AMY.toLowerCase(), VALID_SUBJECT_BOB.toLowerCase()};
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
-
-import org.junit.Test;
-
-import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.person.Address;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
-import seedu.address.model.person.Phone;
-import seedu.address.model.tutee.EducationLevel;
-import seedu.address.model.tutee.Grade;
-import seedu.address.model.tutee.School;
-import seedu.address.model.tutee.Subject;
-import seedu.address.testutil.Assert;
-
-public class XmlAdaptedPersonTest {
-    private static final String INVALID_NAME = "R@chel";
-    private static final String INVALID_PHONE = "+651234";
-    private static final String INVALID_ADDRESS = " ";
-    private static final String INVALID_EMAIL = "example.com";
-    private static final String INVALID_TAG = "#friend";
-    private static final String INVALID_SUBJECT = "1201";
-    private static final String INVALID_GRADE = "100";
-    private static final String INVALID_EDUCATION_LEVEL = "8th grade";
-    private static final String INVALID_SCHOOL = "  ";
-
-    private static final String VALID_NAME = BENSON.getName().toString();
-    private static final String VALID_PHONE = BENSON.getPhone().toString();
-    private static final String VALID_EMAIL = BENSON.getEmail().toString();
-    private static final String VALID_ADDRESS = BENSON.getAddress().toString();
-    private static final List<XmlAdaptedTag> VALID_TAGS = BENSON.getTags().stream()
-            .map(XmlAdaptedTag::new)
-            .collect(Collectors.toList());
-
-    private static final String VALID_TUTEE_NAME = ALICETUTEE.getName().toString();
-    private static final String VALID_TUTEE_PHONE = ALICETUTEE.getPhone().toString();
-    private static final String VALID_TUTEE_EMAIL = ALICETUTEE.getEmail().toString();
-    private static final String VALID_TUTEE_ADDRESS = ALICETUTEE.getAddress().toString();
-    private static final String VALID_TUTEE_SUBJECT = ALICETUTEE.getSubject().toString();
-    private static final String VALID_TUTEE_GRADE = ALICETUTEE.getGrade().toString();
-    private static final String VALID_TUTEE_EDUCATION_LEVEL = ALICETUTEE.getEducationLevel().toString();
-    private static final String VALID_TUTEE_SCHOOL = ALICETUTEE.getSchool().toString();
-    private static final List<XmlAdaptedTag> VALID_TUTEE_TAGS = ALICETUTEE.getTags().stream()
-            .map(XmlAdaptedTag::new)
-            .collect(Collectors.toList());
+    private final String invalidCategory = "age";
 
     @Test
-    public void toModelType_validPersonDetails_returnsPerson() throws Exception {
-        XmlAdaptedPerson person = new XmlAdaptedPerson(BENSON);
-        assertEquals(BENSON, person.toModelType());
+    public void parse_invalidArg_throwsParseException() {
+        //empty input
+        assertParseFailure(parser, "     ",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindPersonCommand.MESSAGE_USAGE));
+
+        //not enough arguments
+        assertParseFailure(parser, CATEGORY_GRADE,
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindPersonCommand.MESSAGE_USAGE));
+
+        //invalid category
+        assertParseFailure(parser, invalidCategory + " " + schoolKeywords[INDEX_FIRST_ELEMENT],
+                String.format(MESSAGE_INVALID_FILTER_CATEGORY, FindPersonCommand.MESSAGE_USAGE));
     }
 
     @Test
-    public void toModelType_invalidName_throwsIllegalValueException() {
-        XmlAdaptedPerson person =
-                new XmlAdaptedPerson(INVALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
-        String expectedMessage = Name.MESSAGE_NAME_CONSTRAINTS;
-        Assert.assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
+    public void parse_validArgs_returnsFindCommand() {
+        // filter by name using a single keyword
+        FindPersonCommand expectedFindName = new FindPersonCommand(CATEGORY_NAME, nameKeywords);
+        assertParseSuccess(parser, CATEGORY_NAME + " Bob", expectedFindName);
+
+        // filter by education level using a single keyword
+        FindPersonCommand expectedFindEducatonLevel =
+                new FindPersonCommand(CATEGORY_EDUCATION_LEVEL, educationLevelKeywords);
+        assertParseSuccess(parser,
+                CATEGORY_EDUCATION_LEVEL + " " + VALID_EDUCATION_LEVEL_AMY, expectedFindEducatonLevel);
+
+        // filter by grade using 2 different keywords
+        FindPersonCommand expectedFindGrade = new FindPersonCommand(CATEGORY_GRADE, gradeKeywords);
+        assertParseSuccess(parser, CATEGORY_GRADE + " " + VALID_GRADE_AMY
+                + " " + VALID_GRADE_BOB, expectedFindGrade);
+
+        // filter by school using multiple keywords from a single school
+        FindPersonCommand expectedFindSchool = new FindPersonCommand(CATEGORY_SCHOOL, schoolKeywords);
+        assertParseSuccess(parser, CATEGORY_SCHOOL + " " + VALID_SCHOOL_AMY, expectedFindSchool);
+
+        // filter by subject using 2 different keywords
+        FindPersonCommand expectedFindSubject = new FindPersonCommand(CATEGORY_SUBJECT, subjectKeywords);
+        assertParseSuccess(parser, CATEGORY_SUBJECT + " " + VALID_SUBJECT_AMY
+                + " " + VALID_SUBJECT_BOB, expectedFindSubject);
+
+        // multiple whitespaces between keywords
+        assertParseSuccess(parser, CATEGORY_NAME + " \n\t  " + "Bob", expectedFindName);
+    }
+}
+```
+###### \java\seedu\address\logic\parser\ParserUtilTest.java
+``` java
+    @Test
+    public void parseDateTime_invalidInput_throwsDateTimeParseException() {
+        //null date and time
+        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseDateTime(null));
+
+        //invalid date
+        Assert.assertThrows(DateTimeParseException.class, () -> ParserUtil
+                .parseDateTime(INVALID_DATE_END_OF_FEBRUARY + VALID_TIME));
+
+        Assert.assertThrows(DateTimeParseException.class, () -> ParserUtil
+                .parseDateTime(INVALID_DATE_END_OF_APRIL + VALID_TIME));
+
+        //invalid time
+        Assert.assertThrows(DateTimeParseException.class, () -> ParserUtil
+                .parseDateTime(VALID_DATE + INVALID_TIME));
     }
 
     @Test
-    public void toModelType_nullName_throwsIllegalValueException() {
-        XmlAdaptedPerson person = new XmlAdaptedPerson(null, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
-        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName());
-        Assert.assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
+    public void parseDateTime_validInput_parsedSuccessfully() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/uuuu HH:mm")
+                .withResolverStyle(ResolverStyle.STRICT);
+        LocalDateTime expectedDateTime = LocalDateTime.parse(VALID_DATE + " " + VALID_TIME, formatter);
+
+        assertEquals(expectedDateTime, parseDateTime(VALID_DATE + " " + VALID_TIME));
     }
 
     @Test
-    public void toModelType_invalidPhone_throwsIllegalValueException() {
-        XmlAdaptedPerson person =
-                new XmlAdaptedPerson(VALID_NAME, INVALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
-        String expectedMessage = Phone.MESSAGE_PHONE_CONSTRAINTS;
-        Assert.assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
+    public void parseDuration_invalidInput_throwsDateTimeParseException() {
+        //null duration
+        Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseDuration(null));
+
+        //invalid duration
+        Assert.assertThrows(DurationParseException.class, () -> ParserUtil
+                .parseDuration(INVALID_DURATION));
     }
 
     @Test
-    public void toModelType_nullPhone_throwsIllegalValueException() {
-        XmlAdaptedPerson person = new XmlAdaptedPerson(VALID_NAME, null, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
-        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Phone.class.getSimpleName());
-        Assert.assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
+    public void parseDuration_validInput_parsedSuccessfully() throws Exception {
+        String expectedDuration = VALID_DURATION;
+        assertEquals(expectedDuration, parseDuration(VALID_DURATION));
     }
 
     @Test
-    public void toModelType_invalidEmail_throwsIllegalValueException() {
-        XmlAdaptedPerson person =
-                new XmlAdaptedPerson(VALID_NAME, VALID_PHONE, INVALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
-        String expectedMessage = Email.MESSAGE_EMAIL_CONSTRAINTS;
-        Assert.assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
+    public void parseDescription_noDescriptionWithinInput_returnsEmptyString() {
+        //user input without description
+        String[] validInputs = VALID_TASK_WITHOUT_DESCRIPTION.split("\\s+", MAXIMUM_AMOUNT_OF_PARAMETERS);
+        String expectedDescription = "";
+        assertEquals(expectedDescription, ParserUtil.parseDescription(validInputs, MAXIMUM_AMOUNT_OF_PARAMETERS));
+
+        //user input with description
+        validInputs = VALID_TASK_WITH_DESCRIPTION.split("\\s+", MAXIMUM_AMOUNT_OF_PARAMETERS);
+        expectedDescription = VALID_DESCRIPTION;
+        assertEquals(expectedDescription, ParserUtil.parseDescription(validInputs, MAXIMUM_AMOUNT_OF_PARAMETERS));
+    }
+}
+```
+###### \java\seedu\address\logic\parser\SortCommandParserTest.java
+``` java
+public class SortCommandParserTest {
+    private SortCommandParser parser = new SortCommandParser();
+
+    private final String invalidCategory = "age";
+
+    @Test
+    public void parse_invalidArg_throwsParseException() {
+        //empty input
+        assertParseFailure(parser, "     ",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE));
+
+        //too many arguments
+        assertParseFailure(parser, CATEGORY_GRADE + " " + CATEGORY_EDUCATION_LEVEL,
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE));
+
+        //invalid category
+        assertParseFailure(parser, invalidCategory,
+                String.format(MESSAGE_INVALID_SORTER_CATEGORY, SortCommand.MESSAGE_USAGE));
     }
 
     @Test
-    public void toModelType_nullEmail_throwsIllegalValueException() {
-        XmlAdaptedPerson person = new XmlAdaptedPerson(VALID_NAME, VALID_PHONE, null, VALID_ADDRESS, VALID_TAGS);
-        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Email.class.getSimpleName());
-        Assert.assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
-    }
+    public void parse_validArgs_returnsFindCommand() {
+        // sort by name
+        SortCommand expectedSortName = new SortCommand(CATEGORY_NAME);
+        assertParseSuccess(parser, CATEGORY_NAME, expectedSortName);
 
-    @Test
-    public void toModelType_invalidAddress_throwsIllegalValueException() {
-        XmlAdaptedPerson person =
-                new XmlAdaptedPerson(VALID_NAME, VALID_PHONE, VALID_EMAIL, INVALID_ADDRESS, VALID_TAGS);
-        String expectedMessage = Address.MESSAGE_ADDRESS_CONSTRAINTS;
-        Assert.assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
-    }
+        // sort by education level
+        SortCommand expectedSortEducatonLevel = new SortCommand(CATEGORY_EDUCATION_LEVEL);
+        assertParseSuccess(parser, CATEGORY_EDUCATION_LEVEL, expectedSortEducatonLevel);
 
-    @Test
-    public void toModelType_nullAddress_throwsIllegalValueException() {
-        XmlAdaptedPerson person = new XmlAdaptedPerson(VALID_NAME, VALID_PHONE, VALID_EMAIL, null, VALID_TAGS);
-        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName());
-        Assert.assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
-    }
+        // sort by grade
+        SortCommand expectedSortGrade = new SortCommand(CATEGORY_GRADE);
+        assertParseSuccess(parser, CATEGORY_GRADE, expectedSortGrade);
 
-    @Test
-    public void toModelType_invalidTags_throwsIllegalValueException() {
-        List<XmlAdaptedTag> invalidTags = new ArrayList<>(VALID_TAGS);
-        invalidTags.add(new XmlAdaptedTag(INVALID_TAG));
-        XmlAdaptedPerson person =
-                new XmlAdaptedPerson(VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, invalidTags);
-        Assert.assertThrows(IllegalValueException.class, person::toModelType);
-    }
+        // sort by school
+        SortCommand expectedSortSchool = new SortCommand(CATEGORY_SCHOOL);
+        assertParseSuccess(parser, CATEGORY_SCHOOL, expectedSortSchool);
 
-    //@@author yungyung04
+        // sort by subject
+        SortCommand expectedSortSubject = new SortCommand(CATEGORY_SUBJECT);
+        assertParseSuccess(parser, CATEGORY_SUBJECT, expectedSortSubject);
+
+        // multiple whitespaces before and after sort category
+        assertParseSuccess(parser, "   \n\t" + CATEGORY_NAME + "\n\t", expectedSortName);
+    }
+}
+```
+###### \java\seedu\address\storage\XmlAdaptedPersonTest.java
+``` java
     //=========== Tutee Related Tests =============================================================
 
     @Test
@@ -308,3 +348,4 @@ public class XmlAdaptedPersonTest {
         Assert.assertThrows(IllegalValueException.class, person::toModelType);
     }
 }
+```

@@ -295,6 +295,7 @@ public class ParserUtil {
         return trimmedTimeUnit;
     }
 
+    //@@author yungyung04
     /**
      * Parses a {@code String dateTime} into an {@code LocalDateTime}.
      *
@@ -329,17 +330,20 @@ public class ParserUtil {
         if (isEmptyDescription(userInputs, maximumParametersGiven)) {
             return "";
         } else {
-            String description = userInputs[getLastIndex(userInputs)];
+            String description = getLastElement(userInputs);
             return description;
         }
     }
 
-    private static int getLastIndex(String[] userInputs) {
-        return userInputs.length - 1;
+    /**
+     * Returns the last element of an array of Strings.
+     */
+    private static String getLastElement(String[] userInputs) {
+        return userInputs[userInputs.length - 1];
     }
 
     /**
-     * Returns true if a given task contains a description.
+     * Returns true if a given task arguments contain a task description.
      */
     private static boolean isEmptyDescription(String[] arguments, int maximumParameterssGiven) {
         return arguments.length < maximumParameterssGiven;

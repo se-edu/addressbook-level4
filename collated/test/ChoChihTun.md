@@ -221,6 +221,11 @@ public class AddTuteeCommandTest {
 ```
 ###### \java\seedu\address\logic\parser\AddPersonalTaskCommandParserTest.java
 ``` java
+
+    //private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/uuuu HH:mm")
+    //        .withResolverStyle(ResolverStyle.STRICT);
+
+
     @Test
     public void parse_invalidArgs_throwsParseException() {
         // Invalid format
@@ -267,10 +272,34 @@ public class AddTuteeCommandTest {
         assertParseFailure(parser, "11/01/2018 11:11 24h0m Outing with friends",
                 MESSAGE_INVALID_DURATION + "\n" + AddPersonalTaskCommand.MESSAGE_USAGE);
     }
+
+    /**
+    @Test
+    public void parse_validArgs_success() {
+        // With description
+        LocalDateTime taskDateTime = LocalDateTime.parse(VALID_DATE_TIME, formatter);
+        PersonalTask personalTask = new PersonalTask(taskDateTime, VALID_DURATION, VALID_TASK_DESC);
+        assertParseSuccess(parser, VALID_TASK_WITH_DESC,
+                new AddPersonalTaskCommand(personalTask));
+
+        // Without description
+        personalTask = new PersonalTask(taskDateTime, VALID_DURATION, VALID_EMPTY_TASK_DESC);
+        assertParseSuccess(parser, VALID_TASK_WITHOUT_DESC,
+                new AddPersonalTaskCommand(personalTask));
+
+        // Check leap year
+        personalTask = new PersonalTask(LocalDateTime.parse("29/02/2016 11:20", formatter),
+                VALID_DURATION, VALID_EMPTY_TASK_DESC);
+        assertParseSuccess(parser, "29/02/2016 11:20 1h11m",
+                new AddPersonalTaskCommand(personalTask));
+    }
+    */
+
 }
 ```
 ###### \java\seedu\address\logic\parser\AddTuitionTaskCommandParserTest.java
 ``` java
+
     @Test
     public void parse_invalidArgs_throwsParseException() {
         // Invalid format
@@ -756,7 +785,7 @@ public class ChangeCommandParserTest {
         String timeUnitWithWhitespace = WHITESPACE + VALID_TIME_UNIT + WHITESPACE;
         assertEquals(VALID_TIME_UNIT, ParserUtil.parseTimeUnit(timeUnitWithWhitespace));
     }
-}
+
 ```
 ###### \java\seedu\address\model\personal\PersonalTaskTest.java
 ``` java
@@ -791,12 +820,14 @@ public class ScheduleTest {
     private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/uuuu HH:mm")
             .withResolverStyle(ResolverStyle.STRICT);
 
+    //private static Tutee tutee = new TuteeBuilder().build();
+
     /**
      * Generates a list of existing tasks
      */
     private static void createTaskList() {
-        Schedule.taskList.add(new TuitionTask(
-                "Anne", LocalDateTime.parse("11/01/2011 22:00", formatter), "1h30m", "tuition 1"));
+        Schedule.taskList.add(new TuitionTask(/*tutee*/"Anne",
+                LocalDateTime.parse("11/01/2011 22:00", formatter), "1h30m", "tuition 1"));
         Schedule.taskList.add(new PersonalTask(
                 LocalDateTime.parse("15/01/2011 22:00", formatter), "2h30m", "personal task 1"));
         Schedule.taskList.add(new PersonalTask(
