@@ -26,18 +26,18 @@ public class ModelHelper {
     }
 
     /**
+     * @see ModelHelper#setFilteredList(Model, List)
+     */
+    public static void setFilteredList(Model model, Person... toDisplay) {
+        setFilteredList(model, Arrays.asList(toDisplay));
+    }
+
+    /**
      * Updates {@code model}'s sorted list to display persons based on specified category.
      */
     public static void setSortedList(Model model, String category) {
         Comparator<Person> comparator = new PersonSortUtil().getComparator(category);
         model.sortFilteredPersonList(comparator);
-    }
-
-    /**
-     * @see ModelHelper#setFilteredList(Model, List)
-     */
-    public static void setFilteredList(Model model, Person... toDisplay) {
-        setFilteredList(model, Arrays.asList(toDisplay));
     }
 
     /**
