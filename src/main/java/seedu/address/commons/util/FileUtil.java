@@ -5,6 +5,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 
 /**
  * Writes and reads files
@@ -13,33 +14,18 @@ public class FileUtil {
 
     private static final String CHARSET = "UTF-8";
 
-    public static boolean isFileExists(File file) {
-        return file.exists() && file.isFile();
+    public static boolean isFileExists(Path filePath) {
+        return Files.exists(filePath) && Files.isRegularFile(filePath);
     }
 
     /**
      * Creates a file if it does not exist along with its missing parent directories.
      * @throws IOException if the file or directory cannot be created.
      */
-    public static void createIfMissing(File file) throws IOException {
+    public static void createIfMissing(Path file) throws IOException {
         if (!isFileExists(file)) {
-            createFile(file);
+            Files.createFile(file);
         }
-    }
-
-    /**
-     * Creates a file if it does not exist along with its missing parent directories
-     *
-     * @return true if file is created, false if file already exists
-     */
-    public static boolean createFile(File file) throws IOException {
-        if (file.exists()) {
-            return false;
-        }
-
-        createParentDirsOfFile(file);
-
-        return file.createNewFile();
     }
 
     /**
@@ -66,19 +52,21 @@ public class FileUtil {
     }
 
     /**
-     * Assumes file exists
+     * Creates a file if it does not exist.
      */
-    public static String readFromFile(File file) throws IOException {
-        return new String(Files.readAllBytes(file.toPath()), CHARSET);
+    public static void createFile(Path filePath) throws IOException {
+        if (!Files.exists(filePath)) {
+            Files.createFile(filePath);
+        }
     }
 
     /**
-     * Writes given string to a file.
-     * Will create the file if it does not exist yet.
+     * Assumes file exists
      */
-    public static void writeToFile(File file, String content) throws IOException {
-        Files.write(file.toPath(), content.getBytes(CHARSET));
+    public static String readFromFile(Path filePath) throws IOException {
+        return new String(Files.readAllBytes(filePath), CHARSET);
     }
+
 
     /**
      * Converts a string to a platform-specific file path
@@ -88,6 +76,14 @@ public class FileUtil {
     public static String getPath(String pathWithForwardSlash) {
         checkArgument(pathWithForwardSlash.contains("/"));
         return pathWithForwardSlash.replace("/", File.separator);
+    }
+
+    /**
+     * Writes given string to a file.
+     * Will create the file if it does not exist yet.
+     */
+    public static void writeToFile(Path filePath, String content) throws IOException {
+        Files.write(filePath, content.getBytes(CHARSET));
     }
 
 }

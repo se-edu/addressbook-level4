@@ -1,5 +1,7 @@
 package seedu.address.commons.core;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Objects;
 import java.util.logging.Level;
 
@@ -8,12 +10,12 @@ import java.util.logging.Level;
  */
 public class Config {
 
-    public static final String DEFAULT_CONFIG_FILE = "config.json";
+    public static final Path DEFAULT_CONFIG_FILE = Paths.get("config.json");
 
     // Config values customizable through config file
     private String appTitle = "Address App";
     private Level logLevel = Level.INFO;
-    private String userPrefsFilePath = "preferences.json";
+    private Path userPrefsFilePath = Paths.get("preferences.json");
 
     public String getAppTitle() {
         return appTitle;
@@ -31,11 +33,11 @@ public class Config {
         this.logLevel = logLevel;
     }
 
-    public String getUserPrefsFilePath() {
+    public Path getUserPrefsFilePath() {
         return userPrefsFilePath;
     }
 
-    public void setUserPrefsFilePath(String userPrefsFilePath) {
+    public void setUserPrefsFilePath(Path userPrefsFilePath) {
         this.userPrefsFilePath = userPrefsFilePath;
     }
 
