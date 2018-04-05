@@ -122,7 +122,7 @@ public class XmlUtilTest {
 
     @Test
     public void saveDataToFile_validFile_dataSaved() throws Exception {
-        TEMP_FILE.toFile().createNewFile();
+        FileUtil.createFile(TEMP_FILE);
         XmlSerializableAddressBook dataToWrite = new XmlSerializableAddressBook(new AddressBook());
         XmlUtil.saveDataToFile(TEMP_FILE, dataToWrite);
         XmlSerializableAddressBook dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE, XmlSerializableAddressBook.class);

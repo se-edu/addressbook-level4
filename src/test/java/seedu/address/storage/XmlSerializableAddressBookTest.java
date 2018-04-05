@@ -41,11 +41,4 @@ public class XmlSerializableAddressBookTest {
         dataFromFile.toModelType();
     }
 
-    @Test
-    public void toModelType_invalidTagFile_throwsIllegalValueException() throws Exception {
-        XmlSerializableAddressBook dataFromFile = XmlUtil.getDataFromFile(INVALID_TAG_FILE_PATH,
-                XmlSerializableAddressBook.class);
-        thrown.expect(IllegalValueException.class);
-        dataFromFile.toModelType();
-    }
 }

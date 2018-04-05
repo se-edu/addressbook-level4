@@ -26,11 +26,21 @@ public class FileUtil {
     }
 
     /**
+     * Creates a file if it does not exist.
+     */
+    public static void createFile(Path filePath) throws IOException {
+        if (!Files.exists(filePath)) {
+            Files.createFile(filePath);
+        }
+    }
+
+    /**
      * Assumes file exists
      */
     public static String readFromFile(Path filePath) throws IOException {
         return new String(Files.readAllBytes(filePath), CHARSET);
     }
+
 
     /**
      * Writes given string to a file.
