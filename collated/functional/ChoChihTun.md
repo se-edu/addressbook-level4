@@ -351,7 +351,7 @@ public class SameTimeUnitException extends Exception {
         }
         return trimmedTimeUnit;
     }
-}
+
 ```
 ###### \java\seedu\address\model\person\exceptions\DurationParseException.java
 ``` java
@@ -466,6 +466,39 @@ public class PersonalTask implements Task {
     public String getDuration() {
         return duration;
     }
+
+    @Override
+    public String toString() {
+        if (hasDescription()) {
+            return "Personal task with description " + description + " on "
+                    + Integer.toString(taskDateTime.getDayOfMonth()) + " "
+                    + taskDateTime.getMonth().name() + " " + Integer.toString(taskDateTime.getYear());
+        } else {
+            return "Personal task without description on " + Integer.toString(taskDateTime.getDayOfMonth())
+                    + " " + taskDateTime.getMonth().name() + " " + Integer.toString(taskDateTime.getYear());
+        }
+    }
+
+    /**
+     * Returns true if the tuition task contains a non-empty description.
+     */
+    private boolean hasDescription() {
+        return description != "";
+    }
+
+    /**
+     * this fixes the valid args test, but has conflict with Task card
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof PersonalTask // instanceof handles nulls
+                && taskDateTime.getDayOfMonth() == ((PersonalTask) other).taskDateTime.getDayOfMonth()
+                && taskDateTime.getHour() == ((PersonalTask) other).taskDateTime.getHour()
+                && taskDateTime.getMinute() == ((PersonalTask) other).taskDateTime.getMinute()
+                && duration.equals(((PersonalTask) other).duration)
+                && description.equals(((PersonalTask) other).description));
+    }
+    */
 }
 ```
 ###### \java\seedu\address\model\Schedule.java
@@ -732,20 +765,18 @@ public class Subject {
 ###### \java\seedu\address\model\tutee\TuitionTask.java
 ``` java
 /**
- * Represents a tuition task that the person has
+ * Represents a tuition task that the tutee has
  */
 public class TuitionTask implements Task {
 
     public static final String MESSAGE_TASK_CONSTRAINT =
-                    "Task can only be tuition\n"
-                    + ", the person involved must already be inside the contact list\n"
+            "Task can only be tuition\n"
+                    + ", the tutee involved must already be inside the contact list\n"
                     + ", Date can only contain numbers in the format of dd/mm/yyyy\n"
                     + ", Time must in the format of HH:mm\n"
                     + " and Duration must be the format of 01h30m";
-
-    private static final String TUITION_TITLE = "Tuition with %1$s";
-
-    private String person;
+    private static final String TUITION_TITLE = "Tuition with %1$s"; //private Tutee tutee;
+    private String tutee;
     private String description;
     private String duration;
     private LocalDateTime taskDateTime;
@@ -754,13 +785,13 @@ public class TuitionTask implements Task {
     /**
      * Creates a tuition task
      *
-     * @param person person involves in the task
+     * @param tutee tutee involved in the task
      * @param taskDateTime date and time of the task
      * @param duration duration of the task
      * @param description description of the task
      */
-    public TuitionTask(String person, LocalDateTime taskDateTime, String duration, String description) {
-        this.person = person;
+    public TuitionTask(String tutee, LocalDateTime taskDateTime, String duration, String description) {
+        this.tutee = tutee;
         this.taskDateTime = taskDateTime;
         this.duration = duration;
         this.description = description;
@@ -820,7 +851,7 @@ public class TuitionTask implements Task {
     }
 
     public String getPerson() {
-        return person;
+        return tutee;
     }
 
     public String getDescription() {
@@ -831,8 +862,39 @@ public class TuitionTask implements Task {
         return duration;
     }
 
+    @Override
+    public String toString() {
+        if (hasDescription()) {
+            return "Tuition task with description " + description + " on "
+                    + Integer.toString(taskDateTime.getDayOfMonth()) + " " + taskDateTime.getMonth().name()
+                    + " " + Integer.toString(taskDateTime.getYear());
+        } else {
+            return "Tuition task without description on " + Integer.toString(taskDateTime.getDayOfMonth())
+                    + " " + taskDateTime.getMonth().name() + " " + Integer.toString(taskDateTime.getYear());
+        }
+    }
+
+    /**
+     * Returns true if the tuition task contains a non-empty description.
+     */
+    private boolean hasDescription() {
+        return description != "";
+    }
+
+    /**
+     * fixes the test but has conflict with Task card
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof TuitionTask // instanceof handles nulls
+                && tutee.equals(((TuitionTask) other).tutee)
+                && taskDateTime.equals(((TuitionTask) other).taskDateTime)
+                && duration.equals(((TuitionTask) other).duration)
+                && description.equals(((TuitionTask) other).description));
+    }
+    */
     public String getTuitionTitle() {
-        return String.format(TUITION_TITLE, person);
+        return String.format(TUITION_TITLE, tutee);
     }
 }
 ```
