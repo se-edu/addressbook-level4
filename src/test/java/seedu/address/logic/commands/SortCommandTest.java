@@ -8,8 +8,6 @@ import static seedu.address.model.person.PersonSortUtil.CATEGORY_GRADE;
 import static seedu.address.model.person.PersonSortUtil.CATEGORY_NAME;
 import static seedu.address.model.person.PersonSortUtil.CATEGORY_SCHOOL;
 import static seedu.address.model.person.PersonSortUtil.CATEGORY_SUBJECT;
-import static seedu.address.testutil.TypicalPersons.BENSON;
-import static seedu.address.testutil.TypicalPersons.CARL;
 import static seedu.address.testutil.TypicalPersons.DANIEL;
 import static seedu.address.testutil.TypicalTutees.ALICETUTEE;
 import static seedu.address.testutil.TypicalTutees.AMYTUTEE;
@@ -29,11 +27,14 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Person;
 
-//@@author yungyung04
+
 /**
  * Contains integration tests (interaction with the Model) for {@code SortCommand}.
  */
 public class SortCommandTest {
+    private static final int INDEX_FIRST_ELEMENT = 0;
+    private static final int AMOUNT_OF_PERSON_INSIDE_TYPICAL_ADDRESS_BOOK = 4;
+
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
     private final SortCommand sortName = new SortCommand(CATEGORY_NAME);
@@ -63,7 +64,7 @@ public class SortCommandTest {
         sortName.setData(model, new CommandHistory(), new UndoRedoStack());
         String expectedMessage = String.format(SortCommand.MESSAGE_SUCCESS);
         assertCommandSuccess(sortName, expectedMessage,
-                Arrays.asList(ALICETUTEE, AMYTUTEE, BENSON, BOBTUTEE, CARL, DANIEL));
+                Arrays.asList(ALICETUTEE, AMYTUTEE, BOBTUTEE, DANIEL));
     }
 
     @Test
@@ -72,7 +73,7 @@ public class SortCommandTest {
         sortEducationLevel.setData(model, new CommandHistory(), new UndoRedoStack());
         String expectedMessage = String.format(SortCommand.MESSAGE_SUCCESS);
         assertCommandSuccess(sortEducationLevel, expectedMessage,
-                Arrays.asList(BOBTUTEE, ALICETUTEE, AMYTUTEE, BENSON, CARL, DANIEL));
+                Arrays.asList(BOBTUTEE, ALICETUTEE, AMYTUTEE, DANIEL));
     }
 
     @Test
@@ -81,7 +82,7 @@ public class SortCommandTest {
         sortGrade.setData(model, new CommandHistory(), new UndoRedoStack());
         String expectedMessage = String.format(SortCommand.MESSAGE_SUCCESS);
         assertCommandSuccess(sortGrade, expectedMessage,
-                Arrays.asList(BOBTUTEE, AMYTUTEE, ALICETUTEE, BENSON, CARL, DANIEL));
+                Arrays.asList(BOBTUTEE, AMYTUTEE, ALICETUTEE, DANIEL));
     }
 
     @Test
@@ -90,7 +91,7 @@ public class SortCommandTest {
         sortSchool.setData(model, new CommandHistory(), new UndoRedoStack());
         String expectedMessage = String.format(SortCommand.MESSAGE_SUCCESS);
         assertCommandSuccess(sortSchool, expectedMessage,
-                Arrays.asList(AMYTUTEE, ALICETUTEE, BOBTUTEE, BENSON, CARL, DANIEL));
+                Arrays.asList(AMYTUTEE, ALICETUTEE, BOBTUTEE, DANIEL));
     }
 
     @Test
@@ -99,7 +100,7 @@ public class SortCommandTest {
         sortSubject.setData(model, new CommandHistory(), new UndoRedoStack());
         String expectedMessage = String.format(SortCommand.MESSAGE_SUCCESS);
         assertCommandSuccess(sortSubject, expectedMessage,
-                Arrays.asList(AMYTUTEE, ALICETUTEE, BOBTUTEE, BENSON, CARL, DANIEL));
+                Arrays.asList(AMYTUTEE, ALICETUTEE, BOBTUTEE, DANIEL));
     }
 
     /**
