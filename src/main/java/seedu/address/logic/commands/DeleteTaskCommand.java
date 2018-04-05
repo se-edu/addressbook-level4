@@ -11,6 +11,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 
 import seedu.address.model.Task;
 import seedu.address.model.task.exceptions.TaskNotFoundException;
+import seedu.address.model.tutee.TuitionSchedule;
 import seedu.address.model.tutee.TuitionTask;
 
 //@@author yungyung04
@@ -40,6 +41,7 @@ public class DeleteTaskCommand extends UndoableCommand {
     public CommandResult executeUndoableCommand() {
         requireNonNull(toDelete);
         try {
+            TuitionSchedule.deleteTask(toDelete);
             model.deleteTask(toDelete);
         } catch (TaskNotFoundException tnfe) {
             throw new AssertionError("The target person cannot be missing");

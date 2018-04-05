@@ -46,7 +46,6 @@ public class AddTuitionTaskCommand extends UndoableCommand {
     private final String description;
 
     private TuitionTask toAdd;
-    private TuitionSchedule tuitionSchedule;
     //private Tutee associatedTutee;
     private String associatedTutee;
 
@@ -65,7 +64,7 @@ public class AddTuitionTaskCommand extends UndoableCommand {
 
     @Override
     public CommandResult executeUndoableCommand() {
-        tuitionSchedule.addTask(toAdd);
+        TuitionSchedule.addTask(toAdd);
         model.addTask(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
@@ -76,7 +75,6 @@ public class AddTuitionTaskCommand extends UndoableCommand {
         //associatedTutee = getAssociatedTutee();
         //requireNonNull(associatedTutee.getTuitionSchedule());
         //tuitionSchedule = associatedTutee.getTuitionSchedule();
-        tuitionSchedule = getAssociatedTutee().getTuitionSchedule();
         toAdd = new TuitionTask(associatedTutee, taskdateTime, duration, description);
     }
 

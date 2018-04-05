@@ -7,6 +7,7 @@ import com.calendarfx.model.Entry;
 import seedu.address.model.Schedule;
 import seedu.address.ui.CalendarPanel;
 
+//@@author ChoChihTun
 /**
  * Represents the personal schedule of the user
  */

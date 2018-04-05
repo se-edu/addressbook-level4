@@ -16,7 +16,6 @@ import seedu.address.model.tag.Tag;
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Tutee extends Person {
-    private TuitionSchedule schedule;
     private Subject subject;
     private Grade grade;
     private EducationLevel educationLevel;
@@ -32,11 +31,6 @@ public class Tutee extends Person {
         this.grade = grade;
         this.educationLevel = educationLevel;
         this.school = school;
-        this.schedule = new TuitionSchedule(name.toString());
-    }
-
-    public TuitionSchedule getTuitionSchedule() {
-        return schedule;
     }
 
     public Subject getSubject() {
