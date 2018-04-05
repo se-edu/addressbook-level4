@@ -140,11 +140,11 @@ Edits the phone number and email address of the 1st person to be `91234567` and 
 * `e 2 n/Betsy Crower t/` +
 Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
 
-=== Locating persons by category: `find`
+=== Locating persons by category: `findpersonby`
 
 Finds persons or tutees whose specified category contain any of the given keywords. +
 Using Command Word: +
-Format: `find CATEGORY KEYWORD [MORE_KEYWORDS]` +
+Format: `findpersonby CATEGORY KEYWORD [MORE_KEYWORDS]` +
 Using Command Alias: +
 Format: `f CATEGORY KEYWORD [MORE_KEYWORDS]` +
 
@@ -304,7 +304,6 @@ Examples:
 
 === Adding a personal task: `addtask`
 
-
 Adds a personal task to the Tuition Connect schedule +
 Using Command Word: +
 Format: `addtask DATE TIME DURATION [DESCRIPTION]+
@@ -316,7 +315,7 @@ There are 2 different kinds of task recognized by Tuition Connect. Personal task
 ****
 
 ****
-The parameters have the same structure and limitations as explained in *addtask* command guide.
+The parameters (DATE, TIME, DURATION AND DESCRIPTION) have the same structure and limitations as explained in *addtask* command guide.
 ****
 
 Examples:
@@ -325,6 +324,7 @@ Examples:
 * `addtask 31/12/2018 16:00 0h30m`
 
 === Deleting a task: `deletetask`
+
 Deletes a task from the Tuition Connect schedule +
 Using Command Word: +
 Format: `deletetask TASK_INDEX`
@@ -335,6 +335,51 @@ the left side of task listing. The index *must be a positive integer* 1, 2, 3, .
 Examples:
 
 * `deletetask 1`
+
+=== Locating tasks by category: `findtaskby`
+
+Finds tasks which specified category has value within 2 given boundaries (inclusive) or contain any of the given keywords. +
+The functionality is determined according to the specified FIND_TYPE. +
+
+Using Command Word: +
+Format: `findtaskby CATEGORY FIND_TYPE KEYWORD [MORE_KEYWORDS]` +
+
+****
+* *PARAMETERS*
+
+* CATEGORY
+** There are 3 categories available:
+*** 1. month
+*** 2. year (coming in v2.0)
+*** 3. duration (coming in v2.0)
+
+* FIND_TYPE
+** Choice of Find Type determines the behaviour of this command and the subsequent parameters.
+** There are 2 choices of Find Type:
+*** 1. 'between' : returns tasks within the 2 given boundaries (inclusive).
+*** 2. 'namely' : returns tasks that match the keywords.
+
+* KEYWORDS
+** Keywords given depend on the specified category:
+*** 1. *month* keywords are months in either M, MM, MMM or MMMM format. +
+e.g. '1', '01', 'jan' and 'january' are all acceptable.
+*** 2. *year* to be implemented in v2.0
+*** 3. *duration* to be implemented in v2.0
+** The amount of keywords depend on the specified Find Type:
+*** 1. *between* +
+Exactly *2* different keywords must be provided as the boundary values. +
+*** 2. *namely* +
+Any amount can be provided. If *0* keyword is given, the displayed task list will be empty.
+****
+
+Examples:
+
+* `find month between january Mar` +
+Lists all tasks scheduled between January and March.
+* `find month between November February` +
+Lists all tasks scheduled on November, December, January and February.
+* `f month namely 2 06 oct
+Lists all tasks scheduled on February, June and October.
 
 === Changing calendar view page time unit: `change`
 
@@ -486,8 +531,8 @@ e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 123466
 e.g. `delete 3` +
 * *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
 e.g. `edit 2 n/James Lee e/jameslee@example.com` +
-* *Find* : find CATEGORY KEYWORD [MORE_KEYWORDS]` +
-e.g. `find name Jake Doe` +
+* *Find Person By* : findpersonby CATEGORY KEYWORD [MORE_KEYWORDS]` +
+e.g. `findpersonby name Jake Doe` +
 * *Sort* : sort CATEGORY +
 e.g. `sort grade`
 * *List* : `list` +
@@ -501,6 +546,8 @@ e.g. `addtuition 1 10/05/2018 12:00 1h30m Calculus homework page 24`
 e.g. 'addtask 10/05/2018 12:00 1h30m Going out with friends`
 * *Delete Task* : 'delete TASK_INDEX` +
 e.g. 'delete 1' +
+* *Find Task By* : findtaskby CATEGORY FIND_TYPE KEYWORD [MORE_KEYWORDS]` +
+e.g. `findtaskby month between April October` +
 * *Change* : `change TIME_UNIT` +
 e.g. `change w` +
 * *History* : `history` +
@@ -515,7 +562,7 @@ e.g. `a n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 
 e.g. `d 3` +
 * *Edit* : `e INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
 e.g. `e 2 n/James Lee e/jameslee@example.com` +
-* *Find* : f CATEGORY KEYWORD [MORE_KEYWORDS]` +
+* *Find Person By* : f CATEGORY KEYWORD [MORE_KEYWORDS]` +
 e.g. `f name Jake Doe` +
 * *List* : `l` +
 * *Help* : `help` +
