@@ -1,6 +1,8 @@
 package seedu.address.commons.util;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 import java.io.File;
 
@@ -26,6 +28,19 @@ public class FileUtilTest {
         // no forwards slash -> assertion failure
         thrown.expect(AssertionError.class);
         FileUtil.getPath("folder");
+    }
+
+    @Test
+    public void isValidPath() {
+
+        // valid path
+        assertTrue(FileUtil.isValidPath("valid/file/path"));
+
+        // invalid path
+        assertFalse(FileUtil.isValidPath("a\0"));
+
+        // null path
+        assertFalse(FileUtil.isValidPath(null));
     }
 
 }
