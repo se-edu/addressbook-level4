@@ -4,7 +4,7 @@ import static seedu.address.ui.testutil.GuiTestAssert.assertListMatching;
 
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.nio.file.Path;
 
 import org.junit.Test;
 
@@ -26,8 +26,8 @@ public class SampleDataTest extends AddressBookSystemTest {
      * Returns a non-existent file location to force test app to load sample data.
      */
     @Override
-    protected String getDataFileLocation() {
-        String filePath = TestUtil.getFilePathInSandboxFolder("SomeFileThatDoesNotExist1234567890.xml");
+    protected Path getDataFileLocation() {
+        Path filePath = TestUtil.getFilePathInSandboxFolder("SomeFileThatDoesNotExist1234567890.xml");
         deleteFileIfExists(filePath);
         return filePath;
     }
@@ -35,9 +35,9 @@ public class SampleDataTest extends AddressBookSystemTest {
     /**
      * Deletes the file at {@code filePath} if it exists.
      */
-    private void deleteFileIfExists(String filePath) {
+    private void deleteFileIfExists(Path filePath) {
         try {
-            Files.deleteIfExists(Paths.get(filePath));
+            Files.deleteIfExists(filePath);
         } catch (IOException ioe) {
             throw new AssertionError(ioe);
         }
