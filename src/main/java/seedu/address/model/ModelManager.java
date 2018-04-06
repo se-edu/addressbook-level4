@@ -25,7 +25,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final AddressBook addressBook;
     private final FilteredList<Person> filteredPersons;
-    private final UndoRedoStack undoRedoStack;
+    private final AddressBookCareTaker addressBookCareTaker;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -38,8 +38,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         this.addressBook = new AddressBook(addressBook);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
-        undoRedoStack = new UndoRedoStack();
-        undoRedoStack.push(new AddressBook(getAddressBook()));
+        addressBookCareTaker = new AddressBookCareTaker(new AddressBook(getAddressBook()));
     }
 
     public ModelManager() {
@@ -60,7 +59,7 @@ public class ModelManager extends ComponentManager implements Model {
     /** Raises an event to indicate the model has changed */
     private void indicateAddressBookChanged() {
         raise(new AddressBookChangedEvent(addressBook));
-        undoRedoStack.push(new AddressBook(getAddressBook()));
+        addressBookCareTaker.addNewState(new AddressBook(addressBook));
     }
 
     @Override
@@ -106,22 +105,22 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public boolean hasUndoableStates() {
-        return undoRedoStack.canUndo();
+        return addressBookCareTaker.canUndo();
     }
 
     @Override
     public boolean hasRedoableStates() {
-        return undoRedoStack.canRedo();
+        return addressBookCareTaker.canRedo();
     }
 
     @Override
     public void undo() {
-        resetData(undoRedoStack.popUndo());
+        resetData(addressBookCareTaker.getUndoState());
     }
 
     @Override
     public void redo() {
-        resetData(undoRedoStack.popRedo());
+        resetData(addressBookCareTaker.getRedoState());
     }
 
     @Override
