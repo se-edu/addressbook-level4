@@ -9,7 +9,10 @@ import static seedu.address.testutil.TypicalPersons.getTypicalPersons;
 import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysPerson;
 import static seedu.address.ui.testutil.GuiTestAssert.assertCardEquals;
 
-import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.concurrent.TimeUnit;
+import java.util.logging.Logger;
 
 import org.junit.Test;
 
@@ -29,7 +32,7 @@ public class PersonListPanelTest extends GuiUnitTest {
 
     private static final JumpToListRequestEvent JUMP_TO_SECOND_EVENT = new JumpToListRequestEvent(INDEX_SECOND_PERSON);
 
-    private static final String TEST_DATA_FOLDER = FileUtil.getPath("src/test/data/sandbox/");
+    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "sandbox");
 
     private static final long CARD_CREATION_AND_DELETION_TIMEOUT = 2500;
 
@@ -79,16 +82,29 @@ public class PersonListPanelTest extends GuiUnitTest {
      * {@code PersonListPanel}.
      */
     private ObservableList<Person> createBackingList(int personCount) throws Exception {
-        File xmlFile = createXmlFileWithPersons(personCount);
+        Stopwatch stopwatch = Stopwatch.createStarted();
+
+        Path xmlFilePath = createXmlFileWithPersons(personCount);
         XmlSerializableAddressBook xmlAddressBook =
-                XmlUtil.getDataFromFile(xmlFile, XmlSerializableAddressBook.class);
-        return FXCollections.observableArrayList(xmlAddressBook.toModelType().getPersonList());
+                XmlUtil.getDataFromFile(xmlFilePath, XmlSerializableAddressBook.class);
+        ObservableList<Person> personList =
+                FXCollections.observableArrayList(xmlAddressBook.toModelType().getPersonList());
+
+        long createListTime = stopwatch.elapsed(TimeUnit.MILLISECONDS);
+        String createListMessage = "List creation took: " + createListTime + "ms. ";
+        if (createListTime >= LIST_CREATION_TIMEOUT) {
+            fail(createListMessage + "Time limit exceeded.");
+        } else {
+            logger.info(createListMessage + "Continuing test.");
+        }
+
+        return personList;
     }
 
     /**
      * Returns a .xml file containing {@code personCount} persons. This file will be deleted when the JVM terminates.
      */
-    private File createXmlFileWithPersons(int personCount) throws Exception {
+    private Path createXmlFileWithPersons(int personCount) throws Exception {
         StringBuilder builder = new StringBuilder();
         builder.append("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>\n");
         builder.append("<addressbook>\n");
@@ -102,10 +118,10 @@ public class PersonListPanelTest extends GuiUnitTest {
         }
         builder.append("</addressbook>\n");
 
-        File manyPersonsFile = new File(TEST_DATA_FOLDER + "manyPersons.xml");
+        Path manyPersonsFile = TEST_DATA_FOLDER.resolve("manyPersons.xml");
         FileUtil.createFile(manyPersonsFile);
         FileUtil.writeToFile(manyPersonsFile, builder.toString());
-        manyPersonsFile.deleteOnExit();
+        manyPersonsFile.toFile().deleteOnExit();
         return manyPersonsFile;
     }
 

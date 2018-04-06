@@ -1,5 +1,6 @@
 package systemtests;
 
+import java.nio.file.Path;
 import java.util.concurrent.TimeoutException;
 import java.util.function.Supplier;
 
@@ -20,7 +21,7 @@ public class SystemTestSetupHelper {
     /**
      * Sets up a new {@code TestApp} and returns it.
      */
-    public TestApp setupApplication(Supplier<ReadOnlyAddressBook> addressBook, String saveFileLocation) {
+    public TestApp setupApplication(Supplier<ReadOnlyAddressBook> addressBook, Path saveFileLocation) {
         try {
             FxToolkit.registerStage(Stage::new);
             FxToolkit.setupApplication(() -> testApp = new TestApp(addressBook, saveFileLocation));
