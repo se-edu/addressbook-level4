@@ -230,48 +230,48 @@ This section describes some noteworthy details on how certain features are imple
 === Undo/Redo feature
 ==== Current Implementation
 
-The undo/redo mechanism is facilitated by an `UndoRedoStack`, which resides inside `ModelManager`. It supports undoing and redoing of commands that modifies the state of the address book (e.g. `add`, `edit`).
+The undo/redo mechanism is facilitated by an `UndoRedoCareTaker`, which resides inside `ModelManager`. It supports undoing and redoing of commands that modifies the state of the address book (e.g. `add`, `edit`). The name `Care Taker` is based on the link:https://www.tutorialspoint.com/design_pattern/memento_pattern.htm[Memento] design pattern, and uses an `addressBookStateList` to keep track of the timeline of address book states.
 
-Suppose that the user has just launched the application. The `UndoRedoStack` will be initialised with the initial address book state at the beginning.
+Suppose that the user has just launched the application. The `UndoRedoCareTaker` will be initialised with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
 
-The user executes a new `Command` that modifies the address book, `delete 5`, to delete the 5th person in the address book. The current state of the address book after the `delete 5` command executes is saved and pushed onto the `undoStack`.
+The user executes a new `Command` that modifies the address book, `delete 5`, to delete the 5th person in the address book. The current state of the address book after the `delete 5` command executes is saved and inserted into the `addressBookStateList`, and the currentStatePointer is shifted to the newly inserted address book state.
 
-image::UndoRedoStartingStackDiagram.png[width="800"]
+image::UndoRedoStartingCareTakerDiagram.png[width="800"]
 
-As the user continues to use the program, more address book states are added into the `undoStack`. For example, the user may execute `add n/David ...` to add a new person.
+As the user continues to use the program, more address book states are added into the `addressBookStateList`. For example, the user may execute `add n/David ...` to add a new person.
 
-image::UndoRedoNewCommand1StackDiagram.png[width="800"]
+image::UndoRedoNewCommand1CareTakerDiagram.png[width="800"]
 
 [NOTE]
-If a command fails its execution, the address book state will not be pushed to the `UndoRedoStack` at all.
+If a command fails its execution, the address book state will not be inserted into the `UndoRedoCareTaker` at all.
 
 The user now decides that adding the person was a mistake, and decides to undo that action using `undo`.
 
-We will pop the address book state from the `undoStack` and push it into the `redoStack`, and then restore the address book to the new top of the `undoStack`.
+We shift the `currentStatePointer` once to the left, pointing to its previous address book state, and then restore the address book to that state.
 
-image::UndoRedoExecuteUndoStackDiagram.png[width="800"]
+image::UndoRedoExecuteUndoCareTakerDiagram.png[width="800"]
 
 [NOTE]
-If the `undoStack` is of size 1, containing only the initial address book state, then there are no other commands left to be undone, and an `Exception` will be thrown when popping the `undoStack`.
+If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no other commands left to be undone, and a `NoUndoableStateException` will be thrown when trying to `undo`.
 
 The following sequence diagram shows how the undo operation works:
 
 image::UndoRedoSequenceDiagram.png[width="800"]
 
-The redo does the exact opposite (pops from `redoStack`, push to `undoStack`, and restores the address book to the state after the command is executed).
+The redo does the exact opposite (shifts the `currentStatePointer` once to the right, restores the address book to the state after the command is executed).
 
 [NOTE]
-If the `redoStack` is empty, then there are no other commands left to be redone, and an `Exception` will be thrown when popping the `redoStack`.
+If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no other commands left to be redone, and an `NoRedoableStateException` will be thrown when trying to `redo`.
 
-Commands that do not modify the address book will not save the address book state into the `undoStack` or clear the `redoStack`. For example, `list` will not add or remove the address book states after execution:
+Commands that do not modify the address book will not save the unmodified address book state into the `addressBookStateList`, nor clear any address book states in the `addressBookStateList`. For example, `list` will not add or remove address book states after execution:
 
-image::UndoRedoNewCommand2StackDiagram.png[width="800"]
+image::UndoRedoNewCommand2CareTakerDiagram.png[width="800"]
 
-The user now decides to execute a new command, `clear`. As before, the address book state will be pushed into the `undoStack`. This time the `redoStack` is no longer empty. It will be purged as it no longer make sense to redo the `add n/David` command (this is the behavior that most modern desktop applications follow).
+The user now decides to execute a new undoable command, `clear`. Before inserting the address book state to the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. This is because it no longer make sense to redo the `add n/David` command (this is the behavior that most modern desktop applications follow).
 
-image::UndoRedoNewCommand3StackDiagram.png[width="800"]
+image::UndoRedoNewCommand3CareTakerDiagram.png[width="800"]
 
-The following activity diagram summarize what happens inside the `UndoRedoStack` when a user executes a new command:
+The following activity diagram summarize what happens inside the `UndoRedoCareTaker` when a user executes a new command:
 
 image::UndoRedoActivityDiagram.png[width="650"]
 
@@ -300,11 +300,11 @@ image::UndoRedoActivityDiagram.png[width="650"]
 
 ===== Aspect: Data structure to support the undo/redo commands
 
-* **Alternative 1 (current choice):** Use separate stack for undo and redo
-** Pros: Easy to understand for new Computer Science student undergraduates to understand, who are likely to be * the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update * both `HistoryManager` and `UndoRedoStack`.
+* **Alternative 1 (current choice):** Use a list to store the timeline of address book states
+** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be * the new incoming developers of our project.
+** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update * both `HistoryManager` and `UndoRedoCareTaker`.
 * **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate stack, and just reuse what is already in the codebase.
+** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two * different things.
 // end::undoredo[]
 
