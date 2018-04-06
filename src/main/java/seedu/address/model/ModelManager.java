@@ -25,7 +25,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final AddressBook addressBook;
     private final FilteredList<Person> filteredPersons;
-    private final UndoRedoStack undoRedoStack;
+    private final UndoRedoCareTaker undoRedoCareTaker;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -38,8 +38,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         this.addressBook = new AddressBook(addressBook);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
-        undoRedoStack = new UndoRedoStack();
-        undoRedoStack.push(new AddressBook(getAddressBook()));
+        undoRedoCareTaker = new UndoRedoCareTaker(getAddressBook());
     }
 
     public ModelManager() {
@@ -109,33 +108,33 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public boolean hasUndoableStates() {
-        return undoRedoStack.canUndo();
+        return undoRedoCareTaker.canUndo();
     }
 
     @Override
     public boolean hasRedoableStates() {
-        return undoRedoStack.canRedo();
+        return undoRedoCareTaker.canRedo();
     }
 
     @Override
     public void undo() {
-        addressBook.resetData(undoRedoStack.popUndo());
+        addressBook.resetData(undoRedoCareTaker.undo());
         indicateAddressBookChanged();
     }
 
     @Override
     public void redo() {
-        addressBook.resetData(undoRedoStack.popRedo());
+        addressBook.resetData(undoRedoCareTaker.redo());
         indicateAddressBookChanged();
     }
 
     /**
-     * Called whenever there is a need to update the {@code undoRedoStack} due to a change in the address book
+     * Called whenever there is a need to update the {@code undoRedoCareTaker} due to a change in the address book
      * state not caused by {@code undo} or {@code redo}.
      * Pushes the current state into the {@code undoRedoCareTaker} undo-stack for tracking.
      */
     private void updateCareTaker() {
-        undoRedoStack.push(new AddressBook(getAddressBook()));
+        undoRedoCareTaker.addNewState(addressBook);
     }
 
     @Override
