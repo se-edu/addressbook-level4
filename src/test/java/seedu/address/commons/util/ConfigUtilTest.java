@@ -76,7 +76,7 @@ public class ConfigUtilTest {
         Config config = new Config();
         config.setAppTitle("Typical App Title");
         config.setLogLevel(Level.INFO);
-        config.setUserPrefsFilePath(Paths.get("preferences.json"));
+        config.setUserPrefsFilePath(Paths.get("C:\\preferences.json"));
         return config;
     }
 

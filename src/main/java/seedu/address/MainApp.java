@@ -1,7 +1,6 @@
 package seedu.address;
 
 import java.io.IOException;
-import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Map;
@@ -20,6 +19,7 @@ import seedu.address.commons.core.Version;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.util.ConfigUtil;
+import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
@@ -60,13 +60,8 @@ public class MainApp extends Application {
         logger.info("=============================[ Initializing AddressBook ]===========================");
         super.init();
 
-        String configPathParameter = getApplicationParameter("config");
-        if (configPathParameter != null && !isValidPath(configPathParameter)) {
-            logger.warning("Invalid config path " + configPathParameter + ". Using default config path.");
-            configPathParameter = null;
-        }
-        Path configPath = configPathParameter != null ? Paths.get(configPathParameter) : null;
-        config = initConfig(configPath);
+        AppParameters appParameters = getAppParameters();
+        config = initConfig(appParameters.configPath);
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         userPrefs = initPrefs(userPrefsStorage);
@@ -82,26 +77,6 @@ public class MainApp extends Application {
         ui = new UiManager(logic, config, userPrefs);
 
         initEventsCenter();
-    }
-
-    private String getApplicationParameter(String parameterName) {
-        Map<String, String> applicationParameters = getParameters().getNamed();
-        return applicationParameters.get(parameterName);
-    }
-
-    /**
-     * Checks if the path given is valid.
-     * @param path Points to the config file entered by the user.
-     *             Cannot be null.
-     * @return     true if path is valid, false if invalid.
-     */
-    private static boolean isValidPath(String path) {
-        try {
-            Paths.get(path);
-        } catch (InvalidPathException ipe) {
-            return false;
-        }
-        return true;
     }
 
     /**
@@ -228,6 +203,29 @@ public class MainApp extends Application {
     public void handleExitAppRequestEvent(ExitAppRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         this.stop();
+    }
+
+    /**
+     * Static class encapsulating the app parameters.
+     */
+    private static class AppParameters {
+        private Path configPath;
+    }
+
+    /**
+     * Parses application command-line parameters.
+     */
+    private AppParameters getAppParameters() {
+        AppParameters appParameters = new AppParameters();
+        Map<String, String> namedParameters = getParameters().getNamed();
+
+        String configPathParameter = namedParameters.get("config");
+        if (configPathParameter != null && !FileUtil.isValidPath(configPathParameter)) {
+            logger.warning("Invalid config path " + configPathParameter + ". Using default config path.");
+            configPathParameter = null;
+        }
+        appParameters.configPath = configPathParameter != null ? Paths.get(configPathParameter) : null;
+        return appParameters;
     }
 
     public static void main(String[] args) {
