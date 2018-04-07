@@ -27,13 +27,11 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Person;
 
-
+//@@author yungyung04
 /**
  * Contains integration tests (interaction with the Model) for {@code SortCommand}.
  */
 public class SortCommandTest {
-    private static final int INDEX_FIRST_ELEMENT = 0;
-    private static final int AMOUNT_OF_PERSON_INSIDE_TYPICAL_ADDRESS_BOOK = 4;
 
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
