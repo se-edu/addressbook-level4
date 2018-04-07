@@ -66,7 +66,6 @@ public abstract class AddressBookSystemTest {
 
         assertApplicationStartingStateIsCorrect();
         assertStartingCalendarViewPageIsCorrect();
-
     }
 
     @After

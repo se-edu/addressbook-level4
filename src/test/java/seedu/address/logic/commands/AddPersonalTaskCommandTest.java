@@ -35,28 +35,6 @@ public class AddPersonalTaskCommandTest {
         new AddPersonalTaskCommand(null);
     }
 
-    /**
-     *
-    @ Test
-    public void execute_validPersonalTask_addSuccessful() {
-        ArrayList Task  taskListCopy = Schedule.getTaskList();
-        ArrayList PersonalTask personalTaskListCopy = PersonalSchedule.getPersonalTaskList();
-        PersonalTask task = new PersonalTask(taskDateTime, VALID_DURATION, VALID_TASK_DESC);
-
-        AddPersonalTaskCommand command = new AddPersonalTaskCommand(task);
-        CommandResult commandResult = command.executeUndoableCommand();
-
-        assertEquals(AddPersonalTaskCommand.MESSAGE_SUCCESS, commandResult.feedbackToUser);
-
-        //taskList should be updated
-        taskListCopy.add(task);
-        assertEquals(taskListCopy, Schedule.getTaskList());
-
-        //personalTaskList should be updated
-        personalTaskListCopy.add(task);
-        assertEquals(personalTaskListCopy, PersonalSchedule.getPersonalTaskList());
-    }
-     */
     @Test
     public void equals() {
         LocalDateTime taskDateTime2 = LocalDateTime.parse("08/08/1988 18:00", formatter);

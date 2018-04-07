@@ -130,7 +130,6 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Adds a task to the address book.
      *
      */
-
     public void addTask(Task t)  {
         tasks.add(t);
         CalendarPanel.addEntry(t.getEntry());

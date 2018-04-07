@@ -11,7 +11,6 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 
 import seedu.address.model.person.Person;
-import seedu.address.model.tutee.TuitionSchedule;
 import seedu.address.model.tutee.TuitionTask;
 import seedu.address.model.tutee.Tutee;
 
@@ -64,7 +63,6 @@ public class AddTuitionTaskCommand extends UndoableCommand {
 
     @Override
     public CommandResult executeUndoableCommand() {
-        TuitionSchedule.addTask(toAdd);
         model.addTask(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }

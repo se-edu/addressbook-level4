@@ -2,7 +2,6 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import seedu.address.model.personal.PersonalSchedule;
 import seedu.address.model.personal.PersonalTask;
 
 //@@author yungyung04
@@ -37,7 +36,6 @@ public class AddPersonalTaskCommand extends UndoableCommand {
 
     @Override
     public CommandResult executeUndoableCommand() {
-        new PersonalSchedule().addTask(toAdd);
         model.addTask(toAdd);
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd.toString()));
     }

@@ -4,7 +4,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_DATE_TIME;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_DURATION;
 import static seedu.address.commons.core.Messages.MESSAGE_TASK_TIMING_CLASHES;
-import static seedu.address.model.Schedule.isTaskClash;
+import static seedu.address.model.UniqueTaskList.checkTimeClash;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
@@ -58,17 +58,6 @@ public class AddPersonalTaskCommandParser implements Parser<AddPersonalTaskComma
                     + AddPersonalTaskCommand.MESSAGE_USAGE);
         } catch (TimingClashException tce) {
             throw new ParseException(MESSAGE_TASK_TIMING_CLASHES);
-        }
-    }
-
-    /**
-     * Checks if the given date, time and duration clashes with another task in Tuition Connect.
-     *
-     * @throws TimingClashException if there is a time clash.
-     */
-    private void checkTimeClash(LocalDateTime taskDateTime, String duration) throws TimingClashException {
-        if (isTaskClash(taskDateTime, duration)) {
-            throw new TimingClashException(MESSAGE_TASK_TIMING_CLASHES);
         }
     }
 }
