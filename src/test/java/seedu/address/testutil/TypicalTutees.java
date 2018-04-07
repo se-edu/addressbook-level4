@@ -20,14 +20,17 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 
 import static seedu.address.testutil.TypicalPersons.DANIEL;
+import static seedu.address.testutil.TypicalTasks.getTypicalTasks;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.model.AddressBook;
+import seedu.address.model.Task;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
+import seedu.address.model.person.exceptions.TimingClashException;
 import seedu.address.model.tutee.Tutee;
 
 //@@author ChoChihTun
@@ -76,6 +79,13 @@ public class TypicalTutees {
                 ab.addPerson(person);
             } catch (DuplicatePersonException e) {
                 throw new AssertionError("not possible");
+            }
+        }
+        for (Task task : getTypicalTasks()) {
+            try {
+                ab.addTask(task);
+            } catch (TimingClashException tce) {
+                throw new AssertionError("time clash is not possible");
             }
         }
         return ab;
