@@ -25,7 +25,7 @@
       </stylesheets>
 
       <VBox>
-          <MenuBar fx:id="menuBar" prefHeight="28.0" prefWidth="1422.0" VBox.vgrow="NEVER">
+          <MenuBar fx:id="menuBar" prefHeight="0.0" prefWidth="1422.0" VBox.vgrow="NEVER">
               <Menu mnemonicParsing="false" text="File">
                   <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
               </Menu>
@@ -33,47 +33,47 @@
                   <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
               </Menu>
           </MenuBar>
-          <SplitPane dividerPositions="0.3" prefHeight="689.0" prefWidth="1360.0">
+          <SplitPane prefHeight="689.0" prefWidth="1360.0">
               <items>
                   <VBox prefHeight="687.0" prefWidth="667.0">
                       <children>
 
-                          <StackPane fx:id="commandBoxPlaceholder" prefHeight="84.0" prefWidth="574.0" styleClass="pane-with-border" VBox.vgrow="NEVER">
+                          <StackPane fx:id="commandBoxPlaceholder" prefHeight="0.0" prefWidth="1420.0" styleClass="pane-with-border" VBox.vgrow="NEVER">
                               <padding>
                                   <Insets bottom="5" left="10" right="10" top="10" />
                               </padding>
                           </StackPane>
 
-                          <StackPane fx:id="resultDisplayPlaceholder" maxHeight="311.0" minHeight="46.0" prefHeight="215.0" prefWidth="574.0" styleClass="pane-with-border" VBox.vgrow="NEVER">
+                          <StackPane fx:id="resultDisplayPlaceholder" maxHeight="311.0" minHeight="46.0" prefHeight="106.0" prefWidth="1420.0" styleClass="pane-with-border" VBox.vgrow="NEVER">
                               <padding>
-                                  <Insets bottom="10" left="10" right="10" top="5" />
+                                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                               </padding>
                           </StackPane>
 
-                          <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.7" prefHeight="541.0" prefWidth="573.0" VBox.vgrow="ALWAYS">
+                          <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.1, 0.1" prefHeight="541.0" prefWidth="573.0" VBox.vgrow="ALWAYS">
 
-                              <VBox fx:id="personList" minWidth="264.0" prefHeight="554.0" prefWidth="264.0" SplitPane.resizableWithParent="false">
+                              <VBox fx:id="personList" minWidth="264.0" prefHeight="488.0" prefWidth="584.0" SplitPane.resizableWithParent="false">
                                   <padding>
                                       <Insets bottom="10" left="5" right="10" top="5" />
                                   </padding>
-                                  <StackPane fx:id="personListPanelPlaceholder" prefHeight="453.0" prefWidth="249.0" VBox.vgrow="ALWAYS" />
+                                  <StackPane fx:id="personListPanelPlaceholder" prefHeight="555.0" prefWidth="85.0" VBox.vgrow="ALWAYS" />
                               </VBox>
 
-                              <VBox fx:id="taskList" minWidth="300" prefHeight="1050.0" prefWidth="414.0" SplitPane.resizableWithParent="false">
+                              <VBox fx:id="taskList" minWidth="300" prefHeight="570.0" prefWidth="407.0" SplitPane.resizableWithParent="false">
                                   <padding>
                                       <Insets bottom="5" left="5" right="10" top="10" />
                                   </padding>
-                                  <StackPane fx:id="taskListPanelPlaceholder" prefHeight="549.0" prefWidth="378.0" VBox.vgrow="ALWAYS" />
+                                  <StackPane fx:id="taskListPanelPlaceholder" prefHeight="555.0" prefWidth="381.0" VBox.vgrow="ALWAYS" />
                               </VBox>
+
+                              <StackPane fx:id="calendarPlaceholder" minWidth="50.0" prefHeight="570.0" prefWidth="775.0">
+                                  <padding>
+                                      <Insets bottom="10" left="-5" right="-5" top="10" />
+                                  </padding>
+                              </StackPane>
                           </SplitPane>
                       </children>
                   </VBox>
-
-                  <StackPane fx:id="calendarPlaceholder" minWidth="50.0" prefHeight="687.0" prefWidth="50">
-                      <padding>
-                          <Insets bottom="10" left="-5" right="-5" top="10" />
-                      </padding>
-                  </StackPane>
               </items>
           </SplitPane>
 
