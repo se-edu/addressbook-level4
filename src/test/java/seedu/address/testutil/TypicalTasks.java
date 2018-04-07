@@ -7,6 +7,10 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TASK_DESC;
 
 import seedu.address.model.Task;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 //@@author yungyung04
 /**
  * A utility class containing a list of {@code Task} objects to be used in tests.
@@ -56,4 +60,10 @@ public class TypicalTasks {
     public static final Task TASK_AMY = new TaskBuilder().withTuteeName(VALID_NAME_AMY)
             .withDateTime(VALID_DATE_TIME).withDuration(VALID_DURATION).withDescription(VALID_TASK_DESC)
             .buildTuitionTask();
+
+    private TypicalTasks() {} // prevents instantiation
+
+    public static List<Task> getTypicalTasks() {
+        return new ArrayList<>(Arrays.asList(TASK_ALICE, TASK_BENSON, TASK_CARL, TASK_GROCERRY_SHOPPING, TASK_YOGA));
+    }
 }
