@@ -54,14 +54,14 @@
 
                               <VBox fx:id="personList" minWidth="264.0" prefHeight="488.0" prefWidth="584.0" SplitPane.resizableWithParent="false">
                                   <padding>
-                                      <Insets bottom="10" left="5" right="10" top="5" />
+                                      <Insets bottom="5" left="5" top="5" />
                                   </padding>
                                   <StackPane fx:id="personListPanelPlaceholder" prefHeight="555.0" prefWidth="85.0" VBox.vgrow="ALWAYS" />
                               </VBox>
 
                               <VBox fx:id="taskList" minWidth="300" prefHeight="570.0" prefWidth="407.0" SplitPane.resizableWithParent="false">
                                   <padding>
-                                      <Insets bottom="5" left="5" right="10" top="10" />
+                                      <Insets bottom="5" right="5" top="5" />
                                   </padding>
                                   <StackPane fx:id="taskListPanelPlaceholder" prefHeight="555.0" prefWidth="381.0" VBox.vgrow="ALWAYS" />
                               </VBox>
