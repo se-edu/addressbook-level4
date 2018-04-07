@@ -30,7 +30,7 @@ public class ModelManager extends ComponentManager implements Model {
     private final AddressBook addressBook;
     private FilteredList<Person> filteredPersons;
     private FilteredList<Task> filteredTasks;
-    private SortedList<Person> sortedPerson;
+    private SortedList<Person> sortedPersons;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -44,7 +44,7 @@ public class ModelManager extends ComponentManager implements Model {
         this.addressBook = new AddressBook(addressBook);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
         filteredTasks = new FilteredList<>(this.addressBook.getTaskList());
-        sortedPerson = new SortedList<>(filteredPersons);
+        sortedPersons = new SortedList<>(filteredPersons);
     }
 
     public ModelManager() {
@@ -133,7 +133,7 @@ public class ModelManager extends ComponentManager implements Model {
      */
     @Override
     public ObservableList<Person> getFilteredPersonList() {
-        return FXCollections.unmodifiableObservableList(sortedPerson);
+        return FXCollections.unmodifiableObservableList(sortedPersons);
     }
 
     @Override
@@ -144,7 +144,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void sortFilteredPersonList(Comparator<Person> comparator) {
-        sortedPerson.setComparator(comparator);
+        sortedPersons.setComparator(comparator);
     }
 
     @Override
@@ -165,6 +165,6 @@ public class ModelManager extends ComponentManager implements Model {
         return addressBook.equals(other.addressBook)
                 && filteredPersons.equals(other.filteredPersons)
                 && filteredTasks.equals(other.filteredTasks)
-                && sortedPerson.equals(other.sortedPerson);
+                && sortedPersons.equals(other.sortedPersons);
     }
 }
