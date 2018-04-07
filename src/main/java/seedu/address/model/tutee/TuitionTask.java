@@ -17,6 +17,8 @@ public class TuitionTask implements Task {
     private static final String HOUR_DELIMITER = "h";
     private static final String MINUTE_DELIMITER = "m";
     private static final String NULL_STRING = "";
+    private static final String DATE_DELIMETER = "/";
+    private static final String TIME_DELIMETER = ":";
 
     private String tutee;
     private String description;
@@ -102,6 +104,14 @@ public class TuitionTask implements Task {
 
     public String getDuration() {
         return duration;
+    }
+
+    //@@author yungyung04
+    @Override
+    public String getStringTaskDateTime() {
+        return taskDateTime.getDayOfMonth() + DATE_DELIMETER + taskDateTime.getMonthValue()
+                + DATE_DELIMETER + taskDateTime.getYear() + " " + taskDateTime.getHour()
+                + TIME_DELIMETER + taskDateTime.getMinute();
     }
 
     @Override

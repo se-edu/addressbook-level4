@@ -16,6 +16,8 @@ public class PersonalTask implements Task {
     private static final String HOUR_DELIMITER = "h";
     private static final String MINUTE_DELIMITER = "m";
     private static final String NULL_STRING = "";
+    private static final String DATE_DELIMETER = "/";
+    private static final String TIME_DELIMETER = ":";
 
     private String description;
     private String duration;
@@ -96,6 +98,14 @@ public class PersonalTask implements Task {
         return duration;
     }
 
+    //@@author yungyung04
+    @Override
+    public String getStringTaskDateTime() {
+        return taskDateTime.getDayOfMonth() + DATE_DELIMETER + taskDateTime.getMonthValue()
+                + DATE_DELIMETER + taskDateTime.getYear() + " " + taskDateTime.getHour()
+                + TIME_DELIMETER + taskDateTime.getMinute();
+    }
+
     @Override
     public String toString() {
         if (hasDescription()) {
@@ -124,9 +134,4 @@ public class PersonalTask implements Task {
                 && duration.equals(((PersonalTask) other).duration)
                 && description.equals(((PersonalTask) other).description));
     }
-
-    /* in case needed fo equals
-    && taskDateTime.getDayOfMonth() == ((PersonalTask) other).taskDateTime.getDayOfMonth()
-                && taskDateTime.getHour() == ((PersonalTask) other).taskDateTime.getHour()
-                && taskDateTime.getMinute() == ((PersonalTask) other).taskDateTime.getMinute() */
 }
