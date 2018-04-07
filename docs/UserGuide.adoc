@@ -113,8 +113,6 @@ Format: `lt`
 Shows a list of all tutees in the address book. +
 Using Command Word: +
 Format: `list` +
-Using Command Alias: +
-Format: `l`
 
 === Editing a person : `edit`
 
@@ -165,11 +163,11 @@ Format: `f CATEGORY KEYWORD [MORE_KEYWORDS]` +
 
 Examples:
 
-* `find Name John` +
+* `findpersonby Name John` +
 Lists `john` and `John Doe`
-* `f name Betsy Tim John` +
+* `findpersonby name Betsy Tim John` +
 Lists any person having names `Betsy`, `Tim`, or `John`
-* `find grade B B+` +
+* `f grade B B+` +
 Lists all tutee with grade `B` and `B+`
 
 === Sorting persons by category: `sort`
@@ -374,9 +372,9 @@ Any amount can be provided. If *0* keyword is given, the displayed task list wil
 
 Examples:
 
-* `find month between january Mar` +
+* `findtaskby month between january Mar` +
 Lists all tasks scheduled between January and March.
-* `find month between November February` +
+* `findtaskby month between November February` +
 Lists all tasks scheduled on November, December, January and February.
 * `f month namely 2 06 oct
 Lists all tasks scheduled on February, June and October.
