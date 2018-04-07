@@ -105,7 +105,7 @@ public class UniqueTaskList implements Iterable<Task> {
      * @param duration duration of new task
      * @throws TimingClashException if there is a clash in the task timing
      */
-    public void checkTimeClash(LocalDateTime startDateTime, String duration) throws TimingClashException {
+    private void checkTimeClash(LocalDateTime startDateTime, String duration) throws TimingClashException {
         LocalDateTime taskEndTime = getTaskEndTime(duration, startDateTime);
 
         for (Task recordedTask : internalList) {
