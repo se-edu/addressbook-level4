@@ -129,6 +129,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Adds a task to the address book.
      *
      */
+
     public void addTask(Task t)  {
         tasks.add(t);
     }
@@ -207,7 +208,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
     /**
      * Removes a task from the address book.
-     * @throws TaskNotFoundException if the {@code key} is not in this {@code AddressBook}.
+     *
      */
     public boolean removeTask(Task key) throws TaskNotFoundException {
         if (tasks.remove(key))        {
