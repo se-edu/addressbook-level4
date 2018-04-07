@@ -10,17 +10,21 @@ import java.net.URISyntaxException;
  */
 public class BrowsePage {
 
-    public static final String SEARCH_PAGE_URL =
-            "http://www.google.com.sg/search?q=";
+    private static final String SEARCH_PAGE_URL = "http://www.google.com.sg/search?q=";
 
     private String url;
 
     public BrowsePage(String searchObject) {
         String newUrl = SEARCH_PAGE_URL + searchObject;
-        formatUrl(newUrl);
+        formatStringUrl(newUrl);
     }
 
-    private void formatUrl(String newUrl) {
+    /**
+     * Constructs a valid string url for google search
+     *
+     * @param newUrl url to be formatted into a valid string url
+     */
+    private void formatStringUrl(String newUrl) {
         this.url = newUrl.replaceAll(" ", "+");
     }
 
