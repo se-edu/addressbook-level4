@@ -36,8 +36,9 @@ public class UniqueTaskList implements Iterable<Task> {
      *
      * Need to add an exception that functions well in the commented out code below to prevent duplicate tasks
      */
-    public void add(Task toAdd) {
+    public void add(Task toAdd) throws TimingClashException {
         requireNonNull(toAdd);
+        checkTimeClash(toAdd);
         internalList.add(toAdd);
         Entry entry = toAdd.getEntry();
         CalendarPanel.addEntry(entry);
@@ -80,7 +81,7 @@ public class UniqueTaskList implements Iterable<Task> {
         this.internalList.setAll(replacement.internalList);
     }
 
-    public void setTasks(List<Task> tasks) {
+    public void setTasks(List<Task> tasks) throws TimingClashException {
         requireAllNonNull(tasks);
         final UniqueTaskList replacement = new UniqueTaskList();
         for (final Task task : tasks) {
@@ -100,11 +101,12 @@ public class UniqueTaskList implements Iterable<Task> {
     /**
      * Checks for any clashes in the task timing in schedule
      *
-     * @param startDateTime start time of the new task
-     * @param duration duration of the new task
+     * @param toAdd new task to be checked
      * @throws TimingClashException if there is a clash in the task timing
      */
-    public void checkTimeClash(LocalDateTime startDateTime, String duration) throws TimingClashException {
+    public void checkTimeClash(Task toAdd) throws TimingClashException {
+        String duration = toAdd.getDuration();
+        LocalDateTime startDateTime = toAdd.getTaskDateTime();
         LocalDateTime taskEndTime = getTaskEndTime(duration, startDateTime);
 
         for (Task recordedTask : internalList) {

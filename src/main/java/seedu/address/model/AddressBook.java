@@ -15,6 +15,7 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
+import seedu.address.model.person.exceptions.TimingClashException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.exceptions.TaskNotFoundException;
@@ -63,7 +64,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         this.tags.setTags(tags);
     }
 
-    public void setTasks(List<Task> tasks) {
+    public void setTasks(List<Task> tasks) throws TimingClashException {
         this.tasks.setTasks(tasks);
     }
 
@@ -75,15 +76,17 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(newData);
         setTags(new HashSet<>(newData.getTagList()));
         List<Task> taskList = newData.getTaskList().stream().collect(Collectors.toList());
-        setTasks(taskList);
         List<Person> syncedPersonList = newData.getPersonList().stream()
                 .map(this::syncWithMasterTagList)
                 .collect(Collectors.toList());
 
         try {
             setPersons(syncedPersonList);
+            setTasks(taskList);
         } catch (DuplicatePersonException e) {
             throw new AssertionError("AddressBooks should not have duplicate persons");
+        } catch (TimingClashException e) {
+            throw new AssertionError("AddressBooks should not have clashed tasks");
         }
     }
 
@@ -130,8 +133,8 @@ public class AddressBook implements ReadOnlyAddressBook {
      *
      */
 
-    public void addTask(Task t)  {
-        tasks.add(t);
+    public void addTask(Task t) throws TimingClashException {
+            tasks.add(t);
     }
 
     /**
@@ -235,6 +238,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     @Override
+    public ObservableList<Task> getTaskList() {
+        return tasks.asObservableList();
+    }
+
+    @Override
     public ObservableList<Person> getPersonList() {
         return persons.asObservableList();
     }
@@ -242,11 +250,6 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public ObservableList<Tag> getTagList() {
         return tags.asObservableList();
-    }
-
-    @Override
-    public ObservableList<Task> getTaskList() {
-        return tasks.asObservableList();
     }
 
     @Override
