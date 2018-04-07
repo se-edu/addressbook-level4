@@ -1,5 +1,7 @@
 package seedu.address.logic.commands;
 
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.List;
 
 import seedu.address.commons.core.EventsCenter;
@@ -8,6 +10,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.person.Person;
+import seedu.address.ui.BrowsePage;
 
 /**
  * Selects a person identified using it's last displayed index from the address book.
@@ -38,8 +41,16 @@ public class SelectCommand extends Command {
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
-
-        EventsCenter.getInstance().post(new JumpToListRequestEvent(targetIndex));
+        JumpToListRequestEvent jumpToListRequestEvent = new JumpToListRequestEvent(targetIndex);
+        EventsCenter.getInstance().post(jumpToListRequestEvent);
+        BrowsePage browsePage = new BrowsePage(lastShownList.get(targetIndex.getZeroBased()).getName().fullName);
+        try {
+            browsePage.loadURL();
+        } catch (URISyntaxException e) {
+            throw new CommandException(e.getMessage());
+        } catch (IOException e) {
+            throw new CommandException(e.getMessage());
+        }
         return new CommandResult(String.format(MESSAGE_SELECT_PERSON_SUCCESS, targetIndex.getOneBased()));
 
     }
