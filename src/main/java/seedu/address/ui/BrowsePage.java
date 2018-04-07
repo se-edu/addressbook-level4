@@ -3,8 +3,9 @@ package seedu.address.ui;
 import java.awt.Desktop;
 import java.net.URI;
 
+//@@author ChoChihTun
 /**
- * Searches the selected object in a pop up google search
+ * Searches the selected person in a pop up google search
  */
 public class BrowsePage {
 
@@ -12,8 +13,8 @@ public class BrowsePage {
 
     private String url;
 
-    public BrowsePage(String searchObject) {
-        String newUrl = SEARCH_PAGE_URL + searchObject;
+    public BrowsePage(String personName) {
+        String newUrl = SEARCH_PAGE_URL + personName;
         formatStringUrl(newUrl);
     }
 
@@ -27,7 +28,7 @@ public class BrowsePage {
     }
 
     /**
-     * Loads the search page of the selected object
+     * Loads the search page of the selected person
      * @throws Exception if user default browser is not found or failed to be launched
      */
     public void loadUrl() throws Exception {
