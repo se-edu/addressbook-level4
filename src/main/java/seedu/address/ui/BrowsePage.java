@@ -1,9 +1,7 @@
 package seedu.address.ui;
 
 import java.awt.Desktop;
-import java.io.IOException;
 import java.net.URI;
-import java.net.URISyntaxException;
 
 /**
  * Searches the selected object in a pop up google search
@@ -30,10 +28,9 @@ public class BrowsePage {
 
     /**
      * Loads the search page of the selected object
-     * @throws URISyntaxException if url is in the wrong format
-     * @throws IOException if there is an error writing to server
+     * @throws Exception if user default browser is not found or failed to be launched
      */
-    public void loadURL() throws URISyntaxException, IOException {
+    public void loadUrl() throws Exception {
         Desktop desktop = Desktop.getDesktop();
         desktop.browse(new URI(url));
     }
