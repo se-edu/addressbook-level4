@@ -49,7 +49,7 @@ public class AddTuteeCommandTest {
 
     @Test
     public void execute_duplicatePerson_throwsCommandException() throws Exception {
-        ModelStub  = new ModelStubThrowingDuplicatePersonException();
+        ModelStub modelStub = new ModelStubThrowingDuplicatePersonException();
         Tutee validTutee = new TuteeBuilder().build();
 
         thrown.expect(CommandException.class);
