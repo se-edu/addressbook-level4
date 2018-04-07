@@ -5,6 +5,7 @@ import static seedu.address.commons.core.Messages.MESSAGE_TASK_TIMING_CLASHES;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
@@ -57,10 +58,10 @@ public class AddTuitionTaskCommand extends UndoableCommand {
         requireNonNull(taskDateTime);
         requireNonNull(duration);
         requireNonNull(description);
+        this.targetIndex = targetIndex;
         this.taskdateTime = taskDateTime;
         this.duration = duration;
         this.description = description;
-        this.targetIndex = targetIndex;
     }
 
     @Override
@@ -102,6 +103,6 @@ public class AddTuitionTaskCommand extends UndoableCommand {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddTuitionTaskCommand // instanceof handles nulls
-                && toAdd.equals(((AddTuitionTaskCommand) other).toAdd));
+                && Objects.equals(this.toAdd, ((AddTuitionTaskCommand) other).toAdd));
     }
 }
