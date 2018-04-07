@@ -3,11 +3,41 @@ package systemtests;
 import static org.junit.Assert.assertFalse;
 import static seedu.address.commons.core.Messages.MESSAGE_PERSONS_LISTED_OVERVIEW;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.EDUCATION_LEVEL_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.EDUCATION_LEVEL_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.GRADE_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.GRADE_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.SCHOOL_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.SUBJECT_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
+import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EDUCATION_LEVEL_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_GRADE_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_SCHOOL_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.model.person.PersonSortUtil.CATEGORY_EDUCATION_LEVEL;
+import static seedu.address.model.person.PersonSortUtil.CATEGORY_GRADE;
 import static seedu.address.model.person.PersonSortUtil.CATEGORY_NAME;
+import static seedu.address.model.person.PersonSortUtil.CATEGORY_SCHOOL;
+import static seedu.address.model.person.PersonSortUtil.CATEGORY_SUBJECT;
 import static seedu.address.testutil.TypicalPersons.BENSON;
 import static seedu.address.testutil.TypicalPersons.CARL;
 import static seedu.address.testutil.TypicalPersons.DANIEL;
 import static seedu.address.testutil.TypicalPersons.KEYWORD_MATCHING_MEIER;
+import static seedu.address.testutil.TypicalTutees.AMYTUTEE;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,12 +45,16 @@ import java.util.List;
 import org.junit.Test;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.AddTuteeCommand;
 import seedu.address.logic.commands.DeleteCommand;
 import seedu.address.logic.commands.FindPersonCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
+import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.tutee.Tutee;
+import seedu.address.testutil.TuteeBuilder;
 
 public class FindPersonCommandSystemTest extends AddressBookSystemTest {
 
@@ -130,6 +164,63 @@ public class FindPersonCommandSystemTest extends AddressBookSystemTest {
         assertCommandSuccess(command, expectedModel);
         assertSelectedCardUnchanged();
 
+        //@@author yungyung04
+        /* Adding some tutees into the filtered person list to test whether Find Person command can find tutees */
+        // adds AMYTUTEE
+        expectedModel = getModel();
+        try {
+            expectedModel.addPerson(AMYTUTEE);
+        } catch (DuplicatePersonException dpe) {
+            System.out.println("model does not contain AMYTUTEE yet. Error should not happen.");;
+        }
+        command = AddTuteeCommand.COMMAND_WORD + "  " + NAME_DESC_AMY + "  " + PHONE_DESC_AMY + " "
+                + EMAIL_DESC_AMY + "   " + ADDRESS_DESC_AMY + "   " + SUBJECT_DESC_AMY + " " + GRADE_DESC_AMY + " "
+                + EDUCATION_LEVEL_DESC_AMY + " " + SCHOOL_DESC_AMY + " " + TAG_DESC_FRIEND + " ";
+        executeCommand(command);
+
+        //adds Bob whose subject and school are same as Amy's
+        Tutee modifiedBobTutee = new TuteeBuilder().withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
+                .withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB).withSubject(VALID_SUBJECT_AMY)
+                .withGrade(VALID_GRADE_BOB).withEducationLevel(VALID_EDUCATION_LEVEL_BOB).withSchool(VALID_SCHOOL_AMY)
+                .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
+        try {
+            expectedModel.addPerson(modifiedBobTutee);
+        } catch (DuplicatePersonException dpe) {
+            System.out.println("model does not contain modifiedBobTutee yet. Error should not happen.");;
+        }
+        command = AddTuteeCommand.COMMAND_WORD + "  " + NAME_DESC_BOB + "  " + PHONE_DESC_BOB + " "
+                + EMAIL_DESC_BOB + "   " + ADDRESS_DESC_BOB + "   " + SUBJECT_DESC_AMY + " " + GRADE_DESC_BOB + " "
+                + EDUCATION_LEVEL_DESC_BOB + " " + SCHOOL_DESC_AMY + " " + TAG_DESC_HUSBAND + " " + TAG_DESC_FRIEND;
+        executeCommand(command);
+        executeCommand(command);
+
+        /* Case: find education level of a tutee in address book -> 1 person found */
+        ModelHelper.setFilteredList(expectedModel, AMYTUTEE);
+        command = FindPersonCommand.COMMAND_WORD + " " + CATEGORY_EDUCATION_LEVEL + " "
+                + AMYTUTEE.getEducationLevel().toString();
+        assertCommandSuccess(command, expectedModel);
+        assertSelectedCardUnchanged();
+
+        /* Case: find grade of a tutee in address book -> 1 person found */
+        command = FindPersonCommand.COMMAND_WORD + " " + CATEGORY_GRADE + " "
+                + AMYTUTEE.getGrade().toString();
+        assertCommandSuccess(command, expectedModel);
+        assertSelectedCardUnchanged();
+
+        /* Case: find school of a tutee in address book -> 2 persons found */
+        ModelHelper.setFilteredList(expectedModel, AMYTUTEE, modifiedBobTutee);
+        command = FindPersonCommand.COMMAND_WORD + " " + CATEGORY_SCHOOL + " "
+                + AMYTUTEE.getSchool().toString();
+        assertCommandSuccess(command, expectedModel);
+        assertSelectedCardUnchanged();
+
+        /* Case: find subject of a tutee in address book -> 2 persons found */
+        command = FindPersonCommand.COMMAND_WORD + " " + CATEGORY_SUBJECT + " "
+                + AMYTUTEE.getSubject().toString();
+        assertCommandSuccess(command, expectedModel);
+        assertSelectedCardUnchanged();
+
+        //@@author
         /* Case: find while a person is selected -> selected card deselected */
         showAllPersons();
         selectPerson(Index.fromOneBased(1));
