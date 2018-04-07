@@ -3,8 +3,6 @@ package seedu.address.logic.parser;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_DATE_TIME;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_DURATION;
-import static seedu.address.commons.core.Messages.MESSAGE_TASK_TIMING_CLASHES;
-import static seedu.address.model.Schedule.isTaskClash;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
@@ -13,7 +11,6 @@ import seedu.address.logic.commands.AddPersonalTaskCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 import seedu.address.model.person.exceptions.DurationParseException;
-import seedu.address.model.person.exceptions.TimingClashException;
 import seedu.address.model.personal.PersonalTask;
 
 //@@author yungyung04
@@ -47,7 +44,6 @@ public class AddPersonalTaskCommandParser implements Parser<AddPersonalTaskComma
                     ParserUtil.parseDateTime(arguments[INDEX_OF_DATE] + " " + arguments[INDEX_OF_TIME]);
             String duration = ParserUtil.parseDuration(arguments[INDEX_OF_DURATION]);
             String description = ParserUtil.parseDescription(arguments, MAXIMUM_AMOUNT_OF_TASK_PARAMETER);
-            checkTimeClash(taskDateTime, duration);
 
             return new AddPersonalTaskCommand(new PersonalTask(taskDateTime, duration, description));
         } catch (DateTimeParseException dtpe) {
@@ -56,19 +52,6 @@ public class AddPersonalTaskCommandParser implements Parser<AddPersonalTaskComma
         } catch (DurationParseException dpe) {
             throw new ParseException(MESSAGE_INVALID_DURATION + "\n"
                     + AddPersonalTaskCommand.MESSAGE_USAGE);
-        } catch (TimingClashException tce) {
-            throw new ParseException(MESSAGE_TASK_TIMING_CLASHES);
-        }
-    }
-
-    /**
-     * Checks if the given date, time and duration clashes with another task in Tuition Connect.
-     *
-     * @throws TimingClashException if there is a time clash.
-     */
-    private void checkTimeClash(LocalDateTime taskDateTime, String duration) throws TimingClashException {
-        if (isTaskClash(taskDateTime, duration)) {
-            throw new TimingClashException(MESSAGE_TASK_TIMING_CLASHES);
         }
     }
 }

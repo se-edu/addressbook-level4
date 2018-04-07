@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
+import seedu.address.model.person.exceptions.TimingClashException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.task.exceptions.TaskNotFoundException;
 import seedu.address.model.tutee.Tutee;
@@ -53,7 +54,7 @@ public interface Model {
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
 
-    void addTask(Task target);
+    void addTask(Task target) throws TimingClashException;
 
     void updateTask(Task target, Task editedTask);
 
