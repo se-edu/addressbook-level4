@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 
 import java.util.ArrayList;
 
-
+//@@author ChoChihTun
 /**
  * Wraps the data of all existing tasks.
  */
@@ -14,7 +14,7 @@ public class Schedule {
     /**
      * Returns a list of all existing tasks.
      */
-    public ArrayList<Task> getTaskList() {
+    public static ArrayList<Task> getTaskList() {
         return taskList;
     }
 

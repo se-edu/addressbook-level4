@@ -1,10 +1,13 @@
 package seedu.address.model.personal;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+
+import com.calendarfx.model.Entry;
+import com.calendarfx.model.Interval;
 
 import seedu.address.model.Task;
 
+//@@author ChoChihTun
 /**
  * Represents the personal task that the user has
  */
@@ -18,8 +21,7 @@ public class PersonalTask implements Task {
     private String description;
     private String duration;
     private LocalDateTime taskDateTime;
-
-    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/mm/uuuu HH:mm");
+    private Entry entry;
 
     /**
      * Creates a personal task
@@ -32,6 +34,55 @@ public class PersonalTask implements Task {
         this.taskDateTime = taskDateTime;
         this.duration = duration;
         this.description = description;
+        this.entry = createCalendarEntry();
+    }
+
+    /**
+     * Creates an entry to be entered into the calendar
+     *
+     * @return Calendar entry
+     */
+    private Entry createCalendarEntry() {
+        LocalDateTime endDateTime = getTaskEndTime();
+        Interval interval = new Interval(taskDateTime, endDateTime);
+        Entry entry = new Entry(description);
+        entry.setInterval(interval);
+        return entry;
+    }
+
+    /**
+     * Returns the end time of the task
+     */
+    private LocalDateTime getTaskEndTime() {
+        int hoursInDuration = parseHours();
+        int minutesInDuration = parseMinutes();
+        LocalDateTime endDateTime = taskDateTime.plusHours(hoursInDuration).plusMinutes(minutesInDuration);
+        return endDateTime;
+    }
+
+    /**
+     * Parses hour component out of duration
+     *
+     * @return number of hours in the duration
+     */
+    private int parseHours() {
+        int indexOfHourDelimiter = duration.indexOf("h");
+        return Integer.parseInt(duration.substring(0, indexOfHourDelimiter));
+    }
+
+    /**
+     * Parses minute component out of duration
+     *
+     * @return number of minutes in the duration
+     */
+    private int parseMinutes() {
+        int startOfMinutesIndex = duration.indexOf("h") + 1;
+        int indexOfMinuteDelimiter = duration.indexOf("m");
+        return Integer.parseInt(duration.substring(startOfMinutesIndex, indexOfMinuteDelimiter));
+    }
+
+    public Entry getEntry() {
+        return entry;
     }
 
     public LocalDateTime getTaskDateTime() {
@@ -45,4 +96,37 @@ public class PersonalTask implements Task {
     public String getDuration() {
         return duration;
     }
+
+    @Override
+    public String toString() {
+        if (hasDescription()) {
+            return "Personal task with description " + description + " on "
+                    + Integer.toString(taskDateTime.getDayOfMonth()) + " "
+                    + taskDateTime.getMonth().name() + " " + Integer.toString(taskDateTime.getYear());
+        } else {
+            return "Personal task without description on " + Integer.toString(taskDateTime.getDayOfMonth())
+                    + " " + taskDateTime.getMonth().name() + " " + Integer.toString(taskDateTime.getYear());
+        }
+    }
+
+    /**
+     * Returns true if the tuition task contains a non-empty description.
+     */
+    private boolean hasDescription() {
+        return description != "";
+    }
+
+    /**
+     * this fixes the valid args test, but has conflict with Task card
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof PersonalTask // instanceof handles nulls
+                && taskDateTime.getDayOfMonth() == ((PersonalTask) other).taskDateTime.getDayOfMonth()
+                && taskDateTime.getHour() == ((PersonalTask) other).taskDateTime.getHour()
+                && taskDateTime.getMinute() == ((PersonalTask) other).taskDateTime.getMinute()
+                && duration.equals(((PersonalTask) other).duration)
+                && description.equals(((PersonalTask) other).description));
+    }
+    */
 }

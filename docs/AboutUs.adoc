@@ -28,7 +28,7 @@ Responsibilities: UI + Code Quality
 '''
 
 === Raymond Zheng
-image::raymond511.png[width="150", align="left"]
+image::raymond511.jpg[width="150", align="left"]
 {empty}[http://github.com/raymond511[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
@@ -36,8 +36,8 @@ Responsibilities: Model + Testing
 
 '''
 
-=== Shakra Anas
-image::yl_coder.jpg[width="150", align="left"]
+=== Anas Shakra
+image::a-shakra.jpg[width="150", align="left"]
 {empty}[http://github.com/a-shakra[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +

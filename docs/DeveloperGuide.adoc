@@ -1,4 +1,4 @@
-= AddressBook Level 4 - Developer Guide
+= TuitionConnect (TC) - Developer Guide
 :toc:
 :toc-title:
 :toc-placement: preamble
@@ -12,7 +12,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/CS2103JAN2018-T11-B1/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team MarvelousBook`      Since: `Feb 2018`      Licence: `MIT`
 
 == Setting up
 
@@ -792,11 +792,22 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 
 === Feature Contribution
 
+*Raymond*:
+
+. *Support for Tasks (Major)*:
+.. *Delete task command*: Allows tutors to delete tasks.
+.. *Edit task command*: Tutors are allowed to edit their tasks, if necessary.
+.. *View task command*: Tutors are able to view their own task.
+
+With this added support for tasks, tutors will be able to customise their schedules more easily by some of these commands.
+
+*Chih Tun*:
+
 . *AddTuteeCommand* [Major Enhancement]
 
 As the user of this application is the tutor, he or she will need to add the tutees' contact details.
-Furthermore, tutee contacts should not be mixed with the non-tutee contacts so that all the contacts are organized and can be managed easily.
-Therefore, AddTuteeCommand is used to add only the tutees' contact details
+Furthermore, tutee contacts should not be mixed with the non-tutee contacts so that all the contacts are organized and can be managed easily. Therefore, AddTuteeCommand is used to add only the tutees' contact details.
+
 
 The AddTuteeCommand is an extension of the Undoable Command, which is part of the Logic Component.
 As this command involves the altering of the application's state, the ability to undo and redo will make this command more user-friendly and efficient.
@@ -841,6 +852,72 @@ The AddCommand will be able to read 2 different user inputs, either "add n/John 
 or "add tutee n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 s/Science g/B+ edu/Secondary sch/HelloWord Secondary School".
 The input string will be parsed at AddCommandParser. Tutee and non-tutee contacts will then be added similarly as the AddTuteeCommand and the original AddCommand.
 
+*Buyung*:
+
+. *ViewFiltered & View Sort* [Major Enhancement]
+This command lets tutors to view a filtered list of their stored tasks. As there are 2 kinds of tasks implemented in Tuition Connect,
+personal and tuition task, each kind of task has its own filter category.
+Within the current version, Tutors are able to utilize one of these filtering.
+First, tutors can filter their tasks by month, hence, allowing tutors to view all of their task within the specified month.
+Second, tutors can filter their tutee by the tutee's school, grade or subject.
+
+For the purpose of illustrating the implementation, this sequence diagram depicts the procedure when
+user desires to view a list of their tutee after being filtered by grade.
+
+image::viewFiltered-sequence-diagram.jpeg[width="800"]
+
+This view filter command is created with the purpose of simplifying tutor's life in navigating through their packed schedule.
+By having this command, tutors are able to locate their desired tasks easily.
+
+Within future version, this command would have a sorting capability. The filtered tutee
+shall be displayed after their name is sorted lexicographically.
+
+*Anas*:
+
+. *CompleteCommand* [Major Enhancement]
+
+An important feature for the tutor is the ability to manage financial records that pertain to his/her work.
+To that end, the CompleteCommand functionality is implemented. This feature allows the user to update the amount
+of work completed and the financial compensation he/she is entitled based on the units of work completed.
+
+The CompleteCommand is an extension of the Undoable Command, which is part of the logic component.
+Much like many other commands in this application, the CompleteCommand was chosen to extend the undoable command, instead of the command, class in order
+to provide users with the flexibility to undo any unwanted commands. In summary, the CompleteCommand will extend the undoable command class which, itself,
+extends the command class.
+
+[source,java]
+----
+public abstract class UndoableCommand extends Command {
+    @Override
+    public CommandResult execute() {
+        // ... undo logic ...
+
+        executeUndoableCommand();
+    }
+}
+
+public class CompleteCommand extends UndoableCommand {
+    @Override
+    public CommandResult executeUndoableCommand() {
+        // ... add Complete logic ...
+    }
+}
+----
+
+Note: The above snippet will be updated when the complete code for this command is completed.
+
+The following diagram demonstrates the functioning of the CompleteCommand operation:
+
+image::LogicCompleteCommandClassDiagram.jpg[width="800"]
+
+Essentially, the complete command will work by receiving an object of type task as its parameter and "marking" this task as completed.
+
+. *ViewTutee* [Minor(?) Enhancement]
+
+This feature allows the tutor to look at his/her current list of students. The idea behind this feature is for it to allow the tutor to
+see all the potential subscribers to his/her lessons and, by doing so, allowing them to associate these tutees with user-generated tasks.
+This feature is inspired by the "resources" concept in Microsoft Project whereby a "resource" is assigned to a work task.
+
 [appendix]
 == User Stories
 
@@ -851,59 +928,67 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
 
-|`* * *` |user |add a new person |
+|`* * *` |user |add a new person |update my list of contacts
 
 |`* * *` |user |delete a person |remove entries that I no longer need
 
 |`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
 
-|`* * *` |tutor |list schedule I have in certain month |check and prepare myself in advance
+|`* * *` |tutor |add a new tuition |so that I can compile my tuition schedule
 
-|`* * *` |tutor |add a new tuition schedule |so that I can compile my tuition schedule
+|`* * *` |user |add my personal task to the calendar |prevent any task from clashing
 
-|`* * *` |user |delete a schedule in the calendar |update my calender
+|`* * *` |user |delete a task in the calendar |update my calender
 
-|`* * *` |tutor |tag the tutee with their current education level |adjust my teaching accordingly
+|`* * *` |user |edit a task in the calendar |update my calendar
+
+|`* * *` |tutor |list tasks I have in certain month |check and prepare myself in advance
+
+|`* * *` |tutor |add a contact as my tutee |separate my tutee from my personal contact lists
+
+|`* * *` |tutor |add subject grade of the tutees |keep track of his progress
+
+|`* * *` |tutor |add tutee's current education level |adjust my teaching accordingly
 
 |`* * *` |tutor |edit tutee's details |stay updated
 
-|`* * *` |user |edit a schedule |update my calendar
+|`* * *` |user |use a calendar |manage my schedule effectively
 
-|`* * *` |user |open the calender |check on my schedule
+|`* * *` |user |have a calender on application main window |view my schedule easily
 
-|`* * *` |user |submit feedback to the developers of the application |this application can be further improved
+|`* * *` |tutor |change the calendar view page |view my schedule in terms of day, month, week or year
 
-|`* * *` |user |add my personal schedule to the calendar |prevent any schedule from clashing
+|`* *` |tutor |sort my contact list by various categories |locate my contacts that have same characteristics easily
 
-|`* * *` |tutor |categorize a contact as my tutee |separate my tutee from my personal contact lists
+|`* *` |tutor |list tutees who are learning same subject |determine the amount of tuition material copies to be printed
 
-|`* *` |tutor |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
-
-|`* *` |tutor |measure the retention rate of my tutoring service |improve on myself and use it as my tuition credential
-
-|`* *` |user |track my work hours over a specific interval of time |maintain a good work life balance
-
-|`* *` |user |receive payments for my services electronically |receive payment more conveniently
-
-|`* *` |tutor |track the tuition payment |know who has not paid
-
-|`* *` |tutor |integrate my calendar with the school's calendar |prevent clashes between tuition schedule and tutees' school commitment
-
-|`* *` |tutor with many tutees |send messages to all tutees that meet a certain description |inform tutees together and not one by one
-
-|`* *` |tutor |add subject grade of the tutees |keep track of his progress
+|`* *` |tutor |list tutees with same education level |navigate within TuitionConnect easily
 
 |`* *` |tutor |list tutees coming from the same school |so that I can gather and spread useful information among these students.
 
 |`* *` |tutor |list tutees based on their grades |give more tuition to tutees who are doing badly
 
-|`* *` |tutor |give assignments(done and to-be-done) to a tutee |track his work and progress easily
+|`* *` |tutor with many tutees |send messages to all tutee with same description |disperse messages easily
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* *` |user |submit feedback to the developers of the application |this application can be further improved
+
+|`* *` |tutor |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+
+|`* *` |user |track my work hours over a specific interval of time |maintain a good work life balance
+
+|`* *` |tutor |track the tuition payment |know who has not paid
+
+|`* *` |tutor |add assignments(done and to-be-done) to a tutee |track his work and progress easily
+
+|`*` |tutor |measure the retention rate of my tutoring service |improve on myself and use it as my tuition credential
+
+|`*` |user |receive payments for my services electronically |receive payment more conveniently
 
 |`*` |tutor |take note of the name of my tutee's school teachers |adjust my teaching according to the school teacher.
 
-|`*` |tutor |insert my tutee's photo |
+|`*` |tutor |insert my tutee's photo |recognise new students easily
+
+|`*` |tutor |delete all finished task |remove them permanently
 |=======================================================================
 
 [appendix]
@@ -911,7 +996,6 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 (For all use cases below, the *System* is the `TuitionConnect Application (TC)` and the *Actor* is the `user`, unless specified otherwise)
 
-[discrete]
 === Use case: UC01 - Delete person
 
 *MSS*
