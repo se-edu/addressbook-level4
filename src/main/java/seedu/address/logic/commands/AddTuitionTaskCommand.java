@@ -31,7 +31,7 @@ public class AddTuitionTaskCommand extends UndoableCommand {
             + "Date(dd/mm/yyyy) "
             + "Start time(hh:mm) "
             + "Duration(XXhXXm) "
-            + "Description( anything; leading and trailing whitepsaces will be trimmed )\n"
+            + "Description( anything; leading and trailing whitespaces will be trimmed )\n"
             + "Example: " + COMMAND_WORD + " "
             + "1 "
             + "10/12/2018 "
