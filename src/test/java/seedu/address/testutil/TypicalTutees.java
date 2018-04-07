@@ -88,6 +88,6 @@ public class TypicalTutees {
 
     public static List<Person> getTypicalPersons() {
 
-        return new ArrayList<>(Arrays.asList(ALICETUTEE, BENSON, CARL, DANIEL, AMYTUTEE, BOBTUTEE));
+        return new ArrayList<>(Arrays.asList(ALICETUTEE, DANIEL, AMYTUTEE, BOBTUTEE));
     }
 }
