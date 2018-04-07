@@ -11,6 +11,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
+<!-- @@author ChoChihTun -->
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
          minWidth="450" minHeight="600">
   <icons>
@@ -37,13 +38,13 @@
                   <VBox prefHeight="687.0" prefWidth="667.0">
                       <children>
 
-                          <StackPane fx:id="commandBoxPlaceholder" prefHeight="49.0" prefWidth="690.0" styleClass="pane-with-border" VBox.vgrow="NEVER">
+                          <StackPane fx:id="commandBoxPlaceholder" prefHeight="84.0" prefWidth="574.0" styleClass="pane-with-border" VBox.vgrow="NEVER">
                               <padding>
                                   <Insets bottom="5" left="10" right="10" top="10" />
                               </padding>
                           </StackPane>
 
-                          <StackPane fx:id="resultDisplayPlaceholder" maxHeight="116.0" minHeight="46.0" prefHeight="104.0" prefWidth="690.0" styleClass="pane-with-border" VBox.vgrow="NEVER">
+                          <StackPane fx:id="resultDisplayPlaceholder" maxHeight="311.0" minHeight="46.0" prefHeight="215.0" prefWidth="574.0" styleClass="pane-with-border" VBox.vgrow="NEVER">
                               <padding>
                                   <Insets bottom="10" left="10" right="10" top="5" />
                               </padding>
@@ -55,7 +56,7 @@
                                   <padding>
                                       <Insets bottom="10" left="5" right="10" top="5" />
                                   </padding>
-                                  <StackPane fx:id="personListPanelPlaceholder" prefHeight="549.0" prefWidth="294.0" VBox.vgrow="ALWAYS" />
+                                  <StackPane fx:id="personListPanelPlaceholder" prefHeight="453.0" prefWidth="249.0" VBox.vgrow="ALWAYS" />
                               </VBox>
 
                               <VBox fx:id="taskList" minWidth="300" prefHeight="1050.0" prefWidth="414.0" SplitPane.resizableWithParent="false">
@@ -68,7 +69,6 @@
                       </children>
                   </VBox>
 
-                  <!-- @@author ChoChihTun -->
                   <StackPane fx:id="calendarPlaceholder" minWidth="50.0" prefHeight="687.0" prefWidth="50">
                       <padding>
                           <Insets bottom="10" left="-5" right="-5" top="10" />
@@ -76,9 +76,8 @@
                   </StackPane>
               </items>
           </SplitPane>
-         <!-- @@author -->
 
-        <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
+          <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
       </VBox>
     </Scene>
   </scene>

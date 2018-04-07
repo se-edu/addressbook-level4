@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_TASK_TIMING_CLASHES;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -11,7 +12,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 
 import seedu.address.model.person.Person;
-import seedu.address.model.tutee.TuitionSchedule;
+import seedu.address.model.person.exceptions.TimingClashException;
 import seedu.address.model.tutee.TuitionTask;
 import seedu.address.model.tutee.Tutee;
 
@@ -30,7 +31,7 @@ public class AddTuitionTaskCommand extends UndoableCommand {
             + "Date(dd/mm/yyyy) "
             + "Start time(hh:mm) "
             + "Duration(XXhXXm) "
-            + "Description( anything; leading and trailing whitepsaces will be trimmed )\n"
+            + "Description( anything; leading and trailing whitespaces will be trimmed )\n"
             + "Example: " + COMMAND_WORD + " "
             + "1 "
             + "10/12/2018 "
@@ -46,7 +47,6 @@ public class AddTuitionTaskCommand extends UndoableCommand {
     private final String description;
 
     private TuitionTask toAdd;
-    private TuitionSchedule tuitionSchedule;
     //private Tutee associatedTutee;
     private String associatedTutee;
 
@@ -64,9 +64,12 @@ public class AddTuitionTaskCommand extends UndoableCommand {
     }
 
     @Override
-    public CommandResult executeUndoableCommand() {
-        tuitionSchedule.addTask(toAdd);
-        model.addTask(toAdd);
+    public CommandResult executeUndoableCommand() throws CommandException {
+        try {
+            model.addTask(toAdd);
+        } catch (TimingClashException e) {
+            throw new CommandException(MESSAGE_TASK_TIMING_CLASHES);
+        }
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 
@@ -76,7 +79,6 @@ public class AddTuitionTaskCommand extends UndoableCommand {
         //associatedTutee = getAssociatedTutee();
         //requireNonNull(associatedTutee.getTuitionSchedule());
         //tuitionSchedule = associatedTutee.getTuitionSchedule();
-        tuitionSchedule = getAssociatedTutee().getTuitionSchedule();
         toAdd = new TuitionTask(associatedTutee, taskdateTime, duration, description);
     }
 

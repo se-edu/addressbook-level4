@@ -1,8 +1,10 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_TASK_TIMING_CLASHES;
 
-import seedu.address.model.personal.PersonalSchedule;
+import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.model.person.exceptions.TimingClashException;
 import seedu.address.model.personal.PersonalTask;
 
 //@@author yungyung04
@@ -17,7 +19,7 @@ public class AddPersonalTaskCommand extends UndoableCommand {
             + "Date(dd/mm/yyyy) "
             + "Start time(hh:mm) "
             + "Duration(XXhXXm) "
-            + "Description( anything; leading and trailing whitepsaces will be trimmed )\n"
+            + "Description( anything; leading and trailing whitespaces will be trimmed )\n"
             + "Example: " + COMMAND_WORD + " "
             + "10/12/2018 "
             + "12:30 "
@@ -36,9 +38,12 @@ public class AddPersonalTaskCommand extends UndoableCommand {
     }
 
     @Override
-    public CommandResult executeUndoableCommand() {
-        new PersonalSchedule().addTask(toAdd);
-        model.addTask(toAdd);
+    public CommandResult executeUndoableCommand() throws CommandException {
+        try {
+            model.addTask(toAdd);
+        } catch (TimingClashException e) {
+            throw new CommandException(MESSAGE_TASK_TIMING_CLASHES);
+        }
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd.toString()));
     }
 
