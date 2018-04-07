@@ -19,7 +19,6 @@ import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.exceptions.TaskNotFoundException;
 import seedu.address.model.tutee.Tutee;
-import seedu.address.ui.CalendarPanel;
 
 /**
  * Wraps all data at the address-book level
@@ -132,8 +131,8 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void addTask(Task t)  {
         tasks.add(t);
-        CalendarPanel.addEntry(t.getEntry());
     }
+
     /**
      * Updates a task to the address book.
      *

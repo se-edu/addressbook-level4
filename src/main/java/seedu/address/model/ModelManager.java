@@ -91,9 +91,9 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
 
-    public synchronized void addTask(Task aTask) {
-        addressBook.addTask(aTask);
-        updateFilteredTaskList(PREDICATE_SHOW_ALL_TASKS); //Change to new predicate?
+    public synchronized void addTask(Task task) {
+        addressBook.addTask(task);
+        updateFilteredTaskList(PREDICATE_SHOW_ALL_TASKS);
         indicateAddressBookChanged();
     }
 
