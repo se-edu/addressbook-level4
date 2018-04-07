@@ -230,7 +230,7 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
-=== AddTutee feature
+=== Add tutee Command
 ==== Current Implementation
 
 As the user of this application is the tutor, he or she will need to add the tutees' contact details.
@@ -269,8 +269,18 @@ The following sequence diagram shows how the addtutee operation works:
 
 image::AddTuteeCommandSequenceDiagram.png[width="800"]
 
+As shown in the sequence diagram, after Tutee object has been created, it is being passed to Model. Model manager will add the Tutee object to the person list in TuitionConnect.
+By having a combined list of tutee and non-tutee, we can manage the contacts using one command, such as delete command, instead of having 1 command for tutee and 1 command for non-tutee.
+The combined list is achieved through the use of inheritance, whereby Tutee class inherits the Person class as shown in the diagram below.
+
+image:TuteeClassDiagram.jpg[width="800"]
+
+Since a tutee is a person, we can carried out inheritance by extending the Person class.
+Both Tutee and Person class objects have the same fields such as Name, Phone, Email and Address.
+However, Tutee class object has additional fields such as Subject, Grade, EducationLevel and School, which are irrelevant to a Person class object (non-tutee).
+
 [NOTE]
-If there is already someone, either tutee or non tutee, in the contact list, DuplicatePersonException will be thrown.
+If there is already someone, either tutee or non-tutee, in the contact list, DuplicatePersonException will be thrown.
 
 ==== Design Consideration
 
