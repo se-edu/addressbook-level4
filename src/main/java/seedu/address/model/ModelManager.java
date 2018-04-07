@@ -17,6 +17,7 @@ import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
+import seedu.address.model.person.exceptions.TimingClashException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.task.exceptions.TaskNotFoundException;
 
@@ -91,9 +92,9 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
 
-    public synchronized void addTask(Task aTask) {
-        addressBook.addTask(aTask);
-        updateFilteredTaskList(PREDICATE_SHOW_ALL_TASKS); //Change to new predicate?
+    public synchronized void addTask(Task task) throws TimingClashException {
+        addressBook.addTask(task);
+        updateFilteredTaskList(PREDICATE_SHOW_ALL_TASKS);
         indicateAddressBookChanged();
     }
 
