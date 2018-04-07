@@ -55,15 +55,19 @@ public class Tutee extends Person {
             return true;
         }
 
-        if (!(other instanceof Person)) {
+        if (!(other instanceof Tutee)) {
             return false;
         }
 
-        Person otherPerson = (Person) other;
+        Tutee otherPerson = (Tutee) other;
         return otherPerson.getName().equals(this.getName())
                 && otherPerson.getPhone().equals(this.getPhone())
                 && otherPerson.getEmail().equals(this.getEmail())
-                && otherPerson.getAddress().equals(this.getAddress());
+                && otherPerson.getAddress().equals(this.getAddress())
+                && otherPerson.getEducationLevel().equals(this.getEducationLevel())
+                && otherPerson.getGrade().equals(this.getGrade())
+                && otherPerson.getSchool().equals(this.getSchool())
+                && otherPerson.getSubject().equals(this.getSubject());
     }
 
     @Override

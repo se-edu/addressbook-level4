@@ -115,17 +115,18 @@ public class PersonalTask implements Task {
         return !description.equals(NULL_STRING);
     }
 
-    /**
-     * this fixes the valid args test, but has conflict with Task card
+
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof PersonalTask // instanceof handles nulls
-                && taskDateTime.getDayOfMonth() == ((PersonalTask) other).taskDateTime.getDayOfMonth()
-                && taskDateTime.getHour() == ((PersonalTask) other).taskDateTime.getHour()
-                && taskDateTime.getMinute() == ((PersonalTask) other).taskDateTime.getMinute()
+                && taskDateTime.equals(((PersonalTask) other).taskDateTime)
                 && duration.equals(((PersonalTask) other).duration)
                 && description.equals(((PersonalTask) other).description));
     }
-    */
+
+    /* in case needed fo equals
+    && taskDateTime.getDayOfMonth() == ((PersonalTask) other).taskDateTime.getDayOfMonth()
+                && taskDateTime.getHour() == ((PersonalTask) other).taskDateTime.getHour()
+                && taskDateTime.getMinute() == ((PersonalTask) other).taskDateTime.getMinute() */
 }

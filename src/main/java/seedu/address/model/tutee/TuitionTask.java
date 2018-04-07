@@ -123,8 +123,6 @@ public class TuitionTask implements Task {
         return !description.equals(NULL_STRING);
     }
 
-    /**
-     * fixes the test but has conflict with Task card
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
@@ -134,7 +132,7 @@ public class TuitionTask implements Task {
                 && duration.equals(((TuitionTask) other).duration)
                 && description.equals(((TuitionTask) other).description));
     }
-    */
+
     public String getTuitionTitle() {
         return String.format(TUITION_TITLE, tutee);
     }
