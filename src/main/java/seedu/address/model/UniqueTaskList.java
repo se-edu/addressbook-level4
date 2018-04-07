@@ -38,7 +38,7 @@ public class UniqueTaskList implements Iterable<Task> {
      */
     public void add(Task toAdd) throws TimingClashException {
         requireNonNull(toAdd);
-        checkTimeClash(toAdd);
+        checkTimeClash(toAdd.getTaskDateTime(), toAdd.getDuration());
         internalList.add(toAdd);
         Entry entry = toAdd.getEntry();
         CalendarPanel.addEntry(entry);
@@ -101,12 +101,11 @@ public class UniqueTaskList implements Iterable<Task> {
     /**
      * Checks for any clashes in the task timing in schedule
      *
-     * @param toAdd new task to be checked
+     * @param startDateTime start date and time of new task
+     * @param duration duration of new task
      * @throws TimingClashException if there is a clash in the task timing
      */
-    public void checkTimeClash(Task toAdd) throws TimingClashException {
-        String duration = toAdd.getDuration();
-        LocalDateTime startDateTime = toAdd.getTaskDateTime();
+    public void checkTimeClash(LocalDateTime startDateTime, String duration) throws TimingClashException {
         LocalDateTime taskEndTime = getTaskEndTime(duration, startDateTime);
 
         for (Task recordedTask : internalList) {

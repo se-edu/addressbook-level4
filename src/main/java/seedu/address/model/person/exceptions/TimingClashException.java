@@ -5,7 +5,7 @@ package seedu.address.model.person.exceptions;
 import seedu.address.commons.exceptions.DuplicateDataException;
 
 /**
- * Signals that there is a clash of timing in the schedule
+ * Signals that there is a clash of timing in the schedule or there is a duplicate task
  */
 public class TimingClashException extends DuplicateDataException {
 

@@ -134,7 +134,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
 
     public void addTask(Task t) throws TimingClashException {
-            tasks.add(t);
+        tasks.add(t);
     }
 
     /**
