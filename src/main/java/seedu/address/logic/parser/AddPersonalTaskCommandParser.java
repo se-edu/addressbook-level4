@@ -4,7 +4,6 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_DATE_TIME;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_DURATION;
 import static seedu.address.commons.core.Messages.MESSAGE_TASK_TIMING_CLASHES;
-import static seedu.address.model.UniqueTaskList.checkTimeClash;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
@@ -12,6 +11,7 @@ import java.time.format.DateTimeParseException;
 import seedu.address.logic.commands.AddPersonalTaskCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
+import seedu.address.model.UniqueTaskList;
 import seedu.address.model.person.exceptions.DurationParseException;
 import seedu.address.model.person.exceptions.TimingClashException;
 import seedu.address.model.personal.PersonalTask;
@@ -47,7 +47,8 @@ public class AddPersonalTaskCommandParser implements Parser<AddPersonalTaskComma
                     ParserUtil.parseDateTime(arguments[INDEX_OF_DATE] + " " + arguments[INDEX_OF_TIME]);
             String duration = ParserUtil.parseDuration(arguments[INDEX_OF_DURATION]);
             String description = ParserUtil.parseDescription(arguments, MAXIMUM_AMOUNT_OF_TASK_PARAMETER);
-            checkTimeClash(taskDateTime, duration);
+            UniqueTaskList uniqueTaskList = new UniqueTaskList();
+            uniqueTaskList.checkTimeClash(taskDateTime, duration);
 
             return new AddPersonalTaskCommand(new PersonalTask(taskDateTime, duration, description));
         } catch (DateTimeParseException dtpe) {

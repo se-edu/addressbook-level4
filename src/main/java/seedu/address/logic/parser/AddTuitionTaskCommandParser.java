@@ -5,7 +5,6 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_DATE_TIME;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_DURATION;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_INPUT_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_TASK_TIMING_CLASHES;
-import static seedu.address.model.UniqueTaskList.checkTimeClash;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
@@ -16,6 +15,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.AddTuitionTaskCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
+import seedu.address.model.UniqueTaskList;
 import seedu.address.model.person.exceptions.DurationParseException;
 import seedu.address.model.person.exceptions.TimingClashException;
 
@@ -50,7 +50,8 @@ public class AddTuitionTaskCommandParser implements Parser<AddTuitionTaskCommand
                     ParserUtil.parseDateTime(arguments[INDEX_OF_DATE] + " " + arguments[INDEX_OF_TIME]);
             String duration = ParserUtil.parseDuration(arguments[INDEX_OF_DURATION]);
             String description = ParserUtil.parseDescription(arguments, MAXIMUM_AMOUNT_OF_TASK_PARAMETER);
-            checkTimeClash(taskDateTime, duration);
+            UniqueTaskList uniqueTaskList = new UniqueTaskList();
+            uniqueTaskList.checkTimeClash(taskDateTime, duration);
 
             return new AddTuitionTaskCommand(personIndex, taskDateTime, duration, description);
         } catch (DateTimeParseException dtpe) {

@@ -24,7 +24,12 @@ import seedu.address.ui.CalendarPanel;
  */
 public class UniqueTaskList implements Iterable<Task> {
 
-    private static final ObservableList<Task> internalList = FXCollections.observableArrayList();
+    private final ObservableList<Task> internalList = FXCollections.observableArrayList();
+
+    /**
+     * Constructs empty TaskList.
+     */
+    public UniqueTaskList() {}
 
     /**
      * Adds a task to the list.
@@ -99,7 +104,7 @@ public class UniqueTaskList implements Iterable<Task> {
      * @param duration duration of the new task
      * @throws TimingClashException if there is a clash in the task timing
      */
-    public static void checkTimeClash(LocalDateTime startDateTime, String duration) throws TimingClashException {
+    public void checkTimeClash(LocalDateTime startDateTime, String duration) throws TimingClashException {
         LocalDateTime taskEndTime = getTaskEndTime(duration, startDateTime);
 
         for (Task recordedTask : internalList) {
