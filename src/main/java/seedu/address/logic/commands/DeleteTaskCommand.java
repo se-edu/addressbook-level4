@@ -12,7 +12,6 @@ import seedu.address.logic.commands.exceptions.CommandException;
 
 import seedu.address.model.Task;
 import seedu.address.model.task.exceptions.TaskNotFoundException;
-import seedu.address.model.tutee.TuitionTask;
 
 //@@author yungyung04
 /**
