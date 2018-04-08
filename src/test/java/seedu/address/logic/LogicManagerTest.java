@@ -32,7 +32,6 @@ public class LogicManagerTest {
         SystemTestSetupHelper.initialize();
     }
 
-
     @Test
     public void execute_invalidCommandFormat_throwsParseException() {
         String invalidCommand = "uicfhmowqewca";
