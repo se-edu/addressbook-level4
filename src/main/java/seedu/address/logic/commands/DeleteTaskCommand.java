@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.Objects;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
@@ -66,6 +67,7 @@ public class DeleteTaskCommand extends UndoableCommand {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof DeleteTaskCommand // instanceof handles nulls
-                && targetIndex.equals(((DeleteTaskCommand) other).targetIndex));
+                && targetIndex.equals(((DeleteTaskCommand) other).targetIndex))
+                && Objects.equals(this.toDelete, ((DeleteTaskCommand) other).toDelete);
     }
 }
