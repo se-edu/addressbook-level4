@@ -32,6 +32,7 @@ public class ModelHelper {
         setFilteredList(model, Arrays.asList(toDisplay));
     }
 
+    //@@author yungyung04
     /**
      * Updates {@code model}'s sorted list to display persons based on specified category.
      */
@@ -39,6 +40,7 @@ public class ModelHelper {
         Comparator<Person> comparator = new PersonSortUtil().getComparator(category);
         model.sortFilteredPersonList(comparator);
     }
+    //@@author
 
     /**
      * Returns a predicate that evaluates to true if this {@code Person} equals to {@code other}.

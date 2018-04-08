@@ -18,10 +18,10 @@ import static seedu.address.model.person.PersonSortUtil.CATEGORY_NAME;
 import static seedu.address.model.person.PersonSortUtil.CATEGORY_SCHOOL;
 import static seedu.address.model.person.PersonSortUtil.CATEGORY_SUBJECT;
 
-import static seedu.address.testutil.TypicalTutees.ALICETUTEE;
-import static seedu.address.testutil.TypicalTutees.AMYTUTEE;
-import static seedu.address.testutil.TypicalTutees.BOBTUTEE;
-import static seedu.address.testutil.TypicalTutees.getTypicalAddressBook;
+import static seedu.address.testutil.typicaladdressbook.TypicalAddressBookCompiler.getTypicalAddressBook2;
+import static seedu.address.testutil.typicaladdressbook.TypicalTutees.ALICETUTEE;
+import static seedu.address.testutil.typicaladdressbook.TypicalTutees.AMYTUTEE;
+import static seedu.address.testutil.typicaladdressbook.TypicalTutees.BOBTUTEE;
 
 import java.util.Arrays;
 import java.util.List;
@@ -36,6 +36,7 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.person.Person;
 
+//@@author yungyung04
 /**
  * Contains integration tests (interaction with the Model) for {@code FindPersonCommand}.
  */
@@ -43,7 +44,7 @@ public class FindPersonCommandTest {
     private static final int INDEX_FIRST_ELEMENT = 0;
     private static final int INDEX_SECOND_ELEMENT = 1;
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalAddressBook2(), new UserPrefs());
 
     private final String[] firstNameKeywords = {VALID_NAME_BOB.split("\\s+")[INDEX_FIRST_ELEMENT],
             VALID_NAME_AMY.split("\\s+")[INDEX_SECOND_ELEMENT]};
