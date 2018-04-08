@@ -1,15 +1,16 @@
-package seedu.address.testutil;
+package seedu.address.testutil.typicaladdressbook;
 
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_TIME;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DURATION;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TASK_DESC;
 
-import seedu.address.model.Task;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import seedu.address.model.Task;
+import seedu.address.testutil.TaskBuilder;
 
 //@@author yungyung04
 /**

@@ -8,11 +8,11 @@ import static seedu.address.model.person.PersonSortUtil.CATEGORY_GRADE;
 import static seedu.address.model.person.PersonSortUtil.CATEGORY_NAME;
 import static seedu.address.model.person.PersonSortUtil.CATEGORY_SCHOOL;
 import static seedu.address.model.person.PersonSortUtil.CATEGORY_SUBJECT;
-import static seedu.address.testutil.TypicalPersons.DANIEL;
-import static seedu.address.testutil.TypicalTutees.ALICETUTEE;
-import static seedu.address.testutil.TypicalTutees.AMYTUTEE;
-import static seedu.address.testutil.TypicalTutees.BOBTUTEE;
-import static seedu.address.testutil.TypicalTutees.getTypicalAddressBook;
+import static seedu.address.testutil.typicaladdressbook.TypicalAddressBookCompiler.getTypicalAddressBook2;
+import static seedu.address.testutil.typicaladdressbook.TypicalPersons.DANIEL;
+import static seedu.address.testutil.typicaladdressbook.TypicalTutees.ALICETUTEE;
+import static seedu.address.testutil.typicaladdressbook.TypicalTutees.AMYTUTEE;
+import static seedu.address.testutil.typicaladdressbook.TypicalTutees.BOBTUTEE;
 
 import java.util.Arrays;
 import java.util.List;
@@ -33,7 +33,7 @@ import seedu.address.model.person.Person;
  */
 public class SortCommandTest {
 
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private Model model = new ModelManager(getTypicalAddressBook2(), new UserPrefs());
 
     private final SortCommand sortName = new SortCommand(CATEGORY_NAME);
 

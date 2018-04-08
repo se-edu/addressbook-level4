@@ -1,4 +1,4 @@
-package seedu.address.testutil;
+package seedu.address.testutil.typicaladdressbook;
 
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
@@ -19,19 +19,15 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_SUBJECT_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 
-import static seedu.address.testutil.TypicalPersons.DANIEL;
-import static seedu.address.testutil.TypicalTasks.getTypicalTasks;
+import static seedu.address.testutil.typicaladdressbook.TypicalPersons.DANIEL;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import seedu.address.model.AddressBook;
-import seedu.address.model.Task;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.exceptions.DuplicatePersonException;
-import seedu.address.model.person.exceptions.TimingClashException;
 import seedu.address.model.tutee.Tutee;
+import seedu.address.testutil.TuteeBuilder;
 
 //@@author ChoChihTun
 /**
@@ -69,29 +65,7 @@ public class TypicalTutees {
 
     private TypicalTutees() {} // prevents instantiation
 
-    /**
-     * Returns an {@code AddressBook} with all the typical persons.
-     */
-    public static AddressBook getTypicalAddressBook() {
-        AddressBook ab = new AddressBook();
-        for (Person person : getTypicalPersons()) {
-            try {
-                ab.addPerson(person);
-            } catch (DuplicatePersonException e) {
-                throw new AssertionError("not possible");
-            }
-        }
-        for (Task task : getTypicalTasks()) {
-            try {
-                ab.addTask(task);
-            } catch (TimingClashException tce) {
-                throw new AssertionError("time clash is not possible");
-            }
-        }
-        return ab;
-    }
-
-    public static List<Person> getTypicalPersons() {
+    public static List<Person> getTypicalPersonsAndTutees() {
 
         return new ArrayList<>(Arrays.asList(ALICETUTEE, DANIEL, AMYTUTEE, BOBTUTEE));
     }

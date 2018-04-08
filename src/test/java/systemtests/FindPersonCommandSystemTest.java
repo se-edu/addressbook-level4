@@ -34,11 +34,11 @@ import static seedu.address.model.person.PersonSortUtil.CATEGORY_GRADE;
 import static seedu.address.model.person.PersonSortUtil.CATEGORY_NAME;
 import static seedu.address.model.person.PersonSortUtil.CATEGORY_SCHOOL;
 import static seedu.address.model.person.PersonSortUtil.CATEGORY_SUBJECT;
-import static seedu.address.testutil.TypicalPersons.BENSON;
-import static seedu.address.testutil.TypicalPersons.CARL;
-import static seedu.address.testutil.TypicalPersons.DANIEL;
-import static seedu.address.testutil.TypicalPersons.KEYWORD_MATCHING_MEIER;
-import static seedu.address.testutil.TypicalTutees.AMYTUTEE;
+import static seedu.address.testutil.typicaladdressbook.TypicalPersons.BENSON;
+import static seedu.address.testutil.typicaladdressbook.TypicalPersons.CARL;
+import static seedu.address.testutil.typicaladdressbook.TypicalPersons.DANIEL;
+import static seedu.address.testutil.typicaladdressbook.TypicalPersons.KEYWORD_MATCHING_MEIER;
+import static seedu.address.testutil.typicaladdressbook.TypicalTutees.AMYTUTEE;
 
 import java.util.ArrayList;
 import java.util.List;

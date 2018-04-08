@@ -36,7 +36,7 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.tutee.Tutee;
-import seedu.address.testutil.TypicalPersons;
+import seedu.address.testutil.typicaladdressbook.TypicalAddressBookCompiler;
 import seedu.address.ui.CommandBox;
 
 /**
@@ -80,7 +80,7 @@ public abstract class AddressBookSystemTest {
      * Returns the data to be loaded into the file in {@link #getDataFileLocation()}.
      */
     protected AddressBook getInitialData() {
-        return TypicalPersons.getTypicalAddressBook();
+        return TypicalAddressBookCompiler.getTypicalAddressBook1();
     }
 
     /**
