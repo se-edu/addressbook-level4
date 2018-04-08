@@ -12,8 +12,8 @@ import seedu.address.model.tutee.TuitionTask;
  */
 public class TaskBuilder {
     public static final String DEFAULT_TUTEE_NAME = "Alice Pauline";
-    public static final String DEFAULT_DATE = "85355255";
-    public static final String DEFAULT_TIME = "alice@gmail.com";
+    public static final String DEFAULT_DATE = "12/12/2016";
+    public static final String DEFAULT_TIME = "12:00";
     public static final String DEFAULT_DATE_TIME = DEFAULT_DATE + " " + DEFAULT_TIME;
     public static final String DEFAULT_DURATION = "1h30m";
     public static final String DEFAULT_DESCRIPTION = "Alice's homework";
