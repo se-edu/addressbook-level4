@@ -50,11 +50,6 @@ public class DeleteTaskCommand extends UndoableCommand {
     @Override
     protected void preprocessUndoableCommand() throws CommandException {
         toDelete = getAssociatedTask();
-        if (toDelete instanceof TuitionTask) {
-            //throw exceptions if tuition is not marked as resolved yet. Why? if it is unresolved, the fee is not
-            //recorded as bill yet.
-        }
-
     }
 
     private Task getAssociatedTask() throws CommandException {
