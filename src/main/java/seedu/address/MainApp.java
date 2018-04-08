@@ -32,6 +32,7 @@ import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
 import seedu.address.storage.UserPrefsStorage;
 import seedu.address.storage.XmlAddressBookStorage;
+import seedu.address.ui.CalendarPanel;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
 
@@ -101,7 +102,7 @@ public class MainApp extends Application {
             logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
             initialData = new AddressBook();
         }
-
+        CalendarPanel.updateCalendar(initialData.getTaskList());
         return new ModelManager(initialData, userPrefs);
     }
 

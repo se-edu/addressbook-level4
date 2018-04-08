@@ -56,8 +56,6 @@ public interface Model {
 
     void addTask(Task target) throws TimingClashException;
 
-    void updateTask(Task target, Task editedTask);
-
     void deleteTask(Task target) throws TaskNotFoundException;
 
     ObservableList<Task> getFilteredTaskList();

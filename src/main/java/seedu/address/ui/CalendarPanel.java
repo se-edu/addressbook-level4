@@ -2,14 +2,15 @@ package seedu.address.ui;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 
 import com.calendarfx.model.Calendar;
 import com.calendarfx.model.CalendarSource;
-import com.calendarfx.model.Entry;
 import com.calendarfx.view.CalendarView;
 
 import javafx.fxml.FXML;
 import javafx.scene.layout.Region;
+import seedu.address.model.Task;
 
 //@@author ChoChihTun
 /**
@@ -84,25 +85,22 @@ public class CalendarPanel extends UiPart<Region> {
     }
 
     /**
-     * Adds a task entry to the calendar
+     * Updates the calendar with the updated list of tasks
      *
-     * @param entry to be added to calendar
+     * @param filteredTasks updated list of tasks
      */
-    public static void addEntry(Entry entry) {
-        calendar.addEntry(entry);
-    }
-
-    /**
-     * Deletes a task entry from the calendar's schedule
-     *
-     * @param entry to be deleted
-     */
-    public static void deleteTask(Entry entry) {
-        calendar.removeEntry(entry);
+    public static void updateCalendar(List<Task> filteredTasks) {
+        Calendar updatedCalendar = new Calendar("task");
+        for (Task task : filteredTasks) {
+            updatedCalendar.addEntry(task.getEntry());
+        }
+        source.getCalendars().clear();
+        source.getCalendars().add(updatedCalendar);
     }
 
     @Override
     public CalendarView getRoot() {
         return this.calendarView;
     }
+
 }
