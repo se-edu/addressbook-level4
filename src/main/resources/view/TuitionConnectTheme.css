@@ -7,21 +7,21 @@
 .label {
     -fx-font-size: 10pt;
     -fx-font-family: "Andale Mono";
-    -fx-text-fill: white;
+    -fx-text-fill: black;
     -fx-opacity: 0.9;
 }
 
 .label-bright {
     -fx-font-size: 10pt;
     -fx-font-family: "Andale Mono";
-    -fx-text-fill: white;
+    -fx-text-fill: black;
     -fx-opacity: 1;
 }
 
 .label-header {
     -fx-font-size: 30pt;
     -fx-font-family: "Andale Mono";
-    -fx-text-fill: white;
+    -fx-text-fill: black;
     -fx-opacity: 1;
 }
 
