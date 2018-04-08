@@ -45,7 +45,7 @@ public class AddPersonalTaskCommand extends UndoableCommand {
         } catch (TimingClashException e) {
             throw new CommandException(MESSAGE_TASK_TIMING_CLASHES);
         }
-        return new CommandResult(MESSAGE_SUCCESS);
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 
     //@@author yungyung04
