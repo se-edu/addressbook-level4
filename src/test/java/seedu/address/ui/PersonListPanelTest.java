@@ -1,7 +1,8 @@
 package seedu.address.ui;
 
+import static java.time.Duration.ofMillis;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertTimeoutPreemptively;
 import static seedu.address.testutil.EventsUtil.postNow;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalPersons.getTypicalPersons;
@@ -9,18 +10,13 @@ import static seedu.address.ui.testutil.GuiTestAssert.assertCardDisplaysPerson;
 import static seedu.address.ui.testutil.GuiTestAssert.assertCardEquals;
 
 import java.io.File;
-import java.util.concurrent.TimeUnit;
-import java.util.logging.Logger;
 
 import org.junit.Test;
-
-import com.google.common.base.Stopwatch;
 
 import guitests.guihandles.PersonCardHandle;
 import guitests.guihandles.PersonListPanelHandle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.XmlUtil;
@@ -35,11 +31,7 @@ public class PersonListPanelTest extends GuiUnitTest {
 
     private static final String TEST_DATA_FOLDER = FileUtil.getPath("src/test/data/sandbox/");
 
-    private static final Logger logger = LogsCenter.getLogger(PersonListPanelTest.class);
-
-    private static final int TEST_TIMEOUT = 8000;
-    private static final int CARD_CREATION_AND_DELETION_TIMEOUT = 2500;
-    private static final int LIST_CREATION_TIMEOUT = TEST_TIMEOUT - CARD_CREATION_AND_DELETION_TIMEOUT;
+    private static final long CARD_CREATION_AND_DELETION_TIMEOUT = 2500;
 
     private PersonListPanelHandle personListPanelHandle;
 
@@ -69,55 +61,28 @@ public class PersonListPanelTest extends GuiUnitTest {
     }
 
     /**
-     * Verifies that creating and deleting large number of persons in {@code PersonListPanel} does not take too long
-     * to execute.
-     * <ol>
-     *     <li>If {@code TestTimedOutException} is thrown before the logs are printed, then the failure occurs during
-     *         the preparation of the test (creating the xml file containing the large number of persons).</li>
-     *     <li>If {@code TestTimedOutException} is thrown after the logs are printed, then the failure occurs during
-     *         the creation and deletion of the person cards.</li>
-     * </ol>
+     * Verifies that creating and deleting large number of persons in {@code PersonListPanel} requires lesser than
+     * {@code CARD_CREATION_AND_DELETION_TIMEOUT} milliseconds to execute.
      */
-    // The timeout makes the test fail fast. Without it, the test can stall for a long time if
-    // guiRobot#interact(Runnable) takes very long to complete execution because guiRobot#interact(Runnable) only
-    // returns after the Runnable completes execution.
-    @Test(timeout = TEST_TIMEOUT)
+    @Test
     public void performanceTest() throws Exception {
         ObservableList<Person> backingList = createBackingList(10000);
 
-        Stopwatch stopwatch = Stopwatch.createStarted();
-        initUi(backingList);
-        guiRobot.interact(backingList::clear);
-        if (stopwatch.elapsed(TimeUnit.MILLISECONDS) >= CARD_CREATION_AND_DELETION_TIMEOUT) {
-            fail("Creation and deletion of person cards exceeded time limit");
-        }
+        assertTimeoutPreemptively(ofMillis(CARD_CREATION_AND_DELETION_TIMEOUT), () -> {
+            initUi(backingList);
+            guiRobot.interact(backingList::clear);
+        }, "Creation and deletion of person cards exceeded time limit");
     }
 
     /**
      * Returns a list of persons containing {@code personCount} persons that is used to populate the
-     * {@code PersonListPanel}. Logs the time taken for method execution if it finishes before
-     * {@code LIST_CREATION_TIMEOUT}.
-     *
-     * @throws AssertionError if this method takes too long to execute.
+     * {@code PersonListPanel}.
      */
     private ObservableList<Person> createBackingList(int personCount) throws Exception {
-        Stopwatch stopwatch = Stopwatch.createStarted();
-
         File xmlFile = createXmlFileWithPersons(personCount);
         XmlSerializableAddressBook xmlAddressBook =
                 XmlUtil.getDataFromFile(xmlFile, XmlSerializableAddressBook.class);
-        ObservableList<Person> personList =
-                FXCollections.observableArrayList(xmlAddressBook.toModelType().getPersonList());
-
-        long createListTime = stopwatch.elapsed(TimeUnit.MILLISECONDS);
-        String createListMessage = "List creation took: " + createListTime + "ms. ";
-        if (createListTime >= LIST_CREATION_TIMEOUT) {
-            fail(createListMessage + "Time limit exceeded.");
-        } else {
-            logger.info(createListMessage + "Continuing test.");
-        }
-
-        return personList;
+        return FXCollections.observableArrayList(xmlAddressBook.toModelType().getPersonList());
     }
 
     /**
