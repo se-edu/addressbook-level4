@@ -64,6 +64,7 @@ public class AddTuitionTaskCommand extends UndoableCommand {
         this.description = description;
     }
 
+    //@@author ChoChihTun
     @Override
     public CommandResult executeUndoableCommand() throws CommandException {
         try {
@@ -71,9 +72,10 @@ public class AddTuitionTaskCommand extends UndoableCommand {
         } catch (TimingClashException e) {
             throw new CommandException(MESSAGE_TASK_TIMING_CLASHES);
         }
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        return new CommandResult(MESSAGE_SUCCESS);
     }
 
+    //@@author yungyung04
     @Override
     protected void preprocessUndoableCommand() throws CommandException {
         associatedTutee = getAssociatedTutee().getName().fullName;

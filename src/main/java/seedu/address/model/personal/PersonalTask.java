@@ -1,6 +1,8 @@
 package seedu.address.model.personal;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.ResolverStyle;
 
 import com.calendarfx.model.Entry;
 import com.calendarfx.model.Interval;
@@ -16,8 +18,8 @@ public class PersonalTask implements Task {
     private static final String HOUR_DELIMITER = "h";
     private static final String MINUTE_DELIMITER = "m";
     private static final String NULL_STRING = "";
-    private static final String DATE_DELIMETER = "/";
-    private static final String TIME_DELIMETER = ":";
+    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/uuuu HH:mm")
+            .withResolverStyle(ResolverStyle.STRICT);
 
     private String description;
     private String duration;
@@ -98,14 +100,12 @@ public class PersonalTask implements Task {
         return duration;
     }
 
-    //@@author yungyung04
     @Override
     public String getStringTaskDateTime() {
-        return taskDateTime.getDayOfMonth() + DATE_DELIMETER + taskDateTime.getMonthValue()
-                + DATE_DELIMETER + taskDateTime.getYear() + " " + taskDateTime.getHour()
-                + TIME_DELIMETER + taskDateTime.getMinute();
+        return taskDateTime.format(formatter);
     }
 
+    //@@author yungyung04
     @Override
     public String toString() {
         if (hasDescription()) {

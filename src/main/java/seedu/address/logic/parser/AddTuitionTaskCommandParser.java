@@ -16,6 +16,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 
 import seedu.address.model.person.exceptions.DurationParseException;
 
+//@@author ChoChihTun
 /**
  * Parses input arguments and creates a new AddTuitionTaskCommand object
  */
@@ -56,7 +57,8 @@ public class AddTuitionTaskCommandParser implements Parser<AddTuitionTaskCommand
             throw new ParseException(MESSAGE_INVALID_DURATION + "\n"
                     + AddTuitionTaskCommand.MESSAGE_USAGE);
         } catch (IllegalValueException ive) {
-            throw new ParseException(String.format(MESSAGE_INVALID_INPUT_FORMAT, AddTuitionTaskCommand.MESSAGE_USAGE));
+            throw new ParseException(MESSAGE_INVALID_INPUT_FORMAT + "\n"
+                    + AddTuitionTaskCommand.MESSAGE_USAGE);
         }
     }
 }
