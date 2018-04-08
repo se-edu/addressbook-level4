@@ -12,7 +12,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.person.exceptions.TimingClashException;
 import seedu.address.model.task.exceptions.TaskNotFoundException;
-import seedu.address.ui.CalendarPanel;
 
 /**
  * A list of tasks that enforces uniqueness between its elements and does not allow nulls.
