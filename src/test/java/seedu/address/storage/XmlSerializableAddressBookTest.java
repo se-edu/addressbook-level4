@@ -16,8 +16,8 @@ import seedu.address.testutil.typicaladdressbook.TypicalAddressBookCompiler;
 
 public class XmlSerializableAddressBookTest {
 
-    private static final String TEST_DATA_FOLDER = FileUtil.
-            getPath("src/test/data/XmlSerializableAddressBookTest/");
+    private static final String TEST_DATA_FOLDER = FileUtil
+            .getPath("src/test/data/XmlSerializableAddressBookTest/");
     private static final File TYPICAL_PERSONS_FILE =
             new File(TEST_DATA_FOLDER + "typicalPersonsAndTaskAddressBook.xml");
     private static final File INVALID_PERSON_FILE =
