@@ -85,6 +85,12 @@ Format: `addtutee n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS s/SUBJECT g/GRADE edu/
 [TIP]
 A tutee can have any number of tags (including 0)
 
+[NOTE]
+====
+* Education level can only be either primary, secondary or junior college +
+* All details except tag MUST be added
+====
+
 Examples:
 
 * `addtutee n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 s/Economics g/B+ edu/junior college sch/Victoria Junior College`
@@ -399,15 +405,29 @@ Format: `change TIME_UNIT`
 [NOTE]
 ====
 * Default view page time unit is d.
-* Command fails if current view page time unit is same as the user input time unit.
+* Command fails if current view page time unit is same as the user input time unit or user input an unrecognised time unit.
 ====
 
 Examples:
 
 * `change d` (command fails as current calendar view is already in day)
+
+image::change-d.png[width="800"]
+
 * `change w` (changes calendar view to week)
+
+image::change-w.png[width="800"]
+
 * `change m` (changes calendar view to month)
+
+image::change-m.png[width="800"]
+
 * `change y` (changes calendar view to year)
+
+image::change-y.png[width="800"]
+
+[NOTE]
+Year view is unable to display all the months due to third party software constraint.
 
 === Listing entered commands : `history`
 
