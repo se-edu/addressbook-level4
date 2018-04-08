@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <!-- AddressBook save file which contains the same Person values as in
-{@code TypicalPersons#getTypicalAddressBook1()}-->
+{@code TypicalAddressBookCompiler#getTypicalAddressBook1()}-->
 <addressbook>
     <persons>
         <name>Alice Pauline</name>
@@ -49,4 +49,32 @@
     </persons>
     <tags>friends</tags>
     <tags>owesMoney</tags>
+    <tasks>
+        <name>Alice Pauline</name>
+        <description>Calculus page 24</description>
+        <duration>2h0m</duration>
+        <dateAndTime>01/10/2018 10:00</dateAndTime>
+    </tasks>
+    <tasks>
+        <name>Benson Meier</name>
+        <description>Math exam</description>
+        <duration>2h0m</duration>
+        <dateAndTime>01/10/2018 14:30</dateAndTime>
+    </tasks>
+    <tasks>
+        <name>Carl Kurtz</name>
+        <description></description>
+        <duration>1h20m</duration>
+        <dateAndTime>31/12/2018 09:15</dateAndTime>
+    </tasks>
+    <tasks>
+        <description>grocery shopping</description>
+        <duration>1h0m</duration>
+        <dateAndTime>25/04/2017 14:30</dateAndTime>
+    </tasks>
+    <tasks>
+        <description>yoga</description>
+        <duration>3h0m</duration>
+        <dateAndTime>28/02/2019 14:30</dateAndTime>
+    </tasks>
 </addressbook>
