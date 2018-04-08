@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import java.util.ArrayList;
 
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import guitests.guihandles.CommandBoxHandle;
@@ -14,6 +15,7 @@ import seedu.address.logic.LogicManager;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
+import systemtests.SystemTestSetupHelper;
 
 public class CommandBoxTest extends GuiUnitTest {
 
@@ -24,6 +26,11 @@ public class CommandBoxTest extends GuiUnitTest {
     private ArrayList<String> errorStyleOfCommandBox;
 
     private CommandBoxHandle commandBoxHandle;
+
+    @BeforeClass
+    public static void setupBeforeClass() {
+        SystemTestSetupHelper.initialize();
+    }
 
     @Before
     public void setUp() {

@@ -115,11 +115,6 @@ public class AddCommandTest {
         }
 
         @Override
-        public void updateTask(Task task, Task editedTask) {
-            fail("This method should not be called");
-        }
-
-        @Override
         public ObservableList<Task> getFilteredTaskList() {
             fail("This method should not be called.");
             return null;
