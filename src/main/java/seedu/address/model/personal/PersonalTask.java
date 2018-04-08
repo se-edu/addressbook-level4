@@ -16,6 +16,8 @@ public class PersonalTask implements Task {
     private static final String HOUR_DELIMITER = "h";
     private static final String MINUTE_DELIMITER = "m";
     private static final String NULL_STRING = "";
+    private static final String DATE_DELIMETER = "/";
+    private static final String TIME_DELIMETER = ":";
 
     private String description;
     private String duration;
@@ -96,6 +98,14 @@ public class PersonalTask implements Task {
         return duration;
     }
 
+    //@@author yungyung04
+    @Override
+    public String getStringTaskDateTime() {
+        return taskDateTime.getDayOfMonth() + DATE_DELIMETER + taskDateTime.getMonthValue()
+                + DATE_DELIMETER + taskDateTime.getYear() + " " + taskDateTime.getHour()
+                + TIME_DELIMETER + taskDateTime.getMinute();
+    }
+
     @Override
     public String toString() {
         if (hasDescription()) {
@@ -115,17 +125,13 @@ public class PersonalTask implements Task {
         return !description.equals(NULL_STRING);
     }
 
-    /**
-     * this fixes the valid args test, but has conflict with Task card
+
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof PersonalTask // instanceof handles nulls
-                && taskDateTime.getDayOfMonth() == ((PersonalTask) other).taskDateTime.getDayOfMonth()
-                && taskDateTime.getHour() == ((PersonalTask) other).taskDateTime.getHour()
-                && taskDateTime.getMinute() == ((PersonalTask) other).taskDateTime.getMinute()
+                && taskDateTime.equals(((PersonalTask) other).taskDateTime)
                 && duration.equals(((PersonalTask) other).duration)
                 && description.equals(((PersonalTask) other).description));
     }
-    */
 }

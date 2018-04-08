@@ -85,6 +85,12 @@ Format: `addtutee n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS s/SUBJECT g/GRADE edu/
 [TIP]
 A tutee can have any number of tags (including 0)
 
+[NOTE]
+====
+* Education level can only be either primary, secondary or junior college +
+* All details except tag MUST be added
+====
+
 Examples:
 
 * `addtutee n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 s/Economics g/B+ edu/junior college sch/Victoria Junior College`
@@ -113,8 +119,6 @@ Format: `lt`
 Shows a list of all tutees in the address book. +
 Using Command Word: +
 Format: `list` +
-Using Command Alias: +
-Format: `l`
 
 === Editing a person : `edit`
 
@@ -165,11 +169,11 @@ Format: `f CATEGORY KEYWORD [MORE_KEYWORDS]` +
 
 Examples:
 
-* `find Name John` +
+* `findpersonby Name John` +
 Lists `john` and `John Doe`
-* `f name Betsy Tim John` +
+* `findpersonby name Betsy Tim John` +
 Lists any person having names `Betsy`, `Tim`, or `John`
-* `find grade B B+` +
+* `f grade B B+` +
 Lists all tutee with grade `B` and `B+`
 
 === Sorting persons by category: `sort`
@@ -374,9 +378,9 @@ Any amount can be provided. If *0* keyword is given, the displayed task list wil
 
 Examples:
 
-* `find month between january Mar` +
+* `findtaskby month between january Mar` +
 Lists all tasks scheduled between January and March.
-* `find month between November February` +
+* `findtaskby month between November February` +
 Lists all tasks scheduled on November, December, January and February.
 * `f month namely 2 06 oct
 Lists all tasks scheduled on February, June and October.
@@ -399,15 +403,29 @@ Format: `change TIME_UNIT`
 [NOTE]
 ====
 * Default view page time unit is d.
-* Command fails if current view page time unit is same as the user input time unit.
+* Command fails if current view page time unit is same as the user input time unit or user input an unrecognised time unit.
 ====
 
 Examples:
 
 * `change d` (command fails as current calendar view is already in day)
+
+image::change-d.png[width="800"]
+
 * `change w` (changes calendar view to week)
+
+image::change-w.png[width="800"]
+
 * `change m` (changes calendar view to month)
+
+image::change-m.png[width="800"]
+
 * `change y` (changes calendar view to year)
+
+image::change-y.png[width="800"]
+
+[NOTE]
+Year view is unable to display all the months due to third party software constraint.
 
 === Listing entered commands : `history`
 

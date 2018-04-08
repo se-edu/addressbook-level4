@@ -17,6 +17,8 @@ public class TuitionTask implements Task {
     private static final String HOUR_DELIMITER = "h";
     private static final String MINUTE_DELIMITER = "m";
     private static final String NULL_STRING = "";
+    private static final String DATE_DELIMETER = "/";
+    private static final String TIME_DELIMETER = ":";
 
     private String tutee;
     private String description;
@@ -104,6 +106,14 @@ public class TuitionTask implements Task {
         return duration;
     }
 
+    //@@author yungyung04
+    @Override
+    public String getStringTaskDateTime() {
+        return taskDateTime.getDayOfMonth() + DATE_DELIMETER + taskDateTime.getMonthValue()
+                + DATE_DELIMETER + taskDateTime.getYear() + " " + taskDateTime.getHour()
+                + TIME_DELIMETER + taskDateTime.getMinute();
+    }
+
     @Override
     public String toString() {
         if (hasDescription()) {
@@ -123,8 +133,6 @@ public class TuitionTask implements Task {
         return !description.equals(NULL_STRING);
     }
 
-    /**
-     * fixes the test but has conflict with Task card
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
@@ -134,7 +142,7 @@ public class TuitionTask implements Task {
                 && duration.equals(((TuitionTask) other).duration)
                 && description.equals(((TuitionTask) other).description));
     }
-    */
+
     public String getTuitionTitle() {
         return String.format(TUITION_TITLE, tutee);
     }

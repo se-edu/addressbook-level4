@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.Objects;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
@@ -11,7 +12,6 @@ import seedu.address.logic.commands.exceptions.CommandException;
 
 import seedu.address.model.Task;
 import seedu.address.model.task.exceptions.TaskNotFoundException;
-import seedu.address.model.tutee.TuitionTask;
 
 //@@author yungyung04
 /**
@@ -50,11 +50,6 @@ public class DeleteTaskCommand extends UndoableCommand {
     @Override
     protected void preprocessUndoableCommand() throws CommandException {
         toDelete = getAssociatedTask();
-        if (toDelete instanceof TuitionTask) {
-            //throw exceptions if tuition is not marked as resolved yet. Why? if it is unresolved, the fee is not
-            //recorded as bill yet.
-        }
-
     }
 
     private Task getAssociatedTask() throws CommandException {
@@ -71,6 +66,7 @@ public class DeleteTaskCommand extends UndoableCommand {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof DeleteTaskCommand // instanceof handles nulls
-                && targetIndex.equals(((DeleteTaskCommand) other).targetIndex));
+                && targetIndex.equals(((DeleteTaskCommand) other).targetIndex))
+                && Objects.equals(this.toDelete, ((DeleteTaskCommand) other).toDelete);
     }
 }
