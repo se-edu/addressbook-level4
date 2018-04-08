@@ -37,6 +37,7 @@ public class AddPersonalTaskCommand extends UndoableCommand {
         toAdd = task;
     }
 
+    //@@author ChoChihTun
     @Override
     public CommandResult executeUndoableCommand() throws CommandException {
         try {
@@ -44,9 +45,10 @@ public class AddPersonalTaskCommand extends UndoableCommand {
         } catch (TimingClashException e) {
             throw new CommandException(MESSAGE_TASK_TIMING_CLASHES);
         }
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd.toString()));
+        return new CommandResult(MESSAGE_SUCCESS);
     }
 
+    //@@author yungyung04
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object

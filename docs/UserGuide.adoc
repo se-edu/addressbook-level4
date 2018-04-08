@@ -27,7 +27,7 @@ TuitionConnect (TC) is for those who *prefer to use a desktop app for managing c
 Having any Java 8 version is not enough. +
 This app will not work with earlier versions of Java 8.
 +
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
+.  Download the latest `TuitionConnect.jar` link:{https://github.com/CS2103JAN2018-T11-B1/main/releases}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your Address Book.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
@@ -409,21 +409,21 @@ Format: `change TIME_UNIT`
 Examples:
 
 * `change d` (command fails as current calendar view is already in day)
-
-image::change-d.png[width="800"]
-
++
+image::change-d.png[width="790"]
++
 * `change w` (changes calendar view to week)
-
-image::change-w.png[width="800"]
-
++
+image::change-w.png[width="790"]
++
 * `change m` (changes calendar view to month)
-
-image::change-m.png[width="800"]
-
++
+image::change-m.png[width="790"]
++
 * `change y` (changes calendar view to year)
-
-image::change-y.png[width="800"]
-
++
+image::change-y.png[width="790"]
++
 [NOTE]
 Year view is unable to display all the months due to third party software constraint.
 
@@ -523,8 +523,8 @@ Marks a task as completed. If the task is tuition, fees will automatically be ad
 === Edit task `[coming in v2.0]`
 Edits date, time, duration or description of an existing task.
 
-=== View contact address on map `[coming in v2.0]`
-View the location of a specific contact's address on google map.
+=== View contact address on Google map `[coming in v2.0]`
+View the location of a specific contact's address on google map and the shortest route from the current location will be displayed.
 
 // tag::dataencryption[]
 === Encrypting data files `[coming in v2.0]`
