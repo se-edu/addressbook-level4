@@ -99,13 +99,6 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void updateTask(Task target, Task editedTask) {
-        requireAllNonNull(target, editedTask);
-        addressBook.updateTask(target, editedTask);
-        indicateAddressBookChanged();
-    }
-
-    @Override
     public synchronized void deleteTask(Task target) throws TaskNotFoundException {
         addressBook.removeTask(target);
         indicateAddressBookChanged();

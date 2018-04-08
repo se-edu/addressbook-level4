@@ -8,13 +8,10 @@ import java.time.LocalDateTime;
 import java.util.Iterator;
 import java.util.List;
 
-import com.calendarfx.model.Entry;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.person.exceptions.TimingClashException;
 import seedu.address.model.task.exceptions.TaskNotFoundException;
-import seedu.address.ui.CalendarPanel;
 
 /**
  * A list of tasks that enforces uniqueness between its elements and does not allow nulls.
@@ -40,8 +37,6 @@ public class UniqueTaskList implements Iterable<Task> {
         requireNonNull(toAdd);
         checkTimeClash(toAdd.getTaskDateTime(), toAdd.getDuration());
         internalList.add(toAdd);
-        Entry entry = toAdd.getEntry();
-        CalendarPanel.addEntry(entry);
     }
 
     /**
@@ -73,7 +68,6 @@ public class UniqueTaskList implements Iterable<Task> {
         if (!taskFoundAndDeleted) {
             throw new TaskNotFoundException();
         }
-        CalendarPanel.deleteTask(toRemove.getEntry());
         return taskFoundAndDeleted;
     }
 

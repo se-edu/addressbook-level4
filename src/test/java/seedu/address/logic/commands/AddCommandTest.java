@@ -89,8 +89,6 @@ public class AddCommandTest {
         return command;
     }
 
-
-
     /**
      * A Model stub that always throw a DuplicatePersonException when trying to add a person.
      */
