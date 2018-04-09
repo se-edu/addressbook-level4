@@ -18,6 +18,8 @@ public interface Task {
 
     LocalDateTime getTaskDateTime();
 
+    String getStringTaskDateTime();
+
     String getDescription();
 
     String getDuration();

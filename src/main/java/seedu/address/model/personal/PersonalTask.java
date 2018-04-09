@@ -1,6 +1,8 @@
 package seedu.address.model.personal;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.ResolverStyle;
 
 import com.calendarfx.model.Entry;
 import com.calendarfx.model.Interval;
@@ -16,6 +18,8 @@ public class PersonalTask implements Task {
     private static final String HOUR_DELIMITER = "h";
     private static final String MINUTE_DELIMITER = "m";
     private static final String NULL_STRING = "";
+    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/uuuu HH:mm")
+            .withResolverStyle(ResolverStyle.STRICT);
 
     private String description;
     private String duration;
@@ -97,6 +101,12 @@ public class PersonalTask implements Task {
     }
 
     @Override
+    public String getStringTaskDateTime() {
+        return taskDateTime.format(formatter);
+    }
+
+    //@@author yungyung04
+    @Override
     public String toString() {
         if (hasDescription()) {
             return "Personal task with description " + description + " on "
@@ -115,17 +125,13 @@ public class PersonalTask implements Task {
         return !description.equals(NULL_STRING);
     }
 
-    /**
-     * this fixes the valid args test, but has conflict with Task card
+
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof PersonalTask // instanceof handles nulls
-                && taskDateTime.getDayOfMonth() == ((PersonalTask) other).taskDateTime.getDayOfMonth()
-                && taskDateTime.getHour() == ((PersonalTask) other).taskDateTime.getHour()
-                && taskDateTime.getMinute() == ((PersonalTask) other).taskDateTime.getMinute()
+                && taskDateTime.equals(((PersonalTask) other).taskDateTime)
                 && duration.equals(((PersonalTask) other).duration)
                 && description.equals(((PersonalTask) other).description));
     }
-    */
 }

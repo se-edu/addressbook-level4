@@ -40,7 +40,8 @@ import seedu.address.model.tutee.Subject;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
-    public static final String MESSAGE_INSUFFICIENT_PARTS = "Number of parts must be more than 1.";
+
+    private static final String EMPTY_STRING = "";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -328,7 +329,7 @@ public class ParserUtil {
      */
     public static String parseDescription(String[] userInputs, int maximumParametersGiven) {
         if (isEmptyDescription(userInputs, maximumParametersGiven)) {
-            return "";
+            return EMPTY_STRING;
         } else {
             String description = getLastElement(userInputs);
             return description;

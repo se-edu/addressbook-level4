@@ -15,6 +15,9 @@ import org.junit.Test;
 import seedu.address.logic.commands.SortCommand;
 
 //@@author yungyung04
+/**
+ * Contains tests for {@code SortCommandParser}.
+ */
 public class SortCommandParserTest {
     private SortCommandParser parser = new SortCommandParser();
 

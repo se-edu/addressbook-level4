@@ -1,10 +1,10 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.core.Messages.MESSAGE_TASK_TIMING_CLASHES;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
@@ -57,22 +57,24 @@ public class AddTuitionTaskCommand extends UndoableCommand {
         requireNonNull(taskDateTime);
         requireNonNull(duration);
         requireNonNull(description);
+        this.targetIndex = targetIndex;
         this.taskdateTime = taskDateTime;
         this.duration = duration;
         this.description = description;
-        this.targetIndex = targetIndex;
     }
 
+    //@@author ChoChihTun
     @Override
     public CommandResult executeUndoableCommand() throws CommandException {
         try {
             model.addTask(toAdd);
-        } catch (TimingClashException e) {
-            throw new CommandException(MESSAGE_TASK_TIMING_CLASHES);
+        } catch (TimingClashException tce) {
+            throw new CommandException(tce.getMessage());
         }
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        return new CommandResult(MESSAGE_SUCCESS);
     }
 
+    //@@author yungyung04
     @Override
     protected void preprocessUndoableCommand() throws CommandException {
         associatedTutee = getAssociatedTutee().getName().fullName;
@@ -102,6 +104,6 @@ public class AddTuitionTaskCommand extends UndoableCommand {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddTuitionTaskCommand // instanceof handles nulls
-                && toAdd.equals(((AddTuitionTaskCommand) other).toAdd));
+                && Objects.equals(this.toAdd, ((AddTuitionTaskCommand) other).toAdd));
     }
 }

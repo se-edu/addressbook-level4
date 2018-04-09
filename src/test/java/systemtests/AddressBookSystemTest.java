@@ -34,7 +34,9 @@ import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.SelectCommand;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
-import seedu.address.testutil.TypicalPersons;
+import seedu.address.model.person.exceptions.DuplicatePersonException;
+import seedu.address.model.tutee.Tutee;
+import seedu.address.testutil.typicaladdressbook.TypicalAddressBookCompiler;
 import seedu.address.ui.CommandBox;
 
 /**
@@ -78,7 +80,7 @@ public abstract class AddressBookSystemTest {
      * Returns the data to be loaded into the file in {@link #getDataFileLocation()}.
      */
     protected AddressBook getInitialData() {
-        return TypicalPersons.getTypicalAddressBook();
+        return TypicalAddressBookCompiler.getTypicalAddressBook1();
     }
 
     /**
@@ -290,4 +292,18 @@ public abstract class AddressBookSystemTest {
     protected Model getModel() {
         return testApp.getModel();
     }
+
+    //@@author yungyung04
+    /**
+     * Adds a tutee into the current model and expected model.
+     */
+    protected void addTutee(String command, Tutee tutee, Model expectedModel) {
+        try {
+            expectedModel.addPerson(tutee);
+        } catch (DuplicatePersonException dpe) {
+            System.out.println("a tutee with the same name exists in the expected model");
+        }
+        executeCommand(command);
+    }
+    //@@author
 }

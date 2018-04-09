@@ -1,6 +1,8 @@
 package seedu.address.model.tutee;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.ResolverStyle;
 
 import com.calendarfx.model.Entry;
 import com.calendarfx.model.Interval;
@@ -13,10 +15,12 @@ import seedu.address.model.Task;
  */
 public class TuitionTask implements Task {
 
-    private static final String TUITION_TITLE = "Tuition with %1$s"; //private Tutee tutee;
+    private static final String TUITION_TITLE = "Tuition with %1$s";
     private static final String HOUR_DELIMITER = "h";
     private static final String MINUTE_DELIMITER = "m";
     private static final String NULL_STRING = "";
+    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/uuuu HH:mm")
+            .withResolverStyle(ResolverStyle.STRICT);
 
     private String tutee;
     private String description;
@@ -105,6 +109,12 @@ public class TuitionTask implements Task {
     }
 
     @Override
+    public String getStringTaskDateTime() {
+        return taskDateTime.format(formatter);
+    }
+
+    //@@author yungyung04
+    @Override
     public String toString() {
         if (hasDescription()) {
             return "Tuition task with description " + description + " on "
@@ -123,8 +133,6 @@ public class TuitionTask implements Task {
         return !description.equals(NULL_STRING);
     }
 
-    /**
-     * fixes the test but has conflict with Task card
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
@@ -134,7 +142,7 @@ public class TuitionTask implements Task {
                 && duration.equals(((TuitionTask) other).duration)
                 && description.equals(((TuitionTask) other).description));
     }
-    */
+
     public String getTuitionTitle() {
         return String.format(TUITION_TITLE, tutee);
     }
