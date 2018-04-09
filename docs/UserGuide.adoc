@@ -15,9 +15,11 @@ endif::[]
 
 By: `Team MarvelousBook`      Since: `Feb 2018`      Licence: `MIT`
 
+// tag::introduction[]
 == Introduction
 
 TuitionConnect (TC) is for those who *prefer to use a desktop app for managing contacts*. More importantly, TC is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, TC can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+// end::introduction[]
 
 == Quick Start
 
@@ -77,6 +79,7 @@ Examples:
 * `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
 * `a n/Dickson ee p/91234567 e/dickson@exmaple.com a/Dickson street, block 456, #02-02`
 
+// tag::addtutee[]
 === Adding a tutee: `addtutee`
 Adds a tutee to the address book +
 Using Command Word: +
@@ -96,7 +99,7 @@ Examples:
 * `addtutee n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 s/Economics g/B+ edu/junior college sch/Victoria Junior College`
 * `addtutee n/Betsy Crowe s/Mathematics g/C e/betsycrowe@example.com a/Newgate Town p/1234567 t/owesMoney sch/Victoria Institution edu/secondary`
 * `addtutee n/Dickson ee p/91234567 e/dickson@exmaple.com a/Dickson street, block 456, #02-02 s/english g/f edu/primary sch/Newgate Primary School`
-
+// end::addtutee[]
 
 === Listing all persons : `list`
 
@@ -385,6 +388,7 @@ Lists all tasks scheduled on November, December, January and February.
 * `f month namely 2 06 oct
 Lists all tasks scheduled on February, June and October.
 
+// tag::change[]
 === Changing calendar view page time unit: `change`
 
 Changes the calendar's view page into the time unit specified by you.
@@ -426,6 +430,7 @@ image::change-y.png[width="790"]
 +
 [NOTE]
 Year view is unable to display all the months due to third party software constraint.
+// end::change[]
 
 === Listing entered commands : `history`
 
@@ -511,9 +516,11 @@ Format: `exit`
 
 === Saving the data
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
+Address book data are saved in the hard disk automatically after any command that
+ changes the data. +
 There is no need to save manually.
 
+// tag::v2Features[]
 === Update tutee fees `[coming in v2.0]`
 Updates the remaining balance of the fees of a specific tutee after he or she has paid.
 
@@ -525,6 +532,7 @@ Edits date, time, duration or description of an existing task.
 
 === View contact address on Google map `[coming in v2.0]`
 View the location of a specific contact's address on google map and the shortest route from the current location will be displayed.
+// end::v2Features[]
 
 // tag::dataencryption[]
 === Encrypting data files `[coming in v2.0]`
