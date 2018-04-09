@@ -1,5 +1,7 @@
 package seedu.address.ui;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.Clock;
 import java.util.Date;
 import java.util.logging.Logger;
@@ -42,10 +44,10 @@ public class StatusBarFooter extends UiPart<Region> {
     private StatusBar saveLocationStatus;
 
 
-    public StatusBarFooter(String saveLocation) {
+    public StatusBarFooter(Path saveLocation) {
         super(FXML);
         setSyncStatus(SYNC_STATUS_INITIAL);
-        setSaveLocation("./" + saveLocation);
+        setSaveLocation(Paths.get(".").resolve(saveLocation).toString());
         registerAsAnEventHandler(this);
     }
 
