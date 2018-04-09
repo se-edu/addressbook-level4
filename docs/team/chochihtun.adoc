@@ -50,10 +50,6 @@ The user interacts with it using a CLI, and it has a GUI created with JavaFX. It
 
 == Contributions to the User Guide
 
-|===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
-|===
-
 include::../UserGuide.adoc[tag=introduction]
 
 include::../UserGuide.adoc[tag=addtutee]
@@ -63,9 +59,5 @@ include::../UserGuide.adoc[tag=change]
 include::../UserGuide.adoc[tag=v2Features]
 
 == Contributions to the Developer Guide
-
-|===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
-|===
 
 include::../DeveloperGuide.adoc[tag=addtutee]

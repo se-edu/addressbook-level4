@@ -18,7 +18,17 @@ By: `Team MarvelousBook`      Since: `Feb 2018`      Licence: `MIT`
 // tag::introduction[]
 == Introduction
 
-TuitionConnect (TC) is for those who *prefer to use a desktop app for managing contacts*. More importantly, TC is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, TC can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+TuitionConnect (TC) is personalised address book for the private home tutors. +
+
+There are several features in TuitionConnect which aid in the management of your tutee contacts and tuition.
+There are also features which supports the management of your personal contacts and tasks so that you do not require 2 different address books to handle his or her contacts and tasks. +
+
+TuitionConnect is primarily for tutors who *prefer to use a desktop app for managing contacts and tasks*.
+More importantly, TuitionConnect is *optimized for those who prefer to work with a Command Line Interface*
+(CLI) while still having the benefits of a Graphical User Interface (GUI). +
+
+With TuitionConnect's keyboard shortcuts and productive features, TuitionConnect can get your contact and task management done faster than traditional GUI apps. Interested?
+Jump to the <<Quick Start>> to get started. Enjoy!
 // end::introduction[]
 
 == Quick Start
