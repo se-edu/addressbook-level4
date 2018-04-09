@@ -142,7 +142,7 @@
 }
 
 .status-bar {
-    -fx-background-color: #ffffff;
+    -fx-background-color: white;
     -fx-text-fill: black;
 }
 
@@ -247,7 +247,7 @@
 
 .button:default {
     -fx-background-color: -fx-focus-color;
-    -fx-text-fill: #ffffff;
+    -fx-text-fill: white;
 }
 
 .button:default:hover {
@@ -350,25 +350,25 @@
 }
 
 #calendarPlaceholder {
-    -fx-background-color: #ffffff;
+    -fx-background-color: white;
 }
 
 #commandBoxPlaceholder {
-    -fx-background-color: #ffffff;
+    -fx-background-color: white;
 }
 
 #resultDisplayPlaceholder {
-    -fx-background-color: #ffffff;
+    -fx-background-color: white;
 }
 
 #statusbarPlaceholder {
-    -fx-background-color: #ffffff;
+    -fx-background-color: white;
 }
 
 #personListPanelPlaceholder {
-    -fx-background-color: #ffffff;
+    -fx-background-color: white;
 }
 
 #taskListPanelPlaceholder {
-    -fx-background-color: #ffffff;
+    -fx-background-color: white;
 }
