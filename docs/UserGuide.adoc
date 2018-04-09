@@ -532,13 +532,13 @@ There is no need to save manually.
 
 // tag::v2Features[]
 === Update tutee fees `[coming in v2.0]`
-Updates the remaining balance of the fees of a specific tutee after he or she has paid.
+Updates the remaining balance of the tuition fees of a specific tutee after he or she has paid.
 
 === Complete task `[coming in v2.0]`
 Marks a task as completed. If the task is tuition, fees will automatically be added to the tutee's fee balance.
 
 === Edit task `[coming in v2.0]`
-Edits date, time, duration or description of an existing task.
+Edits date, time, duration or description of an existing task and reflects the changes on the calendar.
 
 === View contact address on Google map `[coming in v2.0]`
 View the location of a specific contact's address on google map and the shortest route from the current location will be displayed.
