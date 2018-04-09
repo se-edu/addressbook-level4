@@ -1,8 +1,5 @@
 package seedu.address.commons.util;
 
-import static seedu.address.commons.util.AppUtil.checkArgument;
-
-import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.InvalidPathException;
@@ -55,19 +52,6 @@ public class FileUtil {
     }
 
     /**
-     * Creates the given directory along with its parent directories
-     *
-     * @param dir the directory to be created; assumed not null
-     * @throws IOException if the directory or a parent directory cannot be created
-     */
-    public static void createDirs(Path dir) throws IOException {
-        if (Files.exists(dir)) {
-            return;
-        }
-        Files.createDirectories(dir);
-    }
-
-    /**
      * Creates parent directories of file if it has a parent directory
      */
     public static void createParentDirsOfFile(Path file) throws IOException {
@@ -91,16 +75,6 @@ public class FileUtil {
      */
     public static void writeToFile(Path file, String content) throws IOException {
         Files.write(file, content.getBytes(CHARSET));
-    }
-
-    /**
-     * Converts a string to a platform-specific file path
-     * @param pathWithForwardSlash A String representing a file path but using '/' as the separator
-     * @return {@code pathWithForwardSlash} but '/' replaced with {@code File.separator}
-     */
-    public static String getPath(String pathWithForwardSlash) {
-        checkArgument(pathWithForwardSlash.contains("/"));
-        return pathWithForwardSlash.replace("/", File.separator);
     }
 
 }
