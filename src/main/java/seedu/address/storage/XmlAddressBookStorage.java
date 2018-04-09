@@ -6,7 +6,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -23,13 +22,13 @@ public class XmlAddressBookStorage implements AddressBookStorage {
 
     private static final Logger logger = LogsCenter.getLogger(XmlAddressBookStorage.class);
 
-    private String filePath;
+    private Path filePath;
 
-    public XmlAddressBookStorage(String filePath) {
+    public XmlAddressBookStorage(Path filePath) {
         this.filePath = filePath;
     }
 
-    public String getAddressBookFilePath() {
+    public Path getAddressBookFilePath() {
         return filePath;
     }
 
@@ -43,22 +42,20 @@ public class XmlAddressBookStorage implements AddressBookStorage {
      * @param filePath location of the data. Cannot be null
      * @throws DataConversionException if the file is not in the correct format.
      */
-    public Optional<ReadOnlyAddressBook> readAddressBook(String filePath) throws DataConversionException,
-            FileNotFoundException {
+    public Optional<ReadOnlyAddressBook> readAddressBook(Path filePath) throws DataConversionException,
+                                                                                 FileNotFoundException {
         requireNonNull(filePath);
 
-        Path addressBookFile = Paths.get(filePath);
-
-        if (!Files.exists(addressBookFile)) {
-            logger.info("AddressBook file "  + addressBookFile + " not found");
+        if (!Files.exists(filePath)) {
+            logger.info("AddressBook file "  + filePath + " not found");
             return Optional.empty();
         }
 
-        XmlSerializableAddressBook xmlAddressBook = XmlFileStorage.loadDataFromSaveFile(Paths.get(filePath));
+        XmlSerializableAddressBook xmlAddressBook = XmlFileStorage.loadDataFromSaveFile(filePath);
         try {
             return Optional.of(xmlAddressBook.toModelType());
         } catch (IllegalValueException ive) {
-            logger.info("Illegal values found in " + addressBookFile + ": " + ive.getMessage());
+            logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
             throw new DataConversionException(ive);
         }
     }
@@ -72,13 +69,12 @@ public class XmlAddressBookStorage implements AddressBookStorage {
      * Similar to {@link #saveAddressBook(ReadOnlyAddressBook)}
      * @param filePath location of the data. Cannot be null
      */
-    public void saveAddressBook(ReadOnlyAddressBook addressBook, String filePath) throws IOException {
+    public void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
         requireNonNull(addressBook);
         requireNonNull(filePath);
 
-        Path file = Paths.get(filePath);
-        FileUtil.createIfMissing(file);
-        XmlFileStorage.saveDataToFile(file, new XmlSerializableAddressBook(addressBook));
+        FileUtil.createIfMissing(filePath);
+        XmlFileStorage.saveDataToFile(filePath, new XmlSerializableAddressBook(addressBook));
     }
 
 }

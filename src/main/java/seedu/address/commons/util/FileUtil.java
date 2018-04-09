@@ -5,7 +5,9 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 
 /**
  * Writes and reads files
@@ -19,6 +21,21 @@ public class FileUtil {
     }
 
     /**
+     * Checks if the path given is valid.
+     * @param path A String representing the file path.
+     *             Cannot be null.
+     * @return     true if path is valid, false if invalid.
+     */
+    public static boolean isValidPath(String path) {
+        try {
+            Paths.get(path);
+        } catch (InvalidPathException ipe) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
      * Creates a file if it does not exist along with its missing parent directories.
      * @throws IOException if the file or directory cannot be created.
      */
@@ -27,21 +44,14 @@ public class FileUtil {
             createFile(file);
         }
     }
-
     /**
-     * Creates a file if it does not exist along with its missing parent directories
-     *
-     * @return true if file is created, false if file already exists
+     * Creates a file if it does not exist along with its missing parent directories.
      */
-    public static boolean createFile(Path file) throws IOException {
-        if (Files.exists(file)) {
-            return false;
+    public static void createFile(Path file) throws IOException {
+        if (!Files.exists(file)) {
+            createParentDirsOfFile(file);
+            Files.createFile(file);
         }
-
-        createParentDirsOfFile(file);
-
-        Files.createFile(file);
-        return true;
     }
 
     /**
