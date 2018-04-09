@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.calendarfx.model.Calendar;
 import com.calendarfx.model.CalendarSource;
+import com.calendarfx.model.Entry;
 import com.calendarfx.view.CalendarView;
 
 import javafx.fxml.FXML;
@@ -80,7 +81,8 @@ public class CalendarPanel extends UiPart<Region> {
             calendarView.showYearPage();
             return;
         default:
-            assert(false); // Should never enter here
+            // Should never enter here
+            assert (false);
         }
     }
 
@@ -90,17 +92,42 @@ public class CalendarPanel extends UiPart<Region> {
      * @param filteredTasks updated list of tasks
      */
     public static void updateCalendar(List<Task> filteredTasks) {
-        Calendar updatedCalendar = new Calendar("task");
-        for (Task task : filteredTasks) {
-            updatedCalendar.addEntry(task.getEntry());
+        if (isFilteredTaskValid(filteredTasks)) {
+            Calendar updatedCalendar = new Calendar("task");
+            for (Task task : filteredTasks) {
+                updatedCalendar.addEntry(task.getEntry());
+            }
+            source.getCalendars().clear();
+            source.getCalendars().add(updatedCalendar);
+        } else {
+            // Latest task list provided should not have any task that clashes
+            assert (false);
         }
-        source.getCalendars().clear();
-        source.getCalendars().add(updatedCalendar);
+    }
+
+    /**
+     * Checks if the given latest task list is valid
+     *
+     * @param taskList to be checked
+     * @return true if there is no clash between tasks so task list is valid
+     *         false if there is clash between tasks so task list is invalid
+     */
+    private static boolean isFilteredTaskValid(List<Task> taskList) {
+        for (int i = 0; i < taskList.size(); i++) {
+            Entry<?> taskEntryToBeChecked = taskList.get(i).getEntry();
+            for (int j = i + 1; j < taskList.size(); j++) {
+                Entry taskEntryToCheckAgainst = taskList.get(j).getEntry();
+                if (taskEntryToBeChecked.intersects(taskEntryToCheckAgainst)) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     @Override
     public CalendarView getRoot() {
-        return this.calendarView;
+        return calendarView;
     }
 
 }
