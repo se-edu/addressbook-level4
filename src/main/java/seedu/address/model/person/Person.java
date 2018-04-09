@@ -22,7 +22,7 @@ public class Person {
 
     // Data fields
     private final Address address;
-    private final UniqueTagList tags;
+    private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
@@ -72,7 +72,6 @@ public class Person {
         return otherPerson != null
                 && otherPerson.getName().equals(this.getName())
                 && (otherPerson.getPhone().equals(this.getPhone()) || otherPerson.getEmail().equals(this.getEmail()));
-
     }
 
     /**
@@ -93,7 +92,8 @@ public class Person {
         return otherPerson.getName().equals(this.getName())
                 && otherPerson.getPhone().equals(this.getPhone())
                 && otherPerson.getEmail().equals(this.getEmail())
-                && otherPerson.getAddress().equals(this.getAddress());
+                && otherPerson.getAddress().equals(this.getAddress())
+                && otherPerson.getTags().equals(this.getTags());
     }
 
     @Override
