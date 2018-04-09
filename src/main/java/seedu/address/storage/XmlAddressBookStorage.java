@@ -2,9 +2,11 @@ package seedu.address.storage;
 
 import static java.util.Objects.requireNonNull;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -42,17 +44,17 @@ public class XmlAddressBookStorage implements AddressBookStorage {
      * @throws DataConversionException if the file is not in the correct format.
      */
     public Optional<ReadOnlyAddressBook> readAddressBook(String filePath) throws DataConversionException,
-                                                                                 FileNotFoundException {
+            FileNotFoundException {
         requireNonNull(filePath);
 
-        File addressBookFile = new File(filePath);
+        Path addressBookFile = Paths.get(filePath);
 
-        if (!addressBookFile.exists()) {
+        if (!Files.exists(addressBookFile)) {
             logger.info("AddressBook file "  + addressBookFile + " not found");
             return Optional.empty();
         }
 
-        XmlSerializableAddressBook xmlAddressBook = XmlFileStorage.loadDataFromSaveFile(new File(filePath));
+        XmlSerializableAddressBook xmlAddressBook = XmlFileStorage.loadDataFromSaveFile(Paths.get(filePath));
         try {
             return Optional.of(xmlAddressBook.toModelType());
         } catch (IllegalValueException ive) {
@@ -74,7 +76,7 @@ public class XmlAddressBookStorage implements AddressBookStorage {
         requireNonNull(addressBook);
         requireNonNull(filePath);
 
-        File file = new File(filePath);
+        Path file = Paths.get(filePath);
         FileUtil.createIfMissing(file);
         XmlFileStorage.saveDataToFile(file, new XmlSerializableAddressBook(addressBook));
     }
