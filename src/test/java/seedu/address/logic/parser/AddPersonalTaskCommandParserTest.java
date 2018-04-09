@@ -3,12 +3,12 @@ package seedu.address.logic.parser;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_DATE_TIME;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_DURATION;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_TIME;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_DURATION;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_TIME_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DURATION_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMPTY_TASK_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TASK_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TASK_WITHOUT_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TASK_WITH_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TASK_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TASK_WITHOUT_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TASK_WITH_DESC_AMY;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 
@@ -81,19 +81,19 @@ public class AddPersonalTaskCommandParserTest {
     @Test
     public void parse_validArgs_success() {
         // With description
-        LocalDateTime taskDateTime = LocalDateTime.parse(VALID_DATE_TIME, formatter);
-        PersonalTask personalTask = new PersonalTask(taskDateTime, VALID_DURATION, VALID_TASK_DESC);
-        assertParseSuccess(parser, VALID_TASK_WITH_DESC,
+        LocalDateTime taskDateTime = LocalDateTime.parse(VALID_DATE_TIME_AMY, formatter);
+        PersonalTask personalTask = new PersonalTask(taskDateTime, VALID_DURATION_AMY, VALID_TASK_DESC_AMY);
+        assertParseSuccess(parser, VALID_TASK_WITH_DESC_AMY,
                 new AddPersonalTaskCommand(personalTask));
 
         // Without description
-        personalTask = new PersonalTask(taskDateTime, VALID_DURATION, VALID_EMPTY_TASK_DESC);
-        assertParseSuccess(parser, VALID_TASK_WITHOUT_DESC,
+        personalTask = new PersonalTask(taskDateTime, VALID_DURATION_AMY, VALID_EMPTY_TASK_DESC);
+        assertParseSuccess(parser, VALID_TASK_WITHOUT_DESC_AMY,
                 new AddPersonalTaskCommand(personalTask));
 
         // Check leap year
         personalTask = new PersonalTask(LocalDateTime.parse("29/02/2016 11:20", formatter),
-                VALID_DURATION, VALID_EMPTY_TASK_DESC);
+                VALID_DURATION_AMY, VALID_EMPTY_TASK_DESC);
         assertParseSuccess(parser, "29/02/2016 11:20 1h11m",
                 new AddPersonalTaskCommand(personalTask));
     }
