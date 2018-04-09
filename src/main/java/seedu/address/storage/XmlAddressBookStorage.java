@@ -39,23 +39,23 @@ public class XmlAddressBookStorage implements AddressBookStorage {
 
     /**
      * Similar to {@link #readAddressBook()}
-     * @param addressBookFilePath location of the data. Cannot be null
+     * @param filePath location of the data. Cannot be null
      * @throws DataConversionException if the file is not in the correct format.
      */
-    public Optional<ReadOnlyAddressBook> readAddressBook(Path addressBookFilePath) throws DataConversionException,
+    public Optional<ReadOnlyAddressBook> readAddressBook(Path filePath) throws DataConversionException,
                                                                                  FileNotFoundException {
-        requireNonNull(addressBookFilePath);
+        requireNonNull(filePath);
 
-        if (!Files.exists(addressBookFilePath)) {
-            logger.info("AddressBook file "  + addressBookFilePath + " not found");
+        if (!Files.exists(filePath)) {
+            logger.info("AddressBook file "  + filePath + " not found");
             return Optional.empty();
         }
 
-        XmlSerializableAddressBook xmlAddressBook = XmlFileStorage.loadDataFromSaveFile(addressBookFilePath);
+        XmlSerializableAddressBook xmlAddressBook = XmlFileStorage.loadDataFromSaveFile(filePath);
         try {
             return Optional.of(xmlAddressBook.toModelType());
         } catch (IllegalValueException ive) {
-            logger.info("Illegal values found in " + addressBookFilePath + ": " + ive.getMessage());
+            logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
             throw new DataConversionException(ive);
         }
     }

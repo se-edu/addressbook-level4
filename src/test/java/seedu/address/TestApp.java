@@ -111,10 +111,10 @@ public class TestApp extends MainApp {
     /**
      * Creates an XML file at the {@code filePath} with the {@code data}.
      */
-    private <T> void createDataFileWithData(T data, Path saveFilePathForTesting) {
+    private <T> void createDataFileWithData(T data, Path filePath) {
         try {
-            FileUtil.createIfMissing(saveFilePathForTesting);
-            XmlUtil.saveDataToFile(saveFilePathForTesting, data);
+            FileUtil.createIfMissing(filePath);
+            XmlUtil.saveDataToFile(filePath, data);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

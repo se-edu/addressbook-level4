@@ -11,8 +11,6 @@ import static seedu.address.ui.testutil.GuiTestAssert.assertCardEquals;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.concurrent.TimeUnit;
-import java.util.logging.Logger;
 
 import org.junit.Test;
 
@@ -82,23 +80,10 @@ public class PersonListPanelTest extends GuiUnitTest {
      * {@code PersonListPanel}.
      */
     private ObservableList<Person> createBackingList(int personCount) throws Exception {
-        Stopwatch stopwatch = Stopwatch.createStarted();
-
-        Path xmlFilePath = createXmlFileWithPersons(personCount);
+        Path xmlFile = createXmlFileWithPersons(personCount);
         XmlSerializableAddressBook xmlAddressBook =
-                XmlUtil.getDataFromFile(xmlFilePath, XmlSerializableAddressBook.class);
-        ObservableList<Person> personList =
-                FXCollections.observableArrayList(xmlAddressBook.toModelType().getPersonList());
-
-        long createListTime = stopwatch.elapsed(TimeUnit.MILLISECONDS);
-        String createListMessage = "List creation took: " + createListTime + "ms. ";
-        if (createListTime >= LIST_CREATION_TIMEOUT) {
-            fail(createListMessage + "Time limit exceeded.");
-        } else {
-            logger.info(createListMessage + "Continuing test.");
-        }
-
-        return personList;
+                XmlUtil.getDataFromFile(xmlFile, XmlSerializableAddressBook.class);
+        return FXCollections.observableArrayList(xmlAddressBook.toModelType().getPersonList());
     }
 
     /**
@@ -118,7 +103,7 @@ public class PersonListPanelTest extends GuiUnitTest {
         }
         builder.append("</addressbook>\n");
 
-        Path manyPersonsFile = TEST_DATA_FOLDER.resolve("manyPersons.xml");
+        Path manyPersonsFile = Paths.get(TEST_DATA_FOLDER + "manyPersons.xml");
         FileUtil.createFile(manyPersonsFile);
         FileUtil.writeToFile(manyPersonsFile, builder.toString());
         manyPersonsFile.toFile().deleteOnExit();

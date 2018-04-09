@@ -205,12 +205,6 @@ public class MainApp extends Application {
         this.stop();
     }
 
-    /**
-     * Static class encapsulating the app parameters.
-     */
-    private static class AppParameters {
-        private Path configPath;
-    }
 
     /**
      * Parses application command-line parameters.
@@ -226,6 +220,13 @@ public class MainApp extends Application {
         }
         appParameters.configPath = configPathParameter != null ? Paths.get(configPathParameter) : null;
         return appParameters;
+    }
+
+    /**
+     * Represents the command-line parameters given to the application.
+     */
+    private static class AppParameters {
+        private Path configPath;
     }
 
     public static void main(String[] args) {
