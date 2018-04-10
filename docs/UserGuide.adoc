@@ -18,10 +18,13 @@ By: `Team MarvelousBook`      Since: `Feb 2018`      Licence: `MIT`
 // tag::introduction[]
 == Introduction
 
-TuitionConnect (TC) is personalised address book for the private home tutors. +
+TuitionConnect (TC) is an integration of a personalised address book, task manager and income tracker for private home tutors. +
 
-There are several features in TuitionConnect which aid in the management of your tutee contacts and tuition.
-There are also features which supports the management of your personal contacts and tasks so that you do not require 2 different address books to handle his or her contacts and tasks. +
+Stems from our strong passion in simplifying the life of tutors, Tuition Connect introduces features
+to aid management of tutee contacts, tuition schedule and income tracking. Moreover, we believe that a thorough connectivity is the
+root of simplicity. Hence, there are also features which supports the management of your personal contacts and tasks. +
+Certainly, it is important to recognize that reflection is the key on improvment. Tuition Connect also helps tutors to review
+their past tuition sessions as long as those sessions are not removed from the data.
 
 TuitionConnect is primarily for tutors who *prefer to use a desktop app for managing contacts and tasks*.
 More importantly, TuitionConnect is *optimized for those who prefer to work with a Command Line Interface*
@@ -55,6 +58,15 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
+
+== Concept Introduction
+* Tutee  : this refers to the students you are teaching. Adding a student as tutee requires specific *tutee details* to be provided.
+         By doing so, it will be easier to organize your contacts using our special features. +
+* Person : other contacts which are not tutee. +
+* Tutee Details : this includes tutee's education level, grade, subject and school. +
+* Task : this refers to your agenda. There are 2 different kinds of task recognized by Tuition Connect.
+** Tuition task refers to sessions when you are teaching your registered tutee. +
+** Personal task is any agenda that is not a tuition.
 
 [[Features]]
 == Features
@@ -189,32 +201,31 @@ Lists any person having names `Betsy`, `Tim`, or `John`
 * `f grade B B+` +
 Lists all tutee with grade `B` and `B+`
 
-=== Sorting persons by category: `sort`
+=== Sorting persons by category: `sortpersonby`
 
-Sorts your displayed contact list according to a category in an ascending order (lexicographically). +
+Sorts your displayed contact list according to a specified category in ascending order (lexicographically). +
 Using Command Word: +
-Format: `sort CATEGORY` +
+Format: `sortpersonby CATEGORY` +
 
 ****
-* Sorting category types is case insensitive.
- e.g both `sort name` and `sort Name` works fine.
-* The sorting is case insensitive.
- e.g In a case where `sort name` is writeen, `angel' is diplayed before 'Ben'.
-* The displayed contact list will be sorted; not the entire contact list.
 * There are 5 categories to pick:
 ** 1. name
 ** 2. edu*
 ** 3. grade*
 ** 4. school*
 ** 5. subject*
-* Categories marked with * are only owned by tutees. If one of them is selected, all non-tutees will be displayed
+* Categories marked with * are only owned by tutees. If one of these is selected, all non-tutees will be displayed
  last after their names are sorted lexicographically.
-
+* Sorting category types is case insensitive.
+ e.g both `sort name` and `sort Name` works fine.
+* The sorting is case insensitive.
+ e.g In a case where `sort name` is writen, `angel' is diplayed before 'Ben'.
+* The displayed contact list will be sorted; not the entire contact list.
 ****
 
-Examples:
+Example: +
 
-* `sort Name` +
+* `sortpersonby Name` +
 sorts by name lexicographically.
 
 === Deleting a person : `delete`
@@ -270,13 +281,6 @@ Using Command Word: +
 Format: `addtuition TUTEE_INDEX DATE TIME DURATION [DESCRIPTION] +
 
 ****
-*CONCEPT INTRODUCTION*
-
-There are 2 different kinds of task recognized by Tuition Connect. Tuition (task) is always associated with a tutee
-and a tuition fee (tuition fee is coming soon on v2.0)
-****
-
-****
 *PARAMETERS*
 
 * TUTEE_INDEX
@@ -324,12 +328,6 @@ Examples:
 Adds a personal task to the Tuition Connect schedule +
 Using Command Word: +
 Format: `addtask DATE TIME DURATION [DESCRIPTION]+
-
-****
-*CONCEPT INTRODUCTION*
-
-There are 2 different kinds of task recognized by Tuition Connect. Personal task is any agenda that is not a tuition.
-****
 
 ****
 The parameters (DATE, TIME, DURATION AND DESCRIPTION) have the same structure and limitations as explained in *addtask* command guide.
@@ -569,7 +567,7 @@ e.g. `delete 3` +
 e.g. `edit 2 n/James Lee e/jameslee@example.com` +
 * *Find Person By* : findpersonby CATEGORY KEYWORD [MORE_KEYWORDS]` +
 e.g. `findpersonby name Jake Doe` +
-* *Sort* : sort CATEGORY +
+* *Sort Person By* : sortpersonby CATEGORY +
 e.g. `sort grade`
 * *List* : `list` +
 * *List Tutee* : 'listtutee' +
