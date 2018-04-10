@@ -92,7 +92,7 @@ public class CalendarPanel extends UiPart<Region> {
      * @param filteredTasks updated list of tasks
      */
     public static void updateCalendar(List<Task> filteredTasks) {
-        if (isFilteredTaskValid(filteredTasks)) {
+        if (isFilteredTaskListValid(filteredTasks)) {
             Calendar updatedCalendar = new Calendar("task");
             for (Task task : filteredTasks) {
                 updatedCalendar.addEntry(task.getEntry());
@@ -100,7 +100,7 @@ public class CalendarPanel extends UiPart<Region> {
             source.getCalendars().clear();
             source.getCalendars().add(updatedCalendar);
         } else {
-            // Latest task list provided should not have any task that clashes
+            // Latest task list provided or loaded from storage should not have any task that clashes
             assert (false);
         }
     }
@@ -112,17 +112,33 @@ public class CalendarPanel extends UiPart<Region> {
      * @return true if there is no clash between tasks so task list is valid
      *         false if there is clash between tasks so task list is invalid
      */
-    private static boolean isFilteredTaskValid(List<Task> taskList) {
+    private static boolean isFilteredTaskListValid(List<Task> taskList) {
         for (int i = 0; i < taskList.size(); i++) {
             Entry<?> taskEntryToBeChecked = taskList.get(i).getEntry();
-            for (int j = i + 1; j < taskList.size(); j++) {
-                Entry taskEntryToCheckAgainst = taskList.get(j).getEntry();
-                if (taskEntryToBeChecked.intersects(taskEntryToCheckAgainst)) {
-                    return false;
-                }
+            if (isTaskTimingClash(taskList, i, taskEntryToBeChecked)) {
+                return false;
             }
         }
         return true;
+    }
+
+    /**
+     * Checks if the given task clashes with any task in the list
+     *
+     * @param taskList list of tasks to check against
+     * @param index index of the given task
+     * @param taskEntryToBeChecked the given task entry
+     * @return true if given task does not clash with any task in the list
+     *         false if given task clashes with another task in the list
+     */
+    private static boolean isTaskTimingClash(List<Task> taskList, int index, Entry<?> taskEntryToBeChecked) {
+        for (int j = index + 1; j < taskList.size(); j++) {
+            Entry taskEntryToCheckAgainst = taskList.get(j).getEntry();
+            if (taskEntryToBeChecked.intersects(taskEntryToCheckAgainst)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
