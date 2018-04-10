@@ -79,7 +79,6 @@ public class AddTuitionTaskCommandParserTest {
     public void parse_validArgs_success() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/uuuu HH:mm")
                 .withResolverStyle(ResolverStyle.STRICT);
-
         LocalDateTime taskDateTime = LocalDateTime.parse(VALID_DATE_TIME, formatter);
 
         // With description
