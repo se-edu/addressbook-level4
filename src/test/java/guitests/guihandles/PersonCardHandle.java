@@ -3,7 +3,7 @@ package guitests.guihandles;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import org.apache.commons.collections4.CollectionUtils;
+import com.google.common.collect.ImmutableMultiset;
 
 import javafx.scene.Node;
 import javafx.scene.control.Label;
@@ -80,8 +80,8 @@ public class PersonCardHandle extends NodeHandle<Node> {
                 && getAddress().equals(person.getAddress().value)
                 && getPhone().equals(person.getPhone().value)
                 && getEmail().equals(person.getEmail().value)
-                && CollectionUtils.isEqualCollection(getTags(), person.getTags().stream()
-                                                                                .map(tag -> tag.tagName)
-                                                                                .collect(Collectors.toList()));
+                && ImmutableMultiset.copyOf(getTags()).equals(ImmutableMultiset.copyOf(person.getTags().stream()
+                        .map(tag -> tag.tagName)
+                        .collect(Collectors.toList())));
     }
 }
