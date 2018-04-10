@@ -3,9 +3,9 @@ package seedu.address.logic.commands;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_TIME;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_DURATION;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TASK_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_TIME_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DURATION_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TASK_DESC_AMY;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -26,8 +26,8 @@ public class AddPersonalTaskCommandTest {
 
     private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/uuuu HH:mm")
             .withResolverStyle(ResolverStyle.STRICT);
-    private LocalDateTime taskDateTime = LocalDateTime.parse(VALID_DATE_TIME, formatter);
-    private PersonalTask task = new PersonalTask(taskDateTime, VALID_DURATION, VALID_TASK_DESC);
+    private LocalDateTime taskDateTime = LocalDateTime.parse(VALID_DATE_TIME_AMY, formatter);
+    private PersonalTask task = new PersonalTask(taskDateTime, VALID_DURATION_AMY, VALID_TASK_DESC_AMY);
 
     @Test
     public void constructor_nullTask_throwsNullPointerException() {
@@ -38,7 +38,7 @@ public class AddPersonalTaskCommandTest {
     @Test
     public void equals() {
         LocalDateTime taskDateTime2 = LocalDateTime.parse("08/08/1988 18:00", formatter);
-        PersonalTask task2 = new PersonalTask(taskDateTime2, VALID_DURATION, VALID_TASK_DESC);
+        PersonalTask task2 = new PersonalTask(taskDateTime2, VALID_DURATION_AMY, VALID_TASK_DESC_AMY);
 
         AddPersonalTaskCommand addFirstTask = new AddPersonalTaskCommand(task);
         AddPersonalTaskCommand addFirstTaskCopy = new AddPersonalTaskCommand(task);
