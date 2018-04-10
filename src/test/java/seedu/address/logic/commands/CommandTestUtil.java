@@ -49,17 +49,12 @@ public class CommandTestUtil {
     public static final String VALID_ADDRESS_ROBERT = "Block 123, Robert Street 3";
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
-    public static final String VALID_DATE_TIME_AMY = "21/01/2011 11:11";
-    public static final String VALID_DATE_TIME_BOB = "18/03/2017 08:00";
-    public static final String VALID_DURATION_AMY = "1h11m";
-    public static final String VALID_DURATION_BOB = "2h29m";
-    public static final String VALID_TASK_DESC_AMY = "tuition homework";
-    public static final String VALID_TASK_DESC_BOB = "biology exam";
+    public static final String VALID_DATE_TIME = "21/01/2011 11:11";
+    public static final String VALID_DURATION = "1h11m";
+    public static final String VALID_TASK_DESC = "tuition homework";
     public static final String VALID_EMPTY_TASK_DESC = "";
-    public static final String VALID_TASK_WITHOUT_DESC_AMY = VALID_DATE_TIME_AMY + " " + VALID_DURATION_AMY;
-    public static final String VALID_TASK_WITHOUT_DESC_BOB = VALID_DATE_TIME_BOB + " " + VALID_DURATION_BOB;
-    public static final String VALID_TASK_WITH_DESC_AMY = VALID_TASK_WITHOUT_DESC_AMY + " " + VALID_TASK_DESC_AMY;
-    public static final String VALID_TASK_WITH_DESC_BOB = VALID_TASK_WITHOUT_DESC_BOB + " " + VALID_TASK_DESC_BOB;
+    public static final String VALID_TASK_WITHOUT_DESC = VALID_DATE_TIME + " " + VALID_DURATION;
+    public static final String VALID_TASK_WITH_DESC = VALID_TASK_WITHOUT_DESC + " " + VALID_TASK_DESC;
     public static final String VALID_SUBJECT_AMY = "economics";
     public static final String VALID_SUBJECT_BOB = "mathematics";
     public static final String VALID_GRADE_AMY = "B+";
@@ -128,7 +123,7 @@ public class CommandTestUtil {
      * - the {@code actualModel} matches {@code expectedModel}
      */
     public static void assertCommandSuccess(Command command, Model actualModel, String expectedMessage,
-            Model expectedModel) {
+                                            Model expectedModel) {
         try {
             CommandResult result = command.execute();
             assertEquals(expectedMessage, result.feedbackToUser);
