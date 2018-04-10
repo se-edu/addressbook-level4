@@ -11,7 +11,9 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.AddressBookParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
+import seedu.address.model.Task;
 import seedu.address.model.person.Person;
+import seedu.address.ui.CalendarPanel;
 
 /**
  * The main LogicManager of the app.
@@ -39,6 +41,7 @@ public class LogicManager extends ComponentManager implements Logic {
             command.setData(model, history, undoRedoStack);
             CommandResult result = command.execute();
             undoRedoStack.push(command);
+            CalendarPanel.updateCalendar(model.getFilteredTaskList());
             return result;
         } finally {
             history.add(commandText);
@@ -48,6 +51,11 @@ public class LogicManager extends ComponentManager implements Logic {
     @Override
     public ObservableList<Person> getFilteredPersonList() {
         return model.getFilteredPersonList();
+    }
+
+    @Override
+    public ObservableList<Task> getFilteredTaskList() {
+        return model.getFilteredTaskList();
     }
 
     @Override

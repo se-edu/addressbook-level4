@@ -10,12 +10,12 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
 
+//@@author ChoChihTun
 /**
  * Represents a Tutee in the address book.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Tutee extends Person {
-    private TuitionSchedule schedule;
     private Subject subject;
     private Grade grade;
     private EducationLevel educationLevel;
@@ -31,11 +31,6 @@ public class Tutee extends Person {
         this.grade = grade;
         this.educationLevel = educationLevel;
         this.school = school;
-        this.schedule = new TuitionSchedule(name.toString());
-    }
-
-    public TuitionSchedule getTuitionSchedule() {
-        return schedule;
     }
 
     public Subject getSubject() {
@@ -60,15 +55,19 @@ public class Tutee extends Person {
             return true;
         }
 
-        if (!(other instanceof Person)) {
+        if (!(other instanceof Tutee)) {
             return false;
         }
 
-        Person otherPerson = (Person) other;
+        Tutee otherPerson = (Tutee) other;
         return otherPerson.getName().equals(this.getName())
                 && otherPerson.getPhone().equals(this.getPhone())
                 && otherPerson.getEmail().equals(this.getEmail())
-                && otherPerson.getAddress().equals(this.getAddress());
+                && otherPerson.getAddress().equals(this.getAddress())
+                && otherPerson.getEducationLevel().equals(this.getEducationLevel())
+                && otherPerson.getGrade().equals(this.getGrade())
+                && otherPerson.getSchool().equals(this.getSchool())
+                && otherPerson.getSubject().equals(this.getSubject());
     }
 
     @Override

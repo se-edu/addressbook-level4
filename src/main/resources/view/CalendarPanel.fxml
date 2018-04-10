@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.StackPane?>
+
+<!-- @@author ChoChihTun -->
+<StackPane xmlns="http://javafx.com/javafx/8.0.121">
+    <children>
+        <BorderPane prefHeight="200.0" prefWidth="200.0" />
+    </children>
+</StackPane>

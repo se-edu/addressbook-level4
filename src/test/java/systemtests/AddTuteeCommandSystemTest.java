@@ -42,13 +42,13 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_SCHOOL_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_SUBJECT_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.testutil.TypicalPersons.KEYWORD_MATCHING_MEIER;
-import static seedu.address.testutil.TypicalTutees.ALICETUTEE;
-import static seedu.address.testutil.TypicalTutees.AMYTUTEE;
-import static seedu.address.testutil.TypicalTutees.BOBTUTEE;
-import static seedu.address.testutil.TypicalTutees.CARLTUTEE;
-import static seedu.address.testutil.TypicalTutees.HOONTUTEE;
-import static seedu.address.testutil.TypicalTutees.IDATUTEE;
+import static seedu.address.testutil.typicaladdressbook.TypicalPersons.KEYWORD_MATCHING_MEIER;
+import static seedu.address.testutil.typicaladdressbook.TypicalTutees.ALICETUTEE;
+import static seedu.address.testutil.typicaladdressbook.TypicalTutees.AMYTUTEE;
+import static seedu.address.testutil.typicaladdressbook.TypicalTutees.BOBTUTEE;
+import static seedu.address.testutil.typicaladdressbook.TypicalTutees.CARLTUTEE;
+import static seedu.address.testutil.typicaladdressbook.TypicalTutees.HOONTUTEE;
+import static seedu.address.testutil.typicaladdressbook.TypicalTutees.IDATUTEE;
 
 import org.junit.Test;
 
@@ -72,6 +72,7 @@ import seedu.address.model.tutee.Tutee;
 import seedu.address.testutil.TuteeBuilder;
 import seedu.address.testutil.TuteeUtil;
 
+//@@author ChoChihTun
 public class AddTuteeCommandSystemTest extends AddressBookSystemTest {
 
     @Test

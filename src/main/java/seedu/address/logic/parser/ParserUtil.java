@@ -1,7 +1,12 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_DURATION;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.format.ResolverStyle;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Optional;
@@ -10,10 +15,13 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.StringUtil;
+import seedu.address.logic.commands.ChangeCommand;
+import seedu.address.logic.parser.exceptions.SameTimeUnitException;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.exceptions.DurationParseException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tutee.EducationLevel;
 import seedu.address.model.tutee.Grade;
@@ -32,7 +40,8 @@ import seedu.address.model.tutee.Subject;
 public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
-    public static final String MESSAGE_INSUFFICIENT_PARTS = "Number of parts must be more than 1.";
+
+    private static final String EMPTY_STRING = "";
 
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
@@ -170,6 +179,7 @@ public class ParserUtil {
         return tagSet;
     }
 
+    //@@author ChoChihTun
     /**
      * Parses a {@code String subject} into an {@code Subject}.
      * Leading and trailing whitespaces will be trimmed.
@@ -268,4 +278,75 @@ public class ParserUtil {
         return grade.isPresent() ? Optional.of(parseGrade(grade.get())) : Optional.empty();
     }
 
+    /**
+     * Parses a {@code String timeUnit} into an {@code String} and returns it.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws IllegalValueException if the given {@code timeUnit} is invalid.
+     */
+    public static String parseTimeUnit(String timeUnit) throws IllegalValueException, SameTimeUnitException {
+        requireNonNull(timeUnit);
+        String trimmedTimeUnit = timeUnit.trim();
+        if (!ChangeCommandParser.isValidTimeUnit(trimmedTimeUnit)) {
+            throw new IllegalValueException(ChangeCommand.MESSAGE_CONSTRAINT);
+        }
+        if (ChangeCommandParser.isTimeUnitClash(trimmedTimeUnit)) {
+            throw new SameTimeUnitException(ChangeCommand.MESSAGE_SAME_VIEW);
+        }
+        return trimmedTimeUnit;
+    }
+
+    //@@author yungyung04
+    /**
+     * Parses a {@code String dateTime} into an {@code LocalDateTime}.
+     *
+     * @throws DateTimeParseException if the given {@code stringDateTime} is invalid.
+     */
+    public static LocalDateTime parseDateTime(String stringDateTime) throws DateTimeParseException {
+        requireNonNull(stringDateTime);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/uuuu HH:mm")
+                .withResolverStyle(ResolverStyle.STRICT);
+        return LocalDateTime.parse(stringDateTime, formatter);
+    }
+
+    /**
+     * Checks if the given duration is valid.
+     *
+     * @throws DurationParseException if the given {@code duration} is invalid.
+     */
+    public static String parseDuration(String duration) throws DurationParseException {
+        requireNonNull(duration);
+        String durationValidationRegex = "([0-9]|1[0-9]|2[0-3])h([0-5][0-9]|[0-9])m";
+        if (!duration.matches(durationValidationRegex)) {
+            throw new DurationParseException(MESSAGE_INVALID_DURATION);
+        }
+        return duration;
+    }
+
+    /**
+     * Returns the description if it exists in the user input.
+     * Returns empty string otherwise.
+     */
+    public static String parseDescription(String[] userInputs, int maximumParametersGiven) {
+        if (isEmptyDescription(userInputs, maximumParametersGiven)) {
+            return EMPTY_STRING;
+        } else {
+            String description = getLastElement(userInputs);
+            return description;
+        }
+    }
+
+    /**
+     * Returns the last element of an array of Strings.
+     */
+    private static String getLastElement(String[] userInputs) {
+        return userInputs[userInputs.length - 1];
+    }
+
+    /**
+     * Returns true if a given task arguments contain a task description.
+     */
+    private static boolean isEmptyDescription(String[] arguments, int maximumParameterssGiven) {
+        return arguments.length < maximumParameterssGiven;
+    }
 }

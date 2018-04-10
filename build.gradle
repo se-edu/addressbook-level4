@@ -45,7 +45,9 @@ dependencies {
     compile group: 'org.controlsfx', name: 'controlsfx', version: '8.40.11'
     compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.7.0'
     compile group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: '2.7.4'
-    compile group: 'com.google.guava', name: 'guava', version: '19.0'
+    compile group: 'com.google.guava', name: 'guava', version: '21.0'
+    compile fileTree(dir: 'lib', include: '*.jar')
+
 
     testCompile group: 'junit', name: 'junit', version: '4.12'
     testCompile group: 'org.testfx', name: 'testfx-core', version: testFxVersion
@@ -194,11 +196,6 @@ task deployOfflineDocs(type: Copy) {
         include 'images/*'
         include 'UserGuide.html'
     }
-}
-
-task copyDummySearchPage(type: Copy) {
-    from 'docs/DummySearchPage.html'
-    into "${buildDir}/docs/html5"
 }
 
 deployOfflineDocs.dependsOn asciidoctor
