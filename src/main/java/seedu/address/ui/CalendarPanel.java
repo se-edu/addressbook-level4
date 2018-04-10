@@ -2,6 +2,7 @@ package seedu.address.ui;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.List;
 
 import com.calendarfx.model.Calendar;
 import com.calendarfx.model.CalendarSource;
@@ -10,6 +11,7 @@ import com.calendarfx.view.CalendarView;
 
 import javafx.fxml.FXML;
 import javafx.scene.layout.Region;
+import seedu.address.model.Task;
 
 //@@author ChoChihTun
 /**
@@ -35,6 +37,8 @@ public class CalendarPanel extends UiPart<Region> {
         calendarView.setToday(LocalDate.now());
         calendarView.setTime(LocalTime.now());
         calendarView.setScaleX(0.95);
+        calendarView.setScaleY(1.15);
+        calendarView.setTranslateY(-40);
         calendarView.showDayPage();
         disableViews();
         setupCalendar();
@@ -77,30 +81,69 @@ public class CalendarPanel extends UiPart<Region> {
             calendarView.showYearPage();
             return;
         default:
-            assert(false); // Should never enter here
+            // Should never enter here
+            assert (false);
         }
     }
 
     /**
-     * Adds a task entry to the calendar
+     * Updates the calendar with the updated list of tasks
      *
-     * @param entry to be added to calendar
+     * @param filteredTasks updated list of tasks
      */
-    public static void addEntry(Entry entry) {
-        calendar.addEntry(entry);
+    public static void updateCalendar(List<Task> filteredTasks) {
+        if (isFilteredTaskListValid(filteredTasks)) {
+            Calendar updatedCalendar = new Calendar("task");
+            for (Task task : filteredTasks) {
+                updatedCalendar.addEntry(task.getEntry());
+            }
+            source.getCalendars().clear();
+            source.getCalendars().add(updatedCalendar);
+        } else {
+            // Latest task list provided or loaded from storage should not have any task that clashes
+            assert (false);
+        }
     }
 
     /**
-     * Deletes a task entry from the calendar's schedule
+     * Checks if the given latest task list is valid
      *
-     * @param entry to be deleted
+     * @param taskList to be checked
+     * @return true if there is no clash between tasks so task list is valid
+     *         false if there is clash between tasks so task list is invalid
      */
-    public static void deleteTask(Entry entry) {
-        calendar.removeEntry(entry);
+    private static boolean isFilteredTaskListValid(List<Task> taskList) {
+        for (int i = 0; i < taskList.size(); i++) {
+            Entry<?> taskEntryToBeChecked = taskList.get(i).getEntry();
+            if (isTaskTimingClash(taskList, i, taskEntryToBeChecked)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Checks if the given task clashes with any task in the list
+     *
+     * @param taskList list of tasks to check against
+     * @param index index of the given task
+     * @param taskEntryToBeChecked the given task entry
+     * @return true if given task does not clash with any task in the list
+     *         false if given task clashes with another task in the list
+     */
+    private static boolean isTaskTimingClash(List<Task> taskList, int index, Entry<?> taskEntryToBeChecked) {
+        for (int j = index + 1; j < taskList.size(); j++) {
+            Entry taskEntryToCheckAgainst = taskList.get(j).getEntry();
+            if (taskEntryToBeChecked.intersects(taskEntryToCheckAgainst)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     @Override
     public CalendarView getRoot() {
-        return this.calendarView;
+        return calendarView;
     }
+
 }

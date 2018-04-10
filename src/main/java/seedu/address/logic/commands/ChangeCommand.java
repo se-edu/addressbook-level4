@@ -15,6 +15,7 @@ public class ChangeCommand extends Command {
             + "Parameters: "
             + "TIME_UNIT (Only d, w, m or y) "
             + "Example: " + COMMAND_WORD + " d";
+
     public static final String MESSAGE_CONSTRAINT = "Time unit can only be d, w, m or y for day, week, month and year"
             + " respectively";
 

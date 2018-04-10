@@ -1,4 +1,30 @@
 # ChoChihTun
+###### \java\seedu\address\logic\commands\AddPersonalTaskCommand.java
+``` java
+    @Override
+    public CommandResult executeUndoableCommand() throws CommandException {
+        try {
+            model.addTask(toAdd);
+        } catch (TimingClashException tce) {
+            throw new CommandException(tce.getMessage());
+        }
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+    }
+
+```
+###### \java\seedu\address\logic\commands\AddTuitionTaskCommand.java
+``` java
+    @Override
+    public CommandResult executeUndoableCommand() throws CommandException {
+        try {
+            model.addTask(toAdd);
+        } catch (TimingClashException tce) {
+            throw new CommandException(tce.getMessage());
+        }
+        return new CommandResult(MESSAGE_SUCCESS);
+    }
+
+```
 ###### \java\seedu\address\logic\commands\AddTuteeCommand.java
 ``` java
 /**
@@ -36,7 +62,7 @@ public class AddTuteeCommand extends UndoableCommand {
     private final Tutee toAdd;
 
     /**
-     * Creates an AddTuteeCommand to add the specified {@code Person}
+     * Creates an AddTuteeCommand to add the specified {@code Tutee}
      */
     public AddTuteeCommand(Tutee tutee) {
         requireNonNull(tutee);
@@ -366,10 +392,13 @@ public class DurationParseException extends Exception {
 ```
 ###### \java\seedu\address\model\person\exceptions\TimingClashException.java
 ``` java
+
+import seedu.address.commons.exceptions.DuplicateDataException;
+
 /**
- * Signals that there is a clash of timing in the schedule
+ * Signals that there is a clash of timing in the schedule or there is a duplicate task
  */
-public class TimingClashException extends Exception {
+public class TimingClashException extends DuplicateDataException {
 
     public TimingClashException(String message) {
         super(message);
@@ -383,10 +412,11 @@ public class TimingClashException extends Exception {
  */
 public class PersonalTask implements Task {
 
-    public static final String MESSAGE_TASK_CONSTRAINT =
-                    "Date can only contain numbers in the format of dd/mm/yyyy\n"
-                    + ", Time must in the format of HH:mm\n"
-                    + " and Duration must be in hours.";
+    private static final String HOUR_DELIMITER = "h";
+    private static final String MINUTE_DELIMITER = "m";
+    private static final String NULL_STRING = "";
+    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/uuuu HH:mm")
+            .withResolverStyle(ResolverStyle.STRICT);
 
     private String description;
     private String duration;
@@ -436,7 +466,7 @@ public class PersonalTask implements Task {
      * @return number of hours in the duration
      */
     private int parseHours() {
-        int indexOfHourDelimiter = duration.indexOf("h");
+        int indexOfHourDelimiter = duration.indexOf(HOUR_DELIMITER);
         return Integer.parseInt(duration.substring(0, indexOfHourDelimiter));
     }
 
@@ -446,8 +476,8 @@ public class PersonalTask implements Task {
      * @return number of minutes in the duration
      */
     private int parseMinutes() {
-        int startOfMinutesIndex = duration.indexOf("h") + 1;
-        int indexOfMinuteDelimiter = duration.indexOf("m");
+        int startOfMinutesIndex = duration.indexOf(HOUR_DELIMITER) + 1;
+        int indexOfMinuteDelimiter = duration.indexOf(MINUTE_DELIMITER);
         return Integer.parseInt(duration.substring(startOfMinutesIndex, indexOfMinuteDelimiter));
     }
 
@@ -468,94 +498,10 @@ public class PersonalTask implements Task {
     }
 
     @Override
-    public String toString() {
-        if (hasDescription()) {
-            return "Personal task with description " + description + " on "
-                    + Integer.toString(taskDateTime.getDayOfMonth()) + " "
-                    + taskDateTime.getMonth().name() + " " + Integer.toString(taskDateTime.getYear());
-        } else {
-            return "Personal task without description on " + Integer.toString(taskDateTime.getDayOfMonth())
-                    + " " + taskDateTime.getMonth().name() + " " + Integer.toString(taskDateTime.getYear());
-        }
+    public String getStringTaskDateTime() {
+        return taskDateTime.format(formatter);
     }
 
-    /**
-     * Returns true if the tuition task contains a non-empty description.
-     */
-    private boolean hasDescription() {
-        return description != "";
-    }
-
-    /**
-     * this fixes the valid args test, but has conflict with Task card
-    @Override
-    public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof PersonalTask // instanceof handles nulls
-                && taskDateTime.getDayOfMonth() == ((PersonalTask) other).taskDateTime.getDayOfMonth()
-                && taskDateTime.getHour() == ((PersonalTask) other).taskDateTime.getHour()
-                && taskDateTime.getMinute() == ((PersonalTask) other).taskDateTime.getMinute()
-                && duration.equals(((PersonalTask) other).duration)
-                && description.equals(((PersonalTask) other).description));
-    }
-    */
-}
-```
-###### \java\seedu\address\model\Schedule.java
-``` java
-/**
- * Wraps the data of all existing tasks.
- */
-public class Schedule {
-
-    protected static ArrayList<Task> taskList = new ArrayList<>();
-    /**
-     * Returns a list of all existing tasks.
-     */
-    public static ArrayList<Task> getTaskList() {
-        return taskList;
-    }
-
-    /**
-     * Checks for any clashes in the task timing in schedule
-     *
-     *  @return true if there is a clash
-     *          false if there is no clash
-     */
-    public static boolean isTaskClash(LocalDateTime taskDateTime, String duration) {
-        LocalDateTime taskEndTime = getTaskEndTime(duration, taskDateTime);
-
-        for (Task recordedTask : taskList) {
-            LocalDateTime startTimeOfTaskInSchedule = recordedTask.getTaskDateTime();
-            String durationOfTaskInSchedule = recordedTask.getDuration();
-            LocalDateTime endTimeOfTaskInSchedule = getTaskEndTime(durationOfTaskInSchedule, startTimeOfTaskInSchedule);
-            boolean isClash = !(taskEndTime.isBefore(startTimeOfTaskInSchedule)
-                    || taskDateTime.isAfter(endTimeOfTaskInSchedule))
-                    && !(taskEndTime.equals(startTimeOfTaskInSchedule)
-                    || taskDateTime.equals(endTimeOfTaskInSchedule));
-            if (isClash) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /**
-     * Returns date and time when the task ends
-     */
-    private static LocalDateTime getTaskEndTime(String duration, LocalDateTime startDateTime) {
-        int indexOfHourDelimiter = duration.indexOf("h");
-        int indexOfMinuteDelimiter = duration.indexOf("m");
-        int indexOfFirstMinuteDigit = indexOfHourDelimiter + 1;
-        int hoursInDuration = Integer.parseInt(duration.substring(0, indexOfHourDelimiter));
-        int minutesInDuration = Integer.parseInt(duration.substring(indexOfFirstMinuteDigit, indexOfMinuteDelimiter));
-
-        LocalDateTime taskEndTime;
-        taskEndTime = startDateTime.plusHours(hoursInDuration).plusMinutes(minutesInDuration);
-        return taskEndTime;
-    }
-
-}
 ```
 ###### \java\seedu\address\model\tutee\EducationLevel.java
 ``` java
@@ -769,13 +715,13 @@ public class Subject {
  */
 public class TuitionTask implements Task {
 
-    public static final String MESSAGE_TASK_CONSTRAINT =
-            "Task can only be tuition\n"
-                    + ", the tutee involved must already be inside the contact list\n"
-                    + ", Date can only contain numbers in the format of dd/mm/yyyy\n"
-                    + ", Time must in the format of HH:mm\n"
-                    + " and Duration must be the format of 01h30m";
-    private static final String TUITION_TITLE = "Tuition with %1$s"; //private Tutee tutee;
+    private static final String TUITION_TITLE = "Tuition with %1$s";
+    private static final String HOUR_DELIMITER = "h";
+    private static final String MINUTE_DELIMITER = "m";
+    private static final String NULL_STRING = "";
+    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/uuuu HH:mm")
+            .withResolverStyle(ResolverStyle.STRICT);
+
     private String tutee;
     private String description;
     private String duration;
@@ -827,7 +773,7 @@ public class TuitionTask implements Task {
      * @return number of hours in the duration
      */
     private int parseHours() {
-        int indexOfHourDelimiter = duration.indexOf("h");
+        int indexOfHourDelimiter = duration.indexOf(HOUR_DELIMITER);
         return Integer.parseInt(duration.substring(0, indexOfHourDelimiter));
     }
 
@@ -837,9 +783,9 @@ public class TuitionTask implements Task {
      * @return number of minutes in the duration
      */
     private int parseMinutes() {
-        int startOfMinutesIndex = duration.indexOf("h") + 1;
-        int indexOfMinuteDelimiter = duration.indexOf("m");
-        return Integer.parseInt(duration.substring(startOfMinutesIndex, indexOfMinuteDelimiter));
+        int indexOfFirstMinuteDigit = duration.indexOf(HOUR_DELIMITER) + 1;
+        int indexOfMinuteDelimiter = duration.indexOf(MINUTE_DELIMITER);
+        return Integer.parseInt(duration.substring(indexOfFirstMinuteDigit, indexOfMinuteDelimiter));
     }
 
     public Entry getEntry() {
@@ -863,40 +809,10 @@ public class TuitionTask implements Task {
     }
 
     @Override
-    public String toString() {
-        if (hasDescription()) {
-            return "Tuition task with description " + description + " on "
-                    + Integer.toString(taskDateTime.getDayOfMonth()) + " " + taskDateTime.getMonth().name()
-                    + " " + Integer.toString(taskDateTime.getYear());
-        } else {
-            return "Tuition task without description on " + Integer.toString(taskDateTime.getDayOfMonth())
-                    + " " + taskDateTime.getMonth().name() + " " + Integer.toString(taskDateTime.getYear());
-        }
+    public String getStringTaskDateTime() {
+        return taskDateTime.format(formatter);
     }
 
-    /**
-     * Returns true if the tuition task contains a non-empty description.
-     */
-    private boolean hasDescription() {
-        return description != "";
-    }
-
-    /**
-     * fixes the test but has conflict with Task card
-    @Override
-    public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof TuitionTask // instanceof handles nulls
-                && tutee.equals(((TuitionTask) other).tutee)
-                && taskDateTime.equals(((TuitionTask) other).taskDateTime)
-                && duration.equals(((TuitionTask) other).duration)
-                && description.equals(((TuitionTask) other).description));
-    }
-    */
-    public String getTuitionTitle() {
-        return String.format(TUITION_TITLE, tutee);
-    }
-}
 ```
 ###### \java\seedu\address\model\tutee\Tutee.java
 ``` java
@@ -905,7 +821,6 @@ public class TuitionTask implements Task {
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Tutee extends Person {
-    private TuitionSchedule schedule;
     private Subject subject;
     private Grade grade;
     private EducationLevel educationLevel;
@@ -921,11 +836,6 @@ public class Tutee extends Person {
         this.grade = grade;
         this.educationLevel = educationLevel;
         this.school = school;
-        this.schedule = new TuitionSchedule(name.toString());
-    }
-
-    public TuitionSchedule getTuitionSchedule() {
-        return schedule;
     }
 
     public Subject getSubject() {
@@ -950,15 +860,19 @@ public class Tutee extends Person {
             return true;
         }
 
-        if (!(other instanceof Person)) {
+        if (!(other instanceof Tutee)) {
             return false;
         }
 
-        Person otherPerson = (Person) other;
+        Tutee otherPerson = (Tutee) other;
         return otherPerson.getName().equals(this.getName())
                 && otherPerson.getPhone().equals(this.getPhone())
                 && otherPerson.getEmail().equals(this.getEmail())
-                && otherPerson.getAddress().equals(this.getAddress());
+                && otherPerson.getAddress().equals(this.getAddress())
+                && otherPerson.getEducationLevel().equals(this.getEducationLevel())
+                && otherPerson.getGrade().equals(this.getGrade())
+                && otherPerson.getSchool().equals(this.getSchool())
+                && otherPerson.getSubject().equals(this.getSubject());
     }
 
     @Override
@@ -992,6 +906,62 @@ public class Tutee extends Person {
 
 }
 ```
+###### \java\seedu\address\model\UniqueTaskList.java
+``` java
+    /**
+     * Adds a task to the list.
+     *
+     * @throws TimingClashException if there is a clash in timing with an existing task
+     */
+    public void add(Task toAdd) throws TimingClashException {
+        requireNonNull(toAdd);
+        if (isTimeClash(toAdd.getTaskDateTime(), toAdd.getDuration())) {
+            throw new TimingClashException(MESSAGE_TASK_TIMING_CLASHES);
+        }
+        internalList.add(toAdd);
+    }
+```
+###### \java\seedu\address\model\UniqueTaskList.java
+``` java
+    /**
+     * Checks for any clashes in the task timing in schedule
+     *
+     * @param startDateTime start date and time of new task
+     * @param duration duration of new task
+     */
+    private boolean isTimeClash(LocalDateTime startDateTime, String duration) {
+        LocalDateTime taskEndTime = getTaskEndTime(duration, startDateTime);
+
+        for (Task recordedTask : internalList) {
+            LocalDateTime startTimeOfRecordedTask = recordedTask.getTaskDateTime();
+            String durationOfRecordedTask = recordedTask.getDuration();
+            LocalDateTime endTimeOfRecordedTask = getTaskEndTime(durationOfRecordedTask, startTimeOfRecordedTask);
+            boolean isClash = !(taskEndTime.isBefore(startTimeOfRecordedTask)
+                    || startDateTime.isAfter(endTimeOfRecordedTask))
+                    && !(taskEndTime.equals(startTimeOfRecordedTask)
+                    || startDateTime.equals(endTimeOfRecordedTask));
+            if (isClash) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Returns date and time when the task ends
+     */
+    private static LocalDateTime getTaskEndTime(String duration, LocalDateTime startDateTime) {
+        int indexOfHourDelimiter = duration.indexOf(HOUR_DELIMITER);
+        int indexOfMinuteDelimiter = duration.indexOf(MINUTE_DELIMITER);
+        int indexOfFirstDigitInMinute = indexOfHourDelimiter + 1;
+        int hoursInDuration = Integer.parseInt(duration.substring(0, indexOfHourDelimiter));
+        int minutesInDuration = Integer.parseInt(duration.substring(indexOfFirstDigitInMinute, indexOfMinuteDelimiter));
+
+        LocalDateTime taskEndTime;
+        taskEndTime = startDateTime.plusHours(hoursInDuration).plusMinutes(minutesInDuration);
+        return taskEndTime;
+    }
+```
 ###### \java\seedu\address\ui\CalendarPanel.java
 ``` java
 /**
@@ -1017,6 +987,8 @@ public class CalendarPanel extends UiPart<Region> {
         calendarView.setToday(LocalDate.now());
         calendarView.setTime(LocalTime.now());
         calendarView.setScaleX(0.95);
+        calendarView.setScaleY(1.15);
+        calendarView.setTranslateY(-40);
         calendarView.showDayPage();
         disableViews();
         setupCalendar();
@@ -1059,32 +1031,55 @@ public class CalendarPanel extends UiPart<Region> {
             calendarView.showYearPage();
             return;
         default:
-            assert(false); // Should never enter here
+            // Should never enter here
+            assert (false);
         }
     }
 
     /**
-     * Adds a task entry to the calendar
+     * Updates the calendar with the updated list of tasks
      *
-     * @param entry to be added to calendar
+     * @param filteredTasks updated list of tasks
      */
-    public static void addEntry(Entry entry) {
-        calendar.addEntry(entry);
+    public static void updateCalendar(List<Task> filteredTasks) {
+        if (isFilteredTaskValid(filteredTasks)) {
+            Calendar updatedCalendar = new Calendar("task");
+            for (Task task : filteredTasks) {
+                updatedCalendar.addEntry(task.getEntry());
+            }
+            source.getCalendars().clear();
+            source.getCalendars().add(updatedCalendar);
+        } else {
+            // Latest task list provided should not have any task that clashes
+            assert (false);
+        }
     }
 
     /**
-     * Deletes a task entry from the calendar's schedule
+     * Checks if the given latest task list is valid
      *
-     * @param entry to be deleted
+     * @param taskList to be checked
+     * @return true if there is no clash between tasks so task list is valid
+     *         false if there is clash between tasks so task list is invalid
      */
-    public static void deleteTask(Entry entry) {
-        calendar.removeEntry(entry);
+    private static boolean isFilteredTaskValid(List<Task> taskList) {
+        for (int i = 0; i < taskList.size(); i++) {
+            Entry<?> taskEntryToBeChecked = taskList.get(i).getEntry();
+            for (int j = i + 1; j < taskList.size(); j++) {
+                Entry taskEntryToCheckAgainst = taskList.get(j).getEntry();
+                if (taskEntryToBeChecked.intersects(taskEntryToCheckAgainst)) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     @Override
     public CalendarView getRoot() {
-        return this.calendarView;
+        return calendarView;
     }
+
 }
 ```
 ###### \resources\view\CalendarPanel.fxml
@@ -1097,11 +1092,450 @@ public class CalendarPanel extends UiPart<Region> {
 ```
 ###### \resources\view\MainWindow.fxml
 ``` fxml
-                  <StackPane fx:id="calendarPlaceholder" minWidth="50.0" prefHeight="687.0" prefWidth="50">
-                      <padding>
-                          <Insets bottom="10" left="-5" right="-5" top="10" />
-                      </padding>
-                  </StackPane>
+<fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
+         minWidth="450" minHeight="600">
+  <icons>
+    <Image url="@/images/address_book_32.png" />
+  </icons>
+  <scene>
+    <Scene>
+      <stylesheets>
+        <URL value="@TuitionConnectTheme.css" />
+        <URL value="@Extensions.css" />
+      </stylesheets>
+
+      <VBox>
+          <MenuBar fx:id="menuBar" prefHeight="0.0" prefWidth="1422.0" VBox.vgrow="NEVER">
+              <Menu mnemonicParsing="false" text="File">
+                  <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
+              </Menu>
+              <Menu mnemonicParsing="false" text="Help">
+                  <MenuItem fx:id="helpMenuItem" mnemonicParsing="false" onAction="#handleHelp" text="Help" />
+              </Menu>
+          </MenuBar>
+          <SplitPane prefHeight="689.0" prefWidth="1360.0">
+              <items>
+                  <VBox prefHeight="687.0" prefWidth="667.0">
+                      <children>
+
+                          <StackPane fx:id="commandBoxPlaceholder" prefHeight="0.0" prefWidth="1420.0" styleClass="pane-with-border" VBox.vgrow="NEVER">
+                              <padding>
+                                  <Insets bottom="5" left="10" right="10" top="10" />
+                              </padding>
+                          </StackPane>
+
+                          <StackPane fx:id="resultDisplayPlaceholder" maxHeight="311.0" minHeight="46.0" prefHeight="106.0" prefWidth="1420.0" styleClass="pane-with-border" VBox.vgrow="NEVER">
+                              <padding>
+                                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                              </padding>
+                          </StackPane>
+
+                          <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.1, 0.1" prefHeight="541.0" prefWidth="573.0" VBox.vgrow="ALWAYS">
+
+                              <VBox fx:id="personList" minWidth="264.0" prefHeight="488.0" prefWidth="584.0" SplitPane.resizableWithParent="false">
+                                  <padding>
+                                      <Insets bottom="5" left="5" top="5" />
+                                  </padding>
+                                  <StackPane fx:id="personListPanelPlaceholder" prefHeight="555.0" prefWidth="85.0" VBox.vgrow="ALWAYS" />
+                              </VBox>
+
+                              <VBox fx:id="taskList" minWidth="300" prefHeight="570.0" prefWidth="407.0" SplitPane.resizableWithParent="false">
+                                  <padding>
+                                      <Insets bottom="5" right="5" top="5" />
+                                  </padding>
+                                  <StackPane fx:id="taskListPanelPlaceholder" prefHeight="555.0" prefWidth="381.0" VBox.vgrow="ALWAYS" />
+                              </VBox>
+
+                              <StackPane fx:id="calendarPlaceholder" minWidth="775.0" prefHeight="570.0" prefWidth="775.0">
+                                  <padding>
+                                      <Insets bottom="10" left="-5" right="-5" top="10" />
+                                  </padding>
+                              </StackPane>
+                          </SplitPane>
+                      </children>
+                  </VBox>
               </items>
           </SplitPane>
+
+          <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
+      </VBox>
+    </Scene>
+  </scene>
+</fx:root>
+```
+###### \resources\view\TuitionConnectTheme.css
+``` css
+.background {
+    -fx-background-color: white;
+    background-color: white; /* Used in the default.html file */
+}
+
+.label {
+    -fx-font-size: 10pt;
+    -fx-font-family: "Andale Mono";
+    -fx-text-fill: black;
+    -fx-opacity: 0.9;
+}
+
+.label-bright {
+    -fx-font-size: 10pt;
+    -fx-font-family: "Andale Mono";
+    -fx-text-fill: black;
+    -fx-opacity: 1;
+}
+
+.label-header {
+    -fx-font-size: 30pt;
+    -fx-font-family: "Andale Mono";
+    -fx-text-fill: black;
+    -fx-opacity: 1;
+}
+
+.text-field {
+    -fx-font-size: 12pt;
+    -fx-font-family: "Andale Mono";
+}
+
+.tab-pane {
+    -fx-padding: 0 0 0 1;
+}
+
+.tab-pane .tab-header-area {
+    -fx-padding: 0 0 0 0;
+    -fx-min-height: 0;
+    -fx-max-height: 0;
+}
+
+.table-view {
+    -fx-base: black;
+    -fx-control-inner-background: black;
+    -fx-background-color: black;
+    -fx-table-cell-border-color: transparent;
+    -fx-table-header-border-color: transparent;
+    -fx-padding: 5;
+}
+
+.table-view .column-header-background {
+    -fx-background-color: transparent;
+}
+
+.table-view .column-header, .table-view .filler {
+    -fx-size: 35;
+    -fx-border-width: 0 0 1 0;
+    -fx-background-color: transparent;
+    -fx-border-color:
+        transparent
+        transparent
+        derive(-fx-base, 80%)
+        transparent;
+    -fx-border-insets: 0 10 1 0;
+}
+
+.table-view .column-header .label {
+    -fx-font-size: 20pt;
+    -fx-font-family: "Andale Mono";
+    -fx-text-fill: white;
+    -fx-alignment: center-left;
+    -fx-opacity: 1;
+}
+
+.table-view:focused .table-row-cell:filled:focused:selected {
+    -fx-background-color: -fx-focus-color;
+}
+
+.split-pane:horizontal .split-pane-divider {
+    -fx-background-color: white;
+    -fx-border-color: transparent transparent transparent white;
+}
+
+.split-pane {
+    -fx-background-color: white;
+}
+
+.list-view {
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+    -fx-background-color: derive(#1d1d1d, 20%);
+}
+
+.list-cell {
+    -fx-label-padding: 0 0 0 0;
+    -fx-graphic-text-gap : 0;
+    -fx-padding: 0 0 0 0;
+}
+
+.list-cell:filled:even {
+    -fx-background-color: #c9d8ef;
+}
+
+.list-cell:filled:odd {
+    -fx-background-color: #c9d8ef;
+}
+
+.list-cell:filled:selected {
+    -fx-background-color: #1f3351;
+}
+
+.list-cell:filled:selected #cardPane {
+    -fx-border-color: black;
+    -fx-border-width: 3px;
+}
+
+.list-cell .label {
+    -fx-text-fill: white;
+}
+
+.cell_big_label { /* Name */
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-size: 16px;
+    -fx-text-fill: white;
+}
+
+.cell_small_label { /* Details */
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 13px;
+    -fx-text-fill: white;
+}
+
+.anchor-pane {
+     -fx-background-color: #c9bbbb;
+}
+
+.pane-with-border {
+     -fx-background-color: black;
+     -fx-border-color: transparent;
+     -fx-border-top-width: 1px;
+}
+
+.status-bar {
+    -fx-background-color: white;
+    -fx-text-fill: black;
+}
+
+.result-display { /* Command result */
+    -fx-background-color: transparent;
+    -fx-font-family: "Andale Mono";
+    -fx-font-size: 13pt;
+    -fx-text-fill: black;
+}
+
+.result-display .label {
+    -fx-text-fill: black !important;
+}
+
+.status-bar .label {
+    -fx-font-family: "Segoe UI Light";
+    -fx-text-fill: white;
+}
+
+.status-bar-with-border {
+    -fx-background-color: derive(#1d1d1d, 30%);
+    -fx-border-color: derive(#1d1d1d, 25%);
+    -fx-border-width: 1px;
+}
+
+.status-bar-with-border .label {
+    -fx-text-fill: white;
+}
+
+.grid-pane {
+    -fx-background-color: white;
+    -fx-border-color: black;
+    -fx-border-width: 1px;
+}
+
+.grid-pane .anchor-pane {
+    -fx-background-color: #113756;
+}
+
+.context-menu {
+    -fx-background-color: #22529e;
+}
+
+.context-menu .label {
+    -fx-text-fill: white;
+}
+
+.menu-bar {
+    -fx-background-color: #113756;
+}
+
+.menu-bar .label {
+    -fx-font-size: 14pt;
+    -fx-font-family: "Andale Mono";
+    -fx-text-fill: white;
+    -fx-opacity: 0.9;
+}
+
+.menu .left-container {
+    -fx-background-color: black;
+}
+
+/*
+ * Metro style Push Button
+ * Author: Pedro Duque Vieira
+ * http://pixelduke.wordpress.com/2012/10/23/jmetro-windows-8-controls-on-java/
+ */
+.button {
+    -fx-padding: 5 22 5 22;
+    -fx-border-color: #e2e2e2;
+    -fx-border-width: 2;
+    -fx-background-radius: 0;
+    -fx-background-color: #1d1d1d;
+    -fx-font-family: "Andale Mono", Helvetica, Arial, sans-serif;
+    -fx-font-size: 11pt;
+    -fx-text-fill: black;
+    -fx-background-insets: 0 0 0 0, 0, 1, 2;
+}
+
+.button:hover {
+    -fx-background-color: #3a3a3a;
+}
+
+.button:pressed, .button:default:hover:pressed {
+  -fx-background-color: white;
+  -fx-text-fill: #1d1d1d;
+}
+
+.button:focused {
+    -fx-border-color: white, white;
+    -fx-border-width: 1, 1;
+    -fx-border-style: solid, segments(1, 1);
+    -fx-border-radius: 0, 0;
+    -fx-border-insets: 1 1 1 1, 0;
+}
+
+.button:disabled, .button:default:disabled {
+    -fx-opacity: 0.4;
+    -fx-background-color: #1d1d1d;
+    -fx-text-fill: white;
+}
+
+.button:default {
+    -fx-background-color: -fx-focus-color;
+    -fx-text-fill: white;
+}
+
+.button:default:hover {
+    -fx-background-color: black;
+}
+
+.dialog-pane {
+    -fx-background-color: black;
+}
+
+.dialog-pane > *.button-bar > *.container {
+    -fx-background-color: black;
+}
+
+.dialog-pane > *.label.content {
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+.dialog-pane:header *.header-panel {
+    -fx-background-color: black;
+}
+
+.dialog-pane:header *.header-panel *.label {
+    -fx-font-size: 18px;
+    -fx-font-style: italic;
+    -fx-fill: white;
+    -fx-text-fill: white;
+}
+
+.scroll-bar { /* Scroll bar column background color */
+    -fx-background-color: #ced8dd;
+}
+
+.scroll-bar .thumb { /* Scroll bar background color */
+    -fx-background-color: #939a9e;
+    -fx-background-insets: 3;
+}
+
+.scroll-bar .increment-button, .scroll-bar .decrement-button {
+    -fx-background-color: transparent;
+    -fx-padding: 0 0 0 0;
+}
+
+.scroll-bar .increment-arrow, .scroll-bar .decrement-arrow {
+    -fx-shape: " ";
+}
+
+.scroll-bar:vertical .increment-arrow, .scroll-bar:vertical .decrement-arrow {
+    -fx-padding: 1 8 1 8;
+}
+
+.scroll-bar:horizontal .increment-arrow, .scroll-bar:horizontal .decrement-arrow {
+    -fx-padding: 8 1 8 1;
+}
+
+#cardPane {
+    -fx-background-color: #37598e;
+    -fx-border-width: 0;
+}
+
+#commandTypeLabel {
+    -fx-font-size: 11px;
+    -fx-text-fill: black;
+}
+
+#commandTextField { /* Command box */
+    -fx-background-color: transparent #383838 transparent #383838;
+    -fx-background-insets: 0;
+    -fx-border-color: black;
+    -fx-border-insets: 0;
+    -fx-border-width: 2.1;
+    -fx-font-family: "Andale Mono";
+    -fx-font-size: 13pt;
+    -fx-text-fill: black;
+}
+
+#filterField, #personListPanel, #personWebpage {
+    -fx-effect: innershadow(gaussian, black, 10, 0, 0, 0);
+}
+
+#resultDisplay .content {
+    -fx-background-color: #c9bbbb;
+    -fx-background-radius: 0;
+}
+
+#tags {
+    -fx-hgap: 7;
+    -fx-vgap: 3;
+}
+
+#tags .label {
+    -fx-text-fill: white;
+    -fx-background-color: gray;
+    -fx-padding: 1 3 1 3;
+    -fx-border-radius: 2;
+    -fx-background-radius: 15;
+    -fx-font-size: 11;
+}
+
+#calendarPlaceholder {
+    -fx-background-color: white;
+}
+
+#commandBoxPlaceholder {
+    -fx-background-color: white;
+}
+
+#resultDisplayPlaceholder {
+    -fx-background-color: white;
+}
+
+#statusbarPlaceholder {
+    -fx-background-color: white;
+}
+
+#personListPanelPlaceholder {
+    -fx-background-color: white;
+}
+
+#taskListPanelPlaceholder {
+    -fx-background-color: white;
+}
 ```

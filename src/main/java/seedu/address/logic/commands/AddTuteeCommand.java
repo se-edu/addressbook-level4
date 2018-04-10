@@ -51,7 +51,7 @@ public class AddTuteeCommand extends UndoableCommand {
     private final Tutee toAdd;
 
     /**
-     * Creates an AddTuteeCommand to add the specified {@code Person}
+     * Creates an AddTuteeCommand to add the specified {@code Tutee}
      */
     public AddTuteeCommand(Tutee tutee) {
         requireNonNull(tutee);

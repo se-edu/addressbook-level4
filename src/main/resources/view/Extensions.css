@@ -1,6 +1,6 @@
 
 .error {
-    -fx-text-fill: #d06651 !important; /* The error class should always override the default text-fill style */
+    -fx-text-fill: red !important; /* The error class should always override the default text-fill style */
 }
 
 .list-cell:empty {
@@ -17,8 +17,4 @@
 
 .tooltip-text {
     -fx-text-fill: white;
-}
-
-#calendarPlaceholder {
-    -fx-background-color: #ffffff;
 }

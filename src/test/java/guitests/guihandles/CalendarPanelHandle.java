@@ -36,7 +36,6 @@ public class CalendarPanelHandle extends NodeHandle<Node> {
         return calendarPanel.getRoot().getYearPage();
     }
 
-
     public PageBase getCurrentCalendarViewPage() {
         return calendarPanel.getRoot().getSelectedPage();
     }

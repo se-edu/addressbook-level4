@@ -72,6 +72,7 @@ public class MainWindow extends UiPart<Stage> {
         this.prefs = prefs;
 
         // Configure the UI
+        config.setAppTitle("TuitionConnect");
         setTitle(config.getAppTitle());
         setWindowDefaultSize(prefs);
 

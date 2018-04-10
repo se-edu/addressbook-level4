@@ -31,7 +31,6 @@ public class CalendarPanelHandle extends NodeHandle<Node> {
         return calendarPanel.getRoot().getYearPage();
     }
 
-
     public PageBase getCurrentCalendarViewPage() {
         return calendarPanel.getRoot().getSelectedPage();
     }
@@ -106,88 +105,9 @@ public class AddTuteeCommandTest {
     }
 
     /**
-     * A default model stub that have all of the methods failing.
-     */
-    private class ModelStub implements Model {
-        @Override
-        public void addPerson(Person person) throws DuplicatePersonException {
-            fail("This method should not be called.");
-        }
-
-        @Override
-        public void addTask(Task task) {
-            fail("This method should not be called");
-        }
-
-        @Override
-        public void deleteTask(Task task) {
-            fail("This method should not be called");
-        }
-
-        @Override
-        public void updateTask(Task task, Task editedTask) {
-            fail("This method should not be called");
-        }
-
-        @Override
-        public ObservableList<Task> getFilteredTaskList() {
-            fail("This method should not be called.");
-            return null;
-        }
-
-        @Override
-        public void updateFilteredTaskList(Predicate<Task> predicate) {
-            fail("This method should not be called.");
-        }
-
-        @Override
-        public void resetData(ReadOnlyAddressBook newData) {
-            fail("This method should not be called.");
-        }
-
-        @Override
-        public ReadOnlyAddressBook getAddressBook() {
-            fail("This method should not be called.");
-            return null;
-        }
-
-        @Override
-        public void deletePerson(Person target) throws PersonNotFoundException {
-            fail("This method should not be called.");
-        }
-
-        @Override
-        public void updatePerson(Person target, Person editedPerson)
-                throws DuplicatePersonException {
-            fail("This method should not be called.");
-        }
-
-        @Override
-        public ObservableList<Person> getFilteredPersonList() {
-            fail("This method should not be called.");
-            return null;
-        }
-
-        @Override
-        public void updateFilteredPersonList(Predicate<Person> predicate) {
-            fail("This method should not be called.");
-        }
-
-        @Override
-        public void deleteTag(Tag tag, Person person) {
-            fail("deleteTag should not be called when adding Person.");
-        }
-
-        @Override
-        public void sortFilteredPersonList(Comparator<Person> comparator) {
-            fail("This method should not be called.");
-        }
-    }
-
-    /**
      * A Model stub that always throw a DuplicatePersonException when trying to add a person.
      */
-    private class ModelStubThrowingDuplicatePersonException extends AddTuteeCommandTest.ModelStub {
+    private class ModelStubThrowingDuplicatePersonException extends ModelStub {
         @Override
         public void addPerson(Person person) throws DuplicatePersonException {
             throw new DuplicatePersonException();
@@ -202,7 +122,7 @@ public class AddTuteeCommandTest {
     /**
      * A Model stub that always accept the person being added.
      */
-    private class ModelStubAcceptingPersonAdded extends AddTuteeCommandTest.ModelStub {
+    private class ModelStubAcceptingPersonAdded extends ModelStub {
         final ArrayList<Person> personsAdded = new ArrayList<>();
 
         @Override
@@ -221,10 +141,8 @@ public class AddTuteeCommandTest {
 ```
 ###### \java\seedu\address\logic\parser\AddPersonalTaskCommandParserTest.java
 ``` java
-
-    //private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/uuuu HH:mm")
-    //        .withResolverStyle(ResolverStyle.STRICT);
-
+public class AddPersonalTaskCommandParserTest {
+    private AddPersonalTaskCommandParser parser = new AddPersonalTaskCommandParser();
 
     @Test
     public void parse_invalidArgs_throwsParseException() {
@@ -253,15 +171,15 @@ public class AddTuteeCommandTest {
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddPersonalTaskCommand.MESSAGE_USAGE));
 
         // Invalid date
-        assertParseFailure(parser, "32/01/2018 11:11 1h30m Outing with friends",
-                MESSAGE_INVALID_DATE_TIME + "\n" + AddPersonalTaskCommand.MESSAGE_USAGE);
         assertParseFailure(parser, "29/02/2018 11:11 1h30m Outing with friends",
+                MESSAGE_INVALID_DATE_TIME + "\n" + AddPersonalTaskCommand.MESSAGE_USAGE);
+        assertParseFailure(parser, "32/01/2018 11:11 1h30m Outing with friends",
                 MESSAGE_INVALID_DATE_TIME + "\n" + AddPersonalTaskCommand.MESSAGE_USAGE);
         assertParseFailure(parser, "31/04/2018 11:11 1h30m Outing with friends",
                 MESSAGE_INVALID_DATE_TIME + "\n" + AddPersonalTaskCommand.MESSAGE_USAGE);
 
         // Invalid time
-        assertParseFailure(parser, "11/01/2018 31:11 1h30m Outing with friends",
+        assertParseFailure(parser, "11/01/2018 24:00 1h30m Outing with friends",
                 MESSAGE_INVALID_DATE_TIME + "\n" + AddPersonalTaskCommand.MESSAGE_USAGE);
         assertParseFailure(parser, "11/01/2018 11:60 1h30m Outing with friends",
                 MESSAGE_INVALID_DATE_TIME + "\n" + AddPersonalTaskCommand.MESSAGE_USAGE);
@@ -273,9 +191,11 @@ public class AddTuteeCommandTest {
                 MESSAGE_INVALID_DURATION + "\n" + AddPersonalTaskCommand.MESSAGE_USAGE);
     }
 
-    /**
     @Test
     public void parse_validArgs_success() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/uuuu HH:mm")
+                .withResolverStyle(ResolverStyle.STRICT);
+
         // With description
         LocalDateTime taskDateTime = LocalDateTime.parse(VALID_DATE_TIME, formatter);
         PersonalTask personalTask = new PersonalTask(taskDateTime, VALID_DURATION, VALID_TASK_DESC);
@@ -287,18 +207,34 @@ public class AddTuteeCommandTest {
         assertParseSuccess(parser, VALID_TASK_WITHOUT_DESC,
                 new AddPersonalTaskCommand(personalTask));
 
-        // Check leap year
+        // Valid date
         personalTask = new PersonalTask(LocalDateTime.parse("29/02/2016 11:20", formatter),
                 VALID_DURATION, VALID_EMPTY_TASK_DESC);
         assertParseSuccess(parser, "29/02/2016 11:20 1h11m",
                 new AddPersonalTaskCommand(personalTask));
-    }
-    */
 
+        personalTask = new PersonalTask(LocalDateTime.parse("30/04/2016 11:20", formatter),
+                VALID_DURATION, VALID_EMPTY_TASK_DESC);
+        assertParseSuccess(parser, "30/04/2016 11:20 " + VALID_DURATION,
+                new AddPersonalTaskCommand(personalTask));
+
+        personalTask = new PersonalTask(LocalDateTime.parse("31/01/2016 11:20", formatter),
+                VALID_DURATION, VALID_EMPTY_TASK_DESC);
+        assertParseSuccess(parser, "31/01/2016 11:20 " + VALID_DURATION,
+                new AddPersonalTaskCommand(personalTask));
+
+        // Valid Time
+        personalTask = new PersonalTask(LocalDateTime.parse("11/01/2018 00:00", formatter),
+                VALID_DURATION, VALID_EMPTY_TASK_DESC);
+        assertParseSuccess(parser, "11/01/2018 00:00 " + VALID_DURATION,
+                new AddPersonalTaskCommand(personalTask));
+    }
 }
 ```
 ###### \java\seedu\address\logic\parser\AddTuitionTaskCommandParserTest.java
 ``` java
+public class AddTuitionTaskCommandParserTest {
+    private AddTuitionTaskCommandParser parser = new AddTuitionTaskCommandParser();
 
     @Test
     public void parse_invalidArgs_throwsParseException() {
@@ -329,15 +265,15 @@ public class AddTuteeCommandTest {
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTuitionTaskCommand.MESSAGE_USAGE));
 
         // Invalid date
-        assertParseFailure(parser, "1 32/01/2018 11:11 1h30m tuition homework",
-                MESSAGE_INVALID_DATE_TIME + "\n" + AddTuitionTaskCommand.MESSAGE_USAGE);
         assertParseFailure(parser, "1 29/02/2018 11:11 1h30m tuition homework",
                 MESSAGE_INVALID_DATE_TIME + "\n" + AddTuitionTaskCommand.MESSAGE_USAGE);
         assertParseFailure(parser, "1 31/04/2018 11:11 1h30m tuition homework",
                 MESSAGE_INVALID_DATE_TIME + "\n" + AddTuitionTaskCommand.MESSAGE_USAGE);
+        assertParseFailure(parser, "1 32/01/2018 11:11 1h30m tuition homework",
+                MESSAGE_INVALID_DATE_TIME + "\n" + AddTuitionTaskCommand.MESSAGE_USAGE);
 
         // Invalid time
-        assertParseFailure(parser, "1 11/01/2018 31:11 1h30m tuition homework",
+        assertParseFailure(parser, "1 11/01/2018 24:00 1h30m tuition homework",
                 MESSAGE_INVALID_DATE_TIME + "\n" + AddTuitionTaskCommand.MESSAGE_USAGE);
         assertParseFailure(parser, "1 11/01/2018 11:60 1h30m tuition homework",
                 MESSAGE_INVALID_DATE_TIME + "\n" + AddTuitionTaskCommand.MESSAGE_USAGE);
@@ -348,6 +284,46 @@ public class AddTuteeCommandTest {
         assertParseFailure(parser, "1 11/01/2018 11:11 24h0m tuition homework",
                 MESSAGE_INVALID_DURATION + "\n" + AddTuitionTaskCommand.MESSAGE_USAGE);
     }
+
+    @Test
+    public void parse_validArgs_success() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/uuuu HH:mm")
+                .withResolverStyle(ResolverStyle.STRICT);
+
+        LocalDateTime taskDateTime = LocalDateTime.parse(VALID_DATE_TIME, formatter);
+
+        // With description
+        assertParseSuccess(parser, "1 " + VALID_TASK_WITH_DESC,
+                new AddTuitionTaskCommand(INDEX_FIRST_PERSON, taskDateTime, VALID_DURATION, VALID_TASK_DESC));
+
+        // Without description
+        assertParseSuccess(parser, "1 " + VALID_TASK_WITHOUT_DESC,
+                new AddTuitionTaskCommand(INDEX_FIRST_PERSON, taskDateTime, VALID_DURATION, VALID_EMPTY_TASK_DESC));
+
+        // Valid date
+
+        taskDateTime = LocalDateTime.parse("28/02/2018 11:20", formatter);
+        assertParseSuccess(parser, "1 28/02/2018 11:20 " + VALID_DURATION,
+                new AddTuitionTaskCommand(INDEX_FIRST_PERSON, taskDateTime, VALID_DURATION, VALID_EMPTY_TASK_DESC));
+
+        taskDateTime = LocalDateTime.parse("29/02/2016 11:20", formatter);
+        assertParseSuccess(parser, "1 29/02/2016 11:20 " + VALID_DURATION,
+                new AddTuitionTaskCommand(INDEX_FIRST_PERSON, taskDateTime, VALID_DURATION, VALID_EMPTY_TASK_DESC));
+
+        taskDateTime = LocalDateTime.parse("30/04/2016 11:20", formatter);
+        assertParseSuccess(parser, "1 30/04/2016 11:20 " + VALID_DURATION,
+                new AddTuitionTaskCommand(INDEX_FIRST_PERSON, taskDateTime, VALID_DURATION, VALID_EMPTY_TASK_DESC));
+
+        taskDateTime = LocalDateTime.parse("31/01/2016 11:20", formatter);
+        assertParseSuccess(parser, "1 31/01/2016 11:20 " + VALID_DURATION,
+                new AddTuitionTaskCommand(INDEX_FIRST_PERSON, taskDateTime, VALID_DURATION, VALID_EMPTY_TASK_DESC));
+
+        // Valid Time
+        taskDateTime = LocalDateTime.parse("11/01/2018 00:00", formatter);
+        assertParseSuccess(parser, "1 11/01/2018 00:00 " + VALID_DURATION,
+                new AddTuitionTaskCommand(INDEX_FIRST_PERSON, taskDateTime, VALID_DURATION, VALID_EMPTY_TASK_DESC));
+    }
+
 }
 ```
 ###### \java\seedu\address\logic\parser\AddTuteeCommandParserTest.java
@@ -814,66 +790,6 @@ public class PersonalTaskTest {
     }
 }
 ```
-###### \java\seedu\address\model\ScheduleTest.java
-``` java
-public class ScheduleTest {
-    private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/uuuu HH:mm")
-            .withResolverStyle(ResolverStyle.STRICT);
-
-    //private static Tutee tutee = new TuteeBuilder().build();
-
-    /**
-     * Generates a list of existing tasks
-     */
-    private static void createTaskList() {
-        Schedule.taskList.add(new TuitionTask(/*tutee*/"Anne",
-                LocalDateTime.parse("11/01/2011 22:00", formatter), "1h30m", "tuition 1"));
-        Schedule.taskList.add(new PersonalTask(
-                LocalDateTime.parse("15/01/2011 22:00", formatter), "2h30m", "personal task 1"));
-        Schedule.taskList.add(new PersonalTask(
-                LocalDateTime.parse("13/01/2011 11:00", formatter), "1h0m", "personal task 2"));
-    }
-
-    @Test
-    public void isTaskClash_invalidTaskDateAndTime_false() {
-        createTaskList();
-
-        // New task is on another day
-        assertFalse(Schedule.isTaskClash(LocalDateTime.parse("17/01/2011 11:00", formatter), "1h0m"));
-
-        // New task ends right before start of an existing task
-        assertFalse(Schedule.isTaskClash(LocalDateTime.parse("11/01/2011 11:00", formatter), "1h0m"));
-
-        // New task starts right after the end of an existing task
-        assertFalse(Schedule.isTaskClash(LocalDateTime.parse("16/01/2011 00:30", formatter), "2h0m"));
-    }
-
-    @Test
-    public void isTaskClash_validTaskDateAndTime_true() {
-        createTaskList();
-
-        // New task starts at the same time as an existing task
-        assertTrue(Schedule.isTaskClash(LocalDateTime.parse("11/01/2011 22:00", formatter), "2h0m"));
-
-        // New task starts during an existing task
-        assertTrue(Schedule.isTaskClash(LocalDateTime.parse("15/01/2011 22:30", formatter), "2h0m"));
-
-        // New task ends at the same time as an existing task
-        assertTrue(Schedule.isTaskClash(LocalDateTime.parse("13/01/2011 11:30", formatter), "0h30m"));
-
-        // New task ends during an existing task
-        assertTrue(Schedule.isTaskClash(LocalDateTime.parse("13/01/2011 10:00", formatter), "1h30m"));
-
-        // New task is within an existing task completely
-        assertTrue(Schedule.isTaskClash(LocalDateTime.parse("15/01/2011 22:30", formatter), "1h30m"));
-
-        // Existing task is within the new task completely
-        assertTrue(Schedule.isTaskClash(LocalDateTime.parse("11/01/2011 21:00", formatter), "4h0m"));
-
-    }
-
-}
-```
 ###### \java\seedu\address\model\tutee\EducationLevelTest.java
 ``` java
 public class EducationLevelTest {
@@ -1048,6 +964,81 @@ public class TuitionTaskTest {
     }
 }
 ```
+###### \java\seedu\address\model\UniqueTaskListTest.java
+``` java
+public class UniqueTaskListTest {
+
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
+
+    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/uuuu HH:mm")
+            .withResolverStyle(ResolverStyle.STRICT);
+    private UniqueTaskList uniqueTaskList = new UniqueTaskList();
+
+    @BeforeClass
+    public static void setupBeforeClass() {
+        SystemTestSetupHelper.initialize();
+    }
+
+    @Test
+    public void asObservableList_modifyList_throwsUnsupportedOperationException() {
+        UniqueTaskList uniqueTaskList = new UniqueTaskList();
+        thrown.expect(UnsupportedOperationException.class);
+        uniqueTaskList.asObservableList().remove(0);
+    }
+
+    @Test
+    public void addNewTask_clashes_throwsTimingClashException() {
+        try {
+            createTaskList();
+        } catch (TimingClashException e) {
+            throw new AssertionError("Should not have any clashed timing");
+        }
+
+        // New task starts at the same time as an existing task
+        Assert.assertThrows(TimingClashException.class, () ->
+                uniqueTaskList.add(new PersonalTask(
+                        LocalDateTime.parse("11/01/2011 22:00", formatter), "2h0m", "Homework 1")));
+
+        // New task starts during an existing task
+        Assert.assertThrows(TimingClashException.class, () ->
+                uniqueTaskList.add(new PersonalTask(
+                        LocalDateTime.parse("15/01/2011 22:30", formatter), "2h0m", "Homework 2")));
+
+        // New task ends at the same time as an existing task
+        Assert.assertThrows(TimingClashException.class, () ->
+                uniqueTaskList.add(new PersonalTask(
+                        LocalDateTime.parse("13/01/2011 11:30", formatter), "0h30m", "Homework 3")));
+
+        // New task ends during an existing task
+        Assert.assertThrows(TimingClashException.class, () ->
+                uniqueTaskList.add(new PersonalTask(
+                        LocalDateTime.parse("13/01/2011 10:00", formatter), "1h30m", "Homework 4")));
+
+        // New task is within an existing task completely
+        Assert.assertThrows(TimingClashException.class, () ->
+                uniqueTaskList.add(new TuitionTask(
+                        "Anne", LocalDateTime.parse("15/01/2011 22:30", formatter), "1h30m", "Assignment")));
+
+        // Existing task is within the new task completely
+        Assert.assertThrows(TimingClashException.class, () ->
+                uniqueTaskList.add(new TuitionTask(
+                        "Ben", LocalDateTime.parse("11/01/2011 21:00", formatter), "4h0m", "Revision")));
+    }
+
+    /**
+     * Generates a list of existing tasks
+     */
+    private void createTaskList() throws TimingClashException {
+        uniqueTaskList.add(new TuitionTask("Anne",
+                LocalDateTime.parse("11/01/2011 22:00", formatter), "1h30m", "tuition 1"));
+        uniqueTaskList.add(new PersonalTask(
+                LocalDateTime.parse("15/01/2011 22:00", formatter), "2h30m", "personal task 1"));
+        uniqueTaskList.add(new PersonalTask(
+                LocalDateTime.parse("13/01/2011 11:00", formatter), "1h0m", "personal task 2"));
+    }
+}
+```
 ###### \java\seedu\address\testutil\TuteeBuilder.java
 ``` java
 /**
@@ -1203,6 +1194,49 @@ public class TuteeUtil {
     }
 }
 ```
+###### \java\seedu\address\testutil\typicaladdressbook\TypicalTutees.java
+``` java
+/**
+ * A utility class containing a list of {@code Tutee} objects to be used in tests.
+ */
+public class TypicalTutees {
+
+    public static final Tutee ALICETUTEE = new TuteeBuilder().withName("Alice Pauline")
+            .withAddress("123, Jurong West Ave 6, #08-111").withEmail("alice@example.com")
+            .withPhone("85355255").withSubject("mathematics").withGrade("C+").withEducationLevel("secondary")
+            .withSchool("nanhua high school").withTags("friends").build();
+    public static final Tutee CARLTUTEE = new TuteeBuilder().withName("Carl Kurz").withPhone("95352563")
+            .withEmail("heinz@example.com").withAddress("wall street").withSubject("history").withGrade("B")
+            .withEducationLevel("secondary").withSchool("wall street high school").build();
+
+    // Manually added
+    public static final Tutee HOONTUTEE = new TuteeBuilder().withName("Hoon Meier").withPhone("8482424")
+            .withEmail("stefan@example.com").withAddress("little india").withSubject("economics").withGrade("A1")
+            .withEducationLevel("secondary").withSchool("changi secondary school").build();
+    public static final Tutee IDATUTEE = new TuteeBuilder().withName("Ida Mueller").withPhone("8482131")
+            .withEmail("hans@example.com").withAddress("chicago ave").withSubject("english").withGrade("B3")
+            .withEducationLevel("secondary").withSchool("tanjong katong secondary school").build();
+
+    // Manually added - Tutee's details found in {@code CommandTestUtil}
+    public static final Tutee AMYTUTEE = new TuteeBuilder().withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY)
+            .withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY).withSubject(VALID_SUBJECT_AMY)
+            .withGrade(VALID_GRADE_AMY).withEducationLevel(VALID_EDUCATION_LEVEL_AMY).withSchool(VALID_SCHOOL_AMY)
+            .withTags(VALID_TAG_FRIEND).build();
+    public static final Tutee BOBTUTEE = new TuteeBuilder().withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
+            .withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB).withSubject(VALID_SUBJECT_BOB)
+            .withGrade(VALID_GRADE_BOB).withEducationLevel(VALID_EDUCATION_LEVEL_BOB).withSchool(VALID_SCHOOL_BOB)
+            .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
+
+    public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
+
+    private TypicalTutees() {} // prevents instantiation
+
+    public static List<Person> getTypicalPersonsAndTutees() {
+
+        return new ArrayList<>(Arrays.asList(ALICETUTEE, DANIEL, AMYTUTEE, BOBTUTEE));
+    }
+}
+```
 ###### \java\seedu\address\testutil\TypicalCalendarEntries.java
 ``` java
 /**
@@ -1261,64 +1295,6 @@ public class TypicalCalendarEntries {
 
     public static Entry getPersonalEntry() {
         return validPersonalEntry;
-    }
-}
-```
-###### \java\seedu\address\testutil\TypicalTutees.java
-``` java
-/**
- * A utility class containing a list of {@code Tutee} objects to be used in tests.
- */
-public class TypicalTutees {
-
-    public static final Tutee ALICETUTEE = new TuteeBuilder().withName("Alice Pauline")
-            .withAddress("123, Jurong West Ave 6, #08-111").withEmail("alice@example.com")
-            .withPhone("85355255").withSubject("mathematics").withGrade("C+").withEducationLevel("secondary")
-            .withSchool("nanhua high school").withTags("friends").build();
-    public static final Tutee CARLTUTEE = new TuteeBuilder().withName("Carl Kurz").withPhone("95352563")
-            .withEmail("heinz@example.com").withAddress("wall street").withSubject("history").withGrade("B")
-            .withEducationLevel("secondary").withSchool("wall street high school").build();
-
-    // Manually added
-    public static final Tutee HOONTUTEE = new TuteeBuilder().withName("Hoon Meier").withPhone("8482424")
-            .withEmail("stefan@example.com").withAddress("little india").withSubject("economics").withGrade("A1")
-            .withEducationLevel("secondary").withSchool("changi secondary school").build();
-    public static final Tutee IDATUTEE = new TuteeBuilder().withName("Ida Mueller").withPhone("8482131")
-            .withEmail("hans@example.com").withAddress("chicago ave").withSubject("english").withGrade("B3")
-            .withEducationLevel("secondary").withSchool("tanjong katong secondary school").build();
-
-    // Manually added - Tutee's details found in {@code CommandTestUtil}
-    public static final Tutee AMYTUTEE = new TuteeBuilder().withName(VALID_NAME_AMY).withPhone(VALID_PHONE_AMY)
-            .withEmail(VALID_EMAIL_AMY).withAddress(VALID_ADDRESS_AMY).withSubject(VALID_SUBJECT_AMY)
-            .withGrade(VALID_GRADE_AMY).withEducationLevel(VALID_EDUCATION_LEVEL_AMY).withSchool(VALID_SCHOOL_AMY)
-            .withTags(VALID_TAG_FRIEND).build();
-    public static final Tutee BOBTUTEE = new TuteeBuilder().withName(VALID_NAME_BOB).withPhone(VALID_PHONE_BOB)
-            .withEmail(VALID_EMAIL_BOB).withAddress(VALID_ADDRESS_BOB).withSubject(VALID_SUBJECT_BOB)
-            .withGrade(VALID_GRADE_BOB).withEducationLevel(VALID_EDUCATION_LEVEL_BOB).withSchool(VALID_SCHOOL_BOB)
-            .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
-
-    public static final String KEYWORD_MATCHING_MEIER = "Meier"; // A keyword that matches MEIER
-
-    private TypicalTutees() {} // prevents instantiation
-
-    /**
-     * Returns an {@code AddressBook} with all the typical persons.
-     */
-    public static AddressBook getTypicalAddressBook() {
-        AddressBook ab = new AddressBook();
-        for (Person person : getTypicalPersons()) {
-            try {
-                ab.addPerson(person);
-            } catch (DuplicatePersonException e) {
-                throw new AssertionError("not possible");
-            }
-        }
-        return ab;
-    }
-
-    public static List<Person> getTypicalPersons() {
-
-        return new ArrayList<>(Arrays.asList(ALICETUTEE, AMYTUTEE, BOBTUTEE, DANIEL));
     }
 }
 ```

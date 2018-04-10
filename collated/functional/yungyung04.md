@@ -12,7 +12,7 @@ public class AddPersonalTaskCommand extends UndoableCommand {
             + "Date(dd/mm/yyyy) "
             + "Start time(hh:mm) "
             + "Duration(XXhXXm) "
-            + "Description( anything; leading and trailing whitepsaces will be trimmed )\n"
+            + "Description( anything; leading and trailing whitespaces will be trimmed )\n"
             + "Example: " + COMMAND_WORD + " "
             + "10/12/2018 "
             + "12:30 "
@@ -30,13 +30,9 @@ public class AddPersonalTaskCommand extends UndoableCommand {
         toAdd = task;
     }
 
-    @Override
-    public CommandResult executeUndoableCommand() {
-        new PersonalSchedule().addTask(toAdd);
-        model.addTask(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd.toString()));
-    }
-
+```
+###### \java\seedu\address\logic\commands\AddPersonalTaskCommand.java
+``` java
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
@@ -61,7 +57,7 @@ public class AddTuitionTaskCommand extends UndoableCommand {
             + "Date(dd/mm/yyyy) "
             + "Start time(hh:mm) "
             + "Duration(XXhXXm) "
-            + "Description( anything; leading and trailing whitepsaces will be trimmed )\n"
+            + "Description( anything; leading and trailing whitespaces will be trimmed )\n"
             + "Example: " + COMMAND_WORD + " "
             + "1 "
             + "10/12/2018 "
@@ -77,7 +73,6 @@ public class AddTuitionTaskCommand extends UndoableCommand {
     private final String description;
 
     private TuitionTask toAdd;
-    private TuitionSchedule tuitionSchedule;
     //private Tutee associatedTutee;
     private String associatedTutee;
 
@@ -88,26 +83,21 @@ public class AddTuitionTaskCommand extends UndoableCommand {
         requireNonNull(taskDateTime);
         requireNonNull(duration);
         requireNonNull(description);
+        this.targetIndex = targetIndex;
         this.taskdateTime = taskDateTime;
         this.duration = duration;
         this.description = description;
-        this.targetIndex = targetIndex;
     }
 
-    @Override
-    public CommandResult executeUndoableCommand() {
-        tuitionSchedule.addTask(toAdd);
-        model.addTask(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
-    }
-
+```
+###### \java\seedu\address\logic\commands\AddTuitionTaskCommand.java
+``` java
     @Override
     protected void preprocessUndoableCommand() throws CommandException {
         associatedTutee = getAssociatedTutee().getName().fullName;
         //associatedTutee = getAssociatedTutee();
         //requireNonNull(associatedTutee.getTuitionSchedule());
         //tuitionSchedule = associatedTutee.getTuitionSchedule();
-        tuitionSchedule = getAssociatedTutee().getTuitionSchedule();
         toAdd = new TuitionTask(associatedTutee, taskdateTime, duration, description);
     }
 
@@ -131,7 +121,7 @@ public class AddTuitionTaskCommand extends UndoableCommand {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddTuitionTaskCommand // instanceof handles nulls
-                && toAdd.equals(((AddTuitionTaskCommand) other).toAdd));
+                && Objects.equals(this.toAdd, ((AddTuitionTaskCommand) other).toAdd));
     }
 }
 ```
@@ -173,11 +163,6 @@ public class DeleteTaskCommand extends UndoableCommand {
     @Override
     protected void preprocessUndoableCommand() throws CommandException {
         toDelete = getAssociatedTask();
-        if (toDelete instanceof TuitionTask) {
-            //throw exceptions if tuition is not marked as resolved yet. Why? if it is unresolved, the fee is not
-            //recorded as bill yet.
-        }
-
     }
 
     private Task getAssociatedTask() throws CommandException {
@@ -194,7 +179,8 @@ public class DeleteTaskCommand extends UndoableCommand {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof DeleteTaskCommand // instanceof handles nulls
-                && targetIndex.equals(((DeleteTaskCommand) other).targetIndex));
+                && targetIndex.equals(((DeleteTaskCommand) other).targetIndex))
+                && Objects.equals(this.toDelete, ((DeleteTaskCommand) other).toDelete);
     }
 }
 ```
@@ -454,7 +440,6 @@ public class AddPersonalTaskCommandParser implements Parser<AddPersonalTaskComma
                     ParserUtil.parseDateTime(arguments[INDEX_OF_DATE] + " " + arguments[INDEX_OF_TIME]);
             String duration = ParserUtil.parseDuration(arguments[INDEX_OF_DURATION]);
             String description = ParserUtil.parseDescription(arguments, MAXIMUM_AMOUNT_OF_TASK_PARAMETER);
-            checkTimeClash(taskDateTime, duration);
 
             return new AddPersonalTaskCommand(new PersonalTask(taskDateTime, duration, description));
         } catch (DateTimeParseException dtpe) {
@@ -463,19 +448,54 @@ public class AddPersonalTaskCommandParser implements Parser<AddPersonalTaskComma
         } catch (DurationParseException dpe) {
             throw new ParseException(MESSAGE_INVALID_DURATION + "\n"
                     + AddPersonalTaskCommand.MESSAGE_USAGE);
-        } catch (TimingClashException tce) {
-            throw new ParseException(MESSAGE_TASK_TIMING_CLASHES);
         }
     }
+}
+```
+###### \java\seedu\address\logic\parser\AddTuitionTaskCommandParser.java
+``` java
+/**
+ * Parses input arguments and creates a new AddTuitionTaskCommand object
+ */
+public class AddTuitionTaskCommandParser implements Parser<AddTuitionTaskCommand> {
+
+    private static final String INPUT_FORMAT_VALIDATION_REGEX = "\\d+\\s(\\d{2}/\\d{2}/\\d{4})\\s\\d{2}:\\d{2}\\s"
+            + "\\d{1,2}h\\d{1,2}m.*";
+    private static final int MAXIMUM_AMOUNT_OF_TASK_PARAMETER = 5;
+    private static final int INDEX_OF_PERSON_INDEX = 0;
+    private static final int INDEX_OF_DATE = 1;
+    private static final int INDEX_OF_TIME = 2;
+    private static final int INDEX_OF_DURATION = 3;
 
     /**
-     * Checks if the given date, time and duration clashes with another task in Tuition Connect.
-     *
-     * @throws TimingClashException if there is a time clash.
+     * Parses the given {@code String} of arguments in the context of the AddTuitionTaskCommand
+     * and returns an AddTuitionTaskCommand object for execution.
+     * @throws ParseException if the user input does not conform the expected format
      */
-    private void checkTimeClash(LocalDateTime taskDateTime, String duration) throws TimingClashException {
-        if (isTaskClash(taskDateTime, duration)) {
-            throw new TimingClashException(MESSAGE_TASK_TIMING_CLASHES);
+    public AddTuitionTaskCommand parse(String args) throws ParseException {
+        if (!args.trim().matches(INPUT_FORMAT_VALIDATION_REGEX)) {
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTuitionTaskCommand.MESSAGE_USAGE));
+        }
+
+        String[] arguments = args.trim().split("\\s+", MAXIMUM_AMOUNT_OF_TASK_PARAMETER);
+        try {
+            Index personIndex = ParserUtil.parseIndex(arguments[INDEX_OF_PERSON_INDEX]);
+            LocalDateTime taskDateTime =
+                    ParserUtil.parseDateTime(arguments[INDEX_OF_DATE] + " " + arguments[INDEX_OF_TIME]);
+            String duration = ParserUtil.parseDuration(arguments[INDEX_OF_DURATION]);
+            String description = ParserUtil.parseDescription(arguments, MAXIMUM_AMOUNT_OF_TASK_PARAMETER);
+
+            return new AddTuitionTaskCommand(personIndex, taskDateTime, duration, description);
+        } catch (DateTimeParseException dtpe) {
+            throw new ParseException(MESSAGE_INVALID_DATE_TIME + "\n"
+                    + AddTuitionTaskCommand.MESSAGE_USAGE);
+        } catch (DurationParseException dpe) {
+            throw new ParseException(MESSAGE_INVALID_DURATION + "\n"
+                    + AddTuitionTaskCommand.MESSAGE_USAGE);
+        } catch (IllegalValueException ive) {
+            throw new ParseException(MESSAGE_INVALID_INPUT_FORMAT + "\n"
+                    + AddTuitionTaskCommand.MESSAGE_USAGE);
         }
     }
 }
@@ -747,7 +767,7 @@ public class FindTaskCommandParser implements Parser<FindTaskCommand> {
      */
     public static String parseDescription(String[] userInputs, int maximumParametersGiven) {
         if (isEmptyDescription(userInputs, maximumParametersGiven)) {
-            return "";
+            return EMPTY_STRING;
         } else {
             String description = getLastElement(userInputs);
             return description;
@@ -766,6 +786,38 @@ public class FindTaskCommandParser implements Parser<FindTaskCommand> {
      */
     private static boolean isEmptyDescription(String[] arguments, int maximumParameterssGiven) {
         return arguments.length < maximumParameterssGiven;
+    }
+}
+```
+###### \java\seedu\address\model\personal\PersonalTask.java
+``` java
+    @Override
+    public String toString() {
+        if (hasDescription()) {
+            return "Personal task with description " + description + " on "
+                    + Integer.toString(taskDateTime.getDayOfMonth()) + " "
+                    + taskDateTime.getMonth().name() + " " + Integer.toString(taskDateTime.getYear());
+        } else {
+            return "Personal task without description on " + Integer.toString(taskDateTime.getDayOfMonth())
+                    + " " + taskDateTime.getMonth().name() + " " + Integer.toString(taskDateTime.getYear());
+        }
+    }
+
+    /**
+     * Returns true if the tuition task contains a non-empty description.
+     */
+    private boolean hasDescription() {
+        return !description.equals(NULL_STRING);
+    }
+
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof PersonalTask // instanceof handles nulls
+                && taskDateTime.equals(((PersonalTask) other).taskDateTime)
+                && duration.equals(((PersonalTask) other).duration)
+                && description.equals(((PersonalTask) other).description));
     }
 }
 ```
@@ -794,6 +846,42 @@ public class MonthContainsKeywordsPredicate implements Predicate<Task> {
                 || (other instanceof seedu.address.model.task.MonthContainsKeywordsPredicate // instanceof handles nulls
                 && this.keywords
                 .equals(((seedu.address.model.task.MonthContainsKeywordsPredicate) other).keywords)); // state check
+    }
+}
+```
+###### \java\seedu\address\model\tutee\TuitionTask.java
+``` java
+    @Override
+    public String toString() {
+        if (hasDescription()) {
+            return "Tuition task with description " + description + " on "
+                    + Integer.toString(taskDateTime.getDayOfMonth()) + " " + taskDateTime.getMonth().name()
+                    + " " + Integer.toString(taskDateTime.getYear());
+        } else {
+            return "Tuition task without description on " + Integer.toString(taskDateTime.getDayOfMonth())
+                    + " " + taskDateTime.getMonth().name() + " " + Integer.toString(taskDateTime.getYear());
+        }
+    }
+
+    /**
+     * Returns true if the tuition task contains a non-empty description.
+     */
+    private boolean hasDescription() {
+        return !description.equals(NULL_STRING);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof TuitionTask // instanceof handles nulls
+                && tutee.equals(((TuitionTask) other).tutee)
+                && taskDateTime.equals(((TuitionTask) other).taskDateTime)
+                && duration.equals(((TuitionTask) other).duration)
+                && description.equals(((TuitionTask) other).description));
+    }
+
+    public String getTuitionTitle() {
+        return String.format(TUITION_TITLE, tutee);
     }
 }
 ```

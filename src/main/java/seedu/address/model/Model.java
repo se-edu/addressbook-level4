@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
+import seedu.address.model.person.exceptions.TimingClashException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.task.exceptions.TaskNotFoundException;
 import seedu.address.model.tutee.Tutee;
@@ -19,7 +20,7 @@ public interface Model {
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
     Predicate<Task> PREDICATE_SHOW_ALL_TASKS = unused -> true;
 
-    /** {@code Predicate} that evaluates to true if an parent object is an instance of the subclass object*/
+    /** {@code Predicate} that evaluates to true if a parent object stores an instance of the subclass object*/
     Predicate<Person> PREDICATE_SHOW_ALL_TUTEES = person -> person instanceof Tutee;
 
     /** Clears existing backing model and replaces with the provided new data. */
@@ -53,9 +54,7 @@ public interface Model {
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
 
-    void addTask(Task target);
-
-    void updateTask(Task target, Task editedTask);
+    void addTask(Task target) throws TimingClashException;
 
     void deleteTask(Task target) throws TaskNotFoundException;
 

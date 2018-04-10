@@ -1,0 +1,63 @@
+= Cho Chih Tun - Project Portfolio
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: Tuition Connect (TC)
+
+---
+
+== Overview
+
+TuitionConnect is a desktop address book application used by private tuition teacher. +
+
+TuitionConnect aims to help the tutors to manage their busy schedule more efficiently and effectively. +
+
+TuitionConnect has many functionality catered to the tutors - adding and deleting a tutee, creating a schedule, rescheduling and many more. +
+
+The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 20 kLoC.
+
+== Summary of contributions
+
+* *Major enhancement*: integrated *CalendarFX* into the application
+** What it does: has a calendar that reflects all scheduling commands that the user inputs.
+** Justification: This feature enhances the product significantly because it improves the user interface. For instance, readability of the schedule is better as user can view it for the year, month, week or day.
+** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required integrations with existing commands and UI.
+** Credits: [https://github.com/dlemmermann/CalendarFX[CalendarFX]]
+
+* *Minor enhancement*:
+. Added alias for each command: https://github.com/CS2103JAN2018-T11-B1/main/pull/10[#10]
+. Created Tutee, Subject, Grade, EducationLevel and School classes to support tutee management related commands. Added addtutee command to add a new tutee into TuitionConnect application. https://github.com/CS2103JAN2018-T11-B1/main/pull/62[#62]
+. Drafted a TuitionConnect UI theme and revamped the layout of the UI.
+
+* *Code contributed*: [https://github.com/CS2103JAN2018-T11-B1/main/blob/master/collated/functional/ChoChihTun.md[Functional code]] [https://github.com/CS2103JAN2018-T11-B1/main/blob/master/collated/test/ChoChihTun.md[Test code]]
+
+* *Other contributions*:
+
+** Project management:
+*** Created product releases `v1.3` - `v1.5rc` jar files (3 releases) on GitHub
+*** Managed user stories in developer guide and on GitHub
+*** Set up auto publishing of documentation on GitHub
+** Documentation:
+*** Restructure README and AboutUs to fit into the context of TuitionConnect: https://github.com/CS2103JAN2018-T11-B1/main/pull/53[#53]
+*** Wrote an overview of TuitionConnect in user guide and features to be implemented in developer guide: https://github.com/CS2103JAN2018-T11-B1/main/pull/63[#63]
+*** Drafted the user stories in developer guide: https://github.com/CS2103JAN2018-T11-B1/main/pull/42[#42], https://github.com/CS2103JAN2018-T11-B1/main/pull/106[#106]
+** Community:
+*** PRs reviewed (with non-trivial review comments): https://github.com/CS2103JAN2018-T11-B1/main/pull/43[#43], https://github.com/CS2103JAN2018-T11-B1/main/pull/44[#44], https://github.com/CS2103JAN2018-T11-B1/main/pull/48[#48], https://github.com/CS2103JAN2018-T11-B1/main/pull/94[#94]
+*** Reported several bugs for other teams in class: https://github.com/CS2103JAN2018-W10-B3/main/issues/112[Endless Loop], https://github.com/CS2103JAN2018-W10-B3/main/issues/113[Wrong add command example], https://github.com/CS2103JAN2018-W10-B3/main/issues/119[Wrong userconfig example], https://github.com/CS2103JAN2018-W10-B3/main/issues/117[Exception not handled]
+** Tools:
+*** Integrated a third party library (CalendarFX) to the project (https://github.com/CS2103JAN2018-T11-B1/main/pull/95[#95])
+
+
+== Contributions to the User Guide
+
+include::../UserGuide.adoc[tag=introduction]
+
+include::../UserGuide.adoc[tag=addtutee]
+
+include::../UserGuide.adoc[tag=change]
+
+include::../UserGuide.adoc[tag=ChoChihTunV2.0]
+
+== Contributions to the Developer Guide
+
+include::../DeveloperGuide.adoc[tag=addtutee]

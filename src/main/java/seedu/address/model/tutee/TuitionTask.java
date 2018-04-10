@@ -1,6 +1,8 @@
 package seedu.address.model.tutee;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.ResolverStyle;
 
 import com.calendarfx.model.Entry;
 import com.calendarfx.model.Interval;
@@ -13,13 +15,13 @@ import seedu.address.model.Task;
  */
 public class TuitionTask implements Task {
 
-    public static final String MESSAGE_TASK_CONSTRAINT =
-            "Task can only be tuition\n"
-                    + ", the tutee involved must already be inside the contact list\n"
-                    + ", Date can only contain numbers in the format of dd/mm/yyyy\n"
-                    + ", Time must in the format of HH:mm\n"
-                    + " and Duration must be the format of 01h30m";
-    private static final String TUITION_TITLE = "Tuition with %1$s"; //private Tutee tutee;
+    private static final String TUITION_TITLE = "Tuition with %1$s";
+    private static final String HOUR_DELIMITER = "h";
+    private static final String MINUTE_DELIMITER = "m";
+    private static final String NULL_STRING = "";
+    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/uuuu HH:mm")
+            .withResolverStyle(ResolverStyle.STRICT);
+
     private String tutee;
     private String description;
     private String duration;
@@ -71,7 +73,7 @@ public class TuitionTask implements Task {
      * @return number of hours in the duration
      */
     private int parseHours() {
-        int indexOfHourDelimiter = duration.indexOf("h");
+        int indexOfHourDelimiter = duration.indexOf(HOUR_DELIMITER);
         return Integer.parseInt(duration.substring(0, indexOfHourDelimiter));
     }
 
@@ -81,9 +83,9 @@ public class TuitionTask implements Task {
      * @return number of minutes in the duration
      */
     private int parseMinutes() {
-        int startOfMinutesIndex = duration.indexOf("h") + 1;
-        int indexOfMinuteDelimiter = duration.indexOf("m");
-        return Integer.parseInt(duration.substring(startOfMinutesIndex, indexOfMinuteDelimiter));
+        int indexOfFirstMinuteDigit = duration.indexOf(HOUR_DELIMITER) + 1;
+        int indexOfMinuteDelimiter = duration.indexOf(MINUTE_DELIMITER);
+        return Integer.parseInt(duration.substring(indexOfFirstMinuteDigit, indexOfMinuteDelimiter));
     }
 
     public Entry getEntry() {
@@ -107,6 +109,12 @@ public class TuitionTask implements Task {
     }
 
     @Override
+    public String getStringTaskDateTime() {
+        return taskDateTime.format(formatter);
+    }
+
+    //@@author yungyung04
+    @Override
     public String toString() {
         if (hasDescription()) {
             return "Tuition task with description " + description + " on "
@@ -122,11 +130,9 @@ public class TuitionTask implements Task {
      * Returns true if the tuition task contains a non-empty description.
      */
     private boolean hasDescription() {
-        return description != "";
+        return !description.equals(NULL_STRING);
     }
 
-    /**
-     * fixes the test but has conflict with Task card
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
@@ -136,7 +142,7 @@ public class TuitionTask implements Task {
                 && duration.equals(((TuitionTask) other).duration)
                 && description.equals(((TuitionTask) other).description));
     }
-    */
+
     public String getTuitionTitle() {
         return String.format(TUITION_TITLE, tutee);
     }

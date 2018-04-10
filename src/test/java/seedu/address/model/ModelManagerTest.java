@@ -3,8 +3,8 @@ package seedu.address.model;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
-import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.BENSON;
+import static seedu.address.testutil.typicaladdressbook.TypicalPersons.ALICE;
+import static seedu.address.testutil.typicaladdressbook.TypicalPersons.BENSON;
 
 import java.util.Arrays;
 

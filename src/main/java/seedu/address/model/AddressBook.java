@@ -15,11 +15,11 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
+import seedu.address.model.person.exceptions.TimingClashException;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.tag.UniqueTagList;
 import seedu.address.model.task.exceptions.TaskNotFoundException;
 import seedu.address.model.tutee.Tutee;
-import seedu.address.ui.CalendarPanel;
 
 /**
  * Wraps all data at the address-book level
@@ -64,7 +64,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         this.tags.setTags(tags);
     }
 
-    public void setTasks(List<Task> tasks) {
+    public void setTasks(List<Task> tasks) throws TimingClashException {
         this.tasks.setTasks(tasks);
     }
 
@@ -76,15 +76,17 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(newData);
         setTags(new HashSet<>(newData.getTagList()));
         List<Task> taskList = newData.getTaskList().stream().collect(Collectors.toList());
-        setTasks(taskList);
         List<Person> syncedPersonList = newData.getPersonList().stream()
                 .map(this::syncWithMasterTagList)
                 .collect(Collectors.toList());
 
         try {
             setPersons(syncedPersonList);
+            setTasks(taskList);
         } catch (DuplicatePersonException e) {
             throw new AssertionError("AddressBooks should not have duplicate persons");
+        } catch (TimingClashException e) {
+            throw new AssertionError("AddressBooks should not have clashed tasks");
         }
     }
 
@@ -131,17 +133,8 @@ public class AddressBook implements ReadOnlyAddressBook {
      *
      */
 
-    public void addTask(Task t)  {
+    public void addTask(Task t) throws TimingClashException {
         tasks.add(t);
-        CalendarPanel.addEntry(t.getEntry());
-    }
-    /**
-     * Updates a task to the address book.
-     *
-     */
-    public void updateTask(Task target, Task editedTask)    {
-        requireNonNull(editedTask);
-        tasks.setTask(target, editedTask);
     }
 
     /**
@@ -209,7 +202,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
     /**
      * Removes a task from the address book.
-     * @throws TaskNotFoundException if the {@code key} is not in this {@code AddressBook}.
+     *
      */
     public boolean removeTask(Task key) throws TaskNotFoundException {
         if (tasks.remove(key))        {
@@ -236,6 +229,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     @Override
+    public ObservableList<Task> getTaskList() {
+        return tasks.asObservableList();
+    }
+
+    @Override
     public ObservableList<Person> getPersonList() {
         return persons.asObservableList();
     }
@@ -243,11 +241,6 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public ObservableList<Tag> getTagList() {
         return tags.asObservableList();
-    }
-
-    @Override
-    public ObservableList<Task> getTaskList() {
-        return tasks.asObservableList();
     }
 
     @Override

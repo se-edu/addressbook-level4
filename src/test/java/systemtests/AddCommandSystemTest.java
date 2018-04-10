@@ -26,13 +26,13 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.AMY;
-import static seedu.address.testutil.TypicalPersons.BOB;
-import static seedu.address.testutil.TypicalPersons.CARL;
-import static seedu.address.testutil.TypicalPersons.HOON;
-import static seedu.address.testutil.TypicalPersons.IDA;
-import static seedu.address.testutil.TypicalPersons.KEYWORD_MATCHING_MEIER;
+import static seedu.address.testutil.typicaladdressbook.TypicalPersons.ALICE;
+import static seedu.address.testutil.typicaladdressbook.TypicalPersons.AMY;
+import static seedu.address.testutil.typicaladdressbook.TypicalPersons.BOB;
+import static seedu.address.testutil.typicaladdressbook.TypicalPersons.CARL;
+import static seedu.address.testutil.typicaladdressbook.TypicalPersons.HOON;
+import static seedu.address.testutil.typicaladdressbook.TypicalPersons.IDA;
+import static seedu.address.testutil.typicaladdressbook.TypicalPersons.KEYWORD_MATCHING_MEIER;
 
 import org.junit.Test;
 

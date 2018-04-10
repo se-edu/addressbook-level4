@@ -1,6 +1,8 @@
 package seedu.address.model.personal;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.ResolverStyle;
 
 import com.calendarfx.model.Entry;
 import com.calendarfx.model.Interval;
@@ -13,10 +15,11 @@ import seedu.address.model.Task;
  */
 public class PersonalTask implements Task {
 
-    public static final String MESSAGE_TASK_CONSTRAINT =
-                    "Date can only contain numbers in the format of dd/mm/yyyy\n"
-                    + ", Time must in the format of HH:mm\n"
-                    + " and Duration must be in hours.";
+    private static final String HOUR_DELIMITER = "h";
+    private static final String MINUTE_DELIMITER = "m";
+    private static final String NULL_STRING = "";
+    private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/uuuu HH:mm")
+            .withResolverStyle(ResolverStyle.STRICT);
 
     private String description;
     private String duration;
@@ -66,7 +69,7 @@ public class PersonalTask implements Task {
      * @return number of hours in the duration
      */
     private int parseHours() {
-        int indexOfHourDelimiter = duration.indexOf("h");
+        int indexOfHourDelimiter = duration.indexOf(HOUR_DELIMITER);
         return Integer.parseInt(duration.substring(0, indexOfHourDelimiter));
     }
 
@@ -76,8 +79,8 @@ public class PersonalTask implements Task {
      * @return number of minutes in the duration
      */
     private int parseMinutes() {
-        int startOfMinutesIndex = duration.indexOf("h") + 1;
-        int indexOfMinuteDelimiter = duration.indexOf("m");
+        int startOfMinutesIndex = duration.indexOf(HOUR_DELIMITER) + 1;
+        int indexOfMinuteDelimiter = duration.indexOf(MINUTE_DELIMITER);
         return Integer.parseInt(duration.substring(startOfMinutesIndex, indexOfMinuteDelimiter));
     }
 
@@ -98,6 +101,12 @@ public class PersonalTask implements Task {
     }
 
     @Override
+    public String getStringTaskDateTime() {
+        return taskDateTime.format(formatter);
+    }
+
+    //@@author yungyung04
+    @Override
     public String toString() {
         if (hasDescription()) {
             return "Personal task with description " + description + " on "
@@ -113,20 +122,16 @@ public class PersonalTask implements Task {
      * Returns true if the tuition task contains a non-empty description.
      */
     private boolean hasDescription() {
-        return description != "";
+        return !description.equals(NULL_STRING);
     }
 
-    /**
-     * this fixes the valid args test, but has conflict with Task card
+
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof PersonalTask // instanceof handles nulls
-                && taskDateTime.getDayOfMonth() == ((PersonalTask) other).taskDateTime.getDayOfMonth()
-                && taskDateTime.getHour() == ((PersonalTask) other).taskDateTime.getHour()
-                && taskDateTime.getMinute() == ((PersonalTask) other).taskDateTime.getMinute()
+                && taskDateTime.equals(((PersonalTask) other).taskDateTime)
                 && duration.equals(((PersonalTask) other).duration)
                 && description.equals(((PersonalTask) other).description));
     }
-    */
 }

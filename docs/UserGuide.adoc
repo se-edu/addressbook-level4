@@ -15,9 +15,21 @@ endif::[]
 
 By: `Team MarvelousBook`      Since: `Feb 2018`      Licence: `MIT`
 
+// tag::introduction[]
 == Introduction
 
-TuitionConnect (TC) is for those who *prefer to use a desktop app for managing contacts*. More importantly, TC is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, TC can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+TuitionConnect (TC) is personalised address book for the private home tutors. +
+
+There are several features in TuitionConnect which aid in the management of your tutee contacts and tuition.
+There are also features which supports the management of your personal contacts and tasks so that you do not require 2 different address books to handle his or her contacts and tasks. +
+
+TuitionConnect is primarily for tutors who *prefer to use a desktop app for managing contacts and tasks*.
+More importantly, TuitionConnect is *optimized for those who prefer to work with a Command Line Interface*
+(CLI) while still having the benefits of a Graphical User Interface (GUI). +
+
+With TuitionConnect's keyboard shortcuts and productive features, TuitionConnect can get your contact and task management done faster than traditional GUI apps. Interested?
+Jump to the <<Quick Start>> to get started. Enjoy!
+// end::introduction[]
 
 == Quick Start
 
@@ -27,11 +39,13 @@ TuitionConnect (TC) is for those who *prefer to use a desktop app for managing c
 Having any Java 8 version is not enough. +
 This app will not work with earlier versions of Java 8.
 +
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
+.  Download the latest `TuitionConnect.jar` link:{https://github.com/CS2103JAN2018-T11-B1/main/releases}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your Address Book.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
+[NOTE]
+If "license check has failed" message pops up, simply click "OK".
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
@@ -77,6 +91,7 @@ Examples:
 * `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
 * `a n/Dickson ee p/91234567 e/dickson@exmaple.com a/Dickson street, block 456, #02-02`
 
+// tag::addtutee[]
 === Adding a tutee: `addtutee`
 Adds a tutee to the address book +
 Using Command Word: +
@@ -85,12 +100,18 @@ Format: `addtutee n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS s/SUBJECT g/GRADE edu/
 [TIP]
 A tutee can have any number of tags (including 0)
 
+[NOTE]
+====
+* Education level can only be either primary, secondary or junior college +
+* All details except tag MUST be added
+====
+
 Examples:
 
 * `addtutee n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 s/Economics g/B+ edu/junior college sch/Victoria Junior College`
 * `addtutee n/Betsy Crowe s/Mathematics g/C e/betsycrowe@example.com a/Newgate Town p/1234567 t/owesMoney sch/Victoria Institution edu/secondary`
 * `addtutee n/Dickson ee p/91234567 e/dickson@exmaple.com a/Dickson street, block 456, #02-02 s/english g/f edu/primary sch/Newgate Primary School`
-
+// end::addtutee[]
 
 === Listing all persons : `list`
 
@@ -113,8 +134,6 @@ Format: `lt`
 Shows a list of all tutees in the address book. +
 Using Command Word: +
 Format: `list` +
-Using Command Alias: +
-Format: `l`
 
 === Editing a person : `edit`
 
@@ -165,11 +184,11 @@ Format: `f CATEGORY KEYWORD [MORE_KEYWORDS]` +
 
 Examples:
 
-* `find Name John` +
+* `findpersonby Name John` +
 Lists `john` and `John Doe`
-* `f name Betsy Tim John` +
+* `findpersonby name Betsy Tim John` +
 Lists any person having names `Betsy`, `Tim`, or `John`
-* `find grade B B+` +
+* `f grade B B+` +
 Lists all tutee with grade `B` and `B+`
 
 === Sorting persons by category: `sort`
@@ -381,6 +400,7 @@ Lists all tasks scheduled on November, December, January and February.
 * `f month namely 2 06 oct
 Lists all tasks scheduled on February, June and October.
 
+// tag::change[]
 === Changing calendar view page time unit: `change`
 
 Changes the calendar's view page into the time unit specified by you.
@@ -399,15 +419,30 @@ Format: `change TIME_UNIT`
 [NOTE]
 ====
 * Default view page time unit is d.
-* Command fails if current view page time unit is same as the user input time unit.
+* Command fails if current view page time unit is same as the user input time unit or user input an unrecognised time unit.
 ====
 
 Examples:
 
 * `change d` (command fails as current calendar view is already in day)
++
+image::change-d.png[width="600" height="400"]
++
 * `change w` (changes calendar view to week)
++
+image::change-w.png[width="600" height="400"]
++
 * `change m` (changes calendar view to month)
++
+image::change-m.png[width="600" height="400"]
++
 * `change y` (changes calendar view to year)
++
+image::change-y.png[width="600" height="400"]
++
+[NOTE]
+Year view is unable to display all the months due to third party software constraint.
+// end::change[]
 
 === Listing entered commands : `history`
 
@@ -493,20 +528,23 @@ Format: `exit`
 
 === Saving the data
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
+Address book data are saved in the hard disk automatically after any command that
+ changes the data. +
 There is no need to save manually.
 
+// tag::ChoChihTunV2.0[]
 === Update tutee fees `[coming in v2.0]`
-Updates the remaining balance of the fees of a specific tutee after he or she has paid.
+Updates the remaining balance of the tuition fees of a specific tutee after he or she has paid.
 
 === Complete task `[coming in v2.0]`
 Marks a task as completed. If the task is tuition, fees will automatically be added to the tutee's fee balance.
 
 === Edit task `[coming in v2.0]`
-Edits date, time, duration or description of an existing task.
+Edits date, time, duration or description of an existing task and reflects the changes on the calendar.
 
-=== View contact address on map `[coming in v2.0]`
-View the location of a specific contact's address on google map.
+=== View contact address on Google map `[coming in v2.0]`
+View the location of a specific contact's address on google map and the shortest route from the current location will be displayed.
+// end::ChoChihTunV2.0[]
 
 // tag::dataencryption[]
 === Encrypting data files `[coming in v2.0]`

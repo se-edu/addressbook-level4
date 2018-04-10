@@ -230,6 +230,72 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+// tag::addtutee[]
+=== Add tutee Command
+==== Current Implementation
+
+===== Reason for Implementation
+As the user of this application is the tutor, he or she will need to add the tutees' contact details.
+Since a tutee contains more details specific to them compared to a non-tutee, tutee contacts should not be mixed with the non-tutee contacts so that all the contacts are organized and can be managed easily.
+Therefore, AddTuteeCommand is used to add only the tutees' contact details.
+
+===== How it is implemented
+The AddTuteeCommand is an extension of the Undoable Command, which is part of the Logic Component.
+As this command involves the altering of the application's state, the ability to undo and redo will make this command more user-friendly and efficient.
+(e.g list command + delete command vs undo command).
+
+image::LogicCommandClassDiagram.png[width="800"]
+
+From the diagram shown above, instead of extending abstract Command class directly, AddTuteeCommand will extend the abstract Undoable Command class like clearCommand and AddCommand.
+This allows AddTuteeCommand to use or override the state saving codes inside the Undoable Command class as shown below.
+
+[source,java]
+----
+public abstract class UndoableCommand extends Command {
+    @Override
+    public CommandResult execute() {
+        // ... undo logic ...
+
+        executeUndoableCommand();
+    }
+}
+
+public class AddTuteeCommand extends UndoableCommand {
+    @Override
+    public CommandResult executeUndoableCommand() {
+        // ... add tutee logic ...
+    }
+}
+----
+
+The following sequence diagram shows how the addtutee operation works:
+
+image::AddTuteeCommandSequenceDiagram.png[width="800"]
+
+As shown in the sequence diagram, after Tutee object has been created, it is being passed to Model. Model manager will add the Tutee object to the person list in TuitionConnect.
+By having a combined list of tutee and non-tutee, we can manage the contacts using one command, such as delete command, instead of having 1 command for tutee and 1 command for non-tutee.
+The combined list is achieved through the use of inheritance, whereby Tutee class inherits the Person class as shown in the diagram below.
+
+image:TuteeClassDiagram.jpg[width="800"]
+
+Since a tutee is a person, we can carried out inheritance by extending the Person class.
+Both Tutee and Person class objects have the same fields such as Name, Phone, Email and Address.
+However, Tutee class object has additional fields such as Subject, Grade, EducationLevel and School, which are irrelevant to a Person class object (non-tutee).
+
+[NOTE]
+If the person already exists, either as tutee or non-tutee, in the contact list, DuplicatePersonException will be thrown.
+
+==== Design Consideration
+
+* **Alternative 1 (current choice):** Create a new command "addtutee" and a tutee class, which extends person class
+** Pros: Non-tutee will not have any detail that is specific to tutee only. This saves memory especially when there are numerous non-tutee objects.
+** Cons: A tutee cannot simply convert into a non-tutee when tutor stops teaching him/her. Tutor has to delete the tutee and add him/her again as a non-tutee.
+
+* **Alternative 2:** Modify the current AddCommand and add more fields to the person class
+** Pros: Features can be implemented easily without modifying much to the existing code.
+** Cons: Non-tutee object creates unrelated field objects such as "subject" and "school" and these objects will waste the memory space. This problem will be significant when there are a lot of non-tutee objects.
+// end::addtutee[]
+
 // tag::undoredo[]
 === Undo/Redo feature
 ==== Current Implementation
@@ -803,54 +869,15 @@ With this added support for tasks, tutors will be able to customise their schedu
 
 *Chih Tun*:
 
-. *AddTuteeCommand* [Major Enhancement]
+* *Major Enhancement*: Integrated a calendar into TuitionConnect using third party software, CalendarFX.
+Configured TuitionConnect's main window to display day, week, month or year view of the calendar. A daily agenda list is showed together with the calendar's day view.
+In addition, the calendar reflects any changes to the schedule such as adding of a new task or deleting an existing task.
 
-As the user of this application is the tutor, he or she will need to add the tutees' contact details.
-Furthermore, tutee contacts should not be mixed with the non-tutee contacts so that all the contacts are organized and can be managed easily. Therefore, AddTuteeCommand is used to add only the tutees' contact details.
+* *Minor Enhancement*:
+. Created command to add a new tutee.
+. Implemented tutee, tuition, personal task classes and relevant field classes to support all the commands.
+. Modify select command to conduct name search on google search pop up page.
 
-
-The AddTuteeCommand is an extension of the Undoable Command, which is part of the Logic Component.
-As this command involves the altering of the application's state, the ability to undo and redo will make this command more user-friendly and efficient.
-(e.g list command + delete command vs undo command).
-
-image::LogicCommandClassDiagram.png[width="800"]
-
-From the diagram shown above, instead of extending abstract Command class directly, AddTuteeCommand will extend the abstract Undoable Command class like clearCommand and AddCommand.
-This allows AddTuteeCommand to use or override the state saving codes inside the Undoable Command class as shown below.
-
-[source,java]
-----
-public abstract class UndoableCommand extends Command {
-    @Override
-    public CommandResult execute() {
-        // ... undo logic ...
-
-        executeUndoableCommand();
-    }
-}
-
-public class AddTuteeCommand extends UndoableCommand {
-    @Override
-    public CommandResult executeUndoableCommand() {
-        // ... add tutee logic ...
-    }
-}
-----
-
-The following sequence diagram shows how the addtutee operation works:
-
-image::AddTuteeCommandSequenceDiagram.png[width="800"]
-
-[NOTE]
-If there is already someone, either tutee or non tutee, in the contact list, DuplicatePersonException will be thrown.
-
-*Alternatives*
-
-. Modify the current AddCommand:
-
-The AddCommand will be able to read 2 different user inputs, either "add n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 t/friends t/owesMoney"
-or "add tutee n/John Doe p/98765432 e/johnd@example.com a/311, Clementi Ave 2, #02-25 s/Science g/B+ edu/Secondary sch/HelloWord Secondary School".
-The input string will be parsed at AddCommandParser. Tutee and non-tutee contacts will then be added similarly as the AddTuteeCommand and the original AddCommand.
 
 *Buyung*:
 
@@ -1164,9 +1191,6 @@ Use Case ends.
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `1.8.0_60` or higher installed.
 .  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-.  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `1.8.0_60` or higher installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 .  Users should prefer typing over mouse input or other input methods.
 .  Users should be comfortable using CLI apps.
 .  The app should not have flow flaws when running.
@@ -1177,6 +1201,9 @@ Use Case ends.
 
 [appendix]
 == Glossary
+
+[[address-book]] Address Book::
+An application for storing the contact details.
 
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X

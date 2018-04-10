@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
@@ -11,7 +12,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 
 import seedu.address.model.person.Person;
-import seedu.address.model.tutee.TuitionSchedule;
+import seedu.address.model.person.exceptions.TimingClashException;
 import seedu.address.model.tutee.TuitionTask;
 import seedu.address.model.tutee.Tutee;
 
@@ -30,7 +31,7 @@ public class AddTuitionTaskCommand extends UndoableCommand {
             + "Date(dd/mm/yyyy) "
             + "Start time(hh:mm) "
             + "Duration(XXhXXm) "
-            + "Description( anything; leading and trailing whitepsaces will be trimmed )\n"
+            + "Description( anything; leading and trailing whitespaces will be trimmed )\n"
             + "Example: " + COMMAND_WORD + " "
             + "1 "
             + "10/12/2018 "
@@ -46,7 +47,6 @@ public class AddTuitionTaskCommand extends UndoableCommand {
     private final String description;
 
     private TuitionTask toAdd;
-    private TuitionSchedule tuitionSchedule;
     //private Tutee associatedTutee;
     private String associatedTutee;
 
@@ -57,26 +57,30 @@ public class AddTuitionTaskCommand extends UndoableCommand {
         requireNonNull(taskDateTime);
         requireNonNull(duration);
         requireNonNull(description);
+        this.targetIndex = targetIndex;
         this.taskdateTime = taskDateTime;
         this.duration = duration;
         this.description = description;
-        this.targetIndex = targetIndex;
     }
 
+    //@@author ChoChihTun
     @Override
-    public CommandResult executeUndoableCommand() {
-        tuitionSchedule.addTask(toAdd);
-        model.addTask(toAdd);
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+    public CommandResult executeUndoableCommand() throws CommandException {
+        try {
+            model.addTask(toAdd);
+        } catch (TimingClashException tce) {
+            throw new CommandException(tce.getMessage());
+        }
+        return new CommandResult(MESSAGE_SUCCESS);
     }
 
+    //@@author yungyung04
     @Override
     protected void preprocessUndoableCommand() throws CommandException {
         associatedTutee = getAssociatedTutee().getName().fullName;
         //associatedTutee = getAssociatedTutee();
         //requireNonNull(associatedTutee.getTuitionSchedule());
         //tuitionSchedule = associatedTutee.getTuitionSchedule();
-        tuitionSchedule = getAssociatedTutee().getTuitionSchedule();
         toAdd = new TuitionTask(associatedTutee, taskdateTime, duration, description);
     }
 
@@ -100,6 +104,6 @@ public class AddTuitionTaskCommand extends UndoableCommand {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddTuitionTaskCommand // instanceof handles nulls
-                && toAdd.equals(((AddTuitionTaskCommand) other).toAdd));
+                && Objects.equals(this.toAdd, ((AddTuitionTaskCommand) other).toAdd));
     }
 }
