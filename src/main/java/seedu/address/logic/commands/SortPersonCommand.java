@@ -17,7 +17,7 @@ import seedu.address.model.person.PersonSortUtil;
  * Since tutee contains specific information such as grade,
  * a Person who is not a tutee will be listed last when such information is selected to be the sorting category.
  */
-public class SortCommand extends Command {
+public class SortPersonCommand extends Command {
     public static final String COMMAND_WORD = "sort";
 
     public static final String MESSAGE_SUCCESS = "sorted successfully";
@@ -39,7 +39,7 @@ public class SortCommand extends Command {
     private final String category;
     private final Comparator<Person> comparator;
 
-    public SortCommand(String category) {
+    public SortPersonCommand(String category) {
         this.category = category;
         comparator = new PersonSortUtil().getComparator(category);
     }
@@ -53,7 +53,7 @@ public class SortCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof SortCommand // instanceof handles nulls
-                && category.equals(((SortCommand) other).category));
+                || (other instanceof SortPersonCommand // instanceof handles nulls
+                && category.equals(((SortPersonCommand) other).category));
     }
 }

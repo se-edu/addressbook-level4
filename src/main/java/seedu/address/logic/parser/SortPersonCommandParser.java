@@ -12,13 +12,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import seedu.address.logic.commands.SortCommand;
+import seedu.address.logic.commands.SortPersonCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
- * Parses input arguments and creates a new SortCommand object
+ * Parses input arguments and creates a new SortPersonCommand object
  */
-public class SortCommandParser implements Parser<SortCommand> {
+public class SortPersonCommandParser implements Parser<SortPersonCommand> {
 
     private static final String SORT_CATEGORY_VALIDATION_REGEX = "\\p{Alpha}+";
 
@@ -27,19 +27,19 @@ public class SortCommandParser implements Parser<SortCommand> {
                     CATEGORY_GRADE, CATEGORY_SCHOOL, CATEGORY_SUBJECT));
 
     /**
-     * Parses the given {@code String} of arguments in the context of the SortCommand
-     * and returns a SortCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the SortPersonCommand
+     * and returns a SortPersonCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public SortCommand parse(String args) throws ParseException {
+    public SortPersonCommand parse(String args) throws ParseException {
         String sortCategory = args.trim().toLowerCase();
 
         if (!sortCategory.matches(SORT_CATEGORY_VALIDATION_REGEX)) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortPersonCommand.MESSAGE_USAGE));
         }
         if (!validCategories.contains(sortCategory)) {
-            throw new ParseException(String.format(MESSAGE_INVALID_SORTER_CATEGORY, SortCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_SORTER_CATEGORY, SortPersonCommand.MESSAGE_USAGE));
         }
-        return new SortCommand(sortCategory);
+        return new SortPersonCommand(sortCategory);
     }
 }
