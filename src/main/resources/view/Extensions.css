@@ -18,27 +18,3 @@
 .tooltip-text {
     -fx-text-fill: white;
 }
-
-#calendarPlaceholder {
-    -fx-background-color: #ffffff;
-}
-
-#commandBoxPlaceholder {
-    -fx-background-color: #ffffff;
-}
-
-#resultDisplayPlaceholder {
-    -fx-background-color: #ffffff;
-}
-
-#statusbarPlaceholder {
-    -fx-background-color: #ffffff;
-}
-
-#personListPanelPlaceholder {
-    -fx-background-color: #ffffff;
-}
-
-#taskListPanelPlaceholder {
-    -fx-background-color: #ffffff;
-}

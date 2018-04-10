@@ -1,7 +1,6 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.core.Messages.MESSAGE_TASK_TIMING_CLASHES;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -64,16 +63,18 @@ public class AddTuitionTaskCommand extends UndoableCommand {
         this.description = description;
     }
 
+    //@@author ChoChihTun
     @Override
     public CommandResult executeUndoableCommand() throws CommandException {
         try {
             model.addTask(toAdd);
-        } catch (TimingClashException e) {
-            throw new CommandException(MESSAGE_TASK_TIMING_CLASHES);
+        } catch (TimingClashException tce) {
+            throw new CommandException(tce.getMessage());
         }
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
+        return new CommandResult(MESSAGE_SUCCESS);
     }
 
+    //@@author yungyung04
     @Override
     protected void preprocessUndoableCommand() throws CommandException {
         associatedTutee = getAssociatedTutee().getName().fullName;

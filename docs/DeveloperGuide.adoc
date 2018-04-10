@@ -230,6 +230,7 @@ Classes used by multiple components are in the `seedu.addressbook.commons` packa
 
 This section describes some noteworthy details on how certain features are implemented.
 
+// tag::addtutee[]
 === Add tutee Command
 ==== Current Implementation
 
@@ -293,6 +294,7 @@ If the person already exists, either as tutee or non-tutee, in the contact list,
 * **Alternative 2:** Modify the current AddCommand and add more fields to the person class
 ** Pros: Features can be implemented easily without modifying much to the existing code.
 ** Cons: Non-tutee object creates unrelated field objects such as "subject" and "school" and these objects will waste the memory space. This problem will be significant when there are a lot of non-tutee objects.
+// end::addtutee[]
 
 // tag::undoredo[]
 === Undo/Redo feature
