@@ -44,6 +44,8 @@ This app will not work with earlier versions of Java 8.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
+[NOTE]
+If "license check has failed" message pops up, simply click "OK".
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
@@ -530,7 +532,7 @@ Address book data are saved in the hard disk automatically after any command tha
  changes the data. +
 There is no need to save manually.
 
-// tag::v2Features[]
+// tag::ChoChihTunV2.0[]
 === Update tutee fees `[coming in v2.0]`
 Updates the remaining balance of the tuition fees of a specific tutee after he or she has paid.
 
@@ -542,7 +544,7 @@ Edits date, time, duration or description of an existing task and reflects the c
 
 === View contact address on Google map `[coming in v2.0]`
 View the location of a specific contact's address on google map and the shortest route from the current location will be displayed.
-// end::v2Features[]
+// end::ChoChihTunV2.0[]
 
 // tag::dataencryption[]
 === Encrypting data files `[coming in v2.0]`

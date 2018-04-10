@@ -8,7 +8,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.events.ui.JumpToListRequestEvent;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.person.Person;
-import seedu.address.ui.BrowsePage;
+import seedu.address.ui.BrowserPage;
 
 
 
@@ -43,9 +43,9 @@ public class SelectCommand extends Command {
         }
         JumpToListRequestEvent jumpToListRequestEvent = new JumpToListRequestEvent(targetIndex);
         EventsCenter.getInstance().post(jumpToListRequestEvent);
-        BrowsePage browsePage = new BrowsePage(lastShownList.get(targetIndex.getZeroBased()).getName().fullName);
+        BrowserPage browserPage = new BrowserPage(lastShownList.get(targetIndex.getZeroBased()).getName().fullName);
         try {
-            browsePage.loadUrl();
+            browserPage.loadPage();
         } catch (Exception e) {
             throw new CommandException("Default browser is not found or failed to launch.");
         }
