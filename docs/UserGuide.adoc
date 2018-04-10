@@ -424,19 +424,19 @@ Examples:
 
 * `change d` (command fails as current calendar view is already in day)
 +
-image::change-d.png[width="790"]
+image::change-d.png[width="600" height="400"]
 +
 * `change w` (changes calendar view to week)
 +
-image::change-w.png[width="790"]
+image::change-w.png[width="600" height="400"]
 +
 * `change m` (changes calendar view to month)
 +
-image::change-m.png[width="790"]
+image::change-m.png[width="600" height="400"]
 +
 * `change y` (changes calendar view to year)
 +
-image::change-y.png[width="790"]
+image::change-y.png[width="600" height="400"]
 +
 [NOTE]
 Year view is unable to display all the months due to third party software constraint.

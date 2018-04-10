@@ -228,7 +228,7 @@
 
 .button:pressed, .button:default:hover:pressed {
   -fx-background-color: white;
-  -fx-text-fill: #1d1d1d;
+  -fx-text-fill: black;
 }
 
 .button:focused {
@@ -242,12 +242,12 @@
 .button:disabled, .button:default:disabled {
     -fx-opacity: 0.4;
     -fx-background-color: #1d1d1d;
-    -fx-text-fill: white;
+    -fx-text-fill: black;
 }
 
 .button:default {
     -fx-background-color: -fx-focus-color;
-    -fx-text-fill: white;
+    -fx-text-fill: black;
 }
 
 .button:default:hover {
@@ -324,6 +324,7 @@
     -fx-font-family: "Andale Mono";
     -fx-font-size: 13pt;
     -fx-text-fill: black;
+    -fx-prompt-text-fill: black;
 }
 
 #filterField, #personListPanel, #personWebpage {
