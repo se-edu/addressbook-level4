@@ -1,13 +1,9 @@
 package seedu.address.testutil.typicaladdressbook;
 
-import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_TIME_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_TIME_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_DURATION_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_DURATION_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_TIME;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DURATION;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TASK_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TASK_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TASK_DESC;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -63,10 +59,7 @@ public class TypicalTasks {
 
     // Manually added - Task details found in {@code CommandTestUtil}
     public static final Task TASK_AMY = new TaskBuilder().withTuteeName(VALID_NAME_AMY)
-            .withDateTime(VALID_DATE_TIME_AMY).withDuration(VALID_DURATION_AMY).withDescription(VALID_TASK_DESC_AMY)
-            .buildTuitionTask();
-    public static final Task TASK_BOB = new TaskBuilder().withTuteeName(VALID_NAME_BOB)
-            .withDateTime(VALID_DATE_TIME_BOB).withDuration(VALID_DURATION_BOB).withDescription(VALID_TASK_DESC_BOB)
+            .withDateTime(VALID_DATE_TIME).withDuration(VALID_DURATION).withDescription(VALID_TASK_DESC)
             .buildTuitionTask();
 
     private TypicalTasks() {} // prevents instantiation
