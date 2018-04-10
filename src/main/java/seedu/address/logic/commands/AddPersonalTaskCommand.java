@@ -1,7 +1,6 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.core.Messages.MESSAGE_TASK_TIMING_CLASHES;
 
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.person.exceptions.TimingClashException;
@@ -37,16 +36,18 @@ public class AddPersonalTaskCommand extends UndoableCommand {
         toAdd = task;
     }
 
+    //@@author ChoChihTun
     @Override
     public CommandResult executeUndoableCommand() throws CommandException {
         try {
             model.addTask(toAdd);
-        } catch (TimingClashException e) {
-            throw new CommandException(MESSAGE_TASK_TIMING_CLASHES);
+        } catch (TimingClashException tce) {
+            throw new CommandException(tce.getMessage());
         }
-        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd.toString()));
+        return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
 
+    //@@author yungyung04
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object

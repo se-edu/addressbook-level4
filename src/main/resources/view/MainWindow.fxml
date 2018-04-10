@@ -20,7 +20,7 @@
   <scene>
     <Scene>
       <stylesheets>
-        <URL value="@DarkTheme.css" />
+        <URL value="@TuitionConnectTheme.css" />
         <URL value="@Extensions.css" />
       </stylesheets>
 
