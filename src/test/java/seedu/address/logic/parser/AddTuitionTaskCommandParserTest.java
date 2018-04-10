@@ -3,12 +3,11 @@ package seedu.address.logic.parser;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_DATE_TIME;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_DURATION;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_TIME;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_DURATION;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMPTY_TASK_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TASK_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TASK_WITHOUT_DESC;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TASK_WITH_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.EMPTY_STRING;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_TIME_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DURATION_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TASK_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TASK_WITHOUT_DESC_AMY;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
@@ -79,12 +78,11 @@ public class AddTuitionTaskCommandParserTest {
     public void parse_validArgs_success() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/uuuu HH:mm")
                 .withResolverStyle(ResolverStyle.STRICT);
-
-        LocalDateTime taskDateTime = LocalDateTime.parse(VALID_DATE_TIME, formatter);
+        LocalDateTime taskDateTime = LocalDateTime.parse(VALID_DATE_TIME_AMY, formatter);
 
         // With description
-        assertParseSuccess(parser, "1 " + VALID_TASK_WITH_DESC,
-                new AddTuitionTaskCommand(INDEX_FIRST_PERSON, taskDateTime, VALID_DURATION, VALID_TASK_DESC));
+        assertParseSuccess(parser, "1 " + VALID_TASK_WITH_DESC_AMY,
+                new AddTuitionTaskCommand(INDEX_FIRST_PERSON, taskDateTime, VALID_DURATION_AMY, VALID_TASK_DESC_AMY));
 
         // Without description
         assertParseSuccess(parser, "1 " + VALID_TASK_WITHOUT_DESC,
