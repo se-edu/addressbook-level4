@@ -95,19 +95,19 @@ public class AddPersonalTaskCommandParserTest {
                 new AddPersonalTaskCommand(personalTask));
 
         personalTask = new PersonalTask(LocalDateTime.parse("30/04/2016 11:20", formatter),
-                VALID_DURATION, VALID_EMPTY_TASK_DESC);
-        assertParseSuccess(parser, "30/04/2016 11:20 " + VALID_DURATION,
+                VALID_DURATION_AMY, VALID_EMPTY_TASK_DESC);
+        assertParseSuccess(parser, "30/04/2016 11:20 " + VALID_DURATION_AMY,
                 new AddPersonalTaskCommand(personalTask));
 
         personalTask = new PersonalTask(LocalDateTime.parse("31/01/2016 11:20", formatter),
-                VALID_DURATION, VALID_EMPTY_TASK_DESC);
-        assertParseSuccess(parser, "31/01/2016 11:20 " + VALID_DURATION,
+                VALID_DURATION_AMY, VALID_EMPTY_TASK_DESC);
+        assertParseSuccess(parser, "31/01/2016 11:20 " + VALID_DURATION_AMY,
                 new AddPersonalTaskCommand(personalTask));
 
         // Valid Time
         personalTask = new PersonalTask(LocalDateTime.parse("11/01/2018 00:00", formatter),
-                VALID_DURATION, VALID_EMPTY_TASK_DESC);
-        assertParseSuccess(parser, "11/01/2018 00:00 " + VALID_DURATION,
+                VALID_DURATION_AMY, VALID_EMPTY_TASK_DESC);
+        assertParseSuccess(parser, "11/01/2018 00:00 " + VALID_DURATION_AMY,
                 new AddPersonalTaskCommand(personalTask));
     }
 }

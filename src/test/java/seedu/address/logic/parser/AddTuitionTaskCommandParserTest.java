@@ -3,11 +3,12 @@ package seedu.address.logic.parser;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_DATE_TIME;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_DURATION;
-import static seedu.address.logic.commands.CommandTestUtil.EMPTY_STRING;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_TIME_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DURATION_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_EMPTY_TASK_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TASK_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TASK_WITHOUT_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TASK_WITH_DESC_AMY;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
@@ -85,31 +86,31 @@ public class AddTuitionTaskCommandParserTest {
                 new AddTuitionTaskCommand(INDEX_FIRST_PERSON, taskDateTime, VALID_DURATION_AMY, VALID_TASK_DESC_AMY));
 
         // Without description
-        assertParseSuccess(parser, "1 " + VALID_TASK_WITHOUT_DESC,
-                new AddTuitionTaskCommand(INDEX_FIRST_PERSON, taskDateTime, VALID_DURATION, VALID_EMPTY_TASK_DESC));
+        assertParseSuccess(parser, "1 " + VALID_TASK_WITHOUT_DESC_AMY,
+                new AddTuitionTaskCommand(INDEX_FIRST_PERSON, taskDateTime, VALID_DURATION_AMY, VALID_EMPTY_TASK_DESC));
 
         // Valid date
 
         taskDateTime = LocalDateTime.parse("28/02/2018 11:20", formatter);
-        assertParseSuccess(parser, "1 28/02/2018 11:20 " + VALID_DURATION,
-                new AddTuitionTaskCommand(INDEX_FIRST_PERSON, taskDateTime, VALID_DURATION, VALID_EMPTY_TASK_DESC));
+        assertParseSuccess(parser, "1 28/02/2018 11:20 " + VALID_DURATION_AMY,
+                new AddTuitionTaskCommand(INDEX_FIRST_PERSON, taskDateTime, VALID_DURATION_AMY, VALID_EMPTY_TASK_DESC));
 
         taskDateTime = LocalDateTime.parse("29/02/2016 11:20", formatter);
-        assertParseSuccess(parser, "1 29/02/2016 11:20 " + VALID_DURATION,
-                new AddTuitionTaskCommand(INDEX_FIRST_PERSON, taskDateTime, VALID_DURATION, VALID_EMPTY_TASK_DESC));
+        assertParseSuccess(parser, "1 29/02/2016 11:20 " + VALID_DURATION_AMY,
+                new AddTuitionTaskCommand(INDEX_FIRST_PERSON, taskDateTime, VALID_DURATION_AMY, VALID_EMPTY_TASK_DESC));
 
         taskDateTime = LocalDateTime.parse("30/04/2016 11:20", formatter);
-        assertParseSuccess(parser, "1 30/04/2016 11:20 " + VALID_DURATION,
-                new AddTuitionTaskCommand(INDEX_FIRST_PERSON, taskDateTime, VALID_DURATION, VALID_EMPTY_TASK_DESC));
+        assertParseSuccess(parser, "1 30/04/2016 11:20 " + VALID_DURATION_AMY,
+                new AddTuitionTaskCommand(INDEX_FIRST_PERSON, taskDateTime, VALID_DURATION_AMY, VALID_EMPTY_TASK_DESC));
 
         taskDateTime = LocalDateTime.parse("31/01/2016 11:20", formatter);
-        assertParseSuccess(parser, "1 31/01/2016 11:20 " + VALID_DURATION,
-                new AddTuitionTaskCommand(INDEX_FIRST_PERSON, taskDateTime, VALID_DURATION, VALID_EMPTY_TASK_DESC));
+        assertParseSuccess(parser, "1 31/01/2016 11:20 " + VALID_DURATION_AMY,
+                new AddTuitionTaskCommand(INDEX_FIRST_PERSON, taskDateTime, VALID_DURATION_AMY, VALID_EMPTY_TASK_DESC));
 
         // Valid Time
         taskDateTime = LocalDateTime.parse("11/01/2018 00:00", formatter);
-        assertParseSuccess(parser, "1 11/01/2018 00:00 " + VALID_DURATION,
-                new AddTuitionTaskCommand(INDEX_FIRST_PERSON, taskDateTime, VALID_DURATION, VALID_EMPTY_TASK_DESC));
+        assertParseSuccess(parser, "1 11/01/2018 00:00 " + VALID_DURATION_AMY,
+                new AddTuitionTaskCommand(INDEX_FIRST_PERSON, taskDateTime, VALID_DURATION_AMY, VALID_EMPTY_TASK_DESC));
     }
 
 }
