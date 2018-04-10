@@ -27,10 +27,10 @@ public class SortPersonCommand extends Command {
             + "Person who are not Tutees will be listed last when a tutee detail is a selected category (refer to User Guide)\n"
             + "Parameters: sort_category\n"
             + "Choice of sort_categories: "
-            + CATEGORY_NAME + " "
-            + CATEGORY_EDUCATION_LEVEL + " "
-            + CATEGORY_GRADE + " "
-            + CATEGORY_SCHOOL + " "
+            + CATEGORY_NAME + ", "
+            + CATEGORY_EDUCATION_LEVEL + ", "
+            + CATEGORY_GRADE + ", "
+            + CATEGORY_SCHOOL + ", "
             + CATEGORY_SUBJECT + "\n"
             + "Example: " + COMMAND_WORD + " " + CATEGORY_GRADE;
 
