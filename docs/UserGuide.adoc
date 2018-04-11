@@ -127,7 +127,10 @@ Shows a list of all tasks in the address book. +
 Using Command Word: +
 Format: `listTask` +
 Using Command Alias: +
-Format: `lt`
+Format: `lt` +
+The purpose of the listTask command is to regenerate +
+the complete list of tasks for a user in the event that +
+only a specific set of tasks were displayed.
 
 === Listing all tutees : `listtutee`
 
