@@ -72,6 +72,7 @@ public class AddTuitionTaskCommandParserTest {
     public void parse_validArgs_success() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/uuuu HH:mm")
                 .withResolverStyle(ResolverStyle.STRICT);
+
         LocalDateTime taskDateTime = LocalDateTime.parse(VALID_DATE_TIME_AMY, formatter);
 
         // With description
@@ -83,7 +84,6 @@ public class AddTuitionTaskCommandParserTest {
                 new AddTuitionTaskCommand(INDEX_FIRST_PERSON, taskDateTime, VALID_DURATION_AMY, VALID_EMPTY_TASK_DESC));
 
         // Valid date
-
         taskDateTime = LocalDateTime.parse("28/02/2018 11:20", formatter);
         assertParseSuccess(parser, "1 28/02/2018 11:20 " + VALID_DURATION_AMY,
                 new AddTuitionTaskCommand(INDEX_FIRST_PERSON, taskDateTime, VALID_DURATION_AMY, VALID_EMPTY_TASK_DESC));
