@@ -32,6 +32,7 @@ public class ModelManager extends ComponentManager implements Model {
     private FilteredList<Person> filteredPersons;
     private FilteredList<Task> filteredTasks;
     private SortedList<Person> sortedPersons;
+    private SortedList<Task> sortedTasks;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -46,6 +47,7 @@ public class ModelManager extends ComponentManager implements Model {
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
         filteredTasks = new FilteredList<>(this.addressBook.getTaskList());
         sortedPersons = new SortedList<>(filteredPersons);
+        sortedTasks = new SortedList<>(filteredTasks);
     }
 
     public ModelManager() {
@@ -106,7 +108,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public ObservableList<Task> getFilteredTaskList() {
-        return FXCollections.unmodifiableObservableList(filteredTasks);
+        return FXCollections.unmodifiableObservableList(sortedTasks);
     }
 
     @Override
@@ -136,11 +138,18 @@ public class ModelManager extends ComponentManager implements Model {
         filteredPersons.setPredicate(predicate);
     }
 
+    //@@author yungyung04
     @Override
     public void sortFilteredPersonList(Comparator<Person> comparator) {
         sortedPersons.setComparator(comparator);
     }
 
+    @Override
+    public void sortFilteredTaskList(Comparator<Task> comparator) {
+        sortedTasks.setComparator(comparator);
+    }
+
+    //@@author
     @Override
     public boolean equals(Object obj) {
         // short circuit if same object
@@ -159,6 +168,7 @@ public class ModelManager extends ComponentManager implements Model {
         return addressBook.equals(other.addressBook)
                 && filteredPersons.equals(other.filteredPersons)
                 && filteredTasks.equals(other.filteredTasks)
-                && sortedPersons.equals(other.sortedPersons);
+                && sortedPersons.equals(other.sortedPersons)
+                && sortedTasks.equals(other.sortedTasks);
     }
 }

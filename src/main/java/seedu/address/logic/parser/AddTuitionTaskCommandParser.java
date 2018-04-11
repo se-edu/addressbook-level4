@@ -3,7 +3,7 @@ package seedu.address.logic.parser;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_DATE_TIME;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_DURATION;
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_INPUT_FORMAT;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
@@ -51,14 +51,11 @@ public class AddTuitionTaskCommandParser implements Parser<AddTuitionTaskCommand
 
             return new AddTuitionTaskCommand(personIndex, taskDateTime, duration, description);
         } catch (DateTimeParseException dtpe) {
-            throw new ParseException(MESSAGE_INVALID_DATE_TIME + "\n"
-                    + AddTuitionTaskCommand.MESSAGE_USAGE);
+            throw new ParseException(MESSAGE_INVALID_DATE_TIME);
         } catch (DurationParseException dpe) {
-            throw new ParseException(MESSAGE_INVALID_DURATION + "\n"
-                    + AddTuitionTaskCommand.MESSAGE_USAGE);
+            throw new ParseException(MESSAGE_INVALID_DURATION);
         } catch (IllegalValueException ive) {
-            throw new ParseException(MESSAGE_INVALID_INPUT_FORMAT + "\n"
-                    + AddTuitionTaskCommand.MESSAGE_USAGE);
+            throw new ParseException(MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
     }
 }

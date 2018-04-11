@@ -29,13 +29,13 @@ import seedu.address.model.person.Person;
 
 //@@author yungyung04
 /**
- * Contains integration tests (interaction with the Model) for {@code SortCommand}.
+ * Contains integration tests (interaction with the Model) for {@code SortPersonCommand}.
  */
-public class SortCommandTest {
+public class SortPersonCommandTest {
 
     private Model model = new ModelManager(getTypicalAddressBook2(), new UserPrefs());
 
-    private final SortCommand sortName = new SortCommand(CATEGORY_NAME);
+    private final SortPersonCommand sortName = new SortPersonCommand(CATEGORY_NAME);
 
     @Test
     public void equals() {
@@ -43,7 +43,7 @@ public class SortCommandTest {
         assertTrue(sortName.equals(sortName));
 
         // same values -> returns true
-        SortCommand sortNameCopy = new SortCommand(CATEGORY_NAME);
+        SortPersonCommand sortNameCopy = new SortPersonCommand(CATEGORY_NAME);
         assertTrue(sortName.equals(sortNameCopy));
 
         // different types -> returns false
@@ -53,50 +53,50 @@ public class SortCommandTest {
         assertFalse(sortName.equals(null));
 
         // different category -> returns false
-        SortCommand sortGrade = new SortCommand(CATEGORY_GRADE);
+        SortPersonCommand sortGrade = new SortPersonCommand(CATEGORY_GRADE);
         assertFalse(sortName.equals(sortGrade));
     }
 
     @Test
     public void execute_sortName_sortedSuccessfully() {
         sortName.setData(model, new CommandHistory(), new UndoRedoStack());
-        String expectedMessage = String.format(SortCommand.MESSAGE_SUCCESS);
+        String expectedMessage = String.format(SortPersonCommand.MESSAGE_SUCCESS);
         assertCommandSuccess(sortName, expectedMessage,
                 Arrays.asList(ALICETUTEE, AMYTUTEE, BOBTUTEE, DANIEL));
     }
 
     @Test
     public void execute_sortEducatonLevel_sortedSuccessfully() {
-        SortCommand sortEducationLevel = new SortCommand(CATEGORY_EDUCATION_LEVEL);
+        SortPersonCommand sortEducationLevel = new SortPersonCommand(CATEGORY_EDUCATION_LEVEL);
         sortEducationLevel.setData(model, new CommandHistory(), new UndoRedoStack());
-        String expectedMessage = String.format(SortCommand.MESSAGE_SUCCESS);
+        String expectedMessage = String.format(SortPersonCommand.MESSAGE_SUCCESS);
         assertCommandSuccess(sortEducationLevel, expectedMessage,
                 Arrays.asList(BOBTUTEE, ALICETUTEE, AMYTUTEE, DANIEL));
     }
 
     @Test
     public void execute_sortGrade_sortedSuccessfully() {
-        SortCommand sortGrade = new SortCommand(CATEGORY_GRADE);
+        SortPersonCommand sortGrade = new SortPersonCommand(CATEGORY_GRADE);
         sortGrade.setData(model, new CommandHistory(), new UndoRedoStack());
-        String expectedMessage = String.format(SortCommand.MESSAGE_SUCCESS);
+        String expectedMessage = String.format(SortPersonCommand.MESSAGE_SUCCESS);
         assertCommandSuccess(sortGrade, expectedMessage,
                 Arrays.asList(BOBTUTEE, AMYTUTEE, ALICETUTEE, DANIEL));
     }
 
     @Test
     public void execute_sortSchool_sortedSuccessfully() {
-        SortCommand sortSchool = new SortCommand(CATEGORY_SCHOOL);
+        SortPersonCommand sortSchool = new SortPersonCommand(CATEGORY_SCHOOL);
         sortSchool.setData(model, new CommandHistory(), new UndoRedoStack());
-        String expectedMessage = String.format(SortCommand.MESSAGE_SUCCESS);
+        String expectedMessage = String.format(SortPersonCommand.MESSAGE_SUCCESS);
         assertCommandSuccess(sortSchool, expectedMessage,
                 Arrays.asList(AMYTUTEE, ALICETUTEE, BOBTUTEE, DANIEL));
     }
 
     @Test
     public void execute_sortSubject_sortedSuccessfully() {
-        SortCommand sortSubject = new SortCommand(CATEGORY_SUBJECT);
+        SortPersonCommand sortSubject = new SortPersonCommand(CATEGORY_SUBJECT);
         sortSubject.setData(model, new CommandHistory(), new UndoRedoStack());
-        String expectedMessage = String.format(SortCommand.MESSAGE_SUCCESS);
+        String expectedMessage = String.format(SortPersonCommand.MESSAGE_SUCCESS);
         assertCommandSuccess(sortSubject, expectedMessage,
                 Arrays.asList(AMYTUTEE, ALICETUTEE, BOBTUTEE, DANIEL));
     }
@@ -107,7 +107,7 @@ public class SortCommandTest {
      *     - the {@code FilteredList<Person>} is equal to {@code expectedList}<br>
      *     - the {@code AddressBook} in model remains the same after executing the {@code command}
      */
-    private void assertCommandSuccess(SortCommand command, String expectedMessage, List<Person> expectedList) {
+    private void assertCommandSuccess(SortPersonCommand command, String expectedMessage, List<Person> expectedList) {
         AddressBook expectedAddressBook = new AddressBook(model.getAddressBook());
         CommandResult commandResult = command.execute();
 
