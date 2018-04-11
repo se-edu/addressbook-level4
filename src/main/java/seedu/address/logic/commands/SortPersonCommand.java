@@ -24,8 +24,9 @@ public class SortPersonCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": sorts all visible persons lexicographically according to the specified sorting category.\n"
-            + "Person who are not Tutees will be listed last when a tutee detail is a selected category (refer to User Guide)\n"
-            + "Parameters: sort_category\n"
+            + "Persons who are not Tutees will be listed last when a tutee detail is a selected category "
+            + "(refer to User Guide)\n"
+            + "Parameter: sort_category\n"
             + "Choice of sort_categories: "
             + CATEGORY_NAME + ", "
             + CATEGORY_EDUCATION_LEVEL + ", "

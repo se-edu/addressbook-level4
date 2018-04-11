@@ -19,7 +19,7 @@ public class SortTaskCommand extends Command {
     public static final String MESSAGE_SUCCESS = "sorted list of tasks successfully";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + " * Sorts all tasks from the last shown list according to the specified sorting category in an increasing order\n"
+            + "Sorts all visible tasks according to the specified sorting category in an increasing order\n"
             + "Parameter: sort_category\n"
             + "Choice of sort_categories: "
             + CATEGORY_MONTH + ", "
