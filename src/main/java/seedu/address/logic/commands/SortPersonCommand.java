@@ -17,29 +17,28 @@ import seedu.address.model.person.PersonSortUtil;
  * Since tutee contains specific information such as grade,
  * a Person who is not a tutee will be listed last when such information is selected to be the sorting category.
  */
-public class SortCommand extends Command {
-    public static final String COMMAND_WORD = "sort";
+public class SortPersonCommand extends Command {
+    public static final String COMMAND_WORD = "sortpersonby";
 
-    public static final String MESSAGE_SUCCESS = "sorted successfully";
+    public static final String MESSAGE_SUCCESS = "sorted list of persons successfully";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": sorts all visible persons lexicographically according to the specified sorting category.\n"
-            + "Since tutee contains tutee-specific information such as grades and school, \n"
-            + "Person who are not Tutees will be listed last "
-            + "when such information is selected as the sorting category."
-            + "Parameters: sort_category\n"
+            + "Persons who are not Tutees will be listed last when a tutee detail is a selected category "
+            + "(refer to User Guide)\n"
+            + "Parameter: sort_category\n"
             + "Choice of sort_categories: "
-            + CATEGORY_NAME + "\n"
-            + CATEGORY_EDUCATION_LEVEL + "[Tutee specific]\n"
-            + CATEGORY_GRADE + "[Tutee specific]\n"
-            + CATEGORY_SCHOOL + "[Tutee specific]\n"
-            + CATEGORY_SUBJECT + "[Tutee specific]\n"
+            + CATEGORY_NAME + ", "
+            + CATEGORY_EDUCATION_LEVEL + ", "
+            + CATEGORY_GRADE + ", "
+            + CATEGORY_SCHOOL + ", "
+            + CATEGORY_SUBJECT + "\n"
             + "Example: " + COMMAND_WORD + " " + CATEGORY_GRADE;
 
     private final String category;
     private final Comparator<Person> comparator;
 
-    public SortCommand(String category) {
+    public SortPersonCommand(String category) {
         this.category = category;
         comparator = new PersonSortUtil().getComparator(category);
     }
@@ -53,7 +52,7 @@ public class SortCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof SortCommand // instanceof handles nulls
-                && category.equals(((SortCommand) other).category));
+                || (other instanceof SortPersonCommand // instanceof handles nulls
+                && category.equals(((SortPersonCommand) other).category));
     }
 }

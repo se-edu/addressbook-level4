@@ -17,7 +17,7 @@ public class PersonSortUtil {
     public static final int POSITIVE_DIGIT = 1;
 
     /**
-     * Returns the apppropriate Person comparator given the sorting category
+     * Returns the apppropriate Person comparator given the sorting category.
      */
     public Comparator<Person> getComparator(String sortCategory) {
         Comparator<Person> comparator = null;
@@ -44,6 +44,10 @@ public class PersonSortUtil {
         return comparator;
     }
 
+    /**
+     * Returns a comparator which is useful to sort education level of a Tutee in an increasing lexicographical order..
+     * Non tutees are listed last according to their names in an increasing lexicographical order.
+     */
     private Comparator<Person> getEducationLevelComparator() {
         return new Comparator<Person>() {
             @Override
@@ -69,6 +73,10 @@ public class PersonSortUtil {
         };
     }
 
+    /**
+     * Returns a comparator which is useful to sort grade Tutees in an increasing lexicographical order..
+     * Non tutees are listed last according to their names in an increasing lexicographical order.
+     */
     private Comparator<Person> getGradeComparator() {
         return new Comparator<Person>() {
             @Override
@@ -94,6 +102,10 @@ public class PersonSortUtil {
         };
     }
 
+    /**
+     * Returns a comparator which is useful to sort school of Tutees in an increasing lexicographical order.
+     * Non tutees are listed last according to their names in an increasing lexicographical order.
+     */
     private Comparator<Person> getSchoolComparator() {
         return new Comparator<Person>() {
             @Override
@@ -119,6 +131,10 @@ public class PersonSortUtil {
         };
     }
 
+    /**
+     * Returns a comparator which is useful to sort subject of Tutees in an increasing lexicographical order.
+     * Non tutees are listed last according to their names in an increasing lexicographical order.
+     */
     private Comparator<Person> getSubjectComparator() {
         return new Comparator<Person>() {
             @Override
@@ -144,6 +160,9 @@ public class PersonSortUtil {
         };
     }
 
+    /**
+     * Returns a comparator which is useful to sort name of Persons in an increasing lexicographical order.
+     */
     private Comparator<Person> getNameComparator() {
         return new Comparator<Person>() {
             @Override
@@ -183,7 +202,7 @@ public class PersonSortUtil {
 
     /**
      * Compares the name of 2 given person and returns an integer according to their lexicographical relationn
-     * Behaves the same as {@code compareTo} in Java.lang.String
+     * Integer returdned follows the behaviour of {@code compareTo} in Java.lang.String
      *
      * @param person1 first person to be compared
      * @param person2 second person to be compared
