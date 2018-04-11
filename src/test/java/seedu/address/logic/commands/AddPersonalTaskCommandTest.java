@@ -7,11 +7,9 @@ import static org.junit.Assert.assertTrue;
 
 import static seedu.address.commons.core.Messages.MESSAGE_TASK_TIMING_CLASHES;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_TIME_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_TIME_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DURATION_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TASK_DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_TIME_BOB;
-import static seedu.address.testutil.TaskBuilder.DEFAULT_DESCRIPTION;
-import static seedu.address.testutil.TaskBuilder.DEFAULT_DURATION;
 import static seedu.address.testutil.TaskUtil.FORMATTER;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
@@ -80,7 +78,7 @@ public class AddPersonalTaskCommandTest {
 
         LocalDateTime tuitionDateTime = LocalDateTime.parse(VALID_DATE_TIME_AMY, FORMATTER);
         AddTuitionTaskCommand addTuitionTask = new AddTuitionTaskCommand(
-                INDEX_FIRST_PERSON, tuitionDateTime, DEFAULT_DURATION, DEFAULT_DESCRIPTION);
+                INDEX_FIRST_PERSON, tuitionDateTime, VALID_DURATION_AMY, VALID_TASK_DESC_AMY);
 
         // same object -> returns true
         assertTrue(addFirstTask.equals(addFirstTask));

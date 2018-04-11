@@ -1,9 +1,13 @@
 package seedu.address.testutil.typicaladdressbook;
 
-import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_TIME;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_DURATION;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_TIME_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_TIME_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DURATION_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DURATION_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TASK_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TASK_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_TASK_DESC_BOB;
 
 import java.util.ArrayList;
 import java.util.Arrays;
