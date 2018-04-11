@@ -19,6 +19,7 @@ import seedu.address.model.task.exceptions.TaskNotFoundException;
  * Supports a minimal set of list operations.
  *
  */
+//@@author a-shakra
 public class UniqueTaskList implements Iterable<Task> {
     private static final String HOUR_DELIMITER = "h";
     private static final String MINUTE_DELIMITER = "m";
@@ -45,7 +46,7 @@ public class UniqueTaskList implements Iterable<Task> {
         internalList.add(toAdd);
     }
     //@@author
-
+    //@@author a-shakra
     /**
      * Removes the equivalent task from the list.
      *
@@ -119,7 +120,7 @@ public class UniqueTaskList implements Iterable<Task> {
         return taskEndTime;
     }
     //@@author
-
+    //@@author a-shakra
     @Override
     public Iterator<Task> iterator() {
         return internalList.iterator();

@@ -91,7 +91,7 @@ public class ModelManager extends ComponentManager implements Model {
         addressBook.updatePerson(target, editedPerson);
         indicateAddressBookChanged();
     }
-
+    //@@author a-shakra
     @Override
 
     public synchronized void addTask(Task task) throws TimingClashException {
@@ -116,7 +116,7 @@ public class ModelManager extends ComponentManager implements Model {
         requireNonNull(predicate);
         filteredTasks.setPredicate(predicate);
     }
-
+    //@@author
     @Override
     public void deleteTag(Tag tag, Person person) {
         assert(tag != null && person != null);
