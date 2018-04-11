@@ -25,8 +25,6 @@ import seedu.address.commons.core.LogsCenter;
  *
  */
 //@@author raymond511
-
-
 public class EncryptionUtil {
     /**
      *The standard version of the JRE/JDK are under export restrictions.
