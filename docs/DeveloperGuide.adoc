@@ -900,24 +900,6 @@ In addition, the calendar reflects any changes to the schedule such as adding of
 . Implemented tutee listing feature.
 . Implemented tutee filtering and sorting features.
 
-
-This command lets tutors to view a filtered list of their stored tasks. As there are 2 kinds of tasks implemented in Tuition Connect,
-personal and tuition task, each kind of task has its own filter category.
-Within the current version, Tutors are able to utilize one of these filtering.
-First, tutors can filter their tasks by month, hence, allowing tutors to view all of their task within the specified month.
-Second, tutors can filter their tutee by the tutee's school, grade or subject.
-
-For the purpose of illustrating the implementation, this sequence diagram depicts the procedure when
-user desires to view a list of their tutee after being filtered by grade.
-
-image::viewFiltered-sequence-diagram.jpeg[width="800"]
-
-This view filter command is created with the purpose of simplifying tutor's life in navigating through their packed schedule.
-By having this command, tutors are able to locate their desired tasks easily.
-
-Within future version, this command would have a sorting capability. The filtered tutee
-shall be displayed after their name is sorted lexicographically.
-
 *Anas*:
 
 . *CompleteCommand* [Major Enhancement]
