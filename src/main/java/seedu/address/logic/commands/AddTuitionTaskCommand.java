@@ -46,7 +46,6 @@ public class AddTuitionTaskCommand extends UndoableCommand {
     private final String description;
 
     private TuitionTask toAdd;
-    //private Tutee associatedTutee;
     private String associatedTutee;
 
     /**
@@ -77,9 +76,6 @@ public class AddTuitionTaskCommand extends UndoableCommand {
     @Override
     protected void preprocessUndoableCommand() throws CommandException {
         associatedTutee = getAssociatedTutee().getName().fullName;
-        //associatedTutee = getAssociatedTutee();
-        //requireNonNull(associatedTutee.getTuitionSchedule());
-        //tuitionSchedule = associatedTutee.getTuitionSchedule();
         toAdd = new TuitionTask(associatedTutee, taskdateTime, duration, description);
     }
 
