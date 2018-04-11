@@ -27,6 +27,7 @@ root of simplicity. Hence, there are also features which supports the management
 Certainly, it is important to recognize that reflection is the key on improvment. Tuition Connect also helps tutors to review
 their past tuition sessions as long as those sessions are not removed from the data.
 // end::refineintro[]
+
 TuitionConnect is primarily for tutors who *prefer to use a desktop app for managing contacts and tasks*.
 More importantly, TuitionConnect is *optimized for those who prefer to work with a Command Line Interface*
 (CLI) while still having the benefits of a Graphical User Interface (GUI). +
@@ -61,6 +62,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
+
 // tag::conceptintro[]
 == Concepts Introduction
 * Tutee  : this refers to the students you are teaching. Adding a student as tutee requires specific *tutee details* to be provided.
@@ -73,6 +75,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Address Book : this refers to the list of contacts located on the most left side of the app.
 * Task List / Schedule : these terms are used interchangeably to refer to the list of tasks located in the middle of the app.
 // end::conceptintro[]
+
 [[Features]]
 == Features
 
@@ -143,6 +146,7 @@ Using Command Word: +
 Format: `listTask` +
 Using Command Alias: +
 Format: `lt`
+
 // tag::listtutee[]
 === Listing all tutees : `listtutee`
 
@@ -150,6 +154,7 @@ Shows a list of all tutees in the address book. +
 Using Command Word: +
 Format: `list` +
 // end::listtutee[]
+
 === Editing a person : `edit`
 
 Edits an existing person's detail in the address book. +
@@ -173,6 +178,7 @@ Examples:
 Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
 * `e 2 n/Betsy Crower t/` +
 Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+
 // tag::findperson[]
 === Locating persons by category: `findpersonby`
 
@@ -206,6 +212,7 @@ Lists any person having names `Betsy`, `Tim`, or `John`
 * `f grade B B+` +
 Lists all tutee with grade `B` and `B+`
 // end::findperson[]
+
 // tag::sortperson[]
 === Sorting persons by category: `sortpersonby`
 
@@ -234,6 +241,7 @@ Example: +
 * `sortpersonby Name` +
 sorts by name lexicographically.
 // end::sortperson[]
+
 === Deleting a person : `delete`
 
 Deletes the specified person from the address book. +
@@ -557,6 +565,7 @@ Format: `clear` +
 Using Command Alias: +
 Format: `c`
 // end::clear[]
+
 === Exiting the program : `exit`
 
 Exits the program. +
