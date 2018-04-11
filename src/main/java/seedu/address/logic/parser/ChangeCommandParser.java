@@ -30,8 +30,8 @@ public class ChangeCommandParser implements Parser<ChangeCommand> {
         } catch (IllegalValueException ive) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, ChangeCommand.MESSAGE_USAGE));
-        } catch (SameTimeUnitException svpe) {
-            throw new ParseException(svpe.getMessage());
+        } catch (SameTimeUnitException stue) {
+            throw new ParseException(stue.getMessage());
         }
     }
 
