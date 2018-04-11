@@ -901,50 +901,40 @@ shall be displayed after their name is sorted lexicographically.
 
 *Anas*:
 
-. *CompleteCommand* [Major Enhancement]
+. *Integrating the Task class into the Addressbook* [Major Enhancement]
 
-An important feature for the tutor is the ability to manage financial records that pertain to his/her work.
-To that end, the CompleteCommand functionality is implemented. This feature allows the user to update the amount
-of work completed and the financial compensation he/she is entitled based on the units of work completed.
-
-The CompleteCommand is an extension of the Undoable Command, which is part of the logic component.
-Much like many other commands in this application, the CompleteCommand was chosen to extend the undoable command, instead of the command, class in order
-to provide users with the flexibility to undo any unwanted commands. In summary, the CompleteCommand will extend the undoable command class which, itself,
-extends the command class.
+The Task class forms the foundation of TuitionConnect as it allows the user to manage their various
+"tasks". The task class comes in two forms, a personal task and a tuition task. The following is the
+interface:
 
 [source,java]
 ----
-public abstract class UndoableCommand extends Command {
-    @Override
-    public CommandResult execute() {
-        // ... undo logic ...
+public interface Task {
+    // Consider changing the location of the three string values below
 
-        executeUndoableCommand();
-    }
-}
+    String MESSAGE_DESCRIPTION_CONSTRAINTS = "Tasks Should have a non-empty description";
 
-public class CompleteCommand extends UndoableCommand {
-    @Override
-    public CommandResult executeUndoableCommand() {
-        // ... add Complete logic ...
-    }
+    String MESSAGE_DURATION_CONSTRAINTS = "Duration must be a non-null value";
+
+    String MESSAGE_DATETIME_CONSTRAINTS = "Date and time must be a non-null value";
+
+    LocalDateTime getTaskDateTime();
+
+    String getStringTaskDateTime();
+
+    String getDescription();
+
+    String getDuration();
+
+    Entry getEntry();
 }
 ----
 
-Note: The above snippet will be updated when the complete code for this command is completed.
+. *listTask Command* [Minor Enhancement]
 
-The following diagram demonstrates the functioning of the CompleteCommand operation:
-
-image::LogicCompleteCommandClassDiagram.jpg[width="800"]
-
-Essentially, the complete command will work by receiving an object of type task as its parameter and "marking" this task as completed.
-
-. *ViewTutee* [Minor(?) Enhancement]
-
-This feature allows the tutor to look at his/her current list of students. The idea behind this feature is for it to allow the tutor to
-see all the potential subscribers to his/her lessons and, by doing so, allowing them to associate these tutees with user-generated tasks.
-This feature is inspired by the "resources" concept in Microsoft Project whereby a "resource" is assigned to a work task.
-
+This feature allows the user to see all tasks stored in the addressbook. It is useful when a user has entered a command
+that displays only a single task. If the user then wants to see other tasks, he/she can input listTask
+and display the tasks again.
 [appendix]
 == User Stories
 

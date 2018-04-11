@@ -19,6 +19,8 @@ import seedu.address.model.person.PersonSortUtil;
  */
 public class SortCommand extends Command {
     public static final String COMMAND_WORD = "sort";
+    public static final String COMMAND_ALIAS = "so";
+
 
     public static final String MESSAGE_SUCCESS = "sorted successfully";
 

@@ -128,6 +128,7 @@ public class AddressBookParser {
             return new FindTaskCommandParser().parse(arguments);
 
         case SortCommand.COMMAND_WORD:
+        case SortCommand.COMMAND_ALIAS:
             return new SortCommandParser().parse(arguments);
 
         case ChangeCommand.COMMAND_WORD:
