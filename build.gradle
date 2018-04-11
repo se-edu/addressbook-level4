@@ -9,8 +9,8 @@ plugins {
     id 'java'
     id 'jacoco'
     id 'checkstyle'
-    id "com.github.kt3k.coveralls" version "2.4.0"
-    id "com.github.johnrengelman.shadow" version '2.0.3'
+    id 'com.github.kt3k.coveralls' version '2.4.0'
+    id 'com.github.johnrengelman.shadow' version '2.0.3'
     id 'org.asciidoctor.convert' version '1.5.6'
     id 'application'
 }
@@ -23,7 +23,7 @@ targetCompatibility = JavaVersion.VERSION_1_9
 
 repositories {
     mavenCentral()
-    maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+    maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
 }
 
 checkstyle {
@@ -70,7 +70,7 @@ dependencies {
 }
 
 shadowJar {
-    archiveName = "addressbook.jar"
+    archiveName = 'addressbook.jar'
 
     destinationDir = file("${buildDir}/jar/")
 }
@@ -161,7 +161,7 @@ test {
 
 task headless {
     doLast {
-        println "Setting headless mode properties."
+        println 'Setting headless mode properties.'
         test {
             systemProperties = [
                 'testfx.robot': 'glass',
