@@ -61,7 +61,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
-// tag::conceptintro
+// tag::conceptintro[]
 == Concepts Introduction
 * Tutee  : this refers to the students you are teaching. Adding a student as tutee requires specific *tutee details* to be provided.
          By doing so, it will be easier to organize your contacts using our special features. +
@@ -72,7 +72,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ** Personal task is any activity that is not a tuition.
 * Address Book : this refers to the list of contacts located on the most left side of the app.
 * Task List / Schedule : these terms are used interchangeably to refer to the list of tasks located in the middle of the app.
-// end::conceptintro
+// end::conceptintro[]
 [[Features]]
 == Features
 
@@ -149,7 +149,7 @@ Format: `lt`
 Shows a list of all tutees in the address book. +
 Using Command Word: +
 Format: `list` +
-// end::listtutee
+// end::listtutee[]
 === Editing a person : `edit`
 
 Edits an existing person's detail in the address book. +
@@ -279,6 +279,7 @@ Selects the 2nd person in the address book.
 * `f Betsy` +
 `s 1` +
 Selects the 1st person in the results of the `f` command.
+
 // tag::addtuition[]
 === Adding a tuition task: `addtuition`
 
@@ -329,6 +330,7 @@ Examples:
 * `addtuition 1 10/05/2018 12:00 1h30m Calculus homework page 24`
 * `addtuition 1 31/12/2018 16:00 0h30m`
 // end::addtuition[]
+
 // tag::addtask[]
 === Adding a personal task: `addtask`
 
@@ -345,6 +347,7 @@ Examples:
 * `addtask 10/05/2018 12:00 1h30m Outing with friend`
 * `addtask 31/12/2018 16:00 0h30m`
 //end ::addtask[]
+
 //tag ::deletetask[]
 === Deleting a task: `deletetask`
 
@@ -359,6 +362,7 @@ Examples:
 
 * `deletetask 1`
 // end::deletetask[]
+
 // tag::findtask[]
 === Locating tasks by category: `findtaskby`
 
@@ -407,6 +411,7 @@ Lists all tasks scheduled on November, December, January and February.
 * `f month namely 2 06 oct
 Lists all tasks scheduled on February, June and October.
 // end::findtask[]
+
 // tag::sorttask[]
 === Sorting tasks by category: `sorttaskby`
 
@@ -428,8 +433,8 @@ Example: +
 
 * `sorttaskby Month` +
 sorts tasks by month in increasing order.
+// end::sorttask[]
 
-// tag::sorttask[]
 // tag::change[]
 === Changing calendar view page time unit: `change`
 

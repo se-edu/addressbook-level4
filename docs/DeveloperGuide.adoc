@@ -424,7 +424,7 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two * different things.
 // end::undoredo[]
 
-// tag::sortperson[]
+// tag::sortpersoncommand[]
 === Sort Person Command
 ==== Current Implementation
 
@@ -442,7 +442,7 @@ A comparator object is required since the sorting implementation utilizes JavaFX
 (Refer to https://docs.oracle.com/javase/8/javafx/api/javafx/collections/transformation/SortedList.html* for more information)
 Here, PersonSortUtil class is responsible in providing a suitable comparator that matches the sorting behaviour requested by the user. Upon receiving the comparator, SortPersonCommand
 calls the sortFilteredPersonList() method which requests model to perform the sorting utiling the comparator.
-// end::sortperson[]
+// end::sortpersoncommand[]
 
 // tag::dataencryption[]
 === [Proposed] Data Encryption
