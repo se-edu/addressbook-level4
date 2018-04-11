@@ -398,6 +398,27 @@ Lists all tasks scheduled on November, December, January and February.
 * `f month namely 2 06 oct
 Lists all tasks scheduled on February, June and October.
 
+=== Sorting persons by category: `sorttaskby`
+
+Sorts your displayed task list according to a specified category in ascending order. +
+Using Command Word: +
+Format: `sorttaskby CATEGORY` +
+
+****
+* There are 3 categories to pick:
+** 1. datetime
+** 2. month
+** 3. duration*
+* Category marked with * are coming soon in version 2.0
+* Sorting category types is case insensitive.
+ e.g both `sort month` and `sort Month` works fine.
+****
+
+Example: +
+
+* `sorttaskbyby Month` +
+sorts tasks by month in ascending order.
+
 // tag::change[]
 === Changing calendar view page time unit: `change`
 
@@ -576,14 +597,16 @@ e.g. `sort grade`
 * *Help* : `help` +
 * *Select* : `select INDEX` +
 e.g.`select 2` +
-* *Add Tuition* : `addtuition TUTEE_INDEX DATE TIME DURATION [DESCRIPTION] +
-e.g. `addtuition 1 10/05/2018 12:00 1h30m Calculus homework page 24`
+* *Add Tuition* : addtuition TUTEE_INDEX DATE TIME DURATION [DESCRIPTION] +
+e.g. `addtuition 1 10/05/2018 12:00 1h30m Calculus homework page 24` +
 * *Add Task* : 'add DATE TIME DURATION [DESCRIPTION] +
-e.g. 'addtask 10/05/2018 12:00 1h30m Going out with friends`
+e.g. `addtask 10/05/2018 12:00 1h30m Going out with friends` +
 * *Delete Task* : 'delete TASK_INDEX` +
-e.g. 'delete 1' +
+e.g. `delete 1` +
 * *Find Task By* : findtaskby CATEGORY FIND_TYPE KEYWORD [MORE_KEYWORDS]` +
 e.g. `findtaskby month between April October` +
+* *Sort Task By* : sorttaskby CATEGORY +
+e.g. `sorttaskby datetime` +
 * *Change* : `change TIME_UNIT` +
 e.g. `change w` +
 * *History* : `history` +
