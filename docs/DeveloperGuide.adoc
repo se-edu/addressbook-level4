@@ -900,7 +900,7 @@ Within future version, this command would have a sorting capability. The filtere
 shall be displayed after their name is sorted lexicographically.
 
 *Anas*:
-
+// tag::Integrating the Task class into the Addressbook[]
 . *Integrating the Task class into the Addressbook* [Major Enhancement]
 
 The Task class forms the foundation of TuitionConnect as it allows the user to manage their various
@@ -929,12 +929,14 @@ public interface Task {
     Entry getEntry();
 }
 ----
-
+// end::Integrating the Task class into the Addressbook[]
+// tag::listTask Command[]
 . *listTask Command* [Minor Enhancement]
 
 This feature allows the user to see all tasks stored in the addressbook. It is useful when a user has entered a command
 that displays only a single task. If the user then wants to see other tasks, he/she can input listTask
 and display the tasks again.
+// end::listTask Command[]
 [appendix]
 == User Stories
 
