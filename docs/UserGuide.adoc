@@ -408,15 +408,14 @@ Format: `sorttaskby CATEGORY` +
 * There are 3 categories to pick:
 ** 1. datetime
 ** 2. month
-** 3. duration*
-* Category marked with * are coming soon in version 2.0
+** 3. duration [coming in V 2.0]
 * Sorting category types is case insensitive.
  e.g both `sort month` and `sort Month` works fine.
 ****
 
 Example: +
 
-* `sorttaskbyby Month` +
+* `sorttaskby Month` +
 sorts tasks by month in ascending order.
 
 // tag::change[]
@@ -550,6 +549,12 @@ Format: `exit`
 Address book data are saved in the hard disk automatically after any command that
  changes the data. +
 There is no need to save manually.
+
+=== View tutee fees `[coming in v2.0]
+View the current amount that has to be paid by a tutee.
+
+=== View tuition progress [coming in v2.0]
+Shows the amount of tuition provided within several months in the form of a graph.
 
 // tag::ChoChihTunV2.0[]
 === Update tutee fees `[coming in v2.0]`
