@@ -10,7 +10,7 @@ public class Messages {
     public static final String MESSAGE_INVALID_INPUT_TYPES = "The input type specified is invalid \n%1$s";
     public static final String MESSAGE_INVALID_PERSON_DISPLAYED_INDEX = "The person index provided is invalid";
     public static final String MESSAGE_INVALID_TASK_DISPLAYED_INDEX = "The task index provided is invalid";
-    public static final String MESSAGE_INVALID_TUTEE_INDEX = "The person index provided is not a tutee";
+    public static final String MESSAGE_INVALID_TUTEE_INDEX = "The person index provided does not refer to a tutee";
     public static final String MESSAGE_INVALID_FILTER_CATEGORY = "The filter category specified is invalid \n%1$s";
     public static final String MESSAGE_INVALID_SORTER_CATEGORY = "The sort category specified is invalid \n%1$s";
     public static final String MESSAGE_INVALID_DATE_TIME = "The input date and time is invalid";

@@ -71,4 +71,9 @@ public interface Model {
      * Sorts the list of person according to the given comparator
      */
     void sortFilteredPersonList (Comparator<Person> comparator);
+
+    /**
+     * Sorts the list of tasks according to the given comparator
+     */
+    void sortFilteredTaskList (Comparator<Task> comparator);
 }
