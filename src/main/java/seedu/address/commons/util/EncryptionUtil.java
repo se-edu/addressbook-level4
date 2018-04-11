@@ -24,7 +24,9 @@ import seedu.address.commons.core.LogsCenter;
  * A Class that encrypts and decrypts XML files stored on the hard disk.
  *
  */
-//@@author limzk1994
+//@@author raymond511
+
+
 public class EncryptionUtil {
     /**
      *The standard version of the JRE/JDK are under export restrictions.
