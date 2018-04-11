@@ -134,7 +134,7 @@ Using Command Alias: +
 Format: `l`
 
 === Listing all tasks : `listTask`
-
+// tag::listTask[]
 Shows a list of all tasks in the address book. +
 Using Command Word: +
 Format: `listTask` +
@@ -143,7 +143,7 @@ Format: `lt` +
 The purpose of the listTask command is to regenerate +
 the complete list of tasks for a user in the event that +
 only a specific set of tasks were displayed.
-
+// end::listTask[]
 === Listing all tutees : `listtutee`
 
 Shows a list of all tutees in the address book. +
