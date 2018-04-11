@@ -7,6 +7,7 @@ import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static seedu.address.logic.parser.ParserUtil.parseDateTime;
 import static seedu.address.logic.parser.ParserUtil.parseDuration;
+import static seedu.address.testutil.TaskUtil.FORMATTER;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
 import java.time.LocalDateTime;
@@ -47,9 +48,6 @@ public class ParserUtilTest {
     private static final String INVALID_EDUCATIONAL_LEVEL = "University";
     private static final String INVALID_SCHOOL = "school12";
     private static final String INVALID_TIME_UNIT = "year";
-    private static final String INVALID_DATE_END_OF_FEBRUARY = "29/02/2018";
-    private static final String INVALID_DATE_END_OF_APRIL = "31/04/2018";
-    private static final String INVALID_TIME = " 25:00";
     private static final String INVALID_DURATION = "1.5h";
 
     private static final String VALID_NAME = "Rachel Walker";
@@ -64,7 +62,6 @@ public class ParserUtilTest {
     private static final String VALID_SCHOOL = "valid primary school";
     private static final String VALID_TIME_UNIT = "y";
     private static final String VALID_DATE = "25/04/2018";
-    private static final String VALID_DATE_LEAP_YEAR = "29/02/2020";
     private static final String VALID_TIME = "08:01";
     private static final String VALID_DURATION = "1h30m";
     private static final String VALID_DESCRIPTION = "homework";
@@ -438,25 +435,52 @@ public class ParserUtilTest {
         //null date and time
         Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseDateTime(null));
 
-        //invalid date
+        //invalid date in non leap year
         Assert.assertThrows(DateTimeParseException.class, () -> ParserUtil
-                .parseDateTime(INVALID_DATE_END_OF_FEBRUARY + VALID_TIME));
+                .parseDateTime("29/02/2018 " + VALID_TIME));
 
+        //invalid date in century year
         Assert.assertThrows(DateTimeParseException.class, () -> ParserUtil
-                .parseDateTime(INVALID_DATE_END_OF_APRIL + VALID_TIME));
+                .parseDateTime("29/02/1900 " + VALID_TIME));
 
-        //invalid time
+        //invalid date in month with 30 days
         Assert.assertThrows(DateTimeParseException.class, () -> ParserUtil
-                .parseDateTime(VALID_DATE + INVALID_TIME));
+                .parseDateTime("31/04/2018 " + VALID_TIME));
+
+        //invalid date in month with 31 days
+        Assert.assertThrows(DateTimeParseException.class, () -> ParserUtil
+                .parseDateTime("32/03/2018 " + VALID_TIME));
+
+        //invalid hour
+        Assert.assertThrows(DateTimeParseException.class, () -> ParserUtil
+                .parseDateTime(VALID_DATE + " 25:00"));
+
+        //invalid minute
+        Assert.assertThrows(DateTimeParseException.class, () -> ParserUtil
+                .parseDateTime(VALID_DATE + "12:60"));
     }
 
     @Test
     public void parseDateTime_validInput_parsedSuccessfully() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/uuuu HH:mm")
-                .withResolverStyle(ResolverStyle.STRICT);
-        LocalDateTime expectedDateTime = LocalDateTime.parse(VALID_DATE + " " + VALID_TIME, formatter);
+        //beginning of the month
+        LocalDateTime expectedDateTime = LocalDateTime.parse("01/10/2018 " + VALID_TIME, FORMATTER);
+        assertEquals(expectedDateTime, parseDateTime("01/10/2018 " + VALID_TIME));
 
-        assertEquals(expectedDateTime, parseDateTime(VALID_DATE + " " + VALID_TIME));
+        //leap year
+        expectedDateTime = LocalDateTime.parse("29/02/2020 " + VALID_TIME, FORMATTER);
+        assertEquals(expectedDateTime, parseDateTime("29/02/2020 " + VALID_TIME));
+
+        //month with 30 days
+        expectedDateTime = LocalDateTime.parse("30/04/2020 " + VALID_TIME, FORMATTER);
+        assertEquals(expectedDateTime, parseDateTime("30/04/2020 " + VALID_TIME));
+
+        //month with 31 days
+        expectedDateTime = LocalDateTime.parse("31/03/2020 " + VALID_TIME, FORMATTER);
+        assertEquals(expectedDateTime, parseDateTime("31/03/2020 " + VALID_TIME));
+
+        //valid time at boundary value
+        expectedDateTime = LocalDateTime.parse(VALID_DATE + " 12:00", FORMATTER);
+        assertEquals(expectedDateTime, parseDateTime(VALID_DATE + " 12:00"));
     }
 
     @Test
