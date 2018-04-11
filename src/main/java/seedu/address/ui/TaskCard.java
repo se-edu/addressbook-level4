@@ -13,6 +13,7 @@ import seedu.address.model.tutee.TuitionTask;
 /**
  * An UI component that displays information of a {@code Task}.
  */
+//@@author ashakra
 public class TaskCard extends UiPart<Region> {
     private static final String FXML = "TaskListCard.fxml";
     public final Task task;
