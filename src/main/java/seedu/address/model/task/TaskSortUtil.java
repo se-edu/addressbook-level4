@@ -27,6 +27,7 @@ public class TaskSortUtil {
             comparator = getMonthComparator();
             break;
         case CATEGORY_DATE_TIME:
+            comparator = getDateTimeComparator();
             break;
         default:
             assert (false); //invalid sortCategory should be identified in parser.
