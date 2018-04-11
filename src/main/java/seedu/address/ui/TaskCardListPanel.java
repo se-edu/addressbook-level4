@@ -21,7 +21,7 @@ import seedu.address.model.Task;
 /**
  * Panel containing the list of tasks.
  */
-//@@author ashakra
+//@@author a-shakra
 public class TaskCardListPanel extends UiPart<Region> {
     private static final String FXML = "TaskCardListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(TaskCardListPanel.class);

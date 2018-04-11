@@ -14,7 +14,7 @@ import seedu.address.model.ReadOnlyAddressBook;
 /**
  * An Immutable AddressBook that is serializable to XML format
  */
-//@@author ashakra
+//@@author a-shakra
 @XmlRootElement(name = "addressbook")
 public class XmlSerializableAddressBook {
 

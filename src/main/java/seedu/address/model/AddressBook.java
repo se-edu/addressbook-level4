@@ -128,7 +128,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         persons.setPerson(target, syncedEditedPerson);
     }
 
-    //@@author ashakra
+    //@@author a-shakra
     /**
      * Adds a task to the address book.
      *
@@ -202,7 +202,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         }
     }
 
-    //@@author ashakra
+    //@@author a-shakra
     /**
      * Removes a task from the address book.
      *

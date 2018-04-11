@@ -89,7 +89,7 @@ public class ModelManager extends ComponentManager implements Model {
         addressBook.updatePerson(target, editedPerson);
         indicateAddressBookChanged();
     }
-    //@@author ashakra
+    //@@author a-shakra
     @Override
 
     public synchronized void addTask(Task task) throws TimingClashException {
