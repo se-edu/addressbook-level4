@@ -1,0 +1,91 @@
+= Eka Buyung Lienadi - Project Portfolio
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: AddressBook - Level 4
+
+---
+
+== Overview
+
+TuitionConnect is an integration of desktop address book and task manager optimized to be used by private tuition teacher. +
+
+TuitionConnect aims to help the tutors to manage their busy schedule more efficiently and effectively. +
+
+TuitionConnect has many functionality catered for tutors, which include contacts management and task scheduling. +
+
+The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 20 kLoC.
+
+== Summary of contributions
+
+* *Major enhancement*: added *scheduling features
+** What it does: allows the users to plan their activities by creating tasks, delete unnecessary tasks,
+and browse through their schedule with ease using the find and sort utilities.
+** Justification: Scheduling features such as task addition and deletion is clearly essential in the task management process.
+Meanwhile, find and sort features are introduced as the amount of tasks is expected to grow significantly to the point where it is unreasonable to navigate through
+the tasks one at a time.
+** Highlights: This enhancement affects existing commands and commands to be added in future. It required an in-depth analysis of design alternatives. The implementation too was challenging as it required changes to existing commands.
+** Credits: _{mention here if you reused any code/ideas from elsewhere or if a third-party library is heavily used in the feature so that a reader can make a more accurate judgement of how much effort went into the feature}_
+
+* *Minor enhancements*
+. Implemented tutee listing feature.
+. Implemented tutee filtering and sorting features.
+
+* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+
+* *Other contributions*:
+
+** Project management:
+*** Managed releases `v1.2` - `v1.4` (3 releases) on GitHub
+*** Elaborate new user stories with the new features.
+*** Set up a Continous Integration utility (travis) within the team repo
+*** Created the team organization in GitHub.
+** Enhancements to existing features:
+*** Expand the find command capability to enable more diverse search capabilities. (https://github.com/CS2103JAN2018-T11-B1/main[#94])
+*** Wrote additional tests for existing features to increase coverage from 81% to 85% (https://github.com/CS2103JAN2018-T11-B1/main[#125])
+** Documentation:
+*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com/CS2103JAN2018-T11-B1/main[#132]
+*** Refine the user guide by going through the entire user guide with stress on the introduction part and untouched commands (commands which are not enhanced or improved during the entire project).
+*** Refine the user guide by introducing some commonly used terms in Concept Introduction section.
+*** Brief explanation on the implementation of a feature in the developper guide.
+** Community:
+*** PRs reviewed (with non-trivial review comments): (https://github.com/CS2103JAN2018-T11-B1/main[#60], https://github.com/CS2103JAN2018-T11-B1/main[#42])
+*** Contributed to forum discussions (examples:  https://github.com/CS2103JAN2018-T11-B1/main[#7])
+*** Reported bugs and suggestions for other teams in the class (examples:  https://github.com/CS2103JAN2018-T11-B1/main[#83])
+** Tools:
+*** Integrated a new Github plugin (TravisCI) to the team repo
+
+== Contributions to the User Guide
+
+
+|===
+|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+|===
+
+include::../UserGuide.adoc[tag=refineintro]
+
+include::../UserGuide.adoc[tag=conceptintro]
+
+include::../UserGuide.adoc[tag=sortperson]
+
+include::../UserGuide.adoc[tag=findperson]
+
+include::../UserGuide.adoc[tag=findtask]
+
+include::../UserGuide.adoc[tag=sorttask]
+
+include::../UserGuide.adoc[tag=deletetask]
+
+include::../UserGuide.adoc[tag=listtutee]
+
+include::../UserGuide.adoc[tag=clear]
+
+include::../UserGuide.adoc[tag=proposedfeatures]
+
+== Contributions to the Developer Guide
+
+|===
+|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+|===
+
+include::../DeveloperGuide.adoc[tag=sortperson]

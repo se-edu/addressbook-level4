@@ -15,6 +15,7 @@ endif::[]
 
 By: `Team MarvelousBook`      Since: `Feb 2018`      Licence: `MIT`
 
+// tag::refineintro[]
 // tag::introduction[]
 == Introduction
 
@@ -25,7 +26,7 @@ to aid management of tutee contacts, tuition schedule and income tracking. Moreo
 root of simplicity. Hence, there are also features which supports the management of your personal contacts and tasks. +
 Certainly, it is important to recognize that reflection is the key on improvment. Tuition Connect also helps tutors to review
 their past tuition sessions as long as those sessions are not removed from the data.
-
+// end::refineintro[]
 TuitionConnect is primarily for tutors who *prefer to use a desktop app for managing contacts and tasks*.
 More importantly, TuitionConnect is *optimized for those who prefer to work with a Command Line Interface*
 (CLI) while still having the benefits of a Graphical User Interface (GUI). +
@@ -60,18 +61,18 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
-
+// tag::conceptintro
 == Concepts Introduction
 * Tutee  : this refers to the students you are teaching. Adding a student as tutee requires specific *tutee details* to be provided.
          By doing so, it will be easier to organize your contacts using our special features. +
 * Person : other contacts which are not tutee. +
-* Tutee Details : this includes tutee's education level, grade, subject and school. +
+* Tutee Details : these are details that are only owned by tutees, which include tutee's education level, grade, subject and school. +
 * Task : this refers to activities you want to add into your 'to-do-list'. There are 2 different kinds of task recognized by Tuition Connect.
 ** Tuition task refers to sessions when you are teaching your registered tutee. +
 ** Personal task is any activity that is not a tuition.
 * Address Book : this refers to the list of contacts located on the most left side of the app.
 * Task List / Schedule : these terms are used interchangeably to refer to the list of tasks located in the middle of the app.
-
+// end::conceptintro
 [[Features]]
 == Features
 
@@ -142,13 +143,13 @@ Using Command Word: +
 Format: `listTask` +
 Using Command Alias: +
 Format: `lt`
-
+// tag::listtutee[]
 === Listing all tutees : `listtutee`
 
 Shows a list of all tutees in the address book. +
 Using Command Word: +
 Format: `list` +
-
+// end::listtutee
 === Editing a person : `edit`
 
 Edits an existing person's detail in the address book. +
@@ -172,7 +173,7 @@ Examples:
 Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
 * `e 2 n/Betsy Crower t/` +
 Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
-
+// tag::findperson[]
 === Locating persons by category: `findpersonby`
 
 Finds persons or tutees whose specified category contain any of the given keywords. +
@@ -190,7 +191,7 @@ Format: `f CATEGORY KEYWORD [MORE_KEYWORDS]` +
 ** 3. grade*
 ** 4. school*
 ** 5. subject*
-* Categories marked with * are only owned by tutees.
+* Categories marked with * are only owned by tutees (tutee details).
 * Only full words will be matched e.g. `Han` will not match `Hans`
 * Persons matching at least one keyword will be returned (i.e. `OR` search).
  e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
@@ -204,7 +205,8 @@ Lists `john` and `John Doe`
 Lists any person having names `Betsy`, `Tim`, or `John`
 * `f grade B B+` +
 Lists all tutee with grade `B` and `B+`
-
+// end::findperson[]
+// tag::sortperson[]
 === Sorting persons by category: `sortpersonby`
 
 Sorts your displayed contact list according to a specified category in ascending order (lexicographically). +
@@ -231,7 +233,7 @@ Example: +
 
 * `sortpersonby Name` +
 sorts by name lexicographically.
-
+// end::sortperson[]
 === Deleting a person : `delete`
 
 Deletes the specified person from the address book. +
@@ -277,7 +279,7 @@ Selects the 2nd person in the address book.
 * `f Betsy` +
 `s 1` +
 Selects the 1st person in the results of the `f` command.
-
+// tag::addtuition[]
 === Adding a tuition task: `addtuition`
 
 Adds a task to Tuition Connect's schedule +
@@ -326,7 +328,8 @@ Examples:
 
 * `addtuition 1 10/05/2018 12:00 1h30m Calculus homework page 24`
 * `addtuition 1 31/12/2018 16:00 0h30m`
-
+// end::addtuition[]
+// tag::addtask[]
 === Adding a personal task: `addtask`
 
 Adds a personal task to the Tuition Connect schedule +
@@ -341,7 +344,8 @@ Examples:
 
 * `addtask 10/05/2018 12:00 1h30m Outing with friend`
 * `addtask 31/12/2018 16:00 0h30m`
-
+//end ::addtask[]
+//tag ::deletetask[]
 === Deleting a task: `deletetask`
 
 Deletes a task from the Tuition Connect schedule +
@@ -354,7 +358,8 @@ the left side of the schedule list. The index *must be a positive integer* 1, 2,
 Examples:
 
 * `deletetask 1`
-
+// end::deletetask[]
+// tag::findtask[]
 === Locating tasks by category: `findtaskby`
 
 Finds tasks which specified category has value within 2 given boundaries (inclusive) or contain any of the given keywords. +
@@ -401,7 +406,8 @@ Lists all tasks scheduled between January and March.
 Lists all tasks scheduled on November, December, January and February.
 * `f month namely 2 06 oct
 Lists all tasks scheduled on February, June and October.
-
+// end::findtask[]
+// tag::sorttask[]
 === Sorting tasks by category: `sorttaskby`
 
 Sorts your displayed task list according to a specified category in ascending order. +
@@ -423,6 +429,7 @@ Example: +
 * `sorttaskby Month` +
 sorts tasks by month in increasing order.
 
+// tag::sorttask[]
 // tag::change[]
 === Changing calendar view page time unit: `change`
 
@@ -536,6 +543,7 @@ The `redo` command fails as there are no `undo` commands executed previously.
 `r` (reapplies the `clear` command) +
 // end::undoredo[]
 
+// tag::clear[]
 === Clearing all entries : `clear`
 
 Clears all entries in Tuition Connect. +
@@ -543,7 +551,7 @@ Using Command Word: +
 Format: `clear` +
 Using Command Alias: +
 Format: `c`
-
+// end::clear[]
 === Exiting the program : `exit`
 
 Exits the program. +
@@ -554,12 +562,13 @@ Format: `exit`
 Tuition Connect data are saved in the hard disk automatically after any command that
  changes the data. +
 There is no need to save manually.
-
+// tag::proposedfeatures[]
 === View tutee fees `[coming in v2.0]`
 View the amount that has to be paid by a tutee.
 
 === View tuition progress `[coming in v2.0]`
 Shows the details of tuition provided within several months in the form of a graph.
+// end::proposedfeatures[]
 
 // tag::ChoChihTunV2.0[]
 === Update tutee fees `[coming in v2.0]`
