@@ -3,14 +3,11 @@ package seedu.address.commons.util;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
+
+import seedu.address.testutil.Assert;
 
 public class FileUtilTest {
-
-    @Rule
-    public ExpectedException thrown = ExpectedException.none();
 
     @Test
     public void isValidPath() {
@@ -22,8 +19,7 @@ public class FileUtilTest {
         assertFalse(FileUtil.isValidPath("a\0"));
 
         // null path -> throws NullPointerException
-        thrown.expect(NullPointerException.class);
-        assertFalse(FileUtil.isValidPath(null));
+        Assert.assertThrows(NullPointerException.class, () -> FileUtil.isValidPath(null));
     }
 
 }
