@@ -10,8 +10,8 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.util.FileUtil;
 
 /**
-* Represents the parsed command-line parameters given to the application.
-*/
+ * Represents the parsed command-line parameters given to the application.
+ */
 public class AppParameters {
     private static final Logger logger = LogsCenter.getLogger(AppParameters.class);
 
@@ -26,8 +26,8 @@ public class AppParameters {
     }
 
     /**
-    * Parses the application command-line parameters.
-    */
+     * Parses the application command-line parameters.
+     */
     public static AppParameters parse(Application.Parameters parameters) {
         AppParameters appParameters = new AppParameters();
         Map<String, String> namedParameters = parameters.getNamed();

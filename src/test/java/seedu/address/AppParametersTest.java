@@ -2,37 +2,56 @@ package seedu.address;
 
 import static org.junit.Assert.assertEquals;
 
-import java.util.concurrent.TimeoutException;
+import java.nio.file.Paths;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-import org.junit.BeforeClass;
 import org.junit.Test;
-import org.testfx.api.FxToolkit;
 
 import javafx.application.Application;
-import systemtests.SystemTestSetupHelper;
 
 public class AppParametersTest {
-    private Application testApp;
-
-    @BeforeClass
-    public static void setupBeforeClass() {
-        SystemTestSetupHelper.initialize();
-    }
-
-    private void setApplicationParameters(String parameter) {
-        try {
-            testApp = FxToolkit.setupApplication(TestApp.class, "--config=" + parameter);
-        } catch (TimeoutException te) {
-            throw new AssertionError("Application takes too long to set up.");
-        }
-    }
 
     @Test
     public void parse() {
-
         // valid path
-        String pathParameter = "config.json";
-        setApplicationParameters(pathParameter);
-        assertEquals(pathParameter, AppParameters.parse(testApp.getParameters()).getConfigPath().toString());
+        ParametersStub parametersStub = new ParametersStub();
+        parametersStub.namedParameters.put("config", "config.json");
+
+        AppParameters expected = new AppParameters();
+        expected.setConfigPath(Paths.get("config.json"));
+
+        assertEquals(expected.getConfigPath(), AppParameters.parse(parametersStub).getConfigPath());
+
+        // invalid path
+        parametersStub.namedParameters.put("config", "a\0");
+        expected.setConfigPath(null);
+        assertEquals(expected.getConfigPath(), AppParameters.parse(parametersStub).getConfigPath());
+
+        // null path
+        parametersStub.namedParameters.put("config", null);
+        expected.setConfigPath(null);
+        assertEquals(expected.getConfigPath(), AppParameters.parse(parametersStub).getConfigPath());
+    }
+
+    private static class ParametersStub extends Application.Parameters {
+        private Map<String, String> namedParameters = new HashMap<>();
+
+        @Override
+        public List<String> getRaw() {
+            throw new AssertionError("should not be called");
+        }
+
+        @Override
+        public List<String> getUnnamed() {
+            throw new AssertionError("should not be called");
+        }
+
+        @Override
+        public Map<String, String> getNamed() {
+            return Collections.unmodifiableMap(namedParameters);
+        }
     }
 }
