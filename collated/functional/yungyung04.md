@@ -17,7 +17,7 @@ public class AddPersonalTaskCommand extends UndoableCommand {
             + "10/12/2018 "
             + "12:30 "
             + "1h30m "
-            + "Calculus homework page 24!!";
+            + "Yoga";
     public static final String MESSAGE_SUCCESS = "Task added: %1$s";
 
     private final PersonalTask toAdd;
@@ -73,7 +73,6 @@ public class AddTuitionTaskCommand extends UndoableCommand {
     private final String description;
 
     private TuitionTask toAdd;
-    //private Tutee associatedTutee;
     private String associatedTutee;
 
     /**
@@ -95,9 +94,6 @@ public class AddTuitionTaskCommand extends UndoableCommand {
     @Override
     protected void preprocessUndoableCommand() throws CommandException {
         associatedTutee = getAssociatedTutee().getName().fullName;
-        //associatedTutee = getAssociatedTutee();
-        //requireNonNull(associatedTutee.getTuitionSchedule());
-        //tuitionSchedule = associatedTutee.getTuitionSchedule();
         toAdd = new TuitionTask(associatedTutee, taskdateTime, duration, description);
     }
 
@@ -110,6 +106,7 @@ public class AddTuitionTaskCommand extends UndoableCommand {
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
+        requireNonNull(lastShownList.get(targetIndex.getZeroBased()));
         Person associatedPerson = lastShownList.get(targetIndex.getZeroBased());
         if (!(associatedPerson instanceof Tutee)) {
             throw new CommandException(Messages.MESSAGE_INVALID_TUTEE_INDEX);
@@ -121,7 +118,11 @@ public class AddTuitionTaskCommand extends UndoableCommand {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof AddTuitionTaskCommand // instanceof handles nulls
-                && Objects.equals(this.toAdd, ((AddTuitionTaskCommand) other).toAdd));
+                && targetIndex.equals(((AddTuitionTaskCommand) other).targetIndex))
+                && taskdateTime.equals(((AddTuitionTaskCommand) other).taskdateTime)
+                && duration.equals(((AddTuitionTaskCommand) other).duration)
+                && description.equals(((AddTuitionTaskCommand) other).description);
+
     }
 }
 ```
@@ -287,11 +288,9 @@ public class FindTaskCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": lists all tasks that suit the specified category\n"
             + "Parameters: CATEGORY FIND_TYPE KEYWORDS\n"
-            + "Choice of Categories: " + CATEGORY_MONTH + "\n"
-            + "Choice of Find Type: '" + INPUT_TYPE_BETWEEN + "' and '" + INPUT_TYPE_NAMELY + "'\n"
-            + "Other filter category will be implemented later.\n"
             + "1st Example: " + COMMAND_WORD + " " + CATEGORY_MONTH + " " + INPUT_TYPE_BETWEEN + " April October\n"
-            + "2nd Example: " + COMMAND_WORD + " " + CATEGORY_MONTH + " " + INPUT_TYPE_NAMELY + " 2 04 Aug December";
+            + "2nd Example: " + COMMAND_WORD + " " + CATEGORY_MONTH + " " + INPUT_TYPE_NAMELY
+            + " 2 05 Aug December now";
 
     private final String category;
     private final String[] keywords;
@@ -360,36 +359,36 @@ public class ListTuteeCommand extends Command {
     }
 }
 ```
-###### \java\seedu\address\logic\commands\SortCommand.java
+###### \java\seedu\address\logic\commands\SortPersonCommand.java
 ``` java
 /**
  * Sorts all persons from the last shown list lexicographically according to the specified sorting category.
  * Since tutee contains specific information such as grade,
  * a Person who is not a tutee will be listed last when such information is selected to be the sorting category.
  */
-public class SortCommand extends Command {
-    public static final String COMMAND_WORD = "sort";
+public class SortPersonCommand extends Command {
+    public static final String COMMAND_WORD = "sortpersonby";
+    public static final String COMMAND_ALIAS = "spb";
 
-    public static final String MESSAGE_SUCCESS = "sorted successfully";
+    public static final String MESSAGE_SUCCESS = "sorted list of persons successfully";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": sorts all visible persons lexicographically according to the specified sorting category.\n"
-            + "Since tutee contains tutee-specific information such as grades and school, \n"
-            + "Person who are not Tutees will be listed last "
-            + "when such information is selected as the sorting category."
-            + "Parameters: sort_category\n"
+            + "Persons who are not Tutees will be listed last when a tutee detail is the selected category "
+            + "(refer to User Guide)\n"
+            + "Parameter: sort_category\n"
             + "Choice of sort_categories: "
-            + CATEGORY_NAME + "\n"
-            + CATEGORY_EDUCATION_LEVEL + "[Tutee specific]\n"
-            + CATEGORY_GRADE + "[Tutee specific]\n"
-            + CATEGORY_SCHOOL + "[Tutee specific]\n"
-            + CATEGORY_SUBJECT + "[Tutee specific]\n"
+            + CATEGORY_NAME + ", "
+            + CATEGORY_EDUCATION_LEVEL + ", "
+            + CATEGORY_GRADE + ", "
+            + CATEGORY_SCHOOL + ", "
+            + CATEGORY_SUBJECT + "\n"
             + "Example: " + COMMAND_WORD + " " + CATEGORY_GRADE;
 
     private final String category;
     private final Comparator<Person> comparator;
 
-    public SortCommand(String category) {
+    public SortPersonCommand(String category) {
         this.category = category;
         comparator = new PersonSortUtil().getComparator(category);
     }
@@ -403,8 +402,50 @@ public class SortCommand extends Command {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof SortCommand // instanceof handles nulls
-                && category.equals(((SortCommand) other).category));
+                || (other instanceof SortPersonCommand // instanceof handles nulls
+                && category.equals(((SortPersonCommand) other).category));
+    }
+}
+```
+###### \java\seedu\address\logic\commands\SortTaskCommand.java
+``` java
+/**
+ * Sorts all tasks from the last shown list according to the specified sorting category in an increasing order
+ */
+public class SortTaskCommand extends Command {
+    public static final String COMMAND_WORD = "sorttaskby";
+    public static final String COMMAND_ALIAS = "stb";
+    public static final String MESSAGE_SUCCESS = "sorted list of tasks successfully";
+
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + "Sorts all visible tasks according to the specified sorting category in an increasing order\n"
+            + "Parameter: sort_category\n"
+            + "Choice of sort_categories: "
+            + CATEGORY_MONTH + ", "
+            + CATEGORY_DATE_TIME + "\n"
+            + "Example: " + COMMAND_WORD + " " + CATEGORY_MONTH;
+
+    private final String category;
+    private final Comparator<Task> comparator;
+
+    public SortTaskCommand(String category) {
+        requireNonNull(category);
+        this.category = category;
+        comparator = new TaskSortUtil().getComparator(category);
+    }
+
+    @Override
+    public CommandResult execute() {
+        requireNonNull(comparator);
+        model.sortFilteredTaskList(comparator);
+        return new CommandResult(MESSAGE_SUCCESS);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof SortTaskCommand // instanceof handles nulls
+                && category.equals(((SortTaskCommand) other).category));
     }
 }
 ```
@@ -488,14 +529,11 @@ public class AddTuitionTaskCommandParser implements Parser<AddTuitionTaskCommand
 
             return new AddTuitionTaskCommand(personIndex, taskDateTime, duration, description);
         } catch (DateTimeParseException dtpe) {
-            throw new ParseException(MESSAGE_INVALID_DATE_TIME + "\n"
-                    + AddTuitionTaskCommand.MESSAGE_USAGE);
+            throw new ParseException(MESSAGE_INVALID_DATE_TIME);
         } catch (DurationParseException dpe) {
-            throw new ParseException(MESSAGE_INVALID_DURATION + "\n"
-                    + AddTuitionTaskCommand.MESSAGE_USAGE);
+            throw new ParseException(MESSAGE_INVALID_DURATION);
         } catch (IllegalValueException ive) {
-            throw new ParseException(MESSAGE_INVALID_INPUT_FORMAT + "\n"
-                    + AddTuitionTaskCommand.MESSAGE_USAGE);
+            throw new ParseException(MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
     }
 }
@@ -582,15 +620,22 @@ public class FindTaskCommandParser implements Parser<FindTaskCommand> {
     private static final int INDEX_OF_KEYWORDS = 2;
     private static final int INDEX_OF_FIRST_KEYWORD = 0;
     private static final int INDEX_OF_SECOND_KEYWORD = 1;
+    private static final int INVALID_MONTH = -1;
     private static final int MONTH_WITH_MMM_FORMAT_CHARACTER_LENGTH = 3;
-    private static final int EXPECTED_AMOUNT_OF_MONTHS = 2;
+    private static final int REQUIRED_AMOUNT_OF_BOUNDARIES = 2;
     private static final int MONTH_WITH_MM_FORMAT_CHARACTER_LENGTH = 2;
     private static final int AMOUNT_OF_MONTHS = 12;
     private static final String INPUT_TYPE_NAMELY = "namely";
     private static final String INPUT_TYPE_BETWEEN = "between";
+    private static final DateTimeFormatter FORMATTER_MONTH_MM = new DateTimeFormatterBuilder().parseCaseInsensitive()
+            .appendPattern("MM").toFormatter(Locale.ENGLISH);
+    private static final DateTimeFormatter FORMATTER_MONTH_MMM = new DateTimeFormatterBuilder().parseCaseInsensitive()
+            .appendPattern("MMM").toFormatter(Locale.ENGLISH);
+    private static final DateTimeFormatter FORMATER_MONTH_MMMM = new DateTimeFormatterBuilder().parseCaseInsensitive()
+            .appendPattern("MMMM").toFormatter(Locale.ENGLISH);
 
-    private List<String> validCategories = new ArrayList<>(Arrays.asList(CATEGORY_MONTH, CATEGORY_DURATION));
-    private List<String> validMonthInputTypes = new ArrayList<>(Arrays.asList(INPUT_TYPE_NAMELY, INPUT_TYPE_BETWEEN));
+    private List<String> validCategories = new ArrayList<>(Arrays.asList(CATEGORY_MONTH));
+    private List<String> validInputTypes = new ArrayList<>(Arrays.asList(INPUT_TYPE_NAMELY, INPUT_TYPE_BETWEEN));
 
     /**
      * Parses the given {@code String} of arguments in the context of the FindTaskCommand
@@ -599,33 +644,34 @@ public class FindTaskCommandParser implements Parser<FindTaskCommand> {
      */
     public FindTaskCommand parse(String args) throws ParseException {
         String[] arguments = args.trim().toLowerCase().split("\\s+", EXPECTED_AMOUNT_OF_PARAMETERS);
-
         if (arguments.length < EXPECTED_AMOUNT_OF_PARAMETERS) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindTaskCommand.MESSAGE_USAGE));
         }
 
         String filterCategory = arguments[INDEX_OF_FILTER_CATEGORY];
-
         if (!validCategories.contains(filterCategory)) {
             throw new ParseException(String.format(MESSAGE_INVALID_FILTER_CATEGORY, FindTaskCommand.MESSAGE_USAGE));
         }
 
         String inputType = arguments[INDEX_OF_INPUT_TYPE];
-        String[] keywords = arguments[INDEX_OF_KEYWORDS].split("\\s+");
-        int[] months;
+        if (!validInputTypes.contains(inputType)) {
+            throw new ParseException(String.format(MESSAGE_INVALID_INPUT_TYPES, FindTaskCommand.MESSAGE_USAGE));
+        }
 
-        switch (filterCategory) {
-        case CATEGORY_MONTH:
-            try {
+        String[] keywords = arguments[INDEX_OF_KEYWORDS].split("\\s+");
+
+        try {
+            switch (filterCategory) {
+            case CATEGORY_MONTH:
                 keywords = parseMonthKeywords(inputType, keywords);
-            } catch (DateTimeParseException dtpe) {
-                throw new ParseException(String.format(MESSAGE_INVALID_INPUT_TYPES, FindTaskCommand.MESSAGE_USAGE));
-            } catch (InvalidBoundariesException ibe) {
-                throw new ParseException(MESSAGE_INVALID_MONTH_RANGE_FORMAT);
+                break;
+            default:
+                assert (false); // should never be called
             }
-            break;
-        default:
-            assert (false); // should never be called
+        } catch (DateTimeParseException dtpe) {
+            throw new ParseException(MESSAGE_INVALID_KEYWORD_GIVEN);
+        } catch (InvalidBoundariesException ibe) {
+            throw new ParseException(MESSAGE_INVALID_MONTH_RANGE_FORMAT);
         }
         return new FindTaskCommand(filterCategory, keywords);
     }
@@ -636,22 +682,20 @@ public class FindTaskCommandParser implements Parser<FindTaskCommand> {
      * @throws DateTimeParseException if any of the keywords given is an invalid month
      * @throws InvalidBoundariesException if the given keywords are invalid boundary values
      */
-    private String[] parseMonthKeywords(String inputType, String[] keywords) throws ParseException,
-            DateTimeParseException, InvalidBoundariesException {
+    private String[] parseMonthKeywords(String inputType, String[] keywords) throws DateTimeParseException,
+            InvalidBoundariesException {
         int[] months;
-        if (!validMonthInputTypes.contains(inputType)) {
-            throw new ParseException(String.format(MESSAGE_INVALID_INPUT_TYPES, FindTaskCommand.MESSAGE_USAGE));
-        }
-        months = parseMonthsAsInteger(keywords);
-
+        String[] convertedKeywords = NaturalLanguageIdentifier.getInstance()
+                .convertNaturalLanguagesIntoMonths(keywords);
+        months = parseMonthsAsIntegers(convertedKeywords);
         if (inputType.equals(INPUT_TYPE_BETWEEN)) {
             if (!hasValidMonthBoundaries(months)) {
                 throw new InvalidBoundariesException();
             }
             months = getAllMonthsBetweenBoundaries(months[INDEX_OF_FIRST_KEYWORD], months[INDEX_OF_SECOND_KEYWORD]);
         }
-        keywords = convertIntoStrings(months);
-        return keywords;
+        convertedKeywords = convertIntoStrings(months);
+        return convertedKeywords;
     }
 
     /**
@@ -696,41 +740,150 @@ public class FindTaskCommandParser implements Parser<FindTaskCommand> {
      * Returns true if the given months are valid boundaries.
      */
     private boolean hasValidMonthBoundaries(int[] months) {
-        return months.length == EXPECTED_AMOUNT_OF_MONTHS
+        return months.length == REQUIRED_AMOUNT_OF_BOUNDARIES
                 && months[INDEX_OF_FIRST_KEYWORD] != months[INDEX_OF_SECOND_KEYWORD];
     }
 
     /**
-     * Parses given {@code String[] months} into their integer representation.
+     * Parses given {@code String[]} of months into their integer representation.
      * @throws DateTimeParseException if any of the given month is invalid.
      */
-    private int[] parseMonthsAsInteger(String[] keywords) throws DateTimeParseException {
-        DateTimeFormatter formatDigitMonth = new DateTimeFormatterBuilder().parseCaseInsensitive()
-                .appendPattern("MM").toFormatter(Locale.ENGLISH);
-        DateTimeFormatter formatShortMonth = new DateTimeFormatterBuilder().parseCaseInsensitive()
-                .appendPattern("MMM").toFormatter(Locale.ENGLISH);
-        DateTimeFormatter formatFullMonth = new DateTimeFormatterBuilder().parseCaseInsensitive()
-                .appendPattern("MMMM").toFormatter(Locale.ENGLISH);
-        TemporalAccessor accessor;
+    private int[] parseMonthsAsIntegers(String[] keywords) throws DateTimeParseException {
         int[] months = new int[keywords.length];
-
         for (int i = 0; i < keywords.length; i++) {
-            if (keywords[i].length() < MONTH_WITH_MM_FORMAT_CHARACTER_LENGTH) {
-                accessor = formatDigitMonth.parse("0" + keywords[i]);
-                months[i] = accessor.get(ChronoField.MONTH_OF_YEAR);
-            } else if (keywords[i].length() == MONTH_WITH_MM_FORMAT_CHARACTER_LENGTH) {
-                accessor = formatDigitMonth.parse(keywords[i]);
-                months[i] = accessor.get(ChronoField.MONTH_OF_YEAR);
-            } else if (keywords[i].length() == MONTH_WITH_MMM_FORMAT_CHARACTER_LENGTH) {
-                accessor = formatShortMonth.parse(keywords[i]);
-                months[i] = accessor.get(ChronoField.MONTH_OF_YEAR);
-            } else if (keywords[i].length() > MONTH_WITH_MMM_FORMAT_CHARACTER_LENGTH) {
-                accessor = formatFullMonth.parse(keywords[i]);
-                months[i] = accessor.get(ChronoField.MONTH_OF_YEAR);
-            }
+            months[i] = parseMonthAsInteger(keywords[i]);
         }
         return months;
     }
+
+    /**
+     * Parses given {@code String} of month into its integer representation.
+     * @throws DateTimeParseException if the given month is invalid.
+     */
+    private int parseMonthAsInteger(String monthString) throws DateTimeParseException {
+        TemporalAccessor accessor;
+        int month = INVALID_MONTH;
+        if (monthString.length() < MONTH_WITH_MM_FORMAT_CHARACTER_LENGTH) {
+            accessor = FORMATTER_MONTH_MM.parse("0" + monthString);
+            month = accessor.get(ChronoField.MONTH_OF_YEAR);
+        } else if (monthString.length() == MONTH_WITH_MM_FORMAT_CHARACTER_LENGTH) {
+            accessor = FORMATTER_MONTH_MM.parse(monthString);
+            month = accessor.get(ChronoField.MONTH_OF_YEAR);
+        } else if (monthString.length() == MONTH_WITH_MMM_FORMAT_CHARACTER_LENGTH) {
+            accessor = FORMATTER_MONTH_MMM.parse(monthString);
+            month = accessor.get(ChronoField.MONTH_OF_YEAR);
+        } else if (monthString.length() > MONTH_WITH_MMM_FORMAT_CHARACTER_LENGTH) {
+            accessor = FORMATER_MONTH_MMMM.parse(monthString);
+            month = accessor.get(ChronoField.MONTH_OF_YEAR);
+        }
+        return month;
+    }
+}
+```
+###### \java\seedu\address\logic\parser\NaturalLanguageIdentifier.java
+``` java
+/**
+ * Provides utilities to recognize and translate natural language from user input into processable values
+ */
+public class NaturalLanguageIdentifier {
+    public static final String NATURAL_NOW = "now";
+    public static final String NATURAL_TODAY = "today";
+    public static final String NATURAL_CURRENT = "current";
+    public static final String NATURAL_LAST = "last";
+    public static final String NATURAL_THIS = "this";
+    public static final String NATURAL_NEXT = "next";
+    public static final String NATURAL_MONTH = "month";
+    public static final String NATURAL_LAST_MONTH = NATURAL_LAST + " " + NATURAL_MONTH;
+    public static final String NATURAL_THIS_MONTH = NATURAL_THIS + " " + NATURAL_MONTH;
+    public static final String NATURAL_NEXT_MONTH = NATURAL_NEXT + " " + NATURAL_MONTH;
+    public static final String NATURAL_CURRENT_MONTH = NATURAL_CURRENT + " " + NATURAL_MONTH;
+
+    private static List<String> twoWordedNaturalLanguages = new ArrayList<>(Arrays.asList(
+            NATURAL_LAST_MONTH, NATURAL_THIS_MONTH, NATURAL_NEXT_MONTH, NATURAL_CURRENT_MONTH));
+
+    private static NaturalLanguageIdentifier naturalLanguageIdentifier = null;
+    private LocalDateTime currentDateTime = null;
+
+    /**
+     * Constructs a NaturalLanguageIdentifier object which stores the current date and time.
+     */
+    private NaturalLanguageIdentifier() {
+        currentDateTime = LocalDateTime.now();
+    }
+
+    /**
+     * Returns an instance of NaturalLanguageIdentifier object
+     */
+    public static NaturalLanguageIdentifier getInstance() {
+        if (naturalLanguageIdentifier == null) {
+            naturalLanguageIdentifier = new NaturalLanguageIdentifier();
+        }
+        return naturalLanguageIdentifier;
+    }
+
+    /**
+     * Converts any keywords that are recognizable as month-related natural languages into their month representation.
+     */
+    public String[] convertNaturalLanguagesIntoMonths(String[] keywords) {
+        String[] mergedKeywords = mergeTwoWordedNaturalLanguage(keywords);
+        for (int i = 0; i < mergedKeywords.length; i++) {
+            mergedKeywords[i] = getMonthAsString(mergedKeywords[i]);
+        }
+        return mergedKeywords;
+    }
+
+    /**
+     * Converts natural language into its month representation if possible.
+     */
+    public String getMonthAsString(String userInput) {
+        String result;
+        switch (userInput) {
+        case NATURAL_TODAY:
+        case NATURAL_NOW:
+        case NATURAL_CURRENT_MONTH:
+        case NATURAL_THIS_MONTH:
+            result = currentDateTime.getMonth().name();
+            break;
+        case NATURAL_LAST_MONTH:
+            result = currentDateTime.minusMonths(1).getMonth().name();
+            break;
+        case NATURAL_NEXT_MONTH:
+            result = currentDateTime.plusMonths(1).getMonth().name();
+            break;
+        default:
+            result = userInput;
+        }
+        return result;
+    }
+
+    /**
+     * Merges 2 adjoin strings if they can form a valid natural language.
+     * Keywords are case-sensitive.
+     */
+    public static String[] mergeTwoWordedNaturalLanguage(String[] keywords) {
+        if (keywords.length <= 1) {
+            return keywords;
+        }
+
+        ArrayList<String> mergedKeywords = new ArrayList<>();
+        for (int i = 0; i < keywords.length - 1; i++) {
+            if (isMergeable(keywords[i], keywords[i + 1])) {
+                mergedKeywords.add(keywords[i] + " " + keywords[i + 1]);
+                i++;
+            } else {
+                mergedKeywords.add(keywords[i]);
+            }
+        }
+        return mergedKeywords.toArray(new String[mergedKeywords.size()]);
+    }
+
+    /**
+     * Checks whether 2 given words can form a valid natural language.
+     */
+    private static boolean isMergeable(String prefix, String suffix) {
+        return twoWordedNaturalLanguages.contains(prefix + " " + suffix);
+    }
+
 }
 ```
 ###### \java\seedu\address\logic\parser\ParserUtil.java
@@ -748,7 +901,7 @@ public class FindTaskCommandParser implements Parser<FindTaskCommand> {
     }
 
     /**
-     * Checks if the given duration is valid.
+     * Returns a valid duration
      *
      * @throws DurationParseException if the given {@code duration} is invalid.
      */
@@ -762,11 +915,13 @@ public class FindTaskCommandParser implements Parser<FindTaskCommand> {
     }
 
     /**
-     * Returns the description if it exists in the user input.
-     * Returns empty string otherwise.
+     * Returns a valid task description.
+     * If description does not exist, returns an empty String.
      */
-    public static String parseDescription(String[] userInputs, int maximumParametersGiven) {
-        if (isEmptyDescription(userInputs, maximumParametersGiven)) {
+    public static String parseDescription(String[] userInputs, int numberOfParametersWhenDescriptionExist) {
+        requireNonNull(userInputs);
+        requireNonNull(numberOfParametersWhenDescriptionExist);
+        if (isEmptyDescription(userInputs, numberOfParametersWhenDescriptionExist)) {
             return EMPTY_STRING;
         } else {
             String description = getLastElement(userInputs);
@@ -782,12 +937,55 @@ public class FindTaskCommandParser implements Parser<FindTaskCommand> {
     }
 
     /**
-     * Returns true if a given task arguments contain a task description.
+     * Returns true if the given task arguments contain a task description.
      */
-    private static boolean isEmptyDescription(String[] arguments, int maximumParameterssGiven) {
-        return arguments.length < maximumParameterssGiven;
+    private static boolean isEmptyDescription(String[] arguments, int numberOfParametersWhenDescriptionExist) {
+        return arguments.length < numberOfParametersWhenDescriptionExist;
     }
 }
+```
+###### \java\seedu\address\logic\parser\SortTaskCommandParser.java
+``` java
+/**
+ * Parses input arguments and creates a new SortTaskCommand object
+ */
+public class SortTaskCommandParser implements Parser<SortTaskCommand> {
+
+    private static final String SORT_CATEGORY_VALIDATION_REGEX = "\\p{Alpha}+";
+
+    private List<String> validCategories =
+            new ArrayList<>(Arrays.asList(CATEGORY_MONTH, CATEGORY_DATE_TIME));
+
+    /**
+     * Parses the given {@code String} of arguments in the context of the SortTaskCommand
+     * and returns a SortPersonCommand object for execution.
+     * @throws ParseException if the user input does not conform the expected format
+     */
+    public SortTaskCommand parse(String args) throws ParseException {
+        String sortCategory = args.trim().toLowerCase();
+
+        if (!sortCategory.matches(SORT_CATEGORY_VALIDATION_REGEX)) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortPersonCommand.MESSAGE_USAGE));
+        }
+        if (!validCategories.contains(sortCategory)) {
+            throw new ParseException(String.format(MESSAGE_INVALID_SORTER_CATEGORY, SortPersonCommand.MESSAGE_USAGE));
+        }
+        return new SortTaskCommand(sortCategory);
+    }
+}
+```
+###### \java\seedu\address\model\ModelManager.java
+``` java
+    @Override
+    public void sortFilteredPersonList(Comparator<Person> comparator) {
+        sortedPersons.setComparator(comparator);
+    }
+
+    @Override
+    public void sortFilteredTaskList(Comparator<Task> comparator) {
+        sortedTasks.setComparator(comparator);
+    }
+
 ```
 ###### \java\seedu\address\model\personal\PersonalTask.java
 ``` java
@@ -821,6 +1019,13 @@ public class FindTaskCommandParser implements Parser<FindTaskCommand> {
     }
 }
 ```
+###### \java\seedu\address\model\task\exceptions\TaskNotFoundException.java
+``` java
+/**
+ * Signals that the operation is unable to find the specified task.
+ */
+public class TaskNotFoundException extends Exception {}
+```
 ###### \java\seedu\address\model\task\MonthContainsKeywordsPredicate.java
 ``` java
 /**
@@ -846,6 +1051,92 @@ public class MonthContainsKeywordsPredicate implements Predicate<Task> {
                 || (other instanceof seedu.address.model.task.MonthContainsKeywordsPredicate // instanceof handles nulls
                 && this.keywords
                 .equals(((seedu.address.model.task.MonthContainsKeywordsPredicate) other).keywords)); // state check
+    }
+}
+```
+###### \java\seedu\address\model\task\TaskSortUtil.java
+``` java
+/**
+ * Provides utilities for sorting a list of Tasks.
+ */
+public class TaskSortUtil {
+    public static final String CATEGORY_DATE_TIME = "datetime";
+    public static final String CATEGORY_MONTH = "month";
+    public static final String CATEGORY_DURATION = "duration";
+    public static final int NEGATIVE_DIGIT = -1;
+    public static final int POSITIVE_DIGIT = 1;
+
+    /**
+     * Returns the apppropriate Task comparator given the sorting category
+    */
+    public Comparator<Task> getComparator(String sortCategory) {
+        Comparator<Task> comparator = null;
+
+        switch (sortCategory) {
+        case CATEGORY_MONTH:
+            comparator = getMonthComparator();
+            break;
+        case CATEGORY_DATE_TIME:
+            comparator = getDateTimeComparator();
+            break;
+        default:
+            assert (false); //invalid sortCategory should be identified in parser.
+        }
+        return comparator;
+    }
+
+    /**
+     * Returns a comparator which is useful for sorting tasks based on the month sequence in an increasing order.
+     */
+    private Comparator<Task> getMonthComparator() {
+        return new Comparator<Task>() {
+            @Override
+            public int compare(Task task1, Task task2) {
+                int month1 = task1.getTaskDateTime().getMonthValue();
+                int month2 = task2.getTaskDateTime().getMonthValue();
+
+                if (month1 != month2) {
+                    return compareByMonth(month1, month2);
+                } else {
+                    return compareByTime(task1.getTaskDateTime(), task2.getTaskDateTime());
+                }
+            }
+        };
+    }
+
+    /**
+    Returns a comparator which is useful for sorting tasks based on the date and time sequence in an increasing order.
+    */
+    private Comparator<Task> getDateTimeComparator() {
+        return new Comparator<Task>() {
+            @Override
+            public int compare(Task task1, Task task2) {
+                return compareByTime(task1.getTaskDateTime(), task2.getTaskDateTime());
+            }
+        };
+    }
+
+    /**
+     * Compares the 2 given months and returns an integer according to their sequence in standard Gregorian calendar.
+     */
+    private int compareByMonth(int month1, int month2) {
+        if (month1 < month2) {
+            return NEGATIVE_DIGIT;
+        } else {
+            return POSITIVE_DIGIT;
+        }
+    }
+    /**
+     * Compares the 2 given {@code LocalDateTime} and
+     * Returns an integer according to their sequence in standard Gregorian calendar.
+     */
+    private int compareByTime(LocalDateTime dateTime1, LocalDateTime dateTime2) {
+        assert (!dateTime1.isEqual(dateTime2)); //time should be different due to thrown exception when task is added
+        if (dateTime1.isBefore(dateTime2)) {
+            return NEGATIVE_DIGIT;
+        } else {
+            return POSITIVE_DIGIT;
+        }
     }
 }
 ```
@@ -884,4 +1175,49 @@ public class MonthContainsKeywordsPredicate implements Predicate<Task> {
         return String.format(TUITION_TITLE, tutee);
     }
 }
+```
+###### \java\seedu\address\storage\XmlAdaptedPerson.java
+``` java
+        if (isTutee(personTags)) {
+            if (this.subject == null) {
+                throw new IllegalValueException(
+                        String.format(MISSING_FIELD_MESSAGE_FORMAT, Subject.class.getSimpleName()));
+            }
+            if (!Subject.isValidSubject(this.subject)) {
+                throw new IllegalValueException(Subject.MESSAGE_SUBJECT_CONSTRAINTS);
+            }
+            final Subject subject = new Subject(this.subject);
+
+            if (this.grade == null) {
+                throw new IllegalValueException(
+                        String.format(MISSING_FIELD_MESSAGE_FORMAT, Grade.class.getSimpleName()));
+            }
+            if (!Grade.isValidGrade(this.grade)) {
+                throw new IllegalValueException(Grade.MESSAGE_GRADE_CONSTRAINTS);
+            }
+            final Grade grade = new Grade(this.grade);
+
+            if (this.educationLevel == null) {
+                throw new IllegalValueException(
+                        String.format(MISSING_FIELD_MESSAGE_FORMAT, EducationLevel.class.getSimpleName()));
+            }
+            if (!EducationLevel.isValidEducationLevel(this.educationLevel)) {
+                throw new IllegalValueException(EducationLevel.MESSAGE_EDUCATION_LEVEL_CONSTRAINTS);
+            }
+            final EducationLevel educationLevel = new EducationLevel(this.educationLevel);
+
+            if (this.school == null) {
+                throw new IllegalValueException(
+                        String.format(MISSING_FIELD_MESSAGE_FORMAT, School.class.getSimpleName()));
+            }
+            if (!School.isValidSchool(this.school)) {
+                throw new IllegalValueException(School.MESSAGE_SCHOOL_CONSTRAINTS);
+            }
+            final School school = new School(this.school);
+
+            return new Tutee(name, phone, email, address, subject, grade, educationLevel, school, tags);
+        } else {
+            return new Person(name, phone, email, address, tags);
+        }
+    }
 ```

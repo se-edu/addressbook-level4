@@ -1,4 +1,210 @@
 # yungyung04
+###### \java\seedu\address\logic\commands\AddPersonalTaskCommandTest.java
+``` java
+public class AddPersonalTaskCommandTest {
+
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
+
+    @Test
+    public void constructor_nullTask_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        new AddPersonalTaskCommand(null);
+    }
+
+    @Test
+    public void execute_taskAcceptedByModel_addSuccessful() throws Exception {
+        ModelStubAcceptingPersonalTaskAdded modelStub = new ModelStubAcceptingPersonalTaskAdded();
+        PersonalTask validTask = new TaskBuilder().buildPersonalTask();
+
+        CommandResult commandResult = getAddPersonalTaskCommandForTask(validTask, modelStub).execute();
+
+        assertEquals(String.format(AddPersonalTaskCommand.MESSAGE_SUCCESS, validTask), commandResult.feedbackToUser);
+        assertEquals(Arrays.asList(validTask), modelStub.tasksAdded);
+    }
+
+    @Test
+    public void execute_clashingTask_throwsCommandException() throws Exception {
+        ModelStub modelStub = new ModelStubThrowingTimingClashException();
+        PersonalTask validTask = new TaskBuilder().buildPersonalTask();
+
+        thrown.expect(CommandException.class);
+        thrown.expectMessage(MESSAGE_TASK_TIMING_CLASHES);
+
+        getAddPersonalTaskCommandForTask(validTask, modelStub).execute();
+    }
+
+    @Test
+    public void equals() {
+        PersonalTask firstPersonalTask = new TaskBuilder().withDateTime(VALID_DATE_TIME_AMY).buildPersonalTask();
+        PersonalTask secondPersonalTask = new TaskBuilder().withDateTime(VALID_DATE_TIME_BOB).buildPersonalTask();
+
+        AddPersonalTaskCommand addFirstTask = new AddPersonalTaskCommand(firstPersonalTask);
+        AddPersonalTaskCommand addFirstTaskCopy = new AddPersonalTaskCommand(firstPersonalTask);
+        AddPersonalTaskCommand addSecondTask = new AddPersonalTaskCommand(secondPersonalTask);
+
+        LocalDateTime tuitionDateTime = LocalDateTime.parse(VALID_DATE_TIME_AMY, FORMATTER);
+        AddTuitionTaskCommand addTuitionTask = new AddTuitionTaskCommand(
+                INDEX_FIRST_PERSON, tuitionDateTime, VALID_DURATION_AMY, VALID_TASK_DESC_AMY);
+
+        // same object -> returns true
+        assertTrue(addFirstTask.equals(addFirstTask));
+
+        // same values -> returns true
+        assertTrue(addFirstTask.equals(addFirstTaskCopy));
+
+        // different types -> returns false
+        assertFalse(addFirstTask.equals(1));
+
+        // null -> returns false
+        assertFalse(addFirstTask.equals(null));
+
+        // different task type -> returns false
+        assertFalse(addFirstTask.equals(addTuitionTask));
+
+        // different detail -> returns false
+        assertFalse(addFirstTask.equals(addSecondTask));
+    }
+
+    /**
+     * Generates a new AddPersonalTaskCommand with the details of the given personal task.
+     */
+    private AddPersonalTaskCommand getAddPersonalTaskCommandForTask(PersonalTask task, Model model) {
+        AddPersonalTaskCommand command = new AddPersonalTaskCommand(task);
+        command.setData(model, new CommandHistory(), new UndoRedoStack());
+        return command;
+    }
+
+    /**
+     * A Model stub that always throw a TimingClashException when trying to add a task.
+     */
+    private class ModelStubThrowingTimingClashException extends ModelStub {
+        @Override
+        public void addTask(Task task) throws TimingClashException {
+            throw new TimingClashException(MESSAGE_TASK_TIMING_CLASHES);
+        }
+
+        @Override
+        public ReadOnlyAddressBook getAddressBook() {
+            return new AddressBook();
+        }
+    }
+
+    /**
+     * A Model stub that always accept the task being added.
+     */
+    private class ModelStubAcceptingPersonalTaskAdded extends ModelStub {
+        final ArrayList<Task> tasksAdded = new ArrayList<>();
+
+        @Override
+        public void addTask(Task task) throws TimingClashException {
+            requireNonNull(task);
+            tasksAdded.add(task);
+        }
+
+        @Override
+        public ReadOnlyAddressBook getAddressBook() {
+            return new AddressBook();
+        }
+    }
+}
+```
+###### \java\seedu\address\logic\commands\AddTuitionTaskCommandTest.java
+``` java
+public class AddTuitionTaskCommandTest {
+
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
+
+    private Model model = new ModelManager(getTypicalAddressBook2(), new UserPrefs());
+    private LocalDateTime taskDateTimeAmy = LocalDateTime.parse(VALID_DATE_TIME_AMY, FORMATTER);
+
+    @Test
+    public void constructor_nullTaskDetail_throwsNullPointerException() {
+        //one of the other 3 task details is null.
+        thrown.expect(NullPointerException.class);
+        new AddTuitionTaskCommand(INDEX_FIRST_PERSON, taskDateTimeAmy, VALID_DURATION_AMY, null);
+    }
+
+    @Test
+    public void execute_taskAcceptedByModel_addSuccessful() throws Exception {
+        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+
+        AddTuitionTaskCommand addTuitionAmy = getAddTuitionTaskCommandForTask(
+                INDEX_THIRD_PERSON, taskDateTimeAmy, VALID_DURATION_AMY, VALID_TASK_DESC_AMY);
+
+        String expectedMessage = String.format(AddTuitionTaskCommand.MESSAGE_SUCCESS, TASK_AMY);
+        expectedModel.addTask(TASK_AMY);
+
+        assertCommandSuccess(addTuitionAmy, model, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_invalidIndex_throwsCommandException() throws Exception {
+        Index outOfBoundIndex = Index.fromOneBased(model.getFilteredTaskList().size() + 1);
+        AddTuitionTaskCommand command = getAddTuitionTaskCommandForTask(outOfBoundIndex, taskDateTimeAmy,
+                VALID_DURATION_AMY, VALID_TASK_DESC_AMY);
+        assertCommandFailure(command, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+    }
+
+    @Test
+    public void execute_clashingTask_throwsCommandException() throws Exception {
+        thrown.expect(CommandException.class);
+        thrown.expectMessage(MESSAGE_TASK_TIMING_CLASHES);
+
+        getAddTuitionTaskCommandForTask(INDEX_THIRD_PERSON, taskDateTimeAmy, VALID_DURATION_AMY,
+                VALID_TASK_DESC_AMY).execute();
+
+        getAddTuitionTaskCommandForTask(INDEX_FIRST_PERSON, taskDateTimeAmy, VALID_DURATION_AMY,
+                VALID_TASK_DESC_AMY).execute();
+    }
+
+
+    @Test
+    public void equals() {
+        LocalDateTime taskDateTimeBob = LocalDateTime.parse(VALID_DATE_TIME_BOB, FORMATTER);
+
+        AddTuitionTaskCommand addTuitionAmy = getAddTuitionTaskCommandForTask(
+                INDEX_THIRD_PERSON, taskDateTimeAmy, VALID_DURATION_AMY, VALID_TASK_DESC_AMY);
+        AddTuitionTaskCommand addTuitionAmyCopy = getAddTuitionTaskCommandForTask(
+                INDEX_THIRD_PERSON, taskDateTimeAmy, VALID_DURATION_AMY, VALID_TASK_DESC_AMY);
+        AddTuitionTaskCommand addTuitionBob = new AddTuitionTaskCommand(
+                INDEX_SECOND_PERSON, taskDateTimeBob, VALID_DURATION_BOB, VALID_TASK_DESC_BOB);
+
+        // an AddPersonalTaskCommand object with same task details as addTuitionAmy
+        AddPersonalTaskCommand addPersonalTask =
+                new AddPersonalTaskCommand(new TaskBuilder(TASK_AMY).buildPersonalTask());
+
+        // same value -> returns true
+        assertTrue(addTuitionAmy.equals(addTuitionAmyCopy));
+
+        // same object -> returns true
+        assertTrue(addTuitionAmy.equals(addTuitionAmy));
+
+        // different types -> returns false
+        assertFalse(addTuitionAmy.equals(1));
+
+        // null -> returns false
+        assertFalse(addTuitionAmy.equals(null));
+
+        // different task type -> returns false
+        assertFalse(addTuitionAmy.equals(addPersonalTask));
+
+        // different detail -> returns false
+        assertFalse(addTuitionAmy.equals(addTuitionBob));
+    }
+
+    /**
+     * Generates a new AddTuitionTaskCommand with the details of the given tuition task.
+     */
+    private AddTuitionTaskCommand getAddTuitionTaskCommandForTask(Index tuteeIndex, LocalDateTime taskDateTime,
+                                                                  String duration, String description) {
+        AddTuitionTaskCommand command = new AddTuitionTaskCommand(tuteeIndex, taskDateTime, duration, description);
+        command.setData(model, new CommandHistory(), new UndoRedoStack());
+        return command;
+    }
+}
+```
 ###### \java\seedu\address\logic\commands\DeleteTaskCommandTest.java
 ``` java
 /**
@@ -280,16 +486,58 @@ public class FindPersonCommandTest {
     }
 }
 ```
-###### \java\seedu\address\logic\commands\SortCommandTest.java
+###### \java\seedu\address\logic\commands\ListTuteeCommandTest.java
 ``` java
 /**
- * Contains integration tests (interaction with the Model) for {@code SortCommand}.
+ * Contains integration tests (interaction with the Model) and unit tests for ListTuteeCommand.
  */
-public class SortCommandTest {
+public class ListTuteeCommandTest {
+
+    private Model model;
+    private Model expectedModel;
+    private ListTuteeCommand listTuteeCommand;
+
+    @Before
+    public void setUp() {
+        model = new ModelManager(getTypicalAddressBook2(), new UserPrefs());
+        expectedModel = setExpectedModel(model);
+
+        listTuteeCommand = new ListTuteeCommand();
+        listTuteeCommand.setData(model, new CommandHistory(), new UndoRedoStack());
+    }
+
+    @Test
+    public void execute_tuteeListIsNotFiltered_showsSameList() {
+        assertCommandSuccess(listTuteeCommand, model, ListTuteeCommand.MESSAGE_SUCCESS, expectedModel);
+    }
+
+    @Test
+    public void execute_tuteeListIsFiltered_showsEverything() {
+        showPersonAtIndex(model, INDEX_FIRST_PERSON);
+        assertCommandSuccess(listTuteeCommand, model, ListTuteeCommand.MESSAGE_SUCCESS, expectedModel);
+    }
+
+    /**
+     * Returns a model that has been filtered to show only tutees
+     */
+    private ModelManager setExpectedModel(Model model) {
+        ModelManager modelManager = new ModelManager(model.getAddressBook(), new UserPrefs());
+        modelManager.updateFilteredPersonList(Model.PREDICATE_SHOW_ALL_TUTEES);
+        return modelManager;
+    }
+
+}
+```
+###### \java\seedu\address\logic\commands\SortPersonCommandTest.java
+``` java
+/**
+ * Contains integration tests (interaction with the Model) for {@code SortPersonCommand}.
+ */
+public class SortPersonCommandTest {
 
     private Model model = new ModelManager(getTypicalAddressBook2(), new UserPrefs());
 
-    private final SortCommand sortName = new SortCommand(CATEGORY_NAME);
+    private final SortPersonCommand sortName = new SortPersonCommand(CATEGORY_NAME);
 
     @Test
     public void equals() {
@@ -297,7 +545,7 @@ public class SortCommandTest {
         assertTrue(sortName.equals(sortName));
 
         // same values -> returns true
-        SortCommand sortNameCopy = new SortCommand(CATEGORY_NAME);
+        SortPersonCommand sortNameCopy = new SortPersonCommand(CATEGORY_NAME);
         assertTrue(sortName.equals(sortNameCopy));
 
         // different types -> returns false
@@ -307,50 +555,50 @@ public class SortCommandTest {
         assertFalse(sortName.equals(null));
 
         // different category -> returns false
-        SortCommand sortGrade = new SortCommand(CATEGORY_GRADE);
+        SortPersonCommand sortGrade = new SortPersonCommand(CATEGORY_GRADE);
         assertFalse(sortName.equals(sortGrade));
     }
 
     @Test
     public void execute_sortName_sortedSuccessfully() {
         sortName.setData(model, new CommandHistory(), new UndoRedoStack());
-        String expectedMessage = String.format(SortCommand.MESSAGE_SUCCESS);
+        String expectedMessage = String.format(SortPersonCommand.MESSAGE_SUCCESS);
         assertCommandSuccess(sortName, expectedMessage,
                 Arrays.asList(ALICETUTEE, AMYTUTEE, BOBTUTEE, DANIEL));
     }
 
     @Test
     public void execute_sortEducatonLevel_sortedSuccessfully() {
-        SortCommand sortEducationLevel = new SortCommand(CATEGORY_EDUCATION_LEVEL);
+        SortPersonCommand sortEducationLevel = new SortPersonCommand(CATEGORY_EDUCATION_LEVEL);
         sortEducationLevel.setData(model, new CommandHistory(), new UndoRedoStack());
-        String expectedMessage = String.format(SortCommand.MESSAGE_SUCCESS);
+        String expectedMessage = String.format(SortPersonCommand.MESSAGE_SUCCESS);
         assertCommandSuccess(sortEducationLevel, expectedMessage,
                 Arrays.asList(BOBTUTEE, ALICETUTEE, AMYTUTEE, DANIEL));
     }
 
     @Test
     public void execute_sortGrade_sortedSuccessfully() {
-        SortCommand sortGrade = new SortCommand(CATEGORY_GRADE);
+        SortPersonCommand sortGrade = new SortPersonCommand(CATEGORY_GRADE);
         sortGrade.setData(model, new CommandHistory(), new UndoRedoStack());
-        String expectedMessage = String.format(SortCommand.MESSAGE_SUCCESS);
+        String expectedMessage = String.format(SortPersonCommand.MESSAGE_SUCCESS);
         assertCommandSuccess(sortGrade, expectedMessage,
                 Arrays.asList(BOBTUTEE, AMYTUTEE, ALICETUTEE, DANIEL));
     }
 
     @Test
     public void execute_sortSchool_sortedSuccessfully() {
-        SortCommand sortSchool = new SortCommand(CATEGORY_SCHOOL);
+        SortPersonCommand sortSchool = new SortPersonCommand(CATEGORY_SCHOOL);
         sortSchool.setData(model, new CommandHistory(), new UndoRedoStack());
-        String expectedMessage = String.format(SortCommand.MESSAGE_SUCCESS);
+        String expectedMessage = String.format(SortPersonCommand.MESSAGE_SUCCESS);
         assertCommandSuccess(sortSchool, expectedMessage,
                 Arrays.asList(AMYTUTEE, ALICETUTEE, BOBTUTEE, DANIEL));
     }
 
     @Test
     public void execute_sortSubject_sortedSuccessfully() {
-        SortCommand sortSubject = new SortCommand(CATEGORY_SUBJECT);
+        SortPersonCommand sortSubject = new SortPersonCommand(CATEGORY_SUBJECT);
         sortSubject.setData(model, new CommandHistory(), new UndoRedoStack());
-        String expectedMessage = String.format(SortCommand.MESSAGE_SUCCESS);
+        String expectedMessage = String.format(SortPersonCommand.MESSAGE_SUCCESS);
         assertCommandSuccess(sortSubject, expectedMessage,
                 Arrays.asList(AMYTUTEE, ALICETUTEE, BOBTUTEE, DANIEL));
     }
@@ -361,7 +609,7 @@ public class SortCommandTest {
      *     - the {@code FilteredList<Person>} is equal to {@code expectedList}<br>
      *     - the {@code AddressBook} in model remains the same after executing the {@code command}
      */
-    private void assertCommandSuccess(SortCommand command, String expectedMessage, List<Person> expectedList) {
+    private void assertCommandSuccess(SortPersonCommand command, String expectedMessage, List<Person> expectedList) {
         AddressBook expectedAddressBook = new AddressBook(model.getAddressBook());
         CommandResult commandResult = command.execute();
 
@@ -442,25 +690,52 @@ public class FindPersonCommandParserTest {
         //null date and time
         Assert.assertThrows(NullPointerException.class, () -> ParserUtil.parseDateTime(null));
 
-        //invalid date
+        //invalid date in non leap year
         Assert.assertThrows(DateTimeParseException.class, () -> ParserUtil
-                .parseDateTime(INVALID_DATE_END_OF_FEBRUARY + VALID_TIME));
+                .parseDateTime("29/02/2018 " + VALID_TIME));
 
+        //invalid date in century year
         Assert.assertThrows(DateTimeParseException.class, () -> ParserUtil
-                .parseDateTime(INVALID_DATE_END_OF_APRIL + VALID_TIME));
+                .parseDateTime("29/02/1900 " + VALID_TIME));
 
-        //invalid time
+        //invalid date in month with 30 days
         Assert.assertThrows(DateTimeParseException.class, () -> ParserUtil
-                .parseDateTime(VALID_DATE + INVALID_TIME));
+                .parseDateTime("31/04/2018 " + VALID_TIME));
+
+        //invalid date in month with 31 days
+        Assert.assertThrows(DateTimeParseException.class, () -> ParserUtil
+                .parseDateTime("32/03/2018 " + VALID_TIME));
+
+        //invalid hour
+        Assert.assertThrows(DateTimeParseException.class, () -> ParserUtil
+                .parseDateTime(VALID_DATE + " 25:00"));
+
+        //invalid minute
+        Assert.assertThrows(DateTimeParseException.class, () -> ParserUtil
+                .parseDateTime(VALID_DATE + "12:60"));
     }
 
     @Test
     public void parseDateTime_validInput_parsedSuccessfully() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/uuuu HH:mm")
-                .withResolverStyle(ResolverStyle.STRICT);
-        LocalDateTime expectedDateTime = LocalDateTime.parse(VALID_DATE + " " + VALID_TIME, formatter);
+        //beginning of the month
+        LocalDateTime expectedDateTime = LocalDateTime.parse("01/10/2018 " + VALID_TIME, FORMATTER);
+        assertEquals(expectedDateTime, parseDateTime("01/10/2018 " + VALID_TIME));
 
-        assertEquals(expectedDateTime, parseDateTime(VALID_DATE + " " + VALID_TIME));
+        //leap year
+        expectedDateTime = LocalDateTime.parse("29/02/2020 " + VALID_TIME, FORMATTER);
+        assertEquals(expectedDateTime, parseDateTime("29/02/2020 " + VALID_TIME));
+
+        //month with 30 days
+        expectedDateTime = LocalDateTime.parse("30/04/2020 " + VALID_TIME, FORMATTER);
+        assertEquals(expectedDateTime, parseDateTime("30/04/2020 " + VALID_TIME));
+
+        //month with 31 days
+        expectedDateTime = LocalDateTime.parse("31/03/2020 " + VALID_TIME, FORMATTER);
+        assertEquals(expectedDateTime, parseDateTime("31/03/2020 " + VALID_TIME));
+
+        //valid time at boundary value
+        expectedDateTime = LocalDateTime.parse(VALID_DATE + " 12:00", FORMATTER);
+        assertEquals(expectedDateTime, parseDateTime(VALID_DATE + " 12:00"));
     }
 
     @Test
@@ -493,13 +768,13 @@ public class FindPersonCommandParserTest {
     }
 }
 ```
-###### \java\seedu\address\logic\parser\SortCommandParserTest.java
+###### \java\seedu\address\logic\parser\SortPersonCommandParserTest.java
 ``` java
 /**
- * Contains tests for {@code SortCommandParser}.
+ * Contains tests for {@code SortPersonCommandParser}.
  */
-public class SortCommandParserTest {
-    private SortCommandParser parser = new SortCommandParser();
+public class SortPersonCommandParserTest {
+    private SortPersonCommandParser parser = new SortPersonCommandParser();
 
     private final String invalidCategory = "age";
 
@@ -507,37 +782,37 @@ public class SortCommandParserTest {
     public void parse_invalidArg_throwsParseException() {
         //empty input
         assertParseFailure(parser, "     ",
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE));
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortPersonCommand.MESSAGE_USAGE));
 
         //too many arguments
         assertParseFailure(parser, CATEGORY_GRADE + " " + CATEGORY_EDUCATION_LEVEL,
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortCommand.MESSAGE_USAGE));
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, SortPersonCommand.MESSAGE_USAGE));
 
         //invalid category
         assertParseFailure(parser, invalidCategory,
-                String.format(MESSAGE_INVALID_SORTER_CATEGORY, SortCommand.MESSAGE_USAGE));
+                String.format(MESSAGE_INVALID_SORTER_CATEGORY, SortPersonCommand.MESSAGE_USAGE));
     }
 
     @Test
     public void parse_validArgs_returnsFindCommand() {
         // sort by name
-        SortCommand expectedSortName = new SortCommand(CATEGORY_NAME);
+        SortPersonCommand expectedSortName = new SortPersonCommand(CATEGORY_NAME);
         assertParseSuccess(parser, CATEGORY_NAME, expectedSortName);
 
         // sort by education level
-        SortCommand expectedSortEducatonLevel = new SortCommand(CATEGORY_EDUCATION_LEVEL);
+        SortPersonCommand expectedSortEducatonLevel = new SortPersonCommand(CATEGORY_EDUCATION_LEVEL);
         assertParseSuccess(parser, CATEGORY_EDUCATION_LEVEL, expectedSortEducatonLevel);
 
         // sort by grade
-        SortCommand expectedSortGrade = new SortCommand(CATEGORY_GRADE);
+        SortPersonCommand expectedSortGrade = new SortPersonCommand(CATEGORY_GRADE);
         assertParseSuccess(parser, CATEGORY_GRADE, expectedSortGrade);
 
         // sort by school
-        SortCommand expectedSortSchool = new SortCommand(CATEGORY_SCHOOL);
+        SortPersonCommand expectedSortSchool = new SortPersonCommand(CATEGORY_SCHOOL);
         assertParseSuccess(parser, CATEGORY_SCHOOL, expectedSortSchool);
 
         // sort by subject
-        SortCommand expectedSortSubject = new SortCommand(CATEGORY_SUBJECT);
+        SortPersonCommand expectedSortSubject = new SortPersonCommand(CATEGORY_SUBJECT);
         assertParseSuccess(parser, CATEGORY_SUBJECT, expectedSortSubject);
 
         // multiple whitespaces before and after sort category
@@ -760,64 +1035,6 @@ public class TaskUtil {
         sb.append(task.getDuration() + " ");
         sb.append(task.getDescription() + " ");
         return sb.toString();
-    }
-}
-```
-###### \java\seedu\address\testutil\typicaladdressbook\TypicalTasks.java
-``` java
-/**
- * A utility class containing a list of {@code Task} objects to be used in tests.
- */
-public class TypicalTasks {
-    public static final Task TASK_ALICE = new TaskBuilder().withTuteeName("Alice Pauline")
-            .withDateTime("01/10/2018 10:00").withDuration("2h0m").withDescription("Calculus page 24")
-            .buildTuitionTask();
-    public static final Task TASK_BENSON = new TaskBuilder().withTuteeName("Benson Meier")
-            .withDateTime("01/10/2018 14:30").withDuration("2h0m").withDescription("Math exam")
-            .buildTuitionTask();
-    public static final Task TASK_CARL = new TaskBuilder().withTuteeName("Carl Kurtz")
-            .withDateTime("31/12/2018 09:15").withDuration("1h20m").withoutDescription()
-            .buildTuitionTask();
-    public static final Task TASK_GROCERRY_SHOPPING = new TaskBuilder()
-            .withDateTime("25/04/2017 14:30").withDuration("1h0m").withDescription("grocery shopping")
-            .buildPersonalTask();
-    public static final Task TASK_YOGA = new TaskBuilder()
-            .withDateTime("28/02/2019 14:30").withDuration("3h0m").withDescription("yoga")
-            .buildPersonalTask();
-
-    // Tuition with same tutee but different timing
-    public static final Task TASK_ALICE_SAME_DAY = new TaskBuilder().withTuteeName("Alice Pauline")
-            .withDateTime("01/10/2018 17:00").withDuration("0h45m").buildTuitionTask();
-    public static final Task TASK_ALICE_DIFFERENT_DAY = new TaskBuilder().withTuteeName("Alice Pauline")
-            .withDateTime("30/09/2018 10:00").withDuration("2h0m").buildTuitionTask();
-
-    //Tuition with time clash
-    public static final Task TASK_DANIEL_CLASHES_ALICE = new TaskBuilder().withTuteeName("Daniel Meier")
-            .withDateTime("01/10/2018 11:00").withDuration("2h0m").buildTuitionTask();
-
-    //Personal task clashes tuition
-    public static final Task TASK_GROCERRY_SHOPPING_CLASHES_ALICE = new TaskBuilder()
-            .withDateTime("01/10/2018 10:00").withDuration("2h0m").withDescription("Calculus page 24")
-            .buildPersonalTask();
-
-    //Tuition which start right after another tuition ends
-    public static final Task TASK_CARL_AFTER_ALICE = new TaskBuilder().withTuteeName("Carl Kurtz")
-            .withDateTime("01/10/2018 12:00").withDuration("1h0m").buildTuitionTask();
-
-    //Personal task which start right after another tuition ends
-    public static final Task TASK_YOGA_AFTER_ALICE = new TaskBuilder()
-            .withDateTime("01/10/2018 12:00").withDuration("3h0m").withDescription("yoga")
-            .buildPersonalTask();
-
-    // Manually added - Task details found in {@code CommandTestUtil}
-    public static final Task TASK_AMY = new TaskBuilder().withTuteeName(VALID_NAME_AMY)
-            .withDateTime(VALID_DATE_TIME).withDuration(VALID_DURATION).withDescription(VALID_TASK_DESC)
-            .buildTuitionTask();
-
-    private TypicalTasks() {} // prevents instantiation
-
-    public static List<Task> getTypicalTasks() {
-        return new ArrayList<>(Arrays.asList(TASK_ALICE, TASK_BENSON, TASK_CARL, TASK_GROCERRY_SHOPPING, TASK_YOGA));
     }
 }
 ```
