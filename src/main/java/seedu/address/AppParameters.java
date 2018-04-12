@@ -54,11 +54,11 @@ public class AppParameters {
         }
 
         AppParameters otherAppParameters = (AppParameters) other;
-        return Objects.equals(otherAppParameters.getConfigPath(), getConfigPath());
+        return Objects.equals(getConfigPath(), otherAppParameters.getConfigPath());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(configPath);
+        return configPath.hashCode();
     }
 }

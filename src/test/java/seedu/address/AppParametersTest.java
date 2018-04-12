@@ -14,8 +14,8 @@ import javafx.application.Application;
 
 public class AppParametersTest {
 
-    private ParametersStub parametersStub = new ParametersStub();
-    private AppParameters expected = new AppParameters();
+    private final ParametersStub parametersStub = new ParametersStub();
+    private final AppParameters expected = new AppParameters();
 
     @Test
     public void parse_validConfigPath_success() {
