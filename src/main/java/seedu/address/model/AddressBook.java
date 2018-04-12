@@ -128,6 +128,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         persons.setPerson(target, syncedEditedPerson);
     }
 
+    //@@author a-shakra
     /**
      * Adds a task to the address book.
      *
@@ -136,7 +137,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void addTask(Task t) throws TimingClashException {
         tasks.add(t);
     }
-
+    //@@author
     /**
      *  Updates the master tag list to include tags in {@code person} that are not in the list.
      *  @return a copy of this {@code person} such that every tag in this person points to a Tag object in the master
@@ -200,6 +201,8 @@ public class AddressBook implements ReadOnlyAddressBook {
             throw new PersonNotFoundException();
         }
     }
+
+    //@@author a-shakra
     /**
      * Removes a task from the address book.
      *
@@ -212,7 +215,7 @@ public class AddressBook implements ReadOnlyAddressBook {
             return false;
         }
     }
-
+    //@@author
     //// tag-level operations
 
     public void addTag(Tag t) throws UniqueTagList.DuplicateTagException {

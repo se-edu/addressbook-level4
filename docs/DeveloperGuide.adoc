@@ -424,6 +424,26 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two * different things.
 // end::undoredo[]
 
+// tag::sortpersoncommand[]
+=== Sort Person Command
+==== Current Implementation
+
+===== Reason for Implementation
+As the amount of contacts stored grows, it would be harder to browse the address book. Hence, Sort Person Command is created
+to ease users's experience in organizing their address book.
+
+===== How it is implemented
+The following sequence diagram shows the general idea of how sort person command works:
+
+image::SortPersonSequenceDiagram.png[width="800"]
+
+As shown in the sequence diagram, the Logic command's call for execution leads to Sort Person command to request for a Comparator object from PersonSortUtil class.
+A comparator object is required since the sorting implementation utilizes JavaFX8's SortedList class.
+(Refer to https://docs.oracle.com/javase/8/javafx/api/javafx/collections/transformation/SortedList.html* for more information)
+Here, PersonSortUtil class is responsible in providing a suitable comparator that matches the sorting behaviour requested by the user. Upon receiving the comparator, SortPersonCommand
+calls the sortFilteredPersonList() method which requests model to perform the sorting utiling the comparator.
+// end::sortpersoncommand[]
+
 // tag::dataencryption[]
 === [Proposed] Data Encryption
 
@@ -858,15 +878,6 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 
 === Feature Contribution
 
-*Raymond*:
-
-. *Support for Tasks (Major)*:
-.. *Delete task command*: Allows tutors to delete tasks.
-.. *Edit task command*: Tutors are allowed to edit their tasks, if necessary.
-.. *View task command*: Tutors are able to view their own task.
-
-With this added support for tasks, tutors will be able to customise their schedules more easily by some of these commands.
-
 *Chih Tun*:
 
 * *Major Enhancement*: Integrated a calendar into TuitionConnect using third party software, CalendarFX.
@@ -879,72 +890,55 @@ In addition, the calendar reflects any changes to the schedule such as adding of
 . Modify select command to conduct name search on google search pop up page.
 
 
-*Buyung*:
+*Eka Buyung Lienadi*:
 
-. *ViewFiltered & View Sort* [Major Enhancement]
-This command lets tutors to view a filtered list of their stored tasks. As there are 2 kinds of tasks implemented in Tuition Connect,
-personal and tuition task, each kind of task has its own filter category.
-Within the current version, Tutors are able to utilize one of these filtering.
-First, tutors can filter their tasks by month, hence, allowing tutors to view all of their task within the specified month.
-Second, tutors can filter their tutee by the tutee's school, grade or subject.
+* *Scheduling features [Major Enhancement]* +
+. Implemented task addition, deletion, filtering and sorting features.
+. Implemented features to recognize natural language, which aids in task filtering.
 
-For the purpose of illustrating the implementation, this sequence diagram depicts the procedure when
-user desires to view a list of their tutee after being filtered by grade.
-
-image::viewFiltered-sequence-diagram.jpeg[width="800"]
-
-This view filter command is created with the purpose of simplifying tutor's life in navigating through their packed schedule.
-By having this command, tutors are able to locate their desired tasks easily.
-
-Within future version, this command would have a sorting capability. The filtered tutee
-shall be displayed after their name is sorted lexicographically.
+* [Minor Enhancement]
+. Implemented tutee listing feature.
+. Implemented tutee filtering and sorting features.
 
 *Anas*:
+// tag::taskClass[]
+. *Integrating the Task class into the Addressbook* [Major Enhancement]
 
-. *CompleteCommand* [Major Enhancement]
-
-An important feature for the tutor is the ability to manage financial records that pertain to his/her work.
-To that end, the CompleteCommand functionality is implemented. This feature allows the user to update the amount
-of work completed and the financial compensation he/she is entitled based on the units of work completed.
-
-The CompleteCommand is an extension of the Undoable Command, which is part of the logic component.
-Much like many other commands in this application, the CompleteCommand was chosen to extend the undoable command, instead of the command, class in order
-to provide users with the flexibility to undo any unwanted commands. In summary, the CompleteCommand will extend the undoable command class which, itself,
-extends the command class.
+The Task class forms the foundation of TuitionConnect as it allows the user to manage their various
+"tasks". The task class comes in two forms, a personal task and a tuition task. The following is the
+interface:
 
 [source,java]
 ----
-public abstract class UndoableCommand extends Command {
-    @Override
-    public CommandResult execute() {
-        // ... undo logic ...
+public interface Task {
+    // Consider changing the location of the three string values below
 
-        executeUndoableCommand();
-    }
-}
+    String MESSAGE_DESCRIPTION_CONSTRAINTS = "Tasks Should have a non-empty description";
 
-public class CompleteCommand extends UndoableCommand {
-    @Override
-    public CommandResult executeUndoableCommand() {
-        // ... add Complete logic ...
-    }
+    String MESSAGE_DURATION_CONSTRAINTS = "Duration must be a non-null value";
+
+    String MESSAGE_DATETIME_CONSTRAINTS = "Date and time must be a non-null value";
+
+    LocalDateTime getTaskDateTime();
+
+    String getStringTaskDateTime();
+
+    String getDescription();
+
+    String getDuration();
+
+    Entry getEntry();
 }
 ----
+// end::taskClass[]
 
-Note: The above snippet will be updated when the complete code for this command is completed.
+// tag::listTask[]
+. *listTask Command* [Minor Enhancement]
 
-The following diagram demonstrates the functioning of the CompleteCommand operation:
-
-image::LogicCompleteCommandClassDiagram.jpg[width="800"]
-
-Essentially, the complete command will work by receiving an object of type task as its parameter and "marking" this task as completed.
-
-. *ViewTutee* [Minor(?) Enhancement]
-
-This feature allows the tutor to look at his/her current list of students. The idea behind this feature is for it to allow the tutor to
-see all the potential subscribers to his/her lessons and, by doing so, allowing them to associate these tutees with user-generated tasks.
-This feature is inspired by the "resources" concept in Microsoft Project whereby a "resource" is assigned to a work task.
-
+This feature allows the user to see all tasks stored in the addressbook. It is useful when a user has entered a command
+that displays only a single task. If the user then wants to see other tasks, he/she can input listTask
+and display the tasks again.
+// end::listTask[]
 [appendix]
 == User Stories
 

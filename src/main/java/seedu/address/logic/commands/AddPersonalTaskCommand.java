@@ -23,7 +23,7 @@ public class AddPersonalTaskCommand extends UndoableCommand {
             + "10/12/2018 "
             + "12:30 "
             + "1h30m "
-            + "Calculus homework page 24!!";
+            + "Yoga";
     public static final String MESSAGE_SUCCESS = "Task added: %1$s";
 
     private final PersonalTask toAdd;

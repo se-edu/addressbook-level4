@@ -93,4 +93,9 @@ public class ModelStub implements Model {
     public void sortFilteredPersonList(Comparator<Person> comparator) {
         fail("This method should not be called.");
     }
+
+    @Override
+    public void sortFilteredTaskList(Comparator<Task> comparator) {
+        fail("This method should not be called.");
+    }
 }

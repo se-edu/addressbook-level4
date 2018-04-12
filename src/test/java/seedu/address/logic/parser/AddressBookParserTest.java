@@ -24,7 +24,7 @@ import seedu.address.logic.commands.HistoryCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.SelectCommand;
-import seedu.address.logic.commands.SortCommand;
+import seedu.address.logic.commands.SortPersonCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Person;
@@ -97,9 +97,9 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_sort() throws Exception {
-        SortCommand commandWord = (SortCommand) parser.parseCommand(
-                SortCommand.COMMAND_WORD + " " + CATEGORY_NAME);
-        assertEquals(new SortCommand(CATEGORY_NAME), commandWord);
+        SortPersonCommand commandWord = (SortPersonCommand) parser.parseCommand(
+                SortPersonCommand.COMMAND_WORD + " " + CATEGORY_NAME);
+        assertEquals(new SortPersonCommand(CATEGORY_NAME), commandWord);
     }
 
     @Test
