@@ -15,7 +15,6 @@ endif::[]
 
 By: `Team MarvelousBook`      Since: `Feb 2018`      Licence: `MIT`
 
-// tag::refineintro[]
 // tag::introduction[]
 == Introduction
 
@@ -26,7 +25,6 @@ to aid management of tutee contacts, tuition schedule and income tracking. Moreo
 root of simplicity. Hence, there are also features which supports the management of your personal contacts and tasks. +
 Certainly, it is important to recognize that reflection is the key on improvment. Tuition Connect also helps tutors to review
 their past tuition sessions as long as those sessions are not removed from the data.
-// end::refineintro[]
 
 TuitionConnect is primarily for tutors who *prefer to use a desktop app for managing contacts and tasks*.
 More importantly, TuitionConnect is *optimized for those who prefer to work with a Command Line Interface*
@@ -563,7 +561,6 @@ The `redo` command fails as there are no `undo` commands executed previously.
 `r` (reapplies the `clear` command) +
 // end::undoredo[]
 
-// tag::clear[]
 === Clearing all entries : `clear`
 
 Clears all entries in Tuition Connect. +
@@ -571,7 +568,6 @@ Using Command Word: +
 Format: `clear` +
 Using Command Alias: +
 Format: `c`
-// end::clear[]
 
 === Exiting the program : `exit`
 

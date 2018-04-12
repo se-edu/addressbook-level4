@@ -37,8 +37,7 @@ the tasks one at a time.
 
 ** Project management:
 *** Managed releases `v1.2` - `v1.4` (3 releases) on GitHub
-*** Elaborate new user stories with the new features.
-*** Set up a Continous Integration utility (travis) within the team repo
+*** Elaborate new use cases with the new features.
 *** Created the team organization in GitHub.
 ** Enhancements to existing features:
 *** Expand the find command capability to enable more diverse search capabilities. (https://github.com/CS2103JAN2018-T11-B1/main[#94])
@@ -61,8 +60,6 @@ the tasks one at a time.
 |_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
 |===
 
-include::../UserGuide.adoc[tag=refineintro]
-
 include::../UserGuide.adoc[tag=conceptintro]
 
 include::../UserGuide.adoc[tag=sortperson]
@@ -76,10 +73,6 @@ include::../UserGuide.adoc[tag=sorttask]
 include::../UserGuide.adoc[tag=deletetask]
 
 include::../UserGuide.adoc[tag=listtutee]
-
-include::../UserGuide.adoc[tag=clear]
-
-include::../UserGuide.adoc[tag=proposedfeatures]
 
 == Contributions to the Developer Guide
 
