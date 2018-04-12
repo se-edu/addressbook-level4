@@ -310,7 +310,7 @@ public class ParserUtil {
     }
 
     /**
-     * Checks if the given duration is valid.
+     * Returns a valid duration
      *
      * @throws DurationParseException if the given {@code duration} is invalid.
      */
@@ -324,11 +324,13 @@ public class ParserUtil {
     }
 
     /**
-     * Returns the description if it exists in the user input.
-     * Returns empty string otherwise.
+     * Returns a valid task description.
+     * If description does not exist, returns an empty String.
      */
-    public static String parseDescription(String[] userInputs, int maximumParametersGiven) {
-        if (isEmptyDescription(userInputs, maximumParametersGiven)) {
+    public static String parseDescription(String[] userInputs, int numberOfParametersWhenDescriptionExist) {
+        requireNonNull(userInputs);
+        requireNonNull(numberOfParametersWhenDescriptionExist);
+        if (isEmptyDescription(userInputs, numberOfParametersWhenDescriptionExist)) {
             return EMPTY_STRING;
         } else {
             String description = getLastElement(userInputs);
@@ -344,9 +346,9 @@ public class ParserUtil {
     }
 
     /**
-     * Returns true if a given task arguments contain a task description.
+     * Returns true if the given task arguments contain a task description.
      */
-    private static boolean isEmptyDescription(String[] arguments, int maximumParameterssGiven) {
-        return arguments.length < maximumParameterssGiven;
+    private static boolean isEmptyDescription(String[] arguments, int numberOfParametersWhenDescriptionExist) {
+        return arguments.length < numberOfParametersWhenDescriptionExist;
     }
 }

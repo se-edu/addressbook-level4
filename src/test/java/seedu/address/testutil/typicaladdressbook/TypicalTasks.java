@@ -18,7 +18,7 @@ import seedu.address.model.personal.PersonalTask;
 import seedu.address.model.tutee.TuitionTask;
 import seedu.address.testutil.TaskBuilder;
 
-//@@author yungyung04
+
 /**
  * A utility class containing a list of {@code Task} objects to be used in tests.
  */
