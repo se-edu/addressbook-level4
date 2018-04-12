@@ -1,4 +1,4 @@
-= TuitionConnect (TC) - User Guide
+== TuitionConnect (TC) - User Guide
 :toc:
 :toc-title:
 :toc-placement: preamble
@@ -278,7 +278,7 @@ Using Command Alias: +
 Format: `s INDEX`
 
 ****
-* Selects the person and loads the Google search page the person at the specified `INDEX`.
+* Selects the person and loads the Google search page the person at the specified `INDEX`. [Google search page pop up coming in V2.0]
 * The index refers to the index number shown in the most recent listing.
 * The index *must be a positive integer* `1, 2, 3, ...`
 ****
@@ -358,9 +358,9 @@ Examples:
 
 * `addtask 10/05/2018 12:00 1h30m Outing with friend`
 * `addtask 31/12/2018 16:00 0h30m`
-//end ::addtask[]
+// end::addtask[]
 
-//tag ::deletetask[]
+// tag::deletetask[]
 === Deleting a task: `deletetask`
 
 Deletes a task from the Tuition Connect schedule +
