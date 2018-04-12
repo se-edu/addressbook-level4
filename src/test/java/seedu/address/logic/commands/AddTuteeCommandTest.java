@@ -31,13 +31,13 @@ public class AddTuteeCommandTest {
     public ExpectedException thrown = ExpectedException.none();
 
     @Test
-    public void constructor_nullPerson_throwsNullPointerException() {
+    public void constructor_nullTutee_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         new AddTuteeCommand(null);
     }
 
     @Test
-    public void execute_personAcceptedByModel_addSuccessful() throws Exception {
+    public void execute_tuteeAcceptedByModel_addSuccessful() throws Exception {
         ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
         Tutee validTutee = new TuteeBuilder().build();
 
@@ -59,26 +59,32 @@ public class AddTuteeCommandTest {
     }
 
     @Test
-    public void equals() {
+    public void equals_validArgs_returnsTrue() {
+        Tutee alice = new TuteeBuilder().withName("Alice").build();
+        AddTuteeCommand addAliceCommand = new AddTuteeCommand(alice);
+
+        // same object
+        assertTrue(addAliceCommand.equals(addAliceCommand));
+
+        // objects with same value
+        AddTuteeCommand addAliceCommandCopy = new AddTuteeCommand(alice);
+        assertTrue(addAliceCommand.equals(addAliceCommandCopy));
+    }
+
+    @Test
+    public void equals_invalidArgs_returnsFalse() {
         Tutee alice = new TuteeBuilder().withName("Alice").build();
         Tutee bob = new TuteeBuilder().withName("Bob").build();
         AddTuteeCommand addAliceCommand = new AddTuteeCommand(alice);
         AddTuteeCommand addBobCommand = new AddTuteeCommand(bob);
 
-        // same object -> returns true
-        assertTrue(addAliceCommand.equals(addAliceCommand));
-
-        // same values -> returns true
-        AddTuteeCommand addAliceCommandCopy = new AddTuteeCommand(alice);
-        assertTrue(addAliceCommand.equals(addAliceCommandCopy));
-
-        // different types -> returns false
-        assertFalse(addAliceCommand.equals(1));
-
-        // null -> returns false
+        // null
         assertFalse(addAliceCommand.equals(null));
 
-        // different person -> returns false
+        // invalid parameter data type
+        assertFalse(addAliceCommand.equals(1));
+
+        // different tutee
         assertFalse(addAliceCommand.equals(addBobCommand));
     }
 
@@ -96,6 +102,7 @@ public class AddTuteeCommandTest {
      */
     private class ModelStubThrowingDuplicatePersonException extends ModelStub {
         @Override
+        // A tutee is a person
         public void addPerson(Person person) throws DuplicatePersonException {
             throw new DuplicatePersonException();
         }
@@ -113,6 +120,7 @@ public class AddTuteeCommandTest {
         final ArrayList<Person> personsAdded = new ArrayList<>();
 
         @Override
+        // A tutee is a person
         public void addPerson(Person person) throws DuplicatePersonException {
             requireNonNull(person);
             personsAdded.add(person);

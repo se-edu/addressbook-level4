@@ -54,9 +54,9 @@ public class AddPersonalTaskCommandParserTest {
         // Invalid date
         assertParseFailure(parser, "29/02/2018 11:11 1h30m Outing with friends",
                 MESSAGE_INVALID_DATE_TIME + "\n" + AddPersonalTaskCommand.MESSAGE_USAGE);
-        assertParseFailure(parser, "32/01/2018 11:11 1h30m Outing with friends",
-                MESSAGE_INVALID_DATE_TIME + "\n" + AddPersonalTaskCommand.MESSAGE_USAGE);
         assertParseFailure(parser, "31/04/2018 11:11 1h30m Outing with friends",
+                MESSAGE_INVALID_DATE_TIME + "\n" + AddPersonalTaskCommand.MESSAGE_USAGE);
+        assertParseFailure(parser, "32/01/2018 11:11 1h30m Outing with friends",
                 MESSAGE_INVALID_DATE_TIME + "\n" + AddPersonalTaskCommand.MESSAGE_USAGE);
 
         // Invalid time
