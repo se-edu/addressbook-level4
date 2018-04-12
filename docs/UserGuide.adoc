@@ -1,4 +1,4 @@
-== TuitionConnect (TC) - User Guide
+= TuitionConnect (TC) - User Guide
 :toc:
 :toc-title:
 :toc-placement: preamble

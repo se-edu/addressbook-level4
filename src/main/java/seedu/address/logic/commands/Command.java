@@ -31,7 +31,7 @@ public abstract class Command {
      * @return summary message for tasks displayed
      */
     public static String getMessageForTaskListShownSummary(int displaySize) {
-        return String.format(Messages.MESSAGE_TASK_LISTED_OVERVIEW, displaySize);
+        return String.format(Messages.MESSAGE_TASKS_LISTED_OVERVIEW, displaySize);
     }
 
     /**
