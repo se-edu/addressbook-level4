@@ -1,6 +1,8 @@
 package seedu.address;
 
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Map;
 import java.util.Optional;
 import java.util.logging.Logger;
@@ -17,6 +19,7 @@ import seedu.address.commons.core.Version;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.util.ConfigUtil;
+import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
@@ -57,7 +60,8 @@ public class MainApp extends Application {
         logger.info("=============================[ Initializing AddressBook ]===========================");
         super.init();
 
-        config = initConfig(getApplicationParameter("config"));
+        AppParameters appParameters = getAppParameters();
+        config = initConfig(appParameters.configPath);
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         userPrefs = initPrefs(userPrefsStorage);
@@ -73,11 +77,6 @@ public class MainApp extends Application {
         ui = new UiManager(logic, config, userPrefs);
 
         initEventsCenter();
-    }
-
-    private String getApplicationParameter(String parameterName) {
-        Map<String, String> applicationParameters = getParameters().getNamed();
-        return applicationParameters.get(parameterName);
     }
 
     /**
@@ -114,9 +113,9 @@ public class MainApp extends Application {
      * The default file path {@code Config#DEFAULT_CONFIG_FILE} will be used instead
      * if {@code configFilePath} is null.
      */
-    protected Config initConfig(String configFilePath) {
+    protected Config initConfig(Path configFilePath) {
         Config initializedConfig;
-        String configFilePathUsed;
+        Path configFilePathUsed;
 
         configFilePathUsed = Config.DEFAULT_CONFIG_FILE;
 
@@ -151,7 +150,7 @@ public class MainApp extends Application {
      * reading from the file.
      */
     protected UserPrefs initPrefs(UserPrefsStorage storage) {
-        String prefsFilePath = storage.getUserPrefsFilePath();
+        Path prefsFilePath = storage.getUserPrefsFilePath();
         logger.info("Using prefs file : " + prefsFilePath);
 
         UserPrefs initializedPrefs;
@@ -204,6 +203,30 @@ public class MainApp extends Application {
     public void handleExitAppRequestEvent(ExitAppRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         this.stop();
+    }
+
+
+    /**
+     * Parses application command-line parameters.
+     */
+    private AppParameters getAppParameters() {
+        AppParameters appParameters = new AppParameters();
+        Map<String, String> namedParameters = getParameters().getNamed();
+
+        String configPathParameter = namedParameters.get("config");
+        if (configPathParameter != null && !FileUtil.isValidPath(configPathParameter)) {
+            logger.warning("Invalid config path " + configPathParameter + ". Using default config path.");
+            configPathParameter = null;
+        }
+        appParameters.configPath = configPathParameter != null ? Paths.get(configPathParameter) : null;
+        return appParameters;
+    }
+
+    /**
+     * Represents the command-line parameters given to the application.
+     */
+    private static class AppParameters {
+        private Path configPath;
     }
 
     public static void main(String[] args) {
