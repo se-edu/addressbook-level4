@@ -9,7 +9,7 @@ import seedu.address.model.Task;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.TimingClashException;
-//@@author yungyung04
+
 /**
  * A utility class providing an Address Book with its initialized data in order to support tests.
  */
