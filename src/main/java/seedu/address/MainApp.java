@@ -2,8 +2,6 @@ package seedu.address;
 
 import java.io.IOException;
 import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.Map;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -19,7 +17,6 @@ import seedu.address.commons.core.Version;
 import seedu.address.commons.events.ui.ExitAppRequestEvent;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.util.ConfigUtil;
-import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
@@ -60,8 +57,8 @@ public class MainApp extends Application {
         logger.info("=============================[ Initializing AddressBook ]===========================");
         super.init();
 
-        AppParameters appParameters = getAppParameters();
-        config = initConfig(appParameters.configPath);
+        AppParameters appParameters = AppParameters.parse(getParameters());
+        config = initConfig(appParameters.getConfigPath());
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         userPrefs = initPrefs(userPrefsStorage);
@@ -203,30 +200,6 @@ public class MainApp extends Application {
     public void handleExitAppRequestEvent(ExitAppRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         this.stop();
-    }
-
-
-    /**
-     * Parses application command-line parameters.
-     */
-    private AppParameters getAppParameters() {
-        AppParameters appParameters = new AppParameters();
-        Map<String, String> namedParameters = getParameters().getNamed();
-
-        String configPathParameter = namedParameters.get("config");
-        if (configPathParameter != null && !FileUtil.isValidPath(configPathParameter)) {
-            logger.warning("Invalid config path " + configPathParameter + ". Using default config path.");
-            configPathParameter = null;
-        }
-        appParameters.configPath = configPathParameter != null ? Paths.get(configPathParameter) : null;
-        return appParameters;
-    }
-
-    /**
-     * Represents the command-line parameters given to the application.
-     */
-    private static class AppParameters {
-        private Path configPath;
     }
 
     public static void main(String[] args) {
