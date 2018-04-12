@@ -1,7 +1,7 @@
 package seedu.address.testutil;
 
-import java.io.File;
 import java.io.IOException;
+import java.nio.file.Paths;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.FileUtil;
@@ -24,7 +24,7 @@ public class TestUtil {
      */
     public static String getFilePathInSandboxFolder(String fileName) {
         try {
-            FileUtil.createDirs(new File(SANDBOX_FOLDER));
+            FileUtil.createDirs(Paths.get(SANDBOX_FOLDER));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

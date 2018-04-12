@@ -1,7 +1,8 @@
 package seedu.address;
 
-import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.function.Supplier;
 
 import javafx.stage.Screen;
@@ -113,7 +114,7 @@ public class TestApp extends MainApp {
      */
     private <T> void createDataFileWithData(T data, String filePath) {
         try {
-            File saveFileForTesting = new File(filePath);
+            Path saveFileForTesting = Paths.get(filePath);
             FileUtil.createIfMissing(saveFileForTesting);
             XmlUtil.saveDataToFile(saveFileForTesting, data);
         } catch (Exception e) {
