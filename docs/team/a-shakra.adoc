@@ -50,6 +50,6 @@ include::../UserGuide.adoc[listTask]
 |_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
 |===
 
-include::../DeveloperGuide.adoc[tag=Integrating the Task class into the Addressbook]
+include::../DeveloperGuide.adoc[tag=taskClass]
 
-include::../DeveloperGuide.adoc[tag=listTask Command]
+include::../DeveloperGuide.adoc[tag=listTask]
