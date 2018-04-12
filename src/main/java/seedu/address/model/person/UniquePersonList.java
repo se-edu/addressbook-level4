@@ -5,7 +5,6 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
 import java.util.List;
-import java.util.TreeSet;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -15,9 +14,9 @@ import seedu.address.model.person.exceptions.PersonNotFoundException;
 /**
  * A list of persons that enforces uniqueness between its elements and does not allow nulls.
  * A person is considered unique by comparing using {@code Person#isSamePerson(Person)}. As such, adding and updating of
- * Persons uses Person#isSamePerson(Person) for equality so as to ensure that the person being added or updated is
- * unique in terms of identity in the UniquePersonList. However, the removal of a Person uses Person#equals(Object) so
- * as to ensure that the Person with exactly the same fields will be removed.
+ * persons uses Person#isSamePerson(Person) for equality so as to ensure that the person being added or updated is
+ * unique in terms of identity in the UniquePersonList. However, the removal of a person uses Person#equals(Object) so
+ * as to ensure that the person with exactly the same fields will be removed.
  *
  * Supports a minimal set of list operations.
  *
@@ -88,7 +87,7 @@ public class UniquePersonList implements Iterable<Person> {
 
     public void setPersons(List<Person> persons) throws DuplicatePersonException {
         requireAllNonNull(persons);
-        if (!elementsAreUnique(persons)) {
+        if (!personsAreUnique(persons)) {
             throw new DuplicatePersonException();
         }
 
@@ -120,11 +119,16 @@ public class UniquePersonList implements Iterable<Person> {
     }
 
     /**
-     * Returns true of the given Persons list contains only unique elements and false otherwise.
+     * Returns true if {@code persons} contains only unique persons.
      */
-    private boolean elementsAreUnique(List<Person> persons) {
-        TreeSet<Person> personsTreeSet = new TreeSet<>((p1, p2) -> p1.isSamePerson(p2) ? 0 : 1);
-        personsTreeSet.addAll(persons);
-        return persons.size() == personsTreeSet.size();
+    private boolean personsAreUnique(List<Person> persons) {
+        for (int i = 0; i < persons.size() - 1; i++) {
+            for (int j = i + 1; j < persons.size(); j++) {
+                if (persons.get(i).isSamePerson(persons.get(j))) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 }
