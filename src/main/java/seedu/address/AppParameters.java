@@ -41,4 +41,19 @@ public class AppParameters {
 
         return appParameters;
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof AppParameters)) {
+            return false;
+        }
+
+        AppParameters otherAppParameters = (AppParameters) other;
+        return (otherAppParameters.getConfigPath() == null && this.getConfigPath() == null)
+                || otherAppParameters.getConfigPath().equals(this.getConfigPath());
+    }
 }

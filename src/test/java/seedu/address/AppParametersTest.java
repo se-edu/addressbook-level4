@@ -14,26 +14,28 @@ import javafx.application.Application;
 
 public class AppParametersTest {
 
+    private ParametersStub parametersStub = new ParametersStub();
+    private AppParameters expected = new AppParameters();
+
     @Test
-    public void parse() {
-        // valid path
-        ParametersStub parametersStub = new ParametersStub();
+    public void parse_validParameters_success() {
         parametersStub.namedParameters.put("config", "config.json");
-
-        AppParameters expected = new AppParameters();
         expected.setConfigPath(Paths.get("config.json"));
+        assertEquals(expected, AppParameters.parse(parametersStub));
+    }
 
-        assertEquals(expected.getConfigPath(), AppParameters.parse(parametersStub).getConfigPath());
-
-        // invalid path
-        parametersStub.namedParameters.put("config", "a\0");
-        expected.setConfigPath(null);
-        assertEquals(expected.getConfigPath(), AppParameters.parse(parametersStub).getConfigPath());
-
-        // null path
+    @Test
+    public void parse_nullPath_success() {
         parametersStub.namedParameters.put("config", null);
         expected.setConfigPath(null);
-        assertEquals(expected.getConfigPath(), AppParameters.parse(parametersStub).getConfigPath());
+        assertEquals(expected, AppParameters.parse(parametersStub));
+    }
+
+    @Test
+    public void parse_invalidPath_success() {
+        parametersStub.namedParameters.put("config", "a\0");
+        expected.setConfigPath(null);
+        assertEquals(expected, AppParameters.parse(parametersStub));
     }
 
     private static class ParametersStub extends Application.Parameters {
