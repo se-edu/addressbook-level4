@@ -63,8 +63,11 @@ public class NaturalLanguageIdentifier {
         String result;
         switch (userInput) {
         case NATURAL_TODAY:
+            //Fallthrough
         case NATURAL_NOW:
+            //Fallthrough
         case NATURAL_CURRENT_MONTH:
+            //Fallthrough
         case NATURAL_THIS_MONTH:
             result = currentDateTime.getMonth().name();
             break;
