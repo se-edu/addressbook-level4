@@ -44,10 +44,9 @@ the tasks one at a time.
 *** Expand the find command capability to enable more diverse search capabilities. (https://github.com/CS2103JAN2018-T11-B1/main[#94])
 *** Wrote additional tests for existing features to increase coverage from 81% to 85% (https://github.com/CS2103JAN2018-T11-B1/main[#125])
 ** Documentation:
-*** Did cosmetic tweaks to existing contents of the User Guide: https://github.com/CS2103JAN2018-T11-B1/main[#132]
-*** Refine the user guide by going through the entire user guide with stress on the introduction part and untouched commands (commands which are not enhanced or improved during the entire project).
-*** Refine the user guide by introducing some commonly used terms in Concept Introduction section.
-*** Brief explanation on the implementation of a feature in the developper guide.
+*** Did cosmetic tweaks to existing contents of the User Guide: (https://github.com/CS2103JAN2018-T11-B1/main[#132])
+*** Refine the user guide's usability by introducing some commonly used terms in Concept Introduction section.
+*** Brief explanation on the implementation of a feature in the developper guide. (https://github.com/CS2103JAN2018-T11-B1/main[#132])
 ** Community:
 *** PRs reviewed (with non-trivial review comments): (https://github.com/CS2103JAN2018-T11-B1/main[#60], https://github.com/CS2103JAN2018-T11-B1/main[#42])
 *** Contributed to forum discussions (examples:  https://github.com/CS2103JAN2018-T11-B1/main[#7])
