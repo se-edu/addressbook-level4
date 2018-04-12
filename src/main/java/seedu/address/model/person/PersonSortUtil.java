@@ -1,9 +1,12 @@
 package seedu.address.model.person;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.Comparator;
 
 import seedu.address.model.tutee.Tutee;
 
+//@@author yungyung04
 /**
  * Provides utilities for sorting a list of Persons.
  */
@@ -20,6 +23,7 @@ public class PersonSortUtil {
      * Returns the apppropriate Person comparator given the sorting category.
      */
     public Comparator<Person> getComparator(String sortCategory) {
+        requireNonNull(sortCategory);
         Comparator<Person> comparator = null;
 
         switch (sortCategory) {
