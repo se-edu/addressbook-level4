@@ -3,6 +3,7 @@ package seedu.address;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Map;
+import java.util.Objects;
 import java.util.logging.Logger;
 
 import javafx.application.Application;
@@ -53,7 +54,11 @@ public class AppParameters {
         }
 
         AppParameters otherAppParameters = (AppParameters) other;
-        return (otherAppParameters.getConfigPath() == null && this.getConfigPath() == null)
-                || otherAppParameters.getConfigPath().equals(this.getConfigPath());
+        return Objects.equals(otherAppParameters.getConfigPath(), getConfigPath());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(configPath);
     }
 }

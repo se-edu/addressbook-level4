@@ -18,21 +18,20 @@ public class AppParametersTest {
     private AppParameters expected = new AppParameters();
 
     @Test
-    public void parse_validParameters_success() {
+    public void parse_validConfigPath_success() {
         parametersStub.namedParameters.put("config", "config.json");
         expected.setConfigPath(Paths.get("config.json"));
         assertEquals(expected, AppParameters.parse(parametersStub));
     }
 
     @Test
-    public void parse_nullPath_success() {
+    public void parse_nullConfigPath_success() {
         parametersStub.namedParameters.put("config", null);
-        expected.setConfigPath(null);
         assertEquals(expected, AppParameters.parse(parametersStub));
     }
 
     @Test
-    public void parse_invalidPath_success() {
+    public void parse_invalidConfigPath_success() {
         parametersStub.namedParameters.put("config", "a\0");
         expected.setConfigPath(null);
         assertEquals(expected, AppParameters.parse(parametersStub));
