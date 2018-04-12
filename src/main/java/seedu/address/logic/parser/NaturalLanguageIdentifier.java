@@ -98,7 +98,7 @@ public class NaturalLanguageIdentifier {
                 mergedKeywords.add(keywords[i] + " " + keywords[i + 1]);
                 i++;
             } else {
-                if (i < keywords.length - 2){
+                if (i < keywords.length - 2) {
                     mergedKeywords.add(keywords[i]);
                 } else {
                     mergedKeywords.add(keywords[i]);
