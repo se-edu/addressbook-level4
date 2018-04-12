@@ -98,7 +98,12 @@ public class NaturalLanguageIdentifier {
                 mergedKeywords.add(keywords[i] + " " + keywords[i + 1]);
                 i++;
             } else {
-                mergedKeywords.add(keywords[i]);
+                if (i < keywords.length - 2){
+                    mergedKeywords.add(keywords[i]);
+                } else {
+                    mergedKeywords.add(keywords[i]);
+                    mergedKeywords.add(keywords[i + 1]);
+                }
             }
         }
         return mergedKeywords.toArray(new String[mergedKeywords.size()]);
