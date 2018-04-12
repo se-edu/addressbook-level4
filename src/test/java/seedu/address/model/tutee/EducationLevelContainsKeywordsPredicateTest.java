@@ -3,7 +3,6 @@ package seedu.address.model.person;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EDUCATION_LEVEL_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EDUCATION_LEVEL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EDUCATION_LEVEL_ROBERT;
 
 import java.util.Arrays;
@@ -13,7 +12,6 @@ import java.util.List;
 import org.junit.Test;
 
 import seedu.address.model.tutee.EducationLevelContainsKeywordsPredicate;
-import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.TuteeBuilder;
 
 public class EducationLevelContainsKeywordsPredicateTest {
