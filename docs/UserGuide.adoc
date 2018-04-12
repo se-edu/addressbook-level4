@@ -405,7 +405,10 @@ e.g. '1', '01', 'jan' and 'january' are all acceptable.
 *** 3. *duration* to be implemented in v2.0
 ** The amount of keywords depend on the specified Find Type:
 *** 1. *between* +
-Exactly *2* different keywords must be provided as the boundary values. +
+Exactly *2 different* keywords must be provided as the boundary values. +
+[NOTE]
+common terms that refer to a same time are considered as same keywords. +
+e.g. `findtaskby month between today this month` is an invalid command.
 *** 2. *namely* +
 Any amount can be provided. If *0* keyword is given, the displayed schedule will be empty.
 ****
