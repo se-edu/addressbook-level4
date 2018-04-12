@@ -3,7 +3,7 @@ package seedu.address.model.person.exceptions;
 import seedu.address.commons.exceptions.DuplicateDataException;
 
 /**
- * Signals that the operation will result in duplicate Person objects.
+ * Signals that the operation will result in duplicate Persons meaning, two Persons with the same identity.
  */
 public class DuplicatePersonException extends DuplicateDataException {
     public DuplicatePersonException() {
