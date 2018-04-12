@@ -2,7 +2,8 @@ package seedu.address.storage;
 
 import static org.junit.Assert.assertEquals;
 
-import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -17,8 +18,8 @@ import seedu.address.testutil.TypicalPersons;
 public class XmlSerializableAddressBookTest {
 
     private static final String TEST_DATA_FOLDER = FileUtil.getPath("src/test/data/XmlSerializableAddressBookTest/");
-    private static final File TYPICAL_PERSONS_FILE = new File(TEST_DATA_FOLDER + "typicalPersonsAddressBook.xml");
-    private static final File INVALID_PERSON_FILE = new File(TEST_DATA_FOLDER + "invalidPersonAddressBook.xml");
+    private static final Path TYPICAL_PERSONS_FILE = Paths.get(TEST_DATA_FOLDER + "typicalPersonsAddressBook.xml");
+    private static final Path INVALID_PERSON_FILE = Paths.get(TEST_DATA_FOLDER + "invalidPersonAddressBook.xml");
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
