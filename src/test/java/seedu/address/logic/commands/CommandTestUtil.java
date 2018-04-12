@@ -66,6 +66,7 @@ public class CommandTestUtil {
     public static final String VALID_GRADE_BOB = "A1";
     public static final String VALID_EDUCATION_LEVEL_AMY = "secondary";
     public static final String VALID_EDUCATION_LEVEL_BOB = "junior college";
+    public static final String VALID_EDUCATION_LEVEL_ROBERT = "primary";
     public static final String VALID_SCHOOL_AMY = "nan hua high school";
     public static final String VALID_SCHOOL_BOB = "victoria junior college";
 
@@ -104,7 +105,6 @@ public class CommandTestUtil {
 
     public static final EditCommand.EditPersonDescriptor DESC_AMY;
     public static final EditCommand.EditPersonDescriptor DESC_BOB;
-    public static final EditCommand.EditPersonDescriptor DESC_ROBERT;
 
     static {
         DESC_AMY = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY)
