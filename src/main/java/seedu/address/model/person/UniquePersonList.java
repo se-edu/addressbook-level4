@@ -5,20 +5,23 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.TreeSet;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.commons.util.CollectionUtil;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 
 /**
  * A list of persons that enforces uniqueness between its elements and does not allow nulls.
+ * A person is considered unique by comparing using {@code Person#isSamePerson(Person)}. As such, adding and updating of
+ * Persons uses Person#isSamePerson(Person) for equality so as to ensure that the person being added or updated is
+ * unique in terms of identity in the UniquePersonList. However, the removal of a Person uses Person#equals(Object) so
+ * as to ensure that the Person with exactly the same fields will be removed.
  *
  * Supports a minimal set of list operations.
  *
- * @see Person#equals(Object)
- * @see CollectionUtil#elementsAreUnique(Collection)
+ * @see Person#isSamePerson(Person)
  */
 public class UniquePersonList implements Iterable<Person> {
 
@@ -29,7 +32,7 @@ public class UniquePersonList implements Iterable<Person> {
      */
     public boolean contains(Person toCheck) {
         requireNonNull(toCheck);
-        return internalList.contains(toCheck);
+        return internalList.stream().anyMatch(toCheck::isSamePerson);
     }
 
     /**
@@ -60,7 +63,7 @@ public class UniquePersonList implements Iterable<Person> {
             throw new PersonNotFoundException();
         }
 
-        if (!target.equals(editedPerson) && internalList.contains(editedPerson)) {
+        if (!target.isSamePerson(editedPerson) && contains(editedPerson)) {
             throw new DuplicatePersonException();
         }
 
@@ -85,7 +88,7 @@ public class UniquePersonList implements Iterable<Person> {
 
     public void setPersons(List<Person> persons) throws DuplicatePersonException {
         requireAllNonNull(persons);
-        if (!CollectionUtil.elementsAreUnique(persons)) {
+        if (!elementsAreUnique(persons)) {
             throw new DuplicatePersonException();
         }
 
@@ -114,5 +117,14 @@ public class UniquePersonList implements Iterable<Person> {
     @Override
     public int hashCode() {
         return internalList.hashCode();
+    }
+
+    /**
+     * Returns true of the given Persons list contains only unique elements and false otherwise.
+     */
+    private boolean elementsAreUnique(List<Person> persons) {
+        TreeSet<Person> personsTreeSet = new TreeSet<>((p1, p2) -> p1.isSamePerson(p2) ? 0 : 1);
+        personsTreeSet.addAll(persons);
+        return persons.size() == personsTreeSet.size();
     }
 }
