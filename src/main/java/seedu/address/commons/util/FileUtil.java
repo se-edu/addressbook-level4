@@ -43,21 +43,14 @@ public class FileUtil {
             createFile(file);
         }
     }
-
     /**
-     * Creates a file if it does not exist along with its missing parent directories
-     *
-     * @return true if file is created, false if file already exists
+     * Creates a file if it does not exist along with its missing parent directories.
      */
-    public static boolean createFile(Path file) throws IOException {
-        if (Files.exists(file)) {
-            return false;
+    public static void createFile(Path file) throws IOException {
+        if (!Files.exists(file)) {
+            createParentDirsOfFile(file);
+            Files.createFile(file);
         }
-
-        createParentDirsOfFile(file);
-
-        Files.createFile(file);
-        return true;
     }
 
     /**
