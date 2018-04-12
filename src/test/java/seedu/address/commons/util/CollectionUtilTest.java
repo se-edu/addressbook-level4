@@ -82,31 +82,6 @@ public class CollectionUtilTest {
         assertTrue(CollectionUtil.isAnyNonNull(new Object(), null));
     }
 
-    @Test
-    public void elementsAreUnique() {
-        // empty list
-        assertAreUnique();
-
-        // only one object
-        assertAreUnique((Object) null);
-        assertAreUnique(1);
-        assertAreUnique("");
-        assertAreUnique("abc");
-
-        // all objects unique
-        assertAreUnique("abc", "ab", "a");
-        assertAreUnique(1, 2);
-
-        // some identical objects
-        assertNotUnique("abc", "abc");
-        assertNotUnique("abc", "", "abc", "ABC");
-        assertNotUnique("", "abc", "a", "abc");
-        assertNotUnique(1, Integer.valueOf(1));
-        assertNotUnique(null, 1, Integer.valueOf(1));
-        assertNotUnique(null, null);
-        assertNotUnique(null, "a", "b", null);
-    }
-
     /**
      * Asserts that {@code CollectionUtil#requireAllNonNull(Object...)} throw {@code NullPointerException}
      * if {@code objects} or any element of {@code objects} is null.
@@ -139,13 +114,5 @@ public class CollectionUtilTest {
 
     private void assertNullPointerExceptionNotThrown(Collection<?> collection) {
         requireAllNonNull(collection);
-    }
-
-    private void assertAreUnique(Object... objects) {
-        assertTrue(CollectionUtil.elementsAreUnique(Arrays.asList(objects)));
-    }
-
-    private void assertNotUnique(Object... objects) {
-        assertFalse(CollectionUtil.elementsAreUnique(Arrays.asList(objects)));
     }
 }
