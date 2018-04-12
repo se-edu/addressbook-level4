@@ -424,6 +424,26 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two * different things.
 // end::undoredo[]
 
+// tag::sortpersoncommand[]
+=== Sort Person Command
+==== Current Implementation
+
+===== Reason for Implementation
+As the amount of contacts stored grows, it would be harder to browse the address book. Hence, Sort Person Command is created
+to ease users's experience in organizing their address book.
+
+===== How it is implemented
+The following sequence diagram shows the general idea of how sort person command works:
+
+image::SortPersonSequenceDiagram.png[width="800"]
+
+As shown in the sequence diagram, the Logic command's call for execution leads to Sort Person command to request for a Comparator object from PersonSortUtil class.
+A comparator object is required since the sorting implementation utilizes JavaFX8's SortedList class.
+(Refer to https://docs.oracle.com/javase/8/javafx/api/javafx/collections/transformation/SortedList.html* for more information)
+Here, PersonSortUtil class is responsible in providing a suitable comparator that matches the sorting behaviour requested by the user. Upon receiving the comparator, SortPersonCommand
+calls the sortFilteredPersonList() method which requests model to perform the sorting utiling the comparator.
+// end::sortpersoncommand[]
+
 // tag::dataencryption[]
 === [Proposed] Data Encryption
 
@@ -858,15 +878,6 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 
 === Feature Contribution
 
-*Raymond*:
-
-. *Support for Tasks (Major)*:
-.. *Delete task command*: Allows tutors to delete tasks.
-.. *Edit task command*: Tutors are allowed to edit their tasks, if necessary.
-.. *View task command*: Tutors are able to view their own task.
-
-With this added support for tasks, tutors will be able to customise their schedules more easily by some of these commands.
-
 *Chih Tun*:
 
 * *Major Enhancement*: Integrated a calendar into TuitionConnect using third party software, CalendarFX.
@@ -879,25 +890,15 @@ In addition, the calendar reflects any changes to the schedule such as adding of
 . Modify select command to conduct name search on google search pop up page.
 
 
-*Buyung*:
+*Eka Buyung Lienadi*:
 
-. *ViewFiltered & View Sort* [Major Enhancement]
-This command lets tutors to view a filtered list of their stored tasks. As there are 2 kinds of tasks implemented in Tuition Connect,
-personal and tuition task, each kind of task has its own filter category.
-Within the current version, Tutors are able to utilize one of these filtering.
-First, tutors can filter their tasks by month, hence, allowing tutors to view all of their task within the specified month.
-Second, tutors can filter their tutee by the tutee's school, grade or subject.
+* *Scheduling features [Major Enhancement]* +
+. Implemented task addition, deletion, filtering and sorting features.
+. Implemented features to recognize natural language, which aids in task filtering.
 
-For the purpose of illustrating the implementation, this sequence diagram depicts the procedure when
-user desires to view a list of their tutee after being filtered by grade.
-
-image::viewFiltered-sequence-diagram.jpeg[width="800"]
-
-This view filter command is created with the purpose of simplifying tutor's life in navigating through their packed schedule.
-By having this command, tutors are able to locate their desired tasks easily.
-
-Within future version, this command would have a sorting capability. The filtered tutee
-shall be displayed after their name is sorted lexicographically.
+* [Minor Enhancement]
+. Implemented tutee listing feature.
+. Implemented tutee filtering and sorting features.
 
 *Anas*:
 

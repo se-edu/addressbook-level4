@@ -22,11 +22,9 @@ public class FindTaskCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": lists all tasks that suit the specified category\n"
             + "Parameters: CATEGORY FIND_TYPE KEYWORDS\n"
-            + "Choice of Categories: " + CATEGORY_MONTH + "\n"
-            + "Choice of Find Type: '" + INPUT_TYPE_BETWEEN + "' and '" + INPUT_TYPE_NAMELY + "'\n"
-            + "Other filter category will be implemented later.\n"
             + "1st Example: " + COMMAND_WORD + " " + CATEGORY_MONTH + " " + INPUT_TYPE_BETWEEN + " April October\n"
-            + "2nd Example: " + COMMAND_WORD + " " + CATEGORY_MONTH + " " + INPUT_TYPE_NAMELY + " 2 04 Aug December";
+            + "2nd Example: " + COMMAND_WORD + " " + CATEGORY_MONTH + " " + INPUT_TYPE_NAMELY
+            + " 2 05 Aug December now";
 
     private final String category;
     private final String[] keywords;

@@ -146,6 +146,7 @@ public class XmlAdaptedPerson {
 
         final Set<Tag> tags = new HashSet<>(personTags);
 
+        //@@author yungyung04
         if (isTutee(personTags)) {
             if (this.subject == null) {
                 throw new IllegalValueException(
@@ -188,7 +189,7 @@ public class XmlAdaptedPerson {
             return new Person(name, phone, email, address, tags);
         }
     }
-
+    //@@author
     private boolean isTutee(List<Tag> personTags) {
         return personTags.contains(new Tag("Tutee"));
     }

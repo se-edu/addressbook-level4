@@ -15,6 +15,7 @@ endif::[]
 
 By: `Team MarvelousBook`      Since: `Feb 2018`      Licence: `MIT`
 
+// tag::refineintro[]
 // tag::introduction[]
 == Introduction
 
@@ -25,6 +26,7 @@ to aid management of tutee contacts, tuition schedule and income tracking. Moreo
 root of simplicity. Hence, there are also features which supports the management of your personal contacts and tasks. +
 Certainly, it is important to recognize that reflection is the key on improvment. Tuition Connect also helps tutors to review
 their past tuition sessions as long as those sessions are not removed from the data.
+// end::refineintro[]
 
 TuitionConnect is primarily for tutors who *prefer to use a desktop app for managing contacts and tasks*.
 More importantly, TuitionConnect is *optimized for those who prefer to work with a Command Line Interface*
@@ -43,7 +45,7 @@ Having any Java 8 version is not enough. +
 This app will not work with earlier versions of Java 8.
 +
 .  Download the latest `TuitionConnect.jar` link:{https://github.com/CS2103JAN2018-T11-B1/main/releases}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
+.  Copy the file to the folder you want to use as the home folder for Tuition Connect.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
@@ -55,20 +57,24 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
 * *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
+* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the address book.
 * **`delete`**`3` : deletes the 3rd contact shown in the current list
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
 
-== Concept Introduction
+// tag::conceptintro[]
+== Concepts Introduction
 * Tutee  : this refers to the students you are teaching. Adding a student as tutee requires specific *tutee details* to be provided.
          By doing so, it will be easier to organize your contacts using our special features. +
 * Person : other contacts which are not tutee. +
-* Tutee Details : this includes tutee's education level, grade, subject and school. +
-* Task : this refers to your agenda. There are 2 different kinds of task recognized by Tuition Connect.
+* Tutee Details : these are details that are only owned by tutees, which include tutee's education level, grade, subject and school. +
+* Task : this refers to activities you want to add into your 'to-do-list'. There are 2 different kinds of task recognized by Tuition Connect.
 ** Tuition task refers to sessions when you are teaching your registered tutee. +
-** Personal task is any agenda that is not a tuition.
+** Personal task is any activity that is not a tuition.
+* Address Book : this refers to the list of contacts located on the most left side of the app.
+* Task List / Schedule : these terms are used interchangeably to refer to the list of tasks located in the middle of the app.
+// end::conceptintro[]
 
 [[Features]]
 == Features
@@ -135,17 +141,19 @@ Format: `l`
 
 === Listing all tasks : `listTask`
 
-Shows a list of all tasks in the address book. +
+Shows a list of all tasks in the task list. +
 Using Command Word: +
 Format: `listTask` +
 Using Command Alias: +
 Format: `lt`
 
+// tag::listtutee[]
 === Listing all tutees : `listtutee`
 
 Shows a list of all tutees in the address book. +
 Using Command Word: +
 Format: `list` +
+// end::listtutee[]
 
 === Editing a person : `edit`
 
@@ -161,7 +169,7 @@ Format: `e INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
 * You can remove all the person's tags by typing `t/` without specifying any tags after it.
-* This command is able to edit the general details of a tutee but is unable to edit tutee's specific details, namely : Education Level, Grade, School and Subject.
+* This command is able to edit the general details of a tutee (namely :name, phone, email, address and tags. However, it is unable to edit tutee's details.
 ****
 
 Examples:
@@ -171,6 +179,7 @@ Edits the phone number and email address of the 1st person to be `91234567` and 
 * `e 2 n/Betsy Crower t/` +
 Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
 
+// tag::findperson[]
 === Locating persons by category: `findpersonby`
 
 Finds persons or tutees whose specified category contain any of the given keywords. +
@@ -188,7 +197,7 @@ Format: `f CATEGORY KEYWORD [MORE_KEYWORDS]` +
 ** 3. grade*
 ** 4. school*
 ** 5. subject*
-* Categories marked with * are only owned by tutees.
+* Categories marked with * are only owned by tutees (tutee details).
 * Only full words will be matched e.g. `Han` will not match `Hans`
 * Persons matching at least one keyword will be returned (i.e. `OR` search).
  e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
@@ -202,7 +211,9 @@ Lists `john` and `John Doe`
 Lists any person having names `Betsy`, `Tim`, or `John`
 * `f grade B B+` +
 Lists all tutee with grade `B` and `B+`
+// end::findperson[]
 
+// tag::sortperson[]
 === Sorting persons by category: `sortpersonby`
 
 Sorts your displayed contact list according to a specified category in ascending order (lexicographically). +
@@ -229,6 +240,7 @@ Example: +
 
 * `sortpersonby Name` +
 sorts by name lexicographically.
+// end::sortperson[]
 
 === Deleting a person : `delete`
 
@@ -276,9 +288,10 @@ Selects the 2nd person in the address book.
 `s 1` +
 Selects the 1st person in the results of the `f` command.
 
+// tag::addtuition[]
 === Adding a tuition task: `addtuition`
 
-Adds a task to the Tuition Connect schedule +
+Adds a task to Tuition Connect's schedule +
 Using Command Word: +
 Format: `addtuition TUTEE_INDEX DATE TIME DURATION [DESCRIPTION] +
 
@@ -324,7 +337,9 @@ Examples:
 
 * `addtuition 1 10/05/2018 12:00 1h30m Calculus homework page 24`
 * `addtuition 1 31/12/2018 16:00 0h30m`
+// end::addtuition[]
 
+// tag::addtask[]
 === Adding a personal task: `addtask`
 
 Adds a personal task to the Tuition Connect schedule +
@@ -339,20 +354,24 @@ Examples:
 
 * `addtask 10/05/2018 12:00 1h30m Outing with friend`
 * `addtask 31/12/2018 16:00 0h30m`
+//end ::addtask[]
 
+//tag ::deletetask[]
 === Deleting a task: `deletetask`
 
 Deletes a task from the Tuition Connect schedule +
 Using Command Word: +
 Format: `deletetask TASK_INDEX`
 
-** The task is chosen by specifying a `TASK_INDEX`. The index refers to the index number shown in
-the left side of task listing. The index *must be a positive integer* 1, 2, 3, ...
+** The task is chosen by specifying a `TASK_INDEX`. The index refers to the index number shown on
+the left side of the schedule list. The index *must be a positive integer* 1, 2, 3, ...
 
 Examples:
 
 * `deletetask 1`
+// end::deletetask[]
 
+// tag::findtask[]
 === Locating tasks by category: `findtaskby`
 
 Finds tasks which specified category has value within 2 given boundaries (inclusive) or contain any of the given keywords. +
@@ -367,8 +386,8 @@ Format: `findtaskby CATEGORY FIND_TYPE KEYWORD [MORE_KEYWORDS]` +
 * CATEGORY
 ** There are 3 categories available:
 *** 1. month
-*** 2. year (coming in v2.0)
-*** 3. duration (coming in v2.0)
+*** 2. year `(coming in v2.0)`
+*** 3. duration `(coming in v2.0)`
 
 * FIND_TYPE
 ** Choice of Find Type determines the behaviour of this command and the subsequent parameters.
@@ -378,15 +397,17 @@ Format: `findtaskby CATEGORY FIND_TYPE KEYWORD [MORE_KEYWORDS]` +
 
 * KEYWORDS
 ** Keywords given depend on the specified category:
-*** 1. *month* keywords are months in either M, MM, MMM or MMMM format. +
+*** 1. *month*
+**** months in either M, MM, MMM or MMMM format. +
 e.g. '1', '01', 'jan' and 'january' are all acceptable.
+**** several common terms such as 'now', 'today', 'this month', 'current month', 'last month' and 'next month'.
 *** 2. *year* to be implemented in v2.0
 *** 3. *duration* to be implemented in v2.0
 ** The amount of keywords depend on the specified Find Type:
 *** 1. *between* +
 Exactly *2* different keywords must be provided as the boundary values. +
 *** 2. *namely* +
-Any amount can be provided. If *0* keyword is given, the displayed task list will be empty.
+Any amount can be provided. If *0* keyword is given, the displayed schedule will be empty.
 ****
 
 Examples:
@@ -397,8 +418,10 @@ Lists all tasks scheduled between January and March.
 Lists all tasks scheduled on November, December, January and February.
 * `f month namely 2 06 oct
 Lists all tasks scheduled on February, June and October.
+// end::findtask[]
 
-=== Sorting persons by category: `sorttaskby`
+// tag::sorttask[]
+=== Sorting tasks by category: `sorttaskby`
 
 Sorts your displayed task list according to a specified category in ascending order. +
 Using Command Word: +
@@ -410,13 +433,15 @@ Format: `sorttaskby CATEGORY` +
 ** 2. month
 ** 3. duration [coming in V 2.0]
 * Sorting category types is case insensitive.
+* Sorting is in increasing order. This means later is placed below the earlier.
  e.g both `sort month` and `sort Month` works fine.
 ****
 
 Example: +
 
 * `sorttaskby Month` +
-sorts tasks by month in ascending order.
+sorts tasks by month in increasing order.
+// end::sorttask[]
 
 // tag::change[]
 === Changing calendar view page time unit: `change`
@@ -478,7 +503,7 @@ Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and 
 // tag::undoredo[]
 === Undoing previous command : `undo`
 
-Restores the address book to the state before the previous _undoable_ command was executed. +
+Restores the address book and the task list to the state before the previous _undoable_ command was executed. +
 Using Command Word: +
 Format: `undo`
 Using Command Alias: +
@@ -486,7 +511,7 @@ Format: `u`
 
 [NOTE]
 ====
-Undoable commands: those commands that modify the address book's content (`add`, `delete`, `edit` and `clear`).
+Undoable commands: those commands that modify the address book's and task list's content (`add`, `addtutee`, `addtask`, `addtuition`, `delete`, `edit` and `clear`).
 ====
 
 Examples:
@@ -531,13 +556,15 @@ The `redo` command fails as there are no `undo` commands executed previously.
 `r` (reapplies the `clear` command) +
 // end::undoredo[]
 
+// tag::clear[]
 === Clearing all entries : `clear`
 
-Clears all entries from the address book. +
+Clears all entries in Tuition Connect. +
 Using Command Word: +
 Format: `clear` +
 Using Command Alias: +
 Format: `c`
+// end::clear[]
 
 === Exiting the program : `exit`
 
@@ -546,15 +573,16 @@ Format: `exit`
 
 === Saving the data
 
-Address book data are saved in the hard disk automatically after any command that
+Tuition Connect data are saved in the hard disk automatically after any command that
  changes the data. +
 There is no need to save manually.
+// tag::proposedfeatures[]
+=== View tutee fees `[coming in v2.0]`
+View the amount that has to be paid by a tutee.
 
-=== View tutee fees `[coming in v2.0]
-View the current amount that has to be paid by a tutee.
-
-=== View tuition progress [coming in v2.0]
-Shows the amount of tuition provided within several months in the form of a graph.
+=== View tuition progress `[coming in v2.0]`
+Shows the details of tuition provided within several months in the form of a graph.
+// end::proposedfeatures[]
 
 // tag::ChoChihTunV2.0[]
 === Update tutee fees `[coming in v2.0]`
@@ -579,7 +607,7 @@ _{explain how the user can enable/disable data encryption}_
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Tuition Connect folder.
 
 == Command Summary
 
