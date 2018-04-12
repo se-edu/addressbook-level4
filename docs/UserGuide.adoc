@@ -421,6 +421,8 @@ Examples:
 Lists all tasks scheduled from January until the current month.
 * `findtaskby month between November February` +
 Lists all tasks scheduled on November, December, January and February.
+* `findtaskby month between now last month` +
+Lists all tasks.
 * `f month namely 2 06 oct
 Lists all tasks scheduled on February, June and October.
 // end::findtask[]
