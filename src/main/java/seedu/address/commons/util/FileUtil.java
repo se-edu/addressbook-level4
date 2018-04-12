@@ -5,6 +5,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 
 /**
  * Writes and reads files
@@ -13,15 +14,15 @@ public class FileUtil {
 
     private static final String CHARSET = "UTF-8";
 
-    public static boolean isFileExists(File file) {
-        return file.exists() && file.isFile();
+    public static boolean isFileExists(Path file) {
+        return Files.exists(file) && Files.isRegularFile(file);
     }
 
     /**
      * Creates a file if it does not exist along with its missing parent directories.
      * @throws IOException if the file or directory cannot be created.
      */
-    public static void createIfMissing(File file) throws IOException {
+    public static void createIfMissing(Path file) throws IOException {
         if (!isFileExists(file)) {
             createFile(file);
         }
@@ -32,14 +33,15 @@ public class FileUtil {
      *
      * @return true if file is created, false if file already exists
      */
-    public static boolean createFile(File file) throws IOException {
-        if (file.exists()) {
+    public static boolean createFile(Path file) throws IOException {
+        if (Files.exists(file)) {
             return false;
         }
 
         createParentDirsOfFile(file);
 
-        return file.createNewFile();
+        Files.createFile(file);
+        return true;
     }
 
     /**
@@ -48,36 +50,37 @@ public class FileUtil {
      * @param dir the directory to be created; assumed not null
      * @throws IOException if the directory or a parent directory cannot be created
      */
-    public static void createDirs(File dir) throws IOException {
-        if (!dir.exists() && !dir.mkdirs()) {
-            throw new IOException("Failed to make directories of " + dir.getName());
+    public static void createDirs(Path dir) throws IOException {
+        if (Files.exists(dir)) {
+            return;
         }
+        Files.createDirectories(dir);
     }
 
     /**
      * Creates parent directories of file if it has a parent directory
      */
-    public static void createParentDirsOfFile(File file) throws IOException {
-        File parentDir = file.getParentFile();
+    public static void createParentDirsOfFile(Path file) throws IOException {
+        Path parentDir = file.getParent();
 
         if (parentDir != null) {
-            createDirs(parentDir);
+            Files.createDirectories(parentDir);
         }
     }
 
     /**
      * Assumes file exists
      */
-    public static String readFromFile(File file) throws IOException {
-        return new String(Files.readAllBytes(file.toPath()), CHARSET);
+    public static String readFromFile(Path file) throws IOException {
+        return new String(Files.readAllBytes(file), CHARSET);
     }
 
     /**
      * Writes given string to a file.
      * Will create the file if it does not exist yet.
      */
-    public static void writeToFile(File file, String content) throws IOException {
-        Files.write(file.toPath(), content.getBytes(CHARSET));
+    public static void writeToFile(Path file, String content) throws IOException {
+        Files.write(file, content.getBytes(CHARSET));
     }
 
     /**
