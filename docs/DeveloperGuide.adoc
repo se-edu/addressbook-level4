@@ -441,7 +441,7 @@ As shown in the sequence diagram, the Logic command's call for execution leads t
 A comparator object is required since the sorting implementation utilizes JavaFX8's SortedList class.
 (Refer to https://docs.oracle.com/javase/8/javafx/api/javafx/collections/transformation/SortedList.html* for more information)
 Here, PersonSortUtil class is responsible in providing a suitable comparator that matches the sorting behaviour requested by the user. Upon receiving the comparator, SortPersonCommand
-calls the sortFilteredPersonList() method which requests model to perform the sorting utiling the comparator.
+calls the sortFilteredPersonList() method in method which utilises a SortedList object to perform the sorting.
 // end::sortpersoncommand[]
 
 // tag::dataencryption[]

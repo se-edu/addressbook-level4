@@ -417,8 +417,8 @@ Any amount can be provided. If *0* keyword is given, the displayed schedule will
 
 Examples:
 
-* `findtaskby month between january Mar` +
-Lists all tasks scheduled between January and March.
+* `findtaskby month between january current month` +
+Lists all tasks scheduled from January until the current month.
 * `findtaskby month between November February` +
 Lists all tasks scheduled on November, December, January and February.
 * `f month namely 2 06 oct
