@@ -81,7 +81,7 @@ public class AddTuteeCommandTest {
         // null
         assertFalse(addAliceCommand.equals(null));
 
-        // invalid parameter data type
+        // wrong parameter data type
         assertFalse(addAliceCommand.equals(1));
 
         // different tutee

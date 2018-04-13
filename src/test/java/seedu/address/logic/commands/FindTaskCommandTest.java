@@ -58,7 +58,7 @@ public class FindTaskCommandTest {
         // null
         assertFalse(findMonthBetweenKeywordsCommand.equals(null));
 
-        // invalid parameter data type
+        // wrong parameter data type
         assertFalse(findMonthBetweenKeywordsCommand.equals(1));
 
         // different commands

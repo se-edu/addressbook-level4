@@ -178,6 +178,10 @@ public class AddressBook implements ReadOnlyAddressBook {
             return;
         }
 
+        if (tag.tagName.equals("Tutee")) {
+            return;
+        }
+
         Person newPerson =
                 new Person(person.getName(), person.getPhone(), person.getEmail(), person.getAddress(), newTags);
 

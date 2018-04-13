@@ -11,7 +11,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Grade {
 
     public static final String MESSAGE_GRADE_CONSTRAINTS =
-            "Grade should start with alphabetic characters and followed by any character or blank, "
+            "Grade should start with an alphabetic character and followed by any character (ONLY ONE) or blank, "
             + "and it should not be blank";
     public static final String GRADE_VALIDATION_REGEX = "[\\p{Alpha}].??";
 
