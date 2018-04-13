@@ -1,4 +1,4 @@
-== TuitionConnect (TC) - User Guide
+= TuitionConnect (TC) - User Guide
 :toc:
 :toc-title:
 :toc-placement: preamble
@@ -20,11 +20,9 @@ By: `Team MarvelousBook`      Since: `Feb 2018`      Licence: `MIT`
 
 TuitionConnect (TC) is an integration of a personalised address book, task manager and income tracker for private home tutors. +
 
-Stems from our strong passion in simplifying the life of tutors, Tuition Connect introduces features
+Stems from our strong passion in simplifying the life of tutors, TuitionConnect introduces features
 to aid management of tutee contacts, tuition schedule and income tracking. Moreover, we believe that a thorough connectivity is the
-root of simplicity. Hence, there are also features which supports the management of your personal contacts and tasks. +
-Certainly, it is important to recognize that reflection is the key on improvment. Tuition Connect also helps tutors to review
-their past tuition sessions as long as those sessions are not removed from the data.
+root of simplicity. Hence, there are also features which support the management of your personal contacts and tasks. +
 
 TuitionConnect is primarily for tutors who *prefer to use a desktop app for managing contacts and tasks*.
 More importantly, TuitionConnect is *optimized for those who prefer to work with a Command Line Interface*
@@ -43,7 +41,7 @@ Having any Java 8 version is not enough. +
 This app will not work with earlier versions of Java 8.
 +
 .  Download the latest `TuitionConnect.jar` link:{https://github.com/CS2103JAN2018-T11-B1/main/releases}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for Tuition Connect.
+.  Copy the file to the folder you want to use as the home folder for TuitionConnect.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
@@ -63,14 +61,15 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 // tag::conceptintro[]
 == Concepts Introduction
-* Tutee  : this refers to the students you are teaching. Adding a student as tutee requires specific *tutee details* to be provided.
+* Tutee  : This refers to the students you are teaching. Adding a student as tutee requires specific *tutee details* to be provided.
          By doing so, it will be easier to organize your contacts using our special features. +
-* Person : other contacts which are not tutee. +
-* Tutee Details : these are details that are only owned by tutees, which include tutee's education level, grade, subject and school. +
-* Task : this refers to activities you want to add into your 'to-do-list'. There are 2 different kinds of task recognized by Tuition Connect.
-** Tuition task refers to sessions when you are teaching your registered tutee. +
-** Personal task is any activity that is not a tuition.
-* Address Book : this refers to the list of contacts located on the most left side of the app.
+* Person : Other contacts which are not tutee. +
+* Tutee Details : These are details that are only owned by tutees, which include tutee's education level, grade, subject and school. +
+* Task : This refers to the activities you want to add into your 'to-do-list'. +
+Type of Task: +
+. Tuition task: Teaching a specified tutee in contact list. +
+. Personal task: Non-tuition activity.
+* Address Book : This refers to the list of contacts located on the most left side of the app.
 * Task List / Schedule : these terms are used interchangeably to refer to the list of tasks located in the middle of the app.
 // end::conceptintro[]
 
@@ -118,15 +117,17 @@ A tutee can have any number of tags (including 0)
 
 [NOTE]
 ====
-* Education level can only be either primary, secondary or junior college +
+* Education level can only be either primary, secondary or junior college (NOT case sensitive) +
 * All details except tag MUST be added
+* Special character in grade can be anything since different institution may use different grading system. +
+i.e. B+, B3, B$, B# etc are all valid
 ====
 
 Examples:
 
 * `addtutee n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01 s/Economics g/B+ edu/junior college sch/Victoria Junior College`
 * `addtutee n/Betsy Crowe s/Mathematics g/C e/betsycrowe@example.com a/Newgate Town p/1234567 t/owesMoney sch/Victoria Institution edu/secondary`
-* `addtutee n/Dickson ee p/91234567 e/dickson@exmaple.com a/Dickson street, block 456, #02-02 s/english g/f edu/primary sch/Newgate Primary School`
+* `addtutee n/Dickson ee p/91234567 e/dickson@exmaple.com a/Dickson street, block 456, #02-02 s/english g/f9 edu/primary sch/Newgate Primary School`
 // end::addtutee[]
 
 === Listing all persons : `list`
@@ -154,7 +155,7 @@ only a specific set of tasks were displayed.
 
 Shows a list of all tutees in the address book. +
 Using Command Word: +
-Format: `list` +
+Format: `listtutee` +
 // end::listtutee[]
 
 === Editing a person : `edit`
@@ -165,14 +166,15 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
 Using Comamnd Alias: +
 Format: `e INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
 
-****
+[NOTE]
+====
 * Edits the person at the specified `INDEX`. The index refers to the index number shown in the last person listing. The index *must be a positive integer* 1, 2, 3, ...
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
 * You can remove all the person's tags by typing `t/` without specifying any tags after it.
-* This command is able to edit the general details of a tutee (namely :name, phone, email, address and tags. However, it is unable to edit tutee's details.
-****
+* This command is able to edit the general details of a tutee (name, phone, email, address and tags). However, it is unable to edit tutee's details (subject, grade, education level, school and tutee tag).
+====
 
 Examples:
 
@@ -293,7 +295,7 @@ Selects the 1st person in the results of the `f` command.
 // tag::addtuition[]
 === Adding a tuition task: `addtuition`
 
-Adds a task to Tuition Connect's schedule +
+Adds a task to TuitionConnect's schedule +
 Using Command Word: +
 Format: `addtuition TUTEE_INDEX DATE TIME DURATION [DESCRIPTION] +
 
@@ -344,7 +346,7 @@ Examples:
 // tag::addtask[]
 === Adding a personal task: `addtask`
 
-Adds a personal task to the Tuition Connect schedule +
+Adds a personal task to the TuitionConnect schedule +
 Using Command Word: +
 Format: `addtask DATE TIME DURATION [DESCRIPTION]+
 
@@ -361,7 +363,7 @@ Examples:
 // tag::deletetask[]
 === Deleting a task: `deletetask`
 
-Deletes a task from the Tuition Connect schedule +
+Deletes a task from the TuitionConnect schedule +
 Using Command Word: +
 Format: `deletetask TASK_INDEX`
 
@@ -565,7 +567,7 @@ The `redo` command fails as there are no `undo` commands executed previously.
 
 === Clearing all entries : `clear`
 
-Clears all entries in Tuition Connect. +
+Clears all entries in TuitionConnect. +
 Using Command Word: +
 Format: `clear` +
 Using Command Alias: +
@@ -578,7 +580,7 @@ Format: `exit`
 
 === Saving the data
 
-Tuition Connect data are saved in the hard disk automatically after any command that
+TuitionConnect data are saved in the hard disk automatically after any command that
  changes the data. +
 There is no need to save manually.
 // tag::proposedfeatures[]
@@ -612,7 +614,7 @@ _{explain how the user can enable/disable data encryption}_
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Tuition Connect folder.
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous TuitionConnect folder.
 
 == Command Summary
 
