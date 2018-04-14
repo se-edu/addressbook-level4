@@ -1,9 +1,6 @@
-/*
- * Gradle Configuration File
- *
- * For more details take a look at the Java Quickstart chapter in the Gradle
- * user guide available at http://gradle.org/docs/4.6/userguide/tutorial_java_projects.html
- */
+// Gradle Configuration File
+// For more details take a look at the Java Quickstart chapter in the Gradle
+// user guide available at http://gradle.org/docs/4.6/userguide/tutorial_java_projects.html
 
 plugins {
     id 'java'
@@ -120,11 +117,9 @@ allTests.dependsOn nonGuiTests
 test {
     systemProperty 'testfx.setup.timeout', '60000'
 
-    /*
-     * Prints the currently running test's name in the CI's build log,
-     * so that we can check if tests are being silently skipped or
-     * stalling the build.
-     */
+    // Prints the currently running test's name in the CI's build log,
+    // so that we can check if tests are being silently skipped or
+    // stalling the build.
     if (System.env.'CI') {
         beforeTest { descriptor ->
             logger.lifecycle("Running test: ${descriptor}")
@@ -193,11 +188,9 @@ asciidoctor {
     ]
 }
 
-/*
- * Copies stylesheets into the directory containing generated HTML files as
- * Asciidoctor does not copy linked CSS files to the output directory when rendering.
- * This is needed for linked stylesheets and embedded stylesheets which import other files.
- */
+// Copies stylesheets into the directory containing generated HTML files as
+// Asciidoctor does not copy linked CSS files to the output directory when rendering.
+// This is needed for linked stylesheets and embedded stylesheets which import other files.
 task copyStylesheets(type: Copy) {
     from "${asciidoctor.sourceDir}/stylesheets"
     into "${asciidoctor.outputDir}/html5/stylesheets"
