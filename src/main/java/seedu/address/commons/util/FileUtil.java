@@ -5,7 +5,9 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.InvalidPathException;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 
 /**
  * Writes and reads files
@@ -16,6 +18,20 @@ public class FileUtil {
 
     public static boolean isFileExists(Path file) {
         return Files.exists(file) && Files.isRegularFile(file);
+    }
+
+    /**
+     * Returns true if {@code path} can be converted into a {@code Path} via {@link Paths#get(String)}, otherwise
+     * returns false.
+     * @param path A String representing the file path. Cannot be null.
+     */
+    public static boolean isValidPath(String path) {
+        try {
+            Paths.get(path);
+        } catch (InvalidPathException ipe) {
+            return false;
+        }
+        return true;
     }
 
     /**
