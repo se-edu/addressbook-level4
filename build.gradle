@@ -1,16 +1,13 @@
-/*
- * Gradle Configuration File
- *
- * For more details take a look at the Java Quickstart chapter in the Gradle
- * user guide available at http://gradle.org/docs/2.2.1/userguide/tutorial_java_projects.html
- */
+// Gradle Configuration File
+// For more details take a look at the Java Quickstart chapter in the Gradle
+// user guide available at http://gradle.org/docs/4.6/userguide/tutorial_java_projects.html
 
 plugins {
     id 'java'
     id 'jacoco'
     id 'checkstyle'
-    id "com.github.kt3k.coveralls" version "2.4.0"
-    id "com.github.johnrengelman.shadow" version '1.2.3'
+    id 'com.github.kt3k.coveralls' version '2.4.0'
+    id 'com.github.johnrengelman.shadow' version '2.0.3'
     id 'org.asciidoctor.convert' version '1.5.6'
     id 'application'
 }
@@ -23,7 +20,7 @@ targetCompatibility = JavaVersion.VERSION_1_9
 
 repositories {
     mavenCentral()
-    maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
+    maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
 }
 
 checkstyle {
@@ -34,7 +31,7 @@ jacocoTestReport {
     reports {
         xml.enabled false
         csv.enabled false
-        html.destination "${buildDir}/jacocoHtml"
+        html.destination file("${buildDir}/jacocoHtml")
     }
 }
 
@@ -46,34 +43,31 @@ dependencies {
     String testFxVersion = '4.0.12-alpha'
     String jUnitVersion = '5.1.0'
 
-    compile group: 'org.controlsfx', name: 'controlsfx', version: '8.40.11'
-    compile group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.7.0'
-    compile group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: '2.7.4'
-    compile group: 'com.google.guava', name: 'guava', version: '19.0'
-    compile group: 'javax.xml.bind', name: 'jaxb-api', version: '2.2.8'
-    compile group: 'com.sun.xml.bind', name: 'jaxb-impl', version: '2.3.0'
-    compile group: 'com.sun.xml.bind', name: 'jaxb-core', version: '2.3.0'
-    compile group: 'javax.activation', name: 'activation', version: '1.1.1'
+    implementation group: 'org.controlsfx', name: 'controlsfx', version: '8.40.11'
+    implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.7.0'
+    implementation group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: '2.7.4'
+    implementation group: 'com.google.guava', name: 'guava', version: '19.0'
+    implementation group: 'javax.xml.bind', name: 'jaxb-api', version: '2.2.8'
+    implementation group: 'com.sun.xml.bind', name: 'jaxb-impl', version: '2.3.0'
+    implementation group: 'com.sun.xml.bind', name: 'jaxb-core', version: '2.3.0'
+    implementation group: 'javax.activation', name: 'activation', version: '1.1.1'
 
-    testCompile group: 'junit', name: 'junit', version: '4.12'
-    testCompile group: 'org.testfx', name: 'testfx-core', version: testFxVersion, {
+    testImplementation group: 'junit', name: 'junit', version: '4.12'
+    testImplementation group: 'org.testfx', name: 'testfx-core', version: testFxVersion, {
         exclude group: 'org.testfx', module: 'testfx-internal-java8'
     }
-    testCompile group: 'org.testfx', name: 'testfx-junit', version: testFxVersion
-    testCompile group: 'org.testfx', name: 'testfx-legacy', version: '4.0.8-alpha', {
-        exclude group: 'junit', module: 'junit'
-    }
+    testImplementation group: 'org.testfx', name: 'testfx-junit', version: testFxVersion
 
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: jUnitVersion
 
-    testRuntime group: 'org.testfx', name: 'testfx-internal-java9', version: testFxVersion
-    testRuntime group: 'org.testfx', name: 'openjfx-monocle', version: 'jdk-9+181'
+    testRuntimeOnly group: 'org.testfx', name: 'testfx-internal-java9', version: testFxVersion
+    testRuntimeOnly group: 'org.testfx', name: 'openjfx-monocle', version: 'jdk-9+181'
     testRuntimeOnly group:'org.junit.vintage', name:'junit-vintage-engine', version: jUnitVersion
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: jUnitVersion
 }
 
 shadowJar {
-    archiveName = "addressbook.jar"
+    archiveName = 'addressbook.jar'
 
     destinationDir = file("${buildDir}/jar/")
 }
@@ -83,9 +77,9 @@ task wrapper(type: Wrapper) {
 }
 
 task coverage(type: JacocoReport) {
-    sourceDirectories = files(allprojects.sourceSets.main.allSource.srcDirs)
-    classDirectories =  files(allprojects.sourceSets.main.output)
-    executionData = files(allprojects.jacocoTestReport.executionData)
+    sourceDirectories = files(sourceSets.main.allSource.srcDirs)
+    classDirectories =  files(sourceSets.main.output)
+    executionData = files(jacocoTestReport.executionData)
     afterEvaluate {
         classDirectories = files(classDirectories.files.collect {
             fileTree(dir: it, exclude: ['**/*.jar'])
@@ -98,7 +92,7 @@ task coverage(type: JacocoReport) {
 }
 
 coveralls {
-    sourceDirs = allprojects.sourceSets.main.allSource.srcDirs.flatten()
+    sourceDirs = sourceSets.main.allSource.srcDirs.absolutePath
     jacocoReportPath = "${buildDir}/reports/jacoco/coverage/coverage.xml"
 }
 
@@ -123,14 +117,12 @@ allTests.dependsOn nonGuiTests
 test {
     systemProperty 'testfx.setup.timeout', '60000'
 
-    /*
-     * Prints the currently running test's name in the CI's build log,
-     * so that we can check if tests are being silently skipped or
-     * stalling the build.
-     */
+    // Prints the currently running test's name in the CI's build log,
+    // so that we can check if tests are being silently skipped or
+    // stalling the build.
     if (System.env.'CI') {
         beforeTest { descriptor ->
-            logger.lifecycle('Running test: ' + descriptor)
+            logger.lifecycle("Running test: ${descriptor}")
         }
     }
 
@@ -143,8 +135,8 @@ test {
         boolean runNonGuiTests = gradle.taskGraph.hasTask(nonGuiTests)
 
         if (!runGuiTests && !runNonGuiTests) {
-            runGuiTests = true;
-            runNonGuiTests = true;
+            runGuiTests = true
+            runNonGuiTests = true
         }
 
         if (runNonGuiTests) {
@@ -162,14 +154,17 @@ test {
     }
 }
 
-task headless << {
-    println "Setting headless mode properties."
-    test {
-        systemProperty 'java.awt.robot', 'true'
-        systemProperty 'testfx.robot', 'glass'
-        systemProperty 'testfx.headless', 'true'
-        systemProperty 'prism.order', 'sw'
-        systemProperty 'prism.text', 't2k'
+task headless {
+    doLast {
+        println 'Setting headless mode properties.'
+        test {
+            systemProperties = [
+                'testfx.robot': 'glass',
+                'testfx.headless': 'true',
+                'prism.order': 'sw',
+                'prism.text': 't2k',
+            ]
+        }
     }
 }
 
@@ -181,21 +176,21 @@ asciidoctor {
     sourceDir 'docs'
     outputDir "${buildDir}/docs"
 
-    attributes linkcss: true,
-               stylesheet: 'gh-pages.css',
-               'source-highlighter': 'coderay',
-               icons: 'font',
-               experimental: true,
-               sectlinks: true,
-               idprefix: '',  // for compatibility with GitHub preview
-               idseparator: '-'
+    attributes = [
+        linkcss: true,
+        stylesheet: 'gh-pages.css',
+        'source-highlighter': 'coderay',
+        icons: 'font',
+        experimental: true,
+        sectlinks: true,
+        idprefix: '',  // for compatibility with GitHub preview
+        idseparator: '-',
+    ]
 }
 
-/*
- * Copies stylesheets into the directory containing generated HTML files as
- * Asciidoctor does not copy linked CSS files to the output directory when rendering.
- * This is needed for linked stylesheets and embedded stylesheets which import other files.
- */
+// Copies stylesheets into the directory containing generated HTML files as
+// Asciidoctor does not copy linked CSS files to the output directory when rendering.
+// This is needed for linked stylesheets and embedded stylesheets which import other files.
 task copyStylesheets(type: Copy) {
     from "${asciidoctor.sourceDir}/stylesheets"
     into "${asciidoctor.outputDir}/html5/stylesheets"
