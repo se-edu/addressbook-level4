@@ -46,8 +46,11 @@ public class HelpWindowTest extends GuiUnitTest {
     }
 
     @Test
-    public void focus_helpWindowNotFocused_focused() {
+    public void focus_helpWindowNotFocused_focused() throws Exception {
         guiRobot.interact(helpWindow::show);
+
+        // Focus on another stage to remove focus from the helpWindow
+        FxToolkit.setupStage(Stage::requestFocus);
         assertFalse(helpWindow.getRoot().isFocused());
 
         guiRobot.interact(helpWindow::focus);
