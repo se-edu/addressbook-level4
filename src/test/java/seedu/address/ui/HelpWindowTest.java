@@ -3,10 +3,10 @@ package seedu.address.ui;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assume.assumeFalse;
 import static seedu.address.ui.HelpWindow.USERGUIDE_FILE_PATH;
 
 import java.net.URL;
-import java.util.logging.Logger;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -14,10 +14,8 @@ import org.testfx.api.FxToolkit;
 
 import guitests.guihandles.HelpWindowHandle;
 import javafx.stage.Stage;
-import seedu.address.commons.core.LogsCenter;
 
 public class HelpWindowTest extends GuiUnitTest {
-    private static final Logger logger = LogsCenter.getLogger(HelpWindowTest.class);
 
     private HelpWindow helpWindow;
     private HelpWindowHandle helpWindowHandle;
@@ -50,11 +48,7 @@ public class HelpWindowTest extends GuiUnitTest {
 
     @Test
     public void focus_helpWindowNotFocused_focused() throws Exception {
-        if (guiRobot.isHeadlessMode()) {
-            logger.warning("TEST SKIPPED IN HEADLESS MODE, RUN IT IN HEAD-FULL MODE INSTEAD");
-            return;
-        }
-
+        assumeFalse(guiRobot.isHeadlessMode());
         guiRobot.interact(helpWindow::show);
 
         // Focus on another stage to remove focus from the helpWindow
