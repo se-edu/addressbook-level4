@@ -1,5 +1,7 @@
 package seedu.address;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Map;
 import java.util.logging.Logger;
 
@@ -13,13 +15,13 @@ import seedu.address.commons.util.FileUtil;
 public class AppParameters {
     private static final Logger logger = LogsCenter.getLogger(AppParameters.class);
 
-    private String configPath;
+    private Path configPath;
 
-    public String getConfigPath() {
+    public Path getConfigPath() {
         return configPath;
     }
 
-    public void setConfigPath(String configPath) {
+    public void setConfigPath(Path configPath) {
         this.configPath = configPath;
     }
 
@@ -35,7 +37,7 @@ public class AppParameters {
             logger.warning("Invalid config path " + configPathParameter + ". Using default config path.");
             configPathParameter = null;
         }
-        appParameters.setConfigPath(configPathParameter != null ? configPathParameter : null);
+        appParameters.setConfigPath(configPathParameter != null ? Paths.get(configPathParameter) : null);
 
         return appParameters;
     }
