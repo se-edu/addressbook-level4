@@ -40,6 +40,13 @@ public class GuiRobot extends FxRobot {
     }
 
     /**
+     * Returns true if tests are run in headless mode.
+     */
+    public boolean isHeadlessMode() {
+        return isHeadlessMode;
+    }
+
+    /**
      * Waits for {@code event} to be true by {@code DEFAULT_WAIT_FOR_EVENT_TIMEOUT_MILLISECONDS} milliseconds.
      *
      * @throws EventTimeoutException if the time taken exceeds {@code DEFAULT_WAIT_FOR_EVENT_TIMEOUT_MILLISECONDS}
