@@ -4,6 +4,7 @@ import java.util.Optional;
 import java.util.function.BooleanSupplier;
 
 import org.testfx.api.FxRobot;
+import org.testfx.api.FxToolkit;
 
 import guitests.guihandles.exceptions.StageNotFoundException;
 import javafx.stage.Stage;
@@ -37,6 +38,13 @@ public class GuiRobot extends FxRobot {
         }
 
         sleep(PAUSE_FOR_HUMAN_DELAY_MILLISECONDS);
+    }
+
+    /**
+     * Removes focus from the current stage.
+     */
+    public void removeFocus() throws Exception {
+        FxToolkit.setupStage(dummyStage -> dummyStage.requestFocus());
     }
 
     /**
