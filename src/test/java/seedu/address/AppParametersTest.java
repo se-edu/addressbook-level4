@@ -2,6 +2,7 @@ package seedu.address;
 
 import static org.junit.Assert.assertEquals;
 
+import java.nio.file.Paths;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -20,7 +21,7 @@ public class AppParametersTest {
         parametersStub.namedParameters.put("config", "config.json");
 
         AppParameters expected = new AppParameters();
-        expected.setConfigPath("config.json");
+        expected.setConfigPath(Paths.get("config.json"));
 
         assertEquals(expected.getConfigPath(), AppParameters.parse(parametersStub).getConfigPath());
 
