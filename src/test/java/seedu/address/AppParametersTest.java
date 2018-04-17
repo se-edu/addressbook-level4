@@ -2,6 +2,7 @@ package seedu.address;
 
 import static org.junit.Assert.assertEquals;
 
+import java.nio.file.Paths;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -19,13 +20,20 @@ public class AppParametersTest {
     @Test
     public void parse_validParameters_success() {
         parametersStub.namedParameters.put("config", "config.json");
-        expected.setConfigPath("config.json");
+        expected.setConfigPath(Paths.get("config.json"));
         assertEquals(expected, AppParameters.parse(parametersStub));
     }
 
     @Test
     public void parse_nullPath_success() {
         parametersStub.namedParameters.put("config", null);
+        expected.setConfigPath(null);
+        assertEquals(expected, AppParameters.parse(parametersStub));
+    }
+
+    @Test
+    public void parse_invalidPath_success() {
+        parametersStub.namedParameters.put("config", "a\0");
         expected.setConfigPath(null);
         assertEquals(expected, AppParameters.parse(parametersStub));
     }
