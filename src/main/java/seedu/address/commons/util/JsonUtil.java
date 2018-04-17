@@ -5,7 +5,6 @@ import static java.util.Objects.requireNonNull;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -57,21 +56,20 @@ public class JsonUtil {
      * @throws DataConversionException if the file format is not as expected.
      */
     public static <T> Optional<T> readJsonFile(
-            String filePath, Class<T> classOfObjectToDeserialize) throws DataConversionException {
+            Path filePath, Class<T> classOfObjectToDeserialize) throws DataConversionException {
         requireNonNull(filePath);
-        Path file = Paths.get(filePath);
 
-        if (!Files.exists(file)) {
-            logger.info("Json file "  + file + " not found");
+        if (!Files.exists(filePath)) {
+            logger.info("Json file "  + filePath + " not found");
             return Optional.empty();
         }
 
         T jsonFile;
 
         try {
-            jsonFile = deserializeObjectFromJsonFile(file, classOfObjectToDeserialize);
+            jsonFile = deserializeObjectFromJsonFile(filePath, classOfObjectToDeserialize);
         } catch (IOException e) {
-            logger.warning("Error reading from jsonFile file " + file + ": " + e);
+            logger.warning("Error reading from jsonFile file " + filePath + ": " + e);
             throw new DataConversionException(e);
         }
 
@@ -85,11 +83,11 @@ public class JsonUtil {
      * @param filePath cannot be null
      * @throws IOException if there was an error during writing to the file
      */
-    public static <T> void saveJsonFile(T jsonFile, String filePath) throws IOException {
+    public static <T> void saveJsonFile(T jsonFile, Path filePath) throws IOException {
         requireNonNull(filePath);
         requireNonNull(jsonFile);
 
-        serializeObjectToJsonFile(Paths.get(filePath), jsonFile);
+        serializeObjectToJsonFile(filePath, jsonFile);
     }
 
 

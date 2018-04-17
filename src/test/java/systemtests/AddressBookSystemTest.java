@@ -12,6 +12,8 @@ import static seedu.address.ui.testutil.GuiTestAssert.assertListMatching;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
@@ -89,7 +91,7 @@ public abstract class AddressBookSystemTest {
     /**
      * Returns the directory of the data file.
      */
-    protected String getDataFileLocation() {
+    protected Path getDataFileLocation() {
         return TestApp.SAVE_LOCATION_FOR_TESTING;
     }
 
@@ -278,7 +280,8 @@ public abstract class AddressBookSystemTest {
             assertEquals("", getResultDisplay().getText());
             assertListMatching(getPersonListPanel(), getModel().getFilteredPersonList());
             assertEquals(MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_PAGE), getBrowserPanel().getLoadedUrl());
-            assertEquals("./" + testApp.getStorageSaveLocation(), getStatusBarFooter().getSaveLocation());
+            assertEquals(Paths.get(".").resolve(testApp.getStorageSaveLocation()).toString(),
+                    getStatusBarFooter().getSaveLocation());
             assertEquals(SYNC_STATUS_INITIAL, getStatusBarFooter().getSyncStatus());
         } catch (Exception e) {
             throw new AssertionError("Starting state is wrong.", e);

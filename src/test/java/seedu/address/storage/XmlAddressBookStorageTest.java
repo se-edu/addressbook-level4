@@ -8,6 +8,8 @@ import static seedu.address.testutil.TypicalPersons.IDA;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -15,12 +17,11 @@ import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
 
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.commons.util.FileUtil;
 import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 
 public class XmlAddressBookStorageTest {
-    private static final String TEST_DATA_FOLDER = FileUtil.getPath("./src/test/data/XmlAddressBookStorageTest/");
+    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "XmlAddressBookStorageTest");
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -35,12 +36,12 @@ public class XmlAddressBookStorageTest {
     }
 
     private java.util.Optional<ReadOnlyAddressBook> readAddressBook(String filePath) throws Exception {
-        return new XmlAddressBookStorage(filePath).readAddressBook(addToTestDataPathIfNotNull(filePath));
+        return new XmlAddressBookStorage(Paths.get(filePath)).readAddressBook(addToTestDataPathIfNotNull(filePath));
     }
 
-    private String addToTestDataPathIfNotNull(String prefsFileInTestDataFolder) {
+    private Path addToTestDataPathIfNotNull(String prefsFileInTestDataFolder) {
         return prefsFileInTestDataFolder != null
-                ? TEST_DATA_FOLDER + prefsFileInTestDataFolder
+                ? TEST_DATA_FOLDER.resolve(prefsFileInTestDataFolder)
                 : null;
     }
 
@@ -74,7 +75,7 @@ public class XmlAddressBookStorageTest {
 
     @Test
     public void readAndSaveAddressBook_allInOrder_success() throws Exception {
-        String filePath = testFolder.getRoot().getPath() + "TempAddressBook.xml";
+        Path filePath = testFolder.getRoot().toPath().resolve("TempAddressBook.xml");
         AddressBook original = getTypicalAddressBook();
         XmlAddressBookStorage xmlAddressBookStorage = new XmlAddressBookStorage(filePath);
 
@@ -109,7 +110,8 @@ public class XmlAddressBookStorageTest {
      */
     private void saveAddressBook(ReadOnlyAddressBook addressBook, String filePath) {
         try {
-            new XmlAddressBookStorage(filePath).saveAddressBook(addressBook, addToTestDataPathIfNotNull(filePath));
+            new XmlAddressBookStorage(Paths.get(filePath))
+                    .saveAddressBook(addressBook, addToTestDataPathIfNotNull(filePath));
         } catch (IOException ioe) {
             throw new AssertionError("There should not be an error writing to the file.", ioe);
         }

@@ -1,6 +1,7 @@
 package seedu.address;
 
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -109,9 +110,9 @@ public class MainApp extends Application {
      * The default file path {@code Config#DEFAULT_CONFIG_FILE} will be used instead
      * if {@code configFilePath} is null.
      */
-    protected Config initConfig(String configFilePath) {
+    protected Config initConfig(Path configFilePath) {
         Config initializedConfig;
-        String configFilePathUsed;
+        Path configFilePathUsed;
 
         configFilePathUsed = Config.DEFAULT_CONFIG_FILE;
 
@@ -146,7 +147,7 @@ public class MainApp extends Application {
      * reading from the file.
      */
     protected UserPrefs initPrefs(UserPrefsStorage storage) {
-        String prefsFilePath = storage.getUserPrefsFilePath();
+        Path prefsFilePath = storage.getUserPrefsFilePath();
         logger.info("Using prefs file : " + prefsFilePath);
 
         UserPrefs initializedPrefs;
