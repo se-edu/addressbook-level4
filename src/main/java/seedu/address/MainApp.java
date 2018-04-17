@@ -1,7 +1,6 @@
 package seedu.address;
 
 import java.io.IOException;
-import java.util.Map;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -57,7 +56,8 @@ public class MainApp extends Application {
         logger.info("=============================[ Initializing AddressBook ]===========================");
         super.init();
 
-        config = initConfig(getApplicationParameter("config"));
+        AppParameters appParameters = AppParameters.parse(getParameters());
+        config = initConfig(appParameters.getConfigPath());
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         userPrefs = initPrefs(userPrefsStorage);
@@ -73,11 +73,6 @@ public class MainApp extends Application {
         ui = new UiManager(logic, config, userPrefs);
 
         initEventsCenter();
-    }
-
-    private String getApplicationParameter(String parameterName) {
-        Map<String, String> applicationParameters = getParameters().getNamed();
-        return applicationParameters.get(parameterName);
     }
 
     /**
