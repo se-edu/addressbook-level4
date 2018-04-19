@@ -163,10 +163,6 @@ public class DeleteCommandTest {
         DeleteCommand deleteFirstCommandCopy = prepareCommand(INDEX_FIRST_PERSON);
         assertTrue(deleteFirstCommand.equals(deleteFirstCommandCopy));
 
-        // one command preprocessed when previously equal -> returns false
-        deleteFirstCommandCopy.preprocessUndoableCommand();
-        assertFalse(deleteFirstCommand.equals(deleteFirstCommandCopy));
-
         // different types -> returns false
         assertFalse(deleteFirstCommand.equals(1));
 
