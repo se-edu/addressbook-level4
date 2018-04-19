@@ -4,22 +4,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Maintains a list of all address book states the app previously was in.
- * This class is based on the CareTaker class in the Memento design pattern.
- * @see <a href="https://www.tutorialspoint.com/design_pattern/memento_pattern.htm">Memento design pattern tutorial</a>
+ * Keeps tracks of the different versions of address book the app was in.
  */
-public class UndoRedoCareTaker {
+public class VersionedAddressBook extends AddressBook {
+
     private List<ReadOnlyAddressBook> addressBookStateList;
     private int currentStatePointer;
 
-    public UndoRedoCareTaker(ReadOnlyAddressBook initialState) {
+    public VersionedAddressBook(ReadOnlyAddressBook initialState) {
+        super(initialState);
+
         addressBookStateList = new ArrayList<>();
         addressBookStateList.add(new AddressBook(initialState));
         currentStatePointer = 0;
     }
 
     /**
-     * Removes all states that are after {@code currentStatePointer}, and adds the {@code newState} to end of the list.
+     * Adds a defensive copy of {@code newState} to end of the list. Previously undone states that are not redone are
+     * removed.
      */
     public void addNewState(ReadOnlyAddressBook newState) {
         removeStatesAfterCurrentPointer();
@@ -32,25 +34,25 @@ public class UndoRedoCareTaker {
     }
 
     /**
-     * Returns the previous address book state in the list.
+     * Restores the address book to its previous state.
      */
-    public ReadOnlyAddressBook undo() {
+    public void undo() {
         if (!canUndo()) {
             throw new NoUndoableStateException();
         }
         currentStatePointer--;
-        return addressBookStateList.get(currentStatePointer);
+        resetData(addressBookStateList.get(currentStatePointer));
     }
 
     /**
-     * Returns the next address book state in the list.
+     * Restores the address book to its previously undone state.
      */
-    public ReadOnlyAddressBook redo() {
+    public void redo() {
         if (!canRedo()) {
             throw new NoRedoableStateException();
         }
         currentStatePointer++;
-        return addressBookStateList.get(currentStatePointer);
+        resetData(addressBookStateList.get(currentStatePointer));
     }
 
     /**
@@ -75,32 +77,33 @@ public class UndoRedoCareTaker {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof UndoRedoCareTaker)) {
+        if (!(other instanceof VersionedAddressBook)) {
             return false;
         }
 
-        UndoRedoCareTaker otherUndoRedoCareTaker = (UndoRedoCareTaker) other;
+        VersionedAddressBook otherVersionedAddressBook = (VersionedAddressBook) other;
 
         // state check
-        return addressBookStateList.equals(otherUndoRedoCareTaker.addressBookStateList)
-                && currentStatePointer == otherUndoRedoCareTaker.currentStatePointer;
+        return super.equals(otherVersionedAddressBook)
+                && addressBookStateList.equals(otherVersionedAddressBook.addressBookStateList)
+                && currentStatePointer == otherVersionedAddressBook.currentStatePointer;
     }
 
     /**
-     * Thrown when trying to {@code undo()} and can't.
+     * Thrown when trying to {@code undo()} but can't.
      */
     public static class NoUndoableStateException extends RuntimeException {
         private NoUndoableStateException() {
-            super("Current state pointer at start of care taker list, unable to undo.");
+            super("Current state pointer at start of addressBookState list, unable to undo.");
         }
     }
 
     /**
-     * Thrown when trying to {@code redo()} and can't.
+     * Thrown when trying to {@code redo()} but can't.
      */
     public static class NoRedoableStateException extends RuntimeException {
         private NoRedoableStateException() {
-            super("Current state pointer at end of care taker list, unable to redo.");
+            super("Current state pointer at end of addressBookState list, unable to redo.");
         }
     }
 }

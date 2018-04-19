@@ -70,7 +70,7 @@ public class ClearCommandSystemTest extends AddressBookSystemTest {
 
     /**
      * Performs the same verification as {@code assertCommandSuccess(String)} except that the result box displays
-     * {@code expectedResultMessage}.
+     * {@code expectedResultMessage} and the model related components equal to {@code expectedModel}.
      * @see ClearCommandSystemTest#assertCommandSuccess(String)
      */
     private void assertCommandSuccess(String command, String expectedResultMessage, Model expectedModel) {

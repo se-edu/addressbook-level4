@@ -21,6 +21,7 @@ public class RedoCommandTest {
 
     @Before
     public void setUp() {
+        // set up of both models' VersionedAddressBook#addressBookStateList
         deleteFirstPerson(model);
         deleteFirstPerson(model);
         model.undoAddressBook();

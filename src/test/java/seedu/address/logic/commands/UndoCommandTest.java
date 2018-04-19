@@ -21,6 +21,7 @@ public class UndoCommandTest {
 
     @Before
     public void setUp() {
+        // set up of models' VersionedAddressBook#addressBookStateList
         deleteFirstPerson(model);
         deleteFirstPerson(model);
 

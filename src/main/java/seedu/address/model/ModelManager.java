@@ -23,12 +23,11 @@ import seedu.address.model.person.exceptions.PersonNotFoundException;
 public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final AddressBook addressBook;
+    private final VersionedAddressBook versionedAddressBook;
     private final FilteredList<Person> filteredPersons;
-    private final UndoRedoCareTaker undoRedoCareTaker;
 
     /**
-     * Initializes a ModelManager with the given addressBook and userPrefs.
+     * Initializes a ModelManager with the given versionedAddressBook and userPrefs.
      */
     public ModelManager(ReadOnlyAddressBook addressBook, UserPrefs userPrefs) {
         super();
@@ -36,9 +35,8 @@ public class ModelManager extends ComponentManager implements Model {
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
-        this.addressBook = new AddressBook(addressBook);
-        filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
-        undoRedoCareTaker = new UndoRedoCareTaker(getAddressBook());
+        this.versionedAddressBook = new VersionedAddressBook(addressBook);
+        filteredPersons = new FilteredList<>(this.versionedAddressBook.getPersonList());
     }
 
     public ModelManager() {
@@ -47,29 +45,29 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void resetData(ReadOnlyAddressBook newData) {
-        addressBook.resetData(newData);
+        versionedAddressBook.resetData(newData);
         indicateAddressBookChanged();
     }
 
     @Override
     public ReadOnlyAddressBook getAddressBook() {
-        return addressBook;
+        return versionedAddressBook;
     }
 
     /** Raises an event to indicate the model has changed */
     private void indicateAddressBookChanged() {
-        raise(new AddressBookChangedEvent(addressBook));
+        raise(new AddressBookChangedEvent(versionedAddressBook));
     }
 
     @Override
     public synchronized void deletePerson(Person target) throws PersonNotFoundException {
-        addressBook.removePerson(target);
+        versionedAddressBook.removePerson(target);
         indicateAddressBookChanged();
     }
 
     @Override
     public synchronized void addPerson(Person person) throws DuplicatePersonException {
-        addressBook.addPerson(person);
+        versionedAddressBook.addPerson(person);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         indicateAddressBookChanged();
     }
@@ -79,7 +77,7 @@ public class ModelManager extends ComponentManager implements Model {
             throws DuplicatePersonException, PersonNotFoundException {
         requireAllNonNull(target, editedPerson);
 
-        addressBook.updatePerson(target, editedPerson);
+        versionedAddressBook.updatePerson(target, editedPerson);
         indicateAddressBookChanged();
     }
 
@@ -87,7 +85,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     /**
      * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
-     * {@code addressBook}
+     * {@code versionedAddressBook}
      */
     @Override
     public ObservableList<Person> getFilteredPersonList() {
@@ -104,29 +102,29 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public boolean canUndoAddressBook() {
-        return undoRedoCareTaker.canUndo();
+        return versionedAddressBook.canUndo();
     }
 
     @Override
     public boolean canRedoAddressBook() {
-        return undoRedoCareTaker.canRedo();
+        return versionedAddressBook.canRedo();
     }
 
     @Override
     public void undoAddressBook() {
-        addressBook.resetData(undoRedoCareTaker.undo());
+        versionedAddressBook.undo();
         indicateAddressBookChanged();
     }
 
     @Override
     public void redoAddressBook() {
-        addressBook.resetData(undoRedoCareTaker.redo());
+        versionedAddressBook.redo();
         indicateAddressBookChanged();
     }
 
     @Override
     public void commitAddressBook() {
-        undoRedoCareTaker.addNewState(addressBook);
+        versionedAddressBook.addNewState(versionedAddressBook);
     }
 
     @Override
@@ -143,9 +141,8 @@ public class ModelManager extends ComponentManager implements Model {
 
         // state check
         ModelManager other = (ModelManager) obj;
-        return addressBook.equals(other.addressBook)
-                && filteredPersons.equals(other.filteredPersons)
-                && undoRedoCareTaker.equals(other.undoRedoCareTaker);
+        return versionedAddressBook.equals(other.versionedAddressBook)
+                && filteredPersons.equals(other.filteredPersons);
     }
 
 }

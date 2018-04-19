@@ -190,7 +190,7 @@ public class AddCommandTest {
 
         @Override
         public void commitAddressBook() {
-            // called by {@code AddCommand}
+            // called by {@code AddCommand#executeUndoableCommand()}
         }
 
         @Override
