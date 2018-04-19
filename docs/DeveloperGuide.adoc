@@ -184,9 +184,6 @@ The `UI` component,
 .Structure of the Logic Component
 image::LogicClassDiagram.png[width="800"]
 
-.Structure of Commands in the Logic Component. This diagram shows finer details concerning `XYZCommand` and `Command` in <<fig-LogicClassDiagram>>
-image::LogicCommandClassDiagram.png[width="800"]
-
 *API* :
 link:{repoURL}/src/main/java/seedu/address/logic/Logic.java[`Logic.java`]
 
@@ -246,98 +243,62 @@ This section describes some noteworthy details on how certain features are imple
 === Undo/Redo feature
 ==== Current Implementation
 
-The undo/redo mechanism is facilitated by an `UndoRedoStack`, which resides inside `LogicManager`. It supports undoing and redoing of commands that modifies the state of the address book (e.g. `add`, `edit`). Such commands will inherit from `UndoableCommand`.
+The undo/redo mechanism is facilitated by `VersionedAddressBook`.
+It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
+Additionally, it implements the following operations:
 
-`UndoRedoStack` only deals with `UndoableCommands`. Commands that cannot be undone will inherit from `Command` instead. The following diagram shows the inheritance diagram for commands:
+* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
+* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
+* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
 
-image::LogicCommandClassDiagram.png[width="800"]
+These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
 
-As you can see from the diagram, `UndoableCommand` adds an extra layer between the abstract `Command` class and concrete commands that can be undone, such as the `DeleteCommand`. Note that extra tasks need to be done when executing a command in an _undoable_ way, such as saving the state of the address book before execution. `UndoableCommand` contains the high-level algorithm for those extra tasks while the child classes implements the details of how to execute the specific command. Note that this technique of putting the high-level algorithm in the parent class and lower-level steps of the algorithm in child classes is also known as the https://www.tutorialspoint.com/design_pattern/template_pattern.htm[template pattern].
+Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
-Commands that are not undoable are implemented this way:
-[source,java]
-----
-public class ListCommand extends Command {
-    @Override
-    public CommandResult execute() {
-        // ... list logic ...
-    }
-}
-----
+Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
 
-With the extra layer, the commands that are undoable are implemented this way:
-[source,java]
-----
-public abstract class UndoableCommand extends Command {
-    @Override
-    public CommandResult execute() {
-        // ... undo logic ...
+image::UndoRedoStartingStateListDiagram.png[width="800"]
 
-        executeUndoableCommand();
-    }
-}
+Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
 
-public class DeleteCommand extends UndoableCommand {
-    @Override
-    public CommandResult executeUndoableCommand() {
-        // ... delete logic ...
-    }
-}
-----
+image::UndoRedoNewCommand1StateListDiagram.png[width="800"]
 
-Suppose that the user has just launched the application. The `UndoRedoStack` will be empty at the beginning.
+Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
 
-The user executes a new `UndoableCommand`, `delete 5`, to delete the 5th person in the address book. The current state of the address book is saved before the `delete 5` command executes. The `delete 5` command will then be pushed onto the `undoStack` (the current state is saved together with the command).
-
-image::UndoRedoStartingStackDiagram.png[width="800"]
-
-As the user continues to use the program, more commands are added into the `undoStack`. For example, the user may execute `add n/David ...` to add a new person.
-
-image::UndoRedoNewCommand1StackDiagram.png[width="800"]
+image::UndoRedoNewCommand2StateListDiagram.png[width="800"]
 
 [NOTE]
-If a command fails its execution, it will not be pushed to the `UndoRedoStack` at all.
+If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
 
-The user now decides that adding the person was a mistake, and decides to undo that action using `undo`.
+Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
 
-We will pop the most recent command out of the `undoStack` and push it back to the `redoStack`. We will restore the address book to the state before the `add` command executed.
-
-image::UndoRedoExecuteUndoStackDiagram.png[width="800"]
+image::UndoRedoExecuteUndoStateListDiagram.png[width="800"]
 
 [NOTE]
-If the `undoStack` is empty, then there are no other commands left to be undone, and an `Exception` will be thrown when popping the `undoStack`.
+If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
 
 The following sequence diagram shows how the undo operation works:
 
 image::UndoRedoSequenceDiagram.png[width="800"]
 
-The redo does the exact opposite (pops from `redoStack`, push to `undoStack`, and restores the address book to the state after the command is executed).
+The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
 
 [NOTE]
-If the `redoStack` is empty, then there are no other commands left to be redone, and an `Exception` will be thrown when popping the `redoStack`.
+If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
 
-The user now decides to execute a new command, `clear`. As before, `clear` will be pushed into the `undoStack`. This time the `redoStack` is no longer empty. It will be purged as it no longer make sense to redo the `add n/David` command (this is the behavior that most modern desktop applications follow).
+Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
 
-image::UndoRedoNewCommand2StackDiagram.png[width="800"]
+image::UndoRedoNewCommand3StateListDiagram.png[width="800"]
 
-Commands that are not undoable are not added into the `undoStack`. For example, `list`, which inherits from `Command` rather than `UndoableCommand`, will not be added after execution:
+Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
 
-image::UndoRedoNewCommand3StackDiagram.png[width="800"]
+image::UndoRedoNewCommand4StateListDiagram.png[width="800"]
 
-The following activity diagram summarize what happens inside the `UndoRedoStack` when a user executes a new command:
+The following activity diagram summarizes what happens when a user executes a new command:
 
 image::UndoRedoActivityDiagram.png[width="650"]
 
 ==== Design Considerations
-
-===== Aspect: Implementation of `UndoableCommand`
-
-* **Alternative 1 (current choice):** Add a new abstract method `executeUndoableCommand()`
-** Pros: We will not lose any undone/redone functionality as it is now part of the default behaviour. Classes that deal with `Command` do not have to know that `executeUndoableCommand()` exist.
-** Cons: Hard for new developers to understand the template pattern.
-* **Alternative 2:** Just override `execute()`
-** Pros: Does not involve the template pattern, easier for new developers to understand.
-** Cons: Classes that inherit from `UndoableCommand` must remember to call `super.execute()`, or lose the ability to undo/redo.
 
 ===== Aspect: How undo & redo executes
 
@@ -348,26 +309,14 @@ image::UndoRedoActivityDiagram.png[width="650"]
 ** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
 ** Cons: We must ensure that the implementation of each individual command are correct.
 
-
-===== Aspect: Type of commands that can be undone/redone
-
-* **Alternative 1 (current choice):** Only include commands that modifies the address book (`add`, `clear`, `edit`).
-** Pros: We only revert changes that are hard to change back (the view can easily be re-modified as no data are * lost).
-** Cons: User might think that undo also applies when the list is modified (undoing filtering for example), * only to realize that it does not do that, after executing `undo`.
-* **Alternative 2:** Include all commands.
-** Pros: Might be more intuitive for the user.
-** Cons: User have no way of skipping such commands if he or she just want to reset the state of the address * book and not the view.
-**Additional Info:** See our discussion  https://github.com/se-edu/addressbook-level4/issues/390#issuecomment-298936672[here].
-
-
 ===== Aspect: Data structure to support the undo/redo commands
 
-* **Alternative 1 (current choice):** Use separate stack for undo and redo
-** Pros: Easy to understand for new Computer Science student undergraduates to understand, who are likely to be * the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update * both `HistoryManager` and `UndoRedoStack`.
+* **Alternative 1 (current choice):** Use a list to store the history of address book states.
+** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
+** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
 * **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate stack, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two * different things.
+** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
+** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
 // end::undoredo[]
 
 // tag::dataencryption[]
@@ -759,12 +708,12 @@ Let's start by teaching the application how to parse a `remark` command. We will
 
 **Main:**
 
-. Add a `RemarkCommand` that extends link:{repoURL}/src/main/java/seedu/address/logic/commands/UndoableCommand.java[`UndoableCommand`]. Upon execution, it should just throw an `Exception`.
+. Add a `RemarkCommand` that extends link:{repoURL}/src/main/java/seedu/address/logic/commands/Command.java[`Command`]. Upon execution, it should just throw an `Exception`.
 . Modify link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] to accept a `RemarkCommand`.
 
 **Tests:**
 
-. Add `RemarkCommandTest` that tests that `executeUndoableCommand()` throws an Exception.
+. Add `RemarkCommandTest` that tests that `execute()` throws an Exception.
 . Add new test method to link:{repoURL}/src/test/java/seedu/address/logic/parser/AddressBookParserTest.java[`AddressBookParserTest`], which tests that typing "remark" returns an instance of `RemarkCommand`.
 
 ===== [Step 2] Logic: Teach the app to accept 'remark' arguments
