@@ -32,7 +32,7 @@ public class UndoableCommandTest {
 
         // undo() should cause the model's filtered list to show all persons
         dummyCommand.undo();
-        expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        expectedModel.undoAddressBook();
         assertEquals(expectedModel, model);
     }
 
@@ -59,6 +59,7 @@ public class UndoableCommandTest {
             Person personToDelete = model.getFilteredPersonList().get(0);
             try {
                 model.deletePerson(personToDelete);
+                model.commitAddressBook();
             } catch (PersonNotFoundException pnfe) {
                 fail("Impossible: personToDelete was retrieved from model.");
             }
