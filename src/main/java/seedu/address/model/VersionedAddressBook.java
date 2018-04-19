@@ -20,8 +20,8 @@ public class VersionedAddressBook extends AddressBook {
     }
 
     /**
-     * Create and saves a copy of the current {@code AddressBook} state in the end of the state list.
-     * Previously undone states that are not redone are removed from the state list.
+     * Saves a copy of the current {@code AddressBook} state at the end of the state list.
+     * Undone states are removed from the state list.
      */
     public void commit() {
         removeStatesAfterCurrentPointer();
@@ -56,14 +56,14 @@ public class VersionedAddressBook extends AddressBook {
     }
 
     /**
-     * Returns true if {@code undo()} has address book states to return.
+     * Returns true if {@code undo()} has address book states to undo.
      */
     public boolean canUndo() {
         return currentStatePointer > 0;
     }
 
     /**
-     * Returns true if {@code redo()} has address book states to return.
+     * Returns true if {@code redo()} has address book states to redo.
      */
     public boolean canRedo() {
         return currentStatePointer < addressBookStateList.size() - 1;
