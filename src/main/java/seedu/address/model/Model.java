@@ -45,4 +45,23 @@ public interface Model {
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
 
+    /**
+     * Returns true if the model has previous address book states to restore.
+     */
+    boolean hasUndoableStates();
+
+    /**
+     * Returns true if the model has undone address book states to restore.
+     */
+    boolean hasRedoableStates();
+
+    /**
+     * Restores the model's address book to its previous state.
+     */
+    void undo();
+
+    /**
+     * Restores the model's address book to its previously undone state.
+     */
+    void redo();
 }
