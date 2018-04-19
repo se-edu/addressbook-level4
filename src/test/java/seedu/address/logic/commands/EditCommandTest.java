@@ -168,7 +168,7 @@ public class EditCommandTest {
         // edit -> first person edited
         editCommand.execute();
 
-        // undo -> reverts addressbook back to previous state and filtered person list to show all person
+        // undo -> reverts addressbook back to previous state and filtered person list to show all persons
         expectedModel.undoAddressBook();
         assertCommandSuccess(undoCommand, model, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
@@ -185,7 +185,7 @@ public class EditCommandTest {
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build();
         EditCommand editCommand = prepareCommand(outOfBoundIndex, descriptor);
 
-        // execution failed -> address book not inserted into care taker list
+        // execution failed -> address book not added into care taker list
         assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
 
         // single address book in care taker list -> undoCommand and redoCommand fail
@@ -228,7 +228,7 @@ public class EditCommandTest {
     }
 
     @Test
-    public void equals() {
+    public void equals() throws Exception {
         final EditCommand standardCommand = prepareCommand(INDEX_FIRST_PERSON, DESC_AMY);
 
         // same values -> returns true

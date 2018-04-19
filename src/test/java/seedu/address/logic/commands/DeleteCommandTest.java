@@ -111,7 +111,7 @@ public class DeleteCommandTest {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
         DeleteCommand deleteCommand = prepareCommand(outOfBoundIndex);
 
-        // execution failed -> address book not inserted into care taker list
+        // execution failed -> address book not added into care taker list
         assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
 
         // single address book in care taker list -> undoCommand and redoCommand fail
@@ -152,7 +152,7 @@ public class DeleteCommandTest {
     }
 
     @Test
-    public void equals() {
+    public void equals() throws Exception {
         DeleteCommand deleteFirstCommand = prepareCommand(INDEX_FIRST_PERSON);
         DeleteCommand deleteSecondCommand = prepareCommand(INDEX_SECOND_PERSON);
 

@@ -37,7 +37,6 @@ public class RedoCommandTest {
         RedoCommand redoCommand = new RedoCommand();
         redoCommand.setData(model, EMPTY_COMMAND_HISTORY);
 
-
         // multiple redoable states in model
         expectedModel.redoAddressBook();
         assertCommandSuccess(redoCommand, model, RedoCommand.MESSAGE_SUCCESS, expectedModel);
