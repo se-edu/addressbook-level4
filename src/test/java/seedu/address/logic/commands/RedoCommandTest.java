@@ -32,15 +32,15 @@ public class RedoCommandTest {
         redoCommand.setData(model, EMPTY_COMMAND_HISTORY);
         Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
-        // currentStatePointer at index 0
+        // multiple redoable states in model
         deleteFirstPerson(expectedModel);
         assertCommandSuccess(redoCommand, model, RedoCommand.MESSAGE_SUCCESS, expectedModel);
 
-        // currentStatePointer at index 1
+        // single redoable state in model
         deleteFirstPerson(expectedModel);
         assertCommandSuccess(redoCommand, model, RedoCommand.MESSAGE_SUCCESS, expectedModel);
 
-        // currentStatePointer at index 2, at end of care taker list
+        // no redoable state in model
         assertCommandFailure(redoCommand, model, RedoCommand.MESSAGE_FAILURE);
     }
 }

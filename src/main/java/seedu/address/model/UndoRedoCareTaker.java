@@ -19,15 +19,19 @@ public class UndoRedoCareTaker {
     }
 
     /**
-     * Adds the {@code newState} to end of the list and clears any redundant address book states.
+     * Adds the {@code newState} to end of the list.
      */
     public void addNewState(ReadOnlyAddressBook newState) {
-        removeRedundantStates();
+        assert currentStatePointer == addressBookStateList.size() - 1;
+
         addressBookStateList.add(new AddressBook(newState));
         currentStatePointer++;
     }
 
-    private void removeRedundantStates() {
+    /**
+     * Removes all states that are after {@code currentStatePointer}.
+     */
+    public void removeStatesAfterPointer() {
         addressBookStateList.subList(currentStatePointer + 1, addressBookStateList.size()).clear();
     }
 

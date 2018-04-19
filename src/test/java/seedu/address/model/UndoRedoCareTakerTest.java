@@ -9,6 +9,7 @@ import static seedu.address.testutil.TypicalPersons.BOB;
 import static seedu.address.testutil.TypicalPersons.CARL;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import org.junit.Test;
@@ -23,19 +24,28 @@ public class UndoRedoCareTakerTest {
 
     @Test
     public void addNewState() {
-        UndoRedoCareTaker undoRedoCareTaker = prepareCareTakerList(
-                Arrays.asList(addressBookWithAmy, addressBookWithBob));
+        UndoRedoCareTaker undoRedoCareTaker = prepareCareTakerList(Collections.emptyList());
 
-        // add new state, current state pointer at end of list -> new state added, no states removed
+        // single address book in care taker list
         undoRedoCareTaker.addNewState(addressBookWithAmy);
-        assertCareTakerStatus(undoRedoCareTaker,
-                Arrays.asList(addressBookWithAmy, addressBookWithBob, addressBookWithAmy));
+        assertCareTakerStatus(undoRedoCareTaker, Collections.singletonList(addressBookWithAmy));
 
-        // add new state, current state pointer not at end of list -> new state added, states after current
-        // state pointer removed
+        // multiple address book in care taker list
+        undoRedoCareTaker.addNewState(addressBookWithBob);
+        assertCareTakerStatus(undoRedoCareTaker, Arrays.asList(addressBookWithAmy, addressBookWithBob));
+    }
+
+    @Test
+    public void removeStatesAfterPointer() {
+        UndoRedoCareTaker undoRedoCareTaker = prepareCareTakerList(
+                Arrays.asList(addressBookWithAmy, addressBookWithBob, addressBookWithCarl));
+        // current state pointer at index 0
         shiftCurrentStatePointerLeftwards(undoRedoCareTaker, 2);
-        undoRedoCareTaker.addNewState(addressBookWithCarl);
-        assertCareTakerStatus(undoRedoCareTaker, Arrays.asList(addressBookWithAmy, addressBookWithCarl));
+        undoRedoCareTaker.removeStatesAfterPointer();
+
+        UndoRedoCareTaker expectedCareTaker = prepareCareTakerList(
+                Collections.singletonList(addressBookWithAmy));
+        assertEquals(expectedCareTaker, undoRedoCareTaker);
     }
 
     @Test
@@ -135,7 +145,7 @@ public class UndoRedoCareTakerTest {
 
         // different current pointer index -> returns false
         UndoRedoCareTaker differentCurrentStatePointer = prepareCareTakerList(
-                Arrays.asList(addressBookWithBob, addressBookWithAmy));
+                Arrays.asList(addressBookWithAmy, addressBookWithBob));
         shiftCurrentStatePointerLeftwards(differentCurrentStatePointer, 1);
         assertFalse(undoRedoCareTaker.equals(differentCurrentStatePointer));
     }
@@ -175,7 +185,7 @@ public class UndoRedoCareTakerTest {
                                    List<ReadOnlyAddressBook> expectedAddressBookStates) {
         try {
             undoRedoCareTaker.undo();
-            fail("The expected IndexOutOfBoundsException was not thrown.");
+            fail("The expected NoUndoableStateException was not thrown.");
         } catch (UndoRedoCareTaker.NoUndoableStateException nuse) {
             assertCareTakerStatus(undoRedoCareTaker, expectedAddressBookStates, expectedAddressBookStates.size());
         }
@@ -193,7 +203,7 @@ public class UndoRedoCareTakerTest {
                                    List<ReadOnlyAddressBook> expectedAddressBookStates) {
         try {
             undoRedoCareTaker.redo();
-            fail("The expected IndexOutOfBoundsException was not thrown.");
+            fail("The expected NoRedoableStateException was not thrown.");
         } catch (UndoRedoCareTaker.NoRedoableStateException nrse) {
             assertCareTakerStatus(undoRedoCareTaker, expectedAddressBookStates);
         }

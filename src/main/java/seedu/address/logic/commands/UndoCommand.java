@@ -6,7 +6,7 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import seedu.address.logic.commands.exceptions.CommandException;
 
 /**
- * Undo the previous {@code Command} that is undoable.
+ * Reverts the {@code model} to its previous state.
  */
 public class UndoCommand extends Command {
 

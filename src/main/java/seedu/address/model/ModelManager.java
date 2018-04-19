@@ -129,9 +129,11 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     /**
-     * Inserts the current state into the {@code undoRedoCareTaker} list for tracking.
+     * Removes all address book states that should no longer be restored, and inserts the current state into the
+     * {@code undoRedoCareTaker} list for tracking.
      */
     private void updateCareTaker() {
+        undoRedoCareTaker.removeStatesAfterPointer();
         undoRedoCareTaker.addNewState(addressBook);
     }
 

@@ -29,16 +29,16 @@ public class UndoCommandTest {
         UndoCommand undoCommand = new UndoCommand();
         undoCommand.setData(model, EMPTY_COMMAND_HISTORY);
 
-        // currentStatePointer at index 2
+        // multiple undoable states in model
         Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
         deleteFirstPerson(expectedModel);
         assertCommandSuccess(undoCommand, model, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
-        // currentStatePointer at index 1
+        // single undoable state in model
         expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
         assertCommandSuccess(undoCommand, model, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
-        // currentStatePointer at index 0, at start of care taker list
+        // no undoable states in model
         assertCommandFailure(undoCommand, model, UndoCommand.MESSAGE_FAILURE);
     }
 }
