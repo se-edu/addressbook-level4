@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * AddressBook that keeps track of its own history.
+ * {@code AddressBook} that keeps track of its own history.
  */
 public class VersionedAddressBook extends AddressBook {
 
-    private List<ReadOnlyAddressBook> addressBookStateList;
+    private final List<ReadOnlyAddressBook> addressBookStateList;
     private int currentStatePointer;
 
     public VersionedAddressBook(ReadOnlyAddressBook initialState) {
