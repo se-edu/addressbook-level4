@@ -247,7 +247,7 @@ The undo/redo mechanism is facilitated by `VersionedAddressBook`.
 It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
 Additionally, it implements the following operations:
 
-* `VersionedAddressBook#commit()` -- Purges redundant states and saves its current address book state in its history.
+* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
 * `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
 * `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
 
@@ -275,7 +275,7 @@ Step 4. The user now decides that adding the person was a mistake, and decides t
 image::UndoRedoExecuteUndoStateListDiagram.png[width="800"]
 
 [NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndo()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
+If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
 
 The following sequence diagram shows how the undo operation works:
 
@@ -284,7 +284,7 @@ image::UndoRedoSequenceDiagram.png[width="800"]
 The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
 
 [NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedo()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
 
 Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
 
