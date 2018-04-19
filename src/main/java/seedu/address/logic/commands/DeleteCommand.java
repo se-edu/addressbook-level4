@@ -1,9 +1,6 @@
 package seedu.address.logic.commands;
 
-import static java.util.Objects.requireNonNull;
-
 import java.util.List;
-import java.util.Objects;
 
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
@@ -14,7 +11,7 @@ import seedu.address.model.person.exceptions.PersonNotFoundException;
 /**
  * Deletes a person identified using it's displayed index from the address book.
  */
-public class DeleteCommand extends UndoableCommand {
+public class DeleteCommand extends Command {
 
     public static final String COMMAND_WORD = "delete";
 
@@ -27,16 +24,20 @@ public class DeleteCommand extends UndoableCommand {
 
     private final Index targetIndex;
 
-    private Person personToDelete;
-
     public DeleteCommand(Index targetIndex) {
         this.targetIndex = targetIndex;
     }
 
-
     @Override
-    public CommandResult executeUndoableCommand() {
-        requireNonNull(personToDelete);
+    public CommandResult execute() throws CommandException {
+        List<Person> lastShownList = model.getFilteredPersonList();
+
+        if (targetIndex.getZeroBased() >= lastShownList.size()) {
+            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        }
+
+        Person personToDelete = lastShownList.get(targetIndex.getZeroBased());
+
         try {
             model.deletePerson(personToDelete);
             model.commitAddressBook();
@@ -48,21 +49,9 @@ public class DeleteCommand extends UndoableCommand {
     }
 
     @Override
-    protected void preprocessUndoableCommand() throws CommandException {
-        List<Person> filteredPersonList = model.getFilteredPersonList();
-
-        if (targetIndex.getZeroBased() >= filteredPersonList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
-        }
-
-        personToDelete = filteredPersonList.get(targetIndex.getZeroBased());
-    }
-
-    @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof DeleteCommand // instanceof handles nulls
-                && this.targetIndex.equals(((DeleteCommand) other).targetIndex) // state check
-                && Objects.equals(this.personToDelete, ((DeleteCommand) other).personToDelete));
+                && this.targetIndex.equals(((DeleteCommand) other).targetIndex)); // state check
     }
 }
