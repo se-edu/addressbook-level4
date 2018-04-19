@@ -25,6 +25,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final AddressBook addressBook;
     private final FilteredList<Person> filteredPersons;
+    private final UndoRedoCareTaker undoRedoCareTaker;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -37,6 +38,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         this.addressBook = new AddressBook(addressBook);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+        undoRedoCareTaker = new UndoRedoCareTaker(getAddressBook());
     }
 
     public ModelManager() {
@@ -98,6 +100,35 @@ public class ModelManager extends ComponentManager implements Model {
         filteredPersons.setPredicate(predicate);
     }
 
+    //=========== Undo/Redo =================================================================================
+
+    @Override
+    public boolean canUndoAddressBook() {
+        return undoRedoCareTaker.canUndo();
+    }
+
+    @Override
+    public boolean canRedoAddressBook() {
+        return undoRedoCareTaker.canRedo();
+    }
+
+    @Override
+    public void undoAddressBook() {
+        addressBook.resetData(undoRedoCareTaker.undo());
+        indicateAddressBookChanged();
+    }
+
+    @Override
+    public void redoAddressBook() {
+        addressBook.resetData(undoRedoCareTaker.redo());
+        indicateAddressBookChanged();
+    }
+
+    @Override
+    public void commitAddressBook() {
+        undoRedoCareTaker.addNewState(addressBook);
+    }
+
     @Override
     public boolean equals(Object obj) {
         // short circuit if same object
@@ -113,7 +144,8 @@ public class ModelManager extends ComponentManager implements Model {
         // state check
         ModelManager other = (ModelManager) obj;
         return addressBook.equals(other.addressBook)
-                && filteredPersons.equals(other.filteredPersons);
+                && filteredPersons.equals(other.filteredPersons)
+                && undoRedoCareTaker.equals(other.undoRedoCareTaker);
     }
 
 }
