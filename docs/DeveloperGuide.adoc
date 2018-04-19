@@ -243,7 +243,7 @@ This section describes some noteworthy details on how certain features are imple
 === Undo/Redo feature
 ==== Current Implementation
 
-The undo/redo mechanism is facilitated by `VersionedAddressBook`, which extends `AddressBook`. It supports undoing and redoing of commands that modifies the state of the address book (e.g. `add`, `edit`). `VersionedAddressBook` uses an `addressBookStateList` to keep track of its own history.
+The undo/redo mechanism is facilitated by `VersionedAddressBook`, which extends `AddressBook`. It supports undoing and redoing of commands that call `Model#commitAddressBook()` (e.g. `add`, `edit`), which is usually called if the command modifies the address book state. `VersionedAddressBook` uses an `addressBookStateList` to keep track of its own history.
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
@@ -251,38 +251,38 @@ Step 1. The user launches the application for the first time. The `VersionedAddr
 
 image::UndoRedoStartingStateListDiagram.png[width="800"]
 
-Step 2. The user executes a new `Command` that modifies the address book, `delete 5`, to delete the 5th person in the address book. The `Command` will call `Model#commitAddressBook()`, causing the current state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
 
 image::UndoRedoNewCommand1StateListDiagram.png[width="800"]
 
-Step 3. The user executes another `Command` that modifies the address book, `add n/David ...` to add a new person, causing more address book states to be saved into the `addressBookStateList.
+Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
 
 image::UndoRedoNewCommand2StateListDiagram.png[width="800"]
 
 [NOTE]
 If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
 
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action using `undo`. The `currentStatePointer` shifts once to the left, pointing to its previous address book state, and the address book is restored to that state.
+Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state and restore it to that state.
 
 image::UndoRedoExecuteUndoStateListDiagram.png[width="800"]
 
 [NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore, and a `NoUndoableStateException` will be thrown when trying to `undo`.
+If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndo()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
 
 The following sequence diagram shows how the undo operation works:
 
 image::UndoRedoSequenceDiagram.png[width="800"]
 
-The redo does the exact opposite (shifts the `currentStatePointer` once to the right, restores the address book to the state after the command is executed).
+The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
 
 [NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore, and a `NoRedoableStateException` will be thrown when trying to `redo`.
+If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedo()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
 
-Step 5. The user then decides to execute a command that does not modify the address book, `list`. Commands that do not call `Model#commitAddressBook()` will not save the address book state into the `addressBookStateList`, nor clear any address book states in the `addressBookStateList`, causing it to remain unchanged.
+Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
 
 image::UndoRedoNewCommand3StateListDiagram.png[width="800"]
 
-Step 6. The user now decides to execute a new command that modifies the address book, `clear`. Before saving the updated address book state to the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. This is because it no longer make sense to redo the `add n/David` command (this is the behavior that most modern desktop applications follow).
+Step 6. The user executes `clear`, which also calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
 
 image::UndoRedoNewCommand4StateListDiagram.png[width="800"]
 
@@ -303,7 +303,7 @@ image::UndoRedoActivityDiagram.png[width="650"]
 
 ===== Aspect: Data structure to support the undo/redo commands
 
-* **Alternative 1 (current choice):** Use a list to store the history of address book states
+* **Alternative 1 (current choice):** Use a list to store the history of address book states.
 ** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
 ** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
 * **Alternative 2:** Use `HistoryManager` for undo/redo

@@ -188,7 +188,7 @@ public class EditCommandTest {
         // execution failed -> address book state not added into model
         assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
 
-        // single address book state into model -> undoCommand and redoCommand fail
+        // single address book state in model -> undoCommand and redoCommand fail
         assertCommandFailure(undoCommand, model, UndoCommand.MESSAGE_FAILURE);
         assertCommandFailure(redoCommand, model, RedoCommand.MESSAGE_FAILURE);
     }
