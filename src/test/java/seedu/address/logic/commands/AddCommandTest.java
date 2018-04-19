@@ -134,24 +134,29 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean hasUndoableStates() {
+        public boolean canUndoAddressBook() {
             fail("This method should not be called.");
             return false;
         }
 
         @Override
-        public boolean hasRedoableStates() {
+        public boolean canRedoAddressBook() {
             fail("This method should not be called.");
             return false;
         }
 
         @Override
-        public void undo() {
+        public void undoAddressBook() {
             fail("This method should not be called.");
         }
 
         @Override
-        public void redo() {
+        public void redoAddressBook() {
+            fail("This method should not be called.");
+        }
+
+        @Override
+        public void commitAddressBook() {
             fail("This method should not be called.");
         }
     }
@@ -181,6 +186,11 @@ public class AddCommandTest {
         public void addPerson(Person person) throws DuplicatePersonException {
             requireNonNull(person);
             personsAdded.add(person);
+        }
+
+        @Override
+        public void commitAddressBook() {
+            // called by {@code AddCommand}
         }
 
         @Override

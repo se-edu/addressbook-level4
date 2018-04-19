@@ -34,7 +34,7 @@ public class UndoRedoCareTaker {
     /**
      * Returns the previous address book state in the list.
      */
-    public ReadOnlyAddressBook undo() throws NoUndoableStateException {
+    public ReadOnlyAddressBook undo() {
         if (!canUndo()) {
             throw new NoUndoableStateException();
         }
@@ -45,7 +45,7 @@ public class UndoRedoCareTaker {
     /**
      * Returns the next address book state in the list.
      */
-    public ReadOnlyAddressBook redo() throws NoRedoableStateException  {
+    public ReadOnlyAddressBook redo() {
         if (!canRedo()) {
             throw new NoRedoableStateException();
         }

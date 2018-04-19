@@ -40,6 +40,7 @@ public class DeleteCommand extends Command {
 
         try {
             model.deletePerson(personToDelete);
+            model.commitAddressBook();
         } catch (PersonNotFoundException pnfe) {
             throw new AssertionError("The target person cannot be missing");
         }

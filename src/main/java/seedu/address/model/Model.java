@@ -48,20 +48,25 @@ public interface Model {
     /**
      * Returns true if the model has previous address book states to restore.
      */
-    boolean hasUndoableStates();
+    boolean canUndoAddressBook();
 
     /**
      * Returns true if the model has undone address book states to restore.
      */
-    boolean hasRedoableStates();
+    boolean canRedoAddressBook();
 
     /**
      * Restores the model's address book to its previous state.
      */
-    void undo();
+    void undoAddressBook();
 
     /**
      * Restores the model's address book to its previously undone state.
      */
-    void redo();
+    void redoAddressBook();
+
+    /**
+     * Saves the current address book state for tracking.
+     */
+    void commitAddressBook();
 }

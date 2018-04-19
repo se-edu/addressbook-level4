@@ -17,27 +17,33 @@ public class RedoCommandTest {
     private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();
 
     private final Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private final Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
     @Before
     public void setUp() {
         deleteFirstPerson(model);
         deleteFirstPerson(model);
-        model.undo();
-        model.undo();
+        model.undoAddressBook();
+        model.undoAddressBook();
+
+        deleteFirstPerson(expectedModel);
+        deleteFirstPerson(expectedModel);
+        expectedModel.undoAddressBook();
+        expectedModel.undoAddressBook();
     }
 
     @Test
     public void execute() {
         RedoCommand redoCommand = new RedoCommand();
         redoCommand.setData(model, EMPTY_COMMAND_HISTORY);
-        Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+
 
         // multiple redoable states in model
-        deleteFirstPerson(expectedModel);
+        expectedModel.redoAddressBook();
         assertCommandSuccess(redoCommand, model, RedoCommand.MESSAGE_SUCCESS, expectedModel);
 
         // single redoable state in model
-        deleteFirstPerson(expectedModel);
+        expectedModel.redoAddressBook();
         assertCommandSuccess(redoCommand, model, RedoCommand.MESSAGE_SUCCESS, expectedModel);
 
         // no redoable state in model

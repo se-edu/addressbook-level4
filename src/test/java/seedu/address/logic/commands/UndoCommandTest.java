@@ -17,11 +17,15 @@ public class UndoCommandTest {
     private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();
 
     private final Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private final Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
     @Before
     public void setUp() {
         deleteFirstPerson(model);
         deleteFirstPerson(model);
+
+        deleteFirstPerson(expectedModel);
+        deleteFirstPerson(expectedModel);
     }
 
     @Test
@@ -30,12 +34,11 @@ public class UndoCommandTest {
         undoCommand.setData(model, EMPTY_COMMAND_HISTORY);
 
         // multiple undoable states in model
-        Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-        deleteFirstPerson(expectedModel);
+        expectedModel.undoAddressBook();
         assertCommandSuccess(undoCommand, model, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
         // single undoable state in model
-        expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+        expectedModel.undoAddressBook();
         assertCommandSuccess(undoCommand, model, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
         // no undoable states in model

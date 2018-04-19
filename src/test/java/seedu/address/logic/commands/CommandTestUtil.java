@@ -130,6 +130,7 @@ public class CommandTestUtil {
         Person firstPerson = model.getFilteredPersonList().get(0);
         try {
             model.deletePerson(firstPerson);
+            model.commitAddressBook();
         } catch (PersonNotFoundException pnfe) {
             throw new AssertionError("Person in filtered list must exist in model.", pnfe);
         }

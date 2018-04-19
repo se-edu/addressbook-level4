@@ -49,7 +49,6 @@ public class ModelManager extends ComponentManager implements Model {
     public void resetData(ReadOnlyAddressBook newData) {
         addressBook.resetData(newData);
         indicateAddressBookChanged();
-        updateCareTaker();
     }
 
     @Override
@@ -66,7 +65,6 @@ public class ModelManager extends ComponentManager implements Model {
     public synchronized void deletePerson(Person target) throws PersonNotFoundException {
         addressBook.removePerson(target);
         indicateAddressBookChanged();
-        updateCareTaker();
     }
 
     @Override
@@ -74,7 +72,6 @@ public class ModelManager extends ComponentManager implements Model {
         addressBook.addPerson(person);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         indicateAddressBookChanged();
-        updateCareTaker();
     }
 
     @Override
@@ -84,7 +81,6 @@ public class ModelManager extends ComponentManager implements Model {
 
         addressBook.updatePerson(target, editedPerson);
         indicateAddressBookChanged();
-        updateCareTaker();
     }
 
     //=========== Filtered Person List Accessors =============================================================
@@ -104,34 +100,32 @@ public class ModelManager extends ComponentManager implements Model {
         filteredPersons.setPredicate(predicate);
     }
 
-    //=========== Undo/Redo Handlers =============================================================
+    //=========== Undo/Redo =================================================================================
 
     @Override
-    public boolean hasUndoableStates() {
+    public boolean canUndoAddressBook() {
         return undoRedoCareTaker.canUndo();
     }
 
     @Override
-    public boolean hasRedoableStates() {
+    public boolean canRedoAddressBook() {
         return undoRedoCareTaker.canRedo();
     }
 
     @Override
-    public void undo() {
+    public void undoAddressBook() {
         addressBook.resetData(undoRedoCareTaker.undo());
         indicateAddressBookChanged();
     }
 
     @Override
-    public void redo() {
+    public void redoAddressBook() {
         addressBook.resetData(undoRedoCareTaker.redo());
         indicateAddressBookChanged();
     }
 
-    /**
-     * Inserts the current state into the {@code undoRedoCareTaker} for tracking.
-     */
-    private void updateCareTaker() {
+    @Override
+    public void commitAddressBook() {
         undoRedoCareTaker.addNewState(addressBook);
     }
 
@@ -150,7 +144,8 @@ public class ModelManager extends ComponentManager implements Model {
         // state check
         ModelManager other = (ModelManager) obj;
         return addressBook.equals(other.addressBook)
-                && filteredPersons.equals(other.filteredPersons);
+                && filteredPersons.equals(other.filteredPersons)
+                && undoRedoCareTaker.equals(other.undoRedoCareTaker);
     }
 
 }
