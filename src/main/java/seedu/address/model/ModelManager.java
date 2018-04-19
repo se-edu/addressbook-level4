@@ -25,6 +25,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final AddressBook addressBook;
     private final FilteredList<Person> filteredPersons;
+    private final UndoRedoCareTaker undoRedoCareTaker;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -37,6 +38,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         this.addressBook = new AddressBook(addressBook);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+        undoRedoCareTaker = new UndoRedoCareTaker(getAddressBook());
     }
 
     public ModelManager() {
@@ -47,6 +49,7 @@ public class ModelManager extends ComponentManager implements Model {
     public void resetData(ReadOnlyAddressBook newData) {
         addressBook.resetData(newData);
         indicateAddressBookChanged();
+        updateCareTaker();
     }
 
     @Override
@@ -63,6 +66,7 @@ public class ModelManager extends ComponentManager implements Model {
     public synchronized void deletePerson(Person target) throws PersonNotFoundException {
         addressBook.removePerson(target);
         indicateAddressBookChanged();
+        updateCareTaker();
     }
 
     @Override
@@ -70,6 +74,7 @@ public class ModelManager extends ComponentManager implements Model {
         addressBook.addPerson(person);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         indicateAddressBookChanged();
+        updateCareTaker();
     }
 
     @Override
@@ -79,6 +84,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         addressBook.updatePerson(target, editedPerson);
         indicateAddressBookChanged();
+        updateCareTaker();
     }
 
     //=========== Filtered Person List Accessors =============================================================
@@ -96,6 +102,39 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
+    }
+
+    //=========== Undo/Redo Handlers =============================================================
+
+    @Override
+    public boolean hasUndoableStates() {
+        return undoRedoCareTaker.canUndo();
+    }
+
+    @Override
+    public boolean hasRedoableStates() {
+        return undoRedoCareTaker.canRedo();
+    }
+
+    @Override
+    public void undo() {
+        addressBook.resetData(undoRedoCareTaker.undo());
+        indicateAddressBookChanged();
+    }
+
+    @Override
+    public void redo() {
+        addressBook.resetData(undoRedoCareTaker.redo());
+        indicateAddressBookChanged();
+    }
+
+    /**
+     * Removes all address book states that should no longer be restored, and inserts the current state into the
+     * {@code undoRedoCareTaker} list for tracking.
+     */
+    private void updateCareTaker() {
+        undoRedoCareTaker.removeStatesAfterPointer();
+        undoRedoCareTaker.addNewState(addressBook);
     }
 
     @Override
