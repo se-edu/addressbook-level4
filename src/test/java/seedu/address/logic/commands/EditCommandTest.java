@@ -178,12 +178,11 @@ public class EditCommandTest {
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build();
         EditCommand editCommand = prepareCommand(outOfBoundIndex, descriptor);
 
-        // execution failed -> address book not pushed into undoRedoStack
+        // execution failed -> address book not inserted into care taker list
         assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
 
-        // single address book in undo stack -> undoCommand fail
+        // single address book in care taker list -> undoCommand and redoCommand fail
         assertCommandFailure(undoCommand, model, UndoCommand.MESSAGE_FAILURE);
-        // no address book in redo stack -> redoCommand fail
         assertCommandFailure(redoCommand, model, RedoCommand.MESSAGE_FAILURE);
     }
 

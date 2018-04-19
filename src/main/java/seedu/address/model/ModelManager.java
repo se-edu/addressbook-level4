@@ -129,7 +129,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     /**
-     * Pushes the current state into the {@code undoRedoStack} undo-stack for tracking.
+     * Inserts the current state into the {@code undoRedoCareTaker} list for tracking.
      */
     private void updateCareTaker() {
         undoRedoCareTaker.addNewState(addressBook);

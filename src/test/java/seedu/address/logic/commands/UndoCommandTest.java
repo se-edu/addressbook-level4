@@ -29,16 +29,16 @@ public class UndoCommandTest {
         UndoCommand undoCommand = new UndoCommand();
         undoCommand.setData(model, EMPTY_COMMAND_HISTORY);
 
-        // multiple address books in undoStack
+        // currentStatePointer at index 2
         Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
         deleteFirstPerson(expectedModel);
         assertCommandSuccess(undoCommand, model, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
-        // multiple address books in undoStack
+        // currentStatePointer at index 1
         expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
         assertCommandSuccess(undoCommand, model, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
-        // single address book in undoStack
+        // currentStatePointer at index 0, at start of care taker list
         assertCommandFailure(undoCommand, model, UndoCommand.MESSAGE_FAILURE);
     }
 }

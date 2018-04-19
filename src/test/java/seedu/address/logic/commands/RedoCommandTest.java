@@ -32,15 +32,15 @@ public class RedoCommandTest {
         redoCommand.setData(model, EMPTY_COMMAND_HISTORY);
         Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
-        // multiple address books in redoStack
+        // currentStatePointer at index 0
         deleteFirstPerson(expectedModel);
         assertCommandSuccess(redoCommand, model, RedoCommand.MESSAGE_SUCCESS, expectedModel);
 
-        // single address book in redoStack
+        // currentStatePointer at index 1
         deleteFirstPerson(expectedModel);
         assertCommandSuccess(redoCommand, model, RedoCommand.MESSAGE_SUCCESS, expectedModel);
 
-        // no address book in redoStack
+        // currentStatePointer at index 2, at end of care taker list
         assertCommandFailure(redoCommand, model, RedoCommand.MESSAGE_FAILURE);
     }
 }

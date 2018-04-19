@@ -5,7 +5,7 @@ import java.util.List;
 
 /**
  * Maintains a list of all address book states the app previously was in.
- * This class is based on the `Care Taker`class in the `Memento` design pattern.
+ * This class is based on the CareTaker class in the Memento design pattern.
  * @see <a href="https://www.tutorialspoint.com/design_pattern/memento_pattern.htm">Memento design pattern tutorial</a>
  */
 public class UndoRedoCareTaker {
@@ -87,7 +87,7 @@ public class UndoRedoCareTaker {
     }
 
     /**
-     * Signals a {@code RunTimeError} caused by trying to {@code undo} when there no more undoable address book states.
+     * Thrown when trying to {@code undo()} and can't.
      */
     public static class NoUndoableStateException extends RuntimeException {
         private NoUndoableStateException() {
@@ -96,11 +96,11 @@ public class UndoRedoCareTaker {
     }
 
     /**
-     * Signals a {@code RunTimeError} caused by trying to {@code redo} when there no more redoable address book states.
+     * Thrown when trying to {@code redo()} and can't.
      */
     public static class NoRedoableStateException extends RuntimeException {
         private NoRedoableStateException() {
-            super("Current state pointer at end of care taker list, unnable to redo.");
+            super("Current state pointer at end of care taker list, unable to redo.");
         }
     }
 }
