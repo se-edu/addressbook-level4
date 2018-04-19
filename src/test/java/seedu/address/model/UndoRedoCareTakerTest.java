@@ -24,28 +24,17 @@ public class UndoRedoCareTakerTest {
 
     @Test
     public void addNewState() {
-        UndoRedoCareTaker undoRedoCareTaker = prepareCareTakerList(Collections.emptyList());
-
-        // single address book in care taker list
-        undoRedoCareTaker.addNewState(addressBookWithAmy);
-        assertCareTakerStatus(undoRedoCareTaker, Collections.singletonList(addressBookWithAmy));
-
-        // multiple address book in care taker list
-        undoRedoCareTaker.addNewState(addressBookWithBob);
-        assertCareTakerStatus(undoRedoCareTaker, Arrays.asList(addressBookWithAmy, addressBookWithBob));
-    }
-
-    @Test
-    public void removeStatesAfterPointer() {
-        UndoRedoCareTaker undoRedoCareTaker = prepareCareTakerList(
-                Arrays.asList(addressBookWithAmy, addressBookWithBob, addressBookWithCarl));
-        // current state pointer at index 0
+        UndoRedoCareTaker undoRedoCareTaker = prepareCareTakerList(Arrays.asList(
+                addressBookWithAmy, addressBookWithBob));
         shiftCurrentStatePointerLeftwards(undoRedoCareTaker, 2);
-        undoRedoCareTaker.removeStatesAfterPointer();
 
-        UndoRedoCareTaker expectedCareTaker = prepareCareTakerList(
-                Collections.singletonList(addressBookWithAmy));
-        assertEquals(expectedCareTaker, undoRedoCareTaker);
+        // all states after current state pointer removed, new state added to end of list
+        undoRedoCareTaker.addNewState(addressBookWithCarl);
+        assertCareTakerStatus(undoRedoCareTaker, Collections.singletonList(addressBookWithCarl));
+
+        // current state pointer at end of list -> no state removed, new state added to end of list
+        undoRedoCareTaker.addNewState(addressBookWithBob);
+        assertCareTakerStatus(undoRedoCareTaker, Arrays.asList(addressBookWithCarl, addressBookWithBob));
     }
 
     @Test
@@ -84,40 +73,30 @@ public class UndoRedoCareTakerTest {
     public void undo() {
         UndoRedoCareTaker undoRedoCareTaker = prepareCareTakerList(
                 Arrays.asList(addressBookWithAmy, addressBookWithBob));
-        UndoRedoCareTaker expectedCareTaker = prepareCareTakerList(
-                Arrays.asList(addressBookWithAmy, addressBookWithBob));
 
-        // current pointer at index 2
-        shiftCurrentStatePointerLeftwards(expectedCareTaker, 1);
-        assertPopUndoSuccess(expectedCareTaker, undoRedoCareTaker, addressBookWithAmy);
+        // current state pointer at index 2 -> return address book at index 1
+        assertUndoSuccess(undoRedoCareTaker, addressBookWithAmy);
 
-        // current pointer at index 1
-        shiftCurrentStatePointerLeftwards(expectedCareTaker, 1);
-        assertPopUndoSuccess(expectedCareTaker, undoRedoCareTaker, emptyAddressBook);
+        // current state pointer at index 1 -> return address book at index 0
+        assertUndoSuccess(undoRedoCareTaker, emptyAddressBook);
 
-        // current pointer at index 0, start of list
-        assertUndoFailure(undoRedoCareTaker, Arrays.asList(addressBookWithAmy, addressBookWithBob));
+        // current state pointer at index 0, start of list -> fail
+        assertUndoFailure(undoRedoCareTaker);
     }
 
     @Test
     public void redo() {
         UndoRedoCareTaker undoRedoCareTaker = prepareCareTakerList(
-                Arrays.asList(addressBookWithAmy, addressBookWithBob));
-        UndoRedoCareTaker expectedCareTaker = prepareCareTakerList(
-                Arrays.asList(addressBookWithAmy, addressBookWithBob));
-        shiftCurrentStatePointerLeftwards(undoRedoCareTaker, 2);
-        shiftCurrentStatePointerLeftwards(expectedCareTaker, 2);
+                Arrays.asList(addressBookWithAmy, addressBookWithBob), 2);
 
-        // current pointer at index 0
-        shiftCurrentStatePointerRightwards(expectedCareTaker, 1);
-        assertPopRedoSuccess(expectedCareTaker, undoRedoCareTaker, addressBookWithAmy);
+        // current state pointer at index 0 -> return address book at index 1
+        assertRedoSuccess(undoRedoCareTaker, addressBookWithAmy);
 
-        // current pointer at index 1
-        shiftCurrentStatePointerRightwards(expectedCareTaker, 1);
-        assertPopRedoSuccess(expectedCareTaker, undoRedoCareTaker, addressBookWithBob);
+        // current state pointer at index 1 -> return address book at index 2
+        assertRedoSuccess(undoRedoCareTaker, addressBookWithBob);
 
-        // current pointer at index 2, end of list
-        assertRedoFailure(undoRedoCareTaker, Arrays.asList(addressBookWithAmy, addressBookWithBob));
+        // current state pointer at index 2, end of list -> fail
+        assertRedoFailure(undoRedoCareTaker);
     }
 
     @Test
@@ -151,92 +130,78 @@ public class UndoRedoCareTakerTest {
     }
 
     /**
-     * Asserts that the result of {@code undoRedoCareTaker#undo(ReadOnlyAddressBook)} equals
-     * {@code expectedAddressBook}.
-     * Also asserts that the {@code expectedCareTaker} equals {@code undoRedoCareTaker}.
+     * Asserts that the result of {@code undoRedoCareTaker#undo()} equals {@code expectedAddressBook}.
      */
-    private void assertPopUndoSuccess(UndoRedoCareTaker expectedCareTaker,
-                                      UndoRedoCareTaker undoRedoCareTaker,
-                                      ReadOnlyAddressBook expectedAddressBook) {
+    private void assertUndoSuccess(UndoRedoCareTaker undoRedoCareTaker,
+                                   ReadOnlyAddressBook expectedAddressBook) {
         assertEquals(expectedAddressBook, undoRedoCareTaker.undo());
-        assertEquals(expectedCareTaker, undoRedoCareTaker);
     }
 
     /**
-     * Asserts that the result of {@code undoRedoCareTaker#redo(ReadOnlyAddressBook)} equals
-     * {@code expectedAddressBook}.
-     * Also asserts that the {@code expectedCareTaker} equals {@code undoRedoCareTaker}.
+     * Asserts that the result of {@code undoRedoCareTaker#redo()} equals {@code expectedAddressBook}.
      */
-    private void assertPopRedoSuccess(UndoRedoCareTaker expectedCareTaker,
-                                      UndoRedoCareTaker undoRedoCareTaker,
-                                      ReadOnlyAddressBook expectedAddressBook) {
+    private void assertRedoSuccess(UndoRedoCareTaker undoRedoCareTaker,
+                                   ReadOnlyAddressBook expectedAddressBook) {
         assertEquals(expectedAddressBook, undoRedoCareTaker.redo());
-        assertEquals(expectedCareTaker, undoRedoCareTaker);
     }
 
     /**
-     * Asserts that the execution of {@code undoRedoCareTaker#undo(ReadOnlyAddressBook)} fails and
+     * Asserts that the execution of {@code undoRedoCareTaker#undo()} fails and
      * {@code UndoRedoCareTaker#NoUndoableStateException} is thrown.
-     * Also asserts that the content of the
-     * {@code undoRedoCareTaker#addressBookStateList} equals {@code expectedAddressBookStates} and
-     * {@code undoRedoCareTaker#currentStatePointer} is at the start of the list.
      */
-    private void assertUndoFailure(UndoRedoCareTaker undoRedoCareTaker,
-                                   List<ReadOnlyAddressBook> expectedAddressBookStates) {
+    private void assertUndoFailure(UndoRedoCareTaker undoRedoCareTaker) {
         try {
             undoRedoCareTaker.undo();
             fail("The expected NoUndoableStateException was not thrown.");
         } catch (UndoRedoCareTaker.NoUndoableStateException nuse) {
-            assertCareTakerStatus(undoRedoCareTaker, expectedAddressBookStates, expectedAddressBookStates.size());
+            // expected behaviour
         }
     }
 
     /**
-     * Asserts that the execution of {@code undoRedoCareTaker#redo(ReadOnlyAddressBook)} fails and
+     * Asserts that the execution of {@code undoRedoCareTaker#redo()} fails and
      * {@code UndoRedoCareTaker#NoRedoableStateException} is thrown.
-     *
-     * Also asserts that the content of the
-     * {@code undoRedoCareTaker#addressBookStateList} equals {@code expectedAddressBookStates} and
-     * {@code undoRedoCareTaker#currentStatePointer} is at the end of the list.
      */
-    private void assertRedoFailure(UndoRedoCareTaker undoRedoCareTaker,
-                                   List<ReadOnlyAddressBook> expectedAddressBookStates) {
+    private void assertRedoFailure(UndoRedoCareTaker undoRedoCareTaker) {
         try {
             undoRedoCareTaker.redo();
             fail("The expected NoRedoableStateException was not thrown.");
         } catch (UndoRedoCareTaker.NoRedoableStateException nrse) {
-            assertCareTakerStatus(undoRedoCareTaker, expectedAddressBookStates);
+            // expected behaviour
         }
     }
 
     /**
-     * Asserts that {@code undoRedoCareTaker} list content equals {@code addressBookStates}.
-     * {@code undoRedoCareTaker#currentStatePointer} should be at the end of the care taker list.
+     * Asserts that {@code undoRedoCareTaker} list content equals {@code expectedAddressBookStates}.
      */
     private void assertCareTakerStatus(UndoRedoCareTaker undoRedoCareTaker,
-                                       List<ReadOnlyAddressBook> addressBookStates) {
-        assertCareTakerStatus(undoRedoCareTaker, addressBookStates, 0);
-    }
+                                       List<ReadOnlyAddressBook> expectedAddressBookStates) {
+        // shift currentStatePointer to the start of list
+        while (undoRedoCareTaker.canUndo()) {
+            undoRedoCareTaker.undo();
+        }
 
-    /**
-     * Asserts that {@code undoRedoCareTaker} list content equals {@code addressBookStates}, and that
-     * {@code undoRedoCareTaker#currentStatePointer} is {@code count} to the left of the end of list.
-     */
-    private void assertCareTakerStatus(UndoRedoCareTaker undoRedoCareTaker,
-                                       List<ReadOnlyAddressBook> addressBookStates,
-                                       int count) {
-        UndoRedoCareTaker expectedCareTaker = prepareCareTakerList(addressBookStates);
-        shiftCurrentStatePointerLeftwards(expectedCareTaker, count);
-        assertEquals(expectedCareTaker, undoRedoCareTaker);
+        expectedAddressBookStates.forEach(expectedAddressBook ->
+                assertEquals(expectedAddressBook, undoRedoCareTaker.redo()));
     }
 
     /**
      * Creates and returns an {@code UndoRedoCareTaker} with an empty address book and then {@code addressBookStates}
-     * added into it.
+     * added into it, with the {@code undoRedoCareTaker#currentStatePointer} at the end of list.
      */
     private UndoRedoCareTaker prepareCareTakerList(List<ReadOnlyAddressBook> addressBookStates) {
+        return prepareCareTakerList(addressBookStates, 0);
+    }
+
+    /**
+     * Creates and returns an {@code UndoRedoCareTaker} with an empty address book and then {@code addressBookStates}
+     * added into it, and the {@code undoRedoCareTaker#currentStatePointer} is {@code count} times left of
+     * the end of list.
+     */
+    private UndoRedoCareTaker prepareCareTakerList(List<ReadOnlyAddressBook> addressBookStates, int count) {
         UndoRedoCareTaker undoRedoCt = new UndoRedoCareTaker(new AddressBook());
         addressBookStates.forEach(undoRedoCt::addNewState);
+        shiftCurrentStatePointerLeftwards(undoRedoCt, count);
         return undoRedoCt;
     }
 
@@ -246,15 +211,6 @@ public class UndoRedoCareTakerTest {
     private void shiftCurrentStatePointerLeftwards(UndoRedoCareTaker undoRedoCareTaker, int count) {
         for (int i = 0; i < count; i++) {
             undoRedoCareTaker.undo();
-        }
-    }
-
-    /**
-     * Shifts the {@code undoRedoCareTaker#currentStatePointer} by {@code count} to the right of its list.
-     */
-    private void shiftCurrentStatePointerRightwards(UndoRedoCareTaker undoRedoCareTaker, int count) {
-        for (int i = 0; i < count; i++) {
-            undoRedoCareTaker.redo();
         }
     }
 }

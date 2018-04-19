@@ -61,7 +61,7 @@ public interface Model {
     void undo();
 
     /**
-     * Restores the model's address book to its latest undone state.
+     * Restores the model's address book to its previously undone state.
      */
     void redo();
 }
