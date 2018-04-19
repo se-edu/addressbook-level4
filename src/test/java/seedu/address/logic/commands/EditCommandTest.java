@@ -22,7 +22,6 @@ import org.junit.Test;
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
-import seedu.address.logic.UndoRedoStack;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
@@ -152,9 +151,8 @@ public class EditCommandTest {
 
     @Test
     public void executeUndoRedo_validIndexUnfilteredList_success() throws Exception {
-        UndoRedoStack undoRedoStack = new UndoRedoStack();
-        UndoCommand undoCommand = prepareUndoCommand(model, undoRedoStack);
-        RedoCommand redoCommand = prepareRedoCommand(model, undoRedoStack);
+        UndoCommand undoCommand = prepareUndoCommand(model);
+        RedoCommand redoCommand = prepareRedoCommand(model);
         Person editedPerson = new PersonBuilder().build();
         Person personToEdit = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(editedPerson).build();
@@ -163,7 +161,6 @@ public class EditCommandTest {
 
         // edit -> first person edited
         editCommand.execute();
-        undoRedoStack.push(editCommand);
 
         // undo -> reverts addressbook back to previous state and filtered person list to show all persons
         assertCommandSuccess(undoCommand, model, UndoCommand.MESSAGE_SUCCESS, expectedModel);
@@ -175,17 +172,16 @@ public class EditCommandTest {
 
     @Test
     public void executeUndoRedo_invalidIndexUnfilteredList_failure() {
-        UndoRedoStack undoRedoStack = new UndoRedoStack();
-        UndoCommand undoCommand = prepareUndoCommand(model, undoRedoStack);
-        RedoCommand redoCommand = prepareRedoCommand(model, undoRedoStack);
+        UndoCommand undoCommand = prepareUndoCommand(model);
+        RedoCommand redoCommand = prepareRedoCommand(model);
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_BOB).build();
         EditCommand editCommand = prepareCommand(outOfBoundIndex, descriptor);
 
-        // execution failed -> editCommand not pushed into undoRedoStack
+        // execution failed -> address book not inserted into care taker list
         assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
 
-        // no commands in undoRedoStack -> undoCommand and redoCommand fail
+        // single address book in care taker list -> undoCommand and redoCommand fail
         assertCommandFailure(undoCommand, model, UndoCommand.MESSAGE_FAILURE);
         assertCommandFailure(redoCommand, model, RedoCommand.MESSAGE_FAILURE);
     }
@@ -199,9 +195,8 @@ public class EditCommandTest {
      */
     @Test
     public void executeUndoRedo_validIndexFilteredList_samePersonEdited() throws Exception {
-        UndoRedoStack undoRedoStack = new UndoRedoStack();
-        UndoCommand undoCommand = prepareUndoCommand(model, undoRedoStack);
-        RedoCommand redoCommand = prepareRedoCommand(model, undoRedoStack);
+        UndoCommand undoCommand = prepareUndoCommand(model);
+        RedoCommand redoCommand = prepareRedoCommand(model);
         Person editedPerson = new PersonBuilder().build();
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(editedPerson).build();
         EditCommand editCommand = prepareCommand(INDEX_FIRST_PERSON, descriptor);
@@ -211,7 +206,6 @@ public class EditCommandTest {
         Person personToEdit = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         // edit -> edits second person in unfiltered person list / first person in filtered person list
         editCommand.execute();
-        undoRedoStack.push(editCommand);
 
         // undo -> reverts addressbook back to previous state and filtered person list to show all persons
         assertCommandSuccess(undoCommand, model, UndoCommand.MESSAGE_SUCCESS, expectedModel);
@@ -223,7 +217,7 @@ public class EditCommandTest {
     }
 
     @Test
-    public void equals() throws Exception {
+    public void equals() {
         final EditCommand standardCommand = prepareCommand(INDEX_FIRST_PERSON, DESC_AMY);
 
         // same values -> returns true
@@ -233,10 +227,6 @@ public class EditCommandTest {
 
         // same object -> returns true
         assertTrue(standardCommand.equals(standardCommand));
-
-        // one command preprocessed when previously equal -> returns false
-        commandWithSameValues.preprocessUndoableCommand();
-        assertFalse(standardCommand.equals(commandWithSameValues));
 
         // null -> returns false
         assertFalse(standardCommand.equals(null));
@@ -256,7 +246,7 @@ public class EditCommandTest {
      */
     private EditCommand prepareCommand(Index index, EditPersonDescriptor descriptor) {
         EditCommand editCommand = new EditCommand(index, descriptor);
-        editCommand.setData(model, new CommandHistory(), new UndoRedoStack());
+        editCommand.setData(model, new CommandHistory());
         return editCommand;
     }
 }
