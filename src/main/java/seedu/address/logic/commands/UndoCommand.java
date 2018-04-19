@@ -6,7 +6,7 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import seedu.address.logic.commands.exceptions.CommandException;
 
 /**
- * Reverts the {@code model} to its previous {@code AddressBook} state.
+ * Reverts the {@code model}'s address book to its previous state.
  */
 public class UndoCommand extends Command {
 

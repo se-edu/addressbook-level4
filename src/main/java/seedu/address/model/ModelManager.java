@@ -27,7 +27,7 @@ public class ModelManager extends ComponentManager implements Model {
     private final FilteredList<Person> filteredPersons;
 
     /**
-     * Initializes a ModelManager with the given versionedAddressBook and userPrefs.
+     * Initializes a ModelManager with the given addressBook and userPrefs.
      */
     public ModelManager(ReadOnlyAddressBook addressBook, UserPrefs userPrefs) {
         super();
@@ -35,8 +35,8 @@ public class ModelManager extends ComponentManager implements Model {
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
-        this.versionedAddressBook = new VersionedAddressBook(addressBook);
-        filteredPersons = new FilteredList<>(this.versionedAddressBook.getPersonList());
+        versionedAddressBook = new VersionedAddressBook(addressBook);
+        filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
     }
 
     public ModelManager() {
@@ -124,7 +124,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void commitAddressBook() {
-        versionedAddressBook.addNewState(versionedAddressBook);
+        versionedAddressBook.commit();
     }
 
     @Override

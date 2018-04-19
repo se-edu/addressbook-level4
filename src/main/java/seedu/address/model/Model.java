@@ -66,7 +66,7 @@ public interface Model {
     void redoAddressBook();
 
     /**
-     * Saves the current address book state for tracking.
+     * Saves the current address book state for undo/redo.
      */
     void commitAddressBook();
 }

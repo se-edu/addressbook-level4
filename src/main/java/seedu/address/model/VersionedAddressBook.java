@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Keeps tracks of the different versions of address book the app was in.
+ * AddressBook that keeps track of its own history.
  */
 public class VersionedAddressBook extends AddressBook {
 
@@ -20,12 +20,12 @@ public class VersionedAddressBook extends AddressBook {
     }
 
     /**
-     * Adds a defensive copy of {@code newState} to end of the list. Previously undone states that are not redone are
-     * removed.
+     * Create and saves a copy of the current {@code AddressBook} state in the end of the state list.
+     * Previously undone states that are not redone are removed from the state list.
      */
-    public void addNewState(ReadOnlyAddressBook newState) {
+    public void commit() {
         removeStatesAfterCurrentPointer();
-        addressBookStateList.add(new AddressBook(newState));
+        addressBookStateList.add(new AddressBook(this));
         currentStatePointer++;
     }
 
