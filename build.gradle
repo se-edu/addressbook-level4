@@ -2,6 +2,8 @@
 // For more details take a look at the Java Quickstart chapter in the Gradle
 // user guide available at http://gradle.org/docs/4.6/userguide/tutorial_java_projects.html
 
+import org.gradle.api.tasks.testing.logging.TestLogEvent
+
 plugins {
     id 'java'
     id 'jacoco'
@@ -117,12 +119,14 @@ allTests.dependsOn nonGuiTests
 test {
     systemProperty 'testfx.setup.timeout', '60000'
 
-    // Prints the currently running test's name in the CI's build log,
-    // so that we can check if tests are being silently skipped or
-    // stalling the build.
-    if (System.env.'CI') {
-        beforeTest { descriptor ->
-            logger.lifecycle("Running test: ${descriptor}")
+    testLogging {
+        events TestLogEvent.FAILED, TestLogEvent.SKIPPED
+
+        // Prints the currently running test's name in the CI's build log,
+        // so that we can check if tests are being silently skipped or
+        // stalling the build.
+        if (System.env.'CI') {
+            events << TestLogEvent.STARTED
         }
     }
 
