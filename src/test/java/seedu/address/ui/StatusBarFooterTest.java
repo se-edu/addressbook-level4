@@ -5,6 +5,8 @@ import static seedu.address.testutil.EventsUtil.postNow;
 import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_INITIAL;
 import static seedu.address.ui.StatusBarFooter.SYNC_STATUS_UPDATED;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.Clock;
 import java.time.Instant;
 import java.time.ZoneId;
@@ -21,8 +23,8 @@ import seedu.address.model.AddressBook;
 
 public class StatusBarFooterTest extends GuiUnitTest {
 
-    private static final String STUB_SAVE_LOCATION = "Stub";
-    private static final String RELATIVE_PATH = "./";
+    private static final Path STUB_SAVE_LOCATION = Paths.get("Stub");
+    private static final Path RELATIVE_PATH = Paths.get(".");
 
     private static final AddressBookChangedEvent EVENT_STUB = new AddressBookChangedEvent(new AddressBook());
 
@@ -54,11 +56,11 @@ public class StatusBarFooterTest extends GuiUnitTest {
     @Test
     public void display() {
         // initial state
-        assertStatusBarContent(RELATIVE_PATH + STUB_SAVE_LOCATION, SYNC_STATUS_INITIAL);
+        assertStatusBarContent(RELATIVE_PATH.resolve(STUB_SAVE_LOCATION).toString(), SYNC_STATUS_INITIAL);
 
         // after address book is updated
         postNow(EVENT_STUB);
-        assertStatusBarContent(RELATIVE_PATH + STUB_SAVE_LOCATION,
+        assertStatusBarContent(RELATIVE_PATH.resolve(STUB_SAVE_LOCATION).toString(),
                 String.format(SYNC_STATUS_UPDATED, new Date(injectedClock.millis()).toString()));
     }
 
