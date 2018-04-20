@@ -32,11 +32,4 @@ public class CollectionUtil {
     public static boolean isAnyNonNull(Object... items) {
         return items != null && Arrays.stream(items).anyMatch(Objects::nonNull);
     }
-
-    /**
-     * Returns true if every element in a collection are unique by {@link Object#equals(Object)}.
-     */
-    public static boolean elementsAreUnique(Collection<?> items) {
-        return items.size() == items.stream().distinct().count();
-    }
 }
