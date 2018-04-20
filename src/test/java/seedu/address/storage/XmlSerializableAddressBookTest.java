@@ -10,16 +10,15 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.XmlUtil;
 import seedu.address.model.AddressBook;
 import seedu.address.testutil.TypicalPersons;
 
 public class XmlSerializableAddressBookTest {
 
-    private static final String TEST_DATA_FOLDER = FileUtil.getPath("src/test/data/XmlSerializableAddressBookTest/");
-    private static final Path TYPICAL_PERSONS_FILE = Paths.get(TEST_DATA_FOLDER + "typicalPersonsAddressBook.xml");
-    private static final Path INVALID_PERSON_FILE = Paths.get(TEST_DATA_FOLDER + "invalidPersonAddressBook.xml");
+    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "XmlSerializableAddressBookTest");
+    private static final Path TYPICAL_PERSONS_FILE = TEST_DATA_FOLDER.resolve("typicalPersonsAddressBook.xml");
+    private static final Path INVALID_PERSON_FILE = TEST_DATA_FOLDER.resolve("invalidPersonAddressBook.xml");
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
