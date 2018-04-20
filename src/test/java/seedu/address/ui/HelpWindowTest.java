@@ -3,6 +3,7 @@ package seedu.address.ui;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assume.assumeFalse;
 import static seedu.address.ui.HelpWindow.USERGUIDE_FILE_PATH;
 
 import java.net.URL;
@@ -47,6 +48,8 @@ public class HelpWindowTest extends GuiUnitTest {
 
     @Test
     public void focus_helpWindowNotFocused_focused() throws Exception {
+        assumeFalse("TEST SKIPPED IN HEADLESS MODE DUE TO UNDEFINED BEHAVIOUR, RUN IT IN HEAD-FULL MODE INSTEAD",
+                guiRobot.isHeadlessMode());
         guiRobot.interact(helpWindow::show);
 
         // Focus on another stage to remove focus from the helpWindow
