@@ -48,8 +48,7 @@ public class HelpWindowTest extends GuiUnitTest {
 
     @Test
     public void focus_helpWindowNotFocused_focused() throws Exception {
-        assumeFalse("TEST SKIPPED IN HEADLESS MODE DUE TO UNDEFINED BEHAVIOUR, RUN IT IN HEAD-FULL MODE INSTEAD",
-                guiRobot.isHeadlessMode());
+        assumeFalse("Test skipped in headless mode: Window focus behavior is buggy.", guiRobot.isHeadlessMode());
         guiRobot.interact(helpWindow::show);
 
         // Focus on another stage to remove focus from the helpWindow
