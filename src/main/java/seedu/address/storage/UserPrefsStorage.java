@@ -1,6 +1,7 @@
 package seedu.address.storage;
 
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.Optional;
 
 import seedu.address.commons.exceptions.DataConversionException;
@@ -14,7 +15,7 @@ public interface UserPrefsStorage {
     /**
      * Returns the file path of the UserPrefs data file.
      */
-    String getUserPrefsFilePath();
+    Path getUserPrefsFilePath();
 
     /**
      * Returns UserPrefs data from storage.

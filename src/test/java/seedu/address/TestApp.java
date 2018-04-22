@@ -1,7 +1,7 @@
 package seedu.address;
 
-import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.function.Supplier;
 
 import javafx.stage.Screen;
@@ -27,19 +27,19 @@ import systemtests.ModelHelper;
  */
 public class TestApp extends MainApp {
 
-    public static final String SAVE_LOCATION_FOR_TESTING = TestUtil.getFilePathInSandboxFolder("sampleData.xml");
+    public static final Path SAVE_LOCATION_FOR_TESTING = TestUtil.getFilePathInSandboxFolder("sampleData.xml");
     public static final String APP_TITLE = "Test App";
 
-    protected static final String DEFAULT_PREF_FILE_LOCATION_FOR_TESTING =
+    protected static final Path DEFAULT_PREF_FILE_LOCATION_FOR_TESTING =
             TestUtil.getFilePathInSandboxFolder("pref_testing.json");
     protected static final String ADDRESS_BOOK_NAME = "Test";
     protected Supplier<ReadOnlyAddressBook> initialDataSupplier = () -> null;
-    protected String saveFileLocation = SAVE_LOCATION_FOR_TESTING;
+    protected Path saveFileLocation = SAVE_LOCATION_FOR_TESTING;
 
     public TestApp() {
     }
 
-    public TestApp(Supplier<ReadOnlyAddressBook> initialDataSupplier, String saveFileLocation) {
+    public TestApp(Supplier<ReadOnlyAddressBook> initialDataSupplier, Path saveFileLocation) {
         super();
         this.initialDataSupplier = initialDataSupplier;
         this.saveFileLocation = saveFileLocation;
@@ -52,7 +52,7 @@ public class TestApp extends MainApp {
     }
 
     @Override
-    protected Config initConfig(String configFilePath) {
+    protected Config initConfig(Path configFilePath) {
         Config config = super.initConfig(configFilePath);
         config.setAppTitle(APP_TITLE);
         config.setUserPrefsFilePath(DEFAULT_PREF_FILE_LOCATION_FOR_TESTING);
@@ -86,7 +86,7 @@ public class TestApp extends MainApp {
     /**
      * Returns the file path of the storage file.
      */
-    public String getStorageSaveLocation() {
+    public Path getStorageSaveLocation() {
         return storage.getAddressBookFilePath();
     }
 
@@ -111,11 +111,10 @@ public class TestApp extends MainApp {
     /**
      * Creates an XML file at the {@code filePath} with the {@code data}.
      */
-    private <T> void createDataFileWithData(T data, String filePath) {
+    private <T> void createDataFileWithData(T data, Path filePath) {
         try {
-            File saveFileForTesting = new File(filePath);
-            FileUtil.createIfMissing(saveFileForTesting);
-            XmlUtil.saveDataToFile(saveFileForTesting, data);
+            FileUtil.createIfMissing(filePath);
+            XmlUtil.saveDataToFile(filePath, data);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

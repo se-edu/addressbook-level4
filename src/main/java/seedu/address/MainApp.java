@@ -1,7 +1,7 @@
 package seedu.address;
 
 import java.io.IOException;
-import java.util.Map;
+import java.nio.file.Path;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -57,7 +57,8 @@ public class MainApp extends Application {
         logger.info("=============================[ Initializing AddressBook ]===========================");
         super.init();
 
-        config = initConfig(getApplicationParameter("config"));
+        AppParameters appParameters = AppParameters.parse(getParameters());
+        config = initConfig(appParameters.getConfigPath());
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         userPrefs = initPrefs(userPrefsStorage);
@@ -73,11 +74,6 @@ public class MainApp extends Application {
         ui = new UiManager(logic, config, userPrefs);
 
         initEventsCenter();
-    }
-
-    private String getApplicationParameter(String parameterName) {
-        Map<String, String> applicationParameters = getParameters().getNamed();
-        return applicationParameters.get(parameterName);
     }
 
     /**
@@ -114,9 +110,9 @@ public class MainApp extends Application {
      * The default file path {@code Config#DEFAULT_CONFIG_FILE} will be used instead
      * if {@code configFilePath} is null.
      */
-    protected Config initConfig(String configFilePath) {
+    protected Config initConfig(Path configFilePath) {
         Config initializedConfig;
-        String configFilePathUsed;
+        Path configFilePathUsed;
 
         configFilePathUsed = Config.DEFAULT_CONFIG_FILE;
 
@@ -151,7 +147,7 @@ public class MainApp extends Application {
      * reading from the file.
      */
     protected UserPrefs initPrefs(UserPrefsStorage storage) {
-        String prefsFilePath = storage.getUserPrefsFilePath();
+        Path prefsFilePath = storage.getUserPrefsFilePath();
         logger.info("Using prefs file : " + prefsFilePath);
 
         UserPrefs initializedPrefs;

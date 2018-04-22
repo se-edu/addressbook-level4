@@ -3,8 +3,9 @@ package seedu.address.storage;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 
-import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Optional;
 
 import org.junit.Rule;
@@ -13,12 +14,11 @@ import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
 
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.commons.util.FileUtil;
 import seedu.address.model.UserPrefs;
 
 public class JsonUserPrefsStorageTest {
 
-    private static final String TEST_DATA_FOLDER = FileUtil.getPath("./src/test/data/JsonUserPrefsStorageTest/");
+    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonUserPrefsStorageTest");
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -33,7 +33,7 @@ public class JsonUserPrefsStorageTest {
     }
 
     private Optional<UserPrefs> readUserPrefs(String userPrefsFileInTestDataFolder) throws DataConversionException {
-        String prefsFilePath = addToTestDataPathIfNotNull(userPrefsFileInTestDataFolder);
+        Path prefsFilePath = addToTestDataPathIfNotNull(userPrefsFileInTestDataFolder);
         return new JsonUserPrefsStorage(prefsFilePath).readUserPrefs(prefsFilePath);
     }
 
@@ -52,9 +52,9 @@ public class JsonUserPrefsStorageTest {
          */
     }
 
-    private String addToTestDataPathIfNotNull(String userPrefsFileInTestDataFolder) {
+    private Path addToTestDataPathIfNotNull(String userPrefsFileInTestDataFolder) {
         return userPrefsFileInTestDataFolder != null
-                ? TEST_DATA_FOLDER + userPrefsFileInTestDataFolder
+                ? TEST_DATA_FOLDER.resolve(userPrefsFileInTestDataFolder)
                 : null;
     }
 
@@ -82,7 +82,7 @@ public class JsonUserPrefsStorageTest {
     private UserPrefs getTypicalUserPrefs() {
         UserPrefs userPrefs = new UserPrefs();
         userPrefs.setGuiSettings(1000, 500, 300, 100);
-        userPrefs.setAddressBookFilePath("addressbook.xml");
+        userPrefs.setAddressBookFilePath(Paths.get("addressbook.xml"));
         userPrefs.setAddressBookName("TypicalAddressBookName");
         return userPrefs;
     }
@@ -117,7 +117,7 @@ public class JsonUserPrefsStorageTest {
         UserPrefs original = new UserPrefs();
         original.setGuiSettings(1200, 200, 0, 2);
 
-        String pefsFilePath = testFolder.getRoot() + File.separator + "TempPrefs.json";
+        Path pefsFilePath = testFolder.getRoot().toPath().resolve("TempPrefs.json");
         JsonUserPrefsStorage jsonUserPrefsStorage = new JsonUserPrefsStorage(pefsFilePath);
 
         //Try writing when the file doesn't exist

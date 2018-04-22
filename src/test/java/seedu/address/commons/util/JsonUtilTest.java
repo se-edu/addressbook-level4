@@ -2,8 +2,8 @@ package seedu.address.commons.util;
 
 import static org.junit.Assert.assertEquals;
 
-import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
 
 import org.junit.Test;
 
@@ -15,7 +15,7 @@ import seedu.address.testutil.TestUtil;
  */
 public class JsonUtilTest {
 
-    private static final File SERIALIZATION_FILE = new File(TestUtil.getFilePathInSandboxFolder("serialize.json"));
+    private static final Path SERIALIZATION_FILE = TestUtil.getFilePathInSandboxFolder("serialize.json");
 
     @Test
     public void serializeObjectToJsonFile_noExceptionThrown() throws IOException {
