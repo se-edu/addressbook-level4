@@ -1,7 +1,6 @@
 package seedu.address.logic.commands;
 
 import seedu.address.logic.CommandHistory;
-import seedu.address.logic.UndoRedoStack;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
@@ -11,7 +10,6 @@ import seedu.address.model.Model;
 public abstract class Command {
     protected Model model;
     protected CommandHistory history;
-    protected UndoRedoStack undoRedoStack;
 
     /**
      * Executes the command and returns the result message.
@@ -26,7 +24,7 @@ public abstract class Command {
      * Commands making use of any of these should override this method to gain
      * access to the dependencies.
      */
-    public void setData(Model model, CommandHistory history, UndoRedoStack undoRedoStack) {
+    public void setData(Model model, CommandHistory history) {
         this.model = model;
     }
 }
