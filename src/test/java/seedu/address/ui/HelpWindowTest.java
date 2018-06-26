@@ -23,13 +23,13 @@ public class HelpWindowTest extends GuiUnitTest {
     @Before
     public void setUp() throws Exception {
         guiRobot.interact(() -> helpWindow = new HelpWindow());
-        Stage helpWindowStage = FxToolkit.setupStage((stage) -> stage.setScene(helpWindow.getRoot().getScene()));
-        FxToolkit.showStage();
-        helpWindowHandle = new HelpWindowHandle(helpWindowStage);
+        FxToolkit.registerStage(helpWindow::getRoot);
+        helpWindowHandle = new HelpWindowHandle(helpWindow.getRoot());
     }
 
     @Test
-    public void display() {
+    public void display() throws Exception {
+        FxToolkit.showStage();
         URL expectedHelpPage = HelpWindow.class.getResource(USERGUIDE_FILE_PATH);
         assertEquals(expectedHelpPage, helpWindowHandle.getLoadedUrl());
     }
@@ -42,12 +42,20 @@ public class HelpWindowTest extends GuiUnitTest {
 
     @Test
     public void isShowing_helpWindowIsHiding_returnsFalse() {
-        guiRobot.interact(helpWindow.getRoot()::hide);
         assertFalse(helpWindow.isShowing());
     }
 
     @Test
     public void focus_helpWindowNotFocused_focused() throws Exception {
+        // TODO: This test skip can be removed once this bug is fixed:
+        // https://github.com/javafxports/openjdk-jfx/issues/50
+        //
+        // When there are two stages (stage1 and stage2) shown,
+        // stage1 is in focus and stage2.requestFocus() is called,
+        // we expect that stage1.isFocused() will return false while
+        // stage2.isFocused() returns true. However, as reported in the bug report,
+        // both stage1.isFocused() and stage2.isFocused() returns true,
+        // which fails the test.
         assumeFalse("Test skipped in headless mode: Window focus behavior is buggy.", guiRobot.isHeadlessMode());
         guiRobot.interact(helpWindow::show);
 
