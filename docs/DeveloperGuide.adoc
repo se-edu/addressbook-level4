@@ -9,6 +9,7 @@
 ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
+:warning-caption: :warning:
 endif::[]
 :repoURL: https://github.com/se-edu/addressbook-level4/tree/master
 
@@ -19,6 +20,11 @@ By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
 === Prerequisites
 
 . *JDK `9`* or later
++
+[WARNING]
+JDK `10` on Windows will fail to run tests in <<UsingGradle#Running-Tests, headless mode>> due to a https://github.com/javafxports/openjdk-jfx/issues/66[JavaFX bug].
+Windows developers are highly recommended to use JDK `9`.
+
 . *IntelliJ* IDE
 +
 [NOTE]
