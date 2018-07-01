@@ -1,4 +1,20 @@
 / NOTE: You must restart the gradle daemon after modifying any template file for the changes to take effect.
+- if !(attr? 'no-site-header')
+  #site-header
+    nav.navbar.navbar-light.bg-light
+      .container
+        - if attr? 'site-name'
+            a.navbar-brand href=(site_url 'index.html') =(attr 'site-name')
+        ul.navbar-nav
+          li.nav-item
+            =nav_link('UserGuide', 'UserGuide.html', 'User Guide')
+          li.nav-item
+            =nav_link('DeveloperGuide', 'DeveloperGuide.html', 'Developer Guide')
+          li.nav-item
+            =nav_link('AboutUs', 'AboutUs.html', 'About Us')
+          li.nav-item
+            =nav_link('ContactUs', 'ContactUs.html', 'Contact Us')
+
 / AsciiDoc leaves an empty header div even if there's no doctitle
 #header
   - if has_header?
