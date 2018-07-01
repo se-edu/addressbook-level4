@@ -206,6 +206,8 @@ asciidoctor {
         sectlinks: true,
         idprefix: '',  // for compatibility with GitHub preview
         idseparator: '-',
+        'site-root': "${sourceDir}",  // must be the same as sourceDir, do not modify
+        'site-name': 'AddressBook-Level4',
     ]
 
     options['template_dirs'].each {
