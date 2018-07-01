@@ -149,6 +149,50 @@ module Slim::Helpers
   end
 
   #--------------------------------------------------------
+  # _header
+  #
+
+  ##
+  # Constructs a relative path to the target page.
+  #
+  # @param href [String] Path to the target page, relative to the site root.
+  # @return [String] Path to the target page, relative to the current document.
+  def site_url(href)
+    path_resolver = (@path_resolver ||= PathResolver.new)
+    base_dir = path_resolver.posixify(@document.base_dir)
+    site_root = path_resolver.posixify(@document.attr('site-root', base_dir))
+    unless path_resolver.is_root? site_root
+      raise ::ArgumentError, %(site-root must be an absolute path: #{site_root})
+    end
+    base_dir_to_root = nil
+    if (base_dir != site_root) && (base_dir.start_with? site_root)
+      comp, root = path_resolver.partition_path(base_dir.slice(site_root.length + 1, base_dir.length))
+      base_dir_to_root = '../' * comp.length
+    end
+    path_resolver.web_path(href, base_dir_to_root)
+  end
+
+  ##
+  # Constructs a HTML <a> tag representing a link in the navigation bar.
+  #
+  # @param section [String] Name of the site section represented by the link.
+  #   This is used to highlight the navigation item if the current document
+  #   sets its site-section attribute to this String, indicating that the
+  #   reader is browsing this section of the site.
+  # @param href [String] Path to the target page, relative to the site root.
+  # @param content [String] Link content. This is usually the human-readable name
+  #   of the link target.
+  # @return [String] The rendered <a> tag.
+  def nav_link(section, href, content)
+    attributes = {
+      :class => ['nav-link'],
+      :href => site_url(href),
+    }
+    attributes[:class].push('active') if (attr 'site-section') == section
+    html_tag('a', attributes, content)
+  end
+
+  #--------------------------------------------------------
   # document
   #
 
