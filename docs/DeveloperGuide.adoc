@@ -541,7 +541,7 @@ e.g. `seedu.address.logic.LogicManagerTest`
 === Troubleshooting Testing
 **Problem: `HelpWindowTest` fails with a `NullPointerException`.**
 
-* Reason: One of its dependencies, `UserGuide.html` in `src/main/resources/docs` is missing.
+* Reason: One of its dependencies, `HelpWindow.html` in `src/main/resources/docs` is missing.
 * Solution: Execute Gradle task `processResources`.
 
 == Dev Ops
