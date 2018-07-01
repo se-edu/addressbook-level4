@@ -1,4 +1,5 @@
 = AddressBook Level 4 - Developer Guide
+:site-section: DeveloperGuide
 :toc:
 :toc-title:
 :toc-placement: preamble
@@ -62,7 +63,13 @@ Optionally, you can follow the <<UsingCheckstyle#, UsingCheckstyle.adoc>> docume
 
 ==== Updating documentation to match your fork
 
-After forking the repo, links in the documentation will still point to the `se-edu/addressbook-level4` repo. If you plan to develop this as a separate product (i.e. instead of contributing to the `se-edu/addressbook-level4`) , you should replace the URL in the variable `repoURL` in `DeveloperGuide.adoc` and `UserGuide.adoc` with the URL of your fork.
+After forking the repo, the documentation will still refer to the `se-edu/addressbook-level4` repo.
+
+If you plan to develop this fork as a separate product (i.e. instead of contributing to `se-edu/addressbook-level4`), you should do the following:
+
+. Configure the <<Docs-SiteWideDocSettings, site-wide documentation settings>> in link:{repoURL}/build.gradle[`build.gradle`], such as the `site-name`, to suit your own project.
+
+. Replace the URL in the attribute `repoURL` in link:{repoURL}/docs/DeveloperGuide.adoc[`DeveloperGuide.adoc`] and link:{repoURL}/docs/UserGuide.adoc[`UserGuide.adoc`] with the URL of your fork.
 
 ==== Setting up CI
 
@@ -413,6 +420,55 @@ Here are the steps to convert the project documentation files to PDF format.
 
 .Saving documentation as PDF files in Chrome
 image::chrome_save_as_pdf.png[width="300"]
+
+[[Docs-SiteWideDocSettings]]
+=== Site-wide Documentation Settings
+
+The `build.gradle` file specifies some project-specific https://asciidoctor.org/docs/user-manual/#attributes[asciidoc attributes] which affects how all documentation files within this project are rendered.
+
+[cols="1,2a,1", options="header"]
+.List of site-wide attributes
+|===
+|Attribute name |Description |Default value
+
+|`site-name`
+|The name of the website. This will be displayed at the top of the page.
+|`AddressBook-Level4`
+
+|===
+
+[[Docs-PerFileDocSettings]]
+=== Per-file Documentation Settings
+
+Each `.adoc` file may also specify some file-specific https://asciidoctor.org/docs/user-manual/#attributes[asciidoc attributes] which affects how the file is rendered.
+
+Any of asciidoctor's https://asciidoctor.org/docs/user-manual/#builtin-attributes[built-in attributes] may be used as well.
+
+[cols="1,2a,1", options="header"]
+.A partial list of per-file attributes
+|===
+|Attribute name |Description |Default value
+
+|`site-section`
+|Site section that the document belongs to.
+This will cause the associated item in the navigation bar to be highlighted.
+One of: `UserGuide`, `DeveloperGuide`, `AboutUs`, `ContactUs`.
+|_not set_
+
+|`no-site-header`
+|Set this attribute to remove the site navigation bar.
+|_not set_
+
+|===
+
+=== Site Template
+
+The files in link:{repoURL}/docs/stylesheets[`docs/stylesheets`] are the https://developer.mozilla.org/en-US/docs/Web/CSS[CSS stylesheets] of the site.
+You can modify them to change some styling properties of the site.
+
+The files in link:{repoURL}/docs/templates[`docs/templates`] controls the rendering of `.adoc` files into HTML5.
+These template files are written in a combination of https://www.ruby-lang.org[Ruby] and http://slim-lang.com[Slim].
+You should only modify them if you need greater control over the site's layout than what stylesheets can provide.
 
 [[Testing]]
 == Testing
