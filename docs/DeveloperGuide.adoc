@@ -462,7 +462,7 @@ Any of asciidoctor's https://asciidoctor.org/docs/user-manual/#builtin-attribute
 |`site-section`
 |Site section that the document belongs to.
 This will cause the associated item in the navigation bar to be highlighted.
-One of: `UserGuide`, `DeveloperGuide`, `AboutUs`, `ContactUs`.
+One of: `UserGuide`, `DeveloperGuide`, `AboutUs`, `ContactUs`, `LearningOutcomes` (SE-EDU projects only)
 |_not set_
 
 |`no-site-header`
