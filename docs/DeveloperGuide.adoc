@@ -446,6 +446,11 @@ The `build.gradle` file specifies some project-specific https://asciidoctor.org/
 Setting this will add a "GitHub" link in the navigation bar.
 |_not set_
 
+|`site-seedu`
+|Define this attribute if the project is an official SE-EDU project.
+This will render the SE-EDU navigation bar at the top of the page, and add some SE-EDU-specific navigation items.
+|_not set_
+
 |===
 
 [[Docs-PerFileDocSettings]]
