@@ -25,7 +25,8 @@
   #site-header
     nav.navbar.navbar-light.bg-light
       .container
-        a.navbar-brand href=(site_url 'index.html') =(attr 'site-name', 'AddressBook-Level4')
+        - if attr? 'site-name'
+            a.navbar-brand href=(site_url 'index.html') =(attr 'site-name')
         ul.navbar-nav
           li.nav-item
             =nav_link('UserGuide', 'UserGuide.html', 'User Guide')

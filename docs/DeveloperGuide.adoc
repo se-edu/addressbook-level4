@@ -69,7 +69,7 @@ Optionally, you can follow the <<UsingCheckstyle#, UsingCheckstyle.adoc>> docume
 
 ==== Updating documentation to match your fork
 
-After forking the repo, the documentation will still refer to the `se-edu/addressbook-level4` repo.
+After forking the repo, the documentation will still have the SE-EDU branding and refer to the `se-edu/addressbook-level4` repo.
 
 If you plan to develop this fork as a separate product (i.e. instead of contributing to `se-edu/addressbook-level4`), you should do the following:
 
@@ -430,7 +430,10 @@ image::chrome_save_as_pdf.png[width="300"]
 [[Docs-SiteWideDocSettings]]
 === Site-wide Documentation Settings
 
-The `build.gradle` file specifies some project-specific https://asciidoctor.org/docs/user-manual/#attributes[asciidoc attributes] which affects how all documentation files within this project are rendered.
+The link:{repoURL}/build.gradle[`build.gradle`] file specifies some project-specific https://asciidoctor.org/docs/user-manual/#attributes[asciidoc attributes] which affects how all documentation files within this project are rendered.
+
+[TIP]
+Attributes left unset in the `build.gradle` file will use their *default value*, if any.
 
 [cols="1,2a,1", options="header"]
 .List of site-wide attributes
@@ -438,8 +441,9 @@ The `build.gradle` file specifies some project-specific https://asciidoctor.org/
 |Attribute name |Description |Default value
 
 |`site-name`
-|The name of the website. This will be displayed at the top of the page.
-|`AddressBook-Level4`
+|The name of the website.
+If set, the name will be displayed near the top of the page.
+|_not set_
 
 |`site-githuburl`
 |URL to the site's repository on https://github.com[GitHub].
@@ -460,8 +464,11 @@ Each `.adoc` file may also specify some file-specific https://asciidoctor.org/do
 
 Asciidoctor's https://asciidoctor.org/docs/user-manual/#builtin-attributes[built-in attributes] may be specified and used as well.
 
+[TIP]
+Attributes left unset in `.adoc` files will use their *default value*, if any.
+
 [cols="1,2a,1", options="header"]
-.A partial list of per-file attributes
+.List of per-file attributes, excluding Asciidoctor's built-in attributes
 |===
 |Attribute name |Description |Default value
 
@@ -482,11 +489,17 @@ _{asterisk} Official SE-EDU projects only_
 === Site Template
 
 The files in link:{repoURL}/docs/stylesheets[`docs/stylesheets`] are the https://developer.mozilla.org/en-US/docs/Web/CSS[CSS stylesheets] of the site.
-You can modify them to change some styling properties of the site.
+You can modify them to change some properties of the site's design.
 
 The files in link:{repoURL}/docs/templates[`docs/templates`] controls the rendering of `.adoc` files into HTML5.
-These template files are written in a combination of https://www.ruby-lang.org[Ruby] and http://slim-lang.com[Slim].
+These template files are written in a mixture of https://www.ruby-lang.org[Ruby] and http://slim-lang.com[Slim].
+
+[WARNING]
+====
+Modifying the template files in link:{repoURL}/docs/templates[`docs/templates`] requires some knowledge and experience with Ruby and Asciidoctor's API.
 You should only modify them if you need greater control over the site's layout than what stylesheets can provide.
+The SE-EDU team does not provide support for modified template files.
+====
 
 [[Testing]]
 == Testing
