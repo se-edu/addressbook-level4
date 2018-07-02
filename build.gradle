@@ -208,6 +208,7 @@ asciidoctor {
         idseparator: '-',
         'site-root': "${sourceDir}",  // must be the same as sourceDir, do not modify
         'site-name': 'AddressBook-Level4',
+        'site-githuburl': 'https://github.com/se-edu/addressbook-level4',
     ]
 
     options['template_dirs'].each {

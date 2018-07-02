@@ -445,6 +445,11 @@ Attributes left unset in the `build.gradle` file will use their *default value*,
 If set, the name will be displayed near the top of the page.
 |_not set_
 
+|`site-githuburl`
+|URL to the site's repository on https://github.com[GitHub].
+Setting this will add a "View on GitHub" link in the navigation bar.
+|_not set_
+
 |===
 
 [[Docs-PerFileDocSettings]]

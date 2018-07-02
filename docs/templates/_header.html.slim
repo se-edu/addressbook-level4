@@ -14,6 +14,11 @@
             =nav_link('AboutUs', 'AboutUs.html', 'About Us')
           li.nav-item
             =nav_link('ContactUs', 'ContactUs.html', 'Contact Us')
+          - if attr? 'site-githuburl'
+            li.navitem
+              a.nav-link href=(attr 'site-githuburl')
+                span.fa.fa-github.fa-lg aria-hidden='true'
+                | &nbsp;View on GitHub
 
 / AsciiDoc leaves an empty header div even if there's no doctitle
 #header
