@@ -33,6 +33,11 @@
     background-color: #f8f9fa;
 }
 
+.bg-lighter {
+    background-color: #fbfbfb;
+}
+
+
 /* Navbar */
 
 .navbar {
@@ -42,6 +47,10 @@
     font-family: "Open Sans", "DejaVu Sans", sans-serif;
     font-size: 1rem;
     padding: 0px 1rem;
+}
+
+.navbar-lg {
+    font-size: 1.3rem;
 }
 
 .navbar-light {
@@ -81,6 +90,10 @@
     border-bottom: 2px #e46c0a solid;
 }
 
+.navbar-lg .nav-link.active {
+    border-bottom: 0;
+}
+
 .navbar > .container {
     display: flex;
     flex-wrap: wrap;
@@ -100,6 +113,14 @@
     margin: 0rem 0.4rem;
     padding: 0;
     vertical-align: middle;
+}
+
+.navbar-lg .navbar-brand {
+    font-size: 1.7rem;
+}
+
+.navbar-lg .navbar-brand img {
+    height: 2.3rem;
 }
 
 .navbar-nav {
@@ -122,6 +143,10 @@
 
 /* Do not display site header on print mediums */
 @media print {
+    #seedu-header {
+        display: none;
+    }
+
     #site-header {
         display: none;
     }
