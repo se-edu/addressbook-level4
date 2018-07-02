@@ -69,7 +69,7 @@ Optionally, you can follow the <<UsingCheckstyle#, UsingCheckstyle.adoc>> docume
 
 ==== Updating documentation to match your fork
 
-After forking the repo, the documentation will still refer to the `se-edu/addressbook-level4` repo.
+After forking the repo, the documentation will still have the SE-EDU branding and refer to the `se-edu/addressbook-level4` repo.
 
 If you plan to develop this fork as a separate product (i.e. instead of contributing to `se-edu/addressbook-level4`), you should do the following:
 
@@ -448,6 +448,11 @@ If set, the name will be displayed near the top of the page.
 |`site-githuburl`
 |URL to the site's repository on https://github.com[GitHub].
 Setting this will add a "View on GitHub" link in the navigation bar.
+|_not set_
+
+|`site-seedu`
+|Define this attribute if the project is an official SE-EDU project.
+This will render the SE-EDU navigation bar at the top of the page, and add some SE-EDU-specific navigation items.
 |_not set_
 
 |===
