@@ -435,6 +435,11 @@ The `build.gradle` file specifies some project-specific https://asciidoctor.org/
 |The name of the website. This will be displayed at the top of the page.
 |`AddressBook-Level4`
 
+|`site-githuburl`
+|URL to the site's repository on https://github.com[GitHub].
+Setting this will add a "GitHub" link in the navigation bar.
+|_not set_
+
 |===
 
 [[Docs-PerFileDocSettings]]
