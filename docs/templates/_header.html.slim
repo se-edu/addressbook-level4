@@ -31,6 +31,9 @@
             =nav_link('UserGuide', 'UserGuide.html', 'User Guide')
           li.nav-item
             =nav_link('DeveloperGuide', 'DeveloperGuide.html', 'Developer Guide')
+          - if attr? 'site-seedu'
+            li.nav-item
+              =nav_link('LearningOutcomes', 'LearningOutcomes.html', 'LOs')
           li.nav-item
             =nav_link('AboutUs', 'AboutUs.html', 'About Us')
           li.nav-item
