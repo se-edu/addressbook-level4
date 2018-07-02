@@ -104,6 +104,7 @@ table.tableblock > .title,
 .navbar {
     display: flex;
     flex-wrap: nowrap;
+    justify-content: center;
     font-family: "Open Sans", "DejaVu Sans", sans-serif;
     font-size: 1rem;
     padding: 0px 1rem;
@@ -157,6 +158,7 @@ table.tableblock > .title,
 .navbar > .container {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
 }
 
 .navbar-brand {
@@ -185,6 +187,7 @@ table.tableblock > .title,
 .navbar-nav {
     display: flex;
     flex-wrap: wrap;
+    flex-grow: 1;
     align-items: center;
     margin: 0px;
     padding: 0px;
