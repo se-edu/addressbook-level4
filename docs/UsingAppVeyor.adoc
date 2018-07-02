@@ -1,4 +1,5 @@
 = AppVeyor
+:site-section: DeveloperGuide
 :imagesDir: images
 :stylesDir: stylesheets
 

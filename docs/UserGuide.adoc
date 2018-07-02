@@ -1,4 +1,5 @@
 = AddressBook Level 4 - User Guide
+:site-section: UserGuide
 :toc:
 :toc-title:
 :toc-placement: preamble
