@@ -1,6 +1,6 @@
 // Gradle Configuration File
 // For more details take a look at the Java Quickstart chapter in the Gradle
-// user guide available at http://gradle.org/docs/4.6/userguide/tutorial_java_projects.html
+// user guide available at http://gradle.org/docs/4.8.1/userguide/tutorial_java_projects.html
 
 import org.gradle.api.tasks.testing.logging.TestLogEvent
 
@@ -12,6 +12,19 @@ plugins {
     id 'com.github.johnrengelman.shadow' version '2.0.3'
     id 'org.asciidoctor.convert' version '1.5.6'
     id 'application'
+}
+
+if (JavaVersion.current() == JavaVersion.VERSION_1_10
+        && System.getProperty('os.name').startsWith('Windows')) {
+    logger.warn('''\
+        ==============================================================================
+        *********************************** WARNING **********************************
+        ==============================================================================
+        You seem to be running Gradle with JDK 10 on Windows.
+        JDK 10 on Windows will fail to run tests in headless mode due to a JavaFX bug.
+        You are highly recommended to use JDK 9!
+        ==============================================================================
+        '''.stripIndent())
 }
 
 // Specifies the entry point of the application
@@ -75,7 +88,7 @@ shadowJar {
 }
 
 task wrapper(type: Wrapper) {
-    gradleVersion = '4.6'
+    gradleVersion = '4.8.1'
 }
 
 task coverage(type: JacocoReport) {
