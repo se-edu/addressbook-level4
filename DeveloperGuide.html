@@ -105,6 +105,19 @@
 <ol class="arabic">
 <li>
 <p><strong>JDK <code>9</code></strong> or later</p>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+JDK <code>10</code> on Windows will fail to run tests in <a href="UsingGradle.html#Running-Tests">headless mode</a> due to a <a href="https://github.com/javafxports/openjdk-jfx/issues/66">JavaFX bug</a>.
+Windows developers are highly recommended to use JDK <code>9</code>.
+</td>
+</tr>
+</table>
+</div>
 </li>
 <li>
 <p><strong>IntelliJ</strong> IDE</p>
@@ -2228,7 +2241,7 @@ Expected: Similar to previous.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2018-06-28 11:08:09 UTC
+Last updated 2018-07-04 02:04:40 UTC
 </div>
 </div>
 </body>
