@@ -1,0 +1,7 @@
+/ NOTE: You must restart the gradle daemon after modifying any template file for the changes to take effect.
+#footnotes
+  hr
+  - footnotes.each do |fn|
+    .footnote id=(footnote_id fn.index)
+      a href="##{footnoteref_id fn.index}" =fn.index
+      |. #{fn.text}

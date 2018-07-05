@@ -1,0 +1,12 @@
+/ NOTE: You must restart the gradle daemon after modifying any template file for the changes to take effect.
+#footer
+  .container
+    #footer-text
+      - if attr? :revnumber
+        |#{attr 'version-label'} #{attr :revnumber}
+      - if attr? :revnumber && (attr? 'last-update-label')
+        br
+      - if attr? 'last-update-label'
+        |#{attr 'last-update-label'} #{attr :docdatetime}
+    - unless (docinfo_content = (docinfo :footer)).empty?
+      =docinfo_content

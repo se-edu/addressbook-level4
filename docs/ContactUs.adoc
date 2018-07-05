@@ -1,4 +1,5 @@
 = Contact Us
+:site-section: ContactUs
 :stylesDir: stylesheets
 
 * *Bug reports, Suggestions* : Post in our https://github.com/se-edu/addressbook-level4/issues[issue tracker] if you noticed bugs or have suggestions on how to improve.

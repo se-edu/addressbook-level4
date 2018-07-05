@@ -1,0 +1,76 @@
+/ NOTE: You must restart the gradle daemon after modifying any template file for the changes to take effect.
+- if !(attr? 'no-site-header') && (attr? 'site-seedu')
+  #seedu-header
+    nav.navbar.navbar-lg.navbar-light.bg-lighter
+      .container
+        a.navbar-brand href='https://se-edu.github.io/'
+          img src=(site_url 'images/SeEduLogo.png') alt='SE-EDU'
+        ul.navbar-nav
+          li.nav-item
+            a.nav-link href='https://se-edu.github.io/addressbook-level1' AB-1
+          li.nav-item
+            a.nav-link href='https://se-edu.github.io/addressbook-level2' AB-2
+          li.nav-item
+            a.nav-link href='https://se-edu.github.io/addressbook-level3' AB-3
+          li.nav-item
+            a.nav-link.active href=(site_url 'index.html') AB-4
+          li.nav-item
+            a.nav-link href='https://se-edu.github.io/collate' Collate
+          li.nav-item
+            a.nav-link href='https://se-edu.github.io/se-book' Book
+          li.nav-item
+            a.nav-link href='https://se-edu.github.io/learningresources' Resources
+
+- if !(attr? 'no-site-header')
+  #site-header
+    nav.navbar.navbar-light.bg-light
+      .container
+        - if attr? 'site-name'
+            a.navbar-brand href=(site_url 'index.html') =(attr 'site-name')
+        ul.navbar-nav
+          li.nav-item
+            =nav_link('UserGuide', 'UserGuide.html', 'User Guide')
+          li.nav-item
+            =nav_link('DeveloperGuide', 'DeveloperGuide.html', 'Developer Guide')
+          - if attr? 'site-seedu'
+            li.nav-item
+              =nav_link('LearningOutcomes', 'LearningOutcomes.html', 'LOs')
+          li.nav-item
+            =nav_link('AboutUs', 'AboutUs.html', 'About Us')
+          li.nav-item
+            =nav_link('ContactUs', 'ContactUs.html', 'Contact Us')
+          - if attr? 'site-githuburl'
+            li.navitem
+              a.nav-link href=(attr 'site-githuburl')
+                span.fa.fa-github.fa-lg aria-hidden='true'
+                | &nbsp;View on GitHub
+
+/ AsciiDoc leaves an empty header div even if there's no doctitle
+#header
+  - if has_header?
+    - unless notitle
+      h1 =header.title
+    - if [:author, :revnumber, :revdate, :revremark].any? {|a| attr? a }
+      .details
+        - if attr? :author
+          span.author#author =(attr :author)
+          br
+          - if attr? :email
+            span.email#email =sub_macros(attr :email)
+            br
+          - if (authorcount = (attr :authorcount).to_i) > 1
+            - (2..authorcount).each do |idx|
+              span.author id="author#{idx}" =(attr "author_#{idx}")
+              br
+              - if attr? "email_#{idx}"
+                span.email id="email#{idx}" =sub_macros(attr "email_#{idx}")
+        - if attr? :revnumber
+          span#revnumber #{((attr 'version-label') || '').downcase} #{attr :revnumber}#{',' if attr? :revdate}
+          '
+        - if attr? :revdate
+          span#revdate =attr :revdate
+        - if attr? :revremark
+          br
+          span#revremark =(attr :revremark)
+  - if (attr? :toc) && (attr? 'toc-placement', 'auto')
+    include _toc.html
