@@ -16,7 +16,6 @@ import org.junit.rules.ExpectedException;
 
 import javafx.collections.ObservableList;
 import seedu.address.logic.CommandHistory;
-import seedu.address.logic.UndoRedoStack;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
@@ -88,7 +87,7 @@ public class AddCommandTest {
      */
     private AddCommand getAddCommandForPerson(Person person, Model model) {
         AddCommand command = new AddCommand(person);
-        command.setData(model, new CommandHistory(), new UndoRedoStack());
+        command.setData(model, new CommandHistory());
         return command;
     }
 
@@ -133,6 +132,33 @@ public class AddCommandTest {
         public void updateFilteredPersonList(Predicate<Person> predicate) {
             fail("This method should not be called.");
         }
+
+        @Override
+        public boolean canUndoAddressBook() {
+            fail("This method should not be called.");
+            return false;
+        }
+
+        @Override
+        public boolean canRedoAddressBook() {
+            fail("This method should not be called.");
+            return false;
+        }
+
+        @Override
+        public void undoAddressBook() {
+            fail("This method should not be called.");
+        }
+
+        @Override
+        public void redoAddressBook() {
+            fail("This method should not be called.");
+        }
+
+        @Override
+        public void commitAddressBook() {
+            fail("This method should not be called.");
+        }
     }
 
     /**
@@ -160,6 +186,11 @@ public class AddCommandTest {
         public void addPerson(Person person) throws DuplicatePersonException {
             requireNonNull(person);
             personsAdded.add(person);
+        }
+
+        @Override
+        public void commitAddressBook() {
+            // called by {@code AddCommand#execute()}
         }
 
         @Override
