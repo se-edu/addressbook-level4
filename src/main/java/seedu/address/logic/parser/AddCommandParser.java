@@ -10,7 +10,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 import java.util.Set;
 import java.util.stream.Stream;
 
-import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.logic.commands.AddCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Address;
@@ -49,8 +48,8 @@ public class AddCommandParser implements Parser<AddCommand> {
             Person person = new Person(name, phone, email, address, tagList);
 
             return new AddCommand(person);
-        } catch (IllegalValueException ive) {
-            throw new ParseException(ive.getMessage(), ive);
+        } catch (ParseException pe) {
+            throw new ParseException(pe.getMessage(), pe);
         }
     }
 
