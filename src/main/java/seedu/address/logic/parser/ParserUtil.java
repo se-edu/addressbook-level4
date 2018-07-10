@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Collection;
 import java.util.HashSet;
-import java.util.Optional;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
@@ -18,12 +17,6 @@ import seedu.address.model.tag.Tag;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
- * {@code ParserUtil} contains methods that take in {@code Optional} as parameters. However, it goes against Java's
- * convention (see https://stackoverflow.com/a/39005452) as {@code Optional} should only be used a return type.
- * Justification: The methods in concern receive {@code Optional} return values from other methods as parameters and
- * return {@code Optional} values based on whether the parameters were present. Therefore, it is redundant to unwrap the
- * initial {@code Optional} before passing to {@code ParserUtil} as a parameter and then re-wrap it into an
- * {@code Optional} return value inside {@code ParserUtil} methods.
  */
 public class ParserUtil {
 
@@ -58,15 +51,6 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code Optional<String> name} into an {@code Optional<Name>} if {@code name} is present.
-     * See header comment of this class regarding the use of {@code Optional} parameters.
-     */
-    public static Optional<Name> parseName(Optional<String> name) throws ParseException {
-        requireNonNull(name);
-        return name.isPresent() ? Optional.of(parseName(name.get())) : Optional.empty();
-    }
-
-    /**
      * Parses a {@code String phone} into a {@code Phone}.
      * Leading and trailing whitespaces will be trimmed.
      *
@@ -79,15 +63,6 @@ public class ParserUtil {
             throw new ParseException(Phone.MESSAGE_PHONE_CONSTRAINTS);
         }
         return new Phone(trimmedPhone);
-    }
-
-    /**
-     * Parses a {@code Optional<String> phone} into an {@code Optional<Phone>} if {@code phone} is present.
-     * See header comment of this class regarding the use of {@code Optional} parameters.
-     */
-    public static Optional<Phone> parsePhone(Optional<String> phone) throws ParseException {
-        requireNonNull(phone);
-        return phone.isPresent() ? Optional.of(parsePhone(phone.get())) : Optional.empty();
     }
 
     /**
@@ -106,15 +81,6 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code Optional<String> address} into an {@code Optional<Address>} if {@code address} is present.
-     * See header comment of this class regarding the use of {@code Optional} parameters.
-     */
-    public static Optional<Address> parseAddress(Optional<String> address) throws ParseException {
-        requireNonNull(address);
-        return address.isPresent() ? Optional.of(parseAddress(address.get())) : Optional.empty();
-    }
-
-    /**
      * Parses a {@code String email} into an {@code Email}.
      * Leading and trailing whitespaces will be trimmed.
      *
@@ -127,15 +93,6 @@ public class ParserUtil {
             throw new ParseException(Email.MESSAGE_EMAIL_CONSTRAINTS);
         }
         return new Email(trimmedEmail);
-    }
-
-    /**
-     * Parses a {@code Optional<String> email} into an {@code Optional<Email>} if {@code email} is present.
-     * See header comment of this class regarding the use of {@code Optional} parameters.
-     */
-    public static Optional<Email> parseEmail(Optional<String> email) throws ParseException {
-        requireNonNull(email);
-        return email.isPresent() ? Optional.of(parseEmail(email.get())) : Optional.empty();
     }
 
     /**
