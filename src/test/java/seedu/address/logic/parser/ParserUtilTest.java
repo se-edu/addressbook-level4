@@ -17,7 +17,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -45,14 +45,14 @@ public class ParserUtilTest {
     public final ExpectedException thrown = ExpectedException.none();
 
     @Test
-    public void parseIndex_invalidInput_throwsIllegalValueException() throws Exception {
-        thrown.expect(IllegalValueException.class);
+    public void parseIndex_invalidInput_throwsParseException() throws Exception {
+        thrown.expect(ParseException.class);
         ParserUtil.parseIndex("10 a");
     }
 
     @Test
-    public void parseIndex_outOfRangeInput_throwsIllegalValueException() throws Exception {
-        thrown.expect(IllegalValueException.class);
+    public void parseIndex_outOfRangeInput_throwsParseException() throws Exception {
+        thrown.expect(ParseException.class);
         thrown.expectMessage(MESSAGE_INVALID_INDEX);
         ParserUtil.parseIndex(Long.toString(Integer.MAX_VALUE + 1));
     }
@@ -73,9 +73,9 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parseName_invalidValue_throwsIllegalValueException() {
-        Assert.assertThrows(IllegalValueException.class, () -> ParserUtil.parseName(INVALID_NAME));
-        Assert.assertThrows(IllegalValueException.class, () -> ParserUtil.parseName(Optional.of(INVALID_NAME)));
+    public void parseName_invalidValue_throwsParseException() {
+        Assert.assertThrows(ParseException.class, () -> ParserUtil.parseName(INVALID_NAME));
+        Assert.assertThrows(ParseException.class, () -> ParserUtil.parseName(Optional.of(INVALID_NAME)));
     }
 
     @Test
@@ -105,9 +105,9 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parsePhone_invalidValue_throwsIllegalValueException() {
-        Assert.assertThrows(IllegalValueException.class, () -> ParserUtil.parsePhone(INVALID_PHONE));
-        Assert.assertThrows(IllegalValueException.class, () -> ParserUtil.parsePhone(Optional.of(INVALID_PHONE)));
+    public void parsePhone_invalidValue_throwsParseException() {
+        Assert.assertThrows(ParseException.class, () -> ParserUtil.parsePhone(INVALID_PHONE));
+        Assert.assertThrows(ParseException.class, () -> ParserUtil.parsePhone(Optional.of(INVALID_PHONE)));
     }
 
     @Test
@@ -137,9 +137,9 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parseAddress_invalidValue_throwsIllegalValueException() {
-        Assert.assertThrows(IllegalValueException.class, () -> ParserUtil.parseAddress(INVALID_ADDRESS));
-        Assert.assertThrows(IllegalValueException.class, () -> ParserUtil.parseAddress(Optional.of(INVALID_ADDRESS)));
+    public void parseAddress_invalidValue_throwsParseException() {
+        Assert.assertThrows(ParseException.class, () -> ParserUtil.parseAddress(INVALID_ADDRESS));
+        Assert.assertThrows(ParseException.class, () -> ParserUtil.parseAddress(Optional.of(INVALID_ADDRESS)));
     }
 
     @Test
@@ -169,9 +169,9 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parseEmail_invalidValue_throwsIllegalValueException() {
-        Assert.assertThrows(IllegalValueException.class, () -> ParserUtil.parseEmail(INVALID_EMAIL));
-        Assert.assertThrows(IllegalValueException.class, () -> ParserUtil.parseEmail(Optional.of(INVALID_EMAIL)));
+    public void parseEmail_invalidValue_throwsParseException() {
+        Assert.assertThrows(ParseException.class, () -> ParserUtil.parseEmail(INVALID_EMAIL));
+        Assert.assertThrows(ParseException.class, () -> ParserUtil.parseEmail(Optional.of(INVALID_EMAIL)));
     }
 
     @Test
@@ -201,8 +201,8 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parseTag_invalidValue_throwsIllegalValueException() throws Exception {
-        thrown.expect(IllegalValueException.class);
+    public void parseTag_invalidValue_throwsParseException() throws Exception {
+        thrown.expect(ParseException.class);
         ParserUtil.parseTag(INVALID_TAG);
     }
 
@@ -226,8 +226,8 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parseTags_collectionWithInvalidTags_throwsIllegalValueException() throws Exception {
-        thrown.expect(IllegalValueException.class);
+    public void parseTags_collectionWithInvalidTags_throwsParseException() throws Exception {
+        thrown.expect(ParseException.class);
         ParserUtil.parseTags(Arrays.asList(VALID_TAG_1, INVALID_TAG));
     }
 
