@@ -35,7 +35,7 @@ public class Assert {
                 return;
             }
 
-            throw new AssertionError(errorMessage);
+            throw new AssertionError(errorMessage, actualException);
         }
 
         throw new AssertionError(String.format(

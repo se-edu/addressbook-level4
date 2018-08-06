@@ -28,7 +28,7 @@ public class AddressBookBuilder {
         try {
             addressBook.addPerson(person);
         } catch (DuplicatePersonException dpe) {
-            throw new IllegalArgumentException("person is expected to be unique.");
+            throw new IllegalArgumentException("person is expected to be unique.", dpe);
         }
         return this;
     }

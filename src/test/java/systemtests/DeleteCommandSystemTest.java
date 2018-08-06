@@ -121,7 +121,7 @@ public class DeleteCommandSystemTest extends AddressBookSystemTest {
         try {
             model.deletePerson(targetPerson);
         } catch (PersonNotFoundException pnfe) {
-            throw new AssertionError("targetPerson is retrieved from model.");
+            throw new AssertionError("targetPerson is retrieved from model.", pnfe);
         }
         return targetPerson;
     }

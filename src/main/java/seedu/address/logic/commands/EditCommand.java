@@ -80,9 +80,9 @@ public class EditCommand extends Command {
         try {
             model.updatePerson(personToEdit, editedPerson);
         } catch (DuplicatePersonException dpe) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+            throw new CommandException(MESSAGE_DUPLICATE_PERSON, dpe);
         } catch (PersonNotFoundException pnfe) {
-            throw new AssertionError("The target person cannot be missing");
+            throw new AssertionError("The target person cannot be missing", pnfe);
         }
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         model.commitAddressBook();

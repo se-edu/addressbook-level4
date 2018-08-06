@@ -218,7 +218,7 @@ public abstract class AddressBookSystemTest {
         try {
             expectedUrl = new URL(BrowserPanel.SEARCH_PAGE_URL + selectedCardName.replaceAll(" ", "%20"));
         } catch (MalformedURLException mue) {
-            throw new AssertionError("URL expected to be valid.");
+            throw new AssertionError("URL expected to be valid.", mue);
         }
         assertEquals(expectedUrl, getBrowserPanel().getLoadedUrl());
 
