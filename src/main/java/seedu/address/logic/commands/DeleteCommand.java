@@ -42,7 +42,7 @@ public class DeleteCommand extends Command {
             model.deletePerson(personToDelete);
             model.commitAddressBook();
         } catch (PersonNotFoundException pnfe) {
-            throw new AssertionError("The target person cannot be missing");
+            throw new AssertionError("The target person cannot be missing", pnfe);
         }
 
         return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, personToDelete));
