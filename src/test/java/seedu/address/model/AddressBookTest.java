@@ -1,6 +1,8 @@
 package seedu.address.model;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.TypicalPersons.ALICE;
@@ -55,6 +57,31 @@ public class AddressBookTest {
 
         thrown.expect(AssertionError.class);
         addressBook.resetData(newData);
+    }
+
+    @Test
+    public void hasPerson_nullPerson_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        addressBook.hasPerson(null);
+    }
+
+    @Test
+    public void hasPerson_personNotInAddressBook_returnsFalse() {
+        assertFalse(addressBook.hasPerson(ALICE));
+    }
+
+    @Test
+    public void hasPerson_personInAddressBook_returnsTrue() throws Exception {
+        addressBook.addPerson(ALICE);
+        assertTrue(addressBook.hasPerson(ALICE));
+    }
+
+    @Test
+    public void hasPerson_personWithSameIdentityFieldsInAddressBook_returnsTrue() throws Exception {
+        addressBook.addPerson(ALICE);
+        Person editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+                .build();
+        assertTrue(addressBook.hasPerson(editedAlice));
     }
 
     @Test
