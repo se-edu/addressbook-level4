@@ -242,7 +242,7 @@ public class EditCommandSystemTest extends AddressBookSystemTest {
             expectedModel.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         } catch (DuplicatePersonException | PersonNotFoundException e) {
             throw new IllegalArgumentException(
-                    "editedPerson is a duplicate in expectedModel, or it isn't found in the model.");
+                    "editedPerson is a duplicate in expectedModel, or it isn't found in the model.", e);
         }
 
         assertCommandSuccess(command, expectedModel,

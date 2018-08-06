@@ -210,7 +210,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         try {
             expectedModel.addPerson(toAdd);
         } catch (DuplicatePersonException dpe) {
-            throw new IllegalArgumentException("toAdd already exists in the model.");
+            throw new IllegalArgumentException("toAdd already exists in the model.", dpe);
         }
         String expectedResultMessage = String.format(AddCommand.MESSAGE_SUCCESS, toAdd);
 

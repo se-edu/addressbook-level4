@@ -54,7 +54,7 @@ public class AddCommand extends Command {
             model.commitAddressBook();
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (DuplicatePersonException e) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+            throw new CommandException(MESSAGE_DUPLICATE_PERSON, e);
         }
 
     }
