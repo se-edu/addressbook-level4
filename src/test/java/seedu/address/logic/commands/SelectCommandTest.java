@@ -3,7 +3,6 @@ package seedu.address.logic.commands;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
@@ -122,7 +121,7 @@ public class SelectCommandTest {
 
         try {
             selectCommand.execute();
-            fail("The expected CommandException was not thrown.");
+            throw new AssertionError("The expected CommandException was not thrown.");
         } catch (CommandException ce) {
             assertEquals(expectedMessage, ce.getMessage());
             assertTrue(eventsCollectorRule.eventsCollector.isEmpty());
