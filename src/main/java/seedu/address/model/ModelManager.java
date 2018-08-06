@@ -60,6 +60,12 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public synchronized boolean hasPerson(Person person) {
+        requireNonNull(person);
+        return versionedAddressBook.hasPerson(person);
+    }
+
+    @Override
     public synchronized void deletePerson(Person target) throws PersonNotFoundException {
         versionedAddressBook.removePerson(target);
         indicateAddressBookChanged();
