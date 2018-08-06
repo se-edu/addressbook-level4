@@ -4,7 +4,6 @@ import static java.util.Objects.requireNonNull;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -97,67 +96,63 @@ public class AddCommandTest {
     private class ModelStub implements Model {
         @Override
         public void addPerson(Person person) throws DuplicatePersonException {
-            fail("This method should not be called.");
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public void resetData(ReadOnlyAddressBook newData) {
-            fail("This method should not be called.");
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public ReadOnlyAddressBook getAddressBook() {
-            fail("This method should not be called.");
-            return null;
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public void deletePerson(Person target) throws PersonNotFoundException {
-            fail("This method should not be called.");
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public void updatePerson(Person target, Person editedPerson)
                 throws DuplicatePersonException {
-            fail("This method should not be called.");
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public ObservableList<Person> getFilteredPersonList() {
-            fail("This method should not be called.");
-            return null;
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public void updateFilteredPersonList(Predicate<Person> predicate) {
-            fail("This method should not be called.");
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public boolean canUndoAddressBook() {
-            fail("This method should not be called.");
-            return false;
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public boolean canRedoAddressBook() {
-            fail("This method should not be called.");
-            return false;
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public void undoAddressBook() {
-            fail("This method should not be called.");
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public void redoAddressBook() {
-            fail("This method should not be called.");
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public void commitAddressBook() {
-            fail("This method should not be called.");
+            throw new AssertionError("This method should not be called.");
         }
     }
 
