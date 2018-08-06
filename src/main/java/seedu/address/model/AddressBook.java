@@ -54,7 +54,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         try {
             setPersons(newData.getPersonList());
         } catch (DuplicatePersonException e) {
-            throw new AssertionError("AddressBooks should not have duplicate persons");
+            throw new AssertionError("AddressBooks should not have duplicate persons", e);
         }
     }
 

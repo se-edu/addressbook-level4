@@ -69,7 +69,7 @@ public class TypicalPersons {
             try {
                 ab.addPerson(person);
             } catch (DuplicatePersonException e) {
-                throw new AssertionError("not possible");
+                throw new AssertionError("not possible", e);
             }
         }
         return ab;
