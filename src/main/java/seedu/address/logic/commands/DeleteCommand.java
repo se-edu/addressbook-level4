@@ -6,7 +6,6 @@ import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.exceptions.PersonNotFoundException;
 
 /**
  * Deletes a person identified using it's displayed index from the address book.
@@ -37,14 +36,8 @@ public class DeleteCommand extends Command {
         }
 
         Person personToDelete = lastShownList.get(targetIndex.getZeroBased());
-
-        try {
-            model.deletePerson(personToDelete);
-            model.commitAddressBook();
-        } catch (PersonNotFoundException pnfe) {
-            throw new AssertionError("The target person cannot be missing", pnfe);
-        }
-
+        model.deletePerson(personToDelete);
+        model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_DELETE_PERSON_SUCCESS, personToDelete));
     }
 
