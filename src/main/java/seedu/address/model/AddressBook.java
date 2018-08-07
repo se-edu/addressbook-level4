@@ -7,7 +7,6 @@ import java.util.List;
 import javafx.collections.ObservableList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
-import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 
 /**
@@ -41,7 +40,11 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     //// list overwrite operations
 
-    public void setPersons(List<Person> persons) throws DuplicatePersonException {
+    /**
+     * Replaces the contents of the person list with {@code persons}.
+     * {@code persons} must not contain duplicate persons.
+     */
+    public void setPersons(List<Person> persons) {
         this.persons.setPersons(persons);
     }
 
@@ -51,11 +54,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void resetData(ReadOnlyAddressBook newData) {
         requireNonNull(newData);
 
-        try {
-            setPersons(newData.getPersonList());
-        } catch (DuplicatePersonException e) {
-            throw new AssertionError("AddressBooks should not have duplicate persons", e);
-        }
+        setPersons(newData.getPersonList());
     }
 
     //// person-level operations
@@ -70,22 +69,19 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     /**
      * Adds a person to the address book.
-     *
-     * @throws DuplicatePersonException if an equivalent person already exists.
+     * The person must not already exist in the address book.
      */
-    public void addPerson(Person p) throws DuplicatePersonException {
+    public void addPerson(Person p) {
         persons.add(p);
     }
 
     /**
      * Replaces the given person {@code target} in the list with {@code editedPerson}.
+     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
      *
-     * @throws DuplicatePersonException if updating the person's details causes the person to be equivalent to
-     *      another existing person in the list.
      * @throws PersonNotFoundException if {@code target} could not be found in the list.
      */
-    public void updatePerson(Person target, Person editedPerson)
-            throws DuplicatePersonException, PersonNotFoundException {
+    public void updatePerson(Person target, Person editedPerson) throws PersonNotFoundException {
         requireNonNull(editedPerson);
 
         persons.setPerson(target, editedPerson);

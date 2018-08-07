@@ -4,7 +4,6 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 
 /**
@@ -28,18 +27,19 @@ public interface Model {
     /** Deletes the given person. */
     void deletePerson(Person target) throws PersonNotFoundException;
 
-    /** Adds the given person */
-    void addPerson(Person person) throws DuplicatePersonException;
+    /**
+     * Adds the given person.
+     * {@code person} must not already exist in the address book.
+     */
+    void addPerson(Person person);
 
     /**
      * Replaces the given person {@code target} with {@code editedPerson}.
+     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
      *
-     * @throws DuplicatePersonException if updating the person's details causes the person to be equivalent to
-     *      another existing person in the list.
      * @throws PersonNotFoundException if {@code target} could not be found in the list.
      */
-    void updatePerson(Person target, Person editedPerson)
-            throws DuplicatePersonException, PersonNotFoundException;
+    void updatePerson(Person target, Person editedPerson) throws PersonNotFoundException;
 
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();

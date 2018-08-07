@@ -36,10 +36,9 @@ public class UniquePersonList implements Iterable<Person> {
 
     /**
      * Adds a person to the list.
-     *
-     * @throws DuplicatePersonException if the person to add is a duplicate of an existing person in the list.
+     * The person must not already exist in the list.
      */
-    public void add(Person toAdd) throws DuplicatePersonException {
+    public void add(Person toAdd) {
         requireNonNull(toAdd);
         if (contains(toAdd)) {
             throw new DuplicatePersonException();
@@ -49,12 +48,11 @@ public class UniquePersonList implements Iterable<Person> {
 
     /**
      * Replaces the person {@code target} in the list with {@code editedPerson}.
+     * The person identity of {@code editedPerson} must not be the same as another existing person in the list.
      *
-     * @throws DuplicatePersonException if the replacement is equivalent to another existing person in the list.
      * @throws PersonNotFoundException if {@code target} could not be found in the list.
      */
-    public void setPerson(Person target, Person editedPerson)
-            throws DuplicatePersonException, PersonNotFoundException {
+    public void setPerson(Person target, Person editedPerson) throws PersonNotFoundException {
         requireNonNull(editedPerson);
 
         int index = internalList.indexOf(target);
@@ -85,7 +83,11 @@ public class UniquePersonList implements Iterable<Person> {
         this.internalList.setAll(replacement.internalList);
     }
 
-    public void setPersons(List<Person> persons) throws DuplicatePersonException {
+    /**
+     * Replaces the contents of this list with {@code persons}.
+     * {@code persons} must not contain duplicate persons.
+     */
+    public void setPersons(List<Person> persons) {
         requireAllNonNull(persons);
         if (!personsAreUnique(persons)) {
             throw new DuplicatePersonException();
