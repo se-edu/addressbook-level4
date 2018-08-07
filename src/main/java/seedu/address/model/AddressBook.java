@@ -7,7 +7,6 @@ import java.util.List;
 import javafx.collections.ObservableList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
-import seedu.address.model.person.exceptions.PersonNotFoundException;
 
 /**
  * Wraps all data at the address-book level
@@ -77,11 +76,10 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     /**
      * Replaces the given person {@code target} in the list with {@code editedPerson}.
+     * {@code target} must exist in the address book.
      * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
-     *
-     * @throws PersonNotFoundException if {@code target} could not be found in the list.
      */
-    public void updatePerson(Person target, Person editedPerson) throws PersonNotFoundException {
+    public void updatePerson(Person target, Person editedPerson) {
         requireNonNull(editedPerson);
 
         persons.setPerson(target, editedPerson);
@@ -89,9 +87,9 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     /**
      * Removes {@code key} from this {@code AddressBook}.
-     * @throws PersonNotFoundException if the {@code key} is not in this {@code AddressBook}.
+     * {@code key} must exist in the address book.
      */
-    public void removePerson(Person key) throws PersonNotFoundException {
+    public void removePerson(Person key) {
         persons.remove(key);
     }
 
