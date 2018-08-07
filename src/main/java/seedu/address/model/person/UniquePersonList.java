@@ -48,11 +48,10 @@ public class UniquePersonList implements Iterable<Person> {
 
     /**
      * Replaces the person {@code target} in the list with {@code editedPerson}.
+     * {@code target} must exist in the list.
      * The person identity of {@code editedPerson} must not be the same as another existing person in the list.
-     *
-     * @throws PersonNotFoundException if {@code target} could not be found in the list.
      */
-    public void setPerson(Person target, Person editedPerson) throws PersonNotFoundException {
+    public void setPerson(Person target, Person editedPerson) {
         requireNonNull(editedPerson);
 
         int index = internalList.indexOf(target);
@@ -69,10 +68,9 @@ public class UniquePersonList implements Iterable<Person> {
 
     /**
      * Removes the equivalent person from the list.
-     *
-     * @throws PersonNotFoundException if no such person could be found in the list.
+     * The person must exist in the list.
      */
-    public void remove(Person toRemove) throws PersonNotFoundException {
+    public void remove(Person toRemove) {
         requireNonNull(toRemove);
         if (!internalList.remove(toRemove)) {
             throw new PersonNotFoundException();
