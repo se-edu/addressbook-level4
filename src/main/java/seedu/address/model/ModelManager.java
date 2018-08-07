@@ -13,7 +13,6 @@ import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.exceptions.PersonNotFoundException;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -65,7 +64,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public synchronized void deletePerson(Person target) throws PersonNotFoundException {
+    public synchronized void deletePerson(Person target) {
         versionedAddressBook.removePerson(target);
         indicateAddressBookChanged();
     }
@@ -78,7 +77,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public void updatePerson(Person target, Person editedPerson) throws PersonNotFoundException {
+    public void updatePerson(Person target, Person editedPerson) {
         requireAllNonNull(target, editedPerson);
 
         versionedAddressBook.updatePerson(target, editedPerson);
