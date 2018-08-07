@@ -49,12 +49,17 @@ public class AddCommand extends Command {
     @Override
     public CommandResult execute() throws CommandException {
         requireNonNull(model);
+
+        if (model.hasPerson(toAdd)) {
+            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+        }
+
         try {
             model.addPerson(toAdd);
             model.commitAddressBook();
             return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
         } catch (DuplicatePersonException e) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON, e);
+            throw new AssertionError("should not happen", e);
         }
 
     }

@@ -47,8 +47,8 @@ public class AddCommandTest {
 
     @Test
     public void execute_duplicatePerson_throwsCommandException() throws Exception {
-        ModelStub modelStub = new ModelStubThrowingDuplicatePersonException();
         Person validPerson = new PersonBuilder().build();
+        ModelStub modelStub = new ModelStubWithPerson(validPerson);
 
         thrown.expect(CommandException.class);
         thrown.expectMessage(AddCommand.MESSAGE_DUPLICATE_PERSON);
@@ -160,17 +160,20 @@ public class AddCommandTest {
     }
 
     /**
-     * A Model stub that always throw a DuplicatePersonException when trying to add a person.
+     * A Model stub that contains a single person.
      */
-    private class ModelStubThrowingDuplicatePersonException extends ModelStub {
-        @Override
-        public void addPerson(Person person) throws DuplicatePersonException {
-            throw new DuplicatePersonException();
+    private class ModelStubWithPerson extends ModelStub {
+        private final Person person;
+
+        ModelStubWithPerson(Person person) {
+            requireNonNull(person);
+            this.person = person;
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
-            return new AddressBook();
+        public boolean hasPerson(Person person) {
+            requireNonNull(person);
+            return this.person.isSamePerson(person);
         }
     }
 
@@ -179,6 +182,12 @@ public class AddCommandTest {
      */
     private class ModelStubAcceptingPersonAdded extends ModelStub {
         final ArrayList<Person> personsAdded = new ArrayList<>();
+
+        @Override
+        public boolean hasPerson(Person person) {
+            requireNonNull(person);
+            return personsAdded.stream().anyMatch(person::isSamePerson);
+        }
 
         @Override
         public void addPerson(Person person) {
