@@ -11,7 +11,6 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
-import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -42,15 +41,11 @@ public class SampleDataUtil {
     }
 
     public static ReadOnlyAddressBook getSampleAddressBook() {
-        try {
-            AddressBook sampleAb = new AddressBook();
-            for (Person samplePerson : getSamplePersons()) {
-                sampleAb.addPerson(samplePerson);
-            }
-            return sampleAb;
-        } catch (DuplicatePersonException e) {
-            throw new AssertionError("sample data cannot contain duplicate persons", e);
+        AddressBook sampleAb = new AddressBook();
+        for (Person samplePerson : getSamplePersons()) {
+            sampleAb.addPerson(samplePerson);
         }
+        return sampleAb;
     }
 
     /**
