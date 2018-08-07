@@ -274,17 +274,13 @@ public abstract class AddressBookSystemTest {
      * Asserts that the starting state of the application is correct.
      */
     private void assertApplicationStartingStateIsCorrect() {
-        try {
-            assertEquals("", getCommandBox().getInput());
-            assertEquals("", getResultDisplay().getText());
-            assertListMatching(getPersonListPanel(), getModel().getFilteredPersonList());
-            assertEquals(MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_PAGE), getBrowserPanel().getLoadedUrl());
-            assertEquals(Paths.get(".").resolve(testApp.getStorageSaveLocation()).toString(),
-                    getStatusBarFooter().getSaveLocation());
-            assertEquals(SYNC_STATUS_INITIAL, getStatusBarFooter().getSyncStatus());
-        } catch (Exception e) {
-            throw new AssertionError("Starting state is wrong.", e);
-        }
+        assertEquals("", getCommandBox().getInput());
+        assertEquals("", getResultDisplay().getText());
+        assertListMatching(getPersonListPanel(), getModel().getFilteredPersonList());
+        assertEquals(MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_PAGE), getBrowserPanel().getLoadedUrl());
+        assertEquals(Paths.get(".").resolve(testApp.getStorageSaveLocation()).toString(),
+                getStatusBarFooter().getSaveLocation());
+        assertEquals(SYNC_STATUS_INITIAL, getStatusBarFooter().getSyncStatus());
     }
 
     /**
