@@ -6,6 +6,7 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BENSON;
 
+import java.nio.file.Paths;
 import java.util.Arrays;
 
 import org.junit.Rule;
@@ -77,7 +78,7 @@ public class ModelManagerTest {
 
         // different userPrefs -> returns true
         UserPrefs differentUserPrefs = new UserPrefs();
-        differentUserPrefs.setAddressBookName("differentName");
+        differentUserPrefs.setAddressBookFilePath(Paths.get("differentFilePath"));
         assertTrue(modelManager.equals(new ModelManager(addressBook, differentUserPrefs)));
     }
 }

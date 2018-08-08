@@ -32,7 +32,6 @@ public class TestApp extends MainApp {
 
     protected static final Path DEFAULT_PREF_FILE_LOCATION_FOR_TESTING =
             TestUtil.getFilePathInSandboxFolder("pref_testing.json");
-    protected static final String ADDRESS_BOOK_NAME = "Test";
     protected Supplier<ReadOnlyAddressBook> initialDataSupplier = () -> null;
     protected Path saveFileLocation = SAVE_LOCATION_FOR_TESTING;
 
@@ -66,7 +65,6 @@ public class TestApp extends MainApp {
         double y = Screen.getPrimary().getVisualBounds().getMinY();
         userPrefs.updateLastUsedGuiSetting(new GuiSettings(600.0, 600.0, (int) x, (int) y));
         userPrefs.setAddressBookFilePath(saveFileLocation);
-        userPrefs.setAddressBookName(ADDRESS_BOOK_NAME);
         return userPrefs;
     }
 
