@@ -14,7 +14,6 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 
 public class UndoCommandTest {
-    private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();
 
     private final Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     private final Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
@@ -32,18 +31,15 @@ public class UndoCommandTest {
 
     @Test
     public void execute() {
-        UndoCommand undoCommand = new UndoCommand();
-        undoCommand.setData(model, EMPTY_COMMAND_HISTORY);
-
         // multiple undoable states in model
         expectedModel.undoAddressBook();
-        assertCommandSuccess(undoCommand, model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
         // single undoable state in model
         expectedModel.undoAddressBook();
-        assertCommandSuccess(undoCommand, model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_SUCCESS, expectedModel);
 
         // no undoable states in model
-        assertCommandFailure(undoCommand, model, commandHistory, UndoCommand.MESSAGE_FAILURE);
+        assertCommandFailure(new UndoCommand(), model, commandHistory, UndoCommand.MESSAGE_FAILURE);
     }
 }

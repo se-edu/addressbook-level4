@@ -97,7 +97,7 @@ public class SelectCommandTest {
      * is raised with the correct index.
      */
     private void assertExecutionSuccess(Index index) {
-        SelectCommand selectCommand = prepareCommand(index);
+        SelectCommand selectCommand = new SelectCommand(index);
         String expectedMessage = String.format(SelectCommand.MESSAGE_SELECT_PERSON_SUCCESS, index.getOneBased());
 
         assertCommandSuccess(selectCommand, model, commandHistory, expectedMessage, expectedModel);
@@ -111,17 +111,8 @@ public class SelectCommandTest {
      * is thrown with the {@code expectedMessage}.
      */
     private void assertExecutionFailure(Index index, String expectedMessage) {
-        SelectCommand selectCommand = prepareCommand(index);
+        SelectCommand selectCommand = new SelectCommand(index);
         assertCommandFailure(selectCommand, model, commandHistory, expectedMessage);
         assertTrue(eventsCollectorRule.eventsCollector.isEmpty());
-    }
-
-    /**
-     * Returns a {@code SelectCommand} with parameters {@code index}.
-     */
-    private SelectCommand prepareCommand(Index index) {
-        SelectCommand selectCommand = new SelectCommand(index);
-        selectCommand.setData(model, commandHistory);
-        return selectCommand;
     }
 }
