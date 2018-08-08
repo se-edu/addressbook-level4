@@ -24,8 +24,12 @@ import seedu.address.testutil.PersonBuilder;
 
 public class AddCommandTest {
 
+    private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();
+
     @Rule
     public ExpectedException thrown = ExpectedException.none();
+
+    private CommandHistory commandHistory = new CommandHistory();
 
     @Test
     public void constructor_nullPerson_throwsNullPointerException() {
@@ -42,6 +46,7 @@ public class AddCommandTest {
 
         assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validPerson), commandResult.feedbackToUser);
         assertEquals(Arrays.asList(validPerson), modelStub.personsAdded);
+        assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
     }
 
     @Test
@@ -84,7 +89,7 @@ public class AddCommandTest {
      */
     private AddCommand getAddCommandForPerson(Person person, Model model) {
         AddCommand command = new AddCommand(person);
-        command.setData(model, new CommandHistory());
+        command.setData(model, commandHistory);
         return command;
     }
 
