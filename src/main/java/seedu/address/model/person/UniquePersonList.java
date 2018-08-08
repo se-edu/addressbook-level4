@@ -52,7 +52,7 @@ public class UniquePersonList implements Iterable<Person> {
      * The person identity of {@code editedPerson} must not be the same as another existing person in the list.
      */
     public void setPerson(Person target, Person editedPerson) {
-        requireNonNull(editedPerson);
+        requireAllNonNull(target, editedPerson);
 
         int index = internalList.indexOf(target);
         if (index == -1) {
@@ -78,6 +78,7 @@ public class UniquePersonList implements Iterable<Person> {
     }
 
     public void setPersons(UniquePersonList replacement) {
+        requireNonNull(replacement);
         this.internalList.setAll(replacement.internalList);
     }
 
