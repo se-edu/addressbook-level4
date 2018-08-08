@@ -110,13 +110,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public void deletePerson(Person target) throws PersonNotFoundException {
+        public void deletePerson(Person target) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void updatePerson(Person target, Person editedPerson)
-                throws DuplicatePersonException {
+        public void updatePerson(Person target, Person editedPerson) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -178,7 +177,7 @@ public class AddCommandTest {
         final ArrayList<Person> personsAdded = new ArrayList<>();
 
         @Override
-        public void addPerson(Person person) throws DuplicatePersonException {
+        public void addPerson(Person person) {
             requireNonNull(person);
             personsAdded.add(person);
         }

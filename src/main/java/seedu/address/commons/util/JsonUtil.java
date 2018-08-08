@@ -120,7 +120,7 @@ public class JsonUtil {
         }
 
         @Override
-        protected Level _deserialize(String value, DeserializationContext ctxt) throws IOException {
+        protected Level _deserialize(String value, DeserializationContext ctxt) {
             return getLoggingLevel(value);
         }
 
