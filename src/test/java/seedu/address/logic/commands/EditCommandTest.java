@@ -228,7 +228,7 @@ public class EditCommandTest {
     }
 
     @Test
-    public void equals() throws Exception {
+    public void equals() {
         final EditCommand standardCommand = prepareCommand(INDEX_FIRST_PERSON, DESC_AMY);
 
         // same values -> returns true

@@ -45,7 +45,7 @@ public class DeleteCommandTest {
     }
 
     @Test
-    public void execute_invalidIndexUnfilteredList_throwsCommandException() throws Exception {
+    public void execute_invalidIndexUnfilteredList_throwsCommandException() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
         DeleteCommand deleteCommand = prepareCommand(outOfBoundIndex);
 
@@ -152,7 +152,7 @@ public class DeleteCommandTest {
     }
 
     @Test
-    public void equals() throws Exception {
+    public void equals() {
         DeleteCommand deleteFirstCommand = prepareCommand(INDEX_FIRST_PERSON);
         DeleteCommand deleteSecondCommand = prepareCommand(INDEX_SECOND_PERSON);
 
