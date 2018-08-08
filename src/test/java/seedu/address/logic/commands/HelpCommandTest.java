@@ -19,12 +19,13 @@ public class HelpCommandTest {
 
     private Model model = new ModelManager();
     private Model expectedModel = new ModelManager();
+    private CommandHistory commandHistory = new CommandHistory();
 
     @Test
     public void execute_help_success() {
         HelpCommand helpCommand = new HelpCommand();
-        helpCommand.setData(model, new CommandHistory());
-        assertCommandSuccess(helpCommand, model, SHOWING_HELP_MESSAGE, expectedModel);
+        helpCommand.setData(model, commandHistory);
+        assertCommandSuccess(helpCommand, model, commandHistory, SHOWING_HELP_MESSAGE, expectedModel);
         assertTrue(eventsCollectorRule.eventsCollector.getMostRecent() instanceof ShowHelpRequestEvent);
         assertTrue(eventsCollectorRule.eventsCollector.getSize() == 1);
     }
