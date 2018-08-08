@@ -79,7 +79,7 @@ public class CommandTestUtil {
             String expectedMessage, Model expectedModel) {
         CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
         try {
-            CommandResult result = command.execute();
+            CommandResult result = command.execute(actualModel, actualCommandHistory);
             assertEquals(expectedMessage, result.feedbackToUser);
             assertEquals(expectedModel, actualModel);
             assertEquals(expectedCommandHistory, actualCommandHistory);
@@ -105,7 +105,7 @@ public class CommandTestUtil {
         CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);
 
         try {
-            command.execute();
+            command.execute(actualModel, actualCommandHistory);
             throw new AssertionError("The expected CommandException was not thrown.");
         } catch (CommandException e) {
             assertEquals(expectedMessage, e.getMessage());
@@ -138,21 +138,4 @@ public class CommandTestUtil {
         model.commitAddressBook();
     }
 
-    /**
-     * Returns an {@code UndoCommand} with the given {@code model} and {@code commandHistory}.
-     */
-    public static UndoCommand prepareUndoCommand(Model model, CommandHistory commandHistory) {
-        UndoCommand undoCommand = new UndoCommand();
-        undoCommand.setData(model, commandHistory);
-        return undoCommand;
-    }
-
-    /**
-     * Returns a {@code RedoCommand} with the given {@code model} and {@code commandHistory}.
-     */
-    public static RedoCommand prepareRedoCommand(Model model, CommandHistory commandHistory) {
-        RedoCommand redoCommand = new RedoCommand();
-        redoCommand.setData(model, commandHistory);
-        return redoCommand;
-    }
 }

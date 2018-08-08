@@ -35,18 +35,15 @@ public class RedoCommandTest {
 
     @Test
     public void execute() {
-        RedoCommand redoCommand = new RedoCommand();
-        redoCommand.setData(model, commandHistory);
-
         // multiple redoable states in model
         expectedModel.redoAddressBook();
-        assertCommandSuccess(redoCommand, model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
 
         // single redoable state in model
         expectedModel.redoAddressBook();
-        assertCommandSuccess(redoCommand, model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
 
         // no redoable state in model
-        assertCommandFailure(redoCommand, model, commandHistory, RedoCommand.MESSAGE_FAILURE);
+        assertCommandFailure(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_FAILURE);
     }
 }
