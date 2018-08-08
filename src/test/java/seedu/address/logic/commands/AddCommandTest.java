@@ -165,11 +165,13 @@ public class AddCommandTest {
         private final Person person;
 
         ModelStubWithPerson(Person person) {
+            requireNonNull(person);
             this.person = person;
         }
 
         @Override
         public boolean hasPerson(Person person) {
+            requireNonNull(person);
             return this.person.isSamePerson(person);
         }
     }
@@ -182,7 +184,8 @@ public class AddCommandTest {
 
         @Override
         public boolean hasPerson(Person person) {
-            return personsAdded.stream().anyMatch(addedPerson -> addedPerson.isSamePerson(person));
+            requireNonNull(person);
+            return personsAdded.stream().anyMatch(person::isSamePerson);
         }
 
         @Override
