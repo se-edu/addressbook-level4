@@ -19,9 +19,27 @@ public class ModelManagerTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
+    private ModelManager modelManager = new ModelManager();
+
+    @Test
+    public void hasPerson_nullPerson_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        modelManager.hasPerson(null);
+    }
+
+    @Test
+    public void hasPerson_personNotInAddressBook_returnsFalse() {
+        assertFalse(modelManager.hasPerson(ALICE));
+    }
+
+    @Test
+    public void hasPerson_personInAddressBook_returnsTrue() {
+        modelManager.addPerson(ALICE);
+        assertTrue(modelManager.hasPerson(ALICE));
+    }
+
     @Test
     public void getFilteredPersonList_modifyList_throwsUnsupportedOperationException() {
-        ModelManager modelManager = new ModelManager();
         thrown.expect(UnsupportedOperationException.class);
         modelManager.getFilteredPersonList().remove(0);
     }
@@ -33,7 +51,7 @@ public class ModelManagerTest {
         UserPrefs userPrefs = new UserPrefs();
 
         // same values -> returns true
-        ModelManager modelManager = new ModelManager(addressBook, userPrefs);
+        modelManager = new ModelManager(addressBook, userPrefs);
         ModelManager modelManagerCopy = new ModelManager(addressBook, userPrefs);
         assertTrue(modelManager.equals(modelManagerCopy));
 

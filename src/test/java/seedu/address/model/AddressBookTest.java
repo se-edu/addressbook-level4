@@ -1,6 +1,8 @@
 package seedu.address.model;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.TypicalPersons.ALICE;
@@ -18,6 +20,7 @@ import org.junit.rules.ExpectedException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.testutil.PersonBuilder;
 
 public class AddressBookTest {
@@ -46,15 +49,40 @@ public class AddressBookTest {
     }
 
     @Test
-    public void resetData_withDuplicatePersons_throwsAssertionError() {
+    public void resetData_withDuplicatePersons_throwsDuplicatePersonException() {
         // Two persons with the same identity fields
         Person editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
                 .build();
         List<Person> newPersons = Arrays.asList(ALICE, editedAlice);
         AddressBookStub newData = new AddressBookStub(newPersons);
 
-        thrown.expect(AssertionError.class);
+        thrown.expect(DuplicatePersonException.class);
         addressBook.resetData(newData);
+    }
+
+    @Test
+    public void hasPerson_nullPerson_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        addressBook.hasPerson(null);
+    }
+
+    @Test
+    public void hasPerson_personNotInAddressBook_returnsFalse() {
+        assertFalse(addressBook.hasPerson(ALICE));
+    }
+
+    @Test
+    public void hasPerson_personInAddressBook_returnsTrue() {
+        addressBook.addPerson(ALICE);
+        assertTrue(addressBook.hasPerson(ALICE));
+    }
+
+    @Test
+    public void hasPerson_personWithSameIdentityFieldsInAddressBook_returnsTrue() {
+        addressBook.addPerson(ALICE);
+        Person editedAlice = new PersonBuilder(ALICE).withAddress(VALID_ADDRESS_BOB).withTags(VALID_TAG_HUSBAND)
+                .build();
+        assertTrue(addressBook.hasPerson(editedAlice));
     }
 
     @Test
