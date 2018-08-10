@@ -2,7 +2,6 @@ package seedu.address.commons.util;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Arrays;
@@ -89,7 +88,7 @@ public class CollectionUtilTest {
     private void assertNullPointerExceptionThrown(Object... objects) {
         try {
             requireAllNonNull(objects);
-            fail("The expected NullPointerException was not thrown");
+            throw new AssertionError("The expected NullPointerException was not thrown.");
         } catch (NullPointerException npe) {
             // expected behavior
         }
@@ -102,7 +101,7 @@ public class CollectionUtilTest {
     private void assertNullPointerExceptionThrown(Collection<?> collection) {
         try {
             requireAllNonNull(collection);
-            fail("The expected NullPointerException was not thrown");
+            throw new AssertionError("The expected NullPointerException was not thrown.");
         } catch (NullPointerException npe) {
             // expected behavior
         }
