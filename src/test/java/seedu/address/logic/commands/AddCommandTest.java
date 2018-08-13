@@ -24,8 +24,12 @@ import seedu.address.testutil.PersonBuilder;
 
 public class AddCommandTest {
 
+    private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();
+
     @Rule
     public ExpectedException thrown = ExpectedException.none();
+
+    private CommandHistory commandHistory = new CommandHistory();
 
     @Test
     public void constructor_nullPerson_throwsNullPointerException() {
@@ -38,21 +42,22 @@ public class AddCommandTest {
         ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
         Person validPerson = new PersonBuilder().build();
 
-        CommandResult commandResult = getAddCommandForPerson(validPerson, modelStub).execute();
+        CommandResult commandResult = new AddCommand(validPerson).execute(modelStub, commandHistory);
 
         assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validPerson), commandResult.feedbackToUser);
         assertEquals(Arrays.asList(validPerson), modelStub.personsAdded);
+        assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
     }
 
     @Test
     public void execute_duplicatePerson_throwsCommandException() throws Exception {
         Person validPerson = new PersonBuilder().build();
+        AddCommand addCommand = new AddCommand(validPerson);
         ModelStub modelStub = new ModelStubWithPerson(validPerson);
 
         thrown.expect(CommandException.class);
         thrown.expectMessage(AddCommand.MESSAGE_DUPLICATE_PERSON);
-
-        getAddCommandForPerson(validPerson, modelStub).execute();
+        addCommand.execute(modelStub, commandHistory);
     }
 
     @Test
@@ -77,15 +82,6 @@ public class AddCommandTest {
 
         // different person -> returns false
         assertFalse(addAliceCommand.equals(addBobCommand));
-    }
-
-    /**
-     * Generates a new AddCommand with the details of the given person.
-     */
-    private AddCommand getAddCommandForPerson(Person person, Model model) {
-        AddCommand command = new AddCommand(person);
-        command.setData(model, new CommandHistory());
-        return command;
     }
 
     /**

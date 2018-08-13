@@ -14,10 +14,10 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 
 public class RedoCommandTest {
-    private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();
 
     private final Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     private final Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
+    private final CommandHistory commandHistory = new CommandHistory();
 
     @Before
     public void setUp() {
@@ -35,18 +35,15 @@ public class RedoCommandTest {
 
     @Test
     public void execute() {
-        RedoCommand redoCommand = new RedoCommand();
-        redoCommand.setData(model, EMPTY_COMMAND_HISTORY);
-
         // multiple redoable states in model
         expectedModel.redoAddressBook();
-        assertCommandSuccess(redoCommand, model, RedoCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
 
         // single redoable state in model
         expectedModel.redoAddressBook();
-        assertCommandSuccess(redoCommand, model, RedoCommand.MESSAGE_SUCCESS, expectedModel);
+        assertCommandSuccess(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_SUCCESS, expectedModel);
 
         // no redoable state in model
-        assertCommandFailure(redoCommand, model, RedoCommand.MESSAGE_FAILURE);
+        assertCommandFailure(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_FAILURE);
     }
 }
