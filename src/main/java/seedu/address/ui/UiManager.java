@@ -64,7 +64,7 @@ public class UiManager extends ComponentManager implements Ui {
 
     @Override
     public void stop() {
-        prefs.updateLastUsedGuiSetting(mainWindow.getCurrentGuiSetting());
+        prefs.setGuiSettings(mainWindow.getCurrentGuiSetting());
         mainWindow.hide();
         mainWindow.releaseResources();
     }

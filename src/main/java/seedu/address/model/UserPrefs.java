@@ -22,7 +22,7 @@ public class UserPrefs {
         return guiSettings == null ? new GuiSettings() : guiSettings;
     }
 
-    public void updateLastUsedGuiSetting(GuiSettings guiSettings) {
+    public void setGuiSettings(GuiSettings guiSettings) {
         this.guiSettings = guiSettings;
     }
 
