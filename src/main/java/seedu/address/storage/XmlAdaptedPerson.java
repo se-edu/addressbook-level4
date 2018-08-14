@@ -81,34 +81,34 @@ public class XmlAdaptedPerson {
             personTags.add(tag.toModelType());
         }
 
-        if (this.name == null) {
+        if (name == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
         }
-        if (!Name.isValidName(this.name)) {
+        if (!Name.isValidName(name)) {
             throw new IllegalValueException(Name.MESSAGE_NAME_CONSTRAINTS);
         }
         final Name name = new Name(this.name);
 
-        if (this.phone == null) {
+        if (phone == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Phone.class.getSimpleName()));
         }
-        if (!Phone.isValidPhone(this.phone)) {
+        if (!Phone.isValidPhone(phone)) {
             throw new IllegalValueException(Phone.MESSAGE_PHONE_CONSTRAINTS);
         }
         final Phone phone = new Phone(this.phone);
 
-        if (this.email == null) {
+        if (email == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Email.class.getSimpleName()));
         }
-        if (!Email.isValidEmail(this.email)) {
+        if (!Email.isValidEmail(email)) {
             throw new IllegalValueException(Email.MESSAGE_EMAIL_CONSTRAINTS);
         }
         final Email email = new Email(this.email);
 
-        if (this.address == null) {
+        if (address == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName()));
         }
-        if (!Address.isValidAddress(this.address)) {
+        if (!Address.isValidAddress(address)) {
             throw new IllegalValueException(Address.MESSAGE_ADDRESS_CONSTRAINTS);
         }
         final Address address = new Address(this.address);

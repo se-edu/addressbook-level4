@@ -137,11 +137,11 @@ public class ArgumentTokenizer {
         }
 
         int getStartPosition() {
-            return this.startPosition;
+            return startPosition;
         }
 
         Prefix getPrefix() {
-            return this.prefix;
+            return prefix;
         }
     }
 

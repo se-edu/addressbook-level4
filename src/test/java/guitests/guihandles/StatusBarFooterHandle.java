@@ -22,8 +22,8 @@ public class StatusBarFooterHandle extends NodeHandle<Node> {
     public StatusBarFooterHandle(Node statusBarFooterNode) {
         super(statusBarFooterNode);
 
-        this.syncStatusNode = getChildNode(SYNC_STATUS_ID);
-        this.saveLocationNode = getChildNode(SAVE_LOCATION_STATUS_ID);
+        syncStatusNode = getChildNode(SYNC_STATUS_ID);
+        saveLocationNode = getChildNode(SAVE_LOCATION_STATUS_ID);
     }
 
     /**

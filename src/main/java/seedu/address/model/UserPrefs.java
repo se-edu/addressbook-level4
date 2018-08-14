@@ -15,7 +15,7 @@ public class UserPrefs {
     private Path addressBookFilePath = Paths.get("data" , "addressbook.xml");
 
     public UserPrefs() {
-        this.setGuiSettings(500, 500, 0, 0);
+        setGuiSettings(500, 500, 0, 0);
     }
 
     public GuiSettings getGuiSettings() {

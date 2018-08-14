@@ -66,11 +66,11 @@ public class StatusBarFooter extends UiPart<Region> {
     }
 
     private void setSaveLocation(String location) {
-        Platform.runLater(() -> this.saveLocationStatus.setText(location));
+        Platform.runLater(() -> saveLocationStatus.setText(location));
     }
 
     private void setSyncStatus(String status) {
-        Platform.runLater(() -> this.syncStatus.setText(status));
+        Platform.runLater(() -> syncStatus.setText(status));
     }
 
     @Subscribe

@@ -28,7 +28,7 @@ public class MainWindow extends UiPart<Stage> {
 
     private static final String FXML = "MainWindow.fxml";
 
-    private final Logger logger = LogsCenter.getLogger(this.getClass());
+    private final Logger logger = LogsCenter.getLogger(getClass());
 
     private Stage primaryStage;
     private Logic logic;
@@ -188,7 +188,7 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     public PersonListPanel getPersonListPanel() {
-        return this.personListPanel;
+        return personListPanel;
     }
 
     void releaseResources() {

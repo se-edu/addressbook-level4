@@ -23,7 +23,7 @@ public class Phone {
     public Phone(String phone) {
         requireNonNull(phone);
         checkArgument(isValidPhone(phone), MESSAGE_PHONE_CONSTRAINTS);
-        this.value = phone;
+        value = phone;
     }
 
     /**
@@ -42,7 +42,7 @@ public class Phone {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof Phone // instanceof handles nulls
-                && this.value.equals(((Phone) other).value)); // state check
+                && value.equals(((Phone) other).value)); // state check
     }
 
     @Override
