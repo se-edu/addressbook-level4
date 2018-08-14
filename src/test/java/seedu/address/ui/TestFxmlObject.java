@@ -29,7 +29,7 @@ public class TestFxmlObject {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof TestFxmlObject // instanceof handles nulls
-                        && this.text.equals(((TestFxmlObject) other).getText()));
+                        && text.equals(((TestFxmlObject) other).getText()));
     }
 
 }

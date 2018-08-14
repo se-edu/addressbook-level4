@@ -71,19 +71,19 @@ public class Version implements Comparable<Version> {
 
     @Override
     public int compareTo(Version other) {
-        if (this.major != other.major) {
-            return this.major - other.major;
+        if (major != other.major) {
+            return major - other.major;
         }
-        if (this.minor != other.minor) {
-            return this.minor - other.minor;
+        if (minor != other.minor) {
+            return minor - other.minor;
         }
-        if (this.patch != other.patch) {
-            return this.patch - other.patch;
+        if (patch != other.patch) {
+            return patch - other.patch;
         }
-        if (this.isEarlyAccess == other.isEarlyAccess()) {
+        if (isEarlyAccess == other.isEarlyAccess()) {
             return 0;
         }
-        if (this.isEarlyAccess) {
+        if (isEarlyAccess) {
             return -1;
         }
         return 1;
@@ -99,7 +99,7 @@ public class Version implements Comparable<Version> {
         }
         final Version other = (Version) obj;
 
-        return this.compareTo(other) == 0;
+        return compareTo(other) == 0;
     }
 
     @Override

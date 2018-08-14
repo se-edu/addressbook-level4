@@ -79,7 +79,7 @@ public class UniquePersonList implements Iterable<Person> {
 
     public void setPersons(UniquePersonList replacement) {
         requireNonNull(replacement);
-        this.internalList.setAll(replacement.internalList);
+        internalList.setAll(replacement.internalList);
     }
 
     /**
@@ -92,7 +92,7 @@ public class UniquePersonList implements Iterable<Person> {
             throw new DuplicatePersonException();
         }
 
-        this.internalList.setAll(persons);
+        internalList.setAll(persons);
     }
 
     /**
@@ -111,7 +111,7 @@ public class UniquePersonList implements Iterable<Person> {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof UniquePersonList // instanceof handles nulls
-                        && this.internalList.equals(((UniquePersonList) other).internalList));
+                        && internalList.equals(((UniquePersonList) other).internalList));
     }
 
     @Override

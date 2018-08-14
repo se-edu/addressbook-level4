@@ -13,7 +13,7 @@ public class AlertDialogHandle extends StageHandle {
     public AlertDialogHandle(Stage stage) {
         super(stage);
 
-        this.dialogPane = getChildNode("#" + UiManager.ALERT_DIALOG_PANE_FIELD_ID);
+        dialogPane = getChildNode("#" + UiManager.ALERT_DIALOG_PANE_FIELD_ID);
     }
 
     /**
