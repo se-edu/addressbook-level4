@@ -16,7 +16,7 @@ public class JumpToListRequestEvent extends BaseEvent {
 
     @Override
     public String toString() {
-        return this.getClass().getSimpleName();
+        return getClass().getSimpleName();
     }
 
 }

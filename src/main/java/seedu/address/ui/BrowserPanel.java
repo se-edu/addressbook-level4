@@ -26,7 +26,7 @@ public class BrowserPanel extends UiPart<Region> {
 
     private static final String FXML = "BrowserPanel.fxml";
 
-    private final Logger logger = LogsCenter.getLogger(this.getClass());
+    private final Logger logger = LogsCenter.getLogger(getClass());
 
     @FXML
     private WebView browser;
