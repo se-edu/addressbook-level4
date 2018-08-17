@@ -17,7 +17,7 @@ import seedu.address.commons.core.LogsCenter;
  */
 public abstract class StageHandle {
     protected final GuiRobot guiRobot = new GuiRobot();
-    private final Logger logger = LogsCenter.getLogger(this.getClass());
+    private final Logger logger = LogsCenter.getLogger(getClass());
 
     private final Stage stage;
 

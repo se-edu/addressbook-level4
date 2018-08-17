@@ -199,7 +199,7 @@ public class MainApp extends Application {
     @Subscribe
     public void handleExitAppRequestEvent(ExitAppRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
-        this.stop();
+        stop();
     }
 
     public static void main(String[] args) {

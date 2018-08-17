@@ -9,7 +9,7 @@ public class ShowHelpRequestEvent extends BaseEvent {
 
     @Override
     public String toString() {
-        return this.getClass().getSimpleName();
+        return getClass().getSimpleName();
     }
 
 }

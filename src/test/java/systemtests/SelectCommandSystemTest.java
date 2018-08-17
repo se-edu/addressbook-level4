@@ -5,9 +5,10 @@ import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.commands.SelectCommand.MESSAGE_SELECT_PERSON_SUCCESS;
+import static seedu.address.testutil.TestUtil.getLastIndex;
+import static seedu.address.testutil.TestUtil.getMidIndex;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalPersons.KEYWORD_MATCHING_MEIER;
-import static seedu.address.testutil.TypicalPersons.getTypicalPersons;
 
 import org.junit.Test;
 
@@ -29,7 +30,7 @@ public class SelectCommandSystemTest extends AddressBookSystemTest {
         assertCommandSuccess(command, INDEX_FIRST_PERSON);
 
         /* Case: select the last card in the person list -> selected */
-        Index personCount = Index.fromOneBased(getTypicalPersons().size());
+        Index personCount = getLastIndex(getModel());
         command = SelectCommand.COMMAND_WORD + " " + personCount.getOneBased();
         assertCommandSuccess(command, personCount);
 
@@ -44,7 +45,7 @@ public class SelectCommandSystemTest extends AddressBookSystemTest {
         assertCommandFailure(command, expectedResultMessage);
 
         /* Case: select the middle card in the person list -> selected */
-        Index middleIndex = Index.fromOneBased(personCount.getOneBased() / 2);
+        Index middleIndex = getMidIndex(getModel());
         command = SelectCommand.COMMAND_WORD + " " + middleIndex.getOneBased();
         assertCommandSuccess(command, middleIndex);
 
