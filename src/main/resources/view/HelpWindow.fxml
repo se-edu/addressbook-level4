@@ -8,7 +8,7 @@
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
          title="Help" maximized="true">
   <icons>
-    <Image url="@/images/help_icon.png" />
+    <Image url="@../images/help_icon.png" />
   </icons>
   <scene>
     <Scene>

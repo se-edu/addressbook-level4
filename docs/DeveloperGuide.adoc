@@ -44,8 +44,14 @@ Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plu
 . Locate the `build.gradle` file and select it. Click `OK`
 . Click `Open as Project`
 . Click `OK` to accept the default settings
+. Go to `File` -> `Project Structure` -> `Modules` -> `AddressBookL4_main` -> `Paths` and select "Inherit project compile output path"
 . Open a console and run the command `gradlew processResources` (Mac/Linux: `./gradlew processResources`). It should finish with the `BUILD SUCCESSFUL` message. +
 This will generate all resources required by the application and tests.
+. Try running `seedu.address.MainApp`, there should be a runtime exception. To resolve this:
+.. Go to `Run` -> `Edit Configurations...` and select `MainApp`
+.. Under VM options, type `--add-exports=javafx.base/com.sun.javafx.runtime=controlsfx`
+.. Click `OK`
+. Try running `seedu.address.MainApp` again, it should be successful now
 
 === Verifying the setup
 
