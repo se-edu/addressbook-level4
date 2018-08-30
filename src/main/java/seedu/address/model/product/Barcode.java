@@ -36,7 +36,7 @@ public class Barcode {
      * @param barcodeNumber
      * @return
      */
-    private boolean isBarcodeValid(String barcodeNumber) {
+    public static boolean isBarcodeValid(String barcodeNumber) {
         return isCorrectFormat(barcodeNumber) ? verifyDigits(barcodeNumber, getCheckDigit(barcodeNumber)) : false;
     }
 
@@ -45,7 +45,7 @@ public class Barcode {
      * @param barcodeNumber
      * @return
      */
-    private boolean isCorrectFormat(String barcodeNumber) {
+    private static boolean isCorrectFormat(String barcodeNumber) {
         return barcodeNumber.length() == BARCODE_LENGTH;
     }
 
@@ -54,7 +54,7 @@ public class Barcode {
      * @param barcodeNumber
      * @return
      */
-    private int getCheckDigit(String barcodeNumber) {
+    private static int getCheckDigit(String barcodeNumber) {
         return barcodeNumber.charAt(barcodeNumber.length() - 1);
     }
 
@@ -65,7 +65,7 @@ public class Barcode {
      * @param checkDigit
      * @return
      */
-    private boolean verifyDigits(String barcodeNumber, int checkDigit) {
+    private static boolean verifyDigits(String barcodeNumber, int checkDigit) {
         final int MULT = 3;
         int firstSum = 0, secondSum = 0;
         int idx = BARCODE_LENGTH - 1;
@@ -90,7 +90,7 @@ public class Barcode {
      * @param number
      * @return
      */
-    private int formMultipleOfTen(int number) {
+    private static int formMultipleOfTen(int number) {
         number %= 10;
         if (number > 5) {
             number = 10 - number;
