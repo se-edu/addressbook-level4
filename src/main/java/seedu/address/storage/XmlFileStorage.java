@@ -6,6 +6,7 @@ import java.nio.file.Path;
 import javax.xml.bind.JAXBException;
 
 import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.XmlUtil;
 
 /**
@@ -13,12 +14,27 @@ import seedu.address.commons.util.XmlUtil;
  */
 public class XmlFileStorage {
     /**
-     * Saves the given addressbook data to the specified file.
+     * Saves the given addressBook data to the specified file.
      */
     public static void saveDataToFile(Path file, XmlSerializableAddressBook addressBook)
             throws FileNotFoundException {
         try {
             XmlUtil.saveDataToFile(file, addressBook);
+        } catch (JAXBException e) {
+            throw new AssertionError("Unexpected exception " + e.getMessage(), e);
+        }
+    }
+
+    /**
+     * Saves the given addressBook data to the backup file.
+     * @param file filepath to save the data temporarily.
+     * @param addressBook data in XML format.
+     * @throws FileNotFoundException
+     */
+    public static void backupDataToFile(Path file, XmlSerializableAddressBook addressBook)
+            throws FileNotFoundException {
+        try {
+            XmlUtil.saveDataToFile(FileUtil.getBackupFilePath(file), addressBook);
         } catch (JAXBException e) {
             throw new AssertionError("Unexpected exception " + e.getMessage(), e);
         }

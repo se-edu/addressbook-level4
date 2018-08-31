@@ -80,4 +80,29 @@ public class FileUtil {
         Files.write(file, content.getBytes(CHARSET));
     }
 
+    /**
+     * Returns a filepath with the file extension removed.
+     * @param path filepath with a file extension.
+     */
+    private static String[] removeFileExtension(String path) {
+        String separator = System.getProperty("file.separator");
+        return path.split(separator);
+    }
+
+    /**
+     * Returns a filepath for backup file.
+     * @param path filepath of a regular file.
+     * @return
+     */
+    private static String getBackupFilepath(String path) {
+        String[] filepath = removeFileExtension(path);
+        return String.format("%s-backup.%s", filepath[0], filepath[1]);
+    }
+
+    /**
+     * @see #getBackupFilePath(Path)
+     */
+    public static Path getBackupFilePath(Path path) {
+        return Paths.get(getBackupFilepath(path.toString()));
+    }
 }
