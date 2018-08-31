@@ -188,6 +188,7 @@ public class MainApp extends Application {
         logger.info("============================ [ Stopping Address Book ] =============================");
         ui.stop();
         try {
+            //TODO save addressbook
             storage.saveUserPrefs(userPrefs);
         } catch (IOException e) {
             logger.severe("Failed to save preferences " + StringUtil.getDetails(e));

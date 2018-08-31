@@ -95,6 +95,7 @@ public class StorageManager extends ComponentManager implements Storage {
     public void handleAddressBookChangedEvent(AddressBookChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local data changed, saving to file"));
         try {
+            //TODO backup addressbook, remove saveAddressBook()
             saveAddressBook(event.data);
         } catch (IOException e) {
             raise(new DataSavingExceptionEvent(e));
