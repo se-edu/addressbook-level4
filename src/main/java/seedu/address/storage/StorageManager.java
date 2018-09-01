@@ -109,7 +109,7 @@ public class StorageManager extends ComponentManager implements Storage {
      * @throws IOException
      * @throws DataConversionException
      */
-    private void saveBackup(Path path) throws IOException, DataConversionException {
+    public void saveBackup(Path path) throws IOException, DataConversionException {
         requireNonNull(path);
         readAddressBook(path).ifPresent(book -> {
             try {
