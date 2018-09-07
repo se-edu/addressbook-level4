@@ -46,10 +46,10 @@ Do not disable them. If you have disabled them, go to `File` > `Settings` > `Plu
 . Click `OK` to accept the default settings
 . Open a console and run the command `gradlew processResources` (Mac/Linux: `./gradlew processResources`). It should finish with the `BUILD SUCCESSFUL` message. +
 This will generate all resources required by the application and tests.
-. Open the `XmlAdaptedPerson` file and check for any code errors
+. Open the `XmlAdaptedPerson` and `MainWindow` file and check for any code errors
 .. Due to an ongoing https://youtrack.jetbrains.com/issue/IDEA-189060[issue] with some of the newer versions of IntelliJ, code errors may be detected even if the project can be built and run successfully
-.. To resolve this, place your cursor over any of the code section highlighted in red. Press kbd:[ALT + ENTER], and select `Add '--add-modules=java.xml.bind' to module compiler options`
-. Repeat this for the test folder as well (check `XmlUtilTest` file for code errors, and if so, resolve it the same way)
+.. To resolve this, place your cursor over any of the code section highlighted in red. Press kbd:[ALT + ENTER], and select `Add '--add-modules=...' to module compiler options` for each error
+. Repeat this for the test folder as well (check `XmlUtilTest` and `HelpWindowTest` file for code errors, and if so, resolve it the same way)
 
 === Verifying the setup
 
