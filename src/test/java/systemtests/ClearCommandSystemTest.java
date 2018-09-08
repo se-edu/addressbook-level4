@@ -27,7 +27,7 @@ public class ClearCommandSystemTest extends AddressBookSystemTest {
         /* Case: undo clearing address book -> original address book restored */
         String command = UndoCommand.COMMAND_WORD;
         String expectedResultMessage = UndoCommand.MESSAGE_SUCCESS;
-        assertCommandSuccess(command,  expectedResultMessage, defaultModel);
+        assertCommandSuccess(command, expectedResultMessage, defaultModel);
         assertSelectedCardUnchanged();
 
         /* Case: redo clearing address book -> cleared */
