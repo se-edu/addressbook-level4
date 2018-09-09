@@ -103,7 +103,7 @@ public class GuiRobot extends FxRobot {
      */
     public Stage getStage(String stageTitle) {
         Optional<Stage> targetStage = listTargetWindows().stream()
-                .filter(Stage.class::isInstance)    // checks that the window is of type Stage
+                .filter(Stage.class::isInstance) // checks that the window is of type Stage
                 .map(Stage.class::cast)
                 .filter(stage -> stage.getTitle().equals(stageTitle))
                 .findFirst();
