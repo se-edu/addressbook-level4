@@ -62,7 +62,7 @@ dependencies {
     implementation group: 'com.fasterxml.jackson.core', name: 'jackson-databind', version: '2.7.0'
     implementation group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: '2.7.4'
     implementation group: 'com.google.guava', name: 'guava', version: '19.0'
-    implementation group: 'javax.xml.bind', name: 'jaxb-api', version: '2.2.8'
+    implementation group: 'jaddressbookaddressbookavax.xml.bind', name: 'jaxb-api', version: '2.2.8'
     implementation group: 'com.sun.xml.bind', name: 'jaxb-impl', version: '2.3.0'
     implementation group: 'com.sun.xml.bind', name: 'jaxb-core', version: '2.3.0'
     implementation group: 'javax.activation', name: 'activation', version: '1.1.1'
@@ -82,7 +82,7 @@ dependencies {
 }
 
 shadowJar {
-    archiveName = 'addressbook.jar'
+    archiveName = 'captracker.jar'
 
     destinationDir = file("${buildDir}/jar/")
 }
@@ -207,9 +207,8 @@ asciidoctor {
         idprefix: '',  // for compatibility with GitHub preview
         idseparator: '-',
         'site-root': "${sourceDir}",  // must be the same as sourceDir, do not modify
-        'site-name': 'AddressBook-Level4',
-        'site-githuburl': 'https://github.com/se-edu/addressbook-level4',
-        'site-seedu': true,  // delete this line if your project is not a fork (not a SE-EDU project)
+        'site-name': 'CAPTracker',
+        'site-githuburl': 'https://github.com/CS2103-AY1819S1-T13-4/main'
     ]
 
     options['template_dirs'].each {
