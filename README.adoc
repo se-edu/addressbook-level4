@@ -2,7 +2,9 @@
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
 https://travis-ci.org/CS2103-AY1819S1-T13-4/main[image:https://travis-ci.org/CS2103-AY1819S1-T13-4/main.svg?branch=master[Build Status]]
+https://ci.appveyor.com/project/alexkmj/main/branch/master[image:https://ci.appveyor.com/api/projects/status/1sxo4mvlcd5oia7h?svg=true[Build Status]]
 https://coveralls.io/github/CS2103-AY1819S1-T13-4/main?branch=master[image:https://coveralls.io/repos/github/CS2103-AY1819S1-T13-4/main/badge.svg?branch=master[Coverage Status]]
+image:https://api.codacy.com/project/badge/Grade/28acc5b7c04044519964e6253aeb58fa["Codacy code quality", link="https://www.codacy.com/app/alexkmj/main?utm_source=github.com&utm_medium=referral&utm_content=CS2103-AY1819S1-T13-4/main&utm_campaign=Badge_Grade"]
 
 ifdef::env-github[]
 image::docs/images/Ui.png[width="600"]
@@ -12,19 +14,12 @@ ifndef::env-github[]
 image::images/Ui.png[width="600"]
 endif::[]
 
-* This is a desktop Address Book application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
-* It is a Java sample application intended for students learning Software Engineering while using Java as the main programming language.
-* It is *written in OOP fashion*. It provides a *reasonably well-written* code example that is *significantly bigger* (around 6 KLoC)than what students usually write in beginner-level SE modules.
-* What's different from https://github.com/se-edu/addressbook-level3[level 3]:
-** A more sophisticated GUI that includes a list  panel and an in-built Browser.
-** More test cases, including automated GUI testing.
-** Support for _Build Automation_ using Gradle and for _Continuous Integration_ using Travis CI.
+* CAPTracker is for those students who prefer to use a desktop app for calculating and managing their CAP. More importantly CAPTracker is optimized for those who prefer to work with a Command Line Interface (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, CAPTracker is the ideal application to calculate your current CAP, and predict what grades you need in modules you haven’t taken to achieve your ideal CAP.
 
 == Site Map
 
 * <<UserGuide#, User Guide>>
 * <<DeveloperGuide#, Developer Guide>>
-* <<LearningOutcomes#, Learning Outcomes>>
 * <<AboutUs#, About Us>>
 * <<ContactUs#, Contact Us>>
 
