@@ -47,8 +47,6 @@ public class TestApp extends MainApp {
         if (initialDataSupplier.get() != null) {
             createDataFileWithData(new XmlSerializableAddressBook(this.initialDataSupplier.get()),
                     getBackupFilePath());
-        } else {
-            saveBackup();
         }
     }
 
