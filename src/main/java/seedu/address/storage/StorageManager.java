@@ -1,12 +1,6 @@
 package seedu.address.storage;
 
-import java.io.IOException;
-import java.nio.file.Path;
-import java.util.Optional;
-import java.util.logging.Logger;
-
 import com.google.common.eventbus.Subscribe;
-
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
@@ -16,7 +10,10 @@ import seedu.address.commons.util.FileUtil;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.UserPrefs;
 
-import static java.util.Objects.requireNonNull;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.util.Optional;
+import java.util.logging.Logger;
 
 /**
  * Manages storage of AddressBook data in local storage.
@@ -92,32 +89,15 @@ public class StorageManager extends ComponentManager implements Storage {
         addressBookStorage.backupAddressBook(addressBook, filePath);
     }
 
-    /**
-     * Saves backup addressBook at backup filepath.
-     * Done by transferring backup copy into save file location.
-     * @throws IOException
-     * @throws DataConversionException
-     */
+    @Override
     public void saveBackup() throws IOException, DataConversionException {
-        Path backupFilePath = FileUtil.getBackupFilePath(getAddressBookFilePath());
-        saveBackup(backupFilePath);
+        addressBookStorage.saveBackup();
     }
 
-    /**
-     * @see #saveBackup()
-     * @param path file path at which the backup file is stored at.
-     * @throws IOException
-     * @throws DataConversionException
-     */
+    @Override
     public void saveBackup(Path path) throws IOException, DataConversionException {
-        requireNonNull(path);
-        readAddressBook(path).ifPresent(book -> {
-            try {
-                saveAddressBook(book);
-            } catch (IOException e) {
-                raise(new DataSavingExceptionEvent(e));
-            }
-        });
+        logger.fine("Attempting to save backup file: " + path);
+        addressBookStorage.saveBackup(path);
     }
 
 

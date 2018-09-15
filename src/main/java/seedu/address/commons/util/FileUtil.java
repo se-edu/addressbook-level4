@@ -1,5 +1,6 @@
 package seedu.address.commons.util;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.InvalidPathException;
@@ -85,8 +86,8 @@ public class FileUtil {
      * @param path filepath with a file extension.
      */
     private static String[] removeFileExtension(String path) {
-        String separator = System.getProperty("file.separator");
-        return path.split(separator);
+        int splitPoint = getSplitPoint(path);
+        return new String[] { path.substring(0, splitPoint - 1), path.substring(splitPoint) };
     }
 
     /**
@@ -95,8 +96,40 @@ public class FileUtil {
      * @return
      */
     private static String getBackupFilepath(String path) {
-        String[] filepath = removeFileExtension(path);
-        return String.format("%s-backup.%s", filepath[0], filepath[1]);
+        if (FileUtil.hasFileExt(path)) {
+            String[] filepath = removeFileExtension(path);
+            return String.format("%s-backup.%s", filepath[0], filepath[1]);
+        }
+        return String.format("%s-backup", path);
+    }
+
+    /**
+     * Checks if a given path has a file extension.
+     * @param path
+     * @return
+     */
+    private static boolean hasFileExt(String path) {
+        String extension = getExtension(path);
+        return (!extension.isEmpty());
+    }
+
+    /**
+     * Retrieves the extension of a given path.
+     * @param path
+     * @return
+     */
+    private static String getExtension(String path) {
+        int splitPoint = getSplitPoint(path);
+        return splitPoint <= 0 ? "" : path.substring(splitPoint);
+    }
+
+    /**
+     * Retrieves the index seperating the file name and the file extension.
+     * @param path
+     * @return
+     */
+    private static int getSplitPoint(String path) {
+        return (path.lastIndexOf(".") + 1);
     }
 
     /**
