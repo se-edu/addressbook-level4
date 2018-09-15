@@ -1,4 +1,4 @@
-= Address Book (Level 4)
+= CAPTracker
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
 https://travis-ci.org/CS2103-AY1819S1-T13-4/main[image:https://travis-ci.org/CS2103-AY1819S1-T13-4/main.svg?branch=master[Build Status]]
