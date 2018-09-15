@@ -10,9 +10,11 @@ import java.util.Optional;
 import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
+import seedu.address.commons.util.StringUtil;
 import seedu.address.model.ReadOnlyAddressBook;
 
 /**
@@ -75,6 +77,56 @@ public class XmlAddressBookStorage implements AddressBookStorage {
 
         FileUtil.createIfMissing(filePath);
         XmlFileStorage.saveDataToFile(filePath, new XmlSerializableAddressBook(addressBook));
+    }
+
+    /**
+     * Saves backup addressBook at backup filepath.
+     * Done by transferring backup copy into save file location.
+     * @throws IOException
+     * @throws DataConversionException
+     */
+    @Override
+    public void saveBackup() throws IOException, DataConversionException {
+        Path backupFilePath = FileUtil.getBackupFilePath(getAddressBookFilePath());
+        saveBackup(backupFilePath);
+    }
+
+    /**
+     * @see #saveBackup()
+     * @param path file path at which the backup file is stored at.
+     * @throws IOException
+     * @throws DataConversionException
+     */
+    @Override
+    public void saveBackup(Path path) throws IOException, DataConversionException {
+        requireNonNull(path);
+        readAddressBook(path).ifPresent(book -> {
+            try {
+                saveAddressBook(book);
+            } catch (IOException e) {
+                logger.severe("Failed to save preferences " + StringUtil.getDetails(e));
+            }
+        });
+    }
+
+    @Override
+    public void backupAddressBook(ReadOnlyAddressBook addressBook) throws IOException {
+        backupAddressBook(addressBook, filePath);
+    }
+
+    /**
+     * Similar to {@link #backupAddressBook(ReadOnlyAddressBook)}
+     * @param addressBook addressBook to backup. Cannot be null.
+     * @param filePath location of the data. Cannot be null.
+     * @throws IOException
+     */
+    @Override
+    public void backupAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
+        requireNonNull(addressBook);
+        requireNonNull(filePath);
+
+        FileUtil.createIfMissing(filePath);
+        XmlFileStorage.backupDataToFile(filePath, new XmlSerializableAddressBook(addressBook));
     }
 
 }
