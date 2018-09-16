@@ -82,7 +82,7 @@ dependencies {
 }
 
 shadowJar {
-    archiveName = 'addressbook.jar'
+    archiveName = 'captracker.jar'
 
     destinationDir = file("${buildDir}/jar/")
 }
@@ -207,9 +207,8 @@ asciidoctor {
         idprefix: '',  // for compatibility with GitHub preview
         idseparator: '-',
         'site-root': "${sourceDir}",  // must be the same as sourceDir, do not modify
-        'site-name': 'AddressBook-Level4',
-        'site-githuburl': 'https://github.com/se-edu/addressbook-level4',
-        'site-seedu': true,  // delete this line if your project is not a fork (not a SE-EDU project)
+        'site-name': 'CAPTracker',
+        'site-githuburl': 'https://github.com/CS2103-AY1819S1-T13-4/main'
     ]
 
     options['template_dirs'].each {
