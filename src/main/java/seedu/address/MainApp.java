@@ -203,7 +203,6 @@ public class MainApp extends Application {
     }
 
     public static void main(String[] args) {
-	System.out.println("Starting");
         launch(args);
     }
 }
