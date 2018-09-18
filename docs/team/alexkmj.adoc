@@ -15,7 +15,7 @@ CapTracker is a desktop application. The user interacts with it using a CLI, and
 
 * *Major enhancement*: TBC.
 ** What it does: TBC.
-** Justification: TBC. 
+** Justification: TBC.
 ** Highlights: TBC.
 ** Credits: TBC.
 
@@ -55,5 +55,3 @@ include::../UserGuide.adoc[tag=dataencryption]
 include::../DeveloperGuide.adoc[tag=undoredo]
 
 include::../DeveloperGuide.adoc[tag=dataencryption]
-
-
