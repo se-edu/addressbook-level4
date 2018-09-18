@@ -42,6 +42,6 @@ public class AppUtilTest {
         String errorMessage = "error message";
         thrown.expect(IllegalArgumentException.class);
         thrown.expectMessage(errorMessage);
-        AppUtil.checkArgument(false,  errorMessage);
+        AppUtil.checkArgument(false, errorMessage);
     }
 }
