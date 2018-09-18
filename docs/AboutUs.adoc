@@ -20,7 +20,7 @@ Responsibilities: Ensures deadlines and deliverables are met. Also in charge of 
 '''
 
 === Chua Zhen Wei
-image::ChuaZhenwei.jpeg[width="150", align="left"]
+image::ChuaZhenWei.jpeg[width="150", align="left"]
 {empty}[https://github.com/ChuaZhenWei[github]]
 
 Role: Developer + Tester + 
