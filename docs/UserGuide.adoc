@@ -46,6 +46,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 *An employee can have the following fields associated:*
 
+* Employee Id
 * Name
 * Date of Birth
 * Phone Number
@@ -105,6 +106,32 @@ Shows a list of all persons in the address book. +
 Format: `list`
 
 Available fields: Full name, Date of Birth, Contact number, Email, Department, Position, Address, Training Levels, Salary, Bonus, Expenses/Claims, Leave Balance. 
+
+=== Editing an employee’s data: edit
+
+Edit an existing employee’s data.
+
+Format:
+edit EMPLOYEE_ID [n/NAME] [p/PHONE_NUMBER] [a/ADDRESS] [dob/DATE_OF_BIRTH] [e/EMAIL] [d/DEPARTMENT] [r/POSITION] [s/SALARY] [t/TRAINING_LEVEL] [b/BONUS]
+Existing values will be updated to the input values.
+
+Examples:
+
+* `edit id/4 dob/14 Mar 2000 p/98765432 d/HR r/Manager s/3500`
+
+Available fields: Name, Date of Birth, Phone number, Email, Department, Position, Address, Training Level, Salary
+
+=== Deleting an Employee’s Data: delete
+
+Deletes the specified employee from the address book.
+
+Format:
+delete id/EMPLOYEE_ID
+1.	Deletes the employee with the specific employee id.
+
+Examples:
+
+* `delete id/4`
 
 === Viewing help : `help`
 
