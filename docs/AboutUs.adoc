@@ -11,7 +11,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 == Project Team
 
 === Happytreat
-image::happytreat.jpeg[width="150", align="left"]
+image::Happytreat.jpeg[width="150", align="left"]
 {empty}[http://github.com/happytreat[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
@@ -20,7 +20,7 @@ Responsibilities:
 '''
 
 === ZhiWei94
-image::zhiwei94.jpg[width="150", align="left"]
+image::zhiwei94.jpeg[width="150", align="left"]
 {empty}[http://github.com/ZhiWei94[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
