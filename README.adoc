@@ -1,4 +1,4 @@
-= Address Book (Level 4)
+= Centralised Human Resource System (CHRS)
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
 https://travis-ci.org/CS2113-AY1819S1-T16-4/main[image:https://travis-ci.org/nusCS2113-AY1819S1/addressbook-level4.svg?branch=master[Build Status]]
