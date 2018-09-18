@@ -44,6 +44,27 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 == Features
 
 ====
+*An employee can have the following fields associated:*
+
+* Name
+* Date of Birth
+* Phone Number
+* Email
+* Department
+* Position/Rank
+* Address
+* Training Levels
+* Salary 
+* Bonus
+* Expenses/Claims
+* Leave Balance
+
+*An employee can incur the following expenses*
+
+* Medical Expenses
+* Travel Expenses
+* Miscellaneous Expenses
+
 *Command Format*
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
@@ -52,27 +73,42 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 ====
 
-=== Viewing help : `help`
+=== Filtering employee's data: filter
 
-Format: `help`
+Filter the employee list and only display selected fields.
 
-=== Adding a person: `add`
+Format: `filter [NAME] [ADDRESS] [PHONE_NUMBER]` (include as per needed)
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
-
-[TIP]
-A person can have any number of tags (including 0)
+EmployeeID is compulsory field to view by default.
 
 Examples:
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `filter Name ContactNo Address`
+
+Available fields: Name, Date of Birth, Phone number, Email, Department, Position, Address, Training Levels, Salary, Expenses/Claims, Leave Balance. 
+
+=== Adding employee's data:add
+
+Adds employee's data to the database +
+Format: `add n/NAME dob/DATE_OF_BIRTH p/PHONE_NUMBER e/EMAIL d/DEPARTMENT r/POSITION a/ADDRESS s/SALARY`
+
+Examples:
+
+* `add n/John Doe dob/13 Mar 2000 p/98765432 e/johnd@example.com d/IT r/Assistant a/John street, block 123, #01-01 s/3000`
+* `add n/Betsy dob/23 May 1987 p/95544332 e/betsy@example.com d/Account r/Manager a/Betsy street, block 3, #11-01 s/5000`
+
+Mandatory fields: Name, Date of Birth, Contact number, Email, Department, Position, Address, Training Levels, Salary.
 
 === Listing all persons : `list`
 
 Shows a list of all persons in the address book. +
 Format: `list`
+
+Available fields: Full name, Date of Birth, Contact number, Email, Department, Position, Address, Training Levels, Salary, Bonus, Expenses/Claims, Leave Balance. 
+
+=== Viewing help : `help`
+
+Format: `help`
 
 === Editing a person : `edit`
 
