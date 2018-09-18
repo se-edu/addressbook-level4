@@ -356,6 +356,25 @@
       <property name="severity" value="warning"/>
     </module>
 
+    <!-- Checks that non-whitespace characters are separated by no more than one whitespace character.
+         a = 1; // Allowed
+         a  = 1; // Not allowed (more than one space before =)
+    -->
+    <module name="SingleSpaceSeparator">
+      <!-- Validate whitespace surrounding comments as well.
+
+           a = 1; // Allowed (single space before start of comment)
+           a = 1; /* Allowed (single space before start of comment) */
+           /* Allowed (single space after end of comment) */ a = 1;
+           a = 1;  // Not allowed (more than one space before start of comment)
+           a = 1;  /* Not allowed (more than one space before start of comment) */
+           /* Not allowed (more than one space after end of comment) */  a = 1;
+
+           This doesn't validate whitespace within comments so a comment /* like  this */ is allowed.
+      -->
+      <property name="validateComments" value="true"/>
+    </module>
+
     <!--
     JAVADOC CHECKS
     -->
