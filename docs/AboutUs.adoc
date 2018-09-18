@@ -11,7 +11,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 == Project Team
 
 === Lim Yi Sheng
-image::LimYiSheng.jpeg[width="150", align="left"]
+image::limyisheng.jpeg[width="150", align="left"]
 {empty} [https://github.com/LimYiSheng[github]] 
 
 Role: Team Lead + Developer + Integrator + 
@@ -20,7 +20,7 @@ Responsibilities: Ensures deadlines and deliverables are met. Also in charge of 
 '''
 
 === Chua Zhen Wei
-image::ChuaZhenWei.jpeg[width="150", align="left"]
+image::chuazhenwei.jpeg[width="150", align="left"]
 {empty}[https://github.com/ChuaZhenWei[github]]
 
 Role: Developer + Tester + 
@@ -38,7 +38,7 @@ Responsibilities: Ensures that codes are up to java coding standards.
 '''
 
 === Vernon Cher Chu Xiong
-image::XiiaoPanda.jpeg[width="150", align="left"]
+image::xiiaopanda.jpeg[width="150", align="left"]
 {empty}[https://github.com/XiiaoPanda[github]] 
 
 Role: Developer + Tester + 
