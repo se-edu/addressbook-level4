@@ -11,46 +11,47 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 == Project Team
 
-=== John Doe
-image::damithc.jpg[width="150", align="left"]
-{empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/damithc[github]] [<<johndoe#, portfolio>>]
+=== Lim Yi Sheng
+image::yisheng.jpeg[width="150", align="left"]
+{empty} [https://github.com/LimYiSheng[github]] 
 
-Role: Project Advisor
-
-'''
-
-=== John Roe
-image::lejolly.jpg[width="150", align="left"]
-{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
-
-Role: Team Lead +
-Responsibilities: UI
+Role: Team Lead + Developer + Integrator
+Responsibilities: Ensures deadlines and deliverables are met. Also in charge of code integration.  
 
 '''
 
-=== Johnny Doe
-image::yijinl.jpg[width="150", align="left"]
-{empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
+=== Chua Zhen Wei
+image::zhenwei.jpeg[width="150", align="left"]
+{empty}[https://github.com/ChuaZhenWei[github]]
 
-Role: Developer +
-Responsibilities: Data
-
-'''
-
-=== Johnny Roe
-image::m133225.jpg[width="150", align="left"]
-{empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
-
-Role: Developer +
-Responsibilities: Dev Ops + Threading
+Role: Developer + Tester
+Responsibilities: Ensures usability and functionality alongside discovering potential bugs. 
 
 '''
 
-=== Benson Meier
-image::yl_coder.jpg[width="150", align="left"]
-{empty}[http://github.com/yl-coder[github]] [<<johndoe#, portfolio>>]
+=== William Ng Zhi Hong
+image::william.jpeg[width="150", align="left"]
+{empty}[https://github.com/zhihong8888[github]] 
 
-Role: Developer +
-Responsibilities: UI
+Role: Developer + Code Quality Checker
+Responsibilities: Ensures that codes are up to java coding standards. 
+
+'''
+
+=== Vernon Cher Chu Xiong
+image::vernon.jpeg[width="150", align="left"]
+{empty}[https://github.com/XiiaoPanda[github]] 
+
+Role: Developer + Tester
+Responsibilities: Ensures usability and functionality alongside discovering potential bugs.
+
+'''
+
+=== Chen Qunming
+image::qunming.jpeg[width="150", align="left"]
+{empty}[https://github.com/ryanchen2018[github]] 
+
+Role: Developer + Documentation Writer
+Responsibilities: Ensures changes to CHRS are documented in good quality. 
 
 '''
