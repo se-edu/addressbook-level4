@@ -12,7 +12,7 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4/tree/master
+:repoURL: https://github.com/ChewKinWhye/main
 
 By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
 
