@@ -26,6 +26,7 @@ endif::[]
 == Site Map
 
 * <<UserGuide#, User Guide>>
+* <<ProjectPlan#, Project Plan>>
 * <<DeveloperGuide#, Developer Guide>>
 * <<LearningOutcomes#, Learning Outcomes>>
 * <<AboutUs#, About Us>>
