@@ -1,4 +1,4 @@
-= AddressBook Level 4 - Developer Guide
+= JalilEnterprises - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -13,7 +13,9 @@ ifdef::env-github[]
 :warning-caption: :warning:
 :experimental:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4/tree/master
+
+:repoURL: https://github.com/CS2113-AY1819S1-T12-3/main/tree/master
+
 
 By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
 
@@ -820,13 +822,13 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 
 *Target user profile*:
 
-* has a need to manage a significant number of contacts
+* has a need to manage a significant number of stocks
 * prefer desktop apps over other types
 * can type fast
 * prefers typing over mouse input
 * is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*: manage stocks faster than a typical mouse/GUI driven app
 
 [appendix]
 == User Stories
@@ -836,17 +838,29 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *` |Lab Technician |Add new items to the list |Keep track of the new item
 
-|`* * *` |user |add a new person |
+|`* * *` |Lab Technician |Update the quantity of an item in the list |Record the quantity change of the item
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |Lab Technician |Delete an item from the list |Remove all information regarding to the item
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |Lab Technician |Show all items |Check and explore all my items
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |Lab Technician |Find a specific item |Easily check the quantity available
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* *` |Lab Technician |Search for an item with just a partial keyword |Find items more efficiently
+
+|`* *` |Lab Technician |Check which items are understocked |Easily restock them
+
+|`* *` |Lab Technician |List all materials required for a lab session |Prepare and account for them easily
+
+|`* *` |Lab Technician |Record statuses of individual materials (Free, Loan, Faulty) |Account for the state of items in the lab
+
+|`*` |Lab Technician |Withdraw my operation sometime |Go back to my previous edition anytime
+
+|`*` |Lab Technician |Create loan lists for each project group |Account for items loaned when they are returned
+
+|`*` |Lab Technician |Store the quantities of all my items at a given time |Review them anytime
 |=======================================================================
 
 _{More to be added}_
@@ -854,7 +868,7 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is `JalilEnterprises` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
 === Use case: Delete person
