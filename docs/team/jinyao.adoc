@@ -9,7 +9,7 @@
 
 == Overview
 
-Bank AddressBook (BankAB) is an employee management application. You can use BankAB to check working schedule, apply off day, check working hours, access payroll and daily notification. The managers and boss will have more access of BankAB such as changing the priority level of the employee and approve or reject off day requests.
+Bank Address Book (BankAB) is an employee management application. You can use BankAB to check working schedule, apply off day, check working hours, access payroll and daily notification. The managers and boss will have more access of BankAB such as changing the priority level of the employee and approve or reject off day requests.
 
 == Summary of contributions
 
