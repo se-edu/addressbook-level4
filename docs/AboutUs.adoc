@@ -4,53 +4,53 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-AddressBook - Level 4 was developed by the https://se-edu.github.io/docs/Team.html[se-edu] team. +
-_{The dummy content given below serves as a placeholder to be used by future forks of the project.}_ +
+Bank Address Book was developed by the T16-3 team. +
 {empty} +
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
 == Project Team
 
-=== John Doe
-image::damithc.jpg[width="150", align="left"]
-{empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/damithc[github]] [<<johndoe#, portfolio>>]
+=== Lim Woon Hian
+image::woonhian.png[width="150", align="left"]
+{empty}[https://github.com/Woonhian[github]] [<<woonhian#, portfolio>>]
 
-Role: Project Advisor
-
-'''
-
-=== John Roe
-image::lejolly.jpg[width="150", align="left"]
-{empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
-
-Role: Team Lead +
-Responsibilities: UI
+*Role*: Head Developer +
+*Responsibilities*: Deliverables and deadlines
 
 '''
 
-=== Johnny Doe
-image::yijinl.jpg[width="150", align="left"]
-{empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
+=== Chua Chong Yu
+image::speezy37.png[width="150", align="left"]
+{empty}[https://github.com/speezy37[github]] [<<chongyu#, portfolio>>]
 
-Role: Developer +
-Responsibilities: Data
-
-'''
-
-=== Johnny Roe
-image::m133225.jpg[width="150", align="left"]
-{empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
-
-Role: Developer +
-Responsibilities: Dev Ops + Threading
+*Role*: Developer +
+*Responsibilities*: Code quality
 
 '''
 
-=== Benson Meier
-image::yl_coder.jpg[width="150", align="left"]
-{empty}[http://github.com/yl-coder[github]] [<<johndoe#, portfolio>>]
+=== Nur Hafizuddin Bin Kamaruddin
+image::hafizuddin-nus.png[width="150", align="left"]
+{empty}[https://github.com/Hafizuddin-NUS[github]] [<<hafizuddin#, portfolio>>]
 
-Role: Developer +
-Responsibilities: UI
+*Role*: Developer +
+*Responsibilities*: Documentation
+
+'''
+
+=== Lee Jin Yao
+image::jylee-git.png[width="150", align="left"]
+{empty}[https://github.com/jylee-git[github]] [<<jinyao#, portfolio>>]
+
+*Role*: Developer +
+*Responsibilities*: Scheduling and tracking
+
+'''
+
+=== Lim Pin Juen
+image::pinjuen.png[width="150", align="left"]
+{empty}[https://github.com/pinjuen[github]] [<<pinjuen#, portfolio>>]
+
+*Role*: Developer +
+*Responsibilities*: Testing and integration
 
 '''
