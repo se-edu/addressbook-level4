@@ -34,9 +34,9 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
 * *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
-* *`exit`* : exits the app
+* **`add`**`n/Arduino q/20 m/5 t/Lab1 t/Lab2` : adds 20 `Arduino` item to the StockList, with tags 'Lab1' and 'Lab2'.
+* **`delete`**`n/Arduino q/20 ` : delete '20 Arduinos'
+* *`status`* : Shows the number of every item in each status category (Free, loan, faulty)
 
 .  Refer to <<Features>> for details of each command.
 
@@ -58,7 +58,7 @@ Format: `help`
 
 === Adding an item: `add`
 
-Adds an item to the stock list 
+Adds an item to the stock list +
 Format: `add n/NAME q/QUANTITY m/MINIMUM_QUANTITY [t/TAG]`
 
 
@@ -68,10 +68,21 @@ Examples:
 * `add n/Arduino q/20 m/5 t/Lab1 t/Lab2`
 
 
-=== Listing all persons : `list`
+=== Updating an item : `update`
 
-Shows a list of all persons in the address book. +
-Format: `list`
+Updates an existing item in the stock list +
+Format: `update n/NAME [q/QUANTITY] [m/MINIMUM_QUANTITY] [t/TAG]`
+
+****
+* Updates the item with the specified name.
+* At least one of the optional fields must be provided.
+* Existing values will be updated to the input values.
+* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
+* You can remove all the person’s tags by typing t/ without specifying any tags after it.
+
+Examples:
+* `update n/Arduino q/25 t/Lab7 t/Lab8` +
+Edits the quantity and tags of the Arduino item to be `25` and `Lab7`, `Lab8` respectively.
 
 === Editing a person : `edit`
 
