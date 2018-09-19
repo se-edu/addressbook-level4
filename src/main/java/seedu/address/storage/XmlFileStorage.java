@@ -34,7 +34,8 @@ public class XmlFileStorage {
     public static void backupDataToFile(Path file, XmlSerializableAddressBook addressBook)
             throws FileNotFoundException {
         try {
-            XmlUtil.saveDataToFile(FileUtil.getBackupFilePath(file), addressBook);
+            XmlUtil.saveDataToFile(file, addressBook);
+            //XmlUtil.saveDataToFile(FileUtil.getBackupFilePath(file), addressBook);
         } catch (JAXBException e) {
             throw new AssertionError("Unexpected exception " + e.getMessage(), e);
         }
