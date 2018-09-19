@@ -55,7 +55,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Position/Rank
 * Address
 * Training Levels
-* Salary 
+* Salary
 * Bonus
 * Expenses/Claims
 * Leave Balance
@@ -86,7 +86,7 @@ Examples:
 
 * `filter Name PhoneNo Address`
 
-Available fields: Name, Date of Birth, Phone number, Email, Department, Position, Address, Training Levels, Salary, Expenses/Claims, Leave Balance. 
+Available fields: Name, Date of Birth, Phone number, Email, Department, Position, Address, Training Levels, Salary, Expenses/Claims, Leave Balance.
 
 === Adding employee's data: `add`
 
