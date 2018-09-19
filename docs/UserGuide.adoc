@@ -33,9 +33,9 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
+* *`list`* : lists all employee details
+* **`add`**`n/John Doe dob/21-01-1993 p/98765432 e/johnd@example.com d/Finance r/Intern a/John street, block 123, #01-01 s/600`: adds an employee named `John Doe` to CHRS.
+* **`delete`**`3` : deletes the employee with the employee id '3' in CHRS
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
@@ -84,13 +84,14 @@ EmployeeID is compulsory field to view by default.
 
 Examples:
 
-* `filter Name ContactNo Address`
+* `filter Name PhoneNo Address`
 
 Available fields: Name, Date of Birth, Phone number, Email, Department, Position, Address, Training Levels, Salary, Expenses/Claims, Leave Balance. 
 
-=== Adding employee's data:add
+=== Adding employee's data: `add`
 
-Adds employee's data to the database +
+Adds employee's data to the database
+
 Format: `add n/NAME dob/DATE_OF_BIRTH p/PHONE_NUMBER e/EMAIL d/DEPARTMENT r/POSITION a/ADDRESS s/SALARY`
 
 Examples:
@@ -102,17 +103,17 @@ Mandatory fields: Name, Date of Birth, Phone number, Email, Department, Position
 
 === Listing all persons : `list`
 
-Shows a list of all employees in CHRS. +
+Shows a list of all employees in CHRS.
+
 Format: `list`
 
-Available fields: Full name, Date of Birth, Contact number, Email, Department, Position, Address, Training Levels, Salary, Bonus, Expenses/Claims, Leave Balance. 
+Available fields: Full name, Date of Birth, Phone number, Email, Department, Position, Address, Training Levels, Salary, Bonus, Expenses/Claims, Leave Balance.
 
 === Editing an employee’s data: `edit`
 
 Edit an existing employee’s data.
 
-Format:
-`edit EMPLOYEE_ID [n/NAME] [p/PHONE_NUMBER] [a/ADDRESS] [dob/DATE_OF_BIRTH] [e/EMAIL] [d/DEPARTMENT] [r/POSITION] [s/SALARY] [t/TRAINING_LEVEL] [b/BONUS]`
+Format: `edit EMPLOYEE_ID [n/NAME] [p/PHONE_NUMBER] [a/ADDRESS] [dob/DATE_OF_BIRTH] [e/EMAIL] [d/DEPARTMENT] [r/POSITION] [s/SALARY] [t/TRAINING_LEVEL] [b/BONUS]`
 
 Existing values will be updated to the input values.
 
@@ -126,14 +127,12 @@ Available fields: Name, Date of Birth, Phone number, Email, Department, Position
 
 Deletes the specified employee from the CHRS.
 
-Format:
-`delete id/EMPLOYEE_ID`
-
-Deletes the employee with the specific employee id.
+Format: `delete id/EMPLOYEE_ID`
 
 Examples:
 
-* `delete id/4`
+* `delete id/4` +
+Deletes the employee with the employee id '4'.
 
 === Modify Employee’s Salary/Bonus: `modifypay`
 
@@ -145,44 +144,25 @@ Only one and at least one of either Salary or Bonus must be included.
 
 Examples:
 
-* `modifypay id/456 s/+5`
-* `modifypay id/789 s/-5`
-* `modifypay id/120 b/1.5`
+* `modifypay id/456 s/+5` +
+Increase the salary of employee with employee id '456' by 5%
+* `modifypay id/789 s/-5` +
+Decrease the salary of employee with employee id '789' by 5%
+* `modifypay id/120 b/1.5` +
+Increase the bonus of employee with employee id '120' by 1.5 months
 
-=== Add expenses: `viewex`
+=== View expenses: `viewex`
 
 Views all the existing expenses an employee wish to claim from the company.
 
 Format: `viewex id/EMPLOYEE_ID`
 
-* View all expenses by the employee.
-
 Examples:
 
-* View expenses for John Doe.
+* `viewex id/120` +
+List the total expenses that employee with employee id '120' wishes to claim for each category.
 
-[%header,cols=2*]
-|===
-|System Prompt
-|User Input
-
-|Enter Command:
-|viewex id/123
-
-|Viewing expenses for:
-|John Doe
-
-|Medical claims:
-|$999.99
-
-|Transport claims:
-|$88.88
-
-|Miscellaneous claims:
-|$0.88
-
-|===
-
+Available categories: Medical_Expenses, Transport_Expenses, Miscellaneous
 
 === Add expenses: `addex`
 Add the expenses that an employee wishes to claim from the company.
@@ -191,20 +171,10 @@ Format: `addex id/EMPLOYEE_ID [med/MEDICAL_EXPENSES] [tra/TRAVEL_EXPENSES] [mis/
 
 Examples:
 
-* Add $8888.88 Medical claims for Hafiz.
+* `addex id/987 med/8888.88` +
+Add $8888.88 to Medical for employee with employee id '987'.
 
-[%header,cols=2*]
-|===
-|System Prompt
-|User Input
-
-|Enter Command:
-|addex id/987  med/88888.88
-
-|Added Medical claims for Hafiz:
-|$8888.88
-
-|===
+Available categories: Medical_Expenses, Transport_Expenses, Miscellaneous
 
 === Remove expenses: `removeex`
 
@@ -212,24 +182,10 @@ Remove expenses claim from an employee.
 
 Format: `removeex EMPLOYEE_ID [med/MEDICAL_EXPENSES] [tra/TRAVEL_EXPENSES] [mis/MISCELLANEOUS]`
 
-
 Examples:
 
-* Remove $8888.88 travel expenses from William
-
-[%header,cols=2*]
-|===
-|System Prompt
-|User Input
-
-|Enter Command:
-|removeex id/123 tra/8888.88
-
-|Removed travel expenses claim for William:
-|$8888.88
-
-|===
-
+* `removeex id/123 tra/8888.88` +
+Remove $8888.88 travel expenses from employee with employee id '123'.
 
 === Approve or reject leave/off: `leaveRequest`
 
@@ -287,22 +243,8 @@ Format: `find n/NAME`
 
 Examples:
 
-* Find all instances of John.
-
-[%header,cols=2*]
-|===
-|System Prompt
-|User Input
-
-|Enter Command:
-|find john
-
-|*Show List of Employees with name containing John and employee ID
-|123  John Doe +
-555  John Tay +
-999  John tan
-|===
-
+* `find n/John` +
+Find all instances of John.
 
 === View all available functions or commands : `help`
 
