@@ -14,15 +14,19 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/se-edu/addressbook-level4
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `T16-3`      Since: `Aug 2018`      Licence: `MIT`
 
 == Introduction
-
-AddressBook Level 4 (AB4) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB4 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB4 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+Bank AddressBook (BankAB) is an employee management application.
+You can use BankAB to check working schedule, apply off day, check working hours, access payroll
+and daily notification. The managers and boss will have more access of BankAB such as changing the
+priority level of the employee and approve or reject off day requests. This user guide will give
+you step by step instruction on how you can use the features of BankAB.
 
 == Quick Start
 
 .  Ensure you have Java version `9` or later installed in your Computer.
+    https://www.oracle.com/technetwork/java/javase/downloads/index.html[Download]
 .  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your Address Book.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
@@ -34,8 +38,9 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
 * *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
+* `add n/John Doe ic/s1234567h p/NeUeR2018 e/john8888@example.com a/Blk 888, Clementi Rd #08-88, S888888` :
+adds a contact named `John Doe` to the Address Book.
+* `schedule/John Doe ic/s1234567a` : list input user’s schedule
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
@@ -49,12 +54,22 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
 * Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Parameters can be in any order.
+    e.g.: Specifying parameters in the order ic/NRIC n/NAME is identical to n/NAME ic/NRIC.
 ====
 
 === Viewing help : `help`
 
 Format: `help`
+
+=== Check in/out working hours: `check`
+Updates check in/out timings for employee. +
+Format: `check n/NAME ic/NRIC mode/IN-OUT` +
+Examples: - +
+
+* `check n/John Doe ic/s1234567h mode/in` +
+* `check n/Jane Doe ic/s7654327h mode/out`
+
 
 === Adding a person: `add`
 
