@@ -217,6 +217,177 @@ Selects the 2nd person in the address book.
 `select 1` +
 Selects the 1st person in the results of the `find` command.
 
+=== Add expenses: `viewx`
+
+Views all the existing expenses an employee wish to claim from the company.
+
+Format:
+
+. viewex id/EMPLOYEE_ID
+
+. View all expenses by the employee.
+
+Examples:
+
+* View expenses for John Doe.
+
+[%header,cols=2*]
+|===
+|System Prompt
+|User Input
+
+|Enter Command:
+|viewex id/123
+
+|Viewing expenses for:
+|John Doe
+
+|Medical claims:
+|$999.99
+
+|Transport claims:
+|$88.88
+
+|Miscellaneous claims:
+|$0.88
+
+|===
+
+
+=== Add expenses: `addex`
+Add the expenses that an employee wishes to claim from the company.
+
+Format:
+
+. addex id/EMPLOYEE_ID [med/MEDICAL_EXPENSES] [tra/TRAVEL_EXPENSES] [mis/MISCELLANEOUS]
+
+Examples:
+
+* Add $8888.88 Medical claims for Hafiz.
+
+[%header,cols=2*]
+|===
+|System Prompt
+|User Input
+
+|Enter Command:
+|addex id/987  med/88888.88
+
+|Added Medical claims for Hafiz:
+|$8888.88
+
+|===
+
+=== Remove expenses: `removeex`
+
+Remove expenses claim from an employee.
+
+Format:
+
+. removeex EMPLOYEE_ID [med/MEDICAL_EXPENSES] [tra/TRAVEL_EXPENSES] [mis/MISCELLANEOUS]
+
+
+Examples:
+
+* Remove $8888.88 travel expenses from William
+
+[%header,cols=2*]
+|===
+|System Prompt
+|User Input
+
+|Enter Command:
+|removeex id/123 tra/8888.88
+
+|Removed travel expenses claim for William:
+|$8888.88
+
+|===
+
+
+=== Approve or reject leave/off: `leaveRequest`
+
+View the leave/off application of specific employee and edit the status.
+
+Format: leaveRequest id/EMPLOYEE_ID
+
+. View the list of employees with leave/off request
+
+. Select the employee name to change the leave request status
+
+Examples:
+
+* Approve the leave request of John Doe.
+
+[%header,cols=2*]
+|===
+|System Prompt
+|User Input
+
+|Enter Command:
+|leaveRequest id/456
+
+|List of leave Request from John Doe as follows:
+|
+
+|Leave from 25/08/2018 to 26/08/2018 (Approve/Reject)
+|A
+
+|===
+
+
+* Reject the leave request of Besty
+
+[%header,cols=2*]
+|===
+|System Prompt
+|User Input
+
+|Enter Command:
+|leaveRequest id/345
+
+|List of leave Request from Besty as follows:
+|
+
+|Leave from 01/01/2019 to 31/12/2019 (Approve/Reject)
+|R
+|===
+
+=== Locating persons by name: `find`
+
+Find the employee name whose name contain any of the given keywords.
+
+Format:
+
+. find <NAME>
+
+Examples:
+
+* Find all instances of John.
+
+[%header,cols=2*]
+|===
+|System Prompt
+|User Input
+
+|Enter Command:
+|find john
+
+|*Show List of Employees with name containing John and employee ID
+|123  John Doe +
+555  John Tay +
+999  John tan
+|===
+
+
+=== View all available functions or commands
+
+Views all the fucntions and commands that the system have.
+
+Format:
+
+. CHRS will list down all functions and commands available.
+
 === Listing entered commands : `history`
 
 Lists all the commands that you have entered in reverse chronological order. +
