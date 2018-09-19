@@ -34,8 +34,8 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
 * *`list`* : lists all contacts
-* **`add`**`n/Arduino q/20 m/5 t/Lab1 t/Lab2` : adds 20 `Arduino` item to the StockList, with tags 'Lab1' and 'Lab2'.
-* **`delete`**`n/Arduino q/20 ` : delete '20 Arduinos'
+* **`add`**`n/Arduino q/20 m/5 t/Lab1 t/Lab2` : adds 20 `Arduino` item to the StockList, with tags `Lab1` and `Lab2`.
+* **`delete`**`n/Arduino q/20` : delete `20 Arduinos`.
 * *`status`* : Shows the number of every item in each status category (Free, loan, faulty)
 
 .  Refer to <<Features>> for details of each command.
