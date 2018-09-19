@@ -12,7 +12,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 === Lim Woon Hian
 image::woonhian.png[width="150", align="left"]
-{empty}[https://github.com/Woonhian[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/Woonhian[github]] [<<woonhian#, portfolio>>]
 
 *Role*: Head Developer +
 *Responsibilities*: Deliverables and deadlines
@@ -21,7 +21,7 @@ image::woonhian.png[width="150", align="left"]
 
 === Chua Chong Yu
 image::speezy37.png[width="150", align="left"]
-{empty}[https://github.com/speezy37[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/speezy37[github]] [<<chongyu#, portfolio>>]
 
 *Role*: Developer +
 *Responsibilities*: Code quality
@@ -30,7 +30,7 @@ image::speezy37.png[width="150", align="left"]
 
 === Nur Hafizuddin Bin Kamaruddin
 image::hafizuddin-nus.png[width="150", align="left"]
-{empty}[https://github.com/Hafizuddin-NUS[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/Hafizuddin-NUS[github]] [<<hafizuddin#, portfolio>>]
 
 *Role*: Developer +
 *Responsibilities*: Documentation
@@ -39,7 +39,7 @@ image::hafizuddin-nus.png[width="150", align="left"]
 
 === Lee Jin Yao
 image::jylee-git.png[width="150", align="left"]
-{empty}[https://github.com/jylee-git[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/jylee-git[github]] [<<jinyao#, portfolio>>]
 
 *Role*: Developer +
 *Responsibilities*: Scheduling and tracking
@@ -48,7 +48,7 @@ image::jylee-git.png[width="150", align="left"]
 
 === Lim Pin Juen
 image::pinjuen.png[width="150", align="left"]
-{empty}[https://github.com/pinjuen[github]] [<<johndoe#, portfolio>>]
+{empty}[https://github.com/pinjuen[github]] [<<pinjuen#, portfolio>>]
 
 *Role*: Developer +
 *Responsibilities*: Testing and integration
