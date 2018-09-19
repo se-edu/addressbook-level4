@@ -13,6 +13,7 @@ import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
+import seedu.address.model.product.Barcode;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -93,6 +94,23 @@ public class ParserUtil {
             throw new ParseException(Email.MESSAGE_EMAIL_CONSTRAINTS);
         }
         return new Email(trimmedEmail);
+    }
+
+    /**
+     * Parses a {@code String barcodeNumber} into a {@code Barcode}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @param barcodeNumber
+     * @return
+     * @throws ParseException if the given {@code barcodeNumber} is invalid.
+     */
+    public static Barcode parseBarcode(String barcodeNumber) throws ParseException {
+        requireNonNull(barcodeNumber);
+        String trimmedBarcode = barcodeNumber.trim();
+        if (!Barcode.isBarcodeValid(trimmedBarcode)) {
+            throw new ParseException(Barcode.MESSAGE_BARCODE_CONSTRAINTS);
+        }
+        return new Barcode(barcodeNumber);
     }
 
     /**
