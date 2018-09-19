@@ -111,7 +111,7 @@ Available fields: Full name, Date of Birth, Phone number, Email, Department, Pos
 
 === Editing an employee’s data: `edit`
 
-Edit an existing employee’s data.
+Edit an existing employee’s data in CHRS.
 
 Format: `edit EMPLOYEE_ID [n/NAME] [p/PHONE_NUMBER] [a/ADDRESS] [dob/DATE_OF_BIRTH] [e/EMAIL] [d/DEPARTMENT] [r/POSITION] [s/SALARY] [t/TRAINING_LEVEL] [b/BONUS]`
 
