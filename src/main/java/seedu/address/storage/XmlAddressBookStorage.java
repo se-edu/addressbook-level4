@@ -27,7 +27,7 @@ public class XmlAddressBookStorage implements AddressBookStorage {
     private final Path backupFilePath;
 
     /**
-     * Reused from https://github.com/se-edu/addressbook-level4/compare/83699f1e96c2a9392dafaf3196091bc7df96d645...ff7373c5f3b7ca0a925e88dfcf9b5d31f88f324a
+     * Reused from https://github.com/se-edu/addressbook-level4 solutions
      * @param filePath
      */
     public XmlAddressBookStorage(Path filePath) {
@@ -85,7 +85,7 @@ public class XmlAddressBookStorage implements AddressBookStorage {
     }
 
     @Override
-    public void backupAddressBook(ReadOnlyAddressBook addressBook) throws IOException{
+    public void backupAddressBook(ReadOnlyAddressBook addressBook) throws IOException {
         saveAddressBook(addressBook, backupFilePath);
     }
 }
