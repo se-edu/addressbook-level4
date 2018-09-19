@@ -895,7 +895,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `CHRS` and the *Actor* is the `HR staff`, unless specified otherwise)
+(For all use cases below, the *System* is the `CHRS` and the *Actor* is the `HR Staff`, unless specified otherwise)
 
 [discrete]
 === Use case: UC01 -  Employee data filter function
