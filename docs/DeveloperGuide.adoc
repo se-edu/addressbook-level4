@@ -977,7 +977,7 @@ Use case ends.
 
 [discrete]
 === Actor: HR Staff (Handling payroll)
-[discret]
+[discrete]
 === Use case: UC05 -  Pay/Bonus increment or decrement
 *MSS*
 
