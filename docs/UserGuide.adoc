@@ -1,4 +1,4 @@
-= AddressBook Level 4 - User Guide
+= Bank Address Book - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -12,17 +12,21 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4
+:repoURL: https://github.com/CS2113-AY1819S1-T16-3/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `T16-3`      Since: `Aug 2018`      Licence: `MIT`
 
 == Introduction
-
-AddressBook Level 4 (AB4) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB4 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB4 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+Bank AddressBook (BankAB) is an employee management application.
+You can use BankAB to check working schedule, apply off day, check working hours, access payroll
+and daily notification. The managers and boss will have more access of BankAB such as changing the
+priority level of the employee and approve or reject off day requests. This user guide will give
+you step by step instruction on how you can use the features of BankAB.
 
 == Quick Start
 
 .  Ensure you have Java version `9` or later installed in your Computer.
+    https://www.oracle.com/technetwork/java/javase/downloads/index.html[Download]
 .  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
 .  Copy the file to the folder you want to use as the home folder for your Address Book.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
@@ -34,8 +38,9 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
 * *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
+* `add n/John Doe ic/s1234567h p/NeUeR2018 e/john8888@example.com a/Blk 888, Clementi Rd #08-88, S888888` :
+adds a contact named `John Doe` to the Address Book.
+* `schedule/John Doe ic/s1234567a` : list input user’s schedule
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
@@ -49,7 +54,8 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
 * Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 * Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Parameters can be in any order.
+    e.g.: Specifying parameters in the order ic/NRIC n/NAME is identical to n/NAME ic/NRIC.
 ====
 
 === Viewing help : `help`
@@ -58,7 +64,7 @@ Format: `help`
 
 === Adding a person: `add`
 
-Adds a person to the address book +
+Adds an employee to the address book +
 Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
 
 [TIP]
@@ -76,8 +82,9 @@ Format: `list`
 
 === Editing a person : `edit`
 
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+Edits the existing particulars of the logged in user. +
+Format (DEPRECATED): `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
+Format: `edit n/NAME ic/NRIC pass/PASSWORD [en/NAME] [ep/PHONE] [ee/EMAIL] [ea/ADDRESS]....`
 
 ****
 * Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
@@ -85,13 +92,34 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
 * You can remove all the person's tags by typing `t/` without specifying any tags after it.
+
+.List of parameters
+|===
+|Parameter name |Format |Example
+
+| Name
+| n/NAME
+| n/Lewis
+
+| Phone number
+| ep/PHONE
+| ep/96549950
+
+| Email address
+| ee/EMAIL
+| ee/lewis@hotmail.com
+
+| Address
+| ea/ADDRESS
+| ea/Blk 26, Tiong Bahru Rd #19-22, s(190026)
+|===
 ****
 
 Examples:
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
+* `edit n/John Doe ic/s1234567h pass/NeUeR2018 ep/91234567 ee/johndoe@example.com` +
 Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
+* `edit n/John Doe2 ic/s1234567h pass/NeUeR2018 en/John Doe` +
 Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
 
 === Locating persons by name: `find`
@@ -110,14 +138,23 @@ Format: `find KEYWORD [MORE_KEYWORDS]`
 Examples:
 
 * `find John` +
+====
 Returns `john` and `John Doe`
+====
 * `find Betsy Tim John` +
+====
 Returns any person having names `Betsy`, `Tim`, or `John`
+====
+
+=== Sort address book contacts: sort
+Shows the sorted list of the employees in the address book. +
+Format: `sort`
+
 
 === Deleting a person : `delete`
 
 Deletes the specified person from the address book. +
-Format: `delete INDEX`
+Format: `delete INDEX [MORE_INDEX]...`
 
 ****
 * Deletes the person at the specified `INDEX`.
@@ -127,12 +164,10 @@ Format: `delete INDEX`
 
 Examples:
 
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
+* `delete 1'
+====
+Deletes the employee with ID 1 in the address book.
+====
 
 === Selecting a person : `select`
 
@@ -191,6 +226,7 @@ The `undo` command fails as there are no undoable commands executed previously.
 `undo` (reverses the `clear` command) +
 `undo` (reverses the `delete 1` command) +
 
+////
 === Redoing the previously undone command : `redo`
 
 Reverses the most recent `undo` command. +
@@ -213,11 +249,107 @@ The `redo` command fails as there are no `undo` commands executed previously.
 `redo` (reapplies the `delete 1` command) +
 `redo` (reapplies the `clear` command) +
 // end::undoredo[]
+////
 
-=== Clearing all entries : `clear`
+=== Setting password: `setpass`
+Set password for employee on the address book. +
+Format: `setpass n/NAME ic/s1234567h sp/PASSWORD` +
 
-Clears all entries from the address book. +
-Format: `clear`
+* The password is case sensitive. +
+* Password length is limited to 15 characters. +
+* Password must include both upper-case and lower-case letters and inclusion of one or more numerical digits. +
+* Example: `setpass n/John Doe ic/s1234567h sp/PaS88od` +
+====
+Sets PaS88of as a password for John Doe.
+====
+
+=== Switch to superuser: `superuser`
+Switch to superuser profile to use ‘superuser’ commands +
+Format: `superuser n/NAME ic/s1234567h pass/PASSWORD` +
+Example: `superuser n/John Doe ic/s1234567h pass/888888`
+
+
+=== Check in/out working hours: `check`
+Updates check in/out timings for employee. +
+Format: `check n/NAME ic/NRIC mode/IN-OUT` +
+Examples: - +
+
+* `check n/John Doe ic/s1234567h mode/in` +
+* `check n/Jane Doe ic/s7654327h mode/out`
+
+=== List schedule: `schedule`
+List schedule for the employee. +
+Format: `schedule n/NAME ic/NRIC` +
+Examples: `schedule n/John Doe ic/s1234567h`
+
+=== List schedule: `setschedule`
+Set schedule of the employee. This Requires superuser level 1. +
+Format: `setschedule n/NAME ic/NRIC start/DATE end/DATE place/VENUE` +
+Example: `setschedule n/John Doe ic/s1234567h start/110918 end/301018 place/Counter 1` +
+[NOTE]
+====
+Date should be in the format DDMMYY
+====
+
+=== Access payroll: `payroll`
+List payroll of the employee. +
+Format: `payroll n/NAME ic/NRIC pass/PASSWORD` +
+Example: `payroll n/John Doe ic/s1234567h pass/NeUeR2018`
+
+=== Check off days: `checkoffstatus`
+Checks the number of off days available and off application status for an employee. +
+Format: `checkoffstatus ic/NRIC pass/PASSWORD` +
+Example: `checkoffstatis ic/S9486222J pass/NeUeR2018`
+
+=== Apply off days: `applyoff`
+Apply off days for employee. +
+Format: `applyoff n/NAME ic/NRIC pass/PASSWORD date/DATE` +
+Example: `applyoff n/John Doe ic/s123457h pass/NeUeR2018 date/080818` +
+====
+Apply off day for John Doe on the 8th of August 2018 (DDMMYY).
+====
+
+=== [SUPERUSER] Approve/Reject off request: `request`
+Approve or reject off day request applied by employees.
+Format: request [ic/NRIC] [mode/APPROVE/REJECT (INDEX)]
+****
+•	If no field is provided, BankAB will list all off day request from the company.
+•	If only NRIC field is provided, BankAB will list all off day request from that employee.
+•	INDEX refers to the index number shown in the displayed request list. The index must be positive integer 1, 2, 3, ….
+****
+
+Examples: - +
+
+* `request`
+====
+List all off day request from the company.
+====
+* request ic/s1234567a
+====
+List all off day request by the employee.
+====
+* request ic/s1234567a mode/approve (3)
+====
+Approve the 3rd request made by the employee.
+====
+
+=== Change priority level of employee: `priority`
+Change priority level of employee. +
+Format: `priority ic/NRIC superuser/LEVEL` +
+====
+•	Command only available for superuser level 3 and above.
+•	LEVEL field must be integers 1, 2, 3.
+====
+Example: `priority ic/s1234567a superuser/2`
+
+=== Restrict access to BankAB : `restrict`
+Restrict access to BankAB for maintenance to all employees except superusers level 4 (Technicians).
+Anyone below superuser level 4 priority will not be able to log into the application. +
+Format: `restrict`
+====
+Command only available for superuser level 4.
+====
+
 
 === Exiting the program : `exit`
 
@@ -242,19 +374,19 @@ _{explain how the user can enable/disable data encryption}_
 
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-* *Clear* : `clear`
-* *Delete* : `delete INDEX` +
-e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
-* *List* : `list`
-* *Help* : `help`
-* *Select* : `select INDEX` +
-e.g.`select 2`
-* *History* : `history`
-* *Undo* : `undo`
-* *Redo* : `redo`
+•	*Help*: `help`
+•	*Check in/out working hours*: `check n/NAME ic/NRIC mode/IN-OUT`
+•	*List schedule*: `schedule n/NAME ic/NRIC`
+•	*Access payroll*: `payroll n/NAME ic/NRIC pass/PASSWORD`
+•	*Apply off days*: `applyoff n/NAME ic/NRIC pass/PASSWORD date/DATE`
+•	*Edit particulars*: `edit n/NAME ic/NRIC pass/PASSWORD [en/NAME] [ep/PHONE] [ee/EMAIL] [ea/ADDRESS]....`
+•	*Add employee*: `add n/NAME ic/s1234567h p/PHONE NUMBER e/EMAIL a/ADDRESS`
+•	*Setting password*: `setpass n/NAME ic/s1234567h sp/PASSWORD`
+•	*Find employee*: `find KEYWORD [MORE_KEYWORDS]`
+•	*Switch to superuser*: `superuser n/NAME ic/s1234567h pass/PASSWORD`
+•	*Approve/Reject off request*: `request ic/s1234567a mode/approve (3)`
+•	*Sort address book contacts*: `sort`
+•	*Deleting employee*: `delete INDEX [MORE_INDEX]`
+•	*Change priority level of employee*: `priority ic/NRIC superuser/LEVEL`
+•	*Restrict access to BankAB*: `restrict`
+
