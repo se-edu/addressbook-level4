@@ -813,15 +813,33 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 [appendix]
 == Product Scope
 
-*Target user profile*:
+*Target user profile*: Human Resource (HR) Department
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
-* can type fast
-* prefers typing over mouse input
-* is reasonably comfortable using CLI apps
 
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+
+*Value proposition*: Resolve accessibility problems and provide a centralised database for end users’ convenience.
+
+
+*Product Scope*:
+
+* Centralised database system with different fields so as to support various features stated below:
+
+    Ensure correct payout to employees including bonus and salary
+
+    Ensure expenses claimed including medication and transportation
+
+    Ensure leave handling in a proper way
+
+* Timetable of working schedule
+* Report generation:
+
+    Claim history
+
+    Salary slip
+
+* Enable online communication via internal messenger
+* Full training list
+* GUI
 
 [appendix]
 == User Stories
@@ -831,15 +849,43 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+|`* * *` |HR staff |have filter functions | search for more specific data
 
-|`* * *` |user |add a new person |
+|`* * *` |HR staff|update current employee’s data  |update the employee’s data accordingly
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+|`* * *` |HR staff|add new employee’s data |add new employee’s data into the system
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+|`* * *` |HR staff |delete old employee’s data |remove employee’s details that are no longer required
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* * *` |HR staff(handling payroll)|have auto calculation of pay and bonus increments |avoid doing the calculations manually
+
+|`* * *` |new HR staff|view all the available functions |know the available functions for use in the application
+
+|`* * *` |HR staff(handling financial matters)|view all the expenses incurred by each employee that has yet to be claimed|avoid keeping track of them manually
+
+|`* * *` |HR staff|have a search function|search for employee’s data easily
+
+|`* * *` |HR staff(handling financial matters)|add expenses incurred by employee at individual level|keep track of employee’s expenses that is up for claims easily
+
+|`* *` |HR manager|generate a report of my employees' data |have an overview of the employees
+
+|`* *` |HR staff|have departments tagged to each personnel |search for staffs in a specific department easily
+
+|`* *` |HR staff|have shorter commands |reduce the amount of typing required
+
+|`* *` |HR staff|have an autocomplete function |type my commands partially and have lower risks of typing wrong commands
+
+|`* *` |HR manager|track who last made changes to the work schedule |find out who to clarify doubts with (if any)
+
+|`* *` |HR manager|view the work schedule for each day |find out which employees are working on which day
+
+|`* *` |HR manager|have a function to handle leave related issues |approve/disprove employee’s leave
+
+|`* *` |HR staff|undo the last change |correct my mistake easily
+
+|`* *` |HR staff|redo the last change |correct my undo easily
+
+|`* *` |Paranoid HR staff|have the option to hide personally identifiable information|lower the chances of my information being leaked or seen
 
 |`*` |user with many persons in the address book |sort persons by name |locate a person easily
 |=======================================================================
@@ -884,7 +930,7 @@ _{More to be added}_
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
 .  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+.  A user with above average typing speed, for instance 60 words per minute, for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 
 _{More to be added}_
 
@@ -894,8 +940,11 @@ _{More to be added}_
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
+Personally identifiable information (PII)::
+Any personal data, such as contact number, email and address, that could potentially identify an individual.
+
+Index::
+An increasing integer used to label employees’ ID.
 
 [appendix]
 == Product Survey
