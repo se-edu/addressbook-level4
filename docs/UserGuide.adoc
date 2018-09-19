@@ -33,9 +33,9 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
+* *`list`* : lists all employee details
+* **`add`**`n/John Doe dob/21-01-1993 p/98765432 e/johnd@example.com d/Finance r/Intern a/John street, block 123, #01-01 s/600`: adds an employee named `John Doe` to CHRS.
+* **`delete`**`3` : deletes the employee with the employee id '3' in CHRS
 * *`exit`* : exits the app
 
 .  Refer to <<Features>> for details of each command.
@@ -74,7 +74,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 ====
 
-=== Filtering employee's data: filter
+=== Filtering employee's data: `filter`
 
 Filter the employee list and only display selected fields.
 
@@ -84,13 +84,14 @@ EmployeeID is compulsory field to view by default.
 
 Examples:
 
-* `filter Name ContactNo Address`
+* `filter Name PhoneNo Address`
 
 Available fields: Name, Date of Birth, Phone number, Email, Department, Position, Address, Training Levels, Salary, Expenses/Claims, Leave Balance. 
 
-=== Adding employee's data:add
+=== Adding employee's data: `add`
 
-Adds employee's data to the database +
+Adds employee's data to the database
+
 Format: `add n/NAME dob/DATE_OF_BIRTH p/PHONE_NUMBER e/EMAIL d/DEPARTMENT r/POSITION a/ADDRESS s/SALARY`
 
 Examples:
@@ -98,21 +99,22 @@ Examples:
 * `add n/John Doe dob/13 Mar 2000 p/98765432 e/johnd@example.com d/IT r/Assistant a/John street, block 123, #01-01 s/3000`
 * `add n/Betsy dob/23 May 1987 p/95544332 e/betsy@example.com d/Account r/Manager a/Betsy street, block 3, #11-01 s/5000`
 
-Mandatory fields: Name, Date of Birth, Contact number, Email, Department, Position, Address, Training Levels, Salary.
+Mandatory fields: Name, Date of Birth, Phone number, Email, Department, Position, Address, Training Levels, Salary.
 
 === Listing all persons : `list`
 
-Shows a list of all persons in the address book. +
+Shows a list of all employees in CHRS.
+
 Format: `list`
 
-Available fields: Full name, Date of Birth, Contact number, Email, Department, Position, Address, Training Levels, Salary, Bonus, Expenses/Claims, Leave Balance. 
+Available fields: Full name, Date of Birth, Phone number, Email, Department, Position, Address, Training Levels, Salary, Bonus, Expenses/Claims, Leave Balance.
 
-=== Editing an employee’s data: edit
+=== Editing an employee’s data: `edit`
 
-Edit an existing employee’s data.
+Edit an existing employee’s data in CHRS.
 
-Format:
-edit EMPLOYEE_ID [n/NAME] [p/PHONE_NUMBER] [a/ADDRESS] [dob/DATE_OF_BIRTH] [e/EMAIL] [d/DEPARTMENT] [r/POSITION] [s/SALARY] [t/TRAINING_LEVEL] [b/BONUS]
+Format: `edit EMPLOYEE_ID [n/NAME] [p/PHONE_NUMBER] [a/ADDRESS] [dob/DATE_OF_BIRTH] [e/EMAIL] [d/DEPARTMENT] [r/POSITION] [s/SALARY] [t/TRAINING_LEVEL] [b/BONUS]`
+
 Existing values will be updated to the input values.
 
 Examples:
@@ -121,199 +123,79 @@ Examples:
 
 Available fields: Name, Date of Birth, Phone number, Email, Department, Position, Address, Training Level, Salary
 
-=== Deleting an Employee’s Data: delete
+=== Deleting an Employee’s Data: `delete`
 
-Deletes the specified employee from the address book.
+Deletes the specified employee from the CHRS.
 
-Format:
-delete id/EMPLOYEE_ID
-1.	Deletes the employee with the specific employee id.
+Format: `delete id/EMPLOYEE_ID`
 
 Examples:
 
-* `delete id/4`
+* `delete id/4` +
+Deletes the employee with the employee id '4'.
 
-=== Viewing help : `help`
+=== Modify Employee’s Salary/Bonus: `modifypay`
 
-Format: `help`
+Modify the salary/bonus of the employee identified by the employee id.
 
-=== Editing a person : `edit`
+Format: `modifypay id/EMPLOYEE_ID [s/SALARY] [b/BONUS]`
 
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
-
-****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
-****
+Only one and at least one of either Salary or Bonus must be included.
 
 Examples:
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+* `modifypay id/456 s/+5` +
+Increase the salary of employee with employee id '456' by 5%
+* `modifypay id/789 s/-5` +
+Decrease the salary of employee with employee id '789' by 5%
+* `modifypay id/120 b/1.5` +
+Increase the bonus of employee with employee id '120' by 1.5 months
 
-=== Locating persons by name: `find`
-
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
-
-****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
-****
-
-Examples:
-
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
-
-=== Deleting a person : `delete`
-
-Deletes the specified person from the address book. +
-Format: `delete INDEX`
-
-****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
-****
-
-Examples:
-
-* `list` +
-`delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
-`delete 1` +
-Deletes the 1st person in the results of the `find` command.
-
-=== Selecting a person : `select`
-
-Selects the person identified by the index number used in the displayed person list. +
-Format: `select INDEX`
-
-****
-* Selects the person and loads the Google search page the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* `1, 2, 3, ...`
-****
-
-Examples:
-
-* `list` +
-`select 2` +
-Selects the 2nd person in the address book.
-* `find Betsy` +
-`select 1` +
-Selects the 1st person in the results of the `find` command.
-
-=== Add expenses: `viewx`
+=== View expenses: `viewex`
 
 Views all the existing expenses an employee wish to claim from the company.
 
-Format:
-
-. viewex id/EMPLOYEE_ID
-
-. View all expenses by the employee.
+Format: `viewex id/EMPLOYEE_ID`
 
 Examples:
 
-* View expenses for John Doe.
+* `viewex id/120` +
+List the total expenses that employee with employee id '120' wishes to claim for each category.
 
-[%header,cols=2*]
-|===
-|System Prompt
-|User Input
-
-|Enter Command:
-|viewex id/123
-
-|Viewing expenses for:
-|John Doe
-
-|Medical claims:
-|$999.99
-
-|Transport claims:
-|$88.88
-
-|Miscellaneous claims:
-|$0.88
-
-|===
-
+Available categories: Medical_Expenses, Transport_Expenses, Miscellaneous
 
 === Add expenses: `addex`
 Add the expenses that an employee wishes to claim from the company.
 
-Format:
-
-. addex id/EMPLOYEE_ID [med/MEDICAL_EXPENSES] [tra/TRAVEL_EXPENSES] [mis/MISCELLANEOUS]
+Format: `addex id/EMPLOYEE_ID [med/MEDICAL_EXPENSES] [tra/TRAVEL_EXPENSES] [mis/MISCELLANEOUS]`
 
 Examples:
 
-* Add $8888.88 Medical claims for Hafiz.
+* `addex id/987 med/8888.88` +
+Add $8888.88 to Medical for employee with employee id '987'.
 
-[%header,cols=2*]
-|===
-|System Prompt
-|User Input
-
-|Enter Command:
-|addex id/987  med/88888.88
-
-|Added Medical claims for Hafiz:
-|$8888.88
-
-|===
+Available categories: Medical_Expenses, Transport_Expenses, Miscellaneous
 
 === Remove expenses: `removeex`
 
 Remove expenses claim from an employee.
 
-Format:
-
-. removeex EMPLOYEE_ID [med/MEDICAL_EXPENSES] [tra/TRAVEL_EXPENSES] [mis/MISCELLANEOUS]
-
+Format: `removeex EMPLOYEE_ID [med/MEDICAL_EXPENSES] [tra/TRAVEL_EXPENSES] [mis/MISCELLANEOUS]`
 
 Examples:
 
-* Remove $8888.88 travel expenses from William
-
-[%header,cols=2*]
-|===
-|System Prompt
-|User Input
-
-|Enter Command:
-|removeex id/123 tra/8888.88
-
-|Removed travel expenses claim for William:
-|$8888.88
-
-|===
-
+* `removeex id/123 tra/8888.88` +
+Remove $8888.88 travel expenses from employee with employee id '123'.
 
 === Approve or reject leave/off: `leaveRequest`
 
 View the leave/off application of specific employee and edit the status.
 
-Format: leaveRequest id/EMPLOYEE_ID
+Format: `leaveRequest id/EMPLOYEE_ID`
 
-. View the list of employees with leave/off request
+* View the list of employees with leave/off request
 
-. Select the employee name to change the leave request status
+* Select the employee name to change the leave request status
 
 Examples:
 
@@ -357,40 +239,25 @@ Examples:
 
 Find the employee name whose name contain any of the given keywords.
 
-Format:
-
-. find <NAME>
+Format: `find n/NAME`
 
 Examples:
 
-* Find all instances of John.
+* `find n/John` +
+Find all instances of John.
 
-[%header,cols=2*]
-|===
-|System Prompt
-|User Input
+=== View all available functions or commands : `help`
 
-|Enter Command:
-|find john
+Views all the fucntions and commands that the CHRS have.
 
-|*Show List of Employees with name containing John and employee ID
-|123  John Doe +
-555  John Tay +
-999  John tan
-|===
+Format: 'help'
 
-
-=== View all available functions or commands
-
-Views all the fucntions and commands that the system have.
-
-Format:
-
-. CHRS will list down all functions and commands available.
+* CHRS will list down all functions and commands available.
 
 === Listing entered commands : `history`
 
-Lists all the commands that you have entered in reverse chronological order. +
+Lists all the commands that you have entered in reverse chronological order.
+
 Format: `history`
 
 [NOTE]
@@ -401,12 +268,13 @@ Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and 
 // tag::undoredo[]
 === Undoing previous command : `undo`
 
-Restores the address book to the state before the previous _undoable_ command was executed. +
+Restores CHRS to the state before the previous _undoable_ command was executed.
+
 Format: `undo`
 
 [NOTE]
 ====
-Undoable commands: those commands that modify the address book's content (`add`, `delete`, `edit` and `clear`).
+Undoable commands: those commands that modify CHRS content (`add`, `delete`, `edit` and `clear`).
 ====
 
 Examples:
@@ -427,7 +295,8 @@ The `undo` command fails as there are no undoable commands executed previously.
 
 === Redoing the previously undone command : `redo`
 
-Reverses the most recent `undo` command. +
+Reverses the most recent `undo` command.
+
 Format: `redo`
 
 Examples:
@@ -450,12 +319,14 @@ The `redo` command fails as there are no `undo` commands executed previously.
 
 === Clearing all entries : `clear`
 
-Clears all entries from the address book. +
+Clears all entries from CHRS.
+
 Format: `clear`
 
 === Exiting the program : `exit`
 
-Exits the program. +
+Exits the program.
+
 Format: `exit`
 
 === Saving the data
