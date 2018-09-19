@@ -90,8 +90,10 @@ public class TestApp extends MainApp {
         }
     }
 
-    /** transfer backup to actual addressbook storage */
-     public void saveBackup() {
+    /**
+     * transfer backup to actual addressbook storage
+     */
+    public void saveBackup() {
         try {
             storage.saveBackup();
         } catch (IOException e) {
