@@ -12,7 +12,9 @@ ifdef::env-github[]
 :note-caption: :information_source:
 :warning-caption: :warning:
 endif::[]
+
 :repoURL: https://github.com/CS2113-AY1819S1-T12-3/main/tree/master
+
 
 By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
 
