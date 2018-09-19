@@ -815,31 +815,29 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 
 *Target user profile*: Human Resource (HR) Department
 
-
-
-*Value proposition*: Resolve accessibility problems and provide a centralised database for end users’ convenience.
-
+*Value proposition*: Resolve accessibility problems and provide a centralised database for end users’ convenience
 
 *Product Scope*:
 
-* Centralised database system with different fields so as to support various features stated below:
+* A centralised system with specific fields required by HR. Some fields are as follow:
 
-    Ensure correct payout to employees including bonus and salary
+    Employees' salary and bonus
 
-    Ensure expenses claimed including medication and transportation
+    Employees' expenses claims, such as medical and transpot
 
-    Ensure leave handling in a proper way
+    Employees' leave balance
 
-* Timetable of working schedule
-* Report generation:
+* Working schedule of employees (in a timetable format, GUI)
+* Generation of reports such as:
 
-    Claim history
+    Employees' claim history
 
-    Salary slip
+    Employees' salary slip
 
-* Enable online communication via internal messenger
-* Full training list
-* GUI
+    Employees' past training(s)
+
+* An internal messenger to enable communication between the HR department and employees
+* Function to schedule training for employees 
 
 [appendix]
 == User Stories
