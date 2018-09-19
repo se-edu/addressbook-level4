@@ -79,8 +79,9 @@ Format: `update n/NAME [q/QUANTITY] [m/MINIMUM_QUANTITY] [t/TAG]`
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
 * You can remove all the person’s tags by typing t/ without specifying any tags after it.
-
+****
 Examples:
+
 * `update n/Arduino q/25 t/Lab7 t/Lab8` +
 Edits the quantity and tags of the Arduino item to be `25` and `Lab7`, `Lab8` respectively.
 
