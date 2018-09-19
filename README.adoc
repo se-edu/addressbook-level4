@@ -16,7 +16,7 @@ image::images/Ui.png[width="600"]
 endif::[]
 
 * This is a desktop Address Book application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
-* It is made to manage empleyees' workflow in a bank.
+* It is made to manage employees' workflow in a bank.
 * It is *written in OOP fashion*. It provides a *reasonably well-written* code example that is *significantly bigger* (around 6 KLoC).
 * Support for _Build Automation_ using Gradle and for _Continuous Integration_ using Travis CI.
 
