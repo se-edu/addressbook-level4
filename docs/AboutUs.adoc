@@ -4,7 +4,7 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-Bank AddressBook was developed by the T16-3 team. +
+Bank Address Book was developed by the T16-3 team. +
 {empty} +
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
