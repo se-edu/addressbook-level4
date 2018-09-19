@@ -815,31 +815,29 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 
 *Target user profile*: Human Resource (HR) Department
 
-
-
-*Value proposition*: Resolve accessibility problems and provide a centralised database for end users’ convenience.
-
+*Value proposition*: Resolve accessibility problems and provide a centralised database for end users’ convenience
 
 *Product Scope*:
 
-* Centralised database system with different fields so as to support various features stated below:
+* A centralised system with specific fields required by HR. Some fields are as follow:
 
-    Ensure correct payout to employees including bonus and salary
+    Employees' salary and bonus
 
-    Ensure expenses claimed including medication and transportation
+    Employees' expenses claims, such as medical and transport
 
-    Ensure leave handling in a proper way
+    Employees' leave balance
 
-* Timetable of working schedule
-* Report generation:
+* Working schedule of employees (in a timetable format, GUI)
+* Generation of reports such as:
 
-    Claim history
+    Employees' claim history
 
-    Salary slip
+    Employees' salary slip
 
-* Enable online communication via internal messenger
-* Full training list
-* GUI
+    Employees' past training(s)
+
+* An internal messenger to enable communication between the HR department and employees
+* Function to schedule training for employees
 
 [appendix]
 == User Stories
@@ -849,94 +847,284 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |HR staff |have filter functions | search for more specific data
+|`* * *` |HR Staff |have filter functions | search for more specific data
 
-|`* * *` |HR staff|update current employee’s data  |update the employee’s data accordingly
+|`* * *` |HR Staff|update current employee’s data  |update the employee’s data accordingly
 
-|`* * *` |HR staff|add new employee’s data |add new employee’s data into the system
+|`* * *` |HR Staff|add new employee’s data |add new employee’s data into the system
 
-|`* * *` |HR staff|delete old employee’s data |remove employee’s details that are no longer required
+|`* * *` |HR Staff|delete old employee’s data |remove employee’s details that are no longer required
 
-|`* * *` |HR staff(handling payroll)|have auto calculation of pay and bonus increments|avoid doing the calculations manually
+|`* * *` |HR Staff(handling payroll)|have auto calculation of pay and bonus increments|avoid doing the calculations manually
 
-|`* * *` |New HR staff|view all the available functions|know the available functions for use in the application
+|`* * *` |New HR Staff|view all the available functions|know the available functions for use in the application
 
-|`* * *` |HR staff(handling financial matters)|view all the expenses incurred by each employee that has yet to be claimed|avoid keeping track of them manually
+|`* * *` |HR Staff(handling financial matters)|view all the expenses incurred by each employee that has yet to be claimed|avoid keeping track of them manually
 
-|`* * *` |HR staff|have a search function|search for employee’s data easily
+|`* * *` |HR Staff|have a search function|search for employee’s data easily
 
-|`* * *` |HR staff(handling financial matters)|add expenses incurred by employee at individual level|keep track of employee’s expenses that is up for claims easily
+|`* * *` |HR Staff(handling financial matters)|add expenses incurred by employee at individual level|keep track of employee’s expenses that is up for claims easily
 
-|`* * *` |HR manager|have a function to approve or reject leave/off|approve or reject employee’s leave/off easily
+|`* * *` |HR Manager|have a function to approve or reject leave/off|approve or reject employee’s leave/off easily
 
-|`* * *` |HR staff (handling financial matters)|remove expenses incurred by employee after the claim is completed|keep track of employee’s claimed expenses easily
+|`* * *` |HR Staff (handling financial matters)|remove expenses incurred by employee after the claim is completed|keep track of employee’s claimed expenses easily
 
-|`* *` |HR director|have different user access|control the information access within the system
+|`* *` |HR Director|have different user access|control the information access within the system
 
-|`* *` |HR manager|generate a report of my employees' data|have an overview of the employees
+|`* *` |HR Manager|generate a report of my employees' data|have an overview of the employees
 
-|`* *` |HR staff|have departments tagged to each personnel|search for staffs in a specific department easily
+|`* *` |HR Staff|have departments tagged to each personnel|search for staffs in a specific department easily
 
-|`* *` |HR staff|have shorter commands|reduce the amount of typing required
+|`* *` |HR Staff|have shorter commands|reduce the amount of typing required
 
-|`* *` |HR staff|have an autocomplete function |type my commands partially and have lower risks of typing wrong commands
+|`* *` |HR Staff|have an autocomplete function |type my commands partially and have lower risks of typing wrong commands
 
-|`* *` |HR manager|track who last made changes to the work schedule|find out who to clarify doubts with (if any)
+|`* *` |HR Manager|track who last made changes to the work schedule|find out who to clarify doubts with (if any)
 
-|`* *` |HR manager|view the work schedule for each day |find out which employees are working on which day
+|`* *` |HR Manager|view the work schedule for each day |find out which employees are working on which day
 
-|`* *` |HR manager|have a function to handle leave related issues |approve/disprove employee’s leave
+|`* *` |HR Manager|have a function to handle leave related issues |approve/disprove employee’s leave
 
-|`* *` |HR staff|undo the last change|correct my mistake easily
+|`* *` |HR Staff|undo the last change|correct my mistake easily
 
-|`* *` |HR staff|redo the last change|correct my undo easily
+|`* *` |HR Staff|redo the last change|correct my undo easily
 
-|`* *` |Paranoid HR staff|have the option to hide personally identifiable information|lower the chances of my information being leaked or seen
+|`* *` |Paranoid HR Staff|have the option to hide personally identifiable information|lower the chances of my information being leaked or seen
 |=======================================================================
-
-_{More to be added}_
 
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `CHRS` and the *Actor* is the `HR Staff`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
-
+=== Use case: UC01 -  Employee data filter function
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  User requests to filter employees’ data
+2.  CHRS shows the available options to filter
+3.  User input the filter type
+4.  CHRS output the employees’ data of the specific filter
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. The list is empty.
+* 1a.
 +
 Use case ends.
 
-* 3a. The given index is invalid.
-+
-[none]
-** 3a1. AddressBook shows an error message.
-+
-Use case resumes at step 2.
+[discrete]
+=== Use case: UC02 -  Update employee's data
+*MSS*
 
-_{More to be added}_
+1.  User requests to update specific employees’ data
+2. CHRS shows the employee’s current data and prompts the user whether an edit will be performed
+3. User confirms whether there will be an edit
+4. CHRS requests for the field to be updated
+5. User input the field to be updated
+6. CHRS requests for the updated information
+7. User input the relevant information
+8. CHRS updates relevant data of the employee and prompts the user whether there will be another field to be updated
++
+Steps 3 to 8 are repeated until user input no to the request of whether another field will be updated
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a.
++
+Use case ends.
+
+[discrete]
+=== Use case: UC03 -  Add employee's data
+*MSS*
+
+1. User input new employee’s data
+2. CHRS shows the employee’s data and requests for confirmation
+3. User confirms the addition
+4. CHRS stores employee’s data and shows successful message
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a.
++
+Use case ends.
+
+[discrete]
+=== Use case: UC04 -  Delete employee's data
+*MSS*
+
+1. User requests to delete employee’s data
+2. CHRS shows the employee’s data and prompts for confirmation
+3. User confirms the deletion
+4. CHRS deletes employee’s data and shows successful message
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a.
++
+Use case ends.
+
+[discrete]
+=== Actor: HR Staff (Handling payroll)
+[discret]
+=== Use case: UC05 -  Pay/Bonus increment or decrement
+*MSS*
+
+1. User requests to modify employee’s pay/bonus
+2. CHRS shows the requested employee’s data
+3. User keys in the increment or decrement percentage
+4. CHRS shows the updated employee’s pay/bonus and requests for
+confirmation
+5. User confirms the update
+6. CHRS updates the employee’s pay/bonus and shows successful message
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a.
++
+Use case ends.
+
+[discrete]
+=== Use case: UC06 -  View available functions or commands
+*MSS*
+
+1. User requests to view the available functions or commands in CHRS
+2. CHRS shows the list of available functions or commands
++
+Use case ends.
+
+[discrete]
+=== Actor: HR Staff (Handling financial matters)
+[discrete]
+=== Use case: UC07 – View expenses
+*MSS*
+
+1. User requests to view expenses incurred by an employee
+2. CHRS shows the list of expenses incurred by the employee
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a.
++
+Use case ends.
+
+[discrete]
+=== Use case: UC08 – Search function
+*MSS*
+
+1. User requests to use the search function
+2. CHRS evokes the search function
+3. User enters the employee’s name
+4. CHRS shows the data associated with the employee’s name
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a.
++
+Use case ends.
+
+[discrete]
+=== Use case: UC09 – Add expenses
+*MSS*
+
+1. User input an employee’s name
+2. CHRS shows the available categories and prompt the user for input of
+which category
+3. User input the category for the expenses to be added
+4. CHRS requests user for the amount spent
+5. User input the amount spent
+6. CHRS shows the expenses incurred by the employee and requests for
+confirmation
+7. User confirms the addition
+8. CHRS stores the new expenses and shows successful message
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a.
++
+Use case ends.
+
+[discrete]
+=== Actor: HR Manager
+[discrete]
+=== Use case: UC10 – Approve or reject leave/off function
+*MSS*
+
+1. User requests for approve or reject leave/off function
+2. CHRS displays the list of employees’ names who applied for leave and
+request for employee’s name
+3. User input the employee’s name
+4. CHRS requests for approval or rejection
+5. User input approve or reject
+6. CHRS updates the leave/off accordingly and shows successful message
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a.
++
+Use case ends.
+
+[discrete]
+=== Actor: HR Staff (Handling financial matters)
+[discrete]
+=== Use case: UC11 – Remove expenses
+*MSS*
+
+1. User input an employee’s name
+2. CHRS shows the available categories and request the user for input of
+which category
+3. User input the category for the expenses to be removed
+4. CHRS shows the expenses incurred by the employee and requests user
+for the amount to be removed
+5. User input the amount spent
+6. CHRS shows the updated expenses incurred by the employee and
+requests for confirmation
+7. User confirms the removal
+8. CHRS removes the expenses and shows successful message
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a.
++
+Use case ends.
 
 [appendix]
 == Non Functional Requirements
 
+.  Should have different user access rights
+.  Should be able to run on both 32-bit and 64-bit OS
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
 .  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed, for instance 60 words per minute, for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-
-_{More to be added}_
 
 [appendix]
 == Glossary
