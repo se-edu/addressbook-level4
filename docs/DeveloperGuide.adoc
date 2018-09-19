@@ -855,11 +855,11 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |HR staff|add new employee’s data |add new employee’s data into the system
 
-|`* * *` |HR staff |delete old employee’s data |remove employee’s details that are no longer required
+|`* * *` |HR staff|delete old employee’s data |remove employee’s details that are no longer required
 
-|`* * *` |HR staff(handling payroll)|have auto calculation of pay and bonus increments |avoid doing the calculations manually
+|`* * *` |HR staff(handling payroll)|have auto calculation of pay and bonus increments|avoid doing the calculations manually
 
-|`* * *` |new HR staff|view all the available functions |know the available functions for use in the application
+|`* * *` |New HR staff|view all the available functions|know the available functions for use in the application
 
 |`* * *` |HR staff(handling financial matters)|view all the expenses incurred by each employee that has yet to be claimed|avoid keeping track of them manually
 
@@ -867,27 +867,31 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |HR staff(handling financial matters)|add expenses incurred by employee at individual level|keep track of employee’s expenses that is up for claims easily
 
-|`* *` |HR manager|generate a report of my employees' data |have an overview of the employees
+|`* * *` |HR manager|have a function to approve or reject leave/off|approve or reject employee’s leave/off easily
 
-|`* *` |HR staff|have departments tagged to each personnel |search for staffs in a specific department easily
+|`* * *` |HR staff (handling financial matters)|remove expenses incurred by employee after the claim is completed|keep track of employee’s claimed expenses easily
 
-|`* *` |HR staff|have shorter commands |reduce the amount of typing required
+|`* *` |HR director|have different user access|control the information access within the system
+
+|`* *` |HR manager|generate a report of my employees' data|have an overview of the employees
+
+|`* *` |HR staff|have departments tagged to each personnel|search for staffs in a specific department easily
+
+|`* *` |HR staff|have shorter commands|reduce the amount of typing required
 
 |`* *` |HR staff|have an autocomplete function |type my commands partially and have lower risks of typing wrong commands
 
-|`* *` |HR manager|track who last made changes to the work schedule |find out who to clarify doubts with (if any)
+|`* *` |HR manager|track who last made changes to the work schedule|find out who to clarify doubts with (if any)
 
 |`* *` |HR manager|view the work schedule for each day |find out which employees are working on which day
 
 |`* *` |HR manager|have a function to handle leave related issues |approve/disprove employee’s leave
 
-|`* *` |HR staff|undo the last change |correct my mistake easily
+|`* *` |HR staff|undo the last change|correct my mistake easily
 
-|`* *` |HR staff|redo the last change |correct my undo easily
+|`* *` |HR staff|redo the last change|correct my undo easily
 
 |`* *` |Paranoid HR staff|have the option to hide personally identifiable information|lower the chances of my information being leaked or seen
-
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
 |=======================================================================
 
 _{More to be added}_

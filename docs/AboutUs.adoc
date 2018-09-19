@@ -12,10 +12,10 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 === Lim Yi Sheng
 image::limyisheng.jpeg[width="150", align="left"]
-{empty} [https://github.com/LimYiSheng[github]] 
+{empty} [https://github.com/LimYiSheng[github]]
 
-Role: Team Lead + Developer + Integrator + 
-Responsibilities: Ensures deadlines and deliverables are met. Also in charge of code integration.  
+Role: Team Lead + Developer + Integrator +
+Responsibilities: Ensures deadlines and deliverables are met. Also in charge of code integration.
 
 '''
 
@@ -23,34 +23,34 @@ Responsibilities: Ensures deadlines and deliverables are met. Also in charge of 
 image::chuazhenwei.jpeg[width="150", align="left"]
 {empty}[https://github.com/ChuaZhenWei[github]]
 
-Role: Developer + Tester + 
-Responsibilities: Ensures usability and functionality alongside discovering potential bugs. 
+Role: Developer + Tester +
+Responsibilities: Ensures usability and functionality alongside discovering potential bugs.
 
 '''
 
 === William Ng Zhi Hong
 image::zhihong8888.jpeg[width="150", align="left"]
-{empty}[https://github.com/zhihong8888[github]] 
+{empty}[https://github.com/zhihong8888[github]]
 
-Role: Developer + Code Quality Checker + 
-Responsibilities: Ensures that codes are up to java coding standards. 
+Role: Developer + Code Quality Checker +
+Responsibilities: Ensures that codes are up to java coding standards.
 
 '''
 
 === Vernon Cher Chu Xiong
 image::xiiaopanda.jpeg[width="150", align="left"]
-{empty}[https://github.com/XiiaoPanda[github]] 
+{empty}[https://github.com/XiiaoPanda[github]]
 
-Role: Developer + Tester + 
+Role: Developer + Tester +
 Responsibilities: Ensures usability and functionality alongside discovering potential bugs.
 
 '''
 
 === Chen Qunming
 image::ryanchen2018.jpeg[width="150", align="left"]
-{empty}[https://github.com/ryanchen2018[github]] 
+{empty}[https://github.com/ryanchen2018[github]]
 
-Role: Developer + Documentation Writer + 
-Responsibilities: Ensures changes to CHRS are documented in good quality. 
+Role: Developer + Documentation Writer +
+Responsibilities: Ensures changes to CHRS are documented in good quality.
 
 '''
