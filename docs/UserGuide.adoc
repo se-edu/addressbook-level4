@@ -46,28 +46,27 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Words in UPPER_CASE are the parameters to be supplied by the user e.g. in add n/NAME, NAME is a parameter which can be used as add n/Arduino.
+* Items in square brackets are optional e.g n/NAME [t/TAG] can be used as n/Arduino t/Lab1 or as n/Arduino.
+* Items with …​ after them can be used multiple times including zero times e.g. [t/TAG]…​ can be used as   (i.e. 0 times), t/Lab1, t/Lab2 t/Lab 5 etc.
+* Parameters can be in any order e.g. if the command specifies n/NAME q/QUANTITY, q/QUANTITY n/NAME is also acceptable.
 ====
 
 === Viewing help : `help`
 
 Format: `help`
 
-=== Adding a person: `add`
+=== Adding an item: `add`
 
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+Adds an item to the stock list 
+Format: `add n/NAME q/QUANTITY m/MINIMUM_QUANTITY [t/TAG]`
 
-[TIP]
-A person can have any number of tags (including 0)
+
 
 Examples:
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `add n/Arduino q/20 m/5 t/Lab1 t/Lab2`
+
 
 === Listing all persons : `list`
 
