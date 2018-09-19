@@ -1,4 +1,4 @@
-= AddressBook Level 4 - User Guide
+= JalilEnterprises - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -14,7 +14,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/ChewKinWhye/main
 
-By: `JalilEnterprises`      Since: `Sep 2018`      Licence: `NUS`
+By: `T12-3`      Since: `Sep 2018`      Licence: `NUS`
 
 == Introduction
 
@@ -84,6 +84,16 @@ Examples:
 
 * `update n/Arduino q/25 t/Lab7 t/Lab8` +
 Edits the quantity and tags of the Arduino item to be `25` and `Lab7`, `Lab8` respectively.
+
+=== Deleting an item : `delete`
+
+Deletes an item from the stock list +
+Format: `delete n/NAME q/QUANTITY`
+Examples:
+
+* `delete n/Arduino q/20` +
+Deletes 20 Arduinos
+
 
 === Editing a person : `edit`
 
