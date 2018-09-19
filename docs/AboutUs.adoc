@@ -11,7 +11,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 === Chew Kin Whye
 image::chewkinwhye.jpg[width="150", align="left"]
-{empty} [https://github.com/ChewKinWhye[github]] 
+{empty} [https://github.com/ChewKinWhye[github]]
 
 Role: Team Lead, Scheduling and tracking +
 Responsibilities: Logic
@@ -20,7 +20,7 @@ Responsibilities: Logic
 
 === Gao Qi Kai
 image::gaoqikai.jpg[width="150", align="left"]
-{empty}[https://github.com/gaoqikai[github]] 
+{empty}[https://github.com/gaoqikai[github]]
 
 Role: Developer, Testing +
 Responsibilities: UI
@@ -29,7 +29,7 @@ Responsibilities: UI
 
 === Kelvin Tan
 image::kelvintankaiboon.jpg[width="150", align="left"]
-{empty}[https://github.com/kelvintankaiboon[github]] 
+{empty}[https://github.com/kelvintankaiboon[github]]
 
 Role: Developer, Documentation +
 Responsibilities: Data
@@ -38,7 +38,7 @@ Responsibilities: Data
 
 === He Hao Wei
 image::hehaowei.jpg[width="150", align="left"]
-{empty}[https://github.com/HeHaowei[github]] 
+{empty}[https://github.com/HeHaowei[github]]
 
 Role: Developer, Code quality +
 Responsibilities: Models
@@ -47,7 +47,7 @@ Responsibilities: Models
 
 === Davindran
 image::davindran.jpg[width="150", align="left"]
-{empty}[https://github.com/Davindran[github]] 
+{empty}[https://github.com/Davindran[github]]
 
 Role: Developer, Deliverables and deadlines +
 Responsibilities: UI
