@@ -897,35 +897,223 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `CHRS` and the *Actor* is the `HR staff`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
-
+=== Use case: UC01 -  Employee data filter function
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1.  User requests to filter employees’ data
+2.  CHRS shows the available options to filter
+3.  User input the filter type
+4.  CHRS output the employees’ data of the specific filter
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 2a. The list is empty.
+* 1a.
 +
 Use case ends.
 
-* 3a. The given index is invalid.
-+
-[none]
-** 3a1. AddressBook shows an error message.
-+
-Use case resumes at step 2.
+[discrete]
+=== Use case: UC02 -  Update employee's data
+*MSS*
 
-_{More to be added}_
+1.  User requests to update specific employees’ data
+2. CHRS shows the employee’s current data and prompts the user whether an edit will be performed
+3. User confirms whether there will be an edit
+4. CHRS requests for the field to be updated
+5. User input the field to be updated
+6. CHRS requests for the updated information
+7. User input the relevant information
+8. CHRS updates relevant data of the employee and prompts the user whether there will be another field to be updated
++
+Steps 3 to 8 are repeated until user input no to the request of whether another field will be updated
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a.
++
+Use case ends.
+
+[discrete]
+=== Use case: UC03 -  Add employee's data
+*MSS*
+
+1. User input new employee’s data
+2. CHRS shows the employee’s data and requests for confirmation
+3. User confirms the addition
+4. CHRS stores employee’s data and shows successful message
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a.
++
+Use case ends.
+
+[discrete]
+=== Use case: UC04 -  Delete employee's data
+*MSS*
+
+1. User requests to delete employee’s data
+2. CHRS shows the employee’s data and prompts for confirmation
+3. User confirms the deletion
+4. CHRS deletes employee’s data and shows successful message
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a.
++
+Use case ends.
+
+[discrete]
+=== Actor: HR Rtaff (Handling payroll)
+[discret]
+=== Use case: UC05 -  Pay/Bonus increment or decrement
+*MSS*
+
+1. User requests to modify employee’s pay/bonus
+2. CHRS shows the requested employee’s data
+3. User keys in the increment or decrement percentage
+4. CHRS shows the updated employee’s pay/bonus and requests for
+confirmation
+5. User confirms the update
+6. CHRS updates the employee’s pay/bonus and shows successful message
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a.
++
+Use case ends.
+
+[discrete]
+=== Use case: UC06 -  View available functions or commands
+*MSS*
+
+1. User requests to view the available functions or commands in CHRS
+2. CHRS shows the list of available functions or commands
++
+Use case ends.
+
+[discrete]
+=== Actor: HR Staff (Handling financial matters)
+[discrete]
+=== Use case: UC07 – View expenses
+*MSS*
+
+1. User requests to view expenses incurred by an employee
+2. CHRS shows the list of expenses incurred by the employee
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a.
++
+Use case ends.
+
+[discrete]
+=== Use case: UC08 – Search function
+*MSS*
+
+1. User requests to use the search function
+2. CHRS evokes the search function
+3. User enters the employee’s name
+4. CHRS shows the data associated with the employee’s name
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a.
++
+Use case ends.
+
+[discrete]
+=== Use case: UC09 – Add expenses
+*MSS*
+
+1. User input an employee’s name
+2. CHRS shows the available categories and prompt the user for input of
+which category
+3. User input the category for the expenses to be added
+4. CHRS requests user for the amount spent
+5. User input the amount spent
+6. CHRS shows the expenses incurred by the employee and requests for
+confirmation
+7. User confirms the addition
+8. CHRS stores the new expenses and shows successful message
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a.
++
+Use case ends.
+
+[discrete]
+=== Use case: UC10 – Approve or reject leave/off function
+*MSS*
+
+1. User requests for approve or reject leave/off function
+2. CHRS displays the list of employees’ names who applied for leave and
+request for employee’s name
+3. User input the employee’s name
+4. CHRS requests for approval or rejection
+5. User input approve or reject
+6. CHRS updates the leave/off accordingly and shows successful message
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a.
++
+Use case ends.
+
+[discrete]
+=== Use case: UC11 – Remove expenses
+*MSS*
+
+1. User input an employee’s name
+2. CHRS shows the available categories and request the user for input of
+which category
+3. User input the category for the expenses to be removed
+4. CHRS shows the expenses incurred by the employee and requests user
+for the amount to be removed
+5. User input the amount spent
+6. CHRS shows the updated expenses incurred by the employee and
+requests for confirmation
+7. User confirms the removal
+8. CHRS removes the expenses and shows successful message
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a.
++
+Use case ends.
 
 [appendix]
 == Non Functional Requirements
