@@ -208,7 +208,7 @@ asciidoctor {
         idseparator: '-',
         'site-root': "${sourceDir}",  // must be the same as sourceDir, do not modify
         'site-name': 'CgStock',
-        'site-githuburl': 'https://github.com/se-edu/addressbook-level4',
+        'site-githuburl': 'https://github.com/CS2113-AY1819S1-T12-3/main',
         'site-seedu': true,  // delete this line if your project is not a fork (not a SE-EDU project)
     ]
 
