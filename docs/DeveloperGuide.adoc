@@ -831,17 +831,30 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
-
-|`* * *` |user |add a new person |
-
-|`* * *` |user |delete a person |remove entries that I no longer need
-
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
-
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
-
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |user	|Access my payroll	|Calculate my incoming pay according to the number of hours I have worked easily
+|`* * *` |user	|Check my schedule	|Know where I am deployed for the day
+|`* * *` |user	|Check my notifications via CLI	|View my notifications
+|`* * *` |Elevated user	|Set employees’ access levels	|Ensure that employees have the appropriate level of access to classified items/areas
+|`* * *` |Elevated user	|Add/Delete/Edit employees into the database	|Ensure that the company manpower list is updated
+|`* * *` |Elevated user	|Set schedule for employee 	|Deploy employees to their designated location.
+|`* * *` |User	|Edit my personal particulars	|Update them as required (Edit function)
+|`* * *` |Elevated user	|Access employee off-day requests	|Approve/Reject off for employees
+|`* * *` |User	|Search for a specific contact	|Obtain the particulars of the contact easily
+|`* * *` |Elevated user	|Sort contacts by department	|Allocate manpower accordingly
+|`* * *` |User	|Sort my address book by name/department	|Look for contacts that I want easily
+|`* * *` |User	|Filter and view my relevant colleague’s contact details	|Get in touch in them seamlessly
+|`* * *` |User	|Set password to my address book	|Prevent unauthorized access to my address book
+|`* * *` |user	|access my remaining off days	|Apply for my off
+|`* * *` |user	|check in and out during my work days	|I will be able to view the number of hours I have worked for
+|`* * *` |Elevated user	|Check my employees’ working hours	|Pay them accordingly
+|`* * *` |Administrator	|Restrict employee access to the address book application	|Perform maintenance or upgrades
+|`* *`	|User	|Check the staff’s direct superior	|Feedback to the particular superior
+|`* *`	|User	|Set my availability status (available, busy, away)	|Let colleagues decide their best course of action according to my status
+|`* *`	|Elevated User	|Send out alerts to an individual/group	|Ensure that everyone is caught up with the latest developments
+|`* *`	|User	|Notified via email/sms	|Get the latest updates at the earliest possible time
+|`* *`	|User	|Upload profile picture	|I can be identified easily by others
+|`* *`	|User	|Use keyboard shortcuts	|Quickly navigate around the address book
+|`*	`|User	|Deploy available cleaners	|Get the place cleaned up as soon as possible.
 |=======================================================================
 
 _{More to be added}_
@@ -852,32 +865,298 @@ _{More to be added}_
 (For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
-
+=== Use case: Add Person
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+.	User enters add command.
+.	AddressBook prompts to add person.
+.	User enters the details of the new person.
+.	AddressBook adds the new person.
 +
 Use case ends.
 
 *Extensions*
 
-[none]
+* 4a. Person already exists in the AddressBook.
+** 4a1. AddressBook shows person already exists message.
++
+Use case ends.
+
+* 4b. The added person has missing details.
+** 4b1. AddressBook shows an error message.
++
+Use case ends.
+
+* 4c. The added person has wrong entry format.
+** 4c1. AddressBook shows an error message.
++
+Use case ends.
+
+=== Use case: Delete Person
+*MSS*
+
+.	User enters delete command
+.	AddressBook shows the list of employees
+.	User requests to delete a specific employee
+.	AddressBook deletes the employee
++
+Use case ends.
+
+*Extensions*
+
 * 2a. The list is empty.
 +
 Use case ends.
 
-* 3a. The given index is invalid.
+* 4a. The given employee name is invalid
+** 4a1. AddressBook shows an error message.
 +
-[none]
-** 3a1. AddressBook shows an error message.
-+
-Use case resumes at step 2.
+Use case resumes to step 2.
 
-_{More to be added}_
+=== Use case: Apply Off days
+*MSS*
+
+.	User enters command to apply off day
+.	AddressBook list the remaining off days left and prompts the date the user wants to apply on
+.	User enters date
+.	AddressBook add the request to the database for approval
++
+Use case ends.
+
+*Extensions*
+
+* 2a. No remaining days left
++
+Use case ends.
+
+
+* 4a. The given date is not available for application 
+*  4a1. AddressBook shows an error message.
++
+Use case resumes to step 2.
+
+=== Use case: Check in and out 
+*MSS*
+
+. User enters command to check in.
+. AddressBook starts to time the user working hours.
+. User enters command to check out.
+. AddressBook stops timer, and records the user working hours.
++
+Use case ends.
+
+=== Use case: Temporary restrict access to address book
+*MSS*
+
+. User enters command to switch to superuser
+. AddressBook prompts for password.
+. User enters password
+. AddressBook prompts a superuser command
+. User enters restrict access command
+. AddressBook restrict access for all users.
++
+Use case ends.
+
+*Extensions*
+
+* 4a. Incorrect password
+** 4a1. AddressBook shows an error message.
++
+Use case resumes to step 2.
+
+* 6a. No such command 
+** 6a1. AddressBook shows an error message.
++
+Use case resumes to step 4.
+
+=== Use case: Access payroll
+*MSS*
+
+. User enters command to check payroll.
+. AddressBook shows the user payroll.
+Use case ends.
+
+=== Use case: Check notification
+*MSS*
+
+. User enters command to check for notification
+. AddressBook list out notifications
++
+Use case ends.
+
+=== Use case: Sort contact by department
+*MSS*
+
+. User enters sort command.
+. AddressBook shows a list of sorted names by their department.
++
+Use case ends.
+
+=== Use case: Change priority level of user 
+*MSS* 
+
+. User enters superuser command
+. AddressBook prompts password
+. User enters password
+. AddressBook prompts user for ‘superuser’ command
+. User enters priority level command
+. AddressBook prompts user for employee name and new priority level
+. User enters both employee name and new priority level
+. AddressBook updates the changes
++
+Use case ends.
+
+*Extensions*
+
+* 4a. Incorrect password
+** 4a1. AddressBook shows an error message.
++
+Use case resumes to step 2.
+
+* 6a. No such command 
+** 6a1. AddressBook shows an error message.
++
+Use case resumes to step 4.
+
+* 8a. No such employee found 
+** 8a1. AddressBook shows an error message.
++
+Use case resumes to step 6.
+
+* 8b. No such priority level
+** 8b1. AddressBook shows an error message.
++
+Use case resumes to step 6.
+
+=== Use case: Edit personal particulars
+*MSS*
+
+. User enters edit command.
+. AddressBook shows the format to edit the person details.
+. User edit his/her particulars.
+. AddressBook updates the new particulars.
++
+Use case ends.
+
+*Extensions*
+
+* 4a. The edited format is wrong
+** 4a1. AddressBook shows an error message.
++
+Use case ends.
+
+=== Use case: Find person
+*MSS*
+
+. User keys in the keyword to search in find command.
+. AddressBook displays the list of names which contains the keyword given.
++
+Use case ends.
+
+*Extensions*
+
+* 2a. AddressBook does not contain the keyword entered.
+** 2a1. AddressBook displays entered keyword not found.
++
+Use case ends.
+
+=== Use case: Approve/reject off day request
+*MSS*
+
+. User enters command to switch to superuser
+. AddressBook prompts for password
+. User enters password
+. AddressBook prompts for superuser command
+. User enters command to view requests
+. AddressBook list out all requests
+. User enters employee name
+. AddressBook prompts user to approve or reject request
+. User enters approve/reject
+. AddressBook update database
++
+Use case ends.
+
+*Extensions*
+
+* 4a. Incorrect password
+** 4a1. AddressBook shows an error message.
++
+Use case resumes to step 2.
+
+* 6a. No such command 
+** 6a1. AddressBook shows an error message.
++
+Use case resumes to step 4.
+
+* 6b. No request found
+** 6b1. AddressBook shows an error message.
++
+Use case ends.
+
+* 8a. No such employee with existing request found 
+** 8a1. AddressBook shows an error message.
++
+Use case resumes to step 6.
+
+=== Use case: Check schedule
+*MSS*
+
+. User enters command to check schedule
+. AddressBook display user’s schedule
++
+Use case ends.
+
+*Extensions*
+
+* 2a. No user schedule found.
+** 2a1. Address book displays message “No tasks scheduled for the day”.
++
+Use case ends.
+
+=== Use case: Set schedule
+*MSS*
+
+. User enters command to switch to superuser
+. AddressBook prompts for password
+. User enters password
+. AddressBook prompts for superuser command
+. User enters command to set schedule
+. AddressBook prompts for the employee name 
+. User enters employee name
+. AddressBook prompts for the date of schedule and location
+. User enters the date and location
+. AddressBook updates the schedule
++
+Use case ends.
+
+*Extensions*
+
+* 8a. Employee name not found.
+** 8a1. AddressBook displays message “Employee not found”.
++
+Use case ends.
+
+* 10a. The date of schedule is already occupied.
+** 10a1. AddressBook displays message “Employee is busy on the given date”.
++
+Use case ends.
+
+=== Use case: Set password
+*MSS*
+
+. User enters password command.
+. AddressBook shows the password format to be keyed in.
+. User keys in password.
+. AddressBook stores the person’s new password.
++
+Use case ends.
+
+*Extensions*
+
+* 4a. The password is keyed in the wrong format
+** 4a1. AddressBook shows an error message.
++
+Use case ends.
 
 [appendix]
 == Non Functional Requirements
