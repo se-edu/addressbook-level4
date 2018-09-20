@@ -1,134 +1,114 @@
+= SaveGoals - User Guide
+:site-section: UserGuide
+:toc:
+:toc-title:
+:toc-placement: preamble
+:sectnums:
+:imagesDir: images
+:stylesDir: stylesheets
+:xrefstyle: full
+:experimental:
+ifdef::env-github[]
+:tip-caption: :bulb:
+:note-caption: :information_source:
+endif::[]
+:repoURL: https://github.com/CS2103-AY1819S1-T16-1/main
 
-## User Guide
+By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
 
-[1. Introduction](#section-1)
+== Introduction
+SaveGoals (SG) is a piggy bank in a digital app form, made for people who need a user-friendly solution for keeping track of their disposable income. Not only does SG keep records of your savings, it also allows users to set items as goals for users to work towards, serving as a way to cultivate the habit of saving. SG is made for people who have material wants in life, but are uncertain of purchasing said wants, by helping them to reserve disposable income so that they know they can spend on their wants. So what are you waiting for? Go to Section 2, <<Quick Start>> and start saving!
 
-[2. Quick Start](#section-2)
+== Quick Start
 
-[3. Features](#section-3)
+.  Ensure you have Java version `9` or later installed in your Computer.
+.  Download the latest `savegoals.jar` link:{repoURL}/releases[here].
+.  Copy the file to the folder you want to use as the home folder for your Save Goals app.
+.  Double-click the file to start the app. The GUI should appear in a few seconds.
++
+image::Ui.png[width="790"]
++
+.  Type the command in the command box and press kbd:[Enter] to execute it. +
+e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
+.  Some example commands you can try:
 
-[3.1. Viewing help: `help`](#section-3.1)
+* *`list`* : Lists all the items you have set as wishes (sorted by due date).
+* **`add`**`n/uPhoneXX p/1000 d/5m` : adds an item “uPhoneXX” as a goal to be completed in 5 months.
+* *`help`*: displays list of command with usage.
+* *`clear`*: clears view
+* *`exit`* : exits the app
 
-[3.2. Adding a wish: `add`](#section-3.2)
 
-[3.3. Listing all wishes: `list`](#section-3.3)
+.  Refer to <<Features>> for details of each command.
 
-[3.4. Viewing your saving history: `history`](#section-3.4)
+[[Features]]
+== Features
 
-[3.5. Editing a wish: `edit`](#section-3.5)
+====
+*Command Format*
 
-[3.6. Locating a wish: `find`](#section-3.6)
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add WISH`, `WISH` is a parameter which can be used as add iPhone.
+* Items in square brackets are optional e.g. in `save AMOUNT [INDEX]`, `INDEX` is an optional parameter, since the save command can be used as `save 40`.
+* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/broke`, `t/needs` etc.
+* The `/` symbol between parameters means that you can use either of the parameters types in the command e.g. in `add WISH PRICE [TIME_GIVEN]/[START_DATE to END_DATE]`, you provide either the `TIME_GIVEN` parameter or `START_DATE` and `END_DATE` parameters.
+====
 
-[3.7. Deleting a wish: `delete`](#section-3.7)
+=== Viewing help : `help`
 
-[3.8. Ranking your wishes: `rank`](#section-3.8)
-
-[3.9. Reordering the priority of your wishes: `swap`](#section-3.9)
-
-[3.10. Save money for a specific wish: `save`](#section-3.10)
-
-[3.11. Undoing previous command: `undo`](#section-3.11)
-
-[3.12. Redoing the previously undone command: `redo`](#section-3.12)
-
-[3.13. Clearing all entries: `clear`](#section-3.13)
-
-[3.14. Exiting the program: `exit`](#section-3.14)
-
-[4. FAQ](#section-4)
-
-[5. Command Summary](#section-5)
-
-### 1. Introduction <a id="section-1"></a>
-SaveGoals (SG) is a piggy bank in a digital app form, made for people who need a user-friendly solution for keeping track of their disposable income. Not only does SG keep records of your savings, it also allows users to set items as goals for users to work towards, serving as a way to cultivate the habit of saving. SG is made for people who have material wants in life, but are uncertain of purchasing said wants, by helping them to reserve disposable income so that they know they can spend on their wants. So what are you waiting for? Go to Section 2, “Quick Start” and start saving!
-
-### 2. Quick Start <a id="section-2"></a>
-1. Ensure you have Java version 9 or later installed on your Computer.
-2. Download the latest savegoals.jar here.
-3. Copy the file to the folder you want to use as the home folder for your Save Goals app.
-4. Double-click the .jar file to start the app. The GUI should appear in a few seconds.
-![UI Mockup](http://octodex.github.com/images/octdrey-catburn.jpg)
-5. Type the command in the command box and press Enter to execute it.
-    *  Typing help and pressing enter will bring up a help window.
-6. Here are some commands that you can try:
-    * `list`: Lists all the items you have set as wishes (sorted by due date).
-    * `save AMOUNT`
-        * `save 20.50`: adds $20.50 to your nearest goal that’s in-progress.
-    * `add n/WISH_NAME p/PRICE t/[d/TIME_GIVEN]/[d/END_DATE]`
-        * `add n/uPhoneXX p/1000 d/5m`:  adds an item “uPhoneXX” as a goal to be completed in 5 months.
-        * `add n/uPhoneXX p/1000 d/12112018`:  adds an item “uPhoneXX” as a goal that costs $1000 and sets it to be completed by 12-11-2018.
-    * `clear`: clears view.
-    * `help`: displays list of command with usage.
-    * `exit`: exits the app command.
-7. Refer to [Section 3, “Features”](#section-3) for details of each command.
-
-### 3. Features <a id="section-3"></a>
-
----
-#### Command Format
->* Words in `UPPER_CASE` are the parameters to be supplied by the user
-    * e.g. in `add WISH`, `WISH` is a parameter which can be used as add iPhone.
-* Items in square brackets are optional
-    * e.g. in `save AMOUNT [INDEX]`, `INDEX` is an optional parameter, since the save command can be used as `save 40`.
-* The `/` symbol between parameters means that you can use either of the parameters types in the command
-    * e.g. in `add WISH PRICE [TIME_GIVEN]/[START_DATE to END_DATE]`, you provide either the `TIME_GIVEN` parameter, `START_DATE` and `END_DATE` parameters, or none of them.
->* Items with `...` after them can be used multiple times.
----
-
-#### 3.1 Viewing help: `help` <a id="section-3.1"></a>
 Format: `help`
 
-
-#### 3.2 Adding a wish: `add` <a id="section-3.2"></a>
-Adds a wish to your wish list
+=== Adding a person: `add`
+Adds a person to the wish list +
 Format: `add n/WISH_NAME p/PRICE t/[d/TIME_GIVEN]/[d/END_DATE]`
 
----
->* `[END_DATE]`: Specified in _ddmmyyyy_ format. Separators are optional. Allowed separators are either dashes ‘-’, forward slashes ‘/’ or periods ‘.’
->* `[TIME_GIVEN]`: Specified in terms of days, weeks or months or years, prefixes marking such time periods are _‘d’, ‘w’, ‘m’_ and _‘y’_ respectively.
----
+[TIP]
+* `[END_DATE]`: Specified in _ddmmyyyy_ format. Separators are optional. Allowed separators are either dashes ‘-’, forward slashes ‘/’ or periods ‘.’
+* `[TIME_GIVEN]`: Specified in terms of days, weeks or months or years, prefixes marking such time periods are _‘d’, ‘w’, ‘m’_ and _‘y’_ respectively.
 
 Examples:
+
 * `add n/smallRice p/999 d/2d`
 * `add n/kfcBook_13inch p/2300 d/6m3w`
 * `add n/prinkles p/1.95 d/24/04/2020`
 
+=== Listing all persons : `list`
 
-#### 3.3 Listing all wishes: `list` <a id="section-3.3"></a>
-Shows a list of all the goals you have set, sorted by date by default.
+Shows a list of all the goals you have set, sorted by date by default. +
 Format: `list`
 
+=== Viewing your saving history: `history -s`
 
-#### 3.4. Viewing your saving history: `history` <a id="section-3.4"></a>
-Shows a history of wishes you have accomplished, from newest to oldest.
-Format: `history`
+Shows a history of wishes you have accomplished, from newest to oldest. +
+Format: `history -s`
 
+=== Editing a wish : `edit`
 
-#### 3.5 Editing a wish: `edit` <a id="section-3.5"></a>
-Edits an existing wish in the list
+Edits an existing wish in the wish list. +
 Format: `edit INDEX [n/WISH_NAME] [p/PRICE] [d/TIME_GIVEN]/[d/END_DATE] [t/TAG]`
 
----
->* Edits the wish at the specified `INDEX`. `INDEX` refers to the index number shown in the displayed list of goals. `INDEX` must be a positive integer 1, 2, 3, …
+****
+* Edits the wish at the specified `INDEX`. `INDEX` refers to the index number shown in the displayed list of goals. `INDEX` must be a positive integer 1, 2, 3, …
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the wish will be removed i.e. adding of tags is not cumulative.
->* You can remove all tags by typing `t/` without specifying any tags after it.
----
+* You can remove all tags by typing `t/` without specifying any tags after it.
+****
 
 Examples:
-* `edit 1 n/Macbook Pro t/Broke wishes`
+
+* `edit 1 n/Macbook Pro t/Broke wishes` +
 Edits the name of the wish and the tag of the 1st goal to be Macbook Pro and Broke wishes respectively
-* `edit 2 p/22 d/22w`
+
+* `edit 2 p/22 d/22w` +
 Edits the price and time given to accomplish the 2nd goal to 22 (in the chosen currency) and 22 weeks respectively.
 
+=== Locating persons by name: `find`
 
-#### 3.6 Locating a wish: `find` <a id="section-3.6"></a>
-Finds wishes which satisfy the given search predicate.
+Finds wishes which satisfy the given search predicate. +
 Format: `find SEARCH_PREDICATE [MORE_SEARCH_PREDICATES]`
 
----
->* The user can search using the following search predicates:
+****
+* The user can search using the following search predicates:
     * `NAME`
     * `DATE`
     * `PRICE`
@@ -137,152 +117,179 @@ Format: `find SEARCH_PREDICATE [MORE_SEARCH_PREDICATES]`
 * The search is case insensitive e.g. watch will match Watch.
 * Only full words will be matched e.g. wat will not match watch.
 * Goals matching at least one keyword will be returned e.g. watch will return apple watch, pebble watch.
-* `DATE` is the creation date of the wish. It should match the correct format as specified in [Section 3.2 Date Format]().
->* `PRICE` is the sale price of the item. It should be a positive number corrected to the smallest denomination of the currency.
----
+* `DATE` is the creation date of the wish.
+* `PRICE` is the sale price of the item. It should be a positive number corrected to the smallest denomination of the currency.
+****
 
 Examples:
-* `find 22d`
+
+* `find 22d` +
 Returns wish with stipulated time given of 22 days.
-* `find watch t/broke wishes`
+
+* `find watch t/broke wishes` +
 Returns any wish with name containing watch, with tag broke wishes.
 
+=== Deleting a wish : `delete`
 
-#### 3.7 Deleting a wish: `delete` <a id="section-3.7"></a>
-Deletes the specified wish from the list.
+Deletes the specified wish from the list. +
 Format: `delete INDEX`
 
----
->* `INDEX` refers to the index number shown in the displayed list.
->* `INDEX` must be a positive integer 1, 2, 3...
----
+****
+* `INDEX` refers to the index number shown in the displayed list.
+* `INDEX` must be a positive integer 1, 2, 3...
+****
 
 Examples:
-* `list`
-`delete 2`
+
+* `list` +
+`delete 2` +
 Deletes the 2nd wish in the list.
-* `find watch`
-`delete 1`
+
+* `find watch` +
+`delete 1` +
 Deletes the 1st wish in the results of the find command (if any).
 
+=== Selecting a person : `select`
 
-#### 3.8 Ranking your wishes: `rank` <a id="section-3.8"></a>
-Ranks the wishes by specified wish field so that future savings are allocated in the order or ranking.
-Format: `rank WISH_FIELD [RANK_ORDER]`
+Selects the wish identified by the index number used in the displayed wish list. +
+Format: `select INDEX`
 
----
-> `RANK_ORDER` can be `-a`(ascending) or `-d`(descending). By default it is set to ascending.
----
-
-Examples:
-* `rank Date -d`
-Ranks the wishes in descending order of date created.
-* `rank Price`
-Ranks the wishes in ascending order of sale price
-
-
-#### 3.9 Reordering the priority of your wishes: `swap` <a id="section-3.9"></a>
-Reorders the priority of wishes by swapping wishes at the specified indices.
-Format: `reorder OLD_INDEX NEW_INDEX `
-
----
->* A smaller numerical value for index indicates higher priority.
->* Indices must be a positive integer 1, 2, 3...
----
+****
+* Selects the wish and loads the Google search page for the wish at the specified `INDEX`.
+* `INDEX` refers to the index number shown in the displayed wish list.
+* `INDEX` *must be a positive integer* `1, 2, 3, ...`
+****
 
 Examples:
-* `swap 7 1`
-Swaps wishes at index 7 and index 1
-* `swap 1 8`
-Swaps wishes at index 1 and index 8
 
+* `list` +
+`select 2` +
+Selects the 2nd wish in the wish list.
 
-#### 3.10 Save money for a specific wish: `save` <a id="section-3.10"></a>
-Channels savings for a specified wish.
+* `find phone` +
+`select 1` +
+Selects the 1st wish in the results of the `find` command.
+
+=== Save money for a particular wish: `save`
+
+Channels savings for a specified wish. +
 Format: `save AMOUNT [INDEX]`
 
----
->* `INDEX` should be a positive integer 1, 2, 3…
+****
+* `INDEX` should be a positive integer 1, 2, 3…
 * `AMOUNT` should be a positive value to the smallest denomination of the currency.
->* If no `INDEX` is specified, money will be transferred to the wish which has the closest due date.
----
+* If no `INDEX` is specified, money will be transferred to the wish which has the closest due date.
+****
 
 Examples:
-* `save 1000 1`
+* `save 1000 1` +
 Adds $1000 into the item at index 1.
 
+=== Listing entered commands : `history -c`
 
-#### 3.11 Undoing previous command: `undo` <a id="section-3.11"></a>
-Restores SaveGoals to the state before the previous undoable command was executed.
+Lists all the commands that you have entered in reverse chronological order. +
+Format: `history -c`
+
+[NOTE]
+====
+Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and next input respectively in the command box.
+====
+
+// tag::undoredo[]
+=== Undoing previous command : `undo`
+
+Restores SaveGoals to the state before the previous undoable command was executed. +
 Format: `undo`
 
----
-> Undoable commands: commands that modify SaveGoals content (`add, delete, edit, save, rank`)
----
+[NOTE]
+====
+Undoable commands: commands that modify SaveGoals content (`add, delete, edit, save`).
+====
 
 Examples:
-* `delete 1`
-`list `
-`undo`
-Reverses the `delete 1` command.
-* `list`
-`find 22d`
-`undo`
-The `undo` command fails as there are no undoable commands executed previously.
-* `delete 1`
-`clear`
-`undo`
-`undo`
-The first `undo` reverses the `clear` command. The second `undo` reverses the `delete 1` command.
 
-#### 3.12 Redoing the previously undone command: `redo` <a id="section-3.12"></a>
-Reverses the most recent `undo` command.
+* `delete 1` +
+`list` +
+`undo` (reverses the `delete 1` command) +
+
+* `select 1` +
+`list` +
+`undo` +
+The `undo` command fails as there are no undoable commands executed previously.
+
+* `delete 1` +
+`clear` +
+`undo` (reverses the `clear` command) +
+`undo` (reverses the `delete 1` command) +
+
+=== Redoing the previously undone command : `redo`
+
+Reverses the most recent `undo` command. +
 Format: `redo`
 
 Examples:
-* `delete 1`
-`list`
-`undo`
-`redo`
-`undo` reverses the `delete 1` command. Then, the `redo` command reapplies the `delete 1` command.
-* `delete 1`
-`redo`
+
+* `delete 1` +
+`undo` (reverses the `delete 1` command) +
+`redo` (reapplies the `delete 1` command) +
+
+* `delete 1` +
+`redo` +
 The `redo` command fails as there are no `undo` commands executed previously.
 
+* `delete 1` +
+`clear` +
+`undo` (reverses the `clear` command) +
+`undo` (reverses the `delete 1` command) +
+`redo` (reapplies the `delete 1` command) +
+`redo` (reapplies the `clear` command) +
+// end::undoredo[]
 
-#### 3.13 Clearing all entries: `clear` <a id="section-3.13"></a>
-Clears all entries from SaveGoals.
+=== Clearing all entries : `clear`
+
+Clears all entries from SaveGoals. +
 Format: `clear`
 
+=== Exiting the program : `exit`
 
-#### 3.14 Exiting the program: `exit` <a id="section-3.14"></a>
-Exits the program.
+Exits the program. +
 Format: `exit`
 
+=== Saving the data
 
-### 4. FAQ <a id="section-4"></a>
-* **Q**: How do I transfer my data to another computer?
-**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous SaveGoals folder.
+SaveGoals data are saved in the hard disk automatically after any command that changes the data. +
+There is no need to save manually.
 
-### 5. Command Summary <a id="section-5"></a>
-* Help: `help`
-* Add: `add n/WISH_NAME p/PRICE t/[d/TIME_GIVEN]/[d/END_DATE]`
-e.g. add n/kfcBook_13inch p/2300 d/6m3w
-* List: `list`
-* History: `history`
-* Edit: `edit INDEX [n/WISH_NAME] [p/PRICE] [d/TIME_GIVEN]/[d/END_DATE] [t/TAG]`
-e.g. edit 1 n/Macbook Pro t/Broke wishes
-* Find: `find SEARCH_PREDICATE [MORE_SEARCH_PREDICATES]`
-e.g. find 22d
-* Delete: `delete INDEX`
-e.g. delete 1
-* Rank: `rank WISH_FIELD [RANK_ORDER]`
-e.g. rank Date -d
-* Swap: `swap OLD_INDEX NEW_INDEX`
-e.g. swap 1 8
-* Save: `save AMOUNT [INDEX]`
-e.g. save 1000 1
-* Undo: `undo`
-* Redo: `redo`
-* Clear: `clear`
-* Exit: `exit`
+// tag::dataencryption[]
+=== Encrypting data files `[coming in v2.0]`
+
+_{explain how the user can enable/disable data encryption}_
+// end::dataencryption[]
+
+== FAQ
+
+*Q*: How do I transfer my data to another Computer? +
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+
+== Command Summary
+
+* *Add*  `add n/WISH_NAME p/PRICE t/[d/TIME_GIVEN]/[d/END_DATE]` +
+e.g. `add n/kfcBook_13inch p/2300 d/6m3w`
+* *Clear* : `clear`
+* *Delete* : `delete INDEX` +
+e.g. `delete 3`
+* *Edit* : `edit INDEX [n/WISH_NAME] [p/PRICE] [d/TIME_GIVEN]/[d/END_DATE] [t/TAG]` +
+e.g. `edit 1 n/Macbook Pro t/Broke wishes`
+* *Find* : `find SEARCH_PREDICATE [MORE_SEARCH_PREDICATES]` +
+e.g. `find 22d`
+* *List* : `list`
+* *Help* : `help`
+* *Select* : `select INDEX` +
+e.g.`select 2`
+* *Save* : `save AMOUNT [INDEX]` +
+e.g. `save 1000 1`
+* *Savings History* : `history -s`
+* *Command History* : `history -c`
+* *Undo* : `undo`
+* *Redo* : `redo`
+* *Exit* : `exit`
