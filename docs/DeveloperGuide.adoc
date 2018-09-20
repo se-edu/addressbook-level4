@@ -929,7 +929,6 @@ Use case ends.
 +
 Use case ends.
 
-
 * 4a. The given date is not available for application 
 *  4a1. AddressBook shows an error message.
 +
@@ -993,7 +992,7 @@ Use case ends.
 Use case ends.
 
 === Use case: Change priority level of user 
-*MSS* 
+*MSS*
 
 . User enters superuser command
 . AddressBook prompts password
