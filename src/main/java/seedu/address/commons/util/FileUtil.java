@@ -130,11 +130,4 @@ public class FileUtil {
     private static int getSplitPoint(String path) {
         return (path.lastIndexOf(".") + 1);
     }
-
-    /**
-     * @see #getBackupFilePath(Path)
-     */
-    public static Path getBackupFilePath(Path path) {
-        return Paths.get(getBackupFilepath(path.toString()));
-    }
 }

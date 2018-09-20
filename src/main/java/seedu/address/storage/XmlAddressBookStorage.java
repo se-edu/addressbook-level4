@@ -86,7 +86,6 @@ public class XmlAddressBookStorage implements AddressBookStorage {
      */
     @Override
     public void saveBackup() throws IOException, DataConversionException {
-        //Path backupFilePath = FileUtil.getBackupFilePath(getAddressBookFilePath());
         saveBackup(filePath);
     }
 

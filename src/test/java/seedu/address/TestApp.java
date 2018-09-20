@@ -50,14 +50,6 @@ public class TestApp extends MainApp {
         }
     }
 
-    /**
-     * Retrieves the file path of the backup address book.
-     * @return backup file path.
-     */
-    private Path getBackupFilePath() {
-        return FileUtil.getBackupFilePath(saveFileLocation);
-    }
-
     @Override
     protected Config initConfig(Path configFilePath) {
         Config config = super.initConfig(configFilePath);
