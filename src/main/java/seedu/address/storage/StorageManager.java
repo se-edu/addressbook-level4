@@ -78,13 +78,35 @@ public class StorageManager extends ComponentManager implements Storage {
         addressBookStorage.saveAddressBook(addressBook, filePath);
     }
 
+    @Override
+    public void backupAddressBook(ReadOnlyAddressBook addressBook) throws IOException {
+        backupAddressBook(addressBook, addressBookStorage.getAddressBookFilePath());
+    }
+
+    @Override
+    public void backupAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
+        logger.fine("Attempting to write to backup data file: " + filePath);
+        addressBookStorage.backupAddressBook(addressBook, filePath);
+    }
+
+    @Override
+    public void saveBackup() throws IOException, DataConversionException {
+        addressBookStorage.saveBackup();
+    }
+
+    @Override
+    public void saveBackup(Path path) throws IOException, DataConversionException {
+        logger.fine("Attempting to save backup file: " + path);
+        addressBookStorage.saveBackup(path);
+    }
+
 
     @Override
     @Subscribe
     public void handleAddressBookChangedEvent(AddressBookChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local data changed, saving to file"));
         try {
-            saveAddressBook(event.data);
+            backupAddressBook(event.data);
         } catch (IOException e) {
             raise(new DataSavingExceptionEvent(e));
         }

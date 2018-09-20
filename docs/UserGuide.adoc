@@ -1,4 +1,4 @@
-= AddressBook Level 4 - User Guide
+= SaveGoals - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -12,19 +12,18 @@ ifdef::env-github[]
 :tip-caption: :bulb:
 :note-caption: :information_source:
 endif::[]
-:repoURL: https://github.com/se-edu/addressbook-level4
+:repoURL: https://github.com/CS2103-AY1819S1-T16-1/main
 
 By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
 
 == Introduction
-
-AddressBook Level 4 (AB4) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB4 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB4 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+SaveGoals (SG) is a piggy bank in a digital app form, made for people who need a user-friendly solution for keeping track of their disposable income. Not only does SG keep records of your savings, it also allows users to set items as goals for users to work towards, serving as a way to cultivate the habit of saving. SG is made for people who have material wants in life, but are uncertain of purchasing said wants, by helping them to reserve disposable income so that they know they can spend on their wants. So what are you waiting for? Go to Section 2, <<Quick Start>> and start saving!
 
 == Quick Start
 
 .  Ensure you have Java version `9` or later installed in your Computer.
-.  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
+.  Download the latest `savegoals.jar` link:{repoURL}/releases[here].
+.  Copy the file to the folder you want to use as the home folder for your Save Goals app.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
@@ -33,10 +32,12 @@ image::Ui.png[width="790"]
 e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
-* *`list`* : lists all contacts
-* **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
-* **`delete`**`3` : deletes the 3rd contact shown in the current list
+* *`list`* : Lists all the items you have set as wishes (sorted by due date).
+* **`add`**`n/uPhoneXX p/1000 d/5m` : adds an item “uPhoneXX” as a goal to be completed in 5 months.
+* *`help`*: displays list of command with usage.
+* *`clear`*: clears view
 * *`exit`* : exits the app
+
 
 .  Refer to <<Features>> for details of each command.
 
@@ -46,10 +47,10 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 ====
 *Command Format*
 
-* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
-* Items in square brackets are optional e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
-* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
-* Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+* Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add WISH`, `WISH` is a parameter which can be used as add iPhone.
+* Items in square brackets are optional e.g. in `save AMOUNT [INDEX]`, `INDEX` is an optional parameter, since the save command can be used as `save 40`.
+* Items with `…`​ after them can be used multiple times including zero times e.g. `[t/TAG]...` can be used as `{nbsp}` (i.e. 0 times), `t/broke`, `t/needs` etc.
+* The `/` symbol between parameters means that you can use either of the parameters types in the command e.g. in `add WISH PRICE [TIME_GIVEN]/[START_DATE to END_DATE]`, you provide either the `TIME_GIVEN` parameter or `START_DATE` and `END_DATE` parameters.
 ====
 
 === Viewing help : `help`
@@ -57,107 +58,137 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 Format: `help`
 
 === Adding a person: `add`
-
-Adds a person to the address book +
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
+Adds a person to the wish list +
+Format: `add n/WISH_NAME p/PRICE t/[d/TIME_GIVEN]/[d/END_DATE]`
 
 [TIP]
-A person can have any number of tags (including 0)
+* `[END_DATE]`: Specified in _ddmmyyyy_ format. Separators are optional. Allowed separators are either dashes ‘-’, forward slashes ‘/’ or periods ‘.’
+* `[TIME_GIVEN]`: Specified in terms of days, weeks or months or years, prefixes marking such time periods are _‘d’, ‘w’, ‘m’_ and _‘y’_ respectively.
 
 Examples:
 
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `add n/smallRice p/999 d/2d`
+* `add n/kfcBook_13inch p/2300 d/6m3w`
+* `add n/prinkles p/1.95 d/24/04/2020`
 
 === Listing all persons : `list`
 
-Shows a list of all persons in the address book. +
+Shows a list of all the goals you have set, sorted by date by default. +
 Format: `list`
 
-=== Editing a person : `edit`
+=== Viewing your saving history: `history -s`
 
-Edits an existing person in the address book. +
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
+Shows a history of wishes you have accomplished, from newest to oldest. +
+Format: `history -s`
+
+=== Editing a wish : `edit`
+
+Edits an existing wish in the wish list. +
+Format: `edit INDEX [n/WISH_NAME] [p/PRICE] [d/TIME_GIVEN]/[d/END_DATE] [t/TAG]`
 
 ****
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
+* Edits the wish at the specified `INDEX`. `INDEX` refers to the index number shown in the displayed list of goals. `INDEX` must be a positive integer 1, 2, 3, …
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
-* When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
-* You can remove all the person's tags by typing `t/` without specifying any tags after it.
+* When editing tags, the existing tags of the wish will be removed i.e. adding of tags is not cumulative.
+* You can remove all tags by typing `t/` without specifying any tags after it.
 ****
 
 Examples:
 
-* `edit 1 p/91234567 e/johndoe@example.com` +
-Edits the phone number and email address of the 1st person to be `91234567` and `johndoe@example.com` respectively.
-* `edit 2 n/Betsy Crower t/` +
-Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
+* `edit 1 n/Macbook Pro t/Broke wishes` +
+Edits the name of the wish and the tag of the 1st goal to be Macbook Pro and Broke wishes respectively
+
+* `edit 2 p/22 d/22w` +
+Edits the price and time given to accomplish the 2nd goal to 22 (in the chosen currency) and 22 weeks respectively.
 
 === Locating persons by name: `find`
 
-Finds persons whose names contain any of the given keywords. +
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Finds wishes which satisfy the given search predicate. +
+Format: `find SEARCH_PREDICATE [MORE_SEARCH_PREDICATES]`
 
 ****
-* The search is case insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Persons matching at least one keyword will be returned (i.e. `OR` search). e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+* The user can search using the following search predicates:
+    * `NAME`
+    * `DATE`
+    * `PRICE`
+    * `TAG`
+* `NAME`is the default search predicate.
+* The search is case insensitive e.g. watch will match Watch.
+* Only full words will be matched e.g. wat will not match watch.
+* Goals matching at least one keyword will be returned e.g. watch will return apple watch, pebble watch.
+* `DATE` is the creation date of the wish.
+* `PRICE` is the sale price of the item. It should be a positive number corrected to the smallest denomination of the currency.
 ****
 
 Examples:
 
-* `find John` +
-Returns `john` and `John Doe`
-* `find Betsy Tim John` +
-Returns any person having names `Betsy`, `Tim`, or `John`
+* `find 22d` +
+Returns wish with stipulated time given of 22 days.
 
-=== Deleting a person : `delete`
+* `find watch t/broke wishes` +
+Returns any wish with name containing watch, with tag broke wishes.
 
-Deletes the specified person from the address book. +
+=== Deleting a wish : `delete`
+
+Deletes the specified wish from the list. +
 Format: `delete INDEX`
 
 ****
-* Deletes the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* 1, 2, 3, ...
+* `INDEX` refers to the index number shown in the displayed list.
+* `INDEX` must be a positive integer 1, 2, 3...
 ****
 
 Examples:
 
 * `list` +
 `delete 2` +
-Deletes the 2nd person in the address book.
-* `find Betsy` +
+Deletes the 2nd wish in the list.
+
+* `find watch` +
 `delete 1` +
-Deletes the 1st person in the results of the `find` command.
+Deletes the 1st wish in the results of the find command (if any).
 
 === Selecting a person : `select`
 
-Selects the person identified by the index number used in the displayed person list. +
+Selects the wish identified by the index number used in the displayed wish list. +
 Format: `select INDEX`
 
 ****
-* Selects the person and loads the Google search page the person at the specified `INDEX`.
-* The index refers to the index number shown in the displayed person list.
-* The index *must be a positive integer* `1, 2, 3, ...`
+* Selects the wish and loads the Google search page for the wish at the specified `INDEX`.
+* `INDEX` refers to the index number shown in the displayed wish list.
+* `INDEX` *must be a positive integer* `1, 2, 3, ...`
 ****
 
 Examples:
 
 * `list` +
 `select 2` +
-Selects the 2nd person in the address book.
-* `find Betsy` +
-`select 1` +
-Selects the 1st person in the results of the `find` command.
+Selects the 2nd wish in the wish list.
 
-=== Listing entered commands : `history`
+* `find phone` +
+`select 1` +
+Selects the 1st wish in the results of the `find` command.
+
+=== Save money for a particular wish: `save`
+
+Channels savings for a specified wish. +
+Format: `save AMOUNT [INDEX]`
+
+****
+* `INDEX` should be a positive integer 1, 2, 3…
+* `AMOUNT` should be a positive value to the smallest denomination of the currency.
+* If no `INDEX` is specified, money will be transferred to the wish which has the closest due date.
+****
+
+Examples:
+* `save 1000 1` +
+Adds $1000 into the item at index 1.
+
+=== Listing entered commands : `history -c`
 
 Lists all the commands that you have entered in reverse chronological order. +
-Format: `history`
+Format: `history -c`
 
 [NOTE]
 ====
@@ -167,12 +198,12 @@ Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and 
 // tag::undoredo[]
 === Undoing previous command : `undo`
 
-Restores the address book to the state before the previous _undoable_ command was executed. +
+Restores SaveGoals to the state before the previous undoable command was executed. +
 Format: `undo`
 
 [NOTE]
 ====
-Undoable commands: those commands that modify the address book's content (`add`, `delete`, `edit` and `clear`).
+Undoable commands: commands that modify SaveGoals content (`add, delete, edit, save`).
 ====
 
 Examples:
@@ -216,7 +247,7 @@ The `redo` command fails as there are no `undo` commands executed previously.
 
 === Clearing all entries : `clear`
 
-Clears all entries from the address book. +
+Clears all entries from SaveGoals. +
 Format: `clear`
 
 === Exiting the program : `exit`
@@ -226,7 +257,7 @@ Format: `exit`
 
 === Saving the data
 
-Address book data are saved in the hard disk automatically after any command that changes the data. +
+SaveGoals data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually.
 
 // tag::dataencryption[]
@@ -242,19 +273,23 @@ _{explain how the user can enable/disable data encryption}_
 
 == Command Summary
 
-* *Add* `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...` +
-e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
+* *Add*  `add n/WISH_NAME p/PRICE t/[d/TIME_GIVEN]/[d/END_DATE]` +
+e.g. `add n/kfcBook_13inch p/2300 d/6m3w`
 * *Clear* : `clear`
 * *Delete* : `delete INDEX` +
 e.g. `delete 3`
-* *Edit* : `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]...` +
-e.g. `edit 2 n/James Lee e/jameslee@example.com`
-* *Find* : `find KEYWORD [MORE_KEYWORDS]` +
-e.g. `find James Jake`
+* *Edit* : `edit INDEX [n/WISH_NAME] [p/PRICE] [d/TIME_GIVEN]/[d/END_DATE] [t/TAG]` +
+e.g. `edit 1 n/Macbook Pro t/Broke wishes`
+* *Find* : `find SEARCH_PREDICATE [MORE_SEARCH_PREDICATES]` +
+e.g. `find 22d`
 * *List* : `list`
 * *Help* : `help`
 * *Select* : `select INDEX` +
 e.g.`select 2`
-* *History* : `history`
+* *Save* : `save AMOUNT [INDEX]` +
+e.g. `save 1000 1`
+* *Savings History* : `history -s`
+* *Command History* : `history -c`
 * *Undo* : `undo`
 * *Redo* : `redo`
+* *Exit* : `exit`

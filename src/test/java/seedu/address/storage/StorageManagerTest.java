@@ -94,6 +94,11 @@ public class StorageManagerTest {
         }
 
         @Override
+        public void backupAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
+            throw new IOException("dummy exception");
+        }
+
+        @Override
         public void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException {
             throw new IOException("dummy exception");
         }

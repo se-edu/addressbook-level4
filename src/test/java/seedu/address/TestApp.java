@@ -46,7 +46,7 @@ public class TestApp extends MainApp {
         // If some initial local data has been provided, write those to the file
         if (initialDataSupplier.get() != null) {
             createDataFileWithData(new XmlSerializableAddressBook(this.initialDataSupplier.get()),
-                    this.saveFileLocation);
+                    saveFileLocation);
         }
     }
 
@@ -78,6 +78,19 @@ public class TestApp extends MainApp {
             throw new AssertionError("Data is not in the AddressBook format.", dce);
         } catch (IOException ioe) {
             throw new AssertionError("Storage file cannot be found.", ioe);
+        }
+    }
+
+    /**
+     * transfer backup to actual addressbook storage
+     */
+    public void saveBackup() {
+        try {
+            storage.saveBackup();
+        } catch (IOException e) {
+            throw new AssertionError("Storage file cannot be found");
+        } catch (DataConversionException e) {
+            throw new AssertionError("Data is not in the AddressBook format.", e);
         }
     }
 

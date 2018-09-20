@@ -188,9 +188,12 @@ public class MainApp extends Application {
         logger.info("============================ [ Stopping Address Book ] =============================");
         ui.stop();
         try {
+            storage.saveBackup();
             storage.saveUserPrefs(userPrefs);
         } catch (IOException e) {
             logger.severe("Failed to save preferences " + StringUtil.getDetails(e));
+        } catch (DataConversionException e) {
+            logger.severe("Failed to convert file contents to correct format " + StringUtil.getDetails(e));
         }
         Platform.exit();
         System.exit(0);

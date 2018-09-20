@@ -61,10 +61,12 @@ public class XmlUtil {
             throw new FileNotFoundException("File not found : " + file.toAbsolutePath());
         }
 
+        // converts content of {@code data's} class into a properly formatted FXML file
         JAXBContext context = JAXBContext.newInstance(data.getClass());
         Marshaller m = context.createMarshaller();
         m.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 
+        // saves FXML data into a file at the corresponding filepath
         m.marshal(data, file.toFile());
     }
 
