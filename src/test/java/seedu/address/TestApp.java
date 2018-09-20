@@ -45,8 +45,6 @@ public class TestApp extends MainApp {
 
         // If some initial local data has been provided, write those to the file
         if (initialDataSupplier.get() != null) {
-//            createDataFileWithData(new XmlSerializableAddressBook(this.initialDataSupplier.get()),
-//                    getBackupFilePath());
             createDataFileWithData(new XmlSerializableAddressBook(this.initialDataSupplier.get()),
                     saveFileLocation);
         }
@@ -83,7 +81,6 @@ public class TestApp extends MainApp {
      */
     public AddressBook readStorageAddressBook() {
         try {
-            //saveBackup();
             return new AddressBook(storage.readAddressBook().get());
         } catch (DataConversionException dce) {
             throw new AssertionError("Data is not in the AddressBook format.", dce);
