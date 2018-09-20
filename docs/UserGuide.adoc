@@ -1,24 +1,42 @@
 
 ## User Guide
 
-[1. Introduction](#section-1)  
-[2. Quick Start](#section-2)  
-[3. Features](#section-3)  
-[3.1. Viewing help: `help`](#section-3.1)  
-[3.2. Adding a wish: `add`](#section-3.2)  
-[3.3. Listing all wishes: `list`](#section-3.3)  
-[3.4. Viewing your saving history: `history`](#section-3.4)  
-[3.5. Editing a wish: `edit`](#section-3.5)  
-[3.6. Locating a wish: `find`](#section-3.6)  
-[3.7. Deleting a wish: `delete`](#section-3.7)  
-[3.8. Ranking your wishes: `rank`](#section-3.8)  
-[3.9. Reordering the priority of your wishes: `swap`](#section-3.9)  
-[3.10. Save money for a specific wish: `save`](#section-3.10)  
-[3.11. Undoing previous command: `undo`](#section-3.11)  
-[3.12. Redoing the previously undone command: `redo`](#section-3.12)  
-[3.13. Clearing all entries: `clear`](#section-3.13)  
+[1. Introduction](#section-1)
+
+[2. Quick Start](#section-2)
+
+[3. Features](#section-3)
+
+[3.1. Viewing help: `help`](#section-3.1)
+
+[3.2. Adding a wish: `add`](#section-3.2)
+
+[3.3. Listing all wishes: `list`](#section-3.3)
+
+[3.4. Viewing your saving history: `history`](#section-3.4)
+
+[3.5. Editing a wish: `edit`](#section-3.5)
+
+[3.6. Locating a wish: `find`](#section-3.6)
+
+[3.7. Deleting a wish: `delete`](#section-3.7)
+
+[3.8. Ranking your wishes: `rank`](#section-3.8)
+
+[3.9. Reordering the priority of your wishes: `swap`](#section-3.9)
+
+[3.10. Save money for a specific wish: `save`](#section-3.10)
+
+[3.11. Undoing previous command: `undo`](#section-3.11)
+
+[3.12. Redoing the previously undone command: `redo`](#section-3.12)
+
+[3.13. Clearing all entries: `clear`](#section-3.13)
+
 [3.14. Exiting the program: `exit`](#section-3.14)
-[4. FAQ](#section-4)  
+
+[4. FAQ](#section-4)
+
 [5. Command Summary](#section-5)
 
 ### 1. Introduction <a id="section-1"></a>
@@ -28,7 +46,7 @@ SaveGoals (SG) is a piggy bank in a digital app form, made for people who need a
 1. Ensure you have Java version 9 or later installed on your Computer.
 2. Download the latest savegoals.jar here.
 3. Copy the file to the folder you want to use as the home folder for your Save Goals app.
-4. Double-click the .jar file to start the app. The GUI should appear in a few seconds.  
+4. Double-click the .jar file to start the app. The GUI should appear in a few seconds.
 ![UI Mockup](http://octodex.github.com/images/octdrey-catburn.jpg)
 5. Type the command in the command box and press Enter to execute it.
     *  Typing help and pressing enter will bring up a help window.
@@ -63,7 +81,7 @@ Format: `help`
 
 #### 3.2 Adding a wish: `add` <a id="section-3.2"></a>
 Adds a wish to your wish list
-Format: `add n/WISH_NAME p/PRICE t/[d/TIME_GIVEN]/[d/END_DATE]`  
+Format: `add n/WISH_NAME p/PRICE t/[d/TIME_GIVEN]/[d/END_DATE]`
 
 ---
 >* `[END_DATE]`: Specified in _ddmmyyyy_ format. Separators are optional. Allowed separators are either dashes ‘-’, forward slashes ‘/’ or periods ‘.’
@@ -127,7 +145,7 @@ Examples:
 * `find 22d`
 Returns wish with stipulated time given of 22 days.
 * `find watch t/broke wishes`
-Returns any wish with name containing watch, with tag broke wishes.  
+Returns any wish with name containing watch, with tag broke wishes.
 
 
 #### 3.7 Deleting a wish: `delete` <a id="section-3.7"></a>
@@ -137,7 +155,7 @@ Format: `delete INDEX`
 ---
 >* `INDEX` refers to the index number shown in the displayed list.
 >* `INDEX` must be a positive integer 1, 2, 3...
----  
+---
 
 Examples:
 * `list`
@@ -206,11 +224,11 @@ Examples:
 * `delete 1`
 `list `
 `undo`
-Reverses the `delete 1` command.   
+Reverses the `delete 1` command.
 * `list`
 `find 22d`
 `undo`
-The `undo` command fails as there are no undoable commands executed previously.    
+The `undo` command fails as there are no undoable commands executed previously.
 * `delete 1`
 `clear`
 `undo`
@@ -226,7 +244,7 @@ Examples:
 `list`
 `undo`
 `redo`
-`undo` reverses the `delete 1` command. Then, the `redo` command reapplies the `delete 1` command.  
+`undo` reverses the `delete 1` command. Then, the `redo` command reapplies the `delete 1` command.
 * `delete 1`
 `redo`
 The `redo` command fails as there are no `undo` commands executed previously.
@@ -243,26 +261,26 @@ Format: `exit`
 
 
 ### 4. FAQ <a id="section-4"></a>
-* **Q**: How do I transfer my data to another computer?  
+* **Q**: How do I transfer my data to another computer?
 **A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous SaveGoals folder.
 
 ### 5. Command Summary <a id="section-5"></a>
 * Help: `help`
-* Add: `add n/WISH_NAME p/PRICE t/[d/TIME_GIVEN]/[d/END_DATE]`  
+* Add: `add n/WISH_NAME p/PRICE t/[d/TIME_GIVEN]/[d/END_DATE]`
 e.g. add n/kfcBook_13inch p/2300 d/6m3w
 * List: `list`
 * History: `history`
-* Edit: `edit INDEX [n/WISH_NAME] [p/PRICE] [d/TIME_GIVEN]/[d/END_DATE] [t/TAG]`  
+* Edit: `edit INDEX [n/WISH_NAME] [p/PRICE] [d/TIME_GIVEN]/[d/END_DATE] [t/TAG]`
 e.g. edit 1 n/Macbook Pro t/Broke wishes
-* Find: `find SEARCH_PREDICATE [MORE_SEARCH_PREDICATES]`  
+* Find: `find SEARCH_PREDICATE [MORE_SEARCH_PREDICATES]`
 e.g. find 22d
-* Delete: `delete INDEX`  
+* Delete: `delete INDEX`
 e.g. delete 1
-* Rank: `rank WISH_FIELD [RANK_ORDER]`  
+* Rank: `rank WISH_FIELD [RANK_ORDER]`
 e.g. rank Date -d
-* Swap: `swap OLD_INDEX NEW_INDEX`  
+* Swap: `swap OLD_INDEX NEW_INDEX`
 e.g. swap 1 8
-* Save: `save AMOUNT [INDEX]`  
+* Save: `save AMOUNT [INDEX]`
 e.g. save 1000 1
 * Undo: `undo`
 * Redo: `redo`
