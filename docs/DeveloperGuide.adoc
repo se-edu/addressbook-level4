@@ -991,7 +991,7 @@ Use case ends.
 +
 Use case ends.
 
-=== Use case: Change priority level of user 
+=== Use case: Change priority level of user
 *MSS*
 
 . User enters superuser command
