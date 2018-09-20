@@ -929,12 +929,12 @@ Use case ends.
 +
 Use case ends.
 
-* 4a. The given date is not available for application 
+* 4a. The given date is not available for application
 *  4a1. AddressBook shows an error message.
 +
 Use case resumes to step 2.
 
-=== Use case: Check in and out 
+=== Use case: Check in and out
 *MSS*
 
 . User enters command to check in.
@@ -963,7 +963,7 @@ Use case ends.
 +
 Use case resumes to step 2.
 
-* 6a. No such command 
+* 6a. No such command
 ** 6a1. AddressBook shows an error message.
 +
 Use case resumes to step 4.
@@ -1012,12 +1012,12 @@ Use case ends.
 +
 Use case resumes to step 2.
 
-* 6a. No such command 
+* 6a. No such command
 ** 6a1. AddressBook shows an error message.
 +
 Use case resumes to step 4.
 
-* 8a. No such employee found 
+* 8a. No such employee found
 ** 8a1. AddressBook shows an error message.
 +
 Use case resumes to step 6.
@@ -1082,7 +1082,7 @@ Use case ends.
 +
 Use case resumes to step 2.
 
-* 6a. No such command 
+* 6a. No such command
 ** 6a1. AddressBook shows an error message.
 +
 Use case resumes to step 4.
@@ -1092,7 +1092,7 @@ Use case resumes to step 4.
 +
 Use case ends.
 
-* 8a. No such employee with existing request found 
+* 8a. No such employee with existing request found
 ** 8a1. AddressBook shows an error message.
 +
 Use case resumes to step 6.
@@ -1120,7 +1120,7 @@ Use case ends.
 . User enters password
 . AddressBook prompts for superuser command
 . User enters command to set schedule
-. AddressBook prompts for the employee name 
+. AddressBook prompts for the employee name
 . User enters employee name
 . AddressBook prompts for the date of schedule and location
 . User enters the date and location
