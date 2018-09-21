@@ -11,7 +11,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 === Alex Koh
 image::alexkmj.jpg[width="150", align="left"]
-{empty} [https://github.com/alexkmj[github]] [<<alexkoh#, portfolio>>]
+{empty} [https://github.com/alexkmj[github]] [<<alexkmj#, portfolio>>]
 
 Role: Developer +
 Responsibilities: [Refer to W6.10]
@@ -20,7 +20,7 @@ Responsibilities: [Refer to W6.10]
 
 === Amber Joseph
 image::josephambe.png[width="150", align="left"]
-{empty}[http://github.com/josephambe[github]] [<<amberjoseph#, portfolio>>]
+{empty}[http://github.com/josephambe[github]] [<<josephambe#, portfolio>>]
 
 Role: Developer +
 Responsibilities: [Refer to W6.10]
@@ -38,7 +38,7 @@ Responsibilities: [Refer to W6.10]
 
 === Jeremiah Ang
 image::jeremiah-ang.png[width="150", align="left"]
-{empty}[http://github.com/jeremiah-ang[github]] [<<jeremiahang#, portfolio>>]
+{empty}[http://github.com/jeremiah-ang[github]] [<<jeremiah-ang#, portfolio>>]
 
 Role: Developer +
 Responsibilities: [Refer to W6.10]
@@ -47,7 +47,7 @@ Responsibilities: [Refer to W6.10]
 
 === Kong Jun Yin
 image::bugeyedbug.png[width="150", align="left"]
-{empty}[http://github.com/BugEyedBug[github]] [<<kongjunyin#, portfolio>>]
+{empty}[http://github.com/BugEyedBug[github]] [<<bugeyedbug#, portfolio>>]
 
 Role: Developer +
 Responsibilities: [Refer to W6.10]

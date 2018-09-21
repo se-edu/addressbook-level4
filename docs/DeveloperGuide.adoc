@@ -533,70 +533,97 @@ a. Include those libraries in the repo (this bloats the repo size) +
 b. Require developers to download those libraries manually (this creates extra work for developers)
 
 [[GetStartedProgramming]]
+
+[appendix]
+== Target User Profile
+- A NUS Student who has a need to keep track of current CAP, calculate expected CAP, and grades required to achieve desired CAP.
+- Prefer desktop apps over other types.
+- Can type fast.
+- Prefers typing over mouse input.
+- Is reasonably comfortable using CLI apps.
+
+[appendix]
+== Value Proposition
+Helps students manage their CAP and predict what grades they need to reach their CAP goal.
+
 [appendix]
 == User Stories
 
-Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (unlikely to have) - `*`
+*Must-Have*
 
-[width="100%",cols="22%,<23%,<25%,<30%",options="header",]
-|=======================================================================
-|Priority |As a ... |I want to ... |So that I can...
-|`* * *` |new user |see usage instructions |refer to instructions when I forget how to use the App
+1.  As a user, I can add all the modules I have taken (module code,
+*module title*, MCs, grade, semester taken) so that I can calculate
+average mark I need to graduate with desired CAP.
+2.  As a user I can delete modules so if I change my mind or fail a
+module I can re-calculate my average.
+3.  As a user I can delete modules so that if i entered a wrong module
+or failed it, I can remove it.
+4.  As a user I can edit the marks I’ve entered previously so that I can
+update my CAP.
+5.  As a user, I can enter in a CAP goal so I can track my progress in
+my modules.
+6.  As a user, I can enter a CAP goal so that I can keep track of the
+progress of my course
+7.  As a user, I can calculate the average mark I need across the
+modules I’ve entered so I can see what mark I need for each module to
+achieve my CAP goal. +
+8.  As a user, I can enter in predicted grades for modules so I can see
+what CAP I would get if I got these grades in my modules.
+9.  As a user, I can close the app and return to modify my entries so I
+can enter my entries incrementally.
 
-|`* * *` |user |add a new person |
+*Nice-To-Have*
 
-|`* * *` |user |delete a person |remove entries that I no longer need
+9. As a user, I can add a module without having to add the code, MCs, or semester taken so that I can quickly calculate CAP without worrying about the modules.
+10. As a user, I can still enter the same modules but get warned first so that I would not mistakenly enter the same module again
+11. As a user, I can import all modules for this semester with NUSMods link so that my data can be consistent with NUSMods.
+12. As a user I can search for a module via keyword or module title, and select it for entering my grade so that I don’t have to remember the module code.
+13. As a user, I can adjust what marks I need for each module to achieve my CAP so I can put more emphasis on certain modules instead of expecting the same grade across all modules.
+14. As a user, I can view my current semester’s module goals and use a GUI to adjust projected grade for each module, and other modules will automatically adjust to compensate, so that I can see easily modify my data to see what grades I need for other modules.
+15. As a user, I can view total current MCs so that i can check if I meet the number of mc I need to graduate
+16. As a user I can see if my CAP Goal is possible so I can check whether it is achievable.
+17. As a user, I can list modules taken by level as an alternative listing mode, so that it is easier to track graduation requirements.
+18. As a user, I can see what the highest possible CAP I can achieve with my current grades is so that I can set an appropriate goal.
+19. As a user, I can see what the minimum grades I need per module is to pass the year with my current grades so that I can see what the minimum about of work I need to do is.
 
-|`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
+*Not-Useful*
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
-
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
-|=======================================================================
-
-_{More to be added}_
+1. As a user, I can view the module descriptions so that I know what modules I should take
+2. As a user I can enter the MCs for exchange I can keep track of modules that may not be mapped to our database of modules codes or isn’t the default number of MCs.
+3. As a user, I can export my timetable so that I can share it with my friend.
 
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+=== Use case: Calculate predicted CAP
+  . User enters all modules - modules with grades (previous or target), modules without grades (unknown).
+  . System immediately displays confirmation and current CAP.
 
-[discrete]
-=== Use case: Delete person
+=== Use case:  View grades needed to achieve CAP goal (based on previous grades)
+  . Use-Case-B.1.
+  . User enters CAP goal.
+  . User requests for target grade.
+  .. **V1.0:**
+  ... System displays target grades for each module (numeric).
+  .. **V2.0:**
+  ... System displays target grades for each module (numeric and letter).
+  ... User edits target grades.
+  ... System displays new target grades for each module.
 
-*MSS*
-
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 2a. The list is empty.
-+
-Use case ends.
-
-* 3a. The given index is invalid.
-+
-[none]
-** 3a1. AddressBook shows an error message.
-+
-Use case resumes at step 2.
-
-_{More to be added}_
+=== Use case:  Save entered module
+  . User enters some modules
+  . System saves the modules
+  . User restarts the application
+  . User list entered modules
+  . System displays saved modules
 
 [appendix]
 == Non Functional Requirements
 
-.  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-
-_{More to be added}_
+. Should work on any [mainstream OS](https://github.com/nus-cs2103-AY1819S1/addressbook-level4/blob/master/docs/DeveloperGuide.adoc#mainstream-os) as long as it has Java 10 or higher installed.
+. Should be able to hold up to 100 modules without a noticeable sluggishness in performance for typical usage.
+. A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+. Should calculate prediction/expected CAP in 1 seconds
 
 [appendix]
 == Glossary
