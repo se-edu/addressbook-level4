@@ -1,0 +1,67 @@
+= Jeremiah Ang - Project Portfolio
+:site-section: AboutUs
+:imagesDir: ../images
+:stylesDir: ../stylesheets
+
+== PROJECT: CAPTracker
+
+---
+
+== Overview
+
+CapTracker is a desktop application. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
+
+== Summary of contributions
+
+* v1.1
+** Implement CAP calculation logic
+** Handle input/update of CAP Goal
+
+* v1.2
+** Implement logic to calculate target grades for _not-yet-graded_ modules
+
+//* *Major enhancement*: TBC.
+//** What it does: TBC.
+//** Justification: TBC.
+//** Highlights: TBC.
+//** Credits: TBC.
+//
+//* *Minor enhancement*: TBC.
+//
+//* *Code contributed*: [https://github.com[Functional code]] [https://github.com[Test code]] _{give links to collated code files}_
+//
+//* *Other contributions*:
+//
+//** Project management:
+//*** Managed releases `v1.3` - `v1.5rc` (3 releases) on GitHub
+//** Enhancements to existing features:
+//** Documentation:
+//** Community:
+//*** PRs reviewed (with non-trivial review comments): TBC.
+//*** Contributed to forum discussions (examples:  TBC.)
+//*** Reported bugs and suggestions for other teams in the class (examples:  TBC.)
+//** Tools:
+
+== Contributions to the User Guide
+
+TBC
+
+//|===
+//|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+//|===
+//
+//include::../UserGuide.adoc[tag=undoredo]
+//
+//include::../UserGuide.adoc[tag=dataencryption]
+
+== Contributions to the Developer Guide
+
+TBC
+
+//|===
+//|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+//|===
+//
+//include::../DeveloperGuide.adoc[tag=undoredo]
+//
+//include::../DeveloperGuide.adoc[tag=dataencryption]
