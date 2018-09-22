@@ -13,17 +13,16 @@ import java.util.regex.Pattern;
 public class GoalCommandParser implements Parser<GoalCommand> {
     @Override
     public GoalCommand parse(String userInput) throws ParseException {
-        String trimmedArgs = userInput.trim();
+        final String trimmedArgs = userInput.trim();
+        final String format = String.format(MESSAGE_INVALID_COMMAND_FORMAT, GoalCommand.MESSAGE_USAGE);
         if (trimmedArgs.isEmpty()) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, GoalCommand.MESSAGE_USAGE));
+            throw new ParseException(format);
         }
 
         try {
             return new GoalCommand(Double.parseDouble(trimmedArgs));
         } catch (NumberFormatException nfe) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, GoalCommand.MESSAGE_USAGE));
+            throw new ParseException(format);
         }
     }
 }
