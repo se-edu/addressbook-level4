@@ -28,8 +28,13 @@ public class Nric {
         return test.matches(NRIC_VALIDATION_REGEX);
     }
 
-//    @Override
-//    public int hashCode() {
-//        return nric.hashCode();
-//    }
+    @Override
+    public String toString(){
+        return nric;
+    }
+
+    @Override
+    public int hashCode() {
+        return nric.hashCode();
+    }
 }
