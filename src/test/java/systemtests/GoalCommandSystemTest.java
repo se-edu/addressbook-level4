@@ -7,7 +7,9 @@ import seedu.address.model.Model;
 public class GoalCommandSystemTest extends AddressBookSystemTest{
     @Test
     public void goal() {
-        // Perform goal setting with a valid value
+        /* Case: Set goal with valid value
+         * -> goal command handled correctly
+         */
         double newGoal = 4.5;
         assertGoalSuccess(newGoal);
     }
