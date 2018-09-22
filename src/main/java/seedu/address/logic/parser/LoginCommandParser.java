@@ -1,13 +1,16 @@
 package seedu.address.logic.parser;
 
-import seedu.address.logic.commands.LoginCommand;
-import seedu.address.logic.parser.exceptions.ParseException;
-
-import java.util.Scanner;
-
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
+import java.util.Scanner;
+
+import seedu.address.logic.commands.LoginCommand;
+import seedu.address.logic.parser.exceptions.ParseException;
+
+/**
+ * Parses input arguments and creates a new LoginCommand object,
+ */
 public class LoginCommandParser implements Parser<LoginCommand> {
     /**
      * Parses the given arguments in the context of LoginCommand.
@@ -18,15 +21,17 @@ public class LoginCommandParser implements Parser<LoginCommand> {
     public LoginCommand parse(String userInput) throws ParseException {
         requireNonNull(userInput);
 
-        if(!isInputFormatCorrect(userInput))
+        if (!isInputFormatCorrect(userInput)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, LoginCommand.MESSAGE_USAGE));
+        }
         else {
-            String inputNRIC, inputPassword;
+            String inputNric;
+            String inputPassword;
             Scanner inputScanner = new Scanner(userInput).useDelimiter(" ");
-            inputNRIC = inputScanner.next();
+            inputNric = inputScanner.next();
             inputPassword = inputScanner.next();
             inputScanner.close();
-            return new LoginCommand(inputNRIC, inputPassword);
+            return new LoginCommand(inputNric, inputPassword);
         }
     }
 
@@ -34,23 +39,22 @@ public class LoginCommandParser implements Parser<LoginCommand> {
      * Returns true if exactly two parameters (NRIC and password) are provided.
      * Else return false;
      */
-    private boolean isInputFormatCorrect(String userInput){
+    private boolean isInputFormatCorrect(String userInput) {
         Scanner inputScanner = new Scanner(userInput).useDelimiter(" ");
-        if(!inputScanner.hasNext()) {
+        if (!inputScanner.hasNext()) {
             inputScanner.close();
             return false;
         }
         inputScanner.next();
-        if(!inputScanner.hasNext()) {
+        if (!inputScanner.hasNext()) {
             inputScanner.close();
             return false;
         }
         inputScanner.next();
-        if(inputScanner.hasNext()) {
+        if (inputScanner.hasNext()) {
             inputScanner.close();
             return false;
-        }
-        else{
+        } else {
             inputScanner.close();
             return true;
         }
