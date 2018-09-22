@@ -25,6 +25,5 @@ public class GoalCommandParser implements Parser<GoalCommand> {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, GoalCommand.MESSAGE_USAGE));
         }
-
     }
 }

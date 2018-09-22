@@ -23,6 +23,4 @@ public class GoalCommandSystemTest extends AddressBookSystemTest{
         executeCommand(command);
         assertApplicationDisplaysExpected("", expectedResultMessage, expectedModel);
     }
-
-
 }
