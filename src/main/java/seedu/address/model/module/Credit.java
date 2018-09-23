@@ -42,7 +42,7 @@ public class Credit {
     public static boolean isValidCredit(int credits) {
         if (credits < 1) {
             return false;
-        } else if (credits > 20){
+        } else if (credits > 20) {
             return false;
         }
 
