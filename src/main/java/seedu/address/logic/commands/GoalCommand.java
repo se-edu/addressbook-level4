@@ -37,6 +37,6 @@ public class GoalCommand extends Command {
     public boolean equals(Object other) {
         return other == this // short circuit if same object
                 || (other instanceof GoalCommand // instanceof handles nulls
-                && goal == ((GoalCommand)other).goal); // state check
+                && goal == ((GoalCommand) other).goal); // state check
     }
 }
