@@ -7,6 +7,10 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  * Represents a Module's semester in the transcript.
  * <p>
  * Guarantees: immutable; is valid as declared in {@link #isValidSemester(String)}
+ * <p>
+ * Legal values: 1, 2, s1, s2. 1
+ * <p>
+ * (Semester 1), 2 (Semester 2), s1 (Special Semester 1), s2 (Special Semester 2).
  */
 public class Semester {
 
@@ -28,7 +32,7 @@ public class Semester {
     /**
      * Constant for semester two.
      */
-    public static final String SEMESTER_ONE_TWO = "2";
+    public static final String SEMESTER_TWO = "2";
 
     /**
      * Constant for special semester one.
@@ -66,16 +70,29 @@ public class Semester {
         return semester.matches(SEMESTER_VALIDATION_REGEX);
     }
 
+    /**
+     * Returns the semester value.
+     *
+     * @return grade
+     */
     @Override
     public String toString() {
         return value;
     }
 
+    /**
+     * Compares the semester value of both Semester object.
+     * <p>
+     * This defines a notion of equality between two semester objects.
+     *
+     * @param other Semester object compared against this object
+     * @return true if both are the same object or contains the same value
+     */
     @Override
     public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof Semester // instanceof handles nulls
-                && value.equals(((Semester) other).value)); // state check
+        return other == this
+                || (other instanceof Semester
+                && value.equals(((Semester) other).value));
     }
 
     @Override

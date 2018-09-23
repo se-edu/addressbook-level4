@@ -44,16 +44,29 @@ public class Year {
         return Integer.toString(year).matches(YEAR_VALIDATION_REGEX);
     }
 
+    /**
+     * Returns the year the module was taken.
+     *
+     * @return year
+     */
     @Override
     public String toString() {
         return Integer.toString(value);
     }
 
+    /**
+     * Compares the year value of both Year object.
+     * <p>
+     * This defines a notion of equality between two Year objects.
+     *
+     * @param other Code object compared against this object
+     * @return true if both are the same object or contains the same value
+     */
     @Override
     public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof Year // instanceof handles nulls
-                && value == ((Year) other).value); // state check
+        return other == this
+                || (other instanceof Year
+                && value == ((Year) other).value);
     }
 
     @Override

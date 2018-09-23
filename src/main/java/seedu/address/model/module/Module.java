@@ -168,12 +168,14 @@ public class Module {
                 && otherModule.hasCompleted() == hasCompleted();
     }
 
-    @Override
-    public int hashCode() {
-        // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(code, year, semester, credits, grade, completed);
-    }
-
+    /**
+     * Returns the code, year, semester, credits, grade, is module completed.
+     * <p>
+     * Format: Code: CODE Year: YEAR Semester: SEMESTER Credits: CREDITS Grade: GRADE Completed:
+     * COMPLETED
+     *
+     * @return information of this module
+     */
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
@@ -191,5 +193,11 @@ public class Module {
                 .append(" Completed: ")
                 .append(hasCompleted())
                 .toString();
+    }
+
+    @Override
+    public int hashCode() {
+        // use this method for custom fields hashing instead of implementing your own
+        return Objects.hash(code, year, semester, credits, grade, completed);
     }
 }

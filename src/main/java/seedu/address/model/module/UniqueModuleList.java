@@ -152,11 +152,24 @@ public class UniqueModuleList implements Iterable<Module> {
         return !internalList.stream().anyMatch(modules::contains);
     }
 
+    /**
+     * Returns the iterator of the internal list.
+     *
+     * @return iterator of the internal list
+     */
     @Override
     public Iterator<Module> iterator() {
         return internalList.iterator();
     }
 
+    /**
+     * Compares the internal list of both UniqueModuleList object.
+     * <p>
+     * This defines a notion of equality between two UniqueModuleList objects.
+     *
+     * @param other Code object compared against this object
+     * @return true if both are the same object or contains the same value
+     */
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object

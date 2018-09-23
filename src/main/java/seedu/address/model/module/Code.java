@@ -47,16 +47,29 @@ public class Code {
         return code.matches(CODE_VALIDATION_REGEX);
     }
 
+    /**
+     * Returns the module code.
+     *
+     * @return module code
+     */
     @Override
     public String toString() {
         return value;
     }
 
+    /**
+     * Compares the module code value of both Code object.
+     * <p>
+     * This defines a notion of equality between two code objects.
+     *
+     * @param other Code object compared against this object
+     * @return true if both are the same object or contains the same value
+     */
     @Override
     public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof Code // instanceof handles nulls
-                && value.equals(((Code) other).value)); // state check
+        return other == this
+                || (other instanceof Code
+                && value.equals(((Code) other).value));
     }
 
     @Override

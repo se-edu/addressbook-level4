@@ -48,16 +48,29 @@ public class Grade {
         return grade.matches(GRADE_VALIDATION_REGEX);
     }
 
+    /**
+     * Returns the grade value.
+     *
+     * @return grade
+     */
     @Override
     public String toString() {
         return value;
     }
 
+    /**
+     * Compares the grade value of both Grade object.
+     * <p>
+     * This defines a notion of equality between two grade objects.
+     *
+     * @param other Grade object compared against this object
+     * @return true if both are the same object or contains the same value
+     */
     @Override
     public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof Grade // instanceof handles nulls
-                && value.equals(((Grade) other).value)); // state check
+        return other == this
+                || (other instanceof Grade
+                && value.equals(((Grade) other).value));
     }
 
     @Override

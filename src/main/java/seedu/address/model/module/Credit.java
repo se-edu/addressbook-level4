@@ -46,16 +46,29 @@ public class Credit {
         return Integer.toString(credits).matches(CREDIT_VALIDATION_REGEX);
     }
 
+    /**
+     * Returns the module credits value.
+     *
+     * @return module credits
+     */
     @Override
     public String toString() {
         return Integer.toString(value);
     }
 
+    /**
+     * Compares the module credit value of both Credit object.
+     * <p>
+     * This defines a notion of equality between two credit objects.
+     *
+     * @param other Credit object compared against this object
+     * @return true if both are the same object or contains the same value
+     */
     @Override
     public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof Credit // instanceof handles nulls
-                && value == ((Credit) other).value); // state check
+        return other == this
+                || (other instanceof Credit
+                && value == ((Credit) other).value);
     }
 
     @Override
