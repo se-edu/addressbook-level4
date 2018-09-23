@@ -1,10 +1,14 @@
 package systemtests;
 
 import org.junit.Test;
+
 import seedu.address.logic.commands.GoalCommand;
 import seedu.address.model.Model;
 
-public class GoalCommandSystemTest extends AddressBookSystemTest{
+/**
+ * System test for Goal Command
+ */
+public class GoalCommandSystemTest extends AddressBookSystemTest {
     @Test
     public void goal() {
         /* Case: Set goal with valid value
