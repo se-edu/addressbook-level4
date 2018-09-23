@@ -11,14 +11,14 @@ public class GoalCommandParserTest {
     private GoalCommandParser parser = new GoalCommandParser();
 
     @Test
-    public void parse_validCommand_success() {
+    public void parseValidCommandSuccess() {
         String userInput = "4.5";
         GoalCommand expectedCommand = new GoalCommand(4.5);
         assertParseSuccess(parser, userInput, expectedCommand);
     }
 
     @Test
-    public void parse_invalidNumberFormat_failure() {
+    public void parseInvalidNumberFormatFailure() {
         String userInput = "4.5 3.5";
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, GoalCommand.MESSAGE_USAGE);
         assertParseFailure(parser, userInput, expectedMessage);
