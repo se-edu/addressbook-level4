@@ -32,7 +32,7 @@ endif::[]
 
 * Some parts of this sample application were inspired by the excellent http://code.makery.ch/library/javafx-8-tutorial/[Java FX tutorial] by
 _Marco Jakob_.
-* "Project Manager" is an extension from Address Book 4 and all credits goes to its developers at https://github.com/se-edu/[se-edu].
+* "Project Manager" is a morph product from Address Book 4 and all credits goes to its developers at https://github.com/se-edu/[se-edu].
 * Libraries used: https://github.com/TestFX/TestFX[TextFX], https://bitbucket.org/controlsfx/controlsfx/[ControlsFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/google/guava[Guava], https://github.com/junit-team/junit5[JUnit5]
 * Done by team F11-4
 
