@@ -23,11 +23,11 @@ public class GradeTest {
     public void isValidGrade() {
         // invalid grade format
         assertFalse(Grade.isValidGrade(" A+")); // no leading whitespace
-        assertFalse(Code.isValidCode("A+ ")); // no leading whitespace
-        assertFalse(Code.isValidCode("A +")); // no whitespace in between
-        assertFalse(Code.isValidCode("G")); // First character has to be A, B, C, D, F
+        assertFalse(Grade.isValidGrade("A+ ")); // no leading whitespace
+        assertFalse(Grade.isValidGrade("A +")); // no whitespace in between
+        assertFalse(Grade.isValidGrade("G")); // First character has to be A, B, C, D, F
 
         // valid grade
-        assertTrue(Code.isValidCode("A+"));
+        assertTrue(Grade.isValidGrade("A+"));
     }
 }
