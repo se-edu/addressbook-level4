@@ -10,12 +10,12 @@ import seedu.address.testutil.Assert;
 public class GradeTest {
 
     @Test
-    public void constructor_null_throwsNullPointerException() {
+    public void constructorNullThrowsNullPointerException() {
         Assert.assertThrows(NullPointerException.class, () -> new Grade(null));
     }
 
     @Test
-    public void constructor_invalidGrade_throwsIllegalArgumentException() {
+    public void constructorInvalidGradeThrowsIllegalArgumentException() {
         String invalidGrade = "";
         Assert.assertThrows(IllegalArgumentException.class, () -> new Grade(invalidGrade));
     }

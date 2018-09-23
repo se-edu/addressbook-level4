@@ -9,7 +9,7 @@ import seedu.address.testutil.Assert;
 
 public class CreditTest {
     @Test
-    public void constructor_invalidCredit_throwsIllegalArgumentException() {
+    public void constructorInvalidCreditThrowsIllegalArgumentException() {
         int invalidCredit = 0;
         Assert.assertThrows(IllegalArgumentException.class, () -> new Credit(invalidCredit));
     }

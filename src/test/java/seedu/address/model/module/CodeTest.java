@@ -10,12 +10,12 @@ import seedu.address.testutil.Assert;
 public class CodeTest {
 
     @Test
-    public void constructor_null_throwsNullPointerException() {
+    public void constructorNullThrowsNullPointerException() {
         Assert.assertThrows(NullPointerException.class, () -> new Code(null));
     }
 
     @Test
-    public void constructor_invalidCode_throwsIllegalArgumentException() {
+    public void constructorInvalidCodeThrowsIllegalArgumentException() {
         String invalidCode = "";
         Assert.assertThrows(IllegalArgumentException.class, () -> new Code(invalidCode));
     }

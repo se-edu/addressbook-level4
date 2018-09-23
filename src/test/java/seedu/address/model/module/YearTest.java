@@ -10,7 +10,7 @@ import seedu.address.testutil.Assert;
 public class YearTest {
 
     @Test
-    public void constructor_invalidYear_throwsIllegalArgumentException() {
+    public void constructorInvalidYearThrowsIllegalArgumentException() {
         int invalidYear = 1;
         Assert.assertThrows(IllegalArgumentException.class, () -> new Year(invalidYear));
     }
