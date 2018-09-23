@@ -23,8 +23,7 @@ public class LoginCommandParser implements Parser<LoginCommand> {
 
         if (!isInputFormatCorrect(userInput)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, LoginCommand.MESSAGE_USAGE));
-        }
-        else {
+        } else {
             String inputNric;
             String inputPassword;
             Scanner inputScanner = new Scanner(userInput).useDelimiter(" ");

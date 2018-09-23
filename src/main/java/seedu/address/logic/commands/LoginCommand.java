@@ -39,8 +39,7 @@ public class LoginCommand extends Command {
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         if (!dummyNric.equals(loginNric) || !dummyPassword.equals(loginPassword)) {
             throw new CommandException(INVALID_LOGIN_CREDENTIALS);
-        }
-        else {
+        } else {
             return new CommandResult(String.format(LOGIN_SUCCESS, loginNric));
         }
     }

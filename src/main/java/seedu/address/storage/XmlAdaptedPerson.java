@@ -98,7 +98,7 @@ public class XmlAdaptedPerson {
         if (nric == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Nric.class.getSimpleName()));
         }
-        if(!Nric.isValidNric(nric)) {
+        if (!Nric.isValidNric(nric)) {
             throw new IllegalValueException(Nric.MESSAGE_NRIC_CONSTRAINTS);
         }
         final Nric modelNric = new Nric(nric);
