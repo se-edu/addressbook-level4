@@ -5,6 +5,8 @@ import static java.util.Objects.requireNonNull;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.SessionManager;
+import seedu.address.model.person.Nric;
 
 
 /**
@@ -24,10 +26,10 @@ public class LoginCommand extends Command {
     //Dummy UserID and Password for incremental testing purpose
     private String dummyNric = "S9123456Q";
     private String dummyPassword = "qwerty";
-    private String loginNric;
+    private Nric loginNric;
     private String loginPassword;
 
-    public LoginCommand(String loginNric, String loginPassword) {
+    public LoginCommand(Nric loginNric, String loginPassword) {
         requireNonNull(loginNric);
         requireNonNull(loginPassword);
 
@@ -37,10 +39,19 @@ public class LoginCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
-        if (!dummyNric.equals(loginNric) || !dummyPassword.equals(loginPassword)) {
+        if (!isLoginCredentialsValid()) {
             throw new CommandException(INVALID_LOGIN_CREDENTIALS);
         } else {
+            SessionManager.loginToSession(loginNric);
             return new CommandResult(String.format(LOGIN_SUCCESS, loginNric));
+        }
+    }
+
+    private boolean isLoginCredentialsValid(){
+        if (!loginNric.toString().equals(dummyNric) || !loginPassword.equals(dummyPassword)) {
+            return false;
+        } else {
+            return true;
         }
     }
 }
