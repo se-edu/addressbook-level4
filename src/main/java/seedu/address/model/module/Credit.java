@@ -16,11 +16,6 @@ public class Credit {
     public static final String MESSAGE_CODE_CONSTRAINTS = "Credits must be a integer";
 
     /**
-     * No whitespace allowed.
-     */
-    public static final String CREDIT_VALIDATION_REGEX = "([1-9][0-9])|(0?[1-9])";
-
-    /**
      * Immutable credit value.
      */
     public final int value;
@@ -33,17 +28,25 @@ public class Credit {
     public Credit(int credits) {
         requireNonNull(credits);
         checkArgument(isValidCredit(credits), MESSAGE_CODE_CONSTRAINTS);
-        value = Integer.valueOf(credits);
+        value = credits;
     }
 
     /**
      * Returns true if a given string is a valid credit.
+     * <p>
+     * Credit must be between 1 and 20
      *
      * @param credits string to be tested for validity
      * @return true if given string is a valid credit
      */
     public static boolean isValidCredit(int credits) {
-        return Integer.toString(credits).matches(CREDIT_VALIDATION_REGEX);
+        if (credits < 1) {
+            return false;
+        } else if (credits > 20){
+            return false;
+        }
+
+        return true;
     }
 
     /**
