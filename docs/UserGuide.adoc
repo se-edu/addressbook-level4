@@ -41,7 +41,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Refer to <<Features>> for details of each command.
 
 [[Features]]
-== Features
+== General Features
 
 ====
 *Command Format*
@@ -234,6 +234,17 @@ There is no need to save manually.
 
 _{explain how the user can enable/disable data encryption}_
 // end::dataencryption[]
+
+[[Features]]
+== Main Features
+
+=== Calendar: `openCalendar`
+
+=== Finances: `openFinances`
+
+=== Members: `openMembers`
+
+=== Inventory: `openInventory`
 
 == FAQ
 
