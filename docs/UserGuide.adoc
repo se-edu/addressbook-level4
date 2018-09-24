@@ -239,7 +239,7 @@ _{explain how the user can enable/disable data encryption}_
 == Main Features
 
 === Calendar: `openCalendar`
-
+==== Calendar: `openCalendar`
 === Finances: `openFinances`
 
 === Members: `openMembers`
