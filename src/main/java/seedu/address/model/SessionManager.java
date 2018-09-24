@@ -11,6 +11,10 @@ import seedu.address.model.person.Nric;
 public class SessionManager {
     private static Nric loggedInNric = null;
 
+    /**
+     * Stores the NRIC of the successfully verified login into the session
+     * @param logInWithThisNric
+     */
     public static void loginToSession(Nric logInWithThisNric) {
         requireNonNull(logInWithThisNric);
         loggedInNric = logInWithThisNric;
@@ -24,8 +28,11 @@ public class SessionManager {
         return loggedInNric;
     }
 
+    /**
+     * Reutrns true if user is logged in to the application.
+     */
     public static boolean isLoggedIn() {
-        if(loggedInNric == null) {
+        if (loggedInNric == null) {
             return false;
         }
         return true;

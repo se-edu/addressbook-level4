@@ -139,6 +139,11 @@ public class ParserUtil {
         return tagSet;
     }
 
+    /**
+     * Parses a {@code String password} into a {@code Password}.
+     * Leading and trailing whitespaces will be trimmed.
+     * @throws ParseException if the required format for password is invalid.
+     */
     public static Password parsePassword(String password) throws ParseException {
         requireNonNull(password);
         String trimmedPassword = password.trim();
