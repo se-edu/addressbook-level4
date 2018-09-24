@@ -10,6 +10,7 @@ import java.util.stream.Stream;
 import seedu.address.logic.commands.LoginCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Nric;
+import seedu.address.model.person.password.Password;
 
 /**
  * Parses input arguments and creates a new LoginCommand object,
@@ -44,34 +45,9 @@ public class LoginCommandParser implements Parser<LoginCommand> {
         }
 
         Nric nric = ParserUtil.parseNric(argMultimap.getValue(PREFIX_NRIC).get());
-        String password = argMultimap.getValue(PREFIX_PASSWORD).get();
+        Password password = ParserUtil.parsePassword(argMultimap.getValue(PREFIX_PASSWORD).get());
 
         return new LoginCommand(nric, password);
-    }
-
-    /**
-     * Returns true if exactly two parameters (NRIC and password) are provided.
-     * Else return false;
-     */
-    private boolean isInputFormatCorrect(String userInput) {
-        Scanner inputScanner = new Scanner(userInput).useDelimiter(" ");
-        if (!inputScanner.hasNext()) {
-            inputScanner.close();
-            return false;
-        }
-        inputScanner.next();
-        if (!inputScanner.hasNext()) {
-            inputScanner.close();
-            return false;
-        }
-        inputScanner.next();
-        if (inputScanner.hasNext()) {
-            inputScanner.close();
-            return false;
-        } else {
-            inputScanner.close();
-            return true;
-        }
     }
 
     /**

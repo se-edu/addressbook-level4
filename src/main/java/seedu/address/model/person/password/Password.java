@@ -5,10 +5,10 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 
 public class Password {
     // Password must be alphanumeric
-    public static final String PASSWORD_VALIDATION_REGEX = "^[a-zA-Z0-9]*$";
+    public static final String PASSWORD_VALIDATION_REGEX = "^[a-zA-Z0-9]{5,}$";
 
     public static final String MESSAGE_PASSWORD_CONSTRAINTS =
-            "Password must be alphanumeric.";
+            "Password must be alphanumeric and must contain at least five alphanumeric characters.";
 
     public final String password;
 
