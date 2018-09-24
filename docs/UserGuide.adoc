@@ -239,8 +239,32 @@ _{explain how the user can enable/disable data encryption}_
 == Main Features
 
 === Calendar: `openCalendar`
-==== Calendar: `openCalendar`
+
+==== List events: `listEvents`
+Lists all the events sorted by date. +
+Format: `listEvents`
+
+==== Adding an event: `addEvent`
+Adds an event to the calendar. +
+Format: `addEvent EVENT_NAME EVENT_DATE EVENT_LOCATION EVENT_DESCRIPTION`
+
+==== Editing an event: `changeEvent`
+Edits an event on the calendar. +
+Format: `changeEvent EVENT_NAME to EVENT_NAME EVENT_DATE EVENT_LOCATION EVENT_DESCRIPTION`
+
+==== Deleting event: `deleteEvent`
+Deletes an event from the calendar. +
+Format: `deleteEvent EVENT_NAME`.
+
 === Finances: `openFinances`
+
+==== Adding a record: `addRecord`
+Adds a record to the log. +
+Format: `addRecord ITEM_NAME ITEM_COST PURCHASE_DATE`
+
+==== Deleting a record: `deleteRecord`
+Deletes a record from the log. +
+Format: `addRecord ITEM_NAME ITEM_COST PURCHASE_DATE`
 
 === Members: `openMembers`
 
