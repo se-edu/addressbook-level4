@@ -8,7 +8,7 @@ import seedu.address.model.person.Nric;
  * Stores the NRIC of the user who's logged in to the applicaion.
  * Also manages the logging in and out of the current session.
  */
-public class SessionManager extends ModelManager{
+public class SessionManager {
     private static Nric loggedInNric = null;
 
     public static void loginToSession(Nric logInWithThisNric) {

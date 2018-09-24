@@ -1,0 +1,39 @@
+package seedu.address.model.person.password;
+
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.AppUtil.checkArgument;
+
+public class Password {
+    // Password must be alphanumeric
+    public static final String PASSWORD_VALIDATION_REGEX = "^[a-zA-Z0-9]*$";
+
+    public static final String MESSAGE_PASSWORD_CONSTRAINTS =
+            "Password must be alphanumeric.";
+
+    public final String password;
+
+    public Password(String password) {
+        requireNonNull(password);
+
+        //Checks for valid password regex. if false, throws IllegalArgumentException
+        checkArgument(isValidPassword(password), MESSAGE_PASSWORD_CONSTRAINTS);
+        this.password = password;
+    }
+
+    /**
+     * Returns true if a given string is a valid password.
+     */
+    public static boolean isValidPassword(String test) {
+        return test.matches(PASSWORD_VALIDATION_REGEX);
+    }
+
+    @Override
+    public String toString() {
+        return password;
+    }
+
+    @Override
+    public int hashCode() {
+        return password.hashCode();
+    }
+}

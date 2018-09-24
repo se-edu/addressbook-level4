@@ -7,6 +7,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import seedu.address.model.person.password.Password;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -20,6 +21,7 @@ public class Person {
     private final Nric nric;
     private final Phone phone;
     private final Email email;
+    private final Password password;
 
     // Data fields
     private final Address address;
@@ -28,10 +30,11 @@ public class Person {
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Nric nric, Phone phone, Email email, Address address, Set<Tag> tags) {
-        requireAllNonNull(name, nric, phone, email, address, tags);
+    public Person(Name name, Nric nric, Password password, Phone phone, Email email, Address address, Set<Tag> tags) {
+        requireAllNonNull(name, nric, password, phone, email, address, tags);
         this.name = name;
         this.nric = nric;
+        this.password = password;
         this.phone = phone;
         this.email = email;
         this.address = address;
@@ -44,6 +47,10 @@ public class Person {
 
     public Nric getNric() {
         return nric;
+    }
+
+    public Password getPassword() {
+        return password;
     }
 
     public Phone getPhone() {
@@ -67,7 +74,7 @@ public class Person {
     }
 
     /**
-     * Returns true if both persons of the same name have at least one other identity field that is the same.
+     * Returns true if both persons have the same NRIC number, which is a unique identifier.
      * This defines a weaker notion of equality between two persons.
      */
     public boolean isSamePerson(Person otherPerson) {
@@ -75,9 +82,7 @@ public class Person {
             return true;
         }
 
-        return otherPerson != null
-                && otherPerson.getName().equals(getName())
-                && (otherPerson.getPhone().equals(getPhone()) || otherPerson.getEmail().equals(getEmail()));
+        return otherPerson != null && otherPerson.getNric().equals(getNric());
     }
 
     /**
@@ -97,6 +102,7 @@ public class Person {
         Person otherPerson = (Person) other;
         return otherPerson.getName().equals(getName())
                 && otherPerson.getNric().equals(getNric())
+                && otherPerson.getPassword().equals(getPassword())
                 && otherPerson.getPhone().equals(getPhone())
                 && otherPerson.getEmail().equals(getEmail())
                 && otherPerson.getAddress().equals(getAddress())
@@ -106,9 +112,12 @@ public class Person {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, nric, phone, email, address, tags);
+        return Objects.hash(name, nric, password, phone, email, address, tags);
     }
 
+    /**
+     * Returns the appended string of the person's PUBLIC particulars (i.e.: Without password).
+     */
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
