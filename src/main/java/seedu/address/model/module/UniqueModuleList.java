@@ -81,20 +81,6 @@ public class UniqueModuleList implements Iterable<Module> {
     }
 
     /**
-     * Removes the equivalent module from the list.
-     * <p>
-     * The {@link Module} must exist in the list.
-     *
-     * @param toRemove the module to be removed from the list
-     */
-    public void remove(Module toRemove) {
-        requireNonNull(toRemove);
-        if (!internalList.remove(toRemove)) {
-            throw new ModuleNotFoundException();
-        }
-    }
-
-    /**
      * Replaces the {@link #internalList} of this UniqueModuleList with the internalList of the
      * replacement.
      *
@@ -119,6 +105,20 @@ public class UniqueModuleList implements Iterable<Module> {
         }
 
         internalList.setAll(modules);
+    }
+
+    /**
+     * Removes the equivalent module from the list.
+     * <p>
+     * The {@link Module} must exist in the list.
+     *
+     * @param toRemove the module to be removed from the list
+     */
+    public void remove(Module toRemove) {
+        requireNonNull(toRemove);
+        if (!internalList.remove(toRemove)) {
+            throw new ModuleNotFoundException();
+        }
     }
 
     /**

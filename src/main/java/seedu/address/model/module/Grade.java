@@ -54,11 +54,7 @@ public class Grade {
      * @return true if grade affects cap and false if grade does not affect cap.
      */
     public boolean affectsCap() {
-        if (value.contentEquals("CS") || value.contentEquals("CU")) {
-            return false;
-        }
-
-        return true;
+        return !value.contentEquals("CS") && !value.contentEquals("CU");
     }
 
     /**
