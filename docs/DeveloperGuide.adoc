@@ -860,15 +860,15 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |New HR Staff|view all the available functions|know the available functions for use in the application
 
-|`* * *` |HR Staff (handling financial matters)|view all the expenses incurred by each employee that has yet to be claimed|avoid keeping track of them manually
+|`* * *` |HR Staff (handling financial matters)|view all the expenses claim by each employee that has yet to be claimed|avoid keeping track of them manually
 
 |`* * *` |HR Staff|have a search function|search for employee’s data easily
 
-|`* * *` |HR Staff (handling financial matters)|add expenses incurred by employee at individual level|keep track of employee’s expenses that is up for claims easily
+|`* * *` |HR Staff (handling financial matters)|add expenses claim by employee at individual level|keep track of employee’s expenses claim easily
 
 |`* * *` |HR Manager|have a function to approve or reject leave/off|approve or reject employee’s leave/off easily
 
-|`* * *` |HR Staff (handling financial matters)|remove expenses incurred by employee after the claim is completed|keep track of employee’s claimed expenses easily
+|`* * *` |HR Staff (handling financial matters)|remove expenses claim by employee after the claim is completed|keep track of employee’s expenses claim easily
 
 |`* * *` |HR Staff (handling recruitment)|list all the past recruitment post(s) created|keep track of what position has already been posted for recruiting
 
