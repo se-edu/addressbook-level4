@@ -33,6 +33,18 @@ public class GradeTest {
     }
 
     @Test
+    public void affectCapValid() {
+        assertTrue(new Grade("A+").affectsCap());
+        assertFalse(new Grade("CS").affectsCap());
+        assertFalse(new Grade("CU").affectsCap());
+    }
+
+    @Test
+    public void getPointValid() {
+        assertTrue(new Grade("A+").getPoint() == 5);
+    }
+
+    @Test
     public void toStringValid() {
         assertTrue(new Grade("A+").toString().contentEquals("A+"));
     }

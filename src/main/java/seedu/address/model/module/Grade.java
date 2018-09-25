@@ -14,7 +14,7 @@ public class Grade {
      * Describes the requirements for grade value.
      */
     public static final String MESSAGE_CODE_CONSTRAINTS =
-            "Grade can be A+, A, A-, B+, B, B-, C+, C, D+, D, or F";
+            "Grade can be A+, A, A-, B+, B, B-, C+, C, D+, D, F, CS, CU";
 
     /**
      * No whitespace allowed.
@@ -46,6 +46,52 @@ public class Grade {
      */
     public static boolean isValidGrade(String grade) {
         return grade.matches(GRADE_VALIDATION_REGEX);
+    }
+
+    /**
+     * Returns true if grade affects cap and false if grade does not affect cap.
+     *
+     * @return true if grade affects cap and false if grade does not affect cap.
+     */
+    public boolean affectsCap() {
+        if (value.contentEquals("CS") || value.contentEquals("CU")) {
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Returns the point equivalent of the grade or 0 if grade is invalid.
+     *
+     * @return point equivalent of the grade
+     */
+    public float getPoint() {
+        switch (value) {
+        case "A+":
+            return 5f;
+        case "A":
+            return 5f;
+        case "A-":
+            return 4.5f;
+        case "B+":
+            return 4f;
+        case "B":
+            return 3.5f;
+        case "B-":
+            return 3f;
+        case "C+":
+            return 2.5f;
+        case "C":
+            return 2f;
+        case "D+":
+            return 1.5f;
+        case "D":
+            return 1f;
+        case "F":
+        default:
+            return 0f;
+        }
     }
 
     /**
