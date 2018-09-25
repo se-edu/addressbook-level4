@@ -847,13 +847,13 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |HR Staff |have filter functions | search for more specific data
+|`* * *` |HR Staff |have filter functions|search for more specific data
 
-|`* * *` |HR Staff|edit current employee’s data  |edit the employee’s data accordingly
+|`* * *` |HR Staff|edit current employee’s data |edit the employee’s data accordingly
 
-|`* * *` |HR Staff|add new employee’s data |add new employee’s data into the system
+|`* * *` |HR Staff|add new employee’s data|add new employee’s data into the system
 
-|`* * *` |HR Staff|delete old employee’s data |remove employee’s details that are no longer required
+|`* * *` |HR Staff|delete old employee’s data|remove employee’s details that are no longer required
 
 |`* * *` |HR Staff (handling payroll)|have auto calculation of pay and bonus increments|avoid doing the calculations manually
 
