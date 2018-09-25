@@ -22,6 +22,8 @@ public class PersonBuilder {
     public static final String DEFAULT_PHONE = "85355255";
     public static final String DEFAULT_EMAIL = "alice@gmail.com";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
+    public static final String DEFAULT_NRIC = "T2457888E";
+    public static final String DEFAULT_PASSWORD = "PQWOei23";
 
     private Name name;
     private Nric nric;
@@ -33,6 +35,8 @@ public class PersonBuilder {
 
     public PersonBuilder() {
         name = new Name(DEFAULT_NAME);
+        nric = new Nric(DEFAULT_NRIC);
+        password = new Password(DEFAULT_PASSWORD);
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
@@ -44,6 +48,8 @@ public class PersonBuilder {
      */
     public PersonBuilder(Person personToCopy) {
         name = personToCopy.getName();
+        nric = personToCopy.getNric();
+        password = personToCopy.getPassword();
         phone = personToCopy.getPhone();
         email = personToCopy.getEmail();
         address = personToCopy.getAddress();
