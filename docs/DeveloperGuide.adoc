@@ -815,9 +815,9 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 
 *Target user profile*: Human Resource (HR) Department
 
-*Value proposition*: Resolve accessibility problems and provide a centralised database for end users’ convenience
+*Product Scope*: Resolve accessibility problems and provide a centralised database for end users’ convenience
 
-*Product Scope*:
+*Value Proposition*:
 
 * A centralised system with specific fields required by HR. Some fields are as follow:
 
