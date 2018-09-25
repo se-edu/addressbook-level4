@@ -23,4 +23,14 @@ public class CreditTest {
         // valid code
         assertTrue(Credit.isValidCredit(4)); // credit between 1 and 20
     }
+
+    @Test
+    public void toStringValid() {
+        assertTrue(new Credit(4).toString().contentEquals("4"));
+    }
+
+    @Test
+    public void equalsValid() {
+        assertTrue(new Credit(4).equals(new Credit(4)));
+    }
 }

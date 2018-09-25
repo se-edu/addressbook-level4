@@ -31,4 +31,14 @@ public class GradeTest {
         // valid grade
         assertTrue(Grade.isValidGrade("A+"));
     }
+
+    @Test
+    public void toStringValid() {
+        assertTrue(new Grade("A+").toString().contentEquals("A+"));
+    }
+
+    @Test
+    public void equalsValid() {
+        assertTrue(new Grade("A+").equals(new Grade("A+")));
+    }
 }

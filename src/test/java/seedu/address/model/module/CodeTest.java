@@ -31,4 +31,14 @@ public class CodeTest {
         // valid code
         assertTrue(Code.isValidCode("CS2103")); // no whitespace
     }
+
+    @Test
+    public void toStringValid() {
+        assertTrue(new Code("CS2103").toString().contentEquals("CS2103"));
+    }
+
+    @Test
+    public void equalsValid() {
+        assertTrue(new Grade("CS2103").equals(new Grade("CS2103")));
+    }
 }

@@ -29,4 +29,14 @@ public class YearTest {
         assertTrue(Year.isValidYear(2020)); // first digit and third digit are both 2
         assertTrue(Year.isValidYear(2010)); // first digit is 2 and third digit is 1
     }
+
+    @Test
+    public void toStringValid() {
+        assertTrue(new Year(1819).toString().contentEquals("1819"));
+    }
+
+    @Test
+    public void equalsValid() {
+        assertTrue(new Year(1819).equals(new Year(1819)));
+    }
 }
