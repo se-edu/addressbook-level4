@@ -41,7 +41,7 @@ public class ModuleTest {
         assertTrue(DATA_STRUCTURES.equals(DATA_STRUCTURES));
 
         // null -> returns false
-        assertFalse(DATA_STRUCTURES.equals(null));
+        assertFalse(DATA_STRUCTURES == null);
 
         // different type -> returns false
         assertFalse(DATA_STRUCTURES.equals(5));
