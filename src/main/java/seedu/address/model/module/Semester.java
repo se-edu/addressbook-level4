@@ -37,12 +37,12 @@ public class Semester {
     /**
      * Constant for special semester one.
      */
-    public static final String SEMESTER_ONE_SPECIAL_ONE = "s1";
+    public static final String SEMESTER_SPECIAL_ONE = "s1";
 
     /**
      * Constant for special semester two.
      */
-    public static final String SEMESTER_ONE_SPECIAL_TWO = "s2";
+    public static final String SEMESTER_SPECIAL_TWO = "s2";
 
     /**
      * Immutable semester value.

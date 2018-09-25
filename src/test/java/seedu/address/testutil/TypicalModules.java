@@ -29,7 +29,7 @@ public class TypicalModules {
 
     public static final Module DATA_STRUCTURES = new ModuleBuilder().withCode("CS2040")
             .withYear(1718)
-            .withSemester(Semester.SEMESTER_ONE_SPECIAL_ONE)
+            .withSemester(Semester.SEMESTER_SPECIAL_ONE)
             .withCredit(4)
             .withGrade("F")
             .build();

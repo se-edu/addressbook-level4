@@ -10,11 +10,18 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import seedu.address.testutil.Assert;
 import seedu.address.testutil.ModuleBuilder;
 
 public class ModuleTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
+
+    @Test
+    public void constructorNullThrowsNullPointerException() {
+        Assert.assertThrows(NullPointerException.class, () ->
+                new Module(null, 0, null, 0, false));
+    }
 
     @Test
     public void isSameModule() {
@@ -84,5 +91,11 @@ public class ModuleTest {
                 .withCompleted(false)
                 .build();
         assertFalse(DATA_STRUCTURES.equals(editedDataStrucure));
+    }
+
+    @Test
+    public void toStringValid() {
+        assertTrue(DATA_STRUCTURES.toString().contentEquals("Code: CS2040 Year: 1718 Semester: "
+                        + "s1 Credits: 4 Grade: F Completed: true"));
     }
 }
