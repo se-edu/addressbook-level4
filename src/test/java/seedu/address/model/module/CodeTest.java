@@ -39,6 +39,6 @@ public class CodeTest {
 
     @Test
     public void equalsValid() {
-        assertTrue(new Grade("CS2103").equals(new Grade("CS2103")));
+        assertTrue(new Code("CS2103").equals(new Code("CS2103")));
     }
 }
