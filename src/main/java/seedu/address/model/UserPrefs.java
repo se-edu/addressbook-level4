@@ -13,6 +13,7 @@ public class UserPrefs {
 
     private GuiSettings guiSettings;
     private Path addressBookFilePath = Paths.get("data" , "addressbook.xml");
+    private Path transcriptFilePath = Paths.get("data" , "transcript.xml");
 
     public UserPrefs() {
         setGuiSettings(500, 500, 0, 0);
@@ -38,6 +39,14 @@ public class UserPrefs {
         this.addressBookFilePath = addressBookFilePath;
     }
 
+    public Path getTranscriptFilePath() {
+        return transcriptFilePath;
+    }
+
+    public void setTranscriptFilePath(Path transcriptFilePath) {
+        this.transcriptFilePath = addressBookFilePath;
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -49,20 +58,20 @@ public class UserPrefs {
 
         UserPrefs o = (UserPrefs) other;
 
-        return Objects.equals(guiSettings, o.guiSettings)
-                && Objects.equals(addressBookFilePath, o.addressBookFilePath);
+        return Objects.equals(guiSettings, o.guiSettings) && Objects.equals(addressBookFilePath, o.addressBookFilePath) && Objects.equals(transcriptFilePath, o.transcriptFilePath);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(guiSettings, addressBookFilePath);
+        return Objects.hash(guiSettings, addressBookFilePath, transcriptFilePath);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Gui Settings : " + guiSettings.toString());
-        sb.append("\nLocal data file location : " + addressBookFilePath);
+        sb.append("\nLocal data address file location : " + addressBookFilePath);
+        sb.append("\nLocal data transcript file location : " + transcriptFilePath);
         return sb.toString();
     }
 
