@@ -11,8 +11,7 @@ public class SemesterTest {
 
     @Test
     public void constructorInvalidYearThrowsIllegalArgumentException() {
-        String invalidSemester = null;
-        Assert.assertThrows(IllegalArgumentException.class, () -> new Semester(invalidSemester));
+        Assert.assertThrows(IllegalArgumentException.class, () -> new Semester(null));
     }
 
     @Test
