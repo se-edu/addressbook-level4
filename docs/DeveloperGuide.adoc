@@ -855,19 +855,25 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |HR Staff|delete old employee’s data |remove employee’s details that are no longer required
 
-|`* * *` |HR Staff(handling payroll)|have auto calculation of pay and bonus increments|avoid doing the calculations manually
+|`* * *` |HR Staff (handling payroll)|have auto calculation of pay and bonus increments|avoid doing the calculations manually
 
 |`* * *` |New HR Staff|view all the available functions|know the available functions for use in the application
 
-|`* * *` |HR Staff(handling financial matters)|view all the expenses incurred by each employee that has yet to be claimed|avoid keeping track of them manually
+|`* * *` |HR Staff (handling financial matters)|view all the expenses incurred by each employee that has yet to be claimed|avoid keeping track of them manually
 
 |`* * *` |HR Staff|have a search function|search for employee’s data easily
 
-|`* * *` |HR Staff(handling financial matters)|add expenses incurred by employee at individual level|keep track of employee’s expenses that is up for claims easily
+|`* * *` |HR Staff (handling financial matters)|add expenses incurred by employee at individual level|keep track of employee’s expenses that is up for claims easily
 
 |`* * *` |HR Manager|have a function to approve or reject leave/off|approve or reject employee’s leave/off easily
 
 |`* * *` |HR Staff (handling financial matters)|remove expenses incurred by employee after the claim is completed|keep track of employee’s claimed expenses easily
+
+|`* * *` |HR Staff (handling recruitment)|I want to list all the past recruitment post(s) created|keep track of what position has already been posted for recruiting
+
+|`* * *` |HR Staff (handling recruitment)|I want to add recruitment post(s)|put up new recruitment post(s) for newly available positions
+
+|`* * *` |HR Staff (handling recruitment)|I want to remove recruitment post(s)|take down old recruitment post(s) for positions that have already been filled
 
 |`* *` |HR Director|have different user access|control the information access within the system
 
