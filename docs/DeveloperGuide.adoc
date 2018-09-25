@@ -869,11 +869,13 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |HR Staff (handling financial matters)|remove expenses incurred by employee after the claim is completed|keep track of employee’s claimed expenses easily
 
-|`* * *` |HR Staff (handling recruitment)|I want to list all the past recruitment post(s) created|keep track of what position has already been posted for recruiting
+|`* * *` |HR Staff (handling recruitment)|list all the past recruitment post(s) created|keep track of what position has already been posted for recruiting
 
-|`* * *` |HR Staff (handling recruitment)|I want to add recruitment post(s)|put up new recruitment post(s) for newly available positions
+|`* * *` |HR Staff (handling recruitment)|add recruitment post(s)|put up new recruitment post(s) for newly available positions
 
-|`* * *` |HR Staff (handling recruitment)|I want to remove recruitment post(s)|take down old recruitment post(s) for positions that have already been filled
+|`* * *` |HR Staff (handling recruitment)|remove recruitment post(s)|take down old recruitment post(s) for positions that have already been filled
+
+|`* * *` |HR Staff (handling recruitment)|update recruitment post(s)|edit currently available recruitment post(s) at any time
 
 |`* *` |HR Director|have different user access|control the information access within the system
 
