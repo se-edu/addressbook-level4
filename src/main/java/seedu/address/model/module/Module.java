@@ -87,6 +87,16 @@ public class Module {
         this.completed = completed;
     }
 
+    public Module(Code code, Year year, Semester semester, Credit credit, Grade grade,
+            boolean completed) {
+        this.code = code;
+        this.year = year;
+        this.semester = semester;
+        this.credits = credit;
+        this.grade = grade;
+        this.completed = completed;
+    }
+
     /**
      * Returns the module code.
      *
@@ -139,6 +149,19 @@ public class Module {
      */
     public boolean hasCompleted() {
         return completed;
+    }
+
+    /**
+     * Returns true if module code is the same.
+     *
+     * @return true if modue code is the same
+     */
+    public boolean isSameModule(Module otherModule) {
+        if (otherModule == this) {
+            return true;
+        }
+
+        return otherModule != null && otherModule.getCode().equals(getCode());
     }
 
     /**
