@@ -849,7 +849,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 |Priority |As a ... |I want to ... |So that I can...
 |`* * *` |HR Staff |have filter functions | search for more specific data
 
-|`* * *` |HR Staff|update current employee’s data  |update the employee’s data accordingly
+|`* * *` |HR Staff|edit current employee’s data  |edit the employee’s data accordingly
 
 |`* * *` |HR Staff|add new employee’s data |add new employee’s data into the system
 
@@ -875,7 +875,7 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |HR Staff (handling recruitment)|remove recruitment post(s)|take down old recruitment post(s) for positions that have already been filled
 
-|`* * *` |HR Staff (handling recruitment)|update recruitment post(s)|edit currently available recruitment post(s) at any time
+|`* * *` |HR Staff (handling recruitment)|edit recruitment post(s)|edit currently available recruitment post(s) at any time
 
 |`* *` |HR Director|have different user access|control the information access within the system
 
