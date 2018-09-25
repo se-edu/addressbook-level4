@@ -12,7 +12,9 @@ import seedu.address.commons.core.GuiSettings;
 public class UserPrefs {
 
     private GuiSettings guiSettings;
+    //TODO: REMOVE
     private Path addressBookFilePath = Paths.get("data" , "addressbook.xml");
+    private Path transcriptFilePath = Paths.get("data" , "transcript.xml");
 
     public UserPrefs() {
         setGuiSettings(500, 500, 0, 0);
@@ -30,10 +32,20 @@ public class UserPrefs {
         guiSettings = new GuiSettings(width, height, x, y);
     }
 
+    public Path getTranscriptFilePath() {
+        return transcriptFilePath;
+    }
+
+    public void setTranscriptFilePath(Path transcriptFilePath) {
+        this.transcriptFilePath = transcriptFilePath;
+    }
+
+    // TODO: REMOVE
     public Path getAddressBookFilePath() {
         return addressBookFilePath;
     }
 
+    // TODO: REMOVE
     public void setAddressBookFilePath(Path addressBookFilePath) {
         this.addressBookFilePath = addressBookFilePath;
     }
@@ -50,20 +62,20 @@ public class UserPrefs {
         UserPrefs o = (UserPrefs) other;
 
         return Objects.equals(guiSettings, o.guiSettings)
-                && Objects.equals(addressBookFilePath, o.addressBookFilePath);
+                && Objects.equals(addressBookFilePath, o.addressBookFilePath) //TODO: REMOVE
+                && Objects.equals(transcriptFilePath, o.transcriptFilePath);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(guiSettings, addressBookFilePath);
+        return Objects.hash(guiSettings, transcriptFilePath);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append("Gui Settings : " + guiSettings.toString());
-        sb.append("\nLocal data file location : " + addressBookFilePath);
+        sb.append("\nLocal data file location : " + transcriptFilePath);
         return sb.toString();
     }
-
 }
