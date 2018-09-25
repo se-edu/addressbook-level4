@@ -917,9 +917,15 @@ Use case ends.
 *Extensions*
 
 [none]
-* 1a.
+* 3a. CHRS detects an invalid filter type input
+[none]
+**  3a1. CHRS requests for correct filter option
+**  3a2. User input the filter type
+**  Steps 3a1 - 3a2 are repeated until the data entered are correct
 +
-Use case ends.
+Use case resumes from step 4.
+
+
 
 [discrete]
 === Use case: UC02 -  Update employee's data
