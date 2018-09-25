@@ -815,9 +815,9 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
 
 *Target user profile*: Human Resource (HR) Department
 
-*Value proposition*: Resolve accessibility problems and provide a centralised database for end users’ convenience
+*Product Scope*: Resolve accessibility problems and provide a centralised database for end users’ convenience
 
-*Product Scope*:
+*Value Proposition*:
 
 * A centralised system with specific fields required by HR. Some fields are as follow:
 
@@ -828,6 +828,7 @@ See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-
     Employees' leave balance
 
 * Working schedule of employees (in a timetable format, GUI)
+* Recruitment post(s) to advertise the positions available within the company
 * Generation of reports such as:
 
     Employees' claim history
@@ -847,33 +848,35 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 [width="59%",cols="22%,<23%,<25%,<30%",options="header",]
 |=======================================================================
 |Priority |As a ... |I want to ... |So that I can...
-|`* * *` |HR Staff |have filter functions | search for more specific data
+|`* * *` |HR Staff |have filter functions|search for more specific data
 
-|`* * *` |HR Staff|update current employee’s data  |update the employee’s data accordingly
+|`* * *` |HR Staff|edit current employee’s data |edit the employee’s data accordingly
 
-|`* * *` |HR Staff|add new employee’s data |add new employee’s data into the system
+|`* * *` |HR Staff|add new employee’s data|add new employee’s data into the system
 
-|`* * *` |HR Staff|delete old employee’s data |remove employee’s details that are no longer required
+|`* * *` |HR Staff|delete old employee’s data|remove employee’s details that are no longer required
 
 |`* * *` |HR Staff (handling payroll)|have auto calculation of pay and bonus increments|avoid doing the calculations manually
 
 |`* * *` |New HR Staff|view all the available functions|know the available functions for use in the application
 
-|`* * *` |HR Staff (handling financial matters)|view all the expenses incurred by each employee that has yet to be claimed|avoid keeping track of them manually
+|`* * *` |HR Staff (handling financial matters)|view all the expenses claim by each employee that has yet to be claimed|avoid keeping track of them manually
 
 |`* * *` |HR Staff|have a search function|search for employee’s data easily
 
-|`* * *` |HR Staff (handling financial matters)|add expenses incurred by employee at individual level|keep track of employee’s expenses that is up for claims easily
+|`* * *` |HR Staff (handling financial matters)|add expenses claim by employee at individual level|keep track of employee’s expenses claim easily
 
 |`* * *` |HR Manager|have a function to approve or reject leave/off|approve or reject employee’s leave/off easily
 
-|`* * *` |HR Staff (handling financial matters)|remove expenses incurred by employee after the claim is completed|keep track of employee’s claimed expenses easily
+|`* * *` |HR Staff (handling financial matters)|remove expenses claim by employee after the claim is completed|keep track of employee’s expenses claim easily
 
-|`* * *` |HR Staff (handling recruitment)|I want to list all the past recruitment post(s) created|keep track of what position has already been posted for recruiting
+|`* * *` |HR Staff (handling recruitment)|list all the past recruitment post(s) created|keep track of what position has already been posted for recruiting
 
-|`* * *` |HR Staff (handling recruitment)|I want to add recruitment post(s)|put up new recruitment post(s) for newly available positions
+|`* * *` |HR Staff (handling recruitment)|add recruitment post(s)|put up new recruitment post(s) for newly available positions
 
-|`* * *` |HR Staff (handling recruitment)|I want to remove recruitment post(s)|take down old recruitment post(s) for positions that have already been filled
+|`* * *` |HR Staff (handling recruitment)|remove recruitment post(s)|take down old recruitment post(s) for positions that have already been filled
+
+|`* * *` |HR Staff (handling recruitment)|edit recruitment post(s)|edit currently available recruitment post(s) at any time
 
 |`* *` |HR Director|have different user access|control the information access within the system
 
@@ -907,330 +910,219 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 === Use case: UC01 -  Employee data filter function
 *MSS*
 
-1.  User requests to filter employees’ data
-2.  CHRS shows the available options to filter
-3.  User input the filter type
-4.  CHRS output the employees’ data of the specific filter
+1.	User requests to filter employees’ data
+2.	CHRS output the employees’ data of the specific filter
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 3a. CHRS detects an invalid filter type input
+* 1a. CHRS detects an invalid field input
 [none]
-**  3a1. CHRS requests for correct filter option
-**  3a2. User input the filter type
-**  Steps 3a1 - 3a2 are repeated until the data entered are correct
+** 1a1. CHRS inform user that the field does not exist
 +
-Use case resumes from step 4.
+Use case ends.
+* 1b. CHRS detects that the system holds no data of any employee
+[none]
+** 1b1. CHRS informs user that the system has no records of any employee data
++
+Use case ends.
 
 [discrete]
-=== Use case: UC02 -  Update employee's data
+=== Use case: UC02 - Edit employee’s data
 *MSS*
 
-1.  User requests to update specific employees’ data
-2. CHRS shows the employee’s current data and prompts the user whether an edit will be performed
-3. User confirms whether there will be an edit
-4. CHRS requests for the field to be updated
-5. User input the field to be updated
-6. CHRS requests for the updated information
-7. User input the relevant information
-8. CHRS updates relevant data of the employee and prompts the user whether there will be another field to be updated
-+
-Steps 3 to 8 are repeated until user input no to the request of whether another field will be updated
+1.	User requests to edit employee’s data
+2.	CHRS updates relevant data of the employee
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 1a. CHRS detects that requested employee’s data is not in the system
+* 1a. CHRS detects that requested employee’s data does not exist
 [none]
-** 1a1. CHRS informs user that the data can’t be found
+** 1a1. CHRS informs user that the data does not exist
 +
 Use case ends.
-* 1b. CHRS detects that there are employees with the same name
+* 1b. CHRS detects invalid input format or missing details
 [none]
-** 1b1. CHRS lists down all the employee’s data with duplicate names
-** 1b2. User selects the employee’s data to be updated based on index
-+
-Use case resume from step 2.
-* 2a. 180 seconds passed without any input from the user
-[none]
-** 2a1. CHRS shows the user a cancellation message
-+
-Use case ends.
-* 2b. User requests not to perform any edits
-[none]
-** 2b1. CHRS shows the user a cancellation message
-+
-Use case ends.
-* 2c. CHRS detects invalid confirmation input
-[none]
-** 2c1. CHRS prompts users for correct input
-** 2c2. User enters new input
-** Step 2c1 – 2c2 are repeated until correct input is entered
-+
-Use case resumes from step 3.
-* 5a. CHRS detects that an invalid field has been entered
-[none]
-** 5a1. CHRS requests for the field to be updated
-** 5a2. User input the field to be updated
-** Step 5a1 - 5a2 are repeated until a valid field has been entered
-+
-Use case resumes from step 6.
-* 7a. CHRS detects an invalid data input
-[none]
-** 7a1. CHRS requests for correct data
-** 7a2. Users input new data
-** Steps 7a1 - 7a2 are repeated until the input is correct
-+
-Use case resumes from step 8.
-
-[discrete]
-=== Use case: UC03 -  Add employee's data
-*MSS*
-
-1. User input new employee’s data
-2. CHRS shows the employee’s data and requests for confirmation
-3. User confirms the addition
-4. CHRS stores employee’s data and shows successful message
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 2a. 180 seconds passed without any input from the user
-[none]
-** 2a1. CHRS shows the user a cancellation message
-+
-Use case ends.
-* 2b. User requests not to perform the addition
-[none]
-** 2b1. CHRS shows the user a cancellation message
-+
-Use case ends.
-* 2c. CHRS detects invalid confirmation input
-[none]
-** 2c1. CHRS prompts users for correct input
-** 2c2. User enters new input
-** Step 2c1 – 2c2 are repeated until correct input is entered
-+
-Use case resumes from step 3.
-
-
-[discrete]
-=== Use case: UC04 -  Delete employee's data
-*MSS*
-
-1. User requests to delete employee’s data
-2. CHRS shows the employee’s data and prompts for confirmation
-3. User confirms the deletion
-4. CHRS deletes employee’s data and shows successful message
-+
-Use case ends.
-
-*Extensions*
-
-[none]
-* 1a. CHRS detects that requested employee’s data is not in the system
-[none]
-** 1a1. CHRS informs user about the data not being found
-+
-Use case ends.
-* 1b. CHRS detects the existence of duplicate names
-[none]
-** 1b1. CHRS requests for mobile number
-** 1b2. User input the correct mobile number
-** Step 1b1 - 1b2 are repeated until correct number is input
+** 1b1. CHRS prompts user for correct input
+** 1b2. User enters new input
+** Step 1b1 – 1b2 are repeated until the correct input is entered
 +
 Use case resumes from step 2.
-* 2a. 180 seconds passed without any input from the user
+* 1c. CHRS detects that the system holds no data of any employee
 [none]
-** 2a1. CHRS shows the user a cancellation message
+** 1c1. CHRS informs user that the system has no records of any employee data
 +
 Use case ends.
-* 2b. User requests not to perform the addition
-[none]
-** 2b1. CHRS shows the user a cancellation message
-+
-Use case ends.
-* 2c. CHRS detects invalid confirmation input
-[none]
-** 2c1. CHRS prompts users for correct input
-** 2c2. User enters new input
-** Step 2c1 – 2c2 are repeated until correct input is entered
-+
-Use case resumes from step 3.
 
+[discrete]
+=== Use case: UC03 - Add employee’s data
+*MSS*
+
+1.	User requests to add new employee’s data
+2.	CHRS stores the data of the employee
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. CHRS detects that the employee’s data already exists
+[none]
+** 1a1. CHRS informs user that the data already exists
++
+Use case ends.
+* 1b. CHRS detects invalid input format or missing details
+[none]
+** 1b1. CHRS prompts user for correct input
+** 1b2. User enters new input
+** Step 1b1 – 1b2 are repeated until the correct input is entered
++
+Use case resumes from step 2.
+
+[discrete]
+=== Use case: UC04 - Delete employee’s data
+*MSS*
+
+1.	User requests to delete employee’s data
+2.	CHRS deletes the all data associated to the employee
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. CHRS detects that requested employee’s data does not exist
+[none]
+** 1a1. CHRS informs user that the data does not exist
++
+Use case ends.
+* 1b. CHRS detects that the system holds no data of any employee
+[none]
+** 1b1. CHRS informs user that the system has no records of any employee data
++
+Use case ends.
 
 [discrete]
 === Actor: HR Staff (Handling payroll)
 [discrete]
-=== Use case: UC05 -  Pay/Bonus increment or decrement
+=== Use case: UC05 - Pay/Bonus increment or decrement
 *MSS*
 
-1. User requests to modify employee’s pay/bonus
-2. CHRS shows the requested employee’s data
-3. User keys in the increment or decrement percentage
-4. CHRS shows the updated employee’s pay/bonus and requests for
-confirmation
-5. User confirms the update
-6. CHRS updates the employee’s pay/bonus and shows successful message
+1.	User requests to modify employee’s pay/bonus
+2.	CHRS updates the pay or bonus of the specified employee
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 1a. CHRS detects that requested employee’s data is not in the system
+* 1a. CHRS detects that requested employee does not exist
 [none]
-** 1a1. CHRS informs user about the data not being found
-=
+** 1a1. CHRS informs user that the employee does not exist
++
 Use case ends.
-* 1b. CHRS detects the existence of duplicate names
+* 1b. CHRS detects invalid input format or missing details
 [none]
-** 1b1. CHRS requests for mobile number
-** 1b2. User input the correct mobile number
-** Step 1b1 - 1b2 are repeated until correct number is input
+** 1b1. CHRS prompts user for correct input
+** 1b2. User enters new input
+** Step 1b1 – 1b2 are repeated until the correct input is entered
 +
 Use case resumes from step 2.
-* 3a. CHRS detects an error in the entered data
+* 1c. CHRS detects that the system holds no data of any employee
 [none]
-** 3a1. CHRS requests for correct data
-** 3a2. User enters new data
-** Step 3a1 - 3a2 are repeated until correct data is input
-+
-Use case resumes from step 4.
-* 4a. 180 seconds passed without any input from the user
-[none]
-** 4a1. CHRS shows the user a cancellation message
+** 1c1. CHRS informs user that the system has no records of any employee data
 +
 Use case ends.
-* 4b. User requests not to perform the addition
-[none]
-** 4b1. CHRS shows the user a cancellation message
-+
-Use case ends.
-* 4c. CHRS detects invalid confirmation input
-[none]
-** 4c1. CHRS prompts users for correct input
-** 4c2. User enters new input
-** Step 4c1 – 4c2 are repeated until correct input is entered
-+
-Use case resumes from step 5.
 
 [discrete]
-=== Use case: UC06 -  View available functions or commands
+=== Use case: UC06 - View available functions or commands
 *MSS*
 
-1. User requests to view the available functions or commands in CHRS
-2. CHRS shows the list of available functions or commands
+1.	User requests to view the available functions or commands in CHRS
+2.	CHRS shows the list of available functions or commands
 +
 Use case ends.
 
 [discrete]
 === Actor: HR Staff (Handling financial matters)
 [discrete]
-=== Use case: UC07 – View expenses
+=== Use case: UC07 - View expenses
 *MSS*
 
-1. User requests to view expenses incurred by an employee
-2. CHRS shows the list of expenses incurred by the employee
+1.	User requests to view expenses claim by an employee
+2.	CHRS shows the list of expenses claim by the employee
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 1a. CHRS detects that requested employee’s data is not in the system
+* 1a. CHRS detects that requested employee does not exist
 [none]
-** 1a1. CHRS informs user about the data not being found
+** 1a1. CHRS informs user that the employee does not exist
++
+Use case ends.
+* 1b. CHRS detects that there are no expenses claim by any employee recorded in the system
+[none]
+** 1b1. CHRS informs user that there are no records of any expenses claim
 +
 Use case ends.
 
 [discrete]
-=== Use case: UC08 – Search function
+=== Use case: UC08 - Search function
 *MSS*
 
-1. User requests to use the search function
-2. CHRS evokes the search function
-3. User enters the employee’s name
-4. CHRS shows the data associated with the employee’s name
+1.	User requests to search for a certain employee’s data
+2.	CHRS shows the data associated with the employee’s name
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 3a. CHRS detect that employee’s name does not exist
+* 1a. CHRS detects that requested employee’s data does not exist
 [none]
-** 3a1. CHRS requests for correct employee’s name
-** 3a2. User input employee’s name
-** Step 3a1 - 3a2 are repeated until the input is a correct employee’s name
+** 1a1. CHRS informs user that the data does not exist
 +
-Use case resumes from step 4.
+Use case ends.
+* 1b. CHRS detects that the system holds no data of any employee
+[none]
+** 1b1. CHRS informs user that the system has no records of any employee data
++
+Use case ends.
 
+
+[discrete]
+=== Actor: HR Staff (Handling financial matters)
 [discrete]
 === Use case: UC09 – Add expenses
 *MSS*
 
-1. User input an employee’s name
-2. CHRS shows the available categories and prompt the user for input of
-which category
-3. User input the category for the expenses to be added
-4. CHRS requests user for the amount spent
-5. User input the amount spent
-6. CHRS shows the expenses incurred by the employee and requests for
-confirmation
-7. User confirms the addition
-8. CHRS stores the new expenses and shows successful message
+1.	User requests to add expenses claim by a certain employee
+2.	CHRS updates the expenses claim by that employee in the system
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 1a. CHRS detects that employee’s name does not exist
+* 1a. CHRS detects that requested employee does not exist
 [none]
-** 1a1. CHRS requests for correct employee’s name
-** 1a2. User input employee’s name
-** Steps 1a1 – 1a2 are repeated until the input is a correct employee’s name
+** 1a1. CHRS informs user that the employee does not exist
++
+Use case ends.
+* 1b. CHRS detects invalid input format or missing details
+[none]
+** 1b1. CHRS prompts user for correct input
+** 1b2. User enters new input
+** Step 1b1 – 1b2 are repeated until the correct input is entered
 +
 Use case resumes from step 2.
-* 3a. CHRS detects that an invalid category has been entered
-[none]
-** 3a1. CHRS requests for correct category
-** 3a2. User input category
-** Steps 3a1 – 3a2 are repeated until the input is a valid category
-+
-Use case resumes from step 4.
-* 5a. CHRS detects an invalid data input
-[none]
-** 5a1. CHRS requests for correct data
-** 5a2. User input new data
-** Step 5a1 – 5a2 are repeated until the input is correct
-+
-Use case resumes from step 6.
-* 6a. 180 seconds passed without any input from the user
-[none]
-** 6a1. CHRS shows the user a cancellation message
-+
-Use case ends.
-* 6b. User requests not to perform the addition
-[none]
-** 6b1. CHRS shows the user a cancellation message
-+
-Use case ends.
-* 6c. CHRS detects invalid confirmation input
-[none]
-** 6c1. CHRS prompts users for correct input
-** 6c2. User enters new input
-** Step 6c1 – 6c2 are repeated until correct input is entered
-+
-Use case resumes from step 7.
 
 [discrete]
 === Actor: HR Manager
@@ -1238,13 +1130,12 @@ Use case resumes from step 7.
 === Use case: UC10 – Approve or reject leave/off function
 *MSS*
 
-1. User requests for approve or reject leave/off function
-2. CHRS displays the list of employees’ names who applied for leave and
-request for employee’s name
-3. User input the employee’s name
-4. CHRS requests for approval or rejection
-5. User input approve or reject
-6. CHRS updates the leave/off accordingly and shows successful message
+1.	User requests for approve or reject leave/off function
+2.	CHRS displays the list of employees’ names who applied for leave and request for employee’s ID
+3.	User input the employee’s ID that has applied for leave(s)
+4.	CHRS requests for approval or rejection of the leave(s)
+5.	User input whether the leave(s) is to be approved or rejected
+6.	CHRS updates the employee’s leave(s) request status
 +
 Use case ends.
 
@@ -1253,85 +1144,157 @@ Use case ends.
 [none]
 * 1a. CHRS detects that the leave/off application portal is empty
 [none]
-** 1a1. CHRS inform the user that the portal has no application of leave/off
+** 1a1. CHRS inform the user that there is no application of leave/off
 +
 Use case ends.
-* 3a. CHRS detects that employee’s name does not exist
+* 3a. CHRS detects that the employee’s ID does not exist
 [none]
-** 3a1. CHRS requests for correct employee’s name
-** 3a2. User input employee’s name
-** Steps 3a1 – 3a2 are repeated until the input is a correct employee’s name
+** 3a1. CHRS informs user that the employee’s ID does not exist
 +
-Use case resumes from step 6.
+Use case ends.
 * 5a. CHRS detects an invalid data input
 [none]
 ** 5a1. CHRS requests for correct data input
 ** 5a2. User input new input
-** Step 5a1 - 5a2 are repeated until correct input is entered
+** Step 5a1 - 5a2 are repeated until the correct input is entered
 +
-Use cases resume from step 8.
+Use case resumes from step 6.
 
 [discrete]
 === Actor: HR Staff (Handling financial matters)
 [discrete]
-=== Use case: UC11 – Remove expenses
+=== Use case: UC11 - Remove expenses
 *MSS*
 
-1. User input an employee’s name
-2. CHRS shows the available categories and request the user for input of
-which category
-3. User input the category for the expenses to be removed
-4. CHRS shows the expenses incurred by the employee and requests user
-for the amount to be removed
-5. User input the amount spent
-6. CHRS shows the updated expenses incurred by the employee and
-requests for confirmation
-7. User confirms the removal
-8. CHRS removes the expenses and shows successful message
+1.	User requests to remove expenses claim by a certain employee
+2.	CHRS updates the expenses claim by that employee in the system
 +
 Use case ends.
 
 *Extensions*
 
 [none]
-* 1a. CHRS detects that employee’s name does not exist
+* 1a. CHRS detects that requested employee does not exist
 [none]
-** 1a1. CHRS requests for correct employee’s name
-** 1a2. User input employee’s name
-** Steps 1a1 – 1a2 are repeated until the input is a correct employee’s name
+** 1a1. CHRS informs user that the employee does not exist
++
+Use case ends.
+* 1b. CHRS detects invalid input format or missing details
+[none]
+** 1b1. CHRS prompts user for correct input
+** 1b2. User enters new input
+** Step 1b1 – 1b2 are repeated until the correct input is entered
 +
 Use case resumes from step 2.
-* 3a. CHRS detects that an invalid category has been entered
+* 1c. CHRS detects that the system holds no data of any employee
 [none]
-** 3a1. CHRS requests for correct category
-** 3a2. User input category
-** Steps 3a1 – 3a2 are repeated until the input is an appropriate category
-+
-Use case resumes from step 4.
-* 5a. CHRS detects an invalid data input
-[none]
-** 5a1. CHRS requests for correct data
-** 5a2. User input new data
-** Step 5a1 – 5a2 are repeated until the input is correct
-+
-Use case resumes from step 6.
-* 6a. 180 seconds passed without any input from the user
-[none]
-** 6a1. CHRS shows the user a cancellation message
+** 1c1. CHRS informs user that the system has no records of any employee data
 +
 Use case ends.
-* 6b. User requests not to perform the removal
-[none]
-** 6b1. CHRS shows the user a cancellation message
+
+[discrete]
+=== Actor: HR Staff (Handling recruitment)
+[discrete]
+=== Use case: UC12 – List recruitment post(s)
+*MSS*
+
+1.	User requests to view currently available recruitment post(s)
+2.	CHRS shows the list of currently available recruitment post(s)
 +
 Use case ends.
-* 6c. CHRS detects invalid confirmation input
+
+*Extensions*
+
 [none]
-** 6c1. CHRS prompts users for correct input
-** 6c2. User enters new input
-** Step 6c1 – 6c2 are repeated until correct input is entered
+* 1a. CHRS detects that there is no recruitment post in the system
+[none]
+** 1a1. CHRS informs user that the system has no recruitment post.
 +
-Use case resumes from step 7.
+Use case ends.
+
+[discrete]
+=== Actor: HR Staff (Handling recruitment)
+[discrete]
+=== Use case: UC13 – Add recruitment post(s)
+*MSS*
+
+1.	User requests to add a new recruitment post
+2.	CHRS stores the details of the new recruitment post
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. CHRS detects that the recruitment post already exists
+[none]
+** 1a1. CHRS informs user that the post already exists
++
+Use case ends.
+* 1b. CHRS detects invalid input format or missing details
+[none]
+** 1b1. CHRS prompts user for correct input
+** 1b2. User enters new input
+** Steps 1b1 – 1b2 are repeated until the correct input is entered
++
+Use case resumes from step 2.
+
+[discrete]
+=== Actor: HR Staff (Handling recruitment)
+[discrete]
+=== Use case: UC14 – Remove recruitment post
+*MSS*
+
+1.	User requests to remove a recruitment post
+2.	CHRS removes all details of the recruitment post
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. CHRS detects that the requested recruitment post does not exist
+[none]
+** 1a1. CHRS informs user that the recruitment post does not exist
++
+Use case ends.
+* 1b. CHRS detects that the system holds no recruitment post
+[none]
+** 1b1. CHRS informs user that the system has no records of any recruitment post
++
+Use case ends.
+
+[discrete]
+=== Actor: HR Staff (Handling recruitment)
+[discrete]
+=== Use case: UC15 - Edit recruitment post
+*MSS*
+
+1.	User requests to edit a recruitment post
+2.	CHRS updates the relevant details of the recruitment post
++
+Use case ends.
+
+*Extensions*
+
+[none]
+* 1a. CHRS detects that the requested recruitment post does not exist
+[none]
+** 1a1. CHRS informs user that the recruitment post does not exist
++
+Use case ends.
+* 1b. CHRS detects invalid input format or missing details
+[none]
+** 1b1. CHRS prompts user for correct input
+** 1b2. User enters new input
+** Steps 1b1 – 1b2 are repeated until the correct input is entered
++
+Use case resumes from step 2.
+* 1b. CHRS detects that the system holds no recruitment post
+[none]
+** 1b1. CHRS informs user that the system has no records of any recruitment post
++
+Use case ends.
 
 [appendix]
 == Non Functional Requirements
@@ -1339,7 +1302,7 @@ Use case resumes from step 7.
 .  Should have different user access rights
 .  Should be able to run on both 32-bit and 64-bit OS
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
-.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
+.  Should be able to hold up to 1000 persons and still have a response time of 2 seconds for typical usage.
 .  A user with above average typing speed, for instance 60 words per minute, for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
 
 [appendix]
