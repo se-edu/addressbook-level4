@@ -1,4 +1,4 @@
-= Alex Koh - Project Portfolio
+= Jeremiah Ang - Project Portfolio
 :site-section: AboutUs
 :imagesDir: ../images
 :stylesDir: ../stylesheets
@@ -12,6 +12,13 @@
 CapTracker is a desktop application. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 10 kLoC.
 
 == Summary of contributions
+
+* v1.1
+** Implement CAP calculation logic
+** Handle input/update of CAP Goal
+
+* v1.2
+** Implement logic to calculate target grades for _not-yet-graded_ modules
 
 //* *Major enhancement*: TBC.
 //** What it does: TBC.
@@ -37,21 +44,24 @@ CapTracker is a desktop application. The user interacts with it using a CLI, and
 
 == Contributions to the User Guide
 
+TBC
 
-|===
-|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
-|===
-
+//|===
+//|_Given below are sections I contributed to the User Guide. They showcase my ability to write documentation targeting end-users._
+//|===
+//
 //include::../UserGuide.adoc[tag=undoredo]
 //
 //include::../UserGuide.adoc[tag=dataencryption]
 
 == Contributions to the Developer Guide
 
-|===
-|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
-|===
+TBC
 
+//|===
+//|_Given below are sections I contributed to the Developer Guide. They showcase my ability to write technical documentation and the technical depth of my contributions to the project._
+//|===
+//
 //include::../DeveloperGuide.adoc[tag=undoredo]
 //
 //include::../DeveloperGuide.adoc[tag=dataencryption]
