@@ -75,4 +75,9 @@ public interface Model {
      * Saves the current address book state for undo/redo.
      */
     void commitAddressBook();
+
+    /**
+     * Returns the CAP based on the current Transcript records
+     */
+    double getCap();
 }

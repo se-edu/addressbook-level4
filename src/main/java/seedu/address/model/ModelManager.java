@@ -130,6 +130,11 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public double getCap() {
+        return 4.5;
+    }
+
+    @Override
     public boolean equals(Object obj) {
         // short circuit if same object
         if (obj == this) {
