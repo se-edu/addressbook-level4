@@ -103,14 +103,16 @@ public class Transcript implements ReadOnlyTranscript {
         UniqueModuleList gradedModulesList = getGradedModulesList();
         Iterator<Module> gradedModulesIterator = gradedModulesList.iterator();
 
-        double totalCap = 0, point;
-        int totalModuleCredit = 0, moduleCredit;
-        while(gradedModulesIterator.hasNext()) {
+        double totalCap = 0;
+        double point;
+        int totalModuleCredit = 0;
+        int moduleCredit;
+        while (gradedModulesIterator.hasNext()) {
             Module module = gradedModulesIterator.next();
             moduleCredit = module.getCredits().value;
             point = module.getGrade().getPoint();
             totalCap += moduleCredit * point;
-            totalModuleCredit +=  moduleCredit;
+            totalModuleCredit += moduleCredit;
         }
 
         double cap = 0;
@@ -128,7 +130,7 @@ public class Transcript implements ReadOnlyTranscript {
     private UniqueModuleList getGradedModulesList() {
         UniqueModuleList gradedModulesList = new UniqueModuleList();
         Iterator<Module> moduleIterator = modules.iterator();
-        while(moduleIterator.hasNext()) {
+        while (moduleIterator.hasNext()) {
             Module module = moduleIterator.next();
             if (moduleIsUsedForCapCalculation(module)) {
                 gradedModulesList.add(module);
