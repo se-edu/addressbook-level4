@@ -14,6 +14,7 @@ import seedu.address.testutil.Assert;
 import seedu.address.testutil.ModuleBuilder;
 
 public class ModuleTest {
+
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
@@ -95,7 +96,7 @@ public class ModuleTest {
 
     @Test
     public void toStringValid() {
-        assertTrue(DATA_STRUCTURES.toString().contentEquals("Code: CS2040 Year: 1718 Semester: "
-                        + "s1 Credits: 4 Grade: F Completed: true"));
+        assertTrue(DATA_STRUCTURES.toString().contentEquals("Code: CS2040 Year: 3 Semester: "
+                + "s1 Credits: 4 Grade: F Completed: true"));
     }
 }

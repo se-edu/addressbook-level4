@@ -11,12 +11,12 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Year {
 
     public static final String MESSAGE_YEAR_CONSTRAINTS =
-            "Year must be [1-2][0-9][1-2][0-9]. Example: 1819 represents YA 2018/2019";
+            "Year must be [1-5]. Example: 1 represents Year 1";
 
     /**
      * No whitespace allowed.
      */
-    public static final String YEAR_VALIDATION_REGEX = "[1-2][0-9][1-2][0-9]";
+    public static final String YEAR_VALIDATION_REGEX = "[1-5]";
 
     /**
      * Immutable year value.
@@ -29,6 +29,16 @@ public class Year {
      * @param year A valid year.
      */
     public Year(int year) {
+        checkArgument(isValidYear(year), MESSAGE_YEAR_CONSTRAINTS);
+        value = year;
+    }
+
+    /**
+     * Constructs an {@code Year}.
+     *
+     * @param year A valid year.
+     */
+    public Year(String year) {
         requireNonNull(year);
         checkArgument(isValidYear(year), MESSAGE_YEAR_CONSTRAINTS);
         value = Integer.valueOf(year);
@@ -41,7 +51,17 @@ public class Year {
      * @return true if given string is a valid year
      */
     public static boolean isValidYear(int year) {
-        return Integer.toString(year).matches(YEAR_VALIDATION_REGEX);
+        return isValidYear(Integer.toString(year));
+    }
+
+    /**
+     * Returns true if a given string is a valid year.
+     *
+     * @param year string to be tested for validity
+     * @return true if given string is a valid year
+     */
+    public static boolean isValidYear(String year) {
+        return year.matches(YEAR_VALIDATION_REGEX);
     }
 
     /**
