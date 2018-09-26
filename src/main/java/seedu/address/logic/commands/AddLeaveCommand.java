@@ -21,7 +21,7 @@ public class AddLeaveCommand extends Command {
 
 
     public static final String MESSAGE_SUCCESS = "Leave application requested.";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This request already exists in the database.";
+    public static final String MESSAGE_DUPLICATE_PERSON = "This request already exist in the database.";
 
     private final Leave toAdd;
 
