@@ -19,7 +19,11 @@ public class GoalCommandParser implements Parser<GoalCommand> {
         }
 
         try {
-            return new GoalCommand(Double.parseDouble(trimmedArgs));
+            double newGoal = Double.parseDouble(trimmedArgs);
+            if (newGoal < 0 || newGoal > 5) {
+                throw new ParseException(format);
+            }
+            return new GoalCommand(newGoal);
         } catch (NumberFormatException nfe) {
             throw new ParseException(format);
         }
