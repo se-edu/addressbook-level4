@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Iterator;
 import java.util.List;
 
 import javafx.collections.ObservableList;
@@ -92,6 +93,66 @@ public class Transcript implements ReadOnlyTranscript {
      */
     public void removeModule(Module key) {
         modules.remove(key);
+    }
+
+    /**
+     * Calculate CAP Score based on modules with scores
+     * @return cap: cap score
+     */
+    public double calculateCapScore() {
+        UniqueModuleList gradedModulesList = getGradedModulesList();
+        Iterator<Module> gradedModulesIterator = gradedModulesList.iterator();
+
+        double totalCap = 0, point;
+        int totalModuleCredit = 0, moduleCredit;
+        while(gradedModulesIterator.hasNext()) {
+            Module module = gradedModulesIterator.next();
+            moduleCredit = module.getCredits().value;
+            point = module.getGrade().getPoint();
+            totalCap += moduleCredit * point;
+            totalModuleCredit +=  moduleCredit;
+        }
+
+        double cap = 0;
+        if (totalModuleCredit > 0) {
+            cap = totalCap / totalModuleCredit;
+        }
+
+        return cap;
+    }
+
+    /**
+     * Filters for modules that is to be used for CAP calculation
+     * @return gradedModulesList: a list of modules used for CAP calculation
+     */
+    private UniqueModuleList getGradedModulesList() {
+        UniqueModuleList gradedModulesList = new UniqueModuleList();
+        Iterator<Module> moduleIterator = modules.iterator();
+        while(moduleIterator.hasNext()) {
+            Module module = moduleIterator.next();
+            if (moduleIsUsedForCapCalculation(module)) {
+                gradedModulesList.add(module);
+            }
+        }
+        return gradedModulesList;
+    }
+
+    /**
+     * Check if the given module should be considered for CAP Calculation
+     * @param module
+     * @return true if yes, false otherwise
+     */
+    private boolean moduleIsUsedForCapCalculation(Module module) {
+        return module.hasCompleted() && moduleAffectsGrade(module);
+    }
+
+    /**
+     * Check if a module affects grade
+     * @param module
+     * @return true if module affects grade, false otheriwse
+     */
+    private boolean moduleAffectsGrade(Module module) {
+        return module.getGrade().affectsCap();
     }
 
     //// util methods
