@@ -30,7 +30,9 @@ public class GoalCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
-        return new CommandResult(String.format(MESSAGE_SUCCESS, goal));
+        model.updateCapGoal(goal);
+        double capGoal = model.getCapGoal();
+        return new CommandResult(String.format(MESSAGE_SUCCESS, capGoal));
     }
 
     @Override
