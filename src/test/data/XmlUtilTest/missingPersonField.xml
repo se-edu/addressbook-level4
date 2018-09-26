@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <!-- Person with missing name field -->
 <person>
+    <nric>S9758025T</nric>
+    <password>Q65wer</password>
     <phone>9482424</phone>
-    <nric>S1234567E</nric>
-    <password>Asd654</password>
     <email>hans@example</email>
     <address>4th street</address>
     <tagged>friends</tagged>
