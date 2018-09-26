@@ -1,16 +1,18 @@
 package seedu.address.model;
 
-import org.junit.Test;
-import seedu.address.model.module.Module;
+import static org.junit.Assert.assertEquals;
+import static seedu.address.testutil.TypicalModules.TYPICAL_MODULES_CAP;
+import static seedu.address.testutil.TypicalModules.getModulesWithoutNonGradeAffectingModules;
+import static seedu.address.testutil.TypicalModules.getTypicalModules;
 
 import java.util.List;
+import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
+import seedu.address.model.module.Module;
 
-import static seedu.address.testutil.TypicalModules.TYPICAL_MODULES_CAP;
-import static seedu.address.testutil.TypicalModules.getTypicalModules;
-import static seedu.address.testutil.TypicalModules.getModulesWithoutNonGradeAffectingModules;
-
+/**
+ * Test {@code TranscriptTest} Class
+ */
 public class TranscriptTest {
 
     @Test
