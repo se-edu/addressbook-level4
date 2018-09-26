@@ -1,4 +1,4 @@
-= AddressBook Level 4 - User Guide
+= Centralised Human Resource System - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -18,7 +18,7 @@ By: `T16-4`
 
 == Introduction
 
-Centralized Human Resource Systems (CHRS) is for the human resource personnel who use a desktop to manage the employee’s information. More importantly, CHRS is optimized for personnel with the preference of working with a Command Line Interface while still having the benefits of a Graphical User Interface (GUI). After familiarizing with the CLI functions, CHRS can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+Centralised Human Resource System (CHRS) is for the human resource personnel who use a desktop to manage the employee’s information. More importantly, CHRS is optimized for personnel with the preference of working with a Command Line Interface while still having the benefits of a Graphical User Interface (GUI). After familiarizing with the CLI functions, CHRS can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 
