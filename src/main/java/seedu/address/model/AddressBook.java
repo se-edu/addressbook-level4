@@ -2,11 +2,14 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.tag.Tag;
 
 /**
  * Wraps all data at the address-book level
@@ -91,6 +94,22 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void removePerson(Person key) {
         persons.remove(key);
+    }
+
+    private void removeTagFromPerson(Tag tag, Person person) {
+
+        Set<Tag> newTags =  new HashSet<>(person.getTags());
+
+        if(!newTags.remove(tag))
+            return;
+
+        Person newPerson = new Person(person.getName(), person.getPhone(), person.getEmail(), person.getAddress(), newTags);
+
+        updatePerson(person, newPerson);
+    }
+
+    public void removeTag (Tag tag) {
+        persons.forEach(person -> removeTagFromPerson(tag, person));
     }
 
     //// util methods
