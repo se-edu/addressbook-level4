@@ -184,5 +184,5 @@ public interface Model {
     /**
      * Returns the CAP based on the current Transcript records
      */
-    double getCap();
+    double getCapScore();
 }

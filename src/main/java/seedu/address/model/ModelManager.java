@@ -260,8 +260,8 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public double getCap() {
-        return 4.5;
+    public double getCapScore() {
+        return versionedTranscript.calculateCapScore();
     }
 
     @Override
