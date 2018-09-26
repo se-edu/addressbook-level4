@@ -24,7 +24,7 @@ public class TypicalModules {
             .withYear(1920)
             .withSemester(Semester.SEMESTER_TWO)
             .withCredit(4)
-            .withGrade("B")
+            .withGrade("B+")
             .build();
 
     public static final Module DATA_STRUCTURES = new ModuleBuilder().withCode("CS2040")
@@ -34,6 +34,15 @@ public class TypicalModules {
             .withGrade("F")
             .build();
 
+    public static final Module ASKING_QUESTIONS = new ModuleBuilder().withCode("GEQ1000")
+            .withYear(1819)
+            .withSemester(Semester.SEMESTER_ONE)
+            .withCredit(4)
+            .withGrade("CS")
+            .build();
+
+    public static final Double TYPICAL_MODULES_CAP = 3.0;
+
     /**
      * Prevents instantiation
      */
@@ -42,6 +51,13 @@ public class TypicalModules {
     }
 
     public static List<Module> getTypicalModules() {
+        return new ArrayList<>(Arrays.asList(DISCRETE_MATH,
+                PROGRAMMING_METHODOLOGY_TWO,
+                DATA_STRUCTURES,
+                ASKING_QUESTIONS));
+    }
+
+    public static List<Module> getModulesWithoutNonGradeAffectingModules() {
         return new ArrayList<>(Arrays.asList(DISCRETE_MATH,
                 PROGRAMMING_METHODOLOGY_TWO,
                 DATA_STRUCTURES));
