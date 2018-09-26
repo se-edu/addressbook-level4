@@ -11,10 +11,12 @@ public class CapCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Calculate current CAP with given modules "
             + "Parameters: NONE "
             + "Example: " + COMMAND_WORD;
+    public static final String MESSAGE_SUCCESS = "Your Current CAP is: %1$s";
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-        return new CommandResult("Calculate CAP!");
+        double cap = model.getCapScore();
+        return new CommandResult(String.format(MESSAGE_SUCCESS, cap));
     }
 }
