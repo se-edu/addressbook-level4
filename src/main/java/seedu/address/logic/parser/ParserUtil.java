@@ -9,6 +9,9 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.leave.Approval;
+import seedu.address.model.leave.Date;
+import seedu.address.model.leave.NRIC;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -120,5 +123,32 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
+    }
+
+    public static NRIC parseNRIC(String nric) throws ParseException {
+        requireNonNull(nric);
+        String trimmedNric = nric.trim();
+        //if (!NRIC.isValidNRIC(trimmedNric)) {
+        //    throw new ParseException(Name.MESSAGE_NAME_CONSTRAINTS);
+       // }
+        return new NRIC(trimmedNric);
+    }
+
+    public static Date parseDate(String date) throws ParseException {
+        requireNonNull(date);
+        String trimmedDate = date.trim();
+        //if (!Date.isValidDate(trimmedDate)) {
+          // throw new ParseException(Name.MESSAGE_NAME_CONSTRAINTS);
+       // }
+        return new Date(trimmedDate);
+    }
+
+    public static Approval parseApproval(String status) throws ParseException {
+        requireNonNull(status);
+        String trimmedStatus = status.trim();
+        //if (!NRIC.isValidNRIC(trimmedNric)) {
+        //    throw new ParseException(Name.MESSAGE_NAME_CONSTRAINTS);
+        // }
+        return new Approval(trimmedStatus);
     }
 }

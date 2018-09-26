@@ -12,6 +12,8 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.commons.events.model.LeaveListChangedEvent;
+import seedu.address.model.leave.Leave;
 import seedu.address.model.person.Person;
 
 /**
@@ -21,23 +23,25 @@ public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final VersionedAddressBook versionedAddressBook;
+    private final VersionedLeaveList versionedLeaveList;
     private final FilteredList<Person> filteredPersons;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, UserPrefs userPrefs) {
+    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyLeaveList leaveList, UserPrefs userPrefs) {
         super();
         requireAllNonNull(addressBook, userPrefs);
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
         versionedAddressBook = new VersionedAddressBook(addressBook);
+        versionedLeaveList = new VersionedLeaveList(leaveList);
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new AddressBook(), new LeaveList(), new UserPrefs());
     }
 
     @Override
@@ -47,13 +51,32 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public void resetData2(ReadOnlyLeaveList newData) {
+        versionedLeaveList.resetData(newData);
+        indicateLeaveListChanged();
+    }
+
+
+    @Override
     public ReadOnlyAddressBook getAddressBook() {
         return versionedAddressBook;
     }
 
+    @Override
+    public ReadOnlyLeaveList getLeaveList() {
+        return versionedLeaveList;
+    }
+
+
+
     /** Raises an event to indicate the model has changed */
     private void indicateAddressBookChanged() {
         raise(new AddressBookChangedEvent(versionedAddressBook));
+    }
+
+    /** Raises an event to indicate the model has changed */
+    private void indicateLeaveListChanged() {
+        raise(new LeaveListChangedEvent(versionedLeaveList));
     }
 
     @Override
@@ -63,9 +86,22 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public boolean hasLeave(Leave leave) {
+        requireNonNull(leave);
+        return versionedLeaveList.hasRequest(leave);
+    }
+
+
+    @Override
     public void deletePerson(Person target) {
         versionedAddressBook.removePerson(target);
         indicateAddressBookChanged();
+    }
+
+    @Override
+    public void deleteLeave(Leave target) {
+        versionedLeaveList.removeRequest(target);
+        indicateLeaveListChanged();
     }
 
     @Override
@@ -76,11 +112,26 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public void addLeave(Leave leave) {
+        versionedLeaveList.addRequest(leave);
+        //updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        indicateLeaveListChanged();
+    }
+
+    @Override
     public void updatePerson(Person target, Person editedPerson) {
         requireAllNonNull(target, editedPerson);
 
         versionedAddressBook.updatePerson(target, editedPerson);
         indicateAddressBookChanged();
+    }
+
+    @Override
+    public void updateLeave(Leave target, Leave editedLeave) {
+        requireAllNonNull(target, editedLeave);
+
+        versionedLeaveList.updateRequest(target, editedLeave);
+        indicateLeaveListChanged();
     }
 
     //=========== Filtered Person List Accessors =============================================================
@@ -127,6 +178,11 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void commitAddressBook() {
         versionedAddressBook.commit();
+    }
+
+    @Override
+    public void commitLeaveList() {
+        versionedLeaveList.commit();
     }
 
     @Override
