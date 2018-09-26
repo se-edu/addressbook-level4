@@ -7,7 +7,6 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
-import static seedu.address.testutil.TypicalModules.ASKING_QUESTIONS;
 import static seedu.address.testutil.TypicalModules.TYPICAL_MODULES_CAP;
 import static seedu.address.testutil.TypicalModules.getTypicalModules;
 import static seedu.address.testutil.TypicalModules.getModulesWithoutNonGradeAffectingModules;
