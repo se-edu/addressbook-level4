@@ -1,11 +1,12 @@
 package systemtests;
 
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+
 import org.junit.Test;
 
 import seedu.address.logic.commands.GoalCommand;
 import seedu.address.model.Model;
 
-import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 /**
  * System test for Goal Command
