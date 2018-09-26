@@ -574,17 +574,17 @@ can enter my entries incrementally.
 
 *Nice-To-Have*
 
-9. As a user, I can add a module without having to add the code, MCs, or semester taken so that I can quickly calculate CAP without worrying about the modules.
-10. As a user, I can still enter the same modules but get warned first so that I would not mistakenly enter the same module again
-11. As a user, I can import all modules for this semester with NUSMods link so that my data can be consistent with NUSMods.
-12. As a user I can search for a module via keyword or module title, and select it for entering my grade so that I don’t have to remember the module code.
-13. As a user, I can adjust what marks I need for each module to achieve my CAP so I can put more emphasis on certain modules instead of expecting the same grade across all modules.
-14. As a user, I can view my current semester’s module goals and use a GUI to adjust projected grade for each module, and other modules will automatically adjust to compensate, so that I can see easily modify my data to see what grades I need for other modules.
-15. As a user, I can view total current MCs so that i can check if I meet the number of mc I need to graduate
-16. As a user I can see if my CAP Goal is possible so I can check whether it is achievable.
-17. As a user, I can list modules taken by level as an alternative listing mode, so that it is easier to track graduation requirements.
-18. As a user, I can see what the highest possible CAP I can achieve with my current grades is so that I can set an appropriate goal.
-19. As a user, I can see what the minimum grades I need per module is to pass the year with my current grades so that I can see what the minimum about of work I need to do is.
+1. As a user, I can add a module without having to add the code, MCs, or semester taken so that I can quickly calculate CAP without worrying about the modules.
+2. As a user, I can still enter the same modules but get warned first so that I would not mistakenly enter the same module again
+3. As a user, I can import all modules for this semester with NUSMods link so that my data can be consistent with NUSMods.
+4. As a user I can search for a module via keyword or module title, and select it for entering my grade so that I don’t have to remember the module code.
+5. As a user, I can adjust what marks I need for each module to achieve my CAP so I can put more emphasis on certain modules instead of expecting the same grade across all modules.
+6. As a user, I can view my current semester’s module goals and use a GUI to adjust projected grade for each module, and other modules will automatically adjust to compensate, so that I can see easily modify my data to see what grades I need for other modules.
+7. As a user, I can view total current MCs so that i can check if I meet the number of mc I need to graduate
+8. As a user I can see if my CAP Goal is possible so I can check whether it is achievable.
+9. As a user, I can list modules taken by level as an alternative listing mode, so that it is easier to track graduation requirements.
+10. As a user, I can see what the highest possible CAP I can achieve with my current grades is so that I can set an appropriate goal.
+11. As a user, I can see what the minimum grades I need per module is to pass the year with my current grades so that I can see what the minimum about of work I need to do is.
 
 *Not-Useful*
 
