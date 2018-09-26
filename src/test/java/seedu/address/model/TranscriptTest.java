@@ -6,6 +6,7 @@ import static seedu.address.testutil.TypicalModules.getModulesWithoutNonGradeAff
 import static seedu.address.testutil.TypicalModules.getTypicalModules;
 
 import java.util.List;
+
 import org.junit.Test;
 
 import seedu.address.model.module.Module;
@@ -28,6 +29,11 @@ public class TranscriptTest {
 
     }
 
+    /**
+     * Assert that the modules will have the CAP score of expectedCapScore
+     * @param modules
+     * @param expectedCapScore
+     */
     private void assertCapScoreEquals(List<Module> modules, Double expectedCapScore) {
         Transcript transcript = new Transcript();
         transcript.setModules(modules);
