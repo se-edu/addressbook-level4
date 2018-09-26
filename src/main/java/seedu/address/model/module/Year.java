@@ -10,7 +10,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  */
 public class Year {
 
-    public static final String MESSAGE_CODE_CONSTRAINTS =
+    public static final String MESSAGE_YEAR_CONSTRAINTS =
             "Year must be [1-2][0-9][1-2][0-9]. Example: 1819 represents YA 2018/2019";
 
     /**
@@ -24,13 +24,13 @@ public class Year {
     public final int value;
 
     /**
-     * Constructs an {@code Code}.
+     * Constructs an {@code Year}.
      *
      * @param year A valid year.
      */
     public Year(int year) {
         requireNonNull(year);
-        checkArgument(isValidYear(year), MESSAGE_CODE_CONSTRAINTS);
+        checkArgument(isValidYear(year), MESSAGE_YEAR_CONSTRAINTS);
         value = Integer.valueOf(year);
     }
 
@@ -59,7 +59,7 @@ public class Year {
      * <p>
      * This defines a notion of equality between two Year objects.
      *
-     * @param other Code object compared against this object
+     * @param other Year object compared against this object
      * @return true if both are the same object or contains the same value
      */
     @Override
