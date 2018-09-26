@@ -96,10 +96,18 @@ public class Transcript implements ReadOnlyTranscript {
     }
 
     /**
+     * Return the current CAP
+     * @return current cap score
+     */
+    public double getCurrentCap() {
+        return calculateCapScore();
+    }
+
+    /**
      * Calculate CAP Score based on modules with scores
      * @return cap: cap score
      */
-    public double calculateCapScore() {
+    private double calculateCapScore() {
         UniqueModuleList gradedModulesList = getGradedModulesList();
         Iterator<Module> gradedModulesIterator = gradedModulesList.iterator();
 
