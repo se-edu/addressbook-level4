@@ -40,10 +40,9 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 
 .  Refer to <<Features>> for details of each command.
 
-[[Features]]
-== Features
+[[Fields]]
+== Fields
 
-====
 *An employee can have the following fields associated:*
 
 * Employee Id
@@ -66,6 +65,10 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Travel Expenses
 * Miscellaneous Expenses
 
+[[Features]]
+== Features
+
+====
 *Command Format*
 
 * Words in `UPPER_CASE` are the parameters to be supplied by the user e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
