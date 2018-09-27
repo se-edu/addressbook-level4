@@ -66,7 +66,7 @@ public class XmlAdaptedPerson {
      * @param source future changes to this will not affect the created XmlAdaptedPerson
      */
     public XmlAdaptedPerson(Person source) {
-        employeeId = source.getEmployeeID().value;
+        employeeId = source.getEmployeeId().value;
         name = source.getName().fullName;
         phone = source.getPhone().value;
         email = source.getEmail().value;
@@ -91,7 +91,7 @@ public class XmlAdaptedPerson {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     EmployeeId.class.getSimpleName()));
         }
-        if (!EmployeeId.isValidEmployeeID(employeeId)) {
+        if (!EmployeeId.isValidEmployeeId(employeeId)) {
             throw new IllegalValueException(EmployeeId.MESSAGE_EMPLOYEEID_CONSTRAINTS);
         }
         final EmployeeId modelEmployeeId = new EmployeeId(employeeId);

@@ -4,20 +4,20 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents a Person's employeeID in the address book.
+ * Represents a Person's employeeId in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidEmployeeId(String)}
  */
 public class EmployeeId {
 
     public static final String MESSAGE_EMPLOYEEID_CONSTRAINTS =
-            "Employee IDs should only contain numbers, and it must be 6 digits long";
+            "Employee Ids should only contain numbers, and it must be 6 digits long";
     public static final String EMPLOYEEID_VALIDATION_REGEX = "\\d{6}";
     public final String value;
 
     /**
-     * Constructs a {@code EmployeeID}.
+     * Constructs a {@code EmployeeId}.
      *
-     * @param employeeId A valid employee ID.
+     * @param employeeId A valid employee Id.
      */
 
     public EmployeeId(String employeeId) {
@@ -27,7 +27,7 @@ public class EmployeeId {
     }
 
     /**
-     * Returns true if a given string is a valid employee ID.
+     * Returns true if a given string is a valid employee Id.
      */
     public static boolean isValidEmployeeId(String test) {
         return test.matches(EMPLOYEEID_VALIDATION_REGEX);
