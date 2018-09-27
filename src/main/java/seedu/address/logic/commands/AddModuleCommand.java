@@ -44,11 +44,4 @@ public class AddModuleCommand extends Command {
         model.commitTranscript();
         return new CommandResult(String.format(MESSAGE_SUCCESS, toAdd));
     }
-
-    @Override
-    public boolean equals(Object other) {
-        return other == this // short circuit if same object
-                || (other instanceof AddModuleCommand // instanceof handles nulls
-                && toAdd.equals(((AddModuleCommand) other).toAdd));
-    }
 }

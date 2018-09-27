@@ -2,11 +2,6 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
-
-import static seedu.address.testutil.TypicalModules.DATA_STRUCTURES;
-import static seedu.address.testutil.TypicalModules.DISCRETE_MATH;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -66,28 +61,6 @@ public class AddModuleCommandTest {
         thrown.expect(CommandException.class);
         thrown.expectMessage(AddModuleCommand.MESSAGE_DUPLICATE_MODULE);
         addCommand.execute(modelStub, commandHistory);
-    }
-
-    @Test
-    public void equals() {
-        AddModuleCommand addDataStructuresCommand = new AddModuleCommand(DATA_STRUCTURES);
-        AddModuleCommand addDiscreteMathCommand = new AddModuleCommand(DISCRETE_MATH);
-
-        // same object -> returns true
-        assertTrue(addDataStructuresCommand.equals(addDataStructuresCommand));
-
-        // same values -> returns true
-        AddModuleCommand addDataStructuresCommandCopy = new AddModuleCommand(DATA_STRUCTURES);
-        assertTrue(addDataStructuresCommand.equals(addDataStructuresCommandCopy));
-
-        // different types -> returns false
-        assertFalse(addDataStructuresCommand.equals(1));
-
-        // null -> returns false
-        assertFalse(addDataStructuresCommand.equals(null));
-
-        // different module -> returns false
-        assertFalse(addDataStructuresCommand.equals(addDiscreteMathCommand));
     }
 
     /**
