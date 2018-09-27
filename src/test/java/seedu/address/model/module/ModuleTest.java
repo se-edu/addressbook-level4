@@ -20,7 +20,7 @@ public class ModuleTest {
     @Test
     public void constructorNullThrowsNullPointerException() {
         Assert.assertThrows(NullPointerException.class, () ->
-                new Module(null, 0, null, 0, false));
+                new Module(null, null, null, null, null, false));
     }
 
     @Test
