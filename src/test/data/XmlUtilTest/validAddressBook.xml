@@ -1,54 +1,63 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addressbook>
     <persons>
+        <employeeid>008888</employeeid>
         <name>Hans Muster</name>
         <phone isPrivate="false">9482424</phone>
         <email isPrivate="false">hans@example.com</email>
         <address isPrivate="false">4th street</address>
     </persons>
     <persons>
+        <employeeid>009999</employeeid>
         <name>Ruth Mueller</name>
         <phone isPrivate="false">87249245</phone>
         <email isPrivate="false">ruth@example.com</email>
         <address isPrivate="false">81th street</address>
     </persons>
     <persons>
+        <employeeid>888888</employeeid>
         <name>Heinz Kurz</name>
         <phone isPrivate="false">95352563</phone>
         <email isPrivate="false">heinz@example.com</email>
         <address isPrivate="false">wall street</address>
     </persons>
     <persons>
+        <employeeid>999999</employeeid>
         <name>Cornelia Meier</name>
         <phone isPrivate="false">87652533</phone>
         <email isPrivate="false">cornelia@example.com</email>
         <address isPrivate="false">10th street</address>
     </persons>
     <persons>
+        <employeeid>998888</employeeid>
         <name>Werner Meyer</name>
         <phone isPrivate="false">9482224</phone>
         <email isPrivate="false">werner@example.com</email>
         <address isPrivate="false">michegan ave</address>
     </persons>
     <persons>
+        <employeeid>123456</employeeid>
         <name>Lydia Kunz</name>
         <phone isPrivate="false">9482427</phone>
         <email isPrivate="false">lydia@example.com</email>
         <address isPrivate="false">little tokyo</address>
     </persons>
     <persons>
+        <employeeid>000001</employeeid>
         <name>Anna Best</name>
         <phone isPrivate="false">9482442</phone>
         <email isPrivate="false">anna@example.com</email>
         <address isPrivate="false">4th street</address>
     </persons>
     <persons>
+        <employeeid>008844</employeeid>
         <name>Stefan Meier</name>
         <phone isPrivate="false">8482424</phone>
         <email isPrivate="false">stefan@example.com</email>
         <address isPrivate="false">little india</address>
     </persons>
     <persons>
+        <employeeid>444444</employeeid>
         <name>Martin Mueller</name>
         <phone isPrivate="false">8482131</phone>
         <email isPrivate="false">hans@example.com</email>

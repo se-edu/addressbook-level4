@@ -13,6 +13,7 @@ import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.EmployeeID;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -33,6 +34,21 @@ public class ParserUtil {
             throw new ParseException(MESSAGE_INVALID_INDEX);
         }
         return Index.fromOneBased(Integer.parseInt(trimmedIndex));
+    }
+
+    /**
+     * Parses a {@code String employeeID} into a {@code Name}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code name} is invalid.
+     */
+    public static EmployeeID parseEmployeeID(String employeeID) throws ParseException {
+        requireNonNull(employeeID);
+        String trimmedEmployeeID = employeeID.trim();
+        if (!EmployeeID.isValidEmployeeID(trimmedEmployeeID)) {
+            throw new ParseException(EmployeeID.MESSAGE_EMPLOYEEID_CONSTRAINTS);
+        }
+        return new EmployeeID(trimmedEmployeeID);
     }
 
     /**

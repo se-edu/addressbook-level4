@@ -16,6 +16,7 @@ import seedu.address.model.tag.Tag;
 public class Person {
 
     // Identity fields
+    private final EmployeeID employeeID;
     private final Name name;
     private final Phone phone;
     private final Email email;
@@ -27,14 +28,17 @@ public class Person {
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
+    public Person(EmployeeID employeeID, Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
         requireAllNonNull(name, phone, email, address, tags);
+        this.employeeID = employeeID;
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
         this.tags.addAll(tags);
     }
+
+    public EmployeeID getEmployeeID() {return employeeID;}
 
     public Name getName() {
         return name;
@@ -70,7 +74,7 @@ public class Person {
         }
 
         return otherPerson != null
-                && otherPerson.getName().equals(getName())
+                && otherPerson.getEmployeeID().equals(getEmployeeID()) && otherPerson.getName().equals(getName())
                 && (otherPerson.getPhone().equals(getPhone()) || otherPerson.getEmail().equals(getEmail()));
     }
 
@@ -89,7 +93,8 @@ public class Person {
         }
 
         Person otherPerson = (Person) other;
-        return otherPerson.getName().equals(getName())
+        return  otherPerson.getEmployeeID().equals(getEmployeeID())
+                && otherPerson.getName().equals(getName())
                 && otherPerson.getPhone().equals(getPhone())
                 && otherPerson.getEmail().equals(getEmail())
                 && otherPerson.getAddress().equals(getAddress())
@@ -99,13 +104,15 @@ public class Person {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, tags);
+        return Objects.hash(employeeID, name, phone, email, address, tags);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getName())
+        builder.append(getEmployeeID())
+                .append(" Name: ")
+                .append(getName())
                 .append(" Phone: ")
                 .append(getPhone())
                 .append(" Email: ")
