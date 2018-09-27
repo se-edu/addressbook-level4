@@ -25,6 +25,7 @@ public class ModelManager extends ComponentManager implements Model {
     private final VersionedAddressBook versionedAddressBook;
     private final VersionedLeaveList versionedLeaveList;
     private final FilteredList<Person> filteredPersons;
+    private final FilteredList<Leave> filteredLeave;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -38,6 +39,7 @@ public class ModelManager extends ComponentManager implements Model {
         versionedAddressBook = new VersionedAddressBook(addressBook);
         versionedLeaveList = new VersionedLeaveList(leaveList);
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
+        filteredLeave = new FilteredList<>(versionedLeaveList.getRequestList());
     }
 
     public ModelManager() {

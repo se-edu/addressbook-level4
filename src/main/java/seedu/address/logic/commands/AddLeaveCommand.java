@@ -13,11 +13,18 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.*;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
 
 public class AddLeaveCommand extends Command {
 
     public static final String COMMAND_WORD = "leave";
-    private Path leaveBookFilePath = Paths.get("data" , "leavebook.xml");
+
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Request leave. "
+            + "Parameters: "
+            + PREFIX_NRIC + "ID "
+            + PREFIX_DATE + "DATE "
+            + PREFIX_APPROVAL + "APPROVAL ";
 
 
     public static final String MESSAGE_SUCCESS = "Leave application requested.";

@@ -16,29 +16,31 @@ public class Date {
 
     public Date (String date){
         requireNonNull(date);
-        //checkArgument(isValidDate(date),MESSAGE_DATE_CONSTRAINTS);
+        checkArgument(isValidDate(date),MESSAGE_DATE_CONSTRAINTS);
         this.date = date;
     }
 
 
     public static boolean isValidDate(String date) throws DateTimeException, NumberFormatException {
 
+        String[] dateComponents = date.split("/");
+        int day = Integer.parseInt(dateComponents[0]);
+        int month = Integer.parseInt(dateComponents[1]);
+        int year = Integer.parseInt(dateComponents[2]);
+
         if (date.length() != 10) {
             return false;
         }
-
-        String[] dateComponents = date.split("/");
 
         if (dateComponents.length != 3) {
             return false;
         }
 
-        int day = Integer.parseInt(dateComponents[0]);
-        int month = Integer.parseInt(dateComponents[1]);
-        int year = Integer.parseInt(dateComponents[2]);
+        if (month < 1 || month > 12)
+            return false;
+        if (day < 1 || day> 31)
+            return false;
 
-        //LocalDate localdate;
-        //localdate = LocalDate.of(year, month, day);
         return true;
     }
 
