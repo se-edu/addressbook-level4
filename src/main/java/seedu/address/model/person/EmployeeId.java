@@ -5,9 +5,9 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents a Person's employeeID in the address book.
- * Guarantees: immutable; is valid as declared in {@link #isValidEmployeeID(String)}
+ * Guarantees: immutable; is valid as declared in {@link #isValidEmployeeId(String)}
  */
-public class EmployeeID {
+public class EmployeeId {
 
     public static final String MESSAGE_EMPLOYEEID_CONSTRAINTS =
             "Employee IDs should only contain numbers, and it must be 6 digits long";
@@ -17,19 +17,19 @@ public class EmployeeID {
     /**
      * Constructs a {@code EmployeeID}.
      *
-     * @param employeeid A valid employee ID.
+     * @param employeeId A valid employee ID.
      */
 
-    public EmployeeID(String employeeID) {
-        requireNonNull(employeeID);
-        checkArgument(isValidEmployeeID(employeeID), MESSAGE_EMPLOYEEID_CONSTRAINTS);
-        value = employeeID;
+    public EmployeeId(String employeeId) {
+        requireNonNull(employeeId);
+        checkArgument(isValidEmployeeId(employeeId), MESSAGE_EMPLOYEEID_CONSTRAINTS);
+        value = employeeId;
     }
 
     /**
      * Returns true if a given string is a valid employee ID.
      */
-    public static boolean isValidEmployeeID(String test) {
+    public static boolean isValidEmployeeId(String test) {
         return test.matches(EMPLOYEEID_VALIDATION_REGEX);
     }
 
@@ -41,8 +41,8 @@ public class EmployeeID {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof EmployeeID // instanceof handles nulls
-                && value.equals(((EmployeeID) other).value)); // state check
+                || (other instanceof EmployeeId // instanceof handles nulls
+                && value.equals(((EmployeeId) other).value)); // state check
     }
 
     @Override

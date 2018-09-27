@@ -13,8 +13,8 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.EmployeeId;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.EmployeeID;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
 
@@ -26,7 +26,7 @@ public class XmlAdaptedPerson {
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Person's %s field is missing!";
 
     @XmlElement(required = true)
-    private String employeeID;
+    private String employeeId;
     @XmlElement(required = true)
     private String name;
     @XmlElement(required = true)
@@ -48,9 +48,9 @@ public class XmlAdaptedPerson {
     /**
      * Constructs an {@code XmlAdaptedPerson} with the given person details.
      */
-    public XmlAdaptedPerson(String employeeID, String name, String phone, String email, String address,
+    public XmlAdaptedPerson(String employeeId, String name, String phone, String email, String address,
                             List<XmlAdaptedTag> tagged) {
-        this.employeeID = employeeID;
+        this.employeeId = employeeId;
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -66,7 +66,7 @@ public class XmlAdaptedPerson {
      * @param source future changes to this will not affect the created XmlAdaptedPerson
      */
     public XmlAdaptedPerson(Person source) {
-        employeeID = source.getEmployeeID().value;
+        employeeId = source.getEmployeeID().value;
         name = source.getName().fullName;
         phone = source.getPhone().value;
         email = source.getEmail().value;
@@ -87,14 +87,14 @@ public class XmlAdaptedPerson {
             personTags.add(tag.toModelType());
         }
 
-        if (employeeID == null) {
+        if (employeeId == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
-                    EmployeeID.class.getSimpleName()));
+                    EmployeeId.class.getSimpleName()));
         }
-        if (!EmployeeID.isValidEmployeeID(employeeID)) {
-            throw new IllegalValueException(EmployeeID.MESSAGE_EMPLOYEEID_CONSTRAINTS);
+        if (!EmployeeId.isValidEmployeeID(employeeId)) {
+            throw new IllegalValueException(EmployeeId.MESSAGE_EMPLOYEEID_CONSTRAINTS);
         }
-        final EmployeeID modelEmployeeID = new EmployeeID(employeeID);
+        final EmployeeId modelEmployeeId = new EmployeeId(employeeId);
 
         if (name == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
@@ -129,7 +129,7 @@ public class XmlAdaptedPerson {
         final Address modelAddress = new Address(address);
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Person(modelEmployeeID, modelName, modelPhone, modelEmail, modelAddress, modelTags);
+        return new Person(modelEmployeeId, modelName, modelPhone, modelEmail, modelAddress, modelTags);
     }
 
     @Override
@@ -143,7 +143,7 @@ public class XmlAdaptedPerson {
         }
 
         XmlAdaptedPerson otherPerson = (XmlAdaptedPerson) other;
-        return Objects.equals(employeeID, otherPerson.employeeID)
+        return Objects.equals(employeeId, otherPerson.employeeId)
                 && Objects.equals(name, otherPerson.name)
                 && Objects.equals(phone, otherPerson.phone)
                 && Objects.equals(email, otherPerson.email)

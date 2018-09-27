@@ -16,7 +16,7 @@ import seedu.address.model.tag.Tag;
 public class Person {
 
     // Identity fields
-    private final EmployeeID employeeID;
+    private final EmployeeId employeeId;
     private final Name name;
     private final Phone phone;
     private final Email email;
@@ -28,9 +28,9 @@ public class Person {
     /**
      * Every field must be present and not null.
      */
-    public Person(EmployeeID employeeID, Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
+    public Person(EmployeeId employeeId, Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
         requireAllNonNull(name, phone, email, address, tags);
-        this.employeeID = employeeID;
+        this.employeeId = employeeId;
         this.name = name;
         this.phone = phone;
         this.email = email;
@@ -38,7 +38,9 @@ public class Person {
         this.tags.addAll(tags);
     }
 
-    public EmployeeID getEmployeeID() { return employeeID; }
+    public EmployeeId getEmployeeId() {
+        return employeeId;
+    }
 
     public Name getName() {
         return name;
@@ -74,7 +76,7 @@ public class Person {
         }
 
         return otherPerson != null
-                && otherPerson.getEmployeeID().equals(getEmployeeID()) && otherPerson.getName().equals(getName())
+                && otherPerson.getEmployeeId().equals(getEmployeeId()) && otherPerson.getName().equals(getName())
                 && (otherPerson.getPhone().equals(getPhone()) || otherPerson.getEmail().equals(getEmail()));
     }
 
@@ -93,7 +95,7 @@ public class Person {
         }
 
         Person otherPerson = (Person) other;
-        return otherPerson.getEmployeeID().equals(getEmployeeID())
+        return otherPerson.getEmployeeId().equals(getEmployeeId())
                 && otherPerson.getName().equals(getName())
                 && otherPerson.getPhone().equals(getPhone())
                 && otherPerson.getEmail().equals(getEmail())
@@ -104,13 +106,13 @@ public class Person {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(employeeID, name, phone, email, address, tags);
+        return Objects.hash(employeeId, name, phone, email, address, tags);
     }
 
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getEmployeeID())
+        builder.append(getEmployeeId())
                 .append(" Name: ")
                 .append(getName())
                 .append(" Phone: ")
