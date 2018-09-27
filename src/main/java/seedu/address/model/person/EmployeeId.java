@@ -10,7 +10,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class EmployeeId {
 
     public static final String MESSAGE_EMPLOYEEID_CONSTRAINTS =
-            "Employee Ids should only contain numbers, and it must be 6 digits long";
+            "Employee Ids should only contain a 6 digit number, and it should not be blank";
     public static final String EMPLOYEEID_VALIDATION_REGEX = "\\d{6}";
     public final String value;
 
