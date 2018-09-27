@@ -38,7 +38,7 @@ public class Person {
         this.tags.addAll(tags);
     }
 
-    public EmployeeID getEmployeeID() {return employeeID;}
+    public EmployeeID getEmployeeID() { return employeeID; }
 
     public Name getName() {
         return name;
@@ -93,7 +93,7 @@ public class Person {
         }
 
         Person otherPerson = (Person) other;
-        return  otherPerson.getEmployeeID().equals(getEmployeeID())
+        return otherPerson.getEmployeeID().equals(getEmployeeID())
                 && otherPerson.getName().equals(getName())
                 && otherPerson.getPhone().equals(getPhone())
                 && otherPerson.getEmail().equals(getEmail())
