@@ -143,16 +143,6 @@ public class UniqueModuleList implements Iterable<Module> {
     }
 
     /**
-     * Returns true if two different lists are mutually exclusive.
-     *
-     * @param modules the module list that is compared against
-     * @return true if two different lists are mutually exclusive
-     */
-    public boolean isMutuallyExclusive(List<Module> modules) {
-        return !internalList.stream().anyMatch(modules::contains);
-    }
-
-    /**
      * Returns the iterator of the internal list.
      *
      * @return iterator of the internal list
