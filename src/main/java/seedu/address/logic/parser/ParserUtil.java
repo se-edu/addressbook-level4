@@ -10,14 +10,10 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Address;
-import seedu.address.model.person.DateOfBirth;
-import seedu.address.model.person.Department;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.EmployeeId;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
-import seedu.address.model.person.Position;
-import seedu.address.model.person.Salary;
 import seedu.address.model.tag.Tag;
 
 /**
@@ -41,10 +37,10 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String employeeId} into a {@code employeeId}.
+     * Parses a {@code String employeeID} into a {@code Name}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code employeeId} is invalid.
+     * @throws ParseException if the given {@code name} is invalid.
      */
     public static EmployeeId parseEmployeeId(String employeeId) throws ParseException {
         requireNonNull(employeeId);
@@ -54,7 +50,6 @@ public class ParserUtil {
         }
         return new EmployeeId(trimmedEmployeeId);
     }
-
 
     /**
      * Parses a {@code String name} into a {@code Name}.
@@ -69,66 +64,6 @@ public class ParserUtil {
             throw new ParseException(Name.MESSAGE_NAME_CONSTRAINTS);
         }
         return new Name(trimmedName);
-    }
-
-    /**
-     * Parses a {@code String dateOfBirth} into a {@code DateOfBirth}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code dateOfBirth} is invalid.
-     */
-    public static DateOfBirth parseDateOfBirth(String dateOfBirth) throws ParseException {
-        requireNonNull(dateOfBirth);
-        String trimmedDateOfBirth = dateOfBirth.trim();
-        if (!DateOfBirth.isValidDateOfBirth(trimmedDateOfBirth)) {
-            throw new ParseException(DateOfBirth.MESSAGE_DATEOFBIRTH_CONSTRAINTS);
-        }
-        return new DateOfBirth(trimmedDateOfBirth);
-    }
-
-    /**
-     * Parses a {@code String department} into a {@code Department}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code department} is invalid.
-     */
-    public static Department parseDepartment(String department) throws ParseException {
-        requireNonNull(department);
-        String trimmedDepartment = department.trim();
-        if (!Department.isValidDepartment(trimmedDepartment)) {
-            throw new ParseException(Department.MESSAGE_DEPARTMENT_CONSTRAINTS);
-        }
-        return new Department(trimmedDepartment);
-    }
-
-    /**
-     * Parses a {@code String position} into a {@code Position}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code position} is invalid.
-     */
-    public static Position parsePosition(String position) throws ParseException {
-        requireNonNull(position);
-        String trimmedPosition = position.trim();
-        if (!Position.isValidPosition(trimmedPosition)) {
-            throw new ParseException(Position.MESSAGE_POSITION_CONSTRAINTS);
-        }
-        return new Position(trimmedPosition);
-    }
-
-    /**
-     * Parses a {@code String salary} into a {@code Salary}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code salary} is invalid.
-     */
-    public static Salary parseSalary(String salary) throws ParseException {
-        requireNonNull(salary);
-        String trimmedSalary = salary.trim();
-        if (!Salary.isValidSalary(trimmedSalary)) {
-            throw new ParseException(Salary.MESSAGE_SALARY_CONSTRAINTS);
-        }
-        return new Salary(trimmedSalary);
     }
 
     /**
