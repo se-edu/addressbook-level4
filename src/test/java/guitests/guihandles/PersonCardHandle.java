@@ -52,7 +52,9 @@ public class PersonCardHandle extends NodeHandle<Node> {
         return idLabel.getText();
     }
 
-    public String getEmployeeId() { return employeeIdLabel.getText(); }
+    public String getEmployeeId() {
+        return employeeIdLabel.getText();
+    }
 
     public String getName() {
         return nameLabel.getText();
