@@ -121,4 +121,14 @@ public class ParserUtil {
         }
         return tagSet;
     }
+    public static String parseLocation(String location) throws ParseException {
+        requireNonNull(location);
+
+        return location;
+    }
+    public static String parseFilename(String fileName) throws ParseException {
+        requireNonNull(fileName);
+
+        return fileName;
+    }
 }
