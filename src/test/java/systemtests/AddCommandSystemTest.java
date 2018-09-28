@@ -3,6 +3,8 @@ package systemtests;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.DEPARTMENT_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.DEPARTMENT_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
@@ -59,7 +61,8 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
          */
         Person toAdd = AMY;
         String command = "   " + AddCommand.COMMAND_WORD + "  " + NAME_DESC_AMY + "  " + PHONE_DESC_AMY + " "
-                + EMAIL_DESC_AMY + "   " + ADDRESS_DESC_AMY + "   " + TAG_DESC_FRIEND + " ";
+                + EMAIL_DESC_AMY + "   " + DEPARTMENT_DESC_AMY + "   " + ADDRESS_DESC_AMY + "   "
+                + TAG_DESC_FRIEND + " ";
         assertCommandSuccess(command, toAdd);
 
         /* Case: undo adding Amy to the list -> Amy deleted */
@@ -75,8 +78,8 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: add a person with all fields same as another person in the address book except name -> added */
         toAdd = new PersonBuilder(AMY).withName(VALID_NAME_BOB).build();
-        command = AddCommand.COMMAND_WORD + NAME_DESC_BOB + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY
-                + TAG_DESC_FRIEND;
+        command = AddCommand.COMMAND_WORD + NAME_DESC_BOB + PHONE_DESC_AMY + EMAIL_DESC_AMY + DEPARTMENT_DESC_AMY
+                + ADDRESS_DESC_AMY + TAG_DESC_FRIEND;
         assertCommandSuccess(command, toAdd);
 
         /* Case: add a person with all fields same as another person in the address book except phone and email
@@ -92,8 +95,8 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: add a person with tags, command with parameters in random order -> added */
         toAdd = BOB;
-        command = AddCommand.COMMAND_WORD + TAG_DESC_FRIEND + PHONE_DESC_BOB + ADDRESS_DESC_BOB + NAME_DESC_BOB
-                + TAG_DESC_HUSBAND + EMAIL_DESC_BOB;
+        command = AddCommand.COMMAND_WORD + TAG_DESC_FRIEND + PHONE_DESC_BOB + DEPARTMENT_DESC_BOB
+                + ADDRESS_DESC_BOB + NAME_DESC_BOB + TAG_DESC_HUSBAND + EMAIL_DESC_BOB;
         assertCommandSuccess(command, toAdd);
 
         /* Case: add a person, missing tags -> added */
