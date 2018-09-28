@@ -1,9 +1,9 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FILE_LOCATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FILE_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 
 import java.io.File;
 import java.io.IOException;
@@ -13,8 +13,8 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.stream.Stream;
 
-import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.commands.AddTimetableCommand;
+import seedu.address.logic.parser.exceptions.ParseException;
 
 import seedu.address.model.person.Name;
 
