@@ -14,7 +14,7 @@ public class Bonus {
     public final String value;
 
     /**
-     * Constructs a {@code bonus).
+     * Constructs a {@code bonus}.
      *
      * @param bonus A valid bonus.
      */

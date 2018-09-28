@@ -16,7 +16,7 @@ public class Position {
     /**
      * Constructs a {@code position}.
      *
-     * @param position A valid positionh.
+     * @param position A valid position.
      */
 
     public Position(String position) {
