@@ -7,6 +7,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.Scanner;
 import seedu.address.model.person.Name;
 
 /**
@@ -35,6 +36,32 @@ public class Timetable {
             IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public String[][] readTimetable(String locationFrom, String fileName, String mode) {
+        String[][] timetableMatrix;
+        Scanner inputStream;
+        //used code from https://stackoverflow.com/questions/40074840/reading-a-csv-file-into-a-array
+        String filePath = locationFrom.replace("\\", "/") + "/" + fileName + ".csv";
+        TimetableData Timetable = new TimetableData(mode);
+        timetableMatrix = Timetable.getNewTimetable();
+        try {
+            File toRead = new File(filePath);
+            if (!toRead.exists() && mode.equals("horizontal")) {
+                inputStream = new Scanner(toRead);
+                int i = 0;
+                while (inputStream.hasNext()) {
+                    String line = inputStream.next();
+                    String[] entries = line.split(",");
+                    timetableMatrix[i] = entries;
+                }
+                inputStream.close();
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return timetableMatrix;
     }
 
     public void getNewTimetable(String locationTo, String fileName, String mode) {
