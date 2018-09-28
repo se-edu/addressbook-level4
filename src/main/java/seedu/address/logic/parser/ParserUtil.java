@@ -131,7 +131,6 @@ public class ParserUtil {
 
     public static String parseLocation(String location) throws ParseException {
         requireNonNull(location);
-
         return location;
     }
     /**
@@ -144,5 +143,16 @@ public class ParserUtil {
         requireNonNull(fileName);
 
         return fileName;
+    }
+    /**
+     * Parses a {@code String Mode} into an {@code String Mode}. Leading and trailing whitespaces will be
+     * trimmed.
+     *
+     * @throws ParseException if the given {@code Mode} is invalid.
+     */
+    public static String parseMode(String Mode) throws ParseException {
+        requireNonNull(Mode);
+
+        return Mode;
     }
 }
