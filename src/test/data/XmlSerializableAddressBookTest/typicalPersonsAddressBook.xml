@@ -2,7 +2,6 @@
 <!-- AddressBook save file which contains the same Person values as in TypicalPersons#getTypicalAddressBook() -->
 <addressbook>
     <persons>
-        <employeeId>000001</employeeId>
         <name>Alice Pauline</name>
         <phone>94351253</phone>
         <email>alice@example.com</email>
@@ -10,7 +9,6 @@
         <tagged>friends</tagged>
     </persons>
     <persons>
-        <employeeId>000002</employeeId>
         <name>Benson Meier</name>
         <phone>98765432</phone>
         <email>johnd@example.com</email>
