@@ -2,6 +2,7 @@
 <!-- AddressBook save file which contains the same Person values as in TypicalPersons#getTypicalAddressBook() -->
 <addressbook>
     <persons>
+        <employeeId>000001</employeeId>
         <name>Alice Pauline</name>
         <phone>94351253</phone>
         <email>alice@example.com</email>
@@ -9,6 +10,7 @@
         <tagged>friends</tagged>
     </persons>
     <persons>
+        <employeeId>000002</employeeId>
         <name>Benson Meier</name>
         <phone>98765432</phone>
         <email>johnd@example.com</email>
@@ -17,12 +19,14 @@
         <tagged>friends</tagged>
     </persons>
     <persons>
+        <employeeId>000003</employeeId>
         <name>Carl Kurz</name>
         <phone>95352563</phone>
         <email>heinz@example.com</email>
         <address>wall street</address>
     </persons>
     <persons>
+        <employeeId>000004</employeeId>
         <name>Daniel Meier</name>
         <phone>87652533</phone>
         <email>cornelia@example.com</email>
@@ -30,18 +34,21 @@
         <tagged>friends</tagged>
     </persons>
     <persons>
+        <employeeId>000005</employeeId>
         <name>Elle Meyer</name>
         <phone>9482224</phone>
         <email>werner@example.com</email>
         <address>michegan ave</address>
     </persons>
     <persons>
+        <employeeId>000006</employeeId>
         <name>Fiona Kunz</name>
         <phone>9482427</phone>
         <email>lydia@example.com</email>
         <address>little tokyo</address>
     </persons>
     <persons>
+        <employeeId>000007</employeeId>
         <name>George Best</name>
         <phone>9482442</phone>
         <email>anna@example.com</email>
