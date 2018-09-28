@@ -1,43 +1,39 @@
 <!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]--><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="generator" content="Asciidoctor 1.5.6.1"><title>AddressBook Level 4 - User Guide</title><link rel="stylesheet" href="stylesheets/gh-pages.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="stylesheets/coderay-asciidoctor.css"></head><body class="article"><div id="header"><h1>Centralised Human Resource System - User Guide</h1></div><div id="content"><div id="preamble">
+<link rel="stylesheet" href="stylesheets/coderay-asciidoctor.css"></head><body class="article"><div id="header"><h1>AddressBook Level 4 - User Guide</h1></div><div id="content"><div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>By: <code>T16-4</code>
+<p>By: <code>T16-4</code></p>
 </div>
 </div>
 <div id="toc" class="toc">
 <div id="toctitle"></div>
 <ul class="sectlevel1">
-
 <li><a href="#introduction">1. Introduction</a></li>
 <li><a href="#quick-start">2. Quick Start</a></li>
-<li><a href="#Fields">3. Fields</a></li>
-<li><a href="#Features">4. Features</a>
+<li><a href="#Features">3. Features</a>
 <ul class="sectlevel2">
-<li><a href="#filtering-employee-s-data-code-filter-code">4.1. Filtering employee&#8217;s data: <code>filter</code></a></li>
-<li><a href="#adding-employee-s-data-code-add-code">4.2. Adding employee&#8217;s data: <code>add</code></a></li>
-<li><a href="#listing-all-persons-code-list-code">4.3. Listing all persons : <code>list</code></a></li>
-<li><a href="#editing-an-employee-s-data-code-edit-code">4.4. Editing an employee’s data: <code>edit</code></a></li>
-<li><a href="#deleting-an-employee-s-data-code-delete-code">4.5. Deleting an Employee’s Data: <code>delete</code></a></li>
-<li><a href="#modify-employee-s-salary-bonus-code-modifypay-code">4.6. Modify Employee’s Salary/Bonus: <code>modifypay</code></a></li>
-<li><a href="#view-expenses-code-viewex-code">4.7. View expenses: <code>viewex</code></a></li>
-<li><a href="#add-expenses-code-addex-code">4.8. Add expenses: <code>addex</code></a></li>
-<li><a href="#remove-expenses-code-removeex-code">4.9. Remove expenses: <code>removeex</code></a></li>
-<li><a href="#approve-or-reject-leave-off-code-leaverequest-code">4.10. Approve or reject leave/off: <code>leaveRequest</code></a></li>
-<li><a href="#locating-persons-by-name-code-find-code">4.11. Locating persons by name: <code>find</code></a></li>
-<li><a href="#view-all-available-functions-or-commands-code-help-code">4.12. View all available functions or commands : <code>help</code></a></li>
-<li><a href="#listing-entered-commands-code-history-code">4.13. Listing entered commands : <code>history</code></a></li>
-<li><a href="#undoing-previous-command-code-undo-code">4.14. Undoing previous command : <code>undo</code></a></li>
-<li><a href="#redoing-the-previously-undone-command-code-redo-code">4.15. Redoing the previously undone command : <code>redo</code></a></li>
-<li><a href="#clearing-all-entries-code-clear-code">4.16. Clearing all entries : <code>clear</code></a></li>
-<li><a href="#exiting-the-program-code-exit-code">4.17. Exiting the program : <code>exit</code></a></li>
-<li><a href="#saving-the-data">4.18. Saving the data</a></li>
-<li><a href="#encrypting-data-files-code-coming-in-v2-0-code">4.19. Encrypting data files <code>[coming in v2.0]</code></a></li>
+<li><a href="#filtering-employee-s-data-filter">3.1. Filtering employee&#8217;s data: filter</a></li>
+<li><a href="#adding-employee-s-data-add">3.2. Adding employee&#8217;s data:add</a></li>
+<li><a href="#listing-all-persons-code-list-code">3.3. Listing all persons : <code>list</code></a></li>
+<li><a href="#editing-an-employee-s-data-edit">3.4. Editing an employee’s data: edit</a></li>
+<li><a href="#deleting-an-employee-s-data-delete">3.5. Deleting an Employee’s Data: delete</a></li>
+<li><a href="#viewing-help-code-help-code">3.6. Viewing help : <code>help</code></a></li>
+<li><a href="#editing-a-person-code-edit-code">3.7. Editing a person : <code>edit</code></a></li>
+<li><a href="#locating-persons-by-name-code-find-code">3.8. Locating persons by name: <code>find</code></a></li>
+<li><a href="#deleting-a-person-code-delete-code">3.9. Deleting a person : <code>delete</code></a></li>
+<li><a href="#selecting-a-person-code-select-code">3.10. Selecting a person : <code>select</code></a></li>
+<li><a href="#listing-entered-commands-code-history-code">3.11. Listing entered commands : <code>history</code></a></li>
+<li><a href="#undoing-previous-command-code-undo-code">3.12. Undoing previous command : <code>undo</code></a></li>
+<li><a href="#redoing-the-previously-undone-command-code-redo-code">3.13. Redoing the previously undone command : <code>redo</code></a></li>
+<li><a href="#clearing-all-entries-code-clear-code">3.14. Clearing all entries : <code>clear</code></a></li>
+<li><a href="#exiting-the-program-code-exit-code">3.15. Exiting the program : <code>exit</code></a></li>
+<li><a href="#saving-the-data">3.16. Saving the data</a></li>
+<li><a href="#encrypting-data-files-code-coming-in-v2-0-code">3.17. Encrypting data files <code>[coming in v2.0]</code></a></li>
 </ul>
 </li>
-<li><a href="#faq">5. FAQ</a></li>
-<li><a href="#command-summary">6. Command Summary</a></li>
+<li><a href="#faq">4. FAQ</a></li>
+<li><a href="#command-summary">5. Command Summary</a></li>
 </ul>
 </div>
 </div>
@@ -45,7 +41,7 @@
 <h2 id="introduction"><a class="link" href="#introduction">1. Introduction</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Centralised Human Resource System (CHRS) is for the human resource personnel who use a desktop to manage the employee’s information. More importantly, CHRS is optimized for personnel with the preference of working with a Command Line Interface while still having the benefits of a Graphical User Interface (GUI). After familiarizing with the CLI functions, CHRS can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <a href="#quick-start">Section 2, &#8220;Quick Start&#8221;</a> to get started. Enjoy!</p>
+<p>Centralized Human Resource Systems (CHRS) is for the human resource personnel who use a desktop to manage the employee’s information. More importantly, CHRS is optimized for personnel with the preference of working with a Command Line Interface while still having the benefits of a Graphical User Interface (GUI). After familiarizing with the CLI functions, CHRS can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <a href="#quick-start">Section 2, &#8220;Quick Start&#8221;</a> to get started. Enjoy!</p>
 </div>
 </div>
 </div>
@@ -80,13 +76,13 @@ e.g. typing <strong><code>help</code></strong> and pressing <kbd>Enter</kbd> wil
 <div class="ulist">
 <ul>
 <li>
-<p><strong><code>list</code></strong> : lists all employee details</p>
+<p><strong><code>list</code></strong> : lists all contacts</p>
 </li>
 <li>
-<p><strong><code>add</code></strong><code>n/John Doe dob/21-01-1993 p/98765432 e/johnd@example.com d/Finance r/Intern a/John street, block 123, #01-01 s/600</code>: adds an employee named <code>John Doe</code> to CHRS.</p>
+<p><strong><code>add</code></strong><code>n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01</code> : adds a contact named <code>John Doe</code> to the Address Book.</p>
 </li>
 <li>
-<p><strong><code>delete</code></strong><code>3</code> : deletes the employee with the employee id '3' in CHRS</p>
+<p><strong><code>delete</code></strong><code>3</code> : deletes the 3rd contact shown in the current list</p>
 </li>
 <li>
 <p><strong><code>exit</code></strong> : exits the app</p>
@@ -95,15 +91,17 @@ e.g. typing <strong><code>help</code></strong> and pressing <kbd>Enter</kbd> wil
 </div>
 </li>
 <li>
-<p>Refer to <a href="#Features">Section 4, &#8220;Features&#8221;</a> for details of each command.</p>
+<p>Refer to <a href="#Features">Section 3, &#8220;Features&#8221;</a> for details of each command.</p>
 </li>
 </ol>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="Fields"><a class="link" href="#Fields">3. Fields</a></h2>
+<h2 id="Features"><a class="link" href="#Features">3. Features</a></h2>
 <div class="sectionbody">
+<div class="exampleblock">
+<div class="content">
 <div class="paragraph">
 <p><strong>An employee can have the following fields associated:</strong></p>
 </div>
@@ -132,6 +130,9 @@ e.g. typing <strong><code>help</code></strong> and pressing <kbd>Enter</kbd> wil
 </li>
 <li>
 <p>Address</p>
+</li>
+<li>
+<p>Training Levels</p>
 </li>
 <li>
 <p>Salary</p>
@@ -163,13 +164,6 @@ e.g. typing <strong><code>help</code></strong> and pressing <kbd>Enter</kbd> wil
 </li>
 </ul>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="Features"><a class="link" href="#Features">4. Features</a></h2>
-<div class="sectionbody">
-<div class="exampleblock">
-<div class="content">
 <div class="paragraph">
 <p><strong>Command Format</strong></p>
 </div>
@@ -192,7 +186,7 @@ e.g. typing <strong><code>help</code></strong> and pressing <kbd>Enter</kbd> wil
 </div>
 </div>
 <div class="sect2">
-<h3 id="filtering-employee-s-data-code-filter-code"><a class="link" href="#filtering-employee-s-data-code-filter-code">4.1. Filtering employee&#8217;s data: <code>filter</code></a></h3>
+<h3 id="filtering-employee-s-data-filter"><a class="link" href="#filtering-employee-s-data-filter">3.1. Filtering employee&#8217;s data: filter</a></h3>
 <div class="paragraph">
 <p>Filter the employee list and only display selected fields.</p>
 </div>
@@ -208,21 +202,19 @@ e.g. typing <strong><code>help</code></strong> and pressing <kbd>Enter</kbd> wil
 <div class="ulist">
 <ul>
 <li>
-<p><code>filter Name PhoneNo Address</code></p>
+<p><code>filter Name ContactNo Address</code></p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>Available fields: Name, Date of Birth, Phone number, Email, Department, Position, Address, Salary, Expenses/Claims, Leave Balance</p>
+<p>Available fields: Name, Date of Birth, Phone number, Email, Department, Position, Address, Training Levels, Salary, Expenses/Claims, Leave Balance.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="adding-employee-s-data-code-add-code"><a class="link" href="#adding-employee-s-data-code-add-code">4.2. Adding employee&#8217;s data: <code>add</code></a></h3>
+<h3 id="adding-employee-s-data-add"><a class="link" href="#adding-employee-s-data-add">3.2. Adding employee&#8217;s data:add</a></h3>
 <div class="paragraph">
-<p>Adds employee&#8217;s data to the database</p>
-</div>
-<div class="paragraph">
-<p>Format: <code>add n/NAME dob/DATE_OF_BIRTH p/PHONE_NUMBER e/EMAIL d/DEPARTMENT r/POSITION a/ADDRESS s/SALARY</code></p>
+<p>Adds employee&#8217;s data to the database<br>
+Format: <code>add n/NAME dob/DATE_OF_BIRTH p/PHONE_NUMBER e/EMAIL d/DEPARTMENT r/POSITION a/ADDRESS s/SALARY</code></p>
 </div>
 <div class="paragraph">
 <p>Examples:</p>
@@ -238,31 +230,28 @@ e.g. typing <strong><code>help</code></strong> and pressing <kbd>Enter</kbd> wil
 </ul>
 </div>
 <div class="paragraph">
-<p>Mandatory fields: Name, Date of Birth, Phone number, Email, Department, Position, Address, Salary</p>
+<p>Mandatory fields: Name, Date of Birth, Contact number, Email, Department, Position, Address, Training Levels, Salary.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="listing-all-persons-code-list-code"><a class="link" href="#listing-all-persons-code-list-code">4.3. Listing all persons : <code>list</code></a></h3>
+<h3 id="listing-all-persons-code-list-code"><a class="link" href="#listing-all-persons-code-list-code">3.3. Listing all persons : <code>list</code></a></h3>
 <div class="paragraph">
-<p>Shows a list of all employees in CHRS.</p>
+<p>Shows a list of all persons in the address book.<br>
+Format: <code>list</code></p>
 </div>
 <div class="paragraph">
-<p>Format: <code>list</code></p>
-</div>
-<div class="paragraph">
-<p>Available fields: Full name, Date of Birth, Phone number, Email, Department, Position, Address,  Salary, Bonus, Expenses/Claims, Leave Balance</p>
+<p>Available fields: Full name, Date of Birth, Contact number, Email, Department, Position, Address, Training Levels, Salary, Bonus, Expenses/Claims, Leave Balance.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="editing-an-employee-s-data-code-edit-code"><a class="link" href="#editing-an-employee-s-data-code-edit-code">4.4. Editing an employee’s data: <code>edit</code></a></h3>
+<h3 id="editing-an-employee-s-data-edit"><a class="link" href="#editing-an-employee-s-data-edit">3.4. Editing an employee’s data: edit</a></h3>
 <div class="paragraph">
-<p>Edit an existing employee’s data in CHRS.</p>
+<p>Edit an existing employee’s data.</p>
 </div>
 <div class="paragraph">
-<p>Format: <code>edit EMPLOYEE_ID [n/NAME] [p/PHONE_NUMBER] [a/ADDRESS] [dob/DATE_OF_BIRTH] [e/EMAIL] [d/DEPARTMENT] [r/POSITION] [s/SALARY] [b/BONUS]</code></p>
-</div>
-<div class="paragraph">
-<p>Existing values will be updated to the input values.</p>
+<p>Format:
+edit EMPLOYEE_ID [n/NAME] [p/PHONE_NUMBER] [a/ADDRESS] [dob/DATE_OF_BIRTH] [e/EMAIL] [d/DEPARTMENT] [r/POSITION] [s/SALARY] [t/TRAINING_LEVEL] [b/BONUS]
+Existing values will be updated to the input values.</p>
 </div>
 <div class="paragraph">
 <p>Examples:</p>
@@ -275,16 +264,18 @@ e.g. typing <strong><code>help</code></strong> and pressing <kbd>Enter</kbd> wil
 </ul>
 </div>
 <div class="paragraph">
-<p>Available fields: Name, Date of Birth, Phone number, Email, Department, Position, Address, Salary</p>
+<p>Available fields: Name, Date of Birth, Phone number, Email, Department, Position, Address, Training Level, Salary</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="deleting-an-employee-s-data-code-delete-code"><a class="link" href="#deleting-an-employee-s-data-code-delete-code">4.5. Deleting an Employee’s Data: <code>delete</code></a></h3>
+<h3 id="deleting-an-employee-s-data-delete"><a class="link" href="#deleting-an-employee-s-data-delete">3.5. Deleting an Employee’s Data: delete</a></h3>
 <div class="paragraph">
-<p>Deletes the specified employee from the CHRS.</p>
+<p>Deletes the specified employee from the address book.</p>
 </div>
 <div class="paragraph">
-<p>Format: <code>delete id/EMPLOYEE_ID</code></p>
+<p>Format:
+delete id/EMPLOYEE_ID
+1.	Deletes the employee with the specific employee id.</p>
 </div>
 <div class="paragraph">
 <p>Examples:</p>
@@ -292,22 +283,45 @@ e.g. typing <strong><code>help</code></strong> and pressing <kbd>Enter</kbd> wil
 <div class="ulist">
 <ul>
 <li>
-<p><code>delete id/4</code><br>
-Deletes the employee with the employee id '4'</p>
+<p><code>delete id/4</code></p>
 </li>
 </ul>
 </div>
 </div>
 <div class="sect2">
-<h3 id="modify-employee-s-salary-bonus-code-modifypay-code"><a class="link" href="#modify-employee-s-salary-bonus-code-modifypay-code">4.6. Modify Employee’s Salary/Bonus: <code>modifypay</code></a></h3>
+<h3 id="viewing-help-code-help-code"><a class="link" href="#viewing-help-code-help-code">3.6. Viewing help : <code>help</code></a></h3>
 <div class="paragraph">
-<p>Modify the salary/bonus of the employee identified by the employee id.</p>
+<p>Format: <code>help</code></p>
 </div>
-<div class="paragraph">
-<p>Format: <code>modifypay id/EMPLOYEE_ID [s/SALARY] [b/BONUS]</code></p>
 </div>
+<div class="sect2">
+<h3 id="editing-a-person-code-edit-code"><a class="link" href="#editing-a-person-code-edit-code">3.7. Editing a person : <code>edit</code></a></h3>
 <div class="paragraph">
-<p>Only one and at least one of either Salary or Bonus must be included.</p>
+<p>Edits an existing person in the address book.<br>
+Format: <code>edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]&#8230;&#8203;</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Edits the person at the specified <code>INDEX</code>. The index refers to the index number shown in the displayed person list. The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
+</li>
+<li>
+<p>At least one of the optional fields must be provided.</p>
+</li>
+<li>
+<p>Existing values will be updated to the input values.</p>
+</li>
+<li>
+<p>When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.</p>
+</li>
+<li>
+<p>You can remove all the person&#8217;s tags by typing <code>t/</code> without specifying any tags after it.</p>
+</li>
+</ul>
+</div>
+</div>
 </div>
 <div class="paragraph">
 <p>Examples:</p>
@@ -315,27 +329,44 @@ Deletes the employee with the employee id '4'</p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>modifypay id/456 s/+5</code><br>
-Increase the salary of employee with employee id '456' by 5%</p>
+<p><code>edit 1 p/91234567 e/johndoe@example.com</code><br>
+Edits the phone number and email address of the 1st person to be <code>91234567</code> and <code>johndoe@example.com</code> respectively.</p>
 </li>
 <li>
-<p><code>modifypay id/789 s/-5</code><br>
-Decrease the salary of employee with employee id '789' by 5%</p>
-</li>
-<li>
-<p><code>modifypay id/120 b/1.5</code><br>
-Increase the bonus of employee with employee id '120' by 1.5 months</p>
+<p><code>edit 2 n/Betsy Crower t/</code><br>
+Edits the name of the 2nd person to be <code>Betsy Crower</code> and clears all existing tags.</p>
 </li>
 </ul>
 </div>
 </div>
 <div class="sect2">
-<h3 id="view-expenses-code-viewex-code"><a class="link" href="#view-expenses-code-viewex-code">4.7. View expenses: <code>viewex</code></a></h3>
+<h3 id="locating-persons-by-name-code-find-code"><a class="link" href="#locating-persons-by-name-code-find-code">3.8. Locating persons by name: <code>find</code></a></h3>
 <div class="paragraph">
-<p>Views all the existing expenses an employee wish to claim from the company.</p>
+<p>Finds persons whose names contain any of the given keywords.<br>
+Format: <code>find KEYWORD [MORE_KEYWORDS]</code></p>
 </div>
-<div class="paragraph">
-<p>Format: <code>viewex id/EMPLOYEE_ID</code></p>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>The search is case insensitive. e.g <code>hans</code> will match <code>Hans</code></p>
+</li>
+<li>
+<p>The order of the keywords does not matter. e.g. <code>Hans Bo</code> will match <code>Bo Hans</code></p>
+</li>
+<li>
+<p>Only the name is searched.</p>
+</li>
+<li>
+<p>Only full words will be matched e.g. <code>Han</code> will not match <code>Hans</code></p>
+</li>
+<li>
+<p>Persons matching at least one keyword will be returned (i.e. <code>OR</code> search). e.g. <code>Hans Bo</code> will return <code>Hans Gruber</code>, <code>Bo Yang</code></p>
+</li>
+</ul>
+</div>
+</div>
 </div>
 <div class="paragraph">
 <p>Examples:</p>
@@ -343,22 +374,38 @@ Increase the bonus of employee with employee id '120' by 1.5 months</p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>viewex id/120</code><br>
-List the total expenses that employee with employee id '120' wishes to claim for each category.</p>
+<p><code>find John</code><br>
+Returns <code>john</code> and <code>John Doe</code></p>
+</li>
+<li>
+<p><code>find Betsy Tim John</code><br>
+Returns any person having names <code>Betsy</code>, <code>Tim</code>, or <code>John</code></p>
 </li>
 </ul>
 </div>
-<div class="paragraph">
-<p>Available categories: Medical_Expenses, Transport_Expenses, Miscellaneous</p>
-</div>
 </div>
 <div class="sect2">
-<h3 id="add-expenses-code-addex-code"><a class="link" href="#add-expenses-code-addex-code">4.8. Add expenses: <code>addex</code></a></h3>
+<h3 id="deleting-a-person-code-delete-code"><a class="link" href="#deleting-a-person-code-delete-code">3.9. Deleting a person : <code>delete</code></a></h3>
 <div class="paragraph">
-<p>Add the expenses that an employee wishes to claim from the company.</p>
+<p>Deletes the specified person from the address book.<br>
+Format: <code>delete INDEX</code></p>
 </div>
-<div class="paragraph">
-<p>Format: <code>addex id/EMPLOYEE_ID [med/MEDICAL_EXPENSES] [tra/TRAVEL_EXPENSES] [mis/MISCELLANEOUS]</code></p>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Deletes the person at the specified <code>INDEX</code>.</p>
+</li>
+<li>
+<p>The index refers to the index number shown in the displayed person list.</p>
+</li>
+<li>
+<p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
+</li>
+</ul>
+</div>
+</div>
 </div>
 <div class="paragraph">
 <p>Examples:</p>
@@ -366,22 +413,40 @@ List the total expenses that employee with employee id '120' wishes to claim for
 <div class="ulist">
 <ul>
 <li>
-<p><code>addex id/987 med/8888.88</code><br>
-Add $8888.88 to Medical for employee with employee id '987'.</p>
+<p><code>list</code><br>
+<code>delete 2</code><br>
+Deletes the 2nd person in the address book.</p>
+</li>
+<li>
+<p><code>find Betsy</code><br>
+<code>delete 1</code><br>
+Deletes the 1st person in the results of the <code>find</code> command.</p>
 </li>
 </ul>
 </div>
-<div class="paragraph">
-<p>Available categories: Medical_Expenses, Transport_Expenses, Miscellaneous</p>
-</div>
 </div>
 <div class="sect2">
-<h3 id="remove-expenses-code-removeex-code"><a class="link" href="#remove-expenses-code-removeex-code">4.9. Remove expenses: <code>removeex</code></a></h3>
+<h3 id="selecting-a-person-code-select-code"><a class="link" href="#selecting-a-person-code-select-code">3.10. Selecting a person : <code>select</code></a></h3>
 <div class="paragraph">
-<p>Remove expenses claim from an employee.</p>
+<p>Selects the person identified by the index number used in the displayed person list.<br>
+Format: <code>select INDEX</code></p>
 </div>
-<div class="paragraph">
-<p>Format: <code>removeex EMPLOYEE_ID [med/MEDICAL_EXPENSES] [tra/TRAVEL_EXPENSES] [mis/MISCELLANEOUS]</code></p>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Selects the person and loads the Google search page the person at the specified <code>INDEX</code>.</p>
+</li>
+<li>
+<p>The index refers to the index number shown in the displayed person list.</p>
+</li>
+<li>
+<p>The index <strong>must be a positive integer</strong> <code>1, 2, 3, &#8230;&#8203;</code></p>
+</li>
+</ul>
+</div>
+</div>
 </div>
 <div class="paragraph">
 <p>Examples:</p>
@@ -389,143 +454,23 @@ Add $8888.88 to Medical for employee with employee id '987'.</p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>removeex id/123 tra/8888.88</code><br>
-Remove $8888.88 travel expenses from employee with employee id '123'</p>
+<p><code>list</code><br>
+<code>select 2</code><br>
+Selects the 2nd person in the address book.</p>
+</li>
+<li>
+<p><code>find Betsy</code><br>
+<code>select 1</code><br>
+Selects the 1st person in the results of the <code>find</code> command.</p>
 </li>
 </ul>
 </div>
 </div>
 <div class="sect2">
-<h3 id="approve-or-reject-leave-off-code-leaverequest-code"><a class="link" href="#approve-or-reject-leave-off-code-leaverequest-code">4.10. Approve or reject leave/off: <code>leaveRequest</code></a></h3>
+<h3 id="listing-entered-commands-code-history-code"><a class="link" href="#listing-entered-commands-code-history-code">3.11. Listing entered commands : <code>history</code></a></h3>
 <div class="paragraph">
-<p>View the leave/off application of specific employee and edit the status.</p>
-</div>
-<div class="paragraph">
-<p>Format: <code>leaveRequest id/EMPLOYEE_ID</code></p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>View the list of employees with leave/off request</p>
-</li>
-<li>
-<p>Select the employee name to change the leave request status</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>Examples:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Approve the leave request of John Doe</p>
-</li>
-</ul>
-</div>
-<table class="tableblock frame-all grid-all spread">
-<colgroup>
-<col style="width: 50%;">
-<col style="width: 50%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">System Prompt</th>
-<th class="tableblock halign-left valign-top">User Input</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Enter Command:</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">leaveRequest id/456</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">List of leave Request from John Doe as follows:</p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Leave from 25/08/2018 to 26/08/2018 (Approve/Reject)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">A</p></td>
-</tr>
-</tbody>
-</table>
-<div class="ulist">
-<ul>
-<li>
-<p>Reject the leave request of Besty</p>
-</li>
-</ul>
-</div>
-<table class="tableblock frame-all grid-all spread">
-<colgroup>
-<col style="width: 50%;">
-<col style="width: 50%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">System Prompt</th>
-<th class="tableblock halign-left valign-top">User Input</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Enter Command:</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">leaveRequest id/345</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">List of leave Request from Besty as follows:</p></td>
-<td class="tableblock halign-left valign-top"></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Leave from 01/01/2019 to 31/12/2019 (Approve/Reject)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">R</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sect2">
-<h3 id="locating-persons-by-name-code-find-code"><a class="link" href="#locating-persons-by-name-code-find-code">4.11. Locating persons by name: <code>find</code></a></h3>
-<div class="paragraph">
-<p>Find the employee name whose name contain any of the given keywords.</p>
-</div>
-<div class="paragraph">
-<p>Format: <code>find n/NAME</code></p>
-</div>
-<div class="paragraph">
-<p>Examples:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>find n/John</code><br>
-Find all instances of John</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="view-all-available-functions-or-commands-code-help-code"><a class="link" href="#view-all-available-functions-or-commands-code-help-code">4.12. View all available functions or commands : <code>help</code></a></h3>
-<div class="paragraph">
-<p>Views all the fucntions and commands that the CHRS have.</p>
-</div>
-<div class="paragraph">
-<p>Format: 'help'</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>CHRS will list down all functions and commands available</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="listing-entered-commands-code-history-code"><a class="link" href="#listing-entered-commands-code-history-code">4.13. Listing entered commands : <code>history</code></a></h3>
-<div class="paragraph">
-<p>Lists all the commands that you have entered in reverse chronological order.</p>
-</div>
-<div class="paragraph">
-<p>Format: <code>history</code></p>
+<p>Lists all the commands that you have entered in reverse chronological order.<br>
+Format: <code>history</code></p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -543,12 +488,10 @@ Find all instances of John</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="undoing-previous-command-code-undo-code"><a class="link" href="#undoing-previous-command-code-undo-code">4.14. Undoing previous command : <code>undo</code></a></h3>
+<h3 id="undoing-previous-command-code-undo-code"><a class="link" href="#undoing-previous-command-code-undo-code">3.12. Undoing previous command : <code>undo</code></a></h3>
 <div class="paragraph">
-<p>Restores CHRS to the state before the previous <em>undoable</em> command was executed.</p>
-</div>
-<div class="paragraph">
-<p>Format: <code>undo</code></p>
+<p>Restores the address book to the state before the previous <em>undoable</em> command was executed.<br>
+Format: <code>undo</code></p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -558,7 +501,7 @@ Find all instances of John</p>
 </td>
 <td class="content">
 <div class="paragraph">
-<p>Undoable commands: those commands that modify CHRS content (<code>add</code>, <code>delete</code>, <code>edit</code> and <code>clear</code>).</p>
+<p>Undoable commands: those commands that modify the address book&#8217;s content (<code>add</code>, <code>delete</code>, <code>edit</code> and <code>clear</code>).</p>
 </div>
 </td>
 </tr>
@@ -578,7 +521,7 @@ Find all instances of John</p>
 <p><code>select 1</code><br>
 <code>list</code><br>
 <code>undo</code><br>
-The <code>undo</code> command fails as there are no undoable commands executed previously</p>
+The <code>undo</code> command fails as there are no undoable commands executed previously.</p>
 </li>
 <li>
 <p><code>delete 1</code><br>
@@ -590,12 +533,10 @@ The <code>undo</code> command fails as there are no undoable commands executed p
 </div>
 </div>
 <div class="sect2">
-<h3 id="redoing-the-previously-undone-command-code-redo-code"><a class="link" href="#redoing-the-previously-undone-command-code-redo-code">4.15. Redoing the previously undone command : <code>redo</code></a></h3>
+<h3 id="redoing-the-previously-undone-command-code-redo-code"><a class="link" href="#redoing-the-previously-undone-command-code-redo-code">3.13. Redoing the previously undone command : <code>redo</code></a></h3>
 <div class="paragraph">
-<p>Reverses the most recent <code>undo</code> command.</p>
-</div>
-<div class="paragraph">
-<p>Format: <code>redo</code></p>
+<p>Reverses the most recent <code>undo</code> command.<br>
+Format: <code>redo</code></p>
 </div>
 <div class="paragraph">
 <p>Examples:</p>
@@ -610,7 +551,7 @@ The <code>undo</code> command fails as there are no undoable commands executed p
 <li>
 <p><code>delete 1</code><br>
 <code>redo</code><br>
-The <code>redo</code> command fails as there are no <code>undo</code> commands executed previously</p>
+The <code>redo</code> command fails as there are no <code>undo</code> commands executed previously.</p>
 </li>
 <li>
 <p><code>delete 1</code><br>
@@ -624,32 +565,28 @@ The <code>redo</code> command fails as there are no <code>undo</code> commands e
 </div>
 </div>
 <div class="sect2">
-<h3 id="clearing-all-entries-code-clear-code"><a class="link" href="#clearing-all-entries-code-clear-code">4.16. Clearing all entries : <code>clear</code></a></h3>
+<h3 id="clearing-all-entries-code-clear-code"><a class="link" href="#clearing-all-entries-code-clear-code">3.14. Clearing all entries : <code>clear</code></a></h3>
 <div class="paragraph">
-<p>Clears all entries from CHRS.</p>
-</div>
-<div class="paragraph">
-<p>Format: <code>clear</code></p>
+<p>Clears all entries from the address book.<br>
+Format: <code>clear</code></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="exiting-the-program-code-exit-code"><a class="link" href="#exiting-the-program-code-exit-code">4.17. Exiting the program : <code>exit</code></a></h3>
+<h3 id="exiting-the-program-code-exit-code"><a class="link" href="#exiting-the-program-code-exit-code">3.15. Exiting the program : <code>exit</code></a></h3>
 <div class="paragraph">
-<p>Exits the program.</p>
-</div>
-<div class="paragraph">
-<p>Format: <code>exit</code></p>
+<p>Exits the program.<br>
+Format: <code>exit</code></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="saving-the-data"><a class="link" href="#saving-the-data">4.18. Saving the data</a></h3>
+<h3 id="saving-the-data"><a class="link" href="#saving-the-data">3.16. Saving the data</a></h3>
 <div class="paragraph">
 <p>Address book data are saved in the hard disk automatically after any command that changes the data.<br>
 There is no need to save manually.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="encrypting-data-files-code-coming-in-v2-0-code"><a class="link" href="#encrypting-data-files-code-coming-in-v2-0-code">4.19. Encrypting data files <code>[coming in v2.0]</code></a></h3>
+<h3 id="encrypting-data-files-code-coming-in-v2-0-code"><a class="link" href="#encrypting-data-files-code-coming-in-v2-0-code">3.17. Encrypting data files <code>[coming in v2.0]</code></a></h3>
 <div class="paragraph">
 <p><em>{explain how the user can enable/disable data encryption}</em></p>
 </div>
@@ -657,7 +594,7 @@ There is no need to save manually.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="faq"><a class="link" href="#faq">5. FAQ</a></h2>
+<h2 id="faq"><a class="link" href="#faq">4. FAQ</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p><strong>Q1</strong>: How do I transfer my data to another Computer?<br>
@@ -682,7 +619,7 @@ There is no need to save manually.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="command-summary"><a class="link" href="#command-summary">6. Command Summary</a></h2>
+<h2 id="command-summary"><a class="link" href="#command-summary">5. Command Summary</a></h2>
 <div class="sectionbody">
 <table class="tableblock frame-all grid-all spread">
 <colgroup>
@@ -767,4 +704,4 @@ There is no need to save manually.</p>
 </tbody>
 </table>
 </div>
-</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-09-27 19:29:49 UTC</div></div></div></body></html>
+</div></div><div id="footer"><div class="container"><div id="footer-text">Last updated 2018-09-18 23:04:44 SGT</div></div></div></body></html>
