@@ -495,7 +495,7 @@ e.g. `update_pw c/password n/newpass`
 e.g. `encrypt t/1`
 * *decrypt* : `decrypt t/TIMETABLE_INDEX` +
 e.g. `decrypt t/1`
-* *get* : `get` 
+* *get* : `get`
 * *reset* : `reset a/SECURITY_ANSWER n/NEW_PASSWORD` +
 e.g. `reset a/SECURITY_ANSWER n/NEW_PASSWORD`
 * *update_sq* : `update_sq c/CURRENT_PASSWORD [n/NEWSECURITY_QUESTION]  [a/SECURITY_ANSWER]` +
