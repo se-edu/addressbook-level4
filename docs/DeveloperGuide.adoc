@@ -496,14 +496,14 @@ In excel format
 
 |`* * *` |Organiser of the group  |See if there are any available time slots which are not in conflict with everyone’s time table.
  |I can plan or attend an activity accordingly
- 
- 
+
+
 |`* *` |Organiser of the group  |See the time slot with the least number of conflicts if there are no time slots available for everyone
  |I can ensure maximum participation if it is not possible for everyone to make it
- 
+
  |`* *` |Organiser of the group  |See all of the time slots listed in order in terms of number of conflicts.
  |I can pick the best slots if maximum participation isn’t required.
- 
+
  |`* *` |Organiser of the group  |See the time slot with the least number of conflicts given a set of specific time slots.
  |I can ensure maximum participation with the additional constraint
 
@@ -512,47 +512,47 @@ In excel format
 
 |`* * *` |Organiser of the group  |Choose to create either open or closed group
  | Dont need to reject people because they know if they can join the group
- 
+
  |`* *` |Organiser of the group  |Book venues based on decide free time slot
  |I can have a venue to hold my event
- 
+
   |`* *` |member of a group  |Sync with the real-time (almost) information to get updated time and venues
  |I am always updated with the latest timetable of everyone in the group
- 
+
   |`* *` |member of a group  |Notify organiser or other members of change of timetable/clashes
  |To update the timings of future possible meetings/RSVP
- 
+
    |`* *` |member of a group  |Have a list of groups i am currently in
  |I can remember what groups i am in
- 
+
   |`* *` |Organiser of the group  |Be notified of each members’ changes in available time slot
  |I can decide how and what to plan for the upcoming meeting
- 
+
   |`* * *` |Organiser of the group  |Be able to ‘close’ or finalise the planning
  |So that no changes can be made thereafter
- 
+
  |`* * *` |user  |I want to be able to retrieve my password back
  |I will still be able to log in, even in urgent cases
- 
-  
+
+
  |`* *` |user  |I want to be able to export the information from the server
  |So that I can print, convert or edit in another file
- 
+
  |`* * *` |Organiser of the group  |I want to dismiss members who are no longer affiliated to the group
  |So that the time slot available is up to date, to ensure maximum participation
- 
+
   |`* *` |user  |I want to easily change my password
  |To keep my account details secure
- 
+
    |`* *` |user  |I want to view my meeting on all my devices
  |I have a back up in the event I lost access to one of my devices
- 
+
   |`* *` |user  |The system to be password protected
  |My information will not be shared with everyone
- 
+
  |`* *` |Organiser of the group  |I want to send an invite link
  |So that I can easily coordinate the meeting timing with my group members
- 
+
 |=======================================================================
 
 _{More to be added}_
@@ -648,7 +648,7 @@ Use case resumes at step 2.
 ** 4a1.System shows an error message.
 +
 Use case ends.
-* 5a. User does not confirm the deletion of the friend 
+* 5a. User does not confirm the deletion of the friend
 +
 
 Use case ends.
@@ -680,7 +680,7 @@ Use case resumes at step 2.
 ** 4a1.System shows an error message.
 +
 Use case resumes at step 2.
-* 5a. User does not confirm the editing of the friend 
+* 5a. User does not confirm the editing of the friend
 +
 Use case ends.
 
@@ -719,7 +719,7 @@ Use case resumes at step 2.
 +
 Use case resumes at step 2.
 * 4a.User does not confirm the addition of the timetable into the System.
-+ 
++
 Use case ends
 [discrete]
 === Use case: Find timetable by Name
@@ -890,7 +890,7 @@ Use case resumes at step 2.
 ** 4a1.System shows an error message.
 +
 Use case ends.
-* 5a. User does not confirm the deletion of the group 
+* 5a. User does not confirm the deletion of the group
 +
 
 Use case ends.
@@ -989,7 +989,7 @@ Use case resumes at step 3.
 [none]
 ** 4a1.System shows an error message.
 +
-** 4a2. User prompted to login again 
+** 4a2. User prompted to login again
 +
 Use case resumes at step 4.
 

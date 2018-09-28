@@ -18,7 +18,7 @@ endif::[]
 * This is a desktop Project Manager application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
 * It is a Java application written by developers of F11-4, to target specific interest group in NUS.
 * What's different from https://github.com/se-edu/addressbook-level4[Address Book level 4]:
-** More specific functions added  
+** More specific functions added
 ** More test cases, including automated GUI testing.
 
 == Site Map
