@@ -2,7 +2,7 @@
 <addressbook>
 
     <persons>
-        <employeeid>008888</employeeid>
+        <employeeId>008888</employeeId>
         <name>Alice Pauline</name>
         <phone>94351253</phone>
         <email>alice@example.com</email>
@@ -12,7 +12,7 @@
 
     <!-- Person with same identity as Alice Pauline -->
     <persons>
-        <employeeid>008888</employeeid>
+        <employeeId>008888</employeeId>
         <name>Alice Pauline</name>
         <phone>94351253</phone>
         <email>pauline@example.com</email>
