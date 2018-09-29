@@ -37,7 +37,7 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String employeeID} into a {@code EmployeeId).
+     * Parses a {@code String employeeId} into a {@code EmployeeId}.
      * Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code employeeId} is invalid.
