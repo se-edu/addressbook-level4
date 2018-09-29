@@ -164,7 +164,7 @@ public class PersonBuilder {
     }
 
     /**
-     * Flagged by travis to have no javadoc comment
+     * Builds (@code Person) with required employee's variables
      */
     public Person build() {
         return new Person(employeeId, name, dateOfBirth, phone, email, department, position, address, salary,
