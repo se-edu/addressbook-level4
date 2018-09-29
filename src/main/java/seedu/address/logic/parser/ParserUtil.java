@@ -9,6 +9,9 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.leave.Approval;
+import seedu.address.model.leave.Date;
+import seedu.address.model.leave.EmployeeId;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Department;
 import seedu.address.model.person.Email;
@@ -155,6 +158,50 @@ public class ParserUtil {
         return tagSet;
     }
 
+    /**
+     * Parses a {@code String nric} into a {@code EmployeeId}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code nric} is invalid.
+     */
+    public static EmployeeId parseEmployeeId(String nric) throws ParseException {
+        requireNonNull(nric);
+        String trimmedNric = nric.trim();
+        if (!EmployeeId.isValidEmployeeId(trimmedNric)) {
+            throw new ParseException(EmployeeId.MESSAGE_NRIC_CONSTRAINTS);
+        }
+        return new EmployeeId(trimmedNric);
+    }
+
+    /**
+     * Parses a {@code String date} into a {@code date}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code date} is invalid.
+     */
+    public static Date parseDate(String date) throws ParseException {
+        requireNonNull(date);
+        String trimmedDate = date.trim();
+        if (!Date.isValidDate(trimmedDate)) {
+            throw new ParseException(Date.MESSAGE_DATE_CONSTRAINTS);
+        }
+        return new Date(trimmedDate);
+    }
+
+    /**
+     * Parses a {@code String status} into a {@code status}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code status} is invalid.
+     */
+    public static Approval parseApproval(String status) throws ParseException {
+        requireNonNull(status);
+        String trimmedStatus = status.trim();
+        if (!Approval.isValidApproval(trimmedStatus)) {
+            throw new ParseException(Approval.MESSAGE_APPROVAL_CONSTRAINTS);
+        }
+        return new Approval(trimmedStatus);
+    }
     /**
      * Parses a {@code String password} into a {@code Password}.
      * Leading and trailing whitespaces will be trimmed.
