@@ -6,7 +6,10 @@ import seedu.address.model.Model;
 import seedu.address.model.leave.Leave;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.parser.CliSyntax.*;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_APPROVAL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NRIC;
+
 
 public class AddLeaveCommand extends Command {
 
