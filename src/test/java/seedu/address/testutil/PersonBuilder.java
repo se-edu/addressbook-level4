@@ -3,12 +3,18 @@ package seedu.address.testutil;
 import java.util.HashSet;
 import java.util.Set;
 
+import javafx.geometry.Pos;
 import seedu.address.model.person.Address;
+import seedu.address.model.person.Bonus;
+import seedu.address.model.person.DateOfBirth;
+import seedu.address.model.person.Department;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.EmployeeId;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.Position;
+import seedu.address.model.person.Salary;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
 
@@ -19,23 +25,37 @@ public class PersonBuilder {
 
     public static final String DEFAULT_EMPLOYEEID = "000001";
     public static final String DEFAULT_NAME = "Alice Pauline";
+    public static final String DEFAULT_DATEOFBIRTH = "01/01/1995";
     public static final String DEFAULT_PHONE = "85355255";
     public static final String DEFAULT_EMAIL = "alice@gmail.com";
+    public static final String DEFAULT_DEPARTMENT = "Human Resource";
+    public static final String DEFAULT_POSITION = "Staff";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
+    public static final String DEFAULT_SALARY = "3500";
 
     private EmployeeId employeeId;
     private Name name;
+    private DateOfBirth dateOfBirth;
     private Phone phone;
     private Email email;
+    private Department department;
+    private Position position;
     private Address address;
+    private Salary salary;
+    private Bonus bonus;
     private Set<Tag> tags;
 
     public PersonBuilder() {
         employeeId = new EmployeeId(DEFAULT_EMPLOYEEID);
         name = new Name(DEFAULT_NAME);
+        dateOfBirth = new DateOfBirth(DEFAULT_DATEOFBIRTH);
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
+        department = new Department(DEFAULT_DEPARTMENT);
+        position = new Position(DEFAULT_POSITION);
         address = new Address(DEFAULT_ADDRESS);
+        salary = new Salary(DEFAULT_SALARY);
+        bonus = new Bonus("");
         tags = new HashSet<>();
     }
 
@@ -45,9 +65,14 @@ public class PersonBuilder {
     public PersonBuilder(Person personToCopy) {
         employeeId = personToCopy.getEmployeeId();
         name = personToCopy.getName();
+        dateOfBirth = personToCopy.getDateOfBirth();
         phone = personToCopy.getPhone();
         email = personToCopy.getEmail();
+        department = personToCopy.getDepartment();
+        position = personToCopy.getPosition();
         address = personToCopy.getAddress();
+        salary = personToCopy.getSalary();
+        bonus = personToCopy.getBonus();
         tags = new HashSet<>(personToCopy.getTags());
     }
 
@@ -99,8 +124,49 @@ public class PersonBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code DateOfBirth} of the {@code DateOfBirth} that we are building.
+     */
+    public PersonBuilder withDateOfBirth(String dateOfBirth) {
+        this.dateOfBirth = new DateOfBirth(dateOfBirth);
+        return this;
+    }
+
+    /**
+     * Sets the {@code Department} of the {@code Department} that we are building.
+     */
+    public PersonBuilder withDepartment(String department) {
+        this.department = new Department(department);
+        return this;
+    }
+
+    /**
+     * Sets the {@code Position} of the {@code Position} that we are building.
+     */
+    public PersonBuilder withPosition(String position) {
+        this.position = new Position(position);
+        return this;
+    }
+
+    /**
+     * Sets the {@code Salary} of the {@code Salary} that we are building.
+     */
+    public PersonBuilder withSalary(String salary) {
+        this.salary = new Salary(salary);
+        return this;
+    }
+
+    /**
+     * Sets the {@code Bonus} of the {@code Bonus} that we are building.
+     */
+    public PersonBuilder withBonus(String bonus) {
+        this.bonus = new Bonus(bonus);
+        return this;
+    }
+
     public Person build() {
-        return new Person(employeeId, name, phone, email, address, tags);
+        return new Person(employeeId, name, dateOfBirth, phone, email, department, position, address, salary,
+                bonus, tags);
     }
 
 }
