@@ -24,13 +24,13 @@ public class PersonBuilder {
 
     public static final String DEFAULT_EMPLOYEEID = "000001";
     public static final String DEFAULT_NAME = "Alice Pauline";
-    public static final String DEFAULT_DATEOFBIRTH = "01/01/1995";
+    public static final String DEFAULT_DATEOFBIRTH = "12/12/1995";
     public static final String DEFAULT_PHONE = "85355255";
     public static final String DEFAULT_EMAIL = "alice@gmail.com";
     public static final String DEFAULT_DEPARTMENT = "Human Resource";
     public static final String DEFAULT_POSITION = "Staff";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
-    public static final String DEFAULT_SALARY = "3500.00";
+    public static final String DEFAULT_SALARY = "1000.00";
 
     private EmployeeId employeeId;
     private Name name;
