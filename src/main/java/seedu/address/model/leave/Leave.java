@@ -1,7 +1,8 @@
 package seedu.address.model.leave;
 
-import java.util.Objects;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
+import java.util.Objects;
 
 /**
  * Represents a Leave in the leave list.

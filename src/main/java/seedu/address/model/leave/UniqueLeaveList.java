@@ -1,17 +1,28 @@
 package seedu.address.model.leave;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
+import java.util.Iterator;
+import java.util.List;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.leave.exceptions.DuplicateLeaveException;
 import seedu.address.model.leave.exceptions.LeaveNotFoundException;
 
-import java.util.Iterator;
-import java.util.List;
-
-import static java.util.Objects.requireNonNull;
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
-
-public class UniqueLeaveList implements Iterable<Leave>{
+/**
+ * A list of leaves that enforces uniqueness between its elements and does not allow nulls.
+ * A leave is considered unique by comparing using {@code Leave#isSameRequest(Leave)}. As such, adding and updating of
+ * leaves uses Leave#isSameRequest(Leave) for equality so as to ensure that the leave being added or updated is
+ * unique in terms of identity in the UniqueLeaveList. However, the removal of a Leave uses Leaves#equals(Object) so
+ * as to ensure that the leave with exactly the same fields will be removed.
+ *
+ * Supports a minimal set of list operations.
+ *
+ * @see Leave#isSameRequest(Leave)
+ */
+public class UniqueLeaveList implements Iterable<Leave> {
 
     private final ObservableList<Leave> internalList2 = FXCollections.observableArrayList();
 
@@ -25,8 +36,8 @@ public class UniqueLeaveList implements Iterable<Leave>{
     }
 
     /**
-     * Adds a person to the list.
-     * The person must not already exist in the list.
+     * Adds a leave to the list.
+     * The leave must not already exist in the list.
      */
     public void add(Leave toAdd) {
         requireNonNull(toAdd);
@@ -37,9 +48,9 @@ public class UniqueLeaveList implements Iterable<Leave>{
     }
 
     /**
-     * Replaces the person {@code target} in the list with {@code editedPerson}.
+     * Replaces the leave {@code target} in the list with {@code editedLeave}.
      * {@code target} must exist in the list.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the list.
+     * The leave identity of {@code editedLeave} must not be the same as another existing leave in the list.
      */
     public void setRequest(Leave target, Leave editedRequest) {
         requireAllNonNull(target, editedRequest);
@@ -57,8 +68,8 @@ public class UniqueLeaveList implements Iterable<Leave>{
     }
 
     /**
-     * Removes the equivalent person from the list.
-     * The person must exist in the list.
+     * Removes the equivalent leave from the list.
+     * The leave must exist in the list.
      */
     public void remove(Leave toRemove) {
         requireNonNull(toRemove);
@@ -73,8 +84,8 @@ public class UniqueLeaveList implements Iterable<Leave>{
     }
 
     /**
-     * Replaces the contents of this list with {@code persons}.
-     * {@code persons} must not contain duplicate persons.
+     * Replaces the contents of this list with {@code leaves}.
+     * {@code leaves} must not contain duplicate leaves.
      */
     public void setLeaves(List<Leave> requests) {
         requireAllNonNull(requests);
@@ -93,7 +104,8 @@ public class UniqueLeaveList implements Iterable<Leave>{
     }
 
     @Override
-    public Iterator<Leave> iterator() { return internalList2.iterator();
+    public Iterator<Leave> iterator() {
+        return internalList2.iterator();
     }
 
     @Override
@@ -109,7 +121,7 @@ public class UniqueLeaveList implements Iterable<Leave>{
     }
 
     /**
-     * Returns true if {@code persons} contains only unique persons.
+     * Returns true if {@code leaves} contains only unique leaves.
      */
     private boolean leavesAreUnique(List<Leave> requests) {
         for (int i = 0; i < requests.size() - 1; i++) {

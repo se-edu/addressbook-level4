@@ -101,8 +101,8 @@ public class LeaveList implements ReadOnlyLeaveList {
         // TODO: refine later
     }
 
-   @Override
-   public ObservableList<Leave> getRequestList() {
+    @Override
+    public ObservableList<Leave> getRequestList() {
         return requests.asUnmodifiableObservableList();
     }
 

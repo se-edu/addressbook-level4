@@ -3,7 +3,6 @@ package seedu.address.model.leave;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
-
 import java.time.DateTimeException;
 
 /**
