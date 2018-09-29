@@ -38,8 +38,7 @@ public class Timetable {
         Path to = Paths.get(destination);
         try {
             Files.copy(from, to, StandardCopyOption.REPLACE_EXISTING);
-        } catch (
-            IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -56,8 +55,8 @@ public class Timetable {
         Scanner inputStream;
         //used code from https://stackoverflow.com/questions/40074840/reading-a-csv-file-into-a-array
         String filePath = locationFrom.replace("\\", "/") + "/" + fileName + ".csv";
-        TimetableData Timetable = new TimetableData(mode);
-        timetableMatrix = Timetable.getNewTimetable();
+        TimetableData timetable = new TimetableData(mode);
+        timetableMatrix = timetable.getNewTimetable();
         try {
             File toRead = new File(filePath);
             if (!toRead.exists() && mode.equals("horizontal")) {
@@ -83,10 +82,10 @@ public class Timetable {
      * @param mode
      */
     public void getNewTimetable(String locationTo, String fileName, String mode) {
-        TimetableData Timetable = new TimetableData(mode);
+        TimetableData timetable = new TimetableData(mode);
         String[][] newTimetable;
 
-        newTimetable = Timetable.getNewTimetable();
+        newTimetable = timetable.getNewTimetable();
         // used code from https://stackoverflow.com/questions/6271796/issues-of-saving-a-matrix-to-a-csv-file
         String filePath = locationTo.replace("\\", "/") + "/" + fileName + ".csv";
         try {

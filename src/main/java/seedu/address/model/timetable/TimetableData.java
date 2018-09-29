@@ -9,8 +9,8 @@ public class TimetableData {
     private final String[][] newTimetable;
     private String[] timings = {"0800", "0900", "1000", "1100", "1200", "1300",
         "1400", "1500", "1600", "1700", "1800", "1900", "2000", "2100", "2200", "2300"};
-    private String[] days = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday"
-        , "Saturday", "Sunday"};
+    private String[] days = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday",
+        "Saturday", "Sunday"};
     private final int noOfTimings = timings.length;
     private final int noOfDays = days.length;
 
@@ -47,13 +47,13 @@ public class TimetableData {
      * @return
      */
     private String[][] getNewHorizontalMatrix() {
-        String[][] Matrix = new String[noOfDays + 1][noOfTimings + 1];
+        String[][] matrix = new String[noOfDays + 1][noOfTimings + 1];
         for (int i = 0; i < noOfDays + 1; i++) {
             for (int j = 0; j < noOfTimings + 1; j++) {
-                Matrix[i][j] = " ";
+                matrix[i][j] = " ";
             }
         }
-        return Matrix;
+        return matrix;
     }
 
     /**
