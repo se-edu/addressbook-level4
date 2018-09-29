@@ -3,7 +3,7 @@
 <addressbook>
     <persons>
         <name>Alice Pauline</name>
-        <nric>T2457888E</nric>
+        <employeeId>T2457888E</employeeId>
         <password>ASd654</password>
         <phone>94351253</phone>
         <email>alice@example.com</email>
@@ -13,7 +13,7 @@
     </persons>
     <persons>
         <name>Benson Meier</name>
-        <nric>T2457846E</nric>
+        <employeeId>T2457846E</employeeId>
         <password>ASd654</password>
         <phone>98765432</phone>
         <email>johnd@example.com</email>
@@ -24,7 +24,7 @@
     </persons>
     <persons>
         <name>Carl Kurz</name>
-        <nric>T2456699E</nric>
+        <employeeId>T2456699E</employeeId>
         <password>ASd654</password>
         <phone>95352563</phone>
         <email>heinz@example.com</email>
@@ -33,7 +33,7 @@
     </persons>
     <persons>
         <name>Daniel Meier</name>
-        <nric>S2457855E</nric>
+        <employeeId>S2457855E</employeeId>
         <password>ASd654</password>
         <phone>87652533</phone>
         <email>cornelia@example.com</email>
@@ -43,7 +43,7 @@
     </persons>
     <persons>
         <name>Elle Meyer</name>
-        <nric>T0257855E</nric>
+        <employeeId>T0257855E</employeeId>
         <password>ASd654</password>
         <phone>9482224</phone>
         <email>werner@example.com</email>
@@ -52,7 +52,7 @@
     </persons>
     <persons>
         <name>Fiona Kunz</name>
-        <nric>T2457005E</nric>
+        <employeeId>T2457005E</employeeId>
         <password>ASd654</password>
         <phone>9482427</phone>
         <email>lydia@example.com</email>
@@ -61,7 +61,7 @@
     </persons>
     <persons>
         <name>George Best</name>
-        <nric>T2457775E</nric>
+        <employeeId>T2457775E</employeeId>
         <password>ASd654</password>
         <phone>9482442</phone>
         <email>anna@example.com</email>

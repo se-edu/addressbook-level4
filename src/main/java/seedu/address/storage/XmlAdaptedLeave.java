@@ -7,7 +7,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.leave.Approval;
 import seedu.address.model.leave.Date;
 import seedu.address.model.leave.Leave;
-import seedu.address.model.leave.Nric;
+import seedu.address.model.leave.EmployeeId;
 
 /**
  * JAXB-friendly version of the Leave.
@@ -44,7 +44,7 @@ public class XmlAdaptedLeave {
      * @param source future changes to this will not affect the created XmlAdaptedPerson
      */
     public XmlAdaptedLeave(Leave source) {
-        nric = source.getNric().nric;
+        nric = source.getEmployeeId().nric;
         date = source.getDate().date;
         status = source.getApproval().status;
     }
@@ -61,12 +61,12 @@ public class XmlAdaptedLeave {
         // personTags.add(tag.toModelType());
         // }
         if (nric == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Nric.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, EmployeeId.class.getSimpleName()));
         }
         //  if (!nric.isValidNric(nric)) {
         //    throw new IllegalValueException(Name.MESSAGE_NAME_CONSTRAINTS);
         //}
-        final Nric modelNric = new Nric(nric);
+        final EmployeeId modelEmployeeId = new EmployeeId(nric);
 
         if (date == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Date.class.getSimpleName()));
@@ -86,7 +86,7 @@ public class XmlAdaptedLeave {
         final Approval modelApproval = new Approval(status);
 
         // final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Leave(modelNric, modelDate, modelApproval);
+        return new Leave(modelEmployeeId, modelDate, modelApproval);
     }
 
 

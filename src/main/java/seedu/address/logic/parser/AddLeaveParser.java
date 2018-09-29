@@ -12,7 +12,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.leave.Approval;
 import seedu.address.model.leave.Date;
 import seedu.address.model.leave.Leave;
-import seedu.address.model.leave.Nric;
+import seedu.address.model.leave.EmployeeId;
 
 /**
  * Parses input arguments and creates a new AddLeaveCommand object
@@ -33,11 +33,11 @@ public class AddLeaveParser implements Parser<AddLeaveCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddLeaveCommand.MESSAGE_USAGE));
         }
 
-        Nric nric = ParserUtil.parseNric(argMultimap.getValue(PREFIX_NRIC).get());
+        EmployeeId employeeId = ParserUtil.parseEmployeeID(argMultimap.getValue(PREFIX_NRIC).get());
         Date date = ParserUtil.parseDate(argMultimap.getValue(PREFIX_DATE).get());
         Approval status = ParserUtil.parseApproval(argMultimap.getValue(PREFIX_APPROVAL).get());
 
-        Leave leave = new Leave (nric, date, status);
+        Leave leave = new Leave (employeeId, date, status);
 
         return new AddLeaveCommand(leave);
     }

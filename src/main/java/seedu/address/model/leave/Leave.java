@@ -11,15 +11,15 @@ import java.util.Objects;
 public class Leave {
 
     private final Date date;
-    private final Nric nric;
+    private final EmployeeId employeeId;
     private final Approval approval;
 
     /**
      * Every field must be present and not null.
      */
-    public Leave(Nric nric, Date date, Approval approval) {
-        requireAllNonNull(nric, date, approval);
-        this.nric = nric;
+    public Leave(EmployeeId employeeId, Date date, Approval approval) {
+        requireAllNonNull(employeeId, date, approval);
+        this.employeeId = employeeId;
         this.date = date;
         this.approval = approval;
     }
@@ -28,8 +28,8 @@ public class Leave {
         return date;
     }
 
-    public Nric getNric() {
-        return nric;
+    public EmployeeId getEmployeeId() {
+        return employeeId;
     }
 
     public Approval getApproval() {
@@ -39,11 +39,11 @@ public class Leave {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(date, nric, approval);
+        return Objects.hash(date, employeeId, approval);
     }
 
     /**
-     * Returns true if both leave of the same nric have at least one other identity field that is the same.
+     * Returns true if both leave of the same employeeId have at least one other identity field that is the same.
      * This defines a weaker notion of equality between two leaves.
      */
 
@@ -53,7 +53,7 @@ public class Leave {
         }
 
         return otherRequest != null
-                && otherRequest.getNric().equals(getNric())
+                && otherRequest.getEmployeeId().equals(getEmployeeId())
                 && (otherRequest.getDate().equals(getDate()));
     }
 
@@ -72,7 +72,7 @@ public class Leave {
         }
 
         Leave otherPerson = (Leave) other;
-        return otherPerson.getNric().equals(getNric())
+        return otherPerson.getEmployeeId().equals(getEmployeeId())
                 && otherPerson.getDate().equals(getDate())
                 && otherPerson.getApproval().equals(getApproval());
     }

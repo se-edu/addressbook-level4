@@ -2,7 +2,7 @@
 <!-- Person with an invalid phone field -->
 <person>
     <name>Hans Muster</name>
-    <nric>S9758025T</nric>
+    <employeeId>S9758025T</employeeId>
     <password>Q65wer</password>
     <phone>9482asf424</phone>
     <email>hans@example</email>

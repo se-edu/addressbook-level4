@@ -11,7 +11,7 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.leave.Approval;
 import seedu.address.model.leave.Date;
-import seedu.address.model.leave.Nric;
+import seedu.address.model.leave.EmployeeId;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Department;
 import seedu.address.model.person.Email;
@@ -57,7 +57,7 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String nric} into a {@Code Nric}.
+     * Parses a {@code String nric} into a {@Code EmployeeId}.
      * Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if given {@code nric} does not conform to the requirements.
@@ -65,8 +65,8 @@ public class ParserUtil {
     public static Nric parseNric(String nric) throws ParseException {
         requireNonNull(nric);
         String trimmedNric = nric.trim();
-        if (!Nric.isValidNric(nric)) {
-            throw new ParseException(Nric.MESSAGE_NRIC_CONSTRAINTS);
+        if (!EmployeeId.isValidNRIC(nric)) {
+            throw new ParseException(EmployeeId.MESSAGE_NRIC_CONSTRAINTS);
         }
         return new Nric(trimmedNric);
     }
@@ -159,18 +159,18 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String nric} into a {@code Nric}.
+     * Parses a {@code String nric} into a {@code EmployeeId}.
      * Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code nric} is invalid.
      */
-    public static Nric parseNric(String nric) throws ParseException {
+    public static EmployeeId parseEmployeeID(String nric) throws ParseException {
         requireNonNull(nric);
         String trimmedNric = nric.trim();
-        if (!Nric.isValidNRIC(trimmedNric)) {
-            throw new ParseException(Nric.MESSAGE_NRIC_CONSTRAINTS);
+        if (!EmployeeId.isValidNRIC(trimmedNric)) {
+            throw new ParseException(EmployeeId.MESSAGE_NRIC_CONSTRAINTS);
         }
-        return new Nric(trimmedNric);
+        return new EmployeeId(trimmedNric);
     }
 
     /**
@@ -201,6 +201,7 @@ public class ParserUtil {
             throw new ParseException(Approval.MESSAGE_APPROVAL_CONSTRAINTS);
         }
         return new Approval(trimmedStatus);
+    }
     /**
      * Parses a {@code String password} into a {@code Password}.
      * Leading and trailing whitespaces will be trimmed.

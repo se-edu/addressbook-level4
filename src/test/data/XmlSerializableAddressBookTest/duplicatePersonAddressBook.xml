@@ -3,7 +3,7 @@
 
     <persons>
         <name>Alice Pauline</name>
-        <nric>S1234567E</nric>
+        <employeeId>S1234567E</employeeId>
         <password>A123b5dd</password>
         <phone>94351253</phone>
         <email>alice@example.com</email>
@@ -15,7 +15,7 @@
     <!-- Person with same identity as Alice Pauline -->
     <persons>
         <name>Alice Pauline</name>
-        <nric>S1234567E</nric>
+        <employeeId>S1234567E</employeeId>
         <password>A3b5dd</password>
         <phone>94351253</phone>
         <email>pauline@example.com</email>
