@@ -48,8 +48,15 @@ public class XmlAdaptedPerson {
     /**
      * Constructs an XmlAdaptedPerson.
      * This is the no-arg constructor that is required by JAXB.
+     * @param validName
+     * @param invalidNric
+     * @param validPassword
+     * @param validPhone
+     * @param validEmail
+     * @param validAddress
+     * @param validTags
      */
-    public XmlAdaptedPerson() {}
+    public XmlAdaptedPerson(String validName, String invalidNric, String validPassword, String validPhone, String validEmail, String validAddress, List<XmlAdaptedTag> validTags) {}
 
     /**
      * Constructs an {@code XmlAdaptedPerson} with the given person details.
