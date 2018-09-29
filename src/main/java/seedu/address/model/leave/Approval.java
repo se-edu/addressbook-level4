@@ -2,13 +2,21 @@ package seedu.address.model.leave;
 
 import static java.util.Objects.requireNonNull;
 
+/**
+ * Represents a Leave's approval in the leave list.
+ * Guarantees: immutable; is valid as declared in
+ */
 public class Approval {
 
 
     public final String status;
 
-
-    public Approval(String status){
+    /**
+     * Constructs an {@code Approval}.
+     *
+     * @param status A valid status.
+     */
+    public Approval(String status) {
         requireNonNull(status);
         this.status = status;
     }

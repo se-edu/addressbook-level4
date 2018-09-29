@@ -103,7 +103,7 @@ public class LeaveList implements ReadOnlyLeaveList {
 
    @Override
    public ObservableList<Leave> getRequestList() {
-        return  requests.asUnmodifiableObservableList();
+        return requests.asUnmodifiableObservableList();
     }
 
 

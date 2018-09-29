@@ -1,9 +1,10 @@
 package seedu.address.model.leave;
 
-import java.time.DateTimeException;
-
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
+
+
+import java.time.DateTimeException;
 
 /**
  * Represents a Leave's date in the leave list.
@@ -22,7 +23,7 @@ public class Date {
      */
     public Date (String date) {
         requireNonNull(date);
-        checkArgument(isValidDate(date),MESSAGE_DATE_CONSTRAINTS);
+        checkArgument(isValidDate(date), MESSAGE_DATE_CONSTRAINTS);
         this.date = date;
     }
 

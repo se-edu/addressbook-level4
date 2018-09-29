@@ -1,7 +1,6 @@
 package seedu.address.model.leave;
 
 import java.util.Objects;
-
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 /**
@@ -11,13 +10,13 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 public class Leave {
 
     private final Date date;
-    private final NRIC nric;
+    private final Nric nric;
     private final Approval approval;
 
     /**
      * Every field must be present and not null.
      */
-    public Leave(NRIC nric, Date date, Approval approval) {
+    public Leave(Nric nric, Date date, Approval approval) {
         requireAllNonNull(nric, date, approval);
         this.nric = nric;
         this.date = date;
@@ -28,7 +27,7 @@ public class Leave {
         return date;
     }
 
-    public NRIC getNric() {
+    public Nric getNric() {
         return nric;
     }
 

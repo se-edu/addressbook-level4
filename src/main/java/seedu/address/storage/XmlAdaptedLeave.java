@@ -4,12 +4,9 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.leave.Approval;
 import seedu.address.model.leave.Date;
 import seedu.address.model.leave.Leave;
-import seedu.address.model.leave.NRIC;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.leave.Nric;
 
 import javax.xml.bind.annotation.XmlElement;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Objects;
 
 public class XmlAdaptedLeave {
@@ -61,12 +58,12 @@ public class XmlAdaptedLeave {
            // personTags.add(tag.toModelType());
        // }
         if (nric == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, NRIC.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Nric.class.getSimpleName()));
         }
       //  if (!nric.isValidNric(nric)) {
         //    throw new IllegalValueException(Name.MESSAGE_NAME_CONSTRAINTS);
         //}
-        final NRIC modelNric = new NRIC(nric);
+        final Nric modelNric = new Nric(nric);
 
         if (date == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Date.class.getSimpleName()));

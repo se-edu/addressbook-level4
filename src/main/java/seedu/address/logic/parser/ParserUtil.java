@@ -11,7 +11,7 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.leave.Approval;
 import seedu.address.model.leave.Date;
-import seedu.address.model.leave.NRIC;
+import seedu.address.model.leave.Nric;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -131,13 +131,13 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code nric} is invalid.
      */
-    public static NRIC parseNric(String nric) throws ParseException {
+    public static Nric parseNric(String nric) throws ParseException {
         requireNonNull(nric);
         String trimmedNric = nric.trim();
-        //if (!NRIC.isValidNRIC(trimmedNric)) {
+        //if (!Nric.isValidNRIC(trimmedNric)) {
         //    throw new ParseException(Name.MESSAGE_NAME_CONSTRAINTS);
         // }
-        return new NRIC(trimmedNric);
+        return new Nric(trimmedNric);
     }
 
     /**
@@ -164,7 +164,7 @@ public class ParserUtil {
     public static Approval parseApproval(String status) throws ParseException {
         requireNonNull(status);
         String trimmedStatus = status.trim();
-        //if (!NRIC.isValidNRIC(trimmedNric)) {
+        //if (!Nric.isValidNRIC(trimmedNric)) {
         //    throw new ParseException(Name.MESSAGE_NAME_CONSTRAINTS);
         // }
         return new Approval(trimmedStatus);
