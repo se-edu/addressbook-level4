@@ -5,6 +5,7 @@
         <name>Hans Muster</name>
         <phone isPrivate="false">9482424</phone>
         <email isPrivate="false">hans@exam!32ple</email>
+        <department isPrivate="false">Junior Management</department>
         <address isPrivate="false">4th street</address>
     </persons>
 </addressbook>
