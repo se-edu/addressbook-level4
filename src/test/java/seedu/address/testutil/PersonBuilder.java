@@ -3,7 +3,6 @@ package seedu.address.testutil;
 import java.util.HashSet;
 import java.util.Set;
 
-import javafx.geometry.Pos;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Bonus;
 import seedu.address.model.person.DateOfBirth;
@@ -125,7 +124,7 @@ public class PersonBuilder {
     }
 
     /**
-     * Sets the {@code DateOfBirth} of the {@code DateOfBirth} that we are building.
+     * Sets the {@code DateOfBirth} of the {@code Person} that we are building.
      */
     public PersonBuilder withDateOfBirth(String dateOfBirth) {
         this.dateOfBirth = new DateOfBirth(dateOfBirth);
@@ -133,7 +132,7 @@ public class PersonBuilder {
     }
 
     /**
-     * Sets the {@code Department} of the {@code Department} that we are building.
+     * Sets the {@code Department} of the {@code Person} that we are building.
      */
     public PersonBuilder withDepartment(String department) {
         this.department = new Department(department);
@@ -141,7 +140,7 @@ public class PersonBuilder {
     }
 
     /**
-     * Sets the {@code Position} of the {@code Position} that we are building.
+     * Sets the {@code Position} of the {@code Person} that we are building.
      */
     public PersonBuilder withPosition(String position) {
         this.position = new Position(position);
@@ -149,7 +148,7 @@ public class PersonBuilder {
     }
 
     /**
-     * Sets the {@code Salary} of the {@code Salary} that we are building.
+     * Sets the {@code Salary} of the {@code Person} that we are building.
      */
     public PersonBuilder withSalary(String salary) {
         this.salary = new Salary(salary);
@@ -157,7 +156,7 @@ public class PersonBuilder {
     }
 
     /**
-     * Sets the {@code Bonus} of the {@code Bonus} that we are building.
+     * Sets the {@code Bonus} of the {@code Person} that we are building.
      */
     public PersonBuilder withBonus(String bonus) {
         this.bonus = new Bonus(bonus);
