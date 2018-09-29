@@ -19,6 +19,8 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyTranscript;
+import seedu.address.model.module.Module;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.PersonBuilder;
 
@@ -89,12 +91,77 @@ public class AddCommandTest {
      */
     private class ModelStub implements Model {
         @Override
-        public void addPerson(Person person) {
+        public void addModule(Module module) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void resetData(ReadOnlyTranscript newData) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
         public void resetData(ReadOnlyAddressBook newData) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyTranscript getTranscript() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasModule(Module module) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteModule(Module target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateModule(Module target, Module editedModule) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Module> getFilteredModuleList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredModuleList(Predicate<Module> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean canUndoTranscript() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean canRedoTranscript() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void undoTranscript() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void redoTranscript() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void commitTranscript() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addPerson(Person person) {
             throw new AssertionError("This method should not be called.");
         }
 
