@@ -83,10 +83,10 @@ public class AddressBookParser {
             return new UndoCommand();
 
         case RedoCommand.COMMAND_WORD:
-                return new RedoCommand();
+            return new RedoCommand();
 
         case AddLeaveCommand.COMMAND_WORD:
-                return new AddLeaveParser().parse(arguments);
+            return new AddLeaveParser().parse(arguments);
 
 
         default:

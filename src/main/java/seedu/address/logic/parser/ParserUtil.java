@@ -136,7 +136,7 @@ public class ParserUtil {
         String trimmedNric = nric.trim();
         //if (!NRIC.isValidNRIC(trimmedNric)) {
         //    throw new ParseException(Name.MESSAGE_NAME_CONSTRAINTS);
-       // }
+        // }
         return new NRIC(trimmedNric);
     }
 
@@ -150,7 +150,7 @@ public class ParserUtil {
         requireNonNull(date);
         String trimmedDate = date.trim();
         if (!Date.isValidDate(trimmedDate)) {
-           throw new ParseException(Date.MESSAGE_DATE_CONSTRAINTS);
+            throw new ParseException(Date.MESSAGE_DATE_CONSTRAINTS);
         }
         return new Date(trimmedDate);
     }
