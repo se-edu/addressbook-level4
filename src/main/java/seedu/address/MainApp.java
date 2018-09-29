@@ -105,7 +105,7 @@ public class MainApp extends Application {
         }
         initialRequest = new LeaveList();
 
-        return new ModelManager(initialData, initialRequest,userPrefs);
+        return new ModelManager(initialData, initialRequest, userPrefs);
     }
 
     private void initLogging(Config config) {
