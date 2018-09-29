@@ -1,31 +1,40 @@
 package seedu.address.model.leave;
 
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
 import java.util.Objects;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+/**
+ * Represents a Leave in the leave list.
+ * Guarantees: details are present and not null, field values are validated, immutable.
+ */
 public class Leave {
 
     private final Date date;
     private final NRIC nric;
     private final Approval approval;
 
-
-    public Leave(NRIC nric, Date date, Approval approval){
-        requireAllNonNull(nric,date,approval);
+    /**
+     * Every field must be present and not null.
+     */
+    public Leave(NRIC nric, Date date, Approval approval) {
+        requireAllNonNull(nric, date, approval);
         this.nric = nric;
         this.date = date;
         this.approval = approval;
     }
 
-    public Date getDate() {return date; }
+    public Date getDate() {
+        return date;
+    }
 
-    public NRIC getNric() {return nric; }
+    public NRIC getNric() {
+        return nric;
+    }
 
-    public Approval getApproval() {return approval; }
+    public Approval getApproval() {
+        return approval;
+    }
 
     @Override
     public int hashCode() {
@@ -34,8 +43,8 @@ public class Leave {
     }
 
     /**
-     * Returns true if both persons of the same name have at least one other identity field that is the same.
-     * This defines a weaker notion of equality between two persons.
+     * Returns true if both leave of the same nric have at least one other identity field that is the same.
+     * This defines a weaker notion of equality between two leaves.
      */
 
     public boolean isSameRequest(Leave otherRequest) {
@@ -49,8 +58,8 @@ public class Leave {
     }
 
     /**
-     * Returns true if both persons have the same identity and data fields.
-     * This defines a stronger notion of equality between two persons.
+     * Returns true if both leaves have the same identity and data fields.
+     * This defines a stronger notion of equality between two leaves.
      */
     @Override
     public boolean equals(Object other) {
