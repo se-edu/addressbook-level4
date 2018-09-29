@@ -27,7 +27,7 @@ public class PositionTest {
 
         // invalid positions
         assertFalse(Position.isValidPosition("")); // empty string
-        assertFalse(Position.isValidPosition(" ")); // spaces only
+        assertFalse(Position.isValidPosition(" ")); // // less than 2 characters
         assertFalse(Position.isValidPosition("91")); // only numeric characters
         assertFalse(Position.isValidPosition("Finance123")); // contains numeric characters
 

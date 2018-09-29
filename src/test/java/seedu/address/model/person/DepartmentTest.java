@@ -27,7 +27,7 @@ public class DepartmentTest {
 
         // invalid departments
         assertFalse(Department.isValidDepartment("")); // empty string
-        assertFalse(Department.isValidDepartment(" ")); // spaces only
+        assertFalse(Department.isValidDepartment(" ")); // less than 2 characters
         assertFalse(Department.isValidDepartment("91")); // only numeric characters
         assertFalse(Department.isValidDepartment("Finance123")); // contains numeric characters
 
