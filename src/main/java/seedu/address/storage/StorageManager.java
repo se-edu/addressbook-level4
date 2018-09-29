@@ -28,7 +28,8 @@ public class StorageManager extends ComponentManager implements Storage {
     private UserPrefsStorage userPrefsStorage;
 
 
-    public StorageManager(AddressBookStorage addressBookStorage, LeaveListStorage leaveListStorage, UserPrefsStorage userPrefsStorage) {
+    public StorageManager(AddressBookStorage addressBookStorage, LeaveListStorage leaveListStorage,
+                          UserPrefsStorage userPrefsStorage) {
         super();
         this.addressBookStorage = addressBookStorage;
         this.leaveListStorage = leaveListStorage;
@@ -85,7 +86,9 @@ public class StorageManager extends ComponentManager implements Storage {
     // ================ LeaveList methods ==============================
 
     @Override
-    public Path getLeaveListFilePath() { return leaveListStorage.getLeaveListFilePath(); }
+    public Path getLeaveListFilePath() {
+        return leaveListStorage.getLeaveListFilePath();
+    }
 
 
     @Override
@@ -107,7 +110,7 @@ public class StorageManager extends ComponentManager implements Storage {
     @Override
     public void saveLeaveList(ReadOnlyLeaveList leaveList, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
-        leaveListStorage.saveLeaveList(leaveList,filePath);
+        leaveListStorage.saveLeaveList(leaveList, filePath);
     }
 
 

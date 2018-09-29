@@ -1,14 +1,17 @@
 package seedu.address.storage;
 
+import javax.xml.bind.annotation.XmlElement;
+import java.util.Objects;
+
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.leave.Approval;
 import seedu.address.model.leave.Date;
 import seedu.address.model.leave.Leave;
 import seedu.address.model.leave.Nric;
 
-import javax.xml.bind.annotation.XmlElement;
-import java.util.Objects;
-
+/**
+ * JAXB-friendly version of the Leave.
+ */
 public class XmlAdaptedLeave {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Leave's %s field is missing!";
@@ -53,14 +56,14 @@ public class XmlAdaptedLeave {
      */
 
     public Leave toModelType() throws IllegalValueException {
-       // final List<Tag> personTags = new ArrayList<>();
+        // final List<Tag> personTags = new ArrayList<>();
         //for (XmlAdaptedTag tag : tagged) {
            // personTags.add(tag.toModelType());
-       // }
+        // }
         if (nric == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Nric.class.getSimpleName()));
         }
-      //  if (!nric.isValidNric(nric)) {
+        //  if (!nric.isValidNric(nric)) {
         //    throw new IllegalValueException(Name.MESSAGE_NAME_CONSTRAINTS);
         //}
         final Nric modelNric = new Nric(nric);
@@ -68,20 +71,21 @@ public class XmlAdaptedLeave {
         if (date == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Date.class.getSimpleName()));
         }
-       // if (!Approval.isValidPhone(phone)) {
+        // if (!Approval.isValidPhone(phone)) {
             //throw new IllegalValueException(Phone.MESSAGE_PHONE_CONSTRAINTS);
         //}
-        final Date modelDate= new Date(date);
+        final Date modelDate = new Date(date);
 
         if (status == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Approval.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Approval.class.getSimpleName()));
         }
-       // if (!Email.isValidEmail(email)) {
+        // if (!Email.isValidEmail(email)) {
            // throw new IllegalValueException(Email.MESSAGE_EMAIL_CONSTRAINTS);
-       // }
+        // }
         final Approval modelApproval = new Approval(status);
 
-       // final Set<Tag> modelTags = new HashSet<>(personTags);
+        // final Set<Tag> modelTags = new HashSet<>(personTags);
         return new Leave(modelNric, modelDate, modelApproval);
     }
 

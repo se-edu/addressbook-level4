@@ -23,7 +23,9 @@ public class XmlFileStorage {
             throw new AssertionError("Unexpected exception " + e.getMessage(), e);
         }
     }
-
+    /**
+     * Saves the given leavelist data to the specified file.
+     */
     public static void saveDataToFile(Path file, XmlSerializableLeaveList leaveList)
             throws FileNotFoundException {
         try {
