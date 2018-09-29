@@ -13,9 +13,7 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
-import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.BENSON;
-import static seedu.address.testutil.TypicalPersons.BOB;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.Test;
@@ -37,7 +35,7 @@ import seedu.address.testutil.PersonBuilder;
  */
 public class EditCommandTest {
 
-    private final Person ALICE_FOR_EDIT = new PersonBuilder().withName("Alice Pauline")
+    private static final Person ALICEFOREDIT = new PersonBuilder().withName("Alice Pauline")
             .withNric("T2457888E").withPassword("ASd654")
             .withAddress("123, Jurong West Ave 6, #08-111").withEmail("alice@gmail.com")
             .withPhone("85355255")
@@ -52,7 +50,7 @@ public class EditCommandTest {
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
 
-        Person editedPerson = ALICE_FOR_EDIT;
+        Person editedPerson = ALICEFOREDIT;
 
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(editedPerson).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, descriptor);
@@ -148,7 +146,7 @@ public class EditCommandTest {
     @Test
     public void executeUndoRedo_validIndexUnfilteredList_success() throws Exception {
         //Person editedPerson = new PersonBuilder().build();
-        Person editedPerson = ALICE_FOR_EDIT;
+        Person editedPerson = ALICEFOREDIT;
         Person personToEdit = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(editedPerson).build();
         EditCommand editCommand = new
@@ -194,7 +192,7 @@ public class EditCommandTest {
      */
     @Test
     public void executeUndoRedo_validIndexFilteredList_samePersonEdited() throws Exception {
-        Person editedPerson = new PersonBuilder(ALICE_FOR_EDIT).withNric(BENSON.getNric().toString()).build();
+        Person editedPerson = new PersonBuilder(ALICEFOREDIT).withNric(BENSON.getNric().toString()).build();
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(editedPerson).build();
         EditCommand editCommand = new EditCommand(INDEX_FIRST_PERSON, descriptor);
         Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
