@@ -1,14 +1,18 @@
 package seedu.address.model;
 
+import static java.util.Objects.requireNonNull;
+
+import java.util.List;
+
 import javafx.collections.ObservableList;
 import seedu.address.model.leave.Leave;
 import seedu.address.model.leave.UniqueLeaveList;
 
-import java.util.List;
-
-import static java.util.Objects.requireNonNull;
-
-public class LeaveList implements ReadOnlyLeaveList{
+/**
+ * Wraps all data at the leave-list level
+ * Duplicates are not allowed (by .isSameRequest comparison)
+ */
+public class LeaveList implements ReadOnlyLeaveList {
 
     private final UniqueLeaveList requests;
 

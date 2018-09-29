@@ -125,7 +125,13 @@ public class ParserUtil {
         return tagSet;
     }
 
-    public static NRIC parseNRIC(String nric) throws ParseException {
+    /**
+     * Parses a {@code String nric} into a {@code Nric}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code nric} is invalid.
+     */
+    public static NRIC parseNric(String nric) throws ParseException {
         requireNonNull(nric);
         String trimmedNric = nric.trim();
         //if (!NRIC.isValidNRIC(trimmedNric)) {
@@ -134,6 +140,12 @@ public class ParserUtil {
         return new NRIC(trimmedNric);
     }
 
+    /**
+     * Parses a {@code String date} into a {@code date}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code date} is invalid.
+     */
     public static Date parseDate(String date) throws ParseException {
         requireNonNull(date);
         String trimmedDate = date.trim();
@@ -143,6 +155,12 @@ public class ParserUtil {
         return new Date(trimmedDate);
     }
 
+    /**
+     * Parses a {@code String status} into a {@code status}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code status} is invalid.
+     */
     public static Approval parseApproval(String status) throws ParseException {
         requireNonNull(status);
         String trimmedStatus = status.trim();
