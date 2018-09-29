@@ -123,6 +123,49 @@ public class PersonBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code DateOfBirth} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withDateOfBirth(String dateOfBirth) {
+        this.dateOfBirth = new DateOfBirth(dateOfBirth);
+        return this;
+    }
+
+    /**
+     * Sets the {@code Department} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withDepartment(String department) {
+        this.department = new Department(department);
+        return this;
+    }
+
+    /**
+     * Sets the {@code Position} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withPosition(String position) {
+        this.position = new Position(position);
+        return this;
+    }
+
+    /**
+     * Sets the {@code Salary} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withSalary(String salary) {
+        this.salary = new Salary(salary);
+        return this;
+    }
+
+    /**
+     * Sets the {@code Bonus} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withBonus(String bonus) {
+        this.bonus = new Bonus(bonus);
+        return this;
+    }
+
+    /**
+     * Flagged by travis to have no javadoc comment
+     */
     public Person build() {
         return new Person(employeeId, name, dateOfBirth, phone, email, department, position, address, salary,
                 bonus, tags);
