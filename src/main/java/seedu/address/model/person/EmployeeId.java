@@ -11,7 +11,7 @@ public class EmployeeId {
 
     public static final String MESSAGE_EMPLOYEEID_CONSTRAINTS =
             "Employee Ids should only contain a 6 digit number, and it should not be blank";
-    public static final String EMPLOYEEID_VALIDATION_REGEX = "\\d{6}";
+    public static final String EMPLOYEEID_VALIDATION_REGEX = "[0-9]{6}";
     public final String value;
 
     /**

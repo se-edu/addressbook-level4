@@ -97,7 +97,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         /* Case: add a person with tags, command with parameters in random order -> added */
         toAdd = BOB;
         command = AddCommand.COMMAND_WORD + TAG_DESC_FRIEND + PHONE_DESC_BOB + ADDRESS_DESC_BOB + NAME_DESC_BOB
-                + TAG_DESC_HUSBAND + EMAIL_DESC_BOB + EMPLOYEEID_DESC_BOB;
+                + TAG_DESC_HUSBAND + EMAIL_DESC_BOB + EMPLOYEEID_DESC_AMY;
         assertCommandSuccess(command, toAdd);
 
         /* Case: add a person, missing tags -> added */

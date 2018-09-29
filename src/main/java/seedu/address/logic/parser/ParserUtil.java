@@ -37,10 +37,10 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String employeeID} into a {@code Name}.
+     * Parses a {@code String employeeID} into a {@code employeeId.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code name} is invalid.
+     * @throws ParseException if the given {@code employeeId} is invalid.
      */
     public static EmployeeId parseEmployeeId(String employeeId) throws ParseException {
         requireNonNull(employeeId);
