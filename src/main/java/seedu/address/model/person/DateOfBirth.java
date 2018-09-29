@@ -10,7 +10,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class DateOfBirth {
     public static final String MESSAGE_DATEOFBIRTH_CONSTRAINTS =
             "Date of Birth should only be in the format of DD/MM/YYYY and it should not be blank";
-    public static final String DATEOFBIRTH_VALIDATION_REGEX = "[0-9/]{10}";
+    public static final String DATEOFBIRTH_VALIDATION_REGEX = "\\d{2}\\/\\d{2}\\/\\d{4}";
     public final String value;
 
     /**

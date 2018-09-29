@@ -10,7 +10,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Position {
     public static final String MESSAGE_POSITION_CONSTRAINTS =
             "Position should only contain alphabets and spaces, and it should not be blank";
-    public static final String POSITION_VALIDATION_REGEX = "[A-Z ]*";
+    public static final String POSITION_VALIDATION_REGEX = "[A-Za-z ]*";
     public final String value;
 
     /**
