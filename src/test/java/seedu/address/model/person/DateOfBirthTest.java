@@ -34,7 +34,7 @@ public class DateOfBirthTest {
         assertFalse(DateOfBirth.isValidDateOfBirth("9312 1534")); // spaces within digits
 
         // valid dates of birth
-        assertTrue(DateOfBirth.isValidDateOfBirth("12/6/1990")); // exactly 10 characters with 2 forward slash
-        assertTrue(DateOfBirth.isValidDateOfBirth("31/2/1993")); // exactly 10 characters with 2 forward slash
+        assertTrue(DateOfBirth.isValidDateOfBirth("12/06/1990")); // exactly 10 characters with 2 forward slash
+        assertTrue(DateOfBirth.isValidDateOfBirth("31/02/1993")); // exactly 10 characters with 2 forward slash
     }
 }
