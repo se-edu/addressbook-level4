@@ -54,7 +54,7 @@ public class XmlAdaptedPerson {
     /**
      * Constructs an {@code XmlAdaptedPerson} with the given person details.
      */
-    public XmlAdaptedPerson(String name, String nric, String password, String phone, String email, 
+    public XmlAdaptedPerson(String name, String nric, String password, String phone, String email,
                             String department, String address, List<XmlAdaptedTag> tagged) {
         this.name = name;
         this.nric = nric;
@@ -156,8 +156,8 @@ public class XmlAdaptedPerson {
         final Address modelAddress = new Address(address);
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Person(modelName, modelNric, modelPassword, modelPhone, modelEmail, modelDepartment, 
-                          modelAddress, modelTags);
+        return new Person(modelName, modelNric, modelPassword, modelPhone, modelEmail, modelDepartment,
+                modelAddress, modelTags);
     }
 
     @Override

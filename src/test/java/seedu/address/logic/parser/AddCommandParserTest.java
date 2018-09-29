@@ -59,7 +59,7 @@ public class AddCommandParserTest {
 
         // whitespace only preamble
         assertParseSuccess(parser, PREAMBLE_WHITESPACE + NAME_DESC_BOB
-                + NRIC_DESC_BOB + PASSWORD_DESC_BOB+ PHONE_DESC_BOB + EMAIL_DESC_BOB 
+                + NRIC_DESC_BOB + PASSWORD_DESC_BOB+ PHONE_DESC_BOB + EMAIL_DESC_BOB
                 + DEPARTMENT_DESC_BOB + ADDRESS_DESC_BOB + TAG_DESC_FRIEND, new AddCommand(expectedPerson));
 
         // multiple names - last name accepted
@@ -148,11 +148,11 @@ public class AddCommandParserTest {
 
         // invalid email
         assertParseFailure(parser, NAME_DESC_BOB
-                + NRIC_DESC_BOB + PASSWORD_DESC_BOB + PHONE_DESC_BOB + INVALID_EMAIL_DESC + DEPARTMENT_DESC_BOB 
+                + NRIC_DESC_BOB + PASSWORD_DESC_BOB + PHONE_DESC_BOB + INVALID_EMAIL_DESC + DEPARTMENT_DESC_BOB
                 + ADDRESS_DESC_BOB + TAG_DESC_HUSBAND + TAG_DESC_FRIEND, Email.MESSAGE_EMAIL_CONSTRAINTS);
-        
+
         // invalid department
-        assertParseFailure(parser, NAME_DESC_BOB 
+        assertParseFailure(parser, NAME_DESC_BOB
                 + NRIC_DESC_BOB + PASSWORD_DESC_BOB + PHONE_DESC_BOB + EMAIL_DESC_BOB
                 + INVALID_DEPARTMENT_DESC + ADDRESS_DESC_BOB + TAG_DESC_HUSBAND
                 + TAG_DESC_FRIEND, Department.MESSAGE_DEPARTMENT_CONSTRAINTS);

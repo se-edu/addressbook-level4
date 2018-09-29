@@ -133,7 +133,7 @@ public class XmlAdaptedPersonTest {
     @Test
     public void toModelType_invalidDepartment_throwsIllegalValueException() {
         XmlAdaptedPerson person =
-                new XmlAdaptedPerson(VALID_NAME, VALID_NRIC, VALID_PASSWORD, VALID_PHONE, VALID_EMAIL, 
+                new XmlAdaptedPerson(VALID_NAME, VALID_NRIC, VALID_PASSWORD, VALID_PHONE, VALID_EMAIL,
                         INVALID_DEPARTMENT, VALID_ADDRESS, VALID_TAGS);
         String expectedMessage = Department.MESSAGE_DEPARTMENT_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
@@ -141,7 +141,7 @@ public class XmlAdaptedPersonTest {
 
     @Test
     public void toModelType_nullDepartment_throwsIllegalValueException() {
-        XmlAdaptedPerson person = new XmlAdaptedPerson(VALID_NAME, VALID_NRIC, VALID_PASSWORD, VALID_PHONE, 
+        XmlAdaptedPerson person = new XmlAdaptedPerson(VALID_NAME, VALID_NRIC, VALID_PASSWORD, VALID_PHONE,
                 VALID_EMAIL, null, VALID_ADDRESS, VALID_TAGS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Department.class.getSimpleName());
         Assert.assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);

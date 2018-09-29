@@ -106,8 +106,8 @@ public class PersonBuilder {
      */
     public PersonBuilder withDepartment(String department) {
         this.department = new Department(department);
-      
-    /**
+
+        /**
      * Sets the {@code Nric} of the {@code Person} that we are building.
      */
     public PersonBuilder withNric(String nric) {
