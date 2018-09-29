@@ -66,7 +66,7 @@ public class ParserUtil {
         requireNonNull(nric);
         String trimmedNric = nric.trim();
         if (!Nric.isValidNric(nric)) {
-            throw new ParseException(EmployeeId.MESSAGE_NRIC_CONSTRAINTS);
+            throw new ParseException(Nric.MESSAGE_NRIC_CONSTRAINTS);
         }
         return new Nric(trimmedNric);
     }
