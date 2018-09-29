@@ -199,7 +199,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: Invalid password -> rejected */
         command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY
-                + TAG_DESC_FRIEND +  NRIC_DESC_AMY + INVALID_PASSWORD_DESC;
+                + TAG_DESC_FRIEND + NRIC_DESC_AMY + INVALID_PASSWORD_DESC;
         assertCommandFailure(command, Password.MESSAGE_PASSWORD_CONSTRAINTS);
 
         /* Case: Wrong NRIC format -> rejected */
