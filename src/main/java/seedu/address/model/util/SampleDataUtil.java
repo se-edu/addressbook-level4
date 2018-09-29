@@ -53,8 +53,8 @@ public class SampleDataUtil {
                 new Email("irfan@example.com"), SAMPLE_DEPARTMENT, SAMPLE_POSITION,
                 new Address("Blk 47 Tampines Street 20, #17-35"), SAMPLE_SALARY, EMPTY_BONUS,
                 getTagSet("classmates")),
-            new Person(new EmployeeId("000006"), new Name("Roy Balakrishnan"), SAMPLE_DATEOFBIRTH, new Phone("92624417"),
-                new Email("royb@example.com"), SAMPLE_DEPARTMENT, SAMPLE_POSITION,
+            new Person(new EmployeeId("000006"), new Name("Roy Balakrishnan"), SAMPLE_DATEOFBIRTH,
+                new Phone("92624417"), new Email("royb@example.com"), SAMPLE_DEPARTMENT, SAMPLE_POSITION,
                 new Address("Blk 45 Aljunied Street 85, #11-31"), SAMPLE_SALARY, EMPTY_BONUS,
                 getTagSet("colleagues"))
         };
