@@ -3,6 +3,9 @@ package seedu.address.model;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * {@code LeaveList} that keeps track of its own history.
+ */
 public class VersionedLeaveList extends LeaveList {
 
 
@@ -18,7 +21,7 @@ public class VersionedLeaveList extends LeaveList {
     }
 
     /**
-     * Saves a copy of the current {@code AddressBook} state at the end of the state list.
+     * Saves a copy of the current {@code LeaveList} state at the end of the state list.
      * Undone states are removed from the state list.
      */
     public void commit() {
@@ -32,7 +35,7 @@ public class VersionedLeaveList extends LeaveList {
     }
 
     /**
-     * Restores the address book to its previous state.
+     * Restores the leave list to its previous state.
      */
     public void undo() {
         if (!canUndo()) {
@@ -43,7 +46,7 @@ public class VersionedLeaveList extends LeaveList {
     }
 
     /**
-     * Restores the address book to its previously undone state.
+     * Restores the leave list to its previously undone state.
      */
     public void redo() {
         if (!canRedo()) {
@@ -54,14 +57,14 @@ public class VersionedLeaveList extends LeaveList {
     }
 
     /**
-     * Returns true if {@code undo()} has address book states to undo.
+     * Returns true if {@code undo()} has leave list states to undo.
      */
     public boolean canUndo() {
         return currentStatePointer > 0;
     }
 
     /**
-     * Returns true if {@code redo()} has address book states to redo.
+     * Returns true if {@code redo()} has leave list states to redo.
      */
     public boolean canRedo() {
         return currentStatePointer < leaveListStateList.size() - 1;

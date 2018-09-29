@@ -1,18 +1,18 @@
 package seedu.address.logic.parser;
 
-        import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-        import static seedu.address.logic.parser.CliSyntax.PREFIX_APPROVAL;
-        import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
-        import static seedu.address.logic.parser.CliSyntax.PREFIX_NRIC;
+import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_APPROVAL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DATE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NRIC;
 
-        import java.util.stream.Stream;
+import java.util.stream.Stream;
 
-        import seedu.address.logic.commands.AddLeaveCommand;
-        import seedu.address.logic.parser.exceptions.ParseException;
-        import seedu.address.model.leave.Approval;
-        import seedu.address.model.leave.Date;
-        import seedu.address.model.leave.Leave;
-        import seedu.address.model.leave.NRIC;
+import seedu.address.logic.commands.AddLeaveCommand;
+import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.leave.Approval;
+import seedu.address.model.leave.Date;
+import seedu.address.model.leave.Leave;
+import seedu.address.model.leave.NRIC;
 
 /**
  * Parses input arguments and creates a new AddLeaveCommand object

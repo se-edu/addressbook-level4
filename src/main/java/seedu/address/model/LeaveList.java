@@ -89,7 +89,8 @@ public class LeaveList implements ReadOnlyLeaveList {
      * Removes {@code key} from this {@code AddressBook}.
      * {@code key} must exist in the address book.
      */
-    public void removeRequest(Leave key) { requests.remove(key);
+    public void removeRequest(Leave key) {
+        requests.remove(key);
     }
 
     //// util methods
@@ -101,7 +102,9 @@ public class LeaveList implements ReadOnlyLeaveList {
     }
 
    @Override
-   public ObservableList<Leave> getRequestList(){ return  requests.asUnmodifiableObservableList();}
+   public ObservableList<Leave> getRequestList() {
+        return  requests.asUnmodifiableObservableList();
+    }
 
 
 

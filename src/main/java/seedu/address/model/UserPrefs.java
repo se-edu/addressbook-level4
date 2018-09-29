@@ -35,7 +35,9 @@ public class UserPrefs {
         return addressBookFilePath;
     }
 
-    public Path getLeaveListFilePathFilePath() { return leaveListFilePath; }
+    public Path getLeaveListFilePathFilePath() {
+        return leaveListFilePath;
+    }
 
     public void setAddressBookFilePath(Path addressBookFilePath) {
         this.addressBookFilePath = addressBookFilePath;
