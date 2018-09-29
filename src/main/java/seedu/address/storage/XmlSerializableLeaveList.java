@@ -1,15 +1,16 @@
 package seedu.address.storage;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.LeaveList;
 import seedu.address.model.ReadOnlyLeaveList;
 import seedu.address.model.leave.Leave;
-
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * An Immutable AddressBook that is serializable to XML format
@@ -51,9 +52,9 @@ public class XmlSerializableLeaveList {
         LeaveList requests = new LeaveList();
         for (XmlAdaptedLeave p : leaves) {
             Leave leave = p.toModelType();
-            if (requests.hasRequest(leave)) {
-               throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
-            }
+                if (requests.hasRequest(leave)) {
+                    throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
+                }
             requests.addRequest(leave);
         }
         return requests;

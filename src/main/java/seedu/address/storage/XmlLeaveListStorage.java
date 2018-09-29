@@ -51,7 +51,7 @@ public class XmlLeaveListStorage implements LeaveListStorage {
             return Optional.empty();
         }
 
-        XmlSerializableLeaveList xmlLeaveList= XmlFileStorage.loadDataFromSaveFile2(filePath);
+        XmlSerializableLeaveList xmlLeaveList = XmlFileStorage.loadDataFromSaveFile2(filePath);
         try {
             return Optional.of(xmlLeaveList.toModelType());
         } catch (IllegalValueException ive) {
