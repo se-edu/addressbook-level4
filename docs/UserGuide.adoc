@@ -1,4 +1,4 @@
-= Erium - User Guide
+= NUS Hangs - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -18,7 +18,7 @@ By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
 
 == Introduction
 
-Erium is for those who *Wants to find a convenient time slot for the people who are joining his/her event*. More importantly, Erium is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast,Erium can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+NUS Hangs is for those who *Wants to find a convenient time slot for the people who are joining his/her event*. More importantly, NUS Hangs is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast,NUS Hangs can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 
@@ -272,7 +272,7 @@ Examples:
 * `edit_group i/1 g/sadfriends d/sad because of cs2103 s/closed ` +
 
 
-=== Locating group by name: `find_group `
+=== Locating group by name: `find_group`
 
 Find a group’s index whose names contain any of the given keywords +
 Format: `find_group   KEYWORD [MORE_KEYWORDS]`
