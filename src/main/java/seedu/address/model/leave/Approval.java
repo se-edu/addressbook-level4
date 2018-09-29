@@ -10,6 +10,8 @@ public class Approval {
 
 
     public final String status;
+    public static final String MESSAGE_APPROVAL_CONSTRAINTS = "Incorrect Approval format(PENDING, APPROVED, REJECTED).";
+    public static final String APPROVAL_VALIDATION_REGEX = "PENDING";
 
     /**
      * Constructs an {@code Approval}.
@@ -31,6 +33,13 @@ public class Approval {
         return other == this // short circuit if same object
                 || (other instanceof Approval // instanceof handles nulls
                 && status.equals(((Approval) other).status)); // state check
+    }
+
+    /**
+     * Returns true if a given string is a valid approval.
+     */
+    public static boolean isValidApproval(String test) {
+        return test.matches(APPROVAL_VALIDATION_REGEX);
     }
 
     @Override

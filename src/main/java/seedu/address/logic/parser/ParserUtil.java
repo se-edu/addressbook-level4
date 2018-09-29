@@ -134,9 +134,9 @@ public class ParserUtil {
     public static Nric parseNric(String nric) throws ParseException {
         requireNonNull(nric);
         String trimmedNric = nric.trim();
-        //if (!Nric.isValidNRIC(trimmedNric)) {
-        //    throw new ParseException(Name.MESSAGE_NAME_CONSTRAINTS);
-        // }
+        if (!Nric.isValidNRIC(trimmedNric)) {
+            throw new ParseException(Nric.MESSAGE_NRIC_CONSTRAINTS);
+        }
         return new Nric(trimmedNric);
     }
 
@@ -164,9 +164,9 @@ public class ParserUtil {
     public static Approval parseApproval(String status) throws ParseException {
         requireNonNull(status);
         String trimmedStatus = status.trim();
-        //if (!Nric.isValidNRIC(trimmedNric)) {
-        //    throw new ParseException(Name.MESSAGE_NAME_CONSTRAINTS);
-        // }
+        if (!Approval.isValidApproval(trimmedStatus)) {
+            throw new ParseException(Approval.MESSAGE_APPROVAL_CONSTRAINTS);
+        }
         return new Approval(trimmedStatus);
     }
 }
