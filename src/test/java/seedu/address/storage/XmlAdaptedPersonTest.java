@@ -81,7 +81,7 @@ public class XmlAdaptedPersonTest {
     @Test
     public void toModelType_invalidEmail_throwsIllegalValueException() {
         XmlAdaptedPerson person =
-                new XmlAdaptedPerson(VALID_EMPLOYEEID, VALID_NAME, VALID_PHONE, VALID_DATEOFBIRTH, INVALID_EMAIL,
+                new XmlAdaptedPerson(VALID_EMPLOYEEID, VALID_NAME, VALID_DATEOFBIRTH, VALID_PHONE, INVALID_EMAIL,
                         VALID_DEPARTMENT, VALID_POSITION, VALID_ADDRESS, VALID_SALARY, VALID_BONUS, VALID_TAGS);
         String expectedMessage = Email.MESSAGE_EMAIL_CONSTRAINTS;
         Assert.assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);
@@ -89,7 +89,7 @@ public class XmlAdaptedPersonTest {
 
     @Test
     public void toModelType_nullEmail_throwsIllegalValueException() {
-        XmlAdaptedPerson person = new XmlAdaptedPerson(VALID_EMPLOYEEID, VALID_NAME, VALID_PHONE, VALID_DATEOFBIRTH,
+        XmlAdaptedPerson person = new XmlAdaptedPerson(VALID_EMPLOYEEID, VALID_NAME, VALID_DATEOFBIRTH, VALID_PHONE,
                 null, VALID_DEPARTMENT, VALID_POSITION, VALID_ADDRESS, VALID_SALARY, VALID_BONUS, VALID_TAGS);
         String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Email.class.getSimpleName());
         Assert.assertThrows(IllegalValueException.class, expectedMessage, person::toModelType);

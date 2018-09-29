@@ -32,23 +32,23 @@ import seedu.address.testutil.EditPersonDescriptorBuilder;
 public class CommandTestUtil {
 
     public static final String VALID_EMPLOYEEID_AMY = "000001";
-    public static final String VALID_EMPLOYEEID_BOB = "000002";
+    public static final String VALID_EMPLOYEEID_BOB = "000001";
     public static final String VALID_NAME_AMY = "Amy Bee";
     public static final String VALID_NAME_BOB = "Bob Choo";
-    public static final String VALID_DATEOFBIRTH_AMY = "11/11/1111";
-    public static final String VALID_DATEOFBIRTH_BOB = "22/02/2222";
+    public static final String VALID_DATEOFBIRTH_AMY = "12/12/1995";
+    public static final String VALID_DATEOFBIRTH_BOB = "12/12/1995";
     public static final String VALID_PHONE_AMY = "11111111";
     public static final String VALID_PHONE_BOB = "22222222";
     public static final String VALID_EMAIL_AMY = "amy@example.com";
     public static final String VALID_EMAIL_BOB = "bob@example.com";
     public static final String VALID_DEPARTMENT_AMY = "Human Resource";
-    public static final String VALID_DEPARTMENT_BOB = "Finance";
-    public static final String VALID_POSITION_AMY = "Manager";
-    public static final String VALID_POSITION_BOB = "Director";
+    public static final String VALID_DEPARTMENT_BOB = "Human Resource";
+    public static final String VALID_POSITION_AMY = "Staff";
+    public static final String VALID_POSITION_BOB = "Staff";
     public static final String VALID_ADDRESS_AMY = "Block 312, Amy Street 1";
     public static final String VALID_ADDRESS_BOB = "Block 123, Bobby Street 3";
-    public static final String VALID_SALARY_AMY = "3500.00";
-    public static final String VALID_SALARY_BOB = "8888.88";
+    public static final String VALID_SALARY_AMY = "1000.00";
+    public static final String VALID_SALARY_BOB = "1000.00";
     public static final String VALID_TAG_HUSBAND = "husband";
     public static final String VALID_TAG_FRIEND = "friend";
 
@@ -83,7 +83,7 @@ public class CommandTestUtil {
     public static final String INVALID_DEPARTMENT_DESC = " " + PREFIX_DEPARTMENT
             + "12345"; // numbers not allowed in department
     public static final String INVALID_POSITION_DESC = " " + PREFIX_POSITION
-            + "12345"; // numbers not allowed in position
+            + "@@@@@"; // special characters not allowed in position
     public static final String INVALID_ADDRESS_DESC = " " + PREFIX_ADDRESS; // empty string not allowed for addresses
     public static final String INVALID_SALARY_DESC = " " + PREFIX_SALARY + "a123.22"; // 'a' not allowed in salary
     public static final String INVALID_TAG_DESC = " " + PREFIX_TAG + "hubby*"; // '*' not allowed in tags

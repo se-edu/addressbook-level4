@@ -71,7 +71,7 @@ public class PersonBuilder {
         position = personToCopy.getPosition();
         address = personToCopy.getAddress();
         salary = personToCopy.getSalary();
-        bonus = personToCopy.getBonus();
+        bonus = new Bonus("0.0");
         tags = new HashSet<>(personToCopy.getTags());
     }
 
