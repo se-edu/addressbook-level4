@@ -52,9 +52,9 @@ public class XmlSerializableLeaveList {
         LeaveList requests = new LeaveList();
         for (XmlAdaptedLeave p : leaves) {
             Leave leave = p.toModelType();
-                if (requests.hasRequest(leave)) {
-                    throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
-                }
+            if (requests.hasRequest(leave)) {
+                throw new IllegalValueException(MESSAGE_DUPLICATE_PERSON);
+            }
             requests.addRequest(leave);
         }
         return requests;
