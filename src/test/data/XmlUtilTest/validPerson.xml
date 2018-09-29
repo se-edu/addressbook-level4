@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <person>
     <name>Hans Muster</name>
-    <employeeId>S9758025T</employeeId>
+    <nric>S9758025T</nric>
     <password>Q65wer</password>
     <phone>9482424</phone>
     <email>hans@example</email>
