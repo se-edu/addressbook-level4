@@ -207,8 +207,8 @@ asciidoctor {
         idprefix: '',  // for compatibility with GitHub preview
         idseparator: '-',
         'site-root': "${sourceDir}",  // must be the same as sourceDir, do not modify
-        'site-name': 'AddressBook-Level4',
-        'site-githuburl': 'https://github.com/se-edu/addressbook-level4',
+        'site-name': 'NUS Hangs',
+        'site-githuburl': 'https://github.com/CS2103-AY1819S1-F11-4/main',
         'site-seedu': true,  // delete this line if your project is not a fork (not a SE-EDU project)
     ]
 
