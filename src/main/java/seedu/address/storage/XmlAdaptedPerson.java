@@ -11,6 +11,7 @@ import javax.xml.bind.annotation.XmlElement;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.person.Address;
+import seedu.address.model.person.Department;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Nric;
@@ -37,6 +38,8 @@ public class XmlAdaptedPerson {
     @XmlElement(required = true)
     private String email;
     @XmlElement(required = true)
+    private String department;
+    @XmlElement(required = true)
     private String address;
 
     @XmlElement
@@ -51,13 +54,14 @@ public class XmlAdaptedPerson {
     /**
      * Constructs an {@code XmlAdaptedPerson} with the given person details.
      */
-    public XmlAdaptedPerson(String name, String nric, String password, String phone, String email, String address,
-                            List<XmlAdaptedTag> tagged) {
+    public XmlAdaptedPerson(String name, String nric, String password, String phone, String email,
+                            String department, String address, List<XmlAdaptedTag> tagged) {
         this.name = name;
         this.nric = nric;
         this.password = password;
         this.phone = phone;
         this.email = email;
+        this.department = department;
         this.address = address;
         if (tagged != null) {
             this.tagged = new ArrayList<>(tagged);
@@ -75,6 +79,7 @@ public class XmlAdaptedPerson {
         password = source.getPassword().password;
         phone = source.getPhone().value;
         email = source.getEmail().value;
+        department = source.getDepartment().fullDepartment;
         address = source.getAddress().value;
         tagged = source.getTags().stream()
                 .map(XmlAdaptedTag::new)
@@ -133,6 +138,15 @@ public class XmlAdaptedPerson {
         }
         final Email modelEmail = new Email(email);
 
+        if (department == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Department.class.getSimpleName()));
+        }
+        if (!Department.isValidDepartment(department)) {
+            throw new IllegalValueException(Department.MESSAGE_DEPARTMENT_CONSTRAINTS);
+        }
+        final Department modelDepartment = new Department(department);
+
         if (address == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Address.class.getSimpleName()));
         }
@@ -142,7 +156,8 @@ public class XmlAdaptedPerson {
         final Address modelAddress = new Address(address);
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Person(modelName, modelNric, modelPassword, modelPhone, modelEmail, modelAddress, modelTags);
+        return new Person(modelName, modelNric, modelPassword, modelPhone, modelEmail, modelDepartment,
+                modelAddress, modelTags);
     }
 
     @Override
@@ -161,6 +176,7 @@ public class XmlAdaptedPerson {
                 && Objects.equals(password, otherPerson.password)
                 && Objects.equals(phone, otherPerson.phone)
                 && Objects.equals(email, otherPerson.email)
+                && Objects.equals(department, otherPerson.department)
                 && Objects.equals(address, otherPerson.address)
                 && tagged.equals(otherPerson.tagged);
     }

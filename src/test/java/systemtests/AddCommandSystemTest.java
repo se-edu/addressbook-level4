@@ -3,9 +3,12 @@ package systemtests;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
+import static seedu.address.logic.commands.CommandTestUtil.DEPARTMENT_DESC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.DEPARTMENT_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
 import static seedu.address.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_ADDRESS_DESC;
+import static seedu.address.logic.commands.CommandTestUtil.INVALID_DEPARTMENT_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_EMAIL_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_NAME_DESC;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_NRIC_DESC;
@@ -46,6 +49,7 @@ import seedu.address.logic.commands.RedoCommand;
 import seedu.address.logic.commands.UndoCommand;
 import seedu.address.model.Model;
 import seedu.address.model.person.Address;
+import seedu.address.model.person.Department;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Nric;
@@ -69,9 +73,9 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
          */
         Person toAdd = AMY;
         String command = "   " + AddCommand.COMMAND_WORD + "  " + NAME_DESC_AMY + "  "
-                + NRIC_DESC_AMY + " " + PASSWORD_DESC_AMY + " "
-                + PHONE_DESC_AMY + " "
-                + EMAIL_DESC_AMY + "   " + ADDRESS_DESC_AMY + "   " + TAG_DESC_FRIEND + " ";
+                + NRIC_DESC_AMY + " " + PASSWORD_DESC_AMY + " " + PHONE_DESC_AMY + " "
+                + EMAIL_DESC_AMY + "   " + DEPARTMENT_DESC_AMY + "   " + ADDRESS_DESC_AMY + "   "
+                + TAG_DESC_FRIEND + " ";
         assertCommandSuccess(command, toAdd);
 
         /* Case: undo adding Amy to the list -> Amy deleted */
@@ -89,9 +93,8 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         toAdd = new PersonBuilder(AMY).withPassword(VALID_PASSWORD_BOB)
                 .withName(VALID_NAME_BOB).withNric(VALID_NRIC_BOB).build();
         command = AddCommand.COMMAND_WORD + NAME_DESC_BOB
-                + NRIC_DESC_BOB + PASSWORD_DESC_BOB
-                + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY
-                + TAG_DESC_FRIEND;
+                + NRIC_DESC_BOB + PASSWORD_DESC_BOB + PHONE_DESC_AMY + EMAIL_DESC_AMY + DEPARTMENT_DESC_AMY
+                + ADDRESS_DESC_AMY + TAG_DESC_FRIEND;
         assertCommandSuccess(command, toAdd);
 
         /* Case: add a person with all fields same as another person in the address book except phone and email
@@ -108,8 +111,9 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
 
         /* Case: add a person with tags, command with parameters in random order -> added */
         toAdd = BOB;
-        command = AddCommand.COMMAND_WORD + TAG_DESC_FRIEND + PHONE_DESC_BOB + ADDRESS_DESC_BOB + NAME_DESC_BOB
-                + TAG_DESC_HUSBAND + EMAIL_DESC_BOB + PASSWORD_DESC_BOB + NRIC_DESC_BOB;
+        command = AddCommand.COMMAND_WORD + TAG_DESC_FRIEND + PHONE_DESC_BOB + DEPARTMENT_DESC_BOB
+                + ADDRESS_DESC_BOB + NAME_DESC_BOB + TAG_DESC_HUSBAND + EMAIL_DESC_BOB
+                + PASSWORD_DESC_BOB + NRIC_DESC_BOB;
         assertCommandSuccess(command, toAdd);
 
         /* Case: add a person, missing tags -> added */
@@ -153,19 +157,23 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         assertCommandFailure(command, AddCommand.MESSAGE_DUPLICATE_PERSON);
 
         /* Case: missing name -> rejected */
-        command = AddCommand.COMMAND_WORD + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY;
+        command = AddCommand.COMMAND_WORD + PHONE_DESC_AMY + EMAIL_DESC_AMY + DEPARTMENT_DESC_AMY + ADDRESS_DESC_AMY;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
         /* Case: missing phone -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY;
+        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + EMAIL_DESC_AMY + DEPARTMENT_DESC_AMY + ADDRESS_DESC_AMY;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
         /* Case: missing email -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + ADDRESS_DESC_AMY;
+        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + DEPARTMENT_DESC_AMY + ADDRESS_DESC_AMY;
+        assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
+
+        /* Case: missing department -> rejected */
+        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
         /* Case: missing address -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY;
+        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + DEPARTMENT_DESC_AMY;
         assertCommandFailure(command, String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddCommand.MESSAGE_USAGE));
 
         /* Case: invalid keyword -> rejected */
@@ -173,38 +181,43 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
         assertCommandFailure(command, Messages.MESSAGE_UNKNOWN_COMMAND);
 
         /* Case: invalid name -> rejected */
-        command = AddCommand.COMMAND_WORD + INVALID_NAME_DESC + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY
-                + PASSWORD_DESC_AMY + NRIC_DESC_AMY;
+        command = AddCommand.COMMAND_WORD + INVALID_NAME_DESC + PHONE_DESC_AMY + EMAIL_DESC_AMY + DEPARTMENT_DESC_AMY
+                + ADDRESS_DESC_AMY + PASSWORD_DESC_AMY + NRIC_DESC_AMY;
         assertCommandFailure(command, Name.MESSAGE_NAME_CONSTRAINTS);
 
         /* Case: invalid phone -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + INVALID_PHONE_DESC + EMAIL_DESC_AMY + ADDRESS_DESC_AMY
-                + PASSWORD_DESC_AMY + NRIC_DESC_AMY;
+        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + INVALID_PHONE_DESC + EMAIL_DESC_AMY + DEPARTMENT_DESC_AMY
+                + ADDRESS_DESC_AMY + PASSWORD_DESC_AMY + NRIC_DESC_AMY;
         assertCommandFailure(command, Phone.MESSAGE_PHONE_CONSTRAINTS);
 
         /* Case: invalid email -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + INVALID_EMAIL_DESC + ADDRESS_DESC_AMY
-                + PASSWORD_DESC_AMY + NRIC_DESC_AMY;
+        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + INVALID_EMAIL_DESC + DEPARTMENT_DESC_AMY
+                + ADDRESS_DESC_AMY + PASSWORD_DESC_AMY + NRIC_DESC_AMY;
         assertCommandFailure(command, Email.MESSAGE_EMAIL_CONSTRAINTS);
 
+        /* Case: invalid department -> rejected */
+        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + INVALID_DEPARTMENT_DESC
+                + ADDRESS_DESC_AMY + PASSWORD_DESC_AMY + NRIC_DESC_AMY;
+        assertCommandFailure(command, Department.MESSAGE_DEPARTMENT_CONSTRAINTS);
+
         /* Case: invalid address -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + INVALID_ADDRESS_DESC
-                + PASSWORD_DESC_AMY + NRIC_DESC_AMY;
+        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + DEPARTMENT_DESC_AMY
+                + INVALID_ADDRESS_DESC + PASSWORD_DESC_AMY + NRIC_DESC_AMY;
         assertCommandFailure(command, Address.MESSAGE_ADDRESS_CONSTRAINTS);
 
         /* Case: invalid tag -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY
-                + INVALID_TAG_DESC + PASSWORD_DESC_AMY + NRIC_DESC_AMY;
+        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + DEPARTMENT_DESC_AMY
+                + ADDRESS_DESC_AMY + INVALID_TAG_DESC + PASSWORD_DESC_AMY + NRIC_DESC_AMY;
         assertCommandFailure(command, Tag.MESSAGE_TAG_CONSTRAINTS);
 
         /* Case: Invalid password -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY
-                + TAG_DESC_FRIEND + NRIC_DESC_AMY + INVALID_PASSWORD_DESC;
+        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + DEPARTMENT_DESC_AMY
+                + ADDRESS_DESC_AMY + TAG_DESC_FRIEND + NRIC_DESC_AMY + INVALID_PASSWORD_DESC;
         assertCommandFailure(command, Password.MESSAGE_PASSWORD_CONSTRAINTS);
 
         /* Case: Wrong NRIC format -> rejected */
-        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + ADDRESS_DESC_AMY
-                + TAG_DESC_HUSBAND + PASSWORD_DESC_AMY + INVALID_NRIC_DESC;
+        command = AddCommand.COMMAND_WORD + NAME_DESC_AMY + PHONE_DESC_AMY + EMAIL_DESC_AMY + DEPARTMENT_DESC_AMY
+                + ADDRESS_DESC_AMY + TAG_DESC_HUSBAND + PASSWORD_DESC_AMY + INVALID_NRIC_DESC;
         assertCommandFailure(command, Nric.MESSAGE_NRIC_CONSTRAINTS);
     }
 
