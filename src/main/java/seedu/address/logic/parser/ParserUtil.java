@@ -65,7 +65,7 @@ public class ParserUtil {
     public static Nric parseNric(String nric) throws ParseException {
         requireNonNull(nric);
         String trimmedNric = nric.trim();
-        if (!EmployeeId.isValidNRIC(nric)) {
+        if (!EmployeeId.isValidEmployeeId(nric)) {
             throw new ParseException(EmployeeId.MESSAGE_NRIC_CONSTRAINTS);
         }
         return new Nric(trimmedNric);
@@ -164,10 +164,10 @@ public class ParserUtil {
      *
      * @throws ParseException if the given {@code nric} is invalid.
      */
-    public static EmployeeId parseEmployeeID(String nric) throws ParseException {
+    public static EmployeeId parseEmployeeId(String nric) throws ParseException {
         requireNonNull(nric);
         String trimmedNric = nric.trim();
-        if (!EmployeeId.isValidNRIC(trimmedNric)) {
+        if (!EmployeeId.isValidEmployeeId(trimmedNric)) {
             throw new ParseException(EmployeeId.MESSAGE_NRIC_CONSTRAINTS);
         }
         return new EmployeeId(trimmedNric);

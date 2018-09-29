@@ -8,10 +8,10 @@ import static java.util.Objects.requireNonNull;
  */
 public class Approval {
 
-
-    public final String status;
     public static final String MESSAGE_APPROVAL_CONSTRAINTS = "Incorrect Approval format(PENDING, APPROVED, REJECTED).";
     public static final String APPROVAL_VALIDATION_REGEX = "PENDING";
+
+    public final String status;
 
     /**
      * Constructs an {@code Approval}.

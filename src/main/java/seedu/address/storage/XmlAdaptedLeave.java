@@ -6,8 +6,8 @@ import javax.xml.bind.annotation.XmlElement;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.leave.Approval;
 import seedu.address.model.leave.Date;
-import seedu.address.model.leave.Leave;
 import seedu.address.model.leave.EmployeeId;
+import seedu.address.model.leave.Leave;
 
 /**
  * JAXB-friendly version of the Leave.
@@ -61,7 +61,8 @@ public class XmlAdaptedLeave {
         // personTags.add(tag.toModelType());
         // }
         if (nric == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, EmployeeId.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    EmployeeId.class.getSimpleName()));
         }
         //  if (!nric.isValidNric(nric)) {
         //    throw new IllegalValueException(Name.MESSAGE_NAME_CONSTRAINTS);
