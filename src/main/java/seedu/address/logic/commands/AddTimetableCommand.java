@@ -17,9 +17,9 @@ public class AddTimetableCommand extends Command {
     public static final String MESSAGE_SUCCESS = "New timetable added: %1$s";
     public static final String MESSAGE_USAGE = COMMAND_WORD;
 
-    public AddTimetableCommand(Name name ,String fileName,String location) {
+    public AddTimetableCommand(Name name, String fileName, String location) {
         Timetable timetable = new Timetable(name);
-        timetable.addTimetable(location,fileName);
+        timetable.addTimetable(location, fileName);
     }
 
     @Override

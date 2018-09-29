@@ -145,14 +145,14 @@ public class ParserUtil {
         return fileName;
     }
     /**
-     * Parses a {@code String Mode} into an {@code String Mode}. Leading and trailing whitespaces will be
+     * Parses a {@code String mode} into an {@code String Mode}. Leading and trailing whitespaces will be
      * trimmed.
      *
-     * @throws ParseException if the given {@code Mode} is invalid.
+     * @throws ParseException if the given {@code mode} is invalid.
      */
-    public static String parseMode(String Mode) throws ParseException {
-        requireNonNull(Mode);
+    public static String parseMode(String mode) throws ParseException {
+        requireNonNull(mode);
 
-        return Mode;
+        return mode;
     }
 }

@@ -5,7 +5,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_FILE_LOCATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FILE_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 
-
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.AddTimetableCommand;
@@ -35,9 +34,10 @@ public class AddTimetableCommandParser implements Parser<AddTimetableCommand> {
         }
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         String fileName = ParserUtil.parseFilename(argMultimap.getValue(PREFIX_FILE_NAME).get());
-        String location = ParserUtil.parseLocation(argMultimap.getValue(PREFIX_FILE_LOCATION).get());
+        String location = ParserUtil
+            .parseLocation(argMultimap.getValue(PREFIX_FILE_LOCATION).get());
 
-        return new AddTimetableCommand(name,fileName,location);
+        return new AddTimetableCommand(name, fileName, location);
     }
 
 

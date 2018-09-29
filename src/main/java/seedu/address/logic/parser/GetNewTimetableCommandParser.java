@@ -6,7 +6,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_FILE_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MODE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 
-
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.GetNewTimetableCommand;
@@ -27,19 +26,23 @@ public class GetNewTimetableCommandParser implements Parser<GetNewTimetableComma
      */
     public GetNewTimetableCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-            ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_FILE_NAME, PREFIX_FILE_LOCATION,PREFIX_MODE);
+            ArgumentTokenizer
+                .tokenize(args, PREFIX_NAME, PREFIX_FILE_NAME, PREFIX_FILE_LOCATION, PREFIX_MODE);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_FILE_NAME, PREFIX_FILE_LOCATION,PREFIX_MODE)
+        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_FILE_NAME, PREFIX_FILE_LOCATION,
+            PREFIX_MODE)
             || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, GetNewTimetableCommand.MESSAGE_USAGE));
+                String
+                    .format(MESSAGE_INVALID_COMMAND_FORMAT, GetNewTimetableCommand.MESSAGE_USAGE));
         }
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         String fileName = ParserUtil.parseFilename(argMultimap.getValue(PREFIX_FILE_NAME).get());
-        String locationTo = ParserUtil.parseLocation(argMultimap.getValue(PREFIX_FILE_LOCATION).get());
-        String mode =ParserUtil.parseLocation(argMultimap.getValue(PREFIX_MODE).get());
+        String locationTo = ParserUtil
+            .parseLocation(argMultimap.getValue(PREFIX_FILE_LOCATION).get());
+        String mode = ParserUtil.parseLocation(argMultimap.getValue(PREFIX_MODE).get());
 
-        return new GetNewTimetableCommand(name,fileName,locationTo,mode);
+        return new GetNewTimetableCommand(name, fileName, locationTo, mode);
     }
 
 

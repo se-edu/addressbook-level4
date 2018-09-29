@@ -8,6 +8,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.Scanner;
+
 import seedu.address.model.person.Name;
 
 /**
@@ -23,6 +24,11 @@ public class Timetable {
         this.name = name;
     }
 
+    /**
+     *
+     * @param locationFrom
+     * @param fileName
+     */
     public void addTimetable(String locationFrom, String fileName) {
         File ans = new File("");
         String destination =
@@ -38,6 +44,13 @@ public class Timetable {
         }
     }
 
+    /**
+     *
+     * @param locationFrom
+     * @param fileName
+     * @param mode
+     * @return
+     */
     public String[][] readTimetable(String locationFrom, String fileName, String mode) {
         String[][] timetableMatrix;
         Scanner inputStream;
@@ -56,7 +69,6 @@ public class Timetable {
                     timetableMatrix[i] = entries;
                 }
                 inputStream.close();
-
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -64,6 +76,12 @@ public class Timetable {
         return timetableMatrix;
     }
 
+    /**
+     *
+     * @param locationTo
+     * @param fileName
+     * @param mode
+     */
     public void getNewTimetable(String locationTo, String fileName, String mode) {
         TimetableData Timetable = new TimetableData(mode);
         String[][] newTimetable;

@@ -17,9 +17,9 @@ public class GetNewTimetableCommand extends Command {
     public static final String MESSAGE_SUCCESS = "New timetable generated: %1$s";
     public static final String MESSAGE_USAGE = COMMAND_WORD;
 
-    public GetNewTimetableCommand(Name name ,String fileName,String locationTo,String mode) {
+    public GetNewTimetableCommand(Name name, String fileName, String locationTo, String mode) {
         Timetable timetable = new Timetable(name);
-        timetable.getNewTimetable(locationTo,fileName,mode);
+        timetable.getNewTimetable(locationTo, fileName, mode);
     }
 
     @Override
