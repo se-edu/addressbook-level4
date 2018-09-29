@@ -453,14 +453,11 @@ Do take a look at <<Design-Model>> before attempting to modify the `Model` compo
 == Product Scope
 
 *Target user profile*:
+We target: 
+* Small to medium scale interest groups in NUS 
+* Groups who find organising a common / least conflicted time slot to meet a hassle 
 
-* Target interest group executive communities in NUS (timetable scheme like nusmod / Venues booking in NUS) who have flexible timetable
-* People who have flexible timetable
-* Wants to create/join projects for people to join
-* Wants to find a convenient time slot for the people who are joining his/her event
-* Maximum meeting group size: 30
-
-*Value proposition*: Organise meetings faster than a typical chat app
+*Value proposition*: Automate the process of organising meetings and finding least conflicted time slot for the group in a way faster than manually checking everyone's timetables. 
 
 [appendix]
 == User Stories
@@ -560,14 +557,14 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `Erium` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `NUS Hangs` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
 === Use case: help
 
 *MSS*
 
-1.  User logins to System and prompts to add a timetable
+1. User logins to System and prompts to add a timetable
 2.	System shows the help menu
 
 
@@ -575,10 +572,10 @@ _{More to be added}_
 === Use case: add friend
 *MSS*
 
-1.	User logins to System and prompts to add a friend
-2.	System shows how to add a friend
-3.	User adds inputs accordingly
-4.	System shows friend is added successfully
+1.	User logins to System and requests help to add a friend
+2.	System shows him how to add a friend
+3.	User input add command accordingly
+4.	System displays friend is added successfully
 
 *Extensions*
 
@@ -593,9 +590,9 @@ Use case resumes at step 2.
 === Use case: Find friend by Name
 *MSS*
 
-1.	User logins to System and prompts to find a friend
+1.	User logins to System and requests help to find a friend
 2.	System shows how to find a friend
-3.	User inputs accordingly
+3.	User inputs command accordingly
 4.	System shows friend details
 
 
@@ -618,17 +615,17 @@ Use case resumes at step 2.
 
 *MSS*
 
-1.	User logins to System and prompts to list all friends
+1.	User logins to System and requests help to list all friends
 2.	System shows a list of all friends
 
 [discrete]
 === Use case: Delete a friend
 *MSS*
 
-1.  User logins to System and prompts to delete a friend
+1.  User logins to System and requests help to delete a friend
 2.	System shows how to delete a friend
-3.	User enter input accordingly
-4.	System ask user for confirmation.
+3.	User enters input accordingly
+4.	System asks user for confirmation.
 5.	User confirms his choice.
 6.	System shows friend is deleted successfully.
 
@@ -657,10 +654,10 @@ Use case ends.
 === Use case: Edit a friend
 *MSS*
 
-1.  User logins to System and prompts to edit a friend
+1.  User logins to System and requests help to edit a friend
 2.	System shows how to edit a friend
-3.	User enter input accordingly
-4.	System ask user for confirmation.
+3.	User enters input accordingly
+4.	System asks user for confirmation.
 5.	User confirms his choice.
 6.	System shows friend is edited successfully.
 
@@ -689,18 +686,18 @@ Use case ends.
 
 *MSS*
 
-1.	User logins to System and prompts to list all groups a friend have
+1.	User logins to System and requests help to list all groups a friend have
 2.	System shows a list of all groups a friend have
 
 [discrete]
 === Use case: add a timetable
 *MSS*
 
-1.	User logins to System and prompts to add a timetable
+1.	User logins to System and requests help to add a timetable
 2.	System shows how to add a timetable
 3.	User adds inputs accordingly
 4.	System shows his timetable and ask user for confirmation.
-5.	User confirm the addition of his timetable into the System.
+5.	User confirms the addition of his timetable into the System.
 6.	System shows his timetable is added successfully.
 
 
@@ -725,7 +722,7 @@ Use case ends
 === Use case: Find timetable by Name
 *MSS*
 
-1.	User logins to System and prompts to find a timetable
+1.	User logins to System and requests help to find a timetable
 2.	System shows how to find a timetable
 3.	User inputs accordingly
 4.	System shows timetable details
@@ -752,17 +749,17 @@ Use case resumes at step 2.
 
 *MSS*
 
-1.	User logins to System and prompts to list all timetable
+1.	User logins to System and requests help to list all timetable
 2.	System shows a list of all timetable
 
 [discrete]
 === Use case: Delete a timetable
 *MSS*
 
-1.  User logins to System and prompts to delete a timetable
+1.  User logins to System and requests help to delete a timetable
 2.	System shows how to delete a timetable
-3.	User enter input accordingly
-4.	System ask user for confirmation.
+3.	User enters input accordingly
+4.	System asks user for confirmation.
 5.	User confirms his choice.
 6.	System shows the timetable is deleted successfully.
 
@@ -792,7 +789,7 @@ Use case ends.
 
 *MSS*
 
-1.	User logins to System and prompts to see available time slots
+1.	User logins to System and requests help to see available time slots
 2.  System shows how to find available time slot of the group
 3.	User enters inputs accordingly
 4.	System asks if user wants to see the time slots listed in descending order in terms of the number of conflict if there are no available time slots.
@@ -817,7 +814,7 @@ Use case resumes at step 2.
 === Use case:create a group
 *MSS*
 
-1.	User logins to System and prompts to create a group
+1.	User logins to System and requests help to create a group
 2.	System shows how to create a group
 3.	User adds inputs accordingly
 4.	System shows group is created successfully
@@ -835,7 +832,7 @@ Use case resumes at step 2.
 === Use case: Find group by Name
 *MSS*
 
-1.	User logins to System and prompts to find a group
+1.	User logins to System and requests help to find a group
 2.	System shows how to find a group
 3.	User inputs accordingly
 4.	System shows group details
@@ -860,17 +857,17 @@ Use case resumes at step 2.
 
 *MSS*
 
-1.	User logins to System and prompts to list all groups
+1.	User logins to System and requests help to list all groups
 2.	System shows a list of all groups
 
 [discrete]
 === Use case: Delete a group
 *MSS*
 
-1.  User logins to System and prompts to delete a group
+1.  User logins to System and requests help to delete a group
 2.	System shows how to delete a group
-3.	User enter input accordingly
-4.	System ask user for confirmation.
+3.	User enters input accordingly
+4.	System asks user for confirmation.
 5.	User confirms his choice.
 6.	System shows group is deleted successfully.
 
@@ -899,10 +896,10 @@ Use case ends.
 === Use case: Edit a group
 *MSS*
 
-1.  User logins to System and prompts to edit a group
+1.  User logins to System and requests help to edit a group
 2.	System shows how to edit a group
-3.	User enter input accordingly
-4.	System ask user for confirmation.
+3.	User enters input accordingly
+4.	System asks user for confirmation.
 5.	User confirms his choice.
 6.	System shows group is edited successfully.
 
@@ -931,16 +928,16 @@ Use case ends.
 
 *MSS*
 
-1.	User logins to System and prompts to list all members a group have
+1.	User logins to System and requests help to list all members a group have
 2.	System shows a list of all members a group have
 
 [discrete]
 === Use case: add a member to a group
 *MSS*
 
-1.  User logins to System and prompts to add a member to a group
+1.  User logins to System and requests help to add a member to a group
 2.	System shows how to add a member to a group
-3.	User enter input accordingly
+3.	User enters input accordingly
 4.	System shows a member is added to a group successfully.
 
 
@@ -967,11 +964,10 @@ Use case ends.
 === Use case: create an account
 *MSS*
 
-1.	New user prompted to create an account
+1.	New user requests help to create an account
 2.	System shows a prompt on account creation
-3.	User enters username and password as per prompt
-4.	User prompted to login
-5.	Login successful, user now have access to enabled features
+3.	User enters username and password as prompted
+4.	Login successful, user now have access to enabled features
 
 
 
@@ -989,7 +985,7 @@ Use case resumes at step 3.
 [none]
 ** 4a1.System shows an error message.
 +
-** 4a2. User prompted to login again
+** 4a2. User attempts to login again
 +
 Use case resumes at step 4.
 
