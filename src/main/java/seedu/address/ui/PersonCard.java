@@ -39,6 +39,16 @@ public class PersonCard extends UiPart<Region> {
     @FXML
     private Label email;
     @FXML
+    private Label dateOfBirth;
+    @FXML
+    private Label department;
+    @FXML
+    private Label position;
+    @FXML
+    private Label salary;
+    @FXML
+    private Label bonus;
+    @FXML
     private FlowPane tags;
 
     public PersonCard(Person person, int displayedIndex) {
