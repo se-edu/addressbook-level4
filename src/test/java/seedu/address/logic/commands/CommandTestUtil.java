@@ -33,7 +33,7 @@ public class CommandTestUtil {
     public static final String VALID_NRIC_AMY = "T2457788T";
     public static final String VALID_NRIC_BOB = "S8572058E";
     public static final String VALID_PASSWORD_AMY = "QWe65e4we65w4";
-    public static final String VALID_PASSWORD_BOB = "Asd564rR";
+    public static final String VALID_PASSWORD_BOB = "ASd654";
     public static final String VALID_PHONE_AMY = "11111111";
     public static final String VALID_PHONE_BOB = "22222222";
     public static final String VALID_EMAIL_AMY = "amy@example.com";
@@ -85,6 +85,7 @@ public class CommandTestUtil {
      * - the {@code actualModel} matches {@code expectedModel} <br>
      * - the {@code actualCommandHistory} remains unchanged.
      */
+
     public static void assertCommandSuccess(Command command, Model actualModel, CommandHistory actualCommandHistory,
             String expectedMessage, Model expectedModel) {
         CommandHistory expectedCommandHistory = new CommandHistory(actualCommandHistory);

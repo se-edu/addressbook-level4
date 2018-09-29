@@ -1,5 +1,7 @@
 package seedu.address.model.person;
 
+import java.util.HashMap;
+
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
@@ -29,6 +31,13 @@ public class Nric {
      */
     public static boolean isValidNric(String test) {
         return test.matches(NRIC_VALIDATION_REGEX);
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof Nric // instanceof handles nulls
+                && nric.equals(((Nric) other).nric)); // state check
     }
 
     @Override
