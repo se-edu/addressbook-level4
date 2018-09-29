@@ -1,7 +1,7 @@
 package seedu.address.storage;
 
-import javax.xml.bind.annotation.XmlElement;
 import java.util.Objects;
+import javax.xml.bind.annotation.XmlElement;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.leave.Approval;
@@ -58,7 +58,7 @@ public class XmlAdaptedLeave {
     public Leave toModelType() throws IllegalValueException {
         // final List<Tag> personTags = new ArrayList<>();
         //for (XmlAdaptedTag tag : tagged) {
-           // personTags.add(tag.toModelType());
+        // personTags.add(tag.toModelType());
         // }
         if (nric == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Nric.class.getSimpleName()));
@@ -72,7 +72,7 @@ public class XmlAdaptedLeave {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Date.class.getSimpleName()));
         }
         // if (!Approval.isValidPhone(phone)) {
-            //throw new IllegalValueException(Phone.MESSAGE_PHONE_CONSTRAINTS);
+        //throw new IllegalValueException(Phone.MESSAGE_PHONE_CONSTRAINTS);
         //}
         final Date modelDate = new Date(date);
 
@@ -81,7 +81,7 @@ public class XmlAdaptedLeave {
                     Approval.class.getSimpleName()));
         }
         // if (!Email.isValidEmail(email)) {
-           // throw new IllegalValueException(Email.MESSAGE_EMAIL_CONSTRAINTS);
+        // throw new IllegalValueException(Email.MESSAGE_EMAIL_CONSTRAINTS);
         // }
         final Approval modelApproval = new Approval(status);
 
