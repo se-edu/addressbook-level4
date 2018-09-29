@@ -30,7 +30,7 @@ public class PersonBuilder {
     public static final String DEFAULT_DEPARTMENT = "Human Resource";
     public static final String DEFAULT_POSITION = "Staff";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
-    public static final String DEFAULT_SALARY = "3500";
+    public static final String DEFAULT_SALARY = "3500.00";
 
     private EmployeeId employeeId;
     private Name name;
@@ -54,7 +54,7 @@ public class PersonBuilder {
         position = new Position(DEFAULT_POSITION);
         address = new Address(DEFAULT_ADDRESS);
         salary = new Salary(DEFAULT_SALARY);
-        bonus = new Bonus("");
+        bonus = new Bonus("0.0");
         tags = new HashSet<>();
     }
 
