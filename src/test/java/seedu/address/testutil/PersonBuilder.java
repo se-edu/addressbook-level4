@@ -6,8 +6,10 @@ import java.util.Set;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.Nric;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.password.Password;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
 
@@ -20,8 +22,12 @@ public class PersonBuilder {
     public static final String DEFAULT_PHONE = "85355255";
     public static final String DEFAULT_EMAIL = "alice@gmail.com";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
+    public static final String DEFAULT_NRIC = "S1458574G";
+    public static final String DEFAULT_PASSWORD = "PQWOei23";
 
     private Name name;
+    private Nric nric;
+    private Password password;
     private Phone phone;
     private Email email;
     private Address address;
@@ -29,6 +35,8 @@ public class PersonBuilder {
 
     public PersonBuilder() {
         name = new Name(DEFAULT_NAME);
+        nric = new Nric(DEFAULT_NRIC);
+        password = new Password(DEFAULT_PASSWORD);
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
@@ -40,6 +48,8 @@ public class PersonBuilder {
      */
     public PersonBuilder(Person personToCopy) {
         name = personToCopy.getName();
+        nric = personToCopy.getNric();
+        password = personToCopy.getPassword();
         phone = personToCopy.getPhone();
         email = personToCopy.getEmail();
         address = personToCopy.getAddress();
@@ -86,8 +96,24 @@ public class PersonBuilder {
         return this;
     }
 
+    /**
+     * Sets the {@code Nric} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withNric(String nric) {
+        this.nric = new Nric(nric);
+        return this;
+    }
+
+    /**
+     * Sets the {@code Password} of the {@code Person} that we are building.
+     */
+    public PersonBuilder withPassword(String password) {
+        this.password = new Password(password);
+        return this;
+    }
+
     public Person build() {
-        return new Person(name, phone, email, address, tags);
+        return new Person(name, nric, password, phone, email, address, tags);
     }
 
 }

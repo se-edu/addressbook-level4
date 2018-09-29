@@ -3,6 +3,8 @@
 
     <persons>
         <name>Alice Pauline</name>
+        <nric>S1234567E</nric>
+        <password>A123b5dd</password>
         <phone>94351253</phone>
         <email>alice@example.com</email>
         <address>123, Jurong West Ave 6, #08-111</address>
@@ -12,6 +14,8 @@
     <!-- Person with same identity as Alice Pauline -->
     <persons>
         <name>Alice Pauline</name>
+        <nric>S1234567E</nric>
+        <password>A3b5dd</password>
         <phone>94351253</phone>
         <email>pauline@example.com</email>
         <address>4th street</address>
