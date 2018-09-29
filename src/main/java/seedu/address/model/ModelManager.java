@@ -56,6 +56,9 @@ public class ModelManager extends ComponentManager implements Model {
         raise(new AddressBookChangedEvent(versionedAddressBook));
     }
 
+    /**
+     * hasPerson returns true if the person has the same NRIC as anyone else in the address book.
+     */
     @Override
     public boolean hasPerson(Person person) {
         requireNonNull(person);
