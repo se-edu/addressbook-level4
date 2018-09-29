@@ -72,9 +72,7 @@ public class ModelManager extends ComponentManager implements Model {
     public ReadOnlyLeaveList getLeaveList() {
         return versionedLeaveList;
     }
-
-
-
+    
     /** Raises an event to indicate the model has changed */
     private void indicateAddressBookChanged() {
         raise(new AddressBookChangedEvent(versionedAddressBook));
@@ -84,7 +82,7 @@ public class ModelManager extends ComponentManager implements Model {
     private void indicateLeaveListChanged() {
         raise(new LeaveListChangedEvent(versionedLeaveList));
     }
-    
+
     /**
      * hasPerson returns true if the person has the same NRIC as anyone else in the address book.
      */
