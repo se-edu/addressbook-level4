@@ -57,7 +57,7 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String nric} into a {@Code EmployeeId}.
+     * Parses a {@code String nric} into a {@Code Nric}.
      * Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if given {@code nric} does not conform to the requirements.
