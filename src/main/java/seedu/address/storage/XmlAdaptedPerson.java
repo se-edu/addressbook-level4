@@ -56,7 +56,8 @@ public class XmlAdaptedPerson {
      * @param validAddress
      * @param validTags
      */
-    public XmlAdaptedPerson(String validName, String invalidNric, String validPassword, String validPhone, String validEmail, String validAddress, List<XmlAdaptedTag> validTags) {}
+    public XmlAdaptedPerson(String validName, String invalidNric, String validPassword, String validPhone,
+                            String validEmail, String validAddress, List<XmlAdaptedTag> validTags) {}
 
     /**
      * Constructs an {@code XmlAdaptedPerson} with the given person details.
