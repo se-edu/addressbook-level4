@@ -7,6 +7,7 @@
         <password>A123b5dd</password>
         <phone>94351253</phone>
         <email>alice@example.com</email>
+        <department>Junior Management</department>
         <address>123, Jurong West Ave 6, #08-111</address>
         <tagged>friends</tagged>
     </persons>
@@ -18,6 +19,7 @@
         <password>A3b5dd</password>
         <phone>94351253</phone>
         <email>pauline@example.com</email>
+        <department>Junior Management</department>
         <address>4th street</address>
     </persons>
 

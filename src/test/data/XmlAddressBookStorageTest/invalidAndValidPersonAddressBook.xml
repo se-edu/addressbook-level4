@@ -5,6 +5,7 @@
         <name>Hans Muster</name>
         <phone isPrivate="false">9482424</phone>
         <email isPrivate="false">hans@example.com</email>
+        <department isPrivate="false">Junior Management</department>
         <address isPrivate="false">4th street</address>
     </persons>
     <!-- Person with invalid phone field -->
@@ -12,6 +13,7 @@
         <name>Hans Muster</name>
         <phone isPrivate="false">948asdf2424</phone>
         <email isPrivate="false">hans@example.com</email>
+        <department isPrivate="false">Junior Management</department>
         <address isPrivate="false">4th street</address>
     </persons>
 </addressbook>

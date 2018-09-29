@@ -21,6 +21,7 @@ public class Person {
     private final Nric nric;
     private final Phone phone;
     private final Email email;
+    private final Department department;
     private final Password password;
 
     // Data fields
@@ -30,13 +31,15 @@ public class Person {
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Nric nric, Password password, Phone phone, Email email, Address address, Set<Tag> tags) {
-        requireAllNonNull(name, nric, password, phone, email, address, tags);
+    public Person(Name name, Nric nric, Password password, Phone phone, Email email, Department department,
+                  Address address, Set<Tag> tags) {
+        requireAllNonNull(name, nric, password, phone, email, department, address, tags);
         this.name = name;
         this.nric = nric;
         this.password = password;
         this.phone = phone;
         this.email = email;
+        this.department = department;
         this.address = address;
         this.tags.addAll(tags);
     }
@@ -59,6 +62,10 @@ public class Person {
 
     public Email getEmail() {
         return email;
+    }
+
+    public Department getDepartment() {
+        return department;
     }
 
     public Address getAddress() {
@@ -128,6 +135,8 @@ public class Person {
                 .append(getPhone())
                 .append(" Email: ")
                 .append(getEmail())
+                .append(" Department: ")
+                .append(getDepartment())
                 .append(" Address: ")
                 .append(getAddress())
                 .append(" Tags: ");

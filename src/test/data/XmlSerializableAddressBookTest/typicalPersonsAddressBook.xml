@@ -7,6 +7,7 @@
         <password>ASd654</password>
         <phone>94351253</phone>
         <email>alice@example.com</email>
+        <department>Junior Management</department>
         <address>123, Jurong West Ave 6, #08-111</address>
         <tagged>friends</tagged>
     </persons>
@@ -16,6 +17,7 @@
         <password>ASd654</password>
         <phone>98765432</phone>
         <email>johnd@example.com</email>
+        <department>Junior Management</department>
         <address>311, Clementi Ave 2, #02-25</address>
         <tagged>owesMoney</tagged>
         <tagged>friends</tagged>
@@ -26,6 +28,7 @@
         <password>ASd654</password>
         <phone>95352563</phone>
         <email>heinz@example.com</email>
+        <department>Junior Management</department>
         <address>wall street</address>
     </persons>
     <persons>
@@ -34,6 +37,7 @@
         <password>ASd654</password>
         <phone>87652533</phone>
         <email>cornelia@example.com</email>
+        <department>Junior Management</department>
         <address>10th street</address>
         <tagged>friends</tagged>
     </persons>
@@ -43,6 +47,7 @@
         <password>ASd654</password>
         <phone>9482224</phone>
         <email>werner@example.com</email>
+        <department>Junior Management</department>
         <address>michegan ave</address>
     </persons>
     <persons>
@@ -51,6 +56,7 @@
         <password>ASd654</password>
         <phone>9482427</phone>
         <email>lydia@example.com</email>
+        <department>Junior Management</department>
         <address>little tokyo</address>
     </persons>
     <persons>
@@ -59,6 +65,7 @@
         <password>ASd654</password>
         <phone>9482442</phone>
         <email>anna@example.com</email>
+        <department>Junior Management</department>
         <address>4th street</address>
     </persons>
 </addressbook>
