@@ -84,7 +84,7 @@ public class ModelManager extends ComponentManager implements Model {
     private void indicateLeaveListChanged() {
         raise(new LeaveListChangedEvent(versionedLeaveList));
     }
-  
+    
     /**
      * hasPerson returns true if the person has the same NRIC as anyone else in the address book.
      */
