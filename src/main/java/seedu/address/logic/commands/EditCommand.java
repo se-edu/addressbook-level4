@@ -80,11 +80,6 @@ public class EditCommand extends Command {
         Person personToEdit = lastShownList.get(index.getZeroBased());
         Person editedPerson = createEditedPerson(personToEdit, editPersonDescriptor);
 
-//        // To be deprecated
-//        if (!personToEdit.isSamePerson(editedPerson) && model.hasPerson(editedPerson)) {
-//            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
-//        }
-
         model.updatePerson(personToEdit, editedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         model.commitAddressBook();

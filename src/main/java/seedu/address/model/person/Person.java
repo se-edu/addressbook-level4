@@ -83,11 +83,6 @@ public class Person {
         } else {
             return (otherPerson.getNric()).equals((this.getNric()));
         }
-//        if ((otherPerson.getNric()).toString().equals((this.getNric()).toString())) {
-//            return true;
-//        }
-//
-//        return false;
     }
 
     /**
