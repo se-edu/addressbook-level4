@@ -93,9 +93,9 @@ public class Timetable {
             if (!toWrite.exists() && mode.equals("horizontal")) {
                 toWrite.createNewFile();
                 FileWriter writer = new FileWriter(toWrite, true);
-                for (int i = 0; i < Timetable.getNoOfDays() + 1; i++) {
-                    for (int j = 0; j < Timetable.getNoOfTimings() + 1; j++) {
-                        if (j == Timetable.getNoOfTimings()) {
+                for (int i = 0; i < timetable.getNoOfDays() + 1; i++) {
+                    for (int j = 0; j < timetable.getNoOfTimings() + 1; j++) {
+                        if (j == timetable.getNoOfTimings()) {
                             writer.append(newTimetable[i][j]);
                             writer.flush();
                             writer.append('\n');
@@ -114,9 +114,9 @@ public class Timetable {
                 if (!toWrite.exists() && mode.equals("vertical")) {
                     toWrite.createNewFile();
                     FileWriter writer = new FileWriter(toWrite, true);
-                    for (int i = 0; i < Timetable.getNoOfTimings() + 1; i++) {
-                        for (int j = 0; j < Timetable.getNoOfDays() + 1; j++) {
-                            if (j == Timetable.getNoOfDays()) {
+                    for (int i = 0; i < timetable.getNoOfTimings() + 1; i++) {
+                        for (int j = 0; j < timetable.getNoOfDays() + 1; j++) {
+                            if (j == timetable.getNoOfDays()) {
                                 writer.append(newTimetable[i][j]);
                                 writer.flush();
                                 writer.append('\n');
