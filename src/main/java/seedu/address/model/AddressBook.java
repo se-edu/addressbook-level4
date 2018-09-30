@@ -9,6 +9,8 @@ import seedu.address.model.group.Group;
 import seedu.address.model.group.UniqueGroupList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.timetable.Timetable;
+import seedu.address.model.timetable.UniqueTimetableList;
 
 /**
  * Wraps all data at the address-book level
@@ -18,6 +20,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniquePersonList persons;
     private final UniqueGroupList groups;
+    private final UniqueTimetableList timetableList;
 
     /*
      * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
@@ -29,6 +32,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     {
         persons = new UniquePersonList();
         groups = new UniqueGroupList();
+        timetableList = new UniqueTimetableList();
     }
 
     public AddressBook() {}
@@ -39,6 +43,10 @@ public class AddressBook implements ReadOnlyAddressBook {
     public AddressBook(ReadOnlyAddressBook toBeCopied) {
         this();
         resetData(toBeCopied);
+    }
+    // timetable operations
+    public void addTimetable(Timetable timetable){
+        timetableList.add(timetable);
     }
 
     ///group operations

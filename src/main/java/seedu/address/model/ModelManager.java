@@ -14,6 +14,7 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.model.group.Group;
 import seedu.address.model.person.Person;
+import seedu.address.model.timetable.Timetable;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -41,6 +42,12 @@ public class ModelManager extends ComponentManager implements Model {
         this(new AddressBook(), new UserPrefs());
     }
 
+    // timetable operations
+    @Override
+    public void addTimetable(Timetable timetable){
+        versionedAddressBook.addTimetable(timetable);
+        indicateAddressBookChanged();
+    }
     //group operations
     @Override
     public void deleteGroup(Group target) {
