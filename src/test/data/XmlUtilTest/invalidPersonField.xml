@@ -1,9 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <!-- Person with an invalid phone field -->
 <person>
+    <employeeId>123456</employeeId>
     <name>Hans Muster</name>
+    <dateOfBirth>12/12/1995</dateOfBirth>
     <phone>9482asf424</phone>
     <email>hans@example</email>
+    <department>Human Resource</department>
+    <position>Staff</position>
     <address>4th street</address>
+    <salary>1000.00</salary>
+    <bonus>0.0</bonus>
     <tagged>friends</tagged>
 </person>

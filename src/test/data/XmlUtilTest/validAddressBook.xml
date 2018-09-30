@@ -1,57 +1,111 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addressbook>
     <persons>
+        <employeeId>008888</employeeId>
         <name>Hans Muster</name>
+        <dateOfBirth>12/12/1995</dateOfBirth>
         <phone isPrivate="false">9482424</phone>
         <email isPrivate="false">hans@example.com</email>
+        <department>Human Resource</department>
+        <position>Staff</position>
         <address isPrivate="false">4th street</address>
+        <salary>1000.00</salary>
+        <bonus>0.0</bonus>
     </persons>
     <persons>
+        <employeeId>009999</employeeId>
         <name>Ruth Mueller</name>
+        <dateOfBirth>12/12/1995</dateOfBirth>
         <phone isPrivate="false">87249245</phone>
         <email isPrivate="false">ruth@example.com</email>
+        <department>Human Resource</department>
+        <position>Staff</position>
         <address isPrivate="false">81th street</address>
+        <salary>1000.00</salary>
+        <bonus>0.0</bonus>
     </persons>
     <persons>
+        <employeeId>888888</employeeId>
         <name>Heinz Kurz</name>
+        <dateOfBirth>12/12/1995</dateOfBirth>
         <phone isPrivate="false">95352563</phone>
         <email isPrivate="false">heinz@example.com</email>
+        <department>Human Resource</department>
+        <position>Staff</position>
         <address isPrivate="false">wall street</address>
+        <salary>1000.00</salary>
+        <bonus>0.0</bonus>
     </persons>
     <persons>
+        <employeeId>999999</employeeId>
         <name>Cornelia Meier</name>
+        <dateOfBirth>12/12/1995</dateOfBirth>
         <phone isPrivate="false">87652533</phone>
         <email isPrivate="false">cornelia@example.com</email>
+        <department>Human Resource</department>
+        <position>Staff</position>
         <address isPrivate="false">10th street</address>
+        <salary>1000.00</salary>
+        <bonus>0.0</bonus>
     </persons>
     <persons>
+        <employeeId>998888</employeeId>
         <name>Werner Meyer</name>
+        <dateOfBirth>12/12/1995</dateOfBirth>
         <phone isPrivate="false">9482224</phone>
         <email isPrivate="false">werner@example.com</email>
+        <department>Human Resource</department>
+        <position>Staff</position>
         <address isPrivate="false">michegan ave</address>
+        <salary>1000.00</salary>
+        <bonus>0.0</bonus>
     </persons>
     <persons>
+        <employeeId>123456</employeeId>
         <name>Lydia Kunz</name>
+        <dateOfBirth>12/12/1995</dateOfBirth>
         <phone isPrivate="false">9482427</phone>
         <email isPrivate="false">lydia@example.com</email>
+        <department>Human Resource</department>
+        <position>Staff</position>
         <address isPrivate="false">little tokyo</address>
+        <salary>1000.00</salary>
+        <bonus>0.0</bonus>
     </persons>
     <persons>
+        <employeeId>000001</employeeId>
         <name>Anna Best</name>
+        <dateOfBirth>12/12/1995</dateOfBirth>
         <phone isPrivate="false">9482442</phone>
         <email isPrivate="false">anna@example.com</email>
+        <department>Human Resource</department>
+        <position>Staff</position>
         <address isPrivate="false">4th street</address>
+        <salary>1000.00</salary>
+        <bonus>0.0</bonus>
     </persons>
     <persons>
+        <employeeId>008844</employeeId>
         <name>Stefan Meier</name>
+        <dateOfBirth>12/12/1995</dateOfBirth>
         <phone isPrivate="false">8482424</phone>
         <email isPrivate="false">stefan@example.com</email>
+        <department>Human Resource</department>
+        <position>Staff</position>
         <address isPrivate="false">little india</address>
+        <salary>1000.00</salary>
+        <bonus>0.0</bonus>
     </persons>
     <persons>
+        <employeeId>444444</employeeId>
         <name>Martin Mueller</name>
+        <dateOfBirth>12/12/1995</dateOfBirth>
         <phone isPrivate="false">8482131</phone>
         <email isPrivate="false">hans@example.com</email>
+        <department>Human Resource</department>
+        <position>Staff</position>
         <address isPrivate="false">chicago ave</address>
+        <salary>1000.00</salary>
+        <bonus>0.0</bonus>
     </persons>
 </addressbook>
