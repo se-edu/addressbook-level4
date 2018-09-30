@@ -4,7 +4,7 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-Enhanced AddressBook - Level 4 was developed by the https://se-edu.github.io/docs/Team.html[se-edu] team and F11-4 CS2103 team.
+Nus Hangs was developed by the https://se-edu.github.io/docs/Team.html[se-edu] team and F11-4 CS2103 team.
 
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
