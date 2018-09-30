@@ -3,11 +3,14 @@ package seedu.address.model;
 import javafx.collections.ObservableList;
 
 import seedu.address.model.module.Module;
+import seedu.address.storage.JsonTranscriptDeserializer;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 /**
  * Unmodifiable view of a Transcript.
  */
-public interface ReadOnlyTranscript {
+@JsonDeserialize(using = JsonTranscriptDeserializer.class)
+public interface ReadOnlyTranscript  {
 
     /**
      * Returns an unmodifiable view of the module list.

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import seedu.address.model.Transcript;
 import seedu.address.model.module.Module;
 import seedu.address.model.module.Semester;
 
@@ -34,6 +35,20 @@ public class TypicalModules {
             .withGrade("F")
             .build();
 
+    public static final Module SOFTWARE_ENGINEERING = new ModuleBuilder().withCode("CS2103")
+            .withYear(2018)
+            .withSemester(Semester.SEMESTER_ONE)
+            .withCredit(4)
+            .withGrade("A+")
+            .build();
+
+    public static final Module DATABASE_SYSTEMS = new ModuleBuilder().withCode("CS2102")
+            .withYear(2018)
+            .withSemester(Semester.SEMESTER_ONE)
+            .withCredit(4)
+            .withGrade("A+")
+            .build();
+
     /**
      * Prevents instantiation
      */
@@ -41,10 +56,21 @@ public class TypicalModules {
 
     }
 
+    /**
+     * Returns an {@code Transcript} with all the typical persons.
+     */
+    public static Transcript getTypicalTranscript() {
+        Transcript tr = new Transcript();
+        for (Module module : getTypicalModules()) {
+            tr.addModule(module);
+        }
+        return tr;
+    }
+    
     public static List<Module> getTypicalModules() {
         return new ArrayList<>(Arrays.asList(DISCRETE_MATH,
                 PROGRAMMING_METHODOLOGY_TWO,
                 DATA_STRUCTURES));
     }
-    // TODO: getTypicalAddressBook()
+
 }

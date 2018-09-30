@@ -14,7 +14,7 @@ import seedu.address.commons.events.model.TranscriptChangedEvent;
 import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyAddressBook;
-import seedu.address.model.Transcript;
+import seedu.address.model.ReadOnlyTranscript;
 import seedu.address.model.UserPrefs;
 
 /**
@@ -101,23 +101,23 @@ public class StorageManager extends ComponentManager implements Storage {
     }
 
     @Override
-    public Optional<Transcript> readTranscript() throws DataConversionException, IOException {
+    public Optional<ReadOnlyTranscript> readTranscript() throws DataConversionException, IOException {
         return readTranscript(transcriptStorage.getTranscriptFilePath());
     }
 
     @Override
-    public Optional<Transcript> readTranscript(Path filePath) throws DataConversionException, IOException {
+    public Optional<ReadOnlyTranscript> readTranscript(Path filePath) throws DataConversionException, IOException {
         logger.fine("Attempting to read data from file: " + filePath);
         return transcriptStorage.readTranscript(filePath);
     }
 
     @Override
-    public void saveTranscript(Transcript transcript) throws IOException {
+    public void saveTranscript(ReadOnlyTranscript transcript) throws IOException {
         saveTranscript(transcript, transcriptStorage.getTranscriptFilePath());
     }
 
     @Override
-    public void saveTranscript(Transcript transcript, Path filePath) throws IOException {
+    public void saveTranscript(ReadOnlyTranscript transcript, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
         transcriptStorage.saveTranscript(transcript, filePath);
     }

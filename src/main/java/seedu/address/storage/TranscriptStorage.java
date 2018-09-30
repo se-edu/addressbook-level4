@@ -3,7 +3,7 @@ package seedu.address.storage;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
-import seedu.address.model.Transcript;
+import seedu.address.model.ReadOnlyTranscript;
 
 import seedu.address.commons.exceptions.DataConversionException;
 
@@ -18,28 +18,28 @@ public interface TranscriptStorage {
     Path getTranscriptFilePath();
 
     /**
-     * Returns Transcript data as a {@link Transcript}.
+     * Returns Transcript data as a {@link ReadOnlyTranscript}.
      *   Returns {@code Optional.empty()} if storage file is not found.
      * @throws DataConversionException if the data in storage is not in the expected format.
      * @throws IOException if there was any problem when reading from the storage.
      */
-    Optional<Transcript> readTranscript() throws DataConversionException, IOException;
+    Optional<ReadOnlyTranscript> readTranscript() throws DataConversionException, IOException;
 
     /**
      * @see #getTranscriptFilePath()
      */
-    Optional<Transcript> readTranscript(Path filePath) throws DataConversionException, IOException;
+    Optional<ReadOnlyTranscript> readTranscript(Path filePath) throws DataConversionException, IOException;
 
     /**
-     * Saves the given {@link Transcript} to the storage.
+     * Saves the given {@link ReadOnlyTranscript} to the storage.
      * @param transcript cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
-    void saveTranscript(Transcript transcript) throws IOException;
+    void saveTranscript(ReadOnlyTranscript transcript) throws IOException;
 
     /**
-     * @see #saveTranscript(Transcript)
+     * @see #saveTranscript(ReadOnlyTranscript)
      */
-    void saveTranscript(Transcript transcript, Path filePath) throws IOException;
+    void saveTranscript(ReadOnlyTranscript transcript, Path filePath) throws IOException;
 
 }
