@@ -1,13 +1,19 @@
 package seedu.address.model.group;
 
+import static java.util.Objects.requireNonNull;
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
 import java.util.Iterator;
 import java.util.Objects;
-import static java.util.Objects.requireNonNull;
 
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 
+/**
+ * Represents a Group in the address book.
+ * Guarantees: Field values are validated, immutable.
+ */
 public class Group {
 
     public static final String MESSAGE_GROUP_NO_DESCRIPTION =
@@ -21,10 +27,10 @@ public class Group {
     private UniquePersonList groupMembers;
 
     /**
-     * @param name field must be present and not null.
+     * Every field must be present and not null.
      */
     public Group(Name name, String description) {
-        requireNonNull(name);
+        requireAllNonNull(name, description);
         this.name = name;
         this.description = description;
         groupMembers = new UniquePersonList();
@@ -33,10 +39,13 @@ public class Group {
     public Name getName() { return name; }
 
     public String getDescription() {
-        if (description.equals("")) return MESSAGE_GROUP_NO_DESCRIPTION;
+        if (description.equals("")){ return MESSAGE_GROUP_NO_DESCRIPTION; }
         return description;
     }
 
+    /**
+     * Prints out all member of a group.
+     */
     public void printMembers() {
         Iterator<Person> itr = groupMembers.iterator();
         if (itr.hasNext()) {

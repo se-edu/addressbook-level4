@@ -1,4 +1,4 @@
-package seedu.address.model.Group;
+package seedu.address.model.group;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
@@ -55,7 +55,7 @@ public class UniqueGroupList implements Iterable<Group> {
         internalList.setAll(groups);
     }
 
-    public int numberOfGroups(){ return internalList.size(); }
+    public int numberOfGroups() { return internalList.size(); }
 
     /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.
