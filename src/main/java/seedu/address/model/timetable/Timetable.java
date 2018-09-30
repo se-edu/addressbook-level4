@@ -94,7 +94,7 @@ public class Timetable {
      */
     public void getNewTimetable(String locationTo) {
         // used code from https://stackoverflow.com/questions/6271796/issues-of-saving-a-matrix-to-a-csv-file
-        String filePath = locationTo.replace("\\", "/") + "/" + this.fileName ;
+        String filePath = locationTo.replace("\\", "/") + "/" + this.fileName;
         if (this.mode.equals("horizontal")) {
             generateHorizontalTimetable(filePath);
         } else {

@@ -5,7 +5,6 @@ import static java.util.Objects.requireNonNull;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.person.Name;
 import seedu.address.model.timetable.Timetable;
 
 /**
@@ -18,7 +17,8 @@ public class AddTimetableCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD;
 
     private final Timetable toAdd;
-    public AddTimetableCommand(Timetable timetable,String locationFrom) {
+
+    public AddTimetableCommand(Timetable timetable, String locationFrom) {
         requireNonNull(timetable);
         timetable.addTimetable(locationFrom);
         toAdd = timetable;

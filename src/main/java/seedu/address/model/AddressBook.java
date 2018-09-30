@@ -13,8 +13,8 @@ import seedu.address.model.timetable.Timetable;
 import seedu.address.model.timetable.UniqueTimetableList;
 
 /**
- * Wraps all data at the address-book level
- * Duplicates are not allowed (by .isSamePerson comparison)
+ * Wraps all data at the address-book level Duplicates are not allowed (by .isSamePerson
+ * comparison)
  */
 public class AddressBook implements ReadOnlyAddressBook {
 
@@ -28,14 +28,14 @@ public class AddressBook implements ReadOnlyAddressBook {
      *
      * Note that non-static init blocks are not recommended to use. There are other ways to avoid duplication
      *   among constructors.
-     */
-    {
+     */ {
         persons = new UniquePersonList();
         groups = new UniqueGroupList();
         timetableList = new UniqueTimetableList();
     }
 
-    public AddressBook() {}
+    public AddressBook() {
+    }
 
     /**
      * Creates an AddressBook using the Persons in the {@code toBeCopied}
@@ -44,32 +44,33 @@ public class AddressBook implements ReadOnlyAddressBook {
         this();
         resetData(toBeCopied);
     }
+
     // timetable operations
-    public void addTimetable(Timetable timetable){
+    public void addTimetable(Timetable timetable) {
         timetableList.add(timetable);
     }
 
     ///group operations
 
     /**
-     * Adds a group to the address book.
-     * The group must not already exist in the address book. - coming v1.2
+     * Adds a group to the address book. The group must not already exist in the address book. -
+     * coming v1.2
      */
     public void addGroup(Group g) {
         groups.add(g);
     }
 
     /**
-     * Removes {@code key} from this {@code AddressBook}.
-     * {@code key} must exist in the address book.
+     * Removes {@code key} from this {@code AddressBook}. {@code key} must exist in the address
+     * book.
      */
     public void removeGroup(Group key) {
         groups.remove(key);
     }
 
     /**
-     * Replaces the contents of the group list with {@code group}.
-     * {@code groups} must not contain duplicate group.
+     * Replaces the contents of the group list with {@code group}. {@code groups} must not contain
+     * duplicate group.
      */
     public void setGroups(List<Group> groups) {
         this.groups.setGroups(groups);
@@ -78,8 +79,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     //// list overwrite operations
 
     /**
-     * Replaces the contents of the person list with {@code persons}.
-     * {@code persons} must not contain duplicate persons.
+     * Replaces the contents of the person list with {@code persons}. {@code persons} must not
+     * contain duplicate persons.
      */
     public void setPersons(List<Person> persons) {
         this.persons.setPersons(persons);
@@ -98,7 +99,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     //// person-level operations
 
     /**
-     * Returns true if a person with the same identity as {@code person} exists in the address book.
+     * Returns true if a person with the same identity as {@code person} exists in the address
+     * book.
      */
     public boolean hasPerson(Person person) {
         requireNonNull(person);
@@ -106,17 +108,16 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Adds a person to the address book.
-     * The person must not already exist in the address book.
+     * Adds a person to the address book. The person must not already exist in the address book.
      */
     public void addPerson(Person p) {
         persons.add(p);
     }
 
     /**
-     * Replaces the given person {@code target} in the list with {@code editedPerson}.
-     * {@code target} must exist in the address book.
-     * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * Replaces the given person {@code target} in the list with {@code editedPerson}. {@code
+     * target} must exist in the address book. The person identity of {@code editedPerson} must not
+     * be the same as another existing person in the address book.
      */
     public void updatePerson(Person target, Person editedPerson) {
         requireNonNull(editedPerson);
@@ -125,8 +126,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Removes {@code key} from this {@code AddressBook}.
-     * {@code key} must exist in the address book.
+     * Removes {@code key} from this {@code AddressBook}. {@code key} must exist in the address
+     * book.
      */
     public void removePerson(Person key) {
         persons.remove(key);
@@ -153,8 +154,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-                || (other instanceof AddressBook // instanceof handles nulls
-                && persons.equals(((AddressBook) other).persons));
+            || (other instanceof AddressBook // instanceof handles nulls
+            && persons.equals(((AddressBook) other).persons));
     }
 
     @Override
