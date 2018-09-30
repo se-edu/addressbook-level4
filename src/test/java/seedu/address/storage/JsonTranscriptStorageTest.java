@@ -18,11 +18,8 @@ import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
 
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.Transcript;
 import seedu.address.model.ReadOnlyTranscript;
-import seedu.address.model.module.Module;
-import javafx.collections.ObservableList;
- 
+import seedu.address.model.Transcript;
 
 public class JsonTranscriptStorageTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonTranscriptStorageTest");
@@ -86,15 +83,15 @@ public class JsonTranscriptStorageTest {
     @Test
     public void readTranscript_extraValuesInFile_extraValuesIgnored() throws DataConversionException {
         Transcript expected = getTypicalTranscript();
-        Transcript actual = new Transcript (readTranscript("ExtraValuesTranscript.json").get());
+        Transcript actual = new Transcript(readTranscript("ExtraValuesTranscript.json").get());
         assertEquals(expected, actual);
     }
 
     @Test
-    public void readTranscript_TypicalTranscript_NoException() throws DataConversionException {
-        Transcript typical = new Transcript (readTranscript("TypicalTranscript.json").get());
+    public void readTranscript_typicalTranscript_noException() throws DataConversionException {
+        Transcript typical = new Transcript(readTranscript("TypicalTranscript.json").get());
     }
-    
+
 
     @Test
     public void readAndSaveTranscript_allInOrder_success() throws Exception {
@@ -105,8 +102,6 @@ public class JsonTranscriptStorageTest {
         //Save in new file and read back
         jsonTranscriptStorage.saveTranscript(original, filePath);
         ReadOnlyTranscript readBack = jsonTranscriptStorage.readTranscript(filePath).get();
-        ObservableList<Module> a = original.getModuleList();
-        ObservableList<Module>b = readBack.getModuleList();
         assertEquals(original, new Transcript(readBack));
 
         //Modify data, overwrite exiting file, and read back
@@ -146,7 +141,6 @@ public class JsonTranscriptStorageTest {
         thrown.expect(NullPointerException.class);
         saveTranscript(new Transcript(), null);
     }
-
 
 
 }

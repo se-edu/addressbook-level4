@@ -7,8 +7,6 @@ import static seedu.address.testutil.TypicalModules.DATABASE_SYSTEMS_2MC;
 import static seedu.address.testutil.TypicalModules.DATA_STRUCTURES;
 import static seedu.address.testutil.TypicalModules.DISCRETE_MATH;
 
-import javax.xml.crypto.Data;
-
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;

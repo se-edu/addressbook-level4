@@ -55,6 +55,7 @@ public class TypicalModules {
             .withCredit(2)
             .withGrade("A+")
             .build();
+
     /**
      * Prevents instantiation
      */
@@ -72,7 +73,7 @@ public class TypicalModules {
         }
         return tr;
     }
-    
+
     public static List<Module> getTypicalModules() {
         return new ArrayList<>(Arrays.asList(DISCRETE_MATH,
                 PROGRAMMING_METHODOLOGY_TWO,

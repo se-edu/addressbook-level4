@@ -24,7 +24,7 @@ public class JsonTranscriptStorage implements TranscriptStorage {
     public Path getTranscriptFilePath() {
         return filePath;
     }
-    
+
     @Override
     public Optional<ReadOnlyTranscript> readTranscript() throws DataConversionException {
         return readTranscript(filePath);
@@ -32,6 +32,7 @@ public class JsonTranscriptStorage implements TranscriptStorage {
 
     /**
      * Similar to {@link #readTranscript()}
+     *
      * @param transcriptFilePath location of the data. Cannot be null.
      * @throws DataConversionException if the file format is not as expected.
      */

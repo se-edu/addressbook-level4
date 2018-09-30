@@ -121,7 +121,7 @@ public class StorageManager extends ComponentManager implements Storage {
         logger.fine("Attempting to write to data file: " + filePath);
         transcriptStorage.saveTranscript(transcript, filePath);
     }
-    
+
 
     @Subscribe
     public void handleTranscriptChangedEvent(TranscriptChangedEvent event) {

@@ -6,8 +6,8 @@ import java.util.logging.Logger;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
-import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.ReadOnlyTranscript;
@@ -18,11 +18,9 @@ import seedu.address.model.module.Module;
  * Deserializer for {@link seedu.address.model.ReadOnlyTranscript}.
  */
 public class JsonTranscriptDeserializer extends StdDeserializer<ReadOnlyTranscript> {
-    
+
 
     private static final Logger logger = LogsCenter.getLogger(JsonTranscriptStorage.class);
-    public static final String MESSAGE_DUPLICATE_MODULE = "Transcript in JSON file contains duplicate modules.";
-    public static final String MESSAGE_INVALID_TRANSCRIPT = "Transcript in JSON contains invalid data:";
 
     public JsonTranscriptDeserializer(Class<ReadOnlyTranscript> vc) {
         super(vc);
@@ -31,7 +29,7 @@ public class JsonTranscriptDeserializer extends StdDeserializer<ReadOnlyTranscri
     public JsonTranscriptDeserializer() {
         super(ReadOnlyTranscript.class);
     }
-    
+
     @Override
     public ReadOnlyTranscript deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException {
         Transcript transcript = new Transcript();
