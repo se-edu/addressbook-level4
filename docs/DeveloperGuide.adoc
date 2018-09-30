@@ -453,11 +453,12 @@ Do take a look at <<Design-Model>> before attempting to modify the `Model` compo
 == Product Scope
 
 *Target user profile*:
-We target: 
-* Small to medium scale interest groups in NUS 
-* Groups who find organising a common / least conflicted time slot to meet a hassle 
+.We target:
+. Small to medium scale interest groups in NUS
+. Groups who find organising a common / least conflicted dtime slot to meet a hassle
 
-*Value proposition*: Automate the process of organising meetings and finding least conflicted time slot for the group in a way faster than manually checking everyone's timetables. 
+*Value proposition*:
+Automate the process of organising meetings and finding least conflicted time slot for the group in a way faster than manually checking everyone's timetables.
 
 [appendix]
 == User Stories
