@@ -38,7 +38,7 @@ public class UniqueModuleList implements Iterable<Module> {
      */
     public boolean contains(Module toCheck) {
         requireNonNull(toCheck);
-        return internalList.stream().anyMatch(toCheck::equals);
+        return internalList.stream().anyMatch(toCheck::isSameModule);
     }
 
     /**
@@ -140,16 +140,6 @@ public class UniqueModuleList implements Iterable<Module> {
         return modules.size() == modules.parallelStream()
                 .distinct()
                 .count();
-    }
-
-    /**
-     * Returns true if two different lists are mutually exclusive.
-     *
-     * @param modules the module list that is compared against
-     * @return true if two different lists are mutually exclusive
-     */
-    public boolean isMutuallyExclusive(List<Module> modules) {
-        return !internalList.stream().anyMatch(modules::contains);
     }
 
     /**

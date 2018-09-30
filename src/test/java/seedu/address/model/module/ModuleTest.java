@@ -20,15 +20,15 @@ public class ModuleTest {
     @Test
     public void constructorNullThrowsNullPointerException() {
         Assert.assertThrows(NullPointerException.class, () ->
-                new Module(null, 0, null, 0, false));
+                new Module(null, null, null, null, null, false));
     }
 
     @Test
     public void isSameModule() {
         // same object -> returns true
-        assertTrue(DATA_STRUCTURES.equals(DATA_STRUCTURES));
+        assertTrue(DATA_STRUCTURES.isSameModule(DATA_STRUCTURES));
 
-        // null -> returns false
+        // different object -> returns false
         assertFalse(DATA_STRUCTURES.isSameModule(DISCRETE_MATH));
 
         // different code -> returns false
@@ -47,13 +47,10 @@ public class ModuleTest {
         // same object -> returns true
         assertTrue(DATA_STRUCTURES.equals(DATA_STRUCTURES));
 
-        // null -> returns false
-        assertFalse(DATA_STRUCTURES == null);
-
         // different type -> returns false
         assertFalse(DATA_STRUCTURES.equals(5));
 
-        // different person -> returns false
+        // different module -> returns false
         assertFalse(DATA_STRUCTURES.equals(DISCRETE_MATH));
 
         // different code -> returns false
