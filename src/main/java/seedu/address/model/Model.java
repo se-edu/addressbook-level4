@@ -3,6 +3,7 @@ package seedu.address.model;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.group.Group;
 import seedu.address.model.person.Person;
 
 /**
@@ -34,6 +35,20 @@ public interface Model {
      * {@code person} must not already exist in the address book.
      */
     void addPerson(Person person);
+
+    //Group operations
+
+    /**
+     * Adds the given group.
+     * {@code group} must not already exist in the address book. - coming v1.2
+     */
+    public void addGroup(Group group);
+
+    /**
+     * Deletes the given group.
+     * The group must exist in the address book.
+     */
+    public void deleteGroup(Group target);
 
     /**
      * Replaces the given person {@code target} with {@code editedPerson}.
