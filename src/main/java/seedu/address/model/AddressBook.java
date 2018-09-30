@@ -46,6 +46,11 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     // timetable operations
+
+    /**
+     *
+     * @param timetable
+     */
     public void addTimetable(Timetable timetable) {
         timetableList.add(timetable);
     }

@@ -42,7 +42,7 @@ public class GetNewTimetableCommandParser implements Parser<GetNewTimetableComma
         String locationTo = ParserUtil
             .parseLocation(argMultimap.getValue(PREFIX_FILE_LOCATION).get());
         String mode = ParserUtil.parseLocation(argMultimap.getValue(PREFIX_MODE).get());
-        Timetable timetable = new Timetable(name,fileName,mode);
+        Timetable timetable = new Timetable(name, fileName, mode);
         return new GetNewTimetableCommand(timetable, locationTo);
     }
 

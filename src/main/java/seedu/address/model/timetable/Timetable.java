@@ -23,6 +23,12 @@ public class Timetable {
     private final String timetableFolder = "/src/main/java/seedu/address/model/timetable/timetables/";
     private final String mode;
 
+    /**
+     *
+     * @param name
+     * @param fileName
+     * @param mode
+     */
     public Timetable(Name name, String fileName, String mode) {
         this.name = name;
         this.fileName = fileName + ".csv";
@@ -32,14 +38,26 @@ public class Timetable {
             ans.getAbsolutePath().replace("\\", "/") + this.timetableFolder + this.fileName;
     }
 
+    /**
+     *
+     * @return
+     */
     public Name getName() {
         return name;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getFileName() {
         return fileName;
     }
 
+    /**
+     *
+     * @return
+     */
     public String getDefaultLocation() {
         return defaultLocation;
     }

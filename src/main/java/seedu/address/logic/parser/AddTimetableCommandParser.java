@@ -27,18 +27,21 @@ public class AddTimetableCommandParser implements Parser<AddTimetableCommand> {
      */
     public AddTimetableCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-            ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_FILE_NAME, PREFIX_FILE_LOCATION, PREFIX_MODE);
+            ArgumentTokenizer
+                .tokenize(args, PREFIX_NAME, PREFIX_FILE_NAME, PREFIX_FILE_LOCATION, PREFIX_MODE);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_FILE_NAME, PREFIX_FILE_LOCATION, PREFIX_MODE)
+        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_FILE_NAME, PREFIX_FILE_LOCATION,
+            PREFIX_MODE)
             || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTimetableCommand.MESSAGE_USAGE));
         }
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
         String fileName = ParserUtil.parseFilename(argMultimap.getValue(PREFIX_FILE_NAME).get());
-        String locationFrom = ParserUtil.parseLocation(argMultimap.getValue(PREFIX_FILE_LOCATION).get());
+        String locationFrom = ParserUtil
+            .parseLocation(argMultimap.getValue(PREFIX_FILE_LOCATION).get());
         String mode = ParserUtil.parseMode(argMultimap.getValue(PREFIX_FILE_NAME).get());
-        Timetable timetable = new Timetable(name,fileName,mode);
+        Timetable timetable = new Timetable(name, fileName, mode);
         return new AddTimetableCommand(timetable, locationFrom);
     }
 
