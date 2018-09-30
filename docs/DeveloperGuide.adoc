@@ -719,6 +719,30 @@ Use case resumes at step 2.
 * 4a.User does not confirm the addition of the timetable into the System.
 +
 Use case ends
+
+[discrete]
+=== Use case: get a new timetable
+*MSS*
+
+1.	User logins to System and requests help to get a new timetable
+2.	System shows how to get a new timetable
+3.	User enters inputs accordingly
+4.	System shows his timetable and ask user for confirmation.
+5.	User confirms the addition of the new timetable into his folder.
+6.	System shows the new timetable is added successfully.
+
+
+*Extensions*
+
+* 3a. User enters invalid input.
++
+[none]
+** 3a1.System shows an error message.
++
+Use case resumes at step 2.
+* 4a.User does not confirm the addition of the timetable into the System.
++
+Use case ends
 [discrete]
 === Use case: Find timetable by Name
 *MSS*

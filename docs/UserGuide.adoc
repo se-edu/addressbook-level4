@@ -153,12 +153,22 @@ Format: `grouplist`
 == Timetable(Wen Kai)
 === Adding a timetable: `add_timetable`
 
-Add a timetable to the System, if there is no link input we add the timetable where the mode has to be specified via the filename of the csv file and file location, if there is both, we add the timetable where the mode has to be specified via the link. +
+Add a timetable in the form of csv to the System, if there is no link input we add the timetable via the filename of the csv file and file location. Format of the timetable has to be specified in mode. +
 Format: `add_timetable n/NAME [f/FILENAME l/FILE_LOCATION]/\ [o/link] m/MODE`
 
 Examples:
 
-* `add_timetable n/mytimetable f/mytimetable.png l/C://Users/abc/mysecretstash`
+* `add_timetable n/mytimetable f/mytimetable l/C://Users/abc/mysecretstash m/horizontal`
+
+=== Generate a new timetable: `new_timetable`
+
+Generate a new timetable in the form of a csv file to a desired folder in horizontal format or vertical format depending on the mode. +
+Format: `new_timetable n/NAME f/FILENAME l/FILE_LOCATION m/MODE`
+
+Examples:
+
+* `new_timetable n/mytimetable f/mytimetable l/C://Users/abc/mysecretstash`
+
 
 === Listing all timetable: `list_timetables`
 
@@ -459,6 +469,8 @@ e.g. `delete_friend 3`
 * *grouplist* : `listgroup`
 * *add_timetable* `add_timetable n/NAME [f/FILENAME l/FILE_LOCATION]/\ [o/link] m/MODE` +
 e.g. `add_timetable n/mytimetable f/mytimetable.png l/C://Users/abc/mysecretstash`
+* *new_timetable* `new_timetable n/NAME f/FILENAME l/FILE_LOCATION m/MODE` +
+e.g. `add_timetable n/mytimetable f/mytimetable l/C://Users/abc/mysecretstash m/horizontal`
 * *list_timetables* : `list_timetables`
 * *download_timetable* : `download_timetable i/TIMETABLE_INDEX p/PASSWORD o/FILE_OPTION l/DOWNLOAD_FILE_LOCATION [m/MODE]` +
 e.g. `download_timetable i/1 p/kamisama o/png m/vertical l/C://Users/abc/mysecretstash`
