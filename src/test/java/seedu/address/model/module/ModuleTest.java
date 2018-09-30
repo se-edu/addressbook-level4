@@ -3,8 +3,11 @@ package seedu.address.model.module;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import static seedu.address.testutil.TypicalModules.DATABASE_SYSTEMS_2MC;
 import static seedu.address.testutil.TypicalModules.DATA_STRUCTURES;
 import static seedu.address.testutil.TypicalModules.DISCRETE_MATH;
+
+import javax.xml.crypto.Data;
 
 import org.junit.Rule;
 import org.junit.Test;
@@ -76,7 +79,7 @@ public class ModuleTest {
 
         // different credit -> returns false
         editedDataStrucure = new ModuleBuilder(DATA_STRUCTURES)
-                .withCredit(DISCRETE_MATH.getCredits().value)
+                .withCredit(DATABASE_SYSTEMS_2MC.getCredits().value)
                 .build();
         assertFalse(DATA_STRUCTURES.equals(editedDataStrucure));
 
