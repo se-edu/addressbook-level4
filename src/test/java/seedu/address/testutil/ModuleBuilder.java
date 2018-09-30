@@ -13,7 +13,7 @@ import seedu.address.model.module.Year;
 public class ModuleBuilder {
 
     public static final String DEFAULT_CODE = "CS2103";
-    public static final int DEFAULT_YEAR = 1819;
+    public static final int DEFAULT_YEAR = 1;
     public static final String DEFAULT_SEMESTER = Semester.SEMESTER_ONE;
     public static final int DEFAULT_CREDIT = 4;
     public static final String DEFAULT_GRADE = "A+";
