@@ -12,6 +12,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.model.group.Group;
 import seedu.address.model.person.Person;
 
 /**
@@ -38,6 +39,19 @@ public class ModelManager extends ComponentManager implements Model {
 
     public ModelManager() {
         this(new AddressBook(), new UserPrefs());
+    }
+
+    //group operations
+    @Override
+    public void deleteGroup(Group target) {
+        versionedAddressBook.removeGroup(target);
+        indicateAddressBookChanged();
+    }
+
+    @Override
+    public void addGroup(Group group) {
+        versionedAddressBook.addGroup(group);
+        indicateAddressBookChanged();
     }
 
     @Override
