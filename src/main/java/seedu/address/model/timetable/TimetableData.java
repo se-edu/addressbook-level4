@@ -78,13 +78,13 @@ public class TimetableData {
      * @return
      */
     private String[][] getNewVerticalMatrix() {
-        String[][] Matrix = new String[noOfTimings + 1][noOfDays + 1];
+        String[][] matrix = new String[noOfTimings + 1][noOfDays + 1];
         for (int i = 0; i < noOfTimings + 1; i++) {
             for (int j = 0; j < noOfDays + 1; j++) {
-                Matrix[i][j] = " ";
+                matrix[i][j] = " ";
             }
         }
-        return Matrix;
+        return matrix;
     }
 
     /**

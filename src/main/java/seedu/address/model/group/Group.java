@@ -1,6 +1,5 @@
 package seedu.address.model.group;
 
-import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
@@ -36,10 +35,14 @@ public class Group {
         groupMembers = new UniquePersonList();
     }
 
-    public Name getName() { return name; }
+    public Name getName() {
+        return name;
+    }
 
     public String getDescription() {
-        if (description.equals("")){ return MESSAGE_GROUP_NO_DESCRIPTION; }
+        if (description.equals("")) {
+            return MESSAGE_GROUP_NO_DESCRIPTION;
+        }
         return description;
     }
 

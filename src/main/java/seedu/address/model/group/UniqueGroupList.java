@@ -8,7 +8,6 @@ import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import seedu.address.model.group.Group;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 
 /**
@@ -55,7 +54,9 @@ public class UniqueGroupList implements Iterable<Group> {
         internalList.setAll(groups);
     }
 
-    public int numberOfGroups() { return internalList.size(); }
+    public int numberOfGroups() {
+        return internalList.size();
+    }
 
     /**
      * Returns the backing list as an unmodifiable {@code ObservableList}.

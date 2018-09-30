@@ -10,20 +10,6 @@ import seedu.address.model.person.Person;
  * The API of the Model component.
  */
 public interface Model {
-    //Group operations
-
-    /**
-     * Adds the given group.
-     * {@code group} must not already exist in the address book. - coming v1.2
-     */
-    public void addGroup(Group group);
-
-    /**
-     * Deletes the given group.
-     * The group must exist in the address book.
-     */
-    public void deleteGroup(Group target);
-
     /** {@code Predicate} that always evaluate to true */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
 
@@ -49,6 +35,20 @@ public interface Model {
      * {@code person} must not already exist in the address book.
      */
     void addPerson(Person person);
+
+    //Group operations
+
+    /**
+     * Adds the given group.
+     * {@code group} must not already exist in the address book. - coming v1.2
+     */
+    public void addGroup(Group group);
+
+    /**
+     * Deletes the given group.
+     * The group must exist in the address book.
+     */
+    public void deleteGroup(Group target);
 
     /**
      * Replaces the given person {@code target} with {@code editedPerson}.

@@ -6,8 +6,8 @@ import java.util.List;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.group.Group;
+import seedu.address.model.group.UniqueGroupList;
 import seedu.address.model.person.Person;
-import seedu.address.model.Group.UniqueGroupList;
 import seedu.address.model.person.UniquePersonList;
 
 /**
