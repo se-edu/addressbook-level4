@@ -2,10 +2,12 @@ package seedu.address.storage;
 
 import static java.util.Objects.requireNonNull;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Optional;
 import java.util.logging.Logger;
 
@@ -23,9 +25,11 @@ public class XmlAddressBookStorage implements AddressBookStorage {
     private static final Logger logger = LogsCenter.getLogger(XmlAddressBookStorage.class);
 
     private Path filePath;
+    private Path backupPath;
 
     public XmlAddressBookStorage(Path filePath) {
         this.filePath = filePath;
+        this.backupPath = Paths.get(filePath.toString() + ".backup");
     }
 
     public Path getAddressBookFilePath() {
@@ -75,6 +79,14 @@ public class XmlAddressBookStorage implements AddressBookStorage {
 
         FileUtil.createIfMissing(filePath);
         XmlFileStorage.saveDataToFile(filePath, new XmlSerializableAddressBook(addressBook));
+    }
+
+    /**
+     * Similar to {@link #backupAddressBook(ReadOnlyAddressBook)}
+     */
+    @Override
+    public void backupAddressBook(ReadOnlyAddressBook addressBook) throws IOException {
+        saveAddressBook(addressBook, backupPath);
     }
 
 }
