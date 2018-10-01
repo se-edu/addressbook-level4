@@ -235,7 +235,6 @@ There is no need to save manually.
 _{explain how the user can enable/disable data encryption}_
 // end::dataencryption[]
 
-[[Features]]
 == Main Features
 
 === Calendar: `openCalendar`
