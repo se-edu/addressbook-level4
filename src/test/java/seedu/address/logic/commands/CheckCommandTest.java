@@ -20,5 +20,4 @@ public class CheckCommandTest {
     public void execute() {
         assertCommandFailure(new CheckCommand(), model, new CommandHistory(), MESSAGE_NOT_IMPLEMENTED_YET);
     }
-
 }
