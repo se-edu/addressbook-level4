@@ -232,7 +232,7 @@ Format: `export FILETYPE`
 Examples:
 
 * `export csv`
-* `export vbf`
+* `export vcf`
 
 === Enter or delete personal weekly schedule : `schedule`
 
@@ -292,7 +292,12 @@ _{explain how the user can enable/disable data encryption}_
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the
+data of your previous JitHub folder.
+
+*Q*: How do I export my contacts to my phone? +
+*A*: Use the exportall command to generate a csv/vcf file and transfer that file to your phone. Use your phone contacts
+app to import that file.
 
 == Command Summary
 
