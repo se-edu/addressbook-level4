@@ -16,5 +16,6 @@ preferences.json
 classes/
 /data/
 /bin/
-src/main/resources/docs/
+src/main/resources/docs/images/
+src/main/resources/docs/stylesheets/
 out/

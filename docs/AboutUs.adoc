@@ -11,46 +11,46 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 == Project Team
 
 === Lim Yi Sheng
-image::yisheng.jpeg[width="150", align="left"]
-{empty} [https://github.com/LimYiSheng[github]] 
+image::limyisheng.jpeg[width="150", align="left"]
+{empty} [https://github.com/LimYiSheng[github]]
 
-Role: Team Lead + Developer + Integrator + 
-Responsibilities: Ensures deadlines and deliverables are met. Also in charge of code integration.  
+Role: Team Lead + Developer + Integrator +
+Responsibilities: Ensures deadlines and deliverables are met. Also in charge of code integration.
 
 '''
 
 === Chua Zhen Wei
-image::zhenwei.jpeg[width="150", align="left"]
+image::chuazhenwei.jpeg[width="150", align="left"]
 {empty}[https://github.com/ChuaZhenWei[github]]
 
-Role: Developer + Tester + 
-Responsibilities: Ensures usability and functionality alongside discovering potential bugs. 
+Role: Developer + Tester +
+Responsibilities: Ensures usability and functionality alongside discovering potential bugs.
 
 '''
 
 === William Ng Zhi Hong
-image::william.jpeg[width="150", align="left"]
-{empty}[https://github.com/zhihong8888[github]] 
+image::zhihong8888.jpeg[width="150", align="left"]
+{empty}[https://github.com/zhihong8888[github]]
 
-Role: Developer + Code Quality Checker + 
-Responsibilities: Ensures that codes are up to java coding standards. 
+Role: Developer + Code Quality Checker +
+Responsibilities: Ensures that codes are up to java coding standards.
 
 '''
 
 === Vernon Cher Chu Xiong
-image::vernon.jpeg[width="150", align="left"]
-{empty}[https://github.com/XiiaoPanda[github]] 
+image::xiiaopanda.jpeg[width="150", align="left"]
+{empty}[https://github.com/XiiaoPanda[github]]
 
-Role: Developer + Tester + 
+Role: Developer + Tester +
 Responsibilities: Ensures usability and functionality alongside discovering potential bugs.
 
 '''
 
 === Chen Qunming
-image::qunming.jpeg[width="150", align="left"]
-{empty}[https://github.com/ryanchen2018[github]] 
+image::ryanchen2018.jpeg[width="150", align="left"]
+{empty}[https://github.com/ryanchen2018[github]]
 
-Role: Developer + Documentation Writer + 
-Responsibilities: Ensures changes to CHRS are documented in good quality. 
+Role: Developer + Documentation Writer +
+Responsibilities: Ensures changes to CHRS are documented in good quality.
 
 '''
