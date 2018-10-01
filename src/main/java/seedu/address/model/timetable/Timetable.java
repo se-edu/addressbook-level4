@@ -18,24 +18,57 @@ public class Timetable {
 
     // Identity fields
     private final Name name;
+    private final String fileName;
+    private final String defaultLocation;
     private final String timetableFolder = "/src/main/java/seedu/address/model/timetable/timetables/";
+    private final String mode;
 
-    public Timetable(Name name) {
+    /**
+     *
+     * @param name
+     * @param fileName
+     * @param mode
+     */
+    public Timetable(Name name, String fileName, String mode) {
         this.name = name;
+        this.fileName = fileName + ".csv";
+        this.mode = mode;
+        File ans = new File("");
+        this.defaultLocation =
+            ans.getAbsolutePath().replace("\\", "/") + this.timetableFolder + this.fileName;
     }
 
     /**
      *
-     * @param locationFrom
-     * @param fileName
+     * @return
      */
-    public void addTimetable(String locationFrom, String fileName) {
-        File ans = new File("");
-        String destination =
-            ans.getAbsolutePath().replace("\\", "/") + this.timetableFolder + fileName;
-        String source = locationFrom.replace("\\", "/") + "/" + fileName + ".csv";
+    public Name getName() {
+        return name;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public String getFileName() {
+        return fileName;
+    }
+
+    /**
+     *
+     * @return
+     */
+    public String getDefaultLocation() {
+        return defaultLocation;
+    }
+
+    /**
+     *
+     */
+    public void addTimetable(String locationFrom) {
+        String source = locationFrom.replace("\\", "/") + "/" + this.fileName;
         Path from = Paths.get(source);
-        Path to = Paths.get(destination);
+        Path to = Paths.get(defaultLocation);
         try {
             Files.copy(from, to, StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException e) {
@@ -45,21 +78,19 @@ public class Timetable {
 
     /**
      *
-     * @param locationFrom
-     * @param fileName
-     * @param mode
      * @return
      */
-    public String[][] readTimetable(String locationFrom, String fileName, String mode) {
+    public String[][] readTimetable() {
+        String locationFrom = this.defaultLocation;
         String[][] timetableMatrix;
         Scanner inputStream;
         //used code from https://stackoverflow.com/questions/40074840/reading-a-csv-file-into-a-array
         String filePath = locationFrom.replace("\\", "/") + "/" + fileName + ".csv";
-        TimetableData timetable = new TimetableData(mode);
+        TimetableGenerator timetable = new TimetableGenerator(this.mode);
         timetableMatrix = timetable.getNewTimetable();
         try {
             File toRead = new File(filePath);
-            if (!toRead.exists() && mode.equals("horizontal")) {
+            if (!toRead.exists() && this.mode.equals("horizontal")) {
                 inputStream = new Scanner(toRead);
                 int i = 0;
                 while (inputStream.hasNext()) {
@@ -78,19 +109,31 @@ public class Timetable {
     /**
      *
      * @param locationTo
-     * @param fileName
-     * @param mode
      */
-    public void getNewTimetable(String locationTo, String fileName, String mode) {
-        TimetableData timetable = new TimetableData(mode);
+    public void getNewTimetable(String locationTo) {
+        // used code from https://stackoverflow.com/questions/6271796/issues-of-saving-a-matrix-to-a-csv-file
+        String filePath = locationTo.replace("\\", "/") + "/" + this.fileName;
+        if (this.mode.equals("horizontal")) {
+            generateHorizontalTimetable(filePath);
+        } else {
+            if (this.mode.equals("vertical")) {
+                generateVerticalTimetable(filePath);
+            }
+        }
+    }
+
+    /**
+     *
+     * @param filePath
+     */
+    private void generateHorizontalTimetable(String filePath) {
+        TimetableGenerator timetable = new TimetableGenerator(mode);
         String[][] newTimetable;
 
         newTimetable = timetable.getNewTimetable();
-        // used code from https://stackoverflow.com/questions/6271796/issues-of-saving-a-matrix-to-a-csv-file
-        String filePath = locationTo.replace("\\", "/") + "/" + fileName + ".csv";
         try {
             File toWrite = new File(filePath);
-            if (!toWrite.exists() && mode.equals("horizontal")) {
+            if (!toWrite.exists()) {
                 toWrite.createNewFile();
                 FileWriter writer = new FileWriter(toWrite, true);
                 for (int i = 0; i < timetable.getNoOfDays() + 1; i++) {
@@ -106,32 +149,46 @@ public class Timetable {
                             writer.append(',');
                             writer.flush();
                         }
+                    }
+                }
+                writer.close();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     *
+     * @param filePath
+     */
+    private void generateVerticalTimetable(String filePath) {
+        TimetableGenerator timetable = new TimetableGenerator(this.mode);
+        String[][] newTimetable;
+
+        newTimetable = timetable.getNewTimetable();
+        try {
+            File toWrite = new File(filePath);
+            if (!toWrite.exists()) {
+                toWrite.createNewFile();
+                FileWriter writer = new FileWriter(toWrite, true);
+                for (int i = 0; i < timetable.getNoOfTimings() + 1; i++) {
+                    for (int j = 0; j < timetable.getNoOfDays() + 1; j++) {
+                        if (j == timetable.getNoOfDays()) {
+                            writer.append(newTimetable[i][j]);
+                            writer.flush();
+                            writer.append('\n');
+                            writer.flush();
+                        } else {
+                            writer.append(newTimetable[i][j]);
+                            writer.flush();
+                            writer.append(',');
+                            writer.flush();
+                        }
 
                     }
                 }
                 writer.close();
-            } else {
-                if (!toWrite.exists() && mode.equals("vertical")) {
-                    toWrite.createNewFile();
-                    FileWriter writer = new FileWriter(toWrite, true);
-                    for (int i = 0; i < timetable.getNoOfTimings() + 1; i++) {
-                        for (int j = 0; j < timetable.getNoOfDays() + 1; j++) {
-                            if (j == timetable.getNoOfDays()) {
-                                writer.append(newTimetable[i][j]);
-                                writer.flush();
-                                writer.append('\n');
-                                writer.flush();
-                            } else {
-                                writer.append(newTimetable[i][j]);
-                                writer.flush();
-                                writer.append(',');
-                                writer.flush();
-                            }
-
-                        }
-                    }
-                    writer.close();
-                }
             }
         } catch (Exception e) {
             e.printStackTrace();

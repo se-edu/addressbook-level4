@@ -12,6 +12,7 @@ import seedu.address.logic.commands.GetNewTimetableCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 import seedu.address.model.person.Name;
+import seedu.address.model.timetable.Timetable;
 
 /**
  * Parses input arguments and creates a new AddCommand object
@@ -41,8 +42,8 @@ public class GetNewTimetableCommandParser implements Parser<GetNewTimetableComma
         String locationTo = ParserUtil
             .parseLocation(argMultimap.getValue(PREFIX_FILE_LOCATION).get());
         String mode = ParserUtil.parseLocation(argMultimap.getValue(PREFIX_MODE).get());
-
-        return new GetNewTimetableCommand(name, fileName, locationTo, mode);
+        Timetable timetable = new Timetable(name, fileName, mode);
+        return new GetNewTimetableCommand(timetable, locationTo);
     }
 
 
