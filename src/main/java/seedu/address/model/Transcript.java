@@ -17,6 +17,7 @@ import seedu.address.model.module.UniqueModuleList;
 public class Transcript implements ReadOnlyTranscript {
 
     private final UniqueModuleList modules;
+    private double capGoal;
 
     /*
      * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
@@ -188,5 +189,13 @@ public class Transcript implements ReadOnlyTranscript {
     @Override
     public int hashCode() {
         return modules.hashCode();
+    }
+
+    public double getCapGoal() {
+        return capGoal;
+    }
+
+    public void setCapGoal(double capGoal) {
+        this.capGoal = capGoal;
     }
 }

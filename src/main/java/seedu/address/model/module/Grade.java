@@ -13,7 +13,7 @@ public class Grade {
     /**
      * Describes the requirements for grade value.
      */
-    public static final String MESSAGE_CODE_CONSTRAINTS =
+    public static final String MESSAGE_GRADE_CONSTRAINTS =
             "Grade can be A+, A, A-, B+, B, B-, C+, C, D+, D, F, CS, CU";
 
     /**
@@ -34,7 +34,7 @@ public class Grade {
      */
     public Grade(String grade) {
         requireNonNull(grade);
-        checkArgument(isValidGrade(grade), MESSAGE_CODE_CONSTRAINTS);
+        checkArgument(isValidGrade(grade), MESSAGE_GRADE_CONSTRAINTS);
         value = grade;
     }
 

@@ -13,7 +13,7 @@ public class Credit {
     /**
      * Describes the requirements for credit value.
      */
-    public static final String MESSAGE_CODE_CONSTRAINTS = "Credits must be a integer";
+    public static final String MESSAGE_CREDIT_CONSTRAINTS = "Credits must be a integer";
 
     /**
      * Immutable credit value.
@@ -21,13 +21,13 @@ public class Credit {
     public final int value;
 
     /**
-     * Constructs an {@code Code}.
+     * Constructs an {@code Credit}.
      *
      * @param credits A valid credit.
      */
     public Credit(int credits) {
         requireNonNull(credits);
-        checkArgument(isValidCredit(credits), MESSAGE_CODE_CONSTRAINTS);
+        checkArgument(isValidCredit(credits), MESSAGE_CREDIT_CONSTRAINTS);
         value = credits;
     }
 

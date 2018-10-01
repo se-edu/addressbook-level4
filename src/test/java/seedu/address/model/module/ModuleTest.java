@@ -14,21 +14,22 @@ import seedu.address.testutil.Assert;
 import seedu.address.testutil.ModuleBuilder;
 
 public class ModuleTest {
+
     @Rule
     public ExpectedException thrown = ExpectedException.none();
 
     @Test
     public void constructorNullThrowsNullPointerException() {
         Assert.assertThrows(NullPointerException.class, () ->
-                new Module(null, 0, null, 0, false));
+                new Module(null, null, null, null, null, false));
     }
 
     @Test
     public void isSameModule() {
         // same object -> returns true
-        assertTrue(DATA_STRUCTURES.equals(DATA_STRUCTURES));
+        assertTrue(DATA_STRUCTURES.isSameModule(DATA_STRUCTURES));
 
-        // null -> returns false
+        // different object -> returns false
         assertFalse(DATA_STRUCTURES.isSameModule(DISCRETE_MATH));
 
         // different code -> returns false
@@ -47,13 +48,10 @@ public class ModuleTest {
         // same object -> returns true
         assertTrue(DATA_STRUCTURES.equals(DATA_STRUCTURES));
 
-        // null -> returns false
-        assertFalse(DATA_STRUCTURES == null);
-
         // different type -> returns false
         assertFalse(DATA_STRUCTURES.equals(5));
 
-        // different person -> returns false
+        // different module -> returns false
         assertFalse(DATA_STRUCTURES.equals(DISCRETE_MATH));
 
         // different code -> returns false
@@ -95,7 +93,7 @@ public class ModuleTest {
 
     @Test
     public void toStringValid() {
-        assertTrue(DATA_STRUCTURES.toString().contentEquals("Code: CS2040 Year: 1718 Semester: "
-                        + "s1 Credits: 4 Grade: F Completed: true"));
+        assertTrue(DATA_STRUCTURES.toString().contentEquals("Code: CS2040 Year: 3 Semester: "
+                + "s1 Credits: 4 Grade: F Completed: true"));
     }
 }

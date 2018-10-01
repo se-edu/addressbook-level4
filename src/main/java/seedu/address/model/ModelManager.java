@@ -163,6 +163,17 @@ public class ModelManager extends ComponentManager implements Model {
         versionedTranscript.commit();
     }
 
+    @Override
+    public double getCapGoal() {
+        return versionedTranscript.getCapGoal();
+    }
+
+    @Override
+    public void updateCapGoal(double capGoal) {
+        versionedTranscript.setCapGoal(capGoal);
+        indicateTranscriptChanged();
+    }
+
     //TODO: REMOVE
     @Override
     public ReadOnlyAddressBook getAddressBook() {
