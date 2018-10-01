@@ -260,7 +260,7 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public double getCapScore() {
+    public double getCurrentCap() {
         return versionedTranscript.getCurrentCap();
     }
 

@@ -221,7 +221,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public double getCapScore() {
+        public double getCurrentCap() {
             throw new AssertionError("This method should not be called.");
         }
     }
