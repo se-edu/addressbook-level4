@@ -282,7 +282,7 @@ Format: `exit`
 
 Address book data are saved in the hard disk automatically after any command that changes the data. +
 There is no need to save manually. +
-The storage file 'addressbook.txt' is located in the project root folder.
+The storage file 'addressbook.xml' is located in the project root folder.
 
 // tag::dataencryption[]
 === Encrypting data files `[coming in v2.0]`
