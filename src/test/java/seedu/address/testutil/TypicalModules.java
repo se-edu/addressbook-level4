@@ -35,7 +35,7 @@ public class TypicalModules {
             .build();
 
     public static final Module ASKING_QUESTIONS = new ModuleBuilder().withCode("GEQ1000")
-            .withYear(1819)
+            .withYear(1)
             .withSemester(Semester.SEMESTER_ONE)
             .withCredit(4)
             .withGrade("CS")
