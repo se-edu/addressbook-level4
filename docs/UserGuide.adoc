@@ -223,16 +223,16 @@ The `redo` command fails as there are no `undo` commands executed previously.
 Clears all entries from the address book. +
 Format: `clear`
 
-=== Exporting contacts : `export`
+=== Exporting contacts : `exportall` (TO BE MODIFIED)
 
 Shows a list of all persons in the address book. +
 Export all persons in the address book to mobile phone. +
-Format: `export FILETYPE`
+Format: `exportall FILETYPE`
 
 Examples:
 
-* `export csv`
-* `export vcf`
+* `exportall csv`
+* `exportall vcf`
 
 === Enter or delete personal weekly schedule : `schedule`
 
@@ -281,7 +281,8 @@ Format: `exit`
 === Saving the data
 
 Address book data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
+There is no need to save manually. +
+The storage file 'addressbook.txt' is located in the project root folder.
 
 // tag::dataencryption[]
 === Encrypting data files `[coming in v2.0]`
@@ -317,3 +318,7 @@ e.g.`select 2`
 * *History* : `history`
 * *Undo* : `undo`
 * *Redo* : `redo`
+* *ExportAll* : `exportall FILETYPE`
+* *Mail* : `mail [i/INDEX]`
+* *List Schedule* : `commonschedule p/PERSON…[PERSON] sd/START-DATE-DDMMYYYY`
+* *Add Schedule* : `addschedule d/DDMMYYYY st/START-TIME et/END-TIME en/EVENT-NAME`
