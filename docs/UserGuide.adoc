@@ -223,7 +223,7 @@ The `redo` command fails as there are no `undo` commands executed previously.
 Clears all entries from the address book. +
 Format: `clear`
 
-=== Exporting all contacts : `exportall`
+=== Exporting all contacts : `exportall` [coming in v1.4]
 
 Export all persons in the address book to mobile phone. +
 Format: `exportall FILETYPE`
@@ -233,7 +233,7 @@ Examples:
 * `exportall csv`
 * `exportall vcf`
 
-=== Exporting contacts : `export`
+=== Exporting contacts : `export` [coming in v1.4]
 
 Export the specified persons from the address book. +
 Format: `export INDEX N FILETYPE`
@@ -253,7 +253,7 @@ Exports the 2nd person in the address book as a csv file.
 `export 1 5 vcf` +
 Exports the five persons starting from the 1st person in the results of the `find` command as a vcf file.
 
-=== Enter or delete personal weekly schedule : `schedule`
+=== Enter or delete personal weekly schedule : `schedule` [coming in v1.4]
 
 Format:
 
@@ -266,7 +266,7 @@ Examples:
 * `addschedule d/01012019 st/1000 et/1800 en/FireworkParty`
 * `delschedule d/01012019 st/1000 et/1800 en/FireworkParty`
 
-=== List Common Schedule : `commonschedule`
+=== List Common Schedule : `commonschedule` [coming in v1.4]
 
 Shows a list of common meeting time for a group of contacts and the user in that given that given period of time. +
 Format: `commonschedule p/PERSON...[PERSON] sd/START-DATE-DDMMYYYY ed/END-DATE-DDMMYYYY t/HOURS`
@@ -275,7 +275,7 @@ Examples:
 
 * `commonschedule p/John Smith p/Jane Doe sd/08092018 ed/01102018 t/1.5`
 
-=== List Unread / New Email / Auto-reply of email: `mail`
+=== List Unread / New Email / Auto-reply of email: `mail` [coming in v1.4]
 
 Shows a list of unread or new emails of the user. Upen entering the index of the unread emails, the terminal will display the email’s title, body.
 The user can choose whether he wants to send an auto-reply to indicate that he has read it. +
