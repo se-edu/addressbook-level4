@@ -223,6 +223,56 @@ The `redo` command fails as there are no `undo` commands executed previously.
 Clears all entries from the address book. +
 Format: `clear`
 
+=== Exporting contacts : `export`
+
+Shows a list of all persons in the address book. +
+Export all persons in the address book to mobile phone. +
+Format: `export FILETYPE`
+
+Examples:
+
+* `export csv`
+* `export vbf`
+
+=== Enter or delete personal weekly schedule : `schedule`
+
+Format:
+
+`addschedule d/DDMMYYYY st/START-TIME et/END-TIME en/EVENT-NAME`
+`delschedule d/DDMMYYYY st/START-TIME et/END-TIME en/EVENT-NAME`
+
+Examples:
+
+* `addschedule d/08112018 st/1000 et/1200 en/GER1000`
+* `addschedule d/01012019 st/1000 et/1800 en/FireworkParty`
+* `delschedule d/01012019 st/1000 et/1800 en/FireworkParty`
+
+=== List Common Schedule : `commonschedule`
+
+Shows a list of common meeting time for a group of contacts and the user in that given that given period of time. +
+Format: `commonschedule p/PERSON...[PERSON] sd/START-DATE-DDMMYYYY ed/END-DATE-DDMMYYYY t/HOURS`
+
+Examples:
+
+* `commonschedule p/John Smith p/Jane Doe sd/08092018 ed/01102018 t/1.5`
+
+=== List Unread / New Email / Auto-reply of email: `mail`
+
+Shows a list of unread or new emails of the user. Upen entering the index of the unread emails, the terminal will display the email’s title, body.
+The user can choose whether he wants to send an auto-reply to indicate that he has read it. +
+Format: `mail [i/INDEX]`
+
+[TIP]
+Keying the index is optional, without keying it, it will list all the mail items in the user’s current mailbox.
+
+Examples:
+
+* `mail`
+* `Expected output: 0/Latest Pomelo Fashion 1/Quora - will PHP die in 2018 2/How to communicate effectively`
+* `mail i/INDEX`
+* `mail i/1`
+* `Expected output: t/Quora - will PHP die in 2018 ct/PHP is terrible blablablablabla s/quora@quora.com E/would you like to send an auto-reply to the sender? (Y/n)`
+
 === Exiting the program : `exit` / `x`
 
 Exits the program. +
