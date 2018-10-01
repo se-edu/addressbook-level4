@@ -100,7 +100,7 @@ public class Transcript implements ReadOnlyTranscript {
      * Return the current CAP
      * @return current cap score
      */
-    public double getCurrentCap() {
+    public double getCap() {
         return calculateCap();
     }
 

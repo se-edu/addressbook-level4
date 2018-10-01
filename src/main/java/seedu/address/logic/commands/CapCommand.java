@@ -19,7 +19,7 @@ public class CapCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
-        double cap = model.getCurrentCap();
+        double cap = model.getCap();
         return new CommandResult(String.format(MESSAGE_SUCCESS, cap));
     }
 }

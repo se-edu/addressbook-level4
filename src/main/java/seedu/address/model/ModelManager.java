@@ -271,8 +271,8 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public double getCurrentCap() {
-        return versionedTranscript.getCurrentCap();
+    public double getCap() {
+        return versionedTranscript.getCap();
     }
 
     @Override

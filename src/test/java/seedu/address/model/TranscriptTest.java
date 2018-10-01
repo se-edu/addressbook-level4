@@ -37,7 +37,7 @@ public class TranscriptTest {
     private void assertCapScoreEquals(List<Module> modules, Double expectedCapScore) {
         Transcript transcript = new Transcript();
         transcript.setModules(modules);
-        double cap = transcript.getCurrentCap();
+        double cap = transcript.getCap();
         assertEquals(Double.valueOf(cap), expectedCapScore);
     }
 
