@@ -19,6 +19,8 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ReadOnlyLeaveList;
+import seedu.address.model.leave.Leave;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.PersonBuilder;
 
@@ -94,7 +96,17 @@ public class AddCommandTest {
         }
 
         @Override
+        public void addLeave(Leave leave) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void resetData(ReadOnlyAddressBook newData) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void resetData2(ReadOnlyLeaveList newData) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -104,7 +116,22 @@ public class AddCommandTest {
         }
 
         @Override
+        public ReadOnlyLeaveList getLeaveList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasLeave(Leave leave) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public boolean hasPerson(Person person) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteLeave(Leave target) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -115,6 +142,11 @@ public class AddCommandTest {
 
         @Override
         public void updatePerson(Person target, Person editedPerson) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateLeave(Leave target, Leave editedLeave) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -150,6 +182,11 @@ public class AddCommandTest {
 
         @Override
         public void commitAddressBook() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void commitLeaveList() {
             throw new AssertionError("This method should not be called.");
         }
     }

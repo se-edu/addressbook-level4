@@ -23,6 +23,17 @@ public class XmlFileStorage {
             throw new AssertionError("Unexpected exception " + e.getMessage(), e);
         }
     }
+    /**
+     * Saves the given leavelist data to the specified file.
+     */
+    public static void saveDataToFile(Path file, XmlSerializableLeaveList leaveList)
+            throws FileNotFoundException {
+        try {
+            XmlUtil.saveDataToFile(file, leaveList);
+        } catch (JAXBException e) {
+            throw new AssertionError("Unexpected exception " + e.getMessage(), e);
+        }
+    }
 
     /**
      * Returns address book in the file or an empty address book
@@ -31,6 +42,18 @@ public class XmlFileStorage {
                                                                             FileNotFoundException {
         try {
             return XmlUtil.getDataFromFile(file, XmlSerializableAddressBook.class);
+        } catch (JAXBException e) {
+            throw new DataConversionException(e);
+        }
+    }
+
+    /**
+     * Returns address book in the file or an empty address book
+     */
+    public static XmlSerializableLeaveList loadDataFromSaveFile2(Path file) throws DataConversionException,
+            FileNotFoundException {
+        try {
+            return XmlUtil.getDataFromFile(file, XmlSerializableLeaveList.class);
         } catch (JAXBException e) {
             throw new DataConversionException(e);
         }
