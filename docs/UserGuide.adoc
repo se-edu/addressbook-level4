@@ -1,4 +1,4 @@
-= AddressBook Level 4 - User Guide
+= JitHub - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -14,23 +14,26 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/CS2113-AY1819S1-W12-1/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `CS2113-AY1819S1-W12-1`      Since: `Aug 2018`
 
 == Introduction
 
-AddressBook Level 4 (AB4) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB4 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB4 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+JitHub is for students who *prefer to use a desktop app for managing contacts, email, and calendar*. More importantly,
+JitHub is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits
+of a Graphical User Interface (GUI). If you can type fast, JitHub can get your daily tasks such as checking schedule done faster than traditional GUI apps.
+Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 
 .  Ensure you have Java version `9` or later installed in your Computer.
 .  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
+.  Copy the file to the folder you want to use as the home folder for your JitHub.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
+e.g. typing *`help`* or *`h`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
 * *`list`* : lists all contacts
