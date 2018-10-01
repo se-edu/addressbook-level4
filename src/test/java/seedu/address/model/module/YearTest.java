@@ -10,33 +10,43 @@ import seedu.address.testutil.Assert;
 public class YearTest {
 
     @Test
+    public void constructorNullThrowsNullPointerException() {
+        Assert.assertThrows(NullPointerException.class, () -> new Year(null));
+    }
+
+    @Test
     public void constructorInvalidYearThrowsIllegalArgumentException() {
-        int invalidYear = 1;
-        Assert.assertThrows(IllegalArgumentException.class, () -> new Year(invalidYear));
+        Assert.assertThrows(IllegalArgumentException.class, () -> new Year(0));
+        Assert.assertThrows(IllegalArgumentException.class, () -> new Year("0"));
     }
 
     @Test
     public void isValidYear() {
         // invalid year format
-        assertFalse(Year.isValidYear(1)); // single digit
-        assertFalse(Year.isValidYear(10)); // two digit
-        assertFalse(Year.isValidYear(100)); // three digit
-        assertFalse(Year.isValidYear(1000)); // third digit must be either 1 or 2
+        assertFalse(Year.isValidYear(0)); // year must be at least 1
+        assertFalse(Year.isValidYear(6)); // year must be 5 or below
+        assertFalse(Year.isValidYear(10)); // only 1 digit allowed
 
-        // valid year
-        assertTrue(Year.isValidYear(1010)); // first digit and third digit are both 1
-        assertTrue(Year.isValidYear(1020)); // first digit is 1 and third digit is 2
-        assertTrue(Year.isValidYear(2020)); // first digit and third digit are both 2
-        assertTrue(Year.isValidYear(2010)); // first digit is 2 and third digit is 1
+        // valid year format
+        assertTrue(Year.isValidYear(1)); // year 1
+        assertTrue(Year.isValidYear(2)); // year 2
+        assertTrue(Year.isValidYear(3)); // year 3
+        assertTrue(Year.isValidYear(4)); // year 4
+        assertTrue(Year.isValidYear(5)); // year 5
     }
 
     @Test
     public void toStringValid() {
-        assertTrue(new Year(1819).toString().contentEquals("1819"));
+        assertTrue(new Year(1).toString().contentEquals("1"));
     }
 
     @Test
     public void equalsValid() {
-        assertTrue(new Year(1819).equals(new Year(1819)));
+        assertTrue(new Year(1).equals(new Year(1)));
+    }
+
+    @Test
+    public void hashCodeValid() {
+        assertTrue(new Year(1).hashCode() == "1".hashCode());
     }
 }
