@@ -20,7 +20,7 @@ public class SetScheduleCommand extends Command {
     public static final String MESSAGE_SCHEDULE_SUCCESS = "Set Schedule Successful";
     public static final String MESSAGE_SCHEDULE_FAIL = "Person not found in address book.";
 
-    private static String FILE_PATH = "data\\schedule.txt";
+    private static final String FILE_PATH = "data\\schedule.txt";
     private final String scheduleDescriptor;
 
     public SetScheduleCommand(String scheduleDescriptor) {
@@ -39,7 +39,7 @@ public class SetScheduleCommand extends Command {
             writer.close();
 
             return new CommandResult(MESSAGE_SCHEDULE_SUCCESS);
-        } catch(Exception e) {
+        } catch (Exception e) {
             return new CommandResult(MESSAGE_SCHEDULE_FAIL);
         }
     }
