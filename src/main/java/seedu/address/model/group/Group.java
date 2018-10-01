@@ -81,8 +81,8 @@ public class Group extends Entity {
     }
 
     /**
-     * Returns true if both groups have the same identity and data fields.
-     * This defines a stronger notion of equality between two persons.
+     * Same as isSame because Groups are uniquely identified by their names.
+     * TO NOTE: Used when deleting groups.
      */
     @Override
     public boolean equals(Object other) {
@@ -95,9 +95,7 @@ public class Group extends Entity {
         }
 
         Group otherGroup = (Group) other;
-        return otherGroup.getName().equals(getName())
-                && otherGroup.getDescription().equals(getDescription())
-                && otherGroup.getGroupMembers().equals(getGroupMembers());
+        return otherGroup.getName().equals(getName());
     }
 
     @Override
