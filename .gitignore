@@ -18,3 +18,10 @@ classes/
 /bin/
 src/main/resources/docs/
 out/
+
+# Generated project files
+.project
+# Generated setting files
+.settings
+# Generated class files
+.classpath
