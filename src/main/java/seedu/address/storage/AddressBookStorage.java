@@ -42,4 +42,11 @@ public interface AddressBookStorage {
      */
     void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException;
 
+    /**
+     * Backup the given {@link ReadOnlyAddressBook} to a temporary local backup file.
+     * @param addressBook cannot be null.
+     * @throws IOException
+     */
+    void backupAddressBook(ReadOnlyAddressBook addressBook) throws IOException;
+
 }
