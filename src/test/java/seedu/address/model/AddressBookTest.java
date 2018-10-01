@@ -36,7 +36,8 @@ public class AddressBookTest {
 
     private final AddressBook addressBook = new AddressBook();
 
-    private final AddressBook addressBookWithNewPeople = new AddressBookBuilder().withPerson(BOB).withPerson(AMY).build();
+    private final AddressBook addressBookWithNewPeople = new AddressBookBuilder().withPerson(BOB)
+            .withPerson(AMY).build();
 
     @Test
     public void constructor() {

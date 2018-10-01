@@ -48,9 +48,10 @@ public class AddressBookParserTest {
     }
 
     @Test
-    public void parseCommand_addAlias() throws Exception{
+    public void parseCommand_addAlias() throws Exception {
         Person person = new PersonBuilder().build();
-        AddCommand command = (AddCommand) parser.parseCommand(AddCommand.COMMAND_ALIAS + " " + PersonUtil.getPersonDetails(person));
+        AddCommand command = (AddCommand) parser.parseCommand(AddCommand.COMMAND_ALIAS +
+                " " + PersonUtil.getPersonDetails(person));
         assertEquals(new AddCommand(person), command);
     }
 
