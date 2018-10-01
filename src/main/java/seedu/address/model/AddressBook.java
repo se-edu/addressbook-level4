@@ -96,14 +96,17 @@ public class AddressBook implements ReadOnlyAddressBook {
         persons.remove(key);
     }
 
+    //comment
     private void removeTagFromPerson(Tag tag, Person person) {
 
         Set<Tag> newTags =  new HashSet<>(person.getTags());
 
-        if(!newTags.remove(tag))
+        if (!newTags.remove(tag)) {
             return;
+        }
 
-        Person newPerson = new Person(person.getName(), person.getPhone(), person.getEmail(), person.getAddress(), newTags);
+        Person newPerson = new Person(person.getName(),
+                person.getPhone(), person.getEmail(), person.getAddress(), newTags);
 
         updatePerson(person, newPerson);
     }
