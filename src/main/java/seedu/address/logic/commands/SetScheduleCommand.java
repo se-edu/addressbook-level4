@@ -1,11 +1,16 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import seedu.address.logic.CommandHistory;
-import seedu.address.model.Model;
+
 import java.io.PrintWriter;
 
-public class SetScheduleCommand extends Command{
+import seedu.address.logic.CommandHistory;
+import seedu.address.model.Model;
+
+/**
+ * Sets schedule of a person in the address book to the user.
+ */
+public class SetScheduleCommand extends Command {
 
     public static final String COMMAND_WORD = "setschedule";
 
@@ -15,7 +20,7 @@ public class SetScheduleCommand extends Command{
     public static final String MESSAGE_SCHEDULE_SUCCESS = "Set Schedule Successful";
     public static final String MESSAGE_SCHEDULE_FAIL = "Person not found in address book.";
 
-    private static String FILEPATH = "data\\schedule.txt";
+    private static String FILE_PATH = "data\\schedule.txt";
     private final String scheduleDescriptor;
 
     public SetScheduleCommand(String scheduleDescriptor) {
@@ -25,17 +30,16 @@ public class SetScheduleCommand extends Command{
     }
 
     @Override
-    public CommandResult execute(Model model, CommandHistory history){
+    public CommandResult execute(Model model, CommandHistory history) {
         requireNonNull(model);
 
         try {
-            PrintWriter writer = new PrintWriter(FILEPATH, "UTF-8");
+            PrintWriter writer = new PrintWriter(FILE_PATH, "UTF-8");
             writer.println(scheduleDescriptor);
             writer.close();
 
             return new CommandResult(MESSAGE_SCHEDULE_SUCCESS);
-        }
-        catch(Exception e){
+        } catch(Exception e) {
             return new CommandResult(MESSAGE_SCHEDULE_FAIL);
         }
     }
