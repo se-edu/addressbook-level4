@@ -1,14 +1,17 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
-import seedu.address.logic.CommandHistory;
-import seedu.address.model.Model;
-import java.io.File;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 
+import seedu.address.logic.CommandHistory;
+import seedu.address.model.Model;
 
-public class ScheduleCommand extends Command{
+/**
+ * List schedule of a person in the address book to the user.
+ */
+public class ScheduleCommand extends Command {
 
     public static final String COMMAND_WORD = "schedule";
 
@@ -18,11 +21,11 @@ public class ScheduleCommand extends Command{
     public static final String MESSAGE_SCHEDULE_SUCCESS = "Listed Schedule:";
     public static final String MESSAGE_SCHEDULE_FAIL = "Person not found in address book.";
 
-    private static String FILEPATH = "data\\schedule.txt";
+    private static String FILE_PATH = "data\\schedule.txt";
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
-        File file = new File(FILEPATH);
+        File file = new File(FILE_PATH);
 
         try {
             BufferedReader br = new BufferedReader(new FileReader(file));
@@ -30,12 +33,8 @@ public class ScheduleCommand extends Command{
             String st = br.readLine();
             requireNonNull(model);
             return new CommandResult(MESSAGE_SCHEDULE_SUCCESS + "\n" + st);
-
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             return new CommandResult(MESSAGE_SCHEDULE_FAIL);
         }
-
-
     }
 }
