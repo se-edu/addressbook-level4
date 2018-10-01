@@ -52,10 +52,10 @@ public class AddressBookParser {
 
         case CapCommand.COMMAND_WORD:
             return new CapCommand();
-            
+
         case GoalCommand.COMMAND_WORD:
             return new GoalCommandParser().parse(arguments);
-            
+
         case AddCommand.COMMAND_WORD:
             return new AddCommandParser().parse(arguments);
 
