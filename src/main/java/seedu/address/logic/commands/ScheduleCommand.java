@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -21,7 +22,7 @@ public class ScheduleCommand extends Command {
     public static final String MESSAGE_SCHEDULE_SUCCESS = "Listed Schedule:";
     public static final String MESSAGE_SCHEDULE_FAIL = "Person not found in address book.";
 
-    private static String FILE_PATH = "data\\schedule.txt";
+    private static final String FILE_PATH = "data\\schedule.txt";
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) {
