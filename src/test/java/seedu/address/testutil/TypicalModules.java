@@ -57,7 +57,7 @@ public class TypicalModules {
     }
 
     /**
-     * A list of modules that does no affect the cap
+     * A list of modules that affects the cap
      * @return
      */
     public static List<Module> getModulesWithoutNonGradeAffectingModules() {
@@ -66,6 +66,10 @@ public class TypicalModules {
                 DATA_STRUCTURES));
     }
 
+    /**
+     * A list of modules that might not affect the cap
+     * @return
+     */
     public static List<Module> getModulesWithNonGradeAffectingModules() {
         List<Module> affectingModules = getModulesWithoutNonGradeAffectingModules();
         List<Module> nonAffectingModules = new ArrayList<>(Arrays.asList(ASKING_QUESTIONS));
