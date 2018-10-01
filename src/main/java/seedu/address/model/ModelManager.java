@@ -18,6 +18,7 @@ import seedu.address.model.timetable.Timetable;
 
 /**
  * Represents the in-memory model of the address book data.
+ * #TO DO: Refactor methods: hasPerson --> hasElements () {calls has method in Person / Group/ etc}
  */
 public class ModelManager extends ComponentManager implements Model {
 

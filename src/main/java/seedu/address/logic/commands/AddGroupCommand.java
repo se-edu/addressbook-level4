@@ -11,23 +11,23 @@ import seedu.address.model.group.Group;
 /**
  * Lists all persons in the address book to the user.
  */
-public class CreateGroupCommand extends Command {
+public class AddGroupCommand extends Command {
 
-    public static final String COMMAND_WORD = "create_group";
+    public static final String COMMAND_WORD = "add_group";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Creates a new group. "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a new group. "
             + "Parameters: "
             + PREFIX_NAME + "GROUP NAME "
             + PREFIX_DESCRIPTION + "OPTIONAL DESCRIPTION";
 
-    public static final String MESSAGE_SUCCESS = "Created group successfully.";
+    public static final String MESSAGE_SUCCESS = "Added group successfully.";
 
     private final Group newGroup;
 
     /**
      * Creates an CreateGroupCommand to create the specified {@code Group}
      */
-    public CreateGroupCommand(Group group) {
+    public AddGroupCommand(Group group) {
         requireNonNull(group);
         newGroup = group;
     }
@@ -38,5 +38,12 @@ public class CreateGroupCommand extends Command {
         model.addGroup(newGroup);
         model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_SUCCESS, newGroup));
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof AddGroupCommand // instanceof handles nulls
+                && newGroup.equals(((AddGroupCommand) other).newGroup));
     }
 }

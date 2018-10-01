@@ -6,9 +6,7 @@ import java.util.List;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.group.Group;
-import seedu.address.model.group.UniqueGroupList;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.timetable.Timetable;
 import seedu.address.model.timetable.UniqueTimetableList;
 
@@ -18,8 +16,8 @@ import seedu.address.model.timetable.UniqueTimetableList;
  */
 public class AddressBook implements ReadOnlyAddressBook {
 
-    private final UniquePersonList persons;
-    private final UniqueGroupList groups;
+    private final UniqueList<Person> persons;
+    private final UniqueList<Group> groups;
     private final UniqueTimetableList timetableList;
 
     /*
@@ -31,8 +29,8 @@ public class AddressBook implements ReadOnlyAddressBook {
      *
      */
     {
-        persons = new UniquePersonList();
-        groups = new UniqueGroupList();
+        persons = new UniqueList<>();
+        groups = new UniqueList<>();
         timetableList = new UniqueTimetableList();
     }
 
@@ -80,7 +78,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * duplicate group.
      */
     public void setGroups(List<Group> groups) {
-        this.groups.setGroups(groups);
+        this.groups.setElements(groups);
     }
 
     //// list overwrite operations
@@ -90,7 +88,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * contain duplicate persons.
      */
     public void setPersons(List<Person> persons) {
-        this.persons.setPersons(persons);
+        this.persons.setElements(persons);
     }
 
     /**
@@ -129,7 +127,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void updatePerson(Person target, Person editedPerson) {
         requireNonNull(editedPerson);
 
-        persons.setPerson(target, editedPerson);
+        persons.setElement(target, editedPerson);
     }
 
     /**
@@ -144,7 +142,8 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     @Override
     public String toString() {
-        return persons.asUnmodifiableObservableList().size() + " persons";
+        return persons.asUnmodifiableObservableList().size() + " persons"
+                + "and " + groups.asUnmodifiableObservableList().size() + "groups";
         // TODO: refine later
     }
 

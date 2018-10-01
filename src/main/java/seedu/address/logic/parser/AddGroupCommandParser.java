@@ -6,7 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 
 import java.util.stream.Stream;
 
-import seedu.address.logic.commands.CreateGroupCommand;
+import seedu.address.logic.commands.AddGroupCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.group.Group;
 import seedu.address.model.person.Name;
@@ -14,20 +14,20 @@ import seedu.address.model.person.Name;
 /**
  * Parses input arguments and creates a new CreateGroupCommand object
  */
-public class CreateGroupCommandParser implements Parser<CreateGroupCommand> {
+public class AddGroupCommandParser implements Parser<AddGroupCommand> {
 
     /**
      * Parses the given {@code String} of arguments in the context of the CreateGroupCommand
      * and returns an CreateGroupCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public CreateGroupCommand parse(String args) throws ParseException {
+    public AddGroupCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
                 ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_DESCRIPTION);
 
         if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_DESCRIPTION)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, CreateGroupCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddGroupCommand.MESSAGE_USAGE));
         }
 
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
@@ -35,7 +35,7 @@ public class CreateGroupCommandParser implements Parser<CreateGroupCommand> {
 
         Group group = new Group(name, description);
 
-        return new CreateGroupCommand(group);
+        return new AddGroupCommand(group);
     }
 
     /**
