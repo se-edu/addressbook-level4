@@ -4,7 +4,7 @@ package seedu.address.model.timetable;
 /**
  * timetable data
  */
-public class TimetableData {
+public class TimetableGenerator {
 
     private final String[][] newTimetable;
     private String[] timings = {"0800", "0900", "1000", "1100", "1200", "1300",
@@ -18,7 +18,7 @@ public class TimetableData {
      *
      * @param mode
      */
-    public TimetableData(String mode) {
+    public TimetableGenerator(String mode) {
         if (mode.equals("vertical")) {
             this.newTimetable = generateNewVerticalTimetable();
         } else {

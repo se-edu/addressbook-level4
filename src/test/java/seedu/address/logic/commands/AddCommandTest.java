@@ -21,6 +21,7 @@ import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.group.Group;
 import seedu.address.model.person.Person;
+import seedu.address.model.timetable.Timetable;
 import seedu.address.testutil.PersonBuilder;
 
 public class AddCommandTest {
@@ -43,9 +44,11 @@ public class AddCommandTest {
         ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
         Person validPerson = new PersonBuilder().build();
 
-        CommandResult commandResult = new AddCommand(validPerson).execute(modelStub, commandHistory);
+        CommandResult commandResult = new AddCommand(validPerson)
+            .execute(modelStub, commandHistory);
 
-        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validPerson), commandResult.feedbackToUser);
+        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validPerson),
+            commandResult.feedbackToUser);
         assertEquals(Arrays.asList(validPerson), modelStub.personsAdded);
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
     }
@@ -89,9 +92,12 @@ public class AddCommandTest {
      * A default model stub that have all of the methods failing.
      */
     private class ModelStub implements Model {
+
         //group operation
         @Override
-        public void addGroup(Group group) { throw new AssertionError("This method should not be called."); }
+        public void addGroup(Group group) {
+            throw new AssertionError("This method should not be called.");
+        }
 
         @Override
         public void deleteGroup(Group target) {
@@ -100,6 +106,12 @@ public class AddCommandTest {
 
         @Override
         public void addPerson(Person person) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        // timetable operations
+        @Override
+        public void addTimetable(Timetable timetable) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -168,6 +180,7 @@ public class AddCommandTest {
      * A Model stub that contains a single person.
      */
     private class ModelStubWithPerson extends ModelStub {
+
         private final Person person;
 
         ModelStubWithPerson(Person person) {
@@ -186,6 +199,7 @@ public class AddCommandTest {
      * A Model stub that always accept the person being added.
      */
     private class ModelStubAcceptingPersonAdded extends ModelStub {
+
         final ArrayList<Person> personsAdded = new ArrayList<>();
 
         @Override
