@@ -4,6 +4,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.person.Person;
+import seedu.address.model.tag.Tag;
 
 /**
  * The API of the Model component.
@@ -28,6 +29,8 @@ public interface Model {
      * The person must exist in the address book.
      */
     void deletePerson(Person target);
+
+    void deleteTag(Tag tag);
 
     /**
      * Adds the given person.
