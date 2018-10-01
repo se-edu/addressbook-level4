@@ -49,6 +49,7 @@ public class AddressBookTest {
         AddressBook expectedAddressBook = new AddressBookBuilder().withPerson(BOB).withPerson(AMY).build();
         assertEquals(expectedAddressBook, addressBookWithNewPeople);
     }
+
     @Test
     public void removeTag_tagUsedByMultiplePersons_tagRemoved() throws Exception {
         addressBookWithNewPeople.removeTag(new Tag(VALID_TAG_FRIEND));
@@ -57,7 +58,9 @@ public class AddressBookTest {
         AddressBook expectedAddressBook = new AddressBookBuilder().withPerson(bobWithoutFriendTag)
                 .withPerson(amyWithoutFriendTag).build();
         assertEquals(expectedAddressBook, addressBookWithNewPeople);
-    }    @Test
+    }
+
+    @Test
     public void resetData_null_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
         addressBook.resetData(null);
