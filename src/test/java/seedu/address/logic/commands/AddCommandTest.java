@@ -161,6 +161,16 @@ public class AddCommandTest {
         }
 
         @Override
+        public double getCapGoal() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateCapGoal(double capGoal) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void addPerson(Person person) {
             throw new AssertionError("This method should not be called.");
         }

@@ -1,5 +1,7 @@
 package seedu.address.model.module;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.Objects;
 
 /**
@@ -49,46 +51,13 @@ public class Module {
      */
     private final boolean completed;
 
-    /**
-     * Every field must be present and not null.
-     *
-     * @param code code for the module
-     * @param year year the module was taken
-     * @param semester semester the module was taken
-     * @param credits credits awarded for completion of this module
-     * @param completed true if module has been completed and false if module has not been taken
-     */
-    public Module(String code, int year, String semester, int credits, boolean completed) {
-        this.code = new Code(code);
-        this.year = new Year(year);
-        this.semester = new Semester(semester);
-        this.credits = new Credit(credits);
-        this.grade = null;
-        this.completed = completed;
-    }
-
-    /**
-     * Every field must be present and not null.
-     *
-     * @param code code for the module
-     * @param year year the module was taken
-     * @param semester semester the module was taken
-     * @param credits credits awarded for completion of this module
-     * @param grade grade awarded for completion of this module
-     * @param completed true if module has been completed and false if module has not been taken
-     */
-    public Module(String code, int year, String semester, int credits, String grade,
-            boolean completed) {
-        this.code = new Code(code);
-        this.year = new Year(year);
-        this.semester = new Semester(semester);
-        this.credits = new Credit(credits);
-        this.grade = new Grade(grade);
-        this.completed = completed;
-    }
-
     public Module(Code code, Year year, Semester semester, Credit credit, Grade grade,
             boolean completed) {
+        requireNonNull(code);
+        requireNonNull(year);
+        requireNonNull(semester);
+        requireNonNull(credit);
+
         this.code = code;
         this.year = year;
         this.semester = semester;

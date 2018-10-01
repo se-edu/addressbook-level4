@@ -15,21 +15,21 @@ public class TypicalModules {
     // Manually added
 
     public static final Module DISCRETE_MATH = new ModuleBuilder().withCode("CS1231")
-            .withYear(1819)
+            .withYear(1)
             .withSemester(Semester.SEMESTER_ONE)
             .withCredit(4)
             .withGrade("A+")
             .build();
 
     public static final Module PROGRAMMING_METHODOLOGY_TWO = new ModuleBuilder().withCode("CS2030")
-            .withYear(1920)
+            .withYear(2)
             .withSemester(Semester.SEMESTER_TWO)
             .withCredit(4)
             .withGrade("B")
             .build();
 
     public static final Module DATA_STRUCTURES = new ModuleBuilder().withCode("CS2040")
-            .withYear(1718)
+            .withYear(3)
             .withSemester(Semester.SEMESTER_SPECIAL_ONE)
             .withCredit(4)
             .withGrade("F")
