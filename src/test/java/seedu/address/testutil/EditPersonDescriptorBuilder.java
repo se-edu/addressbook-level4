@@ -62,7 +62,7 @@ public class EditPersonDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code Nric} of the {@code EditPersonDescriptor} that we are building.
+     * Sets the {@code EmployeeId} of the {@code EditPersonDescriptor} that we are building.
      */
     public EditPersonDescriptorBuilder withNric(String nric) {
         descriptor.setNric(new Nric(nric));
