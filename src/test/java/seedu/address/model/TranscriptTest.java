@@ -2,8 +2,8 @@ package seedu.address.model;
 
 import static org.junit.Assert.assertEquals;
 import static seedu.address.testutil.TypicalModules.MODULES_WITHOUT_NON_AFFECTING_MODULES_CAP;
-import static seedu.address.testutil.TypicalModules.getModulesWithoutNonGradeAffectingModules;
 import static seedu.address.testutil.TypicalModules.getModulesWithNonGradeAffectingModules;
+import static seedu.address.testutil.TypicalModules.getModulesWithoutNonGradeAffectingModules;
 
 import java.util.List;
 
