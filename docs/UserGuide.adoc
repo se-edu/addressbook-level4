@@ -223,9 +223,8 @@ The `redo` command fails as there are no `undo` commands executed previously.
 Clears all entries from the address book. +
 Format: `clear`
 
-=== Exporting contacts : `exportall` (TO BE MODIFIED)
+=== Exporting all contacts : `exportall`
 
-Shows a list of all persons in the address book. +
 Export all persons in the address book to mobile phone. +
 Format: `exportall FILETYPE`
 
@@ -233,6 +232,26 @@ Examples:
 
 * `exportall csv`
 * `exportall vcf`
+
+=== Exporting contacts : `export`
+
+Export the specified persons from the address book. +
+Format: `export INDEX N FILETYPE`
+
+****
+Export `N` persons starting from the specified `INDEX`.
+The index refers to the index number shown in the most recent listing.
+****
+
+Examples:
+
+* `list` +
+`export 2 1 csv` +
+Exports the 2nd person in the address book as a csv file.
+
+* `find Betsy` +
+`export 1 5 vcf` +
+Exports the five persons starting from the 1st person in the results of the `find` command as a vcf file.
 
 === Enter or delete personal weekly schedule : `schedule`
 
@@ -318,7 +337,10 @@ e.g.`select 2`
 * *History* : `history`
 * *Undo* : `undo`
 * *Redo* : `redo`
-* *ExportAll* : `exportall FILETYPE`
-* *Mail* : `mail [i/INDEX]`
-* *List Schedule* : `commonschedule p/PERSON…[PERSON] sd/START-DATE-DDMMYYYY`
-* *Add Schedule* : `addschedule d/DDMMYYYY st/START-TIME et/END-TIME en/EVENT-NAME`
+* *ExportAll* : `exportall FILETYPE` (to be added)
+* *Mail* : `mail [i/INDEX]` (to be added)
+* *List Schedule* : `commonschedule p/PERSON…[PERSON] sd/START-DATE-DDMMYYYY` * *Mail* : `mail [i/INDEX]` +
+(to be added)
+* *Add Schedule* : `addschedule d/DDMMYYYY st/START-TIME et/END-TIME en/EVENT-NAME` * *Mail* : `mail [i/INDEX]` +
+(to be added)
+
