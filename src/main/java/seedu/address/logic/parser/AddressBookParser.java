@@ -7,8 +7,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.AddCommand;
-import seedu.address.logic.commands.CheckCommand;
 import seedu.address.logic.commands.AddLeaveCommand;
+import seedu.address.logic.commands.CheckCommand;
 import seedu.address.logic.commands.CheckLoginStatusCommand;
 import seedu.address.logic.commands.ClearCommand;
 import seedu.address.logic.commands.Command;
