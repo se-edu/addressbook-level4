@@ -6,9 +6,7 @@ import java.util.List;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.group.Group;
-import seedu.address.model.group.UniqueGroupList;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.UniquePersonList;
 
 /**
  * Wraps all data at the address-book level
@@ -16,8 +14,8 @@ import seedu.address.model.person.UniquePersonList;
  */
 public class AddressBook implements ReadOnlyAddressBook {
 
-    private final UniquePersonList persons;
-    private final UniqueGroupList groups;
+    private final UniqueList<Person> persons;
+    private final UniqueList<Group> groups;
 
     /*
      * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
@@ -27,8 +25,8 @@ public class AddressBook implements ReadOnlyAddressBook {
      *   among constructors.
      */
     {
-        persons = new UniquePersonList();
-        groups = new UniqueGroupList();
+        persons = new UniqueList<>();
+        groups = new UniqueList<>();
     }
 
     public AddressBook() {}
@@ -64,7 +62,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * {@code groups} must not contain duplicate group.
      */
     public void setGroups(List<Group> groups) {
-        this.groups.setGroups(groups);
+        this.groups.setElements(groups);
     }
 
     //// list overwrite operations
@@ -74,7 +72,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * {@code persons} must not contain duplicate persons.
      */
     public void setPersons(List<Person> persons) {
-        this.persons.setPersons(persons);
+        this.persons.setElements(persons);
     }
 
     /**
@@ -113,7 +111,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     public void updatePerson(Person target, Person editedPerson) {
         requireNonNull(editedPerson);
 
-        persons.setPerson(target, editedPerson);
+        persons.setElement(target, editedPerson);
     }
 
     /**
@@ -128,7 +126,8 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     @Override
     public String toString() {
-        return persons.asUnmodifiableObservableList().size() + " persons";
+        return persons.asUnmodifiableObservableList().size() + " persons"
+                + "and " + groups.asUnmodifiableObservableList().size() + "groups";
         // TODO: refine later
     }
 
