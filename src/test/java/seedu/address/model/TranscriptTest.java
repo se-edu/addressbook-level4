@@ -1,9 +1,9 @@
 package seedu.address.model;
 
 import static org.junit.Assert.assertEquals;
-import static seedu.address.testutil.TypicalModules.TYPICAL_MODULES_CAP;
+import static seedu.address.testutil.TypicalModules.MODULES_WITHOUT_NON_AFFECTING_MODULES_CAP;
 import static seedu.address.testutil.TypicalModules.getModulesWithoutNonGradeAffectingModules;
-import static seedu.address.testutil.TypicalModules.getTypicalModules;
+import static seedu.address.testutil.TypicalModules.getModulesWithNonGradeAffectingModules;
 
 import java.util.List;
 
@@ -19,13 +19,13 @@ public class TranscriptTest {
     @Test
     public void typicalModulesCapScore() {
         List<Module> modules = getModulesWithoutNonGradeAffectingModules();
-        assertCapScoreEquals(modules, TYPICAL_MODULES_CAP);
+        assertCapScoreEquals(modules, MODULES_WITHOUT_NON_AFFECTING_MODULES_CAP);
     }
 
     @Test
     public void calculateCapScoreWithSuModule() {
-        List<Module> modules = getTypicalModules();
-        assertCapScoreEquals(modules, TYPICAL_MODULES_CAP);
+        List<Module> modules = getModulesWithNonGradeAffectingModules();
+        assertCapScoreEquals(modules, MODULES_WITHOUT_NON_AFFECTING_MODULES_CAP);
 
     }
 

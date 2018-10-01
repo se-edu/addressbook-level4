@@ -41,7 +41,7 @@ public class TypicalModules {
             .withGrade("CS")
             .build();
 
-    public static final Double TYPICAL_MODULES_CAP = 3.0;
+    public static final Double MODULES_WITHOUT_NON_AFFECTING_MODULES_CAP = 3.0;
 
     /**
      * Prevents instantiation
@@ -53,14 +53,24 @@ public class TypicalModules {
     public static List<Module> getTypicalModules() {
         return new ArrayList<>(Arrays.asList(DISCRETE_MATH,
                 PROGRAMMING_METHODOLOGY_TWO,
-                DATA_STRUCTURES,
-                ASKING_QUESTIONS));
+                DATA_STRUCTURES));
     }
 
+    /**
+     * A list of modules that does no affect the cap
+     * @return
+     */
     public static List<Module> getModulesWithoutNonGradeAffectingModules() {
         return new ArrayList<>(Arrays.asList(DISCRETE_MATH,
                 PROGRAMMING_METHODOLOGY_TWO,
                 DATA_STRUCTURES));
+    }
+
+    public static List<Module> getModulesWithNonGradeAffectingModules() {
+        List<Module> affectingModules = getModulesWithoutNonGradeAffectingModules();
+        List<Module> nonAffectingModules = new ArrayList<>(Arrays.asList(ASKING_QUESTIONS));
+        affectingModules.addAll(nonAffectingModules);
+        return affectingModules;
     }
     // TODO: getTypicalAddressBook()
 }
