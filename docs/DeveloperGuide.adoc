@@ -901,6 +901,7 @@ Use case resumes at step 2.
 
 _{More to be added}_
 
+[discrete]
 === Use case: Export contacts
 
 *MSS*
