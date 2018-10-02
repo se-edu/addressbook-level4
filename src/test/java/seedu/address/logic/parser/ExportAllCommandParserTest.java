@@ -16,7 +16,7 @@ public class ExportAllCommandParserTest {
 
     @Test
     public void parse_Filetype_success() {
-        String userInput = ExportAllCommand.COMMAND_WORD + " " + FILETYPE_CSV;
+        String userInput = FILETYPE_CSV;
         ExportAllCommand expectedCommand = new ExportAllCommand(userInput);
         assertParseSuccess(parser, userInput, expectedCommand);
     }
