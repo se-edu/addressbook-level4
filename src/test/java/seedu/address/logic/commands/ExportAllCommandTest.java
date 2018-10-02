@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.ExportAllCommand.MESSAGE_ARGUMENTS;
 import static seedu.address.testutil.TypicalFiletypes.FILETYPE_CSV;

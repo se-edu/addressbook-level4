@@ -22,6 +22,11 @@ public class ParserUtil {
 
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
 
+    // TODO: Move this to a Filetype class.
+    public static final String FILETYPE_CSV = "csv";
+    public static final String FILETYPE_VCF = "vcf";
+    public static final String MESSAGE_FILETYPE_CONSTRAINTS = "Filetype can only be \"csv\" or \"vcf\".";
+
     /**
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
      * trimmed.
@@ -131,13 +136,10 @@ public class ParserUtil {
      */
     public static String parseFiletype(String filetype) throws ParseException {
         requireNonNull(filetype);
-        final String filetypeCsv = "csv";
-        final String filetypeVcf = "vcf";
-        final String messageFiletypeConstraints = "Filetype can only be \"csv\" or \"vcf\".";
 
         String trimmedFiletype = filetype.trim();
-        if (!(filetype.equals(filetypeCsv) || filetype.equals(filetypeVcf))) {
-            throw new ParseException(messageFiletypeConstraints);
+        if (!(filetype.equals(ParserUtil.FILETYPE_CSV) || filetype.equals(ParserUtil.FILETYPE_VCF))) {
+            throw new ParseException(ParserUtil.MESSAGE_FILETYPE_CONSTRAINTS);
         }
         return trimmedFiletype;
     }
