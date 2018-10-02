@@ -26,7 +26,11 @@ import seedu.address.model.person.exceptions.PersonNotFoundException;
  */
 public class UniqueList<T extends Entity> implements Iterable<T> {
 
-    private final ObservableList<T> internalList = FXCollections.observableArrayList();
+    private final ObservableList<T> internalList;
+
+    public UniqueList() {
+        this.internalList = FXCollections.observableArrayList();
+    }
 
     /**
      * Returns true if the list contains an equivalent element as the given argument.

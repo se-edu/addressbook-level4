@@ -19,7 +19,7 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 
 /**
- * Edits the details of an existing person in the address book.
+ * Edits the details of an existing group in the address book.
  */
 public class EditGroupCommand extends Command {
 
@@ -31,7 +31,7 @@ public class EditGroupCommand extends Command {
             + "Parameters: Current name"
             + "[" + PREFIX_NAME + "NEW NAME]"
             + "[" + PREFIX_DESCRIPTION + "PHONE]\n"
-            + "Example: " + COMMAND_WORD + " 1 "
+            + "Example: " + COMMAND_WORD + " MyGroup "
             + PREFIX_NAME + "Family "
             + PREFIX_DESCRIPTION + "A family group";
 
@@ -80,15 +80,16 @@ public class EditGroupCommand extends Command {
     }
 
     /**
-     * Creates and returns a {@code Person} with the details of {@code personToEdit}
-     * edited with {@code editPersonDescriptor}.
+     * Creates and returns a {@code Group} with the details of {@code groupToBeEdited}
+     * edited with {@code editGroupDescriptor}.
      */
     private static Group createEditedGroup(Group groupToBeEdited, EditGroupDescriptor editGroupDescriptor) {
         assert groupToBeEdited != null;
 
         Name updatedName = editGroupDescriptor.getName().orElse(groupToBeEdited.getName());
         String updatedDescription = editGroupDescriptor.getDescription().orElse(groupToBeEdited.getDescription());
-        UniqueList<Person> existingGroupMembers = groupToBeEdited.getGroupMembers();
+        UniqueList<Person> existingGroupMembers = new UniqueList<>();
+        existingGroupMembers.setElements(groupToBeEdited.getGroupMembers());
 
         return new Group(updatedName, updatedDescription, existingGroupMembers);
     }
@@ -113,7 +114,7 @@ public class EditGroupCommand extends Command {
 
     /**
      * Stores the details to edit the group with. Each non-empty field value will replace the
-     * corresponding field value of the person.
+     * corresponding field value of the group.
      */
     public static class EditGroupDescriptor {
         private Name name;
@@ -123,7 +124,6 @@ public class EditGroupCommand extends Command {
 
         /**
          * Copy constructor.
-         * A defensive copy of {@code tags} is used internally.
          */
         public EditGroupDescriptor(EditGroupDescriptor toCopy) {
             setName(toCopy.name);
