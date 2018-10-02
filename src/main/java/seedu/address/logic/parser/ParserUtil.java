@@ -122,4 +122,23 @@ public class ParserUtil {
         return tagSet;
     }
 
+    // TODO: Implement Filetype class (refer to Name class).
+    /**
+     * Parses a {@code String filetype} into a {@code Filetype}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code String filetype} is invalid.
+     */
+    public static String parseFiletype(String filetype) throws ParseException {
+        requireNonNull(filetype);
+        final String FILETYPE_CSV = "csv";
+        final String FILETYPE_VCF = "vcf";
+        final String MESSAGE_FILETYPE_CONSTRAINTS = "Filetype can only be \"csv\" or \"vcf\".";
+
+        String trimmedFiletype = filetype.trim();
+        if (!(filetype.equals(FILETYPE_CSV) || filetype.equals(FILETYPE_VCF))) {
+            throw new ParseException(MESSAGE_FILETYPE_CONSTRAINTS);
+        }
+        return trimmedFiletype;
+    }
 }
