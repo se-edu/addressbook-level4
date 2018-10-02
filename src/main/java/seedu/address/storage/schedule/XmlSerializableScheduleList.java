@@ -9,8 +9,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.schedule.ReadOnlyScheduleList;
-import seedu.address.model.schedule.ScheduleList;
 import seedu.address.model.schedule.Schedule;
+import seedu.address.model.schedule.ScheduleList;
+
 
 /**
  * An Immutable AddressBook that is serializable to XML format

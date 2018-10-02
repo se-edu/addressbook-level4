@@ -26,9 +26,9 @@ public class AddScheduleCommandParser implements Parser<AddScheduleCommand> {
      */
     public AddScheduleCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_EMPLOYEEID, PREFIX_SCHEDULE_TYPE,PREFIX_SCHEDULE_DATE);
+                ArgumentTokenizer.tokenize(args, PREFIX_EMPLOYEEID, PREFIX_SCHEDULE_TYPE, PREFIX_SCHEDULE_DATE);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_EMPLOYEEID, PREFIX_SCHEDULE_TYPE,PREFIX_SCHEDULE_DATE)
+        if (!arePrefixesPresent(argMultimap, PREFIX_EMPLOYEEID, PREFIX_SCHEDULE_TYPE, PREFIX_SCHEDULE_DATE)
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddScheduleCommand.MESSAGE_USAGE));
         }

@@ -14,8 +14,8 @@ import seedu.address.commons.events.model.ScheduleListChangedEvent;
 import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.addressbook.ReadOnlyAddressBook;
-import seedu.address.model.schedule.ReadOnlyScheduleList;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.schedule.ReadOnlyScheduleList;
 import seedu.address.storage.addressbook.AddressBookStorage;
 import seedu.address.storage.schedule.ScheduleListStorage;
 import seedu.address.storage.userpref.UserPrefsStorage;
@@ -31,7 +31,8 @@ public class StorageManager extends ComponentManager implements Storage {
     private UserPrefsStorage userPrefsStorage;
 
 
-    public StorageManager(AddressBookStorage addressBookStorage, ScheduleListStorage scheduleListStorage, UserPrefsStorage userPrefsStorage) {
+    public StorageManager(AddressBookStorage addressBookStorage, ScheduleListStorage scheduleListStorage,
+                          UserPrefsStorage userPrefsStorage) {
         super();
         this.addressBookStorage = addressBookStorage;
         this.userPrefsStorage = userPrefsStorage;
@@ -132,7 +133,7 @@ public class StorageManager extends ComponentManager implements Storage {
     @Override
     @Subscribe
     public void handleScheduleListChangedEvent(ScheduleListChangedEvent event) {
-        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local data changed, saving to file 8888888888888888888"));
+        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local data changed, saving to file"));
 
         try {
             saveScheduleList(event.data);

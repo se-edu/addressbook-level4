@@ -1,5 +1,9 @@
 package seedu.address.storage.schedule;
 
+import java.util.Objects;
+
+import javax.xml.bind.annotation.XmlElement;
+
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.person.EmployeeId;
 import seedu.address.model.schedule.Date;
@@ -7,8 +11,6 @@ import seedu.address.model.schedule.Schedule;
 import seedu.address.model.schedule.Type;
 import seedu.address.storage.addressbook.XmlAdaptedPerson;
 
-import javax.xml.bind.annotation.XmlElement;
-import java.util.Objects;
 
 public class XmlAdaptedSchedule {
 

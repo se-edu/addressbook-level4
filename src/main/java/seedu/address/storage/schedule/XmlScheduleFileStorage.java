@@ -7,8 +7,6 @@ import javax.xml.bind.JAXBException;
 
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.util.XmlUtil;
-import seedu.address.storage.addressbook.XmlSerializableAddressBook;
-import seedu.address.storage.schedule.XmlSerializableScheduleList;
 
 /**
  * Stores addressbook data in an XML file
@@ -31,8 +29,8 @@ public class XmlScheduleFileStorage {
     /**
      * Returns address book in the file or an empty address book
      */
-    public static XmlSerializableScheduleList loadDataFromSaveScheduleListFile(Path file) throws DataConversionException,
-            FileNotFoundException {
+    public static XmlSerializableScheduleList loadDataFromSaveScheduleListFile(Path file)
+            throws DataConversionException, FileNotFoundException {
         try {
             return XmlUtil.getDataFromFile(file, XmlSerializableScheduleList.class);
         } catch (JAXBException e) {

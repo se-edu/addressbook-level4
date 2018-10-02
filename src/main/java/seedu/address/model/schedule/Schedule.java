@@ -1,9 +1,10 @@
 package seedu.address.model.schedule;
+
+import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
+
 import seedu.address.model.person.EmployeeId;
 
 import java.util.Objects;
-
-import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 /**
  * Represents a Person's remark in the address book.

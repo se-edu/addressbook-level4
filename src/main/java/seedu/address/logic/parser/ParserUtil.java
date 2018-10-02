@@ -20,7 +20,7 @@ import seedu.address.model.person.Position;
 import seedu.address.model.person.Salary;
 import seedu.address.model.schedule.Date;
 import seedu.address.model.schedule.Type;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.person.tag.Tag;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
