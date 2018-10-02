@@ -2,7 +2,6 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.Iterator;
 import java.util.List;
 
 import javafx.collections.ObservableList;
@@ -109,15 +108,13 @@ public class Transcript implements ReadOnlyTranscript {
      * @return cap: cap score
      */
     private double calculateCap() {
-        UniqueModuleList gradedModulesList = getGradedModulesList();
-        Iterator<Module> gradedModulesIterator = gradedModulesList.iterator();
 
+        ObservableList<Module> gradedModulesList = getGradedModulesList();
         double totalCap = 0;
         double point;
         int totalModuleCredit = 0;
         int moduleCredit;
-        while (gradedModulesIterator.hasNext()) {
-            Module module = gradedModulesIterator.next();
+        for (Module module : gradedModulesList) {
             moduleCredit = module.getCredits().value;
             point = module.getGrade().getPoint();
             totalCap += moduleCredit * point;
@@ -136,16 +133,8 @@ public class Transcript implements ReadOnlyTranscript {
      * Filters for modules that is to be used for CAP calculation
      * @return gradedModulesList: a list of modules used for CAP calculation
      */
-    private UniqueModuleList getGradedModulesList() {
-        UniqueModuleList gradedModulesList = new UniqueModuleList();
-        Iterator<Module> moduleIterator = modules.iterator();
-        while (moduleIterator.hasNext()) {
-            Module module = moduleIterator.next();
-            if (moduleIsUsedForCapCalculation(module)) {
-                gradedModulesList.add(module);
-            }
-        }
-        return gradedModulesList;
+    private ObservableList<Module> getGradedModulesList() {
+        return modules.getFilteredModules(this::moduleIsUsedForCapCalculation);
     }
 
     /**
