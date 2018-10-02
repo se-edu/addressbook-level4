@@ -1,19 +1,19 @@
 package seedu.address.logic.parser;
 
-import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMPLOYEEID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SCHEDULE_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_SCHEDULE_TYPE;
 
+import java.util.stream.Stream;
+
 import seedu.address.logic.commands.AddScheduleCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+
 import seedu.address.model.person.EmployeeId;
 import seedu.address.model.schedule.Date;
 import seedu.address.model.schedule.Schedule;
 import seedu.address.model.schedule.Type;
-
-import java.util.stream.Stream;
 
 /**
  * Parses input arguments and creates a new {@code RemarkCommand} object
