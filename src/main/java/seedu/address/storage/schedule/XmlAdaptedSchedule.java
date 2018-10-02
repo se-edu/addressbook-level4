@@ -11,7 +11,9 @@ import seedu.address.model.schedule.Schedule;
 import seedu.address.model.schedule.Type;
 import seedu.address.storage.addressbook.XmlAdaptedPerson;
 
-
+/**
+ * JAXB-friendly version of the Person.
+ */
 public class XmlAdaptedSchedule {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Schedule's %s field is missing!";
