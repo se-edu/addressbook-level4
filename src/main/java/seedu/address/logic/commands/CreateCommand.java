@@ -32,8 +32,9 @@ public class CreateCommand extends Command {
     /**
      * Creates an CreateCommand to add the specified {@code Person}
      */
-    public CreateCommand(Accounts account ) {
-        System.out.println("Account created. Username: " + account.getUsername() + " Password: " + account.getPassword());
+    public CreateCommand(Accounts account) {
+        System.out.println("Account created. Username: " + account.getUsername()
+                + " Password: " + account.getPassword());
     }
 
     @Override

@@ -1,16 +1,14 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PASSWORD;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_USERNAME;
 
-        import static seedu.address.logic.parser.CliSyntax.PREFIX_PASSWORD;
+import java.util.stream.Stream;
 
-        import static seedu.address.logic.parser.CliSyntax.PREFIX_USERNAME;
+import seedu.address.logic.commands.CreateCommand;
 
-        import java.util.stream.Stream;
-
-        import seedu.address.logic.commands.CreateCommand;
-        import seedu.address.logic.parser.exceptions.ParseException;
-        import seedu.address.model.person.Accounts;
-
+import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.person.Accounts;
 
 /**
  * Parses input arguments and creates a new AddCommand object
@@ -20,6 +18,7 @@ public class CreateCommandParser {
     /**
      * Parses the given {@code String} of arguments in the context of the CreateCommand
      * and returns an CreateCommand object for execution.
+     *
      * @throws ParseException if the user input does not conform the expected format
      */
     public CreateCommand parse(String args) throws ParseException {
