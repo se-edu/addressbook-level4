@@ -37,4 +37,3 @@ _Marco Jakob_.
 * The original contributors of the addressbook can be found here(https://github.com/nusCS2113-AY1819S1/addressbook-level4/blob/master/docs/AboutUs.adoc).
 
 == Licence : link:LICENSE[MIT]
-
