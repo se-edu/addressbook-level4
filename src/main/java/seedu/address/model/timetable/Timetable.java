@@ -9,33 +9,49 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.Scanner;
 
+import seedu.address.model.Entity;
 import seedu.address.model.person.Name;
 
 /**
  * Represents a timetable in the address book. Guarantees: nothing at the moment
  */
-public class Timetable {
+public class Timetable extends Entity {
 
     // Identity fields
     private final Name name;
     private final String fileName;
     private final String defaultLocation;
-    private final String timetableFolder = "/src/main/java/seedu/address/model/timetable/timetables/";
-    private final String mode;
+    private final String locationOfFile;
+    private final String timetableFolder = "/src/main/java/seedu/address/formatl/timetable/timetables/";
+    private final String format;
+
+    // create timetable data
+    private final TimetableData matrix;
 
     /**
      *
      * @param name
      * @param fileName
-     * @param mode
+     * @param format
      */
-    public Timetable(Name name, String fileName, String mode) {
+    public Timetable(Name name, String fileName, String format, String locationFrom) {
         this.name = name;
         this.fileName = fileName + ".csv";
-        this.mode = mode;
+        this.format = format;
         File ans = new File("");
         this.defaultLocation =
             ans.getAbsolutePath().replace("\\", "/") + this.timetableFolder + this.fileName;
+        locationOfFile = locationFrom + this.fileName;
+    }
+
+    public Timetable(Name name, String fileName, String format) {
+        this.name = name;
+        this.fileName = fileName + ".csv";
+        this.format = format;
+        File ans = new File("");
+        this.defaultLocation =
+            ans.getAbsolutePath().replace("\\", "/") + this.timetableFolder + this.fileName;
+        locationOfFile = null;
     }
 
     /**
@@ -86,11 +102,11 @@ public class Timetable {
         Scanner inputStream;
         //used code from https://stackoverflow.com/questions/40074840/reading-a-csv-file-into-a-array
         String filePath = locationFrom.replace("\\", "/") + "/" + fileName + ".csv";
-        TimetableGenerator timetable = new TimetableGenerator(this.mode);
+        TimetableGenerator timetable = new TimetableGenerator(this.format);
         timetableMatrix = timetable.getNewTimetable();
         try {
             File toRead = new File(filePath);
-            if (!toRead.exists() && this.mode.equals("horizontal")) {
+            if (!toRead.exists() && this.format.equals("horizontal")) {
                 inputStream = new Scanner(toRead);
                 int i = 0;
                 while (inputStream.hasNext()) {
@@ -113,10 +129,10 @@ public class Timetable {
     public void getNewTimetable(String locationTo) {
         // used code from https://stackoverflow.com/questions/6271796/issues-of-saving-a-matrix-to-a-csv-file
         String filePath = locationTo.replace("\\", "/") + "/" + this.fileName;
-        if (this.mode.equals("horizontal")) {
+        if (this.format.equals("horizontal")) {
             generateHorizontalTimetable(filePath);
         } else {
-            if (this.mode.equals("vertical")) {
+            if (this.format.equals("vertical")) {
                 generateVerticalTimetable(filePath);
             }
         }
@@ -127,7 +143,7 @@ public class Timetable {
      * @param filePath
      */
     private void generateHorizontalTimetable(String filePath) {
-        TimetableGenerator timetable = new TimetableGenerator(mode);
+        TimetableGenerator timetable = new TimetableGenerator(format);
         String[][] newTimetable;
 
         newTimetable = timetable.getNewTimetable();
@@ -163,7 +179,7 @@ public class Timetable {
      * @param filePath
      */
     private void generateVerticalTimetable(String filePath) {
-        TimetableGenerator timetable = new TimetableGenerator(this.mode);
+        TimetableGenerator timetable = new TimetableGenerator(this.format);
         String[][] newTimetable;
 
         newTimetable = timetable.getNewTimetable();
@@ -193,5 +209,18 @@ public class Timetable {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public boolean isSame(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        if (!(other instanceof Timetable)) {
+            return false;
+        }
+        Timetable otherTimetable = (Timetable) other;
+        return otherTimetable.equals(other);
     }
 }

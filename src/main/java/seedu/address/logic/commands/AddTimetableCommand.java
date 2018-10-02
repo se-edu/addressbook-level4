@@ -18,11 +18,11 @@ public class AddTimetableCommand extends Command {
 
     private final Timetable toAdd;
 
-    public AddTimetableCommand(Timetable timetable, String locationFrom) {
+    public AddTimetableCommand(Timetable timetable) {
         requireNonNull(timetable);
-        timetable.addTimetable(locationFrom);
         toAdd = timetable;
     }
+
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {

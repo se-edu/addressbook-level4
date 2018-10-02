@@ -3,6 +3,7 @@ package seedu.address.logic.parser;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FILE_LOCATION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FILE_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MODE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 
@@ -30,8 +31,7 @@ public class AddTimetableCommandParser implements Parser<AddTimetableCommand> {
             ArgumentTokenizer
                 .tokenize(args, PREFIX_NAME, PREFIX_FILE_NAME, PREFIX_FILE_LOCATION, PREFIX_MODE);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_FILE_NAME, PREFIX_FILE_LOCATION,
-            PREFIX_MODE)
+        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_MODE, PREFIX_FILE_NAME, PREFIX_FORMAT)
             || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTimetableCommand.MESSAGE_USAGE));
@@ -40,9 +40,16 @@ public class AddTimetableCommandParser implements Parser<AddTimetableCommand> {
         String fileName = ParserUtil.parseFilename(argMultimap.getValue(PREFIX_FILE_NAME).get());
         String locationFrom = ParserUtil
             .parseLocation(argMultimap.getValue(PREFIX_FILE_LOCATION).get());
-        String mode = ParserUtil.parseMode(argMultimap.getValue(PREFIX_FILE_NAME).get());
-        Timetable timetable = new Timetable(name, fileName, mode);
-        return new AddTimetableCommand(timetable, locationFrom);
+        String format = ParserUtil.parseFormat(argMultimap.getValue(PREFIX_FORMAT).get());
+        String mode = ParserUtil.parseMode(argMultimap.getValue(PREFIX_FORMAT).get());
+        Timetable timetable = new Timetable(name,fileName,format);
+        if (mode.equals("existing")) {
+            timetable = new Timetable(name, fileName,locationFrom, format);
+        }
+        else if (mode.equals("new")){
+            timetable = new Timetable(name,fileName,format);
+        }
+        return new AddTimetableCommand(timetable);
     }
 
 
