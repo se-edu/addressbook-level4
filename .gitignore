@@ -27,3 +27,6 @@ out/
 
 # Generated class files
 .classpath
+
+# Generated vscode files
+.vscode
