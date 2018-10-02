@@ -104,6 +104,20 @@ Examples:
 * `delete CS2103` +
 Deletes the module CS2103 in the cap tracker.
 
+=== Computing CAP : `goal`
+
+Set the CAP goal you want to achieve. +
+Format: `goal CAP_GOAL`
+
+****
+* Set and Update the CAP goal.
+****
+
+Examples:
+
+* `goal 4.5` +
+Update your CAP goal to be 4.5
+
 === Clearing all entries : `clear`
 
 Clears all entries from the cap tracker. +
