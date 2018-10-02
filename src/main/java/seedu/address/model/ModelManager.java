@@ -148,7 +148,7 @@ public class ModelManager extends ComponentManager implements Model {
                 && filteredPersons.equals(other.filteredPersons);
     }
 
-    //=========== Remove a particular tag from all persons =======================================================================
+    //=========== Remove a particular tag from all persons ====================================================
     @Override
     public void deleteTag(Tag tag) {
         versionedAddressBook.removeTag(tag);

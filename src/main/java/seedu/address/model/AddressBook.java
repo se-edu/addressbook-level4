@@ -107,12 +107,13 @@ public class AddressBook implements ReadOnlyAddressBook {
             return;
         }
 
-        Person updatedPerson = new Person(person.getName(), person.getPhone(), person.getEmail(), person.getAddress(), newTags);
+        Person updatedPerson = new Person(person.getName(), person.getPhone(), 
+                                          person.getEmail(), person.getAddress(), newTags);
 
         updatePerson(person, updatedPerson);
     }
 
-     /**
+    /**
      * Removes {@code tag} from all {@code person}.
      * {@code person} must exist in the address book.
      */
