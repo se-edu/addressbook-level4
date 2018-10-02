@@ -2,16 +2,28 @@
 <addressbook>
     <!-- Valid Person -->
     <persons>
+        <employeeId>123456</employeeId>
         <name>Hans Muster</name>
+        <dateOfBirth>12/12/1995</dateOfBirth>
         <phone isPrivate="false">9482424</phone>
         <email isPrivate="false">hans@example.com</email>
+        <department>Human Resource</department>
+        <position>Staff</position>
         <address isPrivate="false">4th street</address>
+        <salary>1000.00</salary>
+        <bonus>0.0</bonus>
     </persons>
     <!-- Person with invalid phone field -->
     <persons>
+        <employeeId>123456</employeeId>
         <name>Hans Muster</name>
+        <dateOfBirth>12/12/1995</dateOfBirth>
         <phone isPrivate="false">948asdf2424</phone>
         <email isPrivate="false">hans@example.com</email>
+        <department>Human Resource</department>
+        <position>Staff</position>
         <address isPrivate="false">4th street</address>
+        <salary>1000.00</salary>
+        <bonus>0.0</bonus>
     </persons>
 </addressbook>
