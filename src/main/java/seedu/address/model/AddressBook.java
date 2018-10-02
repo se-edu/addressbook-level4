@@ -81,6 +81,26 @@ public class AddressBook implements ReadOnlyAddressBook {
         this.groups.setElements(groups);
     }
 
+    /**
+     * Returns true if a group with the same identity as {@code group} exists in the address
+     * book.
+     */
+    public boolean hasGroup(Group group) {
+        requireNonNull(group);
+        return groups.contains(group);
+    }
+
+    /**
+     * Replaces the given group {@code target} in the list with {@code editedGroup}. {@code
+     * target} must exist in the address book. The group identity of {@code editedGroup} must not
+     * be the same as another existing group in the address book.
+     */
+    public void updateGroup(Group target, Group editedGroup) {
+        requireNonNull(editedGroup);
+
+        groups.setElement(target, editedGroup);
+    }
+
     //// list overwrite operations
 
     /**
