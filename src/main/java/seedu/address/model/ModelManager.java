@@ -18,7 +18,7 @@ import seedu.address.model.timetable.Timetable;
 
 /**
  * Represents the in-memory model of the address book data.
- * #TO DO: Refactor methods: hasPerson --> hasElements () {calls has method in Person / Group/ etc}
+ * #TO DO: Refactor methods: hasPerson --> hasElements () {calls has method in Person / Group/ etc} and Group/Person
  */
 public class ModelManager extends ComponentManager implements Model {
 
@@ -26,6 +26,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     private final VersionedAddressBook versionedAddressBook;
     private final FilteredList<Person> filteredPersons;
+    private final FilteredList<Group> filteredGroups;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -39,6 +40,7 @@ public class ModelManager extends ComponentManager implements Model {
 
         versionedAddressBook = new VersionedAddressBook(addressBook);
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
+        filteredGroups = new FilteredList<>(versionedAddressBook.getGroupList());
     }
 
     public ModelManager() {
@@ -63,6 +65,20 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void addGroup(Group group) {
         versionedAddressBook.addGroup(group);
+        indicateAddressBookChanged();
+    }
+
+    @Override
+    public boolean hasGroup(Group group) {
+        requireNonNull(group);
+        return versionedAddressBook.hasGroup(group);
+    }
+
+    @Override
+    public void updateGroup(Group target, Group editedGroup) {
+        requireAllNonNull(target, editedGroup);
+
+        versionedAddressBook.updateGroup(target, editedGroup);
         indicateAddressBookChanged();
     }
 
@@ -111,10 +127,10 @@ public class ModelManager extends ComponentManager implements Model {
         indicateAddressBookChanged();
     }
 
-    //=========== Filtered Person List Accessors =============================================================
+    //=========== Filtered Person/Group List Accessors =============================================================
 
     /**
-     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
+     * Returns an unmodifiable view of the list of {@code Person} and {@code Group} backed by the internal list of
      * {@code versionedAddressBook}
      */
     @Override
@@ -126,6 +142,17 @@ public class ModelManager extends ComponentManager implements Model {
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
+    }
+
+    @Override
+    public ObservableList<Group> getFilteredGroupList() {
+        return FXCollections.unmodifiableObservableList(filteredGroups);
+    }
+
+    @Override
+    public void updateFilteredGroupList(Predicate<Group> predicate) {
+        requireNonNull(predicate);
+        filteredGroups.setPredicate(predicate);
     }
 
     //=========== Undo/Redo =================================================================================
