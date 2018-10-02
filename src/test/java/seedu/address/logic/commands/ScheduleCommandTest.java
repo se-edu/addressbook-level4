@@ -20,6 +20,6 @@ public class ScheduleCommandTest {
     @Test
     public void execute() {
         // unable to add schedule in model
-        assertCommandFailure(new RedoCommand(), model, commandHistory, RedoCommand.MESSAGE_FAILURE);
+        assertCommandFailure(new ScheduleCommand(), model, commandHistory, ScheduleCommand.MESSAGE_FAILURE);
     }
 }
