@@ -1,4 +1,4 @@
-package seedu.address.storage;
+package seedu.address.storage.schedule;
 
 import java.io.FileNotFoundException;
 import java.nio.file.Path;
@@ -7,18 +7,22 @@ import javax.xml.bind.JAXBException;
 
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.commons.util.XmlUtil;
+import seedu.address.storage.addressbook.XmlSerializableAddressBook;
+import seedu.address.storage.schedule.XmlSerializableScheduleList;
 
 /**
  * Stores addressbook data in an XML file
  */
-public class XmlFileStorage {
+public class XmlScheduleFileStorage {
+
+
     /**
-     * Saves the given addressbook data to the specified file.
+     * Saves the given schedulelist data to the specified file.
      */
-    public static void saveDataToFile(Path file, XmlSerializableAddressBook addressBook)
+    public static void saveDataToFile(Path file, XmlSerializableScheduleList scheduleList)
             throws FileNotFoundException {
         try {
-            XmlUtil.saveDataToFile(file, addressBook);
+            XmlUtil.saveDataToFile(file, scheduleList);
         } catch (JAXBException e) {
             throw new AssertionError("Unexpected exception " + e.getMessage(), e);
         }
@@ -27,10 +31,10 @@ public class XmlFileStorage {
     /**
      * Returns address book in the file or an empty address book
      */
-    public static XmlSerializableAddressBook loadDataFromSaveFile(Path file) throws DataConversionException,
-                                                                            FileNotFoundException {
+    public static XmlSerializableScheduleList loadDataFromSaveScheduleListFile(Path file) throws DataConversionException,
+            FileNotFoundException {
         try {
-            return XmlUtil.getDataFromFile(file, XmlSerializableAddressBook.class);
+            return XmlUtil.getDataFromFile(file, XmlSerializableScheduleList.class);
         } catch (JAXBException e) {
             throw new DataConversionException(e);
         }

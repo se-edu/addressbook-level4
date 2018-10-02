@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <!-- AddressBook save file which contains the same Person values as in TypicalPersons#getTypicalAddressBook() -->
 <addressbook>
-    <persons>
+    <schedules>
         <employeeId>000001</employeeId>
         <name>Alice Pauline</name>
         <dateOfBirth>12/12/1995</dateOfBirth>
@@ -13,8 +13,8 @@
         <salary>1000.00</salary>
         <bonus>0.0</bonus>
         <tagged>friends</tagged>
-    </persons>
-    <persons>
+    </schedules>
+    <schedules>
         <employeeId>000001</employeeId>
         <name>Benson Meier</name>
         <dateOfBirth>12/12/1995</dateOfBirth>
@@ -27,8 +27,8 @@
         <bonus>0.0</bonus>
         <tagged>owesMoney</tagged>
         <tagged>friends</tagged>
-    </persons>
-    <persons>
+    </schedules>
+    <schedules>
         <employeeId>000003</employeeId>
         <name>Carl Kurz</name>
         <dateOfBirth>12/12/1995</dateOfBirth>
@@ -39,8 +39,8 @@
         <address>wall street</address>
         <salary>1000.00</salary>
         <bonus>0.0</bonus>
-    </persons>
-    <persons>
+    </schedules>
+    <schedules>
         <employeeId>000004</employeeId>
         <name>Daniel Meier</name>
         <dateOfBirth>12/12/1995</dateOfBirth>
@@ -52,8 +52,8 @@
         <salary>1000.00</salary>
         <bonus>0.0</bonus>
         <tagged>friends</tagged>
-    </persons>
-    <persons>
+    </schedules>
+    <schedules>
         <employeeId>000005</employeeId>
         <name>Elle Meyer</name>
         <dateOfBirth>12/12/1995</dateOfBirth>
@@ -64,8 +64,8 @@
         <address>michegan ave</address>
         <salary>1000.00</salary>
         <bonus>0.0</bonus>
-    </persons>
-    <persons>
+    </schedules>
+    <schedules>
         <employeeId>000006</employeeId>
         <name>Fiona Kunz</name>
         <dateOfBirth>12/12/1995</dateOfBirth>
@@ -76,8 +76,8 @@
         <address>little tokyo</address>
         <salary>1000.00</salary>
         <bonus>0.0</bonus>
-    </persons>
-    <persons>
+    </schedules>
+    <schedules>
         <employeeId>000007</employeeId>
         <name>George Best</name>
         <dateOfBirth>12/12/1995</dateOfBirth>
@@ -88,5 +88,5 @@
         <address>4th street</address>
         <salary>1000.00</salary>
         <bonus>0.0</bonus>
-    </persons>
+    </schedules>
 </addressbook>

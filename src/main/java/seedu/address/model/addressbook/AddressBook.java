@@ -1,4 +1,4 @@
-package seedu.address.model;
+package seedu.address.model.addressbook;
 
 import static java.util.Objects.requireNonNull;
 

@@ -10,10 +10,15 @@ import com.google.common.eventbus.Subscribe;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.commons.events.model.ScheduleListChangedEvent;
 import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.addressbook.ReadOnlyAddressBook;
+import seedu.address.model.schedule.ReadOnlyScheduleList;
 import seedu.address.model.UserPrefs;
+import seedu.address.storage.addressbook.AddressBookStorage;
+import seedu.address.storage.schedule.ScheduleListStorage;
+import seedu.address.storage.userpref.UserPrefsStorage;
 
 /**
  * Manages storage of AddressBook data in local storage.
@@ -22,13 +27,15 @@ public class StorageManager extends ComponentManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
     private AddressBookStorage addressBookStorage;
+    private ScheduleListStorage scheduleListStorage;
     private UserPrefsStorage userPrefsStorage;
 
 
-    public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage) {
+    public StorageManager(AddressBookStorage addressBookStorage, ScheduleListStorage scheduleListStorage, UserPrefsStorage userPrefsStorage) {
         super();
         this.addressBookStorage = addressBookStorage;
         this.userPrefsStorage = userPrefsStorage;
+        this.scheduleListStorage = scheduleListStorage;
     }
 
     // ================ UserPrefs methods ==============================
@@ -85,6 +92,50 @@ public class StorageManager extends ComponentManager implements Storage {
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local data changed, saving to file"));
         try {
             saveAddressBook(event.data);
+        } catch (IOException e) {
+            raise(new DataSavingExceptionEvent(e));
+        }
+    }
+
+
+
+    // ================ ScheduleList methods ==============================
+
+    @Override
+    public Path getScheduleListFilePath() {
+        return scheduleListStorage.getScheduleListFilePath();
+    }
+
+    @Override
+    public Optional<ReadOnlyScheduleList> readScheduleList() throws DataConversionException, IOException {
+        return readScheduleList(scheduleListStorage.getScheduleListFilePath());
+    }
+
+    @Override
+    public Optional<ReadOnlyScheduleList> readScheduleList(Path filePath) throws DataConversionException, IOException {
+        logger.fine("Attempting to read data from file: " + filePath);
+        return scheduleListStorage.readScheduleList(filePath);
+    }
+
+    @Override
+    public void saveScheduleList(ReadOnlyScheduleList scheduleList) throws IOException {
+        saveScheduleList(scheduleList, scheduleListStorage.getScheduleListFilePath());
+    }
+
+    @Override
+    public void saveScheduleList(ReadOnlyScheduleList scheduleList, Path filePath) throws IOException {
+        logger.fine("Attempting to write to data file: " + filePath);
+        scheduleListStorage.saveScheduleList(scheduleList, filePath);
+    }
+
+
+    @Override
+    @Subscribe
+    public void handleScheduleListChangedEvent(ScheduleListChangedEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local data changed, saving to file 8888888888888888888"));
+
+        try {
+            saveScheduleList(event.data);
         } catch (IOException e) {
             raise(new DataSavingExceptionEvent(e));
         }

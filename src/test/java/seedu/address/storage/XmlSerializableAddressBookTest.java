@@ -11,7 +11,8 @@ import org.junit.rules.ExpectedException;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.XmlUtil;
-import seedu.address.model.AddressBook;
+import seedu.address.model.addressbook.AddressBook;
+import seedu.address.storage.addressbook.XmlSerializableAddressBook;
 import seedu.address.testutil.TypicalPersons;
 
 public class XmlSerializableAddressBookTest {

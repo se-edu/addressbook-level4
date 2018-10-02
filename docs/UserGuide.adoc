@@ -103,7 +103,7 @@ Examples:
 
 Mandatory fields: Name, Date of Birth, Phone number, Email, Department, Position, Address, Salary
 
-=== Listing all persons : `list`
+=== Listing all schedules : `list`
 
 Shows a list of all employees in CHRS.
 
@@ -191,13 +191,13 @@ Remove $8888.88 travel expenses from employee with employee id '123'
 
 === Approve or reject leave/off: `leaveRequest`
 
-View the leave/off application of specific employee and edit the status.
+View the leave/off application of specific employee and edit the type.
 
 Format: `leaveRequest id/EMPLOYEE_ID`
 
 * View the list of employees with leave/off request
 
-* Select the employee name to change the leave request status
+* Select the employee name to change the leave request type
 
 Examples:
 
@@ -237,7 +237,7 @@ Examples:
 |R
 |===
 
-=== Locating persons by name: `find`
+=== Locating schedules by name: `find`
 
 Find the employee name whose name contain any of the given keywords.
 

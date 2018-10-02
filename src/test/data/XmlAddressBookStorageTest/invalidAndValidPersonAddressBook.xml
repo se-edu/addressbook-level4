@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addressbook>
     <!-- Valid Person -->
-    <persons>
+    <schedules>
         <employeeId>123456</employeeId>
         <name>Hans Muster</name>
         <dateOfBirth>12/12/1995</dateOfBirth>
@@ -12,9 +12,9 @@
         <address isPrivate="false">4th street</address>
         <salary>1000.00</salary>
         <bonus>0.0</bonus>
-    </persons>
+    </schedules>
     <!-- Person with invalid phone field -->
-    <persons>
+    <schedules>
         <employeeId>123456</employeeId>
         <name>Hans Muster</name>
         <dateOfBirth>12/12/1995</dateOfBirth>
@@ -25,5 +25,5 @@
         <address isPrivate="false">4th street</address>
         <salary>1000.00</salary>
         <bonus>0.0</bonus>
-    </persons>
+    </schedules>
 </addressbook>

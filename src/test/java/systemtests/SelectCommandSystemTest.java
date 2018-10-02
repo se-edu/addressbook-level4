@@ -106,7 +106,7 @@ public class SelectCommandSystemTest extends AddressBookSystemTest {
      * {@code expectedSelectedCardIndex} of the selected person.<br>
      * 4. {@code Storage} and {@code PersonListPanel} remain unchanged.<br>
      * 5. Selected card is at {@code expectedSelectedCardIndex} and the browser url is updated accordingly.<br>
-     * 6. Status bar remains unchanged.<br>
+     * 6. Type bar remains unchanged.<br>
      * Verifications 1, 3 and 4 are performed by
      * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
      * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)

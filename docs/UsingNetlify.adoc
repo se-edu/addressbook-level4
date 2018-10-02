@@ -36,7 +36,7 @@ The publish directory is the directory in which the built HTML documentation res
 +
 image:netlify/temp_site_name.png[Temporary site name, width = 630]
 +
-* Preview the updated documentation whenever a pull request is made by clicking the `Details` hyperlink next to the Netlify test status.
+* Preview the updated documentation whenever a pull request is made by clicking the `Details` hyperlink next to the Netlify test type.
 +
 image:netlify/netlify_details.png[Netlify details link, width = 630]
 

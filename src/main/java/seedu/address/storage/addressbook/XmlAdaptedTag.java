@@ -1,4 +1,4 @@
-package seedu.address.storage;
+package seedu.address.storage.addressbook;
 
 import javax.xml.bind.annotation.XmlValue;
 
