@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import java.util.Iterator;
 import java.util.Objects;
 
+import javafx.collections.ObservableList;
 import seedu.address.model.Entity;
 import seedu.address.model.UniqueList;
 import seedu.address.model.person.Name;
@@ -54,8 +55,8 @@ public class Group extends Entity {
         return description;
     }
 
-    public UniqueList<Person> getGroupMembers() {
-        return groupMembers;
+    public ObservableList<Person> getGroupMembers() {
+        return groupMembers.asUnmodifiableObservableList();
     }
 
     /**
