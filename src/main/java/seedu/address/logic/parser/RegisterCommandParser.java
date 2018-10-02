@@ -30,13 +30,15 @@ public class RegisterCommandParser implements Parser<RegisterCommand> {
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
-            throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, RegisterCommand.MESSAGE_USAGE), pe);
+            throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
+                    RegisterCommand.MESSAGE_USAGE), pe);
         }
 
         if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
             groupName = (ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get()));
         } else {
-            throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT, RegisterCommand.MISSING_GROUP_NAME));
+            throw new ParseException(String.format(Messages.MESSAGE_INVALID_COMMAND_FORMAT,
+                    RegisterCommand.MISSING_GROUP_NAME));
         }
 
         return new RegisterCommand(groupName, index);
