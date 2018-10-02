@@ -45,7 +45,7 @@ public interface Model {
 
     /**
      * Deltes the given tag {@code tag} from all persons {@code person}.
-     * {@code tag} may or may not exist in the address book. 
+     * {@code tag} may or may not exist in the address book.
      */
     void deleteTag(Tag tag);
 
