@@ -18,7 +18,7 @@ import seedu.address.model.ReadOnlyTranscript;
 import seedu.address.model.UserPrefs;
 
 /**
- * Manages storage of AddressBook data in local storage.
+ * Manages storage of Transcript data in local storage.
  */
 public class StorageManager extends ComponentManager implements Storage {
 
@@ -27,7 +27,9 @@ public class StorageManager extends ComponentManager implements Storage {
     private UserPrefsStorage userPrefsStorage;
     private TranscriptStorage transcriptStorage;
 
-    public StorageManager(AddressBookStorage addressBookStorage, UserPrefsStorage userPrefsStorage) {
+    public StorageManager(AddressBookStorage addressBookStorage,
+                          UserPrefsStorage userPrefsStorage,
+                          TranscriptStorage transcriptStorage) {
         super();
         this.addressBookStorage = addressBookStorage;
         this.userPrefsStorage = userPrefsStorage;
@@ -122,7 +124,7 @@ public class StorageManager extends ComponentManager implements Storage {
         transcriptStorage.saveTranscript(transcript, filePath);
     }
 
-
+    @Override
     @Subscribe
     public void handleTranscriptChangedEvent(TranscriptChangedEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local transcript data changed, saving to file"));

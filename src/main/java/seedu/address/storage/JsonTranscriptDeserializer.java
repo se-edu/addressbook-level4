@@ -42,7 +42,7 @@ public class JsonTranscriptDeserializer extends StdDeserializer<ReadOnlyTranscri
         JsonNode node = jp.getCodec().readTree(jp);
         try {
             Iterator<JsonNode> elements = node.get("modules").get("internalList").elements();
-            for (; elements.hasNext(); ) {
+            while (elements.hasNext()) {
                 JsonNode e = elements.next();
                 Code code = new Code(e.path("code").path("value").textValue());
                 Year year = new Year(e.path("year").path("value").intValue());

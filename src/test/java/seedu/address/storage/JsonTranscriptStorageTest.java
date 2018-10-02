@@ -41,8 +41,6 @@ public class JsonTranscriptStorageTest {
             .withSemester(Semester.SEMESTER_SPECIAL_ONE)
             .withCredit(4)
             .withGrade("F")
-
-
             .build();
     public static final Module SOFTWARE_ENGINEERING = new ModuleBuilder().withCode("CS2103")
             .withYear(3)
