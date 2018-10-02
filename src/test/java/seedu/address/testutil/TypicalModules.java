@@ -36,21 +36,21 @@ public class TypicalModules {
             .build();
 
     public static final Module SOFTWARE_ENGINEERING = new ModuleBuilder().withCode("CS2103")
-            .withYear(2018)
+            .withYear(3)
             .withSemester(Semester.SEMESTER_ONE)
             .withCredit(4)
             .withGrade("A+")
             .build();
 
     public static final Module DATABASE_SYSTEMS = new ModuleBuilder().withCode("CS2102")
-            .withYear(2018)
+            .withYear(2)
             .withSemester(Semester.SEMESTER_ONE)
             .withCredit(4)
             .withGrade("A+")
             .build();
 
     public static final Module DATABASE_SYSTEMS_2MC = new ModuleBuilder().withCode("CS2102")
-            .withYear(2018)
+            .withYear(2)
             .withSemester(Semester.SEMESTER_ONE)
             .withCredit(2)
             .withGrade("A+")
@@ -61,6 +61,17 @@ public class TypicalModules {
      */
     private TypicalModules() {
 
+    }
+
+    /**
+     * Returns an {@code Transcript} given modules as arguments.
+     */
+    public static Transcript getTranscriptWithModules(Module... modules) {
+        Transcript tr = new Transcript();
+        for (Module module : modules) {
+            tr.addModule(module);
+        }
+        return tr;
     }
 
     /**

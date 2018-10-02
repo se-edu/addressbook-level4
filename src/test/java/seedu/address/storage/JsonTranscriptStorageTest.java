@@ -2,31 +2,71 @@ package seedu.address.storage;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static seedu.address.testutil.TypicalModules.DATABASE_SYSTEMS;
-import static seedu.address.testutil.TypicalModules.DISCRETE_MATH;
-import static seedu.address.testutil.TypicalModules.SOFTWARE_ENGINEERING;
-import static seedu.address.testutil.TypicalModules.getTypicalTranscript;
+import static seedu.address.testutil.TypicalModules.getTranscriptWithModules;
 
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Optional;
+import java.util.logging.Logger;
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyTranscript;
 import seedu.address.model.Transcript;
+import seedu.address.model.module.Module;
+import seedu.address.model.module.Semester;
+import seedu.address.testutil.ModuleBuilder;
 
 public class JsonTranscriptStorageTest {
-    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonTranscriptStorageTest");
+    public static final Module DISCRETE_MATH = new ModuleBuilder().withCode("CS1231")
+            .withYear(1)
+            .withSemester(Semester.SEMESTER_ONE)
+            .withCredit(4)
+            .withGrade("A+")
+            .build();
+    public static final Module PROGRAMMING_METHODOLOGY_TWO = new ModuleBuilder().withCode("CS2030")
+            .withYear(2)
+            .withSemester(Semester.SEMESTER_TWO)
+            .withCredit(4)
+            .withGrade("B")
+            .build();
+    public static final Module DATA_STRUCTURES = new ModuleBuilder().withCode("CS2040")
+            .withYear(3)
+            .withSemester(Semester.SEMESTER_SPECIAL_ONE)
+            .withCredit(4)
+            .withGrade("F")
 
+
+            .build();
+    public static final Module SOFTWARE_ENGINEERING = new ModuleBuilder().withCode("CS2103")
+            .withYear(3)
+            .withSemester(Semester.SEMESTER_ONE)
+            .withCredit(4)
+            .withGrade("A+")
+            .build();
+    public static final Module DATABASE_SYSTEMS = new ModuleBuilder().withCode("CS2102")
+            .withYear(2)
+            .withSemester(Semester.SEMESTER_ONE)
+            .withCredit(4)
+            .withGrade("A+")
+            .build();
+    public static final Module DATABASE_SYSTEMS_2MC = new ModuleBuilder().withCode("CS2102")
+            .withYear(2)
+            .withSemester(Semester.SEMESTER_ONE)
+            .withCredit(2)
+            .withGrade("A+")
+            .build();
+
+    private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonTranscriptStorageTest");
+    private static final Logger logger = LogsCenter.getLogger(JsonTranscriptStorageTest.class);
     @Rule
     public ExpectedException thrown = ExpectedException.none();
-
     @Rule
     public TemporaryFolder testFolder = new TemporaryFolder();
 
@@ -82,7 +122,8 @@ public class JsonTranscriptStorageTest {
 
     @Test
     public void readTranscript_extraValuesInFile_extraValuesIgnored() throws DataConversionException {
-        Transcript expected = getTypicalTranscript();
+        Transcript expected = getTranscriptWithModules(
+                DATABASE_SYSTEMS, DISCRETE_MATH, SOFTWARE_ENGINEERING, PROGRAMMING_METHODOLOGY_TWO);
         Transcript actual = new Transcript(readTranscript("ExtraValuesTranscript.json").get());
         assertEquals(expected, actual);
     }
@@ -96,7 +137,7 @@ public class JsonTranscriptStorageTest {
     @Test
     public void readAndSaveTranscript_allInOrder_success() throws Exception {
         Path filePath = testFolder.getRoot().toPath().resolve("TempTranscript.json");
-        Transcript original = getTypicalTranscript();
+        Transcript original = getTranscriptWithModules(DISCRETE_MATH, PROGRAMMING_METHODOLOGY_TWO, DATA_STRUCTURES);
         JsonTranscriptStorage jsonTranscriptStorage = new JsonTranscriptStorage(filePath);
 
         //Save in new file and read back
