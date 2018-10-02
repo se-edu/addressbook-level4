@@ -2,19 +2,31 @@
 <addressbook>
 
     <persons>
+        <employeeId>008888</employeeId>
         <name>Alice Pauline</name>
+        <dateOfBirth>12/12/1995</dateOfBirth>
         <phone>94351253</phone>
         <email>alice@example.com</email>
+        <department>Human Resource</department>
+        <position>Staff</position>
         <address>123, Jurong West Ave 6, #08-111</address>
+        <salary>1000.00</salary>
+        <bonus>0.0</bonus>
         <tagged>friends</tagged>
     </persons>
 
     <!-- Person with same identity as Alice Pauline -->
     <persons>
+        <employeeId>008888</employeeId>
         <name>Alice Pauline</name>
+        <dateOfBirth>12/12/1995</dateOfBirth>
         <phone>94351253</phone>
         <email>pauline@example.com</email>
+        <department>Human Resource</department>
+        <position>Staff</position>
         <address>4th street</address>
+        <salary>1000.00</salary>
+        <bonus>0.0</bonus>
     </persons>
 
 </addressbook>

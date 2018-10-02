@@ -16,28 +16,50 @@ import seedu.address.model.tag.Tag;
 public class Person {
 
     // Identity fields
+    private final EmployeeId employeeId;
     private final Name name;
+    private final DateOfBirth dateOfBirth;
     private final Phone phone;
     private final Email email;
 
     // Data fields
+    private final Department department;
+    private final Position position;
     private final Address address;
+    private final Salary salary;
+    private final Bonus bonus;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, tags);
+    public Person(EmployeeId employeeId, Name name, DateOfBirth dateOfBirth, Phone phone, Email email,
+                  Department department, Position position, Address address, Salary salary, Bonus bonus,
+                  Set<Tag> tags) {
+        requireAllNonNull(name, dateOfBirth, phone, email, department, position, address, salary, tags);
+        this.employeeId = employeeId;
         this.name = name;
+        this.dateOfBirth = dateOfBirth;
         this.phone = phone;
         this.email = email;
+        this.department = department;
+        this.position = position;
         this.address = address;
+        this.salary = salary;
+        this.bonus = bonus;
         this.tags.addAll(tags);
+    }
+
+    public EmployeeId getEmployeeId() {
+        return employeeId;
     }
 
     public Name getName() {
         return name;
+    }
+
+    public DateOfBirth getDateOfBirth() {
+        return dateOfBirth;
     }
 
     public Phone getPhone() {
@@ -48,8 +70,24 @@ public class Person {
         return email;
     }
 
+    public Department getDepartment() {
+        return department;
+    }
+
+    public Position getPosition() {
+        return position;
+    }
+
     public Address getAddress() {
         return address;
+    }
+
+    public Salary getSalary() {
+        return salary;
+    }
+
+    public Bonus getBonus() {
+        return bonus;
     }
 
     /**
@@ -105,13 +143,25 @@ public class Person {
     @Override
     public String toString() {
         final StringBuilder builder = new StringBuilder();
-        builder.append(getName())
+        builder.append(getEmployeeId())
+                .append(" Name: ")
+                .append(getName())
+                .append(" Date Of Birth: ")
+                .append(getDateOfBirth())
                 .append(" Phone: ")
                 .append(getPhone())
                 .append(" Email: ")
                 .append(getEmail())
+                .append(" Department: ")
+                .append(getDepartment())
+                .append(" Position: ")
+                .append(getPosition())
                 .append(" Address: ")
                 .append(getAddress())
+                .append(" Salary: ")
+                .append(getSalary())
+                .append(" Bonus ")
+                .append(getBonus())
                 .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();

@@ -2,49 +2,91 @@
 <!-- AddressBook save file which contains the same Person values as in TypicalPersons#getTypicalAddressBook() -->
 <addressbook>
     <persons>
+        <employeeId>000001</employeeId>
         <name>Alice Pauline</name>
+        <dateOfBirth>12/12/1995</dateOfBirth>
         <phone>94351253</phone>
         <email>alice@example.com</email>
+        <department>Human Resource</department>
+        <position>Staff</position>
         <address>123, Jurong West Ave 6, #08-111</address>
+        <salary>1000.00</salary>
+        <bonus>0.0</bonus>
         <tagged>friends</tagged>
     </persons>
     <persons>
+        <employeeId>000001</employeeId>
         <name>Benson Meier</name>
+        <dateOfBirth>12/12/1995</dateOfBirth>
         <phone>98765432</phone>
         <email>johnd@example.com</email>
+        <department>Human Resource</department>
+        <position>Staff</position>
         <address>311, Clementi Ave 2, #02-25</address>
+        <salary>1000.00</salary>
+        <bonus>0.0</bonus>
         <tagged>owesMoney</tagged>
         <tagged>friends</tagged>
     </persons>
     <persons>
+        <employeeId>000003</employeeId>
         <name>Carl Kurz</name>
+        <dateOfBirth>12/12/1995</dateOfBirth>
         <phone>95352563</phone>
         <email>heinz@example.com</email>
+        <department>Human Resource</department>
+        <position>Staff</position>
         <address>wall street</address>
+        <salary>1000.00</salary>
+        <bonus>0.0</bonus>
     </persons>
     <persons>
+        <employeeId>000004</employeeId>
         <name>Daniel Meier</name>
+        <dateOfBirth>12/12/1995</dateOfBirth>
         <phone>87652533</phone>
         <email>cornelia@example.com</email>
+        <department>Human Resource</department>
+        <position>Staff</position>
         <address>10th street</address>
+        <salary>1000.00</salary>
+        <bonus>0.0</bonus>
         <tagged>friends</tagged>
     </persons>
     <persons>
+        <employeeId>000005</employeeId>
         <name>Elle Meyer</name>
+        <dateOfBirth>12/12/1995</dateOfBirth>
         <phone>9482224</phone>
         <email>werner@example.com</email>
+        <department>Human Resource</department>
+        <position>Staff</position>
         <address>michegan ave</address>
+        <salary>1000.00</salary>
+        <bonus>0.0</bonus>
     </persons>
     <persons>
+        <employeeId>000006</employeeId>
         <name>Fiona Kunz</name>
+        <dateOfBirth>12/12/1995</dateOfBirth>
         <phone>9482427</phone>
         <email>lydia@example.com</email>
+        <department>Human Resource</department>
+        <position>Staff</position>
         <address>little tokyo</address>
+        <salary>1000.00</salary>
+        <bonus>0.0</bonus>
     </persons>
     <persons>
+        <employeeId>000007</employeeId>
         <name>George Best</name>
+        <dateOfBirth>12/12/1995</dateOfBirth>
         <phone>9482442</phone>
         <email>anna@example.com</email>
+        <department>Human Resource</department>
+        <position>Staff</position>
         <address>4th street</address>
+        <salary>1000.00</salary>
+        <bonus>0.0</bonus>
     </persons>
 </addressbook>
