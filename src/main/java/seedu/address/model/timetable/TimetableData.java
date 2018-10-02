@@ -4,9 +4,9 @@ package seedu.address.model.timetable;
 /**
  * timetable data
  */
-public class TimetableGenerator {
+public class TimetableData {
 
-    private final String[][] newTimetable;
+    private final String[][] timetable;
     private String[] timings = {"0800", "0900", "1000", "1100", "1200", "1300",
         "1400", "1500", "1600", "1700", "1800", "1900", "2000", "2100", "2200", "2300"};
     private String[] days = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday",
@@ -14,16 +14,29 @@ public class TimetableGenerator {
     private final int noOfTimings = timings.length;
     private final int noOfDays = days.length;
 
+
     /**
      *
-     * @param mode
+     * @param format
+     * @param locationOfFile
      */
-    public TimetableGenerator(String mode) {
-        if (mode.equals("vertical")) {
-            this.newTimetable = generateNewVerticalTimetable();
-        } else {
-            this.newTimetable = generateNewHorizontalTimetable();
+    public TimetableData(String format,String locationOfFile) {
+        String [][]aTimetable = generateNewHorizontalTimetable();
+        if (format.equals("vertical")){
+            aTimetable=readVerticalTimetableData(locationOfFile);
         }
+        this.timetable=aTimetable;
+    }
+
+
+
+
+    public TimetableData(String format) {
+        String [][]newTimetable = generateNewHorizontalTimetable();
+        if (format.equals("vertical")){
+            newTimetable =generateNewVerticalTimetable();
+        }
+        this.timetable = newTimetable;
     }
 
     /**
@@ -42,6 +55,12 @@ public class TimetableGenerator {
         return noOfDays;
     }
 
+    private String[][] readHorizontalTimetableData(String locationOfFile) {
+        return generateNewHorizontalTimetable();
+    }
+    private String[][] readVerticalTimetableData(String locationOfFile) {
+        return generateNewVerticalTimetable();
+    }
     /**
      *
      * @return
@@ -108,8 +127,8 @@ public class TimetableGenerator {
      *
      * @return
      */
-    public String[][] getNewTimetable() {
-        return newTimetable;
+    public String[][] getTimetable() {
+        return timetable;
     }
 
 

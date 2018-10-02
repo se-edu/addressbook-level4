@@ -42,6 +42,7 @@ public class Timetable extends Entity {
         this.defaultLocation =
             ans.getAbsolutePath().replace("\\", "/") + this.timetableFolder + this.fileName;
         locationOfFile = locationFrom + this.fileName;
+        matrix = new TimetableData(format,locationOfFile);
     }
 
     public Timetable(Name name, String fileName, String format) {
@@ -52,6 +53,7 @@ public class Timetable extends Entity {
         this.defaultLocation =
             ans.getAbsolutePath().replace("\\", "/") + this.timetableFolder + this.fileName;
         locationOfFile = null;
+        matrix = new TimetableData(format);
     }
 
     /**
@@ -102,8 +104,8 @@ public class Timetable extends Entity {
         Scanner inputStream;
         //used code from https://stackoverflow.com/questions/40074840/reading-a-csv-file-into-a-array
         String filePath = locationFrom.replace("\\", "/") + "/" + fileName + ".csv";
-        TimetableGenerator timetable = new TimetableGenerator(this.format);
-        timetableMatrix = timetable.getNewTimetable();
+        TimetableData timetable = new TimetableData(this.format);
+        timetableMatrix = timetable.getTimetable();
         try {
             File toRead = new File(filePath);
             if (!toRead.exists() && this.format.equals("horizontal")) {
@@ -143,10 +145,10 @@ public class Timetable extends Entity {
      * @param filePath
      */
     private void generateHorizontalTimetable(String filePath) {
-        TimetableGenerator timetable = new TimetableGenerator(format);
+        TimetableData timetable = new TimetableData(format);
         String[][] newTimetable;
 
-        newTimetable = timetable.getNewTimetable();
+        newTimetable = timetable.getTimetable();
         try {
             File toWrite = new File(filePath);
             if (!toWrite.exists()) {
@@ -179,10 +181,10 @@ public class Timetable extends Entity {
      * @param filePath
      */
     private void generateVerticalTimetable(String filePath) {
-        TimetableGenerator timetable = new TimetableGenerator(this.format);
+        TimetableData timetable = new TimetableData(this.format);
         String[][] newTimetable;
 
-        newTimetable = timetable.getNewTimetable();
+        newTimetable = timetable.getTimetable();
         try {
             File toWrite = new File(filePath);
             if (!toWrite.exists()) {
