@@ -121,4 +121,18 @@ public class ParserUtil {
         }
         return tagSet;
     }
+
+    //TODO: need to implement exceptions
+    public static String parseUsername(String username) throws ParseException {
+        requireNonNull(username);
+        String trimmedName = username.trim();
+        return username;
+    }
+
+    //TODO: need to implement exceptions
+    public static String parsePassword(String password) throws ParseException {
+        requireNonNull(password);
+        String trimmedName = password.trim();
+        return password;
+    }
 }
