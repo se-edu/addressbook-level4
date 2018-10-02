@@ -1,4 +1,4 @@
-= AddressBook Level 4 - User Guide
+= JitHub - User Guide
 :site-section: UserGuide
 :toc:
 :toc-title:
@@ -14,29 +14,33 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/CS2113-AY1819S1-W12-1/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `CS2113-AY1819S1-W12-1`      Since: `Aug 2018`
 
 == Introduction
 
-AddressBook Level 4 (AB4) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB4 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB4 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
+JitHub is for students who *prefer to use a desktop app for managing contacts, email, and calendar*. More importantly,
+JitHub is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits
+of a Graphical User Interface (GUI). If you can type fast, JitHub can get your daily tasks such as checking schedule done faster than traditional GUI apps.
+Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
 
 .  Ensure you have Java version `9` or later installed in your Computer.
 .  Download the latest `addressbook.jar` link:{repoURL}/releases[here].
-.  Copy the file to the folder you want to use as the home folder for your Address Book.
+.  Copy the file to the folder you want to use as the home folder for your JitHub.
 .  Double-click the file to start the app. The GUI should appear in a few seconds.
 +
 image::Ui.png[width="790"]
 +
 .  Type the command in the command box and press kbd:[Enter] to execute it. +
-e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
+e.g. typing *`help`* or *`h`* and pressing kbd:[Enter] will open the help window.
 .  Some example commands you can try:
 
 * *`list`* : lists all contacts
 * **`add`**`n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : adds a contact named `John Doe` to the Address Book.
 * **`delete`**`3` : deletes the 3rd contact shown in the current list
 * *`exit`* : exits the app
+* *`h`* : access the help document
 
 .  Refer to <<Features>> for details of each command.
 
@@ -52,11 +56,11 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 * Parameters can be in any order e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
 ====
 
-=== Viewing help : `help`
+=== Viewing help : `help` / `h`
 
 Format: `help`
 
-=== Adding a person: `add`
+=== Adding a person: `add` / `a`
 
 Adds a person to the address book +
 Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]...`
@@ -69,12 +73,12 @@ Examples:
 * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
 * `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
 
-=== Listing all persons : `list`
+=== Listing all persons : `list` / `ls`
 
 Shows a list of all persons in the address book. +
 Format: `list`
 
-=== Editing a person : `edit`
+=== Editing a person : `edit` / `e`
 
 Edits an existing person in the address book. +
 Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
@@ -94,7 +98,7 @@ Edits the phone number and email address of the 1st person to be `91234567` and 
 * `edit 2 n/Betsy Crower t/` +
 Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
 
-=== Locating persons by name: `find`
+=== Locating persons by name: `find` / `f`
 
 Finds persons whose names contain any of the given keywords. +
 Format: `find KEYWORD [MORE_KEYWORDS]`
@@ -114,7 +118,7 @@ Returns `john` and `John Doe`
 * `find Betsy Tim John` +
 Returns any person having names `Betsy`, `Tim`, or `John`
 
-=== Deleting a person : `delete`
+=== Deleting a person : `delete` / `d`
 
 Deletes the specified person from the address book. +
 Format: `delete INDEX`
@@ -134,7 +138,7 @@ Deletes the 2nd person in the address book.
 `delete 1` +
 Deletes the 1st person in the results of the `find` command.
 
-=== Selecting a person : `select`
+=== Selecting a person : `select` / `s`
 
 Selects the person identified by the index number used in the displayed person list. +
 Format: `select INDEX`
@@ -154,7 +158,7 @@ Selects the 2nd person in the address book.
 `select 1` +
 Selects the 1st person in the results of the `find` command.
 
-=== Listing entered commands : `history`
+=== Listing entered commands : `history` / `hs`
 
 Lists all the commands that you have entered in reverse chronological order. +
 Format: `history`
@@ -165,7 +169,7 @@ Pressing the kbd:[&uarr;] and kbd:[&darr;] arrows will display the previous and 
 ====
 
 // tag::undoredo[]
-=== Undoing previous command : `undo`
+=== Undoing previous command : `undo` / `z`
 
 Restores the address book to the state before the previous _undoable_ command was executed. +
 Format: `undo`
@@ -191,7 +195,7 @@ The `undo` command fails as there are no undoable commands executed previously.
 `undo` (reverses the `clear` command) +
 `undo` (reverses the `delete 1` command) +
 
-=== Redoing the previously undone command : `redo`
+=== Redoing the previously undone command : `redo` / `y`
 
 Reverses the most recent `undo` command. +
 Format: `redo`
@@ -214,12 +218,81 @@ The `redo` command fails as there are no `undo` commands executed previously.
 `redo` (reapplies the `clear` command) +
 // end::undoredo[]
 
-=== Clearing all entries : `clear`
+=== Clearing all entries : `clear` / `c`
 
 Clears all entries from the address book. +
 Format: `clear`
 
-=== Exiting the program : `exit`
+=== Exporting all contacts : `exportall` [coming in v1.4]
+
+Export all persons in the address book to mobile phone. +
+Format: `exportall FILETYPE`
+
+Examples:
+
+* `exportall csv`
+* `exportall vcf`
+
+=== Exporting contacts : `export` [coming in v1.4]
+
+Export the specified persons from the address book. +
+Format: `export INDEX N FILETYPE`
+
+****
+Export `N` persons starting from the specified `INDEX`.
+The index refers to the index number shown in the most recent listing.
+****
+
+Examples:
+
+* `list` +
+`export 2 1 csv` +
+Exports the 2nd person in the address book as a csv file.
+
+* `find Betsy` +
+`export 1 5 vcf` +
+Exports the five persons starting from the 1st person in the results of the `find` command as a vcf file.
+
+=== Enter or delete personal weekly schedule : `schedule` [coming in v1.4]
+
+Format:
+
+`addschedule d/DDMMYYYY st/START-TIME et/END-TIME en/EVENT-NAME`
+`delschedule d/DDMMYYYY st/START-TIME et/END-TIME en/EVENT-NAME`
+
+Examples:
+
+* `addschedule d/08112018 st/1000 et/1200 en/GER1000`
+* `addschedule d/01012019 st/1000 et/1800 en/FireworkParty`
+* `delschedule d/01012019 st/1000 et/1800 en/FireworkParty`
+
+=== List Common Schedule : `commonschedule` [coming in v1.4]
+
+Shows a list of common meeting time for a group of contacts and the user in that given that given period of time. +
+Format: `commonschedule p/PERSON...[PERSON] sd/START-DATE-DDMMYYYY ed/END-DATE-DDMMYYYY t/HOURS`
+
+Examples:
+
+* `commonschedule p/John Smith p/Jane Doe sd/08092018 ed/01102018 t/1.5`
+
+=== List Unread / New Email / Auto-reply of email: `mail` [coming in v1.4]
+
+Shows a list of unread or new emails of the user. Upen entering the index of the unread emails, the terminal will display the email’s title, body.
+The user can choose whether he wants to send an auto-reply to indicate that he has read it. +
+Format: `mail [i/INDEX]`
+
+[TIP]
+Keying the index is optional, without keying it, it will list all the mail items in the user’s current mailbox.
+
+Examples:
+
+* `mail`
+* `Expected output: 0/Latest Pomelo Fashion 1/Quora - will PHP die in 2018 2/How to communicate effectively`
+* `mail i/INDEX`
+* `mail i/1`
+* `Expected output: t/Quora - will PHP die in 2018 ct/PHP is terrible blablablablabla s/quora@quora.com E/would you like to send an auto-reply to the sender? (Y/n)`
+
+=== Exiting the program : `exit` / `x`
 
 Exits the program. +
 Format: `exit`
@@ -227,7 +300,8 @@ Format: `exit`
 === Saving the data
 
 Address book data are saved in the hard disk automatically after any command that changes the data. +
-There is no need to save manually.
+There is no need to save manually. +
+The storage file 'addressbook.xml' is located in the project root folder.
 
 // tag::dataencryption[]
 === Encrypting data files `[coming in v2.0]`
@@ -238,7 +312,12 @@ _{explain how the user can enable/disable data encryption}_
 == FAQ
 
 *Q*: How do I transfer my data to another Computer? +
-*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.
+*A*: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the
+data of your previous JitHub folder.
+
+*Q*: How do I export my contacts to my phone? +
+*A*: Use the exportall command to generate a csv/vcf file and transfer that file to your phone. Use your phone contacts
+app to import that file.
 
 == Command Summary
 
@@ -258,3 +337,10 @@ e.g.`select 2`
 * *History* : `history`
 * *Undo* : `undo`
 * *Redo* : `redo`
+* *ExportAll* : `exportall FILETYPE` (to be added)
+* *Mail* : `mail [i/INDEX]` (to be added)
+* *List Schedule* : `commonschedule p/PERSON…[PERSON] sd/START-DATE-DDMMYYYY` * *Mail* : `mail [i/INDEX]` +
+(to be added)
+* *Add Schedule* : `addschedule d/DDMMYYYY st/START-TIME et/END-TIME en/EVENT-NAME` * *Mail* : `mail [i/INDEX]` +
+(to be added)
+

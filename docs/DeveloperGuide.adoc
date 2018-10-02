@@ -1,4 +1,4 @@
-= AddressBook Level 4 - Developer Guide
+= JitHub - Developer Guide
 :site-section: DeveloperGuide
 :toc:
 :toc-title:
@@ -14,7 +14,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/CS2113-AY1819S1-W12-1/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `CS2113-AY1819S1-W12-1`      Since: `Aug 2018`
 
 == Setting up
 
@@ -846,6 +846,28 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 _{More to be added}_
 
+Additional user stories:
+[width="59%",cols="22%,<23%,<25%,<30%",options="header",]
+|===========================================================================================================================================
+|Priority |As a/an ... |I want to ... |So that I can...
+|`* * *` |user who is always on the go |import/export my contacts to my smartphone |access them when I do not have my
+ computer with me
+
+|`* * *` |student with different group projects |group my contacts into different categories |I can send out messages to different project groups
+
+|`* * *` |team leader of a group project |save the timetable of my project group mates |find potential time slot for
+meetings
+
+|`* * *` |user who is concerned about security |hide some/all of my contacts with a password |people cannot see them without my permission.
+
+|`* *` |extensive CLI user|have autocomplete function |accomplish my command line input faster
+
+|`* *` |user who is always meeting new people |add a new person through QR code |do not have to key in new contact
+details manually
+
+|`*` |user who is new to CLI |have a natural language-like CLI |I can pick up how to use CLI faster
+|===========================================================================================================================================
+
 [appendix]
 == Use Cases
 
@@ -879,12 +901,46 @@ Use case resumes at step 2.
 
 _{More to be added}_
 
+[discrete]
+=== Use case: Export contacts
+
+*MSS*
+
+. User requests to export contacts.
+. AddressBook shows a list of persons and prompts user to select contacts to export.
+. User chooses contacts with specific tags in the list to export.
+. AddressBook prompts user for the filename and format (csv/vcf) of the output file.
+. User chooses a filename and format.
+. AddressBook generates the output file.
++
+Use case ends.
+
+*Extensions*
+
+* 2a. The list is empty.
++
+Use case ends.
+
+* 3a. The given index is invalid.
+** 3a1. AddressBook shows an error message.
++
+Use case resumes at step 2.
+
+* 5a. The given format is invalid.
+** 3a1. AddressBook shows an error message.
++
+Use case resumes at step 4.
+
 [appendix]
 == Non Functional Requirements
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
 .  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
 .  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+.  Should come with automated unit tests and open source code.
+.  Should work on both 32-bit and 64-bit environments.
+.  Should not exceed 100MB in size.
+.  Should not use any words deemed offensive to English speakers.
 
 _{More to be added}_
 
