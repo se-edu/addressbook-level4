@@ -18,8 +18,8 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Position;
 import seedu.address.model.person.Salary;
-import seedu.address.model.schedule.Date;
 import seedu.address.model.person.tag.Tag;
+import seedu.address.model.schedule.Date;
 import seedu.address.model.schedule.Type;
 
 /**
