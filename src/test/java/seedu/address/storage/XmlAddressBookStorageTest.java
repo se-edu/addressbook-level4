@@ -105,6 +105,12 @@ public class XmlAddressBookStorageTest {
         saveAddressBook(null, "SomeFile.xml");
     }
 
+    @Test
+    public void backupAddressBook_nullAddressBook_throwsNullPointerException() {
+        thrown.expect(NullPointerException.class);
+        backupAddressBook(null, "SomeBackupFile.xml");
+    }
+
     /**
      * Saves {@code addressBook} at the specified {@code filePath}.
      */
@@ -123,5 +129,16 @@ public class XmlAddressBookStorageTest {
         saveAddressBook(new AddressBook(), null);
     }
 
+    /**
+     * Backups {@code addressBook} at the specified {@code filePath}.
+     */
+    private void backupAddressBook(ReadOnlyAddressBook addressBook, String filePath) {
+        try {
+            new XmlAddressBookStorage(Paths.get(filePath))
+                    .backupAddressBook(addressBook);
+        } catch (IOException ioe) {
+            throw new AssertionError("There should not be an error writing to the file.", ioe);
+        }
+    }
 
 }
