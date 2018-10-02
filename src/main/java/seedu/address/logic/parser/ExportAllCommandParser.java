@@ -27,7 +27,8 @@ public class ExportAllCommandParser implements Parser<ExportAllCommand> {
         try {
             filetype = ParserUtil.parseFiletype(argMultimap.getPreamble());
         } catch (IllegalValueException ive) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ExportAllCommand.MESSAGE_USAGE), ive);
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    ExportAllCommand.MESSAGE_USAGE), ive);
         }
 
         return new ExportAllCommand(filetype);

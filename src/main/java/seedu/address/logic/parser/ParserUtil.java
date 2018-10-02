@@ -131,13 +131,13 @@ public class ParserUtil {
      */
     public static String parseFiletype(String filetype) throws ParseException {
         requireNonNull(filetype);
-        final String FILETYPE_CSV = "csv";
-        final String FILETYPE_VCF = "vcf";
-        final String MESSAGE_FILETYPE_CONSTRAINTS = "Filetype can only be \"csv\" or \"vcf\".";
+        final String filetypeCsv = "csv";
+        final String filetypeVcf = "vcf";
+        final String messageFiletypeConstraints = "Filetype can only be \"csv\" or \"vcf\".";
 
         String trimmedFiletype = filetype.trim();
-        if (!(filetype.equals(FILETYPE_CSV) || filetype.equals(FILETYPE_VCF))) {
-            throw new ParseException(MESSAGE_FILETYPE_CONSTRAINTS);
+        if (!(filetype.equals(filetypeCsv) || filetype.equals(filetypeVcf))) {
+            throw new ParseException(messageFiletypeConstraints);
         }
         return trimmedFiletype;
     }
