@@ -120,7 +120,6 @@ public class AddressBook implements ReadOnlyAddressBook {
         persons.forEach(person -> removeTagFromPerson(tag, person));
     }
 
-
     //// util methods
 
     @Override
