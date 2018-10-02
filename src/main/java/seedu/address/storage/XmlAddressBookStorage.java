@@ -35,6 +35,10 @@ public class XmlAddressBookStorage implements AddressBookStorage {
         return filePath;
     }
 
+    public Path getAddressBookBackupPath() {
+        return backupPath;
+    }
+
     @Override
     public Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException, IOException {
         return readAddressBook(filePath);
