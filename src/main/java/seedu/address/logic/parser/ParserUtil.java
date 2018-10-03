@@ -145,7 +145,7 @@ public class ParserUtil {
         return password;
     }
 
-    /*
+    /**
      * Parses a {@code String location} into an {@code String location}. Leading and trailing whitespaces will be
      * trimmed.
      *
