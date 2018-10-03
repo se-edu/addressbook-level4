@@ -18,6 +18,7 @@ public class ScheduleCommand extends Command {
     public static final String MESSAGE_SUCCESS = "Schedule Added!";
     public static final String MESSAGE_FAILURE = "Unable to add schedule! Exceeded max of 5 events per time slot";
 
+    @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         requireNonNull(model);
         throw new CommandException(MESSAGE_FAILURE);
