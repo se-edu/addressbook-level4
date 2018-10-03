@@ -66,8 +66,7 @@ public class Group extends Entity {
         Iterator<Person> itr = groupMembers.iterator();
         StringBuilder builder = new StringBuilder();
         while (itr.hasNext()) {
-            builder.append(itr.next().getName().fullName)
-            .append("\n");
+            builder.append(itr.next().getName().fullName).append("\n");
         }
         return builder.toString();
     }
