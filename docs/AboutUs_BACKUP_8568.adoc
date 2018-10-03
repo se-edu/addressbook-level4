@@ -1,0 +1,58 @@
+= About Us
+:site-section: AboutUs
+:relfileprefix: team/
+:imagesDir: images
+:stylesDir: stylesheets
+
+<<<<<<< HEAD
+Enhanced AddressBook - Level 4 was developed by the https://se-edu.github.io/docs/Team.html[se-edu] team and F11-4 CS2103 team.
+=======
+Nus Hangs was developed by the https://se-edu.github.io/docs/Team.html[se-edu] team and F11-4 CS2103 team.
+>>>>>>> 84919f6995ed46551ead60a3d1bacb4bbc4d5b86
+
+We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
+
+== Project Team
+
+=== Happytreat
+image::Happytreat.jpeg[width="150", align="left"]
+{empty}[http://github.com/happytreat[github]] [<<johndoe#, portfolio>>]
+
+Role: Developer +
+Responsibilities:
+
+'''
+
+=== ZhiWei94
+image::zhiwei94.jpeg[width="150", align="left"]
+{empty}[http://github.com/ZhiWei94[github]] [<<johndoe#, portfolio>>]
+
+Role: Developer +
+Responsibilities:
+
+'''
+
+=== souless94
+image::souless94.jpeg[width="150", align="left"]
+{empty}[http://github.com/souless94[github]] [<<johndoe#, portfolio>>]
+
+Role: Developer +
+Responsibilities:
+
+'''
+
+=== aspiringdevslog
+image::aspiringdevslog.jpeg[width="150", align="left"]
+{empty}[http://github.com/aspiringdevslog[github]] [<<johndoe#, portfolio>>]
+
+Role: Developer +
+Responsibilities:
+
+=== nigelngyy
+image::nigelngyy.jpeg[width="150", align="left"]
+{empty}[http://github.com/nigelngyy[github]] [<<johndoe#, portfolio>>]
+
+Role: Developer +
+Responsibilities:
+
+'''

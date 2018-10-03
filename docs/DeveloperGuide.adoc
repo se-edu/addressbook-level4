@@ -15,7 +15,7 @@ ifdef::env-github[]
 endif::[]
 :repoURL: https://github.com/CS2103-AY1819S1-F11-4/main
 
-By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
+By: `Team F11-4`      Since: `Aug 2018`      Licence: `MIT`
 
 == Setting up
 
@@ -152,11 +152,11 @@ The _Sequence Diagram_ below shows how the components interact for the scenario 
 image::SDforDeletePerson.png[width="800"]
 
 [NOTE]
-Note how the `Model` simply raises a `AddressBookChangedEvent` when the Address Book data are changed, instead of asking the `Storage` to save the updates to the hard disk.
+Note how the `Model` simply raises a `AppChangedEvent` when the Address Book data are changed, instead of asking the `Storage` to save the updates to the hard disk.
 
 The diagram below shows how the `EventsCenter` reacts to that event, which eventually results in the updates being saved to the hard disk and the status bar of the UI being updated to reflect the 'Last Updated' time.
 
-.Component interactions for `delete 1` command (part 2)
+.Component interactions for `delete_friend 1` command (part 2)
 image::SDforDeletePersonEventHandling.png[width="800"]
 
 [NOTE]
@@ -217,10 +217,6 @@ The `Model`,
 * exposes an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * does not depend on any of the other three components.
 
-[NOTE]
-As a more OOP model, we can store a `Tag` list in `Address Book`, which `Person` can reference. This would allow `Address Book` to only require one `Tag` object per unique `Tag`, instead of each `Person` needing their own `Tag` object. An example of how such a model may look like is given below. +
- +
-image:ModelClassBetterOopDiagram.png[width="800"]
 
 [[Design-Storage]]
 === Storage component
@@ -233,103 +229,13 @@ image::StorageClassDiagram.png[width="800"]
 The `Storage` component,
 
 * can save `UserPref` objects in json format and read it back.
-* can save the Address Book data in xml format and read it back.
+* can save the Erium data in xml format and read it back.
 
 [[Design-Commons]]
 === Common classes
 
-Classes used by multiple components are in the `seedu.addressbook.commons` package.
+Classes used by multiple components are in the `seedu.Erium.commons` package.
 
-== Implementation
-
-This section describes some noteworthy details on how certain features are implemented.
-
-// tag::undoredo[]
-=== Undo/Redo feature
-==== Current Implementation
-
-The undo/redo mechanism is facilitated by `VersionedAddressBook`.
-It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`.
-Additionally, it implements the following operations:
-
-* `VersionedAddressBook#commit()` -- Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` -- Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` -- Restores a previously undone address book state from its history.
-
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
-
-Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
-
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
-
-image::UndoRedoStartingStateListDiagram.png[width="800"]
-
-Step 2. The user executes `delete 5` command to delete the 5th person in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
-
-image::UndoRedoNewCommand1StateListDiagram.png[width="800"]
-
-Step 3. The user executes `add n/David ...` to add a new person. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
-
-image::UndoRedoNewCommand2StateListDiagram.png[width="800"]
-
-[NOTE]
-If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
-
-Step 4. The user now decides that adding the person was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
-
-image::UndoRedoExecuteUndoStateListDiagram.png[width="800"]
-
-[NOTE]
-If the `currentStatePointer` is at index 0, pointing to the initial address book state, then there are no previous address book states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the undo.
-
-The following sequence diagram shows how the undo operation works:
-
-image::UndoRedoSequenceDiagram.png[width="800"]
-
-The `redo` command does the opposite -- it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
-
-[NOTE]
-If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone address book states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
-
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
-
-image::UndoRedoNewCommand3StateListDiagram.png[width="800"]
-
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. We designed it this way because it no longer makes sense to redo the `add n/David ...` command. This is the behavior that most modern desktop applications follow.
-
-image::UndoRedoNewCommand4StateListDiagram.png[width="800"]
-
-The following activity diagram summarizes what happens when a user executes a new command:
-
-image::UndoRedoActivityDiagram.png[width="650"]
-
-==== Design Considerations
-
-===== Aspect: How undo & redo executes
-
-* **Alternative 1 (current choice):** Saves the entire address book.
-** Pros: Easy to implement.
-** Cons: May have performance issues in terms of memory usage.
-* **Alternative 2:** Individual command knows how to undo/redo by itself.
-** Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
-** Cons: We must ensure that the implementation of each individual command are correct.
-
-===== Aspect: Data structure to support the undo/redo commands
-
-* **Alternative 1 (current choice):** Use a list to store the history of address book states.
-** Pros: Easy for new Computer Science student undergraduates to understand, who are likely to be the new incoming developers of our project.
-** Cons: Logic is duplicated twice. For example, when a new command is executed, we must remember to update both `HistoryManager` and `VersionedAddressBook`.
-* **Alternative 2:** Use `HistoryManager` for undo/redo
-** Pros: We do not need to maintain a separate list, and just reuse what is already in the codebase.
-** Cons: Requires dealing with commands that have already been undone: We must remember to skip these commands. Violates Single Responsibility Principle and Separation of Concerns as `HistoryManager` now needs to do two different things.
-// end::undoredo[]
-
-// tag::dataencryption[]
-=== [Proposed] Data Encryption
-
-_{Explain here how the data encryption feature will be implemented}_
-
-// end::dataencryption[]
 
 === Logging
 
@@ -535,296 +441,22 @@ A project often depends on third-party libraries. For example, Address Book depe
 a. Include those libraries in the repo (this bloats the repo size) +
 b. Require developers to download those libraries manually (this creates extra work for developers)
 
-[[GetStartedProgramming]]
-[appendix]
-== Suggested Programming Tasks to Get Started
-
-Suggested path for new programmers:
-
-1. First, add small local-impact (i.e. the impact of the change does not go beyond the component) enhancements to one component at a time. Some suggestions are given in <<GetStartedProgramming-EachComponent>>.
-
-2. Next, add a feature that touches multiple components to learn how to implement an end-to-end feature across all components. <<GetStartedProgramming-RemarkCommand>> explains how to go about adding such a feature.
-
-[[GetStartedProgramming-EachComponent]]
-=== Improving each component
-
-Each individual exercise in this section is component-based (i.e. you would not need to modify the other components to get it to work).
-
-[discrete]
-==== `Logic` component
-
-*Scenario:* You are in charge of `logic`. During dog-fooding, your team realize that it is troublesome for the user to type the whole command in order to execute a command. Your team devise some strategies to help cut down the amount of typing necessary, and one of the suggestions was to implement aliases for the command words. Your job is to implement such aliases.
-
-[TIP]
-Do take a look at <<Design-Logic>> before attempting to modify the `Logic` component.
-
-. Add a shorthand equivalent alias for each of the individual commands. For example, besides typing `clear`, the user can also type `c` to remove all persons in the list.
-+
-****
-* Hints
-** Just like we store each individual command word constant `COMMAND_WORD` inside `*Command.java` (e.g.  link:{repoURL}/src/main/java/seedu/address/logic/commands/FindCommand.java[`FindCommand#COMMAND_WORD`], link:{repoURL}/src/main/java/seedu/address/logic/commands/DeleteCommand.java[`DeleteCommand#COMMAND_WORD`]), you need a new constant for aliases as well (e.g. `FindCommand#COMMAND_ALIAS`).
-** link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] is responsible for analyzing command words.
-* Solution
-** Modify the switch statement in link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser#parseCommand(String)`] such that both the proper command word and alias can be used to execute the same intended command.
-** Add new tests for each of the aliases that you have added.
-** Update the user guide to document the new aliases.
-** See this https://github.com/se-edu/addressbook-level4/pull/785[PR] for the full solution.
-****
-
-[discrete]
-==== `Model` component
-
-*Scenario:* You are in charge of `model`. One day, the `logic`-in-charge approaches you for help. He wants to implement a command such that the user is able to remove a particular tag from everyone in the address book, but the model API does not support such a functionality at the moment. Your job is to implement an API method, so that your teammate can use your API to implement his command.
+eryone in the address book, but the model API does not support such a functionality at the moment. Your job is to implement an API method, so that your teammate can use your API to implement his command.
 
 [TIP]
 Do take a look at <<Design-Model>> before attempting to modify the `Model` component.
 
-. Add a `removeTag(Tag)` method. The specified tag will be removed from everyone in the address book.
-+
-****
-* Hints
-** The link:{repoURL}/src/main/java/seedu/address/model/Model.java[`Model`] and the link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] API need to be updated.
-** Think about how you can use SLAP to design the method. Where should we place the main logic of deleting tags?
-**  Find out which of the existing API methods in  link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] and link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] classes can be used to implement the tag removal logic. link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`] allows you to update a person, and link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] allows you to update the tags.
-* Solution
-** Implement a `removeTag(Tag)` method in link:{repoURL}/src/main/java/seedu/address/model/AddressBook.java[`AddressBook`]. Loop through each person, and remove the `tag` from each person.
-** Add a new API method `deleteTag(Tag)` in link:{repoURL}/src/main/java/seedu/address/model/ModelManager.java[`ModelManager`]. Your link:{repoURL}/src/main/java/seedu/address/model/ModelManager.java[`ModelManager`] should call `AddressBook#removeTag(Tag)`.
-** Add new tests for each of the new public methods that you have added.
-** See this https://github.com/se-edu/addressbook-level4/pull/790[PR] for the full solution.
-****
-
-[discrete]
-==== `Ui` component
-
-*Scenario:* You are in charge of `ui`. During a beta testing session, your team is observing how the users use your address book application. You realize that one of the users occasionally tries to delete non-existent tags from a contact, because the tags all look the same visually, and the user got confused. Another user made a typing mistake in his command, but did not realize he had done so because the error message wasn't prominent enough. A third user keeps scrolling down the list, because he keeps forgetting the index of the last person in the list. Your job is to implement improvements to the UI to solve all these problems.
-
-[TIP]
-Do take a look at <<Design-Ui>> before attempting to modify the `UI` component.
-
-. Use different colors for different tags inside person cards. For example, `friends` tags can be all in brown, and `colleagues` tags can be all in yellow.
-+
-**Before**
-+
-image::getting-started-ui-tag-before.png[width="300"]
-+
-**After**
-+
-image::getting-started-ui-tag-after.png[width="300"]
-+
-****
-* Hints
-** The tag labels are created inside link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[the `PersonCard` constructor] (`new Label(tag.tagName)`). https://docs.oracle.com/javase/8/javafx/api/javafx/scene/control/Label.html[JavaFX's `Label` class] allows you to modify the style of each Label, such as changing its color.
-** Use the .css attribute `-fx-background-color` to add a color.
-** You may wish to modify link:{repoURL}/src/main/resources/view/DarkTheme.css[`DarkTheme.css`] to include some pre-defined colors using css, especially if you have experience with web-based css.
-* Solution
-** You can modify the existing test methods for `PersonCard` 's to include testing the tag's color as well.
-** See this https://github.com/se-edu/addressbook-level4/pull/798[PR] for the full solution.
-*** The PR uses the hash code of the tag names to generate a color. This is deliberately designed to ensure consistent colors each time the application runs. You may wish to expand on this design to include additional features, such as allowing users to set their own tag colors, and directly saving the colors to storage, so that tags retain their colors even if the hash code algorithm changes.
-****
-
-. Modify link:{repoURL}/src/main/java/seedu/address/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] such that link:{repoURL}/src/main/java/seedu/address/ui/ResultDisplay.java[`ResultDisplay`] can show a different style on error (currently it shows the same regardless of errors).
-+
-**Before**
-+
-image::getting-started-ui-result-before.png[width="200"]
-+
-**After**
-+
-image::getting-started-ui-result-after.png[width="200"]
-+
-****
-* Hints
-** link:{repoURL}/src/main/java/seedu/address/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] is raised by link:{repoURL}/src/main/java/seedu/address/ui/CommandBox.java[`CommandBox`] which also knows whether the result is a success or failure, and is caught by link:{repoURL}/src/main/java/seedu/address/ui/ResultDisplay.java[`ResultDisplay`] which is where we want to change the style to.
-** Refer to link:{repoURL}/src/main/java/seedu/address/ui/CommandBox.java[`CommandBox`] for an example on how to display an error.
-* Solution
-** Modify link:{repoURL}/src/main/java/seedu/address/commons/events/ui/NewResultAvailableEvent.java[`NewResultAvailableEvent`] 's constructor so that users of the event can indicate whether an error has occurred.
-** Modify link:{repoURL}/src/main/java/seedu/address/ui/ResultDisplay.java[`ResultDisplay#handleNewResultAvailableEvent(NewResultAvailableEvent)`] to react to this event appropriately.
-** You can write two different kinds of tests to ensure that the functionality works:
-*** The unit tests for `ResultDisplay` can be modified to include verification of the color.
-*** The system tests link:{repoURL}/src/test/java/systemtests/AddressBookSystemTest.java[`AddressBookSystemTest#assertCommandBoxShowsDefaultStyle() and AddressBookSystemTest#assertCommandBoxShowsErrorStyle()`] to include verification for `ResultDisplay` as well.
-** See this https://github.com/se-edu/addressbook-level4/pull/799[PR] for the full solution.
-*** Do read the commits one at a time if you feel overwhelmed.
-****
-
-. Modify the link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] to show the total number of people in the address book.
-+
-**Before**
-+
-image::getting-started-ui-status-before.png[width="500"]
-+
-**After**
-+
-image::getting-started-ui-status-after.png[width="500"]
-+
-****
-* Hints
-** link:{repoURL}/src/main/resources/view/StatusBarFooter.fxml[`StatusBarFooter.fxml`] will need a new `StatusBar`. Be sure to set the `GridPane.columnIndex` properly for each `StatusBar` to avoid misalignment!
-** link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] needs to initialize the status bar on application start, and to update it accordingly whenever the address book is updated.
-* Solution
-** Modify the constructor of link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter`] to take in the number of persons when the application just started.
-** Use link:{repoURL}/src/main/java/seedu/address/ui/StatusBarFooter.java[`StatusBarFooter#handleAddressBookChangedEvent(AddressBookChangedEvent)`] to update the number of persons whenever there are new changes to the addressbook.
-** For tests, modify link:{repoURL}/src/test/java/guitests/guihandles/StatusBarFooterHandle.java[`StatusBarFooterHandle`] by adding a state-saving functionality for the total number of people status, just like what we did for save location and sync status.
-** For system tests, modify link:{repoURL}/src/test/java/systemtests/AddressBookSystemTest.java[`AddressBookSystemTest`] to also verify the new total number of persons status bar.
-** See this https://github.com/se-edu/addressbook-level4/pull/803[PR] for the full solution.
-****
-
-[discrete]
-==== `Storage` component
-
-*Scenario:* You are in charge of `storage`. For your next project milestone, your team plans to implement a new feature of saving the address book to the cloud. However, the current implementation of the application constantly saves the address book after the execution of each command, which is not ideal if the user is working on limited internet connection. Your team decided that the application should instead save the changes to a temporary local backup file first, and only upload to the cloud after the user closes the application. Your job is to implement a backup API for the address book storage.
-
-[TIP]
-Do take a look at <<Design-Storage>> before attempting to modify the `Storage` component.
-
-. Add a new method `backupAddressBook(ReadOnlyAddressBook)`, so that the address book can be saved in a fixed temporary location.
-+
-****
-* Hint
-** Add the API method in link:{repoURL}/src/main/java/seedu/address/storage/AddressBookStorage.java[`AddressBookStorage`] interface.
-** Implement the logic in link:{repoURL}/src/main/java/seedu/address/storage/StorageManager.java[`StorageManager`] and link:{repoURL}/src/main/java/seedu/address/storage/XmlAddressBookStorage.java[`XmlAddressBookStorage`] class.
-* Solution
-** See this https://github.com/se-edu/addressbook-level4/pull/594[PR] for the full solution.
-****
-
-[[GetStartedProgramming-RemarkCommand]]
-=== Creating a new command: `remark`
-
-By creating this command, you will get a chance to learn how to implement a feature end-to-end, touching all major components of the app.
-
-*Scenario:* You are a software maintainer for `addressbook`, as the former developer team has moved on to new projects. The current users of your application have a list of new feature requests that they hope the software will eventually have. The most popular request is to allow adding additional comments/notes about a particular contact, by providing a flexible `remark` field for each contact, rather than relying on tags alone. After designing the specification for the `remark` command, you are convinced that this feature is worth implementing. Your job is to implement the `remark` command.
-
-==== Description
-Edits the remark for a person specified in the `INDEX`. +
-Format: `remark INDEX r/[REMARK]`
-
-Examples:
-
-* `remark 1 r/Likes to drink coffee.` +
-Edits the remark for the first person to `Likes to drink coffee.`
-* `remark 1 r/` +
-Removes the remark for the first person.
-
-==== Step-by-step Instructions
-
-===== [Step 1] Logic: Teach the app to accept 'remark' which does nothing
-Let's start by teaching the application how to parse a `remark` command. We will add the logic of `remark` later.
-
-**Main:**
-
-. Add a `RemarkCommand` that extends link:{repoURL}/src/main/java/seedu/address/logic/commands/Command.java[`Command`]. Upon execution, it should just throw an `Exception`.
-. Modify link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] to accept a `RemarkCommand`.
-
-**Tests:**
-
-. Add `RemarkCommandTest` that tests that `execute()` throws an Exception.
-. Add new test method to link:{repoURL}/src/test/java/seedu/address/logic/parser/AddressBookParserTest.java[`AddressBookParserTest`], which tests that typing "remark" returns an instance of `RemarkCommand`.
-
-===== [Step 2] Logic: Teach the app to accept 'remark' arguments
-Let's teach the application to parse arguments that our `remark` command will accept. E.g. `1 r/Likes to drink coffee.`
-
-**Main:**
-
-. Modify `RemarkCommand` to take in an `Index` and `String` and print those two parameters as the error message.
-. Add `RemarkCommandParser` that knows how to parse two arguments, one index and one with prefix 'r/'.
-. Modify link:{repoURL}/src/main/java/seedu/address/logic/parser/AddressBookParser.java[`AddressBookParser`] to use the newly implemented `RemarkCommandParser`.
-
-**Tests:**
-
-. Modify `RemarkCommandTest` to test the `RemarkCommand#equals()` method.
-. Add `RemarkCommandParserTest` that tests different boundary values
-for `RemarkCommandParser`.
-. Modify link:{repoURL}/src/test/java/seedu/address/logic/parser/AddressBookParserTest.java[`AddressBookParserTest`] to test that the correct command is generated according to the user input.
-
-===== [Step 3] Ui: Add a placeholder for remark in `PersonCard`
-Let's add a placeholder on all our link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`] s to display a remark for each person later.
-
-**Main:**
-
-. Add a `Label` with any random text inside link:{repoURL}/src/main/resources/view/PersonListCard.fxml[`PersonListCard.fxml`].
-. Add FXML annotation in link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`] to tie the variable to the actual label.
-
-**Tests:**
-
-. Modify link:{repoURL}/src/test/java/guitests/guihandles/PersonCardHandle.java[`PersonCardHandle`] so that future tests can read the contents of the remark label.
-
-===== [Step 4] Model: Add `Remark` class
-We have to properly encapsulate the remark in our link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`] class. Instead of just using a `String`, let's follow the conventional class structure that the codebase already uses by adding a `Remark` class.
-
-**Main:**
-
-. Add `Remark` to model component (you can copy from link:{repoURL}/src/main/java/seedu/address/model/person/Address.java[`Address`], remove the regex and change the names accordingly).
-. Modify `RemarkCommand` to now take in a `Remark` instead of a `String`.
-
-**Tests:**
-
-. Add test for `Remark`, to test the `Remark#equals()` method.
-
-===== [Step 5] Model: Modify `Person` to support a `Remark` field
-Now we have the `Remark` class, we need to actually use it inside link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`].
-
-**Main:**
-
-. Add `getRemark()` in link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`].
-. You may assume that the user will not be able to use the `add` and `edit` commands to modify the remarks field (i.e. the person will be created without a remark).
-. Modify link:{repoURL}/src/main/java/seedu/address/model/util/SampleDataUtil.java/[`SampleDataUtil`] to add remarks for the sample data (delete your `addressBook.xml` so that the application will load the sample data when you launch it.)
-
-===== [Step 6] Storage: Add `Remark` field to `XmlAdaptedPerson` class
-We now have `Remark` s for `Person` s, but they will be gone when we exit the application. Let's modify link:{repoURL}/src/main/java/seedu/address/storage/XmlAdaptedPerson.java[`XmlAdaptedPerson`] to include a `Remark` field so that it will be saved.
-
-**Main:**
-
-. Add a new Xml field for `Remark`.
-
-**Tests:**
-
-. Fix `invalidAndValidPersonAddressBook.xml`, `typicalPersonsAddressBook.xml`, `validAddressBook.xml` etc., such that the XML tests will not fail due to a missing `<remark>` element.
-
-===== [Step 6b] Test: Add withRemark() for `PersonBuilder`
-Since `Person` can now have a `Remark`, we should add a helper method to link:{repoURL}/src/test/java/seedu/address/testutil/PersonBuilder.java[`PersonBuilder`], so that users are able to create remarks when building a link:{repoURL}/src/main/java/seedu/address/model/person/Person.java[`Person`].
-
-**Tests:**
-
-. Add a new method `withRemark()` for link:{repoURL}/src/test/java/seedu/address/testutil/PersonBuilder.java[`PersonBuilder`]. This method will create a new `Remark` for the person that it is currently building.
-. Try and use the method on any sample `Person` in link:{repoURL}/src/test/java/seedu/address/testutil/TypicalPersons.java[`TypicalPersons`].
-
-===== [Step 7] Ui: Connect `Remark` field to `PersonCard`
-Our remark label in link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`] is still a placeholder. Let's bring it to life by binding it with the actual `remark` field.
-
-**Main:**
-
-. Modify link:{repoURL}/src/main/java/seedu/address/ui/PersonCard.java[`PersonCard`]'s constructor to bind the `Remark` field to the `Person` 's remark.
-
-**Tests:**
-
-. Modify link:{repoURL}/src/test/java/seedu/address/ui/testutil/GuiTestAssert.java[`GuiTestAssert#assertCardDisplaysPerson(...)`] so that it will compare the now-functioning remark label.
-
-===== [Step 8] Logic: Implement `RemarkCommand#execute()` logic
-We now have everything set up... but we still can't modify the remarks. Let's finish it up by adding in actual logic for our `remark` command.
-
-**Main:**
-
-. Replace the logic in `RemarkCommand#execute()` (that currently just throws an `Exception`), with the actual logic to modify the remarks of a person.
-
-**Tests:**
-
-. Update `RemarkCommandTest` to test that the `execute()` logic works.
-
-==== Full Solution
-
-See this https://github.com/se-edu/addressbook-level4/pull/599[PR] for the step-by-step solution.
 
 [appendix]
 == Product Scope
 
 *Target user profile*:
+.We target:
+. Small to medium scale interest groups in NUS
+. Groups who find organising a common / least conflicted dtime slot to meet a hassle
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
-* can type fast
-* prefers typing over mouse input
-* is reasonably comfortable using CLI apps
-
-*Value proposition*: manage contacts faster than a typical mouse/GUI driven app
+*Value proposition*:
+Automate the process of organising meetings and finding least conflicted time slot for the group in a way faster than manually checking everyone's timetables.
 
 [appendix]
 == User Stories
@@ -842,9 +474,81 @@ Priorities: High (must have) - `* * \*`, Medium (nice to have) - `* \*`, Low (un
 
 |`* * *` |user |find a person by name |locate details of persons without having to go through the entire list
 
-|`* *` |user |hide <<private-contact-detail,private contact details>> by default |minimize chance of someone else seeing them by accident
+|`* *` |user |hide timetable by default |minimize chance of someone else seeing them by accident
 
-|`*` |user with many persons in the address book |sort persons by name |locate a person easily
+|`* * *` |user  |Add my new Timetable  |I can plan for the week
+
+|`* * *` |user  |Delete a timetable |Remove the timetable i no longer need
+
+|`* * *` |user  |View my timetable  |I can see when i am free for the week
+
+|`* * *` |user  |Have <<standardised,standardised>> Date,time,time zone format  |I am clear on the meeting time and dates
+
+|`* * *` |user  |view timetable in <<horizontal_mode,horizontal mode>> or <<vertical_mode,vertical mode>> |I can view my timetable faster for the mode i am familiar with
+
+|`* *` |user  |Upload my timetable
+In excel format
+ |I do not need to key in manually my timetable
+
+|`* * *` |Organiser of the group  |See if there are any available time slots which are not in conflict with everyone’s time table.
+ |I can plan or attend an activity accordingly
+
+
+|`* *` |Organiser of the group  |See the time slot with the least number of conflicts if there are no time slots available for everyone
+ |I can ensure maximum participation if it is not possible for everyone to make it
+
+ |`* *` |Organiser of the group  |See all of the time slots listed in order in terms of number of conflicts.
+ |I can pick the best slots if maximum participation isn’t required.
+
+ |`* *` |Organiser of the group  |See the time slot with the least number of conflicts given a set of specific time slots.
+ |I can ensure maximum participation with the additional constraint
+
+ |`* *` |user  |See the people whose time table have conflicts with the time slot with the least number of conflicts.
+ |I can adjust my time table if I am one of the people and increase participation
+
+|`* * *` |Organiser of the group  |Choose to create either open or closed group
+ | Dont need to reject people because they know if they can join the group
+
+ |`* *` |Organiser of the group  |Book venues based on decide free time slot
+ |I can have a venue to hold my event
+
+  |`* *` |member of a group  |Sync with the real-time (almost) information to get updated time and venues
+ |I am always updated with the latest timetable of everyone in the group
+
+  |`* *` |member of a group  |Notify organiser or other members of change of timetable/clashes
+ |To update the timings of future possible meetings/RSVP
+
+   |`* *` |member of a group  |Have a list of groups i am currently in
+ |I can remember what groups i am in
+
+  |`* *` |Organiser of the group  |Be notified of each members’ changes in available time slot
+ |I can decide how and what to plan for the upcoming meeting
+
+  |`* * *` |Organiser of the group  |Be able to ‘close’ or finalise the planning
+ |So that no changes can be made thereafter
+
+ |`* * *` |user  |I want to be able to retrieve my password back
+ |I will still be able to log in, even in urgent cases
+
+
+ |`* *` |user  |I want to be able to export the information from the server
+ |So that I can print, convert or edit in another file
+
+ |`* * *` |Organiser of the group  |I want to dismiss members who are no longer affiliated to the group
+ |So that the time slot available is up to date, to ensure maximum participation
+
+  |`* *` |user  |I want to easily change my password
+ |To keep my account details secure
+
+   |`* *` |user  |I want to view my meeting on all my devices
+ |I have a back up in the event I lost access to one of my devices
+
+  |`* *` |user  |The system to be password protected
+ |My information will not be shared with everyone
+
+ |`* *` |Organiser of the group  |I want to send an invite link
+ |So that I can easily coordinate the meeting timing with my group members
+
 |=======================================================================
 
 _{More to be added}_
@@ -852,31 +556,483 @@ _{More to be added}_
 [appendix]
 == Use Cases
 
-(For all use cases below, the *System* is the `AddressBook` and the *Actor* is the `user`, unless specified otherwise)
+(For all use cases below, the *System* is the `NUS Hangs` and the *Actor* is the `user`, unless specified otherwise)
 
 [discrete]
-=== Use case: Delete person
+=== Use case: help
 
 *MSS*
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
-+
-Use case ends.
+1. User logins to System and prompts to add a timetable
+2.	System shows the help menu
+
+
+[discrete]
+=== Use case: add friend
+*MSS*
+
+1.	User logins to System and requests help to add a friend
+2.	System shows him how to add a friend
+3.	User input add command accordingly
+4.	System displays friend is added successfully
 
 *Extensions*
 
+* 3a. User enters invalid input.
++
 [none]
-* 2a. The list is empty.
+** 3a1.System shows an error message.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: Find friend by Name
+*MSS*
+
+1.	User logins to System and requests help to find a friend
+2.	System shows how to find a friend
+3.	User inputs command accordingly
+4.	System shows friend details
+
+
+*Extensions*
+
+* 3a. User enters invalid input.
++
+[none]
+** 3a1.System shows an error message.
++
+Use case resumes at step 2.
++
+[none]
+* 4a.System cannot find friend.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: List all friends
+
+*MSS*
+
+1.	User logins to System and requests help to list all friends
+2.	System shows a list of all friends
+
+[discrete]
+=== Use case: Delete a friend
+*MSS*
+
+1.  User logins to System and requests help to delete a friend
+2.	System shows how to delete a friend
+3.	User enters input accordingly
+4.	System asks user for confirmation.
+5.	User confirms his choice.
+6.	System shows friend is deleted successfully.
+
+
+
+*Extensions*
+
+* 3a. User enters invalid input.
++
+[none]
+** 3a1.System shows an error message.
++
+Use case resumes at step 2.
+* 4a. Friend is not in the System.
++
+[none]
+** 4a1.System shows an error message.
++
+Use case ends.
+* 5a. User does not confirm the deletion of the friend
++
+
+Use case ends.
+
+[discrete]
+=== Use case: Edit a friend
+*MSS*
+
+1.  User logins to System and requests help to edit a friend
+2.	System shows how to edit a friend
+3.	User enters input accordingly
+4.	System asks user for confirmation.
+5.	User confirms his choice.
+6.	System shows friend is edited successfully.
+
+
+
+*Extensions*
+
+* 3a. User enters invalid input.
++
+[none]
+** 3a1.System shows an error message.
++
+Use case resumes at step 2.
+* 4a. Friend is not in the System.
++
+[none]
+** 4a1.System shows an error message.
++
+Use case resumes at step 2.
+* 5a. User does not confirm the editing of the friend
 +
 Use case ends.
 
-* 3a. The given index is invalid.
+[discrete]
+=== Use case: List all groups a friend have
+
+*MSS*
+
+1.	User logins to System and requests help to list all groups a friend have
+2.	System shows a list of all groups a friend have
+
+[discrete]
+=== Use case: add a timetable
+*MSS*
+
+1.	User logins to System and requests help to add a timetable
+2.	System shows how to add a timetable
+3.	User adds inputs accordingly
+4.	System shows his timetable and ask user for confirmation.
+5.	User confirms the addition of his timetable into the System.
+6.	System shows his timetable is added successfully.
+
+
+*Extensions*
+
+* 3a. User enters invalid input.
 +
 [none]
-** 3a1. AddressBook shows an error message.
+** 3a1.System shows an error message.
++
+Use case resumes at step 2.
+* 3b. User adds timetable via a link and there is no internet.
++
+[none]
+** 3b1.System shows there is no internet connection.
++
+Use case resumes at step 2.
+* 4a.User does not confirm the addition of the timetable into the System.
++
+Use case ends
+
+[discrete]
+=== Use case: get a new timetable
+*MSS*
+
+1.	User logins to System and requests help to get a new timetable
+2.	System shows how to get a new timetable
+3.	User enters inputs accordingly
+4.	System shows his timetable and ask user for confirmation.
+5.	User confirms the addition of the new timetable into his folder.
+6.	System shows the new timetable is added successfully.
+
+
+*Extensions*
+
+* 3a. User enters invalid input.
++
+[none]
+** 3a1.System shows an error message.
++
+Use case resumes at step 2.
+* 4a.User does not confirm the addition of the timetable into the System.
++
+Use case ends
+[discrete]
+=== Use case: Find timetable by Name
+*MSS*
+
+1.	User logins to System and requests help to find a timetable
+2.	System shows how to find a timetable
+3.	User inputs accordingly
+4.	System shows timetable details
+
+
+*Extensions*
+
+* 3a. User enters invalid input.
++
+[none]
+** 3a1.System shows an error message.
++
+Use case resumes at step 2.
++
+* 4a. Friend is not in the System.
++
+[none]
+** 4a1.System shows an error message.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: List all timetable
+
+*MSS*
+
+1.	User logins to System and requests help to list all timetable
+2.	System shows a list of all timetable
+
+[discrete]
+=== Use case: Delete a timetable
+*MSS*
+
+1.  User logins to System and requests help to delete a timetable
+2.	System shows how to delete a timetable
+3.	User enters input accordingly
+4.	System asks user for confirmation.
+5.	User confirms his choice.
+6.	System shows the timetable is deleted successfully.
+
+
+
+*Extensions*
+
+* 3a. User enters invalid input.
++
+[none]
+** 3a1.System shows an error message.
++
+Use case resumes at step 2.
+* 4a. Timetable is not in the System.
++
+[none]
+** 4a1.System shows an error message.
++
+Use case ends.
+* 5a. User does not confirm the deletion of the timetable
++
+
+Use case ends.
+
+[discrete]
+=== Use case: check available time slot of the group
+
+*MSS*
+
+1.	User logins to System and requests help to see available time slots
+2.  System shows how to find available time slot of the group
+3.	User enters inputs accordingly
+4.	System asks if user wants to see the time slots listed in descending order in terms of the number of conflict if there are no available time slots.
+5.	System shows time slots listed in descending order in terms of the number of conflict
+
+*Extensions*
+
+* 3a. User enters invalid input.
++
+[none]
+** 3a1.System shows an error message.
++
+Use case resumes at step 2.
+* 4a. Group or Person or both is not in the System.
++
+[none]
+** 4a1.System shows an error message.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case:create a group
+*MSS*
+
+1.	User logins to System and requests help to create a group
+2.	System shows how to create a group
+3.	User adds inputs accordingly
+4.	System shows group is created successfully
+
+*Extensions*
+
+* 3a. User enters invalid input.
++
+[none]
+** 3a1.System shows an error message.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: Find group by Name
+*MSS*
+
+1.	User logins to System and requests help to find a group
+2.	System shows how to find a group
+3.	User inputs accordingly
+4.	System shows group details
+
+
+*Extensions*
+
+* 3a. User enters invalid input.
++
+[none]
+** 3a1.System shows an error message.
++
+Use case resumes at step 2.
++
+[none]
+* 4a.System cannot find group.
++
+Use case resumes at step 2.
+
+[discrete]
+=== Use case: List all groups
+
+*MSS*
+
+1.	User logins to System and requests help to list all groups
+2.	System shows a list of all groups
+
+[discrete]
+=== Use case: Delete a group
+*MSS*
+
+1.  User logins to System and requests help to delete a group
+2.	System shows how to delete a group
+3.	User enters input accordingly
+4.	System asks user for confirmation.
+5.	User confirms his choice.
+6.	System shows group is deleted successfully.
+
+
+
+*Extensions*
+
+* 3a. User enters invalid input.
++
+[none]
+** 3a1.System shows an error message.
++
+Use case resumes at step 2.
+* 4a. Group is not in the System.
++
+[none]
+** 4a1.System shows an error message.
++
+Use case ends.
+* 5a. User does not confirm the deletion of the group
++
+
+Use case ends.
+
+[discrete]
+=== Use case: Edit a group
+*MSS*
+
+1.  User logins to System and requests help to edit a group
+2.	System shows how to edit a group
+3.	User enters input accordingly
+4.	System asks user for confirmation.
+5.	User confirms his choice.
+6.	System shows group is edited successfully.
+
+
+
+*Extensions*
+
+* 3a. User enters invalid input.
++
+[none]
+** 3a1.System shows an error message.
++
+Use case resumes at step 2.
+* 4a. Group is not in the System.
++
+[none]
+** 4a1.System shows an error message.
++
+Use case resumes at step 2.
+* 5a. User does not confirm the editing of the group
++
+Use case ends.
+
+[discrete]
+=== Use case: List all members a group have
+
+*MSS*
+
+1.	User logins to System and requests help to list all members a group have
+2.	System shows a list of all members a group have
+
+[discrete]
+=== Use case: add a member to a group
+*MSS*
+
+1.  User logins to System and requests help to add a member to a group
+2.	System shows how to add a member to a group
+3.	User enters input accordingly
+4.	System shows a member is added to a group successfully.
+
+
+
+*Extensions*
+
+* 3a. User enters invalid input.
++
+[none]
+** 3a1.System shows an error message.
++
+Use case resumes at step 2.
+* 3b. Group or member is not in the System.
++
+[none]
+** 3b1.System shows an error message.
++
+Use case ends.
+* 3c.Group is closed
++
+Use case ends.
+
+[discrete]
+=== Use case: create an account
+*MSS*
+
+1.	New user requests help to create an account
+2.	System shows a prompt on account creation
+3.	User enters username and password as prompted
+4.	Login successful, user now have access to enabled features
+
+
+
+
+*Extensions*
+
+* 3a. User tries to use a duplicate username (username already in use)
++
+[none]
+** 3a1.System prompts user to choose a different username
++
+Use case resumes at step 3.
+* 4a. User entered wrong login details
++
+[none]
+** 4a1.System shows an error message.
++
+** 4a2. User attempts to login again
++
+Use case resumes at step 4.
+
+[discrete]
+=== Use case: reset password
+*MSS*
+
+1.	User enters command to reset password
+2.	System prompts user to answer the security question
+3.	After successfully answering the security question, system prompts user to choose a new password
+
+
+*Extensions*
+
+* 1a. User enters username that does not exist in the system
++
+[none]
+** 1a1.System prompts user to enter username again
++
+Use case resumes at step 1.
+* 2a. User entered wrong security answer
++
+[none]
+** 2a1.System prompts user to enter security answer again
 +
 Use case resumes at step 2.
 
@@ -887,7 +1043,7 @@ _{More to be added}_
 
 .  Should work on any <<mainstream-os,mainstream OS>> as long as it has Java `9` or higher installed.
 .  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
-.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+.  	Time zone,Time,Date format is standardised and is shown before user adds timetable.
 
 _{More to be added}_
 
@@ -897,25 +1053,12 @@ _{More to be added}_
 [[mainstream-os]] Mainstream OS::
 Windows, Linux, Unix, OS-X
 
-[[private-contact-detail]] Private contact detail::
-A contact detail that is not meant to be shared with others
+[[vertical_mode]] vertical mode::
+Vertical mode means the rows are days of the week and the columns are time
 
-[appendix]
-== Product Survey
+[[horizontal_mode]] horizontal mode::
+Horizontal mode means the rows are time and the columns are days of the week
 
-*Product Name*
-
-Author: ...
-
-Pros:
-
-* ...
-* ...
-
-Cons:
-
-* ...
-* ...
 
 [appendix]
 == Instructions for Manual Testing
@@ -946,19 +1089,12 @@ _{ more test cases ... }_
 . Deleting a person while all persons are listed
 
 .. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
-.. Test case: `delete 1` +
+.. Test case: `delete_friend 1` +
    Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
-.. Test case: `delete 0` +
+.. Test case: `delete_friend 0` +
    Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
 .. Other incorrect delete commands to try: `delete`, `delete x` (where x is larger than the list size) _{give more}_ +
    Expected: Similar to previous.
 
 _{ more test cases ... }_
 
-=== Saving data
-
-. Dealing with missing/corrupted data files
-
-.. _{explain how to simulate a missing/corrupted file and the expected behavior}_
-
-_{ more test cases ... }_
