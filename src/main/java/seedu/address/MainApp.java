@@ -25,6 +25,8 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.addressbook.AddressBook;
 import seedu.address.model.addressbook.ReadOnlyAddressBook;
+import seedu.address.model.expenses.ExpensesList;
+import seedu.address.model.expenses.ReadOnlyExpensesList;
 import seedu.address.model.schedule.ReadOnlyScheduleList;
 import seedu.address.model.schedule.ScheduleList;
 import seedu.address.model.util.SampleDataUtil;
@@ -32,6 +34,8 @@ import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
 import seedu.address.storage.addressbook.AddressBookStorage;
 import seedu.address.storage.addressbook.XmlAddressBookStorage;
+import seedu.address.storage.expenses.ExpensesListStorage;
+import seedu.address.storage.expenses.XmlExpensesListStorage;
 import seedu.address.storage.schedule.ScheduleListStorage;
 import seedu.address.storage.schedule.XmlScheduleListStorage;
 import seedu.address.storage.userpref.JsonUserPrefsStorage;
@@ -70,8 +74,9 @@ public class MainApp extends Application {
         //------------------------------------------------------------------
         AddressBookStorage addressBookStorage = new XmlAddressBookStorage(userPrefs.getAddressBookFilePath());
         ScheduleListStorage scheduleListStorage = new XmlScheduleListStorage(userPrefs.getScheduleListFilePath());
+        ExpensesListStorage expensesListStorage = new XmlExpensesListStorage(userPrefs.getExpensesListFilePath());
 
-        storage = new StorageManager(addressBookStorage, scheduleListStorage, userPrefsStorage);
+        storage = new StorageManager(addressBookStorage, expensesListStorage, scheduleListStorage, userPrefsStorage);
 
         //------------------------------------------------------------------
         initLogging(config);
@@ -93,8 +98,10 @@ public class MainApp extends Application {
     private Model initModelManager(Storage storage, UserPrefs userPrefs) {
         Optional<ReadOnlyAddressBook> addressBookOptional;
         ReadOnlyAddressBook initialData;
+        ReadOnlyExpensesList initialExpenses;
         ReadOnlyScheduleList initialSchedule;
 
+        initialExpenses = new ExpensesList();
         initialSchedule = new ScheduleList();
 
         try {
@@ -112,7 +119,7 @@ public class MainApp extends Application {
             initialData = new AddressBook();
         }
 
-        return new ModelManager(initialData, initialSchedule, userPrefs);
+        return new ModelManager(initialData, initialExpenses, initialSchedule, userPrefs);
     }
 
     private void initLogging(Config config) {
