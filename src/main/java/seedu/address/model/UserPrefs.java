@@ -47,7 +47,8 @@ public class UserPrefs {
     public void setAddressBookFilePath(Path addressBookFilePath) {
         this.addressBookFilePath = addressBookFilePath;
     }
-    public void setExpensesListFilePath(Path expensesListFilePath) { this.expensesListFilePath = expensesListFilePath; }
+    public void setExpensesListFilePath(Path expensesListFilePath) {
+        this.expensesListFilePath = expensesListFilePath; }
     public void setScheduleListFilePath(Path scheduleListFilePath) {
         this.scheduleListFilePath = scheduleListFilePath;
     }

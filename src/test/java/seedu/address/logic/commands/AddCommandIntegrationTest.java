@@ -26,14 +26,16 @@ public class AddCommandIntegrationTest {
 
     @Before
     public void setUp() {
-        model = new ModelManager(getTypicalAddressBook(),getTypicalExpensesList(), getTypicalScheduleList(), new UserPrefs());
+        model = new ModelManager(getTypicalAddressBook(), getTypicalExpensesList(), getTypicalScheduleList(),
+                new UserPrefs());
     }
 
     @Test
     public void execute_newPerson_success() {
         Person validPerson = new PersonBuilder().build();
 
-        Model expectedModel = new ModelManager(model.getAddressBook(),model.getExpensesList(), model.getScheduleList(), new UserPrefs());
+        Model expectedModel = new ModelManager(model.getAddressBook(), model.getExpensesList(), model.getScheduleList(),
+                new UserPrefs());
         expectedModel.addPerson(validPerson);
         expectedModel.commitAddressBook();
 

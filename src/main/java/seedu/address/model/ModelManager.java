@@ -104,7 +104,8 @@ public class ModelManager extends ComponentManager implements Model {
         raise(new AddressBookChangedEvent(versionedAddressBook));
     }
 
-    private void indicateExpensesListChanged() { raise(new ExpensesListChangedEvent(versionedExpensesList)); }
+    private void indicateExpensesListChanged() {
+        raise(new ExpensesListChangedEvent(versionedExpensesList)); }
 
     private void indicateScheduleListChanged() {
         raise(new ScheduleListChangedEvent(versionedScheduleList));

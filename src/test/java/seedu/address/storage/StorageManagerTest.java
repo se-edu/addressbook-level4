@@ -22,7 +22,6 @@ import seedu.address.model.addressbook.ReadOnlyAddressBook;
 import seedu.address.model.expenses.ReadOnlyExpensesList;
 import seedu.address.model.schedule.ReadOnlyScheduleList;
 import seedu.address.storage.addressbook.XmlAddressBookStorage;
-import seedu.address.storage.expenses.XmlExpensesFileStorage;
 import seedu.address.storage.expenses.XmlExpensesListStorage;
 import seedu.address.storage.schedule.XmlScheduleListStorage;
 import seedu.address.storage.userpref.JsonUserPrefsStorage;
@@ -43,7 +42,8 @@ public class StorageManagerTest {
         XmlExpensesListStorage expensesListStorage = new XmlExpensesListStorage(getTempFilePath("el"));
         XmlScheduleListStorage scheduleListStorage = new XmlScheduleListStorage(getTempFilePath("ab"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
-        storageManager = new StorageManager(addressBookStorage, expensesListStorage, scheduleListStorage, userPrefsStorage);
+        storageManager = new StorageManager(addressBookStorage, expensesListStorage, scheduleListStorage,
+                userPrefsStorage);
     }
 
     private Path getTempFilePath(String fileName) {

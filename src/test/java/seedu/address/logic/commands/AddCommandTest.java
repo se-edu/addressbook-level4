@@ -19,8 +19,8 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.addressbook.AddressBook;
 import seedu.address.model.addressbook.ReadOnlyAddressBook;
-import seedu.address.model.expenses.ReadOnlyExpensesList;
 import seedu.address.model.expenses.Expenses;
+import seedu.address.model.expenses.ReadOnlyExpensesList;
 import seedu.address.model.person.Person;
 import seedu.address.model.schedule.ReadOnlyScheduleList;
 import seedu.address.model.schedule.Schedule;
@@ -94,7 +94,8 @@ public class AddCommandTest {
     private class ModelStub implements Model {
 
         @Override
-        public void addExpenses(Expenses expenses) { throw new AssertionError("This method should not be called."); }
+        public void addExpenses(Expenses expenses) {
+            throw new AssertionError("This method should not be called."); }
 
         @Override
         public void addPerson(Person person) {
@@ -125,7 +126,8 @@ public class AddCommandTest {
 
         //------------------------------------------------
         @Override
-        public ReadOnlyExpensesList getExpensesList() { throw new AssertionError("This method should not be called."); }
+        public ReadOnlyExpensesList getExpensesList() {
+            throw new AssertionError("This method should not be called."); }
 
         @Override
         public ReadOnlyAddressBook getAddressBook() {
@@ -139,7 +141,8 @@ public class AddCommandTest {
 
         //------------------------------------------------
         @Override
-        public boolean hasExpenses(Expenses expenses) { throw new AssertionError("This method should not be called."); }
+        public boolean hasExpenses(Expenses expenses) {
+            throw new AssertionError("This method should not be called."); }
 
         @Override
         public boolean hasPerson(Person person) {
@@ -153,7 +156,8 @@ public class AddCommandTest {
 
         //------------------------------------------------
         @Override
-        public void deleteExpenses(Expenses target) { throw new AssertionError("This method should not be called."); }
+        public void deleteExpenses(Expenses target) {
+            throw new AssertionError("This method should not be called."); }
         @Override
         public void deletePerson(Person target) {
             throw new AssertionError("This method should not be called.");
@@ -256,7 +260,8 @@ public class AddCommandTest {
         }
 
         @Override
-        public void commitExpensesList() { throw new AssertionError("This method should not be called."); }
+        public void commitExpensesList() {
+            throw new AssertionError("This method should not be called."); }
 
         @Override
         public void commitScheduleList() {
