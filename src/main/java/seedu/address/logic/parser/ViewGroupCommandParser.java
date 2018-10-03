@@ -1,41 +1,36 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 
 import java.util.stream.Stream;
 
-import seedu.address.logic.commands.AddGroupCommand;
+import seedu.address.logic.commands.ViewGroupCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.group.Group;
 import seedu.address.model.person.Name;
 
 /**
- * Parses input arguments and creates a new AddGroupCommand object
+ * Parses input arguments and creates a new ViewGroupCommand object
  */
-public class AddGroupCommandParser implements Parser<AddGroupCommand> {
+public class ViewGroupCommandParser implements Parser<ViewGroupCommand> {
 
     /**
-     * Parses the given {@code String} of arguments in the context of the AddGroupCommand
-     * and returns an AddGroupCommand object for execution.
+     * Parses the given {@code String} of arguments in the context of the ViewGroupCommand
+     * and returns an ViewGroupCommand object for execution.
      * @throws ParseException if the user input does not conform the expected format
      */
-    public AddGroupCommand parse(String args) throws ParseException {
+    public ViewGroupCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_NAME, PREFIX_DESCRIPTION);
+                ArgumentTokenizer.tokenize(args, PREFIX_NAME);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_DESCRIPTION)
+        if (!arePrefixesPresent(argMultimap, PREFIX_NAME)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddGroupCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ViewGroupCommand.MESSAGE_USAGE));
         }
 
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
-        String description = argMultimap.getValue(PREFIX_DESCRIPTION).get();
 
-        Group group = new Group(name, description);
-
-        return new AddGroupCommand(group);
+        return new ViewGroupCommand(name);
     }
 
     /**
@@ -47,4 +42,3 @@ public class AddGroupCommandParser implements Parser<AddGroupCommand> {
     }
 
 }
-
