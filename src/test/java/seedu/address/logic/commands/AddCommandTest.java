@@ -16,10 +16,12 @@ import org.junit.rules.ExpectedException;
 import javafx.collections.ObservableList;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
-import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.addressbook.AddressBook;
+import seedu.address.model.addressbook.ReadOnlyAddressBook;
 import seedu.address.model.person.Person;
+import seedu.address.model.schedule.ReadOnlyScheduleList;
+import seedu.address.model.schedule.Schedule;
 import seedu.address.testutil.PersonBuilder;
 
 public class AddCommandTest {
@@ -94,64 +96,146 @@ public class AddCommandTest {
         }
 
         @Override
-        public void resetData(ReadOnlyAddressBook newData) {
+        public void addSchedule(Schedule schedule) {
             throw new AssertionError("This method should not be called.");
         }
 
+
+        //------------------------------------------------
+        @Override
+        public void resetAddressBookData(ReadOnlyAddressBook newData) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void resetScheduleListData(ReadOnlyScheduleList newData) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        //------------------------------------------------
         @Override
         public ReadOnlyAddressBook getAddressBook() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
+        public ReadOnlyScheduleList getScheduleList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        //------------------------------------------------
+        @Override
         public boolean hasPerson(Person person) {
             throw new AssertionError("This method should not be called.");
         }
 
+        @Override
+        public boolean hasSchedule(Schedule schedule) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        //------------------------------------------------
         @Override
         public void deletePerson(Person target) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
+        public void deleteSchedule(Schedule target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+
+        //------------------------------------------------
+        @Override
         public void updatePerson(Person target, Person editedPerson) {
             throw new AssertionError("This method should not be called.");
         }
 
+        @Override
+        public void updateSchedule(Schedule target, Schedule editedSchedule) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+
+        //------------------------------------------------
         @Override
         public ObservableList<Person> getFilteredPersonList() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
+        public ObservableList<Schedule> getFilteredScheduleList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        //------------------------------------------------
+        @Override
         public void updateFilteredPersonList(Predicate<Person> predicate) {
             throw new AssertionError("This method should not be called.");
         }
 
+        @Override
+        public void updateFilteredScheduleList(Predicate<Schedule> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        //------------------------------------------------
         @Override
         public boolean canUndoAddressBook() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
+        public boolean canUndoScheduleList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        //------------------------------------------------
+        @Override
         public boolean canRedoAddressBook() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
+        public boolean canRedoScheduleList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        //------------------------------------------------
+        @Override
         public void undoAddressBook() {
             throw new AssertionError("This method should not be called.");
         }
 
+
+        @Override
+        public void undoScheduleList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        //------------------------------------------------
         @Override
         public void redoAddressBook() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
+        public void redoScheduleList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        //------------------------------------------------
+        @Override
         public void commitAddressBook() {
             throw new AssertionError("This method should not be called.");
         }
+
+        @Override
+        public void commitScheduleList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
     }
 
     /**

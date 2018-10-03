@@ -12,7 +12,15 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.commons.events.model.ScheduleListChangedEvent;
+import seedu.address.model.addressbook.AddressBook;
+import seedu.address.model.addressbook.ReadOnlyAddressBook;
+import seedu.address.model.addressbook.VersionedAddressBook;
 import seedu.address.model.person.Person;
+import seedu.address.model.schedule.ReadOnlyScheduleList;
+import seedu.address.model.schedule.Schedule;
+import seedu.address.model.schedule.ScheduleList;
+import seedu.address.model.schedule.VersionedScheduleList;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -21,41 +29,66 @@ public class ModelManager extends ComponentManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
     private final VersionedAddressBook versionedAddressBook;
+    private final VersionedScheduleList versionedScheduleList;
     private final FilteredList<Person> filteredPersons;
+    private final FilteredList<Schedule> filteredSchedule;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, UserPrefs userPrefs) {
+    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyScheduleList scheduleList, UserPrefs userPrefs) {
         super();
         requireAllNonNull(addressBook, userPrefs);
 
         logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
 
         versionedAddressBook = new VersionedAddressBook(addressBook);
+        versionedScheduleList = new VersionedScheduleList(scheduleList);
         filteredPersons = new FilteredList<>(versionedAddressBook.getPersonList());
+        filteredSchedule = new FilteredList<>(versionedScheduleList.getScheduleList());
     }
 
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new AddressBook(), new ScheduleList(), new UserPrefs());
     }
 
+    //-----------------------------------------------------------------------------
     @Override
-    public void resetData(ReadOnlyAddressBook newData) {
+    public void resetAddressBookData(ReadOnlyAddressBook newData) {
         versionedAddressBook.resetData(newData);
         indicateAddressBookChanged();
     }
 
     @Override
+    public void resetScheduleListData(ReadOnlyScheduleList newData) {
+        versionedScheduleList.resetData(newData);
+        indicateAddressBookChanged();
+    }
+
+    //-----------------------------------------------------------------------------
+    @Override
     public ReadOnlyAddressBook getAddressBook() {
         return versionedAddressBook;
     }
+
+    @Override
+    public ReadOnlyScheduleList getScheduleList() {
+        return versionedScheduleList;
+    }
+
+    //-----------------------------------------------------------------------------
 
     /** Raises an event to indicate the model has changed */
     private void indicateAddressBookChanged() {
         raise(new AddressBookChangedEvent(versionedAddressBook));
     }
 
+    private void indicateScheduleListChanged() {
+        raise(new ScheduleListChangedEvent(versionedScheduleList));
+    }
+
+
+    //-----------------------------------------------------------------------------
     @Override
     public boolean hasPerson(Person person) {
         requireNonNull(person);
@@ -63,11 +96,25 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public boolean hasSchedule(Schedule target) {
+        requireNonNull(target);
+        return versionedScheduleList.hasSchedule(target);
+    }
+
+    //-----------------------------------------------------------------------------
+    @Override
     public void deletePerson(Person target) {
         versionedAddressBook.removePerson(target);
         indicateAddressBookChanged();
     }
 
+    @Override
+    public void deleteSchedule(Schedule target) {
+        versionedScheduleList.removePerson(target);
+        indicateScheduleListChanged();
+    }
+
+    //-----------------------------------------------------------------------------
     @Override
     public void addPerson(Person person) {
         versionedAddressBook.addPerson(person);
@@ -76,11 +123,27 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public void addSchedule(Schedule schedule) {
+        versionedScheduleList.addSchedule(schedule);
+        updateFilteredScheduleList(PREDICATE_SHOW_ALL_SCHEDULES);
+        indicateScheduleListChanged();
+    }
+
+    //-----------------------------------------------------------------------------
+    @Override
     public void updatePerson(Person target, Person editedPerson) {
         requireAllNonNull(target, editedPerson);
 
         versionedAddressBook.updatePerson(target, editedPerson);
         indicateAddressBookChanged();
+    }
+
+    @Override
+    public void updateSchedule(Schedule target, Schedule editedSchedule) {
+        requireAllNonNull(target, editedSchedule);
+
+        versionedScheduleList.updateSchedule(target, editedSchedule);
+        indicateScheduleListChanged();
     }
 
     //=========== Filtered Person List Accessors =============================================================
@@ -95,12 +158,24 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public ObservableList<Schedule> getFilteredScheduleList() {
+        return FXCollections.unmodifiableObservableList(filteredSchedule);
+    }
+
+    //=========== Filtered Person List Accessors =============================================================
+    @Override
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
     }
 
-    //=========== Undo/Redo =================================================================================
+    @Override
+    public void updateFilteredScheduleList(Predicate<Schedule> predicate) {
+        requireNonNull(predicate);
+        filteredSchedule.setPredicate(predicate);
+    }
+
+    //=========== Undo =================================================================================
 
     @Override
     public boolean canUndoAddressBook() {
@@ -108,9 +183,22 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public boolean canUndoScheduleList() {
+        return versionedScheduleList.canUndo();
+    }
+
+    //=========== Redo =================================================================================
+    @Override
     public boolean canRedoAddressBook() {
         return versionedAddressBook.canRedo();
     }
+
+    @Override
+    public boolean canRedoScheduleList() {
+        return versionedScheduleList.canRedo();
+    }
+
+    //-----------------------------------------------------------------------------
 
     @Override
     public void undoAddressBook() {
@@ -119,15 +207,35 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public void undoScheduleList() {
+        versionedScheduleList.undo();
+        indicateScheduleListChanged();
+    }
+
+    //-----------------------------------------------------------------------------
+    @Override
     public void redoAddressBook() {
         versionedAddressBook.redo();
         indicateAddressBookChanged();
     }
 
     @Override
+    public void redoScheduleList() {
+        versionedScheduleList.redo();
+        indicateScheduleListChanged();
+    }
+
+    //-----------------------------------------------------------------------------
+    @Override
     public void commitAddressBook() {
         versionedAddressBook.commit();
     }
+
+    public void commitScheduleList() {
+        versionedScheduleList.commit();
+    }
+
+    //-----------------------------------------------------------------------------
 
     @Override
     public boolean equals(Object obj) {
