@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static seedu.address.logic.parser.CliSyntax.PREFIX_POST;
+
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -18,13 +19,13 @@ public class AddRecruitmentPostCommand extends Command {
 
 
     //public static final String MESSAGE_SUCCESS = "Recruitment Posts are added";
-    public static final String MESSAGE_Failure = "Recruitment Posts are failed";
+    public static final String MESSAGE_FAILURE = "Recruitment Posts are failed";
 
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
 
-        throw new CommandException(MESSAGE_Failure);
+        throw new CommandException(MESSAGE_FAILURE);
 
     }
 
