@@ -54,8 +54,8 @@ image:appveyor/ci-pending.png[Commit build]
 +
 image:appveyor/ci-log.png[AppVeyor build]
 +
-.  Update the link to the "build type" badge at the top of `README.adoc` to point to the AppVeyor build type of your own repo.
-* To find your build type badge URL, first go to your project settings by clicking on the "Settings" icon:
+.  Update the link to the "build status" badge at the top of `README.adoc` to point to the AppVeyor build status of your own repo.
+* To find your build status badge URL, first go to your project settings by clicking on the "Settings" icon:
 +
 image:appveyor/project-settings-1.png[Click on project settings]
 +
@@ -70,19 +70,19 @@ image:appveyor/project-settings-3.png[Copy the markdown code]
 The markdown code should be in this format:
 +
 ----
-[![Build type](<link to image>)](<link to project>)
+[![Build status](<link to image>)](<link to project>)
 ----
 +
 Convert it to the asciidoc format as follows:
 +
 ----
-<link to project>[image:<link to image>[Build type]]
+<link to project>[image:<link to image>[Build status]]
 ----
 +
 The asciidoc code should look similar to:
 +
 ----
-https://ci.appveyor.com/project/damithc/addressbook-level4[image:https://ci.appveyor.com/api/projects/type/3boko2x2vr5cc3w2?svg=true[Build type]]
+https://ci.appveyor.com/project/damithc/addressbook-level4[image:https://ci.appveyor.com/api/projects/status/3boko2x2vr5cc3w2?svg=true[Build status]]
 ----
 +
 Copy and paste the asciidoc code to your `README.adoc` file.

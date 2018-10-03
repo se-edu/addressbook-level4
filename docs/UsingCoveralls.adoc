@@ -45,7 +45,7 @@ image:coveralls/coverage_report.png[Coverage Report Summary]
 
 == Disabling Coveralls Automatic Comments on Pull Requests
 
-Coveralls automatically comments on the coverage type of the pull requests in GitHub. If it's a hindrance, you can disable it in the settings of your project in Coveralls:
+Coveralls automatically comments on the coverage status of the pull requests in GitHub. If it's a hindrance, you can disable it in the settings of your project in Coveralls:
 
 .  Click `Settings`.
 +
