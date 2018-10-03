@@ -19,7 +19,7 @@ import org.junit.Test;
 
 import guitests.guihandles.StatusBarFooterHandle;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
-import seedu.address.model.AddressBook;
+import seedu.address.model.addressbook.AddressBook;
 
 public class StatusBarFooterTest extends GuiUnitTest {
 

@@ -5,15 +5,20 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.commons.events.model.ScheduleListChangedEvent;
 import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.commons.exceptions.DataConversionException;
-import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.addressbook.ReadOnlyAddressBook;
+import seedu.address.model.schedule.ReadOnlyScheduleList;
+import seedu.address.storage.addressbook.AddressBookStorage;
+import seedu.address.storage.schedule.ScheduleListStorage;
+import seedu.address.storage.userpref.UserPrefsStorage;
 
 /**
  * API of the Storage component
  */
-public interface Storage extends AddressBookStorage, UserPrefsStorage {
+public interface Storage extends AddressBookStorage, UserPrefsStorage, ScheduleListStorage {
 
     @Override
     Optional<UserPrefs> readUserPrefs() throws DataConversionException, IOException;
@@ -25,10 +30,19 @@ public interface Storage extends AddressBookStorage, UserPrefsStorage {
     Path getAddressBookFilePath();
 
     @Override
+    Path getScheduleListFilePath();
+
+    @Override
     Optional<ReadOnlyAddressBook> readAddressBook() throws DataConversionException, IOException;
 
     @Override
+    Optional<ReadOnlyScheduleList> readScheduleList() throws DataConversionException, IOException;
+
+    @Override
     void saveAddressBook(ReadOnlyAddressBook addressBook) throws IOException;
+
+    @Override
+    void saveScheduleList(ReadOnlyScheduleList scheduleList) throws IOException;
 
     /**
      * Saves the current version of the Address Book to the hard disk.
@@ -36,4 +50,6 @@ public interface Storage extends AddressBookStorage, UserPrefsStorage {
      * Raises {@link DataSavingExceptionEvent} if there was an error during saving.
      */
     void handleAddressBookChangedEvent(AddressBookChangedEvent abce);
+
+    void handleScheduleListChangedEvent(ScheduleListChangedEvent abce);
 }
