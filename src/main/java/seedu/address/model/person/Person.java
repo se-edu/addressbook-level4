@@ -8,8 +8,8 @@ import java.util.Objects;
 import java.util.Set;
 
 import seedu.address.model.Entity;
+import seedu.address.model.person.timetable.Timetable;
 import seedu.address.model.tag.Tag;
-import seedu.address.model.timetable.Timetable;
 
 /**
  * Represents a Person in the address book.
@@ -47,12 +47,13 @@ public class Person extends Entity {
      * @param address
      * @param timetable
      */
-    public Person(Name name, Phone phone, Email email, Address address,
+    public Person(Name name, Phone phone, Email email, Address address,Set<Tag> tags,
         Timetable timetable) {
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.address = address;
+        this.tags.addAll(tags);
         this.timetable = timetable;
     }
 

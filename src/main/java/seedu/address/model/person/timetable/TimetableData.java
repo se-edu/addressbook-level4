@@ -20,21 +20,22 @@ public class TimetableData {
      * @param format
      * @param locationOfFile
      */
-    public TimetableData(String format,String locationOfFile) {
-        String [][]aTimetable = generateNewHorizontalTimetable();
-        if (format.equals("vertical")){
-            aTimetable=readVerticalTimetableData(locationOfFile);
+    public TimetableData(String format, String locationOfFile) {
+        String[][] aTimetable = generateNewHorizontalTimetable();
+        if (format.equals("vertical")) {
+            aTimetable = readVerticalTimetableData(locationOfFile);
         }
-        this.timetable=aTimetable;
+        else if (format.equals("horizontal")){
+            aTimetable= readHorizontalTimetableData(locationOfFile);
+        }
+        this.timetable = aTimetable;
     }
 
 
-
-
     public TimetableData(String format) {
-        String [][]newTimetable = generateNewHorizontalTimetable();
-        if (format.equals("vertical")){
-            newTimetable =generateNewVerticalTimetable();
+        String[][] newTimetable = generateNewHorizontalTimetable();
+        if (format.equals("vertical")) {
+            newTimetable = generateNewVerticalTimetable();
         }
         this.timetable = newTimetable;
     }
@@ -58,9 +59,11 @@ public class TimetableData {
     private String[][] readHorizontalTimetableData(String locationOfFile) {
         return generateNewHorizontalTimetable();
     }
+
     private String[][] readVerticalTimetableData(String locationOfFile) {
         return generateNewVerticalTimetable();
     }
+
     /**
      *
      * @return

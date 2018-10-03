@@ -9,7 +9,10 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 
 import java.util.stream.Stream;
 
+import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.AddTimetableCommand;
+import seedu.address.logic.commands.EditCommand;
+import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 import seedu.address.model.person.Name;
@@ -30,27 +33,31 @@ public class AddTimetableCommandParser implements Parser<AddTimetableCommand> {
     public AddTimetableCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
             ArgumentTokenizer
-                .tokenize(args, PREFIX_NAME, PREFIX_FILE_NAME, PREFIX_FILE_LOCATION, PREFIX_MODE);
+                .tokenize(args, PREFIX_MODE, PREFIX_FILE_LOCATION, PREFIX_FILE_NAME, PREFIX_FORMAT);
+        Index index;
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_NAME, PREFIX_MODE, PREFIX_FILE_NAME, PREFIX_FORMAT)
-            || !argMultimap.getPreamble().isEmpty()) {
+        if (!arePrefixesPresent(argMultimap, PREFIX_MODE, PREFIX_FILE_NAME, PREFIX_FORMAT)) {
             throw new ParseException(
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTimetableCommand.MESSAGE_USAGE));
         }
-        Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
+        try {
+            index = ParserUtil.parseIndex(argMultimap.getPreamble());
+        } catch (ParseException pe) {
+            throw new ParseException(
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE), pe);
+        }
+        String mode = ParserUtil.parseMode(argMultimap.getValue(PREFIX_MODE).get());
         String fileName = ParserUtil.parseFilename(argMultimap.getValue(PREFIX_FILE_NAME).get());
-        String locationFrom = ParserUtil
-            .parseLocation(argMultimap.getValue(PREFIX_FILE_LOCATION).get());
         String format = ParserUtil.parseFormat(argMultimap.getValue(PREFIX_FORMAT).get());
-        String mode = ParserUtil.parseMode(argMultimap.getValue(PREFIX_FORMAT).get());
-        Timetable timetable = new Timetable(name,fileName,format);
-        if (mode.equals("existing")) {
-            timetable = new Timetable(name, fileName,locationFrom, format);
+        String locationFrom = ParserUtil.parseLocation(argMultimap.getValue(PREFIX_FORMAT).get());
+        Timetable timetable = new Timetable(fileName, format);
+        if (mode.equals("existing")){
+            timetable = new Timetable(fileName,format,locationFrom);
         }
-        else if (mode.equals("new")){
-            timetable = new Timetable(name,fileName,format);
-        }
-        return new AddTimetableCommand(timetable);
+
+        EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
+        editPersonDescriptor.setTimetable(timetable);
+        return new AddTimetableCommand(index, editPersonDescriptor);
     }
 
 
