@@ -28,11 +28,13 @@ class AddTimetableCommandTest {
             descriptor);
         String expectedMessage = String
             .format(AddTimetableCommand.MESSAGE_ADD_TIMETABLE_SUCCESS, editedPerson);
-        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()), new UserPrefs());
+        Model expectedModel = new ModelManager(new AddressBook(model.getAddressBook()),
+            new UserPrefs());
         expectedModel.updatePerson(model.getFilteredPersonList().get(0), editedPerson);
         expectedModel.commitAddressBook();
 
-        assertCommandSuccess(addTimetableCommand, model, commandHistory, expectedMessage, expectedModel);
+        assertCommandSuccess(addTimetableCommand, model, commandHistory, expectedMessage,
+            expectedModel);
     }
 
 }
