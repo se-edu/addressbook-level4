@@ -18,6 +18,9 @@ public class CliSyntax {
     public static final Prefix PREFIX_BONUS = new Prefix("b/");
     public static final Prefix PREFIX_TAG = new Prefix("t/");
 
+    public static final Prefix PREFIX_EMPLOYEE_EXPENSES_ID = new Prefix("eeid/");
+    public static final Prefix PREFIX_EXPENSES_AMOUNT = new Prefix("ex/");
+
     public static final Prefix PREFIX_SCHEDULE_DATE = new Prefix("d/");
     public static final Prefix PREFIX_SCHEDULE_TYPE = new Prefix("t/");
 
