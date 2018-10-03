@@ -43,7 +43,7 @@ public class TypicalModules {
             .build();
 
     public static final Double MODULES_WITHOUT_NON_AFFECTING_MODULES_CAP = 3.0;
-    
+
     public static final Module SOFTWARE_ENGINEERING = new ModuleBuilder().withCode("CS2103")
             .withYear(3)
             .withSemester(Semester.SEMESTER_ONE)
@@ -64,6 +64,7 @@ public class TypicalModules {
             .withCredit(2)
             .withGrade("A+")
             .build();
+
     /**
      * Prevents instantiation
      */
@@ -102,6 +103,7 @@ public class TypicalModules {
 
     /**
      * A list of modules that affects the cap
+     *
      * @return
      */
     public static List<Module> getModulesWithoutNonGradeAffectingModules() {
@@ -112,6 +114,7 @@ public class TypicalModules {
 
     /**
      * A list of modules that might not affect the cap
+     *
      * @return
      */
     public static List<Module> getModulesWithNonGradeAffectingModules() {
