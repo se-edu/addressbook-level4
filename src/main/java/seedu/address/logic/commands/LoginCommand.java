@@ -35,7 +35,7 @@ public class LoginCommand extends Command {
      * Login
      */
     public LoginCommand(Accounts account) {
-        if (UserAccountStorage.checkPasswordMatch(account.getUsername(), account.getPassword())){
+        if (UserAccountStorage.checkPasswordMatch(account.getUsername(), account.getPassword())) {
             System.out.println(MESSAGE_SUCCESS);
         } else {
             System.out.println(MESSAGE_FAILURE);
