@@ -1,4 +1,4 @@
-package seedu.address.model.timetable;
+package seedu.address.model.person.timetable;
 
 
 /**

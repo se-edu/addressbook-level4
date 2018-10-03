@@ -26,6 +26,7 @@ import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
+import seedu.address.model.timetable.Timetable;
 
 /**
  * Edits the details of an existing person in the address book.
@@ -131,6 +132,7 @@ public class EditCommand extends Command {
         private Phone phone;
         private Email email;
         private Address address;
+        private Timetable timetable;
         private Set<Tag> tags;
 
         public EditPersonDescriptor() {}

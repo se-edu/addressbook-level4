@@ -7,7 +7,8 @@ import java.util.List;
 import javafx.collections.ObservableList;
 import seedu.address.model.group.Group;
 import seedu.address.model.person.Person;
-import seedu.address.model.timetable.Timetable;
+import seedu.address.model.person.timetable.Timetable;
+
 
 /**
  * Wraps all data at the address-book level Duplicates are not allowed (by .isSamePerson

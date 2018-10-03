@@ -5,7 +5,8 @@ import static java.util.Objects.requireNonNull;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.timetable.Timetable;
+import seedu.address.model.person.timetable.Timetable;
+
 
 /**
  * adds timetable to the system

@@ -14,7 +14,8 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.model.group.Group;
 import seedu.address.model.person.Person;
-import seedu.address.model.timetable.Timetable;
+import seedu.address.model.person.timetable.Timetable;
+
 
 /**
  * Represents the in-memory model of the address book data.

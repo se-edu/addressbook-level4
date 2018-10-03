@@ -13,7 +13,8 @@ import seedu.address.logic.commands.AddTimetableCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 import seedu.address.model.person.Name;
-import seedu.address.model.timetable.Timetable;
+import seedu.address.model.person.timetable.Timetable;
+
 
 /**
  * Parses input arguments and creates a new AddCommand object
