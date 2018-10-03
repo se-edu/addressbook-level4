@@ -32,7 +32,6 @@ class AddTimetableCommandTest {
             new UserPrefs());
         expectedModel.updatePerson(model.getFilteredPersonList().get(0), editedPerson);
         expectedModel.commitAddressBook();
-
         assertCommandSuccess(addTimetableCommand, model, commandHistory, expectedMessage,
             expectedModel);
     }
