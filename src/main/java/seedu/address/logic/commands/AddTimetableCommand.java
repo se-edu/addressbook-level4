@@ -31,25 +31,26 @@ import seedu.address.model.tag.Tag;
 public class AddTimetableCommand extends Command {
 
     public static final String COMMAND_WORD = "add_timetable";
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": adds timetable to the person identified "
-        + "by the index number used in the displayed person list. "
-        + "there are 2 modes new or existing, new requires just format."
-        + "Existing requires filename and file location and format"
-        + "Existing timetable will be overwritten by the input values.\n"
-        + "Parameters for mode = new: INDEX (must be a positive integer) "
-        + "[" + PREFIX_MODE + "]"
-        + "[" + PREFIX_FORMAT +"]"
-        + "Example: " + COMMAND_WORD + " 1 "
-        + PREFIX_MODE + "new" + PREFIX_FORMAT +"vertical"
-        +"\n"
-        + "Parameters for mode = existing: INDEX (must be a positive integer) "
-        + "[" + PREFIX_MODE + "]"
-        + "[" + PREFIX_FORMAT +"]"
-        + "[" + PREFIX_FILE_NAME +"]"
-        + "[" + PREFIX_FILE_LOCATION +"] \n"
-        + "Example: " + COMMAND_WORD + " 1 "
-        + PREFIX_MODE + "existing" + PREFIX_FORMAT +"horizontal"
-        + PREFIX_FILE_NAME +"test" + PREFIX_FILE_LOCATION + "C:\\Users\\admin\\Downloads";
+    public static final String MESSAGE_USAGE =
+        COMMAND_WORD + ": adds timetable to the person identified "
+            + "by the index number used in the displayed person list. "
+            + "there are 2 modes new or existing, new requires just format."
+            + "Existing requires filename and file location and format"
+            + "Existing timetable will be overwritten by the input values.\n"
+            + "Parameters for mode = new: INDEX (must be a positive integer) "
+            + "[" + PREFIX_MODE + "]"
+            + "[" + PREFIX_FORMAT + "]"
+            + "Example: " + COMMAND_WORD + " 1 "
+            + PREFIX_MODE + "new" + PREFIX_FORMAT + "vertical"
+            + "\n"
+            + "Parameters for mode = existing: INDEX (must be a positive integer) "
+            + "[" + PREFIX_MODE + "]"
+            + "[" + PREFIX_FORMAT + "]"
+            + "[" + PREFIX_FILE_NAME + "]"
+            + "[" + PREFIX_FILE_LOCATION + "] \n"
+            + "Example: " + COMMAND_WORD + " 1 "
+            + PREFIX_MODE + "existing" + PREFIX_FORMAT + "horizontal"
+            + PREFIX_FILE_NAME + "test" + PREFIX_FILE_LOCATION + "C:\\Users\\admin\\Downloads";
 
     public static final String MESSAGE_ADD_TIMETABLE_SUCCESS = "timetable added successfully";
 

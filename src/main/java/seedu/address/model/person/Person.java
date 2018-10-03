@@ -69,7 +69,9 @@ public class Person extends Entity {
         return address;
     }
 
-    public Timetable getTimetable() { return timetable; }
+    public Timetable getTimetable() {
+        return timetable;
+    }
 
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException} if
