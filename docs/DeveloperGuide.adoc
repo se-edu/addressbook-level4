@@ -360,10 +360,8 @@ Modifying the template files in link:{repoURL}/docs/templates[`docs/templates`] 
 You should only modify them if you need greater control over the site's layout than what stylesheets can provide.
 The SE-EDU team does not provide support for modified template files.
 ====
-
 [[Testing]]
 == Testing
-
 === Running Tests
 
 There are three ways to run tests.

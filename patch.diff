@@ -1,0 +1,37 @@
+From 9f7093b80c87a5ef6f996946cc2a6beef140aed4 Mon Sep 17 00:00:00 2001
+From: aspiringdevslog <aspiringdevslog@gmail.com>
+Date: Wed, 3 Oct 2018 11:41:40 +0800
+Subject: [PATCH] Fix checkstyle errors
+
+---
+ src/main/java/seedu/address/logic/commands/LoginCommand.java | 2 +-
+ src/main/java/seedu/address/storage/UserAccountStorage.java  | 2 +-
+ 2 files changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/src/main/java/seedu/address/logic/commands/LoginCommand.java b/src/main/java/seedu/address/logic/commands/LoginCommand.java
+index 80b44b87..fd579097 100644
+--- a/src/main/java/seedu/address/logic/commands/LoginCommand.java
++++ b/src/main/java/seedu/address/logic/commands/LoginCommand.java
+@@ -35,7 +35,7 @@ public class LoginCommand extends Command {
+      * Login
+      */
+     public LoginCommand(Accounts account) {
+-        if (UserAccountStorage.checkPasswordMatch(account.getUsername(), account.getPassword())){
++        if (UserAccountStorage.checkPasswordMatch(account.getUsername(), account.getPassword())) {
+             System.out.println(MESSAGE_SUCCESS);
+         } else {
+             System.out.println(MESSAGE_FAILURE);
+diff --git a/src/main/java/seedu/address/storage/UserAccountStorage.java b/src/main/java/seedu/address/storage/UserAccountStorage.java
+index 5a91d79f..62c11d33 100644
+--- a/src/main/java/seedu/address/storage/UserAccountStorage.java
++++ b/src/main/java/seedu/address/storage/UserAccountStorage.java
+@@ -45,4 +45,4 @@ class Account {
+     public String getPassword() {
+         return password;
+     }
+-}
+\ No newline at end of file
++}
+--
+2.17.1.windows.2
+

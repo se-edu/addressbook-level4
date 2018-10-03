@@ -23,6 +23,8 @@ public class ParserUtil {
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
 
     /**
+     * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
+     * trimmed.
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing
      * whitespaces will be trimmed.
      *
@@ -122,17 +124,38 @@ public class ParserUtil {
         }
         return tagSet;
     }
+
+    /**
+     * Parses {@code Collection<String> tags} into a {@code Set<Tag>}.
+     */
+    //TODO: need to implement exceptions
+    public static String parseUsername(String username) throws ParseException {
+        requireNonNull(username);
+        String trimmedName = username.trim();
+        return username;
+    }
+
+    /**
+     * Parses {@code Collection<String> tags} into a {@code Set<Tag>}.
+     */
+    //TODO: need to implement exceptions
+    public static String parsePassword(String password) throws ParseException {
+        requireNonNull(password);
+        String trimmedName = password.trim();
+        return password;
+    }
+
     /**
      * Parses a {@code String location} into an {@code String location}. Leading and trailing whitespaces will be
      * trimmed.
      *
      * @throws ParseException if the given {@code location} is invalid.
      */
-
     public static String parseLocation(String location) throws ParseException {
         requireNonNull(location);
         return location;
     }
+
     /**
      * Parses a {@code String fileName} into an {@code String fileName}. Leading and trailing whitespaces will be
      * trimmed.
@@ -144,6 +167,7 @@ public class ParserUtil {
 
         return fileName;
     }
+
     /**
      * Parses a {@code String mode} into an {@code String Mode}. Leading and trailing whitespaces will be
      * trimmed.
