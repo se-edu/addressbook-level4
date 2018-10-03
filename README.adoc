@@ -34,7 +34,7 @@ endif::[]
 * Some parts of this sample application were inspired by the excellent http://code.makery.ch/library/javafx-8-tutorial/[Java FX tutorial] by
 _Marco Jakob_.
 * Libraries used: https://github.com/TestFX/TestFX[TextFX], https://bitbucket.org/controlsfx/controlsfx/[ControlsFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/google/guava[Guava], https://github.com/junit-team/junit5[JUnit5]
-* The original contributors of the addressbook can be found here(https://github.com/nusCS2113-AY1819S1/addressbook-level4/blob/master/docs/AboutUs.adoc).
+* The original contributors of the addressbook can be found https://github.com/CS2113-AY1819S1-W12-1/main/blob/master/docs/AboutUs.adoc[here].
 
 == Licence : link:LICENSE[MIT]
 
