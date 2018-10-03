@@ -11,7 +11,8 @@ public class TypicalSchedules {
      * Returns an {@code AddressBook} with all the typical persons.
      */
     public static ScheduleList getTypicalScheduleList() {
-        return null;
+        ScheduleList ab = new ScheduleList();
+        return ab;
     }
 
 
