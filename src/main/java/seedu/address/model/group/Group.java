@@ -60,13 +60,16 @@ public class Group extends Entity {
     }
 
     /**
-     * Prints out all member of a group.
+     * Returns all member of a group as a String.
      */
-    public void printMembers() {
+    public String printMembers() {
         Iterator<Person> itr = groupMembers.iterator();
-        if (itr.hasNext()) {
-            System.out.println(itr.next() + "\n");
+        StringBuilder builder = new StringBuilder();
+        while (itr.hasNext()) {
+            builder.append(itr.next().getName().fullName)
+            .append("\n");
         }
+        return builder.toString();
     }
 
     /**
@@ -115,9 +118,9 @@ public class Group extends Entity {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append(" Description: ")
+                .append("\nDescription: ")
                 .append(getDescription())
-                .append(" Number of Members: ")
+                .append("\nNumber of Members: ")
                 .append(groupMembers.asUnmodifiableObservableList().size());
         return builder.toString();
     }
