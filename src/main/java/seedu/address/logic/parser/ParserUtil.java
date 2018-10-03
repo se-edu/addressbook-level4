@@ -131,6 +131,7 @@ public class ParserUtil {
      */
 
     public static String parseLocation(String location) throws ParseException {
+        requireNonNull(location);
         return location;
     }
     /**

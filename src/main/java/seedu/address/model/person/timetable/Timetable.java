@@ -19,9 +19,7 @@ public class Timetable extends Entity {
 
     // Identity fields
     private final String fileName;
-    private final String defaultLocation;
     private final String locationOfFile;
-    private final String timetableFolder = "/src/main/java/seedu/address/formatl/timetable/timetables/";
     private final String format;
 
     // create timetable data
@@ -37,8 +35,6 @@ public class Timetable extends Entity {
         this.fileName = fileName + ".csv";
         this.format = format;
         File ans = new File("");
-        this.defaultLocation =
-            ans.getAbsolutePath().replace("\\", "/") + this.timetableFolder + this.fileName;
         locationOfFile = locationFrom + this.fileName;
         matrix = new TimetableData(format,locationOfFile);
     }
@@ -46,9 +42,6 @@ public class Timetable extends Entity {
     public Timetable( String fileName, String format) {
         this.fileName = fileName + ".csv";
         this.format = format;
-        File ans = new File("");
-        this.defaultLocation =
-            ans.getAbsolutePath().replace("\\", "/") + this.timetableFolder + this.fileName;
         locationOfFile = null;
         matrix = new TimetableData(format);
     }
