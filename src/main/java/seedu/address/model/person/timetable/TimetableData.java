@@ -53,7 +53,7 @@ public class TimetableData {
     private String[][] readHorizontalTimetableData(String locationOfFile) {
         String[][] timetableMatrix;
         Scanner inputStream;
-        //used code from https://stackoverflow.com/questions/40074840/reading-a-csv-file-into-a-array
+        //used code from mikeL from https://stackoverflow.com/questions/40074840/reading-a-csv-file-into-a-array
         timetableMatrix = generateNewHorizontalTimetable();
         try {
             File toRead = new File(locationOfFile);
@@ -82,7 +82,7 @@ public class TimetableData {
     private String[][] readVerticalTimetableData(String locationOfFile) {
         String[][] timetableMatrix;
         Scanner inputStream;
-        //used code from https://stackoverflow.com/questions/40074840/reading-a-csv-file-into-a-array
+        //used code from mikeL from https://stackoverflow.com/questions/40074840/reading-a-csv-file-into-a-array
         timetableMatrix = generateNewVerticalTimetable();
         try {
             File toRead = new File(locationOfFile);
