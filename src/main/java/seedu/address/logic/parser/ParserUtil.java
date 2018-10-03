@@ -124,7 +124,7 @@ public class ParserUtil {
         }
         return tagSet;
     }
-
+	
     /**
      * Parses {@code Collection<String> tags} into a {@code Set<Tag>}.
      */
@@ -144,10 +144,9 @@ public class ParserUtil {
         String trimmedName = password.trim();
         return password;
     }
-
     /**
-     * Parses a {@code String location} into an {@code String location}. Leading and trailing whitespaces will be
-     * trimmed.
+     * Parses a {@code String location} into an {@code String location}. Leading and trailing
+     * whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code location} is invalid.
      */
@@ -157,8 +156,8 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String fileName} into an {@code String fileName}. Leading and trailing whitespaces will be
-     * trimmed.
+     * Parses a {@code String fileName} into an {@code String fileName}. Leading and trailing
+     * whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code fileName} is invalid.
      */
@@ -169,14 +168,32 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String mode} into an {@code String Mode}. Leading and trailing whitespaces will be
-     * trimmed.
      *
-     * @throws ParseException if the given {@code mode} is invalid.
+     * @param mode
+     * @return
+     * @throws ParseException
      */
     public static String parseMode(String mode) throws ParseException {
         requireNonNull(mode);
+        if (mode.equals("new") || mode.equals("existing")) {
+            return mode;
+        } else {
+            throw new ParseException("mode can only be new or exist");
+        }
+    }
 
-        return mode;
+    /**
+     * Parses a {@code String mode} into an {@code String Mode}. Leading and trailing whitespaces
+     * will be trimmed.
+     *
+     * @throws ParseException if the given {@code mode} is invalid.
+     */
+    public static String parseFormat(String format) throws ParseException {
+        requireNonNull(format);
+        if (format.equals("horizontal") || format.equals("vertical")) {
+            return format;
+        } else {
+            throw new ParseException("format can only be horizontal or vertical");
+        }
     }
 }

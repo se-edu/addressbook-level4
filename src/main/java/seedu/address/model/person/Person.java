@@ -8,11 +8,12 @@ import java.util.Objects;
 import java.util.Set;
 
 import seedu.address.model.Entity;
+import seedu.address.model.person.timetable.Timetable;
 import seedu.address.model.tag.Tag;
 
 /**
- * Represents a Person in the address book.
- * Guarantees: details are present and not null, field values are validated, immutable.
+ * Represents a Person in the address book. Guarantees: details are present and not null, field
+ * values are validated, immutable.
  */
 public class Person extends Entity {
 
@@ -23,6 +24,7 @@ public class Person extends Entity {
 
     // Data fields
     private final Address address;
+    private final Timetable timetable;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
@@ -35,6 +37,24 @@ public class Person extends Entity {
         this.email = email;
         this.address = address;
         this.tags.addAll(tags);
+        this.timetable = new Timetable("horizontal");
+    }
+
+    /**
+     * @param name
+     * @param phone
+     * @param email
+     * @param address
+     * @param timetable
+     */
+    public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags,
+        Timetable timetable) {
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.address = address;
+        this.tags.addAll(tags);
+        this.timetable = timetable;
     }
 
     public Name getName() {
@@ -53,17 +73,21 @@ public class Person extends Entity {
         return address;
     }
 
+    public Timetable getTimetable() {
+        return timetable;
+    }
+
     /**
-     * Returns an immutable tag set, which throws {@code UnsupportedOperationException}
-     * if modification is attempted.
+     * Returns an immutable tag set, which throws {@code UnsupportedOperationException} if
+     * modification is attempted.
      */
     public Set<Tag> getTags() {
         return Collections.unmodifiableSet(tags);
     }
 
     /**
-     * Returns true if both persons of the same name have at least one other identity field that is the same.
-     * This defines a weaker notion of equality between two persons.
+     * Returns true if both persons of the same name have at least one other identity field that is
+     * the same. This defines a weaker notion of equality between two persons.
      */
     @Override
     public boolean isSame(Object other) {
@@ -77,12 +101,13 @@ public class Person extends Entity {
 
         Person otherPerson = (Person) other;
         return otherPerson.getName().equals(getName())
-                && (otherPerson.getPhone().equals(getPhone()) || otherPerson.getEmail().equals(getEmail()));
+            && (otherPerson.getPhone().equals(getPhone()) || otherPerson.getEmail()
+            .equals(getEmail()));
     }
 
     /**
-     * Returns true if both persons have the same identity and data fields.
-     * This defines a stronger notion of equality between two persons.
+     * Returns true if both persons have the same identity and data fields. This defines a stronger
+     * notion of equality between two persons.
      */
     @Override
     public boolean equals(Object other) {
@@ -96,10 +121,10 @@ public class Person extends Entity {
 
         Person otherPerson = (Person) other;
         return otherPerson.getName().equals(getName())
-                && otherPerson.getPhone().equals(getPhone())
-                && otherPerson.getEmail().equals(getEmail())
-                && otherPerson.getAddress().equals(getAddress())
-                && otherPerson.getTags().equals(getTags());
+            && otherPerson.getPhone().equals(getPhone())
+            && otherPerson.getEmail().equals(getEmail())
+            && otherPerson.getAddress().equals(getAddress())
+            && otherPerson.getTags().equals(getTags());
     }
 
     @Override
@@ -112,13 +137,13 @@ public class Person extends Entity {
     public String toString() {
         final StringBuilder builder = new StringBuilder();
         builder.append(getName())
-                .append(" Phone: ")
-                .append(getPhone())
-                .append(" Email: ")
-                .append(getEmail())
-                .append(" Address: ")
-                .append(getAddress())
-                .append(" Tags: ");
+            .append(" Phone: ")
+            .append(getPhone())
+            .append(" Email: ")
+            .append(getEmail())
+            .append(" Address: ")
+            .append(getAddress())
+            .append(" Tags: ");
         getTags().forEach(builder::append);
         return builder.toString();
     }

@@ -8,6 +8,7 @@ import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
+import seedu.address.model.person.timetable.Timetable;
 import seedu.address.model.tag.Tag;
 import seedu.address.model.util.SampleDataUtil;
 
@@ -20,11 +21,13 @@ public class PersonBuilder {
     public static final String DEFAULT_PHONE = "85355255";
     public static final String DEFAULT_EMAIL = "alice@gmail.com";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
+    public static final String DEFAULT_FORMAT="horizontal";
 
     private Name name;
     private Phone phone;
     private Email email;
     private Address address;
+    private Timetable timetable;
     private Set<Tag> tags;
 
     public PersonBuilder() {
@@ -32,6 +35,7 @@ public class PersonBuilder {
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
+        timetable = new Timetable(DEFAULT_FORMAT);
         tags = new HashSet<>();
     }
 
@@ -43,6 +47,7 @@ public class PersonBuilder {
         phone = personToCopy.getPhone();
         email = personToCopy.getEmail();
         address = personToCopy.getAddress();
+        timetable=personToCopy.getTimetable();
         tags = new HashSet<>(personToCopy.getTags());
     }
 
@@ -51,6 +56,10 @@ public class PersonBuilder {
      */
     public PersonBuilder withName(String name) {
         this.name = new Name(name);
+        return this;
+    }
+    public  PersonBuilder withTimetable(String format){
+        this.timetable= new Timetable(format);
         return this;
     }
 
