@@ -19,9 +19,9 @@ public class AddLeaveCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Request leave. "
             + "Parameters: "
-            + PREFIX_NRIC + "ID "
-            + PREFIX_DATE + "DATE "
-            + PREFIX_APPROVAL + "APPROVAL ";
+            + PREFIX_NRIC + "NRIC "
+            + PREFIX_DATE + "DATE (DD/MM/YYYY) "
+            + PREFIX_APPROVAL + "PENDING ";
 
 
     public static final String MESSAGE_SUCCESS = "Leave application requested.";
