@@ -5,6 +5,7 @@ import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.List;
 import java.util.Set;
+
 import seedu.address.commons.core.Messages;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.CommandHistory;
@@ -36,8 +37,8 @@ public class AddTimetableCommand extends Command {
     public AddTimetableCommand(Index index, EditPersonDescriptor editPersonDescriptor) {
         requireNonNull(index);
         requireNonNull(editPersonDescriptor);
-        this.index=index;
-        this.editPersonDescriptor=editPersonDescriptor;
+        this.index = index;
+        this.editPersonDescriptor = editPersonDescriptor;
     }
 
 
@@ -57,20 +58,25 @@ public class AddTimetableCommand extends Command {
         model.commitAddressBook();
         return new CommandResult(String.format(MESSAGE_ADD_TIMETABLE_SUCCESS, editedPerson));
     }
+
     /**
-     * Creates and returns a {@code Person} with the details of {@code personToEdit}
-     * edited with {@code editPersonDescriptor}.
+     * Creates and returns a {@code Person} with the details of {@code personToEdit} edited with
+     * {@code editPersonDescriptor}.
      */
-    private static Person createEditedPerson(Person personToEdit, EditPersonDescriptor editPersonDescriptor) {
+    private static Person createEditedPerson(Person personToEdit,
+        EditPersonDescriptor editPersonDescriptor) {
         assert personToEdit != null;
 
         Name updatedName = editPersonDescriptor.getName().orElse(personToEdit.getName());
         Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
         Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
-        Address updatedAddress = editPersonDescriptor.getAddress().orElse(personToEdit.getAddress());
-        Timetable updatedTimetable = editPersonDescriptor.getTimetable().orElse(personToEdit.getTimetable());
+        Address updatedAddress = editPersonDescriptor.getAddress()
+            .orElse(personToEdit.getAddress());
+        Timetable updatedTimetable = editPersonDescriptor.getTimetable()
+            .orElse(personToEdit.getTimetable());
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
 
-        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress,updatedTags,updatedTimetable);
+        return new Person(updatedName, updatedPhone, updatedEmail, updatedAddress, updatedTags,
+            updatedTimetable);
     }
 }

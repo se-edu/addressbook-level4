@@ -1,6 +1,5 @@
 package seedu.address.model.person.timetable;
 
-
 import java.io.File;
 import java.util.Scanner;
 
@@ -19,7 +18,8 @@ public class TimetableData {
 
 
     /**
-     *
+     * creates a timetable based on the format the user wants
+     * and timetable file user has
      * @param format
      * @param locationOfFile
      */
@@ -33,7 +33,10 @@ public class TimetableData {
         this.timetable = aTimetable;
     }
 
-
+    /**
+     * reates a timetable based on the format the user wants
+     * @param format
+     */
     public TimetableData(String format) {
         String[][] newTimetable = generateNewHorizontalTimetable();
         if (format.equals("vertical")) {
@@ -43,21 +46,10 @@ public class TimetableData {
     }
 
     /**
+     * takes in a csv file via the location of the file and read the file
      *
-     * @return
+     * @return string matrix of timetable in horizontal form
      */
-    public int getNoOfTimings() {
-        return noOfTimings;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public int getNoOfDays() {
-        return noOfDays;
-    }
-
     private String[][] readHorizontalTimetableData(String locationOfFile) {
         String[][] timetableMatrix;
         Scanner inputStream;
@@ -82,7 +74,11 @@ public class TimetableData {
         return timetableMatrix;
     }
 
-
+    /**
+     * takes in a csv file via the location of the file and read the file
+     *
+     * @return string matrix of timetable in vertical form
+     */
     private String[][] readVerticalTimetableData(String locationOfFile) {
         String[][] timetableMatrix;
         Scanner inputStream;
@@ -107,8 +103,7 @@ public class TimetableData {
     }
 
     /**
-     *
-     * @return
+     * @return initialise a horizontal string matrix
      */
     private String[][] getNewHorizontalMatrix() {
         String[][] matrix = new String[noOfDays + 1][noOfTimings + 1];
@@ -121,8 +116,7 @@ public class TimetableData {
     }
 
     /**
-     *
-     * @return
+     * @return a string matrix of timetable in horizontal form
      */
     private String[][] generateNewHorizontalTimetable() {
         String[][] horizontalTimetable = getNewHorizontalMatrix();
@@ -138,8 +132,7 @@ public class TimetableData {
     }
 
     /**
-     *
-     * @return
+     * @return initialise a vertical string matrix
      */
     private String[][] getNewVerticalMatrix() {
         String[][] matrix = new String[noOfTimings + 1][noOfDays + 1];
@@ -152,8 +145,7 @@ public class TimetableData {
     }
 
     /**
-     *
-     * @return
+     * @return a string matrix of timetable in vertical form
      */
     private String[][] generateNewVerticalTimetable() {
         String[][] verticalTimetable = getNewVerticalMatrix();
@@ -169,8 +161,7 @@ public class TimetableData {
     }
 
     /**
-     *
-     * @return
+     * @return a string matrix of a timetable
      */
     public String[][] getTimetable() {
         return timetable;

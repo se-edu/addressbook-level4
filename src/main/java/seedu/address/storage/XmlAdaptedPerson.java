@@ -1,6 +1,5 @@
 package seedu.address.storage;
 
-import java.sql.Time;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -126,7 +125,8 @@ public class XmlAdaptedPerson {
         final Address modelAddress = new Address(address);
         final Timetable modelTimetable = new Timetable(format);
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelTags,modelTimetable);
+        return new Person(modelName, modelPhone, modelEmail, modelAddress, modelTags,
+            modelTimetable);
     }
 
     @Override

@@ -21,21 +21,23 @@ public class Timetable extends Entity {
      * @param fileName
      * @param format
      */
-    public Timetable( String fileName, String format, String locationFrom) {
+    public Timetable(String fileName, String format, String locationFrom) {
         this.fileName = fileName + ".csv";
         this.format = format;
-        locationOfFile = locationFrom.replace("\\","/")+"/" + this.fileName;
-        matrix = new TimetableData(format,locationOfFile);
+        locationOfFile = locationFrom.replace("\\", "/") + "/" + this.fileName;
+        matrix = new TimetableData(format, locationOfFile);
     }
 
-    public Timetable( String format) {
-        this.fileName=null;
+    public Timetable(String format) {
+        this.fileName = null;
         this.format = format;
         locationOfFile = null;
         matrix = new TimetableData(format);
     }
 
-    public String getFileName() { return fileName; }
+    public String getFileName() {
+        return fileName;
+    }
 
     public String getFormat() {
         return format;

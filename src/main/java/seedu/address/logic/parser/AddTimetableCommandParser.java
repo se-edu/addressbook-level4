@@ -6,7 +6,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_FILE_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MODE;
 
-
 import java.util.stream.Stream;
 
 import seedu.address.commons.core.index.Index;
@@ -14,7 +13,6 @@ import seedu.address.logic.commands.AddTimetableCommand;
 import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.logic.parser.exceptions.ParseException;
-
 
 import seedu.address.model.person.timetable.Timetable;
 
