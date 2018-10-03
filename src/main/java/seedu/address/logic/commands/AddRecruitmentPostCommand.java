@@ -18,13 +18,12 @@ public class AddRecruitmentPostCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Available Jobs "
             + PREFIX_JOB_POSITION + "[Job Position:]"
             + PREFIX_MINIMUM_EXPERIENCE + "[min working experience(Integer):]"
-            + PREFIX_JOB_DESCRIPTION + "[Job Description:]"
+            + PREFIX_JOB_DESCRIPTION + "[Job Description:]\n"
 
             + "Example: " + COMMAND_WORD + PREFIX_JOB_POSITION
             + "IT Manager" + PREFIX_MINIMUM_EXPERIENCE + "3"
             + PREFIX_JOB_DESCRIPTION + "To maintain the network server in company";
 
-    //public static final String MESSAGE_SUCCESS = "Recruitment Posts are added";
     public static final String MESSAGE_FAILURE = "Recruitment Posts are failed";
 
     @Override
