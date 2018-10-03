@@ -4,6 +4,8 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.model.addressbook.ReadOnlyAddressBook;
+import seedu.address.model.expenses.Expenses;
+import seedu.address.model.expenses.ReadOnlyExpensesList;
 import seedu.address.model.person.Person;
 import seedu.address.model.schedule.ReadOnlyScheduleList;
 import seedu.address.model.schedule.Schedule;
@@ -20,15 +22,18 @@ public interface Model {
 
     /** Clears existing backing model and replaces with the provided new data. */
     void resetAddressBookData(ReadOnlyAddressBook newData);
+    void resetDataExpenses(ReadOnlyExpensesList newData);
     void resetScheduleListData(ReadOnlyScheduleList newData);
 
     /** Returns the AddressBook */
     ReadOnlyAddressBook getAddressBook();
+    ReadOnlyExpensesList getExpensesList();
     ReadOnlyScheduleList getScheduleList();
 
     /**
      * Returns true if a person with the same identity as {@code person} exists in the address book.
      */
+    boolean hasExpenses(Expenses expenses);
     boolean hasPerson(Person person);
     boolean hasSchedule(Schedule schedule);
 
@@ -36,6 +41,7 @@ public interface Model {
      * Deletes the given person.
      * The person must exist in the address book.
      */
+    void deleteExpenses(Expenses target);
     void deletePerson(Person target);
     void deleteSchedule(Schedule target);
 
@@ -43,6 +49,7 @@ public interface Model {
      * Adds the given person.
      * {@code person} must not already exist in the address book.
      */
+    void addExpenses (Expenses expenses);
     void addPerson(Person person);
     void addSchedule(Schedule schedule);
 
@@ -51,6 +58,7 @@ public interface Model {
      * {@code target} must exist in the address book.
      * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
      */
+    void updateExpenses(Expenses target, Expenses editedExpenses);
     void updatePerson(Person target, Person editedPerson);
     void updateSchedule(Schedule target, Schedule editedSchedule);
 
@@ -93,6 +101,7 @@ public interface Model {
      * Saves the current address book state for undo/redo.
      */
     void commitAddressBook();
+    void commitExpensesList();
     void commitScheduleList();
 
 }

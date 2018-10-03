@@ -9,6 +9,8 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.expenses.EmployeeExpensesId;
+import seedu.address.model.expenses.ExpensesAmount;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.DateOfBirth;
 import seedu.address.model.person.Department;
@@ -232,5 +234,34 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
+    }
+
+    /**
+     * Parses a {@code String employeeExpensesId} into a {@code EmployeeExpensesId}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code employeeExpensesId} is invalid.
+     */
+    public static EmployeeExpensesId parseEmployeeExpensesId(String employeeExpensesId) throws ParseException {
+        requireNonNull(employeeExpensesId);
+        String trimmedEmployeeExpensesId = employeeExpensesId.trim();
+        if (!EmployeeExpensesId.isValidEmployeeExpensesId(trimmedEmployeeExpensesId)) {
+            throw new ParseException(EmployeeExpensesId.MESSAGE_EMPLOYE_EXPENSES_ID_CONSTRAINTS);
+        }
+        return new EmployeeExpensesId(trimmedEmployeeExpensesId);
+    }
+    /**
+     * Parses a {@code String expensesAmount} into a {@code ExpensesAmount}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code expensesAmount} is invalid.
+     */
+    public static ExpensesAmount parseExpensesAmount(String expensesAmount) throws ParseException {
+        requireNonNull(expensesAmount);
+        String trimmedExpensesAmount = expensesAmount.trim();
+        if (!ExpensesAmount.isValidExpensesAmount(trimmedExpensesAmount)) {
+            throw new ParseException(ExpensesAmount.MESSAGE_EXPENSES_AMOUNT_CONSTRAINTS);
+        }
+        return new ExpensesAmount(trimmedExpensesAmount);
     }
 }

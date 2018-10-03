@@ -10,13 +10,16 @@ import com.google.common.eventbus.Subscribe;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.commons.events.model.ExpensesListChangedEvent;
 import seedu.address.commons.events.model.ScheduleListChangedEvent;
 import seedu.address.commons.events.storage.DataSavingExceptionEvent;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.addressbook.ReadOnlyAddressBook;
+import seedu.address.model.expenses.ReadOnlyExpensesList;
 import seedu.address.model.schedule.ReadOnlyScheduleList;
 import seedu.address.storage.addressbook.AddressBookStorage;
+import seedu.address.storage.expenses.ExpensesListStorage;
 import seedu.address.storage.schedule.ScheduleListStorage;
 import seedu.address.storage.userpref.UserPrefsStorage;
 
@@ -27,14 +30,16 @@ public class StorageManager extends ComponentManager implements Storage {
 
     private static final Logger logger = LogsCenter.getLogger(StorageManager.class);
     private AddressBookStorage addressBookStorage;
+    private ExpensesListStorage expensesListStorage;
     private ScheduleListStorage scheduleListStorage;
     private UserPrefsStorage userPrefsStorage;
 
 
-    public StorageManager(AddressBookStorage addressBookStorage, ScheduleListStorage scheduleListStorage,
+    public StorageManager(AddressBookStorage addressBookStorage, ExpensesListStorage expensesListStorage, ScheduleListStorage scheduleListStorage,
                           UserPrefsStorage userPrefsStorage) {
         super();
         this.addressBookStorage = addressBookStorage;
+        this.expensesListStorage = expensesListStorage;
         this.userPrefsStorage = userPrefsStorage;
         this.scheduleListStorage = scheduleListStorage;
     }
@@ -98,7 +103,39 @@ public class StorageManager extends ComponentManager implements Storage {
         }
     }
 
-
+    // ================ ExpensesList methods ==============================
+    @Override
+    public Path getExpensesListFilePath() {
+        return expensesListStorage.getExpensesListFilePath();
+    }
+    @Override
+    public Optional<ReadOnlyExpensesList> readExpensesList() throws DataConversionException, IOException {
+        return readExpensesList(expensesListStorage.getExpensesListFilePath());
+    }
+    @Override
+    public Optional<ReadOnlyExpensesList> readExpensesList(Path filePath) throws DataConversionException, IOException {
+        logger.fine("Attempting to read data from file: " + filePath);
+        return expensesListStorage.readExpensesList(filePath);
+    }
+    @Override
+    public void saveExpensesList(ReadOnlyExpensesList expensesList) throws IOException {
+        saveExpensesList(expensesList, expensesListStorage.getExpensesListFilePath());
+    }
+    @Override
+    public void saveExpensesList(ReadOnlyExpensesList expensesList, Path filePath) throws IOException {
+        logger.fine("Attempting to write to data file: " + filePath);
+        expensesListStorage.saveExpensesList(expensesList, filePath);
+    }
+    @Override
+    @Subscribe
+    public void handleExpensesListChangedEvent(ExpensesListChangedEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event, "Local data changed, saving to file"));
+        try {
+            saveExpensesList(event.data);
+        } catch (IOException e) {
+            raise(new DataSavingExceptionEvent(e));
+        }
+    }
 
     // ================ ScheduleList methods ==============================
 
