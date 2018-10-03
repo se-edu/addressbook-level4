@@ -271,6 +271,11 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public double getCap() {
+        return versionedTranscript.getCap();
+    }
+
+    @Override
     public boolean equals(Object obj) {
         // short circuit if same object
         if (obj == this) {

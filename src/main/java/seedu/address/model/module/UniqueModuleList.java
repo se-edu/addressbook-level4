@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.function.Predicate;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -140,6 +141,16 @@ public class UniqueModuleList implements Iterable<Module> {
         return modules.size() == modules.parallelStream()
                 .distinct()
                 .count();
+    }
+
+    /**
+     * Returns the list of filtered Module based on the given predicate
+     *
+     * @param predicate
+     * @return filtered list
+     */
+    public ObservableList<Module> getFilteredModules(Predicate<Module> predicate) {
+        return internalList.filtered(predicate);
     }
 
     /**

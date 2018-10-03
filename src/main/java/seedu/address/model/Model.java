@@ -190,4 +190,9 @@ public interface Model {
      * TODO: REMOVE
      */
     void commitAddressBook();
+
+    /**
+     * Returns the CAP based on the current Transcript records
+     */
+    double getCap();
 }
