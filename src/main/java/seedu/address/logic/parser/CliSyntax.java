@@ -21,4 +21,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_SCHEDULE_DATE = new Prefix("d/");
     public static final Prefix PREFIX_SCHEDULE_TYPE = new Prefix("t/");
 
+    public static final Prefix PREFIX_JOB_POSITION = new Prefix("jp/");
+    public static final Prefix PREFIX_MINIMUM_EXPERIENCE = new Prefix("me/");
+    public static final Prefix PREFIX_JOB_DESCRIPTION = new Prefix("jd/");
 }
