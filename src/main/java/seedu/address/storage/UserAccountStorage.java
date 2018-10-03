@@ -7,20 +7,20 @@ import java.util.HashMap;
  */
 public class UserAccountStorage {
 
-    private static HashMap<String, Account> userHashMap = new HashMap<>();
+    private static HashMap<String, String> userHashMap = new HashMap<>();
 
     public UserAccountStorage() {
     }
 
     public static void addNewAccount(String username, String password) {
-        userHashMap.put(username, new Account(username, password));
+        userHashMap.put(username, password);
     }
 
     public static boolean checkPasswordMatch(String username, String password) {
         return userHashMap.get(username).equals(password);
     }
 
-    public static boolean checkDuplicateUser(String username){
+    public static boolean checkDuplicateUser(String username) {
         return userHashMap.containsKey(username);
     }
 
