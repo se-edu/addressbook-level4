@@ -23,8 +23,9 @@ public class AddRecruitmentPostCommand extends Command {
 
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
+
         throw new CommandException(MESSAGE_Failure);
 
-
     }
+
 }
