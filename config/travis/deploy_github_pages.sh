@@ -32,7 +32,7 @@ else # error occurred
 fi
 
 # Exit if there are no changes to gh-pages files.
-if changes=$(git type --porcelain) && [ -z "$changes" ]; then
+if changes=$(git status --porcelain) && [ -z "$changes" ]; then
     echo 'No changes to GitHub Pages files; exiting.'
     exit 0
 fi
