@@ -23,10 +23,9 @@ public class ParserUtil {
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
 
     /**
-     * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
-     * trimmed.
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing
-     * whitespaces will be trimmed.
+     * whitespaces will be trimmed. Parses {@code oneBasedIndex} into an {@code Index} and returns
+     * it. Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
      */
@@ -124,7 +123,7 @@ public class ParserUtil {
         }
         return tagSet;
     }
-	
+
     /**
      * Parses {@code Collection<String> tags} into a {@code Set<Tag>}.
      */
@@ -144,6 +143,7 @@ public class ParserUtil {
         String trimmedName = password.trim();
         return password;
     }
+
     /**
      * Parses a {@code String location} into an {@code String location}. Leading and trailing
      * whitespaces will be trimmed.
