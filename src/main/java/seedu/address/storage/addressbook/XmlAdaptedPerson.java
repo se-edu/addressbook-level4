@@ -1,4 +1,4 @@
-package seedu.address.storage;
+package seedu.address.storage.addressbook;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -21,7 +21,7 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Position;
 import seedu.address.model.person.Salary;
-import seedu.address.model.tag.Tag;
+import seedu.address.model.person.tag.Tag;
 
 /**
  * JAXB-friendly version of the Person.
