@@ -33,7 +33,8 @@ public class LoginCommand extends Command {
      * Login
      */
     public LoginCommand(Accounts account) {
-        if (account.getUsername().equals(account.getUsername()) && account.getPassword().equals(account.getPassword())) { //TODO: haven't finish the data structure for persisting login management
+        if (account.getUsername().equals(account.getUsername())
+                && account.getPassword().equals(account.getPassword())) { //TODO: haven't finish the data structure for persisting login management
             System.out.println(MESSAGE_SUCCESS);
         }
     }
