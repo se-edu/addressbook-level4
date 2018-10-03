@@ -19,7 +19,6 @@ public class AddRecruitmentPostCommand extends Command {
             + PREFIX_JOB_POSITION + "[Job Position:]"
             + PREFIX_MINIMUM_EXPERIENCE + "[min working experience(Integer):]"
             + PREFIX_JOB_DESCRIPTION + "[Job Description:]\n"
-
             + "Example: " + COMMAND_WORD + PREFIX_JOB_POSITION
             + "IT Manager" + PREFIX_MINIMUM_EXPERIENCE + "3"
             + PREFIX_JOB_DESCRIPTION + "To maintain the network server in company";
