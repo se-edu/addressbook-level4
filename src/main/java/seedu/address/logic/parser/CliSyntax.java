@@ -20,4 +20,5 @@ public class CliSyntax {
     public static final Prefix PREFIX_SCHEDULE_DATE = new Prefix("d/");
     public static final Prefix PREFIX_SCHEDULE_TYPE = new Prefix("t/");
 
+    public static final Prefix PREFIX_POST = new Prefix("rec/");
 }
