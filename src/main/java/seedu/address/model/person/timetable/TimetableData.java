@@ -4,7 +4,7 @@ import java.io.File;
 import java.util.Scanner;
 
 /**
- * timetable data
+ * timetable data which will process the inputs and create a timetable
  */
 public class TimetableData {
 

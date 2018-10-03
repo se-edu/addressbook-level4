@@ -169,9 +169,10 @@ public class ParserUtil {
 
     /**
      *
-     * @param mode
-     * @return
-     * @throws ParseException
+     * Parses a {@code String mode} into an {@code String mode}. Leading and trailing
+     * whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code mode} is invalid.
      */
     public static String parseMode(String mode) throws ParseException {
         requireNonNull(mode);
@@ -183,10 +184,10 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String mode} into an {@code String Mode}. Leading and trailing whitespaces
+     * Parses a {@code String format} into an {@code String format}. Leading and trailing whitespaces
      * will be trimmed.
      *
-     * @throws ParseException if the given {@code mode} is invalid.
+     * @throws ParseException if the given {@code format} is invalid.
      */
     public static String parseFormat(String format) throws ParseException {
         requireNonNull(format);

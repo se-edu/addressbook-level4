@@ -3,7 +3,7 @@ package seedu.address.model.person.timetable;
 import seedu.address.model.Entity;
 
 /**
- * Represents a timetable in the address book. Guarantees: nothing at the moment
+ * Represents a timetable in the address book. Guarantees: details are present
  */
 public class Timetable extends Entity {
 

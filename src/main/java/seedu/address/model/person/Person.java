@@ -28,7 +28,7 @@ public class Person extends Entity {
     private final Set<Tag> tags = new HashSet<>();
 
     /**
-     * Every field must be present and not null.
+     * Every field must be present and not null. creates a person with empty horizontal timetable
      */
     public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags) {
         requireAllNonNull(name, phone, email, address, tags);
@@ -41,11 +41,7 @@ public class Person extends Entity {
     }
 
     /**
-     * @param name
-     * @param phone
-     * @param email
-     * @param address
-     * @param timetable
+     * @param timetable takes in params and create a person object with timetable
      */
     public Person(Name name, Phone phone, Email email, Address address, Set<Tag> tags,
         Timetable timetable) {
@@ -73,9 +69,7 @@ public class Person extends Entity {
         return address;
     }
 
-    public Timetable getTimetable() {
-        return timetable;
-    }
+    public Timetable getTimetable() { return timetable; }
 
     /**
      * Returns an immutable tag set, which throws {@code UnsupportedOperationException} if

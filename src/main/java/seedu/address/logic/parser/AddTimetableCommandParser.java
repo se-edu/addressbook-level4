@@ -10,7 +10,6 @@ import java.util.stream.Stream;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.AddTimetableCommand;
-import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -18,7 +17,7 @@ import seedu.address.model.person.timetable.Timetable;
 
 
 /**
- * Parses input arguments and creates a new AddCommand object
+ * Parses input arguments and creates a new AddTimetableCommand object
  */
 public class AddTimetableCommandParser implements Parser<AddTimetableCommand> {
 
@@ -36,7 +35,7 @@ public class AddTimetableCommandParser implements Parser<AddTimetableCommand> {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
             throw new ParseException(
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE), pe);
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTimetableCommand.MESSAGE_USAGE), pe);
         }
         String mode = ParserUtil.parseMode(argMultimap.getValue(PREFIX_MODE).get());
         String fileName = ParserUtil.parseFilename(argMultimap.getValue(PREFIX_FILE_NAME).get());
