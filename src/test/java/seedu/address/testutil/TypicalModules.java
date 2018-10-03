@@ -25,7 +25,7 @@ public class TypicalModules {
             .withYear(2)
             .withSemester(Semester.SEMESTER_TWO)
             .withCredit(4)
-            .withGrade("B")
+            .withGrade("B+")
             .build();
 
     public static final Module DATA_STRUCTURES = new ModuleBuilder().withCode("CS2040")
@@ -35,6 +35,15 @@ public class TypicalModules {
             .withGrade("F")
             .build();
 
+    public static final Module ASKING_QUESTIONS = new ModuleBuilder().withCode("GEQ1000")
+            .withYear(1)
+            .withSemester(Semester.SEMESTER_ONE)
+            .withCredit(4)
+            .withGrade("CS")
+            .build();
+
+    public static final Double MODULES_WITHOUT_NON_AFFECTING_MODULES_CAP = 3.0;
+    
     public static final Module SOFTWARE_ENGINEERING = new ModuleBuilder().withCode("CS2103")
             .withYear(3)
             .withSemester(Semester.SEMESTER_ONE)
@@ -55,7 +64,6 @@ public class TypicalModules {
             .withCredit(2)
             .withGrade("A+")
             .build();
-
     /**
      * Prevents instantiation
      */
@@ -91,4 +99,26 @@ public class TypicalModules {
                 DATA_STRUCTURES));
     }
 
+
+    /**
+     * A list of modules that affects the cap
+     * @return
+     */
+    public static List<Module> getModulesWithoutNonGradeAffectingModules() {
+        return new ArrayList<>(Arrays.asList(DISCRETE_MATH,
+                PROGRAMMING_METHODOLOGY_TWO,
+                DATA_STRUCTURES));
+    }
+
+    /**
+     * A list of modules that might not affect the cap
+     * @return
+     */
+    public static List<Module> getModulesWithNonGradeAffectingModules() {
+        List<Module> affectingModules = getModulesWithoutNonGradeAffectingModules();
+        List<Module> nonAffectingModules = new ArrayList<>(Arrays.asList(ASKING_QUESTIONS));
+        affectingModules.addAll(nonAffectingModules);
+        return affectingModules;
+    }
+    // TODO: getTypicalAddressBook()
 }
