@@ -18,6 +18,11 @@ public interface AddressBookStorage {
     Path getAddressBookFilePath();
 
     /**
+     * Returns the file path of the backup file.
+     */
+    Path getAddressBookBackupPath();
+
+    /**
      * Returns AddressBook data as a {@link ReadOnlyAddressBook}.
      *   Returns {@code Optional.empty()} if storage file is not found.
      * @throws DataConversionException if the data in storage is not in the expected format.
@@ -41,5 +46,12 @@ public interface AddressBookStorage {
      * @see #saveAddressBook(ReadOnlyAddressBook)
      */
     void saveAddressBook(ReadOnlyAddressBook addressBook, Path filePath) throws IOException;
+
+    /**
+     * Backup the given {@link ReadOnlyAddressBook} to a temporary local backup file.
+     * @param addressBook cannot be null.
+     * @throws IOException
+     */
+    void backupAddressBook(ReadOnlyAddressBook addressBook) throws IOException;
 
 }

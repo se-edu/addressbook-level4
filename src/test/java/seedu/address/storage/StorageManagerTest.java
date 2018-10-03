@@ -75,6 +75,18 @@ public class StorageManagerTest {
     }
 
     @Test
+    public void getAddressBookBackupPath() {
+        assertNotNull(storageManager.getAddressBookBackupPath());
+    }
+
+    @Test
+    public void compareAddressBookBackupAndFilePath() {
+        String filePath = storageManager.getAddressBookFilePath().toString();
+        String backupPath = storageManager.getAddressBookBackupPath().toString();
+        assertEquals(filePath + ".backup", backupPath);
+    }
+
+    @Test
     public void handleAddressBookChangedEvent_exceptionThrown_eventRaised() {
         // Create a StorageManager while injecting a stub that  throws an exception when the save method is called
         Storage storage = new StorageManager(new XmlAddressBookStorageExceptionThrowingStub(Paths.get("dummy")),
