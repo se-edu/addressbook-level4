@@ -21,7 +21,7 @@ public class PersonBuilder {
     public static final String DEFAULT_PHONE = "85355255";
     public static final String DEFAULT_EMAIL = "alice@gmail.com";
     public static final String DEFAULT_ADDRESS = "123, Jurong West Ave 6, #08-111";
-    public static final String DEFAULT_FORMAT="horizontal";
+    public static final String DEFAULT_FORMAT = "horizontal";
 
     private Name name;
     private Phone phone;
@@ -47,7 +47,7 @@ public class PersonBuilder {
         phone = personToCopy.getPhone();
         email = personToCopy.getEmail();
         address = personToCopy.getAddress();
-        timetable=personToCopy.getTimetable();
+        timetable = personToCopy.getTimetable();
         tags = new HashSet<>(personToCopy.getTags());
     }
 
@@ -58,15 +58,17 @@ public class PersonBuilder {
         this.name = new Name(name);
         return this;
     }
-    public  PersonBuilder withTimetable(String format){
-        this.timetable= new Timetable(format);
+
+    public PersonBuilder withTimetable(String format) {
+        this.timetable = new Timetable(format);
         return this;
     }
 
     /**
-     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Person} that we are building.
+     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Person} that we are
+     * building.
      */
-    public PersonBuilder withTags(String ... tags) {
+    public PersonBuilder withTags(String... tags) {
         this.tags = SampleDataUtil.getTagSet(tags);
         return this;
     }
