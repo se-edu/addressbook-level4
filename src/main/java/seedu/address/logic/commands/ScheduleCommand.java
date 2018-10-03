@@ -7,6 +7,10 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
+/**
+ * Adds the schedule of a person to the address book
+ */
+
 public class ScheduleCommand extends Command {
 
     public static final String COMMAND_WORD = "schedule";
