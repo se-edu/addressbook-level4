@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<?import javafx.scene.layout.TilePane?>
+<?import javafx.scene.layout.HBox?>
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
          minWidth="450" minHeight="600" onCloseRequest="#handleExit">
   <icons>
@@ -24,9 +24,9 @@
         <URL value="@Extensions.css" />
       </stylesheets>
 
-      <TilePane>
+      <HBox>
         <children>
-          <VBox>
+          <VBox HBox.hgrow="ALWAYS">
             <MenuBar fx:id="menuBar" VBox.vgrow="NEVER">
               <Menu mnemonicParsing="false" text="File">
                 <MenuItem mnemonicParsing="false" onAction="#handleExit" text="Exit" />
@@ -67,7 +67,7 @@
             <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
           </VBox>
 
-          <VBox>
+          <VBox HBox.hgrow="ALWAYS">
             <SplitPane id="splitPane" fx:id="splitPane2" dividerPositions="0.4" VBox.vgrow="ALWAYS">
               <VBox fx:id="groupList" minWidth="340" prefWidth="340" SplitPane.resizableWithParent="false">
                 <padding>
@@ -78,7 +78,7 @@
             </SplitPane>
           </VBox>
         </children>
-      </TilePane>
+      </HBox>
 
     </Scene>
   </scene>
