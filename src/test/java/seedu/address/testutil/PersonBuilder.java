@@ -59,6 +59,10 @@ public class PersonBuilder {
         return this;
     }
 
+    /**
+     *
+     * Sets the {@code timetable} of the {@code Person} that we are building.
+     */
     public PersonBuilder withTimetable(String format) {
         this.timetable = new Timetable(format);
         return this;
