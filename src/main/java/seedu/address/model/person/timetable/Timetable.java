@@ -1,16 +1,6 @@
 package seedu.address.model.person.timetable;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
-import java.util.Scanner;
-
 import seedu.address.model.Entity;
-import seedu.address.model.person.Name;
 
 /**
  * Represents a timetable in the address book. Guarantees: nothing at the moment
@@ -34,8 +24,7 @@ public class Timetable extends Entity {
     public Timetable( String fileName, String format, String locationFrom) {
         this.fileName = fileName + ".csv";
         this.format = format;
-        File ans = new File("");
-        locationOfFile = locationFrom + this.fileName;
+        locationOfFile = locationFrom.replace("\\","/")+"/" + this.fileName;
         matrix = new TimetableData(format,locationOfFile);
     }
 

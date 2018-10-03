@@ -45,7 +45,7 @@ public class AddTimetableCommandParser implements Parser<AddTimetableCommand> {
         String format = ParserUtil.parseFormat(argMultimap.getValue(PREFIX_FORMAT).get());
         Timetable timetable = new Timetable(fileName, format);
         if (arePrefixesPresent(argMultimap,PREFIX_FILE_LOCATION)) {
-            String locationFrom = ParserUtil.parseLocation(argMultimap.getValue(PREFIX_FORMAT).get());;
+            String locationFrom = ParserUtil.parseLocation(argMultimap.getValue(PREFIX_FILE_LOCATION).get());;
             if (mode.equals("existing")) {
                 timetable = new Timetable(fileName, format, locationFrom);
             }

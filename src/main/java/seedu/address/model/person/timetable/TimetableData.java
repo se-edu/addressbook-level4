@@ -1,6 +1,9 @@
 package seedu.address.model.person.timetable;
 
 
+import java.io.File;
+import java.util.Scanner;
+
 /**
  * timetable data
  */
@@ -24,9 +27,8 @@ public class TimetableData {
         String[][] aTimetable = generateNewHorizontalTimetable();
         if (format.equals("vertical")) {
             aTimetable = readVerticalTimetableData(locationOfFile);
-        }
-        else if (format.equals("horizontal")){
-            aTimetable= readHorizontalTimetableData(locationOfFile);
+        } else if (format.equals("horizontal")) {
+            aTimetable = readHorizontalTimetableData(locationOfFile);
         }
         this.timetable = aTimetable;
     }
@@ -57,11 +59,51 @@ public class TimetableData {
     }
 
     private String[][] readHorizontalTimetableData(String locationOfFile) {
-        return generateNewHorizontalTimetable();
+        String[][] timetableMatrix;
+        Scanner inputStream;
+        //used code from https://stackoverflow.com/questions/40074840/reading-a-csv-file-into-a-array
+        timetableMatrix = generateNewHorizontalTimetable();
+        try {
+            File toRead = new File(locationOfFile);
+            if (toRead.exists()) {
+                inputStream = new Scanner(toRead);
+                int i = 0;
+                while (inputStream.hasNext()) {
+                    String line = inputStream.next();
+                    String[] entries = line.split(",");
+                    timetableMatrix[i] = entries;
+                    i++;
+                }
+                inputStream.close();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return timetableMatrix;
     }
 
+
     private String[][] readVerticalTimetableData(String locationOfFile) {
-        return generateNewVerticalTimetable();
+        String[][] timetableMatrix;
+        Scanner inputStream;
+        //used code from https://stackoverflow.com/questions/40074840/reading-a-csv-file-into-a-array
+        timetableMatrix = generateNewVerticalTimetable();
+        try {
+            File toRead = new File(locationOfFile);
+            if (!toRead.exists()) {
+                inputStream = new Scanner(toRead);
+                int i = 0;
+                while (inputStream.hasNext()) {
+                    String line = inputStream.next();
+                    String[] entries = line.split(",");
+                    timetableMatrix[i] = entries;
+                }
+                inputStream.close();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return timetableMatrix;
     }
 
     /**
