@@ -8,6 +8,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Accounts;
+import seedu.address.storage.UserAccountStorage;
 
 /**
  * Creates a user for address book.
@@ -27,15 +28,17 @@ public class LoginCommand extends Command {
             + PREFIX_PASSWORD + "password ";
 
     public static final String MESSAGE_SUCCESS = "Login successful!";
+    public static final String MESSAGE_FAILURE = "Login failed!";
     //TODO: throw exception message
 
     /**
      * Login
      */
     public LoginCommand(Accounts account) {
-        if (account.getUsername().equals(account.getUsername())
-                && account.getPassword().equals(account.getPassword())) { //TODO: haven't finish the data structure for persisting login management
+        if (UserAccountStorage.checkPasswordMatch(account.getUsername(), account.getPassword())){
             System.out.println(MESSAGE_SUCCESS);
+        } else {
+            System.out.println(MESSAGE_FAILURE);
         }
     }
 

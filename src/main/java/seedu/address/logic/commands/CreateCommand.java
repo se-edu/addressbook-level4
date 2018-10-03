@@ -8,6 +8,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.person.Accounts;
+import seedu.address.storage.UserAccountStorage;
 
 /**
  * Creates a user for address book.
@@ -27,14 +28,21 @@ public class CreateCommand extends Command {
             + PREFIX_PASSWORD + "password ";
 
     public static final String MESSAGE_SUCCESS = "New user added: %1$s";
-    //TODO: throw exception message
+    public static final String MESSAGE_FAILURE = "User already exist!";
 
     /**
      * Creates an CreateCommand to add the specified {@code Person}
      */
     public CreateCommand(Accounts account) {
-        System.out.println("Account created. Username: " + account.getUsername()
-                + " Password: " + account.getPassword());
+        if (!UserAccountStorage.checkDuplicateUser(account.getUsername())) {
+            UserAccountStorage.addNewAccount(account.getUsername(), account.getPassword());
+            System.out.println(MESSAGE_SUCCESS);
+            System.out.println("Account created. Username: " + account.getUsername()
+                    + " Password: " + account.getPassword());
+        } else {
+            System.out.println(MESSAGE_FAILURE);
+        }
+
     }
 
     @Override
