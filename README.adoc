@@ -1,9 +1,9 @@
-= Address Book (Level 4)
+= JitHub
 ifdef::env-github,env-browser[:relfileprefix: docs/]
 
-https://travis-ci.org/se-edu/addressbook-level4[image:https://travis-ci.org/se-edu/addressbook-level4.svg?branch=master[Build Status]]
+https://travis-ci.org/CS2113-AY1819S1-W12-1/main[image:https://travis-ci.org/se-edu/addressbook-level4.svg?branch=master[Build Status]]
 https://ci.appveyor.com/project/damithc/addressbook-level4[image:https://ci.appveyor.com/api/projects/status/3boko2x2vr5cc3w2?svg=true[Build status]]
-https://coveralls.io/github/se-edu/addressbook-level4?branch=master[image:https://coveralls.io/repos/github/se-edu/addressbook-level4/badge.svg?branch=master[Coverage Status]]
+https://coveralls.io/github/CS2113-AY1819S1-W12-1/main?branch=master[image:https://coveralls.io/repos/github/CS2113-AY1819S1-W12-1/main/badge.svg?branch=master[Coverage Status]]
 https://www.codacy.com/app/damith/addressbook-level4?utm_source=github.com&utm_medium=referral&utm_content=se-edu/addressbook-level4&utm_campaign=Badge_Grade[image:https://api.codacy.com/project/badge/Grade/fc0b7775cf7f4fdeaf08776f3d8e364a[Codacy Badge]]
 https://gitter.im/se-edu/Lobby[image:https://badges.gitter.im/se-edu/Lobby.svg[Gitter chat]]
 
@@ -15,13 +15,11 @@ ifndef::env-github[]
 image::images/Ui.png[width="600"]
 endif::[]
 
-* This is a desktop Address Book application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
-* It is a Java sample application intended for students learning Software Engineering while using Java as the main programming language.
-* It is *written in OOP fashion*. It provides a *reasonably well-written* code example that is *significantly bigger* (around 6 KLoC)than what students usually write in beginner-level SE modules.
-* What's different from https://github.com/se-edu/addressbook-level3[level 3]:
-** A more sophisticated GUI that includes a list  panel and an in-built Browser.
-** More test cases, including automated GUI testing.
-** Support for _Build Automation_ using Gradle and for _Continuous Integration_ using Travis CI.
+* This is a desktop Address Book + something else application. Most of the user interactions happen using a CLI (Command Line Interface) but we have includede a GUI to make the application aesthetically appealing.
+* It is a Java application intended for computing personnels to make their lives simpler by typing on their comman line instead of using a cursor.
+* The original addressbook application provides a *reasonably well-written* code example. We hope we don't screw it up.
+* What's different from the original https://github.com/se-edu/addressbook-level4[Adressbook]:
+** Humors are added currently.
 
 == Site Map
 
@@ -36,5 +34,7 @@ endif::[]
 * Some parts of this sample application were inspired by the excellent http://code.makery.ch/library/javafx-8-tutorial/[Java FX tutorial] by
 _Marco Jakob_.
 * Libraries used: https://github.com/TestFX/TestFX[TextFX], https://bitbucket.org/controlsfx/controlsfx/[ControlsFX], https://github.com/FasterXML/jackson[Jackson], https://github.com/google/guava[Guava], https://github.com/junit-team/junit5[JUnit5]
+* The original contributors of the addressbook can be found https://github.com/CS2113-AY1819S1-W12-1/main/blob/master/docs/AboutUs.adoc[here].
 
 == Licence : link:LICENSE[MIT]
+
