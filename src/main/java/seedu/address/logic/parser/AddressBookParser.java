@@ -71,6 +71,9 @@ public class AddressBookParser {
         case ListCommand.COMMAND_WORD:
             return new ListCommand();
 
+        case ModifyPayCommand.COMMAND_WORD:
+            return new ModifyPayCommand();
+
         case HistoryCommand.COMMAND_WORD:
             return new HistoryCommand();
 
