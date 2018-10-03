@@ -28,8 +28,8 @@ public class Timetable extends Entity {
         matrix = new TimetableData(format,locationOfFile);
     }
 
-    public Timetable( String fileName, String format) {
-        this.fileName = fileName + ".csv";
+    public Timetable( String format) {
+        this.fileName=null;
         this.format = format;
         locationOfFile = null;
         matrix = new TimetableData(format);
