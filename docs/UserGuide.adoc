@@ -202,7 +202,7 @@ Format: `leaveRequest id/EMPLOYEE_ID`
 
 Examples:
 
-* Approve the leave request of John Doe.
+* Approve the leave request of John Doe
 
 [%header,cols=2*]
 |===
