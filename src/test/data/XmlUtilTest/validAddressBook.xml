@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addressbook>
-    <schedules>
+    <persons>
         <employeeId>008888</employeeId>
         <name>Hans Muster</name>
         <dateOfBirth>12/12/1995</dateOfBirth>
@@ -11,8 +11,8 @@
         <address isPrivate="false">4th street</address>
         <salary>1000.00</salary>
         <bonus>0.0</bonus>
-    </schedules>
-    <schedules>
+    </persons>
+    <persons>
         <employeeId>009999</employeeId>
         <name>Ruth Mueller</name>
         <dateOfBirth>12/12/1995</dateOfBirth>
@@ -23,8 +23,8 @@
         <address isPrivate="false">81th street</address>
         <salary>1000.00</salary>
         <bonus>0.0</bonus>
-    </schedules>
-    <schedules>
+    </persons>
+    <persons>
         <employeeId>888888</employeeId>
         <name>Heinz Kurz</name>
         <dateOfBirth>12/12/1995</dateOfBirth>
@@ -35,8 +35,8 @@
         <address isPrivate="false">wall street</address>
         <salary>1000.00</salary>
         <bonus>0.0</bonus>
-    </schedules>
-    <schedules>
+    </persons>
+    <persons>
         <employeeId>999999</employeeId>
         <name>Cornelia Meier</name>
         <dateOfBirth>12/12/1995</dateOfBirth>
@@ -47,8 +47,8 @@
         <address isPrivate="false">10th street</address>
         <salary>1000.00</salary>
         <bonus>0.0</bonus>
-    </schedules>
-    <schedules>
+    </persons>
+    <persons>
         <employeeId>998888</employeeId>
         <name>Werner Meyer</name>
         <dateOfBirth>12/12/1995</dateOfBirth>
@@ -59,8 +59,8 @@
         <address isPrivate="false">michegan ave</address>
         <salary>1000.00</salary>
         <bonus>0.0</bonus>
-    </schedules>
-    <schedules>
+    </persons>
+    <persons>
         <employeeId>123456</employeeId>
         <name>Lydia Kunz</name>
         <dateOfBirth>12/12/1995</dateOfBirth>
@@ -71,8 +71,8 @@
         <address isPrivate="false">little tokyo</address>
         <salary>1000.00</salary>
         <bonus>0.0</bonus>
-    </schedules>
-    <schedules>
+    </persons>
+    <persons>
         <employeeId>000001</employeeId>
         <name>Anna Best</name>
         <dateOfBirth>12/12/1995</dateOfBirth>
@@ -83,8 +83,8 @@
         <address isPrivate="false">4th street</address>
         <salary>1000.00</salary>
         <bonus>0.0</bonus>
-    </schedules>
-    <schedules>
+    </persons>
+    <persons>
         <employeeId>008844</employeeId>
         <name>Stefan Meier</name>
         <dateOfBirth>12/12/1995</dateOfBirth>
@@ -95,8 +95,8 @@
         <address isPrivate="false">little india</address>
         <salary>1000.00</salary>
         <bonus>0.0</bonus>
-    </schedules>
-    <schedules>
+    </persons>
+    <persons>
         <employeeId>444444</employeeId>
         <name>Martin Mueller</name>
         <dateOfBirth>12/12/1995</dateOfBirth>
@@ -107,5 +107,5 @@
         <address isPrivate="false">chicago ave</address>
         <salary>1000.00</salary>
         <bonus>0.0</bonus>
-    </schedules>
+    </persons>
 </addressbook>
