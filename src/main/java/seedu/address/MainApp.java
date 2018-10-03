@@ -76,7 +76,7 @@ public class MainApp extends Application {
         ScheduleListStorage scheduleListStorage = new XmlScheduleListStorage(userPrefs.getScheduleListFilePath());
         ExpensesListStorage expensesListStorage = new XmlExpensesListStorage(userPrefs.getExpensesListFilePath());
 
-        storage = new StorageManager(addressBookStorage,expensesListStorage, scheduleListStorage, userPrefsStorage);
+        storage = new StorageManager(addressBookStorage, expensesListStorage, scheduleListStorage, userPrefsStorage);
 
         //------------------------------------------------------------------
         initLogging(config);

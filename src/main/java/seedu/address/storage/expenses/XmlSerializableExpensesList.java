@@ -8,9 +8,9 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.expenses.Expenses;
 import seedu.address.model.expenses.ExpensesList;
 import seedu.address.model.expenses.ReadOnlyExpensesList;
-import seedu.address.model.expenses.Expenses;
 
 /**
  * An Immutable ExpensesList that is serializable to XML format

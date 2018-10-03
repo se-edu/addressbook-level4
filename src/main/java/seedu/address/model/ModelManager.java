@@ -12,8 +12,8 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
-import seedu.address.commons.events.model.ScheduleListChangedEvent;
 import seedu.address.commons.events.model.ExpensesListChangedEvent;
+import seedu.address.commons.events.model.ScheduleListChangedEvent;
 import seedu.address.model.addressbook.AddressBook;
 import seedu.address.model.addressbook.ReadOnlyAddressBook;
 import seedu.address.model.addressbook.VersionedAddressBook;
@@ -43,7 +43,7 @@ public class ModelManager extends ComponentManager implements Model {
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook,ReadOnlyExpensesList expensesList,
+    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyExpensesList expensesList,
                         ReadOnlyScheduleList scheduleList, UserPrefs userPrefs) {
         super();
         requireAllNonNull(addressBook, userPrefs);
@@ -88,10 +88,12 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
-    public ReadOnlyExpensesList getExpensesList() { return versionedExpensesList; }
+    public ReadOnlyExpensesList getExpensesList() {
+        return versionedExpensesList; }
 
     @Override
     public ReadOnlyScheduleList getScheduleList() {
+
         return versionedScheduleList;
     }
 

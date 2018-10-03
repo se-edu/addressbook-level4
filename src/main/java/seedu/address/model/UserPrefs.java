@@ -38,7 +38,8 @@ public class UserPrefs {
     public Path getAddressBookFilePath() {
         return addressBookFilePath;
     }
-    public Path getExpensesListFilePath() { return expensesListFilePath; }
+    public Path getExpensesListFilePath() {
+        return expensesListFilePath; }
     public Path getScheduleListFilePath() {
         return scheduleListFilePath;
     }
