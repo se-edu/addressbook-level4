@@ -35,13 +35,16 @@ public class AddTimetableCommandParser implements Parser<AddTimetableCommand> {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
             throw new ParseException(
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTimetableCommand.MESSAGE_USAGE), pe);
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTimetableCommand.MESSAGE_USAGE),
+                pe);
         }
         String mode = ParserUtil.parseMode(argMultimap.getValue(PREFIX_MODE).get());
-        String fileName = ParserUtil.parseFilename(argMultimap.getValue(PREFIX_FILE_NAME).get());
+
         String format = ParserUtil.parseFormat(argMultimap.getValue(PREFIX_FORMAT).get());
         Timetable timetable = new Timetable(format);
         if (arePrefixesPresent(argMultimap, PREFIX_FILE_NAME, PREFIX_FILE_LOCATION)) {
+            String fileName = ParserUtil
+                .parseFilename(argMultimap.getValue(PREFIX_FILE_NAME).get());
             String locationFrom = ParserUtil
                 .parseLocation(argMultimap.getValue(PREFIX_FILE_LOCATION).get());
             if (mode.equals("existing")) {
