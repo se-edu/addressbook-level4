@@ -9,6 +9,9 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_SALARY;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.CommandHistory;
 import seedu.address.model.Model;
+import seedu.address.model.person.Salary;
+import seedu.address.model.person.Bonus;
+import seedu.address.model.person.tag.Tag;
 
 public class ModifyPayCommand extends Command {
 
