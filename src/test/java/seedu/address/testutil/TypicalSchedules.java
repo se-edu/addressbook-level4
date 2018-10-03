@@ -2,6 +2,9 @@ package seedu.address.testutil;
 
 import seedu.address.model.schedule.ScheduleList;
 
+/**
+ * A utility class containing a list of {@code Schedule} objects to be used in tests.
+ */
 public class TypicalSchedules {
 
     /**

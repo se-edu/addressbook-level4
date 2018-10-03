@@ -7,10 +7,10 @@ import static seedu.address.testutil.TypicalSchedules.getTypicalScheduleList;
 import org.junit.Test;
 
 import seedu.address.logic.CommandHistory;
-import seedu.address.model.addressbook.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.addressbook.AddressBook;
 import seedu.address.model.schedule.ScheduleList;
 
 public class ClearCommandTest {
