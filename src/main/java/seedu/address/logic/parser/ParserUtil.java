@@ -23,10 +23,9 @@ public class ParserUtil {
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
 
     /**
-     * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
-     * trimmed.
      * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing
-     * whitespaces will be trimmed.
+     * whitespaces will be trimmed. Parses {@code oneBasedIndex} into an {@code Index} and returns
+     * it. Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
      */
@@ -146,8 +145,8 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String location} into an {@code String location}. Leading and trailing whitespaces will be
-     * trimmed.
+     * Parses a {@code String location} into an {@code String location}. Leading and trailing
+     * whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code location} is invalid.
      */
@@ -157,8 +156,8 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String fileName} into an {@code String fileName}. Leading and trailing whitespaces will be
-     * trimmed.
+     * Parses a {@code String fileName} into an {@code String fileName}. Leading and trailing
+     * whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code fileName} is invalid.
      */
@@ -169,14 +168,33 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String mode} into an {@code String Mode}. Leading and trailing whitespaces will be
-     * trimmed.
+     *
+     * Parses a {@code String mode} into an {@code String mode}. Leading and trailing
+     * whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code mode} is invalid.
      */
     public static String parseMode(String mode) throws ParseException {
         requireNonNull(mode);
+        if (mode.equals("new") || mode.equals("existing")) {
+            return mode;
+        } else {
+            throw new ParseException("mode can only be new or exist");
+        }
+    }
 
-        return mode;
+    /**
+     * Parses a {@code String format} into an {@code String format}. Leading and trailing whitespaces
+     * will be trimmed.
+     *
+     * @throws ParseException if the given {@code format} is invalid.
+     */
+    public static String parseFormat(String format) throws ParseException {
+        requireNonNull(format);
+        if (format.equals("horizontal") || format.equals("vertical")) {
+            return format;
+        } else {
+            throw new ParseException("format can only be horizontal or vertical");
+        }
     }
 }

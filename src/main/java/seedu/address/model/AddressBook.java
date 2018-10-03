@@ -7,8 +7,8 @@ import java.util.List;
 import javafx.collections.ObservableList;
 import seedu.address.model.group.Group;
 import seedu.address.model.person.Person;
-import seedu.address.model.timetable.Timetable;
-import seedu.address.model.timetable.UniqueTimetableList;
+import seedu.address.model.person.timetable.Timetable;
+
 
 /**
  * Wraps all data at the address-book level Duplicates are not allowed (by .isSamePerson
@@ -18,7 +18,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniqueList<Person> persons;
     private final UniqueList<Group> groups;
-    private final UniqueTimetableList timetableList;
+    private final UniqueList<Timetable> timetableList;
 
     /*
      * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
@@ -31,7 +31,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     {
         persons = new UniqueList<>();
         groups = new UniqueList<>();
-        timetableList = new UniqueTimetableList();
+        timetableList = new UniqueList<>();
     }
 
     public AddressBook() {

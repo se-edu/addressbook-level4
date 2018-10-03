@@ -29,10 +29,13 @@ public class XmlUtilTest {
     private static final Path EMPTY_FILE = TEST_DATA_FOLDER.resolve("empty.xml");
     private static final Path MISSING_FILE = TEST_DATA_FOLDER.resolve("missing.xml");
     private static final Path VALID_FILE = TEST_DATA_FOLDER.resolve("validAddressBook.xml");
-    private static final Path MISSING_PERSON_FIELD_FILE = TEST_DATA_FOLDER.resolve("missingPersonField.xml");
-    private static final Path INVALID_PERSON_FIELD_FILE = TEST_DATA_FOLDER.resolve("invalidPersonField.xml");
+    private static final Path MISSING_PERSON_FIELD_FILE = TEST_DATA_FOLDER
+        .resolve("missingPersonField.xml");
+    private static final Path INVALID_PERSON_FIELD_FILE = TEST_DATA_FOLDER
+        .resolve("invalidPersonField.xml");
     private static final Path VALID_PERSON_FILE = TEST_DATA_FOLDER.resolve("validPerson.xml");
-    private static final Path TEMP_FILE = TestUtil.getFilePathInSandboxFolder("tempAddressBook.xml");
+    private static final Path TEMP_FILE = TestUtil
+        .getFilePathInSandboxFolder("tempAddressBook.xml");
 
     private static final String INVALID_PHONE = "9482asf424";
 
@@ -40,7 +43,9 @@ public class XmlUtilTest {
     private static final String VALID_PHONE = "9482424";
     private static final String VALID_EMAIL = "hans@example";
     private static final String VALID_ADDRESS = "4th street";
-    private static final List<XmlAdaptedTag> VALID_TAGS = Collections.singletonList(new XmlAdaptedTag("friends"));
+    private static final List<XmlAdaptedTag> VALID_TAGS = Collections
+        .singletonList(new XmlAdaptedTag("friends"));
+    private static final String VALID_FORMAT = "horizontal";
 
     @Rule
     public ExpectedException thrown = ExpectedException.none();
@@ -71,34 +76,35 @@ public class XmlUtilTest {
 
     @Test
     public void getDataFromFile_validFile_validResult() throws Exception {
-        AddressBook dataFromFile = XmlUtil.getDataFromFile(VALID_FILE, XmlSerializableAddressBook.class).toModelType();
+        AddressBook dataFromFile = XmlUtil
+            .getDataFromFile(VALID_FILE, XmlSerializableAddressBook.class).toModelType();
         assertEquals(9, dataFromFile.getPersonList().size());
     }
 
     @Test
     public void xmlAdaptedPersonFromFile_fileWithMissingPersonField_validResult() throws Exception {
         XmlAdaptedPerson actualPerson = XmlUtil.getDataFromFile(
-                MISSING_PERSON_FIELD_FILE, XmlAdaptedPersonWithRootElement.class);
+            MISSING_PERSON_FIELD_FILE, XmlAdaptedPersonWithRootElement.class);
         XmlAdaptedPerson expectedPerson = new XmlAdaptedPerson(
-                null, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
+            null, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_FORMAT, VALID_TAGS);
         assertEquals(expectedPerson, actualPerson);
     }
 
     @Test
     public void xmlAdaptedPersonFromFile_fileWithInvalidPersonField_validResult() throws Exception {
         XmlAdaptedPerson actualPerson = XmlUtil.getDataFromFile(
-                INVALID_PERSON_FIELD_FILE, XmlAdaptedPersonWithRootElement.class);
+            INVALID_PERSON_FIELD_FILE, XmlAdaptedPersonWithRootElement.class);
         XmlAdaptedPerson expectedPerson = new XmlAdaptedPerson(
-                VALID_NAME, INVALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
+            VALID_NAME, INVALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_FORMAT, VALID_TAGS);
         assertEquals(expectedPerson, actualPerson);
     }
 
     @Test
     public void xmlAdaptedPersonFromFile_fileWithValidPerson_validResult() throws Exception {
         XmlAdaptedPerson actualPerson = XmlUtil.getDataFromFile(
-                VALID_PERSON_FILE, XmlAdaptedPersonWithRootElement.class);
+            VALID_PERSON_FILE, XmlAdaptedPersonWithRootElement.class);
         XmlAdaptedPerson expectedPerson = new XmlAdaptedPerson(
-                VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_TAGS);
+            VALID_NAME, VALID_PHONE, VALID_EMAIL, VALID_ADDRESS, VALID_FORMAT, VALID_TAGS);
         assertEquals(expectedPerson, actualPerson);
     }
 
@@ -125,12 +131,13 @@ public class XmlUtilTest {
         FileUtil.createFile(TEMP_FILE);
         XmlSerializableAddressBook dataToWrite = new XmlSerializableAddressBook(new AddressBook());
         XmlUtil.saveDataToFile(TEMP_FILE, dataToWrite);
-        XmlSerializableAddressBook dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE, XmlSerializableAddressBook.class);
+        XmlSerializableAddressBook dataFromFile = XmlUtil
+            .getDataFromFile(TEMP_FILE, XmlSerializableAddressBook.class);
         assertEquals(dataToWrite, dataFromFile);
 
         AddressBookBuilder builder = new AddressBookBuilder(new AddressBook());
         dataToWrite = new XmlSerializableAddressBook(
-                builder.withPerson(new PersonBuilder().build()).build());
+            builder.withPerson(new PersonBuilder().build()).build());
 
         XmlUtil.saveDataToFile(TEMP_FILE, dataToWrite);
         dataFromFile = XmlUtil.getDataFromFile(TEMP_FILE, XmlSerializableAddressBook.class);
@@ -138,9 +145,11 @@ public class XmlUtilTest {
     }
 
     /**
-     * Test class annotated with {@code XmlRootElement} to allow unmarshalling of .xml data to {@code XmlAdaptedPerson}
-     * objects.
+     * Test class annotated with {@code XmlRootElement} to allow unmarshalling of .xml data to
+     * {@code XmlAdaptedPerson} objects.
      */
     @XmlRootElement(name = "person")
-    private static class XmlAdaptedPersonWithRootElement extends XmlAdaptedPerson {}
+    private static class XmlAdaptedPersonWithRootElement extends XmlAdaptedPerson {
+
+    }
 }
