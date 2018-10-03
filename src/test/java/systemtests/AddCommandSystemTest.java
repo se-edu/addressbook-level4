@@ -279,7 +279,7 @@ public class AddCommandSystemTest extends AddressBookSystemTest {
      * 4. {@code Storage} and {@code PersonListPanel} equal to the corresponding components in
      * the current model added with {@code toAdd}.<br>
      * 5. Browser url and selected card remain unchanged.<br>
-     * 6. Type bar's sync status changes.<br>
+     * 6. Status bar's sync status changes.<br>
      * Verifications 1, 3 and 4 are performed by
      * {@code AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)}.<br>
      * @see AddressBookSystemTest#assertApplicationDisplaysExpected(String, String, Model)
