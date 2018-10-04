@@ -1,10 +1,13 @@
 package seedu.address.storage;
 
+import static java.util.Objects.requireNonNull;
+
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.Optional;
 
 import seedu.address.commons.exceptions.DataConversionException;
+import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.JsonUtil;
 import seedu.address.model.ReadOnlyTranscript;
 import seedu.address.model.Transcript;
@@ -47,6 +50,10 @@ public class JsonTranscriptStorage implements TranscriptStorage {
 
     @Override
     public void saveTranscript(ReadOnlyTranscript transcript, Path filePath) throws IOException {
+        requireNonNull(transcript);
+        requireNonNull(filePath);
+
+        FileUtil.createIfMissing(filePath);
         JsonUtil.saveJsonFile(new Transcript(transcript), filePath);
     }
 
