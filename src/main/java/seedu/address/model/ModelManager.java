@@ -50,11 +50,6 @@ public class ModelManager extends ComponentManager implements Model {
 
     // timetable operations
 
-    @Override
-    public void addTimetable(Timetable timetable) {
-        versionedAddressBook.addTimetable(timetable);
-        indicateAddressBookChanged();
-    }
 
     //group operations
     @Override

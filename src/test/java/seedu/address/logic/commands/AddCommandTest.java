@@ -120,10 +120,6 @@ public class AddCommandTest {
         }
 
         // timetable operations
-        @Override
-        public void addTimetable(Timetable timetable) {
-            throw new AssertionError("This method should not be called.");
-        }
 
         @Override
         public void resetData(ReadOnlyAddressBook newData) {

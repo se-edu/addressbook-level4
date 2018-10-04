@@ -43,11 +43,6 @@ public interface Model {
 
     //timetable operations
 
-    /**
-     *
-     * @param timetable
-     */
-    void addTimetable(Timetable timetable);
 
     //Group operations
     /**

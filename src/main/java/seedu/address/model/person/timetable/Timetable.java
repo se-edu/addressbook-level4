@@ -8,7 +8,7 @@ import seedu.address.model.Entity;
 public class Timetable extends Entity {
 
     // Identity fields
-    private final String fileName;
+    private String fileName;
     private final String locationOfFile;
     private final String format;
 
@@ -29,7 +29,6 @@ public class Timetable extends Entity {
     }
 
     public Timetable(String format) {
-        this.fileName = null;
         this.format = format;
         locationOfFile = null;
         matrix = new TimetableData(format);
@@ -39,12 +38,24 @@ public class Timetable extends Entity {
         return fileName;
     }
 
+    public void setFileName(String fileName) {
+        this.fileName = fileName + ".csv";
+    }
+
     public String getFormat() {
         return format;
     }
 
     public TimetableData getTimetable() {
         return this.matrix;
+    }
+
+    /**
+     * download timetable to the given location
+     */
+    public void downloadTimetable(String locationTo) {
+        String filePath = locationTo.replace("\\", "/") + "/" + this.fileName;
+        this.matrix.downloadTimetableData(filePath);
     }
 
     @Override
