@@ -250,33 +250,24 @@ Format: `clear_timetable`
 == Groups (Melodies)
 === Adding a group: `add_group`
 
-Make a group in the System, status is set as open. +
-Format: `add_group g/GROUPNAME d/GROUPDESCRIPTION m/MAXNUMBEROFPEOPLE`
+Add a group to the System +
+Format: add_group n/GROUPNAME d/GROUPDESCRIPTION `
 
 Examples:
 
-* `add_group g/happyfriends d/a group of happy friends m/3 `
+* `add_group n/happyfriends d/a group of happy friends`
 
-===	Listing all Groups : `list_groups`
+=== Editing a group : `edit_group`
 
-Shows a list of all groups, along with their details. +
-Format: `list_groups`
+Edit a group's details. There must be at least 1 field non-empty. +
+If field is empty, system assumes that the field remains unedited.
 
-=== Editing a friend : `edit_group`
-
-Edit a group you created in the System for the creator of the group. If there is no new input, the system will assume the old data (group name,group description,max number of people), there is only open/closed for status, closed status means you cannot add friend to the group +
-Format: `edit_group i/GROUPINDEX [g/NEWGROUPNAME] [d/NEWGROUPDESCRIPTION] [m/NEWMAXNUMBEROFPEOPLE]  [s/STATUS]`
-
-****
-* Edits the group at the specified `INDEX_OF_GROUP`. The index refers to the index number shown in the displayed group list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-****
+Format: `edit_group OLDGROUPNAME [n/NEWGROUPNAME] [d/NEWGROUPDESCRIPTION]`
 
 Examples:
 
-* `edit_group i/1 g/sadfriends d/sad because of cs2103 s/closed ` +
-
+* `edit_group happyfriends n/sadfriends d/sad because of cs2103` +
+* `edit_group happyfriends d/very sad because of cs2103` +
 
 === Locating group by name: `find_group`
 
@@ -294,14 +285,14 @@ Format: `find_group   KEYWORD [MORE_KEYWORDS]`
 Examples:
 
 * `find_group John` +
-Returns `john` and `John Doe`
+Returns `john family` and `John House`
 * `find_group Betsy Tim John` +
 Returns any group having names `Betsy`, `Tim`, or `John`
 
 === Deleting a group : `delete_group`
 
 Delete a group in the system by index +
-Format: `delete_group g/GROUPINDEX `
+Format: `delete_group n/GROUPNAME `
 
 ****
 * Deletes the group at the specified `GROUPINDEX`.
@@ -311,50 +302,36 @@ Format: `delete_group g/GROUPINDEX `
 
 Examples:
 
-* `list_group` +
-`delete_group 2` +
-Deletes the 2nd group in the Erium.
-* `find_group Betsy` +
-`delete_group 1` +
-Deletes the 1st group in the results of the `find_group` command.
+* `delete_group n/happyfriends`
 
 
-=== Clearing all group : `clear_group`
+=== List all members of a group : `view_group`
 
-Clears all group from the System. +
-Format: `clear_group`
-
-
-
-=== List all members of a group : `viewgroup`
-
-shows a list of all members in a group, along with their details and the group details. +
-Format: `view_group i/GROUP_INDEX`
+shows a list of all members in a group +
+Format: `view_group n/GROUP_NAME`
 
 ****
-* List all members of a group at the specified `GROUPINDEX`. The index refers to the index number shown in the displayed group list. The index *must be a positive integer* 1, 2, 3, ...
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
+* List all members of a group at the specified `GROUPNAME`.
 ****
 
 
 Examples:
 
-* ` view_group i/1` +
+* ` view_group n/happyfriends` +
 
 === add a friend to group : `register`
 
 Adds a friend to a group if the status of the group is open. +
-Format: `register f/FRIEND_INDEX g/GROUP_INDEX`
+Format: `register FRIEND_INDEX n/GROUP_NAME`
 
 ****
-* Edits the group at the specified `GROUPINDEX`. The index refers to the index number shown in the displayed group list. The index *must be a positive integer* 1, 2, 3, ...
+* Edits the group of unique `GROUPNAME`.
 * Edits the group at the specified `INDEX_OF_FRIEND`. The index refers to the index number shown in the displayed person list. The index *must be a positive integer* 1, 2, 3, ...
 ****
 
 Examples:
 
-* `register f/1 g/1 ` +
+* `register 1 n/happyfriends ` +
 
 == Find common time slot in group (Nigel)
 
