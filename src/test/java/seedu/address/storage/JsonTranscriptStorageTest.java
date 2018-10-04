@@ -8,14 +8,12 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Optional;
-import java.util.logging.Logger;
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
 
-import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.ReadOnlyTranscript;
 import seedu.address.model.Transcript;
@@ -62,7 +60,6 @@ public class JsonTranscriptStorageTest {
             .build();
 
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonTranscriptStorageTest");
-    private static final Logger logger = LogsCenter.getLogger(JsonTranscriptStorageTest.class);
     @Rule
     public ExpectedException thrown = ExpectedException.none();
     @Rule
