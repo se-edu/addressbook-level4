@@ -106,7 +106,8 @@ public class TimetableData {
     private String[][] readVerticalTimetableData(String locationOfFile) {
         String[][] timetableMatrix;
         Scanner inputStream;
-        //Solution below adapted from mikeL from https://stackoverflow.com/questions/40074840/reading-a-csv-file-into-a-array
+        //Solution below adapted from mikeL
+        // from https://stackoverflow.com/questions/40074840/reading-a-csv-file-into-a-array
         timetableMatrix = generateNewVerticalTimetable();
         try {
             File toRead = new File(locationOfFile);
@@ -197,7 +198,8 @@ public class TimetableData {
      * @param locationTo location of where to save the file
      */
     public void downloadTimetableData(String locationTo) {
-        // Solution below adapted from bit-question from https://stackoverflow.com/questions/6271796/issues-of-saving-a-matrix-to-a-csv-file
+        // Solution below adapted from bit-question
+        // from https://stackoverflow.com/questions/6271796/issues-of-saving-a-matrix-to-a-csv-file
         String filePath = locationTo;
         try {
             File toWrite = new File(filePath);
