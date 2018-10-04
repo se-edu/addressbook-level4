@@ -18,7 +18,6 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     private final UniqueList<Person> persons;
     private final UniqueList<Group> groups;
-    private final UniqueList<Timetable> timetableList;
 
     /*
      * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
@@ -31,7 +30,6 @@ public class AddressBook implements ReadOnlyAddressBook {
     {
         persons = new UniqueList<>();
         groups = new UniqueList<>();
-        timetableList = new UniqueList<>();
     }
 
     public AddressBook() {
@@ -46,14 +44,6 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     // timetable operations
-
-    /**
-     *
-     * @param timetable
-     */
-    public void addTimetable(Timetable timetable) {
-        timetableList.add(timetable);
-    }
 
     ///group operations
 
