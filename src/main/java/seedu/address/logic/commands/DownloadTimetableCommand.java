@@ -15,7 +15,7 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.timetable.Timetable;
 
 /**
- *  download a timetable to a specific location
+ * download a timetable to a specific location
  */
 public class DownloadTimetableCommand extends Command {
 
@@ -34,7 +34,8 @@ public class DownloadTimetableCommand extends Command {
     private final String locationTo;
 
     /**
-     /**
+     * /**
+     *
      * @param index of the person in the filtered person list to edit
      * @param locationTo to save the file of timetable to
      */

@@ -123,7 +123,7 @@ public class XmlAdaptedPerson {
             throw new IllegalValueException(Address.MESSAGE_ADDRESS_CONSTRAINTS);
         }
         final Address modelAddress = new Address(address);
-        final Timetable modelTimetable = new Timetable(format);
+        final Timetable modelTimetable = new Timetable(modelName.toString(), format);
         final Set<Tag> modelTags = new HashSet<>(personTags);
         return new Person(modelName, modelPhone, modelEmail, modelAddress, modelTags,
             modelTimetable);

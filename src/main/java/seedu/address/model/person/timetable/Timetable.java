@@ -8,7 +8,7 @@ import seedu.address.model.Entity;
 public class Timetable extends Entity {
 
     // Identity fields
-    private String fileName;
+    private final String fileName;
     private final String locationOfFile;
     private final String format;
 
@@ -28,7 +28,8 @@ public class Timetable extends Entity {
         matrix = new TimetableData(format, locationOfFile);
     }
 
-    public Timetable(String format) {
+    public Timetable(String fileName, String format) {
+        this.fileName = fileName + ".csv";
         this.format = format;
         locationOfFile = null;
         matrix = new TimetableData(format);
@@ -38,9 +39,6 @@ public class Timetable extends Entity {
         return fileName;
     }
 
-    public void setFileName(String fileName) {
-        this.fileName = fileName + ".csv";
-    }
 
     public String getFormat() {
         return format;
