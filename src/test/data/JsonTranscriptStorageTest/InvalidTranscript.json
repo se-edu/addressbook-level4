@@ -1,10 +1,8 @@
 {
   "modules": {
     "internalList": [
-      // Single invalid module
       {
         "code": {
-          //invalid Code value
           "value": 0
         },
         "year": {

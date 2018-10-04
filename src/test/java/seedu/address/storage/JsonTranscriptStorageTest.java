@@ -109,13 +109,13 @@ public class JsonTranscriptStorageTest {
     @Test
     public void readTranscript_invalidModuleTranscript_throwDataConversionException() throws Exception {
         thrown.expect(DataConversionException.class);
-        readTranscript("invalidTranscript.json");
+        readTranscript("InvalidTranscript.json");
     }
 
     @Test
     public void readTranscript_invalidAndValidModuleTranscript_throwDataConversionException() throws Exception {
         thrown.expect(DataConversionException.class);
-        readTranscript("invalidAndValidTranscript.json");
+        readTranscript("InvalidAndValidTranscript.json");
     }
 
     @Test

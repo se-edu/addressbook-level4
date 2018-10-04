@@ -32,7 +32,7 @@ public class TestApp extends MainApp {
 
     public static final Path SAVE_LOCATION_FOR_TESTING = TestUtil.getFilePathInSandboxFolder("sampleData.xml");
     public static final Path SAVE_TRANSCRIPT_LOCATION_FOR_TESTING =
-            TestUtil.getFilePathInSandboxFolder("sampleTranscriptData.xml");
+            TestUtil.getFilePathInSandboxFolder("sampleTranscriptData.json");
     public static final String APP_TITLE = "Test App";
 
     protected static final Path DEFAULT_PREF_FILE_LOCATION_FOR_TESTING =
