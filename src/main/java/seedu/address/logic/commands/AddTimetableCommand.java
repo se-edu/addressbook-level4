@@ -42,7 +42,7 @@ public class AddTimetableCommand extends Command {
             + "[" + PREFIX_FILE_NAME + "]"
             + "[" + PREFIX_FORMAT + "]"
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_MODE + "new" + PREFIX_FORMAT + "vertical"
+            + PREFIX_MODE + "new " + PREFIX_FILE_NAME + "test " + PREFIX_FORMAT + "vertical"
             + "\n"
             + "Parameters for mode = existing: INDEX (must be a positive integer) "
             + "[" + PREFIX_MODE + "]"
@@ -50,8 +50,8 @@ public class AddTimetableCommand extends Command {
             + "[" + PREFIX_FILE_NAME + "]"
             + "[" + PREFIX_FILE_LOCATION + "] \n"
             + "Example: " + COMMAND_WORD + " 1 "
-            + PREFIX_MODE + "existing" + PREFIX_FORMAT + "horizontal"
-            + PREFIX_FILE_NAME + "test" + PREFIX_FILE_LOCATION + "C:\\Users\\admin\\Downloads";
+            + PREFIX_MODE + "existing " + PREFIX_FORMAT + "horizontal "
+            + PREFIX_FILE_NAME + "test " + PREFIX_FILE_LOCATION + "C:\\Users\\admin\\Downloads";
 
     public static final String MESSAGE_ADD_TIMETABLE_SUCCESS = "timetable added successfully";
 
