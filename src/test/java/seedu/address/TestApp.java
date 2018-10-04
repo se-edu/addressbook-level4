@@ -49,6 +49,7 @@ public class TestApp extends MainApp {
                    Supplier<ReadOnlyTranscript> initialTranscriptDataSupplier, Path saveTranscriptFileLocation) {
         super();
         this.initialDataSupplier = initialDataSupplier;
+        this.initialTranscriptDataSupplier = initialTranscriptDataSupplier;
         this.saveFileLocation = saveFileLocation;
         this.saveTranscriptFileLocation = saveTranscriptFileLocation;
 
@@ -59,6 +60,8 @@ public class TestApp extends MainApp {
         }
         // If some initial local data has been provided, write those to the file
         if (initialTranscriptDataSupplier.get() != null) {
+            //For some reason when testing my app locally, this line keeps creating a file
+            // in my test directory instead of the sandbox (unlike "sampleData.xml"), which is annoying).
             // createJsonDataFileWithData(new Transcript(this.initialTranscriptDataSupplier.get()),
             // this.saveTranscriptFileLocation);
         }
