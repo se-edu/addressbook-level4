@@ -197,6 +197,7 @@ public class TimetableData {
      * @param locationTo location of where to save the file
      */
     public void downloadTimetableData(String locationTo) {
+        // used code from bit-question from https://stackoverflow.com/questions/6271796/issues-of-saving-a-matrix-to-a-csv-file
         String filePath = locationTo;
         try {
             File toWrite = new File(filePath);
