@@ -2,14 +2,12 @@ package seedu.address.storage;
 
 import java.io.IOException;
 import java.util.Iterator;
-import java.util.logging.Logger;
 
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 
-import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.ReadOnlyTranscript;
 import seedu.address.model.Transcript;
 import seedu.address.model.module.Code;
@@ -23,9 +21,6 @@ import seedu.address.model.module.Year;
  * Deserializer for {@link seedu.address.model.ReadOnlyTranscript}.
  */
 public class JsonTranscriptDeserializer extends StdDeserializer<ReadOnlyTranscript> {
-
-
-    private static final Logger logger = LogsCenter.getLogger(JsonTranscriptStorage.class);
 
     public JsonTranscriptDeserializer(Class<ReadOnlyTranscript> vc) {
         super(vc);
@@ -41,6 +36,10 @@ public class JsonTranscriptDeserializer extends StdDeserializer<ReadOnlyTranscri
         Transcript transcript = new Transcript();
         JsonNode node = jp.getCodec().readTree(jp);
         try {
+            JsonNode capGoal = node.path("capGoal");
+            if (!capGoal.isMissingNode()) {
+                transcript.setCapGoal(capGoal.doubleValue());
+            }
             Iterator<JsonNode> elements = node.get("modules").get("internalList").elements();
             while (elements.hasNext()) {
                 JsonNode e = elements.next();
