@@ -58,7 +58,7 @@ public class TypicalModules {
             .withGrade("A+")
             .build();
 
-    public static final Module DATABASE_SYSTEMS_2MC = new ModuleBuilder().withCode("CS2102")
+    public static final Module DATABASE_SYSTEMS_2MC = new ModuleBuilder().withCode("CS2102B")
             .withYear(2)
             .withSemester(Semester.SEMESTER_ONE)
             .withCredit(2)
