@@ -35,7 +35,7 @@ public class PersonBuilder {
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
         address = new Address(DEFAULT_ADDRESS);
-        timetable = new Timetable(DEFAULT_FORMAT);
+        timetable = new Timetable(name.toString(), DEFAULT_FORMAT);
         tags = new HashSet<>();
     }
 
@@ -60,11 +60,10 @@ public class PersonBuilder {
     }
 
     /**
-     *
      * Sets the {@code timetable} of the {@code Person} that we are building.
      */
     public PersonBuilder withTimetable(String format) {
-        this.timetable = new Timetable(format);
+        this.timetable = new Timetable(this.name.toString(), format);
         return this;
     }
 

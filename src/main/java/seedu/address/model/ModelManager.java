@@ -17,8 +17,8 @@ import seedu.address.model.person.Person;
 
 
 /**
- * Represents the in-memory model of the address book data.
- * #TO DO: Refactor methods: hasPerson --> hasElements () {calls has method in Person / Group/ etc} and Group/Person
+ * Represents the in-memory model of the address book data. #TO DO: Refactor methods: hasPerson -->
+ * hasElements () {calls has method in Person / Group/ etc} and Group/Person
  */
 public class ModelManager extends ComponentManager implements Model {
 
@@ -125,8 +125,8 @@ public class ModelManager extends ComponentManager implements Model {
     //=========== Filtered Person/Group List Accessors =============================================================
 
     /**
-     * Returns an unmodifiable view of the list of {@code Person} and {@code Group} backed by the internal list of
-     * {@code versionedAddressBook}
+     * Returns an unmodifiable view of the list of {@code Person} and {@code Group} backed by the
+     * internal list of {@code versionedAddressBook}
      */
     @Override
     public ObservableList<Person> getFilteredPersonList() {

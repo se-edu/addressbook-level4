@@ -45,8 +45,9 @@ public class AddTimetableCommandParser implements Parser<AddTimetableCommand> {
         String mode = ParserUtil.parseMode(argMultimap.getValue(PREFIX_MODE).get());
         String format = ParserUtil.parseFormat(argMultimap.getValue(PREFIX_FORMAT).get());
         String fileName = ParserUtil.parseFilename(argMultimap.getValue(PREFIX_FILE_NAME).get());
-        Timetable timetable = new Timetable(format);
-        timetable.setFileName(fileName);
+
+        EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
+        Timetable timetable = new Timetable(fileName, format);
         if (arePrefixesPresent(argMultimap, PREFIX_FILE_LOCATION)) {
             String locationFrom = ParserUtil
                 .parseLocation(argMultimap.getValue(PREFIX_FILE_LOCATION).get());
@@ -54,7 +55,6 @@ public class AddTimetableCommandParser implements Parser<AddTimetableCommand> {
                 timetable = new Timetable(fileName, format, locationFrom);
             }
         }
-        EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
         editPersonDescriptor.setTimetable(timetable);
         return new AddTimetableCommand(index, editPersonDescriptor);
     }

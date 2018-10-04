@@ -37,8 +37,7 @@ public class Person extends Entity {
         this.email = email;
         this.address = address;
         this.tags.addAll(tags);
-        this.timetable = new Timetable("horizontal");
-        this.timetable.setFileName(this.name.toString());
+        this.timetable = new Timetable(this.name.toString(), "horizontal");
     }
 
     /**
