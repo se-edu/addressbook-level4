@@ -191,6 +191,11 @@ public class TimetableData {
         return timetable;
     }
 
+    /**
+     * download timetable data as csv
+     * unable to download if same filename exists
+     * @param locationTo location of where to save the file
+     */
     public void downloadTimetableData(String locationTo) {
         String filePath = locationTo;
         try {

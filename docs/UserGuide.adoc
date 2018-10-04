@@ -154,7 +154,13 @@ Format: `grouplist`
 === Adding a timetable: `add_timetable`
 Depending on the mode, if mode is new, we add a new timetable to friend via the index.
 if mode is existing,we add a timetable in the form of csv to tfriend via the index, if there is no link input we add the timetable via the filename of the csv file and file location. Format of the timetable has to be specified in format. +
-Format: `add_timetable INDEX_OF_FRIEND m/MODE [f/FILENAME l/FILE_LOCATION]/\ [o/link] f/FORMAT`
+Format: `add_timetable INDEX m/MODE [f/FILENAME l/FILE_LOCATION]/\ [o/link] f/FORMAT`
+
+****
+* Add the timetable at the specified `INDEX`.
+* The index refers to the index number shown in the displayed person list.
+* The index *must be a positive integer* 1, 2, 3, ...
+****
 
 Examples:
 
@@ -168,11 +174,11 @@ Format: `list_timetables`
 === Download timetable : `download_timetable`
 
 Download a timetable in the System as a png file or csv file in preferred mode if no mode is selected, default is horizontal mode.+
-Format: `download_timetable i/TIMETABLE_INDEX p/PASSWORD o/FILE_OPTION l/DOWNLOAD_FILE_LOCATION [m/MODE]`
+Format: `download_timetable INDEX p/PASSWORD o/FILE_OPTION l/DOWNLOAD_FILE_LOCATION `
 
 ****
-* Download the timetable at the specified `TIMETABLE_INDEX`.
-* The index refers to the index number shown in the displayed timetable list.
+* Download the timetable at the specified `INDEX`.
+* The index refers to the index number shown in the displayed person list.
 * The index *must be a positive integer* 1, 2, 3, ...
 ****
 
@@ -460,8 +466,8 @@ e.g. `delete_friend 3`
 * *add_timetable* `add_timetable INDEX m/MODE [fn/FILENAME l/FILE_LOCATION]/\ [o/link] f/FORMAT` +
 e.g. `add_timetable m/existing fn/mytimetable l/C://Users/abc/mysecretstash f/horizontal`
 * *list_timetables* : `list_timetables`
-* *download_timetable* : `download_timetable i/TIMETABLE_INDEX p/PASSWORD o/FILE_OPTION l/DOWNLOAD_FILE_LOCATION [m/MODE]` +
-e.g. `download_timetable i/1 p/kamisama o/png m/vertical l/C://Users/abc/mysecretstash`
+* *download_timetable* : `download_timetable INDEX p/PASSWORD o/FILE_OPTION l/DOWNLOAD_FILE_LOCATION` +
+e.g. `download_timetable i/1 p/kamisama o/png l/C://Users/abc/mysecretstash`
 * *find_timetable* : `find_timetable  KEYWORD [MORE_KEYWORDS]` +
 e.g. `find_timetable James Jake`
 * *delete_timetable* : `delete i/INDEX_OF_TIMETABLE` +

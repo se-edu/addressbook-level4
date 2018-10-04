@@ -1,14 +1,10 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADDRESS;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_FILE_LOCATION;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_MODE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 
 import java.util.stream.Stream;
+
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.DownloadTimetableCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -37,7 +33,7 @@ public class DownloadTimetableCommandParser implements Parser<DownloadTimetableC
                     .format(MESSAGE_INVALID_COMMAND_FORMAT, DownloadTimetableCommand.MESSAGE_USAGE),
                 pe);
         }
-        if (!arePrefixesPresent(argMultimap,PREFIX_FILE_LOCATION)) {
+        if (!arePrefixesPresent(argMultimap, PREFIX_FILE_LOCATION)) {
             throw new ParseException(String
                 .format(MESSAGE_INVALID_COMMAND_FORMAT, DownloadTimetableCommand.MESSAGE_USAGE));
         }

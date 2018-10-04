@@ -5,7 +5,6 @@ import java.util.function.Predicate;
 import javafx.collections.ObservableList;
 import seedu.address.model.group.Group;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.timetable.Timetable;
 
 
 /**
