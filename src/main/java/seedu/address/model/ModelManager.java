@@ -14,7 +14,6 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.model.group.Group;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.timetable.Timetable;
 
 
 /**
@@ -50,11 +49,6 @@ public class ModelManager extends ComponentManager implements Model {
 
     // timetable operations
 
-    @Override
-    public void addTimetable(Timetable timetable) {
-        versionedAddressBook.addTimetable(timetable);
-        indicateAddressBookChanged();
-    }
 
     //group operations
     @Override

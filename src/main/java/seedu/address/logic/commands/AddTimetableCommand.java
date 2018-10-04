@@ -39,6 +39,7 @@ public class AddTimetableCommand extends Command {
             + "Existing timetable will be overwritten by the input values.\n"
             + "Parameters for mode = new: INDEX (must be a positive integer) "
             + "[" + PREFIX_MODE + "]"
+            + "[" + PREFIX_FILE_NAME + "]"
             + "[" + PREFIX_FORMAT + "]"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_MODE + "new" + PREFIX_FORMAT + "vertical"

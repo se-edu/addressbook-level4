@@ -1,6 +1,7 @@
 package seedu.address.model.person.timetable;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.util.Scanner;
 
 /**
@@ -15,34 +16,57 @@ public class TimetableData {
         "Saturday", "Sunday"};
     private final int noOfTimings = timings.length;
     private final int noOfDays = days.length;
+    private final int rows;
+    private final int columns;
 
 
     /**
-     * creates a timetable based on the format the user wants
-     * and timetable file user has
-     * @param format
-     * @param locationOfFile
+     * creates a timetable based on the format the user wants and timetable file user has
      */
     public TimetableData(String format, String locationOfFile) {
         String[][] aTimetable = generateNewHorizontalTimetable();
+        int noOfRows = 0;
+        int noOfColumns = 0;
         if (format.equals("vertical")) {
+            noOfRows = noOfTimings;
+            noOfColumns = noOfDays;
             aTimetable = readVerticalTimetableData(locationOfFile);
         } else if (format.equals("horizontal")) {
+            noOfRows = noOfDays;
+            noOfColumns = noOfTimings;
             aTimetable = readHorizontalTimetableData(locationOfFile);
         }
+        this.rows = noOfRows;
+        this.columns = noOfColumns;
         this.timetable = aTimetable;
     }
 
     /**
      * reates a timetable based on the format the user wants
-     * @param format
      */
     public TimetableData(String format) {
         String[][] newTimetable = generateNewHorizontalTimetable();
+        int noOfRows = 0;
+        int noOfColumns = 0;
         if (format.equals("vertical")) {
+            noOfRows = noOfTimings;
+            noOfColumns = noOfDays;
             newTimetable = generateNewVerticalTimetable();
+        } else if (format.equals("horizontal")) {
+            noOfRows = noOfDays;
+            noOfColumns = noOfTimings;
         }
+        this.rows = noOfRows;
+        this.columns = noOfColumns;
         this.timetable = newTimetable;
+    }
+
+    public int getRows() {
+        return rows + 1;
+    }
+
+    public int getColumns() {
+        return columns + 1;
     }
 
     /**
@@ -53,7 +77,7 @@ public class TimetableData {
     private String[][] readHorizontalTimetableData(String locationOfFile) {
         String[][] timetableMatrix;
         Scanner inputStream;
-        //used code from https://stackoverflow.com/questions/40074840/reading-a-csv-file-into-a-array
+        //used code from mikeL from https://stackoverflow.com/questions/40074840/reading-a-csv-file-into-a-array
         timetableMatrix = generateNewHorizontalTimetable();
         try {
             File toRead = new File(locationOfFile);
@@ -82,7 +106,7 @@ public class TimetableData {
     private String[][] readVerticalTimetableData(String locationOfFile) {
         String[][] timetableMatrix;
         Scanner inputStream;
-        //used code from https://stackoverflow.com/questions/40074840/reading-a-csv-file-into-a-array
+        //used code from mikeL from https://stackoverflow.com/questions/40074840/reading-a-csv-file-into-a-array
         timetableMatrix = generateNewVerticalTimetable();
         try {
             File toRead = new File(locationOfFile);
@@ -167,5 +191,33 @@ public class TimetableData {
         return timetable;
     }
 
+    /**
+     * download timetable data as csv
+     * unable to download if same filename exists
+     * @param locationTo location of where to save the file
+     */
+    public void downloadTimetableData(String locationTo) {
+        String filePath = locationTo;
+        try {
+            File toWrite = new File(filePath);
+            if (!toWrite.exists()) {
+                toWrite.createNewFile();
+                FileWriter writer = new FileWriter(toWrite, true);
+                for (int i = 0; i < this.getRows() + 1; i++) {
+                    for (int j = 0; j < this.getColumns(); j++) {
+                        writer.append(this.timetable[i][j]);
+                        writer.flush();
+                        writer.append(',');
+                        writer.flush();
+                    }
+                    writer.append("\n");
+                    writer.flush();
+                }
+                writer.close();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
 }

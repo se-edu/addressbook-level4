@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.StackPane?>
+
+<!-- @@author yeggasd -->
+
+
+<StackPane fx:id ="horizontalTimtablePlaceholder" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <TableView >
+        <columns>
+          <TableColumn prefWidth="75.0" text="0800" />
+          <TableColumn prefWidth="75.0" text="0900" />
+		  <TableColumn prefWidth="75.0" text="1000" />
+		  <TableColumn prefWidth="75.0" text="1100" />
+		  <TableColumn prefWidth="75.0" text="1200" />
+		  <TableColumn prefWidth="75.0" text="1300" />
+		  <TableColumn prefWidth="75.0" text="1400" />
+		  <TableColumn prefWidth="75.0" text="1500" />
+		  <TableColumn prefWidth="75.0" text="1600" />
+		  <TableColumn prefWidth="75.0" text="1700" />
+		  <TableColumn prefWidth="75.0" text="1800" />
+		  <TableColumn prefWidth="75.0" text="1900" />
+		  <TableColumn prefWidth="75.0" text="2000" />
+		  <TableColumn prefWidth="75.0" text="2100" />
+		  <TableColumn prefWidth="75.0" text="2200" />
+		  <TableColumn prefWidth="75.0" text="2300" />
+        </columns>
+      </TableView>
+   </children>
+</StackPane>
