@@ -21,6 +21,10 @@ public class Account {
         value = balance;
     }
 
+    /**
+     * Returns true if the given argument is a valid Balance.
+     */
+
     public static boolean isValidBalance(String test) {
         try {
             Double.parseDouble(test);
