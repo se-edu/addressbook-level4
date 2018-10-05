@@ -1,13 +1,15 @@
 package seedu.address.logic.commands;
 
+import static java.util.Objects.requireNonNull;
+
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.ledger.DateLedger;
 import seedu.address.model.ledger.Ledger;
 
-import static java.util.Objects.requireNonNull;
-
+/**
+ * Adds a ledger to the Club Book
+ */
 public class AddLedgerCommand extends Command {
 
     public static final String COMMAND_WORD = "addledger";

@@ -2,6 +2,10 @@ package seedu.address.model.ledger;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+/**
+ * Represents a Ledger in the Club Book
+ */
+
 public class Ledger {
     //private final Account account;
     private final DateLedger dateLedger;

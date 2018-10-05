@@ -137,17 +137,24 @@ public class ParserUtil {
         requireNonNull(balance);
         DecimalFormat decimalFormat = new DecimalFormat("#.##");
         Double trimmedBalance = Double.parseDouble(decimalFormat.format(balance));
-        if(!Account.isValidBalance(balance.toString())) {
+        if (!Account.isValidBalance(balance.toString())) {
             throw new ParseException(Account.MESSAGE_BALANCE_CONSTRAINTS);
         }
         return new Account(trimmedBalance);
     }
 
+    /**
+     * Parses a {@code String date} into a {@code Leger}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code date} is invalid.
+     */
+
     public static DateLedger parseDateLedger(String date) throws ParseException {
         requireNonNull(date);
         DateFormat formatter = new SimpleDateFormat("DD/MM");
         String trimmedDate = formatter.format(date);
-        if(!DateLedger.isValidDateLedger(trimmedDate)) {
+        if (!DateLedger.isValidDateLedger(trimmedDate)) {
             throw new ParseException(DateLedger.MESSAGE_DATE_CONSTRAINTS);
         }
         return new DateLedger(trimmedDate);
