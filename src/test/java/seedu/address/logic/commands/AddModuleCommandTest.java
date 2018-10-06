@@ -220,7 +220,7 @@ public class AddModuleCommandTest {
      * A Model stub that always accept the module being added.
      */
     private class ModelStubAcceptingModuleAdded extends ModelStub {
-        final ArrayList<Module> modulesAdded = new ArrayList<>();
+        public final ArrayList<Module> modulesAdded = new ArrayList<>();
 
         @Override
         public boolean hasModule(Module module) {
