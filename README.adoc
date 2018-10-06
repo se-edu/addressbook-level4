@@ -15,10 +15,11 @@ ifndef::env-github[]
 image::images/Ui.png[width="600"]
 endif::[]
 
-* This is a desktop Address Book application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
-* It is made to manage employees' workflow in a bank.
-* It is *written in OOP fashion*. It provides a *reasonably well-written* code example that is *significantly bigger* (around 6 KLoC).
-* Support for _Build Automation_ using Gradle and for _Continuous Integration_ using Travis CI.
+* This is a desktop *Bank Address Book (BankAB)* application. It has a GUI but most of the user interactions happen using a CLI (Command Line Interface).
+* It is acting as an *employee's workflow management system* in a bank.
+* It is aiming to *enhance the overall efficiency* in a bank by automating the whole workflow managing process.
+* It is written in OOP fashion and supported for _Build Automation_ using Gradle and for _Continuous Integration_ using Travis CI.
+* It is developed by group T16-3 from CS2113 in National University Singapore (NUS).
 
 == Site Map
 
