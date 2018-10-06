@@ -44,7 +44,7 @@ import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
 
 /**
- * The main entry point to the application begins here.
+ * The main entry point to the application.
  */
 public class MainApp extends Application {
 
