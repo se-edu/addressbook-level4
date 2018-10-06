@@ -4,7 +4,7 @@
 :imagesDir: images
 :stylesDir: stylesheets
 
-CHRS - developed by CS2113 T16-4 team.
+CHRS - Developed by CS2113 T16-4 team.
 
 We are a team based in the http://www.comp.nus.edu.sg[School of Computing, National University of Singapore].
 
