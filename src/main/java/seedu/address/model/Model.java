@@ -31,7 +31,7 @@ public interface Model {
      * The person must exist in the address book.
      */
     void deletePerson(Person target);
-    void deleteLeave(Leave target);
+    //void deleteLeave(Leave target);
 
     /**
      * Adds the given person.
@@ -45,7 +45,7 @@ public interface Model {
      * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
      */
     void updatePerson(Person target, Person editedPerson);
-    void updateLeave(Leave target, Leave editedLeave);
+    //void updateLeave(Leave target, Leave editedLeave);
 
     /** Returns an unmodifiable view of the filtered person list */
     ObservableList<Person> getFilteredPersonList();

@@ -25,7 +25,7 @@ public class AddLeaveCommand extends Command {
 
 
     public static final String MESSAGE_SUCCESS = "Leave application requested.";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This request already exist in the database.";
+    public static final String MESSAGE_DUPLICATE_LEAVE = "This request already exist in the database.";
 
     private final Leave toAdd;
 
@@ -39,7 +39,7 @@ public class AddLeaveCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         if (model.hasLeave(toAdd)) {
-            throw new CommandException(MESSAGE_DUPLICATE_PERSON);
+            throw new CommandException(MESSAGE_DUPLICATE_LEAVE);
         }
 
         model.addLeave(toAdd);

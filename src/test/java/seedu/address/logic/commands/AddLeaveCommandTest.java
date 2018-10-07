@@ -16,15 +16,15 @@ import org.junit.rules.ExpectedException;
 import javafx.collections.ObservableList;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.AddressBook;
+import seedu.address.model.LeaveList;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyLeaveList;
 import seedu.address.model.leave.Leave;
 import seedu.address.model.person.Person;
-import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.LeaveBuilder;
 
-public class AddCommandTest {
+public class AddLeaveCommandTest {
 
     private static final CommandHistory EMPTY_COMMAND_HISTORY = new CommandHistory();
 
@@ -36,55 +36,52 @@ public class AddCommandTest {
     @Test
     public void constructor_nullPerson_throwsNullPointerException() {
         thrown.expect(NullPointerException.class);
-        new AddCommand(null);
+        new AddLeaveCommand(null);
     }
 
     @Test
-    public void execute_personAcceptedByModel_addSuccessful() throws Exception {
-        ModelStubAcceptingPersonAdded modelStub = new ModelStubAcceptingPersonAdded();
-        Person validPerson = new PersonBuilder().build();
+    public void execute_leaveAcceptedByModel_addSuccessful() throws Exception {
+        ModelStubAcceptingLeaveAdded modelStub = new ModelStubAcceptingLeaveAdded();
+        Leave validLeave = new LeaveBuilder().build();
 
-        CommandResult commandResult = new AddCommand(validPerson).execute(modelStub, commandHistory);
+        CommandResult commandResult = new AddLeaveCommand(validLeave).execute(modelStub, commandHistory);
 
-        assertEquals(String.format(AddCommand.MESSAGE_SUCCESS, validPerson), commandResult.feedbackToUser);
-        assertEquals(Arrays.asList(validPerson), modelStub.personsAdded);
+        assertEquals(String.format(AddLeaveCommand.MESSAGE_SUCCESS, validLeave), commandResult.feedbackToUser);
+        assertEquals(Arrays.asList(validLeave), modelStub.leavesAdded);
         assertEquals(EMPTY_COMMAND_HISTORY, commandHistory);
     }
 
     @Test
-    public void execute_duplicatePerson_throwsCommandException() throws Exception {
-        Person validPerson = new PersonBuilder().build();
-        AddCommand addCommand = new AddCommand(validPerson);
-        ModelStub modelStub = new ModelStubWithPerson(validPerson);
+    public void execute_duplicateLeave_throwsCommandException() throws Exception {
+        Leave validLeave = new LeaveBuilder().build();
+        AddLeaveCommand addLeaveCommand = new AddLeaveCommand(validLeave);
+        ModelStub modelStub = new ModelStubWithLeave(validLeave);
 
         thrown.expect(CommandException.class);
-        thrown.expectMessage(AddCommand.MESSAGE_DUPLICATE_PERSON);
-        addCommand.execute(modelStub, commandHistory);
+        thrown.expectMessage(AddLeaveCommand.MESSAGE_DUPLICATE_LEAVE);
+        addLeaveCommand.execute(modelStub, commandHistory);
     }
 
     @Test
     public void equals() {
-        Person alice = new PersonBuilder().withName("Alice").build();
-        Person bob = new PersonBuilder().withName("Bob").build();
-        AddCommand addAliceCommand = new AddCommand(alice);
-        AddCommand addBobCommand = new AddCommand(bob);
+        Leave leave1 = new LeaveBuilder().withNric("S9514222A").withDate("12/03/2012").build();
+        Leave leave2 = new LeaveBuilder().withNric("S9513222E").withDate("12/04/2018").build();
+        AddLeaveCommand addLeaveCommand1 = new AddLeaveCommand(leave1);
+        AddLeaveCommand addLeaveCommand2 = new AddLeaveCommand(leave2);
 
         // same object -> returns true
-        assertTrue(addAliceCommand.equals(addAliceCommand));
-
-        // same values -> returns true
-        AddCommand addAliceCommandCopy = new AddCommand(alice);
-        assertTrue(addAliceCommand.equals(addAliceCommandCopy));
+        assertTrue(addLeaveCommand1.equals(addLeaveCommand1));
 
         // different types -> returns false
-        assertFalse(addAliceCommand.equals(1));
+        assertFalse(addLeaveCommand1.equals(1));
 
         // null -> returns false
-        assertFalse(addAliceCommand.equals(null));
+        assertFalse(addLeaveCommand1.equals(null));
 
-        // different person -> returns false
-        assertFalse(addAliceCommand.equals(addBobCommand));
+        // different leave -> returns false
+        assertFalse(addLeaveCommand1.equals(addLeaveCommand2));
     }
+
 
     /**
      * A default model stub that have all of the methods failing.
@@ -121,12 +118,12 @@ public class AddCommandTest {
         }
 
         @Override
-        public boolean hasLeave(Leave leave) {
+        public boolean hasPerson(Person person) {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public boolean hasPerson(Person person) {
+        public boolean hasLeave(Leave leave) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -184,48 +181,50 @@ public class AddCommandTest {
     /**
      * A Model stub that contains a single person.
      */
-    private class ModelStubWithPerson extends ModelStub {
-        private final Person person;
+    private class ModelStubWithLeave extends ModelStub {
+        private final Leave leave;
 
-        ModelStubWithPerson(Person person) {
-            requireNonNull(person);
-            this.person = person;
+        ModelStubWithLeave(Leave leave) {
+            requireNonNull(leave);
+            this.leave = leave;
         }
 
         @Override
-        public boolean hasPerson(Person person) {
-            requireNonNull(person);
-            return this.person.isSamePerson(person);
+        public boolean hasLeave(Leave leave) {
+            requireNonNull(leave);
+            return this.leave.isSameRequest(leave);
         }
     }
 
     /**
      * A Model stub that always accept the person being added.
      */
-    private class ModelStubAcceptingPersonAdded extends ModelStub {
-        final ArrayList<Person> personsAdded = new ArrayList<>();
+    private class ModelStubAcceptingLeaveAdded extends ModelStub {
+        final ArrayList<Leave> leavesAdded = new ArrayList<>();
 
         @Override
-        public boolean hasPerson(Person person) {
-            requireNonNull(person);
-            return personsAdded.stream().anyMatch(person::isSamePerson);
+        public boolean hasLeave(Leave leave) {
+            requireNonNull(leave);
+            return leavesAdded.stream().anyMatch(leave::isSameRequest);
         }
 
         @Override
-        public void addPerson(Person person) {
-            requireNonNull(person);
-            personsAdded.add(person);
+        public void addLeave(Leave leave) {
+            requireNonNull(leave);
+            leavesAdded.add(leave);
         }
 
         @Override
-        public void commitAddressBook() {
-            // called by {@code AddCommand#execute()}
+        public void commitLeaveList() {
+            // called by {@code AddLeaveCommand#execute()}
         }
 
         @Override
-        public ReadOnlyAddressBook getAddressBook() {
-            return new AddressBook();
+        public ReadOnlyLeaveList getLeaveList() {
+            return new LeaveList();
         }
     }
+
+
 
 }

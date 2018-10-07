@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<leavelist>
+    <!-- Leave with invalid nric field -->
+    <leaves>
+        <nric isPrivate="false">S123454ZA</nric>
+        <date isPrivate="false"> 11/03/2018</date>
+        <status isPrivate="false">PENDING</status>
+    </leaves>
+</leavelist>
