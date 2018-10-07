@@ -68,12 +68,12 @@ public class AddLeaveCommandTest {
         Leave leave2 = new LeaveBuilder().withNric("S9513222E").withDate("12/04/2018").build();
         AddLeaveCommand addLeaveCommand1 = new AddLeaveCommand(leave1);
         AddLeaveCommand addLeaveCommand2 = new AddLeaveCommand(leave2);
+        AddLeaveCommand addLeaveCommand1Copy = new AddLeaveCommand(leave1);
 
         // same object -> returns true
         assertTrue(addLeaveCommand1.equals(addLeaveCommand1));
 
         // same values -> returns true
-        AddLeaveCommand addLeaveCommand1Copy = new AddLeaveCommand(leave1);
         assertTrue(addLeaveCommand1.equals(addLeaveCommand1Copy));
 
         // different types -> returns false
@@ -172,10 +172,12 @@ public class AddLeaveCommandTest {
         }
 
         @Override
-        public void commitAddressBook() { throw new AssertionError("This method should not be called."); }
+        public void commitAddressBook() { throw new AssertionError("This method should not be called.");
+        }
 
         @Override
-        public void commitLeaveList() { throw new AssertionError("This method should not be called."); }
+        public void commitLeaveList() { throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**
