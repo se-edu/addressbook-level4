@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import static org.junit.Assert.assertEquals;
+import static seedu.address.testutil.TypicalLeave.getTypicalLeaveList;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -12,8 +13,6 @@ import org.junit.rules.ExpectedException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.leave.Leave;
-
-import static seedu.address.testutil.TypicalLeave.getTypicalLeaveList;
 
 public class LeaveListTest {
 

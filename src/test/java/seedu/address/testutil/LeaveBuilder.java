@@ -58,7 +58,7 @@ public class LeaveBuilder {
     }
 
     public Leave build() {
-        return new Leave(nric,date,approval);
+        return new Leave(nric, date, approval);
     }
 
 }
