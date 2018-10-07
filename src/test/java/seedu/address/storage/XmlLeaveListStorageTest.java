@@ -96,7 +96,7 @@ public class XmlLeaveListStorageTest {
     /**
      * Saves {@code leaveList} at the specified {@code filePath}.
      */
-    private void saveLeaveList(ReadOnlyLeaveList  leaveList, String filePath) {
+    private void saveLeaveList(ReadOnlyLeaveList leaveList, String filePath) {
         try {
             new XmlLeaveListStorage(Paths.get(filePath))
                     .saveLeaveList(leaveList, addToTestDataPathIfNotNull(filePath));
