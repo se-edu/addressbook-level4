@@ -68,13 +68,9 @@ public class AddLeaveCommandTest {
         Leave leave2 = new LeaveBuilder().withNric("S9513222E").withDate("12/04/2018").build();
         AddLeaveCommand addLeaveCommand1 = new AddLeaveCommand(leave1);
         AddLeaveCommand addLeaveCommand2 = new AddLeaveCommand(leave2);
-        AddLeaveCommand addLeaveCommand1Copy = new AddLeaveCommand(leave1);
 
         // same object -> returns true
         assertTrue(addLeaveCommand1.equals(addLeaveCommand1));
-
-        // same values -> returns true
-        assertTrue(addLeaveCommand1.equals(addLeaveCommand1Copy));
 
         // different types -> returns false
         assertFalse(addLeaveCommand1.equals(1));
