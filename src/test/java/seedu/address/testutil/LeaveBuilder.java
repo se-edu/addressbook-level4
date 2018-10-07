@@ -6,7 +6,7 @@ import seedu.address.model.leave.EmployeeId;
 import seedu.address.model.leave.Leave;
 
 /**
- * A utility class to help with building Event objects.
+ * A utility class to help with building Leave objects.
  */
 public class LeaveBuilder {
     public static final String DEFAULT_NRIC = "S1111111A";
@@ -25,7 +25,7 @@ public class LeaveBuilder {
     }
 
     /**
-     * Initializes the PersonBuilder with the data of {@code personToCopy}.
+     * Initializes the LeaveBuilder with the data of {@code leaveToCopy}.
      */
     public LeaveBuilder(Leave leaveToCopy) {
         nric = leaveToCopy.getEmployeeId();
@@ -34,7 +34,7 @@ public class LeaveBuilder {
     }
 
     /**
-     * Sets the {@code Name} of the {@code Person} that we are building.
+     * Sets the {@code Nric} of the {@code Leave} that we are building.
      */
     public LeaveBuilder withNric(String nric) {
         this.nric = new EmployeeId(nric);
@@ -42,7 +42,7 @@ public class LeaveBuilder {
     }
 
     /**
-     * Sets the {@code Address} of the {@code Person} that we are building.
+     * Sets the {@code Date} of the {@code Leave} that we are building.
      */
     public LeaveBuilder withDate(String date) {
         this.date = new Date(date);
@@ -50,7 +50,7 @@ public class LeaveBuilder {
     }
 
     /**
-     * Sets the {@code Phone} of the {@code Person} that we are building.
+     * Sets the {@code Approval} of the {@code Leave} that we are building.
      */
     public LeaveBuilder withApproval(String approval) {
         this.approval = new Approval(approval);
