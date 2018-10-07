@@ -172,11 +172,13 @@ public class AddLeaveCommandTest {
         }
 
         @Override
-        public void commitAddressBook() { throw new AssertionError("This method should not be called.");
+        public void commitAddressBook() {
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void commitLeaveList() { throw new AssertionError("This method should not be called.");
+        public void commitLeaveList() {
+            throw new AssertionError("This method should not be called.");
         }
     }
 
