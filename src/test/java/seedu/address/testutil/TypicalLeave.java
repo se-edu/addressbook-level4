@@ -17,6 +17,12 @@ public class TypicalLeave {
     public static final Leave REQUEST_2 = new LeaveBuilder().withNric("S1234597A").withDate("01/10/2018")
             .withApproval("PENDING").build();
 
+    //Manually add
+    public static final Leave REQUEST_3 = new LeaveBuilder().withNric("S1234591A").withDate("01/10/2017")
+            .withApproval("PENDING").build();
+    public static final Leave REQUEST_4 = new LeaveBuilder().withNric("S1234591Z").withDate("01/10/2017")
+            .withApproval("PENDING").build();
+
 
     private TypicalLeave() {} // prevents instantiation
 
