@@ -1,7 +1,5 @@
 package seedu.address.model.leave;
 
-import seedu.address.model.ReadOnlyLeaveList;
-
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Objects;
