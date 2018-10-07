@@ -15,6 +15,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
+
 import seedu.address.commons.exceptions.DataConversionException;
 import seedu.address.model.LeaveList;
 import seedu.address.model.ReadOnlyLeaveList;
@@ -93,7 +94,7 @@ public class XmlLeaveListStorageTest {
     }
 
     /**
-     * Saves {@code addressBook} at the specified {@code filePath}.
+     * Saves {@code leaveList} at the specified {@code filePath}.
      */
     private void saveLeaveList(ReadOnlyLeaveList  leaveList, String filePath) {
         try {
