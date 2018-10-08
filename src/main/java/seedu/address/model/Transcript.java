@@ -136,7 +136,7 @@ public class Transcript implements ReadOnlyTranscript {
     /**
      * Filters for modules that is to be used for CAP calculation
      *
-     * @return gradedModulesList: a list of modules used for CAP calculation
+     * @return list of modules used for CAP calculation
      */
     private ObservableList<Module> getGradedModulesList() {
         return modules.getFilteredModules(this::moduleIsUsedForCapCalculation);
@@ -178,8 +178,8 @@ public class Transcript implements ReadOnlyTranscript {
     @Override
     public boolean equals(Object other) {
         return other == this // short circuit if same object
-            || (other instanceof Transcript // instanceof handles nulls
-            && modules.equals(((Transcript) other).modules));
+                || (other instanceof Transcript // instanceof handles nulls
+                && modules.equals(((Transcript) other).modules));
     }
 
     @Override

@@ -43,5 +43,5 @@ public interface Storage extends AddressBookStorage, UserPrefsStorage, Transcrip
      * Creates the data file if it is missing.
      * Raises {@link DataSavingExceptionEvent} if there was an error during saving.
      */
-    void handleTranscriptChangedEvent(TranscriptChangedEvent abce);
+    void handleTranscriptChangedEvent(TranscriptChangedEvent tce);
 }

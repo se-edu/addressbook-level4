@@ -42,13 +42,13 @@ public class JsonTranscriptDeserializer extends StdDeserializer<ReadOnlyTranscri
             }
             Iterator<JsonNode> elements = node.get("modules").get("internalList").elements();
             while (elements.hasNext()) {
-                JsonNode e = elements.next();
-                Code code = new Code(e.path("code").path("value").textValue());
-                Year year = new Year(e.path("year").path("value").intValue());
-                Semester semester = new Semester(e.path("semester").path("value").textValue());
-                Credit credits = new Credit(e.path("credits").path("value").intValue());
-                Grade grade = new Grade(e.path("grade").path("value").textValue());
-                boolean completed = e.path("completed").booleanValue();
+                JsonNode element = elements.next();
+                Code code = new Code(element.path("code").path("value").textValue());
+                Year year = new Year(element.path("year").path("value").intValue());
+                Semester semester = new Semester(element.path("semester").path("value").textValue());
+                Credit credits = new Credit(element.path("credits").path("value").intValue());
+                Grade grade = new Grade(element.path("grade").path("value").textValue());
+                boolean completed = element.path("completed").booleanValue();
                 Module module = new Module(code, year, semester, credits, grade, completed);
                 transcript.addModule(module);
             }

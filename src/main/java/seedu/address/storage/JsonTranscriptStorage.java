@@ -17,7 +17,7 @@ import seedu.address.model.Transcript;
  */
 public class JsonTranscriptStorage implements TranscriptStorage {
 
-    private Path filePath;
+    private final Path filePath;
 
     public JsonTranscriptStorage(Path filePath) {
         this.filePath = filePath;

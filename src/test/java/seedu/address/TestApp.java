@@ -32,11 +32,11 @@ public class TestApp extends MainApp {
 
     public static final Path SAVE_LOCATION_FOR_TESTING = TestUtil.getFilePathInSandboxFolder("sampleData.xml");
     public static final Path SAVE_TRANSCRIPT_LOCATION_FOR_TESTING =
-        TestUtil.getFilePathInSandboxFolder("sampleTranscriptData.json");
+            TestUtil.getFilePathInSandboxFolder("sampleTranscriptData.json");
     public static final String APP_TITLE = "Test App";
 
     protected static final Path DEFAULT_PREF_FILE_LOCATION_FOR_TESTING =
-        TestUtil.getFilePathInSandboxFolder("pref_testing.json");
+            TestUtil.getFilePathInSandboxFolder("pref_testing.json");
     protected Supplier<ReadOnlyAddressBook> initialDataSupplier = () -> null;
     protected Supplier<ReadOnlyTranscript> initialTranscriptDataSupplier = () -> new Transcript();
     protected Path saveFileLocation = SAVE_LOCATION_FOR_TESTING;
@@ -46,7 +46,7 @@ public class TestApp extends MainApp {
     }
 
     public TestApp(Supplier<ReadOnlyAddressBook> initialDataSupplier, Path saveFileLocation,
-                   Supplier<ReadOnlyTranscript> initialTranscriptDataSupplier, Path saveTranscriptFileLocation) {
+            Supplier<ReadOnlyTranscript> initialTranscriptDataSupplier, Path saveTranscriptFileLocation) {
         super();
         this.initialDataSupplier = initialDataSupplier;
         this.initialTranscriptDataSupplier = initialTranscriptDataSupplier;
@@ -56,7 +56,7 @@ public class TestApp extends MainApp {
         // If some initial local data has been provided, write those to the file
         if (initialDataSupplier.get() != null) {
             createDataFileWithData(new XmlSerializableAddressBook(this.initialDataSupplier.get()),
-                this.saveFileLocation);
+                    this.saveFileLocation);
         }
         // If some initial local data has been provided, write those to the file
         if (initialTranscriptDataSupplier.get() != null) {

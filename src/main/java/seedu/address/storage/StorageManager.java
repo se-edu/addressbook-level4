@@ -28,8 +28,8 @@ public class StorageManager extends ComponentManager implements Storage {
     private TranscriptStorage transcriptStorage;
 
     public StorageManager(AddressBookStorage addressBookStorage,
-                          UserPrefsStorage userPrefsStorage,
-                          TranscriptStorage transcriptStorage) {
+            UserPrefsStorage userPrefsStorage,
+            TranscriptStorage transcriptStorage) {
         super();
         this.addressBookStorage = addressBookStorage;
         this.userPrefsStorage = userPrefsStorage;
