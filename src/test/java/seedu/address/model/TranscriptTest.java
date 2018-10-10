@@ -26,6 +26,14 @@ public class TranscriptTest {
             .withCredit(4)
             .withGrade("B-")
             .build();
+    public static final Module GRADE_A_4MC_A = new ModuleBuilder()
+            .withCredit(4)
+            .withGrade("A")
+            .build();
+    public static final Module GRADE_A_4MC_B = new ModuleBuilder()
+            .withCredit(4)
+            .withGrade("A")
+            .build();
     public static final Module INCOMPLETE_4MC_A = new ModuleBuilder()
             .withCredit(4)
             .withCompleted(false)
@@ -94,6 +102,21 @@ public class TranscriptTest {
                 GRADE_BMINUS_4MC_A
         ));
         assertTargetGradesEquals(modules, capGoal, new ArrayList<>());
+
+        modules = new ArrayList<>(Arrays.asList(
+                INCOMPLETE_4MC_A,
+                INCOMPLETE_4MC_B,
+                INCOMPLETE_4MC_C,
+                GRADE_A_4MC_A,
+                GRADE_A_4MC_B
+        ));
+        capGoal = 4.0;
+        expectedGrades = new ArrayList<>(Arrays.asList(
+                "B",
+                "B",
+                "B-"
+        ));
+        assertTargetGradesEquals(modules, capGoal, expectedGrades);
     }
 
     /**
