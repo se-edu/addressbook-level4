@@ -88,6 +88,11 @@ public class TranscriptTest {
 
         capGoal = 5.0;
         assertTargetGradesEquals(modules, capGoal, null);
+
+        modules = new ArrayList<>(Arrays.asList(
+                GRADE_BMINUS_4MC_A
+        ));
+        assertTargetGradesEquals(modules, capGoal, new ArrayList<>());
     }
 
     /**

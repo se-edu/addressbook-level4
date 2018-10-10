@@ -193,6 +193,10 @@ public class Transcript implements ReadOnlyTranscript {
         ObservableList<Module> gradedModules = getGradedModulesList();
         ObservableList<Module> ungradedModules = getNotCompletedModulesList()
                 .sorted(Comparator.comparingInt(o -> o.getCredits().value));
+        List<Module> targetModules = new ArrayList<>();
+        if (ungradedModules.isEmpty()) {
+            return FXCollections.observableArrayList(targetModules);
+        }
 
         double totalUngradedModuleCredit = calculateTotalModuleCredit(ungradedModules);
         double totalMc = calculateTotalModuleCredit(gradedModules) + totalUngradedModuleCredit;
@@ -204,7 +208,7 @@ public class Transcript implements ReadOnlyTranscript {
             return null;
         }
 
-        List<Module> targetModules = new ArrayList<>();
+
         Module targetModule;
         for (Module ungradedModule : ungradedModules) {
             if (unitScoreToAchieve == 0.5) {
