@@ -110,23 +110,41 @@ public class Transcript implements ReadOnlyTranscript {
     private double calculateCap() {
 
         ObservableList<Module> gradedModulesList = getGradedModulesList();
-        double totalCap = 0;
-        double point;
-        int totalModuleCredit = 0;
-        int moduleCredit;
-        for (Module module : gradedModulesList) {
-            moduleCredit = module.getCredits().value;
-            point = module.getGrade().getPoint();
-            totalCap += moduleCredit * point;
-            totalModuleCredit += moduleCredit;
-        }
+        double totalModulePoint = calculateTotalModulePoint(gradedModulesList);
+        double totalModuleCredit = calculateTotalModuleCredit(gradedModulesList);
 
         double cap = 0;
         if (totalModuleCredit > 0) {
-            cap = totalCap / totalModuleCredit;
+            cap = totalModulePoint / totalModuleCredit;
         }
 
         return cap;
+    }
+
+    /**
+     * Calculates the total module point from the list of modules
+     * @param modules
+     * @return
+     */
+    private double calculateTotalModulePoint(ObservableList<Module> modules) {
+        double totalPoint = 0;
+        for (Module module : modules) {
+            totalPoint += module.getGrade().getPoint() * module.getCredits().value;
+        }
+        return totalPoint;
+    }
+
+    /**
+     * Calculates the total module credit from the list of modules
+     * @param modules
+     * @return
+     */
+    private double calculateTotalModuleCredit(ObservableList<Module> modules) {
+        int totalModuleCredit = 0;
+        for (Module module : modules) {
+            totalModuleCredit += module.getCredits().value;
+        }
+        return totalModuleCredit;
     }
 
     /**
