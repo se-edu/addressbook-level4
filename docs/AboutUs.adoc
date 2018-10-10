@@ -11,46 +11,39 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 
 == Project Team
 
-=== John Doe
-image::damithc.jpg[width="150", align="left"]
-{empty}[http://www.comp.nus.edu.sg/~damithch[homepage]] [https://github.com/damithc[github]] [<<johndoe#, portfolio>>]
 
-Role: Project Advisor
-
-'''
-
-=== John Roe
-image::lejolly.jpg[width="150", align="left"]
+=== Zhuang Yuan
+image::za-yn.png[width="150", align="left"]
 {empty}[http://github.com/lejolly[github]] [<<johndoe#, portfolio>>]
 
 Role: Team Lead +
-Responsibilities: UI
+Responsibilities: UI, Docs, Finance feature
 
 '''
 
-=== Johnny Doe
-image::yijinl.jpg[width="150", align="left"]
+=== Daryl Nigel
+image::darylnigel.png[width="150", align="left"]
 {empty}[http://github.com/yijinl[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Data
+Responsibilities: Data, Inventory feature
 
 '''
 
-=== Johnny Roe
-image::m133225.jpg[width="150", align="left"]
+=== Park Junhyuk
+image::hyukiejun.png[width="150", align="left"]
 {empty}[http://github.com/m133225[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Dev Ops + Threading
+Responsibilities: Code clean-up, Member feature
 
 '''
 
-=== Benson Meier
-image::yl_coder.jpg[width="150", align="left"]
+=== Zhang Bo
+image::allenzb.png[width="150", align="left"]
 {empty}[http://github.com/yl-coder[github]] [<<johndoe#, portfolio>>]
 
 Role: Developer +
-Responsibilities: UI
+Responsibilities: UI, Calendar feature
 
 '''

@@ -2,6 +2,9 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.text.DateFormat;
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -9,6 +12,8 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.ledger.Account;
+import seedu.address.model.ledger.DateLedger;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -120,5 +125,38 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
+    }
+
+    /**
+     * Parses a {@code Double balance} into a {@code Account}.
+     * Leading and trailing decimal places will be trimmed to 2 decimal places.
+     *
+     * @throws ParseException if the given {@code balance} is invalid.
+     */
+    public static Account parseBalance(Double balance) throws ParseException {
+        requireNonNull(balance);
+        DecimalFormat decimalFormat = new DecimalFormat("#.##");
+        Double trimmedBalance = Double.parseDouble(decimalFormat.format(balance));
+        if (!Account.isValidBalance(balance.toString())) {
+            throw new ParseException(Account.MESSAGE_BALANCE_CONSTRAINTS);
+        }
+        return new Account(trimmedBalance);
+    }
+
+    /**
+     * Parses a {@code String date} into a {@code Leger}.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code date} is invalid.
+     */
+
+    public static DateLedger parseDateLedger(String date) throws ParseException {
+        requireNonNull(date);
+        DateFormat formatter = new SimpleDateFormat("DD/MM");
+        String trimmedDate = formatter.format(date);
+        if (!DateLedger.isValidDateLedger(trimmedDate)) {
+            throw new ParseException(DateLedger.MESSAGE_DATE_CONSTRAINTS);
+        }
+        return new DateLedger(trimmedDate);
     }
 }

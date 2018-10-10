@@ -3,7 +3,10 @@ package seedu.address.model;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.ledger.Account;
+import seedu.address.model.ledger.Ledger;
 import seedu.address.model.person.Person;
+import seedu.address.model.tag.Tag;
 
 /**
  * The API of the Model component.
@@ -29,11 +32,37 @@ public interface Model {
      */
     void deletePerson(Person target);
 
+    void deleteTag(Tag tag);
+
     /**
      * Adds the given person.
      * {@code person} must not already exist in the address book.
      */
     void addPerson(Person person);
+
+    /**
+     * Adds the given ledger
+     * @param ledger
+     */
+    void addLedger(Ledger ledger);
+
+    /**
+     * Deletes the given ledger
+     * @param ledger
+     */
+    void deleteLedger(Ledger ledger);
+
+    /**
+     * Increases the amount in balance by a given amount
+     * @param account
+     */
+    void increaseAccount (Account account);
+
+    /**
+     * Decreases the amount in balance by a given amount
+     * @param account
+     */
+    void decreaseAccount (Account account);
 
     /**
      * Replaces the given person {@code target} with {@code editedPerson}.

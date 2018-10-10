@@ -18,6 +18,7 @@ By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
 
 == Introduction
 
+ 
 AddressBook Level 4 (AB4) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB4 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB4 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
@@ -41,7 +42,7 @@ e.g. typing *`help`* and pressing kbd:[Enter] will open the help window.
 .  Refer to <<Features>> for details of each command.
 
 [[Features]]
-== Features
+== General Features
 
 ====
 *Command Format*
@@ -234,6 +235,67 @@ There is no need to save manually.
 
 _{explain how the user can enable/disable data encryption}_
 // end::dataencryption[]
+
+== Main Features
+
+=== Calendar: `openCalendar`
+
+==== List events: `listEvents`
+Lists all the events sorted by date. +
+Format: `listEvents`
+
+==== Adding an event: `addEvent`
+Adds an event to the calendar. +
+Format: `addEvent EVENT_NAME EVENT_DATE EVENT_LOCATION EVENT_DESCRIPTION`
+
+==== Editing an event: `changeEvent`
+Edits an event on the calendar. +
+Format: `changeEvent EVENT_NAME to EVENT_NAME EVENT_DATE EVENT_LOCATION EVENT_DESCRIPTION`
+
+==== Deleting event: `deleteEvent`
+Deletes an event from the calendar. +
+Format: `deleteEvent EVENT_NAME`.
+
+=== Finances: `openFinances`
+
+==== Adding a record: `addRecord`
+Adds a record to the log. +
+Format: `addRecord ITEM_NAME ITEM_COST PURCHASE_DATE`
+
+==== Deleting a record: `deleteRecord`
+Deletes a record from the log. +
+Format: `addRecord ITEM_NAME ITEM_COST PURCHASE_DATE`
+
+=== Members: `openMembers`
+
+==== Adding a member: `addMember`
+Adds a new member to the member list. +
+Format: `addMember MEMBER_NAME MEMBER_CONTACT MEMBER_EMAIL MEMBER_ADDRESS`
+
+==== deleting a member: `deleteMember`
+delete a new member to the member list. +
+Format: `addMember MEMBER_NAME MEMBER_CONTACT MEMBER_EMAIL MEMBER_ADDRESS`
+
+=== Inventory: `openInventory`s
+
+==== Adding an item: `addItem`
+Adds an Item with its quantity, category, and location to the ItemList. +
+Format: `addItem ITEM_NAME QUANTITY CATEGORY LOCATION`
+
+==== Listing items: `listItems`
+Shows the list of Items and their quantities. +
+Format: `listItems`
+
+==== Removing an item: `removeItem`
+Removes a specified quantity of an Item in the ItemList. +
+Format: `removeItem ITEM_NAME QUANTITY`
+
+==== Sorting items: `sortItemList`
+Sorts the ItemList by name, quantity, category, or location. +
+Format: `sortItemListByName` +
+Format: `sortItemListByQuantity` +
+Format: `sortItemListByCategory` +
+Format: `sortItemListByLocation` +
 
 == FAQ
 
