@@ -272,11 +272,11 @@ Format: `addRecord ITEM_NAME ITEM_COST PURCHASE_DATE`
 Adds a new member to the member list. +
 Format: `addMember MEMBER_NAME MEMBER_CONTACT MEMBER_EMAIL MEMBER_ADDRESS`
 
-==== Adding a member: `addMember`
-Adds a new member to the member list. +
+==== deleting a member: `deleteMember`
+delete a new member to the member list. +
 Format: `addMember MEMBER_NAME MEMBER_CONTACT MEMBER_EMAIL MEMBER_ADDRESS`
 
-=== Inventory: `openInventory`
+=== Inventory: `openInventory`s
 
 ==== Adding an item: `addItem`
 Adds an Item with its quantity, category, and location to the ItemList. +
