@@ -910,9 +910,9 @@ A contact detail that is not meant to be shared with others
 [appendix]
 == Product Survey
 
-*Product Name*
+*KeepMaster*
 
-Author: ...
+Author: Zayn, Junhyuk, Daryl and Allen
 
 Pros:
 
