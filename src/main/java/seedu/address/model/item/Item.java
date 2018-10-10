@@ -2,33 +2,26 @@ package seedu.address.model.item;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
-import java.util.Collections;
-import java.util.Objects;
-import java.util.Set;
-
+/**
+ * Represents an Item in the inventory.
+ * Guarantees: details are present and not null, field values are validated, immutable.
+ */
 public class Item {
 
     // Identity fields
     private final String itemName;
-    private final int quantity;
 
     /**
      * Every field must be present and not null.
      */
-    public Item(String itemName, int quantity) {
+    public Item(String itemName) {
         requireAllNonNull(itemName);
         this.itemName = itemName;
-        this.quantity = quantity;
     }
 
     public String getItemName() {
         return itemName;
     }
-
-    public int getQuantity() {
-        return quantity;
-    }
-
 
     /**
      * Returns true if both persons of the same name have at least one other identity field that is the same.

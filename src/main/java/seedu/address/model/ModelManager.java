@@ -12,6 +12,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
+import seedu.address.model.item.Item;
 import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
 
@@ -133,6 +134,16 @@ public class ModelManager extends ComponentManager implements Model {
     @Override
     public void commitAddressBook() {
         versionedAddressBook.commit();
+    }
+
+    @Override
+    public void addItem(Item item) {
+
+    }
+
+    @Override
+    public void deleteItem(Item item) {
+
     }
 
     @Override
