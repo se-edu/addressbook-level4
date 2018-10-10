@@ -1,6 +1,7 @@
 package seedu.address.model;
 
 import static org.junit.Assert.assertEquals;
+
 import static seedu.address.testutil.TypicalModules.MODULES_WITHOUT_NON_AFFECTING_MODULES_CAP;
 import static seedu.address.testutil.TypicalModules.getModulesWithNonGradeAffectingModules;
 import static seedu.address.testutil.TypicalModules.getModulesWithoutNonGradeAffectingModules;
@@ -9,12 +10,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import javafx.collections.ObservableList;
 import org.junit.Test;
 
 import seedu.address.model.module.Module;
-import seedu.address.model.module.Semester;
 import seedu.address.testutil.ModuleBuilder;
+
+import javafx.collections.ObservableList;
 
 /**
  * Test {@code TranscriptTest} Class
@@ -107,6 +108,12 @@ public class TranscriptTest {
         assertEquals(Double.valueOf(cap), expectedCapScore);
     }
 
+    /**
+     * Assert that the given modules and cap goal will result in expected target grades
+     * @param modules
+     * @param capGoal
+     * @param expectedTargetGrades
+     */
     private void assertTargetGradesEquals(List<Module> modules, Double capGoal, List<String> expectedTargetGrades) {
         Transcript transcript = new Transcript();
         transcript.setModules(modules);
