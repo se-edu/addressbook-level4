@@ -18,6 +18,7 @@ By: `Team SE-EDU`      Since: `Jun 2016`      Licence: `MIT`
 
 == Introduction
 
+ 
 AddressBook Level 4 (AB4) is for those who *prefer to use a desktop app for managing contacts*. More importantly, AB4 is *optimized for those who prefer to work with a Command Line Interface* (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB4 can get your contact management tasks done faster than traditional GUI apps. Interested? Jump to the <<Quick Start>> to get started. Enjoy!
 
 == Quick Start
@@ -235,7 +236,6 @@ There is no need to save manually.
 _{explain how the user can enable/disable data encryption}_
 // end::dataencryption[]
 
-[[Features]]
 == Main Features
 
 === Calendar: `openCalendar`
@@ -272,11 +272,11 @@ Format: `addRecord ITEM_NAME ITEM_COST PURCHASE_DATE`
 Adds a new member to the member list. +
 Format: `addMember MEMBER_NAME MEMBER_CONTACT MEMBER_EMAIL MEMBER_ADDRESS`
 
-==== Adding a member: `addMember`
-Adds a new member to the member list. +
+==== deleting a member: `deleteMember`
+delete a new member to the member list. +
 Format: `addMember MEMBER_NAME MEMBER_CONTACT MEMBER_EMAIL MEMBER_ADDRESS`
 
-=== Inventory: `openInventory`
+=== Inventory: `openInventory`s
 
 ==== Adding an item: `addItem`
 Adds an Item with its quantity, category, and location to the ItemList. +

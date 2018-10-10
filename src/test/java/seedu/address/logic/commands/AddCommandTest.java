@@ -19,7 +19,10 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyAddressBook;
+import seedu.address.model.ledger.Account;
+import seedu.address.model.ledger.Ledger;
 import seedu.address.model.person.Person;
+import seedu.address.model.tag.Tag;
 import seedu.address.testutil.PersonBuilder;
 
 public class AddCommandTest {
@@ -94,6 +97,26 @@ public class AddCommandTest {
         }
 
         @Override
+        public void addLedger(Ledger ledger) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteLedger(Ledger ledger) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void increaseAccount(Account account) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void decreaseAccount(Account account) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void resetData(ReadOnlyAddressBook newData) {
             throw new AssertionError("This method should not be called.");
         }
@@ -151,6 +174,11 @@ public class AddCommandTest {
         @Override
         public void commitAddressBook() {
             throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void deleteTag(Tag tag) {
+            throw new AssertionError("This method should not be called");
         }
     }
 
