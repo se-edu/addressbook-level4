@@ -5,16 +5,42 @@ import static seedu.address.testutil.TypicalModules.MODULES_WITHOUT_NON_AFFECTIN
 import static seedu.address.testutil.TypicalModules.getModulesWithNonGradeAffectingModules;
 import static seedu.address.testutil.TypicalModules.getModulesWithoutNonGradeAffectingModules;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
+import javafx.collections.ObservableList;
 import org.junit.Test;
 
 import seedu.address.model.module.Module;
+import seedu.address.model.module.Semester;
+import seedu.address.testutil.ModuleBuilder;
 
 /**
  * Test {@code TranscriptTest} Class
  */
 public class TranscriptTest {
+
+    public static final Module GRADE_BMINUS_4MC_A = new ModuleBuilder()
+            .withCredit(4)
+            .withGrade("B-")
+            .build();
+    public static final Module INCOMPLETE_4MC_A = new ModuleBuilder()
+            .withCredit(4)
+            .withCompleted(false)
+            .build();
+    public static final Module INCOMPLETE_4MC_B = new ModuleBuilder()
+            .withCredit(4)
+            .withCompleted(false)
+            .build();
+    public static final Module INCOMPLETE_4MC_C = new ModuleBuilder()
+            .withCredit(4)
+            .withCompleted(false)
+            .build();
+    public static final Module INCOMPLETE_5MC_A = new ModuleBuilder()
+            .withCredit(5)
+            .withCompleted(false)
+            .build();
 
     @Test
     public void typicalModulesCapScore() {
@@ -29,6 +55,41 @@ public class TranscriptTest {
 
     }
 
+    @Test
+    public void calculateTargetGrades() {
+        List<Module> modules = new ArrayList<>(Arrays.asList(
+            INCOMPLETE_4MC_A,
+            INCOMPLETE_4MC_B,
+            INCOMPLETE_4MC_C
+        ));
+        double capGoal = 4.0;
+        List<String> expectedGrades = new ArrayList<>(Arrays.asList(
+            "B+",
+            "B+",
+            "B+"
+        ));
+        assertTargetGradesEquals(modules, capGoal, expectedGrades);
+
+        modules = new ArrayList<>(Arrays.asList(
+                INCOMPLETE_4MC_A,
+                INCOMPLETE_4MC_B,
+                INCOMPLETE_5MC_A,
+                INCOMPLETE_4MC_C,
+                GRADE_BMINUS_4MC_A
+        ));
+        capGoal = 4.5;
+        expectedGrades = new ArrayList<>(Arrays.asList(
+                "A",
+                "A",
+                "A",
+                "A-"
+        ));
+        assertTargetGradesEquals(modules, capGoal, expectedGrades);
+
+        capGoal = 5.0;
+        assertTargetGradesEquals(modules, capGoal, null);
+    }
+
     /**
      * Assert that the modules will have the CAP score of expectedCapScore
      * @param modules
@@ -39,6 +100,24 @@ public class TranscriptTest {
         transcript.setModules(modules);
         double cap = transcript.getCap();
         assertEquals(Double.valueOf(cap), expectedCapScore);
+    }
+
+    private void assertTargetGradesEquals(List<Module> modules, Double capGoal, List<String> expectedTargetGrades) {
+        Transcript transcript = new Transcript();
+        transcript.setModules(modules);
+        transcript.setCapGoal(capGoal);
+        ObservableList<Module> targetModules = transcript.getTargetModuleGrade();
+
+        if (expectedTargetGrades == null) {
+            assertEquals(targetModules, null);
+            return;
+        }
+
+        List<String> targetGrades = new ArrayList<>();
+        targetModules.forEach(module -> targetGrades.add(module.getGrade().value));
+        String targetGradesString = String.join(" ", targetGrades);
+        String expectedTargetGradesString = String.join(" ", expectedTargetGrades);
+        assertEquals(targetGradesString, expectedTargetGradesString);
     }
 
 }
