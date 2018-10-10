@@ -4,6 +4,11 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static seedu.address.commons.core.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.commons.core.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_NRIC_AMY;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_PASSWORD_AMY;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_MODE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PASSWORD;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
 import java.util.Arrays;
@@ -144,6 +149,9 @@ public class AddressBookParserTest {
 
     @Test
     public void parseCommand_check() throws Exception {
-        assertTrue(parser.parseCommand(CheckCommand.COMMAND_WORD) instanceof CheckCommand);
+        final String mode = "in";
+        CheckCommand command = (CheckCommand) parser.parseCommand(CheckCommand.COMMAND_WORD + " "
+                + PREFIX_NAME + VALID_NRIC_AMY + " " + PREFIX_PASSWORD + VALID_PASSWORD_AMY + " " + PREFIX_MODE + mode);
+        assertEquals(new CheckCommand(VALID_NRIC_AMY, VALID_PASSWORD_AMY, mode), command);
     }
 }
