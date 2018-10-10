@@ -16,6 +16,7 @@ import seedu.address.model.module.Module;
  */
 public class TranscriptTest {
 
+    //@@author jeremiah-ang
     @Test
     public void typicalModulesCapScore() {
         List<Module> modules = getModulesWithoutNonGradeAffectingModules();

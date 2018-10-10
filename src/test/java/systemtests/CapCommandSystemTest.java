@@ -4,6 +4,7 @@ import org.junit.Test;
 
 import seedu.address.logic.commands.CapCommand;
 
+//@@author jeremiah-ang
 public class CapCommandSystemTest extends AddressBookSystemTest {
     @Test
     public void cap() {

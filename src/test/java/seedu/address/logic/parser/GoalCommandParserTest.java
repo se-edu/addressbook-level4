@@ -8,7 +8,7 @@ import org.junit.Test;
 
 import seedu.address.logic.commands.GoalCommand;
 
-
+//@@author jeremiah-ang
 public class GoalCommandParserTest {
     private GoalCommandParser parser = new GoalCommandParser();
 
