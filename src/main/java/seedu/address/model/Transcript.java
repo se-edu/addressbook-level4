@@ -2,10 +2,14 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+import seedu.address.model.module.Grade;
 import seedu.address.model.module.Module;
 import seedu.address.model.module.UniqueModuleList;
 
@@ -156,6 +160,14 @@ public class Transcript implements ReadOnlyTranscript {
     }
 
     /**
+     * Filters for modules that have yet been graded
+     * @return gradedModulesList: a list of modules used for CAP calculation
+     */
+    private ObservableList<Module> getNotCompletedModulesList() {
+        return modules.getFilteredModules(module -> !module.hasCompleted());
+    }
+
+    /**
      * Check if the given module should be considered for CAP Calculation
      * @param module
      * @return true if yes, false otherwise
@@ -173,6 +185,40 @@ public class Transcript implements ReadOnlyTranscript {
         return module.getGrade().affectsCap();
     }
 
+    /**
+     * Calculates target module grade in order to achieve target goal
+     * @return a list of modules with target grade if possible. null otherwise
+     */
+    public ObservableList<Module> getTargetModuleGrade() {
+        ObservableList<Module> gradedModules = getGradedModulesList();
+        ObservableList<Module> ungradedModules = getNotCompletedModulesList()
+                .sorted(Comparator.comparingInt(o -> o.getCredits().value));
+
+        double totalUngradedModuleCredit = calculateTotalModuleCredit(ungradedModules);
+        double totalMc = calculateTotalModuleCredit(gradedModules) + totalUngradedModuleCredit;
+        double currentTotalPoint = calculateTotalModulePoint(gradedModules);
+
+        double totalScoreToAchieve = capGoal * totalMc - currentTotalPoint;
+        double unitScoreToAchieve = Math.ceil(totalScoreToAchieve / totalUngradedModuleCredit * 2) / 2.0;
+        if (unitScoreToAchieve > 5) {
+            return null;
+        }
+
+        List<Module> targetModules = new ArrayList<>();
+        Module targetModule;
+        for (Module ungradedModule : ungradedModules) {
+            if (unitScoreToAchieve == 0.5) {
+                unitScoreToAchieve = 1.0;
+            }
+            targetModule = new Module(ungradedModule, new Grade(unitScoreToAchieve));
+            targetModules.add(targetModule);
+            totalScoreToAchieve -= targetModule.getCredits().value * unitScoreToAchieve;
+            totalUngradedModuleCredit -= targetModule.getCredits().value;
+            unitScoreToAchieve = Math.ceil(totalScoreToAchieve / totalUngradedModuleCredit * 2) / 2.0;
+        }
+
+        return FXCollections.observableArrayList(targetModules);
+    }
     //// util methods
 
     @Override

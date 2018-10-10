@@ -16,6 +16,9 @@ public class Grade {
     public static final String MESSAGE_GRADE_CONSTRAINTS =
             "Grade can be A+, A, A-, B+, B, B-, C+, C, D+, D, F, CS, CU";
 
+    public static final String MESSAGE_POINT_CONSTRAINTS =
+            "Score must be between [0, 5] with increments of 0.5 and not 0.5";
+
     /**
      * No whitespace allowed.
      */
@@ -36,6 +39,46 @@ public class Grade {
         requireNonNull(grade);
         checkArgument(isValidGrade(grade), MESSAGE_GRADE_CONSTRAINTS);
         value = grade;
+    }
+
+    public Grade(double point) {
+        requireNonNull(point);
+        checkArgument(isValidPoint(point), MESSAGE_POINT_CONSTRAINTS);
+        value = getValue(point);
+    }
+
+    /**
+     * Returns true if point is within [0, 5] and step by 0.5 and not 0.5
+     * @param point
+     * @return
+     */
+    public static boolean isValidPoint(double point) {
+        double fraction = point - Math.floor(point);
+        return point >= 0 && point <= 5 && (fraction == 0 || fraction == 0.5) && point != 0.5;
+    }
+
+    public String getValue(double point) {
+        if (point == 5.0) {
+            return "A";
+        } else if (point == 4.5) {
+            return "A-";
+        } else if (point == 4.0) {
+            return "B+";
+        } else if (point == 3.5) {
+            return "B";
+        } else if (point == 3.0) {
+            return "B-";
+        } else if (point == 2.5) {
+            return "C+";
+        } else if (point == 2.0) {
+            return "C";
+        } else if (point == 1.5) {
+            return "D+";
+        } else if (point == 1.0) {
+            return "D";
+        } else {
+            return "F";
+        }
     }
 
     /**
