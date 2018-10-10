@@ -12,10 +12,11 @@ import java.util.List;
 
 import org.junit.Test;
 
+import javafx.collections.ObservableList;
+
 import seedu.address.model.module.Module;
 import seedu.address.testutil.ModuleBuilder;
 
-import javafx.collections.ObservableList;
 
 /**
  * Test {@code TranscriptTest} Class
