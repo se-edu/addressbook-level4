@@ -10,7 +10,7 @@ We are a team based in the http://www.comp.nus.edu.sg[School of Computing, Natio
 == Project Team
 
 === Alex Koh
-image::alexkmj.jpg[width="150", align="left"]
+image::alexkmj.png[width="150", align="left"]
 {empty} [https://github.com/alexkmj[github]] [<<alexkmj#, portfolio>>]
 
 Role: Developer +
