@@ -107,7 +107,22 @@ public interface Model {
      */
     void commitTranscript();
 
+    /**
+     * Get the cap goal of the current transcript
+     */
+    double getCapGoal();
 
+    /**
+     * Set the cap goal of the current transcript
+     */
+    void updateCapGoal(double capGoal);
+
+
+
+    /**
+     * Returns the CAP based on the current Transcript records
+     */
+    double getCap();
 
     /** Returns the AddressBook TODO: REMOVE*/
     ReadOnlyAddressBook getAddressBook();

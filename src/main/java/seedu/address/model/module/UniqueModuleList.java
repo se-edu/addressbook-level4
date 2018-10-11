@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.function.Predicate;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -38,7 +39,7 @@ public class UniqueModuleList implements Iterable<Module> {
      */
     public boolean contains(Module toCheck) {
         requireNonNull(toCheck);
-        return internalList.stream().anyMatch(toCheck::equals);
+        return internalList.stream().anyMatch(toCheck::isSameModule);
     }
 
     /**
@@ -143,13 +144,13 @@ public class UniqueModuleList implements Iterable<Module> {
     }
 
     /**
-     * Returns true if two different lists are mutually exclusive.
+     * Returns the list of filtered Module based on the given predicate
      *
-     * @param modules the module list that is compared against
-     * @return true if two different lists are mutually exclusive
+     * @param predicate
+     * @return filtered list
      */
-    public boolean isMutuallyExclusive(List<Module> modules) {
-        return !internalList.stream().anyMatch(modules::contains);
+    public ObservableList<Module> getFilteredModules(Predicate<Module> predicate) {
+        return internalList.filtered(predicate);
     }
 
     /**

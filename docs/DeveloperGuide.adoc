@@ -586,6 +586,7 @@ can enter my entries incrementally.
 10. As a user, I can see what the highest possible CAP I can achieve with my current grades is so that I can set an appropriate goal.
 11. As a user, I can see what the minimum grades I need per module is to pass the year with my current grades so that I can see what the minimum about of work I need to do is.
 
+
 *Not-Useful*
 
 1. As a user, I can view the module descriptions so that I know what modules I should take
