@@ -119,6 +119,11 @@ public interface Model {
 
 
 
+    /**
+     * Returns the CAP based on the current Transcript records
+     */
+    double getCap();
+
     /** Returns the AddressBook TODO: REMOVE*/
     ReadOnlyAddressBook getAddressBook();
 
@@ -190,9 +195,4 @@ public interface Model {
      * TODO: REMOVE
      */
     void commitAddressBook();
-
-    /**
-     * Returns the CAP based on the current Transcript records
-     */
-    double getCap();
 }
