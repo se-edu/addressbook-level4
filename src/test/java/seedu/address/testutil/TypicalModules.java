@@ -7,6 +7,7 @@ import java.util.List;
 import seedu.address.model.Transcript;
 import seedu.address.model.module.Module;
 import seedu.address.model.module.Semester;
+import seedu.address.model.util.ModuleBuilder;
 
 /**
  * A utility class containing a list of {@code Module} objects to be used in tests.

@@ -19,7 +19,7 @@ import seedu.address.model.ReadOnlyTranscript;
 import seedu.address.model.Transcript;
 import seedu.address.model.module.Module;
 import seedu.address.model.module.Semester;
-import seedu.address.testutil.ModuleBuilder;
+import seedu.address.model.util.ModuleBuilder;
 
 public class JsonTranscriptStorageTest {
     public static final Module DISCRETE_MATH = new ModuleBuilder().withCode("CS1231")

@@ -11,8 +11,9 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import seedu.address.model.util.ModuleBuilder;
 import seedu.address.testutil.Assert;
-import seedu.address.testutil.ModuleBuilder;
+
 
 public class ModuleTest {
 
