@@ -11,7 +11,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 public class Account {
 
     public static final String MESSAGE_BALANCE_CONSTRAINTS =
-            "Account should only contain numeric characters and no spaces, and it should not be blank";
+            "Account should only contain numbers and no spaces, and it should not be blank";
 
     private static Double value;
 

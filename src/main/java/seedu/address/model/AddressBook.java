@@ -7,6 +7,8 @@ import java.util.List;
 import java.util.Set;
 
 import javafx.collections.ObservableList;
+import seedu.address.model.ledger.Ledger;
+import seedu.address.model.ledger.UniqueLedgerList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
 import seedu.address.model.tag.Tag;
@@ -28,6 +30,12 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     {
         persons = new UniquePersonList();
+    }
+
+    private final UniqueLedgerList ledgers;
+
+    {
+        ledgers = new UniqueLedgerList();
     }
 
     public AddressBook() {}
@@ -75,6 +83,15 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     public void addPerson(Person p) {
         persons.add(p);
+    }
+
+    /**
+     * Adds a ledger to the club book
+     * @param l
+     */
+
+    public void addLedger(Ledger l) {
+        ledgers.add(l);
     }
 
     /**

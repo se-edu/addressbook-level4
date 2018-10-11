@@ -3,7 +3,7 @@ package seedu.address.commons.events.storage;
 import seedu.address.commons.events.BaseEvent;
 
 /**
- * Indicates an exception during a file saving
+ * Indicates an exceptions during a file saving
  */
 public class DataSavingExceptionEvent extends BaseEvent {
 

@@ -85,7 +85,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     @Override
     public void addLedger(Ledger ledger) {
-
+        versionedAddressBook.addLedger(ledger);
     }
 
     @Override
