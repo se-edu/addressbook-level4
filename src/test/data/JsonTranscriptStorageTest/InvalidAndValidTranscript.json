@@ -1,0 +1,60 @@
+{
+  "modules": {
+    "internalList": [
+      {
+        "code": {
+          "value": 0
+        },
+        "year": {
+          "value": "hello world"
+        },
+        "semester": {
+          "value": "1"
+        },
+        "credits": {
+          "value": 4
+        },
+        "grade": {
+          "value": "A+"
+        },
+        "completed": true
+      },
+      {
+        "code": {
+          "value": "CS2030"
+        },
+        "year": {
+          "value": 1
+        },
+        "semester": {
+          "value": "2"
+        },
+        "credits": {
+          "value": 4
+        },
+        "grade": {
+          "value": "B"
+        },
+        "completed": true
+      },
+      {
+        "code": {
+          "value": "CS2040"
+        },
+        "year": {
+          "value": 1
+        },
+        "semester": {
+          "value": "s1"
+        },
+        "credits": {
+          "value": 4
+        },
+        "grade": {
+          "value": "F"
+        },
+        "completed": true
+      }
+    ]
+  }
+}
