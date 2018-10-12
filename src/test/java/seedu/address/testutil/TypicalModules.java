@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import seedu.address.model.Transcript;
 import seedu.address.model.module.Module;
 import seedu.address.model.module.Semester;
+import seedu.address.model.util.ModuleBuilder;
 
 /**
  * A utility class containing a list of {@code Module} objects to be used in tests.
@@ -43,11 +45,54 @@ public class TypicalModules {
 
     public static final Double MODULES_WITHOUT_NON_AFFECTING_MODULES_CAP = 3.0;
 
+    public static final Module SOFTWARE_ENGINEERING = new ModuleBuilder().withCode("CS2103")
+            .withYear(3)
+            .withSemester(Semester.SEMESTER_ONE)
+            .withCredit(4)
+            .withGrade("A+")
+            .build();
+
+    public static final Module DATABASE_SYSTEMS = new ModuleBuilder().withCode("CS2102")
+            .withYear(2)
+            .withSemester(Semester.SEMESTER_ONE)
+            .withCredit(4)
+            .withGrade("A+")
+            .build();
+
+    public static final Module DATABASE_SYSTEMS_2MC = new ModuleBuilder().withCode("CS2102B")
+            .withYear(2)
+            .withSemester(Semester.SEMESTER_ONE)
+            .withCredit(2)
+            .withGrade("A+")
+            .build();
+
     /**
      * Prevents instantiation
      */
     private TypicalModules() {
 
+    }
+
+    /**
+     * Returns an {@code Transcript} given modules as arguments.
+     */
+    public static Transcript getTranscriptWithModules(Module... modules) {
+        Transcript tr = new Transcript();
+        for (Module module : modules) {
+            tr.addModule(module);
+        }
+        return tr;
+    }
+
+    /**
+     * Returns an {@code Transcript} with all the typical persons.
+     */
+    public static Transcript getTypicalTranscript() {
+        Transcript tr = new Transcript();
+        for (Module module : getTypicalModules()) {
+            tr.addModule(module);
+        }
+        return tr;
     }
 
     public static List<Module> getTypicalModules() {
@@ -56,8 +101,10 @@ public class TypicalModules {
                 DATA_STRUCTURES));
     }
 
+
     /**
      * A list of modules that affects the cap
+     *
      * @return
      */
     public static List<Module> getModulesWithoutNonGradeAffectingModules() {
@@ -68,6 +115,7 @@ public class TypicalModules {
 
     /**
      * A list of modules that might not affect the cap
+     *
      * @return
      */
     public static List<Module> getModulesWithNonGradeAffectingModules() {
