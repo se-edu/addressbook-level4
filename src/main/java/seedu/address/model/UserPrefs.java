@@ -13,8 +13,8 @@ public class UserPrefs {
 
     private GuiSettings guiSettings;
     //TODO: REMOVE
-    private Path addressBookFilePath = Paths.get("data" , "addressbook.xml");
-    private Path transcriptFilePath = Paths.get("data" , "transcript.xml");
+    private Path addressBookFilePath = Paths.get("data", "addressbook.xml");
+    private Path transcriptFilePath = Paths.get("data", "transcript.json");
 
     public UserPrefs() {
         setGuiSettings(500, 500, 0, 0);
