@@ -1,0 +1,30 @@
+{
+  "authors":
+  [
+    {
+      "githubId": "alexkmj",
+      "displayName": "ALE...KOH",
+      "authorNames": ["alex", "alexkmj", "Alex Koh", "alex koh"]
+    },
+    {
+      "githubId": "josephambe",
+      "displayName": "JOSEP...R KIM",
+      "authorNames": ["josephambe"]
+    },
+    {
+      "githubId": "jeremiah-ang",
+      "displayName": "JEREM...NG EN",
+      "authorNames": ["jeremiah-ang"]
+    },
+    {
+      "githubId": "jeremyyew",
+      "displayName": "JEREM...W ERN",
+      "authorNames": ["jeremyyew"]
+    },
+    {
+      "githubId": "BugEyedBug",
+      "displayName": "KONG ...N YIN",
+      "authorNames": ["BugEyedBug"]
+    }
+  ]
+}
