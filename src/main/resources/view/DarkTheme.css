@@ -349,3 +349,14 @@
     -fx-background-radius: 2;
     -fx-font-size: 11;
 }
+
+
+#modulesRow {
+    -fx-background-color: derive(#1d1d1d, 20%);
+}
+
+
+#modulesScrollPane {
+    -fx-background-color: derive(#1d1d1d, 20%);
+}
+
