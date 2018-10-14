@@ -4,7 +4,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 
-import seedu.address.model.capGoal.CapGoal;
+import seedu.address.model.capgoal.CapGoal;
 import seedu.address.model.module.Module;
 import seedu.address.model.person.Person;
 

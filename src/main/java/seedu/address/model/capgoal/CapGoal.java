@@ -1,4 +1,4 @@
-package seedu.address.model.capGoal;
+package seedu.address.model.capgoal;
 
 //@@author jeremiah-ang
 /**
