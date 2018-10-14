@@ -10,7 +10,7 @@ public class CapGoal {
 
     private double capGoal;
     private boolean isSet = true;
-    private final String MESSAGE_IS_NULL = "NIL";
+    private static final String MESSAGE_IS_NULL = "NIL";
 
     public CapGoal() {
 
