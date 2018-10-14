@@ -1,5 +1,6 @@
 package seedu.address.model.capGoal;
 
+//@@author jeremiah-ang
 /**
  * Represents Cap Goal
  *

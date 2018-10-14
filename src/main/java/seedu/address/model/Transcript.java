@@ -169,8 +169,6 @@ public class Transcript implements ReadOnlyTranscript {
         return capGoal;
     }
 
-    //TODO: Create another class capGoal (similarly to the Module parameters)
-    // that checks for valid input, and also has 'NIL' value.
     public void setCapGoal(double capGoal) {
         this.capGoal = new CapGoal(capGoal);
     }
