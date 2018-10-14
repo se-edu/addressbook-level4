@@ -73,13 +73,7 @@ public class Module {
      * @param grade
      */
     public Module(Module module, Grade grade) {
-        requireNonNull(grade);
-        this.code = module.code;
-        this.year = module.year;
-        this.semester = module.semester;
-        this.credits = module.credits;
-        this.grade = grade;
-        this.completed = module.completed;
+        this(module.code, module.year, module.semester, module.credits, grade, module.completed);
     }
 
     //@@author alexkmj
