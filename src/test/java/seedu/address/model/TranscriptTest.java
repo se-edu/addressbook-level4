@@ -23,31 +23,31 @@ import seedu.address.testutil.ModuleBuilder;
  */
 public class TranscriptTest {
 
-    public static final Module GRADE_BMINUS_4MC_A = new ModuleBuilder()
+    private static final Module GRADE_BMINUS_4MC_A = new ModuleBuilder()
             .withCredit(4)
             .withGrade("B-")
             .build();
-    public static final Module GRADE_A_4MC_A = new ModuleBuilder()
+    private static final Module GRADE_A_4MC_A = new ModuleBuilder()
             .withCredit(4)
             .withGrade("A")
             .build();
-    public static final Module GRADE_A_4MC_B = new ModuleBuilder()
+    private static final Module GRADE_A_4MC_B = new ModuleBuilder()
             .withCredit(4)
             .withGrade("A")
             .build();
-    public static final Module INCOMPLETE_4MC_A = new ModuleBuilder()
+    private static final Module INCOMPLETE_4MC_A = new ModuleBuilder()
             .withCredit(4)
             .withCompleted(false)
             .build();
-    public static final Module INCOMPLETE_4MC_B = new ModuleBuilder()
+    private static final Module INCOMPLETE_4MC_B = new ModuleBuilder()
             .withCredit(4)
             .withCompleted(false)
             .build();
-    public static final Module INCOMPLETE_4MC_C = new ModuleBuilder()
+    private static final Module INCOMPLETE_4MC_C = new ModuleBuilder()
             .withCredit(4)
             .withCompleted(false)
             .build();
-    public static final Module INCOMPLETE_5MC_A = new ModuleBuilder()
+    private static final Module INCOMPLETE_5MC_A = new ModuleBuilder()
             .withCredit(5)
             .withCompleted(false)
             .build();
