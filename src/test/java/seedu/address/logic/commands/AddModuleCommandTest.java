@@ -21,7 +21,7 @@ import seedu.address.model.ReadOnlyTranscript;
 import seedu.address.model.Transcript;
 import seedu.address.model.module.Module;
 import seedu.address.model.person.Person;
-import seedu.address.testutil.ModuleBuilder;
+import seedu.address.model.util.ModuleBuilder;
 
 public class AddModuleCommandTest {
 

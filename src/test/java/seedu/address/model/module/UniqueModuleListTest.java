@@ -17,7 +17,7 @@ import org.junit.rules.ExpectedException;
 
 import seedu.address.model.module.exceptions.DuplicateModuleException;
 import seedu.address.model.module.exceptions.ModuleNotFoundException;
-import seedu.address.testutil.ModuleBuilder;
+import seedu.address.model.util.ModuleBuilder;
 
 public class UniqueModuleListTest {
 

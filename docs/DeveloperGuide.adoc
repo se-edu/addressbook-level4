@@ -536,7 +536,7 @@ b. Require developers to download those libraries manually (this creates extra w
 
 [appendix]
 == Target User Profile
-- A NUS Student who has a need to keep track of current CAP, calculate expected CAP, and grades required to achieve desired CAP.
+- An NUS Student who has a need to keep track of current CAP, calculate expected CAP, and grades required to achieve desired CAP.
 - Prefer desktop apps over other types.
 - Can type fast.
 - Prefers typing over mouse input.
@@ -560,16 +560,14 @@ module I can re-calculate my average.
 or failed it, I can remove it.
 4.  As a user I can edit the marks I’ve entered previously so that I can
 update my CAP.
-5.  As a user, I can enter in a CAP goal so I can track my progress in
-my modules.
-6.  As a user, I can enter a CAP goal so that I can keep track of the
+5.  As a user, I can enter a CAP goal so that I can keep track of the
 progress of my course
-7.  As a user, I can calculate the average mark I need across the
+6.  As a user, I can calculate the average mark I need across the
 modules I’ve entered so I can see what mark I need for each module to
 achieve my CAP goal. +
-8.  As a user, I can enter in predicted grades for modules so I can see
+7.  As a user, I can enter in predicted grades for modules so I can see
 what CAP I would get if I got these grades in my modules.
-9.  As a user, I can close the app and return to modify my entries so I
+8.  As a user, I can close the app and return to modify my entries so I
 can enter my entries incrementally.
 
 *Nice-To-Have*

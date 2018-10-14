@@ -134,7 +134,7 @@ test {
 
     testLogging {
         events TestLogEvent.FAILED, TestLogEvent.SKIPPED
-
+        exceptionFormat "full"
         // Prints the currently running test's name in the CI's build log,
         // so that we can check if tests are being silently skipped or
         // stalling the build.
