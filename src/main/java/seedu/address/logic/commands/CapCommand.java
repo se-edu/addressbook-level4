@@ -7,7 +7,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
 /**
- * Show CAP based on existing modules.
+ * Shows CAP based on existing modules.
  */
 public class CapCommand extends Command {
     public static final String COMMAND_WORD = "cap";
