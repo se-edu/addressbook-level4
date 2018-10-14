@@ -27,9 +27,11 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.storage.AddressBookStorage;
+import seedu.address.storage.JsonTranscriptStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
+import seedu.address.storage.TranscriptStorage;
 import seedu.address.storage.UserPrefsStorage;
 import seedu.address.storage.XmlAddressBookStorage;
 import seedu.address.ui.Ui;
@@ -63,7 +65,8 @@ public class MainApp extends Application {
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         userPrefs = initPrefs(userPrefsStorage);
         AddressBookStorage addressBookStorage = new XmlAddressBookStorage(userPrefs.getAddressBookFilePath());
-        storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        TranscriptStorage transcriptStorage = new JsonTranscriptStorage(userPrefs.getTranscriptFilePath());
+        storage = new StorageManager(addressBookStorage, userPrefsStorage, transcriptStorage);
 
         initLogging(config);
 
@@ -84,6 +87,8 @@ public class MainApp extends Application {
     private Model initModelManager(Storage storage, UserPrefs userPrefs) {
         Optional<ReadOnlyAddressBook> addressBookOptional;
         ReadOnlyAddressBook initialData;
+        //Optional<ReadOnlyTranscript> transcriptOptional;
+        //ReadOnlyTranscript initialTranscriptData;
         try {
             addressBookOptional = storage.readAddressBook();
             if (!addressBookOptional.isPresent()) {
@@ -97,6 +102,20 @@ public class MainApp extends Application {
             logger.warning("Problem while reading from the file. Will be starting with an empty AddressBook");
             initialData = new AddressBook();
         }
+        // Not used for now. But wrote down already so I will leave it here for when we do complete morph.
+        //        try {
+        //            transcriptOptional = storage.readTranscript();
+        //            if (!transcriptOptional.isPresent()) {
+        //                logger.info("Data file not found. Will be starting with a sample transcript");
+        //            }
+        //            initialTranscriptData = transcriptOptional.orElseGet(SampleDataUtil::getSampleTranscript);
+        //        } catch (DataConversionException e) {
+        //            logger.warning("Data file not in the correct format. Will be starting with an empty Transcript");
+        //            initialTranscriptData = new Transcript();
+        //        } catch (IOException e) {
+        //            logger.warning("Problem while reading from the file. Will be starting with an empty Transcript");
+        //            initialTranscriptData = new Transcript();
+        //       }
 
         return new ModelManager(initialData, userPrefs);
     }
@@ -200,9 +219,5 @@ public class MainApp extends Application {
     public void handleExitAppRequestEvent(ExitAppRequestEvent event) {
         logger.info(LogsCenter.getEventHandlingLogMessage(event));
         stop();
-    }
-
-    public static void main(String[] args) {
-        launch(args);
     }
 }

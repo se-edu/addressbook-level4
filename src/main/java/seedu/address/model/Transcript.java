@@ -25,11 +25,13 @@ public class Transcript implements ReadOnlyTranscript {
      * Note that non-static init blocks are not recommended to use. There are other ways to avoid duplication
      *   among constructors.
      */
+
     {
         modules = new UniqueModuleList();
     }
 
-    public Transcript() {}
+    public Transcript() {
+    }
 
     /**
      * Creates an Transcript using the Modules in the {@code toBeCopied}
@@ -97,6 +99,7 @@ public class Transcript implements ReadOnlyTranscript {
 
     /**
      * Return the current CAP
+     *
      * @return current cap score
      */
     public double getCap() {
@@ -105,6 +108,7 @@ public class Transcript implements ReadOnlyTranscript {
 
     /**
      * Calculate CAP Score based on modules with scores
+     *
      * @return cap: cap score
      */
     private double calculateCap() {
@@ -131,7 +135,8 @@ public class Transcript implements ReadOnlyTranscript {
 
     /**
      * Filters for modules that is to be used for CAP calculation
-     * @return gradedModulesList: a list of modules used for CAP calculation
+     *
+     * @return list of modules used for CAP calculation
      */
     private ObservableList<Module> getGradedModulesList() {
         return modules.getFilteredModules(this::moduleIsUsedForCapCalculation);
@@ -139,6 +144,7 @@ public class Transcript implements ReadOnlyTranscript {
 
     /**
      * Check if the given module should be considered for CAP Calculation
+     *
      * @param module
      * @return true if yes, false otherwise
      */
@@ -148,6 +154,7 @@ public class Transcript implements ReadOnlyTranscript {
 
     /**
      * Check if a module affects grade
+     *
      * @param module
      * @return true if module affects grade, false otheriwse
      */
@@ -184,6 +191,8 @@ public class Transcript implements ReadOnlyTranscript {
         return capGoal;
     }
 
+    //TODO: Create another class capGoal (similarly to the Module parameters)
+    // that checks for valid input, and also has 'NIL' value.
     public void setCapGoal(double capGoal) {
         this.capGoal = capGoal;
     }

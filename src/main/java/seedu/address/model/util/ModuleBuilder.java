@@ -1,4 +1,4 @@
-package seedu.address.testutil;
+package seedu.address.model.util;
 
 import seedu.address.model.module.Code;
 import seedu.address.model.module.Credit;

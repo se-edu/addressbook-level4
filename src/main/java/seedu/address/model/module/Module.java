@@ -153,10 +153,10 @@ public class Module {
 
         Module otherModule = (Module) other;
         return otherModule.getCode().equals(getCode())
-                && otherModule.getYear() == getYear()
-                && otherModule.getSemester() == getSemester()
-                && otherModule.getCredits() == getCredits()
-                && otherModule.getGrade() == getGrade()
+                && otherModule.getYear().equals(getYear())
+                && otherModule.getSemester().equals(getSemester())
+                && otherModule.getCredits().equals(getCredits())
+                && otherModule.getGrade().equals(getGrade())
                 && otherModule.hasCompleted() == hasCompleted();
     }
 
