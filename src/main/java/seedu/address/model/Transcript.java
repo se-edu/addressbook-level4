@@ -101,6 +101,7 @@ public class Transcript implements ReadOnlyTranscript {
         modules.remove(key);
     }
 
+    //@@author jeremiah-ang
     /**
      * Return the current CAP
      *
@@ -230,6 +231,18 @@ public class Transcript implements ReadOnlyTranscript {
 
         return FXCollections.observableArrayList(targetModules);
     }
+
+    public double getCapGoal() {
+        return capGoal;
+    }
+
+    //TODO: Create another class capGoal (similarly to the Module parameters)
+    // that checks for valid input, and also has 'NIL' value.
+    public void setCapGoal(double capGoal) {
+        this.capGoal = capGoal;
+    }
+
+    //@@author
     //// util methods
 
     @Override
@@ -255,13 +268,4 @@ public class Transcript implements ReadOnlyTranscript {
         return modules.hashCode();
     }
 
-    public double getCapGoal() {
-        return capGoal;
-    }
-
-    //TODO: Create another class capGoal (similarly to the Module parameters)
-    // that checks for valid input, and also has 'NIL' value.
-    public void setCapGoal(double capGoal) {
-        this.capGoal = capGoal;
-    }
 }

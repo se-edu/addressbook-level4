@@ -143,6 +143,7 @@ public class UniqueModuleList implements Iterable<Module> {
                 .count();
     }
 
+    //@@author jeremiah-ang
     /**
      * Returns the list of filtered Module based on the given predicate
      *
@@ -153,6 +154,7 @@ public class UniqueModuleList implements Iterable<Module> {
         return internalList.filtered(predicate);
     }
 
+    //@@author
     /**
      * Returns the iterator of the internal list.
      *
