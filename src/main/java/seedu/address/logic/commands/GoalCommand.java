@@ -4,6 +4,7 @@ import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 
+//@@author jeremiah-ang
 /**
  * Sets CAP Goal
  */
