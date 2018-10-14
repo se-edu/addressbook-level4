@@ -30,11 +30,6 @@ public class Grade {
             "A\\+|A\\-|A|B\\+|B\\-|B|C\\+|C|D\\+|D|F|CS|CU";
 
     /**
-     * Immutable grade value.
-     */
-    public final String value;
-
-    /**
      * Static Unchangeable Mapping between Grade and Point
      */
     private static final Map<String, Double> MAP_GRADE_POINT;
@@ -64,6 +59,11 @@ public class Grade {
     }
 
     /**
+     * Immutable grade value.
+     */
+    public final String value;
+
+    /**
      * Constructs an {@code Grade}.
      *
      * @param grade A valid grade.
@@ -74,6 +74,10 @@ public class Grade {
         value = grade;
     }
 
+    /**
+     * Constructs an {@code Grade} from point
+     * @param point
+     */
     public Grade(double point) {
         requireNonNull(point);
         checkArgument(isValidPoint(point), MESSAGE_POINT_CONSTRAINTS);
@@ -90,6 +94,11 @@ public class Grade {
         return point >= 0 && point <= 5 && (fraction == 0 || fraction == 0.5) && point != 0.5;
     }
 
+    /**
+     * Returns the letter grade the point should be mapped to.
+     * @param point
+     * @return
+     */
     private String mapPointToValue(double point) {
         return MAP_POINT_GRADE.get(point);
     }
