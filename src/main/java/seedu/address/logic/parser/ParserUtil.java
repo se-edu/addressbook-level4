@@ -9,6 +9,11 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.module.Code;
+import seedu.address.model.module.Credit;
+import seedu.address.model.module.Grade;
+import seedu.address.model.module.Semester;
+import seedu.address.model.module.Year;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
@@ -23,8 +28,98 @@ public class ParserUtil {
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
 
     /**
-     * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing whitespaces will be
+     * Tokenize args into an array of args. Checks if args is null and trims leading and trailing
+     * whitespaces.
+     *
+     * @param args the target args that would be tokenize
+     * @return array of args
+     */
+    public static String[] tokenize(String args) {
+        requireNonNull(args);
+        String trimmedArgs = args.trim();
+        return trimmedArgs.split(" ");
+    }
+
+    /**
+     * Parses a {@code String code} into a {@code Code}. Leading and trailing whitespaces will be
      * trimmed.
+     *
+     * @throws ParseException if the given {@code code} is invalid.
+     */
+    public static Code parseCode(String args) throws ParseException {
+        requireNonNull(args);
+        String trimmedCode = args.trim();
+        if (!Code.isValidCode(trimmedCode)) {
+            throw new ParseException(Code.MESSAGE_CODE_CONSTRAINTS);
+        }
+        return new Code(trimmedCode);
+    }
+
+    /**
+     * Parses a {@code String year} into a {@code Year}. Leading and trailing whitespaces will be
+     * trimmed.
+     *
+     * @throws ParseException if the given {@code year} is invalid.
+     */
+    public static Year parseYear(String args) throws ParseException {
+        requireNonNull(args);
+        String trimmedYear = args.trim();
+        if (!Year.isValidYear(trimmedYear)) {
+            throw new ParseException(Year.MESSAGE_YEAR_CONSTRAINTS);
+        }
+        return new Year(trimmedYear);
+    }
+
+    /**
+     * Parses a {@code String semester} into a {@code Semester}. Leading and trailing whitespaces
+     * will be trimmed.
+     *
+     * @throws ParseException if the given {@code semester} is invalid.
+     */
+    public static Semester parseSemester(String args) throws ParseException {
+        requireNonNull(args);
+        String trimmedSemester = args.trim();
+        if (!Semester.isValidSemester(trimmedSemester)) {
+            throw new ParseException(Semester.MESSAGE_SEMESTER_CONSTRAINTS);
+        }
+        return new Semester(trimmedSemester);
+    }
+
+    /**
+     * Parses a {@code String credit} into a {@code Credit}. Leading and trailing whitespaces will
+     * be trimmed.
+     *
+     * @throws ParseException if the given {@code credit} is invalid.
+     */
+    public static Credit parseCredit(String args) throws ParseException {
+        requireNonNull(args);
+        String trimmedCredit = args.trim();
+        int intCredit = Integer.parseInt(trimmedCredit);
+        if (!Credit.isValidCredit(intCredit)) {
+            throw new ParseException(Credit.MESSAGE_CREDIT_CONSTRAINTS);
+        }
+        return new Credit(intCredit);
+    }
+
+    /**
+     * Parses a {@code String grade} into a {@code Grade}. Leading and trailing whitespaces will be
+     * trimmed.
+     *
+     * @throws ParseException if the given {@code grade} is invalid.
+     */
+    public static Grade parseGrade(String args) throws ParseException {
+        requireNonNull(args);
+        String trimmedGrade = args.trim();
+        if (!Grade.isValidGrade(trimmedGrade)) {
+            throw new ParseException(Grade.MESSAGE_GRADE_CONSTRAINTS);
+        }
+        return new Grade(trimmedGrade);
+    }
+
+    /**
+     * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing
+     * whitespaces will be trimmed.
+     *
      * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
      */
     public static Index parseIndex(String oneBasedIndex) throws ParseException {
@@ -36,8 +131,8 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String name} into a {@code Name}.
-     * Leading and trailing whitespaces will be trimmed.
+     * Parses a {@code String name} into a {@code Name}. Leading and trailing whitespaces will be
+     * trimmed.
      *
      * @throws ParseException if the given {@code name} is invalid.
      */
@@ -51,8 +146,8 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String phone} into a {@code Phone}.
-     * Leading and trailing whitespaces will be trimmed.
+     * Parses a {@code String phone} into a {@code Phone}. Leading and trailing whitespaces will be
+     * trimmed.
      *
      * @throws ParseException if the given {@code phone} is invalid.
      */
@@ -66,8 +161,8 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String address} into an {@code Address}.
-     * Leading and trailing whitespaces will be trimmed.
+     * Parses a {@code String address} into an {@code Address}. Leading and trailing whitespaces
+     * will be trimmed.
      *
      * @throws ParseException if the given {@code address} is invalid.
      */
@@ -81,8 +176,8 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String email} into an {@code Email}.
-     * Leading and trailing whitespaces will be trimmed.
+     * Parses a {@code String email} into an {@code Email}. Leading and trailing whitespaces will be
+     * trimmed.
      *
      * @throws ParseException if the given {@code email} is invalid.
      */
@@ -96,8 +191,8 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String tag} into a {@code Tag}.
-     * Leading and trailing whitespaces will be trimmed.
+     * Parses a {@code String tag} into a {@code Tag}. Leading and trailing whitespaces will be
+     * trimmed.
      *
      * @throws ParseException if the given {@code tag} is invalid.
      */
