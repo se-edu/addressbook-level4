@@ -9,7 +9,7 @@ package seedu.address.model.capgoal;
 public class CapGoal {
 
     private static final String MESSAGE_IS_NULL = "NIL";
-    
+
     private double capGoal;
     private boolean isSet = true;
 
