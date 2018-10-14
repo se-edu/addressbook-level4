@@ -3,6 +3,7 @@ package seedu.address.logic.commands;
 import seedu.address.logic.CommandHistory;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.capGoal.CapGoal;
 
 //@@author jeremiah-ang
 /**
@@ -32,8 +33,8 @@ public class GoalCommand extends Command {
     @Override
     public CommandResult execute(Model model, CommandHistory history) throws CommandException {
         model.updateCapGoal(goal);
-        double capGoal = model.getCapGoal();
-        return new CommandResult(String.format(MESSAGE_SUCCESS, capGoal));
+        CapGoal capGoal = model.getCapGoal();
+        return new CommandResult(String.format(MESSAGE_SUCCESS, capGoal.toString()));
     }
 
     @Override

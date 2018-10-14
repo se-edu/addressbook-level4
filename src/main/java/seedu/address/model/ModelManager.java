@@ -14,6 +14,7 @@ import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.events.model.TranscriptChangedEvent;
+import seedu.address.model.capGoal.CapGoal;
 import seedu.address.model.module.Module;
 import seedu.address.model.person.Person;
 
@@ -165,7 +166,7 @@ public class ModelManager extends ComponentManager implements Model {
 
     //@@author jeremiah-ang
     @Override
-    public double getCapGoal() {
+    public CapGoal getCapGoal() {
         return versionedTranscript.getCapGoal();
     }
 
