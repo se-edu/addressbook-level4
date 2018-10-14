@@ -73,12 +73,12 @@ public class TranscriptTest {
             INCOMPLETE_4MC_C
         ));
         double capGoal = 4.0;
-        List<String> expectedGrades = new ArrayList<>(Arrays.asList(
+        List<String> expectedTargetGrades = new ArrayList<>(Arrays.asList(
             "B+",
             "B+",
             "B+"
         ));
-        assertTargetGradesEquals(modules, capGoal, expectedGrades);
+        assertTargetGradesEquals(modules, capGoal, expectedTargetGrades);
 
         modules = new ArrayList<>(Arrays.asList(
                 INCOMPLETE_4MC_A,
@@ -88,13 +88,13 @@ public class TranscriptTest {
                 GRADE_BMINUS_4MC_A
         ));
         capGoal = 4.5;
-        expectedGrades = new ArrayList<>(Arrays.asList(
+        expectedTargetGrades = new ArrayList<>(Arrays.asList(
                 "A",
                 "A",
                 "A",
                 "A-"
         ));
-        assertTargetGradesEquals(modules, capGoal, expectedGrades);
+        assertTargetGradesEquals(modules, capGoal, expectedTargetGrades);
 
         capGoal = 5.0;
         assertTargetGradesEquals(modules, capGoal, null);
@@ -112,12 +112,12 @@ public class TranscriptTest {
                 GRADE_A_4MC_B
         ));
         capGoal = 4.0;
-        expectedGrades = new ArrayList<>(Arrays.asList(
+        expectedTargetGrades = new ArrayList<>(Arrays.asList(
                 "B",
                 "B",
                 "B-"
         ));
-        assertTargetGradesEquals(modules, capGoal, expectedGrades);
+        assertTargetGradesEquals(modules, capGoal, expectedTargetGrades);
     }
 
     /**
