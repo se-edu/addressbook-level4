@@ -40,6 +40,12 @@ public class ParserUtil {
         return trimmedArgs.split(" ");
     }
 
+    /**
+     * Validates the number of arguments. If number of arguments is not within the bounds,
+     * ParseException will be thrown.
+     *
+     * @throws ParseException if the number of arguments is invalid
+     */
     public static void validateNumOfArgs(String[] args, int min, int max) throws ParseException {
         if (args.length < min || args.length > max) {
             throw new ParseException("Invalid number of arguments!"
