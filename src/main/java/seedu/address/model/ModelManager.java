@@ -13,6 +13,8 @@ import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.model.item.Item;
+import seedu.address.model.ledger.Account;
+import seedu.address.model.ledger.Ledger;
 import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
 
@@ -80,6 +82,26 @@ public class ModelManager extends ComponentManager implements Model {
         versionedAddressBook.addPerson(person);
         updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         indicateAddressBookChanged();
+    }
+
+    @Override
+    public void addLedger(Ledger ledger) {
+
+    }
+
+    @Override
+    public void deleteLedger(Ledger ledger) {
+
+    }
+
+    @Override
+    public void increaseAccount(Account account) {
+
+    }
+
+    @Override
+    public void decreaseAccount(Account account) {
+
     }
 
     @Override
