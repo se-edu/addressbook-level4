@@ -1,8 +1,8 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.testutil.TypicalModules.DISCRETE_MATH;
-import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
 
 import org.junit.Test;
 
