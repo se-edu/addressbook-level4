@@ -1,11 +1,7 @@
 package seedu.address.testutil;
 
-import java.util.Set;
-
 import seedu.address.logic.commands.AddModuleCommand;
-import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.model.module.Module;
-import seedu.address.model.tag.Tag;
 
 /**
  * A utility class for Module.
