@@ -40,6 +40,14 @@ public class ParserUtil {
         return trimmedArgs.split(" ");
     }
 
+    public static void validateNumOfArgs(String[] args, int min, int max) throws ParseException {
+        if (args.length < min || args.length > max) {
+            throw new ParseException("Invalid number of arguments!"
+                    + "Number of arguments should be more than or equal to " + min
+                    + " and less than or equal to " + max);
+        }
+    }
+
     /**
      * Parses a {@code String code} into a {@code Code}. Leading and trailing whitespaces will be
      * trimmed.

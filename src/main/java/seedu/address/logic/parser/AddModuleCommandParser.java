@@ -1,5 +1,7 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.logic.parser.ParserUtil.validateNumOfArgs;
+
 import seedu.address.logic.commands.AddModuleCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.module.Code;
@@ -21,6 +23,7 @@ public class AddModuleCommandParser implements Parser<AddModuleCommand> {
      */
     public AddModuleCommand parse(String args) throws ParseException {
         String[] tokenizedArgs = ParserUtil.tokenize(args);
+        validateNumOfArgs(tokenizedArgs, 4, 5);
 
         int index = 0;
 
@@ -33,10 +36,10 @@ public class AddModuleCommandParser implements Parser<AddModuleCommand> {
 
         if (tokenizedArgs.length == 4) {
             module = new Module(code, year, semester, credit, null, false);
+        } else {
+            Grade grade = ParserUtil.parseGrade(tokenizedArgs[index++]);
+            module = new Module(code, year, semester, credit, grade, true);
         }
-
-        Grade grade = ParserUtil.parseGrade(tokenizedArgs[index++]);
-        module = new Module(code, year, semester, credit, grade, false);
 
         return new AddModuleCommand(module);
     }
