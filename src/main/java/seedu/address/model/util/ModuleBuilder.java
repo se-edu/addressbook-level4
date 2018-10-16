@@ -88,6 +88,14 @@ public class ModuleBuilder {
     }
 
     /**
+     * Sets the {@code Grade} of the {@code Module} that we are building to null.
+     */
+    public ModuleBuilder noGrade() {
+        this.grade = null;
+        return this;
+    }
+
+    /**
      * Sets the {@code completed} of the {@code Module} that we are building.
      */
     public ModuleBuilder withCompleted(boolean completed) {
