@@ -36,7 +36,7 @@ public class JsonTranscriptDeserializer extends StdDeserializer<ReadOnlyTranscri
         Transcript transcript = new Transcript();
         JsonNode node = jp.getCodec().readTree(jp);
         try {
-            JsonNode capGoal = node.path("capGoal");
+            JsonNode capGoal = node.path("capgoal");
             if (!capGoal.isMissingNode()) {
                 transcript.setCapGoal(capGoal.doubleValue());
             }
