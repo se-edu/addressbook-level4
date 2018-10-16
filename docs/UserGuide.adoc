@@ -86,9 +86,9 @@ Format: `edit MODULE_CODE [MODULE_CODE] [YEAR GRADE] [GRADE]`
 Examples:
 
 * `edit CS2103 CS1231 2 1` +
-Edits the module code and year/semester of `CS2103` module to be `CS1231` and `2 1` respectively.
+Edits the module code and year and semester of `CS2103` module to be `CS1231` and `2 1` respectively.
 * `edit CS2103 2 1 CS` +
-Edits the year/semester of `CS2103` module to be `2 1` and grade to `CS`.
+Edits the year and semester of `CS2103` module to be `2 1` and grade to `CS`.
 
 === Deleting a module : `delete`
 

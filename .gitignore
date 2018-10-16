@@ -18,3 +18,4 @@ classes/
 /bin/
 src/main/resources/docs/
 out/
+!_reposense/config.json

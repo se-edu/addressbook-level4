@@ -163,17 +163,20 @@ public class ModelManager extends ComponentManager implements Model {
         versionedTranscript.commit();
     }
 
+    //@@author jeremiah-ang
     @Override
     public double getCapGoal() {
         return versionedTranscript.getCapGoal();
     }
 
+    //@@author jeremiah-ang
     @Override
     public void updateCapGoal(double capGoal) {
         versionedTranscript.setCapGoal(capGoal);
         indicateTranscriptChanged();
     }
 
+    //@@author
     //TODO: REMOVE
     @Override
     public ReadOnlyAddressBook getAddressBook() {
@@ -270,11 +273,13 @@ public class ModelManager extends ComponentManager implements Model {
         versionedAddressBook.commit();
     }
 
+    //@@author jeremiah-ang
     @Override
     public double getCap() {
         return versionedTranscript.getCap();
     }
 
+    //@@author
     @Override
     public boolean equals(Object obj) {
         // short circuit if same object
