@@ -25,11 +25,13 @@ public class Transcript implements ReadOnlyTranscript {
      * Note that non-static init blocks are not recommended to use. There are other ways to avoid duplication
      *   among constructors.
      */
+
     {
         modules = new UniqueModuleList();
     }
 
-    public Transcript() {}
+    public Transcript() {
+    }
 
     /**
      * Creates an Transcript using the Modules in the {@code toBeCopied}
@@ -95,6 +97,83 @@ public class Transcript implements ReadOnlyTranscript {
         modules.remove(key);
     }
 
+    //@@author jeremiah-ang
+    /**
+     * Return the current CAP
+     *
+     * @return current cap score
+     */
+    public double getCap() {
+        return calculateCap();
+    }
+
+    /**
+     * Calculate CAP Score based on modules with scores
+     *
+     * @return cap: cap score
+     */
+    private double calculateCap() {
+
+        ObservableList<Module> gradedModulesList = getGradedModulesList();
+        double totalCap = 0;
+        double point;
+        int totalModuleCredit = 0;
+        int moduleCredit;
+        for (Module module : gradedModulesList) {
+            moduleCredit = module.getCredits().value;
+            point = module.getGrade().getPoint();
+            totalCap += moduleCredit * point;
+            totalModuleCredit += moduleCredit;
+        }
+
+        double cap = 0;
+        if (totalModuleCredit > 0) {
+            cap = totalCap / totalModuleCredit;
+        }
+
+        return cap;
+    }
+
+    /**
+     * Filters for modules that is to be used for CAP calculation
+     *
+     * @return list of modules used for CAP calculation
+     */
+    private ObservableList<Module> getGradedModulesList() {
+        return modules.getFilteredModules(this::moduleIsUsedForCapCalculation);
+    }
+
+    /**
+     * Check if the given module should be considered for CAP Calculation
+     *
+     * @param module
+     * @return true if yes, false otherwise
+     */
+    private boolean moduleIsUsedForCapCalculation(Module module) {
+        return module.hasCompleted() && moduleAffectsGrade(module);
+    }
+
+    /**
+     * Check if a module affects grade
+     *
+     * @param module
+     * @return true if module affects grade, false otheriwse
+     */
+    private boolean moduleAffectsGrade(Module module) {
+        return module.getGrade().affectsCap();
+    }
+
+    public double getCapGoal() {
+        return capGoal;
+    }
+
+    //TODO: Create another class capGoal (similarly to the Module parameters)
+    // that checks for valid input, and also has 'NIL' value.
+    public void setCapGoal(double capGoal) {
+        this.capGoal = capGoal;
+    }
+
+    //@@author
     //// util methods
 
     @Override
@@ -120,11 +199,4 @@ public class Transcript implements ReadOnlyTranscript {
         return modules.hashCode();
     }
 
-    public double getCapGoal() {
-        return capGoal;
-    }
-
-    public void setCapGoal(double capGoal) {
-        this.capGoal = capGoal;
-    }
 }
