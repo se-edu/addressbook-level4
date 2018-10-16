@@ -23,26 +23,7 @@ public class Grade {
             "A\\+|A\\-|A|B\\+|B\\-|B|C\\+|C|D\\+|D|F|CS|CU";
 
 
-    /**
-     * Creates a new Grade that is adjusted
-     * @param grade
-     * @return
-     */
-    public static Grade newAdjustGrade(String grade) {
-        return new Grade(grade, GradeState.ADJUST);
-    }
-
-    /**
-     * Creates a new Grade that is targeted
-     * @param grade
-     * @return
-     */
-    public static Grade newTargetGrade(String grade) {
-        return new Grade(grade, GradeState.TARGET);
-    }
-
-
-    private final String EMPTY_VALUE = "NIL";
+    private static final String EMPTY_VALUE = "NIL";
 
     /**
      * State of the grade
@@ -127,20 +108,50 @@ public class Grade {
         }
     }
 
+    /**
+     * @return true if grade is complete
+     */
     public boolean isComplete() {
         return GradeState.COMPLETE.equals(gradeState);
     }
 
+    /**
+     * @return true if grade is incomplete
+     */
     public boolean isIncomplete() {
         return GradeState.INCOMPLETE.equals(gradeState);
     }
 
+    /**
+     * @return true if grade is adjusted
+     */
     public boolean isAdjust() {
         return GradeState.ADJUST.equals(gradeState);
     }
 
+    /**
+     * @return true if is target grades
+     */
     public boolean isTarget() {
         return GradeState.TARGET.equals(gradeState);
+    }
+
+    /**
+     * Creates a new Grade that is adjusted
+     * @param grade
+     * @return new Grade object
+     */
+    public Grade adjustGrade(String grade) {
+        return new Grade(grade, GradeState.ADJUST);
+    }
+
+    /**
+     * Creates a new Grade that is targeted
+     * @param grade
+     * @return new Grade object
+     */
+    public Grade targetGrade(String grade) {
+        return new Grade(grade, GradeState.TARGET);
     }
 
     /**
