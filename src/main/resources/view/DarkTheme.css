@@ -158,6 +158,19 @@
     -fx-text-fill: black !important;
 }
 
+.cap-panel {
+    -fx-background-color: #515658;
+}
+
+.cap-text {
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-style: bold !important;
+    -fx-font-weight: bold !important;
+    -fx-font-size: 18pt;
+    -fx-fill: white;
+}
+
+
 .status-bar .label {
     -fx-font-family: "Segoe UI Light";
     -fx-text-fill: white;

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.layout.VBox?>
+
+
+<VBox fx:id="placeHolder" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" styleClass="cap-panel">
+    <padding>
+        <Insets top="15" right="15" bottom="15" left="15" />
+    </padding>
+    <Text fx:id="capText" styleClass="cap-text" />
+</VBox>
