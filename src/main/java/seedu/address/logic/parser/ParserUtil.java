@@ -28,7 +28,7 @@ public class ParserUtil {
     public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
 
     /**
-     * Tokenize args into an array of args. Checks if args is null and trims leading and trailing
+     * Tokenizes args into an array of args. Checks if args is null and trims leading and trailing
      * whitespaces.
      *
      * @param args the target args that would be tokenize
