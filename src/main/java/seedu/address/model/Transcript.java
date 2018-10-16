@@ -10,6 +10,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import seedu.address.model.module.Grade;
+import seedu.address.model.capgoal.CapGoal;
 import seedu.address.model.module.Module;
 import seedu.address.model.module.UniqueModuleList;
 
@@ -20,7 +21,7 @@ import seedu.address.model.module.UniqueModuleList;
 public class Transcript implements ReadOnlyTranscript {
 
     private final UniqueModuleList modules;
-    private double capGoal;
+    private CapGoal capGoal;
 
     /*
      * The 'unusual' code block below is an non-static initialization block, sometimes used to avoid duplication
@@ -35,6 +36,7 @@ public class Transcript implements ReadOnlyTranscript {
     }
 
     public Transcript() {
+        capGoal = new CapGoal();
     }
 
     /**
@@ -210,7 +212,7 @@ public class Transcript implements ReadOnlyTranscript {
         double totalMc = calculateTotalModuleCredit(gradedModules) + totalUngradedModuleCredit;
         double currentTotalPoint = calculateTotalModulePoint(gradedModules);
 
-        double totalScoreToAchieve = capGoal * totalMc - currentTotalPoint;
+        double totalScoreToAchieve = capGoal.getCapGoal() * totalMc - currentTotalPoint;
         double unitScoreToAchieve = Math.ceil(totalScoreToAchieve / totalUngradedModuleCredit * 2) / 2.0;
         if (unitScoreToAchieve > 5) {
             return null;
@@ -232,14 +234,12 @@ public class Transcript implements ReadOnlyTranscript {
         return FXCollections.observableArrayList(targetModules);
     }
 
-    public double getCapGoal() {
+    public CapGoal getCapGoal() {
         return capGoal;
     }
 
-    //TODO: Create another class capGoal (similarly to the Module parameters)
-    // that checks for valid input, and also has 'NIL' value.
     public void setCapGoal(double capGoal) {
-        this.capGoal = capGoal;
+        this.capGoal = new CapGoal(capGoal);
     }
 
     //@@author
