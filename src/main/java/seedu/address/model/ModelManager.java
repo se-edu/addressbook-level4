@@ -14,6 +14,7 @@ import seedu.address.commons.core.ComponentManager;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.events.model.AddressBookChangedEvent;
 import seedu.address.commons.events.model.TranscriptChangedEvent;
+import seedu.address.model.capgoal.CapGoal;
 import seedu.address.model.module.Module;
 import seedu.address.model.person.Person;
 
@@ -163,17 +164,20 @@ public class ModelManager extends ComponentManager implements Model {
         versionedTranscript.commit();
     }
 
+    //@@author jeremiah-ang
     @Override
-    public double getCapGoal() {
+    public CapGoal getCapGoal() {
         return versionedTranscript.getCapGoal();
     }
 
+    //@@author jeremiah-ang
     @Override
     public void updateCapGoal(double capGoal) {
         versionedTranscript.setCapGoal(capGoal);
         indicateTranscriptChanged();
     }
 
+    //@@author
     //TODO: REMOVE
     @Override
     public ReadOnlyAddressBook getAddressBook() {
@@ -270,11 +274,13 @@ public class ModelManager extends ComponentManager implements Model {
         versionedAddressBook.commit();
     }
 
+    //@@author jeremiah-ang
     @Override
     public double getCap() {
         return versionedTranscript.getCap();
     }
 
+    //@@author
     @Override
     public boolean equals(Object obj) {
         // short circuit if same object

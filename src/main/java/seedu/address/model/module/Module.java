@@ -152,6 +152,24 @@ public class Module {
         }
 
         Module otherModule = (Module) other;
+
+        if (grade == null && otherModule.grade != null) {
+            return false;
+        }
+
+        if (grade != null && otherModule.grade == null) {
+            return false;
+        }
+
+        if (grade == null) {
+            return otherModule.getCode().equals(getCode())
+                    && otherModule.getYear().equals(getYear())
+                    && otherModule.getSemester().equals(getSemester())
+                    && otherModule.getCredits().equals(getCredits())
+                    && otherModule.hasCompleted() == hasCompleted();
+        }
+
+
         return otherModule.getCode().equals(getCode())
                 && otherModule.getYear().equals(getYear())
                 && otherModule.getSemester().equals(getSemester())

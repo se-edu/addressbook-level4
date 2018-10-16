@@ -7,9 +7,11 @@
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
 
 <fx:root type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
          minWidth="450" minHeight="600" onCloseRequest="#handleExit">
@@ -45,21 +47,30 @@
             <Insets top="5" right="10" bottom="5" left="10" />
           </padding>
         </StackPane>
-
-        <SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.4" VBox.vgrow="ALWAYS">
-          <VBox fx:id="personList" minWidth="340" prefWidth="340" SplitPane.resizableWithParent="false">
-            <padding>
-              <Insets top="10" right="10" bottom="10" left="10" />
-            </padding>
-            <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
-          </VBox>
-
-          <StackPane fx:id="browserPlaceholder" prefWidth="340" >
-            <padding>
-              <Insets top="10" right="10" bottom="10" left="10" />
-            </padding>
-          </StackPane>
-        </SplitPane>
+        <!--<SplitPane id="splitPane" fx:id="splitPane" dividerPositions="0.4" VBox.vgrow="ALWAYS">-->
+        <ScrollPane fx:id="modulesScrollPane" VBox.vgrow="ALWAYS" fitToHeight="true" fitToWidth="true">
+        <HBox fx:id="modulesRow">
+        <VBox fx:id="personList" minWidth="300" HBox.hgrow="ALWAYS">
+          <padding>
+            <Insets top="10" right="5" bottom="10" left="5" />
+          </padding>
+          <StackPane fx:id="personListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+        </VBox>
+        <VBox fx:id="personList2" minWidth="300" HBox.hgrow="ALWAYS">
+          <padding>
+            <Insets top="10" right="5" bottom="10" left="5" />
+          </padding>
+          <StackPane fx:id="personListPanelPlaceholder2" VBox.vgrow="ALWAYS"/>
+        </VBox>
+        <VBox fx:id="capPanel" minWidth="250">
+          <padding>
+            <Insets top="10" right="5" bottom="10" left="5" />
+          </padding>
+          <StackPane fx:id="capPanelPlaceholder" VBox.vgrow="ALWAYS"/>
+        </VBox>
+        </HBox>
+        </ScrollPane>
+        <!--</SplitPane>-->
 
         <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
       </VBox>

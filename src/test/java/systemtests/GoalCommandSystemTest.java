@@ -7,7 +7,7 @@ import org.junit.Test;
 import seedu.address.logic.commands.GoalCommand;
 import seedu.address.model.Model;
 
-
+//@@author jeremiah-ang
 /**
  * System test for Goal Command
  */
