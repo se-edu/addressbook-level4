@@ -62,8 +62,12 @@ public class Module {
         this.year = year;
         this.semester = semester;
         this.credits = credit;
-        this.grade = grade;
         this.completed = completed;
+        this.grade = (grade == null) ? new Grade() : grade;
+    }
+
+    public Module(Code code, Year year, Semester semester, Credit credit, Grade grade) {
+        this(code, year, semester, credit, grade, (grade == null) || grade.isComplete());
     }
 
     /**

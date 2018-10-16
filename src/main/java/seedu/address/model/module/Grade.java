@@ -22,10 +22,42 @@ public class Grade {
     public static final String GRADE_VALIDATION_REGEX =
             "A\\+|A\\-|A|B\\+|B\\-|B|C\\+|C|D\\+|D|F|CS|CU";
 
+
+    /**
+     * Creates a new Grade that is adjusted
+     * @param grade
+     * @return
+     */
+    public static Grade newAdjustGrade(String grade) {
+        return new Grade(grade, GradeState.ADJUST);
+    }
+
+    /**
+     * Creates a new Grade that is targeted
+     * @param grade
+     * @return
+     */
+    public static Grade newTargetGrade(String grade) {
+        return new Grade(grade, GradeState.TARGET);
+    }
+
+
+    private final String EMPTY_VALUE = "NIL";
+
+    /**
+     * State of the grade
+     */
+    public final GradeState gradeState;
+
     /**
      * Immutable grade value.
      */
     public final String value;
+
+    public Grade() {
+        value = EMPTY_VALUE;
+        gradeState = GradeState.INCOMPLETE;
+    }
 
     /**
      * Constructs an {@code Grade}.
@@ -33,9 +65,14 @@ public class Grade {
      * @param grade A valid grade.
      */
     public Grade(String grade) {
+        this(grade, GradeState.COMPLETE);
+    }
+
+    public Grade(String grade, GradeState gradeState) {
         requireNonNull(grade);
         checkArgument(isValidGrade(grade), MESSAGE_GRADE_CONSTRAINTS);
         value = grade;
+        this.gradeState = gradeState;
     }
 
     /**
@@ -54,7 +91,7 @@ public class Grade {
      * @return true if grade affects cap and false if grade does not affect cap.
      */
     public boolean affectsCap() {
-        return !value.contentEquals("CS") && !value.contentEquals("CU");
+        return !EMPTY_VALUE.equals(value) && !value.contentEquals("CS") && !value.contentEquals("CU");
     }
 
     /**
@@ -90,6 +127,22 @@ public class Grade {
         }
     }
 
+    public boolean isComplete() {
+        return GradeState.COMPLETE.equals(gradeState);
+    }
+
+    public boolean isIncomplete() {
+        return GradeState.INCOMPLETE.equals(gradeState);
+    }
+
+    public boolean isAdjust() {
+        return GradeState.ADJUST.equals(gradeState);
+    }
+
+    public boolean isTarget() {
+        return GradeState.TARGET.equals(gradeState);
+    }
+
     /**
      * Returns the grade value.
      *
@@ -118,5 +171,12 @@ public class Grade {
     @Override
     public int hashCode() {
         return value.hashCode();
+    }
+
+    private enum GradeState {
+        COMPLETE,
+        INCOMPLETE,
+        TARGET,
+        ADJUST
     }
 }
