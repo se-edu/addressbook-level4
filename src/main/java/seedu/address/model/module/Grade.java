@@ -184,6 +184,9 @@ public class Grade {
         return value.hashCode();
     }
 
+    /**
+     * Different states of a grade
+     */
     private enum GradeState {
         COMPLETE,
         INCOMPLETE,
