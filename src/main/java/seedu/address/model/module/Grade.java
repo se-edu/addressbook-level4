@@ -69,12 +69,32 @@ public class Grade {
      */
     public final String value;
 
+
+    /**
+     * State of the grade
+     */
+    public final State state;
+
+    /**
+     * Creates a new {@code Grade} object with State INCOMPLETE
+     */
+    public Grade() {
+        this(EMPTY_VALUE, State.INCOMPLETE);
+    }
+
+    /**
+     * Creates a new {@code Grade} object with value grade and State COMPLETE
+     */
+    public Grade(String grade) {
+        this(grade, State.COMPLETE);
+    }
+
     /**
      * Constructs an {@code Grade} with letter grade and state of it.
      * @param grade
      * @param state
      */
-    public Grade(String grade, State state) {
+    private Grade(String grade, State state) {
         requireNonNull(grade);
         checkArgument(isValidGrade(grade), MESSAGE_GRADE_CONSTRAINTS);
         value = grade;
@@ -82,13 +102,23 @@ public class Grade {
     }
 
     /**
-     * Constructs an {@code Grade} from point
+     * Constructs an {@code Grade} from point with state COMPLETE
      * @param point
      */
     public Grade(double point) {
+        this(point, State.COMPLETE);
+    }
+
+    /**
+     * Constructs an {@code Grade} from point and given state
+     * @param point
+     * @param state
+     */
+    private Grade(double point, State state) {
         requireNonNull(point);
         checkArgument(isValidPoint(point), MESSAGE_POINT_CONSTRAINTS);
         value = mapPointToValue(point);
+        this.state = state;
     }
 
     /**
