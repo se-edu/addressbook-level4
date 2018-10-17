@@ -117,4 +117,15 @@ public interface Model {
      * @param item
      */
     void deleteItem(Item item);
+
+    /**
+     * Restores the model's address book to its original state.
+     */
+    void undoAllAddressBook();
+
+    /**
+     * Restores the model's address book to its furthest undone state.
+     */
+    void redoAllAddressBook();
+
 }

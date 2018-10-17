@@ -169,6 +169,18 @@ public class ModelManager extends ComponentManager implements Model {
     }
 
     @Override
+    public void undoAllAddressBook() {
+        versionedAddressBook.undoAll();
+        indicateAddressBookChanged();
+    }
+
+    @Override
+    public void redoAllAddressBook() {
+        versionedAddressBook.redoAll();
+        indicateAddressBookChanged();
+    }
+
+    @Override
     public boolean equals(Object obj) {
         // short circuit if same object
         if (obj == this) {

@@ -303,6 +303,14 @@ The following activity diagram summarizes what happens when a user executes a ne
 
 image::UndoRedoActivityDiagram.png[width="650"]
 
+Step 7. The user executes many `add`, `delete`, and `clear` commands over a couple of hours, but decides at the end of the day that he does not want all the changes. He decides to undo all the changes by executing the `undoAll` command. The 'undoAll' command will call 'Model#undoAllAddressBook(), which will shift the 'currentStatePointer' to the start of the `addressBookStateList`, pointing it to the original address book state, and restores the address book to that state.
+
+image::UndoRedoExecuteUndoAllStateListDiagram.png[width="800"]
+
+Step 8. The user decides again that he wants all the changes after all, and decides to execute the `redoAll` command. `Model#redoAllAddressBook()` is called, shifts the currentStatePointer to the end of `addressBookStateList`, pointing to the furthest undone state, and restores the address book to that state.
+
+image::UndoRedoExecuteRedoAllStateListDiagram.png[width="800"]
+
 ==== Design Considerations
 
 ===== Aspect: How undo & redo executes
@@ -350,6 +358,8 @@ We are using `java.util.logging` package for logging. The `LogsCenter` class is 
 === Configuration
 
 Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: `config.json`).
+
+===
 
 == Documentation
 

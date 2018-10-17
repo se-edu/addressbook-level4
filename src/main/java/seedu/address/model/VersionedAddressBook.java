@@ -106,4 +106,26 @@ public class VersionedAddressBook extends AddressBook {
             super("Current state pointer at end of addressBookState list, unable to redo.");
         }
     }
+
+    /**
+     * Restores the address book to its original state.
+     */
+    public void undoAll() {
+        if (!canUndo()) {
+            throw new NoUndoableStateException();
+        }
+        currentStatePointer = 0;
+        resetData(addressBookStateList.get(currentStatePointer));
+    }
+
+    /**
+     * Restores the address book to its furthest undone state.
+     */
+    public void redoAll() {
+        if (!canRedo()) {
+            throw new NoRedoableStateException();
+        }
+        currentStatePointer = addressBookStateList.size() - 1;
+        resetData(addressBookStateList.get(currentStatePointer));
+    }
 }

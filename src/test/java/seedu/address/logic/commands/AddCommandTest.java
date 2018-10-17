@@ -188,6 +188,16 @@ public class AddCommandTest {
         }
 
         @Override
+        public void undoAllAddressBook() {
+            throw new AssertionError("This method should not be called");
+        }
+
+        @Override
+        public void redoAllAddressBook() {
+            throw new AssertionError("This method should not be called");
+        }
+
+        @Override
         public void deleteTag(Tag tag) {
             throw new AssertionError("This method should not be called");
         }
