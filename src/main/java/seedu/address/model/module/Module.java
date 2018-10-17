@@ -11,36 +11,43 @@ import java.util.Objects;
  */
 public class Module {
 
+    //@@author alexkmj
     /**
      * Constant for completed.
      */
     public static final boolean MODULE_COMPLETED = true;
 
+    //@@author alexkmj
     /**
      * Constant for not completed.
      */
     public static final boolean MODULE_NOT_COMPLETED = false;
 
+    //@@author alexkmj
     /**
      * Code for the module.
      */
     private final Code code;
 
+    //@@author alexkmj
     /**
      * Year the module was taken.
      */
     private final Year year;
 
+    //@@author alexkmj
     /**
      * Semester the module was taken.
      */
     private final Semester semester;
 
+    //@@author alexkmj
     /**
      * Module credits awarded for completion this module.
      */
     private final Credit credits;
 
+    //@@author alexkmj
     /**
      * Module grade awarded for completion this module.
      */
@@ -51,6 +58,7 @@ public class Module {
      */
     private final boolean completed;
 
+    //@@author alexkmj
     public Module(Code code, Year year, Semester semester, Credit credit, Grade grade,
             boolean completed) {
         requireNonNull(code);
@@ -134,6 +142,7 @@ public class Module {
         return code;
     }
 
+    //@@author alexkmj
     /**
      * Returns the module credits awarded.
      *
@@ -143,6 +152,7 @@ public class Module {
         return credits;
     }
 
+    //@@author alexkmj
     /**
      * Returns the year in which the module was taken.
      *
@@ -152,6 +162,7 @@ public class Module {
         return year;
     }
 
+    //@@author alexkmj
     /**
      * Returns the semester in which the module was taken.
      *
@@ -161,6 +172,7 @@ public class Module {
         return semester;
     }
 
+    //@@author alexkmj
     /**
      * Returns the module grade awarded.
      *
@@ -170,6 +182,7 @@ public class Module {
         return grade;
     }
 
+    //@@author alexkmj
     /**
      * Returns true if module has been completed and false if module has not been taken.
      *
@@ -179,6 +192,7 @@ public class Module {
         return completed;
     }
 
+    //@@author alexkmj
     /**
      * Returns true if module code is the same.
      *
@@ -192,6 +206,7 @@ public class Module {
         return otherModule != null && otherModule.getCode().equals(getCode());
     }
 
+    //@@author alexkmj
     /**
      * Returns true if both modules are of the same object or contains the same set of data fields.
      * <p>
@@ -220,6 +235,7 @@ public class Module {
                 && otherModule.hasCompleted() == hasCompleted();
     }
 
+    //@@author alexkmj
     /**
      * Returns the code, year, semester, credits, grade, is module completed.
      * <p>
@@ -247,6 +263,7 @@ public class Module {
                 .toString();
     }
 
+    //@@author alexkmj
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
