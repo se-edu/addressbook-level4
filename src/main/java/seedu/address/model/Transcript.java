@@ -245,9 +245,10 @@ public class Transcript implements ReadOnlyTranscript {
         }
 
         ObservableList<Module> gradedModules = getGradedModulesList();
-        targetableModules = targetableModules.sorted(Comparator.comparingInt(Module::getCreditsValue));
+        ObservableList<Module> sortedTargetableModules = targetableModules.sorted(
+                Comparator.comparingInt(Module::getCreditsValue));
 
-        double totalUngradedModuleCredit = calculateTotalModuleCredit(targetableModules);
+        double totalUngradedModuleCredit = calculateTotalModuleCredit(sortedTargetableModules);
         double totalMc = calculateTotalModuleCredit(gradedModules) + totalUngradedModuleCredit;
         double currentTotalPoint = calculateTotalModulePoint(gradedModules);
 
@@ -258,7 +259,7 @@ public class Transcript implements ReadOnlyTranscript {
         }
 
         Module newTargetModule;
-        for (Module targetedModule : targetableModules) {
+        for (Module targetedModule : sortedTargetableModules) {
             if (unitScoreToAchieve == 0.5) {
                 unitScoreToAchieve = 1.0;
             }
