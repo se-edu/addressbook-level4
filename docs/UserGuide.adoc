@@ -128,6 +128,17 @@ Format: `clear`
 Exits the program. +
 Format: `exit`
 
+=== Adjusting target goals: `adjust`
+
+Adjust a generated target grade of a module +
+Format: `adjust MODULE_CODE GRADE`
+
+Examples:
+
+* `adjust CS2103 A` +
+Adjusts the grade with module code CS2103 to have grade A
+
+
 === Saving the data
 
 CAP tracker data are saved in the hard disk automatically after any command that changes the data. +
