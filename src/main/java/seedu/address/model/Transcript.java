@@ -10,7 +10,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import seedu.address.model.capgoal.CapGoal;
-import seedu.address.model.module.Grade;
 import seedu.address.model.module.Module;
 import seedu.address.model.module.UniqueModuleList;
 
@@ -92,16 +91,8 @@ public class Transcript implements ReadOnlyTranscript {
      * The module identity of {@code editedModule} must not be the same as another existing module in the transcript.
      */
     public void updateModule(Module target, Module editedModule) {
-        updateModule(target, editedModule, false);
-    }
-
-    public void updateModule(Module target, Module editedModule, boolean shouldNotifyUpdated) {
         requireNonNull(editedModule);
         modules.setModule(target, editedModule);
-
-        if (shouldNotifyUpdated) {
-            modulesUpdated();
-        }
     }
 
     /**
@@ -214,7 +205,7 @@ public class Transcript implements ReadOnlyTranscript {
      * Replaces targetable module with an updated target grade
      */
     public void updateTargetModuleGrades() {
-        boolean shouldSkip = !capGoal.isSet || isCapGoalImpossible();
+        boolean shouldSkip = !capGoal.isSet;
         if (shouldSkip) {
             return;
         }
@@ -227,6 +218,11 @@ public class Transcript implements ReadOnlyTranscript {
         replaceTargetModules(targetableModules, newTargetModules);
     }
 
+    /**
+     * Replaces Modules used to calculate target grade with new Modules with those target grades
+     * @param targetableModules
+     * @param newTargetModules
+     */
     private void replaceTargetModules(
             List<Module> targetableModules, List<Module> newTargetModules) {
         if (targetableModules.isEmpty()) {
@@ -284,10 +280,17 @@ public class Transcript implements ReadOnlyTranscript {
         updateTargetModuleGrades();
     }
 
+    /**
+     * Sets the capGoal as something impossible
+     */
     public void makeCapGoalImpossible() {
         capGoal = capGoal.isImpossible();
     }
 
+    /**
+     * Tells if the capGoal is no longer possible
+     * @return true if yes, false otherwise
+     */
     public boolean isCapGoalImpossible() {
         return capGoal.isImpossible;
     }
