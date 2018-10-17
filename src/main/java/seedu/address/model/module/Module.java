@@ -63,10 +63,13 @@ public class Module {
         this.semester = semester;
         this.credits = credit;
         this.completed = completed;
+
+        //TODO require grade Non-null
         this.grade = (grade == null) ? new Grade() : grade;
     }
 
     public Module(Code code, Year year, Semester semester, Credit credit, Grade grade) {
+        //TODO require grade Non-null
         this(code, year, semester, credit, grade, (grade == null) || grade.isComplete());
     }
 
