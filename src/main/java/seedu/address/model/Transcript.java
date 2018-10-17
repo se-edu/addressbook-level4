@@ -93,6 +93,7 @@ public class Transcript implements ReadOnlyTranscript {
     public void updateModule(Module target, Module editedModule) {
         requireNonNull(editedModule);
         modules.setModule(target, editedModule);
+        modulesUpdated();
     }
 
     /**
