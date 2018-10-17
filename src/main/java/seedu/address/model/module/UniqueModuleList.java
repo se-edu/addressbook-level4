@@ -13,6 +13,7 @@ import javafx.collections.ObservableList;
 import seedu.address.model.module.exceptions.DuplicateModuleException;
 import seedu.address.model.module.exceptions.ModuleNotFoundException;
 
+//@@author alexkmj
 /**
  * A list of modules that enforces uniqueness between its elements and does not allow nulls.
  * <p>

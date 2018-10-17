@@ -14,6 +14,7 @@ import seedu.address.model.module.Grade;
 import seedu.address.model.module.Module;
 import seedu.address.model.module.UniqueModuleList;
 
+//@@author alexkmj
 /**
  * Wraps all data at the transcript level
  * Duplicates are not allowed (by .isSameModule comparison)

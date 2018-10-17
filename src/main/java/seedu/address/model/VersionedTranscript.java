@@ -3,6 +3,7 @@ package seedu.address.model;
 import java.util.ArrayList;
 import java.util.List;
 
+//@@author alexkmj
 /**
  * {@code Transcript} that keeps track of its own history.
  */

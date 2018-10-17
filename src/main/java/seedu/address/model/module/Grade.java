@@ -14,6 +14,7 @@ import java.util.Map;
  */
 public class Grade {
 
+    //@@author alexkmj
     /**
      * Describes the requirements for grade value.
      */
@@ -23,6 +24,7 @@ public class Grade {
     public static final String MESSAGE_POINT_CONSTRAINTS =
             "Score must be between [0, 5] with increments of 0.5 and not 0.5";
 
+    //@@author alexkmj
     /**
      * No whitespace allowed.
      */
@@ -58,11 +60,13 @@ public class Grade {
         MAP_POINT_GRADE = Collections.unmodifiableMap(tempPointGradeMap);
     }
 
+    //@@author alexkmj
     /**
      * Immutable grade value.
      */
     public final String value;
 
+    //@@author alexkmj
     /**
      * Constructs an {@code Grade}.
      *
@@ -103,6 +107,7 @@ public class Grade {
         return MAP_POINT_GRADE.get(point);
     }
 
+    //@@author alexkmj
     /**
      * Returns true if a given string is a valid grade.
      *
@@ -134,6 +139,7 @@ public class Grade {
         return 0;
     }
 
+    //@@author alexkmj
     /**
      * Returns the grade value.
      *
@@ -144,6 +150,7 @@ public class Grade {
         return value;
     }
 
+    //@@author alexkmj
     /**
      * Compares the grade value of both Grade object.
      * <p>
@@ -159,6 +166,7 @@ public class Grade {
                 && value.equals(((Grade) other).value));
     }
 
+    //@@author alexkmj
     @Override
     public int hashCode() {
         return value.hashCode();
