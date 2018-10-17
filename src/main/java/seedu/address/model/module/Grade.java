@@ -97,9 +97,14 @@ public class Grade {
      * @param point
      */
     public Grade(double point) {
+        this(point, GradeState.COMPLETE);
+    }
+
+    public Grade(double point, GradeState gradeState) {
         requireNonNull(point);
         checkArgument(isValidPoint(point), MESSAGE_POINT_CONSTRAINTS);
         value = mapPointToValue(point);
+        this.gradeState = gradeState;
     }
 
     /**
@@ -190,12 +195,30 @@ public class Grade {
     }
 
     /**
+     * Creates a new Grade that is adjusted
+     * @param point
+     * @return new Grade object
+     */
+    public Grade adjustGrade(double point) {
+        return new Grade(point, GradeState.ADJUST);
+    }
+
+    /**
      * Creates a new Grade that is targeted
      * @param grade
      * @return new Grade object
      */
     public Grade targetGrade(String grade) {
         return new Grade(grade, GradeState.TARGET);
+    }
+
+    /**
+     * Creates a new Grade that is targeted
+     * @param point
+     * @return new Grade object
+     */
+    public Grade targetGrade(double point) {
+        return new Grade(point, GradeState.TARGET);
     }
 
     /**

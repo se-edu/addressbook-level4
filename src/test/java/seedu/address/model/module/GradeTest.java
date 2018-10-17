@@ -88,6 +88,8 @@ public class GradeTest {
         assertTrue(new Grade("A+").targetGrade("B").equals(new Grade("A+").targetGrade("B")));
         assertFalse(new Grade().adjustGrade("A+").equals(new Grade("A+")));
         assertFalse(new Grade().targetGrade("A+").equals(new Grade("A+")));
+        assertTrue(new Grade().targetGrade("A").equals(new Grade().targetGrade(5)));
+        assertTrue(new Grade().adjustGrade("A").equals(new Grade().adjustGrade(5)));
     }
 
     //@@author jeremiah-ang
@@ -97,8 +99,10 @@ public class GradeTest {
         assertTrue(new Grade().isIncomplete());
         assertTrue(new Grade().adjustGrade("A").isAdjust());
         assertTrue(new Grade("A").adjustGrade("A").isAdjust());
+        assertTrue(new Grade("A").adjustGrade(5).isAdjust());
         assertTrue(new Grade().targetGrade("A").isTarget());
         assertTrue(new Grade("A").targetGrade("A").isTarget());
+        assertTrue(new Grade("A").targetGrade(5).isTarget());
     }
 
 
