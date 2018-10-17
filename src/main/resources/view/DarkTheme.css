@@ -164,7 +164,6 @@
 
 .cap-text {
     -fx-font-family: "Segoe UI Semibold";
-    -fx-font-style: bold !important;
     -fx-font-weight: bold !important;
     -fx-font-size: 18pt;
     -fx-fill: white;
